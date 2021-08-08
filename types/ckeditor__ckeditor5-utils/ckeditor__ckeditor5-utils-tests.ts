@@ -671,6 +671,30 @@ options = {
     positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
 };
 
+options = {
+    element: document.createElement("div"),
+    target: new Rect(document.createElement('div')),
+    positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
+};
+
+options = {
+    element: document.createElement('div'),
+    target: new Range(),
+    positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
+};
+
+options = {
+    element: document.createElement("div"),
+    target: window,
+    positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
+};
+
+options = {
+    element: document.createElement('div'),
+    target: document.body.getClientRects().item(0)!,
+    positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
+};
+
 // utils/toArray ==============================================================
 let myArrayOfOneNumber: [number] = toArray(5);
 myArrayOfOneNumber = toArray([5]);

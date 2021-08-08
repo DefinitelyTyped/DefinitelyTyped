@@ -1,5 +1,5 @@
-import { promisify } from 'util';
-import * as timers from 'timers';
+import { promisify } from 'node:util';
+import * as timers from 'node:timers';
 {
     {
         const immediate = timers
@@ -71,6 +71,15 @@ import * as timers from 'timers';
     const signal = ac.signal;
     setImmediate(10, { signal });
     ac.abort();
+}
+
+// unresolved callback argument types
+{
+    // `NodeJS.*` is present to make sure we're not using `dom` types
+    new Promise((resolve): NodeJS.Timeout => timers.setTimeout(resolve, 100));
+    new Promise((resolve): NodeJS.Timer => timers.setInterval(resolve, 100));
+    // tslint:disable-next-line no-unnecessary-callback-wrapper
+    new Promise((resolve): NodeJS.Immediate => timers.setImmediate(resolve));
 }
 
 // globals

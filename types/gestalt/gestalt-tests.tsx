@@ -14,6 +14,7 @@ import {
     Collage,
     ColorSchemeProvider,
     Column,
+    ComboBox,
     CompositeZIndex,
     Container,
     Divider,
@@ -146,6 +147,13 @@ const CheckUseReducedMotion = () => {
     <Button text={'Click me'} />
 </ButtonGroup>;
 <Card />;
+<ComboBox
+    accessibilityClearButtonLabel="combobox"
+    id="combobox"
+    label="combobox"
+    noResultText="combobox"
+    options={[{ label: 'combobox', value: 'combobox' }]}
+/>;
 <Callout
     type="info"
     iconAccessibilityLabel="Info icon"
@@ -159,7 +167,13 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
-<Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
+<Collage
+    columns={1}
+    height={1}
+    renderImage={({ height, index, width }) =>
+        () => {}}
+    width={1}
+/>;
 <ColorSchemeProvider colorScheme="dark" id="docsExample" />;
 <Column span={1} />;
 <Container />;

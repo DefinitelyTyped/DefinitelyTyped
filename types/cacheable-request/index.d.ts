@@ -38,7 +38,7 @@ declare namespace CacheableRequest {
          * If the cache should be used. Setting this to `false` will completely bypass the cache for the current request.
          * @default true
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
 
         /**
          * If set to `true` once a cached resource has expired it is deleted and will have to be re-requested.
@@ -47,27 +47,27 @@ declare namespace CacheableRequest {
          * on the next request with `If-None-Match`/`If-Modified-Since` headers.
          * @default false
          */
-        strictTtl?: boolean;
+        strictTtl?: boolean | undefined;
 
         /**
          * Limits TTL. The `number` represents milliseconds.
          * @default undefined
          */
-        maxTtl?: number;
+        maxTtl?: number | undefined;
 
         /**
          * When set to `true`, if the DB connection fails we will automatically fallback to a network request.
          * DB errors will still be emitted to notify you of the problem even though the request callback may succeed.
          * @default false
          */
-        automaticFailover?: boolean;
+        automaticFailover?: boolean | undefined;
 
         /**
          * Forces refreshing the cache. If the response could be retrieved from the cache, it will perform a
          * new request and override the cache instead.
          * @default false
          */
-        forceRefresh?: boolean;
+        forceRefresh?: boolean | undefined;
     }
 
     interface Emitter extends EventEmitter {

@@ -17,12 +17,12 @@ declare namespace calc {
          * Number of decimals
          * @default 0
          */
-        decimal?: number;
+        decimal?: number | undefined;
         /**
          * Append a suffix.
          * @default ''
          */
-        suffix?: string;
+        suffix?: string | undefined;
     }
 }
 

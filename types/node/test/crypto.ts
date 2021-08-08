@@ -1,9 +1,11 @@
-import * as crypto from 'crypto';
-import assert = require('assert');
-import { promisify } from 'util';
+import * as crypto from 'node:crypto';
+import assert = require('node:assert');
+import { promisify } from 'node:util';
 
 {
-    const copied: crypto.Hash = crypto.createHash('md5').copy();
+    const copied: crypto.Hash = crypto.createHash('md5').copy().copy({
+        encoding: 'ascii',
+    });
 }
 
 {
@@ -749,6 +751,7 @@ import { promisify } from 'util';
     keyObject instanceof crypto.KeyObject;
     assert.equal(keyObject.symmetricKeySize, 4);
     assert.equal(keyObject.type, 'secret');
+    crypto.createSecretKey('ascii', 'ascii');
 }
 
 {
@@ -756,7 +759,7 @@ import { promisify } from 'util';
         namedCurve: 'sect239k1',
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.write('some data to sign');
     sign.end();
     const signature: string = sign.sign(privateKey, 'hex');
@@ -768,7 +771,7 @@ import { promisify } from 'util';
 
     // ensure that instanceof works
     verify instanceof crypto.Verify;
-    sign instanceof crypto.Signer;
+    sign instanceof crypto.Sign;
 }
 
 {
@@ -776,7 +779,7 @@ import { promisify } from 'util';
         modulusLength: 2048,
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.update('some data to sign');
     sign.end();
     const signature: Buffer = sign.sign(privateKey);

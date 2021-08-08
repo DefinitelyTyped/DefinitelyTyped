@@ -8,9 +8,9 @@ import Editor from "./editor/editor";
 import { EditorWithUI } from "./editor/editorwithui";
 
 export default abstract class Plugin implements Emitter, Observable {
-    static readonly pluginName?: string;
+    static readonly pluginName?: string | undefined;
     static readonly isContextPlugin: boolean;
-    static readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string>;
+    static readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string> | undefined;
 
     readonly editor: Editor & EditorWithUI;
     isEnabled: boolean;
@@ -29,7 +29,7 @@ export default abstract class Plugin implements Emitter, Observable {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: number | PriorityString },
+        options?: { priority?: number | PriorityString | undefined },
     ): void;
     off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     on: (
@@ -54,16 +54,8 @@ export default abstract class Plugin implements Emitter, Observable {
 }
 
 // Beware that this defines a class constructor, not the class instance.
-// These readonly properties are static properties.
-export interface PluginInterface {
-    new (editor: Editor): {
-        init?(): Promise<void> | void;
-        afterInit?(): Promise<void> | void;
-        destroy?(): Promise<void> | void;
-    };
-    readonly pluginName?: string;
-    readonly isContextPlugin?: boolean;
-    readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string>;
+export interface PluginInterface<T = Plugin> {
+    new (editor: Editor): T;
 }
 
 export type LoadedPlugins = Array<typeof Plugin|typeof ContextPlugin>;

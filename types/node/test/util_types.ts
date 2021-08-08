@@ -1,4 +1,6 @@
-import * as types from 'util/types';
+import * as types from 'node:util/types';
+
+import { createPublicKey, KeyObject, webcrypto } from 'node:crypto';
 
 const object: unknown = {};
 const readonlySetOrArray: ReadonlySet<any> | ReadonlyArray<any> = new Set();
@@ -155,4 +157,14 @@ if (types.isBigInt64Array(value)) {
 } else {
     // $ExpectType number
     const b = value;
+}
+
+const keyObj: KeyObject | number = createPublicKey('test');
+if (types.isKeyObject(keyObj)) {
+    keyObj; // $ExpectType KeyObject
+}
+
+const cryptoKeyObj: webcrypto.CryptoKey | number = new webcrypto.CryptoKey();
+if (types.isCryptoKey(cryptoKeyObj)) {
+    cryptoKeyObj; // $ExpectType CryptoKey
 }

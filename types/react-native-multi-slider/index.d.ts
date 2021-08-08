@@ -8,10 +8,10 @@ import * as React from "react";
 import { ViewStyle } from "react-native";
 
 export interface MarkerProps {
-    pressed?: number;
-    markerStyle?: ViewStyle;
-    pressedMarkerStyle?: ViewStyle;
-    value?: number;
+    pressed?: number | undefined;
+    markerStyle?: ViewStyle | undefined;
+    pressedMarkerStyle?: ViewStyle | undefined;
+    value?: number | undefined;
 }
 
 export interface MultiSliderProps {
@@ -21,34 +21,34 @@ export interface MultiSliderProps {
      *
      * Default [0]
      */
-    values?: number[];
+    values?: number[] | undefined;
 
     /**
      * Function to be called at beginning of press
      */
-    onValuesChangeStart?: () => void;
+    onValuesChangeStart?: (() => void) | undefined;
 
     /**
      * Function called after every change in value, with current values passed in as an array.
      */
-    onValuesChange?: (change: number[]) => void;
+    onValuesChange?: ((change: number[]) => void) | undefined;
 
     /**
      * Function called on end of press with final values passed in as an array
      */
-    onValuesChangeFinish?: (change: number[]) => void;
+    onValuesChangeFinish?: ((change: number[]) => void) | undefined;
 
     /**
      * Width of track
      *
      * Default 280
      */
-    sliderLength?: number;
+    sliderLength?: number | undefined;
 
     /**
      * TODO
      */
-    sliderOrientation?: "horizontal" | "vertical";
+    sliderOrientation?: "horizontal" | "vertical" | undefined;
 
     /**
      * Area to be touched, should enclose the whole marker.
@@ -61,64 +61,64 @@ export interface MultiSliderProps {
         width: number;
         borderRadius: number;
         slipDisplacement: number;
-    };
+    } | undefined;
 
-    customMarker?: React.ComponentType<MarkerProps>;
+    customMarker?: React.ComponentType<MarkerProps> | undefined;
 
     /**
      * Slider min value corresponding to far left
      *
      * Default 0
      */
-    min?: number;
+    min?: number | undefined;
 
     /**
      * Slider max value corresponding to far right
      *
      * Default 10
      */
-    max?: number;
+    max?: number | undefined;
 
     /**
      * The step size between values. Make sure min max range is divisible by this to get expected results
      *
      * Default 1
      */
-    step?: number;
+    step?: number | undefined;
 
     /**
      * Array of values corresponding to the slider's position (left to right on slider index 0 to end respectively).
      * Values of any type can be inserted and the slider will simply give them back in the callbacks
      */
-    optionsArray?: number[];
+    optionsArray?: number[] | undefined;
 
     /**
      * Style of sliders container, note be careful in applying styles that may affect the children's (i.e. the slider's) positioning
      *
      * Default { height: 30 }
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: ViewStyle | undefined;
 
     /**
      * Customise the track
      *
      * Default { borderRadius: 7, height: 3.5 }
      */
-    trackStyle?: ViewStyle;
+    trackStyle?: ViewStyle | undefined;
 
     /**
      * Style for the track up to a single marker or between double markers
      *
      * Default { backgroundColor: 'blue' }
      */
-    selectedStyle?: ViewStyle;
+    selectedStyle?: ViewStyle | undefined;
 
     /**
      * Style for remaining track
      *
      * Default { backgroundColor: 'grey' }
      */
-    unselectedStyle?: ViewStyle;
+    unselectedStyle?: ViewStyle | undefined;
 
     /**
      * Customise the marker's style
@@ -132,14 +132,14 @@ export interface MultiSliderProps {
      *     borderColor: 'grey',
      * }
      */
-    markerStyle?: ViewStyle;
+    markerStyle?: ViewStyle | undefined;
 
     /**
      * Style to be given to marker when pressed
      *
      * Default { backgroundColor:'#D3D3D3' }
      */
-    pressedMarkerStyle?: ViewStyle;
+    pressedMarkerStyle?: ViewStyle | undefined;
 }
 
 export default class MultiSlider extends React.Component<MultiSliderProps> {}

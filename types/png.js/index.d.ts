@@ -8,7 +8,7 @@ type ColorType = 0 | 2 | 3 | 4 | 6;
 type ParseCallback = (err: Error | undefined, png: PNG) => void;
 
 interface ParseOptions {
-    data?: boolean;
+    data?: boolean | undefined;
 }
 
 declare class PNGReader {

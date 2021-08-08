@@ -1,10 +1,19 @@
-import { _RefType, FragmentRef } from '../..';
+import { FragmentReference } from './RelayStoreTypes';
 import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
 
-declare function readInlineData<T extends _RefType<any>>(fragment: GraphQLTaggedNode, ref: FragmentRef<T>): T;
-declare function readInlineData<T extends _RefType<any>>(
-    fragment: GraphQLTaggedNode,
-    ref: FragmentRef<T> | null | undefined,
-): T | null | undefined;
+export type KeyType<TData = unknown> = Readonly<{
+    ' $data'?: TData | undefined;
+    ' $fragmentRefs': FragmentReference;
+}>;
 
-export { FragmentRef, readInlineData };
+export type KeyTypeData<TKey extends KeyType<TData>, TData = unknown> = Required<TKey>[' $data'];
+
+export function readInlineData<TKey extends KeyType>(
+    fragmentInput: GraphQLTaggedNode,
+    fragmentRef: TKey,
+): KeyTypeData<TKey>;
+
+export function readInlineData<TKey extends KeyType>(
+    fragmentInput: GraphQLTaggedNode,
+    fragmentRef: TKey | null,
+): KeyTypeData<TKey> | null;

@@ -7,7 +7,7 @@ if (notifier.update) {
     notifier.notify();
 }
 
-console.log(notifier.update);
+notifier.update; // $ExpectType UpdateInfo | undefined
 
 // Also exposed as a class
 notifier = new UpdateNotifier.UpdateNotifier({

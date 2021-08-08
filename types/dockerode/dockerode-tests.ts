@@ -131,7 +131,27 @@ docker.buildImage({ context: '.', src: ['Dockerfile', 'test.sh'] }, { t: 'imageN
     // NOOP
 });
 
+docker.buildImage(
+    'archive.tar',
+    {
+        registryconfig: {
+            'https://index.docker.io/v1/': {
+                username: 'user',
+                password: 'pass'
+            }
+        }
+    },
+    (err, response) => {
+        /* NOOP*/
+    });
+
 docker.createContainer({ Tty: true }, (err, container) => {
+    container.start((err, data) => {
+        // NOOP
+    });
+});
+
+docker.createContainer({ HostConfig: { Init: true } }, (err, container) => {
     container.start((err, data) => {
         // NOOP
     });

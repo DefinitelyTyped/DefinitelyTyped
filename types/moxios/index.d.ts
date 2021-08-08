@@ -8,9 +8,9 @@ import { AxiosInstance, AxiosRequestConfig } from "axios";
 
 interface Item {
     response?: any;
-    responseText?: string;
-    status?: number;
-    statusText?: string;
+    responseText?: string | undefined;
+    status?: number | undefined;
+    statusText?: string | undefined;
     headers?: any;
 }
 
@@ -112,11 +112,11 @@ declare class Response {
 
     config: AxiosRequestConfig;
     data?: any;
-    status?: number;
-    statusText?: string;
+    status?: number | undefined;
+    statusText?: string | undefined;
     headers: any;
     request: Request;
-    code?: string;
+    code?: string | undefined;
 }
 
 declare let moxios: {

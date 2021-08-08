@@ -32,7 +32,7 @@ import TileState from './TileState';
  */
 export type LoadFunction = (p0: Tile, p1: string) => void;
 export interface Options {
-    transition?: number;
+    transition?: number | undefined;
 }
 /**
  * {@link module:ol/source/Tile~Tile} sources use a function of this type to get

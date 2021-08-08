@@ -4286,6 +4286,8 @@ declare namespace ymaps {
 
     namespace modules {
         function require(modules: string | string[]): vow.Promise;
+
+        function isDefined(module: string): boolean;
     }
 
     class Hotspot implements IHotspot {

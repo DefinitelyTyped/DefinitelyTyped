@@ -948,7 +948,7 @@ declare module "../index" {
          * Checks if value is a native function.
          * @param value The value to check.
          *
-         * @retrun Returns true if value is a native function, else false.
+         * @return Returns true if value is a native function, else false.
          */
         isNative(value: any): value is (...args: any[]) => any;
     }

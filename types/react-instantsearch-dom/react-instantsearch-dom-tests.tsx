@@ -11,6 +11,9 @@ import {
   Menu,
   Configure,
   Index,
+  SortBy,
+  HitsPerPage,
+  MenuSelect
 } from 'react-instantsearch/dom';
 import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-core';
 
@@ -60,7 +63,7 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 
     return (
       <div className="container">
-        <SearchBox inputRef={inputRef} />
+        <SearchBox inputId="search-box" inputRef={inputRef} />
         <RefinementList attribute="category" />
         <Hits hitComponent={Product} />
       </div>
@@ -209,11 +212,19 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 () => {
   function onSearchBoxChange(event: React.SyntheticEvent<HTMLInputElement>) {}
 
+  function onSearchBoxKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {}
+
   function onSearchBoxReset(event: React.SyntheticEvent<HTMLFormElement>) {}
 
   function onSearchBoxSubmit(event: React.SyntheticEvent<HTMLFormElement>) {}
 
-  <SearchBox onChange={onSearchBoxChange} onReset={onSearchBoxReset} onSubmit={onSearchBoxSubmit} submit={<></>} />;
+  <SearchBox
+    onChange={onSearchBoxChange}
+    onKeyDown={onSearchBoxKeyDown}
+    onReset={onSearchBoxReset}
+    onSubmit={onSearchBoxSubmit}
+    submit={<></>}
+  />;
 };
 
 import { findResultsState } from 'react-instantsearch-dom/server';
@@ -260,4 +271,64 @@ const test = () => {
   </html>`
     );
   });
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/sort-by/react/
+  <SortBy
+    className="sort-by"
+    id="sort-by"
+    defaultRefinement={'dev_index'}
+    items={[
+      { value: 'dev_index', label: 'Relevance' },
+      { value: 'dev_index_name_asc', label: 'Alphabetical' },
+    ]}
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+  />;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/hits-per-page/react/
+  <HitsPerPage
+    className="hits-per-page"
+    id="hits-per-page"
+    items={[
+      { value: 5, label: 'Show 5 hits' },
+      { value: 10, label: 'Show 10 hits' },
+    ]}
+    defaultRefinement={5}
+    // Optional parameters
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+  />;
+};
+
+() => {
+  // https://www.algolia.com/doc/api-reference/widgets/menu-select/react/
+  <MenuSelect
+    className="menu-select"
+    id="menu-select"
+    attribute="brand"
+    // Optional parameters
+    defaultRefinement="Apple"
+    limit={20}
+    transformItems={items =>
+      items.map(item => ({
+        ...item,
+        label: item.label.toUpperCase(),
+      }))
+    }
+    translations={{
+      seeAllOption: 'See all',
+    }}
+  />;
 };

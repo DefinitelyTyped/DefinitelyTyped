@@ -110,7 +110,7 @@ declare namespace jsqubits {
             conjugate(): Complex;
             toString(): string;
             inspect(): string;
-            format(options?: { decimalPlaces?: number }): string;
+            format(options?: { decimalPlaces?: number | undefined }): string;
             negate(): Complex;
             magnitude(): number;
             phase(): number;

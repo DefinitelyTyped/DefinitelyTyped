@@ -19,13 +19,19 @@ declare namespace mongoose_delete {
         | 'find'
         | 'findOne'
         | 'findOneAndUpdate'
-        | 'update';
+        | 'update'
+        | 'updateMany'
+        | 'aggregate';
     interface SoftDeleteModel<T extends mongoose.Document, QueryHelpers = {}>
         extends mongoose.Model<T, QueryHelpers> {
         /** Count only deleted documents */
         countDeleted: typeof mongoose.Model.count;
         /** Count all documents including deleted */
         countWithDeleted: typeof mongoose.Model.count;
+        /** Count only deleted documents */
+        countDocumentsDeleted: typeof mongoose.Model.countDocuments;
+        /** Count all documents including deleted */
+        countDocumentsWithDeleted: typeof mongoose.Model.countDocuments;
         /** Find only deleted documents */
         findDeleted: typeof mongoose.Model.find;
         /** Find all documents including deleted */
@@ -42,6 +48,14 @@ declare namespace mongoose_delete {
         updateDeleted: typeof mongoose.Model.update;
         /** Update all documents including deleted */
         updateWithDeleted: typeof mongoose.Model.update;
+        /** Update Many only deleted documents */
+        updateManyDeleted: typeof mongoose.Model.updateMany;
+        /** Update Many all documents including deleted */
+        updateManyWithDeleted: typeof mongoose.Model.updateMany;
+        /** Aggregate only deleted documents */
+        aggregateDeleted: typeof mongoose.Model.aggregate;
+        /** Aggregate all documents including deleted */
+        aggregateWithDeleted: typeof mongoose.Model.aggregate;
 
         /**
          * Delete documents by conditions
@@ -75,9 +89,9 @@ declare namespace mongoose_delete {
     }
     interface SoftDeleteInterface {
         /** Soft deleted ? */
-        deleted?: boolean;
-        deleteAt?: Date;
-        deletedBy?: mongoose.Types.ObjectId | string | mongoose.Document;
+        deleted?: boolean | undefined;
+        deleteAt?: Date | undefined;
+        deletedBy?: mongoose.Types.ObjectId | string | mongoose.Document | undefined;
     }
 }
 interface Options {

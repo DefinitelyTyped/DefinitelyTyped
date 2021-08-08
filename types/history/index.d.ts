@@ -29,15 +29,15 @@ export interface Location<S = LocationState> {
     search: Search;
     state: S;
     hash: Hash;
-    key?: LocationKey;
+    key?: LocationKey | undefined;
 }
 
 export interface LocationDescriptorObject<S = LocationState> {
-    pathname?: Pathname;
-    search?: Search;
-    state?: S;
-    hash?: Hash;
-    key?: LocationKey;
+    pathname?: Pathname | undefined;
+    search?: Search | undefined;
+    state?: S | undefined;
+    hash?: Hash | undefined;
+    key?: LocationKey | undefined;
 }
 
 export namespace History {

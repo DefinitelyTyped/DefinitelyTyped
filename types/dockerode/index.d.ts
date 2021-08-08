@@ -16,9 +16,7 @@
 
 import * as stream from 'stream';
 import * as events from 'events';
-
-// The modem parameter is an instance of docker-modem, which is missing type declarations.
-// https://github.com/apocas/docker-modem
+import * as DockerModem from 'docker-modem';
 
 declare namespace Dockerode {
     class Container {
@@ -335,7 +333,7 @@ declare namespace Dockerode {
         Id: string;
         ParentId: string;
         RepoTags: string[];
-        RepoDigests?: string[];
+        RepoDigests?: string[] | undefined;
         Created: number;
         Size: number;
         VirtualSize: number;
@@ -360,11 +358,11 @@ declare namespace Dockerode {
             Networks: { [networkType: string]: NetworkInfo };
         };
         Mounts: Array<{
-            Name?: string;
+            Name?: string | undefined;
             Type: string;
             Source: string;
             Destination: string;
-            Driver?: string;
+            Driver?: string | undefined;
             Mode: string;
             RW: boolean;
             Propagation: string;
@@ -401,28 +399,28 @@ declare namespace Dockerode {
         Scope: string;
         Driver: string;
         EnableIPv6: boolean;
-        IPAM?: IPAM;
+        IPAM?: IPAM | undefined;
         Internal: boolean;
         Attachable: boolean;
         Ingress: boolean;
-        ConfigFrom?: { Network: string; };
+        ConfigFrom?: { Network: string; } | undefined;
         ConfigOnly: boolean;
-        Containers?: { [id: string]: NetworkContainer };
-        Options?: { [key: string]: string };
-        Labels?: { [key: string]: string };
+        Containers?: { [id: string]: NetworkContainer } | undefined;
+        Options?: { [key: string]: string } | undefined;
+        Labels?: { [key: string]: string } | undefined;
     }
 
     interface NetworkCreateOptions {
         Name: string;
-        CheckDuplicate?: boolean;
-        Driver?: string;
-        Internal?: boolean;
-        Attachable?: boolean;
-        Ingress?: boolean;
-        IPAM?: IPAM;
-        EnableIPv6?: boolean;
-        Options?: { [option: string]: string };
-        Labels?: { [label: string]: string };
+        CheckDuplicate?: boolean | undefined;
+        Driver?: string | undefined;
+        Internal?: boolean | undefined;
+        Attachable?: boolean | undefined;
+        Ingress?: boolean | undefined;
+        IPAM?: IPAM | undefined;
+        EnableIPv6?: boolean | undefined;
+        Options?: { [option: string]: string } | undefined;
+        Labels?: { [label: string]: string } | undefined;
     }
 
     interface NetworkContainer {
@@ -436,8 +434,8 @@ declare namespace Dockerode {
     /* tslint:disable:interface-name */
     interface IPAM {
         Driver: string;
-        Config?: Array<{ [key: string]: string }>;
-        Options?: { [key: string]: string };
+        Config?: Array<{ [key: string]: string }> | undefined;
+        Options?: { [key: string]: string } | undefined;
     }
     /* tslint:enable:interface-name */
 
@@ -445,7 +443,7 @@ declare namespace Dockerode {
         Name: string;
         Driver: string;
         Mountpoint: string;
-        Status?: { [key: string]: string };
+        Status?: { [key: string]: string } | undefined;
         Labels: { [key: string]: string };
         Scope: 'local' | 'global';
         // Field is always present, but sometimes is null
@@ -454,7 +452,7 @@ declare namespace Dockerode {
         UsageData?: {
             Size: number;
             RefCount: number;
-        } | null;
+        } | null | undefined;
     }
 
     interface ContainerInspectInfo {
@@ -483,7 +481,7 @@ declare namespace Dockerode {
                     ExitCode: number;
                     Output: string;
                 }>;
-            };
+            } | undefined;
         };
         Image: string;
         ResolvConfPath: string;
@@ -497,7 +495,7 @@ declare namespace Dockerode {
         MountLabel: string;
         ProcessLabel: string;
         AppArmorProfile: string;
-        ExecIDs?: string[];
+        ExecIDs?: string[] | undefined;
         HostConfig: HostConfig;
         GraphDriver: {
             Name: string;
@@ -508,7 +506,7 @@ declare namespace Dockerode {
             };
         };
         Mounts: Array<{
-            Name?: string;
+            Name?: string | undefined;
             Source: string;
             Destination: string;
             Mode: string;
@@ -531,7 +529,7 @@ declare namespace Dockerode {
             Image: string;
             Volumes: { [volume: string]: {} };
             WorkingDir: string;
-            Entrypoint?: string | string[];
+            Entrypoint?: string | string[] | undefined;
             OnBuild?: any;
             Labels: { [label: string]: string };
         };
@@ -582,7 +580,7 @@ declare namespace Dockerode {
                 Cpus: number;
                 Memory: number;
                 Labels: any;
-            };
+            } | undefined;
         };
     }
 
@@ -666,69 +664,70 @@ declare namespace Dockerode {
     }
 
     interface HostConfig {
-        AutoRemove?: boolean;
-        Binds?: string[];
-        ContainerIDFile?: string;
+        AutoRemove?: boolean | undefined;
+        Binds?: string[] | undefined;
+        ContainerIDFile?: string | undefined;
         LogConfig?: {
             Type: string;
             Config: any;
-        };
-        NetworkMode?: string;
+        } | undefined;
+        NetworkMode?: string | undefined;
         PortBindings?: any;
-        RestartPolicy?: RestartPolicy;
-        VolumeDriver?: string;
+        RestartPolicy?: RestartPolicy | undefined;
+        VolumeDriver?: string | undefined;
         VolumesFrom?: any;
-        Mounts?: MountConfig;
+        Mounts?: MountConfig | undefined;
         CapAdd?: any;
         CapDrop?: any;
-        Dns?: any[];
-        DnsOptions?: any[];
-        DnsSearch?: any[];
+        Dns?: any[] | undefined;
+        DnsOptions?: any[] | undefined;
+        DnsSearch?: any[] | undefined;
         ExtraHosts?: any;
-        GroupAdd?: string[];
-        IpcMode?: string;
-        Cgroup?: string;
+        GroupAdd?: string[] | undefined;
+        IpcMode?: string | undefined;
+        Cgroup?: string | undefined;
         Links?: any;
-        OomScoreAdj?: number;
-        PidMode?: string;
-        Privileged?: boolean;
-        PublishAllPorts?: boolean;
-        ReadonlyRootfs?: boolean;
+        OomScoreAdj?: number | undefined;
+        PidMode?: string | undefined;
+        Privileged?: boolean | undefined;
+        PublishAllPorts?: boolean | undefined;
+        ReadonlyRootfs?: boolean | undefined;
         SecurityOpt?: any;
-        StorageOpt?: { [option: string]: string };
-        Tmpfs?: { [dir: string]: string };
-        UTSMode?: string;
-        UsernsMode?: string;
-        ShmSize?: number;
-        Sysctls?: { [index: string]: string };
-        Runtime?: string;
-        ConsoleSize?: number[];
-        Isolation?: string;
-        MaskedPaths?: string[];
-        ReadonlyPaths?: string[];
-        CpuShares?: number;
-        CgroupParent?: string;
-        BlkioWeight?: number;
+        StorageOpt?: { [option: string]: string } | undefined;
+        Tmpfs?: { [dir: string]: string } | undefined;
+        UTSMode?: string | undefined;
+        UsernsMode?: string | undefined;
+        ShmSize?: number | undefined;
+        Sysctls?: { [index: string]: string } | undefined;
+        Runtime?: string | undefined;
+        ConsoleSize?: number[] | undefined;
+        Isolation?: string | undefined;
+        MaskedPaths?: string[] | undefined;
+        ReadonlyPaths?: string[] | undefined;
+        CpuShares?: number | undefined;
+        CgroupParent?: string | undefined;
+        BlkioWeight?: number | undefined;
         BlkioWeightDevice?: any;
         BlkioDeviceReadBps?: any;
         BlkioDeviceWriteBps?: any;
         BlkioDeviceReadIOps?: any;
         BlkioDeviceWriteIOps?: any;
-        CpuPeriod?: number;
-        CpuQuota?: number;
-        CpusetCpus?: string;
-        CpusetMems?: string;
+        CpuPeriod?: number | undefined;
+        CpuQuota?: number | undefined;
+        CpusetCpus?: string | undefined;
+        CpusetMems?: string | undefined;
         Devices?: any;
-        DeviceCgroupRules?: string[];
-        DeviceRequests?: DeviceRequest[];
-        DiskQuota?: number;
-        KernelMemory?: number;
-        Memory?: number;
-        MemoryReservation?: number;
-        MemorySwap?: number;
-        MemorySwappiness?: number;
-        OomKillDisable?: boolean;
-        PidsLimit?: number;
+        DeviceCgroupRules?: string[] | undefined;
+        DeviceRequests?: DeviceRequest[] | undefined;
+        DiskQuota?: number | undefined;
+        KernelMemory?: number | undefined;
+        Memory?: number | undefined;
+        MemoryReservation?: number | undefined;
+        MemorySwap?: number | undefined;
+        MemorySwappiness?: number | undefined;
+        OomKillDisable?: boolean | undefined;
+        Init?: boolean | undefined;
+        PidsLimit?: number | undefined;
         Ulimits?: any;
     }
 
@@ -757,8 +756,8 @@ declare namespace Dockerode {
             Image: string;
             Volumes: { [path: string]: {} };
             WorkingDir: string;
-            Entrypoint?: string | string[];
-            OnBuild?: any[];
+            Entrypoint?: string | string[] | undefined;
+            OnBuild?: any[] | undefined;
             Labels: { [label: string]: string };
         };
         DockerVersion: string;
@@ -780,7 +779,7 @@ declare namespace Dockerode {
             Image: string;
             Volumes: { [path: string]: {} };
             WorkingDir: string;
-            Entrypoint?: string | string[];
+            Entrypoint?: string | string[] | undefined;
             OnBuild: any[];
             Labels: { [label: string]: string };
         };
@@ -798,53 +797,61 @@ declare namespace Dockerode {
         };
         RootFS: {
             Type: string;
-            Layers?: string[];
-            BaseLayer?: string;
+            Layers?: string[] | undefined;
+            BaseLayer?: string | undefined;
         };
     }
 
     interface ImageBuildOptions {
-        authconfig?: AuthConfig;
-        dockerfile?: string;
-        t?: string;
-        extrahosts?: string;
-        remote?: string;
-        q?: boolean;
-        cachefrom?: string;
-        pull?: string;
-        rm?: boolean;
-        forcerm?: boolean;
-        memory?: number;
-        memswap?: number;
-        cpushares?: number;
-        cpusetcpus?: number;
-        cpuperiod?: number;
-        cpuquota?: number;
-        buildargs?: {[key: string]: string};
-        shmsize?: number;
-        squash?: boolean;
-        labels?: {[key: string]: string};
-        networkmode?: string;
-        platform?: string;
-        target?: string;
-        outputs?: string;
+        authconfig?: AuthConfig | undefined;
+        registryconfig?: RegistryConfig | undefined;
+        dockerfile?: string | undefined;
+        t?: string | undefined;
+        extrahosts?: string | undefined;
+        remote?: string | undefined;
+        q?: boolean | undefined;
+        cachefrom?: string | undefined;
+        pull?: string | undefined;
+        rm?: boolean | undefined;
+        forcerm?: boolean | undefined;
+        memory?: number | undefined;
+        memswap?: number | undefined;
+        cpushares?: number | undefined;
+        cpusetcpus?: number | undefined;
+        cpuperiod?: number | undefined;
+        cpuquota?: number | undefined;
+        buildargs?: {[key: string]: string} | undefined;
+        shmsize?: number | undefined;
+        squash?: boolean | undefined;
+        labels?: {[key: string]: string} | undefined;
+        networkmode?: string | undefined;
+        platform?: string | undefined;
+        target?: string | undefined;
+        outputs?: string | undefined;
     }
 
     interface ImagePushOptions {
-        tag?: string;
-        authconfig?: AuthConfig;
+        tag?: string | undefined;
+        authconfig?: AuthConfig | undefined;
     }
 
     interface AuthConfig {
         username: string;
         password: string;
         serveraddress: string;
-        email?: string;
+        email?: string | undefined;
+    }
+
+    interface RegistryConfig {
+        [registryAddress: string]: {
+            username: string;
+            password: string;
+        };
     }
 
     interface PortBinding {
-        HostIp?: string;
-        HostPort?: string;
+        HostIp?: string | undefined;
+        HostPort?: string | undefined;
     }
 
     interface PortMap {
@@ -853,7 +860,7 @@ declare namespace Dockerode {
 
     interface RestartPolicy {
         Name: string;
-        MaximumRetryCount?: number;
+        MaximumRetryCount?: number | undefined;
     }
 
     type LoggingDriverType =
@@ -869,7 +876,7 @@ declare namespace Dockerode {
 
     interface LogConfig {
         Type: LoggingDriverType;
-        Config?: { [key: string]: string };
+        Config?: { [key: string]: string } | undefined;
     }
 
     interface DeviceMapping {
@@ -879,35 +886,35 @@ declare namespace Dockerode {
     }
 
     interface DeviceRequest {
-        Driver?: string;
-        Count?: number;
-        DeviceIDs?: string[];
-        Capabilities?: string[][];
-        Options?: { [key: string]: string };
+        Driver?: string | undefined;
+        Count?: number | undefined;
+        DeviceIDs?: string[] | undefined;
+        Capabilities?: string[][] | undefined;
+        Options?: { [key: string]: string } | undefined;
     }
 
     /* tslint:disable:interface-name */
     interface IPAMConfig {
-        IPv4Address?: string;
-        IPv6Address?: string;
-        LinkLocalIPs?: string[];
+        IPv4Address?: string | undefined;
+        IPv6Address?: string | undefined;
+        LinkLocalIPs?: string[] | undefined;
     }
     /* tslint:enable:interface-name */
 
     interface EndpointSettings {
-        IPAMConfig?: IPAMConfig;
-        Links?: string[];
-        Aliases?: string[];
-        NetworkID?: string;
-        EndpointID?: string;
-        Gateway?: string;
-        IPAddress?: string;
-        IPPrefixLen?: number;
-        IPv6Gateway?: string;
-        GlobalIPv6Address?: string;
-        GlobalIPV6PrefixLen?: number;
-        MacAddress?: string;
-        DriverOpts?: { [key: string]: string };
+        IPAMConfig?: IPAMConfig | undefined;
+        Links?: string[] | undefined;
+        Aliases?: string[] | undefined;
+        NetworkID?: string | undefined;
+        EndpointID?: string | undefined;
+        Gateway?: string | undefined;
+        IPAddress?: string | undefined;
+        IPPrefixLen?: number | undefined;
+        IPv6Gateway?: string | undefined;
+        GlobalIPv6Address?: string | undefined;
+        GlobalIPV6PrefixLen?: number | undefined;
+        MacAddress?: string | undefined;
+        DriverOpts?: { [key: string]: string } | undefined;
     }
 
     interface EndpointsConfig {
@@ -915,16 +922,16 @@ declare namespace Dockerode {
     }
 
     interface ExecCreateOptions {
-        AttachStdin?: boolean;
-        AttachStdout?: boolean;
-        AttachStderr?: boolean;
-        DetachKeys?: string;
-        Tty?: boolean;
-        Env?: string[];
-        Cmd?: string[];
-        Privileged?: boolean;
-        User?: string;
-        WorkingDir?: string;
+        AttachStdin?: boolean | undefined;
+        AttachStdout?: boolean | undefined;
+        AttachStderr?: boolean | undefined;
+        DetachKeys?: string | undefined;
+        Tty?: boolean | undefined;
+        Env?: string[] | undefined;
+        Cmd?: string[] | undefined;
+        Privileged?: boolean | undefined;
+        User?: string | undefined;
+        WorkingDir?: string | undefined;
     }
 
     interface ExecInspectInfo {
@@ -949,11 +956,11 @@ declare namespace Dockerode {
 
     interface ExecStartOptions {
         // hijack and stdin are used by docker-modem
-        hijack?: boolean;
-        stdin?: boolean;
+        hijack?: boolean | undefined;
+        stdin?: boolean | undefined;
         // Detach and Tty are used by Docker's API
-        Detach?: boolean;
-        Tty?: boolean;
+        Detach?: boolean | undefined;
+        Tty?: boolean | undefined;
     }
 
     type MountType = 'bind' | 'volume' | 'tmpfs';
@@ -966,11 +973,11 @@ declare namespace Dockerode {
         Target: string;
         Source: string;
         Type: MountType;
-        ReadOnly?: boolean;
-        Consistency?: MountConsistency;
+        ReadOnly?: boolean | undefined;
+        Consistency?: MountConsistency | undefined;
         BindOptions?: {
             Propagation: MountPropagation;
-        };
+        } | undefined;
         VolumeOptions?: {
             NoCopy: boolean;
             Labels: { [label: string]: string };
@@ -978,82 +985,82 @@ declare namespace Dockerode {
                 Name: string;
                 Options: { [option: string]: string };
             };
-        };
+        } | undefined;
         TmpfsOptions?: {
             SizeBytes: number;
             Mode: number;
-        };
+        } | undefined;
     }
 
     type MountConfig = MountSettings[];
 
     interface ContainerCreateOptions {
-        name?: string;
-        Hostname?: string;
-        Domainname?: string;
-        User?: string;
-        AttachStdin?: boolean;
-        AttachStdout?: boolean;
-        AttachStderr?: boolean;
-        Tty?: boolean;
-        OpenStdin?: boolean;
-        StdinOnce?: boolean;
-        Env?: string[];
-        Cmd?: string[];
-        Entrypoint?: string | string[];
-        Image?: string;
-        Labels?: { [label: string]: string };
-        Volumes?: { [volume: string]: {} };
-        WorkingDir?: string;
-        NetworkDisabled?: boolean;
-        MacAddress?: boolean;
-        ExposedPorts?: { [port: string]: {} };
-        StopSignal?: string;
-        StopTimeout?: number;
-        HostConfig?: HostConfig;
+        name?: string | undefined;
+        Hostname?: string | undefined;
+        Domainname?: string | undefined;
+        User?: string | undefined;
+        AttachStdin?: boolean | undefined;
+        AttachStdout?: boolean | undefined;
+        AttachStderr?: boolean | undefined;
+        Tty?: boolean | undefined;
+        OpenStdin?: boolean | undefined;
+        StdinOnce?: boolean | undefined;
+        Env?: string[] | undefined;
+        Cmd?: string[] | undefined;
+        Entrypoint?: string | string[] | undefined;
+        Image?: string | undefined;
+        Labels?: { [label: string]: string } | undefined;
+        Volumes?: { [volume: string]: {} } | undefined;
+        WorkingDir?: string | undefined;
+        NetworkDisabled?: boolean | undefined;
+        MacAddress?: boolean | undefined;
+        ExposedPorts?: { [port: string]: {} } | undefined;
+        StopSignal?: string | undefined;
+        StopTimeout?: number | undefined;
+        HostConfig?: HostConfig | undefined;
         NetworkingConfig?: {
-            EndpointsConfig?: EndpointsConfig;
-        };
+            EndpointsConfig?: EndpointsConfig | undefined;
+        } | undefined;
     }
 
     interface KeyObject {
         pem: string | Buffer;
-        passphrase?: string;
+        passphrase?: string | undefined;
     }
 
     interface DockerOptions {
-        socketPath?: string;
-        host?: string;
-        port?: number | string;
-        username?: string;
-        ca?: string | string[] | Buffer | Buffer[];
-        cert?: string | string[] | Buffer | Buffer[];
-        key?: string | string[] | Buffer | Buffer[] | KeyObject[];
-        protocol?: 'https' | 'http' | 'ssh';
-        timeout?: number;
-        version?: string;
-        sshAuthAgent?: string;
-        Promise?: typeof Promise;
+        socketPath?: string | undefined;
+        host?: string | undefined;
+        port?: number | string | undefined;
+        username?: string | undefined;
+        ca?: string | string[] | Buffer | Buffer[] | undefined;
+        cert?: string | string[] | Buffer | Buffer[] | undefined;
+        key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined;
+        protocol?: 'https' | 'http' | 'ssh' | undefined;
+        timeout?: number | undefined;
+        version?: string | undefined;
+        sshAuthAgent?: string | undefined;
+        Promise?: typeof Promise | undefined;
     }
 
     interface GetEventsOptions {
-        since?: number;
-        until?: number;
+        since?: number | undefined;
+        until?: number | undefined;
         filters?:
         | string
         | {
-            config?: string;
-            container?: string[];
-            daemon?: string[];
-            event?: string[];
-            image?: string[];
-            label?: string[];
-            network?: string[];
-            node?: string[];
-            plugin?: string[];
-            scope?: Array<'local' | 'swarm'>;
-            secret?: string[];
-            service?: string[];
+            config?: string | undefined;
+            container?: string[] | undefined;
+            daemon?: string[] | undefined;
+            event?: string[] | undefined;
+            image?: string[] | undefined;
+            label?: string[] | undefined;
+            network?: string[] | undefined;
+            node?: string[] | undefined;
+            plugin?: string[] | undefined;
+            scope?: Array<'local' | 'swarm'> | undefined;
+            secret?: string[] | undefined;
+            service?: string[] | undefined;
             type?: Array<
                 | 'container'
                 | 'image'
@@ -1065,9 +1072,9 @@ declare namespace Dockerode {
                 | 'node'
                 | 'secret'
                 | 'config'
-            >;
-            volume?: string[];
-        };
+            > | undefined;
+            volume?: string[] | undefined;
+        } | undefined;
     }
 
     interface SecretVersion {
@@ -1075,164 +1082,164 @@ declare namespace Dockerode {
     }
 
     interface Annotations {
-        Name?: string;
-        Labels?: { [name: string]: string };
+        Name?: string | undefined;
+        Labels?: { [name: string]: string } | undefined;
     }
 
     interface ResourceLimits {
-        NanoCPUs?: number;
-        MemoryBytes?: number;
-        Pids?: number;
+        NanoCPUs?: number | undefined;
+        MemoryBytes?: number | undefined;
+        Pids?: number | undefined;
     }
 
     interface NamedGenericResource {
-        Kind?: string;
-        Value?: string;
+        Kind?: string | undefined;
+        Value?: string | undefined;
     }
 
     interface DiscreteGenericResource {
-        Kind?: string;
-        Value?: number;
+        Kind?: string | undefined;
+        Value?: number | undefined;
     }
 
     type GenericResource = NamedGenericResource | DiscreteGenericResource;
 
     interface RestartPolicy {
-        Condition?: string;
-        Delay?: number;
-        MaxAttempts?: number;
-        Window?: number;
+        Condition?: string | undefined;
+        Delay?: number | undefined;
+        MaxAttempts?: number | undefined;
+        Window?: number | undefined;
     }
 
     interface Resources {
-        NanoCPUs?: number;
-        MemoryBytes?: number;
-        GenericResources?: GenericResource[];
+        NanoCPUs?: number | undefined;
+        MemoryBytes?: number | undefined;
+        GenericResources?: GenericResource[] | undefined;
     }
 
     interface ResourceRequirements {
-        Limits?: ResourceLimits;
-        Reservations?: Resources;
+        Limits?: ResourceLimits | undefined;
+        Reservations?: Resources | undefined;
     }
 
     interface Placement {
-        Constraints?: string[];
-        Preferences?: Array<{ Spread: { SpreadDescriptor: string } }>;
-        MaxReplicas?: number;
+        Constraints?: string[] | undefined;
+        Preferences?: Array<{ Spread: { SpreadDescriptor: string } }> | undefined;
+        MaxReplicas?: number | undefined;
         Platforms?: Array<{
             Architecture: string;
             OS: string;
-        }>;
+        }> | undefined;
     }
 
     interface NetworkAttachmentConfig {
-        Target?: string;
-        Aliases?: string[];
-        DriverOpts?: { [key: string]: string };
+        Target?: string | undefined;
+        Aliases?: string[] | undefined;
+        DriverOpts?: { [key: string]: string } | undefined;
     }
 
     interface Privileges {
         CredentialSpec?: {
-            Config?: string;
-            File?: string;
-            Registry?: string;
-        };
+            Config?: string | undefined;
+            File?: string | undefined;
+            Registry?: string | undefined;
+        } | undefined;
         SELinuxContext?: {
-            Disable?: boolean;
-            User?: string;
-            Role?: string;
-            Type?: string;
-            Level?: string;
-        };
+            Disable?: boolean | undefined;
+            User?: string | undefined;
+            Role?: string | undefined;
+            Type?: string | undefined;
+            Level?: string | undefined;
+        } | undefined;
     }
 
     interface HealthConfig {
-        Test?: string[];
-        Interval?: number;
-        Timeout?: number;
-        StartPeriod?: number;
-        Retries?: number;
+        Test?: string[] | undefined;
+        Interval?: number | undefined;
+        Timeout?: number | undefined;
+        StartPeriod?: number | undefined;
+        Retries?: number | undefined;
     }
 
     interface DNSConfig {
-        Nameservers?: string[];
-        Search?: string[];
-        Options?: string[];
+        Nameservers?: string[] | undefined;
+        Search?: string[] | undefined;
+        Options?: string[] | undefined;
     }
 
     interface SecretReference {
         File?: {
-            Name?: string;
-            UID?: string;
-            GID?: string;
-            Mode?: number;
-        };
-        SecretID?: string;
-        SecretName?: string;
+            Name?: string | undefined;
+            UID?: string | undefined;
+            GID?: string | undefined;
+            Mode?: number | undefined;
+        } | undefined;
+        SecretID?: string | undefined;
+        SecretName?: string | undefined;
     }
 
     interface Ulimit {
-        Name?: string;
-        Hard?: number;
-        Soft?: number;
+        Name?: string | undefined;
+        Hard?: number | undefined;
+        Soft?: number | undefined;
     }
 
     interface ContainerSpec {
-        Image?: string;
-        Labels?: { [label: string]: string };
-        Command?: string[];
-        Args?: string[];
-        Hostname?: string;
-        Env?: string[];
-        Dir?: string;
-        User?: string;
-        Groups?: string[];
-        Privileges?: Privileges;
-        Init?: boolean;
-        TTY?: boolean;
-        OpenStdin?: boolean;
-        ReadOnly?: boolean;
-        Mounts?: MountSettings[];
-        StopSignal?: string;
-        StopGracePeriod?: number;
-        HealthCheck?: HealthConfig;
-        Hosts?: string[];
-        DNSConfig?: DNSConfig;
-        Secrets?: SecretReference[];
-        Isolation?: string;
-        Sysctls?: { [key: string]: string };
-        CapabilityAdd?: string[];
-        CapabilityDrop?: string[];
-        Ulimits?: Ulimit[];
+        Image?: string | undefined;
+        Labels?: { [label: string]: string } | undefined;
+        Command?: string[] | undefined;
+        Args?: string[] | undefined;
+        Hostname?: string | undefined;
+        Env?: string[] | undefined;
+        Dir?: string | undefined;
+        User?: string | undefined;
+        Groups?: string[] | undefined;
+        Privileges?: Privileges | undefined;
+        Init?: boolean | undefined;
+        TTY?: boolean | undefined;
+        OpenStdin?: boolean | undefined;
+        ReadOnly?: boolean | undefined;
+        Mounts?: MountSettings[] | undefined;
+        StopSignal?: string | undefined;
+        StopGracePeriod?: number | undefined;
+        HealthCheck?: HealthConfig | undefined;
+        Hosts?: string[] | undefined;
+        DNSConfig?: DNSConfig | undefined;
+        Secrets?: SecretReference[] | undefined;
+        Isolation?: string | undefined;
+        Sysctls?: { [key: string]: string } | undefined;
+        CapabilityAdd?: string[] | undefined;
+        CapabilityDrop?: string[] | undefined;
+        Ulimits?: Ulimit[] | undefined;
     }
 
     interface PluginSpec {
-        Name?: string;
-        Remote?: string;
+        Name?: string | undefined;
+        Remote?: string | undefined;
         Privileges?: {
-            Name?: string;
-            Description?: string;
-            Value?: string[];
-        };
-        Disabled?: boolean;
-        Env?: string[];
+            Name?: string | undefined;
+            Description?: string | undefined;
+            Value?: string[] | undefined;
+        } | undefined;
+        Disabled?: boolean | undefined;
+        Env?: string[] | undefined;
     }
 
     interface TaskSpecBase {
-        Resources?: ResourceRequirements;
-        RestartPolicy?: RestartPolicy;
-        Placement?: Placement;
-        Networks?: NetworkAttachmentConfig[];
+        Resources?: ResourceRequirements | undefined;
+        RestartPolicy?: RestartPolicy | undefined;
+        Placement?: Placement | undefined;
+        Networks?: NetworkAttachmentConfig[] | undefined;
         LogDriver?: {
-            Name?: string;
-            Options?: { [key: string]: string };
-        };
-        ForceUpdate?: number;
-        Runtime?: string;
+            Name?: string | undefined;
+            Options?: { [key: string]: string } | undefined;
+        } | undefined;
+        ForceUpdate?: number | undefined;
+        Runtime?: string | undefined;
     }
 
     interface ContainerTaskSpec extends TaskSpecBase {
-        ContainerSpec?: ContainerSpec;
+        ContainerSpec?: ContainerSpec | undefined;
     }
 
     interface PluginTaskSpec extends TaskSpecBase {
@@ -1250,92 +1257,92 @@ declare namespace Dockerode {
     type TaskSpec = ContainerTaskSpec | PluginTaskSpec | NetworkAttachmentTaskSpec;
 
     interface ServiceMode {
-        Replicated?: { Replicas?: number };
-        Global?: {};
+        Replicated?: { Replicas?: number | undefined } | undefined;
+        Global?: {} | undefined;
         ReplicatedJob?: {
-            MaxConcurrent?: number;
-            TotalCompletions?: number;
-        };
-        GlobalJob?: {};
+            MaxConcurrent?: number | undefined;
+            TotalCompletions?: number | undefined;
+        } | undefined;
+        GlobalJob?: {} | undefined;
     }
 
     interface UpdateConfig {
         Parallelism: number;
-        Delay?: number;
-        FailureAction?: string;
-        Monitor?: number;
-        MaxFailureRatio?: number;
+        Delay?: number | undefined;
+        FailureAction?: string | undefined;
+        Monitor?: number | undefined;
+        MaxFailureRatio?: number | undefined;
         Order: string;
     }
 
     interface PortConfig {
-        Name?: string;
-        Protocol?: 'tcp' | 'udp' | 'sctp';
-        TargetPort?: number;
-        PublishedPort?: number;
-        PublishMode?: 'ingress' | 'host';
+        Name?: string | undefined;
+        Protocol?: 'tcp' | 'udp' | 'sctp' | undefined;
+        TargetPort?: number | undefined;
+        PublishedPort?: number | undefined;
+        PublishMode?: 'ingress' | 'host' | undefined;
     }
 
     interface EndpointSpec {
-        Mode?: string;
-        Ports?: PortConfig[];
+        Mode?: string | undefined;
+        Ports?: PortConfig[] | undefined;
     }
 
     interface EndpointVirtualIP {
-        NetworkID?: string;
-        Addr?: string;
+        NetworkID?: string | undefined;
+        Addr?: string | undefined;
     }
 
     interface Endpoint {
-        Spec?: EndpointSpec;
-        Ports?: PortConfig[];
-        VirtualIPs?: EndpointVirtualIP[];
+        Spec?: EndpointSpec | undefined;
+        Ports?: PortConfig[] | undefined;
+        VirtualIPs?: EndpointVirtualIP[] | undefined;
     }
 
     interface ServiceSpec extends Annotations {
-        TaskTemplate?: TaskSpec;
-        Mode?: ServiceMode;
-        UpdateConfig?: UpdateConfig;
-        RollbackConfig?: UpdateConfig;
-        Networks?: NetworkAttachmentConfig[];
-        EndpointSpec?: EndpointSpec;
+        TaskTemplate?: TaskSpec | undefined;
+        Mode?: ServiceMode | undefined;
+        UpdateConfig?: UpdateConfig | undefined;
+        RollbackConfig?: UpdateConfig | undefined;
+        Networks?: NetworkAttachmentConfig[] | undefined;
+        EndpointSpec?: EndpointSpec | undefined;
     }
 
     interface CreateServiceOptions extends ServiceSpec {
-        authconfig?: AuthConfig;
+        authconfig?: AuthConfig | undefined;
     }
 
     interface ServiceCreateResponse {
         ID: string;
-        Warnings?: string[];
+        Warnings?: string[] | undefined;
     }
 
     interface ServiceListOptions {
         Filters: {
-            id?: string[];
-            label?: string[];
-            mode?: Array<'replicated' | 'global'>;
-            name?: string[];
+            id?: string[] | undefined;
+            label?: string[] | undefined;
+            mode?: Array<'replicated' | 'global'> | undefined;
+            name?: string[] | undefined;
         };
     }
 
     interface Version {
-        Index?: number;
+        Index?: number | undefined;
     }
 
     interface Meta {
-        Version?: Version;
-        CreatedAt?: string;
-        UpdatedAt?: string;
+        Version?: Version | undefined;
+        CreatedAt?: string | undefined;
+        UpdatedAt?: string | undefined;
     }
 
     type UpdateState = 'updating' | 'paused' | 'completed' | 'rollback_started' | 'rollback_paused' | 'rollback_completed';
 
     interface UpdateStatus {
-        State?: UpdateState;
-        StartedAt?: string;
-        CompletedAt?: string;
-        Message?: string;
+        State?: UpdateState | undefined;
+        StartedAt?: string | undefined;
+        CompletedAt?: string | undefined;
+        Message?: string | undefined;
     }
 
     interface ServiceStatus {
@@ -1346,33 +1353,33 @@ declare namespace Dockerode {
 
     interface JobStatus {
         JobIteration: Version;
-        LastExecution?: string;
+        LastExecution?: string | undefined;
     }
 
     interface Service extends Meta {
         ID: string;
-        Spec?: ServiceSpec;
-        PreviousSpec?: ServiceSpec;
-        Endpoint?: Endpoint;
-        UpdateStatus?: UpdateStatus;
-        ServiceStatus?: ServiceStatus;
-        JobStatus?: JobStatus;
+        Spec?: ServiceSpec | undefined;
+        PreviousSpec?: ServiceSpec | undefined;
+        Endpoint?: Endpoint | undefined;
+        UpdateStatus?: UpdateStatus | undefined;
+        ServiceStatus?: ServiceStatus | undefined;
+        JobStatus?: JobStatus | undefined;
     }
 
     interface OrchestrationConfig {
-        TaskHistoryRetentionLimit?: number;
+        TaskHistoryRetentionLimit?: number | undefined;
     }
 
     interface RaftConfig {
-        SnapshotInterval?: number;
-        KeepOldSnapshots?: number;
-        LogEntriesForSlowFollowers?: number;
-        ElectionTick?: number;
-        HeartbeatTick?: number;
+        SnapshotInterval?: number | undefined;
+        KeepOldSnapshots?: number | undefined;
+        LogEntriesForSlowFollowers?: number | undefined;
+        ElectionTick?: number | undefined;
+        HeartbeatTick?: number | undefined;
     }
 
     interface DispatcherConfig {
-        HeartbeatPeriod?: Duration;
+        HeartbeatPeriod?: Duration | undefined;
     }
 
     type ExternalCAProtocol = 'cfssl' | string;
@@ -1380,20 +1387,20 @@ declare namespace Dockerode {
     interface ExternalCA {
         Protocol: ExternalCAProtocol;
         URL: string;
-        Options?: { [key: string]: string };
+        Options?: { [key: string]: string } | undefined;
         CACert: string;
     }
 
     interface CAConfig {
-        NodeCertExpiry?: Duration;
-        ExternalCAs?: ExternalCA[];
-        SigningCACert?: string;
-        SigningCAKey?: string;
-        ForceRotate?: number;
+        NodeCertExpiry?: Duration | undefined;
+        ExternalCAs?: ExternalCA[] | undefined;
+        SigningCACert?: string | undefined;
+        SigningCAKey?: string | undefined;
+        ForceRotate?: number | undefined;
     }
 
     interface TaskDefaults {
-        LogDriver?: Driver;
+        LogDriver?: Driver | undefined;
     }
 
     interface EncryptionConfig {
@@ -1401,18 +1408,18 @@ declare namespace Dockerode {
     }
 
     interface Spec extends Annotations {
-        Orchestration?: OrchestrationConfig;
+        Orchestration?: OrchestrationConfig | undefined;
         Raft: RaftConfig;
-        Dispatcher?: DispatcherConfig;
-        CAConfig?: CAConfig;
-        TaskDefaults?: TaskDefaults;
-        EncryptionConfig?: EncryptionConfig;
+        Dispatcher?: DispatcherConfig | undefined;
+        CAConfig?: CAConfig | undefined;
+        TaskDefaults?: TaskDefaults | undefined;
+        EncryptionConfig?: EncryptionConfig | undefined;
     }
 
     interface TLSInfo {
-        TrustRoot?: string;
-        CertIssuerSubject?: string;
-        CertIssuerPublicKey?: string;
+        TrustRoot?: string | undefined;
+        CertIssuerSubject?: string | undefined;
+        CertIssuerPublicKey?: string | undefined;
     }
 
     interface ClusterInfo extends Meta {
@@ -1436,26 +1443,26 @@ declare namespace Dockerode {
 
     interface Driver {
         Name: string;
-        Options?: { [key: string]: string };
+        Options?: { [key: string]: string } | undefined;
     }
 
     interface SecretSpec extends Annotations {
-        Data?: string;
-        Driver?: Driver;
-        Templating?: Driver;
+        Data?: string | undefined;
+        Driver?: Driver | undefined;
+        Templating?: Driver | undefined;
     }
 
     interface Secret extends Meta {
         ID: string;
-        Spec?: SecretSpec;
+        Spec?: SecretSpec | undefined;
     }
 
     interface ConfigInfo {
         ID: string;
         Version: SecretVersion;
         CreatedAt: string;
-        UpdatedAt?: string;
-        Spec?: ConfigSpec;
+        UpdatedAt?: string | undefined;
+        Spec?: ConfigSpec | undefined;
     }
 
     interface ConfigSpec {
@@ -1469,11 +1476,11 @@ declare namespace Dockerode {
     }
 
     interface PluginInfo {
-        Id?: string;
+        Id?: string | undefined;
         Name: string;
         Enabled: boolean;
         Settings: PluginSettings;
-        PluginReference?: string;
+        PluginReference?: string | undefined;
         Config: PluginConfig;
     }
 
@@ -1492,7 +1499,7 @@ declare namespace Dockerode {
         Interface: any;
         Entrypoint: string[];
         WorkDir: string;
-        User?: User;
+        User?: User | undefined;
         Network: Network;
         Linux: Linux;
         PropagatedMount: string;
@@ -1585,17 +1592,17 @@ declare namespace Dockerode {
 
     interface ContainerWaitOptions {
         /** Since v1.30 */
-        condition?: 'not-running' | 'next-exit' | 'removed';
+        condition?: 'not-running' | 'next-exit' | 'removed' | undefined;
     }
 
     interface ContainerLogsOptions {
-        stdout?: boolean;
-        stderr?: boolean;
-        follow?: boolean;
-        since?: number;
-        details?: boolean;
-        tail?: number;
-        timestamps?: boolean;
+        stdout?: boolean | undefined;
+        stderr?: boolean | undefined;
+        follow?: boolean | undefined;
+        since?: number | undefined;
+        details?: boolean | undefined;
+        tail?: number | undefined;
+        timestamps?: boolean | undefined;
     }
 
     interface ImageBuildContext {
@@ -1855,7 +1862,7 @@ declare class Dockerode {
     swarmInspect(callback: Callback<any>): void;
     swarmInspect(): Promise<any>;
 
-    modem: any;
+    modem: DockerModem;
 }
 
 export = Dockerode;

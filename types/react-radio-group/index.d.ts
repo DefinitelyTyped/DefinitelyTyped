@@ -19,8 +19,8 @@ export const Radio: React.ComponentClass<Radio.RadioProps>;
 export namespace RadioGroup {
     type RadioGroupProps = Omit<React.HTMLProps<any>, 'onChange'> & {
         selectedValue?: any;
-        onChange?: (value: any) => void;
-        Component?: React.ReactType<Omit<React.HTMLProps<any>, 'onChange' | 'role'>>;
+        onChange?: ((value: any) => void) | undefined;
+        Component?: React.ReactType<Omit<React.HTMLProps<any>, 'onChange' | 'role'>> | undefined;
     };
 }
 export const RadioGroup: React.ComponentClass<RadioGroup.RadioGroupProps>;

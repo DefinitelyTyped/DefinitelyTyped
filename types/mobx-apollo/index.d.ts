@@ -13,14 +13,14 @@ import {
 
 export interface MobxApolloQueryOptions<T> extends WatchQueryOptions {
     client: ApolloClient<any>;
-    onFetch?: (result: T) => void;
-    onError?: (error: ApolloError) => void;
+    onFetch?: ((result: T) => void) | undefined;
+    onError?: ((error: ApolloError) => void) | undefined;
 }
 
 export interface MobxApolloQuery<T> {
     loading: boolean;
-    data?: T;
-    error?: ApolloError;
+    data?: T | undefined;
+    error?: ApolloError | undefined;
     ref: ObservableQuery<T>;
 }
 

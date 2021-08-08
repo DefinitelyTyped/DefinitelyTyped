@@ -1,9 +1,8 @@
 declare module 'assert/strict' {
-    import { strict } from 'assert';
+    import { strict } from 'node:assert';
     export = strict;
 }
-
 declare module 'node:assert/strict' {
-    import * as assert from 'assert/strict';
-    export = assert;
+    import { strict } from 'node:assert';
+    export = strict;
 }

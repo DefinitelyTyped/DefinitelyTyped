@@ -15,23 +15,23 @@ declare module 'karma' {
     // Unfortuantely, Typescript doesn't let you overload properties, so
     // the entire definition is duplicated here.
     interface KarmaWebpackMiddlewareOptions /** extends webpackDevMiddleware.Options */ {
-        noInfo?: boolean;
-        quiet?: boolean;
-        lazy?: boolean;
-        watchOptions?: Webpack.Options.WatchOptions;
-        publicPath?: string;
-        index?: string;
+        noInfo?: boolean | undefined;
+        quiet?: boolean | undefined;
+        lazy?: boolean | undefined;
+        watchOptions?: Webpack.Options.WatchOptions | undefined;
+        publicPath?: string | undefined;
+        index?: string | undefined;
         headers?: {
             [name: string]: string;
-        };
-        stats?: Webpack.Options.Stats;
-        reporter?: Reporter | null;
-        serverSideRender?: boolean;
+        } | undefined;
+        stats?: Webpack.Options.Stats | undefined;
+        reporter?: Reporter | null | undefined;
+        serverSideRender?: boolean | undefined;
 
-        log?: Logger;
-        warn?: Logger;
-        error?: Logger;
-        filename?: string;
+        log?: Logger | undefined;
+        warn?: Logger | undefined;
+        error?: Logger | undefined;
+        filename?: string | undefined;
     }
 
     interface ConfigOptions {

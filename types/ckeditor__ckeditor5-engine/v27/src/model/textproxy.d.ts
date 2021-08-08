@@ -14,7 +14,12 @@ export default class TextProxy {
     readonly startOffset: number;
     readonly textNode: Text;
 
-    getAncestors(options?: { includeSelf?: boolean; parentFirst?: boolean }): Array<Element | DocumentFragment>;
+    protected constructor(text: Text, offsetInText: number, length: number);
+
+    getAncestors(options?: {
+        includeSelf?: boolean | undefined;
+        parentFirst?: boolean | undefined;
+    }): Array<Element | DocumentFragment>;
     getAttribute(key: string): string | number | boolean;
     getAttributeKeys(): ReturnType<Text["getAttributeKeys"]>;
     getAttributes(): ReturnType<Text["getAttributes"]>;

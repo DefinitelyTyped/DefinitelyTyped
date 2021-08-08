@@ -42,25 +42,25 @@ export {
 } from 'react-router';
 
 export interface BrowserRouterProps {
-    basename?: string;
-    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
-    forceRefresh?: boolean;
-    keyLength?: number;
+    basename?: string | undefined;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
+    forceRefresh?: boolean | undefined;
+    keyLength?: number | undefined;
 }
 export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
 export interface HashRouterProps {
-    basename?: string;
-    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
-    hashType?: 'slash' | 'noslash' | 'hashbang';
+    basename?: string | undefined;
+    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
+    hashType?: 'slash' | 'noslash' | 'hashbang' | undefined;
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}
 
 export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-    component?: React.ComponentType<any>;
+    component?: React.ComponentType<any> | undefined;
     to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
-    replace?: boolean;
-    innerRef?: React.Ref<HTMLAnchorElement>;
+    replace?: boolean | undefined;
+    innerRef?: React.Ref<HTMLAnchorElement> | undefined;
 }
 export function Link<S = H.LocationState>(
     ...params: Parameters<Link<S>>
@@ -72,12 +72,12 @@ export interface Link<S = H.LocationState>
     > {}
 
 export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
-    activeClassName?: string;
-    activeStyle?: React.CSSProperties;
-    exact?: boolean;
-    strict?: boolean;
+    activeClassName?: string | undefined;
+    activeStyle?: React.CSSProperties | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
     isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params> | null, location: H.Location<S>): boolean;
-    location?: H.Location<S>;
+    location?: H.Location<S> | undefined;
 }
 export function NavLink<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.

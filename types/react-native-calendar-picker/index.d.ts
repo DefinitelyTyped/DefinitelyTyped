@@ -16,60 +16,60 @@ export default class CalendarPicker extends React.Component<CalendarPickerProps>
 }
 
 export interface CalendarPickerProps {
-    weekdays?: string[];
-    months?: string[];
-    startFromMonday?: boolean;
-    showDayStragglers?: boolean;
-    allowRangeSelection?: boolean;
-    allowBackwardRangeSelect?: boolean;
-    previousTitle?: string;
-    nextTitle?: string;
-    selectedDayColor?: string;
-    selectedDayStyle?: StyleProp<ViewStyle>;
-    selectedDayTextColor?: string;
-    selectedDayTextStyle?: StyleProp<TextStyle>;
-    selectedRangeStartTextStyle?: StyleProp<TextStyle>;
-    selectedRangeEndTextStyle?: StyleProp<TextStyle>;
-    selectedRangeStartStyle?: StyleProp<ViewStyle>;
-    selectedRangeEndStyle?: StyleProp<ViewStyle>;
-    selectedRangeStyle?: StyleProp<ViewStyle>;
-    selectedDisabledDatesTextStyle?: StyleProp<TextStyle>;
-    disabledDates?: Date[] | DisabledDatesFunc;
-    disabledDatesTextStyle?: StyleProp<TextStyle>;
-    selectedStartDate?: Date;
-    selectedEndDate?: Date;
-    minRangeDuration?: number | MinDurationArrayItem[];
-    maxRangeDuration?: number | MaxDurationArrayItem[];
-    todayBackgroundColor?: string;
-    todayTextStyle?: StyleProp<TextStyle>;
-    textStyle?: StyleProp<TextStyle>;
-    customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc;
-    scaleFactor?: number;
-    minDate?: Date;
-    maxDate?: Date;
-    initialDate?: Date;
-    width?: number;
-    height?: number;
-    scrollable?: boolean;
-    horizontal?: boolean;
-    enableDateChange?: boolean;
-    restrictMonthNavigation?: boolean;
-    onDateChange?: DateChangedCallback;
-    onMonthChange?: DateChangedCallback;
-    dayShape?: 'circle' | 'square';
-    headingLevel?: number;
-    selectMonthTitle?: string;
-    selectYearTitle?: string;
-    previousTitleStyle?: StyleProp<TextStyle>;
-    nextTitleStyle?: StyleProp<TextStyle>;
-    previousComponent?: React.ReactNode;
-    nextComponent?: React.ReactNode;
-    dayLabelsWrapper?: StyleProp<ViewStyle>;
-    monthYearHeaderWrapperStyle?: StyleProp<ViewStyle>;
-    headerWrapperStyle?: StyleProp<ViewStyle>;
-    monthTitleStyle?: StyleProp<TextStyle>;
-    yearTitleStyle?: StyleProp<TextStyle>;
-    customDayHeaderStyles?: CustomDayHeaderStylesFunc;
+    weekdays?: string[] | undefined;
+    months?: string[] | undefined;
+    startFromMonday?: boolean | undefined;
+    showDayStragglers?: boolean | undefined;
+    allowRangeSelection?: boolean | undefined;
+    allowBackwardRangeSelect?: boolean | undefined;
+    previousTitle?: string | undefined;
+    nextTitle?: string | undefined;
+    selectedDayColor?: string | undefined;
+    selectedDayStyle?: StyleProp<ViewStyle> | undefined;
+    selectedDayTextColor?: string | undefined;
+    selectedDayTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedRangeStartTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedRangeEndTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedRangeStartStyle?: StyleProp<ViewStyle> | undefined;
+    selectedRangeEndStyle?: StyleProp<ViewStyle> | undefined;
+    selectedRangeStyle?: StyleProp<ViewStyle> | undefined;
+    selectedDisabledDatesTextStyle?: StyleProp<TextStyle> | undefined;
+    disabledDates?: Date[] | DisabledDatesFunc | undefined;
+    disabledDatesTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedStartDate?: Date | undefined;
+    selectedEndDate?: Date | undefined;
+    minRangeDuration?: number | MinDurationArrayItem[] | undefined;
+    maxRangeDuration?: number | MaxDurationArrayItem[] | undefined;
+    todayBackgroundColor?: string | undefined;
+    todayTextStyle?: StyleProp<TextStyle> | undefined;
+    textStyle?: StyleProp<TextStyle> | undefined;
+    customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc | undefined;
+    scaleFactor?: number | undefined;
+    minDate?: Date | undefined;
+    maxDate?: Date | undefined;
+    initialDate?: Date | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    scrollable?: boolean | undefined;
+    horizontal?: boolean | undefined;
+    enableDateChange?: boolean | undefined;
+    restrictMonthNavigation?: boolean | undefined;
+    onDateChange?: DateChangedCallback | undefined;
+    onMonthChange?: DateChangedCallback | undefined;
+    dayShape?: 'circle' | 'square' | undefined;
+    headingLevel?: number | undefined;
+    selectMonthTitle?: string | undefined;
+    selectYearTitle?: string | undefined;
+    previousTitleStyle?: StyleProp<TextStyle> | undefined;
+    nextTitleStyle?: StyleProp<TextStyle> | undefined;
+    previousComponent?: React.ReactNode | undefined;
+    nextComponent?: React.ReactNode | undefined;
+    dayLabelsWrapper?: StyleProp<ViewStyle> | undefined;
+    monthYearHeaderWrapperStyle?: StyleProp<ViewStyle> | undefined;
+    headerWrapperStyle?: StyleProp<ViewStyle> | undefined;
+    monthTitleStyle?: StyleProp<TextStyle> | undefined;
+    yearTitleStyle?: StyleProp<TextStyle> | undefined;
+    customDayHeaderStyles?: CustomDayHeaderStylesFunc | undefined;
 }
 
 export type DayOfWeekStyle = {
@@ -81,9 +81,9 @@ export type DisabledDatesFunc = (date: Moment) => boolean;
 export type CustomDatesStylesFunc = (
     date: Moment,
 ) => {
-    containerStyle?: ViewStyle;
-    style?: ViewStyle;
-    textStyle?: TextStyle;
+    containerStyle?: ViewStyle | undefined;
+    style?: ViewStyle | undefined;
+    textStyle?: TextStyle | undefined;
 };
 
 export interface CustomDayHeaderStylesFuncDateArg {
@@ -95,8 +95,8 @@ export interface CustomDayHeaderStylesFuncDateArg {
 export type CustomDayHeaderStylesFunc = (
     date: CustomDayHeaderStylesFuncDateArg,
 ) => {
-    textStyle?: TextStyle;
-    style?: ViewStyle;
+    textStyle?: TextStyle | undefined;
+    style?: ViewStyle | undefined;
 };
 
 export type MomentParsable = MomentInput;
@@ -113,9 +113,9 @@ export interface MaxDurationArrayItem {
 
 export interface CustomDateStyle {
     date: MomentParsable;
-    containerStyle?: ViewStyle;
-    style?: ViewStyle;
-    textStyle?: TextStyle;
+    containerStyle?: ViewStyle | undefined;
+    style?: ViewStyle | undefined;
+    textStyle?: TextStyle | undefined;
 }
 
 export interface HandleOnPressDayArg {

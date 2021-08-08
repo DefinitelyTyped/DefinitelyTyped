@@ -6,8 +6,8 @@ import { ReadOptions, WriteOptions } from './Feature';
 import TextFeature from './TextFeature';
 
 export interface Options {
-    factor?: number;
-    geometryLayout?: GeometryLayout;
+    factor?: number | undefined;
+    geometryLayout?: GeometryLayout | undefined;
 }
 export default class Polyline extends TextFeature {
     constructor(opt_options?: Options);

@@ -219,368 +219,368 @@ export interface ViewerConfig {
      * Specify which components are shown.
      */
     component?: {
-        header?: boolean;
-        topMenu?: boolean;
-        asideMenu?: boolean;
-        bottomMenu?: boolean;
-    };
+        header?: boolean | undefined;
+        topMenu?: boolean | undefined;
+        asideMenu?: boolean | undefined;
+        bottomMenu?: boolean | undefined;
+    } | undefined;
     group?: {
         global?: {
-            visibility?: boolean,
-            location?: string, // Example: 'header'
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'header'
+            sequence?: number | undefined
+        } | undefined,
         tabName?: {
-            visibility?: boolean,
-            location?: string, // Example: 'header'
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'header'
+            sequence?: number | undefined
+        } | undefined,
         viewerCorner?: {
-            visibility?: boolean,
-            location?: string, // Example: 'header'
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'header'
+            sequence?: number | undefined
+        } | undefined,
         viewMenuBlock?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenu'
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'topMenu'
+            sequence?: number | undefined
+        } | undefined,
         viewMenu?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenu'
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'topMenu'
+            sequence?: number | undefined
+        } | undefined,
         topMenuRight?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenu'
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'topMenu'
+            sequence?: number | undefined
+        } | undefined,
         pager?: {
-            visibility?: boolean,
-            location?: string, // Example: 'bottomMenu'
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'bottomMenu'
+            sequence?: number | undefined
+        } | undefined,
         viewChange?: {
-            visibility?: boolean,
-            location?: string, // Example: 'header'
-            sequence?: number
-        }
-    };
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'header'
+            sequence?: number | undefined
+        } | undefined
+    } | undefined;
     buttons?: {
         // loadImage button
         loadImage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewerCorner'
-            iconClass?: string, // Example: 'icon-file'
-            sequence?: number,
-            onButtonClick?: string // Example: onLoadImage'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewerCorner'
+            iconClass?: string | undefined, // Example: 'icon-file'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onLoadImage'
+        } | undefined,
         currentTab?: {
-            visibility?: boolean,
-            location?: string, // Example: 'tabName',
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'tabName',
+            sequence?: number | undefined
+        } | undefined,
         // panelChange button (thumbnail, dir tree, tags)
         panelChange?: {
-            visibility?: boolean,
-            location?: string, // Example: 'global'
-            iconClass?: string, // Example: 'icon-list'
-            sequence?: number,
-            onButtonClick?: string // Example: onPanelChange'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'global'
+            iconClass?: string | undefined, // Example: 'icon-list'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onPanelChange'
+        } | undefined,
         // readDirection change button (vertical ,horizontal)
         readDirection?: {
-            visibility?: boolean,
-            location?: string, // Example: 'global'
-            iconClass?: string, // Example: 'icon-readType'
-            sequence?: number,
-            onButtonClick?: string // Example: onReadDirection'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'global'
+            iconClass?: string | undefined, // Example: 'icon-readType'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onReadDirection'
+        } | undefined,
         // readDirection change button (vertical ,horizontal)
         blank1?: {
-            visibility?: boolean,
-            location?: string, // Example: 'global'
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'global'
+            sequence?: number | undefined
+        } | undefined,
         // flip button
         flip?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-flip'
-            sequence?: number,
-            onButtonClick?: string // Example: onFlip'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-flip'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onFlip'
+        } | undefined,
         // mirror button
         mirror?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-mirror'
-            sequence?: number,
-            onButtonClick?: string // Example: onMirror'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-mirror'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onMirror'
+        } | undefined,
         // rotate button
         rotate?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-rotateLeft'
-            sequence?: number,
-            onButtonClick?: string // Example: onRotate'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-rotateLeft'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onRotate'
+        } | undefined,
         // rotateAll button
         rotateAll?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-rotateAll'
-            sequence?: number,
-            onButtonClick?: string // Example: onRotateAll'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-rotateAll'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onRotateAll'
+        } | undefined,
         // crop button
         crop?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-crop'
-            sequence?: 5,
-            onButtonClick?: string // Example: onCrop'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-crop'
+            sequence?: 5 | undefined,
+            onButtonClick?: string | undefined // Example: onCrop'
+        } | undefined,
         // wipe button
         wipe?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-wipe'
-            sequence?: 6,
-            onButtonClick?: string // Example: onWipe'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-wipe'
+            sequence?: 6 | undefined,
+            onButtonClick?: string | undefined // Example: onWipe'
+        } | undefined,
         // undo button
         undo?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-undo'
-            sequence?: 7,
-            onButtonClick?: string // Example: onUndo'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-undo'
+            sequence?: 7 | undefined,
+            onButtonClick?: string | undefined // Example: onUndo'
+        } | undefined,
         // redo button
         redo?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-redo'
-            sequence?: 8,
-            onButtonClick?: string // Example: onRedo'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-redo'
+            sequence?: 8 | undefined,
+            onButtonClick?: string | undefined // Example: onRedo'
+        } | undefined,
         // magnifyCanvas button
         zoomIn?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-magnifyImage'
-            sequence?: 9,
-            onButtonClick?: string // Example: onZoomIn'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-magnifyImage'
+            sequence?: 9 | undefined,
+            onButtonClick?: string | undefined // Example: onZoomIn'
+        } | undefined,
         // shrinkCanvas button
         zoomOut?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-shrinkImage'
-            sequence?: 10,
-            onButtonClick?: string // Example: onZoomOut'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-shrinkImage'
+            sequence?: 10 | undefined,
+            onButtonClick?: string | undefined // Example: onZoomOut'
+        } | undefined,
         // reset button
         reset?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewMenu'
-            iconClass?: string, // Example: 'icon-reset'
-            sequence?: 11,
-            onButtonClick?: string // Example: onReset'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewMenu'
+            iconClass?: string | undefined, // Example: 'icon-reset'
+            sequence?: 11 | undefined,
+            onButtonClick?: string | undefined // Example: onReset'
+        } | undefined,
         // remove button
         remove?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenuRight'
-            iconClass?: string, // Example: 'icon-delete'
-            sequence?: number,
-            onButtonClick?: string // Example: onRemove'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'topMenuRight'
+            iconClass?: string | undefined, // Example: 'icon-delete'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onRemove'
+        } | undefined,
         // print button
         print?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenuRight'
-            iconClass?: string, // Example: 'icon-print'
-            sequence?: number,
-            onButtonClick?: string // Example: onPrint'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'topMenuRight'
+            iconClass?: string | undefined, // Example: 'icon-print'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onPrint'
+        } | undefined,
         // save button
         save?: {
-            visibility?: boolean,
-            location?: string, // Example: 'topMenuRight'
-            iconClass?: string, // Example: 'icon-save'
-            sequence?: number,
-            onButtonClick?: string // Example: onSave'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'topMenuRight'
+            iconClass?: string | undefined, // Example: 'icon-save'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onSave'
+        } | undefined,
         // firstPage button
         firstPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-            iconClass?: string, // Example: 'icon-pageStart'
-            sequence?: number,
-            onButtonClick?: string // Example: onFirstPage'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'pager'
+            iconClass?: string | undefined, // Example: 'icon-pageStart'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onFirstPage'
+        } | undefined,
         // previousPage button
         previousPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-            iconClass?: string, // Example: 'icon-pagePre'
-            sequence?: number,
-            onButtonClick?: string // Example: onPreviousPage'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'pager'
+            iconClass?: string | undefined, // Example: 'icon-pagePre'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onPreviousPage'
+        } | undefined,
         // pagination show
         pagination?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'pager'
+        } | undefined,
         // nextPage button
         nextPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-            iconClass?: string, // Example: 'icon-pageNext'
-            sequence?: number,
-            onButtonClick?: string // Example: onNextPage'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'pager'
+            iconClass?: string | undefined, // Example: 'icon-pageNext'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onNextPage'
+        } | undefined,
         // lastPage button
         lastPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'pager'
-            iconClass?: string, // Example: 'icon-pageEnd'
-            sequence?: 5,
-            onButtonClick?: string // Example: onLastPage'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'pager'
+            iconClass?: string | undefined, // Example: 'icon-pageEnd'
+            sequence?: 5 | undefined,
+            onButtonClick?: string | undefined // Example: onLastPage'
+        } | undefined,
         // autoFit button
         autoFit?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-autoFit'
-            sequence?: number,
-            onButtonClick?: string // Example: onAutoFit'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewChange'
+            iconClass?: string | undefined, // Example: 'icon-autoFit'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onAutoFit'
+        } | undefined,
         // fitHeight button
         fitHeight?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-fitHeight'
-            sequence?: number,
-            onButtonClick?: string // Example: onFitHeight'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewChange'
+            iconClass?: string | undefined, // Example: 'icon-fitHeight'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onFitHeight'
+        } | undefined,
         // fitWidth button
         fitWidth?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-fitWidth'
-            sequence?: number,
-            onButtonClick?: string // Example: onFitWidth'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewChange'
+            iconClass?: string | undefined, // Example: 'icon-fitWidth'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onFitWidth'
+        } | undefined,
         // fullScreenToWebPage button
         fullPage?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-fullWeb'
-            sequence?: number,
-            onButtonClick?: string // Example: onFullPage'
-        },
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewChange'
+            iconClass?: string | undefined, // Example: 'icon-fullWeb'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onFullPage'
+        } | undefined,
         // fullScreenToDevice
         fullScreen?: {
-            visibility?: boolean,
-            location?: string, // Example: 'viewChange'
-            iconClass?: string, // Example: 'icon-fullDevice'
-            sequence?: number,
-            onButtonClick?: string // Example: onFullScreen'
-        }
-    };
+            visibility?: boolean | undefined,
+            location?: string | undefined, // Example: 'viewChange'
+            iconClass?: string | undefined, // Example: 'icon-fullDevice'
+            sequence?: number | undefined,
+            onButtonClick?: string | undefined // Example: onFullScreen'
+        } | undefined
+    } | undefined;
     tipsConfig?: {
-        loadImage?: string, // Example 'loadImage'
-        panelChange?: string, // Example 'panelChange'
-        readDirection?: string, // Example 'readDirection'
-        flip?: string, // Example 'flip'
-        mirror?: string, // Example 'mirror'
-        rotate?: string, // Example 'rotate'
-        rotateAll?: string, // Example 'rotateAll'
-        crop?: string, // Example 'crop'
-        wipe?: string, // Example 'wipe'
-        undo?: string, // Example 'undo'
-        redo?: string, // Example 'redo'
-        zoomIn?: string, // Example 'zoomIn'
-        zoomOut?: string, // Example 'zoomOut'
-        reset?: string, // Example 'reset'
-        remove?: string, // Example 'remove'
-        print?: string, // Example 'print'
-        save?: string, // Example 'save'
-        firstPage?: string, // Example 'firstPage'
-        previousPage?: string, // Example 'previousPage'
-        pagination?: string, // Example 'pagination'
-        nextPage?: string, // Example 'nextPage'
-        lastPage?: string, // Example 'lastPage'
-        autoFit?: string, // Example 'fitWindow'
-        fitHeight?: string, // Example 'fitHeight'
-        fitWidth?: string, // Example 'fitWidth'
-        fullPage?: string, // Example 'fullPage'
-        fullScreen?: string, // Example 'fullScreen'
-    };
+        loadImage?: string | undefined, // Example 'loadImage'
+        panelChange?: string | undefined, // Example 'panelChange'
+        readDirection?: string | undefined, // Example 'readDirection'
+        flip?: string | undefined, // Example 'flip'
+        mirror?: string | undefined, // Example 'mirror'
+        rotate?: string | undefined, // Example 'rotate'
+        rotateAll?: string | undefined, // Example 'rotateAll'
+        crop?: string | undefined, // Example 'crop'
+        wipe?: string | undefined, // Example 'wipe'
+        undo?: string | undefined, // Example 'undo'
+        redo?: string | undefined, // Example 'redo'
+        zoomIn?: string | undefined, // Example 'zoomIn'
+        zoomOut?: string | undefined, // Example 'zoomOut'
+        reset?: string | undefined, // Example 'reset'
+        remove?: string | undefined, // Example 'remove'
+        print?: string | undefined, // Example 'print'
+        save?: string | undefined, // Example 'save'
+        firstPage?: string | undefined, // Example 'firstPage'
+        previousPage?: string | undefined, // Example 'previousPage'
+        pagination?: string | undefined, // Example 'pagination'
+        nextPage?: string | undefined, // Example 'nextPage'
+        lastPage?: string | undefined, // Example 'lastPage'
+        autoFit?: string | undefined, // Example 'fitWindow'
+        fitHeight?: string | undefined, // Example 'fitHeight'
+        fitWidth?: string | undefined, // Example 'fitWidth'
+        fullPage?: string | undefined, // Example 'fullPage'
+        fullScreen?: string | undefined, // Example 'fullScreen'
+    } | undefined;
     content?: {
-        visibility?: boolean,
+        visibility?: boolean | undefined,
         besides?: {
-            visibility?: boolean,
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            sequence?: number | undefined
+        } | undefined,
         viewPort?: {
-            visibility?: boolean,
-            sequence?: number
-        },
+            visibility?: boolean | undefined,
+            sequence?: number | undefined
+        } | undefined,
         allImage?: {
-            visibility?: boolean,
-            displayName?: string // Example: 'All Images'
-        }
-    };
+            visibility?: boolean | undefined,
+            displayName?: string | undefined // Example: 'All Images'
+        } | undefined
+    } | undefined;
     thumbnail?: {
-        visibility?: boolean,
-        iconClass?: string // Example: 'icon-thumbnail'
-        selectedBorderColor?: string // Example: 'red'
-        selectedBackgroundColor?: string // Example: 'rgb(127, 133, 251)'
-        imageBackgroundColor?: string // Example: 'transparent'
-        imageBorderColor?: string // Example: 'gray'
-        hoverBackgroundColor?: string // Example: '#c4faf8'
-        hoverBorderColor?: string // Example: 'yellow'
-        blockBackgroundColor?: string // Example: 'pink'
-        backgroundColor?: string // Example: 'rgba(67, 66, 70, 1)'
-        imageSpace?: number, // Example: 10
-        showPageNumber?: boolean,
-        showThumbnailControl?: boolean,
-        mouseShape?: string // Example: 'pointer'
-    };
+        visibility?: boolean | undefined,
+        iconClass?: string | undefined // Example: 'icon-thumbnail'
+        selectedBorderColor?: string | undefined // Example: 'red'
+        selectedBackgroundColor?: string | undefined // Example: 'rgb(127, 133, 251)'
+        imageBackgroundColor?: string | undefined // Example: 'transparent'
+        imageBorderColor?: string | undefined // Example: 'gray'
+        hoverBackgroundColor?: string | undefined // Example: '#c4faf8'
+        hoverBorderColor?: string | undefined // Example: 'yellow'
+        blockBackgroundColor?: string | undefined // Example: 'pink'
+        backgroundColor?: string | undefined // Example: 'rgba(67, 66, 70, 1)'
+        imageSpace?: number | undefined, // Example: 10
+        showPageNumber?: boolean | undefined,
+        showThumbnailControl?: boolean | undefined,
+        mouseShape?: string | undefined // Example: 'pointer'
+    } | undefined;
     tree?: {
-        visibility?: boolean,
-        iconClass?: string // Example: 'icon-tree',
-        selectedColor?: string // Example: '#0000ff',
-        goToThumbnail?: boolean
-    };
+        visibility?: boolean | undefined,
+        iconClass?: string | undefined // Example: 'icon-tree',
+        selectedColor?: string | undefined // Example: '#0000ff',
+        goToThumbnail?: boolean | undefined
+    } | undefined;
     tag?: {
-        visibility?: boolean,
-        iconClass?: string // Example: 'icon-tags',
-        selectedColor?: string // Example: '#0000ff',
-        goToThumbnail?: boolean,
-        displayMode?: string // Example: ''// icon or text
-    };
+        visibility?: boolean | undefined,
+        iconClass?: string | undefined // Example: 'icon-tags',
+        selectedColor?: string | undefined // Example: '#0000ff',
+        goToThumbnail?: boolean | undefined,
+        displayMode?: string | undefined // Example: ''// icon or text
+    } | undefined;
     cropStyle?: {
         ratios?: any, // Example [[1, 1], [3, 2], [4, 3], [5, 4], [7, 5], [16, 9]],
-        cropMask?: boolean,
-        cropBar?: boolean
-    };
+        cropMask?: boolean | undefined,
+        cropBar?: boolean | undefined
+    } | undefined;
     buttonResize?: {
-        ifResize?: boolean,
-        maxSize?: number, // Example: 26,
-        minSize?: number, // Example: 14
-    };
+        ifResize?: boolean | undefined,
+        maxSize?: number | undefined, // Example: 26,
+        minSize?: number | undefined, // Example: 14
+    } | undefined;
     skinColor?: {
-        topMenuBackground?: string // Example: '#000000'
-        asideBackground?: string // Example: '#ffffff'
-        canvasBackground?: string // Example: 'rgba(67,66,70,1)'
-        bottomMenuBackground?: string // Example: '#000000'
-    };
-    presetMode?: string; // Example: 'basic'
-    theme?: string; // Example: 'basic'
+        topMenuBackground?: string | undefined // Example: '#000000'
+        asideBackground?: string | undefined // Example: '#ffffff'
+        canvasBackground?: string | undefined // Example: 'rgba(67,66,70,1)'
+        bottomMenuBackground?: string | undefined // Example: '#000000'
+    } | undefined;
+    presetMode?: string | undefined; // Example: 'basic'
+    theme?: string | undefined; // Example: 'basic'
 }

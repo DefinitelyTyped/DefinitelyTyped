@@ -4,16 +4,16 @@ import { SelectCallback } from 'react-bootstrap';
 declare namespace Tabs {
     export interface TabsProps extends React.HTMLProps<Tabs> {
         activeKey?: any;
-        animation?: boolean;
-        bsStyle?: string;
+        animation?: boolean | undefined;
+        bsStyle?: string | undefined;
         defaultActiveKey?: any;
-        onSelect?: SelectCallback;
+        onSelect?: SelectCallback | undefined;
         paneWidth?: any; // TODO: Add more specific type
-        position?: string;
+        position?: string | undefined;
         tabWidth?: any; // TODO: Add more specific type
-        mountOnEnter?: boolean;
-        unmountOnExit?: boolean;
-        justified?: boolean;
+        mountOnEnter?: boolean | undefined;
+        unmountOnExit?: boolean | undefined;
+        justified?: boolean | undefined;
     }
 }
 declare class Tabs extends React.Component<Tabs.TabsProps> { }

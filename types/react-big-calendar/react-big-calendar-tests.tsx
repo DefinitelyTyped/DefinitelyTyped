@@ -43,8 +43,8 @@ class CalendarEvent {
     start: Date;
     endDate: Date;
     desc: string;
-    resourceId?: string;
-    tooltip?: string;
+    resourceId?: string | undefined;
+    tooltip?: string | undefined;
 
     constructor(_title: string, _start: Date, _endDate: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
@@ -269,6 +269,7 @@ class CalendarResource {
                     onShowMore={(events, date) => {
                         console.log('onShowMore fired, events: %O, date: %O', events, date);
                     }}
+                    doShowMoreDrillDown={true}
                     selectable={true}
                     step={20}
                     rtl={true}
@@ -487,7 +488,15 @@ MyWorkWeek.range = date => {
 };
 
 MyWorkWeek.navigate = (date, action) => {
-    return date;
+    const week = 7 * 24 * 60 * 60 * 1000; // week in milliseconds
+    switch (action) {
+        case Navigate.PREVIOUS:
+            return new Date(date.valueOf() - week);
+        case Navigate.NEXT:
+            return new Date(date.valueOf() + week);
+        default:
+            return date;
+    }
 };
 
 MyWorkWeek.title = date => {

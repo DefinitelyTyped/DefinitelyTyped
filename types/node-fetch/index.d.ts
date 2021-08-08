@@ -31,12 +31,12 @@ export class Request extends Body {
     url: string;
 
     // node-fetch extensions to the whatwg/fetch spec
-    agent?: Agent | ((parsedUrl: URL) => Agent);
+    agent?: Agent | ((parsedUrl: URL) => Agent) | undefined;
     compress: boolean;
     counter: number;
     follow: number;
     hostname: string;
-    port?: number;
+    port?: number | undefined;
     protocol: string;
     size: number;
     timeout: number;
@@ -44,18 +44,18 @@ export class Request extends Body {
 
 export interface RequestInit {
     // whatwg/fetch standard options
-    body?: BodyInit;
-    headers?: HeadersInit;
-    method?: string;
-    redirect?: RequestRedirect;
-    signal?: AbortSignal | null;
+    body?: BodyInit | undefined;
+    headers?: HeadersInit | undefined;
+    method?: string | undefined;
+    redirect?: RequestRedirect | undefined;
+    signal?: AbortSignal | null | undefined;
 
     // node-fetch extensions
-    agent?: Agent | ((parsedUrl: URL) => Agent); // =null http.Agent instance, allows custom proxy, certificate etc.
-    compress?: boolean; // =true support gzip/deflate content encoding. false to disable
-    follow?: number; // =20 maximum redirect count. 0 to not follow redirect
-    size?: number; // =0 maximum response body size in bytes. 0 to disable
-    timeout?: number; // =0 req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
+    agent?: Agent | ((parsedUrl: URL) => Agent) | undefined; // =null http.Agent instance, allows custom proxy, certificate etc.
+    compress?: boolean | undefined; // =true support gzip/deflate content encoding. false to disable
+    follow?: number | undefined; // =20 maximum redirect count. 0 to not follow redirect
+    size?: number | undefined; // =0 maximum response body size in bytes. 0 to disable
+    timeout?: number | undefined; // =0 req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
 
     // node-fetch does not support mode, cache or credentials options
 }
@@ -119,15 +119,15 @@ export class Headers implements Iterable<[string, string]> {
     // Iterable methods
     entries(): IterableIterator<[string, string]>;
     keys(): IterableIterator<string>;
-    values(): IterableIterator<[string]>;
+    values(): IterableIterator<string>;
     [Symbol.iterator](): Iterator<[string, string]>;
 }
 
 type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;
 
 interface BlobOptions {
-    type?: string;
-    endings?: "transparent" | "native";
+    type?: string | undefined;
+    endings?: "transparent" | "native" | undefined;
 }
 
 export class Blob {
@@ -139,7 +139,7 @@ export class Blob {
 }
 
 export class Body {
-    constructor(body?: any, opts?: { size?: number; timeout?: number });
+    constructor(body?: any, opts?: { size?: number | undefined; timeout?: number | undefined });
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
     body: NodeJS.ReadableStream;
@@ -153,15 +153,15 @@ export class Body {
 }
 
 interface SystemError extends Error {
-    code?: string;
+    code?: string | undefined;
 }
 
 export class FetchError extends Error {
     name: "FetchError";
     constructor(message: string, type: string, systemError?: SystemError);
     type: string;
-    code?: string;
-    errno?: string;
+    code?: string | undefined;
+    errno?: string | undefined;
 }
 
 export class Response extends Body {
@@ -187,12 +187,12 @@ export type ResponseType =
     | "opaqueredirect";
 
 export interface ResponseInit {
-    headers?: HeadersInit;
-    size?: number;
-    status?: number;
-    statusText?: string;
-    timeout?: number;
-    url?: string;
+    headers?: HeadersInit | undefined;
+    size?: number | undefined;
+    status?: number | undefined;
+    statusText?: string | undefined;
+    timeout?: number | undefined;
+    url?: string | undefined;
 }
 
 interface URLLike {

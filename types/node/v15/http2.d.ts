@@ -666,6 +666,7 @@ declare module 'http2' {
         readonly connection: net.Socket | tls.TLSSocket;
         readonly finished: boolean;
         readonly headersSent: boolean;
+        readonly req: Http2ServerRequest;
         readonly socket: net.Socket | tls.TLSSocket;
         readonly stream: ServerHttp2Stream;
         sendDate: boolean;

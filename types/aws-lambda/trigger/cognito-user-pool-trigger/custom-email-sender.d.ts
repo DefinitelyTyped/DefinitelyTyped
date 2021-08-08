@@ -9,7 +9,7 @@ export interface BaseCustomEmailSenderTriggerEvent<T extends string> extends Bas
         type: string;
         code: string | null;
         userAttributes: StringMap;
-        clientMetadata?: StringMap;
+        clientMetadata?: StringMap | undefined;
     };
 }
 
@@ -29,9 +29,9 @@ export interface CustomEmailSender_AccountTakeOverNotification_UserAttributes {
     ONE_CLICK_LINK_INVALID: string;
     LOGIN_TIME: string;
     FEEDBACK_TOKEN: string;
-    CITY?: string;
-    COUNTRY?: string;
-    DEVICE_NAME?: string;
+    CITY?: string | undefined;
+    COUNTRY?: string | undefined;
+    DEVICE_NAME?: string | undefined;
 }
 
 export interface CustomEmailSenderSignUpTriggerEvent extends BaseCustomEmailSenderTriggerEvent<
@@ -65,7 +65,7 @@ export interface CustomEmailSenderAccountTakeOverNotificationTriggerEvent extend
         type: string;
         code: string | null;
         userAttributes: CustomEmailSender_AccountTakeOverNotification_UserAttributes;
-        clientMetadata?: StringMap;
+        clientMetadata?: StringMap | undefined;
     };
 }
 

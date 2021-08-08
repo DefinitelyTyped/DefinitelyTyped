@@ -6,9 +6,9 @@
 interface Token {
     token: string;
     type: number;
-    value?: string|((a: number, b?: number) => number);
+    value?: string|((a: number, b?: number) => number) | undefined;
     show: string;
-    preced?: number;
+    preced?: number | undefined;
 }
 
 declare class Mexp {

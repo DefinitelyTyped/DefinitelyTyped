@@ -20,7 +20,7 @@ export interface CustomError extends Error {
 }
 
 export interface RotateOptions {
-    quality?: number;
+    quality?: number | undefined;
 }
 
 export interface RotateDimensions {

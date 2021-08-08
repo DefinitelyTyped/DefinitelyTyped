@@ -20,7 +20,7 @@ export interface FirehoseTransformationEventRecord {
     approximateArrivalTimestamp: number;
     /** Base64 encoded */
     data: string;
-    kinesisRecordMetadata?: FirehoseRecordMetadata;
+    kinesisRecordMetadata?: FirehoseRecordMetadata | undefined;
 }
 
 export interface FirehoseRecordMetadata {

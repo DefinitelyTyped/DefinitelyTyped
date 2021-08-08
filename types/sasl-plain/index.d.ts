@@ -24,7 +24,7 @@ declare class PlainMechanism implements Mechanism {
 
 declare namespace PlainMechanism {
     interface Credentials {
-        authzid?: string;
+        authzid?: string | undefined;
         username: string;
         password: string;
     }

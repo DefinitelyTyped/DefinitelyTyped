@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.3
+// Type definitions for @yaireo/tagify 4.6
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -953,7 +953,16 @@ declare namespace Tagify {
      */
     interface InvalidTagEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T;
-        message: boolean;
+        /**
+         * Message indicating the type of error. Can be either a boolean to indicate success,
+         * or a message code. Common message codes are:
+         * - `empty` - When the new tag is empty.
+         * - `number of tags exceeded` - When the new tag cannot be added because doing so would exceed the maximum number of allowed tags.
+         * - `pattern mismatch` - When the new tag does not conform to the specified (regex) pattern.
+         * - `already exists` - When a tag with the same name as the new tag exists already and duplicates are not allowed.
+         * - `not allowed` -  When the new tag is not allowed for any other reason.
+         */
+        message: string | boolean;
     }
 
     /**
@@ -1537,6 +1546,11 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     setReadonly(readonly: boolean): void;
 
     /**
+     * Toggles "disabled" mode on/off
+     */
+    setDisabled(disabled: boolean): void;
+
+    /**
      * Removes a listener previously added via `on`.
      * @template K Name of the event.
      * @param event Name of the event.
@@ -1562,3 +1576,5 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
 }
 
 export = Tagify;
+
+export as namespace Tagify;

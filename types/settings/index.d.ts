@@ -15,14 +15,14 @@ declare class Settings {
 
 declare namespace Settings {
     interface Options {
-        env?: string;
-        root?: string;
+        env?: string | undefined;
+        root?: string | undefined;
         defaults?: any;
     }
 
     type PathOrModule = string |
         {
-            forceEnv?: string,
+            forceEnv?: string | undefined,
             common: any, // error is thrown if 'common' object is not provided
             [envName: string]: any
         };

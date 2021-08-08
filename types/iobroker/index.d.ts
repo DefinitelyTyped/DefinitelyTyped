@@ -261,6 +261,11 @@ declare global {
             aggregate?: 'minmax' | 'min' | 'max' | 'average' | 'total' | 'count' | 'none';
         }
 
+        interface DelObjectOptions {
+            /** Whether all child objects should be deleted aswell */
+            recursive?: boolean;
+        }
+
         interface AdapterOptions {
             /** The name of the adapter */
             name: string;
@@ -375,7 +380,7 @@ declare global {
             getPortAsync(port: number): Promise<number>;
 
             /** Stops the adapter. Note: Is not always defined. */
-            stop?: () => void;
+            stop?: (() => void);
 
             // ==============================
             // GENERAL
@@ -571,12 +576,12 @@ declare global {
              * @param id - The id of the object without namespace
              */
             delObject(id: string, callback?: ErrorCallback): void;
-            delObject(id: string, options: unknown, callback?: ErrorCallback): void;
+            delObject(id: string, options: DelObjectOptions, callback?: ErrorCallback): void;
             /**
              * Deletes an object from the object db
              * @param id - The id of the object without namespace
              */
-            delObjectAsync(id: string, options?: unknown): Promise<void>;
+            delObjectAsync(id: string, options?: DelObjectOptions): Promise<void>;
 
             // ==============================
             // foreign objects
@@ -678,12 +683,12 @@ declare global {
              * @param id - The id of the object including namespace
              */
             delForeignObject(id: string, callback?: ErrorCallback): void;
-            delForeignObject(id: string, options: unknown, callback?: ErrorCallback): void;
+            delForeignObject(id: string, options: DelObjectOptions, callback?: ErrorCallback): void;
             /**
              * Deletes an object (which might not belong to this adapter) from the object db
              * @param id - The id of the object including namespace
              */
-            delForeignObjectAsync(id: string, options?: unknown): Promise<void>;
+            delForeignObjectAsync(id: string, options?: DelObjectOptions): Promise<void>;
 
             /**
              * Query a predefined object view (similar to SQL stored procedures) and return the results
@@ -1547,7 +1552,7 @@ declare global {
              * Checks if a given feature is supported by the current installation
              * @param featureName The name of the feature to test for
              */
-            supportsFeature?: (featureName: string) => boolean;
+            supportsFeature?: ((featureName: string) => boolean);
 
             /**
              * Returns an instance of a loaded plugin
@@ -1670,7 +1675,7 @@ declare global {
         type GetStatePromise = Promise<CallbackReturnTypeOf<GetStateCallback>>;
 
         type GetStatesCallback = (err: Error | null, states?: Record<string, State>) => void;
-        type GetStatesPromise = Promise<CallbackReturnTypeOf<GetStatesCallback>>;
+        type GetStatesPromise = Promise<NonNullCallbackReturnTypeOf<GetStatesCallback>>;
 
         type GetBinaryStateCallback = (err?: Error | null, state?: Buffer) => void;
         type GetBinaryStatePromise = Promise<CallbackReturnTypeOf<GetBinaryStateCallback>>;

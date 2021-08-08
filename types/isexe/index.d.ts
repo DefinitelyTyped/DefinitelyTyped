@@ -22,9 +22,9 @@ declare namespace isExe {
     function sync(path: string, options?: Options): boolean;
 
     interface Options {
-        ignoreErrors?: boolean;
-        uid?: number;
-        gid?: number;
-        pathExt?: string;
+        ignoreErrors?: boolean | undefined;
+        uid?: number | undefined;
+        gid?: number | undefined;
+        pathExt?: string | undefined;
     }
 }

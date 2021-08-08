@@ -12,8 +12,8 @@ import { TransformOptions } from 'buble';
 declare namespace buble {
     interface Options extends TransformOptions {
         // Every files will be parsed by default, but you can specify which files to include or exclude
-        include?: Array<string | RegExp> | string | RegExp | null;
-        exclude?: Array<string | RegExp> | string | RegExp | null;
+        include?: Array<string | RegExp> | string | RegExp | null | undefined;
+        exclude?: Array<string | RegExp> | string | RegExp | null | undefined;
     }
 }
 

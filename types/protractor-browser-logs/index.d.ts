@@ -10,7 +10,7 @@ import { ProtractorBrowser } from 'protractor/built';
 
 declare namespace browserLogs {
     interface BrowserLogOptions {
-        reporters?: Array<(entries: Entry[]) => void>;
+        reporters?: Array<(entries: Entry[]) => void> | undefined;
     }
 
     type matchPredicateFunction = (entry: Entry) => boolean;

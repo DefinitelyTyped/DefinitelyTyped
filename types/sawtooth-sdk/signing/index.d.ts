@@ -31,7 +31,7 @@ export class Signer {
 
     _privateKey: PrivateKey;
 
-    _publicKey?: PublicKey;
+    _publicKey?: PublicKey | undefined;
 
     /**
      * Signs the given message.

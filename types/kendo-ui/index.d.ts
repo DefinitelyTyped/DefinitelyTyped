@@ -108,7 +108,7 @@ declare namespace kendo {
     };
 
     var cultures: {[culture: string] : {
-        name?: string;
+        name?: string | undefined;
         calendar?: {
             AM: string[];
             PM: string[];
@@ -140,7 +140,7 @@ declare namespace kendo {
             };
             firstDay: number;
             twoDigitYearMax: number;
-        };
+        } | undefined;
         calendars?: {
             standard: {
                 AM: string[];
@@ -174,7 +174,7 @@ declare namespace kendo {
                 firstDay: number;
                 twoDigitYearMax: number;
             };
-        };
+        } | undefined;
         numberFormat?: {
             currency: {
                 decimals: number;
@@ -197,7 +197,7 @@ declare namespace kendo {
                 pattern: string[];
                 symbol: string;
             };
-        };
+        } | undefined;
     }};
 
     function format(format: string, ...values: any[]): string;
@@ -286,8 +286,8 @@ declare namespace kendo {
     var version: string;
 
     interface TemplateOptions {
-        paramName?: string;
-        useWithBlock?: boolean;
+        paramName?: string | undefined;
+        useWithBlock?: boolean | undefined;
     }
 
     class Class {
@@ -342,13 +342,13 @@ declare namespace kendo {
     }
 
     interface ViewOptions {
-        tagName?: string;
-        wrap?: boolean;
-        model?: Object;
-        evalTemplate?: boolean;
-        init?: (e: ViewEvent) => void;
-        show?: (e: ViewEvent) => void;
-        hide?: (e: ViewEvent) => void;
+        tagName?: string | undefined;
+        wrap?: boolean | undefined;
+        model?: Object | undefined;
+        evalTemplate?: boolean | undefined;
+        init?: ((e: ViewEvent) => void) | undefined;
+        show?: ((e: ViewEvent) => void) | undefined;
+        hide?: ((e: ViewEvent) => void) | undefined;
     }
 
     interface ViewEvent {
@@ -391,11 +391,11 @@ declare namespace kendo {
     var history: History;
 
     interface RouterOptions {
-        init?: (e: RouterEvent) => void;
-        pushState?: boolean;
-        hashBang?: boolean;
-        root?: string;
-        ignoreCase?: boolean;
+        init?: ((e: RouterEvent) => void) | undefined;
+        pushState?: boolean | undefined;
+        hashBang?: boolean | undefined;
+        root?: string | undefined;
+        ignoreCase?: boolean | undefined;
         change?(e: RouterChangeEvent): void;
         routeMissing?(e: RouterRouteMissingEvent): void;
         same?(e: RouterEvent): void;
@@ -539,13 +539,13 @@ declare namespace kendo.effects {
 
 declare namespace kendo.data {
     interface ObservableObjectEvent {
-        sender?: ObservableObject;
-        field?: string;
+        sender?: ObservableObject | undefined;
+        field?: string | undefined;
     }
 
     interface ObservableObjectSetEvent extends ObservableObjectEvent {
         value?: any;
-        preventDefault?: Function;
+        preventDefault?: Function | undefined;
     }
 
     class Binding extends Observable {
@@ -645,17 +645,17 @@ declare namespace kendo.data {
     }
 
     interface SchedulerEventData {
-        description?: string;
-        end?: Date;
-        endTimezone?: string;
-        isAllDay?: boolean;
+        description?: string | undefined;
+        end?: Date | undefined;
+        endTimezone?: string | undefined;
+        isAllDay?: boolean | undefined;
         id?: any;
-        start?: Date;
-        startTimezone?: string;
+        start?: Date | undefined;
+        startTimezone?: string | undefined;
         recurrenceId?: any;
-        recurrenceRule?: string;
-        recurrenceException?: string;
-        title?: string;
+        recurrenceRule?: string | undefined;
+        recurrenceException?: string | undefined;
+        title?: string | undefined;
     }
 
     class SchedulerEvent extends Model {
@@ -828,12 +828,12 @@ declare namespace kendo.data {
     }
 
     interface HierarchicalDataSourceOptions extends DataSourceOptions {
-        schema?: HierarchicalDataSourceSchema;
+        schema?: HierarchicalDataSourceSchema | undefined;
     }
 
 
     interface HierarchicalDataSourceSchema extends DataSourceSchemaWithOptionsModel {
-        model?: HierarchicalDataSourceSchemaModel;
+        model?: HierarchicalDataSourceSchemaModel | undefined;
     }
 
     interface HierarchicalDataSourceSchemaModel extends DataSourceSchemaModel {
@@ -847,11 +847,11 @@ declare namespace kendo.data {
     }
 
     interface FileManagerDataSourceOptions extends HierarchicalDataSourceOptions {
-        schema?: FileManagerDataSourceSchema;
+        schema?: FileManagerDataSourceSchema | undefined;
     }
 
     interface FileManagerDataSourceSchema extends HierarchicalDataSourceSchema {
-        model?: FileManagerDataSourceSchemaModel;
+        model?: FileManagerDataSourceSchemaModel | undefined;
     }
 
     interface FileManagerDataSourceSchemaModel extends HierarchicalDataSourceSchemaModel {
@@ -873,16 +873,16 @@ declare namespace kendo.data {
     }
 
     interface PivotTransportConnection {
-        catalog?: string;
-        cube?: string;
+        catalog?: string | undefined;
+        cube?: string | undefined;
     }
 
     interface PivotTransportDiscover {
-        cache?: boolean;
-        contentType?: string;
+        cache?: boolean | undefined;
+        contentType?: string | undefined;
         data?: any;
-        dataType?: string;
-        type?: string;
+        dataType?: string | undefined;
+        type?: string | undefined;
         url?: any;
     }
 
@@ -893,41 +893,41 @@ declare namespace kendo.data {
 
     interface PivotTransportWithObjectOperations extends PivotTransport {
         connection: PivotTransportConnection;
-        discover?: PivotTransportDiscover;
-        read?: DataSourceTransportRead;
+        discover?: PivotTransportDiscover | undefined;
+        read?: DataSourceTransportRead | undefined;
     }
 
     interface PivotTransportWithFunctionOperations extends PivotTransport {
-        discover?: (options: DataSourceTransportOptions) => void;
-        read?: (options: DataSourceTransportOptions) => void;
+        discover?: ((options: DataSourceTransportOptions) => void) | undefined;
+        read?: ((options: DataSourceTransportOptions) => void) | undefined;
     }
 
     interface PivotDataSourceAxisOptions {
         name: string;
-        expand?: boolean;
+        expand?: boolean | undefined;
     }
 
     interface PivotDataSourceMeasureOptions {
         values: string[];
-        axis?: string;
+        axis?: string | undefined;
     }
 
     interface PivotDataSourceOptions extends DataSourceOptions {
-        columns?: string[]|PivotDataSourceAxisOptions[];
-        measures?: string[]|PivotDataSourceMeasureOptions;
-        rows?: string[]|PivotDataSourceAxisOptions[];
-        transport?: PivotTransport;
-        schema?: PivotSchema;
+        columns?: string[]|PivotDataSourceAxisOptions[] | undefined;
+        measures?: string[]|PivotDataSourceMeasureOptions | undefined;
+        rows?: string[]|PivotDataSourceAxisOptions[] | undefined;
+        transport?: PivotTransport | undefined;
+        schema?: PivotSchema | undefined;
     }
 
     interface PivotTupleModel {
         children: PivotTupleModel[];
-        caption?: string;
+        caption?: string | undefined;
         name: string;
-        levelName?: string;
+        levelName?: string | undefined;
         levelNum: number;
-        hasChildren?: boolean;
-        hierarchy?: string;
+        hasChildren?: boolean | undefined;
+        hierarchy?: string | undefined;
     }
 
     interface PivotSchemaRowAxis {
@@ -980,73 +980,73 @@ declare namespace kendo.data {
     }
 
     interface DataSourceTransport {
-        create?: string | DataSourceTransportCreate | ((options: DataSourceTransportOptions) => void);
-        destroy?: string | DataSourceTransportDestroy | ((options: DataSourceTransportOptions) => void);
-        push?: Function;
-        submit?: Function;
-        batch?: DataSourceTransportBatch | ((options: DataSourceTransportOptions) => void);
-        read?: string | DataSourceTransportRead | ((options: DataSourceTransportOptions) => void);
-        signalr?: DataSourceTransportSignalr | ((options: DataSourceTransportOptions) => void);
-        update?: string | DataSourceTransportUpdate | ((options: DataSourceTransportOptions) => void);
+        create?: string | DataSourceTransportCreate | ((options: DataSourceTransportOptions) => void) | undefined;
+        destroy?: string | DataSourceTransportDestroy | ((options: DataSourceTransportOptions) => void) | undefined;
+        push?: Function | undefined;
+        submit?: Function | undefined;
+        batch?: DataSourceTransportBatch | ((options: DataSourceTransportOptions) => void) | undefined;
+        read?: string | DataSourceTransportRead | ((options: DataSourceTransportOptions) => void) | undefined;
+        signalr?: DataSourceTransportSignalr | ((options: DataSourceTransportOptions) => void) | undefined;
+        update?: string | DataSourceTransportUpdate | ((options: DataSourceTransportOptions) => void) | undefined;
         parameterMap?(data: DataSourceTransportParameterMapData, type: "create"|"destroy"|"read"|"update"): any;
     }
 
     interface DataSourceTransportSignalrClient {
-        create?: string;
-        destroy?: string;
-        read?: string;
-        update?: string;
+        create?: string | undefined;
+        destroy?: string | undefined;
+        read?: string | undefined;
+        update?: string | undefined;
     }
 
     interface DataSourceTransportSignalrServer {
-        create?: string;
-        destroy?: string;
-        read?: string;
-        update?: string;
+        create?: string | undefined;
+        destroy?: string | undefined;
+        read?: string | undefined;
+        update?: string | undefined;
     }
 
     interface DataSourceTransportSignalr {
-        client?: DataSourceTransportSignalrClient;
+        client?: DataSourceTransportSignalrClient | undefined;
         hub?: any;
         promise?: any;
-        server?: DataSourceTransportSignalrServer;
+        server?: DataSourceTransportSignalrServer | undefined;
     }
 
 
     interface DataSourceParameterMapDataAggregate {
-        field?: string;
-        aggregate?: string;
+        field?: string | undefined;
+        aggregate?: string | undefined;
     }
 
     interface DataSourceParameterMapDataGroup {
-        aggregate?: DataSourceParameterMapDataAggregate[];
-        field?: string;
-        dir?: string;
+        aggregate?: DataSourceParameterMapDataAggregate[] | undefined;
+        field?: string | undefined;
+        dir?: string | undefined;
     }
 
     interface DataSourceParameterMapDataFilter {
-        field?: string;
-        filters?: DataSourceParameterMapDataFilter[];
-        logic?: string;
-        operator?: string;
+        field?: string | undefined;
+        filters?: DataSourceParameterMapDataFilter[] | undefined;
+        logic?: string | undefined;
+        operator?: string | undefined;
         value?: any;
     }
 
     interface DataSourceParameterMapDataSort {
-        field?: string;
-        dir?: string;
+        field?: string | undefined;
+        dir?: string | undefined;
     }
 
     interface DataSourceTransportParameterMapData {
-        aggregate?: DataSourceParameterMapDataAggregate[];
-        group?: DataSourceParameterMapDataGroup[];
-        filter?: DataSourceParameterMapDataFilter;
-        models?: Model[];
-        page?: number;
-        pageSize?: number;
-        skip?: number;
-        sort?: DataSourceParameterMapDataSort[];
-        take?: number;
+        aggregate?: DataSourceParameterMapDataAggregate[] | undefined;
+        group?: DataSourceParameterMapDataGroup[] | undefined;
+        filter?: DataSourceParameterMapDataFilter | undefined;
+        models?: Model[] | undefined;
+        page?: number | undefined;
+        pageSize?: number | undefined;
+        skip?: number | undefined;
+        sort?: DataSourceParameterMapDataSort[] | undefined;
+        take?: number | undefined;
     }
 
     interface DataSourceSchema {
@@ -1054,29 +1054,29 @@ declare namespace kendo.data {
     }
 
     interface DataSourceSchemaWithTimezone extends DataSourceSchema {
-        timezone?: String;
+        timezone?: String | undefined;
     }
 
     interface DataSourceSchemaWithOptionsModel extends DataSourceSchema {
-        model?: DataSourceSchemaModel;
+        model?: DataSourceSchemaModel | undefined;
     }
 
     interface DataSourceSchemaWithConstructorModel extends DataSourceSchema {
-        model?:  typeof Model;
+        model?:  typeof Model | undefined;
     }
 
     interface DataSourceSchemaModel {
-        id?: string;
+        id?: string | undefined;
         fields?: any;
         [index: string]: any;
     }
 
     interface DataSourceSchemaModelWithFieldsArray extends DataSourceSchemaModel {
-        fields?: DataSourceSchemaModelField[];
+        fields?: DataSourceSchemaModelField[] | undefined;
     }
 
     interface DataSourceSchemaModelWithFieldsObject extends DataSourceSchemaModel {
-        fields?: DataSourceSchemaModelFields;
+        fields?: DataSourceSchemaModelFields | undefined;
     }
 
     interface DataSourceSchemaModelFields {
@@ -1084,18 +1084,18 @@ declare namespace kendo.data {
     }
 
     interface DataSourceSchemaModelField {
-        field?: string;
-        from?: string;
+        field?: string | undefined;
+        from?: string | undefined;
         defaultValue?: any;
-        editable?: boolean;
-        nullable?: boolean;
-        parse?: Function;
-        type?: string;
-        validation?: DataSourceSchemaModelFieldValidation;
+        editable?: boolean | undefined;
+        nullable?: boolean | undefined;
+        parse?: Function | undefined;
+        type?: string | undefined;
+        validation?: DataSourceSchemaModelFieldValidation | undefined;
     }
 
     interface DataSourceSchemaModelFieldValidation {
-        required?: boolean;
+        required?: boolean | undefined;
         min?: any;
         max?: any;
         minLength?: any;
@@ -1134,10 +1134,10 @@ declare namespace kendo.data {
     }
 
     interface ObservableArrayEvent {
-        field?: string;
-        action?: string;
-        index?: number;
-        items?: kendo.data.Model[];
+        field?: string | undefined;
+        action?: string | undefined;
+        index?: number | undefined;
+        items?: kendo.data.Model[] | undefined;
     }
 
     class DataSource extends Observable{
@@ -1219,39 +1219,39 @@ declare namespace kendo.data {
     }
 
     interface QueryResult {
-        total?: number;
-        data?: any[];
+        total?: number | undefined;
+        data?: any[] | undefined;
     }
 
     interface DataSourceAggregateItem {
-        field?: string;
-        aggregate?: string;
+        field?: string | undefined;
+        aggregate?: string | undefined;
     }
 
     interface DataSourceFilter {
     }
 
     interface DataSourceFilterItem extends DataSourceFilter {
-        operator?: string|Function;
-        field?: string;
+        operator?: string|Function | undefined;
+        field?: string | undefined;
         value?: any;
     }
 
     interface DataSourceFilters extends DataSourceFilter {
-        logic?: string;
-        filters?: DataSourceFilter[];
+        logic?: string | undefined;
+        filters?: DataSourceFilter[] | undefined;
     }
 
     interface DataSourceGroupItemAggregate {
-        field?: string;
-        aggregate?: string;
+        field?: string | undefined;
+        aggregate?: string | undefined;
     }
 
     interface DataSourceGroupItem {
-        field?: string;
-        dir?: string;
-        aggregates?: DataSourceGroupItemAggregate[];
-        compare?: (a: DataSourceGroupCompareItem, b: DataSourceGroupCompareItem) => number;
+        field?: string | undefined;
+        dir?: string | undefined;
+        aggregates?: DataSourceGroupItemAggregate[] | undefined;
+        compare?: ((a: DataSourceGroupCompareItem, b: DataSourceGroupCompareItem) => number) | undefined;
     }
 
     interface DataSourceGroupCompareItem {
@@ -1265,73 +1265,73 @@ declare namespace kendo.data {
         data?: any;
         errors?: any;
         groups?: any;
-        parse?: Function;
+        parse?: Function | undefined;
         total?: any;
-        type?: string;
+        type?: string | undefined;
     }
 
     interface DataSourceSortItem {
-        field?: string;
-        dir?: string;
+        field?: string | undefined;
+        dir?: string | undefined;
     }
 
     interface DataSourceTransportBatch extends JQueryAjaxSettings {
-        cache?: boolean;
-        contentType?: string;
+        cache?: boolean | undefined;
+        contentType?: string | undefined;
         data?: any;
-        dataType?: string;
-        type?: string;
+        dataType?: string | undefined;
+        type?: string | undefined;
         url?: any;
     }
 
     interface DataSourceTransportCreate extends JQueryAjaxSettings {
-        cache?: boolean;
-        contentType?: string;
+        cache?: boolean | undefined;
+        contentType?: string | undefined;
         data?: any;
-        dataType?: string;
-        type?: string;
+        dataType?: string | undefined;
+        type?: string | undefined;
         url?: any;
     }
 
     interface DataSourceTransportDestroy extends JQueryAjaxSettings {
-        cache?: boolean;
-        contentType?: string;
+        cache?: boolean | undefined;
+        contentType?: string | undefined;
         data?: any;
-        dataType?: string;
-        type?: string;
+        dataType?: string | undefined;
+        type?: string | undefined;
         url?: any;
     }
 
     interface DataSourceTransportRead extends JQueryAjaxSettings {
-        cache?: boolean;
-        contentType?: string;
+        cache?: boolean | undefined;
+        contentType?: string | undefined;
         data?: any;
-        dataType?: string;
-        type?: string;
+        dataType?: string | undefined;
+        type?: string | undefined;
         url?: any;
     }
 
     interface DataSourceTransportUpdate extends JQueryAjaxSettings {
-        cache?: boolean;
-        contentType?: string;
+        cache?: boolean | undefined;
+        contentType?: string | undefined;
         data?: any;
-        dataType?: string;
-        type?: string;
+        dataType?: string | undefined;
+        type?: string | undefined;
         url?: any;
     }
 
     interface DataSourceTransportWithObjectOperations extends DataSourceTransport {
-        create?: DataSourceTransportCreate;
-        destroy?: DataSourceTransportDestroy;
-        read?: DataSourceTransportRead;
-        update?: DataSourceTransportUpdate;
+        create?: DataSourceTransportCreate | undefined;
+        destroy?: DataSourceTransportDestroy | undefined;
+        read?: DataSourceTransportRead | undefined;
+        update?: DataSourceTransportUpdate | undefined;
     }
 
     interface DataSourceTransportWithFunctionOperations extends DataSourceTransport {
-        create?: (options: DataSourceTransportOptions) => void;
-        destroy?: (options: DataSourceTransportOptions) => void;
-        read?: (options: DataSourceTransportReadOptions) => void;
-        update?: (options: DataSourceTransportOptions) => void;
+        create?: ((options: DataSourceTransportOptions) => void) | undefined;
+        destroy?: ((options: DataSourceTransportOptions) => void) | undefined;
+        read?: ((options: DataSourceTransportReadOptions) => void) | undefined;
+        update?: ((options: DataSourceTransportOptions) => void) | undefined;
     }
 
     interface DataSourceTransportOptions {
@@ -1341,11 +1341,11 @@ declare namespace kendo.data {
     }
 
     interface DataSourceTransportReadOptionsData {
-        sort?: DataSourceSortItem[];
-        filter?: DataSourceFilters;
-        group?: DataSourceGroupItem[];
-        take?: number;
-        skip?: number;
+        sort?: DataSourceSortItem[] | undefined;
+        filter?: DataSourceFilters | undefined;
+        group?: DataSourceGroupItem[] | undefined;
+        take?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface DataSourceTransportReadOptions extends DataSourceTransportOptions {
@@ -1361,25 +1361,25 @@ declare namespace kendo.data {
     }
 
     interface DataSourceOptions {
-        aggregate?: DataSourceAggregateItem[];
-        autoSync?: boolean;
-        batch?: boolean;
+        aggregate?: DataSourceAggregateItem[] | undefined;
+        autoSync?: boolean | undefined;
+        batch?: boolean | undefined;
         data?: any;
         filter?: any;
-        group?: DataSourceGroupItem | DataSourceGroupItem[];
-        inPlaceSort?: boolean;
+        group?: DataSourceGroupItem | DataSourceGroupItem[] | undefined;
+        inPlaceSort?: boolean | undefined;
         offlineStorage?: any;
-        page?: number;
-        pageSize?: number;
-        schema?: DataSourceSchema;
-        serverAggregates?: boolean;
-        serverFiltering?: boolean;
-        serverGrouping?: boolean;
-        serverPaging?: boolean;
-        serverSorting?: boolean;
+        page?: number | undefined;
+        pageSize?: number | undefined;
+        schema?: DataSourceSchema | undefined;
+        serverAggregates?: boolean | undefined;
+        serverFiltering?: boolean | undefined;
+        serverGrouping?: boolean | undefined;
+        serverPaging?: boolean | undefined;
+        serverSorting?: boolean | undefined;
         sort?: any;
-        transport?: DataSourceTransport;
-        type?: string;
+        transport?: DataSourceTransport | undefined;
+        type?: string | undefined;
         change? (e: DataSourceChangeEvent): void;
         error?(e: DataSourceErrorEvent): void;
         push?(e: DataSourcePushEvent): void;
@@ -1389,7 +1389,7 @@ declare namespace kendo.data {
     }
 
     interface DataSourceEvent {
-        sender?: DataSource;
+        sender?: DataSource | undefined;
     }
 
     interface DataSourceItemOrGroup {
@@ -1404,17 +1404,17 @@ declare namespace kendo.data {
     }
 
     interface DataSourceChangeEvent extends DataSourceEvent {
-        field?: string;
-        value?: Model;
-        action?: string;
-        index?: number;
-        items?: DataSourceItemOrGroup[];
+        field?: string | undefined;
+        value?: Model | undefined;
+        action?: string | undefined;
+        index?: number | undefined;
+        items?: DataSourceItemOrGroup[] | undefined;
         node?: any;
     }
 
     interface DataSourcePushEvent extends DataSourceEvent {
-        items?: DataSourceItemOrGroup[];
-        type?: string;
+        items?: DataSourceItemOrGroup[] | undefined;
+        type?: string | undefined;
 
     }
 
@@ -1426,13 +1426,13 @@ declare namespace kendo.data {
     }
 
     interface DataSourceRequestStartEvent extends DataSourceEvent {
-        type?: string;
+        type?: string | undefined;
         preventDefault(): void;
     }
 
     interface DataSourceRequestEndEvent extends DataSourceEvent {
         response?: any;
-        type?: string;
+        type?: string | undefined;
     }
 }
 
@@ -1598,7 +1598,7 @@ declare namespace kendo.ui {
     }
 
     interface DraggableEvent extends JQueryEventObject {
-        sender?: Draggable;
+        sender?: Draggable | undefined;
         originalEvent: MouseEvent;
     }
 
@@ -1610,16 +1610,16 @@ declare namespace kendo.ui {
     }
 
     interface DropTargetOptions {
-        group?: string;
+        group?: string | undefined;
         dragenter?(e: DropTargetDragenterEvent): void;
         dragleave?(e: DropTargetDragleaveEvent): void;
         drop?(e: DropTargetDropEvent): void;
     }
 
     interface DropTargetEvent extends JQueryEventObject {
-        sender?: DropTarget;
-        draggable?: kendo.ui.Draggable;
-        dropTarget?: JQuery
+        sender?: DropTarget | undefined;
+        draggable?: kendo.ui.Draggable | undefined;
+        dropTarget?: JQuery | undefined
     }
 
     interface DropTargetDragenterEvent extends DropTargetEvent {
@@ -1638,8 +1638,8 @@ declare namespace kendo.ui {
     }
 
     interface DropTargetAreaOptions {
-        group?: string;
-        filter?: string;
+        group?: string | undefined;
+        filter?: string | undefined;
         dragenter?(e: DropTargetAreaDragenterEvent): void;
         dragleave?(e: DropTargetAreaDragleaveEvent): void;
         drop?(e: DropTargetAreaDropEvent): void;
@@ -1650,34 +1650,34 @@ declare namespace kendo.ui {
     }
 
     interface DropTargetAreaDragenterEvent extends DropTargetAreaEvent {
-        draggable?: kendo.ui.Draggable;
-        dropTarget?: JQuery;
-        target?: Element;
+        draggable?: kendo.ui.Draggable | undefined;
+        dropTarget?: JQuery | undefined;
+        target?: Element | undefined;
     }
 
     interface DropTargetAreaDragleaveEvent extends DropTargetAreaEvent {
-        draggable?: kendo.ui.Draggable;
-        dropTarget?: JQuery;
-        target?: Element;
+        draggable?: kendo.ui.Draggable | undefined;
+        dropTarget?: JQuery | undefined;
+        target?: Element | undefined;
     }
 
     interface DropTargetAreaDropEvent extends DropTargetAreaEvent {
-        draggable?: kendo.ui.Draggable;
-        dropTarget?: JQuery;
-        target?: Element;
+        draggable?: kendo.ui.Draggable | undefined;
+        dropTarget?: JQuery | undefined;
+        target?: Element | undefined;
     }
 
     interface DraggableOptions {
-        axis?: string;
-        autoScroll?: boolean;
-        container?: JQuery;
+        axis?: string | undefined;
+        autoScroll?: boolean | undefined;
+        container?: JQuery | undefined;
         cursorOffset?: any;
-        distance?: number;
-        filter?: string;
-        group?: string;
-        hint?: Function|JQuery;
-        holdToDrag?: boolean;
-        ignore?: string;
+        distance?: number | undefined;
+        filter?: string | undefined;
+        group?: string | undefined;
+        hint?: Function|JQuery | undefined;
+        holdToDrag?: boolean | undefined;
+        ignore?: string | undefined;
         drag?(e: DraggableEvent): void;
         dragcancel?(e: DraggableEvent): void;
         dragend?(e: DraggableEvent): void;
@@ -1704,13 +1704,13 @@ declare namespace kendo.ui {
         DropDownListOptions;
 
     interface EditorDefinitionOptions {
-        id?: string;
+        id?: string | undefined;
         field: string;
-        title?: string;
+        title?: string | undefined;
         model: kendo.data.Model;
-        editor?: string;
-        editorOptions?: AllEditorOptions;
-        format?: string;
+        editor?: string | undefined;
+        editorOptions?: AllEditorOptions | undefined;
+        format?: string | undefined;
     }
 
 
@@ -1745,14 +1745,14 @@ declare namespace kendo.ui {
         skipFocus: boolean;
     }
     interface EditorField {
-        field?: string;
-        values?: any[];
-        editor?: string;
+        field?: string | undefined;
+        values?: any[] | undefined;
+        editor?: string | undefined;
     }
 
     interface Editable extends Widget {
         options: EditableOptions;
-        validatable?: kendo.ui.Validator;
+        validatable?: kendo.ui.Validator | undefined;
 
         editor(field: string | EditorField, modelField: string | kendo.data.DataSourceSchemaModelField): void;
         refresh(): void;
@@ -1761,10 +1761,10 @@ declare namespace kendo.ui {
     }
 
     interface GridColumnEditorOptions {
-        field?: string;
-        format?: string;
-        model?: kendo.data.Model;
-        values?: any[];
+        field?: string | undefined;
+        format?: string | undefined;
+        model?: kendo.data.Model | undefined;
+        values?: any[] | undefined;
     }
 
     interface GridColumn {
@@ -1772,10 +1772,10 @@ declare namespace kendo.ui {
     }
 
     interface TreeListEditorOptions {
-        field?: string;
-        format?: string;
-        model?: kendo.data.Model;
-        values?: any[];
+        field?: string | undefined;
+        format?: string | undefined;
+        model?: kendo.data.Model | undefined;
+        values?: any[] | undefined;
     }
 
     interface TreeListColumn {
@@ -1934,24 +1934,24 @@ declare namespace kendo.mobile {
     }
 
     interface ApplicationOptions {
-        browserHistory?: boolean;
-        hashBang?: boolean;
-        hideAddressBar?: boolean;
-        updateDocumentTitle?: boolean;
-        initial?: string;
-        layout?: string;
-        loading?: string;
-        modelScope?: Object;
-        platform?: string;
-        pushState?: boolean;
-        root?: string;
-        retina?: boolean;
-        serverNavigation?: boolean;
-        skin?: string;
-        statusBarStyle?: string;
-        transition?: string;
-        useNativeScrolling?: boolean;
-        webAppCapable?: boolean;
+        browserHistory?: boolean | undefined;
+        hashBang?: boolean | undefined;
+        hideAddressBar?: boolean | undefined;
+        updateDocumentTitle?: boolean | undefined;
+        initial?: string | undefined;
+        layout?: string | undefined;
+        loading?: string | undefined;
+        modelScope?: Object | undefined;
+        platform?: string | undefined;
+        pushState?: boolean | undefined;
+        root?: string | undefined;
+        retina?: boolean | undefined;
+        serverNavigation?: boolean | undefined;
+        skin?: string | undefined;
+        statusBarStyle?: string | undefined;
+        transition?: string | undefined;
+        useNativeScrolling?: boolean | undefined;
+        webAppCapable?: boolean | undefined;
         init?(e: ApplicationEvent): void;
     }
 
@@ -1966,22 +1966,22 @@ declare namespace kendo.mobile.ui {
     }
 
     interface TouchAxis {
-        location?: number;
-        startLocation?: number;
-        client?: number;
-        delta?: number;
-        velocity?: number;
+        location?: number | undefined;
+        startLocation?: number | undefined;
+        client?: number | undefined;
+        delta?: number | undefined;
+        velocity?: number | undefined;
     }
 
     interface TouchEventOptions {
-        target?: JQuery;
-        x?: TouchAxis;
-        y?: TouchAxis;
+        target?: JQuery | undefined;
+        x?: TouchAxis | undefined;
+        y?: TouchAxis | undefined;
     }
 
     interface Point {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 }
 declare namespace kendo.dataviz.ui {
@@ -2025,19 +2025,19 @@ declare namespace kendo.ui {
     }
 
     interface ActionSheetItem {
-        click?: Function;
-        description?: string;
-        group?: string;
-        iconClass?: string;
-        iconColor?: string;
-        iconSize?: number;
-        text?: string;
+        click?: Function | undefined;
+        description?: string | undefined;
+        group?: string | undefined;
+        iconClass?: string | undefined;
+        iconColor?: string | undefined;
+        iconSize?: number | undefined;
+        text?: string | undefined;
     }
 
     interface ActionSheetOptions {
-        name?: string;
-        items?: ActionSheetItem[];
-        title?: string;
+        name?: string | undefined;
+        items?: ActionSheetItem[] | undefined;
+        title?: string | undefined;
         close?(e: ActionSheetEvent): void;
         open?(e: ActionSheetEvent): void;
     }
@@ -2066,12 +2066,12 @@ declare namespace kendo.ui {
     }
 
     interface AlertMessages {
-        okText?: string;
+        okText?: string | undefined;
     }
 
     interface AlertOptions {
-        name?: string;
-        messages?: AlertMessages;
+        name?: string | undefined;
+        messages?: AlertMessages | undefined;
     }
     interface AlertEvent {
         sender: Alert;
@@ -2093,18 +2093,18 @@ declare namespace kendo.ui {
     }
 
     interface AppBarItem {
-        className?: string;
-        template?: string|Function;
-        type?: string;
-        width?: string|number;
+        className?: string | undefined;
+        template?: string|Function | undefined;
+        type?: string | undefined;
+        width?: string|number | undefined;
     }
 
     interface AppBarOptions {
-        name?: string;
-        themeColor?: string;
-        items?: AppBarItem[];
-        position?: string;
-        positionMode?: string;
+        name?: string | undefined;
+        themeColor?: string | undefined;
+        items?: AppBarItem[] | undefined;
+        position?: string | undefined;
+        positionMode?: string | undefined;
         resize?(e: AppBarResizeEvent): void;
     }
 
@@ -2158,54 +2158,54 @@ declare namespace kendo.ui {
     }
 
     interface AutoCompleteAnimationClose {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface AutoCompleteAnimationOpen {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface AutoCompleteAnimation {
-        close?: AutoCompleteAnimationClose;
-        open?: AutoCompleteAnimationOpen;
+        close?: AutoCompleteAnimationClose | undefined;
+        open?: AutoCompleteAnimationOpen | undefined;
     }
 
     interface AutoCompleteVirtual {
-        itemHeight?: number;
-        mapValueTo?: string;
-        valueMapper?: Function;
+        itemHeight?: number | undefined;
+        mapValueTo?: string | undefined;
+        valueMapper?: Function | undefined;
     }
 
     interface AutoCompleteOptions {
-        name?: string;
-        animation?: boolean | AutoCompleteAnimation;
-        autoWidth?: boolean;
-        dataSource?: any|any|kendo.data.DataSource;
-        clearButton?: boolean;
-        dataTextField?: string;
-        delay?: number;
-        enable?: boolean;
-        enforceMinLength?: boolean;
-        filter?: string;
-        fixedGroupTemplate?: string|Function;
-        footerTemplate?: string|Function;
-        groupTemplate?: string|Function;
-        height?: number;
-        highlightFirst?: boolean;
-        ignoreCase?: boolean;
-        minLength?: number;
-        noDataTemplate?: string|Function|boolean;
-        placeholder?: string;
+        name?: string | undefined;
+        animation?: boolean | AutoCompleteAnimation | undefined;
+        autoWidth?: boolean | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        clearButton?: boolean | undefined;
+        dataTextField?: string | undefined;
+        delay?: number | undefined;
+        enable?: boolean | undefined;
+        enforceMinLength?: boolean | undefined;
+        filter?: string | undefined;
+        fixedGroupTemplate?: string|Function | undefined;
+        footerTemplate?: string|Function | undefined;
+        groupTemplate?: string|Function | undefined;
+        height?: number | undefined;
+        highlightFirst?: boolean | undefined;
+        ignoreCase?: boolean | undefined;
+        minLength?: number | undefined;
+        noDataTemplate?: string|Function|boolean | undefined;
+        placeholder?: string | undefined;
         popup?: any;
-        separator?: string|any;
-        suggest?: boolean;
-        headerTemplate?: string|Function;
-        template?: string|Function;
-        value?: string;
-        valuePrimitive?: boolean;
-        virtual?: boolean | AutoCompleteVirtual;
+        separator?: string|any | undefined;
+        suggest?: boolean | undefined;
+        headerTemplate?: string|Function | undefined;
+        template?: string|Function | undefined;
+        value?: string | undefined;
+        valuePrimitive?: boolean | undefined;
+        virtual?: boolean | AutoCompleteVirtual | undefined;
         change?(e: AutoCompleteChangeEvent): void;
         close?(e: AutoCompleteCloseEvent): void;
         dataBound?(e: AutoCompleteDataBoundEvent): void;
@@ -2237,7 +2237,7 @@ declare namespace kendo.ui {
 
     interface AutoCompleteSelectEvent extends AutoCompleteEvent {
         dataItem?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     class BottomNavigation extends kendo.ui.Widget {
@@ -2272,29 +2272,29 @@ declare namespace kendo.ui {
     }
 
     interface BottomNavigationItem {
-        url?: string;
+        url?: string | undefined;
         data?: any;
-        icon?: string;
-        text?: string;
-        encoded?: boolean;
-        iconClass?: string;
-        cssClass?: string;
+        icon?: string | undefined;
+        text?: string | undefined;
+        encoded?: boolean | undefined;
+        iconClass?: string | undefined;
+        cssClass?: string | undefined;
         attributes?: any;
-        enabled?: boolean;
-        selected?: boolean;
-        template?: string|Function;
+        enabled?: boolean | undefined;
+        selected?: boolean | undefined;
+        template?: string|Function | undefined;
     }
 
     interface BottomNavigationOptions {
-        name?: string;
-        border?: boolean;
-        shadow?: boolean;
-        fill?: string;
-        itemFlow?: string;
-        themeColor?: string;
-        items?: BottomNavigationItem[];
-        template?: string|Function;
-        positionMode?: string;
+        name?: string | undefined;
+        border?: boolean | undefined;
+        shadow?: boolean | undefined;
+        fill?: string | undefined;
+        itemFlow?: string | undefined;
+        themeColor?: string | undefined;
+        items?: BottomNavigationItem[] | undefined;
+        template?: string|Function | undefined;
+        positionMode?: string | undefined;
         select?(e: BottomNavigationSelectEvent): void;
     }
     interface BottomNavigationEvent {
@@ -2306,7 +2306,7 @@ declare namespace kendo.ui {
     interface BottomNavigationSelectEvent extends BottomNavigationEvent {
         originalEvent?: any;
         data?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
     class Breadcrumb extends kendo.ui.Widget {
 
@@ -2327,35 +2327,35 @@ declare namespace kendo.ui {
     }
 
     interface BreadcrumbOptions {
-        name?: string;
-        items?: BreadcrumbItem[];
-        bindToLocation?: boolean;
-        delimiterIcon?: string;
-        editable?: boolean;
-        gap?: number;
-        messages?: BreadcrumbMessages;
-        navigational?: boolean;
-        rootIcon?: string;
-        value?: string;
+        name?: string | undefined;
+        items?: BreadcrumbItem[] | undefined;
+        bindToLocation?: boolean | undefined;
+        delimiterIcon?: string | undefined;
+        editable?: boolean | undefined;
+        gap?: number | undefined;
+        messages?: BreadcrumbMessages | undefined;
+        navigational?: boolean | undefined;
+        rootIcon?: string | undefined;
+        value?: string | undefined;
 
         change?(e: BreadcrumbChangeEvent): void;
         click?(e: BreadcrumbClickEvent): void;
     }
 
     interface BreadcrumbMessages {
-        rootTitle?: string;
+        rootTitle?: string | undefined;
     }
 
     interface BreadcrumbItem {
-        type?: string;
-        href?: string;
-        text?: string;
-        icon?: string;
-        itemClass?: string;
-        linkClass?: string;
-        iconClass?: string;
-        showIcon?: boolean;
-        showText?: boolean;
+        type?: string | undefined;
+        href?: string | undefined;
+        text?: string | undefined;
+        icon?: string | undefined;
+        itemClass?: string | undefined;
+        linkClass?: string | undefined;
+        iconClass?: string | undefined;
+        showIcon?: boolean | undefined;
+        showText?: boolean | undefined;
     }
 
     interface BreadcrumbEvent {
@@ -2365,13 +2365,13 @@ declare namespace kendo.ui {
     }
 
     interface BreadcrumbChangeEvent extends BreadcrumbEvent {
-        value?: string;
+        value?: string | undefined;
     }
 
     interface BreadcrumbClickEvent extends BreadcrumbEvent {
         originalEvent?: any;
-        isRoot?: boolean;
-        item?: BreadcrumbItem;
+        isRoot?: boolean | undefined;
+        item?: BreadcrumbItem | undefined;
     }
 
 
@@ -2395,12 +2395,12 @@ declare namespace kendo.ui {
     }
 
     interface ButtonOptions {
-        name?: string;
-        enable?: boolean;
-        icon?: string;
-        iconClass?: string;
-        imageUrl?: string;
-        spriteCssClass?: string;
+        name?: string | undefined;
+        enable?: boolean | undefined;
+        icon?: string | undefined;
+        iconClass?: string | undefined;
+        imageUrl?: string | undefined;
+        spriteCssClass?: string | undefined;
         click?(e: ButtonClickEvent): void;
     }
     interface ButtonEvent {
@@ -2444,22 +2444,22 @@ declare namespace kendo.ui {
 
     interface ButtonGroupItem {
         attributes?: any;
-        badge?: string;
-        enabled?: boolean;
-        icon?: string;
-        iconClass?: string;
-        imageUrl?: string;
-        selected?: boolean;
-        text?: string;
-        encoded?: boolean;
+        badge?: string | undefined;
+        enabled?: boolean | undefined;
+        icon?: string | undefined;
+        iconClass?: string | undefined;
+        imageUrl?: string | undefined;
+        selected?: boolean | undefined;
+        text?: string | undefined;
+        encoded?: boolean | undefined;
     }
 
     interface ButtonGroupOptions {
-        name?: string;
-        enable?: boolean;
-        index?: number;
-        selection?: string;
-        items?: ButtonGroupItem[];
+        name?: string | undefined;
+        enable?: boolean | undefined;
+        index?: number | undefined;
+        selection?: string | undefined;
+        items?: ButtonGroupItem[] | undefined;
         select?(e: ButtonGroupSelectEvent): void;
     }
     interface ButtonGroupEvent {
@@ -2510,32 +2510,32 @@ declare namespace kendo.ui {
     }
 
     interface CalendarMessages {
-        weekColumnHeader?: string;
+        weekColumnHeader?: string | undefined;
     }
 
     interface CalendarMonth {
-        content?: string;
-        weekNumber?: string;
-        empty?: string;
+        content?: string | undefined;
+        weekNumber?: string | undefined;
+        empty?: string | undefined;
     }
 
     interface CalendarOptions {
-        name?: string;
-        culture?: string;
+        name?: string | undefined;
+        culture?: string | undefined;
         dates?: any;
-        depth?: string;
-        disableDates?: any|Function;
-        footer?: boolean | string | Function;
-        format?: string;
-        max?: Date;
-        messages?: CalendarMessages;
-        min?: Date;
-        month?: CalendarMonth;
-        selectable?: string;
+        depth?: string | undefined;
+        disableDates?: any|Function | undefined;
+        footer?: boolean | string | Function | undefined;
+        format?: string | undefined;
+        max?: Date | undefined;
+        messages?: CalendarMessages | undefined;
+        min?: Date | undefined;
+        month?: CalendarMonth | undefined;
+        selectable?: string | undefined;
         selectDates?: any;
-        weekNumber?: boolean;
-        start?: string;
-        value?: Date;
+        weekNumber?: boolean | undefined;
+        start?: string | undefined;
+        value?: Date | undefined;
         change?(e: CalendarEvent): void;
         navigate?(e: CalendarEvent): void;
     }
@@ -2570,52 +2570,52 @@ declare namespace kendo.ui {
     }
 
     interface ChatMessages {
-        placeholder?: string;
-        sendButton?: string;
-        toggleButton?: string;
+        placeholder?: string | undefined;
+        sendButton?: string | undefined;
+        toggleButton?: string | undefined;
     }
 
     interface ChatUser {
-        iconUrl?: string;
-        name?: string;
+        iconUrl?: string | undefined;
+        name?: string | undefined;
     }
 
     interface ChatRenderAttachmentsOptionsAttachments {
         content?: any;
-        contentType?: string;
+        contentType?: string | undefined;
     }
 
     interface ChatRenderAttachmentsOptions {
-        attachments?: ChatRenderAttachmentsOptionsAttachments;
-        attachmentLayout?: string;
+        attachments?: ChatRenderAttachmentsOptionsAttachments | undefined;
+        attachmentLayout?: string | undefined;
     }
 
     interface ChatRenderAttachmentsSender {
         id?: any;
-        name?: string;
-        iconUrl?: string;
+        name?: string | undefined;
+        iconUrl?: string | undefined;
     }
 
     interface ChatRenderMessageMessage {
-        type?: string;
-        text?: string;
+        type?: string | undefined;
+        text?: string | undefined;
     }
 
     interface ChatRenderMessageSender {
         id?: any;
-        name?: string;
-        iconUrl?: string;
+        name?: string | undefined;
+        iconUrl?: string | undefined;
     }
 
     interface ChatRenderSuggestedActionsSuggestedActions {
-        title?: string;
-        value?: string;
+        title?: string | undefined;
+        value?: string | undefined;
     }
 
     interface ChatOptions {
-        name?: string;
-        messages?: ChatMessages;
-        user?: ChatUser;
+        name?: string | undefined;
+        messages?: ChatMessages | undefined;
+        user?: ChatUser | undefined;
         actionClick?(e: ChatActionClickEvent): void;
         post?(e: ChatPostEvent): void;
         sendMessage?(e: ChatSendMessageEvent): void;
@@ -2629,17 +2629,17 @@ declare namespace kendo.ui {
     }
 
     interface ChatActionClickEvent extends ChatEvent {
-        text?: string;
+        text?: string | undefined;
     }
 
     interface ChatPostEvent extends ChatEvent {
-        text?: string;
-        timestamp?: Date;
+        text?: string | undefined;
+        timestamp?: Date | undefined;
         from?: any;
     }
 
     interface ChatSendMessageEvent extends ChatEvent {
-        text?: string;
+        text?: string | undefined;
     }
 
     interface ChatTypingEndEvent extends ChatEvent {
@@ -2675,20 +2675,20 @@ declare namespace kendo.ui {
 
     interface CheckBoxGroupItem {
         attributes?: any;
-        cssClass?: string;
-        enabled?: boolean;
-        encoded?: boolean;
-        label?: string;
-        value?: string;
+        cssClass?: string | undefined;
+        enabled?: boolean | undefined;
+        encoded?: boolean | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     }
 
     interface CheckBoxGroupOptions {
-        name?: string;
-        enabled?: boolean;
-        inputName?: string;
-        items?: CheckBoxGroupItem[];
-        labelPosition?: string;
-        layout?: string;
+        name?: string | undefined;
+        enabled?: boolean | undefined;
+        inputName?: string | undefined;
+        items?: CheckBoxGroupItem[] | undefined;
+        labelPosition?: string | undefined;
+        layout?: string | undefined;
         value?: any;
         change?(e: CheckBoxGroupChangeEvent): void;
         focus?(e: CheckBoxGroupFocusEvent): void;
@@ -2701,15 +2701,15 @@ declare namespace kendo.ui {
     }
 
     interface CheckBoxGroupChangeEvent extends CheckBoxGroupEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
     interface CheckBoxGroupFocusEvent extends CheckBoxGroupEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
     interface CheckBoxGroupSelectEvent extends CheckBoxGroupEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
     class ColorPalette extends kendo.ui.Widget {
@@ -2736,16 +2736,16 @@ declare namespace kendo.ui {
     }
 
     interface ColorPaletteTileSize {
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface ColorPaletteOptions {
-        name?: string;
-        palette?: string|any;
-        columns?: number;
-        tileSize?: ColorPaletteTileSize;
-        value?: string;
+        name?: string | undefined;
+        palette?: string|any | undefined;
+        columns?: number | undefined;
+        tileSize?: ColorPaletteTileSize | undefined;
+        value?: string | undefined;
         change?(e: ColorPaletteEvent): void;
     }
     interface ColorPaletteEvent {
@@ -2782,28 +2782,28 @@ declare namespace kendo.ui {
     }
 
     interface ColorPickerMessages {
-        apply?: string;
-        cancel?: string;
-        previewInput?: string;
+        apply?: string | undefined;
+        cancel?: string | undefined;
+        previewInput?: string | undefined;
     }
 
     interface ColorPickerTileSize {
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface ColorPickerOptions {
-        name?: string;
-        buttons?: boolean;
-        clearButton?: boolean;
-        columns?: number;
-        tileSize?: ColorPickerTileSize;
-        messages?: ColorPickerMessages;
-        palette?: string|any;
-        opacity?: boolean;
-        preview?: boolean;
-        toolIcon?: string;
-        value?: string;
+        name?: string | undefined;
+        buttons?: boolean | undefined;
+        clearButton?: boolean | undefined;
+        columns?: number | undefined;
+        tileSize?: ColorPickerTileSize | undefined;
+        messages?: ColorPickerMessages | undefined;
+        palette?: string|any | undefined;
+        opacity?: boolean | undefined;
+        preview?: boolean | undefined;
+        toolIcon?: string | undefined;
+        value?: string | undefined;
         change?(e: ColorPickerChangeEvent): void;
         select?(e: ColorPickerSelectEvent): void;
         open?(e: ColorPickerEvent): void;
@@ -2816,11 +2816,11 @@ declare namespace kendo.ui {
     }
 
     interface ColorPickerChangeEvent extends ColorPickerEvent {
-        value?: string;
+        value?: string | undefined;
     }
 
     interface ColorPickerSelectEvent extends ColorPickerEvent {
-        value?: string;
+        value?: string | undefined;
     }
 
 
@@ -2869,66 +2869,66 @@ declare namespace kendo.ui {
     }
 
     interface ComboBoxAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface ComboBoxAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface ComboBoxAnimation {
-        close?: ComboBoxAnimationClose;
-        open?: ComboBoxAnimationOpen;
+        close?: ComboBoxAnimationClose | undefined;
+        open?: ComboBoxAnimationOpen | undefined;
     }
 
     interface ComboBoxPopup {
-        appendTo?: string;
-        origin?: string;
-        position?: string;
+        appendTo?: string | undefined;
+        origin?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ComboBoxVirtual {
-        itemHeight?: number;
-        mapValueTo?: string;
-        valueMapper?: Function;
+        itemHeight?: number | undefined;
+        mapValueTo?: string | undefined;
+        valueMapper?: Function | undefined;
     }
 
     interface ComboBoxOptions {
-        name?: string;
-        animation?: ComboBoxAnimation;
-        autoBind?: boolean;
-        autoWidth?: boolean;
-        cascadeFrom?: string;
-        cascadeFromField?: string;
-        clearButton?: boolean;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataTextField?: string;
-        dataValueField?: string;
-        delay?: number;
-        enable?: boolean;
-        enforceMinLength?: boolean;
-        filter?: string;
-        fixedGroupTemplate?: string|Function;
-        footerTemplate?: string|Function;
-        groupTemplate?: string|Function;
-        height?: number;
-        highlightFirst?: boolean;
-        ignoreCase?: boolean;
-        index?: number;
-        minLength?: number;
-        noDataTemplate?: string|Function|boolean;
-        placeholder?: string;
-        popup?: ComboBoxPopup;
-        suggest?: boolean;
-        syncValueAndText?: boolean;
-        headerTemplate?: string|Function;
-        template?: string|Function;
-        text?: string;
-        value?: string;
-        valuePrimitive?: boolean;
-        virtual?: boolean | ComboBoxVirtual;
+        name?: string | undefined;
+        animation?: ComboBoxAnimation | undefined;
+        autoBind?: boolean | undefined;
+        autoWidth?: boolean | undefined;
+        cascadeFrom?: string | undefined;
+        cascadeFromField?: string | undefined;
+        clearButton?: boolean | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        dataValueField?: string | undefined;
+        delay?: number | undefined;
+        enable?: boolean | undefined;
+        enforceMinLength?: boolean | undefined;
+        filter?: string | undefined;
+        fixedGroupTemplate?: string|Function | undefined;
+        footerTemplate?: string|Function | undefined;
+        groupTemplate?: string|Function | undefined;
+        height?: number | undefined;
+        highlightFirst?: boolean | undefined;
+        ignoreCase?: boolean | undefined;
+        index?: number | undefined;
+        minLength?: number | undefined;
+        noDataTemplate?: string|Function|boolean | undefined;
+        placeholder?: string | undefined;
+        popup?: ComboBoxPopup | undefined;
+        suggest?: boolean | undefined;
+        syncValueAndText?: boolean | undefined;
+        headerTemplate?: string|Function | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
+        value?: string | undefined;
+        valuePrimitive?: boolean | undefined;
+        virtual?: boolean | ComboBoxVirtual | undefined;
         change?(e: ComboBoxChangeEvent): void;
         close?(e: ComboBoxCloseEvent): void;
         dataBound?(e: ComboBoxDataBoundEvent): void;
@@ -2961,7 +2961,7 @@ declare namespace kendo.ui {
 
     interface ComboBoxSelectEvent extends ComboBoxEvent {
         dataItem?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     interface ComboBoxCascadeEvent extends ComboBoxEvent {
@@ -2987,15 +2987,15 @@ declare namespace kendo.ui {
     }
 
     interface ConfirmMessages {
-        okText?: string;
-        cancel?: string;
+        okText?: string | undefined;
+        cancel?: string | undefined;
     }
 
     interface ConfirmOptions {
-        name?: string;
-        content?: string;
-        messages?: ConfirmMessages;
-        title?: string | boolean;
+        name?: string | undefined;
+        content?: string | undefined;
+        messages?: ConfirmMessages | undefined;
+        title?: string | boolean | undefined;
         initOpen?(e: DialogEvent): void;
         open?(e: DialogEvent): void;
     }
@@ -3046,45 +3046,45 @@ declare namespace kendo.ui {
     }
 
     interface ContextMenuAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface ContextMenuAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface ContextMenuAnimation {
-        close?: ContextMenuAnimationClose;
-        open?: ContextMenuAnimationOpen;
+        close?: ContextMenuAnimationClose | undefined;
+        open?: ContextMenuAnimationOpen | undefined;
     }
 
     interface ContextMenuScrollable {
-        distance?: number;
+        distance?: number | undefined;
     }
 
     interface ContextMenuOptions {
-        name?: string;
-        alignToAnchor?: boolean;
-        animation?: boolean | ContextMenuAnimation;
-        appendTo?: string|JQuery;
-        closeOnClick?: boolean;
-        copyAnchorStyles?: boolean;
-        dataSource?: any|any|kendo.data.HierarchicalDataSource;
-        dataTextField?: string;
-        dataUrlField?: string;
-        dataSpriteCssClassField?: string;
-        dataImageUrlField?: string;
-        dataContentField?: string;
-        direction?: string;
-        filter?: string;
-        hoverDelay?: number;
-        orientation?: string;
-        popupCollision?: string;
-        scrollable?: boolean | ContextMenuScrollable;
-        showOn?: string;
-        target?: string|JQuery;
+        name?: string | undefined;
+        alignToAnchor?: boolean | undefined;
+        animation?: boolean | ContextMenuAnimation | undefined;
+        appendTo?: string|JQuery | undefined;
+        closeOnClick?: boolean | undefined;
+        copyAnchorStyles?: boolean | undefined;
+        dataSource?: any|any|kendo.data.HierarchicalDataSource | undefined;
+        dataTextField?: string | undefined;
+        dataUrlField?: string | undefined;
+        dataSpriteCssClassField?: string | undefined;
+        dataImageUrlField?: string | undefined;
+        dataContentField?: string | undefined;
+        direction?: string | undefined;
+        filter?: string | undefined;
+        hoverDelay?: number | undefined;
+        orientation?: string | undefined;
+        popupCollision?: string | undefined;
+        scrollable?: boolean | ContextMenuScrollable | undefined;
+        showOn?: string | undefined;
+        target?: string|JQuery | undefined;
         close?(e: ContextMenuCloseEvent): void;
         open?(e: ContextMenuOpenEvent): void;
         activate?(e: ContextMenuActivateEvent): void;
@@ -3098,35 +3098,35 @@ declare namespace kendo.ui {
     }
 
     interface ContextMenuCloseEvent extends ContextMenuEvent {
-        item?: Element;
-        type?: string;
-        target?: Element;
-        event?: JQueryEventObject;
+        item?: Element | undefined;
+        type?: string | undefined;
+        target?: Element | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface ContextMenuOpenEvent extends ContextMenuEvent {
-        item?: Element;
-        type?: string;
-        target?: Element;
-        event?: JQueryEventObject;
+        item?: Element | undefined;
+        type?: string | undefined;
+        target?: Element | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface ContextMenuActivateEvent extends ContextMenuEvent {
-        item?: Element;
-        type?: string;
-        target?: Element;
+        item?: Element | undefined;
+        type?: string | undefined;
+        target?: Element | undefined;
     }
 
     interface ContextMenuDeactivateEvent extends ContextMenuEvent {
-        item?: Element;
-        type?: string;
-        target?: Element;
+        item?: Element | undefined;
+        type?: string | undefined;
+        target?: Element | undefined;
     }
 
     interface ContextMenuSelectEvent extends ContextMenuEvent {
-        item?: Element;
-        type?: string;
-        target?: Element;
+        item?: Element | undefined;
+        type?: string | undefined;
+        target?: Element | undefined;
     }
 
 
@@ -3162,23 +3162,23 @@ declare namespace kendo.ui {
     }
 
     interface DateInputMessages {
-        year?: string;
-        month?: string;
-        day?: string;
-        weekday?: string;
-        hour?: string;
-        minute?: string;
-        second?: string;
-        dayperiod?: string;
+        year?: string | undefined;
+        month?: string | undefined;
+        day?: string | undefined;
+        weekday?: string | undefined;
+        hour?: string | undefined;
+        minute?: string | undefined;
+        second?: string | undefined;
+        dayperiod?: string | undefined;
     }
 
     interface DateInputOptions {
-        name?: string;
-        format?: string;
-        max?: Date;
-        min?: Date;
-        value?: Date;
-        messages?: DateInputMessages;
+        name?: string | undefined;
+        format?: string | undefined;
+        max?: Date | undefined;
+        min?: Date | undefined;
+        value?: Date | undefined;
+        messages?: DateInputMessages | undefined;
         change?(e: DateInputChangeEvent): void;
     }
     interface DateInputEvent {
@@ -3225,44 +3225,44 @@ declare namespace kendo.ui {
     }
 
     interface DatePickerAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DatePickerAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DatePickerAnimation {
-        close?: DatePickerAnimationClose;
-        open?: DatePickerAnimationOpen;
+        close?: DatePickerAnimationClose | undefined;
+        open?: DatePickerAnimationOpen | undefined;
     }
 
     interface DatePickerMonth {
-        content?: string;
-        weekNumber?: string;
-        empty?: string;
+        content?: string | undefined;
+        weekNumber?: string | undefined;
+        empty?: string | undefined;
     }
 
     interface DatePickerOptions {
-        name?: string;
-        animation?: boolean | DatePickerAnimation;
-        ARIATemplate?: string;
-        culture?: string;
-        dateInput?: boolean;
+        name?: string | undefined;
+        animation?: boolean | DatePickerAnimation | undefined;
+        ARIATemplate?: string | undefined;
+        culture?: string | undefined;
+        dateInput?: boolean | undefined;
         dates?: any;
-        depth?: string;
-        disableDates?: any|Function;
-        footer?: boolean|string|Function;
-        format?: string;
-        max?: Date;
-        min?: Date;
-        month?: DatePickerMonth;
-        weekNumber?: boolean;
+        depth?: string | undefined;
+        disableDates?: any|Function | undefined;
+        footer?: boolean|string|Function | undefined;
+        format?: string | undefined;
+        max?: Date | undefined;
+        min?: Date | undefined;
+        month?: DatePickerMonth | undefined;
+        weekNumber?: boolean | undefined;
         parseFormats?: any;
-        start?: string;
-        value?: Date;
+        start?: string | undefined;
+        value?: Date | undefined;
         change?(e: DatePickerChangeEvent): void;
         close?(e: DatePickerCloseEvent): void;
         open?(e: DatePickerOpenEvent): void;
@@ -3315,38 +3315,38 @@ declare namespace kendo.ui {
     }
 
     interface DateRangePickerMessages {
-        startLabel?: string;
-        endLabel?: string;
+        startLabel?: string | undefined;
+        endLabel?: string | undefined;
     }
 
     interface DateRangePickerMonth {
-        content?: string;
-        weekNumber?: string;
-        empty?: string;
+        content?: string | undefined;
+        weekNumber?: string | undefined;
+        empty?: string | undefined;
     }
 
     interface DateRangePickerRange {
-        start?: Date;
-        end?: Date;
+        start?: Date | undefined;
+        end?: Date | undefined;
     }
 
     interface DateRangePickerOptions {
-        name?: string;
-        ARIATemplate?: string;
-        culture?: string;
+        name?: string | undefined;
+        ARIATemplate?: string | undefined;
+        culture?: string | undefined;
         dates?: any;
-        depth?: string;
-        disableDates?: any|Function;
-        footer?: string|Function;
-        format?: string;
-        max?: Date;
-        messages?: DateRangePickerMessages;
-        min?: Date;
-        month?: DateRangePickerMonth;
-        labels?: boolean;
-        weekNumber?: boolean;
-        range?: DateRangePickerRange;
-        start?: string;
+        depth?: string | undefined;
+        disableDates?: any|Function | undefined;
+        footer?: string|Function | undefined;
+        format?: string | undefined;
+        max?: Date | undefined;
+        messages?: DateRangePickerMessages | undefined;
+        min?: Date | undefined;
+        month?: DateRangePickerMonth | undefined;
+        labels?: boolean | undefined;
+        weekNumber?: boolean | undefined;
+        range?: DateRangePickerRange | undefined;
+        start?: string | undefined;
         change?(e: DateRangePickerChangeEvent): void;
         close?(e: DateRangePickerCloseEvent): void;
         open?(e: DateRangePickerOpenEvent): void;
@@ -3401,46 +3401,46 @@ declare namespace kendo.ui {
     }
 
     interface DateTimePickerAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DateTimePickerAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DateTimePickerAnimation {
-        close?: DateTimePickerAnimationClose;
-        open?: DateTimePickerAnimationOpen;
+        close?: DateTimePickerAnimationClose | undefined;
+        open?: DateTimePickerAnimationOpen | undefined;
     }
 
     interface DateTimePickerMonth {
-        content?: string;
-        weekNumber?: string;
-        empty?: string;
+        content?: string | undefined;
+        weekNumber?: string | undefined;
+        empty?: string | undefined;
     }
 
     interface DateTimePickerOptions {
-        name?: string;
-        animation?: boolean | DateTimePickerAnimation;
-        ARIATemplate?: string;
-        culture?: string;
-        dateInput?: boolean;
+        name?: string | undefined;
+        animation?: boolean | DateTimePickerAnimation | undefined;
+        ARIATemplate?: string | undefined;
+        culture?: string | undefined;
+        dateInput?: boolean | undefined;
         dates?: any;
-        depth?: string;
-        disableDates?: any|Function;
-        footer?: boolean|string|Function;
-        format?: string;
-        interval?: number;
-        max?: Date;
-        min?: Date;
-        month?: DateTimePickerMonth;
-        weekNumber?: boolean;
+        depth?: string | undefined;
+        disableDates?: any|Function | undefined;
+        footer?: boolean|string|Function | undefined;
+        format?: string | undefined;
+        interval?: number | undefined;
+        max?: Date | undefined;
+        min?: Date | undefined;
+        month?: DateTimePickerMonth | undefined;
+        weekNumber?: boolean | undefined;
         parseFormats?: any;
-        start?: string;
-        timeFormat?: string;
-        value?: Date;
+        start?: string | undefined;
+        timeFormat?: string | undefined;
+        value?: Date | undefined;
         change?(e: DateTimePickerChangeEvent): void;
         close?(e: DateTimePickerCloseEvent): void;
         open?(e: DateTimePickerOpenEvent): void;
@@ -3455,11 +3455,11 @@ declare namespace kendo.ui {
     }
 
     interface DateTimePickerCloseEvent extends DateTimePickerEvent {
-        view?: string;
+        view?: string | undefined;
     }
 
     interface DateTimePickerOpenEvent extends DateTimePickerEvent {
-        view?: string;
+        view?: string | undefined;
     }
 
 
@@ -3491,53 +3491,53 @@ declare namespace kendo.ui {
     }
 
     interface DialogAction {
-        text?: string;
-        action?: Function;
-        primary?: boolean;
+        text?: string | undefined;
+        action?: Function | undefined;
+        primary?: boolean | undefined;
     }
 
     interface DialogAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DialogAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DialogAnimation {
-        close?: DialogAnimationClose;
-        open?: DialogAnimationOpen;
+        close?: DialogAnimationClose | undefined;
+        open?: DialogAnimationOpen | undefined;
     }
 
     interface DialogMessages {
-        close?: string;
-        promptInput?: string;
+        close?: string | undefined;
+        promptInput?: string | undefined;
     }
 
     interface DialogModal {
-        preventScroll?: string;
+        preventScroll?: string | undefined;
     }
 
     interface DialogOptions {
-        name?: string;
-        actions?: DialogAction[];
-        animation?: boolean | DialogAnimation;
-        buttonLayout?: string;
-        closable?: boolean;
-        content?: string;
-        height?: number|string;
-        maxHeight?: number;
-        maxWidth?: number;
-        messages?: DialogMessages;
-        minHeight?: number;
-        minWidth?: number;
-        modal?: boolean | DialogModal;
-        title?: string|boolean;
-        visible?: boolean;
-        width?: number|string;
-        size?: string;
+        name?: string | undefined;
+        actions?: DialogAction[] | undefined;
+        animation?: boolean | DialogAnimation | undefined;
+        buttonLayout?: string | undefined;
+        closable?: boolean | undefined;
+        content?: string | undefined;
+        height?: number|string | undefined;
+        maxHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        messages?: DialogMessages | undefined;
+        minHeight?: number | undefined;
+        minWidth?: number | undefined;
+        modal?: boolean | DialogModal | undefined;
+        title?: string|boolean | undefined;
+        visible?: boolean | undefined;
+        width?: number|string | undefined;
+        size?: string | undefined;
         close?(e: DialogCloseEvent): void;
         hide?(e: DialogEvent): void;
         initOpen?(e: DialogEvent): void;
@@ -3551,7 +3551,7 @@ declare namespace kendo.ui {
     }
 
     interface DialogCloseEvent extends DialogEvent {
-        userTriggered?: boolean;
+        userTriggered?: boolean | undefined;
     }
 
     class Drawer extends kendo.ui.Widget {
@@ -3577,18 +3577,18 @@ declare namespace kendo.ui {
     }
 
     interface DrawerMini {
-        width?: number;
-        template?: string;
+        width?: number | undefined;
+        template?: string | undefined;
     }
 
     interface DrawerOptions {
-        name?: string;
-        position?: string;
-        mode?: string;
-        template?: string;
-        minHeight?: number;
-        mini?: boolean | DrawerMini;
-        swipeToOpen?: boolean;
+        name?: string | undefined;
+        position?: string | undefined;
+        mode?: string | undefined;
+        template?: string | undefined;
+        minHeight?: number | undefined;
+        mini?: boolean | DrawerMini | undefined;
+        swipeToOpen?: boolean | undefined;
         hide?(e: DrawerHideEvent): void;
         show?(e: DrawerEvent): void;
         itemClick?(e: DrawerEvent): void;
@@ -3648,65 +3648,65 @@ declare namespace kendo.ui {
     }
 
     interface DropDownListAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DropDownListAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DropDownListAnimation {
-        close?: DropDownListAnimationClose;
-        open?: DropDownListAnimationOpen;
+        close?: DropDownListAnimationClose | undefined;
+        open?: DropDownListAnimationOpen | undefined;
     }
 
     interface DropDownListPopup {
-        appendTo?: string;
-        origin?: string;
-        position?: string;
+        appendTo?: string | undefined;
+        origin?: string | undefined;
+        position?: string | undefined;
     }
 
     interface DropDownListVirtual {
-        itemHeight?: number;
-        mapValueTo?: string;
-        valueMapper?: Function;
+        itemHeight?: number | undefined;
+        mapValueTo?: string | undefined;
+        valueMapper?: Function | undefined;
     }
 
     interface DropDownListOptions {
-        name?: string;
-        animation?: boolean | DropDownListAnimation;
-        autoBind?: boolean;
-        autoWidth?: boolean;
-        cascadeFrom?: string;
-        cascadeFromField?: string;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataTextField?: string;
-        dataValueField?: string;
-        delay?: number;
-        enable?: boolean;
-        enforceMinLength?: boolean;
-        filter?: string;
-        fixedGroupTemplate?: string|Function;
-        footerTemplate?: string|Function;
-        groupTemplate?: string|Function;
-        height?: number;
-        ignoreCase?: boolean;
-        index?: number;
-        filterTitle?: string;
-        minLength?: number;
-        noDataTemplate?: string|Function|boolean;
-        popup?: DropDownListPopup;
-        optionLabel?: string|any;
-        optionLabelTemplate?: string|Function;
-        headerTemplate?: string|Function;
-        template?: string|Function;
-        valueTemplate?: string|Function;
-        text?: string;
-        value?: string;
-        valuePrimitive?: boolean;
-        virtual?: boolean | DropDownListVirtual;
+        name?: string | undefined;
+        animation?: boolean | DropDownListAnimation | undefined;
+        autoBind?: boolean | undefined;
+        autoWidth?: boolean | undefined;
+        cascadeFrom?: string | undefined;
+        cascadeFromField?: string | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        dataValueField?: string | undefined;
+        delay?: number | undefined;
+        enable?: boolean | undefined;
+        enforceMinLength?: boolean | undefined;
+        filter?: string | undefined;
+        fixedGroupTemplate?: string|Function | undefined;
+        footerTemplate?: string|Function | undefined;
+        groupTemplate?: string|Function | undefined;
+        height?: number | undefined;
+        ignoreCase?: boolean | undefined;
+        index?: number | undefined;
+        filterTitle?: string | undefined;
+        minLength?: number | undefined;
+        noDataTemplate?: string|Function|boolean | undefined;
+        popup?: DropDownListPopup | undefined;
+        optionLabel?: string|any | undefined;
+        optionLabelTemplate?: string|Function | undefined;
+        headerTemplate?: string|Function | undefined;
+        template?: string|Function | undefined;
+        valueTemplate?: string|Function | undefined;
+        text?: string | undefined;
+        value?: string | undefined;
+        valuePrimitive?: boolean | undefined;
+        virtual?: boolean | DropDownListVirtual | undefined;
         change?(e: DropDownListChangeEvent): void;
         close?(e: DropDownListCloseEvent): void;
         dataBound?(e: DropDownListDataBoundEvent): void;
@@ -3739,7 +3739,7 @@ declare namespace kendo.ui {
 
     interface DropDownListSelectEvent extends DropDownListEvent {
         dataItem?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     interface DropDownListCascadeEvent extends DropDownListEvent {
@@ -3784,74 +3784,74 @@ declare namespace kendo.ui {
     }
 
     interface DropDownTreeAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DropDownTreeAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface DropDownTreeAnimation {
-        close?: DropDownTreeAnimationClose;
-        open?: DropDownTreeAnimationOpen;
+        close?: DropDownTreeAnimationClose | undefined;
+        open?: DropDownTreeAnimationOpen | undefined;
     }
 
     interface DropDownTreeCheckboxes {
-        checkChildren?: boolean;
-        name?: string;
-        template?: string|Function;
+        checkChildren?: boolean | undefined;
+        name?: string | undefined;
+        template?: string|Function | undefined;
     }
 
     interface DropDownTreeMessages {
-        clear?: string;
-        deleteTag?: string;
-        singleTag?: string;
+        clear?: string | undefined;
+        deleteTag?: string | undefined;
+        singleTag?: string | undefined;
     }
 
     interface DropDownTreePopup {
-        appendTo?: string;
-        origin?: string;
-        position?: string;
+        appendTo?: string | undefined;
+        origin?: string | undefined;
+        position?: string | undefined;
     }
 
     interface DropDownTreeOptions {
-        name?: string;
-        animation?: boolean | DropDownTreeAnimation;
-        autoBind?: boolean;
-        autoClose?: boolean;
-        autoWidth?: boolean;
-        checkAll?: boolean;
-        checkAllTemplate?: string|Function;
-        checkboxes?: boolean | DropDownTreeCheckboxes;
-        clearButton?: boolean;
-        dataImageUrlField?: string;
-        dataSource?: any|any|kendo.data.HierarchicalDataSource;
-        dataSpriteCssClassField?: string;
-        dataTextField?: string|any;
-        dataUrlField?: string;
-        dataValueField?: string|any;
-        delay?: number;
-        enable?: boolean;
-        enforceMinLength?: boolean;
-        filter?: string;
-        footerTemplate?: string|Function;
-        height?: string|number;
-        ignoreCase?: boolean;
-        loadOnDemand?: boolean;
-        messages?: DropDownTreeMessages;
-        minLength?: number;
-        noDataTemplate?: string|Function|boolean;
-        placeholder?: string;
-        popup?: DropDownTreePopup;
-        headerTemplate?: string|Function;
-        valueTemplate?: string|Function;
-        tagMode?: string;
-        template?: string|Function;
-        text?: string;
-        value?: string|any;
-        valuePrimitive?: boolean;
+        name?: string | undefined;
+        animation?: boolean | DropDownTreeAnimation | undefined;
+        autoBind?: boolean | undefined;
+        autoClose?: boolean | undefined;
+        autoWidth?: boolean | undefined;
+        checkAll?: boolean | undefined;
+        checkAllTemplate?: string|Function | undefined;
+        checkboxes?: boolean | DropDownTreeCheckboxes | undefined;
+        clearButton?: boolean | undefined;
+        dataImageUrlField?: string | undefined;
+        dataSource?: any|any|kendo.data.HierarchicalDataSource | undefined;
+        dataSpriteCssClassField?: string | undefined;
+        dataTextField?: string|any | undefined;
+        dataUrlField?: string | undefined;
+        dataValueField?: string|any | undefined;
+        delay?: number | undefined;
+        enable?: boolean | undefined;
+        enforceMinLength?: boolean | undefined;
+        filter?: string | undefined;
+        footerTemplate?: string|Function | undefined;
+        height?: string|number | undefined;
+        ignoreCase?: boolean | undefined;
+        loadOnDemand?: boolean | undefined;
+        messages?: DropDownTreeMessages | undefined;
+        minLength?: number | undefined;
+        noDataTemplate?: string|Function|boolean | undefined;
+        placeholder?: string | undefined;
+        popup?: DropDownTreePopup | undefined;
+        headerTemplate?: string|Function | undefined;
+        valueTemplate?: string|Function | undefined;
+        tagMode?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
+        value?: string|any | undefined;
+        valuePrimitive?: boolean | undefined;
         change?(e: DropDownTreeChangeEvent): void;
         close?(e: DropDownTreeCloseEvent): void;
         dataBound?(e: DropDownTreeDataBoundEvent): void;
@@ -3882,7 +3882,7 @@ declare namespace kendo.ui {
     }
 
     interface DropDownTreeSelectEvent extends DropDownTreeEvent {
-        node?: Element;
+        node?: Element | undefined;
     }
 
 
@@ -3923,344 +3923,344 @@ declare namespace kendo.ui {
     }
 
     interface EditorDeserialization {
-        custom?: Function;
+        custom?: Function | undefined;
     }
 
     interface EditorFileBrowserMessages {
-        uploadFile?: string;
-        orderBy?: string;
-        orderByName?: string;
-        orderBySize?: string;
-        directoryNotFound?: string;
-        emptyFolder?: string;
-        deleteFile?: string;
-        invalidFileType?: string;
-        overwriteFile?: string;
-        search?: string;
+        uploadFile?: string | undefined;
+        orderBy?: string | undefined;
+        orderByName?: string | undefined;
+        orderBySize?: string | undefined;
+        directoryNotFound?: string | undefined;
+        emptyFolder?: string | undefined;
+        deleteFile?: string | undefined;
+        invalidFileType?: string | undefined;
+        overwriteFile?: string | undefined;
+        search?: string | undefined;
     }
 
     interface EditorFileBrowserSchemaModelFieldsName {
-        field?: string;
-        parse?: Function;
+        field?: string | undefined;
+        parse?: Function | undefined;
     }
 
     interface EditorFileBrowserSchemaModelFieldsSize {
-        field?: string;
-        parse?: Function;
+        field?: string | undefined;
+        parse?: Function | undefined;
     }
 
     interface EditorFileBrowserSchemaModelFieldsType {
-        parse?: Function;
-        field?: string;
+        parse?: Function | undefined;
+        field?: string | undefined;
     }
 
     interface EditorFileBrowserSchemaModelFields {
-        name?: string | EditorFileBrowserSchemaModelFieldsName;
-        type?: string | EditorFileBrowserSchemaModelFieldsType;
-        size?: string | EditorFileBrowserSchemaModelFieldsSize;
+        name?: string | EditorFileBrowserSchemaModelFieldsName | undefined;
+        type?: string | EditorFileBrowserSchemaModelFieldsType | undefined;
+        size?: string | EditorFileBrowserSchemaModelFieldsSize | undefined;
     }
 
     interface EditorFileBrowserSchemaModel {
-        id?: string;
-        fields?: EditorFileBrowserSchemaModelFields;
+        id?: string | undefined;
+        fields?: EditorFileBrowserSchemaModelFields | undefined;
     }
 
     interface EditorFileBrowserSchema {
     }
 
     interface EditorFileBrowserTransportCreate {
-        contentType?: string;
-        data?: any|string|Function;
-        dataType?: string;
-        type?: string;
-        url?: string|Function;
+        contentType?: string | undefined;
+        data?: any|string|Function | undefined;
+        dataType?: string | undefined;
+        type?: string | undefined;
+        url?: string|Function | undefined;
     }
 
     interface EditorFileBrowserTransportDestroy {
-        contentType?: string;
-        data?: any|string|Function;
-        dataType?: string;
-        type?: string;
-        url?: string|Function;
+        contentType?: string | undefined;
+        data?: any|string|Function | undefined;
+        dataType?: string | undefined;
+        type?: string | undefined;
+        url?: string|Function | undefined;
     }
 
     interface EditorFileBrowserTransportRead {
-        contentType?: string;
-        data?: any|string|Function;
-        dataType?: string;
-        type?: string;
-        url?: string|Function;
+        contentType?: string | undefined;
+        data?: any|string|Function | undefined;
+        dataType?: string | undefined;
+        type?: string | undefined;
+        url?: string|Function | undefined;
     }
 
     interface EditorFileBrowserTransport {
-        read?: string | Function | EditorFileBrowserTransportRead;
-        uploadUrl?: string;
-        fileUrl?: string|Function;
-        destroy?: string | EditorFileBrowserTransportDestroy;
-        create?: string | EditorFileBrowserTransportCreate;
+        read?: string | Function | EditorFileBrowserTransportRead | undefined;
+        uploadUrl?: string | undefined;
+        fileUrl?: string|Function | undefined;
+        destroy?: string | EditorFileBrowserTransportDestroy | undefined;
+        create?: string | EditorFileBrowserTransportCreate | undefined;
     }
 
     interface EditorFileBrowser {
-        fileTypes?: string;
-        path?: string;
-        transport?: EditorFileBrowserTransport;
-        schema?: EditorFileBrowserSchema;
-        messages?: EditorFileBrowserMessages;
+        fileTypes?: string | undefined;
+        path?: string | undefined;
+        transport?: EditorFileBrowserTransport | undefined;
+        schema?: EditorFileBrowserSchema | undefined;
+        messages?: EditorFileBrowserMessages | undefined;
     }
 
     interface EditorImageBrowserMessages {
-        uploadFile?: string;
-        orderBy?: string;
-        orderByName?: string;
-        orderBySize?: string;
-        directoryNotFound?: string;
-        emptyFolder?: string;
-        deleteFile?: string;
-        invalidFileType?: string;
-        overwriteFile?: string;
-        search?: string;
+        uploadFile?: string | undefined;
+        orderBy?: string | undefined;
+        orderByName?: string | undefined;
+        orderBySize?: string | undefined;
+        directoryNotFound?: string | undefined;
+        emptyFolder?: string | undefined;
+        deleteFile?: string | undefined;
+        invalidFileType?: string | undefined;
+        overwriteFile?: string | undefined;
+        search?: string | undefined;
     }
 
     interface EditorImageBrowserSchemaModelFieldsName {
-        field?: string;
-        parse?: Function;
+        field?: string | undefined;
+        parse?: Function | undefined;
     }
 
     interface EditorImageBrowserSchemaModelFieldsSize {
-        field?: string;
-        parse?: Function;
+        field?: string | undefined;
+        parse?: Function | undefined;
     }
 
     interface EditorImageBrowserSchemaModelFieldsType {
-        parse?: Function;
-        field?: string;
+        parse?: Function | undefined;
+        field?: string | undefined;
     }
 
     interface EditorImageBrowserSchemaModelFields {
-        name?: string | EditorImageBrowserSchemaModelFieldsName;
-        type?: string | EditorImageBrowserSchemaModelFieldsType;
-        size?: string | EditorImageBrowserSchemaModelFieldsSize;
+        name?: string | EditorImageBrowserSchemaModelFieldsName | undefined;
+        type?: string | EditorImageBrowserSchemaModelFieldsType | undefined;
+        size?: string | EditorImageBrowserSchemaModelFieldsSize | undefined;
     }
 
     interface EditorImageBrowserSchemaModel {
-        id?: string;
-        fields?: EditorImageBrowserSchemaModelFields;
+        id?: string | undefined;
+        fields?: EditorImageBrowserSchemaModelFields | undefined;
     }
 
     interface EditorImageBrowserSchema {
     }
 
     interface EditorImageBrowserTransportCreate {
-        contentType?: string;
-        data?: any|string|Function;
-        dataType?: string;
-        type?: string;
-        url?: string|Function;
+        contentType?: string | undefined;
+        data?: any|string|Function | undefined;
+        dataType?: string | undefined;
+        type?: string | undefined;
+        url?: string|Function | undefined;
     }
 
     interface EditorImageBrowserTransportDestroy {
-        contentType?: string;
-        data?: any|string|Function;
-        dataType?: string;
-        type?: string;
-        url?: string|Function;
+        contentType?: string | undefined;
+        data?: any|string|Function | undefined;
+        dataType?: string | undefined;
+        type?: string | undefined;
+        url?: string|Function | undefined;
     }
 
     interface EditorImageBrowserTransportRead {
-        contentType?: string;
-        data?: any|string|Function;
-        dataType?: string;
-        type?: string;
-        url?: string|Function;
+        contentType?: string | undefined;
+        data?: any|string|Function | undefined;
+        dataType?: string | undefined;
+        type?: string | undefined;
+        url?: string|Function | undefined;
     }
 
     interface EditorImageBrowserTransport {
-        read?: string | Function | EditorImageBrowserTransportRead;
-        thumbnailUrl?: string|Function;
-        uploadUrl?: string;
-        imageUrl?: string|Function;
-        destroy?: string | EditorImageBrowserTransportDestroy;
-        create?: string | EditorImageBrowserTransportCreate;
+        read?: string | Function | EditorImageBrowserTransportRead | undefined;
+        thumbnailUrl?: string|Function | undefined;
+        uploadUrl?: string | undefined;
+        imageUrl?: string|Function | undefined;
+        destroy?: string | EditorImageBrowserTransportDestroy | undefined;
+        create?: string | EditorImageBrowserTransportCreate | undefined;
     }
 
     interface EditorImageBrowser {
-        fileTypes?: string;
-        path?: string;
-        transport?: EditorImageBrowserTransport;
-        schema?: EditorImageBrowserSchema;
-        messages?: EditorImageBrowserMessages;
+        fileTypes?: string | undefined;
+        path?: string | undefined;
+        transport?: EditorImageBrowserTransport | undefined;
+        schema?: EditorImageBrowserSchema | undefined;
+        messages?: EditorImageBrowserMessages | undefined;
     }
 
     interface EditorImmutables {
-        deserialization?: Function;
-        serialization?: string|Function;
+        deserialization?: Function | undefined;
+        serialization?: string|Function | undefined;
     }
 
     interface EditorMessages {
-        accessibilityTab?: string;
-        addColumnLeft?: string;
-        addColumnRight?: string;
-        addRowAbove?: string;
-        addRowBelow?: string;
-        alignCenter?: string;
-        alignCenterBottom?: string;
-        alignCenterMiddle?: string;
-        alignCenterTop?: string;
-        alignLeft?: string;
-        alignLeftBottom?: string;
-        alignLeftMiddle?: string;
-        alignLeftTop?: string;
-        alignRemove?: string;
-        alignRight?: string;
-        alignRightBottom?: string;
-        alignRightMiddle?: string;
-        alignRightTop?: string;
-        alignment?: string;
-        associateCellsWithHeaders?: string;
-        backColor?: string;
-        background?: string;
-        bold?: string;
-        border?: string;
-        style?: string;
-        caption?: string;
-        cellMargin?: string;
-        cellPadding?: string;
-        cellSpacing?: string;
-        cellTab?: string;
-        cleanFormatting?: string;
-        collapseBorders?: string;
-        columns?: string;
-        createLink?: string;
-        createTable?: string;
-        createTableHint?: string;
-        cssClass?: string;
-        deleteColumn?: string;
-        deleteRow?: string;
-        dialogCancel?: string;
-        dialogInsert?: string;
-        dialogOk?: string;
-        dialogUpdate?: string;
-        editAreaTitle?: string;
-        fileTitle?: string;
-        fileWebAddress?: string;
-        fontName?: string;
-        fontNameInherit?: string;
-        fontSize?: string;
-        fontSizeInherit?: string;
-        foreColor?: string;
-        formatBlock?: string;
-        formatting?: string;
-        height?: string;
-        id?: string;
-        imageAltText?: string;
-        imageHeight?: string;
-        imageWebAddress?: string;
-        imageWidth?: string;
-        indent?: string;
-        insertFile?: string;
-        insertHtml?: string;
-        insertImage?: string;
-        insertOrderedList?: string;
-        insertUnorderedList?: string;
-        insertUpperRomanList?: string;
-        insertLowerRomanList?: string;
-        italic?: string;
-        overflowAnchor?: string;
-        justifyCenter?: string;
-        justifyFull?: string;
-        justifyLeft?: string;
-        justifyRight?: string;
-        linkOpenInNewWindow?: string;
-        linkText?: string;
-        linkToolTip?: string;
-        linkWebAddress?: string;
-        outdent?: string;
-        print?: string;
-        rows?: string;
-        selectAllCells?: string;
-        strikethrough?: string;
-        subscript?: string;
-        summary?: string;
-        superscript?: string;
-        tableAlignLeft?: string;
-        tableAlignCenter?: string;
-        tableAlignRight?: string;
-        tableTab?: string;
-        tableWizard?: string;
-        underline?: string;
-        units?: string;
-        unlink?: string;
-        viewHtml?: string;
-        width?: string;
-        wrapText?: string;
-        copyFormat?: string;
-        applyFormat?: string;
+        accessibilityTab?: string | undefined;
+        addColumnLeft?: string | undefined;
+        addColumnRight?: string | undefined;
+        addRowAbove?: string | undefined;
+        addRowBelow?: string | undefined;
+        alignCenter?: string | undefined;
+        alignCenterBottom?: string | undefined;
+        alignCenterMiddle?: string | undefined;
+        alignCenterTop?: string | undefined;
+        alignLeft?: string | undefined;
+        alignLeftBottom?: string | undefined;
+        alignLeftMiddle?: string | undefined;
+        alignLeftTop?: string | undefined;
+        alignRemove?: string | undefined;
+        alignRight?: string | undefined;
+        alignRightBottom?: string | undefined;
+        alignRightMiddle?: string | undefined;
+        alignRightTop?: string | undefined;
+        alignment?: string | undefined;
+        associateCellsWithHeaders?: string | undefined;
+        backColor?: string | undefined;
+        background?: string | undefined;
+        bold?: string | undefined;
+        border?: string | undefined;
+        style?: string | undefined;
+        caption?: string | undefined;
+        cellMargin?: string | undefined;
+        cellPadding?: string | undefined;
+        cellSpacing?: string | undefined;
+        cellTab?: string | undefined;
+        cleanFormatting?: string | undefined;
+        collapseBorders?: string | undefined;
+        columns?: string | undefined;
+        createLink?: string | undefined;
+        createTable?: string | undefined;
+        createTableHint?: string | undefined;
+        cssClass?: string | undefined;
+        deleteColumn?: string | undefined;
+        deleteRow?: string | undefined;
+        dialogCancel?: string | undefined;
+        dialogInsert?: string | undefined;
+        dialogOk?: string | undefined;
+        dialogUpdate?: string | undefined;
+        editAreaTitle?: string | undefined;
+        fileTitle?: string | undefined;
+        fileWebAddress?: string | undefined;
+        fontName?: string | undefined;
+        fontNameInherit?: string | undefined;
+        fontSize?: string | undefined;
+        fontSizeInherit?: string | undefined;
+        foreColor?: string | undefined;
+        formatBlock?: string | undefined;
+        formatting?: string | undefined;
+        height?: string | undefined;
+        id?: string | undefined;
+        imageAltText?: string | undefined;
+        imageHeight?: string | undefined;
+        imageWebAddress?: string | undefined;
+        imageWidth?: string | undefined;
+        indent?: string | undefined;
+        insertFile?: string | undefined;
+        insertHtml?: string | undefined;
+        insertImage?: string | undefined;
+        insertOrderedList?: string | undefined;
+        insertUnorderedList?: string | undefined;
+        insertUpperRomanList?: string | undefined;
+        insertLowerRomanList?: string | undefined;
+        italic?: string | undefined;
+        overflowAnchor?: string | undefined;
+        justifyCenter?: string | undefined;
+        justifyFull?: string | undefined;
+        justifyLeft?: string | undefined;
+        justifyRight?: string | undefined;
+        linkOpenInNewWindow?: string | undefined;
+        linkText?: string | undefined;
+        linkToolTip?: string | undefined;
+        linkWebAddress?: string | undefined;
+        outdent?: string | undefined;
+        print?: string | undefined;
+        rows?: string | undefined;
+        selectAllCells?: string | undefined;
+        strikethrough?: string | undefined;
+        subscript?: string | undefined;
+        summary?: string | undefined;
+        superscript?: string | undefined;
+        tableAlignLeft?: string | undefined;
+        tableAlignCenter?: string | undefined;
+        tableAlignRight?: string | undefined;
+        tableTab?: string | undefined;
+        tableWizard?: string | undefined;
+        underline?: string | undefined;
+        units?: string | undefined;
+        unlink?: string | undefined;
+        viewHtml?: string | undefined;
+        width?: string | undefined;
+        wrapText?: string | undefined;
+        copyFormat?: string | undefined;
+        applyFormat?: string | undefined;
     }
 
     interface EditorPasteCleanup {
-        all?: boolean;
-        css?: boolean;
-        custom?: Function;
-        keepNewLines?: boolean;
-        msAllFormatting?: boolean;
-        msConvertLists?: boolean;
-        msTags?: boolean;
-        none?: boolean;
-        span?: boolean;
+        all?: boolean | undefined;
+        css?: boolean | undefined;
+        custom?: Function | undefined;
+        keepNewLines?: boolean | undefined;
+        msAllFormatting?: boolean | undefined;
+        msConvertLists?: boolean | undefined;
+        msTags?: boolean | undefined;
+        none?: boolean | undefined;
+        span?: boolean | undefined;
     }
 
     interface EditorPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface EditorPdf {
-        author?: string;
-        avoidLinks?: boolean|string;
-        creator?: string;
-        date?: Date;
-        fileName?: string;
-        forceProxy?: boolean;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: EditorPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        author?: string | undefined;
+        avoidLinks?: boolean|string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: EditorPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface EditorResizable {
-        content?: boolean;
-        min?: number;
-        max?: number;
-        toolbar?: boolean;
+        content?: boolean | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
+        toolbar?: boolean | undefined;
     }
 
     interface EditorSerialization {
-        custom?: Function;
-        entities?: boolean;
-        scripts?: boolean;
-        semantic?: boolean;
+        custom?: Function | undefined;
+        entities?: boolean | undefined;
+        scripts?: boolean | undefined;
+        semantic?: boolean | undefined;
     }
 
     interface EditorToolItem {
-        text?: string;
-        value?: string;
-        context?: string;
+        text?: string | undefined;
+        value?: string | undefined;
+        context?: string | undefined;
     }
 
     interface EditorTool {
-        name?: string;
-        tooltip?: string;
-        exec?: Function;
-        items?: EditorToolItem[];
-        palette?: string|any;
-        columns?: number;
-        template?: string;
+        name?: string | undefined;
+        tooltip?: string | undefined;
+        exec?: Function | undefined;
+        items?: EditorToolItem[] | undefined;
+        palette?: string|any | undefined;
+        columns?: number | undefined;
+        template?: string | undefined;
     }
 
     interface EditorExecParams {
@@ -4268,25 +4268,25 @@ declare namespace kendo.ui {
     }
 
     interface EditorPasteOptions {
-        split?: boolean;
+        split?: boolean | undefined;
     }
 
     interface EditorOptions {
-        name?: string;
-        placeholder?: string;
-        deserialization?: EditorDeserialization;
-        domain?: string;
-        encoded?: boolean;
-        immutables?: boolean | EditorImmutables;
-        messages?: EditorMessages;
-        pasteCleanup?: EditorPasteCleanup;
-        pdf?: EditorPdf;
-        resizable?: boolean | EditorResizable;
-        serialization?: EditorSerialization;
+        name?: string | undefined;
+        placeholder?: string | undefined;
+        deserialization?: EditorDeserialization | undefined;
+        domain?: string | undefined;
+        encoded?: boolean | undefined;
+        immutables?: boolean | EditorImmutables | undefined;
+        messages?: EditorMessages | undefined;
+        pasteCleanup?: EditorPasteCleanup | undefined;
+        pdf?: EditorPdf | undefined;
+        resizable?: boolean | EditorResizable | undefined;
+        serialization?: EditorSerialization | undefined;
         stylesheets?: any;
-        tools?: EditorTool[]|string[];
-        imageBrowser?: EditorImageBrowser;
-        fileBrowser?: EditorFileBrowser;
+        tools?: EditorTool[]|string[] | undefined;
+        imageBrowser?: EditorImageBrowser | undefined;
+        fileBrowser?: EditorFileBrowser | undefined;
         change?(e: EditorEvent): void;
         execute?(e: EditorExecuteEvent): void;
         keydown?(e: EditorEvent): void;
@@ -4302,7 +4302,7 @@ declare namespace kendo.ui {
     }
 
     interface EditorExecuteEvent extends EditorEvent {
-        name?: string;
+        name?: string | undefined;
         command?: any;
     }
 
@@ -4311,7 +4311,7 @@ declare namespace kendo.ui {
     }
 
     interface EditorPdfExportEvent extends EditorEvent {
-        promise?: JQueryPromise<any>;
+        promise?: JQueryPromise<any> | undefined;
     }
 
     class ExpansionPanel extends kendo.ui.Widget {
@@ -4336,31 +4336,31 @@ declare namespace kendo.ui {
     }
 
     interface ExpansionPanelAnimationCollapse {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface ExpansionPanelAnimationExpand {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface ExpansionPanelAnimation {
-        collapse?: ExpansionPanelAnimationCollapse;
-        expand?: ExpansionPanelAnimationExpand;
+        collapse?: ExpansionPanelAnimationCollapse | undefined;
+        expand?: ExpansionPanelAnimationExpand | undefined;
     }
 
     interface ExpansionPanelOptions {
-        name?: string;
-        animation?: boolean | ExpansionPanelAnimation;
-        collapseIconClass?: string;
-        disabled?: boolean;
-        expanded?: boolean;
-        expandIconClass?: string;
-        height?: number|string;
-        subTitle?: string;
-        title?: string;
-        toggleable?: boolean;
+        name?: string | undefined;
+        animation?: boolean | ExpansionPanelAnimation | undefined;
+        collapseIconClass?: string | undefined;
+        disabled?: boolean | undefined;
+        expanded?: boolean | undefined;
+        expandIconClass?: string | undefined;
+        height?: number|string | undefined;
+        subTitle?: string | undefined;
+        title?: string | undefined;
+        toggleable?: boolean | undefined;
         expand?(e: ExpansionPanelEvent): void;
         collapse?(e: ExpansionPanelEvent): void;
         complete?(e: ExpansionPanelEvent): void;
@@ -4401,19 +4401,19 @@ declare namespace kendo.ui {
     }
 
     interface FileManagerBreadcrumb {
-        rootIcon?: string;
-        delimiterIcon?: string;
+        rootIcon?: string | undefined;
+        delimiterIcon?: string | undefined;
     }
 
     interface FileManagerContextMenuItem {
-        name?: string;
-        text?: string;
-        spriteCssClass?: string;
-        command?: string;
+        name?: string | undefined;
+        text?: string | undefined;
+        spriteCssClass?: string | undefined;
+        command?: string | undefined;
     }
 
     interface FileManagerContextMenu {
-        items?: FileManagerContextMenuItem[];
+        items?: FileManagerContextMenuItem[] | undefined;
 
         close?(e: ContextMenuCloseEvent): void;
         open?(e: ContextMenuOpenEvent): void;
@@ -4430,117 +4430,117 @@ declare namespace kendo.ui {
     }
 
     interface FileManagerMessagesDialogsDeleteConfirm {
-        title?: string;
-        content?: string;
-        okText?: string;
-        cancel?: string;
-        close?: string;
+        title?: string | undefined;
+        content?: string | undefined;
+        okText?: string | undefined;
+        cancel?: string | undefined;
+        close?: string | undefined;
     }
 
     interface FileManagerMessagesDialogsMoveConfirm {
-        title?: string;
-        content?: string;
-        okText?: string;
-        cancel?: string;
-        close?: string;
+        title?: string | undefined;
+        content?: string | undefined;
+        okText?: string | undefined;
+        cancel?: string | undefined;
+        close?: string | undefined;
     }
 
     interface FileManagerMessagesDialogsRenamePrompt {
-        title?: string;
-        content?: string;
-        okText?: string;
-        cancel?: string;
-        close?: string;
+        title?: string | undefined;
+        content?: string | undefined;
+        okText?: string | undefined;
+        cancel?: string | undefined;
+        close?: string | undefined;
     }
 
     interface FileManagerMessagesDialogsUpload {
-        title?: string;
-        clear?: string;
-        done?: string;
+        title?: string | undefined;
+        clear?: string | undefined;
+        done?: string | undefined;
     }
 
     interface FileManagerMessagesDialogs {
-        upload?: FileManagerMessagesDialogsUpload;
-        moveConfirm?: FileManagerMessagesDialogsMoveConfirm;
-        deleteConfirm?: FileManagerMessagesDialogsDeleteConfirm;
-        renamePrompt?: FileManagerMessagesDialogsRenamePrompt;
+        upload?: FileManagerMessagesDialogsUpload | undefined;
+        moveConfirm?: FileManagerMessagesDialogsMoveConfirm | undefined;
+        deleteConfirm?: FileManagerMessagesDialogsDeleteConfirm | undefined;
+        renamePrompt?: FileManagerMessagesDialogsRenamePrompt | undefined;
     }
 
     interface FileManagerMessagesPreviewPane {
-        noFileSelected?: string;
-        extension?: string;
-        size?: string;
-        created?: string;
-        modified?: string;
-        items?: string;
+        noFileSelected?: string | undefined;
+        extension?: string | undefined;
+        size?: string | undefined;
+        created?: string | undefined;
+        modified?: string | undefined;
+        items?: string | undefined;
     }
 
     interface FileManagerMessagesToolbar {
-        createFolder?: string;
-        uploadDialog?: string;
-        sortDirection?: string;
-        sortDirectionAsc?: string;
-        sortDirectionDesc?: string;
-        sortField?: string;
-        nameField?: string;
-        sizeField?: string;
-        typeField?: string;
-        dateModifiedField?: string;
-        dateCreatedField?: string;
-        search?: string;
-        details?: string;
-        detailsChecked?: string;
-        detailsUnchecked?: string;
-        delete?: string;
-        rename?: string;
+        createFolder?: string | undefined;
+        uploadDialog?: string | undefined;
+        sortDirection?: string | undefined;
+        sortDirectionAsc?: string | undefined;
+        sortDirectionDesc?: string | undefined;
+        sortField?: string | undefined;
+        nameField?: string | undefined;
+        sizeField?: string | undefined;
+        typeField?: string | undefined;
+        dateModifiedField?: string | undefined;
+        dateCreatedField?: string | undefined;
+        search?: string | undefined;
+        details?: string | undefined;
+        detailsChecked?: string | undefined;
+        detailsUnchecked?: string | undefined;
+        delete?: string | undefined;
+        rename?: string | undefined;
     }
 
     interface FileManagerMessagesViews {
-        nameField?: string;
-        sizeField?: string;
-        typeField?: string;
-        dateModifiedField?: string;
-        dateCreatedField?: string;
-        items?: string;
+        nameField?: string | undefined;
+        sizeField?: string | undefined;
+        typeField?: string | undefined;
+        dateModifiedField?: string | undefined;
+        dateCreatedField?: string | undefined;
+        items?: string | undefined;
     }
 
     interface FileManagerMessages {
-        toolbar?: FileManagerMessagesToolbar;
-        views?: FileManagerMessagesViews;
-        dialogs?: FileManagerMessagesDialogs;
-        previewPane?: FileManagerMessagesPreviewPane;
+        toolbar?: FileManagerMessagesToolbar | undefined;
+        views?: FileManagerMessagesViews | undefined;
+        dialogs?: FileManagerMessagesDialogs | undefined;
+        previewPane?: FileManagerMessagesPreviewPane | undefined;
     }
 
     interface FileManagerPreviewPane {
         metaFields?: any;
-        noFileTemplate?: string|Function;
-        singleFileTemplate?: string|Function;
-        multipleFilesTemplate?: string|Function;
+        noFileTemplate?: string|Function | undefined;
+        singleFileTemplate?: string|Function | undefined;
+        multipleFilesTemplate?: string|Function | undefined;
     }
 
     interface FileManagerToolbarItem {
-        type?: string;
-        overflow?: string;
-        command?: string;
-        options?: string;
-        name?: string;
-        togglable?: boolean;
-        text?: string;
-        template?: string|Function;
-        showText?: string;
-        primary?: boolean;
+        type?: string | undefined;
+        overflow?: string | undefined;
+        command?: string | undefined;
+        options?: string | undefined;
+        name?: string | undefined;
+        togglable?: boolean | undefined;
+        text?: string | undefined;
+        template?: string|Function | undefined;
+        showText?: string | undefined;
+        primary?: boolean | undefined;
         attributes?: any;
-        enable?: boolean;
-        hidden?: boolean;
-        spriteCssClass?: string;
-        imageUrl?: string;
-        showIcon?: string;
-        icon?: string;
-        id?: string;
+        enable?: boolean | undefined;
+        hidden?: boolean | undefined;
+        spriteCssClass?: string | undefined;
+        imageUrl?: string | undefined;
+        showIcon?: string | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
     }
 
     interface FileManagerToolbar {
-        items?: FileManagerToolbarItem[];
+        items?: FileManagerToolbarItem[] | undefined;
     }
 
     interface FileManagerViews {
@@ -4550,22 +4550,22 @@ declare namespace kendo.ui {
     }
 
     interface FileManagerOptions {
-        name?: string;
-        width?: number|string;
-        height?: number|string;
-        initialView?: string;
-        resizable?: boolean;
-        draggable?: boolean;
-        dataSource?: any|any|kendo.data.FileManagerDataSource;
+        name?: string | undefined;
+        width?: number|string | undefined;
+        height?: number|string | undefined;
+        initialView?: string | undefined;
+        resizable?: boolean | undefined;
+        draggable?: boolean | undefined;
+        dataSource?: any|any|kendo.data.FileManagerDataSource | undefined;
         upload?: any;
-        uploadUrl?: string;
-        toolbar?: boolean | FileManagerToolbar;
-        dialogs?: FileManagerDialogs;
-        contextMenu?: boolean | FileManagerContextMenu;
-        views?: FileManagerViews;
-        previewPane?: FileManagerPreviewPane;
-        breadcrumb?: boolean | FileManagerBreadcrumb;
-        messages?: FileManagerMessages;
+        uploadUrl?: string | undefined;
+        toolbar?: boolean | FileManagerToolbar | undefined;
+        dialogs?: FileManagerDialogs | undefined;
+        contextMenu?: boolean | FileManagerContextMenu | undefined;
+        views?: FileManagerViews | undefined;
+        previewPane?: FileManagerPreviewPane | undefined;
+        breadcrumb?: boolean | FileManagerBreadcrumb | undefined;
+        messages?: FileManagerMessages | undefined;
         navigate?(e: FileManagerEvent): void;
         select?(e: FileManagerEvent): void;
         open?(e: FileManagerEvent): void;
@@ -4605,78 +4605,78 @@ declare namespace kendo.ui {
 
     interface FilterField {
         defaultValue?: any;
-        editorTemplate?: string|Function;
-        label?: string;
-        name?: string;
-        type?: string;
-        previewFormat?: string;
+        editorTemplate?: string|Function | undefined;
+        label?: string | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
+        previewFormat?: string | undefined;
     }
 
     interface FilterMessages {
-        and?: string;
-        apply?: string;
-        or?: string;
+        and?: string | undefined;
+        apply?: string | undefined;
+        or?: string | undefined;
     }
 
     interface FilterOperatorsBoolean {
-        eq?: string;
-        neq?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
     }
 
     interface FilterOperatorsDate {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        gte?: string;
-        gt?: string;
-        lte?: string;
-        lt?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        gte?: string | undefined;
+        gt?: string | undefined;
+        lte?: string | undefined;
+        lt?: string | undefined;
     }
 
     interface FilterOperatorsNumber {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        gte?: string;
-        gt?: string;
-        lte?: string;
-        lt?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        gte?: string | undefined;
+        gt?: string | undefined;
+        lte?: string | undefined;
+        lt?: string | undefined;
     }
 
     interface FilterOperatorsString {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        isempty?: string;
-        isnotempty?: string;
-        startswith?: string;
-        contains?: string;
-        doesnotcontain?: string;
-        endswith?: string;
-        isnullorempty?: string;
-        isnotnullorempty?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        isempty?: string | undefined;
+        isnotempty?: string | undefined;
+        startswith?: string | undefined;
+        contains?: string | undefined;
+        doesnotcontain?: string | undefined;
+        endswith?: string | undefined;
+        isnullorempty?: string | undefined;
+        isnotnullorempty?: string | undefined;
     }
 
     interface FilterOperators {
-        string?: FilterOperatorsString;
-        number?: FilterOperatorsNumber;
-        date?: FilterOperatorsDate;
-        boolean?: FilterOperatorsBoolean;
+        string?: FilterOperatorsString | undefined;
+        number?: FilterOperatorsNumber | undefined;
+        date?: FilterOperatorsDate | undefined;
+        boolean?: FilterOperatorsBoolean | undefined;
     }
 
     interface FilterOptions {
-        name?: string;
-        applyButton?: boolean;
-        dataSource?: kendo.data.DataSource;
+        name?: string | undefined;
+        applyButton?: boolean | undefined;
+        dataSource?: kendo.data.DataSource | undefined;
         expression?: any;
-        expressionPreview?: boolean;
-        fields?: FilterField[];
-        mainLogic?: string;
-        messages?: FilterMessages;
-        operators?: FilterOperators;
+        expressionPreview?: boolean | undefined;
+        fields?: FilterField[] | undefined;
+        mainLogic?: string | undefined;
+        messages?: FilterMessages | undefined;
+        operators?: FilterOperators | undefined;
         change?(e: FilterChangeEvent): void;
     }
     interface FilterEvent {
@@ -4711,78 +4711,78 @@ declare namespace kendo.ui {
     }
 
     interface FilterMenuMessages {
-        and?: string;
-        clear?: string;
-        filter?: string;
-        info?: string;
-        title?: string;
-        additionalValue?: string;
-        additionalOperator?: string;
-        logic?: string;
-        isFalse?: string;
-        isTrue?: string;
-        or?: string;
-        selectValue?: string;
+        and?: string | undefined;
+        clear?: string | undefined;
+        filter?: string | undefined;
+        info?: string | undefined;
+        title?: string | undefined;
+        additionalValue?: string | undefined;
+        additionalOperator?: string | undefined;
+        logic?: string | undefined;
+        isFalse?: string | undefined;
+        isTrue?: string | undefined;
+        or?: string | undefined;
+        selectValue?: string | undefined;
     }
 
     interface FilterMenuOperatorsDate {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        gte?: string;
-        gt?: string;
-        lte?: string;
-        lt?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        gte?: string | undefined;
+        gt?: string | undefined;
+        lte?: string | undefined;
+        lt?: string | undefined;
     }
 
     interface FilterMenuOperatorsEnums {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
     }
 
     interface FilterMenuOperatorsNumber {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        gte?: string;
-        gt?: string;
-        lte?: string;
-        lt?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        gte?: string | undefined;
+        gt?: string | undefined;
+        lte?: string | undefined;
+        lt?: string | undefined;
     }
 
     interface FilterMenuOperatorsString {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        isempty?: string;
-        isnotempty?: string;
-        startswith?: string;
-        contains?: string;
-        doesnotcontain?: string;
-        endswith?: string;
-        isnullorempty?: string;
-        isnotnullorempty?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        isempty?: string | undefined;
+        isnotempty?: string | undefined;
+        startswith?: string | undefined;
+        contains?: string | undefined;
+        doesnotcontain?: string | undefined;
+        endswith?: string | undefined;
+        isnullorempty?: string | undefined;
+        isnotnullorempty?: string | undefined;
     }
 
     interface FilterMenuOperators {
-        string?: FilterMenuOperatorsString;
-        number?: FilterMenuOperatorsNumber;
-        date?: FilterMenuOperatorsDate;
-        enums?: FilterMenuOperatorsEnums;
+        string?: FilterMenuOperatorsString | undefined;
+        number?: FilterMenuOperatorsNumber | undefined;
+        date?: FilterMenuOperatorsDate | undefined;
+        enums?: FilterMenuOperatorsEnums | undefined;
     }
 
     interface FilterMenuOptions {
-        name?: string;
-        dataSource?: any|any|kendo.data.DataSource;
-        extra?: boolean;
-        field?: string;
-        messages?: FilterMenuMessages;
-        operators?: FilterMenuOperators;
+        name?: string | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        extra?: boolean | undefined;
+        field?: string | undefined;
+        messages?: FilterMenuMessages | undefined;
+        operators?: FilterMenuOperators | undefined;
     }
     interface FilterMenuEvent {
         sender: FilterMenu;
@@ -4816,18 +4816,18 @@ declare namespace kendo.ui {
     }
 
     interface FlatColorPickerMessages {
-        apply?: string;
-        cancel?: string;
+        apply?: string | undefined;
+        cancel?: string | undefined;
     }
 
     interface FlatColorPickerOptions {
-        name?: string;
-        opacity?: boolean;
-        buttons?: boolean;
-        value?: string;
-        preview?: boolean;
-        autoupdate?: boolean;
-        messages?: FlatColorPickerMessages;
+        name?: string | undefined;
+        opacity?: boolean | undefined;
+        buttons?: boolean | undefined;
+        value?: string | undefined;
+        preview?: boolean | undefined;
+        autoupdate?: boolean | undefined;
+        messages?: FlatColorPickerMessages | undefined;
         change?(e: FlatColorPickerChangeEvent): void;
     }
     interface FlatColorPickerEvent {
@@ -4837,7 +4837,7 @@ declare namespace kendo.ui {
     }
 
     interface FlatColorPickerChangeEvent extends FlatColorPickerEvent {
-        value?: string;
+        value?: string | undefined;
     }
 
     class FloatingActionButton extends kendo.ui.Widget {
@@ -4865,8 +4865,8 @@ declare namespace kendo.ui {
     }
 
     interface FloatingActionButtonAlignOffset {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     enum FloatingActionButtonPositionMode {
@@ -4900,17 +4900,17 @@ declare namespace kendo.ui {
     }
 
     interface FloatingActionButtonOptions {
-        icon?: string;
-        text?: string;
-        themeColor?: string | FloatingActionButtonThemeColor;
-        size?: string | FloatingActionButtonSize;
-        shape?: string | FloatingActionButtonShape;
-        align?: string;
-        alignOffset?: FloatingActionButtonAlignOffset;
-        positionMode?: string | FloatingActionButtonPositionMode
-        visible?: boolean;
-        enabled?: boolean;
-        items?: FloatingActionButtonItem[];
+        icon?: string | undefined;
+        text?: string | undefined;
+        themeColor?: string | FloatingActionButtonThemeColor | undefined;
+        size?: string | FloatingActionButtonSize | undefined;
+        shape?: string | FloatingActionButtonShape | undefined;
+        align?: string | undefined;
+        alignOffset?: FloatingActionButtonAlignOffset | undefined;
+        positionMode?: string | FloatingActionButtonPositionMode | undefined
+        visible?: boolean | undefined;
+        enabled?: boolean | undefined;
+        items?: FloatingActionButtonItem[] | undefined;
 
         click?(e: FloatingActionButtonClickEvent): void;
         expand?(e: FloatingActionButtonExpandEvent): void;
@@ -4918,11 +4918,11 @@ declare namespace kendo.ui {
     }
 
     interface FloatingActionButtonItem {
-        label?: string;
-        icon?: string;
-        title?: string;
-        enabled?: boolean;
-        cssClass?: string;
+        label?: string | undefined;
+        icon?: string | undefined;
+        title?: string | undefined;
+        enabled?: boolean | undefined;
+        cssClass?: string | undefined;
 
         click?(e: FloatingActionButtonItemClickEvent): void;
     }
@@ -4967,16 +4967,16 @@ declare namespace kendo.ui {
     }
 
     interface FormOptions {
-        name?: string;
-        orientation?: string | "horizontal" | "vertical";
-        focusFirst?: boolean;
-        formatLabel?: Function;
-        buttonsTemplate?: string|Function;
-        items?: FormItem[];
-        formData?: FormData;
-        layout?: string | "grid";
-        grid?: FormGridOptions;
-        validatable?: FormValidatable;
+        name?: string | undefined;
+        orientation?: string | "horizontal" | "vertical" | undefined;
+        focusFirst?: boolean | undefined;
+        formatLabel?: Function | undefined;
+        buttonsTemplate?: string|Function | undefined;
+        items?: FormItem[] | undefined;
+        formData?: FormData | undefined;
+        layout?: string | "grid" | undefined;
+        grid?: FormGridOptions | undefined;
+        validatable?: FormValidatable | undefined;
 
         change?(e: FormChangeEvent): void;
         validate?(e: FormValidateEvent): void;
@@ -4990,30 +4990,30 @@ declare namespace kendo.ui {
     }
 
     interface FormItemLabel {
-        text?: string;
-        optional?: boolean;
-        encoded?: boolean;
+        text?: string | undefined;
+        optional?: boolean | undefined;
+        encoded?: boolean | undefined;
     }
 
     interface FormGridOptions {
-        cols?: string | number;
-        gutter?: string | number;
+        cols?: string | number | undefined;
+        gutter?: string | number | undefined;
     }
 
     interface FormItem {
-        field?: string;
-        type?: string;
-        name?: string;
-        id?: string;
-        hint?: string;
-        title?: string;
-        colSpan?: number;
+        field?: string | undefined;
+        type?: string | undefined;
+        name?: string | undefined;
+        id?: string | undefined;
+        hint?: string | undefined;
+        title?: string | undefined;
+        colSpan?: number | undefined;
         attributes?: any;
-        editor?: string|Function;
+        editor?: string|Function | undefined;
         editorOptions?: any;
-        label?: string | FormItemLabel;
+        label?: string | FormItemLabel | undefined;
         validation?: any;
-        items?: FormItem[];
+        items?: FormItem[] | undefined;
     }
 
     interface FormValidatable {
@@ -5029,26 +5029,26 @@ declare namespace kendo.ui {
     }
 
     interface FormChangeEvent extends FormEvent {
-        field?: string;
+        field?: string | undefined;
         value?: any;
     }
 
     interface FormValidateEvent extends FormEvent {
-        model?: kendo.data.Model;
-        valid?: boolean;
-        errors?: any[];
+        model?: kendo.data.Model | undefined;
+        valid?: boolean | undefined;
+        errors?: any[] | undefined;
     }
 
     interface FormValidateFieldEvent extends FormEvent {
-        model?: kendo.data.Model;
-        valid?: boolean;
-        field?: string;
-        error?: string;
-        input?: Element;
+        model?: kendo.data.Model | undefined;
+        valid?: boolean | undefined;
+        field?: string | undefined;
+        error?: string | undefined;
+        input?: Element | undefined;
     }
 
     interface FormSubmitEvent extends FormEvent {
-        model?: kendo.data.Model;
+        model?: kendo.data.Model | undefined;
     }
 
     interface FormClearEvent extends FormEvent {
@@ -5098,218 +5098,218 @@ declare namespace kendo.ui {
     }
 
     interface GanttAssignments {
-        dataSource?: any|any|kendo.data.DataSource;
-        dataResourceIdField?: string;
-        dataTaskIdField?: string;
-        dataValueField?: string;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataResourceIdField?: string | undefined;
+        dataTaskIdField?: string | undefined;
+        dataValueField?: string | undefined;
     }
 
     interface GanttColumnFilterable {
-        ui?: string|Function;
+        ui?: string|Function | undefined;
     }
 
     interface GanttColumnSortable {
-        compare?: Function;
+        compare?: Function | undefined;
     }
 
     interface GanttColumn {
         attributes?: any;
         columns?: any;
-        editable?: boolean;
-        editor?: Function;
-        expandable?: boolean;
-        field?: string;
-        filterable?: boolean | GanttColumnFilterable;
-        format?: string;
+        editable?: boolean | undefined;
+        editor?: Function | undefined;
+        expandable?: boolean | undefined;
+        field?: string | undefined;
+        filterable?: boolean | GanttColumnFilterable | undefined;
+        format?: string | undefined;
         headerAttributes?: any;
-        headerTemplate?: string|Function;
-        hidden?: boolean;
-        menu?: boolean;
-        minScreenWidth?: number;
-        sortable?: boolean | GanttColumnSortable;
-        template?: string|Function;
-        title?: string;
-        width?: string|number;
+        headerTemplate?: string|Function | undefined;
+        hidden?: boolean | undefined;
+        menu?: boolean | undefined;
+        minScreenWidth?: number | undefined;
+        sortable?: boolean | GanttColumnSortable | undefined;
+        template?: string|Function | undefined;
+        title?: string | undefined;
+        width?: string|number | undefined;
     }
 
     interface GanttCurrentTimeMarker {
-        updateInterval?: number;
+        updateInterval?: number | undefined;
     }
 
     interface GanttEditable {
-        confirmation?: boolean;
-        create?: boolean;
-        dependencyCreate?: boolean;
-        dependencyDestroy?: boolean;
-        dragPercentComplete?: boolean;
-        destroy?: boolean;
-        move?: boolean;
-        reorder?: boolean;
-        resize?: boolean;
-        template?: string|Function;
-        update?: boolean;
-        plannedTasks?: boolean;
+        confirmation?: boolean | undefined;
+        create?: boolean | undefined;
+        dependencyCreate?: boolean | undefined;
+        dependencyDestroy?: boolean | undefined;
+        dragPercentComplete?: boolean | undefined;
+        destroy?: boolean | undefined;
+        move?: boolean | undefined;
+        reorder?: boolean | undefined;
+        resize?: boolean | undefined;
+        template?: string|Function | undefined;
+        update?: boolean | undefined;
+        plannedTasks?: boolean | undefined;
     }
 
     interface GanttMessagesActions {
-        addChild?: string;
-        append?: string;
-        insertAfter?: string;
-        insertBefore?: string;
-        pdf?: string;
+        addChild?: string | undefined;
+        append?: string | undefined;
+        insertAfter?: string | undefined;
+        insertBefore?: string | undefined;
+        pdf?: string | undefined;
     }
 
     interface GanttMessagesEditor {
-        assignButton?: string;
-        editorTitle?: string;
-        end?: string;
-        percentComplete?: string;
-        plannedEnd?: string;
-        plannedStart?: string;
-        resources?: string;
-        resourcesEditorTitle?: string;
-        resourcesHeader?: string;
-        start?: string;
-        title?: string;
-        unitsHeader?: string;
+        assignButton?: string | undefined;
+        editorTitle?: string | undefined;
+        end?: string | undefined;
+        percentComplete?: string | undefined;
+        plannedEnd?: string | undefined;
+        plannedStart?: string | undefined;
+        resources?: string | undefined;
+        resourcesEditorTitle?: string | undefined;
+        resourcesHeader?: string | undefined;
+        start?: string | undefined;
+        title?: string | undefined;
+        unitsHeader?: string | undefined;
     }
 
     interface GanttMessagesPlannedTasks {
-        switchText?: string;
-        offsetTooltipAdvanced?: string;
-        offsetTooltipDelay?: string;
-        seconds?: string;
-        minutes?: string;
-        hours?: string;
-        days?: string;
+        switchText?: string | undefined;
+        offsetTooltipAdvanced?: string | undefined;
+        offsetTooltipDelay?: string | undefined;
+        seconds?: string | undefined;
+        minutes?: string | undefined;
+        hours?: string | undefined;
+        days?: string | undefined;
     }
 
     interface GanttMessagesViews {
-        day?: string;
-        end?: string;
-        month?: string;
-        start?: string;
-        week?: string;
-        year?: string;
+        day?: string | undefined;
+        end?: string | undefined;
+        month?: string | undefined;
+        start?: string | undefined;
+        week?: string | undefined;
+        year?: string | undefined;
     }
 
     interface GanttMessages {
-        actions?: GanttMessagesActions;
-        cancel?: string;
-        deleteDependencyConfirmation?: string;
-        deleteDependencyWindowTitle?: string;
-        deleteTaskConfirmation?: string;
-        deleteTaskWindowTitle?: string;
-        destroy?: string;
-        editor?: GanttMessagesEditor;
-        plannedTasks?: GanttMessagesPlannedTasks;
-        save?: string;
-        views?: GanttMessagesViews;
+        actions?: GanttMessagesActions | undefined;
+        cancel?: string | undefined;
+        deleteDependencyConfirmation?: string | undefined;
+        deleteDependencyWindowTitle?: string | undefined;
+        deleteTaskConfirmation?: string | undefined;
+        deleteTaskWindowTitle?: string | undefined;
+        destroy?: string | undefined;
+        editor?: GanttMessagesEditor | undefined;
+        plannedTasks?: GanttMessagesPlannedTasks | undefined;
+        save?: string | undefined;
+        views?: GanttMessagesViews | undefined;
     }
 
     interface GanttPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface GanttPdf {
-        author?: string;
-        avoidLinks?: boolean|string;
-        creator?: string;
-        date?: Date;
-        fileName?: string;
-        forceProxy?: boolean;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: GanttPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        author?: string | undefined;
+        avoidLinks?: boolean|string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: GanttPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface GanttRange {
-        start?: Date;
-        end?: Date;
+        start?: Date | undefined;
+        end?: Date | undefined;
     }
 
     interface GanttResources {
-        dataFormatField?: string;
-        dataColorField?: string;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataTextField?: string;
-        field?: string;
+        dataFormatField?: string | undefined;
+        dataColorField?: string | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        field?: string | undefined;
     }
 
     interface GanttToolbarItem {
-        name?: string;
-        template?: string|Function;
-        text?: string;
+        name?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
     }
 
     interface GanttTooltip {
-        template?: string|Function;
-        visible?: boolean;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface GanttViewRange {
-        start?: Date;
-        end?: Date;
+        start?: Date | undefined;
+        end?: Date | undefined;
     }
 
     interface GanttView {
-        date?: Date;
-        range?: GanttViewRange;
-        type?: string;
-        selected?: boolean;
-        slotSize?: number|string;
-        timeHeaderTemplate?: string|Function;
-        dayHeaderTemplate?: string|Function;
-        weekHeaderTemplate?: string|Function;
-        monthHeaderTemplate?: string|Function;
-        yearHeaderTemplate?: string|Function;
-        resizeTooltipFormat?: string;
+        date?: Date | undefined;
+        range?: GanttViewRange | undefined;
+        type?: string | undefined;
+        selected?: boolean | undefined;
+        slotSize?: number|string | undefined;
+        timeHeaderTemplate?: string|Function | undefined;
+        dayHeaderTemplate?: string|Function | undefined;
+        weekHeaderTemplate?: string|Function | undefined;
+        monthHeaderTemplate?: string|Function | undefined;
+        yearHeaderTemplate?: string|Function | undefined;
+        resizeTooltipFormat?: string | undefined;
     }
 
     interface GanttOptions {
-        name?: string;
-        assignments?: GanttAssignments;
-        autoBind?: boolean;
-        columnResizeHandleWidth?: number;
-        columnMenu?: boolean|any;
-        columns?: GanttColumn[];
-        currentTimeMarker?: boolean | GanttCurrentTimeMarker;
-        dataSource?: any|any|kendo.data.GanttDataSource;
-        date?: Date;
-        dependencies?: any|any|kendo.data.GanttDependencyDataSource;
-        editable?: boolean | GanttEditable;
-        filterable?: boolean|any;
-        reorderable?: boolean;
-        navigatable?: boolean;
-        workDayStart?: Date;
-        workDayEnd?: Date;
-        workWeekStart?: number;
-        workWeekEnd?: number;
-        hourSpan?: number;
-        snap?: boolean;
-        height?: number|string;
-        listWidth?: string|number;
-        messages?: GanttMessages;
-        pdf?: GanttPdf;
-        range?: GanttRange;
-        resizable?: boolean;
-        selectable?: boolean;
-        showWorkDays?: boolean;
-        showWorkHours?: boolean;
-        taskTemplate?: string|Function;
-        toolbar?: GanttToolbarItem[];
-        tooltip?: GanttTooltip;
-        views?: GanttView[];
-        resources?: GanttResources;
-        rowHeight?: number|string;
+        name?: string | undefined;
+        assignments?: GanttAssignments | undefined;
+        autoBind?: boolean | undefined;
+        columnResizeHandleWidth?: number | undefined;
+        columnMenu?: boolean|any | undefined;
+        columns?: GanttColumn[] | undefined;
+        currentTimeMarker?: boolean | GanttCurrentTimeMarker | undefined;
+        dataSource?: any|any|kendo.data.GanttDataSource | undefined;
+        date?: Date | undefined;
+        dependencies?: any|any|kendo.data.GanttDependencyDataSource | undefined;
+        editable?: boolean | GanttEditable | undefined;
+        filterable?: boolean|any | undefined;
+        reorderable?: boolean | undefined;
+        navigatable?: boolean | undefined;
+        workDayStart?: Date | undefined;
+        workDayEnd?: Date | undefined;
+        workWeekStart?: number | undefined;
+        workWeekEnd?: number | undefined;
+        hourSpan?: number | undefined;
+        snap?: boolean | undefined;
+        height?: number|string | undefined;
+        listWidth?: string|number | undefined;
+        messages?: GanttMessages | undefined;
+        pdf?: GanttPdf | undefined;
+        range?: GanttRange | undefined;
+        resizable?: boolean | undefined;
+        selectable?: boolean | undefined;
+        showWorkDays?: boolean | undefined;
+        showWorkHours?: boolean | undefined;
+        taskTemplate?: string|Function | undefined;
+        toolbar?: GanttToolbarItem[] | undefined;
+        tooltip?: GanttTooltip | undefined;
+        views?: GanttView[] | undefined;
+        resources?: GanttResources | undefined;
+        rowHeight?: number|string | undefined;
         dataBinding?(e: GanttDataBindingEvent): void;
         dataBound?(e: GanttDataBoundEvent): void;
         add?(e: GanttAddEvent): void;
@@ -5342,27 +5342,27 @@ declare namespace kendo.ui {
     }
 
     interface GanttAddEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
-        dependency?: kendo.data.GanttDependency;
+        task?: kendo.data.GanttTask | undefined;
+        dependency?: kendo.data.GanttDependency | undefined;
     }
 
     interface GanttEditEvent extends GanttEvent {
-        container?: JQuery;
-        task?: kendo.data.GanttTask;
+        container?: JQuery | undefined;
+        task?: kendo.data.GanttTask | undefined;
     }
 
     interface GanttRemoveEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
+        task?: kendo.data.GanttTask | undefined;
         dependencies?: any;
     }
 
     interface GanttCancelEvent extends GanttEvent {
-        container?: JQuery;
-        task?: kendo.data.GanttTask;
+        container?: JQuery | undefined;
+        task?: kendo.data.GanttTask | undefined;
     }
 
     interface GanttSaveEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
+        task?: kendo.data.GanttTask | undefined;
         values?: any;
     }
 
@@ -5371,52 +5371,52 @@ declare namespace kendo.ui {
 
     interface GanttColumnResizeEvent extends GanttEvent {
         column?: any;
-        newWidth?: number;
-        oldWidth?: number;
+        newWidth?: number | undefined;
+        oldWidth?: number | undefined;
     }
 
     interface GanttNavigateEvent extends GanttEvent {
-        view?: string;
+        view?: string | undefined;
     }
 
     interface GanttMoveStartEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
+        task?: kendo.data.GanttTask | undefined;
     }
 
     interface GanttMoveEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
-        start?: Date;
-        end?: Date;
+        task?: kendo.data.GanttTask | undefined;
+        start?: Date | undefined;
+        end?: Date | undefined;
     }
 
     interface GanttMoveEndEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
-        start?: Date;
-        end?: Date;
+        task?: kendo.data.GanttTask | undefined;
+        start?: Date | undefined;
+        end?: Date | undefined;
     }
 
     interface GanttPdfExportEvent extends GanttEvent {
-        promise?: JQueryPromise<any>;
+        promise?: JQueryPromise<any> | undefined;
     }
 
     interface GanttResizeStartEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
+        task?: kendo.data.GanttTask | undefined;
     }
 
     interface GanttResizeEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
-        start?: Date;
-        end?: Date;
+        task?: kendo.data.GanttTask | undefined;
+        start?: Date | undefined;
+        end?: Date | undefined;
     }
 
     interface GanttResizeEndEvent extends GanttEvent {
-        task?: kendo.data.GanttTask;
-        start?: Date;
-        end?: Date;
+        task?: kendo.data.GanttTask | undefined;
+        start?: Date | undefined;
+        end?: Date | undefined;
     }
 
     interface GanttTogglePlannedTasks extends GanttEvent {
-        showPlannedTasks?: boolean;
+        showPlannedTasks?: boolean | undefined;
     }
 
 
@@ -5427,7 +5427,7 @@ declare namespace kendo.ui {
         options: GridOptions;
 
         dataSource: kendo.data.DataSource;
-        editable?: kendo.ui.Editable;
+        editable?: kendo.ui.Editable | undefined;
         columns: GridColumn[];
         footer: JQuery;
         pager: kendo.ui.Pager;
@@ -5516,331 +5516,331 @@ declare namespace kendo.ui {
     }
 
     interface GridAllowCopy {
-        delimeter?: string|any;
+        delimeter?: string|any | undefined;
     }
 
     interface GridColumnMenuColumnsGroup {
         columns?: any;
-        title?: string;
+        title?: string | undefined;
     }
 
     interface GridColumnMenuColumns {
-        sort?: string;
-        groups?: GridColumnMenuColumnsGroup[];
+        sort?: string | undefined;
+        groups?: GridColumnMenuColumnsGroup[] | undefined;
     }
 
     interface GridColumnMenuMessages {
-        columns?: string;
-        filter?: string;
-        sortAscending?: string;
-        sortDescending?: string;
-        setColumnPosition?: string;
-        settings?: string;
-        stick?: string;
-        unstick?: string;
-        done?: string;
-        lock?: string;
-        unlock?: string;
+        columns?: string | undefined;
+        filter?: string | undefined;
+        sortAscending?: string | undefined;
+        sortDescending?: string | undefined;
+        setColumnPosition?: string | undefined;
+        settings?: string | undefined;
+        stick?: string | undefined;
+        unstick?: string | undefined;
+        done?: string | undefined;
+        lock?: string | undefined;
+        unlock?: string | undefined;
     }
 
     interface GridColumnMenu {
-        columns?: boolean | GridColumnMenuColumns;
-        filterable?: boolean;
-        sortable?: boolean;
-        messages?: GridColumnMenuMessages;
-        componentType?: string;
+        columns?: boolean | GridColumnMenuColumns | undefined;
+        filterable?: boolean | undefined;
+        sortable?: boolean | undefined;
+        messages?: GridColumnMenuMessages | undefined;
+        componentType?: string | undefined;
     }
 
     interface GridColumnCommandItemIconClass {
-        cancel?: string;
-        edit?: string;
-        update?: string;
+        cancel?: string | undefined;
+        edit?: string | undefined;
+        update?: string | undefined;
     }
 
     interface GridColumnCommandItemText {
-        edit?: string;
-        cancel?: string;
-        update?: string;
+        edit?: string | undefined;
+        cancel?: string | undefined;
+        update?: string | undefined;
     }
 
     interface GridColumnCommandItem {
-        className?: string;
-        click?: Function;
-        iconClass?: string | GridColumnCommandItemIconClass;
-        name?: string;
-        template?: string;
-        text?: string | GridColumnCommandItemText;
-        visible?: Function;
+        className?: string | undefined;
+        click?: Function | undefined;
+        iconClass?: string | GridColumnCommandItemIconClass | undefined;
+        name?: string | undefined;
+        template?: string | undefined;
+        text?: string | GridColumnCommandItemText | undefined;
+        visible?: Function | undefined;
     }
 
     interface GridColumnExportable {
-        excel?: boolean;
-        pdf?: boolean;
+        excel?: boolean | undefined;
+        pdf?: boolean | undefined;
     }
 
     interface GridColumnFilterableCell {
-        dataSource?: any|kendo.data.DataSource;
-        dataTextField?: string;
-        delay?: number;
-        inputWidth?: number;
-        suggestionOperator?: string;
-        minLength?: number;
-        enabled?: boolean;
-        operator?: string;
-        showOperators?: boolean;
-        template?: Function;
+        dataSource?: any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        delay?: number | undefined;
+        inputWidth?: number | undefined;
+        suggestionOperator?: string | undefined;
+        minLength?: number | undefined;
+        enabled?: boolean | undefined;
+        operator?: string | undefined;
+        showOperators?: boolean | undefined;
+        template?: Function | undefined;
     }
 
     interface GridColumnFilterable {
-        cell?: GridColumnFilterableCell;
-        extra?: boolean;
-        multi?: boolean;
-        dataSource?: any|any|kendo.data.DataSource;
-        checkAll?: boolean;
-        itemTemplate?: Function;
+        cell?: GridColumnFilterableCell | undefined;
+        extra?: boolean | undefined;
+        multi?: boolean | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        checkAll?: boolean | undefined;
+        itemTemplate?: Function | undefined;
         operators?: any;
-        search?: boolean;
-        ignoreCase?: boolean;
-        ui?: string|Function;
+        search?: boolean | undefined;
+        ignoreCase?: boolean | undefined;
+        ui?: string|Function | undefined;
     }
 
     interface GridColumnGroupable {
-        compare?: Function;
-        dir?: string;
+        compare?: Function | undefined;
+        dir?: string | undefined;
     }
 
     interface GridColumnSortable {
-        allowUnsort?: boolean;
-        compare?: Function;
-        initialDirection?: string;
+        allowUnsort?: boolean | undefined;
+        compare?: Function | undefined;
+        initialDirection?: string | undefined;
     }
 
     interface GridColumn {
-        dataTextField?: string;
-        dataValueField?: string;
-        dataSource?: kendo.data.DataSource | kendo.data.DataSourceOptions;
+        dataTextField?: string | undefined;
+        dataValueField?: string | undefined;
+        dataSource?: kendo.data.DataSource | kendo.data.DataSourceOptions | undefined;
         aggregates?: any;
         attributes?: any;
         columns?: any;
-        command?: string | string[] | GridColumnCommandItem | GridColumnCommandItem[];
-        editable?: Function;
-        encoded?: boolean;
-        exportable?: boolean | GridColumnExportable;
-        field?: string;
-        filterable?: boolean | GridColumnFilterable;
+        command?: string | string[] | GridColumnCommandItem | GridColumnCommandItem[] | undefined;
+        editable?: Function | undefined;
+        encoded?: boolean | undefined;
+        exportable?: boolean | GridColumnExportable | undefined;
+        field?: string | undefined;
+        filterable?: boolean | GridColumnFilterable | undefined;
         footerAttributes?: any;
-        footerTemplate?: string|Function;
-        format?: string;
-        groupable?: boolean | GridColumnGroupable;
-        groupHeaderColumnTemplate?: string|Function;
-        groupHeaderTemplate?: string|Function;
-        groupFooterTemplate?: string|Function;
+        footerTemplate?: string|Function | undefined;
+        format?: string | undefined;
+        groupable?: boolean | GridColumnGroupable | undefined;
+        groupHeaderColumnTemplate?: string|Function | undefined;
+        groupHeaderTemplate?: string|Function | undefined;
+        groupFooterTemplate?: string|Function | undefined;
         headerAttributes?: any;
-        headerTemplate?: string|Function;
-        hidden?: boolean;
-        locked?: boolean;
-        lockable?: boolean;
-        media?: string;
-        minResizableWidth?: number;
-        minScreenWidth?: number;
-        selectable?: boolean;
-        sortable?: boolean | GridColumnSortable;
-        sticky?: boolean;
-        stickable?: boolean;
-        template?: string|Function;
-        title?: string;
-        width?: string|number;
+        headerTemplate?: string|Function | undefined;
+        hidden?: boolean | undefined;
+        locked?: boolean | undefined;
+        lockable?: boolean | undefined;
+        media?: string | undefined;
+        minResizableWidth?: number | undefined;
+        minScreenWidth?: number | undefined;
+        selectable?: boolean | undefined;
+        sortable?: boolean | GridColumnSortable | undefined;
+        sticky?: boolean | undefined;
+        stickable?: boolean | undefined;
+        template?: string|Function | undefined;
+        title?: string | undefined;
+        width?: string|number | undefined;
         values?: any;
-        menu?: boolean;
+        menu?: boolean | undefined;
     }
 
     interface GridEditable {
-        confirmation?: boolean|string|Function;
-        cancelDelete?: string;
-        confirmDelete?: string;
-        createAt?: string;
-        destroy?: boolean;
-        mode?: string;
-        template?: string|Function;
-        update?: boolean;
+        confirmation?: boolean|string|Function | undefined;
+        cancelDelete?: string | undefined;
+        confirmDelete?: string | undefined;
+        createAt?: string | undefined;
+        destroy?: boolean | undefined;
+        mode?: string | undefined;
+        template?: string|Function | undefined;
+        update?: boolean | undefined;
         window?: any;
     }
 
     interface GridExcel {
-        allPages?: boolean;
-        fileName?: string;
-        filterable?: boolean;
-        forceProxy?: boolean;
-        proxyURL?: string;
+        allPages?: boolean | undefined;
+        fileName?: string | undefined;
+        filterable?: boolean | undefined;
+        forceProxy?: boolean | undefined;
+        proxyURL?: string | undefined;
     }
 
     interface GridFilterableMessages {
-        and?: string;
-        clear?: string;
-        filter?: string;
-        info?: string;
-        title?: string;
-        isFalse?: string;
-        isTrue?: string;
-        or?: string;
-        search?: string;
-        selectValue?: string;
-        cancel?: string;
-        selectedItemsFormat?: string;
-        operator?: string;
-        value?: string;
-        checkAll?: string;
+        and?: string | undefined;
+        clear?: string | undefined;
+        filter?: string | undefined;
+        info?: string | undefined;
+        title?: string | undefined;
+        isFalse?: string | undefined;
+        isTrue?: string | undefined;
+        or?: string | undefined;
+        search?: string | undefined;
+        selectValue?: string | undefined;
+        cancel?: string | undefined;
+        selectedItemsFormat?: string | undefined;
+        operator?: string | undefined;
+        value?: string | undefined;
+        checkAll?: string | undefined;
     }
 
     interface GridFilterableOperatorsDate {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        gte?: string;
-        gt?: string;
-        lte?: string;
-        lt?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        gte?: string | undefined;
+        gt?: string | undefined;
+        lte?: string | undefined;
+        lt?: string | undefined;
     }
 
     interface GridFilterableOperatorsEnums {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
     }
 
     interface GridFilterableOperatorsNumber {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        gte?: string;
-        gt?: string;
-        lte?: string;
-        lt?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        gte?: string | undefined;
+        gt?: string | undefined;
+        lte?: string | undefined;
+        lt?: string | undefined;
     }
 
     interface GridFilterableOperatorsString {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        isempty?: string;
-        isnotempty?: string;
-        startswith?: string;
-        contains?: string;
-        doesnotcontain?: string;
-        endswith?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        isempty?: string | undefined;
+        isnotempty?: string | undefined;
+        startswith?: string | undefined;
+        contains?: string | undefined;
+        doesnotcontain?: string | undefined;
+        endswith?: string | undefined;
     }
 
     interface GridFilterableOperators {
-        string?: GridFilterableOperatorsString;
-        number?: GridFilterableOperatorsNumber;
-        date?: GridFilterableOperatorsDate;
-        enums?: GridFilterableOperatorsEnums;
+        string?: GridFilterableOperatorsString | undefined;
+        number?: GridFilterableOperatorsNumber | undefined;
+        date?: GridFilterableOperatorsDate | undefined;
+        enums?: GridFilterableOperatorsEnums | undefined;
     }
 
     interface GridFilterable {
-        extra?: boolean;
-        messages?: GridFilterableMessages;
-        mode?: string;
-        operators?: GridFilterableOperators;
+        extra?: boolean | undefined;
+        messages?: GridFilterableMessages | undefined;
+        mode?: string | undefined;
+        operators?: GridFilterableOperators | undefined;
     }
 
     interface GridGroupableMessages {
-        empty?: string;
+        empty?: string | undefined;
     }
 
     interface GridGroupable {
-        enabled?: boolean;
-        showFooter?: boolean;
-        messages?: GridGroupableMessages;
-        compare?: Function;
-        dir?: string;
+        enabled?: boolean | undefined;
+        showFooter?: boolean | undefined;
+        messages?: GridGroupableMessages | undefined;
+        compare?: Function | undefined;
+        dir?: string | undefined;
     }
 
     interface GridMessagesCommands {
-        cancel?: string;
-        canceledit?: string;
-        create?: string;
-        destroy?: string;
-        edit?: string;
-        excel?: string;
-        save?: string;
-        update?: string;
+        cancel?: string | undefined;
+        canceledit?: string | undefined;
+        create?: string | undefined;
+        destroy?: string | undefined;
+        edit?: string | undefined;
+        excel?: string | undefined;
+        save?: string | undefined;
+        update?: string | undefined;
     }
 
     interface GridMessages {
-        commands?: GridMessagesCommands;
-        noRecords?: string;
-        expandCollapseColumnHeader?: string;
+        commands?: GridMessagesCommands | undefined;
+        noRecords?: string | undefined;
+        expandCollapseColumnHeader?: string | undefined;
     }
 
     interface GridNoRecords {
-        template?: string|Function;
+        template?: string|Function | undefined;
     }
 
     interface GridPageableMessages {
-        display?: string;
-        empty?: string;
-        page?: string;
-        of?: string;
-        itemsPerPage?: string;
-        first?: string;
-        last?: string;
-        next?: string;
-        previous?: string;
-        refresh?: string;
-        morePages?: string;
+        display?: string | undefined;
+        empty?: string | undefined;
+        page?: string | undefined;
+        of?: string | undefined;
+        itemsPerPage?: string | undefined;
+        first?: string | undefined;
+        last?: string | undefined;
+        next?: string | undefined;
+        previous?: string | undefined;
+        refresh?: string | undefined;
+        morePages?: string | undefined;
     }
 
     interface GridPageable {
-        alwaysVisible?: boolean;
-        pageSize?: number;
-        previousNext?: boolean;
-        numeric?: boolean;
-        buttonCount?: number;
-        input?: boolean;
-        pageSizes?: boolean|any;
-        refresh?: boolean;
-        responsive?: boolean;
-        info?: boolean;
-        messages?: GridPageableMessages;
-        position?: string;
+        alwaysVisible?: boolean | undefined;
+        pageSize?: number | undefined;
+        previousNext?: boolean | undefined;
+        numeric?: boolean | undefined;
+        buttonCount?: number | undefined;
+        input?: boolean | undefined;
+        pageSizes?: boolean|any | undefined;
+        refresh?: boolean | undefined;
+        responsive?: boolean | undefined;
+        info?: boolean | undefined;
+        messages?: GridPageableMessages | undefined;
+        position?: string | undefined;
     }
 
     interface GridPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface GridPdf {
-        allPages?: boolean;
-        author?: string;
-        avoidLinks?: boolean|string;
-        creator?: string;
-        date?: Date;
-        fileName?: string;
-        forceProxy?: boolean;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: GridPdfMargin;
-        paperSize?: string|any;
-        template?: string;
-        repeatHeaders?: boolean;
-        scale?: number;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        allPages?: boolean | undefined;
+        author?: string | undefined;
+        avoidLinks?: boolean|string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: GridPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        template?: string | undefined;
+        repeatHeaders?: boolean | undefined;
+        scale?: number | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface GridScrollable {
-        virtual?: boolean|string;
-        endless?: boolean;
+        virtual?: boolean|string | undefined;
+        endless?: boolean | undefined;
     }
 
     interface GridSearch {
@@ -5848,50 +5848,50 @@ declare namespace kendo.ui {
     }
 
     interface GridSortable {
-        allowUnsort?: boolean;
-        showIndexes?: boolean;
-        initialDirection?: string;
-        mode?: string;
+        allowUnsort?: boolean | undefined;
+        showIndexes?: boolean | undefined;
+        initialDirection?: string | undefined;
+        mode?: string | undefined;
     }
 
     interface GridToolbarItem {
-        iconClass?: string;
-        name?: string;
-        template?: string|Function;
-        text?: string;
+        iconClass?: string | undefined;
+        name?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
     }
 
     interface GridOptions {
-        name?: string;
-        allowCopy?: boolean | GridAllowCopy;
-        altRowTemplate?: string|Function;
-        autoBind?: boolean;
-        columnResizeHandleWidth?: number;
-        columns?: GridColumn[];
-        columnMenu?: boolean | GridColumnMenu;
-        dataSource?: any|any|kendo.data.DataSource;
-        detailTemplate?: string|Function;
-        editable?: boolean | "inline" | "incell" | "popup" | GridEditable;
-        excel?: GridExcel;
-        filterable?: boolean | GridFilterable;
-        groupable?: boolean | GridGroupable;
-        height?: number|string;
-        loaderType?: string;
-        messages?: GridMessages;
-        mobile?: boolean|string;
-        navigatable?: boolean;
-        noRecords?: boolean | GridNoRecords;
-        pageable?: boolean | GridPageable;
-        pdf?: GridPdf;
-        persistSelection?: boolean;
-        reorderable?: boolean;
-        resizable?: boolean;
-        rowTemplate?: string|Function;
-        scrollable?: boolean | GridScrollable;
-        search?: GridSearch;
-        selectable?: boolean|string;
-        sortable?: boolean | GridSortable;
-        toolbar?: string | Function | (string | GridToolbarItem)[];
+        name?: string | undefined;
+        allowCopy?: boolean | GridAllowCopy | undefined;
+        altRowTemplate?: string|Function | undefined;
+        autoBind?: boolean | undefined;
+        columnResizeHandleWidth?: number | undefined;
+        columns?: GridColumn[] | undefined;
+        columnMenu?: boolean | GridColumnMenu | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        detailTemplate?: string|Function | undefined;
+        editable?: boolean | "inline" | "incell" | "popup" | GridEditable | undefined;
+        excel?: GridExcel | undefined;
+        filterable?: boolean | GridFilterable | undefined;
+        groupable?: boolean | GridGroupable | undefined;
+        height?: number|string | undefined;
+        loaderType?: string | undefined;
+        messages?: GridMessages | undefined;
+        mobile?: boolean|string | undefined;
+        navigatable?: boolean | undefined;
+        noRecords?: boolean | GridNoRecords | undefined;
+        pageable?: boolean | GridPageable | undefined;
+        pdf?: GridPdf | undefined;
+        persistSelection?: boolean | undefined;
+        reorderable?: boolean | undefined;
+        resizable?: boolean | undefined;
+        rowTemplate?: string|Function | undefined;
+        scrollable?: boolean | GridScrollable | undefined;
+        search?: GridSearch | undefined;
+        selectable?: boolean|string | undefined;
+        sortable?: boolean | GridSortable | undefined;
+        toolbar?: string | Function | (string | GridToolbarItem)[] | undefined;
         beforeEdit?(e: GridBeforeEditEvent): void;
         cancel?(e: GridCancelEvent): void;
         cellClose?(e: GridCellCloseEvent): void;
@@ -5935,18 +5935,18 @@ declare namespace kendo.ui {
     }
 
     interface GridBeforeEditEvent extends GridEvent {
-        model?: kendo.data.Model;
+        model?: kendo.data.Model | undefined;
     }
 
     interface GridCancelEvent extends GridEvent {
-        container?: JQuery;
-        model?: kendo.data.Model;
+        container?: JQuery | undefined;
+        model?: kendo.data.Model | undefined;
     }
 
     interface GridCellCloseEvent extends GridEvent {
-        container?: JQuery;
-        model?: kendo.data.Model;
-        type?: string;
+        container?: JQuery | undefined;
+        model?: kendo.data.Model | undefined;
+        type?: string | undefined;
     }
 
     interface GridChangeEvent extends GridEvent {
@@ -5961,25 +5961,25 @@ declare namespace kendo.ui {
     }
 
     interface GridColumnMenuInitEvent extends GridEvent {
-        container?: JQuery;
-        field?: string;
+        container?: JQuery | undefined;
+        field?: string | undefined;
     }
 
     interface GridColumnMenuOpenEvent extends GridEvent {
-        container?: JQuery;
-        field?: string;
+        container?: JQuery | undefined;
+        field?: string | undefined;
     }
 
     interface GridColumnReorderEvent extends GridEvent {
         column?: any;
-        newIndex?: number;
-        oldIndex?: number;
+        newIndex?: number | undefined;
+        oldIndex?: number | undefined;
     }
 
     interface GridColumnResizeEvent extends GridEvent {
         column?: any;
-        newWidth?: number;
-        oldWidth?: number;
+        newWidth?: number | undefined;
+        oldWidth?: number | undefined;
     }
 
     interface GridColumnShowEvent extends GridEvent {
@@ -5999,8 +5999,8 @@ declare namespace kendo.ui {
     }
 
     interface GridDataBindingEvent extends GridEvent {
-        action?: string;
-        index?: number;
+        action?: string | undefined;
+        index?: number | undefined;
         items?: any;
     }
 
@@ -6008,45 +6008,45 @@ declare namespace kendo.ui {
     }
 
     interface GridDetailCollapseEvent extends GridEvent {
-        detailRow?: JQuery;
-        masterRow?: JQuery;
+        detailRow?: JQuery | undefined;
+        masterRow?: JQuery | undefined;
     }
 
     interface GridDetailExpandEvent extends GridEvent {
-        detailRow?: JQuery;
-        masterRow?: JQuery;
+        detailRow?: JQuery | undefined;
+        masterRow?: JQuery | undefined;
     }
 
     interface GridDetailInitEvent extends GridEvent {
-        data?: kendo.data.ObservableObject;
-        detailCell?: JQuery;
-        detailRow?: JQuery;
-        masterRow?: JQuery;
+        data?: kendo.data.ObservableObject | undefined;
+        detailCell?: JQuery | undefined;
+        detailRow?: JQuery | undefined;
+        masterRow?: JQuery | undefined;
     }
 
     interface GridEditEvent extends GridEvent {
-        container?: JQuery;
-        model?: kendo.data.Model;
+        container?: JQuery | undefined;
+        model?: kendo.data.Model | undefined;
     }
 
     interface GridExcelExportEvent extends GridEvent {
         data?: any;
-        workbook?: kendo.ooxml.Workbook;
+        workbook?: kendo.ooxml.Workbook | undefined;
     }
 
     interface GridFilterEvent extends GridEvent {
         filter?: any;
-        field?: string;
+        field?: string | undefined;
     }
 
     interface GridFilterMenuInitEvent extends GridEvent {
-        container?: JQuery;
-        field?: string;
+        container?: JQuery | undefined;
+        field?: string | undefined;
     }
 
     interface GridFilterMenuOpenEvent extends GridEvent {
-        container?: JQuery;
-        field?: string;
+        container?: JQuery | undefined;
+        field?: string | undefined;
     }
 
     interface GridGroupEvent extends GridEvent {
@@ -6054,35 +6054,35 @@ declare namespace kendo.ui {
     }
 
     interface GridGroupCollapseEvent extends GridEvent {
-        element?: JQuery;
+        element?: JQuery | undefined;
         group?: any;
     }
 
     interface GridGroupExpandEvent extends GridEvent {
-        element?: JQuery;
+        element?: JQuery | undefined;
         group?: any;
     }
 
     interface GridNavigateEvent extends GridEvent {
-        element?: JQuery;
+        element?: JQuery | undefined;
     }
 
     interface GridPageEvent extends GridEvent {
-        page?: number;
+        page?: number | undefined;
     }
 
     interface GridPdfExportEvent extends GridEvent {
-        promise?: JQueryPromise<any>;
+        promise?: JQueryPromise<any> | undefined;
     }
 
     interface GridRemoveEvent extends GridEvent {
-        model?: kendo.data.Model;
-        row?: JQuery;
+        model?: kendo.data.Model | undefined;
+        row?: JQuery | undefined;
     }
 
     interface GridSaveEvent extends GridEvent {
-        model?: kendo.data.Model;
-        container?: JQuery;
+        model?: kendo.data.Model | undefined;
+        container?: JQuery | undefined;
         values?: any;
     }
 
@@ -6119,104 +6119,104 @@ declare namespace kendo.ui {
     }
 
     interface ImageEditorMessagesCommon {
-        width?: string;
-        height?: string;
-        cancel?: string;
-        confirm?: string;
-        lockAspectRatio?: string;
+        width?: string | undefined;
+        height?: string | undefined;
+        cancel?: string | undefined;
+        confirm?: string | undefined;
+        lockAspectRatio?: string | undefined;
     }
 
     interface ImageEditorMessagesPanesCropAspectRatioItems {
-        originalRatio?: string;
+        originalRatio?: string | undefined;
     }
 
     interface ImageEditorMessagesPanesCrop {
-        title?: string;
-        aspectRatio?: string;
-        aspectRatioItems?: ImageEditorMessagesPanesCropAspectRatioItems;
-        orientation?: string;
-        portrait?: string;
-        landscape?: string;
+        title?: string | undefined;
+        aspectRatio?: string | undefined;
+        aspectRatioItems?: ImageEditorMessagesPanesCropAspectRatioItems | undefined;
+        orientation?: string | undefined;
+        portrait?: string | undefined;
+        landscape?: string | undefined;
     }
 
     interface ImageEditorMessagesPanesResize {
-        title?: string;
-        pixels?: string;
-        percents?: string;
+        title?: string | undefined;
+        pixels?: string | undefined;
+        percents?: string | undefined;
     }
 
     interface ImageEditorMessagesPanes {
-        crop?: ImageEditorMessagesPanesCrop;
-        resize?: ImageEditorMessagesPanesResize;
+        crop?: ImageEditorMessagesPanesCrop | undefined;
+        resize?: ImageEditorMessagesPanesResize | undefined;
     }
 
     interface ImageEditorMessagesToolbar {
-        open?: string;
-        save?: string;
-        undo?: string;
-        redo?: string;
-        crop?: string;
-        resize?: string;
-        zoomIn?: string;
-        zoomOut?: string;
-        zoomDropdown?: string;
-        zoomActualSize?: string;
-        zoomFitToScreen?: string;
+        open?: string | undefined;
+        save?: string | undefined;
+        undo?: string | undefined;
+        redo?: string | undefined;
+        crop?: string | undefined;
+        resize?: string | undefined;
+        zoomIn?: string | undefined;
+        zoomOut?: string | undefined;
+        zoomDropdown?: string | undefined;
+        zoomActualSize?: string | undefined;
+        zoomFitToScreen?: string | undefined;
     }
 
     interface ImageEditorMessages {
-        toolbar?: ImageEditorMessagesToolbar;
-        panes?: ImageEditorMessagesPanes;
-        common?: ImageEditorMessagesCommon;
+        toolbar?: ImageEditorMessagesToolbar | undefined;
+        panes?: ImageEditorMessagesPanes | undefined;
+        common?: ImageEditorMessagesCommon | undefined;
     }
 
     interface ImageEditorSaveAs {
-        fileName?: string;
-        forceProxy?: boolean;
-        proxyURL?: boolean;
-        proxyTarget?: string;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        proxyURL?: boolean | undefined;
+        proxyTarget?: string | undefined;
     }
 
     interface ImageEditorToolbarItem {
-        type?: string;
-        overflow?: string;
-        click?: Function;
-        command?: string;
-        options?: string;
-        name?: string;
-        togglable?: boolean;
-        text?: string;
-        template?: string|Function;
-        showText?: string;
-        primary?: boolean;
+        type?: string | undefined;
+        overflow?: string | undefined;
+        click?: Function | undefined;
+        command?: string | undefined;
+        options?: string | undefined;
+        name?: string | undefined;
+        togglable?: boolean | undefined;
+        text?: string | undefined;
+        template?: string|Function | undefined;
+        showText?: string | undefined;
+        primary?: boolean | undefined;
         attributes?: any;
-        enable?: boolean;
-        hidden?: boolean;
-        spriteCssClass?: string;
-        imageUrl?: string;
-        showIcon?: string;
-        icon?: string;
-        id?: string;
+        enable?: boolean | undefined;
+        hidden?: boolean | undefined;
+        spriteCssClass?: string | undefined;
+        imageUrl?: string | undefined;
+        showIcon?: string | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
     }
 
     interface ImageEditorToolbar {
-        items?: ImageEditorToolbarItem[];
-        click?: Function;
-        close?: Function;
-        open?: Function;
-        toggle?: Function;
-        overflowClose?: Function;
-        overflowOpen?: Function;
+        items?: ImageEditorToolbarItem[] | undefined;
+        click?: Function | undefined;
+        close?: Function | undefined;
+        open?: Function | undefined;
+        toggle?: Function | undefined;
+        overflowClose?: Function | undefined;
+        overflowOpen?: Function | undefined;
     }
 
     interface ImageEditorOptions {
-        name?: string;
-        width?: number|string;
-        height?: number|string;
-        imageUrl?: string;
-        saveAs?: ImageEditorSaveAs;
-        toolbar?: boolean | ImageEditorToolbar;
-        messages?: ImageEditorMessages;
+        name?: string | undefined;
+        width?: number|string | undefined;
+        height?: number|string | undefined;
+        imageUrl?: string | undefined;
+        saveAs?: ImageEditorSaveAs | undefined;
+        toolbar?: boolean | ImageEditorToolbar | undefined;
+        messages?: ImageEditorMessages | undefined;
         imageLoaded?(e: ImageEditorImageLoadedEvent): void;
         imageRendered?(e: ImageEditorImageRenderedEvent): void;
         execute?(e: ImageEditorExecuteEvent): void;
@@ -6234,12 +6234,12 @@ declare namespace kendo.ui {
 
     interface ImageEditorImageRenderedEvent extends ImageEditorEvent {
         image?: any;
-        canvas?: HTMLElement;
+        canvas?: HTMLElement | undefined;
         ctx?: any;
     }
 
     interface ImageEditorExecuteEvent extends ImageEditorEvent {
-        command?: string;
+        command?: string | undefined;
         options?: any;
     }
 
@@ -6288,44 +6288,44 @@ declare namespace kendo.ui {
     }
 
     interface ListBoxDraggable {
-        enabled?: boolean;
-        hint?: Function|string|JQuery;
-        placeholder?: Function|string|JQuery;
+        enabled?: boolean | undefined;
+        hint?: Function|string|JQuery | undefined;
+        placeholder?: Function|string|JQuery | undefined;
     }
 
     interface ListBoxMessagesTools {
-        moveDown?: string;
-        moveUp?: string;
-        remove?: string;
-        transferAllFrom?: string;
-        transferAllTo?: string;
-        transferFrom?: string;
-        transferTo?: string;
+        moveDown?: string | undefined;
+        moveUp?: string | undefined;
+        remove?: string | undefined;
+        transferAllFrom?: string | undefined;
+        transferAllTo?: string | undefined;
+        transferFrom?: string | undefined;
+        transferTo?: string | undefined;
     }
 
     interface ListBoxMessages {
-        tools?: ListBoxMessagesTools;
+        tools?: ListBoxMessagesTools | undefined;
     }
 
     interface ListBoxToolbar {
-        position?: string;
+        position?: string | undefined;
         tools?: any;
     }
 
     interface ListBoxOptions {
-        name?: string;
-        autoBind?: boolean;
-        connectWith?: string;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataTextField?: string;
-        dataValueField?: string;
-        draggable?: boolean | ListBoxDraggable;
+        name?: string | undefined;
+        autoBind?: boolean | undefined;
+        connectWith?: string | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        dataValueField?: string | undefined;
+        draggable?: boolean | ListBoxDraggable | undefined;
         dropSources?: any;
-        navigatable?: boolean;
-        messages?: ListBoxMessages;
-        selectable?: string;
-        template?: string|Function;
-        toolbar?: ListBoxToolbar;
+        navigatable?: boolean | undefined;
+        messages?: ListBoxMessages | undefined;
+        selectable?: string | undefined;
+        template?: string|Function | undefined;
+        toolbar?: ListBoxToolbar | undefined;
         add?(e: ListBoxAddEvent): void;
         change?(e: ListBoxEvent): void;
         dataBound?(e: ListBoxEvent): void;
@@ -6349,11 +6349,11 @@ declare namespace kendo.ui {
 
     interface ListBoxDragstartEvent extends ListBoxEvent {
         draggableEvent?: any;
-        items?: JQuery;
+        items?: JQuery | undefined;
     }
 
     interface ListBoxDragEvent extends ListBoxEvent {
-        items?: JQuery;
+        items?: JQuery | undefined;
         dataItems?: any;
         draggableEvent?: any;
     }
@@ -6377,7 +6377,7 @@ declare namespace kendo.ui {
     interface ListBoxReorderEvent extends ListBoxEvent {
         items?: any;
         dataItems?: any;
-        offset?: number;
+        offset?: number | undefined;
     }
 
 
@@ -6419,16 +6419,16 @@ declare namespace kendo.ui {
     }
 
     interface ListViewOptions {
-        name?: string;
-        autoBind?: boolean;
-        dataSource?: any|any|kendo.data.DataSource;
-        editTemplate?: Function;
-        height?: number|string;
-        scrollable?: boolean|string;
-        navigatable?: boolean;
-        selectable?: boolean|string;
-        template?: Function;
-        altTemplate?: Function;
+        name?: string | undefined;
+        autoBind?: boolean | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        editTemplate?: Function | undefined;
+        height?: number|string | undefined;
+        scrollable?: boolean|string | undefined;
+        navigatable?: boolean | undefined;
+        selectable?: boolean|string | undefined;
+        template?: Function | undefined;
+        altTemplate?: Function | undefined;
         cancel?(e: ListViewCancelEvent): void;
         change?(e: ListViewEvent): void;
         dataBound?(e: ListViewEvent): void;
@@ -6444,23 +6444,23 @@ declare namespace kendo.ui {
     }
 
     interface ListViewCancelEvent extends ListViewEvent {
-        container?: JQuery;
-        model?: kendo.data.Model;
+        container?: JQuery | undefined;
+        model?: kendo.data.Model | undefined;
     }
 
     interface ListViewEditEvent extends ListViewEvent {
-        item?: JQuery;
-        model?: kendo.data.Model;
+        item?: JQuery | undefined;
+        model?: kendo.data.Model | undefined;
     }
 
     interface ListViewRemoveEvent extends ListViewEvent {
-        item?: JQuery;
-        model?: kendo.data.Model;
+        item?: JQuery | undefined;
+        model?: kendo.data.Model | undefined;
     }
 
     interface ListViewSaveEvent extends ListViewEvent {
-        model?: kendo.data.Model;
-        item?: JQuery;
+        model?: kendo.data.Model | undefined;
+        item?: JQuery | undefined;
     }
 
     class Loader extends kendo.ui.Widget {
@@ -6484,11 +6484,11 @@ declare namespace kendo.ui {
     }
 
     interface LoaderOptions {
-        name?: string;
-        themeColor?: string;
-        type?: string;
-        size?: string;
-        visible?: boolean;
+        name?: string | undefined;
+        themeColor?: string | undefined;
+        type?: string | undefined;
+        size?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface LoaderEvent {
@@ -6522,20 +6522,20 @@ declare namespace kendo.ui {
     }
 
     interface MaskedTextBoxLabel {
-        content?: string|Function;
-        floating?: boolean;
+        content?: string|Function | undefined;
+        floating?: boolean | undefined;
     }
 
     interface MaskedTextBoxOptions {
-        name?: string;
-        clearPromptChar?: boolean;
-        culture?: string;
-        label?: string | Function | MaskedTextBoxLabel;
-        mask?: string;
-        promptChar?: string;
+        name?: string | undefined;
+        clearPromptChar?: boolean | undefined;
+        culture?: string | undefined;
+        label?: string | Function | MaskedTextBoxLabel | undefined;
+        mask?: string | undefined;
+        promptChar?: string | undefined;
         rules?: any;
-        unmaskOnPost?: boolean;
-        value?: string;
+        unmaskOnPost?: boolean | undefined;
+        value?: string | undefined;
         change?(e: MaskedTextBoxChangeEvent): void;
     }
     interface MaskedTextBoxEvent {
@@ -6583,30 +6583,30 @@ declare namespace kendo.ui {
     }
 
     interface MediaPlayerMedia {
-        source?: string;
-        title?: string;
+        source?: string | undefined;
+        title?: string | undefined;
     }
 
     interface MediaPlayerMessages {
-        pause?: string;
-        play?: string;
-        mute?: string;
-        unmute?: string;
-        quality?: string;
-        fullscreen?: string;
+        pause?: string | undefined;
+        play?: string | undefined;
+        mute?: string | undefined;
+        unmute?: string | undefined;
+        quality?: string | undefined;
+        fullscreen?: string | undefined;
     }
 
     interface MediaPlayerOptions {
-        name?: string;
-        autoPlay?: boolean;
-        autoRepeat?: boolean;
-        forwardSeek?: boolean;
-        fullScreen?: boolean;
-        media?: MediaPlayerMedia;
-        messages?: MediaPlayerMessages;
-        mute?: boolean;
-        navigatable?: boolean;
-        volume?: number;
+        name?: string | undefined;
+        autoPlay?: boolean | undefined;
+        autoRepeat?: boolean | undefined;
+        forwardSeek?: boolean | undefined;
+        fullScreen?: boolean | undefined;
+        media?: MediaPlayerMedia | undefined;
+        messages?: MediaPlayerMessages | undefined;
+        mute?: boolean | undefined;
+        navigatable?: boolean | undefined;
+        volume?: number | undefined;
         end?(e: MediaPlayerEvent): void;
         pause?(e: MediaPlayerEvent): void;
         play?(e: MediaPlayerEvent): void;
@@ -6662,45 +6662,45 @@ declare namespace kendo.ui {
     }
 
     interface MenuAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MenuAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MenuAnimation {
-        close?: MenuAnimationClose;
-        open?: MenuAnimationOpen;
+        close?: MenuAnimationClose | undefined;
+        open?: MenuAnimationOpen | undefined;
     }
 
     interface MenuOpenOnClick {
-        rootMenuItems?: boolean;
-        subMenuItems?: boolean;
+        rootMenuItems?: boolean | undefined;
+        subMenuItems?: boolean | undefined;
     }
 
     interface MenuScrollable {
-        distance?: number;
+        distance?: number | undefined;
     }
 
     interface MenuOptions {
-        name?: string;
-        animation?: boolean | MenuAnimation;
-        closeOnClick?: boolean;
-        dataSource?: any|any|kendo.data.HierarchicalDataSource;
-        dataTextField?: string;
-        dataUrlField?: string;
-        dataSpriteCssClassField?: string;
-        dataImageUrlField?: string;
-        dataContentField?: string;
-        direction?: string;
-        hoverDelay?: number;
-        openOnClick?: boolean | MenuOpenOnClick;
-        orientation?: string;
-        popupCollision?: string;
-        scrollable?: boolean | MenuScrollable;
+        name?: string | undefined;
+        animation?: boolean | MenuAnimation | undefined;
+        closeOnClick?: boolean | undefined;
+        dataSource?: any|any|kendo.data.HierarchicalDataSource | undefined;
+        dataTextField?: string | undefined;
+        dataUrlField?: string | undefined;
+        dataSpriteCssClassField?: string | undefined;
+        dataImageUrlField?: string | undefined;
+        dataContentField?: string | undefined;
+        direction?: string | undefined;
+        hoverDelay?: number | undefined;
+        openOnClick?: boolean | MenuOpenOnClick | undefined;
+        orientation?: string | undefined;
+        popupCollision?: string | undefined;
+        scrollable?: boolean | MenuScrollable | undefined;
         close?(e: MenuCloseEvent): void;
         open?(e: MenuOpenEvent): void;
         activate?(e: MenuActivateEvent): void;
@@ -6714,23 +6714,23 @@ declare namespace kendo.ui {
     }
 
     interface MenuCloseEvent extends MenuEvent {
-        item?: HTMLElement;
+        item?: HTMLElement | undefined;
     }
 
     interface MenuOpenEvent extends MenuEvent {
-        item?: HTMLElement;
+        item?: HTMLElement | undefined;
     }
 
     interface MenuActivateEvent extends MenuEvent {
-        item?: HTMLElement;
+        item?: HTMLElement | undefined;
     }
 
     interface MenuDeactivateEvent extends MenuEvent {
-        item?: HTMLElement;
+        item?: HTMLElement | undefined;
     }
 
     interface MenuSelectEvent extends MenuEvent {
-        item?: HTMLElement;
+        item?: HTMLElement | undefined;
     }
 
     class MultiColumnComboBox extends kendo.ui.Widget {
@@ -6778,77 +6778,77 @@ declare namespace kendo.ui {
     }
 
     interface MultiColumnComboBoxAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MultiColumnComboBoxAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MultiColumnComboBoxAnimation {
-        close?: MultiColumnComboBoxAnimationClose;
-        open?: MultiColumnComboBoxAnimationOpen;
+        close?: MultiColumnComboBoxAnimationClose | undefined;
+        open?: MultiColumnComboBoxAnimationOpen | undefined;
     }
 
     interface MultiColumnComboBoxColumn {
-        field?: string;
-        title?: string;
-        template?: string|Function;
-        headerTemplate?: string|Function;
-        width?: number|string;
+        field?: string | undefined;
+        title?: string | undefined;
+        template?: string|Function | undefined;
+        headerTemplate?: string|Function | undefined;
+        width?: number|string | undefined;
     }
 
     interface MultiColumnComboBoxPopup {
-        appendTo?: string;
-        origin?: string;
-        position?: string;
+        appendTo?: string | undefined;
+        origin?: string | undefined;
+        position?: string | undefined;
     }
 
     interface MultiColumnComboBoxVirtual {
-        itemHeight?: number;
-        mapValueTo?: string;
-        valueMapper?: Function;
+        itemHeight?: number | undefined;
+        mapValueTo?: string | undefined;
+        valueMapper?: Function | undefined;
     }
 
     interface MultiColumnComboBoxOptions {
-        name?: string;
-        animation?: MultiColumnComboBoxAnimation;
-        autoBind?: boolean;
-        autoWidth?: boolean;
-        cascadeFrom?: string;
-        cascadeFromField?: string;
-        columns?: MultiColumnComboBoxColumn[];
-        clearButton?: boolean;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataTextField?: string;
-        dataValueField?: string;
-        delay?: number;
-        dropDownWidth?: string|number;
-        enable?: boolean;
-        enforceMinLength?: boolean;
-        filter?: string;
+        name?: string | undefined;
+        animation?: MultiColumnComboBoxAnimation | undefined;
+        autoBind?: boolean | undefined;
+        autoWidth?: boolean | undefined;
+        cascadeFrom?: string | undefined;
+        cascadeFromField?: string | undefined;
+        columns?: MultiColumnComboBoxColumn[] | undefined;
+        clearButton?: boolean | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        dataValueField?: string | undefined;
+        delay?: number | undefined;
+        dropDownWidth?: string|number | undefined;
+        enable?: boolean | undefined;
+        enforceMinLength?: boolean | undefined;
+        filter?: string | undefined;
         filterFields?: any;
-        fixedGroupTemplate?: string|Function;
-        footerTemplate?: string|Function;
-        groupTemplate?: string|Function;
-        height?: number;
-        highlightFirst?: boolean;
-        ignoreCase?: boolean;
-        index?: number;
-        minLength?: number;
-        noDataTemplate?: string|Function|boolean;
-        placeholder?: string;
-        popup?: MultiColumnComboBoxPopup;
-        suggest?: boolean;
-        syncValueAndText?: boolean;
-        headerTemplate?: string|Function;
-        template?: string|Function;
-        text?: string;
-        value?: string;
-        valuePrimitive?: boolean;
-        virtual?: boolean | MultiColumnComboBoxVirtual;
+        fixedGroupTemplate?: string|Function | undefined;
+        footerTemplate?: string|Function | undefined;
+        groupTemplate?: string|Function | undefined;
+        height?: number | undefined;
+        highlightFirst?: boolean | undefined;
+        ignoreCase?: boolean | undefined;
+        index?: number | undefined;
+        minLength?: number | undefined;
+        noDataTemplate?: string|Function|boolean | undefined;
+        placeholder?: string | undefined;
+        popup?: MultiColumnComboBoxPopup | undefined;
+        suggest?: boolean | undefined;
+        syncValueAndText?: boolean | undefined;
+        headerTemplate?: string|Function | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
+        value?: string | undefined;
+        valuePrimitive?: boolean | undefined;
+        virtual?: boolean | MultiColumnComboBoxVirtual | undefined;
         change?(e: MultiColumnComboBoxChangeEvent): void;
         close?(e: MultiColumnComboBoxCloseEvent): void;
         dataBound?(e: MultiColumnComboBoxDataBoundEvent): void;
@@ -6881,7 +6881,7 @@ declare namespace kendo.ui {
 
     interface MultiColumnComboBoxSelectEvent extends MultiColumnComboBoxEvent {
         dataItem?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     interface MultiColumnComboBoxCascadeEvent extends MultiColumnComboBoxEvent {
@@ -6927,64 +6927,64 @@ declare namespace kendo.ui {
     }
 
     interface MultiSelectAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MultiSelectAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MultiSelectAnimation {
-        close?: MultiSelectAnimationClose;
-        open?: MultiSelectAnimationOpen;
+        close?: MultiSelectAnimationClose | undefined;
+        open?: MultiSelectAnimationOpen | undefined;
     }
 
     interface MultiSelectPopup {
-        appendTo?: string;
-        origin?: string;
-        position?: string;
+        appendTo?: string | undefined;
+        origin?: string | undefined;
+        position?: string | undefined;
     }
 
     interface MultiSelectVirtual {
-        itemHeight?: number;
-        mapValueTo?: string;
-        valueMapper?: Function;
+        itemHeight?: number | undefined;
+        mapValueTo?: string | undefined;
+        valueMapper?: Function | undefined;
     }
 
     interface MultiSelectOptions {
-        name?: string;
-        animation?: boolean | MultiSelectAnimation;
-        autoBind?: boolean;
-        autoClose?: boolean;
-        autoWidth?: boolean;
-        clearButton?: boolean;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataTextField?: string;
-        dataValueField?: string;
-        delay?: number;
-        enable?: boolean;
-        enforceMinLength?: boolean;
-        filter?: string;
-        fixedGroupTemplate?: string|Function;
-        footerTemplate?: string|Function;
-        groupTemplate?: string|Function;
-        height?: number;
-        highlightFirst?: boolean;
-        ignoreCase?: boolean;
-        minLength?: number;
-        maxSelectedItems?: number;
-        noDataTemplate?: string|Function|boolean;
-        placeholder?: string;
-        popup?: MultiSelectPopup;
-        headerTemplate?: string|Function;
-        itemTemplate?: string|Function;
-        tagTemplate?: string|Function;
-        tagMode?: string;
+        name?: string | undefined;
+        animation?: boolean | MultiSelectAnimation | undefined;
+        autoBind?: boolean | undefined;
+        autoClose?: boolean | undefined;
+        autoWidth?: boolean | undefined;
+        clearButton?: boolean | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        dataValueField?: string | undefined;
+        delay?: number | undefined;
+        enable?: boolean | undefined;
+        enforceMinLength?: boolean | undefined;
+        filter?: string | undefined;
+        fixedGroupTemplate?: string|Function | undefined;
+        footerTemplate?: string|Function | undefined;
+        groupTemplate?: string|Function | undefined;
+        height?: number | undefined;
+        highlightFirst?: boolean | undefined;
+        ignoreCase?: boolean | undefined;
+        minLength?: number | undefined;
+        maxSelectedItems?: number | undefined;
+        noDataTemplate?: string|Function|boolean | undefined;
+        placeholder?: string | undefined;
+        popup?: MultiSelectPopup | undefined;
+        headerTemplate?: string|Function | undefined;
+        itemTemplate?: string|Function | undefined;
+        tagTemplate?: string|Function | undefined;
+        tagMode?: string | undefined;
         value?: any;
-        valuePrimitive?: boolean;
-        virtual?: boolean | MultiSelectVirtual;
+        valuePrimitive?: boolean | undefined;
+        virtual?: boolean | MultiSelectVirtual | undefined;
         change?(e: MultiSelectChangeEvent): void;
         close?(e: MultiSelectCloseEvent): void;
         dataBound?(e: MultiSelectDataBoundEvent): void;
@@ -7017,12 +7017,12 @@ declare namespace kendo.ui {
 
     interface MultiSelectSelectEvent extends MultiSelectEvent {
         dataItem?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     interface MultiSelectDeselectEvent extends MultiSelectEvent {
         dataItem?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     class MultiViewCalendar extends kendo.ui.Widget {
@@ -7065,40 +7065,40 @@ declare namespace kendo.ui {
     }
 
     interface MultiViewCalendarMessages {
-        weekColumnHeader?: string;
+        weekColumnHeader?: string | undefined;
     }
 
     interface MultiViewCalendarMonth {
-        content?: string;
-        weekNumber?: string;
-        empty?: string;
+        content?: string | undefined;
+        weekNumber?: string | undefined;
+        empty?: string | undefined;
     }
 
     interface MultiViewCalendarRange {
-        start?: Date;
-        end?: Date;
+        start?: Date | undefined;
+        end?: Date | undefined;
     }
 
     interface MultiViewCalendarOptions {
-        name?: string;
-        culture?: string;
+        name?: string | undefined;
+        culture?: string | undefined;
         dates?: any;
-        depth?: string;
-        disableDates?: any|Function;
-        footer?: string|Function;
-        format?: string;
-        max?: Date;
-        messages?: MultiViewCalendarMessages;
-        min?: Date;
-        month?: MultiViewCalendarMonth;
-        views?: number;
-        range?: MultiViewCalendarRange;
-        selectable?: string;
+        depth?: string | undefined;
+        disableDates?: any|Function | undefined;
+        footer?: string|Function | undefined;
+        format?: string | undefined;
+        max?: Date | undefined;
+        messages?: MultiViewCalendarMessages | undefined;
+        min?: Date | undefined;
+        month?: MultiViewCalendarMonth | undefined;
+        views?: number | undefined;
+        range?: MultiViewCalendarRange | undefined;
+        selectable?: string | undefined;
         selectDates?: any;
-        showViewHeader?: boolean;
-        weekNumber?: boolean;
-        start?: string;
-        value?: Date;
+        showViewHeader?: boolean | undefined;
+        weekNumber?: boolean | undefined;
+        start?: string | undefined;
+        value?: Date | undefined;
         change?(e: MultiViewCalendarEvent): void;
         navigate?(e: MultiViewCalendarEvent): void;
     }
@@ -7148,31 +7148,31 @@ declare namespace kendo.ui {
     }
 
     interface NotificationPosition {
-        bottom?: number;
-        left?: number;
-        pinned?: boolean;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        pinned?: boolean | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface NotificationTemplate {
-        type?: string;
-        template?: string;
+        type?: string | undefined;
+        template?: string | undefined;
     }
 
     interface NotificationOptions {
-        name?: string;
-        allowHideAfter?: number;
-        animation?: any|boolean;
-        appendTo?: string|JQuery;
-        autoHideAfter?: number;
-        button?: boolean;
-        height?: number|string;
-        hideOnClick?: boolean;
-        position?: NotificationPosition;
-        stacking?: string;
-        templates?: NotificationTemplate[];
-        width?: number|string;
+        name?: string | undefined;
+        allowHideAfter?: number | undefined;
+        animation?: any|boolean | undefined;
+        appendTo?: string|JQuery | undefined;
+        autoHideAfter?: number | undefined;
+        button?: boolean | undefined;
+        height?: number|string | undefined;
+        hideOnClick?: boolean | undefined;
+        position?: NotificationPosition | undefined;
+        stacking?: string | undefined;
+        templates?: NotificationTemplate[] | undefined;
+        width?: number|string | undefined;
         hide?(e: NotificationHideEvent): void;
         show?(e: NotificationShowEvent): void;
     }
@@ -7183,11 +7183,11 @@ declare namespace kendo.ui {
     }
 
     interface NotificationHideEvent extends NotificationEvent {
-        element?: JQuery;
+        element?: JQuery | undefined;
     }
 
     interface NotificationShowEvent extends NotificationEvent {
-        element?: JQuery;
+        element?: JQuery | undefined;
     }
 
 
@@ -7226,27 +7226,27 @@ declare namespace kendo.ui {
     }
 
     interface NumericTextBoxLabel {
-        content?: string|Function;
-        floating?: boolean;
+        content?: string|Function | undefined;
+        floating?: boolean | undefined;
     }
 
     interface NumericTextBoxOptions {
-        name?: string;
-        culture?: string;
-        decimals?: number;
-        downArrowText?: string;
-        factor?: number;
-        format?: string;
-        label?: string | Function | NumericTextBoxLabel;
-        max?: number;
-        min?: number;
-        placeholder?: string;
-        restrictDecimals?: boolean;
-        round?: boolean;
-        spinners?: boolean;
-        step?: number;
-        upArrowText?: string;
-        value?: number;
+        name?: string | undefined;
+        culture?: string | undefined;
+        decimals?: number | undefined;
+        downArrowText?: string | undefined;
+        factor?: number | undefined;
+        format?: string | undefined;
+        label?: string | Function | NumericTextBoxLabel | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        placeholder?: string | undefined;
+        restrictDecimals?: boolean | undefined;
+        round?: boolean | undefined;
+        spinners?: boolean | undefined;
+        step?: number | undefined;
+        upArrowText?: string | undefined;
+        value?: number | undefined;
         change?(e: NumericTextBoxChangeEvent): void;
         spin?(e: NumericTextBoxSpinEvent): void;
     }
@@ -7287,130 +7287,130 @@ declare namespace kendo.ui {
     }
 
     interface PDFViewerDefaultPageSize {
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface PDFViewerDplProcessingDownload {
-        url?: string;
+        url?: string | undefined;
     }
 
     interface PDFViewerDplProcessingRead {
-        url?: string;
-        pageField?: string;
-        type?: string;
-        dataType?: string;
+        url?: string | undefined;
+        pageField?: string | undefined;
+        type?: string | undefined;
+        dataType?: string | undefined;
     }
 
     interface PDFViewerDplProcessingUpload {
-        url?: string;
-        saveField?: string;
+        url?: string | undefined;
+        saveField?: string | undefined;
     }
 
     interface PDFViewerDplProcessing {
-        read?: PDFViewerDplProcessingRead;
-        upload?: PDFViewerDplProcessingUpload;
-        download?: PDFViewerDplProcessingDownload;
-        loadOnDemand?: boolean;
+        read?: PDFViewerDplProcessingRead | undefined;
+        upload?: PDFViewerDplProcessingUpload | undefined;
+        download?: PDFViewerDplProcessingDownload | undefined;
+        loadOnDemand?: boolean | undefined;
     }
 
     interface PDFViewerMessagesDialogsExportAsDialogLabels {
-        fileName?: string;
-        saveAsType?: string;
-        page?: string;
+        fileName?: string | undefined;
+        saveAsType?: string | undefined;
+        page?: string | undefined;
     }
 
     interface PDFViewerMessagesDialogsExportAsDialog {
-        title?: string;
-        defaultFileName?: string;
-        pdf?: string;
-        png?: string;
-        svg?: string;
-        labels?: PDFViewerMessagesDialogsExportAsDialogLabels;
+        title?: string | undefined;
+        defaultFileName?: string | undefined;
+        pdf?: string | undefined;
+        png?: string | undefined;
+        svg?: string | undefined;
+        labels?: PDFViewerMessagesDialogsExportAsDialogLabels | undefined;
     }
 
     interface PDFViewerMessagesDialogs {
-        exportAsDialog?: PDFViewerMessagesDialogsExportAsDialog;
-        okText?: string;
-        save?: string;
-        cancel?: string;
+        exportAsDialog?: PDFViewerMessagesDialogsExportAsDialog | undefined;
+        okText?: string | undefined;
+        save?: string | undefined;
+        cancel?: string | undefined;
     }
 
     interface PDFViewerMessagesErrorMessages {
-        notSupported?: string;
-        parseError?: string;
-        notFound?: string;
+        notSupported?: string | undefined;
+        parseError?: string | undefined;
+        notFound?: string | undefined;
     }
 
     interface PDFViewerMessagesToolbarPager {
-        first?: string;
-        previous?: string;
-        next?: string;
-        last?: string;
-        of?: string;
-        page?: string;
-        pages?: string;
+        first?: string | undefined;
+        previous?: string | undefined;
+        next?: string | undefined;
+        last?: string | undefined;
+        of?: string | undefined;
+        page?: string | undefined;
+        pages?: string | undefined;
     }
 
     interface PDFViewerMessagesToolbar {
-        open?: string;
-        exportAs?: string;
-        download?: string;
-        pager?: PDFViewerMessagesToolbarPager;
+        open?: string | undefined;
+        exportAs?: string | undefined;
+        download?: string | undefined;
+        pager?: PDFViewerMessagesToolbarPager | undefined;
     }
 
     interface PDFViewerMessages {
-        defaultFileName?: string;
-        toolbar?: PDFViewerMessagesToolbar;
-        errorMessages?: PDFViewerMessagesErrorMessages;
-        dialogs?: PDFViewerMessagesDialogs;
+        defaultFileName?: string | undefined;
+        toolbar?: PDFViewerMessagesToolbar | undefined;
+        errorMessages?: PDFViewerMessagesErrorMessages | undefined;
+        dialogs?: PDFViewerMessagesDialogs | undefined;
     }
 
     interface PDFViewerPdfjsProcessing {
-        file?: any|string;
+        file?: any|string | undefined;
     }
 
     interface PDFViewerToolbarItem {
-        type?: string;
-        overflow?: string;
-        command?: string;
-        name?: string;
-        click?: Function;
-        toggle?: Function;
-        togglable?: boolean;
-        text?: string;
-        template?: string|Function;
-        showText?: string;
-        primary?: boolean;
+        type?: string | undefined;
+        overflow?: string | undefined;
+        command?: string | undefined;
+        name?: string | undefined;
+        click?: Function | undefined;
+        toggle?: Function | undefined;
+        togglable?: boolean | undefined;
+        text?: string | undefined;
+        template?: string|Function | undefined;
+        showText?: string | undefined;
+        primary?: boolean | undefined;
         attributes?: any;
-        enable?: boolean;
-        hidden?: boolean;
-        spriteCssClass?: string;
-        imageUrl?: string;
-        showIcon?: string;
-        icon?: string;
-        id?: string;
+        enable?: boolean | undefined;
+        hidden?: boolean | undefined;
+        spriteCssClass?: string | undefined;
+        imageUrl?: string | undefined;
+        showIcon?: string | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
     }
 
     interface PDFViewerToolbar {
-        items?: PDFViewerToolbarItem[];
+        items?: PDFViewerToolbarItem[] | undefined;
     }
 
     interface PDFViewerView {
-        type?: string;
+        type?: string | undefined;
     }
 
     interface PDFViewerOptions {
-        name?: string;
-        pdfjsProcessing?: PDFViewerPdfjsProcessing;
-        dplProcessing?: PDFViewerDplProcessing;
-        width?: number|string;
-        height?: number|string;
-        defaultPageSize?: PDFViewerDefaultPageSize;
-        page?: number;
-        view?: PDFViewerView;
-        toolbar?: boolean | PDFViewerToolbar;
-        messages?: PDFViewerMessages;
+        name?: string | undefined;
+        pdfjsProcessing?: PDFViewerPdfjsProcessing | undefined;
+        dplProcessing?: PDFViewerDplProcessing | undefined;
+        width?: number|string | undefined;
+        height?: number|string | undefined;
+        defaultPageSize?: PDFViewerDefaultPageSize | undefined;
+        page?: number | undefined;
+        view?: PDFViewerView | undefined;
+        toolbar?: boolean | PDFViewerToolbar | undefined;
+        messages?: PDFViewerMessages | undefined;
         render?(e: PDFViewerRenderEvent): void;
         open?(e: PDFViewerOpenEvent): void;
         error?(e: PDFViewerErrorEvent): void;
@@ -7430,9 +7430,9 @@ declare namespace kendo.ui {
     }
 
     interface PDFViewerErrorEvent extends PDFViewerEvent {
-        dialog?: kendo.ui.Dialog;
+        dialog?: kendo.ui.Dialog | undefined;
         error?: any;
-        message?: string;
+        message?: string | undefined;
     }
 
     class Pager extends kendo.ui.Widget {
@@ -7461,34 +7461,34 @@ declare namespace kendo.ui {
     }
 
     interface PagerMessages {
-        display?: string;
-        empty?: string;
-        allPages?: string;
-        page?: string;
-        of?: string;
-        itemsPerPage?: string;
-        first?: string;
-        previous?: string;
-        next?: string;
-        last?: string;
-        refresh?: string;
+        display?: string | undefined;
+        empty?: string | undefined;
+        allPages?: string | undefined;
+        page?: string | undefined;
+        of?: string | undefined;
+        itemsPerPage?: string | undefined;
+        first?: string | undefined;
+        previous?: string | undefined;
+        next?: string | undefined;
+        last?: string | undefined;
+        refresh?: string | undefined;
     }
 
     interface PagerOptions {
-        name?: string;
-        autoBind?: boolean;
-        buttonCount?: number;
-        dataSource?: any|kendo.data.DataSource;
-        selectTemplate?: string;
-        linkTemplate?: string;
-        info?: boolean;
-        input?: boolean;
-        numeric?: boolean;
-        pageSizes?: boolean|any;
-        previousNext?: boolean;
-        refresh?: boolean;
-        responsive?: boolean;
-        messages?: PagerMessages;
+        name?: string | undefined;
+        autoBind?: boolean | undefined;
+        buttonCount?: number | undefined;
+        dataSource?: any|kendo.data.DataSource | undefined;
+        selectTemplate?: string | undefined;
+        linkTemplate?: string | undefined;
+        info?: boolean | undefined;
+        input?: boolean | undefined;
+        numeric?: boolean | undefined;
+        pageSizes?: boolean|any | undefined;
+        previousNext?: boolean | undefined;
+        refresh?: boolean | undefined;
+        responsive?: boolean | undefined;
+        messages?: PagerMessages | undefined;
         change?(e: PagerChangeEvent): void;
     }
     interface PagerEvent {
@@ -7580,40 +7580,40 @@ declare namespace kendo.ui {
     }
 
     interface PanelBarAnimationCollapse {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface PanelBarAnimationExpand {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface PanelBarAnimation {
-        collapse?: PanelBarAnimationCollapse;
-        expand?: PanelBarAnimationExpand;
+        collapse?: PanelBarAnimationCollapse | undefined;
+        expand?: PanelBarAnimationExpand | undefined;
     }
 
     interface PanelBarMessages {
-        loading?: string;
-        requestFailed?: string;
-        retry?: string;
+        loading?: string | undefined;
+        requestFailed?: string | undefined;
+        retry?: string | undefined;
     }
 
     interface PanelBarOptions {
-        name?: string;
-        animation?: boolean | PanelBarAnimation;
-        autoBind?: boolean;
+        name?: string | undefined;
+        animation?: boolean | PanelBarAnimation | undefined;
+        autoBind?: boolean | undefined;
         contentUrls?: any;
-        dataImageUrlField?: string;
-        dataSource?: any|any|kendo.data.HierarchicalDataSource;
-        dataSpriteCssClassField?: string;
-        dataTextField?: string|any;
-        dataUrlField?: string;
-        expandMode?: string;
-        loadOnDemand?: boolean;
-        messages?: PanelBarMessages;
-        template?: string|Function;
+        dataImageUrlField?: string | undefined;
+        dataSource?: any|any|kendo.data.HierarchicalDataSource | undefined;
+        dataSpriteCssClassField?: string | undefined;
+        dataTextField?: string|any | undefined;
+        dataUrlField?: string | undefined;
+        expandMode?: string | undefined;
+        loadOnDemand?: boolean | undefined;
+        messages?: PanelBarMessages | undefined;
+        template?: string|Function | undefined;
         activate?(e: PanelBarActivateEvent): void;
         collapse?(e: PanelBarCollapseEvent): void;
         contentLoad?(e: PanelBarContentLoadEvent): void;
@@ -7629,33 +7629,33 @@ declare namespace kendo.ui {
     }
 
     interface PanelBarActivateEvent extends PanelBarEvent {
-        item?: Element;
+        item?: Element | undefined;
     }
 
     interface PanelBarCollapseEvent extends PanelBarEvent {
-        item?: Element;
+        item?: Element | undefined;
     }
 
     interface PanelBarContentLoadEvent extends PanelBarEvent {
-        item?: Element;
-        contentElement?: Element;
+        item?: Element | undefined;
+        contentElement?: Element | undefined;
     }
 
     interface PanelBarDataBoundEvent extends PanelBarEvent {
-        node?: JQuery;
+        node?: JQuery | undefined;
     }
 
     interface PanelBarErrorEvent extends PanelBarEvent {
-        xhr?: JQueryXHR;
-        status?: string;
+        xhr?: JQueryXHR | undefined;
+        status?: string | undefined;
     }
 
     interface PanelBarExpandEvent extends PanelBarEvent {
-        item?: Element;
+        item?: Element | undefined;
     }
 
     interface PanelBarSelectEvent extends PanelBarEvent {
-        item?: Element;
+        item?: Element | undefined;
     }
 
 
@@ -7682,50 +7682,50 @@ declare namespace kendo.ui {
     }
 
     interface PivotConfiguratorMessagesFieldMenuOperators {
-        contains?: string;
-        doesnotcontain?: string;
-        startswith?: string;
-        endswith?: string;
-        eq?: string;
-        neq?: string;
+        contains?: string | undefined;
+        doesnotcontain?: string | undefined;
+        startswith?: string | undefined;
+        endswith?: string | undefined;
+        eq?: string | undefined;
+        neq?: string | undefined;
     }
 
     interface PivotConfiguratorMessagesFieldMenu {
-        info?: string;
-        sortAscending?: string;
-        sortDescending?: string;
-        filterFields?: string;
-        filter?: string;
-        include?: string;
-        title?: string;
-        clear?: string;
-        ok?: string;
-        cancel?: string;
-        operators?: PivotConfiguratorMessagesFieldMenuOperators;
+        info?: string | undefined;
+        sortAscending?: string | undefined;
+        sortDescending?: string | undefined;
+        filterFields?: string | undefined;
+        filter?: string | undefined;
+        include?: string | undefined;
+        title?: string | undefined;
+        clear?: string | undefined;
+        ok?: string | undefined;
+        cancel?: string | undefined;
+        operators?: PivotConfiguratorMessagesFieldMenuOperators | undefined;
     }
 
     interface PivotConfiguratorMessages {
-        measures?: string;
-        columns?: string;
-        rows?: string;
-        measuresLabel?: string;
-        rowsLabel?: string;
-        columnsLabel?: string;
-        fieldsLabel?: string;
-        fieldMenu?: PivotConfiguratorMessagesFieldMenu;
+        measures?: string | undefined;
+        columns?: string | undefined;
+        rows?: string | undefined;
+        measuresLabel?: string | undefined;
+        rowsLabel?: string | undefined;
+        columnsLabel?: string | undefined;
+        fieldsLabel?: string | undefined;
+        fieldMenu?: PivotConfiguratorMessagesFieldMenu | undefined;
     }
 
     interface PivotConfiguratorSortable {
-        allowUnsort?: boolean;
+        allowUnsort?: boolean | undefined;
     }
 
     interface PivotConfiguratorOptions {
-        name?: string;
-        dataSource?: any|kendo.data.PivotDataSource;
-        filterable?: boolean;
-        sortable?: boolean | PivotConfiguratorSortable;
-        height?: number|string;
-        messages?: PivotConfiguratorMessages;
+        name?: string | undefined;
+        dataSource?: any|kendo.data.PivotDataSource | undefined;
+        filterable?: boolean | undefined;
+        sortable?: boolean | PivotConfiguratorSortable | undefined;
+        height?: number|string | undefined;
+        messages?: PivotConfiguratorMessages | undefined;
     }
     interface PivotConfiguratorEvent {
         sender: PivotConfigurator;
@@ -7763,87 +7763,87 @@ declare namespace kendo.ui {
     }
 
     interface PivotGridExcel {
-        fileName?: string;
-        filterable?: boolean;
-        forceProxy?: boolean;
-        proxyURL?: string;
+        fileName?: string | undefined;
+        filterable?: boolean | undefined;
+        forceProxy?: boolean | undefined;
+        proxyURL?: string | undefined;
     }
 
     interface PivotGridMessagesFieldMenuOperators {
-        contains?: string;
-        doesnotcontain?: string;
-        startswith?: string;
-        endswith?: string;
-        eq?: string;
-        neq?: string;
+        contains?: string | undefined;
+        doesnotcontain?: string | undefined;
+        startswith?: string | undefined;
+        endswith?: string | undefined;
+        eq?: string | undefined;
+        neq?: string | undefined;
     }
 
     interface PivotGridMessagesFieldMenu {
-        info?: string;
-        sortAscending?: string;
-        sortDescending?: string;
-        filterFields?: string;
-        filter?: string;
-        include?: string;
-        title?: string;
-        clear?: string;
-        ok?: string;
-        cancel?: string;
-        operators?: PivotGridMessagesFieldMenuOperators;
+        info?: string | undefined;
+        sortAscending?: string | undefined;
+        sortDescending?: string | undefined;
+        filterFields?: string | undefined;
+        filter?: string | undefined;
+        include?: string | undefined;
+        title?: string | undefined;
+        clear?: string | undefined;
+        ok?: string | undefined;
+        cancel?: string | undefined;
+        operators?: PivotGridMessagesFieldMenuOperators | undefined;
     }
 
     interface PivotGridMessages {
-        measureFields?: string;
-        columnFields?: string;
-        rowFields?: string;
-        fieldMenu?: PivotGridMessagesFieldMenu;
+        measureFields?: string | undefined;
+        columnFields?: string | undefined;
+        rowFields?: string | undefined;
+        fieldMenu?: PivotGridMessagesFieldMenu | undefined;
     }
 
     interface PivotGridPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface PivotGridPdf {
-        author?: string;
-        avoidLinks?: boolean|string;
-        creator?: string;
-        date?: Date;
-        fileName?: string;
-        forceProxy?: boolean;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: PivotGridPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        author?: string | undefined;
+        avoidLinks?: boolean|string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: PivotGridPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface PivotGridSortable {
-        allowUnsort?: boolean;
+        allowUnsort?: boolean | undefined;
     }
 
     interface PivotGridOptions {
-        name?: string;
-        dataSource?: any|kendo.data.PivotDataSource;
-        autoBind?: boolean;
-        reorderable?: boolean;
-        excel?: PivotGridExcel;
-        pdf?: PivotGridPdf;
-        filterable?: boolean;
-        sortable?: boolean | PivotGridSortable;
-        columnWidth?: number;
-        height?: number|string;
-        columnHeaderTemplate?: string|Function;
-        dataCellTemplate?: string|Function;
-        kpiStatusTemplate?: string|Function;
-        kpiTrendTemplate?: string|Function;
-        rowHeaderTemplate?: string|Function;
-        messages?: PivotGridMessages;
+        name?: string | undefined;
+        dataSource?: any|kendo.data.PivotDataSource | undefined;
+        autoBind?: boolean | undefined;
+        reorderable?: boolean | undefined;
+        excel?: PivotGridExcel | undefined;
+        pdf?: PivotGridPdf | undefined;
+        filterable?: boolean | undefined;
+        sortable?: boolean | PivotGridSortable | undefined;
+        columnWidth?: number | undefined;
+        height?: number|string | undefined;
+        columnHeaderTemplate?: string|Function | undefined;
+        dataCellTemplate?: string|Function | undefined;
+        kpiStatusTemplate?: string|Function | undefined;
+        kpiTrendTemplate?: string|Function | undefined;
+        rowHeaderTemplate?: string|Function | undefined;
+        messages?: PivotGridMessages | undefined;
         dataBinding?(e: PivotGridDataBindingEvent): void;
         dataBound?(e: PivotGridDataBoundEvent): void;
         expandMember?(e: PivotGridExpandMemberEvent): void;
@@ -7864,13 +7864,13 @@ declare namespace kendo.ui {
     }
 
     interface PivotGridExpandMemberEvent extends PivotGridEvent {
-        axis?: string;
-        path?: string[];
+        axis?: string | undefined;
+        path?: string[] | undefined;
     }
 
     interface PivotGridCollapseMemberEvent extends PivotGridEvent {
-        axis?: string;
-        path?: string[];
+        axis?: string | undefined;
+        path?: string[] | undefined;
     }
 
     interface PivotGridExcelExportEvent extends PivotGridEvent {
@@ -7879,7 +7879,7 @@ declare namespace kendo.ui {
     }
 
     interface PivotGridPdfExportEvent extends PivotGridEvent {
-        promise?: JQueryPromise<any>;
+        promise?: JQueryPromise<any> | undefined;
     }
 
 
@@ -7909,29 +7909,29 @@ declare namespace kendo.ui {
     }
 
     interface PopupAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface PopupAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface PopupAnimation {
-        close?: PopupAnimationClose;
-        open?: PopupAnimationOpen;
+        close?: PopupAnimationClose | undefined;
+        open?: PopupAnimationOpen | undefined;
     }
 
     interface PopupOptions {
-        name?: string;
+        name?: string | undefined;
         adjustSize?: any;
-        animation?: boolean | PopupAnimation;
-        anchor?: string|JQuery;
-        appendTo?: string|JQuery;
-        collision?: string;
-        origin?: string;
-        position?: string;
+        animation?: boolean | PopupAnimation | undefined;
+        anchor?: string|JQuery | undefined;
+        appendTo?: string|JQuery | undefined;
+        collision?: string | undefined;
+        origin?: string | undefined;
+        position?: string | undefined;
         activate?(e: PopupActivateEvent): void;
         close?(e: PopupCloseEvent): void;
         deactivate?(e: PopupDeactivateEvent): void;
@@ -7980,21 +7980,21 @@ declare namespace kendo.ui {
     }
 
     interface ProgressBarAnimation {
-        duration?: number;
+        duration?: number | undefined;
     }
 
     interface ProgressBarOptions {
-        name?: string;
-        animation?: boolean | ProgressBarAnimation;
-        chunkCount?: number;
-        enable?: boolean;
-        max?: number;
-        min?: number;
-        orientation?: string;
-        reverse?: boolean;
-        showStatus?: boolean;
-        type?: string;
-        value?: number;
+        name?: string | undefined;
+        animation?: boolean | ProgressBarAnimation | undefined;
+        chunkCount?: number | undefined;
+        enable?: boolean | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        orientation?: string | undefined;
+        reverse?: boolean | undefined;
+        showStatus?: boolean | undefined;
+        type?: string | undefined;
+        value?: number | undefined;
         change?(e: ProgressBarChangeEvent): void;
         complete?(e: ProgressBarCompleteEvent): void;
     }
@@ -8005,11 +8005,11 @@ declare namespace kendo.ui {
     }
 
     interface ProgressBarChangeEvent extends ProgressBarEvent {
-        value?: number;
+        value?: number | undefined;
     }
 
     interface ProgressBarCompleteEvent extends ProgressBarEvent {
-        value?: number;
+        value?: number | undefined;
     }
 
 
@@ -8033,13 +8033,13 @@ declare namespace kendo.ui {
     }
 
     interface PromptMessages {
-        okText?: string;
-        cancel?: string;
+        okText?: string | undefined;
+        cancel?: string | undefined;
     }
 
     interface PromptOptions {
-        name?: string;
-        messages?: PromptMessages;
+        name?: string | undefined;
+        messages?: PromptMessages | undefined;
     }
     interface PromptEvent {
         sender: Prompt;
@@ -8073,21 +8073,21 @@ declare namespace kendo.ui {
 
     interface RadioGroupItem {
         attributes?: any;
-        cssClass?: string;
-        enabled?: boolean;
-        encoded?: boolean;
-        label?: string;
-        value?: string;
+        cssClass?: string | undefined;
+        enabled?: boolean | undefined;
+        encoded?: boolean | undefined;
+        label?: string | undefined;
+        value?: string | undefined;
     }
 
     interface RadioGroupOptions {
-        name?: string;
-        enabled?: boolean;
-        items?: RadioGroupItem[];
-        labelPosition?: string;
-        layout?: string;
-        inputName?: string;
-        value?: string;
+        name?: string | undefined;
+        enabled?: boolean | undefined;
+        items?: RadioGroupItem[] | undefined;
+        labelPosition?: string | undefined;
+        layout?: string | undefined;
+        inputName?: string | undefined;
+        value?: string | undefined;
         change?(e: RadioGroupChangeEvent): void;
         focus?(e: RadioGroupFocusEvent): void;
         select?(e: RadioGroupSelectEvent): void;
@@ -8100,17 +8100,17 @@ declare namespace kendo.ui {
     }
 
     interface RadioGroupChangeEvent extends RadioGroupEvent {
-        target?: JQuery;
-        oldValue?: number;
-        newValue?: number;
+        target?: JQuery | undefined;
+        oldValue?: number | undefined;
+        newValue?: number | undefined;
     }
 
     interface RadioGroupFocusEvent extends RadioGroupEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
     interface RadioGroupSelectEvent extends RadioGroupEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
 
@@ -8140,24 +8140,24 @@ declare namespace kendo.ui {
     }
 
     interface RangeSliderTooltip {
-        enabled?: boolean;
-        format?: string;
-        template?: string;
+        enabled?: boolean | undefined;
+        format?: string | undefined;
+        template?: string | undefined;
     }
 
     interface RangeSliderOptions {
-        name?: string;
-        largeStep?: number;
-        leftDragHandleTitle?: string;
-        max?: number;
-        min?: number;
-        orientation?: string;
-        rightDragHandleTitle?: string;
-        selectionEnd?: number;
-        selectionStart?: number;
-        smallStep?: number;
-        tickPlacement?: string;
-        tooltip?: RangeSliderTooltip;
+        name?: string | undefined;
+        largeStep?: number | undefined;
+        leftDragHandleTitle?: string | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        orientation?: string | undefined;
+        rightDragHandleTitle?: string | undefined;
+        selectionEnd?: number | undefined;
+        selectionStart?: number | undefined;
+        smallStep?: number | undefined;
+        tickPlacement?: string | undefined;
+        tooltip?: RangeSliderTooltip | undefined;
         change?(e: RangeSliderChangeEvent): void;
         slide?(e: RangeSliderSlideEvent): void;
     }
@@ -8200,19 +8200,19 @@ declare namespace kendo.ui {
     }
 
     interface RatingOptions {
-        name?: string;
-        min?: number;
-        max?: number;
+        name?: string | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
         selection: string | "continuous" | "single";
         precision: string | "item" | "half";
-        label?: boolean | RatingLabel;
-        tooltip?: boolean;
-        itemTemplate?: string|Function;
-        selectedTemplate?: string|Function;
-        hoveredTemplate?: string|Function;
-        selectValueOnFocus?: number;
-        enabled?: boolean;
-        readonly?: boolean;
+        label?: boolean | RatingLabel | undefined;
+        tooltip?: boolean | undefined;
+        itemTemplate?: string|Function | undefined;
+        selectedTemplate?: string|Function | undefined;
+        hoveredTemplate?: string|Function | undefined;
+        selectValueOnFocus?: number | undefined;
+        enabled?: boolean | undefined;
+        readonly?: boolean | undefined;
         change?(e: RatingChangeEvent): void;
         select?(e: RatingSelectEvent): void;
     }
@@ -8228,13 +8228,13 @@ declare namespace kendo.ui {
     }
 
     interface RatingChangeEvent extends RatingEvent {
-        target?: Element;
-        oldValue?: number;
-        newValue?: number;
+        target?: Element | undefined;
+        oldValue?: number | undefined;
+        newValue?: number | undefined;
     }
 
     interface RatingSelectEvent extends RatingEvent {
-        target?: Element;
+        target?: Element | undefined;
     }
 
 
@@ -8260,11 +8260,11 @@ declare namespace kendo.ui {
     }
 
     interface ResponsivePanelOptions {
-        name?: string;
-        autoClose?: boolean;
-        breakpoint?: number;
-        orientation?: string;
-        toggleButton?: string;
+        name?: string | undefined;
+        autoClose?: boolean | undefined;
+        breakpoint?: number | undefined;
+        orientation?: string | undefined;
+        toggleButton?: string | undefined;
         close?(e: ResponsivePanelEvent): void;
         open?(e: ResponsivePanelEvent): void;
     }
@@ -8323,300 +8323,300 @@ declare namespace kendo.ui {
     }
 
     interface SchedulerSelectOptions {
-        events?: SchedulerEvent[] | any[];
-        resources? : any[];
-        start?: Date;
-        end?: Date;
-        isAllDay?: boolean;
+        events?: SchedulerEvent[] | any[] | undefined;
+        resources? : any[] | undefined;
+        start?: Date | undefined;
+        end?: Date | undefined;
+        isAllDay?: boolean | undefined;
     }
 
     interface SchedulerCurrentTimeMarker {
-        updateInterval?: number;
-        useLocalTimezone?: boolean;
+        updateInterval?: number | undefined;
+        useLocalTimezone?: boolean | undefined;
     }
 
     interface SchedulerEditable {
-        confirmation?: boolean|string;
-        create?: boolean;
-        destroy?: boolean;
-        editRecurringMode?: string;
-        move?: boolean;
-        resize?: boolean;
-        template?: string|Function;
-        update?: boolean;
+        confirmation?: boolean|string | undefined;
+        create?: boolean | undefined;
+        destroy?: boolean | undefined;
+        editRecurringMode?: string | undefined;
+        move?: boolean | undefined;
+        resize?: boolean | undefined;
+        template?: string|Function | undefined;
+        update?: boolean | undefined;
         window?: any;
     }
 
     interface SchedulerFooter {
-        command?: string|boolean;
+        command?: string|boolean | undefined;
     }
 
     interface SchedulerGroup {
-        date?: boolean;
+        date?: boolean | undefined;
         resources?: any;
-        orientation?: string;
+        orientation?: string | undefined;
     }
 
     interface SchedulerMessagesEditable {
-        confirmation?: string;
+        confirmation?: string | undefined;
     }
 
     interface SchedulerMessagesEditor {
-        allDayEvent?: string;
-        description?: string;
-        editorTitle?: string;
-        end?: string;
-        endTimezone?: string;
-        repeat?: string;
-        separateTimezones?: string;
-        start?: string;
-        startTimezone?: string;
-        timezone?: string;
-        timezoneEditorButton?: string;
-        timezoneEditorTitle?: string;
-        title?: string;
+        allDayEvent?: string | undefined;
+        description?: string | undefined;
+        editorTitle?: string | undefined;
+        end?: string | undefined;
+        endTimezone?: string | undefined;
+        repeat?: string | undefined;
+        separateTimezones?: string | undefined;
+        start?: string | undefined;
+        startTimezone?: string | undefined;
+        timezone?: string | undefined;
+        timezoneEditorButton?: string | undefined;
+        timezoneEditorTitle?: string | undefined;
+        title?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditorDaily {
-        interval?: string;
-        repeatEvery?: string;
+        interval?: string | undefined;
+        repeatEvery?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditorEnd {
-        after?: string;
-        occurrence?: string;
-        label?: string;
-        never?: string;
-        mobileLabel?: string;
-        on?: string;
+        after?: string | undefined;
+        occurrence?: string | undefined;
+        label?: string | undefined;
+        never?: string | undefined;
+        mobileLabel?: string | undefined;
+        on?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditorFrequencies {
-        daily?: string;
-        monthly?: string;
-        never?: string;
-        weekly?: string;
-        yearly?: string;
+        daily?: string | undefined;
+        monthly?: string | undefined;
+        never?: string | undefined;
+        weekly?: string | undefined;
+        yearly?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditorMonthly {
-        day?: string;
-        interval?: string;
-        repeatEvery?: string;
-        repeatOn?: string;
+        day?: string | undefined;
+        interval?: string | undefined;
+        repeatEvery?: string | undefined;
+        repeatOn?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditorOffsetPositions {
-        first?: string;
-        second?: string;
-        third?: string;
-        fourth?: string;
-        last?: string;
+        first?: string | undefined;
+        second?: string | undefined;
+        third?: string | undefined;
+        fourth?: string | undefined;
+        last?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditorWeekdays {
-        day?: string;
-        weekday?: string;
-        weekend?: string;
+        day?: string | undefined;
+        weekday?: string | undefined;
+        weekend?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditorWeekly {
-        interval?: string;
-        repeatEvery?: string;
-        repeatOn?: string;
+        interval?: string | undefined;
+        repeatEvery?: string | undefined;
+        repeatOn?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditorYearly {
-        of?: string;
-        repeatEvery?: string;
-        repeatOn?: string;
-        interval?: string;
+        of?: string | undefined;
+        repeatEvery?: string | undefined;
+        repeatOn?: string | undefined;
+        interval?: string | undefined;
     }
 
     interface SchedulerMessagesRecurrenceEditor {
-        daily?: SchedulerMessagesRecurrenceEditorDaily;
-        end?: SchedulerMessagesRecurrenceEditorEnd;
-        frequencies?: SchedulerMessagesRecurrenceEditorFrequencies;
-        monthly?: SchedulerMessagesRecurrenceEditorMonthly;
-        offsetPositions?: SchedulerMessagesRecurrenceEditorOffsetPositions;
-        recurrenceEditorTitle?: string;
-        weekly?: SchedulerMessagesRecurrenceEditorWeekly;
-        weekdays?: SchedulerMessagesRecurrenceEditorWeekdays;
-        yearly?: SchedulerMessagesRecurrenceEditorYearly;
+        daily?: SchedulerMessagesRecurrenceEditorDaily | undefined;
+        end?: SchedulerMessagesRecurrenceEditorEnd | undefined;
+        frequencies?: SchedulerMessagesRecurrenceEditorFrequencies | undefined;
+        monthly?: SchedulerMessagesRecurrenceEditorMonthly | undefined;
+        offsetPositions?: SchedulerMessagesRecurrenceEditorOffsetPositions | undefined;
+        recurrenceEditorTitle?: string | undefined;
+        weekly?: SchedulerMessagesRecurrenceEditorWeekly | undefined;
+        weekdays?: SchedulerMessagesRecurrenceEditorWeekdays | undefined;
+        yearly?: SchedulerMessagesRecurrenceEditorYearly | undefined;
     }
 
     interface SchedulerMessagesRecurrenceMessages {
-        deleteRecurring?: string;
-        deleteWindowOccurrence?: string;
-        deleteWindowSeries?: string;
-        deleteWindowTitle?: string;
-        editRecurring?: string;
-        editWindowOccurrence?: string;
-        editWindowSeries?: string;
-        editWindowTitle?: string;
+        deleteRecurring?: string | undefined;
+        deleteWindowOccurrence?: string | undefined;
+        deleteWindowSeries?: string | undefined;
+        deleteWindowTitle?: string | undefined;
+        editRecurring?: string | undefined;
+        editWindowOccurrence?: string | undefined;
+        editWindowSeries?: string | undefined;
+        editWindowTitle?: string | undefined;
     }
 
     interface SchedulerMessagesViews {
-        day?: string;
-        week?: string;
-        month?: string;
-        agenda?: string;
-        year?: string;
+        day?: string | undefined;
+        week?: string | undefined;
+        month?: string | undefined;
+        agenda?: string | undefined;
+        year?: string | undefined;
     }
 
     interface SchedulerMessages {
-        allDay?: string;
-        ariaEventLabel?: string;
-        ariaSlotLabel?: string;
-        cancel?: string;
-        date?: string;
-        deleteWindowTitle?: string;
-        destroy?: string;
-        event?: string;
-        defaultRowText?: string;
-        next?: string;
-        pdf?: string;
-        previous?: string;
-        save?: string;
-        showFullDay?: string;
-        showWorkDay?: string;
-        time?: string;
-        today?: string;
-        editable?: SchedulerMessagesEditable;
-        editor?: SchedulerMessagesEditor;
-        recurrenceEditor?: SchedulerMessagesRecurrenceEditor;
-        recurrenceMessages?: SchedulerMessagesRecurrenceMessages;
-        views?: SchedulerMessagesViews;
+        allDay?: string | undefined;
+        ariaEventLabel?: string | undefined;
+        ariaSlotLabel?: string | undefined;
+        cancel?: string | undefined;
+        date?: string | undefined;
+        deleteWindowTitle?: string | undefined;
+        destroy?: string | undefined;
+        event?: string | undefined;
+        defaultRowText?: string | undefined;
+        next?: string | undefined;
+        pdf?: string | undefined;
+        previous?: string | undefined;
+        save?: string | undefined;
+        showFullDay?: string | undefined;
+        showWorkDay?: string | undefined;
+        time?: string | undefined;
+        today?: string | undefined;
+        editable?: SchedulerMessagesEditable | undefined;
+        editor?: SchedulerMessagesEditor | undefined;
+        recurrenceEditor?: SchedulerMessagesRecurrenceEditor | undefined;
+        recurrenceMessages?: SchedulerMessagesRecurrenceMessages | undefined;
+        views?: SchedulerMessagesViews | undefined;
     }
 
     interface SchedulerPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface SchedulerPdf {
-        author?: string;
-        avoidLinks?: boolean|string;
-        creator?: string;
-        date?: Date;
-        fileName?: string;
-        forceProxy?: boolean;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: SchedulerPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        author?: string | undefined;
+        avoidLinks?: boolean|string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: SchedulerPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface SchedulerResource {
-        dataColorField?: string;
-        dataParentValueField?: string;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataTextField?: string;
-        dataValueField?: string;
-        field?: string;
-        multiple?: boolean;
-        name?: string;
-        title?: string;
-        valuePrimitive?: boolean;
+        dataColorField?: string | undefined;
+        dataParentValueField?: string | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        dataValueField?: string | undefined;
+        field?: string | undefined;
+        multiple?: boolean | undefined;
+        name?: string | undefined;
+        title?: string | undefined;
+        valuePrimitive?: boolean | undefined;
     }
 
     interface SchedulerToolbarItem {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface SchedulerViewEditable {
-        create?: boolean;
-        destroy?: boolean;
-        update?: boolean;
+        create?: boolean | undefined;
+        destroy?: boolean | undefined;
+        update?: boolean | undefined;
     }
 
     interface SchedulerViewGroup {
-        date?: boolean;
-        orientation?: string;
+        date?: boolean | undefined;
+        orientation?: string | undefined;
     }
 
     interface SchedulerView {
-        adaptiveSlotHeight?: boolean;
-        allDayEventTemplate?: string|Function;
-        allDaySlot?: boolean;
-        allDaySlotTemplate?: string|Function;
-        columnWidth?: number;
-        content?: JQuery;
-        dateHeaderTemplate?: string|Function;
-        dayTemplate?: string|Function;
-        editable?: boolean | SchedulerViewEditable;
+        adaptiveSlotHeight?: boolean | undefined;
+        allDayEventTemplate?: string|Function | undefined;
+        allDaySlot?: boolean | undefined;
+        allDaySlotTemplate?: string|Function | undefined;
+        columnWidth?: number | undefined;
+        content?: JQuery | undefined;
+        dateHeaderTemplate?: string|Function | undefined;
+        dayTemplate?: string|Function | undefined;
+        editable?: boolean | SchedulerViewEditable | undefined;
         endDate?(): Date;
-        endTime?: Date;
-        eventHeight?: number | string;
-        eventSpacing?: number;
-        eventsPerDay?: number;
-        eventTemplate?: string|Function;
-        eventTimeTemplate?: string|Function;
-        group?: SchedulerViewGroup;
-        majorTick?: number;
-        majorTimeHeaderTemplate?: string|Function;
-        minorTickCount?: number;
-        minorTimeHeaderTemplate?: string|Function;
-        name?: string;
-        selected?: boolean;
-        selectedDateFormat?: string;
-        selectedShortDateFormat?: string;
-        showWorkHours?: boolean;
-        slotTemplate?: string|Function;
+        endTime?: Date | undefined;
+        eventHeight?: number | string | undefined;
+        eventSpacing?: number | undefined;
+        eventsPerDay?: number | undefined;
+        eventTemplate?: string|Function | undefined;
+        eventTimeTemplate?: string|Function | undefined;
+        group?: SchedulerViewGroup | undefined;
+        majorTick?: number | undefined;
+        majorTimeHeaderTemplate?: string|Function | undefined;
+        minorTickCount?: number | undefined;
+        minorTimeHeaderTemplate?: string|Function | undefined;
+        name?: string | undefined;
+        selected?: boolean | undefined;
+        selectedDateFormat?: string | undefined;
+        selectedShortDateFormat?: string | undefined;
+        showWorkHours?: boolean | undefined;
+        slotTemplate?: string|Function | undefined;
         startDate?(): Date;
-        startTime?: Date;
-        title?: string;
-        type?: string;
-        workWeekStart?: number;
-        workWeekEnd?: number;
-        months?: number;
-        tooltipTemplate?: string|Function;
+        startTime?: Date | undefined;
+        title?: string | undefined;
+        type?: string | undefined;
+        workWeekStart?: number | undefined;
+        workWeekEnd?: number | undefined;
+        months?: number | undefined;
+        tooltipTemplate?: string|Function | undefined;
     }
 
     interface SchedulerOptions {
-        name?: string;
-        allDayEventTemplate?: string|Function;
-        allDaySlot?: boolean;
-        autoBind?: boolean;
-        currentTimeMarker?: boolean | SchedulerCurrentTimeMarker;
-        dataSource?: any|any|kendo.data.SchedulerDataSource;
-        date?: Date;
-        dateHeaderTemplate?: string|Function;
-        editable?: boolean | SchedulerEditable;
-        endTime?: Date;
-        eventTemplate?: string|Function;
-        footer?: boolean | SchedulerFooter;
-        group?: SchedulerGroup;
-        groupHeaderTemplate?: string|Function;
-        height?: number|string;
-        majorTick?: number;
-        majorTimeHeaderTemplate?: string|Function;
-        max?: Date;
-        messages?: SchedulerMessages;
-        min?: Date;
-        minorTickCount?: number;
-        minorTimeHeaderTemplate?: string|Function;
-        mobile?: boolean|string;
-        pdf?: SchedulerPdf;
-        resources?: SchedulerResource[];
-        selectable?: boolean;
-        showWorkHours?: boolean;
-        snap?: boolean;
-        startTime?: Date;
-        timezone?: string;
-        toolbar?: SchedulerToolbarItem[];
-        views?: SchedulerView[];
-        width?: number|string;
-        workDayStart?: Date;
-        workDayEnd?: Date;
-        workWeekStart?: number;
-        workWeekEnd?: number;
+        name?: string | undefined;
+        allDayEventTemplate?: string|Function | undefined;
+        allDaySlot?: boolean | undefined;
+        autoBind?: boolean | undefined;
+        currentTimeMarker?: boolean | SchedulerCurrentTimeMarker | undefined;
+        dataSource?: any|any|kendo.data.SchedulerDataSource | undefined;
+        date?: Date | undefined;
+        dateHeaderTemplate?: string|Function | undefined;
+        editable?: boolean | SchedulerEditable | undefined;
+        endTime?: Date | undefined;
+        eventTemplate?: string|Function | undefined;
+        footer?: boolean | SchedulerFooter | undefined;
+        group?: SchedulerGroup | undefined;
+        groupHeaderTemplate?: string|Function | undefined;
+        height?: number|string | undefined;
+        majorTick?: number | undefined;
+        majorTimeHeaderTemplate?: string|Function | undefined;
+        max?: Date | undefined;
+        messages?: SchedulerMessages | undefined;
+        min?: Date | undefined;
+        minorTickCount?: number | undefined;
+        minorTimeHeaderTemplate?: string|Function | undefined;
+        mobile?: boolean|string | undefined;
+        pdf?: SchedulerPdf | undefined;
+        resources?: SchedulerResource[] | undefined;
+        selectable?: boolean | undefined;
+        showWorkHours?: boolean | undefined;
+        snap?: boolean | undefined;
+        startTime?: Date | undefined;
+        timezone?: string | undefined;
+        toolbar?: SchedulerToolbarItem[] | undefined;
+        views?: SchedulerView[] | undefined;
+        width?: number|string | undefined;
+        workDayStart?: Date | undefined;
+        workDayEnd?: Date | undefined;
+        workWeekStart?: number | undefined;
+        workWeekEnd?: number | undefined;
         add?(e: SchedulerAddEvent): void;
         cancel?(e: SchedulerCancelEvent): void;
         change?(e: SchedulerChangeEvent): void;
@@ -8645,13 +8645,13 @@ declare namespace kendo.ui {
     }
 
     interface SchedulerCancelEvent extends SchedulerEvent {
-        container?: JQuery;
-        event?: kendo.data.SchedulerEvent;
+        container?: JQuery | undefined;
+        event?: kendo.data.SchedulerEvent | undefined;
     }
 
     interface SchedulerChangeEvent extends SchedulerEvent {
-        start?: Date;
-        end?: Date;
+        start?: Date | undefined;
+        end?: Date | undefined;
         events?: any;
         slots?: any;
         resources?: any;
@@ -8664,60 +8664,60 @@ declare namespace kendo.ui {
     }
 
     interface SchedulerEditEvent extends SchedulerEvent {
-        container?: JQuery;
-        event?: kendo.data.SchedulerEvent;
+        container?: JQuery | undefined;
+        event?: kendo.data.SchedulerEvent | undefined;
     }
 
     interface SchedulerMoveStartEvent extends SchedulerEvent {
-        event?: kendo.data.SchedulerEvent;
+        event?: kendo.data.SchedulerEvent | undefined;
     }
 
     interface SchedulerMoveEvent extends SchedulerEvent {
-        event?: kendo.data.SchedulerEvent;
+        event?: kendo.data.SchedulerEvent | undefined;
         slot?: any;
     }
 
     interface SchedulerMoveEndEvent extends SchedulerEvent {
-        start?: Date;
-        end?: Date;
-        event?: kendo.data.SchedulerEvent;
+        start?: Date | undefined;
+        end?: Date | undefined;
+        event?: kendo.data.SchedulerEvent | undefined;
         slot?: any;
         resources?: any;
     }
 
     interface SchedulerNavigateEvent extends SchedulerEvent {
-        action?: string;
-        date?: Date;
-        view?: string;
+        action?: string | undefined;
+        date?: Date | undefined;
+        view?: string | undefined;
     }
 
     interface SchedulerPdfExportEvent extends SchedulerEvent {
-        promise?: JQueryPromise<any>;
+        promise?: JQueryPromise<any> | undefined;
     }
 
     interface SchedulerRemoveEvent extends SchedulerEvent {
-        event?: kendo.data.SchedulerEvent;
+        event?: kendo.data.SchedulerEvent | undefined;
     }
 
     interface SchedulerResizeStartEvent extends SchedulerEvent {
-        event?: kendo.data.SchedulerEvent;
+        event?: kendo.data.SchedulerEvent | undefined;
     }
 
     interface SchedulerResizeEvent extends SchedulerEvent {
-        event?: kendo.data.SchedulerEvent;
+        event?: kendo.data.SchedulerEvent | undefined;
         slot?: any;
     }
 
     interface SchedulerResizeEndEvent extends SchedulerEvent {
-        start?: Date;
-        end?: Date;
-        event?: kendo.data.SchedulerEvent;
+        start?: Date | undefined;
+        end?: Date | undefined;
+        event?: kendo.data.SchedulerEvent | undefined;
         slot?: any;
     }
 
     interface SchedulerSaveEvent extends SchedulerEvent {
-        container?: JQuery;
-        event?: kendo.data.SchedulerEvent;
+        container?: JQuery | undefined;
+        event?: kendo.data.SchedulerEvent | undefined;
     }
 
     class ScrollView extends kendo.ui.Widget {
@@ -8748,30 +8748,30 @@ declare namespace kendo.ui {
     }
 
     interface ScrollViewMessages {
-        nextButtonLabel?: string;
-        previousButtonLabel?: string;
+        nextButtonLabel?: string | undefined;
+        previousButtonLabel?: string | undefined;
     }
 
     interface ScrollViewPageable {
-        ARIATemplate?: string;
+        ARIATemplate?: string | undefined;
     }
 
     interface ScrollViewOptions {
-        name?: string;
-        ARIATemplate?: string;
-        autoBind?: boolean;
-        bounceVelocityThreshold?: number;
-        contentHeight?: number|string;
-        dataSource?: kendo.data.DataSource|any;
-        duration?: number;
-        emptyTemplate?: string;
-        enablePager?: boolean;
-        messages?: ScrollViewMessages;
-        navigatable?: boolean;
-        pageable?: boolean | ScrollViewPageable;
-        page?: number;
-        template?: string;
-        velocityThreshold?: number;
+        name?: string | undefined;
+        ARIATemplate?: string | undefined;
+        autoBind?: boolean | undefined;
+        bounceVelocityThreshold?: number | undefined;
+        contentHeight?: number|string | undefined;
+        dataSource?: kendo.data.DataSource|any | undefined;
+        duration?: number | undefined;
+        emptyTemplate?: string | undefined;
+        enablePager?: boolean | undefined;
+        messages?: ScrollViewMessages | undefined;
+        navigatable?: boolean | undefined;
+        pageable?: boolean | ScrollViewPageable | undefined;
+        page?: number | undefined;
+        template?: string | undefined;
+        velocityThreshold?: number | undefined;
         change?(e: ScrollViewChangeEvent): void;
         refresh?(e: ScrollViewRefreshEvent): void;
     }
@@ -8782,15 +8782,15 @@ declare namespace kendo.ui {
     }
 
     interface ScrollViewChangeEvent extends ScrollViewEvent {
-        currentPage?: number;
-        nextPage?: number;
-        element?: JQuery;
+        currentPage?: number | undefined;
+        nextPage?: number | undefined;
+        element?: JQuery | undefined;
         data?: any;
     }
 
     interface ScrollViewRefreshEvent extends ScrollViewEvent {
-        pageCount?: number;
-        page?: number;
+        pageCount?: number | undefined;
+        page?: number | undefined;
     }
 
     class SkeletonContainer extends kendo.ui.Widget {
@@ -8812,32 +8812,32 @@ declare namespace kendo.ui {
     }
 
     interface SkeletonContainerGridGap {
-        columns?: number;
-        rows?: number;
+        columns?: number | undefined;
+        rows?: number | undefined;
     }
 
     interface SkeletonContainerGridItem {
-        colStart?: number;
-        colSpan?: number;
-        rowStart?: number;
-        rowSpan?: number;
-        shape?: string;
+        colStart?: number | undefined;
+        colSpan?: number | undefined;
+        rowStart?: number | undefined;
+        rowSpan?: number | undefined;
+        shape?: string | undefined;
     }
 
     interface SkeletonContainerGrid {
-        columns?: number;
-        gap?: SkeletonContainerGridGap;
-        items?: SkeletonContainerGridItem[];
-        rows?: number;
+        columns?: number | undefined;
+        gap?: SkeletonContainerGridGap | undefined;
+        items?: SkeletonContainerGridItem[] | undefined;
+        rows?: number | undefined;
     }
 
     interface SkeletonContainerOptions {
-        name?: string;
-        animation?: string;
-        grid?: SkeletonContainerGrid;
-        height?: string|number;
-        template?: string|Function;
-        width?: string|number;
+        name?: string | undefined;
+        animation?: string | undefined;
+        grid?: SkeletonContainerGrid | undefined;
+        height?: string|number | undefined;
+        template?: string|Function | undefined;
+        width?: string|number | undefined;
     }
     interface SkeletonContainerEvent {
         sender: SkeletonContainer;
@@ -8876,25 +8876,25 @@ declare namespace kendo.ui {
     }
 
     interface SliderTooltip {
-        enabled?: boolean;
-        format?: string;
-        template?: string|Function;
+        enabled?: boolean | undefined;
+        format?: string | undefined;
+        template?: string|Function | undefined;
     }
 
     interface SliderOptions {
-        name?: string;
-        decreaseButtonTitle?: string;
-        dragHandleTitle?: string;
-        increaseButtonTitle?: string;
-        largeStep?: number;
-        max?: number;
-        min?: number;
-        orientation?: string;
-        showButtons?: boolean;
-        smallStep?: number;
-        tickPlacement?: string;
-        tooltip?: SliderTooltip;
-        value?: number;
+        name?: string | undefined;
+        decreaseButtonTitle?: string | undefined;
+        dragHandleTitle?: string | undefined;
+        increaseButtonTitle?: string | undefined;
+        largeStep?: number | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        orientation?: string | undefined;
+        showButtons?: boolean | undefined;
+        smallStep?: number | undefined;
+        tickPlacement?: string | undefined;
+        tooltip?: SliderTooltip | undefined;
+        value?: number | undefined;
         change?(e: SliderChangeEvent): void;
         slide?(e: SliderSlideEvent): void;
     }
@@ -8905,11 +8905,11 @@ declare namespace kendo.ui {
     }
 
     interface SliderChangeEvent extends SliderEvent {
-        value?: number;
+        value?: number | undefined;
     }
 
     interface SliderSlideEvent extends SliderEvent {
-        value?: number;
+        value?: number | undefined;
     }
 
 
@@ -8934,25 +8934,25 @@ declare namespace kendo.ui {
     }
 
     interface SortableCursorOffset {
-        left?: number;
-        top?: number;
+        left?: number | undefined;
+        top?: number | undefined;
     }
 
     interface SortableOptions {
-        name?: string;
-        axis?: string;
-        autoScroll?: boolean;
-        container?: string|JQuery;
-        connectWith?: string;
-        cursor?: string;
-        cursorOffset?: SortableCursorOffset;
-        disabled?: string;
-        filter?: string;
-        handler?: string;
-        hint?: Function|string|JQuery;
-        holdToDrag?: boolean;
-        ignore?: string;
-        placeholder?: Function|string|JQuery;
+        name?: string | undefined;
+        axis?: string | undefined;
+        autoScroll?: boolean | undefined;
+        container?: string|JQuery | undefined;
+        connectWith?: string | undefined;
+        cursor?: string | undefined;
+        cursorOffset?: SortableCursorOffset | undefined;
+        disabled?: string | undefined;
+        filter?: string | undefined;
+        handler?: string | undefined;
+        hint?: Function|string|JQuery | undefined;
+        holdToDrag?: boolean | undefined;
+        ignore?: string | undefined;
+        placeholder?: Function|string|JQuery | undefined;
         start?(e: SortableStartEvent): void;
         move?(e: SortableMoveEvent): void;
         end?(e: SortableEndEvent): void;
@@ -8967,34 +8967,34 @@ declare namespace kendo.ui {
 
     interface SortableStartEvent extends SortableEvent {
         draggableEvent?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     interface SortableMoveEvent extends SortableEvent {
-        item?: JQuery;
-        target?: JQuery;
-        list?: kendo.ui.Sortable;
+        item?: JQuery | undefined;
+        target?: JQuery | undefined;
+        list?: kendo.ui.Sortable | undefined;
         draggableEvent?: any;
     }
 
     interface SortableEndEvent extends SortableEvent {
-        action?: string;
-        item?: JQuery;
-        oldIndex?: number;
-        newIndex?: number;
+        action?: string | undefined;
+        item?: JQuery | undefined;
+        oldIndex?: number | undefined;
+        newIndex?: number | undefined;
         draggableEvent?: any;
     }
 
     interface SortableChangeEvent extends SortableEvent {
-        action?: string;
-        item?: JQuery;
-        oldIndex?: number;
-        newIndex?: number;
+        action?: string | undefined;
+        item?: JQuery | undefined;
+        oldIndex?: number | undefined;
+        newIndex?: number | undefined;
         draggableEvent?: any;
     }
 
     interface SortableCancelEvent extends SortableEvent {
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
 
@@ -9055,21 +9055,21 @@ declare namespace kendo.ui {
     }
 
     interface SplitterPane {
-        collapsed?: boolean;
-        collapsedSize?: string;
-        collapsible?: boolean;
-        contentUrl?: string;
-        max?: string;
-        min?: string;
-        resizable?: boolean;
-        scrollable?: boolean;
-        size?: string;
+        collapsed?: boolean | undefined;
+        collapsedSize?: string | undefined;
+        collapsible?: boolean | undefined;
+        contentUrl?: string | undefined;
+        max?: string | undefined;
+        min?: string | undefined;
+        resizable?: boolean | undefined;
+        scrollable?: boolean | undefined;
+        size?: string | undefined;
     }
 
     interface SplitterOptions {
-        name?: string;
-        orientation?: string;
-        panes?: SplitterPane[];
+        name?: string | undefined;
+        orientation?: string | undefined;
+        panes?: SplitterPane[] | undefined;
         collapse?(e: SplitterCollapseEvent): void;
         contentLoad?(e: SplitterContentLoadEvent): void;
         error?(e: SplitterErrorEvent): void;
@@ -9084,20 +9084,20 @@ declare namespace kendo.ui {
     }
 
     interface SplitterCollapseEvent extends SplitterEvent {
-        pane?: Element;
+        pane?: Element | undefined;
     }
 
     interface SplitterContentLoadEvent extends SplitterEvent {
-        pane?: Element;
+        pane?: Element | undefined;
     }
 
     interface SplitterErrorEvent extends SplitterEvent {
-        xhr?: JQueryXHR;
-        status?: string;
+        xhr?: JQueryXHR | undefined;
+        status?: string | undefined;
     }
 
     interface SplitterExpandEvent extends SplitterEvent {
-        pane?: Element;
+        pane?: Element | undefined;
     }
 
 
@@ -9143,197 +9143,197 @@ declare namespace kendo.ui {
     }
 
     interface SpreadsheetDefaultCellStyle {
-        background?: string;
-        color?: string;
-        fontFamily?: string;
-        fontSize?: string;
-        Italic?: boolean;
-        bold?: boolean;
-        underline?: boolean;
-        wrap?: boolean;
+        background?: string | undefined;
+        color?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: string | undefined;
+        Italic?: boolean | undefined;
+        bold?: boolean | undefined;
+        underline?: boolean | undefined;
+        wrap?: boolean | undefined;
     }
 
     interface SpreadsheetExcel {
-        fileName?: string;
-        forceProxy?: boolean;
-        proxyURL?: string;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        proxyURL?: string | undefined;
     }
 
     interface SpreadsheetPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface SpreadsheetPdf {
-        area?: string;
-        author?: string;
-        creator?: string;
-        date?: Date;
-        fileName?: string;
-        fitWidth?: boolean;
-        forceProxy?: boolean;
-        guidelines?: boolean;
-        hCenter?: boolean;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: SpreadsheetPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
-        vCenter?: boolean;
+        area?: string | undefined;
+        author?: string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        fileName?: string | undefined;
+        fitWidth?: boolean | undefined;
+        forceProxy?: boolean | undefined;
+        guidelines?: boolean | undefined;
+        hCenter?: boolean | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: SpreadsheetPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
+        vCenter?: boolean | undefined;
     }
 
     interface SpreadsheetSheetColumn {
-        index?: number;
-        width?: number;
+        index?: number | undefined;
+        width?: number | undefined;
     }
 
     interface SpreadsheetSheetFilterColumnCriteriaItem {
-        operator?: string;
-        value?: string;
+        operator?: string | undefined;
+        value?: string | undefined;
     }
 
     interface SpreadsheetSheetFilterColumn {
-        criteria?: SpreadsheetSheetFilterColumnCriteriaItem[];
-        filter?: string;
-        index?: number;
-        logic?: string;
-        type?: string;
-        value?: number|string|Date;
+        criteria?: SpreadsheetSheetFilterColumnCriteriaItem[] | undefined;
+        filter?: string | undefined;
+        index?: number | undefined;
+        logic?: string | undefined;
+        type?: string | undefined;
+        value?: number|string|Date | undefined;
         values?: any;
     }
 
     interface SpreadsheetSheetFilter {
-        columns?: SpreadsheetSheetFilterColumn[];
-        ref?: string;
+        columns?: SpreadsheetSheetFilterColumn[] | undefined;
+        ref?: string | undefined;
     }
 
     interface SpreadsheetSheetRowCellBorderBottom {
-        color?: string;
-        size?: string;
+        color?: string | undefined;
+        size?: string | undefined;
     }
 
     interface SpreadsheetSheetRowCellBorderLeft {
-        color?: string;
-        size?: string;
+        color?: string | undefined;
+        size?: string | undefined;
     }
 
     interface SpreadsheetSheetRowCellBorderRight {
-        color?: string;
-        size?: string;
+        color?: string | undefined;
+        size?: string | undefined;
     }
 
     interface SpreadsheetSheetRowCellBorderTop {
-        color?: string;
-        size?: string;
+        color?: string | undefined;
+        size?: string | undefined;
     }
 
     interface SpreadsheetSheetRowCellValidation {
-        type?: string;
-        comparerType?: string;
-        dataType?: string;
-        from?: string;
-        showButton?: boolean;
-        to?: string;
-        allowNulls?: boolean;
-        messageTemplate?: string;
-        titleTemplate?: string;
+        type?: string | undefined;
+        comparerType?: string | undefined;
+        dataType?: string | undefined;
+        from?: string | undefined;
+        showButton?: boolean | undefined;
+        to?: string | undefined;
+        allowNulls?: boolean | undefined;
+        messageTemplate?: string | undefined;
+        titleTemplate?: string | undefined;
     }
 
     interface SpreadsheetSheetRowCell {
-        background?: string;
-        borderBottom?: SpreadsheetSheetRowCellBorderBottom;
-        borderLeft?: SpreadsheetSheetRowCellBorderLeft;
-        borderTop?: SpreadsheetSheetRowCellBorderTop;
-        borderRight?: SpreadsheetSheetRowCellBorderRight;
-        color?: string;
-        comment?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        italic?: boolean;
-        bold?: boolean;
-        enable?: boolean;
-        format?: string;
-        formula?: string;
-        index?: number;
-        link?: string;
-        textAlign?: string;
-        underline?: boolean;
-        value?: number|string|boolean|Date;
-        validation?: SpreadsheetSheetRowCellValidation;
-        verticalAlign?: string;
-        wrap?: boolean;
+        background?: string | undefined;
+        borderBottom?: SpreadsheetSheetRowCellBorderBottom | undefined;
+        borderLeft?: SpreadsheetSheetRowCellBorderLeft | undefined;
+        borderTop?: SpreadsheetSheetRowCellBorderTop | undefined;
+        borderRight?: SpreadsheetSheetRowCellBorderRight | undefined;
+        color?: string | undefined;
+        comment?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        italic?: boolean | undefined;
+        bold?: boolean | undefined;
+        enable?: boolean | undefined;
+        format?: string | undefined;
+        formula?: string | undefined;
+        index?: number | undefined;
+        link?: string | undefined;
+        textAlign?: string | undefined;
+        underline?: boolean | undefined;
+        value?: number|string|boolean|Date | undefined;
+        validation?: SpreadsheetSheetRowCellValidation | undefined;
+        verticalAlign?: string | undefined;
+        wrap?: boolean | undefined;
     }
 
     interface SpreadsheetSheetRow {
-        cells?: SpreadsheetSheetRowCell[];
-        height?: number;
-        index?: number;
-        type?: string;
+        cells?: SpreadsheetSheetRowCell[] | undefined;
+        height?: number | undefined;
+        index?: number | undefined;
+        type?: string | undefined;
     }
 
     interface SpreadsheetSheetSortColumn {
-        ascending?: boolean;
-        index?: number;
+        ascending?: boolean | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetSheetSort {
-        columns?: SpreadsheetSheetSortColumn[];
-        ref?: string;
+        columns?: SpreadsheetSheetSortColumn[] | undefined;
+        ref?: string | undefined;
     }
 
     interface SpreadsheetSheet {
-        activeCell?: string;
-        name?: string;
-        columns?: SpreadsheetSheetColumn[];
-        dataSource?: kendo.data.DataSource;
-        filter?: SpreadsheetSheetFilter;
-        frozenColumns?: number;
-        frozenRows?: number;
+        activeCell?: string | undefined;
+        name?: string | undefined;
+        columns?: SpreadsheetSheetColumn[] | undefined;
+        dataSource?: kendo.data.DataSource | undefined;
+        filter?: SpreadsheetSheetFilter | undefined;
+        frozenColumns?: number | undefined;
+        frozenRows?: number | undefined;
         mergedCells?: any;
-        rows?: SpreadsheetSheetRow[];
-        selection?: string;
-        showGridLines?: boolean;
-        sort?: SpreadsheetSheetSort;
+        rows?: SpreadsheetSheetRow[] | undefined;
+        selection?: string | undefined;
+        showGridLines?: boolean | undefined;
+        sort?: SpreadsheetSheetSort | undefined;
     }
 
     interface SpreadsheetToolbar {
-        home?: boolean|any;
-        insert?: boolean|any;
-        data?: boolean|any;
+        home?: boolean|any | undefined;
+        insert?: boolean|any | undefined;
+        data?: boolean|any | undefined;
     }
 
     interface SpreadsheetInsertSheetOptions {
-        rows?: number;
-        columns?: number;
-        rowHeight?: number;
-        columnWidth?: number;
-        headerHeight?: number;
-        headerWidth?: number;
-        dataSource?: kendo.data.DataSource;
+        rows?: number | undefined;
+        columns?: number | undefined;
+        rowHeight?: number | undefined;
+        columnWidth?: number | undefined;
+        headerHeight?: number | undefined;
+        headerWidth?: number | undefined;
+        dataSource?: kendo.data.DataSource | undefined;
         data?: any;
     }
 
     interface SpreadsheetOptions {
-        name?: string;
-        activeSheet?: string;
-        columnWidth?: number;
-        columns?: number;
-        defaultCellStyle?: SpreadsheetDefaultCellStyle;
-        headerHeight?: number;
-        headerWidth?: number;
-        excel?: SpreadsheetExcel;
-        pdf?: SpreadsheetPdf;
-        rowHeight?: number;
-        rows?: number;
-        sheets?: SpreadsheetSheet[];
-        sheetsbar?: boolean;
-        toolbar?: boolean | SpreadsheetToolbar;
-        useCultureDecimals?: boolean;
+        name?: string | undefined;
+        activeSheet?: string | undefined;
+        columnWidth?: number | undefined;
+        columns?: number | undefined;
+        defaultCellStyle?: SpreadsheetDefaultCellStyle | undefined;
+        headerHeight?: number | undefined;
+        headerWidth?: number | undefined;
+        excel?: SpreadsheetExcel | undefined;
+        pdf?: SpreadsheetPdf | undefined;
+        rowHeight?: number | undefined;
+        rows?: number | undefined;
+        sheets?: SpreadsheetSheet[] | undefined;
+        sheetsbar?: boolean | undefined;
+        toolbar?: boolean | SpreadsheetToolbar | undefined;
+        useCultureDecimals?: boolean | undefined;
         insertSheet?(e: SpreadsheetInsertSheetEvent): void;
         removeSheet?(e: SpreadsheetRemoveSheetEvent): void;
         renameSheet?(e: SpreadsheetRenameSheetEvent): void;
@@ -9370,74 +9370,74 @@ declare namespace kendo.ui {
     }
 
     interface SpreadsheetRemoveSheetEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
     }
 
     interface SpreadsheetRenameSheetEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        newSheetName?: string;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        newSheetName?: string | undefined;
     }
 
     interface SpreadsheetSelectSheetEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
     }
 
     interface SpreadsheetUnhideColumnEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        index?: number;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetUnhideRowEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        index?: number;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetHideColumnEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        index?: number;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetHideRowEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        index?: number;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetDeleteColumnEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        index?: number;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetDeleteRowEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        index?: number;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetInsertColumnEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        index?: number;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetInsertRowEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
-        index?: number;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
+        index?: number | undefined;
     }
 
     interface SpreadsheetSelectEvent extends SpreadsheetEvent {
-        range?: kendo.spreadsheet.Range;
+        range?: kendo.spreadsheet.Range | undefined;
     }
 
     interface SpreadsheetChangeFormatEvent extends SpreadsheetEvent {
-        range?: kendo.spreadsheet.Range;
+        range?: kendo.spreadsheet.Range | undefined;
     }
 
     interface SpreadsheetChangingEvent extends SpreadsheetEvent {
-        range?: kendo.spreadsheet.Range;
+        range?: kendo.spreadsheet.Range | undefined;
         data?: any;
-        changeType?: string;
+        changeType?: string | undefined;
     }
 
     interface SpreadsheetChangeEvent extends SpreadsheetEvent {
-        range?: kendo.spreadsheet.Range;
+        range?: kendo.spreadsheet.Range | undefined;
     }
 
     interface SpreadsheetRenderEvent extends SpreadsheetEvent {
@@ -9445,37 +9445,37 @@ declare namespace kendo.ui {
 
     interface SpreadsheetExcelExportEvent extends SpreadsheetEvent {
         data?: any;
-        workbook?: kendo.ooxml.Workbook;
+        workbook?: kendo.ooxml.Workbook | undefined;
     }
 
     interface SpreadsheetExcelImportEvent extends SpreadsheetEvent {
-        file?: Blob|File;
-        progress?: JQueryPromise<any>;
+        file?: Blob|File | undefined;
+        progress?: JQueryPromise<any> | undefined;
     }
 
     interface SpreadsheetPdfExportEvent extends SpreadsheetEvent {
-        promise?: JQueryPromise<any>;
+        promise?: JQueryPromise<any> | undefined;
     }
 
     interface SpreadsheetCopyEvent extends SpreadsheetEvent {
-        range?: kendo.spreadsheet.Range;
+        range?: kendo.spreadsheet.Range | undefined;
     }
 
     interface SpreadsheetCutEvent extends SpreadsheetEvent {
-        range?: kendo.spreadsheet.Range;
+        range?: kendo.spreadsheet.Range | undefined;
     }
 
     interface SpreadsheetPasteEvent extends SpreadsheetEvent {
-        range?: kendo.spreadsheet.Range;
+        range?: kendo.spreadsheet.Range | undefined;
         clipboardContent?: any;
     }
 
     interface SpreadsheetDataBindingEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
     }
 
     interface SpreadsheetDataBoundEvent extends SpreadsheetEvent {
-        sheet?: kendo.spreadsheet.Sheet;
+        sheet?: kendo.spreadsheet.Sheet | undefined;
     }
 
     class Switch extends kendo.ui.Widget {
@@ -9502,18 +9502,18 @@ declare namespace kendo.ui {
     }
 
     interface SwitchOptions {
-        name?: string;
-        checked?: boolean;
-        enabled?: boolean;
-        readonly?: boolean;
-        width?: number|string;
-        messages?: SwitchMessages;
+        name?: string | undefined;
+        checked?: boolean | undefined;
+        enabled?: boolean | undefined;
+        readonly?: boolean | undefined;
+        width?: number|string | undefined;
+        messages?: SwitchMessages | undefined;
         change?(e: SwitchChangeEvent): void;
     }
 
     interface SwitchMessages {
-        checked?: string;
-        unchecked?: string;
+        checked?: string | undefined;
+        unchecked?: string | undefined;
     }
 
     interface SwitchEvent {
@@ -9553,12 +9553,12 @@ declare namespace kendo.ui {
     }
 
     interface StepperOptions {
-        name?: string;
-        orientation?: string | "horizontal" | "vertical";
-        linear?: boolean;
-        indicator?: boolean;
-        label?: boolean;
-        selectOnFocus?: boolean;
+        name?: string | undefined;
+        orientation?: string | "horizontal" | "vertical" | undefined;
+        linear?: boolean | undefined;
+        indicator?: boolean | undefined;
+        label?: boolean | undefined;
+        selectOnFocus?: boolean | undefined;
         steps: kendo.stepper.StepOptions[] | string[];
 
         activate?(e: StepperActivateEvent): void;
@@ -9566,9 +9566,9 @@ declare namespace kendo.ui {
     }
 
     interface StepperActivateEvent {
-        sender?: Stepper;
+        sender?: Stepper | undefined;
         originalEvent?: any;
-        step?: kendo.stepper.Step;
+        step?: kendo.stepper.Step | undefined;
     }
 
     interface StepperSelectEvent extends StepperActivateEvent {
@@ -9648,40 +9648,40 @@ declare namespace kendo.ui {
     }
 
     interface TabStripAnimationClose {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface TabStripAnimationOpen {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface TabStripAnimation {
-        close?: TabStripAnimationClose;
-        open?: TabStripAnimationOpen;
+        close?: TabStripAnimationClose | undefined;
+        open?: TabStripAnimationOpen | undefined;
     }
 
     interface TabStripScrollable {
-        distance?: number;
+        distance?: number | undefined;
     }
 
     interface TabStripOptions {
-        name?: string;
-        animation?: boolean | TabStripAnimation;
-        collapsible?: boolean;
+        name?: string | undefined;
+        animation?: boolean | TabStripAnimation | undefined;
+        collapsible?: boolean | undefined;
         contentUrls?: any;
-        dataContentField?: string;
-        dataContentUrlField?: string;
-        dataImageUrlField?: string;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataSpriteCssClass?: string;
-        dataTextField?: string;
-        dataUrlField?: string;
-        navigatable?: boolean;
-        scrollable?: boolean | TabStripScrollable;
-        tabPosition?: string;
-        value?: string;
+        dataContentField?: string | undefined;
+        dataContentUrlField?: string | undefined;
+        dataImageUrlField?: string | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataSpriteCssClass?: string | undefined;
+        dataTextField?: string | undefined;
+        dataUrlField?: string | undefined;
+        navigatable?: boolean | undefined;
+        scrollable?: boolean | TabStripScrollable | undefined;
+        tabPosition?: string | undefined;
+        value?: string | undefined;
         activate?(e: TabStripActivateEvent): void;
         contentLoad?(e: TabStripContentLoadEvent): void;
         error?(e: TabStripErrorEvent): void;
@@ -9695,28 +9695,28 @@ declare namespace kendo.ui {
     }
 
     interface TabStripActivateEvent extends TabStripEvent {
-        item?: Element;
-        contentElement?: Element;
+        item?: Element | undefined;
+        contentElement?: Element | undefined;
     }
 
     interface TabStripContentLoadEvent extends TabStripEvent {
-        item?: Element;
-        contentElement?: Element;
+        item?: Element | undefined;
+        contentElement?: Element | undefined;
     }
 
     interface TabStripErrorEvent extends TabStripEvent {
-        xhr?: JQueryXHR;
-        status?: string;
+        xhr?: JQueryXHR | undefined;
+        status?: string | undefined;
     }
 
     interface TabStripSelectEvent extends TabStripEvent {
-        item?: Element;
-        contentElement?: Element;
+        item?: Element | undefined;
+        contentElement?: Element | undefined;
     }
 
     interface TabStripShowEvent extends TabStripEvent {
-        item?: Element;
-        contentElement?: Element;
+        item?: Element | undefined;
+        contentElement?: Element | undefined;
     }
 
     class TaskBoard extends kendo.ui.Widget {
@@ -9767,153 +9767,153 @@ declare namespace kendo.ui {
     }
 
     interface TaskBoardCardMenuItem {
-        name?: string;
-        text?: string;
-        icon?: string;
-        spriteCssClass?: string;
-        command?: string;
-        options?: string;
+        name?: string | undefined;
+        text?: string | undefined;
+        icon?: string | undefined;
+        spriteCssClass?: string | undefined;
+        command?: string | undefined;
+        options?: string | undefined;
     }
 
     interface TaskBoardColumnSettingsButton {
-        name?: string;
-        text?: string;
-        icon?: string;
-        spriteCssClass?: string;
-        command?: string;
-        options?: string;
+        name?: string | undefined;
+        text?: string | undefined;
+        icon?: string | undefined;
+        spriteCssClass?: string | undefined;
+        command?: string | undefined;
+        options?: string | undefined;
     }
 
     interface TaskBoardColumnSettings {
-        buttons?: TaskBoardColumnSettingsButton[];
-        dataStatusField?: string;
-        dataTextField?: string;
-        dataOrderField?: string;
-        width?: string|number;
-        template?: string|Function;
+        buttons?: TaskBoardColumnSettingsButton[] | undefined;
+        dataStatusField?: string | undefined;
+        dataTextField?: string | undefined;
+        dataOrderField?: string | undefined;
+        width?: string|number | undefined;
+        template?: string|Function | undefined;
     }
 
     interface TaskBoardEditableButton {
-        name?: string;
-        text?: string;
-        icon?: string;
-        spriteCssClass?: string;
-        command?: string;
-        options?: string;
-        primary?: boolean;
+        name?: string | undefined;
+        text?: string | undefined;
+        icon?: string | undefined;
+        spriteCssClass?: string | undefined;
+        command?: string | undefined;
+        options?: string | undefined;
+        primary?: boolean | undefined;
     }
 
     interface TaskBoardEditable {
-        buttons?: TaskBoardEditableButton[];
+        buttons?: TaskBoardEditableButton[] | undefined;
         form?: any;
-        headerTemplate?: string|Function;
+        headerTemplate?: string|Function | undefined;
     }
 
     interface TaskBoardMessages {
-        edit?: string;
-        createNewCard?: string;
-        create?: string;
-        search?: string;
-        previewCard?: string;
-        addCard?: string;
-        editCard?: string;
-        deleteCard?: string;
-        addColumn?: string;
-        editColumn?: string;
-        deleteColumn?: string;
-        close?: string;
-        cancel?: string;
-        delete?: string;
-        saveChanges?: string;
-        title?: string;
-        description?: string;
-        newColumn?: string;
-        deleteColumnConfirm?: string;
-        deleteCardConfirm?: string;
+        edit?: string | undefined;
+        createNewCard?: string | undefined;
+        create?: string | undefined;
+        search?: string | undefined;
+        previewCard?: string | undefined;
+        addCard?: string | undefined;
+        editCard?: string | undefined;
+        deleteCard?: string | undefined;
+        addColumn?: string | undefined;
+        editColumn?: string | undefined;
+        deleteColumn?: string | undefined;
+        close?: string | undefined;
+        cancel?: string | undefined;
+        delete?: string | undefined;
+        saveChanges?: string | undefined;
+        title?: string | undefined;
+        description?: string | undefined;
+        newColumn?: string | undefined;
+        deleteColumnConfirm?: string | undefined;
+        deleteCardConfirm?: string | undefined;
     }
 
     interface TaskBoardPreviewPaneButton {
-        name?: string;
-        text?: string;
-        icon?: string;
-        spriteCssClass?: string;
-        command?: string;
-        options?: string;
-        primary?: boolean;
+        name?: string | undefined;
+        text?: string | undefined;
+        icon?: string | undefined;
+        spriteCssClass?: string | undefined;
+        command?: string | undefined;
+        options?: string | undefined;
+        primary?: boolean | undefined;
     }
 
     interface TaskBoardPreviewPane {
-        buttons?: TaskBoardPreviewPaneButton[];
-        template?: string|Function;
-        headerTemplate?: string|Function;
+        buttons?: TaskBoardPreviewPaneButton[] | undefined;
+        template?: string|Function | undefined;
+        headerTemplate?: string|Function | undefined;
     }
 
     interface TaskBoardResource {
-        dataColorField?: string;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataTextField?: string;
-        dataValueField?: string;
-        field?: string;
-        multiple?: boolean;
-        name?: string;
-        title?: string;
-        valuePrimitive?: boolean;
+        dataColorField?: string | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        dataValueField?: string | undefined;
+        field?: string | undefined;
+        multiple?: boolean | undefined;
+        name?: string | undefined;
+        title?: string | undefined;
+        valuePrimitive?: boolean | undefined;
     }
 
     interface TaskBoardToolbarItem {
-        type?: string;
-        overflow?: string;
-        click?: Function;
-        command?: string;
-        options?: string;
-        name?: string;
-        togglable?: boolean;
-        text?: string;
-        template?: string|Function;
-        showText?: string;
-        primary?: boolean;
+        type?: string | undefined;
+        overflow?: string | undefined;
+        click?: Function | undefined;
+        command?: string | undefined;
+        options?: string | undefined;
+        name?: string | undefined;
+        togglable?: boolean | undefined;
+        text?: string | undefined;
+        template?: string|Function | undefined;
+        showText?: string | undefined;
+        primary?: boolean | undefined;
         attributes?: any;
-        enable?: boolean;
-        hidden?: boolean;
-        spriteCssClass?: string;
-        imageUrl?: string;
-        showIcon?: string;
-        icon?: string;
-        id?: string;
+        enable?: boolean | undefined;
+        hidden?: boolean | undefined;
+        spriteCssClass?: string | undefined;
+        imageUrl?: string | undefined;
+        showIcon?: string | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
     }
 
     interface TaskBoardToolbar {
-        items?: TaskBoardToolbarItem[];
+        items?: TaskBoardToolbarItem[] | undefined;
     }
 
     interface TaskBoardRegisterShortcutOptions {
-        command?: string;
-        options?: string;
-        handler?: Function;
+        command?: string | undefined;
+        options?: string | undefined;
+        handler?: Function | undefined;
     }
 
     interface TaskBoardOptions {
-        name?: string;
-        autoBind?: boolean;
-        cardMenu?: TaskBoardCardMenuItem[];
-        columns?: any|any|kendo.data.DataSource;
-        columnSettings?: TaskBoardColumnSettings;
-        dataOrderField?: string;
-        dataCategoryField?: string;
-        dataDescriptionField?: string;
-        dataSource?: any|any|kendo.data.DataSource;
-        dataStatusField?: string;
-        dataTitleField?: string;
-        editable?: boolean | TaskBoardEditable;
-        height?: string|number;
-        previewPane?: boolean | TaskBoardPreviewPane;
-        reorderable?: boolean;
-        resources?: TaskBoardResource[];
-        selectable?: boolean;
-        template?: string|Function;
-        toolbar?: boolean | TaskBoardToolbar;
-        width?: string|number;
-        messages?: TaskBoardMessages;
+        name?: string | undefined;
+        autoBind?: boolean | undefined;
+        cardMenu?: TaskBoardCardMenuItem[] | undefined;
+        columns?: any|any|kendo.data.DataSource | undefined;
+        columnSettings?: TaskBoardColumnSettings | undefined;
+        dataOrderField?: string | undefined;
+        dataCategoryField?: string | undefined;
+        dataDescriptionField?: string | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        dataStatusField?: string | undefined;
+        dataTitleField?: string | undefined;
+        editable?: boolean | TaskBoardEditable | undefined;
+        height?: string|number | undefined;
+        previewPane?: boolean | TaskBoardPreviewPane | undefined;
+        reorderable?: boolean | undefined;
+        resources?: TaskBoardResource[] | undefined;
+        selectable?: boolean | undefined;
+        template?: string|Function | undefined;
+        toolbar?: boolean | TaskBoardToolbar | undefined;
+        width?: string|number | undefined;
+        messages?: TaskBoardMessages | undefined;
         columnsDataBinding?(e: TaskBoardColumnsDataBindingEvent): void;
         columnsDataBound?(e: TaskBoardColumnsDataBoundEvent): void;
         select?(e: TaskBoardSelectEvent): void;
@@ -9938,8 +9938,8 @@ declare namespace kendo.ui {
     }
 
     interface TaskBoardColumnsDataBindingEvent extends TaskBoardEvent {
-        action?: string;
-        index?: number;
+        action?: string | undefined;
+        index?: number | undefined;
         items?: any;
     }
 
@@ -9947,12 +9947,12 @@ declare namespace kendo.ui {
     }
 
     interface TaskBoardSelectEvent extends TaskBoardEvent {
-        card?: JQuery;
+        card?: JQuery | undefined;
     }
 
     interface TaskBoardDataBindingEvent extends TaskBoardEvent {
-        action?: string;
-        index?: number;
+        action?: string | undefined;
+        index?: number | undefined;
         items?: any;
     }
 
@@ -9960,76 +9960,76 @@ declare namespace kendo.ui {
     }
 
     interface TaskBoardDeleteCardEvent extends TaskBoardEvent {
-        card?: kendo.data.Model;
+        card?: kendo.data.Model | undefined;
     }
 
     interface TaskBoardDeleteColumnEvent extends TaskBoardEvent {
-        column?: kendo.data.Model;
+        column?: kendo.data.Model | undefined;
     }
 
     interface TaskBoardEditCardEvent extends TaskBoardEvent {
-        card?: kendo.data.Model;
+        card?: kendo.data.Model | undefined;
     }
 
     interface TaskBoardEditColumnEvent extends TaskBoardEvent {
-        column?: kendo.data.Model;
+        column?: kendo.data.Model | undefined;
     }
 
     interface TaskBoardExecuteCommandEvent extends TaskBoardEvent {
-        command?: string;
+        command?: string | undefined;
         options?: any;
     }
 
     interface TaskBoardMoveEvent extends TaskBoardEvent {
-        card?: kendo.data.Model;
-        cardElement?: JQuery;
-        column?: kendo.data.Model;
-        columnElement?: JQuery;
-        item?: JQuery;
-        target?: JQuery;
-        list?: kendo.ui.Sortable;
+        card?: kendo.data.Model | undefined;
+        cardElement?: JQuery | undefined;
+        column?: kendo.data.Model | undefined;
+        columnElement?: JQuery | undefined;
+        item?: JQuery | undefined;
+        target?: JQuery | undefined;
+        list?: kendo.ui.Sortable | undefined;
         draggableEvent?: any;
     }
 
     interface TaskBoardMoveEndEvent extends TaskBoardEvent {
-        card?: kendo.data.Model;
-        cardElement?: JQuery;
-        column?: kendo.data.Model;
-        columnElement?: JQuery;
-        action?: string;
-        item?: JQuery;
-        oldIndex?: number;
-        newIndex?: number;
+        card?: kendo.data.Model | undefined;
+        cardElement?: JQuery | undefined;
+        column?: kendo.data.Model | undefined;
+        columnElement?: JQuery | undefined;
+        action?: string | undefined;
+        item?: JQuery | undefined;
+        oldIndex?: number | undefined;
+        newIndex?: number | undefined;
         draggableEvent?: any;
     }
 
     interface TaskBoardMoveStartEvent extends TaskBoardEvent {
-        card?: kendo.data.Model;
-        cardElement?: JQuery;
-        column?: kendo.data.Model;
-        columnElement?: JQuery;
+        card?: kendo.data.Model | undefined;
+        cardElement?: JQuery | undefined;
+        column?: kendo.data.Model | undefined;
+        columnElement?: JQuery | undefined;
         draggableEvent?: any;
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
     interface TaskBoardChangeEvent extends TaskBoardEvent {
-        card?: kendo.data.Model;
-        cardElement?: JQuery;
-        column?: kendo.data.Model;
-        columnElement?: JQuery;
-        action?: string;
-        item?: JQuery;
-        oldIndex?: number;
-        newIndex?: number;
+        card?: kendo.data.Model | undefined;
+        cardElement?: JQuery | undefined;
+        column?: kendo.data.Model | undefined;
+        columnElement?: JQuery | undefined;
+        action?: string | undefined;
+        item?: JQuery | undefined;
+        oldIndex?: number | undefined;
+        newIndex?: number | undefined;
         draggableEvent?: any;
     }
 
     interface TaskBoardSaveCardEvent extends TaskBoardEvent {
-        card?: kendo.data.Model;
+        card?: kendo.data.Model | undefined;
     }
 
     interface TaskBoardSaveColumnEvent extends TaskBoardEvent {
-        column?: kendo.data.Model;
+        column?: kendo.data.Model | undefined;
     }
 
     class TileLayout extends kendo.ui.Widget {
@@ -10051,35 +10051,35 @@ declare namespace kendo.ui {
     }
 
     interface TileLayoutContainerHeader {
-        template?: string|Function;
-        text?: string;
+        template?: string|Function | undefined;
+        text?: string | undefined;
     }
 
     interface TileLayoutContainer {
-        bodyTemplate?: string|Function;
-        colSpan?: number;
-        header?: TileLayoutContainerHeader;
-        rowSpan?: number;
+        bodyTemplate?: string|Function | undefined;
+        colSpan?: number | undefined;
+        header?: TileLayoutContainerHeader | undefined;
+        rowSpan?: number | undefined;
     }
 
     interface TileLayoutGap {
-        columns?: number;
-        rows?: number;
+        columns?: number | undefined;
+        rows?: number | undefined;
     }
 
     interface TileLayoutOptions {
-        name?: string;
-        columns?: number;
-        columnsWidth?: string|number;
-        containers?: TileLayoutContainer[];
-        gap?: TileLayoutGap;
-        height?: string|number;
-        navigatable?: boolean;
-        reorderable?: boolean;
-        resizable?: boolean;
-        rows?: number;
-        rowsHeight?: string|number;
-        width?: string|number;
+        name?: string | undefined;
+        columns?: number | undefined;
+        columnsWidth?: string|number | undefined;
+        containers?: TileLayoutContainer[] | undefined;
+        gap?: TileLayoutGap | undefined;
+        height?: string|number | undefined;
+        navigatable?: boolean | undefined;
+        reorderable?: boolean | undefined;
+        resizable?: boolean | undefined;
+        rows?: number | undefined;
+        rowsHeight?: string|number | undefined;
+        width?: string|number | undefined;
         resize?(e: TileLayoutResizeEvent): void;
         reorder?(e: TileLayoutReorderEvent): void;
     }
@@ -10090,13 +10090,13 @@ declare namespace kendo.ui {
     }
 
     interface TileLayoutResizeEvent extends TileLayoutEvent {
-        container?: JQuery;
+        container?: JQuery | undefined;
     }
 
     interface TileLayoutReorderEvent extends TileLayoutEvent {
-        newIndex?: number;
-        oldIndex?: number;
-        container?: JQuery;
+        newIndex?: number | undefined;
+        oldIndex?: number | undefined;
+        container?: JQuery | undefined;
     }
 
     class TextArea extends kendo.ui.Widget {
@@ -10124,21 +10124,21 @@ declare namespace kendo.ui {
     }
 
     interface TextAreaLabel {
-        content?: string|Function;
-        floating?: boolean;
+        content?: string|Function | undefined;
+        floating?: boolean | undefined;
     }
 
     interface TextAreaOptions {
-        name?: string;
-        cols?: number;
-        enable?: boolean;
-        label?: string | Function | TextAreaLabel;
-        maxLength?: number;
-        placeholder?: string;
-        readonly?: boolean;
-        resizable?: string;
-        rows?: number;
-        value?: string;
+        name?: string | undefined;
+        cols?: number | undefined;
+        enable?: boolean | undefined;
+        label?: string | Function | TextAreaLabel | undefined;
+        maxLength?: number | undefined;
+        placeholder?: string | undefined;
+        readonly?: boolean | undefined;
+        resizable?: string | undefined;
+        rows?: number | undefined;
+        value?: string | undefined;
         change?(e: TextAreaChangeEvent): void;
     }
     interface TextAreaEvent {
@@ -10175,17 +10175,17 @@ declare namespace kendo.ui {
     }
 
     interface TextBoxLabel {
-        content?: string|Function;
-        floating?: boolean;
+        content?: string|Function | undefined;
+        floating?: boolean | undefined;
     }
 
     interface TextBoxOptions {
-        name?: string;
-        enable?: boolean;
-        label?: string | Function | TextBoxLabel;
-        placeholder?: string;
-        readonly?: boolean;
-        value?: string;
+        name?: string | undefined;
+        enable?: boolean | undefined;
+        label?: string | Function | TextBoxLabel | undefined;
+        placeholder?: string | undefined;
+        readonly?: boolean | undefined;
+        value?: string | undefined;
         change?(e: TextBoxChangeEvent): void;
     }
     interface TextBoxEvent {
@@ -10232,32 +10232,32 @@ declare namespace kendo.ui {
     }
 
     interface TimePickerAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface TimePickerAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface TimePickerAnimation {
-        close?: TimePickerAnimationClose;
-        open?: TimePickerAnimationOpen;
+        close?: TimePickerAnimationClose | undefined;
+        open?: TimePickerAnimationOpen | undefined;
     }
 
     interface TimePickerOptions {
-        name?: string;
-        animation?: boolean | TimePickerAnimation;
-        culture?: string;
-        dateInput?: boolean;
+        name?: string | undefined;
+        animation?: boolean | TimePickerAnimation | undefined;
+        culture?: string | undefined;
+        dateInput?: boolean | undefined;
         dates?: any;
-        format?: string;
-        interval?: number;
-        max?: Date;
-        min?: Date;
+        format?: string | undefined;
+        interval?: number | undefined;
+        max?: Date | undefined;
+        min?: Date | undefined;
         parseFormats?: any;
-        value?: Date;
+        value?: Date | undefined;
         change?(e: TimePickerChangeEvent): void;
         close?(e: TimePickerCloseEvent): void;
         open?(e: TimePickerOpenEvent): void;
@@ -10311,24 +10311,24 @@ declare namespace kendo.ui {
     }
 
     interface TimelineOptions {
-        name?: string;
-        alternatingMode?: boolean;
-        orientation?: string;
-        collapsibleEvents?: boolean;
-        dataActionsField?: string;
-        dataDescriptionField?: string;
-        dataDateField?: string;
-        dataImagesField?: string;
-        dataImagesAltField?: string;
-        dataSubTitleField?: string;
-        dataTitleField?: string;
-        dataSource?: kendo.data.DataSource|any;
-        eventTemplate?: string|Function;
-        dateformat?: string;
-        eventHeight?: number;
-        eventWidth?: number;
-        navigatable?: boolean;
-        showDateLabels?: boolean;
+        name?: string | undefined;
+        alternatingMode?: boolean | undefined;
+        orientation?: string | undefined;
+        collapsibleEvents?: boolean | undefined;
+        dataActionsField?: string | undefined;
+        dataDescriptionField?: string | undefined;
+        dataDateField?: string | undefined;
+        dataImagesField?: string | undefined;
+        dataImagesAltField?: string | undefined;
+        dataSubTitleField?: string | undefined;
+        dataTitleField?: string | undefined;
+        dataSource?: kendo.data.DataSource|any | undefined;
+        eventTemplate?: string|Function | undefined;
+        dateformat?: string | undefined;
+        eventHeight?: number | undefined;
+        eventWidth?: number | undefined;
+        navigatable?: boolean | undefined;
+        showDateLabels?: boolean | undefined;
         change?(e: TimelineChangeEvent): void;
         dataBound?(e: TimelineDataBoundEvent): void;
         expand?(e: TimelineExpandEvent): void;
@@ -10343,28 +10343,28 @@ declare namespace kendo.ui {
     }
 
     interface TimelineChangeEvent extends TimelineEvent {
-        dataItem?: kendo.data.Model;
-        eventContainer?: JQuery;
+        dataItem?: kendo.data.Model | undefined;
+        eventContainer?: JQuery | undefined;
     }
 
     interface TimelineDataBoundEvent extends TimelineEvent {
     }
 
     interface TimelineExpandEvent extends TimelineEvent {
-        dataItem?: kendo.data.Model;
+        dataItem?: kendo.data.Model | undefined;
     }
 
     interface TimelineCollapseEvent extends TimelineEvent {
-        dataItem?: kendo.data.Model;
+        dataItem?: kendo.data.Model | undefined;
     }
 
     interface TimelineActionClickEvent extends TimelineEvent {
-        dataItem?: kendo.data.Model;
-        element?: JQuery;
+        dataItem?: kendo.data.Model | undefined;
+        element?: JQuery | undefined;
     }
 
     interface TimelineNavigateEvent extends TimelineEvent {
-        action?: string;
+        action?: string | undefined;
     }
 
     class ToolBar extends kendo.ui.Widget {
@@ -10408,65 +10408,65 @@ declare namespace kendo.ui {
 
     interface ToolBarItemButton {
         attributes?: any;
-        click?: Function;
-        enable?: boolean;
-        group?: string;
-        hidden?: boolean;
-        icon?: string;
-        id?: string;
-        imageUrl?: string;
-        selected?: boolean;
-        showIcon?: string;
-        showText?: string;
-        spriteCssClass?: string;
-        toggle?: Function;
-        togglable?: boolean;
-        text?: string;
-        url?: string;
+        click?: Function | undefined;
+        enable?: boolean | undefined;
+        group?: string | undefined;
+        hidden?: boolean | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
+        imageUrl?: string | undefined;
+        selected?: boolean | undefined;
+        showIcon?: string | undefined;
+        showText?: string | undefined;
+        spriteCssClass?: string | undefined;
+        toggle?: Function | undefined;
+        togglable?: boolean | undefined;
+        text?: string | undefined;
+        url?: string | undefined;
     }
 
     interface ToolBarItemMenuButton {
         attributes?: any;
-        enable?: boolean;
-        hidden?: boolean;
-        icon?: string;
-        id?: string;
-        imageUrl?: string;
-        spriteCssClass?: string;
-        text?: string;
-        url?: string;
+        enable?: boolean | undefined;
+        hidden?: boolean | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
+        imageUrl?: string | undefined;
+        spriteCssClass?: string | undefined;
+        text?: string | undefined;
+        url?: string | undefined;
     }
 
     interface ToolBarItem {
         attributes?: any;
-        buttons?: ToolBarItemButton[];
-        click?: Function;
-        enable?: boolean;
-        group?: string;
-        hidden?: boolean;
-        icon?: string;
-        id?: string;
-        imageUrl?: string;
-        menuButtons?: ToolBarItemMenuButton[];
-        overflow?: string;
-        overflowTemplate?: string|Function;
-        primary?: boolean;
-        selected?: boolean;
-        showIcon?: string;
-        showText?: string;
-        spriteCssClass?: string;
-        template?: string|Function;
-        text?: string;
-        togglable?: boolean;
-        toggle?: Function;
-        type?: string;
-        url?: string;
+        buttons?: ToolBarItemButton[] | undefined;
+        click?: Function | undefined;
+        enable?: boolean | undefined;
+        group?: string | undefined;
+        hidden?: boolean | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
+        imageUrl?: string | undefined;
+        menuButtons?: ToolBarItemMenuButton[] | undefined;
+        overflow?: string | undefined;
+        overflowTemplate?: string|Function | undefined;
+        primary?: boolean | undefined;
+        selected?: boolean | undefined;
+        showIcon?: string | undefined;
+        showText?: string | undefined;
+        spriteCssClass?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
+        togglable?: boolean | undefined;
+        toggle?: Function | undefined;
+        type?: string | undefined;
+        url?: string | undefined;
     }
 
     interface ToolBarOptions {
-        name?: string;
-        resizable?: boolean;
-        items?: ToolBarItem[];
+        name?: string | undefined;
+        resizable?: boolean | undefined;
+        items?: ToolBarItem[] | undefined;
         click?(e: ToolBarClickEvent): void;
         close?(e: ToolBarCloseEvent): void;
         open?(e: ToolBarOpenEvent): void;
@@ -10481,22 +10481,22 @@ declare namespace kendo.ui {
     }
 
     interface ToolBarClickEvent extends ToolBarEvent {
-        target?: JQuery;
-        id?: string;
+        target?: JQuery | undefined;
+        id?: string | undefined;
     }
 
     interface ToolBarCloseEvent extends ToolBarEvent {
-        SplitButton?: JQuery;
+        SplitButton?: JQuery | undefined;
     }
 
     interface ToolBarOpenEvent extends ToolBarEvent {
-        SplitButton?: JQuery;
+        SplitButton?: JQuery | undefined;
     }
 
     interface ToolBarToggleEvent extends ToolBarEvent {
-        target?: JQuery;
-        checked?: boolean;
-        id?: string;
+        target?: JQuery | undefined;
+        checked?: boolean | undefined;
+        id?: string | undefined;
     }
 
     interface ToolBarOverflowCloseEvent extends ToolBarEvent {
@@ -10530,37 +10530,37 @@ declare namespace kendo.ui {
     }
 
     interface TooltipAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface TooltipAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface TooltipAnimation {
-        close?: TooltipAnimationClose;
-        open?: TooltipAnimationOpen;
+        close?: TooltipAnimationClose | undefined;
+        open?: TooltipAnimationOpen | undefined;
     }
 
     interface TooltipContent {
-        url?: string;
+        url?: string | undefined;
     }
 
     interface TooltipOptions {
-        name?: string;
-        autoHide?: boolean;
-        animation?: boolean | TooltipAnimation;
-        content?: string | Function | TooltipContent;
-        callout?: boolean;
-        filter?: string;
-        iframe?: boolean;
-        height?: number;
-        width?: number;
-        position?: string;
-        showAfter?: number;
-        showOn?: string;
+        name?: string | undefined;
+        autoHide?: boolean | undefined;
+        animation?: boolean | TooltipAnimation | undefined;
+        content?: string | Function | TooltipContent | undefined;
+        callout?: boolean | undefined;
+        filter?: string | undefined;
+        iframe?: boolean | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        position?: string | undefined;
+        showAfter?: number | undefined;
+        showOn?: string | undefined;
         contentLoad?(e: TooltipEvent): void;
         show?(e: TooltipEvent): void;
         hide?(e: TooltipEvent): void;
@@ -10574,13 +10574,13 @@ declare namespace kendo.ui {
     }
 
     interface TooltipRequestStartEvent extends TooltipEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
         options?: any;
     }
 
     interface TooltipErrorEvent extends TooltipEvent {
-        xhr?: JQueryXHR;
-        status?: string;
+        xhr?: JQueryXHR | undefined;
+        status?: string | undefined;
     }
 
 
@@ -10605,16 +10605,16 @@ declare namespace kendo.ui {
     }
 
     interface TouchOptions {
-        name?: string;
-        filter?: string;
-        surface?: JQuery;
-        multiTouch?: boolean;
-        enableSwipe?: boolean;
-        minXDelta?: number;
-        maxYDelta?: number;
-        maxDuration?: number;
-        minHold?: number;
-        doubleTapTimeout?: number;
+        name?: string | undefined;
+        filter?: string | undefined;
+        surface?: JQuery | undefined;
+        multiTouch?: boolean | undefined;
+        enableSwipe?: boolean | undefined;
+        minXDelta?: number | undefined;
+        maxYDelta?: number | undefined;
+        maxDuration?: number | undefined;
+        minHold?: number | undefined;
+        doubleTapTimeout?: number | undefined;
         touchstart?(e: TouchTouchstartEvent): void;
         dragstart?(e: TouchDragstartEvent): void;
         drag?(e: TouchDragEvent): void;
@@ -10634,65 +10634,65 @@ declare namespace kendo.ui {
     }
 
     interface TouchTouchstartEvent extends TouchEvent {
-        touch?: kendo.mobile.ui.TouchEventOptions;
-        event?: JQueryEventObject;
+        touch?: kendo.mobile.ui.TouchEventOptions | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface TouchDragstartEvent extends TouchEvent {
-        touch?: kendo.mobile.ui.TouchEventOptions;
-        event?: JQueryEventObject;
+        touch?: kendo.mobile.ui.TouchEventOptions | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface TouchDragEvent extends TouchEvent {
-        touch?: kendo.mobile.ui.TouchEventOptions;
-        event?: JQueryEventObject;
+        touch?: kendo.mobile.ui.TouchEventOptions | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface TouchDragendEvent extends TouchEvent {
-        touch?: kendo.mobile.ui.TouchEventOptions;
-        event?: JQueryEventObject;
+        touch?: kendo.mobile.ui.TouchEventOptions | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface TouchTapEvent extends TouchEvent {
-        touch?: kendo.mobile.ui.TouchEventOptions;
-        event?: JQueryEventObject;
+        touch?: kendo.mobile.ui.TouchEventOptions | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface TouchDoubletapEvent extends TouchEvent {
-        touch?: kendo.mobile.ui.TouchEventOptions;
-        event?: JQueryEventObject;
+        touch?: kendo.mobile.ui.TouchEventOptions | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface TouchHoldEvent extends TouchEvent {
-        touch?: kendo.mobile.ui.TouchEventOptions;
-        event?: JQueryEventObject;
+        touch?: kendo.mobile.ui.TouchEventOptions | undefined;
+        event?: JQueryEventObject | undefined;
     }
 
     interface TouchSwipeEvent extends TouchEvent {
-        touch?: kendo.mobile.ui.TouchEventOptions;
-        event?: JQueryEventObject;
-        direction?: string;
+        touch?: kendo.mobile.ui.TouchEventOptions | undefined;
+        event?: JQueryEventObject | undefined;
+        direction?: string | undefined;
     }
 
     interface TouchGesturestartEvent extends TouchEvent {
         touches?: any;
-        event?: JQueryEventObject;
-        distance?: number;
-        center?: kendo.mobile.ui.Point;
+        event?: JQueryEventObject | undefined;
+        distance?: number | undefined;
+        center?: kendo.mobile.ui.Point | undefined;
     }
 
     interface TouchGesturechangeEvent extends TouchEvent {
         touches?: any;
-        event?: JQueryEventObject;
-        distance?: number;
-        center?: kendo.mobile.ui.Point;
+        event?: JQueryEventObject | undefined;
+        distance?: number | undefined;
+        center?: kendo.mobile.ui.Point | undefined;
     }
 
     interface TouchGestureendEvent extends TouchEvent {
         touches?: any;
-        event?: JQueryEventObject;
-        distance?: number;
-        center?: kendo.mobile.ui.Point;
+        event?: JQueryEventObject | undefined;
+        distance?: number | undefined;
+        center?: kendo.mobile.ui.Point | undefined;
     }
 
 
@@ -10770,225 +10770,225 @@ declare namespace kendo.ui {
     }
 
     interface TreeListColumnMenuMessages {
-        columns?: string;
-        filter?: string;
-        sortAscending?: string;
-        sortDescending?: string;
-        settings?: string;
-        lock?: string;
-        unlock?: string;
+        columns?: string | undefined;
+        filter?: string | undefined;
+        sortAscending?: string | undefined;
+        sortDescending?: string | undefined;
+        settings?: string | undefined;
+        lock?: string | undefined;
+        unlock?: string | undefined;
     }
 
     interface TreeListColumnMenu {
-        columns?: boolean;
-        filterable?: boolean;
-        sortable?: boolean;
-        messages?: TreeListColumnMenuMessages;
+        columns?: boolean | undefined;
+        filterable?: boolean | undefined;
+        sortable?: boolean | undefined;
+        messages?: TreeListColumnMenuMessages | undefined;
     }
 
     interface TreeListColumnCommandItem {
-        className?: string;
-        imageClass?: string;
-        click?: Function;
-        name?: string;
-        text?: string;
+        className?: string | undefined;
+        imageClass?: string | undefined;
+        click?: Function | undefined;
+        name?: string | undefined;
+        text?: string | undefined;
     }
 
     interface TreeListColumnFilterable {
-        ui?: string|Function;
+        ui?: string|Function | undefined;
     }
 
     interface TreeListColumnFilterableCell {
-        dataSource?: any|kendo.data.DataSource;
-        dataTextField?: string;
-        delay?: number;
-        inputWidth?: number;
-        suggestionOperator?: string;
-        minLength?: number;
-        enabled?: boolean;
-        operator?: string;
-        showOperators?: boolean;
-        template?: Function;
+        dataSource?: any|kendo.data.DataSource | undefined;
+        dataTextField?: string | undefined;
+        delay?: number | undefined;
+        inputWidth?: number | undefined;
+        suggestionOperator?: string | undefined;
+        minLength?: number | undefined;
+        enabled?: boolean | undefined;
+        operator?: string | undefined;
+        showOperators?: boolean | undefined;
+        template?: Function | undefined;
     }
 
     interface TreeListColumnFilterable {
-        cell?: TreeListColumnFilterableCell;
-        ui?: string|Function;
+        cell?: TreeListColumnFilterableCell | undefined;
+        ui?: string|Function | undefined;
     }
 
     interface TreeListColumnSortable {
-        compare?: Function;
+        compare?: Function | undefined;
     }
 
     interface TreeListColumn {
         attributes?: any;
         columns?: any;
-        command?: TreeListColumnCommandItem[];
-        editable?: Function;
-        encoded?: boolean;
-        expandable?: boolean;
-        field?: string;
-        filterable?: boolean | TreeListColumnFilterable;
-        footerTemplate?: string|Function;
-        format?: string;
+        command?: TreeListColumnCommandItem[] | undefined;
+        editable?: Function | undefined;
+        encoded?: boolean | undefined;
+        expandable?: boolean | undefined;
+        field?: string | undefined;
+        filterable?: boolean | TreeListColumnFilterable | undefined;
+        footerTemplate?: string|Function | undefined;
+        format?: string | undefined;
         headerAttributes?: any;
-        headerTemplate?: string|Function;
-        minScreenWidth?: number;
-        selectable?: boolean;
-        sortable?: boolean | TreeListColumnSortable;
-        template?: string|Function;
-        title?: string;
-        width?: string|number;
-        hidden?: boolean;
-        includeChildren?: boolean;
-        menu?: boolean;
-        locked?: boolean;
-        lockable?: boolean;
+        headerTemplate?: string|Function | undefined;
+        minScreenWidth?: number | undefined;
+        selectable?: boolean | undefined;
+        sortable?: boolean | TreeListColumnSortable | undefined;
+        template?: string|Function | undefined;
+        title?: string | undefined;
+        width?: string|number | undefined;
+        hidden?: boolean | undefined;
+        includeChildren?: boolean | undefined;
+        menu?: boolean | undefined;
+        locked?: boolean | undefined;
+        lockable?: boolean | undefined;
     }
 
     interface TreeListEditable {
-        mode?: string;
-        move?: boolean;
-        template?: string|Function;
+        mode?: string | undefined;
+        move?: boolean | undefined;
+        template?: string|Function | undefined;
         window?: any;
     }
 
     interface TreeListExcel {
-        fileName?: string;
-        filterable?: boolean;
-        forceProxy?: boolean;
-        proxyURL?: string;
+        fileName?: string | undefined;
+        filterable?: boolean | undefined;
+        forceProxy?: boolean | undefined;
+        proxyURL?: string | undefined;
     }
 
     interface TreeListFilterableMessages {
-        and?: string;
-        clear?: string;
-        filter?: string;
-        info?: string;
-        title?: string;
-        isFalse?: string;
-        isTrue?: string;
-        or?: string;
+        and?: string | undefined;
+        clear?: string | undefined;
+        filter?: string | undefined;
+        info?: string | undefined;
+        title?: string | undefined;
+        isFalse?: string | undefined;
+        isTrue?: string | undefined;
+        or?: string | undefined;
     }
 
     interface TreeListFilterableOperatorsDate {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        gte?: string;
-        gt?: string;
-        lte?: string;
-        lt?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        gte?: string | undefined;
+        gt?: string | undefined;
+        lte?: string | undefined;
+        lt?: string | undefined;
     }
 
     interface TreeListFilterableOperatorsNumber {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        gte?: string;
-        gt?: string;
-        lte?: string;
-        lt?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        gte?: string | undefined;
+        gt?: string | undefined;
+        lte?: string | undefined;
+        lt?: string | undefined;
     }
 
     interface TreeListFilterableOperatorsString {
-        eq?: string;
-        neq?: string;
-        isnull?: string;
-        isnotnull?: string;
-        isempty?: string;
-        isnotempty?: string;
-        startswith?: string;
-        contains?: string;
-        doesnotcontain?: string;
-        endswith?: string;
+        eq?: string | undefined;
+        neq?: string | undefined;
+        isnull?: string | undefined;
+        isnotnull?: string | undefined;
+        isempty?: string | undefined;
+        isnotempty?: string | undefined;
+        startswith?: string | undefined;
+        contains?: string | undefined;
+        doesnotcontain?: string | undefined;
+        endswith?: string | undefined;
     }
 
     interface TreeListFilterableOperators {
-        string?: TreeListFilterableOperatorsString;
-        number?: TreeListFilterableOperatorsNumber;
-        date?: TreeListFilterableOperatorsDate;
+        string?: TreeListFilterableOperatorsString | undefined;
+        number?: TreeListFilterableOperatorsNumber | undefined;
+        date?: TreeListFilterableOperatorsDate | undefined;
     }
 
     interface TreeListFilterable {
-        extra?: boolean;
-        messages?: TreeListFilterableMessages;
-        mode?: string;
-        operators?: TreeListFilterableOperators;
+        extra?: boolean | undefined;
+        messages?: TreeListFilterableMessages | undefined;
+        mode?: string | undefined;
+        operators?: TreeListFilterableOperators | undefined;
     }
 
     interface TreeListMessagesCommands {
-        canceledit?: string;
-        create?: string;
-        createchild?: string;
-        destroy?: string;
-        edit?: string;
-        save?: string;
-        cancel?: string;
-        excel?: string;
-        pdf?: string;
-        update?: string;
+        canceledit?: string | undefined;
+        create?: string | undefined;
+        createchild?: string | undefined;
+        destroy?: string | undefined;
+        edit?: string | undefined;
+        save?: string | undefined;
+        cancel?: string | undefined;
+        excel?: string | undefined;
+        pdf?: string | undefined;
+        update?: string | undefined;
     }
 
     interface TreeListMessages {
-        commands?: TreeListMessagesCommands;
-        loading?: string;
-        noRows?: string;
-        requestFailed?: string;
-        retry?: string;
+        commands?: TreeListMessagesCommands | undefined;
+        loading?: string | undefined;
+        noRows?: string | undefined;
+        requestFailed?: string | undefined;
+        retry?: string | undefined;
     }
     interface TreeListPageableMessages {
-        display?: string;
-        empty?: string;
-        page?: string;
-        of?: string;
-        itemsPerPage?: string;
-        first?: string;
-        last?: string;
-        next?: string;
-        previous?: string;
-        refresh?: string;
-        morePages?: string;
+        display?: string | undefined;
+        empty?: string | undefined;
+        page?: string | undefined;
+        of?: string | undefined;
+        itemsPerPage?: string | undefined;
+        first?: string | undefined;
+        last?: string | undefined;
+        next?: string | undefined;
+        previous?: string | undefined;
+        refresh?: string | undefined;
+        morePages?: string | undefined;
     }
 
     interface TreeListPageable {
-        alwaysVisible?: boolean;
-        pageSize?: number;
-        previousNext?: boolean;
-        numeric?: boolean;
-        buttonCount?: number;
-        input?: boolean;
-        pageSizes?: boolean|any;
-        refresh?: boolean;
-        responsive?: boolean;
-        info?: boolean;
-        messages?: TreeListPageableMessages;
+        alwaysVisible?: boolean | undefined;
+        pageSize?: number | undefined;
+        previousNext?: boolean | undefined;
+        numeric?: boolean | undefined;
+        buttonCount?: number | undefined;
+        input?: boolean | undefined;
+        pageSizes?: boolean|any | undefined;
+        refresh?: boolean | undefined;
+        responsive?: boolean | undefined;
+        info?: boolean | undefined;
+        messages?: TreeListPageableMessages | undefined;
     }
 
     interface TreeListPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface TreeListPdf {
-        author?: string;
-        avoidLinks?: boolean|string;
-        creator?: string;
-        date?: Date;
-        fileName?: string;
-        forceProxy?: boolean;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: TreeListPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        author?: string | undefined;
+        avoidLinks?: boolean|string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: TreeListPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface TreeListSearch {
@@ -10996,39 +10996,39 @@ declare namespace kendo.ui {
     }
 
     interface TreeListSortable {
-        allowUnsort?: boolean;
-        mode?: string;
+        allowUnsort?: boolean | undefined;
+        mode?: string | undefined;
     }
 
     interface TreeListToolbarItem {
-        click?: Function;
-        imageClass?: string;
-        name?: string;
-        text?: string;
+        click?: Function | undefined;
+        imageClass?: string | undefined;
+        name?: string | undefined;
+        text?: string | undefined;
     }
     interface TreeListOptions {
-        name?: string;
-        altRowTemplate?: string|Function;
-        autoBind?: boolean;
-        columns?: TreeListColumn[];
-        resizable?: boolean;
-        reorderable?: boolean;
-        columnMenu?: boolean | TreeListColumnMenu;
-        dataSource?: any|any|kendo.data.TreeListDataSource;
-        editable?: boolean | TreeListEditable;
-        excel?: TreeListExcel;
-        filterable?: boolean | TreeListFilterable;
-        height?: number|string;
-        messages?: TreeListMessages;
-        navigatable?: boolean;
-        pageable?: boolean | TreeListPageable;
-        pdf?: TreeListPdf;
-        rowTemplate?: string|Function;
-        scrollable?: boolean|any;
-        search?: TreeListSearch;
-        selectable?: boolean|string;
-        sortable?: boolean | TreeListSortable;
-        toolbar?: TreeListToolbarItem[] | any;
+        name?: string | undefined;
+        altRowTemplate?: string|Function | undefined;
+        autoBind?: boolean | undefined;
+        columns?: TreeListColumn[] | undefined;
+        resizable?: boolean | undefined;
+        reorderable?: boolean | undefined;
+        columnMenu?: boolean | TreeListColumnMenu | undefined;
+        dataSource?: any|any|kendo.data.TreeListDataSource | undefined;
+        editable?: boolean | TreeListEditable | undefined;
+        excel?: TreeListExcel | undefined;
+        filterable?: boolean | TreeListFilterable | undefined;
+        height?: number|string | undefined;
+        messages?: TreeListMessages | undefined;
+        navigatable?: boolean | undefined;
+        pageable?: boolean | TreeListPageable | undefined;
+        pdf?: TreeListPdf | undefined;
+        rowTemplate?: string|Function | undefined;
+        scrollable?: boolean|any | undefined;
+        search?: TreeListSearch | undefined;
+        selectable?: boolean|string | undefined;
+        sortable?: boolean | TreeListSortable | undefined;
+        toolbar?: TreeListToolbarItem[] | any | undefined;
         beforeEdit?(e: TreeListBeforeEditEvent): void;
         cancel?(e: TreeListCancelEvent): void;
         cellClose?(e: TreeListCellCloseEvent): void;
@@ -11065,25 +11065,25 @@ declare namespace kendo.ui {
     }
 
     interface TreeListBeforeEditEvent extends TreeListEvent {
-        model?: kendo.data.Model;
+        model?: kendo.data.Model | undefined;
     }
 
     interface TreeListCancelEvent extends TreeListEvent {
-        container?: JQuery;
-        model?: kendo.data.TreeListModel;
+        container?: JQuery | undefined;
+        model?: kendo.data.TreeListModel | undefined;
     }
 
     interface TreeListCellCloseEvent extends TreeListEvent {
-        container?: JQuery;
-        model?: kendo.data.Model;
-        type?: string;
+        container?: JQuery | undefined;
+        model?: kendo.data.Model | undefined;
+        type?: string | undefined;
     }
 
     interface TreeListChangeEvent extends TreeListEvent {
     }
 
     interface TreeListCollapseEvent extends TreeListEvent {
-        model?: kendo.data.TreeListModel;
+        model?: kendo.data.TreeListModel | undefined;
     }
 
     interface TreeListDataBindingEvent extends TreeListEvent {
@@ -11093,30 +11093,30 @@ declare namespace kendo.ui {
     }
 
     interface TreeListDragstartEvent extends TreeListEvent {
-        source?: kendo.data.TreeListModel;
+        source?: kendo.data.TreeListModel | undefined;
     }
 
     interface TreeListDragEvent extends TreeListEvent {
-        source?: kendo.data.TreeListModel;
-        target?: JQuery;
+        source?: kendo.data.TreeListModel | undefined;
+        target?: JQuery | undefined;
     }
 
     interface TreeListDragendEvent extends TreeListEvent {
-        source?: kendo.data.TreeListModel;
-        destination?: kendo.data.TreeListModel;
+        source?: kendo.data.TreeListModel | undefined;
+        destination?: kendo.data.TreeListModel | undefined;
     }
 
     interface TreeListDropEvent extends TreeListEvent {
-        source?: kendo.data.TreeListModel;
-        destination?: kendo.data.TreeListModel;
-        dropTarget?: Element;
-        valid?: boolean;
-        setValid?: boolean;
+        source?: kendo.data.TreeListModel | undefined;
+        destination?: kendo.data.TreeListModel | undefined;
+        dropTarget?: Element | undefined;
+        valid?: boolean | undefined;
+        setValid?: boolean | undefined;
     }
 
     interface TreeListEditEvent extends TreeListEvent {
-        container?: JQuery;
-        model?: kendo.data.TreeListModel;
+        container?: JQuery | undefined;
+        model?: kendo.data.TreeListModel | undefined;
     }
 
     interface TreeListExcelExportEvent extends TreeListEvent {
@@ -11125,31 +11125,31 @@ declare namespace kendo.ui {
     }
 
     interface TreeListExpandEvent extends TreeListEvent {
-        model?: kendo.data.TreeListModel;
+        model?: kendo.data.TreeListModel | undefined;
     }
 
     interface TreeListFilterMenuInitEvent extends TreeListEvent {
-        container?: JQuery;
-        field?: string;
+        container?: JQuery | undefined;
+        field?: string | undefined;
     }
 
     interface TreeListFilterMenuOpenEvent extends TreeListEvent {
-        container?: JQuery;
-        field?: string;
+        container?: JQuery | undefined;
+        field?: string | undefined;
     }
 
     interface TreeListPdfExportEvent extends TreeListEvent {
-        promise?: JQueryPromise<any>;
+        promise?: JQueryPromise<any> | undefined;
     }
 
     interface TreeListRemoveEvent extends TreeListEvent {
-        model?: kendo.data.TreeListModel;
-        row?: JQuery;
+        model?: kendo.data.TreeListModel | undefined;
+        row?: JQuery | undefined;
     }
 
     interface TreeListSaveEvent extends TreeListEvent {
-        model?: kendo.data.TreeListModel;
-        container?: JQuery;
+        model?: kendo.data.TreeListModel | undefined;
+        container?: JQuery | undefined;
     }
 
     interface TreeListSaveChangesEvent extends TreeListEvent {
@@ -11165,24 +11165,24 @@ declare namespace kendo.ui {
 
     interface TreeListColumnReorderEvent extends TreeListEvent {
         column?: any;
-        newIndex?: number;
-        oldIndex?: number;
+        newIndex?: number | undefined;
+        oldIndex?: number | undefined;
     }
 
     interface TreeListColumnResizeEvent extends TreeListEvent {
         column?: any;
-        newWidth?: number;
-        oldWidth?: number;
+        newWidth?: number | undefined;
+        oldWidth?: number | undefined;
     }
 
     interface TreeListColumnMenuInitEvent extends TreeListEvent {
-        container?: JQuery;
-        field?: string;
+        container?: JQuery | undefined;
+        field?: string | undefined;
     }
 
     interface TreeListColumnMenuOpenEvent extends TreeListEvent {
-        container?: JQuery;
-        field?: string;
+        container?: JQuery | undefined;
+        field?: string | undefined;
     }
 
     interface TreeListColumnLockEvent extends TreeListEvent {
@@ -11263,47 +11263,47 @@ declare namespace kendo.ui {
     }
 
     interface TreeViewAnimationCollapse {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface TreeViewAnimationExpand {
-        duration?: number;
-        effects?: string;
+        duration?: number | undefined;
+        effects?: string | undefined;
     }
 
     interface TreeViewAnimation {
-        collapse?: boolean | TreeViewAnimationCollapse;
-        expand?: boolean | TreeViewAnimationExpand;
+        collapse?: boolean | TreeViewAnimationCollapse | undefined;
+        expand?: boolean | TreeViewAnimationExpand | undefined;
     }
 
     interface TreeViewCheckboxes {
-        checkChildren?: boolean;
-        name?: string;
-        template?: string|Function;
+        checkChildren?: boolean | undefined;
+        name?: string | undefined;
+        template?: string|Function | undefined;
     }
 
     interface TreeViewMessages {
-        loading?: string;
-        requestFailed?: string;
-        retry?: string;
+        loading?: string | undefined;
+        requestFailed?: string | undefined;
+        retry?: string | undefined;
     }
 
     interface TreeViewOptions {
-        name?: string;
-        animation?: boolean | TreeViewAnimation;
-        autoBind?: boolean;
-        autoScroll?: boolean;
-        checkboxes?: boolean | TreeViewCheckboxes;
-        dataImageUrlField?: string;
-        dataSource?: any|any|kendo.data.HierarchicalDataSource;
-        dataSpriteCssClassField?: string;
-        dataTextField?: string|any;
-        dataUrlField?: string;
-        dragAndDrop?: boolean;
-        loadOnDemand?: boolean;
-        messages?: TreeViewMessages;
-        template?: string|Function;
+        name?: string | undefined;
+        animation?: boolean | TreeViewAnimation | undefined;
+        autoBind?: boolean | undefined;
+        autoScroll?: boolean | undefined;
+        checkboxes?: boolean | TreeViewCheckboxes | undefined;
+        dataImageUrlField?: string | undefined;
+        dataSource?: any|any|kendo.data.HierarchicalDataSource | undefined;
+        dataSpriteCssClassField?: string | undefined;
+        dataTextField?: string|any | undefined;
+        dataUrlField?: string | undefined;
+        dragAndDrop?: boolean | undefined;
+        loadOnDemand?: boolean | undefined;
+        messages?: TreeViewMessages | undefined;
+        template?: string|Function | undefined;
         change?(e: TreeViewEvent): void;
         check?(e: TreeViewCheckEvent): void;
         collapse?(e: TreeViewCollapseEvent): void;
@@ -11323,55 +11323,55 @@ declare namespace kendo.ui {
     }
 
     interface TreeViewCheckEvent extends TreeViewEvent {
-        node?: Element;
+        node?: Element | undefined;
     }
 
     interface TreeViewCollapseEvent extends TreeViewEvent {
-        node?: Element;
+        node?: Element | undefined;
     }
 
     interface TreeViewDataBoundEvent extends TreeViewEvent {
-        node?: JQuery;
+        node?: JQuery | undefined;
     }
 
     interface TreeViewDragEvent extends TreeViewEvent {
-        sourceNode?: Element;
-        dropTarget?: Element;
-        pageX?: number;
-        pageY?: number;
-        statusClass?: string;
-        setStatusClass?: Function;
+        sourceNode?: Element | undefined;
+        dropTarget?: Element | undefined;
+        pageX?: number | undefined;
+        pageY?: number | undefined;
+        statusClass?: string | undefined;
+        setStatusClass?: Function | undefined;
     }
 
     interface TreeViewDragendEvent extends TreeViewEvent {
-        sourceNode?: Element;
-        destinationNode?: Element;
-        dropPosition?: string;
+        sourceNode?: Element | undefined;
+        destinationNode?: Element | undefined;
+        dropPosition?: string | undefined;
     }
 
     interface TreeViewDragstartEvent extends TreeViewEvent {
-        sourceNode?: Element;
+        sourceNode?: Element | undefined;
     }
 
     interface TreeViewDropEvent extends TreeViewEvent {
-        sourceNode?: Element;
-        destinationNode?: Element;
-        valid?: boolean;
-        setValid?: Function;
-        dropTarget?: Element;
-        dropPosition?: string;
+        sourceNode?: Element | undefined;
+        destinationNode?: Element | undefined;
+        valid?: boolean | undefined;
+        setValid?: Function | undefined;
+        dropTarget?: Element | undefined;
+        dropPosition?: string | undefined;
     }
 
     interface TreeViewExpandEvent extends TreeViewEvent {
-        node?: Element;
+        node?: Element | undefined;
     }
 
     interface TreeViewNavigateEvent extends TreeViewEvent {
-        node?: Element;
+        node?: Element | undefined;
     }
 
     interface TreeViewSelectEvent extends TreeViewEvent {
-        node?: Element;
+        node?: Element | undefined;
     }
 
 
@@ -11409,67 +11409,67 @@ declare namespace kendo.ui {
     }
 
     interface UploadAsync {
-        autoUpload?: boolean;
-        batch?: boolean;
-        chunkSize?: number;
-        concurrent?: boolean;
-        autoRetryAfter?: number;
-        maxAutoRetries?: number;
-        removeField?: string;
-        removeUrl?: string;
-        removeVerb?: string;
-        saveField?: string;
-        saveUrl?: string;
-        useArrayBuffer?: boolean;
-        withCredentials?: boolean;
+        autoUpload?: boolean | undefined;
+        batch?: boolean | undefined;
+        chunkSize?: number | undefined;
+        concurrent?: boolean | undefined;
+        autoRetryAfter?: number | undefined;
+        maxAutoRetries?: number | undefined;
+        removeField?: string | undefined;
+        removeUrl?: string | undefined;
+        removeVerb?: string | undefined;
+        saveField?: string | undefined;
+        saveUrl?: string | undefined;
+        useArrayBuffer?: boolean | undefined;
+        withCredentials?: boolean | undefined;
     }
 
     interface UploadFile {
-        extension?: string;
-        name?: string;
-        size?: number;
+        extension?: string | undefined;
+        name?: string | undefined;
+        size?: number | undefined;
     }
 
     interface UploadLocalization {
-        cancel?: string;
-        clearSelectedFiles?: string;
-        dropFilesHere?: string;
-        headerStatusUploaded?: string;
-        headerStatusUploading?: string;
-        invalidFileExtension?: string;
-        uploadSuccess?: string;
-        uploadFail?: string;
-        invalidFiles?: string;
-        invalidMaxFileSize?: string;
-        invalidMinFileSize?: string;
-        remove?: string;
-        retry?: string;
-        select?: string;
-        statusFailed?: string;
-        statusUploaded?: string;
-        statusUploading?: string;
-        uploadSelectedFiles?: string;
+        cancel?: string | undefined;
+        clearSelectedFiles?: string | undefined;
+        dropFilesHere?: string | undefined;
+        headerStatusUploaded?: string | undefined;
+        headerStatusUploading?: string | undefined;
+        invalidFileExtension?: string | undefined;
+        uploadSuccess?: string | undefined;
+        uploadFail?: string | undefined;
+        invalidFiles?: string | undefined;
+        invalidMaxFileSize?: string | undefined;
+        invalidMinFileSize?: string | undefined;
+        remove?: string | undefined;
+        retry?: string | undefined;
+        select?: string | undefined;
+        statusFailed?: string | undefined;
+        statusUploaded?: string | undefined;
+        statusUploading?: string | undefined;
+        uploadSelectedFiles?: string | undefined;
     }
 
     interface UploadValidation {
         allowedExtensions?: any;
-        maxFileSize?: number;
-        minFileSize?: number;
+        maxFileSize?: number | undefined;
+        minFileSize?: number | undefined;
     }
 
     interface UploadOptions {
-        name?: string;
-        async?: UploadAsync;
-        directory?: boolean;
-        directoryDrop?: boolean;
-        dropZone?: string;
-        enabled?: boolean;
-        files?: UploadFile[];
-        localization?: UploadLocalization;
-        multiple?: boolean;
-        showFileList?: boolean;
-        template?: string|Function;
-        validation?: UploadValidation;
+        name?: string | undefined;
+        async?: UploadAsync | undefined;
+        directory?: boolean | undefined;
+        directoryDrop?: boolean | undefined;
+        dropZone?: string | undefined;
+        enabled?: boolean | undefined;
+        files?: UploadFile[] | undefined;
+        localization?: UploadLocalization | undefined;
+        multiple?: boolean | undefined;
+        showFileList?: boolean | undefined;
+        template?: string|Function | undefined;
+        validation?: UploadValidation | undefined;
         cancel?(e: UploadCancelEvent): void;
         clear?(e: UploadClearEvent): void;
         complete?(e: UploadEvent): void;
@@ -11489,7 +11489,7 @@ declare namespace kendo.ui {
     }
 
     interface UploadCancelEvent extends UploadEvent {
-        files?: any[];
+        files?: any[] | undefined;
     }
 
     interface UploadClearEvent extends UploadEvent {
@@ -11497,8 +11497,8 @@ declare namespace kendo.ui {
     }
 
     interface UploadErrorEvent extends UploadEvent {
-        files?: any[];
-        operation?: string;
+        files?: any[] | undefined;
+        operation?: string | undefined;
         XMLHttpRequest?: any;
     }
 
@@ -11507,30 +11507,30 @@ declare namespace kendo.ui {
     }
 
     interface UploadProgressEvent extends UploadEvent {
-        files?: any[];
-        percentComplete?: number;
+        files?: any[] | undefined;
+        percentComplete?: number | undefined;
     }
 
     interface UploadRemoveEvent extends UploadEvent {
-        files?: any[];
+        files?: any[] | undefined;
         headers?: any;
         data?: any;
     }
 
     interface UploadSelectEvent extends UploadEvent {
         e?: any;
-        files?: any[];
+        files?: any[] | undefined;
     }
 
     interface UploadSuccessEvent extends UploadEvent {
-        files?: any[];
-        operation?: string;
+        files?: any[] | undefined;
+        operation?: string | undefined;
         response?: any;
         XMLHttpRequest?: any;
     }
 
     interface UploadUploadEvent extends UploadEvent {
-        files?: any[];
+        files?: any[] | undefined;
         data?: any;
         formData?: any;
         XMLHttpRequest?: any;
@@ -11563,18 +11563,18 @@ declare namespace kendo.ui {
     }
 
     interface ValidatorOptions {
-        name?: string;
-        errorTemplate?: string;
+        name?: string | undefined;
+        errorTemplate?: string | undefined;
         messages?: any;
         rules?: any;
-        validateOnBlur?: boolean;
-        validationSummary?: boolean | ValidationSummary;
+        validateOnBlur?: boolean | undefined;
+        validationSummary?: boolean | ValidationSummary | undefined;
         validate?(e: ValidatorValidateEvent): void;
         validateInput?(e: ValidatorValidateInputEvent): void;
     }
     interface ValidationSummary {
-        container?: string | JQuery;
-        template?: string | Function;
+        container?: string | JQuery | undefined;
+        template?: string | Function | undefined;
     }
 
     interface ValidatorEvent {
@@ -11584,15 +11584,15 @@ declare namespace kendo.ui {
     }
 
     interface ValidatorValidateEvent extends ValidatorEvent {
-        valid?: boolean;
-        errors?: any[];
+        valid?: boolean | undefined;
+        errors?: any[] | undefined;
     }
 
     interface ValidatorValidateInputEvent extends ValidatorEvent {
-        input?: JQuery;
-        valid?: boolean;
-        error?: string;
-        field?: string;
+        input?: JQuery | undefined;
+        valid?: boolean | undefined;
+        error?: string | undefined;
+        field?: string | undefined;
     }
 
 
@@ -11635,75 +11635,75 @@ declare namespace kendo.ui {
     }
 
     interface WindowAnimationClose {
-        effects?: string;
-        duration?: number;
-        reverse?: boolean;
+        effects?: string | undefined;
+        duration?: number | undefined;
+        reverse?: boolean | undefined;
     }
 
     interface WindowAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface WindowAnimation {
-        close?: WindowAnimationClose;
-        open?: WindowAnimationOpen;
+        close?: WindowAnimationClose | undefined;
+        open?: WindowAnimationOpen | undefined;
     }
 
     interface WindowContent {
-        url?: string;
-        dataType?: string;
-        iframe?: boolean;
-        template?: string;
+        url?: string | undefined;
+        dataType?: string | undefined;
+        iframe?: boolean | undefined;
+        template?: string | undefined;
     }
 
     interface WindowPosition {
-        top?: number|string;
-        left?: number|string;
+        top?: number|string | undefined;
+        left?: number|string | undefined;
     }
 
     interface WindowModal {
-        preventScroll?: boolean;
+        preventScroll?: boolean | undefined;
     }
 
     interface WindowRefreshOptions {
-        url?: string;
-        cache?: boolean;
+        url?: string | undefined;
+        cache?: boolean | undefined;
         data?: any;
-        type?: string;
-        template?: string;
-        iframe?: boolean;
+        type?: string | undefined;
+        template?: string | undefined;
+        iframe?: boolean | undefined;
     }
 
     interface WindowDraggable {
-        containment?: any|string;
-        dragHandle?: any|string;
-        axis?: string;
+        containment?: any|string | undefined;
+        dragHandle?: any|string | undefined;
+        axis?: string | undefined;
     }
 
     interface WindowOptions {
-        name?: string;
+        name?: string | undefined;
         actions?: any;
-        animation?: boolean | WindowAnimation;
-        appendTo?: any|string;
-        autoFocus?: boolean;
-        content?: string | WindowContent;
-        draggable?: boolean | WindowDraggable;
-        iframe?: boolean;
-        height?: number|string;
-        maxHeight?: number;
-        maxWidth?: number;
-        minHeight?: number;
-        minWidth?: number;
-        modal?: boolean | WindowModal;
-        pinned?: boolean;
-        position?: WindowPosition;
-        resizable?: boolean;
-        scrollable?: boolean;
-        title?: string|boolean;
-        visible?: boolean;
-        width?: number|string;
-        size?: string;
+        animation?: boolean | WindowAnimation | undefined;
+        appendTo?: any|string | undefined;
+        autoFocus?: boolean | undefined;
+        content?: string | WindowContent | undefined;
+        draggable?: boolean | WindowDraggable | undefined;
+        iframe?: boolean | undefined;
+        height?: number|string | undefined;
+        maxHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        minHeight?: number | undefined;
+        minWidth?: number | undefined;
+        modal?: boolean | WindowModal | undefined;
+        pinned?: boolean | undefined;
+        position?: WindowPosition | undefined;
+        resizable?: boolean | undefined;
+        scrollable?: boolean | undefined;
+        title?: string|boolean | undefined;
+        visible?: boolean | undefined;
+        width?: number|string | undefined;
+        size?: string | undefined;
         activate?(e: WindowEvent): void;
         close?(e: WindowCloseEvent): void;
         deactivate?(e: WindowEvent): void;
@@ -11723,12 +11723,12 @@ declare namespace kendo.ui {
     }
 
     interface WindowCloseEvent extends WindowEvent {
-        userTriggered?: boolean;
+        userTriggered?: boolean | undefined;
     }
 
     interface WindowErrorEvent extends WindowEvent {
-        xhr?: JQueryXHR;
-        status?: string;
+        xhr?: JQueryXHR | undefined;
+        status?: string | undefined;
     }
 
     class Wizard extends kendo.ui.Widget {
@@ -11753,51 +11753,51 @@ declare namespace kendo.ui {
     }
 
     interface WizardMessages {
-        done?: string;
-        next?: string;
-        of?: string;
-        previous?: string;
-        reset?: string;
-        step?: string;
+        done?: string | undefined;
+        next?: string | undefined;
+        of?: string | undefined;
+        previous?: string | undefined;
+        reset?: string | undefined;
+        step?: string | undefined;
     }
 
     interface WizardStepper {
-        indicator?: boolean;
-        label?: boolean;
-        linear?: boolean;
+        indicator?: boolean | undefined;
+        label?: boolean | undefined;
+        linear?: boolean | undefined;
     }
 
     interface WizardStepButton {
-        click?: Function;
-        enabled?: boolean;
-        name?: string;
-        primary?: string;
-        text?: string;
+        click?: Function | undefined;
+        enabled?: boolean | undefined;
+        name?: string | undefined;
+        primary?: string | undefined;
+        text?: string | undefined;
     }
 
     interface WizardStep {
-        buttons?: WizardStepButton[];
-        content?: string;
-        contentId?: string;
-        contentUrl?: string;
-        className?: string;
-        enabled?: boolean;
+        buttons?: WizardStepButton[] | undefined;
+        content?: string | undefined;
+        contentId?: string | undefined;
+        contentUrl?: string | undefined;
+        className?: string | undefined;
+        enabled?: boolean | undefined;
         form?: any;
-        pager?: boolean;
-        title?: string;
+        pager?: boolean | undefined;
+        title?: string | undefined;
     }
 
     interface WizardOptions {
-        name?: string;
-        actionBar?: boolean;
-        contentPosition?: string;
-        loadOnDemand?: boolean;
-        messages?: WizardMessages;
-        pager?: boolean;
-        reloadOnSelect?: boolean;
-        stepper?: WizardStepper;
-        validateForms?: boolean;
-        steps?: WizardStep[];
+        name?: string | undefined;
+        actionBar?: boolean | undefined;
+        contentPosition?: string | undefined;
+        loadOnDemand?: boolean | undefined;
+        messages?: WizardMessages | undefined;
+        pager?: boolean | undefined;
+        reloadOnSelect?: boolean | undefined;
+        stepper?: WizardStepper | undefined;
+        validateForms?: boolean | undefined;
+        steps?: WizardStep[] | undefined;
         activate?(e: WizardActivateEvent): void;
         contentLoad?(e: WizardContentLoadEvent): void;
         done?(e: WizardDoneEvent): void;
@@ -11813,40 +11813,40 @@ declare namespace kendo.ui {
     }
 
     interface WizardActivateEvent extends WizardEvent {
-        step?: kendo.wizard.Step;
+        step?: kendo.wizard.Step | undefined;
     }
 
     interface WizardContentLoadEvent extends WizardEvent {
-        step?: kendo.wizard.Step;
+        step?: kendo.wizard.Step | undefined;
     }
 
     interface WizardDoneEvent extends WizardEvent {
         originalEvent?: any;
-        button?: kendo.ui.Button;
+        button?: kendo.ui.Button | undefined;
         forms?: any;
     }
 
     interface WizardErrorEvent extends WizardEvent {
-        xhr?: JQueryXHR;
-        status?: string;
-        step?: kendo.wizard.Step;
+        xhr?: JQueryXHR | undefined;
+        status?: string | undefined;
+        step?: kendo.wizard.Step | undefined;
     }
 
     interface WizardResetEvent extends WizardEvent {
         originalEvent?: any;
-        button?: kendo.ui.Button;
+        button?: kendo.ui.Button | undefined;
     }
 
     interface WizardSelectEvent extends WizardEvent {
         originalEvent?: any;
-        step?: kendo.wizard.Step;
-        button?: kendo.ui.Button;
-        stepper?: kendo.ui.Stepper;
+        step?: kendo.wizard.Step | undefined;
+        button?: kendo.ui.Button | undefined;
+        stepper?: kendo.ui.Stepper | undefined;
     }
 
     interface WizardFormValidateFailedEvent extends WizardEvent {
-        form?: kendo.ui.Form;
-        step?: kendo.wizard.Step;
+        form?: kendo.ui.Form | undefined;
+        step?: kendo.wizard.Step | undefined;
     }
 }
 declare namespace kendo.drawing {
@@ -11878,15 +11878,15 @@ declare namespace kendo.drawing {
     }
 
     interface ArcOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface ArcEvent {
         sender: Arc;
@@ -11923,15 +11923,15 @@ declare namespace kendo.drawing {
     }
 
     interface CircleOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface CircleEvent {
         sender: Circle;
@@ -11965,12 +11965,12 @@ declare namespace kendo.drawing {
     }
 
     interface ElementOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        opacity?: number;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        opacity?: number | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface ElementEvent {
         sender: Element;
@@ -11983,8 +11983,8 @@ declare namespace kendo.drawing {
 
 
 
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
 
 
 
@@ -12009,7 +12009,7 @@ declare namespace kendo.drawing {
     }
 
     interface GradientOptions {
-        name?: string;
+        name?: string | undefined;
         stops?: any;
     }
     interface GradientEvent {
@@ -12032,10 +12032,10 @@ declare namespace kendo.drawing {
     }
 
     interface GradientStopOptions {
-        name?: string;
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        name?: string | undefined;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
     interface GradientStopEvent {
         sender: GradientStop;
@@ -12071,14 +12071,14 @@ declare namespace kendo.drawing {
     }
 
     interface GroupOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        opacity?: number;
-        pdf?: kendo.drawing.PDFOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        opacity?: number | undefined;
+        pdf?: kendo.drawing.PDFOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface GroupEvent {
         sender: Group;
@@ -12115,13 +12115,13 @@ declare namespace kendo.drawing {
     }
 
     interface ImageOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        opacity?: number;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        opacity?: number | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface ImageEvent {
         sender: Image;
@@ -12146,14 +12146,14 @@ declare namespace kendo.drawing {
     }
 
     interface LayoutOptions {
-        name?: string;
-        alignContent?: string;
-        alignItems?: string;
-        justifyContent?: string;
-        lineSpacing?: number;
-        spacing?: number;
-        orientation?: string;
-        wrap?: boolean;
+        name?: string | undefined;
+        alignContent?: string | undefined;
+        alignItems?: string | undefined;
+        justifyContent?: string | undefined;
+        lineSpacing?: number | undefined;
+        spacing?: number | undefined;
+        orientation?: string | undefined;
+        wrap?: boolean | undefined;
     }
     interface LayoutEvent {
         sender: Layout;
@@ -12184,7 +12184,7 @@ declare namespace kendo.drawing {
     }
 
     interface LinearGradientOptions {
-        name?: string;
+        name?: string | undefined;
         stops?: any;
     }
     interface LinearGradientEvent {
@@ -12236,15 +12236,15 @@ declare namespace kendo.drawing {
     }
 
     interface MultiPathOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface MultiPathEvent {
         sender: MultiPath;
@@ -12269,7 +12269,7 @@ declare namespace kendo.drawing {
     }
 
     interface OptionsStoreOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface OptionsStoreEvent {
         sender: OptionsStore;
@@ -12279,18 +12279,18 @@ declare namespace kendo.drawing {
 
 
     interface PDFOptions  {
-        creator?: string;
-        date?: Date;
-        imgDPI?: number;
-        keywords?: string;
-        landscape?: boolean;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        imgDPI?: number | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
         margin?: any;
-        multiPage?: boolean;
+        multiPage?: boolean | undefined;
         paperSize?: any;
-        jpegQuality?: number;
-        keepPNG?: boolean;
-        subject?: string;
-        title?: string;
+        jpegQuality?: number | undefined;
+        keepPNG?: boolean | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     class Path extends kendo.drawing.Element {
@@ -12339,15 +12339,15 @@ declare namespace kendo.drawing {
     }
 
     interface PathOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface PathEvent {
         sender: Path;
@@ -12377,9 +12377,9 @@ declare namespace kendo.drawing {
     }
 
     interface RadialGradientOptions {
-        name?: string;
-        center?: any|kendo.geometry.Point;
-        radius?: number;
+        name?: string | undefined;
+        center?: any|kendo.geometry.Point | undefined;
+        radius?: number | undefined;
         stops?: any;
     }
     interface RadialGradientEvent {
@@ -12417,15 +12417,15 @@ declare namespace kendo.drawing {
     }
 
     interface RectOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface RectEvent {
         sender: Rect;
@@ -12453,7 +12453,7 @@ declare namespace kendo.drawing {
     }
 
     interface SegmentOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface SegmentEvent {
         sender: Segment;
@@ -12466,12 +12466,12 @@ declare namespace kendo.drawing {
 
 
 
-        color?: string;
-        dashType?: string;
-        lineCap?: string;
-        lineJoin?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        lineCap?: string | undefined;
+        lineJoin?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
 
 
 
@@ -12500,31 +12500,31 @@ declare namespace kendo.drawing {
     }
 
     interface SurfaceTooltipAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface SurfaceTooltipAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface SurfaceTooltipAnimation {
-        close?: SurfaceTooltipAnimationClose;
-        open?: SurfaceTooltipAnimationOpen;
+        close?: SurfaceTooltipAnimationClose | undefined;
+        open?: SurfaceTooltipAnimationOpen | undefined;
     }
 
     interface SurfaceTooltip {
-        animation?: boolean | SurfaceTooltipAnimation;
-        appendTo?: string|JQuery;
+        animation?: boolean | SurfaceTooltipAnimation | undefined;
+        appendTo?: string|JQuery | undefined;
     }
 
     interface SurfaceOptions {
-        name?: string;
-        type?: string;
-        height?: string;
-        width?: string;
-        tooltip?: SurfaceTooltip;
+        name?: string | undefined;
+        type?: string | undefined;
+        height?: string | undefined;
+        width?: string | undefined;
+        tooltip?: SurfaceTooltip | undefined;
         click?(e: SurfaceClickEvent): void;
         mouseenter?(e: SurfaceMouseenterEvent): void;
         mouseleave?(e: SurfaceMouseleaveEvent): void;
@@ -12538,28 +12538,28 @@ declare namespace kendo.drawing {
     }
 
     interface SurfaceClickEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface SurfaceMouseenterEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface SurfaceMouseleaveEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface SurfaceTooltipCloseEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        target?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
+        target?: kendo.drawing.Element | undefined;
     }
 
     interface SurfaceTooltipOpenEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        target?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
+        target?: kendo.drawing.Element | undefined;
     }
 
 
@@ -12593,16 +12593,16 @@ declare namespace kendo.drawing {
     }
 
     interface TextOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        font?: string;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        font?: string | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface TextEvent {
         sender: Text;
@@ -12615,16 +12615,16 @@ declare namespace kendo.drawing {
 
 
 
-        autoHide?: boolean;
-        content?: string|Function;
-        position?: string;
-        height?: number|string;
-        hideDelay?: number;
-        offset?: number;
-        shared?: boolean;
-        showAfter?: number;
-        showOn?: string;
-        width?: number|string;
+        autoHide?: boolean | undefined;
+        content?: string|Function | undefined;
+        position?: string | undefined;
+        height?: number|string | undefined;
+        hideDelay?: number | undefined;
+        offset?: number | undefined;
+        shared?: boolean | undefined;
+        showAfter?: number | undefined;
+        showOn?: string | undefined;
+        width?: number|string | undefined;
 
 
 
@@ -12668,7 +12668,7 @@ declare namespace kendo.geometry {
     }
 
     interface ArcOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ArcEvent {
         sender: Arc;
@@ -12701,7 +12701,7 @@ declare namespace kendo.geometry {
     }
 
     interface CircleOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface CircleEvent {
         sender: Circle;
@@ -12738,7 +12738,7 @@ declare namespace kendo.geometry {
     }
 
     interface MatrixOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface MatrixEvent {
         sender: Matrix;
@@ -12789,7 +12789,7 @@ declare namespace kendo.geometry {
     }
 
     interface PointOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface PointEvent {
         sender: Point;
@@ -12831,7 +12831,7 @@ declare namespace kendo.geometry {
     }
 
     interface RectOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface RectEvent {
         sender: Rect;
@@ -12863,7 +12863,7 @@ declare namespace kendo.geometry {
     }
 
     interface SizeOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface SizeEvent {
         sender: Size;
@@ -12892,7 +12892,7 @@ declare namespace kendo.geometry {
     }
 
     interface TransformationOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface TransformationEvent {
         sender: Transformation;
@@ -12931,119 +12931,119 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface ArcGaugeColor {
-        color?: string;
-        from?: number;
-        to?: number;
+        color?: string | undefined;
+        from?: number | undefined;
+        to?: number | undefined;
     }
 
     interface ArcGaugeGaugeAreaBorder {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface ArcGaugeGaugeAreaMargin {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface ArcGaugeGaugeArea {
-        background?: string;
-        border?: ArcGaugeGaugeAreaBorder;
-        height?: number;
-        margin?: number | ArcGaugeGaugeAreaMargin;
-        width?: number;
+        background?: string | undefined;
+        border?: ArcGaugeGaugeAreaBorder | undefined;
+        height?: number | undefined;
+        margin?: number | ArcGaugeGaugeAreaMargin | undefined;
+        width?: number | undefined;
     }
 
     interface ArcGaugeScaleLabelsBorder {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface ArcGaugeScaleLabelsMargin {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface ArcGaugeScaleLabelsPadding {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface ArcGaugeScaleLabels {
-        background?: string;
-        border?: ArcGaugeScaleLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number | ArcGaugeScaleLabelsMargin;
-        padding?: number | ArcGaugeScaleLabelsPadding;
-        position?: string;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ArcGaugeScaleLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ArcGaugeScaleLabelsMargin | undefined;
+        padding?: number | ArcGaugeScaleLabelsPadding | undefined;
+        position?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ArcGaugeScaleMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ArcGaugeScaleMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ArcGaugeScale {
-        endAngle?: number;
-        labels?: ArcGaugeScaleLabels;
-        majorTicks?: ArcGaugeScaleMajorTicks;
-        majorUnit?: number;
-        max?: number;
-        min?: number;
-        minorTicks?: ArcGaugeScaleMinorTicks;
-        minorUnit?: number;
-        rangeLineCap?: string;
-        rangePlaceholderColor?: string;
-        rangeSize?: number;
-        rangeDistance?: number;
-        reverse?: boolean;
-        startAngle?: number;
+        endAngle?: number | undefined;
+        labels?: ArcGaugeScaleLabels | undefined;
+        majorTicks?: ArcGaugeScaleMajorTicks | undefined;
+        majorUnit?: number | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        minorTicks?: ArcGaugeScaleMinorTicks | undefined;
+        minorUnit?: number | undefined;
+        rangeLineCap?: string | undefined;
+        rangePlaceholderColor?: string | undefined;
+        rangeSize?: number | undefined;
+        rangeDistance?: number | undefined;
+        reverse?: boolean | undefined;
+        startAngle?: number | undefined;
     }
 
     interface ArcGaugeExportImageOptions {
-        width?: string;
-        height?: string;
+        width?: string | undefined;
+        height?: string | undefined;
     }
 
     interface ArcGaugeExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface ArcGaugeOptions {
-        name?: string;
-        centerTemplate?: string|Function;
-        color?: string;
-        colors?: ArcGaugeColor[];
-        gaugeArea?: ArcGaugeGaugeArea;
-        opacity?: number;
-        renderAs?: string;
-        scale?: ArcGaugeScale;
-        theme?: string;
-        transitions?: boolean;
-        value?: number;
+        name?: string | undefined;
+        centerTemplate?: string|Function | undefined;
+        color?: string | undefined;
+        colors?: ArcGaugeColor[] | undefined;
+        gaugeArea?: ArcGaugeGaugeArea | undefined;
+        opacity?: number | undefined;
+        renderAs?: string | undefined;
+        scale?: ArcGaugeScale | undefined;
+        theme?: string | undefined;
+        transitions?: boolean | undefined;
+        value?: number | undefined;
     }
     interface ArcGaugeEvent {
         sender: ArcGauge;
@@ -13081,54 +13081,54 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface BarcodeBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface BarcodePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface BarcodeTextMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface BarcodeText {
-        color?: string;
-        font?: string;
-        margin?: BarcodeTextMargin;
-        visible?: boolean;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: BarcodeTextMargin | undefined;
+        visible?: boolean | undefined;
     }
 
     interface BarcodeExportImageOptions {
-        width?: string;
-        height?: string;
+        width?: string | undefined;
+        height?: string | undefined;
     }
 
     interface BarcodeExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface BarcodeOptions {
-        name?: string;
-        renderAs?: string;
-        background?: string;
-        border?: BarcodeBorder;
-        checksum?: boolean;
-        color?: string;
-        height?: number;
-        padding?: BarcodePadding;
-        text?: BarcodeText;
-        type?: string;
-        value?: string;
-        width?: number;
+        name?: string | undefined;
+        renderAs?: string | undefined;
+        background?: string | undefined;
+        border?: BarcodeBorder | undefined;
+        checksum?: boolean | undefined;
+        color?: string | undefined;
+        height?: number | undefined;
+        padding?: BarcodePadding | undefined;
+        text?: BarcodeText | undefined;
+        type?: string | undefined;
+        value?: string | undefined;
+        width?: number | undefined;
     }
     interface BarcodeEvent {
         sender: Barcode;
@@ -13184,172 +13184,172 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface ChartAxisDefaultsCrosshairTooltipBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartAxisDefaultsCrosshairTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartAxisDefaultsCrosshairTooltip {
-        background?: string;
-        border?: ChartAxisDefaultsCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: ChartAxisDefaultsCrosshairTooltipPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartAxisDefaultsCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: ChartAxisDefaultsCrosshairTooltipPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartAxisDefaultsCrosshair {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        tooltip?: ChartAxisDefaultsCrosshairTooltip;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        tooltip?: ChartAxisDefaultsCrosshairTooltip | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartAxisDefaultsLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartAxisDefaultsLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartAxisDefaultsLabelsRotation {
-        align?: string;
-        angle?: number|string;
+        align?: string | undefined;
+        angle?: number|string | undefined;
     }
 
     interface ChartAxisDefaultsLabels {
-        font?: string;
-        format?: string;
-        margin?: number | ChartAxisDefaultsLabelsMargin;
-        mirror?: boolean;
-        padding?: number | ChartAxisDefaultsLabelsPadding;
-        rotation?: string | number | ChartAxisDefaultsLabelsRotation;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
-        visual?: Function;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ChartAxisDefaultsLabelsMargin | undefined;
+        mirror?: boolean | undefined;
+        padding?: number | ChartAxisDefaultsLabelsPadding | undefined;
+        rotation?: string | number | ChartAxisDefaultsLabelsRotation | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartAxisDefaultsLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartAxisDefaultsMajorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartAxisDefaultsMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartAxisDefaultsMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartAxisDefaultsMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartAxisDefaultsPlotBand {
-        color?: string;
-        from?: number;
-        opacity?: number;
-        to?: number;
+        color?: string | undefined;
+        from?: number | undefined;
+        opacity?: number | undefined;
+        to?: number | undefined;
     }
 
     interface ChartAxisDefaultsTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartAxisDefaultsTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartAxisDefaultsTitlePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartAxisDefaultsTitle {
-        background?: string;
-        border?: ChartAxisDefaultsTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | ChartAxisDefaultsTitleMargin;
-        padding?: number | ChartAxisDefaultsTitlePadding;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartAxisDefaultsTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | ChartAxisDefaultsTitleMargin | undefined;
+        padding?: number | ChartAxisDefaultsTitlePadding | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartAxisDefaults {
-        background?: string;
-        color?: string;
-        crosshair?: ChartAxisDefaultsCrosshair;
-        labels?: ChartAxisDefaultsLabels;
-        line?: ChartAxisDefaultsLine;
-        majorGridLines?: ChartAxisDefaultsMajorGridLines;
-        majorTicks?: ChartAxisDefaultsMajorTicks;
-        minorGridLines?: ChartAxisDefaultsMinorGridLines;
-        minorTicks?: ChartAxisDefaultsMinorTicks;
-        narrowRange?: boolean;
-        pane?: string;
-        plotBands?: ChartAxisDefaultsPlotBand[];
-        reverse?: boolean;
-        startAngle?: number;
-        title?: ChartAxisDefaultsTitle;
-        visible?: boolean;
+        background?: string | undefined;
+        color?: string | undefined;
+        crosshair?: ChartAxisDefaultsCrosshair | undefined;
+        labels?: ChartAxisDefaultsLabels | undefined;
+        line?: ChartAxisDefaultsLine | undefined;
+        majorGridLines?: ChartAxisDefaultsMajorGridLines | undefined;
+        majorTicks?: ChartAxisDefaultsMajorTicks | undefined;
+        minorGridLines?: ChartAxisDefaultsMinorGridLines | undefined;
+        minorTicks?: ChartAxisDefaultsMinorTicks | undefined;
+        narrowRange?: boolean | undefined;
+        pane?: string | undefined;
+        plotBands?: ChartAxisDefaultsPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        startAngle?: number | undefined;
+        title?: ChartAxisDefaultsTitle | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartCategoryAxisItemAutoBaseUnitSteps {
@@ -13364,2160 +13364,2160 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface ChartCategoryAxisItemCrosshairTooltipBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemCrosshairTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartCategoryAxisItemCrosshairTooltip {
-        background?: string;
-        border?: ChartCategoryAxisItemCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: ChartCategoryAxisItemCrosshairTooltipPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartCategoryAxisItemCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: ChartCategoryAxisItemCrosshairTooltipPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartCategoryAxisItemCrosshair {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        tooltip?: ChartCategoryAxisItemCrosshairTooltip;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        tooltip?: ChartCategoryAxisItemCrosshairTooltip | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemLabelsDateFormats {
-        days?: string;
-        hours?: string;
-        months?: string;
-        weeks?: string;
-        years?: string;
+        days?: string | undefined;
+        hours?: string | undefined;
+        months?: string | undefined;
+        weeks?: string | undefined;
+        years?: string | undefined;
     }
 
     interface ChartCategoryAxisItemLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartCategoryAxisItemLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartCategoryAxisItemLabelsRotation {
-        align?: string;
-        angle?: number|string;
+        align?: string | undefined;
+        angle?: number|string | undefined;
     }
 
     interface ChartCategoryAxisItemLabels {
-        background?: string;
-        border?: ChartCategoryAxisItemLabelsBorder;
-        color?: string;
-        culture?: string;
-        dateFormats?: ChartCategoryAxisItemLabelsDateFormats;
-        font?: string;
-        format?: string;
-        margin?: number | ChartCategoryAxisItemLabelsMargin;
-        mirror?: boolean;
-        padding?: number | ChartCategoryAxisItemLabelsPadding;
-        rotation?: string | number | ChartCategoryAxisItemLabelsRotation;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartCategoryAxisItemLabelsBorder | undefined;
+        color?: string | undefined;
+        culture?: string | undefined;
+        dateFormats?: ChartCategoryAxisItemLabelsDateFormats | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ChartCategoryAxisItemLabelsMargin | undefined;
+        mirror?: boolean | undefined;
+        padding?: number | ChartCategoryAxisItemLabelsPadding | undefined;
+        rotation?: string | number | ChartCategoryAxisItemLabelsRotation | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartCategoryAxisItemLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemMajorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartCategoryAxisItemMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartCategoryAxisItemMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartCategoryAxisItemMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartCategoryAxisItemNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemNotesDataItemIcon {
-        background?: string;
-        border?: ChartCategoryAxisItemNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartCategoryAxisItemNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartCategoryAxisItemNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemNotesDataItemLabel {
-        background?: string;
-        border?: ChartCategoryAxisItemNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartCategoryAxisItemNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartCategoryAxisItemNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartCategoryAxisItemNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: ChartCategoryAxisItemNotesDataItemIcon;
-        label?: ChartCategoryAxisItemNotesDataItemLabel;
-        line?: ChartCategoryAxisItemNotesDataItemLine;
+        position?: string | undefined;
+        icon?: ChartCategoryAxisItemNotesDataItemIcon | undefined;
+        label?: ChartCategoryAxisItemNotesDataItemLabel | undefined;
+        line?: ChartCategoryAxisItemNotesDataItemLine | undefined;
     }
 
     interface ChartCategoryAxisItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemNotesIcon {
-        background?: string;
-        border?: ChartCategoryAxisItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartCategoryAxisItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartCategoryAxisItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemNotesLabel {
-        background?: string;
-        border?: ChartCategoryAxisItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartCategoryAxisItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartCategoryAxisItemNotesLine {
-        dashType?: string;
-        width?: number;
-        color?: string;
-        length?: number;
+        dashType?: string | undefined;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartCategoryAxisItemNotes {
-        position?: string;
-        icon?: ChartCategoryAxisItemNotesIcon;
-        label?: ChartCategoryAxisItemNotesLabel;
-        line?: ChartCategoryAxisItemNotesLine;
-        data?: ChartCategoryAxisItemNotesDataItem[];
-        visual?: Function;
+        position?: string | undefined;
+        icon?: ChartCategoryAxisItemNotesIcon | undefined;
+        label?: ChartCategoryAxisItemNotesLabel | undefined;
+        line?: ChartCategoryAxisItemNotesLine | undefined;
+        data?: ChartCategoryAxisItemNotesDataItem[] | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartCategoryAxisItemPlotBand {
-        color?: string;
-        from?: number;
-        opacity?: number;
-        to?: number;
+        color?: string | undefined;
+        from?: number | undefined;
+        opacity?: number | undefined;
+        to?: number | undefined;
     }
 
     interface ChartCategoryAxisItemSelectMousewheel {
-        reverse?: boolean;
-        zoom?: string;
+        reverse?: boolean | undefined;
+        zoom?: string | undefined;
     }
 
     interface ChartCategoryAxisItemSelect {
         from?: any;
         max?: any;
         min?: any;
-        mousewheel?: ChartCategoryAxisItemSelectMousewheel;
+        mousewheel?: ChartCategoryAxisItemSelectMousewheel | undefined;
         to?: any;
     }
 
     interface ChartCategoryAxisItemTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartCategoryAxisItemTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartCategoryAxisItemTitlePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartCategoryAxisItemTitle {
-        background?: string;
-        border?: ChartCategoryAxisItemTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | ChartCategoryAxisItemTitleMargin;
-        padding?: ChartCategoryAxisItemTitlePadding;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartCategoryAxisItemTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | ChartCategoryAxisItemTitleMargin | undefined;
+        padding?: ChartCategoryAxisItemTitlePadding | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartCategoryAxisItem {
-        autoBaseUnitSteps?: ChartCategoryAxisItemAutoBaseUnitSteps;
-        axisCrossingValue?: any|Date|any;
-        background?: string;
-        baseUnit?: string;
+        autoBaseUnitSteps?: ChartCategoryAxisItemAutoBaseUnitSteps | undefined;
+        axisCrossingValue?: any|Date|any | undefined;
+        background?: string | undefined;
+        baseUnit?: string | undefined;
         baseUnitStep?: any;
         categories?: any;
-        color?: string;
-        crosshair?: ChartCategoryAxisItemCrosshair;
-        field?: string;
-        justified?: boolean;
-        labels?: ChartCategoryAxisItemLabels;
-        line?: ChartCategoryAxisItemLine;
-        majorGridLines?: ChartCategoryAxisItemMajorGridLines;
-        majorTicks?: ChartCategoryAxisItemMajorTicks;
+        color?: string | undefined;
+        crosshair?: ChartCategoryAxisItemCrosshair | undefined;
+        field?: string | undefined;
+        justified?: boolean | undefined;
+        labels?: ChartCategoryAxisItemLabels | undefined;
+        line?: ChartCategoryAxisItemLine | undefined;
+        majorGridLines?: ChartCategoryAxisItemMajorGridLines | undefined;
+        majorTicks?: ChartCategoryAxisItemMajorTicks | undefined;
         max?: any;
-        maxDateGroups?: number;
-        maxDivisions?: number;
+        maxDateGroups?: number | undefined;
+        maxDivisions?: number | undefined;
         min?: any;
-        minorGridLines?: ChartCategoryAxisItemMinorGridLines;
-        minorTicks?: ChartCategoryAxisItemMinorTicks;
-        name?: string;
-        pane?: string;
-        plotBands?: ChartCategoryAxisItemPlotBand[];
-        reverse?: boolean;
-        roundToBaseUnit?: boolean;
-        select?: ChartCategoryAxisItemSelect;
-        startAngle?: number;
-        title?: ChartCategoryAxisItemTitle;
-        type?: string;
-        visible?: boolean;
-        weekStartDay?: number;
-        notes?: ChartCategoryAxisItemNotes;
+        minorGridLines?: ChartCategoryAxisItemMinorGridLines | undefined;
+        minorTicks?: ChartCategoryAxisItemMinorTicks | undefined;
+        name?: string | undefined;
+        pane?: string | undefined;
+        plotBands?: ChartCategoryAxisItemPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        roundToBaseUnit?: boolean | undefined;
+        select?: ChartCategoryAxisItemSelect | undefined;
+        startAngle?: number | undefined;
+        title?: ChartCategoryAxisItemTitle | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
+        weekStartDay?: number | undefined;
+        notes?: ChartCategoryAxisItemNotes | undefined;
     }
 
     interface ChartChartAreaBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartChartAreaMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartChartArea {
-        background?: string;
-        border?: ChartChartAreaBorder;
-        height?: number;
-        margin?: number | ChartChartAreaMargin;
-        opacity?: number;
-        width?: number;
+        background?: string | undefined;
+        border?: ChartChartAreaBorder | undefined;
+        height?: number | undefined;
+        margin?: number | ChartChartAreaMargin | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface ChartLegendBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartLegendInactiveItemsLabels {
-        color?: string;
-        font?: string;
-        template?: string|Function;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
     }
 
     interface ChartLegendInactiveItems {
-        labels?: ChartLegendInactiveItemsLabels;
+        labels?: ChartLegendInactiveItemsLabels | undefined;
     }
 
     interface ChartLegendItem {
-        cursor?: string;
-        visual?: Function;
+        cursor?: string | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartLegendLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartLegendLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartLegendLabels {
-        color?: string;
-        font?: string;
-        margin?: number | ChartLegendLabelsMargin;
-        padding?: ChartLegendLabelsPadding;
-        template?: string|Function;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | ChartLegendLabelsMargin | undefined;
+        padding?: ChartLegendLabelsPadding | undefined;
+        template?: string|Function | undefined;
     }
 
     interface ChartLegendMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartLegendPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartLegend {
-        align?: string;
-        background?: string;
-        border?: ChartLegendBorder;
-        height?: number;
-        inactiveItems?: ChartLegendInactiveItems;
-        item?: ChartLegendItem;
-        labels?: ChartLegendLabels;
-        margin?: number | ChartLegendMargin;
-        offsetX?: number;
-        offsetY?: number;
-        orientation?: string;
-        padding?: number | ChartLegendPadding;
-        position?: string;
-        reverse?: boolean;
-        spacing?: number;
-        visible?: boolean;
-        width?: number;
+        align?: string | undefined;
+        background?: string | undefined;
+        border?: ChartLegendBorder | undefined;
+        height?: number | undefined;
+        inactiveItems?: ChartLegendInactiveItems | undefined;
+        item?: ChartLegendItem | undefined;
+        labels?: ChartLegendLabels | undefined;
+        margin?: number | ChartLegendMargin | undefined;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
+        orientation?: string | undefined;
+        padding?: number | ChartLegendPadding | undefined;
+        position?: string | undefined;
+        reverse?: boolean | undefined;
+        spacing?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartPaneBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartPaneMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartPanePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartPaneTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartPaneTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartPaneTitle {
-        background?: string;
-        border?: ChartPaneTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | ChartPaneTitleMargin;
-        position?: string;
-        text?: string;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartPaneTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | ChartPaneTitleMargin | undefined;
+        position?: string | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartPane {
-        background?: string;
-        border?: ChartPaneBorder;
-        clip?: boolean;
-        height?: number;
-        margin?: number | ChartPaneMargin;
-        name?: string;
-        padding?: ChartPanePadding;
-        title?: string | ChartPaneTitle;
+        background?: string | undefined;
+        border?: ChartPaneBorder | undefined;
+        clip?: boolean | undefined;
+        height?: number | undefined;
+        margin?: number | ChartPaneMargin | undefined;
+        name?: string | undefined;
+        padding?: ChartPanePadding | undefined;
+        title?: string | ChartPaneTitle | undefined;
     }
 
     interface ChartPannable {
-        key?: string;
-        lock?: string;
+        key?: string | undefined;
+        lock?: string | undefined;
     }
 
     interface ChartPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface ChartPdf {
-        author?: string;
-        creator?: string;
-        date?: Date;
-        forceProxy?: boolean;
-        fileName?: string;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: ChartPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        author?: string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        forceProxy?: boolean | undefined;
+        fileName?: string | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: ChartPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface ChartPlotAreaBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartPlotAreaMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartPlotAreaPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartPlotArea {
-        background?: string;
-        border?: ChartPlotAreaBorder;
-        margin?: number| ChartPlotAreaMargin;
-        opacity?: number;
-        padding?: number | ChartPlotAreaPadding;
+        background?: string | undefined;
+        border?: ChartPlotAreaBorder | undefined;
+        margin?: number| ChartPlotAreaMargin | undefined;
+        opacity?: number | undefined;
+        padding?: number | ChartPlotAreaPadding | undefined;
     }
 
     interface ChartSeriesItemBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        opacity?: number|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        opacity?: number|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemConnectors {
-        color?: string|Function;
-        padding?: number;
-        width?: number;
+        color?: string|Function | undefined;
+        padding?: number | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesItemErrorBarsLine {
-        width?: number;
-        dashType?: string;
+        width?: number | undefined;
+        dashType?: string | undefined;
     }
 
     interface ChartSeriesItemErrorBars {
-        value?: string|number|any|Function;
-        visual?: Function;
-        xValue?: string|number|any|Function;
-        yValue?: string|number|any|Function;
-        endCaps?: boolean;
-        color?: string;
-        line?: ChartSeriesItemErrorBarsLine;
+        value?: string|number|any|Function | undefined;
+        visual?: Function | undefined;
+        xValue?: string|number|any|Function | undefined;
+        yValue?: string|number|any|Function | undefined;
+        endCaps?: boolean | undefined;
+        color?: string | undefined;
+        line?: ChartSeriesItemErrorBarsLine | undefined;
     }
 
     interface ChartSeriesItemExtremesBorder {
-        color?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemExtremes {
-        background?: string|Function;
-        border?: Function | ChartSeriesItemExtremesBorder;
-        size?: number|Function;
-        type?: string|Function;
-        rotation?: number|Function;
+        background?: string|Function | undefined;
+        border?: Function | ChartSeriesItemExtremesBorder | undefined;
+        size?: number|Function | undefined;
+        type?: string|Function | undefined;
+        rotation?: number|Function | undefined;
     }
 
     interface ChartSeriesItemHighlightBorder {
-        color?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesItemHighlightLine {
-        dashType?: string;
-        color?: string;
-        opacity?: number;
-        width?: number;
+        dashType?: string | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesItemHighlight {
-        border?: ChartSeriesItemHighlightBorder;
-        color?: string;
-        inactiveOpacity?: number;
-        line?: ChartSeriesItemHighlightLine;
-        opacity?: number;
-        toggle?: Function;
-        visible?: boolean;
-        visual?: Function;
+        border?: ChartSeriesItemHighlightBorder | undefined;
+        color?: string | undefined;
+        inactiveOpacity?: number | undefined;
+        line?: ChartSeriesItemHighlightLine | undefined;
+        opacity?: number | undefined;
+        toggle?: Function | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartSeriesItemLabelsBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemLabelsFromBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemLabelsFromMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesItemLabelsFromPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesItemLabelsFrom {
-        background?: string|Function;
-        border?: ChartSeriesItemLabelsFromBorder;
-        color?: string|Function;
-        font?: string|Function;
-        format?: string|Function;
-        margin?: number | ChartSeriesItemLabelsFromMargin;
-        padding?: number | ChartSeriesItemLabelsFromPadding;
-        position?: string|Function;
-        template?: string|Function;
-        visible?: boolean|Function;
+        background?: string|Function | undefined;
+        border?: ChartSeriesItemLabelsFromBorder | undefined;
+        color?: string|Function | undefined;
+        font?: string|Function | undefined;
+        format?: string|Function | undefined;
+        margin?: number | ChartSeriesItemLabelsFromMargin | undefined;
+        padding?: number | ChartSeriesItemLabelsFromPadding | undefined;
+        position?: string|Function | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
     }
 
     interface ChartSeriesItemLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesItemLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesItemLabelsToBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemLabelsToMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesItemLabelsToPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesItemLabelsTo {
-        background?: string|Function;
-        border?: ChartSeriesItemLabelsToBorder;
-        color?: string|Function;
-        font?: string|Function;
-        format?: string|Function;
-        margin?: number | ChartSeriesItemLabelsToMargin;
-        padding?: number | ChartSeriesItemLabelsToPadding;
-        position?: string|Function;
-        template?: string|Function;
-        visible?: boolean|Function;
+        background?: string|Function | undefined;
+        border?: ChartSeriesItemLabelsToBorder | undefined;
+        color?: string|Function | undefined;
+        font?: string|Function | undefined;
+        format?: string|Function | undefined;
+        margin?: number | ChartSeriesItemLabelsToMargin | undefined;
+        padding?: number | ChartSeriesItemLabelsToPadding | undefined;
+        position?: string|Function | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
     }
 
     interface ChartSeriesItemLabels {
-        align?: string;
-        background?: string|Function;
-        border?: ChartSeriesItemLabelsBorder;
-        color?: string|Function;
-        distance?: number;
-        font?: string|Function;
-        format?: string|Function;
-        margin?: number | ChartSeriesItemLabelsMargin;
-        padding?: number | ChartSeriesItemLabelsPadding;
-        position?: string|Function;
-        rotation?: string|number;
-        template?: string|Function;
-        visible?: boolean|Function;
-        visual?: Function;
-        from?: ChartSeriesItemLabelsFrom;
-        to?: ChartSeriesItemLabelsTo;
+        align?: string | undefined;
+        background?: string|Function | undefined;
+        border?: ChartSeriesItemLabelsBorder | undefined;
+        color?: string|Function | undefined;
+        distance?: number | undefined;
+        font?: string|Function | undefined;
+        format?: string|Function | undefined;
+        margin?: number | ChartSeriesItemLabelsMargin | undefined;
+        padding?: number | ChartSeriesItemLabelsPadding | undefined;
+        position?: string|Function | undefined;
+        rotation?: string|number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
+        visual?: Function | undefined;
+        from?: ChartSeriesItemLabelsFrom | undefined;
+        to?: ChartSeriesItemLabelsTo | undefined;
     }
 
     interface ChartSeriesItemLine {
-        color?: string;
-        opacity?: number;
-        width?: number;
-        style?: string;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
+        style?: string | undefined;
     }
 
     interface ChartSeriesItemMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesItemMarkersBorder {
-        color?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemMarkersFromBorder {
-        color?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemMarkersFrom {
-        background?: string|Function;
-        border?: Function | ChartSeriesItemMarkersFromBorder;
-        size?: number|Function;
-        type?: string|Function;
-        visible?: boolean|Function;
-        visual?: Function;
-        rotation?: number|Function;
+        background?: string|Function | undefined;
+        border?: Function | ChartSeriesItemMarkersFromBorder | undefined;
+        size?: number|Function | undefined;
+        type?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
+        visual?: Function | undefined;
+        rotation?: number|Function | undefined;
     }
 
     interface ChartSeriesItemMarkersToBorder {
-        color?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemMarkersTo {
-        background?: string|Function;
-        border?: Function | ChartSeriesItemMarkersToBorder;
-        size?: number|Function;
-        type?: string|Function;
-        visible?: boolean|Function;
-        visual?: Function;
-        rotation?: number|Function;
+        background?: string|Function | undefined;
+        border?: Function | ChartSeriesItemMarkersToBorder | undefined;
+        size?: number|Function | undefined;
+        type?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
+        visual?: Function | undefined;
+        rotation?: number|Function | undefined;
     }
 
     interface ChartSeriesItemMarkers {
-        background?: string|Function;
-        border?: Function | ChartSeriesItemMarkersBorder;
-        from?: ChartSeriesItemMarkersFrom;
-        size?: number|Function;
-        to?: ChartSeriesItemMarkersTo;
-        type?: string|Function;
-        visible?: boolean|Function;
-        visual?: Function;
-        rotation?: number|Function;
+        background?: string|Function | undefined;
+        border?: Function | ChartSeriesItemMarkersBorder | undefined;
+        from?: ChartSeriesItemMarkersFrom | undefined;
+        size?: number|Function | undefined;
+        to?: ChartSeriesItemMarkersTo | undefined;
+        type?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
+        visual?: Function | undefined;
+        rotation?: number|Function | undefined;
     }
 
     interface ChartSeriesItemNegativeValues {
-        color?: string;
-        visible?: boolean;
+        color?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartSeriesItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesItemNotesIcon {
-        background?: string;
-        border?: ChartSeriesItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartSeriesItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartSeriesItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesItemNotesLabel {
-        background?: string;
-        border?: ChartSeriesItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartSeriesItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartSeriesItemNotesLine {
-        dashType?: string;
-        width?: number;
-        color?: string;
-        length?: number;
+        dashType?: string | undefined;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartSeriesItemNotes {
-        position?: string;
-        icon?: ChartSeriesItemNotesIcon;
-        label?: ChartSeriesItemNotesLabel;
-        line?: ChartSeriesItemNotesLine;
-        visual?: Function;
+        position?: string | undefined;
+        icon?: ChartSeriesItemNotesIcon | undefined;
+        label?: ChartSeriesItemNotesLabel | undefined;
+        line?: ChartSeriesItemNotesLine | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartSeriesItemOutliersBorder {
-        color?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemOutliers {
-        background?: string|Function;
-        border?: Function | ChartSeriesItemOutliersBorder;
-        size?: number|Function;
-        type?: string|Function;
-        rotation?: number|Function;
+        background?: string|Function | undefined;
+        border?: Function | ChartSeriesItemOutliersBorder | undefined;
+        size?: number|Function | undefined;
+        type?: string|Function | undefined;
+        rotation?: number|Function | undefined;
     }
 
     interface ChartSeriesItemOverlay {
-        gradient?: string;
+        gradient?: string | undefined;
     }
 
     interface ChartSeriesItemStack {
-        type?: string;
-        group?: string;
+        type?: string | undefined;
+        group?: string | undefined;
     }
 
     interface ChartSeriesItemTargetBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemTargetLine {
-        width?: number|Function;
+        width?: number|Function | undefined;
     }
 
     interface ChartSeriesItemTarget {
-        border?: Function | ChartSeriesItemTargetBorder;
-        color?: string|Function;
-        line?: ChartSeriesItemTargetLine;
+        border?: Function | ChartSeriesItemTargetBorder | undefined;
+        color?: string|Function | undefined;
+        line?: ChartSeriesItemTargetLine | undefined;
     }
 
     interface ChartSeriesItemTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesItemTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesItemTooltip {
-        background?: string;
-        border?: ChartSeriesItemTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: ChartSeriesItemTooltipPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartSeriesItemTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: ChartSeriesItemTooltipPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartSeriesItem {
-        aggregate?: string|Function;
-        axis?: string;
-        border?: ChartSeriesItemBorder;
-        categoryAxis?: string;
-        categoryField?: string;
-        closeField?: string;
-        color?: string|Function;
-        colorField?: string;
-        connectors?: ChartSeriesItemConnectors;
-        currentField?: string;
-        dashType?: string;
+        aggregate?: string|Function | undefined;
+        axis?: string | undefined;
+        border?: ChartSeriesItemBorder | undefined;
+        categoryAxis?: string | undefined;
+        categoryField?: string | undefined;
+        closeField?: string | undefined;
+        color?: string|Function | undefined;
+        colorField?: string | undefined;
+        connectors?: ChartSeriesItemConnectors | undefined;
+        currentField?: string | undefined;
+        dashType?: string | undefined;
         data?: any;
-        downColor?: string|Function;
-        downColorField?: string;
-        segmentSpacing?: number;
-        summaryField?: string;
-        neckRatio?: number;
-        dynamicSlope?: boolean;
-        dynamicHeight?: boolean;
-        errorBars?: ChartSeriesItemErrorBars;
-        errorLowField?: string;
-        errorHighField?: string;
-        xErrorLowField?: string;
-        xErrorHighField?: string;
-        yErrorLowField?: string;
-        yErrorHighField?: string;
-        explodeField?: string;
-        field?: string;
-        fromField?: string;
-        toField?: string;
-        noteTextField?: string;
-        lowerField?: string;
-        q1Field?: string;
-        medianField?: string;
-        q3Field?: string;
-        upperField?: string;
-        meanField?: string;
-        outliersField?: string;
-        gap?: number;
-        highField?: string;
-        highlight?: ChartSeriesItemHighlight;
-        holeSize?: number;
-        labels?: ChartSeriesItemLabels;
-        line?: string | ChartSeriesItemLine;
-        lowField?: string;
-        margin?: number | ChartSeriesItemMargin;
-        markers?: ChartSeriesItemMarkers;
-        outliers?: ChartSeriesItemOutliers;
-        extremes?: ChartSeriesItemExtremes;
-        maxSize?: number;
-        minSize?: number;
-        missingValues?: string;
-        style?: string;
-        name?: string;
-        negativeColor?: string;
-        negativeValues?: ChartSeriesItemNegativeValues;
-        opacity?: number;
-        openField?: string;
-        overlay?: ChartSeriesItemOverlay;
-        padding?: number;
-        size?: number;
-        sizeField?: string;
-        spacing?: number;
-        stack?: boolean | string | ChartSeriesItemStack;
-        startAngle?: number;
-        target?: ChartSeriesItemTarget;
-        targetField?: string;
-        tooltip?: ChartSeriesItemTooltip;
-        type?: string;
-        visible?: boolean;
-        visibleInLegend?: boolean;
-        visibleInLegendField?: string;
-        visual?: Function;
-        width?: number;
-        xAxis?: string;
-        xField?: string;
-        yAxis?: string;
-        yField?: string;
-        notes?: ChartSeriesItemNotes;
-        zIndex?: number;
+        downColor?: string|Function | undefined;
+        downColorField?: string | undefined;
+        segmentSpacing?: number | undefined;
+        summaryField?: string | undefined;
+        neckRatio?: number | undefined;
+        dynamicSlope?: boolean | undefined;
+        dynamicHeight?: boolean | undefined;
+        errorBars?: ChartSeriesItemErrorBars | undefined;
+        errorLowField?: string | undefined;
+        errorHighField?: string | undefined;
+        xErrorLowField?: string | undefined;
+        xErrorHighField?: string | undefined;
+        yErrorLowField?: string | undefined;
+        yErrorHighField?: string | undefined;
+        explodeField?: string | undefined;
+        field?: string | undefined;
+        fromField?: string | undefined;
+        toField?: string | undefined;
+        noteTextField?: string | undefined;
+        lowerField?: string | undefined;
+        q1Field?: string | undefined;
+        medianField?: string | undefined;
+        q3Field?: string | undefined;
+        upperField?: string | undefined;
+        meanField?: string | undefined;
+        outliersField?: string | undefined;
+        gap?: number | undefined;
+        highField?: string | undefined;
+        highlight?: ChartSeriesItemHighlight | undefined;
+        holeSize?: number | undefined;
+        labels?: ChartSeriesItemLabels | undefined;
+        line?: string | ChartSeriesItemLine | undefined;
+        lowField?: string | undefined;
+        margin?: number | ChartSeriesItemMargin | undefined;
+        markers?: ChartSeriesItemMarkers | undefined;
+        outliers?: ChartSeriesItemOutliers | undefined;
+        extremes?: ChartSeriesItemExtremes | undefined;
+        maxSize?: number | undefined;
+        minSize?: number | undefined;
+        missingValues?: string | undefined;
+        style?: string | undefined;
+        name?: string | undefined;
+        negativeColor?: string | undefined;
+        negativeValues?: ChartSeriesItemNegativeValues | undefined;
+        opacity?: number | undefined;
+        openField?: string | undefined;
+        overlay?: ChartSeriesItemOverlay | undefined;
+        padding?: number | undefined;
+        size?: number | undefined;
+        sizeField?: string | undefined;
+        spacing?: number | undefined;
+        stack?: boolean | string | ChartSeriesItemStack | undefined;
+        startAngle?: number | undefined;
+        target?: ChartSeriesItemTarget | undefined;
+        targetField?: string | undefined;
+        tooltip?: ChartSeriesItemTooltip | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
+        visibleInLegend?: boolean | undefined;
+        visibleInLegendField?: string | undefined;
+        visual?: Function | undefined;
+        width?: number | undefined;
+        xAxis?: string | undefined;
+        xField?: string | undefined;
+        yAxis?: string | undefined;
+        yField?: string | undefined;
+        notes?: ChartSeriesItemNotes | undefined;
+        zIndex?: number | undefined;
     }
 
     interface ChartSeriesDefaultsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsFromBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsFromMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsFromPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsFrom {
-        background?: string;
-        border?: ChartSeriesDefaultsLabelsFromBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number | ChartSeriesDefaultsLabelsFromMargin;
-        padding?: number | ChartSeriesDefaultsLabelsFromPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartSeriesDefaultsLabelsFromBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ChartSeriesDefaultsLabelsFromMargin | undefined;
+        padding?: number | ChartSeriesDefaultsLabelsFromPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsToBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsToMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsToPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesDefaultsLabelsTo {
-        background?: string;
-        border?: ChartSeriesDefaultsLabelsToBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number | ChartSeriesDefaultsLabelsToMargin;
-        padding?: number | ChartSeriesDefaultsLabelsToPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartSeriesDefaultsLabelsToBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ChartSeriesDefaultsLabelsToMargin | undefined;
+        padding?: number | ChartSeriesDefaultsLabelsToPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartSeriesDefaultsLabels {
-        background?: string;
-        border?: ChartSeriesDefaultsLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number | ChartSeriesDefaultsLabelsMargin;
-        padding?: number | ChartSeriesDefaultsLabelsPadding;
-        rotation?: string|number;
-        template?: string|Function;
-        position?: string|Function;
-        visible?: boolean;
-        visual?: Function;
-        from?: ChartSeriesDefaultsLabelsFrom;
-        to?: ChartSeriesDefaultsLabelsTo;
+        background?: string | undefined;
+        border?: ChartSeriesDefaultsLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ChartSeriesDefaultsLabelsMargin | undefined;
+        padding?: number | ChartSeriesDefaultsLabelsPadding | undefined;
+        rotation?: string|number | undefined;
+        template?: string|Function | undefined;
+        position?: string|Function | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
+        from?: ChartSeriesDefaultsLabelsFrom | undefined;
+        to?: ChartSeriesDefaultsLabelsTo | undefined;
     }
 
     interface ChartSeriesDefaultsNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesDefaultsNotesIcon {
-        background?: string;
-        border?: ChartSeriesDefaultsNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartSeriesDefaultsNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartSeriesDefaultsNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesDefaultsNotesLabel {
-        background?: string;
-        border?: ChartSeriesDefaultsNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartSeriesDefaultsNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartSeriesDefaultsNotesLine {
-        dashType?: string;
-        width?: number;
-        color?: string;
-        length?: number;
+        dashType?: string | undefined;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartSeriesDefaultsNotes {
-        icon?: ChartSeriesDefaultsNotesIcon;
-        label?: ChartSeriesDefaultsNotesLabel;
-        line?: ChartSeriesDefaultsNotesLine;
-        visual?: Function;
+        icon?: ChartSeriesDefaultsNotesIcon | undefined;
+        label?: ChartSeriesDefaultsNotesLabel | undefined;
+        line?: ChartSeriesDefaultsNotesLine | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartSeriesDefaultsOverlay {
-        gradient?: string;
+        gradient?: string | undefined;
     }
 
     interface ChartSeriesDefaultsStack {
-        type?: string;
+        type?: string | undefined;
     }
 
     interface ChartSeriesDefaultsTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartSeriesDefaultsTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartSeriesDefaultsTooltip {
-        background?: string;
-        border?: ChartSeriesDefaultsTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: ChartSeriesDefaultsTooltipPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartSeriesDefaultsTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: ChartSeriesDefaultsTooltipPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartSeriesDefaults {
         area?: any;
         bar?: any;
-        border?: ChartSeriesDefaultsBorder;
+        border?: ChartSeriesDefaultsBorder | undefined;
         bubble?: any;
         candlestick?: any;
         column?: any;
         donut?: any;
-        gap?: number;
-        labels?: ChartSeriesDefaultsLabels;
+        gap?: number | undefined;
+        labels?: ChartSeriesDefaultsLabels | undefined;
         line?: any;
         ohlc?: any;
-        overlay?: ChartSeriesDefaultsOverlay;
+        overlay?: ChartSeriesDefaultsOverlay | undefined;
         pie?: any;
         rangeArea?: any;
         scatter?: any;
         scatterLine?: any;
-        spacing?: number;
-        stack?: boolean | ChartSeriesDefaultsStack;
-        type?: string;
-        tooltip?: ChartSeriesDefaultsTooltip;
+        spacing?: number | undefined;
+        stack?: boolean | ChartSeriesDefaultsStack | undefined;
+        type?: string | undefined;
+        tooltip?: ChartSeriesDefaultsTooltip | undefined;
         verticalArea?: any;
         verticalLine?: any;
         verticalRangeArea?: any;
-        visual?: Function;
-        notes?: ChartSeriesDefaultsNotes;
+        visual?: Function | undefined;
+        notes?: ChartSeriesDefaultsNotes | undefined;
     }
 
     interface ChartTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartTitlePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartTitle {
-        align?: string;
-        background?: string;
-        border?: ChartTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | ChartTitleMargin;
-        padding?: number | ChartTitlePadding;
-        position?: string;
-        text?: string;
-        visible?: boolean;
+        align?: string | undefined;
+        background?: string | undefined;
+        border?: ChartTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | ChartTitleMargin | undefined;
+        padding?: number | ChartTitlePadding | undefined;
+        position?: string | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartTooltip {
-        background?: string;
-        border?: ChartTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        opacity?: number;
-        padding?: ChartTooltipPadding;
-        shared?: boolean;
-        sharedTemplate?: string|Function;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        opacity?: number | undefined;
+        padding?: ChartTooltipPadding | undefined;
+        shared?: boolean | undefined;
+        sharedTemplate?: string|Function | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartValueAxisItemCrosshairTooltipBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemCrosshairTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartValueAxisItemCrosshairTooltip {
-        background?: string;
-        border?: ChartValueAxisItemCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: ChartValueAxisItemCrosshairTooltipPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartValueAxisItemCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: ChartValueAxisItemCrosshairTooltipPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartValueAxisItemCrosshair {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        tooltip?: ChartValueAxisItemCrosshairTooltip;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        tooltip?: ChartValueAxisItemCrosshairTooltip | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartValueAxisItemLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartValueAxisItemLabelsRotation {
-        align?: string;
-        angle?: number|string;
+        align?: string | undefined;
+        angle?: number|string | undefined;
     }
 
     interface ChartValueAxisItemLabels {
-        background?: string;
-        border?: ChartValueAxisItemLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number | ChartValueAxisItemLabelsMargin;
-        mirror?: boolean;
-        padding?: number | ChartValueAxisItemLabelsPadding;
-        rotation?: string | number | ChartValueAxisItemLabelsRotation;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartValueAxisItemLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ChartValueAxisItemLabelsMargin | undefined;
+        mirror?: boolean | undefined;
+        padding?: number | ChartValueAxisItemLabelsPadding | undefined;
+        rotation?: string | number | ChartValueAxisItemLabelsRotation | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartValueAxisItemLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemMajorGridLines {
-        color?: string;
-        dashType?: string;
-        type?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartValueAxisItemMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartValueAxisItemMinorGridLines {
-        color?: string;
-        dashType?: string;
-        type?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartValueAxisItemMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartValueAxisItemNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemNotesDataItemIcon {
-        background?: string;
-        border?: ChartValueAxisItemNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartValueAxisItemNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartValueAxisItemNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemNotesDataItemLabel {
-        background?: string;
-        border?: ChartValueAxisItemNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartValueAxisItemNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartValueAxisItemNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartValueAxisItemNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: ChartValueAxisItemNotesDataItemIcon;
-        label?: ChartValueAxisItemNotesDataItemLabel;
-        line?: ChartValueAxisItemNotesDataItemLine;
+        position?: string | undefined;
+        icon?: ChartValueAxisItemNotesDataItemIcon | undefined;
+        label?: ChartValueAxisItemNotesDataItemLabel | undefined;
+        line?: ChartValueAxisItemNotesDataItemLine | undefined;
     }
 
     interface ChartValueAxisItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemNotesIcon {
-        background?: string;
-        border?: ChartValueAxisItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartValueAxisItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartValueAxisItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemNotesLabel {
-        background?: string;
-        border?: ChartValueAxisItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartValueAxisItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartValueAxisItemNotesLine {
-        dashType?: string;
-        width?: number;
-        color?: string;
-        length?: number;
+        dashType?: string | undefined;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartValueAxisItemNotes {
-        position?: string;
-        icon?: ChartValueAxisItemNotesIcon;
-        label?: ChartValueAxisItemNotesLabel;
-        line?: ChartValueAxisItemNotesLine;
-        data?: ChartValueAxisItemNotesDataItem[];
-        visual?: Function;
+        position?: string | undefined;
+        icon?: ChartValueAxisItemNotesIcon | undefined;
+        label?: ChartValueAxisItemNotesLabel | undefined;
+        line?: ChartValueAxisItemNotesLine | undefined;
+        data?: ChartValueAxisItemNotesDataItem[] | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartValueAxisItemPlotBand {
-        color?: string;
-        from?: number;
-        opacity?: number;
-        to?: number;
+        color?: string | undefined;
+        from?: number | undefined;
+        opacity?: number | undefined;
+        to?: number | undefined;
     }
 
     interface ChartValueAxisItemTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartValueAxisItemTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartValueAxisItemTitlePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartValueAxisItemTitle {
-        background?: string;
-        border?: ChartValueAxisItemTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | ChartValueAxisItemTitleMargin;
-        padding?: number | ChartValueAxisItemTitlePadding;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartValueAxisItemTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | ChartValueAxisItemTitleMargin | undefined;
+        padding?: number | ChartValueAxisItemTitlePadding | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartValueAxisItem {
-        axisCrossingValue?: any|Date|any;
-        background?: string;
-        color?: string;
-        crosshair?: ChartValueAxisItemCrosshair;
-        labels?: ChartValueAxisItemLabels;
-        line?: ChartValueAxisItemLine;
-        majorGridLines?: ChartValueAxisItemMajorGridLines;
-        majorUnit?: number;
-        max?: number;
-        min?: number;
-        minorGridLines?: ChartValueAxisItemMinorGridLines;
-        majorTicks?: ChartValueAxisItemMajorTicks;
-        minorTicks?: ChartValueAxisItemMinorTicks;
-        minorUnit?: number;
-        name?: string;
-        narrowRange?: boolean;
-        pane?: string;
-        plotBands?: ChartValueAxisItemPlotBand[];
-        reverse?: boolean;
-        title?: ChartValueAxisItemTitle;
-        type?: string;
-        visible?: boolean;
-        notes?: ChartValueAxisItemNotes;
+        axisCrossingValue?: any|Date|any | undefined;
+        background?: string | undefined;
+        color?: string | undefined;
+        crosshair?: ChartValueAxisItemCrosshair | undefined;
+        labels?: ChartValueAxisItemLabels | undefined;
+        line?: ChartValueAxisItemLine | undefined;
+        majorGridLines?: ChartValueAxisItemMajorGridLines | undefined;
+        majorUnit?: number | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        minorGridLines?: ChartValueAxisItemMinorGridLines | undefined;
+        majorTicks?: ChartValueAxisItemMajorTicks | undefined;
+        minorTicks?: ChartValueAxisItemMinorTicks | undefined;
+        minorUnit?: number | undefined;
+        name?: string | undefined;
+        narrowRange?: boolean | undefined;
+        pane?: string | undefined;
+        plotBands?: ChartValueAxisItemPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        title?: ChartValueAxisItemTitle | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
+        notes?: ChartValueAxisItemNotes | undefined;
     }
 
     interface ChartXAxisItemCrosshairTooltipBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemCrosshairTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartXAxisItemCrosshairTooltip {
-        background?: string;
-        border?: ChartXAxisItemCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: ChartXAxisItemCrosshairTooltipPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartXAxisItemCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: ChartXAxisItemCrosshairTooltipPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartXAxisItemCrosshair {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        tooltip?: ChartXAxisItemCrosshairTooltip;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        tooltip?: ChartXAxisItemCrosshairTooltip | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemLabelsDateFormats {
-        days?: string;
-        hours?: string;
-        months?: string;
-        weeks?: string;
-        years?: string;
+        days?: string | undefined;
+        hours?: string | undefined;
+        months?: string | undefined;
+        weeks?: string | undefined;
+        years?: string | undefined;
     }
 
     interface ChartXAxisItemLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartXAxisItemLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartXAxisItemLabelsRotation {
-        align?: string;
-        angle?: number|string;
+        align?: string | undefined;
+        angle?: number|string | undefined;
     }
 
     interface ChartXAxisItemLabels {
-        background?: string;
-        border?: ChartXAxisItemLabelsBorder;
-        color?: string;
-        culture?: string;
-        dateFormats?: ChartXAxisItemLabelsDateFormats;
-        font?: string;
-        format?: string;
-        margin?: number | ChartXAxisItemLabelsMargin;
-        mirror?: boolean;
-        padding?: number | ChartXAxisItemLabelsPadding;
-        rotation?: string | number | ChartXAxisItemLabelsRotation;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartXAxisItemLabelsBorder | undefined;
+        color?: string | undefined;
+        culture?: string | undefined;
+        dateFormats?: ChartXAxisItemLabelsDateFormats | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ChartXAxisItemLabelsMargin | undefined;
+        mirror?: boolean | undefined;
+        padding?: number | ChartXAxisItemLabelsPadding | undefined;
+        rotation?: string | number | ChartXAxisItemLabelsRotation | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartXAxisItemLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemMajorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartXAxisItemMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartXAxisItemMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartXAxisItemMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartXAxisItemNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemNotesDataItemIcon {
-        background?: string;
-        border?: ChartXAxisItemNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartXAxisItemNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartXAxisItemNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemNotesDataItemLabel {
-        background?: string;
-        border?: ChartXAxisItemNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartXAxisItemNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartXAxisItemNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartXAxisItemNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: ChartXAxisItemNotesDataItemIcon;
-        label?: ChartXAxisItemNotesDataItemLabel;
-        line?: ChartXAxisItemNotesDataItemLine;
+        position?: string | undefined;
+        icon?: ChartXAxisItemNotesDataItemIcon | undefined;
+        label?: ChartXAxisItemNotesDataItemLabel | undefined;
+        line?: ChartXAxisItemNotesDataItemLine | undefined;
     }
 
     interface ChartXAxisItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemNotesIcon {
-        background?: string;
-        border?: ChartXAxisItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartXAxisItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartXAxisItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemNotesLabel {
-        background?: string;
-        border?: ChartXAxisItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartXAxisItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartXAxisItemNotesLine {
-        dashType?: string;
-        width?: number;
-        color?: string;
-        length?: number;
+        dashType?: string | undefined;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartXAxisItemNotes {
-        position?: string;
-        icon?: ChartXAxisItemNotesIcon;
-        label?: ChartXAxisItemNotesLabel;
-        line?: ChartXAxisItemNotesLine;
-        data?: ChartXAxisItemNotesDataItem[];
-        visual?: Function;
+        position?: string | undefined;
+        icon?: ChartXAxisItemNotesIcon | undefined;
+        label?: ChartXAxisItemNotesLabel | undefined;
+        line?: ChartXAxisItemNotesLine | undefined;
+        data?: ChartXAxisItemNotesDataItem[] | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartXAxisItemPlotBand {
-        color?: string;
-        from?: number;
-        opacity?: number;
-        to?: number;
+        color?: string | undefined;
+        from?: number | undefined;
+        opacity?: number | undefined;
+        to?: number | undefined;
     }
 
     interface ChartXAxisItemTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartXAxisItemTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartXAxisItemTitlePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartXAxisItemTitle {
-        background?: string;
-        border?: ChartXAxisItemTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | ChartXAxisItemTitleMargin;
-        padding?: number | ChartXAxisItemTitlePadding;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartXAxisItemTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | ChartXAxisItemTitleMargin | undefined;
+        padding?: number | ChartXAxisItemTitlePadding | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartXAxisItem {
-        axisCrossingValue?: any|Date|any;
-        background?: string;
-        baseUnit?: string;
-        color?: string;
-        crosshair?: ChartXAxisItemCrosshair;
-        labels?: ChartXAxisItemLabels;
-        line?: ChartXAxisItemLine;
-        majorGridLines?: ChartXAxisItemMajorGridLines;
-        minorGridLines?: ChartXAxisItemMinorGridLines;
-        minorTicks?: ChartXAxisItemMinorTicks;
-        majorTicks?: ChartXAxisItemMajorTicks;
-        majorUnit?: number;
+        axisCrossingValue?: any|Date|any | undefined;
+        background?: string | undefined;
+        baseUnit?: string | undefined;
+        color?: string | undefined;
+        crosshair?: ChartXAxisItemCrosshair | undefined;
+        labels?: ChartXAxisItemLabels | undefined;
+        line?: ChartXAxisItemLine | undefined;
+        majorGridLines?: ChartXAxisItemMajorGridLines | undefined;
+        minorGridLines?: ChartXAxisItemMinorGridLines | undefined;
+        minorTicks?: ChartXAxisItemMinorTicks | undefined;
+        majorTicks?: ChartXAxisItemMajorTicks | undefined;
+        majorUnit?: number | undefined;
         max?: any;
         min?: any;
-        minorUnit?: number;
-        name?: string;
-        narrowRange?: boolean;
-        pane?: string;
-        plotBands?: ChartXAxisItemPlotBand[];
-        reverse?: boolean;
-        startAngle?: number;
-        title?: ChartXAxisItemTitle;
-        type?: string;
-        visible?: boolean;
-        notes?: ChartXAxisItemNotes;
+        minorUnit?: number | undefined;
+        name?: string | undefined;
+        narrowRange?: boolean | undefined;
+        pane?: string | undefined;
+        plotBands?: ChartXAxisItemPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        startAngle?: number | undefined;
+        title?: ChartXAxisItemTitle | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
+        notes?: ChartXAxisItemNotes | undefined;
     }
 
     interface ChartYAxisItemCrosshairTooltipBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemCrosshairTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartYAxisItemCrosshairTooltip {
-        background?: string;
-        border?: ChartYAxisItemCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: ChartYAxisItemCrosshairTooltipPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartYAxisItemCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: ChartYAxisItemCrosshairTooltipPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartYAxisItemCrosshair {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        tooltip?: ChartYAxisItemCrosshairTooltip;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        tooltip?: ChartYAxisItemCrosshairTooltip | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemLabelsDateFormats {
-        days?: string;
-        hours?: string;
-        months?: string;
-        weeks?: string;
-        years?: string;
+        days?: string | undefined;
+        hours?: string | undefined;
+        months?: string | undefined;
+        weeks?: string | undefined;
+        years?: string | undefined;
     }
 
     interface ChartYAxisItemLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartYAxisItemLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartYAxisItemLabelsRotation {
-        align?: string;
-        angle?: number;
+        align?: string | undefined;
+        angle?: number | undefined;
     }
 
     interface ChartYAxisItemLabels {
-        background?: string;
-        border?: ChartYAxisItemLabelsBorder;
-        color?: string;
-        culture?: string;
-        dateFormats?: ChartYAxisItemLabelsDateFormats;
-        font?: string;
-        format?: string;
-        margin?: number | ChartYAxisItemLabelsMargin;
-        mirror?: boolean;
-        padding?: number | ChartYAxisItemLabelsPadding;
-        rotation?: number |ChartYAxisItemLabelsRotation;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartYAxisItemLabelsBorder | undefined;
+        color?: string | undefined;
+        culture?: string | undefined;
+        dateFormats?: ChartYAxisItemLabelsDateFormats | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | ChartYAxisItemLabelsMargin | undefined;
+        mirror?: boolean | undefined;
+        padding?: number | ChartYAxisItemLabelsPadding | undefined;
+        rotation?: number |ChartYAxisItemLabelsRotation | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartYAxisItemLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemMajorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartYAxisItemMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartYAxisItemMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartYAxisItemMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface ChartYAxisItemNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemNotesDataItemIcon {
-        background?: string;
-        border?: ChartYAxisItemNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartYAxisItemNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartYAxisItemNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemNotesDataItemLabel {
-        background?: string;
-        border?: ChartYAxisItemNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartYAxisItemNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartYAxisItemNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartYAxisItemNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: ChartYAxisItemNotesDataItemIcon;
-        label?: ChartYAxisItemNotesDataItemLabel;
-        line?: ChartYAxisItemNotesDataItemLine;
+        position?: string | undefined;
+        icon?: ChartYAxisItemNotesDataItemIcon | undefined;
+        label?: ChartYAxisItemNotesDataItemLabel | undefined;
+        line?: ChartYAxisItemNotesDataItemLine | undefined;
     }
 
     interface ChartYAxisItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemNotesIcon {
-        background?: string;
-        border?: ChartYAxisItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: ChartYAxisItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface ChartYAxisItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemNotesLabel {
-        background?: string;
-        border?: ChartYAxisItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: ChartYAxisItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface ChartYAxisItemNotesLine {
-        dashType?: string;
-        width?: number;
-        color?: string;
-        length?: number;
+        dashType?: string | undefined;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface ChartYAxisItemNotes {
-        position?: string;
-        icon?: ChartYAxisItemNotesIcon;
-        label?: ChartYAxisItemNotesLabel;
-        line?: ChartYAxisItemNotesLine;
-        data?: ChartYAxisItemNotesDataItem[];
-        visual?: Function;
+        position?: string | undefined;
+        icon?: ChartYAxisItemNotesIcon | undefined;
+        label?: ChartYAxisItemNotesLabel | undefined;
+        line?: ChartYAxisItemNotesLine | undefined;
+        data?: ChartYAxisItemNotesDataItem[] | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartYAxisItemPlotBand {
-        color?: string;
-        from?: number;
-        opacity?: number;
-        to?: number;
+        color?: string | undefined;
+        from?: number | undefined;
+        opacity?: number | undefined;
+        to?: number | undefined;
     }
 
     interface ChartYAxisItemTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ChartYAxisItemTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartYAxisItemTitlePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface ChartYAxisItemTitle {
-        background?: string;
-        border?: ChartYAxisItemTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | ChartYAxisItemTitleMargin;
-        padding?: number | ChartYAxisItemTitlePadding;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
-        visual?: Function;
+        background?: string | undefined;
+        border?: ChartYAxisItemTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | ChartYAxisItemTitleMargin | undefined;
+        padding?: number | ChartYAxisItemTitlePadding | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
+        visual?: Function | undefined;
     }
 
     interface ChartYAxisItem {
-        axisCrossingValue?: any|Date|any;
-        background?: string;
-        baseUnit?: string;
-        color?: string;
-        crosshair?: ChartYAxisItemCrosshair;
-        labels?: ChartYAxisItemLabels;
-        line?: ChartYAxisItemLine;
-        majorGridLines?: ChartYAxisItemMajorGridLines;
-        minorGridLines?: ChartYAxisItemMinorGridLines;
-        minorTicks?: ChartYAxisItemMinorTicks;
-        majorTicks?: ChartYAxisItemMajorTicks;
-        majorUnit?: number;
+        axisCrossingValue?: any|Date|any | undefined;
+        background?: string | undefined;
+        baseUnit?: string | undefined;
+        color?: string | undefined;
+        crosshair?: ChartYAxisItemCrosshair | undefined;
+        labels?: ChartYAxisItemLabels | undefined;
+        line?: ChartYAxisItemLine | undefined;
+        majorGridLines?: ChartYAxisItemMajorGridLines | undefined;
+        minorGridLines?: ChartYAxisItemMinorGridLines | undefined;
+        minorTicks?: ChartYAxisItemMinorTicks | undefined;
+        majorTicks?: ChartYAxisItemMajorTicks | undefined;
+        majorUnit?: number | undefined;
         max?: any;
         min?: any;
-        minorUnit?: number;
-        name?: string;
-        narrowRange?: boolean;
-        pane?: string;
-        plotBands?: ChartYAxisItemPlotBand[];
-        reverse?: boolean;
-        title?: ChartYAxisItemTitle;
-        type?: string;
-        visible?: boolean;
-        notes?: ChartYAxisItemNotes;
+        minorUnit?: number | undefined;
+        name?: string | undefined;
+        narrowRange?: boolean | undefined;
+        pane?: string | undefined;
+        plotBands?: ChartYAxisItemPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        title?: ChartYAxisItemTitle | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
+        notes?: ChartYAxisItemNotes | undefined;
     }
 
     interface ChartZoomableMousewheel {
-        lock?: string;
+        lock?: string | undefined;
     }
 
     interface ChartZoomableSelection {
-        key?: string;
-        lock?: string;
+        key?: string | undefined;
+        lock?: string | undefined;
     }
 
     interface ChartZoomable {
-        mousewheel?: boolean | ChartZoomableMousewheel;
-        selection?: boolean | ChartZoomableSelection;
+        mousewheel?: boolean | ChartZoomableMousewheel | undefined;
+        selection?: boolean | ChartZoomableSelection | undefined;
     }
 
     interface ChartExportImageOptions {
-        width?: string;
-        height?: string;
-        cors?: string;
+        width?: string | undefined;
+        height?: string | undefined;
+        cors?: string | undefined;
     }
 
     interface ChartExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface ChartToggleHighlightOptions {
-        series?: string;
-        category?: string;
+        series?: string | undefined;
+        category?: string | undefined;
     }
 
     interface ChartSeriesClickEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
-        field?: string;
+        field?: string | undefined;
     }
 
     interface ChartSeriesHoverEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
-        field?: string;
+        field?: string | undefined;
     }
 
     interface ChartSeriesOverEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface ChartSeriesLeaveEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface ChartOptions {
-        name?: string;
-        autoBind?: boolean;
-        axisDefaults?: ChartAxisDefaults;
-        categoryAxis?: ChartCategoryAxisItem | ChartCategoryAxisItem[];
-        chartArea?: ChartChartArea;
-        dataSource?: any|any|kendo.data.DataSource;
-        legend?: ChartLegend;
-        panes?: ChartPane[];
-        pannable?: boolean | ChartPannable;
-        pdf?: ChartPdf;
-        persistSeriesVisibility?: boolean;
-        plotArea?: ChartPlotArea;
-        renderAs?: string;
-        series?: ChartSeriesItem[];
+        name?: string | undefined;
+        autoBind?: boolean | undefined;
+        axisDefaults?: ChartAxisDefaults | undefined;
+        categoryAxis?: ChartCategoryAxisItem | ChartCategoryAxisItem[] | undefined;
+        chartArea?: ChartChartArea | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        legend?: ChartLegend | undefined;
+        panes?: ChartPane[] | undefined;
+        pannable?: boolean | ChartPannable | undefined;
+        pdf?: ChartPdf | undefined;
+        persistSeriesVisibility?: boolean | undefined;
+        plotArea?: ChartPlotArea | undefined;
+        renderAs?: string | undefined;
+        series?: ChartSeriesItem[] | undefined;
         seriesColors?: any;
-        seriesDefaults?: ChartSeriesDefaults;
-        theme?: string;
-        title?: string | ChartTitle;
-        tooltip?: ChartTooltip;
-        transitions?: boolean;
-        valueAxis?: ChartValueAxisItem | ChartValueAxisItem[];
-        xAxis?: ChartXAxisItem | ChartXAxisItem[];
-        yAxis?: ChartYAxisItem | ChartYAxisItem[];
-        zoomable?: boolean | ChartZoomable;
+        seriesDefaults?: ChartSeriesDefaults | undefined;
+        theme?: string | undefined;
+        title?: string | ChartTitle | undefined;
+        tooltip?: ChartTooltip | undefined;
+        transitions?: boolean | undefined;
+        valueAxis?: ChartValueAxisItem | ChartValueAxisItem[] | undefined;
+        xAxis?: ChartXAxisItem | ChartXAxisItem[] | undefined;
+        yAxis?: ChartYAxisItem | ChartYAxisItem[] | undefined;
+        zoomable?: boolean | ChartZoomable | undefined;
         axisLabelClick?(e: ChartAxisLabelClickEvent): void;
         dataBound?(e: ChartDataBoundEvent): void;
         drag?(e: ChartDragEvent): void;
@@ -15556,7 +15556,7 @@ declare namespace kendo.dataviz.ui {
         dataItem?: any;
         element?: any;
         index?: any;
-        text?: string;
+        text?: string | undefined;
         value?: any;
     }
 
@@ -15579,27 +15579,27 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface ChartLegendItemClickEvent extends ChartEvent {
-        pointIndex?: number;
+        pointIndex?: number | undefined;
         series?: any;
-        seriesIndex?: number;
-        text?: string;
+        seriesIndex?: number | undefined;
+        text?: string | undefined;
         element?: any;
     }
 
     interface ChartLegendItemHoverEvent extends ChartEvent {
         element?: any;
-        pointIndex?: number;
+        pointIndex?: number | undefined;
         series?: any;
-        seriesIndex?: number;
-        text?: string;
+        seriesIndex?: number | undefined;
+        text?: string | undefined;
     }
 
     interface ChartLegendItemLeaveEvent extends ChartEvent {
         element?: any;
-        pointIndex?: number;
+        pointIndex?: number | undefined;
         series?: any;
-        seriesIndex?: number;
-        text?: string;
+        seriesIndex?: number | undefined;
+        text?: string | undefined;
     }
 
     interface ChartNoteClickEvent extends ChartEvent {
@@ -15630,9 +15630,9 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface ChartPaneRenderEvent extends ChartEvent {
-        pane?: kendo.dataviz.ChartPane;
-        name?: string;
-        index?: number;
+        pane?: kendo.dataviz.ChartPane | undefined;
+        name?: string | undefined;
+        index?: number | undefined;
     }
 
     interface ChartPlotAreaClickEvent extends ChartEvent {
@@ -15683,7 +15683,7 @@ declare namespace kendo.dataviz.ui {
         element?: any;
         originalEvent?: any;
         percentage?: any;
-        series?: ChartSeriesClickEventSeries;
+        series?: ChartSeriesClickEventSeries | undefined;
         stackValue?: any;
         value?: any;
     }
@@ -15695,7 +15695,7 @@ declare namespace kendo.dataviz.ui {
         element?: any;
         originalEvent?: any;
         percentage?: any;
-        series?: ChartSeriesHoverEventSeries;
+        series?: ChartSeriesHoverEventSeries | undefined;
         stackValue?: any;
         value?: any;
     }
@@ -15706,7 +15706,7 @@ declare namespace kendo.dataviz.ui {
         element?: any;
         originalEvent?: any;
         percentage?: any;
-        series?: ChartSeriesOverEventSeries;
+        series?: ChartSeriesOverEventSeries | undefined;
         stackValue?: any;
         value?: any;
     }
@@ -15717,14 +15717,14 @@ declare namespace kendo.dataviz.ui {
         element?: any;
         originalEvent?: any;
         percentage?: any;
-        series?: ChartSeriesLeaveEventSeries;
+        series?: ChartSeriesLeaveEventSeries | undefined;
         stackValue?: any;
         value?: any;
     }
 
     interface ChartZoomEvent extends ChartEvent {
         axisRanges?: any;
-        delta?: number;
+        delta?: number | undefined;
         originalEvent?: any;
     }
 
@@ -15822,708 +15822,708 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface DiagramConnectionDefaultsContent {
-        color?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        fontWeight?: string;
-        template?: string|Function;
-        text?: string;
-        visual?: Function;
+        color?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontWeight?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
+        visual?: Function | undefined;
     }
 
     interface DiagramConnectionDefaultsEditableTool {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface DiagramConnectionDefaultsEditable {
-        drag?: boolean;
-        remove?: boolean;
-        tools?: DiagramConnectionDefaultsEditableTool[];
+        drag?: boolean | undefined;
+        remove?: boolean | undefined;
+        tools?: DiagramConnectionDefaultsEditableTool[] | undefined;
     }
 
     interface DiagramConnectionDefaultsEndCapFill {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionDefaultsEndCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramConnectionDefaultsEndCap {
-        fill?: string | DiagramConnectionDefaultsEndCapFill;
-        stroke?: string | DiagramConnectionDefaultsEndCapStroke;
-        type?: string;
+        fill?: string | DiagramConnectionDefaultsEndCapFill | undefined;
+        stroke?: string | DiagramConnectionDefaultsEndCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface DiagramConnectionDefaultsHoverStroke {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionDefaultsHover {
-        stroke?: DiagramConnectionDefaultsHoverStroke;
+        stroke?: DiagramConnectionDefaultsHoverStroke | undefined;
     }
 
     interface DiagramConnectionDefaultsSelectionHandlesFill {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionDefaultsSelectionHandlesStroke {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionDefaultsSelectionHandles {
-        fill?: string | DiagramConnectionDefaultsSelectionHandlesFill;
-        stroke?: DiagramConnectionDefaultsSelectionHandlesStroke;
-        width?: number;
-        height?: number;
+        fill?: string | DiagramConnectionDefaultsSelectionHandlesFill | undefined;
+        stroke?: DiagramConnectionDefaultsSelectionHandlesStroke | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface DiagramConnectionDefaultsSelection {
-        handles?: DiagramConnectionDefaultsSelectionHandles;
+        handles?: DiagramConnectionDefaultsSelectionHandles | undefined;
     }
 
     interface DiagramConnectionDefaultsStartCapFill {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionDefaultsStartCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramConnectionDefaultsStartCap {
-        fill?: string | DiagramConnectionDefaultsStartCapFill;
-        stroke?: string | DiagramConnectionDefaultsStartCapStroke;
-        type?: string;
+        fill?: string | DiagramConnectionDefaultsStartCapFill | undefined;
+        stroke?: string | DiagramConnectionDefaultsStartCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface DiagramConnectionDefaultsStroke {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramConnectionDefaults {
-        content?: DiagramConnectionDefaultsContent;
-        editable?: boolean | DiagramConnectionDefaultsEditable;
-        endCap?: string | DiagramConnectionDefaultsEndCap;
-        fromConnector?: string;
-        hover?: DiagramConnectionDefaultsHover;
-        selectable?: boolean;
-        selection?: DiagramConnectionDefaultsSelection;
-        startCap?: string | DiagramConnectionDefaultsStartCap;
-        stroke?: DiagramConnectionDefaultsStroke;
-        toConnector?: string;
-        type?: string;
+        content?: DiagramConnectionDefaultsContent | undefined;
+        editable?: boolean | DiagramConnectionDefaultsEditable | undefined;
+        endCap?: string | DiagramConnectionDefaultsEndCap | undefined;
+        fromConnector?: string | undefined;
+        hover?: DiagramConnectionDefaultsHover | undefined;
+        selectable?: boolean | undefined;
+        selection?: DiagramConnectionDefaultsSelection | undefined;
+        startCap?: string | DiagramConnectionDefaultsStartCap | undefined;
+        stroke?: DiagramConnectionDefaultsStroke | undefined;
+        toConnector?: string | undefined;
+        type?: string | undefined;
     }
 
     interface DiagramConnectionContent {
-        color?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        fontWeight?: string;
-        template?: string|Function;
-        text?: string;
-        visual?: Function;
+        color?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontWeight?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
+        visual?: Function | undefined;
     }
 
     interface DiagramConnectionEditableTool {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface DiagramConnectionEditable {
-        tools?: DiagramConnectionEditableTool[];
+        tools?: DiagramConnectionEditableTool[] | undefined;
     }
 
     interface DiagramConnectionEndCapFill {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionEndCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramConnectionEndCap {
-        fill?: string | DiagramConnectionEndCapFill;
-        stroke?: string | DiagramConnectionEndCapStroke;
-        type?: string;
+        fill?: string | DiagramConnectionEndCapFill | undefined;
+        stroke?: string | DiagramConnectionEndCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface DiagramConnectionFrom {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface DiagramConnectionHoverStroke {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionHover {
-        stroke?: DiagramConnectionHoverStroke;
+        stroke?: DiagramConnectionHoverStroke | undefined;
     }
 
     interface DiagramConnectionPoint {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface DiagramConnectionSelectionHandlesFill {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionSelectionHandlesStroke {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionSelectionHandles {
-        fill?: string | DiagramConnectionSelectionHandlesFill;
-        stroke?: DiagramConnectionSelectionHandlesStroke;
-        width?: number;
-        height?: number;
+        fill?: string | DiagramConnectionSelectionHandlesFill | undefined;
+        stroke?: DiagramConnectionSelectionHandlesStroke | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface DiagramConnectionSelection {
-        handles?: DiagramConnectionSelectionHandles;
+        handles?: DiagramConnectionSelectionHandles | undefined;
     }
 
     interface DiagramConnectionStartCapFill {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface DiagramConnectionStartCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramConnectionStartCap {
-        fill?: string | DiagramConnectionStartCapFill;
-        stroke?: string | DiagramConnectionStartCapStroke;
-        type?: string;
+        fill?: string | DiagramConnectionStartCapFill | undefined;
+        stroke?: string | DiagramConnectionStartCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface DiagramConnectionStroke {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramConnectionTo {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface DiagramConnection {
-        content?: DiagramConnectionContent;
-        editable?: boolean | DiagramConnectionEditable;
-        endCap?: string | DiagramConnectionEndCap;
-        from?: string | DiagramConnectionFrom;
-        fromConnector?: string;
-        hover?: DiagramConnectionHover;
-        points?: DiagramConnectionPoint[];
-        selection?: DiagramConnectionSelection;
-        startCap?: string | DiagramConnectionStartCap;
-        stroke?: DiagramConnectionStroke;
-        to?: string | DiagramConnectionTo;
-        toConnector?: string;
-        type?: string;
+        content?: DiagramConnectionContent | undefined;
+        editable?: boolean | DiagramConnectionEditable | undefined;
+        endCap?: string | DiagramConnectionEndCap | undefined;
+        from?: string | DiagramConnectionFrom | undefined;
+        fromConnector?: string | undefined;
+        hover?: DiagramConnectionHover | undefined;
+        points?: DiagramConnectionPoint[] | undefined;
+        selection?: DiagramConnectionSelection | undefined;
+        startCap?: string | DiagramConnectionStartCap | undefined;
+        stroke?: DiagramConnectionStroke | undefined;
+        to?: string | DiagramConnectionTo | undefined;
+        toConnector?: string | undefined;
+        type?: string | undefined;
     }
 
     interface DiagramEditableDragSnap {
-        size?: number;
+        size?: number | undefined;
     }
 
     interface DiagramEditableDrag {
-        snap?: boolean | DiagramEditableDragSnap;
+        snap?: boolean | DiagramEditableDragSnap | undefined;
     }
 
     interface DiagramEditableResizeHandlesFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramEditableResizeHandlesHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramEditableResizeHandlesHoverStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramEditableResizeHandlesHover {
-        fill?: string | DiagramEditableResizeHandlesHoverFill;
-        stroke?: DiagramEditableResizeHandlesHoverStroke;
+        fill?: string | DiagramEditableResizeHandlesHoverFill | undefined;
+        stroke?: DiagramEditableResizeHandlesHoverStroke | undefined;
     }
 
     interface DiagramEditableResizeHandlesStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramEditableResizeHandles {
-        fill?: string | DiagramEditableResizeHandlesFill;
-        height?: number;
-        hover?: DiagramEditableResizeHandlesHover;
-        stroke?: DiagramEditableResizeHandlesStroke;
-        width?: number;
+        fill?: string | DiagramEditableResizeHandlesFill | undefined;
+        height?: number | undefined;
+        hover?: DiagramEditableResizeHandlesHover | undefined;
+        stroke?: DiagramEditableResizeHandlesStroke | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramEditableResize {
-        handles?: DiagramEditableResizeHandles;
+        handles?: DiagramEditableResizeHandles | undefined;
     }
 
     interface DiagramEditableRotateFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramEditableRotateStroke {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramEditableRotate {
-        fill?: DiagramEditableRotateFill;
-        stroke?: DiagramEditableRotateStroke;
+        fill?: DiagramEditableRotateFill | undefined;
+        stroke?: DiagramEditableRotateStroke | undefined;
     }
 
     interface DiagramEditableTool {
-        name?: string;
-        step?: number;
+        name?: string | undefined;
+        step?: number | undefined;
     }
 
     interface DiagramEditable {
-        connectionTemplate?: string|Function;
-        drag?: boolean | DiagramEditableDrag;
-        remove?: boolean;
-        resize?: boolean | DiagramEditableResize;
-        rotate?: boolean | DiagramEditableRotate;
-        shapeTemplate?: string|Function;
-        tools?: DiagramEditableTool[];
+        connectionTemplate?: string|Function | undefined;
+        drag?: boolean | DiagramEditableDrag | undefined;
+        remove?: boolean | undefined;
+        resize?: boolean | DiagramEditableResize | undefined;
+        rotate?: boolean | DiagramEditableRotate | undefined;
+        shapeTemplate?: string|Function | undefined;
+        tools?: DiagramEditableTool[] | undefined;
     }
 
     interface DiagramLayoutGrid {
-        componentSpacingX?: number;
-        componentSpacingY?: number;
-        offsetX?: number;
-        offsetY?: number;
-        width?: number;
+        componentSpacingX?: number | undefined;
+        componentSpacingY?: number | undefined;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramLayout {
-        endRadialAngle?: number;
-        grid?: DiagramLayoutGrid;
-        horizontalSeparation?: number;
-        iterations?: number;
-        layerSeparation?: number;
-        nodeDistance?: number;
-        radialFirstLevelSeparation?: number;
-        radialSeparation?: number;
-        startRadialAngle?: number;
-        subtype?: string;
-        tipOverTreeStartLevel?: number;
-        type?: string;
-        underneathHorizontalOffset?: number;
-        underneathVerticalSeparation?: number;
-        underneathVerticalTopOffset?: number;
-        verticalSeparation?: number;
+        endRadialAngle?: number | undefined;
+        grid?: DiagramLayoutGrid | undefined;
+        horizontalSeparation?: number | undefined;
+        iterations?: number | undefined;
+        layerSeparation?: number | undefined;
+        nodeDistance?: number | undefined;
+        radialFirstLevelSeparation?: number | undefined;
+        radialSeparation?: number | undefined;
+        startRadialAngle?: number | undefined;
+        subtype?: string | undefined;
+        tipOverTreeStartLevel?: number | undefined;
+        type?: string | undefined;
+        underneathHorizontalOffset?: number | undefined;
+        underneathVerticalSeparation?: number | undefined;
+        underneathVerticalTopOffset?: number | undefined;
+        verticalSeparation?: number | undefined;
     }
 
     interface DiagramPannable {
-        key?: string;
+        key?: string | undefined;
     }
 
     interface DiagramPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface DiagramPdf {
-        author?: string;
-        creator?: string;
-        date?: Date;
-        fileName?: string;
-        forceProxy?: boolean;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: DiagramPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        author?: string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        fileName?: string | undefined;
+        forceProxy?: boolean | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: DiagramPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface DiagramSelectableStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramSelectable {
-        key?: string;
-        multiple?: boolean;
-        stroke?: DiagramSelectableStroke;
+        key?: string | undefined;
+        multiple?: boolean | undefined;
+        stroke?: DiagramSelectableStroke | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorDefaultsFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorDefaultsHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorDefaultsHoverStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorDefaultsHover {
-        fill?: string | DiagramShapeDefaultsConnectorDefaultsHoverFill;
-        stroke?: string | DiagramShapeDefaultsConnectorDefaultsHoverStroke;
+        fill?: string | DiagramShapeDefaultsConnectorDefaultsHoverFill | undefined;
+        stroke?: string | DiagramShapeDefaultsConnectorDefaultsHoverStroke | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorDefaultsStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorDefaults {
-        width?: number;
-        height?: number;
-        hover?: DiagramShapeDefaultsConnectorDefaultsHover;
-        fill?: string | DiagramShapeDefaultsConnectorDefaultsFill;
-        stroke?: string | DiagramShapeDefaultsConnectorDefaultsStroke;
+        width?: number | undefined;
+        height?: number | undefined;
+        hover?: DiagramShapeDefaultsConnectorDefaultsHover | undefined;
+        fill?: string | DiagramShapeDefaultsConnectorDefaultsFill | undefined;
+        stroke?: string | DiagramShapeDefaultsConnectorDefaultsStroke | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorHoverStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorHover {
-        fill?: string | DiagramShapeDefaultsConnectorHoverFill;
-        stroke?: string | DiagramShapeDefaultsConnectorHoverStroke;
+        fill?: string | DiagramShapeDefaultsConnectorHoverFill | undefined;
+        stroke?: string | DiagramShapeDefaultsConnectorHoverStroke | undefined;
     }
 
     interface DiagramShapeDefaultsConnectorStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeDefaultsConnector {
-        name?: string;
-        position?: Function;
-        width?: number;
-        height?: number;
-        hover?: DiagramShapeDefaultsConnectorHover;
-        fill?: string | DiagramShapeDefaultsConnectorFill;
-        stroke?: string | DiagramShapeDefaultsConnectorStroke;
+        name?: string | undefined;
+        position?: Function | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        hover?: DiagramShapeDefaultsConnectorHover | undefined;
+        fill?: string | DiagramShapeDefaultsConnectorFill | undefined;
+        stroke?: string | DiagramShapeDefaultsConnectorStroke | undefined;
     }
 
     interface DiagramShapeDefaultsContent {
-        align?: string;
-        color?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        fontWeight?: string;
-        template?: string|Function;
-        text?: string;
+        align?: string | undefined;
+        color?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontWeight?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
     }
 
     interface DiagramShapeDefaultsEditableTool {
-        name?: string;
-        step?: number;
+        name?: string | undefined;
+        step?: number | undefined;
     }
 
     interface DiagramShapeDefaultsEditable {
-        connect?: boolean;
-        drag?: boolean;
-        remove?: boolean;
-        tools?: DiagramShapeDefaultsEditableTool[];
+        connect?: boolean | undefined;
+        drag?: boolean | undefined;
+        remove?: boolean | undefined;
+        tools?: DiagramShapeDefaultsEditableTool[] | undefined;
     }
 
     interface DiagramShapeDefaultsFillGradientStop {
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeDefaultsFillGradient {
-        type?: string;
+        type?: string | undefined;
         center?: any;
-        radius?: number;
+        radius?: number | undefined;
         start?: any;
         end?: any;
-        stops?: DiagramShapeDefaultsFillGradientStop[];
+        stops?: DiagramShapeDefaultsFillGradientStop[] | undefined;
     }
 
     interface DiagramShapeDefaultsFill {
-        color?: string;
-        opacity?: number;
-        gradient?: DiagramShapeDefaultsFillGradient;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        gradient?: DiagramShapeDefaultsFillGradient | undefined;
     }
 
     interface DiagramShapeDefaultsHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeDefaultsHover {
-        fill?: string | DiagramShapeDefaultsHoverFill;
+        fill?: string | DiagramShapeDefaultsHoverFill | undefined;
     }
 
     interface DiagramShapeDefaultsRotation {
-        angle?: number;
+        angle?: number | undefined;
     }
 
     interface DiagramShapeDefaultsStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeDefaults {
-        connectors?: DiagramShapeDefaultsConnector[];
-        connectorDefaults?: DiagramShapeDefaultsConnectorDefaults;
-        content?: DiagramShapeDefaultsContent;
-        editable?: boolean | DiagramShapeDefaultsEditable;
-        fill?: string | DiagramShapeDefaultsFill;
-        height?: number;
-        hover?: DiagramShapeDefaultsHover;
-        minHeight?: number;
-        minWidth?: number;
-        path?: string;
-        rotation?: DiagramShapeDefaultsRotation;
-        selectable?: boolean;
-        source?: string;
-        stroke?: DiagramShapeDefaultsStroke;
-        type?: string;
-        visual?: Function;
-        width?: number;
-        x?: number;
-        y?: number;
+        connectors?: DiagramShapeDefaultsConnector[] | undefined;
+        connectorDefaults?: DiagramShapeDefaultsConnectorDefaults | undefined;
+        content?: DiagramShapeDefaultsContent | undefined;
+        editable?: boolean | DiagramShapeDefaultsEditable | undefined;
+        fill?: string | DiagramShapeDefaultsFill | undefined;
+        height?: number | undefined;
+        hover?: DiagramShapeDefaultsHover | undefined;
+        minHeight?: number | undefined;
+        minWidth?: number | undefined;
+        path?: string | undefined;
+        rotation?: DiagramShapeDefaultsRotation | undefined;
+        selectable?: boolean | undefined;
+        source?: string | undefined;
+        stroke?: DiagramShapeDefaultsStroke | undefined;
+        type?: string | undefined;
+        visual?: Function | undefined;
+        width?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface DiagramShapeConnectorDefaultsFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeConnectorDefaultsHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeConnectorDefaultsHoverStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeConnectorDefaultsHover {
-        fill?: string | DiagramShapeConnectorDefaultsHoverFill;
-        stroke?: string | DiagramShapeConnectorDefaultsHoverStroke;
+        fill?: string | DiagramShapeConnectorDefaultsHoverFill | undefined;
+        stroke?: string | DiagramShapeConnectorDefaultsHoverStroke | undefined;
     }
 
     interface DiagramShapeConnectorDefaultsStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeConnectorDefaults {
-        width?: number;
-        height?: number;
-        hover?: DiagramShapeConnectorDefaultsHover;
-        fill?: string | DiagramShapeConnectorDefaultsFill;
-        stroke?: string | DiagramShapeConnectorDefaultsStroke;
+        width?: number | undefined;
+        height?: number | undefined;
+        hover?: DiagramShapeConnectorDefaultsHover | undefined;
+        fill?: string | DiagramShapeConnectorDefaultsFill | undefined;
+        stroke?: string | DiagramShapeConnectorDefaultsStroke | undefined;
     }
 
     interface DiagramShapeConnectorFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeConnectorHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeConnectorHoverStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeConnectorHover {
-        fill?: string | DiagramShapeConnectorHoverFill;
-        stroke?: string | DiagramShapeConnectorHoverStroke;
+        fill?: string | DiagramShapeConnectorHoverFill | undefined;
+        stroke?: string | DiagramShapeConnectorHoverStroke | undefined;
     }
 
     interface DiagramShapeConnectorStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShapeConnector {
-        description?: string;
-        name?: string;
-        position?: Function;
-        width?: number;
-        height?: number;
-        hover?: DiagramShapeConnectorHover;
-        fill?: string | DiagramShapeConnectorFill;
-        stroke?: string | DiagramShapeConnectorStroke;
+        description?: string | undefined;
+        name?: string | undefined;
+        position?: Function | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        hover?: DiagramShapeConnectorHover | undefined;
+        fill?: string | DiagramShapeConnectorFill | undefined;
+        stroke?: string | DiagramShapeConnectorStroke | undefined;
     }
 
     interface DiagramShapeContent {
-        align?: string;
-        color?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        fontWeight?: string;
-        template?: string|Function;
-        text?: string;
+        align?: string | undefined;
+        color?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontWeight?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
     }
 
     interface DiagramShapeEditableTool {
-        name?: string;
-        step?: number;
+        name?: string | undefined;
+        step?: number | undefined;
     }
 
     interface DiagramShapeEditable {
-        connect?: boolean;
-        tools?: DiagramShapeEditableTool[];
+        connect?: boolean | undefined;
+        tools?: DiagramShapeEditableTool[] | undefined;
     }
 
     interface DiagramShapeFillGradientStop {
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeFillGradient {
-        type?: string;
+        type?: string | undefined;
         center?: any;
-        radius?: number;
+        radius?: number | undefined;
         start?: any;
         end?: any;
-        stops?: DiagramShapeFillGradientStop[];
+        stops?: DiagramShapeFillGradientStop[] | undefined;
     }
 
     interface DiagramShapeFill {
-        color?: string;
-        opacity?: number;
-        gradient?: DiagramShapeFillGradient;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        gradient?: DiagramShapeFillGradient | undefined;
     }
 
     interface DiagramShapeHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface DiagramShapeHover {
-        fill?: string | DiagramShapeHoverFill;
+        fill?: string | DiagramShapeHoverFill | undefined;
     }
 
     interface DiagramShapeRotation {
-        angle?: number;
+        angle?: number | undefined;
     }
 
     interface DiagramShapeStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface DiagramShape {
-        connectors?: DiagramShapeConnector[];
-        connectorDefaults?: DiagramShapeConnectorDefaults;
-        content?: DiagramShapeContent;
-        editable?: boolean | DiagramShapeEditable;
-        fill?: string | DiagramShapeFill;
-        height?: number;
-        hover?: DiagramShapeHover;
-        id?: string;
-        minHeight?: number;
-        minWidth?: number;
-        path?: string;
-        rotation?: DiagramShapeRotation;
-        source?: string;
-        stroke?: DiagramShapeStroke;
-        type?: string;
-        visual?: Function;
-        width?: number;
-        x?: number;
-        y?: number;
+        connectors?: DiagramShapeConnector[] | undefined;
+        connectorDefaults?: DiagramShapeConnectorDefaults | undefined;
+        content?: DiagramShapeContent | undefined;
+        editable?: boolean | DiagramShapeEditable | undefined;
+        fill?: string | DiagramShapeFill | undefined;
+        height?: number | undefined;
+        hover?: DiagramShapeHover | undefined;
+        id?: string | undefined;
+        minHeight?: number | undefined;
+        minWidth?: number | undefined;
+        path?: string | undefined;
+        rotation?: DiagramShapeRotation | undefined;
+        source?: string | undefined;
+        stroke?: DiagramShapeStroke | undefined;
+        type?: string | undefined;
+        visual?: Function | undefined;
+        width?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface DiagramExportImageOptions {
-        width?: string;
-        height?: string;
-        cors?: string;
+        width?: string | undefined;
+        height?: string | undefined;
+        cors?: string | undefined;
     }
 
     interface DiagramExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface DiagramSelectOptions {
-        addToSelection?: boolean;
+        addToSelection?: boolean | undefined;
     }
 
     interface DiagramOptions {
-        name?: string;
-        autoBind?: boolean;
-        connectionDefaults?: DiagramConnectionDefaults;
-        connections?: DiagramConnection[];
-        connectionsDataSource?: any|any|kendo.data.DataSource;
-        dataSource?: any|any|kendo.data.DataSource;
-        editable?: boolean | DiagramEditable;
-        layout?: DiagramLayout;
-        pannable?: boolean | DiagramPannable;
-        pdf?: DiagramPdf;
-        selectable?: boolean | DiagramSelectable;
-        shapeDefaults?: DiagramShapeDefaults;
-        shapes?: DiagramShape[];
-        template?: string|Function;
-        theme?: string;
-        zoom?: number;
-        zoomMax?: number;
-        zoomMin?: number;
-        zoomRate?: number;
+        name?: string | undefined;
+        autoBind?: boolean | undefined;
+        connectionDefaults?: DiagramConnectionDefaults | undefined;
+        connections?: DiagramConnection[] | undefined;
+        connectionsDataSource?: any|any|kendo.data.DataSource | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        editable?: boolean | DiagramEditable | undefined;
+        layout?: DiagramLayout | undefined;
+        pannable?: boolean | DiagramPannable | undefined;
+        pdf?: DiagramPdf | undefined;
+        selectable?: boolean | DiagramSelectable | undefined;
+        shapeDefaults?: DiagramShapeDefaults | undefined;
+        shapes?: DiagramShape[] | undefined;
+        template?: string|Function | undefined;
+        theme?: string | undefined;
+        zoom?: number | undefined;
+        zoomMax?: number | undefined;
+        zoomMin?: number | undefined;
+        zoomRate?: number | undefined;
         add?(e: DiagramAddEvent): void;
         cancel?(e: DiagramCancelEvent): void;
         change?(e: DiagramChangeEvent): void;
@@ -16552,14 +16552,14 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface DiagramAddEvent extends DiagramEvent {
-        connection?: kendo.dataviz.diagram.Connection;
-        shape?: kendo.dataviz.diagram.Shape;
+        connection?: kendo.dataviz.diagram.Connection | undefined;
+        shape?: kendo.dataviz.diagram.Shape | undefined;
     }
 
     interface DiagramCancelEvent extends DiagramEvent {
-        container?: JQuery;
-        connection?: kendo.data.Model;
-        shape?: kendo.data.Model;
+        container?: JQuery | undefined;
+        connection?: kendo.data.Model | undefined;
+        shape?: kendo.data.Model | undefined;
     }
 
     interface DiagramChangeEvent extends DiagramEvent {
@@ -16570,43 +16570,43 @@ declare namespace kendo.dataviz.ui {
     interface DiagramClickEvent extends DiagramEvent {
         item?: any;
         meta?: any;
-        point?: kendo.dataviz.diagram.Point;
+        point?: kendo.dataviz.diagram.Point | undefined;
     }
 
     interface DiagramDataBoundEvent extends DiagramEvent {
     }
 
     interface DiagramDragEvent extends DiagramEvent {
-        connectionHandle?: string;
+        connectionHandle?: string | undefined;
         connections?: any;
         shapes?: any;
     }
 
     interface DiagramDragEndEvent extends DiagramEvent {
-        connectionHandle?: string;
+        connectionHandle?: string | undefined;
         connections?: any;
         shapes?: any;
     }
 
     interface DiagramDragStartEvent extends DiagramEvent {
-        connectionHandle?: string;
+        connectionHandle?: string | undefined;
         connections?: any;
         shapes?: any;
     }
 
     interface DiagramEditEvent extends DiagramEvent {
-        container?: JQuery;
-        connection?: kendo.data.Model;
-        shape?: kendo.data.Model;
+        container?: JQuery | undefined;
+        connection?: kendo.data.Model | undefined;
+        shape?: kendo.data.Model | undefined;
     }
 
     interface DiagramItemBoundsChangeEvent extends DiagramEvent {
-        bounds?: kendo.dataviz.diagram.Rect;
-        item?: kendo.dataviz.diagram.Shape;
+        bounds?: kendo.dataviz.diagram.Rect | undefined;
+        item?: kendo.dataviz.diagram.Shape | undefined;
     }
 
     interface DiagramItemRotateEvent extends DiagramEvent {
-        item?: kendo.dataviz.diagram.Shape;
+        item?: kendo.dataviz.diagram.Shape | undefined;
     }
 
     interface DiagramMouseEnterEvent extends DiagramEvent {
@@ -16618,18 +16618,18 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface DiagramPanEvent extends DiagramEvent {
-        pan?: kendo.dataviz.diagram.Point;
+        pan?: kendo.dataviz.diagram.Point | undefined;
     }
 
     interface DiagramRemoveEvent extends DiagramEvent {
-        connection?: kendo.dataviz.diagram.Connection;
-        shape?: kendo.dataviz.diagram.Shape;
+        connection?: kendo.dataviz.diagram.Connection | undefined;
+        shape?: kendo.dataviz.diagram.Shape | undefined;
     }
 
     interface DiagramSaveEvent extends DiagramEvent {
-        container?: JQuery;
-        connection?: kendo.data.Model;
-        shape?: kendo.data.Model;
+        container?: JQuery | undefined;
+        connection?: kendo.data.Model | undefined;
+        shape?: kendo.data.Model | undefined;
     }
 
     interface DiagramSelectEvent extends DiagramEvent {
@@ -16638,20 +16638,20 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface DiagramToolBarClickEvent extends DiagramEvent {
-        action?: string;
+        action?: string | undefined;
         shapes?: any;
         connections?: any;
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
     interface DiagramZoomEndEvent extends DiagramEvent {
-        point?: kendo.dataviz.diagram.Point;
-        zoom?: number;
+        point?: kendo.dataviz.diagram.Point | undefined;
+        zoom?: number | undefined;
     }
 
     interface DiagramZoomStartEvent extends DiagramEvent {
-        point?: kendo.dataviz.diagram.Point;
-        zoom?: number;
+        point?: kendo.dataviz.diagram.Point | undefined;
+        zoom?: number | undefined;
     }
 
 
@@ -16685,151 +16685,151 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface LinearGaugeGaugeAreaBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface LinearGaugeGaugeAreaMargin {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface LinearGaugeGaugeArea {
-        background?: string;
-        border?: LinearGaugeGaugeAreaBorder;
-        height?: number;
-        margin?: number | LinearGaugeGaugeAreaMargin;
-        width?: number;
+        background?: string | undefined;
+        border?: LinearGaugeGaugeAreaBorder | undefined;
+        height?: number | undefined;
+        margin?: number | LinearGaugeGaugeAreaMargin | undefined;
+        width?: number | undefined;
     }
 
     interface LinearGaugePointerItemBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface LinearGaugePointerItemTrackBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface LinearGaugePointerItemTrack {
-        border?: LinearGaugePointerItemTrackBorder;
-        color?: string;
-        opacity?: number;
-        size?: number;
-        visible?: boolean;
+        border?: LinearGaugePointerItemTrackBorder | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
     }
 
     interface LinearGaugePointerItem {
-        border?: LinearGaugePointerItemBorder;
-        color?: string;
-        margin?: number|any;
-        opacity?: number;
-        shape?: string;
-        size?: number;
-        track?: LinearGaugePointerItemTrack;
-        value?: number;
+        border?: LinearGaugePointerItemBorder | undefined;
+        color?: string | undefined;
+        margin?: number|any | undefined;
+        opacity?: number | undefined;
+        shape?: string | undefined;
+        size?: number | undefined;
+        track?: LinearGaugePointerItemTrack | undefined;
+        value?: number | undefined;
     }
 
     interface LinearGaugeScaleLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface LinearGaugeScaleLabelsMargin {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface LinearGaugeScaleLabelsPadding {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface LinearGaugeScaleLabels {
-        background?: string;
-        border?: LinearGaugeScaleLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number | LinearGaugeScaleLabelsMargin;
-        padding?: number | LinearGaugeScaleLabelsPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: LinearGaugeScaleLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | LinearGaugeScaleLabelsMargin | undefined;
+        padding?: number | LinearGaugeScaleLabelsPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface LinearGaugeScaleLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface LinearGaugeScaleMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface LinearGaugeScaleMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface LinearGaugeScaleRange {
-        from?: number;
-        to?: number;
-        opacity?: number;
-        color?: string;
+        from?: number | undefined;
+        to?: number | undefined;
+        opacity?: number | undefined;
+        color?: string | undefined;
     }
 
     interface LinearGaugeScale {
-        line?: LinearGaugeScaleLine;
-        labels?: LinearGaugeScaleLabels;
-        majorTicks?: LinearGaugeScaleMajorTicks;
-        majorUnit?: number;
-        max?: number;
-        min?: number;
-        minorTicks?: LinearGaugeScaleMinorTicks;
-        minorUnit?: number;
-        mirror?: boolean;
-        ranges?: LinearGaugeScaleRange[];
-        rangePlaceholderColor?: string;
-        rangeSize?: number;
-        reverse?: boolean;
-        vertical?: boolean;
+        line?: LinearGaugeScaleLine | undefined;
+        labels?: LinearGaugeScaleLabels | undefined;
+        majorTicks?: LinearGaugeScaleMajorTicks | undefined;
+        majorUnit?: number | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        minorTicks?: LinearGaugeScaleMinorTicks | undefined;
+        minorUnit?: number | undefined;
+        mirror?: boolean | undefined;
+        ranges?: LinearGaugeScaleRange[] | undefined;
+        rangePlaceholderColor?: string | undefined;
+        rangeSize?: number | undefined;
+        reverse?: boolean | undefined;
+        vertical?: boolean | undefined;
     }
 
     interface LinearGaugeExportImageOptions {
-        width?: string;
-        height?: string;
+        width?: string | undefined;
+        height?: string | undefined;
     }
 
     interface LinearGaugeExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface LinearGaugeOptions {
-        name?: string;
-        gaugeArea?: LinearGaugeGaugeArea;
-        pointer?: LinearGaugePointerItem[];
-        renderAs?: string;
-        scale?: LinearGaugeScale;
-        theme?: string;
-        transitions?: boolean;
+        name?: string | undefined;
+        gaugeArea?: LinearGaugeGaugeArea | undefined;
+        pointer?: LinearGaugePointerItem[] | undefined;
+        renderAs?: string | undefined;
+        scale?: LinearGaugeScale | undefined;
+        theme?: string | undefined;
+        transitions?: boolean | undefined;
     }
     interface LinearGaugeEvent {
         sender: LinearGauge;
@@ -16885,305 +16885,305 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface MapControlsAttribution {
-        position?: string;
+        position?: string | undefined;
     }
 
     interface MapControlsNavigator {
-        position?: string;
+        position?: string | undefined;
     }
 
     interface MapControlsZoom {
-        position?: string;
+        position?: string | undefined;
     }
 
     interface MapControls {
-        attribution?: boolean | MapControlsAttribution;
-        navigator?: boolean | MapControlsNavigator;
-        zoom?: boolean | MapControlsZoom;
+        attribution?: boolean | MapControlsAttribution | undefined;
+        navigator?: boolean | MapControlsNavigator | undefined;
+        zoom?: boolean | MapControlsZoom | undefined;
     }
 
     interface MapLayerDefaultsBing {
-        attribution?: string;
-        opacity?: number;
-        key?: string;
-        imagerySet?: string;
-        culture?: string;
+        attribution?: string | undefined;
+        opacity?: number | undefined;
+        key?: string | undefined;
+        imagerySet?: string | undefined;
+        culture?: string | undefined;
     }
 
     interface MapLayerDefaultsBubbleStyleFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface MapLayerDefaultsBubbleStyleStroke {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface MapLayerDefaultsBubbleStyle {
-        fill?: MapLayerDefaultsBubbleStyleFill;
-        stroke?: MapLayerDefaultsBubbleStyleStroke;
+        fill?: MapLayerDefaultsBubbleStyleFill | undefined;
+        stroke?: MapLayerDefaultsBubbleStyleStroke | undefined;
     }
 
     interface MapLayerDefaultsBubble {
-        attribution?: string;
-        opacity?: number;
-        maxSize?: number;
-        minSize?: number;
-        style?: MapLayerDefaultsBubbleStyle;
-        symbol?: string|Function;
+        attribution?: string | undefined;
+        opacity?: number | undefined;
+        maxSize?: number | undefined;
+        minSize?: number | undefined;
+        style?: MapLayerDefaultsBubbleStyle | undefined;
+        symbol?: string|Function | undefined;
     }
 
     interface MapLayerDefaultsMarkerTooltipAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MapLayerDefaultsMarkerTooltipAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MapLayerDefaultsMarkerTooltipAnimation {
-        close?: MapLayerDefaultsMarkerTooltipAnimationClose;
-        open?: MapLayerDefaultsMarkerTooltipAnimationOpen;
+        close?: MapLayerDefaultsMarkerTooltipAnimationClose | undefined;
+        open?: MapLayerDefaultsMarkerTooltipAnimationOpen | undefined;
     }
 
     interface MapLayerDefaultsMarkerTooltipContent {
-        url?: string;
+        url?: string | undefined;
     }
 
     interface MapLayerDefaultsMarkerTooltip {
-        autoHide?: boolean;
-        animation?: MapLayerDefaultsMarkerTooltipAnimation;
-        content?: string | Function | MapLayerDefaultsMarkerTooltipContent;
-        template?: string;
-        callout?: boolean;
-        iframe?: boolean;
-        height?: number;
-        width?: number;
-        position?: string;
-        showAfter?: number;
-        showOn?: string;
+        autoHide?: boolean | undefined;
+        animation?: MapLayerDefaultsMarkerTooltipAnimation | undefined;
+        content?: string | Function | MapLayerDefaultsMarkerTooltipContent | undefined;
+        template?: string | undefined;
+        callout?: boolean | undefined;
+        iframe?: boolean | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        position?: string | undefined;
+        showAfter?: number | undefined;
+        showOn?: string | undefined;
     }
 
     interface MapLayerDefaultsMarker {
-        shape?: string;
-        tooltip?: MapLayerDefaultsMarkerTooltip;
-        opacity?: number;
+        shape?: string | undefined;
+        tooltip?: MapLayerDefaultsMarkerTooltip | undefined;
+        opacity?: number | undefined;
     }
 
     interface MapLayerDefaultsShapeStyleFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface MapLayerDefaultsShapeStyleStroke {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface MapLayerDefaultsShapeStyle {
-        fill?: MapLayerDefaultsShapeStyleFill;
-        stroke?: MapLayerDefaultsShapeStyleStroke;
+        fill?: MapLayerDefaultsShapeStyleFill | undefined;
+        stroke?: MapLayerDefaultsShapeStyleStroke | undefined;
     }
 
     interface MapLayerDefaultsShape {
-        attribution?: string;
-        opacity?: number;
-        style?: MapLayerDefaultsShapeStyle;
+        attribution?: string | undefined;
+        opacity?: number | undefined;
+        style?: MapLayerDefaultsShapeStyle | undefined;
     }
 
     interface MapLayerDefaultsTile {
-        urlTemplate?: string;
-        attribution?: string;
+        urlTemplate?: string | undefined;
+        attribution?: string | undefined;
         subdomains?: any;
-        opacity?: number;
+        opacity?: number | undefined;
     }
 
     interface MapLayerDefaults {
-        marker?: MapLayerDefaultsMarker;
-        shape?: MapLayerDefaultsShape;
-        bubble?: MapLayerDefaultsBubble;
-        tileSize?: number;
-        tile?: MapLayerDefaultsTile;
-        bing?: MapLayerDefaultsBing;
+        marker?: MapLayerDefaultsMarker | undefined;
+        shape?: MapLayerDefaultsShape | undefined;
+        bubble?: MapLayerDefaultsBubble | undefined;
+        tileSize?: number | undefined;
+        tile?: MapLayerDefaultsTile | undefined;
+        bing?: MapLayerDefaultsBing | undefined;
     }
 
     interface MapLayerStyleFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface MapLayerStyleStroke {
-        color?: string;
-        dashType?: number;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: number | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface MapLayerStyle {
-        fill?: MapLayerStyleFill;
-        stroke?: MapLayerStyleStroke;
+        fill?: MapLayerStyleFill | undefined;
+        stroke?: MapLayerStyleStroke | undefined;
     }
 
     interface MapLayerTooltipAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MapLayerTooltipAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MapLayerTooltipAnimation {
-        close?: MapLayerTooltipAnimationClose;
-        open?: MapLayerTooltipAnimationOpen;
+        close?: MapLayerTooltipAnimationClose | undefined;
+        open?: MapLayerTooltipAnimationOpen | undefined;
     }
 
     interface MapLayerTooltipContent {
-        url?: string;
+        url?: string | undefined;
     }
 
     interface MapLayerTooltip {
-        autoHide?: boolean;
-        animation?: MapLayerTooltipAnimation;
-        content?: string | Function | MapLayerTooltipContent;
-        template?: string;
-        callout?: boolean;
-        iframe?: boolean;
-        height?: number;
-        width?: number;
-        position?: string;
-        showAfter?: number;
-        showOn?: string;
+        autoHide?: boolean | undefined;
+        animation?: MapLayerTooltipAnimation | undefined;
+        content?: string | Function | MapLayerTooltipContent | undefined;
+        template?: string | undefined;
+        callout?: boolean | undefined;
+        iframe?: boolean | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        position?: string | undefined;
+        showAfter?: number | undefined;
+        showOn?: string | undefined;
     }
 
     interface MapLayer {
-        attribution?: string;
-        autoBind?: boolean;
-        dataSource?: any|any|kendo.data.DataSource;
-        extent?: any|kendo.dataviz.map.Extent;
-        key?: string;
-        imagerySet?: string;
-        culture?: string;
-        locationField?: string;
-        shape?: string;
-        tileSize?: number;
-        titleField?: string;
-        tooltip?: MapLayerTooltip;
-        maxSize?: number;
-        minSize?: number;
-        maxZoom?: number;
-        minZoom?: number;
-        opacity?: number;
+        attribution?: string | undefined;
+        autoBind?: boolean | undefined;
+        dataSource?: any|any|kendo.data.DataSource | undefined;
+        extent?: any|kendo.dataviz.map.Extent | undefined;
+        key?: string | undefined;
+        imagerySet?: string | undefined;
+        culture?: string | undefined;
+        locationField?: string | undefined;
+        shape?: string | undefined;
+        tileSize?: number | undefined;
+        titleField?: string | undefined;
+        tooltip?: MapLayerTooltip | undefined;
+        maxSize?: number | undefined;
+        minSize?: number | undefined;
+        maxZoom?: number | undefined;
+        minZoom?: number | undefined;
+        opacity?: number | undefined;
         subdomains?: any;
-        symbol?: string|Function;
-        type?: string;
-        style?: MapLayerStyle;
-        urlTemplate?: string;
-        valueField?: string;
-        zIndex?: number;
+        symbol?: string|Function | undefined;
+        type?: string | undefined;
+        style?: MapLayerStyle | undefined;
+        urlTemplate?: string | undefined;
+        valueField?: string | undefined;
+        zIndex?: number | undefined;
     }
 
     interface MapMarkerDefaultsTooltipAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MapMarkerDefaultsTooltipAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MapMarkerDefaultsTooltipAnimation {
-        close?: MapMarkerDefaultsTooltipAnimationClose;
-        open?: MapMarkerDefaultsTooltipAnimationOpen;
+        close?: MapMarkerDefaultsTooltipAnimationClose | undefined;
+        open?: MapMarkerDefaultsTooltipAnimationOpen | undefined;
     }
 
     interface MapMarkerDefaultsTooltipContent {
-        url?: string;
+        url?: string | undefined;
     }
 
     interface MapMarkerDefaultsTooltip {
-        autoHide?: boolean;
-        animation?: MapMarkerDefaultsTooltipAnimation;
-        content?: string | Function | MapMarkerDefaultsTooltipContent;
-        template?: string;
-        callout?: boolean;
-        iframe?: boolean;
-        height?: number;
-        width?: number;
-        position?: string;
-        showAfter?: number;
-        showOn?: string;
+        autoHide?: boolean | undefined;
+        animation?: MapMarkerDefaultsTooltipAnimation | undefined;
+        content?: string | Function | MapMarkerDefaultsTooltipContent | undefined;
+        template?: string | undefined;
+        callout?: boolean | undefined;
+        iframe?: boolean | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        position?: string | undefined;
+        showAfter?: number | undefined;
+        showOn?: string | undefined;
     }
 
     interface MapMarkerDefaults {
-        shape?: string;
-        tooltip?: MapMarkerDefaultsTooltip;
+        shape?: string | undefined;
+        tooltip?: MapMarkerDefaultsTooltip | undefined;
     }
 
     interface MapMarkerTooltipAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MapMarkerTooltipAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MapMarkerTooltipAnimation {
-        close?: MapMarkerTooltipAnimationClose;
-        open?: MapMarkerTooltipAnimationOpen;
+        close?: MapMarkerTooltipAnimationClose | undefined;
+        open?: MapMarkerTooltipAnimationOpen | undefined;
     }
 
     interface MapMarkerTooltipContent {
-        url?: string;
+        url?: string | undefined;
     }
 
     interface MapMarkerTooltip {
-        autoHide?: boolean;
-        animation?: MapMarkerTooltipAnimation;
-        content?: string | Function | MapMarkerTooltipContent;
-        template?: string;
-        callout?: boolean;
-        iframe?: boolean;
-        height?: number;
-        width?: number;
-        position?: string;
-        showAfter?: number;
-        showOn?: string;
+        autoHide?: boolean | undefined;
+        animation?: MapMarkerTooltipAnimation | undefined;
+        content?: string | Function | MapMarkerTooltipContent | undefined;
+        template?: string | undefined;
+        callout?: boolean | undefined;
+        iframe?: boolean | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        position?: string | undefined;
+        showAfter?: number | undefined;
+        showOn?: string | undefined;
     }
 
     interface MapMarker {
-        location?: any|kendo.dataviz.map.Location;
-        shape?: string;
-        title?: string;
-        tooltip?: MapMarkerTooltip;
+        location?: any|kendo.dataviz.map.Location | undefined;
+        shape?: string | undefined;
+        title?: string | undefined;
+        tooltip?: MapMarkerTooltip | undefined;
     }
 
     interface MapOptions {
-        name?: string;
-        center?: any|kendo.dataviz.map.Location;
-        controls?: MapControls;
-        layerDefaults?: MapLayerDefaults;
-        layers?: MapLayer[];
-        markerDefaults?: MapMarkerDefaults;
-        markers?: MapMarker[];
-        minZoom?: number;
-        maxZoom?: number;
-        minSize?: number;
-        pannable?: boolean;
-        wraparound?: boolean;
-        zoom?: number;
-        zoomable?: boolean;
+        name?: string | undefined;
+        center?: any|kendo.dataviz.map.Location | undefined;
+        controls?: MapControls | undefined;
+        layerDefaults?: MapLayerDefaults | undefined;
+        layers?: MapLayer[] | undefined;
+        markerDefaults?: MapMarkerDefaults | undefined;
+        markers?: MapMarker[] | undefined;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        minSize?: number | undefined;
+        pannable?: boolean | undefined;
+        wraparound?: boolean | undefined;
+        zoom?: number | undefined;
+        zoomable?: boolean | undefined;
         beforeReset?(e: MapBeforeResetEvent): void;
         click?(e: MapClickEvent): void;
         markerActivate?(e: MapMarkerActivateEvent): void;
@@ -17210,34 +17210,34 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface MapClickEvent extends MapEvent {
-        location?: kendo.dataviz.map.Location;
+        location?: kendo.dataviz.map.Location | undefined;
         originalEvent?: any;
     }
 
     interface MapMarkerActivateEvent extends MapEvent {
-        marker?: kendo.dataviz.map.Marker;
-        layer?: kendo.dataviz.map.Marker;
+        marker?: kendo.dataviz.map.Marker | undefined;
+        layer?: kendo.dataviz.map.Marker | undefined;
     }
 
     interface MapMarkerCreatedEvent extends MapEvent {
-        marker?: kendo.dataviz.map.Marker;
-        layer?: kendo.dataviz.map.Marker;
+        marker?: kendo.dataviz.map.Marker | undefined;
+        layer?: kendo.dataviz.map.Marker | undefined;
     }
 
     interface MapMarkerClickEvent extends MapEvent {
-        marker?: kendo.dataviz.map.Marker;
-        layer?: kendo.dataviz.map.Marker;
+        marker?: kendo.dataviz.map.Marker | undefined;
+        layer?: kendo.dataviz.map.Marker | undefined;
     }
 
     interface MapPanEvent extends MapEvent {
-        origin?: kendo.dataviz.map.Location;
-        center?: kendo.dataviz.map.Location;
+        origin?: kendo.dataviz.map.Location | undefined;
+        center?: kendo.dataviz.map.Location | undefined;
         originalEvent?: any;
     }
 
     interface MapPanEndEvent extends MapEvent {
-        origin?: kendo.dataviz.map.Location;
-        center?: kendo.dataviz.map.Location;
+        origin?: kendo.dataviz.map.Location | undefined;
+        center?: kendo.dataviz.map.Location | undefined;
         originalEvent?: any;
     }
 
@@ -17245,33 +17245,33 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface MapShapeClickEvent extends MapEvent {
-        layer?: kendo.dataviz.map.layer.Shape;
-        shape?: kendo.drawing.Element;
+        layer?: kendo.dataviz.map.layer.Shape | undefined;
+        shape?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface MapShapeCreatedEvent extends MapEvent {
-        layer?: kendo.dataviz.map.layer.Shape;
-        shape?: kendo.drawing.Element;
+        layer?: kendo.dataviz.map.layer.Shape | undefined;
+        shape?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface MapShapeFeatureCreatedEvent extends MapEvent {
         dataItem?: any;
-        layer?: kendo.dataviz.map.layer.Shape;
-        group?: kendo.drawing.Group;
+        layer?: kendo.dataviz.map.layer.Shape | undefined;
+        group?: kendo.drawing.Group | undefined;
         properties?: any;
     }
 
     interface MapShapeMouseEnterEvent extends MapEvent {
-        layer?: kendo.dataviz.map.layer.Shape;
-        shape?: kendo.drawing.Element;
+        layer?: kendo.dataviz.map.layer.Shape | undefined;
+        shape?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface MapShapeMouseLeaveEvent extends MapEvent {
-        layer?: kendo.dataviz.map.layer.Shape;
-        shape?: kendo.drawing.Element;
+        layer?: kendo.dataviz.map.layer.Shape | undefined;
+        shape?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
@@ -17314,38 +17314,38 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface QRCodeBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface QRCodeOverlay {
-        height?: number;
-        type?: string;
-        url?: string;
-        width?: string;
+        height?: number | undefined;
+        type?: string | undefined;
+        url?: string | undefined;
+        width?: string | undefined;
     }
 
     interface QRCodeExportImageOptions {
-        width?: string;
-        height?: string;
+        width?: string | undefined;
+        height?: string | undefined;
     }
 
     interface QRCodeExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface QRCodeOptions {
-        name?: string;
-        background?: string;
-        border?: QRCodeBorder;
-        color?: string;
-        encoding?: string;
-        errorCorrection?: string;
-        overlay?: QRCodeOverlay;
-        padding?: number;
-        renderAs?: string;
-        size?: number|string;
-        value?: number|string;
+        name?: string | undefined;
+        background?: string | undefined;
+        border?: QRCodeBorder | undefined;
+        color?: string | undefined;
+        encoding?: string | undefined;
+        errorCorrection?: string | undefined;
+        overlay?: QRCodeOverlay | undefined;
+        padding?: number | undefined;
+        renderAs?: string | undefined;
+        size?: number|string | undefined;
+        value?: number|string | undefined;
     }
     interface QRCodeEvent {
         sender: QRCode;
@@ -17384,128 +17384,128 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface RadialGaugeGaugeAreaBorder {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface RadialGaugeGaugeAreaMargin {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface RadialGaugeGaugeArea {
-        background?: string;
-        border?: RadialGaugeGaugeAreaBorder;
-        height?: number;
-        margin?: number | RadialGaugeGaugeAreaMargin;
-        width?: number;
+        background?: string | undefined;
+        border?: RadialGaugeGaugeAreaBorder | undefined;
+        height?: number | undefined;
+        margin?: number | RadialGaugeGaugeAreaMargin | undefined;
+        width?: number | undefined;
     }
 
     interface RadialGaugePointerItemCap {
-        color?: string;
-        size?: number;
+        color?: string | undefined;
+        size?: number | undefined;
     }
 
     interface RadialGaugePointerItem {
-        cap?: RadialGaugePointerItemCap;
-        color?: string;
-        length?: number;
-        value?: number;
+        cap?: RadialGaugePointerItemCap | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
+        value?: number | undefined;
     }
 
     interface RadialGaugeScaleLabelsBorder {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface RadialGaugeScaleLabelsMargin {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface RadialGaugeScaleLabelsPadding {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface RadialGaugeScaleLabels {
-        background?: string;
-        border?: RadialGaugeScaleLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number | RadialGaugeScaleLabelsMargin;
-        padding?: number | RadialGaugeScaleLabelsPadding;
-        position?: string;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: RadialGaugeScaleLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | RadialGaugeScaleLabelsMargin | undefined;
+        padding?: number | RadialGaugeScaleLabelsPadding | undefined;
+        position?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface RadialGaugeScaleMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface RadialGaugeScaleMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface RadialGaugeScaleRange {
-        from?: number;
-        to?: number;
-        opacity?: number;
-        color?: string;
+        from?: number | undefined;
+        to?: number | undefined;
+        opacity?: number | undefined;
+        color?: string | undefined;
     }
 
     interface RadialGaugeScale {
-        endAngle?: number;
-        labels?: RadialGaugeScaleLabels;
-        majorTicks?: RadialGaugeScaleMajorTicks;
-        majorUnit?: number;
-        max?: number;
-        min?: number;
-        minorTicks?: RadialGaugeScaleMinorTicks;
-        minorUnit?: number;
-        ranges?: RadialGaugeScaleRange[];
-        rangePlaceholderColor?: string;
-        rangeSize?: number;
-        rangeDistance?: number;
-        reverse?: boolean;
-        startAngle?: number;
+        endAngle?: number | undefined;
+        labels?: RadialGaugeScaleLabels | undefined;
+        majorTicks?: RadialGaugeScaleMajorTicks | undefined;
+        majorUnit?: number | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        minorTicks?: RadialGaugeScaleMinorTicks | undefined;
+        minorUnit?: number | undefined;
+        ranges?: RadialGaugeScaleRange[] | undefined;
+        rangePlaceholderColor?: string | undefined;
+        rangeSize?: number | undefined;
+        rangeDistance?: number | undefined;
+        reverse?: boolean | undefined;
+        startAngle?: number | undefined;
     }
 
     interface RadialGaugeExportImageOptions {
-        width?: string;
-        height?: string;
+        width?: string | undefined;
+        height?: string | undefined;
     }
 
     interface RadialGaugeExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface RadialGaugeOptions {
-        name?: string;
-        gaugeArea?: RadialGaugeGaugeArea;
-        pointer?: RadialGaugePointerItem[];
-        renderAs?: string;
-        scale?: RadialGaugeScale;
-        theme?: string;
-        transitions?: boolean;
+        name?: string | undefined;
+        gaugeArea?: RadialGaugeGaugeArea | undefined;
+        pointer?: RadialGaugePointerItem[] | undefined;
+        renderAs?: string | undefined;
+        scale?: RadialGaugeScale | undefined;
+        theme?: string | undefined;
+        transitions?: boolean | undefined;
     }
     interface RadialGaugeEvent {
         sender: RadialGauge;
@@ -17543,822 +17543,822 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface SparklineCategoryAxisItemCrosshairTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemCrosshairTooltip {
-        background?: string;
-        border?: SparklineCategoryAxisItemCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineCategoryAxisItemCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineCategoryAxisItemCrosshair {
-        color?: string;
-        width?: number;
-        opacity?: number;
-        dashType?: number;
-        visible?: boolean;
-        tooltip?: SparklineCategoryAxisItemCrosshairTooltip;
+        color?: string | undefined;
+        width?: number | undefined;
+        opacity?: number | undefined;
+        dashType?: number | undefined;
+        visible?: boolean | undefined;
+        tooltip?: SparklineCategoryAxisItemCrosshairTooltip | undefined;
     }
 
     interface SparklineCategoryAxisItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemLabels {
-        background?: string;
-        border?: SparklineCategoryAxisItemLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number|any;
-        mirror?: boolean;
-        padding?: number|any;
-        rotation?: number;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
-        culture?: string;
+        background?: string | undefined;
+        border?: SparklineCategoryAxisItemLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number|any | undefined;
+        mirror?: boolean | undefined;
+        padding?: number|any | undefined;
+        rotation?: number | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        culture?: string | undefined;
         dateFormats?: any;
     }
 
     interface SparklineCategoryAxisItemLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemMajorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemMajorTicks {
-        size?: number;
-        visible?: boolean;
-        color?: string;
-        width?: number;
-        step?: number;
-        skip?: number;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        color?: string | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemMinorTicks {
-        size?: number;
-        visible?: boolean;
-        color?: string;
-        width?: number;
-        step?: number;
-        skip?: number;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        color?: string | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesDataItemIcon {
-        background?: string;
-        border?: SparklineCategoryAxisItemNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineCategoryAxisItemNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesDataItemLabel {
-        background?: string;
-        border?: SparklineCategoryAxisItemNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: SparklineCategoryAxisItemNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: SparklineCategoryAxisItemNotesDataItemIcon;
-        label?: SparklineCategoryAxisItemNotesDataItemLabel;
-        line?: SparklineCategoryAxisItemNotesDataItemLine;
+        position?: string | undefined;
+        icon?: SparklineCategoryAxisItemNotesDataItemIcon | undefined;
+        label?: SparklineCategoryAxisItemNotesDataItemLabel | undefined;
+        line?: SparklineCategoryAxisItemNotesDataItemLine | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesIcon {
-        background?: string;
-        border?: SparklineCategoryAxisItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineCategoryAxisItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesLabel {
-        background?: string;
-        border?: SparklineCategoryAxisItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: SparklineCategoryAxisItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface SparklineCategoryAxisItemNotesLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemNotes {
-        position?: string;
-        icon?: SparklineCategoryAxisItemNotesIcon;
-        label?: SparklineCategoryAxisItemNotesLabel;
-        line?: SparklineCategoryAxisItemNotesLine;
-        data?: SparklineCategoryAxisItemNotesDataItem[];
+        position?: string | undefined;
+        icon?: SparklineCategoryAxisItemNotesIcon | undefined;
+        label?: SparklineCategoryAxisItemNotesLabel | undefined;
+        line?: SparklineCategoryAxisItemNotesLine | undefined;
+        data?: SparklineCategoryAxisItemNotesDataItem[] | undefined;
     }
 
     interface SparklineCategoryAxisItemPlotBand {
-        from?: number;
-        to?: number;
-        color?: string;
-        opacity?: number;
+        from?: number | undefined;
+        to?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineCategoryAxisItemTitle {
-        background?: string;
-        border?: SparklineCategoryAxisItemTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number|any;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineCategoryAxisItemTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number|any | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineCategoryAxisItem {
-        axisCrossingValue?: any|Date|any;
+        axisCrossingValue?: any|Date|any | undefined;
         categories?: any;
-        color?: string;
-        field?: string;
-        justified?: boolean;
-        labels?: SparklineCategoryAxisItemLabels;
-        line?: SparklineCategoryAxisItemLine;
-        majorGridLines?: SparklineCategoryAxisItemMajorGridLines;
-        majorTicks?: SparklineCategoryAxisItemMajorTicks;
-        minorGridLines?: SparklineCategoryAxisItemMinorGridLines;
-        minorTicks?: SparklineCategoryAxisItemMinorTicks;
-        name?: string;
-        plotBands?: SparklineCategoryAxisItemPlotBand[];
-        reverse?: boolean;
-        title?: SparklineCategoryAxisItemTitle;
-        type?: string;
+        color?: string | undefined;
+        field?: string | undefined;
+        justified?: boolean | undefined;
+        labels?: SparklineCategoryAxisItemLabels | undefined;
+        line?: SparklineCategoryAxisItemLine | undefined;
+        majorGridLines?: SparklineCategoryAxisItemMajorGridLines | undefined;
+        majorTicks?: SparklineCategoryAxisItemMajorTicks | undefined;
+        minorGridLines?: SparklineCategoryAxisItemMinorGridLines | undefined;
+        minorTicks?: SparklineCategoryAxisItemMinorTicks | undefined;
+        name?: string | undefined;
+        plotBands?: SparklineCategoryAxisItemPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        title?: SparklineCategoryAxisItemTitle | undefined;
+        type?: string | undefined;
         autoBaseUnitSteps?: any;
-        baseUnit?: string;
+        baseUnit?: string | undefined;
         baseUnitStep?: any;
         max?: any;
         min?: any;
-        roundToBaseUnit?: boolean;
-        weekStartDay?: number;
-        maxDateGroups?: number;
-        maxDivisions?: number;
-        visible?: boolean;
-        crosshair?: SparklineCategoryAxisItemCrosshair;
-        notes?: SparklineCategoryAxisItemNotes;
+        roundToBaseUnit?: boolean | undefined;
+        weekStartDay?: number | undefined;
+        maxDateGroups?: number | undefined;
+        maxDivisions?: number | undefined;
+        visible?: boolean | undefined;
+        crosshair?: SparklineCategoryAxisItemCrosshair | undefined;
+        notes?: SparklineCategoryAxisItemNotes | undefined;
     }
 
     interface SparklineChartAreaBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineChartArea {
-        background?: string;
-        opacity?: number;
-        border?: SparklineChartAreaBorder;
-        height?: number;
-        margin?: number|any;
-        width?: number;
+        background?: string | undefined;
+        opacity?: number | undefined;
+        border?: SparklineChartAreaBorder | undefined;
+        height?: number | undefined;
+        margin?: number|any | undefined;
+        width?: number | undefined;
     }
 
     interface SparklinePlotAreaBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklinePlotArea {
-        background?: string;
-        opacity?: number;
-        border?: SparklinePlotAreaBorder;
-        margin?: number|any;
+        background?: string | undefined;
+        opacity?: number | undefined;
+        border?: SparklinePlotAreaBorder | undefined;
+        margin?: number|any | undefined;
     }
 
     interface SparklineSeriesItemBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        opacity?: number|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        opacity?: number|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface SparklineSeriesItemConnectors {
-        color?: string;
-        padding?: number;
-        width?: number;
+        color?: string | undefined;
+        padding?: number | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineSeriesItemHighlightBorder {
-        width?: number;
-        color?: string;
-        opacity?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface SparklineSeriesItemHighlight {
-        border?: SparklineSeriesItemHighlightBorder;
-        color?: string;
-        opacity?: number;
-        visible?: boolean;
+        border?: SparklineSeriesItemHighlightBorder | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineSeriesItemLabelsBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface SparklineSeriesItemLabels {
-        align?: string;
-        background?: string|Function;
-        border?: SparklineSeriesItemLabelsBorder;
-        color?: string|Function;
-        distance?: number;
-        font?: string|Function;
-        format?: string|Function;
-        margin?: number|any;
-        padding?: number|any;
-        position?: string|Function;
-        template?: string|Function;
-        visible?: boolean|Function;
+        align?: string | undefined;
+        background?: string|Function | undefined;
+        border?: SparklineSeriesItemLabelsBorder | undefined;
+        color?: string|Function | undefined;
+        distance?: number | undefined;
+        font?: string|Function | undefined;
+        format?: string|Function | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        position?: string|Function | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
     }
 
     interface SparklineSeriesItemLine {
-        color?: string;
-        opacity?: number;
-        width?: string;
-        style?: string;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        width?: string | undefined;
+        style?: string | undefined;
     }
 
     interface SparklineSeriesItemMarkersBorder {
-        color?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface SparklineSeriesItemMarkers {
-        background?: string|Function;
-        border?: Function | SparklineSeriesItemMarkersBorder;
-        size?: number|Function;
-        type?: string|Function;
-        visible?: boolean|Function;
-        rotation?: number|Function;
+        background?: string|Function | undefined;
+        border?: Function | SparklineSeriesItemMarkersBorder | undefined;
+        size?: number|Function | undefined;
+        type?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
+        rotation?: number|Function | undefined;
     }
 
     interface SparklineSeriesItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineSeriesItemNotesIcon {
-        background?: string;
-        border?: SparklineSeriesItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineSeriesItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineSeriesItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineSeriesItemNotesLabel {
-        background?: string;
-        border?: SparklineSeriesItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: SparklineSeriesItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface SparklineSeriesItemNotesLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface SparklineSeriesItemNotes {
-        position?: string;
-        icon?: SparklineSeriesItemNotesIcon;
-        label?: SparklineSeriesItemNotesLabel;
-        line?: SparklineSeriesItemNotesLine;
+        position?: string | undefined;
+        icon?: SparklineSeriesItemNotesIcon | undefined;
+        label?: SparklineSeriesItemNotesLabel | undefined;
+        line?: SparklineSeriesItemNotesLine | undefined;
     }
 
     interface SparklineSeriesItemOverlay {
-        gradient?: string;
+        gradient?: string | undefined;
     }
 
     interface SparklineSeriesItemStack {
-        type?: string;
-        group?: string;
+        type?: string | undefined;
+        group?: string | undefined;
     }
 
     interface SparklineSeriesItemTargetBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        width?: number;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineSeriesItemTargetLine {
-        width?: any|Function;
+        width?: any|Function | undefined;
     }
 
     interface SparklineSeriesItemTarget {
-        line?: SparklineSeriesItemTargetLine;
-        color?: string|Function;
-        border?: Function | SparklineSeriesItemTargetBorder;
+        line?: SparklineSeriesItemTargetLine | undefined;
+        color?: string|Function | undefined;
+        border?: Function | SparklineSeriesItemTargetBorder | undefined;
     }
 
     interface SparklineSeriesItemTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineSeriesItemTooltip {
-        background?: string;
-        border?: SparklineSeriesItemTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineSeriesItemTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineSeriesItem {
-        type?: string;
-        dashType?: string;
+        type?: string | undefined;
+        dashType?: string | undefined;
         data?: any;
-        explodeField?: string;
-        currentField?: string;
-        targetField?: string;
-        field?: string;
-        name?: string;
-        highlight?: SparklineSeriesItemHighlight;
-        aggregate?: string|Function;
-        axis?: string;
-        border?: SparklineSeriesItemBorder;
-        categoryField?: string;
-        color?: string|Function;
-        colorField?: string;
-        connectors?: SparklineSeriesItemConnectors;
-        gap?: number;
-        labels?: SparklineSeriesItemLabels;
-        line?: string | SparklineSeriesItemLine;
-        markers?: SparklineSeriesItemMarkers;
-        missingValues?: string;
-        style?: string;
-        negativeColor?: string;
-        opacity?: number;
-        overlay?: SparklineSeriesItemOverlay;
-        padding?: number;
-        size?: number;
-        startAngle?: number;
-        spacing?: number;
-        stack?: boolean | string | SparklineSeriesItemStack;
-        tooltip?: SparklineSeriesItemTooltip;
-        width?: number;
-        target?: SparklineSeriesItemTarget;
-        notes?: SparklineSeriesItemNotes;
-        zIndex?: number;
+        explodeField?: string | undefined;
+        currentField?: string | undefined;
+        targetField?: string | undefined;
+        field?: string | undefined;
+        name?: string | undefined;
+        highlight?: SparklineSeriesItemHighlight | undefined;
+        aggregate?: string|Function | undefined;
+        axis?: string | undefined;
+        border?: SparklineSeriesItemBorder | undefined;
+        categoryField?: string | undefined;
+        color?: string|Function | undefined;
+        colorField?: string | undefined;
+        connectors?: SparklineSeriesItemConnectors | undefined;
+        gap?: number | undefined;
+        labels?: SparklineSeriesItemLabels | undefined;
+        line?: string | SparklineSeriesItemLine | undefined;
+        markers?: SparklineSeriesItemMarkers | undefined;
+        missingValues?: string | undefined;
+        style?: string | undefined;
+        negativeColor?: string | undefined;
+        opacity?: number | undefined;
+        overlay?: SparklineSeriesItemOverlay | undefined;
+        padding?: number | undefined;
+        size?: number | undefined;
+        startAngle?: number | undefined;
+        spacing?: number | undefined;
+        stack?: boolean | string | SparklineSeriesItemStack | undefined;
+        tooltip?: SparklineSeriesItemTooltip | undefined;
+        width?: number | undefined;
+        target?: SparklineSeriesItemTarget | undefined;
+        notes?: SparklineSeriesItemNotes | undefined;
+        zIndex?: number | undefined;
     }
 
     interface SparklineSeriesDefaultsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineSeriesDefaultsLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineSeriesDefaultsLabels {
-        background?: string;
-        border?: SparklineSeriesDefaultsLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number|any;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineSeriesDefaultsLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineSeriesDefaultsStack {
-        type?: string;
+        type?: string | undefined;
     }
 
     interface SparklineSeriesDefaultsTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineSeriesDefaultsTooltip {
-        background?: string;
-        border?: SparklineSeriesDefaultsTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineSeriesDefaultsTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineSeriesDefaults {
         area?: any;
         bar?: any;
-        border?: SparklineSeriesDefaultsBorder;
+        border?: SparklineSeriesDefaultsBorder | undefined;
         column?: any;
-        gap?: number;
-        labels?: SparklineSeriesDefaultsLabels;
+        gap?: number | undefined;
+        labels?: SparklineSeriesDefaultsLabels | undefined;
         line?: any;
         overlay?: any;
         pie?: any;
-        spacing?: number;
-        stack?: boolean | SparklineSeriesDefaultsStack;
-        type?: string;
-        tooltip?: SparklineSeriesDefaultsTooltip;
+        spacing?: number | undefined;
+        stack?: boolean | SparklineSeriesDefaultsStack | undefined;
+        type?: string | undefined;
+        tooltip?: SparklineSeriesDefaultsTooltip | undefined;
     }
 
     interface SparklineTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineTooltip {
-        background?: string;
-        border?: SparklineTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
-        shared?: boolean;
-        sharedTemplate?: string;
+        background?: string | undefined;
+        border?: SparklineTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        shared?: boolean | undefined;
+        sharedTemplate?: string | undefined;
     }
 
     interface SparklineValueAxisItemCrosshairTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineValueAxisItemCrosshairTooltip {
-        background?: string;
-        border?: SparklineValueAxisItemCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineValueAxisItemCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineValueAxisItemCrosshair {
-        color?: string;
-        width?: number;
-        opacity?: number;
-        dashType?: number;
-        visible?: boolean;
-        tooltip?: SparklineValueAxisItemCrosshairTooltip;
+        color?: string | undefined;
+        width?: number | undefined;
+        opacity?: number | undefined;
+        dashType?: number | undefined;
+        visible?: boolean | undefined;
+        tooltip?: SparklineValueAxisItemCrosshairTooltip | undefined;
     }
 
     interface SparklineValueAxisItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineValueAxisItemLabels {
-        background?: string;
-        border?: SparklineValueAxisItemLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number|any;
-        mirror?: boolean;
-        padding?: number|any;
-        rotation?: number;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineValueAxisItemLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number|any | undefined;
+        mirror?: boolean | undefined;
+        padding?: number|any | undefined;
+        rotation?: number | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineValueAxisItemLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineValueAxisItemMajorGridLines {
-        color?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface SparklineValueAxisItemMajorTicks {
-        size?: number;
-        visible?: boolean;
-        color?: string;
-        width?: number;
-        step?: number;
-        skip?: number;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        color?: string | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface SparklineValueAxisItemMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface SparklineValueAxisItemMinorTicks {
-        size?: number;
-        color?: string;
-        width?: number;
-        visible?: boolean;
-        step?: number;
-        skip?: number;
+        size?: number | undefined;
+        color?: string | undefined;
+        width?: number | undefined;
+        visible?: boolean | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface SparklineValueAxisItemNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineValueAxisItemNotesDataItemIcon {
-        background?: string;
-        border?: SparklineValueAxisItemNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineValueAxisItemNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineValueAxisItemNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineValueAxisItemNotesDataItemLabel {
-        background?: string;
-        border?: SparklineValueAxisItemNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: SparklineValueAxisItemNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface SparklineValueAxisItemNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface SparklineValueAxisItemNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: SparklineValueAxisItemNotesDataItemIcon;
-        label?: SparklineValueAxisItemNotesDataItemLabel;
-        line?: SparklineValueAxisItemNotesDataItemLine;
+        position?: string | undefined;
+        icon?: SparklineValueAxisItemNotesDataItemIcon | undefined;
+        label?: SparklineValueAxisItemNotesDataItemLabel | undefined;
+        line?: SparklineValueAxisItemNotesDataItemLine | undefined;
     }
 
     interface SparklineValueAxisItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineValueAxisItemNotesIcon {
-        background?: string;
-        border?: SparklineValueAxisItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineValueAxisItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineValueAxisItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineValueAxisItemNotesLabel {
-        background?: string;
-        border?: SparklineValueAxisItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: SparklineValueAxisItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface SparklineValueAxisItemNotesLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface SparklineValueAxisItemNotes {
-        position?: string;
-        icon?: SparklineValueAxisItemNotesIcon;
-        label?: SparklineValueAxisItemNotesLabel;
-        line?: SparklineValueAxisItemNotesLine;
-        data?: SparklineValueAxisItemNotesDataItem[];
+        position?: string | undefined;
+        icon?: SparklineValueAxisItemNotesIcon | undefined;
+        label?: SparklineValueAxisItemNotesLabel | undefined;
+        line?: SparklineValueAxisItemNotesLine | undefined;
+        data?: SparklineValueAxisItemNotesDataItem[] | undefined;
     }
 
     interface SparklineValueAxisItemPlotBand {
-        from?: number;
-        to?: number;
-        color?: string;
-        opacity?: number;
+        from?: number | undefined;
+        to?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface SparklineValueAxisItemTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface SparklineValueAxisItemTitle {
-        background?: string;
-        border?: SparklineValueAxisItemTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number|any;
-        padding?: number|any;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: SparklineValueAxisItemTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface SparklineValueAxisItem {
-        axisCrossingValue?: any|Date|any;
-        color?: string;
-        labels?: SparklineValueAxisItemLabels;
-        line?: SparklineValueAxisItemLine;
-        majorGridLines?: SparklineValueAxisItemMajorGridLines;
-        majorTicks?: SparklineValueAxisItemMajorTicks;
-        majorUnit?: number;
-        max?: number;
-        min?: number;
-        minorGridLines?: SparklineValueAxisItemMinorGridLines;
-        minorTicks?: SparklineValueAxisItemMinorTicks;
-        minorUnit?: number;
+        axisCrossingValue?: any|Date|any | undefined;
+        color?: string | undefined;
+        labels?: SparklineValueAxisItemLabels | undefined;
+        line?: SparklineValueAxisItemLine | undefined;
+        majorGridLines?: SparklineValueAxisItemMajorGridLines | undefined;
+        majorTicks?: SparklineValueAxisItemMajorTicks | undefined;
+        majorUnit?: number | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        minorGridLines?: SparklineValueAxisItemMinorGridLines | undefined;
+        minorTicks?: SparklineValueAxisItemMinorTicks | undefined;
+        minorUnit?: number | undefined;
         name?: any;
-        narrowRange?: boolean;
-        plotBands?: SparklineValueAxisItemPlotBand[];
-        reverse?: boolean;
-        title?: SparklineValueAxisItemTitle;
-        visible?: boolean;
-        crosshair?: SparklineValueAxisItemCrosshair;
-        notes?: SparklineValueAxisItemNotes;
+        narrowRange?: boolean | undefined;
+        plotBands?: SparklineValueAxisItemPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        title?: SparklineValueAxisItemTitle | undefined;
+        visible?: boolean | undefined;
+        crosshair?: SparklineValueAxisItemCrosshair | undefined;
+        notes?: SparklineValueAxisItemNotes | undefined;
     }
 
     interface SparklineExportImageOptions {
-        width?: string;
-        height?: string;
+        width?: string | undefined;
+        height?: string | undefined;
     }
 
     interface SparklineExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface SparklineSeriesClickEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface SparklineSeriesHoverEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface SparklineSeriesOverEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface SparklineSeriesLeaveEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface SparklineOptions {
-        name?: string;
+        name?: string | undefined;
         axisDefaults?: any;
-        categoryAxis?: SparklineCategoryAxisItem | SparklineCategoryAxisItem[];
-        chartArea?: SparklineChartArea;
+        categoryAxis?: SparklineCategoryAxisItem | SparklineCategoryAxisItem[] | undefined;
+        chartArea?: SparklineChartArea | undefined;
         data?: any;
         dataSource?: any;
-        autoBind?: boolean;
-        plotArea?: SparklinePlotArea;
-        pointWidth?: number;
-        renderAs?: string;
-        series?: SparklineSeriesItem[];
+        autoBind?: boolean | undefined;
+        plotArea?: SparklinePlotArea | undefined;
+        pointWidth?: number | undefined;
+        renderAs?: string | undefined;
+        series?: SparklineSeriesItem[] | undefined;
         seriesColors?: any;
-        seriesDefaults?: SparklineSeriesDefaults;
-        theme?: string;
-        tooltip?: SparklineTooltip;
-        transitions?: boolean;
-        type?: string;
-        valueAxis?: SparklineValueAxisItem | SparklineValueAxisItem[];
+        seriesDefaults?: SparklineSeriesDefaults | undefined;
+        theme?: string | undefined;
+        tooltip?: SparklineTooltip | undefined;
+        transitions?: boolean | undefined;
+        type?: string | undefined;
+        valueAxis?: SparklineValueAxisItem | SparklineValueAxisItem[] | undefined;
         axisLabelClick?(e: SparklineAxisLabelClickEvent): void;
         dataBound?(e: SparklineEvent): void;
         dragStart?(e: SparklineDragStartEvent): void;
@@ -18407,9 +18407,9 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface SparklinePaneRenderEvent extends SparklineEvent {
-        pane?: kendo.dataviz.ChartPane;
-        name?: string;
-        index?: number;
+        pane?: kendo.dataviz.ChartPane | undefined;
+        name?: string | undefined;
+        index?: number | undefined;
     }
 
     interface SparklinePlotAreaClickEvent extends SparklineEvent {
@@ -18433,7 +18433,7 @@ declare namespace kendo.dataviz.ui {
     interface SparklineSeriesClickEvent extends SparklineEvent {
         value?: any;
         category?: any;
-        series?: SparklineSeriesClickEventSeries;
+        series?: SparklineSeriesClickEventSeries | undefined;
         dataItem?: any;
         element?: any;
         percentage?: any;
@@ -18442,7 +18442,7 @@ declare namespace kendo.dataviz.ui {
     interface SparklineSeriesHoverEvent extends SparklineEvent {
         value?: any;
         category?: any;
-        series?: SparklineSeriesHoverEventSeries;
+        series?: SparklineSeriesHoverEventSeries | undefined;
         dataItem?: any;
         element?: any;
         percentage?: any;
@@ -18454,7 +18454,7 @@ declare namespace kendo.dataviz.ui {
         element?: any;
         originalEvent?: any;
         percentage?: any;
-        series?: SparklineSeriesOverEventSeries;
+        series?: SparklineSeriesOverEventSeries | undefined;
         stackValue?: any;
         value?: any;
     }
@@ -18465,7 +18465,7 @@ declare namespace kendo.dataviz.ui {
         element?: any;
         originalEvent?: any;
         percentage?: any;
-        series?: SparklineSeriesLeaveEventSeries;
+        series?: SparklineSeriesLeaveEventSeries | undefined;
         stackValue?: any;
         value?: any;
     }
@@ -18477,7 +18477,7 @@ declare namespace kendo.dataviz.ui {
 
     interface SparklineZoomEvent extends SparklineEvent {
         axisRanges?: any;
-        delta?: number;
+        delta?: number | undefined;
         originalEvent?: any;
     }
 
@@ -18528,320 +18528,320 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface StockChartCategoryAxisItemCrosshairTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemCrosshairTooltip {
-        background?: string;
-        border?: StockChartCategoryAxisItemCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartCategoryAxisItemCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartCategoryAxisItemCrosshair {
-        color?: string;
-        width?: number;
-        opacity?: number;
-        dashType?: number;
-        visible?: boolean;
-        tooltip?: StockChartCategoryAxisItemCrosshairTooltip;
+        color?: string | undefined;
+        width?: number | undefined;
+        opacity?: number | undefined;
+        dashType?: number | undefined;
+        visible?: boolean | undefined;
+        tooltip?: StockChartCategoryAxisItemCrosshairTooltip | undefined;
     }
 
     interface StockChartCategoryAxisItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemLabels {
-        background?: string;
-        border?: StockChartCategoryAxisItemLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number|any;
-        mirror?: boolean;
-        padding?: number|any;
-        rotation?: number;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
-        culture?: string;
+        background?: string | undefined;
+        border?: StockChartCategoryAxisItemLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number|any | undefined;
+        mirror?: boolean | undefined;
+        padding?: number|any | undefined;
+        rotation?: number | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        culture?: string | undefined;
         dateFormats?: any;
     }
 
     interface StockChartCategoryAxisItemLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemMajorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemMajorTicks {
-        color?: string;
-        size?: number;
-        width?: number;
-        visible?: boolean;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        width?: number | undefined;
+        visible?: boolean | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemMinorTicks {
-        size?: number;
-        visible?: boolean;
-        color?: string;
-        width?: number;
-        step?: number;
-        skip?: number;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        color?: string | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesDataItemIcon {
-        background?: string;
-        border?: StockChartCategoryAxisItemNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartCategoryAxisItemNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesDataItemLabel {
-        background?: string;
-        border?: StockChartCategoryAxisItemNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: StockChartCategoryAxisItemNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: StockChartCategoryAxisItemNotesDataItemIcon;
-        label?: StockChartCategoryAxisItemNotesDataItemLabel;
-        line?: StockChartCategoryAxisItemNotesDataItemLine;
+        position?: string | undefined;
+        icon?: StockChartCategoryAxisItemNotesDataItemIcon | undefined;
+        label?: StockChartCategoryAxisItemNotesDataItemLabel | undefined;
+        line?: StockChartCategoryAxisItemNotesDataItemLine | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesIcon {
-        background?: string;
-        border?: StockChartCategoryAxisItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartCategoryAxisItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesLabel {
-        background?: string;
-        border?: StockChartCategoryAxisItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: StockChartCategoryAxisItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface StockChartCategoryAxisItemNotesLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemNotes {
-        position?: string;
-        icon?: StockChartCategoryAxisItemNotesIcon;
-        label?: StockChartCategoryAxisItemNotesLabel;
-        line?: StockChartCategoryAxisItemNotesLine;
-        data?: StockChartCategoryAxisItemNotesDataItem[];
+        position?: string | undefined;
+        icon?: StockChartCategoryAxisItemNotesIcon | undefined;
+        label?: StockChartCategoryAxisItemNotesLabel | undefined;
+        line?: StockChartCategoryAxisItemNotesLine | undefined;
+        data?: StockChartCategoryAxisItemNotesDataItem[] | undefined;
     }
 
     interface StockChartCategoryAxisItemPlotBand {
-        from?: number;
-        to?: number;
-        color?: string;
-        opacity?: number;
+        from?: number | undefined;
+        to?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemSelectMousewheel {
-        reverse?: boolean;
-        zoom?: string;
+        reverse?: boolean | undefined;
+        zoom?: string | undefined;
     }
 
     interface StockChartCategoryAxisItemSelect {
-        from?: string|Date;
-        to?: string|Date;
+        from?: string|Date | undefined;
+        to?: string|Date | undefined;
         min?: any;
         max?: any;
-        mousewheel?: StockChartCategoryAxisItemSelectMousewheel;
+        mousewheel?: StockChartCategoryAxisItemSelectMousewheel | undefined;
     }
 
     interface StockChartCategoryAxisItemTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartCategoryAxisItemTitle {
-        background?: string;
-        border?: StockChartCategoryAxisItemTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number|any;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartCategoryAxisItemTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number|any | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartCategoryAxisItem {
-        axisCrossingValue?: any|Date|any;
+        axisCrossingValue?: any|Date|any | undefined;
         categories?: any;
-        color?: string;
-        field?: string;
-        justified?: boolean;
-        labels?: StockChartCategoryAxisItemLabels;
-        line?: StockChartCategoryAxisItemLine;
-        majorGridLines?: StockChartCategoryAxisItemMajorGridLines;
-        majorTicks?: StockChartCategoryAxisItemMajorTicks;
-        minorGridLines?: StockChartCategoryAxisItemMinorGridLines;
-        minorTicks?: StockChartCategoryAxisItemMinorTicks;
-        name?: string;
-        pane?: string;
-        plotBands?: StockChartCategoryAxisItemPlotBand[];
-        reverse?: boolean;
-        select?: StockChartCategoryAxisItemSelect;
-        title?: StockChartCategoryAxisItemTitle;
-        type?: string;
-        autoBaseUnitSteps?: StockChartCategoryAxisItemAutoBaseUnitSteps;
-        background?: string;
-        baseUnit?: string;
+        color?: string | undefined;
+        field?: string | undefined;
+        justified?: boolean | undefined;
+        labels?: StockChartCategoryAxisItemLabels | undefined;
+        line?: StockChartCategoryAxisItemLine | undefined;
+        majorGridLines?: StockChartCategoryAxisItemMajorGridLines | undefined;
+        majorTicks?: StockChartCategoryAxisItemMajorTicks | undefined;
+        minorGridLines?: StockChartCategoryAxisItemMinorGridLines | undefined;
+        minorTicks?: StockChartCategoryAxisItemMinorTicks | undefined;
+        name?: string | undefined;
+        pane?: string | undefined;
+        plotBands?: StockChartCategoryAxisItemPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        select?: StockChartCategoryAxisItemSelect | undefined;
+        title?: StockChartCategoryAxisItemTitle | undefined;
+        type?: string | undefined;
+        autoBaseUnitSteps?: StockChartCategoryAxisItemAutoBaseUnitSteps | undefined;
+        background?: string | undefined;
+        baseUnit?: string | undefined;
         baseUnitStep?: any;
         max?: any;
         min?: any;
-        roundToBaseUnit?: boolean;
-        weekStartDay?: number;
-        maxDateGroups?: number;
-        maxDivisions?: number;
-        visible?: boolean;
-        crosshair?: StockChartCategoryAxisItemCrosshair;
-        notes?: StockChartCategoryAxisItemNotes;
+        roundToBaseUnit?: boolean | undefined;
+        weekStartDay?: number | undefined;
+        maxDateGroups?: number | undefined;
+        maxDivisions?: number | undefined;
+        visible?: boolean | undefined;
+        crosshair?: StockChartCategoryAxisItemCrosshair | undefined;
+        notes?: StockChartCategoryAxisItemNotes | undefined;
     }
 
     interface StockChartChartAreaBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartChartArea {
-        background?: string;
-        opacity?: number;
-        border?: StockChartChartAreaBorder;
-        height?: number;
-        margin?: number|any;
-        width?: number;
+        background?: string | undefined;
+        opacity?: number | undefined;
+        border?: StockChartChartAreaBorder | undefined;
+        height?: number | undefined;
+        margin?: number|any | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartLegendBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartLegendInactiveItemsLabels {
-        color?: string;
-        font?: string;
-        template?: string;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string | undefined;
     }
 
     interface StockChartLegendInactiveItemsMarkers {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface StockChartLegendInactiveItems {
-        labels?: StockChartLegendInactiveItemsLabels;
-        markers?: StockChartLegendInactiveItemsMarkers;
+        labels?: StockChartLegendInactiveItemsLabels | undefined;
+        markers?: StockChartLegendInactiveItemsMarkers | undefined;
     }
 
     interface StockChartLegendItem {
-        cursor?: string;
-        visual?: Function;
+        cursor?: string | undefined;
+        visual?: Function | undefined;
     }
 
     interface StockChartLegendLabels {
-        color?: string;
-        font?: string;
-        template?: string;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string | undefined;
     }
 
     interface StockChartLegend {
-        background?: string;
-        border?: StockChartLegendBorder;
-        item?: StockChartLegendItem;
-        labels?: StockChartLegendLabels;
-        margin?: number|any;
-        offsetX?: number;
-        offsetY?: number;
-        padding?: number|any;
-        position?: string;
-        reverse?: boolean;
-        visible?: boolean;
-        inactiveItems?: StockChartLegendInactiveItems;
+        background?: string | undefined;
+        border?: StockChartLegendBorder | undefined;
+        item?: StockChartLegendItem | undefined;
+        labels?: StockChartLegendLabels | undefined;
+        margin?: number|any | undefined;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
+        padding?: number|any | undefined;
+        position?: string | undefined;
+        reverse?: boolean | undefined;
+        visible?: boolean | undefined;
+        inactiveItems?: StockChartLegendInactiveItems | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisAutoBaseUnitSteps {
@@ -18855,1139 +18855,1139 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface StockChartNavigatorCategoryAxisCrosshairTooltipBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisCrosshairTooltipPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisCrosshairTooltip {
-        background?: string;
-        border?: StockChartNavigatorCategoryAxisCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: StockChartNavigatorCategoryAxisCrosshairTooltipPadding;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorCategoryAxisCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: StockChartNavigatorCategoryAxisCrosshairTooltipPadding | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisCrosshair {
-        color?: string;
-        opacity?: number;
-        tooltip?: StockChartNavigatorCategoryAxisCrosshairTooltip;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        tooltip?: StockChartNavigatorCategoryAxisCrosshairTooltip | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisLabelsDateFormats {
-        days?: string;
-        hours?: string;
-        months?: string;
-        weeks?: string;
-        years?: string;
+        days?: string | undefined;
+        hours?: string | undefined;
+        months?: string | undefined;
+        weeks?: string | undefined;
+        years?: string | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisLabelsMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisLabelsPadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisLabels {
-        background?: string;
-        border?: StockChartNavigatorCategoryAxisLabelsBorder;
-        color?: string;
-        culture?: string;
-        dateFormats?: StockChartNavigatorCategoryAxisLabelsDateFormats;
-        font?: string;
-        format?: string;
-        margin?: number | StockChartNavigatorCategoryAxisLabelsMargin;
-        mirror?: boolean;
-        padding?: number | StockChartNavigatorCategoryAxisLabelsPadding;
-        rotation?: number;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorCategoryAxisLabelsBorder | undefined;
+        color?: string | undefined;
+        culture?: string | undefined;
+        dateFormats?: StockChartNavigatorCategoryAxisLabelsDateFormats | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number | StockChartNavigatorCategoryAxisLabelsMargin | undefined;
+        mirror?: boolean | undefined;
+        padding?: number | StockChartNavigatorCategoryAxisLabelsPadding | undefined;
+        rotation?: number | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisMajorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesDataItemIcon {
-        background?: string;
-        border?: StockChartNavigatorCategoryAxisNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorCategoryAxisNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesDataItemLabel {
-        background?: string;
-        border?: StockChartNavigatorCategoryAxisNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: StockChartNavigatorCategoryAxisNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: StockChartNavigatorCategoryAxisNotesDataItemIcon;
-        label?: StockChartNavigatorCategoryAxisNotesDataItemLabel;
-        line?: StockChartNavigatorCategoryAxisNotesDataItemLine;
+        position?: string | undefined;
+        icon?: StockChartNavigatorCategoryAxisNotesDataItemIcon | undefined;
+        label?: StockChartNavigatorCategoryAxisNotesDataItemLabel | undefined;
+        line?: StockChartNavigatorCategoryAxisNotesDataItemLine | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesIcon {
-        background?: string;
-        border?: StockChartNavigatorCategoryAxisNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorCategoryAxisNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesLabel {
-        background?: string;
-        border?: StockChartNavigatorCategoryAxisNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: StockChartNavigatorCategoryAxisNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotesLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisNotes {
-        position?: string;
-        icon?: StockChartNavigatorCategoryAxisNotesIcon;
-        label?: StockChartNavigatorCategoryAxisNotesLabel;
-        line?: StockChartNavigatorCategoryAxisNotesLine;
-        data?: StockChartNavigatorCategoryAxisNotesDataItem[];
+        position?: string | undefined;
+        icon?: StockChartNavigatorCategoryAxisNotesIcon | undefined;
+        label?: StockChartNavigatorCategoryAxisNotesLabel | undefined;
+        line?: StockChartNavigatorCategoryAxisNotesLine | undefined;
+        data?: StockChartNavigatorCategoryAxisNotesDataItem[] | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisPlotBand {
-        color?: string;
-        from?: number;
-        opacity?: number;
-        to?: number;
+        color?: string | undefined;
+        from?: number | undefined;
+        opacity?: number | undefined;
+        to?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisTitlePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface StockChartNavigatorCategoryAxisTitle {
-        background?: string;
-        border?: StockChartNavigatorCategoryAxisTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | StockChartNavigatorCategoryAxisTitleMargin;
-        padding?: number | StockChartNavigatorCategoryAxisTitlePadding;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorCategoryAxisTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | StockChartNavigatorCategoryAxisTitleMargin | undefined;
+        padding?: number | StockChartNavigatorCategoryAxisTitlePadding | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorCategoryAxis {
-        autoBaseUnitSteps?: StockChartNavigatorCategoryAxisAutoBaseUnitSteps;
-        axisCrossingValue?: any|Date|any;
-        background?: string;
-        baseUnit?: string;
+        autoBaseUnitSteps?: StockChartNavigatorCategoryAxisAutoBaseUnitSteps | undefined;
+        axisCrossingValue?: any|Date|any | undefined;
+        background?: string | undefined;
+        baseUnit?: string | undefined;
         baseUnitStep?: any;
         categories?: any;
-        color?: string;
-        crosshair?: StockChartNavigatorCategoryAxisCrosshair;
-        field?: string;
-        justified?: boolean;
-        labels?: StockChartNavigatorCategoryAxisLabels;
-        line?: StockChartNavigatorCategoryAxisLine;
-        majorGridLines?: StockChartNavigatorCategoryAxisMajorGridLines;
-        majorTicks?: StockChartNavigatorCategoryAxisMajorTicks;
+        color?: string | undefined;
+        crosshair?: StockChartNavigatorCategoryAxisCrosshair | undefined;
+        field?: string | undefined;
+        justified?: boolean | undefined;
+        labels?: StockChartNavigatorCategoryAxisLabels | undefined;
+        line?: StockChartNavigatorCategoryAxisLine | undefined;
+        majorGridLines?: StockChartNavigatorCategoryAxisMajorGridLines | undefined;
+        majorTicks?: StockChartNavigatorCategoryAxisMajorTicks | undefined;
         max?: any;
-        maxDateGroups?: number;
+        maxDateGroups?: number | undefined;
         min?: any;
-        minorGridLines?: StockChartNavigatorCategoryAxisMinorGridLines;
-        minorTicks?: StockChartNavigatorCategoryAxisMinorTicks;
-        plotBands?: StockChartNavigatorCategoryAxisPlotBand[];
-        reverse?: boolean;
-        roundToBaseUnit?: boolean;
-        title?: StockChartNavigatorCategoryAxisTitle;
-        visible?: boolean;
-        weekStartDay?: number;
-        notes?: StockChartNavigatorCategoryAxisNotes;
+        minorGridLines?: StockChartNavigatorCategoryAxisMinorGridLines | undefined;
+        minorTicks?: StockChartNavigatorCategoryAxisMinorTicks | undefined;
+        plotBands?: StockChartNavigatorCategoryAxisPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        roundToBaseUnit?: boolean | undefined;
+        title?: StockChartNavigatorCategoryAxisTitle | undefined;
+        visible?: boolean | undefined;
+        weekStartDay?: number | undefined;
+        notes?: StockChartNavigatorCategoryAxisNotes | undefined;
     }
 
     interface StockChartNavigatorHint {
-        visible?: boolean;
-        template?: string|Function;
-        format?: string;
+        visible?: boolean | undefined;
+        template?: string|Function | undefined;
+        format?: string | undefined;
     }
 
     interface StockChartNavigatorPaneBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorPaneMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface StockChartNavigatorPanePadding {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface StockChartNavigatorPaneTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorPaneTitleMargin {
-        bottom?: number;
-        left?: number;
-        right?: number;
-        top?: number;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
     }
 
     interface StockChartNavigatorPaneTitle {
-        background?: string;
-        border?: StockChartNavigatorPaneTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number | StockChartNavigatorPaneTitleMargin;
-        position?: string;
-        text?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorPaneTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number | StockChartNavigatorPaneTitleMargin | undefined;
+        position?: string | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorPane {
-        background?: string;
-        border?: StockChartNavigatorPaneBorder;
-        height?: number;
-        margin?: number | StockChartNavigatorPaneMargin;
-        name?: string;
-        padding?: number | StockChartNavigatorPanePadding;
-        title?: string | StockChartNavigatorPaneTitle;
+        background?: string | undefined;
+        border?: StockChartNavigatorPaneBorder | undefined;
+        height?: number | undefined;
+        margin?: number | StockChartNavigatorPaneMargin | undefined;
+        name?: string | undefined;
+        padding?: number | StockChartNavigatorPanePadding | undefined;
+        title?: string | StockChartNavigatorPaneTitle | undefined;
     }
 
     interface StockChartNavigatorSelectMousewheel {
-        reverse?: boolean;
-        zoom?: string;
+        reverse?: boolean | undefined;
+        zoom?: string | undefined;
     }
 
     interface StockChartNavigatorSelect {
-        from?: Date;
-        mousewheel?: boolean | StockChartNavigatorSelectMousewheel;
-        to?: Date;
+        from?: Date | undefined;
+        mousewheel?: boolean | StockChartNavigatorSelectMousewheel | undefined;
+        to?: Date | undefined;
     }
 
     interface StockChartNavigatorSeriesItemBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorSeriesItemHighlightBorder {
-        width?: number;
-        color?: string;
-        opacity?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface StockChartNavigatorSeriesItemHighlightLine {
-        width?: number;
-        color?: string;
-        opacity?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface StockChartNavigatorSeriesItemHighlight {
-        border?: StockChartNavigatorSeriesItemHighlightBorder;
-        color?: string;
-        line?: StockChartNavigatorSeriesItemHighlightLine;
-        opacity?: number;
-        visible?: boolean;
+        border?: StockChartNavigatorSeriesItemHighlightBorder | undefined;
+        color?: string | undefined;
+        line?: StockChartNavigatorSeriesItemHighlightLine | undefined;
+        opacity?: number | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorSeriesItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorSeriesItemLabels {
-        background?: string;
-        border?: StockChartNavigatorSeriesItemLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number|any;
-        padding?: number|any;
-        position?: string;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorSeriesItemLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        position?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorSeriesItemLine {
-        color?: string;
-        opacity?: number;
-        width?: string;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        width?: string | undefined;
     }
 
     interface StockChartNavigatorSeriesItemMarkersBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorSeriesItemMarkers {
-        background?: string;
-        border?: StockChartNavigatorSeriesItemMarkersBorder;
-        rotation?: number|Function;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorSeriesItemMarkersBorder | undefined;
+        rotation?: number|Function | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorSeriesItemOverlay {
-        gradient?: string;
+        gradient?: string | undefined;
     }
 
     interface StockChartNavigatorSeriesItemStack {
-        type?: string;
-        group?: string;
+        type?: string | undefined;
+        group?: string | undefined;
     }
 
     interface StockChartNavigatorSeriesItemTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigatorSeriesItemTooltip {
-        background?: string;
-        border?: StockChartNavigatorSeriesItemTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartNavigatorSeriesItemTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartNavigatorSeriesItem {
-        type?: string;
-        dashType?: string;
+        type?: string | undefined;
+        dashType?: string | undefined;
         data?: any;
-        highField?: string;
-        field?: string;
-        categoryField?: string;
-        name?: string;
-        highlight?: StockChartNavigatorSeriesItemHighlight;
-        aggregate?: string|Function;
-        axis?: string;
-        border?: StockChartNavigatorSeriesItemBorder;
-        closeField?: string;
-        color?: string;
-        colorField?: string;
-        downColor?: string;
-        downColorField?: string;
-        gap?: number;
-        labels?: StockChartNavigatorSeriesItemLabels;
-        line?: string | StockChartNavigatorSeriesItemLine;
-        lowField?: string;
-        markers?: StockChartNavigatorSeriesItemMarkers;
-        missingValues?: string;
-        style?: string;
-        opacity?: number;
-        openField?: string;
-        overlay?: StockChartNavigatorSeriesItemOverlay;
-        spacing?: number;
-        stack?: boolean | string | StockChartNavigatorSeriesItemStack;
-        tooltip?: StockChartNavigatorSeriesItemTooltip;
-        width?: number;
+        highField?: string | undefined;
+        field?: string | undefined;
+        categoryField?: string | undefined;
+        name?: string | undefined;
+        highlight?: StockChartNavigatorSeriesItemHighlight | undefined;
+        aggregate?: string|Function | undefined;
+        axis?: string | undefined;
+        border?: StockChartNavigatorSeriesItemBorder | undefined;
+        closeField?: string | undefined;
+        color?: string | undefined;
+        colorField?: string | undefined;
+        downColor?: string | undefined;
+        downColorField?: string | undefined;
+        gap?: number | undefined;
+        labels?: StockChartNavigatorSeriesItemLabels | undefined;
+        line?: string | StockChartNavigatorSeriesItemLine | undefined;
+        lowField?: string | undefined;
+        markers?: StockChartNavigatorSeriesItemMarkers | undefined;
+        missingValues?: string | undefined;
+        style?: string | undefined;
+        opacity?: number | undefined;
+        openField?: string | undefined;
+        overlay?: StockChartNavigatorSeriesItemOverlay | undefined;
+        spacing?: number | undefined;
+        stack?: boolean | string | StockChartNavigatorSeriesItemStack | undefined;
+        tooltip?: StockChartNavigatorSeriesItemTooltip | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartNavigator {
-        categoryAxis?: StockChartNavigatorCategoryAxis;
+        categoryAxis?: StockChartNavigatorCategoryAxis | undefined;
         dataSource?: any;
-        autoBind?: boolean;
-        dateField?: string;
-        pane?: StockChartNavigatorPane;
-        series?: StockChartNavigatorSeriesItem[];
-        select?: StockChartNavigatorSelect;
-        hint?: StockChartNavigatorHint;
-        visible?: boolean;
+        autoBind?: boolean | undefined;
+        dateField?: string | undefined;
+        pane?: StockChartNavigatorPane | undefined;
+        series?: StockChartNavigatorSeriesItem[] | undefined;
+        select?: StockChartNavigatorSelect | undefined;
+        hint?: StockChartNavigatorHint | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartPaneBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartPaneTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartPaneTitle {
-        background?: string;
-        border?: StockChartPaneTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number|any;
-        position?: string;
-        text?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartPaneTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number|any | undefined;
+        position?: string | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartPane {
-        name?: string;
-        margin?: number|any;
-        padding?: number|any;
-        background?: string;
-        border?: StockChartPaneBorder;
-        clip?: boolean;
-        height?: number;
-        title?: string | StockChartPaneTitle;
+        name?: string | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        background?: string | undefined;
+        border?: StockChartPaneBorder | undefined;
+        clip?: boolean | undefined;
+        height?: number | undefined;
+        title?: string | StockChartPaneTitle | undefined;
     }
 
     interface StockChartPdfMargin {
-        bottom?: number|string;
-        left?: number|string;
-        right?: number|string;
-        top?: number|string;
+        bottom?: number|string | undefined;
+        left?: number|string | undefined;
+        right?: number|string | undefined;
+        top?: number|string | undefined;
     }
 
     interface StockChartPdf {
-        author?: string;
-        creator?: string;
-        date?: Date;
-        forceProxy?: boolean;
-        fileName?: string;
-        keywords?: string;
-        landscape?: boolean;
-        margin?: StockChartPdfMargin;
-        paperSize?: string|any;
-        proxyURL?: string;
-        proxyTarget?: string;
-        subject?: string;
-        title?: string;
+        author?: string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        forceProxy?: boolean | undefined;
+        fileName?: string | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
+        margin?: StockChartPdfMargin | undefined;
+        paperSize?: string|any | undefined;
+        proxyURL?: string | undefined;
+        proxyTarget?: string | undefined;
+        subject?: string | undefined;
+        title?: string | undefined;
     }
 
     interface StockChartPlotAreaBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartPlotArea {
-        background?: string;
-        opacity?: number;
-        border?: StockChartPlotAreaBorder;
-        margin?: number|any;
+        background?: string | undefined;
+        opacity?: number | undefined;
+        border?: StockChartPlotAreaBorder | undefined;
+        margin?: number|any | undefined;
     }
 
     interface StockChartSeriesItemBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        opacity?: number|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        opacity?: number|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface StockChartSeriesItemHighlightBorder {
-        width?: number;
-        color?: string;
-        opacity?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface StockChartSeriesItemHighlightLine {
-        width?: number;
-        color?: string;
-        opacity?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface StockChartSeriesItemHighlight {
-        visible?: boolean;
-        border?: StockChartSeriesItemHighlightBorder;
-        color?: string;
-        line?: StockChartSeriesItemHighlightLine;
-        opacity?: number;
+        visible?: boolean | undefined;
+        border?: StockChartSeriesItemHighlightBorder | undefined;
+        color?: string | undefined;
+        line?: StockChartSeriesItemHighlightLine | undefined;
+        opacity?: number | undefined;
     }
 
     interface StockChartSeriesItemLabelsBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface StockChartSeriesItemLabels {
-        background?: string|Function;
-        border?: StockChartSeriesItemLabelsBorder;
-        color?: string|Function;
-        font?: string|Function;
-        format?: string|Function;
-        margin?: number|any;
-        padding?: number|any;
-        position?: string|Function;
-        template?: string|Function;
-        visible?: boolean|Function;
+        background?: string|Function | undefined;
+        border?: StockChartSeriesItemLabelsBorder | undefined;
+        color?: string|Function | undefined;
+        font?: string|Function | undefined;
+        format?: string|Function | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        position?: string|Function | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
     }
 
     interface StockChartSeriesItemLine {
-        color?: string;
-        opacity?: number;
-        width?: string;
-        style?: string;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        width?: string | undefined;
+        style?: string | undefined;
     }
 
     interface StockChartSeriesItemMarkersBorder {
-        color?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface StockChartSeriesItemMarkers {
-        background?: string|Function;
-        border?: Function | StockChartSeriesItemMarkersBorder;
-        size?: number|Function;
-        rotation?: number|Function;
-        type?: string|Function;
-        visible?: boolean|Function;
+        background?: string|Function | undefined;
+        border?: Function | StockChartSeriesItemMarkersBorder | undefined;
+        size?: number|Function | undefined;
+        rotation?: number|Function | undefined;
+        type?: string|Function | undefined;
+        visible?: boolean|Function | undefined;
     }
 
     interface StockChartSeriesItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartSeriesItemNotesIcon {
-        background?: string;
-        border?: StockChartSeriesItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartSeriesItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartSeriesItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartSeriesItemNotesLabel {
-        background?: string;
-        border?: StockChartSeriesItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: StockChartSeriesItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface StockChartSeriesItemNotesLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface StockChartSeriesItemNotes {
-        position?: string;
-        icon?: StockChartSeriesItemNotesIcon;
-        label?: StockChartSeriesItemNotesLabel;
-        line?: StockChartSeriesItemNotesLine;
+        position?: string | undefined;
+        icon?: StockChartSeriesItemNotesIcon | undefined;
+        label?: StockChartSeriesItemNotesLabel | undefined;
+        line?: StockChartSeriesItemNotesLine | undefined;
     }
 
     interface StockChartSeriesItemOverlay {
-        gradient?: string;
+        gradient?: string | undefined;
     }
 
     interface StockChartSeriesItemStack {
-        type?: string;
-        group?: string;
+        type?: string | undefined;
+        group?: string | undefined;
     }
 
     interface StockChartSeriesItemTargetBorder {
-        color?: string|Function;
-        dashType?: string|Function;
-        width?: number|Function;
+        color?: string|Function | undefined;
+        dashType?: string|Function | undefined;
+        width?: number|Function | undefined;
     }
 
     interface StockChartSeriesItemTargetLine {
-        width?: any|Function;
+        width?: any|Function | undefined;
     }
 
     interface StockChartSeriesItemTarget {
-        line?: StockChartSeriesItemTargetLine;
-        color?: string|Function;
-        border?: Function | StockChartSeriesItemTargetBorder;
+        line?: StockChartSeriesItemTargetLine | undefined;
+        color?: string|Function | undefined;
+        border?: Function | StockChartSeriesItemTargetBorder | undefined;
     }
 
     interface StockChartSeriesItemTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartSeriesItemTooltip {
-        background?: string;
-        border?: StockChartSeriesItemTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartSeriesItemTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartSeriesItem {
-        type?: string;
-        dashType?: string;
+        type?: string | undefined;
+        dashType?: string | undefined;
         data?: any;
-        highField?: string;
-        field?: string;
-        categoryField?: string;
-        currentField?: string;
-        targetField?: string;
-        name?: string;
-        highlight?: StockChartSeriesItemHighlight;
-        aggregate?: string|Function;
-        axis?: string;
-        border?: StockChartSeriesItemBorder;
-        closeField?: string;
-        color?: string|Function;
-        colorField?: string;
-        downColor?: string|Function;
-        downColorField?: string;
-        gap?: number;
-        labels?: StockChartSeriesItemLabels;
-        line?: string | StockChartSeriesItemLine;
-        lowField?: string;
-        markers?: StockChartSeriesItemMarkers;
-        missingValues?: string;
-        style?: string;
-        negativeColor?: string;
-        opacity?: number;
-        openField?: string;
-        overlay?: StockChartSeriesItemOverlay;
-        spacing?: number;
-        stack?: boolean | string | StockChartSeriesItemStack;
-        tooltip?: StockChartSeriesItemTooltip;
-        visibleInLegend?: boolean;
-        width?: number;
-        target?: StockChartSeriesItemTarget;
-        notes?: StockChartSeriesItemNotes;
-        zIndex?: number;
+        highField?: string | undefined;
+        field?: string | undefined;
+        categoryField?: string | undefined;
+        currentField?: string | undefined;
+        targetField?: string | undefined;
+        name?: string | undefined;
+        highlight?: StockChartSeriesItemHighlight | undefined;
+        aggregate?: string|Function | undefined;
+        axis?: string | undefined;
+        border?: StockChartSeriesItemBorder | undefined;
+        closeField?: string | undefined;
+        color?: string|Function | undefined;
+        colorField?: string | undefined;
+        downColor?: string|Function | undefined;
+        downColorField?: string | undefined;
+        gap?: number | undefined;
+        labels?: StockChartSeriesItemLabels | undefined;
+        line?: string | StockChartSeriesItemLine | undefined;
+        lowField?: string | undefined;
+        markers?: StockChartSeriesItemMarkers | undefined;
+        missingValues?: string | undefined;
+        style?: string | undefined;
+        negativeColor?: string | undefined;
+        opacity?: number | undefined;
+        openField?: string | undefined;
+        overlay?: StockChartSeriesItemOverlay | undefined;
+        spacing?: number | undefined;
+        stack?: boolean | string | StockChartSeriesItemStack | undefined;
+        tooltip?: StockChartSeriesItemTooltip | undefined;
+        visibleInLegend?: boolean | undefined;
+        width?: number | undefined;
+        target?: StockChartSeriesItemTarget | undefined;
+        notes?: StockChartSeriesItemNotes | undefined;
+        zIndex?: number | undefined;
     }
 
     interface StockChartSeriesDefaultsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartSeriesDefaultsLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartSeriesDefaultsLabels {
-        background?: string;
-        border?: StockChartSeriesDefaultsLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number|any;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartSeriesDefaultsLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartSeriesDefaultsStack {
-        type?: string;
+        type?: string | undefined;
     }
 
     interface StockChartSeriesDefaultsTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartSeriesDefaultsTooltip {
-        background?: string;
-        border?: StockChartSeriesDefaultsTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartSeriesDefaultsTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartSeriesDefaults {
         area?: any;
         candlestick?: any;
         ohlc?: any;
-        border?: StockChartSeriesDefaultsBorder;
+        border?: StockChartSeriesDefaultsBorder | undefined;
         column?: any;
-        gap?: number;
-        labels?: StockChartSeriesDefaultsLabels;
+        gap?: number | undefined;
+        labels?: StockChartSeriesDefaultsLabels | undefined;
         line?: any;
         overlay?: any;
         pie?: any;
-        spacing?: number;
-        stack?: boolean | StockChartSeriesDefaultsStack;
-        type?: string;
-        tooltip?: StockChartSeriesDefaultsTooltip;
+        spacing?: number | undefined;
+        stack?: boolean | StockChartSeriesDefaultsStack | undefined;
+        type?: string | undefined;
+        tooltip?: StockChartSeriesDefaultsTooltip | undefined;
     }
 
     interface StockChartTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartTitle {
-        align?: string;
-        background?: string;
-        border?: StockChartTitleBorder;
-        font?: string;
-        color?: string;
-        margin?: number|any;
-        padding?: number|any;
-        position?: string;
-        text?: string;
-        visible?: boolean;
+        align?: string | undefined;
+        background?: string | undefined;
+        border?: StockChartTitleBorder | undefined;
+        font?: string | undefined;
+        color?: string | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        position?: string | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartTooltip {
-        background?: string;
-        border?: StockChartTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
-        shared?: boolean;
-        sharedTemplate?: string;
+        background?: string | undefined;
+        border?: StockChartTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        shared?: boolean | undefined;
+        sharedTemplate?: string | undefined;
     }
 
     interface StockChartValueAxisItemCrosshairTooltipBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartValueAxisItemCrosshairTooltip {
-        background?: string;
-        border?: StockChartValueAxisItemCrosshairTooltipBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        padding?: number|any;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartValueAxisItemCrosshairTooltipBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        padding?: number|any | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartValueAxisItemCrosshair {
-        color?: string;
-        width?: number;
-        opacity?: number;
-        dashType?: number;
-        visible?: boolean;
-        tooltip?: StockChartValueAxisItemCrosshairTooltip;
+        color?: string | undefined;
+        width?: number | undefined;
+        opacity?: number | undefined;
+        dashType?: number | undefined;
+        visible?: boolean | undefined;
+        tooltip?: StockChartValueAxisItemCrosshairTooltip | undefined;
     }
 
     interface StockChartValueAxisItemLabelsBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartValueAxisItemLabels {
-        background?: string;
-        border?: StockChartValueAxisItemLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: number|any;
-        mirror?: boolean;
-        padding?: number|any;
-        rotation?: number;
-        skip?: number;
-        step?: number;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartValueAxisItemLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: number|any | undefined;
+        mirror?: boolean | undefined;
+        padding?: number|any | undefined;
+        rotation?: number | undefined;
+        skip?: number | undefined;
+        step?: number | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartValueAxisItemLine {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartValueAxisItemMajorGridLines {
-        color?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartValueAxisItemMajorTicks {
-        size?: number;
-        visible?: boolean;
-        color?: string;
-        width?: number;
-        step?: number;
-        skip?: number;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        color?: string | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartValueAxisItemMinorGridLines {
-        color?: string;
-        dashType?: string;
-        visible?: boolean;
-        width?: number;
-        step?: number;
-        skip?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartValueAxisItemMinorTicks {
-        size?: number;
-        color?: string;
-        width?: number;
-        visible?: boolean;
-        step?: number;
-        skip?: number;
+        size?: number | undefined;
+        color?: string | undefined;
+        width?: number | undefined;
+        visible?: boolean | undefined;
+        step?: number | undefined;
+        skip?: number | undefined;
     }
 
     interface StockChartValueAxisItemNotesDataItemIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartValueAxisItemNotesDataItemIcon {
-        background?: string;
-        border?: StockChartValueAxisItemNotesDataItemIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartValueAxisItemNotesDataItemIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartValueAxisItemNotesDataItemLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartValueAxisItemNotesDataItemLabel {
-        background?: string;
-        border?: StockChartValueAxisItemNotesDataItemLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        text?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: StockChartValueAxisItemNotesDataItemLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        text?: string | undefined;
+        position?: string | undefined;
     }
 
     interface StockChartValueAxisItemNotesDataItemLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface StockChartValueAxisItemNotesDataItem {
         value?: any;
-        position?: string;
-        icon?: StockChartValueAxisItemNotesDataItemIcon;
-        label?: StockChartValueAxisItemNotesDataItemLabel;
-        line?: StockChartValueAxisItemNotesDataItemLine;
+        position?: string | undefined;
+        icon?: StockChartValueAxisItemNotesDataItemIcon | undefined;
+        label?: StockChartValueAxisItemNotesDataItemLabel | undefined;
+        line?: StockChartValueAxisItemNotesDataItemLine | undefined;
     }
 
     interface StockChartValueAxisItemNotesIconBorder {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartValueAxisItemNotesIcon {
-        background?: string;
-        border?: StockChartValueAxisItemNotesIconBorder;
-        size?: number;
-        type?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartValueAxisItemNotesIconBorder | undefined;
+        size?: number | undefined;
+        type?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartValueAxisItemNotesLabelBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartValueAxisItemNotesLabel {
-        background?: string;
-        border?: StockChartValueAxisItemNotesLabelBorder;
-        color?: string;
-        font?: string;
-        template?: string|Function;
-        visible?: boolean;
-        rotation?: number;
-        format?: string;
-        position?: string;
+        background?: string | undefined;
+        border?: StockChartValueAxisItemNotesLabelBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
+        rotation?: number | undefined;
+        format?: string | undefined;
+        position?: string | undefined;
     }
 
     interface StockChartValueAxisItemNotesLine {
-        width?: number;
-        color?: string;
-        length?: number;
+        width?: number | undefined;
+        color?: string | undefined;
+        length?: number | undefined;
     }
 
     interface StockChartValueAxisItemNotes {
-        position?: string;
-        icon?: StockChartValueAxisItemNotesIcon;
-        label?: StockChartValueAxisItemNotesLabel;
-        line?: StockChartValueAxisItemNotesLine;
-        data?: StockChartValueAxisItemNotesDataItem[];
+        position?: string | undefined;
+        icon?: StockChartValueAxisItemNotesIcon | undefined;
+        label?: StockChartValueAxisItemNotesLabel | undefined;
+        line?: StockChartValueAxisItemNotesLine | undefined;
+        data?: StockChartValueAxisItemNotesDataItem[] | undefined;
     }
 
     interface StockChartValueAxisItemPlotBand {
-        from?: number;
-        to?: number;
-        color?: string;
-        opacity?: number;
+        from?: number | undefined;
+        to?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface StockChartValueAxisItemTitleBorder {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface StockChartValueAxisItemTitle {
-        background?: string;
-        border?: StockChartValueAxisItemTitleBorder;
-        color?: string;
-        font?: string;
-        margin?: number|any;
-        padding?: number|any;
-        position?: string;
-        rotation?: number;
-        text?: string;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: StockChartValueAxisItemTitleBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        margin?: number|any | undefined;
+        padding?: number|any | undefined;
+        position?: string | undefined;
+        rotation?: number | undefined;
+        text?: string | undefined;
+        visible?: boolean | undefined;
     }
 
     interface StockChartValueAxisItem {
-        axisCrossingValue?: any|Date|any;
-        background?: string;
-        color?: string;
-        labels?: StockChartValueAxisItemLabels;
-        line?: StockChartValueAxisItemLine;
-        majorGridLines?: StockChartValueAxisItemMajorGridLines;
-        majorTicks?: StockChartValueAxisItemMajorTicks;
-        majorUnit?: number;
-        max?: number;
-        min?: number;
-        minorGridLines?: StockChartValueAxisItemMinorGridLines;
-        minorTicks?: StockChartValueAxisItemMinorTicks;
-        minorUnit?: number;
+        axisCrossingValue?: any|Date|any | undefined;
+        background?: string | undefined;
+        color?: string | undefined;
+        labels?: StockChartValueAxisItemLabels | undefined;
+        line?: StockChartValueAxisItemLine | undefined;
+        majorGridLines?: StockChartValueAxisItemMajorGridLines | undefined;
+        majorTicks?: StockChartValueAxisItemMajorTicks | undefined;
+        majorUnit?: number | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        minorGridLines?: StockChartValueAxisItemMinorGridLines | undefined;
+        minorTicks?: StockChartValueAxisItemMinorTicks | undefined;
+        minorUnit?: number | undefined;
         name?: any;
-        narrowRange?: boolean;
-        pane?: string;
-        plotBands?: StockChartValueAxisItemPlotBand[];
-        reverse?: boolean;
-        title?: StockChartValueAxisItemTitle;
-        visible?: boolean;
-        crosshair?: StockChartValueAxisItemCrosshair;
-        notes?: StockChartValueAxisItemNotes;
+        narrowRange?: boolean | undefined;
+        pane?: string | undefined;
+        plotBands?: StockChartValueAxisItemPlotBand[] | undefined;
+        reverse?: boolean | undefined;
+        title?: StockChartValueAxisItemTitle | undefined;
+        visible?: boolean | undefined;
+        crosshair?: StockChartValueAxisItemCrosshair | undefined;
+        notes?: StockChartValueAxisItemNotes | undefined;
     }
 
     interface StockChartExportImageOptions {
-        width?: string;
-        height?: string;
+        width?: string | undefined;
+        height?: string | undefined;
     }
 
     interface StockChartExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface StockChartSeriesClickEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface StockChartSeriesHoverEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface StockChartSeriesOverEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface StockChartSeriesLeaveEventSeries {
-        type?: string;
-        name?: string;
+        type?: string | undefined;
+        name?: string | undefined;
         data?: any;
     }
 
     interface StockChartOptions {
-        name?: string;
-        dateField?: string;
-        navigator?: StockChartNavigator;
+        name?: string | undefined;
+        dateField?: string | undefined;
+        navigator?: StockChartNavigator | undefined;
         axisDefaults?: any;
-        categoryAxis?: StockChartCategoryAxisItem | StockChartCategoryAxisItem[];
-        chartArea?: StockChartChartArea;
+        categoryAxis?: StockChartCategoryAxisItem | StockChartCategoryAxisItem[] | undefined;
+        chartArea?: StockChartChartArea | undefined;
         dataSource?: any;
-        autoBind?: boolean;
-        legend?: StockChartLegend;
-        panes?: StockChartPane[];
-        pdf?: StockChartPdf;
-        persistSeriesVisibility?: boolean;
-        plotArea?: StockChartPlotArea;
-        renderAs?: string;
-        series?: StockChartSeriesItem[];
+        autoBind?: boolean | undefined;
+        legend?: StockChartLegend | undefined;
+        panes?: StockChartPane[] | undefined;
+        pdf?: StockChartPdf | undefined;
+        persistSeriesVisibility?: boolean | undefined;
+        plotArea?: StockChartPlotArea | undefined;
+        renderAs?: string | undefined;
+        series?: StockChartSeriesItem[] | undefined;
         seriesColors?: any;
-        seriesDefaults?: StockChartSeriesDefaults;
-        theme?: string;
-        title?: StockChartTitle;
-        tooltip?: StockChartTooltip;
-        transitions?: boolean;
-        valueAxis?: StockChartValueAxisItem | StockChartValueAxisItem[];
+        seriesDefaults?: StockChartSeriesDefaults | undefined;
+        theme?: string | undefined;
+        title?: StockChartTitle | undefined;
+        tooltip?: StockChartTooltip | undefined;
+        transitions?: boolean | undefined;
+        valueAxis?: StockChartValueAxisItem | StockChartValueAxisItem[] | undefined;
         axisLabelClick?(e: StockChartAxisLabelClickEvent): void;
         dataBound?(e: StockChartEvent): void;
         dragStart?(e: StockChartDragStartEvent): void;
@@ -20046,27 +20046,27 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface StockChartLegendItemClickEvent extends StockChartEvent {
-        text?: string;
+        text?: string | undefined;
         series?: any;
-        seriesIndex?: number;
-        pointIndex?: number;
+        seriesIndex?: number | undefined;
+        pointIndex?: number | undefined;
         element?: any;
     }
 
     interface StockChartLegendItemHoverEvent extends StockChartEvent {
-        text?: string;
+        text?: string | undefined;
         series?: any;
-        seriesIndex?: number;
-        pointIndex?: number;
+        seriesIndex?: number | undefined;
+        pointIndex?: number | undefined;
         element?: any;
     }
 
     interface StockChartLegendItemLeaveEvent extends StockChartEvent {
         element?: any;
-        pointIndex?: number;
+        pointIndex?: number | undefined;
         series?: any;
-        seriesIndex?: number;
-        text?: string;
+        seriesIndex?: number | undefined;
+        text?: string | undefined;
     }
 
     interface StockChartNoteClickEvent extends StockChartEvent {
@@ -20095,9 +20095,9 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface StockChartPaneRenderEvent extends StockChartEvent {
-        pane?: kendo.dataviz.ui.StockChart;
-        name?: string;
-        index?: number;
+        pane?: kendo.dataviz.ui.StockChart | undefined;
+        name?: string | undefined;
+        index?: number | undefined;
     }
 
     interface StockChartPlotAreaClickEvent extends StockChartEvent {
@@ -20125,26 +20125,26 @@ declare namespace kendo.dataviz.ui {
 
     interface StockChartSelectEvent extends StockChartEvent {
         axis?: any;
-        from?: Date;
-        to?: Date;
+        from?: Date | undefined;
+        to?: Date | undefined;
     }
 
     interface StockChartSelectEndEvent extends StockChartEvent {
         axis?: any;
-        from?: Date;
-        to?: Date;
+        from?: Date | undefined;
+        to?: Date | undefined;
     }
 
     interface StockChartSelectStartEvent extends StockChartEvent {
         axis?: any;
-        from?: Date;
-        to?: Date;
+        from?: Date | undefined;
+        to?: Date | undefined;
     }
 
     interface StockChartSeriesClickEvent extends StockChartEvent {
         value?: any;
         category?: any;
-        series?: StockChartSeriesClickEventSeries;
+        series?: StockChartSeriesClickEventSeries | undefined;
         dataItem?: any;
         element?: any;
         percentage?: any;
@@ -20153,7 +20153,7 @@ declare namespace kendo.dataviz.ui {
     interface StockChartSeriesHoverEvent extends StockChartEvent {
         value?: any;
         category?: any;
-        series?: StockChartSeriesHoverEventSeries;
+        series?: StockChartSeriesHoverEventSeries | undefined;
         dataItem?: any;
         element?: any;
         percentage?: any;
@@ -20165,7 +20165,7 @@ declare namespace kendo.dataviz.ui {
         element?: any;
         originalEvent?: any;
         percentage?: any;
-        series?: StockChartSeriesOverEventSeries;
+        series?: StockChartSeriesOverEventSeries | undefined;
         stackValue?: any;
         value?: any;
     }
@@ -20176,7 +20176,7 @@ declare namespace kendo.dataviz.ui {
         element?: any;
         originalEvent?: any;
         percentage?: any;
-        series?: StockChartSeriesLeaveEventSeries;
+        series?: StockChartSeriesLeaveEventSeries | undefined;
         stackValue?: any;
         value?: any;
     }
@@ -20188,7 +20188,7 @@ declare namespace kendo.dataviz.ui {
 
     interface StockChartZoomEvent extends StockChartEvent {
         axisRanges?: any;
-        delta?: number;
+        delta?: number | undefined;
         originalEvent?: any;
     }
 
@@ -20227,117 +20227,117 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface CircularGaugeColor {
-        color?: string;
-        from?: number;
-        to?: number;
+        color?: string | undefined;
+        from?: number | undefined;
+        to?: number | undefined;
     }
 
     interface CircularGaugeGaugeAreaBorder {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface CircularGaugeGaugeAreaMargin {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface CircularGaugeGaugeArea {
-        background?: string;
-        border?: CircularGaugeGaugeAreaBorder;
-        height?: number;
-        margin?: CircularGaugeGaugeAreaMargin;
-        width?: number;
+        background?: string | undefined;
+        border?: CircularGaugeGaugeAreaBorder | undefined;
+        height?: number | undefined;
+        margin?: CircularGaugeGaugeAreaMargin | undefined;
+        width?: number | undefined;
     }
 
     interface CircularGaugeScaleLabelsBorder {
-        color?: string;
-        dashType?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
     }
 
     interface CircularGaugeScaleLabelsMargin {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface CircularGaugeScaleLabelsPadding {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
+        top?: number | undefined;
+        bottom?: number | undefined;
+        left?: number | undefined;
+        right?: number | undefined;
     }
 
     interface CircularGaugeScaleLabels {
-        background?: string;
-        border?: CircularGaugeScaleLabelsBorder;
-        color?: string;
-        font?: string;
-        format?: string;
-        margin?: CircularGaugeScaleLabelsMargin;
-        padding?: CircularGaugeScaleLabelsPadding;
-        position?: string;
-        template?: string|Function;
-        visible?: boolean;
+        background?: string | undefined;
+        border?: CircularGaugeScaleLabelsBorder | undefined;
+        color?: string | undefined;
+        font?: string | undefined;
+        format?: string | undefined;
+        margin?: CircularGaugeScaleLabelsMargin | undefined;
+        padding?: CircularGaugeScaleLabelsPadding | undefined;
+        position?: string | undefined;
+        template?: string|Function | undefined;
+        visible?: boolean | undefined;
     }
 
     interface CircularGaugeScaleMajorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface CircularGaugeScaleMinorTicks {
-        color?: string;
-        size?: number;
-        visible?: boolean;
-        width?: number;
+        color?: string | undefined;
+        size?: number | undefined;
+        visible?: boolean | undefined;
+        width?: number | undefined;
     }
 
     interface CircularGaugeScale {
-        labels?: CircularGaugeScaleLabels;
-        majorTicks?: CircularGaugeScaleMajorTicks;
-        majorUnit?: number;
-        max?: number;
-        min?: number;
-        minorTicks?: CircularGaugeScaleMinorTicks;
-        minorUnit?: number;
-        rangePlaceholderColor?: string;
-        rangeSize?: number;
-        rangeDistance?: number;
-        reverse?: boolean;
-        startAngle?: number;
+        labels?: CircularGaugeScaleLabels | undefined;
+        majorTicks?: CircularGaugeScaleMajorTicks | undefined;
+        majorUnit?: number | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        minorTicks?: CircularGaugeScaleMinorTicks | undefined;
+        minorUnit?: number | undefined;
+        rangePlaceholderColor?: string | undefined;
+        rangeSize?: number | undefined;
+        rangeDistance?: number | undefined;
+        reverse?: boolean | undefined;
+        startAngle?: number | undefined;
     }
 
     interface CircularGaugeExportImageOptions {
-        width?: string;
-        height?: string;
+        width?: string | undefined;
+        height?: string | undefined;
     }
 
     interface CircularGaugeExportSVGOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
     }
 
     interface CircularGaugeOptions {
-        name?: string;
-        centerTemplate?: string|Function;
-        color?: string;
-        colors?: CircularGaugeColor[];
-        gaugeArea?: CircularGaugeGaugeArea;
-        opacity?: number;
-        renderAs?: string;
-        scale?: CircularGaugeScale;
-        theme?: string;
-        transitions?: boolean;
-        value?: number;
+        name?: string | undefined;
+        centerTemplate?: string|Function | undefined;
+        color?: string | undefined;
+        colors?: CircularGaugeColor[] | undefined;
+        gaugeArea?: CircularGaugeGaugeArea | undefined;
+        opacity?: number | undefined;
+        renderAs?: string | undefined;
+        scale?: CircularGaugeScale | undefined;
+        theme?: string | undefined;
+        transitions?: boolean | undefined;
+        value?: number | undefined;
     }
     interface CircularGaugeEvent {
         sender: CircularGauge;
@@ -20365,15 +20365,15 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface TreeMapOptions {
-        name?: string;
-        dataSource?: any|any|kendo.data.HierarchicalDataSource;
-        autoBind?: boolean;
-        type?: string;
-        theme?: string;
-        valueField?: string;
-        colorField?: string;
-        textField?: string;
-        template?: string|Function;
+        name?: string | undefined;
+        dataSource?: any|any|kendo.data.HierarchicalDataSource | undefined;
+        autoBind?: boolean | undefined;
+        type?: string | undefined;
+        theme?: string | undefined;
+        valueField?: string | undefined;
+        colorField?: string | undefined;
+        textField?: string | undefined;
+        template?: string|Function | undefined;
         colors?: any;
         itemCreated?(e: TreeMapItemCreatedEvent): void;
         dataBound?(e: TreeMapDataBoundEvent): void;
@@ -20385,7 +20385,7 @@ declare namespace kendo.dataviz.ui {
     }
 
     interface TreeMapItemCreatedEvent extends TreeMapEvent {
-        element?: JQuery|Element;
+        element?: JQuery|Element | undefined;
     }
 
     interface TreeMapDataBoundEvent extends TreeMapEvent {
@@ -20411,9 +20411,9 @@ declare namespace kendo.dataviz.map {
     }
 
     interface BingLayerOptions {
-        name?: string;
-        baseUrl?: string;
-        imagerySet?: string;
+        name?: string | undefined;
+        baseUrl?: string | undefined;
+        imagerySet?: string | undefined;
     }
     interface BingLayerEvent {
         sender: BingLayer;
@@ -20449,7 +20449,7 @@ declare namespace kendo.dataviz.map {
     }
 
     interface ExtentOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ExtentEvent {
         sender: Extent;
@@ -20474,7 +20474,7 @@ declare namespace kendo.dataviz.map {
     }
 
     interface LayerOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface LayerEvent {
         sender: Layer;
@@ -20511,7 +20511,7 @@ declare namespace kendo.dataviz.map {
     }
 
     interface LocationOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface LocationEvent {
         sender: Location;
@@ -20536,44 +20536,44 @@ declare namespace kendo.dataviz.map {
     }
 
     interface MarkerTooltipAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MarkerTooltipAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface MarkerTooltipAnimation {
-        close?: MarkerTooltipAnimationClose;
-        open?: MarkerTooltipAnimationOpen;
+        close?: MarkerTooltipAnimationClose | undefined;
+        open?: MarkerTooltipAnimationOpen | undefined;
     }
 
     interface MarkerTooltipContent {
-        url?: string;
+        url?: string | undefined;
     }
 
     interface MarkerTooltip {
-        autoHide?: boolean;
-        animation?: MarkerTooltipAnimation;
-        content?: string | Function | MarkerTooltipContent;
-        template?: string;
-        callout?: boolean;
-        iframe?: boolean;
-        height?: number;
-        width?: number;
-        position?: string;
-        showAfter?: number;
-        showOn?: string;
+        autoHide?: boolean | undefined;
+        animation?: MarkerTooltipAnimation | undefined;
+        content?: string | Function | MarkerTooltipContent | undefined;
+        template?: string | undefined;
+        callout?: boolean | undefined;
+        iframe?: boolean | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        position?: string | undefined;
+        showAfter?: number | undefined;
+        showOn?: string | undefined;
     }
 
     interface MarkerOptions {
-        name?: string;
-        location?: any|kendo.dataviz.map.Location;
-        shape?: string;
-        title?: string;
-        tooltip?: MarkerTooltip;
+        name?: string | undefined;
+        location?: any|kendo.dataviz.map.Location | undefined;
+        shape?: string | undefined;
+        title?: string | undefined;
+        tooltip?: MarkerTooltip | undefined;
     }
     interface MarkerEvent {
         sender: Marker;
@@ -20603,7 +20603,7 @@ declare namespace kendo.dataviz.map {
     }
 
     interface MarkerLayerOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface MarkerLayerEvent {
         sender: MarkerLayer;
@@ -20629,7 +20629,7 @@ declare namespace kendo.dataviz.map {
     }
 
     interface ShapeLayerOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ShapeLayerEvent {
         sender: ShapeLayer;
@@ -20654,10 +20654,10 @@ declare namespace kendo.dataviz.map {
     }
 
     interface TileLayerOptions {
-        name?: string;
-        urlTemplate?: string;
+        name?: string | undefined;
+        urlTemplate?: string | undefined;
         subdomains?: any;
-        tileSize?: number;
+        tileSize?: number | undefined;
     }
     interface TileLayerEvent {
         sender: TileLayer;
@@ -20692,7 +20692,7 @@ declare namespace kendo.dataviz {
     }
 
     interface ChartAxisOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ChartAxisEvent {
         sender: ChartAxis;
@@ -20717,7 +20717,7 @@ declare namespace kendo.dataviz {
     }
 
     interface ChartPaneOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ChartPaneEvent {
         sender: ChartPane;
@@ -20740,7 +20740,7 @@ declare namespace kendo.dataviz {
     }
 
     interface ChartPlotAreaOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ChartPlotAreaEvent {
         sender: ChartPlotArea;
@@ -20768,7 +20768,7 @@ declare namespace kendo.dataviz {
     }
 
     interface ChartPointOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ChartPointEvent {
         sender: ChartPoint;
@@ -20797,7 +20797,7 @@ declare namespace kendo.dataviz {
     }
 
     interface ChartSeriesOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ChartSeriesEvent {
         sender: ChartSeries;
@@ -20818,7 +20818,7 @@ declare namespace kendo.dataviz {
     }
 
     interface NavigatorOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface NavigatorEvent {
         sender: Navigator;
@@ -20848,37 +20848,37 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface CircleFillGradientStop {
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface CircleFillGradient {
-        type?: string;
+        type?: string | undefined;
         center?: any;
-        radius?: number;
+        radius?: number | undefined;
         start?: any;
         end?: any;
-        stops?: CircleFillGradientStop[];
+        stops?: CircleFillGradientStop[] | undefined;
     }
 
     interface CircleFill {
-        color?: string;
-        opacity?: number;
-        gradient?: CircleFillGradient;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        gradient?: CircleFillGradient | undefined;
     }
 
     interface CircleStroke {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface CircleOptions {
-        name?: string;
-        fill?: string | CircleFill;
-        stroke?: CircleStroke;
+        name?: string | undefined;
+        fill?: string | CircleFill | undefined;
+        stroke?: CircleStroke | undefined;
         center?: any;
-        radius?: number;
+        radius?: number | undefined;
     }
     interface CircleEvent {
         sender: Circle;
@@ -20921,81 +20921,81 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface ConnectionContent {
-        color?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        fontWeight?: string;
-        template?: string|Function;
-        text?: string;
-        visual?: Function;
+        color?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontWeight?: string | undefined;
+        template?: string|Function | undefined;
+        text?: string | undefined;
+        visual?: Function | undefined;
     }
 
     interface ConnectionEndCapFill {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface ConnectionEndCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ConnectionEndCap {
-        fill?: string | ConnectionEndCapFill;
-        stroke?: string | ConnectionEndCapStroke;
-        type?: string;
+        fill?: string | ConnectionEndCapFill | undefined;
+        stroke?: string | ConnectionEndCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface ConnectionHoverStroke {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface ConnectionHover {
-        stroke?: ConnectionHoverStroke;
+        stroke?: ConnectionHoverStroke | undefined;
     }
 
     interface ConnectionPoint {
-        x?: number;
-        y?: number;
+        x?: number | undefined;
+        y?: number | undefined;
     }
 
     interface ConnectionStartCapFill {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface ConnectionStartCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ConnectionStartCap {
-        fill?: string | ConnectionStartCapFill;
-        stroke?: string | ConnectionStartCapStroke;
-        type?: string;
+        fill?: string | ConnectionStartCapFill | undefined;
+        stroke?: string | ConnectionStartCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface ConnectionStroke {
-        color?: string;
+        color?: string | undefined;
     }
 
     interface ConnectionOptions {
-        name?: string;
-        content?: ConnectionContent;
-        fromConnector?: string;
-        fromX?: number;
-        fromY?: number;
-        stroke?: ConnectionStroke;
-        hover?: ConnectionHover;
-        startCap?: string | ConnectionStartCap;
-        endCap?: string | ConnectionEndCap;
-        points?: ConnectionPoint[];
-        selectable?: boolean;
-        toConnector?: string;
-        toX?: number;
-        toY?: number;
-        type?: string;
+        name?: string | undefined;
+        content?: ConnectionContent | undefined;
+        fromConnector?: string | undefined;
+        fromX?: number | undefined;
+        fromY?: number | undefined;
+        stroke?: ConnectionStroke | undefined;
+        hover?: ConnectionHover | undefined;
+        startCap?: string | ConnectionStartCap | undefined;
+        endCap?: string | ConnectionEndCap | undefined;
+        points?: ConnectionPoint[] | undefined;
+        selectable?: boolean | undefined;
+        toConnector?: string | undefined;
+        toX?: number | undefined;
+        toY?: number | undefined;
+        type?: string | undefined;
     }
     interface ConnectionEvent {
         sender: Connection;
@@ -21020,39 +21020,39 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface ConnectorFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface ConnectorHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface ConnectorHoverStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ConnectorHover {
-        fill?: string | ConnectorHoverFill;
-        stroke?: string | ConnectorHoverStroke;
+        fill?: string | ConnectorHoverFill | undefined;
+        stroke?: string | ConnectorHoverStroke | undefined;
     }
 
     interface ConnectorStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ConnectorOptions {
-        name?: string;
-        width?: number;
-        height?: number;
-        hover?: ConnectorHover;
-        fill?: string | ConnectorFill;
-        stroke?: string | ConnectorStroke;
+        name?: string | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        hover?: ConnectorHover | undefined;
+        fill?: string | ConnectorFill | undefined;
+        stroke?: string | ConnectorStroke | undefined;
     }
     interface ConnectorEvent {
         sender: Connector;
@@ -21083,9 +21083,9 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface GroupOptions {
-        name?: string;
-        x?: number;
-        y?: number;
+        name?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
     interface GroupEvent {
         sender: Group;
@@ -21113,12 +21113,12 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface ImageOptions {
-        name?: string;
-        height?: number;
-        width?: number;
-        x?: number;
-        y?: number;
-        source?: string;
+        name?: string | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        source?: string | undefined;
     }
     interface ImageEvent {
         sender: Image;
@@ -21149,14 +21149,14 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface LayoutOptions {
-        name?: string;
-        alignContent?: string;
-        alignItems?: string;
-        justifyContent?: string;
-        lineSpacing?: number;
-        spacing?: number;
-        orientation?: string;
-        wrap?: boolean;
+        name?: string | undefined;
+        alignContent?: string | undefined;
+        alignItems?: string | undefined;
+        justifyContent?: string | undefined;
+        lineSpacing?: number | undefined;
+        spacing?: number | undefined;
+        orientation?: string | undefined;
+        wrap?: boolean | undefined;
     }
     interface LayoutEvent {
         sender: Layout;
@@ -21184,13 +21184,13 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface LineStroke {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface LineOptions {
-        name?: string;
-        stroke?: LineStroke;
+        name?: string | undefined;
+        stroke?: LineStroke | undefined;
         from?: any;
         to?: any;
     }
@@ -21219,76 +21219,76 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface PathEndCapFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface PathEndCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface PathEndCap {
-        fill?: string | PathEndCapFill;
-        stroke?: string | PathEndCapStroke;
-        type?: string;
+        fill?: string | PathEndCapFill | undefined;
+        stroke?: string | PathEndCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface PathFillGradientStop {
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface PathFillGradient {
-        type?: string;
+        type?: string | undefined;
         center?: any;
-        radius?: number;
+        radius?: number | undefined;
         start?: any;
         end?: any;
-        stops?: PathFillGradientStop[];
+        stops?: PathFillGradientStop[] | undefined;
     }
 
     interface PathFill {
-        color?: string;
-        opacity?: number;
-        gradient?: PathFillGradient;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        gradient?: PathFillGradient | undefined;
     }
 
     interface PathStartCapFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface PathStartCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface PathStartCap {
-        fill?: string | PathStartCapFill;
-        stroke?: string | PathStartCapStroke;
-        type?: string;
+        fill?: string | PathStartCapFill | undefined;
+        stroke?: string | PathStartCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface PathStroke {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface PathOptions {
-        name?: string;
-        data?: string;
-        endCap?: string | PathEndCap;
-        fill?: string | PathFill;
-        height?: number;
-        startCap?: string | PathStartCap;
-        stroke?: PathStroke;
-        width?: number;
-        x?: number;
-        y?: number;
+        name?: string | undefined;
+        data?: string | undefined;
+        endCap?: string | PathEndCap | undefined;
+        fill?: string | PathFill | undefined;
+        height?: number | undefined;
+        startCap?: string | PathStartCap | undefined;
+        stroke?: PathStroke | undefined;
+        width?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
     interface PathEvent {
         sender: Path;
@@ -21312,7 +21312,7 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface PointOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface PointEvent {
         sender: Point;
@@ -21339,71 +21339,71 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface PolylineEndCapFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface PolylineEndCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface PolylineEndCap {
-        fill?: string | PolylineEndCapFill;
-        stroke?: string | PolylineEndCapStroke;
-        type?: string;
+        fill?: string | PolylineEndCapFill | undefined;
+        stroke?: string | PolylineEndCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface PolylineFillGradientStop {
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface PolylineFillGradient {
-        type?: string;
+        type?: string | undefined;
         center?: any;
-        radius?: number;
+        radius?: number | undefined;
         start?: any;
         end?: any;
-        stops?: PolylineFillGradientStop[];
+        stops?: PolylineFillGradientStop[] | undefined;
     }
 
     interface PolylineFill {
-        color?: string;
-        opacity?: number;
-        gradient?: PolylineFillGradient;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        gradient?: PolylineFillGradient | undefined;
     }
 
     interface PolylineStartCapFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface PolylineStartCapStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface PolylineStartCap {
-        fill?: string | PolylineStartCapFill;
-        stroke?: string | PolylineStartCapStroke;
-        type?: string;
+        fill?: string | PolylineStartCapFill | undefined;
+        stroke?: string | PolylineStartCapStroke | undefined;
+        type?: string | undefined;
     }
 
     interface PolylineStroke {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface PolylineOptions {
-        name?: string;
-        endCap?: string | PolylineEndCap;
-        fill?: string | PolylineFill;
-        startCap?: string | PolylineStartCap;
-        stroke?: PolylineStroke;
+        name?: string | undefined;
+        endCap?: string | PolylineEndCap | undefined;
+        fill?: string | PolylineFill | undefined;
+        startCap?: string | PolylineStartCap | undefined;
+        stroke?: PolylineStroke | undefined;
     }
     interface PolylineEvent {
         sender: Polyline;
@@ -21430,11 +21430,11 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface RectOptions {
-        name?: string;
-        height?: number;
-        width?: number;
-        x?: number;
-        y?: number;
+        name?: string | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
     interface RectEvent {
         sender: Rect;
@@ -21459,39 +21459,39 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface RectangleFillGradientStop {
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface RectangleFillGradient {
-        type?: string;
+        type?: string | undefined;
         center?: any;
-        radius?: number;
+        radius?: number | undefined;
         start?: any;
         end?: any;
-        stops?: RectangleFillGradientStop[];
+        stops?: RectangleFillGradientStop[] | undefined;
     }
 
     interface RectangleFill {
-        color?: string;
-        opacity?: number;
-        gradient?: RectangleFillGradient;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        gradient?: RectangleFillGradient | undefined;
     }
 
     interface RectangleStroke {
-        color?: string;
-        width?: number;
+        color?: string | undefined;
+        width?: number | undefined;
     }
 
     interface RectangleOptions {
-        name?: string;
-        fill?: string | RectangleFill;
-        height?: number;
-        stroke?: RectangleStroke;
-        width?: number;
-        x?: number;
-        y?: number;
+        name?: string | undefined;
+        fill?: string | RectangleFill | undefined;
+        height?: number | undefined;
+        stroke?: RectangleStroke | undefined;
+        width?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
     interface RectangleEvent {
         sender: Rectangle;
@@ -21526,121 +21526,121 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface ShapeConnectorDefaultsFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface ShapeConnectorDefaultsHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface ShapeConnectorDefaultsHoverStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ShapeConnectorDefaultsHover {
-        fill?: string | ShapeConnectorDefaultsHoverFill;
-        stroke?: string | ShapeConnectorDefaultsHoverStroke;
+        fill?: string | ShapeConnectorDefaultsHoverFill | undefined;
+        stroke?: string | ShapeConnectorDefaultsHoverStroke | undefined;
     }
 
     interface ShapeConnectorDefaultsStroke {
-        color?: string;
-        dashType?: string;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        width?: number | undefined;
     }
 
     interface ShapeConnectorDefaults {
-        width?: number;
-        height?: number;
-        hover?: ShapeConnectorDefaultsHover;
-        fill?: string | ShapeConnectorDefaultsFill;
-        stroke?: string | ShapeConnectorDefaultsStroke;
+        width?: number | undefined;
+        height?: number | undefined;
+        hover?: ShapeConnectorDefaultsHover | undefined;
+        fill?: string | ShapeConnectorDefaultsFill | undefined;
+        stroke?: string | ShapeConnectorDefaultsStroke | undefined;
     }
 
     interface ShapeConnector {
-        name?: string;
-        description?: string;
-        position?: Function;
+        name?: string | undefined;
+        description?: string | undefined;
+        position?: Function | undefined;
     }
 
     interface ShapeContent {
-        align?: string;
-        color?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        fontWeight?: string;
-        text?: string;
+        align?: string | undefined;
+        color?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontWeight?: string | undefined;
+        text?: string | undefined;
     }
 
     interface ShapeEditable {
-        connect?: boolean;
+        connect?: boolean | undefined;
     }
 
     interface ShapeFillGradientStop {
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface ShapeFillGradient {
-        type?: string;
+        type?: string | undefined;
         center?: any;
-        radius?: number;
+        radius?: number | undefined;
         start?: any;
         end?: any;
-        stops?: ShapeFillGradientStop[];
+        stops?: ShapeFillGradientStop[] | undefined;
     }
 
     interface ShapeFill {
-        color?: string;
-        opacity?: number;
-        gradient?: ShapeFillGradient;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        gradient?: ShapeFillGradient | undefined;
     }
 
     interface ShapeHoverFill {
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
 
     interface ShapeHover {
-        fill?: string | ShapeHoverFill;
+        fill?: string | ShapeHoverFill | undefined;
     }
 
     interface ShapeRotation {
-        angle?: number;
+        angle?: number | undefined;
     }
 
     interface ShapeStroke {
-        color?: string;
-        width?: number;
-        dashType?: string;
+        color?: string | undefined;
+        width?: number | undefined;
+        dashType?: string | undefined;
     }
 
     interface ShapeOptions {
-        name?: string;
-        id?: string;
-        editable?: boolean | ShapeEditable;
-        path?: string;
-        stroke?: ShapeStroke;
-        type?: string;
-        x?: number;
-        y?: number;
-        minWidth?: number;
-        minHeight?: number;
-        width?: number;
-        height?: number;
-        fill?: string | ShapeFill;
-        hover?: ShapeHover;
-        connectors?: ShapeConnector[];
-        rotation?: ShapeRotation;
-        content?: ShapeContent;
-        selectable?: boolean;
-        visual?: Function;
-        connectorDefaults?: ShapeConnectorDefaults;
+        name?: string | undefined;
+        id?: string | undefined;
+        editable?: boolean | ShapeEditable | undefined;
+        path?: string | undefined;
+        stroke?: ShapeStroke | undefined;
+        type?: string | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        minWidth?: number | undefined;
+        minHeight?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        fill?: string | ShapeFill | undefined;
+        hover?: ShapeHover | undefined;
+        connectors?: ShapeConnector[] | undefined;
+        rotation?: ShapeRotation | undefined;
+        content?: ShapeContent | undefined;
+        selectable?: boolean | undefined;
+        visual?: Function | undefined;
+        connectorDefaults?: ShapeConnectorDefaults | undefined;
     }
     interface ShapeEvent {
         sender: Shape;
@@ -21670,17 +21670,17 @@ declare namespace kendo.dataviz.diagram {
     }
 
     interface TextBlockOptions {
-        name?: string;
-        color?: string;
-        fontFamily?: string;
-        fontSize?: number;
-        fontStyle?: string;
-        fontWeight?: string;
-        height?: number;
-        text?: string;
-        width?: number;
-        x?: number;
-        y?: number;
+        name?: string | undefined;
+        color?: string | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontWeight?: string | undefined;
+        height?: number | undefined;
+        text?: string | undefined;
+        width?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
     }
     interface TextBlockEvent {
         sender: TextBlock;
@@ -21712,7 +21712,7 @@ declare namespace kendo {
     }
 
     interface ColorOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ColorEvent {
         sender: Color;
@@ -21838,7 +21838,7 @@ declare namespace kendo.spreadsheet {
     }
 
     interface CustomFilterOptions {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface CustomFilterEvent {
@@ -21854,7 +21854,7 @@ declare namespace kendo.spreadsheet {
     }
 
     interface DynamicFilterOptions {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface DynamicFilterEvent {
@@ -21935,7 +21935,7 @@ declare namespace kendo.spreadsheet {
     }
 
     interface RangeOptions {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface RangeEvent {
@@ -21977,7 +21977,7 @@ declare namespace kendo.spreadsheet {
     }
 
     interface SheetOptions {
-        name?: string;
+        name?: string | undefined;
         change?(e: SheetChangeEvent): void;
     }
 
@@ -21997,7 +21997,7 @@ declare namespace kendo.spreadsheet {
     }
 
     interface TopFilterOptions {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface TopFilterEvent {
@@ -22013,7 +22013,7 @@ declare namespace kendo.spreadsheet {
     }
 
     interface ValueFilterOptions {
-        name?: string;
+        name?: string | undefined;
     }
 
     interface ValueFilterEvent {
@@ -22044,20 +22044,20 @@ declare namespace kendo.stepper {
     }
 
     interface StepOptions {
-        label?: string;
-        icon?: string;
-        successIcon?: string;
-        iconTemplate?: string|Function;
-        enabled?: boolean;
-        error?: boolean;
-        selected?: boolean;
-        isFirstStep?: boolean;
-        isLastStep?: boolean;
-        indicatorVisible?: boolean;
-        labelVisible?: boolean;
-        index?: number;
-        previous?: boolean;
-        selectable?: boolean;
+        label?: string | undefined;
+        icon?: string | undefined;
+        successIcon?: string | undefined;
+        iconTemplate?: string|Function | undefined;
+        enabled?: boolean | undefined;
+        error?: boolean | undefined;
+        selected?: boolean | undefined;
+        isFirstStep?: boolean | undefined;
+        isLastStep?: boolean | undefined;
+        indicatorVisible?: boolean | undefined;
+        labelVisible?: boolean | undefined;
+        index?: number | undefined;
+        previous?: boolean | undefined;
+        selectable?: boolean | undefined;
     }
 }
 
@@ -22071,21 +22071,21 @@ declare namespace kendo.wizard {
     }
 
     interface WizardStepOptions {
-        index?: number;
-        content?: string;
-        contentUrl?: string;
-        contentId?: string;
-        markupContainer?: JQuery;
+        index?: number | undefined;
+        content?: string | undefined;
+        contentUrl?: string | undefined;
+        contentId?: string | undefined;
+        markupContainer?: JQuery | undefined;
         form?: any;
-        formTag?: string;
-        actionBar?: boolean;
-        buttons?: any[];
-        pager?: boolean;
-        selected?: boolean;
-        enabled?: boolean;
-        className?: string;
+        formTag?: string | undefined;
+        actionBar?: boolean | undefined;
+        buttons?: any[] | undefined;
+        pager?: boolean | undefined;
+        selected?: boolean | undefined;
+        enabled?: boolean | undefined;
+        className?: string | undefined;
         totalSteps: number;
-        wizardId?: string;
+        wizardId?: string | undefined;
         messages?: any;
     }
 }
@@ -22113,16 +22113,16 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ActionSheetPopup {
-        direction?: number|string;
-        height?: number|string;
-        width?: number|string;
+        direction?: number|string | undefined;
+        height?: number|string | undefined;
+        width?: number|string | undefined;
     }
 
     interface ActionSheetOptions {
-        name?: string;
-        cancel?: string;
-        popup?: ActionSheetPopup;
-        type?: string;
+        name?: string | undefined;
+        cancel?: string | undefined;
+        popup?: ActionSheetPopup | undefined;
+        type?: string | undefined;
         close?(e: ActionSheetEvent): void;
         open?(e: ActionSheetOpenEvent): void;
     }
@@ -22133,8 +22133,8 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ActionSheetOpenEvent extends ActionSheetEvent {
-        target?: JQuery;
-        context?: JQuery;
+        target?: JQuery | undefined;
+        context?: JQuery | undefined;
     }
 
     class Badge extends kendo.ui.Widget {
@@ -22161,13 +22161,13 @@ declare namespace kendo.mobile.ui {
     }
 
     interface BadgeOptions {
-        name?: string;
-        appearance?: string;
-        look?: string;
-        template?: string|Function;
-        type?: string;
-        value?: string|number;
-        visible?: boolean;
+        name?: string | undefined;
+        appearance?: string | undefined;
+        look?: string | undefined;
+        template?: string|Function | undefined;
+        type?: string | undefined;
+        value?: string|number | undefined;
+        visible?: boolean | undefined;
         change?(e: BadgeChangeEvent): void;
         hide?(e: BadgeEvent): void;
         show?(e: BadgeEvent): void;
@@ -22179,8 +22179,8 @@ declare namespace kendo.mobile.ui {
     }
 
     interface BadgeChangeEvent extends BadgeEvent {
-        oldValue?: string|number;
-        newValue?: string|number;
+        oldValue?: string|number | undefined;
+        newValue?: string|number | undefined;
     }
 
 
@@ -22204,7 +22204,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface BackButtonOptions {
-        name?: string;
+        name?: string | undefined;
         click?(e: BackButtonClickEvent): void;
     }
     interface BackButtonEvent {
@@ -22214,8 +22214,8 @@ declare namespace kendo.mobile.ui {
     }
 
     interface BackButtonClickEvent extends BackButtonEvent {
-        target?: JQuery;
-        button?: JQuery;
+        target?: JQuery | undefined;
+        button?: JQuery | undefined;
     }
 
 
@@ -22242,11 +22242,11 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ButtonOptions {
-        name?: string;
-        badge?: string;
-        clickOn?: string;
-        enable?: boolean;
-        icon?: string;
+        name?: string | undefined;
+        badge?: string | undefined;
+        clickOn?: string | undefined;
+        enable?: boolean | undefined;
+        icon?: string | undefined;
         click?(e: ButtonClickEvent): void;
     }
     interface ButtonEvent {
@@ -22256,8 +22256,8 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ButtonClickEvent extends ButtonEvent {
-        target?: JQuery;
-        button?: JQuery;
+        target?: JQuery | undefined;
+        button?: JQuery | undefined;
     }
 
 
@@ -22289,10 +22289,10 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ButtonGroupOptions {
-        name?: string;
-        enable?: boolean;
-        index?: number;
-        selectOn?: string;
+        name?: string | undefined;
+        enable?: boolean | undefined;
+        index?: number | undefined;
+        selectOn?: string | undefined;
         select?(e: ButtonGroupSelectEvent): void;
     }
     interface ButtonGroupEvent {
@@ -22302,7 +22302,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ButtonGroupSelectEvent extends ButtonGroupEvent {
-        index?: number;
+        index?: number | undefined;
     }
 
 
@@ -22330,12 +22330,12 @@ declare namespace kendo.mobile.ui {
     }
 
     interface CollapsibleOptions {
-        name?: string;
-        animation?: boolean;
-        collapsed?: boolean;
-        expandIcon?: string;
-        iconPosition?: string;
-        inset?: boolean;
+        name?: string | undefined;
+        animation?: boolean | undefined;
+        collapsed?: boolean | undefined;
+        expandIcon?: string | undefined;
+        iconPosition?: string | undefined;
+        inset?: boolean | undefined;
         collapse?(e: CollapsibleEvent): void;
         expand?(e: CollapsibleEvent): void;
     }
@@ -22366,7 +22366,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface DetailButtonOptions {
-        name?: string;
+        name?: string | undefined;
         click?(e: DetailButtonClickEvent): void;
     }
     interface DetailButtonEvent {
@@ -22376,8 +22376,8 @@ declare namespace kendo.mobile.ui {
     }
 
     interface DetailButtonClickEvent extends DetailButtonEvent {
-        target?: JQuery;
-        button?: JQuery;
+        target?: JQuery | undefined;
+        button?: JQuery | undefined;
     }
 
 
@@ -22403,12 +22403,12 @@ declare namespace kendo.mobile.ui {
     }
 
     interface DrawerOptions {
-        name?: string;
-        container?: JQuery;
-        position?: string;
-        swipeToOpen?: boolean;
+        name?: string | undefined;
+        container?: JQuery | undefined;
+        position?: string | undefined;
+        swipeToOpen?: boolean | undefined;
         swipeToOpenViews?: any;
-        title?: string;
+        title?: string | undefined;
         views?: any;
         afterHide?(e: DrawerAfterHideEvent): void;
         beforeShow?(e: DrawerEvent): void;
@@ -22454,9 +22454,9 @@ declare namespace kendo.mobile.ui {
     }
 
     interface LayoutOptions {
-        name?: string;
-        id?: string;
-        platform?: string;
+        name?: string | undefined;
+        id?: string | undefined;
+        platform?: string | undefined;
         hide?(e: LayoutHideEvent): void;
         init?(e: LayoutInitEvent): void;
         show?(e: LayoutShowEvent): void;
@@ -22468,17 +22468,17 @@ declare namespace kendo.mobile.ui {
     }
 
     interface LayoutHideEvent extends LayoutEvent {
-        layout?: JQuery;
-        view?: JQuery;
+        layout?: JQuery | undefined;
+        view?: JQuery | undefined;
     }
 
     interface LayoutInitEvent extends LayoutEvent {
-        layout?: JQuery;
+        layout?: JQuery | undefined;
     }
 
     interface LayoutShowEvent extends LayoutEvent {
-        layout?: JQuery;
-        view?: JQuery;
+        layout?: JQuery | undefined;
+        view?: JQuery | undefined;
     }
 
 
@@ -22511,37 +22511,37 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ListViewFilterable {
-        placeholder?: string;
-        autoFilter?: boolean;
-        field?: string;
-        ignoreCase?: boolean;
-        operator?: string;
+        placeholder?: string | undefined;
+        autoFilter?: boolean | undefined;
+        field?: string | undefined;
+        ignoreCase?: boolean | undefined;
+        operator?: string | undefined;
     }
 
     interface ListViewMessages {
-        loadMoreText?: string;
-        pullTemplate?: string;
-        refreshTemplate?: string;
-        releaseTemplate?: string;
+        loadMoreText?: string | undefined;
+        pullTemplate?: string | undefined;
+        refreshTemplate?: string | undefined;
+        releaseTemplate?: string | undefined;
     }
 
     interface ListViewOptions {
-        name?: string;
-        appendOnRefresh?: boolean;
-        autoBind?: boolean;
-        dataSource?: kendo.data.DataSource|any;
-        endlessScroll?: boolean;
-        fixedHeaders?: boolean;
-        headerTemplate?: string|Function;
-        loadMore?: boolean;
-        messages?: ListViewMessages;
-        pullToRefresh?: boolean;
-        pullParameters?: Function;
-        style?: string;
-        template?: string|Function;
-        type?: string;
-        filterable?: boolean | ListViewFilterable;
-        virtualViewSize?: number;
+        name?: string | undefined;
+        appendOnRefresh?: boolean | undefined;
+        autoBind?: boolean | undefined;
+        dataSource?: kendo.data.DataSource|any | undefined;
+        endlessScroll?: boolean | undefined;
+        fixedHeaders?: boolean | undefined;
+        headerTemplate?: string|Function | undefined;
+        loadMore?: boolean | undefined;
+        messages?: ListViewMessages | undefined;
+        pullToRefresh?: boolean | undefined;
+        pullParameters?: Function | undefined;
+        style?: string | undefined;
+        template?: string|Function | undefined;
+        type?: string | undefined;
+        filterable?: boolean | ListViewFilterable | undefined;
+        virtualViewSize?: number | undefined;
         click?(e: ListViewClickEvent): void;
         dataBound?(e: ListViewEvent): void;
         dataBinding?(e: ListViewEvent): void;
@@ -22554,10 +22554,10 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ListViewClickEvent extends ListViewEvent {
-        item?: JQuery;
-        target?: JQuery;
+        item?: JQuery | undefined;
+        target?: JQuery | undefined;
         dataItem?: any;
-        button?: kendo.mobile.ui.Button;
+        button?: kendo.mobile.ui.Button | undefined;
     }
 
     class Loader extends kendo.mobile.ui.Widget {
@@ -22581,7 +22581,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface LoaderOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface LoaderEvent {
         sender: Loader;
@@ -22611,10 +22611,10 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ModalViewOptions {
-        name?: string;
-        height?: number;
-        modal?: boolean;
-        width?: number;
+        name?: string | undefined;
+        height?: number | undefined;
+        modal?: boolean | undefined;
+        width?: number | undefined;
         beforeOpen?(e: ModalViewBeforeOpenEvent): void;
         close?(e: ModalViewCloseEvent): void;
         init?(e: ModalViewInitEvent): void;
@@ -22627,7 +22627,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ModalViewBeforeOpenEvent extends ModalViewEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
     interface ModalViewCloseEvent extends ModalViewEvent {
@@ -22637,7 +22637,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ModalViewOpenEvent extends ModalViewEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
 
@@ -22662,7 +22662,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface NavBarOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface NavBarEvent {
         sender: NavBar;
@@ -22696,13 +22696,13 @@ declare namespace kendo.mobile.ui {
     }
 
     interface PaneOptions {
-        name?: string;
-        collapsible?: boolean;
-        initial?: string;
-        layout?: string;
-        loading?: string;
-        portraitWidth?: number;
-        transition?: string;
+        name?: string | undefined;
+        collapsible?: boolean | undefined;
+        initial?: string | undefined;
+        layout?: string | undefined;
+        loading?: string | undefined;
+        portraitWidth?: number | undefined;
+        transition?: string | undefined;
         navigate?(e: PaneNavigateEvent): void;
         viewShow?(e: PaneViewShowEvent): void;
     }
@@ -22713,11 +22713,11 @@ declare namespace kendo.mobile.ui {
     }
 
     interface PaneNavigateEvent extends PaneEvent {
-        url?: JQuery;
+        url?: JQuery | undefined;
     }
 
     interface PaneViewShowEvent extends PaneEvent {
-        view?: kendo.mobile.ui.View;
+        view?: kendo.mobile.ui.View | undefined;
     }
 
 
@@ -22743,21 +22743,21 @@ declare namespace kendo.mobile.ui {
     }
 
     interface PopOverPane {
-        initial?: string;
-        layout?: string;
-        loading?: string;
-        transition?: string;
+        initial?: string | undefined;
+        layout?: string | undefined;
+        loading?: string | undefined;
+        transition?: string | undefined;
     }
 
     interface PopOverPopup {
-        height?: number|string;
-        width?: number|string;
+        height?: number|string | undefined;
+        width?: number|string | undefined;
     }
 
     interface PopOverOptions {
-        name?: string;
-        pane?: PopOverPane;
-        popup?: PopOverPopup;
+        name?: string | undefined;
+        pane?: PopOverPane | undefined;
+        popup?: PopOverPopup | undefined;
         close?(e: PopOverCloseEvent): void;
         open?(e: PopOverOpenEvent): void;
     }
@@ -22771,7 +22771,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface PopOverOpenEvent extends PopOverEvent {
-        target?: JQuery;
+        target?: JQuery | undefined;
     }
 
 
@@ -22804,19 +22804,19 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ScrollViewOptions {
-        name?: string;
-        autoBind?: boolean;
-        bounceVelocityThreshold?: number;
-        contentHeight?: number|string;
-        dataSource?: kendo.data.DataSource|any;
-        duration?: number;
-        emptyTemplate?: string;
-        enablePager?: boolean;
-        itemsPerPage?: number;
-        page?: number;
-        pageSize?: number;
-        template?: string;
-        velocityThreshold?: number;
+        name?: string | undefined;
+        autoBind?: boolean | undefined;
+        bounceVelocityThreshold?: number | undefined;
+        contentHeight?: number|string | undefined;
+        dataSource?: kendo.data.DataSource|any | undefined;
+        duration?: number | undefined;
+        emptyTemplate?: string | undefined;
+        enablePager?: boolean | undefined;
+        itemsPerPage?: number | undefined;
+        page?: number | undefined;
+        pageSize?: number | undefined;
+        template?: string | undefined;
+        velocityThreshold?: number | undefined;
         changing?(e: ScrollViewChangingEvent): void;
         change?(e: ScrollViewChangeEvent): void;
         refresh?(e: ScrollViewRefreshEvent): void;
@@ -22828,19 +22828,19 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ScrollViewChangingEvent extends ScrollViewEvent {
-        currentPage?: number;
-        nextPage?: number;
+        currentPage?: number | undefined;
+        nextPage?: number | undefined;
     }
 
     interface ScrollViewChangeEvent extends ScrollViewEvent {
-        page?: number;
-        element?: JQuery;
+        page?: number | undefined;
+        element?: JQuery | undefined;
         data?: any;
     }
 
     interface ScrollViewRefreshEvent extends ScrollViewEvent {
-        pageCount?: number;
-        page?: number;
+        pageCount?: number | undefined;
+        page?: number | undefined;
     }
 
 
@@ -22875,20 +22875,20 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ScrollerMessages {
-        pullTemplate?: string;
-        refreshTemplate?: string;
-        releaseTemplate?: string;
+        pullTemplate?: string | undefined;
+        refreshTemplate?: string | undefined;
+        releaseTemplate?: string | undefined;
     }
 
     interface ScrollerOptions {
-        name?: string;
-        elastic?: boolean;
-        messages?: ScrollerMessages;
-        pullOffset?: number;
-        pullToRefresh?: boolean;
-        useNative?: boolean;
-        visibleScrollHints?: boolean;
-        zoom?: boolean;
+        name?: string | undefined;
+        elastic?: boolean | undefined;
+        messages?: ScrollerMessages | undefined;
+        pullOffset?: number | undefined;
+        pullToRefresh?: boolean | undefined;
+        useNative?: boolean | undefined;
+        visibleScrollHints?: boolean | undefined;
+        zoom?: boolean | undefined;
         pull?(e: ScrollerEvent): void;
         resize?(e: ScrollerEvent): void;
         scroll?(e: ScrollerScrollEvent): void;
@@ -22900,8 +22900,8 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ScrollerScrollEvent extends ScrollerEvent {
-        scrollTop?: number;
-        scrollLeft?: number;
+        scrollTop?: number | undefined;
+        scrollLeft?: number | undefined;
     }
 
 
@@ -22927,8 +22927,8 @@ declare namespace kendo.mobile.ui {
     }
 
     interface SplitViewOptions {
-        name?: string;
-        style?: string;
+        name?: string | undefined;
+        style?: string | undefined;
         init?(e: SplitViewInitEvent): void;
         show?(e: SplitViewShowEvent): void;
     }
@@ -22939,11 +22939,11 @@ declare namespace kendo.mobile.ui {
     }
 
     interface SplitViewInitEvent extends SplitViewEvent {
-        view?: JQuery;
+        view?: JQuery | undefined;
     }
 
     interface SplitViewShowEvent extends SplitViewEvent {
-        view?: JQuery;
+        view?: JQuery | undefined;
     }
 
 
@@ -22972,11 +22972,11 @@ declare namespace kendo.mobile.ui {
     }
 
     interface SwitchOptions {
-        name?: string;
-        checked?: boolean;
-        enable?: boolean;
-        offLabel?: string;
-        onLabel?: string;
+        name?: string | undefined;
+        checked?: boolean | undefined;
+        enable?: boolean | undefined;
+        offLabel?: string | undefined;
+        onLabel?: string | undefined;
         change?(e: SwitchChangeEvent): void;
     }
     interface SwitchEvent {
@@ -23019,8 +23019,8 @@ declare namespace kendo.mobile.ui {
     }
 
     interface TabStripOptions {
-        name?: string;
-        selectedIndex?: number;
+        name?: string | undefined;
+        selectedIndex?: number | undefined;
         select?(e: TabStripSelectEvent): void;
     }
     interface TabStripEvent {
@@ -23030,7 +23030,7 @@ declare namespace kendo.mobile.ui {
     }
 
     interface TabStripSelectEvent extends TabStripEvent {
-        item?: JQuery;
+        item?: JQuery | undefined;
     }
 
 
@@ -23056,14 +23056,14 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ViewOptions {
-        name?: string;
-        model?: string;
-        reload?: boolean;
+        name?: string | undefined;
+        model?: string | undefined;
+        reload?: boolean | undefined;
         scroller?: any;
-        stretch?: boolean;
-        title?: string;
-        useNativeScrolling?: boolean;
-        zoom?: boolean;
+        stretch?: boolean | undefined;
+        title?: string | undefined;
+        useNativeScrolling?: boolean | undefined;
+        zoom?: boolean | undefined;
         afterShow?(e: ViewAfterShowEvent): void;
         beforeHide?(e: ViewBeforeHideEvent): void;
         beforeShow?(e: ViewBeforeShowEvent): void;
@@ -23080,35 +23080,35 @@ declare namespace kendo.mobile.ui {
     }
 
     interface ViewAfterShowEvent extends ViewEvent {
-        view?: kendo.mobile.ui.View;
+        view?: kendo.mobile.ui.View | undefined;
     }
 
     interface ViewBeforeHideEvent extends ViewEvent {
-        view?: kendo.mobile.ui.View;
+        view?: kendo.mobile.ui.View | undefined;
     }
 
     interface ViewBeforeShowEvent extends ViewEvent {
-        view?: kendo.mobile.ui.View;
+        view?: kendo.mobile.ui.View | undefined;
     }
 
     interface ViewHideEvent extends ViewEvent {
-        view?: kendo.mobile.ui.View;
+        view?: kendo.mobile.ui.View | undefined;
     }
 
     interface ViewInitEvent extends ViewEvent {
-        view?: kendo.mobile.ui.View;
+        view?: kendo.mobile.ui.View | undefined;
     }
 
     interface ViewShowEvent extends ViewEvent {
-        view?: kendo.mobile.ui.View;
+        view?: kendo.mobile.ui.View | undefined;
     }
 
     interface ViewTransitionStartEvent extends ViewEvent {
-        type?: string;
+        type?: string | undefined;
     }
 
     interface ViewTransitionEndEvent extends ViewEvent {
-        type?: string;
+        type?: string | undefined;
     }
 
 
@@ -23130,92 +23130,92 @@ declare namespace kendo.ooxml {
     }
 
     interface WorkbookSheetColumn {
-        autoWidth?: boolean;
-        index?: number;
-        width?: number;
+        autoWidth?: boolean | undefined;
+        index?: number | undefined;
+        width?: number | undefined;
     }
 
     interface WorkbookSheetFilter {
-        from?: number;
-        to?: number;
+        from?: number | undefined;
+        to?: number | undefined;
     }
 
     interface WorkbookSheetFreezePane {
-        colSplit?: number;
-        rowSplit?: number;
+        colSplit?: number | undefined;
+        rowSplit?: number | undefined;
     }
 
     interface WorkbookSheetRowCellBorderBottom {
-        color?: string;
-        size?: number;
+        color?: string | undefined;
+        size?: number | undefined;
     }
 
     interface WorkbookSheetRowCellBorderLeft {
-        color?: string;
-        size?: number;
+        color?: string | undefined;
+        size?: number | undefined;
     }
 
     interface WorkbookSheetRowCellBorderRight {
-        color?: string;
-        size?: number;
+        color?: string | undefined;
+        size?: number | undefined;
     }
 
     interface WorkbookSheetRowCellBorderTop {
-        color?: string;
-        size?: number;
+        color?: string | undefined;
+        size?: number | undefined;
     }
 
     interface WorkbookSheetRowCell {
-        background?: string;
-        borderBottom?: WorkbookSheetRowCellBorderBottom;
-        borderLeft?: WorkbookSheetRowCellBorderLeft;
-        borderTop?: WorkbookSheetRowCellBorderTop;
-        borderRight?: WorkbookSheetRowCellBorderRight;
-        bold?: boolean;
-        color?: string;
-        colSpan?: number;
-        fontFamily?: string;
-        fontName?: string;
-        fontSize?: number;
-        format?: string;
-        formula?: string;
-        hAlign?: string;
+        background?: string | undefined;
+        borderBottom?: WorkbookSheetRowCellBorderBottom | undefined;
+        borderLeft?: WorkbookSheetRowCellBorderLeft | undefined;
+        borderTop?: WorkbookSheetRowCellBorderTop | undefined;
+        borderRight?: WorkbookSheetRowCellBorderRight | undefined;
+        bold?: boolean | undefined;
+        color?: string | undefined;
+        colSpan?: number | undefined;
+        fontFamily?: string | undefined;
+        fontName?: string | undefined;
+        fontSize?: number | undefined;
+        format?: string | undefined;
+        formula?: string | undefined;
+        hAlign?: string | undefined;
         index?: any;
-        italic?: boolean;
-        rowSpan?: number;
-        textAlign?: string;
-        underline?: boolean;
-        wrap?: boolean;
-        vAlign?: string;
-        verticalAlign?: string;
-        value?: Date|number|string|boolean;
+        italic?: boolean | undefined;
+        rowSpan?: number | undefined;
+        textAlign?: string | undefined;
+        underline?: boolean | undefined;
+        wrap?: boolean | undefined;
+        vAlign?: string | undefined;
+        verticalAlign?: string | undefined;
+        value?: Date|number|string|boolean | undefined;
     }
 
     interface WorkbookSheetRow {
-        cells?: WorkbookSheetRowCell[];
-        index?: number;
-        height?: number;
-        type?: string;
+        cells?: WorkbookSheetRowCell[] | undefined;
+        index?: number | undefined;
+        height?: number | undefined;
+        type?: string | undefined;
     }
 
     interface WorkbookSheet {
-        columns?: WorkbookSheetColumn[];
-        freezePane?: WorkbookSheetFreezePane;
-        frozenColumns?: number;
-        frozenRows?: number;
-        filter?: WorkbookSheetFilter;
+        columns?: WorkbookSheetColumn[] | undefined;
+        freezePane?: WorkbookSheetFreezePane | undefined;
+        frozenColumns?: number | undefined;
+        frozenRows?: number | undefined;
+        filter?: WorkbookSheetFilter | undefined;
         mergedCells?: any;
-        name?: string;
-        rows?: WorkbookSheetRow[];
-        showGridLines?: boolean;
-        title?: string;
+        name?: string | undefined;
+        rows?: WorkbookSheetRow[] | undefined;
+        showGridLines?: boolean | undefined;
+        title?: string | undefined;
     }
 
     interface WorkbookOptions {
-        name?: string;
-        creator?: string;
-        date?: Date;
-        sheets?: WorkbookSheet[];
+        name?: string | undefined;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        sheets?: WorkbookSheet[] | undefined;
     }
     interface WorkbookEvent {
         sender: Workbook;
@@ -23255,15 +23255,15 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface ArcOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface ArcEvent {
         sender: Arc;
@@ -23300,15 +23300,15 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface CircleOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface CircleEvent {
         sender: Circle;
@@ -23342,12 +23342,12 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface ElementOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        opacity?: number;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        opacity?: number | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface ElementEvent {
         sender: Element;
@@ -23360,8 +23360,8 @@ declare namespace kendo.dataviz.drawing {
 
 
 
-        color?: string;
-        opacity?: number;
+        color?: string | undefined;
+        opacity?: number | undefined;
 
 
 
@@ -23386,7 +23386,7 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface GradientOptions {
-        name?: string;
+        name?: string | undefined;
         stops?: any;
     }
     interface GradientEvent {
@@ -23409,10 +23409,10 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface GradientStopOptions {
-        name?: string;
-        offset?: number;
-        color?: string;
-        opacity?: number;
+        name?: string | undefined;
+        offset?: number | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
     }
     interface GradientStopEvent {
         sender: GradientStop;
@@ -23448,14 +23448,14 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface GroupOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        opacity?: number;
-        pdf?: kendo.drawing.PDFOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        opacity?: number | undefined;
+        pdf?: kendo.drawing.PDFOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface GroupEvent {
         sender: Group;
@@ -23492,13 +23492,13 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface ImageOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        opacity?: number;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        opacity?: number | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface ImageEvent {
         sender: Image;
@@ -23523,14 +23523,14 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface LayoutOptions {
-        name?: string;
-        alignContent?: string;
-        alignItems?: string;
-        justifyContent?: string;
-        lineSpacing?: number;
-        spacing?: number;
-        orientation?: string;
-        wrap?: boolean;
+        name?: string | undefined;
+        alignContent?: string | undefined;
+        alignItems?: string | undefined;
+        justifyContent?: string | undefined;
+        lineSpacing?: number | undefined;
+        spacing?: number | undefined;
+        orientation?: string | undefined;
+        wrap?: boolean | undefined;
     }
     interface LayoutEvent {
         sender: Layout;
@@ -23561,7 +23561,7 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface LinearGradientOptions {
-        name?: string;
+        name?: string | undefined;
         stops?: any;
     }
     interface LinearGradientEvent {
@@ -23613,15 +23613,15 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface MultiPathOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface MultiPathEvent {
         sender: MultiPath;
@@ -23646,7 +23646,7 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface OptionsStoreOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface OptionsStoreEvent {
         sender: OptionsStore;
@@ -23659,15 +23659,15 @@ declare namespace kendo.dataviz.drawing {
 
 
 
-        creator?: string;
-        date?: Date;
-        imgDPI?: number;
-        keywords?: string;
-        landscape?: boolean;
+        creator?: string | undefined;
+        date?: Date | undefined;
+        imgDPI?: number | undefined;
+        keywords?: string | undefined;
+        landscape?: boolean | undefined;
         margin?: any;
         paperSize?: any;
-        subject?: string;
-        title?: string;
+        subject?: string | undefined;
+        title?: string | undefined;
 
 
 
@@ -23722,15 +23722,15 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface PathOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface PathEvent {
         sender: Path;
@@ -23760,9 +23760,9 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface RadialGradientOptions {
-        name?: string;
-        center?: any|kendo.geometry.Point;
-        radius?: number;
+        name?: string | undefined;
+        center?: any|kendo.geometry.Point | undefined;
+        radius?: number | undefined;
         stops?: any;
     }
     interface RadialGradientEvent {
@@ -23800,15 +23800,15 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface RectOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface RectEvent {
         sender: Rect;
@@ -23836,7 +23836,7 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface SegmentOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface SegmentEvent {
         sender: Segment;
@@ -23849,12 +23849,12 @@ declare namespace kendo.dataviz.drawing {
 
 
 
-        color?: string;
-        dashType?: string;
-        lineCap?: string;
-        lineJoin?: string;
-        opacity?: number;
-        width?: number;
+        color?: string | undefined;
+        dashType?: string | undefined;
+        lineCap?: string | undefined;
+        lineJoin?: string | undefined;
+        opacity?: number | undefined;
+        width?: number | undefined;
 
 
 
@@ -23883,31 +23883,31 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface SurfaceTooltipAnimationClose {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface SurfaceTooltipAnimationOpen {
-        effects?: string;
-        duration?: number;
+        effects?: string | undefined;
+        duration?: number | undefined;
     }
 
     interface SurfaceTooltipAnimation {
-        close?: SurfaceTooltipAnimationClose;
-        open?: SurfaceTooltipAnimationOpen;
+        close?: SurfaceTooltipAnimationClose | undefined;
+        open?: SurfaceTooltipAnimationOpen | undefined;
     }
 
     interface SurfaceTooltip {
-        animation?: boolean | SurfaceTooltipAnimation;
-        appendTo?: string|JQuery;
+        animation?: boolean | SurfaceTooltipAnimation | undefined;
+        appendTo?: string|JQuery | undefined;
     }
 
     interface SurfaceOptions {
-        name?: string;
-        type?: string;
-        height?: string;
-        width?: string;
-        tooltip?: SurfaceTooltip;
+        name?: string | undefined;
+        type?: string | undefined;
+        height?: string | undefined;
+        width?: string | undefined;
+        tooltip?: SurfaceTooltip | undefined;
         click?(e: SurfaceClickEvent): void;
         mouseenter?(e: SurfaceMouseenterEvent): void;
         mouseleave?(e: SurfaceMouseleaveEvent): void;
@@ -23921,28 +23921,28 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface SurfaceClickEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface SurfaceMouseenterEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface SurfaceMouseleaveEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
         originalEvent?: any;
     }
 
     interface SurfaceTooltipCloseEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        target?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
+        target?: kendo.drawing.Element | undefined;
     }
 
     interface SurfaceTooltipOpenEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        target?: kendo.drawing.Element;
+        element?: kendo.drawing.Element | undefined;
+        target?: kendo.drawing.Element | undefined;
     }
 
 
@@ -23976,16 +23976,16 @@ declare namespace kendo.dataviz.drawing {
     }
 
     interface TextOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        cursor?: string;
-        fill?: kendo.drawing.FillOptions;
-        font?: string;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        tooltip?: kendo.drawing.TooltipOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
+        name?: string | undefined;
+        clip?: kendo.drawing.Path | undefined;
+        cursor?: string | undefined;
+        fill?: kendo.drawing.FillOptions | undefined;
+        font?: string | undefined;
+        opacity?: number | undefined;
+        stroke?: kendo.drawing.StrokeOptions | undefined;
+        tooltip?: kendo.drawing.TooltipOptions | undefined;
+        transform?: kendo.geometry.Transformation | undefined;
+        visible?: boolean | undefined;
     }
     interface TextEvent {
         sender: Text;
@@ -23998,16 +23998,16 @@ declare namespace kendo.dataviz.drawing {
 
 
 
-        autoHide?: boolean;
-        content?: string|Function;
-        position?: string;
-        height?: number|string;
-        hideDelay?: number;
-        offset?: number;
-        shared?: boolean;
-        showAfter?: number;
-        showOn?: string;
-        width?: number|string;
+        autoHide?: boolean | undefined;
+        content?: string|Function | undefined;
+        position?: string | undefined;
+        height?: number|string | undefined;
+        hideDelay?: number | undefined;
+        offset?: number | undefined;
+        shared?: boolean | undefined;
+        showAfter?: number | undefined;
+        showOn?: string | undefined;
+        width?: number|string | undefined;
 
 
 
@@ -24051,7 +24051,7 @@ declare namespace kendo.dataviz.geometry {
     }
 
     interface ArcOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface ArcEvent {
         sender: Arc;
@@ -24084,7 +24084,7 @@ declare namespace kendo.dataviz.geometry {
     }
 
     interface CircleOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface CircleEvent {
         sender: Circle;
@@ -24121,7 +24121,7 @@ declare namespace kendo.dataviz.geometry {
     }
 
     interface MatrixOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface MatrixEvent {
         sender: Matrix;
@@ -24172,7 +24172,7 @@ declare namespace kendo.dataviz.geometry {
     }
 
     interface PointOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface PointEvent {
         sender: Point;
@@ -24214,7 +24214,7 @@ declare namespace kendo.dataviz.geometry {
     }
 
     interface RectOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface RectEvent {
         sender: Rect;
@@ -24246,7 +24246,7 @@ declare namespace kendo.dataviz.geometry {
     }
 
     interface SizeOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface SizeEvent {
         sender: Size;
@@ -24275,7 +24275,7 @@ declare namespace kendo.dataviz.geometry {
     }
 
     interface TransformationOptions {
-        name?: string;
+        name?: string | undefined;
     }
     interface TransformationEvent {
         sender: Transformation;

@@ -45,6 +45,8 @@ Autodesk.Viewing.Initializer(options, async () => {
     await propertyTests(viewer);
     await propertyDbTests(model);
     await searchTests(viewer);
+    await stringExtractorTests(viewer);
+    await visualClustersTests(viewer);
 });
 
 function globalTests(): void {
@@ -348,6 +350,19 @@ async function searchTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<number
 function showHideTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
     viewer.hideAll();
     viewer.showAll();
+}
+
+async function stringExtractorTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.StringExtractor') as Autodesk.Extensions.StringExtractor;
+
+    const strings = await ext.getDocumentStrings();
+}
+
+async function visualClustersTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const ext = await viewer.loadExtension('Autodesk.VisualClusters') as Autodesk.Extensions.VisualClusters;
+
+    await ext.setLayoutActive(true);
+    ext.reset();
 }
 
 function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {

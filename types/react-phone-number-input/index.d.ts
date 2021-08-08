@@ -34,7 +34,32 @@ export function isPossiblePhoneNumber(value: string): boolean;
  */
 export function isValidPhoneNumber(value?: string): boolean;
 
-export function parsePhoneNumber(input: string): PhoneNumber | undefined;
+export interface ParsePhoneNumberOptions {
+    /**
+     * Default country for parsing national numbers. Instead of passing options.defaultCountry
+     * one could pass defaultCountry argument directly.
+     */
+    defaultCountry?: string;
+
+    /**
+     * Default calling code for parsing national numbers. Some numbering plans
+     * are for "non-geographic numbering plans" and they don't have a country code,
+     * so defaultCountry can't be specified for them.
+     */
+    defaultCallingCode?: string;
+    /**
+     * By default, the parsing function will attempt to extract a phone number
+     * from an input string even in cases like "Support: (213) 373-4253 (robot)",
+     * which mimicks the behavior of the original Google's libphonenumber library,
+     * and is the default behavior for legacy reasons. However, if "strict" input
+     * validation is required, one can pass extract: false flag to demand that the
+     * whole input string be a viable phone number.
+     * @default true
+     */
+    extract?: boolean;
+}
+
+export function parsePhoneNumber(input: string, options?: string | ParsePhoneNumberOptions): PhoneNumber | undefined;
 
 /**
  * Returns a list of supported countries.
@@ -49,8 +74,8 @@ export interface PhoneNumber {
     number: string;
     countryCallingCode: string;
     nationalNumber: string;
-    country?: string;
-    carrierCode?: string;
+    country?: string | undefined;
+    carrierCode?: string | undefined;
 }
 
 /**
@@ -67,22 +92,22 @@ export interface CountrySelectComponentProps {
     className?: string;
     disabled?: boolean;
     name?: string;
-    onBlur?: () => void;
-    onChange?: (value?: string) => void;
-    onFocus?: () => void;
+    onBlur?: (() => void) | undefined;
+    onChange?: ((value?: string) => void) | undefined;
+    onFocus?: (() => void) | undefined;
     /**
      * The list of all selectable countries (including "International")
      */
-    options?: Array<{ value?: string; label: string; icon: React.Component }>;
+    options?: Array<{ value?: string | undefined; label: string; icon: React.Component }> | undefined;
     tabIndex?: number;
     /**
      * The currently selected country code
      */
-    value?: string;
+    value?: string | undefined;
     /**
      * Language translations
      */
-    labels?: { [key: string]: string };
+    labels?: { [key: string]: string } | undefined;
 }
 
 export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>, 'onChange'> {
@@ -146,7 +171,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * superceded by `initialValueFormat` property.
      */
     displayInitialValueAsLocalNumber?: boolean;
-    flagComponent?: React.ComponentType<{ country: string; countryName: string, flagUrl: string; flags: FlagsMap }>;
+    flagComponent?: React.ComponentType<{ country: string; countryName: string; flagUrl: string; flags: FlagsMap }>;
     flags?: FlagsMap;
     /**
      * A URL template of a country flag, where "{XX}" is a two-letter country code in upper case,
@@ -191,7 +216,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>,
      * If an initial value is passed, and initialValueFormat property is not set, then the initial value
      * is formatted in international format.
      */
-    initialValueFormat?: "national";
+    initialValueFormat?: 'national';
 
     /**
      * If `country` property is passed along with `international={true}` property

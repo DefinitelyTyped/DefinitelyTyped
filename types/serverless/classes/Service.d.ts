@@ -16,14 +16,14 @@ declare class Service {
             };
             Outputs?: {
                 [key: string]: any;
-            };
+            } | undefined;
         };
 
         name: string;
         stage: string;
         region: string;
-        runtime?: string;
-        timeout?: number;
+        runtime?: string | undefined;
+        timeout?: number | undefined;
         versionFunctions: boolean;
     };
     serverless: Serverless;
@@ -40,8 +40,8 @@ declare class Service {
         | { [key: string]: any };
     package: { [key: string]: any };
     configValidationMode: string;
-    disabledDeprecations?: any[];
-    serviceFilename?: string;
+    disabledDeprecations?: any[] | undefined;
+    serviceFilename?: string | undefined;
     app?: any;
     tenant?: any;
     org?: any;

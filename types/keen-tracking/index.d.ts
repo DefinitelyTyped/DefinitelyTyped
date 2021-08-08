@@ -6,18 +6,18 @@
 // TypeScript Version: 2.2
 
 export interface KeenAutoTrackingConfig {
-    recordPageViews?: boolean;
-    recordPageViewsOnExit?: boolean;
-    recordScrollState?: boolean;
-    recordClicks?: boolean;
-    recordClicksPositionPointer?: boolean;
-    recordFormSubmits?: boolean;
-    ignoreDisabledFormFields?: boolean;
-    ignoreFormFieldTypes?: string[];
-    collectIpAddress?: boolean;
-    collectUuid?: boolean;
-    shareUuidAcrossDomains?: boolean;
-    recordElementViews?: boolean;
+    recordPageViews?: boolean | undefined;
+    recordPageViewsOnExit?: boolean | undefined;
+    recordScrollState?: boolean | undefined;
+    recordClicks?: boolean | undefined;
+    recordClicksPositionPointer?: boolean | undefined;
+    recordFormSubmits?: boolean | undefined;
+    ignoreDisabledFormFields?: boolean | undefined;
+    ignoreFormFieldTypes?: string[] | undefined;
+    collectIpAddress?: boolean | undefined;
+    collectUuid?: boolean | undefined;
+    shareUuidAcrossDomains?: boolean | undefined;
+    recordElementViews?: boolean | undefined;
 }
 
 export interface KeenClient {
@@ -54,7 +54,7 @@ export interface KeenClient {
 }
 
 export default class KeenTracking {
-    constructor(options: { projectId: string; writeKey: string; requestType?: string });
+    constructor(options: { projectId: string; writeKey: string; requestType?: string | undefined });
     recordEvent(collectionName: string, event: object): Promise<{ created: boolean }>;
     recordEvents(events: {
         [collectionName: string]: object[];

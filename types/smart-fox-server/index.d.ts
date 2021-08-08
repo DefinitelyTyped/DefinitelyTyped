@@ -2369,15 +2369,15 @@ declare namespace SFS2X {
 
     export interface IconfigObj {
         /** @type {string} The IP address or host name of the SmartFoxServer 2X instance to connect to. */
-        host?: string;
+        host?: string | undefined;
         /** @type {number} The TCP port of the SmartFoxServer 2X instance to connect to. */
-        port?: number;
+        port?: number | undefined;
         /** @type {boolean} Use an encrypted SSL connection. */
-        useSSL?: boolean;
+        useSSL?: boolean | undefined;
         /** @type {string} The Zone of the SmartFoxServer 2X instance to join during the login process. */
-        zone?: string;
+        zone?: string | undefined;
         /** @type {boolean} Indicates whether the client-server messages console debug should be enabled or not. */
-        debug?: boolean;
+        debug?: boolean | undefined;
     }
     //#endregion
     //#region Utils

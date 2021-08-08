@@ -21,6 +21,8 @@ import {
     graphql,
     getRequest,
     createOperationDescriptor,
+    FragmentRefs,
+    readInlineData,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -419,6 +421,48 @@ const nodeFragment: ReaderFragment = {
     type: 'Query',
     abstractKey: null,
 };
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// readInlineData
+// ~~~~~~~~~~~~~~~~~~~~~
+
+interface Module_data {
+    readonly id: string;
+    readonly ' $refType': 'Module_data';
+}
+type Module_data$data = Module_data;
+interface Module_data$key {
+    readonly ' $data'?: Module_data$data;
+    readonly ' $fragmentRefs': FragmentRefs<'Module_data'>;
+}
+
+function readData(
+  dataRef: Module_data$key,
+) {
+  // $ExpectType Module_data
+  readInlineData(
+    graphql`
+      fragment Module_data on Data @inline {
+        id
+      }
+    `,
+    dataRef,
+  );
+}
+
+function readNullableData(
+  dataRef: Module_data$key | null,
+) {
+  // $ExpectType Module_data | null
+  readInlineData(
+    graphql`
+      fragment Module_data on Data @inline {
+        id
+      }
+    `,
+    dataRef,
+  );
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // INTERNAL-ONLY
