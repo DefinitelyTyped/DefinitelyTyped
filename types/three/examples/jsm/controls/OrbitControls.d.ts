@@ -61,6 +61,8 @@ export class OrbitControls {
 
     getAzimuthalAngle(): number;
 
+    getDistance(): number;
+
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: any) => void): void;
 
