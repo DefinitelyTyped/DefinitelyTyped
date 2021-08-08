@@ -1,4 +1,4 @@
-// Type definitions for express-ejs-layouts 4.1
+// Type definitions for express-ejs-layouts 2.5
 // Project: https://github.com/Soarez/express-ejs-layouts
 // Definitions by: Erik Mavrinac <https://github.com/erikma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
