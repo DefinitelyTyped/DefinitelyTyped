@@ -88,9 +88,12 @@ dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
 dt.toLocaleString(); // $ExpectType string
 dt.toLocaleString({ month: "long", day: "numeric" }); // $ExpectType string
-dt.toLocaleString({ locale: "en-gb" }); // $ExpectType string
-dt.toLocaleString({ locale: "en-gb" }, { day: '2-digit'}); // $ExpectType string
+// Providing 'options' without 'formatOptions' is not supported in Luxon 2.0.1
+dt.toLocaleString({ locale: "en-gb" }); // $ExpectError
+// First argument must be 'DateTimeFormatOptions'
+dt.toLocaleString({ locale: "en-gb" }, { day: '2-digit'}); // $ExpectError
 dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string
+dt.toLocaleString(DateTime.DATE_MED, {}); // $ExpectType string
 dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
 dt.toRelative(); // $ExpectType string | null
@@ -259,7 +262,7 @@ Settings.defaultLocale = DateTime.local().resolvedLocaleOptions().locale;
 DateTime.local().resolvedLocaleOptions({ locale: "de" });
 
 dt.setLocale("fr").toLocaleString(DateTime.DATE_FULL); // $ExpectType string
-dt.toLocaleString({ locale: "es", ...DateTime.DATE_FULL }); // $ExpectType string
+dt.toLocaleString(DateTime.DATE_FULL, { locale: "es" }); // $ExpectType string
 dt.setLocale("fr").toFormat("MMMM dd, yyyy GG"); // $ExpectType string
 dt.toFormat("MMMM dd, yyyy GG", { locale: "de" });
 

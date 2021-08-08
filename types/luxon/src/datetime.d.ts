@@ -994,7 +994,7 @@ export class DateTime {
      * @example
      * DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hour12: false }); //=> '11:32'
      */
-    toLocaleString(formatOptions?: LocaleOptions | DateTimeFormatOptions, options?: DateTimeFormatOptions): string;
+    toLocaleString(formatOptions?: DateTimeFormatOptions, options?: LocaleOptions): string;
 
     /**
      * Returns the epoch milliseconds of this DateTime.
