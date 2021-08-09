@@ -3155,7 +3155,7 @@ declare namespace ymaps {
         minZoom?: number | undefined;
         nativeFullscreen?: boolean | undefined;
         projection?: IProjection | undefined;
-        restrictMapArea?: boolean | undefined;
+        restrictMapArea?: boolean | number[][] | undefined;
         suppressMapOpenBlock?: boolean | undefined;
         suppressObsoleteBrowserNotifier?: boolean | undefined;
         yandexMapAutoSwitch?: boolean | undefined;
