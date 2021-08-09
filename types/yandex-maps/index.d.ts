@@ -804,7 +804,7 @@ declare namespace ymaps {
 
             setParent(parent: IEventManager | null): this;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
         }
     }
 
@@ -823,9 +823,9 @@ declare namespace ymaps {
 
             setParent(parent: IEventManager | null): this;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
 
-            createEventobject(type: string, event: object, target: object): Event;
+            createEventObject(type: string, event: object, target: object): Event;
 
             once(types: string[][] | string[] | string, callback: (event: IEvent) => any, context?: object, priority?: number): this;
         }
@@ -880,7 +880,7 @@ declare namespace ymaps {
 
                 setParent(parent: IEventManager | null): this;
 
-                fire(type: string, eventobject: object | IEvent): this;
+                fire(type: string, eventObject: object | IEvent): this;
             }
 
             class Point implements IBasePointGeometry {
@@ -1002,7 +1002,7 @@ declare namespace ymaps {
 
             setParent(parent: IEventManager | null): this;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
         }
 
         class Point implements IPointGeometry {
@@ -1039,7 +1039,7 @@ declare namespace ymaps {
 
             contains(position: number[]): boolean;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
 
             freeze(): IFreezable;
 
@@ -2431,7 +2431,7 @@ declare namespace ymaps {
 
             remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
         }
 
         const presetStorage: util.Storage;
@@ -2757,7 +2757,7 @@ declare namespace ymaps {
 
         remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-        fire(type: string, eventobject: object | IEvent): this;
+        fire(type: string, eventObject: object | IEvent): this;
 
         destroy(): void;
 
@@ -2986,7 +2986,7 @@ declare namespace ymaps {
         icons?: Array<{
             href: string;
             size: number[];
-            ooffset: number[];
+            offset: number[];
             shape?: IShape | IGeometryJson | undefined;
         }> | undefined;
         iconShape?: IGeometryJson | undefined;
@@ -3451,9 +3451,9 @@ declare namespace ymaps {
         zIndex?: number | undefined;
     }
 
-    function ready(successCallback?: () => any | IReadyobject, errorCallback?: () => any, context?: object): Promise<void>;
+    function ready(successCallback?: () => any | IReadyObject, errorCallback?: () => any, context?: object): Promise<void>;
 
-    interface IReadyobject {
+    interface IReadyObject {
         require?: string[] | undefined;
         context?: object | undefined;
 
@@ -3692,7 +3692,7 @@ declare namespace ymaps {
     }
 
     interface IEventTrigger {
-        fire(type: string, eventobject?: object | IEvent): this;
+        fire(type: string, eventObject?: object | IEvent): this;
     }
 
     interface IEventWorkflowController extends IEventController {
