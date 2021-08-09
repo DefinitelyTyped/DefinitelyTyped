@@ -37,7 +37,7 @@ import { Configuration } from 'webpack';
                     sprites: 'sprites',
                     sizes: 'sizes',
                     variables: 'variables',
-                    mixin: 'sprite'
+                    mixin: 'sprite',
                 },
                 callback: content => `[class*="sprite-"] { background-size: cover; } ${content}`,
             },
