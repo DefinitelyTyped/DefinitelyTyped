@@ -6,6 +6,7 @@
 //                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
 //                 Alex Seidmann <https://github.com/aseidma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import EventEmitter = require('events');
 
 export function schedule(cronExpression: string, func: () => void, options?: ScheduleOptions): ScheduledTask;
 
@@ -13,7 +14,7 @@ export function validate(cronExpression: string): boolean;
 
 export function getTasks(): ScheduledTask[];
 
-export interface ScheduledTask {
+export interface ScheduledTask extends EventEmitter {
     start: () => this;
     stop: () => this;
 }
@@ -31,7 +32,7 @@ export interface ScheduleOptions {
     timezone?: string;
     /**
      * Specifies whether to recover missed executions instead of skipping them.
-     * 
+     *
      * Defaults to `false`
      */
     recoverMissedExecutions?: boolean;
