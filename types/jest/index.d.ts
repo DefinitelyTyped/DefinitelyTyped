@@ -332,8 +332,9 @@ declare namespace jest {
     }
 
     type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => Promise<unknown>);
+    type ProvidesHookCallback = (() => any) | ProvidesCallback;
 
-    type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
+    type Lifecycle = (fn: ProvidesHookCallback, timeout?: number) => any;
 
     interface FunctionLike {
         readonly name: string;

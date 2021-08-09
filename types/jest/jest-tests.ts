@@ -15,20 +15,36 @@ describe('', () => {
 /* Lifecycle events */
 
 beforeAll(() => {});
+beforeAll(() => null);
+beforeAll(() => true);
 beforeAll((done: jest.DoneCallback) => {});
 beforeAll((done: jest.DoneCallback) => done.fail(), 9001);
+// $ExpectError
+beforeAll((done: jest.DoneCallback) => Promise.resolve());
 
 beforeEach(() => {});
+beforeEach(() => null);
+beforeEach(() => true);
 beforeEach((done: jest.DoneCallback) => {});
 beforeEach((done: jest.DoneCallback) => done.fail(), 9001);
+// $ExpectError
+beforeEach((done: jest.DoneCallback) => Promise.resolve());
 
 afterAll(() => {});
+afterAll(() => null);
+afterAll(() => true);
 afterAll((done: jest.DoneCallback) => {});
 afterAll((done: jest.DoneCallback) => done.fail(), 9001);
+// $ExpectError
+afterAll((done: jest.DoneCallback) => Promise.resolve());
 
 afterEach(() => {});
+afterEach(() => null, 9001);
+afterEach(() => true, 9001);
 afterEach((done: jest.DoneCallback) => {});
 afterEach((done: jest.DoneCallback) => done.fail(), 9001);
+// $ExpectError
+afterEach((done: jest.DoneCallback) => Promise.resolve());
 
 /* describe */
 
@@ -1506,8 +1522,14 @@ test(`returns a Promise<any>`, () => {
 
 /* Test function can take and call the done callback function */
 
-test(`returns a Promise<boolean>`, (done) => {
+test(`uses done`, (done) => {
     done();
+});
+
+/* Test function can do nothing */
+
+test(`does nothing`, () => {
+    // noop
 });
 
 /* Test function should not return non-promise */
@@ -1544,4 +1566,9 @@ test(`returns a Promise<{ isAnObject: boolean }> and takes done`, (done) => {
 // $ExpectError
 test(`returns a Promise<any> and takes done`, (done) => {
     return Promise.resolve('any' as any);
+});
+
+// $ExpectError
+test(`async function takes done`, async (done) => {
+    done();
 });
