@@ -31,9 +31,9 @@ declare module 'fs/promises' {
         WatchOptions,
         EventType,
     } from 'node:fs';
-    interface FileChangeInfo {
+    interface FileChangeInfo<T = string | Buffer> {
         eventType: EventType;
-        filename: string | Buffer;
+        filename: T;
     }
     interface FlagAndOpenMode {
         mode?: Mode | undefined;
@@ -956,7 +956,7 @@ declare module 'fs/promises' {
                   encoding: 'buffer';
               })
             | 'buffer'
-    ): AsyncIterable<FileChangeInfo>;
+    ): AsyncIterable<FileChangeInfo<Buffer>>;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
