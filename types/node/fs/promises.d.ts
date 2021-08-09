@@ -29,9 +29,10 @@ declare module 'fs/promises' {
         OpenMode,
         Mode,
         WatchOptions,
+        EventType,
     } from 'node:fs';
     interface FileChangeInfo {
-        eventType: string;
+        eventType: EventType;
         filename: string | Buffer;
     }
     interface FlagAndOpenMode {
