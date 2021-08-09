@@ -51,7 +51,7 @@ const withDynamicResolvedCSS = (
 
 const stylesChildren = flushToReact();
 const jsxToRender = (
-    <head>{ stylesChildren }</head>
+    <head>{stylesChildren}</head>
 );
 
 const stylesAsString: string = flushToHTML();
