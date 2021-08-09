@@ -95,7 +95,7 @@ declare namespace ymaps {
 
     type PresetKey =
         PresetWithTextKey | PresetWithTextStretchyKey | PresetDotKey | PresetCircleKey | PresetCircleDotKey |
-        PresetWithIconKey | PresetWithIconCircleKey | PresetPictogramKey | PresetClusterKey; //option.presetStorage
+        PresetWithIconKey | PresetWithIconCircleKey | PresetPictogramKey | PresetClusterKey | string; //option.presetStorage
     //[number, number]
     //[[number, number], [number, number]]
 
@@ -1639,6 +1639,50 @@ declare namespace ymaps {
             }
         }
 
+        class Image implements ILayout {
+            events: IEventManager;
+
+            destroy(): void;
+
+            getData(): object;
+
+            getParentElement(): HTMLElement;
+
+            getShape(): IShape | null;
+
+            isEmpty(): boolean;
+
+            setData(data: object): void;
+
+            setParentElement(parent: HTMLElement | null): void;
+        }
+
+        interface _IImageOptionsInject {
+            iconImageClipRect?: number[][] | undefined;
+            iconImageHref?: string | undefined;
+            iconImageOffset?: number[] | undefined;
+            iconImageSize?: number[] | undefined;
+            iconShape?: IShape | object | null | undefined;
+        }
+
+        class ImageWithContent extends Image {}
+
+        interface IImageWithContentOptionsInject extends _IImageOptionsInject {
+            iconContentLayout?: IClassConstructor<ILayout> | string | undefined;
+            iconContentOffset?: number[] | undefined;
+            iconContentSize?: number[] | undefined;
+        }
+
+        class PieChart extends templateBased.Base {}
+
+        interface IPieChartOptionsInject {
+            iconPieChartCaptionMaxWidth?: number | undefined;
+            iconPieChartCoreFillStyle?: string | undefined;
+            iconPieChartCoreRadius?: number | (() => number) | undefined;
+            iconPieChartStrokeStyle?: string | undefined;
+            iconPieChartStrokeWidth?: number | undefined;
+        }
+
         const storage: util.Storage;
     }
 
@@ -2726,16 +2770,19 @@ declare namespace ymaps {
         autoPan?: boolean | undefined;
         autoPanCheckZoomRange?: boolean | undefined;
         autoPanDuration?: number | undefined;
-        autoPanMargin?: number[][] | number[] | number | undefined;
+        autoPanMargin?: number | number[] | undefined;
         autoPanUseMapMargin?: boolean | undefined;
         closeButton?: boolean | undefined;
+        closeTimeout?: number | undefined;
         contentLayout?: IClassConstructor<ILayout> | string | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
         layout?: IClassConstructor<ILayout> | string | undefined;
         maxHeight?: number | undefined;
         maxWidth?: number | undefined;
         minHeight?: number | undefined;
         minWidth?: number | undefined;
         offset?: number[] | undefined;
+        openTimeout?: number | undefined;
         pane?: string | undefined;
         panelContentLayout?: IClassConstructor<ILayout> | string | undefined;
         panelMaxHeightRatio?: number | undefined;
@@ -2743,6 +2790,35 @@ declare namespace ymaps {
         shadow?: boolean | undefined;
         shadowLayout?: IClassConstructor<ILayout> | string | undefined;
         shadowOffset?: number[] | undefined;
+        zIndex?: string | undefined;
+    }
+
+    interface IBalloonOptionsInject {
+        balloonContent?: string | undefined;
+        balloonAutoPan?: boolean | undefined;
+        balloonAutoPanCheckZoomRange?: boolean | undefined;
+        balloonAutoPanDuration?: number | undefined;
+        balloonAutoPanMargin?: number | number[] | undefined;
+        balloonAutoPanUseMapMargin?: boolean | undefined;
+        balloonCloseButton?: boolean | undefined;
+        balloonCloseTimeout?: number | undefined;
+        balloonContentLayout?: IClassConstructor<ILayout> | string | undefined;
+        balloonInteractivityModel?: InteractivityModelKey | undefined;
+        balloonLayout?: IClassConstructor<ILayout> | string | undefined;
+        balloonMaxHeight?: number | undefined;
+        balloonMaxWidth?: number | undefined;
+        balloonMinHeight?: number | undefined;
+        balloonMinWidth?: number | undefined;
+        balloonOffset?: number[] | undefined;
+        balloonOpenTimeout?: number | undefined;
+        balloonPane?: string | undefined;
+        balloonPanelContentLayout?: IClassConstructor<ILayout> | string | undefined;
+        balloonPanelMaxHeightRatio?: number | undefined;
+        balloonPanelMaxMapArea?: number | undefined;
+        balloonShadow?: boolean | undefined;
+        balloonShadowLayout?: IClassConstructor<ILayout> | string | undefined;
+        balloonShadowOffset?: number[] | undefined;
+        balloonZIndex?: string | undefined;
     }
 
     class Circle implements GeoObject<ICircleGeometry> {
@@ -3047,7 +3123,7 @@ declare namespace ymaps {
         lineStringOverlay?: OverlayKey | undefined;
         pointOverlay?: OverlayKey | undefined;
         polygonOverlay?: OverlayKey | undefined;
-        preset?: PresetKey | string | undefined;
+        preset?: PresetKey | undefined;
         rectangleOverlay?: OverlayKey | undefined;
         setMapCursorInDragging?: boolean | undefined;
     }
@@ -3244,8 +3320,8 @@ declare namespace ymaps {
         constructor(geometry: number[] | object | IPointGeometry, properties: object | IDataManager, options?: IPlacemarkOptions)
     }
 
-    interface IPlacemarkOptions {
-        preset?: PresetKey | string | undefined;
+    interface IPlacemarkOptions extends IBalloonOptionsInject, layout.IImageWithContentOptionsInject, layout.IPieChartOptionsInject {
+        preset?: PresetKey | undefined;
         iconColor?: string | undefined;
         iconLayout?: ILayout | IconLayoutKey | string | undefined;
 
@@ -4201,6 +4277,7 @@ declare namespace ymaps {
 
         shift(offset: number[]): IShape;
     }
+
     class Monitor {
         constructor(dataManager: IDataManager | IOptionManager);
            add(name: string[] | string, changeCallback: (event: (object | IEvent)) => void, context?: any, params?: any): Monitor;
