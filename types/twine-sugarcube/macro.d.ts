@@ -63,7 +63,7 @@ export interface MacroContext {
      * The current output element.
      * @since 2.0.0
      */
-    output: HTMLElement;
+    output: ParentNode;
 
     /**
      * The (execution) context object of the macro's parent, or null if the macro has no parent.
