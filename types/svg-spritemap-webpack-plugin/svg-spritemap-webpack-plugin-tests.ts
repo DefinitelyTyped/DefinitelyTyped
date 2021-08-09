@@ -11,6 +11,10 @@ import { Configuration } from 'webpack';
             styles: 'src/scss/_sprites.scss',
         }),
         new SVGSpritemapPlugin('src/**/*.svg', {
+            input: {
+                options: {},
+                allowDuplicates: true,
+            },
             output: {
                 svg: {
                     sizes: false,
