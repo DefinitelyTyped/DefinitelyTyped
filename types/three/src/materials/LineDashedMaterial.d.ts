@@ -1,9 +1,9 @@
 import { LineBasicMaterial, LineBasicMaterialParameters } from './LineBasicMaterial';
 
 export interface LineDashedMaterialParameters extends LineBasicMaterialParameters {
-    scale?: number;
-    dashSize?: number;
-    gapSize?: number;
+    scale?: number | undefined;
+    dashSize?: number | undefined;
+    gapSize?: number | undefined;
 }
 
 export class LineDashedMaterial extends LineBasicMaterial {

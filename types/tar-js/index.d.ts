@@ -14,12 +14,12 @@ declare class Tar {
 
 declare namespace Tar {
     interface TarOptions {
-        mode?: number;
-        mtime?: number;
-        uid?: number;
-        gid?: number;
-        owner?: string;
-        group?: string;
+        mode?: number | undefined;
+        mtime?: number | undefined;
+        uid?: number | undefined;
+        gid?: number | undefined;
+        owner?: string | undefined;
+        group?: string | undefined;
     }
 }
 

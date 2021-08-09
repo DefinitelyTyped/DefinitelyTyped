@@ -5,5 +5,5 @@ export interface DefaultValueOptions<T> {
     /**
      * The default value of the control.
      */
-    value?: T;
+    value?: T | undefined;
 }

@@ -11,10 +11,10 @@ export interface ServerContext {
     server: WebServer;
     request: IncomingMessage;
     response: ServerResponse;
-    logger?: Logger;
-    client?: string;
-    route?: { [key: string]: any };
-    data?: string | Buffer;
+    logger?: Logger | undefined;
+    client?: string | undefined;
+    route?: { [key: string]: any } | undefined;
+    data?: string | Buffer | undefined;
 }
 
 export class WebServer {

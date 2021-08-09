@@ -1,9 +1,11 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/codeeditor/library" {}
 
 declare module "sap/ui/codeeditor/CodeEditor" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -82,7 +84,25 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.codeeditor.CodeEditor`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
+     *
+     * Fired when the value has changed and the focus leaves the code editor.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -105,7 +125,25 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.codeeditor.CodeEditor`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
+     *
+     * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -120,7 +158,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -135,7 +173,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -481,42 +519,6 @@ declare module "sap/ui/codeeditor/CodeEditor" {
        * New value for property `width`
        */
       sWidth?: CSSSize
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.codeeditor.CodeEditor`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
-     *
-     * Fired when the value has changed and the focus leaves the code editor.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.codeeditor.CodeEditor`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
-     *
-     * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
-       */
-      oListener?: object
     ): this;
   }
 

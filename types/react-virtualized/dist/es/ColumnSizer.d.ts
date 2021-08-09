@@ -19,11 +19,11 @@ export type ColumnSizerProps = {
      */
     children: (props: SizedColumnProps) => React.ReactNode;
     /** Optional maximum allowed column width */
-    columnMaxWidth?: number;
+    columnMaxWidth?: number | undefined;
     /** Optional minimum allowed column width */
-    columnMinWidth?: number;
+    columnMinWidth?: number | undefined;
     /** Number of columns in Grid or Table child */
-    columnCount?: number;
+    columnCount?: number | undefined;
     /** Width of Grid or Table child */
     width: number;
     /**

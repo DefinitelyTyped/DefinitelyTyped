@@ -5,7 +5,7 @@
 
 export interface Host {
     host: string;
-    port?: number;
+    port?: number | undefined;
 }
 
 export interface parserOptions {
@@ -16,9 +16,9 @@ export interface UriObject {
     scheme: string;
     hosts: Host[];
 
-    username?: string;
-    password?: string;
-    database?: string;
+    username?: string | undefined;
+    password?: string | undefined;
+    database?: string | undefined;
     options?: any;
 }
 

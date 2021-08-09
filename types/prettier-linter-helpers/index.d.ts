@@ -29,6 +29,6 @@ export const generateDifferences: GenerateDifferences;
 export interface Difference {
     operation: 'insert' | 'delete' | 'replace';
     offset: number;
-    insertText?: string;
-    deleteText?: string;
+    insertText?: string | undefined;
+    deleteText?: string | undefined;
 }

@@ -22,13 +22,13 @@ export interface ClientOptions {
     endPoint: string;
     accessKey: string;
     secretKey: string;
-    useSSL?: boolean;
-    port?: number;
-    region?: Region;
+    useSSL?: boolean | undefined;
+    port?: number | undefined;
+    region?: Region | undefined;
     transport?: any;
-    sessionToken?: string;
-    partSize?: number;
-    pathStyle?: boolean;
+    sessionToken?: string | undefined;
+    partSize?: number | undefined;
+    pathStyle?: boolean | undefined;
 }
 
 export interface BucketItemFromList {
@@ -47,6 +47,10 @@ export interface BucketItem {
     size: number;
     etag: string;
     lastModified: Date;
+}
+
+export interface BucketItemWithMetadata extends BucketItem {
+    metadata: ItemBucketMetadata;
 }
 
 export interface BucketItemStat {
@@ -187,7 +191,12 @@ export class Client {
 
     // Other
     newPostPolicy(): PostPolicy;
-    setRequestOptions(otpions: AgentOptions): void;
+    setRequestOptions(options: AgentOptions): void;
+
+    // Minio extensions that aren't necessary present for Amazon S3 compatible storage servers
+    extensions: {
+        listObjectsV2WithMetadata(bucketName: string, prefix?: string, recursive?: boolean, startAfter?: string): BucketStream<BucketItemWithMetadata>;
+    };
 }
 
 export namespace Policy {

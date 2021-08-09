@@ -38,5 +38,14 @@ sts.assumeRole('roleArn', undefined, 3600, 'session name').then(token => {
         stsToken: credentials.SecurityToken,
         bucket: 'bucket name',
         region: 'oss-cn-hangzhou',
+        refreshSTSTokenInterval: 3000,
+        refreshSTSToken: async () => {
+           const { credentials: cred } = await sts.assumeRole('roleArn', undefined, 3600, 'session name');
+           return {
+               accessKeyId: cred.AccessKeyId,
+               accessKeySecret: cred.AccessKeySecret,
+               stsToken: cred.SecurityToken
+           };
+        }
     });
 });

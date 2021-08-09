@@ -2,9 +2,9 @@ import { Component, ReactNode, CSSProperties, MouseEventHandler } from "react";
 
 export interface LineNumberProps {
     number: number;
-    highlight?: boolean;
-    onClick?: MouseEventHandler<HTMLAnchorElement>;
-    style?: CSSProperties;
+    highlight?: boolean | undefined;
+    onClick?: MouseEventHandler<HTMLAnchorElement> | undefined;
+    style?: CSSProperties | undefined;
 }
 
 export default class LinePart extends Component<LineNumberProps> {

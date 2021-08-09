@@ -10,47 +10,47 @@ interface NodePowershellShellOptions {
     /**
      * Determines whether to log verbose to the console.
      */
-    debugMsg?: boolean;
+    debugMsg?: boolean | undefined;
 
     /**
      * Sets the input encoding for the current shell.
      * @default 'utf8'
      */
-    inputEncoding?: string;
+    inputEncoding?: string | undefined;
 
     /**
      * Sets the output encoding for the current shell.
      * @default 'utf8'
      */
-    outputEncoding?: string;
+    outputEncoding?: string | undefined;
 
     /**
      * Sets the default execution policy for the current shell session
      */
-    executionPolicy?: "Bypass";
+    executionPolicy?: "Bypass" | undefined;
 
     /**
      * Determines whether to load the Windows PS profile
      */
-    noProfile?: boolean;
+    noProfile?: boolean | undefined;
 
     /**
      * Instructs the Shell the use pwsh as the PowerShell runspace
      * @default false
      */
-    pwsh?: boolean;
+    pwsh?: boolean | undefined;
 
     /**
      * Instruct the Shell to use pwsh-preview as the PowerShell runspace.
      * @default true
      */
-    pwshPrev?: boolean;
+    pwshPrev?: boolean | undefined;
 
     /**
      * Determines whether to log verbose to the console.
      * @default true
      */
-    verbose?: boolean;
+    verbose?: boolean | undefined;
 }
 
 interface NodePowerShellStream {
@@ -66,12 +66,12 @@ interface NodeShellParameter {
     /**
      * The name of the parameter
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The value of the parameter
      * @remark for switches this should be `''` (empty string), or `undefined`
      */
-    value?: string | number | boolean | unknown[] | Record<PropertyKey, unknown> | Date;
+    value?: string | number | boolean | unknown[] | Record<PropertyKey, unknown> | Date | undefined;
 
     /**
      * The name of the parameter with the value as its direct value

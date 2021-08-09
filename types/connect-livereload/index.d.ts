@@ -18,17 +18,17 @@ declare namespace livereload {
     }
 
     export interface Options {
-        ignore?: FileMatcher[];
-        excludeList?: FileMatcher[];
+        ignore?: FileMatcher[] | undefined;
+        excludeList?: FileMatcher[] | undefined;
 
-        include?: FileMatcher[];
-        html?: (val: string) => boolean;
-        rules?: Rule[];
-        disableCompression?: boolean;
+        include?: FileMatcher[] | undefined;
+        html?: ((val: string) => boolean) | undefined;
+        rules?: Rule[] | undefined;
+        disableCompression?: boolean | undefined;
 
-        hostname?: string;
-        port?: number;
-        src?: string;
+        hostname?: string | undefined;
+        port?: number | undefined;
+        src?: string | undefined;
     }
 }
 

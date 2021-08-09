@@ -56,13 +56,13 @@ function test_fetchUrlWithRequestObject() {
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean,
-                once?: boolean,
-                passive?: boolean
+                capture?: boolean | undefined,
+                once?: boolean | undefined,
+                passive?: boolean | undefined
             }) => undefined,
 
             removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean
+                capture?: boolean | undefined
             }) => undefined,
 
             dispatchEvent: (event: any) => false,
@@ -108,13 +108,13 @@ function test_fetchUrlObjectWithRequestObject() {
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean,
-                once?: boolean,
-                passive?: boolean
+                capture?: boolean | undefined,
+                once?: boolean | undefined,
+                passive?: boolean | undefined
             }) => undefined,
 
             removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean
+                capture?: boolean | undefined
             }) => undefined,
 
             dispatchEvent: (event: any) => false,
@@ -169,7 +169,7 @@ function test_headers() {
     [...headers]; // $ExpectType [string, string][]
     [...headers.entries()]; // $ExpectType [string, string][]
     [...headers.keys()]; // $ExpectType string[]
-    [...headers.values()]; // $ExpectType [string][]
+    [...headers.values()]; // $ExpectType string[]
 }
 
 function test_isRedirect() {

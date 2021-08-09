@@ -1,8 +1,8 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/support/library" {
   /**
-   * @SINCE 1.91.0
+   * @SINCE 1.92.0
    *
    * Defines the Audiences.
    */
@@ -21,7 +21,7 @@ declare module "sap/ui/support/library" {
     Internal = "Internal",
   }
   /**
-   * @SINCE 1.91.0
+   * @SINCE 1.92.0
    *
    * Issue Categories.
    */
@@ -76,7 +76,7 @@ declare module "sap/ui/support/library" {
     Usage = "Usage",
   }
   /**
-   * @SINCE 1.91.0
+   * @SINCE 1.92.0
    *
    * Analysis history formats.
    */
@@ -91,7 +91,7 @@ declare module "sap/ui/support/library" {
     String = "String",
   }
   /**
-   * @SINCE 1.91.0
+   * @SINCE 1.92.0
    *
    * Defines severity types.
    */
@@ -110,7 +110,7 @@ declare module "sap/ui/support/library" {
     Medium = "Medium",
   }
   /**
-   * @SINCE 1.91.0
+   * @SINCE 1.92.0
    *
    * Contains the available system presets.
    */
@@ -190,7 +190,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
        * Settings for the new rule. For detailed information about its properties see {@link topic:eaeea19a991d46f29e6d8d8827317d0e
        * Rule Property Values}
        */
-      oRule: Object
+      oRule: object
     ): string;
     /**
      * Main method to perform analysis of a given running application.
@@ -254,6 +254,8 @@ declare module "sap/ui/support/RuleAnalyzer" {
 declare namespace sap {
   namespace ui {
     /**
+     * @SINCE 1.50
+     *
      * UI5 library: sap.ui.support. A library for the Support Assistant tool. Overview: The library provides
      * the Support Assistant tool. It enables application developers to check whether their applications are
      * built according to the best practices for building SAPUI5 apps. The tool uses a set of pre-defined rules
@@ -353,10 +355,14 @@ declare namespace sap {
        * at the moment when you start it.
        */
       class ExecutionScope {
-        /**/
+        /**
+         *
+         */
         constructor();
 
-        /**/
+        /**
+         *
+         */
         static getElements(
           /**
            * Object with specific filtering options
@@ -375,7 +381,7 @@ declare namespace sap {
              */
             cloned: boolean;
           }
-        ): Array<any>;
+        ): any[];
         /**
          * Gets elements by their type
          */
@@ -384,7 +390,7 @@ declare namespace sap {
            * Either string or function to be used when selecting a subset of elements
            */
           classNameSelector: string | Function
-        ): Array<any>;
+        ): any[];
         /**
          * Gets the logged objects by object type
          */
@@ -393,11 +399,11 @@ declare namespace sap {
            * Type of logged objects
            */
           type: any
-        ): Array<any>;
+        ): any[];
         /**
          * Returns all public elements, i.e. elements that are part of public API aggregations
          */
-        static getPublicElements(): Array<any>;
+        static getPublicElements(): any[];
         /**
          * Gets the type of the execution scope
          */

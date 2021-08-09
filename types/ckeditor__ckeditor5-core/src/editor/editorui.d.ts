@@ -1,12 +1,10 @@
 import { DomEventData } from "@ckeditor/ckeditor5-engine";
+import ComponentFactory from "@ckeditor/ckeditor5-ui/src/componentfactory";
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import FocusTracker from "@ckeditor/ckeditor5-utils/src/focustracker";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import Editor from "./editor";
-
-// import {ComponentFactory} from "@ckeditor/ckeditor5-ui/src/componentfactory";
-type ComponentFactory = any;
 
 export default class EditorUI implements Emitter {
     readonly componentFactory: ComponentFactory;
@@ -36,7 +34,7 @@ export default class EditorUI implements Emitter {
         emitter: Emitter,
         event: string,
         callback: (info: EventInfo, data: DomEventData) => void,
-        options?: { priority?: PriorityString | number },
+        options?: { priority?: PriorityString | number | undefined },
     ): void;
     stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;

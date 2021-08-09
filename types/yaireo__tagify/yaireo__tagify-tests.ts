@@ -1,4 +1,5 @@
-import Tagify, { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
+import Tagify = require('@yaireo/tagify');
+import { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
 
 export function tagTemplate(this: Tagify, tagData: TagData): string {
     return `
@@ -95,7 +96,7 @@ const settings: TagifyConstructorSettings = {
             event.detail.tag;
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
-            // $ExpectType boolean
+            // $ExpectType string | boolean
             event.detail.message;
         },
         keydown: event => {
@@ -451,7 +452,7 @@ tagify.on('invalid', (event) => {
     event.detail.tag;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType boolean
+    // $ExpectType string | boolean
     event.detail.message;
 });
 tagify.on('add', (event) => {
@@ -624,7 +625,7 @@ tagify.off('invalid', (event) => {
     event.detail.tag;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
-    // $ExpectType boolean
+    // $ExpectType string | boolean
     event.detail.message;
 });
 tagify.off('add', (event) => {
@@ -894,6 +895,8 @@ tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 // $ExpectError
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
 tagify.setReadonly(false);
+tagify.setDisabled(false);
+tagify.setDisabled(true);
 
 tagify.dropdown.show();
 tagify.dropdown.show('foo');

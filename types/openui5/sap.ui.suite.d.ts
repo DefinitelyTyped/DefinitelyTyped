@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.92.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -28,6 +28,8 @@ declare module "sap/ui/suite/TaskCircle" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { ID } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import { TaskCircleColor } from "sap/ui/suite/library";
 
@@ -107,7 +109,25 @@ declare module "sap/ui/suite/TaskCircle" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.suite.TaskCircle` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.suite.TaskCircle`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.suite.TaskCircle` itself.
+     *
+     * Event is fired when the user clicks the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.suite.TaskCircle` itself
        */
@@ -122,7 +142,7 @@ declare module "sap/ui/suite/TaskCircle" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -296,24 +316,6 @@ declare module "sap/ui/suite/TaskCircle" {
        */
       iValue?: int
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.suite.TaskCircle`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.suite.TaskCircle` itself.
-     *
-     * Event is fired when the user clicks the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.suite.TaskCircle` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TaskCircleSettings extends $ControlSettings {
@@ -361,6 +363,8 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { ID } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -439,7 +443,26 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.suite.VerticalProgressIndicator`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.suite.VerticalProgressIndicator`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.suite.VerticalProgressIndicator` itself.
+     *
+     * Event is fired when the user clicks the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.suite.VerticalProgressIndicator`
        * itself
@@ -455,7 +478,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -548,25 +571,6 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
      * necessary, only the bar will be moved
      */
     setPercentage(iPercentage: int): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.suite.VerticalProgressIndicator`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.suite.VerticalProgressIndicator` itself.
-     *
-     * Event is fired when the user clicks the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.suite.VerticalProgressIndicator`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $VerticalProgressIndicatorSettings extends $ControlSettings {

@@ -8,27 +8,27 @@
 import * as React from "react";
 
 export interface VerticalTimelineProps {
-    animate?: boolean;
-    className?: string;
-    layout?: '1-column' | '2-columns';
+    animate?: boolean | undefined;
+    className?: string | undefined;
+    layout?: '1-column' | '2-columns' | undefined;
 }
 
 export interface VerticalTimelineElementProps {
-    id?: string;
-    className?: string;
-    date?: string;
-    dateClassName?: string;
-    iconClassName?: string;
-    iconOnClick?: () => void;
-    iconStyle?: React.CSSProperties;
-    icon?: React.ReactNode;
+    id?: string | undefined;
+    className?: string | undefined;
+    date?: string | undefined;
+    dateClassName?: string | undefined;
+    iconClassName?: string | undefined;
+    iconOnClick?: (() => void) | undefined;
+    iconStyle?: React.CSSProperties | undefined;
+    icon?: React.ReactNode | undefined;
     intersectionObserverProps?: any;
-    onTimelineElementClick?: () => void;
-    position?: string;
-    style?: React.CSSProperties;
-    textClassName?: string;
-    contentStyle?: React.CSSProperties;
-    contentArrowStyle?: React.CSSProperties;
+    onTimelineElementClick?: (() => void) | undefined;
+    position?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    textClassName?: string | undefined;
+    contentStyle?: React.CSSProperties | undefined;
+    contentArrowStyle?: React.CSSProperties | undefined;
 }
 
 export class VerticalTimeline extends React.Component<VerticalTimelineProps> { }

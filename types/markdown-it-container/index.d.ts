@@ -10,7 +10,7 @@ import Token = require('markdown-it/lib/token');
 
 declare namespace markdownItContainer {
     interface ContainerOpts {
-        marker?: string;
+        marker?: string | undefined;
         validate?(params: string): boolean;
         render?(tokens: Token[], index: number, options: any, env: any, self: Renderer): void;
     }

@@ -2,14 +2,14 @@ import * as React from "react";
 import { RadioTileChangeEvent } from "../RadioTile";
 
 export interface TileGroupProps {
-    children?: React.ReactNode,
-    className?: string,
-    defaultSelected?: TileGroupProps["valueSelected"],
-    disabled?: boolean,
-    legend?: string,
+    children?: React.ReactNode | undefined,
+    className?: string | undefined,
+    defaultSelected?: TileGroupProps["valueSelected"] | undefined,
+    disabled?: boolean | undefined,
+    legend?: string | undefined,
     name: string,
     onChange?(value: NonNullable<TileGroupProps["valueSelected"]>, name: NonNullable<TileGroupProps["name"]>, event: RadioTileChangeEvent): void,
-    valueSelected?: string | number,
+    valueSelected?: string | number | undefined,
 }
 
 declare class TileGroup extends React.Component<TileGroupProps> { }

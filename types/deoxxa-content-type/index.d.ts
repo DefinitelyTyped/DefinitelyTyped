@@ -6,14 +6,14 @@
 declare namespace ContentType {
     interface MediaType {
         type: string;
-        q?: number;
+        q?: number | undefined;
         params: any;
         toString(): string;
     }
 
     interface SelectOptions {
-        sortAvailable?: boolean;
-        sortAccepted?: boolean;
+        sortAvailable?: boolean | undefined;
+        sortAccepted?: boolean | undefined;
     }
 
     interface MediaTypeStatic {

@@ -234,7 +234,7 @@ declare namespace CodeMirror {
             amount: number,
             unit: string,
             visually: boolean,
-        ): { line: number; ch: number; hitSide?: boolean };
+        ): { line: number; ch: number; hitSide?: boolean | undefined };
 
         /**
          * Similar to findPosH , but used for vertical motion.unit may be "line" or "page".
@@ -244,7 +244,7 @@ declare namespace CodeMirror {
             start: Position,
             amount: number,
             unit: string,
-        ): { line: number; ch: number; hitSide?: boolean };
+        ): { line: number; ch: number; hitSide?: boolean | undefined };
 
         /** Returns the start and end of the 'word' (the stretch of letters, whitespace, or punctuation) at the given position. */
         findWordAt(pos: Position): Range;
@@ -277,7 +277,7 @@ declare namespace CodeMirror {
          * Currently, only the opaque option is recognized. This defaults to off, but can be given to allow the overlay styling, when not null,
          * to override the styling of the base mode entirely, instead of the two being applied together.
          */
-        addOverlay(mode: any, options?: {opaque?: boolean, priority?: number}): void;
+        addOverlay(mode: any, options?: {opaque?: boolean | undefined, priority?: number | undefined}): void;
 
         /** Pass this the exact argument passed for the mode parameter to addOverlay to remove an overlay again. */
         removeOverlay(mode: any): void;
@@ -309,7 +309,7 @@ declare namespace CodeMirror {
         setCursor(
             pos: Position | number,
             ch?: number,
-            options?: { bias?: number; origin?: string; scroll?: boolean },
+            options?: { bias?: number | undefined; origin?: string | undefined; scroll?: boolean | undefined },
         ): void;
 
         /**
@@ -579,124 +579,124 @@ declare namespace CodeMirror {
         /** Below options are supported in CSS mode */
 
         /** Whether to highlight non-standard CSS property keywords such as margin-inline or zoom (default: true). */
-        highlightNonStandardPropertyKeywords?: boolean;
+        highlightNonStandardPropertyKeywords?: boolean | undefined;
 
         /** Below options are supported in Cython/Python modes */
 
         /**  The version of Python to recognize. Default is 3. */
-        version?: 2 | 3;
+        version?: 2 | 3 | undefined;
         /**
          * If you have a single-line string that is not terminated at the end of the line, this will show subsequent
          * lines as errors if true, otherwise it will consider the newline as the end of the string. Default is false.
          */
-        singleLineStringErrors?: boolean;
+        singleLineStringErrors?: boolean | undefined;
         /**
          * If you want to write long arguments to a function starting on a new line, how much that line should be
          * indented. Defaults to one normal indentation unit.
          */
-        hangingIndent?: number;
+        hangingIndent?: number | undefined;
         /** Regular Expression for single operator matching */
-        singleOperators?: unknown;
+        singleOperators?: unknown | undefined;
         /**  Regular Expression for single delimiter matching default :^[\\(\\)\\[\\]\\{\\}@,:`=;\\.] */
-        singleDelimiters?: unknown;
+        singleDelimiters?: unknown | undefined;
         /** Regular Expression for double operators matching, default :^((==)|(!=)|(<=)|(>=)|(<>)|(<<)|(>>)|(//)|(\\*\\*)) */
-        doubleOperators?: unknown;
+        doubleOperators?: unknown | undefined;
         /** Regular Expression for double delimiters matching default :^((\\+=)|(\\-=)|(\\*=)|(%=)|(/=)|(&=)|(\\|=)|(\\^=)) */
-        doubleDelimiters?: unknown;
+        doubleDelimiters?: unknown | undefined;
         /** Regular Expression for triple delimiters matching default :^((//=)|(>>=)|(<<=)|(\\*\\*=)) */
-        tripleDelimiters?: unknown;
+        tripleDelimiters?: unknown | undefined;
         /** RegEx - Regular Expression for identifier, default :^[_A-Za-z][_A-Za-z0-9]* */
-        identifiers?: unknown;
+        identifiers?: unknown | undefined;
         /** List of extra words ton consider as keywords */
-        extra_keywords?: string[];
+        extra_keywords?: string[] | undefined;
         /** List of extra words ton consider as builtins */
-        extra_builtins?: string[];
+        extra_builtins?: string[] | undefined;
 
         /** useCPP, which determines whether C preprocessor directives are recognized. */
-        useCPP?: boolean;
+        useCPP?: boolean | undefined;
 
         /** Below options are supported in Handlebars/Haskell/YAML front matter  mode */
-        base?: string;
+        base?: string | undefined;
 
         /** Below options are supported in HTML mixed  mode */
-        tags?: {[key: string]: unknown};
+        tags?: {[key: string]: unknown} | undefined;
 
         /** Below options are supported in JavaScript mixed  mode */
 
         /** json which will set the mode to expect JSON data rather than a JavaScript program. */
-        json?: boolean;
+        json?: boolean | undefined;
         /** jsonld which will set the mode to expect JSON-LD linked data rather than a JavaScript program */
-        jsonld?: boolean;
+        jsonld?: boolean | undefined;
         /** typescript which will activate additional syntax highlighting and some other things for TypeScript code */
-        typescript?: boolean;
+        typescript?: boolean | undefined;
         /**
          * trackScope can be set to false to turn off tracking of local variables. This will prevent locals from getting
          * the "variable-2" token type, and will break completion of locals with javascript-hint.
          */
-        trackScope?: boolean;
+        trackScope?: boolean | undefined;
         /**
          * statementIndent which (given a number) will determine the amount of indentation to use for statements
          * continued on a new line.
          */
-        statementIndent?: boolean;
+        statementIndent?: boolean | undefined;
         /**
          * wordCharacters, a regexp that indicates which characters should be considered part of an identifier.
          *  Defaults to /[\w$]/, which does not handle non-ASCII identifiers. Can be set to something more elaborate to
          *  improve Unicode support.
          */
-        wordCharacters?: unknown;
+        wordCharacters?: unknown | undefined;
 
         /** Below options are supported in Markdown mixed  mode */
 
         /** Whether to separately highlight markdown meta characters (*[]()etc.) (default: false). */
-        highlightFormatting?: boolean;
+        highlightFormatting?: boolean | undefined;
         /** Maximum allowed blockquote nesting (default: 0 - infinite nesting). */
-        maxBlockquoteDepth?: boolean;
+        maxBlockquoteDepth?: boolean | undefined;
         /** Whether to highlight inline XML (default: true). */
-        xml?: boolean;
+        xml?: boolean | undefined;
         /**
          * Whether to syntax-highlight fenced code blocks, if given mode is included, or fencedCodeBlockDefaultMode
          * is set (default: true).
          */
-        fencedCodeBlockHighlighting?: boolean;
+        fencedCodeBlockHighlighting?: boolean | undefined;
         /** Mode to use for fencedCodeBlockHighlighting, if given mode is not included. */
-        fencedCodeBlockDefaultMode?: string;
+        fencedCodeBlockDefaultMode?: string | undefined;
         /** When you want to override default token type names (e.g. {code: "code"}). */
-        tokenTypeOverrides?: unknown;
+        tokenTypeOverrides?: unknown | undefined;
         /** Allow lazy headers without whitespace between hashtag and text (default: false). */
-        allowAtxHeaderWithoutSpace?: boolean;
+        allowAtxHeaderWithoutSpace?: boolean | undefined;
 
         /** Below options are supported in GFM mode mode */
-        gitHubSpice?: boolean;
-        taskLists?: boolean;
-        strikethrough?: boolean;
-        emoji?: boolean;
+        gitHubSpice?: boolean | undefined;
+        taskLists?: boolean | undefined;
+        strikethrough?: boolean | undefined;
+        emoji?: boolean | undefined;
 
         /** Below options are supported in Smarty mode */
 
         /** leftDelimiter and rightDelimiter, which should be strings that determine where the Smarty syntax starts and ends. */
-        leftDelimiter?: string;
-        rightDelimiter?: string;
-        baseMode?: string;
+        leftDelimiter?: string | undefined;
+        rightDelimiter?: string | undefined;
+        baseMode?: string | undefined;
 
         /** Below options are supported in sTeX mode */
 
         /** Whether to start parsing in math mode (default: false) */
-        inMathMode?: boolean;
+        inMathMode?: boolean | undefined;
 
         /** Below options are supported in SystemVerilog mode */
 
         /** List of keywords which should not cause indentation to increase. */
-        noIndentKeywords?: unknown;
+        noIndentKeywords?: unknown | undefined;
 
         /** Below options are supported in VHDL mode */
 
         /** List of atom words. Default: "null" */
-        atoms?: unknown;
+        atoms?: unknown | undefined;
         /** List of meta hooks. Default: ["`", "$"] */
-        hooks?: unknown;
+        hooks?: unknown | undefined;
         /** Whether multi-line strings are accepted. Default: false */
-        multiLineStrings?: boolean;
+        multiLineStrings?: boolean | undefined;
 
         /** Below options are supported in XML mode */
 
@@ -704,14 +704,14 @@ declare namespace CodeMirror {
          * This switches the mode to parse HTML instead of XML. This means attributes do not have to be quoted,
          * and some elements (such as br) do not require a closing tag.
          */
-        htmlMode?: boolean;
+        htmlMode?: boolean | undefined;
         /**
          * Controls whether the mode checks that close tags match the corresponding opening tag,
          * and highlights mismatches as errors. Defaults to true.
          */
-        matchClosing?: boolean;
+        matchClosing?: boolean | undefined;
         /** Setting this to true will force the opening tag of CDATA blocks to not be indented. */
-        alignCDATA?: boolean;
+        alignCDATA?: boolean | undefined;
     }
 
     type ModeSpec<T> = {
@@ -854,14 +854,14 @@ declare namespace CodeMirror {
         setCursor(
             pos: Position | number,
             ch?: number,
-            options?: { bias?: number; origin?: string; scroll?: boolean },
+            options?: { bias?: number | undefined; origin?: string | undefined; scroll?: boolean | undefined },
         ): void;
 
         /** Set a single selection range. anchor and head should be {line, ch} objects. head defaults to anchor when not given. */
         setSelection(
             anchor: Position,
             head?: Position,
-            options?: { bias?: number; origin?: string; scroll?: boolean },
+            options?: { bias?: number | undefined; origin?: string | undefined; scroll?: boolean | undefined },
         ): void;
 
         /**
@@ -873,7 +873,7 @@ declare namespace CodeMirror {
         setSelections(
             ranges: Array<{ anchor: Position; head: Position }>,
             primary?: number,
-            options?: { bias?: number; origin?: string; scroll?: boolean },
+            options?: { bias?: number | undefined; origin?: string | undefined; scroll?: boolean | undefined },
         ): void;
 
         /**
@@ -896,16 +896,16 @@ declare namespace CodeMirror {
              * When turned on, the linked copy will share an undo history with the original.
              * Thus, something done in one of the two can be undone in the other, and vice versa.
              */
-            sharedHist?: boolean;
-            from?: number;
+            sharedHist?: boolean | undefined;
+            from?: number | undefined;
             /**
              * Can be given to make the new document a subview of the original. Subviews only show a given range of lines.
              * Note that line coordinates inside the subview will be consistent with those of the parent,
              * so that for example a subview starting at line 10 will refer to its first line as line 10, not 0.
              */
-            to?: number;
+            to?: number | undefined;
             /** By default, the new document inherits the mode of the parent. This option can be set to a mode spec to give it a different mode. */
-            mode?: string | ModeSpec<ModeSpecOptions>;
+            mode?: string | ModeSpec<ModeSpecOptions> | undefined;
         }): Doc;
 
         /**
@@ -957,22 +957,22 @@ declare namespace CodeMirror {
             pos: Position,
             options?: {
                 /** Can be used to display a DOM node at the current location of the bookmark (analogous to the replacedWith option to markText). */
-                widget?: HTMLElement;
+                widget?: HTMLElement | undefined;
 
                 /**
                  * By default, text typed when the cursor is on top of the bookmark will end up to the right of the bookmark.
                  * Set this option to true to make it go to the left instead.
                  */
-                insertLeft?: boolean;
+                insertLeft?: boolean | undefined;
 
                 /**
                  * When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
                  * By default, a marker appears only in its target document.
                  */
-                shared?: boolean;
+                shared?: boolean | undefined;
 
                 /** As with markText, this determines whether mouse events on the widget inserted for this bookmark are handled by CodeMirror. The default is false. */
-                handleMouseEvents?: boolean;
+                handleMouseEvents?: boolean | undefined;
             },
         ): TextMarker<Position>;
 
@@ -1082,26 +1082,26 @@ declare namespace CodeMirror {
 
     interface LineWidgetOptions {
         /** Whether the widget should cover the gutter. */
-        coverGutter?: boolean;
+        coverGutter?: boolean | undefined;
         /** Whether the widget should stay fixed in the face of horizontal scrolling. */
-        noHScroll?: boolean;
+        noHScroll?: boolean | undefined;
         /** Causes the widget to be placed above instead of below the text of the line. */
-        above?: boolean;
+        above?: boolean | undefined;
         /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
-        showIfHidden?: boolean;
+        showIfHidden?: boolean | undefined;
         /**
          * Determines whether the editor will capture mouse and drag events occurring in this widget.
          * Default is false—the events will be left alone for the default browser handler, or specific handlers on the widget, to capture.
          */
-        handleMouseEvents?: boolean;
+        handleMouseEvents?: boolean | undefined;
         /**
          * By default, the widget is added below other widgets for the line.
          * This option can be used to place it at a different position (zero for the top, N to put it after the Nth other widget).
          * Note that this only has effect once, when the widget is created.
          */
-        insertAt?: number;
+        insertAt?: number | undefined;
         /** Add an extra CSS class name to the wrapper element created for the widget. */
-        className?: string;
+        className?: string | undefined;
     }
 
     interface EditorChange {
@@ -1112,9 +1112,9 @@ declare namespace CodeMirror {
         /** Array of strings representing the text that replaced the changed range (split by line). */
         text: string[];
         /**  Text that used to be between from and to, which is overwritten by this change. */
-        removed?: string[];
+        removed?: string[] | undefined;
         /**  String representing the origin of the change event and whether it can be merged with history */
-        origin?: string;
+        origin?: string | undefined;
     }
 
     interface EditorChangeCancellable extends EditorChange {
@@ -1135,7 +1135,7 @@ declare namespace CodeMirror {
     interface EditorSelectionChange {
         ranges: Range[];
         update(ranges: Range[]): void;
-        origin?: string;
+        origin?: string | undefined;
     }
 
     interface Range {
@@ -1149,7 +1149,7 @@ declare namespace CodeMirror {
     interface Position {
         ch: number;
         line: number;
-        sticky?: string;
+        sticky?: string | undefined;
     }
 
     interface ScrollbarMeasure {
@@ -1186,7 +1186,7 @@ declare namespace CodeMirror {
 
     interface EditorConfiguration {
         /** The starting value of the editor. Can be a string, or a document object. */
-        value?: string | Doc;
+        value?: string | Doc | undefined;
 
         /**
          * string|object. The mode to use. When not given, this will default to the first mode that was loaded.
@@ -1194,50 +1194,50 @@ declare namespace CodeMirror {
          * Alternatively, it may be an object containing configuration options for the mode,
          * with a name property that names the mode (for example {name: "javascript", json: true}).
          */
-        mode?: string | ModeSpec<ModeSpecOptions>;
+        mode?: string | ModeSpec<ModeSpecOptions> | undefined;
 
         /**
          * Explicitly set the line separator for the editor. By default (value null), the document will be split on CRLFs as well
          * as lone CRs and LFs, and a single LF will be used as line separator in all output (such as getValue). When a specific
          * string is given, lines will only be split on that string, and output will, by default, use that same separator.
          */
-        lineSeparator?: string | null;
+        lineSeparator?: string | null | undefined;
 
         /**
          * The theme to style the editor with. You must make sure the CSS file defining the corresponding .cm-s-[name] styles is loaded.
          * The default is "default".
          */
-        theme?: string;
+        theme?: string | undefined;
 
         /** How many spaces a block (whatever that means in the edited language) should be indented. The default is 2. */
-        indentUnit?: number;
+        indentUnit?: number | undefined;
 
         /** Whether to use the context-sensitive indentation that the mode provides (or just indent the same as the line before). Defaults to true. */
-        smartIndent?: boolean;
+        smartIndent?: boolean | undefined;
 
         /** The width of a tab character. Defaults to 4. */
-        tabSize?: number;
+        tabSize?: number | undefined;
 
         /** Whether, when indenting, the first N*tabSize spaces should be replaced by N tabs. Default is false. */
-        indentWithTabs?: boolean;
+        indentWithTabs?: boolean | undefined;
 
         /**
          * Configures whether the editor should re-indent the current line when a character is typed
          * that might change its proper indentation (only works if the mode supports indentation). Default is true.
          */
-        electricChars?: boolean;
+        electricChars?: boolean | undefined;
 
         /**
          * A regular expression used to determine which characters should be replaced by a special placeholder. Mostly useful for non-printing
          * special characters. The default is /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff\ufff9-\ufffc]/.
          */
-        specialChars?: RegExp;
+        specialChars?: RegExp | undefined;
 
         /**
          * A function that, given a special character identified by the specialChars option, produces a DOM node that is used to
          * represent the character. By default, a red dot (•) is shown, with a title tooltip to indicate the character code.
          */
-        specialCharPlaceholder?: (char: string) => HTMLElement;
+        specialCharPlaceholder?: ((char: string) => HTMLElement) | undefined;
 
         /**
          * Flips overall layout and selects base paragraph direction to be left-to-right or right-to-left. Default is "ltr". CodeMirror
@@ -1246,7 +1246,7 @@ declare namespace CodeMirror {
          * leading and trailing punctuation jumps to the wrong side of the line). Therefore, it's helpful for multilingual input to let
          * users toggle this option.
          */
-        direction?: "ltr" | "rtl";
+        direction?: "ltr" | "rtl" | undefined;
 
         /**
          * Determines whether horizontal cursor movement through right-to-left (Arabic, Hebrew) text
@@ -1254,35 +1254,35 @@ declare namespace CodeMirror {
          * or logical (pressing the left arrow moves to the next lower index in the string, which is visually right in right-to-left text).
          * The default is false on Windows, and true on other platforms.
          */
-        rtlMoveVisually?: boolean;
+        rtlMoveVisually?: boolean | undefined;
 
         /**
          * Configures the keymap to use. The default is "default", which is the only keymap defined in codemirror.js itself.
          * Extra keymaps are found in the keymap directory. See the section on keymaps for more information.
          */
-        keyMap?: string;
+        keyMap?: string | undefined;
 
         /** Can be used to specify extra keybindings for the editor, alongside the ones defined by keyMap. Should be either null, or a valid keymap value. */
-        extraKeys?: string | KeyMap;
+        extraKeys?: string | KeyMap | undefined;
 
         /** Allows you to configure the behavior of mouse selection and dragging. The function is called when the left mouse button is pressed. */
-        configureMouse?: (
+        configureMouse?: ((
             cm: Editor,
             repeat: 'single' | 'double' | 'triple',
             event: Event,
-        ) => MouseSelectionConfiguration;
+        ) => MouseSelectionConfiguration) | undefined;
 
         /** Whether CodeMirror should scroll or wrap for long lines. Defaults to false (scroll). */
-        lineWrapping?: boolean;
+        lineWrapping?: boolean | undefined;
 
         /** Whether to show line numbers to the left of the editor. */
-        lineNumbers?: boolean;
+        lineNumbers?: boolean | undefined;
 
         /** At which number to start counting lines. Default is 1. */
-        firstLineNumber?: number;
+        firstLineNumber?: number | undefined;
 
         /** A function used to format line numbers. The function is passed the line number, and should return a string that will be shown in the gutter. */
-        lineNumberFormatter?: (line: number) => string;
+        lineNumberFormatter?: ((line: number) => string) | undefined;
 
         /**
          * Can be used to add extra gutters (beyond or instead of the line number gutter).
@@ -1291,25 +1291,25 @@ declare namespace CodeMirror {
          * May include the CodeMirror-linenumbers class, in order to explicitly set the position of the line number gutter
          * (it will default to be to the right of all other gutters). These class names are the keys passed to setGutterMarker.
          */
-        gutters?: Array<string | { className: string; style?: string }>;
+        gutters?: Array<string | { className: string; style?: string | undefined }> | undefined;
 
         /**
          * Determines whether the gutter scrolls along with the content horizontally (false)
          * or whether it stays fixed during horizontal scrolling (true, the default).
          */
-        fixedGutter?: boolean;
+        fixedGutter?: boolean | undefined;
 
         /**
          * Chooses a scrollbar implementation. The default is "native", showing native scrollbars. The core library also
          * provides the "null" style, which completely hides the scrollbars. Addons can implement additional scrollbar models.
          */
-        scrollbarStyle?: keyof ScrollbarModels;
+        scrollbarStyle?: keyof ScrollbarModels | undefined;
 
         /**
          * When fixedGutter is on, and there is a horizontal scrollbar, by default the gutter will be visible to the left of this scrollbar.
          * If this option is set to true, it will be covered by an element with class CodeMirror-gutter-filler.
          */
-        coverGutterNextToScrollbar?: boolean;
+        coverGutterNextToScrollbar?: boolean | undefined;
 
         /**
          * Selects the way CodeMirror handles input and focus.
@@ -1317,60 +1317,60 @@ declare namespace CodeMirror {
          * On mobile browsers, the default is "contenteditable". On desktop browsers, the default is "textarea".
          * Support for IME and screen readers is better in the "contenteditable" model.
          */
-        inputStyle?: InputStyle;
+        inputStyle?: InputStyle | undefined;
 
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
-        readOnly?: boolean | 'nocursor';
+        readOnly?: boolean | 'nocursor' | undefined;
 
         /** This label is read by the screenreaders when CodeMirror text area is focused. This is helpful for accessibility. */
-        screenReaderLabel?: string;
+        screenReaderLabel?: string | undefined;
 
         /** Whether the cursor should be drawn when a selection is active. Defaults to false. */
-        showCursorWhenSelecting?: boolean;
+        showCursorWhenSelecting?: boolean | undefined;
 
         /** When enabled, which is the default, doing copy or cut when there is no selection will copy or cut the whole lines that have cursors on them. */
-        lineWiseCopyCut?: boolean;
+        lineWiseCopyCut?: boolean | undefined;
 
         /**
          * When pasting something from an external source (not from the editor itself), if the number of lines matches the number of selection,
          * CodeMirror will by default insert one line per selection. You can set this to false to disable that behavior.
          */
-        pasteLinesPerSelection?: boolean;
+        pasteLinesPerSelection?: boolean | undefined;
 
         /** Determines whether multiple selections are joined as soon as they touch (the default) or only when they overlap (true). */
-        selectionsMayTouch?: boolean;
+        selectionsMayTouch?: boolean | undefined;
 
         /** The maximum number of undo levels that the editor stores. Defaults to 40. */
-        undoDepth?: number;
+        undoDepth?: number | undefined;
 
         /** The period of inactivity (in milliseconds) that will cause a new history event to be started when typing or deleting. Defaults to 500. */
-        historyEventDelay?: number;
+        historyEventDelay?: number | undefined;
 
         /** The tab index to assign to the editor. If not given, no tab index will be assigned. */
-        tabindex?: number;
+        tabindex?: number | undefined;
 
         /**
          * Can be used to make CodeMirror focus itself on initialization. Defaults to off.
          * When fromTextArea is used, and no explicit value is given for this option, it will be set to true when either the source textarea is focused,
          * or it has an autofocus attribute and no other element is focused.
          */
-        autofocus?: boolean;
+        autofocus?: boolean | undefined;
 
         /** Controls whether drag-and - drop is enabled. On by default. */
-        dragDrop?: boolean;
+        dragDrop?: boolean | undefined;
 
         /**
          * When set (default is null) only files whose type is in the array can be dropped into the editor.
          * The strings should be MIME types, and will be checked against the type of the File object as reported by the browser.
          */
-        allowDropFileTypes?: string[] | null;
+        allowDropFileTypes?: string[] | null | undefined;
 
         /**
          * When given , this will be called when the editor is handling a dragenter , dragover , or drop event.
          * It will be passed the editor instance and the event object as arguments.
          * The callback can choose to handle the event itself , in which case it should return true to indicate that CodeMirror should not do anything further.
          */
-        onDragEvent?: (instance: Editor, event: DragEvent) => boolean;
+        onDragEvent?: ((instance: Editor, event: DragEvent) => boolean) | undefined;
 
         /**
          * This provides a rather low-level hook into CodeMirror's key handling.
@@ -1384,66 +1384,66 @@ declare namespace CodeMirror {
          * If you respond to an event, you should probably inspect its type property and only do something when it is keydown
          * (or keypress for actions that need character data).
          */
-        onKeyEvent?: (instance: Editor, event: KeyboardEvent) => boolean;
+        onKeyEvent?: ((instance: Editor, event: KeyboardEvent) => boolean) | undefined;
 
         /** Half - period in milliseconds used for cursor blinking. The default blink rate is 530ms. */
-        cursorBlinkRate?: number;
+        cursorBlinkRate?: number | undefined;
 
         /**
          * How much extra space to always keep above and below the cursor when
          * approaching the top or bottom of the visible view in a scrollable document. Default is 0.
          */
-        cursorScrollMargin?: number;
+        cursorScrollMargin?: number | undefined;
 
         /**
          * Determines the height of the cursor. Default is 1 , meaning it spans the whole height of the line.
          * For some fonts (and by some tastes) a smaller height (for example 0.85),
          * which causes the cursor to not reach all the way to the bottom of the line, looks better
          */
-        cursorHeight?: number;
+        cursorHeight?: number | undefined;
 
         /**
          * Controls whether, when the context menu is opened with a click outside of the current selection,
          * the cursor is moved to the point of the click. Defaults to true.
          */
-        resetSelectionOnContextMenu?: boolean;
+        resetSelectionOnContextMenu?: boolean | undefined;
 
         /**
          * Highlighting is done by a pseudo background thread that will work for workTime milliseconds,
          * and then use timeout to sleep for workDelay milliseconds.
          * The defaults are 200 and 300, you can change these options to make the highlighting more or less aggressive.
          */
-        workTime?: number;
+        workTime?: number | undefined;
 
         /** See workTime. */
-        workDelay?: number;
+        workDelay?: number | undefined;
 
         /**
          * Indicates how quickly CodeMirror should poll its input textarea for changes(when focused).
          * Most input is captured by events, but some things, like IME input on some browsers, don't generate events that allow CodeMirror to properly detect it.
          * Thus, it polls. Default is 100 milliseconds.
          */
-        pollInterval?: number;
+        pollInterval?: number | undefined;
 
         /**
          * By default, CodeMirror will combine adjacent tokens into a single span if they have the same class.
          * This will result in a simpler DOM tree, and thus perform better. With some kinds of styling(such as rounded corners),
          * this will change the way the document looks. You can set this option to false to disable this behavior.
          */
-        flattenSpans?: boolean;
+        flattenSpans?: boolean | undefined;
 
         /**
          * When enabled (off by default), an extra CSS class will be added to each token, indicating the (inner) mode that produced it, prefixed with "cm-m-".
          * For example, tokens from the XML mode will get the cm-m-xml class.
          */
-        addModeClass?: boolean;
+        addModeClass?: boolean | undefined;
 
         /**
          * When highlighting long lines, in order to stay responsive, the editor will give up and simply style
          * the rest of the line as plain text when it reaches a certain position. The default is 10000.
          * You can set this to Infinity to turn off this behavior.
          */
-        maxHighlightLength?: number;
+        maxHighlightLength?: number | undefined;
 
         /**
          * Specifies the amount of lines that are rendered above and below the part of the document that's currently scrolled into view.
@@ -1451,59 +1451,59 @@ declare namespace CodeMirror {
          * You should usually leave it at its default, 10. Can be set to Infinity to make sure the whole document is always rendered,
          * and thus the browser's text search works on it. This will have bad effects on performance of big documents.
          */
-        viewportMargin?: number;
+        viewportMargin?: number | undefined;
 
         /** Specifies whether or not spellcheck will be enabled on the input. */
-        spellcheck?: boolean;
+        spellcheck?: boolean | undefined;
 
         /** Specifies whether or not autocorrect will be enabled on the input. */
-        autocorrect?: boolean;
+        autocorrect?: boolean | undefined;
 
         /** Specifies whether or not autocapitalization will be enabled on the input. */
-        autocapitalize?: boolean;
+        autocapitalize?: boolean | undefined;
     }
 
     interface TextMarkerOptions {
         /** Assigns a CSS class to the marked stretch of text. */
-        className?: string;
+        className?: string | undefined;
 
         /** Determines whether text inserted on the left of the marker will end up inside or outside of it. */
-        inclusiveLeft?: boolean;
+        inclusiveLeft?: boolean | undefined;
 
         /** Like inclusiveLeft, but for the right side. */
-        inclusiveRight?: boolean;
+        inclusiveRight?: boolean | undefined;
 
         /** For atomic ranges, determines whether the cursor is allowed to be placed directly to the left of the range. Has no effect on non-atomic ranges. */
-        selectLeft?: boolean;
+        selectLeft?: boolean | undefined;
 
         /** Like selectLeft, but for the right side. */
-        selectRight?: boolean;
+        selectRight?: boolean | undefined;
 
         /**
          * Atomic ranges act as a single unit when cursor movement is concerned — i.e. it is impossible to place the cursor inside of them.
          * You can control whether the cursor is allowed to be placed directly before or after them using selectLeft or selectRight.
          * If selectLeft (or right) is not provided, then inclusiveLeft (or right) will control this behavior.
          */
-        atomic?: boolean;
+        atomic?: boolean | undefined;
 
         /** Collapsed ranges do not show up in the display. Setting a range to be collapsed will automatically make it atomic. */
-        collapsed?: boolean;
+        collapsed?: boolean | undefined;
 
         /**
          * When enabled, will cause the mark to clear itself whenever the cursor enters its range.
          * This is mostly useful for text - replacement widgets that need to 'snap open' when the user tries to edit them.
          * The "clear" event fired on the range handle can be used to be notified when this happens.
          */
-        clearOnEnter?: boolean;
+        clearOnEnter?: boolean | undefined;
 
         /** Determines whether the mark is automatically cleared when it becomes empty. Default is true. */
-        clearWhenEmpty?: boolean;
+        clearWhenEmpty?: boolean | undefined;
 
         /**
          * Use a given node to display this range. Implies both collapsed and atomic.
          * The given DOM node must be an inline element (as opposed to a block element).
          */
-        replacedWith?: HTMLElement;
+        replacedWith?: HTMLElement | undefined;
 
         /**
          * When replacedWith is given, this determines whether the editor will
@@ -1511,38 +1511,38 @@ declare namespace CodeMirror {
          * false—the events will be left alone for the default browser handler,
          * or specific handlers on the widget, to capture.
          */
-        handleMouseEvents?: boolean;
+        handleMouseEvents?: boolean | undefined;
 
         /**
          * A read-only span can, as long as it is not cleared, not be modified except by calling setValue to reset the whole document.
          * Note: adding a read-only span currently clears the undo history of the editor,
          * because existing undo events being partially nullified by read - only spans would corrupt the history (in the current implementation).
          */
-        readOnly?: boolean;
+        readOnly?: boolean | undefined;
 
         /** When set to true (default is false), adding this marker will create an event in the undo history that can be individually undone (clearing the marker). */
-        addToHistory?: boolean;
+        addToHistory?: boolean | undefined;
 
         /** Can be used to specify an extra CSS class to be applied to the leftmost span that is part of the marker. */
-        startStyle?: string;
+        startStyle?: string | undefined;
 
         /** Equivalent to startStyle, but for the rightmost span. */
-        endStyle?: string;
+        endStyle?: string | undefined;
 
         /** A string of CSS to be applied to the covered text. For example "color: #fe3". */
-        css?: string;
+        css?: string | undefined;
 
         /** When given, will give the nodes created for this span a HTML title attribute with the given value. */
-        title?: string;
+        title?: string | undefined;
 
         /** When given, add the attributes in the given object to the elements created for the marked text. Adding class or style attributes this way is not supported. */
-        attributes?: { [name: string]: string };
+        attributes?: { [name: string]: string } | undefined;
 
         /**
          * When the target document is linked to other documents, you can set shared to true to make the marker appear in all documents.
          * By default, a marker appears only in its target document.
          */
-        shared?: boolean;
+        shared?: boolean | undefined;
     }
 
     class StringStream {
@@ -1657,7 +1657,7 @@ declare namespace CodeMirror {
      * advances it past a token, and returns a style for that token. More advanced modes can also handle indentation for the language.
      */
     interface Mode<T> {
-        name?: string;
+        name?: string | undefined;
 
         /**
          * This function should read one token from the stream it is given as an argument, optionally update its state,
@@ -1668,50 +1668,50 @@ declare namespace CodeMirror {
         /**
          * A function that produces a state object to be used at the start of a document.
          */
-        startState?: () => T;
+        startState?: (() => T) | undefined;
         /**
          * For languages that have significant blank lines, you can define a blankLine(state) method on your mode that will get called
          * whenever a blank line is passed over, so that it can update the parser state.
          */
-        blankLine?: (state: T) => void;
+        blankLine?: ((state: T) => void) | undefined;
         /**
          * Given a state returns a safe copy of that state.
          */
-        copyState?: (state: T) => T;
+        copyState?: ((state: T) => T) | undefined;
 
         /**
          * Returns the number of spaces of indentation that should be used if a newline were added after the given state. Optionally
          * this can use the textAfter string (which is the text after the current position) or the line string, which is the whole
          * text of the line.
          */
-        indent?: (state: T, textAfter: string, line: string) => number;
+        indent?: ((state: T, textAfter: string, line: string) => number) | undefined;
 
         /** The four below strings are used for working with the commenting addon. */
         /**
          * String that starts a line comment.
          */
-        lineComment?: string;
+        lineComment?: string | undefined;
         /**
          * String that starts a block comment.
          */
-        blockCommentStart?: string;
+        blockCommentStart?: string | undefined;
         /**
          * String that ends a block comment.
          */
-        blockCommentEnd?: string;
+        blockCommentEnd?: string | undefined;
         /**
          * String to put at the start of continued lines in a block comment.
          */
-        blockCommentLead?: string;
+        blockCommentLead?: string | undefined;
 
         /**
          * Trigger a reindent whenever one of the characters in the string is typed.
          */
-        electricChars?: string;
+        electricChars?: string | undefined;
         /**
          * Trigger a reindent whenever the regex matches the part of the line before the cursor.
          */
-        electricinput?: RegExp;
+        electricinput?: RegExp | undefined;
     }
 
     /**
@@ -1927,26 +1927,26 @@ declare namespace CodeMirror {
             | 'word'
             | 'line'
             | 'rectangle'
-            | ((cm: Editor, pos: Position) => { from: Position; to: Position });
+            | ((cm: Editor, pos: Position) => { from: Position; to: Position }) | undefined;
 
         /**
          * Whether to extend the existing selection range or start
          * a new one. By default, this is enabled when shift clicking.
          */
-        extend?: boolean;
+        extend?: boolean | undefined;
 
         /**
          * When enabled, this adds a new range to the existing selection,
          * rather than replacing it. The default behavior is to enable this
          * for command-click on Mac OS, and control-click on other platforms.
          */
-        addNew?: boolean;
+        addNew?: boolean | undefined;
 
         /**
          * When the mouse even drags content around inside the editor, this
          * controls whether it is copied (false) or moved (true). By default, this
          * is enabled by alt-clicking on Mac OS, and ctrl-clicking elsewhere.
          */
-        moveOnDrag?: boolean;
+        moveOnDrag?: boolean | undefined;
     }
 }

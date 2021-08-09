@@ -206,41 +206,41 @@ declare namespace GoldenLayout {
          * Turns headers on or off. If false, the layout will be displayed with splitters only.
          * Default: true
          */
-        hasHeaders?: boolean;
+        hasHeaders?: boolean | undefined;
 
         /**
          * Constrains the area in which items can be dragged to the layout's container. Will be set to false
          * automatically when layout.createDragSource() is called.
          * Default: true
          */
-        constrainDragToContainer?: boolean;
+        constrainDragToContainer?: boolean | undefined;
 
         /**
          * If true, the user can re-arrange the layout by dragging items by their tabs to the desired location.
          * Default: true
          */
-        reorderEnabled?: boolean;
+        reorderEnabled?: boolean | undefined;
 
         /**
          * If true, the user can select items by clicking on their header. This sets the value of layout.selectedItem to
          * the clicked item, highlights its header and the layout emits a 'selectionChanged' event.
          * Default: false
          */
-        selectionEnabled?: boolean;
+        selectionEnabled?: boolean | undefined;
 
         /**
          * Decides what will be opened in a new window if the user clicks the popout icon. If true the entire stack will
          * be transferred to the new window, if false only the active component will be opened.
          * Default: false
          */
-        popoutWholeStack?: boolean;
+        popoutWholeStack?: boolean | undefined;
 
         /**
          * Specifies if an error is thrown when a popout is blocked by the browser (e.g. by opening it programmatically).
          * If false, the popout call will fail silently.
          * Default: true
          */
-        blockedPopoutsThrowError?: boolean;
+        blockedPopoutsThrowError?: boolean | undefined;
 
         /**
          * Specifies if all popouts should be closed when the page that created them is closed. Popouts don't have a
@@ -248,25 +248,25 @@ declare namespace GoldenLayout {
          * addition, any changes made to popouts won't be stored after the parent is closed.
          * Default: true
          */
-        closePopoutsOnUnload?: boolean;
+        closePopoutsOnUnload?: boolean | undefined;
 
         /**
          * Specifies if the popout icon should be displayed in the header-bar.
          * Default: true
          */
-        showPopoutIcon?: boolean;
+        showPopoutIcon?: boolean | undefined;
 
         /**
          * Specifies if the maximise icon should be displayed in the header-bar.
          * Default: true
          */
-        showMaximiseIcon?: boolean;
+        showMaximiseIcon?: boolean | undefined;
 
         /**
          * Specifies if the close icon should be displayed in the header-bar.
          * Default: true
          */
-        showCloseIcon?: boolean;
+        showCloseIcon?: boolean | undefined;
     }
 
     export interface Dimensions {
@@ -275,38 +275,38 @@ declare namespace GoldenLayout {
          * than the visible one, making it safe to set this to small values without affecting usability.
          * Default: 5
          */
-        borderWidth?: number;
+        borderWidth?: number | undefined;
 
         /**
          * The minimum height an item can be resized to (in pixel).
          * Default: 10
          */
-        minItemHeight?: number;
+        minItemHeight?: number | undefined;
 
         /**
          * The minimum width an item can be resized to (in pixel).
          * Default: 10
          */
-        minItemWidth?: number;
+        minItemWidth?: number | undefined;
 
         /**
          * The height of the header elements in pixel. This can be changed, but your theme's header css needs to be
          * adjusted accordingly.
          * Default: 20
          */
-        headerHeight?: number;
+        headerHeight?: number | undefined;
 
         /**
          * The width of the element that appears when an item is dragged (in pixel).
          * Default: 300
          */
-        dragProxyWidth?: number;
+        dragProxyWidth?: number | undefined;
 
         /**
          * The height of the element that appears when an item is dragged (in pixel).
          * Default: 200
          */
-        dragProxyHeight?: number;
+        dragProxyHeight?: number | undefined;
     }
 
     export interface Labels {
@@ -314,25 +314,25 @@ declare namespace GoldenLayout {
          * The tooltip text that appears when hovering over the close icon.
          * Default: 'close'
          */
-        close?: string;
+        close?: string | undefined;
 
         /**
          * The tooltip text that appears when hovering over the maximise icon.
          * Default: 'maximise'
          */
-        maximise?: string;
+        maximise?: string | undefined;
 
         /**
          * The tooltip text that appears when hovering over the minimise icon.
          * Default: 'minimise'
          */
-        minimise?: string;
+        minimise?: string | undefined;
 
         /**
          * The tooltip text that appears when hovering over the popout icon.
          * Default: 'open in new window'
          */
-        popout?: string;
+        popout?: string | undefined;
     }
 
     export interface ItemConfig {
@@ -344,35 +344,35 @@ declare namespace GoldenLayout {
         /**
          * An array of configurations for items that will be created as children of this item.
          */
-        content?: ItemConfigType[];
+        content?: ItemConfigType[] | undefined;
 
         /**
          * The width of this item, relative to the other children of its parent in percent
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * The height of this item, relative to the other children of its parent in percent
          */
-        height?: number;
+        height?: number | undefined;
 
         /**
          * A String or an Array of Strings. Used to retrieve the item using item.getItemsById()
          */
-        id?: string | string[];
+        id?: string | string[] | undefined;
 
         /**
          * Determines if the item is closable. If false, the x on the items tab will be hidden and container.close()
          * will return false
          * Default: true
          */
-        isClosable?: boolean;
+        isClosable?: boolean | undefined;
 
         /**
          * The title of the item as displayed on its tab and on popout windows
          * Default: componentName or ''
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     export interface ComponentConfig extends ItemConfig {
@@ -401,10 +401,10 @@ declare namespace GoldenLayout {
     }
 
     export interface Config {
-        settings?: Settings;
-        dimensions?: Dimensions;
-        labels?: Labels;
-        content?: ItemConfigType[];
+        settings?: Settings | undefined;
+        dimensions?: Dimensions | undefined;
+        labels?: Labels | undefined;
+        content?: ItemConfigType[] | undefined;
     }
 
     export interface ContentItem extends EventEmitter {

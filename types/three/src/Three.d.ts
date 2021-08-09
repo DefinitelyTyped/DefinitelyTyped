@@ -3,6 +3,7 @@
  */
 export * from './constants';
 export * from './Three.Legacy';
+export * from './utils';
 /**
  * Animation
  */

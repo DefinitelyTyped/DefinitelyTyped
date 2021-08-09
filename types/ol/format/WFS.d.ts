@@ -20,11 +20,11 @@ export interface FeatureType {
     geometryName: string;
 }
 export interface Options {
-    featureNS?: { [key: string]: string } | string;
-    featureType?: string[] | string;
-    gmlFormat?: GMLBase;
-    schemaLocation?: string;
-    version?: string;
+    featureNS?: { [key: string]: string } | string | undefined;
+    featureType?: string[] | string | undefined;
+    gmlFormat?: GMLBase | undefined;
+    schemaLocation?: string | undefined;
+    version?: string | undefined;
 }
 /**
  * Total deleted; total inserted; total updated; array of insert ids.
@@ -39,29 +39,29 @@ export interface WriteGetFeatureOptions {
     featureNS: string;
     featurePrefix: string;
     featureTypes: (string | FeatureType)[];
-    srsName?: string;
-    handle?: string;
-    outputFormat?: string;
-    maxFeatures?: number;
-    geometryName?: string;
-    propertyNames?: string[];
-    viewParams?: string;
-    startIndex?: number;
-    count?: number;
-    bbox?: Extent;
-    filter?: Filter;
-    resultType?: string;
+    srsName?: string | undefined;
+    handle?: string | undefined;
+    outputFormat?: string | undefined;
+    maxFeatures?: number | undefined;
+    geometryName?: string | undefined;
+    propertyNames?: string[] | undefined;
+    viewParams?: string | undefined;
+    startIndex?: number | undefined;
+    count?: number | undefined;
+    bbox?: Extent | undefined;
+    filter?: Filter | undefined;
+    resultType?: string | undefined;
 }
 export interface WriteTransactionOptions {
     featureNS: string;
     featurePrefix: string;
     featureType: string;
-    srsName?: string;
-    handle?: string;
-    hasZ?: boolean;
-    nativeElements?: object[];
-    gmlOptions?: Options_1;
-    version?: string;
+    srsName?: string | undefined;
+    handle?: string | undefined;
+    hasZ?: boolean | undefined;
+    nativeElements?: object[] | undefined;
+    gmlOptions?: Options_1 | undefined;
+    version?: string | undefined;
 }
 export default class WFS extends XMLFeature {
     constructor(opt_options?: Options);

@@ -91,10 +91,12 @@ export interface Options {
      * Element that is to be positioned.
      */
     element: HTMLElement;
+
     /**
      * Target with respect to which the `element` is to be positioned.
      */
-    target: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement);
+    target: ConstructorParameters<typeof Rect>[number] | (() => ConstructorParameters<typeof Rect>[number]);
+
     /**
      * An array of functions which return {@link module:utils/dom/position~Position} relative
      * to the `target`, in the order of preference.
@@ -107,11 +109,11 @@ export interface Options {
      * When set, the algorithm will chose position which fits the most in the
      * limiter's bounding rect.
      */
-    limiter?: HTMLElement | Range | ClientRect | Rect | (() => HTMLElement);
+    limiter?: ConstructorParameters<typeof Rect>[number] | (() => ConstructorParameters<typeof Rect>[number]);
 
     /**
      * When set, the algorithm will chose such a position which fits `element`
      * the most inside visible viewport.
      */
-    fitInViewport?: boolean;
+    fitInViewport?: boolean | undefined;
 }

@@ -9,14 +9,14 @@ declare module 'dns' {
     const ALL: number;
 
     interface LookupOptions {
-        family?: number;
-        hints?: number;
-        all?: boolean;
-        verbatim?: boolean;
+        family?: number | undefined;
+        hints?: number | undefined;
+        all?: boolean | undefined;
+        verbatim?: boolean | undefined;
     }
 
     interface LookupOneOptions extends LookupOptions {
-        all?: false;
+        all?: false | undefined;
     }
 
     interface LookupAllOptions extends LookupOptions {
@@ -277,7 +277,7 @@ declare module 'dns' {
     const CANCELLED: string;
 
     interface ResolverOptions {
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     class Resolver {

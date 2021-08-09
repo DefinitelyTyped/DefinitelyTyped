@@ -7,7 +7,7 @@
 import { Plugin } from 'webpack';
 
 export interface Configuration {
-    targets?: string[];
+    targets?: string[] | undefined;
     output: string;
 }
 

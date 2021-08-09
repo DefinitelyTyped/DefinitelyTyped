@@ -4,12 +4,12 @@ export interface ojMessage extends JetElement<ojMessageSettableProperties> {
     message: ojMessage.Message;
     translations: {
         categories?: {
-            confirmation?: string;
-            error?: string;
-            info?: string;
-            warning?: string;
-        };
-        labelCloseIcon?: string;
+            confirmation?: string | undefined;
+            error?: string | undefined;
+            info?: string | undefined;
+            warning?: string | undefined;
+        } | undefined;
+        labelCloseIcon?: string | undefined;
     };
     onDisplayOptionsChanged: ((event: JetElementCustomEvent<ojMessage["displayOptions"]>) => any) | null;
     onMessageChanged: ((event: JetElementCustomEvent<ojMessage["message"]>) => any) | null;
@@ -47,19 +47,19 @@ export namespace ojMessage {
     }
     // tslint:disable-next-line interface-over-type-literal
     type DisplayOptions = {
-        category?: 'header' | 'none' | 'auto';
+        category?: 'header' | 'none' | 'auto' | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type Message = {
-        icon?: string;
-        category?: string;
-        severity?: 'error' | 'warning' | 'confirmation' | 'info' | 'none';
-        timestamp?: string;
-        summary?: string;
-        detail?: string;
-        autoTimeout?: number;
-        closeAffordance?: 'none' | 'defaults';
-        sound?: string;
+        icon?: string | undefined;
+        category?: string | undefined;
+        severity?: 'error' | 'warning' | 'confirmation' | 'info' | 'none' | undefined;
+        timestamp?: string | undefined;
+        summary?: string | undefined;
+        detail?: string | undefined;
+        autoTimeout?: number | undefined;
+        closeAffordance?: 'none' | 'defaults' | undefined;
+        sound?: string | undefined;
     };
 }
 export interface ojMessageEventMap extends HTMLElementEventMap {
@@ -75,12 +75,12 @@ export interface ojMessageSettableProperties extends JetSettableProperties {
     message: ojMessage.Message;
     translations: {
         categories?: {
-            confirmation?: string;
-            error?: string;
-            info?: string;
-            warning?: string;
-        };
-        labelCloseIcon?: string;
+            confirmation?: string | undefined;
+            error?: string | undefined;
+            info?: string | undefined;
+            warning?: string | undefined;
+        } | undefined;
+        labelCloseIcon?: string | undefined;
     };
 }
 export interface ojMessageSettablePropertiesLenient extends Partial<ojMessageSettableProperties> {

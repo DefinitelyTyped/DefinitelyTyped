@@ -10,7 +10,6 @@ export import ui = ui;
 export import system = system;
 export import messages = messages;
 
-export type HTMLMediaElement = any;
 export as namespace framework;
 export enum LoggerLevel {
     DEBUG = 0,
@@ -37,12 +36,14 @@ export const VERSION: string;
 
 /**
  * Manages text tracks.
+ * @throws Error If constructor is used directly. The TextTracksManager should
+ *     only be accessed by calling {@link framework.PlayerManager#getTextTracksManager}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.TextTracksManager
  */
 export class TextTracksManager {
-    constructor(params?: any);
-
     /**
      * Adds text tracks to the list.
+     * @throws Error If tracks are not available, or trackId is not unique, or add non-text tracks.
      */
     addTracks(tracks: messages.Track[]): void;
 
@@ -64,7 +65,7 @@ export class TextTracksManager {
     /**
      * Returns the current text track style.
      */
-    getTextTracksStyle(): messages.TextTrackStyle;
+    getTextTracksStyle(): messages.TextTrackStyle | undefined;
 
     /**
      * Gets text track by id.
@@ -99,14 +100,15 @@ export class TextTracksManager {
 
 /**
  * QueueManager exposes several queue manipulation APIs to developers.
+ * @throws Error If constructor is used directly. The QueueManager should only
+ *     be accessed by calling cast.framework.PlayerManager#getQueueManager.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.QueueManager
  */
 export class QueueManager {
-    constructor(params?: any);
-
     /**
      * Returns the current queue item.
      */
-    getCurrentItem(): messages.QueueItem;
+    getCurrentItem(): messages.QueueItem | null;
 
     /**
      * Returns the index of the current queue item.
@@ -237,10 +239,11 @@ interface MessageEventToMessageTypeMap {
 
 /**
  * Controls and monitors media playback.
+ * @throws Error If constructor is used directly. The PlayerManager should only
+ *         be accessed by calling {@link framework.CastReceiverContext#getPlayerManager}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.PlayerManager
  */
 export class PlayerManager {
-    constructor(params?: any);
-
     /**
      * Adds an event listener for events proxied from the @see{@link events.MediaElementEvent}.
      * See {@link https://dev.w3.org/html5/spec-preview/media-elements.html#mediaevents} for more information.
@@ -529,14 +532,16 @@ export class PlayerManager {
     getAudioTracksManager(): AudioTracksManager;
 
     /**
-     * Returns current time in sec in currently-playing break clip.
+     * @returns current time in sec in currently-playing break clip.
+     *    Null, if player is not playing break clip.
      */
-    getBreakClipCurrentTimeSec(): number;
+    getBreakClipCurrentTimeSec(): number | null;
 
     /**
-     * Returns duration in sec of currently-playing break clip.
+     * @returns duration in sec of currently-playing break clip.
+     *    Null, if player is not playing break clip.
      */
-    getBreakClipDurationSec(): number;
+    getBreakClipDurationSec(): number | null;
 
     /**
      * Obtain the breaks (Ads) manager.
@@ -559,19 +564,20 @@ export class PlayerManager {
     getDurationSec(): number;
 
     /**
-     * Returns live seekable range with start and end time in seconds. The values are media time based.
+     * @returns live seekable range with start and end time in seconds. The values
+     *     are media time based.
      */
-    getLiveSeekableRange(): messages.LiveSeekableRange;
+    getLiveSeekableRange(): messages.LiveSeekableRange | null;
 
     /**
      * Gets media information of current media.
      */
-    getMediaInformation(): messages.MediaInformation;
+    getMediaInformation(): messages.MediaInformation | null;
 
     /**
-     * Returns playback configuration.
+     * @returns playback configuration.
      */
-    getPlaybackConfig(): PlaybackConfig;
+    getPlaybackConfig(): PlaybackConfig | null;
 
     /**
      * Returns current playback rate.
@@ -592,12 +598,12 @@ export class PlayerManager {
     /**
      * Get the preferred text track language.
      */
-    getPreferredTextLanguage(): string;
+    getPreferredTextLanguage(): string | null;
 
     /**
      * Obtain QueueManager API.
      */
-    getQueueManager(): QueueManager;
+    getQueueManager(): QueueManager | null;
 
     getTextTracksManager(): TextTracksManager;
 
@@ -619,7 +625,7 @@ export class PlayerManager {
     /**
      * Requests a text string to be played back locally on the receiver device.
      */
-    playString(stringId: messages.PlayStringId, args?: string[]): Promise<messages.ErrorData>;
+    playString(stringId: messages.PlayStringId, args?: string[]): Promise<messages.ErrorData | null>;
 
     /**
      * Request Google Assistant to refresh the credentials. Only works if the original credentials came from the assistant.
@@ -674,7 +680,7 @@ export class PlayerManager {
     /**
      * Sets MediaElement to use. If Promise of MediaElement is set; media begins playback after Promise is resolved.
      */
-    setMediaElement(mediaElement: HTMLMediaElement): void;
+    setMediaElement(mediaElement: HTMLMediaElement | Promise<HTMLMediaElement>): void;
 
     /**
      * Sets media information.
@@ -714,18 +720,6 @@ export class PlayerManager {
      * Sets playback configuration on the PlayerManager.
      */
     setPlaybackConfig(playbackConfig: PlaybackConfig): void;
-
-    /**
-     * Set the preferred playback rate for follow up load or media items. The preferred playback rate will be updated automatically to the latest
-     * playback rate that was provided by a load request or explicit set of playback rate.
-     */
-    setPreferredPlaybackRate(preferredPlaybackRate: number): void;
-
-    /**
-     * Set the preferred text track language. The preferred text track language will be updated automatically to the latest enabled language
-     * by a load request or explicit change to text tracks. (Should be called only in idle state; and Will only apply to next loaded media).
-     */
-    setPreferredTextLanguage(preferredTextLanguage: string): void;
 
     /**
      * Set receiver supported media commands.
@@ -785,57 +779,58 @@ export class PlaybackConfig {
     /**
      * Duration of buffered media in seconds to start buffering.
      */
-    autoPauseDuration?: number;
+    autoPauseDuration?: number | undefined;
 
     /**
      * Duration of buffered media in seconds to start/resume playback after auto-paused due to buffering.
      */
-    autoResumeDuration?: number;
+    autoResumeDuration?: number | undefined;
 
     /**
      * Minimum number of buffered segments to start/resume playback.
      */
-    autoResumeNumberOfSegments?: number;
+    autoResumeNumberOfSegments?: number | undefined;
 
     /**
      * A function to customize request to get a caption segment.
      */
-    captionsRequestHandler?: RequestHandler;
+    captionsRequestHandler?: RequestHandler | undefined;
 
     /**
      * Initial bandwidth in bits in per second.
      */
-    initialBandwidth?: number;
+    initialBandwidth?: number | undefined;
 
     /**
      * Custom license data.
      */
-    licenseCustomData?: string;
+    licenseCustomData?: string | undefined;
 
     /**
      * Handler to process license data. The handler is passed the license data; and returns the modified license data.
      */
-    licenseHandler?: BinaryHandler;
+    licenseHandler?: BinaryHandler | undefined;
 
     /**
      * A function to customize request to get a license.
      */
-    licenseRequestHandler?: RequestHandler;
+    licenseRequestHandler?: RequestHandler | undefined;
 
     /**
      * Url for acquiring the license.
      */
-    licenseUrl?: string;
+    licenseUrl?: string | undefined;
 
     /**
-     * Handler to process manifest data. The handler is passed the manifest; and returns the modified manifest.
+     * Handler to process manifest data. The handler is passed the manifest,
+     * and returns the modified manifest.
      */
-    manifestHandler?: (manifest: string) => string;
+    manifestHandler?: ((manifest: string) => string | Promise<string>) | undefined;
 
     /**
      * A function to customize request to get a manifest.
      */
-    manifestRequestHandler?: RequestHandler;
+    manifestRequestHandler?: RequestHandler | undefined;
 
     /**
      * Preferred protection system to use for decrypting content.
@@ -845,26 +840,27 @@ export class PlaybackConfig {
     /**
      * Handler to process segment data. The handler is passed the segment data; and returns the modified segment data.
      */
-    segmentHandler?: BinaryHandler;
+    segmentHandler?: BinaryHandler | undefined;
 
     /**
      * A function to customize request information to get a media segment.
      */
-    segmentRequestHandler?: RequestHandler;
+    segmentRequestHandler?: RequestHandler | undefined;
 
     /**
      * Maximum number of times to retry a network request for a segment.
      */
-    segmentRequestRetryLimit?: number;
+    segmentRequestRetryLimit?: number | undefined;
 }
 /**
  * HTTP(s) Request/Response information.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.NetworkRequestInfo
  */
 export class NetworkRequestInfo {
     /**
      * The content of the request. Can be used to modify license request body.
      */
-    content: Uint8Array;
+    content: Uint8Array | null;
 
     /**
      * An object containing properties that you would like to send in the header.
@@ -874,7 +870,7 @@ export class NetworkRequestInfo {
     /**
      * The URL requested.
      */
-    url: string;
+    url: string | null;
 
     /**
      * Indicates whether CORS Access-Control requests should be made using credentials such as cookies or authorization headers.
@@ -895,12 +891,12 @@ export class CastReceiverOptions {
      * If true, the receiver will not set an idle timeout to close receiver if there is no activity.
      * Should only be used for non media apps.
      */
-    disableIdleTimeout?: boolean;
+    disableIdleTimeout?: boolean | undefined;
 
     /**
      * Sender id used for local requests. Default value is 'local'.
      */
-    localSenderId?: string;
+    localSenderId?: string | undefined;
 
     /**
      * Maximum time in seconds before closing an idle sender connection.
@@ -909,69 +905,67 @@ export class CastReceiverOptions {
      * The minimum value is 5 seconds; there is no upper bound enforced but practically it's minutes before platform TCP timeouts come into play.
      * Default value is 10 seconds.
      */
-    maxInactivity?: number;
+    maxInactivity?: number | undefined;
 
     /**
      * Optional media element to play content with. Default behavior is to use the first found media element in the page.
      */
-    mediaElement?: HTMLMediaElement;
+    mediaElement?: HTMLMediaElement | undefined;
 
     /**
      * Optional playback configuration.
      */
-    playbackConfig?: PlaybackConfig;
+    playbackConfig?: PlaybackConfig | undefined;
 
     /**
      * If this is true; the watched client stitching break will also be played.
      */
-    playWatchedBreak?: boolean;
+    playWatchedBreak?: boolean | undefined;
 
     /**
      * Preferred value for player playback rate. It is used if playback rate value is not provided in the load request.
      */
-    preferredPlaybackRate?: number;
+    preferredPlaybackRate?: number | undefined;
 
     /**
      * Preferred text track language. It is used if no active track is provided in the load request.
      */
-    preferredTextLanguage?: string;
+    preferredTextLanguage?: string | undefined;
 
     /**
      * Optional queue implementation.
      */
-    queue?: QueueBase;
+    queue?: QueueBase | undefined;
 
     /**
      * Text that represents the application status.
      * It should meet internationalization rules as may be displayed by the sender application.
      */
-    statusText?: string;
+    statusText?: string | undefined;
 
     /**
      * A bitmask of media commands supported by the application.
      * LOAD; PLAY; STOP; GET_STATUS must always be supported.
      * If this value is not provided; then PAUSE; SEEK; STREAM_VOLUME; STREAM_MUTE are assumed to be supported too.
      */
-    supportedCommands?: number;
+    supportedCommands?: number | undefined;
 
     /**
      * Indicate that MPL should be used for DASH content.
      */
-    useLegacyDashSupport?: boolean;
+    useLegacyDashSupport?: boolean | undefined;
 
     /**
      * An integer used as an internal version number.
      * This number is used only to distinguish between receiver releases and higher numbers do not necessarily have to represent newer releases.
      */
-    versionCode?: number;
+    versionCode?: number | undefined;
 }
 
 /** Manages loading of underlying libraries and initializes underlying cast receiver SDK. */
 export class CastReceiverContext {
     /** Returns the CastReceiverContext singleton instance. */
     static getInstance(): CastReceiverContext;
-
-    constructor(params: any);
 
     /**
      * Sets message listener on custom message channel.
@@ -989,9 +983,9 @@ export class CastReceiverContext {
     canDisplayType(mimeType: string, codecs?: string, width?: number, height?: number, framerate?: number): boolean;
 
     /**
-     * Provides application information once the system is ready; otherwise it will be null.
+     * Provides application information once the system is ready, otherwise it will be null.
      */
-    getApplicationData(): system.ApplicationData;
+    getApplicationData(): system.ApplicationData | null;
 
     /**
      * Provides device capabilities information once the system is ready; otherwise it will be null.
@@ -1007,7 +1001,7 @@ export class CastReceiverContext {
     /**
      * Get a sender by sender id
      */
-    getSender(senderId: string): system.Sender;
+    getSender(senderId: string): system.Sender | null;
 
     /**
      * Gets a list of currently-connected senders.
@@ -1026,8 +1020,11 @@ export class CastReceiverContext {
 
     /**
      * Reports if the cast application is the HDMI active input.
+     * @returns Whether the application is the HDMI active input. If it can not
+     *     be determined, because the TV does not support CEC commands, for
+     *     example, the value returned is UNKNOWN.
      */
-    getVisibilityState(): any;
+    getVisibilityState(): system.VisibilityState;
 
     /**
      * When the application calls start; the system will send the ready event to indicate
@@ -1093,12 +1090,28 @@ export class CastReceiverContext {
     stop(): void;
 }
 
-/** Manages audio tracks. */
+/**
+ * Manages audio tracks.
+ * @throws Error If constructor is used directly. The AudioTracksManager should
+ *     only be accessed by calling {@link framework.PlayerManager#getAudioTracksManager}
+ *
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.AudioTracksManager
+ */
 export class AudioTracksManager {
-    constructor(params: any);
-    getActiveId(): number;
-    getActiveTrack(): messages.Track;
-    getTrackById(id: number): messages.Track;
+    /**
+     * Gets the active audio id.
+     */
+    getActiveId(): number | undefined;
+    /**
+     * Gets the active audio track.
+     */
+    getActiveTrack(): messages.Track | undefined;
+    /**
+     * Gets audio track by id.
+     * @param id
+     * @throws Error  If id is not available or invalid.
+     */
+    getTrackById(id: number): messages.Track | undefined;
     getTracks(): messages.Track[];
     getTracksByLanguage(language: string): messages.Track[];
     setActiveById(id: number): void;

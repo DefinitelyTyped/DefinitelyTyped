@@ -15,11 +15,11 @@ export type Pipe = (conformedValue: string, config: any) => PipeResult;
 export interface CreateTextMaskConfig {
     inputElement: HTMLInputElement;
     mask: Mask;
-    guide?: string;
-    pipe?: Pipe;
-    placeholderChar?: string;
-    keepCharPositions?: boolean;
-    showMask?: boolean;
+    guide?: string | undefined;
+    pipe?: Pipe | undefined;
+    placeholderChar?: string | undefined;
+    keepCharPositions?: boolean | undefined;
+    showMask?: boolean | undefined;
 }
 
 export interface TextMaskInputElement {

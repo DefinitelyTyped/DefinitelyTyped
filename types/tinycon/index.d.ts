@@ -16,29 +16,29 @@ declare namespace Tinycon {
         /**
          * @default true
          */
-        abbreviate?: boolean;
+        abbreviate?: boolean | undefined;
         /**
          * @default '#F03D25'
          */
-        background?: string;
+        background?: string | undefined;
         /**
          * @default '#ffffff'
          */
-        color?: string;
+        color?: string | undefined;
         /**
          * @default true
          */
-        crossOrigin?: boolean;
-        fallback?: boolean | "force";
-        font?: string;
+        crossOrigin?: boolean | undefined;
+        fallback?: boolean | "force" | undefined;
+        font?: string | undefined;
         /**
          * @default 8
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * @default 7
          */
-        width?: number;
+        width?: number | undefined;
     }
 }
 
