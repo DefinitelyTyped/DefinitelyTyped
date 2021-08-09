@@ -974,7 +974,7 @@ declare module 'fs/promises' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<FileChangeInfo>;
+    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<FileChangeInfo>;
 }
 declare module 'node:fs/promises' {
     export * from 'fs/promises';
