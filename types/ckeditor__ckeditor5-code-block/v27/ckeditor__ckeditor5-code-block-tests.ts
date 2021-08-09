@@ -1,4 +1,4 @@
-import { CodeBlock, CodeBlockEditing, CodeBlockUI } from '@ckeditor/ckeditor5-code-block';
+import Code from '@ckeditor/ckeditor5-code-block';
 import CodeCommand from '@ckeditor/ckeditor5-code-block/src/codeblockcommand';
 import * as converters from '@ckeditor/ckeditor5-code-block/src/converters';
 import IndentCodeBlockCommand from '@ckeditor/ckeditor5-code-block/src/indentcodeblockcommand';
@@ -14,15 +14,14 @@ import View from '@ckeditor/ckeditor5-engine/src/view/view';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-new CodeBlock(editor);
-CodeBlock.requires.map(Plugin => new Plugin(editor).init());
+new Code.CodeBlock(editor);
+Code.CodeBlock.requires.map(Plugin => new Plugin(editor).init());
 
-new CodeBlockUI(editor).init();
+new Code.CodeBlockUi(editor).init();
 
-new CodeBlockEditing(editor).init();
+new Code.CodeBlockEditing(editor).init();
 
 new CodeCommand(editor).execute();
-new CodeCommand(editor).execute({ forceValue: true, language: 'php', usePreviousLanguageChoice: true });
 new CodeCommand(editor).refresh();
 
 converters.modelToViewCodeBlockInsertion(new Model(), [{ language: 'php', label: 'PHP' }], true);
