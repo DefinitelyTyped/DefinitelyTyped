@@ -5,6 +5,9 @@
 // Minimum TypeScript Version: 4.2
 // Enums generated from JS by: https://github.com/vanitasboi/JStoTSenum
 
+// check out PR#54998 for the possibility of a rewrite (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54998)
+// as well as this branch: https://github.com/vanitasboi/DefinitelyTyped/tree/steam-user-rewrite
+
 /// <reference types="node" />
 
 import type SteamID = require('steamid');
