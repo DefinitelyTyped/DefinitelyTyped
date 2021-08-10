@@ -36,7 +36,7 @@ const firehoseHandler: FirehoseTransformationHandler = async (event, context, ca
     let firehoseRecordMetadata: FirehoseRecordMetadata | undefined;
 
     str = event.records[0].recordId;
-    strOrUndefined = event.deliveryStreamArn;
+    str = event.deliveryStreamArn;
     strOrUndefined = event.sourceKinesisStreamArn;
 
     firehoseRecordMetadata = event.records[0].kinesisRecordMetadata;

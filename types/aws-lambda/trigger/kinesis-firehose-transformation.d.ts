@@ -10,7 +10,7 @@ export type FirehoseTransformationCallback = Callback<FirehoseTransformationResu
 // Examples in the lambda blueprints
 export interface FirehoseTransformationEvent {
     invocationId: string;
-    deliveryStreamArn?: string | undefined;
+    deliveryStreamArn: string;
     sourceKinesisStreamArn?: string | undefined;
     region: string;
     records: FirehoseTransformationEventRecord[];
