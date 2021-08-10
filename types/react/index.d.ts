@@ -2256,6 +2256,7 @@ declare namespace React {
         content?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
+        media?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2954,9 +2955,9 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T, C>(children: C | C[], fn: (child: C, index: number) => T):
+        map<T, C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => T):
             C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
-        forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
+        forEach<C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
         toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;

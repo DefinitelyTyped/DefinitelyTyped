@@ -4,6 +4,6 @@ import { Notification } from "@ckeditor/ckeditor5-ui";
 
 export default class CKFinderEditing extends Plugin {
     static pluginName: "CKFinderEditing";
-    static requires: [typeof Notification, "ImageEditing", typeof LinkEditing];
+    static requires: [typeof Notification, typeof LinkEditing];
     init(): void;
 }

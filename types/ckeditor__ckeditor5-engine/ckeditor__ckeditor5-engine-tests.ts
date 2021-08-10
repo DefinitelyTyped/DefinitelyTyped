@@ -25,10 +25,11 @@ import {
     TreeWalker,
     ViewDocument,
 } from "@ckeditor/ckeditor5-engine";
-import ConversionHelpers from "@ckeditor/ckeditor5-engine/src/conversion/conversionhelpers";
 import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
+import DowncastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
 import Mapper from "@ckeditor/ckeditor5-engine/src/conversion/mapper";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
+import UpcastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
 import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
 import { Item } from "@ckeditor/ckeditor5-engine/src/model/item";
@@ -40,9 +41,11 @@ import Selection from "@ckeditor/ckeditor5-engine/src/model/selection";
 import Text from "@ckeditor/ckeditor5-engine/src/model/text";
 import Writer from "@ckeditor/ckeditor5-engine/src/model/writer";
 import { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
+import Document from "@ckeditor/ckeditor5-engine/src/view/document";
 import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
 import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
 import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
+import EmptyElement from "@ckeditor/ckeditor5-engine/src/view/emptyelement";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
 import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
 import Position from "@ckeditor/ckeditor5-engine/src/view/position";
@@ -197,8 +200,15 @@ const downcastDispB = new DowncastDispatcher({});
 const upcastDispaA = new UpcastDispatcher({});
 const conversion = new Conversion([downcastDispA, downcastDispB], [upcastDispaA]);
 conversion.addAlias("upcast", upcastDispaA);
-let helper: ConversionHelpers = conversion.for("upcast");
-helper = helper.add(() => {});
+let upcastHelper: UpcastHelpers = conversion.for("upcast");
+upcastHelper = new UpcastHelpers([new UpcastDispatcher()]).add(() => {});
+// $ExpectError
+upcastHelper = new UpcastHelpers([new DowncastDispatcher()]);
+upcastHelper = upcastHelper.add(() => {});
+let downcastHelper: DowncastHelpers = conversion.for("downcast");
+downcastHelper = conversion.for("dataDowncast");
+downcastHelper = conversion.for("editingDowncast");
+downcastHelper = downcastHelper.add(() => {});
 
 const dataProcessor = new HtmlDataProcessor(viewDocument);
 viewDocumentFragment = dataProcessor.toView("") as ViewDocumentFragment;
@@ -244,8 +254,8 @@ const result = documentSelection.getRanges().next();
 if (!result.done) {
     range = result.value;
 }
-let modelPosition: ModelPosition = documentSelection.anchor as ModelPosition;
-modelPosition = documentSelection.focus as ModelPosition;
+let modelPosition: ModelPosition = documentSelection.anchor!;
+modelPosition = documentSelection.focus!;
 bool = documentSelection.isBackward;
 bool = documentSelection.hasOwnRange;
 bool = documentSelection.isCollapsed;
@@ -386,3 +396,7 @@ clickObserver.domEventType === "click";
 clickObserver.onDomEvent(new MouseEvent("foo"));
 
 new Mapper().on("foo", () => {});
+
+const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
+downcastWriter.createPositionAt(downcastWriter.createEmptyElement("div"), "after");
+downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement("div"), 5));

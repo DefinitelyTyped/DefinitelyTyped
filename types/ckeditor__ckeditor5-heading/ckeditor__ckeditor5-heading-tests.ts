@@ -1,28 +1,40 @@
-import { Editor } from "@ckeditor/ckeditor5-core";
-import Heading from "@ckeditor/ckeditor5-heading";
+import { Editor } from '@ckeditor/ckeditor5-core';
+import { Heading, HeadingButtonsUI, HeadingEditing, HeadingUI, Title } from '@ckeditor/ckeditor5-heading';
+import HeadingCommand from '@ckeditor/ckeditor5-heading/src/headingcommand';
+import * as utils from "@ckeditor/ckeditor5-heading/src/utils";
 
 class MyEditor extends Editor {}
 const myEditor = new MyEditor();
 
-let str = "";
+let str = '';
 
-new Heading.Heading(myEditor);
-Heading.Heading.requires.length === 2;
+new Heading(myEditor);
+Heading.requires.length === 2;
 
-const headingEditing = new Heading.HeadingEditing(myEditor);
+const headingEditing = new HeadingEditing(myEditor);
 headingEditing.init();
 headingEditing.afterInit();
 
-const headingUI = new Heading.HeadingUI(myEditor);
+const headingUI = new HeadingUI(myEditor);
 headingUI.init();
 
-const headingButtonsUI = new Heading.HeadingButtonsUI(myEditor);
+const headingButtonsUI = new HeadingButtonsUI(myEditor);
 headingButtonsUI.init();
 
-const title = new Heading.Title(myEditor);
+const title = new Title(myEditor);
 title.init();
 str = title.getTitle();
 str = title.getBody();
 str = title.getBody({ rootName: str });
-str = title.getBody({ trim: "none" });
-str = title.getBody({ rootName: str, trim: "none" });
+str = title.getBody({ trim: 'none' });
+str = title.getBody({ rootName: str, trim: 'none' });
+
+// $ExpectError
+new HeadingCommand(myEditor, ['']).execute();
+new HeadingCommand(myEditor, ['']).execute({ value: '' });
+
+utils.getLocalizedOptions(myEditor).forEach(value => {
+    value.title === "";
+    value.model === "";
+    value.class === "";
+});
