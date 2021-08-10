@@ -185,12 +185,30 @@ export class Map<K, V> {
   getEntryList(): Array<[K, V]>;
   entries(): Map.Iterator<[K, V]>;
   keys(): Map.Iterator<K>;
+  values(): Map.Iterator<V>;
   forEach(
     callback: (entry: V, key: K) => void,
     thisArg?: {}): void;
   set(key: K, value: V): this;
   get(key: K): (V | undefined);
   has(key: K): boolean;
+  serializeBinary(
+    fieldNumber: number,
+    writer: BinaryWriter,
+    keyWriterFn: (writer: BinaryWriter, field: number, key: K) => void,
+    valueWriterFn: ((writer: BinaryWriter, field: number, value: V) => void)
+                   | ((writer: BinaryWriter, field: number, value: V, opt_valueWriterCallback: (value: V, writer: BinaryWriter) => void) => void),
+    opt_valueWriterCallback?: (value: V, writer: BinaryWriter) => void
+  ): void;
+  static deserializeBinary<K, V>(
+    map: Map<K, V>,
+    reader: BinaryReader,
+    keyReaderFn: (reader: BinaryReader) => K,
+    valueReaderFn: ((reader: BinaryReader) => V) | ((reader: BinaryReader, value: V, opt_valueReaderCallback: (value: V, reader: BinaryReader) => any) => any),
+    opt_valueReaderCallback?: (value: V, reader: BinaryReader) => any,
+    opt_defaultKey?: K,
+    opt_defaultValue?: V
+  ): void;
 }
 
 export namespace Map {
