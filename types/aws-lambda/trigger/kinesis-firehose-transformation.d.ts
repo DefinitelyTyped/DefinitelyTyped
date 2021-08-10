@@ -1,4 +1,4 @@
-import { Callback, Handler } from "../handler";
+import { Callback, Handler } from '../handler';
 
 export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent, FirehoseTransformationResult>;
 export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;
@@ -10,7 +10,8 @@ export type FirehoseTransformationCallback = Callback<FirehoseTransformationResu
 // Examples in the lambda blueprints
 export interface FirehoseTransformationEvent {
     invocationId: string;
-    deliveryStreamArn: string;
+    deliveryStreamArn?: string | undefined;
+    sourceKinesisStreamArn?: string | undefined;
     region: string;
     records: FirehoseTransformationEventRecord[];
 }
