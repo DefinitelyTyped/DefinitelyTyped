@@ -288,7 +288,7 @@ export async function loadDocs(): Promise<DocRoot> {
     const path = resolve(__dirname, `docs-${version}.json`);
 
     if (!version) {
-        console.error(`Must specify "VERSION" env variable eg. "VERSION=16.5.0"`);
+        console.error(`Must specify "VERSION" env variable eg. "VERSION=16.6.0"`);
         process.exit(1);
     }
 

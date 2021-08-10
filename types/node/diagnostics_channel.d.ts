@@ -20,7 +20,7 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.5.0/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/diagnostics_channel.js)
  */
 declare module 'diagnostics_channel' {
     /**
@@ -66,6 +66,23 @@ declare module 'diagnostics_channel' {
      */
     class Channel {
         readonly name: string;
+        /**
+         * Check if there are active subscribers to this channel. This is helpful if
+         * the message you want to send might be expensive to prepare.
+         *
+         * This API is optional but helpful when trying to publish messages from very
+         * performance-sensitive code.
+         *
+         * ```js
+         * import diagnostics_channel from 'diagnostics_channel';
+         *
+         * const channel = diagnostics_channel.channel('my-channel');
+         *
+         * if (channel.hasSubscribers) {
+         *   // There are subscribers, prepare and publish message
+         * }
+         * ```
+         */
         readonly hasSubscribers: boolean;
         private constructor(name: string);
         /**

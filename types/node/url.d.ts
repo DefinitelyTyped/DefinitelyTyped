@@ -5,7 +5,7 @@
  * ```js
  * import url from 'url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.5.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/url.js)
  */
 declare module 'url' {
     import { ClientRequestArgs } from 'node:http';
