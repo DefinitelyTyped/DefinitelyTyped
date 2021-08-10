@@ -1922,14 +1922,14 @@ declare namespace ComponentFramework {
                 /**
                  * Request the next page of results to be loaded. Returns results for the whole page range.
                  * New data will be pushed to control in another 'updateView' cycle.
-                 * @param loadOnlyNewPage: Limits return value to only newly loaded page.
+                 * @param loadOnlyNewPage Limits return value to only newly loaded page.
                  */
                 loadNextPage(loadOnlyNewPage?: boolean): void;
 
                 /**
                  * Request the previous page of results to be loaded. Returns results for the whole page range.
                  * New data will be pushed to control in another 'updateView' cycle.
-                 * @param loadOnlyNewPage: Limits return value to only newly loaded page.
+                 * @param loadOnlyNewPage Limits return value to only newly loaded page.
                  */
                 loadPreviousPage(loadOnlyNewPage?: boolean): void;
 
@@ -1946,6 +1946,7 @@ declare namespace ComponentFramework {
 
                 /**
                  * Request the exact page of results to be loaded.
+                 * @param pageNumber exact page to be loaded.
                  */
                 loadExactPage(pageNumber: number): void;
             }
