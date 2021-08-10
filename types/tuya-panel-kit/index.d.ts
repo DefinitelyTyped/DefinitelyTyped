@@ -28,7 +28,7 @@ import {
     SectionListProps,
     ListRenderItem,
 } from 'react-native';
-import { ParamListBase, RouteProp } from './@react-navigation/native';
+import { NavigationContainerProps, ParamListBase, RouteProp } from './@react-navigation/native';
 import { StackNavigationOptions } from './@react-navigation/stack';
 import { TransitionPreset } from './@react-navigation/stack/types';
 import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackground, BackgroundProps } from './theme';
@@ -11323,7 +11323,7 @@ export interface NavigationComponentClass<P = {}, S = {}> {
     new (props: P, context?: any): NavigatorLayout<P, S>;
 }
 // tslint:disable-next-line no-unnecessary-generics
-export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam): NavigationComponentClass<P, S>;
+export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam, navigationContainerProps: Omit<NavigationContainerProps, 'children'>): any;
 
 export type GotoDpAlarmData = Array<{
     dpId: string;
