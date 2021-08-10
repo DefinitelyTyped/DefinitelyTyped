@@ -1892,39 +1892,39 @@ declare namespace ComponentFramework {
                 /**
                  * Total number of results on the server for the currently applied query.
                  */
-                 totalResultCount: number;
+                totalResultCount: number;
 
-                 /**
-                  * The number of the first page to retrieve
-                  */
-                 firstPageNumber: number;
+                /**
+                 * The number of the first page to retrieve
+                 */
+                firstPageNumber: number;
 
-                 /**
-                  * The number of the last page to retrieve
-                  */
-                 lastPageNumber: number;
+                /**
+                 * The number of the last page to retrieve
+                 */
+                lastPageNumber: number;
 
-                 /**
-                  * The pagesize for each page retrieved
-                  */
-                 pageSize: number;
+                /**
+                 * The pagesize for each page retrieved
+                 */
+                pageSize: number;
 
-                 /**
-                  * Whether the result set can be paged forwards.
-                  */
-                 hasNextPage: boolean;
+                /**
+                 * Whether the result set can be paged forwards.
+                 */
+                hasNextPage: boolean;
 
-                 /**
-                  * Whether the result set can be paged backwards.
-                  */
-                 hasPreviousPage: boolean;
+                /**
+                 * Whether the result set can be paged backwards.
+                 */
+                hasPreviousPage: boolean;
 
-                 /**
-                  * Request the next page of results to be loaded. Returns results for the whole page range.
-                  * New data will be pushed to control in another 'updateView' cycle.
-                  * @param loadOnlyNewPage: Limits return value to only newly loaded page.
-                  */
-                 loadNextPage(loadOnlyNewPage?: boolean): void;
+                /**
+                 * Request the next page of results to be loaded. Returns results for the whole page range.
+                 * New data will be pushed to control in another 'updateView' cycle.
+                 * @param loadOnlyNewPage: Limits return value to only newly loaded page.
+                 */
+                loadNextPage(loadOnlyNewPage?: boolean): void;
 
                 /**
                  * Request the previous page of results to be loaded. Returns results for the whole page range.
@@ -1933,21 +1933,21 @@ declare namespace ComponentFramework {
                  */
                 loadPreviousPage(loadOnlyNewPage?: boolean): void;
 
-                 /**
-                  * Reload the results from the server, and reset to page 1.
-                  */
-                 reset(): void;
+                /**
+                 * Reload the results from the server, and reset to page 1.
+                 */
+                reset(): void;
 
-                 /**
-                  * Sets the number of results to return per page on the next data refresh.
-                  * @param pageSize pageSize to be set.
-                  */
-                 setPageSize(pageSize: number): void;
+                /**
+                 * Sets the number of results to return per page on the next data refresh.
+                 * @param pageSize pageSize to be set.
+                 */
+                setPageSize(pageSize: number): void;
 
-                 /**
-                  * Request the exact page of results to be loaded.
-                  */
-                 loadExactPage(pageNumber: number): void;
+                /**
+                 * Request the exact page of results to be loaded.
+                 */
+                loadExactPage(pageNumber: number): void;
             }
 
             /**
