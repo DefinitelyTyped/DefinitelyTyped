@@ -99,7 +99,9 @@ declare namespace ymaps {
     //[number, number]
     //[[number, number], [number, number]]
 
-    type IconLayoutKey = 'default#image' | 'default#imageWithContent';
+    type IconLayoutKey = 'default#image' | 'default#imageWithContent' | string;
+    type ClusterLayoutKey = 'cluster#balloonTwoColumns' | 'cluster#balloonCarousel' | 'cluster#balloonAccordion' | string;
+    type ClusterContentLayoutKey = 'cluster#balloonTwoColumnsItemContent' | 'cluster#balloonCarouselItemContent' | 'cluster#balloonAccordionItemContent' | string;
 
     namespace behavior {
         class DblClickZoom implements IBehavior {
@@ -1657,7 +1659,7 @@ declare namespace ymaps {
             setParentElement(parent: HTMLElement | null): void;
         }
 
-        interface _IImageOptionsInject {
+        interface IImageOptionsWithIconPrefix {
             iconImageClipRect?: number[][] | undefined;
             iconImageHref?: string | undefined;
             iconImageOffset?: number[] | undefined;
@@ -1667,7 +1669,7 @@ declare namespace ymaps {
 
         class ImageWithContent extends Image {}
 
-        interface IImageWithContentOptionsInject extends _IImageOptionsInject {
+        interface IImageWithContentOptionsWithIconPrefix extends IImageOptionsWithIconPrefix {
             iconContentLayout?: IClassConstructor<ILayout> | string | undefined;
             iconContentOffset?: number[] | undefined;
             iconContentSize?: number[] | undefined;
@@ -1675,7 +1677,7 @@ declare namespace ymaps {
 
         class PieChart extends templateBased.Base {}
 
-        interface IPieChartOptionsInject {
+        interface IPieChartOptionsWithIconPrefix {
             iconPieChartCaptionMaxWidth?: number | undefined;
             iconPieChartCoreFillStyle?: string | undefined;
             iconPieChartCoreRadius?: number | (() => number) | undefined;
@@ -2793,7 +2795,7 @@ declare namespace ymaps {
         zIndex?: string | undefined;
     }
 
-    interface IBalloonOptionsInject {
+    interface IBalloonOptionsWithBalloonPrefix {
         balloonContent?: string | undefined;
         balloonAutoPan?: boolean | undefined;
         balloonAutoPanCheckZoomRange?: boolean | undefined;
@@ -2924,19 +2926,22 @@ declare namespace ymaps {
         options: IOptionManager;
     }
 
-    interface IClustererOptions {
+    interface IClustererOptionsInject {
         gridSize?: number | undefined;
         groupByCoordinates?: boolean | undefined;
-        hasBalloon?: boolean | undefined;
-        hasHint?: boolean | undefined;
-        margin?: number[][] | number[] | number | undefined;
+        margin?: number[] | number | undefined;
         maxZoom?: number[] | number | undefined;
         minClusterSize?: number | undefined;
         preset?: PresetKey | undefined;
         showInAlphabeticalOrder?: boolean | undefined;
         useMapMargin?: boolean | undefined;
-        viewportMargin?: number[][] | number[] | number | undefined;
-        zoomMargin?: number[][] | number[] | number | undefined;
+        viewportMargin?: number[] | number | undefined;
+        zoomMargin?: number[] | number | undefined;
+    }
+
+    interface IClustererOptions extends IClustererOptionsInject {
+        hasBalloon?: boolean | undefined;
+        hasHint?: boolean | undefined;
     }
 
     class ClusterPlacemark implements IGeoObject, collection.Item {
@@ -2972,11 +2977,11 @@ declare namespace ymaps {
     }
 
     interface IClusterPlacemarkOptions {
-        balloonContentLayout?: "cluster#balloonTwoColumns" | "cluster#balloonCarousel" | "cluster#balloonAccordion" | string | IClassConstructor<ILayout> | undefined;
+        balloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey |  undefined;
         balloonContentLayoutHeight?: number | undefined;
         balloonContentLayoutWidth?: number | undefined;
-        balloonItemContentLayout?: ILayout | string | undefined;
-        balloonPanelContentLayout?: string | IClassConstructor<ILayout> | undefined;
+        balloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
+        balloonPanelContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
         cursor?: string | undefined;
         disableClickZoom?: boolean | undefined;
         hideIconOnBalloonOpen?: boolean | undefined;
@@ -2996,6 +3001,33 @@ declare namespace ymaps {
         openEmptyHint?: boolean | undefined;
         openHintOnHover?: boolean | undefined;
         zIndexHover?: number | undefined;
+    }
+
+    interface IClusterPlacemarkOptionsWithClusterPrefix {
+        clusterBalloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
+        clusterBalloonContentLayoutHeight?: number | undefined;
+        clusterBalloonContentLayoutWidth?: number | undefined;
+        clusterBalloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
+        clusterBalloonPanelContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
+        clusterCursor?: string | undefined;
+        clusterDisableClickZoom?: boolean | undefined;
+        clusterHideIconOnBalloonOpen?: boolean | undefined;
+        clusterIconColor?: string | undefined;
+        clusterIconContentLayout?: IClassConstructor<ILayout> | string | undefined;
+        clusterIconLayout?: IClassConstructor<ILayout> | string | undefined;
+        clusterIcons?: Array<{
+            href: string;
+            size: number[];
+            offset: number[];
+            shape?: IShape | IGeometryJson | undefined;
+        }> | undefined;
+        clusterIconShape?: IGeometryJson | undefined;
+        clusterInteractivityModel?: InteractivityModelKey | undefined;
+        clusterNumbers?: number[] | undefined;
+        clusterOpenBalloonOnClick?: boolean | undefined;
+        clusterOpenEmptyHint?: boolean | undefined;
+        clusterOpenHintOnHover?: boolean | undefined;
+        clusterZIndexHover?: number | undefined;
     }
 
     class Collection<T = {}> implements ICollection, collection.Item {
@@ -3097,7 +3129,7 @@ declare namespace ymaps {
         properties?: IDataManager | object | undefined;
     }
 
-    interface IGeoObjectOptions extends ICircleOptions {
+    interface IGeoObjectOptions extends ICircleOptions, IBalloonOptionsWithBalloonPrefix {
         iconCaptionMaxWidth?: number | undefined;
         iconColor?: string | undefined;
         iconContentLayout?: string | IClassConstructor<ILayout> | undefined;
@@ -3320,10 +3352,10 @@ declare namespace ymaps {
         constructor(geometry: number[] | object | IPointGeometry, properties: object | IDataManager, options?: IPlacemarkOptions)
     }
 
-    interface IPlacemarkOptions extends IBalloonOptionsInject, layout.IImageWithContentOptionsInject, layout.IPieChartOptionsInject {
+    interface IPlacemarkOptions extends IBalloonOptionsWithBalloonPrefix, layout.IImageWithContentOptionsWithIconPrefix, layout.IPieChartOptionsWithIconPrefix {
         preset?: PresetKey | undefined;
         iconColor?: string | undefined;
-        iconLayout?: ILayout | IconLayoutKey | string | undefined;
+        iconLayout?: IClassConstructor<ILayout> | IconLayoutKey | undefined;
 
         cursor?: string | undefined;
         draggable?: boolean | undefined;
@@ -4287,11 +4319,11 @@ declare namespace ymaps {
         removeAll(): Monitor;
     }
 
-    interface IObjectManagerOptions {
+    interface IObjectManagerOptions extends IClustererOptionsInject, IClusterPlacemarkOptionsWithClusterPrefix {
         clusterize?: boolean | undefined;
         syncOverlayInit?: boolean | undefined;
-        viewportMargin?: number | number[] | undefined;
-        clusterHasBalloon?: boolean | undefined;
+        viewportMargin?: number[] | number | undefined;
+
         geoObjectOpenBalloonOnClick?: boolean | undefined;
     }
 

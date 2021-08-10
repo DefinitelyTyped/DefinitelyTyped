@@ -53,6 +53,8 @@ const balloonLayout = ymaps.templateLayoutFactory.createClass(
 const mapMarker = new ymaps.Placemark([55.76, 37.64], {}, {
     balloonContent:         'test',
     balloonAutoPan:         true,
+    balloonCloseButton:     false,
+    balloonZIndex:          '10',
     balloonLayout,
     balloonPanelMaxMapArea: 0,
     iconLayout:             'default#image',
