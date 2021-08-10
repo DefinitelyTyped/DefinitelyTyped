@@ -7,8 +7,7 @@
         "module": "commonjs",
         "target": "esnext",
         "lib": [
-            "es2018",
-            "dom"
+            "es2018"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
