@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.93.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -945,6 +945,10 @@ declare module "sap/ui/webc/main/Avatar" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.Avatar.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
      * Defines the text alternative of the component. If not provided a default text alternative will be set,
@@ -1029,10 +1033,6 @@ declare module "sap/ui/webc/main/Avatar" {
      * Default value is `false`.
      */
     getInteractive(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Avatar.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getShape shape}.
      *
@@ -1438,6 +1438,31 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.AvatarGroup with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, AvatarGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.AvatarGroup.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -1567,27 +1592,6 @@ declare module "sap/ui/webc/main/AvatarGroup" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.AvatarGroup with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, AvatarGroup>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:click click} to attached listeners.
      */
     fireClick(
@@ -1648,10 +1652,6 @@ declare module "sap/ui/webc/main/AvatarGroup" {
      * shape.
      */
     getItems(): IAvatar[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.AvatarGroup.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets content of aggregation {@link #getOverflowButton overflowButton}.
      *
@@ -1809,12 +1809,12 @@ declare module "sap/ui/webc/main/AvatarGroup" {
     /**
      * Fired when the component is activated either with a click/tap or by using the Enter or Space key.
      */
-    click?: Function;
+    click?: (oEvent: Event) => void;
 
     /**
      * Fired when the count of visible `sap.ui.webc.main.Avatar` elements in the component has changed
      */
-    overflow?: Function;
+    overflow?: (oEvent: Event) => void;
   }
 }
 
@@ -1880,10 +1880,6 @@ declare module "sap/ui/webc/main/Badge" {
     );
 
     /**
-     * Destroys the icon in the aggregation {@link #getIcon icon}.
-     */
-    destroyIcon(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.main.Badge with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -1905,6 +1901,14 @@ declare module "sap/ui/webc/main/Badge" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.Badge.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Destroys the icon in the aggregation {@link #getIcon icon}.
+     */
+    destroyIcon(): this;
+    /**
      * Gets current value of property {@link #getColorScheme colorScheme}.
      *
      * Defines the color scheme of the component. There are 10 predefined schemes. Each scheme applies different
@@ -1922,10 +1926,6 @@ declare module "sap/ui/webc/main/Badge" {
      * Defines the icon to be displayed in the component.
      */
     getIcon(): IIcon;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Badge.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -2081,19 +2081,6 @@ declare module "sap/ui/webc/main/BusyIndicator" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.main.BusyIndicator with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
@@ -2115,6 +2102,23 @@ declare module "sap/ui/webc/main/BusyIndicator" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.BusyIndicator.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * Gets current value of property {@link #getActive active}.
      *
      * Defines if the busy indicator is visible on the screen. By default it is not.
@@ -2134,10 +2138,6 @@ declare module "sap/ui/webc/main/BusyIndicator" {
      * Defines whether the control will be rendered as a block or inline HTML element
      */
     getDisplay(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.BusyIndicator.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSize size}.
      *
@@ -2415,6 +2415,31 @@ declare module "sap/ui/webc/main/Button" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.Button with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Button>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Button.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.main.Button`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -2475,27 +2500,6 @@ declare module "sap/ui/webc/main/Button" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Button with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Button>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:click click} to attached listeners.
      */
     fireClick(
@@ -2553,10 +2557,6 @@ declare module "sap/ui/webc/main/Button" {
      * Default value is `false`.
      */
     getIconEnd(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Button.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSubmits submits}.
      *
@@ -2785,7 +2785,7 @@ declare module "sap/ui/webc/main/Button" {
      *
      *  **Note:** The event will not be fired if the `disabled` property is set to `true`.
      */
-    click?: Function;
+    click?: (oEvent: Event) => void;
   }
 }
 
@@ -2926,6 +2926,31 @@ declare module "sap/ui/webc/main/Calendar" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.Calendar with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Calendar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Calendar.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some date to the aggregation {@link #getDates dates}.
      */
     addDate(
@@ -3002,27 +3027,6 @@ declare module "sap/ui/webc/main/Calendar" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Calendar with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Calendar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:selectedDatesChange selectedDatesChange} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -3079,10 +3083,6 @@ declare module "sap/ui/webc/main/Calendar" {
      * Default value is `empty string`.
      */
     getMaxDate(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Calendar.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMinDate minDate}.
      *
@@ -3313,7 +3313,7 @@ declare module "sap/ui/webc/main/Calendar" {
      * will not create instances of `sap.ui.webc.main.CalendarDate` for the newly selected dates. In that case
      * you should do this manually.
      */
-    selectedDatesChange?: Function;
+    selectedDatesChange?: (oEvent: Event) => void;
   }
 }
 
@@ -3504,6 +3504,31 @@ declare module "sap/ui/webc/main/Card" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.Card with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Card>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Card.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some action to the aggregation {@link #getAction action}.
      */
     addAction(
@@ -3603,27 +3628,6 @@ declare module "sap/ui/webc/main/Card" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Card with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Card>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:headerClick headerClick} to attached listeners.
      */
     fireHeaderClick(
@@ -3669,10 +3673,6 @@ declare module "sap/ui/webc/main/Card" {
      * Defines the height of the control
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Card.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getStatus status}.
      *
@@ -3977,7 +3977,7 @@ declare module "sap/ui/webc/main/Card" {
      *
      *  **Note:** The event would be fired only if the `headerInteractive` property is set to true.
      */
-    headerClick?: Function;
+    headerClick?: (oEvent: Event) => void;
   }
 }
 
@@ -4064,6 +4064,31 @@ declare module "sap/ui/webc/main/Carousel" {
       mSettings?: $CarouselSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Carousel with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Carousel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Carousel.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -4196,27 +4221,6 @@ declare module "sap/ui/webc/main/Carousel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Carousel with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Carousel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:loadMore loadMore} to attached listeners.
      */
     fireLoadMore(
@@ -4323,10 +4327,6 @@ declare module "sap/ui/webc/main/Carousel" {
      * Default value is `1`.
      */
     getItemsPerPageS(): int;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Carousel.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelectedIndex selectedIndex}.
      *
@@ -4595,14 +4595,14 @@ declare module "sap/ui/webc/main/Carousel" {
      * Fired for the last items of the component if it is scrolled and the direction of scrolling is to the
      * end. The number of items for which the event is fired is controlled by the `infiniteScrollOffset` property.
      */
-    loadMore?: Function;
+    loadMore?: (oEvent: Event) => void;
 
     /**
      * Fired whenever the `selectedIndex` changes due to user interaction, when the user clicks on the navigation
      * arrows or while resizing, based on the `items-per-page-l`, `items-per-page-m` and `items-per-page-s`
      * properties.
      */
-    navigate?: Function;
+    navigate?: (oEvent: Event) => void;
   }
 }
 
@@ -4685,6 +4685,31 @@ declare module "sap/ui/webc/main/CheckBox" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.CheckBox with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CheckBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.CheckBox.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.CheckBox`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -4741,27 +4766,6 @@ declare module "sap/ui/webc/main/CheckBox" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.CheckBox with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CheckBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -4806,10 +4810,6 @@ declare module "sap/ui/webc/main/CheckBox" {
      * Default value is `false`.
      */
     getIndeterminate(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.CheckBox.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -5100,7 +5100,7 @@ declare module "sap/ui/webc/main/CheckBox" {
     /**
      * Fired when the component checked state changes.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -5166,6 +5166,31 @@ declare module "sap/ui/webc/main/ColorPalette" {
       mSettings?: $ColorPaletteSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.ColorPalette with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColorPalette>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.ColorPalette.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some color to the aggregation {@link #getColors colors}.
      */
@@ -5236,27 +5261,6 @@ declare module "sap/ui/webc/main/ColorPalette" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.ColorPalette with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ColorPalette>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -5276,10 +5280,6 @@ declare module "sap/ui/webc/main/ColorPalette" {
      * Defines the `sap.ui.webc.main.ColorPaletteItem` items.
      */
     getColors(): IColorPaletteItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.ColorPalette.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getShowMoreColors showMoreColors}.
      *
@@ -5406,7 +5406,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
     /**
      * Fired when the user selects a color.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -5587,6 +5587,31 @@ declare module "sap/ui/webc/main/ColorPicker" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.ColorPicker with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColorPicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.ColorPicker.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.ColorPicker`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -5643,27 +5668,6 @@ declare module "sap/ui/webc/main/ColorPicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.ColorPicker with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ColorPicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -5680,10 +5684,6 @@ declare module "sap/ui/webc/main/ColorPicker" {
      *  **Note**: use HEX, RGB, RGBA, HSV formats or a CSS color name when modifying this property.
      */
     getColor(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.ColorPicker.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -5712,7 +5712,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
     /**
      * Fired when the the selected color is changed
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -5787,6 +5787,31 @@ declare module "sap/ui/webc/main/ComboBox" {
       mSettings?: $ComboBoxSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.ComboBox with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ComboBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.ComboBox.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -5980,27 +6005,6 @@ declare module "sap/ui/webc/main/ComboBox" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.ComboBox with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ComboBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -6085,10 +6089,6 @@ declare module "sap/ui/webc/main/ComboBox" {
      * Default value is `false`.
      */
     getLoading(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.ComboBox.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -6483,19 +6483,19 @@ declare module "sap/ui/webc/main/ComboBox" {
     /**
      * Fired when the input operation has finished by pressing Enter, focusout or an item is selected.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when typing in input.
      *
      *  **Note:** filterValue property is updated, input is changed.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
 
     /**
      * Fired when selection is changed by user interaction
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -6574,6 +6574,10 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.ComboBoxItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
      * Defines the additional text of the component.
@@ -6581,10 +6585,6 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
      * Default value is `empty string`.
      */
     getAdditionalText(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.ComboBoxItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -6702,6 +6702,31 @@ declare module "sap/ui/webc/main/CustomListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.CustomListItem with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CustomListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.CustomListItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -6771,27 +6796,6 @@ declare module "sap/ui/webc/main/CustomListItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.CustomListItem with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CustomListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
      */
     fireDetailClick(
@@ -6815,10 +6819,6 @@ declare module "sap/ui/webc/main/CustomListItem" {
      * Defines the content of the component.
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.CustomListItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -6960,7 +6960,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
     /**
      * Fired when the user clicks on the detail button when type is `Detail`.
      */
-    detailClick?: Function;
+    detailClick?: (oEvent: Event) => void;
   }
 }
 
@@ -7076,6 +7076,31 @@ declare module "sap/ui/webc/main/DatePicker" {
       mSettings?: $DatePickerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.DatePicker with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DatePicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.DatePicker.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.DatePicker`.
      *
@@ -7193,27 +7218,6 @@ declare module "sap/ui/webc/main/DatePicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.DatePicker with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DatePicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -7282,10 +7286,6 @@ declare module "sap/ui/webc/main/DatePicker" {
      * Default value is `empty string`.
      */
     getMaxDate(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.DatePicker.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMinDate minDate}.
      *
@@ -7748,12 +7748,12 @@ declare module "sap/ui/webc/main/DatePicker" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the component is changed at each key stroke.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
   }
 }
 
@@ -7828,6 +7828,31 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       mSettings?: $DateRangePickerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.DateRangePicker with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DateRangePicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.DateRangePicker.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.DateRangePicker`.
      *
@@ -7945,27 +7970,6 @@ declare module "sap/ui/webc/main/DateRangePicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.DateRangePicker with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DateRangePicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -8049,10 +8053,6 @@ declare module "sap/ui/webc/main/DateRangePicker" {
      * Default value is `empty string`.
      */
     getMaxDate(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.DateRangePicker.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMinDate minDate}.
      *
@@ -8535,12 +8535,12 @@ declare module "sap/ui/webc/main/DateRangePicker" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the component is changed at each key stroke.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
   }
 }
 
@@ -8652,6 +8652,31 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       mSettings?: $DateTimePickerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.DateTimePicker with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DateTimePicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.DateTimePicker.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.DateTimePicker`.
      *
@@ -8769,27 +8794,6 @@ declare module "sap/ui/webc/main/DateTimePicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.DateTimePicker with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DateTimePicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -8858,10 +8862,6 @@ declare module "sap/ui/webc/main/DateTimePicker" {
      * Default value is `empty string`.
      */
     getMaxDate(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.DateTimePicker.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMinDate minDate}.
      *
@@ -9324,12 +9324,12 @@ declare module "sap/ui/webc/main/DateTimePicker" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the component is changed at each key stroke.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
   }
 }
 
@@ -9409,6 +9409,31 @@ declare module "sap/ui/webc/main/Dialog" {
       mSettings?: $DialogSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Dialog with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Dialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Dialog.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -9685,27 +9710,6 @@ declare module "sap/ui/webc/main/Dialog" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Dialog with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Dialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      */
     fireAfterClose(
@@ -9820,10 +9824,6 @@ declare module "sap/ui/webc/main/Dialog" {
      * Default value is `empty string`.
      */
     getInitialFocus(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Dialog.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getPreventFocusRestore preventFocusRestore}.
      *
@@ -10226,24 +10226,24 @@ declare module "sap/ui/webc/main/Dialog" {
     /**
      * Fired after the component is closed. **This event does not bubble.**
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
 
     /**
      * Fired after the component is opened. **This event does not bubble.**
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
 
     /**
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
   }
 }
 
@@ -10335,6 +10335,31 @@ declare module "sap/ui/webc/main/DurationPicker" {
       mSettings?: $DurationPickerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.DurationPicker with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DurationPicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.DurationPicker.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.DurationPicker`.
      *
@@ -10454,27 +10479,6 @@ declare module "sap/ui/webc/main/DurationPicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.DurationPicker with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DurationPicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -10555,10 +10559,6 @@ declare module "sap/ui/webc/main/DurationPicker" {
      * Default value is `"23:59:59"`.
      */
     getMaxValue(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.DurationPicker.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMinutesStep minutesStep}.
      *
@@ -10988,12 +10988,12 @@ declare module "sap/ui/webc/main/DurationPicker" {
      * Fired when the input operation has finished by clicking the "OK" button or when the text in the input
      * field has changed and the focus leaves the input field.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the `sap.ui.webc.main.TimePicker` is changed at each key stroke.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
   }
 }
 
@@ -11063,6 +11063,31 @@ declare module "sap/ui/webc/main/FileUploader" {
       mSettings?: $FileUploaderSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.FileUploader with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FileUploader>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.FileUploader.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -11137,27 +11162,6 @@ declare module "sap/ui/webc/main/FileUploader" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.FileUploader with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FileUploader>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -11212,10 +11216,6 @@ declare module "sap/ui/webc/main/FileUploader" {
      * Default value is `false`.
      */
     getHideInput(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.FileUploader.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMultiple multiple}.
      *
@@ -11582,7 +11582,7 @@ declare module "sap/ui/webc/main/FileUploader" {
      * of the HTML input element of type file, the event is also fired in Chrome browser when the Cancel button
      * of the uploads window is pressed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -11662,6 +11662,10 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.GroupHeaderListItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getAccessibleName accessibleName}.
      *
      * Defines the text alternative of the component. Note: If not provided a default text alternative will
@@ -11670,10 +11674,6 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
      * Default value is `empty string`.
      */
     getAccessibleName(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.GroupHeaderListItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -11830,6 +11830,31 @@ declare module "sap/ui/webc/main/Icon" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.Icon with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Icon>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Icon.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.main.Icon`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -11886,27 +11911,6 @@ declare module "sap/ui/webc/main/Icon" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Icon with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Icon>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:click click} to attached listeners.
      */
     fireClick(
@@ -11952,10 +11956,6 @@ declare module "sap/ui/webc/main/Icon" {
      * Default value is `false`.
      */
     getInteractive(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Icon.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -12190,7 +12190,7 @@ declare module "sap/ui/webc/main/Icon" {
     /**
      * Fired when the user clicks the control
      */
-    click?: Function;
+    click?: (oEvent: Event) => void;
   }
 }
 
@@ -12271,6 +12271,31 @@ declare module "sap/ui/webc/main/Input" {
       mSettings?: $InputSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Input with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Input>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Input.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some suggestionItem to the aggregation {@link #getSuggestionItems suggestionItems}.
      */
@@ -12582,27 +12607,6 @@ declare module "sap/ui/webc/main/Input" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Input with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Input>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -12692,10 +12696,6 @@ declare module "sap/ui/webc/main/Input" {
      * Sets the maximum number of characters available in the input field.
      */
     getMaxlength(): int;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Input.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -13153,29 +13153,29 @@ declare module "sap/ui/webc/main/Input" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the component changes at each keystroke, and when a suggestion item has been
      * selected.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
 
     /**
      * Fired when the user navigates to a suggestion item via the ARROW keys, as a preview, before the final
      * selection.
      */
-    suggestionItemPreview?: Function;
+    suggestionItemPreview?: (oEvent: Event) => void;
 
     /**
      * Fired when a suggestion item, that is displayed in the suggestion popup, is selected.
      */
-    suggestionItemSelect?: Function;
+    suggestionItemSelect?: (oEvent: Event) => void;
 
     /**
      * Fired when the user scrolls the suggestion popover.
      */
-    suggestionScroll?: Function;
+    suggestionScroll?: (oEvent: Event) => void;
   }
 }
 
@@ -13261,6 +13261,10 @@ declare module "sap/ui/webc/main/Label" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.Label.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getFor for}.
      *
      * Defines the labeled input by providing its ID.
@@ -13270,10 +13274,6 @@ declare module "sap/ui/webc/main/Label" {
      * Default value is `empty string`.
      */
     getFor(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Label.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getRequired required}.
      *
@@ -13534,6 +13534,31 @@ declare module "sap/ui/webc/main/Link" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.Link with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Link>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Link.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.main.Link`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -13590,27 +13615,6 @@ declare module "sap/ui/webc/main/Link" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Link with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Link>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:click click} to attached listeners.
      */
     fireClick(
@@ -13649,10 +13653,6 @@ declare module "sap/ui/webc/main/Link" {
      * Default value is `empty string`.
      */
     getHref(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Link.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getTarget target}.
      *
@@ -13859,7 +13859,7 @@ declare module "sap/ui/webc/main/Link" {
     /**
      * Fired when the component is triggered either with a mouse/tap or by using the Enter key.
      */
-    click?: Function;
+    click?: (oEvent: Event) => void;
   }
 }
 
@@ -13957,6 +13957,31 @@ declare module "sap/ui/webc/main/List" {
       mSettings?: $ListSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.List with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, List>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.List.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
      */
@@ -14343,27 +14368,6 @@ declare module "sap/ui/webc/main/List" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.List with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, List>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      */
     fireItemClick(
@@ -14526,10 +14530,6 @@ declare module "sap/ui/webc/main/List" {
      * for the intended design.
      */
     getItems(): IListItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.List.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMode mode}.
      *
@@ -14920,7 +14920,7 @@ declare module "sap/ui/webc/main/List" {
     /**
      * Fired when an item is activated, unless the item's `type` property is set to `Inactive`.
      */
-    itemClick?: Function;
+    itemClick?: (oEvent: Event) => void;
 
     /**
      * Fired when the `Close` button of any item is clicked
@@ -14928,34 +14928,34 @@ declare module "sap/ui/webc/main/List" {
      *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListItem` items only, not to be
      * confused with `item-delete`.
      */
-    itemClose?: Function;
+    itemClose?: (oEvent: Event) => void;
 
     /**
      * Fired when the Delete button of any item is pressed.
      *
      *  **Note:** A Delete button is displayed on each item, when the component `mode` property is set to `Delete`.
      */
-    itemDelete?: Function;
+    itemDelete?: (oEvent: Event) => void;
 
     /**
      * Fired when the `Toggle` button of any item is clicked.
      *
      *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListGroupItem` items only.
      */
-    itemToggle?: Function;
+    itemToggle?: (oEvent: Event) => void;
 
     /**
      * Fired when the user scrolls to the bottom of the list.
      *
      *  **Note:** The event is fired when the `growing='Scroll'` property is enabled.
      */
-    loadMore?: Function;
+    loadMore?: (oEvent: Event) => void;
 
     /**
      * Fired when selection is changed by user interaction in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`
      * and `MultiSelect` modes.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -15023,6 +15023,31 @@ declare module "sap/ui/webc/main/MessageStrip" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.MessageStrip with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MessageStrip>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.MessageStrip.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.ui.webc.main.MessageStrip`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -15083,27 +15108,6 @@ declare module "sap/ui/webc/main/MessageStrip" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.MessageStrip with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MessageStrip>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:close close} to attached listeners.
      */
     fireClose(
@@ -15158,10 +15162,6 @@ declare module "sap/ui/webc/main/MessageStrip" {
      * See all the available icons in the Icon Explorer.
      */
     getIcon(): IIcon;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.MessageStrip.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -15327,7 +15327,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
     /**
      * Fired when the close button is pressed either with a click/tap or by using the Enter or Space key.
      */
-    close?: Function;
+    close?: (oEvent: Event) => void;
   }
 }
 
@@ -15427,6 +15427,31 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       mSettings?: $MultiComboBoxSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.MultiComboBox with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MultiComboBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.MultiComboBox.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -15672,27 +15697,6 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.MultiComboBox with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MultiComboBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -15772,10 +15776,6 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Defines the component items.
      */
     getItems(): IMultiComboBoxItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.MultiComboBox.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Returns the indicates whether the dropdown is open. True if the dropdown is open, false otherwise.
      */
@@ -16124,22 +16124,22 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the component changes at each keystroke.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
 
     /**
      * Fired when the dropdown is opened or closed.
      */
-    openChange?: Function;
+    openChange?: (oEvent: Event) => void;
 
     /**
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -16218,6 +16218,10 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.MultiComboBoxItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
      * Defines the additional text of the component.
@@ -16225,10 +16229,6 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
      * Default value is `empty string`.
      */
     getAdditionalText(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.MultiComboBoxItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -16378,6 +16378,31 @@ declare module "sap/ui/webc/main/MultiInput" {
       mSettings?: $MultiInputSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.MultiInput with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MultiInput>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.MultiInput.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some suggestionItem to the aggregation {@link #getSuggestionItems suggestionItems}.
      */
@@ -16819,27 +16844,6 @@ declare module "sap/ui/webc/main/MultiInput" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.MultiInput with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MultiInput>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -16952,10 +16956,6 @@ declare module "sap/ui/webc/main/MultiInput" {
      * Sets the maximum number of characters available in the input field.
      */
     getMaxlength(): int;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.MultiInput.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -17495,40 +17495,40 @@ declare module "sap/ui/webc/main/MultiInput" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the component changes at each keystroke, and when a suggestion item has been
      * selected.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
 
     /**
      * Fired when the user navigates to a suggestion item via the ARROW keys, as a preview, before the final
      * selection.
      */
-    suggestionItemPreview?: Function;
+    suggestionItemPreview?: (oEvent: Event) => void;
 
     /**
      * Fired when a suggestion item, that is displayed in the suggestion popup, is selected.
      */
-    suggestionItemSelect?: Function;
+    suggestionItemSelect?: (oEvent: Event) => void;
 
     /**
      * Fired when the user scrolls the suggestion popover.
      */
-    suggestionScroll?: Function;
+    suggestionScroll?: (oEvent: Event) => void;
 
     /**
      * Fired when a token is about to be deleted.
      */
-    tokenDelete?: Function;
+    tokenDelete?: (oEvent: Event) => void;
 
     /**
      * Fired when the value help icon is pressed and F4 or ALT/OPTION + ARROW_UP/ARROW_DOWN keyboard keys are
      * used.
      */
-    valueHelpTrigger?: Function;
+    valueHelpTrigger?: (oEvent: Event) => void;
   }
 }
 
@@ -17607,6 +17607,10 @@ declare module "sap/ui/webc/main/Option" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.Option.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getDisabled disabled}.
      *
      * Defines whether the component is in disabled state.
@@ -17625,10 +17629,6 @@ declare module "sap/ui/webc/main/Option" {
      * Icon Explorer.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Option.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -17859,6 +17859,31 @@ declare module "sap/ui/webc/main/Panel" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.Panel with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Panel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Panel.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -17940,27 +17965,6 @@ declare module "sap/ui/webc/main/Panel" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.webc.main.Panel with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Panel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:toggle toggle} to attached listeners.
      */
@@ -18044,10 +18048,6 @@ declare module "sap/ui/webc/main/Panel" {
      * Defines the height of the control
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Panel.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -18322,7 +18322,7 @@ declare module "sap/ui/webc/main/Panel" {
     /**
      * Fired when the component is expanded/collapsed by user interaction.
      */
-    toggle?: Function;
+    toggle?: (oEvent: Event) => void;
   }
 }
 
@@ -18403,6 +18403,31 @@ declare module "sap/ui/webc/main/Popover" {
       mSettings?: $PopoverSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Popover with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Popover>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Popover.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -18679,27 +18704,6 @@ declare module "sap/ui/webc/main/Popover" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Popover with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Popover>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      */
     fireAfterClose(
@@ -18828,10 +18832,6 @@ declare module "sap/ui/webc/main/Popover" {
      * Default value is `empty string`.
      */
     getInitialFocus(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Popover.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getModal modal}.
      *
@@ -19331,24 +19331,24 @@ declare module "sap/ui/webc/main/Popover" {
     /**
      * Fired after the component is closed. **This event does not bubble.**
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
 
     /**
      * Fired after the component is opened. **This event does not bubble.**
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
 
     /**
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
   }
 }
 
@@ -19428,6 +19428,10 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.ProgressIndicator.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getDisabled disabled}.
      *
      * Defines whether component is in disabled state.
@@ -19443,10 +19447,6 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
      * Default value is `false`.
      */
     getHideValue(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.ProgressIndicator.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getValue value}.
      *
@@ -19647,6 +19647,31 @@ declare module "sap/ui/webc/main/RadioButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.RadioButton with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RadioButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.RadioButton.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.webc.main.RadioButton`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -19703,27 +19728,6 @@ declare module "sap/ui/webc/main/RadioButton" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.RadioButton with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RadioButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:select select} to attached listeners.
      */
     fireSelect(
@@ -19742,10 +19746,6 @@ declare module "sap/ui/webc/main/RadioButton" {
      * Default value is `false`.
      */
     getDisabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.RadioButton.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -20043,7 +20043,7 @@ declare module "sap/ui/webc/main/RadioButton" {
     /**
      * Fired when the component selected state changes.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -20134,6 +20134,31 @@ declare module "sap/ui/webc/main/RangeSlider" {
       mSettings?: $RangeSliderSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.RangeSlider with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RangeSlider>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.RangeSlider.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.RangeSlider`.
      *
@@ -20247,27 +20272,6 @@ declare module "sap/ui/webc/main/RangeSlider" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.RangeSlider with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RangeSlider>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -20323,10 +20327,6 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * Default value is `100`.
      */
     getMax(): float;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.RangeSlider.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMin min}.
      *
@@ -20609,12 +20609,12 @@ declare module "sap/ui/webc/main/RangeSlider" {
     /**
      * Fired when the value changes and the user has finished interacting with the slider.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value changes due to user interaction that is not yet finished - during mouse/touch dragging.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
   }
 }
 
@@ -20676,6 +20676,31 @@ declare module "sap/ui/webc/main/RatingIndicator" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.RatingIndicator with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RatingIndicator>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.RatingIndicator.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.RatingIndicator`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -20732,27 +20757,6 @@ declare module "sap/ui/webc/main/RatingIndicator" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.RatingIndicator with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RatingIndicator>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -20781,10 +20785,6 @@ declare module "sap/ui/webc/main/RatingIndicator" {
      * Default value is `5`.
      */
     getMaxValue(): int;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.RatingIndicator.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getReadonly readonly}.
      *
@@ -20916,7 +20916,7 @@ declare module "sap/ui/webc/main/RatingIndicator" {
     /**
      * The event is fired when the value changes.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -20984,6 +20984,31 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       mSettings?: $ResponsivePopoverSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.ResponsivePopover with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ResponsivePopover>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.ResponsivePopover.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -21268,27 +21293,6 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.ResponsivePopover with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ResponsivePopover>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      */
     fireAfterClose(
@@ -21411,10 +21415,6 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
      * Default value is `empty string`.
      */
     getInitialFocus(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.ResponsivePopover.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getModal modal}.
      *
@@ -21881,24 +21881,24 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
     /**
      * Fired after the component is closed. **This event does not bubble.**
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
 
     /**
      * Fired after the component is opened. **This event does not bubble.**
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * Fired before the component is closed. This event can be cancelled, which will prevent the popup from
      * closing. **This event does not bubble.**
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
 
     /**
      * Fired before the component is opened. This event can be cancelled, which will prevent the popup from
      * opening. **This event does not bubble.**
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
   }
 }
 
@@ -21960,6 +21960,31 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       mSettings?: $SegmentedButtonSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.SegmentedButton with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SegmentedButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.SegmentedButton.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
      */
@@ -22033,27 +22058,6 @@ declare module "sap/ui/webc/main/SegmentedButton" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.SegmentedButton with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SegmentedButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      */
     fireSelectionChange(
@@ -22077,10 +22081,6 @@ declare module "sap/ui/webc/main/SegmentedButton" {
      *  **Note:** Use the `sap.ui.webc.main.ToggleButton` for the intended design.
      */
     getButtons(): IButton[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.SegmentedButton.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Returns the currently selected button.
      */
@@ -22140,7 +22140,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
     /**
      * Fired when the selected button changes.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -22222,6 +22222,31 @@ declare module "sap/ui/webc/main/Select" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.Select with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Select>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Select.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some option to the aggregation {@link #getOptions options}.
      */
     addOption(
@@ -22291,27 +22316,6 @@ declare module "sap/ui/webc/main/Select" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Select with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Select>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -22335,10 +22339,6 @@ declare module "sap/ui/webc/main/Select" {
      * Default value is `false`.
      */
     getDisabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Select.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -22608,7 +22608,7 @@ declare module "sap/ui/webc/main/Select" {
     /**
      * Fired when the selected option changes.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -22711,6 +22711,31 @@ declare module "sap/ui/webc/main/Slider" {
       mSettings?: $SliderSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Slider with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Slider>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Slider.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.Slider`.
      *
@@ -22824,27 +22849,6 @@ declare module "sap/ui/webc/main/Slider" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Slider with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Slider>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -22890,10 +22894,6 @@ declare module "sap/ui/webc/main/Slider" {
      * Default value is `100`.
      */
     getMax(): float;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Slider.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMin min}.
      *
@@ -23126,12 +23126,12 @@ declare module "sap/ui/webc/main/Slider" {
     /**
      * Fired when the value changes and the user has finished interacting with the slider.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value changes due to user interaction that is not yet finished - during mouse/touch dragging.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
   }
 }
 
@@ -23205,6 +23205,31 @@ declare module "sap/ui/webc/main/StandardListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.StandardListItem with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, StandardListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.StandardListItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:detailClick detailClick} event of this `sap.ui.webc.main.StandardListItem`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -23260,27 +23285,6 @@ declare module "sap/ui/webc/main/StandardListItem" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.webc.main.StandardListItem with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, StandardListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:detailClick detailClick} to attached listeners.
      */
@@ -23347,10 +23351,6 @@ declare module "sap/ui/webc/main/StandardListItem" {
      *  **Note:** The `image` would be displayed in the beginning of the list item.
      */
     getImage(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.StandardListItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -23605,7 +23605,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
     /**
      * Fired when the user clicks on the detail button when type is `Detail`.
      */
-    detailClick?: Function;
+    detailClick?: (oEvent: Event) => void;
   }
 }
 
@@ -23688,6 +23688,31 @@ declare module "sap/ui/webc/main/StepInput" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.StepInput with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, StepInput>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.StepInput.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.StepInput`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -23744,27 +23769,6 @@ declare module "sap/ui/webc/main/StepInput" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.StepInput with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, StepInput>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -23787,10 +23791,6 @@ declare module "sap/ui/webc/main/StepInput" {
      * Defines a maximum value of the component.
      */
     getMax(): float;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.StepInput.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMin min}.
      *
@@ -24177,7 +24177,7 @@ declare module "sap/ui/webc/main/StepInput" {
     /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -24258,6 +24258,10 @@ declare module "sap/ui/webc/main/SuggestionItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.SuggestionItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
      * Defines the `additionalText`, displayed in the end of the item.
@@ -24317,10 +24321,6 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      *  **Note:** The `image` would be displayed in the beginning of the item.
      */
     getImage(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.SuggestionItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -24622,6 +24622,31 @@ declare module "sap/ui/webc/main/Switch" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.Switch with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Switch>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Switch.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.Switch`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -24678,27 +24703,6 @@ declare module "sap/ui/webc/main/Switch" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Switch with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Switch>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -24738,10 +24742,6 @@ declare module "sap/ui/webc/main/Switch" {
      * Default value is `false`.
      */
     getDisabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Switch.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getTextOff textOff}.
      *
@@ -24896,7 +24896,7 @@ declare module "sap/ui/webc/main/Switch" {
     /**
      * Fired when the component checked state changes.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -24959,19 +24959,6 @@ declare module "sap/ui/webc/main/Tab" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.main.Tab with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -24992,6 +24979,23 @@ declare module "sap/ui/webc/main/Tab" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Tab.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
     /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
@@ -25044,10 +25048,6 @@ declare module "sap/ui/webc/main/Tab" {
      * Default value is `empty string`.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Tab.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -25336,6 +25336,31 @@ declare module "sap/ui/webc/main/TabContainer" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.TabContainer with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TabContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.TabContainer.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -25409,27 +25434,6 @@ declare module "sap/ui/webc/main/TabContainer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.TabContainer with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TabContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:tabSelect tabSelect} to attached listeners.
      */
     fireTabSelect(
@@ -25477,10 +25481,6 @@ declare module "sap/ui/webc/main/TabContainer" {
      *  **Note:** Use `sap.ui.webc.main.Tab` and `sap.ui.webc.main.TabSeparator` for the intended design.
      */
     getItems(): ITab[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.TabContainer.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets content of aggregation {@link #getOverflowButton overflowButton}.
      *
@@ -25736,7 +25736,7 @@ declare module "sap/ui/webc/main/TabContainer" {
     /**
      * Fired when a tab is selected.
      */
-    tabSelect?: Function;
+    tabSelect?: (oEvent: Event) => void;
   }
 }
 
@@ -25826,6 +25826,31 @@ declare module "sap/ui/webc/main/Table" {
       mSettings?: $TableSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Table with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Table>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Table.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some column to the aggregation {@link #getColumns columns}.
      */
@@ -26088,27 +26113,6 @@ declare module "sap/ui/webc/main/Table" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Table with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Table>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:loadMore loadMore} to attached listeners.
      */
     fireLoadMore(
@@ -26245,10 +26249,6 @@ declare module "sap/ui/webc/main/Table" {
      * Default value is `false`.
      */
     getHideNoData(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Table.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMode mode}.
      *
@@ -26691,22 +26691,22 @@ declare module "sap/ui/webc/main/Table" {
      *
      * **Note:** The event will be fired if `growing` is set to `Button` or `Scroll`.
      */
-    loadMore?: Function;
+    loadMore?: (oEvent: Event) => void;
 
     /**
      * Fired when `sap.ui.webc.main.TableColumn` is shown as a pop-in instead of hiding it.
      */
-    popinChange?: Function;
+    popinChange?: (oEvent: Event) => void;
 
     /**
      * Fired when a row in `Active` mode is clicked or `Enter` key is pressed.
      */
-    rowClick?: Function;
+    rowClick?: (oEvent: Event) => void;
 
     /**
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -26774,19 +26774,6 @@ declare module "sap/ui/webc/main/TableCell" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.main.TableCell with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -26808,15 +26795,28 @@ declare module "sap/ui/webc/main/TableCell" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.TableCell.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * Specifies the content of the component.
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.TableCell.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -26936,19 +26936,6 @@ declare module "sap/ui/webc/main/TableColumn" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.main.TableColumn with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -26970,6 +26957,23 @@ declare module "sap/ui/webc/main/TableColumn" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.TableColumn.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * Defines the content of the column header.
@@ -26985,10 +26989,6 @@ declare module "sap/ui/webc/main/TableColumn" {
      * Default value is `false`.
      */
     getDemandPopin(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.TableColumn.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
@@ -27203,19 +27203,6 @@ declare module "sap/ui/webc/main/TableRow" {
     );
 
     /**
-     * Adds some cell to the aggregation {@link #getCells cells}.
-     */
-    addCell(
-      /**
-       * The cell to add; if empty, nothing is inserted
-       */
-      oCell: ITableCell
-    ): this;
-    /**
-     * Destroys all the cells in the aggregation {@link #getCells cells}.
-     */
-    destroyCells(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.main.TableRow with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -27237,6 +27224,23 @@ declare module "sap/ui/webc/main/TableRow" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.TableRow.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some cell to the aggregation {@link #getCells cells}.
+     */
+    addCell(
+      /**
+       * The cell to add; if empty, nothing is inserted
+       */
+      oCell: ITableCell
+    ): this;
+    /**
+     * Destroys all the cells in the aggregation {@link #getCells cells}.
+     */
+    destroyCells(): this;
+    /**
      * Gets content of aggregation {@link #getCells cells}.
      *
      * Defines the cells of the component.
@@ -27244,10 +27248,6 @@ declare module "sap/ui/webc/main/TableRow" {
      *  **Note:** Use `sap.ui.webc.main.TableCell` for the intended design.
      */
     getCells(): ITableCell[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.TableRow.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -27529,6 +27529,31 @@ declare module "sap/ui/webc/main/TextArea" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.TextArea with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TextArea>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.TextArea.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.TextArea`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -27641,27 +27666,6 @@ declare module "sap/ui/webc/main/TextArea" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.TextArea with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TextArea>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -27719,10 +27723,6 @@ declare module "sap/ui/webc/main/TextArea" {
      * Defines the maximum number of characters that the `value` can have.
      */
     getMaxlength(): int;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.TextArea.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -28202,12 +28202,12 @@ declare module "sap/ui/webc/main/TextArea" {
     /**
      * Fired when the text has changed and the focus leaves the component.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the component changes at each keystroke or when something is pasted.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
   }
 }
 
@@ -28307,6 +28307,31 @@ declare module "sap/ui/webc/main/TimePicker" {
       mSettings?: $TimePickerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.TimePicker with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TimePicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.TimePicker.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.webc.main.TimePicker`.
      *
@@ -28426,27 +28451,6 @@ declare module "sap/ui/webc/main/TimePicker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.TimePicker with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TimePicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -28496,10 +28500,6 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Default value is `empty string`.
      */
     getFormatPattern(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.TimePicker.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -28787,12 +28787,12 @@ declare module "sap/ui/webc/main/TimePicker" {
      * Fired when the input operation has finished by clicking the "OK" button or when the text in the input
      * field has changed and the focus leaves the input field.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the `sap.ui.webc.main.TimePicker` is changed at each key stroke.
      */
-    input?: Function;
+    input?: (oEvent: Event) => void;
   }
 }
 
@@ -28873,6 +28873,10 @@ declare module "sap/ui/webc/main/Title" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.Title.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getLevel level}.
      *
      * Defines the component level. Available options are: `"H6"` to `"H1"`.
@@ -28880,10 +28884,6 @@ declare module "sap/ui/webc/main/Title" {
      * Default value is `H2`.
      */
     getLevel(): TitleLevel | keyof typeof TitleLevel;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Title.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -29088,6 +29088,10 @@ declare module "sap/ui/webc/main/Toast" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.main.Toast.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getDuration duration}.
      *
      * Defines the duration in milliseconds for which component remains on the screen before it's automatically
@@ -29105,10 +29109,6 @@ declare module "sap/ui/webc/main/Toast" {
      * Defines the height of the control
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Toast.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getPlacement placement}.
      *
@@ -29342,6 +29342,31 @@ declare module "sap/ui/webc/main/ToggleButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.main.ToggleButton with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ToggleButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.ToggleButton.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.main.ToggleButton`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -29402,27 +29427,6 @@ declare module "sap/ui/webc/main/ToggleButton" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.ToggleButton with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ToggleButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:click click} to attached listeners.
      */
     fireClick(
@@ -29480,10 +29484,6 @@ declare module "sap/ui/webc/main/ToggleButton" {
      * Default value is `false`.
      */
     getIconEnd(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.ToggleButton.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getPressed pressed}.
      *
@@ -29707,7 +29707,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *  **Note:** The event will not be fired if the `disabled` property is set to `true`.
      */
-    click?: Function;
+    click?: (oEvent: Event) => void;
   }
 }
 
@@ -29767,6 +29767,31 @@ declare module "sap/ui/webc/main/Token" {
       mSettings?: $TokenSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Token with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Token>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Token.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.webc.main.Token`.
      *
@@ -29828,27 +29853,6 @@ declare module "sap/ui/webc/main/Token" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Token with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Token>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:select select} to attached listeners.
      */
     fireSelect(
@@ -29864,10 +29868,6 @@ declare module "sap/ui/webc/main/Token" {
      * be used. Accepts `sap.ui.webc.main.Icon`
      */
     getCloseIcon(): IIcon;
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Token.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getReadonly readonly}.
      *
@@ -29974,7 +29974,7 @@ declare module "sap/ui/webc/main/Token" {
     /**
      * Fired when the the component is selected by user interaction with mouse or by clicking space.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -30063,6 +30063,31 @@ declare module "sap/ui/webc/main/Tree" {
       mSettings?: $TreeSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.Tree with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Tree>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.Tree.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
      */
@@ -30329,27 +30354,6 @@ declare module "sap/ui/webc/main/Tree" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.main.Tree with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Tree>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      */
     fireItemClick(
@@ -30452,10 +30456,6 @@ declare module "sap/ui/webc/main/Tree" {
      *  **Note:** Use `sap.ui.webc.main.TreeItem` for the intended design.
      */
     getItems(): ITreeItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.Tree.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMode mode}.
      *
@@ -30746,14 +30746,14 @@ declare module "sap/ui/webc/main/Tree" {
     /**
      * Fired when a tree item is activated.
      */
-    itemClick?: Function;
+    itemClick?: (oEvent: Event) => void;
 
     /**
      * Fired when the Delete button of any tree item is pressed.
      *
      *  **Note:** A Delete button is displayed on each item, when the component `mode` property is set to `Delete`.
      */
-    itemDelete?: Function;
+    itemDelete?: (oEvent: Event) => void;
 
     /**
      * Fired when a tree item is expanded or collapsed. Note: You can call `preventDefault()` on the
@@ -30761,13 +30761,13 @@ declare module "sap/ui/webc/main/Tree" {
      * load tree items upon the user expanding a node. Even if you prevented the event's default behavior, you
      * can always manually call `toggle()` on a tree item.
      */
-    itemToggle?: Function;
+    itemToggle?: (oEvent: Event) => void;
 
     /**
      * Fired when selection is changed by user interaction in `SingleSelect`, `SingleSelectBegin`, `SingleSelectEnd`
      * and `MultiSelect` modes.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -30835,19 +30835,6 @@ declare module "sap/ui/webc/main/TreeItem" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: ITreeItem
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.main.TreeItem with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -30868,6 +30855,23 @@ declare module "sap/ui/webc/main/TreeItem" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.TreeItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: ITreeItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
     /**
      * Gets current value of property {@link #getAdditionalText additionalText}.
      *
@@ -30918,10 +30922,6 @@ declare module "sap/ui/webc/main/TreeItem" {
      * Defines the items of this component.
      */
     getItems(): ITreeItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.main.TreeItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *

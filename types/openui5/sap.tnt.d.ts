@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.93.0
 
 declare module "sap/tnt/library" {
   /**
@@ -100,18 +100,6 @@ declare module "sap/tnt/InfoLabel" {
     );
 
     /**
-     * Binds property {@link #getText text} to model data.
-     *
-     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
-     * of the possible properties of `oBindingInfo`
-     */
-    bindText(
-      /**
-       * The binding information
-       */
-      oBindingInfo: PropertyBindingInfo
-    ): this;
-    /**
      * Creates a new subclass of class sap.tnt.InfoLabel with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -132,6 +120,22 @@ declare module "sap/tnt/InfoLabel" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.InfoLabel.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Binds property {@link #getText text} to model data.
+     *
+     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
+     * of the possible properties of `oBindingInfo`
+     */
+    bindText(
+      /**
+       * The binding information
+       */
+      oBindingInfo: PropertyBindingInfo
+    ): this;
     /**
      * Gets current value of property {@link #getColorScheme colorScheme}.
      *
@@ -163,10 +167,6 @@ declare module "sap/tnt/InfoLabel" {
      * Default value is `empty string`.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.tnt.InfoLabel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRenderMode renderMode}.
      *
@@ -426,6 +426,31 @@ declare module "sap/tnt/NavigationList" {
     );
 
     /**
+     * Creates a new subclass of class sap.tnt.NavigationList with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NavigationList>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.NavigationList.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -513,27 +538,6 @@ declare module "sap/tnt/NavigationList" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.tnt.NavigationList with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NavigationList>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      */
     fireItemSelect(
@@ -571,10 +575,6 @@ declare module "sap/tnt/NavigationList" {
      * The items displayed in the list.
      */
     getItems(): NavigationListItem[];
-    /**
-     * Returns a metadata object for class sap.tnt.NavigationList.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets the currently selected `NavigationListItem`.
      */
@@ -750,7 +750,7 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: Function;
+    itemSelect?: (oEvent: Event) => void;
   }
 }
 
@@ -806,6 +806,31 @@ declare module "sap/tnt/NavigationListItem" {
       mSettings?: $NavigationListItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.tnt.NavigationListItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NavigationListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.NavigationListItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -876,27 +901,6 @@ declare module "sap/tnt/NavigationListItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.tnt.NavigationListItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NavigationListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:select select} to attached listeners.
      */
     fireSelect(
@@ -947,10 +951,6 @@ declare module "sap/tnt/NavigationListItem" {
      * The sub items.
      */
     getItems(): NavigationListItem[];
-    /**
-     * Returns a metadata object for class sap.tnt.NavigationListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTarget target}.
      *
@@ -1152,7 +1152,7 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Fired when this item is selected.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -1221,6 +1221,31 @@ declare module "sap/tnt/SideNavigation" {
       mSettings?: $SideNavigationSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.tnt.SideNavigation with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SideNavigation>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.SideNavigation.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
      *
@@ -1302,27 +1327,6 @@ declare module "sap/tnt/SideNavigation" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.tnt.SideNavigation with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SideNavigation>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      */
     fireItemSelect(
@@ -1362,10 +1366,6 @@ declare module "sap/tnt/SideNavigation" {
      * Defines the content inside the flexible part.
      */
     getItem(): NavigationList;
-    /**
-     * Returns a metadata object for class sap.tnt.SideNavigation.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.52.0
      *
@@ -1479,7 +1479,7 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: Function;
+    itemSelect?: (oEvent: Event) => void;
   }
 }
 
@@ -1740,27 +1740,6 @@ declare module "sap/tnt/ToolPage" {
     );
 
     /**
-     * Adds some mainContent to the aggregation {@link #getMainContents mainContents}.
-     */
-    addMainContent(
-      /**
-       * The mainContent to add; if empty, nothing is inserted
-       */
-      oMainContent: Control
-    ): this;
-    /**
-     * Destroys the header in the aggregation {@link #getHeader header}.
-     */
-    destroyHeader(): this;
-    /**
-     * Destroys all the mainContents in the aggregation {@link #getMainContents mainContents}.
-     */
-    destroyMainContents(): this;
-    /**
-     * Destroys the sideContent in the aggregation {@link #getSideContent sideContent}.
-     */
-    destroySideContent(): this;
-    /**
      * Creates a new subclass of class sap.tnt.ToolPage with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -1782,6 +1761,37 @@ declare module "sap/tnt/ToolPage" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.tnt.ToolPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some mainContent to the aggregation {@link #getMainContents mainContents}.
+     */
+    addMainContent(
+      /**
+       * The mainContent to add; if empty, nothing is inserted
+       */
+      oMainContent: Control
+    ): this;
+    /**
+     * Destroys the header in the aggregation {@link #getHeader header}.
+     */
+    destroyHeader(): this;
+    /**
+     * Destroys all the mainContents in the aggregation {@link #getMainContents mainContents}.
+     */
+    destroyMainContents(): this;
+    /**
+     * Destroys the sideContent in the aggregation {@link #getSideContent sideContent}.
+     */
+    destroySideContent(): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Destroys the subHeader in the aggregation {@link #getSubHeader subHeader}.
+     */
+    destroySubHeader(): this;
+    /**
      * Gets content of aggregation {@link #getHeader header}.
      *
      * The control to appear in the header area.
@@ -1793,10 +1803,6 @@ declare module "sap/tnt/ToolPage" {
      * The content section.
      */
     getMainContents(): Control[];
-    /**
-     * Returns a metadata object for class sap.tnt.ToolPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getSideContent sideContent}.
      *
@@ -1811,6 +1817,14 @@ declare module "sap/tnt/ToolPage" {
      * Default value is `true`.
      */
     getSideExpanded(): boolean;
+    /**
+     * @SINCE 1.93
+     *
+     * Gets content of aggregation {@link #getSubHeader subHeader}.
+     *
+     * The control to appear in the subheader area.
+     */
+    getSubHeader(): IToolHeader;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getMainContents mainContents}.
      * and returns its index if found or -1 otherwise.
@@ -1879,6 +1893,17 @@ declare module "sap/tnt/ToolPage" {
       bSideExpanded: boolean
     ): this;
     /**
+     * @SINCE 1.93
+     *
+     * Sets the aggregated {@link #getSubHeader subHeader}.
+     */
+    setSubHeader(
+      /**
+       * The subHeader to set
+       */
+      oSubHeader: IToolHeader
+    ): this;
+    /**
      * Toggles the expand/collapse state of the SideContent.
      */
     toggleSideContentMode(): this;
@@ -1894,6 +1919,13 @@ declare module "sap/tnt/ToolPage" {
      * The control to appear in the header area.
      */
     header?: IToolHeader;
+
+    /**
+     * @SINCE 1.93
+     *
+     * The control to appear in the subheader area.
+     */
+    subHeader?: IToolHeader;
 
     /**
      * The side menu of the layout.
