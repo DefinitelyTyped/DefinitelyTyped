@@ -12,6 +12,9 @@
 /// <reference lib="esnext.intl" />
 /// <reference lib="esnext.bigint" />
 
+// Reference other required types:
+/// <reference types="proposal-relative-indexing-method" />
+
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="../assert/strict.d.ts" />
 /// <reference path="../globals.d.ts" />

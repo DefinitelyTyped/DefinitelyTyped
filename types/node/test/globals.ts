@@ -26,3 +26,12 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
         gc();
     }
 }
+
+// Node.js ESNEXT Support
+{
+    const lastCharacter = 'string'.at(-1);
+    const lastArrayItem = [1, 2, 3].at(-1);
+
+    const typedArray: NodeJS.TypedArray = new Int8Array([0, 10, 20, 30, 40, 50]);
+    const lastItem = typedArray.at(-1);
+}
