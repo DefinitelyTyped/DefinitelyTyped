@@ -309,7 +309,7 @@ declare namespace ComponentFramework {
          * @param parameters entity form parameters.
          * @returns promise defining success or failure of operation
          */
-         openForm(options: NavigationApi.EntityFormOptions, parameters?: {[key: string]: string}): Promise<NavigationApi.OpenFormSuccessResponse>;
+        openForm(options: NavigationApi.EntityFormOptions, parameters?: { [key: string]: string }): Promise<NavigationApi.OpenFormSuccessResponse>;
 
         /**
          * Open url, including file urls.
@@ -1321,7 +1321,7 @@ declare namespace ComponentFramework {
         mimeType: string;
     }
 
-///////////////////// Parameter ////////////////////////
+    ///////////////////// Parameter ////////////////////////
 
     namespace PropertyTypes {
         /**
@@ -1709,7 +1709,7 @@ declare namespace ComponentFramework {
                  * This is subset of full condition operators list defined in https://docs.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.query.conditionoperator
                  */
                 type ConditionOperator = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 12 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 22 | 23
-                | 25 | 26 | 27 | 28 | 29 | 33 | 34 | 37 | 38 | 49 | 70 | 75 | 76 | 77 | 78 | 79 | 87;
+                    | 25 | 26 | 27 | 28 | 29 | 33 | 34 | 37 | 38 | 49 | 70 | 75 | 76 | 77 | 78 | 79 | 87;
 
                 /**
                  * Supported Filter Operator for filtering expression linkage
