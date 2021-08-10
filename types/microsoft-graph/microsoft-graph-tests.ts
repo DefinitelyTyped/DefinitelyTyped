@@ -175,3 +175,5 @@ const channel: MicrosoftGraph.Channel = {
 };
 
 const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientIpAddress";
+
+const volumeType: MicrosoftGraph.VolumeType = "unknownFutureValue";

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.1
+// Type definitions for non-npm package microsoft-graph 2.2
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -86,6 +86,7 @@ export type AuthenticatorAppFeatureSettings = "requireNumberMatching";
 export type ExternalEmailOtpState = "default" | "enabled" | "disabled" | "unknownFutureValue";
 export type Fido2RestrictionEnforcementType = "allow" | "block" | "unknownFutureValue";
 export type MicrosoftAuthenticatorAuthenticationMode = "deviceBasedPush" | "push" | "any";
+export type VolumeType = "operatingSystemVolume" | "fixedDataVolume" | "removableDataVolume" | "unknownFutureValue";
 export type IdentityUserFlowAttributeDataType =
     | "string"
     | "boolean"
@@ -878,6 +879,30 @@ export type DeviceEnrollmentFailureReason =
     | "clientDisconnected"
     | "userAbandonment";
 export type ApplicationType = "universal" | "desktop";
+export type PostType = "regular" | "quick" | "strategic" | "unknownFutureValue";
+export type ServiceHealthClassificationType = "advisory" | "incident" | "unknownFutureValue";
+export type ServiceHealthOrigin = "microsoft" | "thirdParty" | "customer" | "unknownFutureValue";
+export type ServiceHealthStatus =
+    | "serviceOperational"
+    | "investigating"
+    | "restoringService"
+    | "verifyingService"
+    | "serviceRestored"
+    | "postIncidentReviewPublished"
+    | "serviceDegradation"
+    | "serviceInterruption"
+    | "extendedRecovery"
+    | "falsePositive"
+    | "investigationSuspended"
+    | "resolved"
+    | "mitigatedExternal"
+    | "mitigated"
+    | "resolvedExternal"
+    | "confirmed"
+    | "reported"
+    | "unknownFutureValue";
+export type ServiceUpdateCategory = "preventOrFixIssue" | "planForChange" | "stayInformed" | "unknownFutureValue";
+export type ServiceUpdateSeverity = "normal" | "high" | "critical" | "unknownFutureValue";
 export type EntityType =
     | "event"
     | "message"
@@ -1633,9 +1658,9 @@ export interface User extends DirectoryObject {
     licenseAssignmentStates?: NullableOption<LicenseAssignmentState[]>;
     /**
      * The SMTP address for the user, for example, admin@contoso.com. Changes to this property will also update the user's
-     * proxyAddresses collection to include the value as an SMTP address. While this property can contain accent characters,
-     * using them can cause access issues with other Microsoft applications for the user. Supports $filter (eq, ne, NOT, ge,
-     * le, in, startsWith, endsWith).
+     * proxyAddresses collection to include the value as an SMTP address. For Azure AD B2C accounts, this property can be
+     * updated up to only ten times with unique SMTP addresses. This property cannot contain accent characters. Supports
+     * $filter (eq, ne, NOT, ge, le, in, startsWith, endsWith).
      */
     mail?: NullableOption<string>;
     /**
@@ -1712,9 +1737,8 @@ export interface User extends DirectoryObject {
      */
     onPremisesUserPrincipalName?: NullableOption<string>;
     /**
-     * A list of additional email addresses for the user; for example: ['bob@contoso.com', 'Robert@fabrikam.com'].NOTE: While
-     * this property can contain accent characters, they can cause access issues to first-party applications for the
-     * user.Supports $filter (eq, NOT, ge, le, in, startsWith).
+     * A list of additional email addresses for the user; for example: ['bob@contoso.com', 'Robert@fabrikam.com'].NOTE: This
+     * property cannot contain accent characters.Supports $filter (eq, NOT, ge, le, in, startsWith).
      */
     otherMails?: string[];
     /**
@@ -1747,8 +1771,8 @@ export interface User extends DirectoryObject {
     // The plans that are provisioned for the user. Read-only. Not nullable. Supports $filter (eq, NOT, ge, le).
     provisionedPlans?: ProvisionedPlan[];
     /**
-     * For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. Read-only, Not nullable. Supports $filter (eq,
-     * NOT, ge, le, startsWith).
+     * For example: ['SMTP: bob@contoso.com', 'smtp: bob@sales.contoso.com']. For Azure AD B2C accounts, this property has a
+     * limit of ten unique addresses. Read-only, Not nullable. Supports $filter (eq, NOT, ge, le, startsWith).
      */
     proxyAddresses?: string[];
     /**
@@ -1790,8 +1814,8 @@ export interface User extends DirectoryObject {
      * standard RFC 822. By convention, this should map to the user's email name. The general format is alias@domain, where
      * domain must be present in the tenant's collection of verified domains. This property is required when a user is
      * created. The verified domains for the tenant can be accessed from the verifiedDomains property of organization.NOTE:
-     * While this property can contain accent characters, they can cause access issues to first-party applications for the
-     * user. Supports $filter (eq, ne, NOT, ge, le, in, startsWith, endsWith) and $orderBy.
+     * This property cannot contain accent characters. Supports $filter (eq, ne, NOT, ge, le, in, startsWith, endsWith) and
+     * $orderBy.
      */
     userPrincipalName?: NullableOption<string>;
     /**
@@ -3561,18 +3585,37 @@ export interface MicrosoftAuthenticatorAuthenticationMethodTarget extends Authen
     featureSettings?: NullableOption<AuthenticatorAppFeatureSettings>;
 }
 export interface PolicyRoot extends Entity {
+    /**
+     * The authentication methods and the users that are allowed to use them to sign in and perform multi-factor
+     * authentication (MFA) in Azure Active Directory (Azure AD).
+     */
     authenticationMethodsPolicy?: NullableOption<AuthenticationMethodsPolicy>;
+    // The policy configuration of the self-service sign-up experience of external users.
     authenticationFlowsPolicy?: NullableOption<AuthenticationFlowsPolicy>;
+    // The policy that controls the idle time out for web sessions for applications.
     activityBasedTimeoutPolicies?: NullableOption<ActivityBasedTimeoutPolicy[]>;
+    // The policy that controls Azure AD authorization settings.
     authorizationPolicy?: NullableOption<AuthorizationPolicy>;
+    /**
+     * The claim-mapping policies for WS-Fed, SAML, OAuth 2.0, and OpenID Connect protocols, for tokens issued to a specific
+     * application.
+     */
     claimsMappingPolicies?: NullableOption<ClaimsMappingPolicy[]>;
+    // The policy to control Azure AD authentication behavior for federated users.
     homeRealmDiscoveryPolicies?: NullableOption<HomeRealmDiscoveryPolicy[]>;
+    // The policy that specifies the conditions under which consent can be granted.
     permissionGrantPolicies?: NullableOption<PermissionGrantPolicy[]>;
+    // The policy that specifies the characteristics of SAML tokens issued by Azure AD.
     tokenIssuancePolicies?: NullableOption<TokenIssuancePolicy[]>;
+    // The policy that controls the lifetime of a JWT access token, an ID token, or a SAML 1.1/2.0 token issued by Azure AD.
     tokenLifetimePolicies?: NullableOption<TokenLifetimePolicy[]>;
+    // The feature rollout policy associated with a directory object.
     featureRolloutPolicies?: NullableOption<FeatureRolloutPolicy[]>;
+    // The policy by which consent requests are created and managed for the entire tenant.
     adminConsentRequestPolicy?: NullableOption<AdminConsentRequestPolicy>;
+    // The custom rules that define an access scenario.
     conditionalAccessPolicies?: NullableOption<ConditionalAccessPolicy[]>;
+    // The policy that represents the security defaults that protect against common attacks.
     identitySecurityDefaultsEnforcementPolicy?: NullableOption<IdentitySecurityDefaultsEnforcementPolicy>;
 }
 export interface AuthenticationFlowsPolicy extends Entity {
@@ -3681,6 +3724,52 @@ export interface ConditionalAccessPolicy extends Entity {
 export interface IdentitySecurityDefaultsEnforcementPolicy extends PolicyBase {
     // If set to true, Azure Active Directory security defaults is enabled for the tenant.
     isEnabled?: boolean;
+}
+export interface Bitlocker extends Entity {
+    // The recovery keys associated with the bitlocker entity.
+    recoveryKeys?: NullableOption<BitlockerRecoveryKey[]>;
+}
+export interface BitlockerRecoveryKey extends Entity {
+    // The date and time when the key was originally backed up to Azure Active Directory.
+    createdDateTime?: string;
+    // ID of the device the BitLocker key is originally backed up from.
+    deviceId?: NullableOption<string>;
+    // The BitLocker recovery key.
+    key?: string;
+    /**
+     * Indicates the type of volume the BitLocker key is associated with. Possible values are: operatingSystemVolume,
+     * fixedDataVolume, removableDataVolume, unknownFutureValue.
+     */
+    volumeType?: NullableOption<VolumeType>;
+}
+// tslint:disable-next-line: interface-name
+export interface InformationProtection extends Entity {
+    bitlocker?: NullableOption<Bitlocker>;
+    threatAssessmentRequests?: NullableOption<ThreatAssessmentRequest[]>;
+}
+export interface ThreatAssessmentRequest extends Entity {
+    // The threat category. Possible values are: spam, phishing, malware.
+    category?: ThreatCategory;
+    // The content type of threat assessment. Possible values are: mail, url, file.
+    contentType?: NullableOption<ThreatAssessmentContentType>;
+    // The threat assessment request creator.
+    createdBy?: NullableOption<IdentitySet>;
+    /**
+     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
+     */
+    createdDateTime?: NullableOption<string>;
+    // The expected assessment from submitter. Possible values are: block, unblock.
+    expectedAssessment?: ThreatExpectedAssessment;
+    // The source of the threat assessment request. Possible values are: user, administrator.
+    requestSource?: NullableOption<ThreatAssessmentRequestSource>;
+    // The assessment process status. Possible values are: pending, completed.
+    status?: NullableOption<ThreatAssessmentStatus>;
+    /**
+     * A collection of threat assessment results. Read-only. By default, a GET /threatAssessmentRequests/{id} does not return
+     * this property unless you apply $expand on it.
+     */
+    results?: NullableOption<ThreatAssessmentResult[]>;
 }
 // tslint:disable-next-line: interface-name
 export interface IdentityApiConnector extends Entity {
@@ -3829,7 +3918,7 @@ export interface SocialIdentityProvider extends IdentityProviderBase {
     clientId?: NullableOption<string>;
     /**
      * The client secret for the application that is obtained when the application is registered with the identity provider.
-     * This is write-only. A read operation returns '****'. Required.
+     * This is write-only. A read operation returns ****. Required.
      */
     clientSecret?: NullableOption<string>;
     /**
@@ -4437,24 +4526,27 @@ export interface Conversation extends Entity {
     threads?: NullableOption<ConversationThread[]>;
 }
 export interface ConversationThread extends Entity {
-    // The Cc: recipients for the thread.
+    // The Cc: recipients for the thread. Returned only on $select.
     ccRecipients?: Recipient[];
-    // Indicates whether any of the posts within this thread has at least one attachment.
+    // Indicates whether any of the posts within this thread has at least one attachment. Returned by default.
     hasAttachments?: boolean;
-    // Indicates if the thread is locked.
+    // Indicates if the thread is locked. Returned by default.
     isLocked?: boolean;
     /**
      * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
-     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default.
      */
     lastDeliveredDateTime?: string;
-    // A short summary from the body of the latest post in this conversation.
+    // A short summary from the body of the latest post in this conversation. Returned by default.
     preview?: string;
-    // The topic of the conversation. This property can be set when the conversation is created, but it cannot be updated.
+    /**
+     * The topic of the conversation. This property can be set when the conversation is created, but it cannot be updated.
+     * Returned by default.
+     */
     topic?: string;
-    // The To: recipients for the thread.
+    // The To: recipients for the thread. Returned only on $select.
     toRecipients?: Recipient[];
-    // All the users that sent a message to this thread.
+    // All the users that sent a message to this thread. Returned by default.
     uniqueSenders?: string[];
     // Read-only. Nullable.
     posts?: NullableOption<Post[]>;
@@ -10699,6 +10791,94 @@ export interface EnrollmentTroubleshootingEvent extends DeviceManagementTroubles
     // Identifier for the user that tried to enroll the device.
     userId?: NullableOption<string>;
 }
+export interface Admin {
+    serviceAnnouncement?: NullableOption<ServiceAnnouncement>;
+}
+export interface ServiceAnnouncement extends Entity {
+    /**
+     * A collection of service health information for tenant. This property is a contained navigation property, it is nullable
+     * and readonly.
+     */
+    healthOverviews?: NullableOption<ServiceHealth[]>;
+    /**
+     * A collection of service issues for tenant. This property is a contained navigation property, it is nullable and
+     * readonly.
+     */
+    issues?: NullableOption<ServiceHealthIssue[]>;
+    /**
+     * A collection of service messages for tenant. This property is a contained navigation property, it is nullable and
+     * readonly.
+     */
+    messages?: NullableOption<ServiceUpdateMessage[]>;
+}
+export interface ServiceHealth extends Entity {
+    // The service name.
+    service?: string;
+    /**
+     * Show the overral service health status. Possible values are: serviceOperational, investigating, restoringService,
+     * verifyingService, serviceRestored, postIncidentReviewPublished, serviceDegradation, serviceInterruption,
+     * extendedRecovery, falsePositive, investigationSuspended, resolved, mitigatedExternal, mitigated, resolvedExternal,
+     * confirmed, reported, unknownFutureValue.
+     */
+    status?: ServiceHealthStatus;
+    // A collection of issues happened on the service, with detailed information for each issue.
+    issues?: NullableOption<ServiceHealthIssue[]>;
+}
+export interface ServiceAnnouncementBase extends Entity {
+    // Additional details about service event. This property doesn't support filters.
+    details?: NullableOption<KeyValuePair[]>;
+    // The end time of the service event.
+    endDateTime?: NullableOption<string>;
+    // The last modified time of the service event.
+    lastModifiedDateTime?: string;
+    // The start time of the service event.
+    startDateTime?: string;
+    // The title of the service event.
+    title?: string;
+}
+export interface ServiceHealthIssue extends ServiceAnnouncementBase {
+    // The type of service health issue. Possible values are: advisory, incident, unknownFutureValue.
+    classification?: ServiceHealthClassificationType;
+    // The feature name of the service issue.
+    feature?: NullableOption<string>;
+    // The feature group name of the service issue.
+    featureGroup?: NullableOption<string>;
+    // The description of the service issue impact.
+    impactDescription?: string;
+    // Indicates whether the issue is resolved.
+    isResolved?: boolean;
+    // Indicates the origin of the service issue. Possible values are: microsoft, thirdParty, customer, unknownFutureValue.
+    origin?: ServiceHealthOrigin;
+    // Collection of historical posts for the service issue.
+    posts?: ServiceHealthIssuePost[];
+    // Indicates the service affected by the issue.
+    service?: string;
+    /**
+     * The status of the service issue. Possible values are: serviceOperational, investigating, restoringService,
+     * verifyingService, serviceRestored, postIncidentReviewPublished, serviceDegradation, serviceInterruption,
+     * extendedRecovery, falsePositive, investigationSuspended, resolved, mitigatedExternal, mitigated, resolvedExternal,
+     * confirmed, reported, unknownFutureValue.
+     */
+    status?: ServiceHealthStatus;
+}
+export interface ServiceUpdateMessage extends ServiceAnnouncementBase {
+    // The expected deadline of the action for the message.
+    actionRequiredByDateTime?: NullableOption<string>;
+    // The content type and content of the service message body.
+    body?: ItemBody;
+    // The service message category. Possible values are: preventOrFixIssue, planForChange, stayInformed, unknownFutureValue.
+    category?: ServiceUpdateCategory;
+    // Indicates whether the message describes a major update for the service.
+    isMajorChange?: NullableOption<boolean>;
+    // The affected services by the service message.
+    services?: NullableOption<string[]>;
+    // The severity of the service message. Possible values are: normal, high, critical, unknownFutureValue.
+    severity?: ServiceUpdateSeverity;
+    // A collection of tags for the service message.
+    tags?: NullableOption<string[]>;
+    // Represents user view points data of the service message.
+    viewPoint?: NullableOption<ServiceUpdateMessageViewpoint>;
+}
 // tslint:disable-next-line: no-empty-interface
 export interface SearchEntity extends Entity {}
 export interface Planner extends Entity {
@@ -11601,7 +11781,11 @@ export interface Channel extends Entity {
      * programmatically with Create team. Default: false.
      */
     isFavoriteByDefault?: NullableOption<boolean>;
-    // The type of the channel. Can be set during creation and can't be changed. Default: standard.
+    /**
+     * The type of the channel. Can be set during creation and can't be changed. The possible values are: standard, private,
+     * unknownFutureValue, shared. The default value is standard. Note that you must use the Prefer:
+     * include-unknown-enum-members request header to get the following value in this evolvable enum: shared.
+     */
     membershipType?: NullableOption<ChannelMembershipType>;
     /**
      * A hyperlink that will go to the channel in Microsoft Teams. This is the URL that you get when you right-click a channel
@@ -11654,7 +11838,11 @@ export interface ChatMessage extends Entity {
     locale?: string;
     // List of entities mentioned in the chat message. Currently supports user, bot, team, channel.
     mentions?: NullableOption<ChatMessageMention[]>;
-    // The type of chat message. The possible values are: message, unknownFutureValue, systemEventMessage.
+    /**
+     * The type of chat message. The possible values are: message, chatEvent, typing, unknownFutureValue, systemEventMessage.
+     * Note that you must use the Prefer: include-unknown-enum-members request header to get the following value in this
+     * evolvable enum: systemEventMessage.
+     */
     messageType?: ChatMessageType;
     // Defines the properties of a policy violation set by a data loss prevention (DLP) application.
     policyViolation?: NullableOption<ChatMessagePolicyViolation>;
@@ -11746,7 +11934,7 @@ export interface TeamsAsyncOperation extends Entity {
     error?: NullableOption<OperationError>;
     // Time when the async operation was last updated.
     lastActionDateTime?: string;
-    // Denotes which type of operation is being described.
+    // Denotes the type of operation being described.
     operationType?: TeamsAsyncOperationType;
     // Operation status.
     status?: TeamsAsyncOperationStatus;
@@ -11798,10 +11986,12 @@ export interface WorkforceIntegration extends ChangeTrackedEntity {
     // Indicates whether this workforce integration is currently active and available.
     isActive?: NullableOption<boolean>;
     /**
-     * This property will replace supports in v1.0. We recommend that you use this property instead of supports. The supports
-     * property will still be supported in beta for the time being. Possible values are none, shift, swapRequest, openshift,
-     * openShiftRequest, userShiftPreferences, offerShiftRequest, timeCard, timeOffReason, timeOff, timeOffRequest and
-     * unknownFutureValue. If selecting more than one value, all values must start with the first letter in uppercase.
+     * This property has replaced supports in v1.0. We recommend that you use this property instead of supports. The supports
+     * property is still supported in beta for the time being. The possible values are: none, shift, swapRequest, openshift,
+     * openShiftRequest, userShiftPreferences, offerShiftRequest, unknownFutureValue, timeCard, timeOffReason, timeOff,
+     * timeOffRequest. Note that you must use the Prefer: include-unknown-enum-members request header to get the following
+     * values in this evolvable enum: timeCard, timeOffReason, timeOff, timeOffRequest. If selecting more than one value, all
+     * values must start with the first letter in uppercase.
      */
     supportedEntities?: NullableOption<WorkforceIntegrationSupportedEntities>;
     // Workforce Integration URL for callbacks from the Shifts service.
@@ -11901,30 +12091,6 @@ export interface TimeOff extends ChangeTrackedEntity {
     // ID of the user assigned to the timeOff. Required.
     userId?: NullableOption<string>;
 }
-export interface ThreatAssessmentRequest extends Entity {
-    // The threat category. Possible values are: spam, phishing, malware.
-    category?: ThreatCategory;
-    // The content type of threat assessment. Possible values are: mail, url, file.
-    contentType?: NullableOption<ThreatAssessmentContentType>;
-    // The threat assessment request creator.
-    createdBy?: NullableOption<IdentitySet>;
-    /**
-     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
-     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
-     */
-    createdDateTime?: NullableOption<string>;
-    // The expected assessment from submitter. Possible values are: block, unblock.
-    expectedAssessment?: ThreatExpectedAssessment;
-    // The source of the threat assessment request. Possible values are: user, administrator.
-    requestSource?: NullableOption<ThreatAssessmentRequestSource>;
-    // The assessment process status. Possible values are: pending, completed.
-    status?: NullableOption<ThreatAssessmentStatus>;
-    /**
-     * A collection of threat assessment results. Read-only. By default, a GET /threatAssessmentRequests/{id} does not return
-     * this property unless you apply $expand on it.
-     */
-    results?: NullableOption<ThreatAssessmentResult[]>;
-}
 export interface EmailFileAssessmentRequest extends ThreatAssessmentRequest {
     // Base64 encoded .eml email file content. The file content cannot fetch back because it isn't stored.
     contentData?: string;
@@ -11942,10 +12108,6 @@ export interface FileAssessmentRequest extends ThreatAssessmentRequest {
     contentData?: string;
     // The file name.
     fileName?: string;
-}
-// tslint:disable-next-line: interface-name
-export interface InformationProtection extends Entity {
-    threatAssessmentRequests?: NullableOption<ThreatAssessmentRequest[]>;
 }
 export interface MailAssessmentRequest extends ThreatAssessmentRequest {
     /**
@@ -12071,7 +12233,9 @@ export interface AppliedConditionalAccessPolicy {
     /**
      * Indicates the result of the CA policy that was triggered. Possible values are: success, failure, notApplied (Policy
      * isn't applied because policy conditions were not met),notEnabled (This is due to the policy in disabled state),
-     * unknown, unknownFutureValue, reportOnlySuccess, reportOnlyFailure, reportOnlyNotApplied, reportOnlyInterrupted
+     * unknown, unknownFutureValue, reportOnlySuccess, reportOnlyFailure, reportOnlyNotApplied, reportOnlyInterrupted. Note
+     * that you must use the Prefer: include-unknown-enum-members request header to get the following values in this evolvable
+     * enum: reportOnlySuccess, reportOnlyFailure, reportOnlyNotApplied, reportOnlyInterrupted.
      */
     result?: NullableOption<AppliedConditionalAccessPolicyResult>;
 }
@@ -12136,9 +12300,16 @@ export interface Initiator extends Identity {
     initiatorType?: NullableOption<InitiatorType>;
 }
 export interface KeyValue {
-    // Key.
+    /**
+     * Contains the name of the field that a value is associated with. When a sign in or domain hint is included in the
+     * sign-in request, corresponding fields are included as key-value pairs. Possible keys: Login hint present, Domain hint
+     * present.
+     */
     key?: NullableOption<string>;
-    // Value.
+    /**
+     * Contains the corresponding value for the specified key. The value is true if a sign in hint was included in the sign-in
+     * request; otherwise false. The value is true if a domain hint was included in the sign-in request; otherwise false.
+     */
     value?: NullableOption<string>;
 }
 export interface ModifiedProperty {
@@ -12781,7 +12952,6 @@ export interface AlternativeSecurityId {
 export interface PreAuthorizedApplication {
     // The unique identifier for the application.
     appId?: NullableOption<string>;
-    // The unique identifier for the oauth2PermissionScopes the application requires.
     delegatedPermissionIds?: string[];
 }
 export interface AssignedLabel {
@@ -15698,19 +15868,9 @@ export interface IPv6Range extends IpRange {
     upperAddress?: string;
 }
 export interface KeyValuePair {
-    /**
-     * Name for this key-value pair. Possible names are: AdditionalWSFedEndpointCheckResult,
-     * AllowedAuthenticationClassReferencesCheckResult, AlwaysRequireAuthenticationCheckResult, AutoUpdateEnabledCheckResult,
-     * ClaimsProviderNameCheckResult, EncryptClaimsCheckResult, EncryptedNameIdRequiredCheckResult,
-     * MonitoringEnabledCheckResult,NotBeforeSkewCheckResult, RequestMFAFromClaimsProvidersCheckResult,
-     * SignedSamlRequestsRequiredCheckResult, AdditionalAuthenticationRulesCheckResult, TokenLifetimeCheckResult,
-     * DelegationAuthorizationRulesCheckResult, IssuanceAuthorizationRulesCheckResult, IssuanceTransformRulesCheckResult.
-     */
+    // Name for this key-value pair
     name?: string;
-    /**
-     * Value for this key-value pair. Possible result values are 0 (when the validation check passed), 1 (when the validation
-     * check failed), or 2 (when the validation check is a warning).
-     */
+    // Value for this key-value pair
     value?: NullableOption<string>;
 }
 export interface ManagedAppDiagnosticStatus {
@@ -15792,6 +15952,22 @@ export interface ResourceAction {
 export interface RolePermission {
     // Resource Actions each containing a set of allowed and not allowed permissions.
     resourceActions?: NullableOption<ResourceAction[]>;
+}
+export interface ServiceHealthIssuePost {
+    // The published time of the post.
+    createdDateTime?: string;
+    // The content of the service issue post.
+    description?: NullableOption<ItemBody>;
+    // The post type of the service issue historical post. Possible values are: regular, quick, strategic, unknownFutureValue.
+    postType?: NullableOption<PostType>;
+}
+export interface ServiceUpdateMessageViewpoint {
+    // Indicates whether the user archived the message.
+    isArchived?: NullableOption<boolean>;
+    // Indicates whether the user marked the message as favorite.
+    isFavorited?: NullableOption<boolean>;
+    // Indicates whether the user read the message.
+    isRead?: NullableOption<boolean>;
 }
 export interface SearchHit {
     // The name of the content source which the externalItem is part of .
@@ -18061,8 +18237,10 @@ export namespace ExternalConnectors {
         /**
          * Specifies one or more well-known tags added against a property. Labels help Microsoft Search understand the semantics
          * of the data in the connection. Adding appropriate labels would result in an enhanced search experience (e.g. better
-         * relevance). Supported labels: title, url, createdBy, lastModifiedBy, authors, createdDateTime, lastModifiedDateTime,
-         * fileName, fileExtension, iconUrl, containerName, and containerUrl. Optional.
+         * relevance). Optional.The possible values are: title, url, createdBy, lastModifiedBy, authors, createdDateTime,
+         * lastModifiedDateTime, fileName, fileExtension, unknownFutureValue, iconUrl, containerName, containerUrl. Note that you
+         * must use the Prefer: include-unknown-enum-members request header to get the following values in this evolvable enum:
+         * iconUrl, containerName, containerUrl.
          */
         labels?: NullableOption<Label[]>;
         /**
@@ -18072,7 +18250,7 @@ export namespace ExternalConnectors {
         name?: string;
         /**
          * The data type of the property. Possible values are: string, int64, double, dateTime, boolean, stringCollection,
-         * int64Collection, doubleCollection, dateTimeCollection. Required.
+         * int64Collection, doubleCollection, dateTimeCollection, unknownFutureValue. Required.
          */
         type?: PropertyType;
     }
