@@ -154,6 +154,7 @@ declare namespace factory {
     }
 
     type Hook<T> = (model: any, attrs: T, options: any) => void;
+    type HookMany<T> = (model: any, attrs: T[], options: any) => void;
 }
 
 export = factory;

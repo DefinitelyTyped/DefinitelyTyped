@@ -66,8 +66,12 @@ factory.define<User>(
         addresses: factory.assocAttrsMany('Address', 3, 'id', { type: 1})
     },
     {
-        afterBuild: (model, attrs, options) => {},
-        afterCreate: (model, attrs, options) => {},
+        afterBuild: (model, attrs, options) => {
+            attrs.email;
+        },
+        afterCreate: (model, attrs, options) => {
+            attrs.email;
+        },
     },
 );
 
@@ -130,6 +134,7 @@ factory
     .create<User>('user', { score: 10 })
     .then(user => user.username);
 factory.create<User>('user', {}, { isAdmin: true }).then(user => user.username);
+factory.create<User>('user', { }, { isAdmin: true}).then(user => user.username);
 
 // Testing createMany, with and without attributes
 factory.createMany<User>('user', 3).then(users => users.map(user => user.username));
