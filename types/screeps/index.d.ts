@@ -1706,7 +1706,7 @@ interface CPU {
      */
     halt?(): never;
     /**
-     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     * Generate 1 pixel resource unit for 10000 CPU from your bucket.
      */
     generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
 
