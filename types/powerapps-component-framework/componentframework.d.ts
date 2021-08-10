@@ -1920,14 +1920,18 @@ declare namespace ComponentFramework {
                  hasPreviousPage: boolean;
 
                  /**
-                  * Request the next page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+                  * Request the next page of results to be loaded. Returns results for the whole page range.
+                  * New data will be pushed to control in another 'updateView' cycle.
+                  * @param loadOnlyNewPage: Limits return value to only newly loaded page.
                   */
-                 loadNextPage(): void;
+                 loadNextPage(loadOnlyNewPage?: boolean): void;
 
-                 /**
-                  * Request the previous page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
-                  */
-                 loadPreviousPage(): void;
+                /**
+                 * Request the previous page of results to be loaded. Returns results for the whole page range.
+                 * New data will be pushed to control in another 'updateView' cycle.
+                 * @param loadOnlyNewPage: Limits return value to only newly loaded page.
+                 */
+                loadPreviousPage(loadOnlyNewPage?: boolean): void;
 
                  /**
                   * Reload the results from the server, and reset to page 1.
