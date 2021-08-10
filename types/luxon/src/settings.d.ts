@@ -6,26 +6,19 @@ import { Zone } from './zone';
  */
 export namespace Settings {
     /**
-     * The current function for returning the current timestamp.
+     * Get or set the callback function for returning the current timestamp.
      * The function should return a number, which will be interpreted as an Epoch millisecond count
-     * @example
-     * Settings.now = () => Date.now() + 3000 // pretend it is 3 seconds in the future
-     * @example
-     * Settings.now = () => 0 // always pretend it's Jan 1, 1970 at midnight in UTC time
+     * @example Settings.now = () => Date.now() + 3000 // pretend it is 3 seconds in the future
+     * @example Settings.now = () => 0 // always pretend it's Jan 1, 1970 at midnight in UTC time
      */
     function now(): number;
 
     /**
-     * The default time zone to create DateTimes in. Does not affect existing instances.
-     * Set this to change {@link defaultZone}
+     * Get or set the default time zone object currently used to create DateTimes. Does not affect existing instances.
+     * The default value is the system's time zone (the one set on the machine that runs this code). When accessing
+     * this value, it will always be an instance of Zone.
      */
-    let defaultZoneName: string;
-
-    /**
-     * The default time zone object to create DateTimes in. Does not affect existing instances.
-     * Change by setting {@link defaultZoneName}
-     */
-    const defaultZone: Zone;
+    let defaultZone: Zone | string;
 
     /**
      * The default locale to create DateTimes with. Does not affect existing instances.
