@@ -45,6 +45,12 @@ declare namespace CDP {
         sessionId?: string | undefined;
     }
 
+    interface SendError {
+        code: number;
+        message: string;
+        data?: string | undefined;
+    }
+
     interface Target {
         description: string;
         devtoolsFrontendUrl: string;
@@ -151,11 +157,11 @@ declare namespace CDP {
         on(event: string, callback: (params: object, sessionId?: string) => void): void;
         // client.send(method, [params], [sessionId], [callback])
         send<T extends keyof ProtocolMappingApi.Commands>(event: T,
-            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: Error) => void)): void;
+            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: SendError) => void)): void;
         send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0],
-            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: Error) => void)): void;
+            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: SendError) => void)): void;
         send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId: string,
-            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: Error) => void)): void;
+            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: SendError) => void)): void;
         send<T extends keyof ProtocolMappingApi.Commands>(event: T, params?: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId?: string):
             Promise<ProtocolMappingApi.Commands[T]['returnType']>;
 
