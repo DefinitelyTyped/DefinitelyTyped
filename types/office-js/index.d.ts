@@ -2103,6 +2103,17 @@ declare namespace Office {
          */
         EnhancedLocationsChanged,
         /**
+         * Occurs in Outlook when the {@link https://docs.microsoft.com/javascript/api/outlook/office.notificationmessagedetails#actions | custom action}
+         * on a notification message is clicked.
+         *
+         * To add an event handler for the `InfobarClicked` event, use the `addHandlerAsync` method of the `Item` object.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.infobarclickedeventargs?view=outlook-js-1.10 | Office.InfobarClickedEventArgs}.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        InfobarClicked,
+        /**
          * Occurs when a different Outlook item is selected for viewing while the task pane is pinned.
          * **Important**: Only available with task pane implementation.
          *
@@ -12729,6 +12740,44 @@ declare namespace Office {
          *                  The `value` property of the result is the item's from value, as an `EmailAddressDetails` object.
          */
         getAsync(callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
+    }
+    /**
+     * Provides basic details about the notification message that raised the `Office.EventType.InfobarClicked` event.
+     *
+     * [Api set: Mailbox 1.10]
+     */
+    interface InfobarClickedEventArgs {
+        /**
+         * Gets additional details about the notification message.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        infobarDetails: InfobarDetails;
+        /**
+         * Gets the type of the event. For details, refer to {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType}.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        type: "olkInfobarClicked";
+    }
+    /**
+     * Provides additional details about the notification message that raised the `Office.EventType.InfobarClicked` event.
+     *
+     * [Api set: Mailbox 1.10]
+     */
+    interface InfobarDetails {
+        /**
+         * The action type.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        actionType: number;
+        /**
+         * The infobar type.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        infobarType: number;
     }
     /**
      * The `InternetHeaders` object represents custom internet headers that are preserved after the message item leaves Exchange
