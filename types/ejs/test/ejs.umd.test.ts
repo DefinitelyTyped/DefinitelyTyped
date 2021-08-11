@@ -24,7 +24,10 @@ ejs.delimiter;
 expectType<{
     (template: string, opts: ejs.Options & { async: true; client?: false | undefined }): ejs.AsyncTemplateFunction;
     (template: string, opts: ejs.Options & { async: true; client: true }): ejs.AsyncClientFunction;
-    (template: string, opts?: ejs.Options & { async?: false | undefined; client?: false | undefined }): ejs.TemplateFunction;
+    (
+        template: string,
+        opts?: ejs.Options & { async?: false | undefined; client?: false | undefined },
+    ): ejs.TemplateFunction;
     (template: string, opts?: ejs.Options & { async?: false | undefined; client: true }): ejs.ClientFunction;
     (template: string, opts?: ejs.Options): ejs.AsyncTemplateFunction | ejs.TemplateFunction;
 }>(ejs.compile);

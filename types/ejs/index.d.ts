@@ -31,9 +31,15 @@ export function resolveInclude(name: string, filename: string, isDir?: boolean):
 /**
  * Compile the given `str` of ejs into a template function.
  */
-export function compile(template: string, opts: Options & { async: true; client?: false | undefined }): AsyncTemplateFunction;
+export function compile(
+    template: string,
+    opts: Options & { async: true; client?: false | undefined },
+): AsyncTemplateFunction;
 export function compile(template: string, opts: Options & { async: true; client: true }): AsyncClientFunction;
-export function compile(template: string, opts?: Options & { async?: false | undefined; client?: false | undefined }): TemplateFunction;
+export function compile(
+    template: string,
+    opts?: Options & { async?: false | undefined; client?: false | undefined },
+): TemplateFunction;
 export function compile(template: string, opts?: Options & { async?: false | undefined; client: true }): ClientFunction;
 export function compile(template: string, opts?: Options): TemplateFunction | AsyncTemplateFunction;
 
@@ -285,7 +291,10 @@ export type IncludeCallback = (path: string, data?: Data) => string;
  *
  * @return an object where {@link filename} is the final parsed path or {@link template} is the content of the included template
  */
-export type IncluderCallback = (originalPath: string, parsedPath: string) => ({ filename: string, template?: never } | { template: string, filename?: never });
+export type IncluderCallback = (
+    originalPath: string,
+    parsedPath: string,
+) => { filename: string; template?: never } | { template: string; filename?: never };
 
 export interface Options {
     /**
