@@ -1,6 +1,6 @@
 // Type definitions for create-torrent 5.1
 // Project: https://github.com/webtorrent/create-torrent#readme
-// Definitions by: Jesse Chan <https://github.com/jesec> and Totto <https://github.com/Totto16>
+// Definitions by: Jesse Chan <https://github.com/jesec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -24,8 +24,8 @@ interface CreateTorrentOptions {
     urlList?: string[] | undefined;
     // add non-standard info dict entries, e.g. info.source, a convention for cross-seeding
     info?: Record<string, string> | undefined;
-
-    onProgress?(alreadyHashedBytes:number,AllBytesToHash:number):void
+    // called with the number of bytes hashed and estimated total size after every piece
+    onProgress?(alreadyHashedBytes: number, AllBytesToHash: number): void;
 }
 
 declare function createTorrent(
