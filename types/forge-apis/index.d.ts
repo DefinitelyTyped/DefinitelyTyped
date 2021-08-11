@@ -181,7 +181,7 @@ export interface JobPayloadOutput {
 
 export interface JobPayloadMisc {
     workflow?: string | undefined;
-    workflowAttributes?: object | undefined; 
+    workflowAttributes?: object | undefined;
 }
 
 export interface JobPayload {
