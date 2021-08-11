@@ -7,3 +7,5 @@ Holder.run({
 });
 
 Holder.run('image-class-name');
+
+Holder.run();
