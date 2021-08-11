@@ -35,5 +35,6 @@ const testCases = [
     <div role="none presentation" />,
     <svg role="treeitem" />,
     <a target="_blank"></a>,
-    <a target="some-frame"></a>
+    <a target="some-frame"></a>,
+    <picture><source media="test" srcSet="test" width={50} height={50} /><img src="test" width={100} height={100}/></picture>
 ];
