@@ -3,7 +3,7 @@
 // Definitions by: Teddy De Puy <https://github.com/ruxpendp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function createColormap<T extends 'hex' | 'rgbaString' | 'rgba' | 'float'>(spec: {
+declare function createColormap<T extends 'hex' | 'rgbaString' | 'rgba' | 'float'>(spec?: {
     alpha?: number | number[];
     colormap?:
         | string

@@ -1,7 +1,7 @@
 import createColormap = require('colormap');
 
 // $ExpectType string[]
-const colorsHex = createColormap<'hex'>({});
+const colorsHex = createColormap<'hex'>();
 
 // $ExpectType string[]
 const colorsRgbaString = createColormap<'rgbaString'>({ format: 'rgbaString' });
