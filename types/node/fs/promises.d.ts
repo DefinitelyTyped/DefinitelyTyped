@@ -238,6 +238,8 @@ declare module 'fs/promises' {
         /**
          * Write `buffer` to the file.
          *
+         * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
+         *
          * The promise is resolved with an object containing two properties:
          *
          * It is unsafe to use `filehandle.write()` multiple times on the same file
@@ -737,8 +739,7 @@ declare module 'fs/promises' {
      */
     function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
     /**
-     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a `<Buffer>`, or an object with an own `toString` function
-     * property.
+     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a `<Buffer>`, or, an object with an own (not inherited)`toString` function property.
      *
      * The `encoding` option is ignored if `data` is a buffer.
      *
@@ -759,6 +760,7 @@ declare module 'fs/promises' {
      *
      * ```js
      * import { writeFile } from 'fs/promises';
+     * import { Buffer } from 'buffer';
      *
      * try {
      *   const controller = new AbortController();

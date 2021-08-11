@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/events.js)
  */
 declare module 'events' {
     interface EventEmitterOptions {

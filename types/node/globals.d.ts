@@ -13,19 +13,6 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
-// Node.js ESNEXT support
-interface String {
-    /** Removes whitespace from the left end of a string. */
-    trimLeft(): string;
-    /** Removes whitespace from the right end of a string. */
-    trimRight(): string;
-
-    /** Returns a copy with leading whitespace removed. */
-    trimStart(): string;
-    /** Returns a copy with trailing whitespace removed. */
-    trimEnd(): string;
-}
-
 /*-----------------------------------------------*
  *                                               *
  *                   GLOBAL                      *
@@ -88,6 +75,30 @@ declare var AbortSignal: {
     // TODO: Add abort() static
 };
 //#endregion borrowed
+
+//#region ArrayLike.at()
+interface RelativeIndexable<T> {
+    /**
+     * Takes an integer value and returns the item at that index,
+     * allowing for positive and negative integers.
+     * Negative integers count back from the last item in the array.
+     */
+    at(index: number): T | undefined;
+}
+interface String extends RelativeIndexable<string> {}
+interface Array<T> extends RelativeIndexable<T> {}
+interface Int8Array extends RelativeIndexable<number> {}
+interface Uint8Array extends RelativeIndexable<number> {}
+interface Uint8ClampedArray extends RelativeIndexable<number> {}
+interface Int16Array extends RelativeIndexable<number> {}
+interface Uint16Array extends RelativeIndexable<number> {}
+interface Int32Array extends RelativeIndexable<number> {}
+interface Uint32Array extends RelativeIndexable<number> {}
+interface Float32Array extends RelativeIndexable<number> {}
+interface Float64Array extends RelativeIndexable<number> {}
+interface BigInt64Array extends RelativeIndexable<bigint> {}
+interface BigUint64Array extends RelativeIndexable<bigint> {}
+//#endregion ArrayLike.at() end
 
 /*----------------------------------------------*
 *                                               *
