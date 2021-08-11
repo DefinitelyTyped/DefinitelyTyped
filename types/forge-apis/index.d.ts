@@ -180,14 +180,14 @@ export interface JobPayloadOutput {
 }
 
 export interface JobPayloadMisc {
-    workflow: string;
-    workflowAttributes?: object;
+    workflow?: string | undefined;
+    workflowAttributes?: object | undefined; 
 }
 
 export interface JobPayload {
     input: JobPayloadInput;
     output: JobPayloadOutput;
-    misc?: JobPayloadMisc;
+    misc?: JobPayloadMisc | undefined;
 }
 
 export class CommandsApi {
