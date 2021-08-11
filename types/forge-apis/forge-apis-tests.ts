@@ -105,6 +105,8 @@ derivativesApi.translate(
                 attribute1: 'attribute1',
                 attribute2: 2,
                 attribute3: [3],
+            },
+        },
     },
     {},
     authClientTwoLegged,
