@@ -653,8 +653,66 @@ namespace MeteorTests {
     var userId = instance.data.userId;
 
     var data = Template.currentData();
-    var data = Template.parentData(1);
+    var data2 = Template.parentData();
+    var data3 = Template.parentData(2);
     var body = Template.body;
+
+    const Template2 = Template as TemplateStaticTyped<
+        { foo: string },
+        'newTemplate2',
+        {
+            state: ReactiveDict<{ bar: number }>;
+            getFooBar(): string;
+        }
+    >;
+
+    const newTemplate2 = Template2.newTemplate2;
+
+    newTemplate2.helpers({
+        helperName: function () {
+            // $ExpectType string
+            Template2.currentData().foo;
+
+            // $ExpectType string
+            Template2.instance().getFooBar();
+        },
+    });
+
+    newTemplate2.onCreated(function () {
+        this.state.clear();
+        this.state = new ReactiveDict();
+        this.getFooBar = () => {
+            // $ExpectType string
+            this.data.foo;
+
+            // $ExpectType number | undefined
+            this.state.get('bar');
+
+            return this.data.foo + this.state.get('bar');
+        };
+
+        this.autorun(() => {
+            var dataContext = Template2.currentData();
+
+            // $ExpectType string
+            dataContext.foo;
+
+            this.subscribe('comments', dataContext.foo);
+        });
+    });
+
+    newTemplate2.rendered = function () {};
+
+    newTemplate2.events({
+        'click .something'(_event, template) {
+            const a = template.state.get('bar');
+            // $ExpectType number | undefined
+            a;
+
+            // $ExpectType string
+            template.getFooBar();
+        },
+    });
 
     /**
      * From Match section
@@ -834,28 +892,36 @@ namespace MeteorTests {
     Blaze.toHTMLWithData(testView, function () {});
 
     var reactiveDict1 = new ReactiveDict();
-    var reactiveDict2 = new ReactiveDict();
+    reactiveDict1.set('foo', 'bar');
+
+    var reactiveDict2 = new ReactiveDict<{ foo: string }>();
+    reactiveDict2.set({ foo: 'bar' });
+    reactiveDict2.set('foo2', 'bar'); // $ExpectError
+
     var reactiveDict3 = new ReactiveDict('reactive-dict-3');
     var reactiveDict4 = new ReactiveDict('reactive-dict-4', { foo: 'bar' });
     var reactiveDict5 = new ReactiveDict(undefined, { foo: 'bar' });
 
-    reactiveDict1.setDefault('foo', 'bar');
-    reactiveDict1.setDefault({ foo: 'bar' });
+    reactiveDict5.setDefault('foo', 'bar');
+    reactiveDict5.setDefault({ foo: 'bar' });
 
-    reactiveDict1.set('foo', 'bar');
-    reactiveDict2.set({ foo: 'bar' });
+    reactiveDict5.set('foo', 'bar');
+    reactiveDict5.set({ foo: 'bar' });
 
-    reactiveDict1.get('foo') === 'bar';
+    reactiveDict5.set('foo2', 'bar'); // $ExpectError
+    reactiveDict5.set('foo', 2); // $ExpectError
 
-    reactiveDict1.equals('foo', 'bar');
+    reactiveDict5.get('foo') === 'bar';
 
-    reactiveDict1.all();
+    reactiveDict5.equals('foo', 'bar');
 
-    reactiveDict1.clear();
+    reactiveDict5.all();
 
-    reactiveDict1.destroy();
+    reactiveDict5.clear();
 
-    var reactiveVar1 = new ReactiveVar<string>('test value');
+    reactiveDict5.destroy();
+
+    var reactiveVar1 = new ReactiveVar('test value');
     var reactiveVar2 = new ReactiveVar<string>('test value', (oldVal, newVal) => oldVal.length === newVal.length);
 
     var varValue: string = reactiveVar1.get();

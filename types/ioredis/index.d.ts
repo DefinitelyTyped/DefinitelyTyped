@@ -827,6 +827,7 @@ declare namespace IORedis {
         hmset: OverloadedKeyedHashCommand<ValueType, Ok>;
 
         hmget: OverloadedKeyCommand<KeyType, Array<string | null>>;
+        hmgetBuffer: OverloadedKeyCommand<KeyType, Array<Buffer | null>>;
 
         hstrlen(key: KeyType, field: string, callback: Callback<number>): void;
         hstrlen(key: KeyType, field: string): Promise<number>;
@@ -1674,6 +1675,7 @@ declare namespace IORedis {
     type Ok = 'OK';
 
     interface Cluster extends EventEmitter, Commander, Commands {
+        readonly isCluster: true;
         readonly options: ClusterOptions;
         readonly status: string;
         connect(): Promise<void>;

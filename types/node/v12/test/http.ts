@@ -1,4 +1,5 @@
 import * as http from 'http';
+import * as stream from 'stream';
 import * as url from 'url';
 import * as net from 'net';
 
@@ -211,4 +212,216 @@ import * as net from 'net';
 // statics
 {
     const maxHeaderSize = http.maxHeaderSize;
+}
+
+// net server events
+
+{
+    let server = new http.Server();
+    let _socket = new net.Socket();
+    let _err = new Error();
+    let _bool = true;
+
+    server = server.addListener("close", () => {});
+    server = server.addListener("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.addListener("error", (err) => {
+      _err = err;
+    });
+    server = server.addListener("listening", () => {});
+
+    _bool = server.emit("close");
+    _bool = server.emit("connection", _socket);
+    _bool = server.emit("error", _err);
+    _bool = server.emit("listening");
+
+    server = server.on("close", () => {});
+    server = server.on("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.on("error", (err) => {
+      _err = err;
+    });
+    server = server.on("listening", () => {});
+
+    server = server.once("close", () => {});
+    server = server.once("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.once("error", (err) => {
+      _err = err;
+    });
+    server = server.once("listening", () => {});
+
+    server = server.prependListener("close", () => {});
+    server = server.prependListener("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.prependListener("error", (err) => {
+      _err = err;
+    });
+    server = server.prependListener("listening", () => {});
+
+    server = server.prependOnceListener("close", () => {});
+    server = server.prependOnceListener("connection", (socket) => {
+      _socket = socket;
+    });
+    server = server.prependOnceListener("error", (err) => {
+      _err = err;
+    });
+    server = server.prependOnceListener("listening", () => {});
+}
+
+// http server events
+{
+    let server = new http.Server();
+    let _socket = new stream.Duplex();
+    let _req =  new http.IncomingMessage(new net.Socket());
+    let _res = new http.ServerResponse(_req);
+    let _err = new Error();
+    let _head = Buffer.from("");
+    let _bool = true;
+
+    server = server.addListener("checkContinue", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.addListener("checkExpectation", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.addListener("clientError", (err, socket) => {
+      _err = err;
+      _socket = socket;
+    });
+    server = server.addListener("connect", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+    server = server.addListener("request", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.addListener("upgrade", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+
+    _bool = server.emit("checkContinue", _req, _res);
+    _bool = server.emit("checkExpectation", _req, _res);
+    _bool = server.emit("clientError", _err, _socket);
+    _bool = server.emit("connect", _req, _socket, _head);
+    _bool = server.emit("request", _req, _res);
+    _bool = server.emit("upgrade", _req, _socket, _head);
+
+    server = server.on("checkContinue", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.on("checkExpectation", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.on("clientError", (err, socket) => {
+      _err = err;
+      _socket = socket;
+    });
+    server = server.on("connect", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+    server = server.on("request", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.on("upgrade", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+
+    server = server.once("checkContinue", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.once("checkExpectation", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.once("clientError", (err, socket) => {
+      _err = err;
+      _socket = socket;
+    });
+    server = server.once("connect", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+    server = server.once("request", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.once("upgrade", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+
+    server = server.prependListener("checkContinue", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.prependListener("checkExpectation", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.prependListener("clientError", (err, socket) => {
+      _err = err;
+      _socket = socket;
+    });
+    server = server.prependListener("connect", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+    server = server.prependListener("request", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.prependListener("upgrade", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+
+    server = server.prependOnceListener("checkContinue", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.prependOnceListener("checkExpectation", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.prependOnceListener("clientError", (err, socket) => {
+      _err = err;
+      _socket = socket;
+    });
+    server = server.prependOnceListener("connect", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
+    server = server.prependOnceListener("request", (req, res) => {
+      _req = req;
+      _res = res;
+    });
+    server = server.prependOnceListener("upgrade", (req, socket, head) => {
+      _req = req;
+      _socket = socket;
+      _head = head;
+    });
 }

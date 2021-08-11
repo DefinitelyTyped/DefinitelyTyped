@@ -22,7 +22,6 @@ import {
     QueryRenderer,
     LocalQueryRenderer,
     ReactRelayContext,
-    readInlineData,
     RelayPaginationProp,
     RelayProp,
     RelayRefetchProp,
@@ -648,25 +647,6 @@ function markNotificationAsRead(source: string, storyID: string) {
         },
     });
 }
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// readInlineData
-// ~~~~~~~~~~~~~~~~~~~~~
-
-const storyFragment = graphql`
-    fragment Story_story on Todo {
-        id
-        text
-        isPublished
-    }
-`;
-
-function functionWithInline(storyRef: FragmentRef<Story_story>): Story_story {
-    return readInlineData<Story_story>(storyFragment, storyRef);
-}
-
-const inlineData: _FragmentRefs<'Story_story'> = {} as any;
-functionWithInline(inlineData).isPublished;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions

@@ -1,4 +1,4 @@
-import ImapFlow = require('imapflow');
+import { ImapFlow } from 'imapflow';
 
 // $ExpectType ImapFlow
 const client = new ImapFlow({

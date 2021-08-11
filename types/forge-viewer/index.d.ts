@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.47
+// Type definitions for non-npm package Forge Viewer 7.48
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -513,9 +513,15 @@ declare namespace Autodesk {
         }
 
         interface Endpoint {
-            getApiEndpoint(): string;
-            getEndpointAndApi(): string;
-            setEndpointAndApi(endpoint: string, api: string): void;
+          ENDPOINT_API_D3S: string;
+          ENDPOINT_API_DERIVATIVE_SERVICE_V2: string;
+          ENDPOINT_API_DERIVATIVE_STREAMING: string;
+          ENDPOINT_API_FLUENT: string;
+          ENDPOINT_API_MODEL_DERIVATIVE_V2: string;
+
+          getApiEndpoint(): string;
+          getEndpointAndApi(): string;
+          setEndpointAndApi(endpoint: string, api: string): void;
         }
 
         namespace EventUtils {
@@ -894,6 +900,7 @@ declare namespace Autodesk {
             setRequestTransitionWithUp(state: boolean, pos: THREE.Vector3, coi: THREE.Vector3, fov: number, up: THREE.Vector3, worldUp?: THREE.Vector3): void;
             setRequestHomeView(val?: boolean): void;
             computeOverviewDistance(bound: THREE.Box3): number;
+            orientCameraUp(force: boolean): void;
         }
 
         interface Properties {

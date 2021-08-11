@@ -3,9 +3,10 @@ import { Texture } from './../textures/Texture';
 import { Vector2 } from './../math/Vector2';
 import { MaterialParameters, Material } from './Material';
 import { NormalMapTypes } from '../constants';
+import { ColorRepresentation } from '../utils';
 
 export interface MeshMatcapMaterialParameters extends MaterialParameters {
-    color?: Color | string | number | undefined;
+    color?: ColorRepresentation | undefined;
     matcap?: Texture | null | undefined;
     map?: Texture | null | undefined;
     bumpMap?: Texture | null | undefined;
@@ -17,8 +18,7 @@ export interface MeshMatcapMaterialParameters extends MaterialParameters {
     displacementScale?: number | undefined;
     displacementBias?: number | undefined;
     alphaMap?: Texture | null | undefined;
-    morphTargets?: boolean | undefined;
-    morphNormals?: boolean | undefined;
+
     flatShading?: boolean | undefined;
 }
 
@@ -94,16 +94,6 @@ export class MeshMatcapMaterial extends Material {
      * @default null
      */
     alphaMap: Texture | null;
-
-    /**
-     * @default false
-     */
-    morphTargets: boolean;
-
-    /**
-     * @default false
-     */
-    morphNormals: boolean;
 
     /**
      * Define whether the material is rendered with flat shading. Default is false.

@@ -64,9 +64,17 @@ declare namespace yts {
 
     interface VideoMetadataOptions {
         videoId: string;
+        /** @default 'en' */
+        hl?: string | undefined;
+        /** @default 'US' */
+        gl?: string | undefined;
     }
     interface PlaylistMetadataOptions {
         listId: string;
+        /** @default 'en' */
+        hl?: string | undefined;
+        /** @default 'US' */
+        gl?: string | undefined;
     }
 
     interface Author {

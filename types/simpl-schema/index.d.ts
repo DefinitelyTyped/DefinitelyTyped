@@ -1,4 +1,4 @@
-// Type definitions for simpl-schema 1.10
+// Type definitions for simpl-schema 1.12
 // Project: https://github.com/aldeed/simpl-schema
 // Definitions by: Andreas Richter <https://github.com/arichter83>
 //                 Qkramer <https://github.com/Qkramer>
@@ -129,6 +129,9 @@ interface CleanOption {
     isModifier?: boolean | undefined;
     extendAutoValueContext?: boolean | undefined;
     removeNullsFromArrays?: boolean | undefined;
+    mutate?: boolean | undefined;
+    isUpsert?: boolean | undefined;
+    mongoObject?: boolean | undefined;
 }
 
 interface SimpleSchemaOptions {
@@ -198,7 +201,7 @@ export class SimpleSchema {
   objectKeys(keyPrefix?: any): any[];
   validate(obj: any, options?: ValidationOption): void;
   static validate(obj: any, schema: SimpleSchema, options?: ValidationOption): void;
-  validator(options?: ValidationOption): (obj: any) => boolean;
+  validator(options?: ValidatorOption): (obj: any) => boolean;
   extend(otherSchema: SimpleSchema | SimpleSchemaDefinition): SimpleSchema;
   static extendOptions(options: ReadonlyArray<string>): void;
   static RegEx: {
@@ -239,33 +242,18 @@ export class SimpleSchema {
 interface ValidationOption {
     modifier?: boolean | undefined;
     upsert?: boolean | undefined;
-    clean?: boolean | undefined;
-    filter?: boolean | undefined;
-    upsertextendedCustomContext?: boolean | undefined;
+    extendedCustomContext?: Record<string, any> | undefined;
+    ignore?: string[];
     keys?: string[] | undefined;
 }
 
-interface SimpleSchemaValidationContextStaticKeys {
-    name: string;
-    type: string;
-    value?: any;
-}
-
-interface SimpleSchemaError {
-    name: string;
-    type: string;
-}
+type ValidatorOption = ({clean: true} & ValidationOption & CleanOption) | ({clean?: false | undefined} & ValidationOption);
 
 interface SimpleSchemaValidationContextStatic {
     validate(obj: any, options?: ValidationOption): boolean;
-    validateOne(doc: any, keyName: string, options?: ValidationOption): boolean;
-    resetValidation(): void;
     isValid(): boolean;
-    invalidKeys(): SimpleSchemaValidationContextStaticKeys[];
-    addInvalidKeys(errors: ReadonlyArray<SimpleSchemaError>): void;
     keyIsInvalid(name: any): boolean;
     keyErrorMessage(name: any): string;
-    getErrorObject(): any;
 }
 
 interface MongoObjectStatic {

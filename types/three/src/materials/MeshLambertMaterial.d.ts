@@ -2,10 +2,11 @@ import { Color } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
 import { Combine } from '../constants';
+import { ColorRepresentation } from '../utils';
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
-    color?: Color | string | number | undefined;
-    emissive?: Color | string | number | undefined;
+    color?: ColorRepresentation | undefined;
+    emissive?: ColorRepresentation | undefined;
     emissiveIntensity?: number | undefined;
     emissiveMap?: Texture | null | undefined;
     map?: Texture | null | undefined;
@@ -23,8 +24,6 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     wireframeLinecap?: string | undefined;
     wireframeLinejoin?: string | undefined;
-    morphTargets?: boolean | undefined;
-    morphNormals?: boolean | undefined;
 }
 
 export class MeshLambertMaterial extends Material {
@@ -129,16 +128,6 @@ export class MeshLambertMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
-
-    /**
-     * @default false
-     */
-    morphTargets: boolean;
-
-    /**
-     * @default false
-     */
-    morphNormals: boolean;
 
     setValues(parameters: MeshLambertMaterialParameters): void;
 }

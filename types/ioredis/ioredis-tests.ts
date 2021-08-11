@@ -189,6 +189,18 @@ redis.hmset('foo', { a: 'b', c: 4 }).then(console.log);
 redis.hmset('foo', { a: 'b', c: 4 }, cb);
 redis.hmset('foo', new Map<string, number>(), cb);
 
+// Test OverloadedKeyedHashCommand for hmset
+redis.hmgetBuffer('foo', '1', '2', '3', '4', '5').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', '4', '5', cb);
+redis.hmgetBuffer('foo', '1', '2', '3', '4').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', '4', cb);
+redis.hmgetBuffer('foo', '1', '2', '3').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', cb);
+redis.hmgetBuffer('foo', '1', '2').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', cb);
+redis.hmgetBuffer('foo', '1').then(console.log);
+redis.hmgetBuffer('foo', '1', cb);
+
 // Test OverloadedHashCommand
 redis.mset('1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.mset('1', '2', '3', 4, '5', new Buffer([]), cb);
@@ -783,6 +795,7 @@ redis.pipeline()
 
 redis.options.host;
 redis.status;
+cluster.isCluster;
 cluster.options.maxRedirections;
 cluster.status;
 

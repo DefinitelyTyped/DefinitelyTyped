@@ -1,4 +1,4 @@
-// Type definitions for react-kawaii 0.11
+// Type definitions for react-kawaii 0.17
 // Project: https://github.com/miukimiu/react-kawaii
 // Definitions by: Zhang Yi Jiang <https://github.com/ZhangYiJiang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,3 +31,5 @@ export const CreditCard: React.ComponentType<KawaiiProps>;
 export const File: React.ComponentType<KawaiiProps>;
 export const Backpack: React.ComponentType<KawaiiProps>;
 export const Planet: React.ComponentType<KawaiiProps>;
+export const Chocolate: React.ComponentType<KawaiiProps>;
+export const Folder: React.ComponentType<KawaiiProps>;

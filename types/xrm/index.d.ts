@@ -4671,6 +4671,22 @@ declare namespace Xrm {
             viewType?: "savedquery" | "userquery" | undefined;
         }
 
+        interface CustomPage {
+            pageType: "custom";
+            /**
+             * The logic name o the custom page to open.
+             */
+            name: string;
+            /**
+             * The logical name of the table to be made available in the custom page via Param("entityName").
+             * */
+            entityName?: string | undefined;
+            /**
+             * ID of the table record to be made available in the custom page via Param("recordId").
+             * */
+            recordId?: string | undefined;
+        }
+
         interface PageInputHtmlWebResource {
             pageType: "webresource";
             /**
@@ -4733,7 +4749,7 @@ declare namespace Xrm {
          * @param pageInput Input about the page to navigate to. The object definition changes depending on the type of page to navigate to: entity list or HTML web resource.
          * @param navigationOptions Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          */
-        navigateTo(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
+        navigateTo(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.CustomPage | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
 
         /**
          * Displays an alert dialog containing a message and a button.

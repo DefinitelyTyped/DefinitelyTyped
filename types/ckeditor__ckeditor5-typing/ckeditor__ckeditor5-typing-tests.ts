@@ -56,8 +56,8 @@ const config: TextTransformationConfig = {
 
 inlineHighlight(editor, "foo", "bar", "zet");
 
-findAttributeRange(new Position(new Element("div"), [3]), "", "", new Model());
+findAttributeRange(new Position(Element.fromJSON({ name: "div" }), [3]), "", "", new Model());
 
-getLastTextLine(new Range(new Position(new Element("div"), [4])), new Model());
+getLastTextLine(new Range(new Position(Element.fromJSON({ name: "div" }), [4])), new Model());
 
 injectUnsafeKeystrokesHandling(editor);

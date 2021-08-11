@@ -3,10 +3,11 @@ import { Texture } from './../textures/Texture';
 import { Vector2 } from './../math/Vector2';
 import { MaterialParameters, Material } from './Material';
 import { NormalMapTypes } from '../constants';
+import { ColorRepresentation } from '../utils';
 
 export interface MeshToonMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
-    color?: Color | string | number | undefined;
+    color?: ColorRepresentation | undefined;
     opacity?: number | undefined;
     gradientMap?: Texture | null | undefined;
     map?: Texture | null | undefined;
@@ -14,7 +15,7 @@ export interface MeshToonMaterialParameters extends MaterialParameters {
     lightMapIntensity?: number | undefined;
     aoMap?: Texture | null | undefined;
     aoMapIntensity?: number | undefined;
-    emissive?: Color | string | number | undefined;
+    emissive?: ColorRepresentation | undefined;
     emissiveIntensity?: number | undefined;
     emissiveMap?: Texture | null | undefined;
     bumpMap?: Texture | null | undefined;
@@ -30,8 +31,6 @@ export interface MeshToonMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     wireframeLinecap?: string | undefined;
     wireframeLinejoin?: string | undefined;
-    morphTargets?: boolean | undefined;
-    morphNormals?: boolean | undefined;
 }
 
 export class MeshToonMaterial extends Material {
@@ -161,16 +160,6 @@ export class MeshToonMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
-
-    /**
-     * @default false
-     */
-    morphTargets: boolean;
-
-    /**
-     * @default false
-     */
-    morphNormals: boolean;
 
     setValues(parameters: MeshToonMaterialParameters): void;
 }

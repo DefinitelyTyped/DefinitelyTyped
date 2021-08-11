@@ -7,7 +7,9 @@ import {
     DataApiMixin,
     attachToForm,
     MultiCommand,
+    EditorUI,
 } from "@ckeditor/ckeditor5-core";
+import View from "@ckeditor/ckeditor5-ui/src/view";
 
 let comm: Command;
 
@@ -52,6 +54,10 @@ MyEditor.defaultConfig = { foo: 5 };
  */
 
 class MyPlugin extends Plugin {
+    get pluginName() {
+        return 'MyPlugin';
+    }
+
     myMethod() {
         return null;
     }
@@ -62,6 +68,16 @@ const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
 myPlugin.isEnabled = true;
+
+/**
+ * PluginCollection
+ */
+editor.plugins.get(MyPlugin).myMethod();
+(editor.plugins.get('MyPlugin') as MyPlugin).myMethod();
+
+// $ExpectError
+editor.plugins.get(class Foo);
+editor.plugins.get(class Foo extends Plugin {});
 
 class MyEmptyEditor extends Editor {
     static builtinPlugins = [MyPlugin];
@@ -118,8 +134,21 @@ if (afterInitPromise != null) {
 }
 
 class MyCPlugin extends ContextPlugin {
+    get pluginName() {
+        return 'MyCPlugin';
+    }
+
     builtinPlugins: [MyPlugin];
+    myCMethod() {
+        return null;
+    }
 }
+
+editor.plugins.get(MyCPlugin).myCMethod();
+(editor.plugins.get('MyCPlugin') as MyCPlugin).myCMethod();
+
+context.plugins.get(MyCPlugin).myCMethod();
+(context.plugins.get('MyCPlugin') as MyCPlugin).myCMethod();
 
 /**
  * DataApiMixin
@@ -143,3 +172,7 @@ attachToForm(editor);
  */
 const MC = new MultiCommand(editor);
 MC.registerChildCommand(comm);
+
+/* EditorUI */
+new EditorUI(editor).componentFactory.editor === editor;
+new EditorUI(editor).componentFactory.add("", (locale) => new View(locale));

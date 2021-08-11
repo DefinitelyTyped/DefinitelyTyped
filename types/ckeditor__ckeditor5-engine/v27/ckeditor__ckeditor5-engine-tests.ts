@@ -25,9 +25,10 @@ import {
     TreeWalker,
     ViewDocument,
 } from "@ckeditor/ckeditor5-engine";
-import ConversionHelpers from "@ckeditor/ckeditor5-engine/src/conversion/conversionhelpers";
 import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
+import DowncastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
+import UpcastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
 import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
 import { Item } from "@ckeditor/ckeditor5-engine/src/model/item";
@@ -39,10 +40,11 @@ import Selection from "@ckeditor/ckeditor5-engine/src/model/selection";
 import Text from "@ckeditor/ckeditor5-engine/src/model/text";
 import Writer from "@ckeditor/ckeditor5-engine/src/model/writer";
 import { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
+import Document from "@ckeditor/ckeditor5-engine/src/view/document";
 import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
-import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
 import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
+import EmptyElement from "@ckeditor/ckeditor5-engine/src/view/emptyelement";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
 import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
 import Position from "@ckeditor/ckeditor5-engine/src/view/position";
@@ -150,7 +152,7 @@ class MyElement extends ViewElement {
     }
 }
 
-const viewElement = new MyElement();
+const viewElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement("div");
 
 let stylesProcessor = new StylesProcessor();
 let viewDocument = new ViewDocument(stylesProcessor);
@@ -161,7 +163,7 @@ rootEditableElement = viewDocument.getRoot()!;
 
 enablePlaceholder({
     view,
-    element: new MyElement(),
+    element: new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement("div"),
     text: "foo",
 });
 enablePlaceholder({
@@ -197,8 +199,15 @@ const downcastDispB = new DowncastDispatcher({});
 const upcastDispaA = new UpcastDispatcher({});
 const conversion = new Conversion([downcastDispA, downcastDispB], [upcastDispaA]);
 conversion.addAlias("upcast", upcastDispaA);
-let helper: ConversionHelpers = conversion.for("upcast");
-helper = helper.add(() => {});
+let upcastHelper: UpcastHelpers = conversion.for("upcast");
+upcastHelper = new UpcastHelpers([new UpcastDispatcher()]).add(() => {});
+// $ExpectError
+upcastHelper = new UpcastHelpers([new DowncastDispatcher()]);
+upcastHelper = upcastHelper.add(() => {});
+let downcastHelper: DowncastHelpers = conversion.for("downcast");
+downcastHelper = conversion.for("dataDowncast");
+downcastHelper = conversion.for("editingDowncast");
+downcastHelper = downcastHelper.add(() => {});
 
 const dataProcessor = new HtmlDataProcessor(viewDocument);
 viewDocumentFragment = dataProcessor.toView("") as ViewDocumentFragment;
@@ -207,7 +216,7 @@ dataProcessor.registerRawContentMatcher({ name: "div", classes: "raw" });
 
 let insertOperation = new InsertOperation(
     new ModelPosition(model.document.createRoot(), [0]),
-    new Text("x"),
+    new Writer().createText("foo"),
     model.document.version,
 );
 if (insertOperation.type === "insert") {
@@ -310,7 +319,7 @@ model.enqueueChange("transparent", writer => {
     const myWriter: Writer = writer;
 });
 model.insertContent(new DocumentFragment());
-model.insertContent(new Text(""));
+model.insertContent(new Writer().createText(""));
 model.deleteContent(model.document.selection);
 model.modifySelection(model.document.selection);
 model.modifySelection(model.document.selection, { direction: "backward" });
@@ -345,9 +354,8 @@ treeWalker = new TreeWalker({
     singleCharacters: false,
 });
 
-element = new Element("foo");
-element = new Element("foo", nullvalue);
-element = new Element("two", nullvalue, [new Text("ba"), new Element("img"), new Text("r")]);
+element = new Writer().createElement("div");
+element = new Writer().createElement("div", { foo: "bar" });
 num = element.maxOffset;
 num = element.childCount;
 let node: Text | Element = element.getChild(num);
@@ -365,7 +373,7 @@ num = element.offsetToIndex(num);
 
 let domConverter = new DomConverter(viewDocument);
 let blockFillerMode: BlockFillerMode = "nbsp";
-const viewEditableElement = new EditableElement();
+const viewEditableElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEditableElement("div");
 domConverter = new DomConverter(viewDocument, { blockFillerMode });
 blockFillerMode = domConverter.blockFillerMode;
 domConverter.bindElements(document.createElement("div"), viewEditableElement);
@@ -385,3 +393,7 @@ const clickObserver = new ClickObserver(view);
 view.addObserver(ClickObserver);
 clickObserver.domEventType === "click";
 clickObserver.onDomEvent(new MouseEvent("foo"));
+
+const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
+downcastWriter.createPositionAt(downcastWriter.createEmptyElement("div"), "after");
+downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement("div"), 5));
