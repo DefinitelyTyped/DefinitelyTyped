@@ -2791,7 +2791,8 @@ declare module 'fs' {
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
     }
-    export type WatchListener<T> = (event: 'rename' | 'change', filename: T) => void;
+    export type WatchEventType = 'rename' | 'change';
+    export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a
      * directory.
