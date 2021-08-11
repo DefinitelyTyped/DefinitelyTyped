@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/ssh2-streams": "^0.1.8"
+    }
+}
