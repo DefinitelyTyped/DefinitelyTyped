@@ -1,4 +1,4 @@
-// Type definitions for ejs 3.0
+// Type definitions for ejs 3.1.2
 // Project: http://ejs.co/, https://github.com/mde/ejs
 // Definitions by: Ben Liddicott <https://github.com/benliddicott>
 //                 ExE Boss <https://github.com/ExE-Boss>
