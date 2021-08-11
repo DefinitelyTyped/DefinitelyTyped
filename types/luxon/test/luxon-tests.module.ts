@@ -234,12 +234,11 @@ Interval.invalid('code', 'because I said so'); // $ExpectType Interval
 /* Info */
 Info.months();
 Info.weekdays('long');
-// $ExpectError
-Info.weekdays('2-digit');
-Info.features().intl;
-Info.features().intlTokens;
-Info.features().zones;
-Info.features().relative;
+Info.weekdays('2-digit'); // $ExpectError
+Info.features().intl; // $ExpectError
+Info.features().intlTokens; // $ExpectError
+Info.features().zones; // $ExpectError
+Info.features().relative; // $ExpectType boolean
 
 /* Settings */
 Settings.defaultLocale;
@@ -285,7 +284,7 @@ DateTime.local().reconfigure({ locale: 'it', numberingSystem: 'beng' });
 Settings.defaultNumberingSystem = 'beng';
 
 /* Time zones and offsets */
-Info.features().zones; // $ExpectType boolean
+Info.features().zones; // $ExpectError
 
 const bogus = DateTime.local().setZone('America/Bogus');
 bogus.isValid; // $ExpectType boolean
