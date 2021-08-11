@@ -9,7 +9,7 @@ declare namespace zrender {
     type Y = number;
     type X2 = number;
     type Y2 = number;
-    type Global = boolean;
+    type GlobalCoords = boolean;
     type ColorStops = Array<{
         offset: number;
         color: string;
@@ -36,7 +36,7 @@ declare namespace zrender {
             colorStops?: ColorStops,
 
             /** @default false */
-            global?: Global,
+            globalCoord?: GlobalCoords,
         ): {
             type: 'linear';
             x: X;
@@ -44,7 +44,7 @@ declare namespace zrender {
             x2: X2;
             y2: Y2;
             colorStops: ColorStops;
-            global: Global;
+            globalCoord: GlobalCoords;
 
             addColorStop(offset: number, color: string): void;
         };
