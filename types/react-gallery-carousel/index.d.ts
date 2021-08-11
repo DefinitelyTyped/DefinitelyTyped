@@ -85,7 +85,7 @@ declare namespace Carousel {
         toggleIsMaximized(): void;
         goLeft(): void;
         goRight(): void;
-        goToIndex(): void;
+        goToIndex(index: number): void;
     };
 
     /**

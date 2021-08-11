@@ -1,4 +1,5 @@
-import Tagify, { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
+import Tagify = require('@yaireo/tagify');
+import { BaseTagData, TagData, TagifyConstructorSettings, TagifySettings } from '@yaireo/tagify';
 
 export function tagTemplate(this: Tagify, tagData: TagData): string {
     return `
@@ -894,6 +895,8 @@ tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags[0]]);
 // $ExpectError
 tagify.parseTemplate((data) => `<span>${data.value}</span>`, [tags]);
 tagify.setReadonly(false);
+tagify.setDisabled(false);
+tagify.setDisabled(true);
 
 tagify.dropdown.show();
 tagify.dropdown.show('foo');

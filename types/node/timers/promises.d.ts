@@ -42,7 +42,7 @@ declare module 'timers/promises' {
      * });
      * ```
      * @since v15.0.0
-     * @param delay The number of milliseconds to wait before fulfilling the promise.
+     * @param [delay=1] The number of milliseconds to wait before fulfilling the promise.
      * @param value A value with which the promise is fulfilled.
      */
     function setTimeout<T = void>(delay?: number, value?: T, options?: TimerOptions): Promise<T>;

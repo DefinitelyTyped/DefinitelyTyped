@@ -153,7 +153,7 @@ declare namespace factory {
         afterCreate?: Hook<T> | undefined;
     }
 
-    type Hook<T> = (model: any, attrs: T[], options: any) => void;
+    type Hook<T> = (model: any, attrs: T | T[], options: any) => void;
 }
 
 export = factory;

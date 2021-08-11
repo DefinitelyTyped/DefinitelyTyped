@@ -13,4 +13,6 @@ export class AxesHelper extends LineSegments {
     type: string;
 
     setColors(xAxisColor: Color, yAxisColor: Color, zAxisColor: Color): this;
+
+    dispose(): void;
 }

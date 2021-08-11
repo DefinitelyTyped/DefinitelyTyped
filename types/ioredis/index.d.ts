@@ -827,6 +827,7 @@ declare namespace IORedis {
         hmset: OverloadedKeyedHashCommand<ValueType, Ok>;
 
         hmget: OverloadedKeyCommand<KeyType, Array<string | null>>;
+        hmgetBuffer: OverloadedKeyCommand<KeyType, Array<Buffer | null>>;
 
         hstrlen(key: KeyType, field: string, callback: Callback<number>): void;
         hstrlen(key: KeyType, field: string): Promise<number>;

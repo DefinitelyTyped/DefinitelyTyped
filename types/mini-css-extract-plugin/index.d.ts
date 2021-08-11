@@ -1,4 +1,4 @@
-// Type definitions for mini-css-extract-plugin 2.0
+// Type definitions for mini-css-extract-plugin 2.2
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
@@ -36,54 +36,46 @@ declare class MiniCssExtractPlugin {
 declare namespace MiniCssExtractPlugin {
     interface PluginOptions {
         /**
-         * Works like [`output.filename`](https://webpack.js.org/configuration/output/#outputfilename).
+         * This option determines the name of each output CSS file.
+         * @link https://github.com/webpack-contrib/mini-css-extract-plugin#filename
+         * @default '[name].css'
          */
         filename?: Required<Configuration>['output']['filename'] | undefined;
         /**
-         * Works like [`output.chunkFilename`](https://webpack.js.org/configuration/output/#outputchunkfilename).
+         * This option determines the name of non-entry chunk files.
+         * @link https://github.com/webpack-contrib/mini-css-extract-plugin#chunkfilename
          */
         chunkFilename?: Required<Configuration>['output']['chunkFilename'] | undefined;
         /**
-         * For projects where CSS ordering has been mitigated through consistent
-         * use of scoping or naming conventions, the CSS order warnings can be
-         * disabled by setting this flag to true for the plugin.
-         */
-        ignoreOrder?: boolean | undefined;
-        /**
-         * Specify where to insert the link tag.
-         *
-         * A string value specifies a DOM query for a parent element to attach to.
-         *
-         * A function allows to override default behavior for non-entry CSS chunks.
-         * This code will run in the browser alongside your application. It is recommend
-         * to only use ECMA 5 features and syntax. The function won't have access to the
-         * scope of the webpack configuration module.
-         *
-         * @default function() { document.head.appendChild(linkTag); }
-         */
-        insert?: string | ((linkTag: any) => void) | undefined;
-        /**
-         * Specify additional html attributes to add to the link tag.
-         *
-         * Note: These are only applied to dynamically loaded css chunks. To modify link
-         * attributes for entry CSS chunks, please use html-webpack-plugin.
-         */
-        attributes?: Record<string, string> | undefined;
-        /**
-         * This option allows loading asynchronous chunks with a custom link type, such as
-         * `<link type="text/css" ...>`.
-         *
-         * `false` disables the link `type` attribute.
-         *
-         * @default 'text/css'
-         */
-        linkType?: string | false | 'text/css' | undefined;
-
-        /**
-         * Use an experimental webpack API to execute modules instead of child compilers
+         * Enable the experimental importModule approach instead of using child compilers. This uses less memory and is faster.
+         * @link https://github.com/webpack-contrib/mini-css-extract-plugin#experimentaluseimportmodule
          * @default false
          */
         experimentalUseImportModule?: boolean | undefined;
+        /**
+         * Remove Order Warnings.
+         * @link https://github.com/webpack-contrib/mini-css-extract-plugin#ignoreorder
+         * @default false
+         */
+        ignoreOrder?: boolean | undefined;
+        /**
+         * Inserts `<link>` at the given position.
+         * @link https://github.com/webpack-contrib/mini-css-extract-plugin#insert
+         * @default document.head.appendChild(linkTag)
+         */
+        insert?: string | ((linkTag: any) => void) | undefined;
+        /**
+         * Adds custom attributes to tag.
+         * @link https://github.com/webpack-contrib/mini-css-extract-plugin#attributes
+         * @default {}
+         */
+        attributes?: Record<string, string> | undefined;
+        /**
+         * This option allows loading asynchronous chunks with a custom link type
+         * @link https://github.com/webpack-contrib/mini-css-extract-plugin#linktype
+         * @default 'text/css'
+         */
+        linkType?: string | false | 'text/css' | undefined;
     }
     interface LoaderOptions {
         /**

@@ -7,6 +7,10 @@ declare namespace ngeohash {
   interface GeographicPoint {
     latitude: number;
     longitude: number;
+    error: {
+      latitude: number;
+      longitude: number;
+    };
   }
 
   type GeographicBoundingBox = [number, number, number, number];
@@ -24,7 +28,7 @@ declare namespace ngeohash {
   function decode_bbox_int(hashinteger: number, bitDepth?: number): GeographicBoundingBox;
   function bboxes_int(minlat: number, minlon: number, maxlat: number, maxlon: number, bitDepth?: number): number;
   function neighbor_int(hashinteger: number, direction: NSEW, bitDepth?: number): number;
-  function neighbors_int(hashinteger: number, bitDepth?: number): number;
+  function neighbors_int(hashinteger: number, bitDepth?: number): Array<number>;
 }
 
 declare module "ngeohash" {

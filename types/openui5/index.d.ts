@@ -1,4 +1,4 @@
-// Type definitions for OpenUI5 1.92
+// Type definitions for OpenUI5 1.93
 // Project: https://github.com/SAP/openui5
 // Definitions by: OpenUI5 Bot <https://github.com/openui5bot>
 //                 Peter Muessig <https://github.com/petermuessig>
@@ -28,25 +28,25 @@
 /// <reference types="jquery" />
 /// <reference types="qunit" />
 
+/// <reference path="./sap.f.d.ts"/>
+/// <reference path="./sap.m.d.ts"/>
+/// <reference path="./sap.tnt.d.ts"/>
 /// <reference path="./sap.ui.codeeditor.d.ts"/>
 /// <reference path="./sap.ui.commons.d.ts"/>
 /// <reference path="./sap.ui.core.d.ts"/>
 /// <reference path="./sap.ui.dt.d.ts"/>
-/// <reference path="./sap.f.d.ts"/>
 /// <reference path="./sap.ui.fl.d.ts"/>
 /// <reference path="./sap.ui.integration.d.ts"/>
 /// <reference path="./sap.ui.layout.d.ts"/>
 /// <reference path="./sap.ui.mdc.d.ts"/>
-/// <reference path="./sap.m.d.ts"/>
 /// <reference path="./sap.ui.rta.d.ts"/>
 /// <reference path="./sap.ui.suite.d.ts"/>
 /// <reference path="./sap.ui.support.d.ts"/>
 /// <reference path="./sap.ui.table.d.ts"/>
 /// <reference path="./sap.ui.testrecorder.d.ts"/>
-/// <reference path="./sap.tnt.d.ts"/>
 /// <reference path="./sap.ui.unified.d.ts"/>
 /// <reference path="./sap.ui.ux3.d.ts"/>
-/// <reference path="./sap.uxap.d.ts"/>
 /// <reference path="./sap.ui.webc.common.d.ts"/>
 /// <reference path="./sap.ui.webc.fiori.d.ts"/>
 /// <reference path="./sap.ui.webc.main.d.ts"/>
+/// <reference path="./sap.uxap.d.ts"/>
