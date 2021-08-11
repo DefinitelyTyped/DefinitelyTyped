@@ -31,7 +31,7 @@ declare module 'fs/promises' {
         WatchOptions,
         WatchEventType,
     } from 'node:fs';
-    interface FileChangeInfo<T = string | Buffer> {
+    interface FileChangeInfo<T extends (string | Buffer)> {
         eventType: WatchEventType;
         filename: T;
     }
@@ -965,7 +965,7 @@ declare module 'fs/promises' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options?: WatchOptions | BufferEncoding): AsyncIterable<FileChangeInfo>;
+    function watch(filename: PathLike, options?: WatchOptions | BufferEncoding): AsyncIterable<FileChangeInfo<string>>;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
@@ -974,7 +974,7 @@ declare module 'fs/promises' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<FileChangeInfo>;
+    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<FileChangeInfo<string>> | AsyncIterable<FileChangeInfo<Buffer>>;
 }
 declare module 'node:fs/promises' {
     export * from 'fs/promises';
