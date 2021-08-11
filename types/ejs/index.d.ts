@@ -279,6 +279,14 @@ export type RethrowCallback = (
  */
 export type IncludeCallback = (path: string, data?: Data) => string;
 
+/**
+ * @param originalPath the path as it appears in the include statement
+ * @param parsedPath the previously resolved path
+ *
+ * @return an object where {@link filename} is the final parsed path or {@link template} is the content of the included template
+ */
+export type IncluderCallback = (originalPath: string, parsedPath: string) => ({ filename: string } | { template: string });
+
 export interface Options {
     /**
      * Log the generated JavaScript source for the EJS template to the console.
@@ -435,6 +443,11 @@ export interface Options {
      * An array of paths to use when resolving includes with relative paths
      */
     views?: string[] | undefined;
+
+    /**
+     * Custom function to handle EJS includes
+     */
+    includer?: IncluderCallback;
 }
 
 export interface Cache {
