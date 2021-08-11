@@ -214,6 +214,7 @@ export class Map<K, V> {
 export namespace Map {
   // This is implemented by jspb.Map.ArrayIteratorIterable_, but that class shouldn't be exported
   interface Iterator<T> {
+    [Symbol.iterator](): Iterator<T>;
     next(): IteratorResult<T>;
   }
   interface IteratorResult<T> {
