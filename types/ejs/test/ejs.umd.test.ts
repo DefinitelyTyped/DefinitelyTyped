@@ -49,3 +49,25 @@ const renderOptions: ejs.Options = {
     filename: './index.ejs',
     views: ['dir1', 'dir2'],
 };
+
+const fileNameIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
+    expectType<string>(originalPath);
+    expectType<string>(parsedPath);
+
+    return { filename: '/some/path/to/file' };
+};
+
+const templateIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
+    expectType<string>(originalPath);
+    expectType<string>(parsedPath);
+
+    return { template: 'template data' };
+};
+
+// $ExpectError
+const brokenIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
+    expectType<string>(originalPath);
+    expectType<string>(parsedPath);
+
+    return { filename: originalPath, template: originalPath };
+};

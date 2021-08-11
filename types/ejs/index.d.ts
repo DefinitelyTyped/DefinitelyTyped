@@ -285,7 +285,7 @@ export type IncludeCallback = (path: string, data?: Data) => string;
  *
  * @return an object where {@link filename} is the final parsed path or {@link template} is the content of the included template
  */
-export type IncluderCallback = (originalPath: string, parsedPath: string) => ({ filename: string } | { template: string });
+export type IncluderCallback = (originalPath: string, parsedPath: string) => ({ filename: string, template?: never } | { template: string, filename?: never });
 
 export interface Options {
     /**
