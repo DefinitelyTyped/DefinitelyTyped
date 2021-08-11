@@ -25,7 +25,7 @@ interface CreateTorrentOptions {
     // add non-standard info dict entries, e.g. info.source, a convention for cross-seeding
     info?: Record<string, string> | undefined;
     // called with the number of bytes hashed and estimated total size after every piece
-    onProgress?(alreadyHashedBytes: number, AllBytesToHash: number): void;
+    onProgress?(hashedLength: number, estimatedTorrentLength: number): void;
 }
 
 declare function createTorrent(
