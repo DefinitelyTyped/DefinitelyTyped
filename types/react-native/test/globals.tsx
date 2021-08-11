@@ -61,3 +61,14 @@ fetch('https://example.org/post-image', {
     },
     method: 'POST',
 });
+
+const socket = new WebSocket('wss://echo.websocket.org');
+socket.send('hello world');
+socket.addEventListener('open', () => console.log('open'));
+socket.onopen = () => console.log('open');
+socket.addEventListener('close', e => console.log(e.code));
+socket.onclose = e => console.log(e.code);
+socket.addEventListener('message', e => console.log(e.data));
+socket.onmessage = e => console.log(e.data);
+socket.addEventListener('error', e => console.log(e.message));
+socket.onerror = e => console.log(e.message);
