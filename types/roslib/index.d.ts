@@ -283,8 +283,8 @@ declare namespace ROSLIB {
     }
 
     export class Service <
-        TServiceRequest = ServiceRequest,
-        TServiceResponse = ServiceResponse
+        TServiceRequest = any,
+        TServiceResponse = any
     > {
         /**
          * A ROS service client.
