@@ -6,6 +6,4 @@ Holder.run({
     images: myImage
 });
 
-Holder.run('image-class-name');
-
 Holder.run();
