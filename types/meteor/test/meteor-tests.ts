@@ -14,8 +14,7 @@ import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
-import { Template } from 'meteor/templating';
-import { Blaze } from 'meteor/blaze';
+import { Template, TemplateStaticTyped } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { HTTP } from 'meteor/http';
 import { ReactiveDict } from 'meteor/reactive-dict';
@@ -673,8 +672,66 @@ namespace MeteorTests {
     var userId = instance.data.userId;
 
     var data = Template.currentData();
-    var data = Template.parentData(1);
+    var data2 = Template.parentData();
+    var data3 = Template.parentData(2);
     var body = Template.body;
+
+    const Template2 = Template as TemplateStaticTyped<
+        { foo: string },
+        'newTemplate2',
+        {
+            state: ReactiveDict<{ bar: number }>;
+            getFooBar(): string;
+        }
+    >;
+
+    const newTemplate2 = Template2.newTemplate2;
+
+    newTemplate2.helpers({
+        helperName: function () {
+            // $ExpectType string
+            Template2.currentData().foo;
+
+            // $ExpectType string
+            Template2.instance().getFooBar();
+        },
+    });
+
+    newTemplate2.onCreated(function () {
+        this.state.clear();
+        this.state = new ReactiveDict();
+        this.getFooBar = () => {
+            // $ExpectType string
+            this.data.foo;
+
+            // $ExpectType number | undefined
+            this.state.get('bar');
+
+            return this.data.foo + this.state.get('bar');
+        };
+
+        this.autorun(() => {
+            var dataContext = Template2.currentData();
+
+            // $ExpectType string
+            dataContext.foo;
+
+            this.subscribe('comments', dataContext.foo);
+        });
+    });
+
+    newTemplate2.rendered = function () {};
+
+    newTemplate2.events({
+        'click .something'(_event, template) {
+            const a = template.state.get('bar');
+            // $ExpectType number | undefined
+            a;
+
+            // $ExpectType string
+            template.getFooBar();
+        },
+    });
 
     /**
      * From Match section

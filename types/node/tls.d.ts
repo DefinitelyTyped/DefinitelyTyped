@@ -127,8 +127,6 @@ declare module 'tls' {
         requestOCSP?: boolean | undefined;
     }
     /**
-     * * Extends: `<net.Socket>`
-     *
      * Performs transparent encryption of written data and all required TLS
      * negotiation.
      *
@@ -144,7 +142,9 @@ declare module 'tls' {
          */
         constructor(socket: net.Socket, options?: TLSSocketOptions);
         /**
-         * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
+         * Returns `true` if the peer certificate was signed by one of the CAs specified
+         * when creating the `tls.TLSSocket` instance, otherwise `false`.
+         * @since v0.11.4
          */
         authorized: boolean;
         /**
@@ -328,7 +328,7 @@ declare module 'tls' {
          * smaller fragments add extra TLS framing bytes and CPU overhead, which may
          * decrease overall server throughput.
          * @since v0.11.11
-         * @param size The maximum TLS fragment size. The maximum value is `16384`.
+         * @param [size=16384] The maximum TLS fragment size. The maximum value is `16384`.
          */
         setMaxSendFragment(size: number): boolean;
         /**
@@ -542,8 +542,6 @@ declare module 'tls' {
         pskCallback?(hint: string | null): PSKCallbackNegotation | null;
     }
     /**
-     * * Extends: `<net.Server>`
-     *
      * Accepts encrypted connections using TLS or SSL.
      * @since v0.3.2
      */

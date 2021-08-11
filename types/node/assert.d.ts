@@ -12,8 +12,6 @@ declare module 'assert' {
     function assert(value: unknown, message?: string | Error): asserts value;
     namespace assert {
         /**
-         * * Extends: `<errors.Error>`
-         *
          * Indicates the failure of an assertion. All errors thrown by the `assert` module
          * will be instances of the `AssertionError` class.
          */
@@ -74,6 +72,8 @@ declare module 'assert' {
              * const callsfunc = tracker.calls(func);
              * ```
              * @since v14.2.0, v12.19.0
+             * @param [fn='A no-op function']
+             * @param [exact=1]
              * @return that wraps `fn`.
              */
             calls(exact?: number): () => void;
@@ -230,6 +230,7 @@ declare module 'assert' {
          * Using `assert.fail()` with more than two arguments is possible but deprecated.
          * See below for further details.
          * @since v0.1.21
+         * @param [message='Failed']
          */
         function fail(message?: string | Error): never;
         /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */

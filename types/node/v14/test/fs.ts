@@ -17,17 +17,33 @@ import * as util from 'util';
         assert.ifError);
 
     fs.writeFile("testfile", "content", "utf8", assert.ifError);
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.writeFile("testfile", "content", "invalid encoding", assert.ifError); // $ExpectError
 
     fs.writeFileSync("testfile", "content", "utf8");
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.writeFileSync("testfile", "content", "invalid encoding"); // $ExpectError
     fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.writeFileSync("testfile", "content", { encoding: "invalid encoding" }); // $ExpectError
     fs.writeFileSync("testfile", new DataView(new ArrayBuffer(1)), { encoding: "utf8" });
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.writeFileSync("testfile", new DataView(new ArrayBuffer(1)), { encoding: "invalid encoding" }); // $ExpectError
 }
 
 {
     fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.appendFile("testfile", "foobar", "invalid encoding", assert.ifError); // $ExpectError
     fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.appendFile("testfile", "foobar", { encoding: "invalid encoding" }, assert.ifError); // $ExpectError
     fs.appendFileSync("testfile", "foobar", "utf8");
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.appendFileSync("testfile", "foobar", "invalid encoding"); // $ExpectError
     fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.appendFileSync("testfile", "foobar", { encoding: "invalid encoding" }); // $ExpectError
 }
 
 {
@@ -38,7 +54,11 @@ import * as util from 'util';
     const stringEncoding: BufferEncoding | null = 'utf8';
 
     content = fs.readFileSync('testfile', 'utf8');
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // content = fs.readFileSync('testfile', 'invalid encoding'); // $ExpectError
     content = fs.readFileSync('testfile', { encoding: 'utf8' });
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // content = fs.readFileSync('testfile', { encoding: 'invalid encoding' }); // $ExpectError
     stringOrBuffer = fs.readFileSync('testfile', stringEncoding);
     stringOrBuffer = fs.readFileSync('testfile', { encoding: stringEncoding });
 
@@ -51,7 +71,11 @@ import * as util from 'util';
     buffer = fs.readFileSync('testfile', { flag: 'r' });
 
     fs.readFile('testfile', 'utf8', (err, data) => content = data);
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.readFile('testfile', 'invalid encoding', (err, data) => content = data); // $ExpectError
     fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.readFile('testfile', { encoding: 'invalid encoding' }, (err, data) => content = data); // $ExpectError
     fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
     fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
 
@@ -350,6 +374,24 @@ async function testPromisify() {
 
     const readStream = fs.createReadStream('./index.d.ts');
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
+}
+
+{
+    fs.createWriteStream('./index.d.ts');
+    fs.createWriteStream('./index.d.ts', 'utf8');
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.createWriteStream('./index.d.ts', 'invalid encoding'); // $ExpectError
+    fs.createWriteStream('./index.d.ts', { encoding: 'utf8' });
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.createWriteStream('./index.d.ts', { encoding: 'invalid encoding' }); // $ExpectError
+
+    fs.createReadStream('./index.d.ts');
+    fs.createReadStream('./index.d.ts', 'utf8');
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.createReadStream('./index.d.ts', 'invalid encoding'); // $ExpectError
+    fs.createReadStream('./index.d.ts', { encoding: 'utf8' });
+    // FIXME: $ExpectError is currently broken (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54711)
+    // fs.createReadStream('./index.d.ts', { encoding: 'invalid encoding' }); // $ExpectError
 }
 
 {

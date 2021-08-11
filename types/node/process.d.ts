@@ -579,7 +579,7 @@ declare module 'process' {
                  * In `Worker` threads, this function stops the current thread rather
                  * than the current process.
                  * @since v0.1.13
-                 * @param code The exit code.
+                 * @param [code=0] The exit code.
                  */
                 exit(code?: number): never;
                 /**
@@ -935,7 +935,7 @@ declare module 'process' {
                  * debugger. See `Signal Events`.
                  * @since v0.0.6
                  * @param pid A process ID
-                 * @param signal The signal to send, either as a string or number.
+                 * @param [signal='SIGTERM'] The signal to send, either as a string or number.
                  */
                 kill(pid: number, signal?: string | number): true;
                 /**
@@ -1165,8 +1165,8 @@ declare module 'process' {
                  * `process.umask()` returns the Node.js process's file mode creation mask. Child
                  * processes inherit the mask from the parent process.
                  * @since v0.1.19
-                 * @deprecated Deprecated. Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a   *
-                 * potential security vulnerability. There is no safe, cross-platform alternative API.
+                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential   *
+                 * security vulnerability. There is no safe, cross-platform alternative API.
                  */
                 umask(): number;
                 /**

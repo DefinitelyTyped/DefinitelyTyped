@@ -1038,7 +1038,7 @@ declare module 'util' {
         /**
          * UTF-8 encodes the `input` string and returns a `Uint8Array` containing the
          * encoded bytes.
-         * @param input The text to encode.
+         * @param [input='an empty string'] The text to encode.
          */
         encode(input?: string): Uint8Array;
         /**

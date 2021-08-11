@@ -137,7 +137,7 @@ declare module 'cluster' {
          * In a worker, `process.kill()` exists, but it is not this function;
          * it is `kill()`.
          * @since v0.9.12
-         * @param signal Name of the kill signal to send to the worker process.
+         * @param [signal='SIGTERM'] Name of the kill signal to send to the worker process.
          */
         kill(signal?: string): void;
         destroy(signal?: string): void;
@@ -322,7 +322,7 @@ declare module 'cluster' {
     export interface Cluster extends EventEmitter {
         disconnect(callback?: () => void): void;
         fork(env?: any): Worker;
-        /** @deprecated since v16.0.0 - use setupPrimary. */
+        /** @deprecated since v16.0.0 - use isPrimary. */
         readonly isMaster: boolean;
         readonly isPrimary: boolean;
         readonly isWorker: boolean;

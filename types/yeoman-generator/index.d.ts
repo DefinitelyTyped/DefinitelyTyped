@@ -604,6 +604,14 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     queueTaskGroup(taskGroup: Record<string, (...args: any[]) => any>, taskOptions?: Generator.TaskOptions): void;
 
     /**
+     * Registers the specified {@link priorities `priorities`}.
+     *
+     * @param priorities
+     * The priorities to register.
+     */
+    registerPriorities(priorities: Generator.Priority[]): void;
+
+    /**
      * Registers stored config prompts and optional option alternatives.
      *
      * @param questions
