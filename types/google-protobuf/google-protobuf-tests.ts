@@ -71,7 +71,7 @@ class MySimple extends jspb.Message {
       someTimestamp: google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, msg.getSomeTimestamp()),
       someType: google_protobuf_type_pb.Type.toObject(includeInstance, msg.getSomeType()),
       someDoubleValue: google_protobuf_wrappers_pb.DoubleValue.toObject(includeInstance, msg.getSomeDoubleValue()),
-      someKeyValueMap: msg.getSomeKeyValueMap()?.toObject(includeInstance) ?? [],
+      someKeyValueMap: msg.getSomeKeyValueMap().toObject(includeInstance),
     };
 
     if (includeInstance) {
@@ -548,12 +548,12 @@ class MySimple extends jspb.Message {
     return jspb.Message.getField(this, 15) != null;
   }
 
-  getSomeKeyValueMap(): jspb.Map<number, string> | undefined {
+  getSomeKeyValueMap(): jspb.Map<number, string> {
     return jspb.Message.getMapField(this, 16, true);
   };
 
   clearSomeKeyValueMap(): MySimple {
-    this.getSomeKeyValueMap()?.clear();
+    this.getSomeKeyValueMap().clear();
     return this;
   };
 };
@@ -561,13 +561,13 @@ class MySimple extends jspb.Message {
 // ensures messages are cloneable without a redundant cast
 const myMessage: MySimple = new MySimple();
 const myClonedMessage: MySimple = myMessage.clone();
-const myClonedMessage2: MySimple = myMessage.cloneMessage()
+const myClonedMessage2: MySimple = myMessage.cloneMessage();
 
 const myTimestamp = google_protobuf_timestamp_pb.Timestamp.fromDate(new Date());
 
 // ensure map iterators keys(), values(), entries() are available and detected as `Iterable`
-const jspbMap = myMessage.getSomeKeyValueMap() ?? new jspb.Map<number, string>([])
+const jspbMap = myMessage.getSomeKeyValueMap();
 
-const mapKeys = Array.from(jspbMap.keys())
-const mapValues = Array.from(jspbMap.values())
-const mapEntries = Array.from(jspbMap.entries())
+const mapKeys = Array.from(jspbMap.keys());
+const mapValues = Array.from(jspbMap.values());
+const mapEntries = Array.from(jspbMap.entries());
