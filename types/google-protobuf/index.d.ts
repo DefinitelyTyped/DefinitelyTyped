@@ -3,7 +3,6 @@
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
 //                 Chaitanya Kamatham <https://github.com/kamthamc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 type ScalarFieldType = boolean | number | string;
