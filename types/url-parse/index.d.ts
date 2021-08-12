@@ -44,7 +44,7 @@ interface URLParse {
     readonly username: string;
     set(
         part: URLParse.URLPart,
-        value: URLParse[typeof part] | undefined,
+        value: URLParse[URLParse.URLPart] | undefined,
         fn?: boolean | URLParse.QueryParser,
     ): URLParse;
     toString(stringify?: URLParse.StringifyQuery): string;
