@@ -3,7 +3,7 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
-    "target": "es2018",
+    "target": "es2020",
     "module": "commonjs",
     "lib": ["ES2021", "DOM"],
     "noEmit": true,

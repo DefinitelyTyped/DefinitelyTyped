@@ -12,6 +12,9 @@ import {
     StencilFunc,
     StencilOp,
 } from '../constants';
+import { ColorRepresentation } from '../utils';
+import { Color } from '../math/Color';
+import { Texture } from '../textures/Texture';
 
 export interface MaterialParameters {
     alphaTest?: number | undefined;

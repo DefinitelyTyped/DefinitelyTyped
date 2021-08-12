@@ -21,6 +21,10 @@ const customFlags: mParticle.SDKEventCustomFlags = {
     attr5: { foo: 'bar' },
 };
 
+const eventOptions: mParticle.SDKEventOptions = {
+    shouldUploadEvent: false,
+};
+
 const identifyRequest: mParticle.IdentifyRequest = {
     userIdentities: {
         customerid: 'test',
@@ -131,6 +135,15 @@ mParticle.logBaseEvent({
     messageType: 1,
     eventType: 1,
 });
+mParticle.logBaseEvent(
+    {
+        data: {},
+        name: 'baseEventName',
+        messageType: 1,
+        eventType: 1,
+    },
+    eventOptions
+);
 
 mParticle.logError('Login Failed', customAttrs);
 mParticle.logError(
@@ -150,6 +163,13 @@ mParticle.logEvent(
     mParticle.EventType.Location,
     customAttrs,
     customFlags,
+);
+mParticle.logEvent(
+    'eventName',
+    mParticle.EventType.Location,
+    customAttrs,
+    customFlags,
+    eventOptions,
 );
 
 mParticle.logForm('click', 'eventName');
@@ -174,6 +194,12 @@ mParticle.logPageView();
 mParticle.logPageView('pageName');
 mParticle.logPageView('pageName', customAttrs);
 mParticle.logPageView('pageName', customAttrs, customFlags);
+mParticle.logPageView(
+    'pageName',
+    customAttrs,
+    customFlags,
+    eventOptions
+);
 
 mParticle.ready(() => {
     console.log('hi');
@@ -400,6 +426,15 @@ mParticle.eCommerce.logProductAction(
     eCommerceCustomFlags,
 );
 
+mParticle.eCommerce.logProductAction(
+    300,
+    [product1, product2],
+    eCommerceCustomAttributes,
+    eCommerceCustomFlags,
+    transactionAttributes1,
+    eventOptions,
+);
+
 mParticle.eCommerce.logPurchase(
     transactionAttributes1,
     [product1, product2],
@@ -424,6 +459,13 @@ mParticle.eCommerce.logPromotion(
     eCommerceCustomAttributes,
     eCommerceCustomFlags,
 );
+mParticle.eCommerce.logPromotion(
+    mParticle.PromotionType.Unknown,
+    promotion1,
+    eCommerceCustomAttributes,
+    eCommerceCustomFlags,
+    eventOptions,
+);
 
 mParticle.eCommerce.logImpression(impression1);
 mParticle.eCommerce.logImpression([impression1, impression2]);
@@ -431,6 +473,7 @@ mParticle.eCommerce.logImpression(
     impression1,
     eCommerceCustomAttributes,
     eCommerceCustomFlags,
+    eventOptions,
 );
 
 mParticle.eCommerce.logRefund(

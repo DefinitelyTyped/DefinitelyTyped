@@ -46,6 +46,8 @@ export class MarchingCubes extends ImmediateRenderObject {
     begin(): void;
     end(): void;
 
+    init(resolution: string): void;
+
     addBall(ballx: number, bally: number, ballz: number, strength: number, subtract: number, colors: any): void;
 
     addPlaneX(strength: number, subtract: number): void;

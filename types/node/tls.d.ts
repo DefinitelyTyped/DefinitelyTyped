@@ -6,7 +6,7 @@
  * ```js
  * const tls = require('tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';

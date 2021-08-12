@@ -2,10 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "esnext.asynciterable"
+            "es6"
         ],
-        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -14,12 +12,14 @@
         "typeRoots": [
             "../"
         ],
+        "jsx": "react",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "deta-tests.ts"
+        "marvelapp__react-ab-test-tests.ts",
+        "marvelapp__react-ab-test-tests.tsx"
     ]
 }
