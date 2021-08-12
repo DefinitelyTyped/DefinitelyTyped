@@ -18,6 +18,7 @@ url1.query.baz;
 
 const url2 = new URL('foo/bar', 'https://github.com/');
 url2.set('protocol', 'http://');
+url2.set('slashes', true);
 
 URL.extractProtocol('https://github.com/foo/bar');
 URL.location('https://github.com/foo/bar');
