@@ -84,7 +84,7 @@
 export type Handler<TEvent = any, TResult = any> = (
     event: TEvent,
     context: Context,
-    callback: Callback<TResult>,
+    callback?: Callback<TResult>,
 ) => void | Promise<TResult>;
 
 /**
