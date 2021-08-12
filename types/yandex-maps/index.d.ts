@@ -3643,11 +3643,25 @@ declare namespace ymaps {
         class Promise {
             constructor(resolver?: () => void);
 
-            done(onFulfilled?: () => void, onRejected?: () => void, onProgress?: () => void, ctx?: object): void;
+            done(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                onProgress?: (...args: any[]) => void,
+                ctx?: object
+            ): void;
 
-            spread(onFulfilled?: () => void, onRejected?: () => void, ctx?: object): Promise;
+            spread(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                ctx?: object
+            ): Promise;
 
-            then(onFulfilled?: () => void, onRejected?: () => void, onProgress?: () => void, ctx?: object): Promise;
+            then(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                onProgress?: (...args: any[]) => void,
+                ctx?: object
+            ): Promise;
 
             valueOf(): object;
         }
