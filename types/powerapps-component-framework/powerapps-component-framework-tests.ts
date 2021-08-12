@@ -169,3 +169,17 @@ const webApiTest: ComponentFramework.WebApi = {
     retrieveMultipleRecords: () => Promise.resolve({ entities: [], nextLink: '' }),
     retrieveRecord: () => Promise.resolve({}),
 };
+
+const pagingTest: ComponentFramework.PropertyHelper.DataSetApi.Paging = {
+    totalResultCount: 1000,
+    firstPageNumber: 4,
+    lastPageNumber: 4,
+    pageSize: 20,
+    hasNextPage: true,
+    hasPreviousPage: true,
+    loadNextPage: (loadOnlyNewPage?: boolean) => {},
+    loadPreviousPage: (loadOnlyNewPage?: boolean) => {},
+    reset: () => {},
+    setPageSize: (pageSize: number) => {},
+    loadExactPage:(pageNumber: number) => {}
+};
