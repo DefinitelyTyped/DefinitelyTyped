@@ -5,6 +5,5 @@
 
 type LanguageType = 'es' | 'fr' | 'pt-BR';
 
-declare function language(lang: LanguageType): string;
+export function language(lang: LanguageType): string;
 
-export = language;
