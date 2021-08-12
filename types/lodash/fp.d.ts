@@ -299,8 +299,8 @@ declare namespace _ {
         <TResult>(customizer: lodash.CloneWithCustomizer<T, TResult | undefined>): TResult | T;
     }
     type LodashCloneWith2x1<T, TResult> = (value: T) => TResult | T;
-    type LodashCompact = <T>(array: lodash.List<T> | null | undefined) => Array<Exclude<T, null | undefined | false | "" | 0>>;
-    type LodashNegate = <T extends any[]>(predicate: (...args: T) => any) => (...args: T) => boolean;
+    type LodashCompact = <T>(array: lodash.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
+    type LodashNegate = <T extends any[]>(predicate: (...args: T) => boolean) => (...args: T) => boolean;
     interface LodashFlowRight {
         <A extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R7;
         <A extends any[], R1, R2, R3, R4, R5, R6>(f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R6;
@@ -432,16 +432,16 @@ declare namespace _ {
     interface LodashDefaults {
         <TSource>(source: TSource): LodashDefaults1x1<TSource>;
         <TObject>(source: lodash.__, object: TObject): LodashDefaults1x2<TObject>;
-        <TObject, TSource>(source: TSource, object: TObject): TSource & TObject;
+        <TObject, TSource>(source: TSource, object: TObject): NonNullable<TSource & TObject>;
     }
-    type LodashDefaults1x1<TSource> = <TObject>(object: TObject) => TSource & TObject;
-    type LodashDefaults1x2<TObject> = <TSource>(source: TSource) => TSource & TObject;
+    type LodashDefaults1x1<TSource> = <TObject>(object: TObject) => NonNullable<TSource & TObject>;
+    type LodashDefaults1x2<TObject> = <TSource>(source: TSource) => NonNullable<TSource & TObject>;
     interface LodashDefaultsAll {
-        <TObject, TSource>(object: [TObject, TSource]): TSource & TObject;
-        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TSource2 & TSource1 & TObject;
-        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TSource3 & TSource2 & TSource1 & TObject;
-        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
-        <TObject>(object: [TObject]): TObject;
+        <TObject, TSource>(object: [TObject, TSource]): NonNullable<TSource & TObject>;
+        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): NonNullable<TSource2 & TSource1 & TObject>;
+        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
+        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
+        <TObject>(object: [TObject]): NonNullable<TObject>;
         (object: ReadonlyArray<any>): any;
     }
     interface LodashDefaultsDeep {
@@ -1303,7 +1303,7 @@ declare namespace _ {
     type LodashFlatMapDepth4x3 = (collection: object | null | undefined) => boolean[];
     type LodashFlatMapDepth4x5 = (depth: number) => boolean[];
     type LodashFlatten = <T>(array: lodash.List<lodash.Many<T>> | null | undefined) => T[];
-    type LodashFlattenDeep = <T>(array: lodash.ListOfRecursiveArraysOrValues<T> | null | undefined) => T[];
+    type LodashFlattenDeep = <T>(array: lodash.ListOfRecursiveArraysOrValues<T> | null | undefined) => Array<lodash.Flat<T>>;
     interface LodashFlattenDepth {
         (depth: number): LodashFlattenDepth1x1;
         <T>(depth: lodash.__, array: lodash.ListOfRecursiveArraysOrValues<T> | null | undefined): LodashFlattenDepth1x2<T>;
@@ -2112,40 +2112,36 @@ declare namespace _ {
     type LodashMapKeys2x1 = <T extends object>(object: T | null | undefined) => lodash.Dictionary<T[keyof T]>;
     type LodashMapKeys2x2<T> = (iteratee: lodash.ValueIteratee<string>) => lodash.Dictionary<T[keyof T]>;
     interface LodashMapValues {
-        <T, TResult>(callback: (value: T) => TResult): LodashMapValues1x1<T, TResult>;
-        <T>(callbackOrIterateeOrIterateeOrIteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues1x2<T>;
-        <T, TResult>(callback: (value: T) => TResult, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<TResult>;
-        <T extends object, TResult>(callback: (value: T[keyof T]) => TResult): LodashMapValues2x1<T, TResult>;
-        <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues2x2<T>;
+        <T extends object, TResult>(callback: (value: T[keyof T]) => TResult): LodashMapValues1x1<T, TResult>;
+        <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues1x2<T>;
         <T extends object, TResult>(callback: (value: T[keyof T]) => TResult, obj: T | null | undefined): { [P in keyof T]: TResult };
-        (iteratee: object): LodashMapValues3x1;
+        (iteratee: object): LodashMapValues2x1;
+        <T>(iteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues2x2<T>;
         <T>(iteratee: object, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(iteratee: object, obj: T | null | undefined): { [P in keyof T]: boolean };
-        <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues5x1<T, TKey>;
+        <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues4x1<T, TKey>;
         <T, TKey extends keyof T>(iteratee: TKey, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<T[TKey]>;
-        (iteratee: string): LodashMapValues6x1;
+        (iteratee: string): LodashMapValues5x1;
         <T>(iteratee: string, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<any>;
         <T extends object>(iteratee: string, obj: T | null | undefined): { [P in keyof T]: any };
     }
-    type LodashMapValues1x1<T, TResult> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<TResult>;
+    type LodashMapValues1x1<T, TResult> = (obj: T | null | undefined) => { [P in keyof T]: TResult };
     interface LodashMapValues1x2<T> {
-        <TResult>(callback: (value: T) => TResult): lodash.Dictionary<TResult>;
-        (iteratee: object): lodash.Dictionary<boolean>;
-        <TKey extends keyof T>(iteratee: TKey): lodash.Dictionary<T[TKey]>;
-        (iteratee: string): lodash.Dictionary<any>;
-    }
-    type LodashMapValues2x1<T, TResult> = (obj: T | null | undefined) => { [P in keyof T]: TResult };
-    interface LodashMapValues2x2<T> {
         <TResult>(callback: (value: T[keyof T]) => TResult): { [P in keyof T]: TResult };
         (iteratee: object): { [P in keyof T]: boolean };
         (iteratee: string): { [P in keyof T]: any };
     }
-    interface LodashMapValues3x1 {
+    interface LodashMapValues2x1 {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: boolean };
     }
-    type LodashMapValues5x1<T, TKey extends keyof T> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<T[TKey]>;
-    interface LodashMapValues6x1 {
+    interface LodashMapValues2x2<T> {
+        (iteratee: object): lodash.Dictionary<boolean>;
+        <TKey extends keyof T>(iteratee: TKey): lodash.Dictionary<T[TKey]>;
+        (iteratee: string): lodash.Dictionary<any>;
+    }
+    type LodashMapValues4x1<T, TKey extends keyof T> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<T[TKey]>;
+    interface LodashMapValues5x1 {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<any>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: any };
     }
@@ -2250,18 +2246,22 @@ declare namespace _ {
     type LodashNth1x2<T> = (n: number) => T | undefined;
     type LodashNthArg = (n: number) => (...args: any[]) => any;
     interface LodashOmit {
-        <T extends object, K extends keyof T>(paths: lodash.Many<K>): LodashOmit1x1<T, K>;
+        <K extends lodash.PropertyName[]>(paths: K): LodashOmit1x1<K>;
         <T extends object>(paths: lodash.__, object: T | null | undefined): LodashOmit1x2<T>;
+        <T extends object, K extends lodash.PropertyName[]>(paths: K, object: T | null | undefined): Pick<T, Exclude<keyof T, K[number]>>;
+        <T extends object, K extends keyof T>(paths: lodash.Many<K>): LodashOmit2x1<T, K>;
         <T extends object, K extends keyof T>(paths: lodash.Many<K>, object: T | null | undefined): lodash.Omit<T, K>;
-        (paths: lodash.Many<lodash.PropertyName>): LodashOmit2x1;
+        (paths: lodash.Many<lodash.PropertyName>): LodashOmit3x1;
         <T extends object>(paths: lodash.Many<lodash.PropertyName>, object: T | null | undefined): lodash.PartialObject<T>;
     }
-    type LodashOmit1x1<T, K extends keyof T> = (object: T | null | undefined) => lodash.Omit<T, K>;
+    type LodashOmit1x1<K extends lodash.PropertyName[]> = <T extends object>(object: T | null | undefined) => Pick<T, Exclude<keyof T, K[number]>>;
     interface LodashOmit1x2<T> {
+        <K extends lodash.PropertyName[]>(paths: K): Pick<T, Exclude<keyof T, K[number]>>;
         <K extends keyof T>(paths: lodash.Many<K>): lodash.Omit<T, K>;
         (paths: lodash.Many<lodash.PropertyName>): lodash.PartialObject<T>;
     }
-    type LodashOmit2x1 = <T extends object>(object: T | null | undefined) => lodash.PartialObject<T>;
+    type LodashOmit2x1<T, K extends keyof T> = (object: T | null | undefined) => lodash.Omit<T, K>;
+    type LodashOmit3x1 = <T extends object>(object: T | null | undefined) => lodash.PartialObject<T>;
     interface LodashOmitBy {
         <T>(predicate: lodash.ValueKeyIteratee<T>): LodashOmitBy1x1<T>;
         <T>(predicate: lodash.__, object: lodash.Dictionary<T> | null | undefined): LodashOmitBy1x2<T>;
@@ -4054,12 +4054,12 @@ declare namespace _ {
     type LodashSubtract1x2 = (minuend: number) => number;
     type LodashSum = (collection: lodash.List<any> | null | undefined) => number;
     interface LodashSumBy {
-        <T>(iteratee: ((value: T) => number) | string): LodashSumBy1x1<T>;
+        <T>(iteratee: lodash.ValueIterateeCustom<T, number>): LodashSumBy1x1<T>;
         <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashSumBy1x2<T>;
-        <T>(iteratee: ((value: T) => number) | string, collection: lodash.List<T> | null | undefined): number;
+        <T>(iteratee: lodash.ValueIterateeCustom<T, number>, collection: lodash.List<T> | null | undefined): number;
     }
     type LodashSumBy1x1<T> = (collection: lodash.List<T> | null | undefined) => number;
-    type LodashSumBy1x2<T> = (iteratee: ((value: T) => number) | string) => number;
+    type LodashSumBy1x2<T> = (iteratee: lodash.ValueIterateeCustom<T, number>) => number;
     interface LodashXor {
         <T>(arrays2: lodash.List<T> | null | undefined): LodashXor1x1<T>;
         <T>(arrays2: lodash.__, arrays: lodash.List<T> | null | undefined): LodashXor1x2<T>;
@@ -4201,24 +4201,37 @@ declare namespace _ {
         <T>(iteratee: lodash.__, accumulator: lodash.__, object: ReadonlyArray<T>): LodashTransform1x4<T>;
         <T, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>, accumulator: lodash.__, object: ReadonlyArray<T>): LodashTransform1x5<TResult>;
         <T, TResult>(iteratee: lodash.__, accumulator: TResult, object: ReadonlyArray<T>): LodashTransform1x6<T, TResult>;
-        <T, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>, accumulator: TResult, object: ReadonlyArray<T> | lodash.Dictionary<T>): TResult;
+        <T, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>, accumulator: TResult, object: ReadonlyArray<T>): TResult;
+        <T>(iteratee: lodash.MemoVoidIteratorCapped<T, string>): LodashTransform2x1<T>;
+        <T, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, string>, accumulator: TResult): LodashTransform2x3<T, TResult>;
         <T>(iteratee: lodash.__, accumulator: lodash.__, object: lodash.Dictionary<T>): LodashTransform2x4<T>;
-        <T, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>, accumulator: lodash.__, object: lodash.Dictionary<T>): LodashTransform2x5<TResult>;
+        <T>(iteratee: lodash.MemoVoidIteratorCapped<T, string>, accumulator: lodash.__, object: lodash.Dictionary<T>): LodashTransform2x5;
         <T, TResult>(iteratee: lodash.__, accumulator: TResult, object: lodash.Dictionary<T>): LodashTransform2x6<T, TResult>;
+        <T, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, string>, accumulator: TResult, object: lodash.Dictionary<T>): TResult;
+        <T extends object>(iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>): LodashTransform3x1<T>;
+        <T extends object, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>, accumulator: TResult): LodashTransform3x3<T, TResult>;
+        <T extends object>(iteratee: lodash.__, accumulator: lodash.__, object: T): LodashTransform3x4<T>;
+        <T extends object>(iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>, accumulator: lodash.__, object: T): LodashTransform3x5;
+        <T extends object, TResult>(iteratee: lodash.__, accumulator: TResult, object: T): LodashTransform3x6<T, TResult>;
+        <T extends object, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>, accumulator: TResult, object: T): TResult;
     }
     interface LodashTransform1x1<T, TResult> {
         (accumulator: TResult): LodashTransform1x3<T, TResult>;
         (accumulator: lodash.__, object: ReadonlyArray<T>): LodashTransform1x5<TResult>;
-        (accumulator: TResult, object: ReadonlyArray<T> | lodash.Dictionary<T>): TResult;
-        (accumulator: lodash.__, object: lodash.Dictionary<T>): LodashTransform2x5<TResult>;
+        (accumulator: TResult, object: ReadonlyArray<T>): TResult;
     }
     interface LodashTransform1x2<TResult> {
         <T>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>): LodashTransform1x3<T, TResult>;
         <T>(iteratee: lodash.__, object: ReadonlyArray<T>): LodashTransform1x6<T, TResult>;
-        <T>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>, object: ReadonlyArray<T> | lodash.Dictionary<T>): TResult;
+        <T>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>, object: ReadonlyArray<T>): TResult;
+        <T>(iteratee: lodash.MemoVoidIteratorCapped<T, string>): LodashTransform2x3<T, TResult>;
         <T>(iteratee: lodash.__, object: lodash.Dictionary<T>): LodashTransform2x6<T, TResult>;
+        <T>(iteratee: lodash.MemoVoidIteratorCapped<T, string>, object: lodash.Dictionary<T>): TResult;
+        <T extends object>(iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>): LodashTransform3x3<T, TResult>;
+        <T extends object>(iteratee: lodash.__, object: T): LodashTransform3x6<T, TResult>;
+        <T extends object>(iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>, object: T): TResult;
     }
-    type LodashTransform1x3<T, TResult> = (object: ReadonlyArray<T> | lodash.Dictionary<T>) => TResult;
+    type LodashTransform1x3<T, TResult> = (object: ReadonlyArray<T>) => TResult;
     interface LodashTransform1x4<T> {
         <TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>): LodashTransform1x5<TResult>;
         <TResult>(iteratee: lodash.__, accumulator: TResult): LodashTransform1x6<T, TResult>;
@@ -4226,13 +4239,32 @@ declare namespace _ {
     }
     type LodashTransform1x5<TResult> = (accumulator: TResult) => TResult;
     type LodashTransform1x6<T, TResult> = (iteratee: lodash.MemoVoidIteratorCapped<T, TResult>) => TResult;
-    interface LodashTransform2x4<T> {
-        <TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>): LodashTransform2x5<TResult>;
-        <TResult>(iteratee: lodash.__, accumulator: TResult): LodashTransform2x6<T, TResult>;
-        <TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>, accumulator: TResult): TResult;
+    interface LodashTransform2x1<T> {
+        <TResult>(accumulator: TResult): LodashTransform2x3<T, TResult>;
+        (accumulator: lodash.__, object: lodash.Dictionary<T>): LodashTransform2x5;
+        <TResult>(accumulator: TResult, object: lodash.Dictionary<T>): TResult;
     }
-    type LodashTransform2x5<TResult> = (accumulator: TResult) => TResult;
-    type LodashTransform2x6<T, TResult> = (iteratee: lodash.MemoVoidIteratorCapped<T, TResult>) => TResult;
+    type LodashTransform2x3<T, TResult> = (object: lodash.Dictionary<T>) => TResult;
+    interface LodashTransform2x4<T> {
+        (iteratee: lodash.MemoVoidIteratorCapped<T, string>): LodashTransform2x5;
+        <TResult>(iteratee: lodash.__, accumulator: TResult): LodashTransform2x6<T, TResult>;
+        <TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, string>, accumulator: TResult): TResult;
+    }
+    type LodashTransform2x5 = <TResult>(accumulator: TResult) => TResult;
+    type LodashTransform2x6<T, TResult> = (iteratee: lodash.MemoVoidIteratorCapped<T, string>) => TResult;
+    interface LodashTransform3x1<T> {
+        <TResult>(accumulator: TResult): LodashTransform3x3<T, TResult>;
+        (accumulator: lodash.__, object: T): LodashTransform3x5;
+        <TResult>(accumulator: TResult, object: T): TResult;
+    }
+    type LodashTransform3x3<T, TResult> = (object: T) => TResult;
+    interface LodashTransform3x4<T> {
+        (iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>): LodashTransform3x5;
+        <TResult>(iteratee: lodash.__, accumulator: TResult): LodashTransform3x6<T, TResult>;
+        <TResult>(iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>, accumulator: TResult): TResult;
+    }
+    type LodashTransform3x5 = <TResult>(accumulator: TResult) => TResult;
+    type LodashTransform3x6<T, TResult> = (iteratee: lodash.MemoVoidIteratorCapped<T[keyof T], keyof T>) => TResult;
     type LodashTrim = (string: string) => string;
     interface LodashTrimChars {
         (chars: string): LodashTrimChars1x1;
