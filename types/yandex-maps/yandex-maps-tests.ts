@@ -1,5 +1,5 @@
 const defaultBehavior = ['drag', 'scrollZoom', 'dblClickZoom', 'multiTouch', 'rightMouseButtonMagnifier'];
-const element: HTMLDivElement = document.createElement("div");
+const element: HTMLDivElement = document.createElement('div');
 
 const zoomControl = new ymaps.control.ZoomControl({
     options: {
@@ -7,30 +7,26 @@ const zoomControl = new ymaps.control.ZoomControl({
             top: 108,
             right: 10,
             bottom: 'auto',
-            left: 'auto',
-        },
-    },
+            left: 'auto'
+        }
+    }
 });
 zoomControl.clear();
 
 const typeSelector = new ymaps.control.TypeSelector({
     options: {
-        panoramasItemMode: 'off',
-    },
+        panoramasItemMode: 'off'
+    }
 });
 
 const map = new ymaps.Map(
     element,
     {
         behaviors: defaultBehavior,
-        center:    [55.76, 37.64],
-        controls:  [
-            'trafficControl',
-            zoomControl,
-            typeSelector,
-        ],
-        type:      'yandex#map',
-        zoom:      10
+        center: [55.76, 37.64],
+        controls: ['trafficControl', zoomControl, typeSelector],
+        type: 'yandex#map',
+        zoom: 10
     },
     {
         autoFitToViewport: 'always'
@@ -38,7 +34,8 @@ const map = new ymaps.Map(
 
 map.behaviors.disable(defaultBehavior);
 
-map.events.add('click', () => {});
+map.events.add('click', () => {
+});
 
 const balloonLayout = ymaps.templateLayoutFactory.createClass(
     '<div class="map-marker-balloon"></div>',
@@ -51,24 +48,25 @@ const balloonLayout = ymaps.templateLayoutFactory.createClass(
 );
 
 const mapMarker = new ymaps.Placemark([55.76, 37.64], {}, {
-    balloonContent:         'test',
-    balloonAutoPan:         true,
-    balloonCloseButton:     false,
-    balloonZIndex:          '10',
+    balloonContent: 'test',
+    balloonAutoPan: true,
+    balloonCloseButton: false,
+    balloonZIndex: '10',
     balloonLayout,
     balloonPanelMaxMapArea: 0,
-    iconLayout:             'default#image',
-    iconImageHref:          './test/icon.png',
-    iconImageSize:          [26, 26],
-    iconImageOffset:        [13, 13],
-    hasBalloon:             true,
-    hasHint:                false,
-    hideIconOnBalloonOpen:  true,
-    openBalloonOnClick:     false,
-    zIndex:                 1
+    iconLayout: 'default#image',
+    iconImageHref: './test/icon.png',
+    iconImageSize: [26, 26],
+    iconImageOffset: [13, 13],
+    hasBalloon: true,
+    hasHint: false,
+    hideIconOnBalloonOpen: true,
+    openBalloonOnClick: false,
+    zIndex: 1
 });
 
-mapMarker.events.add('click', (event: ymaps.Event) => {});
+mapMarker.events.add('click', (event: ymaps.Event) => {
+});
 
 map.geoObjects.add(mapMarker);
 
@@ -116,7 +114,7 @@ const layersCollections = map.layers.getAll();
 const layers = layersCollections.reduce((acc: ymaps.Layer[], collection: ymaps.Collection<ymaps.Layer>) => [...acc, ...collection.getAll()], []);
 const mapLayer = layers.find((layer: ymaps.Layer) => {
     if (!layer.getAlias) {
-      return false;
+        return false;
     }
 
     return layer.getAlias() === 'map';
@@ -139,4 +137,23 @@ ymaps.panorama.Base.createPanorama({
     position: [0, 0],
     tilesLevels: [],
     tileSize: [0, 0]
+});
+
+ymaps.modules.define('test.module', (provide) => {
+    provide(function(this: any, value: any) {
+        this.value = value;
+    });
+});
+
+ymaps.modules.define('test.module1', [
+    'test.module',
+    'templateLayoutFactory'
+], (provide, testModule, templateLayoutFactory: typeof ymaps.templateLayoutFactory) => {
+    const layoutClass = templateLayoutFactory.createClass('<div>{{ properties.header }}</div>', {
+        testMethod() {
+            return testModule;
+        }
+    });
+
+    provide(layoutClass);
 });

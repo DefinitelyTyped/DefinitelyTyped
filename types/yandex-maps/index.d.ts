@@ -10,98 +10,119 @@ declare namespace ymaps {
         new(): T;
     }
 
-    type ControlSingleKey = "fullscreenControl" | "geolocationControl" | "routeEditor" | "rulerControl" | "searchControl" | "trafficControl" | "typeSelector" | "zoomControl";
-    type ControlSetKey = "smallMapDefaultSet" | "mediumMapDefaultSet" | "largeMapDefaultSet" | "default";
+    type ControlSingleKey =
+        'fullscreenControl' | 'geolocationControl' | 'routeEditor' | 'rulerControl' |
+        'searchControl' | 'trafficControl' | 'typeSelector' | 'zoomControl';
+    type ControlSetKey = 'smallMapDefaultSet' | 'mediumMapDefaultSet' | 'largeMapDefaultSet' | 'default';
     type ControlKey = ControlSingleKey | ControlSetKey;
 
     type OverlayKey =
-        "default#placemark" | "default#pin" | "default#circle" | "default#rectangle" | "default#polyline" | "default#polygon" |
-        "hotspot#placemark" | "hotspot#circle" | "hotspot#rectangle" | "hotspot#polyline" | "hotspot#polygon" | "html#balloon" | "html#hint" |
-        "html#placemark" | "html#rectangle" |
-        string | IClassConstructor<IOverlay> | ((geometry: IPixelLineStringGeometry,
-            data: IDataManager | object,
-            options: object) => Promise<string | IClassConstructor<IOverlay>>);
-    type InteractivityModelKey = "default#opaque" | "default#geoObject" | "default#layer" | "default#transparent" | "default#silent" | string;
-
+        'default#placemark' | 'default#pin' | 'default#circle' | 'default#rectangle' | 'default#polyline' |
+        'default#polygon' | 'hotspot#placemark' | 'hotspot#circle' | 'hotspot#rectangle' | 'hotspot#polyline' |
+        'hotspot#polygon' | 'html#balloon' | 'html#hint' | 'html#placemark' | 'html#rectangle' | string |
+        IClassConstructor<IOverlay> | ((geometry: IPixelLineStringGeometry,
+                                        data: IDataManager | object,
+                                        options: object) => Promise<string | IClassConstructor<IOverlay>>);
+    type InteractivityModelKey =
+        'default#opaque' | 'default#geoObject' | 'default#layer' | 'default#transparent' | 'default#silent' | string;
     type PresetWithTextKey =
         'islands#blueIcon' | 'islands#darkGreenIcon' | 'islands#redIcon' | 'islands#violetIcon' |
         'islands#darkOrangeIcon' | 'islands#blackIcon' | 'islands#nightIcon' | 'islands#yellowIcon' |
         'islands#darkBlueIcon' | 'islands#greenIcon' | 'islands#pinkIcon' | 'islands#orangeIcon' |
         'islands#grayIcon' | 'islands#lightBlueIcon' | 'islands#brownIcon' | 'islands#oliveIcon';
     type PresetWithTextStretchyKey =
-        'islands#blueStretchyIcon' | 'islands#darkGreenStretchyIcon' | 'islands#redStretchyIcon' | 'islands#violetStretchyIcon' |
-        'islands#darkOrangeStretchyIcon' | 'islands#blackStretchyIcon' | 'islands#nightStretchyIcon' | 'islands#yellowStretchyIcon' |
-        'islands#darkBlueStretchyIcon' | 'islands#greenStretchyIcon' | 'islands#pinkStretchyIcon' | 'islands#orangeStretchyIcon' |
-        'islands#grayStretchyIcon' | 'islands#lightBlueStretchyIcon' | 'islands#brownStretchyIcon' | 'islands#oliveStretchyIcon';
+        'islands#blueStretchyIcon' | 'islands#darkGreenStretchyIcon' | 'islands#redStretchyIcon' |
+        'islands#violetStretchyIcon' | 'islands#darkOrangeStretchyIcon' | 'islands#blackStretchyIcon' |
+        'islands#nightStretchyIcon' | 'islands#yellowStretchyIcon' | 'islands#darkBlueStretchyIcon' |
+        'islands#greenStretchyIcon' | 'islands#pinkStretchyIcon' | 'islands#orangeStretchyIcon' |
+        'islands#grayStretchyIcon' | 'islands#lightBlueStretchyIcon' | 'islands#brownStretchyIcon' |
+        'islands#oliveStretchyIcon';
     type PresetDotKey =
         'islands#blueDotIcon' | 'islands#darkGreenDotIcon' | 'islands#redDotIcon' | 'islands#violetDotIcon' |
         'islands#darkOrangeDotIcon' | 'islands#blackDotIcon' | 'islands#nightDotIcon' | 'islands#yellowDotIcon' |
         'islands#darkBlueDotIcon' | 'islands#greenDotIcon' | 'islands#pinkDotIcon' | 'islands#orangeDotIcon' |
         'islands#grayDotIcon' | 'islands#lightBlueDotIcon' | 'islands#brownDotIcon' | 'islands#oliveDotIcon';
     type PresetCircleKey =
-        'islands#blueCircleIcon' | 'islands#darkGreenCircleIcon' | 'islands#redCircleIcon' | 'islands#violetCircleIcon' |
-        'islands#darkOrangeCircleIcon' | 'islands#blackCircleIcon' | 'islands#nightCircleIcon' | 'islands#yellowCircleIcon' |
-        'islands#darkBlueCircleIcon' | 'islands#greenCircleIcon' | 'islands#pinkCircleIcon' | 'islands#orangeCircleIcon' |
-        'islands#grayCircleIcon' | 'islands#lightBlueCircleIcon' | 'islands#brownCircleIcon' | 'islands#oliveCircleIcon';
+        'islands#blueCircleIcon' | 'islands#darkGreenCircleIcon' | 'islands#redCircleIcon' |
+        'islands#violetCircleIcon' | 'islands#darkOrangeCircleIcon' | 'islands#blackCircleIcon' |
+        'islands#nightCircleIcon' | 'islands#yellowCircleIcon' | 'islands#darkBlueCircleIcon' |
+        'islands#greenCircleIcon' | 'islands#pinkCircleIcon' | 'islands#orangeCircleIcon' |
+        'islands#grayCircleIcon' | 'islands#lightBlueCircleIcon' | 'islands#brownCircleIcon' |
+        'islands#oliveCircleIcon';
     type PresetCircleDotKey =
-        'islands#blueCircleDotIcon' | 'islands#darkGreenCircleDotIcon' | 'islands#redCircleDotIcon' | 'islands#violetCircleDotIcon' |
-        'islands#darkOrangeCircleDotIcon' | 'islands#blackCircleDotIcon' | 'islands#nightCircleDotIcon' | 'islands#yellowCircleDotIcon' |
-        'islands#darkBlueCircleDotIcon' | 'islands#greenCircleDotIcon' | 'islands#pinkCircleDotIcon' | 'islands#orangeCircleDotIcon' |
-        'islands#grayCircleDotIcon' | 'islands#lightBlueCircleDotIcon' | 'islands#brownCircleDotIcon' | 'islands#oliveCircleDotIcon';
+        'islands#blueCircleDotIcon' | 'islands#darkGreenCircleDotIcon' | 'islands#redCircleDotIcon' |
+        'islands#violetCircleDotIcon' | 'islands#darkOrangeCircleDotIcon' | 'islands#blackCircleDotIcon' |
+        'islands#nightCircleDotIcon' | 'islands#yellowCircleDotIcon' | 'islands#darkBlueCircleDotIcon' |
+        'islands#greenCircleDotIcon' | 'islands#pinkCircleDotIcon' | 'islands#orangeCircleDotIcon' |
+        'islands#grayCircleDotIcon' | 'islands#lightBlueCircleDotIcon' | 'islands#brownCircleDotIcon' |
+        'islands#oliveCircleDotIcon';
     type PresetWithIconKey =
         'islands#blueAirportIcon' | 'islands#blueAttentionIcon' | 'islands#blueAutoIcon' | 'islands#blueBarIcon' |
         'islands#blueBarberIcon' | 'islands#blueBeachIcon' | 'islands#blueBicycleIcon' | 'islands#blueBicycle2Icon' |
         'islands#blueBookIcon' | 'islands#blueCarWashIcon' | 'islands#blueChristianIcon' | 'islands#blueCinemaIcon' |
         'islands#blueCircusIcon' | 'islands#blueCourtIcon' | 'islands#blueDeliveryIcon' | 'islands#blueDiscountIcon' |
-        'islands#blueDogIcon' | 'islands#blueEducationIcon' | 'islands#blueEntertainmentCenterIcon' | 'islands#blueFactoryIcon' |
-        'islands#blueFamilyIcon' | 'islands#blueFashionIcon' | 'islands#blueFoodIcon' | 'islands#blueFuelStationIcon' |
-        'islands#blueGardenIcon' | 'islands#blueGovernmentIcon' | 'islands#blueHeartIcon' | 'islands#blueHomeIcon' |
-        'islands#blueHotelIcon' | 'islands#blueHydroIcon' | 'islands#blueInfoIcon' | 'islands#blueLaundryIcon' |
-        'islands#blueLeisureIcon' | 'islands#blueMassTransitIcon' | 'islands#blueMedicalIcon' | 'islands#blueMoneyIcon' |
-        'islands#blueMountainIcon' | 'islands#blueNightClubIcon' | 'islands#blueObservationIcon' | 'islands#blueParkIcon' |
-        'islands#blueParkingIcon' | 'islands#bluePersonIcon' | 'islands#bluePocketIcon' | 'islands#bluePoolIcon' |
-        'islands#bluePostIcon' | 'islands#blueRailwayIcon' | 'islands#blueRapidTransitIcon' | 'islands#blueRepairShopIcon' |
-        'islands#blueRunIcon' | 'islands#blueScienceIcon' | 'islands#blueShoppingIcon' | 'islands#blueSouvenirsIcon' |
-        'islands#blueSportIcon' | 'islands#blueStarIcon' | 'islands#blueTheaterIcon' | 'islands#blueToiletIcon' |
-        'islands#blueUnderpassIcon' | 'islands#blueVegetationIcon' | 'islands#blueVideoIcon' | 'islands#blueWasteIcon' |
-        'islands#blueWaterParkIcon' | 'islands#blueWaterwayIcon' | 'islands#blueWorshipIcon' | 'islands#blueZooIcon';
+        'islands#blueDogIcon' | 'islands#blueEducationIcon' | 'islands#blueEntertainmentCenterIcon' |
+        'islands#blueFactoryIcon' | 'islands#blueFamilyIcon' | 'islands#blueFashionIcon' | 'islands#blueFoodIcon' |
+        'islands#blueFuelStationIcon' | 'islands#blueGardenIcon' | 'islands#blueGovernmentIcon' |
+        'islands#blueHeartIcon' | 'islands#blueHomeIcon' | 'islands#blueHotelIcon' | 'islands#blueHydroIcon' |
+        'islands#blueInfoIcon' | 'islands#blueLaundryIcon' | 'islands#blueLeisureIcon' |
+        'islands#blueMassTransitIcon' | 'islands#blueMedicalIcon' | 'islands#blueMoneyIcon' |
+        'islands#blueMountainIcon' | 'islands#blueNightClubIcon' | 'islands#blueObservationIcon' |
+        'islands#blueParkIcon' | 'islands#blueParkingIcon' | 'islands#bluePersonIcon' | 'islands#bluePocketIcon' |
+        'islands#bluePoolIcon' | 'islands#bluePostIcon' | 'islands#blueRailwayIcon' | 'islands#blueRapidTransitIcon' |
+        'islands#blueRepairShopIcon' | 'islands#blueRunIcon' | 'islands#blueScienceIcon' | 'islands#blueShoppingIcon' |
+        'islands#blueSouvenirsIcon' | 'islands#blueSportIcon' | 'islands#blueStarIcon' | 'islands#blueTheaterIcon' |
+        'islands#blueToiletIcon' | 'islands#blueUnderpassIcon' | 'islands#blueVegetationIcon' |
+        'islands#blueVideoIcon' | 'islands#blueWasteIcon' | 'islands#blueWaterParkIcon' | 'islands#blueWaterwayIcon' |
+        'islands#blueWorshipIcon' | 'islands#blueZooIcon';
     type PresetWithIconCircleKey =
-        'islands#blueHomeCircleIcon' | 'islands#blueScienceCircleIcon' | 'islands#blueAirportCircleIcon' | 'islands#blueAttentionCircleIcon' |
-        'islands#blueAutoCircleIcon' | 'islands#blueBarCircleIcon' | 'islands#blueBarberCircleIcon' | 'islands#blueBeachCircleIcon' |
-        'islands#blueBicycleCircleIcon' | 'islands#blueBicycle2CircleIcon' | 'islands#blueBookCircleIcon' | 'islands#blueCarWashCircleIcon' |
-        'islands#blueChristianCircleIcon' | 'islands#blueCinemaCircleIcon' | 'islands#blueCircusCircleIcon' | 'islands#blueCourtCircleIcon' |
-        'islands#blueDeliveryCircleIcon' | 'islands#blueDiscountCircleIcon' | 'islands#blueDogCircleIcon' | 'islands#blueEducationCircleIcon' |
-        'islands#blueEntertainmentCenterCircleIcon' | 'islands#blueFactoryCircleIcon' | 'islands#blueFamilyCircleIcon' | 'islands#blueFashionCircleIcon' |
-        'islands#blueFoodCircleIcon' | 'islands#blueFuelStationCircleIcon' | 'islands#blueGardenCircleIcon' | 'islands#blueGovernmentCircleIcon' |
-        'islands#blueHeartCircleIcon' | 'islands#blueHotelCircleIcon' | 'islands#blueHydroCircleIcon' | 'islands#blueInfoCircleIcon' |
-        'islands#blueLaundryCircleIcon' | 'islands#blueLeisureCircleIcon' | 'islands#blueMassTransitCircleIcon' | 'islands#blueMedicalCircleIcon' |
-        'islands#blueMoneyCircleIcon' | 'islands#blueMountainCircleIcon' | 'islands#blueNightClubCircleIcon' | 'islands#blueObservationCircleIcon' |
-        'islands#blueParkCircleIcon' | 'islands#blueParkingCircleIcon' | 'islands#bluePersonCircleIcon' | 'islands#bluePocketCircleIcon' |
-        'islands#bluePoolCircleIcon' | 'islands#bluePostCircleIcon' | 'islands#blueRailwayCircleIcon' | 'islands#blueRapidTransitCircleIcon' |
-        'islands#blueRepairShopCircleIcon' | 'islands#blueRunCircleIcon' | 'islands#blueShoppingCircleIcon' | 'islands#blueSouvenirsCircleIcon' |
-        'islands#blueSportCircleIcon' | 'islands#blueStarCircleIcon' | 'islands#blueTheaterCircleIcon' | 'islands#blueToiletCircleIcon' |
-        'islands#blueUnderpassCircleIcon' | 'islands#blueVegetationCircleIcon' | 'islands#blueVideoCircleIcon' | 'islands#blueWasteCircleIcon' |
-        'islands#blueWaterParkCircleIcon' | 'islands#blueWaterwayCircleIcon' | 'islands#blueWorshipCircleIcon' | 'islands#blueZooCircleIcon';
+        'islands#blueHomeCircleIcon' | 'islands#blueScienceCircleIcon' | 'islands#blueAirportCircleIcon' |
+        'islands#blueAttentionCircleIcon' | 'islands#blueAutoCircleIcon' | 'islands#blueBarCircleIcon' |
+        'islands#blueBarberCircleIcon' | 'islands#blueBeachCircleIcon' | 'islands#blueBicycleCircleIcon' |
+        'islands#blueBicycle2CircleIcon' | 'islands#blueBookCircleIcon' | 'islands#blueCarWashCircleIcon' |
+        'islands#blueChristianCircleIcon' | 'islands#blueCinemaCircleIcon' | 'islands#blueCircusCircleIcon' |
+        'islands#blueCourtCircleIcon' | 'islands#blueDeliveryCircleIcon' | 'islands#blueDiscountCircleIcon' |
+        'islands#blueDogCircleIcon' | 'islands#blueEducationCircleIcon' | 'islands#blueEntertainmentCenterCircleIcon' |
+        'islands#blueFactoryCircleIcon' | 'islands#blueFamilyCircleIcon' | 'islands#blueFashionCircleIcon' |
+        'islands#blueFoodCircleIcon' | 'islands#blueFuelStationCircleIcon' | 'islands#blueGardenCircleIcon' |
+        'islands#blueGovernmentCircleIcon' | 'islands#blueHeartCircleIcon' | 'islands#blueHotelCircleIcon' |
+        'islands#blueHydroCircleIcon' | 'islands#blueInfoCircleIcon' | 'islands#blueLaundryCircleIcon' |
+        'islands#blueLeisureCircleIcon' | 'islands#blueMassTransitCircleIcon' | 'islands#blueMedicalCircleIcon' |
+        'islands#blueMoneyCircleIcon' | 'islands#blueMountainCircleIcon' | 'islands#blueNightClubCircleIcon' |
+        'islands#blueObservationCircleIcon' | 'islands#blueParkCircleIcon' | 'islands#blueParkingCircleIcon' |
+        'islands#bluePersonCircleIcon' | 'islands#bluePocketCircleIcon' | 'islands#bluePoolCircleIcon' |
+        'islands#bluePostCircleIcon' | 'islands#blueRailwayCircleIcon' | 'islands#blueRapidTransitCircleIcon' |
+        'islands#blueRepairShopCircleIcon' | 'islands#blueRunCircleIcon' | 'islands#blueShoppingCircleIcon' |
+        'islands#blueSouvenirsCircleIcon' | 'islands#blueSportCircleIcon' | 'islands#blueStarCircleIcon' |
+        'islands#blueTheaterCircleIcon' | 'islands#blueToiletCircleIcon' | 'islands#blueUnderpassCircleIcon' |
+        'islands#blueVegetationCircleIcon' | 'islands#blueVideoCircleIcon' | 'islands#blueWasteCircleIcon' |
+        'islands#blueWaterParkCircleIcon' | 'islands#blueWaterwayCircleIcon' | 'islands#blueWorshipCircleIcon' |
+        'islands#blueZooCircleIcon';
     type PresetPictogramKey = 'islands#geolocationIcon';
     type PresetClusterKey =
-        'islands#blueClusterIcons' | 'islands#invertedBlueClusterIcons' | 'islands#redClusterIcons' | 'islands#invertedRedClusterIcons' |
-        'islands#darkOrangeClusterIcons' | 'islands#invertedDarkOrangeClusterIcons' | 'islands#nightClusterIcons' | 'islands#invertedNightClusterIcons' |
-        'islands#darkBlueClusterIcons' | 'islands#invertedDarkBlueClusterIcons' | 'islands#pinkClusterIcons' | 'islands#invertedPinkClusterIcons' |
-        'islands#grayClusterIcons' | 'islands#invertedGrayClusterIcons' | 'islands#brownClusterIcons' | 'islands#invertedBrownClusterIcons' |
-        'islands#darkGreenClusterIcons' | 'islands#invertedDarkGreenClusterIcons' | 'islands#violetClusterIcons' | 'islands#invertedVioletClusterIcons' |
-        'islands#blackClusterIcons' | 'islands#invertedBlackClusterIcons' | 'islands#yellowClusterIcons' | 'islands#invertedYellowClusterIcons' |
-        'islands#greenClusterIcons' | 'islands#invertedGreenClusterIcons' | 'islands#orangeClusterIcons' | 'islands#invertedOrangeClusterIcons' |
-        'islands#lightBlueClusterIcons' | 'islands#invertedLightBlueClusterIcons' | 'islands#oliveClusterIcons' | 'islands#invertedOliveClusterIcons';
+        'islands#blueClusterIcons' | 'islands#invertedBlueClusterIcons' | 'islands#redClusterIcons' |
+        'islands#invertedRedClusterIcons' | 'islands#darkOrangeClusterIcons' |
+        'islands#invertedDarkOrangeClusterIcons' | 'islands#nightClusterIcons' | 'islands#invertedNightClusterIcons' |
+        'islands#darkBlueClusterIcons' | 'islands#invertedDarkBlueClusterIcons' | 'islands#pinkClusterIcons' |
+        'islands#invertedPinkClusterIcons' | 'islands#grayClusterIcons' | 'islands#invertedGrayClusterIcons' |
+        'islands#brownClusterIcons' | 'islands#invertedBrownClusterIcons' | 'islands#darkGreenClusterIcons' |
+        'islands#invertedDarkGreenClusterIcons' | 'islands#violetClusterIcons' | 'islands#invertedVioletClusterIcons' |
+        'islands#blackClusterIcons' | 'islands#invertedBlackClusterIcons' | 'islands#yellowClusterIcons' |
+        'islands#invertedYellowClusterIcons' | 'islands#greenClusterIcons' | 'islands#invertedGreenClusterIcons' |
+        'islands#orangeClusterIcons' | 'islands#invertedOrangeClusterIcons' | 'islands#lightBlueClusterIcons' |
+        'islands#invertedLightBlueClusterIcons' | 'islands#oliveClusterIcons' | 'islands#invertedOliveClusterIcons';
 
+    // option.presetStorage
     type PresetKey =
         PresetWithTextKey | PresetWithTextStretchyKey | PresetDotKey | PresetCircleKey | PresetCircleDotKey |
-        PresetWithIconKey | PresetWithIconCircleKey | PresetPictogramKey | PresetClusterKey | string; //option.presetStorage
-    //[number, number]
-    //[[number, number], [number, number]]
+        PresetWithIconKey | PresetWithIconCircleKey | PresetPictogramKey | PresetClusterKey | string;
 
     type IconLayoutKey = 'default#image' | 'default#imageWithContent' | string;
-    type ClusterLayoutKey = 'cluster#balloonTwoColumns' | 'cluster#balloonCarousel' | 'cluster#balloonAccordion' | string;
-    type ClusterContentLayoutKey = 'cluster#balloonTwoColumnsItemContent' | 'cluster#balloonCarouselItemContent' | 'cluster#balloonAccordionItemContent' | string;
+    type ClusterLayoutKey =
+        'cluster#balloonTwoColumns' | 'cluster#balloonCarousel' | 'cluster#balloonAccordion' | string;
+    type ClusterContentLayoutKey =
+        'cluster#balloonTwoColumnsItemContent' | 'cluster#balloonCarouselItemContent' |
+        'cluster#balloonAccordionItemContent' | string;
 
     namespace behavior {
         class DblClickZoom implements IBehavior {
@@ -401,7 +422,7 @@ declare namespace ymaps {
 
         interface IBaseButtonParametersOptions {
             adjustMapMargin?: boolean | undefined;
-            float?: "none" | "left" | "right" | undefined;
+            float?: 'none' | 'left' | 'right' | undefined;
             floatIndex?: number | undefined;
             layout?: IClassConstructor<ISelectableControlLayout> | string | undefined;
             maxWidth?: number[][] | number[] | number | undefined;
@@ -422,7 +443,7 @@ declare namespace ymaps {
             } | undefined;
             options?: IBaseButtonParametersOptions & {
                 selectOnClick?: boolean | undefined;
-                size?: "auto" | "small" | "medium" | "large" | undefined;
+                size?: 'auto' | 'small' | 'medium' | 'large' | undefined;
             } | undefined;
             state?: {
                 enabled?: boolean | undefined;
@@ -445,7 +466,7 @@ declare namespace ymaps {
             options?: IBaseButtonParametersOptions & {
                 collapseOnBlur?: boolean | undefined;
                 expandOnClick?: boolean | undefined;
-                popupFloat?: "left" | "right" | undefined;
+                popupFloat?: 'left' | 'right' | undefined;
             } | undefined;
             state?: {
                 expanded?: boolean | undefined;
@@ -525,7 +546,7 @@ declare namespace ymaps {
                 selectableLayout?: string | IClassConstructor<ISelectableControlLayout> | undefined;
                 selectOnClick?: boolean | undefined;
                 separatorLayout?: string | IClassConstructor<ISelectableControlLayout> | undefined;
-                type?: "selectable" | "separator" | undefined;
+                type?: 'selectable' | 'separator' | undefined;
                 visible?: boolean | undefined;
             } | undefined;
             state?: {
@@ -564,7 +585,7 @@ declare namespace ymaps {
         }
 
         interface IManagerControlOptions {
-            float?: "none" | "left" | "right" | undefined;
+            float?: 'none' | 'left' | 'right' | undefined;
             floatIndex?: number | undefined;
             position?: {
                 bottom?: number | string | undefined;
@@ -590,10 +611,10 @@ declare namespace ymaps {
             options?: {
                 adjustMapMargin?: boolean | undefined;
                 collapseOnBlur?: boolean | undefined;
-                float?: "none" | "left" | "right" | undefined;
+                float?: 'none' | 'left' | 'right' | undefined;
                 floatIndex?: number | undefined;
                 popupAnimate?: boolean | undefined;
-                popupFloat?: "auto" | "left" | "right" | undefined;
+                popupFloat?: 'auto' | 'left' | 'right' | undefined;
                 popupWidth?: string | undefined;
                 position?: {
                     bottom?: number | string | undefined;
@@ -601,7 +622,7 @@ declare namespace ymaps {
                     right?: number | string | undefined;
                     top?: number | string | undefined;
                 } | undefined;
-                size?: "auto" | "small" | "medium" | "large" | undefined;
+                size?: 'auto' | 'small' | 'medium' | 'large' | undefined;
                 visible?: boolean | undefined;
             } | undefined;
             state?: {
@@ -684,10 +705,10 @@ declare namespace ymaps {
                 adjustMapMargin?: boolean | undefined;
                 boundedBy?: number[][] | undefined;
                 fitMaxWidth?: boolean | undefined;
-                float?: "none" | "left" | "right" | undefined;
+                float?: 'none' | 'left' | 'right' | undefined;
                 floatIndex?: number | undefined;
                 formLayout?: string | IClassConstructor<ILayout> | undefined;
-                kind?: "house" | "street" | "metro" | "district" | "locality" | undefined;
+                kind?: 'house' | 'street' | 'metro' | 'district' | 'locality' | undefined;
                 layout?: string | IClassConstructor<ISearchControlLayout> | undefined;
                 maxWidth?: number[][] | number[] | number | undefined;
                 noCentering?: boolean | undefined;
@@ -704,9 +725,9 @@ declare namespace ymaps {
                     right?: number | string | undefined;
                     top?: number | string | undefined;
                 } | undefined;
-                provider?: IGeocodeProvider | "yandex#map" | "yandex#search" | undefined;
-                searchCoordOrder?: "latlong" | "longlat" | undefined;
-                size?: "auto" | "small" | "medium" | "large" | undefined;
+                provider?: IGeocodeProvider | 'yandex#map' | 'yandex#search' | undefined;
+                searchCoordOrder?: 'latlong' | 'longlat' | undefined;
+                size?: 'auto' | 'small' | 'medium' | 'large' | undefined;
                 strictBounds?: boolean | undefined;
                 suppressYandexSearch?: boolean | undefined;
                 useMapBounds?: boolean | undefined;
@@ -812,7 +833,11 @@ declare namespace ymaps {
 
     namespace event {
         class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
-            constructor(params?: { context?: object | undefined; controllers?: IEventWorkflowController[] | undefined; parent?: IEventManager | undefined });
+            constructor(params?: {
+                context?: object | undefined;
+                controllers?: IEventWorkflowController[] | undefined;
+                parent?: IEventManager | undefined
+            });
 
             add(types: 'mousedown', callback: (event: (IEvent<MouseEvent, TargetGeometry>)) => void, context?: object, priority?: number): this;
             add(types: string[][] | string[] | string, callback: (event: (IEvent<{}, TargetGeometry>)) => void, context?: object, priority?: number): this;
@@ -903,6 +928,7 @@ declare namespace ymaps {
                 events: IEventManager;
 
                 static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+
                 static toEncodedCoordinates(geometry: Polygon): string;
 
                 contains(position: number[]): boolean;
@@ -945,9 +971,9 @@ declare namespace ymaps {
 
         class LineString implements ILineStringGeometry {
             constructor(coordinates?: number[][], options?: {
-                coordRendering?: "shortestPath" | "straightPath" | undefined;
+                coordRendering?: 'shortestPath' | 'straightPath' | undefined;
                 geodesic?: boolean | undefined;
-                pixelRendering?: "jumpy" | "static" | undefined;
+                pixelRendering?: 'jumpy' | 'static' | undefined;
                 projection?: IProjection | undefined;
                 simplification?: boolean | undefined;
             });
@@ -956,6 +982,7 @@ declare namespace ymaps {
             options: IOptionManager;
 
             static fromEncodedCoordinates(encodedCoordinates: string): LineString;
+
             static toEncodedCoordinates(geometry: LineString): string;
 
             getMap(): Map | null;
@@ -1035,6 +1062,7 @@ declare namespace ymaps {
             options: IOptionManager;
 
             static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+
             static toEncodedCoordinates(geometry: Polygon): string;
 
             add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
@@ -1092,11 +1120,7 @@ declare namespace ymaps {
 
         namespace pixel {
             class Circle implements IPixelCircleGeometry {
-                constructor(
-                    coordinates: number[] | null,
-                    radius: number,
-                    metaData?: object
-                );
+                constructor(coordinates: number[] | null, radius: number, metaData?: object);
 
                 events: IEventManager;
 
@@ -1166,11 +1190,7 @@ declare namespace ymaps {
             }
 
             class MultiPolygon implements IPixelMultiPolygonGeometry {
-                constructor(
-                    coordinates: number[][][][],
-                    fillRule: 'evenOdd' | 'nonZero',
-                    metaData?: object
-                );
+                constructor(coordinates: number[][][][], fillRule: 'evenOdd' | 'nonZero', metaData?: object);
 
                 events: IEventManager;
 
@@ -1218,11 +1238,7 @@ declare namespace ymaps {
             }
 
             class Polygon implements IPixelPolygonGeometry {
-                constructor(
-                    coordinates: number[][][],
-                    fillRule: 'evenOdd' | 'nonZero',
-                    metaData?: object
-                );
+                constructor(coordinates: number[][][], fillRule: 'evenOdd' | 'nonZero', metaData?: object);
 
                 events: IEventManager;
 
@@ -2566,7 +2582,7 @@ declare namespace ymaps {
             static getMarkerPositionFromDirection(
                 panorama: IPanorama,
                 direction: number[],
-                distance: number,
+                distance: number
             ): number[];
         }
 
@@ -2598,7 +2614,7 @@ declare namespace ymaps {
 
         class Player implements IEventEmitter {
             constructor(element: HTMLElement | string, panorama: IPanorama, options?: {
-                autoFitToViewport?: "none" | "ifNull" | "always" | undefined;
+                autoFitToViewport?: 'none' | 'ifNull' | 'always' | undefined;
                 controls?: string[] | undefined;
                 direction?: number[] | string | undefined;
                 hotkeysEnabled?: boolean | undefined;
@@ -2937,7 +2953,7 @@ declare namespace ymaps {
         fill?: boolean | undefined;
         fillColor?: string | undefined;
         fillImageHref?: string | undefined;
-        fillMethod?: "stretch" | "tile" | undefined;
+        fillMethod?: 'stretch' | 'tile' | undefined;
         fillOpacity?: number | undefined;
         hasBalloon?: boolean | undefined;
         hasHint?: boolean | undefined;
@@ -3058,7 +3074,7 @@ declare namespace ymaps {
     }
 
     interface IClusterPlacemarkOptions {
-        balloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey |  undefined;
+        balloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
         balloonContentLayoutHeight?: number | undefined;
         balloonContentLayoutWidth?: number | undefined;
         balloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
@@ -3153,7 +3169,7 @@ declare namespace ymaps {
 
         callMethod(name: string): void;
 
-        get<T extends {}, K extends keyof T= keyof T>(name: K): T[K];
+        get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
         get(name: string): object;
 
         getSourceEvent(): IEvent<OriginalEvent> | null;
@@ -3396,19 +3412,14 @@ declare namespace ymaps {
         behaviors?: string[] | undefined;
         bounds?: number[][] | undefined;
         center?: number[] | undefined;
-        controls?: Array<
-            string
-            | control.ZoomControl
-            | control.RulerControl
-            | control.TypeSelector
-        > | undefined;
+        controls?: Array<string | control.ZoomControl | control.RulerControl | control.TypeSelector> | undefined;
         margin?: number[][] | number[] | undefined;
-        type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid" | undefined;
+        type?: 'yandex#map' | 'yandex#satellite' | 'yandex#hybrid' | undefined;
         zoom?: number | undefined;
     }
 
     interface IMapOptions {
-        autoFitToViewport?: "none" | "ifNull" | "always" | undefined;
+        autoFitToViewport?: 'none' | 'ifNull' | 'always' | undefined;
         avoidFractionalZoom?: boolean | undefined;
         exitFullscreenByEsc?: boolean | undefined;
         fullscreenZIndex?: number | undefined;
@@ -3463,7 +3474,7 @@ declare namespace ymaps {
     }
 
     class Polygon extends GeoObject<IPolygonGeometry> {
-        constructor(geometry: number[][][] | object| IPolygonGeometry, properties?: object | IDataManager, options?: IPolygonOptions)
+        constructor(geometry: number[][][] | object | IPolygonGeometry, properties?: object | IDataManager, options?: IPolygonOptions)
     }
 
     interface IPolygonOptions {
@@ -3500,7 +3511,7 @@ declare namespace ymaps {
     }
 
     class Polyline extends GeoObject<ILineStringGeometry> {
-        constructor(geometry: number[][]| object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions);
+        constructor(geometry: number[][] | object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions);
     }
 
     interface IPolylineOptions {
@@ -3576,7 +3587,11 @@ declare namespace ymaps {
     }
 
     namespace templateLayoutFactory {
-        function createClass(template: string, overrides?: object, staticMethods?: object): IClassConstructor<layout.templateBased.Base>;
+        function createClass<O extends {} = {}, S extends {} = {}>(
+            template: string,
+            overrides?: O,
+            staticMethods?: S
+        ): IClassConstructor<layout.templateBased.Base & O & S>;
     }
 
     namespace util {
@@ -3645,14 +3660,11 @@ declare namespace ymaps {
         getType(): string;
     }
 
-    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {
-    }
+    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {}
 
-    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {
-    }
+    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {}
 
-    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {
-    }
+    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {}
 
     interface IBehavior extends IChildOnMap, ICustomizable {
         disable(): void;
@@ -3668,11 +3680,9 @@ declare namespace ymaps {
         setParent(parent: object | null): this;
     }
 
-    interface IChildOnMap extends IChild<IControlParent> {
-    }
+    interface IChildOnMap extends IChild<IControlParent> {}
 
-    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry {
-    }
+    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry {}
 
     interface ICircleGeometryAccess extends IFreezable {
         contains(position: number[]): boolean;
@@ -3714,8 +3724,7 @@ declare namespace ymaps {
         solveInverseProblem(startPoint: number[], endPoint: number[], reverseDirection?: boolean): object;
     }
 
-    interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface
-    }
+    interface ICopyrightsAccessor extends ICopyrightsProvider {} //tslint:disable-line no-empty-interface
 
     interface ICopyrightsProvider extends IEventEmitter {
         getCopyrights(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
@@ -3733,8 +3742,7 @@ declare namespace ymaps {
         get(path: string, defaultValue: object): object;
     }
 
-    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface
-    }
+    interface IDomEventEmitter extends IEventEmitter {} //tslint:disable-line no-empty-interface
 
     interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
         allowMapEvent(): void;
@@ -3744,7 +3752,9 @@ declare namespace ymaps {
         get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
 
         get(name: 'type'): string;
+
         get(name: 'objectId'): string | undefined;
+
         get(name: 'newZoom' | 'oldZoom'): number | undefined;
 
         get(name: string): object;
@@ -3795,6 +3805,7 @@ declare namespace ymaps {
 
     interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
         add(types: 'mousedown', callback: (event: IEvent<MouseEvent, TargetGeometry>) => void, context?: object, priority?: number): this;
+
         add(types: string[][] | string[] | string, callback: (event: IEvent) => void, context?: object, priority?: number): this;
 
         getParent(): object | null;
@@ -3818,8 +3829,7 @@ declare namespace ymaps {
         onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
     }
 
-    interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface
-    }
+    interface IExpandableControlLayout extends ILayout {} //tslint:disable-line no-empty-interface
 
     interface IFreezable {
         events: IEventManager;
@@ -3832,9 +3842,18 @@ declare namespace ymaps {
     }
 
     interface IGeocodeProvider {
-        geocode(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, skip?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        geocode(request: string, options?: {
+            boundedBy?: number[][] | undefined,
+            results?: number | undefined,
+            skip?: number | undefined,
+            strictBounds?: boolean | undefined
+        }): Promise<object>;
 
-        suggest(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        suggest(request: string, options?: {
+            boundedBy?: number[][] | undefined,
+            results?: number | undefined,
+            strictBounds?: boolean | undefined
+        }): Promise<object>;
     }
 
     interface IGeometry extends IBaseGeometry, ICustomizable {
@@ -3869,8 +3888,7 @@ declare namespace ymaps {
         getPixels(): number[];
     }
 
-    interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface
-    }
+    interface IGeometryEditorRootModel extends IGeometryEditorModel {} //tslint:disable-line no-empty-interface
 
     interface IGeometryJson {
         type: string;
@@ -3928,8 +3946,7 @@ declare namespace ymaps {
         indexOf(geoObject: IGeoObject): number;
     }
 
-    interface IHintManager<T> extends IPopupManager<T> {
-    }
+    interface IHintManager<T> extends IPopupManager<T> {}
 
     interface IIterator {
         getNext(): object | null;
@@ -3994,8 +4011,7 @@ declare namespace ymaps {
         unfreeze(): IFreezable;
     }
 
-    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {
-    }
+    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {}
 
     interface ILineStringGeometryAccess extends IFreezable {
         get(index: number): number[];
@@ -4025,8 +4041,7 @@ declare namespace ymaps {
         end(): void;
     }
 
-    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {
-    }
+    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {}
 
     interface IMultiRouteModelJson {
         params: IMultiRouteParams;
@@ -4039,7 +4054,7 @@ declare namespace ymaps {
         requestSendInterval?: string | number | undefined;
         results?: number | undefined;
         reverseGeocoding?: boolean | undefined;
-        routingMode?: "auto" | "masstransit" | "pedestrian" | undefined;
+        routingMode?: 'auto' | 'masstransit' | 'pedestrian' | undefined;
         searchCoordOrder?: string | undefined;
         strictBounds?: boolean | undefined;
         viaIndexes?: number[] | undefined;
@@ -4086,7 +4101,7 @@ declare namespace ymaps {
 
         getMap(): Map;
 
-        getOverflow(): "visible" | "hidden";
+        getOverflow(): 'visible' | 'hidden';
 
         getZIndex(): number;
     }
@@ -4129,8 +4144,7 @@ declare namespace ymaps {
         getPanorama(): IPanorama;
     }
 
-    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {
-    }
+    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {}
 
     interface IPanoramaGraph {
         getEdges(): IPanoramaGraphEdge[];
@@ -4196,7 +4210,7 @@ declare namespace ymaps {
 
     interface IPixelPointGeometry extends IPixelGeometry {
         getCoordinates(): number[];
-      }
+    }
 
     interface IPixelMultiLineGeometry extends IPixelGeometry {
         getClosest(anchorPosition: number[]): object;
@@ -4246,8 +4260,7 @@ declare namespace ymaps {
         shift(offset: number[]): IPixelGeometry;
     }
 
-    interface IPointGeometry extends IGeometry, IPointGeometryAccess {
-    }
+    interface IPointGeometry extends IGeometry, IPointGeometryAccess {}
 
     interface IPointGeometryAccess {
         getCoordinates(): number[] | null;
@@ -4255,8 +4268,7 @@ declare namespace ymaps {
         setCoordinates(coordinates: number[] | null): this;
     }
 
-    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess {
-    }
+    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess {}
 
     interface IPolygonGeometryAccess extends IFreezable {
         contains(position: number[]): boolean;
@@ -4359,8 +4371,7 @@ declare namespace ymaps {
         switchPoints(): void;
     }
 
-    interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface
-    }
+    interface ISearchControlLayout extends IExpandableControlLayout {} //tslint:disable-line no-empty-interface
 
     interface ISelectableControl extends IControl {
         deselect(): void;
@@ -4376,8 +4387,7 @@ declare namespace ymaps {
         select(): void;
     }
 
-    interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface
-    }
+    interface ISelectableControlLayout extends ILayout {} //tslint:disable-line no-empty-interface
 
     interface IShape {
         contains(position: number[]): boolean;
@@ -4397,10 +4407,15 @@ declare namespace ymaps {
 
     class Monitor {
         constructor(dataManager: IDataManager | IOptionManager);
-           add(name: string[] | string, changeCallback: (event: (object | IEvent)) => void, context?: any, params?: any): Monitor;
+
+        add(name: string[] | string, changeCallback: (event: (object | IEvent)) => void, context?: any, params?: any): Monitor;
+
         forceChange(): Monitor;
+
         get(name: string): any;
+
         remove(name: string): Monitor;
+
         removeAll(): Monitor;
     }
 
@@ -4437,7 +4452,13 @@ declare namespace ymaps {
 
         getMap(): Map;
 
-        getObjectState(id: string): { found: boolean; isShown: boolean; cluster?: Cluster | undefined; isClustered: boolean; isFilteredOut: boolean };
+        getObjectState(id: string): {
+            found: boolean;
+            isShown: boolean;
+            cluster?: Cluster | undefined;
+            isClustered: boolean;
+            isFilteredOut: boolean
+        };
 
         getOverlay(): Promise<IOverlay | null>;
 
