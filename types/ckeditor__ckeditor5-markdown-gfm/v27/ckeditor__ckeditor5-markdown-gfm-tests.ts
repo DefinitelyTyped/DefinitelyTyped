@@ -2,7 +2,7 @@ import { Editor } from '@ckeditor/ckeditor5-core';
 import { StylesProcessor } from '@ckeditor/ckeditor5-engine';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragment';
-import { Markdown } from '@ckeditor/ckeditor5-markdown-gfm';
+import GFM from '@ckeditor/ckeditor5-markdown-gfm';
 import GFMDataProcessor from '@ckeditor/ckeditor5-markdown-gfm/src/gfmdataprocessor';
 import html2markdown from '@ckeditor/ckeditor5-markdown-gfm/src/html2markdown/html2markdown';
 import markdown2html from '@ckeditor/ckeditor5-markdown-gfm/src/markdown2html/markdown2html';
@@ -10,7 +10,7 @@ import markdown2html from '@ckeditor/ckeditor5-markdown-gfm/src/markdown2html/ma
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-new Markdown(editor);
+new GFM.Markdown(editor);
 
 new GFMDataProcessor(new Document(new StylesProcessor())).toData(new DocumentFragment()).startsWith('foo');
 new GFMDataProcessor(new Document(new StylesProcessor())).toView('') instanceof DocumentFragment;
