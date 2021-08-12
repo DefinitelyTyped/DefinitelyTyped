@@ -2439,6 +2439,87 @@ declare namespace ymaps {
         const presetStorage: util.Storage;
     }
 
+    namespace pane {
+        class EventsPane implements IEventPane {
+            constructor(map: Map, params: {
+                className?: string,
+                css?: CSSStyleDeclaration;
+                patch?: {
+                    selectable?: boolean;
+                },
+                transparent?: boolean;
+                checkContextMenu?: boolean;
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+        }
+
+        class MovablePane implements IContainerPane {
+            constructor(map: Map, params: {
+                css?: CSSStyleDeclaration;
+                margin?: number;
+                overflow?: 'hidden' | 'visible';
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            fromClientPixels(clientPixelPoint: number[]): number[];
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+
+            getZoom(): number;
+
+            toClientPixels(globalPixelPoint: number[]): number[];
+        }
+
+        class StaticPane implements IContainerPane {
+            constructor(map: Map, params: {
+                css?: CSSStyleDeclaration;
+                margin?: number;
+                overflow?: 'visible' | 'hidden';
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            fromClientPixels(clientPixelPoint: number[]): number[];
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+
+            getZoom(): number;
+
+            toClientPixels(globalPixelPoint: number[]): number[];
+        }
+    }
+
     namespace panorama {
         type Layer = 'yandex#panorama' | 'yandex#airPanorama';
 
@@ -3615,7 +3696,9 @@ declare namespace ymaps {
         remove(object: object): this;
     }
 
-    interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface
+    interface IContainerPane extends IPane, IPositioningContext {}
+
+    interface IControl extends IChildOnMap { // tslint:disable-line no-empty-interface
         // new (options?: object);
     }
 
@@ -3722,6 +3805,8 @@ declare namespace ymaps {
 
         setParent(parent: object | null): this;
     }
+
+    interface IEventPane extends IDomEventEmitter, IPane {}
 
     interface IEventTrigger {
         fire(type: string, eventObject?: object | IEvent): this;
