@@ -1,4 +1,4 @@
-// Type definitions for tuya-panel-kit 4.0
+// Type definitions for tuya-panel-kit 4.7
 // Project: https://github.com/TuyaInc/tuya-panel-kit#readme
 // Definitions by: youngjuning <https://github.com/youngjuning>
 //                 ShinyLeee <https://github.com/ShinyLeee>
@@ -11323,7 +11323,7 @@ export interface NavigationComponentClass<P = {}, S = {}> {
     new (props: P, context?: any): NavigatorLayout<P, S>;
 }
 // tslint:disable-next-line no-unnecessary-generics
-export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam, navigationContainerProps: Omit<NavigationContainerProps, 'children'>): any;
+export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam, navigationContainerProps?: Omit<NavigationContainerProps, 'children'>): any;
 
 export type GotoDpAlarmData = Array<{
     dpId: string;
