@@ -38,6 +38,7 @@ import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wr
    google.protobuf.Timestamp some_timestamp = 13;
    google.protobuf.Type some_type = 14;
    google.protobuf.DoubleValue some_double_value = 15;
+   map<int32, string> some_key_value = 16;
  }
 */
 
@@ -70,6 +71,7 @@ class MySimple extends jspb.Message {
       someTimestamp: google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, msg.getSomeTimestamp()),
       someType: google_protobuf_type_pb.Type.toObject(includeInstance, msg.getSomeType()),
       someDoubleValue: google_protobuf_wrappers_pb.DoubleValue.toObject(includeInstance, msg.getSomeDoubleValue()),
+      someKeyValueMap: msg.getSomeKeyValueMap()?.toObject(includeInstance) ?? [],
     };
 
     if (includeInstance) {
@@ -163,6 +165,12 @@ class MySimple extends jspb.Message {
           const value15 = new google_protobuf_wrappers_pb.DoubleValue;
           reader.readMessage(value15, google_protobuf_wrappers_pb.DoubleValue.deserializeBinaryFromReader);
           msg.setSomeDoubleValue(value15);
+          break;
+        case 16:
+          const value16 = msg.getSomeKeyValueMap();
+          reader.readMessage(value16, (message, reader) => {
+            jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readInt32, jspb.BinaryReader.prototype.readString, undefined, 0, "");
+          });
           break;
         default:
           reader.skipField();
@@ -307,6 +315,12 @@ class MySimple extends jspb.Message {
         f15,
         google_protobuf_wrappers_pb.DoubleValue.serializeBinaryToWriter
       );
+    }
+    const f16 = message.getSomeKeyValueMap();
+    if (f16 !== undefined) {
+      if (f16.getLength() > 0) {
+        f16.serializeBinary(16, writer, jspb.BinaryWriter.prototype.writeInt32, jspb.BinaryWriter.prototype.writeString);
+      }
     }
   }
 
@@ -533,6 +547,15 @@ class MySimple extends jspb.Message {
   hasSomeDoubleValue(): boolean {
     return jspb.Message.getField(this, 15) != null;
   }
+
+  getSomeKeyValueMap(): jspb.Map<number, string> | undefined {
+    return jspb.Message.getMapField(this, 16, true);
+  };
+
+  clearSomeKeyValueMap(): MySimple {
+    this.getSomeKeyValueMap()?.clear();
+    return this;
+  };
 };
 
 // ensures messages are cloneable without a redundant cast
@@ -541,3 +564,10 @@ const myClonedMessage: MySimple = myMessage.clone();
 const myClonedMessage2: MySimple = myMessage.cloneMessage()
 
 const myTimestamp = google_protobuf_timestamp_pb.Timestamp.fromDate(new Date());
+
+// ensure map iterators keys(), values(), entries() are available and detected as `Iterable`
+const jspbMap = myMessage.getSomeKeyValueMap() ?? new jspb.Map<number, string>([])
+
+const mapKeys = Array.from(jspbMap.keys())
+const mapValues = Array.from(jspbMap.values())
+const mapEntries = Array.from(jspbMap.entries())
