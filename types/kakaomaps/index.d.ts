@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Naver Maps JavaScript API 3.0
+// Type definitions for non-npm package Kakao Maps Web API
 // Project: https://apis.map.kakao.com/web/documentation/
 // Definitions by: MinByeongDon <deepfree@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,27 +8,16 @@ declare namespace kakao.maps {
 
   class Map {
     constructor(container: HTMLElement, options?: {
-      /** 중심 좌표 (필수) */
       center: LatLng,
-      /** 확대 수준 (기본값: 3) */
       level?: Number,
-      /** 지도 종류 (기본값: 일반 지도) */
       mapTypeId?: MapTypeId,
-      /** 마우스 드래그, 휠, 모바일 터치를 이용한 시점 변경(이동, 확대, 축소) 가능 여부 */
       draggable?: boolean,
-      /** 마우스 휠, 모바일 터치를 이용한 확대 및 축소 가능 여부 */
       scrollwheel?: boolean,
-      /** 더블클릭 이벤트 및 더블클릭 확대 가능 여부 */
       disableDoubleClick?: boolean,
-      /** 더블클릭 확대 가능 여부 */
       disableDoubleClickZoom?: boolean,
-      /** 투영법 지정 (기본값: kakao.maps.ProjectionId.WCONG) */
       projectionId?: string, 
-      /** 지도 타일 애니메이션 설정 여부 (기본값: true) */
       tileAnimation?: boolean,
-      /** 키보드의 방향키와 +, – 키로 지도 이동,확대,축소 가능 여부 (기본값: false) */
       keyboardShortcuts?: boolean|object,
-      /** 지도 이동 속도 */
       speed?: number
     })
     setCenter(latlng: LatLng): void
@@ -86,19 +75,20 @@ declare namespace kakao.maps {
   type MapTypeId = MAP_TYPE_ID;
   namespace MapTypeId {
     const NORMAL: MAP_TYPE_ID
-    /** 베이스 타입 */ const ROADMAP: MAP_TYPE_ID
-    /** 베이스 타입 */ const SKYVIEW: MAP_TYPE_ID
-    /** 베이스 타입 */ const HYBRID: MAP_TYPE_ID
-    /** 오버레이 타입 */ const OVERLAY: MAP_TYPE_ID
+    const ROADMAP: MAP_TYPE_ID
+    const SKYVIEW: MAP_TYPE_ID
+    const HYBRID: MAP_TYPE_ID
+    const OVERLAY: MAP_TYPE_ID
     const ROADVIEW: MAP_TYPE_ID
-    /** 오버레이 타입 */ const TRAFFIC: MAP_TYPE_ID
-    /** 오버레이 타입 */ const TERRAIN: MAP_TYPE_ID
-    /** 오버레이 타입 */ const BICYCLE: MAP_TYPE_ID
-    /** 오버레이 타입 */ const BICYCLE_HYBRID: MAP_TYPE_ID
-    /** 오버레이 타입 */ const USE_DISTRICT: MAP_TYPE_ID
+    const TRAFFIC: MAP_TYPE_ID
+    const TERRAIN: MAP_TYPE_ID
+    const BICYCLE: MAP_TYPE_ID
+    const BICYCLE_HYBRID: MAP_TYPE_ID
+    const USE_DISTRICT: MAP_TYPE_ID
   }
 
   //NOTE: SDK에 kakao.maps.ProjectionId 구현없음. 없어진것 같음
+  
   enum CONTROL_POSITION {
     TOPLEFT = 0,
     TOP = 1,
