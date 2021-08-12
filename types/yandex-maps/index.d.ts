@@ -2831,6 +2831,15 @@ declare namespace ymaps {
         }
     }
 
+    interface meta {
+        coordinatesOrder: 'latlong' | 'longlat';
+        countryCode: string;
+        languageCode: string;
+        mode: 'release' | 'debug';
+        ns: typeof ymaps;
+        version: string;
+    }
+
     class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
         constructor(map: Map, options?: IBalloonOptions);
 
