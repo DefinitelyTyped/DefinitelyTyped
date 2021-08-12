@@ -42,7 +42,11 @@ interface URLParse {
     readonly query: { [key: string]: string | undefined };
     readonly slashes: boolean;
     readonly username: string;
-    set(part: URLParse.URLPart, value: URLParse[typeof part], fn?: boolean | URLParse.QueryParser): URLParse;
+    set(
+        part: URLParse.URLPart,
+        value: URLParse[typeof part] | undefined,
+        fn?: boolean | URLParse.QueryParser,
+    ): URLParse;
     toString(stringify?: URLParse.StringifyQuery): string;
 }
 
