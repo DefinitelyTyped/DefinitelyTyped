@@ -31,7 +31,7 @@ declare module "../index" {
          * @param array The array to compact.
          * @return Returns the new array of filtered values.
          */
-        compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
+        compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): Array<Truthy<T>>;
     }
 
     type Truthy<T> = T extends null | undefined | false | "" | 0 ? never : T;

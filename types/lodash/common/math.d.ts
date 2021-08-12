@@ -388,18 +388,22 @@ declare module "../index" {
          * _.sumBy(objects, 'n');
          * // => 20
          */
+        // fix: types of fp.sumBy. match this first to avoid unnecessary capturing of the type parameter T
+        sumBy<T>(collection: List<T> | null | undefined, iteratee?: PropertyName): number;
         sumBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIterateeCustom<T, number>): number;
     }
     interface Collection<T> {
         /**
          * @see _.sumBy
          */
+        sumBy(iteratee?: PropertyName): number;
         sumBy(iteratee?: ValueIterateeCustom<T, number>): number;
     }
     interface CollectionChain<T> {
         /**
          * @see _.sumBy
          */
+        sumBy(iteratee?: PropertyName): PrimitiveChain<number>;
         sumBy(iteratee?: ValueIterateeCustom<T, number>): PrimitiveChain<number>;
     }
 }

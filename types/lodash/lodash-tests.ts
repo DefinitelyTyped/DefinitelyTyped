@@ -4849,7 +4849,7 @@ fp.now(); // $ExpectType number
     _(list).sumBy(0); // $ExpectType number
     _(list).chain().sumBy(listIterator); // $ExpectType PrimitiveChain<number>
     _(list).chain().sumBy("a"); // $ExpectType PrimitiveChain<number>
-    _(list).chain().sumBy(0); // $ExpectType number
+    _(list).chain().sumBy(0); // $ExpectType PrimitiveChain<number>
 
     fp.sumBy(listIterator, list); // $ExpectType number
     fp.sumBy("a")(list); // $ExpectType number

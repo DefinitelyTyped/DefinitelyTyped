@@ -299,7 +299,7 @@ declare namespace _ {
         <TResult>(customizer: lodash.CloneWithCustomizer<T, TResult | undefined>): TResult | T;
     }
     type LodashCloneWith2x1<T, TResult> = (value: T) => TResult | T;
-    type LodashCompact = <T>(array: lodash.List<T | null | undefined | false | "" | 0> | null | undefined) => T[];
+    type LodashCompact = <T>(array: lodash.List<T | null | undefined | false | "" | 0> | null | undefined) => Array<lodash.Truthy<T>>;
     type LodashNegate = <T extends any[]>(predicate: (...args: T) => boolean) => (...args: T) => boolean;
     interface LodashFlowRight {
         <A extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R7;
@@ -4054,12 +4054,14 @@ declare namespace _ {
     type LodashSubtract1x2 = (minuend: number) => number;
     type LodashSum = (collection: lodash.List<any> | null | undefined) => number;
     interface LodashSumBy {
-        <T>(iteratee: lodash.ValueIterateeCustom<T, number>): LodashSumBy1x1<T>;
-        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashSumBy1x2<T>;
-        <T>(iteratee: lodash.ValueIterateeCustom<T, number>, collection: lodash.List<T> | null | undefined): number;
+        (iteratee: lodash.PropertyName): LodashSumBy1x1;
+        <T>(iteratee: lodash.__, collection: lodash.List<T> | null | undefined): LodashSumBy1x2;
+        <T>(iteratee: lodash.PropertyName | lodash.ValueIterateeCustom<T, number>, collection: lodash.List<T> | null | undefined): number;
+        <T>(iteratee: lodash.ValueIterateeCustom<T, number>): LodashSumBy2x1<T>;
     }
-    type LodashSumBy1x1<T> = (collection: lodash.List<T> | null | undefined) => number;
-    type LodashSumBy1x2<T> = (iteratee: lodash.ValueIterateeCustom<T, number>) => number;
+    type LodashSumBy1x1 = <T>(collection: lodash.List<T> | null | undefined) => number;
+    type LodashSumBy1x2 = (iteratee: lodash.PropertyName | lodash.ValueIterateeCustom<T, number>) => number;
+    type LodashSumBy2x1<T> = (collection: lodash.List<T> | null | undefined) => number;
     interface LodashXor {
         <T>(arrays2: lodash.List<T> | null | undefined): LodashXor1x1<T>;
         <T>(arrays2: lodash.__, arrays: lodash.List<T> | null | undefined): LodashXor1x2<T>;
