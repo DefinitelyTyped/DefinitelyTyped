@@ -8,7 +8,8 @@
 // TypeScript Version: 2.2
 
 declare namespace URLParse {
-    type URLPart = 'auth'
+    type URLPart =
+        | 'auth'
         | 'hash'
         | 'host'
         | 'hostname'
@@ -46,8 +47,8 @@ interface URLParse {
 }
 
 declare const URLParse: {
-    new(address: string, parser?: boolean | URLParse.QueryParser): URLParse;
-    new(address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
+    new (address: string, parser?: boolean | URLParse.QueryParser): URLParse;
+    new (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
     (address: string, parser?: boolean | URLParse.QueryParser): URLParse;
     (address: string, location?: string | object, parser?: boolean | URLParse.QueryParser): URLParse;
 
