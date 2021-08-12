@@ -227,7 +227,7 @@ type BinaryReadReader = (msg: any, binaryReader: BinaryReader) => void;
 type BinaryRead = (msg: any, reader: BinaryReadReader) => void;
 
 type BinaryReadCallback = (value: any, binaryReader: BinaryReader) => any;
-                      
+
 type BinaryWriteCallback = (value: any, binaryWriter: BinaryWriter) => void;
 
 type BinaryWrite = (fieldNumber: number, value: any, writerCallback: BinaryWriteCallback) => void;
