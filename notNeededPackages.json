@@ -877,6 +877,10 @@
             "libraryName": "dependency-tree",
             "asOfVersion": "8.1.0"
         },
+        "deta": {
+            "libraryName": "deta",
+            "asOfVersion": "1.0.0"
+        },
         "detect-browser": {
             "libraryName": "detect-browser",
             "asOfVersion": "4.0.0"

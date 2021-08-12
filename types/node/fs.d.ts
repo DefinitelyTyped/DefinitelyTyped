@@ -5,30 +5,18 @@
  * To use the promise-based APIs:
  *
  * ```js
- * // Using ESM Module syntax:
  * import * as fs from 'fs/promises';
- * ```
- *
- * ```js
- * // Using CommonJS syntax:
- * const fs = require('fs/promises');
  * ```
  *
  * To use the callback and sync APIs:
  *
  * ```js
- * // Using ESM Module syntax:
  * import * as fs from 'fs';
- * ```
- *
- * ```js
- * // Using CommonJS syntax:
- * const fs = require('fs');
  * ```
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -2177,6 +2165,8 @@ declare module 'fs' {
         }>;
     }
     /**
+     * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
+     *
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link write}.
      * @since v0.1.21
@@ -2510,10 +2500,12 @@ declare module 'fs' {
      * a file descriptor.
      *
      * The `encoding` option is ignored if `data` is a buffer.
-     * If `data` is a normal object, it must have an own `toString` function property.
+     *
+     * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
      *
      * ```js
      * import { writeFile } from 'fs';
+     * import { Buffer } from 'buffer';
      *
      * const data = new Uint8Array(Buffer.from('Hello Node.js'));
      * writeFile('message.txt', data, (err) => {
@@ -2544,6 +2536,7 @@ declare module 'fs' {
      *
      * ```js
      * import { writeFile } from 'fs';
+     * import { Buffer } from 'buffer';
      *
      * const controller = new AbortController();
      * const { signal } = controller;
@@ -2585,6 +2578,8 @@ declare module 'fs' {
     }
     /**
      * Returns `undefined`.
+     *
+     * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
      *
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link writeFile}.
@@ -2791,7 +2786,8 @@ declare module 'fs' {
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
     }
-    export type WatchListener<T> = (event: 'rename' | 'change', filename: T) => void;
+    export type WatchEventType = 'rename' | 'change';
+    export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a
      * directory.
@@ -3145,7 +3141,7 @@ declare module 'fs' {
      * });
      *
      * // Check if the file exists in the current directory, and if it is writable.
-     * access(file, constants.F_OK | fs.constants.W_OK, (err) => {
+     * access(file, constants.F_OK | constants.W_OK, (err) => {
      *   if (err) {
      *     console.error(
      *       `${file} ${err.code === 'ENOENT' ? 'does not exist' : 'is read-only'}`);

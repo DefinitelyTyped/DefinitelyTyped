@@ -5,11 +5,7 @@
  * ```js
  * import url from 'url';
  * ```
- *
- * ```js
- * const url = require('url');
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/url.js)
  */
 declare module 'url' {
     import { ClientRequestArgs } from 'node:http';
@@ -191,17 +187,6 @@ declare module 'url' {
      * console.log(url.domainToASCII('xn--iñvalid.com'));
      * // Prints an empty string
      * ```
-     *
-     * ```js
-     * const url = require('url');
-     *
-     * console.log(url.domainToASCII('español.com'));
-     * // Prints xn--espaol-zwa.com
-     * console.log(url.domainToASCII('中文.com'));
-     * // Prints xn--fiq228c.com
-     * console.log(url.domainToASCII('xn--iñvalid.com'));
-     * // Prints an empty string
-     * ```
      * @since v7.4.0, v6.13.0
      */
     function domainToASCII(domain: string): string;
@@ -215,17 +200,6 @@ declare module 'url' {
      *
      * ```js
      * import url from 'url';
-     *
-     * console.log(url.domainToUnicode('xn--espaol-zwa.com'));
-     * // Prints español.com
-     * console.log(url.domainToUnicode('xn--fiq228c.com'));
-     * // Prints 中文.com
-     * console.log(url.domainToUnicode('xn--iñvalid.com'));
-     * // Prints an empty string
-     * ```
-     *
-     * ```js
-     * const url = require('url');
      *
      * console.log(url.domainToUnicode('xn--espaol-zwa.com'));
      * // Prints español.com
@@ -258,21 +232,6 @@ declare module 'url' {
      * new URL('file:///hello world').pathname;   // Incorrect: /hello%20world
      * fileURLToPath('file:///hello world');      // Correct:   /hello world (POSIX)
      * ```
-     *
-     * ```js
-     * const { fileURLToPath } = require('url');
-     * new URL('file:///C:/path/').pathname;      // Incorrect: /C:/path/
-     * fileURLToPath('file:///C:/path/');         // Correct:   C:\path\ (Windows)
-     *
-     * new URL('file://nas/foo.txt').pathname;    // Incorrect: /foo.txt
-     * fileURLToPath('file://nas/foo.txt');       // Correct:   \\nas\foo.txt (Windows)
-     *
-     * new URL('file:///你好.txt').pathname;      // Incorrect: /%E4%BD%A0%E5%A5%BD.txt
-     * fileURLToPath('file:///你好.txt');         // Correct:   /你好.txt (POSIX)
-     *
-     * new URL('file:///hello world').pathname;   // Incorrect: /hello%20world
-     * fileURLToPath('file:///hello world');      // Correct:   /hello world (POSIX)
-     * ```
      * @since v10.12.0
      * @param url The file URL string or URL object to convert to a path.
      * @return The fully-resolved platform-specific Node.js file path.
@@ -291,20 +250,6 @@ declare module 'url' {
      * new URL('/some/path%.c', 'file:');    // Incorrect: file:///some/path%.c
      * pathToFileURL('/some/path%.c');       // Correct:   file:///some/path%25.c (POSIX)
      * ```
-     *
-     * ```js
-     * const { pathToFileURL } = require('url');
-     * new URL(__filename);                  // Incorrect: throws (POSIX)
-     * new URL(__filename);                  // Incorrect: C:\... (Windows)
-     * pathToFileURL(__filename);            // Correct:   file:///... (POSIX)
-     * pathToFileURL(__filename);            // Correct:   file:///C:/... (Windows)
-     *
-     * new URL('/foo#1', 'file:');           // Incorrect: file:///foo#1
-     * pathToFileURL('/foo#1');              // Correct:   file:///foo%231 (POSIX)
-     *
-     * new URL('/some/path%.c', 'file:');    // Incorrect: file:///some/path%.c
-     * pathToFileURL('/some/path%.c');       // Correct:   file:///some/path%25.c (POSIX)
-     * ```
      * @since v10.12.0
      * @param path The path to convert to a File URL.
      * @return The file URL object.
@@ -316,25 +261,6 @@ declare module 'url' {
      *
      * ```js
      * import { urlToHttpOptions } from 'url';
-     * const myURL = new URL('https://a:b@測試?abc#foo');
-     *
-     * console.log(urlToHttpOptions(myUrl));
-     *
-     * {
-     *   protocol: 'https:',
-     *   hostname: 'xn--g6w251d',
-     *   hash: '#foo',
-     *   search: '?abc',
-     *   pathname: '/',
-     *   path: '/?abc',
-     *   href: 'https://a:b@xn--g6w251d/?abc#foo',
-     *   auth: 'a:b'
-     * }
-     *
-     * ```
-     *
-     * ```js
-     * const { urlToHttpOptions } = require('url');
      * const myURL = new URL('https://a:b@測試?abc#foo');
      *
      * console.log(urlToHttpOptions(myUrl));
