@@ -1,4 +1,4 @@
-import * as Plotly from 'plotly.js-dist-min';
+import Plotly from 'plotly.js-dist-min';
 
 const data: Array<Partial<Plotly.PlotData>> = [
     {
@@ -13,6 +13,7 @@ const data: Array<Partial<Plotly.PlotData>> = [
 const layout = {
     margin: { l: 0, r: 0, b: 0, t: 0 },
 };
+
 Plotly.newPlot('myDiv', data, layout, {
     plotlyServerURL: 'https://chart-studio.plotly.com/',
     showSendToCloud: true,
