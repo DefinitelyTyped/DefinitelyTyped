@@ -3,6 +3,9 @@
 // Definitions by: MinByeongDon <deepfree@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
+
+  //# Core
+
   class Map {
     constructor(container: HTMLElement, options?: {
       /** 중심 좌표 (필수) */
@@ -58,12 +61,15 @@ declare namespace kakao.maps {
     setCursor(style: string): void
     //event: center_changed, zoom_start, zoom_changed, bounds_changed, click, dblclick, rightclick, mousemove, dragstart, drag, dragend, idle, tilesloaded, maptypeid_changed
   }
+  
   class MapTypeControl {
     constructor();
   }
+
   class ZoomControl {
     constructor();
   }
+
   enum MAP_TYPE_ID {
     NORMAL = 1,
     ROADMAP = 1,
@@ -91,6 +97,7 @@ declare namespace kakao.maps {
     /** 오버레이 타입 */ const BICYCLE_HYBRID: MAP_TYPE_ID
     /** 오버레이 타입 */ const USE_DISTRICT: MAP_TYPE_ID
   }
+
   //NOTE: SDK에 kakao.maps.ProjectionId 구현없음. 없어진것 같음
   enum CONTROL_POSITION {
     TOPLEFT = 0,
@@ -113,6 +120,7 @@ declare namespace kakao.maps {
     const LEFT: CONTROL_POSITION
     const RIGHT: CONTROL_POSITION
   }
+  
   enum COPYRIGHT_POSITION {
     BOTTOMLEFT = 0,
     BOTTOMRIGHT = 1,
@@ -122,13 +130,16 @@ declare namespace kakao.maps {
     const BOTTOMLEFT: COPYRIGHT_POSITION
     const BOTTOMRIGHT: COPYRIGHT_POSITION
   }
+
   class Tileset {
     constructor(width: number, height: number, urlFunc: Function, copyright: TilesetCopyright[], dark: boolean, minZoom: number, maxZoom: number, getTile?: Function)
     static add(id: string, tileset: Tileset): void
   }
+
   class TilesetCopyright {
     constructor(msg: string, shortMsg: string, minZoom: number)
   }
+
   class Coords {
     constructor(x: number, y: number)
     getX(): number
@@ -137,6 +148,7 @@ declare namespace kakao.maps {
     toString(): string
     toLatLng(): LatLng
   }
+
   class LatLng {
     constructor(latitude: number, longitude: number)
     getLat(): number
@@ -145,6 +157,7 @@ declare namespace kakao.maps {
     toString(): string
     toCoords(): Coords
   }
+
   class LatLngBounds {
     constructor(sw?: LatLng, ne?: LatLng)
     equals(latlngBounds: LatLngBounds): boolean
@@ -155,29 +168,35 @@ declare namespace kakao.maps {
     extend(latlng: LatLng): void
     contain(latlng: LatLng): boolean
   }
+
   class Point {
     constructor(x: number, y: number)
     equals(point: Point): boolean
     toString(): string
   }
+
   class Size {
     constructor(width: number, height: number)
     equals(size: Size): boolean
     toString(): string
   }
+  
   namespace event {
     function addListener(target: any, type: string, handler: EventListener|MouseEventListener): void
     function removeListener(target: any, type: string, handler: EventListener|MouseEventListener): void
     function trigger(target: any, type: string, data: any): void
     function preventMap(): void
   }
-  interface MouseEvent extends Event {
+
+  interface MouseEvent {
     latLng: LatLng
     point: Point
   }
+
   interface MouseEventListener {
     (evt: MouseEvent): void;
   }
+
   class Marker {
     constructor(options?: {
       map?: Map|Roadview, 
@@ -215,6 +234,7 @@ declare namespace kakao.maps {
     getOpacity(): number
     //event: click, mouseover, mouseout, rightclick, dragstart, dragend
   }
+
   class MarkerImage {
     constructor(src: string, size: Size, options?: {
       alt?: string,
@@ -225,6 +245,7 @@ declare namespace kakao.maps {
       spriteSize?: Size
     })
   }
+
   class InfoWindow {
     constructor(options?: {
       content?: HTMLElement|string,
@@ -250,6 +271,7 @@ declare namespace kakao.maps {
     setRange(range: number): void
     getRange(): number
   }
+
   class CustomOverlay {
     constructor(options: {
       clickable: boolean,
@@ -275,6 +297,7 @@ declare namespace kakao.maps {
     setRange(range: number): void
     getRange(): number
   }
+
   class AbstractOverlayMethods {
     constructor()
     draw(): void
@@ -285,15 +308,18 @@ declare namespace kakao.maps {
     getPanels(): MapPanels
     getProjection(): MapProjection
   }
+
   class MapPanels {
     overlayLayer: HTMLElement
   }
+
   class MapProjection {
     pointFromCoords(latlng: LatLng): Point
     coordsFromPoint(point: Point): LatLng
     containerPointFromCoords(latlng: LatLng): Point
     coordsFromContainerPoint(point: Point): LatLng
   }
+
   interface PolylineOptions {
     map?: Map,
     path?: LatLng[]|LatLng[][]
@@ -316,6 +342,7 @@ declare namespace kakao.maps {
     getZIndex(): number
     //event: mouseover,mouseout,mousemove,mousedown,click
   }
+
   interface PolygonOptions {
     map?: Map,
     path?: LatLng[]|LatLng[][]
@@ -340,6 +367,7 @@ declare namespace kakao.maps {
     getZIndex(): number
     //event: mouseover,mouseout,mousemove,mousedown,click
   }
+
   interface CircleOptions {
     map?: Map,
     center?: LatLng
@@ -366,6 +394,7 @@ declare namespace kakao.maps {
     getZIndex(): number
     //event: mouseover,mouseout,mousemove,mousedown,click
   }
+
   interface EllipseOptions {
     map?: Map,
     center?: LatLng
@@ -395,6 +424,7 @@ declare namespace kakao.maps {
     getZIndex(): number
     //event: mouseover,mouseout,mousemove,mousedown,click
   }
+
   interface RectangleOptions {
     map?: Map,
     bounds?: LatLngBounds
@@ -417,6 +447,7 @@ declare namespace kakao.maps {
     getZIndex(): number
     //event: mouseover,mouseout,mousemove,mousedown,click
   }
+
   class Roadview {
     constructor(container: HTMLElement, options: {
       panoId: number,
@@ -435,15 +466,18 @@ declare namespace kakao.maps {
     relayout(): void
     //event: init,panoid_changed,viewpoint_changed,position_changed
   }
+
   class RoadviewClient {
     constructor()
     getNearestPanoId(position: LatLng, radius: number, callback: Function): void
   }
+
   class RoadviewOverlay {
     constructor()
     setMap(map: Map|null): void
     getMap(): Map|null
   }
+
   class Viewpoint {
     public pan: number;
     public tilt: number;
@@ -451,6 +485,7 @@ declare namespace kakao.maps {
     public panoId?: number;
     constructor(pan: number, tilt: number, zoom: number, panoId?: number)
   }
+
   class StaticMap {
     constructor(container: HTMLElement, options: {
       center: LatLng,
@@ -466,6 +501,8 @@ declare namespace kakao.maps {
     setMapTypeId(): MapTypeId
   }
 
+  //# Library
+  //## services namespace
   namespace services {
 
     enum STATUS {
@@ -581,11 +618,209 @@ declare namespace kakao.maps {
       gotoLast(): void
     }
 
-    //NOTE: Cluster 제외
-    //NOTE: Drawing 제외
+    class MarkerCluster {
+      constructor(options?: {
+        map?: Map,
+        markers?: Marker[],
+        gridSize?: number,
+        averageCenter?: boolean,
+        minLevel?: number,
+        minClusterSize?: number,
+        styles?: object,
+        texts?: string[]|Function,
+        calculator?: number[],
+        disableClickZoom?: boolean,
+        clickable?: boolean,
+        hoverable?: boolean,
+      })
+      addMarker(marker: Marker, nodraw?: boolean): void
+      removeMarker(marker: Marker, nodraw?: boolean): void
+      addMarkers(marker: Marker[], nodraw?: boolean): void
+      removeMarkers(marker: Marker[], nodraw?: boolean): void
+      clear(): void
+      redraw(): void
+      getGridSize(): number
+      setGridSize(size: number): void
+      getMinClusterSize(): number
+      setMinClusterSize(size: number): void
+      getAverageCenter(): boolean
+      setAverageCenter(bool: boolean): void
+      getMinLevel(): number
+      setMinLevel(level: number): void
+      getTexts(): string[]|Function
+      setTexts(texts: string[]|Function): void
+      getCalculator(): number[]|Function
+      setCalculator(calculator: number[]|Function): void
+      getStyles(): object[]
+      setStyles(styles: object[]): void
+      //event: clusterclick,clusterover,clusterout,clusterdblclick,clusterrightclick,clustered
+    }
+
+    class Cluster {
+      getCenter(): LatLng
+      getBounds(): LatLngBounds
+      getSize(): number
+      getMarkers(): Marker[]
+      getClusterMarker(): CustomOverlay
+    }
 
   } // services
 
+  //## drawing namespace
+  namespace drawing {
+
+    enum OverlayType {
+      MARKER = "marker",
+      RECTANGLE = "rectangle",
+      CIRCLE = "circle",
+      ELLIPSE = "ellipse",
+      POLYLINE = "polyline",
+      ARROW = "arrow",
+      POLYGON = "polygon",
+    }
+    namespace AnalyzeType {
+      const MARKER: OverlayType
+      const RECTANGLE: OverlayType
+      const CIRCLE: OverlayType
+      const ELLIPSE: OverlayType
+      const POLYLINE: OverlayType
+      const ARROW: OverlayType
+      const POLYGON: OverlayType
+    }
+
+    interface MarkerOptions {
+      draggable: boolean
+      removable: boolean
+      markerImages: MarkerImageOptions[]
+    }
+    interface MarkerImageOptions {
+      src: string
+      width: number
+      height: number
+      offsetX: number
+      offsetY: number
+      spriteWidth: number
+      spriteHeight: number
+      spriteOriginX: number
+      spriteOriginY: number
+      shape: string
+      coords: string
+      hoverImage: object
+      dragImage: object
+    }
+    interface RectangleOptions {
+      draggable: boolean
+      removable: boolean
+      editable: boolean
+      strokeWeight: number
+      strokeColor: string
+      strokeOpacity: number
+      strokeStyle: string
+      fillColor: string
+      fillOpacity: number
+    }
+    interface CircleOptions {
+      draggable: boolean
+      removable: boolean
+      editable: boolean
+      strokeWeight: number
+      strokeColor: string
+      strokeOpacity: number
+      strokeStyle: string
+      fillColor: string
+      fillOpacity: number
+    }
+    interface EllipseOptions {
+      draggable: boolean
+      removable: boolean
+      editable: boolean
+      strokeWeight: number
+      strokeColor: string
+      strokeOpacity: number
+      strokeStyle: string
+      fillColor: string
+      fillOpacity: number
+    }
+    interface PolylineOptions {
+      draggable: boolean
+      removable: boolean
+      editable: boolean
+      strokeWeight: number
+      strokeColor: string
+      strokeOpacity: number
+      strokeStyle: string
+      hintStrokeStyle: string
+      hintStrokeOpacity: number
+    }
+    interface ArrowOptions {
+      draggable: boolean
+      removable: boolean
+      editable: boolean
+      strokeWeight: number
+      strokeColor: string
+      strokeOpacity: number
+      strokeStyle: string
+      hintStrokeStyle: string
+      hintStrokeOpacity: number
+      startArrow: boolean
+    }
+    interface PolygonOptions {
+      draggable: boolean
+      removable: boolean
+      editable: boolean
+      strokeWeight: number
+      strokeColor: string
+      strokeOpacity: number
+      strokeStyle: string
+      fillColor: string
+      fillOpacity: number
+    }
+    class DrawingManager {
+      constructor(options?: {
+        map: Map,
+        guideTooltip: string[],
+        drawingMode: OverlayType[],
+        markerOptions: MarkerOptions,
+        rectangleOptions: RectangleOptions,
+        circleOptions: CircleOptions,
+        ellipseOptions: EllipseOptions,
+        polylineOptions: PolylineOptions,
+        arrowOptions: ArrowOptions,
+        polygonOptions: PolygonOptions,
+      })
+      setStyle(type: OverlayType, prop: string, value: string|number): void
+      setStrokeWeight(strokeWeight: number): void
+      setStrokeColor(strokeColor: string): void
+      select(type: OverlayType, index?: number): void
+      cancel(): void
+      undo(): void
+      redo(): void
+      undoable(): boolean
+      redoable(): boolean
+      getData(types?: OverlayType[]): object
+      getOverlays(types?: OverlayType[]): object
+      put(overlayType: OverlayType, param1: LatLng|LatLngBounds|LatLng[]|LatLng[][], param2?: number): void
+      remove(overlay: any/*ExtendsOverlay*/): void
+      //event: select,drawstart,draw,drawend,drawnext,cancel,remove,state_changed
+    }
+
+    class Toolbax {
+      constructor(options?: {
+        drawingManager?: DrawingManager
+      })
+      getElement(): any
+    }
+
+    interface MouseEvent {
+      overlayType: OverlayType
+      coords: Coords
+      point: Point
+      target: object
+    }
+
+  } // drawing
+
+  //# Miscellaneous
   function load(callback: Function): void
   function disableHD(): void
 
