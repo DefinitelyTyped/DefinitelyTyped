@@ -856,6 +856,7 @@ declare namespace stripe {
             requestPayerEmail?: boolean | undefined;
             requestPayerPhone?: boolean | undefined;
             requestShipping?: boolean | undefined;
+            disableWallets: any[] | undefined;
         }
 
         interface UpdateDetails {
