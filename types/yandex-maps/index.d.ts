@@ -3466,7 +3466,7 @@ declare namespace ymaps {
         iconOffset?: number[] | undefined;
         iconShape?: IGeometryJson | null | undefined;
         interactiveZIndex?: boolean | undefined;
-        interactivityModel?: string | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
         openBalloonOnClick?: boolean | undefined;
         openEmptyBalloon?: boolean | undefined;
         openEmptyHint?: boolean | undefined;
@@ -3497,7 +3497,7 @@ declare namespace ymaps {
         hasBalloon?: boolean | undefined;
         hasHint?: boolean | undefined;
         interactiveZIndex?: boolean | undefined;
-        interactivityModel?: string | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
         opacity?: number | undefined;
         openBalloonOnClick?: boolean | undefined;
         openEmptyBalloon?: boolean | undefined;
@@ -3529,7 +3529,7 @@ declare namespace ymaps {
         hasBalloon?: boolean | undefined;
         hasHint?: boolean | undefined;
         interactiveZIndex?: boolean | undefined;
-        interactivityModel?: string | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
         lineStringOverlay?: (() => object | string) | undefined;
         opacity?: number | undefined;
         openBalloonOnClick?: boolean | undefined;
