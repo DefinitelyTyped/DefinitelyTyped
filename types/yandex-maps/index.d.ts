@@ -4557,6 +4557,11 @@ declare namespace ymaps {
     }
 
     namespace modules {
+        type ResolveCallbackFunction = (provide: (module: any, error?: any) => void, ...depends: any[]) => void;
+
+        function define(module: string, depends?: string[], resolveCallback?: ResolveCallbackFunction, context?: object): typeof modules;
+        function define(module: string, resolveCallback?: ResolveCallbackFunction, context?: object): typeof modules;
+
         function require(modules: string | string[]): vow.Promise;
 
         function isDefined(module: string): boolean;
