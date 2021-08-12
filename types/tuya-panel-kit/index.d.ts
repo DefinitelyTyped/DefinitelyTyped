@@ -28,7 +28,7 @@ import {
     SectionListProps,
     ListRenderItem,
 } from 'react-native';
-import { NavigationContainerProps, ParamListBase, RouteProp } from './@react-navigation/native';
+import { NavigationContainerProps, ParamListBase, RouteProp, NavigationContainerRef } from './@react-navigation/native';
 import { StackNavigationOptions } from './@react-navigation/stack';
 import { TransitionPreset } from './@react-navigation/stack/types';
 import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackground, BackgroundProps } from './theme';
@@ -11355,7 +11355,7 @@ export let TYSdk: {
         removeListener: (eventType: string, cb: AnyFunction) => void;
         removeAllListeners: (eventType?: string) => void;
     };
-    Navigator: DeprecatedNavigator;
+    Navigator: object | NavigationContainerRef;
     /**
      * @param a api name
      * @param postData api params
