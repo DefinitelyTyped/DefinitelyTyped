@@ -3,6 +3,7 @@
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
 //                 Chaitanya Kamatham <https://github.com/kamthamc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 type ScalarFieldType = boolean | number | string;
@@ -53,7 +54,7 @@ export abstract class Message {
     msg: Message,
     fieldNumber: number,
     noLazyCreate: boolean,
-    valueCtor: typeof Message): Map<any, any>;
+    valueCtor?: typeof Message): Map<any, any>;
   static setField(
     msg: Message,
     fieldNumber: number,
@@ -195,19 +196,18 @@ export class Map<K, V> {
   serializeBinary(
     fieldNumber: number,
     writer: BinaryWriter,
-    keyWriterFn: (writer: BinaryWriter, field: number, key: K) => void,
-    valueWriterFn: ((writer: BinaryWriter, field: number, value: V) => void)
-                   | ((writer: BinaryWriter, field: number, value: V, opt_valueWriterCallback: (value: V, writer: BinaryWriter) => void) => void),
-    opt_valueWriterCallback?: (value: V, writer: BinaryWriter) => void
+    keyWriterFn: (field: number, key: K) => void,
+    valueWriterFn: (field: number, value: V, writeCallback?: BinaryWriteCallback) => void,
+    writeCallback?: BinaryWriteCallback
   ): void;
   static deserializeBinary<K, V>(
     map: Map<K, V>,
     reader: BinaryReader,
     keyReaderFn: (reader: BinaryReader) => K,
-    valueReaderFn: ((reader: BinaryReader) => V) | ((reader: BinaryReader, value: V, opt_valueReaderCallback: (value: V, reader: BinaryReader) => any) => any),
-    opt_valueReaderCallback?: (value: V, reader: BinaryReader) => any,
-    opt_defaultKey?: K,
-    opt_defaultValue?: V
+    valueReaderFn: (reader: BinaryReader, defaultValue?: V, readCallback?: BinaryReadCallback) => V,
+    readCallback?: BinaryReadCallback,
+    defaultKey?: K,
+    defaultValue?: V
   ): void;
 }
 
@@ -227,6 +227,8 @@ type BinaryReadReader = (msg: any, binaryReader: BinaryReader) => void;
 
 type BinaryRead = (msg: any, reader: BinaryReadReader) => void;
 
+type BinaryReadCallback = (value: any, binaryReader: BinaryReader) => any;
+                      
 type BinaryWriteCallback = (value: any, binaryWriter: BinaryWriter) => void;
 
 type BinaryWrite = (fieldNumber: number, value: any, writerCallback: BinaryWriteCallback) => void;
