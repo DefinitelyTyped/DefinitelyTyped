@@ -132,7 +132,7 @@ declare const opts: any;
     let hasNull = false
     for (let i of state.tokens_meta) {
         if (i === null) {
-            hasNull = true 
+            hasNull = true
         }
     }
 }
