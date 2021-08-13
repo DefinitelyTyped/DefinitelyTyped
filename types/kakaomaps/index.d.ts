@@ -1,10 +1,9 @@
-// Type definitions for kakaomaps v1.0
+// Type definitions for kakaomaps 1.0
 // Project: https://apis.map.kakao.com/web/documentation/
 // Definitions by: MinByeongDon <deepfree@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
   // # Core
-
   class Map {
     constructor(container: HTMLElement, options?: {
       center: LatLng,
@@ -49,13 +48,10 @@ declare namespace kakao.maps {
     setCursor(style: string): void;
     // event: center_changed, zoom_start, zoom_changed, bounds_changed, click, dblclick, rightclick, mousemove, dragstart, drag, dragend, idle, tilesloaded, maptypeid_changed
   }
-
   class MapTypeControl {
   }
-
   class ZoomControl {
   }
-
   enum MAP_TYPE_ID {
     NORMAL = 1,
     ROADMAP = 1,
@@ -83,9 +79,7 @@ declare namespace kakao.maps {
     const BICYCLE_HYBRID: MAP_TYPE_ID;
     const USE_DISTRICT: MAP_TYPE_ID;
   }
-
   // NOTE: SDK에 kakao.maps.ProjectionId 구현없음. 없어진것 같음
-
   enum CONTROL_POSITION {
     TOPLEFT = 0,
     TOP = 1,
@@ -107,7 +101,6 @@ declare namespace kakao.maps {
     const LEFT: CONTROL_POSITION;
     const RIGHT: CONTROL_POSITION;
   }
-
   enum COPYRIGHT_POSITION {
     BOTTOMLEFT = 0,
     BOTTOMRIGHT = 1,
@@ -117,18 +110,15 @@ declare namespace kakao.maps {
     const BOTTOMLEFT: COPYRIGHT_POSITION;
     const BOTTOMRIGHT: COPYRIGHT_POSITION;
   }
-
   class Tileset {
     constructor(width: number, height: number, urlFunc: () => void, copyright: TilesetCopyright[], dark: boolean, minZoom: number, maxZoom: number, getTile?: () => void)
   }
   namespace Tileset {
     function add(id: string, tileset: Tileset): void;
   }
-
   class TilesetCopyright {
     constructor(msg: string, shortMsg: string, minZoom: number)
   }
-
   class Coords {
     constructor(x: number, y: number)
     getX(): number;
@@ -137,7 +127,6 @@ declare namespace kakao.maps {
     toString(): string;
     toLatLng(): LatLng;
   }
-
   class LatLng {
     constructor(latitude: number, longitude: number)
     getLat(): number;
@@ -146,7 +135,6 @@ declare namespace kakao.maps {
     toString(): string;
     toCoords(): Coords;
   }
-
   class LatLngBounds {
     constructor(sw?: LatLng, ne?: LatLng)
     equals(latlngBounds: LatLngBounds): boolean;
@@ -157,35 +145,29 @@ declare namespace kakao.maps {
     extend(latlng: LatLng): void;
     contain(latlng: LatLng): boolean;
   }
-
   class Point {
     constructor(x: number, y: number)
     equals(point: Point): boolean;
     toString(): string;
   }
-
   class Size {
     constructor(width: number, height: number)
     equals(size: Size): boolean;
     toString(): string;
   }
-  
   namespace event {
     function addListener(target: any, type: string, handler: EventListener|MouseEventListener): void;
     function removeListener(target: any, type: string, handler: EventListener|MouseEventListener): void;
     function trigger(target: any, type: string, data: any): void;
     function preventMap(): void;
   }
-
   interface MouseEvent {
     latLng: LatLng;
     point: Point;
   }
-
   interface MouseEventListener {
     (evt: MouseEvent): void;
   }
-
   class Marker {
     constructor(options?: {
       map?: Map|Roadview, 
@@ -223,7 +205,6 @@ declare namespace kakao.maps {
     getOpacity(): number;
     // event: click, mouseover, mouseout, rightclick, dragstart, dragend
   }
-
   class MarkerImage {
     constructor(src: string, size: Size, options?: {
       alt?: string,
@@ -234,7 +215,6 @@ declare namespace kakao.maps {
       spriteSize?: Size
     })
   }
-
   class InfoWindow {
     constructor(options?: {
       content?: HTMLElement|string,
@@ -260,7 +240,6 @@ declare namespace kakao.maps {
     setRange(range: number): void;
     getRange(): number;
   }
-
   class CustomOverlay {
     constructor(options?: {
       clickable?: boolean,
@@ -286,7 +265,6 @@ declare namespace kakao.maps {
     setRange(range: number): void;
     getRange(): number;
   }
-
   class AbstractOverlayMethods {
     constructor()
     draw(): void;
@@ -297,18 +275,15 @@ declare namespace kakao.maps {
     getPanels(): MapPanels;
     getProjection(): MapProjection;
   }
-
   class MapPanels {
     overlayLayer: HTMLElement
   }
-
   class MapProjection {
     pointFromCoords(latlng: LatLng): Point;
     coordsFromPoint(point: Point): LatLng;
     containerPointFromCoords(latlng: LatLng): Point;
     coordsFromContainerPoint(point: Point): LatLng;
   }
-
   interface PolylineOptions {
     map?: Map;
     path?: LatLng[]|LatLng[][];
@@ -331,7 +306,6 @@ declare namespace kakao.maps {
     getZIndex(): number;
     // event: mouseover,mouseout,mousemove,mousedown,click
   }
-
   interface PolygonOptions {
     map?: Map;
     path?: LatLng[]|LatLng[][];
@@ -356,7 +330,6 @@ declare namespace kakao.maps {
     getZIndex(): number;
     //event: mouseover,mouseout,mousemove,mousedown,click
   }
-
   interface CircleOptions {
     map?: Map;
     center?: LatLng;
@@ -383,7 +356,6 @@ declare namespace kakao.maps {
     getZIndex(): number;
     // event: mouseover,mouseout,mousemove,mousedown,click
   }
-
   interface EllipseOptions {
     map?: Map;
     center?: LatLng;
@@ -413,7 +385,6 @@ declare namespace kakao.maps {
     getZIndex(): number;
     // event: mouseover,mouseout,mousemove,mousedown,click
   }
-
   interface RectangleOptions {
     map?: Map;
     bounds?: LatLngBounds;
@@ -436,7 +407,6 @@ declare namespace kakao.maps {
     getZIndex(): number;
     // event: mouseover,mouseout,mousemove,mousedown,click
   }
-
   class Roadview {
     constructor(container: HTMLElement, options: {
       panoId: number,
@@ -455,18 +425,15 @@ declare namespace kakao.maps {
     relayout(): void;
     // event: init,panoid_changed,viewpoint_changed,position_changed
   }
-
   class RoadviewClient {
     constructor()
     getNearestPanoId(position: LatLng, radius: number, callback: () => void): void;
   }
-
   class RoadviewOverlay {
     constructor()
     setMap(map: Map|null): void;
     getMap(): Map|null;
   }
-
   class Viewpoint {
     public pan: number;
     public tilt: number;
@@ -474,7 +441,6 @@ declare namespace kakao.maps {
     public panoId?: number;
     constructor(pan: number, tilt: number, zoom: number, panoId?: number)
   }
-
   class StaticMap {
     constructor(container: HTMLElement, options: {
       center: LatLng,
@@ -489,7 +455,6 @@ declare namespace kakao.maps {
     setMapTypeId(mapTypeId: MapTypeId): void;
     setMapTypeId(): MapTypeId;
   }
-
   // # Library
   // ## services namespace
   namespace services {
@@ -504,7 +469,6 @@ declare namespace kakao.maps {
       const ZERO_RESULT: STATUS
       const ERROR: STATUS
     }
-
     enum SORT_BY {
       ACCURACY = "accuracy",
       DISTANCE = "distance",
@@ -514,7 +478,6 @@ declare namespace kakao.maps {
       const ACCURACY: SORT_BY
       const DISTANCE: SORT_BY
     }
-
     enum COORDS {
       WGS84 = "WGS84",
       WCONGNAMUL = "WCONGNAMUL",
@@ -530,7 +493,6 @@ declare namespace kakao.maps {
       const WTM: COORDS
       const TM: COORDS
     }
-
     enum ANALYZE_TYPE {
       SIMILAR = "similar",
       EXACT = "exact",
@@ -540,7 +502,6 @@ declare namespace kakao.maps {
       const SIMILAR: ANALYZE_TYPE
       const EXACT: ANALYZE_TYPE
     }
-
     class Places {
       constructor(map: Map)
       setMap(map: Map|null): void;
@@ -572,7 +533,6 @@ declare namespace kakao.maps {
         useMapBounds?: boolean,
       }): void;
     }
-
     class Geocoder {
       constructor()
       addressSearch(addr: string, callback: (result: any[], status: Status, pagination: Pagination) => void, options?: {
@@ -592,7 +552,6 @@ declare namespace kakao.maps {
         output_coord?: Coords,
       }): void;
     }
-
     class Pagination {
       public totalCount: number
       public hasNextPage: boolean
@@ -605,7 +564,6 @@ declare namespace kakao.maps {
       gotoFirst(): void;
       gotoLast(): void;
     }
-
     class MarkerCluster {
       constructor(options?: {
         map?: Map,
@@ -643,7 +601,6 @@ declare namespace kakao.maps {
       setStyles(styles: object[]): void;
       // event: clusterclick,clusterover,clusterout,clusterdblclick,clusterrightclick,clustered
     }
-
     class Cluster {
       getCenter(): LatLng;
       getBounds(): LatLngBounds;
@@ -651,9 +608,7 @@ declare namespace kakao.maps {
       getMarkers(): Marker[];
       getClusterMarker(): CustomOverlay;
     }
-
   } // services
-
   // ## drawing namespace
   namespace drawing {
     enum OverlayType {
@@ -674,7 +629,6 @@ declare namespace kakao.maps {
       const ARROW: OverlayType
       const POLYGON: OverlayType
     }
-
     interface MarkerOptions {
       draggable: boolean;
       removable: boolean;
@@ -790,27 +744,21 @@ declare namespace kakao.maps {
       remove(overlay: any/*ExtendsOverlay*/): void;
       // event: select,drawstart,draw,drawend,drawnext,cancel,remove,state_changed
     }
-
     class Toolbax {
       constructor(options?: {
         drawingManager?: DrawingManager
       })
       getElement(): any;
     }
-
     interface MouseEvent {
       overlayType: OverlayType;
       coords: Coords;
       point: Point;
       target: object;
     }
-
   } // drawing
-
   // # Miscellaneous
   function load(callback: Function): void;
   function disableHD(): void;
-
   type StrokeStyles = 'solid'|'shortdash'|'shortdot'|'shortdashdot'|'shortdashdotdot'|'dot'|'dash'|'dashdot'|'longdash'|'longdashdot'|'longdashdotdot'
-
 }
