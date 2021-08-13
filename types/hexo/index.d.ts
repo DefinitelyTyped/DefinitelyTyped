@@ -716,7 +716,7 @@ declare namespace Hexo {
                 srcExt: string,
                 outExt: string,
                 fn: (this: Hexo, data: RendererData, options: any) => Promise<string>,
-                sync: false,
+                sync?: false,
             ): void;
             register(
                 srcExt: string,
