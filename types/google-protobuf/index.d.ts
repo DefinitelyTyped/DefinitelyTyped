@@ -18,7 +18,7 @@ export abstract class Message {
     data: Message.MessageArray,
     messageId: (string | number),
     suggestedPivot: number,
-    repeatedFields?: number[],
+    repeatedFields?: number[] | null,
     oneofFields?: number[][] | null): void;
   static toObjectList<T extends Message>(
     field: T[],
@@ -196,14 +196,14 @@ export class Map<K, V> {
     fieldNumber: number,
     writer: BinaryWriter,
     keyWriterFn: (field: number, key: K) => void,
-    valueWriterFn: (field: number, value: V, writeCallback?: BinaryWriteCallback) => void,
+    valueWriterFn: (field: number, value: V, writerCallback: BinaryWriteCallback) => void,
     writeCallback?: BinaryWriteCallback
   ): void;
   static deserializeBinary<K, V>(
     map: Map<K, V>,
     reader: BinaryReader,
     keyReaderFn: (reader: BinaryReader) => K,
-    valueReaderFn: (reader: BinaryReader, defaultValue?: V, readCallback?: BinaryReadCallback) => V,
+    valueReaderFn: (reader: BinaryReader, value: any, readerCallback: BinaryReadCallback) => V,
     readCallback?: BinaryReadCallback,
     defaultKey?: K,
     defaultValue?: V
@@ -224,9 +224,9 @@ export namespace Map {
 
 type BinaryReadReader = (msg: any, binaryReader: BinaryReader) => void;
 
-type BinaryRead = (msg: any, reader: BinaryReadReader) => void;
+type BinaryRead = (msg: any, reader: BinaryReadReader) => any;
 
-type BinaryReadCallback = (value: any, binaryReader: BinaryReader) => any;
+type BinaryReadCallback = (value: any, binaryReader: BinaryReader) => void;
 
 type BinaryWriteCallback = (value: any, binaryWriter: BinaryWriter) => void;
 
