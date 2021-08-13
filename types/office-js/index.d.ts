@@ -2109,13 +2109,11 @@ declare namespace Office {
          *
          * **Important**: This event is only available with task pane implementation.
          *
-         * [Api set: Mailbox 1.10]
-         *
-         * @remarks
-         *
          * To add an event handler for the `InfobarClicked` event, use the `addHandlerAsync` method of the `Item` object.
          * The event handler receives an argument of type
          * {@link https://docs.microsoft.com/javascript/api/outlook/office.infobarclickedeventargs?view=outlook-js-1.10 | Office.InfobarClickedEventArgs}.
+         *
+         * [Api set: Mailbox 1.10]
          */
         InfobarClicked,
         /**
