@@ -6625,7 +6625,7 @@ declare namespace echarts {
                             } | undefined;
                         } | undefined;
                     } | undefined;
-                } | undefined;
+                }[] | undefined;
 
                 /**
                  * Whether to enable animation.
