@@ -110,13 +110,15 @@ declare namespace kakao.maps {
     const BOTTOMLEFT: COPYRIGHT_POSITION;
     const BOTTOMRIGHT: COPYRIGHT_POSITION;
   }
-  class Tileset {}
-  function Tileset(width: number, height: number, urlFunc: () => void, copyright: TilesetCopyright[], dark: boolean, minZoom: number, maxZoom: number, getTile?: () => void): Tileset;
+  class Tileset {
+    constructor(width: number, height: number, urlFunc: () => void, copyright: TilesetCopyright[], dark: boolean, minZoom: number, maxZoom: number, getTile?: () => void)
+  }
   namespace Tileset {
     function add(id: string, tileset: Tileset): void;
   }
-  class TilesetCopyright {}
-  function TilesetCopyright(msg: string, shortMsg: string, minZoom: number): TilesetCopyright;
+  class TilesetCopyright {
+    constructor(msg: string, shortMsg: string, minZoom: number)
+  }
   class Coords {
     constructor(x: number, y: number)
     getX(): number;
@@ -203,15 +205,16 @@ declare namespace kakao.maps {
     getOpacity(): number;
     // event: click, mouseover, mouseout, rightclick, dragstart, dragend
   }
-  class MarkerImage {}
-  function MarkerImage(src: string, size: Size, options?: {
-    alt?: string,
-    coords?: string,
-    offset?: Point,
-    shape?: string,
-    spriteOrigin?: Point,
-    spriteSize?: Size
-  }): MarkerImage;
+  class MarkerImage {
+    constructor(src: string, size: Size, options?: {
+      alt?: string,
+      coords?: string,
+      offset?: Point,
+      shape?: string,
+      spriteOrigin?: Point,
+      spriteSize?: Size
+    })
+  }
   class InfoWindow {
     constructor(options?: {
       content?: HTMLElement|string,
