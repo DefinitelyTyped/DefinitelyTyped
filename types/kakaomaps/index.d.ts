@@ -553,10 +553,10 @@ declare namespace kakao.maps {
       }): void;
     }
     class Pagination {
-      public totalCount: number
-      public hasNextPage: boolean
-      public hasPrevPage: boolean
-      public current: number
+      totalCount: number
+      hasNextPage: boolean
+      hasPrevPage: boolean
+      current: number
       constructor()
       nextPage(): void;
       prevPage(): void;
