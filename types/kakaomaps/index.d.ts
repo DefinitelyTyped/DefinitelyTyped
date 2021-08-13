@@ -465,9 +465,9 @@ declare namespace kakao.maps {
     }
     type Status = STATUS;
     namespace Status {
-      const OK: STATUS
-      const ZERO_RESULT: STATUS
-      const ERROR: STATUS
+      const OK: STATUS;
+      const ZERO_RESULT: STATUS;
+      const ERROR: STATUS;
     }
     enum SORT_BY {
       ACCURACY = "accuracy",
@@ -475,8 +475,8 @@ declare namespace kakao.maps {
     }
     type SortBy = SORT_BY;
     namespace SortBy {
-      const ACCURACY: SORT_BY
-      const DISTANCE: SORT_BY
+      const ACCURACY: SORT_BY;
+      const DISTANCE: SORT_BY;
     }
     enum COORDS {
       WGS84 = "WGS84",
@@ -487,11 +487,11 @@ declare namespace kakao.maps {
     }
     type Coords = COORDS;
     namespace Coords {
-      const WGS84: COORDS
-      const WCONGNAMUL: COORDS
-      const CONGNAMUL: COORDS
-      const WTM: COORDS
-      const TM: COORDS
+      const WGS84: COORDS;
+      const WCONGNAMUL: COORDS;
+      const CONGNAMUL: COORDS;
+      const WTM: COORDS;
+      const TM: COORDS;
     }
     enum ANALYZE_TYPE {
       SIMILAR = "similar",
@@ -499,8 +499,8 @@ declare namespace kakao.maps {
     }
     type AnalyzeType = ANALYZE_TYPE;
     namespace AnalyzeType {
-      const SIMILAR: ANALYZE_TYPE
-      const EXACT: ANALYZE_TYPE
+      const SIMILAR: ANALYZE_TYPE;
+      const EXACT: ANALYZE_TYPE;
     }
     class Places {
       constructor(map: Map)
@@ -621,13 +621,13 @@ declare namespace kakao.maps {
       POLYGON = "polygon",
     }
     namespace AnalyzeType {
-      const MARKER: OverlayType
-      const RECTANGLE: OverlayType
-      const CIRCLE: OverlayType
-      const ELLIPSE: OverlayType
-      const POLYLINE: OverlayType
-      const ARROW: OverlayType
-      const POLYGON: OverlayType
+      const MARKER: OverlayType;
+      const RECTANGLE: OverlayType;
+      const CIRCLE: OverlayType;
+      const ELLIPSE: OverlayType;
+      const POLYLINE: OverlayType;
+      const ARROW: OverlayType;
+      const POLYGON: OverlayType;
     }
     interface MarkerOptions {
       draggable: boolean;
