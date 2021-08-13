@@ -19,3 +19,5 @@ srh.removeSites(['bar', 'hello']);
 srh.removeSites('site');
 
 srh.setSites(['hello', 'world']);
+
+const hash: string = srh.hash('somekey');

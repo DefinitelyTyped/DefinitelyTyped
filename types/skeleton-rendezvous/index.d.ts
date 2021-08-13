@@ -21,6 +21,7 @@ declare class SkeletonRendezvousHasher {
     addSites(sites: string[]): void;
     removeSites(sites: string | string[]): void;
     findSite(key: string): string;
+    hash(key: string): string;
 }
 
 export = SkeletonRendezvousHasher;
