@@ -1,6 +1,6 @@
 // Type definitions for kakaomaps 1.0
 // Project: https://apis.map.kakao.com/web/documentation/
-// Definitions by: MinByeongDon <deepfree@gmail.com>
+// Definitions by: MinByeongDon <https://github.com/MinByeongDon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
   // # Core
@@ -170,7 +170,7 @@ declare namespace kakao.maps {
   }
   class Marker {
     constructor(options?: {
-      map?: Map|Roadview, 
+      map?: Map|Roadview,
       position?: LatLng|Viewpoint,
       image?: MarkerImage,
       title?: string,
@@ -276,7 +276,7 @@ declare namespace kakao.maps {
     getProjection(): MapProjection;
   }
   class MapPanels {
-    overlayLayer: HTMLElement
+    overlayLayer: HTMLElement;
   }
   class MapProjection {
     pointFromCoords(latlng: LatLng): Point;
@@ -328,7 +328,7 @@ declare namespace kakao.maps {
     getArea(): number;
     setZIndex(zIndex: number): void;
     getZIndex(): number;
-    //event: mouseover,mouseout,mousemove,mousedown,click
+    // event: mouseover,mouseout,mousemove,mousedown,click
   }
   interface CircleOptions {
     map?: Map;
@@ -398,7 +398,7 @@ declare namespace kakao.maps {
   }
   class Rectangle {
     constructor(options: RectangleOptions)
-    setMap(map: Map|null): void
+    setMap(map: Map|null): void;
     getMap(): Map|null;
     setOptions(options: RectangleOptions): void;
     setBounds(bounds: LatLngBounds): void;
@@ -435,10 +435,10 @@ declare namespace kakao.maps {
     getMap(): Map|null;
   }
   class Viewpoint {
-    public pan: number;
-    public tilt: number;
-    public zoom: number;
-    public panoId?: number;
+    pan: number;
+    tilt: number;
+    zoom: number;
+    panoId?: number;
     constructor(pan: number, tilt: number, zoom: number, panoId?: number)
   }
   class StaticMap {
@@ -463,7 +463,7 @@ declare namespace kakao.maps {
       ZERO_RESULT = "ZERO_RESULT",
       ERROR = "ERROR",
     }
-    type Status = STATUS
+    type Status = STATUS;
     namespace Status {
       const OK: STATUS
       const ZERO_RESULT: STATUS
@@ -473,7 +473,7 @@ declare namespace kakao.maps {
       ACCURACY = "accuracy",
       DISTANCE = "distance",
     }
-    type SortBy = SORT_BY
+    type SortBy = SORT_BY;
     namespace SortBy {
       const ACCURACY: SORT_BY
       const DISTANCE: SORT_BY
@@ -485,7 +485,7 @@ declare namespace kakao.maps {
       WTM = "WTM",
       TM = "TM",
     }
-    type Coords = COORDS
+    type Coords = COORDS;
     namespace Coords {
       const WGS84: COORDS
       const WCONGNAMUL: COORDS
@@ -497,7 +497,7 @@ declare namespace kakao.maps {
       SIMILAR = "similar",
       EXACT = "exact",
     }
-    type AnalyzeType = ANALYZE_TYPE
+    type AnalyzeType = ANALYZE_TYPE;
     namespace AnalyzeType {
       const SIMILAR: ANALYZE_TYPE
       const EXACT: ANALYZE_TYPE
@@ -760,5 +760,5 @@ declare namespace kakao.maps {
   // # Miscellaneous
   function load(callback: Function): void;
   function disableHD(): void;
-  type StrokeStyles = 'solid'|'shortdash'|'shortdot'|'shortdashdot'|'shortdashdotdot'|'dot'|'dash'|'dashdot'|'longdash'|'longdashdot'|'longdashdotdot'
+  type StrokeStyles = 'solid'|'shortdash'|'shortdot'|'shortdashdot'|'shortdashdotdot'|'dot'|'dash'|'dashdot'|'longdash'|'longdashdot'|'longdashdotdot';
 }
