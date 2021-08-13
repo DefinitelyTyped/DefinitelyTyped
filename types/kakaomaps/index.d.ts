@@ -14,7 +14,7 @@ declare namespace kakao.maps {
       scrollwheel?: boolean,
       disableDoubleClick?: boolean,
       disableDoubleClickZoom?: boolean,
-      projectionId?: string, 
+      projectionId?: string,
       tileAnimation?: boolean,
       keyboardShortcuts?: boolean|object,
       speed?: number
@@ -37,8 +37,8 @@ declare namespace kakao.maps {
     getDraggable(): boolean;
     setZoomable(zoomable: boolean): void;
     getZoomable(): boolean;
-    //setProjectionId(projectionId: ProjectionId): void;
-    //getProjectionId(): ProjectionId;
+    // setProjectionId(projectionId: ProjectionId): void;
+    // getProjectionId(): ProjectionId;
     relayout(): void;
     addOverlayMapTypeId(mapTypeId: MapTypeId): void;
     removeOverlayMapTypeId(mapTypeId: MapTypeId): void;
@@ -49,7 +49,7 @@ declare namespace kakao.maps {
     setCursor(style: string): void;
     // event: center_changed, zoom_start, zoom_changed, bounds_changed, click, dblclick, rightclick, mousemove, dragstart, drag, dragend, idle, tilesloaded, maptypeid_changed
   }
-  
+
   class MapTypeControl {
   }
 
@@ -107,7 +107,7 @@ declare namespace kakao.maps {
     const LEFT: CONTROL_POSITION;
     const RIGHT: CONTROL_POSITION;
   }
-  
+
   enum COPYRIGHT_POSITION {
     BOTTOMLEFT = 0,
     BOTTOMRIGHT = 1,
@@ -119,8 +119,10 @@ declare namespace kakao.maps {
   }
 
   class Tileset {
-    constructor(width: number, height: number, urlFunc: Function, copyright: TilesetCopyright[], dark: boolean, minZoom: number, maxZoom: number, getTile?: Function)
-    static add(id: string, tileset: Tileset): void;
+    constructor(width: number, height: number, urlFunc: () => void, copyright: TilesetCopyright[], dark: boolean, minZoom: number, maxZoom: number, getTile?: () => void)
+  }
+  namespace Tileset {
+    function add(id: string, tileset: Tileset): void;
   }
 
   class TilesetCopyright {
@@ -456,7 +458,7 @@ declare namespace kakao.maps {
 
   class RoadviewClient {
     constructor()
-    getNearestPanoId(position: LatLng, radius: number, callback: Function): void;
+    getNearestPanoId(position: LatLng, radius: number, callback: () => void): void;
   }
 
   class RoadviewOverlay {
