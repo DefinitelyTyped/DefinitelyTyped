@@ -19,7 +19,7 @@ declare class SkeletonRendezvousHasher {
     getSites(): string[];
     setSites(sites: string[]): void;
     addSites(sites: string[]): void;
-    removeSites(sites: string[]): void;
+    removeSites(sites: string | string[]): void;
     findSite(key: string): string;
 }
 

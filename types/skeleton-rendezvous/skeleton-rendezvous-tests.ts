@@ -16,5 +16,6 @@ const sites: string[] = srh.getSites();
 const result: string = srh.findSite('somekey');
 
 srh.removeSites(['bar', 'hello']);
+srh.removeSites('site');
 
 srh.setSites(['hello', 'world']);
