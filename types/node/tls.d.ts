@@ -452,7 +452,7 @@ declare module 'tls' {
          * SecureContext.) If SNICallback wasn't provided the default callback
          * with high-level API will be used (see below).
          */
-        SNICallback?: ((servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void) | undefined;
+        SNICallback?: ((servername: string, cb: (err: Error | null, ctx?: SecureContext) => void) => void) | undefined;
         /**
          * If true the server will reject any connection which is not
          * authorized with the list of supplied CAs. This option only has an

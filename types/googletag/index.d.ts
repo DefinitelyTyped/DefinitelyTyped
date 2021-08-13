@@ -8,7 +8,7 @@
  * This is the global namespace that the Google Publisher Tag uses for its API.
  */
 declare namespace googletag {
-    type GeneralSize = (SingleSize | MultiSize);
+    type GeneralSize = SingleSize | MultiSize;
     type MultiSize = SingleSize[];
     /**
      * Named sizes that a slot can have.
@@ -42,7 +42,7 @@ declare namespace googletag {
      * The script then replaces cmd with a `googletag.CommandArray` object whose push method is defined to execute the function argument passed to it.
      * This mechanism allows GPT to reduce perceived latency by fetching the JavaScript asynchronously while allowing the browser to continue rendering the page.
      */
-    let cmd: Array<(() => void)> | CommandArray;
+    let cmd: Array<() => void> | CommandArray;
     /**
      * This is the namespace that GPT uses for `enum types`.
      */
@@ -54,7 +54,7 @@ declare namespace googletag {
             /**
              * Web interstitial creative format.
              */
-            INTERSTITIAL = 5
+            INTERSTITIAL = 5,
         }
     }
     /**
@@ -78,12 +78,12 @@ declare namespace googletag {
          * This event is fired when an impression becomes viewable, according to the [Active View criteria](https://support.google.com/admanager/answer/4524488).
          */
         // tslint:disable-next-line:no-empty-interface
-        interface ImpressionViewableEvent extends Event { }
+        interface ImpressionViewableEvent extends Event {}
         /**
          * This event is fired when the creative's iframe fires its load event. When rendering rich media ads in sync rendering mode, no iframe is used so no SlotOnloadEvent will be fired.
          */
         // tslint:disable-next-line:no-empty-interface
-        interface SlotOnloadEvent extends Event { }
+        interface SlotOnloadEvent extends Event {}
         /**
          * This event is fired when the creative code is injected into a slot.
          * This event will occur before the creative's resources are fetched, so the creative may not be visible yet.
@@ -128,12 +128,12 @@ declare namespace googletag {
          * This event is fired when an ad has been requested for a particular slot.
          */
         // tslint:disable-next-line:no-empty-interface
-        interface SlotRequestedEvent extends Event { }
+        interface SlotRequestedEvent extends Event {}
         /**
          * This event is fired when an ad response has been received for a particular slot.
          */
         // tslint:disable-next-line:no-empty-interface
-        interface SlotResponseReceived extends Event { }
+        interface SlotResponseReceived extends Event {}
         /**
          * This event is fired whenever the on-screen percentage of an ad slot's area changes. The event is throttled and will not fire more often than once every 200ms.
          */
@@ -247,7 +247,7 @@ declare namespace googletag {
          * @param f A JavaScript function to be executed.
          * @returns The number of commands processed so far. This is compatible with Array.push's return value (the current length of the array).
          */
-        push(f: (() => void)): number;
+        push(f: () => void): number;
     }
     /**
      * Companion Ads service.
@@ -343,7 +343,7 @@ declare namespace googletag {
          * @param opt_div Either the ID of the div containing the slot or the div element itself.
          * @param opt_clickUrl The click URL to use on this slot.
          */
-        display(adUnitPath: string, size: GeneralSize, opt_div?: (string | Element), opt_clickUrl?: string): void;
+        display(adUnitPath: string, size: GeneralSize, opt_div?: string | Element, opt_clickUrl?: string): void;
         /**
          * Enables lazy loading in GPT as defined by the config object.
          * For more detailed examples, see the Lazy Loading example [here](https://developers.google.com/publisher-tag/samples/lazy-loading).**Notes:**
@@ -361,7 +361,11 @@ declare namespace googletag {
          * desktop.
          * For example, a mobileScaling of 2.0 will multiply all margins by 2 on mobile devices, increasing the minimum distance a slot can be before fetching and rendering.
          */
-        enableLazyLoad(opt_config?: { fetchMarginPercent?: number | undefined, renderMarginPercent?: number | undefined, mobileScaling?: number | undefined }): void;
+        enableLazyLoad(opt_config?: {
+            fetchMarginPercent?: number | undefined;
+            renderMarginPercent?: number | undefined;
+            mobileScaling?: number | undefined;
+        }): void;
         /**
          * Enables single request mode for fetching multiple ads at the same time.
          * This requires all pubads slots to be defined and added to the pubads service prior to enabling the service.
@@ -597,8 +601,21 @@ declare namespace googletag {
          * @param listener Function that takes a single event object argument.
          * @returns The service object on which the method was called.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        addEventListener<T extends events.Event>(eventType: string, listener: (event: T) => void): Service;
+        addEventListener(
+            eventType: 'impressionViewable',
+            listener: (event: events.ImpressionViewableEvent) => void,
+        ): Service;
+        addEventListener(eventType: 'slotOnload', listener: (event: events.SlotOnloadEvent) => void): Service;
+        addEventListener(eventType: 'slotRenderEnded', listener: (event: events.SlotRenderEndedEvent) => void): Service;
+        addEventListener(eventType: 'slotRequested', listener: (event: events.SlotRequestedEvent) => void): Service;
+        addEventListener(
+            eventType: 'slotResponseReceived',
+            listener: (event: events.SlotResponseReceived) => void,
+        ): Service;
+        addEventListener(
+            eventType: 'slotVisibilityChanged',
+            listener: (event: events.SlotVisibilityChangedEvent) => void,
+        ): Service;
         /**
          * Get the list of slots associated with this service.
          * @returns Slots in the order in which they were added to the service.

@@ -1,6 +1,11 @@
 import { Break, BreakClip } from './cast.framework.messages';
 
 export as namespace breaks;
+
+/**
+ * Provide seek information, including list of breaks that are seeked over.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.breaks.BreakSeekData
+ */
 export class BreakSeekData {
     constructor(seekFrom: number, seekTo: number, breaks: Break[]);
 
@@ -20,7 +25,10 @@ export class BreakSeekData {
     seekTo: number;
 }
 
-/** Provide context information for break clip load interceptor. */
+/**
+ * Provide context information for break clip load interceptor.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.breaks.BreakClipLoadInterceptorContext
+ */
 export class BreakClipLoadInterceptorContext {
     constructor(brk: Break);
 
@@ -30,7 +38,10 @@ export class BreakClipLoadInterceptorContext {
     break: Break;
 }
 
-/** Interface to manage breaks */
+/**
+ * Interface to manage breaks
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.breaks.BreakManager
+ */
 export interface BreakManager {
     /**
      * Get current media break by id.
@@ -41,6 +52,18 @@ export interface BreakManager {
      * Get current media break clip by id
      */
     getBreakClipById(id: string): BreakClip;
+
+    /**
+     * @returns current time in sec inside current break clip. Null, if player is
+     *     not playing break clip.
+     */
+    getBreakClipCurrentTimeSec(): number | null;
+
+    /**
+     * @returns duration of current break clip. Null, if player is not playing
+     *     break clip.
+     */
+    getBreakClipDurationSec(): number | null;
 
     /** Get current media break clips. */
     getBreakClips(): BreakClip[];
