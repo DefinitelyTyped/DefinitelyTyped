@@ -282,7 +282,10 @@ declare namespace ROSLIB {
         delete(callback: (response: any) => void): void;
     }
 
-    export class Service {
+    export class Service <
+        TServiceRequest = any,
+        TServiceResponse = any
+    > {
         /**
          * A ROS service client.
          *
@@ -309,8 +312,8 @@ declare namespace ROSLIB {
          *   * error - the error message reported by ROS
          */
         callService(
-            request: ServiceRequest,
-            callback: (response: any) => void,
+            request: TServiceRequest,
+            callback: (response: TServiceResponse) => void,
             failedCallback?: (error: any) => void,
         ): void;
 
@@ -321,7 +324,7 @@ declare namespace ROSLIB {
          *   * request - the service request data
          *   * response - the data which should be sent back to the caller
          */
-        advertise(callback: (request: any, response: any) => void): void;
+        advertise(callback: (request: TServiceRequest, response: TServiceResponse) => void): void;
 
         /**
          * Unadvertise a previously advertised service
@@ -349,7 +352,7 @@ declare namespace ROSLIB {
         constructor(values?: any);
     }
 
-    export class Topic {
+    export class Topic <TMessage = Message> {
         /**
          * Publish and/or subscribe to a topic in ROS.
          *
@@ -391,7 +394,7 @@ declare namespace ROSLIB {
          * @param callback - function with the following params:
          *   * message - the published message
          */
-        subscribe(callback: (message: Message) => void): void;
+        subscribe(callback: (message: TMessage) => void): void;
 
         /**
          * Unregisters as a subscriber for the topic. Unsubscribing stop remove
@@ -402,7 +405,7 @@ declare namespace ROSLIB {
          *     * provided and other listeners are registered the topic won't
          *     * unsubscribe, just stop emitting to the passed listener
          */
-        unsubscribe(callback?: (callback: (message: Message) => void) => void): void;
+        unsubscribe(callback?: (callback: (message: TMessage) => void) => void): void;
 
         /**
          * Registers as a publisher for the topic.
@@ -419,7 +422,7 @@ declare namespace ROSLIB {
          *
          * @param message - A ROSLIB.Message object.
          */
-        publish(message: Message): void;
+        publish(message: TMessage): void;
     }
 
     export class TFClient {
