@@ -13,7 +13,7 @@ import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/t
 import * as google_protobuf_type_pb from "google-protobuf/google/protobuf/type_pb";
 import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
 
-/* This is a typescript version of a simple generated class from a proto file that is shown below. In order to make
+/* This is a typescript version of two simple generated classes from a proto file that is shown below. In order to make
  this ES5 JS file into TypeScript there have been quite a few modifications, but the same calls are made to the library
  classes.
 
@@ -21,6 +21,10 @@ import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wr
  syntax = "proto3";
 
  package examplecom;
+
+ message MyTestObject {
+   int32 some_integer = 1;
+ }
 
  message MySimple {
    string my_string = 1;
@@ -39,8 +43,93 @@ import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wr
    google.protobuf.Type some_type = 14;
    google.protobuf.DoubleValue some_double_value = 15;
    map<int32, string> some_key_value = 16;
+   map<string, MyTestObject> some_more_complex_key_value = 17;
  }
 */
+
+class MyTestObject extends jspb.Message {
+  constructor(opt_data?: any) {
+    super(); // This isn't actually called in the JS version of this file, but it's required by TS
+    jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  };
+
+  toObject(opt_includeInstance?: boolean): {} {
+    return MyTestObject.toObject(opt_includeInstance || false, this);
+  };
+
+  static toObject(includeInstance: boolean, msg: MyTestObject): {} {
+    const obj = {
+      someInteger: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    };
+
+    if (includeInstance) {
+      // This is commented out because it's not valid in TS, but it's a simple append to an object
+      // obj['$jspbMessageInstance'] = msg;
+    }
+    return obj;
+  };
+
+  static deserializeBinary(bytes: Uint8Array): MyTestObject {
+    const reader = new jspb.BinaryReader(bytes);
+    const msg = new MyTestObject;
+    return MyTestObject.deserializeBinaryFromReader(msg, reader);
+  }
+
+  static deserializeBinaryFromReader(msg: MyTestObject, reader: jspb.BinaryReader): MyTestObject {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      const field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          const value1 = reader.readInt32();
+          msg.setSomeInteger(value1);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
+    }
+    return msg;
+  }
+
+  serializeBinary(): Uint8Array {
+    const writer = new jspb.BinaryWriter();
+    MyTestObject.serializeBinaryToWriter(this, writer);
+    return writer.getResultBuffer();
+  }
+
+  getExtensionsObject() {
+    const testObject = new MyTestObject();
+    const { ExtensionRangeOptions } = google_protobuf_descriptor_pb;
+    const options: google_protobuf_descriptor_pb.ExtensionRangeOptions = ExtensionRangeOptions.deserializeBinary(testObject.serializeBinary());
+    return options.toObject(true);
+  }
+
+  clearUninterpretedOptionList(options: google_protobuf_descriptor_pb.ExtensionRangeOptions) {
+    options.getUninterpretedOptionList();
+    options.clearUninterpretedOptionList();
+  }
+
+  static serializeBinaryToWriter(message: MyTestObject, writer: jspb.BinaryWriter) {
+    const f1 = message.getSomeInteger();
+    if (f1) {
+      writer.writeInt32(
+        1,
+        f1
+      );
+    }
+  }
+
+  getSomeInteger(): number {
+    return jspb.Message.getFieldWithDefault(this, 1, 0);
+  }
+
+  setSomeInteger(value: number) {
+    jspb.Message.setField(this, 1, value);
+  }
+};
 
 class MySimple extends jspb.Message {
   constructor(opt_data?: any) {
@@ -72,6 +161,7 @@ class MySimple extends jspb.Message {
       someType: google_protobuf_type_pb.Type.toObject(includeInstance, msg.getSomeType()),
       someDoubleValue: google_protobuf_wrappers_pb.DoubleValue.toObject(includeInstance, msg.getSomeDoubleValue()),
       someKeyValueMap: msg.getSomeKeyValueMap().toObject(includeInstance),
+      someMoreComplexKeyValueMap: msg.getSomeMoreComplexKeyValueMap().toObject(includeInstance, MyTestObject.toObject),
     };
 
     if (includeInstance) {
@@ -170,6 +260,20 @@ class MySimple extends jspb.Message {
           const value16 = msg.getSomeKeyValueMap();
           reader.readMessage(value16, (message, reader) => {
             jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readInt32, jspb.BinaryReader.prototype.readString, undefined, 0, "");
+          });
+          break;
+        case 17:
+          const value17 = msg.getSomeMoreComplexKeyValueMap();
+          reader.readMessage(value17, (message, reader) => {
+            jspb.Map.deserializeBinary(
+              message,
+              reader,
+              jspb.BinaryReader.prototype.readString,
+              jspb.BinaryReader.prototype.readMessage,
+              MyTestObject.deserializeBinaryFromReader,
+              "",
+              new MyTestObject()
+            );
           });
           break;
         default:
@@ -320,6 +424,12 @@ class MySimple extends jspb.Message {
     if (f16 !== undefined) {
       if (f16.getLength() > 0) {
         f16.serializeBinary(16, writer, jspb.BinaryWriter.prototype.writeInt32, jspb.BinaryWriter.prototype.writeString);
+      }
+    }
+    const f17 = message.getSomeMoreComplexKeyValueMap();
+    if (f17 !== undefined) {
+      if (f17.getLength() > 0) {
+        f17.serializeBinary(17, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeMessage, MyTestObject.serializeBinaryToWriter);
       }
     }
   }
@@ -556,6 +666,15 @@ class MySimple extends jspb.Message {
     this.getSomeKeyValueMap().clear();
     return this;
   };
+
+  getSomeMoreComplexKeyValueMap(): jspb.Map<string, MyTestObject> {
+    return jspb.Message.getMapField(this, 17, true, MyTestObject);
+  };
+
+  clearSomeMoreComplexKeyValueMap(): MySimple {
+    this.getSomeMoreComplexKeyValueMap().clear();
+    return this;
+  };
 };
 
 // ensures messages are cloneable without a redundant cast
@@ -571,3 +690,8 @@ const jspbMap = myMessage.getSomeKeyValueMap();
 const mapKeys = Array.from(jspbMap.keys());
 const mapValues = Array.from(jspbMap.values());
 const mapEntries = Array.from(jspbMap.entries());
+
+// access more complex map with values of type MyTestObject (another protobuf message)
+const jspbMoreComplexMap = myMessage.getSomeMoreComplexKeyValueMap()
+
+const myTestObject = jspbMoreComplexMap.get("myKey")
