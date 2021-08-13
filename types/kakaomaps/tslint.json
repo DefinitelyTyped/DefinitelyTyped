@@ -1,4 +1,6 @@
 {
     "extends": "dtslint/dt.json",
-    "dt-header": false
+    "rules": {
+        "dt-header": false
+    }
 }

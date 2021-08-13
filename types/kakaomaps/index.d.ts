@@ -211,7 +211,7 @@ declare namespace kakao.maps {
     shape?: string,
     spriteOrigin?: Point,
     spriteSize?: Size
-  }): MarkerImage
+  }): MarkerImage;
   class InfoWindow {
     constructor(options?: {
       content?: HTMLElement|string,
