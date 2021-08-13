@@ -898,8 +898,6 @@ export interface Configuration {
 
     formats?: {
         bitsOfOpaqueRandomness?: number | ((ctx: KoaContextWithOIDC, model: BaseModel) => number) | undefined;
-        AccessToken?: (ctx: KoaContextWithOIDC, token: AccessToken) => TokenFormat;
-        ClientCredentials?: (ctx: KoaContextWithOIDC, token: AccessToken) => TokenFormat;
         customizers?: {
             jwt?: ((
                 ctx: KoaContextWithOIDC,

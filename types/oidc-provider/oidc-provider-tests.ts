@@ -28,27 +28,6 @@ new Provider('https://op.example.com', {
 });
 
 new Provider('https://op.example.com', {
-    formats: {
-        AccessToken: (ctx, token) => 'jwt',
-        ClientCredentials: (ctx, token) => 'jwt',
-    }
-});
-
-new Provider('https://op.example.com', {
-    formats: {
-        AccessToken: (ctx, token) => 'opaque',
-        ClientCredentials: (ctx, token) => 'opaque',
-    }
-});
-
-new Provider('https://op.example.com', {
-    formats: {
-        AccessToken: (ctx, token) => 'paseto',
-        ClientCredentials: (ctx, token) => 'paseto',
-    }
-});
-
-new Provider('https://op.example.com', {
     adapter: class Adapter {
         name: string;
         constructor(name: string) {
