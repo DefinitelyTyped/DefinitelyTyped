@@ -4816,7 +4816,7 @@
         },
         "styled-jsx": {
             "libraryName": "styled-jsx",
-            "asOfVersion": "3.4.3"
+            "asOfVersion": "3.4.4"
         },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",
