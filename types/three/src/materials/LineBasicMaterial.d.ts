@@ -7,7 +7,6 @@ export interface LineBasicMaterialParameters extends MaterialParameters {
     linewidth?: number | undefined;
     linecap?: string | undefined;
     linejoin?: string | undefined;
-    morphTargets?: boolean | undefined;
 }
 
 export class LineBasicMaterial extends Material {
@@ -37,11 +36,6 @@ export class LineBasicMaterial extends Material {
      * @default 'round'
      */
     linejoin: string;
-
-    /**
-     * @default false
-     */
-    morphTargets: boolean;
 
     setValues(parameters: LineBasicMaterialParameters): void;
 }

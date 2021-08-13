@@ -606,9 +606,9 @@ const bigIntStat: bigint = bigStats.atimeNs;
 const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.random() > 0.5 });
 
 {
-    watchAsync('y33t'); // $ExpectType AsyncIterable<string>
-    watchAsync('y33t', 'buffer'); // $ExpectType AsyncIterable<Buffer>
-    watchAsync('y33t', { encoding: 'buffer', signal: new AbortSignal() }); // $ExpectType AsyncIterable<Buffer>
+    watchAsync('y33t'); // $ExpectType AsyncIterable<FileChangeInfo<string>>
+    watchAsync('y33t', 'buffer'); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
+    watchAsync('y33t', { encoding: 'buffer', signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
 
-    watchAsync('test', { persistent: true, recursive: true, encoding: 'utf-8' }); // $ExpectType AsyncIterable<string>
+    watchAsync('test', { persistent: true, recursive: true, encoding: 'utf-8' }); // $ExpectType AsyncIterable<FileChangeInfo<string>>
 }
