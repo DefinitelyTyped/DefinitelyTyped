@@ -224,7 +224,7 @@ export interface ScanError {
     message: string;
     scanCode: string;
     scanDuration: number;
-    avgTimeByhar: number;
+    avgTimeByChar: number;
     minLength: number;
 }
 
