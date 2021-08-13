@@ -2057,7 +2057,7 @@ declare namespace google.maps {
     /**
      * Matches a country name or a two letter ISO 3166-1 country code. Optional.
      */
-    country?: string | undefined;
+    country?: string | string[] | undefined;
     /**
      * Matches against both <code>locality</code> and <code>sublocality</code>
      * types. Optional.
