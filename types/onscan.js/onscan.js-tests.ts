@@ -93,7 +93,7 @@ window.document.addEventListener('scanError', onScanError);
 
 function onScanError(scanError: ScanErrorEvent) {
     scanError.detail.message;
-    scanError.detail.avgTimeByhar;
+    scanError.detail.avgTimeByChar;
     scanError.detail.minLength;
     scanError.detail.scanCode;
     scanError.detail.scanDuration;
