@@ -553,10 +553,10 @@ declare namespace kakao.maps {
       }): void;
     }
     class Pagination {
-      totalCount: number
-      hasNextPage: boolean
-      hasPrevPage: boolean
-      current: number
+      totalCount: number;
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+      current: number;
       constructor()
       nextPage(): void;
       prevPage(): void;
@@ -573,7 +573,7 @@ declare namespace kakao.maps {
         minLevel?: number,
         minClusterSize?: number,
         styles?: object,
-        texts?: string[]|Function,
+        texts?: string[]|(() => void),
         calculator?: number[],
         disableClickZoom?: boolean,
         clickable?: boolean,
@@ -593,10 +593,10 @@ declare namespace kakao.maps {
       setAverageCenter(bool: boolean): void;
       getMinLevel(): number;
       setMinLevel(level: number): void;
-      getTexts(): string[]|Function;
-      setTexts(texts: string[]|Function): void;
-      getCalculator(): number[]|Function;
-      setCalculator(calculator: number[]|Function): void;
+      getTexts(): string[]|(() => void);
+      setTexts(texts: string[]|(() => void)): void;
+      getCalculator(): number[]|(() => void);
+      setCalculator(calculator: number[]|(() => void)): void;
       getStyles(): object[];
       setStyles(styles: object[]): void;
       // event: clusterclick,clusterover,clusterout,clusterdblclick,clusterrightclick,clustered
@@ -758,7 +758,7 @@ declare namespace kakao.maps {
     }
   } // drawing
   // # Miscellaneous
-  function load(callback: Function): void;
+  function load(callback: () => void): void;
   function disableHD(): void;
   type StrokeStyles = 'solid'|'shortdash'|'shortdot'|'shortdashdot'|'shortdashdotdot'|'dot'|'dash'|'dashdot'|'longdash'|'longdashdot'|'longdashdotdot';
 }
