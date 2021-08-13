@@ -1277,10 +1277,12 @@ export interface InteractionResults {
         ts?: number | undefined;
         amr?: string[] | undefined;
         acr?: string | undefined;
+        [key: string]: unknown;
     } | undefined;
 
     consent?: {
         grantId?: string | undefined;
+        [key: string]: unknown;
     } | undefined;
 
     [key: string]: unknown;
