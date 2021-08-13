@@ -4,6 +4,7 @@ import Bunyan = require('bunyan');
 import { ParsedArgs } from 'minimist';
 import util = require('hexo-util');
 import http = require('http');
+import Bluebird = require('bluebird');
 
 const config: Hexo.InstanceOptions = {};
 config.debug = false;
@@ -402,8 +403,8 @@ h.on('ready', () => {
         };
         h.extend.generator.register('name', local => ret);
         h.extend.generator.register('name', local => [ret]);
-        h.extend.generator.register('name', local => Promise.resolve(ret));
-        h.extend.generator.register('name', local => Promise.resolve([ret]));
+        h.extend.generator.register('name', local => Bluebird.resolve(ret));
+        h.extend.generator.register('name', local => Bluebird.resolve([ret]));
         h.extend.generator.register('name', local => {
             console.log(local.data);
             const categories: Hexo.Locals.Category[] = local.categories.toArray();
@@ -472,7 +473,7 @@ h.on('ready', () => {
         );
         h.extend.renderer.register('ts', 'js', function(data, options) {
             console.log(this);
-            return Promise.resolve('result');
+            return Bluebird.resolve('result');
         });
     }
 

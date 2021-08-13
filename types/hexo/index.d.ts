@@ -13,6 +13,7 @@ import connect = require('connect');
 import Stream = require('stream');
 import util = require('hexo-util');
 import fs = require('fs');
+import Bluebird = require('bluebird');
 
 declare global {
     const hexo: Hexo;
@@ -671,7 +672,7 @@ declare namespace Hexo {
                 name: string,
                 fn: (
                     locals: Site,
-                ) => Generator.Return | Generator.Return[] | Promise<Generator.Return> | Promise<Generator.Return[]>,
+                ) => Generator.Return | Generator.Return[] | Bluebird<Generator.Return> | Bluebird<Generator.Return[]>,
             ): void;
         }
         namespace Generator {
