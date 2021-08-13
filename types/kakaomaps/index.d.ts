@@ -3,7 +3,6 @@
 // Definitions by: MinByeongDon <deepfree@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
-
   //# Core
 
   class Map {
@@ -311,14 +310,14 @@ declare namespace kakao.maps {
   }
 
   interface PolylineOptions {
-    map?: Map,
-    path?: LatLng[]|LatLng[][]
-    endArrow?: boolean
-    strokeWeight?: number
-    strokeColor?: string
-    strokeOpacity?: number
-    strokeStyle?: StrokeStyles
-    zIndex?: number
+    map?: Map;
+    path?: LatLng[]|LatLng[][];
+    endArrow?: boolean;
+    strokeWeight?: number;
+    strokeColor?: string;
+    strokeOpacity?: number;
+    strokeStyle?: StrokeStyles;
+    zIndex?: number;
   }
   class Polyline {
     constructor(options: PolylineOptions)
@@ -334,15 +333,15 @@ declare namespace kakao.maps {
   }
 
   interface PolygonOptions {
-    map?: Map,
-    path?: LatLng[]|LatLng[][]
-    fillColor?: string
-    fillOpacity?: number
-    strokeWeight?: number
-    strokeColor?: string
-    strokeOpacity?: number
-    strokeStyle?: StrokeStyles
-    zIndex?: number
+    map?: Map;
+    path?: LatLng[]|LatLng[][];
+    fillColor?: string;
+    fillOpacity?: number;
+    strokeWeight?: number;
+    strokeColor?: string;
+    strokeOpacity?: number;
+    strokeStyle?: StrokeStyles;
+    zIndex?: number;
   }
   class Polygon {
     constructor(polygonOptions: PolygonOptions)
@@ -359,16 +358,16 @@ declare namespace kakao.maps {
   }
 
   interface CircleOptions {
-    map?: Map,
-    center?: LatLng
-    radius?: number
-    fillColor?: string
-    fillOpacity?: number
-    strokeWeight?: number
-    strokeColor?: string
-    strokeOpacity?: number
-    strokeStyle?: StrokeStyles
-    zIndex?: number
+    map?: Map;
+    center?: LatLng;
+    radius?: number;
+    fillColor?: string;
+    fillOpacity?: number;
+    strokeWeight?: number;
+    strokeColor?: string;
+    strokeOpacity?: number;
+    strokeStyle?: StrokeStyles;
+    zIndex?: number;
   }
   class Circle {
     constructor(options: CircleOptions)
@@ -386,17 +385,17 @@ declare namespace kakao.maps {
   }
 
   interface EllipseOptions {
-    map?: Map,
-    center?: LatLng
-    rx?: number
-    ry?: number
-    fillColor?: string
-    fillOpacity?: number
-    strokeWeight?: number
-    strokeColor?: string
-    strokeOpacity?: number
-    strokeStyle?: StrokeStyles
-    zIndex?: number
+    map?: Map;
+    center?: LatLng;
+    rx?: number;
+    ry?: number;
+    fillColor?: string;
+    fillOpacity?: number;
+    strokeWeight?: number;
+    strokeColor?: string;
+    strokeOpacity?: number;
+    strokeStyle?: StrokeStyles;
+    zIndex?: number;
   }
   class Ellipse {
     constructor(options: EllipseOptions)
@@ -416,15 +415,15 @@ declare namespace kakao.maps {
   }
 
   interface RectangleOptions {
-    map?: Map,
-    bounds?: LatLngBounds
-    fillColor?: string
-    fillOpacity?: number
-    strokeWeight?: number
-    strokeColor?: string
-    strokeOpacity?: number
-    strokeStyle?: StrokeStyles
-    zIndex?: number
+    map?: Map;
+    bounds?: LatLngBounds;
+    fillColor?: string;
+    fillOpacity?: number;
+    strokeWeight?: number;
+    strokeColor?: string;
+    strokeOpacity?: number;
+    strokeStyle?: StrokeStyles;
+    zIndex?: number;
   }
   class Rectangle {
     constructor(options: RectangleOptions)
@@ -494,7 +493,6 @@ declare namespace kakao.maps {
   //# Library
   //## services namespace
   namespace services {
-
     enum STATUS {
       OK = "OK",
       ZERO_RESULT = "ZERO_RESULT",
@@ -658,7 +656,6 @@ declare namespace kakao.maps {
 
   //## drawing namespace
   namespace drawing {
-
     enum OverlayType {
       MARKER = "marker",
       RECTANGLE = "rectangle",
@@ -679,91 +676,91 @@ declare namespace kakao.maps {
     }
 
     interface MarkerOptions {
-      draggable: boolean
-      removable: boolean
-      markerImages: MarkerImageOptions[]
+      draggable: boolean;
+      removable: boolean;
+      markerImages: MarkerImageOptions[];
     }
     interface MarkerImageOptions {
-      src: string
-      width: number
-      height: number
-      offsetX: number
-      offsetY: number
-      spriteWidth: number
-      spriteHeight: number
-      spriteOriginX: number
-      spriteOriginY: number
-      shape: string
-      coords: string
-      hoverImage: object
-      dragImage: object
+      src: string;
+      width: number;
+      height: number;
+      offsetX: number;
+      offsetY: number;
+      spriteWidth: number;
+      spriteHeight: number;
+      spriteOriginX: number;
+      spriteOriginY: number;
+      shape: string;
+      coords: string;
+      hoverImage: object;
+      dragImage: object;
     }
     interface RectangleOptions {
-      draggable: boolean
-      removable: boolean
-      editable: boolean
-      strokeWeight: number
-      strokeColor: string
-      strokeOpacity: number
-      strokeStyle: string
-      fillColor: string
-      fillOpacity: number
+      draggable: boolean;
+      removable: boolean;
+      editable: boolean;
+      strokeWeight: number;
+      strokeColor: string;
+      strokeOpacity: number;
+      strokeStyle: string;
+      fillColor: string;
+      fillOpacity: number;
     }
     interface CircleOptions {
-      draggable: boolean
-      removable: boolean
-      editable: boolean
-      strokeWeight: number
-      strokeColor: string
-      strokeOpacity: number
-      strokeStyle: string
-      fillColor: string
-      fillOpacity: number
+      draggable: boolean;
+      removable: boolean;
+      editable: boolean;
+      strokeWeight: number;
+      strokeColor: string;
+      strokeOpacity: number;
+      strokeStyle: string;
+      fillColor: string;
+      fillOpacity: number;
     }
     interface EllipseOptions {
-      draggable: boolean
-      removable: boolean
-      editable: boolean
-      strokeWeight: number
-      strokeColor: string
-      strokeOpacity: number
-      strokeStyle: string
-      fillColor: string
-      fillOpacity: number
+      draggable: boolean;
+      removable: boolean;
+      editable: boolean;
+      strokeWeight: number;
+      strokeColor: string;
+      strokeOpacity: number;
+      strokeStyle: string;
+      fillColor: string;
+      fillOpacity: number;
     }
     interface PolylineOptions {
-      draggable: boolean
-      removable: boolean
-      editable: boolean
-      strokeWeight: number
-      strokeColor: string
-      strokeOpacity: number
-      strokeStyle: string
-      hintStrokeStyle: string
-      hintStrokeOpacity: number
+      draggable: boolean;
+      removable: boolean;
+      editable: boolean;
+      strokeWeight: number;
+      strokeColor: string;
+      strokeOpacity: number;
+      strokeStyle: string;
+      hintStrokeStyle: string;
+      hintStrokeOpacity: number;
     }
     interface ArrowOptions {
-      draggable: boolean
-      removable: boolean
-      editable: boolean
-      strokeWeight: number
-      strokeColor: string
-      strokeOpacity: number
-      strokeStyle: string
-      hintStrokeStyle: string
-      hintStrokeOpacity: number
-      startArrow: boolean
+      draggable: boolean;
+      removable: boolean;
+      editable: boolean;
+      strokeWeight: number;
+      strokeColor: string;
+      strokeOpacity: number;
+      strokeStyle: string;
+      hintStrokeStyle: string;
+      hintStrokeOpacity: number;
+      startArrow: boolean;
     }
     interface PolygonOptions {
-      draggable: boolean
-      removable: boolean
-      editable: boolean
-      strokeWeight: number
-      strokeColor: string
-      strokeOpacity: number
-      strokeStyle: string
-      fillColor: string
-      fillOpacity: number
+      draggable: boolean;
+      removable: boolean;
+      editable: boolean;
+      strokeWeight: number;
+      strokeColor: string;
+      strokeOpacity: number;
+      strokeStyle: string;
+      fillColor: string;
+      fillOpacity: number;
     }
     class DrawingManager {
       constructor(options?: {
@@ -802,10 +799,10 @@ declare namespace kakao.maps {
     }
 
     interface MouseEvent {
-      overlayType: OverlayType
-      coords: Coords
-      point: Point
-      target: object
+      overlayType: OverlayType;
+      coords: Coords;
+      point: Point;
+      target: object;
     }
 
   } // drawing
@@ -817,4 +814,3 @@ declare namespace kakao.maps {
   type StrokeStyles = 'solid'|'shortdash'|'shortdot'|'shortdashdot'|'shortdashdotdot'|'dot'|'dash'|'dashdot'|'longdash'|'longdashdot'|'longdashdotdot'
 
 }
-
