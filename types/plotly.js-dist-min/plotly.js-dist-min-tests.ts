@@ -1,4 +1,4 @@
-import Plotly from 'plotly.js-dist-min';
+import * as Plotly from 'plotly.js-dist-min';
 
 const data: Array<Partial<Plotly.PlotData>> = [
     {
