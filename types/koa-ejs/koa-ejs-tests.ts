@@ -1,5 +1,6 @@
 import Koa = require('koa');
 import render = require('koa-ejs');
+import * as ejs from 'ejs';
 
 const app = new Koa();
 render(app, {
@@ -9,7 +10,9 @@ render(app, {
     cache: true,
     async: true,
     debug: true,
-    delimiter: ''
+    delimiter: '',
 });
 
-render.ejs;
+const ejsRenderer: typeof ejs = render.ejs;
+ejsRenderer.compile('some string');
+ejsRenderer.render('some string');

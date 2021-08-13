@@ -20,6 +20,7 @@ const defaultLocale = getDefaultLocale();
     calendarContainer={props => <div />}
     calendarStartDay={0}
     className=""
+    clearButtonClassName=""
     clearButtonTitle=""
     clearButtonClassName=""
     // closeOnScroll={false} // Or as function:

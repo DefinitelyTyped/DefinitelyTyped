@@ -2295,7 +2295,7 @@ declare namespace Office {
     *
     * @remarks
     * 
-    * **Hosts**: Excel, Word
+    * **Hosts**: Word, Excel (deprecated, use {@link https://docs.microsoft.com/javascript/api/excel/excel.binding?view=excel-js-preview | Excel.Binding} instead)
     * 
     * **Requirement sets**: 
     * 
@@ -13083,7 +13083,7 @@ declare namespace Office {
         setAsync(location: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
-     * Represents a location. Read only.
+     * Represents a location. Read-only.
      * 
      * [Api set: Mailbox 1.8]
      *
