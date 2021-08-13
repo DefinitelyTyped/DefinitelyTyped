@@ -1,14 +1,14 @@
-// Type definitions for non-npm package kakaomaps
+// Type definitions for non-npm package kakaomaps v1.0
 // Project: https://apis.map.kakao.com/web/documentation/
 // Definitions by: MinByeongDon <deepfree@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
-  //# Core
+  // # Core
 
   class Map {
     constructor(container: HTMLElement, options?: {
       center: LatLng,
-      level?: Number,
+      level?: number,
       mapTypeId?: MapTypeId,
       draggable?: boolean,
       scrollwheel?: boolean,
@@ -47,15 +47,13 @@ declare namespace kakao.maps {
     setCopyrightPosition(copyrightPosition: CopyrightPosition, reversed?: boolean): void;
     getProjection(): MapProjection;
     setCursor(style: string): void;
-    //event: center_changed, zoom_start, zoom_changed, bounds_changed, click, dblclick, rightclick, mousemove, dragstart, drag, dragend, idle, tilesloaded, maptypeid_changed
+    // event: center_changed, zoom_start, zoom_changed, bounds_changed, click, dblclick, rightclick, mousemove, dragstart, drag, dragend, idle, tilesloaded, maptypeid_changed
   }
   
   class MapTypeControl {
-    constructor();
   }
 
   class ZoomControl {
-    constructor();
   }
 
   enum MAP_TYPE_ID {
@@ -86,7 +84,7 @@ declare namespace kakao.maps {
     const USE_DISTRICT: MAP_TYPE_ID;
   }
 
-  //NOTE: SDK에 kakao.maps.ProjectionId 구현없음. 없어진것 같음
+  // NOTE: SDK에 kakao.maps.ProjectionId 구현없음. 없어진것 같음
 
   enum CONTROL_POSITION {
     TOPLEFT = 0,
@@ -221,7 +219,7 @@ declare namespace kakao.maps {
     getRange(): number;
     setOpacity(opacity: number): void;
     getOpacity(): number;
-    //event: click, mouseover, mouseout, rightclick, dragstart, dragend
+    // event: click, mouseover, mouseout, rightclick, dragstart, dragend
   }
 
   class MarkerImage {
@@ -329,7 +327,7 @@ declare namespace kakao.maps {
     getLength(): number;
     setZIndex(zIndex: number): void;
     getZIndex(): number;
-    //event: mouseover,mouseout,mousemove,mousedown,click
+    // event: mouseover,mouseout,mousemove,mousedown,click
   }
 
   interface PolygonOptions {
@@ -381,7 +379,7 @@ declare namespace kakao.maps {
     getBounds(): LatLngBounds;
     setZIndex(zIndex: number): void;
     getZIndex(): number;
-    //event: mouseover,mouseout,mousemove,mousedown,click
+    // event: mouseover,mouseout,mousemove,mousedown,click
   }
 
   interface EllipseOptions {
@@ -411,7 +409,7 @@ declare namespace kakao.maps {
     getBounds(): LatLngBounds;
     setZIndex(zIndex: number): void;
     getZIndex(): number;
-    //event: mouseover,mouseout,mousemove,mousedown,click
+    // event: mouseover,mouseout,mousemove,mousedown,click
   }
 
   interface RectangleOptions {
@@ -434,7 +432,7 @@ declare namespace kakao.maps {
     getBounds(): LatLngBounds;
     setZIndex(zIndex: number): void;
     getZIndex(): number;
-    //event: mouseover,mouseout,mousemove,mousedown,click
+    // event: mouseover,mouseout,mousemove,mousedown,click
   }
 
   class Roadview {
@@ -453,7 +451,7 @@ declare namespace kakao.maps {
     getViewpointWithPanoId(): Viewpoint;
     getPosition(): LatLng;
     relayout(): void;
-    //event: init,panoid_changed,viewpoint_changed,position_changed
+    // event: init,panoid_changed,viewpoint_changed,position_changed
   }
 
   class RoadviewClient {
@@ -490,8 +488,8 @@ declare namespace kakao.maps {
     setMapTypeId(): MapTypeId;
   }
 
-  //# Library
-  //## services namespace
+  // # Library
+  // ## services namespace
   namespace services {
     enum STATUS {
       OK = "OK",
@@ -641,7 +639,7 @@ declare namespace kakao.maps {
       setCalculator(calculator: number[]|Function): void;
       getStyles(): object[];
       setStyles(styles: object[]): void;
-      //event: clusterclick,clusterover,clusterout,clusterdblclick,clusterrightclick,clustered
+      // event: clusterclick,clusterover,clusterout,clusterdblclick,clusterrightclick,clustered
     }
 
     class Cluster {
@@ -654,7 +652,7 @@ declare namespace kakao.maps {
 
   } // services
 
-  //## drawing namespace
+  // ## drawing namespace
   namespace drawing {
     enum OverlayType {
       MARKER = "marker",
@@ -788,7 +786,7 @@ declare namespace kakao.maps {
       getOverlays(types?: OverlayType[]): object;
       put(overlayType: OverlayType, param1: LatLng|LatLngBounds|LatLng[]|LatLng[][], param2?: number): void;
       remove(overlay: any/*ExtendsOverlay*/): void;
-      //event: select,drawstart,draw,drawend,drawnext,cancel,remove,state_changed
+      // event: select,drawstart,draw,drawend,drawnext,cancel,remove,state_changed
     }
 
     class Toolbax {
@@ -807,7 +805,7 @@ declare namespace kakao.maps {
 
   } // drawing
 
-  //# Miscellaneous
+  // # Miscellaneous
   function load(callback: Function): void;
   function disableHD(): void;
 
