@@ -8,9 +8,11 @@
 import * as React from 'react';
 import JSONEditor, { JSONEditorOptions } from 'jsoneditor';
 
+export type JsonValue = null | boolean | number | string | JsonValue[] | { [prop: string]: JsonValue }
+
 export interface ReactJsonEditorProps {
     values: {};
-    onChange: (newValues: {}) => void;
+    onChange: (newValues: JsonValue) => void;
 }
 
 export default class ReactJsoneditor extends React.Component<ReactJsonEditorProps> {
