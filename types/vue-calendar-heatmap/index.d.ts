@@ -2,6 +2,7 @@
 // Project: https://github.com/julienr114/vue-calendar-heatmap
 // Definitions by: Chika Ishikawa <https://github.com/chikaichikai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.0
 
 import { VueConstructor } from 'vue';
 export const VueCalendarHeatmap: VueCalendarHeatmapConstructor;
