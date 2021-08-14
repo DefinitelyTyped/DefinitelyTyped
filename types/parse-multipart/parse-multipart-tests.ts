@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { Parse, getBoundary, DemoData } from 'parse-multipart';
 
 DemoData(); // $ExpectType Buffer
