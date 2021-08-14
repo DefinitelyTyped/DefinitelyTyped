@@ -1,5 +1,5 @@
 export interface StartOptions {
-  port?: string | undefined;
+  port?: number | undefined;
   quiet?: boolean | undefined;
   cwd?: string | undefined;
   logLevel?: 'normal' | 'verbose' | 'debug' | undefined;
