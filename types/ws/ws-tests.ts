@@ -52,8 +52,8 @@ import * as url from "url";
         console.log(`unexpected response: ${error}`);
     });
 
-    wsc.on("message", (data: string) => {
-        console.log(`Roundtrip time: ${Date.now() - parseInt(data, 10)} ms`);
+    wsc.on("message", (data) => {
+        console.log(`Roundtrip time: ${Date.now() - parseInt(data.toString(), 10)} ms`);
         setTimeout(() => {
             wsc.send(Date.now().toString(), { mask: true });
         }, 500);
@@ -141,7 +141,7 @@ import * as url from "url";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
-    ws.onopen = (event: WebSocket.OpenEvent) => {
+    ws.onopen = (event: WebSocket.Event) => {
         console.log(event.target, event.type);
     };
     ws.onerror = (event: WebSocket.ErrorEvent) => {
