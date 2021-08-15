@@ -837,7 +837,7 @@ declare namespace React {
     type ComponentPropsWithoutRef<T extends ElementType> =
         PropsWithoutRef<ComponentProps<T>>;
 
-    type ComponentRef<T extends ElementType<any>> = T extends NamedExoticComponent<
+    type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
         ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
     >
         ? Method
