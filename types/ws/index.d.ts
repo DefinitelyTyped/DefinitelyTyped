@@ -174,7 +174,6 @@ declare class WebSocket extends EventEmitter {
 }
 
 declare namespace WebSocket {
-
     /**
      * Data represents the raw message payload received over the WebSocket.
      */
