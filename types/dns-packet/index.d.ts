@@ -103,9 +103,9 @@ export interface GenericAnswer<T> {
 }
 
 export interface BaseAnswer<T, D> extends GenericAnswer<T> {
-    ttl?: number;
-    class?: RecordClass;
-    flush?: boolean;
+    ttl?: number | undefined;
+    class?: RecordClass | undefined;
+    flush?: boolean | undefined;
     data: D;
 }
 
