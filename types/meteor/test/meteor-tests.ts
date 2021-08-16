@@ -803,6 +803,12 @@ namespace MeteorTests {
     // Outside an object
     check(undefined, Match.Optional('test')); // OK
 
+    var buffer: unknown;
+
+    check(buffer, Match.Where(EJSON.isBinary));
+    // $ExpectType Uint8Array
+    buffer;
+
     /**
      * From Deps, Tracker.autorun section
      */
