@@ -158,7 +158,7 @@ declare namespace intlTelInput {
 
         /**
          * Additional classes to add to the parent div..
-         * Default = ''
+         * @default ''
          */
         customContainer?: string | undefined;
 
