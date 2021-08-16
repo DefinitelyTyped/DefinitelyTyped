@@ -111,23 +111,42 @@ const records: Answer[] = [
     },
     {
         type: "OPT",
-        name: "edns options",
-        udpPayloadSize: 100,
-        extendedRcode: -1,
-        ednsVersion: -1,
-        flags: -1,
+        name: ".",
+        udpPayloadSize: 65535,
+        extendedRcode: 255,
+        ednsVersion: 255,
+        flags: 65535,
         flag_do: true,
         options: [
             {
-                code: -1,
-                type: "-1",
-                data: Buffer.from("data"),
-                family: -1,
-                sourcePrefixLength: -1,
-                scopePrefixLength: -1,
-                ip: "localhost",
-                timeout: -1,
-                tags: [2, 4, 6],
+                code: 8,
+				type: "CLIENT_SUBNET",
+				sourcePrefixLength: 0,
+				scopePrefixLength: 0,
+				ip: "127.0.0.1",
+            },
+			{
+                code: 8,
+				ip: "127.0.0.1",
+            },
+			{
+                code: 11,
+            },
+			{
+                code: 11,
+				timeout: 2468,
+            },
+			{
+                code: 12,
+				length: 13,
+            },
+			{
+                code: 14,
+				tags: [],
+            },
+			{
+                code: 14,
+				tags: [256],
             }
         ]
     }
