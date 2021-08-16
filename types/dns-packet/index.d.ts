@@ -172,14 +172,14 @@ export interface OptAnswer extends GenericAnswer<"OPT"> {
 
     options: Array<{
         code: number;
-        type: string;
-        data: Buffer;
-        family: number;
-        sourcePrefixLength: number;
-        scopePrefixLength: number;
-        ip: string;
-        timeout: number;
-        tags: number[];
+        type?: string | undefined;
+        data?: Buffer | undefined;
+        family?: number | undefined;
+        sourcePrefixLength?: number | undefined;
+        scopePrefixLength?: number | undefined;
+        ip?: string | undefined;
+        timeout?: number | undefined;
+        tags?: number[] | undefined;
     }>;
 }
 
