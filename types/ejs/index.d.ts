@@ -286,15 +286,17 @@ export type RethrowCallback = (
 export type IncludeCallback = (path: string, data?: Data) => string;
 
 /**
+ * An object where {@link filename} is the final parsed path or {@link template} is the content of the included template
+ */
+export type IncluderResult = { filename: string; template?: never } | { template: string; filename?: never };
+
+/**
  * @param originalPath the path as it appears in the include statement
  * @param parsedPath the previously resolved path
  *
- * @return an object where {@link filename} is the final parsed path or {@link template} is the content of the included template
+ * @return An {@link IncluderResult} object containing the filename or template data.
  */
-export type IncluderCallback = (
-    originalPath: string,
-    parsedPath: string,
-) => { filename: string; template?: never } | { template: string; filename?: never };
+export type IncluderCallback = (originalPath: string, parsedPath: string) => IncluderResult;
 
 export interface Options {
     /**
