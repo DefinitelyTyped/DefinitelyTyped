@@ -84,7 +84,7 @@ declare namespace pendo {
         onGuideDismissed(until: { until: "reload" }): void;
 
         // feedback
-        feedback: Feedback
+        feedback: Feedback;
 
         // Other
         validateInstall(): void;
@@ -92,10 +92,10 @@ declare namespace pendo {
     }
 
     interface FeedbackOptions {
-        anchor: HTMLElement
+        anchor: HTMLElement;
     }
     interface Feedback {
-        loginAndRedirect: (options?: FeedbackOptions) => void
+        loginAndRedirect: (options?: FeedbackOptions) => void;
     }
 
     interface Debugging {

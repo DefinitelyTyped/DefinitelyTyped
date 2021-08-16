@@ -91,5 +91,6 @@ pendo.onGuideAdvanced();
 pendo.onGuideAdvanced({ steps: 2 });
 pendo.onGuideDismissed();
 
-pendo.feedback.loginAndRedirect()
-pendo.feedback.loginAndRedirect({anchor: {nodeName: "a"} as HTMLElement})
+pendo.feedback.loginAndRedirect();
+const a = document.createElement("a");
+pendo.feedback.loginAndRedirect({anchor: a});
