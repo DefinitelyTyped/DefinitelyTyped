@@ -749,6 +749,7 @@ declare namespace jasmine {
         /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails
+         * @checkReturnValue see https://tsetse.info/check-return-value
          */
         withContext(message: string): Matchers<T>;
 
@@ -796,6 +797,7 @@ declare namespace jasmine {
         /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails.
+         * @checkReturnValue see https://tsetse.info/check-return-value
          */
         withContext(message: string): ArrayLikeMatchers<T>;
 
@@ -823,6 +825,7 @@ declare namespace jasmine {
         /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails.
+         * @checkReturnValue see https://tsetse.info/check-return-value
          */
         withContext(message: string): FunctionMatchers<Fn>;
 
@@ -895,6 +898,7 @@ declare namespace jasmine {
         /**
          * Add some context for an expect.
          * @param message Additional context to show when the matcher fails.
+         * @checkReturnValue see https://tsetse.info/check-return-value
          */
         withContext(message: string): AsyncMatchers<T, U>;
 

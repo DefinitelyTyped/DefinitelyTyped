@@ -1,5 +1,5 @@
 import { DateTimeFormatOptions, NumberingSystem } from './misc';
-import { ConversionAccuracy } from './datetime';
+import { ConversionAccuracy, DateTimeOptions } from './datetime';
 
 export interface DurationOptions {
     locale?: string | undefined;
@@ -7,7 +7,7 @@ export interface DurationOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
 }
 
-export interface DurationObjectUnits {
+export interface DurationObject {
     year?: number | undefined;
     years?: number | undefined;
     quarter?: number | undefined;
@@ -28,9 +28,7 @@ export interface DurationObjectUnits {
     milliseconds?: number | undefined;
 }
 
-export interface DurationObject extends DurationObjectUnits, DurationOptions {}
-
-export type DurationUnit = keyof DurationObjectUnits;
+export type DurationUnit = keyof DurationObject;
 export type DurationUnits = DurationUnit | DurationUnit[];
 
 export interface DurationToFormatOptions extends DateTimeFormatOptions {
@@ -130,7 +128,7 @@ export class Duration {
      * Create a Duration from a JavaScript object with keys like 'years' and 'hours'.
      * If this object is empty then a zero milliseconds duration is returned.
      */
-    static fromObject(obj: DurationObject): Duration;
+    static fromObject(obj: DurationObject, options?: DurationOptions): Duration;
 
     /**
      * Create an invalid Duration.
@@ -240,7 +238,7 @@ export class Duration {
     /**
      * "Set" the values of specified units. Return a newly-constructed Duration.
      */
-    set(values: DurationObjectUnits): Duration;
+    set(values: DurationObject): Duration;
 
     /**
      * Convert this Duration into its representation in a different set of units.

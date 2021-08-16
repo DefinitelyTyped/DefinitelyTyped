@@ -210,6 +210,15 @@ const answers3: Promise<Answers> = generator.prompt([{ type: 'input' }]);
 const answers4: Promise<Answers> = generator.prompt({ type: 'input' });
 const answers5: Promise<Answers> = generator.prompt({ type: 'input', store: false });
 
+generator.registerPriorities(
+  [
+    {
+      priorityName: 'cleanup',
+      queueName: 'my#cleanup',
+      before: 'end'
+    }
+  ]);
+
 generator.registerConfigPrompts([{ storage: generator.config, exportOption: true, type: "input" }]);
 generator.registerTransformStream([]);
 

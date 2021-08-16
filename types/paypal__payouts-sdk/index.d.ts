@@ -4,26 +4,26 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-type RecipientType = 'EMAIL' | 'PHONE' | 'PAYPAL_ID';
-type RecipientWallet = 'PAYPAL' | 'VENMO';
+export type RecipientType = 'EMAIL' | 'PHONE' | 'PAYPAL_ID';
+export type RecipientWallet = 'PAYPAL' | 'VENMO';
 
-interface Currency {
+export interface Currency {
     currency: string;
     value: string;
 }
-interface LinkDescription {
+export interface LinkDescription {
     href: string;
     rel: string;
     method?: 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT' | undefined;
 }
-interface PayoutBatchHeader extends PayoutHeader {
+export interface PayoutBatchHeader extends PayoutHeader {
     time_completed?: string | undefined;
     time_closed?: string | undefined;
     funding_source?: 'BALANCE' | undefined;
     amount?: Currency | undefined;
     fees?: Currency | undefined;
 }
-interface PayoutBatchItems {
+export interface PayoutBatchItems {
     payout_item_id: string;
     transaction_id?: string | undefined;
     activity_id?: string | undefined;
@@ -45,19 +45,19 @@ interface PayoutBatchItems {
     errors?: any;
     links?: LinkDescription[] | undefined;
 }
-interface PayoutCurrencyConversion {
+export interface PayoutCurrencyConversion {
     from_amount?: Currency | undefined;
     to_amount?: Currency | undefined;
     exchange_rate?: string | undefined;
 }
-interface PayoutHeader {
+export interface PayoutHeader {
     payout_batch_id: string;
     batch_status: 'CANCELED' | 'DENIED' | 'PENDING' | 'PROCESSING' | 'SUCCESS';
     time_created?: string | undefined;
     sender_batch_header: PayoutSenderBatchHeader;
     errors?: any;
 }
-interface PayoutItem {
+export interface PayoutItem {
     recipient_type?: RecipientType | undefined;
     amount: { currency: string; value: string };
     note?: string | undefined;
@@ -69,7 +69,7 @@ interface PayoutItem {
     } | undefined;
     notification_language?: string | undefined;
 }
-interface PayoutItemDetail {
+export interface PayoutItemDetail {
     recipient_type?: RecipientType | undefined;
     amount: Currency;
     note?: string | undefined;
@@ -86,28 +86,28 @@ interface PayoutItemDetail {
     } | undefined;
     recipient_wallet?: RecipientWallet | undefined;
 }
-interface PayoutSenderBatchHeader {
+export interface PayoutSenderBatchHeader {
     sender_batch_id?: string | undefined;
     recipient_type?: RecipientType | undefined;
     email_subject?: string | undefined;
     email_message?: string | undefined;
 }
-interface SenderBatchHeader extends PayoutSenderBatchHeader {
+export interface SenderBatchHeader extends PayoutSenderBatchHeader {
     note?: string | undefined;
 }
 
-interface PaypalHeader {
+export interface PaypalHeader {
     Authorization: string;
 }
-interface CreatePayoutRequestBody {
+export interface CreatePayoutRequestBody {
     sender_batch_header: SenderBatchHeader;
     items: PayoutItem[];
 }
-interface CreateBatchPayoutResponse {
+export interface CreateBatchPayoutResponse {
     batch_header?: PayoutHeader | undefined;
     links?: LinkDescription[] | undefined;
 }
-interface GetBatchPayoutResponse {
+export interface GetBatchPayoutResponse {
     total_items?: number | undefined;
     total_pages?: number | undefined;
     batch_header?: PayoutBatchHeader | undefined;
@@ -115,16 +115,16 @@ interface GetBatchPayoutResponse {
     errors?: any;
     links?: LinkDescription[] | undefined;
 }
-interface GetPayoutsItemResponse extends PayoutBatchItems {
+export interface GetPayoutsItemResponse extends PayoutBatchItems {
     sender_batch_id?: string | undefined;
 }
 
-interface HttpRequest {
+export interface HttpRequest {
     headers: PaypalHeader;
     body?: { [key: string]: string } | undefined;
 }
 
-interface HttpResponse<R> {
+export interface HttpResponse<R> {
     statusCode: number;
     headers: { [key: string]: string };
     message?: string | undefined;

@@ -23,12 +23,14 @@ const graphDiv = '#test';
         type: 'scatter',
     } as ScatterData;
     const data = [trace1, trace2];
+    const tickangle: "auto" = "auto";
     const layout = {
         title: 'Sales Growth',
         xaxis: {
             title: 'Year',
             showgrid: false,
             zeroline: false,
+            tickangle
         },
         yaxis: {
             title: 'Percent',

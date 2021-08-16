@@ -16,9 +16,7 @@
 
 import * as stream from 'stream';
 import * as events from 'events';
-
-// The modem parameter is an instance of docker-modem, which is missing type declarations.
-// https://github.com/apocas/docker-modem
+import * as DockerModem from 'docker-modem';
 
 declare namespace Dockerode {
     class Container {
@@ -1864,7 +1862,7 @@ declare class Dockerode {
     swarmInspect(callback: Callback<any>): void;
     swarmInspect(): Promise<any>;
 
-    modem: any;
+    modem: DockerModem;
 }
 
 export = Dockerode;
