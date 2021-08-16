@@ -1,6 +1,7 @@
 // Type definitions for lua-json 1.0
 // Project: https://github.com/kcwiki/lua-json#readme
 // Definitions by: bitomic <https://github.com/bitomic>
+//                 Tommy Josépovic <https://github.com/tommy-josepovic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
