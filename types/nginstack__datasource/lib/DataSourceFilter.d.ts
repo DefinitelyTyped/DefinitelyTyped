@@ -3,7 +3,7 @@ declare function DataSourceFilter(name: string, type: string): void;
 declare class DataSourceFilter {
     constructor(name: string, type: string);
     onAfterLoadDefaultValue: Event;
-    propertiesToAssign_: any;
+    private propertiesToAssign_;
     group: string;
     size: number;
     rangeLimit: typeof Limit;
@@ -12,9 +12,9 @@ declare class DataSourceFilter {
     newFiltersToRange(): DataSourceFilter[];
     newFilterToRange(rangeSuffix: string): DataSourceFilter;
     private parseExpression_;
-    notifyNameChange_(name: any): void;
-    fieldName_: string;
-    prefix_: string;
+    private notifyNameChange_;
+    private fieldName_;
+    private prefix_;
     private getNameSegments;
     getFieldName(): string;
     getCanonicalName(): string;
@@ -67,15 +67,7 @@ declare class DataSourceFilter {
     stringIfTrue: string;
 }
 declare namespace DataSourceFilter {
-    export {
-        DATE_KEYWORDS,
-        rangeSuffixes_,
-        orderedRangeSuffixes_,
-        removeRangeSuffix,
-        shouldCreateAuxiliaryRangeFilters,
-        Event,
-        Field,
-    };
+    export { DATE_KEYWORDS, removeRangeSuffix, shouldCreateAuxiliaryRangeFilters, Event, Field };
 }
 type Event = import('@nginstack/engine/lib/event/Event');
 import Limit = require('@nginstack/engine/lib/range/Limit.js');
@@ -94,7 +86,5 @@ declare namespace DATE_KEYWORDS {
     const IA: boolean;
     const FA: boolean;
 }
-declare var rangeSuffixes_: any;
-declare var orderedRangeSuffixes_: string[];
 declare function removeRangeSuffix(name: string): string;
 declare function shouldCreateAuxiliaryRangeFilters(filter: DataSourceFilter | Field): boolean;

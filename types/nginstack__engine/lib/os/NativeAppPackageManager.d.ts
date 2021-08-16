@@ -2,13 +2,13 @@ export = NativeAppPackageManager;
 declare function NativeAppPackageManager(key: number, path: string): void;
 declare class NativeAppPackageManager {
     constructor(key: number, path: string);
-    _manifestName: string;
-    _key: number;
-    _appId: string;
-    _manifest: any;
-    _localManifest: any;
-    _path: string;
-    logger_: Logger;
+    private _manifestName;
+    private _key;
+    private _appId;
+    private _manifest;
+    private _localManifest;
+    private _path;
+    private logger_;
     private load;
     private loadDiskManifest_;
     private loadBaseManifest_;
@@ -21,4 +21,3 @@ declare class NativeAppPackageManager {
     private verifyBundle_;
     getManifest(): any;
 }
-import Logger = require('../log/Logger.js');
