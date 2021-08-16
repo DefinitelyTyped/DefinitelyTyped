@@ -70,19 +70,19 @@ for (col of stmt.columns()) {
 }
 type BindParameters = [string, number, bigint];
 const stmtWithBindTyped = db.prepare<BindParameters>('SELECT * FROM test WHERE name == ? and age = ? and id == ?');
-stmtWithBindTyped.run('alice', 20, 1234n);
+stmtWithBindTyped.run('alice', 20, BigInt(1234));
 // note the following is technically legal according to the docs, but we do not have a way to express both typed args
 // and variable tuples in typescript. If you want to group tuples, you must specify it that way in the prepare function
 // https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md#binding-parameters
 // $ExpectError
-stmtWithBindTyped.run(['alice', 20, 1234n]);
+stmtWithBindTyped.run(['alice', 20, BigInt(1234)]);
 interface NamedBindParameters {
     name: string;
     age: number;
     id: bigint;
 }
 const stmtWithNamedBind = db.prepare<NamedBindParameters>('INSERT INTO test VALUES (@name, @age, @id)');
-stmtWithNamedBind.run({ name: 'bob', age: 20, id: 1234n });
+stmtWithNamedBind.run({ name: 'bob', age: 20, id: BigInt(1234) });
 
 const trans: Sqlite.Transaction = db.transaction(param => stmt.all(param));
 trans('name');
