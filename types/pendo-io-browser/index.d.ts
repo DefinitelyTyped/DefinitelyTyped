@@ -95,7 +95,7 @@ declare namespace pendo {
         anchor: HTMLElement;
     }
     interface Feedback {
-        loginAndRedirect: (options?: FeedbackOptions) => void;
+        loginAndRedirect(options?: FeedbackOptions): void;
     }
 
     interface Debugging {
