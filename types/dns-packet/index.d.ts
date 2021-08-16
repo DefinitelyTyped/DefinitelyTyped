@@ -160,24 +160,9 @@ export type MxAnswer = BaseAnswer<"MX", MxData>;
 export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
 
 export interface OptAnswer extends GenericAnswer<"OPT"> {
-    /**
-     * UInt16BE
-     */
     udpPayloadSize: number;
-
-    /**
-     * UInt8
-     */
     extendedRcode: number;
-
-    /**
-     * UInt8
-     */
     ednsVersion: number;
-
-    /**
-     * UInt16BE
-     */
     flags: number;
 
     /**
@@ -186,46 +171,14 @@ export interface OptAnswer extends GenericAnswer<"OPT"> {
     flag_do: boolean;
 
     options: Array<{
-        /**
-         * UInt16BE
-         */
         code: number;
-
-        /**
-         * UInt16BE
-         */
         type: string;
-
         data: Buffer;
-
-        /**
-         * UInt16BE
-         */
         family: number;
-
-        /**
-         * UInt8
-         */
         sourcePrefixLength: number;
-
-        /**
-         * UInt8
-         */
         scopePrefixLength: number;
-
-        /**
-         * UInt16BE
-         */
         ip: string;
-
-        /**
-         * UInt16BE
-         */
         timeout: number;
-
-        /**
-         * UInt16BE[]
-         */
         tags: number[];
     }>;
 }
