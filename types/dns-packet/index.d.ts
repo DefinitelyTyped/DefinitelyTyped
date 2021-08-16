@@ -180,6 +180,7 @@ export interface OptAnswer extends GenericAnswer<"OPT"> {
         ip?: string | undefined;
         timeout?: number | undefined;
         tags?: number[] | undefined;
+        length?: number | undefined;
     }>;
 }
 
