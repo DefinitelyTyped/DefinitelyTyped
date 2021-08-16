@@ -19,7 +19,7 @@ export interface MutationConfig<TOperation extends MutationParameters> {
         | ((response: TOperation['response'], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
         | null | undefined;
     onUnsubscribe?: (() => void | null | undefined) | undefined;
-    optimisticResponse?: TOperation['response'] | undefined;
+    optimisticResponse?: TOperation['rawResponse'] | undefined;
     optimisticUpdater?: SelectorStoreUpdater<TOperation['response']> | null | undefined;
     updater?: SelectorStoreUpdater<TOperation['response']> | null | undefined;
     uploadables?: UploadableMap | null | undefined;
