@@ -1426,7 +1426,7 @@ export class DOMSerializer<S extends Schema = any> {
      * document, should be passed so that the serializer can create
      * nodes.
      */
-    serializeFragment(fragment: Fragment<S>, options?: { [key: string]: any }): DocumentFragment;
+    serializeFragment(fragment: Fragment<S>, options?: { [key: string]: any }, target?: string): DocumentFragment;
     /**
      * Serialize this node to a DOM node. This can be useful when you
      * need to serialize a part of a document, as opposed to the whole
@@ -1435,6 +1435,14 @@ export class DOMSerializer<S extends Schema = any> {
      * its [content](#model.Node.content).
      */
     serializeNode(node: ProsemirrorNode<S>, options?: { [key: string]: any }): Node;
+    /**
+     * Serialize this mark to a DOM mark.
+     */
+    serializeMark(mark?: Mark<S>, inline?: boolean, options?: { [key: string]: any }): { dom: Node; contentDOM?: Node | null | undefined };
+    /**
+     * Serialize the content of this node to a DOM node.
+     */
+    serializeNodeInner(node: ProsemirrorNode<S>, options?: { [key: string]: any }): Node;
     /**
      * Render an [output spec](#model.DOMOutputSpec) to a DOM node. If
      * the spec has a hole (zero) in it, `contentDOM` will point at the
