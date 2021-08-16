@@ -632,6 +632,12 @@ export class Track {
      * The type of track.
      */
     type: TrackType;
+
+    /**
+     * For forced text tracks; flag to incidate if forced narrative.
+     * This property is added by Shaka player https://github.com/google/shaka-player/commit/01998f3b99990afa54cfe5ae5632c265e23fbd66#
+     */
+    forced?: boolean;
 }
 /**
  * Describes style information for a text track.
