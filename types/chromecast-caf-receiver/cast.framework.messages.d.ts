@@ -638,8 +638,8 @@ export class Track {
      * VIDEO: caption, subtitle, main, alternate, supplementary, sign, emergency
      * AUDIO: main, alternate, supplementary, commentary, dub, emergency
      * TEXT: main, alternate, subtitle, supplementary, commentary, dub, description, forced_subtitle
-      */
-    roles?: Array<string> | undefined;
+    */
+    roles?: string[] | undefined;
 }
 /**
  * Describes style information for a text track.
