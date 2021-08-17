@@ -37,19 +37,31 @@ import { Marker } from "@ckeditor/ckeditor5-engine/src/model/markercollection";
 import Node from "@ckeditor/ckeditor5-engine/src/model/node";
 import Operation from "@ckeditor/ckeditor5-engine/src/model/operation/operation";
 import ModelPosition, { PositionStickiness } from "@ckeditor/ckeditor5-engine/src/model/position";
+import RootElement from "@ckeditor/ckeditor5-engine/src/model/rootelement";
 import Selection from "@ckeditor/ckeditor5-engine/src/model/selection";
 import Text from "@ckeditor/ckeditor5-engine/src/model/text";
+import TextProxy from "@ckeditor/ckeditor5-engine/src/model/textproxy";
 import Writer from "@ckeditor/ckeditor5-engine/src/model/writer";
-import { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
+import AttributeElement from "@ckeditor/ckeditor5-engine/src/view/attributeelement";
+import ContainerElement, { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
 import Document from "@ckeditor/ckeditor5-engine/src/view/document";
 import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
+import ViewDocumentSelection from "@ckeditor/ckeditor5-engine/src/view/documentselection";
 import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
 import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
+import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import EmptyElement from "@ckeditor/ckeditor5-engine/src/view/emptyelement";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
 import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
+import ViewNode from "@ckeditor/ckeditor5-engine/src/view/node";
 import Position from "@ckeditor/ckeditor5-engine/src/view/position";
+import ViewRange from "@ckeditor/ckeditor5-engine/src/view/range";
+import RawElement from "@ckeditor/ckeditor5-engine/src/view/rawelement";
 import RootEditableElement from "@ckeditor/ckeditor5-engine/src/view/rooteditableelement";
+import ViewSelection from "@ckeditor/ckeditor5-engine/src/view/selection";
+import ViewText from "@ckeditor/ckeditor5-engine/src/view/text";
+import ViewTextProxy from "@ckeditor/ckeditor5-engine/src/view/textproxy";
+import UIElement from "@ckeditor/ckeditor5-engine/src/view/uielement";
 import View from "@ckeditor/ckeditor5-engine/src/view/view";
 import { EmitterMixin } from "@ckeditor/ckeditor5-utils";
 
@@ -400,3 +412,205 @@ new Mapper().on("foo", () => {});
 const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
 downcastWriter.createPositionAt(downcastWriter.createEmptyElement("div"), "after");
 downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement("div"), 5));
+
+type ModelIsTypes =
+    | DocumentFragment
+    | DocumentSelection
+    | Element
+    | ModelPosition
+    | LivePosition
+    | Marker
+    | Range
+    | LiveRange
+    | RootElement
+    | Selection
+    | Text
+    | TextProxy;
+
+const modelObj = null as unknown as ModelIsTypes;
+
+if (modelObj.is("position") || modelObj.is("model:position")) {
+    const obj: ModelPosition | LivePosition = modelObj;
+}
+if (modelObj.is("livePosition") || modelObj.is("model:livePosition")) {
+    const obj: LivePosition = modelObj;
+}
+if (modelObj.is("range") || modelObj.is("model:range")) {
+    const obj: Range | LiveRange = modelObj;
+}
+if (modelObj.is("liveRange") || modelObj.is("model:liveRange")) {
+    const obj: LiveRange = modelObj;
+}
+if (modelObj.is("marker") || modelObj.is("model:marker")) {
+    const obj: Marker = modelObj;
+}
+if (modelObj.is("$text") || modelObj.is("model:$text") || modelObj.is("text") || modelObj.is("model:text")) {
+    const obj: Text = modelObj;
+}
+if (
+    modelObj.is("$textProxy") ||
+    modelObj.is("model:$textProxy") ||
+    modelObj.is("textProxy") ||
+    modelObj.is("model:textProxy")
+) {
+    const obj: TextProxy = modelObj;
+}
+if (
+    modelObj.is("element") ||
+    modelObj.is("model:element") ||
+    modelObj.is("element", "div") ||
+    modelObj.is("model:element", "div")
+) {
+    const obj: Element | RootElement = modelObj;
+}
+if (
+    modelObj.is("rootElement") ||
+    modelObj.is("model:rootElement") ||
+    modelObj.is("rootElement", "div") ||
+    modelObj.is("model:rootElement", "div")
+) {
+    const obj: RootElement = modelObj;
+}
+if (modelObj.is("selection") || modelObj.is("model:selection")) {
+    const obj: Selection | DocumentSelection = modelObj;
+}
+if (modelObj.is("documentSelection") || modelObj.is("model:documentSelection")) {
+    const obj: DocumentSelection = modelObj;
+}
+if (modelObj.is("node") || modelObj.is("model:node")) {
+    const obj: Node | Element | Text | RootElement = modelObj;
+}
+if (modelObj.is("documentFragment") || modelObj.is("model:documentFragment")) {
+    const obj: DocumentFragment = modelObj;
+}
+
+type ViewIsTypes =
+    | ViewDocumentFragment
+    | ViewDocumentSelection
+    | ViewElement
+    | ContainerElement
+    | EditableElement
+    | AttributeElement
+    | UIElement
+    | RawElement
+    | EmptyElement
+    | RootEditableElement
+    | ViewRange
+    | Position
+    | ViewSelection
+    | ViewText
+    | ViewTextProxy;
+
+const viewObj = null as unknown as ViewIsTypes;
+
+if (viewObj.is("position") || viewObj.is("view:position")) {
+    const obj: Position = viewObj;
+}
+if (viewObj.is("range") || viewObj.is("view:range")) {
+    const obj: ViewRange = viewObj;
+}
+if (viewObj.is("documentFragment") || viewObj.is("view:documentFragment")) {
+    const obj: ViewDocumentFragment = viewObj;
+}
+if (viewObj.is("selection") || viewObj.is("view:selection")) {
+    const obj: ViewSelection | ViewDocumentSelection = viewObj;
+}
+if (viewObj.is("documentSelection") || viewObj.is("view:documentSelection")) {
+    const obj: ViewDocumentSelection = viewObj;
+}
+if (
+    viewObj.is("$textProxy") ||
+    viewObj.is("view:$textProxy") ||
+    viewObj.is("textProxy") ||
+    viewObj.is("view:textProxy")
+) {
+    const obj: ViewTextProxy = viewObj;
+}
+if (viewObj.is("node") || viewObj.is("view:node")) {
+    const obj:
+        | ViewNode
+        | ViewElement
+        | ViewText
+        | ContainerElement
+        | EditableElement
+        | RootEditableElement
+        | AttributeElement
+        | UIElement
+        | RawElement
+        | EmptyElement = viewObj;
+}
+if (viewObj.is("$text") || viewObj.is("view:$text") || viewObj.is("text") || viewObj.is("view:text")) {
+    const obj: ViewText = viewObj;
+}
+if (
+    viewObj.is("element") ||
+    viewObj.is("view:element") ||
+    viewObj.is("element", "div") ||
+    viewObj.is("view:element", "div")
+) {
+    const obj:
+        | ViewElement
+        | ContainerElement
+        | EditableElement
+        | AttributeElement
+        | UIElement
+        | RawElement
+        | EmptyElement
+        | RootEditableElement = viewObj;
+}
+if (
+    viewObj.is("containerElement") ||
+    viewObj.is("view:containerElement") ||
+    viewObj.is("containerElement", "div") ||
+    viewObj.is("view:containerElement", "div")
+) {
+    const obj: ContainerElement | EditableElement | RootEditableElement = viewObj;
+}
+if (
+    viewObj.is("editableElement") ||
+    viewObj.is("view:editableElement") ||
+    viewObj.is("editableElement", "div") ||
+    viewObj.is("view:editableElement", "div")
+) {
+    const obj: EditableElement | RootEditableElement = viewObj;
+}
+if (
+    viewObj.is("rootEditableElement") ||
+    viewObj.is("view:rootEditableElement") ||
+    viewObj.is("rootEditableElement", "div") ||
+    viewObj.is("view:rootEditableElement", "div")
+) {
+    const obj: RootEditableElement = viewObj;
+}
+if (
+    viewObj.is("rawElement") ||
+    viewObj.is("view:rawElement") ||
+    viewObj.is("rawElement", "div") ||
+    viewObj.is("view:rawElement", "div")
+) {
+    const obj: RawElement = viewObj;
+}
+if (
+    viewObj.is("attributeElement") ||
+    viewObj.is("view:attributeElement") ||
+    viewObj.is("attributeElement", "div") ||
+    viewObj.is("view:attributeElement", "div")
+) {
+    const obj: AttributeElement = viewObj;
+}
+if (
+    viewObj.is("uiElement") ||
+    viewObj.is("view:uiElement") ||
+    viewObj.is("uiElement", "div") ||
+    viewObj.is("view:uiElement", "div")
+) {
+    const obj: UIElement = viewObj;
+}
+if (
+    viewObj.is("emptyElement") ||
+    viewObj.is("view:emptyElement") ||
+    viewObj.is("emptyElement", "div") ||
+    viewObj.is("view:emptyElement", "div")
+) {
+    const obj: EmptyElement = viewObj;
+}

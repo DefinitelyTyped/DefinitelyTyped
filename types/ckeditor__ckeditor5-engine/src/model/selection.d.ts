@@ -1,15 +1,33 @@
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import DocumentFragment from "./documentfragment";
+import DocumentSelection from "./documentselection";
+import Element from "./element";
+import LivePosition from "./liveposition";
+import LiveRange from "./liverange";
+import { Marker } from "./markercollection";
 import Node from "./node";
 import Position from "./position";
 import Range from "./range";
-import DocumentSelection from "./documentselection";
-import Element from "./element";
+import RootElement from "./rootelement";
+import Text from "./text";
+import TextProxy from "./textproxy";
 import { Item } from "./item";
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import DomEventData from "../view/observer/domeventdata";
 
-export type Selectable = Selection | DocumentSelection | Position | Range | Node | Iterable<Range> | null;
+export type Selectable =
+    | Selection
+    | DocumentSelection
+    | Position
+    | LivePosition
+    | Range
+    | LiveRange
+    | Node
+    | Element
+    | RootElement
+    | Text
+    | Iterable<Range>;
 
 export default class Selection implements Emitter {
     readonly anchor: Position | null;
@@ -19,7 +37,7 @@ export default class Selection implements Emitter {
     readonly rangeCount: number;
 
     constructor(
-        selectable: Selectable,
+        selectable?: Selectable | null,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
         options?: { backward?: boolean | undefined },
     );
@@ -35,7 +53,20 @@ export default class Selection implements Emitter {
     getSelectedBlocks(): Generator<Element>;
     getSelectedElement(): Element | null;
     hasAttribute(key: string): boolean;
-    is(type: string): boolean;
+    is(type: "position" | "model:position"): this is Position | LivePosition;
+    is(type: "livePosition" | "model:livePosition"): this is LivePosition;
+    is(type: "range" | "model:range"): this is Range | LiveRange;
+    is(type: "liveRange" | "model:liveRange"): this is LiveRange;
+    is(type: "marker" | "model:marker"): this is Marker;
+    is(type: "$textProxy" | "model:$textProxy" | "textProxy" | "model:textProxy"): this is TextProxy;
+    is(type: "documentFragment" | "model:documentFragment"): this is DocumentFragment;
+    is(type: "selection" | "model:selection"): this is Selection | DocumentSelection;
+    is(type: "documentSelection" | "model:documentSelection"): this is DocumentSelection;
+    is(type: "node" | "model:node"): this is Node | Element | Text | RootElement;
+    is(type: "$text" | "model:$text" | "text" | "model:text"): this is Text;
+    is(type: "element" | "model:element", name?: string): this is Element | RootElement;
+    is(type: "rootElement" | "model:rootElement", name?: string): this is RootElement;
+    is(type: string, name?: string): boolean;
     isEqual(otherSelection: Selection): boolean;
     removeAttribute(key: string): void;
     setAttribute(key: string, value: string | boolean | number): void;
