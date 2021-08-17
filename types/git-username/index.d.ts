@@ -5,8 +5,10 @@
 
 export = gitUsername;
 
+declare function gitUsername(options?: gitUsername.BaseOptions): string | null;
 declare function gitUsername(options: gitUsername.StrictOptions): string;
-declare function gitUsername(options?: string | gitUsername.BaseOptions): string | null;
+declare function gitUsername(cwd: string, options?: gitUsername.BaseOptions): string | null;
+declare function gitUsername(cwd: string, options?: gitUsername.StrictOptions): string;
 
 declare namespace gitUsername {
     interface BaseOptions {
