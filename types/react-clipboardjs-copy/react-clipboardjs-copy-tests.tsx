@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactClipboard } from 'react-clipboardjs-copy';
+import ReactClipboard from 'react-clipboardjs-copy';
 
 function MyApp() {
     return (

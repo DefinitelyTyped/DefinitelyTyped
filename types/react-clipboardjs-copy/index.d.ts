@@ -29,4 +29,4 @@ declare namespace ReactClipboard {
     }
 }
 
-export = ReactClipboard;
+export default ReactClipboard;
