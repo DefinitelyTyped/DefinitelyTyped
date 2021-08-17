@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.2
+// Type definitions for non-npm package microsoft-graph 2.3
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -351,6 +351,7 @@ export type MobileAppContentFileUploadState =
 export type MobileAppPublishingState = "notPublished" | "processing" | "published";
 export type RunAsAccountType = "system" | "user";
 export type VppTokenAccountType = "business" | "education";
+export type Win32LobAppDeliveryOptimizationPriority = "notConfigured" | "foreground";
 export type Win32LobAppFileSystemOperationType =
     | "notConfigured"
     | "exists"
@@ -670,6 +671,7 @@ export type RatingUnitedStatesTelevisionType =
     | "adults";
 export type RequiredPasswordType = "deviceDefault" | "alphanumeric" | "numeric";
 export type SafeSearchFilterType = "userDefined" | "strict" | "moderate";
+export type SettingSourceType = "deviceConfiguration" | "deviceIntent";
 export type SharedPCAccountDeletionPolicyType =
     | "immediate"
     | "diskSpaceThreshold"
@@ -848,11 +850,12 @@ export type ManagedAppDataEncryptionType =
     | "afterDeviceRestart"
     | "whenDeviceLockedExceptOpenFiles"
     | "whenDeviceLocked";
-export type ManagedAppDataStorageLocation = "oneDriveForBusiness" | "sharePoint" | "localStorage";
+export type ManagedAppDataStorageLocation = "oneDriveForBusiness" | "sharePoint" | "box" | "localStorage";
 export type ManagedAppDataTransferLevel = "allApps" | "managedApps" | "none";
 export type ManagedAppFlaggedReason = "none" | "rootedDevice";
 export type ManagedAppPinCharacterSet = "numeric" | "alphanumericAndSymbol";
 export type ManagedBrowserType = "notConfigured" | "microsoftEdge";
+export type TargetedManagedAppGroupType = "selectedPublicApps" | "allCoreMicrosoftApps" | "allMicrosoftApps" | "allApps";
 export type WindowsInformationProtectionEnforcementLevel =
     | "noProtection"
     | "encryptAndAuditOnly"
@@ -865,6 +868,9 @@ export type NotificationTemplateBrandingOptions =
     | "includeCompanyName"
     | "includeContactInformation";
 export type RemoteAssistanceOnboardingStatus = "notOnboarded" | "onboarding" | "onboarded";
+export type DeviceManagementExportJobLocalizationType = "localizedValuesAsAdditionalColumn" | "replaceLocalizableValues";
+export type DeviceManagementReportFileFormat = "csv" | "pdf";
+export type DeviceManagementReportStatus = "unknown" | "notStarted" | "inProgress" | "completed" | "failed";
 export type DeviceEnrollmentFailureReason =
     | "unknown"
     | "authentication"
@@ -958,7 +964,798 @@ export type PrinterProcessingStateDetail =
     | "developerLow"
     | "developerEmpty"
     | "interpreterResourceUnavailable"
-    | "unknownFutureValue";
+    | "unknownFutureValue"
+    | "alertRemovalOfBinaryChangeEntry"
+    | "banderAdded"
+    | "banderAlmostEmpty"
+    | "banderAlmostFull"
+    | "banderAtLimit"
+    | "banderClosed"
+    | "banderConfigurationChange"
+    | "banderCoverClosed"
+    | "banderCoverOpen"
+    | "banderEmpty"
+    | "banderFull"
+    | "banderInterlockClosed"
+    | "banderInterlockOpen"
+    | "banderJam"
+    | "banderLifeAlmostOver"
+    | "banderLifeOver"
+    | "banderMemoryExhausted"
+    | "banderMissing"
+    | "banderMotorFailure"
+    | "banderNearLimit"
+    | "banderOffline"
+    | "banderOpened"
+    | "banderOverTemperature"
+    | "banderPowerSaver"
+    | "banderRecoverableFailure"
+    | "banderRecoverableStorage"
+    | "banderRemoved"
+    | "banderResourceAdded"
+    | "banderResourceRemoved"
+    | "banderThermistorFailure"
+    | "banderTimingFailure"
+    | "banderTurnedOff"
+    | "banderTurnedOn"
+    | "banderUnderTemperature"
+    | "banderUnrecoverableFailure"
+    | "banderUnrecoverableStorageError"
+    | "banderWarmingUp"
+    | "binderAdded"
+    | "binderAlmostEmpty"
+    | "binderAlmostFull"
+    | "binderAtLimit"
+    | "binderClosed"
+    | "binderConfigurationChange"
+    | "binderCoverClosed"
+    | "binderCoverOpen"
+    | "binderEmpty"
+    | "binderFull"
+    | "binderInterlockClosed"
+    | "binderInterlockOpen"
+    | "binderJam"
+    | "binderLifeAlmostOver"
+    | "binderLifeOver"
+    | "binderMemoryExhausted"
+    | "binderMissing"
+    | "binderMotorFailure"
+    | "binderNearLimit"
+    | "binderOffline"
+    | "binderOpened"
+    | "binderOverTemperature"
+    | "binderPowerSaver"
+    | "binderRecoverableFailure"
+    | "binderRecoverableStorage"
+    | "binderRemoved"
+    | "binderResourceAdded"
+    | "binderResourceRemoved"
+    | "binderThermistorFailure"
+    | "binderTimingFailure"
+    | "binderTurnedOff"
+    | "binderTurnedOn"
+    | "binderUnderTemperature"
+    | "binderUnrecoverableFailure"
+    | "binderUnrecoverableStorageError"
+    | "binderWarmingUp"
+    | "cameraFailure"
+    | "chamberCooling"
+    | "chamberFailure"
+    | "chamberHeating"
+    | "chamberTemperatureHigh"
+    | "chamberTemperatureLow"
+    | "cleanerLifeAlmostOver"
+    | "cleanerLifeOver"
+    | "configurationChange"
+    | "deactivated"
+    | "deleted"
+    | "dieCutterAdded"
+    | "dieCutterAlmostEmpty"
+    | "dieCutterAlmostFull"
+    | "dieCutterAtLimit"
+    | "dieCutterClosed"
+    | "dieCutterConfigurationChange"
+    | "dieCutterCoverClosed"
+    | "dieCutterCoverOpen"
+    | "dieCutterEmpty"
+    | "dieCutterFull"
+    | "dieCutterInterlockClosed"
+    | "dieCutterInterlockOpen"
+    | "dieCutterJam"
+    | "dieCutterLifeAlmostOver"
+    | "dieCutterLifeOver"
+    | "dieCutterMemoryExhausted"
+    | "dieCutterMissing"
+    | "dieCutterMotorFailure"
+    | "dieCutterNearLimit"
+    | "dieCutterOffline"
+    | "dieCutterOpened"
+    | "dieCutterOverTemperature"
+    | "dieCutterPowerSaver"
+    | "dieCutterRecoverableFailure"
+    | "dieCutterRecoverableStorage"
+    | "dieCutterRemoved"
+    | "dieCutterResourceAdded"
+    | "dieCutterResourceRemoved"
+    | "dieCutterThermistorFailure"
+    | "dieCutterTimingFailure"
+    | "dieCutterTurnedOff"
+    | "dieCutterTurnedOn"
+    | "dieCutterUnderTemperature"
+    | "dieCutterUnrecoverableFailure"
+    | "dieCutterUnrecoverableStorageError"
+    | "dieCutterWarmingUp"
+    | "extruderCooling"
+    | "extruderFailure"
+    | "extruderHeating"
+    | "extruderJam"
+    | "extruderTemperatureHigh"
+    | "extruderTemperatureLow"
+    | "fanFailure"
+    | "faxModemLifeAlmostOver"
+    | "faxModemLifeOver"
+    | "faxModemMissing"
+    | "faxModemTurnedOff"
+    | "faxModemTurnedOn"
+    | "folderAdded"
+    | "folderAlmostEmpty"
+    | "folderAlmostFull"
+    | "folderAtLimit"
+    | "folderClosed"
+    | "folderConfigurationChange"
+    | "folderCoverClosed"
+    | "folderCoverOpen"
+    | "folderEmpty"
+    | "folderFull"
+    | "folderInterlockClosed"
+    | "folderInterlockOpen"
+    | "folderJam"
+    | "folderLifeAlmostOver"
+    | "folderLifeOver"
+    | "folderMemoryExhausted"
+    | "folderMissing"
+    | "folderMotorFailure"
+    | "folderNearLimit"
+    | "folderOffline"
+    | "folderOpened"
+    | "folderOverTemperature"
+    | "folderPowerSaver"
+    | "folderRecoverableFailure"
+    | "folderRecoverableStorage"
+    | "folderRemoved"
+    | "folderResourceAdded"
+    | "folderResourceRemoved"
+    | "folderThermistorFailure"
+    | "folderTimingFailure"
+    | "folderTurnedOff"
+    | "folderTurnedOn"
+    | "folderUnderTemperature"
+    | "folderUnrecoverableFailure"
+    | "folderUnrecoverableStorageError"
+    | "folderWarmingUp"
+    | "hibernate"
+    | "holdNewJobs"
+    | "identifyPrinterRequested"
+    | "imprinterAdded"
+    | "imprinterAlmostEmpty"
+    | "imprinterAlmostFull"
+    | "imprinterAtLimit"
+    | "imprinterClosed"
+    | "imprinterConfigurationChange"
+    | "imprinterCoverClosed"
+    | "imprinterCoverOpen"
+    | "imprinterEmpty"
+    | "imprinterFull"
+    | "imprinterInterlockClosed"
+    | "imprinterInterlockOpen"
+    | "imprinterJam"
+    | "imprinterLifeAlmostOver"
+    | "imprinterLifeOver"
+    | "imprinterMemoryExhausted"
+    | "imprinterMissing"
+    | "imprinterMotorFailure"
+    | "imprinterNearLimit"
+    | "imprinterOffline"
+    | "imprinterOpened"
+    | "imprinterOverTemperature"
+    | "imprinterPowerSaver"
+    | "imprinterRecoverableFailure"
+    | "imprinterRecoverableStorage"
+    | "imprinterRemoved"
+    | "imprinterResourceAdded"
+    | "imprinterResourceRemoved"
+    | "imprinterThermistorFailure"
+    | "imprinterTimingFailure"
+    | "imprinterTurnedOff"
+    | "imprinterTurnedOn"
+    | "imprinterUnderTemperature"
+    | "imprinterUnrecoverableFailure"
+    | "imprinterUnrecoverableStorageError"
+    | "imprinterWarmingUp"
+    | "inputCannotFeedSizeSelected"
+    | "inputManualInputRequest"
+    | "inputMediaColorChange"
+    | "inputMediaFormPartsChange"
+    | "inputMediaSizeChange"
+    | "inputMediaTrayFailure"
+    | "inputMediaTrayFeedError"
+    | "inputMediaTrayJam"
+    | "inputMediaTypeChange"
+    | "inputMediaWeightChange"
+    | "inputPickRollerFailure"
+    | "inputPickRollerLifeOver"
+    | "inputPickRollerLifeWarn"
+    | "inputPickRollerMissing"
+    | "inputTrayElevationFailure"
+    | "inputTrayPositionFailure"
+    | "inserterAdded"
+    | "inserterAlmostEmpty"
+    | "inserterAlmostFull"
+    | "inserterAtLimit"
+    | "inserterClosed"
+    | "inserterConfigurationChange"
+    | "inserterCoverClosed"
+    | "inserterCoverOpen"
+    | "inserterEmpty"
+    | "inserterFull"
+    | "inserterInterlockClosed"
+    | "inserterInterlockOpen"
+    | "inserterJam"
+    | "inserterLifeAlmostOver"
+    | "inserterLifeOver"
+    | "inserterMemoryExhausted"
+    | "inserterMissing"
+    | "inserterMotorFailure"
+    | "inserterNearLimit"
+    | "inserterOffline"
+    | "inserterOpened"
+    | "inserterOverTemperature"
+    | "inserterPowerSaver"
+    | "inserterRecoverableFailure"
+    | "inserterRecoverableStorage"
+    | "inserterRemoved"
+    | "inserterResourceAdded"
+    | "inserterResourceRemoved"
+    | "inserterThermistorFailure"
+    | "inserterTimingFailure"
+    | "inserterTurnedOff"
+    | "inserterTurnedOn"
+    | "inserterUnderTemperature"
+    | "inserterUnrecoverableFailure"
+    | "inserterUnrecoverableStorageError"
+    | "inserterWarmingUp"
+    | "interlockClosed"
+    | "interpreterCartridgeAdded"
+    | "interpreterCartridgeDeleted"
+    | "interpreterComplexPageEncountered"
+    | "interpreterMemoryDecrease"
+    | "interpreterMemoryIncrease"
+    | "interpreterResourceAdded"
+    | "interpreterResourceDeleted"
+    | "lampAtEol"
+    | "lampFailure"
+    | "lampNearEol"
+    | "laserAtEol"
+    | "laserFailure"
+    | "laserNearEol"
+    | "makeEnvelopeAdded"
+    | "makeEnvelopeAlmostEmpty"
+    | "makeEnvelopeAlmostFull"
+    | "makeEnvelopeAtLimit"
+    | "makeEnvelopeClosed"
+    | "makeEnvelopeConfigurationChange"
+    | "makeEnvelopeCoverClosed"
+    | "makeEnvelopeCoverOpen"
+    | "makeEnvelopeEmpty"
+    | "makeEnvelopeFull"
+    | "makeEnvelopeInterlockClosed"
+    | "makeEnvelopeInterlockOpen"
+    | "makeEnvelopeJam"
+    | "makeEnvelopeLifeAlmostOver"
+    | "makeEnvelopeLifeOver"
+    | "makeEnvelopeMemoryExhausted"
+    | "makeEnvelopeMissing"
+    | "makeEnvelopeMotorFailure"
+    | "makeEnvelopeNearLimit"
+    | "makeEnvelopeOffline"
+    | "makeEnvelopeOpened"
+    | "makeEnvelopeOverTemperature"
+    | "makeEnvelopePowerSaver"
+    | "makeEnvelopeRecoverableFailure"
+    | "makeEnvelopeRecoverableStorage"
+    | "makeEnvelopeRemoved"
+    | "makeEnvelopeResourceAdded"
+    | "makeEnvelopeResourceRemoved"
+    | "makeEnvelopeThermistorFailure"
+    | "makeEnvelopeTimingFailure"
+    | "makeEnvelopeTurnedOff"
+    | "makeEnvelopeTurnedOn"
+    | "makeEnvelopeUnderTemperature"
+    | "makeEnvelopeUnrecoverableFailure"
+    | "makeEnvelopeUnrecoverableStorageError"
+    | "makeEnvelopeWarmingUp"
+    | "markerAdjustingPrintQuality"
+    | "markerCleanerMissing"
+    | "markerDeveloperAlmostEmpty"
+    | "markerDeveloperEmpty"
+    | "markerDeveloperMissing"
+    | "markerFuserMissing"
+    | "markerFuserThermistorFailure"
+    | "markerFuserTimingFailure"
+    | "markerInkAlmostEmpty"
+    | "markerInkEmpty"
+    | "markerInkMissing"
+    | "markerOpcMissing"
+    | "markerPrintRibbonAlmostEmpty"
+    | "markerPrintRibbonEmpty"
+    | "markerPrintRibbonMissing"
+    | "markerSupplyAlmostEmpty"
+    | "markerSupplyMissing"
+    | "markerTonerCartridgeMissing"
+    | "markerTonerMissing"
+    | "markerWasteInkReceptacleAlmostFull"
+    | "markerWasteInkReceptacleFull"
+    | "markerWasteInkReceptacleMissing"
+    | "markerWasteMissing"
+    | "markerWasteTonerReceptacleAlmostFull"
+    | "markerWasteTonerReceptacleFull"
+    | "markerWasteTonerReceptacleMissing"
+    | "materialEmpty"
+    | "materialLow"
+    | "materialNeeded"
+    | "mediaDrying"
+    | "mediaPathCannotDuplexMediaSelected"
+    | "mediaPathFailure"
+    | "mediaPathInputEmpty"
+    | "mediaPathInputFeedError"
+    | "mediaPathInputJam"
+    | "mediaPathInputRequest"
+    | "mediaPathJam"
+    | "mediaPathMediaTrayAlmostFull"
+    | "mediaPathMediaTrayFull"
+    | "mediaPathMediaTrayMissing"
+    | "mediaPathOutputFeedError"
+    | "mediaPathOutputFull"
+    | "mediaPathOutputJam"
+    | "mediaPathPickRollerFailure"
+    | "mediaPathPickRollerLifeOver"
+    | "mediaPathPickRollerLifeWarn"
+    | "mediaPathPickRollerMissing"
+    | "motorFailure"
+    | "outputMailboxSelectFailure"
+    | "outputMediaTrayFailure"
+    | "outputMediaTrayFeedError"
+    | "outputMediaTrayJam"
+    | "perforaterAdded"
+    | "perforaterAlmostEmpty"
+    | "perforaterAlmostFull"
+    | "perforaterAtLimit"
+    | "perforaterClosed"
+    | "perforaterConfigurationChange"
+    | "perforaterCoverClosed"
+    | "perforaterCoverOpen"
+    | "perforaterEmpty"
+    | "perforaterFull"
+    | "perforaterInterlockClosed"
+    | "perforaterInterlockOpen"
+    | "perforaterJam"
+    | "perforaterLifeAlmostOver"
+    | "perforaterLifeOver"
+    | "perforaterMemoryExhausted"
+    | "perforaterMissing"
+    | "perforaterMotorFailure"
+    | "perforaterNearLimit"
+    | "perforaterOffline"
+    | "perforaterOpened"
+    | "perforaterOverTemperature"
+    | "perforaterPowerSaver"
+    | "perforaterRecoverableFailure"
+    | "perforaterRecoverableStorage"
+    | "perforaterRemoved"
+    | "perforaterResourceAdded"
+    | "perforaterResourceRemoved"
+    | "perforaterThermistorFailure"
+    | "perforaterTimingFailure"
+    | "perforaterTurnedOff"
+    | "perforaterTurnedOn"
+    | "perforaterUnderTemperature"
+    | "perforaterUnrecoverableFailure"
+    | "perforaterUnrecoverableStorageError"
+    | "perforaterWarmingUp"
+    | "platformCooling"
+    | "platformFailure"
+    | "platformHeating"
+    | "platformTemperatureHigh"
+    | "platformTemperatureLow"
+    | "powerDown"
+    | "powerUp"
+    | "printerManualReset"
+    | "printerNmsReset"
+    | "printerReadyToPrint"
+    | "puncherAdded"
+    | "puncherAlmostEmpty"
+    | "puncherAlmostFull"
+    | "puncherAtLimit"
+    | "puncherClosed"
+    | "puncherConfigurationChange"
+    | "puncherCoverClosed"
+    | "puncherCoverOpen"
+    | "puncherEmpty"
+    | "puncherFull"
+    | "puncherInterlockClosed"
+    | "puncherInterlockOpen"
+    | "puncherJam"
+    | "puncherLifeAlmostOver"
+    | "puncherLifeOver"
+    | "puncherMemoryExhausted"
+    | "puncherMissing"
+    | "puncherMotorFailure"
+    | "puncherNearLimit"
+    | "puncherOffline"
+    | "puncherOpened"
+    | "puncherOverTemperature"
+    | "puncherPowerSaver"
+    | "puncherRecoverableFailure"
+    | "puncherRecoverableStorage"
+    | "puncherRemoved"
+    | "puncherResourceAdded"
+    | "puncherResourceRemoved"
+    | "puncherThermistorFailure"
+    | "puncherTimingFailure"
+    | "puncherTurnedOff"
+    | "puncherTurnedOn"
+    | "puncherUnderTemperature"
+    | "puncherUnrecoverableFailure"
+    | "puncherUnrecoverableStorageError"
+    | "puncherWarmingUp"
+    | "resuming"
+    | "scanMediaPathFailure"
+    | "scanMediaPathInputEmpty"
+    | "scanMediaPathInputFeedError"
+    | "scanMediaPathInputJam"
+    | "scanMediaPathInputRequest"
+    | "scanMediaPathJam"
+    | "scanMediaPathOutputFeedError"
+    | "scanMediaPathOutputFull"
+    | "scanMediaPathOutputJam"
+    | "scanMediaPathPickRollerFailure"
+    | "scanMediaPathPickRollerLifeOver"
+    | "scanMediaPathPickRollerLifeWarn"
+    | "scanMediaPathPickRollerMissing"
+    | "scanMediaPathTrayAlmostFull"
+    | "scanMediaPathTrayFull"
+    | "scanMediaPathTrayMissing"
+    | "scannerLightFailure"
+    | "scannerLightLifeAlmostOver"
+    | "scannerLightLifeOver"
+    | "scannerLightMissing"
+    | "scannerSensorFailure"
+    | "scannerSensorLifeAlmostOver"
+    | "scannerSensorLifeOver"
+    | "scannerSensorMissing"
+    | "separationCutterAdded"
+    | "separationCutterAlmostEmpty"
+    | "separationCutterAlmostFull"
+    | "separationCutterAtLimit"
+    | "separationCutterClosed"
+    | "separationCutterConfigurationChange"
+    | "separationCutterCoverClosed"
+    | "separationCutterCoverOpen"
+    | "separationCutterEmpty"
+    | "separationCutterFull"
+    | "separationCutterInterlockClosed"
+    | "separationCutterInterlockOpen"
+    | "separationCutterJam"
+    | "separationCutterLifeAlmostOver"
+    | "separationCutterLifeOver"
+    | "separationCutterMemoryExhausted"
+    | "separationCutterMissing"
+    | "separationCutterMotorFailure"
+    | "separationCutterNearLimit"
+    | "separationCutterOffline"
+    | "separationCutterOpened"
+    | "separationCutterOverTemperature"
+    | "separationCutterPowerSaver"
+    | "separationCutterRecoverableFailure"
+    | "separationCutterRecoverableStorage"
+    | "separationCutterRemoved"
+    | "separationCutterResourceAdded"
+    | "separationCutterResourceRemoved"
+    | "separationCutterThermistorFailure"
+    | "separationCutterTimingFailure"
+    | "separationCutterTurnedOff"
+    | "separationCutterTurnedOn"
+    | "separationCutterUnderTemperature"
+    | "separationCutterUnrecoverableFailure"
+    | "separationCutterUnrecoverableStorageError"
+    | "separationCutterWarmingUp"
+    | "sheetRotatorAdded"
+    | "sheetRotatorAlmostEmpty"
+    | "sheetRotatorAlmostFull"
+    | "sheetRotatorAtLimit"
+    | "sheetRotatorClosed"
+    | "sheetRotatorConfigurationChange"
+    | "sheetRotatorCoverClosed"
+    | "sheetRotatorCoverOpen"
+    | "sheetRotatorEmpty"
+    | "sheetRotatorFull"
+    | "sheetRotatorInterlockClosed"
+    | "sheetRotatorInterlockOpen"
+    | "sheetRotatorJam"
+    | "sheetRotatorLifeAlmostOver"
+    | "sheetRotatorLifeOver"
+    | "sheetRotatorMemoryExhausted"
+    | "sheetRotatorMissing"
+    | "sheetRotatorMotorFailure"
+    | "sheetRotatorNearLimit"
+    | "sheetRotatorOffline"
+    | "sheetRotatorOpened"
+    | "sheetRotatorOverTemperature"
+    | "sheetRotatorPowerSaver"
+    | "sheetRotatorRecoverableFailure"
+    | "sheetRotatorRecoverableStorage"
+    | "sheetRotatorRemoved"
+    | "sheetRotatorResourceAdded"
+    | "sheetRotatorResourceRemoved"
+    | "sheetRotatorThermistorFailure"
+    | "sheetRotatorTimingFailure"
+    | "sheetRotatorTurnedOff"
+    | "sheetRotatorTurnedOn"
+    | "sheetRotatorUnderTemperature"
+    | "sheetRotatorUnrecoverableFailure"
+    | "sheetRotatorUnrecoverableStorageError"
+    | "sheetRotatorWarmingUp"
+    | "slitterAdded"
+    | "slitterAlmostEmpty"
+    | "slitterAlmostFull"
+    | "slitterAtLimit"
+    | "slitterClosed"
+    | "slitterConfigurationChange"
+    | "slitterCoverClosed"
+    | "slitterCoverOpen"
+    | "slitterEmpty"
+    | "slitterFull"
+    | "slitterInterlockClosed"
+    | "slitterInterlockOpen"
+    | "slitterJam"
+    | "slitterLifeAlmostOver"
+    | "slitterLifeOver"
+    | "slitterMemoryExhausted"
+    | "slitterMissing"
+    | "slitterMotorFailure"
+    | "slitterNearLimit"
+    | "slitterOffline"
+    | "slitterOpened"
+    | "slitterOverTemperature"
+    | "slitterPowerSaver"
+    | "slitterRecoverableFailure"
+    | "slitterRecoverableStorage"
+    | "slitterRemoved"
+    | "slitterResourceAdded"
+    | "slitterResourceRemoved"
+    | "slitterThermistorFailure"
+    | "slitterTimingFailure"
+    | "slitterTurnedOff"
+    | "slitterTurnedOn"
+    | "slitterUnderTemperature"
+    | "slitterUnrecoverableFailure"
+    | "slitterUnrecoverableStorageError"
+    | "slitterWarmingUp"
+    | "stackerAdded"
+    | "stackerAlmostEmpty"
+    | "stackerAlmostFull"
+    | "stackerAtLimit"
+    | "stackerClosed"
+    | "stackerConfigurationChange"
+    | "stackerCoverClosed"
+    | "stackerCoverOpen"
+    | "stackerEmpty"
+    | "stackerFull"
+    | "stackerInterlockClosed"
+    | "stackerInterlockOpen"
+    | "stackerJam"
+    | "stackerLifeAlmostOver"
+    | "stackerLifeOver"
+    | "stackerMemoryExhausted"
+    | "stackerMissing"
+    | "stackerMotorFailure"
+    | "stackerNearLimit"
+    | "stackerOffline"
+    | "stackerOpened"
+    | "stackerOverTemperature"
+    | "stackerPowerSaver"
+    | "stackerRecoverableFailure"
+    | "stackerRecoverableStorage"
+    | "stackerRemoved"
+    | "stackerResourceAdded"
+    | "stackerResourceRemoved"
+    | "stackerThermistorFailure"
+    | "stackerTimingFailure"
+    | "stackerTurnedOff"
+    | "stackerTurnedOn"
+    | "stackerUnderTemperature"
+    | "stackerUnrecoverableFailure"
+    | "stackerUnrecoverableStorageError"
+    | "stackerWarmingUp"
+    | "standby"
+    | "staplerAdded"
+    | "staplerAlmostEmpty"
+    | "staplerAlmostFull"
+    | "staplerAtLimit"
+    | "staplerClosed"
+    | "staplerConfigurationChange"
+    | "staplerCoverClosed"
+    | "staplerCoverOpen"
+    | "staplerEmpty"
+    | "staplerFull"
+    | "staplerInterlockClosed"
+    | "staplerInterlockOpen"
+    | "staplerJam"
+    | "staplerLifeAlmostOver"
+    | "staplerLifeOver"
+    | "staplerMemoryExhausted"
+    | "staplerMissing"
+    | "staplerMotorFailure"
+    | "staplerNearLimit"
+    | "staplerOffline"
+    | "staplerOpened"
+    | "staplerOverTemperature"
+    | "staplerPowerSaver"
+    | "staplerRecoverableFailure"
+    | "staplerRecoverableStorage"
+    | "staplerRemoved"
+    | "staplerResourceAdded"
+    | "staplerResourceRemoved"
+    | "staplerThermistorFailure"
+    | "staplerTimingFailure"
+    | "staplerTurnedOff"
+    | "staplerTurnedOn"
+    | "staplerUnderTemperature"
+    | "staplerUnrecoverableFailure"
+    | "staplerUnrecoverableStorageError"
+    | "staplerWarmingUp"
+    | "stitcherAdded"
+    | "stitcherAlmostEmpty"
+    | "stitcherAlmostFull"
+    | "stitcherAtLimit"
+    | "stitcherClosed"
+    | "stitcherConfigurationChange"
+    | "stitcherCoverClosed"
+    | "stitcherCoverOpen"
+    | "stitcherEmpty"
+    | "stitcherFull"
+    | "stitcherInterlockClosed"
+    | "stitcherInterlockOpen"
+    | "stitcherJam"
+    | "stitcherLifeAlmostOver"
+    | "stitcherLifeOver"
+    | "stitcherMemoryExhausted"
+    | "stitcherMissing"
+    | "stitcherMotorFailure"
+    | "stitcherNearLimit"
+    | "stitcherOffline"
+    | "stitcherOpened"
+    | "stitcherOverTemperature"
+    | "stitcherPowerSaver"
+    | "stitcherRecoverableFailure"
+    | "stitcherRecoverableStorage"
+    | "stitcherRemoved"
+    | "stitcherResourceAdded"
+    | "stitcherResourceRemoved"
+    | "stitcherThermistorFailure"
+    | "stitcherTimingFailure"
+    | "stitcherTurnedOff"
+    | "stitcherTurnedOn"
+    | "stitcherUnderTemperature"
+    | "stitcherUnrecoverableFailure"
+    | "stitcherUnrecoverableStorageError"
+    | "stitcherWarmingUp"
+    | "subunitAdded"
+    | "subunitAlmostEmpty"
+    | "subunitAlmostFull"
+    | "subunitAtLimit"
+    | "subunitClosed"
+    | "subunitCoolingDown"
+    | "subunitEmpty"
+    | "subunitFull"
+    | "subunitLifeAlmostOver"
+    | "subunitLifeOver"
+    | "subunitMemoryExhausted"
+    | "subunitMissing"
+    | "subunitMotorFailure"
+    | "subunitNearLimit"
+    | "subunitOffline"
+    | "subunitOpened"
+    | "subunitOverTemperature"
+    | "subunitPowerSaver"
+    | "subunitRecoverableFailure"
+    | "subunitRecoverableStorage"
+    | "subunitRemoved"
+    | "subunitResourceAdded"
+    | "subunitResourceRemoved"
+    | "subunitThermistorFailure"
+    | "subunitTimingFailure"
+    | "subunitTurnedOff"
+    | "subunitTurnedOn"
+    | "subunitUnderTemperature"
+    | "subunitUnrecoverableFailure"
+    | "subunitUnrecoverableStorage"
+    | "subunitWarmingUp"
+    | "suspend"
+    | "testing"
+    | "trimmerAdded"
+    | "trimmerAlmostEmpty"
+    | "trimmerAlmostFull"
+    | "trimmerAtLimit"
+    | "trimmerClosed"
+    | "trimmerConfigurationChange"
+    | "trimmerCoverClosed"
+    | "trimmerCoverOpen"
+    | "trimmerEmpty"
+    | "trimmerFull"
+    | "trimmerInterlockClosed"
+    | "trimmerInterlockOpen"
+    | "trimmerJam"
+    | "trimmerLifeAlmostOver"
+    | "trimmerLifeOver"
+    | "trimmerMemoryExhausted"
+    | "trimmerMissing"
+    | "trimmerMotorFailure"
+    | "trimmerNearLimit"
+    | "trimmerOffline"
+    | "trimmerOpened"
+    | "trimmerOverTemperature"
+    | "trimmerPowerSaver"
+    | "trimmerRecoverableFailure"
+    | "trimmerRecoverableStorage"
+    | "trimmerRemoved"
+    | "trimmerResourceAdded"
+    | "trimmerResourceRemoved"
+    | "trimmerThermistorFailure"
+    | "trimmerTimingFailure"
+    | "trimmerTurnedOff"
+    | "trimmerTurnedOn"
+    | "trimmerUnderTemperature"
+    | "trimmerUnrecoverableFailure"
+    | "trimmerUnrecoverableStorageError"
+    | "trimmerWarmingUp"
+    | "unknown"
+    | "wrapperAdded"
+    | "wrapperAlmostEmpty"
+    | "wrapperAlmostFull"
+    | "wrapperAtLimit"
+    | "wrapperClosed"
+    | "wrapperConfigurationChange"
+    | "wrapperCoverClosed"
+    | "wrapperCoverOpen"
+    | "wrapperEmpty"
+    | "wrapperFull"
+    | "wrapperInterlockClosed"
+    | "wrapperInterlockOpen"
+    | "wrapperJam"
+    | "wrapperLifeAlmostOver"
+    | "wrapperLifeOver"
+    | "wrapperMemoryExhausted"
+    | "wrapperMissing"
+    | "wrapperMotorFailure"
+    | "wrapperNearLimit"
+    | "wrapperOffline"
+    | "wrapperOpened"
+    | "wrapperOverTemperature"
+    | "wrapperPowerSaver"
+    | "wrapperRecoverableFailure"
+    | "wrapperRecoverableStorage"
+    | "wrapperRemoved"
+    | "wrapperResourceAdded"
+    | "wrapperResourceRemoved"
+    | "wrapperThermistorFailure"
+    | "wrapperTimingFailure"
+    | "wrapperTurnedOff"
+    | "wrapperTurnedOn"
+    | "wrapperUnderTemperature"
+    | "wrapperUnrecoverableFailure"
+    | "wrapperUnrecoverableStorageError"
+    | "wrapperWarmingUp";
 export type PrintEvent = "jobStarted" | "unknownFutureValue";
 export type PrintFinishing =
     | "none"
@@ -3953,6 +4750,19 @@ export interface AdministrativeUnit extends DirectoryObject {
     // The collection of open extensions defined for this Administrative Unit. Nullable.
     extensions?: NullableOption<Extension[]>;
 }
+export interface AppScope extends Entity {
+    /**
+     * Provides the display name of the app-specific resource represented by the app scope. Provided for display purposes
+     * since appScopeId is often an immutable, non-human-readable id. This property is read only.
+     */
+    displayName?: NullableOption<string>;
+    /**
+     * Describes the type of app-specific resource represented by the app scope. Provided for display purposes, so a user
+     * interface can convey to the user the kind of app specific resource represented by the app scope. This property is read
+     * only.
+     */
+    type?: NullableOption<string>;
+}
 export interface CertificateBasedAuthConfiguration extends Entity {
     // Collection of certificate authorities which creates a trusted certificate chain.
     certificateAuthorities?: CertificateAuthority[];
@@ -4796,6 +5606,90 @@ export interface PermissionGrantConditionSet extends Entity {
      */
     resourceApplication?: NullableOption<string>;
 }
+export interface RbacApplication extends Entity {
+    roleAssignments?: NullableOption<UnifiedRoleAssignment[]>;
+    roleDefinitions?: NullableOption<UnifiedRoleDefinition[]>;
+}
+export interface UnifiedRoleAssignment extends Entity {
+    /**
+     * Identifier of the app specific scope when the assignment scope is app specific. The scope of an assignment determines
+     * the set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the
+     * directory that are understood by multiple applications. Use / for tenant-wide scope. App scopes are scopes that are
+     * defined and understood by this application only. For the entitlement management provider, use app scopes to specify a
+     * catalog, for example /AccessPackageCatalog/beedadfe-01d5-4025-910b-84abb9369997.
+     */
+    appScopeId?: NullableOption<string>;
+    condition?: NullableOption<string>;
+    /**
+     * Identifier of the directory object representing the scope of the assignment. The scope of an assignment determines the
+     * set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the
+     * directory that are understood by multiple applications. App scopes are scopes that are defined and understood by this
+     * application only.
+     */
+    directoryScopeId?: NullableOption<string>;
+    // Identifier of the principal to which the assignment is granted. Supports $filter (eq operator only).
+    principalId?: NullableOption<string>;
+    // Identifier of the unifiedRoleDefinition the assignment is for. Read-only. Supports $filter (eq operator only).
+    roleDefinitionId?: NullableOption<string>;
+    // Details of the app specific scope when the assignment scope is app specific. Containment entity.
+    appScope?: NullableOption<AppScope>;
+    /**
+     * The directory object that is the scope of the assignment. Provided so that callers can get the directory object using
+     * $expand at the same time as getting the role assignment. Read-only. Supports $expand.
+     */
+    directoryScope?: NullableOption<DirectoryObject>;
+    /**
+     * The assigned principal. Provided so that callers can get the principal using $expand at the same time as getting the
+     * role assignment. Read-only. Supports $expand.
+     */
+    principal?: NullableOption<DirectoryObject>;
+    /**
+     * The roleDefinition the assignment is for. Provided so that callers can get the role definition using $expand at the
+     * same time as getting the role assignment. roleDefinition.id will be auto expanded. Supports $expand.
+     */
+    roleDefinition?: NullableOption<UnifiedRoleDefinition>;
+}
+export interface UnifiedRoleDefinition extends Entity {
+    // The description for the unifiedRoleDefinition. Read-only when isBuiltIn is true.
+    description?: NullableOption<string>;
+    /**
+     * The display name for the unifiedRoleDefinition. Read-only when isBuiltIn is true. Required. Supports $filter (eq and
+     * startsWith operators only).
+     */
+    displayName?: NullableOption<string>;
+    /**
+     * Flag indicating if the unifiedRoleDefinition is part of the default set included with the product or custom. Read-only.
+     * Supports $filter (eq operator only).
+     */
+    isBuiltIn?: NullableOption<boolean>;
+    /**
+     * Flag indicating if the role is enabled for assignment. If false the role is not available for assignment. Read-only
+     * when isBuiltIn is true.
+     */
+    isEnabled?: NullableOption<boolean>;
+    /**
+     * List of scopes permissions granted by the role definition apply to. Currently only / is supported. Read-only when
+     * isBuiltIn is true. DO NOT USE. This will be deprecated soon. Attach scope to role assignment
+     */
+    resourceScopes?: string[];
+    // List of permissions included in the role. Read-only when isBuiltIn is true. Required.
+    rolePermissions?: UnifiedRolePermission[];
+    /**
+     * Custom template identifier that can be set when isBuiltIn is false. This identifier is typically used if one needs an
+     * identifier to be the same across different directories. Read-only when isBuiltIn is true.
+     */
+    templateId?: NullableOption<string>;
+    // Indicates version of the unifiedRoleDefinition. Read-only when isBuiltIn is true.
+    version?: NullableOption<string>;
+    /**
+     * Read-only collection of role definitions that the given role definition inherits from. Only Azure AD built-in roles
+     * support this attribute.
+     */
+    inheritsPermissionsFrom?: NullableOption<UnifiedRoleDefinition[]>;
+}
+export interface RoleManagement {
+    directory?: NullableOption<RbacApplication>;
+}
 export interface SubscribedSku extends Entity {
     // For example, 'User' or 'Company'.
     appliesTo?: NullableOption<string>;
@@ -5212,102 +6106,6 @@ export interface EducationSubmissionResource extends Entity {
     // Resource object.
     resource?: NullableOption<EducationResource>;
 }
-export interface AppScope extends Entity {
-    /**
-     * Provides the display name of the app-specific resource represented by the app scope. Provided for display purposes
-     * since appScopeId is often an immutable, non-human-readable id. This property is read only.
-     */
-    displayName?: NullableOption<string>;
-    /**
-     * Describes the type of app-specific resource represented by the app scope. Provided for display purposes, so a user
-     * interface can convey to the user the kind of app specific resource represented by the app scope. This property is read
-     * only.
-     */
-    type?: NullableOption<string>;
-}
-export interface RbacApplication extends Entity {
-    roleAssignments?: NullableOption<UnifiedRoleAssignment[]>;
-    roleDefinitions?: NullableOption<UnifiedRoleDefinition[]>;
-}
-export interface UnifiedRoleAssignment extends Entity {
-    /**
-     * Identifier of the app specific scope when the assignment scope is app specific. The scope of an assignment determines
-     * the set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the
-     * directory that are understood by multiple applications. Use / for tenant-wide scope. App scopes are scopes that are
-     * defined and understood by this application only. For the entitlement management provider, use app scopes to specify a
-     * catalog, for example /AccessPackageCatalog/beedadfe-01d5-4025-910b-84abb9369997.
-     */
-    appScopeId?: NullableOption<string>;
-    condition?: NullableOption<string>;
-    /**
-     * Identifier of the directory object representing the scope of the assignment. The scope of an assignment determines the
-     * set of resources for which the principal has been granted access. Directory scopes are shared scopes stored in the
-     * directory that are understood by multiple applications. App scopes are scopes that are defined and understood by this
-     * application only.
-     */
-    directoryScopeId?: NullableOption<string>;
-    // Identifier of the principal to which the assignment is granted. Supports $filter (eq operator only).
-    principalId?: NullableOption<string>;
-    // Identifier of the unifiedRoleDefinition the assignment is for. Read-only. Supports $filter (eq operator only).
-    roleDefinitionId?: NullableOption<string>;
-    // Details of the app specific scope when the assignment scope is app specific. Containment entity.
-    appScope?: NullableOption<AppScope>;
-    /**
-     * The directory object that is the scope of the assignment. Provided so that callers can get the directory object using
-     * $expand at the same time as getting the role assignment. Read-only. Supports $expand.
-     */
-    directoryScope?: NullableOption<DirectoryObject>;
-    /**
-     * The assigned principal. Provided so that callers can get the principal using $expand at the same time as getting the
-     * role assignment. Read-only. Supports $expand.
-     */
-    principal?: NullableOption<DirectoryObject>;
-    /**
-     * The roleDefinition the assignment is for. Provided so that callers can get the role definition using $expand at the
-     * same time as getting the role assignment. roleDefinition.id will be auto expanded. Supports $expand.
-     */
-    roleDefinition?: NullableOption<UnifiedRoleDefinition>;
-}
-export interface UnifiedRoleDefinition extends Entity {
-    // The description for the unifiedRoleDefinition. Read-only when isBuiltIn is true.
-    description?: NullableOption<string>;
-    /**
-     * The display name for the unifiedRoleDefinition. Read-only when isBuiltIn is true. Required. Supports $filter (eq and
-     * startsWith operators only).
-     */
-    displayName?: NullableOption<string>;
-    /**
-     * Flag indicating if the unifiedRoleDefinition is part of the default set included with the product or custom. Read-only.
-     * Supports $filter (eq operator only).
-     */
-    isBuiltIn?: NullableOption<boolean>;
-    /**
-     * Flag indicating if the role is enabled for assignment. If false the role is not available for assignment. Read-only
-     * when isBuiltIn is true.
-     */
-    isEnabled?: NullableOption<boolean>;
-    /**
-     * List of scopes permissions granted by the role definition apply to. Currently only / is supported. Read-only when
-     * isBuiltIn is true. DO NOT USE. This will be deprecated soon. Attach scope to role assignment
-     */
-    resourceScopes?: string[];
-    // List of permissions included in the role. Read-only when isBuiltIn is true. Required.
-    rolePermissions?: UnifiedRolePermission[];
-    /**
-     * Custom template identifier that can be set when isBuiltIn is false. This identifier is typically used if one needs an
-     * identifier to be the same across different directories. Read-only when isBuiltIn is true.
-     */
-    templateId?: NullableOption<string>;
-    // Indicates version of the unifiedRoleDefinition. Read-only when isBuiltIn is true.
-    version?: NullableOption<string>;
-    /**
-     * Read-only collection of role definitions that the given role definition inherits from. Only Azure AD built-in roles
-     * support this attribute.
-     */
-    inheritsPermissionsFrom?: NullableOption<UnifiedRoleDefinition[]>;
-}
-// tslint:disable-next-line: no-empty-interface
-export interface RoleManagement {}
 export interface DriveItem extends BaseItem {
     // Audio metadata, if the item is an audio file. Read-only.
     audio?: NullableOption<Audio>;
@@ -7877,6 +8675,8 @@ export interface DeviceManagement extends Entity {
     roleDefinitions?: NullableOption<RoleDefinition[]>;
     // The remote assist partners.
     remoteAssistancePartners?: NullableOption<RemoteAssistancePartner[]>;
+    // Reports singleton
+    reports?: NullableOption<DeviceManagementReports>;
     // The telecom expense management partners.
     telecomExpenseManagementPartners?: NullableOption<TelecomExpenseManagementPartner[]>;
     // The list of troubleshooting events for the tenant.
@@ -8381,6 +9181,10 @@ export interface RemoteAssistancePartner extends Entity {
     onboardingStatus?: RemoteAssistanceOnboardingStatus;
     // URL of the partner's onboarding portal, where an administrator can configure their Remote Assistance service.
     onboardingUrl?: NullableOption<string>;
+}
+export interface DeviceManagementReports extends Entity {
+    // Entity representing a job to export a report
+    exportJobs?: NullableOption<DeviceManagementExportJob[]>;
 }
 export interface TelecomExpenseManagementPartner extends Entity {
     // Whether the partner's AAD app has been authorized to access Intune.
@@ -10763,6 +11567,36 @@ export interface LocalizedNotificationMessage extends Entity {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface DeviceAndAppManagementRoleDefinition extends RoleDefinition {}
+export interface DeviceManagementExportJob extends Entity {
+    // Time that the exported report expires
+    expirationDateTime?: string;
+    // Filters applied on the report
+    filter?: NullableOption<string>;
+    // Format of the exported report. Possible values are: csv, pdf.
+    format?: DeviceManagementReportFileFormat;
+    /**
+     * Configures how the requested export job is localized. Possible values are: localizedValuesAsAdditionalColumn,
+     * replaceLocalizableValues.
+     */
+    localizationType?: DeviceManagementExportJobLocalizationType;
+    // Name of the report
+    reportName?: string;
+    // Time that the exported report was requested
+    requestDateTime?: string;
+    // Columns selected from the report
+    select?: NullableOption<string[]>;
+    /**
+     * A snapshot is an identifiable subset of the dataset represented by the ReportName. A sessionId or
+     * CachedReportConfiguration id can be used here. If a sessionId is specified, Filter, Select, and OrderBy are applied to
+     * the data represented by the sessionId. Filter, Select, and OrderBy cannot be specified together with a
+     * CachedReportConfiguration id.
+     */
+    snapshotId?: NullableOption<string>;
+    // Status of the export job. Possible values are: unknown, notStarted, inProgress, completed, failed.
+    status?: DeviceManagementReportStatus;
+    // Temporary location of the exported report
+    url?: NullableOption<string>;
+}
 export interface EnrollmentTroubleshootingEvent extends DeviceManagementTroubleshootingEvent {
     // Azure AD device identifier.
     deviceId?: NullableOption<string>;
@@ -10812,7 +11646,10 @@ export interface ServiceAnnouncement extends Entity {
     messages?: NullableOption<ServiceUpdateMessage[]>;
 }
 export interface ServiceHealth extends Entity {
-    // The service name.
+    /**
+     * The service name. Use the list healthOverviews operation to get exact string names for services subscribed by the
+     * tenant.
+     */
     service?: string;
     /**
      * Show the overral service health status. Possible values are: serviceOperational, investigating, restoringService,
@@ -10876,7 +11713,10 @@ export interface ServiceUpdateMessage extends ServiceAnnouncementBase {
     severity?: ServiceUpdateSeverity;
     // A collection of tags for the service message.
     tags?: NullableOption<string[]>;
-    // Represents user view points data of the service message.
+    /**
+     * Represents user view points data of the service message. This data includes message status such as whether the user has
+     * archived, read, or marked the message as favorite. This property is null when accessed with application permissions.
+     */
     viewPoint?: NullableOption<ServiceUpdateMessageViewpoint>;
 }
 // tslint:disable-next-line: no-empty-interface
@@ -12704,21 +13544,21 @@ export interface KeyCredential {
     displayName?: NullableOption<string>;
     /**
      * The date and time at which the credential expires.The Timestamp type represents date and time information using ISO
-     * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
     endDateTime?: NullableOption<string>;
     // Value for the key credential. Should be a base 64 encoded value.
     key?: NullableOption<number>;
-    // The unique identifier (GUID) for the key.
+    // The unique identifier for the key.
     keyId?: NullableOption<string>;
     /**
      * The date and time at which the credential becomes valid.The Timestamp type represents date and time information using
-     * ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     * ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z.
      */
     startDateTime?: NullableOption<string>;
-    // The type of key credential; for example, 'Symmetric'.
+    // The type of key credential; for example, Symmetric.
     type?: NullableOption<string>;
-    // A string that describes the purpose for which the key can be used; for example, 'Verify'.
+    // A string that describes the purpose for which the key can be used; for example, Verify.
     usage?: NullableOption<string>;
 }
 export interface OptionalClaims {
@@ -13142,6 +13982,13 @@ export interface SettingValue {
     // Value of the setting.
     value?: NullableOption<string>;
 }
+export interface UnifiedRolePermission {
+    // Set of tasks that can be performed on a resource.
+    allowedResourceActions?: string[];
+    // Optional constraints that must be met for the permission to be effective.
+    condition?: NullableOption<string>;
+    excludedResourceActions?: NullableOption<string[]>;
+}
 export interface VerifiedDomain {
     // For example, 'Email', 'OfficeCommunicationsOnline'.
     capabilities?: NullableOption<string>;
@@ -13347,13 +14194,6 @@ export interface EducationTeacher {
     externalId?: NullableOption<string>;
     // Teacher number.
     teacherNumber?: NullableOption<string>;
-}
-export interface UnifiedRolePermission {
-    // Set of tasks that can be performed on a resource.
-    allowedResourceActions?: string[];
-    // Optional constraints that must be met for the permission to be effective.
-    condition?: NullableOption<string>;
-    excludedResourceActions?: NullableOption<string[]>;
 }
 export interface WorkbookFilterCriteria {
     color?: NullableOption<string>;
@@ -14878,6 +15718,10 @@ export interface AllDevicesAssignmentTarget extends DeviceAndAppManagementAssign
 // tslint:disable-next-line: no-empty-interface
 export interface AllLicensedUsersAssignmentTarget extends DeviceAndAppManagementAssignmentTarget {}
 export interface AndroidMinimumOperatingSystem {
+    // Version 10.0 or later.
+    v10_0?: boolean;
+    // Version 11.0 or later.
+    v11_0?: boolean;
     // Version 4.0 or later.
     v4_0?: boolean;
     // Version 4.0.3 or later.
@@ -14902,6 +15746,10 @@ export interface AppConfigurationSettingItem {
     appConfigKeyType?: MdmAppConfigKeyType;
     // app configuration key value.
     appConfigKeyValue?: string;
+}
+export interface ConfigurationManagerCollectionAssignmentTarget extends DeviceAndAppManagementAssignmentTarget {
+    // The collection Id that is the target of the assignment.
+    collectionId?: NullableOption<string>;
 }
 export interface GroupAssignmentTarget extends DeviceAndAppManagementAssignmentTarget {
     // The group Id that is the target of the assignment.
@@ -14949,6 +15797,8 @@ export interface IosMinimumOperatingSystem {
     v12_0?: boolean;
     // Version 13.0 or later.
     v13_0?: boolean;
+    // Version 14.0 or later.
+    v14_0?: boolean;
     // Version 8.0 or later.
     v8_0?: boolean;
     // Version 9.0 or later.
@@ -14991,6 +15841,11 @@ export interface VppLicensingType {
     supportsUserLicensing?: boolean;
 }
 export interface Win32LobAppAssignmentSettings extends MobileAppAssignmentSettings {
+    /**
+     * The delivery optimization priority for this app assignment. This setting is not supported in National Cloud
+     * environments. Possible values are: notConfigured, foreground.
+     */
+    deliveryOptimizationPriority?: Win32LobAppDeliveryOptimizationPriority;
     // The install time settings to apply for this app assignment.
     installTimeSettings?: NullableOption<MobileAppInstallTimeSettings>;
     // The notification status for this app assignment. Possible values are: showAll, showReboot, hideAll.
@@ -15240,6 +16095,8 @@ export interface SettingSource {
     displayName?: NullableOption<string>;
     // Not yet documented
     id?: NullableOption<string>;
+    // Not yet documented. Possible values are: deviceConfiguration, deviceIntent.
+    sourceType?: SettingSourceType;
 }
 export interface DeviceConfigurationSettingState {
     // Current value of setting on device
@@ -18106,6 +18963,7 @@ export namespace ExternalConnectors {
     type ConnectionOperationStatus = "unspecified" | "inprogress" | "completed" | "failed" | "unknownFutureValue";
     type ConnectionState = "draft" | "ready" | "obsolete" | "limitExceeded" | "unknownFutureValue";
     type ExternalItemContentType = "text" | "html" | "unknownFutureValue";
+    type IdentityType = "user" | "group" | "externalGroup" | "unknownFutureValue";
     type Label =
         | "title"
         | "url"
@@ -18152,12 +19010,24 @@ export namespace ExternalConnectors {
         name?: NullableOption<string>;
         // Indicates the current state of the connection. Possible values are draft, ready, obsolete, and limitExceeded. Required.
         state?: NullableOption<ConnectionState>;
+        groups?: NullableOption<ExternalGroup[]>;
         // Read-only. Nullable.
         items?: NullableOption<ExternalItem[]>;
         // Read-only. Nullable.
         operations?: NullableOption<ConnectionOperation[]>;
         // Read-only. Nullable.
         schema?: NullableOption<Schema>;
+    }
+    interface ExternalGroup extends microsoftgraph.Entity {
+        // The description of the external group. Optional.
+        description?: NullableOption<string>;
+        // The friendly name of the external group. Optional.
+        displayName?: NullableOption<string>;
+        /**
+         * A member added to an externalGroup. You can add Azure Active Directory users, Azure Active Directory groups, or other
+         * externalGroups as members.
+         */
+        members?: NullableOption<Identity[]>;
     }
     interface ExternalItem extends microsoftgraph.Entity {
         // An array of access control entries. Each entry specifies the access granted to a user or group. Required.
@@ -18175,6 +19045,10 @@ export namespace ExternalConnectors {
         baseType?: string;
         // The properties defined for the items in the connection. The minimum number of properties is one, the maximum is 128.
         properties?: NullableOption<Property[]>;
+    }
+// tslint:disable-next-line: interface-name
+    interface Identity extends microsoftgraph.Entity {
+        type?: NullableOption<IdentityType>;
     }
     interface Acl {
         // The access granted to the identity. Possible values are: grant, deny.

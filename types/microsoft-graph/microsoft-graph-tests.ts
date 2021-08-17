@@ -177,3 +177,5 @@ const channel: MicrosoftGraph.Channel = {
 const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientIpAddress";
 
 const volumeType: MicrosoftGraph.VolumeType = "unknownFutureValue";
+
+const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliveryOptimizationPriority = "foreground";
