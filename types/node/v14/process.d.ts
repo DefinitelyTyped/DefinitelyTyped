@@ -66,7 +66,7 @@ declare module 'process' {
             type DisconnectListener = () => void;
             type ExitListener = (code: number) => void;
             type RejectionHandledListener = (promise: Promise<any>) => void;
-            type UncaughtExceptionListener = (error: Error, origin: string) => void;
+            type UncaughtExceptionListener = (error: Error, origin: NodeJS.UncaughtExceptionOrigin) => void;
             type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: any, sendHandle: any) => void;
