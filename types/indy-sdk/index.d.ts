@@ -531,9 +531,9 @@ export interface RevStates {
 }
 
 export interface RevState {
-    rev_reg: RevocReg,
-    witness: Witness,
-    timestamp: number
+    rev_reg: RevocReg;
+    witness: Witness;
+    timestamp: number;
 }
 
 export interface IndyRequestedCredentials {
@@ -624,7 +624,9 @@ export interface RevocReg {
     ver: string;
 }
 
-export interface Witness {}
+export interface Witness {
+    [key: string]: unknown;
+}
 
 export interface KeyConfig {
     seed?: string | undefined;
