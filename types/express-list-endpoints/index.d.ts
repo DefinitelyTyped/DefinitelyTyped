@@ -27,7 +27,7 @@ app.route('/about')
 
 console.log(listEndpoints(app));
 
-/* It omits the 'all' verbs.
+// It omits the 'all' verbs.
 [{
     path: '/',
     methods: ['GET', 'POST'],
@@ -38,8 +38,6 @@ console.log(listEndpoints(app));
     methods: ['GET'],
     middlewares: ['anonymous']
 }]
-*/
-    ```
 
  =============================================== */
 
