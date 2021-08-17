@@ -3614,7 +3614,7 @@ declare namespace Xrm {
              * Navigates the user to this form.
              */
             navigate(): void;
-            
+
             /**
              * Sets a value that indicates whether the form is visible.
              * @param isVisible Specify true to show the form; false to hide the form.
