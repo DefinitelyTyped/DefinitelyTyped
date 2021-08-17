@@ -877,6 +877,10 @@
             "libraryName": "dependency-tree",
             "asOfVersion": "8.1.0"
         },
+        "deta": {
+            "libraryName": "deta",
+            "asOfVersion": "1.0.0"
+        },
         "detect-browser": {
             "libraryName": "detect-browser",
             "asOfVersion": "4.0.0"
@@ -4809,6 +4813,10 @@
         "strong-error-handler": {
             "libraryName": "strong-error-handler",
             "asOfVersion": "3.2.0"
+        },
+        "styled-jsx": {
+            "libraryName": "styled-jsx",
+            "asOfVersion": "3.4.4"
         },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",

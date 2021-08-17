@@ -60,7 +60,7 @@ declare namespace Carousel {
          *
          * @default 5000
          */
-        interval: number;
+        interval: number | false;
 
         /**
          * Whether the carousel should react to keyboard events.

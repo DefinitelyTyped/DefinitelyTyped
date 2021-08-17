@@ -4,7 +4,7 @@ declare namespace echarts {
          * Line style
          */
         interface LineStyle {
-            color?: EChartOption.Color | undefined;
+            color?: EChartOption.Color | EChartOption.Color[] | undefined;
             width?: number | undefined;
             type?: 'solid' | 'dashed' | 'dotted' | undefined;
             shadowBlur?: number | undefined;

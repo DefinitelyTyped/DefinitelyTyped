@@ -339,6 +339,16 @@ interface WebSocketCloseEvent extends Event {
     message?: string | undefined;
 }
 
+type WebsocketMessageEventListener = (event: 'message', handler: (e: WebSocketMessageEvent) => void) => void;
+type WebsocketErrorEventListener = (event: 'error', handler: (e: WebSocketErrorEvent) => void) => void;
+type WebsocketOpenEventListener = (event: 'open', handler: () => void) => void;
+type WebsocketCloseEventListener = (event: 'close', handler: (e: WebSocketCloseEvent) => void) => void;
+
+type WebsocketEventListener = WebsocketMessageEventListener &
+  WebsocketErrorEventListener &
+  WebsocketOpenEventListener &
+  WebsocketCloseEventListener;
+
 interface WebSocket extends EventTarget {
     readonly readyState: number;
     send(data: string | ArrayBuffer | ArrayBufferView | Blob): void;
@@ -347,6 +357,8 @@ interface WebSocket extends EventTarget {
     onmessage: ((event: WebSocketMessageEvent) => void) | null;
     onerror: ((event: WebSocketErrorEvent) => void) | null;
     onclose: ((event: WebSocketCloseEvent) => void) | null;
+    addEventListener: WebsocketEventListener;
+    removeEventListener: WebsocketEventListener;
 }
 
 declare var WebSocket: {
