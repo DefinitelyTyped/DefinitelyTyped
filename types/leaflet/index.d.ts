@@ -1968,6 +1968,7 @@ export class Marker<P = any> extends Layer {
     setIcon(icon: Icon | DivIcon): this;
     setOpacity(opacity: number): this;
     getElement(): HTMLElement | undefined;
+    update(): this;
 
     // Properties
     options: MarkerOptions;
