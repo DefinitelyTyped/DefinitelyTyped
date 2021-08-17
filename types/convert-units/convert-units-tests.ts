@@ -1,5 +1,5 @@
 import convert = require('convert-units');
-import { unit } from "convert-units";
+import { Unit } from "convert-units";
 
 const convertedMass = convert(25).from('mcg').to('t');
 const convertedMassBack = convert(convertedMass).from('t').to('mcg');
@@ -22,4 +22,4 @@ const kgSystem: string = kgDescription.system;
 const kgSingular: string = kgDescription.singular;
 const kgPlural: string = kgDescription.plural;
 
-const min: unit = "min";
+const min: Unit = "min";
