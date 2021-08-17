@@ -206,3 +206,33 @@ export interface OnScan {
 
 declare const onScan: OnScan;
 export default onScan;
+
+export interface Scan {
+    /**
+     * Quantity
+     */
+    qty: number;
+    /**
+     * Scanned code
+     */
+    scanCode: string;
+}
+
+export interface ScanEvent extends CustomEvent<Scan> {}
+
+export interface ScanError {
+    message: string;
+    scanCode: string;
+    scanDuration: number;
+    avgTimeByChar: number;
+    minLength: number;
+}
+
+export interface ScanErrorEvent extends CustomEvent<ScanError> {}
+
+declare global {
+    interface DocumentEventMap {
+        'scan': ScanEvent;
+        'scanError': ScanErrorEvent;
+    }
+}

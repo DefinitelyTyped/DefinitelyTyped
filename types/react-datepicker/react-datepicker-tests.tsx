@@ -22,7 +22,6 @@ const defaultLocale = getDefaultLocale();
     className=""
     clearButtonClassName=""
     clearButtonTitle=""
-    clearButtonClassName=""
     // closeOnScroll={false} // Or as function:
     closeOnScroll={e => e.target === document}
     customInput={<input />}

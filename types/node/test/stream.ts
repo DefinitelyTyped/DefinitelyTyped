@@ -6,6 +6,7 @@ import assert = require('node:assert');
 import { Http2ServerResponse } from 'node:http2';
 import { pipeline as pipelinePromise } from 'node:stream/promises';
 import { stdout } from 'node:process';
+import 'node:stream/web';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {

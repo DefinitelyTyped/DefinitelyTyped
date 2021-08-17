@@ -1,4 +1,4 @@
-import onScan, { ScanOptions } from 'onscan.js';
+import onScan, { ScanError, ScanErrorEvent, ScanEvent, ScanOptions } from 'onscan.js';
 
 const options: ScanOptions = {
     onScan: (code, quantity) => {
@@ -79,3 +79,22 @@ onScan.attachTo(document, {
         return onScan.decodeKeyEvent(oEvent);
     },
 });
+
+// Scan Event
+window.document.addEventListener('scan', onScanSuccess);
+
+function onScanSuccess(scan: ScanEvent) {
+    scan.detail.qty;
+    scan.detail.scanCode;
+}
+
+// ScanError Event
+window.document.addEventListener('scanError', onScanError);
+
+function onScanError(scanError: ScanErrorEvent) {
+    scanError.detail.message;
+    scanError.detail.avgTimeByChar;
+    scanError.detail.minLength;
+    scanError.detail.scanCode;
+    scanError.detail.scanDuration;
+}

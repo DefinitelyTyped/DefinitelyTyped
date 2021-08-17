@@ -178,11 +178,20 @@ declare namespace Aws {
         authorizers?: Authorizers | undefined;
     }
 
+    interface HttpApiCors {
+        allowedOrigins: string[];
+        allowedHeaders?: string[] | undefined;
+        allowedMethods?: string[] | undefined;
+        allowCredentials?: boolean | undefined;
+        exposedResponseHeaders?: string[] | undefined;
+        maxAge?: number | undefined;
+    }
+
     interface HttpApi {
         id?: string | undefined;
         name?: string | undefined;
         payload?: string | undefined;
-        cors?: boolean | undefined;
+        cors?: boolean | HttpApiCors | undefined;
         authorizers?: Authorizers | undefined;
     }
 
