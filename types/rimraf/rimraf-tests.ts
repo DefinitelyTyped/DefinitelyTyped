@@ -1,7 +1,7 @@
 import rimraf = require('rimraf');
 
-rimraf('./xyz', (err: Error) => {});
+rimraf('./xyz', (_: Error | null) => {});
 rimraf.sync('./xyz');
 
-rimraf('./xyz', { glob: { ignore: '' } }, (err: Error) => {});
+rimraf('./xyz', { glob: { ignore: '' } }, (_: Error | null) => {});
 rimraf.sync('./xyz', { glob: { ignore: '' } });
