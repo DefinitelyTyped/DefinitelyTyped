@@ -108,7 +108,6 @@ declare class WebSocket extends EventEmitter {
     removeEventListener(method: "close", cb: (event: WebSocket.CloseEvent) => void): void;
     removeEventListener(method: "error", cb: (event: WebSocket.ErrorEvent) => void): void;
     removeEventListener(method: "open", cb: (event: WebSocket.Event) => void): void;
-    removeEventListener(method: string, listener: () => void): void;
 
     // Events
     on(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
