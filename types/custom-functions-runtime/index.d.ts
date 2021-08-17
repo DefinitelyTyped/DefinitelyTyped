@@ -52,7 +52,7 @@ declare namespace CustomFunctions {
          * The name of this function.
          * [Api set: CustomFunctionsRuntime 1.1]
          */
-        functionName: string;
+        functionName?: string;
         /**
          * The cell address where the function is being called, if requested, otherwise undefined.
          *
