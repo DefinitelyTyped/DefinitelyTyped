@@ -64,9 +64,9 @@ export default class Selection implements Emitter {
     is(type: "documentSelection" | "model:documentSelection"): this is DocumentSelection;
     is(type: "node" | "model:node"): this is Node | Element | Text | RootElement;
     is(type: "$text" | "model:$text" | "text" | "model:text"): this is Text;
-    is(type: "element" | "model:element", name?: string | undefined): this is Element | RootElement;
-    is(type: "rootElement" | "model:rootElement", name?: string | undefined): this is RootElement;
-    is(type: string, name?: string | undefined): boolean;
+    is(type: "element" | "model:element", name?: string): this is Element | RootElement;
+    is(type: "rootElement" | "model:rootElement", name?: string): this is RootElement;
+    is(type: string, name?: string): boolean;
     isEqual(otherSelection: Selection): boolean;
     removeAttribute(key: string): void;
     setAttribute(key: string, value: string | boolean | number): void;

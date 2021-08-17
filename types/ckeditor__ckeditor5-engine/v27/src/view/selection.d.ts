@@ -62,7 +62,7 @@ export default class Selection {
     is(type: "documentSelection" | "view:documentSelection"): this is DocumentSelection;
     is(
         type: "element" | "view:element",
-        name?: string | undefined,
+        name?: string,
     ): this is
         | Element
         | ContainerElement
@@ -72,25 +72,25 @@ export default class Selection {
         | UIElement
         | RawElement
         | EmptyElement;
-    is(type: "attributeElement" | "view:attributeElement", name?: string | undefined): this is AttributeElement;
+    is(type: "attributeElement" | "view:attributeElement", name?: string): this is AttributeElement;
     is(
         type: "containerElement" | "view:containerElement",
-        name?: string | undefined,
+        name?: string,
     ): this is ContainerElement | EditableElement | RootEditableElement;
     is(
         type: "editableElement" | "view:editableElement",
-        name?: string | undefined,
+        name?: string,
     ): this is EditableElement | RootEditableElement;
     is(
         type: "rootEditableElement" | "view:rootEditableElement",
-        name?: string | undefined,
+        name?: string,
     ): this is RootEditableElement;
-    is(type: "uiElement" | "view:uiElement", name?: string | undefined): this is UIElement;
-    is(type: "rawElement" | "view:rawElement", name?: string | undefined): this is RawElement;
-    is(type: "emptyElement" | "view:emptyElement", name?: string | undefined): this is EmptyElement;
+    is(type: "uiElement" | "view:uiElement", name?: string): this is UIElement;
+    is(type: "rawElement" | "view:rawElement", name?: string): this is RawElement;
+    is(type: "emptyElement" | "view:emptyElement", name?: string): this is EmptyElement;
     is(type: "$textProxy" | "view:$textProxy" | "textProxy" | "view:textProxy"): this is TextProxy;
     is(type: "$text" | "view:$text" | "text" | "view:text"): this is Text;
-    is(type: string, name?: string | undefined): boolean;
+    is(type: string, name?: string): boolean;
     isEqual(otherSelection: Selection): boolean;
     isSimilar(otherSelection: Selection): boolean;
     setFocus(itemOrPosition: Item, offset?: number | "end" | "before" | "after"): void;

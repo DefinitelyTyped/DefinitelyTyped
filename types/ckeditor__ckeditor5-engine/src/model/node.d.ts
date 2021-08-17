@@ -44,9 +44,9 @@ export default class Node {
     is(type: "documentSelection" | "model:documentSelection"): this is DocumentSelection;
     is(type: "node" | "model:node"): this is Node | Element | Text | RootElement;
     is(type: "$text" | "model:$text" | "text" | "model:text"): this is Text;
-    is(type: "element" | "model:element", name?: string | undefined): this is Element | RootElement;
-    is(type: "rootElement" | "model:rootElement", name?: string | undefined): this is RootElement;
-    is(type: string, name?: string | undefined): boolean;
+    is(type: "element" | "model:element", name?: string): this is Element | RootElement;
+    is(type: "rootElement" | "model:rootElement", name?: string): this is RootElement;
+    is(type: string, name?: string): boolean;
     isAfter(node: Node): boolean;
     isAttached(): boolean;
     isBefore(node: Node): boolean;

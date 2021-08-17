@@ -37,9 +37,9 @@ export default class DocumentFragment implements Iterable<Element | Text> {
     is(type: "documentSelection" | "model:documentSelection"): this is DocumentSelection;
     is(type: "node" | "model:node"): this is Node | Element | Text | RootElement;
     is(type: "$text" | "model:$text" | "text" | "model:text"): this is Text;
-    is(type: "element" | "model:element", name?: string | undefined): this is Element | RootElement;
-    is(type: "rootElement" | "model:rootElement", name?: string | undefined): this is RootElement;
-    is(type: string, name?: string | undefined): boolean;
+    is(type: "element" | "model:element", name?: string): this is Element | RootElement;
+    is(type: "rootElement" | "model:rootElement", name?: string): this is RootElement;
+    is(type: string, name?: string): boolean;
     offsetToIndex(offset: number): number;
     toJSON(): Pick<DocumentFragment, "childCount" | "isEmpty" | "markers" | "maxOffset" | "parent" | "root">;
 
