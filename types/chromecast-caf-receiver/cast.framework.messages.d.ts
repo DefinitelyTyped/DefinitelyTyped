@@ -629,6 +629,11 @@ export class Track {
     trackId: number;
 
     /**
+     * The type of track.
+     */
+    type: TrackType;
+
+    /**
      * For role(s) of the track; The following values for each media type are recognized, with value explanations described in ISO/IEC 23009-1, labeled "DASH role scheme":
      * VIDEO: caption, subtitle, main, alternate, supplementary, sign, emergency
      * AUDIO: main, alternate, supplementary, commentary, dub, emergency
