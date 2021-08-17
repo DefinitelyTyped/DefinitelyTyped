@@ -6,7 +6,7 @@ import {
     Paragraph,
     Sentence,
     Word,
-    Symbol_,
+    Symbol,
     WhiteSpace,
     Punctuation,
     Source,
@@ -42,7 +42,7 @@ const literal: Literal = {
     value: 'value',
 };
 
-const symbol: Symbol_ = {
+const symbol: Symbol = {
     type: 'SymbolNode',
     data,
     position,

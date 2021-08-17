@@ -39,7 +39,7 @@ export interface ParagraphContentMap {
 export interface SentenceContentMap {
     punctuation: Punctuation;
     source: Source;
-    symbol: Symbol_;
+    symbol: Symbol;
     whiteSpace: WhiteSpace;
     word: Word;
 }
@@ -58,7 +58,7 @@ export interface SentenceContentMap {
 export interface WordContentMap {
     punctuation: Punctuation;
     source: Source;
-    symbol: Symbol_;
+    symbol: Symbol;
     text: Text;
 }
 
@@ -137,7 +137,7 @@ export interface Word extends Parent {
  *
  * It can be used in sentence or word nodes.
  */
-export interface Symbol_ extends Literal {
+export interface Symbol extends Literal {
     type: 'SymbolNode';
 }
 
