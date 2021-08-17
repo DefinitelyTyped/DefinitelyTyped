@@ -103,7 +103,6 @@ declare class WebSocket extends EventEmitter {
         cb: (event: WebSocket.Event) => void,
         options?: WebSocket.EventListenerOptions,
     ): void;
-    addEventListener(method: string, listener: () => void, options?: WebSocket.EventListenerOptions): void;
 
     removeEventListener(method: "message", cb: (event: WebSocket.MessageEvent) => void): void;
     removeEventListener(method: "close", cb: (event: WebSocket.CloseEvent) => void): void;
@@ -115,7 +114,7 @@ declare class WebSocket extends EventEmitter {
     on(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
     on(event: "error", listener: (this: WebSocket, err: Error) => void): this;
     on(event: "upgrade", listener: (this: WebSocket, request: IncomingMessage) => void): this;
-    on(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary?: boolean) => void): this;
+    on(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
     on(event: "open", listener: (this: WebSocket) => void): this;
     on(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
     on(
@@ -127,7 +126,7 @@ declare class WebSocket extends EventEmitter {
     once(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
     once(event: "error", listener: (this: WebSocket, err: Error) => void): this;
     once(event: "upgrade", listener: (this: WebSocket, request: IncomingMessage) => void): this;
-    once(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary?: boolean) => void): this;
+    once(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
     once(event: "open", listener: (this: WebSocket) => void): this;
     once(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
     once(
@@ -139,7 +138,7 @@ declare class WebSocket extends EventEmitter {
     off(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
     off(event: "error", listener: (this: WebSocket, err: Error) => void): this;
     off(event: "upgrade", listener: (this: WebSocket, request: IncomingMessage) => void): this;
-    off(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary?: boolean) => void): this;
+    off(event: "message", listener: (this: WebSocket, data: WebSocket.RawData, isBinary: boolean) => void): this;
     off(event: "open", listener: (this: WebSocket) => void): this;
     off(event: "ping" | "pong", listener: (this: WebSocket, data: Buffer) => void): this;
     off(
@@ -151,7 +150,7 @@ declare class WebSocket extends EventEmitter {
     addListener(event: "close", listener: (code: number, reason: Buffer) => void): this;
     addListener(event: "error", listener: (err: Error) => void): this;
     addListener(event: "upgrade", listener: (request: IncomingMessage) => void): this;
-    addListener(event: "message", listener: (data: WebSocket.RawData, isBinary?: boolean) => void): this;
+    addListener(event: "message", listener: (data: WebSocket.RawData, isBinary: boolean) => void): this;
     addListener(event: "open", listener: () => void): this;
     addListener(event: "ping" | "pong", listener: (data: Buffer) => void): this;
     addListener(
@@ -163,7 +162,7 @@ declare class WebSocket extends EventEmitter {
     removeListener(event: "close", listener: (code: number, reason: Buffer) => void): this;
     removeListener(event: "error", listener: (err: Error) => void): this;
     removeListener(event: "upgrade", listener: (request: IncomingMessage) => void): this;
-    removeListener(event: "message", listener: (data: WebSocket.RawData, isBinary?: boolean) => void): this;
+    removeListener(event: "message", listener: (data: WebSocket.RawData, isBinary: boolean) => void): this;
     removeListener(event: "open", listener: () => void): this;
     removeListener(event: "ping" | "pong", listener: (data: Buffer) => void): this;
     removeListener(

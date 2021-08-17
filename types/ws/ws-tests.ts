@@ -177,9 +177,8 @@ import * as url from "url";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
+    // $ExpectError
     ws.addEventListener("other", () => {});
-    ws.addEventListener("other", () => {}, { once: true });
-    ws.addEventListener("other", () => {}, { once: true });
 }
 
 {
