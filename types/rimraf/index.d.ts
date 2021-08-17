@@ -26,24 +26,24 @@ declare namespace rimraf {
      * see {@link https://github.com/isaacs/rimraf/blob/79b933fb362b2c51bedfa448be848e1d7ed32d7e/README.md#options}
      */
     interface Options {
-        maxBusyTries?: number;
-        emfileWait?: number;
+        maxBusyTries?: number | undefined;
+        emfileWait?: number | undefined;
         /** @default false */
-        disableGlob?: boolean;
-        glob?: glob.IOptions | false;
+        disableGlob?: boolean | undefined;
+        glob?: glob.IOptions | false | undefined;
 
-        unlink?: typeof fs.unlink;
-        chmod?: typeof fs.chmod;
-        stat?: typeof fs.stat;
-        lstat?: typeof fs.lstat;
-        rmdir?: typeof fs.rmdir;
-        readdir?: typeof fs.readdir;
-        unlinkSync?: typeof fs.unlinkSync;
-        chmodSync?: typeof fs.chmodSync;
-        statSync?: typeof fs.statSync;
-        lstatSync?: typeof fs.lstatSync;
-        rmdirSync?: typeof fs.rmdirSync;
-        readdirSync?: typeof fs.readdirSync;
+        unlink?: typeof fs.unlink | undefined;
+        chmod?: typeof fs.chmod | undefined;
+        stat?: typeof fs.stat | undefined;
+        lstat?: typeof fs.lstat | undefined;
+        rmdir?: typeof fs.rmdir | undefined;
+        readdir?: typeof fs.readdir | undefined;
+        unlinkSync?: typeof fs.unlinkSync | undefined;
+        chmodSync?: typeof fs.chmodSync | undefined;
+        statSync?: typeof fs.statSync | undefined;
+        lstatSync?: typeof fs.lstatSync | undefined;
+        rmdirSync?: typeof fs.rmdirSync | undefined;
+        readdirSync?: typeof fs.readdirSync | undefined;
     }
 }
 export = rimraf;
