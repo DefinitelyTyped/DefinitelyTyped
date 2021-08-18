@@ -50,7 +50,7 @@ declare class Tooltip extends BaseComponent {
     update(): void;
 
     static getInstance: GetInstanceFactory<Tooltip>;
-    
+
     static getOrCreateInstance: GetInstanceFactory<Tooltip>;
 
     static jQueryInterface: Tooltip.jQueryInterface;

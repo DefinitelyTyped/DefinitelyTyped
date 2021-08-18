@@ -8,7 +8,7 @@ declare class Offcanvas extends BaseComponent {
     hide(): void;
 
     static getInstance: GetInstanceFactory<Offcanvas>;
-    
+
     static getOrCreateInstance: GetInstanceFactory<Offcanvas>;
 
     static jQueryInterface: Offcanvas.jQueryInterface;

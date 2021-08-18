@@ -15,7 +15,7 @@ declare class ScrollSpy extends BaseComponent {
      * with a DOM element
      */
     static getInstance: GetInstanceFactory<ScrollSpy>;
-    
+
     static getOrCreateInstance: GetInstanceFactory<ScrollSpy>;
 
     static jQueryInterface: ScrollSpy.jQueryInterface;

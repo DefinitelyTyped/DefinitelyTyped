@@ -18,7 +18,7 @@ declare class Toast extends BaseComponent {
     hide(): void;
 
     static getInstance: GetInstanceFactory<Toast>;
-    
+
     static getOrCreateInstance: GetInstanceFactory<Toast>;
 
     static jQueryInterface: Toast.jQueryInterface;
