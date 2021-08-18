@@ -1567,7 +1567,7 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: Id<T>): T | null;
+    getObjectById<T extends Id<any>>(id: T): fromId<T> | null;
 
     /**
      * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
@@ -2027,6 +2027,7 @@ declare namespace Tag {
     }
 }
 type Id<T> = string & Tag.OpaqueTag<T>;
+type fromId<T> = T extends Id<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.

@@ -51,9 +51,12 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     type StoreStructure = StructureContainer | StructureStorage | StructureLink;
-    const storeID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
-    const stringID: string = storeID; // Id<T> assignable implicitly to string
-    const storeObject = Game.getObjectById(storeID)!;
+    const storeUnionID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
+    const storeIdUnion: StoreStructure["id"] = "1234" as StoreStructure["id"];
+    const stringID: string = storeUnionID; // Id<T> assignable implicitly to string
+    const stringID2: string = storeIdUnion; // Id<T> assignable implicitly to string
+    const storeObject = Game.getObjectById(storeUnionID)!;
+    const storeObject2 = Game.getObjectById(storeIdUnion)!;
 
     // Object recognized
     switch (storeObject.structureType) {
