@@ -1,4 +1,4 @@
-// Type definitions for edit-json-file 1.4
+// Type definitions for edit-json-file 1.4.1
 // Project: https://github.com/IonicaBizau/edit-json-file#readme
 // Definitions by: Twixes <https://github.com/Twixes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
