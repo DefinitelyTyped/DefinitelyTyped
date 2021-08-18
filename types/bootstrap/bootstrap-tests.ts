@@ -15,6 +15,7 @@ import Tooltip from 'bootstrap/js/dist/tooltip';
 // $ExpectType typeof Alert
 Alert;
 Alert.getInstance('#alert'); // $ExpectType Alert | null
+Alert.getOrCreateInstance('#alert'); // $ExpectType Alert | null
 // $ExpectType typeof BaseComponent
 BaseComponent;
 // $ExpectType string
