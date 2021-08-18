@@ -107,15 +107,21 @@ const test3 = async () => {
     }
 
     const middleware1: AsyncLambdaMiddleware = async (event, context, next) => {
-        return await next(event, context);
+        const result = await next(event, context);
+
+        return result;
     };
 
     const middleware2: AsyncLambdaMiddleware = async (event, context, next) => {
-        return await next(event, context);
+        const result = await next(event, context);
+
+        return result;
     };
 
     const middleware3: AsyncLambdaMiddleware = async (event, context, next) => {
-        return await next(event, context);
+        const result = await next(event, context);
+
+        return result;
     };
 
     const middleware4: AsyncLambdaMiddleware = async (event, context, next) => {

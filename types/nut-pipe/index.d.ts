@@ -39,4 +39,4 @@ export type AsyncMiddleware<T = never> =
     AsyncLambdaMiddlewareWithServices |
     T;
 
-export function buildPipeline<T = never>(functions: AsyncMiddleware<T>[], services?: Record<string, any>, index?: number): AsyncHandler;
+export function buildPipeline(functions: Array<AsyncMiddleware<any>>, services?: Record<string, any>, index?: number): AsyncHandler;
