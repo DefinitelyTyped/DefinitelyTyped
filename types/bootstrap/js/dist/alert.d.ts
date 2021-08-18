@@ -4,6 +4,7 @@ declare class Alert extends BaseComponent {
     static NAME: 'alert';
     static jQueryInterface: Alert.jQueryInterface;
     static getInstance: GetInstanceFactory<Alert>;
+    static getOrCreateInstance: GetInstanceFactory<Alert>;
     /**
      * Closes an alert by removing it from the DOM. If the .fade and .show
      * classes are present on the element, the alert will fade out before it
