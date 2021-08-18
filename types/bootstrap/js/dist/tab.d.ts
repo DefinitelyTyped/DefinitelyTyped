@@ -11,6 +11,8 @@ declare class Tab extends BaseComponent {
     show(): void;
 
     static getInstance: GetInstanceFactory<Tab>;
+    
+    static getOrCreateInstance: GetInstanceFactory<Tab>;
 
     static jQueryInterface: Tab.jQueryInterface;
 
