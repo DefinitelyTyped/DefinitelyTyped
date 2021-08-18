@@ -288,6 +288,7 @@ import { URL } from 'url';
         response.addTrailers(outgoingHeaders);
         socket = response.connection;
         const finished: boolean = response.finished;
+        request = response.req;
         response.sendDate = true;
         response.statusCode = 200;
         response.statusMessage = '';

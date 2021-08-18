@@ -29,7 +29,7 @@ export class Zone {
     /**
      * Returns whether the offset is known to be fixed for the whole year.
      */
-    universal: boolean;
+    isUniversal: boolean;
 
     /**
      * Returns the offset's common name (such as EST) at the specified timestamp
@@ -144,11 +144,11 @@ export class FixedOffsetZone extends Zone {
 export class InvalidZone extends Zone { }
 
 /**
- * Represents the local zone for this JavaScript environment.
+ * Represents the system zone for this JavaScript environment.
  */
-export class LocalZone extends Zone {
+export class SystemZone extends Zone {
     /**
-     * Get a singleton instance of the local zone
+     * Get a singleton instance of the system zone
      */
-    static instance: LocalZone;
+    static instance: SystemZone;
 }

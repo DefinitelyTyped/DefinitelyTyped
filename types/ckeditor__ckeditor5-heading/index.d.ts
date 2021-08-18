@@ -1,20 +1,11 @@
-// Type definitions for @ckeditor/ckeditor5-heading 27.1
+// Type definitions for @ckeditor/ckeditor5-heading 29.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/heading.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
-import Heading from './src/heading';
-import HeadingEditing from './src/headingediting';
-import HeadingUI from './src/headingui';
-import HeadingButtonsUI from './src/headingbuttonsui';
-import Title from './src/title';
 
-declare const _default: {
-    Heading: typeof Heading;
-    HeadingEditing: typeof HeadingEditing;
-    HeadingUI: typeof HeadingUI;
-    HeadingButtonsUI: typeof HeadingButtonsUI;
-    Title: typeof Title;
-};
-
-export default _default;
+export { default as Heading } from './src/heading';
+export { default as HeadingEditing } from './src/headingediting';
+export { default as HeadingUI } from './src/headingui';
+export { default as HeadingButtonsUI } from './src/headingbuttonsui';
+export { default as Title } from './src/title';

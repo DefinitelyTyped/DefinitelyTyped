@@ -7,7 +7,7 @@
 //          - ~/ts3.6/index.d.ts  - Definitions specific to TypeScript 3.6 and earlier with assert pulled in
 
 // Reference required types from the default lib:
-/// <reference lib="es2018" />
+/// <reference lib="es2020" />
 /// <reference lib="esnext.asynciterable" />
 /// <reference lib="esnext.intl" />
 /// <reference lib="esnext.bigint" />
@@ -47,6 +47,7 @@
 /// <reference path="../repl.d.ts" />
 /// <reference path="../stream.d.ts" />
 /// <reference path="../stream/promises.d.ts" />
+/// <reference path="../stream/web.d.ts" />
 /// <reference path="../string_decoder.d.ts" />
 /// <reference path="../timers.d.ts" />
 /// <reference path="../timers/promises.d.ts" />

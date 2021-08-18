@@ -23,6 +23,10 @@ createTorrent(
         info: {
             test: 'test',
         },
+        onProgress: (b1, b2) => {
+            const percent = Math.round(b1 / b2 * 100);
+            console.info(`${percent} % ${b1} B - ${b2} B`);
+        },
     },
     (err, torrent) => {
         if (err) {

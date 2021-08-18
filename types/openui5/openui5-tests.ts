@@ -84,6 +84,9 @@ const oTable = new Table({
             }),
         ]
     }),
+    beforeOpenContextMenu: (oEvent: UI5Event) => {
+        const params = oEvent.getParameters();
+    }
 });
 
 const lbl = new Label(undefined);

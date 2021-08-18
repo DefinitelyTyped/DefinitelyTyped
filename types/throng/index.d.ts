@@ -4,8 +4,8 @@
 //                 Tate Thurston <https://github.com/tatethurston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function throng(startOrOptions: throng.ProcessCallback | throng.Options): void;
-declare function throng(workers: throng.WorkerCount, start: throng.ProcessCallback): void;
+declare function throng(startOrOptions: throng.ProcessCallback | throng.Options): Promise<void>;
+declare function throng(workers: throng.WorkerCount, start: throng.ProcessCallback): Promise<void>;
 declare namespace throng {
     type WorkerCount = number | string;
     type ProcessCallback = (id: number) => any;

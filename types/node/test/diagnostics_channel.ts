@@ -4,7 +4,7 @@ const ch1: Channel = channel('test');
 function listener(name: string, data: unknown) {
 }
 
-const active: boolean = ch1.hashSubscribers;
+const active: boolean = ch1.hasSubscribers;
 const name: string = ch1.name;
 
 ch1.subscribe(listener);

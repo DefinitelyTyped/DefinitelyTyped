@@ -49,6 +49,10 @@ export interface BucketItem {
     lastModified: Date;
 }
 
+export interface BucketItemWithMetadata extends BucketItem {
+    metadata: ItemBucketMetadata;
+}
+
 export interface BucketItemStat {
     size: number;
     etag: string;
@@ -187,7 +191,12 @@ export class Client {
 
     // Other
     newPostPolicy(): PostPolicy;
-    setRequestOptions(otpions: AgentOptions): void;
+    setRequestOptions(options: AgentOptions): void;
+
+    // Minio extensions that aren't necessary present for Amazon S3 compatible storage servers
+    extensions: {
+        listObjectsV2WithMetadata(bucketName: string, prefix?: string, recursive?: boolean, startAfter?: string): BucketStream<BucketItemWithMetadata>;
+    };
 }
 
 export namespace Policy {
