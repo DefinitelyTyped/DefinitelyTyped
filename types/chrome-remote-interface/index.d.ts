@@ -76,9 +76,9 @@ declare namespace CDP {
     }
 
     /////////////////////////////////////////////////
-    // Generated from https://app.quicktype.io/,
-    // TypeEnum simplified.
-    // Source: https://github.com/cyrus-and/chrome-remote-interface/blob/v0.30.1/lib/protocol.json
+    // Generated with https://app.quicktype.io/, Name: Protocol, Language: TypeScript, Interfaces only.
+    // Manually done: TypeEnum simplified, add " | undefined" for optional properties.
+    // Source: https://github.com/ChromeDevTools/devtools-protocol/blob/master/json/ (merge JSON objects)
     /////////////////////////////////////////////////
     interface Protocol {
         version: Version;
@@ -183,9 +183,10 @@ declare namespace CDP {
         Runtime: ProtocolProxyApi.RuntimeApi;
         Security: ProtocolProxyApi.SecurityApi;
         Target: ProtocolProxyApi.TargetApi;
-        // unstable domains
+        // deprecated domains
         Console: ProtocolProxyApi.ConsoleApi;
         Schema: ProtocolProxyApi.SchemaApi;
+        // unstable domains
         Accessibility: ProtocolProxyApi.AccessibilityApi;
         Animation: ProtocolProxyApi.AnimationApi;
         ApplicationCache: ProtocolProxyApi.ApplicationCacheApi;
