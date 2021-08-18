@@ -7,17 +7,17 @@ declare namespace PluginPostPublishPanel {
         /**
          * An optional class name added to the panel.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * Title displayed at the top of the panel.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * Whether to have the panel initially opened. When no title is provided it is always
          * opened.
          * @defaultValue `false`
          */
-        initialOpen?: boolean;
+        initialOpen?: boolean | undefined;
     }
 }
 

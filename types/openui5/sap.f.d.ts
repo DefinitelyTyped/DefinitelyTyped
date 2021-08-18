@@ -1,4 +1,4 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.93.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -471,6 +471,13 @@ declare module "sap/f/Avatar" {
   export default class Avatar extends Avatar1 {
     /**
      * Constructor for a new `Avatar`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Avatar#constructor
+     * sap.m.Avatar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/avatar/ Avatar}
      */
@@ -482,6 +489,13 @@ declare module "sap/f/Avatar" {
     );
     /**
      * Constructor for a new `Avatar`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.Avatar#constructor
+     * sap.m.Avatar} can be used.
      * See:
      * 	{@link fiori:https://experience.sap.com/fiori-design-web/avatar/ Avatar}
      */
@@ -530,6 +544,8 @@ declare module "sap/f/AvatarGroup" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import AvatarGroupItem from "sap/f/AvatarGroupItem";
+
+  import Event from "sap/ui/base/Event";
 
   import AvatarSize from "sap/m/AvatarSize";
 
@@ -609,6 +625,31 @@ declare module "sap/f/AvatarGroup" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.AvatarGroup with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, AvatarGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.AvatarGroup.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -634,7 +675,25 @@ declare module "sap/f/AvatarGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.AvatarGroup` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.AvatarGroup`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.AvatarGroup` itself.
+     *
+     * Fired when the user clicks or taps on the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.AvatarGroup` itself
        */
@@ -653,33 +712,12 @@ declare module "sap/f/AvatarGroup" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.AvatarGroup with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, AvatarGroup>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -724,10 +762,6 @@ declare module "sap/f/AvatarGroup" {
      * The `AvatarGroupItems` contained by the control.
      */
     getItems(): AvatarGroupItem[];
-    /**
-     * Returns a metadata object for class sap.f.AvatarGroup.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.f.AvatarGroupItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
@@ -798,24 +832,6 @@ declare module "sap/f/AvatarGroup" {
        */
       sGroupType?: AvatarGroupType | keyof typeof AvatarGroupType
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.AvatarGroup`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.AvatarGroup` itself.
-     *
-     * Fired when the user clicks or taps on the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.AvatarGroup` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $AvatarGroupSettings extends $ControlSettings {
@@ -841,7 +857,7 @@ declare module "sap/f/AvatarGroup" {
     /**
      * Fired when the user clicks or taps on the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -917,6 +933,10 @@ declare module "sap/f/AvatarGroupItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.AvatarGroupItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Returns the color of the avatar.
      */
     getAvatarColor(): string;
@@ -936,10 +956,6 @@ declare module "sap/f/AvatarGroupItem" {
      * Defines the displayed initials.
      */
     getInitials(): string;
-    /**
-     * Returns a metadata object for class sap.f.AvatarGroupItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSrc src}.
      *
@@ -1089,14 +1105,6 @@ declare module "sap/f/Card" {
     );
 
     /**
-     * Destroys the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
-     * Destroys the header in the aggregation {@link #getHeader header}.
-     */
-    destroyHeader(): this;
-    /**
      * Creates a new subclass of class sap.f.Card with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -1117,6 +1125,18 @@ declare module "sap/f/Card" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.f.Card.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
+     * Destroys the header in the aggregation {@link #getHeader header}.
+     */
+    destroyHeader(): this;
     /**
      * Implements sap.f.ICard interface.
      */
@@ -1157,10 +1177,6 @@ declare module "sap/f/Card" {
     getHeaderPosition():
       | cards.HeaderPosition
       | keyof typeof cards.HeaderPosition;
-    /**
-     * Returns a metadata object for class sap.f.Card.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets the aggregated {@link #getContent content}.
      */
@@ -1292,6 +1308,10 @@ declare module "sap/f/CardBase" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.CardBase.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Implements sap.f.ICard interface.
      */
     getCardContent(): Control;
@@ -1319,10 +1339,6 @@ declare module "sap/f/CardBase" {
      * Default value is `"auto"`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.f.CardBase.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -1421,13 +1437,6 @@ declare module "sap/f/cards/BaseHeader" {
     );
 
     /**
-     * @SINCE 1.86
-     * @EXPERIMENTAL (since 1.86)
-     *
-     * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
-     */
-    destroyToolbar(): this;
-    /**
      * Creates a new subclass of class sap.f.cards.BaseHeader with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -1449,6 +1458,17 @@ declare module "sap/f/cards/BaseHeader" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.cards.BaseHeader.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.86
+     * @EXPERIMENTAL (since 1.86)
+     *
+     * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
+     */
+    destroyToolbar(): this;
+    /**
      * @EXPERIMENTAL (since 1.89)
      *
      * Gets current value of property {@link #getDataTimestamp dataTimestamp}.
@@ -1463,10 +1483,6 @@ declare module "sap/f/cards/BaseHeader" {
      * Default value is `empty string`.
      */
     getDataTimestamp(): string;
-    /**
-     * Returns a metadata object for class sap.f.cards.BaseHeader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.86
      * @EXPERIMENTAL (since 1.86)
@@ -1520,6 +1536,8 @@ declare module "sap/f/cards/Header" {
   } from "sap/f/cards/BaseHeader";
 
   import { cards } from "sap/f/library";
+
+  import Event from "sap/ui/base/Event";
 
   import AvatarColor from "sap/m/AvatarColor";
 
@@ -1576,44 +1594,6 @@ declare module "sap/f/cards/Header" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.Header` itself.
-     *
-     * Fires when the user presses the control.
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.f.cards.Header with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -1634,6 +1614,66 @@ declare module "sap/f/cards/Header" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.f.cards.Header.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.Header` itself.
+     *
+     * Fires when the user presses the control.
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.Header` itself.
+     *
+     * Fires when the user presses the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.Header`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -1687,10 +1727,6 @@ declare module "sap/f/cards/Header" {
      * Default value is `empty string`.
      */
     getIconSrc(): URI;
-    /**
-     * Returns a metadata object for class sap.f.cards.Header.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getStatusText statusText}.
      *
@@ -1839,24 +1875,6 @@ declare module "sap/f/cards/Header" {
        */
       sTitle?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.Header`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.Header` itself.
-     *
-     * Fires when the user presses the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.Header` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $HeaderSettings extends $BaseHeaderSettings {
@@ -1911,7 +1929,7 @@ declare module "sap/f/cards/Header" {
     /**
      * Fires when the user presses the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -1924,6 +1942,8 @@ declare module "sap/f/cards/NumericHeader" {
   import { cards } from "sap/f/library";
 
   import NumericSideIndicator from "sap/f/cards/NumericSideIndicator";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1984,6 +2004,31 @@ declare module "sap/f/cards/NumericHeader" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.cards.NumericHeader with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.cards.BaseHeader.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NumericHeader>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.cards.NumericHeader.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some sideIndicator to the aggregation {@link #getSideIndicators sideIndicators}.
      */
     addSideIndicator(
@@ -2009,7 +2054,25 @@ declare module "sap/f/cards/NumericHeader" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
+     *
+     * Fires when the user presses the control.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
        */
@@ -2028,33 +2091,12 @@ declare module "sap/f/cards/NumericHeader" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.cards.NumericHeader with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.cards.BaseHeader.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NumericHeader>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -2070,10 +2112,6 @@ declare module "sap/f/cards/NumericHeader" {
      * Additional text which adds more details to what is shown in the numeric header.
      */
     getDetails(): string;
-    /**
-     * Returns a metadata object for class sap.f.cards.NumericHeader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -2267,24 +2305,6 @@ declare module "sap/f/cards/NumericHeader" {
        */
       sValue: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
-     *
-     * Fires when the user presses the control.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.cards.NumericHeader` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $NumericHeaderSettings extends $BaseHeaderSettings {
@@ -2352,7 +2372,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Fires when the user presses the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -2574,6 +2594,10 @@ declare module "sap/f/dnd/GridDropInfo" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.dnd.GridDropInfo.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getDropIndicatorSize dropIndicatorSize}.
      *
      * A function which will define the desired drop indicator size. The drop indicator shows the user how the
@@ -2590,10 +2614,6 @@ declare module "sap/f/dnd/GridDropInfo" {
      * columns: }` or `null`.
      */
     getDropIndicatorSize(): Function;
-    /**
-     * Returns a metadata object for class sap.f.dnd.GridDropInfo.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getDropIndicatorSize dropIndicatorSize}.
      *
@@ -2641,6 +2661,8 @@ declare module "sap/f/dnd/GridDropInfo" {
 
 declare module "sap/f/DynamicPage" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import { PageBackgroundDesign, IBar } from "sap/m/library";
 
@@ -2748,6 +2770,78 @@ declare module "sap/f/DynamicPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.DynamicPage with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DynamicPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.DynamicPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pinnedStateChange pinnedStateChange} event of
+     * this `sap.f.DynamicPage`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.DynamicPage` itself.
+     *
+     * The event is fired when the `headerPinned` property is changed via user interaction.
+     */
+    attachPinnedStateChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.DynamicPage` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:pinnedStateChange pinnedStateChange} event of
+     * this `sap.f.DynamicPage`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.DynamicPage` itself.
+     *
+     * The event is fired when the `headerPinned` property is changed via user interaction.
+     */
+    attachPinnedStateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.DynamicPage` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Destroys the content in the aggregation {@link #getContent content}.
      */
     destroyContent(): this;
@@ -2770,26 +2864,39 @@ declare module "sap/f/DynamicPage" {
      */
     destroyTitle(): this;
     /**
-     * Creates a new subclass of class sap.f.DynamicPage with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
+     * @SINCE 1.93
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     * Detaches event handler `fnFunction` from the {@link #event:pinnedStateChange pinnedStateChange} event
+     * of this `sap.f.DynamicPage`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
      */
-    static extend<T extends Record<string, unknown>>(
+    detachPinnedStateChange(
       /**
-       * Name of the class being created
+       * The function to be called, when the event occurs
        */
-      sClassName: string,
+      fnFunction: (p1: Event) => void,
       /**
-       * Object literal with information about the class
+       * Context object on which the given function had to be called
        */
-      oClassInfo?: sap.ClassInfo<T, DynamicPage>,
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Fires event {@link #event:pinnedStateChange pinnedStateChange} to attached listeners.
+     */
+    firePinnedStateChange(
       /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
+       * Parameters to pass along with the event
        */
-      FNMetaImpl?: Function
-    ): Function;
+      mParameters?: {
+        /**
+         * False or True values indicate the new pinned property value.
+         */
+        pinned?: boolean;
+      }
+    ): this;
     /**
      * @SINCE 1.68
      *
@@ -2880,6 +2987,27 @@ declare module "sap/f/DynamicPage" {
      */
     getHeaderExpanded(): boolean;
     /**
+     * @SINCE 1.93
+     *
+     * Gets current value of property {@link #getHeaderPinned headerPinned}.
+     *
+     * Determines whether the `DynamicPageHeader` is pinned.
+     *
+     * The property can be changed programmatically or in the occurrence of the following user interactions:
+     *
+     * 	 - Toggling the pin/unpin button of `DynamicPageHeader`
+     * 	 - Snapping the `DynamicPageHeader` by explicitly clicking on the `DynamicPageTitle`
+     *
+     * **Note: ** The property will only apply if the header is effectively pinnable, i.e. if the following
+     * conditions are met:
+     * 	 - `DynamicPageHeader` `pinnable` property is `true`
+     * 	 - `DynamicPageHeader` is expanded
+     * 	 - `DynamicPage` `preserveHeaderStateOnScroll` property is effectively disabled
+     *
+     * Default value is `false`.
+     */
+    getHeaderPinned(): boolean;
+    /**
      * @SINCE 1.61
      *
      * Gets content of aggregation {@link #getLandmarkInfo landmarkInfo}.
@@ -2889,10 +3017,6 @@ declare module "sap/f/DynamicPage" {
      * If not set, no landmarks will be written.
      */
     getLandmarkInfo(): DynamicPageAccessibleLandmarkInfo;
-    /**
-     * Returns a metadata object for class sap.f.DynamicPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPreserveHeaderStateOnScroll preserveHeaderStateOnScroll}.
      *
@@ -3036,6 +3160,34 @@ declare module "sap/f/DynamicPage" {
       bHeaderExpanded?: boolean
     ): this;
     /**
+     * @SINCE 1.93
+     *
+     * Sets a new value for property {@link #getHeaderPinned headerPinned}.
+     *
+     * Determines whether the `DynamicPageHeader` is pinned.
+     *
+     * The property can be changed programmatically or in the occurrence of the following user interactions:
+     *
+     * 	 - Toggling the pin/unpin button of `DynamicPageHeader`
+     * 	 - Snapping the `DynamicPageHeader` by explicitly clicking on the `DynamicPageTitle`
+     *
+     * **Note: ** The property will only apply if the header is effectively pinnable, i.e. if the following
+     * conditions are met:
+     * 	 - `DynamicPageHeader` `pinnable` property is `true`
+     * 	 - `DynamicPageHeader` is expanded
+     * 	 - `DynamicPage` `preserveHeaderStateOnScroll` property is effectively disabled
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setHeaderPinned(
+      /**
+       * New value for property `headerPinned`
+       */
+      bHeaderPinned?: boolean
+    ): this;
+    /**
      * @SINCE 1.61
      *
      * Sets the aggregated {@link #getLandmarkInfo landmarkInfo}.
@@ -3146,6 +3298,24 @@ declare module "sap/f/DynamicPage" {
     headerExpanded?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.93
+     *
+     * Determines whether the `DynamicPageHeader` is pinned.
+     *
+     * The property can be changed programmatically or in the occurrence of the following user interactions:
+     *
+     * 	 - Toggling the pin/unpin button of `DynamicPageHeader`
+     * 	 - Snapping the `DynamicPageHeader` by explicitly clicking on the `DynamicPageTitle`
+     *
+     * **Note: ** The property will only apply if the header is effectively pinnable, i.e. if the following
+     * conditions are met:
+     * 	 - `DynamicPageHeader` `pinnable` property is `true`
+     * 	 - `DynamicPageHeader` is expanded
+     * 	 - `DynamicPage` `preserveHeaderStateOnScroll` property is effectively disabled
+     */
+    headerPinned?: boolean | PropertyBindingInfo;
+
+    /**
      * Determines whether the user can switch between the expanded/collapsed states of the `DynamicPageHeader`
      * by clicking on the `DynamicPageTitle` or by using the expand/collapse visual indicators, positioned at
      * the bottom of the `DynamicPageTitle` and the `DynamicPageHeader`. If set to `false`, the `DynamicPageTitle`
@@ -3248,6 +3418,13 @@ declare module "sap/f/DynamicPage" {
      * content have to implement the `sap.f.IDynamicPageStickyContent` interface.
      */
     stickySubheaderProvider?: IDynamicPageStickyContent | string;
+
+    /**
+     * @SINCE 1.93
+     *
+     * The event is fired when the `headerPinned` property is changed via user interaction.
+     */
+    pinnedStateChange?: (oEvent: Event) => void;
   }
 }
 
@@ -3323,6 +3500,10 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.DynamicPageAccessibleLandmarkInfo.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getContentLabel contentLabel}.
      *
      * Texts which describe the landmark of the content container of the corresponding `sap.f.DynamicPage` control.
@@ -3385,10 +3566,6 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
     getHeaderRole():
       | AccessibleLandmarkRole
       | keyof typeof AccessibleLandmarkRole;
-    /**
-     * Returns a metadata object for class sap.f.DynamicPageAccessibleLandmarkInfo.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRootLabel rootLabel}.
      *
@@ -3685,19 +3862,6 @@ declare module "sap/f/DynamicPageHeader" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.f.DynamicPageHeader with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -3719,6 +3883,23 @@ declare module "sap/f/DynamicPageHeader" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.DynamicPageHeader.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * @SINCE 1.58
      *
      * Gets current value of property {@link #getBackgroundDesign backgroundDesign}.
@@ -3735,10 +3916,6 @@ declare module "sap/f/DynamicPageHeader" {
      * The content of the header.
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.f.DynamicPageHeader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPinnable pinnable}.
      *
@@ -3854,6 +4031,8 @@ declare module "sap/f/DynamicPageTitle" {
 
   import Button from "sap/m/Button";
 
+  import Event from "sap/ui/base/Event";
+
   import {
     DynamicPageTitleShrinkRatio,
     DynamicPageTitleArea,
@@ -3932,6 +4111,31 @@ declare module "sap/f/DynamicPageTitle" {
       mSettings?: $DynamicPageTitleSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.f.DynamicPageTitle with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DynamicPageTitle>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.DynamicPageTitle.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some action to the aggregation {@link #getActions actions}.
      */
@@ -4015,7 +4219,31 @@ declare module "sap/f/DynamicPageTitle" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.DynamicPageTitle` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.54
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:stateChange stateChange} event of this `sap.f.DynamicPageTitle`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.DynamicPageTitle` itself.
+     *
+     * Fired when the title state (expanded/collapsed) is toggled by user interaction. For example, scrolling,
+     * title clicking/tapping, using expand/collapse button.
+     *
+     * Also fired when the developer toggles the title state by programmatically changing the scroll position
+     * of the scrollbar of `DynamicPage`.
+     */
+    attachStateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.DynamicPageTitle` itself
        */
@@ -4084,33 +4312,12 @@ declare module "sap/f/DynamicPageTitle" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.DynamicPageTitle with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DynamicPageTitle>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.54
      *
@@ -4236,10 +4443,6 @@ declare module "sap/f/DynamicPageTitle" {
      * 			state.
      */
     getHeading(): Control;
-    /**
-     * Returns a metadata object for class sap.f.DynamicPageTitle.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.52
      *
@@ -4665,30 +4868,6 @@ declare module "sap/f/DynamicPageTitle" {
        */
       oSnappedTitleOnMobile: Title
     ): this;
-    /**
-     * @SINCE 1.54
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:stateChange stateChange} event of this `sap.f.DynamicPageTitle`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.DynamicPageTitle` itself.
-     *
-     * Fired when the title state (expanded/collapsed) is toggled by user interaction. For example, scrolling,
-     * title clicking/tapping, using expand/collapse button.
-     *
-     * Also fired when the developer toggles the title state by programmatically changing the scroll position
-     * of the scrollbar of `DynamicPage`.
-     */
-    attachStateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.DynamicPageTitle` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $DynamicPageTitleSettings extends $ControlSettings {
@@ -4878,18 +5057,20 @@ declare module "sap/f/DynamicPageTitle" {
      * Also fired when the developer toggles the title state by programmatically changing the scroll position
      * of the scrollbar of `DynamicPage`.
      */
-    stateChange?: Function;
+    stateChange?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/f/FlexibleColumnLayout" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { IPlaceholderSupport, ID } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
+
   import { LayoutType } from "sap/f/library";
 
   import { BackgroundDesign } from "sap/m/library";
-
-  import { ID } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4941,7 +5122,10 @@ declare module "sap/f/FlexibleColumnLayout" {
    *
    * For detailed information, see {@link sap.f.LayoutType LayoutType} enumeration.
    */
-  export default class FlexibleColumnLayout extends Control {
+  export default class FlexibleColumnLayout
+    extends Control
+    implements IPlaceholderSupport {
+    __implements__sap_ui_core_IPlaceholderSupport: boolean;
     /**
      * Constructor for a new `sap.f.FlexibleColumnLayout`.
      *
@@ -4979,6 +5163,31 @@ declare module "sap/f/FlexibleColumnLayout" {
       mSettings?: $FlexibleColumnLayoutSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.f.FlexibleColumnLayout with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.FlexibleColumnLayout.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some beginColumnPage to the aggregation {@link #getBeginColumnPages beginColumnPages}.
      */
@@ -5026,7 +5235,28 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate}
+     * event of this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fires when navigation between two pages in the `Begin` column has completed.
+     *
+     * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     */
+    attachAfterBeginColumnNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -5052,7 +5282,28 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterEndColumnNavigate afterEndColumnNavigate}
+     * event of this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fires when navigation between two pages in the `End` column has completed.
+     *
+     * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     */
+    attachAfterEndColumnNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -5078,7 +5329,28 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:afterMidColumnNavigate afterMidColumnNavigate}
+     * event of this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fires when navigation between two pages in the `Mid` column has completed.
+     *
+     * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     */
+    attachAfterMidColumnNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -5104,7 +5376,28 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:beginColumnNavigate beginColumnNavigate} event
+     * of this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fires when navigation between two pages in the `Begin` column has been triggered. The transition (if
+     * any) to the new page has not started yet. This event can be aborted by the application with preventDefault(),
+     * which means that there will be no navigation.
+     */
+    attachBeginColumnNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -5129,7 +5422,27 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.76
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:columnResize columnResize} event of this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fired when resize of each column has completed.
+     */
+    attachColumnResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -5155,7 +5468,28 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:endColumnNavigate endColumnNavigate} event of
+     * this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fires when navigation between two pages in the `End` column has been triggered. The transition (if any)
+     * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
+     * which means that there will be no navigation.
+     */
+    attachEndColumnNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -5181,7 +5515,28 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:midColumnNavigate midColumnNavigate} event of
+     * this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fires when navigation between two pages in the `Mid` column has been triggered. The transition (if any)
+     * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
+     * which means that there will be no navigation.
+     */
+    attachMidColumnNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -5213,7 +5568,34 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:stateChange stateChange} event of this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fired when there is a change in the `layout` property or in the maximum number of columns that can be
+     * displayed at once.
+     *
+     *  The interactions that may lead to a state change are:
+     * 	 - the property `layout` was changed indirectly by the user clicking a layout arrow
+     * 	 - the user resized the browser beyond a breakpoint, thus changing the maximum number of columns that
+     * 			can be displayed at once.
+     *
+     *  **Note: **The event is suppressed while the control has zero width and will be fired the first time
+     * it gets a non-zero width
+     */
+    attachStateChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
        */
@@ -5383,7 +5765,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5399,7 +5781,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5415,7 +5797,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5431,7 +5813,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5448,7 +5830,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5464,7 +5846,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5480,7 +5862,7 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5495,33 +5877,12 @@ declare module "sap/f/FlexibleColumnLayout" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.FlexibleColumnLayout with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate} to attached listeners.
      */
@@ -6009,10 +6370,6 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     getMaxColumnsCount(): number;
     /**
-     * Returns a metadata object for class sap.f.FlexibleColumnLayout.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets content of aggregation {@link #getMidColumnPages midColumnPages}.
      *
      * The content entities between which the `FlexibleColumnLayout` navigates in the `Mid` column.
@@ -6033,6 +6390,22 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Default value is `false`.
      */
     getRestoreFocusOnBackNavigation(): boolean;
+    /**
+     * @SINCE 1.91
+     *
+     * Hides the placeholder on the corresponding column for the provided aggregation name.
+     */
+    hidePlaceholder(
+      /**
+       * Object containing the aggregation name
+       */
+      mSettings: {
+        /**
+         * The aggregation name to decide on which column/container the placeholder should be hidden
+         */
+        aggregation: string;
+      }
+    ): void;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getBeginColumnPages beginColumnPages}.
      * and returns its index if found or -1 otherwise.
@@ -6308,6 +6681,22 @@ declare module "sap/f/FlexibleColumnLayout" {
       bRestoreFocusOnBackNavigation?: boolean
     ): this;
     /**
+     * @SINCE 1.91
+     *
+     * Shows the placeholder on the corresponding column for the provided aggregation name.
+     */
+    showPlaceholder(
+      /**
+       * Object containing the aggregation name
+       */
+      mSettings: {
+        /**
+         * The aggregation name to decide on which column/container the placeholder should be shown
+         */
+        aggregation: string;
+      }
+    ): void;
+    /**
      * Navigates to the given page inside the FlexibleColumnLayout. Columns are scanned for the page in the
      * following order: `Begin`, `Mid`, `End`.
      */
@@ -6323,6 +6712,40 @@ declare module "sap/f/FlexibleColumnLayout" {
        * None of the standard transitions is currently making use of any given transition parameters.
        */
       sTransitionName: string,
+      /**
+       * This optional object can carry any payload data which should be made available to the target page. The
+       * BeforeShow event on the target page will contain this data object as data property.
+       *
+       * Use case: in scenarios where the entity triggering the navigation can or should not directly initialize
+       * the target page, it can fill this object and the target page itself (or a listener on it) can take over
+       * the initialization, using the given data.
+       *
+       * When the transitionParameters object is used, this "data" object must also be given (either as object
+       * or as null) in order to have a proper parameter order.
+       */
+      oData: object,
+      /**
+       * This optional object can contain additional information for the transition function, like the DOM element
+       * which triggered the transition or the desired transition duration.
+       *
+       * For a proper parameter order, the "data" parameter must be given when the transitionParameters parameter
+       * is used (it can be given as "null").
+       *
+       * NOTE: It depends on the transition function how the object should be structured and which parameters
+       * are actually used to influence the transition. The "show", "slide" and "fade" transitions do not use
+       * any parameter.
+       */
+      oTransitionParameters: object
+    ): this;
+    /**
+     * Navigates to the given page inside the FlexibleColumnLayout. Columns are scanned for the page in the
+     * following order: `Begin`, `Mid`, `End`.
+     */
+    to(
+      /**
+       * The screen to which we are navigating to. The ID or the control itself can be given.
+       */
+      sPageId: string,
       /**
        * This optional object can carry any payload data which should be made available to the target page. The
        * BeforeShow event on the target page will contain this data object as data property.
@@ -6389,6 +6812,39 @@ declare module "sap/f/FlexibleColumnLayout" {
       oTransitionParameters: object
     ): this;
     /**
+     * Navigates to a given Begin column page.
+     */
+    toBeginColumnPage(
+      /**
+       * The screen to which drilldown should happen. The ID or the control itself can be given.
+       */
+      sPageId: string,
+      /**
+       * This optional object can carry any payload data which should be made available to the target page. The
+       * BeforeShow event on the target page will contain this data object as data property.
+       *
+       * Use case: in scenarios where the entity triggering the navigation can't or shouldn't directly initialize
+       * the target page, it can fill this object and the target page itself (or a listener on it) can take over
+       * the initialization, using the given data.
+       *
+       * When the transitionParameters object is used, this data object must also be given (either as object or
+       * as null) in order to have a proper parameter order.
+       */
+      oData: object,
+      /**
+       * This optional object can contain additional information for the transition function, like the DOM element,
+       * which triggered the transition or the desired transition duration.
+       *
+       * For a proper parameter order, the data parameter must be given when the transitionParameters parameter
+       * is used (it can be given as "null").
+       *
+       * NOTE: it depends on the transition function how the object should be structured and which parameters
+       * are actually used to influence the transition. The "show", "slide" and "fade" transitions do not use
+       * any parameter.
+       */
+      oTransitionParameters: object
+    ): this;
+    /**
      * Navigates to a given End column page.
      */
     toEndColumnPage(
@@ -6403,6 +6859,39 @@ declare module "sap/f/FlexibleColumnLayout" {
        * None of the standard transitions is currently making use of any given transition parameters.
        */
       sTransitionName: string,
+      /**
+       * This optional object can carry any payload data which should be made available to the target page. The
+       * BeforeShow event on the target page will contain this data object as data property.
+       *
+       * Use case: in scenarios where the entity triggering the navigation can't or shouldn't directly initialize
+       * the target page, it can fill this object and the target page itself (or a listener on it) can take over
+       * the initialization, using the given data.
+       *
+       * When the transitionParameters object is used, this data object must also be given (either as object or
+       * as null) in order to have a proper parameter order.
+       */
+      oData: object,
+      /**
+       * This optional object can contain additional information for the transition function, like the DOM element,
+       * which triggered the transition or the desired transition duration.
+       *
+       * For a proper parameter order, the data parameter must be given when the transitionParameters parameter
+       * is used (it can be given as "null").
+       *
+       * NOTE: it depends on the transition function how the object should be structured and which parameters
+       * are actually used to influence the transition. The "show", "slide" and "fade" transitions do not use
+       * any parameter.
+       */
+      oTransitionParameters: object
+    ): this;
+    /**
+     * Navigates to a given End column page.
+     */
+    toEndColumnPage(
+      /**
+       * The screen to which drilldown should happen. The ID or the control itself can be given.
+       */
+      sPageId: string,
       /**
        * This optional object can carry any payload data which should be made available to the target page. The
        * BeforeShow event on the target page will contain this data object as data property.
@@ -6443,279 +6932,6 @@ declare module "sap/f/FlexibleColumnLayout" {
        * None of the standard transitions is currently making use of any given transition parameters.
        */
       sTransitionName: string,
-      /**
-       * This optional object can carry any payload data which should be made available to the target page. The
-       * BeforeShow event on the target page will contain this data object as data property.
-       *
-       * Use case: in scenarios where the entity triggering the navigation can't or shouldn't directly initialize
-       * the target page, it can fill this object and the target page itself (or a listener on it) can take over
-       * the initialization, using the given data.
-       *
-       * When the transitionParameters object is used, this data object must also be given (either as object or
-       * as null) in order to have a proper parameter order.
-       */
-      oData: object,
-      /**
-       * This optional object can contain additional information for the transition function, like the DOM element,
-       * which triggered the transition or the desired transition duration.
-       *
-       * For a proper parameter order, the data parameter must be given when the transitionParameters parameter
-       * is used (it can be given as "null").
-       *
-       * NOTE: it depends on the transition function how the object should be structured and which parameters
-       * are actually used to influence the transition. The "show", "slide" and "fade" transitions do not use
-       * any parameter.
-       */
-      oTransitionParameters: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate}
-     * event of this `sap.f.FlexibleColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
-     *
-     * Fires when navigation between two pages in the `Begin` column has completed.
-     *
-     * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
-     */
-    attachAfterBeginColumnNavigate(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:afterEndColumnNavigate afterEndColumnNavigate}
-     * event of this `sap.f.FlexibleColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
-     *
-     * Fires when navigation between two pages in the `End` column has completed.
-     *
-     * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
-     */
-    attachAfterEndColumnNavigate(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:afterMidColumnNavigate afterMidColumnNavigate}
-     * event of this `sap.f.FlexibleColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
-     *
-     * Fires when navigation between two pages in the `Mid` column has completed.
-     *
-     * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
-     */
-    attachAfterMidColumnNavigate(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:beginColumnNavigate beginColumnNavigate} event
-     * of this `sap.f.FlexibleColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
-     *
-     * Fires when navigation between two pages in the `Begin` column has been triggered. The transition (if
-     * any) to the new page has not started yet. This event can be aborted by the application with preventDefault(),
-     * which means that there will be no navigation.
-     */
-    attachBeginColumnNavigate(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.76
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:columnResize columnResize} event of this `sap.f.FlexibleColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
-     *
-     * Fired when resize of each column has completed.
-     */
-    attachColumnResize(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:endColumnNavigate endColumnNavigate} event of
-     * this `sap.f.FlexibleColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
-     *
-     * Fires when navigation between two pages in the `End` column has been triggered. The transition (if any)
-     * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
-     * which means that there will be no navigation.
-     */
-    attachEndColumnNavigate(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:midColumnNavigate midColumnNavigate} event of
-     * this `sap.f.FlexibleColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
-     *
-     * Fires when navigation between two pages in the `Mid` column has been triggered. The transition (if any)
-     * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
-     * which means that there will be no navigation.
-     */
-    attachMidColumnNavigate(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:stateChange stateChange} event of this `sap.f.FlexibleColumnLayout`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
-     *
-     * Fired when there is a change in the `layout` property or in the maximum number of columns that can be
-     * displayed at once.
-     *
-     *  The interactions that may lead to a state change are:
-     * 	 - the property `layout` was changed indirectly by the user clicking a layout arrow
-     * 	 - the user resized the browser beyond a breakpoint, thus changing the maximum number of columns that
-     * 			can be displayed at once.
-     *
-     *  **Note: **The event is suppressed while the control has zero width and will be fired the first time
-     * it gets a non-zero width
-     */
-    attachStateChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Navigates to the given page inside the FlexibleColumnLayout. Columns are scanned for the page in the
-     * following order: `Begin`, `Mid`, `End`.
-     */
-    to(
-      /**
-       * The screen to which we are navigating to. The ID or the control itself can be given.
-       */
-      sPageId: string,
-      /**
-       * This optional object can carry any payload data which should be made available to the target page. The
-       * BeforeShow event on the target page will contain this data object as data property.
-       *
-       * Use case: in scenarios where the entity triggering the navigation can or should not directly initialize
-       * the target page, it can fill this object and the target page itself (or a listener on it) can take over
-       * the initialization, using the given data.
-       *
-       * When the transitionParameters object is used, this "data" object must also be given (either as object
-       * or as null) in order to have a proper parameter order.
-       */
-      oData: object,
-      /**
-       * This optional object can contain additional information for the transition function, like the DOM element
-       * which triggered the transition or the desired transition duration.
-       *
-       * For a proper parameter order, the "data" parameter must be given when the transitionParameters parameter
-       * is used (it can be given as "null").
-       *
-       * NOTE: It depends on the transition function how the object should be structured and which parameters
-       * are actually used to influence the transition. The "show", "slide" and "fade" transitions do not use
-       * any parameter.
-       */
-      oTransitionParameters: object
-    ): this;
-    /**
-     * Navigates to a given Begin column page.
-     */
-    toBeginColumnPage(
-      /**
-       * The screen to which drilldown should happen. The ID or the control itself can be given.
-       */
-      sPageId: string,
-      /**
-       * This optional object can carry any payload data which should be made available to the target page. The
-       * BeforeShow event on the target page will contain this data object as data property.
-       *
-       * Use case: in scenarios where the entity triggering the navigation can't or shouldn't directly initialize
-       * the target page, it can fill this object and the target page itself (or a listener on it) can take over
-       * the initialization, using the given data.
-       *
-       * When the transitionParameters object is used, this data object must also be given (either as object or
-       * as null) in order to have a proper parameter order.
-       */
-      oData: object,
-      /**
-       * This optional object can contain additional information for the transition function, like the DOM element,
-       * which triggered the transition or the desired transition duration.
-       *
-       * For a proper parameter order, the data parameter must be given when the transitionParameters parameter
-       * is used (it can be given as "null").
-       *
-       * NOTE: it depends on the transition function how the object should be structured and which parameters
-       * are actually used to influence the transition. The "show", "slide" and "fade" transitions do not use
-       * any parameter.
-       */
-      oTransitionParameters: object
-    ): this;
-    /**
-     * Navigates to a given End column page.
-     */
-    toEndColumnPage(
-      /**
-       * The screen to which drilldown should happen. The ID or the control itself can be given.
-       */
-      sPageId: string,
       /**
        * This optional object can carry any payload data which should be made available to the target page. The
        * BeforeShow event on the target page will contain this data object as data property.
@@ -6887,56 +7103,56 @@ declare module "sap/f/FlexibleColumnLayout" {
      *  **Note: **The event is suppressed while the control has zero width and will be fired the first time
      * it gets a non-zero width
      */
-    stateChange?: Function;
+    stateChange?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `Begin` column has been triggered. The transition (if
      * any) to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    beginColumnNavigate?: Function;
+    beginColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `Begin` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterBeginColumnNavigate?: Function;
+    afterBeginColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `Mid` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    midColumnNavigate?: Function;
+    midColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `Mid` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterMidColumnNavigate?: Function;
+    afterMidColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `End` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    endColumnNavigate?: Function;
+    endColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in the `End` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
      */
-    afterEndColumnNavigate?: Function;
+    afterEndColumnNavigate?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.76
      *
      * Fired when resize of each column has completed.
      */
-    columnResize?: Function;
+    columnResize?: (oEvent: Event) => void;
   }
 }
 
@@ -7049,6 +7265,21 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
     );
 
     /**
+     * Returns an instance of the `sap.f.FlexibleColumnLayoutSemanticHelper` class for a given `sap.f.FlexibleColumnLayout`
+     * object.
+     */
+    static getInstanceFor(
+      /**
+       * The `sap.f.FlexibleColumnLayout` object to get a semantic helper instance for
+       */
+      oFlexibleColumnLayout: FlexibleColumnLayout,
+      /**
+       * An optional settings object to be used when creating the instance. **Note:** will be considered only
+       * for the first `getInstanceFor` call for the given `sap.f.FlexibleColumnLayout` object.
+       */
+      oSettings?: object
+    ): FlexibleColumnLayoutSemanticHelper;
+    /**
      * Returns an object, describing the current state of the control and the expected action buttons for each
      * column.
      *
@@ -7114,7 +7345,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      *
      *  ```
      */
-    getCurrentUIState(): Object;
+    getCurrentUIState(): object;
     /**
      * Returns the default layout types for the different numbers of columns.
      *
@@ -7126,22 +7357,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      * 	 - defaultThreeColumnLayoutType - the layout that will be suggested by default when 3 columns have to
      * 			be shown side by side
      */
-    getDefaultLayouts(): Object;
-    /**
-     * Returns an instance of the `sap.f.FlexibleColumnLayoutSemanticHelper` class for a given `sap.f.FlexibleColumnLayout`
-     * object.
-     */
-    static getInstanceFor(
-      /**
-       * The `sap.f.FlexibleColumnLayout` object to get a semantic helper instance for
-       */
-      oFlexibleColumnLayout: FlexibleColumnLayout,
-      /**
-       * An optional settings object to be used when creating the instance. **Note:** will be considered only
-       * for the first `getInstanceFor` call for the given `sap.f.FlexibleColumnLayout` object.
-       */
-      oSettings?: object
-    ): FlexibleColumnLayoutSemanticHelper;
+    getDefaultLayouts(): object;
     /**
      * Returns an object, describing the state that the control will have after navigating to a different view
      * level.
@@ -7154,7 +7370,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
        * 3 and above - subsequent views
        */
       iNextLevel: int
-    ): Object;
+    ): object;
     /**
      * @SINCE 1.72
      *
@@ -7189,6 +7405,8 @@ declare module "sap/f/GridContainer" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import { dnd, NavigationDirection } from "sap/f/library";
+
+  import Event from "sap/ui/base/Event";
 
   import GridContainerSettings from "sap/f/GridContainerSettings";
 
@@ -7324,6 +7542,31 @@ declare module "sap/f/GridContainer" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.GridContainer with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GridContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.GridContainer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -7349,7 +7592,25 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:borderReached borderReached} event of this `sap.f.GridContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.GridContainer` itself.
+     *
+     * Fires if the border of the visualizations is reached so that an application can react on this.
+     */
+    attachBorderReached(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -7372,7 +7633,25 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnsChange columnsChange} event of this `sap.f.GridContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.GridContainer` itself.
+     *
+     * Fired when the grid columns count is changed.
+     */
+    attachColumnsChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -7395,7 +7674,25 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.f.GridContainer`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.GridContainer` itself.
+     *
+     * Fired when the currently active GridSettings change.
+     */
+    attachLayoutChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
        */
@@ -7441,7 +7738,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7457,7 +7754,7 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7472,33 +7769,12 @@ declare module "sap/f/GridContainer" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.GridContainer with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GridContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      */
@@ -7684,10 +7960,6 @@ declare module "sap/f/GridContainer" {
      * The sap.f.GridContainerSettings applied for size "XS". Range: up to 374px.
      */
     getLayoutXS(): GridContainerSettings;
-    /**
-     * Returns a metadata object for class sap.f.GridContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @EXPERIMENTAL (since 1.81)
      *
@@ -7922,60 +8194,6 @@ declare module "sap/f/GridContainer" {
        */
       sWidth?: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:borderReached borderReached} event of this `sap.f.GridContainer`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.GridContainer` itself.
-     *
-     * Fires if the border of the visualizations is reached so that an application can react on this.
-     */
-    attachBorderReached(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:columnsChange columnsChange} event of this `sap.f.GridContainer`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.GridContainer` itself.
-     *
-     * Fired when the grid columns count is changed.
-     */
-    attachColumnsChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.f.GridContainer`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.GridContainer` itself.
-     *
-     * Fired when the currently active GridSettings change.
-     */
-    attachLayoutChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.GridContainer` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $GridContainerSettings extends $ControlSettings {
@@ -8073,17 +8291,17 @@ declare module "sap/f/GridContainer" {
     /**
      * Fired when the currently active GridSettings change.
      */
-    layoutChange?: Function;
+    layoutChange?: (oEvent: Event) => void;
 
     /**
      * Fired when the grid columns count is changed.
      */
-    columnsChange?: Function;
+    columnsChange?: (oEvent: Event) => void;
 
     /**
      * Fires if the border of the visualizations is reached so that an application can react on this.
      */
-    borderReached?: Function;
+    borderReached?: (oEvent: Event) => void;
   }
 }
 
@@ -8161,6 +8379,10 @@ declare module "sap/f/GridContainerItemLayoutData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.GridContainerItemLayoutData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumns columns}.
      *
      * Specifies the number of columns, which the item should take
@@ -8173,10 +8395,6 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * Default value is `1`.
      */
     getColumns(): int;
-    /**
-     * Returns a metadata object for class sap.f.GridContainerItemLayoutData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinRows minRows}.
      *
@@ -8345,6 +8563,10 @@ declare module "sap/f/GridContainerSettings" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.GridContainerSettings.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * Gets current value of property {@link #getColumns columns}.
      *
      * How many columns to have on a row.
@@ -8379,10 +8601,6 @@ declare module "sap/f/GridContainerSettings" {
      * **Note:** Will not work in combination with `columnSize`.
      */
     getMaxColumnSize(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.f.GridContainerSettings.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Gets current value of property {@link #getMinColumnSize minColumnSize}.
      *
@@ -8553,6 +8771,8 @@ declare module "sap/f/GridList" {
 
   import { dnd, NavigationDirection } from "sap/f/library";
 
+  import Event from "sap/ui/base/Event";
+
   import GridLayoutBase from "sap/ui/layout/cssgrid/GridLayoutBase";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -8657,54 +8877,7 @@ declare module "sap/f/GridList" {
        */
       mSettings?: $GridListSettings
     );
-    /**
-     * Implements IGridConfigurable interface.
-     */
-    getGridLayoutConfiguration: undefined;
 
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:borderReached borderReached} event of this `sap.f.GridList`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.GridList` itself.
-     *
-     * Fires if the border of the visualizations is reached so that an application can react on this.
-     */
-    attachBorderReached(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.GridList` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Destroys the customLayout in the aggregation {@link #getCustomLayout customLayout}.
-     */
-    destroyCustomLayout(): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:borderReached borderReached} event of this
-     * `sap.f.GridList`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachBorderReached(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
     /**
      * Creates a new subclass of class sap.f.GridList with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
@@ -8726,6 +8899,71 @@ declare module "sap/f/GridList" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.f.GridList.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:borderReached borderReached} event of this `sap.f.GridList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.GridList` itself.
+     *
+     * Fires if the border of the visualizations is reached so that an application can react on this.
+     */
+    attachBorderReached(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.GridList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:borderReached borderReached} event of this `sap.f.GridList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.GridList` itself.
+     *
+     * Fires if the border of the visualizations is reached so that an application can react on this.
+     */
+    attachBorderReached(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.GridList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Destroys the customLayout in the aggregation {@link #getCustomLayout customLayout}.
+     */
+    destroyCustomLayout(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:borderReached borderReached} event of this
+     * `sap.f.GridList`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachBorderReached(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
      */
@@ -8791,9 +9029,9 @@ declare module "sap/f/GridList" {
      */
     getGridDomRefs(): HTMLElement[];
     /**
-     * Returns a metadata object for class sap.f.GridList.
+     * Implements IGridConfigurable interface.
      */
-    static getMetadata(): ElementMetadata;
+    getGridLayoutConfiguration(): GridLayoutBase;
     /**
      * Sets the aggregated {@link #getCustomLayout customLayout}.
      */
@@ -8802,24 +9040,6 @@ declare module "sap/f/GridList" {
        * The customLayout to set
        */
       oCustomLayout: GridLayoutBase
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:borderReached borderReached} event of this `sap.f.GridList`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.GridList` itself.
-     *
-     * Fires if the border of the visualizations is reached so that an application can react on this.
-     */
-    attachBorderReached(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.GridList` itself
-       */
-      oListener?: object
     ): this;
   }
 
@@ -8832,7 +9052,7 @@ declare module "sap/f/GridList" {
     /**
      * Fires if the border of the visualizations is reached so that an application can react on this.
      */
-    borderReached?: Function;
+    borderReached?: (oEvent: Event) => void;
   }
 }
 
@@ -8889,6 +9109,31 @@ declare module "sap/f/GridListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.GridListItem with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GridListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.GridListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -8914,36 +9159,11 @@ declare module "sap/f/GridListItem" {
      */
     destroyContent(): this;
     /**
-     * Creates a new subclass of class sap.f.GridListItem with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GridListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * The content of this list item
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.f.GridListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -9076,23 +9296,6 @@ declare module "sap/f/IllustratedMessage" {
     );
 
     /**
-     * @SINCE 1.88
-     *
-     * Adds some additionalContent to the aggregation {@link #getAdditionalContent additionalContent}.
-     */
-    addAdditionalContent(
-      /**
-       * The additionalContent to add; if empty, nothing is inserted
-       */
-      oAdditionalContent: Button
-    ): this;
-    /**
-     * @SINCE 1.88
-     *
-     * Destroys all the additionalContent in the aggregation {@link #getAdditionalContent additionalContent}.
-     */
-    destroyAdditionalContent(): this;
-    /**
      * Creates a new subclass of class sap.f.IllustratedMessage with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -9113,6 +9316,27 @@ declare module "sap/f/IllustratedMessage" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.f.IllustratedMessage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.88
+     *
+     * Adds some additionalContent to the aggregation {@link #getAdditionalContent additionalContent}.
+     */
+    addAdditionalContent(
+      /**
+       * The additionalContent to add; if empty, nothing is inserted
+       */
+      oAdditionalContent: Button
+    ): this;
+    /**
+     * @SINCE 1.88
+     *
+     * Destroys all the additionalContent in the aggregation {@link #getAdditionalContent additionalContent}.
+     */
+    destroyAdditionalContent(): this;
     /**
      * @SINCE 1.88
      *
@@ -9182,10 +9406,6 @@ declare module "sap/f/IllustratedMessage" {
      * Default value is `IllustratedMessageType.NoSearchResults`.
      */
     getIllustrationType(): string;
-    /**
-     * Returns a metadata object for class sap.f.IllustratedMessage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.88
      *
@@ -9470,6 +9690,10 @@ declare module "sap/f/Illustration" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.f.Illustration.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.88
      *
      * Gets current value of property {@link #getMedia media}.
@@ -9477,10 +9701,6 @@ declare module "sap/f/Illustration" {
      * Defines which media/breakpoint should be used when building the Symbol ID.
      */
     getMedia(): string;
-    /**
-     * Returns a metadata object for class sap.f.Illustration.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.88
      *
@@ -9643,6 +9863,8 @@ declare module "sap/f/ProductSwitch" {
 
   import ProductSwitchItem from "sap/f/ProductSwitchItem";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { ID } from "sap/ui/core/library";
@@ -9688,6 +9910,31 @@ declare module "sap/f/ProductSwitch" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.ProductSwitch with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ProductSwitch>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.ProductSwitch.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -9713,7 +9960,25 @@ declare module "sap/f/ProductSwitch" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ProductSwitch` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.f.ProductSwitch`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ProductSwitch` itself.
+     *
+     * Fires when an unselected item is pressed.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ProductSwitch` itself
        */
@@ -9732,33 +9997,12 @@ declare module "sap/f/ProductSwitch" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.ProductSwitch with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ProductSwitch>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -9779,10 +10023,6 @@ declare module "sap/f/ProductSwitch" {
      * `ProductSwitch` content.
      */
     getItems(): ProductSwitchItem[];
-    /**
-     * Returns a metadata object for class sap.f.ProductSwitch.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
      * or `null`.
@@ -9839,24 +10079,6 @@ declare module "sap/f/ProductSwitch" {
        */
       vItem: string | ProductSwitchItem | null
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.f.ProductSwitch`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ProductSwitch` itself.
-     *
-     * Fires when an unselected item is pressed.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ProductSwitch` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ProductSwitchSettings extends $ControlSettings {
@@ -9873,7 +10095,7 @@ declare module "sap/f/ProductSwitch" {
     /**
      * Fires when an unselected item is pressed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -10212,13 +10434,13 @@ declare module "sap/f/routing/TargetHandler" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Gets if a navigation should close dialogs.
-     */
-    getCloseDialogs(): boolean;
-    /**
      * Returns a metadata object for class sap.f.routing.TargetHandler.
      */
     static getMetadata(): Metadata;
+    /**
+     * Gets if a navigation should close dialogs.
+     */
+    getCloseDialogs(): boolean;
     /**
      * Sets if a navigation should close dialogs.
      */
@@ -10655,6 +10877,8 @@ declare module "sap/f/SearchManager" {
 
   import SuggestionItem from "sap/m/SuggestionItem";
 
+  import Event from "sap/ui/base/Event";
+
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
@@ -10700,6 +10924,31 @@ declare module "sap/f/SearchManager" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.SearchManager with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SearchManager>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.SearchManager.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some suggestionItem to the aggregation {@link #getSuggestionItems suggestionItems}.
      */
     addSuggestionItem(
@@ -10727,7 +10976,27 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.f.SearchManager`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.SearchManager` itself.
+     *
+     * Fired when the value of the search field is changed by the user, for example at each key press.
+     *
+     * **Note:** Do not invalidate or re-render a focused search field, especially during the `liveChange` event.
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -10750,7 +11019,25 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.f.SearchManager`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.SearchManager` itself.
+     *
+     * Fired when the user triggers a search.
+     */
+    attachSearch(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -10775,7 +11062,27 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.f.SearchManager`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.SearchManager` itself.
+     *
+     * Fired when the search field is initially focused or its value is changed by the user. This event means
+     * that suggestion data should be updated, in case if suggestions are used. Use the value parameter to create
+     * new suggestions for it.
+     */
+    attachSuggest(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
        */
@@ -10806,7 +11113,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10821,7 +11128,7 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10836,33 +11143,12 @@ declare module "sap/f/SearchManager" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.SearchManager with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SearchManager>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      */
@@ -10934,10 +11220,6 @@ declare module "sap/f/SearchManager" {
      * Default value is `0`.
      */
     getMaxLength(): int;
-    /**
-     * Returns a metadata object for class sap.f.SearchManager.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -11079,64 +11361,6 @@ declare module "sap/f/SearchManager" {
      * Unbinds property {@link #getValue value} from model data.
      */
     unbindValue(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.f.SearchManager`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.SearchManager` itself.
-     *
-     * Fired when the value of the search field is changed by the user, for example at each key press.
-     *
-     * **Note:** Do not invalidate or re-render a focused search field, especially during the `liveChange` event.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:search search} event of this `sap.f.SearchManager`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.SearchManager` itself.
-     *
-     * Fired when the user triggers a search.
-     */
-    attachSearch(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:suggest suggest} event of this `sap.f.SearchManager`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.SearchManager` itself.
-     *
-     * Fired when the search field is initially focused or its value is changed by the user. This event means
-     * that suggestion data should be updated, in case if suggestions are used. Use the value parameter to create
-     * new suggestions for it.
-     */
-    attachSuggest(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.SearchManager` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SearchManagerSettings extends $ElementSettings {
@@ -11183,21 +11407,21 @@ declare module "sap/f/SearchManager" {
     /**
      * Fired when the user triggers a search.
      */
-    search?: Function;
+    search?: (oEvent: Event) => void;
 
     /**
      * Fired when the value of the search field is changed by the user, for example at each key press.
      *
      * **Note:** Do not invalidate or re-render a focused search field, especially during the `liveChange` event.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
 
     /**
      * Fired when the search field is initially focused or its value is changed by the user. This event means
      * that suggestion data should be updated, in case if suggestions are used. Use the value parameter to create
      * new suggestions for it.
      */
-    suggest?: Function;
+    suggest?: (oEvent: Event) => void;
   }
 }
 
@@ -11218,15 +11442,30 @@ declare module "sap/f/semantic/AddAction" {
   export default class AddAction extends SemanticButton {
     /**
      * Constructor for a new `AddAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $AddActionSettings
     );
     /**
      * Constructor for a new `AddAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11234,7 +11473,8 @@ declare module "sap/f/semantic/AddAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $AddActionSettings
     );
@@ -11286,15 +11526,30 @@ declare module "sap/f/semantic/CloseAction" {
   export default class CloseAction extends SemanticButton {
     /**
      * Constructor for a new `CloseAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CloseActionSettings
     );
     /**
      * Constructor for a new `CloseAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11302,7 +11557,8 @@ declare module "sap/f/semantic/CloseAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CloseActionSettings
     );
@@ -11354,15 +11610,30 @@ declare module "sap/f/semantic/CopyAction" {
   export default class CopyAction extends SemanticButton {
     /**
      * Constructor for a new `CopyAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CopyActionSettings
     );
     /**
      * Constructor for a new `CopyAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11370,7 +11641,8 @@ declare module "sap/f/semantic/CopyAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $CopyActionSettings
     );
@@ -11422,15 +11694,30 @@ declare module "sap/f/semantic/DeleteAction" {
   export default class DeleteAction extends SemanticButton {
     /**
      * Constructor for a new `DeleteAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DeleteActionSettings
     );
     /**
      * Constructor for a new `DeleteAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11438,7 +11725,8 @@ declare module "sap/f/semantic/DeleteAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DeleteActionSettings
     );
@@ -11490,15 +11778,30 @@ declare module "sap/f/semantic/DiscussInJamAction" {
   export default class DiscussInJamAction extends SemanticButton {
     /**
      * Constructor for a new `DiscussInJamAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DiscussInJamActionSettings
     );
     /**
      * Constructor for a new `DiscussInJamAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11506,7 +11809,8 @@ declare module "sap/f/semantic/DiscussInJamAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $DiscussInJamActionSettings
     );
@@ -11559,15 +11863,30 @@ declare module "sap/f/semantic/EditAction" {
   export default class EditAction extends SemanticButton {
     /**
      * Constructor for a new `EditAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $EditActionSettings
     );
     /**
      * Constructor for a new `EditAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11575,7 +11894,8 @@ declare module "sap/f/semantic/EditAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $EditActionSettings
     );
@@ -11627,15 +11947,30 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
   export default class ExitFullScreenAction extends SemanticButton {
     /**
      * Constructor for a new `ExitFullScreenAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ExitFullScreenActionSettings
     );
     /**
      * Constructor for a new `ExitFullScreenAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11643,7 +11978,8 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ExitFullScreenActionSettings
     );
@@ -11696,15 +12032,30 @@ declare module "sap/f/semantic/FavoriteAction" {
   export default class FavoriteAction extends SemanticToggleButton {
     /**
      * Constructor for a new `FavoriteAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticToggleButton#constructor
+     * sap.f.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FavoriteActionSettings
     );
     /**
      * Constructor for a new `FavoriteAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticToggleButton#constructor
+     * sap.f.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -11712,7 +12063,8 @@ declare module "sap/f/semantic/FavoriteAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FavoriteActionSettings
     );
@@ -11765,15 +12117,30 @@ declare module "sap/f/semantic/FlagAction" {
   export default class FlagAction extends SemanticToggleButton {
     /**
      * Constructor for a new `FlagAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticToggleButton#constructor
+     * sap.f.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FlagActionSettings
     );
     /**
      * Constructor for a new `FlagAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticToggleButton#constructor
+     * sap.f.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -11781,7 +12148,8 @@ declare module "sap/f/semantic/FlagAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FlagActionSettings
     );
@@ -11833,15 +12201,30 @@ declare module "sap/f/semantic/FooterMainAction" {
   export default class FooterMainAction extends MainAction {
     /**
      * Constructor for a new `FooterMainAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.MainAction#constructor
+     * sap.f.semantic.MainAction} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FooterMainActionSettings
     );
     /**
      * Constructor for a new `FooterMainAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.MainAction#constructor
+     * sap.f.semantic.MainAction} can be used.
      */
     constructor(
       /**
@@ -11849,7 +12232,8 @@ declare module "sap/f/semantic/FooterMainAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FooterMainActionSettings
     );
@@ -11901,15 +12285,30 @@ declare module "sap/f/semantic/FullScreenAction" {
   export default class FullScreenAction extends SemanticButton {
     /**
      * Constructor for a new `FullScreenAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FullScreenActionSettings
     );
     /**
      * Constructor for a new `FullScreenAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -11917,7 +12316,8 @@ declare module "sap/f/semantic/FullScreenAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $FullScreenActionSettings
     );
@@ -11978,7 +12378,8 @@ declare module "sap/f/semantic/MainAction" {
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MainActionSettings
     );
@@ -11995,7 +12396,8 @@ declare module "sap/f/semantic/MainAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MainActionSettings
     );
@@ -12071,15 +12473,30 @@ declare module "sap/f/semantic/MessagesIndicator" {
   export default class MessagesIndicator extends SemanticButton {
     /**
      * Constructor for a new `MessagesIndicator`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MessagesIndicatorSettings
     );
     /**
      * Constructor for a new `MessagesIndicator`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -12087,7 +12504,8 @@ declare module "sap/f/semantic/MessagesIndicator" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $MessagesIndicatorSettings
     );
@@ -12148,7 +12566,8 @@ declare module "sap/f/semantic/NegativeAction" {
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $NegativeActionSettings
     );
@@ -12165,7 +12584,8 @@ declare module "sap/f/semantic/NegativeAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $NegativeActionSettings
     );
@@ -12250,7 +12670,8 @@ declare module "sap/f/semantic/PositiveAction" {
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PositiveActionSettings
     );
@@ -12267,7 +12688,8 @@ declare module "sap/f/semantic/PositiveAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PositiveActionSettings
     );
@@ -12343,15 +12765,30 @@ declare module "sap/f/semantic/PrintAction" {
   export default class PrintAction extends SemanticButton {
     /**
      * Constructor for a new `PrintAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PrintActionSettings
     );
     /**
      * Constructor for a new `PrintAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -12359,7 +12796,8 @@ declare module "sap/f/semantic/PrintAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $PrintActionSettings
     );
@@ -12411,6 +12849,13 @@ declare module "sap/f/semantic/SemanticButton" {
   export default class SemanticButton extends SemanticButton1 {
     /**
      * Constructor for a new `SemanticButton`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -12420,6 +12865,13 @@ declare module "sap/f/semantic/SemanticButton" {
     );
     /**
      * Constructor for a new `SemanticButton`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticButton#constructor
+     * sap.m.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -12725,6 +13177,31 @@ declare module "sap/f/semantic/SemanticPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.f.semantic.SemanticPage with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SemanticPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.semantic.SemanticPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some customShareAction to the aggregation {@link #getCustomShareActions customShareActions}.
      */
     addCustomShareAction(
@@ -12957,27 +13434,6 @@ declare module "sap/f/semantic/SemanticPage" {
      */
     destroyTitleSnappedOnMobile(): this;
     /**
-     * Creates a new subclass of class sap.f.semantic.SemanticPage with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SemanticPage>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getAddAction addAction}.
      *
      * A semantic-specific button which is placed in the `TextActions` area of the `SemanticPage` title.
@@ -13198,10 +13654,6 @@ declare module "sap/f/semantic/SemanticPage" {
      * first action.
      */
     getMessagesIndicator(): MessagesIndicator;
-    /**
-     * Returns a metadata object for class sap.f.semantic.SemanticPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getNegativeAction negativeAction}.
      *
@@ -14747,6 +15199,13 @@ declare module "sap/f/semantic/SemanticToggleButton" {
   export default class SemanticToggleButton extends SemanticToggleButton1 {
     /**
      * Constructor for a new `SemanticToggleButton`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -14756,6 +15215,13 @@ declare module "sap/f/semantic/SemanticToggleButton" {
     );
     /**
      * Constructor for a new `SemanticToggleButton`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.semantic.SemanticToggleButton#constructor
+     * sap.m.semantic.SemanticToggleButton} can be used.
      */
     constructor(
       /**
@@ -14816,15 +15282,30 @@ declare module "sap/f/semantic/SendEmailAction" {
   export default class SendEmailAction extends SemanticButton {
     /**
      * Constructor for a new `SendEmailAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendEmailActionSettings
     );
     /**
      * Constructor for a new `SendEmailAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -14832,7 +15313,8 @@ declare module "sap/f/semantic/SendEmailAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendEmailActionSettings
     );
@@ -14884,15 +15366,30 @@ declare module "sap/f/semantic/SendMessageAction" {
   export default class SendMessageAction extends SemanticButton {
     /**
      * Constructor for a new `SendMessageAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendMessageActionSettings
     );
     /**
      * Constructor for a new `SendMessageAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -14900,7 +15397,8 @@ declare module "sap/f/semantic/SendMessageAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $SendMessageActionSettings
     );
@@ -14952,15 +15450,30 @@ declare module "sap/f/semantic/ShareInJamAction" {
   export default class ShareInJamAction extends SemanticButton {
     /**
      * Constructor for a new `ShareInJamAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ShareInJamActionSettings
     );
     /**
      * Constructor for a new `ShareInJamAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.SemanticButton#constructor
+     * sap.f.semantic.SemanticButton} can be used.
      */
     constructor(
       /**
@@ -14968,7 +15481,8 @@ declare module "sap/f/semantic/ShareInJamAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $ShareInJamActionSettings
     );
@@ -15020,15 +15534,30 @@ declare module "sap/f/semantic/TitleMainAction" {
   export default class TitleMainAction extends MainAction {
     /**
      * Constructor for a new `TitleMainAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.MainAction#constructor
+     * sap.f.semantic.MainAction} can be used.
      */
     constructor(
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $TitleMainActionSettings
     );
     /**
      * Constructor for a new `TitleMainAction`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.f.semantic.MainAction#constructor
+     * sap.f.semantic.MainAction} can be used.
      */
     constructor(
       /**
@@ -15036,7 +15565,8 @@ declare module "sap/f/semantic/TitleMainAction" {
        */
       sId?: string,
       /**
-       * Custom initial settings for the new control
+       * Optional initial settings for the new control: a map/JSON-object with initial property values, event
+       * listeners etc. for the new object
        */
       mSettings?: $TitleMainActionSettings
     );
@@ -15079,6 +15609,8 @@ declare module "sap/f/ShellBar" {
   import { IBar } from "sap/m/library";
 
   import { IToolHeader } from "sap/tnt/library";
+
+  import Event from "sap/ui/base/Event";
 
   import Avatar from "sap/m/Avatar";
 
@@ -15150,13 +15682,32 @@ declare module "sap/f/ShellBar" {
        */
       mSettings?: $ShellBarSettings
     );
-    /**
-     * @SINCE 1.65
-     *
-     * Gets the available Bar contexts.
-     */
-    getContext: undefined;
 
+    /**
+     * Creates a new subclass of class sap.f.ShellBar with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ShellBar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.ShellBar.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.65
      *
@@ -15202,7 +15753,25 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:avatarPressed avatarPressed} event of this `sap.f.ShellBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ShellBar` itself.
+     *
+     * Fired when the profile avatar is pressed.
+     */
+    attachAvatarPressed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -15226,7 +15795,26 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:copilotPressed copilotPressed} event of this
+     * `sap.f.ShellBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ShellBar` itself.
+     *
+     * Fired when the SAP CoPilot icon is pressed.
+     */
+    attachCopilotPressed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -15250,7 +15838,26 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:homeIconPressed homeIconPressed} event of this
+     * `sap.f.ShellBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ShellBar` itself.
+     *
+     * Fired when the `homeIcon` is pressed.
+     */
+    attachHomeIconPressed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -15274,7 +15881,26 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:menuButtonPressed menuButtonPressed} event of
+     * this `sap.f.ShellBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ShellBar` itself.
+     *
+     * Fired when the alternative menu button is pressed.
+     */
+    attachMenuButtonPressed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -15298,7 +15924,26 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:navButtonPressed navButtonPressed} event of
+     * this `sap.f.ShellBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ShellBar` itself.
+     *
+     * Fired when the navigation/back button is pressed.
+     */
+    attachNavButtonPressed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -15322,7 +15967,26 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:notificationsPressed notificationsPressed} event
+     * of this `sap.f.ShellBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ShellBar` itself.
+     *
+     * Fired when the notifications button is pressed.
+     */
+    attachNotificationsPressed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -15346,7 +16010,26 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:productSwitcherPressed productSwitcherPressed}
+     * event of this `sap.f.ShellBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ShellBar` itself.
+     *
+     * Fired when the product switcher button is pressed.
+     */
+    attachProductSwitcherPressed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -15370,7 +16053,26 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:searchButtonPressed searchButtonPressed} event
+     * of this `sap.f.ShellBar`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.ShellBar` itself.
+     *
+     * Fired when the search button is pressed.
+     */
+    attachSearchButtonPressed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
        */
@@ -15404,7 +16106,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15420,7 +16122,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15436,7 +16138,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15452,7 +16154,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15468,7 +16170,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15484,7 +16186,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15500,7 +16202,7 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15516,33 +16218,12 @@ declare module "sap/f/ShellBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.f.ShellBar with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ShellBar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:avatarPressed avatarPressed} to attached listeners.
      */
@@ -15664,6 +16345,12 @@ declare module "sap/f/ShellBar" {
      */
     getAdditionalContent(): IShellBar[];
     /**
+     * @SINCE 1.65
+     *
+     * Gets the available Bar contexts.
+     */
+    getContext(): Object;
+    /**
      * Gets current value of property {@link #getHomeIcon homeIcon}.
      *
      * Defines the URI to the home icon, such as company or product logo.
@@ -15693,10 +16380,6 @@ declare module "sap/f/ShellBar" {
      * The menu attached to the main title.
      */
     getMenu(): Menu;
-    /**
-     * Returns a metadata object for class sap.f.ShellBar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.64
      *
@@ -16022,157 +16705,6 @@ declare module "sap/f/ShellBar" {
        */
       sTitle?: string
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:avatarPressed avatarPressed} event of this `sap.f.ShellBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ShellBar` itself.
-     *
-     * Fired when the profile avatar is pressed.
-     */
-    attachAvatarPressed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:copilotPressed copilotPressed} event of this
-     * `sap.f.ShellBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ShellBar` itself.
-     *
-     * Fired when the SAP CoPilot icon is pressed.
-     */
-    attachCopilotPressed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:homeIconPressed homeIconPressed} event of this
-     * `sap.f.ShellBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ShellBar` itself.
-     *
-     * Fired when the `homeIcon` is pressed.
-     */
-    attachHomeIconPressed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:menuButtonPressed menuButtonPressed} event of
-     * this `sap.f.ShellBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ShellBar` itself.
-     *
-     * Fired when the alternative menu button is pressed.
-     */
-    attachMenuButtonPressed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:navButtonPressed navButtonPressed} event of
-     * this `sap.f.ShellBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ShellBar` itself.
-     *
-     * Fired when the navigation/back button is pressed.
-     */
-    attachNavButtonPressed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:notificationsPressed notificationsPressed} event
-     * of this `sap.f.ShellBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ShellBar` itself.
-     *
-     * Fired when the notifications button is pressed.
-     */
-    attachNotificationsPressed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:productSwitcherPressed productSwitcherPressed}
-     * event of this `sap.f.ShellBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ShellBar` itself.
-     *
-     * Fired when the product switcher button is pressed.
-     */
-    attachProductSwitcherPressed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:searchButtonPressed searchButtonPressed} event
-     * of this `sap.f.ShellBar`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.f.ShellBar` itself.
-     *
-     * Fired when the search button is pressed.
-     */
-    attachSearchButtonPressed(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.f.ShellBar` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ShellBarSettings extends $ControlSettings {
@@ -16265,42 +16797,42 @@ declare module "sap/f/ShellBar" {
     /**
      * Fired when the `homeIcon` is pressed.
      */
-    homeIconPressed?: Function;
+    homeIconPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the alternative menu button is pressed.
      */
-    menuButtonPressed?: Function;
+    menuButtonPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the navigation/back button is pressed.
      */
-    navButtonPressed?: Function;
+    navButtonPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the SAP CoPilot icon is pressed.
      */
-    copilotPressed?: Function;
+    copilotPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the search button is pressed.
      */
-    searchButtonPressed?: Function;
+    searchButtonPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the notifications button is pressed.
      */
-    notificationsPressed?: Function;
+    notificationsPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the product switcher button is pressed.
      */
-    productSwitcherPressed?: Function;
+    productSwitcherPressed?: (oEvent: Event) => void;
 
     /**
      * Fired when the profile avatar is pressed.
      */
-    avatarPressed?: Function;
+    avatarPressed?: (oEvent: Event) => void;
   }
 }
 

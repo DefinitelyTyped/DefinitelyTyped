@@ -5,12 +5,12 @@
 
 declare namespace validateLicense {
     interface Result {
-        inFile?: string;
-        spdx?: true;
-        unlicensed?: true;
+        inFile?: string | undefined;
+        spdx?: true | undefined;
+        unlicensed?: true | undefined;
         validForOldPackages: boolean;
         validForNewPackages: boolean;
-        warnings?: string[];
+        warnings?: string[] | undefined;
     }
 }
 

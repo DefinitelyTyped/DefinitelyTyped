@@ -1,15 +1,15 @@
 // Type definitions for fbt 0.16
-// Project: https://github.com/reactjs/prop-types
+// Project: https://github.com/facebook/fbt
 // Definitions by: Alexander Nanberg <https://github.com/alexandernanberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import * as React from "react";
+import * as React from 'react';
 
 declare namespace FBT {
     type $Values<T> = T[keyof T];
 
-    // https://github.com/facebookincubator/fbt/blob/e9c591f451dbfc91852e316869ae39ad41848c55/runtime/nonfb/GenderConst.js#L9-L23
+    // https://github.com/facebook/fbt/blob/e9c591f451dbfc91852e316869ae39ad41848c55/runtime/nonfb/GenderConst.js#L9-L23
     interface GenderConst {
         NOT_A_PERSON: 0;
         FEMALE_SINGULAR: 1;
@@ -32,7 +32,7 @@ declare namespace FBT {
         GENDER_UNKNOWN: 3;
     }
 
-    // https://github.com/facebookincubator/fbt/blob/e9c591f451dbfc91852e316869ae39ad41848c55/runtime/nonfb/IntlVariations.js#L9-L21
+    // https://github.com/facebook/fbt/blob/e9c591f451dbfc91852e316869ae39ad41848c55/runtime/nonfb/IntlVariations.js#L9-L21
     interface IntlVariations extends IntlVariationsGender {
         BITMASK_NUMBER: 28;
         BITMASK_GENDER: 3;
@@ -44,8 +44,8 @@ declare namespace FBT {
         NUMBER_OTHER: 24;
     }
 
-    // https://github.com/facebookincubator/fbt/blob/c2d363a40b622d5aaf80ff1d249b38604fd869f6/transform/babel-plugin-fbt/FbtConstants.js#L22-L27
-    type PronounType = "object" | "possessive" | "reflexive" | "subject";
+    // https://github.com/facebook/fbt/blob/c2d363a40b622d5aaf80ff1d249b38604fd869f6/transform/babel-plugin-fbt/FbtConstants.js#L22-L27
+    type PronounType = 'object' | 'possessive' | 'reflexive' | 'subject';
 
     type IntlVariationsGenderValues = $Values<IntlVariationsGender>;
 
@@ -62,29 +62,29 @@ declare namespace FBT {
     }
 
     interface Options {
-        author?: string;
-        common?: boolean;
-        doNotExtract?: boolean;
-        preserveWhitespace?: boolean;
-        project?: string;
-        subject?: IntlVariationsGenderValues;
+        author?: string | undefined;
+        common?: boolean | undefined;
+        doNotExtract?: boolean | undefined;
+        preserveWhitespace?: boolean | undefined;
+        project?: string | undefined;
+        subject?: IntlVariationsGenderValues | undefined;
     }
 
     interface PluralOptions {
-        many?: string;
-        showCount?: "yes" | "no" | "ifMany";
-        name?: string;
+        many?: string | undefined;
+        showCount?: 'yes' | 'no' | 'ifMany' | undefined;
+        name?: string | undefined;
         value?: any;
     }
 
     interface ParamOptions {
-        gender?: IntlVariationsGenderValues;
-        number?: number | true;
+        gender?: IntlVariationsGenderValues | undefined;
+        number?: number | true | undefined;
     }
 
     interface PronounOptions {
-        human?: boolean;
-        capitalize?: boolean;
+        human?: boolean | undefined;
+        capitalize?: boolean | undefined;
     }
 
     interface Props extends Options {
@@ -98,7 +98,7 @@ declare namespace FBT {
     }
 
     interface EnumProps {
-        "enum-range": string[] | { [enumKey: string]: string };
+        'enum-range': string[] | { [enumKey: string]: string };
         value: string;
     }
 
@@ -112,7 +112,7 @@ declare namespace FBT {
         gender: GenderConstValues;
     }
 
-    type NameProps = Omit<ParamOptions, "gender"> & {
+    type NameProps = Omit<ParamOptions, 'gender'> & {
         name: string;
         gender: IntlVariationsGenderValues;
         children: React.ReactNode;
@@ -132,7 +132,7 @@ export const IntlVariations: FBT.IntlVariations;
 export const IntlViewerContext: FBT.IntlViewerContext;
 
 // The Fbt* exports aren't real and is only used for syntax sugar.
-// https://github.com/facebookincubator/fbt/blob/8607c1f2798ef18c6142a2cf1c5a9351c6d7df69/transform/babel-plugin-fbt/FbtUtil.js#L28-L40
+// https://github.com/facebook/fbt/blob/8607c1f2798ef18c6142a2cf1c5a9351c6d7df69/transform/babel-plugin-fbt/FbtUtil.js#L28-L40
 export const Fbt: React.FC<FBT.Props>;
 export const FbtEnum: React.FC<FBT.EnumProps>;
 export const FbtParam: React.FC<FBT.ParamProps>;
@@ -161,11 +161,11 @@ declare global {
     namespace JSX {
         interface IntrinsicElements {
             fbt: FBT.Props;
-            "fbt:param": FBT.ParamProps;
-            "fbt:name": FBT.NameProps;
-            "fbt:plural": FBT.PluralProps;
-            "fbt:enum": FBT.EnumProps;
-            "fbt:pronoun": FBT.PronounProps;
+            'fbt:param': FBT.ParamProps;
+            'fbt:name': FBT.NameProps;
+            'fbt:plural': FBT.PluralProps;
+            'fbt:enum': FBT.EnumProps;
+            'fbt:pronoun': FBT.PronounProps;
         }
     }
 }

@@ -15,20 +15,36 @@ describe('', () => {
 /* Lifecycle events */
 
 beforeAll(() => {});
+beforeAll(() => null);
+beforeAll(() => true);
 beforeAll((done: jest.DoneCallback) => {});
 beforeAll((done: jest.DoneCallback) => done.fail(), 9001);
+// $ExpectError
+beforeAll((done: jest.DoneCallback) => Promise.resolve());
 
 beforeEach(() => {});
+beforeEach(() => null);
+beforeEach(() => true);
 beforeEach((done: jest.DoneCallback) => {});
 beforeEach((done: jest.DoneCallback) => done.fail(), 9001);
+// $ExpectError
+beforeEach((done: jest.DoneCallback) => Promise.resolve());
 
 afterAll(() => {});
+afterAll(() => null);
+afterAll(() => true);
 afterAll((done: jest.DoneCallback) => {});
 afterAll((done: jest.DoneCallback) => done.fail(), 9001);
+// $ExpectError
+afterAll((done: jest.DoneCallback) => Promise.resolve());
 
 afterEach(() => {});
+afterEach(() => null, 9001);
+afterEach(() => true, 9001);
 afterEach((done: jest.DoneCallback) => {});
 afterEach((done: jest.DoneCallback) => done.fail(), 9001);
+// $ExpectError
+afterEach((done: jest.DoneCallback) => Promise.resolve());
 
 /* describe */
 
@@ -246,10 +262,7 @@ describe('', () => {
 
 const customMatcherFactories: jasmine.CustomMatcherFactories = {};
 
-jest.addMatchers(customMatcherFactories)
-    .addMatchers({})
-    .addMatchers(customMatcherFactories)
-    .autoMockOff()
+jest.autoMockOff()
     .autoMockOn()
     .clearAllMocks()
     .clearAllTimers()
@@ -268,7 +281,6 @@ jest.addMatchers(customMatcherFactories)
     .mock('moduleName', jest.fn())
     .mock('moduleName', jest.fn(), {})
     .mock('moduleName', jest.fn(), { virtual: true })
-    .resetModuleRegistry()
     .resetModules()
     .isolateModules(() => {})
     .retryTimes(3)
@@ -276,7 +288,6 @@ jest.addMatchers(customMatcherFactories)
     .runAllTicks()
     .runAllTimers()
     .runOnlyPendingTimers()
-    .runTimersToTime(9001)
     .advanceTimersByTime(9001)
     .setMock('moduleName', {})
     .setMock<{}>('moduleName', {})
@@ -413,8 +424,8 @@ jest.fn().mockImplementation((test: number) => test);
 jest.fn().mockResolvedValue(1);
 
 interface SpyInterface {
-    prop?: number;
-    method?: (arg1: boolean) => void;
+    prop?: number | undefined;
+    method?: ((arg1: boolean) => void) | undefined;
 }
 const spiedTarget = {
     returnsVoid(): void {},
@@ -1494,3 +1505,70 @@ test.only.each`
 
 expect('').toHaveProperty('path.to.thing');
 expect('').toHaveProperty('path.to.thing', {});
+
+/* Test function can return a promise */
+
+test(`returns a Promise<boolean>`, () => {
+    return Promise.resolve(true);
+});
+
+test(`returns a Promise<{ isAnObject: boolean }>`, () => {
+    return Promise.resolve({ isAnObject: true });
+});
+
+test(`returns a Promise<any>`, () => {
+    return Promise.resolve('any' as any);
+});
+
+/* Test function can take and call the done callback function */
+
+test(`uses done`, (done) => {
+    done();
+});
+
+/* Test function can do nothing */
+
+test(`does nothing`, () => {
+    // noop
+});
+
+/* Test function should not return non-promise */
+
+// $ExpectError
+test(`returns a boolean`, () => {
+    return true;
+});
+
+// $ExpectError
+test(`returns a number`, () => {
+    return 3;
+});
+
+// $ExpectError
+test(`returns an object`, () => {
+    return {
+        isAnObject: true
+    };
+});
+
+/* Test function should not return promise and takes done callback function */
+
+// $ExpectError
+test(`returns a Promise<boolean> and takes done`, (done) => {
+    return Promise.resolve(true);
+});
+
+// $ExpectError
+test(`returns a Promise<{ isAnObject: boolean }> and takes done`, (done) => {
+    return Promise.resolve({ isAnObject: true });
+});
+
+// $ExpectError
+test(`returns a Promise<any> and takes done`, (done) => {
+    return Promise.resolve('any' as any);
+});
+
+// $ExpectError
+test(`async function takes done`, async (done) => {
+    done();
+});

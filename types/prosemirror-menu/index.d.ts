@@ -53,24 +53,24 @@ export interface MenuItemSpec<S extends Schema = any> {
      * Optional function that is used to determine whether the item is
      * appropriate at the moment. Deselected items will be hidden.
      */
-    select?: ((p: EditorState<S>) => boolean) | null;
+    select?: ((p: EditorState<S>) => boolean) | null | undefined;
     /**
      * Function that is used to determine if the item is enabled. If
      * given and returning false, the item will be given a disabled
      * styling.
      */
-    enable?: ((p: EditorState<S>) => boolean) | null;
+    enable?: ((p: EditorState<S>) => boolean) | null | undefined;
     /**
      * A predicate function to determine whether the item is 'active' (for
      * example, the item for toggling the strong mark might be active then
      * the cursor is in strong text).
      */
-    active?: ((p: EditorState<S>) => boolean) | null;
+    active?: ((p: EditorState<S>) => boolean) | null | undefined;
     /**
      * A function that renders the item. You must provide either this,
      * [`icon`](#menu.MenuItemSpec.icon), or [`label`](#MenuItemSpec.label).
      */
-    render?: ((p: EditorView<S>) => Node) | null;
+    render?: ((p: EditorView<S>) => Node) | null | undefined;
     /**
      * Describes an icon to show for this item. The object may specify
      * an SVG icon, in which case its `path` property should be an [SVG
@@ -82,26 +82,26 @@ export interface MenuItemSpec<S extends Schema = any> {
      * optional `css` property giving additional CSS styling for the
      * text. _Or_ it may contain `dom` property containing a DOM node.
      */
-    icon?: { [key: string]: any } | null;
+    icon?: { [key: string]: any } | null | undefined;
     /**
      * Makes the item show up as a text label. Mostly useful for items
      * wrapped in a [drop-down](#menu.Dropdown) or similar menu. The object
      * should have a `label` property providing the text to display.
      */
-    label?: string | null;
+    label?: string | null | undefined;
     /**
      * Defines DOM title (mouseover) text for the item.
      */
-    title?: string | ((p: EditorState<S>) => string) | null;
+    title?: string | ((p: EditorState<S>) => string) | null | undefined;
     /**
      * Optionally adds a CSS class to the item's DOM representation.
      */
-    class?: string;
+    class?: string | undefined;
     /**
      * Optionally adds a string of inline CSS to the item's DOM
      * representation.
      */
-    css?: string;
+    css?: string | undefined;
 }
 /**
  * A drop-down menu, displayed as a label with a downwards-pointing
@@ -159,7 +159,7 @@ export class DropdownSubmenu<S extends Schema = any> {
 export function renderGrouped<S extends Schema = any>(
     view: EditorView<S>,
     content: Array<MenuElement<S> | Array<MenuElement<S>>>,
-): { dom?: DocumentFragment | null; update(p: EditorState<S>): boolean };
+): { dom?: DocumentFragment | null | undefined; update(p: EditorState<S>): boolean };
 /**
  * A set of basic editor-related icons. Contains the properties
  * `join`, `lift`, `selectParentNode`, `undo`, `redo`, `strong`, `em`,
@@ -211,5 +211,5 @@ export function blockTypeItem<S extends Schema = any>(
  */
 export function menuBar<S extends Schema = any>(options: {
     content: Array<Array<MenuElement<S>>>;
-    floating?: boolean | null;
+    floating?: boolean | null | undefined;
 }): Plugin<S>;

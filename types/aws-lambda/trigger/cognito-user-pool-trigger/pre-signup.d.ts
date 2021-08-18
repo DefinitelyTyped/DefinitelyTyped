@@ -4,8 +4,8 @@ import { BaseTriggerEvent, StringMap } from './_common';
 export interface BasePreSignUpTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
   request: {
       userAttributes: StringMap;
-      validationData?: StringMap;
-      clientMetadata?: StringMap;
+      validationData?: StringMap | undefined;
+      clientMetadata?: StringMap | undefined;
   };
   response: {
       autoConfirmUser: boolean;

@@ -2,7 +2,7 @@ declare module 'stream' {
     import EventEmitter = require('events');
 
     class internal extends EventEmitter {
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
     }
 
     namespace internal {
@@ -11,12 +11,12 @@ declare module 'stream' {
         }
 
         interface ReadableOptions {
-            highWaterMark?: number;
-            encoding?: BufferEncoding;
-            objectMode?: boolean;
+            highWaterMark?: number | undefined;
+            encoding?: BufferEncoding | undefined;
+            objectMode?: boolean | undefined;
             read?(this: Readable, size: number): void;
             destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
-            autoDestroy?: boolean;
+            autoDestroy?: boolean | undefined;
         }
 
         class Readable extends Stream implements NodeJS.ReadableStream {
@@ -125,16 +125,16 @@ declare module 'stream' {
         }
 
         interface WritableOptions {
-            highWaterMark?: number;
-            decodeStrings?: boolean;
-            defaultEncoding?: BufferEncoding;
-            objectMode?: boolean;
-            emitClose?: boolean;
+            highWaterMark?: number | undefined;
+            decodeStrings?: boolean | undefined;
+            defaultEncoding?: BufferEncoding | undefined;
+            objectMode?: boolean | undefined;
+            emitClose?: boolean | undefined;
             write?(this: Writable, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Writable, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
             destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
-            autoDestroy?: boolean;
+            autoDestroy?: boolean | undefined;
         }
 
         class Writable extends Stream implements NodeJS.WritableStream {
@@ -229,12 +229,12 @@ declare module 'stream' {
         }
 
         interface DuplexOptions extends ReadableOptions, WritableOptions {
-            allowHalfOpen?: boolean;
-            readableObjectMode?: boolean;
-            writableObjectMode?: boolean;
-            readableHighWaterMark?: number;
-            writableHighWaterMark?: number;
-            writableCorked?: number;
+            allowHalfOpen?: boolean | undefined;
+            readableObjectMode?: boolean | undefined;
+            writableObjectMode?: boolean | undefined;
+            readableHighWaterMark?: number | undefined;
+            writableHighWaterMark?: number | undefined;
+            writableCorked?: number | undefined;
             read?(this: Duplex, size: number): void;
             write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
@@ -287,9 +287,9 @@ declare module 'stream' {
         class PassThrough extends Transform { }
 
         interface FinishedOptions {
-            error?: boolean;
-            readable?: boolean;
-            writable?: boolean;
+            error?: boolean | undefined;
+            readable?: boolean | undefined;
+            writable?: boolean | undefined;
         }
         function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options: FinishedOptions, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;

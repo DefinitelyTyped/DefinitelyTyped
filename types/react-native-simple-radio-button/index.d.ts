@@ -8,51 +8,51 @@ import * as React from 'react';
 import { StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 export interface DefaultRadioFormProps {
-    accessible?: boolean;
-    accessibilityLabel?: string;
-    testID?: string;
-    onPress?: (val?: any) => any;
+    accessible?: boolean | undefined;
+    accessibilityLabel?: string | undefined;
+    testID?: string | undefined;
+    onPress?: ((val?: any) => any) | undefined;
 }
 
 export interface ReactNativeRadioFormProps extends DefaultRadioFormProps {
-    radio_props?: Array<{label: string, value: string | number}>;
-    initial?: number;
-    buttonColor?: string;
-    labelColor?: string;
-    formHorizontal?: boolean;
-    labelHorizontal?: boolean;
-    animation?: boolean;
+    radio_props?: Array<{label: string, value: string | number}> | undefined;
+    initial?: number | undefined;
+    buttonColor?: string | undefined;
+    labelColor?: string | undefined;
+    formHorizontal?: boolean | undefined;
+    labelHorizontal?: boolean | undefined;
+    animation?: boolean | undefined;
 }
 
 export interface RadioButtonProps {
-    isSelected?: boolean;
-    labelHorizontal?: boolean;
-    buttonColor?: string;
-    selectedButtonColor?: string;
-    labelColor?: string;
-    style?: StyleProp<ViewStyle>;
-    wrapStyle?: StyleProp<ViewStyle>;
-    idSeparator?: string;
+    isSelected?: boolean | undefined;
+    labelHorizontal?: boolean | undefined;
+    buttonColor?: string | undefined;
+    selectedButtonColor?: string | undefined;
+    labelColor?: string | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
+    wrapStyle?: StyleProp<ViewStyle> | undefined;
+    idSeparator?: string | undefined;
 }
 
 export interface RadioButtonInputProps extends DefaultRadioFormProps {
     obj: object;
     index: number;
-    isSelected?: boolean;
-    buttonInnerColor?: string;
-    buttonOuterColor?: string;
-    buttonSize?: number;
-    buttonOuterSize?: number;
-    buttonStyle?: StyleProp<ViewStyle>;
-    buttonWrapStyle?: StyleProp<ViewStyle>;
+    isSelected?: boolean | undefined;
+    buttonInnerColor?: string | undefined;
+    buttonOuterColor?: string | undefined;
+    buttonSize?: number | undefined;
+    buttonOuterSize?: number | undefined;
+    buttonStyle?: StyleProp<ViewStyle> | undefined;
+    buttonWrapStyle?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface RadioButtonLabelProps extends DefaultRadioFormProps {
     obj: object;
     index: number;
-    labelHorizontal?: boolean;
-    labelStyle?: StyleProp<TextStyle>;
-    labelWrapStyle?: StyleProp<ViewStyle>;
+    labelHorizontal?: boolean | undefined;
+    labelStyle?: StyleProp<TextStyle> | undefined;
+    labelWrapStyle?: StyleProp<ViewStyle> | undefined;
 }
 
 export class RadioButton extends React.Component<RadioButtonProps> {}

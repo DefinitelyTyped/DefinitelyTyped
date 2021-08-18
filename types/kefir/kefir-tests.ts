@@ -147,6 +147,21 @@ import { Observable, Pool, Stream, Property, Event, Emitter } from 'kefir';
 
     const thru = (a: Observable<string, never>) => 1;
     let observable33: number = Kefir.constant('hello').thru(thru);
+    let observable34: Observable<string, Error> = Kefir.stream<number, string>((emitter: Emitter<number, string>) => {
+        emitter.emit(1);
+        emitter.error("some error");
+        emitter.end();
+    }).withHandler<string, Error>((emitter: Emitter<string, Error>, event: Event<number, string>) => {
+        if (event.type === "value") {
+            emitter.emit(`${event.value}`);
+        }
+        if (event.type === "error") {
+            emitter.error(new Error(event.value));
+        }
+        if (event.type === "end") {
+            emitter.end();
+        }
+    });
 }
 
 // Combine observables

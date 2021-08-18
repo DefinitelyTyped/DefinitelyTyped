@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-ui 27.0
+// Type definitions for @ckeditor/ckeditor5-ui 29.0
 // Project: https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-ui
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,8 +14,9 @@ export { default as ButtonView } from "./src/button/buttonview";
 export { default as SwitchButtonView } from "./src/button/switchbuttonview";
 
 export * from "./src/colorgrid/utils";
-export { default as ColorGridView } from "./src/colorgrid/colorgrid";
-export { default as ColorTileView } from "./src/colorgrid/colortile";
+export { default as ColorGridView } from "./src/colorgrid/colorgridview";
+export { ColorDefinition } from "./src/colorgrid/colorgridview";
+export { default as ColorTileView } from "./src/colorgrid/colortileview";
 
 export { default as DropdownButtonView } from "./src/dropdown/button/dropdownbuttonview";
 export { default as SplitButtonView } from "./src/dropdown/button/splitbuttonview";

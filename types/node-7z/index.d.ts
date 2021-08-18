@@ -2,7 +2,7 @@
 // Project: https://github.com/quentinrossetti/node-7z
 // Definitions by: Erik Rothoff Andersson <https://github.com/erkie>
 //                 Colin Berry <https://github.com/colin969>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
@@ -12,16 +12,16 @@ import { ChildProcess } from 'child_process';
 interface Data {
     file: string;
     status: string;
-    attributes?: string;
-    size?: number;
-    sizeCompressed?: number;
-    hash?: string;
+    attributes?: string | undefined;
+    size?: number | undefined;
+    sizeCompressed?: number | undefined;
+    hash?: string | undefined;
 }
 
 interface Progress {
     percent: number;
     fileCount: number;
-    file?: string;
+    file?: string | undefined;
 }
 
 // Based off Readable from Streams, node-7z uses Readable but Typescript couldn't extend for Data and Progress typings
@@ -127,91 +127,91 @@ declare class ZipStream extends StreamNS.Stream implements NodeJS.ReadableStream
 // NOTE - The names are not wrong, some are spelt wrong in the source
 interface CommandLineSwitches {
     /** Extract file as alternate stream, if there is ':' character in name (-snc) */
-    alternateStreamExtract?: boolean;
+    alternateStreamExtract?: boolean | undefined;
     /** Replace ':' character to '_' character in paths of alternate streams (-snr) */
-    alternateStreamReplace?: boolean;
+    alternateStreamReplace?: boolean | undefined;
     /** Delete files after compression (-sdel) */
-    deleteFilesAfter?: boolean;
+    deleteFilesAfter?: boolean | undefined;
     /** Usefully qualified file paths (-spf) */
-    fullyQualifiedPaths?: boolean;
+    fullyQualifiedPaths?: boolean | undefined;
     /** Store hard links as links (WIM and TAR formats only) (-snh) */
-    hardlinks?: boolean;
+    hardlinks?: boolean | undefined;
     /** Set Large Pages mode (-spl) */
-    largePages?: boolean;
+    largePages?: boolean | undefined;
     /** Set archive timestamp from the most recently modified file (-stl) */
-    latestTimeStamp?: boolean;
+    latestTimeStamp?: boolean | undefined;
     /** Stop archive creating, if 7-Zip can't open some input file.(-sse) */
-    noArchiveOnFail?: boolean;
+    noArchiveOnFail?: boolean | undefined;
     /** Eliminate duplication of root folder for extract command (-spe) */
-    noRootDuplication?: boolean;
+    noRootDuplication?: boolean | undefined;
     /** Disable wildcard matching for file names (-spd) */
-    noWildcards?: boolean;
+    noWildcards?: boolean | undefined;
     /** Store NT security (-sni) */
-    ntSecurity?: boolean;
+    ntSecurity?: boolean | undefined;
     /** Sort files by type while adding to solid 7z archive (-mqs) */
-    sortByType?: boolean;
+    sortByType?: boolean | undefined;
     /** Compress files open for writing (-ssw) */
-    openFiles?: boolean;
+    openFiles?: boolean | undefined;
     /** Recurse subdirectories. For -r0 usage use $raw (-r) */
-    recursive?: boolean;
+    recursive?: boolean | undefined;
     /** Store symbolic links as links (WIM and TAR formats only) (-snl) */
-    symlinks?: boolean;
+    symlinks?: boolean | undefined;
     /** Show technical information (-slt) */
-    techInfo?: boolean;
+    techInfo?: boolean | undefined;
     /** Show execution time statistics (-bt) */
-    timeStats?: boolean;
+    timeStats?: boolean | undefined;
     /** Write data to stdout (-so) */
-    toStdout?: boolean;
+    toStdout?: boolean | undefined;
     /** Assume Yes on all queries (-y) */
-    yes?: boolean;
+    yes?: boolean | undefined;
     /** Store NTFS alternate Streams (-sns) */
-    alternateStreamStore?: boolean;
+    alternateStreamStore?: boolean | undefined;
     /** Set Sensitive Case mode (-ssc) */
-    caseSensitive?: boolean;
+    caseSensitive?: boolean | undefined;
     /** Set Archive name mode (-sa) */
-    archiveNameMode?: string;
+    archiveNameMode?: string | undefined;
     /** Type of archive (-t) */
-    archiveType?: string;
+    archiveType?: string | undefined;
     /** Set CPU thread affinity mask (hexadecimal number). (-stm) */
-    cpuAffinity?: string;
+    cpuAffinity?: string | undefined;
     /** Exclude archive type (-stx) */
-    excludeArchiveType?: string;
+    excludeArchiveType?: string | undefined;
     /** Read data from StdIn (-si) */
-    fromStdin?: string;
+    fromStdin?: string | undefined;
     /** Set hash function (-scrc) */
-    hashMethod?: string;
+    hashMethod?: string | undefined;
     /** Set charset for list files (-scs) */
-    listFileCharset?: string;
+    listFileCharset?: string | undefined;
     /** Set charset for console input/output */
-    charset?: string;
+    charset?: string | undefined;
     /** Set output log level (-bb) */
-    logLevel?: string;
+    logLevel?: string | undefined;
     /** Set Output directory (-o) */
-    outputDir?: string;
+    outputDir?: string | undefined;
     /** Set Password (-p) */
-    password?: string;
+    password?: string | undefined;
     /** Create SFX archive (-sfx) */
-    sfx?: string;
+    sfx?: string | undefined;
     /** Update options (-u) */
-    updateOptions?: string;
+    updateOptions?: string | undefined;
     /** Set Working directory (-w) */
-    workingDir?: string;
+    workingDir?: string | undefined;
     /** Creates multi-block xz archives by default. Block size can be specified with [Size]{m|g} */
-    multiBlockSize?: string;
+    multiBlockSize?: string | undefined;
     /** Exclude archive filenames (-ax) */
-    excludeArchive?: string[];
+    excludeArchive?: string[] | undefined;
     /** Exclude filenames (-x) */
-    exlude?: string[];
+    exlude?: string[] | undefined;
     /** Include filenames (-i) */
-    include?: string[];
+    include?: string[] | undefined;
     /** Include archive filenames (-ai) */
-    includeArchive?: string[];
+    includeArchive?: string[] | undefined;
     /** Set Compression Method (-m) */
-    method?: string[];
+    method?: string[] | undefined;
     /** Set output stream for output/error/progress (-bs) */
-    outputStreams?: string[];
+    outputStreams?: string[] | undefined;
     /** Create Volumes (v) */
-    volumes?: string[];
+    volumes?: string[] | undefined;
 }
 
 interface Node7zOptions {
@@ -219,19 +219,19 @@ interface Node7zOptions {
      * Progress percentage gets fired. Shortcut for { outputStreams: ['b1'] }
      * Use if you want access to the progress event. Has an impact on performances.
      */
-    $progress?: boolean;
+    $progress?: boolean | undefined;
     /** Create the stream but do not spawn child process */
-    $defer?: boolean;
+    $defer?: boolean | undefined;
     /** Attach an external child process to be parsed */
-    $childProcess?: ChildProcess;
+    $childProcess?: ChildProcess | undefined;
     /** Path to an other 7-Zip binary. Default: 7z */
-    $bin?: string;
+    $bin?: string | undefined;
     /** Some commands accepts more specific targets. See https://github.com/quentinrossetti/node-7z#extract for an example. */
-    $cherryPick?: string[];
+    $cherryPick?: string[] | undefined;
     /** Pass raw arguments to the child_process.spawn() command */
-    $raw?: string[];
+    $raw?: string[] | undefined;
     /** Pass options to the child_process.spawn() command */
-    $spawnOptions?: object;
+    $spawnOptions?: object | undefined;
 }
 
 type SevenZipOptions = Node7zOptions & CommandLineSwitches;

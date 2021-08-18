@@ -41,13 +41,11 @@ let markerAnnotation: mapkit.MarkerAnnotation;
 let circleOverlay: mapkit.CircleOverlay;
 let itemCollection: mapkit.ItemCollection;
 map.addItems([markerAnnotation, circleOverlay, itemCollection]);
-const addResult:
-    | Array<mapkit.Annotation | mapkit.Overlay | mapkit.ItemCollection>
-    | mapkit.ItemCollection = map.addItems(itemCollection);
+const addResult: Array<mapkit.Annotation | mapkit.Overlay | mapkit.ItemCollection> | mapkit.ItemCollection =
+    map.addItems(itemCollection);
 map.removeItems([markerAnnotation, circleOverlay, itemCollection]);
-const removeResult:
-    | Array<mapkit.Annotation | mapkit.Overlay | mapkit.ItemCollection>
-    | mapkit.ItemCollection = map.removeItems(itemCollection);
+const removeResult: Array<mapkit.Annotation | mapkit.Overlay | mapkit.ItemCollection> | mapkit.ItemCollection =
+    map.removeItems(itemCollection);
 
 const cameraBoundaryDescription: mapkit.CameraBoundaryDescription = {
     mapRect: new mapkit.MapRect(0, 0, 0, 0),

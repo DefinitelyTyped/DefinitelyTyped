@@ -245,6 +245,9 @@ const FixedSizeGridTestRefs: React.SFC = () => (
 
 if (fixedRef.current) {
     fixedRef.current.scrollTo({ scrollLeft: 0, scrollTop: 0});
+    fixedRef.current.scrollTo({ scrollLeft: 0 });
+    fixedRef.current.scrollTo({ scrollTop: 0 });
+    fixedRef.current.scrollTo({});
     fixedRef.current.scrollToItem({});
     fixedRef.current.scrollToItem({ align: "auto" });
     fixedRef.current.scrollToItem({ rowIndex: 0 });
@@ -274,6 +277,9 @@ const VariableSizeGridTestRefs: React.SFC = () => (
 
 if (variableRef.current) {
     variableRef.current.scrollTo({ scrollLeft: 0, scrollTop: 0});
+    variableRef.current.scrollTo({ scrollLeft: 0 });
+    variableRef.current.scrollTo({ scrollTop: 0 });
+    variableRef.current.scrollTo({});
     variableRef.current.scrollToItem({});
     variableRef.current.scrollToItem({ align: "auto" });
     variableRef.current.scrollToItem({ rowIndex: 0 });
@@ -532,6 +538,9 @@ const FixedSizeGridTestRefsV2: React.SFC = () => (
 
 if (fixedRef.current) {
     fixedRef.current.scrollTo({ scrollLeft: 0, scrollTop: 0});
+    fixedRef.current.scrollTo({ scrollLeft: 0 });
+    fixedRef.current.scrollTo({ scrollTop: 0 });
+    fixedRef.current.scrollTo({});
     fixedRef.current.scrollToItem({});
     fixedRef.current.scrollToItem({ align: "auto" });
     fixedRef.current.scrollToItem({ rowIndex: 0 });
@@ -561,6 +570,9 @@ const VariableSizeGridTestRefsV2: React.SFC = () => (
 
 if (variableRef.current) {
     variableRef.current.scrollTo({ scrollLeft: 0, scrollTop: 0});
+    variableRef.current.scrollTo({ scrollLeft: 0 });
+    variableRef.current.scrollTo({ scrollTop: 0 });
+    variableRef.current.scrollTo({});
     variableRef.current.scrollToItem({});
     variableRef.current.scrollToItem({ align: "auto" });
     variableRef.current.scrollToItem({ rowIndex: 0 });

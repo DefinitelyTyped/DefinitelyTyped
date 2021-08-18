@@ -35,7 +35,10 @@ const testCases = [
     <div role="dialog" />,
     <div role="none presentation" />,
     <svg role="treeitem" />,
+    <a target="_blank"></a>,
+    <a target="some-frame"></a>,
     // $ExpectError
     <input enterKeyHint="don" />,
-    <video disableRemotePlayback />
+    <video disableRemotePlayback />,
+    <picture><source media="test" srcSet="test" width={50} height={50} /><img src="test" width={100} height={100}/></picture>
 ];

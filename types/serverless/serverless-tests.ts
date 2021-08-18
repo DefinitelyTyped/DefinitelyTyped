@@ -73,6 +73,18 @@ class BadVariablePlugin implements Plugin {
     };
 }
 
+// Test serverless cli log with no message
+serverless.cli.log(); // $ExpectError
+
+// Test serverless cli log with no entity
+serverless.cli.log('updating stack...');
+
+// Test serverless cli log with no options
+serverless.cli.log('updating stack...', 'serverless');
+
+// Test serverless cli log with all args supplied
+serverless.cli.log('updating stack...', 'serverless', { color: 'orange', bold: true, underline: true, entity: 'serverless' });
+
 // Test provider's 'request' method
 const provider = serverless.getProvider('aws');
 provider.request('AccessAnalyzer', 'createAnalyzer');
@@ -145,6 +157,7 @@ const awsServerless: Aws.Serverless = {
             maxPreviousDeploymentArtifacts: 1,
             blockPublicAccess: true,
             serverSideEncryption: 'testserverSideEncryption',
+            skipPolicySetup: true,
             sseKMSKeyId: 'testsseKMSKeyId',
             sseCustomerAlgorithim: 'testsseCustomerAlgorithim',
             sseCustomerKey: 'testsseCustomerKey',
@@ -754,7 +767,31 @@ const bunchOfConfigs: Aws.Serverless[] = [
             }
         },
         functions: {}
-    }
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            httpApi: {
+                cors: {
+                    allowedOrigins: ['https://example.com'],
+                    allowedHeaders: [
+                        'Content-Type',
+                        'X-Amz-Date',
+                        'Authorization',
+                        'X-Api-Key',
+                        'X-Amz-Security-Token',
+                        'X-Amz-User-Agent',
+                    ],
+                    allowedMethods: ['OPTIONS', 'GET', 'POST'],
+                    allowCredentials: false,
+                    exposedResponseHeaders: ['x-wp-total', 'x-wp-totalpages'],
+                    maxAge: 86400,
+                },
+            },
+        },
+        functions: {},
+    },
 ];
 
 // Test Aws Class

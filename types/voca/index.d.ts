@@ -13,10 +13,10 @@ declare namespace v {
     type ReplacementFunction = (match?: string, ...groups: string[]) => string;
 
     interface WordWrapOptions {
-        width?: number;
-        newLine?: string;
-        indent?: string;
-        cut?: boolean;
+        width?: number | undefined;
+        newLine?: string | undefined;
+        indent?: string | undefined;
+        cut?: boolean | undefined;
     }
 
     interface VocaStatic {

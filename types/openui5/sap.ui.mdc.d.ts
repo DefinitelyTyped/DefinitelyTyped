@@ -1,4 +1,20 @@
-// For Library Version: 1.90.0
+// For Library Version: 1.93.0
+
+declare module "sap/ui/mdc/library" {
+  /**
+   * Enumeration of the `multiSelectMode>/code> in ListBase`.
+   */
+  export enum MultiSelectMode {
+    /**
+     * Renders the `clearAll` icon.
+     */
+    ClearAll = "ClearAll",
+    /**
+     * Renders the `selectAll` checkbox (default behavior).
+     */
+    Default = "Default",
+  }
+}
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
@@ -84,6 +100,10 @@ declare namespace sap {
 
     "sap/ui/mdc/field/ListFieldHelpItem": undefined;
 
+    "sap/ui/mdc/field/MultiValueFieldDelegate": undefined;
+
+    "sap/ui/mdc/field/MultiValueFieldItem": undefined;
+
     "sap/ui/mdc/field/OutParameter": undefined;
 
     "sap/ui/mdc/field/ValueHelpPanel": undefined;
@@ -110,6 +130,8 @@ declare namespace sap {
 
     "sap/ui/mdc/mixin/FilterIntegrationMixin": undefined;
 
+    "sap/ui/mdc/MultiValueField": undefined;
+
     "sap/ui/mdc/odata/v4/FieldBaseDelegate": undefined;
 
     "sap/ui/mdc/odata/v4/FieldValueHelpDelegate": undefined;
@@ -121,6 +143,8 @@ declare namespace sap {
     "sap/ui/mdc/p13n/Engine": undefined;
 
     "sap/ui/mdc/p13n/modification/ModificationHandler": undefined;
+
+    "sap/ui/mdc/p13n/panels/GroupPanel": undefined;
 
     "sap/ui/mdc/p13n/panels/QueryPanel": undefined;
 

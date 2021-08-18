@@ -6,6 +6,7 @@ AmazonCognitoIdentity.CognitoAuthSession; // $ExpectType typeof CognitoAuthSessi
 AmazonCognitoIdentity.CognitoAuth; // $ExpectType typeof CognitoAuth
 AmazonCognitoIdentity.DateHelper; // $ExpectType typeof DateHelper
 AmazonCognitoIdentity.StorageHelper; // $ExpectType typeof StorageHelper
+AmazonCognitoIdentity.CookieStorage; // $ExpectType typeof CookieStorage
 
 const sessionData: AmazonCognitoIdentity.CognitoSessionData = {};
 new AmazonCognitoIdentity.CognitoAuthSession(sessionData);

@@ -16,27 +16,27 @@ declare namespace AMap {
             /**
              * 所属地图
              */
-            map?: Map;
+            map?: Map | undefined;
             /**
              * 鼠标悬停时的鼠标样式
              */
-            cursor?: string;
+            cursor?: string | undefined;
             /**
              * 自定义数据
              */
-            extData?: ExtraData;
+            extData?: ExtraData | undefined;
             /**
              * 事件是否穿透到地图
              */
-            bubble?: boolean;
+            bubble?: boolean | undefined;
             /**
              * 是否支持点击
              */
-            clickable?: boolean;
+            clickable?: boolean | undefined;
             /**
              * 是否支持拖拽
              */
-            draggable?: boolean;
+            draggable?: boolean | undefined;
         }
     }
     abstract class Overlay<ExtraData = any> extends EventEmitter {

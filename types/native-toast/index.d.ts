@@ -15,17 +15,17 @@ export = toast;
 
 declare namespace toast {
     interface ToastOptions {
-        message?: string;
-        position?: "center" | "west" | "east" | "south" | "south-west" | "south-east" | "north" | "north-west" | "north-east";
-        timeout?: number;
-        el?: HTMLElement;
-        rounded?: boolean;
-        type?: "success" | "warning" | "info" | "error";
-        debug?: boolean;
-        edge?: boolean;
-        icon?: boolean;
-        closeOnClick?: boolean;
-        elements?: HTMLElement[];
+        message?: string | undefined;
+        position?: "center" | "west" | "east" | "south" | "south-west" | "south-east" | "north" | "north-west" | "north-east" | undefined;
+        timeout?: number | undefined;
+        el?: HTMLElement | undefined;
+        rounded?: boolean | undefined;
+        type?: "success" | "warning" | "info" | "error" | undefined;
+        debug?: boolean | undefined;
+        edge?: boolean | undefined;
+        icon?: boolean | undefined;
+        closeOnClick?: boolean | undefined;
+        elements?: HTMLElement[] | undefined;
     }
 
     interface Toast {

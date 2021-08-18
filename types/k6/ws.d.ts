@@ -39,10 +39,10 @@ export function connect(url: string, params: Params | null, callback: Executor):
  */
 export interface Params {
     /** Request headers. */
-    headers?: { [name: string]: string };
+    headers?: { [name: string]: string } | undefined;
 
     /** Response time metric tags. */
-    tags?: { [name: string]: string };
+    tags?: { [name: string]: string } | undefined;
 }
 
 /**

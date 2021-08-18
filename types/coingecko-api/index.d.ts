@@ -10,23 +10,28 @@ interface CoinsAllParams {
     /**
      * Order results by Order
      */
-    order?: Order;
+    // tslint:disable-next-line no-redundant-undefined
+    order?: Order | undefined;
     /**
      * Total results per page
      */
-    per_page?: number;
+    // tslint:disable-next-line no-redundant-undefined
+    per_page?: number | undefined;
     /**
      * Page through results
      */
-    page?: number;
+    // tslint:disable-next-line no-redundant-undefined
+    page?: number | undefined;
     /**
      * Set to false to exclude localized languages in response.
      */
-    localization?: boolean;
+    // tslint:disable-next-line no-redundant-undefined
+    localization?: boolean | undefined;
     /**
      * Include sparkline 7 days data
      */
-    sparkline?: boolean;
+    // tslint:disable-next-line no-redundant-undefined
+    sparkline?: boolean | undefined;
 }
 
 interface CoinsFetchMarketChartRangeParams {
@@ -59,11 +64,18 @@ interface SimplePriceParams {
     /**
      * To include 24hr_vol.
      */
-    include_24hr_vol?: boolean;
+    // tslint:disable-next-line no-redundant-undefined
+    include_24hr_vol?: boolean | undefined;
     /**
      * To include last_updated_at of price.
      */
-    include_last_updated_at?: boolean;
+    // tslint:disable-next-line no-redundant-undefined
+    include_last_updated_at?: boolean | undefined;
+    /**
+     * To include market_cap, default: false.
+     */
+    // tslint:disable-next-line no-redundant-undefined
+    include_market_cap?: boolean | undefined;
 }
 
 interface Response {
@@ -86,25 +98,25 @@ interface Response {
 }
 
 type Order =
-    | "gecko_asc"
-    | "gecko_desc"
-    | "market_cap_asc"
-    | "market_cap_desc"
-    | "volume_asc"
-    | "volume_desc"
-    | "coin_name_asc"
-    | "coin_name_desc"
-    | "price_asc"
-    | "price_desc"
-    | "h24_change_asc"
-    | "h24_change_desc"
-    | "trust_score_desc"
-    | "name_asc"
-    | "name_desc"
-    | "open_interest_btc_asc"
-    | "open_interest_btc_desc"
-    | "trade_volume_24h_btc_asc"
-    | "trade_volume_24h_btc_desc";
+    | 'gecko_asc'
+    | 'gecko_desc'
+    | 'market_cap_asc'
+    | 'market_cap_desc'
+    | 'volume_asc'
+    | 'volume_desc'
+    | 'coin_name_asc'
+    | 'coin_name_desc'
+    | 'price_asc'
+    | 'price_desc'
+    | 'h24_change_asc'
+    | 'h24_change_desc'
+    | 'trust_score_desc'
+    | 'name_asc'
+    | 'name_desc'
+    | 'open_interest_btc_asc'
+    | 'open_interest_btc_desc'
+    | 'trade_volume_24h_btc_asc'
+    | 'trade_volume_24h_btc_desc';
 
 declare class CoinGecko {
     /**

@@ -3,7 +3,7 @@ import Yallist = require('yallist');
 const forEachIterable = {
     forEach(fn: (item: string, idx: number) => void, thisArg?: any) {},
 };
-const thisArg: {someProp?: number} = {};
+const thisArg: {someProp?: number | undefined} = {};
 const node = new Yallist.Node('foo');
 
 Yallist.create<string | number>([1, 2, 3]); // $ExpectType Yallist<string | number>

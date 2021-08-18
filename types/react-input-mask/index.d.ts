@@ -38,15 +38,15 @@ export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
    * Character to cover unfilled editable parts of mask. Default character is "_". If set to null, unfilled parts will be empty, like in ordinary input.
    */
-  maskPlaceholder?: string | null;
+  maskPlaceholder?: string | null | undefined;
   /**
    * Show mask even in empty input without focus.
    */
-  alwaysShowMask?: boolean;
+  alwaysShowMask?: boolean | undefined;
   /**
    * Use inputRef instead of ref if you need input node to manage focus, selection, etc.
    */
-  inputRef?: React.Ref<HTMLInputElement>;
+  inputRef?: React.Ref<HTMLInputElement> | undefined;
   /**
    * In case you need to implement more complex masking behavior, you can provide
    * beforeMaskedStateChange function to change masked value and cursor position

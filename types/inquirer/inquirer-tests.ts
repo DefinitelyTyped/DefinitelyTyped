@@ -1,3 +1,4 @@
+import { Separator } from "inquirer";
 import inquirer = require("inquirer");
 import InputPrompt = require("inquirer/lib/prompts/input");
 {
@@ -46,6 +47,21 @@ import InputPrompt = require("inquirer/lib/prompts/input");
         }
     ]);
 }
+{
+    let choice: inquirer.DistinctChoice;
+
+    choice = {
+        type: "separator",
+        line: "This is a test"
+    };
+
+    if (
+        choice.type === "separator" &&
+        !(choice instanceof Separator)) {
+        // $ExpectType SeparatorOptions
+        choice;
+    }
+}
 
 interface ChalkQuestionOptions<T extends inquirer.Answers = inquirer.Answers> extends inquirer.InputQuestionOptions<T> {
     previewColors: boolean;
@@ -57,6 +73,8 @@ interface ChalkQuestion<T extends inquirer.Answers = inquirer.Answers> extends C
 
 class ChalkPrompt extends InputPrompt {
     /* stuff */
+
+    protected onKeypress() { }
 }
 
 inquirer.registerPrompt("chalk", ChalkPrompt);

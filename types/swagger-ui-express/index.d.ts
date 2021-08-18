@@ -17,16 +17,16 @@ export interface SwaggerOptions {
 }
 
 export interface SwaggerUiOptions {
-    customCss?: string;
-    customCssUrl?: string;
-    customfavIcon?: string;
-    customJs?: string;
-    customSiteTitle?: string;
-    explorer?: boolean;
-    isExplorer?: boolean;
-    swaggerOptions?: SwaggerOptions;
-    swaggerUrl?: string;
-    swaggerUrls?: string[];
+    customCss?: string | undefined;
+    customCssUrl?: string | undefined;
+    customfavIcon?: string | undefined;
+    customJs?: string | undefined;
+    customSiteTitle?: string | undefined;
+    explorer?: boolean | undefined;
+    isExplorer?: boolean | undefined;
+    swaggerOptions?: SwaggerOptions | undefined;
+    swaggerUrl?: string | undefined;
+    swaggerUrls?: string[] | undefined;
 }
 
 /**

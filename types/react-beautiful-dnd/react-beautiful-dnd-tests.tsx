@@ -9,6 +9,9 @@ import {
     DropResult,
     resetServerContext,
     ResponderProvided,
+    useKeyboardSensor,
+    useMouseSensor,
+    useTouchSensor,
 } from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
@@ -94,6 +97,8 @@ class App extends React.Component<{}, AppState> {
                 onDragUpdate={this.onDragUpdate}
                 onDragEnd={this.onDragEnd}
                 dragHandleUsageInstructions="Some instruction"
+                enableDefaultSensors={false}
+                sensors={[useMouseSensor, useKeyboardSensor, useTouchSensor]}
             >
                 <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
                     {(provided, snapshot) => (

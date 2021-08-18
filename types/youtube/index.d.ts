@@ -204,15 +204,11 @@ declare namespace YT
     /**
      * Which type of content loads in the player.
      */
-    export type ListType = ListTypePlayer | ListTypeSearch | ListTypeUserUploads;
-
-    /**
-     * The requested video should be shown in the player.
-     */
-    export type ListTypePlayer = "player";
+    export type ListType = ListTypeSearch | ListTypeUserUploads | ListTypePlaylist;
 
     /**
      * A search area should be shown in the player.
+     * @deprecated
      */
     export type ListTypeSearch = "search";
 
@@ -220,6 +216,11 @@ declare namespace YT
      * The user's uploads should load in the player.
      */
     export type ListTypeUserUploads = "user_uploads";
+
+    /**
+     * A playlist should be shown in the player.
+     */
+    export type ListTypePlaylist = "playlist";
 
     /**
      * Whether a single video should be looped.
@@ -374,32 +375,32 @@ declare namespace YT
         /**
          * Player width.
          */
-        width?: string | number;
+        width?: string | number | undefined;
 
         /**
          * Player height
          */
-        height?: string | number;
+        height?: string | number | undefined;
 
         /**
          * ID of the video to load.
          */
-        videoId?: string;
+        videoId?: string | undefined;
 
         /**
          * Player parameters.
          */
-        playerVars?: PlayerVars;
+        playerVars?: PlayerVars | undefined;
 
         /**
          * Handlers for events fired by the player.
          */
-        events?: Events;
+        events?: Events | undefined;
 
         /**
          * Points host to correct origin for CORS
          */
-        host?: string;
+        host?: string | undefined;
     }
 
     /**
@@ -457,110 +458,114 @@ declare namespace YT
         /**
          * Whether to autohide video controls (by default, HideProgressBar).
          */
-        autohide?: AutoHide;
+        autohide?: AutoHide | undefined;
 
         /**
          * Whether to autoplay the video (by default, NoAutoPlay).
          */
-        autoplay?: AutoPlay;
+        autoplay?: AutoPlay | undefined;
 
         /**
          * Whether to use user-preferred or forced caption loading (by default, UserDefault).
          */
-        cc_load_policy?: ClosedCaptionsLoadPolicy;
+        cc_load_policy?: ClosedCaptionsLoadPolicy | undefined;
+
+        /**
+         * Default caption language as an ISO 639-1 two-letter language code.
+         */
+        cc_lang_pref?: string | undefined;
 
         /**
          * Player progress bar color
          */
-        color?: ProgressBarColor;
+        color?: ProgressBarColor | undefined;
 
         /**
          * How video controls are shown (by default, ShowLoadPlayer).
          */
-        controls?: Controls;
+        controls?: Controls | undefined;
 
         /**
          * Whether to allow keyboard controls (by default, Enable).
          */
-        disablekb?: KeyboardControls;
+        disablekb?: KeyboardControls | undefined;
 
         /**
          * Whether the JavaScript API should be enabled (by default, Disable).
          */
-        enablejsapi?: JsApi;
+        enablejsapi?: JsApi | undefined;
 
         /**
          * Time, in seconds from the beginning of the video, when to stop playing.
          */
-        end?: number;
+        end?: number | undefined;
 
         /**
          * Whether to display the full-screen button (by default, Show).
          */
-        fs?: FullscreenButton;
+        fs?: FullscreenButton | undefined;
 
         /**
          * Player language as an ISO 639-1 two-letter language code or fully-specified locale.
          */
-        hl?: string;
+        hl?: string | undefined;
 
         /**
          * Whether to show video annotations (by default, Show).
          */
-        iv_load_policy?: IvLoadPolicy;
+        iv_load_policy?: IvLoadPolicy | undefined;
 
         /**
          * Identifies content that will load.
-         * If listType is search, this is the search query.
-         * If listType is user_uploads, this is the YouTube user.
-         * If listType is playlist, this is the playlist ID, prepended by 'PL'.
+         * If the listType parameter value is user_uploads, then the list parameter value identifies the YouTube channel whose uploaded videos will be loaded.
+         * If the listType parameter value is playlist, then the list parameter value specifies a YouTube playlist ID.
          */
-        list?: string;
+        list?: string | undefined;
 
         /**
          * Which type of content loads in the player.
          */
-        listType?: ListType;
+        listType?: ListType | undefined;
 
         /**
          * Whether a single video should be looped (by default, SinglePlay).
          */
-        loop?: Loop;
+        loop?: Loop | undefined;
 
         /**
          * Whether to hide some YouTube branding (by default, Full).
          */
-        modestbranding?: ModestBranding;
+        modestbranding?: ModestBranding | undefined;
 
         /**
          * Origin domain for additional security if using the JavaScript API.
          */
-        origin?: string;
+        origin?: string | undefined;
 
         /**
          * Comma separated list of video IDs to play after the URL path's video.
          */
-        playlist?: string;
+        playlist?: string | undefined;
 
         /**
          * Whether videos play inline or fullscreen in an HTML5 player on iOS. (currently by default, Fullscreen).
          */
-        playsinline?: PlaysInline;
+        playsinline?: PlaysInline | undefined;
 
         /**
          * Whether to show related videos after the video finishes (by default, Show).
          */
-        rel?: RelatedVideos;
+        rel?: RelatedVideos | undefined;
 
         /**
          * Whether to show video information before playing (by default, Show).
          */
-        showinfo?: ShowInfo;
+        showinfo?: ShowInfo | undefined;
 
         /**
          * Time, in seconds from the beginning of the video, when to start playing.
          */
-        start?: number;
+        start?: number | undefined;
     }
 
     /**
@@ -571,33 +576,33 @@ declare namespace YT
         /**
          * Event fired when a player has finished loading and is ready to begin receiving API calls.
          */
-        onReady?: PlayerEventHandler<PlayerEvent>;
+        onReady?: PlayerEventHandler<PlayerEvent> | undefined;
 
         /**
          * Event fired when the player's state changes.
          */
-        onStateChange?: PlayerEventHandler<OnStateChangeEvent>;
+        onStateChange?: PlayerEventHandler<OnStateChangeEvent> | undefined;
 
         /**
          * Event fired when the playback quality of the player changes.
          */
-        onPlaybackQualityChange?: PlayerEventHandler<OnPlaybackQualityChangeEvent>;
+        onPlaybackQualityChange?: PlayerEventHandler<OnPlaybackQualityChangeEvent> | undefined;
 
         /**
          * Event fired when the playback rate of the player changes.
          */
-        onPlaybackRateChange?: PlayerEventHandler<OnPlaybackRateChangeEvent>;
+        onPlaybackRateChange?: PlayerEventHandler<OnPlaybackRateChangeEvent> | undefined;
 
         /**
          * Event fired when an error in the player occurs
          */
-        onError?: PlayerEventHandler<OnErrorEvent>;
+        onError?: PlayerEventHandler<OnErrorEvent> | undefined;
 
         /**
          * Event fired to indicate thath the player has loaded, or unloaded, a module
          * with exposed API methods. This currently only occurs for closed captioning.
          */
-        onApiChange?: PlayerEventHandler<PlayerEvent>;
+        onApiChange?: PlayerEventHandler<PlayerEvent> | undefined;
     }
 
     /**
@@ -607,17 +612,17 @@ declare namespace YT
         /**
          * Time, in seconds from the beginning of the (first) video, when to start playing.
          */
-        startSeconds?: number;
+        startSeconds?: number | undefined;
 
         /**
          * Time, in seconds from the end of the (first) video, when to end playing.
          */
-        endSeconds?: number;
+        endSeconds?: number | undefined;
 
         /**
          * Suggested video player quality.
          */
-        suggestedQuality?: SuggestedVideoQuality
+        suggestedQuality?: SuggestedVideoQuality | undefined
     }
 
     /**
@@ -652,12 +657,12 @@ declare namespace YT
         /**
          * Which type of content loads in the player.
          */
-        listType?: ListType;
+        listType?: ListType | undefined;
 
         /**
          * Start index of the playlist, if not 0.
          */
-        index?: number;
+        index?: number | undefined;
     }
     
     /**
@@ -665,11 +670,11 @@ declare namespace YT
      * viewport headings and zoom level.
      */
     export interface SphericalProperties {
-      enableOrientationSensor?: boolean;
-      fov?: number;
-      pitch?: number;
-      roll?: number;
-      yaw?: number;
+      enableOrientationSensor?: boolean | undefined;
+      fov?: number | undefined;
+      pitch?: number | undefined;
+      roll?: number | undefined;
+      yaw?: number | undefined;
     }
 
     /**
@@ -755,7 +760,7 @@ declare namespace YT
          *
          * @param args   Settings to play the video.
          */
-        loadVideoByUrl(args: { mediaContentUrl: string; startSeconds?: number; endSeconds?: number; suggestedQuality?: SuggestedVideoQuality }): void;
+        loadVideoByUrl(args: { mediaContentUrl: string; startSeconds?: number | undefined; endSeconds?: number | undefined; suggestedQuality?: SuggestedVideoQuality | undefined }): void;
 
         /**
          * Queues a playlist of videos.

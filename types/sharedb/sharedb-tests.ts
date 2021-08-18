@@ -174,6 +174,7 @@ backend.on('submitRequestEnd', (error, request) => {
 });
 
 const connection = backend.connect();
+const agent = connection.agent;
 const netRequest = {};  // Passed through to 'connect' middleware, not used by sharedb itself
 const connectionWithReq = backend.connect(null, netRequest);
 const reboundConnection = backend.connect(backend.connect(), netRequest);
@@ -237,6 +238,10 @@ ShareDBClient.logger.setMethods({
     error: (message: string) => console.error(message),
 });
 
+ShareDBClient.logger.info('foo', 'bar');
+ShareDBClient.logger.warn('foo', 'bar');
+ShareDBClient.logger.error('foo', 'bar');
+
 function startClient(callback) {
     const socket = new WebSocket('ws://localhost:8080');
     const connection = new ShareDBClient.Connection(socket);
@@ -265,6 +270,15 @@ function startClient(callback) {
     typedDoc.create({
         foo: 123,
         bar: 'abc',
+    });
+
+    typedDoc.ingestSnapshot({
+        v: 10,
+        type: 'json0',
+        data: {
+            foo: 456,
+            bar: 'xyz',
+        },
     });
 
     // sharedb-mongo query object
@@ -309,6 +323,18 @@ function startClient(callback) {
 
     doc.submitOp([{insert: 'foo', attributes: {bold: true}}], {source: {deep: true}});
 
+    doc.on('load', () => {});
+    doc.on('no write pending', () => {});
+    doc.on('nothing pending', () => {});
+    doc.on('create', (source: any) => {});
+    doc.on('op', (ops: [any], source: any, clientId: string) => {});
+    doc.on('op batch', (ops: any[], source: any) => {});
+    doc.on('before op', (ops: [any], source: any, clientId: string) => {});
+    doc.on('before op batch', (ops: any[], source: any) => {});
+    doc.on('del', (data: MyDoc, source: any) => {});
+    doc.on('error', (error: ShareDB.Error) => {});
+    doc.on('destroy', () => {});
+
     connection.fetchSnapshot('examples', 'foo', 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
@@ -318,6 +344,8 @@ function startClient(callback) {
         if (error) throw error;
         console.log(snapshot.data);
     });
+
+    console.log(connection.id + connection.seq);
 
     interface PresenceValue {
         foo: number;
@@ -330,6 +358,14 @@ function startClient(callback) {
 
     connection.close();
 }
+
+backend.getOps(agent, 'collection', 'id', 0, 5, {opsOptions: {metadata: true}}, (error, ops) => {
+    ops.forEach(console.log);
+});
+
+backend.getOpsBulk(agent, 'collection', 'id', {abc: 0}, {abc: 5}, {opsOptions: {metadata: true}}, (error, ops) => {
+    ops.forEach(console.log);
+});
 
 class SocketLike {
     readyState = 1;

@@ -1,6 +1,6 @@
 declare global {
     interface Window {
-        _rails_loaded?: boolean;
+        _rails_loaded?: boolean | undefined;
     }
 }
 

@@ -18,8 +18,8 @@ declare module 'video.js' {
 
 export interface Representation {
     id: string;
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
     bandwidth: number;
     enabled: {
         (enable: boolean): void;

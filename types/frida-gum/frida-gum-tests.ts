@@ -1,5 +1,11 @@
 Frida.version; // $ExpectType string
 
+// $ExpectType (target: any, callback: WeakRefCallback) => number
+Script.bindWeak;
+
+// $ExpectType (id: number) => void
+Script.unbindWeak;
+
 // $ExpectType NativePointer
 const p = ptr(1234);
 
@@ -29,15 +35,6 @@ p.blend(ptr(42));
 // $ExpectError
 p.blend();
 
-const otherPuts = new NativeCallback(() => {
-    return 0;
-}, "int", ["pointer"]);
-
-const puts = new NativeFunction(Module.getExportByName(null, "puts"), "int", ["pointer"]);
-
-// $ExpectType NativeFunction
-puts;
-
 // $ExpectType NativePointer
 Memory.alloc(1);
 // $ExpectType NativePointer
@@ -49,33 +46,78 @@ Memory.alloc(1, { near: ptr(1234) });
 // $ExpectError
 Memory.alloc(1, { maxDistance: 42 });
 
-const message = Memory.allocUtf8String("Hello!");
+new NativeCallback(
+    (a, b) => {
+        return [0, NULL];
+    },
+    ["int", "pointer"],
+    ["pointer", "uint64"],
+);
+
+new NativeCallback(
+    (a, b) => {
+        return 0;
+    },
+    "uint64",
+    [["double", "float", "uchar"], "ssize_t"],
+);
+
+const otherPuts = new NativeCallback(
+    a => {
+        return 0;
+    },
+    "int",
+    ["pointer"],
+);
+
+// $ExpectError
+new NativeFunction(NULL, "void", "pointer");
+
+// $ExpectType NativeFunction<void, []>
+const nf0 = new NativeFunction(NULL, "void", []);
+// $ExpectError
+nf0({} as any);
+
+// $ExpectType NativeFunction<[number, number], [number | Int64, [number, [NativePointerValue, NativePointerValue]]]>
+const nf1 = new NativeFunction(NULL, ["float", "float"], ["int64", ["bool", ["pointer", "pointer"]]]);
+// $ExpectType [number, number]
+nf1(int64(0), [+false, [NULL, NULL]]);
+// $ExpectType [number, number]
+nf1(1, [+true, [NULL, ptr(0xbeef)]]);
+
+// $ExpectType NativeFunction<void, [number, ...NativePointerValue[]]>
+const nf2 = new NativeFunction(NULL, "void", ["long", "...", "pointer"]);
+// $ExpectType void
+nf2(34, NULL, nf2, { handle: ptr(0xbeef) });
+
+// $ExpectType NativeFunction<number, [NativePointerValue]>
+const puts = new NativeFunction(Module.getExportByName(null, "puts"), "int", ["pointer"]);
 
 // $ExpectType NativePointer
-message;
+const message = Memory.allocUtf8String("Hello!");
 
-// $ExpectType NativeReturnValue
+// $ExpectType number
 puts.call(otherPuts, message);
 
-// $ExpectType NativeReturnValue
+// $ExpectType number
 puts.apply(otherPuts, [message]);
 
-// $ExpectType NativeReturnValue
+// $ExpectType number
 puts(message);
 
+// $ExpectType SystemFunction<number, [NativePointerValue, number]>
 const open = new SystemFunction(Module.getExportByName(null, "open"), "int", ["pointer", "int"]);
 
-// $ExpectType SystemFunction
-open;
-
 const path = Memory.allocUtf8String("/etc/hosts");
-const result = open(path, 0) as UnixSystemFunctionResult;
 
-// $ExpectType NativeReturnValue
+// $ExpectType SystemFunctionResult<number>
+const result = open(path, 0);
+
+// $ExpectType number
 result.value;
 
 // $ExpectType number
-result.errno;
+(result as UnixSystemFunctionResult<number>).errno;
 
 Interceptor.attach(puts, {
     onEnter(args) {
@@ -85,7 +127,7 @@ Interceptor.attach(puts, {
     onLeave(retval) {
         // $ExpectType InvocationReturnValue
         retval;
-    }
+    },
 });
 
 Interceptor.flush();
@@ -105,7 +147,8 @@ process (const GumEvent * event,
 }
 `;
 const symbols: CSymbols = {
-    on_interesting_event: new NativeCallback(e => {}, 'void', ['pointer']),
+    // $ExpectType NativeCallback<"void", ["pointer"]>
+    on_interesting_event: new NativeCallback(e => {}, "void", ["pointer"]),
 };
 const cm = new CModule(ccode);
 const cm2 = new CModule(ccode, symbols, {});

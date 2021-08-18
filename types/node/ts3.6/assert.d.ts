@@ -1,10 +1,10 @@
 declare module 'assert' {
     /** An alias of `assert.ok()`. */
-    function assert(value: any, message?: string | Error): void;
+    function assert(value: unknown, message?: string | Error): void;
     namespace assert {
         class AssertionError extends Error {
-            actual: any;
-            expected: any;
+            actual: unknown;
+            expected: unknown;
             operator: string;
             generatedMessage: boolean;
             code: 'ERR_ASSERTION';
@@ -13,9 +13,9 @@ declare module 'assert' {
                 /** If provided, the error message is set to this value. */
                 message?: string;
                 /** The `actual` property on the error instance. */
-                actual?: any;
+                actual?: unknown;
                 /** The `expected` property on the error instance. */
-                expected?: any;
+                expected?: unknown;
                 /** The `operator` property on the error instance. */
                 operator?: string;
                 /** If provided, the generated stack trace omits frames before this function. */
@@ -42,48 +42,48 @@ declare module 'assert' {
             stack: object;
         }
 
-        type AssertPredicate = RegExp | (new () => object) | ((thrown: any) => boolean) | object | Error;
+        type AssertPredicate = RegExp | (new () => object) | ((thrown: unknown) => boolean) | object | Error;
 
         function fail(message?: string | Error): never;
         /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
         function fail(
-            actual: any,
-            expected: any,
+            actual: unknown,
+            expected: unknown,
             message?: string | Error,
             operator?: string,
             // tslint:disable-next-line:ban-types
             stackStartFn?: Function,
         ): never;
-        function ok(value: any, message?: string | Error): void;
+        function ok(value: unknown, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use strictEqual() instead. */
-        function equal(actual: any, expected: any, message?: string | Error): void;
+        function equal(actual: unknown, expected: unknown, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use notStrictEqual() instead. */
-        function notEqual(actual: any, expected: any, message?: string | Error): void;
+        function notEqual(actual: unknown, expected: unknown, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use deepStrictEqual() instead. */
-        function deepEqual(actual: any, expected: any, message?: string | Error): void;
+        function deepEqual(actual: unknown, expected: unknown, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use notDeepStrictEqual() instead. */
-        function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
-        function strictEqual(actual: any, expected: any, message?: string | Error): void;
-        function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
-        function deepStrictEqual(actual: any, expected: any, message?: string | Error): void;
-        function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        function notDeepEqual(actual: unknown, expected: unknown, message?: string | Error): void;
+        function strictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
+        function notStrictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
+        function deepStrictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
+        function notDeepStrictEqual(actual: unknown, expected: unknown, message?: string | Error): void;
 
-        function throws(block: () => any, message?: string | Error): void;
-        function throws(block: () => any, error: AssertPredicate, message?: string | Error): void;
-        function doesNotThrow(block: () => any, message?: string | Error): void;
-        function doesNotThrow(block: () => any, error: AssertPredicate, message?: string | Error): void;
+        function throws(block: () => unknown, message?: string | Error): void;
+        function throws(block: () => unknown, error: AssertPredicate, message?: string | Error): void;
+        function doesNotThrow(block: () => unknown, message?: string | Error): void;
+        function doesNotThrow(block: () => unknown, error: AssertPredicate, message?: string | Error): void;
 
-        function ifError(value: any): void;
+        function ifError(value: unknown): void;
 
-        function rejects(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
+        function rejects(block: (() => Promise<unknown>) | Promise<unknown>, message?: string | Error): Promise<void>;
         function rejects(
-            block: (() => Promise<any>) | Promise<any>,
+            block: (() => Promise<unknown>) | Promise<unknown>,
             error: AssertPredicate,
             message?: string | Error,
         ): Promise<void>;
-        function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
+        function doesNotReject(block: (() => Promise<unknown>) | Promise<unknown>, message?: string | Error): Promise<void>;
         function doesNotReject(
-            block: (() => Promise<any>) | Promise<any>,
+            block: (() => Promise<unknown>) | Promise<unknown>,
             error: AssertPredicate,
             message?: string | Error,
         ): Promise<void>;
@@ -94,5 +94,10 @@ declare module 'assert' {
         const strict: typeof assert;
     }
 
+    export = assert;
+}
+
+declare module 'node:assert' {
+    import assert = require('assert');
     export = assert;
 }

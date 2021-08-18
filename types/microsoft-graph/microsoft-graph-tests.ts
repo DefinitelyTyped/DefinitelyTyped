@@ -163,3 +163,19 @@ const authorizationPolicy: MicrosoftGraph.AuthorizationPolicy = {
 };
 
 const deviceEnrollmentType: MicrosoftGraph.DeviceEnrollmentType = "windowsCoManagement";
+
+const applicationStatus: MicrosoftGraph.Application = {
+    disabledByMicrosoftStatus: "TEST_VAL"
+};
+
+const bodyType: MicrosoftGraph.BodyType = "text";
+
+const channel: MicrosoftGraph.Channel = {
+    description: "Test",
+};
+
+const countryLookupMethodType: MicrosoftGraph.CountryLookupMethodType = "clientIpAddress";
+
+const volumeType: MicrosoftGraph.VolumeType = "unknownFutureValue";
+
+const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliveryOptimizationPriority = "foreground";

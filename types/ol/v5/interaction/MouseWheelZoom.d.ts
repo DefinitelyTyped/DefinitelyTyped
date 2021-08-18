@@ -5,11 +5,11 @@ import { ObjectEvent } from '../Object';
 import Interaction from './Interaction';
 
 export interface Options {
-    condition?: Condition;
-    duration?: number;
-    timeout?: number;
-    constrainResolution?: boolean;
-    useAnchor?: boolean;
+    condition?: Condition | undefined;
+    duration?: number | undefined;
+    timeout?: number | undefined;
+    constrainResolution?: boolean | undefined;
+    useAnchor?: boolean | undefined;
 }
 export enum Mode {
     TRACKPAD = 'trackpad',

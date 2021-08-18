@@ -24,37 +24,37 @@ declare namespace G {
     let GlobSync: IGlobSyncStatic;
 
     interface IOptions extends minimatch.IOptions {
-        cwd?: string;
-        root?: string;
-        dot?: boolean;
-        nomount?: boolean;
-        mark?: boolean;
-        nosort?: boolean;
-        stat?: boolean;
-        silent?: boolean;
-        strict?: boolean;
-        cache?: { [path: string]: any /* boolean | string | string[] */ };
-        statCache?: { [path: string]: fs.Stats };
+        cwd?: string | undefined;
+        root?: string | undefined;
+        dot?: boolean | undefined;
+        nomount?: boolean | undefined;
+        mark?: boolean | undefined;
+        nosort?: boolean | undefined;
+        stat?: boolean | undefined;
+        silent?: boolean | undefined;
+        strict?: boolean | undefined;
+        cache?: { [path: string]: any /* boolean | string | string[] */ } | undefined;
+        statCache?: { [path: string]: fs.Stats } | undefined;
         symlinks?: any;
-        sync?: boolean;
-        nounique?: boolean;
-        nonull?: boolean;
-        debug?: boolean;
-        nobrace?: boolean;
-        noglobstar?: boolean;
-        noext?: boolean;
-        nocase?: boolean;
+        sync?: boolean | undefined;
+        nounique?: boolean | undefined;
+        nonull?: boolean | undefined;
+        debug?: boolean | undefined;
+        nobrace?: boolean | undefined;
+        noglobstar?: boolean | undefined;
+        noext?: boolean | undefined;
+        nocase?: boolean | undefined;
         matchBase?: any;
-        nodir?: boolean;
+        nodir?: boolean | undefined;
         ignore?: any; /* string | string[] */
-        follow?: boolean;
-        realpath?: boolean;
-        nonegate?: boolean;
-        nocomment?: boolean;
-        absolute?: boolean;
+        follow?: boolean | undefined;
+        realpath?: boolean | undefined;
+        nonegate?: boolean | undefined;
+        nocomment?: boolean | undefined;
+        absolute?: boolean | undefined;
 
         /** Deprecated. */
-        globDebug?: boolean;
+        globDebug?: boolean | undefined;
     }
 
     interface IGlobStatic extends events.EventEmitter {

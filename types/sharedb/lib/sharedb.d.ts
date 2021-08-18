@@ -89,6 +89,9 @@ export interface LoggerOverrides {
 }
 export class Logger {
     setMethods(overrides: LoggerOverrides): void;
+    info: LoggerFunction;
+    warn: LoggerFunction;
+    error: LoggerFunction;
 }
 
 export interface Error {
@@ -120,7 +123,7 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     subscribe: (callback?: (err: Error) => void) => void;
     unsubscribe: (callback?: (err: Error) => void) => void;
 
-    ingestSnapshot(snapshot: Snapshot<T>, callback?: Callback): void;
+    ingestSnapshot(snapshot: Pick<Snapshot<T>, 'v' | 'type' | 'data'>, callback?: Callback): void;
     destroy(callback?: Callback): void;
     create(data: any, callback?: Callback): void;
     create(data: any, type?: OTType, callback?: Callback): void;
@@ -140,9 +143,9 @@ export interface DocEventMap<T> {
     'no write pending': () => void;
     'nothing pending': () => void;
     'create': (source: any) => void;
-    'op': (ops: [any], source: any) => void;
+    'op': (ops: [any], source: any, clientId: string) => void;
     'op batch': (ops: any[], source: any) => void;
-    'before op': (ops: [any], source: any) => void;
+    'before op': (ops: [any], source: any, clientId: string) => void;
     'before op batch': (ops: any[], source: any) => void;
     'del': (data: T, source: any) => void;
     'error': (error: Error) => void;

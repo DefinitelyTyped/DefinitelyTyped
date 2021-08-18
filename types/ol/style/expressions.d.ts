@@ -93,7 +93,7 @@ export interface Operator {
  * Context available during the parsing of an expression.
  */
 export interface ParsingContext {
-    inFragmentShader?: boolean;
+    inFragmentShader?: boolean | undefined;
     variables: string[];
     attributes: string[];
     stringLiteralsMap: { [key: string]: number };

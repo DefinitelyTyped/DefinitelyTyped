@@ -116,11 +116,11 @@ declare global {
             /** Color of the highest value on the legend */
             max: string;
             /** Color for the dates with value == 0 */
-            empty?: string;
+            empty?: string | undefined;
             /** Base color of the date cells */
-            base?: string;
+            base?: string | undefined;
             /** Color for the special value */
-            overflow?: string;
+            overflow?: string | undefined;
         }
 
         interface InitOptions
@@ -130,40 +130,40 @@ declare global {
             // ================================================
 
             /** DOM node to insert the calendar in. Default: "#cal-heatmap" */
-            itemSelector?: string | HTMLElement | Element | EventTarget;
+            itemSelector?: string | HTMLElement | Element | EventTarget | undefined;
 
             /**
              * Type of domain. Default: "hour"
              * Valid domains: {"hour", "day", "week", "month", "year"}
              */
-            domain?: string;
+            domain?: string | undefined;
 
             /**
              * Type of subDomain. Default: "min"
              * Valid subDomains: {"min", "x_min", "hour", "x_hour", "day", "x_day", "week", "x_week", "month", "x_month"}
              */
-            subDomain?: string;
+            subDomain?: string | undefined;
 
             /** Number of domain to display. Default: 12 */
-            range?: number;
+            range?: number | undefined;
 
             /** Size of each subDomain cell, in pixels. Default: 10 */
-            cellSize?: number;
+            cellSize?: number | undefined;
 
             /** Space between each subDomain cell, in pixel. Default: 2 */
-            cellPadding?: number;
+            cellPadding?: number | undefined;
 
             /** subDomain cell's border radius, for rounder corner, in pixel. Default: 0 */
-            cellRadius?: number;
+            cellRadius?: number | undefined;
 
             /** Space between each domain, in pixel. Default: 2 */
-            domainGutter?: number;
+            domainGutter?: number | undefined;
 
             /**
              * Margin around each domain, in pixel. Default: [0,0,0,0]
              * Ordered like in CSS (top, right, bottom, left), it also accepts CSS like values
              */
-            domainMargin?: number | number[];
+            domainMargin?: number | number[] | undefined;
 
             /**
              * Whether to enable domain dynamic width and height. Default: true
@@ -172,13 +172,13 @@ declare global {
              * With dynamic dimension enabled, the domain width and height will be adjusted to fit the
              * domain content, whereas when it's disabled, all domains will have the same dimension : the biggest.
              */
-            domainDynamicDimension?: boolean;
+            domainDynamicDimension?: boolean | undefined;
 
             /** To display the calendar vertically, with each domain one under the other. Default: false */
-            verticalOrientation?: boolean;
+            verticalOrientation?: boolean | undefined;
 
             /** Position and alignment of the domain label. */
-            label?: Label;
+            label?: Label | undefined;
 
             /**
              * Control the number of columns to split the domain dates into. Default: null
@@ -188,14 +188,14 @@ declare global {
              * That setting limit the maximum number of columns, and doesn't necessary means that each rows will
              * contains that number of columns.
              */
-            colLimit?: number;
+            colLimit?: number | undefined;
 
             /** Control the number of rows to split the domain dates into. Default: null
              * If rowLimit and colLimit are both used, rowLimit will be ignored. */
-            rowLimit?: number;
+            rowLimit?: number | undefined;
 
             /** Whether to display a tooltip when hovering over a date. Default: false */
-            tooltip?: boolean;
+            tooltip?: boolean | undefined;
 
             // ================================================
             // Data
@@ -205,13 +205,13 @@ declare global {
              * Starting date of the calendar. Default: new Date()
              * It doesn't have to be precise, the calendar will not start at that date, but at the first domain containing that date.
              */
-            start?: Date;
+            start?: Date | undefined;
             /**
              * Data used to fill the calendar. Default: ""
              * String is interpreted as a URL to an API, which should be returning the data used to fill the calendar.
              */
 
-            data?: string | Object;
+            data?: string | Object | undefined;
 
             /**
              * Engine used to parse the data. Default: json
@@ -221,16 +221,16 @@ declare global {
              *  "tsv"  - Interpret the data exactly like csv, but are delimited with a tab character, instead of comma.
              *  "txt"  - Just return the data as a string.
              */
-            dataType?: string;
+            dataType?: string | undefined;
 
             /**
              * Highlight selected subDomain cells. Default: false
              * Takes an array of Date object. Can also accepts the now string, equivalent to Date.now().
              */
-            highlight?: string | string[] | Date[] | any[];
+            highlight?: string | string[] | Date[] | any[] | undefined;
 
             /** Whether to start the week on Monday, instead of Sunday. Default: true */
-            weekStartOnMonday?: boolean;
+            weekStartOnMonday?: boolean | undefined;
 
             /**
              * Lower limit of the domain navigation, preventing navigating beyond a certain date. Default: null
@@ -238,10 +238,10 @@ declare global {
              * Like with start, minDate does not have to be precise, and just have to be a date inside the domain.
              * previous() will always return true, unless the domain containing minDate is reached, in which case, it'll return false.
              */
-            minDate?: Date;
+            minDate?: Date | undefined;
 
             /** Upper limit of the domain navigation, preventing navigating beyond a certain date. Default: null */
-            maxDate?: Date;
+            maxDate?: Date | undefined;
 
             /**
              * Whether to consider missing date:value couple in the data source as equal to 0.  Default: false
@@ -249,26 +249,26 @@ declare global {
              * You should ask yourself, if the API is not returning result for a date, is it because there is really no value
              * associated to this date, or because it's supposed to be equal to 0, and it's skipped in order to save bandwidth ?
              */
-            considerMissingDataAsZero?: boolean;
+            considerMissingDataAsZero?: boolean | undefined;
 
             // ================================================
             // Legend
             // ================================================
 
             /** Assign each range of values to a color. Default: [10, 20, 30, 40] */
-            legend?: number[];
+            legend?: number[] | undefined;
 
             /** Whether to display the legend. Default: true */
-            displayLegend?: boolean;
+            displayLegend?: boolean | undefined;
 
             /** Size of the legend cells, in pixels. Default: 10 */
-            legendCellSize?: number;
+            legendCellSize?: number | undefined;
 
             /** Padding between each legend cell, in pixels. Default: 2 */
-            legendCellPadding?: number;
+            legendCellPadding?: number | undefined;
 
             /** Margin around the legend, in pixels. Default: [10, 0, 0, 0] */
-            legendMargin?: number | number[];
+            legendMargin?: number | number[] | undefined;
 
             /**
              * Vertical position of the legend. Default: "bottom"
@@ -278,7 +278,7 @@ declare global {
              *             Use with legendHorizontalPosition, to position the legend on the left (default) or on the right.
              *  "bottom" - Place the legend on below the calendar
              */
-            legendVerticalPosition?: string;
+            legendVerticalPosition?: string | undefined;
 
             /**
              * Horizontal position of the legend. Default: "left"
@@ -287,7 +287,7 @@ declare global {
              *  "center" - Center the legend
              *  "right"  - Align the legend to the right
              */
-            legendHorizontalPosition?: string;
+            legendHorizontalPosition?: string | undefined;
 
             /**
              * Orientation of the legend. Default: "horizontal"
@@ -296,7 +296,7 @@ declare global {
              *  "horizontal" - Legend is displayed horizontally, from left to right
              *  "vertical"   - Legend is displayed vertically, from top to bottom
              */
-            legendOrientation?: string;
+            legendOrientation?: string | undefined;
 
             /**
              * Set of colors to automagically compute the heatmap colors.
@@ -304,7 +304,7 @@ declare global {
              * cal-heatmap on initialization, or even dynamically change them after.
              * All legend settings can be changed dynamically after calendar initialisation, with setLegend().
              */
-            legendColors?: LegendColor | string[];
+            legendColors?: LegendColor | string[] | undefined;
 
             // ================================================
             // i18n
@@ -316,7 +316,7 @@ declare global {
              * For the lazy, you can also pass a simple string, ar a single element array, and it'll automatically guess
              * the plural form, as long as it's the singular form plus the "s" suffix.
              */
-            itemName?: string | string[];
+            itemName?: string | string[] | undefined;
             /**
              * Format of the title displayed when hovering a subDomain.
              * Some template strings are available, and enclosed in braces.
@@ -327,7 +327,7 @@ declare global {
              *  {connector}  An English preposition placed before a datetime (on Monday, at 15:00, etc.). Each subDomain
              *               have their own default connector, corresponding to the default date format.
              */
-            subDomainTitleFormat?: SubDomainFormatTemplates;
+            subDomainTitleFormat?: SubDomainFormatTemplates | undefined;
             /**
              * Format of the {date} template string inside subDomainTitleFormat.
              * {date} is by default formatted according to the subDomain type.
@@ -335,19 +335,19 @@ declare global {
              * As d3.time.format() will only output English dates, subDomainDateFormat can also accept a function,
              * with the subDomain date as the argument.
              */
-            subDomainDateFormat?: string | Function;
+            subDomainDateFormat?: string | Function | undefined;
             /**
              * Format of the text inside a subDomain cell.
              * Disabled by default, you can display a text inside each subDomain cell.
              * Works exactly like subDomainDateFormat, except that the function takes the cell value as second argument.
              */
-            subDomainTextFormat?: string | Function;
+            subDomainTextFormat?: string | Function | undefined;
             /**
              * Format of the domain label.
              * Works exactly like subDomainDateFormat, and will format the domain label with any string accepted by d3.time.format(), or a function.
              * To not display the domain label, set domainLabelFormat to "" (empty string).
              */
-            domainLabelFormat?: string | Function;
+            domainLabelFormat?: string | Function | undefined;
             /**
              * Formatting of the legend title, displayed when hovering a legend cell.
              * Some template strings are available, and enclosed in braces.
@@ -357,48 +357,48 @@ declare global {
              *  {down}  The lower bound of a color
              *  {up}    The upper bound of a color
              */
-            legendTitleFormat?: LegendTitleTemplates;
+            legendTitleFormat?: LegendTitleTemplates | undefined;
 
             // ================================================
             // Other
             // ================================================
 
             /** Animation duration, in milliseconds. Default value: 500 */
-            animationDuration?: number;
+            animationDuration?: number | undefined;
             /**
              * Will attach the previous() event to the specified element, on a mouse click, shifting the calendar one domain back. Default value: false
              * If you want to shift by more than one domain, see the previous() method.
              */
-            previousSelector?: string | HTMLElement;
+            previousSelector?: string | HTMLElement | undefined;
             /**
              * Will attach the next() event to the specified element, on a mouse click, shifting the calendar one domain forward. Default value: false
              * If you want to shift by more than one domain, see the next() method.
              */
-            nextSelector?: string | HTMLElement;
+            nextSelector?: string | HTMLElement | undefined;
             /**
              * The calendar instance namespace.
              * If you have more than one instance of Cal-Heatmap, you should assign each instance its own namespace, in order to isolate each instance event handler.
              */
-            itemNamespace?: string;
+            itemNamespace?: string | undefined;
 
             // ================================================
             // Events
             // ================================================
 
             /** Called after a mouse click event on a subDomain cell. */
-            onClick?: (date: Date, value: number) => void;
+            onClick?: ((date: Date, value: number) => void) | undefined;
             /** Called after drawing the empty calendar, and before filling it with data. */
-            afterLoad?: () => void;
+            afterLoad?: (() => void) | undefined;
             /**
              * Called after shifting the calendar one domain back.
              * The date argument is the start date of the domain that was added.
              */
-            afterLoadPreviousDomain?: (date: Date) => void;
+            afterLoadPreviousDomain?: ((date: Date) => void) | undefined;
             /**
              * Called after shifting the calendar one domain forward.
              * The date argument is the start date of the domain that was added.
              */
-            afterLoadNextDomain?: (date: Date) => void;
+            afterLoadNextDomain?: ((date: Date) => void) | undefined;
             /**
              * Called after drawing and filling the calendar.
              * Useful in case you're loading data via ajax, as it's loading data asynchronously. This event will wait for the ajax
@@ -406,13 +406,13 @@ declare global {
              * This event will only trigger once, on the initial setup. See afterLoadPreviousDomain and afterLoadNextDomain for
              * callback events after a domain navigation.
              */
-            onComplete?: () => void;
+            onComplete?: (() => void) | undefined;
             /**
              * Called after getting the data from source, but before filling the calendar.
              * This callback must return a json object formatted in the expected data format.
              * afterLoadData() is used to do some works on the data, especially when the data source is not returning data in the expected format.
              */
-            afterLoadData?: (data: any) => DataFormat;
+            afterLoadData?: ((data: any) => DataFormat) | undefined;
             /**
              * Triggered after previous(), when the incoming domain is containing minDate.
              * When the leftmost domain set by minDate is loaded into the calendar, onMinDomainReached() will be triggered with true as argument.
@@ -420,12 +420,12 @@ declare global {
              * In order to reverse the action, onMinDomainReached() will be called with false as argument afer next(), only once, and only if the
              * leftmost domain is not the lower limit domain anymore.
              */
-            onMinDomainReached?: (reached: boolean) => void;
+            onMinDomainReached?: ((reached: boolean) => void) | undefined;
             /**
              * Triggered after next(), when the incoming domain is containing maxDate.
              * See onMinDomainReached().
              */
-            onMaxDomainReached?: (reached: boolean) => void;
+            onMaxDomainReached?: ((reached: boolean) => void) | undefined;
         }
 
         interface RuntimeOptions extends InitOptions
@@ -446,19 +446,19 @@ declare global {
         interface LegendTitleTemplates
         {
             /** Formatting of the smallest (leftmost) value of the legend. Default value: "less than {min} {name}" */
-            lower?: string;
+            lower?: string | undefined;
             /** Formatting of all the value but the first and the last. Default value: "between {down} and {up} {name}" */
-            inner?: string;
+            inner?: string | undefined;
             /** Formatting of the biggest (rightmost) value of the legend. Default value: "more than {max} {name}" */
-            upper?: string;
+            upper?: string | undefined;
         }
 
         interface SubDomainFormatTemplates
         {
             /** Format of the title when there is no value associated to the date. Default value: "{date}" */
-            empty?: string;
+            empty?: string | undefined;
             /** Format of the title when it's associated to a value. Default value: "{count} {name} {connector} {date}" */
-            filled?: string;
+            filled?: string | undefined;
         }
 
         interface DataFormat
@@ -480,28 +480,28 @@ declare global {
              * Position of the label, relative to the domain. Default: "bottom"
              * Valid values: {"top", "right", "bottom", "left"}
              */
-            position?: string;
+            position?: string | undefined;
 
             /**
              * Horizontal align of the domain. Default: "center"
              * Valid values: {"left", "center", "right"}
              */
-            align?: string;
+            align?: string | undefined;
             /**
              * Rotation for a vertical label. Default: null
              * Valid values: {null, "left", "right"}
              */
-            rotate?: string;
+            rotate?: string | undefined;
             /**
              * Only used when label is rotated, defines the width of the label. Default: 100
              * Valid values: any intger
              */
-            width?: number;
+            width?: number | undefined;
             /**
              * More control about label positioning, if the default value does not fit your need,
              * especially when label is rotated, or when using a big font-size. Default: {x:0, y:0}
              */
-            offset?: LabelOffset;
+            offset?: LabelOffset | undefined;
             /**
              * Height of the domain label in pixels.
              * By leaving it to null, the label will be set to 2 times the height of the subDomain cell.
@@ -509,7 +509,7 @@ declare global {
              * of setting the label height to 0. Default: null
              * Valid values: any integer
              */
-            height?: number;
+            height?: number | undefined;
         }
     }
 

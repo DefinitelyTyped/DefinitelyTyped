@@ -7,14 +7,14 @@ export = CircuitBreaker;
 
 declare namespace CircuitBreaker {
     interface Options {
-        windowDuration?: number;
-        numBuckets?: number;
-        timeoutDuration?: number;
-        errorThreshold?: number;
-        volumeThreshold?: number;
+        windowDuration?: number | undefined;
+        numBuckets?: number | undefined;
+        timeoutDuration?: number | undefined;
+        errorThreshold?: number | undefined;
+        volumeThreshold?: number | undefined;
 
-        onCircuitOpen?: (m: Metrics) => void;
-        onCircuitClose?: (m: Metrics) => void;
+        onCircuitOpen?: ((m: Metrics) => void) | undefined;
+        onCircuitClose?: ((m: Metrics) => void) | undefined;
     }
 
     interface Metrics {

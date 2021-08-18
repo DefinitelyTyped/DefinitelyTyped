@@ -22,7 +22,7 @@ declare class GIFEncoder extends Readable {
             /**
              * Number, in bytes, to store in internal buffer. Defaults to 64kB.
              */
-            highWaterMark?: number
+            highWaterMark?: number | undefined
         }
     );
 

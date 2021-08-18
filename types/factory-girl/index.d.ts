@@ -6,7 +6,6 @@
 //                 Olivier Kamers <https://github.com/OlivierKamers>
 //                 Dan McNamara <https://github.com/DMcNamara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 declare const factory: factory.Static;
 
@@ -149,11 +148,11 @@ declare namespace factory {
     }
 
     interface Options<T> {
-        afterBuild?: Hook<T>;
-        afterCreate?: Hook<T>;
+        afterBuild?: Hook<T> | undefined;
+        afterCreate?: Hook<T> | undefined;
     }
 
-    type Hook<T> = (model: any, attrs: T[], options: any) => void;
+    type Hook<T> = (model: any, attrs: T | T[], options: any) => void;
 }
 
 export = factory;

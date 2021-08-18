@@ -6,3 +6,20 @@ export default class ImageStyle extends Plugin {
     static readonly requires: [typeof ImageStyleEditing, typeof ImageStyleUI];
     static readonly pluginName: 'ImageStyle';
 }
+/**
+ * The configuration for the {@link module:image/imagestyle~ImageStyle} plugin that should be provided
+ * while creating the editor instance.
+ */
+
+export interface ImageStyleConfig {
+    options: ImageStyleOptionDefinition[];
+}
+
+export interface ImageStyleOptionDefinition {
+    className?: string | undefined;
+    icon?: string | undefined;
+    isDefault?: boolean | undefined;
+    modelElements?: Array<'imageBlock' | 'imageInline'> | undefined;
+    name: string;
+    title?: string | undefined;
+}

@@ -1,10 +1,12 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'stream';
-import { promisify } from 'util';
-import { createReadStream, createWriteStream } from 'fs';
-import { createGzip, constants } from 'zlib';
-import assert = require('assert');
-import { Http2ServerResponse } from 'http2';
-import { pipeline as pipelinePromise } from 'stream/promises';
+import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'node:stream';
+import { promisify } from 'node:util';
+import { createReadStream, createWriteStream } from 'node:fs';
+import { createGzip, constants } from 'node:zlib';
+import assert = require('node:assert');
+import { Http2ServerResponse } from 'node:http2';
+import { pipeline as pipelinePromise } from 'node:stream/promises';
+import { stdout } from 'node:process';
+import 'node:stream/web';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -296,6 +298,9 @@ function streamPipelineAsyncTransform() {
             yield null;
         },
         err => console.error(err));
+
+    // Accepts buffer as source
+    pipeline(Buffer.from('test'), stdout);
 }
 
 async function streamPipelineAsyncPromiseTransform() {
@@ -471,3 +476,14 @@ function stream_readable_pipe_test() {
 }
 
 addAbortSignal(new AbortSignal(), new Readable());
+
+{
+    const a = Readable.from(['test'], {
+        objectMode: true,
+    });
+}
+
+{
+    const a = new Readable();
+    a.unshift('something', 'utf8');
+}

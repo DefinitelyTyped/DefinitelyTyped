@@ -10,14 +10,14 @@ import {
 import Observable from '@ember/object/observable';
 
 class OtherThing {
-    observerOfDemo(target: DemoObservable, key: 'foo') {}
+    observerOfDemo(target: DemoObservable, key: string) {}
 }
 
 class DemoObservable implements Observable {
     foo: string;
     isFoo = true;
     bar: [boolean, boolean];
-    baz?: number;
+    baz?: number | undefined;
     constructor() {
         this.foo = 'hello';
         this.bar = [false, true];
@@ -54,8 +54,8 @@ class DemoObservable implements Observable {
         Ember.removeObserver(this, 'foo', lambda);
     }
 
-    fooDidChange(obj: this, propName: 'foo') {}
-    protected fooDidChangeProtected(obj: this, propName: 'foo') {}
+    fooDidChange(obj: this, propName: string) {}
+    protected fooDidChangeProtected(obj: this, propName: string) {}
     get<K extends keyof this>(key: K): UnwrapComputedPropertyGetter<this[K]> {
         throw new Error('Method not implemented.');
     }

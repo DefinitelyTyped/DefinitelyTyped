@@ -1,9 +1,9 @@
 export interface MergeFileOptions {
-    version?: number;
-    ancestorLabel?: string;
-    ourLabel?: string;
-    theirLabel?: string;
-    favor?: number;
-    flags?: number;
+    version?: number | undefined;
+    ancestorLabel?: string | undefined;
+    ourLabel?: string | undefined;
+    theirLabel?: string | undefined;
+    favor?: number | undefined;
+    flags?: number | undefined;
     [key: string]: any;
 }

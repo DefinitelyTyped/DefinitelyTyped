@@ -12,11 +12,11 @@ declare namespace ngCordova {
     }
 
     export interface ShowOptions {
-        title?: string;
-        buttonLabels?: string[];
-        addCancelButtonWithLabel?: string;
-        addDestructiveButtonWithLabel?: string;
-        androidEnableCancelButton?: boolean;
-        winphoneEnableCancelButton?: boolean;
+        title?: string | undefined;
+        buttonLabels?: string[] | undefined;
+        addCancelButtonWithLabel?: string | undefined;
+        addDestructiveButtonWithLabel?: string | undefined;
+        androidEnableCancelButton?: boolean | undefined;
+        winphoneEnableCancelButton?: boolean | undefined;
     }
 }

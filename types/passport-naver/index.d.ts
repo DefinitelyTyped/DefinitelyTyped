@@ -27,12 +27,12 @@ export interface StrategyOption {
     clientSecret: string;
     callbackURL: string;
 
-    svcType?: number;
-    authType?: string;
+    svcType?: number | undefined;
+    authType?: string | undefined;
 
-    authorizationURL?: string;
-    tokenURL?: string;
-    profileURL?: string;
+    authorizationURL?: string | undefined;
+    tokenURL?: string | undefined;
+    profileURL?: string | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {
