@@ -8,6 +8,8 @@ new Modal(element, { backdrop: 'static' });
 
 // $ExpectType Modal | null
 Modal.getInstance(element);
+// $ExpectType Modal
+Modal.getOrCreateInstance(element);
 
 // $ExpectType string
 Modal.VERSION;
