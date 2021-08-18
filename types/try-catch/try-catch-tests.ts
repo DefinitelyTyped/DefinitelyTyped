@@ -1,3 +1,3 @@
 import tryCatch from "try-catch";
 
-tryCatch(() => {}); // $ExpectType Array
+tryCatch(() => {}); // $ExpectType [error: Error, result?: any]
