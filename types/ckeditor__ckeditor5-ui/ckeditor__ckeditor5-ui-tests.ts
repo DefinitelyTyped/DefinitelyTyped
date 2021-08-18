@@ -65,7 +65,7 @@ let bool = true;
 let view = new View();
 view.isRendered === bool;
 let template: Template;
-if (typeof view.template !== "boolean") {
+if (typeof view.template !== 'boolean') {
     template = view.template;
 }
 template = view.template as Template;
@@ -336,7 +336,10 @@ viewCollection = boxedEditor.main;
 /**
  * EditableUIView
  */
-new InlineEditableUIView(locale, view);
+// $ExpectType boolean
+new InlineEditableUIView(locale, view)._hasExternalElement;
+// $ExpectError
+new InlineEditableUIView(locale, view)._hasExternalElement = true;
 
 /**
  * FormHeaderView
