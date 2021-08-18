@@ -29,6 +29,7 @@ pinoHttp({ useLevel: 'error' });
 pinoHttp({ prettyPrint: true });
 pinoHttp({ autoLogging: false });
 pinoHttp({ autoLogging: { ignorePaths: ['/health'] } });
+pinoHttp({ autoLogging: { ignorePaths: [/\/health/] } });
 pinoHttp({ autoLogging: { ignorePaths: ['/health'], getPath: req => req.url } });
 pinoHttp({ customSuccessMessage: res => 'Success' });
 pinoHttp({ customErrorMessage: (error, res) => `Error - ${error}` });
