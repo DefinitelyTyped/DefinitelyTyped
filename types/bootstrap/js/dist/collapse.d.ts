@@ -25,6 +25,7 @@ declare class Collapse extends BaseComponent {
     hide(): void;
 
     static getInstance: GetInstanceFactory<Collapse>;
+    static getOrCreateInstance: GetInstanceFactory<Collapse>;
     static jQueryInterface: Collapse.jQueryInterface;
 
     // static NAME: 'collapse';
