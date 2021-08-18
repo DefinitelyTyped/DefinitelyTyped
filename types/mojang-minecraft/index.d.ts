@@ -606,6 +606,7 @@ export class BlockPistonComponent {
     readonly "isRetracting": boolean;
     readonly "location": BlockLocation;
 }
+// tslint:disable-next-line:no-unnecessary-class
 export class BlockProperties {
     /**
      * Integer property that represents the age of the block. Valid
@@ -1322,6 +1323,7 @@ export class ChatEventSignal {
  * Contains a method that lets you run console commands within
  * Minecraft.
  */
+// tslint:disable-next-line:no-unnecessary-class
 export class Commands {
     /**
      * @remarks
@@ -1497,6 +1499,7 @@ export class Dimension {
  * Represents a direction for expressing relative position or
  * facing.
  */
+// tslint:disable-next-line:no-unnecessary-class
 export class Direction {
     /**
      * Represents an object located or facing in the down (z - 1)
@@ -3667,6 +3670,7 @@ export class Location {
  * Contains definitions of standard Minecraft and Minecraft
  * Education Edition block types.
  */
+// tslint:disable-next-line:no-unnecessary-class
 export class MinecraftBlockTypes {
     /**
      * Represents an acacia button within Minecraft.
@@ -6679,6 +6683,7 @@ export class MinecraftBlockTypes {
      */
     static getAllBlockTypes(): BlockType[];
 }
+// tslint:disable-next-line:no-unnecessary-class
 export class MinecraftEffectTypes {
     static readonly "absorption": EffectType;
     static readonly "badOmen": EffectType;
@@ -6715,6 +6720,7 @@ export class MinecraftEffectTypes {
  * Contains definitions of standard Minecraft and Minecraft
  * Education Edition block types.
  */
+// tslint:disable-next-line:no-unnecessary-class
 export class MinecraftItemTypes {
     static readonly "acaciaBoat": ItemType;
     /**
@@ -10765,6 +10771,7 @@ export class WeatherChangeEventSignal {
  * A class that wraps the state of a dimension (such as the
  * overworld, the nether, or the end)
  */
+// tslint:disable-next-line:no-unnecessary-class
 export class World {
     /**
      * Contains a set of events that are applicable to the entirety

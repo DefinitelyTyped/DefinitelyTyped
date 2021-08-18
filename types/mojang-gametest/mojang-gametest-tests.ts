@@ -67,6 +67,7 @@ function collapsing(test: gt.Test) {
 
 gt.register("ChallengeTests", "collapsing", collapsing).structureName("gametests:collapsing_space").maxTicks(160);
 
+// tslint:disable-next-line:no-unnecessary-class
 export class Utilities {
   static fillBlock(test: gt.Test, blockType: mc.BlockType, xFrom: number, yFrom: number, zFrom: number, xTo: number, yTo: number, zTo: number) {
     for (let i = xFrom; i <= xTo; i++) {
