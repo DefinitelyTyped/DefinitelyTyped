@@ -51,6 +51,8 @@ declare class Popover extends BaseComponent {
     update(): void;
 
     static getInstance: GetInstanceFactory<Popover>;
+    
+    static getOrCreateInstance: GetInstanceFactory<Popover>;
 
     static jQueryInterface: Popover.jQueryInterface;
 
