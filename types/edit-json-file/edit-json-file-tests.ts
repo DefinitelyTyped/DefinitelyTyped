@@ -4,7 +4,7 @@ const jsonEditor: editJsonFile.JsonEditor = editJsonFile('1.json'); // $ExpectTy
 jsonEditor.set('a', 2); // $ExpectType JsonEditor
 jsonEditor.set('b', []); // $ExpectType JsonEditor
 jsonEditor.append('a', 'b'); // $ExpectType JsonEditor
-jsonEditor.pop('a'); // $ExpectType any
+jsonEditor.pop('a'); // $ExpectType JsonEditor
 jsonEditor.unset('b'); // $ExpectType JsonEditor
 jsonEditor.get('a'); // $ExpectType any
 const options: editJsonFile.Options = { autosave: true };
