@@ -7,6 +7,7 @@ declare class Button extends BaseComponent {
     toggle(): void;
 
     static getInstance: GetInstanceFactory<Button>;
+    static getOrCreateInstance: GetInstanceFactory<Button>;
     static jQueryInterface: Button.jQueryInterface;
 }
 
