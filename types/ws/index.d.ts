@@ -1,4 +1,4 @@
-// Type definitions for ws 8.0
+// Type definitions for ws 8.2
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Margus Lamp <https://github.com/mlamp>
@@ -171,6 +171,8 @@ declare class WebSocket extends EventEmitter {
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
+declare class WebSocketAlias extends WebSocket {}
+
 declare namespace WebSocket {
     /**
      * Data represents the raw message payload received over the WebSocket.
@@ -285,6 +287,7 @@ declare namespace WebSocket {
         clientTracking?: boolean | undefined;
         perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
         maxPayload?: number | undefined;
+        skipUTF8Validation?: boolean | undefined;
     }
 
     interface AddressInfo {
@@ -342,6 +345,9 @@ declare namespace WebSocket {
         removeListener(event: "close" | "listening", cb: () => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
+
+    class WebSocketServer extends Server {}
+    class WebSocket extends WebSocketAlias {}
 
     // WebSocket stream
     function createWebSocketStream(websocket: WebSocket, options?: DuplexOptions): Duplex;
