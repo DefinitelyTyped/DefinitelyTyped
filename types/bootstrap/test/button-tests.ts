@@ -1,4 +1,4 @@
-import { Button, Carousel } from 'bootstrap';
+import { Button } from 'bootstrap';
 import * as $ from 'jquery';
 
 const element = new Element();
