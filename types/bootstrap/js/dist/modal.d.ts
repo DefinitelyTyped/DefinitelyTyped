@@ -29,6 +29,8 @@ declare class Modal extends BaseComponent {
     handleUpdate(): void;
 
     static getInstance: GetInstanceFactory<Modal>;
+    
+    static getOrCreateInstance: GetInstanceFactory<Modal>;
 
     static jQueryInterface: Modal.jQueryInterface;
 
