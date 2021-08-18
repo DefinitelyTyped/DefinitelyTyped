@@ -15,8 +15,8 @@ export interface InjectedAuthRouterProps<Redirect = (...args: any[]) => Action> 
 export interface ConnectedRouterRedirectConfig<OwnProps = {}, State = {}> extends AuthBaseConfig<OwnProps, State> {
     redirectPath: string | StateSelector<State, OwnProps, string>;
     redirectAction?(location: Location): Action;
-    allowRedirectBack?: boolean | StateSelector<State, OwnProps, boolean>;
-    redirectQueryParamName?: string;
+    allowRedirectBack?: boolean | StateSelector<State, OwnProps, boolean> | undefined;
+    redirectQueryParamName?: string | undefined;
 }
 
 export function connectedRouterRedirect<OwnProps = {}, State = {}>(
@@ -34,9 +34,9 @@ export type StateMutateSelector<State, R> = (state: State, nextState: State) => 
 export interface CreateOnEnterConfig<State> extends AuthConfig {
     redirectPath: string | StateMutateSelector<State, string>;
     authenticatedSelector: StateMutateSelector<State, boolean>;
-    authenticatingSelector?: StateMutateSelector<State, boolean>;
-    allowRedirectBack?: boolean | StateMutateSelector<State, boolean>;
-    redirectQueryParamName?: string;
+    authenticatingSelector?: StateMutateSelector<State, boolean> | undefined;
+    allowRedirectBack?: boolean | StateMutateSelector<State, boolean> | undefined;
+    redirectQueryParamName?: string | undefined;
 }
 
 export function createOnEnter<State = {}>(config: CreateOnEnterConfig<State>):

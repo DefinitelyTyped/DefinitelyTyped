@@ -66,7 +66,7 @@ declare namespace WechatMiniprogram.Component {
 
     interface Data<D extends DataOption> {
         /** 组件的内部数据，和 `properties` 一同用于组件的模板渲染 */
-        data?: D
+        data?: D | undefined
     }
     interface Property<P extends PropertyOption> {
         /** 组件的对外属性，是属性名到属性设置的映射表 */
@@ -100,7 +100,7 @@ declare namespace WechatMiniprogram.Component {
         /** 属性类型 */
         type: T
         /** 属性初始值 */
-        value?: ValueType<T>
+        value?: ValueType<T> | undefined
         /** 属性值被更改时的响应函数 */
         observer?:
             | string
@@ -108,9 +108,9 @@ declare namespace WechatMiniprogram.Component {
                   newVal: ValueType<T>,
                   oldVal: ValueType<T>,
                   changedPath: Array<string | number>
-              ) => void)
+              ) => void) | undefined
         /** 属性的类型（可以指定多个） */
-        optionalTypes?: ShortProperty[]
+        optionalTypes?: ShortProperty[] | undefined
     }
     type AllFullProperty =
         | FullProperty<StringConstructor>
@@ -256,11 +256,11 @@ declare namespace WechatMiniprogram.Component {
         /**
          * [启用多slot支持](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html#组件wxml的slot)
          */
-        multipleSlots?: boolean
+        multipleSlots?: boolean | undefined
         /**
          * [组件样式隔离](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html#组件样式隔离)
          */
-        addGlobalClass?: boolean
+        addGlobalClass?: boolean | undefined
         /**
          * [组件样式隔离](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html#组件样式隔离)
          */
@@ -270,14 +270,14 @@ declare namespace WechatMiniprogram.Component {
             | 'shared'
             | 'page-isolated'
             | 'page-apply-shared'
-            | 'page-shared'
+            | 'page-shared' | undefined
         /**
          * [纯数据字段](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/pure-data.html) 是一些不用于界面渲染的 data 字段，可以用于提升页面更新性能。从小程序基础库版本 2.8.2 开始支持。
          */
-        pureDataPattern?: RegExp
+        pureDataPattern?: RegExp | undefined
         /**
          * [虚拟化组件节点](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html#%E8%99%9A%E6%8B%9F%E5%8C%96%E7%BB%84%E4%BB%B6%E8%8A%82%E7%82%B9) 使自定义组件内部的第一层节点由自定义组件本身完全决定。从小程序基础库版本 [`2.11.2`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) 开始支持 */
-        virtualHost?: boolean
+        virtualHost?: boolean | undefined
     }
 
     interface TriggerEventOption {
@@ -285,17 +285,17 @@ declare namespace WechatMiniprogram.Component {
          *
          * 默认值： `false`
          */
-        bubbles?: boolean
+        bubbles?: boolean | undefined
         /** 事件是否可以穿越组件边界，为false时，事件将只能在引用组件的节点树上触发，不进入其他任何组件内部
          *
          * 默认值： `false`
          */
-        composed?: boolean
+        composed?: boolean | undefined
         /** 事件是否拥有捕获阶段
          *
          * 默认值： `false`
          */
-        capturePhase?: boolean
+        capturePhase?: boolean | undefined
     }
 
     interface RelationOption {
@@ -308,7 +308,7 @@ declare namespace WechatMiniprogram.Component {
         /** 关系生命周期函数，当关系脱离页面节点树时触发，触发时机在组件detached生命周期之后 */
         unlinked?(target: TrivialInstance): void
         /** 如果这一项被设置，则它表示关联的目标节点所应具有的behavior，所有拥有这一behavior的组件节点都会被关联 */
-        target?: string
+        target?: string | undefined
     }
 
     interface PageLifetimes {
@@ -442,18 +442,18 @@ declare namespace WechatMiniprogram.Component {
             [componentName: string]: RelationOption
         }
         /** 组件接受的外部样式类，参见 [外部样式类](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html) */
-        externalClasses?: string[]
+        externalClasses?: string[] | undefined
         /** 组件所在页面的生命周期声明对象，参见 [组件生命周期](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/lifetimes.html)
          *
          * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
-        pageLifetimes?: Partial<PageLifetimes>
+        pageLifetimes?: Partial<PageLifetimes> | undefined
         /** 一些选项（文档中介绍相关特性时会涉及具体的选项设置，这里暂不列举） */
         options: ComponentOptions
 
         /** 定义段过滤器，用于自定义组件扩展，参见 [自定义组件扩展](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/extend.html)
          *
          * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
-        definitionFilter?: DefinitionFilter
+        definitionFilter?: DefinitionFilter | undefined
         /**
          * 组件自定义导出，当使用 `behavior: wx://component-export` 时，这个定义段可以用于指定组件被 selectComponent 调用时的返回值，参见 [组件间通信与事件](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/events.html)
          * 最低基础库版本： [`2.2.3`](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html) */
@@ -462,139 +462,139 @@ declare namespace WechatMiniprogram.Component {
 
     interface KeyFrame {
         /** 关键帧的偏移，范围[0-1] */
-        offset?: number
+        offset?: number | undefined
         /** 动画缓动函数 */
-        ease?: string
+        ease?: string | undefined
         /** 基点位置，即 CSS transform-origin */
-        transformOrigin?: string
+        transformOrigin?: string | undefined
         /** 背景颜色，即 CSS background-color */
-        backgroundColor?: string
+        backgroundColor?: string | undefined
         /** 底边位置，即 CSS bottom */
-        bottom?: number | string
+        bottom?: number | string | undefined
         /** 高度，即 CSS height */
-        height?: number | string
+        height?: number | string | undefined
         /** 左边位置，即 CSS left */
-        left?: number | string
+        left?: number | string | undefined
         /** 宽度，即 CSS width */
-        width?: number | string
+        width?: number | string | undefined
         /** 不透明度，即 CSS opacity */
-        opacity?: number | string
+        opacity?: number | string | undefined
         /** 右边位置，即 CSS right */
-        right?: number | string
+        right?: number | string | undefined
         /** 顶边位置，即 CSS top */
-        top?: number | string
+        top?: number | string | undefined
         /** 变换矩阵，即 CSS transform matrix */
-        matrix?: number[]
+        matrix?: number[] | undefined
         /** 三维变换矩阵，即 CSS transform matrix3d */
-        matrix3d?: number[]
+        matrix3d?: number[] | undefined
         /** 旋转，即 CSS transform rotate */
-        rotate?: number
+        rotate?: number | undefined
         /** 三维旋转，即 CSS transform rotate3d */
-        rotate3d?: number[]
+        rotate3d?: number[] | undefined
         /** X 方向旋转，即 CSS transform rotateX */
-        rotateX?: number
+        rotateX?: number | undefined
         /** Y 方向旋转，即 CSS transform rotateY */
-        rotateY?: number
+        rotateY?: number | undefined
         /** Z 方向旋转，即 CSS transform rotateZ */
-        rotateZ?: number
+        rotateZ?: number | undefined
         /** 缩放，即 CSS transform scale */
-        scale?: number[]
+        scale?: number[] | undefined
         /** 三维缩放，即 CSS transform scale3d */
-        scale3d?: number[]
+        scale3d?: number[] | undefined
         /** X 方向缩放，即 CSS transform scaleX */
-        scaleX?: number
+        scaleX?: number | undefined
         /** Y 方向缩放，即 CSS transform scaleY */
-        scaleY?: number
+        scaleY?: number | undefined
         /** Z 方向缩放，即 CSS transform scaleZ */
-        scaleZ?: number
+        scaleZ?: number | undefined
         /** 倾斜，即 CSS transform skew */
-        skew?: number[]
+        skew?: number[] | undefined
         /** X 方向倾斜，即 CSS transform skewX */
-        skewX?: number
+        skewX?: number | undefined
         /** Y 方向倾斜，即 CSS transform skewY */
-        skewY?: number
+        skewY?: number | undefined
         /** 位移，即 CSS transform translate */
-        translate?: Array<number | string>
+        translate?: Array<number | string> | undefined
         /** 三维位移，即 CSS transform translate3d */
-        translate3d?: Array<number | string>
+        translate3d?: Array<number | string> | undefined
         /** X 方向位移，即 CSS transform translateX */
-        translateX?: number | string
+        translateX?: number | string | undefined
         /** Y 方向位移，即 CSS transform translateY */
-        translateY?: number | string
+        translateY?: number | string | undefined
         /** Z 方向位移，即 CSS transform translateZ */
-        translateZ?: number | string
+        translateZ?: number | string | undefined
     }
     interface ClearAnimationOptions {
         /** 基点位置，即 CSS transform-origin */
-        transformOrigin?: boolean
+        transformOrigin?: boolean | undefined
         /** 背景颜色，即 CSS background-color */
-        backgroundColor?: boolean
+        backgroundColor?: boolean | undefined
         /** 底边位置，即 CSS bottom */
-        bottom?: boolean
+        bottom?: boolean | undefined
         /** 高度，即 CSS height */
-        height?: boolean
+        height?: boolean | undefined
         /** 左边位置，即 CSS left */
-        left?: boolean
+        left?: boolean | undefined
         /** 宽度，即 CSS width */
-        width?: boolean
+        width?: boolean | undefined
         /** 不透明度，即 CSS opacity */
-        opacity?: boolean
+        opacity?: boolean | undefined
         /** 右边位置，即 CSS right */
-        right?: boolean
+        right?: boolean | undefined
         /** 顶边位置，即 CSS top */
-        top?: boolean
+        top?: boolean | undefined
         /** 变换矩阵，即 CSS transform matrix */
-        matrix?: boolean
+        matrix?: boolean | undefined
         /** 三维变换矩阵，即 CSS transform matrix3d */
-        matrix3d?: boolean
+        matrix3d?: boolean | undefined
         /** 旋转，即 CSS transform rotate */
-        rotate?: boolean
+        rotate?: boolean | undefined
         /** 三维旋转，即 CSS transform rotate3d */
-        rotate3d?: boolean
+        rotate3d?: boolean | undefined
         /** X 方向旋转，即 CSS transform rotateX */
-        rotateX?: boolean
+        rotateX?: boolean | undefined
         /** Y 方向旋转，即 CSS transform rotateY */
-        rotateY?: boolean
+        rotateY?: boolean | undefined
         /** Z 方向旋转，即 CSS transform rotateZ */
-        rotateZ?: boolean
+        rotateZ?: boolean | undefined
         /** 缩放，即 CSS transform scale */
-        scale?: boolean
+        scale?: boolean | undefined
         /** 三维缩放，即 CSS transform scale3d */
-        scale3d?: boolean
+        scale3d?: boolean | undefined
         /** X 方向缩放，即 CSS transform scaleX */
-        scaleX?: boolean
+        scaleX?: boolean | undefined
         /** Y 方向缩放，即 CSS transform scaleY */
-        scaleY?: boolean
+        scaleY?: boolean | undefined
         /** Z 方向缩放，即 CSS transform scaleZ */
-        scaleZ?: boolean
+        scaleZ?: boolean | undefined
         /** 倾斜，即 CSS transform skew */
-        skew?: boolean
+        skew?: boolean | undefined
         /** X 方向倾斜，即 CSS transform skewX */
-        skewX?: boolean
+        skewX?: boolean | undefined
         /** Y 方向倾斜，即 CSS transform skewY */
-        skewY?: boolean
+        skewY?: boolean | undefined
         /** 位移，即 CSS transform translate */
-        translate?: boolean
+        translate?: boolean | undefined
         /** 三维位移，即 CSS transform translate3d */
-        translate3d?: boolean
+        translate3d?: boolean | undefined
         /** X 方向位移，即 CSS transform translateX */
-        translateX?: boolean
+        translateX?: boolean | undefined
         /** Y 方向位移，即 CSS transform translateY */
-        translateY?: boolean
+        translateY?: boolean | undefined
         /** Z 方向位移，即 CSS transform translateZ */
-        translateZ?: boolean
+        translateZ?: boolean | undefined
     }
     interface ScrollTimelineKeyframe {
-        composite?: 'replace' | 'add' | 'accumulate' | 'auto'
-        easing?: string
-        offset?: number | null
+        composite?: 'replace' | 'add' | 'accumulate' | 'auto' | undefined
+        easing?: string | undefined
+        offset?: number | null | undefined
         [property: string]: string | number | null | undefined
     }
     interface ScrollTimelineOption {
         /** 指定滚动元素的选择器（只支持 scroll-view），该元素滚动时会驱动动画的进度 */
         scrollSource: string
         /** 指定滚动的方向。有效值为 horizontal 或 vertical */
-        orientation?: string
+        orientation?: string | undefined
         /** 指定开始驱动动画进度的滚动偏移量，单位 px */
         startScrollOffset: number
         /** 指定停止驱动动画进度的滚动偏移量，单位 px */

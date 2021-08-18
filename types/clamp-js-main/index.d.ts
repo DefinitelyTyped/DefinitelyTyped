@@ -5,12 +5,12 @@
 
 declare namespace clamp {
     interface ClampOptions {
-        clamp?: number|string;
-        useNativeClamp?: boolean;
-        splitOnChars?: string[];
-        animate?: boolean;
-        truncationChar?: string;
-        truncationHTML?: string | null;
+        clamp?: number|string | undefined;
+        useNativeClamp?: boolean | undefined;
+        splitOnChars?: string[] | undefined;
+        animate?: boolean | undefined;
+        truncationChar?: string | undefined;
+        truncationHTML?: string | null | undefined;
     }
 
     interface ClampResponse {

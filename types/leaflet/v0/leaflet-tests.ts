@@ -306,7 +306,7 @@ tileLayer.bringToBack()
 namespace CustomControl {
     export interface Options {
         title: string;
-        position?: string;
+        position?: string | undefined;
     }
 }
 interface CustomControl extends L.Control {

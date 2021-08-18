@@ -76,8 +76,8 @@ export interface RouteComponentProps<P, R, ComponentProps = any, Q = any> {
 }
 
 export interface RouterProps extends ClassAttributes<any> {
-    routes?: RouteConfig;
-    history?: History;
+    routes?: RouteConfig | undefined;
+    history?: History | undefined;
     createElement?(component: RouteComponent, props: any): any;
     onError?(error: any): any;
     onUpdate?(): any;

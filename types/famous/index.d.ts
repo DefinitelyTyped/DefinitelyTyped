@@ -124,13 +124,13 @@ declare module "famous/dom-renderables" {
     }
     
     export interface IDOMElementOptions {
-        tagName?: string;
-        classes?: string[];
-        attributes?: { [attributeName: string]: string };
-        properties?: { [attributeName: string]: string };
-        id?: string;
-        content?: string;
-        cutout?: boolean;
+        tagName?: string | undefined;
+        classes?: string[] | undefined;
+        attributes?: { [attributeName: string]: string } | undefined;
+        properties?: { [attributeName: string]: string } | undefined;
+        id?: string | undefined;
+        content?: string | undefined;
+        cutout?: boolean | undefined;
     }
 }
 
@@ -488,16 +488,16 @@ declare module "famous/physics" {
     }
     
     export interface IParticleOptions {
-        position?: Vec3;
-        orientation?: Quaternion;
-        mass?: number;
-        restitution?: number;
-        friction?: number;
-        size?: number[];
-        velocity?: number;
-        restrictions?: number;
-        collisionMask?: number;
-        collisionGroup?: number;
+        position?: Vec3 | undefined;
+        orientation?: Quaternion | undefined;
+        mass?: number | undefined;
+        restitution?: number | undefined;
+        friction?: number | undefined;
+        size?: number[] | undefined;
+        velocity?: number | undefined;
+        restrictions?: number | undefined;
+        collisionMask?: number | undefined;
+        collisionGroup?: number | undefined;
     }
     
     export class Wall extends Particle {
@@ -508,11 +508,11 @@ declare module "famous/physics" {
     }
     
     export interface IWallOptions extends IParticleOptions {
-        direction?: number;
+        direction?: number | undefined;
     }
     
     export interface IForceOptions {
-        targets?: any[];
+        targets?: any[] | undefined;
     }
     
     export class Force {
@@ -526,9 +526,9 @@ declare module "famous/physics" {
     }
     
     export interface IDragOptions extends IForceOptions {
-        type?: (v: number) => number;
-        strength?: number;
-        max?: number;
+        type?: ((v: number) => number) | undefined;
+        strength?: number | undefined;
+        max?: number | undefined;
     }
     
     export class Drag extends Force {
@@ -543,14 +543,14 @@ declare module "famous/physics" {
     }
     
     export interface ISpringOptions extends IForceOptions {
-        length?: number;
-        type?: (dist: any, rMax: any) => number;
-        maxLength?: number;
-        stiffness?: number;
-        damping?: number;
-        period?: number;
-        dampingRatio?: number;
-        anchor?: Vec3;
+        length?: number | undefined;
+        type?: ((dist: any, rMax: any) => number) | undefined;
+        maxLength?: number | undefined;
+        stiffness?: number | undefined;
+        damping?: number | undefined;
+        period?: number | undefined;
+        dampingRatio?: number | undefined;
+        anchor?: Vec3 | undefined;
     }
     
     export class Spring extends Force {
@@ -570,13 +570,13 @@ declare module "famous/physics" {
     }
     
     export interface IRotationalSpringOptions extends IForceOptions {
-        max?: number;
-        type?: (dist: any, rMax: any) => number;
-        stiffness?: number;
-        damping?: number;
-        period?: number;
-        dampingRatio?: number;
-        anchor?: Quaternion;
+        max?: number | undefined;
+        type?: ((dist: any, rMax: any) => number) | undefined;
+        stiffness?: number | undefined;
+        damping?: number | undefined;
+        period?: number | undefined;
+        dampingRatio?: number | undefined;
+        anchor?: Quaternion | undefined;
     }
     
     export class RotationalSpring extends Force {

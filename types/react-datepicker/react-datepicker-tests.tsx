@@ -9,13 +9,18 @@ const defaultLocale = getDefaultLocale();
 <DatePicker
     adjustDateOnChange
     allowSameDay
+    ariaDescribedBy=""
+    ariaInvalid=""
     ariaLabelledBy=""
+    ariaRequired=""
     ariaLabelClose=""
     autoComplete=""
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
+    calendarStartDay={0}
     className=""
+    clearButtonClassName=""
     clearButtonTitle=""
     // closeOnScroll={false} // Or as function:
     closeOnScroll={e => e.target === document}
@@ -62,7 +67,7 @@ const defaultLocale = getDefaultLocale();
     onBlur={event => null}
     onCalendarClose={() => null}
     onCalendarOpen={() => null}
-    onChange={(date: Date | [Date, Date] | null) => {}}
+    onChange={(date: Date | [Date | null, Date | null] | null) => {}}
     onChangeRaw={event => null}
     onClickOutside={event => null}
     onDayMouseEnter={(date: Date) => {}}
@@ -81,11 +86,22 @@ const defaultLocale = getDefaultLocale();
     placeholderText=""
     popperClassName=""
     popperContainer={props => <div />}
-    popperModifiers={{
-        flip: {
-            enabled: false,
+    popperModifiers={[
+        {
+          name: "offset",
+          options: {
+            offset: [5, 10],
+          },
         },
-    }}
+        {
+          name: "preventOverflow",
+          options: {
+            rootBoundary: "viewport",
+            tether: false,
+            altAxis: true,
+          },
+        },
+      ]}
     popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
@@ -94,6 +110,7 @@ const defaultLocale = getDefaultLocale();
     readOnly
     ref={handleRef}
     renderCustomHeader={({
+        monthDate,
         date,
         changeYear,
         changeMonth,
@@ -114,6 +131,7 @@ const defaultLocale = getDefaultLocale();
     selected={new Date()}
     selectsEnd
     selectsStart
+    selectsRange
     shouldCloseOnSelect
     showDisabledMonthNavigation
     showMonthDropdown
@@ -126,6 +144,7 @@ const defaultLocale = getDefaultLocale();
     showTimeSelect
     showTimeSelectOnly
     showTwoColumnMonthYearPicker
+    showFourColumnMonthYearPicker
     showWeekNumbers
     showYearDropdown
     showYearPicker

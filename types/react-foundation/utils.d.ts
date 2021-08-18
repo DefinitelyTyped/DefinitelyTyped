@@ -1,8 +1,8 @@
 import * as PropTypes from 'prop-types';
 import { Breakpoints, FloatTypes, HorizontalAlignments, VerticalAlignments, SpaceControls, ExtendedBreakpoints } from './enums';
 export interface ClassNameProps {
-    noDefaultClassName?: string;
-    className?: string;
+    noDefaultClassName?: string | undefined;
+    className?: string | undefined;
 }
 /**
  * Property types for general properties.
@@ -23,18 +23,18 @@ export declare const GeneralPropTypes: {
     float: PropTypes.Requireable<any>;
 };
 export interface GeneralPropTypes extends ClassNameProps {
-    showFor?: Breakpoints;
-    showOnlyFor?: Breakpoints;
-    hideFor?: "medium" | "large";
-    hideOnlyFor?: Breakpoints;
-    isHidden?: boolean;
-    isInvisible?: boolean;
-    showForLandscape?: boolean;
-    showForPortrait?: boolean;
-    showForSr?: boolean;
-    showOnFocus?: boolean;
-    isClearfix?: boolean;
-    float?: FloatTypes;
+    showFor?: Breakpoints | undefined;
+    showOnlyFor?: Breakpoints | undefined;
+    hideFor?: "medium" | "large" | undefined;
+    hideOnlyFor?: Breakpoints | undefined;
+    isHidden?: boolean | undefined;
+    isInvisible?: boolean | undefined;
+    showForLandscape?: boolean | undefined;
+    showForPortrait?: boolean | undefined;
+    showForSr?: boolean | undefined;
+    showOnFocus?: boolean | undefined;
+    isClearfix?: boolean | undefined;
+    float?: FloatTypes | undefined;
 }
 /**
  * Creates class names from the given arguments.
@@ -120,21 +120,21 @@ export declare const FlexboxPropTypes: {
     flexOrderLarge: PropTypes.Requireable<any>;
 };
 export interface FlexboxPropTypes extends GeneralPropTypes {
-    alignX?: HorizontalAlignments;
-    alignY?: VerticalAlignments;
-    selfAlignX?: HorizontalAlignments;
-    selfAlignY?: VerticalAlignments;
-    centerAlign?: boolean;
-    flexContainer?: boolean;
-    flexDirRow?: ExtendedBreakpoints;
-    flexDirRowRev?: ExtendedBreakpoints;
-    flexDirCol?: ExtendedBreakpoints;
-    flexDirColRev?: ExtendedBreakpoints;
-    flexChild?: SpaceControls;
-    flexOrder?: number;
-    flexOrderSmall?: number;
-    flexOrderMedium?: number;
-    flexOrderLarge?: number;
+    alignX?: HorizontalAlignments | undefined;
+    alignY?: VerticalAlignments | undefined;
+    selfAlignX?: HorizontalAlignments | undefined;
+    selfAlignY?: VerticalAlignments | undefined;
+    centerAlign?: boolean | undefined;
+    flexContainer?: boolean | undefined;
+    flexDirRow?: ExtendedBreakpoints | undefined;
+    flexDirRowRev?: ExtendedBreakpoints | undefined;
+    flexDirCol?: ExtendedBreakpoints | undefined;
+    flexDirColRev?: ExtendedBreakpoints | undefined;
+    flexChild?: SpaceControls | undefined;
+    flexOrder?: number | undefined;
+    flexOrderSmall?: number | undefined;
+    flexOrderMedium?: number | undefined;
+    flexOrderLarge?: number | undefined;
 }
 /**
  * Parses the flexbox class names from the given properties.

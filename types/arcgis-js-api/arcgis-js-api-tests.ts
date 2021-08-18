@@ -29,3 +29,8 @@ class MapController {
     });
   }
 }
+
+import esriId = require("esri/identity/IdentityManager");
+
+esriId.enablePostMessageAuth();
+esriId.disablePostMessageAuth();

@@ -6,6 +6,7 @@
 
 import { ActionCreator, Action, Dispatch } from "redux";
 import Mousetrap = require('mousetrap');
+import 'mousetrap/extensions/global';
 
 export { Mousetrap };
 export const mousetrap: Mousetrap.MousetrapInstance;

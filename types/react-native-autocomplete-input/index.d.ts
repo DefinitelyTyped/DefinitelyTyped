@@ -1,32 +1,33 @@
-// Type definitions for react-native-autocomplete-input 4.0
+// Type definitions for react-native-autocomplete-input 5.0
 // Project: https://github.com/l-urence/react-native-autocomplete-input#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
+//                 joleb <https://github.com/joleb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import {
     GestureResponderHandlers,
-    ListViewProperties,
     StyleProp,
-    TextInputProperties,
     ViewStyle,
     FlatListProps,
+    TextInputProps,
+    ListViewProps,
 } from 'react-native';
 
-export interface AutocompleteProps<T> extends TextInputProperties {
+export interface AutocompleteProps<T> extends TextInputProps {
     /**
      * style
      * These styles will be applied to the container which surrounds the autocomplete component.
      */
-    containerStyle?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * bool
      * Set to true to hide the suggestion list.
      */
-    hideResults?: boolean;
+    hideResults?: boolean | undefined;
 
     /**
      * array
@@ -38,31 +39,25 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * object
      * Props to pass on to the underlying FlatList.
      */
-    flatListProps?: Partial<FlatListProps<T>>;
+    flatListProps?: Partial<FlatListProps<T>> | undefined;
 
     /**
      * style
      * These styles will be applied to the container which surrounds the textInput component.
      */
-    inputContainerStyle?: StyleProp<ViewStyle>;
-
-    /**
-     * function
-     * keyExtractor will be called to get key for each item. It's up to you which string to return as a key.
-     */
-    keyExtractor?(item: T, i: number): string;
+    inputContainerStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * style
      * These styles will be applied to the container which surrounds the result list.
      */
-    listContainerStyle?: StyleProp<ViewStyle>;
+    listContainerStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * style
      * These style will be applied to the result list.
      */
-    listStyle?: StyleProp<ViewStyle>;
+    listStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * function
@@ -74,25 +69,22 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * function
      * onStartShouldSetResponderCapture will be passed to the result list view container (onStartShouldSetResponderCapture).
      */
-    onStartShouldSetResponderCapture?: GestureResponderHandlers['onStartShouldSetResponderCapture'];
-
-    /**
-     * function
-     * renderItem will be called to render the data objects which will be displayed in the result view below the text input.
-     */
-    renderItem(itemWithIndex: { item: T; index: number }): ReactNode;
-
-    /**
-     * function
-     * renderSeparator will be called to render the list separators which will be displayed between the list elements in the result view below the text input.
-     */
-    renderSeparator?: ListViewProperties['renderSeparator'];
+    onStartShouldSetResponderCapture?: GestureResponderHandlers['onStartShouldSetResponderCapture'] | undefined;
 
     /**
      * function
      * render custom TextInput. All props passed to this function.
      */
-    renderTextInput?(props: TextInputProperties): ReactNode;
-}
+    renderTextInput?(props: TextInputProps): ReactNode;
 
-export default class Autocomplete<T> extends Component<AutocompleteProps<T>> {}
+    /**
+     * string | bool
+     * Set `keyboardShouldPersistTaps` to true if RN version is <= 0.39.
+     */
+    renderSeparator?: ListViewProps['renderSeparator'] | undefined;
+
+    keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean;
+}
+export const AutocompleteInput: FC<AutocompleteProps<any>>;
+
+export default AutocompleteInput;

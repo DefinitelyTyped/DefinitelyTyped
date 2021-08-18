@@ -12,8 +12,8 @@ declare module 'karma' {
     interface ClientOptions {
         jasmine?: jasmine.EnvConfiguration & {
             /** @deprecated undocumented to be removed */
-            timeoutInterval?: number;
-        };
+            timeoutInterval?: number | undefined;
+        } | undefined;
         /**
          * run a subset of the full set of specs.
          * Complete sharding support needs to be done in the process that calls karma,
@@ -21,13 +21,13 @@ declare module 'karma' {
          * See {@link https://github.com/karma-runner/karma-jasmine#sharding}
          *
          */
-        shardIndex?: number;
+        shardIndex?: number | undefined;
         /**
          * run a subset of the full set of specs.
          * Complete sharding support needs to be done in the process that calls karma,
          * and would need to support test result integration across shards.
          * See {@link https://github.com/karma-runner/karma-jasmine#sharding}
          */
-        totalShards?: number;
+        totalShards?: number | undefined;
     }
 }

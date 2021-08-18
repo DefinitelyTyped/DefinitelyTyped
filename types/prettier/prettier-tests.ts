@@ -1,16 +1,18 @@
 import * as prettier from 'prettier';
 import { ExpressionStatement, CallExpression, Identifier } from 'babel-types';
 import * as prettierStandalone from 'prettier/standalone';
-import typescriptParser = require('prettier/parser-typescript');
-import graphqlParser = require('prettier/parser-graphql');
+import angularParser = require('prettier/parser-angular');
 import babelParser = require('prettier/parser-babel');
+import espreeParser = require('prettier/parser-espree');
+import flowParser = require('prettier/parser-flow');
+import glimmerParser = require('prettier/parser-glimmer');
+import graphqlParser = require('prettier/parser-graphql');
 import htmlParser = require('prettier/parser-html');
 import markdownParser = require('prettier/parser-markdown');
-import postcssParser = require('prettier/parser-postcss');
-import yamlParser = require('prettier/parser-yaml');
 import meriyahParser = require('prettier/parser-meriyah');
-import espreeParser = require('prettier/parser-espree');
-import glimmerParser = require('prettier/parser-glimmer');
+import postcssParser = require('prettier/parser-postcss');
+import typescriptParser = require('prettier/parser-typescript');
+import yamlParser = require('prettier/parser-yaml');
 import * as doc from 'prettier/doc';
 
 const formatted = prettier.format('foo ( );', { semi: false });
@@ -77,16 +79,18 @@ prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
 prettierStandalone.format(' 1', { parser: 'babel' });
 prettierStandalone.check(' console.log(b)');
 
-typescriptParser.parsers.typescript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+angularParser.parsers.__ng_action.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+espreeParser.parsers.espree.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+flowParser.parsers.flow.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+glimmerParser.parsers.glimmer.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+graphqlParser.parsers.graphql.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+meriyahParser.parsers.meriyah.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 postcssParser.parsers.css.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
+typescriptParser.parsers.typescript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-meriyahParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-espreeParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
-glimmerParser.parsers.javascript.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 
 prettier.format('hello world', {
     plugins: [typescriptParser, graphqlParser, babelParser, htmlParser, markdownParser, postcssParser, yamlParser],
@@ -128,8 +132,8 @@ const plugin: prettier.Plugin<PluginAST> = {
     printers: {
         lines: {
             print(path, options, print) {
-                path; // $ExpectType FastPath<PluginAST>
-                print; // $ExpectType (path: FastPath<PluginAST>) => Doc
+                path; // $ExpectType AstPath<PluginAST>
+                print; // $ExpectType (path: AstPath<PluginAST>) => Doc
 
                 const node = path.getValue();
                 node; // $ExpectType PluginAST
@@ -218,6 +222,11 @@ const plugin: prettier.Plugin<PluginAST> = {
             array: true,
             default: [{ value: ['./pathA.js', './pathB.js'] }],
         },
+        testNoDefaultOption: {
+            since: '1.0.0',
+            type: 'path',
+            category: 'Test',
+        }
     },
 };
 

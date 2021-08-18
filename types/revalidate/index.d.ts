@@ -22,11 +22,11 @@ export interface CombineValidatorsOptions {
 
 export interface Config {
     field?: any;
-    message?: string;
+    message?: string | undefined;
 }
 
 export interface Multiple {
-    multiple?: boolean;
+    multiple?: boolean | undefined;
 }
 
 export type ComposeConfig = Config & Multiple;

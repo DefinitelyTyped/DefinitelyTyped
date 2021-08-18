@@ -12,7 +12,7 @@ declare namespace echarts {
              *
              * @default 'horizontal'
              */
-            orient?: 'horizontal' | 'vertical';
+            orient?: 'horizontal' | 'vertical' | undefined;
 
             /**
              * Options:
@@ -29,7 +29,7 @@ declare namespace echarts {
              * @default 'value'
              * @see https://echarts.apache.org/en/option.html#singleAxis.type
              */
-            type?: BasicComponents.CartesianAxis.Type;
+            type?: BasicComponents.CartesianAxis.Type | undefined;
             /**
              * Distance between grid component and the left side of the container.
              * left value can be instant pixel value like 20;
@@ -40,7 +40,7 @@ declare namespace echarts {
              *
              * @default '5%'
              */
-            left?: string | number;
+            left?: string | number | undefined;
             /**
              * Distance between grid component and the top side of the container.
              * top value can be instant pixel value like 20;
@@ -51,7 +51,7 @@ declare namespace echarts {
              *
              * @default '5%'
              */
-            top?: string | number;
+            top?: string | number | undefined;
             /**
              * Distance between grid component and the right side of the container.
              * right value can be instant pixel value like 20;
@@ -59,7 +59,7 @@ declare namespace echarts {
              *
              * @default '5%'
              */
-            right?: string | number;
+            right?: string | number | undefined;
             /**
              * Distance between grid component and the bottom side of the container.
              * bottom value can be instant pixel value like 20;
@@ -67,19 +67,19 @@ declare namespace echarts {
              *
              * @default '5%'
              */
-            bottom?: string | number;
+            bottom?: string | number | undefined;
             /**
              * Width of grid component. Adaptive by default.
              *
              * @default 'auto'
              */
-            width?: string | number;
+            width?: string | number | undefined;
             /**
              * Height of grid component. Adaptive by default.
              *
              * @default 'auto'
              */
-            height?: string | number;
+            height?: string | number | undefined;
         }
     }
 }

@@ -74,7 +74,7 @@ export class Vector4 implements Vector {
     /**
      * Clones this vector.
      */
-    clone(): Vector4;
+    clone(): this;
 
     /**
      * Copies value of v to this vector.

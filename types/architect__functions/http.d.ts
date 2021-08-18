@@ -54,7 +54,7 @@ export interface HttpRequest {
     /**
      * When the request/response is run through arc.http.async (https://arc.codes/docs/en/reference/runtime/node#arc.http.async) then it will have session added.
      */
-    session?: SessionData;
+    session?: SessionData | undefined;
 }
 
 /**
@@ -64,46 +64,46 @@ export interface HttpResponse {
     /**
      * Sets the HTTP status code
      */
-    statusCode?: number;
+    statusCode?: number | undefined;
 
     /**
      * Alias for @see statusCode
      */
-    status?: number;
+    status?: number | undefined;
 
     /**
      * All response headers
      */
-    headers?: Record<string, string>;
+    headers?: Record<string, string> | undefined;
 
     /**
      * Contains request body, either as a plain string (no encoding or serialization required) or, if binary, base64-encoded buffer
      * Note: The maximum body payload size is 6MB
      */
-    body?: string;
+    body?: string | undefined;
 
     /**
      * Indicates whether body is base64-encoded binary payload
      * Required to be set to true if emitting a binary payload
      */
-    isBase64Encoded?: boolean;
+    isBase64Encoded?: boolean | undefined;
 
     /**
      * When the request/response is run through arc.http.async (https://arc.codes/docs/en/reference/runtime/node#arc.http.async) then it will have session added.
      */
-    session?: SessionData;
+    session?: SessionData | undefined;
 
     /**
      * When used with https://arc.codes/docs/en/reference/runtime/node#arc.http.async
      * json sets the Content-Type header to application/json
      */
-    json?: JsonBody;
+    json?: JsonBody | undefined;
 
     /**
      * When used with https://arc.codes/docs/en/reference/runtime/node#arc.http.async
      * json sets the Content-Type header to application/json
      */
-    html?: HtmlBody;
+    html?: HtmlBody | undefined;
 }
 /**
  * Defines an HttpHandler that works with architect.
@@ -126,6 +126,17 @@ export interface HttpProxyOptions {
 
 export type HttpProxy = (options: HttpProxyOptions) => HttpHandler;
 
+export interface StaticOptions {
+    stagePath: string;
+}
+
+export interface Helpers {
+    bodyParser: (req: HttpRequest) => Record<string, any>;
+    interpolate: (req: HttpRequest) => HttpRequest;
+    static: (asset: string, options?: StaticOptions) => string;
+    url: (url: string) => string;
+}
+
 export interface ArcHttp {
     /**
      * https://arc.codes/docs/en/reference/runtime/node#arc.http.async
@@ -135,6 +146,10 @@ export interface ArcHttp {
      * https://arc.codes/docs/en/reference/runtime/node#arc.http.express
      */
     express: HttpExpress;
+    /**
+     * https://github.com/architect/functions/blob/3f11406b651f2854371906ad5f9eb9c300433032/src/http/index.js#L21-L26
+     */
+    helpers: Helpers;
     /**
      * https://arc.codes/docs/en/reference/runtime/node#arc.http.proxy
      */

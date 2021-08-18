@@ -1,4 +1,4 @@
-// Type definitions for validator.js 13.1
+// Type definitions for validator.js 13.6
 // Project: https://github.com/validatorjs/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>
 //                 Ilya Mochalov <https://github.com/chrootsu>
@@ -11,8 +11,8 @@
 //                 Jace Warren <https://github.com/keatz55>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Vlad Poluch <https://github.com/vlapo>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 declare namespace validator {
     const version: string;
@@ -49,6 +49,7 @@ declare namespace validator {
         | 'da-DK'
         | 'de-DE'
         | 'el-GR'
+        | 'es-AR'
         | 'es-ES'
         | 'fr-FR'
         | 'it-IT'
@@ -113,6 +114,7 @@ declare namespace validator {
         | 'da-DK'
         | 'de-DE'
         | 'el-GR'
+        | 'es-AR'
         | 'es-ES'
         | 'fr-FR'
         | 'it-IT'
@@ -163,12 +165,20 @@ declare namespace validator {
 
     const isAlphanumericLocales: AlphanumericLocale[];
 
+    interface IsAlphanumericOptions {
+        /**
+         * @default undefined
+         */
+        ignore?: string | RegExp | undefined;
+    }
+
     /**
      * Check if the string contains only letters and numbers.
      *
      * @param [locale] - AlphanumericLocale
+     * @param [options] - IsAlphanumericOptions
      */
-    function isAlphanumeric(str: string, locale?: AlphanumericLocale): boolean;
+    function isAlphanumeric(str: string, locale?: AlphanumericLocale, options?: IsAlphanumericOptions): boolean;
 
     /**
      * Check if the string contains ASCII chars only.
@@ -179,12 +189,16 @@ declare namespace validator {
      * Check if a string is base32 encoded.
      */
     function isBase32(str: string): boolean;
+    /**
+     * check if a string is base58 encoded
+     */
+    function isBase58(str: string): boolean;
 
     interface IsBase64Options {
         /**
          * @default false
          */
-        urlSafe?: boolean;
+        urlSafe?: boolean | undefined;
     }
 
     /**
@@ -220,11 +234,11 @@ declare namespace validator {
         /**
          * @default 0
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * @default undefined
          */
-        max?: number;
+        max?: number | undefined;
     }
 
     /**
@@ -243,65 +257,65 @@ declare namespace validator {
         /**
          * @default '$'
          */
-        symbol?: string;
+        symbol?: string | undefined;
         /**
          * @default false
          */
-        require_symbol?: boolean;
+        require_symbol?: boolean | undefined;
         /**
          * @default false
          */
-        allow_space_after_symbol?: boolean;
+        allow_space_after_symbol?: boolean | undefined;
         /**
          * @default false
          */
-        symbol_after_digits?: boolean;
+        symbol_after_digits?: boolean | undefined;
         /**
          * @default true
          */
-        allow_negatives?: boolean;
+        allow_negatives?: boolean | undefined;
         /**
          * @default false
          */
-        parens_for_negatives?: boolean;
+        parens_for_negatives?: boolean | undefined;
         /**
          * @default false
          */
-        negative_sign_before_digits?: boolean;
+        negative_sign_before_digits?: boolean | undefined;
         /**
          * @default false
          */
-        negative_sign_after_digits?: boolean;
+        negative_sign_after_digits?: boolean | undefined;
         /**
          * @default false
          */
-        allow_negative_sign_placeholder?: boolean;
+        allow_negative_sign_placeholder?: boolean | undefined;
         /**
          * @default ','
          */
-        thousands_separator?: string;
+        thousands_separator?: string | undefined;
         /**
          * @default '.'
          */
-        decimal_separator?: string;
+        decimal_separator?: string | undefined;
         /**
          * @default true
          */
-        allow_decimal?: boolean;
+        allow_decimal?: boolean | undefined;
         /**
          * @default false
          */
-        require_decimal?: boolean;
+        require_decimal?: boolean | undefined;
         /**
          * The array `digits_after_decimal` is filled with the exact number of digits allowed not a range, for example a range `1` to `3` will be given as `[1, 2, 3]`.
          *
          * @default [2]
          */
-        digits_after_decimal?: number[];
+        digits_after_decimal?: number[] | undefined;
         /**
          * @default false
          */
-        allow_space_after_digits?: boolean;
+        allow_space_after_digits?: boolean | undefined;
     }
 
     /**
@@ -330,20 +344,20 @@ declare namespace validator {
         /**
          * @default false
          */
-        format?: string;
+        format?: string | undefined;
         /**
          * If strictMode is set to true,
          * the validator will reject inputs different from format.
          *
          * @default false
          */
-        strictMode?: boolean;
+        strictMode?: boolean | undefined;
         /**
          * `delimiters` is an array of allowed date delimiters
          *
          * @default ['/', '-']
          */
-        delimiters?: string[];
+        delimiters?: string[] | undefined;
     }
 
     /**
@@ -357,20 +371,20 @@ declare namespace validator {
         /**
          * @default false
          */
-        force_decimal?: boolean;
+        force_decimal?: boolean | undefined;
         /**
          * `decimal_digits` is given as a range like `'1,3'`,
          * a specific value like `'3'` or min like `'1,'`
          *
          * @default '1,'
          */
-        decimal_digits?: string;
+        decimal_digits?: string | undefined;
         /**
          * DecimalLocale
          *
          * @default 'en-US'
          */
-        locale?: DecimalLocale;
+        locale?: DecimalLocale | undefined;
     }
 
     /**
@@ -394,44 +408,44 @@ declare namespace validator {
          *
          * @default false
          */
-        allow_display_name?: boolean;
+        allow_display_name?: boolean | undefined;
         /**
          * If `require_display_name` is set to `true`, the validator will reject strings without the format `Display Name <email-address>`.
          *
          * @default false
          */
-        require_display_name?: boolean;
+        require_display_name?: boolean | undefined;
         /**
          * If `allow_utf8_local_part` is set to `false`, the validator will not allow any non-English UTF8 character in email address' local part.
          *
          * @default true
          */
-        allow_utf8_local_part?: boolean;
+        allow_utf8_local_part?: boolean | undefined;
         /**
          * If `require_tld` is set to `false`, e-mail addresses without having TLD in their domain will also be matched.
          *
          * @default true
          */
-        require_tld?: boolean;
+        require_tld?: boolean | undefined;
         /**
          * If `ignore_max_length` is set to `true`, the validator will not check for the standard max length of an email.
          *
          * @default false
          */
-        ignore_max_length?: boolean;
+        ignore_max_length?: boolean | undefined;
         /**
          * If `allow_ip_domain` is set to `true`, the validator will allow IP addresses in the host part.
          *
          * @default false
          */
-        allow_ip_domain?: boolean;
+        allow_ip_domain?: boolean | undefined;
         /**
          * If `domain_specific_validation` is `true`, some additional validation will be enabled,
          * e.g. disallowing certain syntactically valid email addresses that are rejected by GMail.
          *
          * @default false
          */
-        domain_specific_validation?: boolean;
+        domain_specific_validation?: boolean | undefined;
     }
 
     /**
@@ -445,7 +459,7 @@ declare namespace validator {
         /**
          * @default false
          */
-        ignore_whitespace?: boolean;
+        ignore_whitespace?: boolean | undefined;
     }
 
     /**
@@ -513,23 +527,23 @@ declare namespace validator {
         /**
          * less or equal
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * greater or equal
          */
-        max?: number;
+        max?: number | undefined;
         /**
          * greater than
          */
-        gt?: number;
+        gt?: number | undefined;
         /**
          * less than
          */
-        lt?: number;
+        lt?: number | undefined;
         /**
          * FloatLocale
          */
-        locale?: FloatLocale;
+        locale?: FloatLocale | undefined;
     }
 
     /**
@@ -543,15 +557,15 @@ declare namespace validator {
         /**
          * @default true
          */
-        require_tld?: boolean;
+        require_tld?: boolean | undefined;
         /**
          * @default false
          */
-        allow_underscores?: boolean;
+        allow_underscores?: boolean | undefined;
         /**
          * @default false
          */
-        allow_trailing_dot?: boolean;
+        allow_trailing_dot?: boolean | undefined;
     }
 
     /**
@@ -636,24 +650,24 @@ declare namespace validator {
         /**
          * to check the integer min boundary
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * to check the integer max boundary
          */
-        max?: number;
+        max?: number | undefined;
         /**
          * if `false`, will disallow integer values with leading zeroes
          * @default true
          */
-        allow_leading_zeroes?: boolean;
+        allow_leading_zeroes?: boolean | undefined;
         /**
          * enforce integers being greater than the value provided
          */
-        lt?: number;
+        lt?: number | undefined;
         /**
          * enforce integers being less than the value provided
          */
-        gt?: number;
+        gt?: number | undefined;
     }
 
     /**
@@ -673,9 +687,9 @@ declare namespace validator {
     function isIP(str: string, version?: IPVersion): boolean;
 
     /**
-     * Check if the string is an IP Range (version 4 only).
+     * Check if the string is an IP Range (version 4 or 6).
      */
-    function isIPRange(str: string): boolean;
+    function isIPRange(str: string, version?: IPVersion): boolean;
 
     type ISBNVersion = '10' | '13' | 10 | 13;
 
@@ -713,7 +727,7 @@ declare namespace validator {
          *
          * @default false
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 
     /**
@@ -729,11 +743,11 @@ declare namespace validator {
          *
          * @default false
          */
-        case_sensitive?: boolean;
+        case_sensitive?: boolean | undefined;
         /**
          * @default false
          */
-        require_hyphen?: boolean;
+        require_hyphen?: boolean | undefined;
     }
 
     /**
@@ -774,11 +788,11 @@ declare namespace validator {
         /**
          * @default 0
          */
-        min?: number;
+        min?: number | undefined;
         /**
          * @default undefined
          */
-        max?: number;
+        max?: number | undefined;
     }
 
     /**
@@ -809,7 +823,7 @@ declare namespace validator {
          *
          * @default false
          */
-        no_colons?: boolean;
+        no_colons?: boolean | undefined;
     }
 
     /**
@@ -930,7 +944,7 @@ declare namespace validator {
          *
          * @default false
          */
-        strictMode?: boolean;
+        strictMode?: boolean | undefined;
     }
 
     /**
@@ -961,7 +975,7 @@ declare namespace validator {
          *
          * @default false
          */
-        no_symbols?: boolean;
+        no_symbols?: boolean | undefined;
     }
 
     /**
@@ -1061,18 +1075,18 @@ declare namespace validator {
      */
 
     interface strongPasswordOptions {
-        minLength?: number;
-        minLowercase?: number;
-        minUppercase?: number;
-        minNumbers?: number;
-        minSymbols?: number;
-        returnScore?: boolean;
-        pointsPerUnique?: number;
-        pointsPerRepeat?: number;
-        pointsForContainingLower?: number;
-        pointsForContainingUpper?: number;
-        pointsForContainingNumber?: number;
-        pointsForContainingSymbol?: number;
+        minLength?: number | undefined;
+        minLowercase?: number | undefined;
+        minUppercase?: number | undefined;
+        minNumbers?: number | undefined;
+        minSymbols?: number | undefined;
+        returnScore?: boolean | undefined;
+        pointsPerUnique?: number | undefined;
+        pointsPerRepeat?: number | undefined;
+        pointsForContainingLower?: number | undefined;
+        pointsForContainingUpper?: number | undefined;
+        pointsForContainingNumber?: number | undefined;
+        pointsForContainingSymbol?: number | undefined;
     }
     function isStrongPassword(str: string, options?: strongPasswordOptions): boolean;
     /**
@@ -1084,47 +1098,52 @@ declare namespace validator {
         /**
          * @default ['http','https','ftp']
          */
-        protocols?: string[];
+        protocols?: string[] | undefined;
         /**
          * @default true
          */
-        require_tld?: boolean;
+        require_tld?: boolean | undefined;
         /**
          * @default false
          */
-        require_protocol?: boolean;
+        require_protocol?: boolean | undefined;
         /**
          * @default true
          */
-        require_host?: boolean;
+        require_host?: boolean | undefined;
+        /**
+         * if set as true isURL will check if port is present in the URL
+         * @default false
+         */
+        require_port?: boolean | undefined;
         /**
          * @default true
          */
-        require_valid_protocol?: boolean;
+        require_valid_protocol?: boolean | undefined;
         /**
          * @default false
          */
-        allow_underscores?: boolean;
+        allow_underscores?: boolean | undefined;
         /**
          * @default false
          */
-        host_whitelist?: Array<string | RegExp>;
+        host_whitelist?: Array<string | RegExp> | undefined;
         /**
          * @default false
          */
-        host_blacklist?: Array<string | RegExp>;
+        host_blacklist?: Array<string | RegExp> | undefined;
         /**
          * @default false
          */
-        allow_trailing_dot?: boolean;
+        allow_trailing_dot?: boolean | undefined;
         /**
          * @default false
          */
-        allow_protocol_relative_urls?: boolean;
+        allow_protocol_relative_urls?: boolean | undefined;
         /**
          * @default false
          */
-        disallow_auth?: boolean;
+        disallow_auth?: boolean | undefined;
     }
 
     /**
@@ -1151,6 +1170,11 @@ declare namespace validator {
      * Check if the string contains a mixture of full and half-width chars.
      */
     function isVariableWidth(str: string): boolean;
+
+    /**
+     * Checks that the string is a [valid VAT number
+     */
+    function isVAT(str: string, countryCode: string): boolean;
 
     /**
      * Checks characters if they appear in the whitelist.
@@ -1216,76 +1240,76 @@ declare namespace validator {
          *
          * @default true
          */
-        all_lowercase?: boolean;
+        all_lowercase?: boolean | undefined;
         /**
          * GMail addresses are known to be case-insensitive, so this switch allows lowercasing them even when `all_lowercase` is set to `false`.
          * Please note that when `all_lowercase` is `true`, GMail addresses are lowercased regardless of the value of this setting.
          *
          * @default true
          */
-        gmail_lowercase?: boolean;
+        gmail_lowercase?: boolean | undefined;
         /**
          * Removes dots from the local part of the email address, as GMail ignores them
          * (e.g. `"john.doe"` and `"johndoe"` are considered equal).
          *
          * @default true
          */
-        gmail_remove_dots?: boolean;
+        gmail_remove_dots?: boolean | undefined;
         /**
          * Normalizes addresses by removing "sub-addresses", which is the part following a `"+"` sign
          * (e.g. `"foo+bar@gmail.com"` becomes `"foo@gmail.com"`).
          *
          * @default true
          */
-        gmail_remove_subaddress?: boolean;
+        gmail_remove_subaddress?: boolean | undefined;
         /**
          * Converts addresses with domain `@googlemail.com` to `@gmail.com`, as they're equivalent.
          *
          * @default true
          */
-        gmail_convert_googlemaildotcom?: boolean;
+        gmail_convert_googlemaildotcom?: boolean | undefined;
         /**
          * Outlook.com addresses (including Windows Live and Hotmail) are known to be case-insensitive, so this switch allows lowercasing them even when `all_lowercase` is set to `false`.
          * Please note that when `all_lowercase` is `true`, Outlook.com addresses are lowercased regardless of the value of this setting.
          *
          * @default true
          */
-        outlookdotcom_lowercase?: boolean;
+        outlookdotcom_lowercase?: boolean | undefined;
         /**
          * Normalizes addresses by removing "sub-addresses", which is the part following a `"+"` sign
          * (e.g. `"foo+bar@outlook.com"` becomes `"foo@outlook.com"`).
          *
          * @default true
          */
-        outlookdotcom_remove_subaddress?: boolean;
+        outlookdotcom_remove_subaddress?: boolean | undefined;
         /**
          * Yahoo Mail addresses are known to be case-insensitive, so this switch allows lowercasing them even when `all_lowercase` is set to `false`.
          * Please note that when `all_lowercase` is `true`, Yahoo Mail addresses are lowercased regardless of the value of this setting.
          *
          * @default true
          */
-        yahoo_lowercase?: boolean;
+        yahoo_lowercase?: boolean | undefined;
         /**
          * Normalizes addresses by removing "sub-addresses", which is the part following a `"-"` sign
          * (e.g. `"foo-bar@yahoo.com"` becomes `"foo@yahoo.com"`).
          *
          * @default true
          */
-        yahoo_remove_subaddress?: boolean;
+        yahoo_remove_subaddress?: boolean | undefined;
         /**
          * iCloud addresses (including MobileMe) are known to be case-insensitive, so this switch allows lowercasing them even when `all_lowercase` is set to `false`.
          * Please note that when `all_lowercase` is `true`, iCloud addresses are lowercased regardless of the value of this setting.
          *
          * @default true
          */
-        icloud_lowercase?: boolean;
+        icloud_lowercase?: boolean | undefined;
         /**
          * Normalizes addresses by removing "sub-addresses", which is the part following a `"+"` sign
          * (e.g. `"foo+bar@icloud.com"` becomes `"foo@icloud.com"`).
          *
          * @default true
          */
-        icloud_remove_subaddress?: boolean;
+        icloud_remove_subaddress?: boolean | undefined;
     }
 
     /**
@@ -1355,3 +1379,5 @@ declare namespace validator {
     function toString(input: any): string;
 }
 export default validator;
+
+export as namespace validator;

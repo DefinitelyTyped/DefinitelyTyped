@@ -1,10 +1,16 @@
 /**
+ * If you’d like to get a particular plugin instance,
+ * each plugin exposes a getInstance method. In order to retrieve it directly from an element, do this: bootstrap.Popover.getInstance(myPopoverEl)
+ */
+export type GetInstanceFactory<T> = (element: string | Element) => T | null;
+
+/**
  * Base Component
  *
  * @link https://github.com/twbs/bootstrap/blob/main/js/src/base-component.js
  */
 export default class BaseComponent {
-    constructor(element: Element);
+    constructor(element: string | Element);
 
     /**
      * Destroys an element's.

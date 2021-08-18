@@ -13,6 +13,7 @@ import '../test/fs';
 import '../test/global';
 import '../test/http';
 import '../test/http2';
+import '../test/https';
 import '../test/net';
 import '../test/os';
 import '../test/path';
@@ -30,19 +31,17 @@ import '../test/vm';
 import '../test/worker_threads';
 import '../test/zlib';
 
-import assert = require('node:assert');
-import * as fs from 'node:fs';
-import * as url from 'node:url';
-import * as util from 'node:util';
-import * as http from 'node:http';
-import * as https from 'node:https';
-import * as console2 from 'node:console';
-import * as timers from 'node:timers';
-import * as dns from 'node:dns';
-import * as inspector from 'node:inspector';
-import * as trace_events from 'node:trace_events';
-import * as dgram from 'node:dgram';
-import Module = require('node:module');
+import assert = require('assert');
+import * as fs from 'fs';
+import * as url from 'url';
+import * as util from 'util';
+import * as console2 from 'console';
+import * as timers from 'timers';
+import * as dns from 'dns';
+import * as inspector from 'inspector';
+import * as trace_events from 'trace_events';
+import * as dgram from 'dgram';
+import Module = require('module');
 
 ////////////////////////////////////////////////////
 /// Url tests : http://nodejs.org/api/url.html
@@ -192,90 +191,6 @@ import Module = require('node:module');
 
     {
         const path: url.URL = url.pathToFileURL('file://test');
-    }
-}
-
-//////////////////////////////////////////////////////
-/// Https tests : http://nodejs.org/api/https.html ///
-//////////////////////////////////////////////////////
-
-{
-    let agent: https.Agent = new https.Agent({
-        keepAlive: true,
-        keepAliveMsecs: 10000,
-        maxSockets: Infinity,
-        maxFreeSockets: 256,
-        maxCachedSessions: 100,
-        timeout: 15000
-    });
-
-    agent = https.globalAgent;
-
-    https.request({
-        agent: false
-    });
-    https.request({
-        agent
-    });
-    https.request({
-        agent: undefined
-    });
-
-    https.get('http://www.example.com/xyz');
-    https.request('http://www.example.com/xyz');
-
-    https.get('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
-    https.request('http://www.example.com/xyz', (res: http.IncomingMessage): void => {});
-
-    https.get(new url.URL('http://www.example.com/xyz'));
-    https.request(new url.URL('http://www.example.com/xyz'));
-
-    https.get(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
-    https.request(new url.URL('http://www.example.com/xyz'), (res: http.IncomingMessage): void => {});
-
-    const opts: https.RequestOptions = {
-        path: '/some/path'
-    };
-    https.get(new url.URL('http://www.example.com'), opts);
-    https.request(new url.URL('http://www.example.com'), opts);
-    https.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
-    https.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
-
-    https.globalAgent.options.ca = [];
-
-    {
-        function reqListener(req: http.IncomingMessage, res: http.ServerResponse): void {}
-
-        class MyIncomingMessage extends http.IncomingMessage {
-            foo: number;
-        }
-
-        class MyServerResponse extends http.ServerResponse {
-            foo: string;
-        }
-
-        let server: https.Server;
-
-        server = new https.Server();
-        server = new https.Server(reqListener);
-        server = new https.Server({ IncomingMessage: MyIncomingMessage});
-
-        server = new https.Server({
-            IncomingMessage: MyIncomingMessage,
-            ServerResponse: MyServerResponse
-        }, reqListener);
-
-        server = https.createServer();
-        server = https.createServer(reqListener);
-        server = https.createServer({ IncomingMessage: MyIncomingMessage });
-        server = https.createServer({ ServerResponse: MyServerResponse }, reqListener);
-
-        const timeout: number = server.timeout;
-        const listening: boolean = server.listening;
-        const keepAliveTimeout: number = server.keepAliveTimeout;
-        const maxHeadersCount: number | null = server.maxHeadersCount;
-        const headersTimeout: number = server.headersTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }
 }
 
@@ -461,7 +376,7 @@ import Module = require('node:module');
 /// Constants Tests                                     ///
 ///////////////////////////////////////////////////////////
 
-import * as constants from 'node:constants';
+import * as constants from 'constants';
 {
     let str: string;
     let num: number;
@@ -669,7 +584,7 @@ import * as constants from 'node:constants';
 ////////////////////////////////////////////////////
 /// module tests : http://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
-import moduleModule = require('node:module');
+import moduleModule = require('module');
 
 {
     require.extensions[".ts"] = () => "";
@@ -706,8 +621,8 @@ import moduleModule = require('node:module');
 /////////////////////////////////////////////////////////
 /// stream tests : https://nodejs.org/api/stream.html ///
 /////////////////////////////////////////////////////////
-import stream = require('node:stream');
-import tty = require('node:tty');
+import stream = require('stream');
+import tty = require('tty');
 
 {
     const writeStream = fs.createWriteStream('./index.d.ts');

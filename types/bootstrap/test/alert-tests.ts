@@ -1,16 +1,18 @@
-import { Alert } from 'bootstrap';
-import * as $ from 'jquery';
+import { Alert } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
 // $ExpectType Alert
-new Alert(element);
+const alert = new Alert(element);
+alert.close();
+alert.dispose();
 
-// $ExpectType Alert
-Alert.getInstance(element);
+// $ExpectType void | undefined
+Alert.getInstance(element)?.close();
 
-// $ExpectType string
-Alert.VERSION;
+Alert.VERSION; // $ExpectType string
+Alert.NAME; // $ExpectType "alert"
 
 element.addEventListener(Alert.Events.close, event => {
     // do something…
@@ -21,7 +23,7 @@ element.addEventListener(Alert.Events.closed, event => {
 });
 
 // $ExpectType void
-$('.alert').alert();
+$(".alert").alert();
 
 // $ExpectType void
-$('.alert').alert('close');
+$(".alert").alert("close");

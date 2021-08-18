@@ -280,7 +280,7 @@ declare namespace tracking {
     width: number;
 
     /** Color being tracked (for ColorTracker only) */
-    color?: string;
+    color?: string | undefined;
   }
 
   /**
@@ -297,6 +297,6 @@ declare namespace tracking {
   function track(
     element: HTMLElement|string,
     tracker: tracking.Tracker,
-    options?: { camera?: boolean, audio?: boolean }
+    options?: { camera?: boolean | undefined, audio?: boolean | undefined }
   ): TrackerTask;
 }

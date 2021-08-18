@@ -17,9 +17,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@ckeditor/ckeditor5-utils": [
-                "ckeditor__ckeditor5-utils/v10"
-            ],
             "@ckeditor/*": [
                 "ckeditor__*"
             ]

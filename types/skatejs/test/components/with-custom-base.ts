@@ -3,7 +3,7 @@ import { define } from 'skatejs';
 import { ButtonComponent, InputComponent } from './custom-base';
 
 export type ButtonProps = {
-  raised?: boolean;
+  raised?: boolean | undefined;
 };
 
 export class MaterialButton extends ButtonComponent<ButtonProps> {
@@ -11,7 +11,7 @@ export class MaterialButton extends ButtonComponent<ButtonProps> {
     raised: ''
   };
 
-  type?: string;
+  type?: string | undefined;
   foo() {
     this.props.raised;
 
@@ -25,12 +25,12 @@ export class MaterialButton extends ButtonComponent<ButtonProps> {
 define(MaterialButton);
 
 export type InputProps = {
-  touched?: boolean;
+  touched?: boolean | undefined;
 };
 export class MaterialInput extends InputComponent<InputProps> {
   // now our MaterialInput has all <input> default behaviours and props
 
-  type?: string;
+  type?: string | undefined;
   foo() {
     this.props.touched;
 

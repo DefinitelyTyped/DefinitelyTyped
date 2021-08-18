@@ -1,3 +1,4 @@
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {
@@ -517,7 +518,7 @@ ReactDOM.render(
 
 // Inject just dispatch and don't listen to store
 
-const AppWrap = (props: DispatchProp & { children?: React.ReactNode }) => <div />;
+const AppWrap = (props: DispatchProp & { children?: React.ReactNode | undefined }) => <div />;
 const WrappedApp = connect()(AppWrap);
 
 <WrappedApp />;
@@ -604,7 +605,7 @@ connect(undefined, mapDispatchToProps6)(TodoApp);
 
 interface TestProp {
     property1: number;
-    someOtherProperty?: string;
+    someOtherProperty?: string | undefined;
 }
 interface TestState {
     isLoaded: boolean;
@@ -1053,8 +1054,8 @@ function TestOptionalPropsMergedCorrectly() {
     interface OptionalDecorationProps {
         foo: string;
         bar: number;
-        optionalProp?: boolean;
-        dependsOnDispatch?: () => void;
+        optionalProp?: boolean | undefined;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     class Component extends React.Component<OptionalDecorationProps> {
@@ -1097,8 +1098,8 @@ function TestMoreGeneralDecorationProps() {
     interface MoreGeneralDecorationProps {
         foo: string | number;
         bar: number | 'foo';
-        optionalProp?: boolean | object;
-        dependsOnDispatch?: () => void;
+        optionalProp?: boolean | object | undefined;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     class Component extends React.Component<MoreGeneralDecorationProps> {
@@ -1150,11 +1151,11 @@ function TestFailsMoreSpecificInjectedProps() {
     interface MapStateProps {
         foo: string | number;
         bar: number | 'foo';
-        dependsOnDispatch?: () => void;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     interface MapDispatchProps {
-        dependsOnDispatch?: () => void;
+        dependsOnDispatch?: (() => void) | undefined;
     }
 
     function mapStateToProps(state: any): MapStateProps {
@@ -1185,6 +1186,11 @@ function TestLibraryManagedAttributes() {
         fn: () => void;
     }
 
+    interface ExternalOwnProps {
+        bar?: number | undefined;
+        fn: () => void;
+    }
+
     interface MapStateProps {
         foo: string;
     }
@@ -1208,8 +1214,43 @@ function TestLibraryManagedAttributes() {
     const ConnectedComponent = connect(mapStateToProps)(Component);
     <ConnectedComponent fn={() => { }} />;
 
-    const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+    const ConnectedComponent2 = connect<MapStateProps, void, ExternalOwnProps>(mapStateToProps)(Component);
     <ConnectedComponent2 fn={() => { }} />;
+}
+
+function TestPropTypes() {
+    interface OwnProps {
+        bar: number;
+        fn: () => void;
+    }
+
+    interface MapStateProps {
+        foo: string;
+    }
+
+    class Component extends React.Component<OwnProps & MapStateProps> {
+        static propTypes = {
+            foo: PropTypes.string.isRequired,
+            bar: PropTypes.number.isRequired,
+            fn: PropTypes.func.isRequired,
+        };
+
+        render() {
+            return <div />;
+        }
+    }
+
+    function mapStateToProps(state: any): MapStateProps {
+        return {
+            foo: 'foo',
+        };
+    }
+
+    const ConnectedComponent = connect(mapStateToProps)(Component);
+    <ConnectedComponent fn={() => { }} bar={0} />;
+
+    const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+    <ConnectedComponent2 fn={() => { }} bar={0} />;
 }
 
 function TestNonReactStatics() {
@@ -1281,7 +1322,7 @@ function TestProviderContext() {
 }
 
 function TestSelector() {
-    interface OwnProps { key?: string; }
+    interface OwnProps { key?: string | undefined; }
     interface State { key: string; }
 
     const simpleSelect: Selector<State, string> = (state: State) => state.key;

@@ -18,38 +18,38 @@ export interface ModuleOptions {
         /** Service registered client secret. Required. */
         secret: string,
         /** Parameter name used to send the client secret. Default to client_secret. */
-        secretParamName?: string,
+        secretParamName?: string | undefined,
         /** Parameter name used to send the client id. Default to client_id. */
-        idParamName?: string
+        idParamName?: string | undefined
     };
     auth: {
         /** String used to set the host to request the tokens to. Required. */
         tokenHost: string,
         /** String path to request an access token. Default to /oauth/token. */
-        tokenPath?: string,
+        tokenPath?: string | undefined,
         /** String path to revoke an access token. Default to /oauth/revoke. */
-        revokePath?: string,
+        revokePath?: string | undefined,
         /** String used to set the host to request an "authorization code". Default to the value set on auth.tokenHost. */
-        authorizeHost?: string,
+        authorizeHost?: string | undefined,
         /** String path to request an authorization code. Default to /oauth/authorize. */
-        authorizePath?: string
+        authorizePath?: string | undefined
     };
     /**
      * Used to set global options to the internal http library (wreck).
      * All options except baseUrl are allowed
      * Defaults to header.Accept = "application/json"
      */
-    http?: {};
+    http?: {} | undefined;
     options?: {
         /** Format of data sent in the request body. Defaults to form. */
-        bodyFormat?: "json" | "form",
+        bodyFormat?: "json" | "form" | undefined,
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
          * Defaults to header.
          */
-        authorizationMethod?: "header" | "body"
-    };
+        authorizationMethod?: "header" | "body" | undefined
+    } | undefined;
 }
 
 export type TokenType = "access_token" | "refresh_token";
@@ -89,7 +89,7 @@ export interface PasswordTokenConfig {
 
 export interface ClientCredentialTokenConfig {
     /** A string that represents the application privileges */
-    scope?: string | string[];
+    scope?: string | string[] | undefined;
 }
 
 export interface OAuthClient {
@@ -104,11 +104,11 @@ export interface OAuthClient {
                 [ idParamName: string ]: string | undefined
             } & {
                 /** A string that represents the registered application URI where the user is redirected after authentication */
-                redirect_uri?: string,
+                redirect_uri?: string | undefined,
                 /** A string or array of strings that represents the application privileges */
-                scope?: string | string[],
+                scope?: string | string[] | undefined,
                 /** A string that represents an option opaque value used by the client to main the state between the request and the callback */
-                state?: string
+                state?: string | undefined
             }
         ): string,
 

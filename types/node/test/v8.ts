@@ -11,3 +11,6 @@ v8.setFlagsFromString('--collect_maps');
 
 const stream: Readable = v8.getHeapSnapshot();
 const fileName = v8.writeHeapSnapshot('file');
+
+v8.takeCoverage();
+v8.stopCoverage();

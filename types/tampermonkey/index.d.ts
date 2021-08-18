@@ -70,53 +70,59 @@ declare namespace Tampermonkey {
     ) => void;
 
     interface Request<TContext = object> {
-        method?: 'GET' | 'HEAD' | 'POST';
+        method?: 'GET' | 'HEAD' | 'POST' | undefined;
         /** Destination URL */
         url: string;
         /**
          * i.e. user-agent, referer... (some special headers are not supported
          * by Safari and Android browsers)
          */
-        headers?: RequestHeaders;
+        headers?: RequestHeaders | undefined;
         /** String to send via a POST request */
-        data?: string;
+        data?: string | undefined;
+        /** A cookie to be patched into the sent cookie set */
+        cookie?: string | undefined;
         /** Send the data string in binary mode */
-        binary?: boolean;
+        binary?: boolean | undefined;
+        /** Don't cache the resource */
+        nocache?: boolean | undefined;
+        /** Revalidate maybe cached content */
+        revalidate?: boolean | undefined;
         /** Timeout in ms */
-        timeout?: number;
+        timeout?: number | undefined;
         /** Property which will be added to the response object */
-        context?: TContext;
-        responseType?: 'arraybuffer' | 'blob' | 'json';
+        context?: TContext | undefined;
+        responseType?: 'arraybuffer' | 'blob' | 'json' | undefined;
         /** MIME type for the request */
-        overrideMimeType?: string;
+        overrideMimeType?: string | undefined;
         /** Don't send cookies with the requests (please see the fetch notes) */
-        anonymous?: boolean;
+        anonymous?: boolean | undefined;
         /**
          * (Beta) Use a fetch instead of a xhr request(at Chrome this causes
          * `xhr.abort`, `details.timeout` and `xhr.onprogress` to not work and
          * makes `xhr.onreadystatechange` receive only readyState 4 events)
          */
-        fetch?: boolean;
+        fetch?: boolean | undefined;
         /** Username for authentication */
-        username?: string;
-        password?: string;
+        user?: string | undefined;
+        password?: string | undefined;
 
         // Events
 
         /** Callback to be executed if the request was aborted */
         onabort?(): void;
         /** Callback to be executed if the request ended up with an error */
-        onerror?: RequestEventListener<ErrorResponse>;
+        onerror?: RequestEventListener<ErrorResponse> | undefined;
         /** Callback to be executed if the request started to load */
-        onloadstart?: RequestEventListener<Response<TContext>>;
+        onloadstart?: RequestEventListener<Response<TContext>> | undefined;
         /** Callback to be executed if the request made some progress */
-        onprogress?: RequestEventListener<ProgressResponse<TContext>>;
+        onprogress?: RequestEventListener<ProgressResponse<TContext>> | undefined;
         /** Callback to be executed if the request's ready state changed */
-        onreadystatechange?: RequestEventListener<Response<TContext>>;
+        onreadystatechange?: RequestEventListener<Response<TContext>> | undefined;
         /** Callback to be executed if the request failed due to a timeout */
         ontimeout?(): void;
         /** Callback to be executed if the request was loaded */
-        onload?: RequestEventListener<Response<TContext>>;
+        onload?: RequestEventListener<Response<TContext>> | undefined;
     }
 
     // Download Response
@@ -145,7 +151,7 @@ declare namespace Tampermonkey {
             | 'not_supported'
             | 'not_succeeded';
         /** Detail about that error */
-        details?: string;
+        details?: string | undefined;
     }
 
     // Download Request
@@ -158,18 +164,18 @@ declare namespace Tampermonkey {
          * whitelisted at Tampermonkey options page
          */
         name: string;
-        headers?: RequestHeaders;
+        headers?: RequestHeaders | undefined;
         /** Show 'Save As' dialog */
-        saveAs?: boolean;
-        timeout?: number;
+        saveAs?: boolean | undefined;
+        timeout?: number | undefined;
         /** Callback to be executed if this download ended up with an error */
-        onerror?: RequestEventListener<DownloadErrorResponse>;
+        onerror?: RequestEventListener<DownloadErrorResponse> | undefined;
         /** Callback to be executed if this download finished */
         ontimeout?(): void;
         /** Callback to be executed if this download finished */
         onload?(): void;
         /** Callback to be executed if this download failed due to a timeout */
-        onprogress?: RequestEventListener<DownloadProgressResponse>;
+        onprogress?: RequestEventListener<DownloadProgressResponse> | undefined;
     }
 
     interface AbortHandle<TReturn> {
@@ -178,11 +184,11 @@ declare namespace Tampermonkey {
 
     interface OpenTabOptions {
         /** Decides whether the new tab should be focused */
-        active?: boolean;
+        active?: boolean | undefined;
         /** Inserts the new tab after the current one */
-        insert?: boolean;
+        insert?: boolean | undefined;
         /** Makes the browser re-focus the current tab on close */
-        setParent?: boolean;
+        setParent?: boolean | undefined;
     }
 
     interface OpenTabObject {
@@ -203,21 +209,23 @@ declare namespace Tampermonkey {
 
     interface Notification {
         /** Text of the notification (optional if highlight is set) */
-        text?: string;
+        text?: string | undefined;
         /** Notification title. If not specified the script name is used */
-        title?: string;
-        image?: string;
+        title?: string | undefined;
+        image?: string | undefined;
         /** Flag whether to highlight the tab that sends the notification */
-        highlight?: boolean;
+        highlight?: boolean | undefined;
+        /** Whether to play or not play a sound */
+        silent?: boolean | undefined;
         /** Time after that the notification will be hidden. `0` = disabled */
-        timeout?: number;
+        timeout?: number | undefined;
         /**
          * Called when the notification is closed (no matter if this was
          * triggered by a timeout or a click) or the tab was highlighted
          */
-        onclick?: NotificationOnClick;
+        onclick?: NotificationOnClick | undefined;
         /** Called in case the user clicks the notification */
-        ondone?: NotificationOnDone;
+        ondone?: NotificationOnDone | undefined;
     }
 
     interface TextNotification extends Notification {
@@ -393,5 +401,5 @@ declare function GM_notification(
  */
 declare function GM_setClipboard(
     data: string,
-    info?: string | { type?: string; mimetype?: string }
+    info?: string | { type?: string | undefined; mimetype?: string | undefined }
 ): void;

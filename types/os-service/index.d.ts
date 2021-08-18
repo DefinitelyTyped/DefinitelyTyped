@@ -11,33 +11,33 @@ export interface AddOptions {
      * The services display name, defaults to the name parameter. T
      * his parameter will be used on Windows platforms only
      */
-    displayName?: string;
+    displayName?: string | undefined;
 
     /**
      * The fully qualified path to the node binary used to run the service
      * (i.e. c:\Program Files\nodejs\node.exe, defaults to the value of process.execPath
      */
-    nodePath?: string;
+    nodePath?: string | undefined;
 
     /**
      * An array of strings specifying parameters to pass to nodePath, defaults to []
      */
-    nodeArgs?: string[];
+    nodeArgs?: string[] | undefined;
 
     /**
      * The program to run using nodePath, defaults to the value of process.argv[1]
      */
-    programPath?: string;
+    programPath?: string | undefined;
 
     /**
      * An array of strings specifying parameters to pass to programPath, defaults to []
      */
-    programArgs?: string[];
+    programArgs?: string[] | undefined;
 
     /**
      * An array of strings specifying other services this service depends on, this is optional
      */
-    dependencies?: string[];
+    dependencies?: string[] | undefined;
 
     /**
      * For Windows platforms a username and password can be specified,
@@ -45,26 +45,26 @@ export interface AddOptions {
      * see the CreateService() functions win32 API documentation for
      * details on the format of the username, on all other platforms this parameter is ignored
      */
-    username?: string;
+    username?: string | undefined;
 
     /**
      * See the username parameter
      */
-    password?: string;
+    password?: string | undefined;
 
     /**
      * An array of numbers specifying Linux run-levels at which the service should be started
      * for Linux platforms, defaults to [2, 3, 4, 5], this is only used when chkconfig or
      * update-rc.d is used to install a service
      */
-    runLevels?: number[];
+    runLevels?: number[] | undefined;
 
     /**
      * For when systemd will be used a target can be specified for the WantedBy
      * attribute under the [Install] section in the generated systemd unit file,
      * defaults to multi-user.target
      */
-    systemdWantedBy?: string;
+    systemdWantedBy?: string | undefined;
 }
 
 /**

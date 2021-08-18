@@ -1,49 +1,63 @@
-// Type definitions for riderize__passport-strava-oauth2 1.1
+// Type definitions for @riderize/passport-strava-oauth2 2.1
 // Project: https://github.com/Riderize/passport-strava-oauth2
-// Definitions by: SEdilson <https://github.com/SEdilson>
+// Definitions by: edilson <https://github.com/edilson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import passport = require('passport');
-import express = require('express');
+// tslint:disable-next-line:no-single-declare-module
+declare module '@riderize/passport-strava-oauth2' {
+    import { Request } from 'express';
 
-export interface Profile extends passport.Profile {
-    id: string;
-    fullName: string;
-    name: {
-        familyName: string;
-        givenName: string;
-    };
-    photos?: Array<{
-        value: string;
-    }>;
-    token?: string;
+    interface Profile {
+        provider: string;
+        id: string;
+        fullName: string;
+        name: {
+            familyName: string;
+            givenName: string;
+        };
+        photos?: Array<{
+            value: string;
+        }> | undefined;
+        token?: string | undefined;
 
-    _raw: string;
-    _json: any;
-}
+        _raw: string;
+        _json: any;
+    }
 
-export interface StrategyOption {
-    clientID: string;
-    clientSecret: string;
-    callbackURL: string;
+    interface StrategyOption {
+        clientID: string;
+        clientSecret: string;
+        callbackURL: string;
 
-    authorizationURL?: string;
-    tokenURL?: string;
-    profileURL?: string;
-}
+        authorizationURL?: string | undefined;
+        tokenURL?: string | undefined;
+        profileURL?: string | undefined;
+    }
 
-export interface StrategyOptionWithRequest extends StrategyOption {
-    passReqToCallback: true;
-}
+    interface StrategyOptionWithRequest extends StrategyOption {
+        passReqToCallback: true;
+    }
 
-export type VerifyFunction = (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
-export type VerifyFunctionWithRequest =
-    (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+    type VerifyFunction = (
+        accessToken: string,
+        refreshToken: string,
+        profile: Profile,
+        done: (error: any, user?: any, info?: any) => void,
+    ) => void;
 
-export class Strategy implements passport.Strategy {
-    constructor(options: StrategyOption, verify: VerifyFunction);
-    constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
+    type VerifyFunctionWithRequest = (
+        req: Request,
+        accessToken: string,
+        refreshToken: string,
+        profile: Profile,
+        done: (error: any, user?: any, info?: any) => void,
+    ) => void;
 
-    name: string;
-    authenticate(req: express.Request, options?: object): void;
+    class Strategy {
+        constructor(options: StrategyOption, verify: VerifyFunction);
+        constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
+
+        name: string;
+        authenticate(req: Request, options?: object): void;
+    }
 }

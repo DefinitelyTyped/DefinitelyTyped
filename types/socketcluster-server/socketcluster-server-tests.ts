@@ -43,3 +43,41 @@ agServer = socketClusterServer.attach(httpServer, {
 });
 
 agServer = socketClusterServer.attach(httpServer, {});
+
+// Adapted from API overview
+
+agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND, async middlewareStream => {
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const action of middlewareStream) {
+        switch (action.type) {
+            case action.TRANSMIT:
+                if (!action.data) {
+                    const error = new Error('Transmit action must have a data object');
+                    error.name = 'InvalidActionError';
+                    action.block(error);
+                    continue;
+                }
+                break;
+            case action.INVOKE:
+                if (!action.data) {
+                    const error = new Error('Invoke action must have a data object');
+                    error.name = 'InvalidActionError';
+                    action.block(error);
+                    continue;
+                }
+                break;
+            case action.PUBLISH_IN:
+                {
+                    if (action.channel === 'chat' && !action.authTokenExpiredError) {
+                        if (typeof action.data === 'string') {
+                            action.allow(action.data.replace('bad-word', '***'));
+                            continue;
+                        }
+                    }
+                }
+                break;
+        }
+
+        action.allow();
+    }
+});

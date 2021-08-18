@@ -1,7 +1,7 @@
-import BaseComponent from "./base-component";
+import BaseComponent, { GetInstanceFactory } from './base-component';
 
 declare class Carousel extends BaseComponent {
-    constructor(element: Element, options?: Partial<Carousel.Options>);
+    constructor(element: string | Element, options?: Partial<Carousel.Options>);
 
     /**
      * Cycles through the carousel items from left to right.
@@ -39,12 +39,7 @@ declare class Carousel extends BaseComponent {
      */
     to(index: number): void;
 
-    /**
-     * Static method which allows you to get the carousel instance associated
-     * with a DOM element.
-     */
-    static getInstance(element: Element, options?: Partial<Carousel.Options>): Carousel;
-
+    static getInstance: GetInstanceFactory<Carousel>;
     static jQueryInterface: Carousel.jQueryInterface;
 
     // static NAME: 'carousel';
@@ -65,7 +60,7 @@ declare namespace Carousel {
          *
          * @default 5000
          */
-        interval: number;
+        interval: number | false;
 
         /**
          * Whether the carousel should react to keyboard events.

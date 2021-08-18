@@ -306,71 +306,71 @@ declare namespace yargs {
     }
 
     interface RequireDirectoryOptions {
-        recurse?: boolean;
-        extensions?: ReadonlyArray<string>;
-        visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
-        include?: RegExp | ((pathToFile: string) => boolean);
-        exclude?: RegExp | ((pathToFile: string) => boolean);
+        recurse?: boolean | undefined;
+        extensions?: ReadonlyArray<string> | undefined;
+        visit?: ((commandObject: any, pathToFile?: string, filename?: string) => any) | undefined;
+        include?: RegExp | ((pathToFile: string) => boolean) | undefined;
+        exclude?: RegExp | ((pathToFile: string) => boolean) | undefined;
     }
 
     interface Options {
-        alias?: string | ReadonlyArray<string>;
-        array?: boolean;
-        boolean?: boolean;
-        choices?: Choices;
-        coerce?: (arg: any) => any;
-        config?: boolean;
-        configParser?: (configPath: string) => object;
-        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
-        count?: boolean;
+        alias?: string | ReadonlyArray<string> | undefined;
+        array?: boolean | undefined;
+        boolean?: boolean | undefined;
+        choices?: Choices | undefined;
+        coerce?: ((arg: any) => any) | undefined;
+        config?: boolean | undefined;
+        configParser?: ((configPath: string) => object) | undefined;
+        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
+        count?: boolean | undefined;
         default?: any;
-        defaultDescription?: string;
+        defaultDescription?: string | undefined;
         /**
          *  @deprecated since version 6.6.0
          *  Use 'demandOption' instead
          */
-        demand?: boolean | string;
-        demandOption?: boolean | string;
-        desc?: string;
-        describe?: string;
-        description?: string;
-        global?: boolean;
-        group?: string;
-        hidden?: boolean;
-        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
-        nargs?: number;
-        normalize?: boolean;
-        number?: boolean;
+        demand?: boolean | string | undefined;
+        demandOption?: boolean | string | undefined;
+        desc?: string | undefined;
+        describe?: string | undefined;
+        description?: string | undefined;
+        global?: boolean | undefined;
+        group?: string | undefined;
+        hidden?: boolean | undefined;
+        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
+        nargs?: number | undefined;
+        normalize?: boolean | undefined;
+        number?: boolean | undefined;
         /**
          *  @deprecated since version 6.6.0
          *  Use 'demandOption' instead
          */
-        require?: boolean | string;
+        require?: boolean | string | undefined;
         /**
          *  @deprecated since version 6.6.0
          *  Use 'demandOption' instead
          */
-        required?: boolean | string;
-        requiresArg?: boolean;
-        skipValidation?: boolean;
-        string?: boolean;
-        type?: "array" | "count" | PositionalOptionsType;
+        required?: boolean | string | undefined;
+        requiresArg?: boolean | undefined;
+        skipValidation?: boolean | undefined;
+        string?: boolean | undefined;
+        type?: "array" | "count" | PositionalOptionsType | undefined;
     }
 
     interface PositionalOptions {
-        alias?: string | ReadonlyArray<string>;
-        array?: boolean;
-        choices?: Choices;
-        coerce?: (arg: any) => any;
-        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
+        alias?: string | ReadonlyArray<string> | undefined;
+        array?: boolean | undefined;
+        choices?: Choices | undefined;
+        coerce?: ((arg: any) => any) | undefined;
+        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
         default?: any;
-        demandOption?: boolean | string;
-        desc?: string;
-        describe?: string;
-        description?: string;
-        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
-        normalize?: boolean;
-        type?: PositionalOptionsType;
+        demandOption?: boolean | string | undefined;
+        desc?: string | undefined;
+        describe?: string | undefined;
+        description?: string | undefined;
+        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
+        normalize?: boolean | undefined;
+        type?: PositionalOptionsType | undefined;
     }
 
     /** Remove keys K in T */
@@ -423,10 +423,10 @@ declare namespace yargs {
     type InferredOptionTypes<O extends { [key: string]: Options }> = { [key in keyof O]: InferredOptionType<O[key]> };
 
     interface CommandModule<T = {}, U = {}> {
-        aliases?: ReadonlyArray<string> | string;
-        builder?: CommandBuilder<T, U>;
-        command?: ReadonlyArray<string> | string;
-        describe?: string | false;
+        aliases?: ReadonlyArray<string> | string | undefined;
+        builder?: CommandBuilder<T, U> | undefined;
+        command?: ReadonlyArray<string> | string | undefined;
+        describe?: string | false | undefined;
         handler: (args: Arguments<U>) => void;
     }
 

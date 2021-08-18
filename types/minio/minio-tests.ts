@@ -159,3 +159,8 @@ const testPolicy = `{"Version":"2012-10-17","Statement":[{"Action":["s3:GetBucke
 `;
 minio.setBucketPolicy('testBucket',  testPolicy, (error: Error|null) => { console.log(error); });
 minio.setBucketPolicy('testBucket', testPolicy);
+
+minio.extensions.listObjectsV2WithMetadata('testBucket');
+minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_');
+minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_', true);
+minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_', true, 'some_object.jpg');

@@ -1,4 +1,4 @@
-import BaseComponent from "./base-component";
+import BaseComponent, { GetInstanceFactory } from './base-component';
 
 declare class Offcanvas extends BaseComponent {
     toggle(relatedTarget: HTMLElement): void;
@@ -7,15 +7,9 @@ declare class Offcanvas extends BaseComponent {
 
     hide(): void;
 
-    /**
-     * Static method which allows you to get the offcanvas instance associated to a
-     * DOM element, you can use it like this: getInstance(offcanvas)
-     */
-    static getInstance(element: Element): Offcanvas;
+    static getInstance: GetInstanceFactory<Offcanvas>;
 
     static jQueryInterface: Offcanvas.jQueryInterface;
-
-    // static NAME: 'offcanvas';
 }
 
 declare namespace Offcanvas {

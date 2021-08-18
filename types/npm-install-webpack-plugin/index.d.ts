@@ -18,21 +18,21 @@ declare namespace NpmInstallPlugin {
          * Use --save or --save-dev
          * @default false
          */
-        dev?: boolean | DevFunction;
+        dev?: boolean | DevFunction | undefined;
         /**
          * Install missing peerDependencies
          * @default true
          */
-        peerDependencies?: boolean;
+        peerDependencies?: boolean | undefined;
         /**
          * Reduce amount of console logging
          * @default false
          */
-        quiet?: boolean;
+        quiet?: boolean | undefined;
         /**
          * npm command used inside company, yarn is not supported yet
          */
-        npm?: string;
+        npm?: string | undefined;
     }
 
     type DevFunction = (module: string, path: string) => boolean;

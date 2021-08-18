@@ -1,7 +1,7 @@
-import BaseComponent from './base-component';
+import BaseComponent, { GetInstanceFactory } from './base-component';
 
 declare class ScrollSpy extends BaseComponent {
-    constructor(element: Element, options?: Partial<ScrollSpy.Options>);
+    constructor(element: string | Element, options?: Partial<ScrollSpy.Options>);
 
     /**
      * When using scrollspy in conjunction with adding or removing of
@@ -14,7 +14,7 @@ declare class ScrollSpy extends BaseComponent {
      * Static method which allows you to get the scrollspy instance associated
      * with a DOM element
      */
-    static getInstance(element: Element, options?: Partial<ScrollSpy.Options>): ScrollSpy;
+    static getInstance: GetInstanceFactory<ScrollSpy>;
 
     static jQueryInterface: ScrollSpy.jQueryInterface;
 

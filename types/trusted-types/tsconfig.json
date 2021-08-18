@@ -20,6 +20,7 @@
     "files": [
         "index.d.ts",
         "test/browser.ts",
+        "test/lib.ts",
         "test/module.ts"
     ]
 }

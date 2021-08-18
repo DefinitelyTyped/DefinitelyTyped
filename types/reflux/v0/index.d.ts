@@ -6,9 +6,9 @@
 export as namespace Reflux;
 
 export interface StoreDefinition {
-    listenables?: any[];
-    init?: Function;
-    getInitialState?: Function;
+    listenables?: any[] | undefined;
+    init?: Function | undefined;
+    getInitialState?: Function | undefined;
     [propertyName: string]: any;
 }
 

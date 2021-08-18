@@ -11,6 +11,7 @@ const config: Pubnub.PubnubConfig = {
     secretKey: '',
     ssl: true,
     authKey: '',
+    useRandomIVs: false
 };
 
 const pubnub = new Pubnub(config);
@@ -188,6 +189,10 @@ const grantOptions = {
     read: true,
     write: false,
     manage: false,
+    delete: false,
+    update: false,
+    join: true,
+    ttl: 1440
 };
 pubnub.grant(grantOptions).then(status => {
     console.log(status);
@@ -202,6 +207,17 @@ pubnub.grant(grantUuidOptions).then(status => {
     console.log(status);
 });
 
+const grantchannelGroupsOptions = {
+    channelGroups: ['cg-1'],
+    authKeys: ['auth-key'],
+    read: true,
+    manage: false,
+    ttl: 1440
+};
+pubnub.grant(grantchannelGroupsOptions).then(status => {
+    console.log(status);
+});
+
 pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
 
 pubnub.history({ channel: 'channel-1', count: 2 }).then(res => console.log(res));
@@ -212,6 +228,8 @@ pubnub.fetchMessages(
         stringifiedTimeToken: true,
         start: '15343325214676133',
         end: '15343325004275466',
+        includeUUID: true,
+        includeMessageType: true,
         includeMeta: true,
         includeMessageActions: true,
     },

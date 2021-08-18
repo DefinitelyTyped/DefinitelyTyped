@@ -8,7 +8,7 @@ declare class GetText {
     static getLanguageCode(locale: string): string;
     readonly locale: string;
     readonly domain: string;
-    constructor(options?: { debug?: boolean; sourceLocale?: string });
+    constructor(options?: { debug?: boolean | undefined; sourceLocale?: string | undefined });
     addTranslations(locale: string, domain: string, translations: object): void;
     dgettext(domain: string, msgid: string): string;
     dngettext(domain: string, msgid: string, msgidPlural: string, count: number): string;

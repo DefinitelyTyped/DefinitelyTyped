@@ -1,7 +1,7 @@
 // Type definitions for ngCordova dialogs plugin
 // Project: https://github.com/driftyco/ng-cordova
 // Definitions by: Michel Vidailhet <https://github.com/mvidailhet>, Kapil Sachdeva <https://github.com/ksachdeva>
-// Definitions: https://github.com/ksachdeva/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
 

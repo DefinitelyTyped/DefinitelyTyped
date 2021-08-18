@@ -2,7 +2,7 @@ import { ComponentType } from 'react';
 
 declare namespace AutosaveMonitor {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const AutosaveMonitor: ComponentType<AutosaveMonitor.Props>;

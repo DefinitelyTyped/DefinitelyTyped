@@ -1,4 +1,4 @@
-// Type definitions for stylelint 9.10
+// Type definitions for stylelint 13.13
 // Project: https://github.com/stylelint/stylelint, https://stylelint.io
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Filips Alpe <https://github.com/filipsalpe>
@@ -7,6 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+import { GlobbyOptions } from 'globby';
 import * as postcss from 'postcss';
 
 export type FormatterType =
@@ -50,9 +51,12 @@ export interface LinterOptions {
     files: string | string[];
     fix: boolean;
     formatter: FormatterType;
+    globbyOptions: GlobbyOptions;
     ignoreDisables: boolean;
     ignorePath: string;
     maxWarnings: number;
+    reportDescriptionlessDisables: boolean;
+    reportInvalidScopeDisables: boolean;
     reportNeedlessDisables: boolean;
     syntax: SyntaxType;
 }
@@ -93,7 +97,7 @@ export function lint(options?: Partial<LinterOptions>): Promise<LinterResult>;
 export type ValidateOptionsAssertion = {
     actual: any;
     possible?: any;
-    optional?: false;
+    optional?: false | undefined;
 } | {
     actual?: any;
     possible: any;
@@ -108,9 +112,9 @@ export namespace utils {
         result: postcss.Result;
         message: string;
         node: postcss.Node;
-        index?: number;
-        word?: string;
-        line?: number;
+        index?: number | undefined;
+        word?: string | undefined;
+        line?: number | undefined;
     }): void;
 
     function ruleMessages<T extends {[key: string]: RuleMessageValue}>(
@@ -143,29 +147,29 @@ export interface RuleTesterResult {
 
 export interface RuleTesterTest {
     code: string;
-    description?: string;
+    description?: string | undefined;
 }
 
 export interface RuleTesterTestRejected extends RuleTesterTest {
-    line?: number;
-    column?: number;
-    only?: boolean;
-    message?: string;
+    line?: number | undefined;
+    column?: number | undefined;
+    only?: boolean | undefined;
+    message?: string | undefined;
 }
 
 export interface RuleTesterSchema {
     ruleName: string;
-    syntax?: SyntaxType;
+    syntax?: SyntaxType | undefined;
     config?: any;
-    accept?: RuleTesterTest[];
-    reject?: RuleTesterTestRejected[];
+    accept?: RuleTesterTest[] | undefined;
+    reject?: RuleTesterTestRejected[] | undefined;
 }
 
 export interface RuleTesterContext {
     comparisonCount: number;
     completeAssertionDescription: string;
     caseDescription: string;
-    only?: boolean;
+    only?: boolean | undefined;
 }
 
 export function createRuleTester(

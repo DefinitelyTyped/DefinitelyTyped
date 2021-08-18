@@ -1,17 +1,19 @@
-// Type definitions for wait-on 5.2
+// Type definitions for wait-on 5.3
 // Project: https://github.com/jeffbski/wait-on#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
+/// <reference types="node" />
+
+import { SecureContextOptions } from 'tls';
 export = waitOn;
 
 declare function waitOn(options: waitOn.WaitOnOptions): Promise<void>;
 declare function waitOn(options: waitOn.WaitOnOptions, cb: (err: any) => void): void;
 
 declare namespace waitOn {
-    interface WaitOnOptions {
+    interface WaitOnOptions extends SecureContextOptions {
         /**
          * Array of string resources to wait for. prefix determines the type of resource with the default type of file:
          */
@@ -20,69 +22,69 @@ declare namespace waitOn {
          * Initial delay in ms.
          * @default 0
          */
-        delay?: number;
+        delay?: number | undefined;
         /**
          * Poll resource interval in ms,
          * @default 250ms
          */
-        interval?: number;
+        interval?: number | undefined;
         /**
          * Flag which outputs to stdout, remaining resources waited on and when complete or any error occurs.
          */
-        log?: boolean;
+        log?: boolean | undefined;
         /**
          * Flag to reverse operation so checks are for resources being NOT available.
          * @default false
          */
-        reverse?: boolean;
+        reverse?: boolean | undefined;
         /**
          * Timeout in ms until it aborts with error.
          * @default Infinity
          */
-        timeout?: number;
+        timeout?: number | undefined;
         /**
          * http HEAD/GET timeout to wait for request
          * @default 0
          */
-        httpTimeout?: number;
+        httpTimeout?: number | undefined;
         /**
          * Tcp timeout in ms.
          * @default 300
          */
-        tcpTimeout?: number;
+        tcpTimeout?: number | undefined;
         /**
          * Flag which outputs debug output.
          * @default false
          */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /**
          * Stabilization time in ms
          * Waits this amount of time for file sizes to stabilize or other resource availability to remain unchanged.
          * @default 750ms.
          */
-        window?: number;
+        window?: number | undefined;
         /**
          * Limit of concurrent connections to a resource
          * @default Infinity
          */
-        simultaneous?: number;
+        simultaneous?: number | undefined;
         /**
          * Https specific option.
          * see https://github.com/request/request#readme for specific details
          */
-        auth?: WaitOnAuth;
+        auth?: WaitOnAuth | undefined;
         /**
          * Validates whether a status is valid.
          */
-        validateStatus?: ValidateStatus;
+        validateStatus?: ValidateStatus | undefined;
         /**
          * Proxy options.
          * see https://github.com/axios/axios#config-defaults
          */
-        proxy?: AxiosProxyConfig;
-        strictSSL?: boolean;
-        followRedirect?: boolean;
-        headers?: Record<string, any>;
+        proxy?: AxiosProxyConfig | undefined;
+        strictSSL?: boolean | undefined;
+        followRedirect?: boolean | undefined;
+        headers?: Record<string, any> | undefined;
     }
 
     interface HttpSignature {
@@ -103,7 +105,7 @@ declare namespace waitOn {
         auth?: {
             username: string;
             password: string;
-        };
-        protocol?: string;
+        } | undefined;
+        protocol?: string | undefined;
     }
 }

@@ -31,25 +31,25 @@ declare namespace tape {
      * Available opts options for the tape function.
      */
     interface TestOptions {
-        skip?: boolean; // true/false. See test.skip.
-        todo?: boolean; // true/false. Test will be allowed to fail.
-        timeout?: number; // Set a timeout for the test, after which it will fail. See tape.timeoutAfter.
+        skip?: boolean | undefined; // true/false. See test.skip.
+        todo?: boolean | undefined; // true/false. Test will be allowed to fail.
+        timeout?: number | undefined; // Set a timeout for the test, after which it will fail. See tape.timeoutAfter.
     }
 
     /**
      * Available options for tape assertions.
      */
     interface AssertOptions {
-        skip?: boolean | string; // Skip the assertion. Can also be a message explaining why the test is skipped.
-        todo?: boolean | string; // Allows the assertion to fail.
-        message?: string; // An optional description of the assertion.
+        skip?: boolean | string | undefined; // Skip the assertion. Can also be a message explaining why the test is skipped.
+        todo?: boolean | string | undefined; // Allows the assertion to fail.
+        message?: string | undefined; // An optional description of the assertion.
     }
 
     /**
      * Options for the createStream function.
      */
     interface StreamOptions {
-        objectMode?: boolean;
+        objectMode?: boolean | undefined;
     }
 
     /**
@@ -238,5 +238,10 @@ declare namespace tape {
          * Assert that string does not match the RegExp regexp. Will throw (not just fail) when the first two arguments are the wrong type.
          */
         doesNotMatch(actual: string, expected: RegExp, msg?: string, extra?: AssertOptions): void;
+
+        /**
+         * Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order.
+         */
+        teardown(callback: () => void | Promise<void>): void;
     }
 }

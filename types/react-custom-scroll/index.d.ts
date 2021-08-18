@@ -1,4 +1,4 @@
-// Type definitions for react-custom-scroll 4.2
+// Type definitions for react-custom-scroll 4.3
 // Project: https://github.com/rommguy/react-custom-scroll
 // Definitions by:  Guy Romm <https://github.com/rommguy>
 //                  rvdende <https://github.com/rvdende>
@@ -11,16 +11,17 @@ import { ComponentClass } from 'react';
  * Props for a CustomScroll component.
  */
 export interface CustomScrollProps {
-    allowOuterScroll?: boolean;
-    heightRelativeToParent?: string;
-    flex?: number | string;
-    onScroll?: (e?: any) => any;
-    addScrolledClass?: boolean;
-    freezePosition?: boolean;
-    minScrollHandleHeight?: number;
-    rtl?: boolean;
-    scrollTo?: number;
-    keepAtBottom?: boolean;
+    allowOuterScroll?: boolean | undefined;
+    heightRelativeToParent?: string | undefined;
+    flex?: number | string | undefined;
+    onScroll?: ((e?: any) => any) | undefined;
+    addScrolledClass?: boolean | undefined;
+    freezePosition?: boolean | undefined;
+    minScrollHandleHeight?: number | undefined;
+    rtl?: boolean | undefined;
+    scrollTo?: number | undefined;
+    keepAtBottom?: boolean | undefined;
+    className?: string | undefined;
 }
 
 /**

@@ -16,11 +16,11 @@ export function pick<T extends string>(
 
 export interface Language {
     code: string;
-    script?: string | null;
-    region?: string;
+    script?: string | null | undefined;
+    region?: string | undefined;
     quality: number;
 }
 
 export interface PickOptions {
-    loose?: boolean;
+    loose?: boolean | undefined;
 }

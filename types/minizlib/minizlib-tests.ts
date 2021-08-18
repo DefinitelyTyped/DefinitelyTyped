@@ -1,28 +1,28 @@
-import minizlib = require("minizlib");
+import zlib = require("minizlib");
 
 // $ExpectType BrotliCompress
-new minizlib.BrotliCompress({});
+new zlib.BrotliCompress({});
 
 // $ExpectType BrotliDecompress
-new minizlib.BrotliDecompress({});
+new zlib.BrotliDecompress({});
 
 // $ExpectType Deflate
-new minizlib.Deflate({});
+new zlib.Deflate({});
 
 // $ExpectType Inflate
-new minizlib.Inflate({});
+new zlib.Inflate({});
 
 // $ExpectType Gzip
-new minizlib.Gzip({});
+new zlib.Gzip({});
 
 // $ExpectType Gunzip
-new minizlib.Gunzip({});
+new zlib.Gunzip({});
 
 // $ExpectType DeflateRaw
-new minizlib.DeflateRaw({});
+new zlib.DeflateRaw({});
 
 // $ExpectType InflateRaw
-new minizlib.InflateRaw({});
+new zlib.InflateRaw({});
 
 // $ExpectType Unzip
-new minizlib.Unzip({});
+new zlib.Unzip({});

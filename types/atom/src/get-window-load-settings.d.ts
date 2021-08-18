@@ -4,6 +4,6 @@ export interface WindowLoadSettings {
     readonly devMode: boolean;
     readonly resourcePath: string;
     readonly safeMode: boolean;
-    readonly env?: { [key: string]: string | undefined };
-    readonly profileStartup?: boolean;
+    readonly env?: { [key: string]: string | undefined } | undefined;
+    readonly profileStartup?: boolean | undefined;
 }

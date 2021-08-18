@@ -14,12 +14,12 @@ interface TabProps {
   id: string;
   header: string;
   icon: Icon;
-  anchor?: Anchor;
-  disabled?: boolean;
-  onClose?: () => void;
-  closeIcon?: Icon;
-  position?: Position;
-  active?: boolean;
+  anchor?: Anchor | undefined;
+  disabled?: boolean | undefined;
+  onClose?: (() => void) | undefined;
+  closeIcon?: Icon | undefined;
+  position?: Position | undefined;
+  active?: boolean | undefined;
 }
 
 declare class Tab extends React.Component<TabProps, any> {}
@@ -31,9 +31,9 @@ interface SidebarProps {
   collapsed: boolean;
   position: Position;
   selected: string;
-  closeIcon?: Icon;
-  onClose?: () => void;
-  onOpen?: (id: string) => void;
+  closeIcon?: Icon | undefined;
+  onClose?: (() => void) | undefined;
+  onOpen?: ((id: string) => void) | undefined;
   children: TabType;
 }
 

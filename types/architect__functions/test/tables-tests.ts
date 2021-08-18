@@ -2,9 +2,11 @@ import * as arc from '@architect/functions';
 
 async function test() {
     const data = await arc.tables();
+    arc.tables.db;
+    arc.tables.doc;
 
-    const tn: string = data._name('foo');
-    console.log('table resource name:', tn);
+    const tn: string | undefined = data._name('foo');
+    const tn2: string | undefined = data.name('foo');
 
     data.notes.get('foo', console.log);
     data.notes.get('foo').then(console.log);

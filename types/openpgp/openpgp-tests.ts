@@ -255,10 +255,13 @@ openpgp.crypto.signature.verify(
 openpgp.key.generate(keyoptions);
 openpgp.key.readArmored('');
 
-openpgp.message.fromBinary(new Uint8Array([0x01, 0x02, 0x03]));
+const message = openpgp.message.fromBinary(new Uint8Array([0x01, 0x02, 0x03]));
 openpgp.message.fromText('');
 openpgp.message.readArmored('');
 
+message.packets.filterByTag(openpgp.enums.packet.literal).write();
+message.packets.indexOfTag(openpgp.enums.packet.literal).filter(() => {});
+message.packets.findPacket(openpgp.enums.packet.literal) as openpgp.packet.Literal;
 openpgp.packet.fromStructuredClone({});
 openpgp.packet.newPacketFromTag('');
 

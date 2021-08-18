@@ -27,3 +27,11 @@ if (findResult.done) {
     findResult.value; // $ExpectType PackageWithPath
     findResult.filename; // $ExpectType string
 }
+
+type FindResult = find.FindResult; // $ExpectType FindResult
+type Pkg = find.Package; // $ExpectType Package
+type PkgWithPath = find.PackageWithPath; // $ExpectType PackageWithPath
+type Person = find.Person; // $ExpectType Person
+type Done = find.Done; // $ExpectType Done
+type Iter = find.FinderIterator; // $ExpectType FinderIterator
+type FoundPkg = find.FoundPackage; // $ExpectType FoundPackage

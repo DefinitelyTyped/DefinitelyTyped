@@ -23,12 +23,12 @@ export function precompile(path: string, opts?: PrecompileOptions): string;
 export function precompileString(src: string, opts?: PrecompileOptions): string;
 
 export interface PrecompileOptions {
-    name?: string;
-    asFunction?: boolean;
-    force?: boolean;
-    env?: Environment;
-    include?: string[];
-    exclude?: string[];
+    name?: string | undefined;
+    asFunction?: boolean | undefined;
+    force?: boolean | undefined;
+    env?: Environment | undefined;
+    include?: string[] | undefined;
+    exclude?: string[] | undefined;
     wrapper?(templates: { name: string, template: string }, opts: PrecompileOptions): string;
 }
 
@@ -42,25 +42,25 @@ export function configure(options: ConfigureOptions): Environment;
 export function configure(path: string | string[], options?: ConfigureOptions): Environment;
 
 export interface ConfigureOptions {
-    autoescape?: boolean;
-    throwOnUndefined?: boolean;
-    trimBlocks?: boolean;
-    lstripBlocks?: boolean;
-    watch?: boolean;
-    noCache?: boolean;
+    autoescape?: boolean | undefined;
+    throwOnUndefined?: boolean | undefined;
+    trimBlocks?: boolean | undefined;
+    lstripBlocks?: boolean | undefined;
+    watch?: boolean | undefined;
+    noCache?: boolean | undefined;
     web?: {
-        useCache?: boolean,
-        async?: boolean
-    };
-    express?: object;
+        useCache?: boolean | undefined,
+        async?: boolean | undefined
+    } | undefined;
+    express?: object | undefined;
     tags?: {
-        blockStart?: string,
-        blockEnd?: string,
-        variableStart?: string,
-        variableEnd?: string,
-        commentStart?: string,
-        commentEnd?: string
-    };
+        blockStart?: string | undefined,
+        blockEnd?: string | undefined,
+        variableStart?: string | undefined,
+        variableEnd?: string | undefined,
+        commentStart?: string | undefined,
+        commentEnd?: string | undefined
+    } | undefined;
 }
 
 export class Environment {
@@ -101,7 +101,7 @@ export interface Extension {
 export function installJinjaCompat(): void;
 
 export interface ILoader {
-    async?: boolean;
+    async?: boolean | undefined;
     getSource(name: string): LoaderSource;
     getSource(name: string, callback: Callback<Error, LoaderSource>): void;
 }
@@ -124,10 +124,10 @@ export interface LoaderSource {
 
 export interface FileSystemLoaderOptions {
     /** if true, the system will automatically update templates when they are changed on the filesystem */
-    watch?: boolean;
+    watch?: boolean | undefined;
 
     /**  if true, the system will avoid using a cache and templates will be recompiled every single time */
-    noCache?: boolean;
+    noCache?: boolean | undefined;
 }
 
 export class FileSystemLoader extends Loader implements ILoader {
@@ -164,7 +164,7 @@ export namespace lib {
         message: string;
         stack: string;
 
-        cause?: Error;
+        cause?: Error | undefined;
         lineno: number;
         colno: number;
     }

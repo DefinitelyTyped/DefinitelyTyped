@@ -1,10 +1,10 @@
 import { IdToken, UserInfo } from '../../IdToken';
 
 export interface MemberFilters {
-    role?: string;
-    limit?: number;
-    pages?: number;
-    url?: string;
+    role?: string | undefined;
+    limit?: number | undefined;
+    pages?: number | undefined;
+    url?: string | undefined;
 }
 
 export interface Member extends UserInfo {
@@ -24,7 +24,7 @@ export interface MembersResult {
         title: string;
     };
     members: Member[];
-    next?: string;
+    next?: string | undefined;
 }
 
 export interface NamesAndRolesService {

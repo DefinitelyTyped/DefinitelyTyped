@@ -14,8 +14,8 @@ declare namespace ZarinPal {
         Amount: number;
         CallbackURL: string;
         Description: string;
-        Email?: string;
-        Mobile?: string;
+        Email?: string | undefined;
+        Mobile?: string | undefined;
     }
 
     interface PaymentRequestOutput {

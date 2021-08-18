@@ -219,309 +219,309 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Acl {
-        etag?: string;
-        items?: Calendar.Schema.AclRule[];
-        kind?: string;
-        nextPageToken?: string;
-        nextSyncToken?: string;
+        etag?: string | undefined;
+        items?: Calendar.Schema.AclRule[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        nextSyncToken?: string | undefined;
       }
       interface AclRule {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        role?: string;
-        scope?: Calendar.Schema.AclRuleScope;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        role?: string | undefined;
+        scope?: Calendar.Schema.AclRuleScope | undefined;
       }
       interface AclRuleScope {
-        type?: string;
-        value?: string;
+        type?: string | undefined;
+        value?: string | undefined;
       }
       interface Calendar {
-        conferenceProperties?: Calendar.Schema.ConferenceProperties;
-        description?: string;
-        etag?: string;
-        id?: string;
-        kind?: string;
-        location?: string;
-        summary?: string;
-        timeZone?: string;
+        conferenceProperties?: Calendar.Schema.ConferenceProperties | undefined;
+        description?: string | undefined;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        location?: string | undefined;
+        summary?: string | undefined;
+        timeZone?: string | undefined;
       }
       interface CalendarList {
-        etag?: string;
-        items?: Calendar.Schema.CalendarListEntry[];
-        kind?: string;
-        nextPageToken?: string;
-        nextSyncToken?: string;
+        etag?: string | undefined;
+        items?: Calendar.Schema.CalendarListEntry[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        nextSyncToken?: string | undefined;
       }
       interface CalendarListEntry {
-        accessRole?: string;
-        backgroundColor?: string;
-        colorId?: string;
-        conferenceProperties?: Calendar.Schema.ConferenceProperties;
-        defaultReminders?: Calendar.Schema.EventReminder[];
-        deleted?: boolean;
-        description?: string;
-        etag?: string;
-        foregroundColor?: string;
-        hidden?: boolean;
-        id?: string;
-        kind?: string;
-        location?: string;
-        notificationSettings?: Calendar.Schema.CalendarListEntryNotificationSettings;
-        primary?: boolean;
-        selected?: boolean;
-        summary?: string;
-        summaryOverride?: string;
-        timeZone?: string;
+        accessRole?: string | undefined;
+        backgroundColor?: string | undefined;
+        colorId?: string | undefined;
+        conferenceProperties?: Calendar.Schema.ConferenceProperties | undefined;
+        defaultReminders?: Calendar.Schema.EventReminder[] | undefined;
+        deleted?: boolean | undefined;
+        description?: string | undefined;
+        etag?: string | undefined;
+        foregroundColor?: string | undefined;
+        hidden?: boolean | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        location?: string | undefined;
+        notificationSettings?: Calendar.Schema.CalendarListEntryNotificationSettings | undefined;
+        primary?: boolean | undefined;
+        selected?: boolean | undefined;
+        summary?: string | undefined;
+        summaryOverride?: string | undefined;
+        timeZone?: string | undefined;
       }
       interface CalendarListEntryNotificationSettings {
-        notifications?: Calendar.Schema.CalendarNotification[];
+        notifications?: Calendar.Schema.CalendarNotification[] | undefined;
       }
       interface CalendarNotification {
-        method?: string;
-        type?: string;
+        method?: string | undefined;
+        type?: string | undefined;
       }
       interface Channel {
-        address?: string;
-        expiration?: string;
-        id?: string;
-        kind?: string;
-        params?: object;
-        payload?: boolean;
-        resourceId?: string;
-        resourceUri?: string;
-        token?: string;
-        type?: string;
+        address?: string | undefined;
+        expiration?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        params?: object | undefined;
+        payload?: boolean | undefined;
+        resourceId?: string | undefined;
+        resourceUri?: string | undefined;
+        token?: string | undefined;
+        type?: string | undefined;
       }
       interface ColorDefinition {
-        background?: string;
-        foreground?: string;
+        background?: string | undefined;
+        foreground?: string | undefined;
       }
       interface Colors {
-        calendar?: object;
-        event?: object;
-        kind?: string;
-        updated?: string;
+        calendar?: object | undefined;
+        event?: object | undefined;
+        kind?: string | undefined;
+        updated?: string | undefined;
       }
       interface ConferenceData {
-        conferenceId?: string;
-        conferenceSolution?: Calendar.Schema.ConferenceSolution;
-        createRequest?: Calendar.Schema.CreateConferenceRequest;
-        entryPoints?: Calendar.Schema.EntryPoint[];
-        notes?: string;
-        parameters?: Calendar.Schema.ConferenceParameters;
-        signature?: string;
+        conferenceId?: string | undefined;
+        conferenceSolution?: Calendar.Schema.ConferenceSolution | undefined;
+        createRequest?: Calendar.Schema.CreateConferenceRequest | undefined;
+        entryPoints?: Calendar.Schema.EntryPoint[] | undefined;
+        notes?: string | undefined;
+        parameters?: Calendar.Schema.ConferenceParameters | undefined;
+        signature?: string | undefined;
       }
       interface ConferenceParameters {
-        addOnParameters?: Calendar.Schema.ConferenceParametersAddOnParameters;
+        addOnParameters?: Calendar.Schema.ConferenceParametersAddOnParameters | undefined;
       }
       interface ConferenceParametersAddOnParameters {
-        parameters?: Record<string, string>;
+        parameters?: Record<string, string> | undefined;
       }
       interface ConferenceProperties {
-        allowedConferenceSolutionTypes?: string[];
+        allowedConferenceSolutionTypes?: string[] | undefined;
       }
       interface ConferenceRequestStatus {
-        statusCode?: string;
+        statusCode?: string | undefined;
       }
       interface ConferenceSolution {
-        iconUri?: string;
-        key?: Calendar.Schema.ConferenceSolutionKey;
-        name?: string;
+        iconUri?: string | undefined;
+        key?: Calendar.Schema.ConferenceSolutionKey | undefined;
+        name?: string | undefined;
       }
       interface ConferenceSolutionKey {
-        type?: string;
+        type?: string | undefined;
       }
       interface CreateConferenceRequest {
-        conferenceSolutionKey?: Calendar.Schema.ConferenceSolutionKey;
-        requestId?: string;
-        status?: Calendar.Schema.ConferenceRequestStatus;
+        conferenceSolutionKey?: Calendar.Schema.ConferenceSolutionKey | undefined;
+        requestId?: string | undefined;
+        status?: Calendar.Schema.ConferenceRequestStatus | undefined;
       }
       interface EntryPoint {
-        accessCode?: string;
-        entryPointFeatures?: string[];
-        entryPointType?: string;
-        label?: string;
-        meetingCode?: string;
-        passcode?: string;
-        password?: string;
-        pin?: string;
-        regionCode?: string;
-        uri?: string;
+        accessCode?: string | undefined;
+        entryPointFeatures?: string[] | undefined;
+        entryPointType?: string | undefined;
+        label?: string | undefined;
+        meetingCode?: string | undefined;
+        passcode?: string | undefined;
+        password?: string | undefined;
+        pin?: string | undefined;
+        regionCode?: string | undefined;
+        uri?: string | undefined;
       }
       interface Error {
-        domain?: string;
-        reason?: string;
+        domain?: string | undefined;
+        reason?: string | undefined;
       }
       interface Event {
-        anyoneCanAddSelf?: boolean;
-        attachments?: Calendar.Schema.EventAttachment[];
-        attendees?: Calendar.Schema.EventAttendee[];
-        attendeesOmitted?: boolean;
-        colorId?: string;
-        conferenceData?: Calendar.Schema.ConferenceData;
-        created?: string;
-        creator?: Calendar.Schema.EventCreator;
-        description?: string;
-        end?: Calendar.Schema.EventDateTime;
-        endTimeUnspecified?: boolean;
-        etag?: string;
-        extendedProperties?: Calendar.Schema.EventExtendedProperties;
-        gadget?: Calendar.Schema.EventGadget;
-        guestsCanInviteOthers?: boolean;
-        guestsCanModify?: boolean;
-        guestsCanSeeOtherGuests?: boolean;
-        hangoutLink?: string;
-        htmlLink?: string;
-        iCalUID?: string;
-        id?: string;
-        kind?: string;
-        location?: string;
-        locked?: boolean;
-        organizer?: Calendar.Schema.EventOrganizer;
-        originalStartTime?: Calendar.Schema.EventDateTime;
-        privateCopy?: boolean;
-        recurrence?: string[];
-        recurringEventId?: string;
-        reminders?: Calendar.Schema.EventReminders;
-        sequence?: number;
-        source?: Calendar.Schema.EventSource;
-        start?: Calendar.Schema.EventDateTime;
-        status?: string;
-        summary?: string;
-        transparency?: string;
-        updated?: string;
-        visibility?: string;
+        anyoneCanAddSelf?: boolean | undefined;
+        attachments?: Calendar.Schema.EventAttachment[] | undefined;
+        attendees?: Calendar.Schema.EventAttendee[] | undefined;
+        attendeesOmitted?: boolean | undefined;
+        colorId?: string | undefined;
+        conferenceData?: Calendar.Schema.ConferenceData | undefined;
+        created?: string | undefined;
+        creator?: Calendar.Schema.EventCreator | undefined;
+        description?: string | undefined;
+        end?: Calendar.Schema.EventDateTime | undefined;
+        endTimeUnspecified?: boolean | undefined;
+        etag?: string | undefined;
+        extendedProperties?: Calendar.Schema.EventExtendedProperties | undefined;
+        gadget?: Calendar.Schema.EventGadget | undefined;
+        guestsCanInviteOthers?: boolean | undefined;
+        guestsCanModify?: boolean | undefined;
+        guestsCanSeeOtherGuests?: boolean | undefined;
+        hangoutLink?: string | undefined;
+        htmlLink?: string | undefined;
+        iCalUID?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        location?: string | undefined;
+        locked?: boolean | undefined;
+        organizer?: Calendar.Schema.EventOrganizer | undefined;
+        originalStartTime?: Calendar.Schema.EventDateTime | undefined;
+        privateCopy?: boolean | undefined;
+        recurrence?: string[] | undefined;
+        recurringEventId?: string | undefined;
+        reminders?: Calendar.Schema.EventReminders | undefined;
+        sequence?: number | undefined;
+        source?: Calendar.Schema.EventSource | undefined;
+        start?: Calendar.Schema.EventDateTime | undefined;
+        status?: string | undefined;
+        summary?: string | undefined;
+        transparency?: string | undefined;
+        updated?: string | undefined;
+        visibility?: string | undefined;
       }
       interface EventAttachment {
-        fileId?: string;
-        fileUrl?: string;
-        iconLink?: string;
-        mimeType?: string;
-        title?: string;
+        fileId?: string | undefined;
+        fileUrl?: string | undefined;
+        iconLink?: string | undefined;
+        mimeType?: string | undefined;
+        title?: string | undefined;
       }
       interface EventAttendee {
-        additionalGuests?: number;
-        comment?: string;
-        displayName?: string;
-        email?: string;
-        id?: string;
-        optional?: boolean;
-        organizer?: boolean;
-        resource?: boolean;
-        responseStatus?: string;
-        self?: boolean;
+        additionalGuests?: number | undefined;
+        comment?: string | undefined;
+        displayName?: string | undefined;
+        email?: string | undefined;
+        id?: string | undefined;
+        optional?: boolean | undefined;
+        organizer?: boolean | undefined;
+        resource?: boolean | undefined;
+        responseStatus?: string | undefined;
+        self?: boolean | undefined;
       }
       interface EventCreator {
-        displayName?: string;
-        email?: string;
-        id?: string;
-        self?: boolean;
+        displayName?: string | undefined;
+        email?: string | undefined;
+        id?: string | undefined;
+        self?: boolean | undefined;
       }
       interface EventDateTime {
-        date?: string;
-        dateTime?: string;
-        timeZone?: string;
+        date?: string | undefined;
+        dateTime?: string | undefined;
+        timeZone?: string | undefined;
       }
       interface EventExtendedProperties {
-        private?: Record<string, string>;
-        shared?: Record<string, string>;
+        private?: Record<string, string> | undefined;
+        shared?: Record<string, string> | undefined;
       }
       interface EventGadget {
-        display?: string;
-        height?: number;
-        iconLink?: string;
-        link?: string;
-        preferences?: object;
-        title?: string;
-        type?: string;
-        width?: number;
+        display?: string | undefined;
+        height?: number | undefined;
+        iconLink?: string | undefined;
+        link?: string | undefined;
+        preferences?: object | undefined;
+        title?: string | undefined;
+        type?: string | undefined;
+        width?: number | undefined;
       }
       interface EventOrganizer {
-        displayName?: string;
-        email?: string;
-        id?: string;
-        self?: boolean;
+        displayName?: string | undefined;
+        email?: string | undefined;
+        id?: string | undefined;
+        self?: boolean | undefined;
       }
       interface EventReminder {
-        method?: string;
-        minutes?: number;
+        method?: string | undefined;
+        minutes?: number | undefined;
       }
       interface EventReminders {
-        overrides?: Calendar.Schema.EventReminder[];
-        useDefault?: boolean;
+        overrides?: Calendar.Schema.EventReminder[] | undefined;
+        useDefault?: boolean | undefined;
       }
       interface EventSource {
-        title?: string;
-        url?: string;
+        title?: string | undefined;
+        url?: string | undefined;
       }
       interface Events {
-        accessRole?: string;
-        defaultReminders?: Calendar.Schema.EventReminder[];
-        description?: string;
-        etag?: string;
-        items?: Calendar.Schema.Event[];
-        kind?: string;
-        nextPageToken?: string;
-        nextSyncToken?: string;
-        summary?: string;
-        timeZone?: string;
-        updated?: string;
+        accessRole?: string | undefined;
+        defaultReminders?: Calendar.Schema.EventReminder[] | undefined;
+        description?: string | undefined;
+        etag?: string | undefined;
+        items?: Calendar.Schema.Event[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        nextSyncToken?: string | undefined;
+        summary?: string | undefined;
+        timeZone?: string | undefined;
+        updated?: string | undefined;
       }
       interface FreeBusyCalendar {
-        busy?: Calendar.Schema.TimePeriod[];
-        errors?: Calendar.Schema.Error[];
+        busy?: Calendar.Schema.TimePeriod[] | undefined;
+        errors?: Calendar.Schema.Error[] | undefined;
       }
       interface FreeBusyGroup {
-        calendars?: string[];
-        errors?: Calendar.Schema.Error[];
+        calendars?: string[] | undefined;
+        errors?: Calendar.Schema.Error[] | undefined;
       }
       interface FreeBusyRequest {
-        calendarExpansionMax?: number;
-        groupExpansionMax?: number;
-        items?: Calendar.Schema.FreeBusyRequestItem[];
-        timeMax?: string;
-        timeMin?: string;
-        timeZone?: string;
+        calendarExpansionMax?: number | undefined;
+        groupExpansionMax?: number | undefined;
+        items?: Calendar.Schema.FreeBusyRequestItem[] | undefined;
+        timeMax?: string | undefined;
+        timeMin?: string | undefined;
+        timeZone?: string | undefined;
       }
       interface FreeBusyRequestItem {
-        id?: string;
+        id?: string | undefined;
       }
       interface FreeBusyResponse {
-        calendars?: object;
-        groups?: object;
-        kind?: string;
-        timeMax?: string;
-        timeMin?: string;
+        calendars?: object | undefined;
+        groups?: object | undefined;
+        kind?: string | undefined;
+        timeMax?: string | undefined;
+        timeMin?: string | undefined;
       }
       interface Setting {
-        etag?: string;
-        id?: string;
-        kind?: string;
-        value?: string;
+        etag?: string | undefined;
+        id?: string | undefined;
+        kind?: string | undefined;
+        value?: string | undefined;
       }
       interface Settings {
-        etag?: string;
-        items?: Calendar.Schema.Setting[];
-        kind?: string;
-        nextPageToken?: string;
-        nextSyncToken?: string;
+        etag?: string | undefined;
+        items?: Calendar.Schema.Setting[] | undefined;
+        kind?: string | undefined;
+        nextPageToken?: string | undefined;
+        nextSyncToken?: string | undefined;
       }
       interface TimePeriod {
-        end?: string;
-        start?: string;
+        end?: string | undefined;
+        start?: string | undefined;
       }
     }
   }
   interface Calendar {
-    Acl?: Calendar.Collection.AclCollection;
-    CalendarList?: Calendar.Collection.CalendarListCollection;
-    Calendars?: Calendar.Collection.CalendarsCollection;
-    Channels?: Calendar.Collection.ChannelsCollection;
-    Colors?: Calendar.Collection.ColorsCollection;
-    Events?: Calendar.Collection.EventsCollection;
-    Freebusy?: Calendar.Collection.FreebusyCollection;
-    Settings?: Calendar.Collection.SettingsCollection;
+    Acl?: Calendar.Collection.AclCollection | undefined;
+    CalendarList?: Calendar.Collection.CalendarListCollection | undefined;
+    Calendars?: Calendar.Collection.CalendarsCollection | undefined;
+    Channels?: Calendar.Collection.ChannelsCollection | undefined;
+    Colors?: Calendar.Collection.ColorsCollection | undefined;
+    Events?: Calendar.Collection.EventsCollection | undefined;
+    Freebusy?: Calendar.Collection.FreebusyCollection | undefined;
+    Settings?: Calendar.Collection.SettingsCollection | undefined;
     // Create a new instance of AclRule
     newAclRule(): Calendar.Schema.AclRule;
     // Create a new instance of AclRuleScope

@@ -1,6 +1,6 @@
 import { Handler } from '../handler';
 
-export type AppSyncResolverHandler<T, V> = Handler<AppSyncResolverEvent<T>, V | V[]>;
+export type AppSyncResolverHandler<TArguments, TResults, TSource = Record<string, any> | null> = Handler<AppSyncResolverEvent<TArguments, TSource>, TResults | TResults[]>;
 
 export interface AppSyncResolverEventHeaders {
     [name: string]: string | undefined;
@@ -9,12 +9,13 @@ export interface AppSyncResolverEventHeaders {
 /**
  * See https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html
  *
- * @param T type of the arguments
+ * @param TArguments type of the arguments
+ * @param TSource type of the source
  */
-export interface AppSyncResolverEvent<T> {
-    arguments: T;
-    identity?: AppSyncIdentityIAM | AppSyncIdentityCognito;
-    source: { [key: string]: any } | null;
+export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> | null> {
+    arguments: TArguments;
+    identity?: AppSyncIdentityIAM | AppSyncIdentityCognito | undefined;
+    source: TSource;
     request: {
         headers: AppSyncResolverEventHeaders;
     };

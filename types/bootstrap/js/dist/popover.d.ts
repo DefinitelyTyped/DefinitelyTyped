@@ -1,9 +1,8 @@
-import * as Popper from "@popperjs/core";
-import BaseComponent from "./base-component";
+import BaseComponent, { GetInstanceFactory } from './base-component';
 import Tooltip from "./tooltip";
 
 declare class Popover extends BaseComponent {
-    constructor(element: Element, options?: Partial<Popover.Options>);
+    constructor(element: string | Element, options?: Partial<Popover.Options>);
 
     /**
      * Reveals an element’s popover. Returns to the caller before the
@@ -51,11 +50,7 @@ declare class Popover extends BaseComponent {
      */
     update(): void;
 
-    /**
-     * Static method which allows you to get the popover instance associated
-     * with a DOM element
-     */
-    static getInstance(element: Element, options?: Partial<Popover.Options>): Popover;
+    static getInstance: GetInstanceFactory<Popover>;
 
     static jQueryInterface: Popover.jQueryInterface;
 

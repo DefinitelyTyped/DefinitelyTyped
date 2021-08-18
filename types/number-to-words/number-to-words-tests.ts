@@ -1,7 +1,10 @@
-import * as converter from 'number-to-words';
+import numberToWords = require("number-to-words");
 
-converter.toOrdinal(21);
+numberToWords.toOrdinal(21); // $ExpectType string
+numberToWords.toOrdinal("21"); // $ExpectType string
 
-converter.toWords(13);
+numberToWords.toWords(13); // $ExpectType string
+numberToWords.toWords("13"); // $ExpectType string
 
-converter.toWordsOrdinal(21);
+numberToWords.toWordsOrdinal(21); // $ExpectType string
+numberToWords.toWordsOrdinal("21"); // $ExpectType string

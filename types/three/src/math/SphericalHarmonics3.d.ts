@@ -18,7 +18,7 @@ export class SphericalHarmonics3 {
     lerp(sh: SphericalHarmonics3, alpha: number): SphericalHarmonics3;
     equals(sh: SphericalHarmonics3): boolean;
     copy(sh: SphericalHarmonics3): SphericalHarmonics3;
-    clone(): SphericalHarmonics3;
+    clone(): this;
 
     /**
      * Sets the values of this spherical harmonics from the provided array or array-like.

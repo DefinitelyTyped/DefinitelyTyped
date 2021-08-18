@@ -19,31 +19,31 @@ export interface SourceMapUploaderOptions {
      *
      * @default output.publicPath
      */
-    publicPath?: string;
+    publicPath?: string | undefined;
 
     /**
      * The version of the application you are building
      */
-    appVersion?: string;
+    appVersion?: string | undefined;
 
     /**
      * Whether you want to overwrite previously uploaded sourcemaps
      */
-    overwrite?: boolean;
+    overwrite?: boolean | undefined;
 
     /**
      * Post the build payload to a URL other than the default
      *
      * @default https://upload.bugsnag.com
      */
-    endpoint?: string;
+    endpoint?: string | undefined;
 
     /**
      * A list of bundle file extensions which shouldn't be uploaded
      *
      * @default ['.css']
      */
-    ignoredBundleExtensions?: string[];
+    ignoredBundleExtensions?: string[] | undefined;
 }
 
 export class BugsnagSourceMapUploaderPlugin extends webpack.Plugin {
@@ -66,7 +66,7 @@ export interface BuildReporterBuild {
      * 'production', 'staging' etc. (leave blank if this build can be released to
      * different releaseStages)
      */
-    releaseStage?: string;
+    releaseStage?: string | undefined;
 
     /**
      * An object describing the source control of the build (if not specified,
@@ -95,13 +95,13 @@ export interface BuildReporterBuild {
          * The unique identifier for the commit (e.g. git SHA)
          */
         revision: string;
-    };
+    } | undefined;
 
     /**
      * The name of the person/machine that created this build (defaults to the
      * result of the `whoami` command)
      */
-    builderName?: string;
+    builderName?: string | undefined;
 
     /**
      * Automatically associate this build with any new error events and sessions
@@ -110,7 +110,7 @@ export interface BuildReporterBuild {
      * is provided the build will be applied to 'production'. You should only use
      * this option if you aren’t able to set an `appVersion` in your notifier.
      */
-    autoAssignRelease?: boolean;
+    autoAssignRelease?: boolean | undefined;
 }
 
 export interface BuildReporterOptions {
@@ -119,7 +119,7 @@ export interface BuildReporterOptions {
      *
      * @default warn
      */
-    logLevel?: "debug" | "info" | "warn" | "error";
+    logLevel?: "debug" | "info" | "warn" | "error" | undefined;
 
     /**
      * Provide a different logger object
@@ -129,21 +129,21 @@ export interface BuildReporterOptions {
         info?: any;
         warn?: any;
         error?: any;
-    };
+    } | undefined;
 
     /**
      * The path to search for source control info
      *
      * @default process.cwd()
      */
-    path?: string;
+    path?: string | undefined;
 
     /**
      * Post the build payload to a specified URL
      *
      * @default https://build.bugsnag.com
      */
-    endpoint?: string;
+    endpoint?: string | undefined;
 }
 
 export class BugsnagBuildReporterPlugin extends webpack.Plugin {

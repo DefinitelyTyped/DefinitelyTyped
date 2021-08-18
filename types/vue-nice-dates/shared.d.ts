@@ -13,7 +13,7 @@ export interface DatePickerProps {
     locale: DateLocale;
     date: string;
     isFocus: boolean;
-    initialDate?: Date;
+    initialDate?: Date | undefined;
     format: string;
     enableGridSwitch: boolean;
     minimumDate: Date | null;
@@ -30,7 +30,7 @@ export interface DateRangePickerProps {
     format: string;
     startDate: string;
     endDate: string;
-    initialDate?: Date;
+    initialDate?: Date | undefined;
     isFocus: boolean;
     focusName: string;
     enableGridSwitch: boolean;

@@ -37,8 +37,8 @@ export interface GetMoonIlluminationResult {
 export interface GetMoonTimes {
     rise: Date;
     set: Date;
-    alwaysUp: boolean;
-    alwaysDown: boolean;
+    alwaysUp?: true;
+    alwaysDown?: true;
 }
 
 export function getTimes(date: Date, latitude: number, longitude: number): GetTimesResult;

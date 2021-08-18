@@ -1,22 +1,15 @@
-import BaseComponent from './base-component';
+import BaseComponent, { GetInstanceFactory } from './base-component';
 
 declare class Alert extends BaseComponent {
+    static NAME: 'alert';
+    static jQueryInterface: Alert.jQueryInterface;
+    static getInstance: GetInstanceFactory<Alert>;
     /**
      * Closes an alert by removing it from the DOM. If the .fade and .show
      * classes are present on the element, the alert will fade out before it
      * is removed.
      */
     close(): void;
-
-    /**
-     * Static method which allows you to get the alert instance associated to a
-     * DOM element, you can use it like this: getInstance(alert)
-     */
-    static getInstance(element: Element): Alert;
-
-    static jQueryInterface: Alert.jQueryInterface;
-
-    // static NAME: 'alert';
 }
 
 declare namespace Alert {
