@@ -425,7 +425,7 @@ export interface ConnectConfig {
     /** The host's key is hashed using this method and passed to `hostVerifier`. */
     hostHash?: "md5" | "sha1" | undefined;
     /** Verifies a hexadecimal hash of the host's key. */
-    hostVerifier?: ((keyHash: string) => boolean) | undefined;
+    hostVerifier?: ((keyHash: string, callback: (verified: boolean) => void) => boolean | void) | undefined;
     /** Username for authentication. */
     username?: string | undefined;
     /** Password for password-based user authentication. */
