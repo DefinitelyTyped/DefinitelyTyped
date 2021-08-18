@@ -40,6 +40,7 @@ declare class Carousel extends BaseComponent {
     to(index: number): void;
 
     static getInstance: GetInstanceFactory<Carousel>;
+    static getOrCreateInstance: GetInstanceFactory<Carousel>;
     static jQueryInterface: Carousel.jQueryInterface;
 
     // static NAME: 'carousel';
