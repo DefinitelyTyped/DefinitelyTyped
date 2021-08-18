@@ -27,6 +27,7 @@ export type Selectable =
     | Element
     | RootElement
     | Text
+    | null
     | Iterable<Range>;
 
 export default class Selection implements Emitter {
