@@ -9,10 +9,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "marked": [ "marked/v2" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
