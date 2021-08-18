@@ -1,10 +1,15 @@
-import { Button } from 'bootstrap';
+import { Button, Carousel } from 'bootstrap';
 import * as $ from 'jquery';
 
 const element = new Element();
 
 // $ExpectType Button
 new Button(element);
+
+// $ExpectType Button | null
+Button.getInstance(element);
+// $ExpectType Button | null
+Button.getOrCreateInstance(element);
 
 // $ExpectType void
 $('.alert').button();

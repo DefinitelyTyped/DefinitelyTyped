@@ -8,9 +8,14 @@ const alert = new Alert(element);
 alert.close();
 alert.dispose();
 
+// $ExpectType Alert | null
+Alert.getInstance(element);
+// $ExpectType Alert | null
+Alert.getOrCreateInstance(element);
+
 // $ExpectType void | undefined
 Alert.getInstance(element)?.close();
-// $ExpectType Alert
+// $ExpectType void | undefined
 Alert.getOrCreateInstance(element)?.close();
 
 Alert.VERSION; // $ExpectType string
