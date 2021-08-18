@@ -3,7 +3,7 @@
 // Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
 //                 Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
+// Minimum TypeScript Version: 3.9
 
 import type ProtocolProxyApi from 'devtools-protocol/types/protocol-proxy-api';
 import type ProtocolMappingApi from 'devtools-protocol/types/protocol-mapping';
@@ -49,6 +49,11 @@ declare namespace CDP {
         code: number;
         message: string;
         data?: string | undefined;
+    }
+
+    interface SendCallback<T extends keyof ProtocolMappingApi.Commands> {
+        (error: true, response: SendError): void;
+        (error: false, response: ProtocolMappingApi.Commands[T]['returnType']): void;
     }
 
     interface Target {
@@ -156,12 +161,9 @@ declare namespace CDP {
         // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
         on(event: string, callback: (params: object, sessionId?: string) => void): void;
         // client.send(method, [params], [sessionId], [callback])
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T,
-            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: SendError) => void)): void;
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0],
-            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: SendError) => void)): void;
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId: string,
-            callback: ((error: false, response: ProtocolMappingApi.Commands[T]['returnType']) => void) | ((error: true, response: SendError) => void)): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: SendCallback<T>): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], callback: SendCallback<T>): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId: string, callback: SendCallback<T>): void;
         send<T extends keyof ProtocolMappingApi.Commands>(event: T, params?: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId?: string):
             Promise<ProtocolMappingApi.Commands[T]['returnType']>;
 

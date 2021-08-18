@@ -53,6 +53,10 @@ function assertType<T>(value: T): T {
         client.send('Page.navigate', (error: boolean, response: Protocol.Page.NavigateResponse | CDP.SendError) => {});
         client.send('Page.navigate', {url: 'https://github.com'}, (error: boolean, response: Protocol.Page.NavigateResponse | CDP.SendError) => {});
         client.send('Page.navigate', {url: 'https://github.com'}, 'sessionId', (error: boolean, response: Protocol.Page.NavigateResponse | CDP.SendError) => {});
+        // @ts-expect-error
+        client.send('Page.navigate', (error: boolean, response: CDP.SendError) => {});
+        // @ts-expect-error
+        client.send('Page.navigate', (error: boolean, response: Protocol.Page.NavigateResponse) => {});
     } finally {
         if (client) {
             await client.close();
