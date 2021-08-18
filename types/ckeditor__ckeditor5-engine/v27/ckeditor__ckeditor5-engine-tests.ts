@@ -27,6 +27,7 @@ import {
 } from "@ckeditor/ckeditor5-engine";
 import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
 import DowncastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
+import Mapper from "@ckeditor/ckeditor5-engine/src/conversion/mapper";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
 import UpcastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
@@ -175,7 +176,7 @@ rootEditableElement = viewDocument.getRoot()!;
 
 enablePlaceholder({
     view,
-    element: new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement("div"),
+    element: viewElement,
     text: "foo",
 });
 enablePlaceholder({
@@ -228,7 +229,7 @@ dataProcessor.registerRawContentMatcher({ name: "div", classes: "raw" });
 
 let insertOperation = new InsertOperation(
     new ModelPosition(model.document.createRoot(), [0]),
-    new Writer().createText("foo"),
+    new Writer().createText(""),
     model.document.version,
 );
 if (insertOperation.type === "insert") {
@@ -265,8 +266,8 @@ const result = documentSelection.getRanges().next();
 if (!result.done) {
     range = result.value;
 }
-let modelPosition: ModelPosition = documentSelection.anchor as ModelPosition;
-modelPosition = documentSelection.focus as ModelPosition;
+let modelPosition: ModelPosition = documentSelection.anchor!;
+modelPosition = documentSelection.focus!;
 bool = documentSelection.isBackward;
 bool = documentSelection.hasOwnRange;
 bool = documentSelection.isCollapsed;
@@ -405,6 +406,8 @@ const clickObserver = new ClickObserver(view);
 view.addObserver(ClickObserver);
 clickObserver.domEventType === "click";
 clickObserver.onDomEvent(new MouseEvent("foo"));
+
+new Mapper().on("foo", () => {});
 
 const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
 downcastWriter.createPositionAt(downcastWriter.createEmptyElement("div"), "after");
@@ -611,3 +614,6 @@ if (
 ) {
     const obj: EmptyElement = viewObj;
 }
+
+// Selectable
+new Writer().setSelection(null);

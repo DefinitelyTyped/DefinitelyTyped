@@ -614,3 +614,6 @@ if (
 ) {
     const obj: EmptyElement = viewObj;
 }
+
+// Selectable
+new Writer().setSelection(null);
