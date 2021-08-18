@@ -4,7 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-declare module "try-catch" {
-    export default function tryCatch (fn: Function, ...args: any[]): [error: Error, result?: any];
-}
-
+declare function tryCatch (fn: Function, ...args: any[]): [error: Error, result?: any];
+export = tryCatch;
