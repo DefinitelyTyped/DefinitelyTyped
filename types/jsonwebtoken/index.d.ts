@@ -4,7 +4,7 @@
 //                 Daniel Heim <https://github.com/danielheim>,
 //                 Brice BERNARD <https://github.com/brikou>,
 //                 Veli-Pekka Kestilä <https://github.com/vpk>,
-//                 Daniel Parker <https://github.com/rlgod>,
+//                 Daniel Parker <https://github.com/GeneralistDev>,
 //                 Kjell Dießel <https://github.com/kettil>,
 //                 Robert Gajda <https://github.com/RunAge>,
 //                 Nico Flaig <https://github.com/nflaig>,
@@ -95,18 +95,10 @@ export interface DecodeOptions {
     complete?: boolean | undefined;
     json?: boolean | undefined;
 }
-export type VerifyErrors =
-    | JsonWebTokenError
-    | NotBeforeError
-    | TokenExpiredError;
-export type VerifyCallback<T = JwtPayload> = (
-    err: VerifyErrors | null,
-    decoded: T | undefined,
-) => void;
+export type VerifyErrors = JsonWebTokenError | NotBeforeError | TokenExpiredError;
+export type VerifyCallback<T = JwtPayload> = (err: VerifyErrors | null, decoded: T | undefined) => void;
 
-export type SignCallback = (
-    err: Error | null, encoded: string | undefined
-) => void;
+export type SignCallback = (err: Error | null, encoded: string | undefined) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
 export interface JwtHeader {
@@ -142,26 +134,25 @@ export interface Jwt {
 
 // https://github.com/auth0/node-jsonwebtoken#algorithms-supported
 export type Algorithm =
-    "HS256" | "HS384" | "HS512" |
-    "RS256" | "RS384" | "RS512" |
-    "ES256" | "ES384" | "ES512" |
-    "PS256" | "PS384" | "PS512" |
-    "none";
+    | 'HS256'
+    | 'HS384'
+    | 'HS512'
+    | 'RS256'
+    | 'RS384'
+    | 'RS512'
+    | 'ES256'
+    | 'ES384'
+    | 'ES512'
+    | 'PS256'
+    | 'PS384'
+    | 'PS512'
+    | 'none';
 
-export type SigningKeyCallback = (
-    err: any,
-    signingKey?: Secret,
-) => void;
+export type SigningKeyCallback = (err: any, signingKey?: Secret) => void;
 
-export type GetPublicKeyOrSecret = (
-    header: JwtHeader,
-    callback: SigningKeyCallback
-) => void;
+export type GetPublicKeyOrSecret = (header: JwtHeader, callback: SigningKeyCallback) => void;
 
-export type Secret =
-    | string
-    | Buffer
-    | { key: string | Buffer; passphrase: string };
+export type Secret = string | Buffer | { key: string | Buffer; passphrase: string };
 
 /**
  * Synchronously sign the given payload into a JSON Web Token string
@@ -170,11 +161,7 @@ export type Secret =
  * [options] - Options for the signature
  * returns - The JSON Web Token string
  */
-export function sign(
-    payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
-    options?: SignOptions,
-): string;
+export function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options?: SignOptions): string;
 
 /**
  * Sign the given payload into a JSON Web Token string
@@ -183,11 +170,7 @@ export function sign(
  * [options] - Options for the signature
  * callback - Callback to get the encoded token on
  */
-export function sign(
-    payload: string | Buffer | object,
-    secretOrPrivateKey: Secret,
-    callback: SignCallback,
-): void;
+export function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, callback: SignCallback): void;
 export function sign(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
@@ -202,7 +185,11 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt | string;
+export function verify(
+    token: string,
+    secretOrPublicKey: Secret,
+    options: VerifyOptions & { complete: true },
+): Jwt | string;
 export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): JwtPayload | string;
 
 /**
