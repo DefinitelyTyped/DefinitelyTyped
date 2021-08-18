@@ -22,6 +22,10 @@ declare namespace editJsonFile {
         get(path?: string): any;
         /** Set value at path. */
         set(path: string, value: any): JsonEditor;
+        /** Appends a value/object to a specific path. */
+        append(path: string, value: any): JsonEditor;
+        /** Pop an array from a specific path. */
+        pop(path: string): JsonEditor;
         /** Unset value at path. */
         unset(path: string): JsonEditor;
         /** Read the JSON file. */
