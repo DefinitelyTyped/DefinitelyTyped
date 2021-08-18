@@ -30,7 +30,7 @@ class Test extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} googleCallbackName="google_callback_name">
+                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} googleCallbackName="google_callback_name" searchOptions={{ componentRestrictions:{ country: ['US']} }}>
                     {({getInputProps, suggestions, getSuggestionItemProps, loading}) => {
                         const inputProps = getInputProps({
                             required: true,
