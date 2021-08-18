@@ -25,6 +25,7 @@ declare class Dropdown extends BaseComponent {
     update(): void;
 
     static getInstance: GetInstanceFactory<Dropdown>;
+    static getOrCreateInstance: GetInstanceFactory<Dropdown>;
     static jQueryInterface: Dropdown.jQueryInterface;
 
     // static NAME: 'dropdown';
