@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Modal extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Modal.Options>);
@@ -30,7 +30,7 @@ declare class Modal extends BaseComponent {
 
     static getInstance: GetInstanceFactory<Modal>;
 
-    static getOrCreateInstance: GetInstanceFactory<Modal>;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Modal>;
 
     static jQueryInterface: Modal.jQueryInterface;
 

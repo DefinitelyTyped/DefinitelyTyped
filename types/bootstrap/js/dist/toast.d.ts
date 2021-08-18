@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Toast extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Toast.Options>);
@@ -19,7 +19,7 @@ declare class Toast extends BaseComponent {
 
     static getInstance: GetInstanceFactory<Toast>;
 
-    static getOrCreateInstance: GetInstanceFactory<Toast>;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Toast>;
 
     static jQueryInterface: Toast.jQueryInterface;
 

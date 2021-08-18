@@ -8,7 +8,7 @@ new Dropdown(element, { offset: [0, 2] }); // $ExpectType Dropdown
 
 // $ExpectType Dropdown | null
 Dropdown.getInstance(element);
-// $ExpectType Dropdown | null
+// $ExpectType Dropdown
 Dropdown.getOrCreateInstance(element);
 
 // $ExpectType string
