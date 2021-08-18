@@ -3,7 +3,7 @@
  * each plugin exposes a getInstance method. In order to retrieve it directly from an element, do this: bootstrap.Popover.getInstance(myPopoverEl)
  */
 export type GetInstanceFactory<T> = (element: string | Element) => T | null;
-export type GetOrCreateInstanceFactory<T> = (element: string | Element) => T;
+export type GetOrCreateInstanceFactory<T> = (element: string | Element, config?: Object) => T;
 
 /**
  * Base Component
