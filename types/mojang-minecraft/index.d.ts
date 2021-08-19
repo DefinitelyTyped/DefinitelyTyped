@@ -168,12 +168,10 @@ export class Block {
      * Whether this block can potentially be waterlogged. For
      * example, a block of Andesite cannot be waterlogged (as it is
      * a completely solid block), but a door component can be.
-     * @returns Whether this particular block, based on its block type, can,be waterlogged.
-     * @returns Whether this particular block, based on its block type, can,be waterlogged.
+     * @returns Whether this particular block, based on its block type, can be waterlogged.
      */
     canBeWaterlogged(): boolean;
     /**
-     * @returns Additional block configuration data that describes the,block.
      * @returns Additional block configuration data that describes the,block.
      * @throws This function can throw errors.
      */
@@ -186,8 +184,7 @@ export class Block {
      * @param componentName
      * Identifier of the component. If a namespace is not
      * specified, minecraft: is assumed.
-     * @returns Returns the component object if it is present on the,particular block.
-     * @returns Returns the component object if it is present on the,particular block.
+     * @returns Returns the component object if it is present on the particular block.
      * @throws This function can throw errors.
      */
     getComponent(componentName: string): any;
@@ -209,8 +206,7 @@ export class Block {
      * specific tag.
      * @param tag
      * Tag to check for.
-     * @returns Returns `true` if the permutation of this block has the tag,,else `false`.
-     * @returns Returns `true` if the permutation of this block has the tag,,else `false`.
+     * @returns Returns `true` if the permutation of this block has the tag, else `false`.
      * @example check_block_tags.js
      * ```typescript
      *        import { World, BlockLocation } from "mojang-minecraft";
@@ -450,9 +446,7 @@ export class BlockLocation {
      * @param other
      * Additional BlockLocation used to determine the set of
      * locations in between this location and another point.
-     * @returns Array of block locations representing the volume between,this location and another, inclusive of the start and end,points.
-     * @returns Array of block locations representing the volume between,this location and another, inclusive of the start and end,points.
-     * @returns Array of block locations representing the volume between,this location and another, inclusive of the start and end,points.
+     * @returns Array of block locations representing the volume between this location and another, inclusive of the start and end points.
      */
     blocksBetween(other: BlockLocation): BlockLocation[];
     /**
@@ -488,8 +482,7 @@ export class BlockLocation {
      * Y offset relative to this BlockLocation.
      * @param z
      * Z offset relative to this BlockLocation.
-     * @returns BlockLocation that is positioned relative to this,BlockLocation.
-     * @returns BlockLocation that is positioned relative to this,BlockLocation.
+     * @returns BlockLocation that is positioned relative to this BlockLocation.
      */
     offset(x: number, y: number, z: number): BlockLocation;
 }
@@ -508,8 +501,7 @@ export class BlockPermutation {
      */
     clone(): BlockPermutation;
     /**
-     * @returns Returns the list of all of the properties that the,permutation has.
-     * @returns Returns the list of all of the properties that the,permutation has.
+     * @returns Returns the list of all of the properties that the permutation has.
      */
     getAllProperties(): any[];
     /**
@@ -993,7 +985,7 @@ export class BlockProperties {
     static readonly "rotation" = "rotation";
     /**
      * String property that represents the pattern of a sandstone
-     * block. Valid values are 'default', 'heiroglyphs' (sp),
+     * block. Valid values are 'default', 'heiroglyphs',
      * 'cut', and 'smooth'.
      */
     static readonly "sandStoneType" = "sand_stone_type";
@@ -1253,10 +1245,7 @@ export class BoolBlockProperty {
     readonly "validValues": boolean[];
     /**
      * The current value of this property.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.BoolBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.BoolBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.BoolBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.BoolBlockProperty.validValues} to check,allowed values.
+     * @throws Setting this property can throw if the value passed is not valid for the property. Use {@link mojang-minecraft.BoolBlockProperty.validValues} to check allowed values.
      */
     "value": boolean;
 }
@@ -1296,7 +1285,6 @@ export class ChatEventSignal {
      * @param callback
      * @example custom_command.js
      * ```typescript
-     *        // Kills the chatting player if they type "!killme"
      *        const chatCallback = World.events.beforeChat.subscribe((eventData) => {
      *        if (eventData.message.includes("cancel")) {
      *        // Cancel event if the message contains "cancel"
@@ -1334,8 +1322,7 @@ export class Commands {
      * @param dimension
      * Dimension to be used as context for the command to run
      * within.
-     * @returns For commands that return data, returns a JSON structure with,command response values.
-     * @returns For commands that return data, returns a JSON structure with,command response values.
+     * @returns For commands that return data, returns a JSON structure with command response values.
      * @throws This function can throw errors.
      * @example commands.js
      * ```typescript
@@ -1677,8 +1664,7 @@ export class Entity {
      * Returns the effect for the specified EffectType on the
      * entity, or undefined if the effect is not present.
      * @param effectType
-     * @returns Effect object for the specified effect, or undefined if the,effect is not present.
-     * @returns Effect object for the specified effect, or undefined if the,effect is not present.
+     * @returns Effect object for the specified effect, or undefined if the effect is not present.
      * @throws This function can throw errors.
      */
     getEffect(effectType: EffectType): Effect;
@@ -1841,7 +1827,7 @@ export class EntityBreathableComponent {
     setAirSupply(value: number): void;
 }
 /**
- * Defines the entity's color. Only works on vanilla entities
+ * Defines the entity's color. Only works on certain entities
  * that have predefined color values (sheep, llama, shulker).
  */
 export class EntityColorComponent {
@@ -2596,7 +2582,7 @@ export class EntityNavigationFloatComponent {
 }
 /**
  * Allows this entity to generate paths in the air (for
- * example, like Minecraft Parrots do.)
+ * example, like Minecraft parrots do.)
  */
 export class EntityNavigationFlyComponent {
     /**
@@ -3467,10 +3453,7 @@ export class IntBlockProperty {
     readonly "validValues": number[];
     /**
      * The current value of this property.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.IntBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.IntBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.IntBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.IntBlockProperty.validValues} to check,allowed values.
+     * @throws Setting this property can throw if the value passed is not valid for the property. Use {@link mojang-minecraft.IntBlockProperty.validValues} to check allowed values.
      */
     "value": number;
 }
@@ -3661,7 +3644,6 @@ export class Location {
      * @param epsilon
      * Maximum distance that the Locations can be from each other
      * to be considered nearby.
-     * @returns True if the two Locations are within epsilon distance of,each other.
      * @returns True if the two Locations are within epsilon distance of,each other.
      */
     isNear(other: Location, epsilon: number): boolean;
@@ -10617,8 +10599,7 @@ export class Player {
      * Returns the effect for the specified EffectType on the
      * entity, or undefined if the effect is not present.
      * @param effectType
-     * @returns Effect object for the specified effect, or undefined if the,effect is not present.
-     * @returns Effect object for the specified effect, or undefined if the,effect is not present.
+     * @returns Effect object for the specified effect, or undefined if the effect is not present.
      * @throws This function can throw errors.
      */
     getEffect(effectType: EffectType): Effect;
@@ -10691,20 +10672,17 @@ export class StringBlockProperty {
     readonly "validValues": any[];
     /**
      * The current value of this property.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.StringBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.StringBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.StringBlockProperty.validValues} to check,allowed values.
-     * @throws Setting this property can throw if the value passed is not,valid for the property. Use,{@link mojang-minecraft.StringBlockProperty.validValues} to check,allowed values.
+     * @throws Setting this property can throw if the value passed is not valid for the property. Use {@link mojang-minecraft.StringBlockProperty.validValues} to check allowed values.
      */
     "value": string;
 }
 /**
- * An event for handling gameplay updates, that fires 20 times
+ * An event for handling updates, that fires 20 times
  * every second.
  */
 export class TickEvent {
     /**
-     * Current game tick at the time this event was fired.
+     * Current tick at the time this event was fired.
      */
     readonly "currentTick": number;
 }
@@ -10768,8 +10746,7 @@ export class WeatherChangeEventSignal {
     unsubscribe(callback: (arg: WeatherChangeEvent) => void): void;
 }
 /**
- * A class that wraps the state of a dimension (such as the
- * overworld, the nether, or the end)
+ * A class that wraps the state of a world - a set of dimensions and the environment of Minecraft.
  */
 // tslint:disable-next-line:no-unnecessary-class
 export class World {

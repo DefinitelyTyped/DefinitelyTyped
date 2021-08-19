@@ -48,8 +48,7 @@ export class GameTestSequence {
      * sequence execution.
      * @param callback
      * Callback function to execute.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
+     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
      */
     thenExecute(callback: () => void): GameTestSequence;
     /**
@@ -61,8 +60,7 @@ export class GameTestSequence {
      * Number of ticks to wait before executing the callback.
      * @param callback
      * Callback function to execute.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
+     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
      */
     thenExecuteAfter(delayTicks: number, callback: () => void): GameTestSequence;
     /**
@@ -72,8 +70,7 @@ export class GameTestSequence {
      * @param tickCount
      * @param callback
      * Callback function to execute.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
+     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
      */
     thenExecuteFor(tickCount: number, callback: () => void): GameTestSequence;
     /**
@@ -90,8 +87,7 @@ export class GameTestSequence {
      * @param delayTicks
      * Number of ticks to delay for this step in the GameTest
      * sequence.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
+     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
      */
     thenIdle(delayTicks: number): GameTestSequence;
     /**
@@ -108,8 +104,7 @@ export class GameTestSequence {
      * @param callback
      * Testing callback function to execute. Typically, this
      * function will have .assertXyz functions within it.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
+     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
      */
     thenWait(callback: () => void): GameTestSequence;
     /**
@@ -123,8 +118,7 @@ export class GameTestSequence {
      * @param callback
      * Testing callback function to execute. Typically, this
      * function will have .assertXyz functions within it.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
-     * @returns Returns a GameTestSequence object where additional .thenXyz,method steps can be added.
+     * @returns Returns a GameTestSequence object where additional .thenXyz method steps can be added.
      */
     thenWaitWithDelay(delayTicks: number, callback: () => void): GameTestSequence;
 }
@@ -138,8 +132,7 @@ export class RegistrationBuilder {
      * Sets the batch for the test to run in.
      * @param batchName
      * Name of the batch for the test.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     batch(batchName: ('night'|'day')): RegistrationBuilder;
     /**
@@ -147,8 +140,7 @@ export class RegistrationBuilder {
      * Sets the maximum number of times a test will try to rerun if
      * it fails.
      * @param attemptCount
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     maxAttempts(attemptCount: number): RegistrationBuilder;
     /**
@@ -156,8 +148,7 @@ export class RegistrationBuilder {
      * Sets the maximum number of ticks a test will run for before
      * timing out and failing.
      * @param tickCount
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     maxTicks(tickCount: number): RegistrationBuilder;
     /**
@@ -167,8 +158,7 @@ export class RegistrationBuilder {
      * @param paddingBlocks
      * Size, in blocks, around the GameTest where additional
      * GameTests should not be created.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     padding(paddingBlocks: number): RegistrationBuilder;
     /**
@@ -178,8 +168,7 @@ export class RegistrationBuilder {
      * @param isRequired
      * If set to true, the test must pass in order for the entire
      * run of tests to pass.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     required(isRequired: boolean): RegistrationBuilder;
     /**
@@ -187,8 +176,7 @@ export class RegistrationBuilder {
      * Sets the number of successful test runs to be considered
      * successful.
      * @param attemptCount
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     requiredSuccessfulAttempts(attemptCount: number): RegistrationBuilder;
     /**
@@ -203,8 +191,7 @@ export class RegistrationBuilder {
      * Sets the number of ticks for a test to wait before executing
      * when the structure is spawned.
      * @param tickCount
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     setupTicks(tickCount: number): RegistrationBuilder;
     /**
@@ -213,8 +200,7 @@ export class RegistrationBuilder {
      * will load `/structures/xyz/bar.mcstructure` from the
      * behavior pack stack.
      * @param structureName
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     structureName(structureName: string): RegistrationBuilder;
     /**
@@ -222,8 +208,7 @@ export class RegistrationBuilder {
      * Adds a tag to a test. You can run all tests with a given tag
      * with `/gametest runset <tag>`.
      * @param tag
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
-     * @returns RegistrationBuilder object where additional configuration,methods can be called.
+     * @returns RegistrationBuilder object where additional configuration methods can be called.
      */
     tag(tag: string): RegistrationBuilder;
 }
@@ -249,7 +234,7 @@ export class Tags {
     "suiteDefault": string;
     /**
      * Indicates that the tagged test should be a part of a
-     * non-functional test suite.
+     * a suite of disabled tests.
      */
     "suiteDisabled": string;
 }
@@ -580,8 +565,7 @@ export class Test {
      * Presses a button at a block location.
      * @param blockLocation
      * Location to push the button at.
-     * @throws Will throw an error if a button is not present at the,specified position.
-     * @throws Will throw an error if a button is not present at the,specified position.
+     * @throws Will throw an error if a button is not present at the specified position.
      */
     pressButton(blockLocation: mojangminecraft.BlockLocation): void;
     /**
@@ -597,8 +581,7 @@ export class Test {
      * Pulls a lever at a block location.
      * @param blockLocation
      * Location to pull the lever at.
-     * @throws Will throw an error if a lever is not present at the,specified position.
-     * @throws Will throw an error if a lever is not present at the,specified position.
+     * @throws Will throw an error if a lever is not present at the specified position.
      */
     pullLever(blockLocation: mojangminecraft.BlockLocation): void;
     /**
@@ -711,7 +694,6 @@ export class Test {
      * @param entityTypeIdentifier
      * @param blockLocation
      * @returns The spawned entity. If the entity cannot be spawned, returns,undefined.
-     * @returns The spawned entity. If the entity cannot be spawned, returns,undefined.
      * @throws This function can throw errors.
      * @example spawnAdultPig.js
      * ```typescript
@@ -726,7 +708,6 @@ export class Test {
      * @param entityTypeIdentifier
      * @param location
      * Location where the entity should be spawned.
-     * @returns The spawned entity. If the entity cannot be spawned, returns,undefined.
      * @returns The spawned entity. If the entity cannot be spawned, returns,undefined.
      * @throws This function can throw errors.
      * @example spawnAdultPig.js
@@ -796,8 +777,7 @@ export class Test {
      * @remarks
      * Creates a new GameTestSequence - A set of steps that play
      * out sequentially within a GameTest.
-     * @returns A new GameTestSequence with chaining methods that facilitate,creating a set of steps.
-     * @returns A new GameTestSequence with chaining methods that facilitate,creating a set of steps.
+     * @returns A new GameTestSequence with chaining methods that facilitate creating a set of steps.
      */
     startSequence(): GameTestSequence;
     /**
@@ -963,9 +943,7 @@ export class Test {
  * Name of this specific test.
  * @param testFunction
  * Implementation of the test function.
- * @returns Returns a {@link mojang-gametest.RegistrationBuilder} object where,additional options for this test can be specified via,builder methods.
- * @returns Returns a {@link mojang-gametest.RegistrationBuilder} object where,additional options for this test can be specified via,builder methods.
- * @returns Returns a {@link mojang-gametest.RegistrationBuilder} object where,additional options for this test can be specified via,builder methods.
+ * @returns Returns a {@link mojang-gametest.RegistrationBuilder} object where additional options for this test can be specified via builder methods.
  * @example example1.js
  * ```typescript
  *        GameTest.register("ExampleTests", "alwaysFail", (test) => {
