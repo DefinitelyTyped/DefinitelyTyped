@@ -62,6 +62,8 @@ const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorC
 // tslint:disable-next-line
 const breakManager: BreakManager = {
     getBreakById: () => adBreak,
+    getBreakClipCurrentTimeSec: () => null,
+    getBreakClipDurationSec: () => null,
     getBreakClipById: () => breakClip,
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],

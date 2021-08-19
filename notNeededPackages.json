@@ -4814,6 +4814,10 @@
             "libraryName": "strong-error-handler",
             "asOfVersion": "3.2.0"
         },
+        "styled-jsx": {
+            "libraryName": "styled-jsx",
+            "asOfVersion": "3.4.4"
+        },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",
             "asOfVersion": "2.1.0"

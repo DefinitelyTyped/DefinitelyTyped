@@ -8,6 +8,8 @@ new Carousel(element, { interval: 1000 });
 
 // $ExpectType Carousel | null
 Carousel.getInstance(element);
+// $ExpectType Carousel
+Carousel.getOrCreateInstance(element);
 
 // $ExpectType string
 Carousel.VERSION;

@@ -6,7 +6,6 @@
 //                 Olivier Kamers <https://github.com/OlivierKamers>
 //                 Dan McNamara <https://github.com/DMcNamara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 declare const factory: factory.Static;
 

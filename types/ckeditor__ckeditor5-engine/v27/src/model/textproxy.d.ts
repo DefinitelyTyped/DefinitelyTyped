@@ -1,6 +1,14 @@
 import DocumentFragment from "./documentfragment";
+import DocumentSelection from "./documentselection";
 import Element from "./element";
 import Node from "./node";
+import LivePosition from "./liveposition";
+import LiveRange from "./liverange";
+import { Marker } from "./markercollection";
+import Position from "./position";
+import Range from "./range";
+import RootElement from "./rootelement";
+import Selection from "./selection";
 import Text from "./text";
 
 export default class TextProxy {
@@ -25,5 +33,18 @@ export default class TextProxy {
     getAttributes(): ReturnType<Text["getAttributes"]>;
     getPath(): number[];
     hasAttribute(key: string): boolean;
-    is(type: string): boolean;
+    is(type: "position" | "model:position"): this is Position | LivePosition;
+    is(type: "livePosition" | "model:livePosition"): this is LivePosition;
+    is(type: "range" | "model:range"): this is Range | LiveRange;
+    is(type: "liveRange" | "model:liveRange"): this is LiveRange;
+    is(type: "marker" | "model:marker"): this is Marker;
+    is(type: "$textProxy" | "model:$textProxy" | "textProxy" | "model:textProxy"): this is TextProxy;
+    is(type: "documentFragment" | "model:documentFragment"): this is DocumentFragment;
+    is(type: "selection" | "model:selection"): this is Selection | DocumentSelection;
+    is(type: "documentSelection" | "model:documentSelection"): this is DocumentSelection;
+    is(type: "node" | "model:node"): this is Node | Element | Text | RootElement;
+    is(type: "$text" | "model:$text" | "text" | "model:text"): this is Text;
+    is(type: "element" | "model:element", name?: string): this is Element | RootElement;
+    is(type: "rootElement" | "model:rootElement", name?: string): this is RootElement;
+    is(type: string, name?: string): boolean;
 }

@@ -1,9 +1,10 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Alert extends BaseComponent {
     static NAME: 'alert';
     static jQueryInterface: Alert.jQueryInterface;
     static getInstance: GetInstanceFactory<Alert>;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Alert>;
     /**
      * Closes an alert by removing it from the DOM. If the .fade and .show
      * classes are present on the element, the alert will fade out before it
