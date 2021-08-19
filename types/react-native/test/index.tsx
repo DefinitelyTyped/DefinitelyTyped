@@ -1398,26 +1398,36 @@ const PermissionsAndroidTest = () => {
         }
     });
 
-    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(
-        results => {
-            switch (results['android.permission.CAMERA']) {
-                case 'granted':
-                    break;
-                case 'denied':
-                    break;
-                case 'never_ask_again':
-                    break;
-            }
-            switch (results['android.permission.ACCESS_FINE_LOCATION']) {
-                case 'granted':
-                    break;
-                case 'denied':
-                    break;
-                case 'never_ask_again':
-                    break;
-            }
-        },
-    );
+    PermissionsAndroid.requestMultiple([
+        'android.permission.CAMERA',
+        'android.permission.ACCESS_FINE_LOCATION',
+        'android.permission.ACCESS_BACKGROUND_LOCATION',
+    ]).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_BACKGROUND_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    });
 };
 
 // Platform

@@ -7889,6 +7889,7 @@ export type Permission =
     | 'android.permission.GET_ACCOUNTS'
     | 'android.permission.ACCESS_FINE_LOCATION'
     | 'android.permission.ACCESS_COARSE_LOCATION'
+    | 'android.permission.ACCESS_BACKGROUND_LOCATION'
     | 'android.permission.RECORD_AUDIO'
     | 'android.permission.READ_PHONE_STATE'
     | 'android.permission.CALL_PHONE'
