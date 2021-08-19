@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/blocks 9.0
+// Type definitions for @wordpress/blocks 9.1
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
@@ -48,6 +48,12 @@ export interface BlockStyle {
 
 export interface Block<T extends Record<string, any> = {}> {
     /**
+     * The version of the Block API used by the block.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#api-version}
+     */
+    readonly apiVersion?: number;
+    /**
      * Attributes for the block.
      */
     readonly attributes: {
@@ -71,6 +77,32 @@ export interface Block<T extends Record<string, any> = {}> {
      */
     readonly edit?: ComponentType<BlockEditProps<T>> | undefined;
     /**
+     * Block type editor script definition.
+     * It will only be enqueued in the context of the editor.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#editor-script}
+     */
+    readonly editorScript?: string;
+    /**
+     * Block type editor style definition.
+     * It will only be enqueued in the context of the editor.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#editor-style}
+     */
+    readonly editorStyle?: string;
+    /**
+     * It provides structured example data for the block.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#example}
+     */
+    readonly example?: {
+        readonly attributes: {
+            readonly [k in keyof T]: any;
+        };
+        readonly innerBlocks?: any[];
+        readonly viewportWidth?: number;
+    };
+    /**
      * Icon for the block.
      */
     readonly icon: BlockIconNormalized;
@@ -84,6 +116,14 @@ export interface Block<T extends Record<string, any> = {}> {
      */
     readonly parent?: readonly string[] | undefined;
     /**
+     * Context provided for available access by descendants of blocks of this
+     * type, in the form of an object which maps a context name to one of the
+     * block’s own attribute.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#provides-context}
+     */
+    readonly providesContext?: Record<string, string>;
+    /**
      * This is set internally when registering the type.
      */
     readonly name: string;
@@ -91,6 +131,21 @@ export interface Block<T extends Record<string, any> = {}> {
      * Component to render on the frontend.
      */
     readonly save: ComponentType<BlockSaveProps<T>>;
+    /**
+     * Block type frontend script definition.
+     * It will be enqueued both in the editor and when viewing the content on
+     * the front of the site.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#script}
+     */
+    readonly script?: string;
+    /**
+     * Block type editor style definition.
+     * It will only be enqueued in the context of the editor.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#style}
+     */
+    readonly style?: string;
     /**
      * Block styles.
      *
@@ -101,6 +156,12 @@ export interface Block<T extends Record<string, any> = {}> {
      * Optional block extended support features.
      */
     readonly supports?: BlockSupports | undefined;
+    /**
+     * The gettext text domain of the plugin/block.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#text-domain}
+     */
+    readonly textdomain?: string;
     /**
      * This is the display title for your block, which can be translated
      * with our translation functions.
@@ -119,6 +180,19 @@ export interface Block<T extends Record<string, any> = {}> {
          */
         readonly to?: readonly Transform[] | undefined;
     } | undefined;
+    /**
+     * Array of the names of context values to inherit from an ancestor
+     * provider.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#context}
+     */
+    readonly usesContext?: string[];
+    /**
+     * The current version number of the block, such as 1.0 or 1.0.3.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#version}
+     */
+    readonly version?: string;
     /**
      * Sets attributes on the topmost parent element of the current block.
      */
