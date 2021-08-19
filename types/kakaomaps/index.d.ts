@@ -110,12 +110,14 @@ declare namespace kakao.maps {
     const BOTTOMLEFT: COPYRIGHT_POSITION;
     const BOTTOMRIGHT: COPYRIGHT_POSITION;
   }
+  // tslint:disable-next-line no-unnecessary-class
   class Tileset {
     constructor(width: number, height: number, urlFunc: () => void, copyright: TilesetCopyright[], dark: boolean, minZoom: number, maxZoom: number, getTile?: () => void)
   }
   namespace Tileset {
     function add(id: string, tileset: Tileset): void;
   }
+  // tslint:disable-next-line no-unnecessary-class
   class TilesetCopyright {
     constructor(msg: string, shortMsg: string, minZoom: number)
   }
@@ -205,6 +207,7 @@ declare namespace kakao.maps {
     getOpacity(): number;
     // event: click, mouseover, mouseout, rightclick, dragstart, dragend
   }
+  // tslint:disable-next-line no-unnecessary-class
   class MarkerImage {
     constructor(src: string, size: Size, options?: {
       alt?: string,
