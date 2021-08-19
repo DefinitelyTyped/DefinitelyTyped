@@ -330,9 +330,21 @@ declare class Lexicon {
     tagWord(word: string): string[];
 }
 
+interface TaggedWord {
+    token: string;
+    tag: string;
+}
+
+declare class Sentence {
+    constructor(data?: string[]);
+    taggedWords: TaggedWord[];
+    addTaggedWord(token: string, tag: string): void;
+    clone(): Sentence;
+}
+
 declare class BrillPOSTagger {
     constructor(lexicon: Lexicon, ruleSet: RuleSet);
     lexicon: Lexicon;
     ruleSet: RuleSet;
-    tag(sentence: string[]): string[][];
+    tag(sentence: string[]): Sentence;
 }
