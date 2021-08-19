@@ -52,7 +52,7 @@ declare class sftp {
 
     rmdir(remoteFilePath: string, recursive?: boolean): Promise<string>;
 
-    delete(remoteFilePath: string): Promise<string>;
+    delete(remoteFilePath: string, noErrorOK?: boolean): Promise<string>;
 
     rename(remoteSourcePath: string, remoteDestPath: string): Promise<string>;
 
@@ -64,9 +64,9 @@ declare class sftp {
         options?: sftp.WriteStreamOptions,
     ): Promise<string>;
 
-    uploadDir(srcDir: string, destDir: string): Promise<string>;
+    uploadDir(srcDir: string, destDir: string, filter?: string | RegExp): Promise<string>;
 
-    downloadDir(srcDir: string, destDir: string): Promise<string>;
+    downloadDir(srcDir: string, destDir: string, filter?: string | RegExp): Promise<string>;
 
     end(): Promise<void>;
 
