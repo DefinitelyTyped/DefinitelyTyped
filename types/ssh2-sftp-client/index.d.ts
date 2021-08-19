@@ -20,6 +20,7 @@ export = sftp;
 type FileInfoType = 'd' | '-' | 'l';
 
 declare class sftp {
+    constructor(name?: string);
     connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;

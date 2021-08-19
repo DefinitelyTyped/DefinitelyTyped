@@ -2,7 +2,7 @@ import Client = require('ssh2-sftp-client');
 import * as fs from 'fs';
 
 (async () => {
-    const client = new Client();
+    const client = new Client('name');
 
     client
         .connect({
