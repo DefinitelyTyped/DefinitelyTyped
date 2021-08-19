@@ -7,8 +7,8 @@
 /**
  * Takes a JSON object and returns a Lua table as a string.
  */
-export function format(
-    value: Record<string | number, unknown>,
+export function format<T extends object>(
+    value: T,
     options?: {
         eol?: string;
         singleQuote?: boolean;
@@ -19,7 +19,7 @@ export function format(
 /**
  * Takes a Lua table (string) and returns a JSON object.
  */
-export function parse(value: string): Record<string | number, unknown>;
+export function parse<T extends object>(value: string): T;
 
 /**
  * lua-json provides a way to convert between JSON and Lua tables.
