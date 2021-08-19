@@ -1,0 +1,8 @@
+{
+    "name": "consumer-data-standards",
+    "description": "Types as per DSB",
+    "license": "MIT",
+    "repository": {},
+    "version": "1.0.0",
+    "module": "banking"
+}
