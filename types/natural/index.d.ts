@@ -1,4 +1,4 @@
-// Type definitions for Natural 2.1
+// Type definitions for Natural 5.0.4
 // Project: https://github.com/NaturalNode/natural
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire>
 //                 Emily Marigold Klassen <https://github.com/forivall>
