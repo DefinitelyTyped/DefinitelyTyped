@@ -15,7 +15,7 @@
  * ```js
  * const inspector = require('inspector');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');

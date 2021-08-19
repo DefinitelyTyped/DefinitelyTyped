@@ -23,7 +23,7 @@
  * server.bind(41234);
  * // Prints: server listening 0.0.0.0:41234
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/dgram.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/dgram.js)
  */
 declare module 'dgram' {
     import { AddressInfo } from 'node:net';

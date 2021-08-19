@@ -11,7 +11,7 @@
  * will be notified, rather than losing the context of the error in the`process.on('uncaughtException')` handler, or causing the program to
  * exit immediately with an error code.
  * @deprecated Since v1.4.2 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/domain.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/domain.js)
  */
 declare module 'domain' {
     import EventEmitter = require('node:events');
