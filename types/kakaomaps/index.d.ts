@@ -1,4 +1,4 @@
-// Type definitions for non-npm package kakaomaps 1.0.0
+// Type definitions for kakaomaps-browser 1.0.0
 // Project: https://apis.map.kakao.com/web/documentation/
 // Definitions by: MinByeongDon <https://github.com/MinByeongDon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
