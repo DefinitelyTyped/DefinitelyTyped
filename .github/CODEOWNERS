@@ -3431,7 +3431,7 @@
 /types/jsonschema-protobuf/                             @kkweon
 /types/jsonstream/                                      @Bartvds
 /types/jsontoxml/                                       @benstevens48
-/types/jsonwebtoken/                                    @SomaticIT @danielheim @brikou @vpk @GeneralistDev @kettil @RunAge @nflaig @LinusU @ivansieder @peterblazejewicz @nandi95
+/types/jsonwebtoken/                                    @SomaticIT @danielheim @brikou @vpk @rlgod @kettil @RunAge @nflaig @LinusU @ivansieder @peterblazejewicz @nandi95
 /types/jsonwebtoken-promisified/                        @SomaticIT @danielheim @brikou @aneilbaboo
 /types/jspath/                                          @dex4er
 /types/jspreadsheet-ce/                                 @arx-8 @vishnutsivan
