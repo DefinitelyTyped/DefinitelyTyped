@@ -10,8 +10,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
+import '@material-ui/core/styles/overrides';
 import * as React from 'react';
-import { ComponentNameToClassKey } from '@material-ui/core/styles/overrides';
 
 export type Display = boolean | 'true' | 'false' | 'excluded';
 export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
@@ -904,12 +904,16 @@ export interface MUIDataTablePopover {
     action?: ((...args: any) => any) | undefined;
     anchorEl?: React.ReactNode | undefined;
     anchorOrigin?: any;
+    classes?: object;
+    content?: React.ReactNode;
     elevation?: number | undefined;
     onClose?: ((...args: any) => any) | undefined;
     onExited?: ((...args: any) => any) | undefined;
     option?: boolean | undefined;
     ref?: any;
+    refExit?: (...args: any) => any;
     transformOrigin?: any;
+    trigger?: React.ReactNode;
 }
 
 export interface MUIDataTableBody {

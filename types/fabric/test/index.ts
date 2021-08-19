@@ -1031,6 +1031,8 @@ function sample12() {
   const position = fabric.util.getScrollLeftTop(canvas.getElement());
   const x = position.left;
   const y = position.top;
+  canvas.absolutePan({ x, y });
+  canvas.absolutePan(new fabric.Point(x, y));
 }
 
 function sample13() {
