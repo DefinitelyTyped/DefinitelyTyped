@@ -7,3 +7,9 @@ export default class AutoMediaEmbed extends Plugin {
     static readonly pluginName: 'AutoMediaEmbed';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        AutoMediaEmbed: AutoMediaEmbed;
+    }
+}

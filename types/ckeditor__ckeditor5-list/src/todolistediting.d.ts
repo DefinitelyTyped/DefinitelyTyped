@@ -6,3 +6,9 @@ export default class TodoListEditing extends Plugin {
     static readonly requires: [typeof ListEditing];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TodoListEditing: TodoListEditing;
+    }
+}

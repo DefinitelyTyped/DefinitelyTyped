@@ -31,3 +31,15 @@ normalizeClipboardData(plainTextToHTML(''));
 plainTextToHTML(viewToPlainText(viewElement));
 
 new ClipboardObserver(new View(new StylesProcessor())).onDomEvent(new ClipboardEvent(''));
+
+// $ExpectType Clipboard
+editor.plugins.get('Clipboard');
+
+// $ExpectType ClipboardPipeline
+editor.plugins.get('ClipboardPipeline');
+
+// $ExpectType DragDrop
+editor.plugins.get('DragDrop');
+
+// $ExpectType PastePlainText
+editor.plugins.get('PastePlainText');

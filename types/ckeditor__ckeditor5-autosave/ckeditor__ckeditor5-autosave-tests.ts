@@ -18,6 +18,9 @@ const adapter: AutosaveAdapter = {
     },
 };
 
+// $ExpectType AutoSave
+myEditor.plugins.get('AutoSave');
+
 let config: AutosaveConfig = {
     save(editor) {
         return Promise.reject(editor);

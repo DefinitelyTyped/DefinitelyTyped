@@ -508,3 +508,15 @@ new ListSeparatorView().element!.tagName.startsWith('foo');
  */
 new ToolbarLineBreakView().render();
 new ToolbarLineBreakView().element!.tagName.startsWith('foo');
+
+// $ExpectType BalloonToolbar
+editor.plugins.get('BalloonToolbar');
+
+// $ExpectType BlockToolbar
+editor.plugins.get('BlockToolbar');
+
+// $ExpectType ContextualBalloon
+editor.plugins.get('ContextualBalloon');
+
+// $ExpectType Notification
+editor.plugins.get('Notification');

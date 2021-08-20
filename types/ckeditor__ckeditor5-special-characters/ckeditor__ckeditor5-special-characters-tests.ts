@@ -2,6 +2,9 @@ import { Editor, EditorUI } from '@ckeditor/ckeditor5-core';
 import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
 import {
     SpecialCharacters,
+    SpecialCharactersArrows,
+    SpecialCharactersCurrency,
+    SpecialCharactersEssentials,
     SpecialCharactersLatin,
     SpecialCharactersMathematical,
     SpecialCharactersText,
@@ -50,3 +53,24 @@ new CharacterGridView().destroy();
 
 new CharacterInfoView().render();
 new CharacterInfoView().destroy();
+
+// $ExpectType SpecialCharacters
+editor.plugins.get('SpecialCharacters');
+
+// $ExpectType SpecialCharactersArrows
+editor.plugins.get('SpecialCharactersArrows');
+
+// $ExpectType SpecialCharactersCurrency
+editor.plugins.get('SpecialCharactersCurrency');
+
+// $ExpectType SpecialCharactersEssentials
+editor.plugins.get('SpecialCharactersEssentials');
+
+// $ExpectType SpecialCharactersLatin
+editor.plugins.get('SpecialCharactersLatin');
+
+// $ExpectType SpecialCharactersMathematical
+editor.plugins.get('SpecialCharactersMathematical');
+
+// $ExpectType SpecialCharactersText
+editor.plugins.get('SpecialCharactersText');

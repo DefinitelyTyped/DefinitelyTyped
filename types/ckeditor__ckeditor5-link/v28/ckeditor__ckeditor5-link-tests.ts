@@ -64,3 +64,24 @@ utils.isImageAllowed(new Writer().createElement('div'), new Schema());
 utils.isEmail('') === ''.startsWith('');
 
 utils.addLinkProtocolIfApplicable('', '') === ''.startsWith('');
+
+// $ExpectType AutoLink
+editor.plugins.get('AutoLink');
+
+// $ExpectType Link
+editor.plugins.get('Link');
+
+// $ExpectType LinkEditing
+editor.plugins.get('LinkEditing');
+
+// $ExpectType LinkImage
+editor.plugins.get('LinkImage');
+
+// $ExpectType LinkImageEditing
+editor.plugins.get('LinkImageEditing');
+
+// $ExpectType LinkImageUI
+editor.plugins.get('LinkImageUI');
+
+// $ExpectType LinkUI
+editor.plugins.get('LinkUI');

@@ -6,3 +6,9 @@ export default class TableCellPropertiesEditing extends Plugin {
     static readonly requires: [typeof TableEditing];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TableCellPropertiesEditing: TableCellPropertiesEditing;
+    }
+}

@@ -23,3 +23,9 @@ export interface MediaEmbedProvider {
     name: string;
     url: RegExp | RegExp[];
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        MediaEmbed: MediaEmbed;
+    }
+}

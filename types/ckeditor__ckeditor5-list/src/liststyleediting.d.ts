@@ -7,3 +7,9 @@ export default class ListStyleEditing extends Plugin {
     init(): void;
     afterInit(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ListStyleEditing: ListStyleEditing;
+    }
+}

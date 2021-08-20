@@ -16,3 +16,12 @@ new BlockQuoteUI(editor).init();
 
 new BlockQuoteCommand(editor).execute();
 new BlockQuoteCommand(editor).execute({ forceValue: true });
+
+// $ExpectType BlockQuote
+editor.plugins.get('BlockQuote');
+
+// $ExpectType BlockQuoteEditing
+editor.plugins.get('BlockQuoteEditing');
+
+// $ExpectType BlockQuoteUI
+editor.plugins.get('BlockQuoteUI');
