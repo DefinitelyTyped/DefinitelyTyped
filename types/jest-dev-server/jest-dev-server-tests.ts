@@ -26,6 +26,7 @@ setup([
 setup({
     command: 'yarn storybook:ci',
     port: 3002,
+    path: 'path',
     usedPortAction: 'kill',
     launchTimeout: 60000,
 }).then(() => {
