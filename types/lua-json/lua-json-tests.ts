@@ -1,8 +1,3 @@
-interface Example {
-    a: number;
-    b: number;
-}
+type Json = luajson.Json;
 luajson.format({ a: 1, b: 2 }); // $ExpectType string
-luajson.parse('return { a = 1, b = 2 }'); // $ExpectType object
-luajson.parse('return { a = 1, b = 2 }') as Example; // $ExpectType Example
-luajson.parse('return { a = 1, b = 2 }') as number; // $ExpectError
+luajson.parse('return { a = 1, b = 2 }'); // $ExpectType Json
