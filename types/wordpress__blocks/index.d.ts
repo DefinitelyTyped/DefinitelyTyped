@@ -96,9 +96,7 @@ export interface Block<T extends Record<string, any> = {}> {
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#example}
      */
     readonly example?: {
-        readonly attributes: {
-            readonly [k in keyof T]: any;
-        };
+        readonly attributes: Readonly<T>;
         readonly innerBlocks?: any[];
         readonly viewportWidth?: number;
     };
