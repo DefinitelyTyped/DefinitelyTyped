@@ -38,7 +38,7 @@ export function isValidPhoneNumber(value?: string): boolean;
  * Checks if a country is supported by this library.
  * This is simply an alias for isSupportedCountry() from libphonenumber-js.
  */
-export function isSupportedCountry(iso: string): boolean;
+export function isSupportedCountry(country: string): boolean;
 
 export interface ParsePhoneNumberOptions {
     /**
