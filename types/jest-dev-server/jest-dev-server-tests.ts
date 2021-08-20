@@ -6,6 +6,7 @@ setup([
         port: 3002,
         usedPortAction: 'kill',
         launchTimeout: 60000,
+        path: 'api'
     },
     {
         command: 'yarn next:ci',
