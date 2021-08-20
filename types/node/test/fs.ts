@@ -1,7 +1,8 @@
-import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync  } from 'node:fs/promises';
+import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync, cp as cpAsync } from 'node:fs/promises';
 import * as fs from 'node:fs';
 import * as util from 'node:util';
 import assert = require('node:assert');
+import { CopyOptions, cpSync, cp } from 'fs';
 
 {
     fs.writeFile("thebible.txt",
@@ -611,4 +612,23 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
     watchAsync('y33t', { encoding: 'buffer', signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
 
     watchAsync('test', { persistent: true, recursive: true, encoding: 'utf-8' }); // $ExpectType AsyncIterable<FileChangeInfo<string>>
+}
+
+{
+    const opts: CopyOptions = {
+        dereference: false,
+        errorOnExist: true,
+        filter(src, dst) {
+            return src !== 'node_modules' && dst !== 'something';
+        },
+        force: true,
+        preserveTimestamps: true,
+        recursive: false,
+    };
+    cp('src', 'dest', (err: Error | null) => {});
+    cp('src', 'dest', opts, (err: Error | null) => {});
+    cpSync('src', 'dest');
+    cpSync('src', 'dest', opts);
+    cpAsync('src', 'dest'); // $ExpectType Promise<void>
+    cpAsync('src', 'dest', opts); // $ExpectType Promise<void>
 }
