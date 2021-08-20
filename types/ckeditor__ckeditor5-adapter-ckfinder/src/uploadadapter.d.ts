@@ -35,7 +35,7 @@ export class UploadAdapter implements IUploadAdapter {
      * Locale translation method.
      */
     readonly t: Locale['t'];
-    protected xhr: XMLHttpRequest;
+    protected xhr?: XMLHttpRequest;
     /**
      * Creates a new adapter instance.
      */
