@@ -1,12 +1,14 @@
 const a: any = null;
 let b = false;
-let s = "string";
+const s = "string";
+let df: DocumentFragment;
+let anchor: HTMLAnchorElement;
 
 const output: DocumentFragment | HTMLElement | JQuery = new DocumentFragment();
 
-Wikifier.createExternalLink(output, s, s);
-Wikifier.createInternalLink(output, s, s, () => {});
-s = Wikifier.wikifyEval(s);
+anchor = Wikifier.createExternalLink(output, s, s);
+anchor = Wikifier.createInternalLink(output, s, s, () => {});
+df = Wikifier.wikifyEval(s);
 b = Wikifier.isExternalLink(s);
 
 new Wikifier(output, s);

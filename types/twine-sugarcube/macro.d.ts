@@ -63,7 +63,7 @@ export interface MacroContext {
      * The current output element.
      * @since 2.0.0
      */
-    output: HTMLElement;
+    output: ParentNode;
 
     /**
      * The (execution) context object of the macro's parent, or null if the macro has no parent.
@@ -119,7 +119,7 @@ export interface MacroContext {
 
 export interface MacroDefinition {
     handler: (this: MacroContext) => void;
-    tags?: string[] | undefined;
+    tags?: string[] | null | undefined;
     skipArgs?: boolean | undefined;
 }
 
