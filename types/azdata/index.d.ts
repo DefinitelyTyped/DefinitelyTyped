@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.29
+// Type definitions for Azure Data Studio 1.32
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -9,11 +9,11 @@
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License.
- *  See https://github.com/microsoft/azuredatastudio/blob/master/LICENSE.txt for license information.
+ *  See https://github.com/Microsoft/azuredatastudio/blob/main/LICENSE.txt for license information.
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.29 Extension API
+ * Type Definition for Azure Data Studio 1.32 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -962,7 +962,7 @@ declare module 'azdata' {
         hasError: boolean;
         id: number;
         selection: ISelectionData;
-        resultSetSummaries: ResultSetSummary[];
+        resultSetSummaries: ResultSetSummary[] | null;
         executionElapsed: string;
         executionEnd: string;
         executionStart: string;
@@ -2705,7 +2705,7 @@ declare module 'azdata' {
     }
 
     // Building on top of flex item
-    export interface SplitViewBuilder extends ContainerBuilder<SplitViewContainer, SplitViewLayout, FlexItemLayout, SplitViewContainer> {
+    export interface SplitViewBuilder extends ContainerBuilder<SplitViewContainer, SplitViewLayout, FlexItemLayout, ComponentProperties> {
     }
 
     export interface DivBuilder extends ContainerBuilder<DivContainer, DivLayout, DivItemLayout, DivContainerProperties> {
@@ -3178,7 +3178,7 @@ declare module 'azdata' {
      * Properties representing the card component, can be used
      * when using ModelBuilder to create the component
      */
-    export interface CardProperties extends ComponentProperties, ComponentWithIcon {
+    export interface CardProperties extends ComponentWithIconProperties {
         label: string;
         value?: string | undefined;
         actions?: ActionDescriptor[] | undefined;
@@ -3249,7 +3249,7 @@ declare module 'azdata' {
     export type ThemedIconPath = { light: string | vscode.Uri; dark: string | vscode.Uri };
     export type IconPath = string | vscode.Uri | ThemedIconPath;
 
-    export interface ComponentWithIcon extends ComponentWithIconProperties { }
+    export interface ComponentWithIcon extends Component, ComponentWithIconProperties { }
 
     export interface ComponentWithIconProperties extends ComponentProperties {
         /**
@@ -3408,7 +3408,7 @@ declare module 'azdata' {
         requiredIndicator?: boolean | undefined;
     }
 
-    export interface ImageComponentProperties extends ComponentProperties, ComponentWithIcon {
+    export interface ImageComponentProperties extends ComponentWithIconProperties {
     }
 
     export interface GroupContainerProperties extends ComponentProperties {
@@ -3507,7 +3507,7 @@ declare module 'azdata' {
         isAutoResizable: boolean;
     }
 
-    export interface ButtonProperties extends ComponentProperties, ComponentWithIcon {
+    export interface ButtonProperties extends ComponentWithIconProperties {
         /**
          * The label for the button
          */
@@ -3520,12 +3520,6 @@ declare module 'azdata' {
          * The content of the currently selected file
          */
         fileContent?: string | undefined;
-        /**
-         * @deprecated This will be moved to `ComponentWithIconProperties`
-         *
-         * The title for the button. This title will show when hovered over
-         */
-        title?: string | undefined;
     }
 
     export interface LoadingComponentProperties extends ComponentProperties {
@@ -3724,7 +3718,7 @@ declare module 'azdata' {
         minimumHeight: number;
     }
 
-    export interface ButtonComponent extends Component, ButtonProperties {
+    export interface ButtonComponent extends ComponentWithIcon, ButtonProperties {
         /**
          * An event called when the button is clicked
          */
@@ -3887,6 +3881,14 @@ declare module 'azdata' {
          * @param isWide Indicates whether the dialog is wide or normal
          */
         export function createModelViewDialog(title: string, dialogName?: string, isWide?: boolean): Dialog;
+
+        /**
+         * Create a dialog with the given title
+         * @param title Title of the dialog, displayed at the top.
+         * @param dialogName Name of the dialog.
+         * @param width Width of the dialog, default is 'narrow'.
+         */
+        export function createModelViewDialog(title: string, dialogName?: string, width?: DialogWidth): Dialog;
 
         /**
          * Create a dialog tab which can be included as part of the content of a dialog

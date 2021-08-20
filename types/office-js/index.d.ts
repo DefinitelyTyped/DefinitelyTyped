@@ -2103,6 +2103,20 @@ declare namespace Office {
          */
         EnhancedLocationsChanged,
         /**
+         * Occurs in Outlook when an action is selected on a notification message with a defined
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.notificationmessagedetails#actions | custom action}.
+         * Currently, "Dismiss" is the only supported action that fires this event.
+         *
+         * **Important**: This event is only available with task pane implementation.
+         *
+         * To add an event handler for the `InfobarClicked` event, use the `addHandlerAsync` method of the `Item` object.
+         * The event handler receives an argument of type
+         * {@link https://docs.microsoft.com/javascript/api/outlook/office.infobarclickedeventargs?view=outlook-js-1.10 | Office.InfobarClickedEventArgs}.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        InfobarClicked,
+        /**
          * Occurs when a different Outlook item is selected for viewing while the task pane is pinned.
          * **Important**: Only available with task pane implementation.
          *
@@ -2295,7 +2309,7 @@ declare namespace Office {
     *
     * @remarks
     * 
-    * **Hosts**: Excel, Word
+    * **Hosts**: Word, Excel (deprecated, use {@link https://docs.microsoft.com/javascript/api/excel/excel.binding?view=excel-js-preview | Excel.Binding} instead)
     * 
     * **Requirement sets**: 
     * 
@@ -8054,7 +8068,7 @@ declare namespace Office {
          *
          * [Api set: Mailbox 1.10]
          */
-         enum ActionType {
+        enum ActionType {
             /**
              * The `showTaskPane` action.
              */
@@ -8396,6 +8410,50 @@ declare namespace Office {
              * Specifies that the entity is a contact.
              */
             Contact = "contact"
+        }
+        /**
+         * Action types supported by {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType.InfobarClicked}.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        enum InfobarActionType {
+            /**
+             * Dismiss action was selected.
+             *
+             * [Api set: Mailbox 1.10]
+             */
+            Dismiss = 1
+        }
+        /**
+         * Type of notification allowed by {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType.InfobarClicked}.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        enum InfobarType {
+            /**
+             * Notification displays an informational message.
+             *
+             * [Api set: Mailbox 1.10]
+             */
+            Informational = 0,
+            /**
+             * Notification displays a progress indicator.
+             *
+             * [Api set: Mailbox 1.10]
+             */
+            ProgressIndicator = 1,
+            /**
+             * Notification displays an error message.
+             *
+             * [Api set: Mailbox 1.10]
+             */
+            Error = 2,
+            /**
+             * Notification displays an informational message with actions.
+             *
+             * [Api set: Mailbox 1.10]
+             */
+            Insight = 3
         }
         /**
          * Specifies the notification message type for an appointment or message.
@@ -10368,72 +10426,6 @@ declare namespace Office {
          *                 type `Office.AsyncResult`.
          */
         setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds or replaces the signature of the item body.
-         *
-         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
-         *
-         * **Important**: If your add-in implements the 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
-         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
-         *
-         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
-         * if the user closes the form without making other edits, they won't be prompted to save changes.
-         *
-         * [Api set: Mailbox 1.10]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
-         *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
-         *
-         * **Errors**:
-         *
-         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 30,000 characters.
-         *
-         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
-         *
-         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
-         * @param options - An object literal that contains one or more of the following properties.
-         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
-         *        `coercionType`: The format the signature should be set to. If Text, the method sets the signature to plain text,
-         *                        removing any HTML tags present. If Html, the method sets the signature to HTML.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
-         *                             of type `Office.AsyncResult`.
-         */
-        setSignatureAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-        /**
-         * Adds or replaces the signature of the item body.
-         *
-         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
-         *
-         * **Important**: If your add-in implements the 
-         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
-         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
-         *
-         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
-         * if the user closes the form without making other edits, they won't be prompted to save changes.
-         *
-         * [Api set: Mailbox 1.10]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
-         *
-         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
-         *
-         * **Errors**:
-         *
-         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 30,000 characters.
-         *
-         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
-         *
-         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
-         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
-         *                             of type `Office.AsyncResult`.
-         */
-        setSignatureAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
      * The `AppointmentForm` object is used to access the currently selected appointment.
@@ -12024,7 +12016,73 @@ declare namespace Office {
          *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
          */
         setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
-    }
+        /**
+         * Adds or replaces the signature of the item body.
+         *
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
+         *
+         * **Important**: If your add-in implements the 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
+         *
+         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
+         *
+         * [Api set: Mailbox 1.10]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * **Errors**:
+         *
+         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 30,000 characters.
+         *
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
+         *
+         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
+         * @param options - An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         *        `coercionType`: The format the signature should be set to. If Text, the method sets the signature to plain text,
+         *                        removing any HTML tags present. If Html, the method sets the signature to HTML.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`.
+         */
+        setSignatureAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Adds or replaces the signature of the item body.
+         *
+         * **Important**: In Outlook on the web, `setSignatureAsync` only works on messages.
+         *
+         * **Important**: If your add-in implements the 
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation feature using `LaunchEvent` in the manifest},
+         * and calls `setSignatureAsync` in the event handler, the following behavior applies.
+         *
+         * - When the user composes a new item (including reply or forward), the signature is set but doesn't modify the form. This means
+         * if the user closes the form without making other edits, they won't be prompted to save changes.
+         *
+         * [Api set: Mailbox 1.10]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         *
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * **Errors**:
+         *
+         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 30,000 characters.
+         *
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
+         *
+         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`.
+         */
+        setSignatureAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+     }
     /**
      * Represents the categories on an item.
      * 
@@ -12731,6 +12789,44 @@ declare namespace Office {
         getAsync(callback?: (asyncResult: Office.AsyncResult<EmailAddressDetails>) => void): void;
     }
     /**
+     * Provides basic details about the notification message that raised the `Office.EventType.InfobarClicked` event.
+     *
+     * [Api set: Mailbox 1.10]
+     */
+    interface InfobarClickedEventArgs {
+        /**
+         * Gets additional details about the notification message.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        infobarDetails: InfobarDetails;
+        /**
+         * Gets the type of the event. For details, refer to {@link https://docs.microsoft.com/javascript/api/office/office.eventtype | Office.EventType}.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        type: "olkInfobarClicked";
+    }
+    /**
+     * Provides additional details about the notification message that raised the `Office.EventType.InfobarClicked` event.
+     *
+     * [Api set: Mailbox 1.10]
+     */
+    interface InfobarDetails {
+        /**
+         * The action type. Currently, "Dismiss" is the only supported action.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        actionType: MailboxEnums.InfobarActionType;
+        /**
+         * The notification type.
+         *
+         * [Api set: Mailbox 1.10]
+         */
+        infobarType: MailboxEnums.InfobarType;
+    }
+    /**
      * The `InternetHeaders` object represents custom internet headers that are preserved after the message item leaves Exchange
      * and is converted to a MIME message. These headers are stored as x-headers in the MIME message.
      * 
@@ -13083,7 +13179,7 @@ declare namespace Office {
         setAsync(location: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
-     * Represents a location. Read only.
+     * Represents a location. Read-only.
      * 
      * [Api set: Mailbox 1.8]
      *
@@ -23066,10 +23162,6 @@ declare namespace Excel {
         * Whereas the original Excel.Range object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.RangeData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Excel.Interfaces.RangeData;
-    }
-    class RangeCustom {
-    }
-    interface Range extends OfficeExtension.ClientObject, RangeCustom {
     }
     /**
      * Represents a string reference of the form "SheetName!A1:B5", or a global or local named range.

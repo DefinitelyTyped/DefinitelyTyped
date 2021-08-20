@@ -116,6 +116,7 @@ import { Socket } from 'dgram';
 
         str = host;
     });
+    _socket = _socket.addListener("ready", () => { });
     _socket = _socket.addListener("timeout", () => { });
 
     /// emit
@@ -127,6 +128,7 @@ import { Socket } from 'dgram';
     bool = _socket.emit("error", error);
     bool = _socket.emit("lookup", error, str, str, str);
     bool = _socket.emit("lookup", error, str, num, str);
+    bool = _socket.emit("ready");
     bool = _socket.emit("timeout");
 
     /// on
@@ -153,6 +155,7 @@ import { Socket } from 'dgram';
 
         str = host;
     });
+    _socket = _socket.on("ready", () => { });
     _socket = _socket.on("timeout", () => { });
 
     /// once
@@ -179,6 +182,7 @@ import { Socket } from 'dgram';
 
         str = host;
     });
+    _socket = _socket.once("ready", () => { });
     _socket = _socket.once("timeout", () => { });
 
     /// prependListener
@@ -205,6 +209,7 @@ import { Socket } from 'dgram';
 
         str = host;
     });
+    _socket = _socket.prependListener("ready", () => { });
     _socket = _socket.prependListener("timeout", () => { });
 
     /// prependOnceListener
@@ -231,6 +236,7 @@ import { Socket } from 'dgram';
 
         str = host;
     });
+    _socket = _socket.prependOnceListener("ready", () => { });
     _socket = _socket.prependOnceListener("timeout", () => { });
 
     bool = _socket.connecting;

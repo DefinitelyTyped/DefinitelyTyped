@@ -1,5 +1,5 @@
 import * as Popper from "@popperjs/core";
-import BaseComponent from "./base-component";
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Dropdown extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Dropdown.Options>);
@@ -24,12 +24,8 @@ declare class Dropdown extends BaseComponent {
      */
     update(): void;
 
-    /**
-     * Static method which allows you to get the dropdown instance associated
-     * with a DOM element.
-     */
-    static getInstance(element: Element, options?: Partial<Dropdown.Options>): Dropdown | null;
-
+    static getInstance: GetInstanceFactory<Dropdown>;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Dropdown>;
     static jQueryInterface: Dropdown.jQueryInterface;
 
     // static NAME: 'dropdown';

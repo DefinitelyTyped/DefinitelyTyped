@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 2.3
+// Type definitions for Mapbox GL JS 2.4
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -1091,6 +1091,7 @@ declare namespace mapboxgl {
             trackUserLocation?: boolean | undefined;
             showAccuracyCircle?: boolean | undefined;
             showUserLocation?: boolean | undefined;
+            showUserHeading?: boolean | undefined;
         });
         trigger(): boolean;
     }

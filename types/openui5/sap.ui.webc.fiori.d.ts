@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.93.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -303,6 +303,31 @@ declare module "sap/ui/webc/fiori/Bar" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.Bar with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Bar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.Bar.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some endContent to the aggregation {@link #getEndContent endContent}.
      */
     addEndContent(
@@ -342,27 +367,6 @@ declare module "sap/ui/webc/fiori/Bar" {
      */
     destroyStartContent(): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.Bar with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Bar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets current value of property {@link #getDesign design}.
      *
      * Defines the `sap.ui.webc.fiori.Bar` design.
@@ -384,10 +388,6 @@ declare module "sap/ui/webc/fiori/Bar" {
      * Defines the content at the end of the bar
      */
     getEndContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.Bar.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets content of aggregation {@link #getMiddleContent middleContent}.
      *
@@ -681,6 +681,31 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.FlexibleColumnLayout with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.FlexibleColumnLayout.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:layoutChange layoutChange} event of this `sap.ui.webc.fiori.FlexibleColumnLayout`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -753,27 +778,6 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.FlexibleColumnLayout with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
      */
     fireLayoutChange(
@@ -824,6 +828,8 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
      * right - `endArrowLeftText`: the text that the second arrow (between the `mid` and `end` columns) will
      * have when pointing to the left - `endArrowRightText`: the text that the second arrow (between the `mid`
      * and `end` columns) will have when pointing to the right
+     *
+     * Default value is `{}`.
      */
     getAccessibilityTexts(): object;
     /**
@@ -883,10 +889,6 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
      */
     getLayout(): FCLLayout | keyof typeof FCLLayout;
     /**
-     * Returns a metadata object for class sap.ui.webc.fiori.FlexibleColumnLayout.
-     */
-    static getMetadata(): WebComponentMetadata;
-    /**
      * Gets content of aggregation {@link #getMidColumn midColumn}.
      *
      * Defines the content in the middle column.
@@ -931,12 +933,14 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
      * and `end` columns) will have when pointing to the right
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `{}`.
      */
     setAccessibilityTexts(
       /**
        * New value for property `accessibilityTexts`
        */
-      oAccessibilityTexts: object
+      oAccessibilityTexts?: object
     ): this;
     /**
      * Sets the aggregated {@link #getEndColumn endColumn}.
@@ -1111,7 +1115,7 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
      * Fired when the layout changes via user interaction by clicking the arrows or by changing the component
      * size due to resizing.
      */
-    layoutChange?: Function;
+    layoutChange?: (oEvent: Event) => void;
   }
 }
 
@@ -1193,6 +1197,10 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.fiori.NotificationAction.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getDesign design}.
      *
      * Defines the action design.
@@ -1230,10 +1238,6 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      * Default value is `empty string`.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.NotificationAction.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -1437,6 +1441,31 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.NotificationListGroupItem with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NotificationListGroupItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.NotificationListGroupItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some action to the aggregation {@link #getActions actions}.
      */
     addAction(
@@ -1579,27 +1608,6 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.NotificationListGroupItem with name `sClassName` and
-     * enriches it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NotificationListGroupItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:close close} to attached listeners.
      */
     fireClose(
@@ -1656,10 +1664,6 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
      * items.
      */
     getItems(): INotificationListItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.NotificationListGroupItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getPriority priority}.
      *
@@ -1956,12 +1960,12 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
     /**
      * Fired when the `Close` button is pressed.
      */
-    close?: Function;
+    close?: (oEvent: Event) => void;
 
     /**
      * Fired when the `sap.ui.webc.fiori.NotificationListGroupItem` is expanded/collapsed by user interaction.
      */
-    toggle?: Function;
+    toggle?: (oEvent: Event) => void;
   }
 }
 
@@ -2053,6 +2057,31 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.NotificationListItem with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NotificationListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.NotificationListItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some action to the aggregation {@link #getActions actions}.
      */
     addAction(
@@ -2141,27 +2170,6 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.NotificationListItem with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NotificationListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:close close} to attached listeners.
      */
     fireClose(
@@ -2221,10 +2229,6 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
      * Default value is `empty string`.
      */
     getHeading(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.NotificationListItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getPriority priority}.
      *
@@ -2549,7 +2553,7 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
     /**
      * Fired when the `Close` button is pressed.
      */
-    close?: Function;
+    close?: (oEvent: Event) => void;
   }
 }
 
@@ -2623,6 +2627,31 @@ declare module "sap/ui/webc/fiori/Page" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.Page with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Page>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.Page.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -2661,27 +2690,6 @@ declare module "sap/ui/webc/fiori/Page" {
      * Destroys all the header in the aggregation {@link #getHeader header}.
      */
     destroyHeader(): this;
-    /**
-     * Creates a new subclass of class sap.ui.webc.fiori.Page with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Page>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Gets current value of property {@link #getBackgroundDesign backgroundDesign}.
      *
@@ -2751,10 +2759,6 @@ declare module "sap/ui/webc/fiori/Page" {
      * Default value is `false`.
      */
     getHideFooter(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.Page.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -3108,19 +3112,6 @@ declare module "sap/ui/webc/fiori/ProductSwitch" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: IProductSwitchItem
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.fiori.ProductSwitch with name `sClassName` and enriches it
      * with the information contained in `oClassInfo`.
      *
@@ -3142,15 +3133,28 @@ declare module "sap/ui/webc/fiori/ProductSwitch" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.fiori.ProductSwitch.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: IProductSwitchItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
+    /**
      * Gets content of aggregation {@link #getItems items}.
      *
      * Defines the items of the `sap.ui.webc.fiori.ProductSwitch`.
      */
     getItems(): IProductSwitchItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.ProductSwitch.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Checks for the provided `sap.ui.webc.fiori.IProductSwitchItem` in the aggregation {@link #getItems items}.
      * and returns its index if found or -1 otherwise.
@@ -3270,6 +3274,31 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.ProductSwitchItem with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ProductSwitchItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.ProductSwitchItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:click click} event of this `sap.ui.webc.fiori.ProductSwitchItem`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -3330,27 +3359,6 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.ProductSwitchItem with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ProductSwitchItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:click click} to attached listeners.
      */
     fireClick(
@@ -3375,10 +3383,6 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
      * Default value is `empty string`.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.ProductSwitchItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSubtitleText subtitleText}.
      *
@@ -3555,7 +3559,7 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
      * Fired when the `sap.ui.webc.fiori.ProductSwitchItem` is activated either with a click/tap or by using
      * the Enter or Space key.
      */
-    click?: Function;
+    click?: (oEvent: Event) => void;
   }
 }
 
@@ -3647,6 +3651,31 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       mSettings?: $ShellBarSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.fiori.ShellBar with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ShellBar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.ShellBar.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -4042,27 +4071,6 @@ declare module "sap/ui/webc/fiori/ShellBar" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.ShellBar with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ShellBar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:coPilotClick coPilotClick} to attached listeners.
      */
     fireCoPilotClick(
@@ -4175,10 +4183,6 @@ declare module "sap/ui/webc/fiori/ShellBar" {
      *  **Note:** You can use the <ui5-li></ui5-li> and its ancestors.
      */
     getMenuItems(): IListItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.ShellBar.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getNotificationsCount notificationsCount}.
      *
@@ -4550,34 +4554,34 @@ declare module "sap/ui/webc/fiori/ShellBar" {
     /**
      * Fired, when the co pilot is activated.
      */
-    coPilotClick?: Function;
+    coPilotClick?: (oEvent: Event) => void;
 
     /**
      * Fired, when the logo is activated.
      */
-    logoClick?: Function;
+    logoClick?: (oEvent: Event) => void;
 
     /**
      * Fired, when a menu item is activated **Note:** You can prevent closing of oveflow popover by calling
      * `event.preventDefault()`.
      */
-    menuItemClick?: Function;
+    menuItemClick?: (oEvent: Event) => void;
 
     /**
      * Fired, when the notification icon is activated.
      */
-    notificationsClick?: Function;
+    notificationsClick?: (oEvent: Event) => void;
 
     /**
      * Fired, when the product switch icon is activated. **Note:** You can prevent closing of oveflow popover
      * by calling `event.preventDefault()`.
      */
-    productSwitchClick?: Function;
+    productSwitchClick?: (oEvent: Event) => void;
 
     /**
      * Fired, when the profile slot is present.
      */
-    profileClick?: Function;
+    profileClick?: (oEvent: Event) => void;
   }
 }
 
@@ -4635,6 +4639,31 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.ShellBarItem with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ShellBarItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.ShellBarItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:itemClick itemClick} event of this `sap.ui.webc.fiori.ShellBarItem`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -4691,27 +4720,6 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.ShellBarItem with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ShellBarItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemClick itemClick} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -4744,10 +4752,6 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
      * Default value is `empty string`.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.ShellBarItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -4822,7 +4826,7 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
     /**
      * Fired, when the item is pressed.
      */
-    itemClick?: Function;
+    itemClick?: (oEvent: Event) => void;
   }
 }
 
@@ -4898,6 +4902,31 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
       mSettings?: $SideNavigationSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.fiori.SideNavigation with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SideNavigation>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.SideNavigation.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some fixedItem to the aggregation {@link #getFixedItems fixedItems}.
      */
@@ -4997,27 +5026,6 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.SideNavigation with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SideNavigation>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      */
     fireSelectionChange(
@@ -5068,10 +5076,6 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
      * items, nested inside the items.
      */
     getItems(): ISideNavigationItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.SideNavigation.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Checks for the provided `sap.ui.webc.fiori.ISideNavigationItem` in the aggregation {@link #getFixedItems
      * fixedItems}. and returns its index if found or -1 otherwise.
@@ -5250,7 +5254,7 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
     /**
      * Fired when the selection has changed via user interaction
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -5317,19 +5321,6 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: ISideNavigationSubItem
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.fiori.SideNavigationItem with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -5350,6 +5341,23 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.SideNavigationItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: ISideNavigationSubItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
     /**
      * Gets current value of property {@link #getExpanded expanded}.
      *
@@ -5377,10 +5385,6 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
      * If you wish to nest menus, you can pass inner menu items to the default slot.
      */
     getItems(): ISideNavigationSubItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.SideNavigationItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -5655,6 +5659,10 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.fiori.SideNavigationSubItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * Defines the icon of the item.
@@ -5667,10 +5675,6 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
      * Default value is `empty string`.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.SideNavigationSubItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -5826,19 +5830,6 @@ declare module "sap/ui/webc/fiori/Timeline" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: ITimelineItem
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.fiori.Timeline with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -5860,6 +5851,23 @@ declare module "sap/ui/webc/fiori/Timeline" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.webc.fiori.Timeline.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: ITimelineItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
+    /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the control
@@ -5871,10 +5879,6 @@ declare module "sap/ui/webc/fiori/Timeline" {
      * Determines the content of the `sap.ui.webc.fiori.Timeline`.
      */
     getItems(): ITimelineItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.Timeline.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -6030,6 +6034,31 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.TimelineItem with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TimelineItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.TimelineItem.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -6104,27 +6133,6 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.TimelineItem with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TimelineItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemNameClick itemNameClick} to attached listeners.
      */
     fireItemNameClick(
@@ -6168,10 +6176,6 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
      * Default value is `false`.
      */
     getItemNameClickable(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.TimelineItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSubtitleText subtitleText}.
      *
@@ -6351,7 +6355,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
      *
      *  **Note:** The event will not be fired if the `item-name-clickable` attribute is not set.
      */
-    itemNameClick?: Function;
+    itemNameClick?: (oEvent: Event) => void;
   }
 }
 
@@ -6417,6 +6421,31 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       mSettings?: $UploadCollectionSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.fiori.UploadCollection with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, UploadCollection>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.UploadCollection.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some header to the aggregation {@link #getHeader header}.
      */
@@ -6633,27 +6662,6 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.UploadCollection with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, UploadCollection>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:drop drop} to attached listeners.
      */
     fireDrop(
@@ -6726,10 +6734,6 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
      *  **Note:** Use `sap.ui.webc.fiori.UploadCollectionItem` for the intended design.
      */
     getItems(): IUploadCollectionItem[];
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.UploadCollection.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getMode mode}.
      *
@@ -7011,7 +7015,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
      *  **Note:** The `drop` event is fired only when elements are dropped within the drag and drop overlay
      * and ignored for the other parts of the `sap.ui.webc.fiori.UploadCollection`.
      */
-    drop?: Function;
+    drop?: (oEvent: Event) => void;
 
     /**
      * Fired when the Delete button of any item is pressed.
@@ -7019,12 +7023,12 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
      *  **Note:** A Delete button is displayed on each item, when the `sap.ui.webc.fiori.UploadCollection` `mode`
      * property is set to `Delete`.
      */
-    fileDeleted?: Function;
+    fileDeleted?: (oEvent: Event) => void;
 
     /**
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -7091,6 +7095,31 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       mSettings?: $UploadCollectionItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.webc.fiori.UploadCollectionItem with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, UploadCollectionItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.UploadCollectionItem.
+     */
+    static getMetadata(): WebComponentMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -7360,27 +7389,6 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.UploadCollectionItem with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, UploadCollectionItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:fileNameClick fileNameClick} to attached listeners.
      */
     fireFileNameClick(
@@ -7444,10 +7452,6 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      * Default value is `false`.
      */
     getFileNameClickable(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.UploadCollectionItem.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getNoDelete noDelete}.
      *
@@ -7737,7 +7741,7 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      *
      *  **Note:** This event is only available when `fileNameClickable` property is `true`.
      */
-    fileNameClick?: Function;
+    fileNameClick?: (oEvent: Event) => void;
 
     /**
      * Fired when the `fileName` property gets changed.
@@ -7745,21 +7749,21 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      *  **Note:** An edit button is displayed on each item, when the `sap.ui.webc.fiori.UploadCollectionItem`
      * `type` property is set to `Detail`.
      */
-    rename?: Function;
+    rename?: (oEvent: Event) => void;
 
     /**
      * Fired when the retry button is pressed.
      *
      *  **Note:** Retry button is displayed when `uploadState` property is set to `Error`.
      */
-    retry?: Function;
+    retry?: (oEvent: Event) => void;
 
     /**
      * Fired when the terminate button is pressed.
      *
      *  **Note:** Terminate button is displayed when `uploadState` property is set to `Uploading`.
      */
-    terminate?: Function;
+    terminate?: (oEvent: Event) => void;
   }
 }
 
@@ -7874,6 +7878,31 @@ declare module "sap/ui/webc/fiori/Wizard" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.webc.fiori.Wizard with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Wizard>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.Wizard.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
      * Adds some step to the aggregation {@link #getSteps steps}.
      */
     addStep(
@@ -7945,27 +7974,6 @@ declare module "sap/ui/webc/fiori/Wizard" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.webc.fiori.Wizard with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Wizard>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:stepChange stepChange} to attached listeners.
      */
     fireStepChange(
@@ -7993,10 +8001,6 @@ declare module "sap/ui/webc/fiori/Wizard" {
      * Defines the height of the control
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.Wizard.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets content of aggregation {@link #getSteps steps}.
      *
@@ -8077,7 +8081,7 @@ declare module "sap/ui/webc/fiori/Wizard" {
      * Fired when the step is changed by user interaction - either with scrolling, or by clicking on the steps
      * within the component header.
      */
-    stepChange?: Function;
+    stepChange?: (oEvent: Event) => void;
   }
 }
 
@@ -8150,19 +8154,6 @@ declare module "sap/ui/webc/fiori/WizardStep" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.ui.webc.fiori.WizardStep with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -8183,6 +8174,23 @@ declare module "sap/ui/webc/fiori/WizardStep" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.fiori.WizardStep.
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
     /**
      * Gets current value of property {@link #getBranching branching}.
      *
@@ -8233,10 +8241,6 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      * Default value is `empty string`.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.ui.webc.fiori.WizardStep.
-     */
-    static getMetadata(): WebComponentMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *

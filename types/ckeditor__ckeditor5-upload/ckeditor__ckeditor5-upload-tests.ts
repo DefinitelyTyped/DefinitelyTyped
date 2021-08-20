@@ -1,35 +1,41 @@
 import { Editor } from "@ckeditor/ckeditor5-core";
-import { ButtonView } from "@ckeditor/ckeditor5-ui";
 import {
     Base64UploadAdapter,
     FileDialogButtonView,
     FileRepository,
     SimpleUploadAdapter,
 } from "@ckeditor/ckeditor5-upload";
-import { FileLoader, UploadAdapter } from "@ckeditor/ckeditor5-upload/src/filerepository";
 import { SimpleUploadConfig } from "@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter";
+import { FileLoader } from "@ckeditor/ckeditor5-upload/src/filerepository";
 
 class MyEditor extends Editor {}
 
 const config: SimpleUploadConfig = {
     uploadUrl: "",
     withCredentials: true,
-    headers: {foo: "bar"}
+    headers: { foo: "bar" },
 };
 
 const fileRepository = new FileRepository(new MyEditor());
 fileRepository.on("click", () => {});
-const uploadAdapter: UploadAdapter = fileRepository.createUploadAdapter();
-const fileLoader: FileLoader = fileRepository.loaders.get(0)!;
-let num: number = fileRepository.uploaded;
-num = fileRepository.uploadTotal!;
-num = fileRepository.uploadedPercent;
-fileRepository.destroyLoader(Promise.resolve(fileLoader));
+fileRepository.createUploadAdapter = loader => loader;
+// ExpectType UploadAdapter
+fileRepository.createUploadAdapter(null as unknown as FileLoader);
+// ExpectType FileLoader | null
+const fileLoader = fileRepository.loaders.get(0);
+// ExpectType number
+fileRepository.uploaded;
+// ExpectType number | null
+fileRepository.uploadTotal;
+// ExpectType number
+fileRepository.uploadedPercent;
+fileRepository.destroyLoader(Promise.resolve(fileLoader!));
 
 const fileDialogButtonView = new FileDialogButtonView();
 fileDialogButtonView.allowMultipleFiles = true;
 fileDialogButtonView.acceptedType = "foo";
-const buttonView: ButtonView = fileDialogButtonView.buttonView;
+// ExpectType ButtonView
+fileDialogButtonView.buttonView;
 fileDialogButtonView.focus();
 
 const base64UploadAdapter = new Base64UploadAdapter(new MyEditor());

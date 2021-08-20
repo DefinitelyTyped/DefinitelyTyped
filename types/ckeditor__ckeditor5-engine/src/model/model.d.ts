@@ -31,7 +31,7 @@ export default class Model implements Emitter, Observable {
     createPositionAt(itemOrPosition: Position): Position;
     createPositionBefore(item: Item): Position;
     createPositionFromPath(root: Element | DocumentFragment, path: number[], stickiness?: PositionStickiness): Position;
-    createRange(start: Position, end?: Position): Range;
+    createRange(start: Position, end?: Position | null): Range;
     createRangeIn(element: Element): Range;
     createRangeOn(item: Item): Range;
     createSelection(

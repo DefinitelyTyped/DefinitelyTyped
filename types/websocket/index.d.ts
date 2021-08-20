@@ -298,11 +298,17 @@ export class request extends events.EventEmitter {
     _verifyResolution(): void;
 }
 
-export interface IMessage {
-    type: string;
-    utf8Data?: string | undefined;
-    binaryData?: Buffer | undefined;
+export interface IUtf8Message {
+    type: 'utf8';
+    utf8Data: string;
 }
+
+export interface IBinaryMessage {
+    type: 'binary';
+    binaryData: Buffer;
+}
+
+export type Message = IUtf8Message | IBinaryMessage;
 
 export interface IBufferList extends events.EventEmitter {
     encoding: string;
@@ -500,14 +506,14 @@ export class connection extends events.EventEmitter {
     _addSocketEventListeners(): void;
 
     // Events
-    on(event: 'message', cb: (data: IMessage) => void): this;
+    on(event: 'message', cb: (data: Message) => void): this;
     on(event: 'frame', cb: (frame: frame) => void): this;
     on(event: 'close', cb: (code: number, desc: string) => void): this;
     on(event: 'error', cb: (err: Error) => void): this;
     on(event: 'drain' | 'pause' | 'resume', cb: () => void): this;
     on(event: 'ping', cb: (cancel: () => void, binaryPayload: Buffer) => void): this;
     on(event: 'pong', cb: (binaryPayload: Buffer) => void): this;
-    addListener(event: 'message', cb: (data: IMessage) => void): this;
+    addListener(event: 'message', cb: (data: Message) => void): this;
     addListener(event: 'frame', cb: (frame: frame) => void): this;
     addListener(event: 'close', cb: (code: number, desc: string) => void): this;
     addListener(event: 'error', cb: (err: Error) => void): this;

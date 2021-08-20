@@ -1572,7 +1572,7 @@ declare module 'fs' {
      */
     export function readFile(
         path: PathLike | number,
-        options: { encoding: BufferEncoding; flag?: string; } & Abortable | string,
+        options: { encoding: BufferEncoding; flag?: string; } & Abortable | BufferEncoding,
         callback: (err: NodeJS.ErrnoException | null, data: string) => void,
     ): void;
 
@@ -1586,7 +1586,7 @@ declare module 'fs' {
     export function readFile(
         path: PathLike | number,
         // TODO: unify the options across all readfile functions
-        options: BaseEncodingOptions & { flag?: string; } & Abortable | string | undefined | null,
+        options: BaseEncodingOptions & { flag?: string; } & Abortable | BufferEncoding | undefined | null,
         callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
     ): void;
 
@@ -1616,7 +1616,7 @@ declare module 'fs' {
          * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathLike | number, options: { encoding: BufferEncoding; flag?: string; } | string): Promise<string>;
+        function __promisify__(path: PathLike | number, options: { encoding: BufferEncoding; flag?: string; } | BufferEncoding): Promise<string>;
 
         /**
          * Asynchronously reads the entire contents of a file.
@@ -1626,7 +1626,7 @@ declare module 'fs' {
          * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathLike | number, options?: BaseEncodingOptions & { flag?: string; } | string | null): Promise<string | Buffer>;
+        function __promisify__(path: PathLike | number, options?: BaseEncodingOptions & { flag?: string; } | BufferEncoding | null): Promise<string | Buffer>;
     }
 
     /**
@@ -1655,7 +1655,7 @@ declare module 'fs' {
      */
     export function readFileSync(path: PathLike | number, options?: BaseEncodingOptions & { flag?: string; } | BufferEncoding | null): string | Buffer;
 
-    export type WriteFileOptions = (BaseEncodingOptions & Abortable & { mode?: Mode; flag?: string; }) | string | null;
+    export type WriteFileOptions = (BaseEncodingOptions & Abortable & { mode?: Mode; flag?: string; }) | BufferEncoding | null;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -2059,13 +2059,13 @@ declare module 'fs' {
      * Returns a new `ReadStream` object.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function createReadStream(path: PathLike, options?: string | ReadStreamOptions): ReadStream;
+    export function createReadStream(path: PathLike, options?: BufferEncoding | ReadStreamOptions): ReadStream;
 
     /**
      * Returns a new `WriteStream` object.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function createWriteStream(path: PathLike, options?: string | StreamOptions): WriteStream;
+    export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
 
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
