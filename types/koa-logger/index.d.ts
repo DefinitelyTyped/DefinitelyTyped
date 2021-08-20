@@ -3,7 +3,7 @@
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 4.0
 
 import { Middleware } from 'koa';
 
