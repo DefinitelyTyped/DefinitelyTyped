@@ -1,4 +1,4 @@
-// Type definitions for svgo 2.3
+// Type definitions for svgo 2.4
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -7,6 +7,7 @@
 //                 Gavin Gregory <https://github.com/gavingregory>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Remco Haszing <https://github.com/remcohaszing>
+//                 Petr Zahradník <https://github.com/petrzjunior>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface DefaultPlugin<N extends string, P = never> {
@@ -550,7 +551,7 @@ export type RemoveXMLNSPlugin = DefaultPlugin<'removeXMLNS'>;
 export type RemoveXMLProcInstPlugin = DefaultPlugin<'removeXMLProcInst'>;
 
 /**
- * Finds <path> elements with the same d, fill, and stroke, and converts them to <use> elements referencing a single <path> def.
+ * finds <path> elements with the same d, fill, and stroke, and converts them to <use> elements referencing a single <path> def.
  */
 export type ReusePathsPlugin = DefaultPlugin<'reusePaths'>;
 
@@ -568,24 +569,28 @@ export type SortAttrsPlugin = DefaultPlugin<
 >;
 
 /**
- * Sorts children of <defs> to improve compression
+ * sorts children of <defs> to improve compression
  */
 export type SortDefsChildrenPlugin = DefaultPlugin<'sortDefsChildren'>;
 
-export type DefaultPlugins =
-    | AddAttributesToSVGElementPlugin
-    | AddClassesToSVGElementPlugin
+export interface Preset<N extends string, P = never> {
+    name: N;
+    params?: P | undefined;
+}
+
+/**
+ * plugins which are enabled in default preset
+ */
+export type DefaultPresetPlugins =
     | CleanupAttrsPlugin
     | CleanupEnableBackgroundPlugin
     | CleanupIDsPlugin
-    | CleanupListOfValuesPlugin
     | CleanupNumericValuesPlugin
     | CollapseGroupsPlugin
     | ConvertColorsPlugin
     | ConvertEllipseToCirclePlugin
     | ConvertPathDataPlugin
     | ConvertShapeToPathPlugin
-    | ConvertStyleToAttrsPlugin
     | ConvertTransformPlugin
     | InlineStylesPlugin
     | MergePathsPlugin
@@ -593,37 +598,52 @@ export type DefaultPlugins =
     | MinifyStylesPlugin
     | MoveElemsAttrsToGroupPlugin
     | MoveGroupAttrsToElemsPlugin
-    | PrefixIdsPlugin
-    | RemoveAttributesBySelectorPlugin
-    | RemoveAttrsPlugin
-    | RemoveAttrsPlugin
     | RemoveCommentsPlugin
     | RemoveDescPlugin
-    | RemoveDimensionsPlugin
     | RemoveDoctypePlugin
     | RemoveEditorsNSDataPlugin
-    | RemoveElementsByAttrPlugin
     | RemoveEmptyAttrsPlugin
     | RemoveEmptyContainersPlugin
     | RemoveEmptyTextPlugin
     | RemoveHiddenElemsPlugin
     | RemoveMetadataPlugin
     | RemoveNonInheritableGroupAttrsPlugin
-    | RemoveOffCanvasPathsPlugin
-    | RemoveRasterImagesPlugin
-    | RemoveScriptElementPlugin
-    | RemoveStyleElementPlugin
     | RemoveTitlePlugin
     | RemoveUnknownsAndDefaultsPlugin
     | RemoveUnusedNSPlugin
     | RemoveUselessDefsPlugin
     | RemoveUselessStrokeAndFillPlugin
     | RemoveViewBoxPlugin
-    | RemoveXMLNSPlugin
     | RemoveXMLProcInstPlugin
-    | ReusePathsPlugin
-    | SortAttrsPlugin
     | SortDefsChildrenPlugin;
+
+/**
+ * default plugin preset, customize plugin options by overriding them
+ */
+export type PresetDefault = Preset<'preset-default', {
+    floatPrecision?: number | undefined;
+    overrides?: { [P in DefaultPresetPlugins['name']]?: false | DefaultPresetPlugins['params']};
+}>;
+
+export type DefaultPlugins =
+    DefaultPresetPlugins
+    | PresetDefault
+    | AddAttributesToSVGElementPlugin
+    | AddClassesToSVGElementPlugin
+    | CleanupListOfValuesPlugin
+    | ConvertStyleToAttrsPlugin
+    | PrefixIdsPlugin
+    | RemoveAttributesBySelectorPlugin
+    | RemoveAttrsPlugin
+    | RemoveDimensionsPlugin
+    | RemoveElementsByAttrPlugin
+    | RemoveOffCanvasPathsPlugin
+    | RemoveRasterImagesPlugin
+    | RemoveScriptElementPlugin
+    | RemoveStyleElementPlugin
+    | RemoveXMLNSPlugin
+    | ReusePathsPlugin
+    | SortAttrsPlugin;
 
 export interface CustomPlugin<P extends object = never> {
     name: string;
@@ -714,6 +734,8 @@ export interface Svg2JsOptions {
  * utility.
  *
  * To disable one of default plugins use active field.
+ *
+ * @deprecated Use `preset-default` plugin instead
  */
 export function extendDefaultPlugins(plugins: Plugin[]): Plugin[];
 
