@@ -5,16 +5,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import {
-    Middleware,
-} from 'koa';
+import { Middleware } from 'koa';
 
-type Transporter = (str: string, args: object) => void;
+type Transporter = (
+    str: string,
+    args: [format: string, method: string, url: string, status?: number, time?: string, length?: string],
+) => void;
 
 interface TransporterOpts {
     transporter: Transporter;
 }
 
 declare function KoaLogger(opts?: Transporter | TransporterOpts): Middleware;
-declare namespace KoaLogger { }
+declare namespace KoaLogger {}
 export = KoaLogger;
