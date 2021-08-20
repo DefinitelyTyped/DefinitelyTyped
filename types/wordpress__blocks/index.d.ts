@@ -120,7 +120,7 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#provides-context}
      */
-    readonly providesContext?: Record<string, string>;
+    readonly providesContext?: Record<string, keyof T>;
     /**
      * This is set internally when registering the type.
      */
