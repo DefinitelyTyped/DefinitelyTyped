@@ -1,14 +1,14 @@
 import { Handler } from '../handler';
 
-export type AppSyncResolverHandler<TArguments, TResults, TSource = Record<string, any> | null> = Handler<
+export type AppSyncResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
     AppSyncResolverEvent<TArguments, TSource>,
-    TResults
+    TResult
 >;
 
 // https:docs.aws.amazon.com/appsync/latest/devguide/tutorial-lambda-resolvers.html#advanced-use-case-batching
-export type AppSyncBatchResolverHandler<TArguments, TResults, TSource = Record<string, any> | null> = Handler<
-    AppSyncResolverEvent<TArguments, TSource>[],
-    TResults[]
+export type AppSyncBatchResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
+    Array<AppSyncResolverEvent<TArguments, TSource>>,
+    TResult[]
 >;
 
 // See https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#aws-lambda-authorization
@@ -34,7 +34,6 @@ export type AppSyncIdentity =
  *
  * @param TArguments type of the arguments
  * @param TSource type of the source
- * @param TAuthorizer type of the Authorizer
  */
 export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> | null> {
     arguments: TArguments;
