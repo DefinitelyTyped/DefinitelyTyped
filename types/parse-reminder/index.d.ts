@@ -3,9 +3,11 @@
 // Definitions by: newt! <https://github.com/definitelytyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function parseReminder(reminder: string): ParsedReminder;
+export = parseReminder;
 
-export interface ParsedReminder {
+declare function parseReminder(reminder: string): ParsedReminder;
+
+interface ParsedReminder {
     who: string;
     what: string;
     when: Date;
