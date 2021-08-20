@@ -15,7 +15,7 @@ export interface ImageConfig {
     insert?: ImageInsertConfig | undefined;
     resizeOptions?: ImageResizeOption[] | undefined;
     resizeUnit?: 'px' | '%' | undefined;
-    styles?: ImageStyleConfig[] | undefined;
+    styles?: ImageStyleConfig | undefined;
     toolbar?: string[] | undefined;
     upload?: ImageUploadConfig | undefined;
 }
