@@ -60,6 +60,21 @@ export interface JestDevServerOptions {
     host?: string | undefined;
 
     /**
+     * Path to resource to wait for activity on before considering the server running. Must be used in conjunction with host and port.
+     * @default null
+     *
+     * ```js
+     * module.exports = {
+     *   command: 'npm run start --port 3000',
+     *   host: 'customhost.com',
+     *   port: 3000,
+     *   path: 'thing',
+     * }
+     * ```
+     */
+    path?: string | undefined;
+
+    /**
      * To wait for an HTTP or TCP endpoint before considering the server running, include http or tcp as a protocol. Must be used in conjunction with port.
      * @default 'tcp'
      * ```js
