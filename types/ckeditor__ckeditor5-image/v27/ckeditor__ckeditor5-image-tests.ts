@@ -117,3 +117,85 @@ new ImageUploadCommand(editor);
 const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
 ImageUploadUtils.isLocalImage(emptyElement);
 ImageUploadUtils.fetchLocalImage(emptyElement);
+
+//
+// ImageConfig
+//
+new MyEditor({
+    image: {
+        insert: {
+            integrations: [
+                'insertImageViaUrl',
+                'openCKFinder',
+                'pluginXButton'
+            ]
+        },
+        resizeOptions: [
+            {
+                name: 'resizeImage:25',
+                value: '25',
+                icon: 'small',
+                label: 'Small'
+            }
+        ],
+        resizeUnit: '%',
+        styles: [
+            {
+                name: 'fullSize',
+                icon: '<svg></svg>',
+                title: 'Full size image',
+                className: 'image-full-size',
+            }
+        ],
+        toolbar: [
+            'imageStyle:inline', 'imageStyle:wrapText', 'imageStyle:breakText', '|',
+            'toggleImageCaption', 'imageTextAlternative'
+        ],
+        upload: {
+            types: [ 'png', 'jpeg' ]
+        }
+    }
+});
+
+// Everything is optional
+new MyEditor({
+    image: {}
+});
+
+// resizeOptions require only name and value
+new MyEditor({
+    image: {
+        resizeOptions: [
+            {
+                name: 'resizeImage:25',
+                value: '25',
+            }
+        ],
+    },
+});
+
+// styles options require only name
+new MyEditor({
+    image: {
+        styles: [
+            {
+                name: 'fullSize',
+            }
+        ],
+    },
+});
+
+// styles supports strings and objects
+new MyEditor({
+    image: {
+        styles: [
+            {
+                name: 'fullSize',
+                icon: '<svg></svg>',
+                title: 'Full size image',
+                className: 'image-full-size',
+            },
+            '50%'
+        ],
+    },
+});
