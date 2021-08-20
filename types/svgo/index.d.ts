@@ -626,57 +626,24 @@ export type PresetDefault = Preset<'preset-default', {
 }>;
 
 export type DefaultPlugins =
+    DefaultPresetPlugins
     | PresetDefault
     | AddAttributesToSVGElementPlugin
     | AddClassesToSVGElementPlugin
-    | CleanupAttrsPlugin
-    | CleanupEnableBackgroundPlugin
-    | CleanupIDsPlugin
     | CleanupListOfValuesPlugin
-    | CleanupNumericValuesPlugin
-    | CollapseGroupsPlugin
-    | ConvertColorsPlugin
-    | ConvertEllipseToCirclePlugin
-    | ConvertPathDataPlugin
-    | ConvertShapeToPathPlugin
     | ConvertStyleToAttrsPlugin
-    | ConvertTransformPlugin
-    | InlineStylesPlugin
-    | MergePathsPlugin
-    | MergeStylesPlugin
-    | MinifyStylesPlugin
-    | MoveElemsAttrsToGroupPlugin
-    | MoveGroupAttrsToElemsPlugin
     | PrefixIdsPlugin
     | RemoveAttributesBySelectorPlugin
     | RemoveAttrsPlugin
-    | RemoveCommentsPlugin
-    | RemoveDescPlugin
     | RemoveDimensionsPlugin
-    | RemoveDoctypePlugin
-    | RemoveEditorsNSDataPlugin
     | RemoveElementsByAttrPlugin
-    | RemoveEmptyAttrsPlugin
-    | RemoveEmptyContainersPlugin
-    | RemoveEmptyTextPlugin
-    | RemoveHiddenElemsPlugin
-    | RemoveMetadataPlugin
-    | RemoveNonInheritableGroupAttrsPlugin
     | RemoveOffCanvasPathsPlugin
     | RemoveRasterImagesPlugin
     | RemoveScriptElementPlugin
     | RemoveStyleElementPlugin
-    | RemoveTitlePlugin
-    | RemoveUnknownsAndDefaultsPlugin
-    | RemoveUnusedNSPlugin
-    | RemoveUselessDefsPlugin
-    | RemoveUselessStrokeAndFillPlugin
-    | RemoveViewBoxPlugin
     | RemoveXMLNSPlugin
-    | RemoveXMLProcInstPlugin
     | ReusePathsPlugin
-    | SortAttrsPlugin
-    | SortDefsChildrenPlugin;
+    | SortAttrsPlugin;
 
 export interface CustomPlugin<P extends object = never> {
     name: string;
