@@ -404,6 +404,14 @@ blocks.registerBlockType({
         attributes: {
             message: 'This is a notice!',
         },
+        innerBlocks: [
+            {
+                name: 'core/paragraph',
+                attributes: {
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                },
+            },
+        ],
     },
     editorScript: 'file:./build/index.js',
     script: 'file:./build/script.js',

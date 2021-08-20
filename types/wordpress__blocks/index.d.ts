@@ -97,7 +97,7 @@ export interface Block<T extends Record<string, any> = {}> {
      */
     readonly example?: {
         readonly attributes: Readonly<T>;
-        readonly innerBlocks?: any[];
+        readonly innerBlocks?: ReadonlyArray<{ name: string; attributes: Record<string, any> }>;
         readonly viewportWidth?: number;
     };
     /**
