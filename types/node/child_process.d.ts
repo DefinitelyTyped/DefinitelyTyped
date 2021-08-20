@@ -1248,7 +1248,7 @@ declare module 'child_process' {
     }
     interface SpawnSyncReturns<T> {
         pid: number;
-        output: string[];
+        output: Array<T | null>;
         stdout: T;
         stderr: T;
         status: number | null;
