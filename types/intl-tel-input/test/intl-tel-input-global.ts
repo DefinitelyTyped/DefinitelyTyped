@@ -17,6 +17,10 @@ window.intlTelInput(input, {
 });
 
 window.intlTelInput(input, {
+    customContainer: 'custom-class',
+});
+
+window.intlTelInput(input, {
     geoIpLookup(callback) {
         const countryCode = 'XY';
         callback(countryCode);

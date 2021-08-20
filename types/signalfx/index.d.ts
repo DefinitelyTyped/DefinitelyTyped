@@ -19,6 +19,7 @@ export interface SignalMetric {
     metric: string;
     value: number;
     timestamp?: number | undefined;
+    dimensions?: object | undefined;
 }
 
 export interface SignalReport {

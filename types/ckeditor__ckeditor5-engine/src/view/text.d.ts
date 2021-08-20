@@ -6,7 +6,6 @@ export default class Text extends Node {
 
     protected constructor(document: Document, data: string);
 
-    is(type: string): boolean;
     isSimilar(otherNode: Text): boolean;
     toJSON(): ReturnType<Node["toJSON"]> & { data: string };
 }

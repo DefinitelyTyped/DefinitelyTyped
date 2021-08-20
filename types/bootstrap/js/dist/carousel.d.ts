@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Carousel extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Carousel.Options>);
@@ -40,6 +40,7 @@ declare class Carousel extends BaseComponent {
     to(index: number): void;
 
     static getInstance: GetInstanceFactory<Carousel>;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Carousel>;
     static jQueryInterface: Carousel.jQueryInterface;
 
     // static NAME: 'carousel';
