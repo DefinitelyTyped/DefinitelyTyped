@@ -1,4 +1,4 @@
-// Type definitions for jest-dev-server 4.2
+// Type definitions for jest-dev-server 5.0
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-dev-server
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
