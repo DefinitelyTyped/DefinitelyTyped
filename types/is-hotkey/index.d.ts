@@ -2,6 +2,7 @@
 // Project: https://github.com/ianstormtaylor/is-hotkey#readme
 // Definitions by: Pierre-Marc Airoldi <https://github.com/petester42>
 //                 Kalley Powell <https://github.com/kalley>
+//                 Alex Kondratyuk <https://github.com/lynxtaa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface KeyboardEventLike {
