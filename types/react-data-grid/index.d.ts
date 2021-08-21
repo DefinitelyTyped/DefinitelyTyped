@@ -183,6 +183,9 @@ declare namespace AdazzleReactDataGrid {
          * @param filter The filter being added
          */
         onAddFilter?: ((filter: Filter) => void) | undefined
+        
+        
+        onCheckCellIsEditable?: ((row: T, column: T, idx: number, rowIdx: number) => boolean) | undefined
         /**
          * Called when the user clears all filters.
          * Should restore the rows in rowGetter to their original state.
