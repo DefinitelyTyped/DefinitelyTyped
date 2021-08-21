@@ -1,4 +1,5 @@
 // Declare "static" methods in Error
+
 interface ErrorConstructor {
     /** Create .stack property on a target object */
     captureStackTrace(targetObject: object, constructorOpt?: Function): void;
@@ -63,8 +64,14 @@ interface AbortSignal {
      */
     readonly aborted: boolean;
 
-    onabort: ((this: AbortSignal, event: Event) => any) | null;
-    addEventListener(type: 'abort', listener: (this: AbortSignal, event: Event) => any, options?: { once?: boolean }): void;
+    onabort: ((this: AbortSignal, event: any) => void) | null;
+    addEventListener(type: 'abort', listener: (this: AbortSignal, event: any) => void, options?: EventListenerOptions): void;
+}
+
+interface EventListenerOptions {
+    capture?: boolean | undefined,
+    once?: boolean | undefined,
+    passive?: boolean | undefined
 }
 
 declare var AbortController: {
