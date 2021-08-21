@@ -1,28 +1,31 @@
 // Type definitions for react-hyperscript 3.0
 // Project: https://github.com/mlmorg/react-hyperscript
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: roshal <https://github.com/roshal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.8
 
-import { ComponentClass, FunctionComponent, ReactElement } from 'react';
+import type * as React from 'react';
 
-declare namespace h {}
+declare namespace $ {}
 
-type Element = ReactElement | string | number | null;
+declare function $(
+    children?: React.ReactNode | React.ReactNode[],
+): React.ReactElement;
 
-declare function h(
-    children?: ReadonlyArray<Element> | Element
-): ReactElement;
+declare function $(
+    componentOrTag: React.ComponentClass | React.FunctionComponent | string,
+    children?: React.ReactNode | React.ReactNode[],
+): React.ReactElement;
 
-declare function h(
-    componentOrTag: ComponentClass | FunctionComponent | string,
-    children?: ReadonlyArray<Element> | Element
-): ReactElement;
+declare function $<P>(
+    componentOrTag: React.ComponentClass<P> | React.FunctionComponent<P> | string,
+    children?: React.ReactNode | React.ReactNode[],
+): React.ReactElement<P>;
 
-declare function h<P extends {[attr: string]: any}>(
-    componentOrTag: ComponentClass<P> | FunctionComponent<P> | string,
+declare function $<P>(
+    componentOrTag: React.ComponentClass<P> | React.FunctionComponent<P> | string,
     properties: P,
-    children?: ReadonlyArray<Element> | Element
-): ReactElement<P>;
+    children?: React.ReactNode | React.ReactNode[],
+): React.ReactElement<P>;
 
-export = h;
+export = $;
