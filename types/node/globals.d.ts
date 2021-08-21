@@ -64,7 +64,6 @@ interface AbortSignal {
      */
     readonly aborted: boolean;
 
-    onabort: ((this: AbortSignal, event: any) => void) | null;
     addEventListener(type: 'abort', listener: (this: AbortSignal, event: any) => void, options?: EventListenerOptions): void;
 }
 
