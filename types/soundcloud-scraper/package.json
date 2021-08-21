@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "m3u8stream": "^0.8.4"
+    }
+}

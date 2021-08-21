@@ -3,7 +3,6 @@
 // Definitions by: newt! <https://github.com/newtykins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference lib="dom" />
-/// <reference types="node" />
 /// <reference types="cheerio" />
 
 import { RequestOptions, IncomingMessage } from 'http';
