@@ -12,7 +12,7 @@ declare class Connection {
     remainingKeys: number;
     trackingId: string;
     remainingHighKeys: number;
-    getServerDate(forced: boolean): void;
+    getServerDate(forced: boolean): Date;
     serverVersion: string;
     isOnline: boolean;
     readTimeout: number;
@@ -26,8 +26,8 @@ declare class Connection {
     login(userName: string, password: string): boolean;
     logout(): void;
     executeSql(sqlExpression: string | string[]): void;
-    getDataSet(sqlOrArrayOfSql: string | string[], options?: any): void;
-    cloneLocalCache(tableName: string): void;
+    getDataSet(sqlOrArrayOfSql: string | string[], options?: any): DataSet | DataSet[];
+    cloneLocalCache(tableName: string): DataSet;
     copyStructureLocalCache(tableName: string): void;
     getPermission(
         classKeyOrVfsKey: number,
@@ -35,27 +35,27 @@ declare class Connection {
         userKey: number | null,
         getMode: string | null,
         extraFilter: string | null
-    ): void;
-    getChildren(classKey: number | string, userKey?: number, permissionFieldName?: string): void;
+    ): any;
+    getChildren(classKey: number | string, userKey?: number, permissionFieldName?: string): string;
     getHierarchicalClass(
         startClass: number,
         endClass: number,
         level?: number,
         opt_separator?: string,
         opt_bringClassesKeys?: boolean
-    ): void;
+    ): string;
     cloneLocalCacheByClass(
         classKey: number,
         userKeyPermissionViewFilter?: number,
         securityExtraFilter?: any[]
-    ): void;
+    ): DataSet;
     cloneVfsByClass(
         classKey: any,
         userKeyPermissionViewFilter: any,
         securityExtraFilter: any
-    ): void;
-    createKey(keysQuantity: number | null, getHighKeys: number | null): void;
-    getKeyOfClass(className: string): void;
+    ): DataSet;
+    createKey(keysQuantity?: number, getHighKeys?: number): number;
+    getKeyOfClass(className: string): number;
     applyUpdates(ArrayOfDataSets: DataSet | DataSet[], insertIntoLogTable: boolean | null): number;
     get(className: string, codeOrKey: string, fieldName: string): any;
     getDatabaseNames(): string;
@@ -72,7 +72,7 @@ declare class Connection {
         vfs: DataSet | null,
         classes: DataSet | null,
         ignoredClassKeys: number[]
-    ): void;
+    ): string;
     getReferences(
         key: number,
         tableName: string,
@@ -80,11 +80,11 @@ declare class Connection {
         ignoredTables: string[] | null
     ): DataSet;
     classHierarchicalProperty(classNameOrKey: number | string, propertyName: string): any;
-    getChangeableLicenses(userKey: number): any[];
-    setChangeableLicenses(userKey: number, licenseKeys: any[], passwords: any[]): void;
-    getIssuableLicenses(userKey: any): any[];
+    getChangeableLicenses(userKey: number): number[];
+    setChangeableLicenses(userKey: number, licenseKeys: number[], passwords: string[]): void;
+    getIssuableLicenses(userKey: number): number[];
     setIssuableLicenses(userKey: number, licenseKeys: any[], passwords: any[]): void;
-    getLicenseFromNegativeRecord(key: any): number;
+    getLicenseFromNegativeRecord(key: number): number;
     userCanChangeNegativeRecord(key: number, opt_userKey?: number): boolean;
     createKeyRange(
         keyRangeName: string,
@@ -111,7 +111,7 @@ declare class Connection {
     ): void;
     addLicense(licenseStream: string, administratorPassword: string): void;
     getVfsContent(vfsScriptKey: number): string;
-    getExecutionPlan(sqlExpression: string): void;
+    getExecutionPlan(sqlExpression: string): DataSet;
     insertLog(
         logType: number,
         opt_content: string | null,
@@ -130,7 +130,7 @@ declare class Connection {
     scheduledSendMail(mail: any, maxSize?: number): void;
     newTask(task: any, userName: string | null, password: string | null): void;
     skipSatSunHoliday(dt: Date, uf: number | null, localidade: number | null): Date;
-    getUserGroups(userKey: number): any[];
+    getUserGroups(userKey: number): number[];
     isUserInGroup(userKey: number, groupKey: number): boolean;
 }
 declare namespace Connection {

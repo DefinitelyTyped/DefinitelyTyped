@@ -3,8 +3,8 @@ declare function ReportVisualization(definition: any): void;
 declare class ReportVisualization {
     constructor(definition: any);
     definition: any;
-    referenceColumnMap_: any;
-    unsolicitedColumns_: Record<any, boolean>;
+    private referenceColumnMap_;
+    private unsolicitedColumns_;
     COLUMN_VALUE_PREFIX: string;
     columns: ReportVisualizationColumns;
     private simpleLayoutExporter_;
@@ -61,13 +61,10 @@ declare class ReportVisualization {
     queryData(filterValues: Record<string, any>): void;
 }
 declare namespace ReportVisualization {
-    export { exportFormats_, registerExportFormat, Process, SimpleLayoutExporter, DataSet };
+    export { registerExportFormat, Process, SimpleLayoutExporter, DataSet };
 }
 import ReportVisualizationColumns = require('./ReportVisualizationColumns.js');
 import ReportVisualizationColumn = require('./ReportVisualizationColumn.js');
-declare var exportFormats_: {
-    [x: string]: number;
-};
 declare function registerExportFormat(name: string, processKey: number): void;
 declare var Process: any;
 type SimpleLayoutExporter = import('../simple-layout/SimpleLayoutExporter');

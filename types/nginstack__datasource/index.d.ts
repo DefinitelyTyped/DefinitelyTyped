@@ -1,9 +1,10 @@
-// Type definitions for @nginstack/datasource 50.0
+// Type definitions for @nginstack/datasource 51.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.3
+/// <reference path="lib/ClassDerivation.d.ts" />
 /// <reference path="lib/DataSource.d.ts" />
 /// <reference path="lib/DataSourceColumn.d.ts" />
 /// <reference path="lib/DataSourceColumnDef.d.ts" />
@@ -26,5 +27,3 @@
 /// <reference path="lib/FilterOperator.d.ts" />
 /// <reference path="lib/formatDerivationLabel.d.ts" />
 /// <reference path="lib/SecurityMode.d.ts" />
-
-export * from "./lib/ClassDerivation";

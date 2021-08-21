@@ -80,12 +80,11 @@ declare class Process {
     private lastMaxStep;
     private idsvKey;
     useLayoutManager: boolean;
-    getFormattedHelp(): string;
     help: Record<any, any> | string;
     private letFetchProcessInfo;
     lookup(field: GridField): void;
     private _prepareLookupGrid;
-    write(str: any): void;
+    write(content: any): void;
     requires(uri: string): void;
     private writeRequiredFiles;
     grid(name: string, opt_ds?: DataSet, opt_classKey?: number, opt_masterGrid?: Grid): Grid;
@@ -95,7 +94,7 @@ declare class Process {
         nextInteractionNameOrFunction?: string | ((arg0: any) => any),
         processKey?: number,
         newTab?: boolean
-    ): any;
+    ): Link;
     dsvLink(name: string, dsvKey: number, opt_newTab?: boolean): any;
     button(
         name: string,
@@ -176,7 +175,7 @@ declare class Process {
     title: string;
     getFileId(filePathOrVfsKey: any, displayFileName: any): string;
     alert(message: string, title: any): any;
-    showProgress(currentStep: any, maxStep: any, label: any): void;
+    showProgress(currentStep: number, maxStep: number, label: string): void;
     private hideProgress;
     prompt(
         label: string,
@@ -185,7 +184,7 @@ declare class Process {
         opt_defaultOptionIndex?: number,
         opt_escapeIndex?: number
     ): any;
-    authenticateUser(label: string): number;
+    authenticateUser(label: string): number | null;
     confirm(msg: string, opt_noAsDefault?: boolean): boolean;
     upload(options?: import('../file-loader/UploadOptions')): any;
     download(
@@ -226,6 +225,7 @@ declare class Process {
     beep(): void;
     private actions;
     private act_preserveScrollPosition_;
+    private act_showHelp_;
 }
 declare namespace Process {
     export {

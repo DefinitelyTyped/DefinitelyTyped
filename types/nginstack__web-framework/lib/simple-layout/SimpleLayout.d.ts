@@ -3,19 +3,19 @@ declare function SimpleLayout(responseObject: any, skinScriptKeyOrUrl: number | 
 declare class SimpleLayout {
     constructor(responseObject: any, skinScriptKeyOrUrl: number | string);
     responseObject: any;
-    _groupsToResultSet: any[];
-    arRowData: any[];
-    arData: any[];
-    buffer_: SimpleLayoutBuffer;
-    arGroups: any[];
-    arColumns: any[];
-    currentGroupCountBeforeDynamicFields_: number;
-    columnsWithMerge_: Column[];
-    arAccumulators: any[];
-    columnsTotalByGroupId: {};
+    private _groupsToResultSet;
+    private arRowData;
+    private arData;
+    private buffer_;
+    private arGroups;
+    private arColumns;
+    private currentGroupCountBeforeDynamicFields_;
+    private columnsWithMerge_;
+    private arAccumulators;
+    private columnsTotalByGroupId;
     recordColors: any[];
     groupColors: any[];
-    currentGroupCount: number;
+    private currentGroupCount;
     groups: StringList;
     columns: StringList;
     onCss: Event;
@@ -32,10 +32,29 @@ declare class SimpleLayout {
     private colsAuto;
     private hasRemainContent;
     private currentPage;
+    private startPage;
+    private endPage;
     private emptyDataSet;
     private firstRecord;
     private recordCount;
     private countSeqColumn;
+    private calculatedWidth;
+    private layoutTxtWidth;
+    private topMargin;
+    private bottomMargin;
+    private leftMargin;
+    private rightMargin;
+    private firstLineToFooter;
+    private height;
+    private indexColumn;
+    private initializationChars;
+    private lineBlack;
+    private showLineTop;
+    private showLineBottom;
+    private collapsed;
+    private collapsedRows;
+    private currentNodeId;
+    private currentParentNodeId;
     showTreeRoot: boolean;
     resultSet: DataSet;
     dataExporter: any;
@@ -92,7 +111,6 @@ declare class SimpleLayout {
     private getMailObject;
     private nextColumnWithTotalContent;
     private startOrEndGroup;
-    indexColumn: any;
     private endRecord;
     private _formatCustomColumnPaddingCss;
     private _formatCustomFontSizeCss;
@@ -101,9 +119,6 @@ declare class SimpleLayout {
     private setColumnHeader;
     private writeColumnsHeader;
     private internalNewRecord;
-    showLineTop: boolean;
-    showLineBottom: boolean;
-    lineBlack: string;
     newTreeRecord(treeNodeId: number, parentTreeNodeId: number, opt_collapsed?: boolean): void;
     newRecord(
         opt_checkGroup?: any[],
@@ -115,8 +130,8 @@ declare class SimpleLayout {
         opt_patterns?: string[]
     ): boolean | void;
     private start;
-    mailMessage_: any;
-    _layoutId: string;
+    private mailMessage_;
+    private _layoutId;
     private MAX_FILTER_VALUE_;
     private formatFiltersToHeader_;
     private defaultOnHeader;
@@ -125,15 +140,6 @@ declare class SimpleLayout {
     private _prepareImgTagsToSendMail;
     write(content: string, opt_newLine?: boolean): void;
     private setupLayoutTxt;
-    startPage: any;
-    endPage: any;
-    initializationChars: any;
-    topMargin: number;
-    bottomMargin: number;
-    leftMargin: number;
-    rightMargin: number;
-    layoutTxtWidth: number;
-    height: number;
     private _prepareExport;
     private _addGroupField;
     private _fillResultSet;
@@ -142,19 +148,13 @@ declare class SimpleLayout {
     column(name: string, options?: any): Column;
     private newLine;
     lineCount: any;
-    clearColumnsAccumulatorsAndLastContent(): void;
+    private clearColumnsAccumulatorsAndLastContent;
     private unloadBuffer;
-    calculatedWidth: number;
-    firstLineToFooter: number;
     private prepareWriteFromBuffer;
     private mustHaveBuffer_;
     private resizeGroups;
     private treeBegin;
     private treeNewRecord;
-    collapsedRows: {};
-    currentNodeId: any;
-    currentParentNodeId: any;
-    collapsed: any;
     private internalWriteColumn;
     private treeWriteColumn;
     private treeWriteLink;
@@ -204,27 +204,18 @@ declare class SimpleLayout {
     stats(): SimpleLayoutStats;
 }
 declare namespace SimpleLayout {
-    export {
-        LAYOUT_COUNT,
-        columnsTotalByGroupId,
-        extractClassNames_,
-        defaults,
-        Event,
-        SimpleLayoutStats,
-    };
+    export { LAYOUT_COUNT, columnsTotalByGroupId, defaults, Event, SimpleLayoutStats };
 }
-import SimpleLayoutBuffer = require('./SimpleLayoutBuffer.js');
-import Column = require('./Column.js');
 import StringList = require('@nginstack/engine/lib/string/StringList.js');
 type Event = import('@nginstack/engine/lib/event/Event');
 import Header = require('./Header.js');
 import Footer = require('./Footer.js');
 import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
 import Link = require('../anchor/Link.js');
+import Column = require('./Column.js');
 interface SimpleLayoutStats {
     bufferLength: any;
 }
 declare var LAYOUT_COUNT: number;
 declare var columnsTotalByGroupId: any;
-declare function extractClassNames_(css: string): string[];
 declare var defaults: {};
