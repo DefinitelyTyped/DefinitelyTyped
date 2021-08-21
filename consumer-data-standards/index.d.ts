@@ -2,71 +2,16 @@
 // Project: https://github.com/3box/3box-js#readme
 // Definitions by: CDR-API-Stream <https://github.com/ConsumerDataStandardsAustralia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// import * from './banking/enums';
 
-
- //   export {BankingProductCategory} from './enums';
-
-//export * from './banking/BankingAccount';
-// export * from './banking/BankingAccountDetail';
-// export * from './banking/BankingAuthorisedEntity';
-// export * from './banking/BankingBalance';
-// export * from './banking/BankingBalancePurse';
-// export * from './banking/BankingBillerPayee';
-// export * from './banking/BankingCreditCardAccount';
-// export * from './banking/BankingDirectDebit';
-// export * from './banking/BankingDomesticPayee';
-// export * from './banking/BankingDomesticPayeeAccount';
-// export * from './banking/BankingDomesticPayeeCard';
-// export * from './banking/BankingDomesticPayeePayId';
-// export * from './banking/BankingInternationalPayee';
-// export * from './banking/BankingLoanAccount';
-// export * from './banking/BankingPayee';
-// export * from './banking/BankingPayeeDetail';
-// export * from './banking/BankingProductBundle';
-// export * from './banking/BankingProductCondition';
-// export * from './banking/BankingProductConstraint';
-// export * from './banking/BankingProductDepositRate';
-// export * from './banking/BankingProductDetailV3';
-// export * from './banking/BankingProductDiscount';
-// export * from './banking/BankingProductDiscountEligibility';
-// export * from './banking/BankingProductEligibility';
-// export * from './banking/BankingProductFeature';
-// export * from './banking/BankingProductFee';
-// export * from './banking/BankingProductV3';
-// export * from './banking/BankingScheduledPayment';
-// export * from './banking/BankingScheduledPaymentFrom';
-// export * from './banking/BankingScheduledPaymentRecurrence';
-// export * from './banking/BankingScheduledPaymentRecurrenceIntervalSchedule';
-// export * from './banking/BankingScheduledPaymentRecurrenceOnceOff';
-// export * from './banking/BankingScheduledPaymentSet';
-// export * from './banking/BankingScheduledPaymentTo';
-// export * from './banking/BankingTermDepositAccount';
-// export * from './banking/BankingTransaction';
-// export * from './banking/BankingTransactionDetail';
-// export * from './banking/enums';
-// export * from './banking/RequestAccountIds';
-// export * from './banking/ResponseBankingAccountById';
-// export * from './banking/ResponseBankingAccountList';
-// export * from './banking/ResponseBankingDirectDebitAuthorisationList';
-// export * from './banking/ResponseBankingPayeeById';
-// export * from './banking/ResponseBankingPayeeList';
-// export * from './banking/ResponseBankingProductById';
-// export * from './banking/ResponseBankingProductList';
-// export * from './banking/ResponseBankingScheduledPaymentsList';
-// export * from './banking/ResponseBankingTransactionById';
-// export * from './banking/ResponseBankingTransactionList';
-// export * from './banking/BankingProductRateCondition';
-// export * from './banking/Shared';
-
-// export * from './common/CommonEmailAddress';
-// export * from './common/CommonSimpleAddress';
-// export * from './common/CommonPhysicalAddress';
-// export * from './common/CommonPhysicalAddressWithPurpose';
-// export * from './common/CommonPAFAddress';
-// export * from './common/CommonOrganisation';
-// export * from './common/CommonOrganisationDetail';
-// export * from './common/CommonPerson';
-// export * from './common/CommonPersonDetail';
-// export * from './common/CommonPhoneNumber';
+/**
+ * This repository contains the type definitions (interfaces) as stipulated by the 
+ * Consumer Data Standards (CDS) Body of Australia (https://consumerdatastandards.gov.au/)
+ * banking directory:
+ *      enums.d.ts:         contains the enumerated type definitions for stipulated as part of the CDS specific to the banking sector
+ *      http-response.d.ts: contains the http response definitions for data holders
+ * 
+ *  common directory:
+ *      enums.d.ts:         contains the non-industry specific enumerated type definitions for stipulated as part of the CDS
+ *      http-response.d.ts: contains the non-industry specific  http response definitions for data holders
+ */
 
