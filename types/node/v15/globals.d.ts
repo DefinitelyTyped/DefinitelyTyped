@@ -327,7 +327,7 @@ interface AbortController {
 }
 
 /** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
-interface AbortSignal extends EventTarget {
+interface AbortSignal {
     /**
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
@@ -337,6 +337,9 @@ interface AbortSignal extends EventTarget {
      * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
      */
     abort(): void;
+
+    onabort: ((this: AbortSignal, event: Event) => any) | null;
+    addEventListener(type: 'abort', listener: (this: AbortSignal, event: Event) => any, options?: { once?: boolean }): void;
 }
 
 declare var AbortController: {
