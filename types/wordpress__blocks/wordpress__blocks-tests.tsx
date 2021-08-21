@@ -410,6 +410,15 @@ blocks.registerBlockType({
                 attributes: {
                     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
                 },
+                innerBlocks: [
+                    {
+                        name: 'core/paragraph',
+                        attributes: {
+                            content:
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                        },
+                    },
+                ],
             },
         ],
     },

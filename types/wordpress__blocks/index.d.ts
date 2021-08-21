@@ -46,6 +46,20 @@ export interface BlockStyle {
     readonly isDefault?: boolean | undefined;
 }
 
+/**
+ * Internal type for the innerBlocks property inside of the example
+ *
+ * @internal
+ * @see Block.example
+ * @see {@link https://github.com/DefinitelyTyped/DefinitelyTyped/pull/55245#discussion_r692208988}
+ */
+type BlockExampleInnerBlock = ReadonlyArray<
+    Partial<Block> &
+        Pick<Block, 'name' | 'attributes'> & {
+            innerBlocks?: BlockExampleInnerBlock;
+        }
+>;
+
 export interface Block<T extends Record<string, any> = {}> {
     /**
      * The version of the Block API used by the block.
@@ -97,7 +111,7 @@ export interface Block<T extends Record<string, any> = {}> {
      */
     readonly example?: {
         readonly attributes: Readonly<T>;
-        readonly innerBlocks?: ReadonlyArray<{ name: string; attributes: Record<string, any> }>;
+        readonly innerBlocks?: BlockExampleInnerBlock;
         readonly viewportWidth?: number;
     };
     /**
