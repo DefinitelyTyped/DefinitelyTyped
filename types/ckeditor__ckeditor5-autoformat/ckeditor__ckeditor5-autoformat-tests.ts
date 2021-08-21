@@ -4,16 +4,52 @@ import inlineAutoformatEditing from "@ckeditor/ckeditor5-autoformat/src/inlineau
 import { Editor } from "@ckeditor/ckeditor5-core";
 
 class MyEditor extends Editor {}
-const autoformat = new Autoformat(new MyEditor());
+const editor = new MyEditor();
+const autoformat = new Autoformat(editor);
 autoformat.afterInit();
 
-blockAutoformatEditing(new MyEditor(), autoformat, /foo/, "foo");
-blockAutoformatEditing(new MyEditor(), autoformat, /foo/, arg => {
-    arg?.index;
-    return;
+blockAutoformatEditing(editor, autoformat, /foo/, "foo");
+
+blockAutoformatEditing(editor, autoformat, /^\- $/, context => {
+    const { match } = context;
+    const headingLevel = match[1].length;
+
+    editor.execute("heading", {
+        formatId: `heading${headingLevel}`,
+    });
 });
 
-inlineAutoformatEditing(new MyEditor(), autoformat, /foo/, writer => {
+inlineAutoformatEditing(editor, autoformat, /foo/, writer => {
     writer.createText("foo");
     return false;
 });
+
+inlineAutoformatEditing(editor, autoformat, /(\*\*)([^\*]+?)(\*\*)$/g, (writer, rangesToFormat) => {
+    const command = editor.commands.get("bold");
+
+    if (!command!.isEnabled) {
+        return false;
+    }
+
+    writer.setAttribute("bold", true, rangesToFormat[0]);
+});
+
+inlineAutoformatEditing(
+    editor,
+    autoformat,
+    text => {
+        return {
+            remove: [[5, text.length]],
+            format: [[0, 0]],
+        };
+    },
+    (writer, rangesToFormat) => {
+        const command = editor.commands.get("bold");
+
+        if (!command!.isEnabled) {
+            return false;
+        }
+
+        writer.setAttribute("bold", true, rangesToFormat[0]);
+    },
+);
