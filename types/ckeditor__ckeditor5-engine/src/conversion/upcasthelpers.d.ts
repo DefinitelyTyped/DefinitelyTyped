@@ -12,7 +12,13 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
             | {
                   key: string;
                   name?: string | undefined;
-                  value?: RegExp | string | ((value: any) => boolean) | { styles: Record<string, string | RegExp> } | undefined;
+                  value?:
+                      | RegExp
+                      | string
+                      | ((value: any) => boolean)
+                      | { styles: Record<string, string | RegExp> }
+                      | Record<string, string>
+                      | undefined;
               };
 
         model: string | { key: string; value: string | ((el: Element, api: UpcastConversionApi) => string) };

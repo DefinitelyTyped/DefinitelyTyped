@@ -13,6 +13,13 @@ import Selection from "./selection";
 import Text from "./text";
 import { toMap } from "@ckeditor/ckeditor5-utils";
 
+declare global {
+    namespace CKEditor {
+        // tslint:disable-next-line:no-empty-interface
+        interface NodeAttributes {}
+    }
+}
+
 export type NodeSet = Node | TextProxy | string | NodeList | DocumentFragment | Iterable<NodeSet>;
 
 export default class Node {
@@ -27,6 +34,7 @@ export default class Node {
 
     constructor(attrs?: Parameters<typeof toMap>[0]);
     getAncestors(options?: { includeSelf?: boolean | undefined; parentFirst?: boolean | undefined }): Array<Element | DocumentFragment>;
+    getAttribute<T extends keyof CKEditor.NodeAttributes>(key: T): CKEditor.NodeAttributes[T] | undefined;
     getAttribute(key: string): string | undefined;
     getAttributeKeys(): IterableIterator<string>;
     getAttributes(): IterableIterator<[string, string | number | boolean]>;

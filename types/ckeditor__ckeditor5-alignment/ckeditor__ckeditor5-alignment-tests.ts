@@ -19,16 +19,19 @@ utils.isDefault("left", new Locale());
 // $ExpectType boolean
 utils.isSupported("left");
 utils.supportedOptions.length === 4;
-const normalizedOptions = utils.normalizeAlignmentOptions(["foo"]);
-if (typeof normalizedOptions !== "string") {
-    normalizedOptions[0].name.startsWith("");
-}
+// $ExpectType AlignmentFormat[]
+utils.normalizeAlignmentOptions(["left"]);
 
 // $ExpectError
 utils.normalizeAlignmentOptions([{ name: "foo", className: "bar" }]);
 utils.normalizeAlignmentOptions([{ name: "left", className: "bar" }]);
+utils.normalizeAlignmentOptions([{ name: "left" }]);
 
 const command = new AlignmentCommand(new MyEditor());
 // $ExpectError
 command.execute("foo");
+// $ExpectError
+command.execute({value: "foo"});
 command.execute();
+command.execute({value: "left"});
+command.execute({value: undefined});

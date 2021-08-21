@@ -31,9 +31,8 @@ export default class DowncastHelpers extends ConversionHelpers<DowncastHelpers> 
         view:
             | string
             | { key: string; value: string }
-            | ((
-                  modelAttributeValue: any,
-              ) => {
+            | Record<string, { key: string; value: Record<string, string> }>
+            | ((modelAttributeValue: string) => {
                   key: string;
                   value: string | string[] | Record<string, string>;
               });
