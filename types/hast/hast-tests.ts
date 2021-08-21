@@ -48,8 +48,6 @@ const text: Text = {
 const docType: DocType = {
     type: 'doctype',
     name: 'name',
-    public: 'public',
-    system: 'system',
 };
 
 const element: Element = getElement();
@@ -73,9 +71,9 @@ const properties: Properties = {
     propertyName2: ['propertyValue2', 'propertyValue3'],
     propertyName3: true,
     propertyName4: 47,
-    propertyName5: [4, "4"],
+    propertyName5: [4, '4'],
     propertyName6: null,
-    propertyName7: undefined
+    propertyName7: undefined,
 };
 
 function getElement(): Element {

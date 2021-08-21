@@ -86,16 +86,6 @@ export interface DocType extends UnistNode {
     type: 'doctype';
 
     name: string;
-
-    /**
-     * Represents the document’s public identifier.
-     */
-    public?: string | undefined;
-
-    /**
-     * Represents the document’s system identifier.
-     */
-    system?: string | undefined;
 }
 
 /**
