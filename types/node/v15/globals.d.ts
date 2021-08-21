@@ -337,9 +337,6 @@ interface AbortSignal {
      * Invoking this method will set this object's AbortSignal's aborted flag and signal to any observers that the associated activity is to be aborted.
      */
     abort(): void;
-
-    onabort: ((this: AbortSignal, event: Event) => any) | null;
-    addEventListener(type: 'abort', listener: (this: AbortSignal, event: Event) => any, options?: { once?: boolean }): void;
 }
 
 declare var AbortController: {
