@@ -27,3 +27,12 @@ validate(schema, document, [ graphqlDepthLimit(
         // do something....
     },
 )]);
+
+
+validate(schema, document, [ graphqlDepthLimit(
+    10,
+    {}, // Ignore nothing, but run the callback
+    (depths: any) => {
+        // do something....
+    },
+)]);
