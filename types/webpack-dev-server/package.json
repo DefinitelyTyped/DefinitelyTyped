@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "chokidar": "^3.5.2",
+    "chokidar": "^3.5.1",
     "http-proxy-middleware": "^1.0.0"
   }
 }

@@ -212,17 +212,17 @@ declare namespace WebpackDevServer {
          * Provides the ability to execute custom middleware after all other
          * middleware internally within the server.
          */
-        onAfterSetupMiddleware?: ((server: WebpackDevServer) => void) | undefined;
+        onAfterSetupMiddleware?: ((devServer: WebpackDevServer) => void) | undefined;
         /**
          * Provides the ability to execute custom middleware prior to all other
          * middleware internally within the server.
          */
-        onBeforeSetupMiddleware?: ((server: WebpackDevServer) => void) | undefined;
+        onBeforeSetupMiddleware?: ((devServer: WebpackDevServer) => void) | undefined;
         /**
          * Provides an option to execute a custom function when
          * webpack-dev-server starts listening for connections on a port.
          */
-        onListening?: ((server: WebpackDevServer) => void) | undefined;
+        onListening?: ((devServer: WebpackDevServer) => void) | undefined;
         /** When open is enabled, the dev server will open the browser. */
         open?: boolean | string | string[] | Open | Open[] | undefined;
         /** Specify a port number to listen for requests on. */
