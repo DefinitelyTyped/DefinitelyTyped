@@ -1,4 +1,4 @@
-// Type definitions for react-native-base64 0.2.1
+// Type definitions for react-native-base64 0.2
 // Project: https://github.com/eranbo/react-native-base64#readme
 // Definitions by: seongjoojin <https://github.com/seongjoojin>,
 //                 markyao6275 <https://github.com/markyao6275>
