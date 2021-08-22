@@ -7,7 +7,7 @@ const uuid = 'user_1';
 userCache.getOrElse(uuid, () => 10, {expire: 1});
 // $ExpectType Promise<number>
 userCache.getOrElse(uuid, () => 10);
-// $ExpectType Promise<number>
+// $ExpectType Promise<void>
 userCache.set(uuid, 9);
 
 userCache.get(uuid);
