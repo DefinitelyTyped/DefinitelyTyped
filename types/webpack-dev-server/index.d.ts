@@ -287,10 +287,12 @@ declare class WebpackDevServer {
         config: WebpackDevServer.Configuration,
     ): void;
 
+    /** @async */
     start(): void;
 
     startCallback(callback: () => void): void;
 
+    /** @async */
     stop(): void;
 
     stopCallback(callback: () => void): void;
