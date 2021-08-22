@@ -54,7 +54,7 @@ interface JustifiedLayoutOptions {
      * in your input array irrelevant. The length of the array remains relevant.
      * @default false
      */
-    forceAspectRatio?: boolean | number | undefined;
+    forcedAspectRatio?: boolean | number | undefined;
     /**
      * If you'd like to insert a full width box every n rows you can specify it with this
      * parameter. The box on that row will ignore the targetRowHeight, make itself as wide as
