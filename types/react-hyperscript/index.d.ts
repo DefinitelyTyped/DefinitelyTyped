@@ -30,11 +30,11 @@ import type {
     SVGAttributes,
 } from 'react';
 
-declare namespace $ {}
+export = $;
 
 type Children = ReactNode | ReactNode[];
 
-export = $;
+declare namespace $ {}
 
 declare function $(
     children?: Children,
