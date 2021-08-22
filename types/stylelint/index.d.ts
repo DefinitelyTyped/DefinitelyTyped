@@ -38,6 +38,7 @@ export interface Configuration {
 }
 
 export interface LinterOptions {
+    allowEmptyInput: boolean;
     cache: boolean;
     cacheLocation: string;
     code: string;
