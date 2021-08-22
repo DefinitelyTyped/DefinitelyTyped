@@ -10,7 +10,7 @@ userCache.getOrElse(uuid, () => 10);
 // $ExpectType Promise<void>
 userCache.set(uuid, 9);
 
-// $ExpectType Promise<number>
+// $ExpectType Promise<number | null>
 userCache.get(uuid);
 // $ExpectType Promise<void>
 userCache.unset(uuid);

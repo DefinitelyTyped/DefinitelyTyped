@@ -108,7 +108,7 @@ declare class Cache<T> {
      * Cache misses are generally treated the same as retrieving null, errors should only be caused by transport errors and connection problems.
      * If you want to cache null/undefined (e.g. 404 responses), you may want to wrap it or choose a different value, like false, to represent this condition.
      */
-    get(key: string): Promise<T>;
+    get(key: string): Promise<T | null>;
 
     /**
      * This is the function you'd want to use most of the time.
