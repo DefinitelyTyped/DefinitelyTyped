@@ -157,7 +157,6 @@ declare class Grid {
     private clearFields;
     private resetButtons;
     name: string;
-    getFormattedHelp(): string;
     help:
         | {
               overview: string;
@@ -437,7 +436,6 @@ declare namespace Grid {
         LOCATE_ALL_FIELDS,
         LOCATE_EXACT,
         LOCATE_NEXT,
-        persist_,
         persist,
         MAX_VISIBLE_RECORD_COUNT,
         AdapterDescriptor,
@@ -472,7 +470,6 @@ declare var MDA_UNLINK: typeof MasterDeleteAction;
 declare var LOCATE_ALL_FIELDS: number;
 declare var LOCATE_EXACT: number;
 declare var LOCATE_NEXT: number;
-declare function persist_(grids: Grid | Grid[]): number;
 declare function persist(grids: Grid | Grid[]): number;
 declare var MAX_VISIBLE_RECORD_COUNT: number;
 import MasterDeleteAction = require('@nginstack/engine/lib/classdef/MasterDeleteAction.js');

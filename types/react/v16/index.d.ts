@@ -837,6 +837,14 @@ declare namespace React {
     type ComponentPropsWithoutRef<T extends ElementType> =
         PropsWithoutRef<ComponentProps<T>>;
 
+    type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
+        ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
+    >
+        ? Method
+        : ComponentPropsWithRef<T> extends RefAttributes<infer Method>
+            ? Method
+            : never;
+
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
     type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<ComponentPropsWithRef<T>> & {
@@ -2348,11 +2356,13 @@ declare namespace React {
     }
 
     interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
+        height?: number | string | undefined;
         media?: string | undefined;
         sizes?: string | undefined;
         src?: string | undefined;
         srcSet?: string | undefined;
         type?: string | undefined;
+        width?: number | string | undefined;
     }
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {

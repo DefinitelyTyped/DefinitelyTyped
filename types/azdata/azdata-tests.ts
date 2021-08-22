@@ -56,3 +56,9 @@ const testLoadingComponent: azdata.LoadingComponent = {
 testLoadingComponent.validate();
 
 azdata.window.createModelViewDialog('MyTitle', 'MyDialog', 'narrow');
+
+const testCard: azdata.CardProperties = {
+    label: 'test-label',
+    iconHeight: '16px',
+    iconWidth: '16px'
+};

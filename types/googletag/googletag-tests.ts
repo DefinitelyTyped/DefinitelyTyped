@@ -13,8 +13,7 @@ if (window.googletag && googletag.apiReady) {
 
 // DEMO 2
 googletag.cmd.push(() => {
-    googletag.defineSlot('/1234567/sports', [160, 600]).
-        addService(googletag.pubads());
+    googletag.defineSlot('/1234567/sports', [160, 600]).addService(googletag.pubads());
 });
 
 // DEMO 3
@@ -22,20 +21,16 @@ googletag.cmd.push(() => {
 googletag.defineOutOfPageSlot('/1234567/sports', 'div-1');
 
 // Define a GPT managed web interstitial ad slot.
-googletag.defineOutOfPageSlot('/1234567/sports',
-    googletag.enums.OutOfPageFormat.INTERSTITIAL);
+googletag.defineOutOfPageSlot('/1234567/sports', googletag.enums.OutOfPageFormat.INTERSTITIAL);
 
 // DEMO 4
 googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
 
 // DEMO 5
 // The calls to construct an ad and display contents.
-let slot1 =
-    googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
-let slot2 =
-    googletag.defineSlot('/1234567/news', [160, 600], 'div-2');
-let slot3 =
-    googletag.defineSlot('/1234567/weather', [160, 600], 'div-3');
+let slot1 = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
+let slot2 = googletag.defineSlot('/1234567/news', [160, 600], 'div-2');
+let slot3 = googletag.defineSlot('/1234567/weather', [160, 600], 'div-3');
 
 // This call to destroy only slot1.
 googletag.destroySlots([slot1]);
@@ -67,16 +62,14 @@ googletag.setAdIframeTitle('title');
 
 // DEMO 9
 googletag.cmd.push(() => {
-    googletag.defineSlot('/1234567/sports', [160, 600]).
-        addService(googletag.pubads());
+    googletag.defineSlot('/1234567/sports', [160, 600]).addService(googletag.pubads());
 });
 
 // DEMO 10
 googletag.companionAds().setRefreshUnfilledSlots(true);
 
 // DEMO 11
-let slot = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1').
-    addService(googletag.content());
+let slot = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1').addService(googletag.content());
 googletag.enableServices();
 
 let content = '<a href="www.mydestinationsite.com"><img src="www.mysite.com/img.png"></img></a>';
@@ -126,9 +119,9 @@ googletag.pubads().enableLazyLoad();
 googletag.pubads().enableLazyLoad({ fetchMarginPercent: -1 });
 // C) Enable lazy loading with...
 googletag.pubads().enableLazyLoad({
-    fetchMarginPercent: 500,  // Fetch slots within 5 viewports.
-    renderMarginPercent: 200,  // Render slots within 2 viewports.
-    mobileScaling: 2.0  // Double the above values on mobile.
+    fetchMarginPercent: 500, // Fetch slots within 5 viewports.
+    renderMarginPercent: 200, // Render slots within 2 viewports.
+    mobileScaling: 2.0, // Double the above values on mobile.
 });
 
 // DEMO 17
@@ -197,19 +190,16 @@ googletag.pubads().setForceSafeFrame(true);
 
 // The following slot will be opted-out of the page-level force
 // safeframe instruction.
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setForceSafeFrame(false).
-    addService(googletag.pubads());
+googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').setForceSafeFrame(false).addService(googletag.pubads());
 
 // The following slot will have safeframe forced.
-googletag.defineSlot('/1234567/news', [160, 600], 'div-2').
-    addService(googletag.pubads());
+googletag.defineSlot('/1234567/news', [160, 600], 'div-2').addService(googletag.pubads());
 
 // googletag.display();
 
 // DEMO 27
 // Postal code:
-googletag.pubads().setLocation("10001,US");
+googletag.pubads().setLocation('10001,US');
 
 // DEMO 28
 googletag.pubads().setPrivacySettings({
@@ -219,12 +209,12 @@ googletag.pubads().setPrivacySettings({
 // Set multiple privacy settings at the same time.
 googletag.pubads().setPrivacySettings({
     childDirectedTreatment: true,
-    underAgeOfConsent: true
+    underAgeOfConsent: true,
 });
 
 // Clear the configuration for childDirectedTreatment.
 googletag.pubads().setPrivacySettings({
-    childDirectedTreatment: null
+    childDirectedTreatment: null,
 });
 
 // DEMO 29
@@ -241,7 +231,7 @@ let pageConfig = {
     allowOverlayExpansion: true,
     allowPushExpansion: true,
     sandbox: true,
-    useUniqueDomain: true
+    useUniqueDomain: true,
 };
 
 let slotConfig = { allowOverlayExpansion: false };
@@ -249,14 +239,14 @@ let slotConfig = { allowOverlayExpansion: false };
 googletag.pubads().setSafeFrameConfig(pageConfig);
 
 // The following slot will not allow for expansion by overlay.
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setSafeFrameConfig(slotConfig).
-    addService(googletag.pubads());
+googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setSafeFrameConfig(slotConfig)
+    .addService(googletag.pubads());
 
 // The following slot will inherit the page level settings, and hence
 // would allow for expansion by overlay.
-googletag.defineSlot('/1234567/news', [160, 600], 'div-2').
-    addService(googletag.pubads());
+googletag.defineSlot('/1234567/news', [160, 600], 'div-2').addService(googletag.pubads());
 
 // googletag.display();
 
@@ -280,7 +270,7 @@ googletag.pubads().updateCorrelator();
 
 // DEMO 34
 // 1. Adding an event listener for the PubAdsService.
-googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotOnloadEvent) => {
+googletag.pubads().addEventListener('slotOnload', event => {
     console.log('Slot has been loaded:');
     console.log(event);
 });
@@ -291,39 +281,41 @@ googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotO
 // programmatically filter a listener to respond only to a certain ad slot,
 // using this pattern:
 let targetSlot = {};
-googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotOnloadEvent) => {
+googletag.pubads().addEventListener('slotOnload', event => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
 });
 
 // DEMO 35
-let mapping1 = googletag.sizeMapping().
-    addSize([1024, 768], [970, 250]).
-    addSize([980, 690], [728, 90]).
-    addSize([640, 480], 'fluid').
-    addSize([0, 0], [88, 31]). // Fits browsers of any size smaller than 640x480.
-    build();
-let mapping2 = googletag.sizeMapping().
-    addSize([1024, 768], [970, 250]).
-    addSize([980, 690], []).
-    addSize([640, 480], [120, 60]).
-    addSize([0, 0], []).
-    build();
+let mapping1 = googletag
+    .sizeMapping()
+    .addSize([1024, 768], [970, 250])
+    .addSize([980, 690], [728, 90])
+    .addSize([640, 480], 'fluid')
+    .addSize([0, 0], [88, 31]) // Fits browsers of any size smaller than 640x480.
+    .build();
+let mapping2 = googletag
+    .sizeMapping()
+    .addSize([1024, 768], [970, 250])
+    .addSize([980, 690], [])
+    .addSize([640, 480], [120, 60])
+    .addSize([0, 0], [])
+    .build();
 
 // mapping2 will not show any ads for the following viewport sizes:
 // [1024, 768] > size >= [980, 690] and
 // [640, 480] > size >= [0, 0]
 
 // DEMO 36
-googletag.defineSlot('/1234567/sports', [160, 600]).
-    addService(googletag.pubads());
+googletag.defineSlot('/1234567/sports', [160, 600]).addService(googletag.pubads());
 
 // DEMO 37
 // Set category exclusion to exclude ads with 'AirlineAd' labels.
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setCategoryExclusion('AirlineAd').
-    addService(googletag.pubads());
+slot = googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setCategoryExclusion('AirlineAd')
+    .addService(googletag.pubads());
 
 // Make an ad request. No ad with 'AirlineAd' label will be returned for the slot.
 
@@ -333,11 +325,12 @@ slot.clearCategoryExclusions();
 // Make an ad request. Any ad can be returned for the slot.
 
 // DEMO 38
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setTargeting('allow_expandable', 'true').
-    setTargeting('interests', ['sports', 'music', 'movies']).
-    setTargeting('color', 'red').
-    addService(googletag.pubads());
+slot = googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setTargeting('allow_expandable', 'true')
+    .setTargeting('interests', ['sports', 'music', 'movies'])
+    .setTargeting('color', 'red')
+    .addService(googletag.pubads());
 
 slot.clearTargeting('color');
 // Targeting 'allow_expandable' and 'interests' are still present, while
@@ -347,58 +340,66 @@ slot.clearTargeting();
 // All targeting has been cleared.
 
 // DEMO 39
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    addService(googletag.pubads());
-let mapping = googletag.sizeMapping().
-    addSize([100, 100], [88, 31]).
-    addSize([320, 400], [[320, 50], [300, 50]]).
-    build();
+slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').addService(googletag.pubads());
+let mapping = googletag
+    .sizeMapping()
+    .addSize([100, 100], [88, 31])
+    .addSize(
+        [320, 400],
+        [
+            [320, 50],
+            [300, 50],
+        ],
+    )
+    .build();
 slot.defineSizeMapping(mapping);
 
 // DEMO 40
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    set('adsense_background_color', '#FFFFFF').
-    addService(googletag.pubads());
+slot = googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .set('adsense_background_color', '#FFFFFF')
+    .addService(googletag.pubads());
 
 color = googletag.pubads().get('adsense_background_color');
 // color == '#FFFFFF'.
 
 // DEMO 41
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    addService(googletag.pubads());
+slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').addService(googletag.pubads());
 
 let path = slot.getAdUnitPath();
 // path is '/1234567/sports'
 
 // DEMO 42
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    set('adsense_background_color', '#FFFFFF').
-    set('adsense_border_color', '#AABBCC').
-    addService(googletag.pubads());
+slot = googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .set('adsense_background_color', '#FFFFFF')
+    .set('adsense_border_color', '#AABBCC')
+    .addService(googletag.pubads());
 
 keys = googletag.pubads().getAttributeKeys();
 // Keys are ['adsense_background_color', 'adsense_border_color'].
 
 // DEMO 43
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setCategoryExclusion('AirlineAd').
-    setCategoryExclusion('TrainAd').
-    addService(googletag.pubads());
+slot = googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setCategoryExclusion('AirlineAd')
+    .setCategoryExclusion('TrainAd')
+    .addService(googletag.pubads());
 
 let exclusions = slot.getCategoryExclusions();
 // exclusions are ['AirlineAd', 'TrainAd']
 
 // DEMO 44
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    addService(googletag.pubads());
+slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').addService(googletag.pubads());
 
 let slotElementId = slot.getSlotElementId();
 // slotElementId is 'div-1'
 
 // DEMO 45
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setTargeting('allow_expandable', 'true').
-    addService(googletag.pubads());
+slot = googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setTargeting('allow_expandable', 'true')
+    .addService(googletag.pubads());
 
 param = slot.getTargeting('allow_expandable');
 // param is ['true']
@@ -407,66 +408,66 @@ param = slot.getTargeting('age');
 // param is [] (empty array)
 
 // DEMO 46
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setTargeting('allow_expandable', 'true').
-    setTargeting('interests', ['sports', 'music', 'movies']).
-    addService(googletag.pubads());
+slot = googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setTargeting('allow_expandable', 'true')
+    .setTargeting('interests', ['sports', 'music', 'movies'])
+    .addService(googletag.pubads());
 
 keys = slot.getTargetingKeys();
 // keys are ['interests', 'allow_expandable'].
 
 // DEMO 47
 // Setting an attribute on a single ad slot.
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    set('adsense_background_color', '#FFFFFF').
-    addService(googletag.pubads());
+googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .set('adsense_background_color', '#FFFFFF')
+    .addService(googletag.pubads());
 
 // DEMO 48
 // Label = AirlineAd
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setCategoryExclusion('AirlineAd').
-    addService(googletag.pubads());
+googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setCategoryExclusion('AirlineAd')
+    .addService(googletag.pubads());
 
 // DEMO 49
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setClickUrl('http://www.example.com?original_click_url=').
-    addService(googletag.pubads());
+googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setClickUrl('http://www.example.com?original_click_url=')
+    .addService(googletag.pubads());
 
 // DEMO 50
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setCollapseEmptyDiv(true, true).
-    addService(googletag.pubads());
+googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setCollapseEmptyDiv(true, true)
+    .addService(googletag.pubads());
 // The above will cause the div for this slot to be collapsed
 // when the page is loaded, before ads are requested.
 
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-2').
-    setCollapseEmptyDiv(true).
-    addService(googletag.pubads());
+googletag.defineSlot('/1234567/sports', [160, 600], 'div-2').setCollapseEmptyDiv(true).addService(googletag.pubads());
 // The above will cause the div for this slot to be collapsed
 // only after GPT detects that no ads are available for the slot.
 
 // DEMO 51
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setForceSafeFrame(true).
-    addService(googletag.pubads());
+googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').setForceSafeFrame(true).addService(googletag.pubads());
 
 // DEMO 52
 googletag.pubads().setForceSafeFrame(true);
 
 // The following slot will have a sandboxed safeframe that only disallows
 // top-level navigation.
-googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    setSafeFrameConfig({ sandbox: true }).
-    addService(googletag.pubads());
+googletag
+    .defineSlot('/1234567/sports', [160, 600], 'div-1')
+    .setSafeFrameConfig({ sandbox: true })
+    .addService(googletag.pubads());
 
-googletag.defineSlot('/1234567/news', [160, 600], 'div-2').
-    addService(googletag.pubads());
+googletag.defineSlot('/1234567/news', [160, 600], 'div-2').addService(googletag.pubads());
 
 // googletag.display();
 
 // DEMO 53
-slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').
-    addService(googletag.pubads());
+slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1').addService(googletag.pubads());
 
 // Example with a single value for a key.
 slot.setTargeting('allow_expandable', 'true');
@@ -478,16 +479,15 @@ slot.setTargeting('interests', ['sports', 'music', 'movies']);
 slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1');
 slot.updateTargetingFromMap({
     color: 'red',
-    interests: ['sports', 'music', 'movies']
+    interests: ['sports', 'music', 'movies'],
 });
 
 // DEMO 55
 // This listener will be called when an impression becomes viewable.
 targetSlot = {};
-googletag.pubads().addEventListener('impressionViewable', (event: googletag.events.ImpressionViewableEvent) => {
+googletag.pubads().addEventListener('impressionViewable', event => {
     slot = event.slot;
-    console.log(
-        'Impression for slot', slot.getSlotElementId(), 'became viewable.');
+    console.log('Impression for slot', slot.getSlotElementId(), 'became viewable.');
 
     if (slot === targetSlot) {
         // Slot specific logic.
@@ -497,10 +497,9 @@ googletag.pubads().addEventListener('impressionViewable', (event: googletag.even
 // DEMO 56
 // This listener will be called when a creative iframe load event fires.
 targetSlot = {};
-googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotOnloadEvent) => {
+googletag.pubads().addEventListener('slotOnload', event => {
     slot = event.slot;
-    console.log(
-        'Creative iframe for slot', slot.getSlotElementId(), 'has loaded.');
+    console.log('Creative iframe for slot', slot.getSlotElementId(), 'has loaded.');
 
     if (slot === targetSlot) {
         // Slot specific logic.
@@ -510,7 +509,7 @@ googletag.pubads().addEventListener('slotOnload', (event: googletag.events.SlotO
 // DEMO 57
 // This listener will be called when a slot has finished rendering.
 targetSlot = {};
-googletag.pubads().addEventListener('slotRenderEnded', (event: googletag.events.SlotRenderEndedEvent) => {
+googletag.pubads().addEventListener('slotRenderEnded', event => {
     slot = event.slot;
     console.group('Slot', slot.getSlotElementId(), 'finished rendering.');
 
@@ -521,10 +520,8 @@ googletag.pubads().addEventListener('slotRenderEnded', (event: googletag.events.
     console.log('Is empty?:', event.isEmpty);
     console.log('Line Item ID:', event.lineItemId);
     console.log('Size:', event.size);
-    console.log(
-        'Source Agnostic Creative ID:', event.sourceAgnosticCreativeId);
-    console.log(
-        'Source Agnostic Line Item ID:', event.sourceAgnosticLineItemId);
+    console.log('Source Agnostic Creative ID:', event.sourceAgnosticCreativeId);
+    console.log('Source Agnostic Line Item ID:', event.sourceAgnosticLineItemId);
     console.groupEnd();
 
     if (slot === targetSlot) {
@@ -538,7 +535,7 @@ googletag.pubads().addEventListener('slotRenderEnded', (event: googletag.events.
 // be batched together in a single request if single request architecture
 // (SRA) is enabled.
 targetSlot = {};
-googletag.pubads().addEventListener('slotRequested', (event: googletag.events.SlotRequestedEvent) => {
+googletag.pubads().addEventListener('slotRequested', event => {
     slot = event.slot;
     console.log('Slot', slot.getSlotElementId(), 'has been requested.');
 
@@ -551,34 +548,28 @@ googletag.pubads().addEventListener('slotRequested', (event: googletag.events.Sl
 // This listener will be called when an ad response has been received for
 // a slot.
 targetSlot = {};
-googletag.pubads().addEventListener('slotResponseReceived',
-    (event: googletag.events.SlotResponseReceived) => {
-        slot = event.slot;
-        console.log(
-            'Ad response for slot', slot.getSlotElementId(), 'received.');
+googletag.pubads().addEventListener('slotResponseReceived', event => {
+    slot = event.slot;
+    console.log('Ad response for slot', slot.getSlotElementId(), 'received.');
 
-        if (slot === targetSlot) {
-            // Slot specific logic.
-        }
+    if (slot === targetSlot) {
+        // Slot specific logic.
     }
-);
+});
 
 // DEMO 60
 // This listener will be called whenever the on-screen percentage of an ad
 // slot's area changes.
 targetSlot = {};
-googletag.pubads().addEventListener('slotVisibilityChanged',
-    (event: googletag.events.SlotVisibilityChangedEvent) => {
-        slot = event.slot;
-        console.group(
-            'Visibility of slot', slot.getSlotElementId(), 'changed.');
+googletag.pubads().addEventListener('slotVisibilityChanged', event => {
+    slot = event.slot;
+    console.group('Visibility of slot', slot.getSlotElementId(), 'changed.');
 
-        // Log details of the event.
-        console.log('Visible area:', event.inViewPercentage + '%');
-        console.groupEnd();
+    // Log details of the event.
+    console.log('Visible area:', event.inViewPercentage + '%');
+    console.groupEnd();
 
-        if (slot === targetSlot) {
-            // Slot specific logic.
-        }
+    if (slot === targetSlot) {
+        // Slot specific logic.
     }
-);
+});

@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Collapse extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Collapse.Options>);
@@ -25,6 +25,7 @@ declare class Collapse extends BaseComponent {
     hide(): void;
 
     static getInstance: GetInstanceFactory<Collapse>;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Collapse>;
     static jQueryInterface: Collapse.jQueryInterface;
 
     // static NAME: 'collapse';

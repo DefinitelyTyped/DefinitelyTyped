@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.93.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -165,6 +165,31 @@ declare module "sap/ui/integration/ActionDefinition" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.integration.ActionDefinition with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ActionDefinition>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.integration.ActionDefinition.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -223,27 +248,6 @@ declare module "sap/ui/integration/ActionDefinition" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.integration.ActionDefinition with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ActionDefinition>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -275,10 +279,6 @@ declare module "sap/ui/integration/ActionDefinition" {
      * The icon of the action button.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.integration.ActionDefinition.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getParameters parameters}.
      *
@@ -449,7 +449,7 @@ declare module "sap/ui/integration/ActionDefinition" {
     /**
      * Fired when the action button is pressed.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -530,13 +530,13 @@ declare module "sap/ui/integration/Designtime" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Returns an interface to the card, which uses this extension.
-     */
-    getCard(): CardFacade;
-    /**
      * Returns a metadata object for class sap.ui.integration.Designtime.
      */
     static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Returns an interface to the card, which uses this extension.
+     */
+    getCard(): CardFacade;
   }
 
   export interface $DesigntimeSettings extends $ManagedObjectSettings {}
@@ -871,6 +871,31 @@ declare module "sap/ui/integration/Extension" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.integration.Extension with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Extension>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.integration.Extension.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Extension`.
@@ -933,27 +958,6 @@ declare module "sap/ui/integration/Extension" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.integration.Extension with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Extension>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Fires event {@link #event:action action} to attached listeners.
@@ -1010,10 +1014,6 @@ declare module "sap/ui/integration/Extension" {
      */
     getFormatters(): object;
     /**
-     * Returns a metadata object for class sap.ui.integration.Extension.
-     */
-    static getMetadata(): ManagedObjectMetadata;
-    /**
      * Called when the card is ready.
      */
     onCardReady(): void;
@@ -1040,7 +1040,7 @@ declare module "sap/ui/integration/Extension" {
      *
      * Fired when an action is triggered in the card.
      */
-    action?: Function;
+    action?: (oEvent: Event) => void;
   }
 }
 
@@ -1097,6 +1097,31 @@ declare module "sap/ui/integration/Host" {
       mSettings?: $HostSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.integration.Host with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Host>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.integration.Host.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @EXPERIMENTAL (since 1.75)
      *
@@ -1222,27 +1247,6 @@ declare module "sap/ui/integration/Host" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.integration.Host with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Host>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Fires event {@link #event:action action} to attached listeners.
@@ -1349,10 +1353,6 @@ declare module "sap/ui/integration/Host" {
      */
     getDestinations(): Promise<any>;
     /**
-     * Returns a metadata object for class sap.ui.integration.Host.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getResolveDestination resolveDestination}.
      *
      * A function that resolves the given destination name to a URL.
@@ -1430,14 +1430,14 @@ declare module "sap/ui/integration/Host" {
      *
      * Fired when an action is triggered.
      */
-    action?: Function;
+    action?: (oEvent: Event) => void;
 
     /**
      * @EXPERIMENTAL (since 1.91)
      *
      * Fired when a message from channels like navigator.serviceWorker is received.
      */
-    message?: Function;
+    message?: (oEvent: Event) => void;
   }
 }
 
@@ -1547,6 +1547,31 @@ declare module "sap/ui/integration/widgets/Card" {
       mSettings?: $CardSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.integration.widgets.Card with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.CardBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Card>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.integration.widgets.Card.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
@@ -1757,27 +1782,6 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.integration.widgets.Card with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.CardBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Card>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @EXPERIMENTAL (since 1.64)
      *
      * Fires event {@link #event:action action} to attached listeners.
@@ -1939,10 +1943,6 @@ declare module "sap/ui/integration/widgets/Card" {
        */
       sPath: string
     ): Object;
-    /**
-     * Returns a metadata object for class sap.ui.integration.widgets.Card.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @EXPERIMENTAL (since 1.83)
      *
@@ -2376,6 +2376,12 @@ declare module "sap/ui/integration/widgets/Card" {
       iIndex: int
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.65)
+     *
+     * Refreshes the card by re-applying the manifest settings and triggering all data requests.
+     */
+    refresh(): void;
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
      *
@@ -2572,14 +2578,14 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Fired when an action is triggered on the card.
      */
-    action?: Function;
+    action?: (oEvent: Event) => void;
 
     /**
      * @EXPERIMENTAL (since 1.72)
      *
      * Fired when the manifest is loaded.
      */
-    manifestReady?: Function;
+    manifestReady?: (oEvent: Event) => void;
 
     /**
      * Fired when card utilities (like `DataProviderFactory`) and the card elements (like header) are created
@@ -2587,7 +2593,7 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Note: The card's content may not be available yet because it may depend on other resources to load.
      */
-    manifestApplied?: Function;
+    manifestApplied?: (oEvent: Event) => void;
   }
 }
 

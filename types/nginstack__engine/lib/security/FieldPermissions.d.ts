@@ -14,15 +14,11 @@ declare class FieldPermissions {
             allowNonClassFields: boolean;
         }
     );
-    allowNonClassFields_: boolean;
-    classKey_: number;
-    userKey_: number;
-    visibilityPermissions_: {
-        [x: string]: string;
-    };
-    changeabilityPermissions_: {
-        [x: string]: string;
-    };
+    private allowNonClassFields_;
+    private classKey_;
+    private userKey_;
+    private visibilityPermissions_;
+    private changeabilityPermissions_;
     isVisible(fieldName: string): boolean;
     isChangeable(fieldName: string): boolean;
     private getFieldPermission_;

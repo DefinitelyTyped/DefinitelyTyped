@@ -102,6 +102,10 @@ export class Fragment<S extends Schema = any> {
         f: (node: ProsemirrorNode<S>, pos: number, parent: ProsemirrorNode<S>) => boolean | null | undefined | void,
     ): void;
     /**
+     * Extract the text between `from` and `to`. See the same method on {@link ProsemirrorNode.textBetween}
+     */
+    textBetween(from: number, to: number, blockSeparator?: string | null, leafText?: string | null): string;
+    /**
      * Create a new fragment containing the combined content of this
      * fragment and the other.
      */

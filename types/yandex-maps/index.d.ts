@@ -2439,6 +2439,87 @@ declare namespace ymaps {
         const presetStorage: util.Storage;
     }
 
+    namespace pane {
+        class EventsPane implements IEventPane {
+            constructor(map: Map, params: {
+                className?: string,
+                css?: CSSStyleDeclaration;
+                patch?: {
+                    selectable?: boolean;
+                },
+                transparent?: boolean;
+                checkContextMenu?: boolean;
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+        }
+
+        class MovablePane implements IContainerPane {
+            constructor(map: Map, params: {
+                css?: CSSStyleDeclaration;
+                margin?: number;
+                overflow?: 'hidden' | 'visible';
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            fromClientPixels(clientPixelPoint: number[]): number[];
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+
+            getZoom(): number;
+
+            toClientPixels(globalPixelPoint: number[]): number[];
+        }
+
+        class StaticPane implements IContainerPane {
+            constructor(map: Map, params: {
+                css?: CSSStyleDeclaration;
+                margin?: number;
+                overflow?: 'visible' | 'hidden';
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            fromClientPixels(clientPixelPoint: number[]): number[];
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+
+            getZoom(): number;
+
+            toClientPixels(globalPixelPoint: number[]): number[];
+        }
+    }
+
     namespace panorama {
         type Layer = 'yandex#panorama' | 'yandex#airPanorama';
 
@@ -2732,6 +2813,15 @@ declare namespace ymaps {
 
             shift(offset: number[]): IShape;
         }
+    }
+
+    interface meta {
+        coordinatesOrder: 'latlong' | 'longlat';
+        countryCode: string;
+        languageCode: string;
+        mode: 'release' | 'debug';
+        ns: typeof ymaps;
+        version: string;
     }
 
     class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
@@ -3365,7 +3455,7 @@ declare namespace ymaps {
         iconOffset?: number[] | undefined;
         iconShape?: IGeometryJson | null | undefined;
         interactiveZIndex?: boolean | undefined;
-        interactivityModel?: string | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
         openBalloonOnClick?: boolean | undefined;
         openEmptyBalloon?: boolean | undefined;
         openEmptyHint?: boolean | undefined;
@@ -3396,7 +3486,7 @@ declare namespace ymaps {
         hasBalloon?: boolean | undefined;
         hasHint?: boolean | undefined;
         interactiveZIndex?: boolean | undefined;
-        interactivityModel?: string | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
         opacity?: number | undefined;
         openBalloonOnClick?: boolean | undefined;
         openEmptyBalloon?: boolean | undefined;
@@ -3428,7 +3518,7 @@ declare namespace ymaps {
         hasBalloon?: boolean | undefined;
         hasHint?: boolean | undefined;
         interactiveZIndex?: boolean | undefined;
-        interactivityModel?: string | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
         lineStringOverlay?: (() => object | string) | undefined;
         opacity?: number | undefined;
         openBalloonOnClick?: boolean | undefined;
@@ -3495,7 +3585,11 @@ declare namespace ymaps {
     }
 
     namespace templateLayoutFactory {
-        function createClass(template: string, overrides?: object, staticMethods?: object): IClassConstructor<layout.templateBased.Base>;
+        function createClass<O extends {} = {}, S extends {} = {}>(
+            template: string,
+            overrides?: O,
+            staticMethods?: S
+        ): IClassConstructor<layout.templateBased.Base & O & S>;
     }
 
     namespace util {
@@ -3538,11 +3632,25 @@ declare namespace ymaps {
         class Promise {
             constructor(resolver?: () => void);
 
-            done(onFulfilled?: () => void, onRejected?: () => void, onProgress?: () => void, ctx?: object): void;
+            done(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                onProgress?: (...args: any[]) => void,
+                ctx?: object
+            ): void;
 
-            spread(onFulfilled?: () => void, onRejected?: () => void, ctx?: object): Promise;
+            spread(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                ctx?: object
+            ): Promise;
 
-            then(onFulfilled?: () => void, onRejected?: () => void, onProgress?: () => void, ctx?: object): Promise;
+            then(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                onProgress?: (...args: any[]) => void,
+                ctx?: object
+            ): Promise;
 
             valueOf(): object;
         }
@@ -3615,7 +3723,9 @@ declare namespace ymaps {
         remove(object: object): this;
     }
 
-    interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface
+    interface IContainerPane extends IPane, IPositioningContext {}
+
+    interface IControl extends IChildOnMap { // tslint:disable-line no-empty-interface
         // new (options?: object);
     }
 
@@ -3722,6 +3832,8 @@ declare namespace ymaps {
 
         setParent(parent: object | null): this;
     }
+
+    interface IEventPane extends IDomEventEmitter, IPane {}
 
     interface IEventTrigger {
         fire(type: string, eventObject?: object | IEvent): this;
@@ -4472,6 +4584,11 @@ declare namespace ymaps {
     }
 
     namespace modules {
+        type ResolveCallbackFunction = (provide: (module: any, error?: any) => void, ...depends: any[]) => void;
+
+        function define(module: string, depends?: string[], resolveCallback?: ResolveCallbackFunction, context?: object): typeof modules;
+        function define(module: string, resolveCallback?: ResolveCallbackFunction, context?: object): typeof modules;
+
         function require(modules: string | string[]): vow.Promise;
 
         function isDefined(module: string): boolean;

@@ -8,6 +8,8 @@ new Tooltip(element, { delay: 0.5, title: () => "foo", customClass: () => "custo
 
 // $ExpectType Tooltip | null
 Tooltip.getInstance(element);
+// $ExpectType Tooltip
+Tooltip.getOrCreateInstance(element);
 
 // $ExpectType string
 Tooltip.VERSION;

@@ -16,7 +16,7 @@ declare class EntityError {
         opt_fields?: string[] | string,
         ...args: any[]
     );
-    _name: string;
+    private _name;
     fields: string[];
 }
 declare namespace EntityError {

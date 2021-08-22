@@ -5,10 +5,10 @@ declare function DataSourceColumns(
 ): void;
 declare class DataSourceColumns {
     constructor(opt_dataSource?: any, opt_colsDefs?: DataSourceColumnDef[]);
-    columnsArray_: any[];
-    columnsByName_: any;
-    columnsByAlias_: any;
-    indexByName_: Record<string, number>;
+    private columnsArray_;
+    private columnsByName_;
+    private columnsByAlias_;
+    private indexByName_;
     private postProcessingInfo_;
     private newDynColumn_;
     private unshare_;

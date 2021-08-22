@@ -46,7 +46,7 @@ declare namespace PinoHttp {
     }
 
     interface AutoLoggingOptions {
-        ignorePaths?: string[] | undefined;
+        ignorePaths?: Array<string | RegExp> | undefined;
         getPath?: ((req: IncomingMessage) => string | undefined) | undefined;
     }
 

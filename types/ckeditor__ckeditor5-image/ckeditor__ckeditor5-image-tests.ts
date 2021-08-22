@@ -172,3 +172,88 @@ ImageStyleUtils.isValidOption({ name: 'foo' }, { isBlockPluginLoaded: true, isIn
 
 new PictureEditing(editor).afterInit();
 PictureEditing.requires.forEach(Plugin => new Plugin(editor));
+
+//
+// ImageConfig
+//
+new MyEditor({
+    image: {
+        insert: {
+           type: 'inline'
+        },
+        resizeOptions: [
+            {
+                name: 'resizeImage:25',
+                value: '25',
+                icon: 'small',
+                label: 'Small'
+            }
+        ],
+        resizeUnit: '%',
+        styles: {
+            options: [
+                {
+                    name: 'fullSize',
+                    icon: '<svg></svg>',
+                    title: 'Full size image',
+                    className: 'image-full-size',
+                    modelElements: [ 'imageBlock', 'imageInline' ]
+                }
+            ]
+        },
+        toolbar: [
+            'imageStyle:inline', 'imageStyle:wrapText', 'imageStyle:breakText', '|',
+            'toggleImageCaption', 'imageTextAlternative'
+        ],
+        upload: {
+            types: [ 'png', 'jpeg' ]
+        }
+    }
+});
+
+// Everything is optional
+new MyEditor({
+    image: {}
+});
+
+// resizeOptions require only name and value
+new MyEditor({
+    image: {
+        resizeOptions: [
+            {
+                name: 'resizeImage:25',
+                value: '25',
+            }
+        ],
+    }
+});
+
+// styles options require only name
+new MyEditor({
+    image: {
+        styles: {
+            options: [
+                {
+                    name: 'fullSize',
+                }
+            ]
+        },
+    }
+});
+
+// styles options supports strings and objects
+new MyEditor({
+    image: {
+        styles: {
+            options: [
+                {
+                    name: 'fullSize',
+                    icon: '<svg></svg>',
+                    title: 'Full size image',
+                    className: 'image-full-size',
+                },
+                '50%',
+            ],
+        },
+    },
+});

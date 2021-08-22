@@ -5,6 +5,7 @@
 // TypeScript Version: 2.3
 
 import * as Koa from "koa";
+import * as Ejs from 'ejs';
 
 declare module "Koa" {
   interface ExtendableContext {
@@ -39,7 +40,7 @@ declare namespace koaEjs {
     /**
      * The ejs API.
      */
-    const ejs: any;
+    const ejs: typeof Ejs;
 }
 
 export = koaEjs;

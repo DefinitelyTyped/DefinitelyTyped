@@ -2,13 +2,10 @@ export = Adapter;
 declare function Adapter(emitter: Emitter, descriptor: AdapterDescriptor | Record<any, any>): void;
 declare class Adapter {
     constructor(emitter: Emitter, descriptor: AdapterDescriptor | Record<any, any>);
-    emitter_: Emitter;
-    descriptor_: Emitter;
+    private emitter_;
+    private descriptor_;
     private updateEventWithArguments_;
-    nonDescribedParameters_: {
-        event: import('./Event');
-        parameters: any[];
-    };
+    private nonDescribedParameters_;
     isEmpty: boolean;
     duplicates: string;
     clear(): void;

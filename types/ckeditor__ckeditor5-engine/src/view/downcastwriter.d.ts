@@ -6,6 +6,7 @@ import EditableElement from "./editableelement";
 import Element from "./element";
 import EmptyElement from "./emptyelement";
 import { Item } from "./item";
+import Node from "./node";
 import Position from "./position";
 import Range from "./range";
 import RawElement from "./rawelement";

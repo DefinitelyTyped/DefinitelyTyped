@@ -2,11 +2,11 @@ export = HtmlToPdf;
 declare function HtmlToPdf(canSendToServer: boolean): void;
 declare class HtmlToPdf {
     constructor(canSendToServer: boolean);
-    pages_: any[];
-    resources_: any[];
-    operationType_: number;
-    workDir_: string;
-    logger_: Logger;
+    private pages_;
+    private resources_;
+    private operationType_;
+    private workDir_;
+    private logger_;
     timeout: number;
     transferEncoding: string;
     copies: number;
@@ -42,25 +42,12 @@ declare class HtmlToPdf {
     private tryExecuteApp_;
     private buildCommand_;
     private updateAppPackage_;
-    htmlToPdfPath_: string;
-    htmlToPdfExec_: string;
+    private htmlToPdfPath_;
+    private htmlToPdfExec_;
     private encode_;
     private decode_;
     private buildRemotePayload_;
-    remotePayload_: {
-        options: {
-            orientation: string;
-            'page-size': string;
-            copies: number;
-            grayscale: true;
-            title: string;
-        };
-        extraArguments: string;
-        pages: any[];
-        resources: any[];
-        timeout: number;
-        transferEncoding: string;
-    };
+    private remotePayload_;
     private isAppAvailableOnEnvironment_;
     private printWithEmbeddedApp_;
     private printWithEnvironmentApp_;
@@ -73,4 +60,3 @@ declare namespace HtmlToPdf {
         type localFileAction = string;
     }
 }
-import Logger = require('../log/Logger.js');
