@@ -58,7 +58,7 @@ export class Image extends RichResponse {
 export class Payload extends RichResponse {
     payload: any;
 
-    constructor(platform: Platforms, payload: any, options?: { sendAsMessage?: boolean; rawPayload?: boolean });
+    constructor(platform: Platforms, payload: any, options?: { sendAsMessage?: boolean | undefined; rawPayload?: boolean | undefined });
 
     setPayload(payload: string): Payload;
 

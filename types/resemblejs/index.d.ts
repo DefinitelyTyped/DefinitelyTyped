@@ -27,17 +27,17 @@ declare namespace Resemble {
             red: number;
             green: number;
             blue: number;
-        };
-        errorType?: 'flat' | 'movement' | 'flatDifferenceIntensity' | 'movementDifferenceIntensity' | 'diffOnly';
-        errorPixel?: (px: number[], offset: number, d1: ResembleColor, d2: ResembleColor) => void;
-        transparency?: number;
-        largeImageThreshold?: number;
-        useCrossOrigin?: boolean;
-        boundingBox?: ResembleBox;
-        ignoredBox?: ResembleBox;
-        boundingBoxes?: ResembleBox[];
-        ignoredBoxes?: ResembleBox[];
-        ignoreAreasColoredWith?: ResembleColor;
+        } | undefined;
+        errorType?: 'flat' | 'movement' | 'flatDifferenceIntensity' | 'movementDifferenceIntensity' | 'diffOnly' | undefined;
+        errorPixel?: ((px: number[], offset: number, d1: ResembleColor, d2: ResembleColor) => void) | undefined;
+        transparency?: number | undefined;
+        largeImageThreshold?: number | undefined;
+        useCrossOrigin?: boolean | undefined;
+        boundingBox?: ResembleBox | undefined;
+        ignoredBox?: ResembleBox | undefined;
+        boundingBoxes?: ResembleBox[] | undefined;
+        ignoredBoxes?: ResembleBox[] | undefined;
+        ignoreAreasColoredWith?: ResembleColor | undefined;
     }
 
     interface ResembleAnalysis {
@@ -140,10 +140,10 @@ declare namespace Resemble {
     ): Promise<ResembleSingleCallbackComparisonResult>;
 
     interface ResembleSingleCallbackComparisonOptions {
-        output?: OutputSettings;
-        returnEarlyThreshold?: number;
-        scaleToSameSize?: boolean;
-        ignore?: 'nothing' | 'less' | 'antialiasing' | 'colors' | 'alpha';
+        output?: OutputSettings | undefined;
+        returnEarlyThreshold?: number | undefined;
+        scaleToSameSize?: boolean | undefined;
+        ignore?: 'nothing' | 'less' | 'antialiasing' | 'colors' | 'alpha' | undefined;
     }
 
     interface ResembleSingleCallbackComparisonResult extends ResembleComparisonResult {

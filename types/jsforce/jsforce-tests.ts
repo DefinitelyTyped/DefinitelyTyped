@@ -621,11 +621,16 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
         },
         deploymentStatus: 'InDevelopment',
         sharingModel: 'Private'
+    }, {
+        fullName: `TestObject`,
+        label: 'Test Object',
+        pluralLabel: `Test Objects`
     }];
 
     const result: sf.SaveResult | sf.SaveResult[] = await md.create('CustomObject', metadata);
     console.log(`created ${(result as sf.SaveResult[])[0].fullName} - ${(result as sf.SaveResult[])[0].success}`);
     console.log(`created ${(result as sf.SaveResult[])[1].fullName} - ${(result as sf.SaveResult[])[1].success}`);
+    console.log(`failed with error: ${((result as sf.SaveResult[])[2].errors as sf.SaveError).message}`);
 
     const fullNames2: string[] = [`TestObject${now}__c`, `TestObject${now2}__c`];
     const result2: sf.SaveResult | sf.SaveResult[] =

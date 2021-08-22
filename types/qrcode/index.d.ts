@@ -16,18 +16,18 @@ export interface QRCodeOptions {
     /**
      * QR Code version. If not specified the more suitable value will be calculated.
      */
-    version?: number;
+    version?: number | undefined;
     /**
      * Error correction level.
      * Possible values are low, medium, quartile, high or L, M, Q, H.
      * Default: M
      */
-    errorCorrectionLevel?: QRCodeErrorCorrectionLevel;
+    errorCorrectionLevel?: QRCodeErrorCorrectionLevel | undefined;
     /**
      * Helper function used internally to convert a kanji to its Shift JIS value.
      * Provide this function if you need support for Kanji mode.
      */
-    toSJISFunc?: (codePoint: string) => number;
+    toSJISFunc?: ((codePoint: string) => number) | undefined;
 }
 
 export interface QRCodeToDataURLOptions extends QRCodeRenderersOptions {
@@ -35,14 +35,14 @@ export interface QRCodeToDataURLOptions extends QRCodeRenderersOptions {
      * Data URI format.
      * Default: image/png
      */
-    type?: 'image/png' | 'image/jpeg' | 'image/webp';
+    type?: 'image/png' | 'image/jpeg' | 'image/webp' | undefined;
     rendererOpts?: {
         /**
          * A Number between 0 and 1 indicating image quality if the requested type is image/jpeg or image/webp.
          * Default: 0.92
          */
-        quality?: number;
-    };
+        quality?: number | undefined;
+    } | undefined;
 }
 
 export interface QRCodeToStringOptions extends QRCodeRenderersOptions {
@@ -50,7 +50,7 @@ export interface QRCodeToStringOptions extends QRCodeRenderersOptions {
      * Output format.
      * Default: utf8
      */
-    type?: 'utf8' | 'svg' | 'terminal';
+    type?: 'utf8' | 'svg' | 'terminal' | undefined;
 }
 
 export interface QRCodeToFileOptions extends QRCodeRenderersOptions {
@@ -58,57 +58,57 @@ export interface QRCodeToFileOptions extends QRCodeRenderersOptions {
      * Output format.
      * Default: png
      */
-    type?: 'png' | 'svg' | 'utf8';
+    type?: 'png' | 'svg' | 'utf8' | undefined;
     rendererOpts?: {
         /**
          * Compression level for deflate.
          * Default: 9
          */
-        deflateLevel?: number;
+        deflateLevel?: number | undefined;
         /**
          * Compression strategy for deflate.
          * Default: 3
          */
-        deflateStrategy?: number;
-    };
+        deflateStrategy?: number | undefined;
+    } | undefined;
 }
 
 export interface QRCodeToFileStreamOptions extends QRCodeRenderersOptions {
     /**
      * Output format. Only png supported for file stream
      */
-    type?: 'png';
+    type?: 'png' | undefined;
     rendererOpts?: {
         /**
          * Compression level for deflate.
          * Default: 9
          */
-        deflateLevel?: number;
+        deflateLevel?: number | undefined;
         /**
          * Compression strategy for deflate.
          * Default: 3
          */
-        deflateStrategy?: number;
-    };
+        deflateStrategy?: number | undefined;
+    } | undefined;
 }
 
 export interface QRCodeToBufferOptions extends QRCodeRenderersOptions {
     /**
      * Output format. Only png supported for Buffer.
      */
-    type?: 'png';
+    type?: 'png' | undefined;
     rendererOpts?: {
         /**
          * Compression level for deflate.
          * Default: 9
          */
-        deflateLevel?: number;
+        deflateLevel?: number | undefined;
         /**
          * Compression strategy for deflate.
          * Default: 3
          */
-        deflateStrategy?: number;
-    };
+        deflateStrategy?: number | undefined;
+    } | undefined;
 }
 
 export interface QRCodeRenderersOptions extends QRCodeOptions {
@@ -116,31 +116,31 @@ export interface QRCodeRenderersOptions extends QRCodeOptions {
      * Define how much wide the quiet zone should be.
      * Default: 4
      */
-    margin?: number;
+    margin?: number | undefined;
     /**
      * Scale factor. A value of 1 means 1px per modules (black dots).
      * Default: 4
      */
-    scale?: number;
+    scale?: number | undefined;
     /**
      * Forces a specific width for the output image.
      * If width is too small to contain the qr symbol, this option will be ignored.
      * Takes precedence over scale.
      */
-    width?: number;
+    width?: number | undefined;
     color?: {
         /**
          * Color of dark module. Value must be in hex format (RGBA).
          * Note: dark color should always be darker than color.light.
          * Default: #000000ff
          */
-        dark?: string;
+        dark?: string | undefined;
         /**
          * Color of light module. Value must be in hex format (RGBA).
          * Default: #ffffffff
          */
-        light?: string;
-    };
+        light?: string | undefined;
+    } | undefined;
 }
 
 export interface QRCodeSegment {

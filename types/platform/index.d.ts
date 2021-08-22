@@ -13,14 +13,14 @@ interface Platform {
     /**
      * The platform description.
      */
-    description?: string;
+    description?: string | undefined;
     /**
      * The name of the browser's layout engine.
      *
      * The list of common layout engines include:
      * "Blink", "EdgeHTML", "Gecko", "Trident" and "WebKit"
      */
-    layout?: string;
+    layout?: string | undefined;
     /**
      * The name of the product's manufacturer.
      *
@@ -29,7 +29,7 @@ interface Platform {
      * "Google", "HP", "HTC", "LG", "Microsoft", "Motorola", "Nintendo",
      * "Nokia", "Samsung" and "Sony"
      */
-    manufacturer?: string;
+    manufacturer?: string | undefined;
     /**
      * The name of the browser/environment.
      *
@@ -41,11 +41,11 @@ interface Platform {
      * Mobile versions of some browsers have "Mobile" appended to their name:
      * eg. "Chrome Mobile", "Firefox Mobile", "IE Mobile" and "Opera Mobile"
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * The alpha/beta release indicator.
      */
-    prerelease?: string;
+    prerelease?: string | undefined;
     /**
      * The name of the product hosting the browser.
      *
@@ -54,19 +54,19 @@ interface Platform {
      * "BlackBerry", "Galaxy S4", "Lumia", "iPad", "iPod", "iPhone", "Kindle",
      * "Kindle Fire", "Nexus", "Nook", "PlayBook", "TouchPad" and "Transformer"
      */
-    product?: string;
+    product?: string | undefined;
     /**
      * The browser's user agent string.
      */
-    ua?: string;
+    ua?: string | undefined;
     /**
      * The version of the OS.
      */
-    version?: string;
+    version?: string | undefined;
     /**
      * The name of the operating system.
      */
-    os?: OperatingSystem;
+    os?: OperatingSystem | undefined;
     /**
      * Creates a new platform object.
      * @param [ua=navigator.userAgent] The user agent string or
@@ -83,7 +83,7 @@ interface OperatingSystem {
     /**
      * The CPU architecture the OS is built for.
      */
-    architecture?: number;
+    architecture?: number | undefined;
     /**
      * The family of the OS.
      *
@@ -92,11 +92,11 @@ interface OperatingSystem {
      * "Windows XP", "OS X", "Linux", "Ubuntu", "Debian", "Fedora", "Red Hat",
      * "SuSE", "Android", "iOS" and "Windows Phone"
      */
-    family?: string;
+    family?: string | undefined;
     /**
      * The version of the OS.
      */
-    version?: string;
+    version?: string | undefined;
     /**
      * Returns the OS string.
      */

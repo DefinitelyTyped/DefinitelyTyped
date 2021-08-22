@@ -1,5 +1,5 @@
 import * as Popper from "@popperjs/core";
-import BaseComponent from "./base-component";
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Tooltip extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Tooltip.Options>);
@@ -49,11 +49,9 @@ declare class Tooltip extends BaseComponent {
      */
     update(): void;
 
-    /**
-     * Static method which allows you to get the tooltip instance associated
-     * with a DOM element
-     */
-    static getInstance(element: Element): Tooltip;
+    static getInstance: GetInstanceFactory<Tooltip>;
+
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Tooltip>;
 
     static jQueryInterface: Tooltip.jQueryInterface;
 
@@ -281,7 +279,7 @@ declare namespace Tooltip {
          *
          * @default ''
          */
-        customClass?: string | (() => string);
+        customClass?: string | (() => string) | undefined;
 
         /**
          * Enable or disable the sanitization. If activated 'template' and

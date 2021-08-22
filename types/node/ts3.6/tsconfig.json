@@ -7,8 +7,6 @@
         "module": "commonjs",
         "target": "esnext",
         "lib": [
-            "es2018",
-            "ES2018.AsyncGenerator",
             "dom"
         ],
         "noImplicitAny": true,

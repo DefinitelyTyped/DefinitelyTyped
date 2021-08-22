@@ -15,15 +15,15 @@ declare namespace CopyToClipboard {
     class CopyToClipboard extends React.PureComponent<Props> {}
 
     interface Options {
-        debug?: boolean;
-        message?: string;
-        format?: string; // MIME type
+        debug?: boolean | undefined;
+        message?: string | undefined;
+        format?: string | undefined; // MIME type
     }
 
     interface Props {
         text: string;
         onCopy?(text: string, result: boolean): void;
-        options?: Options;
+        options?: Options | undefined;
     }
 }
 

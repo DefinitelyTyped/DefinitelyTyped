@@ -5,6 +5,7 @@
 // TypeScript Version: 2.3
 
 import * as Koa from "koa";
+import * as Ejs from 'ejs';
 
 declare module "Koa" {
   interface ExtendableContext {
@@ -23,23 +24,23 @@ declare namespace koaEjs {
         /** View root directory */
         root: string;
         /** Global layout file, default is layout, set false to disable layout. */
-        layout?: string | false;
+        layout?: string | false | undefined;
         /** Filename extension for the views. Defaults to html. */
-        viewExt?: string;
+        viewExt?: string | undefined;
         /** Cache compiled templates */
-        cache?: boolean;
+        cache?: boolean | undefined;
         /** Log debug messages. */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /** Character to use with angle brackets for open / close (default %). */
-        delimiter?: string;
+        delimiter?: string | undefined;
         /** When true, EJS will use an async function for rendering. Depends on async/await support in the JS runtime */
-        async?: boolean;
+        async?: boolean | undefined;
     }
 
     /**
      * The ejs API.
      */
-    const ejs: any;
+    const ejs: typeof Ejs;
 }
 
 export = koaEjs;

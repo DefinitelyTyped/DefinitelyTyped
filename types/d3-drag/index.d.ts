@@ -1,13 +1,12 @@
-// Type definitions for D3JS d3-drag module 2.0
+// Type definitions for D3JS d3-drag module 3.0
 // Project: https://github.com/d3/d3-drag/, https://d3js.org/d3-drag
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-// Last module patch version validated against: 2.0.0
+// Last module patch version validated against: 3.0.0
 
 import { Selection, ValueFn } from 'd3-selection';
 
@@ -257,6 +256,7 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
  * The first generic refers to the type of element to be dragged.
  * The second generic refers to the type of the datum of the dragged element.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBehavior<GElement, Datum, Datum | SubjectPosition>;
 /**
  * Creates a new drag behavior. The returned behavior, drag, is both an object and a function, and is
@@ -268,6 +268,7 @@ export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBeha
  * The second generic refers to the type of the datum of the dragged element.
  * The third generic refers to the type of the drag behavior subject.
  */
+// tslint:disable-next-line:no-unnecessary-generics
 export function drag<GElement extends DraggedElementBaseType, Datum, Subject>(): DragBehavior<GElement, Datum, Subject>;
 
 /**

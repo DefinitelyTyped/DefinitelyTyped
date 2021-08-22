@@ -2,26 +2,28 @@ import { Color } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
 import { Combine } from '../constants';
+import { ColorRepresentation } from '../utils';
 /**
  * parameters is an object with one or more properties defining the material's appearance.
  */
 export interface MeshBasicMaterialParameters extends MaterialParameters {
-    color?: Color | string | number;
-    opacity?: number;
-    map?: Texture | null;
-    aoMap?: Texture | null;
-    aoMapIntensity?: number;
-    specularMap?: Texture | null;
-    alphaMap?: Texture | null;
-    envMap?: Texture | null;
-    combine?: Combine;
-    reflectivity?: number;
-    refractionRatio?: number;
-    wireframe?: boolean;
-    wireframeLinewidth?: number;
-    wireframeLinecap?: string;
-    wireframeLinejoin?: string;
-    morphTargets?: boolean;
+    color?: ColorRepresentation | undefined;
+    opacity?: number | undefined;
+    map?: Texture | null | undefined;
+    lightMap?: Texture | null;
+    lightMapIntensity?: number | undefined;
+    aoMap?: Texture | null | undefined;
+    aoMapIntensity?: number | undefined;
+    specularMap?: Texture | null | undefined;
+    alphaMap?: Texture | null | undefined;
+    envMap?: Texture | null | undefined;
+    combine?: Combine | undefined;
+    reflectivity?: number | undefined;
+    refractionRatio?: number | undefined;
+    wireframe?: boolean | undefined;
+    wireframeLinewidth?: number | undefined;
+    wireframeLinecap?: string | undefined;
+    wireframeLinejoin?: string | undefined;
 }
 
 export class MeshBasicMaterial extends Material {
@@ -41,6 +43,16 @@ export class MeshBasicMaterial extends Material {
      * @default null
      */
     map: Texture | null;
+
+    /**
+     * @default null
+     */
+    lightMap: Texture | null;
+
+    /**
+     * @default 1
+     */
+    lightMapIntensity: number;
 
     /**
      * @default null
@@ -101,11 +113,6 @@ export class MeshBasicMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
-
-    /**
-     * @default false
-     */
-    morphTargets: boolean;
 
     setValues(parameters: MeshBasicMaterialParameters): void;
 }

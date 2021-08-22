@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Options {
-    disk?: boolean;
-    filter?: (dir: string) => boolean;
+    disk?: boolean | undefined;
+    filter?: ((dir: string) => boolean) | undefined;
 }
 
 declare function du(dir: string, options?: Options): Promise<number>;

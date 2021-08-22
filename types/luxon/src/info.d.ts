@@ -2,33 +2,24 @@ import { CalendarSystem, NumberingSystem, StringUnitLength, UnitLength } from '.
 import { Zone } from './zone';
 
 export interface InfoOptions {
-    locale?: string;
+    locale?: string | undefined;
 }
 
 export interface InfoUnitOptions extends InfoOptions {
-    numberingSystem?: NumberingSystem;
+    numberingSystem?: NumberingSystem | undefined;
 }
 
 /** @deprecated */
 export type UnitOptions = InfoUnitOptions;
 
 export interface InfoCalendarOptions extends InfoUnitOptions {
-    outputCalendar?: CalendarSystem;
+    outputCalendar?: CalendarSystem | undefined;
 }
 
+/**
+ * The set of available features in this environment. Some features of Luxon are not available in all environments.
+ */
 export interface Features {
-    /**
-     * Whether this environment supports general internationalization
-     */
-    intl: boolean;
-    /**
-     * Whether this environment supports internationalized token-based formatting/parsing
-     */
-    intlTokens: boolean;
-    /**
-     * Whether this environment supports IANA timezones
-     */
-    zones: boolean;
     /**
      * Whether this environment supports relative time formatting
      */

@@ -20,25 +20,25 @@ declare namespace JQueryTipsy {
         *
         * default: 0
         */
-        delayIn?: number;
+        delayIn?: number | undefined;
         /**
         * delay before hiding  tooltip (ms)
         *
         * default: 0
         */
-        delayOut?: number;
+        delayOut?: number | undefined;
         /**
         * fade tooltips in/out?
         *
         * default: false
         */
-        fade?: boolean;
+        fade?: boolean | undefined;
         /**
         * fallback text to use when no tooltip text
         *
         * default: ''
         */
-        fallback?: string;
+        fallback?: string | undefined;
         /**
         * gravity
         *
@@ -50,25 +50,25 @@ declare namespace JQueryTipsy {
         *
         * default: false
         */
-        html?: boolean;
+        html?: boolean | undefined;
         /**
         * use live event support?
         *
         * default: false
         */
-        live?: boolean;
+        live?: boolean | undefined;
         /**
         * pixel offset of tooltip from element
         *
         * default: 0
         */
-        offset?: number;
+        offset?: number | undefined;
         /**
         * opacity of tooltip
         *
         * default: 0.8
         */
-        opacity?: number;
+        opacity?: number | undefined;
         /**
         * attribute/callback containing tooltip text
         *
@@ -80,7 +80,7 @@ declare namespace JQueryTipsy {
         *
         * default: 'hover'
         */
-        trigger?: string;
+        trigger?: string | undefined;
     }
 
     interface Tipsy {

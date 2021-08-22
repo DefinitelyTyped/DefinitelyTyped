@@ -4,7 +4,7 @@ import { Readable } from 'stream';
 
 declare namespace StreamQuery {
     interface StreamQueryInit<Q extends BaseQuad = Quad> extends QueryInit {
-        factory?: DataFactory<Q>;
+        factory?: DataFactory<Q> | undefined;
     }
 
     type StreamQuery<Q extends BaseQuad = Quad> = Query<boolean, Stream<Q> & Readable, Readable, void>;

@@ -6,7 +6,7 @@ import {
     IANAZone,
     Info,
     Interval,
-    LocalZone,
+    SystemZone,
     Settings,
     Zone,
     ZoneOffsetFormat,
@@ -30,9 +30,8 @@ const fromObject = DateTime.fromObject({
     month: 4,
     day: 22,
     hour: 12,
-    zone: "America/Los_Angeles",
     numberingSystem: "beng",
-});
+}, { zone: "America/Los_Angeles" });
 
 const ianaZone = new IANAZone("America/Los_Angeles");
 const testIanaZone = IANAZone.create("Europe/London");
@@ -50,16 +49,14 @@ testIanaZone.offsetName(dt.toMillis(), { format: "long" }); // $ExpectType strin
 testIanaZone.offsetName(dt.toMillis(), { format: "other_string" }); // $ExpectError
 testIanaZone.offsetName(dt.toMillis(), { format: "short", locale: "en-us" }); // $ExpectType string
 testIanaZone.offsetName(dt.toMillis(), { locale: "en-gb" }); // $ExpectType string
-const ianaZoneTest = DateTime.fromObject({
-    zone: ianaZone,
-});
+const ianaZoneTest = DateTime.fromObject({}, { zone: ianaZone });
 
 FixedOffsetZone.utcInstance.equals(FixedOffsetZone.instance(0));
 
 FixedOffsetZone.instance(60);
 FixedOffsetZone.parseSpecifier("UTC+6");
 
-LocalZone.instance; // $ExpectType LocalZone
+SystemZone.instance; // $ExpectType SystemZone
 
 const fromIso = DateTime.fromISO("2017-05-15"); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO("2017-05-15T08:30:00"); // => May 15, 2017 at midnight
@@ -91,7 +88,12 @@ dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
 dt.toLocaleString(); // $ExpectType string
 dt.toLocaleString({ month: "long", day: "numeric" }); // $ExpectType string
+// Providing 'options' without 'formatOptions' is not supported in Luxon 2.0.1
+dt.toLocaleString({ locale: "en-gb" }); // $ExpectError
+// First argument must be 'DateTimeFormatOptions'
+dt.toLocaleString({ locale: "en-gb" }, { day: '2-digit'}); // $ExpectError
 dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string
+dt.toLocaleString(DateTime.DATE_MED, {}); // $ExpectType string
 dt.toMillis(); // $ExpectType number
 dt.toMillis(); // $ExpectType number
 dt.toRelative(); // $ExpectType string | null
@@ -111,6 +113,17 @@ dt.toRelative({
     locale: "fr",
     style: "long",
     unit: "days",
+    round: true,
+    padding: 10,
+    numberingSystem: "bali",
+});
+
+// $ExpectType string | null
+dt.toRelative({
+    base: DateTime.local(),
+    locale: "fr",
+    style: "long",
+    unit: ["days"],
     round: true,
     padding: 10,
     numberingSystem: "bali",
@@ -161,7 +174,10 @@ if (DateTime.isDateTime(anything)) {
 const { input, result, zone } = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
 
 /* Duration */
-const dur = Duration.fromObject({ hours: 2, minutes: 7 });
+const dur = Duration.fromObject({ hours: 2, minutes: 7 }); // $ExpectType Duration
+Duration.fromObject({ locale: 'ru' }); // $ExpectError
+Duration.fromObject({ conversionAccuracy: 'casual' }); // $ExpectError
+Duration.fromObject({}, { conversionAccuracy: 'casual' }); // $ExpectType Duration
 dt.plus(dur); // $ExpectType DateTime
 dt.plus({ quarters: 2, month: 1 }); // $ExpectType DateTime
 dur.hours; // $ExpectType number
@@ -175,6 +191,7 @@ dur.toISOTime(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
 dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === "hours" ? x * 2 : x)); // $ExpectType Duration
+dur.set({ hours: 3 }); // $ExpectType Duration
 
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration
@@ -210,24 +227,23 @@ Interval.invalid("code", "because I said so"); // $ExpectType Interval
 /* Info */
 Info.months();
 Info.weekdays("long");
-// $ExpectError
-Info.weekdays("2-digit");
-Info.features().intl;
-Info.features().intlTokens;
-Info.features().zones;
-Info.features().relative;
+Info.weekdays("2-digit"); // $ExpectError
+Info.features().intl; // $ExpectError
+Info.features().intlTokens; // $ExpectError
+Info.features().zones; // $ExpectError
+Info.features().relative; // $ExpectType boolean
 
 /* Settings */
 Settings.defaultLocale;
 Settings.defaultLocale = "en";
-Settings.defaultZoneName = "Europe/Paris";
+Settings.defaultZone = "Europe/Paris";
 Settings.throwOnInvalid = true;
 Settings.now();
 Settings.now = () => 0;
+Settings.now = 0; // $ExpectError
 Settings.resetCaches();
 
-// $ExpectError
-Settings.defaultZone = Settings.defaultZone;
+Settings.defaultZone = Settings.defaultZone; // Not actually an error, the property can be set to a zone
 
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/
@@ -242,11 +258,11 @@ DateTime.local().reconfigure({ locale: "fr" }).locale; // $ExpectType string
 Settings.defaultLocale = "fr";
 DateTime.local().locale; // $ExpectType string
 
-Settings.defaultLocale = DateTime.local().resolvedLocaleOpts().locale;
-DateTime.local().resolvedLocaleOpts({ locale: "de" });
+Settings.defaultLocale = DateTime.local().resolvedLocaleOptions().locale;
+DateTime.local().resolvedLocaleOptions({ locale: "de" });
 
 dt.setLocale("fr").toLocaleString(DateTime.DATE_FULL); // $ExpectType string
-dt.toLocaleString({ locale: "es", ...DateTime.DATE_FULL }); // $ExpectType string
+dt.toLocaleString(DateTime.DATE_FULL, { locale: "es" }); // $ExpectType string
 dt.setLocale("fr").toFormat("MMMM dd, yyyy GG"); // $ExpectType string
 dt.toFormat("MMMM dd, yyyy GG", { locale: "de" });
 
@@ -260,14 +276,12 @@ DateTime.local().reconfigure({ locale: "it", numberingSystem: "beng" });
 Settings.defaultNumberingSystem = "beng";
 
 /* Time zones and offsets */
-Info.features().zones; // $ExpectType boolean
-
 const bogus = DateTime.local().setZone("America/Bogus");
 bogus.isValid; // $ExpectType boolean
 bogus.invalidReason; // $ExpectType string | null
 bogus.invalidExplanation; // $ExpectType string | null
 
-const local = DateTime.local(2017, 5, 15, 09, 10, 23);
+const local = DateTime.local(2017, 5, 15, 9, 10, 23);
 local.zoneName; // $ExpectType string
 local.toString(); // $ExpectType string
 local.setZone("America/Los_Angeles"); // $ExpectType DateTime
@@ -280,7 +294,7 @@ iso.toString(); // $ExpectType string
 DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime
 DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime
 
-Settings.defaultZoneName = "Asia/Tokyo";
+Settings.defaultZone = "Asia/Tokyo";
 
 /* Calendars */
 // prettier-ignore
@@ -297,7 +311,9 @@ Settings.defaultOutputCalendar = "persian";
 DateTime.fromISO("2014-08-06T13:07:04.054").toFormat("yyyy LLL dd"); // $ExpectType string
 
 /* Parsing */
-DateTime.fromObject({ zone: "America/Los_Angeles" }); // $ExpectType DateTime
+DateTime.fromObject({ zone: "America/Los_Angeles" }); // $ExpectError
+DateTime.fromObject({ setZone: true }); // $ExpectError
+DateTime.fromObject({}, { zone: 'America/Los_Angeles', setZone: true }); // $ExpectType DateTime
 DateTime.fromISO("2016-05-25"); // $ExpectType DateTime
 DateTime.fromJSDate(new Date()); // $ExpectType DateTime
 DateTime.fromRFC2822("Tue, 01 Nov 2016 13:23:12 +0630"); // $ExpectType DateTime
@@ -325,6 +341,7 @@ d1.hasSame(d2, "minute"); // $ExpectType boolean
 d1.hasSame(d2, "year"); // $ExpectType boolean
 
 dur.toObject().days; // $ExpectType number | undefined
+dur.toObject({includeConfig: true}); // Still supported in Luxon 2.0 even though the migration guide contradicts this
 dur.as("minutes"); // $ExpectType number
 dur.shiftTo("minutes").toObject().minutes; // $ExpectType number | undefined
 // prettier-ignore
@@ -361,7 +378,7 @@ class SampleZone extends Zone {
     readonly isValid = false;
     readonly name = "Sample";
     readonly type = "Example";
-    readonly universal = true;
+    readonly isUniversal = true;
 
     offsetName(ts: number, options?: ZoneOffsetOptions) {
         return "SampleZone";

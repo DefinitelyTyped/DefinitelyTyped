@@ -6,8 +6,10 @@ const element = new Element();
 // $ExpectType Tooltip
 new Tooltip(element, { delay: 0.5, title: () => "foo", customClass: () => "custom-class" });
 
-// $ExpectType Tooltip
+// $ExpectType Tooltip | null
 Tooltip.getInstance(element);
+// $ExpectType Tooltip
+Tooltip.getOrCreateInstance(element);
 
 // $ExpectType string
 Tooltip.VERSION;

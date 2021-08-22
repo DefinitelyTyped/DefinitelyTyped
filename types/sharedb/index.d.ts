@@ -99,6 +99,9 @@ declare class sharedb extends EventEmitter {
     addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
 
+    getOps(agent: Agent, index: string, id: string, from: number, to: number, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
+    getOpsBulk(agent: Agent, index: string, id: string, fromMap: Record<string, number>, toMap: Record<string, number>, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
+
     static types: ShareDB.Types;
     static logger: ShareDB.Logger;
 }
@@ -130,7 +133,7 @@ declare namespace sharedb {
         close(callback?: BasicCallback): void;
     }
 
-    type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields | undefined, options: any, callback: DBQueryCallback) => void;
+    type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields, options: any, callback: DBQueryCallback) => void;
     type DBQueryCallback = (err: Error | null, snapshots: Snapshot[], extra?: any) => void;
 
     abstract class PubSub {
@@ -251,8 +254,8 @@ declare namespace sharedb {
         interface QueryContext extends BaseContext {
             index: string;
             collection: string;
-            projection: Projection | undefined;
-            fields: ProjectionFields | undefined;
+            projection: Projection;
+            fields: ProjectionFields;
             channel: string;
             query: any;
             options?: {[key: string]: any};
@@ -293,7 +296,7 @@ interface ProjectionFields {
 
 interface SubmitRequest {
     index: string;
-    projection: Projection | undefined;
+    projection: Projection;
     collection: string;
     id: string;
     op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
@@ -311,6 +314,12 @@ interface SubmitRequest {
     snapshot: sharedb.Snapshot | null;
     ops: any[];
     channels: string[] | null;
+}
+
+interface GetOpsOptions {
+    opsOptions?: {
+        metadata?: boolean;
+    };
 }
 
 type BasicCallback = (err?: Error) => void;

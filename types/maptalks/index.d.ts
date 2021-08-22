@@ -27,30 +27,30 @@ export const COLOR_PROPERTIES: string[];
 export interface MapOptions {
     center: Coordinate | number[] | undefined;
     zoom: number | undefined;
-    spatialReference?: object;
-    baseLayer?: Layer;
-    layers?: Layer[];
-    attribution?: boolean | control.AttributionOptions;
+    spatialReference?: object | undefined;
+    baseLayer?: Layer | undefined;
+    layers?: Layer[] | undefined;
+    attribution?: boolean | control.AttributionOptions | undefined;
     // allow map to drag pitching, true by default
-    dragPitch?: boolean;
+    dragPitch?: boolean | undefined;
     // allow map to drag rotating, true by default
-    dragRotate?: boolean;
+    dragRotate?: boolean | undefined;
     // enable map to drag pitching and rotating at the same time, false by default
-    dragRotatePitch?: boolean;
-    dragPan?: boolean;
-    pitch?: number;
-    zoomControl?: boolean | object;
-    scaleControl?: boolean | object;
-    overviewControl?: boolean;
-    centerCross?: boolean;
-    minZoom?: number;
-    maxZoom?: number;
-    draggable?: boolean; //  disable draggble
-    scrollWheelZoom?: boolean; //  disable scroll wheel zoom
-    dblClickZoom?: boolean; //  disable doubleclick
-    touchZoom?: boolean;
-    doubleClickZoom?: boolean;
-    layerSwitcherControl?: object;
+    dragRotatePitch?: boolean | undefined;
+    dragPan?: boolean | undefined;
+    pitch?: number | undefined;
+    zoomControl?: boolean | object | undefined;
+    scaleControl?: boolean | object | undefined;
+    overviewControl?: boolean | undefined;
+    centerCross?: boolean | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    draggable?: boolean | undefined; //  disable draggble
+    scrollWheelZoom?: boolean | undefined; //  disable scroll wheel zoom
+    dblClickZoom?: boolean | undefined; //  disable doubleclick
+    touchZoom?: boolean | undefined;
+    doubleClickZoom?: boolean | undefined;
+    layerSwitcherControl?: object | undefined;
 }
 export interface MapJsonOptions {
     baseLayer?: any;
@@ -58,150 +58,150 @@ export interface MapJsonOptions {
 }
 
 export interface LayerOptions {
-    attribution?: string;
-    minZoom?: number;
-    maxZoom?: number;
-    visible?: boolean;
-    opacity?: number;
-    zindex?: number;
-    hitDetect?: boolean;
-    renderer?: string;
+    attribution?: string | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    visible?: boolean | undefined;
+    opacity?: number | undefined;
+    zindex?: number | undefined;
+    hitDetect?: boolean | undefined;
+    renderer?: string | undefined;
     //  context.globalCompositeOperation, 'source-over' in default
-    globalCompositeOperation?: string;
-    debugOutline?: string;
-    cssFilter?: string | null;
-    forceRenderOnMoving?: boolean;
-    forceRenderOnZooming?: boolean;
-    forceRenderOnRotating?: boolean;
+    globalCompositeOperation?: string | undefined;
+    debugOutline?: string | undefined;
+    cssFilter?: string | null | undefined;
+    forceRenderOnMoving?: boolean | undefined;
+    forceRenderOnZooming?: boolean | undefined;
+    forceRenderOnRotating?: boolean | undefined;
     style?: any;
 }
 
 export type urlTemplateFun = (...param: any[]) => string;
 export interface TileLayerOptions extends LayerOptions {
     urlTemplate: string | urlTemplateFun;
-    subdomains?: string[] | number[];
-    spatialReference?: object;
-    tileSize?: number[];
-    offset?: number[];
-    tileSystem?: number[];
-    maxAvailableZoom?: number;
-    repeatWorld?: boolean;
-    background?: boolean;
-    backgroundZoomDiff?: number;
-    placeholder?: boolean;
-    fragmentShader?: string;
-    crossOrigin?: string;
-    fadeAnimation?: boolean;
-    debug?: boolean;
-    maxCacheSize?: number;
-    cascadeTiles?: boolean;
-    zoomOffset?: number;
-    tileRetryCount?: number;
+    subdomains?: string[] | number[] | undefined;
+    spatialReference?: object | undefined;
+    tileSize?: number[] | undefined;
+    offset?: number[] | undefined;
+    tileSystem?: number[] | undefined;
+    maxAvailableZoom?: number | undefined;
+    repeatWorld?: boolean | undefined;
+    background?: boolean | undefined;
+    backgroundZoomDiff?: number | undefined;
+    placeholder?: boolean | undefined;
+    fragmentShader?: string | undefined;
+    crossOrigin?: string | undefined;
+    fadeAnimation?: boolean | undefined;
+    debug?: boolean | undefined;
+    maxCacheSize?: number | undefined;
+    cascadeTiles?: boolean | undefined;
+    zoomOffset?: number | undefined;
+    tileRetryCount?: number | undefined;
 }
 
 export interface WMSTileLayerOptions extends TileLayerOptions {
-    service?: string;
+    service?: string | undefined;
     layers: string;
-    styles?: string;
-    format?: string;
-    transparent?: boolean;
-    version?: string;
-    crs?: string;
-    uppercase?: boolean;
-    detectRetina?: string;
+    styles?: string | undefined;
+    format?: string | undefined;
+    transparent?: boolean | undefined;
+    version?: string | undefined;
+    crs?: string | undefined;
+    uppercase?: boolean | undefined;
+    detectRetina?: string | undefined;
 }
 
 export interface VectorLayerOptions extends LayerOptions {
-    debug?: boolean;
-    enableSimplify?: boolean;
-    cursor?: string;
-    geometryEvents?: boolean;
-    defaultIconSize?: boolean;
-    enableAltitude?: boolean;
-    altitudeProperty?: string;
-    drawAltitude?: object;
-    altitude?: number;
-    drawImmediate?: boolean;
+    debug?: boolean | undefined;
+    enableSimplify?: boolean | undefined;
+    cursor?: string | undefined;
+    geometryEvents?: boolean | undefined;
+    defaultIconSize?: boolean | undefined;
+    enableAltitude?: boolean | undefined;
+    altitudeProperty?: string | undefined;
+    drawAltitude?: object | undefined;
+    altitude?: number | undefined;
+    drawImmediate?: boolean | undefined;
 }
 
 export interface CanvasLayerOptions extends LayerOptions {
-    doubleBuffer?: boolean;
-    animation?: boolean;
-    fps?: boolean;
+    doubleBuffer?: boolean | undefined;
+    animation?: boolean | undefined;
+    fps?: boolean | undefined;
 }
 
 export interface ImageLayerOptions extends LayerOptions {
-    crossOrigin?: string;
-    renderer?: string;
+    crossOrigin?: string | undefined;
+    renderer?: string | undefined;
 }
 
 export interface GeometryOptions {
-    id?: string | number;
-    visible?: boolean;
-    editable?: boolean;
-    interactive?: boolean;
-    cursor?: string | null;
-    measure?: string;
-    draggable?: boolean;
-    dragShadow?: boolean;
-    drawOnAxis?: string | null;
-    zIndex?: number;
-    properties?: object;
-    symbol?: object;
-    shadowBlur?: number;
-    shadowColor?: string;
+    id?: string | number | undefined;
+    visible?: boolean | undefined;
+    editable?: boolean | undefined;
+    interactive?: boolean | undefined;
+    cursor?: string | null | undefined;
+    measure?: string | undefined;
+    draggable?: boolean | undefined;
+    dragShadow?: boolean | undefined;
+    drawOnAxis?: string | null | undefined;
+    zIndex?: number | undefined;
+    properties?: object | undefined;
+    symbol?: object | undefined;
+    shadowBlur?: number | undefined;
+    shadowColor?: string | undefined;
 }
 
 export interface PathOptions extends GeometryOptions {
-    smoothness?: number;
-    enableSimplify?: boolean;
-    simplifyTolerance?: number;
-    enableClip?: boolean;
-    symbol?: object;
+    smoothness?: number | undefined;
+    enableSimplify?: boolean | undefined;
+    simplifyTolerance?: number | undefined;
+    enableClip?: boolean | undefined;
+    symbol?: object | undefined;
 }
 
 export interface MarkerOptions extends GeometryOptions {
-    hitTestForEvent?: boolean;
+    hitTestForEvent?: boolean | undefined;
 }
 
 export interface LabelOptions extends GeometryOptions {
-    boxStyle?: object;
-    textSymbol?: object;
-    hitTestForEvent?: string;
+    boxStyle?: object | undefined;
+    textSymbol?: object | undefined;
+    hitTestForEvent?: string | undefined;
 }
 
 export interface TextBoxOptions extends GeometryOptions {
-    textStyle?: object;
-    boxSymbol?: object;
-    hitTestForEvent?: string;
+    textStyle?: object | undefined;
+    boxSymbol?: object | undefined;
+    hitTestForEvent?: string | undefined;
 }
 
 export interface LineStringOptions extends PathOptions {
-    arrowStyle?: string | number[] | null;
-    arrowPlacement?: string;
+    arrowStyle?: string | number[] | null | undefined;
+    arrowPlacement?: string | undefined;
 }
 
 export interface ArcCurveOptions extends LineStringOptions {
-    arcDegree?: number;
+    arcDegree?: number | undefined;
 }
 
 export interface ConnectorLineOptions extends LineStringOptions {
-    showOn?: string;
+    showOn?: string | undefined;
 }
 
 export interface ArcConnectorLineOptions extends ConnectorLineOptions, ArcCurveOptions {}
 
 export interface EllipseOptions extends PathOptions {
-    numberOfShellPoints?: number;
+    numberOfShellPoints?: number | undefined;
 }
 
 export interface DrawToolOptions {
     //  doubleClickZoom?: boolean;
     //  ignoreMouseleave?: boolean
-    mode?: string;
-    symbol?: object;
-    once?: boolean;
-    autoPanAtEdge?: boolean;
+    mode?: string | undefined;
+    symbol?: object | undefined;
+    once?: boolean | undefined;
+    autoPanAtEdge?: boolean | undefined;
 }
 
 export interface DrawToolModeActionOptions {
@@ -212,65 +212,65 @@ export interface DrawToolModeActionOptions {
 }
 
 export interface DistanceToolOptions extends DrawToolOptions {
-    language?: string;
-    metric?: boolean;
-    imperial?: boolean;
-    vertexSymbol?: object;
-    labelOptions?: object;
-    clearButtonSymbol?: any[];
+    language?: string | undefined;
+    metric?: boolean | undefined;
+    imperial?: boolean | undefined;
+    vertexSymbol?: object | undefined;
+    labelOptions?: object | undefined;
+    clearButtonSymbol?: any[] | undefined;
 }
 
 export namespace control {
     interface ZoomOptions {
-        position?: string | object;
-        slider?: boolean;
-        zoomLevel?: boolean;
+        position?: string | object | undefined;
+        slider?: boolean | undefined;
+        zoomLevel?: boolean | undefined;
     }
 
     interface LayerSwitcherOptions {
-        position?: string | object;
-        baseTitle?: string | object;
-        overlayTitle?: string | object;
-        excludeLayers?: any[];
-        containerClass?: string | object;
+        position?: string | object | undefined;
+        baseTitle?: string | object | undefined;
+        overlayTitle?: string | object | undefined;
+        excludeLayers?: any[] | undefined;
+        containerClass?: string | object | undefined;
     }
 
     interface AttributionOptions {
-        position?: string | object;
-        content?: string;
+        position?: string | object | undefined;
+        content?: string | undefined;
     }
 
     interface ScaleOptions {
-        position?: string | object;
-        maxWidth?: number;
-        metric?: boolean;
-        imperial?: boolean;
-        containerClass?: string | object | null;
+        position?: string | object | undefined;
+        maxWidth?: number | undefined;
+        metric?: boolean | undefined;
+        imperial?: boolean | undefined;
+        containerClass?: string | object | null | undefined;
     }
 
     interface PanelOptions {
-        position?: string | object;
-        draggable?: boolean;
-        custom?: boolean;
-        content?: string | HTMLElement;
-        closeButton?: boolean;
+        position?: string | object | undefined;
+        draggable?: boolean | undefined;
+        custom?: boolean | undefined;
+        content?: string | HTMLElement | undefined;
+        closeButton?: boolean | undefined;
     }
 
     interface ToolbarOptions {
-        position?: string | object;
-        vertical?: boolean;
-        reverseMenu?: boolean;
+        position?: string | object | undefined;
+        vertical?: boolean | undefined;
+        reverseMenu?: boolean | undefined;
         items: any[];
     }
 
     interface OverviewOptions {
-        position?: string | object;
-        level?: number;
-        maximize?: boolean;
-        size?: object;
-        symbol?: object;
-        containerClass?: string;
-        buttonClass?: string;
+        position?: string | object | undefined;
+        level?: number | undefined;
+        maximize?: boolean | undefined;
+        size?: object | undefined;
+        symbol?: object | undefined;
+        containerClass?: string | undefined;
+        buttonClass?: string | undefined;
     }
 
     abstract class Control extends Eventable {
@@ -464,36 +464,36 @@ export namespace control {
 
 export namespace ui {
     interface UIComponentOptions {
-        eventsPropagation?: boolean;
-        eventsToStop?: boolean;
-        dx?: number;
-        dy?: number;
-        autoPan?: boolean;
-        autoPanDuration?: boolean;
-        single?: boolean;
-        animation?: string;
-        animationDuration?: number;
-        pitchWithMap?: boolean;
-        rotateWithMap?: boolean;
+        eventsPropagation?: boolean | undefined;
+        eventsToStop?: boolean | undefined;
+        dx?: number | undefined;
+        dy?: number | undefined;
+        autoPan?: boolean | undefined;
+        autoPanDuration?: boolean | undefined;
+        single?: boolean | undefined;
+        animation?: string | undefined;
+        animationDuration?: number | undefined;
+        pitchWithMap?: boolean | undefined;
+        rotateWithMap?: boolean | undefined;
     }
 
     interface UIMarkerOptions extends UIComponentOptions {
-        draggable?: boolean;
+        draggable?: boolean | undefined;
         content: string | HTMLElement;
     }
 
     interface ToolTipOptions extends UIComponentOptions {
-        width?: number;
-        height?: number;
-        cssName?: string;
-        showTimeout?: number;
+        width?: number | undefined;
+        height?: number | undefined;
+        cssName?: string | undefined;
+        showTimeout?: number | undefined;
     }
 
     interface MenuOptions extends UIComponentOptions {
-        width?: number;
-        maxHeight?: number;
-        custom?: string | HTMLElement;
-        items?: object[] | string | HTMLElement;
+        width?: number | undefined;
+        maxHeight?: number | undefined;
+        custom?: string | HTMLElement | undefined;
+        items?: object[] | string | HTMLElement | undefined;
     }
 
     abstract class UIComponent extends Eventable {
@@ -807,7 +807,7 @@ export namespace ui {
 
 export namespace animation {
     interface AnimationOptions {
-        easing?: object;
+        easing?: object | undefined;
     }
 
     interface Easing {

@@ -5,6 +5,18 @@ import * as inquirer from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import Storage = require('yeoman-generator/lib/util/storage');
 
+class MyES2015GeneratorWithFeatures extends Base {
+    constructor(args: any, options: Base.GeneratorOptions) {
+        super(args, options, { customInstallTask: true, customCommitTask: true });
+    }
+
+    customInstallTask() {
+    }
+
+    customCommitTask() {
+    }
+}
+
 class MyES2015Generator extends Base { }
 
 const generator = new MyES2015Generator(
@@ -197,6 +209,15 @@ const answers2: Promise<Answers> = generator.prompt([{ store: true }]);
 const answers3: Promise<Answers> = generator.prompt([{ type: 'input' }]);
 const answers4: Promise<Answers> = generator.prompt({ type: 'input' });
 const answers5: Promise<Answers> = generator.prompt({ type: 'input', store: false });
+
+generator.registerPriorities(
+  [
+    {
+      priorityName: 'cleanup',
+      queueName: 'my#cleanup',
+      before: 'end'
+    }
+  ]);
 
 generator.registerConfigPrompts([{ storage: generator.config, exportOption: true, type: "input" }]);
 generator.registerTransformStream([]);

@@ -19,7 +19,7 @@ export interface ChallengeResult {
 export interface CustomChallengeResult {
   challengeName: 'CUSTOM_CHALLENGE';
   challengeResult: boolean;
-  challengeMetadata?: string;
+  challengeMetadata?: string | undefined;
 }
 
 /**

@@ -32,12 +32,12 @@ declare namespace MulterGridfsStorage {
     }
 
     interface FileConfig {
-        filename?: string;
+        filename?: string | undefined;
         id?: any;
         metadata?: any;
-        chunkSize?: number;
-        bucketName?: string;
-        contentType?: string;
+        chunkSize?: number | undefined;
+        bucketName?: string | undefined;
+        contentType?: string | undefined;
     }
 }
 

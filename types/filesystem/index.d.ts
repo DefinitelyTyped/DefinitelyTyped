@@ -86,12 +86,12 @@ interface Flags {
     /**
      * Used to indicate that the user wants to create a file or directory if it was not previously there.
      */
-    create?: boolean;
+    create?: boolean | undefined;
 
     /**
      * By itself, exclusive must have no effect. Used with create, it must cause getFile and getDirectory to fail if the target path already exists.
      */
-    exclusive?: boolean;
+    exclusive?: boolean | undefined;
 }
 
 /**
@@ -101,25 +101,25 @@ interface FileSystem {
     /**
      * This is the name of the file system. The specifics of naming filesystems is unspecified, but a name must be unique across the list of exposed file systems.
      */
-    name: string;
+    readonly name: string;
 
     /**
      * The root directory of the file system.
      */
-    root: DirectoryEntry;
+    readonly root: FileSystemDirectoryEntry;
 }
 
-interface Entry {
+interface FileSystemEntry {
 
     /**
      * Entry is a file.
      */
-    isFile: boolean;
+    readonly isFile: boolean;
 
     /**
      * Entry is a directory.
      */
-    isDirectory: boolean;
+    readonly isDirectory: boolean;
 
     /**
      * Look up metadata about this entry.
@@ -131,17 +131,17 @@ interface Entry {
     /**
      * The name of the entry, excluding the path leading to it.
      */
-    name: string;
+    readonly name: string;
 
     /**
      * The full absolute path from the root to the entry.
      */
-    fullPath: string;
+    readonly fullPath: string;
 
     /**
      * The file system on which the entry resides.
      */
-    filesystem: FileSystem;
+    readonly filesystem: FileSystem;
 
     /**
      * Move an entry to a different location on the file system. It is an error to try to:
@@ -157,7 +157,7 @@ interface Entry {
      * A move of a file on top of an existing file must attempt to delete and replace that file.
      * A move of a directory on top of an existing empty directory must attempt to delete and replace that directory.
      */
-    moveTo(parent: DirectoryEntry, newName?: string, successCallback?: EntryCallback, errorCallback?: ErrorCallback): void;
+    moveTo(parent: FileSystemDirectoryEntry, newName?: string, successCallback?: EntryCallback, errorCallback?: ErrorCallback): void;
 
     /**
      * Copy an entry to a different location on the file system. It is an error to try to:
@@ -174,7 +174,7 @@ interface Entry {
      *
      * Directory copies are always recursive--that is, they copy all contents of the directory.
      */
-    copyTo(parent: DirectoryEntry, newName?: string, successCallback?: EntryCallback, errorCallback?: ErrorCallback): void;
+    copyTo(parent: FileSystemDirectoryEntry, newName?: string, successCallback?: EntryCallback, errorCallback?: ErrorCallback): void;
 
     /**
      * Returns a URL that can be used to identify this entry. Unlike the URN defined in [FILE-API-ED], it has no specific expiration; as it describes a location on disk, it should be valid at least as long as that location exists.
@@ -196,10 +196,13 @@ interface Entry {
     getParent(successCallback: DirectoryEntryCallback, errorCallback?: ErrorCallback): void;
 }
 
+/** Alias provided for backward compatibility */
+type Entry = FileSystemEntry;
+
 /**
  * This interface represents a directory on a file system.
  */
-interface DirectoryEntry extends Entry {
+interface FileSystemDirectoryEntry extends FileSystemEntry {
     /**
      * Creates a new DirectoryReader to read Entries from this Directory.
      */
@@ -246,6 +249,9 @@ interface DirectoryEntry extends Entry {
     removeRecursively(successCallback: VoidCallback, errorCallback?: ErrorCallback): void;
 }
 
+/** Alias provided for backward compatibility */
+type DirectoryEntry = FileSystemDirectoryEntry;
+
 /**
  * This interface lets a user list files and directories in a directory. If there are no additions to or deletions from a directory between the first and last call to readEntries, and no errors occur, then:
  * <ul>
@@ -267,7 +273,7 @@ interface DirectoryReader {
 /**
  * This interface represents a file on a file system.
  */
-interface FileEntry extends Entry {
+interface FileEntry extends FileSystemEntry {
     /**
      * Creates a new FileWriter associated with the file that this FileEntry represents.
      * @param successCallback A callback that is called with the new FileWriter.
@@ -300,7 +306,7 @@ interface EntryCallback {
     /**
      * @param entry
      */
-    (entry: Entry): void;
+    (entry: FileSystemEntry): void;
 }
 
 /**
@@ -320,14 +326,14 @@ interface DirectoryEntryCallback {
     /**
      * @param entry
      */
-    (entry: DirectoryEntry): void;
+    (entry: FileSystemDirectoryEntry): void;
 }
 
 /**
  * When readEntries() succeeds, the following callback is made.
  */
 interface EntriesCallback {
-    (entries: Entry[]): void;
+    (entries: FileSystemEntry[]): void;
 }
 
 /**
@@ -362,7 +368,7 @@ interface VoidCallback {
  * When an error occurs, the following callback is made.
  */
 interface ErrorCallback {
-    (err: DOMError): void;
+    (err: Error): void;
 }
 
 

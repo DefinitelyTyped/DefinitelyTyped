@@ -25,12 +25,12 @@ export interface DrawerLayoutProperties extends ViewProps {
   /**
    * Child content.
    */
-  children?: React.ReactNode;
+  children?: React.ReactNode | undefined;
   /**
    * Specifies the background color of the drawer. The default value is white. If you want to set
    * the opacity of the drawer, use rgba.
    */
-  drawerBackgroundColor?: string;
+  drawerBackgroundColor?: string | undefined;
   /**
    * Specifies the lock mode of the drawer. The drawer can be locked in 3 states:
    *
@@ -40,7 +40,7 @@ export interface DrawerLayoutProperties extends ViewProps {
    *
    * The drawer may still be opened and closed programmatically (`openDrawer`/`closeDrawer`).
    */
-  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
+  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open' | undefined;
   /**
    * Specifies the side of the screen from which the drawer will slide in.
    */
@@ -56,19 +56,19 @@ export interface DrawerLayoutProperties extends ViewProps {
    * - 'none' (the default), drags do not dismiss the keyboard.
    * - 'on-drag', the keyboard is dismissed when a drag begins.
    */
-  keyboardDismissMode?: 'none' | 'on-drag';
+  keyboardDismissMode?: 'none' | 'on-drag' | undefined;
   /**
    * Function called whenever the navigation view has been closed.
    */
-  onDrawerClose?: DrawerLayoutCloseEventHandler;
+  onDrawerClose?: DrawerLayoutCloseEventHandler | undefined;
   /**
    * Function called whenever the navigation view has been opened.
    */
-  onDrawerOpen?: DrawerLayoutOpenEventHandler;
+  onDrawerOpen?: DrawerLayoutOpenEventHandler | undefined;
   /**
    * Function called whenever there is an interaction with the navigation view.
    */
-  onDrawerSlide?: DrawerLayoutSlideEventHandler;
+  onDrawerSlide?: DrawerLayoutSlideEventHandler | undefined;
   /**
    * Function called when the drawer state has changed. The drawer can be in 3 states:
    *
@@ -77,7 +77,7 @@ export interface DrawerLayoutProperties extends ViewProps {
    * - settling, meaning that there was an interaction with the navigation view, and the navigation
    *   view is now finishing its closing or opening animation
    */
-  onDrawerStateChanged?: DrawerLayoutStateChangeEventHandler;
+  onDrawerStateChanged?: DrawerLayoutStateChangeEventHandler | undefined;
   /**
    * The navigation view that will be rendered to the side of the screen and can be pulled in.
    */
@@ -86,11 +86,11 @@ export interface DrawerLayoutProperties extends ViewProps {
    * Make the drawer take the entire screen and draw the background of the status bar to allow it
    * to open over the status bar. It will only have an effect on API 21+.
    */
-  statusBarBackgroundColor?: string;
+  statusBarBackgroundColor?: string | undefined;
   /**
    * Use native driver animations.
    */
-  useNativeAnimations?: boolean;
+  useNativeAnimations?: boolean | undefined;
 }
 
 export default class DrawerLayout extends React.Component<DrawerLayoutProperties> {

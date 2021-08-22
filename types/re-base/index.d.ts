@@ -28,39 +28,39 @@ export interface SyncStateOptions {
      * on init) (use this if you want a value other than an empty object or
      * empty array)
      */
-    defaultValue?: string | boolean | number | object;
+    defaultValue?: string | boolean | number | object | undefined;
 
     /**
      * Returns the Firebase data at the specified endpoint as an Array
      * instead of an Object.
      */
-    asArray?: boolean;
+    asArray?: boolean | undefined;
 
     /**
      * Will keep any firebase generated keys intact when manipulating data
      * using the asArray option.
      */
-    keepKeys?: boolean;
+    keepKeys?: boolean | undefined;
 
     /**
      * Queries to be used with your read operations. See
      * [Query Options](https://github.com/tylermcginnis/re-base#queries)
      * for more details.
      */
-    queries?: object;
+    queries?: object | undefined;
 
     /**
      * The callback function that will be invoked when the initial listener
      * is established with Firebase. Typically used (with syncState) to
      * change this.state.loading to false.
      */
-    then?: () => void;
+    then?: (() => void) | undefined;
 
     /**
      * A callback function that will be invoked if the current user does
      * not have read or write permissions at the location.
      */
-    onFailure?: () => void;
+    onFailure?: (() => void) | undefined;
 }
 
 export interface BindToStateOptions {
@@ -79,27 +79,27 @@ export interface BindToStateOptions {
      * Returns the Firebase data at the specified endpoint as an Array
      * instead of an Object.
      */
-    asArray?: boolean;
+    asArray?: boolean | undefined;
 
     /**
      * Queries to be used with your read operations. See
      * [Query Options](https://github.com/tylermcginnis/re-base#queries)
      * for more details.
      */
-    queries?: object;
+    queries?: object | undefined;
 
     /**
      * The callback function that will be invoked when the initial listener
      * is established with Firebase. Typically used (with bindToState) to
      * change this.state.loading to false.
      */
-    then?: () => void;
+    then?: (() => void) | undefined;
 
     /**
      * A callback function that will be invoked if the current user does
      * not have read permissions at the location.
      */
-    onFailure?: () => void;
+    onFailure?: (() => void) | undefined;
 }
 
 export interface ListenToOptions {
@@ -112,7 +112,7 @@ export interface ListenToOptions {
      * Returns the Firebase data at the specified endpoint as an Array
      * instead of an Object.
      */
-    asArray?: boolean;
+    asArray?: boolean | undefined;
 
     /**
      * The callback function that will be invoked with the data from the
@@ -124,14 +124,14 @@ export interface ListenToOptions {
      * The callback function that will be invoked if the current user does
      * not have read permissions at the location.
      */
-    onFailure?: (error: any) => void;
+    onFailure?: ((error: any) => void) | undefined;
 
     /**
      * Queries to be used with your read operations. See
      * [Query Options](https://github.com/tylermcginnis/re-base#queries)
      * for more details.
      */
-    queries?: object;
+    queries?: object | undefined;
 }
 
 export interface FetchOptions {
@@ -144,26 +144,26 @@ export interface FetchOptions {
      * Returns the Firebase data at the specified endpoint as an Array
      * instead of an Object.
      */
-    asArray?: boolean;
+    asArray?: boolean | undefined;
 
     /**
      * The callback function that will be invoked with the data from the
      * specified endpoint when the endpoint changes.
      */
-    then?: (result: any) => void;
+    then?: ((result: any) => void) | undefined;
 
     /**
      * The callback function that will be invoked with an error that occurs
      * reading data from the specified endpoint.
      */
-    onFailure?: () => void;
+    onFailure?: (() => void) | undefined;
 
     /**
      * Queries to be used with your read operations. See
      * [Query Options](https://github.com/tylermcginnis/re-base#queries)
      * for more details.
      */
-    queries?: object;
+    queries?: object | undefined;
 }
 
 export interface PostOptions {
@@ -177,7 +177,7 @@ export interface PostOptions {
      * Firebase. If there is an error, it will be the only argument to this
      * function.
      */
-    then?: (result: any) => void;
+    then?: ((result: any) => void) | undefined;
 }
 
 export interface PushOptions {
@@ -191,7 +191,7 @@ export interface PushOptions {
      * Firebase. If there is an error, it will be the only argument to this
      * function.
      */
-    then?: (result: any) => void;
+    then?: ((result: any) => void) | undefined;
 }
 
 export interface UpdateOptions {
@@ -205,7 +205,7 @@ export interface UpdateOptions {
      * Firebase. If there is an error, it will be the only argument to this
      * function.
      */
-    then?: (result: any) => void;
+    then?: ((result: any) => void) | undefined;
 }
 
 export interface bindDocOptions {
@@ -218,19 +218,19 @@ export interface bindDocOptions {
      * A property name on your state to bind your document to, if omitted
      * the document will be merged into your existing state.
      */
-    state?: string;
+    state?: string | undefined;
 
     /**
      * A callback that will be called when the listener is set, use for
      * loading indicators.
      */
-    then?: () => void;
+    then?: (() => void) | undefined;
 
     /**
      * A callback that will be called with any errors such as permissions
      * errors.
      */
-    onFailure?: () => void;
+    onFailure?: (() => void) | undefined;
 }
 
 export interface listenToDocOptions {
@@ -243,13 +243,13 @@ export interface listenToDocOptions {
      * A callback that will be called when the listener is set, use for
      * loading indicators.
      */
-    then?: () => void;
+    then?: (() => void) | undefined;
 
     /**
      * A callback that will be called with any errors such as permissions
      * errors.
      */
-    onFailure?: () => void;
+    onFailure?: (() => void) | undefined;
 }
 
 export interface bindCollectionOptions {
@@ -261,38 +261,38 @@ export interface bindCollectionOptions {
     /**
      * The state property to bind the collection to.
      */
-    state?: string;
+    state?: string | undefined;
 
     /**
      * A function that receives the created ref as its only argument. You
      * can chain any Firestore queries you want to perform. See
      * [Using Firestore Queries](https://github.com/tylermcginnis/re-base#firestorequeries).
      */
-    query?: () => void;
+    query?: (() => void) | undefined;
 
     /**
      * Will embed firestore generated document ids inside each document in
      * your collections on the `id` property.
      */
-    withIds?: boolean;
+    withIds?: boolean | undefined;
 
     /**
      * will embed the DocumentReference inside each document in your
      * collection on the `ref` property.
      */
-    withRefs?: boolean;
+    withRefs?: boolean | undefined;
 
     /**
      * A callback that will be called when the listener is set, use for
      * loading indicators.
      */
-    then?: () => void;
+    then?: (() => void) | undefined;
 
     /**
      * A callback that will be called with any errors such as permissions
      * errors.
      */
-    onFailure?: () => void;
+    onFailure?: (() => void) | undefined;
 }
 
 export interface listenToCollectionOptions {
@@ -311,25 +311,25 @@ export interface listenToCollectionOptions {
      * can chain any Firestore queries you want to perform. See
      * [Using Firestore Queries](https://github.com/tylermcginnis/re-base#firestorequeries).
      */
-    query?: () => void;
+    query?: (() => void) | undefined;
 
     /**
      * Will embed firestore generated document ids inside each document in
      * your collections on the `id` property.
      */
-    withIds?: boolean;
+    withIds?: boolean | undefined;
 
     /**
      * will embed the DocumentReference inside each document in your
      * collection on the `ref` property.
      */
-    withRefs?: boolean;
+    withRefs?: boolean | undefined;
 
     /**
      * A callback that will be called with any errors such as permissions
      * errors.
      */
-    onFailure?: () => void;
+    onFailure?: (() => void) | undefined;
 }
 
 export interface getOptions {
@@ -338,19 +338,19 @@ export interface getOptions {
      * can chain any Firestore queries you want to perform. See
      * [Using Firestore Queries](https://github.com/tylermcginnis/re-base#firestorequeries).
      */
-    query?: () => void;
+    query?: (() => void) | undefined;
 
     /**
      * Will embed firestore generated document ids inside each document in
      * your collections on the `id` property.
      */
-    withIds?: boolean;
+    withIds?: boolean | undefined;
 
     /**
      * will embed the DocumentReference inside each document in your
      * collection on the `ref` property.
      */
-    withRefs?: boolean;
+    withRefs?: boolean | undefined;
 }
 
 export interface removeFromCollectionOptions {
@@ -359,7 +359,7 @@ export interface removeFromCollectionOptions {
      * can chain any Firestore queries you want to perform. See
      * [Using Firestore Queries](https://github.com/tylermcginnis/re-base#firestorequeries).
      */
-    query?: () => void;
+    query?: (() => void) | undefined;
 }
 
 export interface syncDocOptions {
@@ -377,13 +377,13 @@ export interface syncDocOptions {
      * A callback that will be called when the listener is set, use for
      * loading indicators.
      */
-    then?: () => void;
+    then?: (() => void) | undefined;
 
     /**
      * A callback that will be called with any errors such as permissions
      * errors.
      */
-    onFailure?: () => void;
+    onFailure?: (() => void) | undefined;
 }
 
 export interface Rebase {

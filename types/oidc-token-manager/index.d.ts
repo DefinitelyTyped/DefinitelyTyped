@@ -21,12 +21,12 @@ declare namespace Oidc {
     }
 
     interface OidcClientSettings {
-        request_state_key?: string;
+        request_state_key?: string | undefined;
         request_state_store?: any;
-        load_user_profile?: boolean;
-        filter_protocol_claims?: boolean;
-        authority?: string;
-        response_type?: string;
+        load_user_profile?: boolean | undefined;
+        filter_protocol_claims?: boolean | undefined;
+        authority?: string | undefined;
+        response_type?: string | undefined;
     }
 
     interface OidcClient_Static {
@@ -50,32 +50,32 @@ declare namespace Oidc {
     }
 
     interface OidcTokenManagerSettings {
-        load_user_profile?: boolean;
-        persist?: boolean;
-        store?: Storage;
-        persistKey?: string;
-        client_id?: string;
-        redirect_uri?: string;
-        post_logout_redirect_uri?: string;
-        response_type?: string;
-        scope?: string;
-        authority?: string;
-        popup_redirect_uri?: string;
-        silent_redirect_uri?: string;
-        silent_renew?: boolean;
-        request_state_store?: Storage;
-        request_state_key?: string;
+        load_user_profile?: boolean | undefined;
+        persist?: boolean | undefined;
+        store?: Storage | undefined;
+        persistKey?: string | undefined;
+        client_id?: string | undefined;
+        redirect_uri?: string | undefined;
+        post_logout_redirect_uri?: string | undefined;
+        response_type?: string | undefined;
+        scope?: string | undefined;
+        authority?: string | undefined;
+        popup_redirect_uri?: string | undefined;
+        silent_redirect_uri?: string | undefined;
+        silent_renew?: boolean | undefined;
+        request_state_store?: Storage | undefined;
+        request_state_key?: string | undefined;
         metadata?: any;
-        authorization_endpoint?: string;
-        jwks_uri?: string;
+        authorization_endpoint?: string | undefined;
+        jwks_uri?: string | undefined;
         jwks?: any;
-        userinfo_endpoint?: string;
-        end_session_endpoint?: string;
+        userinfo_endpoint?: string | undefined;
+        end_session_endpoint?: string | undefined;
     }
 
     interface PopupSettings {
-        features?: string;
-        target?: string;
+        features?: string | undefined;
+        target?: string | undefined;
     }
 
     interface OidcTokenManager_Static {

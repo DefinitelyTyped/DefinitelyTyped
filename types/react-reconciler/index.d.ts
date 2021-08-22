@@ -275,11 +275,6 @@ declare namespace ReactReconciler {
          */
         noTimeout: NoTimeout;
 
-        /**
-         * You can proxy this to `queueMicrotask` or its equivalent in your environment.
-         */
-        queueMicrotask(fn: () => void): void;
-
         // tslint:disable:max-line-length
         /**
          * This is a property (not a function) that should be set to `true` if your renderer is the main one on the page. For example, if you're writing a renderer for the Terminal, it makes sense to set it to `true`, but if your renderer is used *on top of* React DOM or some other existing renderer, set it to `false`.
@@ -787,7 +782,7 @@ declare namespace ReactReconciler {
         ref:
             | null
             | (((handle: unknown) => void) & {
-                  _stringRef: string | null | undefined;
+                  _stringRef?: string | null;
               })
             | RefObject;
 
@@ -887,15 +882,15 @@ declare namespace ReactReconciler {
         rendererPackageName: string;
         // Note: this actually *does* depend on Fiber internal fields.
         // Used by "inspect clicked DOM element" in React DevTools.
-        findFiberByHostInstance?: (
+        findFiberByHostInstance?: ((
             instance: Instance | TextInstance,
-        ) => Fiber | null;
+        ) => Fiber | null);
         rendererConfig?: RendererInspectionConfig;
     }
 
     interface SuspenseHydrationCallbacks<SuspenseInstance> {
-        onHydrated?: (suspenseInstance: SuspenseInstance) => void;
-        onDeleted?: (suspenseInstance: SuspenseInstance) => void;
+        onHydrated?: ((suspenseInstance: SuspenseInstance) => void);
+        onDeleted?: ((suspenseInstance: SuspenseInstance) => void);
     }
 
     interface ComponentSelector {
@@ -959,8 +954,8 @@ declare namespace ReactReconciler {
         updateContainer(
             element: ReactNode,
             container: OpaqueRoot,
-            parentComponent: Component<any, any> | null | undefined,
-            callback: () => void | null | undefined,
+            parentComponent?: Component<any, any> | null,
+            callback?: () => void | null,
         ): Lane;
 
         batchedEventUpdates<A, R>(fn: (a: A) => R, a: A): R;
@@ -1028,7 +1023,7 @@ declare namespace ReactReconciler {
             children: ReactNode,
             containerInfo: any, // TODO: figure out the API for cross-renderer implementation.
             implementation: any,
-            key: string | null | undefined,
+            key?: string | null,
         ): ReactPortal;
 
         createComponentSelector(

@@ -90,3 +90,7 @@ pendo.dom("").closest('._pendo-guide-next_');
 pendo.onGuideAdvanced();
 pendo.onGuideAdvanced({ steps: 2 });
 pendo.onGuideDismissed();
+
+pendo.feedback.loginAndRedirect();
+const a = document.createElement("a");
+pendo.feedback.loginAndRedirect({anchor: a});

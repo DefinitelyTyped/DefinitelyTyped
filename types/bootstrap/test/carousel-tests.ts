@@ -6,8 +6,10 @@ const element = new Element();
 // $ExpectType Carousel
 new Carousel(element, { interval: 1000 });
 
-// $ExpectType Carousel
+// $ExpectType Carousel | null
 Carousel.getInstance(element);
+// $ExpectType Carousel
+Carousel.getOrCreateInstance(element);
 
 // $ExpectType string
 Carousel.VERSION;

@@ -31,10 +31,10 @@ export interface GetFirstConsistentlyInteractiveOpts {
      * disabled to improve performance in cases where you know no additional
      * request-creating DOM elements will be added.
      */
-    useMutationObserver?: boolean;
+    useMutationObserver?: boolean | undefined;
     /**
      * The lower bound to start forward-searching for the quite window. If no value is set, the default is after the
      * DOMContentLoaded event.
      */
-    minValue?: number | null;
+    minValue?: number | null | undefined;
 }

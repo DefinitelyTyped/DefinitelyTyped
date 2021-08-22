@@ -196,8 +196,8 @@ declare namespace NextGenEvents {
         once: any;
         async: any;
         eventObject: any;
-        nice?: number;
-        context?: string;
+        nice?: number | undefined;
+        context?: string | undefined;
       };
 
   const SYNC: number;
@@ -231,7 +231,7 @@ declare namespace NextGenEvents {
   }
 
   interface ContextOptions {
-    nice?: typeof SYNC;
+    nice?: typeof SYNC | undefined;
     ready: boolean;
     status?: any;
     serial?: any;

@@ -19,19 +19,24 @@ export type ToRelativeUnit =
     | 'minutes'
     | 'seconds';
 
-export interface ToRelativeOptions extends ToRelativeCalendarOptions {
+export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, 'unit'> {
     /**
      * @default long
      */
-    style?: StringUnitLength;
+    style?: StringUnitLength | undefined;
     /** @default true */
-    round?: boolean;
+    round?: boolean | undefined;
     /**
      * Padding in milliseconds. This allows you to round up the result if it fits inside the threshold.
      * Don't use in combination with {round: false} because the decimal output will include the padding.
      * @default 0
      */
-    padding?: number;
+    padding?: number | undefined;
+    /**
+     * A single unit or an array of units. If an array is supplied, the method will pick the best one
+     * to use from the array. If omitted, the method will pick the unit from a default set.
+     */
+    unit?: ToRelativeUnit | ToRelativeUnit[] | undefined;
 }
 
 export interface ToRelativeCalendarOptions {
@@ -39,18 +44,18 @@ export interface ToRelativeCalendarOptions {
      * The DateTime to use as the basis to which this time is compared
      * @default now
      */
-    base?: DateTime;
+    base?: DateTime | undefined;
     /**
      * Override the locale of this DateTime
      */
-    locale?: string;
+    locale?: string | undefined;
     /** If omitted, the method will pick the unit. */
-    unit?: ToRelativeUnit;
+    unit?: ToRelativeUnit | undefined;
     /**
      * Override the numberingSystem of this DateTime.
      * The Intl system may choose not to honor this.
      */
-    numberingSystem?: NumberingSystem;
+    numberingSystem?: NumberingSystem | undefined;
 }
 
 export interface ToSQLOptions {
@@ -58,12 +63,12 @@ export interface ToSQLOptions {
      * Include the offset, such as 'Z' or '-04:00'
      * @default true
      */
-    includeOffset?: boolean;
+    includeOffset?: boolean | undefined;
     /**
      * Include the zone, such as 'America/New_York'. Overrides includeOffset.
      * @default false
      */
-    includeZone?: boolean;
+    includeZone?: boolean | undefined;
 }
 
 export interface ToISODateOptions {
@@ -71,7 +76,7 @@ export interface ToISODateOptions {
      * Choose between the basic and extended format
      * @default 'extended'
      */
-    format?: ToISOFormat;
+    format?: ToISOFormat | undefined;
 }
 
 export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
@@ -79,7 +84,7 @@ export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
      * Include the offset, such as 'Z' or '-04:00'
      * @default true
      */
-    includeOffset?: boolean;
+    includeOffset?: boolean | undefined;
 }
 
 /** @deprecated alias for backwards compatibility */
@@ -89,9 +94,9 @@ export interface LocaleOptions {
     /**
      * @default system's locale
      */
-    locale?: string;
-    outputCalendar?: CalendarSystem;
-    numberingSystem?: NumberingSystem;
+    locale?: string | undefined;
+    outputCalendar?: CalendarSystem | undefined;
+    numberingSystem?: NumberingSystem | undefined;
 }
 
 export interface DateTimeOptions extends LocaleOptions {
@@ -99,60 +104,59 @@ export interface DateTimeOptions extends LocaleOptions {
      * Use this zone if no offset is specified in the input string itself. Will also convert the time to this zone.
      * @default local
      */
-    zone?: string | Zone;
+    zone?: string | Zone | undefined;
     /**
      * Override the zone with a fixed-offset zone specified in the string itself, if it specifies one.
      * @default false
      */
-    setZone?: boolean;
+    setZone?: boolean | undefined;
 }
 
 export type DateTimeJSOptions = Omit<DateTimeOptions, 'setZone'>;
 
 export interface DateObjectUnits {
     // a year, such as 1987
-    year?: number;
+    year?: number | undefined;
     // a month, 1-12
-    month?: number;
+    month?: number | undefined;
     // a day of the month, 1-31, depending on the month
-    day?: number;
+    day?: number | undefined;
     // day of the year, 1-365 or 366
-    ordinal?: number;
+    ordinal?: number | undefined;
     // an ISO week year
-    weekYear?: number;
+    weekYear?: number | undefined;
     // an ISO week number, between 1 and 52 or 53, depending on the year
-    weekNumber?: number;
+    weekNumber?: number | undefined;
     // an ISO weekday, 1-7, where 1 is Monday and 7 is Sunday
-    weekday?: number;
+    weekday?: number | undefined;
     // hour of the day, 0-23
-    hour?: number;
+    hour?: number | undefined;
     // minute of the hour, 0-59
-    minute?: number;
+    minute?: number | undefined;
     // second of the minute, 0-59
-    second?: number;
+    second?: number | undefined;
     // millisecond of the second, 0-999
-    millisecond?: number;
+    millisecond?: number | undefined;
 }
 
 export interface DateObject extends DateObjectUnits, LocaleOptions {
-    zone?: string | Zone;
 }
 
 export type ConversionAccuracy = 'casual' | 'longterm';
 
 export interface DiffOptions {
-    conversionAccuracy?: ConversionAccuracy;
+    conversionAccuracy?: ConversionAccuracy | undefined;
 }
 
 export interface ExplainedFormat {
     input: string;
     tokens: Array<{ literal: boolean; val: string }>;
-    regex?: RegExp;
-    rawMatches?: RegExpMatchArray | null;
-    matches?: { [k: string]: any };
-    result?: { [k: string]: any } | null;
-    zone?: Zone | null;
-    invalidReason?: string;
+    regex?: RegExp | undefined;
+    rawMatches?: RegExpMatchArray | null | undefined;
+    matches?: { [k: string]: any } | undefined;
+    result?: { [k: string]: any } | null | undefined;
+    zone?: Zone | null | undefined;
+    invalidReason?: string | undefined;
 }
 
 /**
@@ -323,15 +327,15 @@ export class DateTime {
      * @example
      * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //~> today at 10:26:06
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'utc' }),
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'utc' }),
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'local' })
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'local' })
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'America/New_York' })
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'America/New_York' })
      * @example
      * DateTime.fromObject({ weekYear: 2016, weekNumber: 2, weekday: 3 }).toISODate() //=> '2016-01-13'
      */
-    static fromObject(obj: DateObject): DateTime;
+    static fromObject(obj: DateObject, options?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from an RFC 2822 string
@@ -420,6 +424,7 @@ export class DateTime {
      * @param [minute=0] - The minute of the hour, meaning a number between 0 and 59
      * @param [second=0] - The second of the minute, meaning a number between 0 and 59
      * @param [millisecond=0] - The millisecond of the second, meaning a number between 0 and 999
+     * @param [options] - Options for creating this DateTime
      * @example
      * DateTime.local()                            //~> now
      * @example
@@ -445,6 +450,7 @@ export class DateTime {
         minute?: number,
         second?: number,
         millisecond?: number,
+        options?: DateTimeOptions,
     ): DateTime;
 
     /** Return the maximum of several date times */
@@ -475,6 +481,7 @@ export class DateTime {
      * @param [minute=0] - The minute of the hour, meaning a number between 0 and 59
      * @param [second=0] - The second of the minute, meaning a number between 0 and 59
      * @param [millisecond=0] - The millisecond of the second, meaning a number between 0 and 999
+     * @param [options] - Options for creating this DateTime
      * @example
      * DateTime.utc()                            //~> now
      * @example
@@ -500,6 +507,7 @@ export class DateTime {
         minute?: number,
         second?: number,
         millisecond?: number,
+        options?: DateTimeOptions,
     ): DateTime;
 
     /**
@@ -804,7 +812,7 @@ export class DateTime {
      * Returns the resolved Intl options for this DateTime.
      * This is useful in understanding the behavior of formatting methods
      */
-    resolvedLocaleOpts(options?: LocaleOptions & DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
+    resolvedLocaleOptions(options?: LocaleOptions & DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
 
     /**
      * "Set" the values of specified units. Returns a newly-constructed DateTime.
@@ -986,7 +994,7 @@ export class DateTime {
      * @example
      * DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hour12: false }); //=> '11:32'
      */
-    toLocaleString(options?: LocaleOptions & DateTimeFormatOptions): string;
+    toLocaleString(formatOptions?: DateTimeFormatOptions, options?: LocaleOptions): string;
 
     /**
      * Returns the epoch milliseconds of this DateTime.
@@ -997,13 +1005,16 @@ export class DateTime {
      * Returns a JavaScript object with this DateTime's year, month, day, and so on.
      * @example
      * DateTime.now().toObject() //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268 }
+     * @example
+     * DateTime.now().toObject({ includeConfig: true })
+     *   //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268, locale: 'en-US', numberingSystem: null, outputCalendar: null }
      */
     toObject(options?: {
         /**
          * Include configuration attributes in the output
          * @default false
          */
-        includeConfig?: boolean
+        includeConfig?: boolean | undefined
     }): DateObject;
 
     /**

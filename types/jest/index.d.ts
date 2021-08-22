@@ -1,4 +1,4 @@
-// Type definitions for Jest 26.0
+// Type definitions for Jest 27.0
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -28,6 +28,7 @@
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
 //                 Alexandre Germain <https://github.com/gerkindev>
+//                 Adam Jones <https://github.com/domdomegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
@@ -73,10 +74,6 @@ type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
 ];
 
 declare namespace jest {
-    /**
-     * Provides a way to add Jasmine-compatible matchers into your Jest context.
-     */
-    function addMatchers(matchers: jasmine.CustomMatcherFactories): typeof jest;
     /**
      * Disables automatic mocking in the module loader.
      */
@@ -198,11 +195,6 @@ declare namespace jest {
      * Resets the module registry - the cache of all required modules. This is
      * useful to isolate modules where local state might conflict between tests.
      */
-    function resetModuleRegistry(): typeof jest;
-    /**
-     * Resets the module registry - the cache of all required modules. This is
-     * useful to isolate modules where local state might conflict between tests.
-     */
     function resetModules(): typeof jest;
     /**
      * Creates a sandbox registry for the modules that are loaded inside the callback function..
@@ -216,6 +208,8 @@ declare namespace jest {
     function retryTimes(numRetries: number): typeof jest;
     /**
      * Exhausts tasks queued by setImmediate().
+     * > Note: This function is only available when using modern fake timers
+     * > implementation
      */
     function runAllImmediates(): typeof jest;
     /**
@@ -223,7 +217,9 @@ declare namespace jest {
      */
     function runAllTicks(): typeof jest;
     /**
-     * Exhausts the macro-task queue (i.e., all tasks queued by setTimeout() and setInterval()).
+     * Exhausts both the macro-task queue (i.e., all tasks queued by setTimeout(),
+     * setInterval(), and setImmediate()) and the micro-task queue (usually interfaced
+     * in node via process.nextTick).
      */
     function runAllTimers(): typeof jest;
     /**
@@ -233,11 +229,6 @@ declare namespace jest {
      * those new tasks will not be executed by this call.
      */
     function runOnlyPendingTimers(): typeof jest;
-    /**
-     * (renamed to `advanceTimersByTime` in Jest 21.3.0+) Executes only the macro
-     * task queue (i.e. all tasks queued by setTimeout() or setInterval() and setImmediate()).
-     */
-    function runTimersToTime(msToRun: number): typeof jest;
     /**
      * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
      * queued via setTimeout() or setInterval(), and would be executed within this timeframe
@@ -319,7 +310,7 @@ declare namespace jest {
     function useRealTimers(): typeof jest;
 
     interface MockOptions {
-        virtual?: boolean;
+        virtual?: boolean | undefined;
     }
 
     type EmptyFunction = () => void;
@@ -340,9 +331,10 @@ declare namespace jest {
         fail(error?: string | { message: string }): any;
     }
 
-    type ProvidesCallback = (cb: DoneCallback) => any;
+    type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => Promise<unknown>);
+    type ProvidesHookCallback = (() => any) | ProvidesCallback;
 
-    type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
+    type Lifecycle = (fn: ProvidesHookCallback, timeout?: number) => any;
 
     interface FunctionLike {
         readonly name: string;
@@ -452,14 +444,14 @@ declare namespace jest {
     type MatcherHintColor = (arg: string) => string;
 
     interface MatcherHintOptions {
-        comment?: string;
-        expectedColor?: MatcherHintColor;
-        isDirectExpectCall?: boolean;
-        isNot?: boolean;
-        promise?: string;
-        receivedColor?: MatcherHintColor;
-        secondArgument?: string;
-        secondArgumentColor?: MatcherHintColor;
+        comment?: string | undefined;
+        expectedColor?: MatcherHintColor | undefined;
+        isDirectExpectCall?: boolean | undefined;
+        isNot?: boolean | undefined;
+        promise?: string | undefined;
+        receivedColor?: MatcherHintColor | undefined;
+        secondArgument?: string | undefined;
+        secondArgumentColor?: MatcherHintColor | undefined;
     }
 
     interface ChalkFunction {
@@ -593,7 +585,7 @@ declare namespace jest {
         currentTestName: string;
         expand: boolean;
         expectedAssertionsNumber: number;
-        isExpectingAssertions?: boolean;
+        isExpectingAssertions?: boolean | undefined;
         suppressedErrors: Error[];
         testPath: string;
     }
@@ -1371,7 +1363,6 @@ declare namespace jasmine {
     function createSpyObj<T>(baseName: string, methodNames: any[]): T;
     function pp(value: any): string;
     function addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
-    function addMatchers(matchers: CustomMatcherFactories): void;
     function stringMatching(value: string | RegExp): Any;
 
     interface Clock {

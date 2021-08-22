@@ -2,12 +2,19 @@ declare module 'path/posix' {
     import path = require('path');
     export = path;
 }
-
 declare module 'path/win32' {
     import path = require('path');
     export = path;
 }
-
+/**
+ * The `path` module provides utilities for working with file and directory paths.
+ * It can be accessed using:
+ *
+ * ```js
+ * const path = require('path');
+ * ```
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/path.js)
+ */
 declare module 'path' {
     namespace path {
         /**
@@ -35,30 +42,28 @@ declare module 'path' {
              */
             name: string;
         }
-
         interface FormatInputPathObject {
             /**
              * The root of the path such as '/' or 'c:\'
              */
-            root?: string;
+            root?: string | undefined;
             /**
              * The full directory path such as '/home/user/dir' or 'c:\path\dir'
              */
-            dir?: string;
+            dir?: string | undefined;
             /**
              * The file name including extension (if any) such as 'index.html'
              */
-            base?: string;
+            base?: string | undefined;
             /**
              * The file extension (if any) such as '.html'
              */
-            ext?: string;
+            ext?: string | undefined;
             /**
              * The file name without extension (if any) such as 'index'
              */
-            name?: string;
+            name?: string | undefined;
         }
-
         interface PlatformPath {
             /**
              * Normalize a string path, reducing '..' and '.' parts.
@@ -159,5 +164,9 @@ declare module 'path' {
         }
     }
     const path: path.PlatformPath;
+    export = path;
+}
+declare module 'node:path' {
+    import path = require('path');
     export = path;
 }

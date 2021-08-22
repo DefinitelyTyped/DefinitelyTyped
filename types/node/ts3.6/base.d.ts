@@ -7,7 +7,7 @@
 //          - ~/ts3.6/index.d.ts  - Definitions specific to TypeScript 3.6 and earlier with assert pulled in
 
 // Reference required types from the default lib:
-/// <reference lib="es2018" />
+/// <reference lib="es2020" />
 /// <reference lib="esnext.asynciterable" />
 /// <reference lib="esnext.intl" />
 /// <reference lib="esnext.bigint" />
@@ -23,7 +23,7 @@
 /// <reference path="../constants.d.ts" />
 /// <reference path="../crypto.d.ts" />
 /// <reference path="../dgram.d.ts" />
-/// <reference path="../diagnostic_channel.d.ts" />
+/// <reference path="../diagnostics_channel.d.ts" />
 /// <reference path="../dns.d.ts" />
 /// <reference path="../dns/promises.d.ts" />
 /// <reference path="../dns/promises.d.ts" />
@@ -47,6 +47,7 @@
 /// <reference path="../repl.d.ts" />
 /// <reference path="../stream.d.ts" />
 /// <reference path="../stream/promises.d.ts" />
+/// <reference path="../stream/web.d.ts" />
 /// <reference path="../string_decoder.d.ts" />
 /// <reference path="../timers.d.ts" />
 /// <reference path="../timers/promises.d.ts" />
@@ -55,7 +56,6 @@
 /// <reference path="../tty.d.ts" />
 /// <reference path="../url.d.ts" />
 /// <reference path="../util.d.ts" />
-/// <reference path="../util/types.d.ts" />
 /// <reference path="../v8.d.ts" />
 /// <reference path="../vm.d.ts" />
 /// <reference path="../worker_threads.d.ts" />

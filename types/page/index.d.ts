@@ -180,6 +180,16 @@ declare namespace PageJS {
          * This is the click handler used by page to handle routing when a user clicks an anchor like `<a href="/user/profile">`
          */
         clickHandler(e: MouseEvent): void;
+
+        /**
+         * Length of the history stack
+         */
+        len: number;
+
+        /**
+         * Current path
+         */
+        current: string;
     }
 
     interface Route {
@@ -208,12 +218,12 @@ declare namespace PageJS {
          * enable case-sensitive routes
          * @type {[type]}
          */
-        sensitive?: boolean;
+        sensitive?: boolean | undefined;
         /**
          * enable strict matching for trailing slashes
          * @type {[type]}
          */
-        strict?: boolean;
+        strict?: boolean | undefined;
     }
 
     interface Options {

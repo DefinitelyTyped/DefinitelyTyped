@@ -1,9 +1,11 @@
-import * as crypto from 'crypto';
-import assert = require('assert');
-import { promisify } from 'util';
+import * as crypto from 'node:crypto';
+import assert = require('node:assert');
+import { promisify } from 'node:util';
 
 {
-    const copied: crypto.Hash = crypto.createHash('md5').copy();
+    const copied: crypto.Hash = crypto.createHash('md5').copy().copy({
+        encoding: 'ascii',
+    });
 }
 
 {
@@ -396,6 +398,72 @@ import { promisify } from 'util';
 }
 
 {
+    crypto.generateKey(
+        'hmac',
+        {
+            length: 123,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 128,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 192,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+
+    crypto.generateKey(
+        'aes',
+        {
+            length: 256,
+        },
+        (err: Error | null, key: crypto.KeyObject) => {},
+    );
+}
+
+{
+    const generateKeyPromisified = promisify(crypto.generateKey);
+
+    const resHmac: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'hmac',
+        {
+            length: 123,
+        },
+    );
+
+    const resAes128: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 128,
+        },
+    );
+
+    const resAes192: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 192,
+        },
+    );
+
+    const resAes256: Promise<crypto.KeyObject> = generateKeyPromisified(
+        'aes',
+        {
+            length: 256,
+        },
+    );
+}
+
+{
     const rsaRes: {
         publicKey: Buffer;
         privateKey: string;
@@ -683,6 +751,7 @@ import { promisify } from 'util';
     keyObject instanceof crypto.KeyObject;
     assert.equal(keyObject.symmetricKeySize, 4);
     assert.equal(keyObject.type, 'secret');
+    crypto.createSecretKey('ascii', 'ascii');
 }
 
 {
@@ -690,7 +759,7 @@ import { promisify } from 'util';
         namedCurve: 'sect239k1',
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.write('some data to sign');
     sign.end();
     const signature: string = sign.sign(privateKey, 'hex');
@@ -702,7 +771,7 @@ import { promisify } from 'util';
 
     // ensure that instanceof works
     verify instanceof crypto.Verify;
-    sign instanceof crypto.Signer;
+    sign instanceof crypto.Sign;
 }
 
 {
@@ -710,7 +779,7 @@ import { promisify } from 'util';
         modulusLength: 2048,
     });
 
-    const sign: crypto.Signer = crypto.createSign('SHA256');
+    const sign: crypto.Sign = crypto.createSign('SHA256');
     sign.update('some data to sign');
     sign.end();
     const signature: Buffer = sign.sign(privateKey);
@@ -860,6 +929,7 @@ import { promisify } from 'util';
 }
 
 {
+    const callback = (error: Error | null, signature: Buffer): void => {};
     const key = crypto.createPrivateKey('pkey');
     crypto.sign('sha256', Buffer.from('asd'), {
         key: Buffer.from('keylike'),
@@ -876,6 +946,14 @@ import { promisify } from 'util';
         key,
         dsaEncoding: 'der',
     });
+    crypto.sign('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der',
+    }, callback);
+    promisify(crypto.sign)('sha256', Buffer.from('asd'), {
+        key,
+        dsaEncoding: 'der',
+    }).then((signature: Buffer) => {});
     crypto.createSign('sha256').update(Buffer.from('asd')).sign({
         key,
         dsaEncoding: 'der',
@@ -883,6 +961,7 @@ import { promisify } from 'util';
 }
 
 {
+    const callback = (error: Error | null, result: boolean): void => {};
     const key = crypto.createPublicKey('pkey');
     crypto.verify(
         'sha256',
@@ -912,6 +991,25 @@ import { promisify } from 'util';
         },
         Buffer.from('sig'),
     );
+    crypto.verify(
+        'sha256',
+        Buffer.from('asd'),
+        {
+            key,
+            dsaEncoding: 'der',
+        },
+        Buffer.from('sig'),
+        callback
+    );
+    promisify(crypto.verify)(
+        'sha256',
+        Buffer.from('asd'),
+        {
+            key,
+            dsaEncoding: 'der',
+        },
+        Buffer.from('sig'),
+    ).then((result: boolean) => {});
     crypto.createVerify('sha256').update(Buffer.from('asd')).verify(
         {
             key,
@@ -1038,6 +1136,61 @@ import { promisify } from 'util';
 
     crypto.checkPrimeSync(123n); // $ExpectType boolean
     crypto.checkPrimeSync(123n, { checks: 123 }); // $ExpectType boolean
+}
+
+{
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey]) {
+            if (keyObject.asymmetricKeyDetails) {
+                if (keyObject.asymmetricKeyDetails.modulusLength) {
+                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
+                }
+                if (keyObject.asymmetricKeyDetails.publicExponent) {
+                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
+                }
+                if (keyObject.asymmetricKeyDetails.divisorLength) {
+                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
+                }
+                if (keyObject.asymmetricKeyDetails.namedCurve) {
+                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
+                }
+            }
+        }
+    });
+    const secretKeyObject = crypto.createSecretKey(Buffer.from('secret'));
+    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
+        for (const keyObject of [publicKey, privateKey, secretKeyObject]) {
+            const jwk = keyObject.export({ format: 'jwk' });
+            jwk.crv;
+            jwk.d;
+            jwk.dp;
+            jwk.dq;
+            jwk.e;
+            jwk.k;
+            jwk.kty;
+            jwk.n;
+            jwk.p;
+            jwk.q;
+            jwk.qi;
+            jwk.x;
+            jwk.y;
+            crypto.createPublicKey({ key: jwk, format: 'jwk' });
+            crypto.createPrivateKey({ key: jwk, format: 'jwk' });
+        }
+    });
+}
+
+{
+    const jwk = {
+        alg: 'ES256',
+        crv: 'P-256',
+        kty: 'EC',
+        x: 'ySK38C1jBdLwDsNWKzzBHqKYEE5Cgv-qjWvorUXk9fw',
+        y: '_LeQBw07cf5t57Iavn4j-BqJsAD1dpoz8gokd3sBsOo',
+        key_ops: ['sign'],
+    };
+    crypto.createPublicKey({ key: jwk, format: 'jwk' });
+    crypto.createPrivateKey({ key: jwk, format: 'jwk' });
 }
 
 {

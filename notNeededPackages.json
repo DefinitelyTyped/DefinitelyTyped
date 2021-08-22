@@ -500,6 +500,10 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "classify-poetry": {
+            "libraryName": "classify-poetry",
+            "asOfVersion": "1.0.1"
+        },
         "classnames": {
             "libraryName": "classnames",
             "asOfVersion": "2.3.0"
@@ -785,6 +789,10 @@
             "libraryName": "cuid",
             "asOfVersion": "2.0.1"
         },
+        "cuss": {
+            "libraryName": "cuss",
+            "asOfVersion": "2.0.0"
+        },
         "cycled": {
             "libraryName": "cycled",
             "asOfVersion": "1.1.0"
@@ -868,6 +876,10 @@
         "dependency-tree": {
             "libraryName": "dependency-tree",
             "asOfVersion": "8.1.0"
+        },
+        "deta": {
+            "libraryName": "deta",
+            "asOfVersion": "1.0.0"
         },
         "detect-browser": {
             "libraryName": "detect-browser",
@@ -1561,6 +1573,10 @@
             "libraryName": "graphql-query-complexity",
             "asOfVersion": "0.2.0"
         },
+        "graphql-relay": {
+            "libraryName": "graphql-relay",
+            "asOfVersion": "0.7.0"
+        },
         "gravatar-url": {
             "libraryName": "gravatar-url",
             "asOfVersion": "3.0.0"
@@ -1736,6 +1752,10 @@
         "html-webpack-tags-plugin": {
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
+        },
+        "html2canvas": {
+            "libraryName": "html2canvas",
+            "asOfVersion": "1.0.0"
         },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
@@ -2549,6 +2569,10 @@
             "libraryName": "map-obj",
             "asOfVersion": "3.1.0"
         },
+        "maplibre-gl": {
+            "libraryName": "maplibre-gl",
+            "asOfVersion": "1.14.0"
+        },
         "maquette": {
             "libraryName": "maquette",
             "asOfVersion": "2.1.6"
@@ -2792,6 +2816,10 @@
         "moment-timezone": {
             "libraryName": "moment-timezone",
             "asOfVersion": "0.5.30"
+        },
+        "mongodb": {
+            "libraryName": "mongodb",
+            "asOfVersion": "4.0.0"
         },
         "mongodb-memory-server": {
             "libraryName": "mongodb-memory-server",
@@ -3450,6 +3478,10 @@
             "libraryName": "preferred-pm",
             "asOfVersion": "3.0.0"
         },
+        "prettier-package-json": {
+            "libraryName": "prettier-package-json",
+            "asOfVersion": "2.3.0"
+        },
         "pretty-bytes": {
             "libraryName": "pretty-bytes",
             "asOfVersion": "5.2.0"
@@ -3622,10 +3654,6 @@
             "libraryName": "rc-progress",
             "asOfVersion": "2.4.0"
         },
-        "rdf-js": {
-            "libraryName": "rdf-js",
-            "asOfVersion": "4.0.2"
-        },
         "rc-select": {
             "libraryName": "rc-select",
             "asOfVersion": "8.6.5"
@@ -3641,6 +3669,10 @@
         "rc-time-picker": {
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
+        },
+        "rdf-js": {
+            "libraryName": "rdf-js",
+            "asOfVersion": "4.0.2"
         },
         "rdflib": {
             "libraryName": "rdflib",
@@ -3929,6 +3961,10 @@
         "react-native-google-analytics-bridge": {
             "libraryName": "react-native-google-analytics-bridge",
             "asOfVersion": "5.3.3"
+        },
+        "react-native-input-spinner": {
+            "libraryName": "react-native-input-spinner",
+            "asOfVersion": "1.4.1"
         },
         "react-native-keychain": {
             "libraryName": "react-native-keychain",
@@ -4574,6 +4610,10 @@
             "libraryName": "sololearn",
             "asOfVersion": "2.5.0"
         },
+        "sonic-boom": {
+            "libraryName": "sonic-boom",
+            "asOfVersion": "2.1.0"
+        },
         "soundex-code": {
             "libraryName": "soundex-code",
             "asOfVersion": "2.0.0"
@@ -4773,6 +4813,10 @@
         "strong-error-handler": {
             "libraryName": "strong-error-handler",
             "asOfVersion": "3.2.0"
+        },
+        "styled-jsx": {
+            "libraryName": "styled-jsx",
+            "asOfVersion": "3.4.4"
         },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",
@@ -5298,6 +5342,10 @@
             "libraryName": "@wordpress/a11y",
             "asOfVersion": "2.9.0"
         },
+        "wordpress__api-fetch": {
+            "libraryName": "@wordpress/api-fetch",
+            "asOfVersion": "3.23.1"
+        },
         "wordpress__autop": {
             "libraryName": "@wordpress/autop",
             "asOfVersion": "2.7.0"
@@ -5413,6 +5461,10 @@
         "xumm-api": {
             "libraryName": "xumm-sdk",
             "asOfVersion": "0.1.4"
+        },
+        "y18n": {
+            "libraryName": "y18n",
+            "asOfVersion": "5.0.0"
         },
         "yaml": {
             "libraryName": "yaml",

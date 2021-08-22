@@ -54,3 +54,11 @@ const testLoadingComponent: azdata.LoadingComponent = {
     onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable()
 };
 testLoadingComponent.validate();
+
+azdata.window.createModelViewDialog('MyTitle', 'MyDialog', 'narrow');
+
+const testCard: azdata.CardProperties = {
+    label: 'test-label',
+    iconHeight: '16px',
+    iconWidth: '16px'
+};

@@ -627,9 +627,9 @@ export type IconGlyph =
 
 export type IconProps = {
     glyph: IconGlyph;
-    className?: string;
-    disableStyles?: boolean;
-    size?: IconSize;
+    className?: string | undefined;
+    disableStyles?: boolean | undefined;
+    size?: IconSize | undefined;
 } & { [x: string]: any };
 
 declare const Icon: React.FunctionComponent<IconProps>;

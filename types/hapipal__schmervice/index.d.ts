@@ -16,10 +16,10 @@ export interface ServiceCachingOptions {
 export type ServiceSandbox = boolean | 'plugin' | 'server';
 
 export interface ServiceRegistrationObject {
-    caching?: ServiceCachingOptions;
-    name?: string;
-    [name]?: string;
-    [sandbox]?: ServiceSandbox;
+    caching?: ServiceCachingOptions | undefined;
+    name?: string | undefined;
+    [name]?: string | undefined;
+    [sandbox]?: ServiceSandbox | undefined;
     // any is necessary here as implementation is left to the developers
     // without this member the tests fail as the Schmervice.withName factory
     // has no members in common with this interface
@@ -52,7 +52,7 @@ export type RegisterServiceConfiguration = (typeof ServiceFactory | Service | Se
 export const plugin: Plugin<{}>;
 
 export interface WithNameOptions {
-    sandbox?: ServiceSandbox;
+    sandbox?: ServiceSandbox | undefined;
 }
 
 // TS takes issue with this function signature (name, [options], serviceFactory) due to a required param

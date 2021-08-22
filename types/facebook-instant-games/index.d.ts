@@ -822,12 +822,12 @@ declare namespace FBInstant {
         /**
          * The product description
          */
-        description?: string;
+        description?: string | undefined;
 
         /**
          * A link to the product's associated image
          */
-        imageURI?: string;
+        imageURI?: string | undefined;
 
         /**
          * The price of the product
@@ -845,8 +845,8 @@ declare namespace FBInstant {
      */
     interface ContextSizeResponse {
         answer: boolean;
-        minSize?: number;
-        maxSize?: number;
+        minSize?: number | undefined;
+        maxSize?: number | undefined;
     }
 
     /**
@@ -856,7 +856,7 @@ declare namespace FBInstant {
         /**
          * A developer-specified string, provided during the purchase of the product
          */
-        developerPayload?: string;
+        developerPayload?: string | undefined;
 
         /**
          * The identifier for the purchase transaction
@@ -888,17 +888,17 @@ declare namespace FBInstant {
         /**
          * The set of filters to apply to the context suggestions.
          */
-        filters?: ContextFilter[];
+        filters?: ContextFilter[] | undefined;
 
         /**
          * The maximum number of participants that a suggested context should ideally have.
          */
-        maxSize?: number;
+        maxSize?: number | undefined;
 
         /**
          * The minimum number of participants that a suggested context should ideally have.
          */
-        minSize?: number;
+        minSize?: number | undefined;
     }
 
     /**
@@ -952,7 +952,7 @@ declare namespace FBInstant {
         /**
          * An optional developer-specified payload, to be included in the returned purchase's signed request.
          */
-        developerPayload?: string;
+        developerPayload?: string | undefined;
     }
 
     /**
@@ -976,7 +976,7 @@ declare namespace FBInstant {
          * versions of your own call to action, pass an object with the default cta as the value of 'default' and another object mapping
          * locale keys to translations as the value of 'localizations'.
          */
-        cta?: (string | LocalizableContent);
+        cta?: (string | LocalizableContent) | undefined;
 
         /**
          * Data URL of a base64 encoded image.
@@ -1006,14 +1006,14 @@ declare namespace FBInstant {
          *
          * If no strategy is specified, we default to 'IMMEDIATE'.
          */
-        strategy?: string;
+        strategy?: string | undefined;
 
         /**
          * Specifies notification setting for the custom update. This can be 'NO_PUSH' or 'PUSH', and defaults to 'NO_PUSH'.
          * Use push notification only for updates that are high-signal and immediately actionable for the recipients.
          * Also note that push notification is not always guaranteed, depending on user setting and platform policies.
          */
-        notification?: string;
+        notification?: string | undefined;
     }
 
     /**
@@ -1033,7 +1033,7 @@ declare namespace FBInstant {
         /**
          * Optional text message. If not specified, a localized fallback message will be provided instead.
          */
-        text?: string;
+        text?: string | undefined;
     }
 
     /**

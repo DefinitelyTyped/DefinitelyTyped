@@ -1,7 +1,7 @@
-import { BufferGeometry, Color, Mesh, Texture, TextureEncoding, Vector2 } from '../../../src/Three';
+import { BufferGeometry, ColorRepresentation, Mesh, Texture, TextureEncoding, Vector2 } from '../../../src/Three';
 
 export interface Water2Options {
-    color?: Color | string | number;
+    color?: ColorRepresentation;
     textureWidth?: number;
     textureHeight?: number;
     clipBias?: number;
@@ -16,6 +16,6 @@ export interface Water2Options {
     encoding?: TextureEncoding;
 }
 
-export class Water2 extends Mesh {
+export class Water extends Mesh {
     constructor(geometry: BufferGeometry, options: Water2Options);
 }

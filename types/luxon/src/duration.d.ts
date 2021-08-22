@@ -1,41 +1,39 @@
 import { DateTimeFormatOptions, NumberingSystem } from './misc';
-import { ConversionAccuracy } from './datetime';
+import { ConversionAccuracy, DateTimeOptions } from './datetime';
 
 export interface DurationOptions {
-    locale?: string;
-    numberingSystem?: NumberingSystem;
-    conversionAccuracy?: ConversionAccuracy;
+    locale?: string | undefined;
+    numberingSystem?: NumberingSystem | undefined;
+    conversionAccuracy?: ConversionAccuracy | undefined;
 }
 
-export interface DurationObjectUnits {
-    year?: number;
-    years?: number;
-    quarter?: number;
-    quarters?: number;
-    month?: number;
-    months?: number;
-    week?: number;
-    weeks?: number;
-    day?: number;
-    days?: number;
-    hour?: number;
-    hours?: number;
-    minute?: number;
-    minutes?: number;
-    second?: number;
-    seconds?: number;
-    millisecond?: number;
-    milliseconds?: number;
+export interface DurationObject {
+    year?: number | undefined;
+    years?: number | undefined;
+    quarter?: number | undefined;
+    quarters?: number | undefined;
+    month?: number | undefined;
+    months?: number | undefined;
+    week?: number | undefined;
+    weeks?: number | undefined;
+    day?: number | undefined;
+    days?: number | undefined;
+    hour?: number | undefined;
+    hours?: number | undefined;
+    minute?: number | undefined;
+    minutes?: number | undefined;
+    second?: number | undefined;
+    seconds?: number | undefined;
+    millisecond?: number | undefined;
+    milliseconds?: number | undefined;
 }
 
-export interface DurationObject extends DurationObjectUnits, DurationOptions {}
-
-export type DurationUnit = keyof DurationObjectUnits;
+export type DurationUnit = keyof DurationObject;
 export type DurationUnits = DurationUnit | DurationUnit[];
 
 export interface DurationToFormatOptions extends DateTimeFormatOptions {
-    floor?: boolean;
-    round?: boolean;
+    floor?: boolean | undefined;
+    round?: boolean | undefined;
 }
 
 export type ToISOFormat = 'basic' | 'extended';
@@ -45,22 +43,22 @@ export interface ToISOTimeDurationOptions {
      * Include the `T` prefix
      * @default false
      */
-    includePrefix?: boolean;
+    includePrefix?: boolean | undefined;
     /**
      * Exclude milliseconds from the format if they're 0
      * @default false
      */
-    suppressMilliseconds?: boolean;
+    suppressMilliseconds?: boolean | undefined;
     /**
      * Exclude seconds from the format if they're 0
      * @default false
      */
-    suppressSeconds?: boolean;
+    suppressSeconds?: boolean | undefined;
     /**
      * Choose between the basic and extended format
      * @default 'extended'
      */
-    format?: ToISOFormat;
+    format?: ToISOFormat | undefined;
 }
 
 /**
@@ -130,7 +128,7 @@ export class Duration {
      * Create a Duration from a JavaScript object with keys like 'years' and 'hours'.
      * If this object is empty then a zero milliseconds duration is returned.
      */
-    static fromObject(obj: DurationObject): Duration;
+    static fromObject(obj: DurationObject, options?: DurationOptions): Duration;
 
     /**
      * Create an invalid Duration.
@@ -240,7 +238,7 @@ export class Duration {
     /**
      * "Set" the values of specified units. Return a newly-constructed Duration.
      */
-    set(values: DurationObjectUnits): Duration;
+    set(values: DurationObject): Duration;
 
     /**
      * Convert this Duration into its representation in a different set of units.
@@ -341,7 +339,7 @@ export class Duration {
         /**
          * include configuration attributes in the output
          */
-        includeConfig?: boolean
+        includeConfig?: boolean | undefined
     }): DurationObject;
 
     /**
