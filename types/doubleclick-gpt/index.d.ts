@@ -50,6 +50,26 @@ declare namespace googletag {
             listener: (event: events.Event) => void
         ): Service;
         getSlots(): Slot[];
+        removeEventListener(
+            eventType: "slotRenderEnded",
+              listener: (event: events.SlotRenderEndedEvent) => void
+          ): Service;
+        removeEventListener(
+            eventType: "slotRequested",
+            listener: (event: events.SlotRequestedEvent) => void
+        ): Service;
+        removeEventListener(
+            eventType: "slotResponseReceived",
+            listener: (event: events.SlotResponseReceived) => void
+        ): Service;
+        removeEventListener(
+        eventType: "slotVisibilityChanged",
+            listener: (event: events.SlotVisibilityChangedEvent) => void
+        ): Service;
+        removeEventListener(
+        eventType: string,
+            listener: (event: events.Event) => void
+        ): Service;
     }
 
     interface CompanionAdsService extends Service {
