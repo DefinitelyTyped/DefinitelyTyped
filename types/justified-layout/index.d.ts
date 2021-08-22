@@ -54,7 +54,7 @@ interface JustifiedLayoutOptions {
      * in your input array irrelevant. The length of the array remains relevant.
      * @default false
      */
-    forcedAspectRatio?: boolean | number | undefined;
+    forceAspectRatio?: boolean | number | undefined;
     /**
      * If you'd like to insert a full width box every n rows you can specify it with this
      * parameter. The box on that row will ignore the targetRowHeight, make itself as wide as
@@ -101,6 +101,10 @@ interface LayoutBox {
      * Distance between the left side of the box and the left boundary of the justified layout.
      */
     left: number;
+    /**
+     * Whether or not the aspect ratio was forced.
+     */
+    forcedAspectRatio?: boolean;
 }
 
 /**
