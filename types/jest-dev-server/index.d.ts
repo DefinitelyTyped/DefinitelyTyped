@@ -1,7 +1,7 @@
 // Type definitions for jest-dev-server 5.0
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-dev-server
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions by: Tony Brix <https://github.com/UziTech>
+//                 Tony Brix <https://github.com/UziTech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.3
 
