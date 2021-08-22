@@ -1,1 +1,3 @@
-export { DistributeVerticalBottom32 as default } from "../../";
+import { DistributeVerticalBottom32 } from "../../";
+
+export = DistributeVerticalBottom32;

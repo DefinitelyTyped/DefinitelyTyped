@@ -1,1 +1,3 @@
-export { AlignVerticalBottom24 as default } from "../../";
+import { AlignVerticalBottom24 } from "../../";
+
+export = AlignVerticalBottom24;

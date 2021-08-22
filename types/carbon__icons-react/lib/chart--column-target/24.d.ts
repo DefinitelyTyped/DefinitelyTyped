@@ -1,1 +1,3 @@
-export { ChartColumnTarget24 as default } from "../../";
+import { ChartColumnTarget24 } from "../../";
+
+export = ChartColumnTarget24;

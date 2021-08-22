@@ -27,7 +27,7 @@ type X = React.PropsWithoutRef<React.ComponentProps<typeof ForwardComp>>;
 
 type Props = React.ComponentPropsWithRef<typeof Animated.Text>;
 const AnimatedWrapperComponent: React.FunctionComponent<Props> = ({
-    key, // $ExpectType string | number | null | undefined
+    key, // $ExpectType string | number | null | undefined || Key | null | undefined
     ...props
 }) => <Animated.Text {...props} />;
 
@@ -70,6 +70,11 @@ function TestAnimatedAPI() {
         inputRange: [0, 1],
         outputRange: [0, 200],
     });
+
+    const id = v200.addListener(() => {});
+    v200.removeListener(id);
+    v200.removeAllListeners();
+    v200.hasListeners();
 
     Animated.timing(v2, {
         toValue: v1.interpolate({ inputRange: [0, 1], outputRange: [0, 200] }),
@@ -165,7 +170,10 @@ function TestAnimatedAPI() {
             <AnimatedComp ref={AnimatedCompRef} width={v1} />
             <ForwardComp ref={ForwardCompRef} width={1} />
             <AnimatedForwardComp ref={AnimatedForwardCompRef} width={10} />
-            <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
+            <Animated.Image
+                style={{ transform: position.getTranslateTransform() }}
+                source={{ uri: 'https://picsum.photos/200' }}
+            />
             <Animated.View
                 testID="expect-type-animated-view"
                 style={{ opacity: v1 }}

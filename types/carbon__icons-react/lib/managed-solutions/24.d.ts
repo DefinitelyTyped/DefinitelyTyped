@@ -1,1 +1,3 @@
-export { ManagedSolutions24 as default } from "../../";
+import { ManagedSolutions24 } from "../../";
+
+export = ManagedSolutions24;

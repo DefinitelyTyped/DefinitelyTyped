@@ -4,6 +4,7 @@ import {
     Cell,
     CellProps,
     Column,
+    DefaultSortTypes,
     FilterProps,
     FilterValue,
     HeaderGroup,
@@ -136,7 +137,7 @@ interface Data {
     visits: number;
     progress: number;
     status: string;
-    subRows?: Data[];
+    subRows?: Data[] | undefined;
 }
 
 // Create an editable cell renderer
@@ -172,8 +173,10 @@ const EditableCell = ({
 };
 
 // Define a default UI for filtering
-function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter } }: FilterProps<Data>) {
+function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter, parent } }: FilterProps<Data>) {
     const count = preFilteredRows.length;
+
+    const foo = parent;  // $ExpectType ColumnInstance<Data> | undefined
 
     return (
         <input
@@ -315,7 +318,7 @@ interface Table<T extends object> {
     columns: Array<Column<T>>;
     data: T[];
     updateMyData?: any;
-    skipPageReset?: boolean;
+    skipPageReset?: boolean | undefined;
 }
 
 // Be sure to pass our updateMyData and the skipPageReset option
@@ -820,3 +823,11 @@ const Component = (props: {}) => {
 };
 
 ReactDOM.render(<Component />, document.getElementById('root'));
+
+declare function checkDefaultSortType(sortType: DefaultSortTypes): void;
+
+checkDefaultSortType('alphanumeric');
+checkDefaultSortType('datetime');
+checkDefaultSortType('basic');
+checkDefaultSortType('string');
+checkDefaultSortType('number');

@@ -1,1 +1,3 @@
-export { WatsonHealthZoomPan20 as default } from "../../../";
+import { WatsonHealthZoomPan20 } from "../../../";
+
+export = WatsonHealthZoomPan20;

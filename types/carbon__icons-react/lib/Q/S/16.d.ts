@@ -1,1 +1,3 @@
-export { QS16 as default } from "../../../";
+import { QS16 } from "../../../";
+
+export = QS16;

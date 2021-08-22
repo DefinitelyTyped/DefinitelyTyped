@@ -1,1 +1,3 @@
-export { EdgeNode32 as default } from "../../";
+import { EdgeNode32 } from "../../";
+
+export = EdgeNode32;

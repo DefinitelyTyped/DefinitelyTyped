@@ -1,1 +1,3 @@
-export { JumpLink32 as default } from "../../";
+import { JumpLink32 } from "../../";
+
+export = JumpLink32;

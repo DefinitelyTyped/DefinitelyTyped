@@ -1,1 +1,3 @@
-export { FileBackup as default } from "../../";
+import { FileBackup } from "../../";
+
+export = FileBackup;

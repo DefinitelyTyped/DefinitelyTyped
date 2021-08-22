@@ -35,6 +35,8 @@ str = dompurify.sanitize(dirty, {ADD_DATA_URI_TAGS: ['a', 'area']});
 // prohibit HTML5 data attributes (default is true)
 str = dompurify.sanitize(dirty, { ALLOW_DATA_ATTR: false });
 
+str = dompurify.sanitize(dirty, { NAMESPACE: "http://www.w3.org/2000/svg" });
+
 // return a DOM HTMLBodyElement instead of an HTML string (default is false)
 str = dompurify.sanitize(dirty, { RETURN_DOM: false });
 elem = dompurify.sanitize(dirty, { RETURN_DOM: true });
@@ -96,5 +98,6 @@ dompurify.addHook('uponSanitizeElement', (currentNode: Element, event: DOMPurify
 dompurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
   if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
       event.allowedAttributes[event.attrName] = true;
+      event.forceKeepAttr = true;
   }
 });

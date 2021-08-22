@@ -1,1 +1,3 @@
-export { ChartBarFloating24 as default } from "../../";
+import { ChartBarFloating24 } from "../../";
+
+export = ChartBarFloating24;

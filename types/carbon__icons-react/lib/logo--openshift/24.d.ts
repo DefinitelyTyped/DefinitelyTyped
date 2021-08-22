@@ -1,1 +1,3 @@
-export { LogoOpenshift24 as default } from "../../";
+import { LogoOpenshift24 } from "../../";
+
+export = LogoOpenshift24;

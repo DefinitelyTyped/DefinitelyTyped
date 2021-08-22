@@ -1,1 +1,3 @@
-export { SoftIceCream as default } from "../../";
+import { SoftIceCream } from "../../";
+
+export = SoftIceCream;

@@ -1,1 +1,3 @@
-export { Erase16 as default } from "../../";
+import { Erase16 } from "../../";
+
+export = Erase16;

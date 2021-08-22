@@ -1,1 +1,3 @@
-export { FolderDetailsReference32 as default } from "../../";
+import { FolderDetailsReference32 } from "../../";
+
+export = FolderDetailsReference32;

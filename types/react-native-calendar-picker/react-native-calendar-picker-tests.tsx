@@ -35,9 +35,13 @@ const TestSimpleProps = () => (
         selectedDayColor="string"
         selectedDayStyle={{ flex: 1 }}
         selectedDayTextColor="string"
+        selectedDayTextStyle={{ color: '#000' }}
+        selectedRangeStartTextStyle={{ fontSize: 12 }}
+        selectedRangeEndTextStyle={{ color: '#8dafee'}}
         selectedRangeStartStyle={{ flex: 1 }}
         selectedRangeEndStyle={{ flex: 1 }}
         selectedRangeStyle={{ flex: 1 }}
+        selectedDisabledDatesTextStyle={{ color: '#efefef'}}
         disabledDates={[new Date(), new Date()]}
         disabledDatesTextStyle={{ fontSize: 10 }}
         selectedStartDate={new Date()}
@@ -59,7 +63,12 @@ const TestSimpleProps = () => (
         restrictMonthNavigation
         dayShape="circle"
         headingLevel={3}
+        selectMonthTitle="Choose month"
+        selectYearTitle="Choose year"
         previousTitleStyle={{ fontSize: 10 }}
+        headerWrapperStyle={{ flex: 1 }}
+        monthTitleStyle={{ textTransform: 'uppercase'}}
+        yearTitleStyle={{ color: '#f04'}}
         nextTitleStyle={{ fontSize: 10 }}
         dayLabelsWrapper={{ flex: 1 }}
         monthYearHeaderWrapperStyle={{ flex: 1 }}

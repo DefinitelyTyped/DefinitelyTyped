@@ -11,36 +11,36 @@ export interface WireConstructor {
 }
 export interface RuntimeConfig {
     version: string;
-    fallbackVersion?: string;
-    securityRealm?: string;
-    verboseLogging?: boolean;
-    arguments?: string;
-    rvmDir?: string;
+    fallbackVersion?: string | undefined;
+    securityRealm?: string | undefined;
+    verboseLogging?: boolean | undefined;
+    arguments?: string | undefined;
+    rvmDir?: string | undefined;
 }
 export interface BaseConfig {
-    uuid?: string;
-    address?: string;
-    name?: string;
-    nonPersistent?: boolean;
-    runtimeClient?: boolean;
-    licenseKey?: string;
+    uuid?: string | undefined;
+    address?: string | undefined;
+    name?: string | undefined;
+    nonPersistent?: boolean | undefined;
+    runtimeClient?: boolean | undefined;
+    licenseKey?: string | undefined;
     client?: any;
-    manifestUrl?: string;
+    manifestUrl?: string | undefined;
     startupApp?: any;
-    lrsUrl?: string;
-    assetsUrl?: string;
-    devToolsPort?: number;
-    installerUI?: boolean;
-    runtime?: RuntimeConfig;
+    lrsUrl?: string | undefined;
+    assetsUrl?: string | undefined;
+    devToolsPort?: number | undefined;
+    installerUI?: boolean | undefined;
+    runtime?: RuntimeConfig | undefined;
     appAssets?: [{
         src: string;
         alias: string;
         target: string;
         version: string;
         args: string;
-    }];
-    customItems?: [any];
-    timeout?: number;
+    }] | undefined;
+    customItems?: [any] | undefined;
+    timeout?: number | undefined;
 }
 export interface ConfigWithUuid extends BaseConfig {
     uuid: string;

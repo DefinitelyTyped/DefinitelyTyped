@@ -1,1 +1,3 @@
-export { UserRole32 as default } from "../../";
+import { UserRole32 } from "../../";
+
+export = UserRole32;

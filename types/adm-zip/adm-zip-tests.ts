@@ -2,16 +2,22 @@ import AdmZip = require('adm-zip');
 
 // reading archives
 const zip = new AdmZip('./my_file.zip');
+if (!zip.test()) {
+    throw new Error('invalid zip?');
+}
 const zipEntries: AdmZip.IZipEntry[] = zip.getEntries(); // an array of ZipEntry records
 
 zipEntries.forEach(zipEntry => {
     console.log(zipEntry.toString()); // outputs zip entries information
-    if (zipEntry.entryName === 'my_file.txt') {
+    if (zipEntry.entryName === 'my_file.txt' && zipEntry.header.size < 1000) {
         console.log(zipEntry.getData().toString('utf8'));
+        zipEntry.getDataAsync((data, err) => console.log(err ? 'Error: ' + err : data.toString('utf8')));
     }
 });
 // outputs the content of some_folder/my_file.txt
 console.log(zip.readAsText('some_folder/my_file.txt'));
+// same async
+zip.readAsTextAsync('my_file.txt', (data, err) => console.log(err ? 'Error: ' + err : data));
 // extracts the specified file to the specified location
 zip.extractEntryTo(/*entry name*/ 'some_folder/my_file.txt', /*target path*/ '/home/me/tempfolder', /*overwrite*/ true);
 // extracts everything

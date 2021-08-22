@@ -1,1 +1,3 @@
-export { StopOutline32 as default } from "../../";
+import { StopOutline32 } from "../../";
+
+export = StopOutline32;

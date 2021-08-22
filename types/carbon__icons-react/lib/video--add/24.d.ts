@@ -1,1 +1,3 @@
-export { VideoAdd24 as default } from "../../";
+import { VideoAdd24 } from "../../";
+
+export = VideoAdd24;

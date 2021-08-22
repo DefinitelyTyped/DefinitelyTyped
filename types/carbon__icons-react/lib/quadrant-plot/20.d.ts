@@ -1,1 +1,3 @@
-export { QuadrantPlot20 as default } from "../../";
+import { QuadrantPlot20 } from "../../";
+
+export = QuadrantPlot20;

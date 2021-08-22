@@ -1,1 +1,3 @@
-export { Integration32 as default } from "../../";
+import { Integration32 } from "../../";
+
+export = Integration32;

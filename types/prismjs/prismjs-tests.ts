@@ -1,3 +1,7 @@
+import * as Prism from 'prismjs';
+import * as components from 'prismjs/components';
+import loadLanguages = require('prismjs/components/');
+
 const element = document.createElement("code");
 const container = document.querySelector("div");
 const callback = (element: Element) => console.log(element);
@@ -73,3 +77,25 @@ const tokens = Prism.tokenize("var n = 1;", Prism.languages[language]);
 if (Prism.util.type(language) === "Null") {
     // `language` is a non-null string constant
 }
+
+Prism.languages.insertBefore('javascript', 'function-variable', {
+    'method-variable': {
+        pattern: RegExp('(\\.\\s*)'),
+        lookbehind: true,
+        alias: ['function-variable', 'method', 'function', 'property-access']
+    }
+});
+
+// $ExpectType Record<string, any>
+components.core;
+// $ExpectType Record<string, any>
+components.languages;
+// $ExpectType Record<string, any>
+components.plugins;
+// $ExpectType Record<string, any>
+components.themes;
+
+loadLanguages();
+loadLanguages('typescript');
+loadLanguages(['javascript', 'typescript']);
+loadLanguages.silent = true;

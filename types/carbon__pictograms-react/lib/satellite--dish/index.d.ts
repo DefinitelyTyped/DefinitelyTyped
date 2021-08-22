@@ -1,1 +1,3 @@
-export { SatelliteDish as default } from "../../";
+import { SatelliteDish } from "../../";
+
+export = SatelliteDish;

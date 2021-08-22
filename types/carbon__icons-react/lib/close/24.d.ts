@@ -1,1 +1,3 @@
-export { Close24 as default } from "../../";
+import { Close24 } from "../../";
+
+export = Close24;

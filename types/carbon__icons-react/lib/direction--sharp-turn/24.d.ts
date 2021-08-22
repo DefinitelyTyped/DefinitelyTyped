@@ -1,1 +1,3 @@
-export { DirectionSharpTurn24 as default } from "../../";
+import { DirectionSharpTurn24 } from "../../";
+
+export = DirectionSharpTurn24;

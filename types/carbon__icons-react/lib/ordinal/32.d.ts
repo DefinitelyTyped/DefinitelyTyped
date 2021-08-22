@@ -1,1 +1,3 @@
-export { Ordinal32 as default } from "../../";
+import { Ordinal32 } from "../../";
+
+export = Ordinal32;

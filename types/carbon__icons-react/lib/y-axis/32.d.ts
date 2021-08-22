@@ -1,1 +1,3 @@
-export { YAxis32 as default } from "../../";
+import { YAxis32 } from "../../";
+
+export = YAxis32;

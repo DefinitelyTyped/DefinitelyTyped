@@ -1,1 +1,3 @@
-export { CategoryNew32 as default } from "../../";
+import { CategoryNew32 } from "../../";
+
+export = CategoryNew32;

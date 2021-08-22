@@ -1,1 +1,3 @@
-export { Sneaker as default } from "../../";
+import { Sneaker } from "../../";
+
+export = Sneaker;

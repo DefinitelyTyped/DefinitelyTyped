@@ -1,1 +1,3 @@
-export { RestaurantFine32 as default } from "../../";
+import { RestaurantFine32 } from "../../";
+
+export = RestaurantFine32;

@@ -1,23 +1,27 @@
 import {
     ActivationCard,
     Avatar,
+    AvatarGroup,
     AvatarPair,
     Badge,
     Box,
+    BoxProps,
     Button,
     ButtonGroup,
     Callout,
     Card,
     Checkbox,
     Collage,
+    ColorSchemeProvider,
     Column,
+    ComboBox,
     CompositeZIndex,
     Container,
     Divider,
+    Dropdown,
+    Fieldset,
     FixedZIndex,
     Flex,
-    Flyout,
-    GroupAvatar,
     Heading,
     Icon,
     IconButton,
@@ -30,11 +34,14 @@ import {
     Masonry,
     Modal,
     Module,
+    OnLinkNavigationProvider,
+    PageHeader,
     Pog,
-    Provider,
+    Popover,
     Pulsar,
     RadioButton,
     Row,
+    ScrollBoundaryContainer,
     SearchField,
     SegmentedControl,
     SelectList,
@@ -79,8 +86,19 @@ const CheckUseReducedMotion = () => {
     statusMessage="Not started"
     title="Claim your website"
     message="Grow distribution and track Pins linked to your website"
+    link={{
+        href: 'foo',
+        label: 'foo',
+        accessibilityLabel: 'foo',
+        onClick: ({ event }) => {
+            event.stopPropagation();
+        },
+        rel: 'nofollow',
+        target: 'blank',
+    }}
 />;
 <Avatar name="Nicolas" />;
+<AvatarGroup accessibilityLabel="test-example" collaborators={[{ name: 'nicolas' }]} />;
 <AvatarPair
     size="md"
     collaborators={[
@@ -96,31 +114,94 @@ const CheckUseReducedMotion = () => {
 />;
 <Badge text="Nicolas" />;
 <Box ref={React.createRef<HTMLDivElement>()} />;
+
+<Box aria-colspan={1} />;
+// $ExpectError
+<Box aria-colspan="foo" />;
+
+<Box
+    onDrag={event => {
+        event.movementX;
+    }}
+/>;
+
+<Box
+    onDrag={event => {
+        // $ExpectError
+        event.__nonExistentProperty__;
+    }}
+/>;
+
+// Test Box accepts Ref.
+() => {
+    const ref = React.useRef<HTMLDivElement>(null);
+    return <Box ref={ref} />;
+};
+// Test BoxProps can be forwarded to Box.
+(props: BoxProps) => <Box {...props} />;
+
 <Button ref={React.createRef<HTMLAnchorElement>()} text={'Click me'} />;
+<Button text="" />;
 <ButtonGroup>
     <Button text={'Click me'} />
     <Button text={'Click me'} />
 </ButtonGroup>;
 <Card />;
+<ComboBox
+    accessibilityClearButtonLabel="combobox"
+    id="combobox"
+    label="combobox"
+    noResultText="combobox"
+    options={[{ label: 'combobox', value: 'combobox' }]}
+/>;
 <Callout
     type="info"
     iconAccessibilityLabel="Info icon"
     title="Your business account was successfully created!"
     message="Get a badge, show up in more shopping experiences and more. Apply to the Verified Merchant Program—it’s free!"
-    primaryLink={{ href: 'https://pinterest.com', label: 'Get started' }}
-    secondaryLink={{ href: 'https://pinterest.com', label: 'Learn more' }}
+    primaryAction={{ accessibilityLabel: 'primary-callout', href: 'https://pinterest.com', label: 'Get started' }}
+    secondaryAction={{ accessibilityLabel: 'secondary-callout', href: 'https://pinterest.com', label: 'Learn more' }}
     dismissButton={{
         accessibilityLabel: 'Dismiss banner',
         onDismiss: () => {},
     }}
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
-<Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
+<Collage
+    columns={1}
+    height={1}
+    renderImage={({ height, index, width }) =>
+        () => {}}
+    width={1}
+/>;
+<ColorSchemeProvider colorScheme="dark" id="docsExample" />;
 <Column span={1} />;
 <Container />;
+<ScrollBoundaryContainer />;
+<ScrollBoundaryContainer height={1} overflow="scroll" />;
 <Divider />;
-<Flex />;
-<Flyout onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
+<Dropdown id="dropdown-example" onDismiss={() => {}}>
+    <Dropdown.Section label="View options">
+        <Dropdown.Item
+            option={{ value: 'item 1', label: 'Custom link 1' }}
+            onSelect={({ item }) => {}}
+            selected={undefined}
+        >
+            <Text>Dropdown</Text>
+        </Dropdown.Item>
+        <Dropdown.Link href="#" option={{ value: 'item 2', label: 'Url Link' }}></Dropdown.Link>
+    </Dropdown.Section>
+</Dropdown>;
+<Fieldset legend="Fieldset Example">
+    <RadioButton id="id1" onChange={() => {}} />;
+    <RadioButton id="id2" onChange={() => {}} />;
+    <RadioButton id="id3" onChange={() => {}} />;
+</Fieldset>;
+<Flex>
+    <Flex.Item>
+        <Text>Flex</Text>
+    </Flex.Item>
+</Flex>;
 <Heading />;
 <Icon accessibilityLabel="icon" />;
 <IconButton accessibilityLabel="icon" />;
@@ -133,7 +214,8 @@ const CheckUseReducedMotion = () => {
 <Link href="#" />;
 <Mask />;
 <Masonry comp={MasonryComponent} items={[{}]} />;
-<Modal accessibilityModalLabel="modal" onDismiss={() => {}} />;
+<Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
+<Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info" />;
 <Module.Expandable
     id="ModuleExample1"
     accessibilityExpandLabel="Expand the module"
@@ -145,9 +227,18 @@ const CheckUseReducedMotion = () => {
             children: <Text size="md">Children1</Text>,
         },
     ]}
+    expandedIndex={1}
+    onExpandedChange={index => {}}
 ></Module.Expandable>;
+<OnLinkNavigationProvider
+    onNavigation={() => {
+        return undefined;
+    }}
+/>;
+<PageHeader title="Home" />;
 <Pog />;
-<Provider colorScheme={'light'} id="docsExample" />;
+<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current!} />;
+
 <Pulsar />;
 <RadioButton id="id" onChange={() => {}} />;
 <Row gap={1}>
@@ -174,6 +265,8 @@ const CheckUseReducedMotion = () => {
     <div>Hello World</div>
 </Sticky>;
 <Switch id="id" onChange={() => {}} />;
+<Table maxHeight={1} />;
+<Table maxHeight="75vh" />;
 <Table>
     <Table.Header>
         <Table.Row>
@@ -258,7 +351,7 @@ const CheckUseReducedMotion = () => {
 <Text />;
 <TextArea id="id" onChange={() => {}} />;
 <TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
-<GroupAvatar collaborators={[{ name: 'nicolas' }]} />;
+
 <Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
     <div />
@@ -276,6 +369,25 @@ const CheckUseReducedMotion = () => {
         component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
     }}
 />;
+<Upsell
+    title="Give $30, get $60 in ads credit"
+    message="Earn $60 of ads credit, and give $30 of ads credit to a friend"
+    dismissButton={{
+        accessibilityLabel: 'Dismiss banner',
+        onDismiss: () => {},
+    }}
+    imageData={{
+        component: <Icon icon="pinterest" accessibilityLabel="Pin" color="darkGray" size={32} />,
+    }}
+>
+    <Upsell.Form
+        onSubmit={({ event }) => {
+            event.preventDefault();
+        }}
+        submitButtonText="Submit"
+        submitButtonAccessibilityLabel="Submit name for ads credit"
+    />
+</Upsell>;
 <Video
     aspectRatio={853 / 480}
     captions=""

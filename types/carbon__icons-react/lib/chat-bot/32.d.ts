@@ -1,1 +1,3 @@
-export { ChatBot32 as default } from "../../";
+import { ChatBot32 } from "../../";
+
+export = ChatBot32;

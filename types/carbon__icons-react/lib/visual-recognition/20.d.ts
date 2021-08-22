@@ -1,1 +1,3 @@
-export { VisualRecognition20 as default } from "../../";
+import { VisualRecognition20 } from "../../";
+
+export = VisualRecognition20;

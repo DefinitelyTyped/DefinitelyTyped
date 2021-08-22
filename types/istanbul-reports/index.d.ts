@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Node, Visitor } from 'istanbul-lib-report';
+import { Node, ReportBase } from 'istanbul-lib-report';
 
-export function create<T extends keyof ReportOptions>(name: T, options?: Partial<ReportOptions[T]>): Visitor;
+export function create<T extends keyof ReportOptions>(name: T, options?: Partial<ReportOptions[T]>): ReportBase;
 
 export interface FileOptions {
     file: string;

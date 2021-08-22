@@ -1,1 +1,3 @@
-export { QT32 as default } from "../../../";
+import { QT32 } from "../../../";
+
+export = QT32;

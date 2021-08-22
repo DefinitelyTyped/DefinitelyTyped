@@ -1,1 +1,3 @@
-export { CurrencyBaht32 as default } from "../../";
+import { CurrencyBaht32 } from "../../";
+
+export = CurrencyBaht32;

@@ -1,1 +1,3 @@
-export { PresentationFile32 as default } from "../../";
+import { PresentationFile32 } from "../../";
+
+export = PresentationFile32;

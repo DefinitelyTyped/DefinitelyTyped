@@ -1,1 +1,3 @@
-export { Hd32 as default } from "../../";
+import { Hd32 } from "../../";
+
+export = Hd32;

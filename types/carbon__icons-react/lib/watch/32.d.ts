@@ -1,1 +1,3 @@
-export { Watch32 as default } from "../../";
+import { Watch32 } from "../../";
+
+export = Watch32;

@@ -1,1 +1,3 @@
-export { UnauthorizedUserAccess as default } from "../../";
+import { UnauthorizedUserAccess } from "../../";
+
+export = UnauthorizedUserAccess;

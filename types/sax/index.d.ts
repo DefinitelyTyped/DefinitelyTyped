@@ -10,12 +10,12 @@
 export const EVENTS: string[];
 
 export interface SAXOptions {
-    trim?: boolean;
-    normalize?: boolean;
-    lowercase?: boolean;
-    xmlns?: boolean;
-    noscript?: boolean;
-    position?: boolean;
+    trim?: boolean | undefined;
+    normalize?: boolean | undefined;
+    lowercase?: boolean | undefined;
+    xmlns?: boolean | undefined;
+    noscript?: boolean | undefined;
+    position?: boolean | undefined;
 }
 
 export interface QualifiedName {
@@ -90,7 +90,7 @@ import stream = require("stream");
 export function createStream(strict?: boolean, opt?: SAXOptions): SAXStream;
 export class SAXStream extends stream.Duplex {
     constructor(strict?: boolean, opt?: SAXOptions);
-    private _parser: SAXParser;
+    _parser: SAXParser;
     on(event: "text", listener: (this: this, text: string) => void): this;
     on(event: "doctype", listener: (this: this, doctype: string) => void): this;
     on(event: "processinginstruction", listener: (this: this, node: { name: string; body: string }) => void): this;

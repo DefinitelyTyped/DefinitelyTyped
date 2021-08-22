@@ -31,9 +31,9 @@ declare namespace Kyujitai {
          * Valid only in browser.
          * Default is the same directory to the ivs.js file.
          */
-        ivd?: string;
+        ivd?: string | undefined;
 
-        kyujitai?: string;
+        kyujitai?: string | undefined;
     }
 
     /**
@@ -46,7 +46,7 @@ declare namespace Kyujitai {
          * `true` if you want to allow IVS for the encoded string
          * @default false
          */
-        IVD?: boolean;
+        IVD?: boolean | undefined;
     }
 
     /** unused */

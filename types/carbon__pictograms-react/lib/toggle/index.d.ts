@@ -1,1 +1,3 @@
-export { Toggle as default } from "../../";
+import { Toggle } from "../../";
+
+export = Toggle;

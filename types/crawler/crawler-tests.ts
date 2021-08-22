@@ -23,6 +23,7 @@ c.queue([
     {
         uri: 'http://parishackers.org/',
         jQuery: false,
+        http2: true,
         callback: (error, res, done) => {
             if (error) {
                 console.log(error);

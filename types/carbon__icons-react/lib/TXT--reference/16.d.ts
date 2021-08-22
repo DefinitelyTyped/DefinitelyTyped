@@ -1,1 +1,3 @@
-export { TxtReference16 as default } from "../../";
+import { TxtReference16 } from "../../";
+
+export = TxtReference16;

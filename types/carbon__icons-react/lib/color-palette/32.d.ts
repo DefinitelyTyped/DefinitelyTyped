@@ -1,1 +1,3 @@
-export { ColorPalette32 as default } from "../../";
+import { ColorPalette32 } from "../../";
+
+export = ColorPalette32;

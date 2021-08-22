@@ -1,1 +1,3 @@
-export { WeatherFrontWarm32 as default } from "../../";
+import { WeatherFrontWarm32 } from "../../";
+
+export = WeatherFrontWarm32;

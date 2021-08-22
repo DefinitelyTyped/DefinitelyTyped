@@ -1,1 +1,3 @@
-export { StringText32 as default } from "../../";
+import { StringText32 } from "../../";
+
+export = StringText32;

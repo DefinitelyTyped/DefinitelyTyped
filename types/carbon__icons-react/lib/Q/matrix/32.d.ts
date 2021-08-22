@@ -1,1 +1,3 @@
-export { QMatrix32 as default } from "../../../";
+import { QMatrix32 } from "../../../";
+
+export = QMatrix32;

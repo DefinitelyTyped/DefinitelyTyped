@@ -1,1 +1,3 @@
-export { ChartPoint32 as default } from "../../";
+import { ChartPoint32 } from "../../";
+
+export = ChartPoint32;

@@ -1,1 +1,3 @@
-export { ContentView16 as default } from "../../";
+import { ContentView16 } from "../../";
+
+export = ContentView16;

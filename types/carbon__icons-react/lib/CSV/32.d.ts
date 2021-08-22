@@ -1,1 +1,3 @@
-export { Csv32 as default } from "../../";
+import { Csv32 } from "../../";
+
+export = Csv32;

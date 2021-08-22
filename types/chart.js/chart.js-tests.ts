@@ -100,6 +100,25 @@ const chart: Chart = new Chart(ctx, {
                 },
             ],
         },
+        elements: {
+            rectangle: {
+                backgroundColor(ctx) {
+                    if (ctx.dataset && typeof ctx.dataset.backgroundColor === "function") {
+                        return ctx.dataset.backgroundColor(ctx);
+                    }
+
+                    if (ctx.dataset && Array.isArray(ctx.dataset.backgroundColor)) {
+                        return ctx.dataset.backgroundColor[0] || "red";
+                    }
+
+                    if (!ctx.dataset) {
+                        return "red";
+                    }
+
+                    return (ctx.dataset.backgroundColor as ChartColor | string) || "red";
+                }
+            }
+        },
         legend: {
             align: 'center',
             display: true,
@@ -328,7 +347,9 @@ const customTooltipsPieChart = new Chart(ctx, {
         tooltips: {
             enabled: false,
             custom: (tooltipModel) => {
-                // do whatever
+                const firstColor = tooltipModel.labelColors[0];
+                console.log(firstColor.borderColor);
+                console.log(firstColor.backgroundColor);
             },
         },
     },

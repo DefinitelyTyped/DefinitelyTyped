@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ParseOptions {
-    simplifyDataValues?: boolean;
+    simplifyDataValues?: boolean | undefined;
 }
 
 interface ParseResult {

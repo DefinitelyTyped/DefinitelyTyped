@@ -98,6 +98,9 @@ braintree.client.create(
                         selector: '#cvv',
                         type: 'password',
                     },
+                    cardholderName: {
+                        container: '#cardholder-name',
+                    },
                     expirationMonth: {
                         selector: '#expiration-month',
                         select: {
@@ -255,10 +258,21 @@ braintree.client.create(
                 hostedFieldsInstance.clear('expirationDate');
 
                 const state = braintree.hostedFields.getState();
+                Object.keys(state.fields).map(k => k as keyof typeof state.fields).every(k => state.fields[k].isValid);
 
-                const formValid = Object.keys(state.fields).every(key => {
-                    return state.fields[key].isValid;
+                hostedFieldsInstance.focus('cardholderName');
+                hostedFieldsInstance.focus('number', (focusErr: braintree.BraintreeError) => {
+                    if (focusErr) {
+                        console.error(focusErr);
+                    }
                 });
+
+                function onValidityChange(fieldState: braintree.HostedFieldsStateObject): void {
+                    console.log(fieldState);
+                }
+
+                hostedFieldsInstance.on('validityChange', onValidityChange);
+                hostedFieldsInstance.off('validityChange', onValidityChange);
             },
         );
 
@@ -501,6 +515,17 @@ braintree.client.create(
                     console.log('UnionPay has been torn down.');
                 }
             });
+        });
+
+        // Vault Manager
+        braintree.vaultManager.create({ client: clientInstance }, (createErr, vaultManagerInstance) => {
+            vaultManagerInstance.fetchPaymentMethods()
+                .then((payload: braintree.FetchPaymentMethodsPayload[]) => {
+                    payload.forEach(paymentMethod => console.log(paymentMethod.nonce));
+                })
+                .catch((error: braintree.BraintreeError) => {
+                    console.error('Error!', error);
+                });
         });
     },
 );

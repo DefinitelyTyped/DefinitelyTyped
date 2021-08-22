@@ -1,1 +1,3 @@
-export { Linux24 as default } from "../../";
+import { Linux24 } from "../../";
+
+export = Linux24;

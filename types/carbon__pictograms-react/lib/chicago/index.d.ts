@@ -1,1 +1,3 @@
-export { Chicago as default } from "../../";
+import { Chicago } from "../../";
+
+export = Chicago;

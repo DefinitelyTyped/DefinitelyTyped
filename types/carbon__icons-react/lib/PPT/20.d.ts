@@ -1,1 +1,3 @@
-export { Ppt20 as default } from "../../";
+import { Ppt20 } from "../../";
+
+export = Ppt20;

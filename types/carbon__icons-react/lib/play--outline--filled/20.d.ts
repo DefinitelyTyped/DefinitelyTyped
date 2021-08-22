@@ -1,1 +1,3 @@
-export { PlayOutlineFilled20 as default } from "../../";
+import { PlayOutlineFilled20 } from "../../";
+
+export = PlayOutlineFilled20;

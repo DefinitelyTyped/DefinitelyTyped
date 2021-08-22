@@ -335,6 +335,12 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     // $ExpectType number
     R.snapTo(0, 0, 10);
 
+    // $ExpectType boolean
+    R.isPointInsideBBox(path.getBBox(), 1, 2);
+
+    // $ExpectType boolean
+    R.isBBoxIntersect(path.getBBox(), circle.getBBox());
+
     R.st.green = function() {
         this.forEach(function(item) {
             this.location;
@@ -540,7 +546,8 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     circle.attr([]);
     // $ExpectType [number | undefined]
     circle.attr(["cy"]);
-    // $ExpectType [string | undefined, number | undefined, "butt" | "square" | "round" | undefined, number | undefined]
+    // tslint:disable-next-line:max-line-length
+    // $ExpectType [string | undefined, number | undefined, "butt" | "square" | "round" | undefined, number | undefined] || [string | undefined, number | undefined, RaphaelLineCapType | undefined, number | undefined]
     circle.attr(["fill", "cx", "stroke-linecap", "hue"]);
 
     // $ExpectType RaphaelElement<"SVG" | "VML", Element | SVGCircleElement>
@@ -674,13 +681,24 @@ function isUsesVml(raphael: RaphaelStatic<any>): raphael is VmlRaphaelStatic {
     // $ExpectType number
     circle.getBBox().x;
     // $ExpectType number
+    circle.getBBox().x2;
+    // $ExpectType number
     circle.getBBox().y;
+    // $ExpectType number
+    circle.getBBox().y2;
+    // $ExpectType number
+    circle.getBBox().cx;
+    // $ExpectType number
+    circle.getBBox().cy;
     // $ExpectType number
     circle.getBBox().width;
     // $ExpectType number
     circle.getBBox().height;
     // $ExpectType RaphaelAxisAlignedBoundingBox
     circle.getBBox(true);
+
+    // $ExpectType boolean
+    circle.isPointInside(5, 0);
 
     // $ExpectError
     circle.getPointAtLength(0);

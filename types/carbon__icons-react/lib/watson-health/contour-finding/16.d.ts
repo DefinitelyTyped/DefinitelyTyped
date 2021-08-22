@@ -1,1 +1,3 @@
-export { WatsonHealthContourFinding16 as default } from "../../../";
+import { WatsonHealthContourFinding16 } from "../../../";
+
+export = WatsonHealthContourFinding16;

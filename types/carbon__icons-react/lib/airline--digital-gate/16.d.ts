@@ -1,1 +1,3 @@
-export { AirlineDigitalGate16 as default } from "../../";
+import { AirlineDigitalGate16 } from "../../";
+
+export = AirlineDigitalGate16;

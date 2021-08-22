@@ -1,1 +1,3 @@
-export { LogoInstagram20 as default } from "../../";
+import { LogoInstagram20 } from "../../";
+
+export = LogoInstagram20;

@@ -1,1 +1,3 @@
-export { VideoChat20 as default } from "../../";
+import { VideoChat20 } from "../../";
+
+export = VideoChat20;

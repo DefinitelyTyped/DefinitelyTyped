@@ -1,1 +1,3 @@
-export { Account20 as default } from "../../";
+import { Account20 } from "../../";
+
+export = Account20;

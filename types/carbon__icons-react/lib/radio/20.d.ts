@@ -1,1 +1,3 @@
-export { Radio20 as default } from "../../";
+import { Radio20 } from "../../";
+
+export = Radio20;

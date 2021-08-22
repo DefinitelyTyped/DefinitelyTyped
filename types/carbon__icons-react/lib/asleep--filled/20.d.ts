@@ -1,1 +1,3 @@
-export { AsleepFilled20 as default } from "../../";
+import { AsleepFilled20 } from "../../";
+
+export = AsleepFilled20;

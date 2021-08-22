@@ -1,1 +1,3 @@
-export { Linux20 as default } from "../../";
+import { Linux20 } from "../../";
+
+export = Linux20;

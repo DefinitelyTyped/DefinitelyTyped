@@ -1,1 +1,3 @@
-export { VideoChat32 as default } from "../../";
+import { VideoChat32 } from "../../";
+
+export = VideoChat32;

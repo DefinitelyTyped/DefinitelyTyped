@@ -1,1 +1,3 @@
-export { Websheet20 as default } from "../../";
+import { Websheet20 } from "../../";
+
+export = Websheet20;

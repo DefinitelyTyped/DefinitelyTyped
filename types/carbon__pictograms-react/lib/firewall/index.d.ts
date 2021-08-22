@@ -1,1 +1,3 @@
-export { Firewall as default } from "../../";
+import { Firewall } from "../../";
+
+export = Firewall;

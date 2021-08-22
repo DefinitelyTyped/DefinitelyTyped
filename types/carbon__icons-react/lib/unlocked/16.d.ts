@@ -1,1 +1,3 @@
-export { Unlocked16 as default } from "../../";
+import { Unlocked16 } from "../../";
+
+export = Unlocked16;

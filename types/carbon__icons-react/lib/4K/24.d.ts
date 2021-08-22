@@ -1,1 +1,3 @@
-export { _4K24 as default } from "../../";
+import { _4K24 } from "../../";
+
+export = _4K24;

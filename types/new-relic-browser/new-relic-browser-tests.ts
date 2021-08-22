@@ -59,6 +59,11 @@ newrelic.setCurrentRouteName(null);
 
 // --- NewRelic.BrowserInteraction methods -----------------------------------
 
+// actionText()
+newrelic
+    .interaction()
+    .actionText('Create Subscription');
+
 // createTracer()
 newrelic
     .interaction()

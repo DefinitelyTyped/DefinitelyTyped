@@ -1,1 +1,3 @@
-export { Paragraph32 as default } from "../../";
+import { Paragraph32 } from "../../";
+
+export = Paragraph32;

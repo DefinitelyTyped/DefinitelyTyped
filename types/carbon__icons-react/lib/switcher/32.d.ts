@@ -1,1 +1,3 @@
-export { Switcher32 as default } from "../../";
+import { Switcher32 } from "../../";
+
+export = Switcher32;

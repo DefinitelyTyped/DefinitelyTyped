@@ -1,1 +1,3 @@
-export { Movement20 as default } from "../../";
+import { Movement20 } from "../../";
+
+export = Movement20;

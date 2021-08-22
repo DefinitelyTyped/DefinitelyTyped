@@ -1,1 +1,3 @@
-export { CalculatorCheck16 as default } from "../../";
+import { CalculatorCheck16 } from "../../";
+
+export = CalculatorCheck16;

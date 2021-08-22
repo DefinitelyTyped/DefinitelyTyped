@@ -1,1 +1,3 @@
-export { RowDelete24 as default } from "../../";
+import { RowDelete24 } from "../../";
+
+export = RowDelete24;

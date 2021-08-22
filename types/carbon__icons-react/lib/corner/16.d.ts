@@ -1,1 +1,3 @@
-export { Corner16 as default } from "../../";
+import { Corner16 } from "../../";
+
+export = Corner16;

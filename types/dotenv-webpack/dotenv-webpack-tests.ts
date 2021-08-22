@@ -1,4 +1,3 @@
-import webpack = require('webpack');
 import Dotenv = require('dotenv-webpack');
 import { Options } from 'dotenv-webpack';
 import { Configuration } from 'webpack';
@@ -15,6 +14,7 @@ const optionsFull: Options = {
     silent: true,
     expand: true,
     defaults: true,
+    ignoreStub: true,
 };
 
 const optionsStrings: Options = {

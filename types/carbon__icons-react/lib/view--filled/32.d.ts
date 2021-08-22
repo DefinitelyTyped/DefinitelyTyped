@@ -1,1 +1,3 @@
-export { ViewFilled32 as default } from "../../";
+import { ViewFilled32 } from "../../";
+
+export = ViewFilled32;

@@ -1,1 +1,3 @@
-export { Catalog32 as default } from "../../";
+import { Catalog32 } from "../../";
+
+export = Catalog32;

@@ -12,16 +12,13 @@ declare namespace gapi.client.people {
 
     interface GetParameters {
       resourceName: string;
-
-      // Query parameters
       personFields: string;
     }
 
     function get(parameters: GetParameters): HttpRequest<Person>;
 
     interface GetBatchGetParameters {
-      // Query parameters
-      resourcesName?: string;
+      resourcesName?: string | undefined;
       personFields: string;
     }
 
@@ -37,6 +34,8 @@ declare namespace gapi.client.people {
       requestedResourceName: string;
     }
 
+    function searchContacts(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;
+
     namespace connections {
       function list(parameters: ListParameters): HttpRequest<Response>;
 
@@ -44,21 +43,53 @@ declare namespace gapi.client.people {
 
       interface ListParameters {
         resourceName: string;
-
-        // Query parameters
-        pageToken?: string;
-        pageSize?: number;
-        sortOrder?: SortOrder;
-        syncToken?: string;
+        pageToken?: string | undefined;
+        pageSize?: number | undefined;
+        sortOrder?: SortOrder | undefined;
+        syncToken?: string | undefined;
         personFields: string;
       }
 
       interface Response {
-        connections: Person[];
-        nextPageToken: string;
-        nextSyncToken: string;
+        connections?: Person[] | undefined;
+        nextPageToken?: string | undefined;
+        nextSyncToken?: string | undefined;
       }
     }
+  }
+
+  export namespace otherContacts {
+    function list(parameters: ListParameters): HttpRequest<ListResponse>;
+
+    interface ListParameters {
+      pageToken?: string | undefined;
+      pageSize?: number | undefined;
+      requestSyncToken?: boolean | undefined;
+      syncToken?: string | undefined;
+      readMask: string;
+    }
+
+    interface ListResponse {
+      otherContacts?: Person[] | undefined,
+      nextPageToken?: string | undefined,
+      nextSyncToken?: string | undefined,
+    }
+
+    function search(parameters: SearchContactsParameters): HttpRequest<SearchContactsResponse>;
+  }
+
+  interface SearchContactsParameters {
+    query: string;
+    pageSize?: number | undefined;
+    readMask: string;
+  }
+
+  interface SearchContactsResponse {
+    results?: SearchContactsResult[] | undefined,
+  }
+
+  interface SearchContactsResult {
+    person: Person,
   }
 
   type SourceType = 'SOURCE_TYPE_UNSPECIFIED' | 'ACCOUNT' | 'PROFILE' | 'DOMAIN_PROFILE' | 'CONTACT';
@@ -119,11 +150,13 @@ declare namespace gapi.client.people {
   interface CoverPhoto {
     metadata: FieldMetadata;
     url: string;
+    default: boolean;
   }
 
   interface Photo {
     metadata: FieldMetadata;
     url: string;
+    default: boolean;
   }
 
   interface Gender {
@@ -229,29 +262,29 @@ declare namespace gapi.client.people {
     metadata: PersonMetadata;
     locales: Locale[];
     names: Name[];
-    nicknames?: Nickname[];
+    nicknames?: Nickname[] | undefined;
     coverPhotos: CoverPhoto[];
-    photos?: Photo[];
-    genders?: Gender[];
-    ageRange?: AgeRange;
-    birthdays?: Birthday[];
-    events?: Event[];
-    addresses?: Address[];
-    residences?: Residence[];
-    emailAddresses?: EmailAddress[];
-    phoneNumbers?: PhoneNumber[];
-    imClients?: ImClient[];
-    taglines?: Tagline[];
-    biographies?: Biography[];
-    urls?: Url[];
-    organizations?: Organization[];
-    occupations?: Occupation[];
-    interests?: Interest[];
-    skills?: Skill[];
-    BraggingRights?: BraggingRights[];
-    relations?: Relation[];
-    relationshipInterests?: RelationshipInterest[];
-    relationshipStatuses?: RelationshipStatus[];
-    memberships?: Membership[];
+    photos?: Photo[] | undefined;
+    genders?: Gender[] | undefined;
+    ageRange?: AgeRange | undefined;
+    birthdays?: Birthday[] | undefined;
+    events?: Event[] | undefined;
+    addresses?: Address[] | undefined;
+    residences?: Residence[] | undefined;
+    emailAddresses?: EmailAddress[] | undefined;
+    phoneNumbers?: PhoneNumber[] | undefined;
+    imClients?: ImClient[] | undefined;
+    taglines?: Tagline[] | undefined;
+    biographies?: Biography[] | undefined;
+    urls?: Url[] | undefined;
+    organizations?: Organization[] | undefined;
+    occupations?: Occupation[] | undefined;
+    interests?: Interest[] | undefined;
+    skills?: Skill[] | undefined;
+    BraggingRights?: BraggingRights[] | undefined;
+    relations?: Relation[] | undefined;
+    relationshipInterests?: RelationshipInterest[] | undefined;
+    relationshipStatuses?: RelationshipStatus[] | undefined;
+    memberships?: Membership[] | undefined;
   }
 }

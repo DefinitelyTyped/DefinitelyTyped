@@ -2,11 +2,11 @@ import { Component, CSSProperties, ComponentType } from "react";
 import { CustomPickerInjectedProps, HSVColor } from "../../..";
 
 export interface SaturationStyle {
-    color?: CSSProperties;
-    white?: CSSProperties;
-    black?: CSSProperties;
-    pointer?: CSSProperties;
-    circle?: CSSProperties;
+    color?: CSSProperties | undefined;
+    white?: CSSProperties | undefined;
+    black?: CSSProperties | undefined;
+    pointer?: CSSProperties | undefined;
+    circle?: CSSProperties | undefined;
 }
 
 export interface SaturationColorResult extends HSVColor {
@@ -15,10 +15,10 @@ export interface SaturationColorResult extends HSVColor {
 }
 
 export interface SaturationProps extends CustomPickerInjectedProps<SaturationColorResult> {
-    radius?: string;
-    shadow?: string;
-    style?: SaturationStyle;
-    pointer?: ComponentType;
+    radius?: string | undefined;
+    shadow?: string | undefined;
+    style?: SaturationStyle | undefined;
+    pointer?: ComponentType | undefined;
 }
 
 export default class Saturation extends Component<SaturationProps> {}

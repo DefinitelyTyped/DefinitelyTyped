@@ -1,1 +1,3 @@
-export { ChartPopulation32 as default } from "../../";
+import { ChartPopulation32 } from "../../";
+
+export = ChartPopulation32;

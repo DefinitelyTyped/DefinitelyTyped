@@ -16,11 +16,11 @@ declare function jwt(options: jwt.Options): jwt.RequestHandler;
 declare namespace jwt {
     type secretType = string | Buffer;
     type ErrorCode =
-        "revoked_token" |
-        "invalid_token" |
-        "credentials_bad_scheme" |
-        "credentials_bad_format" |
-        "credentials_required";
+        | 'revoked_token'
+        | 'invalid_token'
+        | 'credentials_bad_scheme'
+        | 'credentials_bad_format'
+        | 'credentials_required';
 
     interface SecretCallbackLong {
         (req: express.Request, header: any, payload: any, done: (err: any, secret?: secretType) => void): void;
@@ -41,18 +41,18 @@ declare namespace jwt {
          */
         algorithms: string[];
         secret: secretType | SecretCallback | SecretCallbackLong;
-        userProperty?: string;
-        credentialsRequired?: boolean;
-        isRevoked?: IsRevokedCallback;
-        requestProperty?: string;
-        getToken?: GetTokenCallback;
+        userProperty?: string | undefined;
+        credentialsRequired?: boolean | undefined;
+        isRevoked?: IsRevokedCallback | undefined;
+        requestProperty?: string | undefined;
+        getToken?: GetTokenCallback | undefined;
         [property: string]: any;
     }
     interface RequestHandler extends express.RequestHandler {
         unless: typeof unless;
     }
 
-    class UnauthorizedError extends Error  {
+    class UnauthorizedError extends Error {
         status: number;
         message: string;
         name: 'UnauthorizedError';
@@ -60,5 +60,16 @@ declare namespace jwt {
         inner: { message: string };
 
         constructor(code: ErrorCode, error: { message: string });
+    }
+}
+
+declare global {
+    namespace Express {
+        // tslint:disable-next-line:no-empty-interface
+        interface User {}
+
+        interface Request {
+            user?: User | undefined;
+        }
     }
 }

@@ -1,1 +1,3 @@
-export { Hpi as default } from "../../";
+import { Hpi } from "../../";
+
+export = Hpi;

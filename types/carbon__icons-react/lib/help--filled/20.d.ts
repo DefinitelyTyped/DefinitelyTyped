@@ -1,1 +1,3 @@
-export { HelpFilled20 as default } from "../../";
+import { HelpFilled20 } from "../../";
+
+export = HelpFilled20;

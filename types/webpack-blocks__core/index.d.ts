@@ -3,7 +3,7 @@
 // Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 import { Configuration, Plugin, RuleSetRule } from 'webpack';
 
@@ -13,8 +13,8 @@ export type ConfigSetter<T extends Context = Context> = (
 ) => (config: Configuration) => Configuration;
 
 export interface Block<T extends Context = Context> extends ConfigSetter<T> {
-    pre?: ConfigSetter<T> | Array<ConfigSetter<T>>;
-    post?: ConfigSetter<T> | Array<ConfigSetter<T>>;
+    pre?: ConfigSetter<T> | Array<ConfigSetter<T>> | undefined;
+    post?: ConfigSetter<T> | Array<ConfigSetter<T>> | undefined;
 }
 
 export interface Context {
@@ -29,8 +29,8 @@ export interface InitialContext {
 }
 
 export interface MatchOptions {
-    include?: string;
-    exclude?: RegExp;
+    include?: string | undefined;
+    exclude?: RegExp | undefined;
 }
 
 export interface Util {

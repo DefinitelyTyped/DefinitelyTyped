@@ -1,1 +1,3 @@
-export { DubaiSkyscraper as default } from "../../";
+import { DubaiSkyscraper } from "../../";
+
+export = DubaiSkyscraper;

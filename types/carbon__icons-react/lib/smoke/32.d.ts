@@ -1,1 +1,3 @@
-export { Smoke32 as default } from "../../";
+import { Smoke32 } from "../../";
+
+export = Smoke32;

@@ -1,1 +1,3 @@
-export { CloudLightning32 as default } from "../../";
+import { CloudLightning32 } from "../../";
+
+export = CloudLightning32;

@@ -1,1 +1,3 @@
-export { Building32 as default } from "../../";
+import { Building32 } from "../../";
+
+export = Building32;

@@ -1,1 +1,3 @@
-export { CloudPakSystem as default } from "../../";
+import { CloudPakSystem } from "../../";
+
+export = CloudPakSystem;

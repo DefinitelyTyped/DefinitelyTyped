@@ -1,1 +1,3 @@
-export { Road16 as default } from "../../";
+import { Road16 } from "../../";
+
+export = Road16;

@@ -1,1 +1,3 @@
-export { IncompleteWarning32 as default } from "../../";
+import { IncompleteWarning32 } from "../../";
+
+export = IncompleteWarning32;

@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import resolve = require('browser-resolve');
 
 const fixturesDir = __dirname + '/fixtures/node_modules';

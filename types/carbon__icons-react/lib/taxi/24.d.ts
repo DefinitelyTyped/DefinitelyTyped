@@ -1,1 +1,3 @@
-export { Taxi24 as default } from "../../";
+import { Taxi24 } from "../../";
+
+export = Taxi24;

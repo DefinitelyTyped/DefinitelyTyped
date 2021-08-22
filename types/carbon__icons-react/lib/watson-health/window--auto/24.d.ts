@@ -1,1 +1,3 @@
-export { WatsonHealthWindowAuto24 as default } from "../../../";
+import { WatsonHealthWindowAuto24 } from "../../../";
+
+export = WatsonHealthWindowAuto24;

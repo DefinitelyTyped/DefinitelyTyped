@@ -1,1 +1,3 @@
-export { Diagram32 as default } from "../../";
+import { Diagram32 } from "../../";
+
+export = Diagram32;

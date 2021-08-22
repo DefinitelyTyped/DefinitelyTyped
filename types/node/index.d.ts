@@ -1,18 +1,15 @@
-// Type definitions for non-npm package Node.js 14.14
+// Type definitions for non-npm package Node.js 16.7
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
-//                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Benjamin Toueg <https://github.com/btoueg>
-//                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 David Junger <https://github.com/touffy>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
-//                 Flarna <https://github.com/Flarna>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Huw <https://github.com/hoo29>
@@ -31,7 +28,6 @@
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
-//                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
 //                 Marcin Kopacz <https://github.com/chyzwar>
 //                 Trivikram Kamat <https://github.com/trivikr>
@@ -45,7 +41,33 @@
 //                 Jason Kwok <https://github.com/JasonHK>
 //                 Victor Perin <https://github.com/victorperin>
 //                 Yongsheng Zhang <https://github.com/ZYSzys>
+//                 NodeJS Contributors <https://github.com/NodeJS>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/**
+ * License for programmatically and manually incorporated
+ * documentation aka. `JSDoc` from https://github.com/nodejs/node/tree/master/doc
+ *
+ * Copyright Node.js contributors. All rights reserved.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
 
 // NOTE: These definitions support NodeJS and TypeScript 3.7.
 // Typically type modifications should be made in base.d.ts instead of here
@@ -54,9 +76,9 @@
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
-//          - ~/index.d.ts        - Definitions specific to TypeScript 2.8
-//          - ~/ts3.5/index.d.ts  - Definitions specific to TypeScript 3.5
+//          - ~/index.d.ts        - Definitions specific to TypeScript 3.7
+//          - ~/ts3.6/index.d.ts  - Definitions specific to TypeScript 3.6
 
-// NOTE: Augmentations for TypeScript 3.5 and later should use individual files for overrides
-//       within the respective ~/ts3.5 (or later) folder. However, this is disallowed for versions
-//       prior to TypeScript 3.5, so the older definitions will be found here.
+// NOTE: Augmentations for TypeScript 3.6 and later should use individual files for overrides
+//       within the respective ~/ts3.6 (or later) folder. However, this is disallowed for versions
+//       prior to TypeScript 3.6, so the older definitions will be found here.

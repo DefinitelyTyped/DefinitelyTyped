@@ -1,1 +1,3 @@
-export { College as default } from "../../";
+import { College } from "../../";
+
+export = College;

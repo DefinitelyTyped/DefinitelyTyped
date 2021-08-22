@@ -1,1 +1,3 @@
-export { WatsonHealthPointerText16 as default } from "../../../";
+import { WatsonHealthPointerText16 } from "../../../";
+
+export = WatsonHealthPointerText16;

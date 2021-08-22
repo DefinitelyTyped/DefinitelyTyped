@@ -1,1 +1,3 @@
-export { BrightnessContrast16 as default } from "../../";
+import { BrightnessContrast16 } from "../../";
+
+export = BrightnessContrast16;

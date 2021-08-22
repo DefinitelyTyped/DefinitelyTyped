@@ -2107,20 +2107,10 @@ declare namespace jsts {
             /**
              * Computes the distance between this line segment and another segment.
              *
-             * @param {jsts.geom.LineSegment} ls
+             * @param {jsts.geom.LineSegment | jsts.geom.Coordinate}
              * @return {number} the distance to the other segment
              */
-            distance1(ls: LineSegment): number;
-
-            /**
-             * Computes the distance between this line segment and a given point.
-             *
-             * @param {jsts.geom.Coordinate}
-             *          p the coordinate.
-             * @return {number}
-             *          the distance from this segment to the given point.
-             */
-            distance2(p: Coordinate): number;
+            distance(geom: LineSegment | Coordinate): number;
 
             /**
              * Computes the {@link Coordinate} that lies a given
@@ -2407,14 +2397,20 @@ declare namespace jsts {
             reducePrecision(geometry: geom.Geometry): void;
         }
 
-
-
         export class WKTWriter {
             /**
              * @constructor
              */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
-            
+
+            /**
+             * Converts a <code>Geometry</code> to its Well-known Text representation.
+             *
+             * @param {Geometry} geometry a <code>Geometry</code> to process.
+             * @return {string} a <Geometry Tagged Text> string (see the OpenGIS Simple
+             *         Features Specification).
+             */
+             write(geometry: geom.Geometry): string;
         }
     }
 

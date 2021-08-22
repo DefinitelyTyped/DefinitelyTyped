@@ -1,1 +1,3 @@
-export { Swim24 as default } from "../../";
+import { Swim24 } from "../../";
+
+export = Swim24;

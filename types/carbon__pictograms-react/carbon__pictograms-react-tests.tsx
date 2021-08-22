@@ -1,6 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 import {
+    AcceleratedComputing,
     AddDocument,
+    Dashboard,
     Backpack,
     Airplane,
     ClientFinancing_01,
@@ -16,7 +18,10 @@ import {
     AdvancedFraudProtection,
     DoctorPatient,
     Hpi,
-    CloudPakForApplications
+    CloudPakForApplications,
+    Bluepages,
+    ContentDesign,
+    AiExplainability,
 } from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
@@ -37,3 +42,8 @@ import {
 <DoctorPatient />; // $ExpectType Element
 <Hpi />; // $ExpectType Element
 <CloudPakForApplications />; // $ExpectType Element
+<AcceleratedComputing />; // $ExpectType Element
+<Dashboard />; // $ExpectType Element
+<Bluepages />; // $ExpectType Element
+<ContentDesign />; // $ExpectType Element
+<AiExplainability />; // $ExpectType Element

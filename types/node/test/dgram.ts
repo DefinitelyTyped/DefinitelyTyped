@@ -1,6 +1,6 @@
-import * as dgram from 'dgram';
-import * as net from 'net';
-import * as dns from 'dns';
+import * as dgram from 'node:dgram';
+import * as net from 'node:net';
+import * as dns from 'node:dns';
 
 {
     let ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
@@ -97,7 +97,8 @@ import * as dns from 'dns';
     const ds: dgram.Socket = dgram.createSocket({
         type: 'udp4',
         recvBufferSize: 10000,
-        sendBufferSize: 15000
+        sendBufferSize: 15000,
+        signal: new AbortSignal(),
     });
 
     let size: number;

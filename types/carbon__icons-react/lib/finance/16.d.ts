@@ -1,1 +1,3 @@
-export { Finance16 as default } from "../../";
+import { Finance16 } from "../../";
+
+export = Finance16;

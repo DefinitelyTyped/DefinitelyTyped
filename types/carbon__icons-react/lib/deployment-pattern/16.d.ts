@@ -1,1 +1,3 @@
-export { DeploymentPattern16 as default } from "../../";
+import { DeploymentPattern16 } from "../../";
+
+export = DeploymentPattern16;

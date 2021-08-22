@@ -1,1 +1,3 @@
-export { Slider as default } from "../../";
+import { Slider } from "../../";
+
+export = Slider;

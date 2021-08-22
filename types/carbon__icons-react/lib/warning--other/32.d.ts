@@ -1,1 +1,3 @@
-export { WarningOther32 as default } from "../../";
+import { WarningOther32 } from "../../";
+
+export = WarningOther32;

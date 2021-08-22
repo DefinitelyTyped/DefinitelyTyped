@@ -1,3 +1,4 @@
+import * as report from 'istanbul-lib-report';
 import { create } from 'istanbul-reports';
 
 create('clover');
@@ -57,3 +58,6 @@ create('text-lcov', { projectRoot: 'foo' });
 
 create('text-summary');
 create('text-summary', { file: 'foo' });
+
+const context = report.createContext({});
+create('html').execute(context);

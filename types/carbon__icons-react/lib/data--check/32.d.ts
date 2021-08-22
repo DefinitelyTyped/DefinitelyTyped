@@ -1,1 +1,3 @@
-export { DataCheck32 as default } from "../../";
+import { DataCheck32 } from "../../";
+
+export = DataCheck32;

@@ -1,1 +1,3 @@
-export { NotificationFilled32 as default } from "../../";
+import { NotificationFilled32 } from "../../";
+
+export = NotificationFilled32;

@@ -1,1 +1,3 @@
-export { Wifi24 as default } from "../../";
+import { Wifi24 } from "../../";
+
+export = Wifi24;

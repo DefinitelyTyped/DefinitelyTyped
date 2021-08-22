@@ -1,1 +1,3 @@
-export { ChevronRight16 as default } from "../../";
+import { ChevronRight16 } from "../../";
+
+export = ChevronRight16;

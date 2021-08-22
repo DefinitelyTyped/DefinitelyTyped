@@ -1,1 +1,3 @@
-export { SnowBlizzard32 as default } from "../../";
+import { SnowBlizzard32 } from "../../";
+
+export = SnowBlizzard32;

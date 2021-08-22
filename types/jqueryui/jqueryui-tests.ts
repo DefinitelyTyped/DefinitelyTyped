@@ -1828,6 +1828,18 @@ function test_effects() {
     $("div").hide("drop", { direction: "down" }, "slow");
     $(this).switchClass("big", "blue", 1000, "easeInOutQuad");
     $(this).toggleClass("big-blue", 1000, "easeOutSine");
+
+    // test with non-HTMLElement
+    var $svg: JQuery<SVGElement> = <unknown>$('<svg>') as JQuery<SVGSVGElement>,
+        $ret: JQuery<SVGElement>;
+    $ret = $svg.addClass("newClass", 1000, callback);
+    $ret = $svg.removeClass("newClass", 1000, callback);
+    $ret = $svg.show(selectedEffect, options, 500, callback);
+    $ret = $svg.hide("drop", { direction: "down" }, "slow");
+    $ret = $svg.effect("transfer", { to: $("div").eq(5) }, 1000) ;
+    $ret = $svg.toggle(selectedEffect, options, 500);
+    $ret = $svg.toggleClass("newClass", 1000);
+    $ret = $svg.switchClass("big", "blue", 1000, "easeInOutQuad");
 }
 
 function test_methods() {

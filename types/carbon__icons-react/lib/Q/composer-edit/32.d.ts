@@ -1,1 +1,3 @@
-export { QComposerEdit32 as default } from "../../../";
+import { QComposerEdit32 } from "../../../";
+
+export = QComposerEdit32;

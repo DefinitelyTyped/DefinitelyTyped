@@ -1,1 +1,3 @@
-export { DigitalTrust as default } from "../../";
+import { DigitalTrust } from "../../";
+
+export = DigitalTrust;

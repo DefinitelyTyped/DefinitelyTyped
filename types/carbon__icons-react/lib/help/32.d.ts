@@ -1,1 +1,3 @@
-export { Help32 as default } from "../../";
+import { Help32 } from "../../";
+
+export = Help32;

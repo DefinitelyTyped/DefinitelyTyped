@@ -1,1 +1,3 @@
-export { MobileDownload32 as default } from "../../";
+import { MobileDownload32 } from "../../";
+
+export = MobileDownload32;

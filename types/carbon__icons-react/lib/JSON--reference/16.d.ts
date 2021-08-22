@@ -1,1 +1,3 @@
-export { JsonReference16 as default } from "../../";
+import { JsonReference16 } from "../../";
+
+export = JsonReference16;

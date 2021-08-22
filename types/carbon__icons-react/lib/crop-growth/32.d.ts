@@ -1,1 +1,3 @@
-export { CropGrowth32 as default } from "../../";
+import { CropGrowth32 } from "../../";
+
+export = CropGrowth32;

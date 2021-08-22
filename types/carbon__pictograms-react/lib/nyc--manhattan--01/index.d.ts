@@ -1,1 +1,3 @@
-export { NycManhattan_01 as default } from "../../";
+import { NycManhattan_01 } from "../../";
+
+export = NycManhattan_01;

@@ -1,1 +1,3 @@
-export { MovementOfItems as default } from "../../";
+import { MovementOfItems } from "../../";
+
+export = MovementOfItems;

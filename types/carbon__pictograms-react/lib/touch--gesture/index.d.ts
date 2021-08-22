@@ -1,1 +1,3 @@
-export { TouchGesture as default } from "../../";
+import { TouchGesture } from "../../";
+
+export = TouchGesture;

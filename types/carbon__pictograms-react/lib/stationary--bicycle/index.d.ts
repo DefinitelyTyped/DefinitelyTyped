@@ -1,1 +1,3 @@
-export { StationaryBicycle as default } from "../../";
+import { StationaryBicycle } from "../../";
+
+export = StationaryBicycle;

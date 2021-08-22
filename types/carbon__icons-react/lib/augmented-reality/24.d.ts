@@ -1,1 +1,3 @@
-export { AugmentedReality24 as default } from "../../";
+import { AugmentedReality24 } from "../../";
+
+export = AugmentedReality24;

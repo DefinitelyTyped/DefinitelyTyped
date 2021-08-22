@@ -130,9 +130,9 @@ export namespace ge {
             current: TrendPriceObject
             today: TrendPriceObject
             members: boolean
-            day30: TrendPriceObject
-            day90: TrendPriceObject
-            day180: TrendPriceObject
+            day30: TrendChangeObject
+            day90: TrendChangeObject
+            day180: TrendChangeObject
         };
     }
 
@@ -143,7 +143,12 @@ export namespace ge {
 
     interface TrendPriceObject {
         trend: string;
-        price: number;
+        price: number | string;
+    }
+
+    interface TrendChangeObject {
+        trend: string;
+        change: string;
     }
 
     type TimestampPriceRecord = Record<string, number>;

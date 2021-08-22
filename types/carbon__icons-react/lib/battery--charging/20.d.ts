@@ -1,1 +1,3 @@
-export { BatteryCharging20 as default } from "../../";
+import { BatteryCharging20 } from "../../";
+
+export = BatteryCharging20;

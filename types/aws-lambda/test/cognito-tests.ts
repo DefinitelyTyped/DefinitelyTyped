@@ -10,6 +10,7 @@ import {
     PreTokenGenerationTriggerEvent, PreTokenGenerationTriggerHandler,
     UserMigrationTriggerEvent, UserMigrationTriggerHandler,
     CustomMessageTriggerEvent, CustomMessageTriggerHandler,
+    CustomEmailSenderTriggerEvent, CustomEmailSenderTriggerHandler,
 } from 'aws-lambda';
 
 type CognitoTriggerEvent =
@@ -22,7 +23,8 @@ type CognitoTriggerEvent =
     | VerifyAuthChallengeResponseTriggerEvent
     | PreTokenGenerationTriggerEvent
     | UserMigrationTriggerEvent
-    | CustomMessageTriggerEvent;
+    | CustomMessageTriggerEvent
+    | CustomEmailSenderTriggerEvent;
 
 const baseTest: Handler<CognitoTriggerEvent> = async (event: CognitoTriggerEvent, _, callback) => {
     str = event.version;
@@ -253,4 +255,20 @@ const customMessage: CustomMessageTriggerHandler = async (event, _, callback) =>
     triggerSource === 'CustomMessage_SignUp';
     triggerSource === 'CustomMessage_UpdateUserAttribute';
     triggerSource === 'CustomMessage_VerifyUserAttribute';
+};
+
+const customEmailSender: CustomEmailSenderTriggerHandler = async (event, _, callback) => {
+    const { request, response, triggerSource } = event;
+
+    str = request.type;
+    strOrNull = request.code;
+    obj = request.userAttributes;
+    objectOrUndefined = request.clientMetadata;
+
+    triggerSource === 'CustomEmailSender_AdminCreateUser';
+    triggerSource === 'CustomEmailSender_VerifyUserAttribute';
+    triggerSource === 'CustomEmailSender_UpdateUserAttribute';
+    triggerSource === 'CustomEmailSender_ResendCode';
+    triggerSource === 'CustomEmailSender_SignUp';
+    triggerSource === 'CustomEmailSender_AccountTakeOverNotification';
 };

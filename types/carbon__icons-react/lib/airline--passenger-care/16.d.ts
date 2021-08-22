@@ -1,1 +1,3 @@
-export { AirlinePassengerCare16 as default } from "../../";
+import { AirlinePassengerCare16 } from "../../";
+
+export = AirlinePassengerCare16;

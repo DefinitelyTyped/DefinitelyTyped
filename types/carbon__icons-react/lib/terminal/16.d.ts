@@ -1,1 +1,3 @@
-export { Terminal16 as default } from "../../";
+import { Terminal16 } from "../../";
+
+export = Terminal16;

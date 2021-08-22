@@ -1,1 +1,3 @@
-export { DirectionStraightRightFilled24 as default } from "../../";
+import { DirectionStraightRightFilled24 } from "../../";
+
+export = DirectionStraightRightFilled24;

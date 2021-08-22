@@ -1,1 +1,3 @@
-export { EventSchedule20 as default } from "../../";
+import { EventSchedule20 } from "../../";
+
+export = EventSchedule20;

@@ -1,1 +1,3 @@
-export { HealthCross24 as default } from "../../";
+import { HealthCross24 } from "../../";
+
+export = HealthCross24;

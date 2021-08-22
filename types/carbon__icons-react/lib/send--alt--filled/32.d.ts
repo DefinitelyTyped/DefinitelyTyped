@@ -1,1 +1,3 @@
-export { SendAltFilled32 as default } from "../../";
+import { SendAltFilled32 } from "../../";
+
+export = SendAltFilled32;

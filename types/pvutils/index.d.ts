@@ -1,7 +1,7 @@
 // Type definitions for pvutils 1.0
 // Project: https://github.com/PeculiarVentures/pvutils
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.2
 
 export = PvUtils

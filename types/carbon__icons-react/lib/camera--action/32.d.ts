@@ -1,1 +1,3 @@
-export { CameraAction32 as default } from "../../";
+import { CameraAction32 } from "../../";
+
+export = CameraAction32;

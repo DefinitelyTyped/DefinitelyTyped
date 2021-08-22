@@ -1,1 +1,3 @@
-export { TaskView32 as default } from "../../";
+import { TaskView32 } from "../../";
+
+export = TaskView32;

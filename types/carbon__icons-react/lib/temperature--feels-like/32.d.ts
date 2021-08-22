@@ -1,1 +1,3 @@
-export { TemperatureFeelsLike32 as default } from "../../";
+import { TemperatureFeelsLike32 } from "../../";
+
+export = TemperatureFeelsLike32;

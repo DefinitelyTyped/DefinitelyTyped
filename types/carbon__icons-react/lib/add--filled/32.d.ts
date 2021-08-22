@@ -1,1 +1,3 @@
-export { AddFilled32 as default } from "../../";
+import { AddFilled32 } from "../../";
+
+export = AddFilled32;

@@ -1,1 +1,3 @@
-export { CloudFoundry_224 as default } from "../../";
+import { CloudFoundry_224 } from "../../";
+
+export = CloudFoundry_224;

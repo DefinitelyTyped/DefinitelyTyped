@@ -1,1 +1,3 @@
-export { Cad20 as default } from "../../";
+import { Cad20 } from "../../";
+
+export = Cad20;

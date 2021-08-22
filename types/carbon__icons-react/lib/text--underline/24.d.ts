@@ -1,1 +1,3 @@
-export { TextUnderline24 as default } from "../../";
+import { TextUnderline24 } from "../../";
+
+export = TextUnderline24;

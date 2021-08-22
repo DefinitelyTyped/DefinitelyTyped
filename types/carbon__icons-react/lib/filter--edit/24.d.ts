@@ -1,1 +1,3 @@
-export { FilterEdit24 as default } from "../../";
+import { FilterEdit24 } from "../../";
+
+export = FilterEdit24;

@@ -1,4 +1,4 @@
 export interface CrashReporterOption {
     diagnosticMode: boolean;
-    isRunning?: boolean;
+    isRunning?: boolean | undefined;
 }

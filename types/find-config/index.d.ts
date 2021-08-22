@@ -5,16 +5,16 @@
 
 declare namespace findConfig {
     interface Options {
-        cwd?: string;
-        dir?: string;
-        dot?: boolean;
-        home?: boolean;
-        module?: boolean;
+        cwd?: string | undefined;
+        dir?: string | undefined;
+        dot?: boolean | undefined;
+        home?: boolean | undefined;
+        module?: boolean | undefined;
     }
 
     interface ReadOptions extends Options {
-        encoding?: string;
-        flag?: string;
+        encoding?: string | undefined;
+        flag?: string | undefined;
     }
 
     function obj(filename?: string, options?: Options): { cwd: string; dir: string; path: string; } | null;

@@ -1,1 +1,3 @@
-export { SecurityShield as default } from "../../";
+import { SecurityShield } from "../../";
+
+export = SecurityShield;

@@ -1,1 +1,3 @@
-export { Unlink32 as default } from "../../";
+import { Unlink32 } from "../../";
+
+export = Unlink32;

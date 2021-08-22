@@ -1,1 +1,3 @@
-export { Connect16 as default } from "../../";
+import { Connect16 } from "../../";
+
+export = Connect16;

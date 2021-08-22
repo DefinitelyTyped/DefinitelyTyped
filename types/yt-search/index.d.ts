@@ -27,30 +27,30 @@ declare function search(query: yts.PlaylistMetadataOptions): Promise<yts.Playlis
 
 declare namespace yts {
     interface BaseOptions {
-        pageStart?: number;
-        pageEnd?: number;
-        pages?: number;
-        userAgent?: string;
+        pageStart?: number | undefined;
+        pageEnd?: number | undefined;
+        pages?: number | undefined;
+        userAgent?: string | undefined;
 
         /**
          * The language.
          * @default 'en'
          */
-        hl?: string;
+        hl?: string | undefined;
 
         /**
          * The location.
          * @default 'US'
          */
-        gl?: string;
+        gl?: string | undefined;
 
         /**
          * The category (for example `'music'`.)
          * @default ''
          */
-        category?: string;
+        category?: string | undefined;
 
-        sp?: string;
+        sp?: string | undefined;
     }
 
     interface OptionsWithQuery extends BaseOptions {
@@ -64,9 +64,17 @@ declare namespace yts {
 
     interface VideoMetadataOptions {
         videoId: string;
+        /** @default 'en' */
+        hl?: string | undefined;
+        /** @default 'US' */
+        gl?: string | undefined;
     }
     interface PlaylistMetadataOptions {
         listId: string;
+        /** @default 'en' */
+        hl?: string | undefined;
+        /** @default 'US' */
+        gl?: string | undefined;
     }
 
     interface Author {

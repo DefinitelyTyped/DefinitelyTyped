@@ -1,1 +1,3 @@
-export { CloudAnalytics as default } from "../../";
+import { CloudAnalytics } from "../../";
+
+export = CloudAnalytics;

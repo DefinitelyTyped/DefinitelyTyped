@@ -1,1 +1,3 @@
-export { TabletLandscape32 as default } from "../../";
+import { TabletLandscape32 } from "../../";
+
+export = TabletLandscape32;

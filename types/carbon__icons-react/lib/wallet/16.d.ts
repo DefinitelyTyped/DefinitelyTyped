@@ -1,1 +1,3 @@
-export { Wallet16 as default } from "../../";
+import { Wallet16 } from "../../";
+
+export = Wallet16;

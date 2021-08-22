@@ -1,1 +1,3 @@
-export { CenterToFit32 as default } from "../../";
+import { CenterToFit32 } from "../../";
+
+export = CenterToFit32;

@@ -1,1 +1,3 @@
-export { Analyze as default } from "../../";
+import { Analyze } from "../../";
+
+export = Analyze;

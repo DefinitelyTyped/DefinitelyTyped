@@ -15,31 +15,31 @@ declare namespace Cookies {
          * which will be interpreted as days from time of creation or a
          * Date instance. If omitted, the cookie becomes a session cookie.
          */
-        expires?: number | Date;
+        expires?: number | Date | undefined;
 
         /**
          * Define the path where the cookie is available. Defaults to '/'
          */
-        path?: string;
+        path?: string | undefined;
 
         /**
          * Define the domain where the cookie is available. Defaults to
          * the domain of the page where the cookie was created.
          */
-        domain?: string;
+        domain?: string | undefined;
 
         /**
          * A Boolean indicating if the cookie transmission requires a
          * secure protocol (https). Defaults to false.
          */
-        secure?: boolean;
+        secure?: boolean | undefined;
 
         /**
          * Asserts that a cookie must not be sent with cross-origin requests,
          * providing some protection against cross-site request forgery
          * attacks (CSRF)
          */
-        sameSite?: 'strict' | 'Strict' | 'lax' | 'Lax' | 'none' | 'None';
+        sameSite?: 'strict' | 'Strict' | 'lax' | 'Lax' | 'none' | 'None' | undefined;
 
         /**
          * An attribute which will be serialized, conformably to RFC 6265
@@ -103,7 +103,7 @@ declare namespace Cookies {
          * will run the converter first for each cookie. The returned
          * string will be used as the cookie value.
          */
-        withConverter<TConv extends object>(converter: CookieReadConverter | { write?: CookieWriteConverter<TConv>; read?: CookieReadConverter; }): CookiesStatic<TConv>;
+        withConverter<TConv extends object>(converter: CookieReadConverter | { write?: CookieWriteConverter<TConv> | undefined; read?: CookieReadConverter | undefined; }): CookiesStatic<TConv>;
     }
 
     type CookieWriteConverter<T extends object> = (value: string | T, name: string) => string;

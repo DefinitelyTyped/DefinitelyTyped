@@ -13,12 +13,18 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ],
+            "@webpack-blocks/*": ["webpack-blocks__*"]
+        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@webpack-blocks/*": ["webpack-blocks__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

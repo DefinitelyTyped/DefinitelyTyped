@@ -1,1 +1,3 @@
-export { Grid20 as default } from "../../";
+import { Grid20 } from "../../";
+
+export = Grid20;

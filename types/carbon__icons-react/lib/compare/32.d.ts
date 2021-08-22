@@ -1,1 +1,3 @@
-export { Compare32 as default } from "../../";
+import { Compare32 } from "../../";
+
+export = Compare32;

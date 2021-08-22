@@ -1,1 +1,3 @@
-export { GameConsole32 as default } from "../../";
+import { GameConsole32 } from "../../";
+
+export = GameConsole32;

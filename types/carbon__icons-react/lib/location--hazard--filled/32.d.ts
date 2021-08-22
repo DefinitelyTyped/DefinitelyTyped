@@ -1,1 +1,3 @@
-export { LocationHazardFilled32 as default } from "../../";
+import { LocationHazardFilled32 } from "../../";
+
+export = LocationHazardFilled32;

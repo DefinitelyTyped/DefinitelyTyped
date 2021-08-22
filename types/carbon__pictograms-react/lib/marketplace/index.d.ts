@@ -1,1 +1,3 @@
-export { Marketplace as default } from "../../";
+import { Marketplace } from "../../";
+
+export = Marketplace;

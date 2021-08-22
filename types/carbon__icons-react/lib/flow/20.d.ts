@@ -1,1 +1,3 @@
-export { Flow20 as default } from "../../";
+import { Flow20 } from "../../";
+
+export = Flow20;

@@ -1,1 +1,3 @@
-export { ChartBarStacked16 as default } from "../../";
+import { ChartBarStacked16 } from "../../";
+
+export = ChartBarStacked16;

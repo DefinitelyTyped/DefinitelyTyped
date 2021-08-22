@@ -1,1 +1,3 @@
-export { Microscope32 as default } from "../../";
+import { Microscope32 } from "../../";
+
+export = Microscope32;

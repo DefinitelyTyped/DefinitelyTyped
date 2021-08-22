@@ -1,1 +1,3 @@
-export { RainDrop32 as default } from "../../";
+import { RainDrop32 } from "../../";
+
+export = RainDrop32;

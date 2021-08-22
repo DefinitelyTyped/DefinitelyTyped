@@ -1,1 +1,3 @@
-export { ChartCandlestick24 as default } from "../../";
+import { ChartCandlestick24 } from "../../";
+
+export = ChartCandlestick24;

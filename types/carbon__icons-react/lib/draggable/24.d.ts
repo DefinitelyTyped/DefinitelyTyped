@@ -1,1 +1,3 @@
-export { Draggable24 as default } from "../../";
+import { Draggable24 } from "../../";
+
+export = Draggable24;

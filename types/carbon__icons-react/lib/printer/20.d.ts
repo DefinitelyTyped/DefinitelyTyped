@@ -1,1 +1,3 @@
-export { Printer20 as default } from "../../";
+import { Printer20 } from "../../";
+
+export = Printer20;

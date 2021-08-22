@@ -1,1 +1,3 @@
-export { Script32 as default } from "../../";
+import { Script32 } from "../../";
+
+export = Script32;

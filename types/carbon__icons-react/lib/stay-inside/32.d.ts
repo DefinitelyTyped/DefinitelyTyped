@@ -1,1 +1,3 @@
-export { StayInside32 as default } from "../../";
+import { StayInside32 } from "../../";
+
+export = StayInside32;

@@ -1,1 +1,3 @@
-export { ParisNotreDame as default } from "../../";
+import { ParisNotreDame } from "../../";
+
+export = ParisNotreDame;

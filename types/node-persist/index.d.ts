@@ -1,7 +1,8 @@
 // Type definitions for node-persist 3.1
 // Project: https://github.com/simonlast/node-persist
 // Definitions by: Spencer Williams <https://github.com/spencerwi>,
-//                 Samuel Elliott <https://github.com/samuelthomas2774>
+//                 Samuel Elliott <https://github.com/samuelthomas2774>,
+//                 Jack Hedaya <https://github.com/jackHedaya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,25 +13,26 @@ declare namespace NodePersist {
     type FilterFunction<T> = (value: T, index: number, array: T[]) => boolean;
 
     interface InitOptions {
-        dir?: string;
-        stringify?: (data: any) => string;
-        parse?: (str: string) => any;
-        encoding?: BufferEncoding;
-        logging?: ((...args: any[]) => void) | boolean;
-        expiredInterval?: Milliseconds;
-        forgiveParseErrors?: boolean;
-        ttl?: Milliseconds;
+        dir?: string | undefined;
+        stringify?: ((data: any) => string) | undefined;
+        parse?: ((str: string) => any) | undefined;
+        encoding?: BufferEncoding | undefined;
+        logging?: ((...args: any[]) => void) | boolean | undefined;
+        expiredInterval?: Milliseconds | undefined;
+        forgiveParseErrors?: boolean | undefined;
+        ttl?: Milliseconds | undefined;
     }
 
     interface DatumOptions {
-        raw?: boolean;
+        raw?: boolean | undefined;
+        ttl?: Milliseconds | undefined;
     }
 
     interface Datum {
         key: string;
         value: any;
 
-        ttl?: number;
+        ttl?: Milliseconds | undefined;
     }
 
     interface EnsureDirectoryResult {

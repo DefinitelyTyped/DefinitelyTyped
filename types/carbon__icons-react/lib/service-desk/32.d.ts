@@ -1,1 +1,3 @@
-export { ServiceDesk32 as default } from "../../";
+import { ServiceDesk32 } from "../../";
+
+export = ServiceDesk32;

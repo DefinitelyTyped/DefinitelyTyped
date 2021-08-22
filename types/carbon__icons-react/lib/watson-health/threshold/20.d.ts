@@ -1,1 +1,3 @@
-export { WatsonHealthThreshold20 as default } from "../../../";
+import { WatsonHealthThreshold20 } from "../../../";
+
+export = WatsonHealthThreshold20;

@@ -142,9 +142,9 @@
     const r2: CSSRotate = new CSSRotate(CSS.px(20), 20, 30, CSS.deg(30));
     const is2d: boolean = r1.is2D;
     const matix: DOMMatrix = r1.toMatrix();
-    const x: CSSNumberish = r1.x;
-    const y: CSSNumberish = r1.y;
-    const z: CSSNumberish = r1.z;
+    const x: CSSNumberOrNumeric = r1.x;
+    const y: CSSNumberOrNumeric = r1.y;
+    const z: CSSNumberOrNumeric = r1.z;
     const a: CSSNumericValue = r1.angle;
 };
 
@@ -153,9 +153,9 @@
     const s2: CSSScale = new CSSScale(CSS.px(20), 2, 3);
     const is2d: boolean = s1.is2D;
     const matix: DOMMatrix = s1.toMatrix();
-    const x: CSSNumberish = s1.x;
-    const y: CSSNumberish = s1.y;
-    const z: CSSNumberish = s1.z;
+    const x: CSSNumberOrNumeric = s1.x;
+    const y: CSSNumberOrNumeric = s1.y;
+    const z: CSSNumberOrNumeric = s1.z;
 };
 
 () => {
@@ -214,8 +214,8 @@
     }
 };
 
+declare const x: CSSRule;
 () => {
-    const x: CSSRule = window.getMatchedCSSRules(document.body)[0];
     if (!(x instanceof CSSStyleRule)) {
         return;
     }

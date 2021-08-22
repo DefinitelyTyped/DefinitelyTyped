@@ -1,1 +1,3 @@
-export { FolderAdd16 as default } from "../../";
+import { FolderAdd16 } from "../../";
+
+export = FolderAdd16;

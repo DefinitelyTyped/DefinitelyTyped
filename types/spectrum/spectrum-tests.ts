@@ -1,5 +1,7 @@
+// No-arg initializer
 $("#picker").spectrum();
 
+// Initializer with options
 $("#picker").spectrum({
     color: "yellow"
 });
@@ -46,10 +48,49 @@ $("#picker").spectrum({
     ]
 });
 
+const paletteModMod: string[][] = [["#000"]];
+const paletteUnmodMod: ReadonlyArray<string[]> = [["#000"]];
+const paletteModUnmod: Array<ReadonlyArray<string>> = [["#000"]];
+const paletteUnmodUnmod: ReadonlyArray<ReadonlyArray<string>> = [["#000"]];
+$("#picker").spectrum({
+    palette: paletteModMod,
+});
+$("#picker").spectrum({
+    palette: paletteModUnmod,
+});
+$("#picker").spectrum({
+    palette: paletteUnmodMod,
+});
+$("#picker").spectrum({
+    palette: paletteUnmodUnmod,
+});
+$("#picker").spectrum("option", "palette", paletteModMod);
+$("#picker").spectrum("option", "palette", paletteModUnmod);
+$("#picker").spectrum("option", "palette", paletteUnmodMod);
+$("#picker").spectrum("option", "palette", paletteUnmodUnmod);
+const palette = $("#picker").spectrum("option", "palette");
+if (palette) {
+    // Disallowed, must use "option" method to apply settings
+    // $ExpectError
+    palette[0][0] = "";
+    // $ExpectError
+    palette[0] = [""];
+}
+
 $("#picker").spectrum({
     showPalette: true,
     showSelectionPalette: true,
+    selectionPalette: ["red", "green", "blue"],
     localStorageKey: "spectrum.homepage",
+});
+
+const selectionPaletteMod: string[] = ["red", "green", "blue"];
+const selectionPaletteUnmod: ReadonlyArray<string> = ["red", "green", "blue"];
+$("#picker").spectrum({
+    selectionPalette: selectionPaletteMod,
+});
+$("#picker").spectrum({
+    selectionPalette: selectionPaletteUnmod,
 });
 
 $("#picker").spectrum({
@@ -59,6 +100,14 @@ $("#picker").spectrum({
 $("#picker").spectrum({
     clickoutFiresChange: true
 });
+$("#picker").spectrum("option", "selectionPalette", selectionPaletteMod);
+$("#picker").spectrum("option", "selectionPalette", selectionPaletteUnmod);
+const selectionPalette = $("#picker").spectrum("option", "selectionPalette");
+if (selectionPalette) {
+    // Disallowed, must use "option" method to apply settings
+    // $ExpectError
+    selectionPaletteUnmod[0] = "red";
+}
 
 $("#picker").spectrum({
     showInitial: true,
@@ -66,7 +115,9 @@ $("#picker").spectrum({
 });
 $("#picker").spectrum({
     chooseText: "Alright",
-    cancelText: "No way"
+    cancelText: "No way",
+    clearText: "Start over",
+    noColorSelectedText: "A world of gray",
 });
 
 $("#picker").spectrum({
@@ -85,40 +136,86 @@ $("#picker").spectrum({
     preferredFormat: "hex"
 });
 
+$("#picker").spectrum(
+    // Invalid format name raises a type error
+    // $ExpectError
+    { preferredFormat: "lol" }
+);
+
 $("#picker").spectrum({
     appendTo: "body"
 });
 $("#picker").spectrum({
+    appendTo: document.createDocumentFragment()
+});
+$("#picker").spectrum({
+    appendTo: [document.createDocumentFragment()]
+});
+$("#picker").spectrum({
+    appendTo: document.createElement("input")
+});
+$("#picker").spectrum({
+    appendTo: [document.createElement("input")]
+});
+$("#picker").spectrum({
     appendTo: $("#otherPicker")
 });
+$("#picker").spectrum(
+    // Cannot use values not allowed by JQuery#appendTo
+    // $ExpectError
+    { appendTo: [$("#otherPicker")] }
+);
 
 $("#picker").spectrum({
-    change: function (color) {
-        console.log(color);
-    }
-});
-
-$("#picker").spectrum({
-    move: function (color) {
-        console.log(color);
+    offset: {
+        left: 0,
+        top: 0,
     }
 });
 $("#picker").spectrum({
-    hide: function (color) {
-        console.log(color);
-    }
-});
-$("#picker").spectrum({
-    show: function (color) {
-        console.log(color);
-    }
-});
-$("#picker").spectrum({
-    beforeShow: function (color) {
-        console.log(color);
+    offset: {
+        left: 0,
     }
 });
 
+$("#picker").spectrum({
+    change(color) {
+        console.log(color);
+    }
+});
+$("#picker").spectrum({
+    move(color) {
+        // $ExpectType string
+        color.toHexString();
+    }
+});
+$("#picker").spectrum({
+    hide(color) {
+        // $ExpectType string
+        color.toHexString();
+    }
+});
+$("#picker").spectrum({
+    show(color) {
+        // $ExpectType string
+        color.toHexString();
+    }
+});
+$("#picker").spectrum({
+    beforeShow(color) {
+        // $ExpectType string
+        color.toHexString();
+    }
+});
+$("#picker").spectrum({
+    beforeShow(color) {
+        // $ExpectType string
+        color.toHexString();
+        return false;
+    }
+});
+
+// JQuery instance method
 $("#picker").spectrum("show");
 $("#picker").spectrum("hide");
 $("#picker").spectrum("toggle");
@@ -129,5 +226,92 @@ $("#picker").spectrum("reflow");
 $("#picker").spectrum("destroy");
 $("#picker").spectrum("enable");
 $("#picker").spectrum("disable");
+
+// $ExpectType Options
+$("#picker").spectrum("option");
+
 $("#picker").spectrum("option", "show");
+// $ExpectType string | undefined
+$("#picker").spectrum("option", "cancelText");
+// These options may return false when not set explicitly
+// $ExpectType string | false | undefined
+$("#picker").spectrum("option", "color");
+// $ExpectType string | false | undefined
+$("#picker").spectrum("option", "localStorageKey");
+// $ExpectType false | "hex" | "hex3" | "hsl" | "rgb" | "name" | undefined || false | ColorFormatName | undefined
+$("#picker").spectrum("option", "preferredFormat");
+// $ExpectType boolean | undefined
+$("#picker").spectrum("option", "disabled");
+// Invalid option name raises a type error
+// $ExpectError
+$("#picker").spectrum("option", "foobar");
+
 $("#picker").spectrum("option", "color", "#ededed");
+$("#picker").spectrum("option", "disabled", true);
+// Invalid option name raises a type error
+// $ExpectError
+$("#picker").spectrum("option", "foobar", "#ededed");
+// Invalid option value raises a type error
+// $ExpectError
+$("#picker").spectrum("option", "disabled", "true");
+// Passing undefined would be interpreted as the getter, not the setter, so this is disallowed
+// $ExpectError
+$("#picker").spectrum("option", "disabled", undefined);
+
+// Event handling
+$("#picker").on("change.spectrum", (e) => {
+    // $ExpectType "change"
+    e.type;
+});
+$("#picker").on("move.spectrum", (e) => {
+    // $ExpectType "move"
+    e.type;
+});
+$("#picker").on("show.spectrum", (e) => {
+    // $ExpectType "show"
+    e.type;
+});
+$("#picker").on("hide.spectrum", (e) => {
+    // $ExpectType "hide"
+    e.type;
+});
+$("#picker").on("beforeShow.spectrum", (e) => {
+    // $ExpectType "beforeShow"
+    e.type;
+});
+$("#picker").on("dragstart.spectrum", (e) => {
+    // $ExpectType "dragstart"
+    e.type;
+});
+$("#picker").on("dragstop.spectrum", (e) => {
+    // $ExpectType "dragstop"
+    e.type;
+});
+$("#picker").off("change.spectrum", (e) => {
+    // $ExpectType "change"
+    e.type;
+});
+$("#picker").off("move.spectrum", (e) => {
+    // $ExpectType "move"
+    e.type;
+});
+$("#picker").off("show.spectrum", (e) => {
+    // $ExpectType "show"
+    e.type;
+});
+$("#picker").off("hide.spectrum", (e) => {
+    // $ExpectType "hide"
+    e.type;
+});
+$("#picker").off("beforeShow.spectrum", (e) => {
+    // $ExpectType "beforeShow"
+    e.type;
+});
+$("#picker").off("dragstart.spectrum", (e) => {
+    // $ExpectType "dragstart"
+    e.type;
+});
+$("#picker").off("dragstop.spectrum", (e) => {
+    // $ExpectType "dragstop"
+    e.type;
+});

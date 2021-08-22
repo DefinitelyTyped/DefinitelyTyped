@@ -1,1 +1,3 @@
-export { RotateCounterclockwise20 as default } from "../../";
+import { RotateCounterclockwise20 } from "../../";
+
+export = RotateCounterclockwise20;

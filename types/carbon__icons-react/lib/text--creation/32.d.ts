@@ -1,1 +1,3 @@
-export { TextCreation32 as default } from "../../";
+import { TextCreation32 } from "../../";
+
+export = TextCreation32;

@@ -1,1 +1,3 @@
-export { ChartColumn16 as default } from "../../";
+import { ChartColumn16 } from "../../";
+
+export = ChartColumn16;

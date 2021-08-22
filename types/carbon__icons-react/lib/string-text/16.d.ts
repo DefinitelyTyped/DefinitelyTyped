@@ -1,1 +1,3 @@
-export { StringText16 as default } from "../../";
+import { StringText16 } from "../../";
+
+export = StringText16;

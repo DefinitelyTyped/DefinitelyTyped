@@ -1,1 +1,3 @@
-export { Receipt as default } from "../../";
+import { Receipt } from "../../";
+
+export = Receipt;

@@ -3,23 +3,27 @@
 // Definitions by: pofider <https://github.com/pofider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ExtensionDefinition } from 'jsreport-core';
-
-declare module 'jsreport-core' {
-    interface Template {
-        scripts?: JsReportScripts.TemplateScript[];
-    }
-}
+import { ExtensionDefinition, Template } from 'jsreport-core';
 
 declare namespace JsReportScripts {
     interface TemplateScript {
-        shortid?: string;
-        name?: string;
-        content?: string;
+        shortid?: string | undefined;
+        name?: string | undefined;
+        content?: string | undefined;
     }
 
     interface Configuration {
-        allowedModules?: string[] | "*";
+        allowedModules?: string[] | "*" | undefined;
+    }
+
+    interface ScriptsTemplate extends Template {
+        scripts?: TemplateScript[] | undefined;
+    }
+}
+
+declare module 'jsreport-core' {
+    interface TemplateRegistry {
+        ScriptsTemplate: JsReportScripts.ScriptsTemplate;
     }
 }
 

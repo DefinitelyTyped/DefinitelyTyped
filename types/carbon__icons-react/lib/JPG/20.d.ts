@@ -1,1 +1,3 @@
-export { Jpg20 as default } from "../../";
+import { Jpg20 } from "../../";
+
+export = Jpg20;

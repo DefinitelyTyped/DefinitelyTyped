@@ -1,1 +1,3 @@
-export { Pest16 as default } from "../../";
+import { Pest16 } from "../../";
+
+export = Pest16;

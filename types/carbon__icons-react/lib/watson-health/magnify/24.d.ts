@@ -1,1 +1,3 @@
-export { WatsonHealthMagnify24 as default } from "../../../";
+import { WatsonHealthMagnify24 } from "../../../";
+
+export = WatsonHealthMagnify24;

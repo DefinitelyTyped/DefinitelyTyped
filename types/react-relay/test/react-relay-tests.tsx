@@ -22,7 +22,6 @@ import {
     QueryRenderer,
     LocalQueryRenderer,
     ReactRelayContext,
-    readInlineData,
     RelayPaginationProp,
     RelayProp,
     RelayRefetchProp,
@@ -48,9 +47,11 @@ const modernEnvironment = new Environment({ network, store });
 type MyQueryVariables = {
     pageID: string;
 };
+
 type MyQueryResponse = {
     name: string;
 };
+
 type MyQuery = {
     variables: MyQueryVariables;
     response: MyQueryResponse;
@@ -170,7 +171,7 @@ const Story = (() => {
         relay: RelayRefetchProp;
         story: Story_story;
         onLike: StoryLike;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
     }
 
     interface State {
@@ -310,7 +311,7 @@ const Feed = (() => {
         relay: RelayProp;
         feed: FeedStories_feed;
         onStoryLike: StoryLike;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
     }
 
     const FeedStoryEdges: React.FC<{ edges: FeedStory_edges; relay: RelayProp }> = ({ edges }) => (
@@ -410,7 +411,7 @@ const Feed = (() => {
 type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
-            readonly endCursor?: string | null;
+            readonly endCursor?: string | null | undefined;
             readonly hasNextPage: boolean;
         };
         readonly ' $fragmentRefs': FragmentRefs<'FeedStories_feed'>;
@@ -422,7 +423,7 @@ type UserFeed_user = {
         relay: RelayPaginationProp;
         loadMoreTitle: string;
         user: UserFeed_user;
-        ignoreMe?: {};
+        ignoreMe?: {} | undefined;
     }
 
     class UserFeed extends React.Component<Props> {
@@ -646,25 +647,6 @@ function markNotificationAsRead(source: string, storyID: string) {
         },
     });
 }
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// readInlineData
-// ~~~~~~~~~~~~~~~~~~~~~
-
-const storyFragment = graphql`
-    fragment Story_story on Todo {
-        id
-        text
-        isPublished
-    }
-`;
-
-function functionWithInline(storyRef: FragmentRef<Story_story>): Story_story {
-    return readInlineData<Story_story>(storyFragment, storyRef);
-}
-
-const inlineData: _FragmentRefs<'Story_story'> = {} as any;
-functionWithInline(inlineData).isPublished;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions

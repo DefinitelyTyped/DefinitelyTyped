@@ -1,1 +1,3 @@
-export { Api32 as default } from "../../";
+import { Api32 } from "../../";
+
+export = Api32;

@@ -1,4 +1,4 @@
-{ 
+{
   "extends": "dtslint/dt.json",
   "rules": {
     "jsdoc-format": false,

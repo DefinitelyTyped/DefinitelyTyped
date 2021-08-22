@@ -1,1 +1,3 @@
-export { Rank as default } from "../../";
+import { Rank } from "../../";
+
+export = Rank;

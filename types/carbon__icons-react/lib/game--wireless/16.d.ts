@@ -1,1 +1,3 @@
-export { GameWireless16 as default } from "../../";
+import { GameWireless16 } from "../../";
+
+export = GameWireless16;

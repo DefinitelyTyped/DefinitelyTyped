@@ -1,1 +1,3 @@
-export { FingerprintRecognition16 as default } from "../../";
+import { FingerprintRecognition16 } from "../../";
+
+export = FingerprintRecognition16;

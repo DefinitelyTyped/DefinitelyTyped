@@ -1,1 +1,3 @@
-export { Awake24 as default } from "../../";
+import { Awake24 } from "../../";
+
+export = Awake24;

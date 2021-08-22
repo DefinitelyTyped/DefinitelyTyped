@@ -1,1 +1,3 @@
-export { PanHorizontal20 as default } from "../../";
+import { PanHorizontal20 } from "../../";
+
+export = PanHorizontal20;

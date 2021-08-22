@@ -1,1 +1,3 @@
-export { TextSuperscript32 as default } from "../../";
+import { TextSuperscript32 } from "../../";
+
+export = TextSuperscript32;

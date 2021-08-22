@@ -1,1 +1,3 @@
-export { Earthquake32 as default } from "../../";
+import { Earthquake32 } from "../../";
+
+export = Earthquake32;

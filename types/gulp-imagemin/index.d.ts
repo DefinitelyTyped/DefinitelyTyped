@@ -18,7 +18,8 @@ declare function imagemin(plugins?: ReadonlyArray<Plugin>, options?: imagemin.Op
 
 declare namespace imagemin {
     interface Options {
-        verbose?: boolean;
+        silent?: boolean | undefined;
+        verbose?: boolean | undefined;
     }
 
     type PluginFactory<T> = (options?: T) => Plugin;

@@ -1,1 +1,3 @@
-export { PlugFilled32 as default } from "../../";
+import { PlugFilled32 } from "../../";
+
+export = PlugFilled32;

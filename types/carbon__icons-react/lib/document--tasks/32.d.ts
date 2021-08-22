@@ -1,1 +1,3 @@
-export { DocumentTasks32 as default } from "../../";
+import { DocumentTasks32 } from "../../";
+
+export = DocumentTasks32;

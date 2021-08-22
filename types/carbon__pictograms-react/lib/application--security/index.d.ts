@@ -1,1 +1,3 @@
-export { ApplicationSecurity as default } from "../../";
+import { ApplicationSecurity } from "../../";
+
+export = ApplicationSecurity;

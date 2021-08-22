@@ -15,6 +15,8 @@ function deferTest(): Promise<string> {
         deferred.reject(new Error('bar'));
     }
 
+    deferred.resolve();
+
     return deferred.promise;
 }
 

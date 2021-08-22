@@ -1,1 +1,3 @@
-export { CodeReference24 as default } from "../../";
+import { CodeReference24 } from "../../";
+
+export = CodeReference24;

@@ -1,1 +1,3 @@
-export { Rule32 as default } from "../../";
+import { Rule32 } from "../../";
+
+export = Rule32;

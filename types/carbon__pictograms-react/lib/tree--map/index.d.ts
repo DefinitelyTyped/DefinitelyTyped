@@ -1,1 +1,3 @@
-export { TreeMap as default } from "../../";
+import { TreeMap } from "../../";
+
+export = TreeMap;

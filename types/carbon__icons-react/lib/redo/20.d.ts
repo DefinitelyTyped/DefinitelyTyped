@@ -1,1 +1,3 @@
-export { Redo20 as default } from "../../";
+import { Redo20 } from "../../";
+
+export = Redo20;

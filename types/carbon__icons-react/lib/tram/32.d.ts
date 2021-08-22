@@ -1,1 +1,3 @@
-export { Tram32 as default } from "../../";
+import { Tram32 } from "../../";
+
+export = Tram32;

@@ -1,1 +1,3 @@
-export { AddDevice as default } from "../../";
+import { AddDevice } from "../../";
+
+export = AddDevice;

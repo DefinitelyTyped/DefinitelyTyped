@@ -1,1 +1,3 @@
-export { TextBold32 as default } from "../../";
+import { TextBold32 } from "../../";
+
+export = TextBold32;

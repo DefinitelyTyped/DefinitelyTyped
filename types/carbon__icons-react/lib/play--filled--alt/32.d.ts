@@ -1,1 +1,3 @@
-export { PlayFilledAlt32 as default } from "../../";
+import { PlayFilledAlt32 } from "../../";
+
+export = PlayFilledAlt32;

@@ -1,1 +1,3 @@
-export { SkillLevelAdvanced32 as default } from "../../";
+import { SkillLevelAdvanced32 } from "../../";
+
+export = SkillLevelAdvanced32;

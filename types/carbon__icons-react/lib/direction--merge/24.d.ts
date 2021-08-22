@@ -1,1 +1,3 @@
-export { DirectionMerge24 as default } from "../../";
+import { DirectionMerge24 } from "../../";
+
+export = DirectionMerge24;

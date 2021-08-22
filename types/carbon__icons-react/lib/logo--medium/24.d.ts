@@ -1,1 +1,3 @@
-export { LogoMedium24 as default } from "../../";
+import { LogoMedium24 } from "../../";
+
+export = LogoMedium24;

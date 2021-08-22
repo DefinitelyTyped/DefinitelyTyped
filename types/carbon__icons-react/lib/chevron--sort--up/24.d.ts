@@ -1,1 +1,3 @@
-export { ChevronSortUp24 as default } from "../../";
+import { ChevronSortUp24 } from "../../";
+
+export = ChevronSortUp24;

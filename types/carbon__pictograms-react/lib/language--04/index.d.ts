@@ -1,1 +1,3 @@
-export { Language_04 as default } from "../../";
+import { Language_04 } from "../../";
+
+export = Language_04;

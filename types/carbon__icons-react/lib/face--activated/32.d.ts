@@ -1,1 +1,3 @@
-export { FaceActivated32 as default } from "../../";
+import { FaceActivated32 } from "../../";
+
+export = FaceActivated32;

@@ -1,79 +1,77 @@
-/// <reference types="node" />
+import { FieldInfo, NormalizedFieldInfo, Options } from "./";
+import { Transform, TransformOptions } from "stream";
 
-import { json2csv } from './JSON2CSVBase';
-import JSON2CSVBase from './JSON2CSVBase';
-import { Transform, TransformOptions } from 'stream';
-
-declare class JSON2CSVTransform<T> extends Transform { // implements JSON2CSVBase<T>
-    constructor(opts?: json2csv.Options<T>, transformOpts?: TransformOptions);
+declare class JSON2CSVTransform<T> extends Transform {
+    // implements JSON2CSVBase<T>
+    constructor(opts?: Options<T>, transformOpts?: TransformOptions);
 
     /**
      * Transforms an incoming json data to csv and pushes it downstream.
      *
-     * @param {object} data JSON object to be converted in a CSV row
+     * @param data JSON object to be converted in a CSV row
      */
     protected pushLine(data: T): void;
 
     /*******************************************************************************
-    * Everything below is copy-pasted from JSON2CSVBase and should be keep in sync *
-    ********************************************************************************/
+     * Everything below is copy-pasted from JSON2CSVBase and should be keep in sync *
+     ********************************************************************************/
 
     /**
      * Check passing opts and set defaults.
      *
-     * @param {json2csv.Options} opts Options object containing fields,
+     * @param opts Options object containing fields,
      * delimiter, default value, quote mark, header, etc.
-     * @returns {json2csv.Options} preprocessed Options object
+     * @returns preprocessed Options object
      */
-    protected preprocessOpts(opts?: json2csv.Options<T>) : json2csv.Options<T>;
+    protected preprocessOpts(opts?: Options<T>): Options<T>;
 
     /**
      * Check and normalize the fields configuration.
      *
-     * @param {(string|json2csv.FieldInfo)[]} fields Fields configuration provided by the user
+     * @param fields Fields configuration provided by the user
      * or inferred from the data
-     * @returns {json2csv.NormalizedFieldInfo} preprocessed FieldsInfo array
+     * @returns preprocessed FieldsInfo array
      */
-    preprocessFieldsInfo<T>(fields: Array<string | json2csv.FieldInfo<T>>): Array<json2csv.NormalizedFieldInfo<T>>;
+    preprocessFieldsInfo<T>(fields: Array<string | FieldInfo<T>>): Array<NormalizedFieldInfo<T>>;
 
     /**
      * Create the title row with all the provided fields as column headings
      *
-     * @returns {string} titles as a string
+     * @returns  titles as a string
      */
     protected getHeader(): string;
 
     /**
      * Preprocess each object according to the give opts (unwind, flatten, etc.).
      *
-     * @param {object} row JSON object to be converted in a CSV row
+     * @param row JSON object to be converted in a CSV row
      */
     protected preprocessRow(row: T): object;
 
     /**
      * Create the content of a specific CSV row
      *
-     * @param {object} row JSON object to be converted in a CSV row
-     * @returns {string} CSV string (row)
+     * @param row JSON object to be converted in a CSV row
+     * @returns  CSV string (row)
      */
     protected processRow(row: T): string;
 
     /**
      * Create the content of a specfic CSV row cell
      *
-     * @param {object} row JSON object representing the  CSV row that the cell belongs to
-     * @param {object} fieldInfo Details of the field to process to be a CSV cell
-     * @returns {string} CSV string (cell)
+     * @param  row JSON object representing the  CSV row that the cell belongs to
+     * @param fieldInfo Details of the field to process to be a CSV cell
+     * @returns CSV string (cell)
      */
-    protected processCell(row: T, fieldInfo: json2csv.NormalizedFieldInfo<T>) : string;
+    protected processCell(row: T, fieldInfo: NormalizedFieldInfo<T>): string;
 
     /**
-     * Create the content of a specfic CSV row cell
+     * Create the content of a specific CSV row cell
      *
-     * @param {any} value Value to be included in a CSV cell
-     * @returns {string} Value stringified and processed
+     * @param value Value to be included in a CSV cell
+     * @returns Value stringified and processed
      */
     protected processValue(value: any): string;
 }
 
-export default JSON2CSVTransform;
+export = JSON2CSVTransform;

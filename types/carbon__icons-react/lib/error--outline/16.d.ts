@@ -1,1 +1,3 @@
-export { ErrorOutline16 as default } from "../../";
+import { ErrorOutline16 } from "../../";
+
+export = ErrorOutline16;

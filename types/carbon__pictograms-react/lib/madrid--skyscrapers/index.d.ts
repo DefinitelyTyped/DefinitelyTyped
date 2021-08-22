@@ -1,1 +1,3 @@
-export { MadridSkyscrapers as default } from "../../";
+import { MadridSkyscrapers } from "../../";
+
+export = MadridSkyscrapers;

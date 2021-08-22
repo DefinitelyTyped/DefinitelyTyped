@@ -1,1 +1,3 @@
-export { ParisLouvre as default } from "../../";
+import { ParisLouvre } from "../../";
+
+export = ParisLouvre;

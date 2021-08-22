@@ -1,1 +1,3 @@
-export { Strawberry32 as default } from "../../";
+import { Strawberry32 } from "../../";
+
+export = Strawberry32;

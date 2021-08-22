@@ -1,1 +1,3 @@
-export { Hearing16 as default } from "../../";
+import { Hearing16 } from "../../";
+
+export = Hearing16;

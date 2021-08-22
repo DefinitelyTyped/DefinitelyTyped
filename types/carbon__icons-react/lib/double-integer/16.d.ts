@@ -1,1 +1,3 @@
-export { DoubleInteger16 as default } from "../../";
+import { DoubleInteger16 } from "../../";
+
+export = DoubleInteger16;

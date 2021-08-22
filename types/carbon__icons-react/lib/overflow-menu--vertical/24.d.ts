@@ -1,1 +1,3 @@
-export { OverflowMenuVertical24 as default } from "../../";
+import { OverflowMenuVertical24 } from "../../";
+
+export = OverflowMenuVertical24;

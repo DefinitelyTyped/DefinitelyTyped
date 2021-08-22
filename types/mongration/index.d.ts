@@ -7,13 +7,13 @@
 import { Db } from 'mongodb';
 
 export interface DbConfig {
-    hosts?: string;
-    db?: string;
-    user?: string;
-    password?: string;
-    mongoUri?: string;
+    hosts?: string | undefined;
+    db?: string | undefined;
+    user?: string | undefined;
+    password?: string | undefined;
+    mongoUri?: string | undefined;
     migrationCollection: string;
-    replicaSet?: string;
+    replicaSet?: string | undefined;
 }
 
 export interface MigrationResponse {
@@ -31,5 +31,5 @@ export class Migration {
 export interface MigrationStep {
     id: string;
     up: (db: Db, cb: (err?: Error) => void) => void;
-    down?: (db: Db, cb: (err?: Error) => void) => void;
+    down?: ((db: Db, cb: (err?: Error) => void) => void) | undefined;
 }

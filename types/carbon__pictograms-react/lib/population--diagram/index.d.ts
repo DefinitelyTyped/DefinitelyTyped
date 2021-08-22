@@ -1,1 +1,3 @@
-export { PopulationDiagram as default } from "../../";
+import { PopulationDiagram } from "../../";
+
+export = PopulationDiagram;

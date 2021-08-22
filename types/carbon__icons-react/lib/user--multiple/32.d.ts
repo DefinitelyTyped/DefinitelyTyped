@@ -1,1 +1,3 @@
-export { UserMultiple32 as default } from "../../";
+import { UserMultiple32 } from "../../";
+
+export = UserMultiple32;

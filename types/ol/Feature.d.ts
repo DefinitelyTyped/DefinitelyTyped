@@ -5,7 +5,7 @@ import BaseObject, { ObjectEvent } from './Object';
 import RenderFeature from './render/Feature';
 import Style, { StyleFunction, StyleLike } from './style/Style';
 
-export type FeatureClass = Feature<Geometry> | RenderFeature;
+export type FeatureClass = typeof Feature | typeof RenderFeature;
 export type FeatureLike = Feature<Geometry> | RenderFeature;
 export default class Feature<GeomType extends Geometry = Geometry> extends BaseObject {
     constructor(opt_geometryOrProperties?: GeomType | { [key: string]: any });
