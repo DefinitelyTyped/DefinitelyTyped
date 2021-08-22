@@ -295,7 +295,7 @@ const impressionViewableListener = (event: googletag.events.ImpressionViewableEv
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-}
+};
 googletag.pubads().addEventListener("impressionViewable", impressionViewableListener);
 googletag.pubads().removeEventListener("impressionViewable", impressionViewableListener);
 
@@ -303,7 +303,7 @@ const slotRequestedListener = (event: googletag.events.SlotRequestedEvent) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-}
+};
 googletag.pubads().addEventListener("slotRequested", slotRequestedListener);
 googletag.pubads().removeEventListener("slotRequested", slotRequestedListener);
 
@@ -311,7 +311,7 @@ const slotResponseReceivedListener = (event: googletag.events.SlotResponseReceiv
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-}
+};
 googletag.pubads().addEventListener("slotResponseReceived", slotResponseReceivedListener);
 googletag.pubads().removeEventListener("slotResponseReceived", slotResponseReceivedListener);
 
@@ -319,7 +319,7 @@ const slotVisibilityChangedListener = (event: googletag.events.SlotVisibilityCha
     if (event.slot === targetSlot) {
         console.log(event.inViewPercentage);
     }
-}
+};
 googletag.pubads().addEventListener("slotVisibilityChanged", slotVisibilityChangedListener);
 googletag.pubads().removeEventListener("slotVisibilityChanged", slotVisibilityChangedListener);
 
