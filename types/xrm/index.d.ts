@@ -3614,6 +3614,13 @@ declare namespace Xrm {
              * Navigates the user to this form.
              */
             navigate(): void;
+
+            /**
+             * Sets a value that indicates whether the form is visible.
+             * @param isVisible Specify true to show the form; false to hide the form.
+             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui-formselector/setvisible External Link: setVisible (Client API reference)}
+             */
+            setVisible(isVisible: boolean): void;
         }
 
         /**
