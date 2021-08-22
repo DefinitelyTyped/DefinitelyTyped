@@ -8,7 +8,7 @@ const multipleCompiler = webpack([]);
 // basic example
 let server = new WebpackDevServer(
     {
-        // Host and port is a required options.
+        // Host and port is a required options to correct work.
         host: 'localhost',
         port: 8080,
 
@@ -24,7 +24,7 @@ server.start();
 const config: WebpackDevServer.Configuration = {
     // webpack-dev-server options
 
-    // Host and port is a required options.
+    // Host and port is a required options to correct work.
     host: 'localhost',
     port: 8080,
 
@@ -104,7 +104,7 @@ const config: WebpackDevServer.Configuration = {
 };
 
 const c2: WebpackDevServer.Configuration = {
-    // Host and port is a required options.
+    // Host and port is a required options to correct work.
     host: 'localhost',
     port: 8080,
 
@@ -149,7 +149,7 @@ const c2: WebpackDevServer.Configuration = {
     },
 };
 const c3: WebpackDevServer.Configuration = {
-    // Host and port is a required options.
+    // Host and port is a required options to correct work.
     host: 'localhost',
     port: 8080,
 
@@ -158,7 +158,7 @@ const c3: WebpackDevServer.Configuration = {
     },
 };
 const c4: WebpackDevServer.Configuration = {
-    // Host and port is a required options.
+    // Host and port is a required options to correct work.
     host: 'localhost',
     port: 8080,
 
@@ -167,14 +167,14 @@ const c4: WebpackDevServer.Configuration = {
     },
 };
 const c5: WebpackDevServer.Configuration = {
-    // Host and port is a required options.
+    // Host and port is a required options to correct work.
     host: 'localhost',
     port: 8080,
 
     proxy: [{ context: (pathname: string) => true }],
 };
 const c6: WebpackDevServer.Configuration = {
-    // Host and port is a required options.
+    // Host and port is a required options to correct work.
     host: 'localhost',
     port: 8080,
 
@@ -210,7 +210,7 @@ server.stop();
 // HTTPS example
 server = new WebpackDevServer(
     {
-        // Host and port is a required options.
+        // Host and port is a required options to correct work.
         host: 'localhost',
         port: 8080,
 
@@ -235,7 +235,7 @@ const webpackConfig: webpack.Configuration = {
 };
 
 WebpackDevServer.addAdditionalEntries(webpackConfig, {
-    // Host and port is a required options.
+    // Host and port is a required options to correct work.
     host: 'localhost',
     port: 8080,
 
@@ -246,7 +246,7 @@ WebpackDevServer.addAdditionalEntries(webpackConfig, {
 });
 
 WebpackDevServer.addAdditionalEntries([webpackConfig], {
-    // Host and port is a required options.
+    // Host and port is a required options to correct work.
     host: 'localhost',
     port: 8080,
 

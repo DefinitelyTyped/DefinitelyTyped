@@ -182,7 +182,7 @@ declare namespace WebpackDevServer {
         /**
          * Specify a host to use. By default this is localhost.
          */
-        host: string;
+        host?: string | undefined;
         /**
          * Enable webpack's Hot Module Replacement feature.
          */
@@ -226,7 +226,7 @@ declare namespace WebpackDevServer {
         /** When open is enabled, the dev server will open the browser. */
         open?: boolean | string | string[] | Open | Open[] | undefined;
         /** Specify a port number to listen for requests on. */
-        port: string | number;
+        port?: string | number | undefined;
         /**
          * Proxying some URLs can be useful when you have a separate API
          * backend development server and you want to send API requests on the
