@@ -186,7 +186,7 @@ declare namespace WebpackDevServer {
         /**
          * Enable webpack's Hot Module Replacement feature.
          */
-        hot?: boolean | string | undefined;
+        hot?: boolean | 'only'| undefined;
         /**
          * Serve over HTTP/2 using spdy. This option is ignored for Node 10.0.0
          * and above, as spdy is broken for those versions. The dev server will
