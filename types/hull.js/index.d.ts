@@ -14,6 +14,6 @@ declare function hull(
     pointSet: number[][] | object[],
     concavity?: number,
     format?: string[]
-): number | number[][] | object[];
+): number[][] | object[];
 
 export = hull;
