@@ -2198,7 +2198,7 @@ declare namespace React {
         size?: number | undefined;
         src?: string | undefined;
         step?: number | string | undefined;
-        type?: string | undefined;
+        type?: 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week' | undefined;
         value?: string | ReadonlyArray<string> | number | undefined;
         width?: number | string | undefined;
 
