@@ -1,1 +1,3 @@
-export { CarouselHorizontal20 as default } from "../../";
+import { CarouselHorizontal20 } from "../../";
+
+export = CarouselHorizontal20;

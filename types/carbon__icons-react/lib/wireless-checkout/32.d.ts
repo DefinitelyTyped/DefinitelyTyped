@@ -1,1 +1,3 @@
-export { WirelessCheckout32 as default } from "../../";
+import { WirelessCheckout32 } from "../../";
+
+export = WirelessCheckout32;

@@ -1,1 +1,3 @@
-export { ToolBox32 as default } from "../../";
+import { ToolBox32 } from "../../";
+
+export = ToolBox32;

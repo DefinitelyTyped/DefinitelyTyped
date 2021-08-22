@@ -1,1 +1,3 @@
-export { Erase32 as default } from "../../";
+import { Erase32 } from "../../";
+
+export = Erase32;

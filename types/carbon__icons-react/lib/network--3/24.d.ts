@@ -1,1 +1,3 @@
-export { Network_324 as default } from "../../";
+import { Network_324 } from "../../";
+
+export = Network_324;

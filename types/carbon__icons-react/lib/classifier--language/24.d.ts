@@ -1,1 +1,3 @@
-export { ClassifierLanguage24 as default } from "../../";
+import { ClassifierLanguage24 } from "../../";
+
+export = ClassifierLanguage24;

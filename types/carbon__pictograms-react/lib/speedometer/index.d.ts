@@ -1,1 +1,3 @@
-export { Speedometer as default } from "../../";
+import { Speedometer } from "../../";
+
+export = Speedometer;

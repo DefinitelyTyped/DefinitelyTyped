@@ -1,1 +1,3 @@
-export { IbmSecurity20 as default } from "../../";
+import { IbmSecurity20 } from "../../";
+
+export = IbmSecurity20;

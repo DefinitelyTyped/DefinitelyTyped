@@ -1,1 +1,3 @@
-export { LogoSkype20 as default } from "../../";
+import { LogoSkype20 } from "../../";
+
+export = LogoSkype20;

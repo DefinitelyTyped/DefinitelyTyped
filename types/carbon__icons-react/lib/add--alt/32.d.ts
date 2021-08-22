@@ -1,1 +1,3 @@
-export { AddAlt32 as default } from "../../";
+import { AddAlt32 } from "../../";
+
+export = AddAlt32;

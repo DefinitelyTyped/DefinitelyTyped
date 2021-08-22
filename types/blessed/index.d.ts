@@ -6,7 +6,7 @@
 //                 Nathan Rajlich <https://github.com/TooTallNate>
 //                 Daniel Berlanga <https://github.com/danikaze>
 //                 Jeff Huijsmans <https://github.com/jeffhuys>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
@@ -16,17 +16,17 @@ import { Writable, Readable } from "stream";
 import * as child_process from "child_process";
 
 export interface IBlessedProgramOptions {
-  input?: Readable;
-  output?: Writable;
-  log?: string;
-  dump?: boolean;
-  zero?: boolean;
-  buffer?: boolean;
-  terminal?: string;
-  term?: string;
-  tput?: string;
-  debug?: boolean;
-  resizeTimeout?: boolean;
+  input?: Readable | undefined;
+  output?: Writable | undefined;
+  log?: string | undefined;
+  dump?: boolean | undefined;
+  zero?: boolean | undefined;
+  buffer?: boolean | undefined;
+  terminal?: string | undefined;
+  term?: string | undefined;
+  tput?: string | undefined;
+  debug?: boolean | undefined;
+  resizeTimeout?: boolean | undefined;
 }
 
 export class BlessedProgram extends EventEmitter {
@@ -449,46 +449,46 @@ export namespace Widgets {
         type TMouseAction = "mousedown" | "mouseup" | "mousemove";
 
         interface TStyle {
-            type?: string;
-            bg?: string;
-            fg?: string;
-            ch?: string;
-            bold?: boolean;
-            underline?: boolean;
-            blink?: boolean;
-            inverse?: boolean;
-            invisible?: boolean;
-            transparent?: boolean;
-            border?: "line" | "bg" | TBorder;
-            hover?: boolean;
-            focus?: boolean;
-            label?: string;
-            track?: { bg?: string; fg?: string };
-            scrollbar?: { bg?: string; fg?: string };
+            type?: string | undefined;
+            bg?: string | undefined;
+            fg?: string | undefined;
+            ch?: string | undefined;
+            bold?: boolean | undefined;
+            underline?: boolean | undefined;
+            blink?: boolean | undefined;
+            inverse?: boolean | undefined;
+            invisible?: boolean | undefined;
+            transparent?: boolean | undefined;
+            border?: "line" | "bg" | TBorder | undefined;
+            hover?: boolean | undefined;
+            focus?: boolean | undefined;
+            label?: string | undefined;
+            track?: { bg?: string | undefined; fg?: string | undefined } | undefined;
+            scrollbar?: { bg?: string | undefined; fg?: string | undefined } | undefined;
         }
 
         interface TBorder {
             /**
              * Type of border (line or bg). bg by default.
              */
-            type?: "line" | "bg";
+            type?: "line" | "bg" | undefined;
 
             /**
              * Character to use if bg type, default is space.
              */
-            ch?: string;
+            ch?: string | undefined;
 
             /**
              * Border foreground and background, must be numbers (-1 for default).
              */
-            bg?: number;
-            fg?: number;
+            bg?: number | undefined;
+            fg?: number | undefined;
 
             /**
              * Border attributes.
              */
-            bold?: string;
-            underline?: string;
+            bold?: string | undefined;
+            underline?: string | undefined;
         }
 
         interface TCursor {
@@ -583,14 +583,14 @@ export namespace Widgets {
     }
 
     interface NodeChildProcessExecOptions {
-        cwd?: string;
+        cwd?: string | undefined;
         stdio?: any;
         customFds?: any;
         env?: any;
-        encoding?: string;
-        timeout?: number;
-        maxBuffer?: number;
-        killSignal?: string;
+        encoding?: string | undefined;
+        timeout?: number | undefined;
+        maxBuffer?: number | undefined;
+        killSignal?: string | undefined;
     }
 
     interface IDestroyable {
@@ -606,13 +606,13 @@ export namespace Widgets {
     }
 
     interface TputsOptions extends IOptions {
-        terminal?: string;
-        extended?: boolean;
-        debug?: boolean;
-        termcap?: string;
-        terminfoFile?: string;
-        terminfoPrefix?: string;
-        termcapFile?: string;
+        terminal?: string | undefined;
+        extended?: boolean | undefined;
+        debug?: boolean | undefined;
+        termcap?: string | undefined;
+        terminfoFile?: string | undefined;
+        terminfoPrefix?: string | undefined;
+        termcapFile?: string | undefined;
     }
 
     class Tput implements IHasOptions<TputsOptions> {
@@ -674,11 +674,11 @@ export namespace Widgets {
     }
 
     interface INodeOptions extends IOptions {
-        name?: string;
-        screen?: Screen;
-        parent?: Node;
-        children?: Node[];
-        focusable?: boolean;
+        name?: string | undefined;
+        screen?: Screen | undefined;
+        parent?: Node | undefined;
+        children?: Node[] | undefined;
+        focusable?: boolean | undefined;
     }
 
     type NodeEventType =
@@ -887,20 +887,20 @@ export namespace Widgets {
         /**
          * The blessed Program to be associated with. Will be automatically instantiated if none is provided.
          */
-        program?: BlessedProgram;
+        program?: BlessedProgram | undefined;
 
         /**
          * Attempt to perform CSR optimization on all possible elements (not just full-width ones, elements with
          * uniform cells to their sides). This is known to cause flickering with elements that are not full-width,
          * however, it is more optimal for terminal rendering.
          */
-        smartCSR?: boolean;
+        smartCSR?: boolean | undefined;
 
         /**
          * Do CSR on any element within 20 cols of the screen edge on either side. Faster than smartCSR,
          * but may cause flickering depending on what is on each side of the element.
          */
-        fastCSR?: boolean;
+        fastCSR?: boolean | undefined;
 
         /**
          * Attempt to perform back_color_erase optimizations for terminals that support it. It will also work
@@ -908,59 +908,59 @@ export namespace Widgets {
          * stands with the current implementation, it's uncertain how much terminal performance this adds at
          * the cost of overhead within node.
          */
-        useBCE?: boolean;
+        useBCE?: boolean | undefined;
 
         /**
          * Amount of time (in ms) to redraw the screen after the terminal is resized (Default: 300).
          */
-        resizeTimeout?: number;
+        resizeTimeout?: number | undefined;
 
         /**
          * The width of tabs within an element's content.
          */
-        tabSize?: number;
+        tabSize?: number | undefined;
 
         /**
          * Automatically position child elements with border and padding in mind (NOTE: this is a recommended
          * option. It may become default in the future).
          */
-        autoPadding?: boolean;
+        autoPadding?: boolean | undefined;
 
-        cursor?: Types.TCursor;
+        cursor?: Types.TCursor | undefined;
 
         /**
          * Create a log file. See log method.
          */
-        log?: string;
+        log?: string | undefined;
 
         /**
          * Dump all output and input to desired file. Can be used together with log option if set as a boolean.
          */
-        dump?: string | boolean;
+        dump?: string | boolean | undefined;
 
         /**
          * Debug mode. Enables usage of the debug method. Also creates a debug console which will display when
          * pressing F12. It will display all log and debug messages.
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful
          * for creating a key that will always exit no matter whether the keys are locked.
          */
-        ignoreLocked?: string[];
+        ignoreLocked?: string[] | undefined;
 
         /**
          * Automatically "dock" borders with other elements instead of overlapping, depending on position
          * (experimental). For example: These border-overlapped elements:
          */
-        dockBorders?: boolean;
+        dockBorders?: boolean | undefined;
 
         /**
          * Normally, dockable borders will not dock if the colors or attributes are different. This option
          * will allow them to dock regardless. It may produce some odd looking multi-colored borders though.
          */
-        ignoreDockContrast?: boolean;
+        ignoreDockContrast?: boolean | undefined;
 
         /**
          * Allow for rendering of East Asian double-width characters, utf-16 surrogate pairs, and unicode
@@ -970,115 +970,115 @@ export namespace Widgets {
          * '?', '' respectively. (NOTE: iTerm2 cannot display combining characters properly. Blessed simply
          * removes them from an element's content if iTerm2 is detected).
          */
-        fullUnicode?: boolean;
+        fullUnicode?: boolean | undefined;
 
         /**
          * Send focus events after mouse is enabled.
          */
-        sendFocus?: boolean;
+        sendFocus?: boolean | undefined;
 
         /**
          * Display warnings (such as the output not being a TTY, similar to ncurses).
          */
-        warnings?: boolean;
+        warnings?: boolean | undefined;
 
         /**
          * Force blessed to use unicode even if it is not detected via terminfo, env variables, or windows code page.
          * If value is true unicode is forced. If value is false non-unicode is forced (default: null).
          */
-        forceUnicode?: boolean;
+        forceUnicode?: boolean | undefined;
 
         /**
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        input?: Writable;
+        input?: Writable | undefined;
 
         /**
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        output?: Readable;
+        output?: Readable | undefined;
 
         /**
          * The blessed Tput object (only available if you passed tput: true to the Program constructor.)
          */
-        tput?: Tput;
+        tput?: Tput | undefined;
 
         /**
          * Top of the focus history stack.
          */
-        focused?: BlessedElement;
+        focused?: BlessedElement | undefined;
 
         /**
          * Width of the screen (same as program.cols).
          */
-        width?: Types.TPosition;
+        width?: Types.TPosition | undefined;
 
         /**
          * Height of the screen (same as program.rows).
          */
-        height?: Types.TPosition;
+        height?: Types.TPosition | undefined;
 
         /**
          * Same as screen.width.
          */
-        cols?: number;
+        cols?: number | undefined;
 
         /**
          * Same as screen.height.
          */
-        rows?: number;
+        rows?: number | undefined;
 
         /**
          * Relative top offset, always zero.
          */
-        top?: Types.TTopLeft;
+        top?: Types.TTopLeft | undefined;
 
         /**
          * Relative left offset, always zero.
          */
-        left?: Types.TTopLeft;
+        left?: Types.TTopLeft | undefined;
 
         /**
          * Relative right offset, always zero.
          */
-        right?: Types.TPosition;
+        right?: Types.TPosition | undefined;
 
         /**
          * Relative bottom offset, always zero.
          */
-        bottom?: Types.TPosition;
+        bottom?: Types.TPosition | undefined;
 
         /**
          * Absolute top offset, always zero.
          */
-        atop?: Types.TTopLeft;
+        atop?: Types.TTopLeft | undefined;
 
         /**
          * Absolute left offset, always zero.
          */
-        aleft?: Types.TTopLeft;
+        aleft?: Types.TTopLeft | undefined;
 
         /**
          * Absolute right offset, always zero.
          */
-        aright?: Types.TPosition;
+        aright?: Types.TPosition | undefined;
 
         /**
          * Absolute bottom offset, always zero.
          */
-        abottom?: Types.TPosition;
+        abottom?: Types.TPosition | undefined;
 
         /**
          * Whether the focused element grabs all keypresses.
          */
-        grabKeys?: boolean;
+        grabKeys?: boolean | undefined;
 
         /**
          * Prevent keypresses from being received by any element.
          */
-        lockKeys?: boolean;
+        lockKeys?: boolean | undefined;
 
         /**
          * The currently hovered element. Only set if mouse events are bound.
@@ -1088,12 +1088,12 @@ export namespace Widgets {
         /**
          * Set or get terminal name. Set calls screen.setTerminal() internally.
          */
-        terminal?: string;
+        terminal?: string | undefined;
 
         /**
          * Set or get window title.
          */
-        title?: string;
+        title?: string | undefined;
     }
 
     class Screen extends NodeWithEvents implements IHasOptions<IScreenOptions> {
@@ -1515,10 +1515,10 @@ export namespace Widgets {
     }
 
     interface Padding {
-        left?: number;
-        right?: number;
-        top?: number;
-        bottom?: number;
+        left?: number | undefined;
+        right?: number | undefined;
+        top?: number | undefined;
+        bottom?: number | undefined;
     }
 
     class PositionCoords {
@@ -1539,140 +1539,140 @@ export namespace Widgets {
         /**
          * Type of border (line or bg). bg by default.
          */
-        type?: "line" | "bg";
+        type?: "line" | "bg" | undefined;
 
         /**
          * Character to use if bg type, default is space.
          */
-        ch?: string;
+        ch?: string | undefined;
 
         /**
          * Border foreground and background, must be numbers (-1 for default).
          */
-        bg?: number;
-        fg?: number;
+        bg?: number | undefined;
+        fg?: number | undefined;
 
         /**
          * Border attributes.
          */
-        bold?: string;
-        underline?: string;
+        bold?: string | undefined;
+        underline?: string | undefined;
     }
 
     interface ElementOptions extends INodeOptions {
-        tags?: boolean;
+        tags?: boolean | undefined;
 
-        fg?: string;
-        bg?: string;
-        bold?: string;
-        underline?: string;
+        fg?: string | undefined;
+        bg?: string | undefined;
+        bold?: string | undefined;
+        underline?: string | undefined;
 
         style?: any;
 
         /**
          * Border object, see below.
          */
-        border?: Border | "line" | "bg";
+        border?: Border | "line" | "bg" | undefined;
 
         /**
          * Element's text content.
          */
-        content?: string;
+        content?: string | undefined;
 
         /**
          * Element is clickable.
          */
-        clickable?: boolean;
+        clickable?: boolean | undefined;
 
         /**
          * Element is focusable and can receive key input.
          */
-        input?: boolean;
-        keyable?: boolean;
+        input?: boolean | undefined;
+        keyable?: boolean | undefined;
 
         /**
          * Element is focused.
          */
-        focused?: BlessedElement;
+        focused?: BlessedElement | undefined;
 
         /**
          * Whether the element is hidden.
          */
-        hidden?: boolean;
+        hidden?: boolean | undefined;
 
         /**
          * A simple text label for the element.
          */
-        label?: string;
+        label?: string | undefined;
 
         /**
          * A floating text label for the element which appears on mouseover.
          */
-        hoverText?: string;
+        hoverText?: string | undefined;
 
         /**
          * Text alignment: left, center, or right.
          */
-        align?: "left" | "center" | "right";
+        align?: "left" | "center" | "right" | undefined;
 
         /**
          * Vertical text alignment: top, middle, or bottom.
          */
-        valign?: "top" | "middle" | "bottom";
+        valign?: "top" | "middle" | "bottom" | undefined;
 
         /**
          * Shrink/flex/grow to content and child elements. Width/height during render.
          */
-        shrink?: boolean;
+        shrink?: boolean | undefined;
 
         /**
          * Amount of padding on the inside of the element. Can be a number or an object containing
          * the properties: left, right, top, and bottom.
          */
-        padding?: number | Padding;
+        padding?: number | Padding | undefined;
 
-        top?: Types.TTopLeft;
-        left?: Types.TTopLeft;
-        right?: Types.TPosition;
-        bottom?: Types.TPosition;
+        top?: Types.TTopLeft | undefined;
+        left?: Types.TTopLeft | undefined;
+        right?: Types.TPosition | undefined;
+        bottom?: Types.TPosition | undefined;
 
         /**
          * Width/height of the element, can be a number, percentage (0-100%), or keyword (half or shrink).
          * Percentages can also have offsets (50%+1, 50%-1).
          */
-        width?: number | string;
+        width?: number | string | undefined;
 
         /**
          * Offsets of the element relative to its parent. Can be a number, percentage (0-100%), or
          * keyword (center). right and bottom do not accept keywords. Percentages can also have
          * offsets (50%+1, 50%-1).
          */
-        height?: number | string;
+        height?: number | string | undefined;
 
         /**
          * Can contain the above options.
          */
-        position?: Position;
+        position?: Position | undefined;
 
         /**
          * Whether the element is scrollable or not.
          */
-        scrollable?: boolean;
+        scrollable?: boolean | undefined;
 
         /**
          * Background character (default is whitespace ).
          */
-        ch?: string;
+        ch?: string | undefined;
 
         /**
          * Allow the element to be dragged with the mouse.
          */
-        draggable?: boolean;
+        draggable?: boolean | undefined;
 
         /**
          * Draw a translucent offset shadow behind the element.
          */
-        shadow?: boolean;
+        shadow?: boolean | undefined;
     }
 
     interface Coords {
@@ -2068,19 +2068,19 @@ export namespace Widgets {
         /**
          * A limit to the childBase. Default is Infinity.
          */
-        baseLimit?: number;
+        baseLimit?: number | undefined;
 
         /**
          * A option which causes the ignoring of childOffset. This in turn causes the
          * childBase to change every time the element is scrolled.
          */
-        alwaysScroll?: boolean;
+        alwaysScroll?: boolean | undefined;
 
         /**
          * Object enabling a scrollbar.
          * Style of the scrollbar track if present (takes regular style options).
          */
-        scrollbar?: { style?: any; track?: any; ch?: string };
+        scrollbar?: { style?: any; track?: any; ch?: string | undefined } | undefined;
     }
 
     interface ScrollableTextOptions extends ScrollableBoxOptions {
@@ -2088,17 +2088,17 @@ export namespace Widgets {
          * Whether to enable automatic mouse support for this element.
          * Use pre-defined mouse events (right-click for editor).
          */
-        mouse?: boolean | (() => void);
+        mouse?: boolean | (() => void) | undefined;
 
         /**
          * Use pre-defined keys (i or enter for insert, e for editor, C-e for editor while inserting).
          */
-        keys?: string | string[] | boolean;
+        keys?: string | string[] | boolean | undefined;
 
         /**
          * Use vi keys with the keys option.
          */
-        vi?: boolean;
+        vi?: boolean | undefined;
     }
 
     interface BoxOptions extends ScrollableTextOptions {
@@ -2191,12 +2191,12 @@ export namespace Widgets {
          * Fill the entire line with chosen bg until parent bg ends, even if there
          * is not enough text to fill the entire width.
          */
-        fill?: boolean;
+        fill?: boolean | undefined;
 
         /**
          * Text alignment: left, center, or right.
          */
-        align?: Types.TAlign;
+        align?: Types.TAlign | undefined;
     }
 
     /**
@@ -2218,15 +2218,15 @@ export namespace Widgets {
         /**
          * Can be vertical or horizontal.
          */
-        orientation?: "vertical" | "horizontal";
+        orientation?: "vertical" | "horizontal" | undefined;
 
         /**
          * Treated the same as a border object. (attributes can be contained in style).
          */
-        type?: string;
-        bg?: string;
-        fg?: string;
-        ch?: string;
+        type?: string | undefined;
+        bg?: string | undefined;
+        fg?: string | undefined;
+        ch?: string | undefined;
     }
 
     /**
@@ -2245,17 +2245,17 @@ export namespace Widgets {
         /**
          * bdf->json font file to use (see ttystudio for instructions on compiling BDFs to JSON).
          */
-        font?: string;
+        font?: string | undefined;
 
         /**
          * bdf->json bold font file to use (see ttystudio for instructions on compiling BDFs to JSON).
          */
-        fontBold?: string;
+        fontBold?: string | undefined;
 
         /**
          * foreground character. (default: ' ')
          */
-        fch?: string;
+        fch?: string | undefined;
     }
 
     /**
@@ -2279,12 +2279,12 @@ export namespace Widgets {
         /**
          * Style for a selected item. Style for an unselected item.
          */
-        style?: TStyle;
+        style?: TStyle | undefined;
 
         /**
          * An array of strings which become the list's items.
          */
-        items?: string[];
+        items?: string[] | undefined;
 
         /**
          * A function that is called when vi mode is enabled and the key / is pressed. This function accepts a
@@ -2296,12 +2296,12 @@ export namespace Widgets {
         /**
          * Whether the list is interactive and can have items selected (Default: true).
          */
-        interactive?: boolean;
+        interactive?: boolean | undefined;
 
         /**
          * Whether to automatically override tags and invert fg of item when selected (Default: true).
          */
-        invertSelected?: boolean;
+        invertSelected?: boolean | undefined;
     }
 
     type ListElementEventType =
@@ -2434,7 +2434,7 @@ export namespace Widgets {
         /**
          * Current working directory.
          */
-        cwd?: string;
+        cwd?: string | undefined;
     }
 
     class FileManagerElement extends ListElement implements IHasOptions<FileManagerOptions> {
@@ -2493,21 +2493,21 @@ export namespace Widgets {
         /**
          * Array of array of strings representing rows.
          */
-        rows?: string[];
-        data?: string[][];
+        rows?: string[] | undefined;
+        data?: string[][] | undefined;
 
         /**
          * Spaces to attempt to pad on the sides of each cell. 2 by default: one space on each side
          * (only useful if the width is shrunken).
          */
-        pad?: number;
+        pad?: number | undefined;
 
         /**
          * Do not draw inner cells.
          */
-        noCellBorders?: boolean;
+        noCellBorders?: boolean | undefined;
 
-        style?: StyleListTable;
+        style?: StyleListTable | undefined;
     }
 
     class ListTableElement extends ListElement implements IHasOptions<ListTableOptions> {
@@ -2544,7 +2544,7 @@ export namespace Widgets {
     }
 
     interface ListbarOptions extends BoxOptions {
-        style?: ListElementStyle;
+        style?: ListElementStyle | undefined;
 
         /**
          * Set buttons using an object with keys as titles of buttons, containing of objects
@@ -2630,7 +2630,7 @@ export namespace Widgets {
         /**
          * Allow vi keys.
          */
-        vi?: boolean;
+        vi?: boolean | undefined;
     }
 
     class FormElement<TFormData> extends BoxElement implements IHasOptions<FormOptions> {
@@ -2690,7 +2690,7 @@ export namespace Widgets {
         /**
          * Call readInput() when the element is focused. Automatically unfocus.
          */
-        inputOnFocus?: boolean;
+        inputOnFocus?: boolean | undefined;
     }
 
     type TextareaElementEventType =
@@ -2785,12 +2785,12 @@ export namespace Widgets {
         /**
          * Completely hide text.
          */
-        secret?: boolean;
+        secret?: boolean | undefined;
 
         /**
          * Replace text with asterisks (*).
          */
-        censor?: boolean;
+        censor?: boolean | undefined;
     }
 
     class TextboxElement extends TextareaElement implements IHasOptions<TextboxOptions> {
@@ -2835,12 +2835,12 @@ export namespace Widgets {
         /**
          * whether the element is checked or not.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
 
         /**
          * enable mouse support.
          */
-        mouse?: boolean;
+        mouse?: boolean | undefined;
     }
 
     /**
@@ -2989,32 +2989,32 @@ export namespace Widgets {
         /**
          * can be `horizontal` or `vertical`.
          */
-        orientation?: string;
+        orientation?: string | undefined;
 
         /**
          * the character to fill the bar with (default is space).
          */
-        pch?: string;
+        pch?: string | undefined;
 
         /**
          * the amount filled (0 - 100).
          */
-        filled?: number;
+        filled?: number | undefined;
 
         /**
          * same as `filled`.
          */
-        value?: number;
+        value?: number | undefined;
 
         /**
          * enable key support.
          */
-        keys?: boolean;
+        keys?: boolean | undefined;
 
         /**
          * enable mouse support.
          */
-        mouse?: boolean;
+        mouse?: boolean | undefined;
     }
 
     /**
@@ -3048,12 +3048,12 @@ export namespace Widgets {
         /**
          * amount of scrollback allowed. default: Infinity.
          */
-        scrollback?: number;
+        scrollback?: number | undefined;
 
         /**
          * scroll to bottom on input even if the user has scrolled up. default: false.
          */
-        scrollOnInput?: boolean;
+        scrollOnInput?: boolean | undefined;
     }
 
     /**
@@ -3089,27 +3089,27 @@ export namespace Widgets {
         /**
          * array of array of strings representing rows (same as `data`).
          */
-        rows?: string[][];
+        rows?: string[][] | undefined;
 
         /**
          * array of array of strings representing rows (same as `rows`).
          */
-        data?: string[][];
+        data?: string[][] | undefined;
 
         /**
          * spaces to attempt to pad on the sides of each cell. `2` by default: one space on each side (only useful if the width is shrunken).
          */
-        pad?: number;
+        pad?: number | undefined;
 
         /**
          * do not draw inner cells.
          */
-        noCellBorders?: boolean;
+        noCellBorders?: boolean | undefined;
 
         /**
          * fill cell borders with the adjacent background color.
          */
-        fillCellBorders?: boolean;
+        fillCellBorders?: boolean | undefined;
     }
 
     /**
@@ -3140,7 +3140,7 @@ export namespace Widgets {
         /**
          * name of shell. $SHELL by default.
          */
-        shell?: string;
+        shell?: string | undefined;
 
         /**
          * args for shell.
@@ -3150,9 +3150,9 @@ export namespace Widgets {
         /**
          * can be line, underline, and block.
          */
-        cursor?: "line" | "underline" | "block";
+        cursor?: "line" | "underline" | "block" | undefined;
 
-        terminal?: string;
+        terminal?: string | undefined;
 
         /**
          * Object for process env.

@@ -1,1 +1,3 @@
-export { AlignVerticalBottom32 as default } from "../../";
+import { AlignVerticalBottom32 } from "../../";
+
+export = AlignVerticalBottom32;

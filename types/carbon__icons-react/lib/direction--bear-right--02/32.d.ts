@@ -1,1 +1,3 @@
-export { DirectionBearRight_0232 as default } from "../../";
+import { DirectionBearRight_0232 } from "../../";
+
+export = DirectionBearRight_0232;

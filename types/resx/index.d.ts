@@ -8,9 +8,9 @@ export interface ObjectOfStrings {
 }
 
 export interface Js2ResxOptions {
-    pretty?: boolean;
-    indent?: string;
-    newline?: string;
+    pretty?: boolean | undefined;
+    indent?: string | undefined;
+    newline?: string | undefined;
 }
 
 // resx2js: promise version

@@ -1,1 +1,3 @@
-export { Fade24 as default } from "../../";
+import { Fade24 } from "../../";
+
+export = Fade24;

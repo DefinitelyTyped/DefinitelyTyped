@@ -1,1 +1,3 @@
-export { Covariate32 as default } from "../../";
+import { Covariate32 } from "../../";
+
+export = Covariate32;

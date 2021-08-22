@@ -1,1 +1,3 @@
-export { LockedNetwork_01 as default } from "../../";
+import { LockedNetwork_01 } from "../../";
+
+export = LockedNetwork_01;

@@ -1,1 +1,3 @@
-export { MortarAndPestle as default } from "../../";
+import { MortarAndPestle } from "../../";
+
+export = MortarAndPestle;

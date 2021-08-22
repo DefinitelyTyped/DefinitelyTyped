@@ -1,1 +1,3 @@
-export { VolumeUp24 as default } from "../../";
+import { VolumeUp24 } from "../../";
+
+export = VolumeUp24;

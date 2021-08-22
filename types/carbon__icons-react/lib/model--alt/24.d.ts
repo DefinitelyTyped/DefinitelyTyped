@@ -1,1 +1,3 @@
-export { ModelAlt24 as default } from "../../";
+import { ModelAlt24 } from "../../";
+
+export = ModelAlt24;

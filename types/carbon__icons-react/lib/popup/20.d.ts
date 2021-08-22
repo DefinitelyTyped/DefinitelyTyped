@@ -1,1 +1,3 @@
-export { Popup20 as default } from "../../";
+import { Popup20 } from "../../";
+
+export = Popup20;

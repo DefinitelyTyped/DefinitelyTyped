@@ -52,13 +52,13 @@ declare class CancelError extends StdError {
 }
 
 declare class StdError extends Error {
-    code?: string;
-    host?: string;
-    hostname?: string;
-    method?: string;
-    path?: string;
-    protocol?: string;
-    url?: string;
+    code?: string | undefined;
+    host?: string | undefined;
+    hostname?: string | undefined;
+    method?: string | undefined;
+    path?: string | undefined;
+    protocol?: string | undefined;
+    url?: string | undefined;
     response?: any;
 }
 
@@ -96,39 +96,39 @@ declare namespace got {
     type GotUrl = string | https.RequestOptions | Url | URL;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
-        body?: string | Buffer | nodeStream.Readable;
+        body?: string | Buffer | nodeStream.Readable | undefined;
     }
 
     interface GotJSONOptions extends GotOptions<string | null> {
         // Body must be an object or array. See https://github.com/sindresorhus/got/issues/511
-        body?: object;
-        form?: boolean;
+        body?: object | undefined;
+        form?: boolean | undefined;
         json: true;
     }
 
     interface GotFormOptions<E extends string | null> extends GotOptions<E> {
-        body?: {[key: string]: any};
+        body?: {[key: string]: any} | undefined;
         form: true;
-        json?: boolean;
+        json?: boolean | undefined;
     }
 
     interface GotOptions<E extends string | null> extends InternalRequestOptions {
-        encoding?: E;
-        query?: string | object;
-        timeout?: number | TimeoutOptions;
-        retries?: number | RetryFunction;
-        followRedirect?: boolean;
-        decompress?: boolean;
-        useElectronNet?: boolean;
-        cache?: Cache;
-        agent?: http.Agent | boolean | AgentOptions;
-        throwHttpErrors?: boolean;
+        encoding?: E | undefined;
+        query?: string | object | undefined;
+        timeout?: number | TimeoutOptions | undefined;
+        retries?: number | RetryFunction | undefined;
+        followRedirect?: boolean | undefined;
+        decompress?: boolean | undefined;
+        useElectronNet?: boolean | undefined;
+        cache?: Cache | undefined;
+        agent?: http.Agent | boolean | AgentOptions | undefined;
+        throwHttpErrors?: boolean | undefined;
     }
 
     interface TimeoutOptions {
-        connect?: number;
-        socket?: number;
-        request?: number;
+        connect?: number | undefined;
+        socket?: number | undefined;
+        request?: number | undefined;
     }
 
     interface AgentOptions {
@@ -149,7 +149,7 @@ declare namespace got {
         url: string;
         requestUrl: string;
         fromCache: boolean;
-        redirectUrls?: string[];
+        redirectUrls?: string[] | undefined;
     }
 
     type GotPromise<B extends Buffer | string | object> = Promise<Response<B>> & { cancel(): void };

@@ -216,8 +216,10 @@ index = layer.tips("", "#id");
 // 正如你看到的，每一种弹层调用方式，都会返回一个index
 layer.close(index); // 此时你只需要把获得的index，轻轻地赋予layer.close即可
 // 当你在iframe页面关闭自身时
-index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
-parent.layer.close(index); // 再执行关闭
+if (parent) {
+    index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
+    parent.layer.close(index); // 再执行关闭
+}
 
 /********************************************************************************/
 layer.closeAll(); // 疯狂模式，关闭所有层
@@ -248,8 +250,10 @@ layer.open({
 
 /********************************************************************************/
 // 假设这是iframe页
-index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
-parent.layer.close(index); // 再执行关闭
+if (parent) {
+    index = parent.layer.getFrameIndex(window.name); // 先得到当前iframe层的索引
+    parent.layer.close(index); // 再执行关闭
+}
 
 /********************************************************************************/
 layer.iframeSrc(index, 'http:// sentsin.com');

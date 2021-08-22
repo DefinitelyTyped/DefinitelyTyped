@@ -1,1 +1,3 @@
-export { UserMultiple16 as default } from "../../";
+import { UserMultiple16 } from "../../";
+
+export = UserMultiple16;

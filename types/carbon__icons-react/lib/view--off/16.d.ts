@@ -1,1 +1,3 @@
-export { ViewOff16 as default } from "../../";
+import { ViewOff16 } from "../../";
+
+export = ViewOff16;

@@ -1,1 +1,3 @@
-export { ReflectVertical16 as default } from "../../";
+import { ReflectVertical16 } from "../../";
+
+export = ReflectVertical16;

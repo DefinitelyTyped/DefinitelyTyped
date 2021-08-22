@@ -1,1 +1,3 @@
-export { NotAvailable32 as default } from "../../";
+import { NotAvailable32 } from "../../";
+
+export = NotAvailable32;

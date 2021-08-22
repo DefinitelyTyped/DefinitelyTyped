@@ -1,1 +1,3 @@
-export { BorderRight32 as default } from "../../";
+import { BorderRight32 } from "../../";
+
+export = BorderRight32;

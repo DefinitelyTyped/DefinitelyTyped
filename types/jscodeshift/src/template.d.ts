@@ -1,10 +1,10 @@
-import recast = require("recast");
+import core = require("./core");
 
 export = template;
 
 declare const template: typeof withParser;
 
-declare function withParser(parser: recast.Parser): template.Template;
+declare function withParser(parser: core.Parser): template.Template;
 
 declare namespace template {
     interface Template {

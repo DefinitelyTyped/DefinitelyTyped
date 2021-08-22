@@ -1,1 +1,3 @@
-export { CarouselVertical32 as default } from "../../";
+import { CarouselVertical32 } from "../../";
+
+export = CarouselVertical32;

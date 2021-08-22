@@ -1,1 +1,3 @@
-export { ClosedCaption32 as default } from "../../";
+import { ClosedCaption32 } from "../../";
+
+export = ClosedCaption32;

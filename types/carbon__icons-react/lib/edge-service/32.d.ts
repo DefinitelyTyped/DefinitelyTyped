@@ -1,1 +1,3 @@
-export { EdgeService32 as default } from "../../";
+import { EdgeService32 } from "../../";
+
+export = EdgeService32;

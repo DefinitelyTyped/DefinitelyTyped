@@ -1,1 +1,3 @@
-export { Sdk16 as default } from "../../";
+import { Sdk16 } from "../../";
+
+export = Sdk16;

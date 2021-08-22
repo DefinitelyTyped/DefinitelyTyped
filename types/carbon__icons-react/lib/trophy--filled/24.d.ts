@@ -1,1 +1,3 @@
-export { TrophyFilled24 as default } from "../../";
+import { TrophyFilled24 } from "../../";
+
+export = TrophyFilled24;

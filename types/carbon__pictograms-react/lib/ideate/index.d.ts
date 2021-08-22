@@ -1,1 +1,3 @@
-export { Ideate as default } from "../../";
+import { Ideate } from "../../";
+
+export = Ideate;

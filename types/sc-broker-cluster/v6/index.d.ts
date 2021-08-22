@@ -95,16 +95,16 @@ export class SCExchange extends AbstractDataClient {
 
 export interface SCBrokerClusterServerOptions {
     brokers: string[];
-    debug?: boolean;
-    inspect?: boolean;
-    instanceId?: string;
-    secretKey?: string;
-    expiryAccuracy?: number;
+    debug?: boolean | undefined;
+    inspect?: boolean | undefined;
+    instanceId?: string | undefined;
+    secretKey?: string | undefined;
+    expiryAccuracy?: number | undefined;
     downgradeToUser: number | string;
-    appBrokerControllerPath?: string;
-    processTermTimeout?: number;
-    ipcAckTimeout?: number;
-    brokerOptions?: SCServer.SCServerOptions;
+    appBrokerControllerPath?: string | undefined;
+    processTermTimeout?: number | undefined;
+    ipcAckTimeout?: number | undefined;
+    brokerOptions?: SCServer.SCServerOptions | undefined;
 }
 
 export class Server extends EventEmitter {
@@ -123,8 +123,8 @@ export class Server extends EventEmitter {
 
 export interface SCBrokerClusterClientOptions {
     brokers: string[];
-    secretKey?: string;
-    pubSubBatchDuration?: number;
+    secretKey?: string | undefined;
+    pubSubBatchDuration?: number | undefined;
     connectRetryErrorThreshold: number;
 }
 

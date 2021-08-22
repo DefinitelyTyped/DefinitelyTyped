@@ -1,1 +1,3 @@
-export { AreaCustom24 as default } from "../../";
+import { AreaCustom24 } from "../../";
+
+export = AreaCustom24;

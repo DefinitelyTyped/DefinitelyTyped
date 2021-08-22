@@ -1,1 +1,3 @@
-export { FlashFilled20 as default } from "../../";
+import { FlashFilled20 } from "../../";
+
+export = FlashFilled20;

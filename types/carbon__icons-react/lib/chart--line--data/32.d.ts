@@ -1,1 +1,3 @@
-export { ChartLineData32 as default } from "../../";
+import { ChartLineData32 } from "../../";
+
+export = ChartLineData32;

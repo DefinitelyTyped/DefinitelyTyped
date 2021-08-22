@@ -1,5 +1,3 @@
-
-
 import * as jsts from 'jsts';
 
 var str: string;
@@ -150,6 +148,8 @@ c = ls.getCoordinateN(n);
 p = ls.getEndPoint();
 p = ls.getPointN(n);
 p = ls.getStartPoint();
+n = ls.distance(p);
+n = ls.distance(ls);
 bool = ls.isClosed();
 bool = ls.isRing();
 
@@ -167,6 +167,8 @@ obj = gjw.write(g);
 var wr: jsts.io.WKTReader = new jsts.io.WKTReader();
 g = wr.read(str);
 wr.reducePrecision(g);
+
+var wkt = wktWriter.write(ls);
 
 n = jsts.algorithm.Orientation.index(p, p, p);
 bool = jsts.algorithm.Orientation.isCCW([c]);

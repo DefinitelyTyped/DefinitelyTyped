@@ -1,1 +1,3 @@
-export { MobileCheck20 as default } from "../../";
+import { MobileCheck20 } from "../../";
+
+export = MobileCheck20;

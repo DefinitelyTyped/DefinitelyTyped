@@ -1,1 +1,3 @@
-export { FolderShared24 as default } from "../../";
+import { FolderShared24 } from "../../";
+
+export = FolderShared24;

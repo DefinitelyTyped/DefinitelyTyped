@@ -1,1 +1,3 @@
-export { EmailNew16 as default } from "../../";
+import { EmailNew16 } from "../../";
+
+export = EmailNew16;

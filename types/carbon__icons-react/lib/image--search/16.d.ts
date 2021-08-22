@@ -1,1 +1,3 @@
-export { ImageSearch16 as default } from "../../";
+import { ImageSearch16 } from "../../";
+
+export = ImageSearch16;

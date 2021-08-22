@@ -1,1 +1,3 @@
-export { PageFirst20 as default } from "../../";
+import { PageFirst20 } from "../../";
+
+export = PageFirst20;

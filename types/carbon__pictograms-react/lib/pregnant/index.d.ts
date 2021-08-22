@@ -1,1 +1,3 @@
-export { Pregnant as default } from "../../";
+import { Pregnant } from "../../";
+
+export = Pregnant;

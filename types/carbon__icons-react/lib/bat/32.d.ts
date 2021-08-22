@@ -1,1 +1,3 @@
-export { Bat32 as default } from "../../";
+import { Bat32 } from "../../";
+
+export = Bat32;

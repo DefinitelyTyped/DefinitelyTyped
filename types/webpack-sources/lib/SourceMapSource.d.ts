@@ -15,6 +15,7 @@ declare class SourceMapSource extends Source implements SourceAndMapMixin {
         innerSourceMap?: RawSourceMap | string,
         removeOriginalSource?: boolean,
     );
+    buffer(): Buffer;
     source(): string;
 }
 

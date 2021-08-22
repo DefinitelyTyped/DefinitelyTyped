@@ -1,1 +1,3 @@
-export { CopyFile32 as default } from "../../";
+import { CopyFile32 } from "../../";
+
+export = CopyFile32;

@@ -1,1 +1,3 @@
-export { Calendar24 as default } from "../../";
+import { Calendar24 } from "../../";
+
+export = Calendar24;

@@ -1,1 +1,3 @@
-export { DataReference24 as default } from "../../";
+import { DataReference24 } from "../../";
+
+export = DataReference24;

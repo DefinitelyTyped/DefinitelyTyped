@@ -1,1 +1,3 @@
-export { Light32 as default } from "../../";
+import { Light32 } from "../../";
+
+export = Light32;

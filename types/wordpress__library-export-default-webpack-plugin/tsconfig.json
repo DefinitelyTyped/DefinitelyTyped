@@ -8,12 +8,18 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ],
+            "@wordpress/*": ["wordpress__*"]
+        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@wordpress/*": ["wordpress__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

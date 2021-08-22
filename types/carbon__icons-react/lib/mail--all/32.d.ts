@@ -1,1 +1,3 @@
-export { MailAll32 as default } from "../../";
+import { MailAll32 } from "../../";
+
+export = MailAll32;

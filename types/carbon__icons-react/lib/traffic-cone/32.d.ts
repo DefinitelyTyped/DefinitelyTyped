@@ -1,1 +1,3 @@
-export { TrafficCone32 as default } from "../../";
+import { TrafficCone32 } from "../../";
+
+export = TrafficCone32;

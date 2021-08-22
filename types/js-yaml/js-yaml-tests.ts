@@ -119,7 +119,7 @@ new yaml.Type(str, typeConstructorOptions);
 type.kind;
 // $ExpectType (data: any) => boolean
 type.resolve;
-// $ExpectType (data: any) => any
+// $ExpectType (data: any, type?: string | undefined) => any
 type.construct;
 // $ExpectType object | null
 type.instanceOf;
@@ -134,18 +134,18 @@ type.styleAliases;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType string | number | object | null | undefined
+// $ExpectType unknown
 yaml.load(str);
-// $ExpectType string | number | object | null | undefined
+// $ExpectType unknown
 yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any[]
+// $ExpectType unknown[]
 value = yaml.loadAll(str);
-// $ExpectType any[]
+// $ExpectType unknown[]
 value = yaml.loadAll(str, null, loadOpts);
-// $ExpectType any[]
+// $ExpectType unknown[]
 value = yaml.loadAll(str, undefined, loadOpts);
 
 // $ExpectType void

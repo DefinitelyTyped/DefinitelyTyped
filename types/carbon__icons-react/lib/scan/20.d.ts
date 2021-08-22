@@ -1,1 +1,3 @@
-export { Scan20 as default } from "../../";
+import { Scan20 } from "../../";
+
+export = Scan20;

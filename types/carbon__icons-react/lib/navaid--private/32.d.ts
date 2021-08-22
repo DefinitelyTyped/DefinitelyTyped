@@ -1,1 +1,3 @@
-export { NavaidPrivate32 as default } from "../../";
+import { NavaidPrivate32 } from "../../";
+
+export = NavaidPrivate32;

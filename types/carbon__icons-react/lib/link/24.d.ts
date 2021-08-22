@@ -1,1 +1,3 @@
-export { Link24 as default } from "../../";
+import { Link24 } from "../../";
+
+export = Link24;

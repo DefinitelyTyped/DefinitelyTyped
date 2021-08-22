@@ -1,1 +1,3 @@
-export { AnalyticsReference16 as default } from "../../";
+import { AnalyticsReference16 } from "../../";
+
+export = AnalyticsReference16;

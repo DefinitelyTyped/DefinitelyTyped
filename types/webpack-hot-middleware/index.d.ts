@@ -6,7 +6,7 @@
 //               Ilya Zelenko <https://github.com/iliyaZelenko>
 //               Rodrigo Saboya <https://github.com/saboya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { NextHandleFunction } from 'connect';
 import * as webpack from 'webpack';
@@ -20,27 +20,27 @@ declare function WebpackHotMiddleware(
 
 declare namespace WebpackHotMiddleware {
     interface ClientOptions {
-        path?: string;
-        reload?: boolean;
-        name?: string;
-        timeout?: number;
-        overlay?: boolean;
-        noInfo?: boolean;
-        quiet?: boolean;
-        dynamicPublicPath?: boolean;
-        autoConnect?: boolean;
+        path?: string | undefined;
+        reload?: boolean | undefined;
+        name?: string | undefined;
+        timeout?: number | undefined;
+        overlay?: boolean | undefined;
+        noInfo?: boolean | undefined;
+        quiet?: boolean | undefined;
+        dynamicPublicPath?: boolean | undefined;
+        autoConnect?: boolean | undefined;
         ansiColors?: {
             [key: string]: any
-        };
+        } | undefined;
         overlayStyles?: {
             [key: string]: any
-        };
-        overlayWarnings?: boolean;
+        } | undefined;
+        overlayWarnings?: boolean | undefined;
     }
     interface MiddlewareOptions {
-        log?: false | Logger;
-        path?: string;
-        heartbeat?: number;
+        log?: false | Logger | undefined;
+        path?: string | undefined;
+        heartbeat?: number | undefined;
     }
 
     type Logger = (message?: any, ...optionalParams: any[]) => void;

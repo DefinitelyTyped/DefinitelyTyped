@@ -1,1 +1,3 @@
-export { UserProfileAlt32 as default } from "../../";
+import { UserProfileAlt32 } from "../../";
+
+export = UserProfileAlt32;

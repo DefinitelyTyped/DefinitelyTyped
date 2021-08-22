@@ -1,1 +1,3 @@
-export { Launch32 as default } from "../../";
+import { Launch32 } from "../../";
+
+export = Launch32;

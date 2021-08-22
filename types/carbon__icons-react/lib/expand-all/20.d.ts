@@ -1,1 +1,3 @@
-export { ExpandAll20 as default } from "../../";
+import { ExpandAll20 } from "../../";
+
+export = ExpandAll20;

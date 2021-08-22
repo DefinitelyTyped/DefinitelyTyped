@@ -1,1 +1,3 @@
-export { WatsonHealthCdCreateExchange16 as default } from "../../../";
+import { WatsonHealthCdCreateExchange16 } from "../../../";
+
+export = WatsonHealthCdCreateExchange16;

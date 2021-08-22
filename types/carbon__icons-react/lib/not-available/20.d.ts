@@ -1,1 +1,3 @@
-export { NotAvailable20 as default } from "../../";
+import { NotAvailable20 } from "../../";
+
+export = NotAvailable20;

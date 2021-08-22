@@ -1,1 +1,3 @@
-export { Image32 as default } from "../../";
+import { Image32 } from "../../";
+
+export = Image32;

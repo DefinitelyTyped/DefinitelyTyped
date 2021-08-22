@@ -2,8 +2,10 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
+        "test/constructor.ts",
         "test/default.ts",
-        "test/settings.ts"
+        "test/settings.ts",
+        "test/typed-response-body.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -20,6 +22,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     }
 }

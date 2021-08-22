@@ -1,1 +1,3 @@
-export { AppConnectivity32 as default } from "../../";
+import { AppConnectivity32 } from "../../";
+
+export = AppConnectivity32;

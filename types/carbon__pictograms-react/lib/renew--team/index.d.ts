@@ -1,1 +1,3 @@
-export { RenewTeam as default } from "../../";
+import { RenewTeam } from "../../";
+
+export = RenewTeam;

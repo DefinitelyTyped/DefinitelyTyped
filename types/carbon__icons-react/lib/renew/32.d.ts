@@ -1,1 +1,3 @@
-export { Renew32 as default } from "../../";
+import { Renew32 } from "../../";
+
+export = Renew32;

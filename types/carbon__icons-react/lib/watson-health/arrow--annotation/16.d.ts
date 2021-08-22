@@ -1,1 +1,3 @@
-export { WatsonHealthArrowAnnotation16 as default } from "../../../";
+import { WatsonHealthArrowAnnotation16 } from "../../../";
+
+export = WatsonHealthArrowAnnotation16;

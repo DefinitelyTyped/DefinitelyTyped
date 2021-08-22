@@ -7,16 +7,16 @@
 import {
     LoggerOptions as PinoLoggerOptions,
     Logger as PinoLogger,
-    Level as PinoLevel,
+    LevelWithSilent as PinoLevel,
     DestinationStream as PinoDestinationStream,
     stdSerializers as pinoStdSerializers
 } from 'pino';
 import stream = require('stream');
 
 declare namespace pinoms {
-    type Streams = Array<{ stream: PinoDestinationStream | NodeJS.WritableStream; level?: Level }>;
+    type Streams = Array<{ stream: PinoDestinationStream | NodeJS.WritableStream; level?: Level | undefined }>;
     interface LoggerOptions extends PinoLoggerOptions {
-        streams?: Streams;
+        streams?: Streams | undefined;
     }
     interface PrettyStreamOptions extends Pick<PinoLoggerOptions, 'prettyPrint'> {
         /**
@@ -24,10 +24,10 @@ declare namespace pinoms {
          */
         // TODO: use type definitions from 'pino-pretty' when available.
         prettifier?: any;
-        dest?: PinoDestinationStream | NodeJS.WritableStream;
+        dest?: PinoDestinationStream | NodeJS.WritableStream | undefined;
     }
     interface MultiStreamOptions {
-        dedupe?: boolean;
+        dedupe?: boolean | undefined;
     }
 
     const stdSerializers: typeof pinoStdSerializers;

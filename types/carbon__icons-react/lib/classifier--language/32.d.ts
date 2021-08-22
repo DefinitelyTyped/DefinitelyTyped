@@ -1,1 +1,3 @@
-export { ClassifierLanguage32 as default } from "../../";
+import { ClassifierLanguage32 } from "../../";
+
+export = ClassifierLanguage32;

@@ -1,1 +1,3 @@
-export { Contract as default } from "../../";
+import { Contract } from "../../";
+
+export = Contract;

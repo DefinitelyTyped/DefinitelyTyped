@@ -1,1 +1,3 @@
-export { Globe as default } from "../../";
+import { Globe } from "../../";
+
+export = Globe;

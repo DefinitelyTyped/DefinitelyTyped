@@ -10,49 +10,49 @@
 
 interface CommonSerializeOptions {
     /** {default:false}, the serializer will check if keys are valid. */
-    checkKeys?: boolean;
+    checkKeys?: boolean | undefined;
     /** {default:false}, serialize the javascript functions. */
-    serializeFunctions?: boolean;
+    serializeFunctions?: boolean | undefined;
     /** {default:true}, ignore undefined fields. */
-    ignoreUndefined?: boolean;
+    ignoreUndefined?: boolean | undefined;
 }
 
 export interface SerializeOptions extends CommonSerializeOptions {
     /** {default:1024*1024*17}, minimum size of the internal temporary serialization buffer. */
-    minInternalBufferSize?: number;
+    minInternalBufferSize?: number | undefined;
 }
 
 export interface SerializeWithBufferAndIndexOptions extends CommonSerializeOptions {
     /** {default:0}, the index in the buffer where we wish to start serializing into. */
-    index?: number;
+    index?: number | undefined;
 }
 
 export interface DeserializeOptions {
     /** {default:false}, evaluate functions in the BSON document scoped to the object deserialized. */
-    evalFunctions?: boolean;
+    evalFunctions?: boolean | undefined;
     /** {default:false}, cache evaluated functions for reuse. */
-    cacheFunctions?: boolean;
+    cacheFunctions?: boolean | undefined;
     /** {default:false}, use a crc32 code for caching, otherwise use the string of the function. */
-    cacheFunctionsCrc32?: boolean;
+    cacheFunctionsCrc32?: boolean | undefined;
     /** {default:true}, when deserializing a Long will fit it into a Number if it's smaller than 53 bits. */
-    promoteLongs?: boolean;
+    promoteLongs?: boolean | undefined;
     /** {default:false}, deserialize Binary data directly into node.js Buffer object. */
-    promoteBuffers?: boolean;
+    promoteBuffers?: boolean | undefined;
     /** {default:false}, when deserializing will promote BSON values to their Node.js closest equivalent types. */
-    promoteValues?: boolean;
+    promoteValues?: boolean | undefined;
     /** {default:null}, allow to specify if there what fields we wish to return as unserialized raw buffer. */
-    fieldsAsRaw?: { readonly [fieldName: string]: boolean };
+    fieldsAsRaw?: { readonly [fieldName: string]: boolean } | undefined;
     /** {default:false}, return BSON regular expressions as BSONRegExp instances. */
-    bsonRegExp?: boolean;
+    bsonRegExp?: boolean | undefined;
     /** {default:false}, allows the buffer to be larger than the parsed BSON object. */
-    allowObjectSmallerThanBufferSize?: boolean;
+    allowObjectSmallerThanBufferSize?: boolean | undefined;
 }
 
 export interface CalculateObjectSizeOptions {
     /** {default:false}, serialize the javascript functions */
-    serializeFunctions?: boolean;
+    serializeFunctions?: boolean | undefined;
     /** {default:true}, ignore undefined fields. */
-    ignoreUndefined?: boolean;
+    ignoreUndefined?: boolean | undefined;
 }
 
 
@@ -133,7 +133,7 @@ export class Binary {
     /** The underlying Buffer which stores the binary data. */
     readonly buffer: Buffer;
     /** Binary data subtype */
-    readonly sub_type?: number;
+    readonly sub_type?: number | undefined;
 
     /** The length of the binary. */
     length(): number;
@@ -173,7 +173,7 @@ export class DBRef {
     constructor(namespace: string, oid: ObjectId, db?: string);
     namespace: string;
     oid: ObjectId;
-    db?: string;
+    db?: string | undefined;
 }
 
 /** A class representation of the BSON Double type. */
@@ -364,7 +364,7 @@ export class ObjectId {
     /** The generation time of this ObjectId instance */
     generationTime: number;
     /** If true cache the hex string representation of ObjectId */
-    static cacheHexString?: boolean;
+    static cacheHexString?: boolean | undefined;
     /**
      * Creates an ObjectId from a hex string representation of an ObjectId.
      * @param {string} hexString create a ObjectId from a passed in 24 byte hexstring.
@@ -395,6 +395,15 @@ export class ObjectId {
      * @return {string} return the 12 byte id binary string.
      */
     static generate(time?: number): Buffer;
+
+    /**
+     * Converts the id into a 24 character hex string for printing
+     *
+     * @param format - The Buffer toString format parameter.
+     * @internal
+     */
+    toString(format?: string): string;
+
     /**
      * Returns the generation date (accurate up to the second) that this ID was generated.
      * @return {Date} the generation date
@@ -489,7 +498,7 @@ export namespace EJSON {
      * // prints { int32: 10 }
      * console.log(EJSON.parse(text));
      */
-    export function parse(text: string, options?: {relaxed?: boolean;}): {};
+    export function parse(text: string, options?: {relaxed?: boolean | undefined;}): {};
 
     /**
      * Deserializes an Extended JSON object into a plain JavaScript object with native/BSON types
@@ -499,7 +508,7 @@ export namespace EJSON {
      * @param {object} [options] Optional settings passed to the parse method
      * @return {object}
      */
-    export function deserialize(ejson: {}, options?: {relaxed?: boolean;}): {};
+    export function deserialize(ejson: {}, options?: {relaxed?: boolean | undefined;}): {};
 
     /**
      * Serializes an object to an Extended JSON string, and reparse it as a JavaScript object.
@@ -509,7 +518,7 @@ export namespace EJSON {
      * @param {object} [options] Optional settings passed to the `stringify` function
      * @return {object}
      */
-    export function serialize(bson: {}, options?: {relaxed?: boolean;}): {};
+    export function serialize(bson: {}, options?: {relaxed?: boolean | undefined;}): {};
 
     /**
      * Converts a BSON document to an Extended JSON string, optionally replacing values if a replacer
@@ -536,7 +545,7 @@ export namespace EJSON {
      */
     export function stringify(
         value: {},
-        options?: {relaxed?: boolean;}
+        options?: {relaxed?: boolean | undefined;}
     ): string;
 
     /**
@@ -566,7 +575,7 @@ export namespace EJSON {
     export function stringify(
         value: {},
         replacer: ((key: string, value: any) => any) | Array<string|number> | null | undefined,
-        options?: {relaxed?: boolean;}
+        options?: {relaxed?: boolean | undefined;}
     ): string;
     /**
      * Converts a BSON document to an Extended JSON string, optionally replacing values if a replacer
@@ -595,6 +604,6 @@ export namespace EJSON {
         value: {},
         replacer: ((key: string, value: any) => any) | Array<string | number> | null | undefined,
         indents?: string | number,
-        options?: {relaxed?: boolean;}
+        options?: {relaxed?: boolean | undefined;}
         ): string;
 }

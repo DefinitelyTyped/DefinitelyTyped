@@ -1,1 +1,3 @@
-export { Types32 as default } from "../../";
+import { Types32 } from "../../";
+
+export = Types32;

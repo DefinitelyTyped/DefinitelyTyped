@@ -1,1 +1,3 @@
-export { Png32 as default } from "../../";
+import { Png32 } from "../../";
+
+export = Png32;

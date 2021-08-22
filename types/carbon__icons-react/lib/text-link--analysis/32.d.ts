@@ -1,1 +1,3 @@
-export { TextLinkAnalysis32 as default } from "../../";
+import { TextLinkAnalysis32 } from "../../";
+
+export = TextLinkAnalysis32;

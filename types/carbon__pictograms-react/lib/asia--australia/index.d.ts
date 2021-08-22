@@ -1,1 +1,3 @@
-export { AsiaAustralia as default } from "../../";
+import { AsiaAustralia } from "../../";
+
+export = AsiaAustralia;

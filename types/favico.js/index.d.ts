@@ -11,16 +11,16 @@ declare namespace favicojs {
     }
 
     interface FavicoJsOptions {
-        bgColor?: string;
-        textColor?: string;
-        fontFamily?: string;
-        fontStyle?: string;
-        type?: string;
-        position?: string;
-        animation?: string;
-        elementId?: string;
-        element?: HTMLElement;
-        dataUrl?: (url: string) => any;
+        bgColor?: string | undefined;
+        textColor?: string | undefined;
+        fontFamily?: string | undefined;
+        fontStyle?: string | undefined;
+        type?: string | undefined;
+        position?: string | undefined;
+        animation?: string | undefined;
+        elementId?: string | undefined;
+        element?: HTMLElement | undefined;
+        dataUrl?: ((url: string) => any) | undefined;
     }
 
     interface Favico {

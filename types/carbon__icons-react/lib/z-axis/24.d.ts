@@ -1,1 +1,3 @@
-export { ZAxis24 as default } from "../../";
+import { ZAxis24 } from "../../";
+
+export = ZAxis24;

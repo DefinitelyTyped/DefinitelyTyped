@@ -1,1 +1,3 @@
-export { CloudFoundry_132 as default } from "../../";
+import { CloudFoundry_132 } from "../../";
+
+export = CloudFoundry_132;

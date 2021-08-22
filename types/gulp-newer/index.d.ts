@@ -15,12 +15,12 @@ interface IOptions {
     /**
      * Source files will be matched to destination files with the provided extension.
      */
-    ext?: string;
+    ext?: string | undefined;
 
     /**
      * Map relative source paths to relative destination paths.
      */
-    map?: (relativePath: string) => string;
+    map?: ((relativePath: string) => string) | undefined;
 }
 
 interface IGulpNewer {

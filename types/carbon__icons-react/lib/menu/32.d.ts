@@ -1,1 +1,3 @@
-export { Menu32 as default } from "../../";
+import { Menu32 } from "../../";
+
+export = Menu32;

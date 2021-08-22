@@ -1,1 +1,3 @@
-export { Fish32 as default } from "../../";
+import { Fish32 } from "../../";
+
+export = Fish32;

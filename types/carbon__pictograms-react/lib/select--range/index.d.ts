@@ -1,1 +1,3 @@
-export { SelectRange as default } from "../../";
+import { SelectRange } from "../../";
+
+export = SelectRange;

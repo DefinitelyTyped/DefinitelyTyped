@@ -54,10 +54,10 @@ export enum SystemState {
 
 // Types of custom messages.
 export enum MessageType {
-  // Messages are free-form strings. The application is responsible for encoding/decoding the information transmitted.
-  STRING = 'string',
-  // Messages are JSON-encoded. The underlying transport will use a JSON encoded string.
-  JSON = 'json',
+    // Messages are free-form strings. The application is responsible for encoding/decoding the information transmitted.
+    STRING = 'string',
+    // Messages are JSON-encoded. The underlying transport will use a JSON encoded string.
+    JSON = 'json',
 }
 
 // Represents the current standby state reported by the platform. It may be UNKNOWN
@@ -78,6 +78,40 @@ export enum DisconnectReason {
     // but the close message could have been lost). This normally happens when there is a network timeout
     // or if the sender application crashes or if the sender OS closes the socket.
     UNKNOWN = 'unknown',
+}
+
+/**
+ * Represent where the receiver was launched from.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.LaunchedFrom
+ */
+export enum LaunchedFrom {
+    /**
+     * App was launched by Cast V2 request.
+     */
+    CAST = 'CAST',
+    /**
+     * App was launched by assistant request (e.g. voice command).
+     */
+    CLOUD = 'CLOUD',
+    /**
+     * App was launched by DIAL request.
+     */
+    DIAL = 'DIAL',
+    /**
+     * The launch owner could not be determined.
+     */
+    UNKNOWN = 'UNKNOWN',
+}
+
+/**
+ * Represents the current visibility state reported by the platform.
+ * It may be UNKNOWN if the cast platform was unable to determine the state yet.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.VisibilityState
+ */
+export enum VisibilityState {
+    NOT_VISIBLE = 'notvisible',
+    UNKNOWN = 'unknown',
+    VISIBLE = 'visible',
 }
 
 /**
@@ -126,17 +160,17 @@ export class StandbyChangedEvent {
     isStandby: boolean;
 }
 /**
- * Whether the TV is in standby or not.
+ * Event dispatched by {@link framework.CastReceiverContext} when the application is shutdown.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.ShutdownEvent
  */
-export interface ShutdownEvent extends Event {
-    [key: string]: any;
-}
+export class ShutdownEvent extends Event {}
 
 /**
- * Event dispatched by @see{@link CastReceiverManager} when a sender is disconnected.
+ * Event dispatched by {@link framework.CastReceiverContext} when a sender is disconnected.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.SenderDisconnectedEvent
  */
 export class SenderDisconnectedEvent extends Event {
-    constructor(senderId: string, userAgent: string);
+    constructor(senderId: string, userAgent: string, reason: DisconnectReason);
     /**
      * The ID of the sender connected.
      */
@@ -150,7 +184,7 @@ export class SenderDisconnectedEvent extends Event {
     /**
      * The reason the sender was disconnected.
      */
-    reason?: DisconnectReason;
+    reason: DisconnectReason;
 }
 
 /**
@@ -171,6 +205,7 @@ export class SenderConnectedEvent extends Event {
 
 /**
  * Represents the data of a connected sender device.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.Sender
  */
 export interface Sender {
     /**
@@ -181,18 +216,18 @@ export interface Sender {
     /**
      * Indicate the sender supports large messages (>64KB)
      */
-    largeMessageSupported?: boolean;
+    largeMessageSupported?: boolean | undefined;
 
     /**
      * The userAgent of the sender.
      */
-    userAgent?: string;
+    userAgent: string;
 }
 
 /**
- * Event dispatched by CastReceiverManager when the system is ready.
+ * Event dispatched by {@link framework.CastReceiverContext} when the system is ready.
  */
-export class ReadyEvent {
+export class ReadyEvent extends Event {
     constructor(applicationData: ApplicationData);
 
     /**
@@ -212,10 +247,12 @@ export class MaxVideoResolutionChangedEvent extends Event {
      */
     height: number;
 }
-/** Event dispatched by @see{@link CastReceiverManager} when the systems starts to create feedback report. */
-export interface FeedbackStartedEvent extends Event {
-    [key: string]: any;
-}
+/**
+ * Event dispatched by {@link framework.CastReceiverContext} when the system
+ * starts to create feedback report.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.FeedbackStartedEvent
+ */
+export class FeedbackStartedEvent extends Event {}
 /** Event dispatched by @see{@link CastReceiverContext} which contains system information. */
 export class Event {
     constructor(type: EventType, data?: any);
@@ -223,11 +260,45 @@ export class Event {
     data?: any;
 }
 
-/** Represents the data of the launched application. */
-export interface ApplicationData {
-    id(): string;
-    launchingSenderId(): string;
-    name(): string;
-    namespaces(): string[];
-    sessionId(): number;
+/**
+ * Represents the data of the launched application.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.ApplicationData
+ */
+export class ApplicationData {
+    constructor();
+
+    /**
+     * The application image that is set in Cast Developer Console.
+     */
+    iconUrl: string;
+
+    /**
+     * The application Id.
+     */
+    id: string;
+
+    /**
+     * Indicate where the app was launched from.
+     */
+    launchedFrom: LaunchedFrom;
+
+    /**
+     * The id of the sender that launched the application.
+     */
+    launchingSenderId: string;
+
+    /**
+     * The application name.
+     */
+    name: string;
+
+    /**
+     * The namespaces used by the application.
+     */
+    namespaces: string[];
+
+    /**
+     * The session Id.
+     */
+    sessionId: number;
 }

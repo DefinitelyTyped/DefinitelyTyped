@@ -1,1 +1,3 @@
-export { GameConsole24 as default } from "../../";
+import { GameConsole24 } from "../../";
+
+export = GameConsole24;

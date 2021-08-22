@@ -1,1 +1,3 @@
-export { BaggageClaim32 as default } from "../../";
+import { BaggageClaim32 } from "../../";
+
+export = BaggageClaim32;

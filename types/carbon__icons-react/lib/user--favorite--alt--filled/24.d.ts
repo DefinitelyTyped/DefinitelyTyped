@@ -1,1 +1,3 @@
-export { UserFavoriteAltFilled24 as default } from "../../";
+import { UserFavoriteAltFilled24 } from "../../";
+
+export = UserFavoriteAltFilled24;

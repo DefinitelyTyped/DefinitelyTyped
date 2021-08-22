@@ -63,8 +63,8 @@ export class Struct<T = any> {
     array(
         name: string,
         length: number,
-        type?: StructTypes | Struct,
-        ...args: Array<(StructTypes | number | Struct)>
+        type: StructTypes | Struct,
+        ...args: Array<(string | number | Struct)>
     ): Struct<T>;
     struct(name: string, struct: Struct): Struct<T>;
     get(fieldName: string): any;

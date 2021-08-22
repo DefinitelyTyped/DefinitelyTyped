@@ -27,6 +27,7 @@ declare class TimeAgo {
     getRule(value: Date | number, unit: TimeUnit, localeData: Duration): string;
 
     static addLocale(localeData: Locale): void;
+    static addDefaultLocale(localeData: Locale): void;
     static locale(localeData: Locale): void;
     static getDefaultLocale(): string;
     static intlDateTimeFormatSupported(): boolean;

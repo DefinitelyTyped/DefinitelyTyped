@@ -1,1 +1,3 @@
-export { LogoLinkedin16 as default } from "../../";
+import { LogoLinkedin16 } from "../../";
+
+export = LogoLinkedin16;

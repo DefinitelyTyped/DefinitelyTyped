@@ -1,1 +1,3 @@
-export { ZipReference32 as default } from "../../";
+import { ZipReference32 } from "../../";
+
+export = ZipReference32;

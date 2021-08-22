@@ -1,1 +1,3 @@
-export { WarningFilled20 as default } from "../../";
+import { WarningFilled20 } from "../../";
+
+export = WarningFilled20;

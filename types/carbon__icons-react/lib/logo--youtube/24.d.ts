@@ -1,1 +1,3 @@
-export { LogoYoutube24 as default } from "../../";
+import { LogoYoutube24 } from "../../";
+
+export = LogoYoutube24;

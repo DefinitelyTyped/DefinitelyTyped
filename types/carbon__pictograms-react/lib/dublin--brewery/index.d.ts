@@ -1,1 +1,3 @@
-export { DublinBrewery as default } from "../../";
+import { DublinBrewery } from "../../";
+
+export = DublinBrewery;

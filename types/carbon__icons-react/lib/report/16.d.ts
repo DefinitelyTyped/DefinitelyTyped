@@ -1,1 +1,3 @@
-export { Report16 as default } from "../../";
+import { Report16 } from "../../";
+
+export = Report16;

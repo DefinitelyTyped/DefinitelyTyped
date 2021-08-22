@@ -1,8 +1,9 @@
-// Type definitions for non-npm package chromecast-caf-receiver 5.0
+// Type definitions for non-npm package chromecast-caf-receiver 6.0
 // Project: https://github.com/googlecast
 // Definitions by: Sergio Arbeo <https://github.com/Serabe>
 //                 Craig Bruce <https://github.com/craigrbruce>
 //                 Brandon Risell <https://github.com/brandonrisell>
+//                 Marco Reni <https://github.com/marcoreni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -77,5 +78,5 @@ declare global {
     type LiveStatusEventHandler = (event: LiveStatusEvent) => void;
     type PlayerDataChangedEventHandler = (event: PlayerDataChangedEvent) => void;
     type RequestHandler = (request: framework.NetworkRequestInfo) => void;
-    type BinaryHandler = (data: Uint8Array) => Uint8Array;
+    type BinaryHandler = (data: Uint8Array) => Uint8Array | Promise<Uint8Array>;
 }

@@ -1,1 +1,3 @@
-export { Electric as default } from "../../";
+import { Electric } from "../../";
+
+export = Electric;

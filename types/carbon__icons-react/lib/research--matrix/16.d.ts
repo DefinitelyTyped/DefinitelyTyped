@@ -1,1 +1,3 @@
-export { ResearchMatrix16 as default } from "../../";
+import { ResearchMatrix16 } from "../../";
+
+export = ResearchMatrix16;

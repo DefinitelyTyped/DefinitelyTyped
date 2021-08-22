@@ -1,1 +1,3 @@
-export { ManageProtection24 as default } from "../../";
+import { ManageProtection24 } from "../../";
+
+export = ManageProtection24;

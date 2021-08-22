@@ -1,1 +1,3 @@
-export { Credentials16 as default } from "../../";
+import { Credentials16 } from "../../";
+
+export = Credentials16;

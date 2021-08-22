@@ -1,1 +1,3 @@
-export { ChartBarOverlay32 as default } from "../../";
+import { ChartBarOverlay32 } from "../../";
+
+export = ChartBarOverlay32;

@@ -1,1 +1,3 @@
-export { HazeNight32 as default } from "../../";
+import { HazeNight32 } from "../../";
+
+export = HazeNight32;

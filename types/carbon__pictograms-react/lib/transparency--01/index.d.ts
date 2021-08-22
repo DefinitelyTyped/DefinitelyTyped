@@ -1,1 +1,3 @@
-export { Transparency_01 as default } from "../../";
+import { Transparency_01 } from "../../";
+
+export = Transparency_01;

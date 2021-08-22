@@ -1,1 +1,3 @@
-export { WavePeriod16 as default } from "../../";
+import { WavePeriod16 } from "../../";
+
+export = WavePeriod16;

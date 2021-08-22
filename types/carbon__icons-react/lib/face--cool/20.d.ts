@@ -1,1 +1,3 @@
-export { FaceCool20 as default } from "../../";
+import { FaceCool20 } from "../../";
+
+export = FaceCool20;

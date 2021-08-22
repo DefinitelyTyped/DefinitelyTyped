@@ -1,1 +1,3 @@
-export { Function32 as default } from "../../";
+import { Function32 } from "../../";
+
+export = Function32;

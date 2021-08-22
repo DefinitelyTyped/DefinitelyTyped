@@ -72,22 +72,22 @@ export class Client extends EventEmitter {
 }
 
 export interface ConstructorOptions {
-    name?: string;
-    logger?: string;
-    release?: string;
-    environment?: string;
-    tags?: { [key: string]: string };
-    extra?: { [key: string]: any };
-    dataCallback?: DataCallback;
-    maxReqQueueCount?: number;
-    sampleRate?: number;
-    sendTimeout?: number;
-    shouldSendCallback?: ShouldSendCallback;
-    transport?: transports.Transport;
-    captureUnhandledRejections?: boolean;
-    maxBreadcrumbs?: number;
-    autoBreadcrumbs?: boolean | { [breadcrumbType: string]: boolean };
-    parseUser?: boolean | string[] | parseUserCallback;
+    name?: string | undefined;
+    logger?: string | undefined;
+    release?: string | undefined;
+    environment?: string | undefined;
+    tags?: { [key: string]: string } | undefined;
+    extra?: { [key: string]: any } | undefined;
+    dataCallback?: DataCallback | undefined;
+    maxReqQueueCount?: number | undefined;
+    sampleRate?: number | undefined;
+    sendTimeout?: number | undefined;
+    shouldSendCallback?: ShouldSendCallback | undefined;
+    transport?: transports.Transport | undefined;
+    captureUnhandledRejections?: boolean | undefined;
+    maxBreadcrumbs?: number | undefined;
+    autoBreadcrumbs?: boolean | { [breadcrumbType: string]: boolean } | undefined;
+    parseUser?: boolean | string[] | parseUserCallback | undefined;
 }
 
 export type parseUserCallback = (req: any) => any;
@@ -116,24 +116,24 @@ export type DataCallback = (data: { [key: string]: any }) => any;
 export type ShouldSendCallback = (data: { [key: string]: any }) => boolean;
 
 export interface CaptureOptions {
-    tags?: { [key: string]: string };
-    extra?: { [key: string]: any };
-    fingerprint?: string[];
-    level?: string;
-    req?: IncomingMessage;
+    tags?: { [key: string]: string } | undefined;
+    extra?: { [key: string]: any } | undefined;
+    fingerprint?: string[] | undefined;
+    level?: string | undefined;
+    req?: IncomingMessage | undefined;
     user?: any;
 }
 
 export namespace transports {
   interface HTTPTransportOptions {
-    hostname?: string;
-    path?: string;
-    headers?: OutgoingHttpHeaders;
-    method?: 'POST' | 'GET';
-    port?: number;
-    ca?: string;
-    agent?: Agent;
-    rejectUnauthorized?: boolean;
+    hostname?: string | undefined;
+    path?: string | undefined;
+    headers?: OutgoingHttpHeaders | undefined;
+    method?: 'POST' | 'GET' | undefined;
+    port?: number | undefined;
+    ca?: string | undefined;
+    agent?: Agent | undefined;
+    rejectUnauthorized?: boolean | undefined;
   }
   abstract class Transport extends EventEmitter {
     abstract send(

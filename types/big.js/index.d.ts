@@ -1,4 +1,4 @@
-// Type definitions for big.js 6.0
+// Type definitions for big.js 6.1
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet>
 //                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
@@ -97,6 +97,28 @@ export interface BigConstructor {
      * Default value: 21
      */
     PE: number;
+
+    /** Readonly rounding modes */
+
+    /**
+     * Rounds towards zero.
+     * I.e. truncate, no rounding.
+     */
+    readonly roundDown: RoundingMode.RoundDown;
+    /**
+     * Rounds towards nearest neighbour.
+     * If equidistant, rounds away from zero.
+     */
+    readonly roundHalfUp: RoundingMode.RoundHalfUp;
+    /**
+     * Rounds towards nearest neighbour.
+     * If equidistant, rounds towards even neighbour.
+     */
+    readonly roundHalfEven: RoundingMode.RoundHalfEven;
+    /**
+     * Rounds away from zero.
+     */
+    readonly roundUp: RoundingMode.RoundUp;
 }
 
 export interface Big {
@@ -231,9 +253,10 @@ export interface Big {
      * If dp is omitted, or is null or undefined, the number of digits after the decimal point defaults to the minimum number of digits necessary to represent the value exactly.
      *
      * @param dp Decimal places, 0 to 1e+6 inclusive
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!toFix!` if dp is invalid.
      */
-    toExponential(dp?: number): string;
+    toExponential(dp?: number, rm?: RoundingMode): string;
     /**
      * Returns a string representing the value of this Big number in normal notation to a fixed number of decimal places dp.
      *
@@ -248,9 +271,10 @@ export interface Big {
      * This is also unlike Number.prototype.toFixed, which returns the value to zero decimal places.
      *
      * @param dp Decimal places, 0 to 1e+6 inclusive
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!toFix!` if dp is invalid.
      */
-    toFixed(dp?: number): string;
+    toFixed(dp?: number, rm?: RoundingMode): string;
     /**
      * Returns a string representing the value of this Big number to the specified number of significant digits sd.
      *
@@ -263,9 +287,10 @@ export interface Big {
      * If sd is omitted, or is null or undefined, then the return value is the same as .toString().
      *
      * @param sd Significant digits, 1 to 1e+6 inclusive
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!toPre!` if sd is invalid.
      */
-    toPrecision(sd?: number): string;
+    toPrecision(sd?: number, rm?: RoundingMode): string;
     /**
      * Returns a string representing the value of this Big number.
      *

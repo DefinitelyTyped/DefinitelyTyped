@@ -1,1 +1,3 @@
-export { List32 as default } from "../../";
+import { List32 } from "../../";
+
+export = List32;

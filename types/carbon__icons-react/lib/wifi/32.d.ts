@@ -1,1 +1,3 @@
-export { Wifi32 as default } from "../../";
+import { Wifi32 } from "../../";
+
+export = Wifi32;

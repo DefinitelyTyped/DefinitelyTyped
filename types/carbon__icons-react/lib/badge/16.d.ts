@@ -1,1 +1,3 @@
-export { Badge16 as default } from "../../";
+import { Badge16 } from "../../";
+
+export = Badge16;

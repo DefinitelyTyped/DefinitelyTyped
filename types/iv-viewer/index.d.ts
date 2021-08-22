@@ -5,11 +5,11 @@
 // Minimum TypeScript Version: 3.7
 
 interface Options {
-    zoomValue?: number;
-    snapView?: boolean;
-    maxZoom?: number;
-    refreshOnResize?: boolean;
-    zoomOnMouseWheel?: boolean;
+    zoomValue?: number | undefined;
+    snapView?: boolean | undefined;
+    maxZoom?: number | undefined;
+    refreshOnResize?: boolean | undefined;
+    zoomOnMouseWheel?: boolean | undefined;
 }
 
 interface SliderOptions {
@@ -39,38 +39,38 @@ declare class Slider {
 interface Elements {
     container: Element | null;
     domElement: Element | null;
-    image?: Element | null;
-    imageWrap?: Element | null;
-    snapHandle?: Element | null;
-    snapImage?: Element | null;
-    snapImageWrap?: Element | null;
-    snapView?: Element | null;
-    zoomHandle?: Element | null;
+    image?: Element | null | undefined;
+    imageWrap?: Element | null | undefined;
+    snapHandle?: Element | null | undefined;
+    snapImage?: Element | null | undefined;
+    snapImageWrap?: Element | null | undefined;
+    snapView?: Element | null | undefined;
+    zoomHandle?: Element | null | undefined;
 }
 
 type IVEvent = () => void;
 
 interface Events {
-    hiResImageLoad?: IVEvent;
-    imageLoad?: IVEvent;
-    mouseEnterSnapView?: IVEvent;
-    mouseLeaveSnapView?: IVEvent;
-    onWindowResize?: IVEvent;
-    pinchStart?: IVEvent;
-    snapViewOnMouseMove?: IVEvent;
+    hiResImageLoad?: IVEvent | undefined;
+    imageLoad?: IVEvent | undefined;
+    mouseEnterSnapView?: IVEvent | undefined;
+    mouseLeaveSnapView?: IVEvent | undefined;
+    onWindowResize?: IVEvent | undefined;
+    pinchStart?: IVEvent | undefined;
+    snapViewOnMouseMove?: IVEvent | undefined;
 }
 
 interface Frames {
-    slideMomentumCheck?: number;
-    sliderMomentumFrame?: number;
-    snapViewTimeout?: number;
-    zoomFrame?: number;
+    slideMomentumCheck?: number | undefined;
+    sliderMomentumFrame?: number | undefined;
+    snapViewTimeout?: number | undefined;
+    zoomFrame?: number | undefined;
 }
 
 interface Sliders {
-    imageSlider?: Slider;
-    snapSlider?: Slider;
-    zoomSlider?: Slider;
+    imageSlider?: Slider | undefined;
+    snapSlider?: Slider | undefined;
+    zoomSlider?: Slider | undefined;
 }
 
 type IVImage = string | null;
@@ -86,15 +86,15 @@ interface Dim {
 }
 
 interface State {
-    containerDim?: Dim;
-    imageDim?: Dim;
-    loaded?: boolean;
-    snapHandleDim?: Dim;
-    snapImageDim?: Dim;
-    snapViewVisible?: boolean;
-    zooming?: boolean;
-    zoomSliderLength?: number;
-    zoomValue?: number;
+    containerDim?: Dim | undefined;
+    imageDim?: Dim | undefined;
+    loaded?: boolean | undefined;
+    snapHandleDim?: Dim | undefined;
+    snapImageDim?: Dim | undefined;
+    snapViewVisible?: boolean | undefined;
+    zooming?: boolean | undefined;
+    zoomSliderLength?: number | undefined;
+    zoomValue?: number | undefined;
 }
 
 declare class ImageViewer {
@@ -147,8 +147,8 @@ interface FullScreenElements extends Elements {
 }
 
 interface FullScreenEvents extends Events {
-    onCloseBtnClick?: IVEvent;
-    onWindowResize?: IVEvent;
+    onCloseBtnClick?: IVEvent | undefined;
+    onWindowResize?: IVEvent | undefined;
 }
 
 declare class FullScreenViewer extends ImageViewer {

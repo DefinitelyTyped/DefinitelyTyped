@@ -1,1 +1,3 @@
-export { Rocket16 as default } from "../../";
+import { Rocket16 } from "../../";
+
+export = Rocket16;

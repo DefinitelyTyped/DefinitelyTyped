@@ -1,1 +1,3 @@
-export { ConditionBuilder as default } from "../../";
+import { ConditionBuilder } from "../../";
+
+export = ConditionBuilder;

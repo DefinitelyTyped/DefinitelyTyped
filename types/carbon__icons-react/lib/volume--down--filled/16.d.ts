@@ -1,1 +1,3 @@
-export { VolumeDownFilled16 as default } from "../../";
+import { VolumeDownFilled16 } from "../../";
+
+export = VolumeDownFilled16;

@@ -21,23 +21,23 @@ type CustomComponent = string | ComponentClass<any> | StatelessComponent<any>;
 
 export interface IconProps extends SizeOverrideHTMLProps<Icon> {
     name: string;
-    size?: IconSize;
-    spin?: boolean;
-    rotate?: IconRotation;
-    flip?: IconFlip;
-    fixedWidth?: boolean;
-    pulse?: boolean;
-    stack?: IconStackSize;
-    inverse?: boolean;
-    Component?: CustomComponent;
+    size?: IconSize | undefined;
+    spin?: boolean | undefined;
+    rotate?: IconRotation | undefined;
+    flip?: IconFlip | undefined;
+    fixedWidth?: boolean | undefined;
+    pulse?: boolean | undefined;
+    stack?: IconStackSize | undefined;
+    inverse?: boolean | undefined;
+    Component?: CustomComponent | undefined;
 }
 
 export type Icon = Component<IconProps>;
 export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
-    size?: IconSize;
-    children?: ReactElement<IconProps> | Array<ReactElement<IconProps>>;
+    size?: IconSize | undefined;
+    children?: ReactElement<IconProps> | Array<ReactElement<IconProps>> | undefined;
 }
 
 export type IconStack = Component<IconStackProps>;

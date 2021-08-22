@@ -27,8 +27,8 @@ export type OperationTracker = RelayOperationTracker;
 /*
  * An individual cached graph object.
  */
-export interface Record {
-    [key: string]: unknown;
+export interface Record<T extends object = {}> {
+    [key: string]: T;
 }
 
 /**
@@ -177,7 +177,8 @@ export interface FragmentSpecResolver {
  * A read-only interface for accessing cached graph data.
  */
 export interface RecordSource {
-    get(dataID: DataID): Record | null | undefined;
+    // tslint:disable-next-line:no-unnecessary-generics
+    get<T extends object = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
@@ -593,7 +594,7 @@ export interface Environment {
      */
     execute(config: {
         operation: OperationDescriptor;
-        updater?: SelectorStoreUpdater | null;
+        updater?: SelectorStoreUpdater | null | undefined;
     }): RelayObservable<GraphQLResponse>;
 
     /**
@@ -614,10 +615,10 @@ export interface Environment {
         uploadables,
     }: {
         operation: OperationDescriptor;
-        optimisticUpdater?: SelectorStoreUpdater | null;
-        optimisticResponse?: { [key: string]: any } | null;
-        updater?: SelectorStoreUpdater | null;
-        uploadables?: UploadableMap | null;
+        optimisticUpdater?: SelectorStoreUpdater | null | undefined;
+        optimisticResponse?: { [key: string]: any } | null | undefined;
+        updater?: SelectorStoreUpdater | null | undefined;
+        uploadables?: UploadableMap | null | undefined;
     }): RelayObservable<GraphQLResponse>;
 
     /**
@@ -686,7 +687,7 @@ export interface ModuleImportPointer {
 export type AsyncLoadCallback = (loadingState: LoadingState) => void;
 export interface LoadingState {
     status: 'aborted' | 'complete' | 'error' | 'missing';
-    error?: Error;
+    error?: Error | undefined;
 }
 
 /**

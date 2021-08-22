@@ -46,3 +46,14 @@ google.accounts.id.prompt(promptMomentNotification => {
         | 'flow_restarted' = promptMomentNotification.getDismissedReason();
     const getMomentType: 'display' | 'skipped' | 'dismissed' = promptMomentNotification.getMomentType();
 });
+
+const buttonOptions: google.GsiButtonConfiguration = {
+    type: 'icon',
+    shape: 'rectangular',
+    theme: 'outline',
+    size: 'large',
+    text: 'continue_with',
+};
+
+const button: HTMLElement = new HTMLDivElement();
+google.accounts.id.renderButton(button, buttonOptions, () => {});

@@ -1,1 +1,3 @@
-export { AlignHorizontalRight16 as default } from "../../";
+import { AlignHorizontalRight16 } from "../../";
+
+export = AlignHorizontalRight16;

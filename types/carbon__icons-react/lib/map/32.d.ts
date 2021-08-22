@@ -1,1 +1,3 @@
-export { Map32 as default } from "../../";
+import { Map32 } from "../../";
+
+export = Map32;

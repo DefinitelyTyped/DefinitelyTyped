@@ -31,17 +31,17 @@ export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string;
 }
 
-export interface InternationalProps<MID = string> {
-    translateWithId?(messageId: MID): string;
+export interface InternationalProps<MID = string, ARGS = Record<string, unknown>> {
+    translateWithId?(messageId: MID, args?: ARGS): string;
 }
 
 export interface MenuOffsetData {
-    left?: number;
-    top?: number;
+    left?: number | undefined;
+    top?: number | undefined;
 }
 
 export interface RenderIconProps<P = any> {
-    renderIcon?: React.ComponentType<P>;
+    renderIcon?: React.ComponentType<P> | undefined;
 }
 
 export interface RequiresChildrenProps<T = React.ReactNode> {
@@ -53,15 +53,15 @@ export interface RequiresIdProps<T = ReactAttr['id']> {
 }
 
 export interface SizingProps {
-    small?: boolean;
+    small?: boolean | undefined;
 }
 
 export interface SideNavSharedProps {
-    isSideNavExpanded?: boolean;
+    isSideNavExpanded?: boolean | undefined;
 }
 
 export interface SideNavSizingProps {
-    large?: boolean;
+    large?: boolean | undefined;
 }
 
 //

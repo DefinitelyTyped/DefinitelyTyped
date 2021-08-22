@@ -1,1 +1,3 @@
-export { TemperatureInversion32 as default } from "../../";
+import { TemperatureInversion32 } from "../../";
+
+export = TemperatureInversion32;

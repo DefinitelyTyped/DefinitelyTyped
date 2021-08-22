@@ -1,1 +1,3 @@
-export { CloudPakForData as default } from "../../";
+import { CloudPakForData } from "../../";
+
+export = CloudPakForData;

@@ -1,1 +1,3 @@
-export { NotebookReference24 as default } from "../../";
+import { NotebookReference24 } from "../../";
+
+export = NotebookReference24;

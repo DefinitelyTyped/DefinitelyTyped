@@ -1,1 +1,3 @@
-export { FaceDizzy32 as default } from "../../";
+import { FaceDizzy32 } from "../../";
+
+export = FaceDizzy32;

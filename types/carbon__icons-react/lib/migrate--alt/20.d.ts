@@ -1,1 +1,3 @@
-export { MigrateAlt20 as default } from "../../";
+import { MigrateAlt20 } from "../../";
+
+export = MigrateAlt20;

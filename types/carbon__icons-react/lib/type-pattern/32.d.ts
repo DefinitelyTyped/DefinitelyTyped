@@ -1,1 +1,3 @@
-export { TypePattern32 as default } from "../../";
+import { TypePattern32 } from "../../";
+
+export = TypePattern32;

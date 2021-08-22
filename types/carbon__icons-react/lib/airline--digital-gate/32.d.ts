@@ -1,1 +1,3 @@
-export { AirlineDigitalGate32 as default } from "../../";
+import { AirlineDigitalGate32 } from "../../";
+
+export = AirlineDigitalGate32;

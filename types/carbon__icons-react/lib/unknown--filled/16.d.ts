@@ -1,1 +1,3 @@
-export { UnknownFilled16 as default } from "../../";
+import { UnknownFilled16 } from "../../";
+
+export = UnknownFilled16;

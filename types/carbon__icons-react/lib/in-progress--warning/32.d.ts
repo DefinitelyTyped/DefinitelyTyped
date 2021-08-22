@@ -1,1 +1,3 @@
-export { InProgressWarning32 as default } from "../../";
+import { InProgressWarning32 } from "../../";
+
+export = InProgressWarning32;

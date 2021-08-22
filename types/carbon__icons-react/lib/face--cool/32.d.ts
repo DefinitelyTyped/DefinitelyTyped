@@ -1,1 +1,3 @@
-export { FaceCool32 as default } from "../../";
+import { FaceCool32 } from "../../";
+
+export = FaceCool32;

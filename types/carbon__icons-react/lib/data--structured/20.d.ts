@@ -1,1 +1,3 @@
-export { DataStructured20 as default } from "../../";
+import { DataStructured20 } from "../../";
+
+export = DataStructured20;

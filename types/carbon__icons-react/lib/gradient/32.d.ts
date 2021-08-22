@@ -1,1 +1,3 @@
-export { Gradient32 as default } from "../../";
+import { Gradient32 } from "../../";
+
+export = Gradient32;

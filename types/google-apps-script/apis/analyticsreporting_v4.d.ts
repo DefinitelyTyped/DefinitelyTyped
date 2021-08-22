@@ -17,291 +17,291 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       interface Activity {
-        activityTime?: string;
-        activityType?: string;
-        appview?: Analyticsreporting.Schema.ScreenviewData;
-        campaign?: string;
-        channelGrouping?: string;
-        customDimension?: Analyticsreporting.Schema.CustomDimension[];
-        ecommerce?: Analyticsreporting.Schema.EcommerceData;
-        event?: Analyticsreporting.Schema.EventData;
-        goals?: Analyticsreporting.Schema.GoalSetData;
-        hostname?: string;
-        keyword?: string;
-        landingPagePath?: string;
-        medium?: string;
-        pageview?: Analyticsreporting.Schema.PageviewData;
-        source?: string;
+        activityTime?: string | undefined;
+        activityType?: string | undefined;
+        appview?: Analyticsreporting.Schema.ScreenviewData | undefined;
+        campaign?: string | undefined;
+        channelGrouping?: string | undefined;
+        customDimension?: Analyticsreporting.Schema.CustomDimension[] | undefined;
+        ecommerce?: Analyticsreporting.Schema.EcommerceData | undefined;
+        event?: Analyticsreporting.Schema.EventData | undefined;
+        goals?: Analyticsreporting.Schema.GoalSetData | undefined;
+        hostname?: string | undefined;
+        keyword?: string | undefined;
+        landingPagePath?: string | undefined;
+        medium?: string | undefined;
+        pageview?: Analyticsreporting.Schema.PageviewData | undefined;
+        source?: string | undefined;
       }
       interface Cohort {
-        dateRange?: Analyticsreporting.Schema.DateRange;
-        name?: string;
-        type?: string;
+        dateRange?: Analyticsreporting.Schema.DateRange | undefined;
+        name?: string | undefined;
+        type?: string | undefined;
       }
       interface CohortGroup {
-        cohorts?: Analyticsreporting.Schema.Cohort[];
-        lifetimeValue?: boolean;
+        cohorts?: Analyticsreporting.Schema.Cohort[] | undefined;
+        lifetimeValue?: boolean | undefined;
       }
       interface ColumnHeader {
-        dimensions?: string[];
-        metricHeader?: Analyticsreporting.Schema.MetricHeader;
+        dimensions?: string[] | undefined;
+        metricHeader?: Analyticsreporting.Schema.MetricHeader | undefined;
       }
       interface CustomDimension {
-        index?: number;
-        value?: string;
+        index?: number | undefined;
+        value?: string | undefined;
       }
       interface DateRange {
-        endDate?: string;
-        startDate?: string;
+        endDate?: string | undefined;
+        startDate?: string | undefined;
       }
       interface DateRangeValues {
-        pivotValueRegions?: Analyticsreporting.Schema.PivotValueRegion[];
-        values?: string[];
+        pivotValueRegions?: Analyticsreporting.Schema.PivotValueRegion[] | undefined;
+        values?: string[] | undefined;
       }
       interface Dimension {
-        histogramBuckets?: string[];
-        name?: string;
+        histogramBuckets?: string[] | undefined;
+        name?: string | undefined;
       }
       interface DimensionFilter {
-        caseSensitive?: boolean;
-        dimensionName?: string;
-        expressions?: string[];
-        not?: boolean;
-        operator?: string;
+        caseSensitive?: boolean | undefined;
+        dimensionName?: string | undefined;
+        expressions?: string[] | undefined;
+        not?: boolean | undefined;
+        operator?: string | undefined;
       }
       interface DimensionFilterClause {
-        filters?: Analyticsreporting.Schema.DimensionFilter[];
-        operator?: string;
+        filters?: Analyticsreporting.Schema.DimensionFilter[] | undefined;
+        operator?: string | undefined;
       }
       interface DynamicSegment {
-        name?: string;
-        sessionSegment?: Analyticsreporting.Schema.SegmentDefinition;
-        userSegment?: Analyticsreporting.Schema.SegmentDefinition;
+        name?: string | undefined;
+        sessionSegment?: Analyticsreporting.Schema.SegmentDefinition | undefined;
+        userSegment?: Analyticsreporting.Schema.SegmentDefinition | undefined;
       }
       interface EcommerceData {
-        actionType?: string;
-        ecommerceType?: string;
-        products?: Analyticsreporting.Schema.ProductData[];
-        transaction?: Analyticsreporting.Schema.TransactionData;
+        actionType?: string | undefined;
+        ecommerceType?: string | undefined;
+        products?: Analyticsreporting.Schema.ProductData[] | undefined;
+        transaction?: Analyticsreporting.Schema.TransactionData | undefined;
       }
       interface EventData {
-        eventAction?: string;
-        eventCategory?: string;
-        eventCount?: string;
-        eventLabel?: string;
-        eventValue?: string;
+        eventAction?: string | undefined;
+        eventCategory?: string | undefined;
+        eventCount?: string | undefined;
+        eventLabel?: string | undefined;
+        eventValue?: string | undefined;
       }
       interface GetReportsRequest {
-        reportRequests?: Analyticsreporting.Schema.ReportRequest[];
-        useResourceQuotas?: boolean;
+        reportRequests?: Analyticsreporting.Schema.ReportRequest[] | undefined;
+        useResourceQuotas?: boolean | undefined;
       }
       interface GetReportsResponse {
-        queryCost?: number;
-        reports?: Analyticsreporting.Schema.Report[];
-        resourceQuotasRemaining?: Analyticsreporting.Schema.ResourceQuotasRemaining;
+        queryCost?: number | undefined;
+        reports?: Analyticsreporting.Schema.Report[] | undefined;
+        resourceQuotasRemaining?: Analyticsreporting.Schema.ResourceQuotasRemaining | undefined;
       }
       interface GoalData {
-        goalCompletionLocation?: string;
-        goalCompletions?: string;
-        goalIndex?: number;
-        goalName?: string;
-        goalPreviousStep1?: string;
-        goalPreviousStep2?: string;
-        goalPreviousStep3?: string;
-        goalValue?: number;
+        goalCompletionLocation?: string | undefined;
+        goalCompletions?: string | undefined;
+        goalIndex?: number | undefined;
+        goalName?: string | undefined;
+        goalPreviousStep1?: string | undefined;
+        goalPreviousStep2?: string | undefined;
+        goalPreviousStep3?: string | undefined;
+        goalValue?: number | undefined;
       }
       interface GoalSetData {
-        goals?: Analyticsreporting.Schema.GoalData[];
+        goals?: Analyticsreporting.Schema.GoalData[] | undefined;
       }
       interface Metric {
-        alias?: string;
-        expression?: string;
-        formattingType?: string;
+        alias?: string | undefined;
+        expression?: string | undefined;
+        formattingType?: string | undefined;
       }
       interface MetricFilter {
-        comparisonValue?: string;
-        metricName?: string;
-        not?: boolean;
-        operator?: string;
+        comparisonValue?: string | undefined;
+        metricName?: string | undefined;
+        not?: boolean | undefined;
+        operator?: string | undefined;
       }
       interface MetricFilterClause {
-        filters?: Analyticsreporting.Schema.MetricFilter[];
-        operator?: string;
+        filters?: Analyticsreporting.Schema.MetricFilter[] | undefined;
+        operator?: string | undefined;
       }
       interface MetricHeader {
-        metricHeaderEntries?: Analyticsreporting.Schema.MetricHeaderEntry[];
-        pivotHeaders?: Analyticsreporting.Schema.PivotHeader[];
+        metricHeaderEntries?: Analyticsreporting.Schema.MetricHeaderEntry[] | undefined;
+        pivotHeaders?: Analyticsreporting.Schema.PivotHeader[] | undefined;
       }
       interface MetricHeaderEntry {
-        name?: string;
-        type?: string;
+        name?: string | undefined;
+        type?: string | undefined;
       }
       interface OrFiltersForSegment {
-        segmentFilterClauses?: Analyticsreporting.Schema.SegmentFilterClause[];
+        segmentFilterClauses?: Analyticsreporting.Schema.SegmentFilterClause[] | undefined;
       }
       interface OrderBy {
-        fieldName?: string;
-        orderType?: string;
-        sortOrder?: string;
+        fieldName?: string | undefined;
+        orderType?: string | undefined;
+        sortOrder?: string | undefined;
       }
       interface PageviewData {
-        pagePath?: string;
-        pageTitle?: string;
+        pagePath?: string | undefined;
+        pageTitle?: string | undefined;
       }
       interface Pivot {
-        dimensionFilterClauses?: Analyticsreporting.Schema.DimensionFilterClause[];
-        dimensions?: Analyticsreporting.Schema.Dimension[];
-        maxGroupCount?: number;
-        metrics?: Analyticsreporting.Schema.Metric[];
-        startGroup?: number;
+        dimensionFilterClauses?: Analyticsreporting.Schema.DimensionFilterClause[] | undefined;
+        dimensions?: Analyticsreporting.Schema.Dimension[] | undefined;
+        maxGroupCount?: number | undefined;
+        metrics?: Analyticsreporting.Schema.Metric[] | undefined;
+        startGroup?: number | undefined;
       }
       interface PivotHeader {
-        pivotHeaderEntries?: Analyticsreporting.Schema.PivotHeaderEntry[];
-        totalPivotGroupsCount?: number;
+        pivotHeaderEntries?: Analyticsreporting.Schema.PivotHeaderEntry[] | undefined;
+        totalPivotGroupsCount?: number | undefined;
       }
       interface PivotHeaderEntry {
-        dimensionNames?: string[];
-        dimensionValues?: string[];
-        metric?: Analyticsreporting.Schema.MetricHeaderEntry;
+        dimensionNames?: string[] | undefined;
+        dimensionValues?: string[] | undefined;
+        metric?: Analyticsreporting.Schema.MetricHeaderEntry | undefined;
       }
       interface PivotValueRegion {
-        values?: string[];
+        values?: string[] | undefined;
       }
       interface ProductData {
-        itemRevenue?: number;
-        productName?: string;
-        productQuantity?: string;
-        productSku?: string;
+        itemRevenue?: number | undefined;
+        productName?: string | undefined;
+        productQuantity?: string | undefined;
+        productSku?: string | undefined;
       }
       interface Report {
-        columnHeader?: Analyticsreporting.Schema.ColumnHeader;
-        data?: Analyticsreporting.Schema.ReportData;
-        nextPageToken?: string;
+        columnHeader?: Analyticsreporting.Schema.ColumnHeader | undefined;
+        data?: Analyticsreporting.Schema.ReportData | undefined;
+        nextPageToken?: string | undefined;
       }
       interface ReportData {
-        dataLastRefreshed?: string;
-        isDataGolden?: boolean;
-        maximums?: Analyticsreporting.Schema.DateRangeValues[];
-        minimums?: Analyticsreporting.Schema.DateRangeValues[];
-        rowCount?: number;
-        rows?: Analyticsreporting.Schema.ReportRow[];
-        samplesReadCounts?: string[];
-        samplingSpaceSizes?: string[];
-        totals?: Analyticsreporting.Schema.DateRangeValues[];
+        dataLastRefreshed?: string | undefined;
+        isDataGolden?: boolean | undefined;
+        maximums?: Analyticsreporting.Schema.DateRangeValues[] | undefined;
+        minimums?: Analyticsreporting.Schema.DateRangeValues[] | undefined;
+        rowCount?: number | undefined;
+        rows?: Analyticsreporting.Schema.ReportRow[] | undefined;
+        samplesReadCounts?: string[] | undefined;
+        samplingSpaceSizes?: string[] | undefined;
+        totals?: Analyticsreporting.Schema.DateRangeValues[] | undefined;
       }
       interface ReportRequest {
-        cohortGroup?: Analyticsreporting.Schema.CohortGroup;
-        dateRanges?: Analyticsreporting.Schema.DateRange[];
-        dimensionFilterClauses?: Analyticsreporting.Schema.DimensionFilterClause[];
-        dimensions?: Analyticsreporting.Schema.Dimension[];
-        filtersExpression?: string;
-        hideTotals?: boolean;
-        hideValueRanges?: boolean;
-        includeEmptyRows?: boolean;
-        metricFilterClauses?: Analyticsreporting.Schema.MetricFilterClause[];
-        metrics?: Analyticsreporting.Schema.Metric[];
-        orderBys?: Analyticsreporting.Schema.OrderBy[];
-        pageSize?: number;
-        pageToken?: string;
-        pivots?: Analyticsreporting.Schema.Pivot[];
-        samplingLevel?: string;
-        segments?: Analyticsreporting.Schema.Segment[];
-        viewId?: string;
+        cohortGroup?: Analyticsreporting.Schema.CohortGroup | undefined;
+        dateRanges?: Analyticsreporting.Schema.DateRange[] | undefined;
+        dimensionFilterClauses?: Analyticsreporting.Schema.DimensionFilterClause[] | undefined;
+        dimensions?: Analyticsreporting.Schema.Dimension[] | undefined;
+        filtersExpression?: string | undefined;
+        hideTotals?: boolean | undefined;
+        hideValueRanges?: boolean | undefined;
+        includeEmptyRows?: boolean | undefined;
+        metricFilterClauses?: Analyticsreporting.Schema.MetricFilterClause[] | undefined;
+        metrics?: Analyticsreporting.Schema.Metric[] | undefined;
+        orderBys?: Analyticsreporting.Schema.OrderBy[] | undefined;
+        pageSize?: number | undefined;
+        pageToken?: string | undefined;
+        pivots?: Analyticsreporting.Schema.Pivot[] | undefined;
+        samplingLevel?: string | undefined;
+        segments?: Analyticsreporting.Schema.Segment[] | undefined;
+        viewId?: string | undefined;
       }
       interface ReportRow {
-        dimensions?: string[];
-        metrics?: Analyticsreporting.Schema.DateRangeValues[];
+        dimensions?: string[] | undefined;
+        metrics?: Analyticsreporting.Schema.DateRangeValues[] | undefined;
       }
       interface ResourceQuotasRemaining {
-        dailyQuotaTokensRemaining?: number;
-        hourlyQuotaTokensRemaining?: number;
+        dailyQuotaTokensRemaining?: number | undefined;
+        hourlyQuotaTokensRemaining?: number | undefined;
       }
       interface ScreenviewData {
-        appName?: string;
-        mobileDeviceBranding?: string;
-        mobileDeviceModel?: string;
-        screenName?: string;
+        appName?: string | undefined;
+        mobileDeviceBranding?: string | undefined;
+        mobileDeviceModel?: string | undefined;
+        screenName?: string | undefined;
       }
       interface SearchUserActivityRequest {
-        activityTypes?: string[];
-        dateRange?: Analyticsreporting.Schema.DateRange;
-        pageSize?: number;
-        pageToken?: string;
-        user?: Analyticsreporting.Schema.User;
-        viewId?: string;
+        activityTypes?: string[] | undefined;
+        dateRange?: Analyticsreporting.Schema.DateRange | undefined;
+        pageSize?: number | undefined;
+        pageToken?: string | undefined;
+        user?: Analyticsreporting.Schema.User | undefined;
+        viewId?: string | undefined;
       }
       interface SearchUserActivityResponse {
-        nextPageToken?: string;
-        sampleRate?: number;
-        sessions?: Analyticsreporting.Schema.UserActivitySession[];
-        totalRows?: number;
+        nextPageToken?: string | undefined;
+        sampleRate?: number | undefined;
+        sessions?: Analyticsreporting.Schema.UserActivitySession[] | undefined;
+        totalRows?: number | undefined;
       }
       interface Segment {
-        dynamicSegment?: Analyticsreporting.Schema.DynamicSegment;
-        segmentId?: string;
+        dynamicSegment?: Analyticsreporting.Schema.DynamicSegment | undefined;
+        segmentId?: string | undefined;
       }
       interface SegmentDefinition {
-        segmentFilters?: Analyticsreporting.Schema.SegmentFilter[];
+        segmentFilters?: Analyticsreporting.Schema.SegmentFilter[] | undefined;
       }
       interface SegmentDimensionFilter {
-        caseSensitive?: boolean;
-        dimensionName?: string;
-        expressions?: string[];
-        maxComparisonValue?: string;
-        minComparisonValue?: string;
-        operator?: string;
+        caseSensitive?: boolean | undefined;
+        dimensionName?: string | undefined;
+        expressions?: string[] | undefined;
+        maxComparisonValue?: string | undefined;
+        minComparisonValue?: string | undefined;
+        operator?: string | undefined;
       }
       interface SegmentFilter {
-        not?: boolean;
-        sequenceSegment?: Analyticsreporting.Schema.SequenceSegment;
-        simpleSegment?: Analyticsreporting.Schema.SimpleSegment;
+        not?: boolean | undefined;
+        sequenceSegment?: Analyticsreporting.Schema.SequenceSegment | undefined;
+        simpleSegment?: Analyticsreporting.Schema.SimpleSegment | undefined;
       }
       interface SegmentFilterClause {
-        dimensionFilter?: Analyticsreporting.Schema.SegmentDimensionFilter;
-        metricFilter?: Analyticsreporting.Schema.SegmentMetricFilter;
-        not?: boolean;
+        dimensionFilter?: Analyticsreporting.Schema.SegmentDimensionFilter | undefined;
+        metricFilter?: Analyticsreporting.Schema.SegmentMetricFilter | undefined;
+        not?: boolean | undefined;
       }
       interface SegmentMetricFilter {
-        comparisonValue?: string;
-        maxComparisonValue?: string;
-        metricName?: string;
-        operator?: string;
-        scope?: string;
+        comparisonValue?: string | undefined;
+        maxComparisonValue?: string | undefined;
+        metricName?: string | undefined;
+        operator?: string | undefined;
+        scope?: string | undefined;
       }
       interface SegmentSequenceStep {
-        matchType?: string;
-        orFiltersForSegment?: Analyticsreporting.Schema.OrFiltersForSegment[];
+        matchType?: string | undefined;
+        orFiltersForSegment?: Analyticsreporting.Schema.OrFiltersForSegment[] | undefined;
       }
       interface SequenceSegment {
-        firstStepShouldMatchFirstHit?: boolean;
-        segmentSequenceSteps?: Analyticsreporting.Schema.SegmentSequenceStep[];
+        firstStepShouldMatchFirstHit?: boolean | undefined;
+        segmentSequenceSteps?: Analyticsreporting.Schema.SegmentSequenceStep[] | undefined;
       }
       interface SimpleSegment {
-        orFiltersForSegment?: Analyticsreporting.Schema.OrFiltersForSegment[];
+        orFiltersForSegment?: Analyticsreporting.Schema.OrFiltersForSegment[] | undefined;
       }
       interface TransactionData {
-        transactionId?: string;
-        transactionRevenue?: number;
-        transactionShipping?: number;
-        transactionTax?: number;
+        transactionId?: string | undefined;
+        transactionRevenue?: number | undefined;
+        transactionShipping?: number | undefined;
+        transactionTax?: number | undefined;
       }
       interface User {
-        type?: string;
-        userId?: string;
+        type?: string | undefined;
+        userId?: string | undefined;
       }
       interface UserActivitySession {
-        activities?: Analyticsreporting.Schema.Activity[];
-        dataSource?: string;
-        deviceCategory?: string;
-        platform?: string;
-        sessionDate?: string;
-        sessionId?: string;
+        activities?: Analyticsreporting.Schema.Activity[] | undefined;
+        dataSource?: string | undefined;
+        deviceCategory?: string | undefined;
+        platform?: string | undefined;
+        sessionDate?: string | undefined;
+        sessionId?: string | undefined;
       }
     }
   }
   interface Analyticsreporting {
-    Reports?: Analyticsreporting.Collection.ReportsCollection;
-    UserActivity?: Analyticsreporting.Collection.UserActivityCollection;
+    Reports?: Analyticsreporting.Collection.ReportsCollection | undefined;
+    UserActivity?: Analyticsreporting.Collection.UserActivityCollection | undefined;
     // Create a new instance of Cohort
     newCohort(): Analyticsreporting.Schema.Cohort;
     // Create a new instance of CohortGroup

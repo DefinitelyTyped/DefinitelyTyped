@@ -1,1 +1,3 @@
-export { VideoAdd32 as default } from "../../";
+import { VideoAdd32 } from "../../";
+
+export = VideoAdd32;

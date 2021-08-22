@@ -1,1 +1,3 @@
-export { AlignBoxMiddleLeft20 as default } from "../../";
+import { AlignBoxMiddleLeft20 } from "../../";
+
+export = AlignBoxMiddleLeft20;

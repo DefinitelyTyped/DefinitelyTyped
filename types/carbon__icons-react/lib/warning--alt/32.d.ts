@@ -1,1 +1,3 @@
-export { WarningAlt32 as default } from "../../";
+import { WarningAlt32 } from "../../";
+
+export = WarningAlt32;

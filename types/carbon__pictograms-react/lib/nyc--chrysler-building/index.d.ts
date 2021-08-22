@@ -1,1 +1,3 @@
-export { NycChryslerBuilding as default } from "../../";
+import { NycChryslerBuilding } from "../../";
+
+export = NycChryslerBuilding;

@@ -1,1 +1,3 @@
-export { GasStation32 as default } from "../../";
+import { GasStation32 } from "../../";
+
+export = GasStation32;

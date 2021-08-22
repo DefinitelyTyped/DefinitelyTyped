@@ -7,7 +7,6 @@
         "module": "commonjs",
         "target": "esnext",
         "lib": [
-            "es6",
             "dom"
         ],
         "noImplicitAny": true,

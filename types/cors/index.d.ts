@@ -7,34 +7,36 @@
 
 import { IncomingHttpHeaders } from 'http';
 
-type CustomOrigin = (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => void;
+type StaticOrigin = boolean | string | RegExp | (boolean | string | RegExp)[];
+
+type CustomOrigin = (requestOrigin: string | undefined, callback: (err: Error | null, origin?: StaticOrigin) => void) => void;
 
 declare namespace e {
     interface CorsRequest {
-        method?: string;
+        method?: string | undefined;
         headers: IncomingHttpHeaders;
     }
     interface CorsOptions {
         /**
          * @default '*''
          */
-        origin?: boolean | string | RegExp | (string | RegExp)[] | CustomOrigin;
+        origin?: StaticOrigin | CustomOrigin | undefined;
         /**
          * @default 'GET,HEAD,PUT,PATCH,POST,DELETE'
          */
-        methods?: string | string[];
-        allowedHeaders?: string | string[];
-        exposedHeaders?: string | string[];
-        credentials?: boolean;
-        maxAge?: number;
+        methods?: string | string[] | undefined;
+        allowedHeaders?: string | string[] | undefined;
+        exposedHeaders?: string | string[] | undefined;
+        credentials?: boolean | undefined;
+        maxAge?: number | undefined;
         /**
          * @default false
          */
-        preflightContinue?: boolean;
+        preflightContinue?: boolean | undefined;
         /**
          * @default 204
          */
-        optionsSuccessStatus?: number;
+        optionsSuccessStatus?: number | undefined;
     }
     type CorsOptionsDelegate<T extends CorsRequest = CorsRequest> = (
         req: T,
@@ -47,7 +49,7 @@ declare function e<T extends e.CorsRequest = e.CorsRequest>(
 ): (
     req: T,
     res: {
-        statusCode?: number;
+        statusCode?: number | undefined;
         setHeader(key: string, value: string): any;
         end(): any;
     },

@@ -1,1 +1,3 @@
-export { NewTab16 as default } from "../../";
+import { NewTab16 } from "../../";
+
+export = NewTab16;

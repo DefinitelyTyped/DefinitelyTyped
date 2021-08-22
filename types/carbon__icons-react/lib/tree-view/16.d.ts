@@ -1,1 +1,3 @@
-export { TreeView16 as default } from "../../";
+import { TreeView16 } from "../../";
+
+export = TreeView16;

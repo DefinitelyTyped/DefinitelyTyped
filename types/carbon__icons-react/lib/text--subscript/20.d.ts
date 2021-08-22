@@ -1,1 +1,3 @@
-export { TextSubscript20 as default } from "../../";
+import { TextSubscript20 } from "../../";
+
+export = TextSubscript20;

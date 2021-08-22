@@ -23,6 +23,7 @@ const json = {
         prop5: true,
         prop6: false,
         prop7: ['test', 2, null, undefined, true, false],
+        prop8: [{id: 1}, {id: 2}],
     },
 };
 

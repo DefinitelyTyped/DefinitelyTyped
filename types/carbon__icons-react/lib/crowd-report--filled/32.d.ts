@@ -1,1 +1,3 @@
-export { CrowdReportFilled32 as default } from "../../";
+import { CrowdReportFilled32 } from "../../";
+
+export = CrowdReportFilled32;

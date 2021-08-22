@@ -1,1 +1,3 @@
-export { Enterprise32 as default } from "../../";
+import { Enterprise32 } from "../../";
+
+export = Enterprise32;

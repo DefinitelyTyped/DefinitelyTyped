@@ -39,10 +39,12 @@ class ToUpperCaseStream {
 }
 
 export function responseProvider(request: EW.ResponseProviderRequest) {
-    return httpRequest('http://techjam.edgekey-staging.net/templates/index1MB.html').then(response => {
+    return httpRequest('http://www.mofroyo.co/us/en/index.html').then(response => {
+        const responseHeader = JSON.stringify(request.getHeaders()); // get headers from response provider event
+        const httpRequestHeader = JSON.stringify(response.getHeaders()); // get headers from httprequest
         return createResponse(
             response.status,
-            {},
+            {"resp-header": responseHeader, "httpreq-header": httpRequestHeader}, // passing both these headers should return them in response
             response.body.pipeThrough(new TextDecoderStream()).pipeThrough(new ToUpperCaseStream()).pipeThrough(new TextEncoderStream())
         );
     });

@@ -1,1 +1,3 @@
-export { Scalpel20 as default } from "../../";
+import { Scalpel20 } from "../../";
+
+export = Scalpel20;

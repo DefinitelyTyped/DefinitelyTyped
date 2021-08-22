@@ -6,34 +6,34 @@ export interface ojTable<K, D> extends baseComponent<ojTableSettableProperties<K
     };
     as: string;
     columns: Array<{
-        className?: string | null;
-        field?: string | null;
-        footerClassName?: string | null;
+        className?: string | null | undefined;
+        field?: string | null | undefined;
+        footerClassName?: string | null | undefined;
         footerRenderer?: ((context: ojTable.FooterRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        footerStyle?: string | null;
+        } | void) | null | undefined;
+        footerStyle?: string | null | undefined;
         footerTemplate?: {
             componentElement: Element;
-        };
-        headerClassName?: string | null;
+        } | undefined;
+        headerClassName?: string | null | undefined;
         headerRenderer?: ((context: ojTable.HeaderRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        headerStyle?: string | null;
+        } | void) | null | undefined;
+        headerStyle?: string | null | undefined;
         headerTemplate?: {
             componentElement: Element;
             data: object;
-        };
-        headerText?: string | null;
-        id?: string | null;
+        } | undefined;
+        headerText?: string | null | undefined;
+        id?: string | null | undefined;
         renderer?: ((context: ojTable.ColumnsRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        resizable?: 'enabled' | 'disabled';
-        sortProperty?: string | null;
-        sortable?: 'auto' | 'enabled' | 'disabled';
-        style?: string | null;
+        } | void) | null | undefined;
+        resizable?: 'enabled' | 'disabled' | undefined;
+        sortProperty?: string | null | undefined;
+        sortable?: 'auto' | 'enabled' | 'disabled' | undefined;
+        style?: string | null | undefined;
         template?: {
             componentElement: Element;
             data: object;
@@ -42,37 +42,37 @@ export interface ojTable<K, D> extends baseComponent<ojTableSettableProperties<K
             columnIndex: number;
             key: any;
             mode: string;
-        };
-        width?: number | null;
+        } | undefined;
+        width?: number | null | undefined;
     }> | null;
     columnsDefault: {
-        className?: string | null;
-        field?: string | null;
-        footerClassName?: string | null;
+        className?: string | null | undefined;
+        field?: string | null | undefined;
+        footerClassName?: string | null | undefined;
         footerRenderer?: ((context: ojTable.FooterRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        footerStyle?: string | null;
+        } | void) | null | undefined;
+        footerStyle?: string | null | undefined;
         footerTemplate?: {
             componentElement: Element;
-        };
-        headerClassName?: string | null;
+        } | undefined;
+        headerClassName?: string | null | undefined;
         headerRenderer?: ((context: ojTable.HeaderRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        headerStyle?: string | null;
+        } | void) | null | undefined;
+        headerStyle?: string | null | undefined;
         headerTemplate?: {
             componentElement: Element;
             data: object;
-        };
-        headerText?: string | null;
+        } | undefined;
+        headerText?: string | null | undefined;
         renderer?: ((context: ojTable.ColumnsRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        resizable?: 'enabled' | 'disabled';
-        sortProperty?: string | null;
-        sortable?: 'auto' | 'enabled' | 'disabled';
-        style?: string | null;
+        } | void) | null | undefined;
+        resizable?: 'enabled' | 'disabled' | undefined;
+        sortProperty?: string | null | undefined;
+        sortable?: 'auto' | 'enabled' | 'disabled' | undefined;
+        style?: string | null | undefined;
         template?: {
             componentElement: Element;
             data: object;
@@ -81,8 +81,8 @@ export interface ojTable<K, D> extends baseComponent<ojTableSettableProperties<K
             columnIndex: number;
             key: any;
             mode: string;
-        };
-        width?: number | null;
+        } | undefined;
+        width?: number | null | undefined;
     };
     currentRow: ojTable.CurrentRow<K> | null;
     data: DataProvider<K, D> | null;
@@ -90,25 +90,25 @@ export interface ojTable<K, D> extends baseComponent<ojTableSettableProperties<K
     dnd: {
         drag: {
             rows: {
-                dataTypes?: string | string[];
-                dragStart?: ((param0: DragEvent, param1: ojTable.DragRowContext<K, D>) => void);
-                drag?: ((param0: DragEvent) => void);
-                dragEnd?: ((param0: DragEvent) => void);
+                dataTypes?: string | string[] | undefined;
+                dragStart?: ((param0: DragEvent, param1: ojTable.DragRowContext<K, D>) => void) | undefined;
+                drag?: ((param0: DragEvent) => void) | undefined;
+                dragEnd?: ((param0: DragEvent) => void) | undefined;
             };
         };
         drop: {
             columns: {
                 dataTypes: string | string[];
-                dragEnter?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void);
-                dragOver?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void);
-                dragLeave?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void);
+                dragEnter?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void) | undefined;
+                dragOver?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void) | undefined;
+                dragLeave?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void) | undefined;
                 drop: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void);
             };
             rows: {
                 dataTypes: string | string[];
-                dragEnter?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void);
-                dragOver?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void);
-                dragLeave?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void);
+                dragEnter?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void) | undefined;
+                dragOver?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void) | undefined;
+                dragLeave?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void) | undefined;
                 drop: ((param0: DragEvent, param1: ojTable.DropRowContext) => void);
             };
         };
@@ -126,14 +126,14 @@ export interface ojTable<K, D> extends baseComponent<ojTableSettableProperties<K
         maxCount: number;
     };
     scrollPosition: {
-        x?: number;
-        y?: number;
-        columnIndex?: number;
-        rowIndex?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        columnIndex?: number | undefined;
+        rowIndex?: number | undefined;
         columnKey?: any;
         rowKey?: any;
-        offsetX?: number;
-        offsetY?: number;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
     };
     selection: Array<ojTable.RowSelectionStart<K> & ojTable.RowSelectionEnd<K>> | Array<ojTable.ColumnSelectionStart<K> & ojTable.ColumnSelectionEnd<K>>;
     selectionMode: {
@@ -143,28 +143,28 @@ export interface ojTable<K, D> extends baseComponent<ojTableSettableProperties<K
     selectionRequired: boolean;
     verticalGridVisible: 'auto' | 'enabled' | 'disabled';
     translations: {
-        labelAccSelectionAffordanceBottom?: string;
-        labelAccSelectionAffordanceTop?: string;
-        labelDisableNonContiguousSelection?: string;
-        labelEditRow?: string;
-        labelEnableNonContiguousSelection?: string;
-        labelResize?: string;
-        labelResizePopupSpinner?: string;
-        labelResizePopupSubmit?: string;
-        labelSelectAndEditRow?: string;
-        labelSelectColum?: string;
-        labelSelectRow?: string;
-        labelSort?: string;
-        labelSortAsc?: string;
-        labelSortDsc?: string;
-        msgColumnResizeWidthValidation?: string;
-        msgFetchingData?: string;
-        msgInitializing?: string;
-        msgNoData?: string;
-        msgScrollPolicyMaxCountDetail?: string;
-        msgScrollPolicyMaxCountSummary?: string;
-        msgStatusSortAscending?: string;
-        msgStatusSortDescending?: string;
+        labelAccSelectionAffordanceBottom?: string | undefined;
+        labelAccSelectionAffordanceTop?: string | undefined;
+        labelDisableNonContiguousSelection?: string | undefined;
+        labelEditRow?: string | undefined;
+        labelEnableNonContiguousSelection?: string | undefined;
+        labelResize?: string | undefined;
+        labelResizePopupSpinner?: string | undefined;
+        labelResizePopupSubmit?: string | undefined;
+        labelSelectAndEditRow?: string | undefined;
+        labelSelectColum?: string | undefined;
+        labelSelectRow?: string | undefined;
+        labelSort?: string | undefined;
+        labelSortAsc?: string | undefined;
+        labelSortDsc?: string | undefined;
+        msgColumnResizeWidthValidation?: string | undefined;
+        msgFetchingData?: string | undefined;
+        msgInitializing?: string | undefined;
+        msgNoData?: string | undefined;
+        msgScrollPolicyMaxCountDetail?: string | undefined;
+        msgScrollPolicyMaxCountSummary?: string | undefined;
+        msgStatusSortAscending?: string | undefined;
+        msgStatusSortDescending?: string | undefined;
     };
     onAccessibilityChanged: ((event: JetElementCustomEvent<ojTable<K, D>["accessibility"]>) => any) | null;
     onAsChanged: ((event: JetElementCustomEvent<ojTable<K, D>["as"]>) => any) | null;
@@ -258,11 +258,11 @@ export namespace ojTable {
         };
         endKey?: {
             column: K;
-        };
+        } | undefined;
     } | {
         endIndex?: {
             column: number;
-        };
+        } | undefined;
         endKey: {
             column: K;
         };
@@ -273,11 +273,11 @@ export namespace ojTable {
         };
         startKey?: {
             column: K;
-        };
+        } | undefined;
     } | {
         startIndex?: {
             column: number;
-        };
+        } | undefined;
         startKey: {
             column: K;
         };
@@ -305,9 +305,9 @@ export namespace ojTable {
     };
     type CurrentRow<K> = {
         rowIndex: number;
-        rowKey?: K;
+        rowKey?: K | undefined;
     } | {
-        rowIndex?: number;
+        rowIndex?: number | undefined;
         rowKey: K;
     };
     // tslint:disable-next-line interface-over-type-literal
@@ -338,8 +338,8 @@ export namespace ojTable {
     // tslint:disable-next-line interface-over-type-literal
     type HeaderRendererContext<K, D> = {
         columnIndex: number;
-        columnHeaderDefaultRenderer?: ((param0: object, param1: ((param0: object) => void)) => void);
-        columnHeaderSortableIconRenderer?: ((param0: object, param1: ((param0: object) => void)) => void);
+        columnHeaderDefaultRenderer?: ((param0: object, param1: ((param0: object) => void)) => void) | undefined;
+        columnHeaderSortableIconRenderer?: ((param0: object, param1: ((param0: object) => void)) => void) | undefined;
         componentElement: Element;
         data: string;
         headerContext: {
@@ -366,11 +366,11 @@ export namespace ojTable {
         };
         endKey?: {
             row: K;
-        };
+        } | undefined;
     } | {
         endIndex?: {
             row: number;
-        };
+        } | undefined;
         endKey: {
             row: K;
         };
@@ -381,11 +381,11 @@ export namespace ojTable {
         };
         startKey?: {
             row: K;
-        };
+        } | undefined;
     } | {
         startIndex?: {
             row: number;
-        };
+        } | undefined;
         startKey: {
             row: K;
         };
@@ -424,34 +424,34 @@ export interface ojTableSettableProperties<K, D> extends baseComponentSettablePr
     };
     as: string;
     columns: Array<{
-        className?: string | null;
-        field?: string | null;
-        footerClassName?: string | null;
+        className?: string | null | undefined;
+        field?: string | null | undefined;
+        footerClassName?: string | null | undefined;
         footerRenderer?: ((context: ojTable.FooterRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        footerStyle?: string | null;
+        } | void) | null | undefined;
+        footerStyle?: string | null | undefined;
         footerTemplate?: {
             componentElement: Element;
-        };
-        headerClassName?: string | null;
+        } | undefined;
+        headerClassName?: string | null | undefined;
         headerRenderer?: ((context: ojTable.HeaderRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        headerStyle?: string | null;
+        } | void) | null | undefined;
+        headerStyle?: string | null | undefined;
         headerTemplate?: {
             componentElement: Element;
             data: object;
-        };
-        headerText?: string | null;
-        id?: string | null;
+        } | undefined;
+        headerText?: string | null | undefined;
+        id?: string | null | undefined;
         renderer?: ((context: ojTable.ColumnsRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        resizable?: 'enabled' | 'disabled';
-        sortProperty?: string | null;
-        sortable?: 'auto' | 'enabled' | 'disabled';
-        style?: string | null;
+        } | void) | null | undefined;
+        resizable?: 'enabled' | 'disabled' | undefined;
+        sortProperty?: string | null | undefined;
+        sortable?: 'auto' | 'enabled' | 'disabled' | undefined;
+        style?: string | null | undefined;
         template?: {
             componentElement: Element;
             data: object;
@@ -460,37 +460,37 @@ export interface ojTableSettableProperties<K, D> extends baseComponentSettablePr
             columnIndex: number;
             key: any;
             mode: string;
-        };
-        width?: number | null;
+        } | undefined;
+        width?: number | null | undefined;
     }> | null;
     columnsDefault: {
-        className?: string | null;
-        field?: string | null;
-        footerClassName?: string | null;
+        className?: string | null | undefined;
+        field?: string | null | undefined;
+        footerClassName?: string | null | undefined;
         footerRenderer?: ((context: ojTable.FooterRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        footerStyle?: string | null;
+        } | void) | null | undefined;
+        footerStyle?: string | null | undefined;
         footerTemplate?: {
             componentElement: Element;
-        };
-        headerClassName?: string | null;
+        } | undefined;
+        headerClassName?: string | null | undefined;
         headerRenderer?: ((context: ojTable.HeaderRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        headerStyle?: string | null;
+        } | void) | null | undefined;
+        headerStyle?: string | null | undefined;
         headerTemplate?: {
             componentElement: Element;
             data: object;
-        };
-        headerText?: string | null;
+        } | undefined;
+        headerText?: string | null | undefined;
         renderer?: ((context: ojTable.ColumnsRendererContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void) | null;
-        resizable?: 'enabled' | 'disabled';
-        sortProperty?: string | null;
-        sortable?: 'auto' | 'enabled' | 'disabled';
-        style?: string | null;
+        } | void) | null | undefined;
+        resizable?: 'enabled' | 'disabled' | undefined;
+        sortProperty?: string | null | undefined;
+        sortable?: 'auto' | 'enabled' | 'disabled' | undefined;
+        style?: string | null | undefined;
         template?: {
             componentElement: Element;
             data: object;
@@ -499,8 +499,8 @@ export interface ojTableSettableProperties<K, D> extends baseComponentSettablePr
             columnIndex: number;
             key: any;
             mode: string;
-        };
-        width?: number | null;
+        } | undefined;
+        width?: number | null | undefined;
     };
     currentRow: ojTable.CurrentRow<K> | null;
     data: DataProvider<K, D> | null;
@@ -508,25 +508,25 @@ export interface ojTableSettableProperties<K, D> extends baseComponentSettablePr
     dnd: {
         drag: {
             rows: {
-                dataTypes?: string | string[];
-                dragStart?: ((param0: DragEvent, param1: ojTable.DragRowContext<K, D>) => void);
-                drag?: ((param0: DragEvent) => void);
-                dragEnd?: ((param0: DragEvent) => void);
+                dataTypes?: string | string[] | undefined;
+                dragStart?: ((param0: DragEvent, param1: ojTable.DragRowContext<K, D>) => void) | undefined;
+                drag?: ((param0: DragEvent) => void) | undefined;
+                dragEnd?: ((param0: DragEvent) => void) | undefined;
             };
         };
         drop: {
             columns: {
                 dataTypes: string | string[];
-                dragEnter?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void);
-                dragOver?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void);
-                dragLeave?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void);
+                dragEnter?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void) | undefined;
+                dragOver?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void) | undefined;
+                dragLeave?: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void) | undefined;
                 drop: ((param0: DragEvent, param1: ojTable.DropColumnContext) => void);
             };
             rows: {
                 dataTypes: string | string[];
-                dragEnter?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void);
-                dragOver?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void);
-                dragLeave?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void);
+                dragEnter?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void) | undefined;
+                dragOver?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void) | undefined;
+                dragLeave?: ((param0: DragEvent, param1: ojTable.DropRowContext) => void) | undefined;
                 drop: ((param0: DragEvent, param1: ojTable.DropRowContext) => void);
             };
         };
@@ -544,14 +544,14 @@ export interface ojTableSettableProperties<K, D> extends baseComponentSettablePr
         maxCount: number;
     };
     scrollPosition: {
-        x?: number;
-        y?: number;
-        columnIndex?: number;
-        rowIndex?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        columnIndex?: number | undefined;
+        rowIndex?: number | undefined;
         columnKey?: any;
         rowKey?: any;
-        offsetX?: number;
-        offsetY?: number;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
     };
     selection: Array<ojTable.RowSelectionStart<K> & ojTable.RowSelectionEnd<K>> | Array<ojTable.ColumnSelectionStart<K> & ojTable.ColumnSelectionEnd<K>>;
     selectionMode: {
@@ -561,28 +561,28 @@ export interface ojTableSettableProperties<K, D> extends baseComponentSettablePr
     selectionRequired: boolean;
     verticalGridVisible: 'auto' | 'enabled' | 'disabled';
     translations: {
-        labelAccSelectionAffordanceBottom?: string;
-        labelAccSelectionAffordanceTop?: string;
-        labelDisableNonContiguousSelection?: string;
-        labelEditRow?: string;
-        labelEnableNonContiguousSelection?: string;
-        labelResize?: string;
-        labelResizePopupSpinner?: string;
-        labelResizePopupSubmit?: string;
-        labelSelectAndEditRow?: string;
-        labelSelectColum?: string;
-        labelSelectRow?: string;
-        labelSort?: string;
-        labelSortAsc?: string;
-        labelSortDsc?: string;
-        msgColumnResizeWidthValidation?: string;
-        msgFetchingData?: string;
-        msgInitializing?: string;
-        msgNoData?: string;
-        msgScrollPolicyMaxCountDetail?: string;
-        msgScrollPolicyMaxCountSummary?: string;
-        msgStatusSortAscending?: string;
-        msgStatusSortDescending?: string;
+        labelAccSelectionAffordanceBottom?: string | undefined;
+        labelAccSelectionAffordanceTop?: string | undefined;
+        labelDisableNonContiguousSelection?: string | undefined;
+        labelEditRow?: string | undefined;
+        labelEnableNonContiguousSelection?: string | undefined;
+        labelResize?: string | undefined;
+        labelResizePopupSpinner?: string | undefined;
+        labelResizePopupSubmit?: string | undefined;
+        labelSelectAndEditRow?: string | undefined;
+        labelSelectColum?: string | undefined;
+        labelSelectRow?: string | undefined;
+        labelSort?: string | undefined;
+        labelSortAsc?: string | undefined;
+        labelSortDsc?: string | undefined;
+        msgColumnResizeWidthValidation?: string | undefined;
+        msgFetchingData?: string | undefined;
+        msgInitializing?: string | undefined;
+        msgNoData?: string | undefined;
+        msgScrollPolicyMaxCountDetail?: string | undefined;
+        msgScrollPolicyMaxCountSummary?: string | undefined;
+        msgStatusSortAscending?: string | undefined;
+        msgStatusSortDescending?: string | undefined;
     };
 }
 export interface ojTableSettablePropertiesLenient<K, D> extends Partial<ojTableSettableProperties<K, D>> {

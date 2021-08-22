@@ -26,7 +26,7 @@ type Flattened<R> = {
 
 // Describes a constructor for a particular promise library
 interface PConstructor<T, P extends PromiseLike<T>> {
-    new(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): P
+    new(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): P
 }
 /**
  * Highland: the high-level streams library
@@ -1511,7 +1511,7 @@ declare namespace Highland {
          * @api public
          */
         pipe<U>(dest: Stream<U>): Stream<U>;
-        pipe<U extends NodeJS.WritableStream>(dest: U, options?: { end?: boolean }): U
+        pipe<U extends NodeJS.WritableStream>(dest: U, options?: { end?: boolean | undefined }): U
 
         /**
          * Consumes a single item from the Stream. Unlike consume, this function will
@@ -1527,7 +1527,7 @@ declare namespace Highland {
          * @param {Function} f - the function to handle data
          * @api public
          */
-        pull(f: (err: Error, x: R) => void): void;
+        pull(f: (err: Error, x: R | Highland.Nil) => void): void;
 
         /**
          * Collects all values from a Stream into an Array and calls a function with
@@ -1620,8 +1620,8 @@ declare namespace Highland {
     type MappingHint = number | string[] | Function;
 
     interface CleanupObject {
-        onDestroy?: Function;
-        continueOnError?: boolean;
+        onDestroy?: Function | undefined;
+        continueOnError?: boolean | undefined;
     }
     type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
 }

@@ -1,1 +1,3 @@
-export { IbmCloud24 as default } from "../../";
+import { IbmCloud24 } from "../../";
+
+export = IbmCloud24;

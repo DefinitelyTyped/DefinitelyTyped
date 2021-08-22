@@ -1,1 +1,3 @@
-export { Pattern as default } from "../../";
+import { Pattern } from "../../";
+
+export = Pattern;

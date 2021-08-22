@@ -41,3 +41,9 @@ loadImage(imageUrlJPEG, { canvas: true, orientation: true, maxWidth: 100, maxHei
     console.log(url);
   });
 });
+
+// Parse metadata
+loadImage.parseMetaData(imageUrlJPEG, (metadata) => {
+  console.log(metadata.exif && metadata.exif.get('Orientation'));
+  console.log(metadata.exif && metadata.exif[0x0112]);
+});

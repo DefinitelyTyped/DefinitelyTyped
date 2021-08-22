@@ -1,1 +1,3 @@
-export { CloudStorage as default } from "../../";
+import { CloudStorage } from "../../";
+
+export = CloudStorage;

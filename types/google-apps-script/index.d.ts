@@ -3,6 +3,7 @@
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
 //                 pierluigi-montagna <https://github.com/pierluigi-montagna>
+//                 mtgto <https://github.com/mtgto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -43,6 +44,7 @@
 
 // Events
 /// <reference path="google-apps-script-events.d.ts"/>
+/// <reference path="addons/google-apps-script.addon-event-objects.d.ts" />
 
 // API Types (Advanced Google Services)
 /// <reference path="apis/adsense_v1_4.d.ts"/>

@@ -1,1 +1,3 @@
-export { Cda24 as default } from "../../";
+import { Cda24 } from "../../";
+
+export = Cda24;

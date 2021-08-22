@@ -1,1 +1,3 @@
-export { Hazy as default } from "../../";
+import { Hazy } from "../../";
+
+export = Hazy;

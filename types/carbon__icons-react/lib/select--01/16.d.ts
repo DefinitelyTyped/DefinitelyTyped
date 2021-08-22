@@ -1,1 +1,3 @@
-export { Select_0116 as default } from "../../";
+import { Select_0116 } from "../../";
+
+export = Select_0116;

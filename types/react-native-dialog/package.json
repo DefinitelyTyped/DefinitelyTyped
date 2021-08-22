@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "react-native-modal": ">=9.0.0"
-    }
-}

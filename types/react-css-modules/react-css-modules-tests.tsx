@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CSSModules= require('react-css-modules');
+import CSSModules = require('react-css-modules');
 
 const styles = {};
 
@@ -59,5 +59,31 @@ class Svg extends React.Component<TableProps> {
         </svg>;
     }
 }
+
+class ClassComponent extends React.Component {
+    render() {
+        return (
+            <div></div>
+        );
+    }
+}
+
+function FunctionComponent() {
+    return (
+        <div></div>
+    );
+}
+
+class TestClassComponent {
+    return() {
+        return (
+            <>
+                <ClassComponent styleName="foo"></ClassComponent>
+                <FunctionComponent styleName="bar"></FunctionComponent>
+            </>
+        );
+    }
+}
+
 
 const SvgHOC = CSSModules(Svg, styles);

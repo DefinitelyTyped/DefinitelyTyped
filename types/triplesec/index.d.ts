@@ -14,7 +14,7 @@ export interface WordArray {
 export interface Arguments {
     data: Buffer;
     key: Buffer;
-    progress_hook?: (progress: Progress) => void;
+    progress_hook?: ((progress: Progress) => void) | undefined;
 }
 
 export interface Progress {

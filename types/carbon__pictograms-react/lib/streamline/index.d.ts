@@ -1,1 +1,3 @@
-export { Streamline as default } from "../../";
+import { Streamline } from "../../";
+
+export = Streamline;

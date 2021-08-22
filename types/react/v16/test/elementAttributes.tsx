@@ -30,5 +30,11 @@ const testCases = [
     <details open={true} onToggle={() => {}} />,
     <input value={['one', 'two'] as ReadonlyArray<string>} />,
     <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />
+    <input value={['one', 'two']} />,
+    <div role="alertdialog" />,
+    <div role="none presentation" />,
+    <svg role="treeitem" />,
+    <a target="_blank"></a>,
+    <a target="some-frame"></a>,
+    <picture><source media="test" srcSet="test" width={50} height={50} /><img src="test" width={100} height={100}/></picture>
 ];

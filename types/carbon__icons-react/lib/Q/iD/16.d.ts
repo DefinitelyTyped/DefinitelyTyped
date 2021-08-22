@@ -1,1 +1,3 @@
-export { QID16 as default } from "../../../";
+import { QID16 } from "../../../";
+
+export = QID16;

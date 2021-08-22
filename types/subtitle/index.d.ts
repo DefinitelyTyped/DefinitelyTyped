@@ -7,7 +7,7 @@ export interface subTitleType {
     start: number | string;
     end: number | string;
     text: string;
-    setting?: string;
+    setting?: string | undefined;
 }
 
 export function parse(srtOrVtt: string): subTitleType[];

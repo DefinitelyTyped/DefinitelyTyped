@@ -1,1 +1,3 @@
-export { ChartWaterfall20 as default } from "../../";
+import { ChartWaterfall20 } from "../../";
+
+export = ChartWaterfall20;

@@ -1,1 +1,3 @@
-export { CargoShip as default } from "../../";
+import { CargoShip } from "../../";
+
+export = CargoShip;

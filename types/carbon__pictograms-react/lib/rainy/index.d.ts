@@ -1,1 +1,3 @@
-export { Rainy as default } from "../../";
+import { Rainy } from "../../";
+
+export = Rainy;

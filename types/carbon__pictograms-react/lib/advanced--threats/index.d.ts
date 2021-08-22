@@ -1,1 +1,3 @@
-export { AdvancedThreats as default } from "../../";
+import { AdvancedThreats } from "../../";
+
+export = AdvancedThreats;

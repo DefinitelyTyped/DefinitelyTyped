@@ -1,1 +1,3 @@
-export { LetterPp32 as default } from "../../";
+import { LetterPp32 } from "../../";
+
+export = LetterPp32;

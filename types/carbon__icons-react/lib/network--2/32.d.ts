@@ -1,1 +1,3 @@
-export { Network_232 as default } from "../../";
+import { Network_232 } from "../../";
+
+export = Network_232;

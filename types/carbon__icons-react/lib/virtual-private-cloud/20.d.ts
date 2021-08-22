@@ -1,1 +1,3 @@
-export { VirtualPrivateCloud20 as default } from "../../";
+import { VirtualPrivateCloud20 } from "../../";
+
+export = VirtualPrivateCloud20;

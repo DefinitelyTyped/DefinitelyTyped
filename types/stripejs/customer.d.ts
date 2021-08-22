@@ -91,7 +91,7 @@ export interface Card {
      */
     object: 'card';
 
-    account?: string;
+    account?: string | undefined;
 
     /**
      * City/District/Suburb/Town/Village
@@ -155,7 +155,7 @@ export interface Card {
      * Only applicable on accounts (not customers or recipients).
      * The card can be used as a transfer destination for funds in this currency
      */
-    currency?: string;
+    currency?: string | undefined;
 
     /**
      * The customer that this card belongs to
@@ -172,7 +172,7 @@ export interface Card {
      * Only applicable on accounts (not customers or recipients)
      * This indicates whether this card is the default external account for its currency
      */
-    default_for_currency?: boolean;
+    default_for_currency?: boolean | undefined;
 
     /**
      * The last four digits of the device account number.
@@ -214,7 +214,7 @@ export interface Card {
      * The recipient that this card belongs to.
      * NOTE: This attribute will not be in the card object if the card belongs to a customer or account instead
      */
-    recipient?: string;
+    recipient?: string | undefined;
 
     /**
      * If the card number is tokenized, this is the method that was used

@@ -1,1 +1,3 @@
-export { FunctionMath32 as default } from "../../";
+import { FunctionMath32 } from "../../";
+
+export = FunctionMath32;

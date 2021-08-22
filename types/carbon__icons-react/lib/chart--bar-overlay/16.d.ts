@@ -1,1 +1,3 @@
-export { ChartBarOverlay16 as default } from "../../";
+import { ChartBarOverlay16 } from "../../";
+
+export = ChartBarOverlay16;

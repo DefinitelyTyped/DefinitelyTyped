@@ -67,57 +67,57 @@ declare namespace TiffConverter {
     }
 
     interface Options {
-        page?: 'A4' | 'A3';
+        page?: 'A4' | 'A3' | undefined;
 
         /**
          * The file type of the converted files
          * @default 'png'
          */
-        type?: 'png' | 'jpg';
+        type?: 'png' | 'jpg' | undefined;
 
         /**
          * The level of the logs required. 0: Errors only, 1: Information
          * @default 0
          */
-        logLevel?: number;
+        logLevel?: number | undefined;
 
         /**
          * Automatically removes all files from tmpPath prefixed with magick-*, this happens on process completion
          * @default false
          */
-        autoRemoveTmp?: boolean;
+        autoRemoveTmp?: boolean | undefined;
 
         /**
          * The image scene number
          * @default null
          */
-        scene?: 1 | 2;
+        scene?: 1 | 2 | undefined;
 
         /**
          * The string that will be prepended to the file names of the pages converted. E.g. 'page': `page1.png`
          * @default 'page'
          */
-        prefix?: string;
+        prefix?: string | undefined;
 
         /**
          * The string that will be appended onto the end of the file names of the page converted. E.g. '_invoices': page1_invoices.png
          * @default ''
          */
-        suffix?: string;
+        suffix?: string | undefined;
 
         /**
          * Overwrites the Imagemagick default tmp directory path
          * @default null
          */
-        tmpPath?: string;
+        tmpPath?: string | undefined;
 
-        saveFolder?: string;
+        saveFolder?: string | undefined;
 
         /**
          * Allows the specification of the command path for use with binaries or aliased convert commands
          * @default null
          */
-        commandPath?: string;
+        commandPath?: string | undefined;
     }
 
     interface Converted {

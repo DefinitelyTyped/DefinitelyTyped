@@ -17,3 +17,7 @@ console.log(JSON.stringify(ast3));
 // $ExpectType Parser
 const ast4 = luaparse.parse(luacode, {wait: true});
 console.log(JSON.stringify(ast4));
+
+// $ExpectType Chunk
+const ast5 = luaparse.parse(luacode, {comments: false, encodingMode: 'pseudo-latin1'});
+console.log(JSON.stringify(ast5));

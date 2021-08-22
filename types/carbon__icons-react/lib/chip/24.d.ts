@@ -1,1 +1,3 @@
-export { Chip24 as default } from "../../";
+import { Chip24 } from "../../";
+
+export = Chip24;

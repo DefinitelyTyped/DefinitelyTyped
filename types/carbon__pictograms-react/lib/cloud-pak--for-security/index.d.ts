@@ -1,1 +1,3 @@
-export { CloudPakForSecurity as default } from "../../";
+import { CloudPakForSecurity } from "../../";
+
+export = CloudPakForSecurity;

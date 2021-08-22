@@ -1,3 +1,4 @@
+/// <reference lib="esnext"/>
 // Script to remove a package from DefinitelyTyped and add it to notNeededPackages.json
 
 const fs = require("fs");
@@ -13,9 +14,14 @@ if (process.argv.length !== 4 && process.argv.length !== 5) {
 }
 
 rmdirRecursive(path.join("types", typingsPackageName));
+
+/**  @type  {{packages: Record<string, { libraryName: string; asOfVersion: string; }> }} */
 const notNeededPackages = JSON.parse(fs.readFileSync("notNeededPackages.json", "utf-8"));
-notNeededPackages.packages.push({ libraryName, typingsPackageName, asOfVersion });
-notNeededPackages.packages.sort((x, y) => x.typingsPackageName < y.typingsPackageName ? -1 : 1);
+notNeededPackages.packages[typingsPackageName] = { libraryName, asOfVersion };
+const sortedPackages = Object.entries(notNeededPackages.packages).sort((packageA, packageB) =>
+    packageA[0].localeCompare(packageB[0]),
+);
+notNeededPackages.packages = Object.fromEntries(sortedPackages);
 fs.writeFileSync("notNeededPackages.json", JSON.stringify(notNeededPackages, undefined, 4) + "\n", "utf-8");
 
 function rmdirRecursive(dir) {

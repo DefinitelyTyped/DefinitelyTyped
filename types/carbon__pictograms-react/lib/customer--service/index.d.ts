@@ -1,1 +1,3 @@
-export { CustomerService as default } from "../../";
+import { CustomerService } from "../../";
+
+export = CustomerService;

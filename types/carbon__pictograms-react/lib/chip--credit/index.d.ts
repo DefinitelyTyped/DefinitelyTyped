@@ -1,1 +1,3 @@
-export { ChipCredit as default } from "../../";
+import { ChipCredit } from "../../";
+
+export = ChipCredit;

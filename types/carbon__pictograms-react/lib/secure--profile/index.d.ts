@@ -1,1 +1,3 @@
-export { SecureProfile as default } from "../../";
+import { SecureProfile } from "../../";
+
+export = SecureProfile;

@@ -1,1 +1,3 @@
-export { Mountain32 as default } from "../../";
+import { Mountain32 } from "../../";
+
+export = Mountain32;

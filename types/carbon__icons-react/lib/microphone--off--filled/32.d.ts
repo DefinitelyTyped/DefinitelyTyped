@@ -1,1 +1,3 @@
-export { MicrophoneOffFilled32 as default } from "../../";
+import { MicrophoneOffFilled32 } from "../../";
+
+export = MicrophoneOffFilled32;

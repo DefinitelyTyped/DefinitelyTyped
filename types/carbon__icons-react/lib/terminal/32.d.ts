@@ -1,1 +1,3 @@
-export { Terminal32 as default } from "../../";
+import { Terminal32 } from "../../";
+
+export = Terminal32;

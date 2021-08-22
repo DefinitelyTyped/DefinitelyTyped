@@ -1,1 +1,3 @@
-export { Types20 as default } from "../../";
+import { Types20 } from "../../";
+
+export = Types20;

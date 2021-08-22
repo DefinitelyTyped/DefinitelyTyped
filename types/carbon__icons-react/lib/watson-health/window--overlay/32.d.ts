@@ -1,1 +1,3 @@
-export { WatsonHealthWindowOverlay32 as default } from "../../../";
+import { WatsonHealthWindowOverlay32 } from "../../../";
+
+export = WatsonHealthWindowOverlay32;

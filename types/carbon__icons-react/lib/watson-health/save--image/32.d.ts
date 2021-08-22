@@ -1,1 +1,3 @@
-export { WatsonHealthSaveImage32 as default } from "../../../";
+import { WatsonHealthSaveImage32 } from "../../../";
+
+export = WatsonHealthSaveImage32;

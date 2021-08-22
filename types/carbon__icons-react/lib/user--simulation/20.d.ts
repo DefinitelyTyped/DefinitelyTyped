@@ -1,1 +1,3 @@
-export { UserSimulation20 as default } from "../../";
+import { UserSimulation20 } from "../../";
+
+export = UserSimulation20;

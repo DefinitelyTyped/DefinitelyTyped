@@ -1,1 +1,3 @@
-export { Svg20 as default } from "../../";
+import { Svg20 } from "../../";
+
+export = Svg20;

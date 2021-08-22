@@ -75,30 +75,30 @@ export interface OhclData {
     selectedpoints: any; // TODO: further refine
     increasing: {
         line?: {
-            color?: string;
-            width?: number;
-            dash?: Dash;
-        };
+            color?: string | undefined;
+            width?: number | undefined;
+            dash?: Dash | undefined;
+        } | undefined;
     };
     decreasing: {
         line?: {
-            color?: string;
-            width?: number;
-            dash?: Dash;
-        };
+            color?: string | undefined;
+            width?: number | undefined;
+            dash?: Dash | undefined;
+        } | undefined;
     };
 
     hoverlabel: {
-        bgcolor?: string | string[];
-        bordercolor?: string | string[];
+        bgcolor?: string | string[] | undefined;
+        bordercolor?: string | string[] | undefined;
         font?: {
-            family?: string | string[];
-            size?: number;
-            color?: string | string[];
-        };
-        align?: 'left' | 'right' | 'auto';
-        namelength?: number | number[];
-        split?: boolean;
+            family?: string | string[] | undefined;
+            size?: number | undefined;
+            color?: string | string[] | undefined;
+        } | undefined;
+        align?: 'left' | 'right' | 'auto' | undefined;
+        namelength?: number | number[] | undefined;
+        split?: boolean | undefined;
     };
     tickwidth: number;
     xcalendar: XCalendar;

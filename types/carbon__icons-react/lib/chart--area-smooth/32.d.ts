@@ -1,1 +1,3 @@
-export { ChartAreaSmooth32 as default } from "../../";
+import { ChartAreaSmooth32 } from "../../";
+
+export = ChartAreaSmooth32;

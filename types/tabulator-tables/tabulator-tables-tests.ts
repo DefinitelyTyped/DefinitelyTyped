@@ -182,6 +182,8 @@ colDef.cellClick = (_e: UIEvent, cell) => {
 
 colDef.formatterParams = { stars: 3 };
 
+colDef.formatterParams = { url: (cell) => `${cell.getValue()}` };
+
 colDef.editorParams = {};
 colDef.editorParams = {
     values: [

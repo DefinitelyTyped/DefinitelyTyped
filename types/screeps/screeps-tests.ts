@@ -51,9 +51,12 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     type StoreStructure = StructureContainer | StructureStorage | StructureLink;
-    const storeID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
-    const stringID: string = storeID; // Id<T> assignable implicitly to string
-    const storeObject = Game.getObjectById(storeID)!;
+    const storeUnionID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
+    const storeIdUnion: StoreStructure["id"] = "1234" as StoreStructure["id"];
+    const stringID: string = storeUnionID; // Id<T> assignable implicitly to string
+    const stringID2: string = storeIdUnion; // Id<T> assignable implicitly to string
+    const storeObject = Game.getObjectById(storeUnionID)!;
+    const storeObject2 = Game.getObjectById(storeIdUnion)!;
 
     // Object recognized
     switch (storeObject.structureType) {
@@ -152,6 +155,12 @@ function resources(o: GenericStore): ResourceConstant[] {
 
         creep = new StructureSpawn.Spawning("" as Id<Spawning>);
         creep = StructureSpawn.Spawning("" as Id<Spawning>);
+
+        const invaderCore = new StructureInvaderCore("" as Id<StructureInvaderCore>);
+        const invader = invaderCore.spawning;
+        if (invader) {
+            const name = invader.name;
+        }
     }
 }
 
@@ -234,6 +243,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     const exits = Game.map.describeExits("W8N3");
+    // tslint:disable-next-line:newline-per-chained-call
     keys(exits).map(exitKey => {
         const nextRoom = exits[exitKey];
         const exitDir = +exitKey as ExitConstant;
@@ -420,6 +430,10 @@ function resources(o: GenericStore): ResourceConstant[] {
     const avgPrice: number = priceHistory[0].avgPrice;
     const stddevPrice: number = priceHistory[0].stddevPrice;
     const volume: number = priceHistory[0].volume;
+
+    // Game.market.getHistory([resourceType])
+    const energyHistory = Game.market.getHistory(RESOURCE_ENERGY);
+    const pixelHistory = Game.market.getHistory(PIXEL);
 }
 
 // PathFinder
@@ -427,6 +441,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const pfCreep = Game.creeps.John;
 
+    // tslint:disable-next-line:newline-per-chained-call
     const goals = pfCreep.room.find(FIND_SOURCES).map(source => {
         // We can't actually walk on sources-- set `range` to 1
         // so we path next to it.
@@ -449,6 +464,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             }
             const costs = new PathFinder.CostMatrix();
 
+            // tslint:disable-next-line:newline-per-chained-call
             curRoom.find(FIND_STRUCTURES).forEach(struct => {
                 if (struct.structureType === STRUCTURE_ROAD) {
                     // Favor roads over plain tiles
@@ -463,6 +479,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             });
 
             // Avoid creeps in the room
+            // tslint:disable-next-line:newline-per-chained-call
             curRoom.find(FIND_CREEPS).forEach(thisCreep => {
                 costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
             });
@@ -563,6 +580,14 @@ function resources(o: GenericStore): ResourceConstant[] {
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     sites[0].remove();
 
+    const extensionsites = room.find(FIND_CONSTRUCTION_SITES, {
+        filter: (site): site is ConstructionSite<STRUCTURE_EXTENSION> => {
+            return site.structureType === STRUCTURE_EXTENSION;
+        },
+    });
+    // Should always be true. needs proper testing
+    extensionsites[0].structureType === STRUCTURE_EXTENSION;
+
     // Should have type (_HasRoomPosition | RoomPosition)[]
     const exits = room.find(FIND_EXIT);
 
@@ -579,6 +604,19 @@ function resources(o: GenericStore): ResourceConstant[] {
     towers[0].attack(powerCreep);
     towers[0].attack(spawns[0]);
     towers[0].heal(powerCreep);
+
+    const isTower = (structure: AnyStructure): structure is StructureTower => {
+        return structure.structureType === STRUCTURE_TOWER;
+    };
+
+    const tower = room.find(FIND_MY_STRUCTURES, {
+        filter: isTower,
+    })[0];
+    tower.attack(creeps[0]);
+    tower.attack(creeps[0] as AnyCreep);
+    tower.attack(powerCreep);
+    tower.attack(spawns[0]);
+    tower.heal(powerCreep);
 }
 
 // RoomPosition Finds
@@ -599,6 +637,22 @@ function resources(o: GenericStore): ResourceConstant[] {
     if (tower !== null) {
         tower.attack(creep);
         tower.attack(powerCreep);
+    }
+
+    // Generic type predicate filter
+    const isStructureType = <T extends StructureConstant, S extends ConcreteStructure<T>>(structureType: T) => {
+        return (structure: AnyStructure): structure is S => {
+            return structure.structureType === structureType;
+        };
+    };
+
+    const tower2 = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
+        filter: isStructureType(STRUCTURE_TOWER),
+        algorithm: "astar",
+    });
+    if (tower2 !== null) {
+        tower2.attack(creep);
+        tower2.attack(powerCreep);
     }
 
     const creepWithEnergy = creep.pos.findClosestByPath(creep.room.find(FIND_CREEPS), { filter: c => c.store.energy > 0 });

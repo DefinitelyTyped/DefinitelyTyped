@@ -1,1 +1,3 @@
-export { Send24 as default } from "../../";
+import { Send24 } from "../../";
+
+export = Send24;

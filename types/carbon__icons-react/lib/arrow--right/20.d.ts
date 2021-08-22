@@ -1,1 +1,3 @@
-export { ArrowRight20 as default } from "../../";
+import { ArrowRight20 } from "../../";
+
+export = ArrowRight20;

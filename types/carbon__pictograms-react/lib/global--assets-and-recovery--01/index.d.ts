@@ -1,1 +1,3 @@
-export { GlobalAssetsAndRecovery_01 as default } from "../../";
+import { GlobalAssetsAndRecovery_01 } from "../../";
+
+export = GlobalAssetsAndRecovery_01;

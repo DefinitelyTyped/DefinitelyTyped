@@ -1,1 +1,3 @@
-export { SteeringWheel as default } from "../../";
+import { SteeringWheel } from "../../";
+
+export = SteeringWheel;

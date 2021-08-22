@@ -1,1 +1,3 @@
-export { HelpDesk32 as default } from "../../";
+import { HelpDesk32 } from "../../";
+
+export = HelpDesk32;

@@ -1,1 +1,3 @@
-export { ToolOverload as default } from "../../";
+import { ToolOverload } from "../../";
+
+export = ToolOverload;

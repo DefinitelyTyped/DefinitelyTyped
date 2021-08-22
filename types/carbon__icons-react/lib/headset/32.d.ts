@@ -1,1 +1,3 @@
-export { Headset32 as default } from "../../";
+import { Headset32 } from "../../";
+
+export = Headset32;

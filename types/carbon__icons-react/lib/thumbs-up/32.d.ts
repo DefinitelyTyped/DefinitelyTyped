@@ -1,1 +1,3 @@
-export { ThumbsUp32 as default } from "../../";
+import { ThumbsUp32 } from "../../";
+
+export = ThumbsUp32;

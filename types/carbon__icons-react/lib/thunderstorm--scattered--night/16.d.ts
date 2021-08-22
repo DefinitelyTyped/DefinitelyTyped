@@ -1,1 +1,3 @@
-export { ThunderstormScatteredNight16 as default } from "../../";
+import { ThunderstormScatteredNight16 } from "../../";
+
+export = ThunderstormScatteredNight16;

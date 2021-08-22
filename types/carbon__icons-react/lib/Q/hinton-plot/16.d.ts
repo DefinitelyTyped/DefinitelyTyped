@@ -1,1 +1,3 @@
-export { QHintonPlot16 as default } from "../../../";
+import { QHintonPlot16 } from "../../../";
+
+export = QHintonPlot16;

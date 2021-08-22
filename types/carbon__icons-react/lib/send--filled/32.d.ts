@@ -1,1 +1,3 @@
-export { SendFilled32 as default } from "../../";
+import { SendFilled32 } from "../../";
+
+export = SendFilled32;

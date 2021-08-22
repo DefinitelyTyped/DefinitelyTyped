@@ -1,1 +1,3 @@
-export { Smoke16 as default } from "../../";
+import { Smoke16 } from "../../";
+
+export = Smoke16;

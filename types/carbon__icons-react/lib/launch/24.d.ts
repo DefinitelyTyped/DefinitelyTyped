@@ -1,1 +1,3 @@
-export { Launch24 as default } from "../../";
+import { Launch24 } from "../../";
+
+export = Launch24;

@@ -1,1 +1,3 @@
-export { Ppt32 as default } from "../../";
+import { Ppt32 } from "../../";
+
+export = Ppt32;

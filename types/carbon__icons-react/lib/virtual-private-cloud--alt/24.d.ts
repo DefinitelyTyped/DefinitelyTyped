@@ -1,1 +1,3 @@
-export { VirtualPrivateCloudAlt24 as default } from "../../";
+import { VirtualPrivateCloudAlt24 } from "../../";
+
+export = VirtualPrivateCloudAlt24;

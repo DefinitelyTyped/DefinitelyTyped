@@ -1,1 +1,3 @@
-export { Quotes32 as default } from "../../";
+import { Quotes32 } from "../../";
+
+export = Quotes32;

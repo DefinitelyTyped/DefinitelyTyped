@@ -4,21 +4,21 @@ import { Sizes } from 'react-bootstrap';
 declare namespace Nav {
     export interface NavProps extends React.HTMLProps<Nav> {
         // Optional
-        activeHref?: string;
+        activeHref?: string | undefined;
         activeKey?: any;
-        bsSize?: Sizes;
-        bsStyle?: string;
-        bsClass?: string;
-        collapsible?: boolean;
+        bsSize?: Sizes | undefined;
+        bsStyle?: string | undefined;
+        bsClass?: string | undefined;
+        collapsible?: boolean | undefined;
         eventKey?: any;
-        expanded?: boolean;
-        justified?: boolean;
-        navbar?: boolean;
-        pullRight?: boolean;
-        right?: boolean;
-        stacked?: boolean;
-        ulClassName?: string;
-        ulId?: string;
+        expanded?: boolean | undefined;
+        justified?: boolean | undefined;
+        navbar?: boolean | undefined;
+        pullRight?: boolean | undefined;
+        right?: boolean | undefined;
+        stacked?: boolean | undefined;
+        ulClassName?: string | undefined;
+        ulId?: string | undefined;
     }
 }
 declare class Nav extends React.Component<Nav.NavProps> { }

@@ -1,1 +1,3 @@
-export { Stamp32 as default } from "../../";
+import { Stamp32 } from "../../";
+
+export = Stamp32;

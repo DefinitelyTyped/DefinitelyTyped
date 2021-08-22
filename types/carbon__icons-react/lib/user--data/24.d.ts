@@ -1,1 +1,3 @@
-export { UserData24 as default } from "../../";
+import { UserData24 } from "../../";
+
+export = UserData24;

@@ -1,1 +1,3 @@
-export { Debug32 as default } from "../../";
+import { Debug32 } from "../../";
+
+export = Debug32;

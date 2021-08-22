@@ -1,1 +1,3 @@
-export { Crop16 as default } from "../../";
+import { Crop16 } from "../../";
+
+export = Crop16;

@@ -1,1 +1,3 @@
-export { AppSwitcher16 as default } from "../../";
+import { AppSwitcher16 } from "../../";
+
+export = AppSwitcher16;

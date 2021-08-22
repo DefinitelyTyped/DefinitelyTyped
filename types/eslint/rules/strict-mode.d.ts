@@ -1,4 +1,4 @@
-import { Linter } from '../index';
+import { Linter } from "../index";
 
 export interface StrictMode extends Linter.RulesRecord {
     /**
@@ -7,7 +7,5 @@ export interface StrictMode extends Linter.RulesRecord {
      * @since 0.1.0
      * @see https://eslint.org/docs/rules/strict
      */
-    'strict': Linter.RuleEntry<[
-        'safe' | 'global' | 'function' | 'never'
-    ]>;
+    strict: Linter.RuleEntry<["safe" | "global" | "function" | "never"]>;
 }

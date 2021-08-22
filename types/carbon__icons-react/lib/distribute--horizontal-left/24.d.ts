@@ -1,1 +1,3 @@
-export { DistributeHorizontalLeft24 as default } from "../../";
+import { DistributeHorizontalLeft24 } from "../../";
+
+export = DistributeHorizontalLeft24;
