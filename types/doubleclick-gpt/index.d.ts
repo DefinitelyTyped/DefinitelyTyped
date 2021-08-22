@@ -30,29 +30,29 @@ declare namespace googletag {
 
     interface Service {
         addEventListener(
-          eventType: "slotRenderEnded",
+            eventType: "slotRenderEnded",
             listener: (event: events.SlotRenderEndedEvent) => void
         ): Service;
         addEventListener(
             eventType: "slotRequested",
-              listener: (event: events.SlotRequestedEvent) => void
+            listener: (event: events.SlotRequestedEvent) => void
         ): Service;
         addEventListener(
             eventType: "slotResponseReceived",
-              listener: (event: events.SlotResponseReceived) => void
+            listener: (event: events.SlotResponseReceived) => void
         ): Service;
         addEventListener(
-          eventType: "slotVisibilityChanged",
+            eventType: "slotVisibilityChanged",
             listener: (event: events.SlotVisibilityChangedEvent) => void
         ): Service;
         addEventListener(
-          eventType: string,
+            eventType: string,
             listener: (event: events.Event) => void
         ): Service;
         getSlots(): Slot[];
         removeEventListener(
             eventType: "slotRenderEnded",
-              listener: (event: events.SlotRenderEndedEvent) => void
+            listener: (event: events.SlotRenderEndedEvent) => void
           ): Service;
         removeEventListener(
             eventType: "slotRequested",
@@ -63,11 +63,11 @@ declare namespace googletag {
             listener: (event: events.SlotResponseReceived) => void
         ): Service;
         removeEventListener(
-        eventType: "slotVisibilityChanged",
+            eventType: "slotVisibilityChanged",
             listener: (event: events.SlotVisibilityChangedEvent) => void
         ): Service;
         removeEventListener(
-        eventType: string,
+            eventType: string,
             listener: (event: events.Event) => void
         ): Service;
     }
