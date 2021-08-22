@@ -1,7 +1,7 @@
 import freeport = require('freeport');
 
 let num: number;
-let error: Error;
+let error: Error | null;
 
 freeport((err, made) => {
     error = err;
