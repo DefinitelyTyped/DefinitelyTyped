@@ -8,13 +8,13 @@ export = ext;
 
 declare namespace ext {
     // function( edge ){ return 1; }
-    type EdgeAssessmentFunction = (edge: cytoscape.EdgeCollection) => number;
+    type EdgeAssessmentFunction = (edge: cytoscape.EdgeSingular) => number;
 
     // function( node, i ){ return true; },
-    type AnimationFilterFunction = (node: cytoscape.NodeCollection, i: number) => boolean;
+    type AnimationFilterFunction = (node: cytoscape.NodeSingular, i: number) => boolean;
 
     // function( node, pos ){ return pos; }
-    type TransformFunction = (node: cytoscape.NodeCollection, pos: cytoscape.Position) => cytoscape.Position;
+    type TransformFunction = (node: cytoscape.NodeSingular, pos: cytoscape.Position) => cytoscape.Position;
 
     interface DagreLayoutOptions extends cytoscape.ShapedLayoutOptions {
         name: 'dagre';
