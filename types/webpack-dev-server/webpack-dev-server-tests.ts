@@ -3,16 +3,19 @@ import WebpackDevServer = require('webpack-dev-server');
 const compiler = webpack({});
 
 // basic example
-const server1 = new WebpackDevServer({
-    devMiddleware: {
-        publicPath: '/assets/'
-    }
-}, compiler);
+const server1 = new WebpackDevServer(
+    {
+        devMiddleware: {
+            publicPath: '/assets/',
+        },
+    },
+    compiler,
+);
 server1.startCallback(() => {
     console.info('started basic server...');
     server1.stopCallback(() => {
         console.log('stopped basic server.');
-    })
+    });
 });
 
 // Configuration can be used as a type
@@ -27,14 +30,14 @@ const config: WebpackDevServer.Configuration = {
 
     client: {
         webSocketURL: {
-            hostname: "0.0.0.0",
-            pathname: "/ws",
+            hostname: '0.0.0.0',
+            pathname: '/ws',
             port: 8080,
         },
         // webSocketURL: 'auto://0.0.0.0:0/ws'
     },
 
-    allowedHosts: "all",
+    allowedHosts: 'all',
     // Disable public host check, use it carefully
 
     hot: true,
@@ -91,7 +94,7 @@ const config: WebpackDevServer.Configuration = {
 
 const c2: WebpackDevServer.Configuration = {
     static: {
-        publicPath: ['/serve-content-base-at-this-url/1', '/serve-content-base-at-this-url/2']
+        publicPath: ['/serve-content-base-at-this-url/1', '/serve-content-base-at-this-url/2'],
     },
     devMiddleware: {
         stats: false,
@@ -103,12 +106,12 @@ const c2: WebpackDevServer.Configuration = {
 const c3: WebpackDevServer.Configuration = {
     devMiddleware: {
         stats: 'verbose',
-    }
+    },
 };
 const c4: WebpackDevServer.Configuration = {
     devMiddleware: {
         writeToDisk: (filePath: string) => true,
-    }
+    },
 };
 const c5: WebpackDevServer.Configuration = {
     proxy: [{ context: (pathname: string) => true }],
@@ -147,22 +150,24 @@ server2.startCallback(() => {
     });
 });
 
-
 // HTTPS example
-const server3 = new WebpackDevServer({
-    devMiddleware: {
-        publicPath: '/assets/'
+const server3 = new WebpackDevServer(
+    {
+        devMiddleware: {
+            publicPath: '/assets/',
+        },
+        https: true,
+        port: 8082,
     },
-    https: true,
-    port: 8082,
-}, compiler);
+    compiler,
+);
 
 server3.startCallback(() => {
     console.info('started https server...');
     server3.stopCallback(() => {
         console.log('stopped https server.');
-    })
-})
+    });
+});
 
 const webpackConfig: webpack.Configuration = {
     context: __dirname,
@@ -178,10 +183,11 @@ const multipleCompiler = webpack([
     {
         ...webpackConfig,
         devServer: { ...webpackConfig.devServer, port: 8083 },
-    }, {
+    },
+    {
         ...webpackConfig,
         devServer: { ...webpackConfig.devServer, port: 8084 },
-    }
+    },
 ]);
 
 // multiple compilers
