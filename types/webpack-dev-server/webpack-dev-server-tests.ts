@@ -1,29 +1,40 @@
 import webpack = require('webpack');
 import WebpackDevServer = require('webpack-dev-server');
-import { Application } from 'express';
 const compiler = webpack({});
-const multipleCompiler = webpack([]);
 
 // basic example
-let server = new WebpackDevServer(compiler, {
-    publicPath: '/assets/',
+const server1 = new WebpackDevServer({
+    devMiddleware: {
+        publicPath: '/assets/'
+    }
+}, compiler);
+server1.startCallback(() => {
+    console.info('started basic server...');
+    server1.stopCallback(() => {
+        console.log('stopped basic server.');
+    })
 });
-server.listen(8080);
 
 // Configuration can be used as a type
 const config: WebpackDevServer.Configuration = {
-    // webpack-dev-server options
-    inline: true,
-    // Toggle between the dev-server's two different modes --- inline (default, recommended for HMR) or iframe.
+    static: {
+        directory: '/path/to/directory',
+        // or: directory: "http://localhost/",
+        publicPath: '/serve-content-base-at-this-url',
+        // pass [static options](http://expressjs.com/en/4x/api.html#express.static) to inner express server
+        staticOptions: {},
+    },
 
-    contentBase: '/path/to/directory',
-    // or: contentBase: "http://localhost/",
-    contentBasePublicPath: '/serve-content-base-at-this-url',
+    client: {
+        webSocketURL: {
+            hostname: "0.0.0.0",
+            pathname: "/ws",
+            port: 8080,
+        },
+        // webSocketURL: 'auto://0.0.0.0:0/ws'
+    },
 
-    public: 'public-host.ru',
-    // Public host for server
-
-    disableHostCheck: true,
+    allowedHosts: "all",
     // Disable public host check, use it carefully
 
     hot: true,
@@ -35,6 +46,8 @@ const config: WebpackDevServer.Configuration = {
     // Set this as true if you want to access dev server from arbitrary url.
     // This is handy if you are using a html5 router.
     historyApiFallback: false,
+
+    https: true,
 
     // Set this if you want to enable gzip compression for assets
     compress: true,
@@ -48,36 +61,27 @@ const config: WebpackDevServer.Configuration = {
         '*': { logLevel: 'debug' },
     },
 
-    setup: (app: Application, server: WebpackDevServer) => {
-        // Here you can access the Express app object and add your own custom middleware to it.
-        // For example, to define custom handlers for some paths:
-        app.get('/some/path', (req, res) => {
-            res.json({ custom: 'response' });
-        });
-    },
+    devMiddleware: {
+        stats: {
+            assets: '/assets/',
+            warningsFilter: /1/,
 
-    // pass [static options](http://expressjs.com/en/4x/api.html#express.static) to inner express server
-    staticOptions: {},
-
-    stats: {
-        assets: false,
-        warningsFilter: /1/,
+            // webpack-dev-middleware options
+            quiet: false,
+            noInfo: false,
+            lazy: true,
+            filename: 'bundle.js',
+            watchOptions: {
+                aggregateTimeout: 300,
+                poll: 1000,
+            },
+            writeToDisk: true,
+            // It's a required option.
+            publicPath: '/assets/',
+            headers: { 'X-Custom-Header': 'yes' },
+            open: true,
+        },
     },
-
-    // webpack-dev-middleware options
-    quiet: false,
-    noInfo: false,
-    lazy: true,
-    filename: 'bundle.js',
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000,
-    },
-    writeToDisk: true,
-    // It's a required option.
-    publicPath: '/assets/',
-    headers: { 'X-Custom-Header': 'yes' },
-    open: true,
 
     // https://webpack.js.org/configuration/dev-server/#devserveronlistening
     onListening(server) {
@@ -86,17 +90,25 @@ const config: WebpackDevServer.Configuration = {
 };
 
 const c2: WebpackDevServer.Configuration = {
-    contentBasePublicPath: ['/serve-content-base-at-this-url/1', '/serve-content-base-at-this-url/2'],
-    stats: false,
+    static: {
+        publicPath: ['/serve-content-base-at-this-url/1', '/serve-content-base-at-this-url/2']
+    },
+    devMiddleware: {
+        stats: false,
+    },
     open: {
         app: ['Google Chrome', '--incognito', '--other-flag'],
     },
 };
 const c3: WebpackDevServer.Configuration = {
-    stats: 'verbose',
+    devMiddleware: {
+        stats: 'verbose',
+    }
 };
 const c4: WebpackDevServer.Configuration = {
-    writeToDisk: (filePath: string) => true,
+    devMiddleware: {
+        writeToDisk: (filePath: string) => true,
+    }
 };
 const c5: WebpackDevServer.Configuration = {
     proxy: [{ context: (pathname: string) => true }],
@@ -122,24 +134,35 @@ const c6: WebpackDevServer.Configuration = {
 };
 
 // API example
-server = new WebpackDevServer(compiler, config);
-server.listen(8080, 'localhost', () => {});
+const server2 = new WebpackDevServer({ ...config, port: 8081 }, compiler);
+server2.startCallback(() => {
+    console.log('started API example server...');
 
-// test the socket writer
-server.sockWrite(server.sockets, 'type1');
-server.sockWrite(server.sockets, 'type2', { message: 'OK' });
+    // test the socket writer
+    server2.sendMessage(server2.sockets, 'type1');
+    server2.sendMessage(server2.sockets, 'type2', { message: 'OK' });
 
-server.close();
-
-// HTTPS example
-server = new WebpackDevServer(compiler, {
-    publicPath: '/assets/',
-    https: true,
+    server2.stopCallback(() => {
+        console.log('stopped API example server...');
+    });
 });
 
-server.listen(8080, 'localhost', () => {});
 
-server.close();
+// HTTPS example
+const server3 = new WebpackDevServer({
+    devMiddleware: {
+        publicPath: '/assets/'
+    },
+    https: true,
+    port: 8082,
+}, compiler);
+
+server3.startCallback(() => {
+    console.info('started https server...');
+    server3.stopCallback(() => {
+        console.log('stopped https server.');
+    })
+})
 
 const webpackConfig: webpack.Configuration = {
     context: __dirname,
@@ -151,21 +174,15 @@ const webpackConfig: webpack.Configuration = {
     devServer: config,
 };
 
-WebpackDevServer.addDevServerEntrypoints(webpackConfig, {
-    publicPath: '/assets/',
-    https: true,
-});
-
-WebpackDevServer.addDevServerEntrypoints(
-    [webpackConfig],
+const multipleCompiler = webpack([
     {
-        publicPath: '/assets/',
-        https: true,
-    },
-    {
-        address: () => ({ port: 80 }),
-    },
-);
+        ...webpackConfig,
+        devServer: { ...webpackConfig.devServer, port: 8083 },
+    }, {
+        ...webpackConfig,
+        devServer: { ...webpackConfig.devServer, port: 8084 },
+    }
+]);
 
 // multiple compilers
-server = new WebpackDevServer(multipleCompiler, config);
+const _server = new WebpackDevServer(config, multipleCompiler);
