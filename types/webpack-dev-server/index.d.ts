@@ -321,6 +321,7 @@ declare class WebpackDevServer {
     sockets: NodeJS.EventEmitter[];
 
     constructor(config: WebpackDevServer.Configuration, webpack: webpack.Compiler | webpack.MultiCompiler);
+    constructor(webpack: webpack.Compiler | webpack.MultiCompiler);
 
     // deprecated
     listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
