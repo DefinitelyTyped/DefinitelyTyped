@@ -123,6 +123,7 @@ function message_more_advanced_fields_test() {
         headers: {
             'My-Custom-Header': 'header value',
         },
+        replyTo: ['foobar@blurdybloop.com', '"Ноде Майлер" <bar@blurdybloop.com>', '"Name, User" <baz@blurdybloop.com>'],
         date: new Date('2000-01-01 00:00:00'),
     };
 
@@ -229,7 +230,7 @@ function message_address_object_test() {
                 name: 'Майлер, Ноде',
                 address: 'foobar@blurdybloop.com',
             },
-        ],
+        ]
     };
 }
 
