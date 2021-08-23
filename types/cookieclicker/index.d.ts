@@ -2259,7 +2259,7 @@ declare namespace Game {
          */
         // The TSLint disable is for the generic, which is a hack required for real use-cases some cases
         // tslint:disable-next-line
-        power: number | (<T extends Upgrade = this>(me: T) => number);
+        power: number | ((me: this) => number);
         /**
          * The price of the upgrade, this is visual only, so the lump spending must be manually implemented
          */
@@ -2453,11 +2453,11 @@ declare namespace Game {
      * A generic tiered upgrade, which represents any upgrade which has a tier, mouses, cursors, kittens, etc,
      * (Different from `TieredUpgradeClass`, since that interface only applies to building tiered upgrades, names based from the original Cookie Clicker code)
      */
-    export interface GenericTieredUpgrade<Tier extends string | number = string | number> extends Upgrade {
+    export interface GenericTieredUpgrade<Tier extends string | number = any> extends Upgrade {
         pool: '';
         tier: Tier;
     }
-    export interface KittenUpgrade<Tier extends string | number = string | number> extends GenericTieredUpgrade<Tier> {
+    export interface KittenUpgrade<Tier extends string | number = any> extends GenericTieredUpgrade<Tier> {
         // Pseudo-true
         kitten: 1 | true;
     }
@@ -2465,8 +2465,7 @@ declare namespace Game {
      * A tiered upgrade which represents any upgrade which upgrades a building
      * (Different from `GenericTieredUpgrade`, since that interface applies to all upgrades which are tiered, names based from the original Cookie Clicker code)
      */
-    export interface TieredUpgradeClass<Tier extends string | number = string | number>
-        extends GenericTieredUpgrade<Tier> {
+    export interface TieredUpgradeClass<Tier extends string | number = any> extends GenericTieredUpgrade<Tier> {
         buildingTie1: GameObject;
         buildingTie: GameObject;
     }
@@ -2778,7 +2777,7 @@ declare namespace Game {
      * @param what The name of the achievement
      */
     export function HasAchiev(what: string): PseudoBoolean;
-    export interface TieredAchievementClass<Tier extends string | number = string | number> extends Achievement {
+    export interface TieredAchievementClass<Tier extends string | number = any> extends Achievement {
         tier: Tier;
         buildingTie: GameObject;
     }
