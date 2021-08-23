@@ -114,8 +114,10 @@ const config: WebpackDevServer.Configuration = {
 
 const c2: WebpackDevServer.Configuration = {
     // Host and port are required options to correct work.
-    host: 'localhost',
-    port: 8080,
+    host: 'local-ip',
+    port: 'auto',
+
+    allowedHosts: ['host.com', 'subdomain.host.com', 'subdomain2.host.com', 'host2.com'],
 
     client: {
         progress: true,
@@ -156,10 +158,11 @@ const c2: WebpackDevServer.Configuration = {
             usePolling: false,
         },
     },
+    webSocketServer: 'ws',
 };
 const c3: WebpackDevServer.Configuration = {
     // Host and port are required options to correct work.
-    host: 'localhost',
+    host: '127.0.0.1',
     port: 8080,
 
     devMiddleware: {

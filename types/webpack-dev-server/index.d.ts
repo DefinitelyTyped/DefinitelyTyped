@@ -33,7 +33,7 @@ declare namespace WebpackDevServer {
          * Allows to set log level in the browser, e.g. before reloading,
          * before an error or when Hot Module Replacement is enabled.
          */
-        logging?: string | undefined;
+        logging?: 'log' | 'info' | 'warn' | 'error' | 'none' | 'verbose' | undefined;
         /**
          * Shows a full-screen overlay in the browser when there are compiler
          * errors or warnings. Disabled by default.
@@ -48,12 +48,12 @@ declare namespace WebpackDevServer {
         /**
          *  Prints compilation progress in percentage in the browser.
          */
-        progress?: boolean;
+        progress?: boolean | undefined;
         /**
          * This option allows us either to choose the current web-socket server
          * or to provide custom web-socket server implementation.
          */
-        webSocketTransport?: string | undefined;
+        webSocketTransport?: 'ws' | 'sockjs' | string | undefined;
         /**
          * This option allows to specify URL to web socket server (useful when
          * you're proxying dev server and client script does not always know
@@ -182,11 +182,11 @@ declare namespace WebpackDevServer {
         /**
          * Specify a host to use. By default this is localhost.
          */
-        host?: string | undefined;
+        host?: 'local-ip' | 'local-ipv4' | 'local-ipv6' | string | undefined;
         /**
          * Enable webpack's Hot Module Replacement feature.
          */
-        hot?: boolean | 'only'| undefined;
+        hot?: 'only' | boolean | undefined;
         /**
          * Serve over HTTP/2 using spdy. This option is ignored for Node 10.0.0
          * and above, as spdy is broken for those versions. The dev server will
@@ -226,7 +226,7 @@ declare namespace WebpackDevServer {
         /** When open is enabled, the dev server will open the browser. */
         open?: boolean | string | string[] | Open | Open[] | undefined;
         /** Specify a port number to listen for requests on. */
-        port?: string | number | undefined;
+        port?: 'auto' | string | number | undefined;
         /**
          * Proxying some URLs can be useful when you have a separate API
          * backend development server and you want to send API requests on the
@@ -251,7 +251,7 @@ declare namespace WebpackDevServer {
          * This options allows to configure options for serving static files
          * from directory (by default 'public' directory).
          */
-        static?: Static | boolean;
+        static?: boolean | Static | undefined;
         /**
          * This option allows you to configure list of globs/directories/files
          * to watch for file changes.
@@ -261,7 +261,7 @@ declare namespace WebpackDevServer {
          * This option allows us either to choose the current web-socket server
          * or to provide custom web-socket server implementation.
          */
-        webSocketServer?: boolean | string | (() => void) | Record<string, any>;
+        webSocketServer?: boolean | 'sockjs' | 'ws' | string | (() => void) | Record<string, any>;
     }
 }
 
