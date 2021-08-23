@@ -28,6 +28,7 @@ pinoHttp({ genReqId: req => Buffer.allocUnsafe(16) });
 pinoHttp({ useLevel: 'error' });
 pinoHttp({ prettyPrint: true });
 pinoHttp({ autoLogging: false });
+pinoHttp({ autoLogging: { ignore: req => req.headers['user-agent'] === 'ELB-HealthChecker/2.0' } });
 pinoHttp({ autoLogging: { ignorePaths: ['/health'] } });
 pinoHttp({ autoLogging: { ignorePaths: [/\/health/] } });
 pinoHttp({ autoLogging: { ignorePaths: ['/health'], getPath: req => req.url } });
