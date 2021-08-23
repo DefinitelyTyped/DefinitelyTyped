@@ -217,10 +217,40 @@ upcastHelper = new UpcastHelpers([new UpcastDispatcher()]).add(() => {});
 // $ExpectError
 upcastHelper = new UpcastHelpers([new DowncastDispatcher()]);
 upcastHelper = upcastHelper.add(() => {});
+upcastHelper.attributeToAttribute({
+    view: "foo",
+    model: "bar",
+    converterPriority: 5,
+});
+upcastHelper.attributeToAttribute({
+    view: "foo",
+    model: "bar",
+    converterPriority: "low",
+});
 let downcastHelper: DowncastHelpers = conversion.for("downcast");
 downcastHelper = conversion.for("dataDowncast");
 downcastHelper = conversion.for("editingDowncast");
 downcastHelper = downcastHelper.add(() => {});
+downcastHelper.attributeToAttribute({
+    model: "foo",
+    view: "bar",
+    converterPriority: 5,
+});
+downcastHelper.attributeToAttribute({
+    model: "foo",
+    view: "bar",
+    converterPriority: "low",
+});
+downcastHelper.markerToElement({
+    model: "foo",
+    view: "bar",
+    converterPriority: 5,
+});
+downcastHelper.markerToElement({
+    model: "foo",
+    view: "bar",
+    converterPriority: "low",
+});
 
 const dataProcessor = new HtmlDataProcessor(viewDocument);
 viewDocumentFragment = dataProcessor.toView("") as ViewDocumentFragment;
