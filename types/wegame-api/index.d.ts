@@ -2154,15 +2154,15 @@ declare namespace wx {
             /**
              * 广告单元 id
              */
-            adUnitId: string,
+            adUnitId: string;
             /**
              * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
              */
-            adIntervals?: number | undefined,
+            adIntervals?: number | undefined;
             /**
              * banner 广告组件的样式
              */
-            style: types.AdStyle
+            style: AdStyle;
         }
 
         interface VideoAdParams {
@@ -2180,7 +2180,7 @@ declare namespace wx {
             /**
              * 广告单元 id
              */
-            adUnitId: string
+            adUnitId: string;
         }
 
         interface GridAdParam {
@@ -2195,7 +2195,7 @@ declare namespace wx {
             /**
              * grid(格子) 广告组件的样式
              */
-            style: types.AdStyle;
+            style: AdStyle;
             /**
              * grid(格子) 广告广告组件的主题，提供 white black 两种主题选择。
              */
@@ -2218,7 +2218,7 @@ declare namespace wx {
             /**
              * 原生模板广告组件的样式
              */
-            style: types.CustomAdStyle;
+            style: CustomAdStyle;
         }
     }
 
@@ -3719,7 +3719,7 @@ declare namespace wx {
          * 在worker被回收后可重新创建一个。
          */
         useExperimentalWorker?: boolean | undefined
-    } | undefined): WxWorker;
+    }): WxWorker;
 
     // --音频
     /**
@@ -4026,7 +4026,7 @@ declare namespace wx {
     /**
      * 退出（销毁）实时语音通话
      */
-    function exitVoIPChat(callbacks?: types.Callbacks | undefined): void;
+    function exitVoIPChat(callbacks?: types.Callbacks): void;
 
     // --广告
     /**
