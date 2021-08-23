@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "electron-store": ">=5.1.0"
+        "electron-store": ">=5.1.0",
+        "@types/got": "^9.6.0"
     }
 }
