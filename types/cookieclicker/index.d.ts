@@ -43,7 +43,7 @@ interface Math {
     /**
      * Changes `Math.random` to output numbers based on the seed
      */
-    seedrandom(seed: string): void;
+    seedrandom(seed?: string): void;
 }
 
 interface CanvasRenderingContext2D {
@@ -424,6 +424,8 @@ declare namespace Game {
          * Does nothing @deprecated
          */
         wobble(): void;
+        tt: Element;
+        tta: Element;
     }
     export let tooltip: Tooltip;
     /**
@@ -647,31 +649,31 @@ declare namespace Game {
     export let cookiesPsByType: Record<string, number>;
     export let cookiesMultByType: Record<string, number>;
     export interface Effects {
-        cps: number;
-        click: number;
-        cursorCps: number;
-        grandmaCps: number;
-        goldenCookieGain: number;
-        goldenCookieFreq: number;
-        goldenCookieDur: number;
-        goldenCookieEffDur: number;
-        wrathCookieGain: number;
-        wrathCookieFreq: number;
-        wrathCookieDur: number;
-        wrathCookieEffDur: number;
-        reindeerGain: number;
-        reindeerFreq: number;
-        reindeerDur: number;
-        itemDrops: number;
-        milk: number;
-        wrinklerSpawn: number;
-        wrinklerEat: number;
-        upgradeCost: number;
-        buildingCost: number;
+        cps?: number | undefined;
+        click?: number | undefined;
+        cursorCps?: number | undefined;
+        grandmaCps?: number | undefined;
+        goldenCookieGain?: number | undefined;
+        goldenCookieFreq?: number | undefined;
+        goldenCookieDur?: number | undefined;
+        goldenCookieEffDur?: number | undefined;
+        wrathCookieGain?: number | undefined;
+        wrathCookieFreq?: number | undefined;
+        wrathCookieDur?: number | undefined;
+        wrathCookieEffDur?: number | undefined;
+        reindeerGain?: number | undefined;
+        reindeerFreq?: number | undefined;
+        reindeerDur?: number | undefined;
+        itemDrops?: number | undefined;
+        milk?: number | undefined;
+        wrinklerSpawn?: number | undefined;
+        wrinklerEat?: number | undefined;
+        upgradeCost?: number | undefined;
+        buildingCost?: number | undefined;
     }
     export let effs: Effects;
 
-    export function eff(name: string, def: string): Effects;
+    export function eff(name: string, def: number): number;
 
     export function CalculateGains(): void;
 
@@ -807,7 +809,7 @@ declare namespace Game {
 
     export function NotesDraw(): void;
 
-    export function Notify(title: string, desc?: string, pic?: Icon, quick?: number, noLog?: boolean): void;
+    export function Notify(title: string, desc: string, pic?: Icon, quick?: number, noLog?: boolean): void;
     export let darkenL: HTMLDivElement;
     export let promptL: HTMLDivElement;
     export let promptAnchorL: HTMLDivElement;
@@ -1869,6 +1871,15 @@ declare namespace Game {
         logic?(): void;
     }
 
+    export interface BuildingArtPicture {
+        frame: number;
+        id: number;
+        pic: string;
+        x: number;
+        y: number;
+        z: number;
+    }
+
     class GameObject {
         /**
          * Creates a new building
@@ -1950,7 +1961,7 @@ declare namespace Game {
          * Sells buildings without refunding the cookies
          * @param amount The amount of buildings to sacrifice
          */
-        sacrafice(amount: number): void;
+        sacrifice(amount: number): void;
         /**
          * The function that gets called on buy
          */
@@ -2111,14 +2122,7 @@ declare namespace Game {
         /**
          * The singular pictures used in the art
          */
-        pics: Array<{
-            frame: number;
-            id: number;
-            pic: string;
-            x: number;
-            y: number;
-            z: number;
-        }>;
+        pics: BuildingArtPicture[];
         single: string;
         plural: string;
 
@@ -2181,7 +2185,7 @@ declare namespace Game {
 
     export function magicCpS(what: unknown): number;
     export let SpecialGrandmaUnlock: number;
-    export let foolObjects: FoolBuilding[];
+    export let foolObjects: Record<string, FoolBuilding>;
 
     export function ClickProduct(what: GameObject): void;
 
@@ -2509,7 +2513,7 @@ declare namespace Game {
      * Computes the multiplier for the building from the upgrades
      */
     export function GetTieredCpsMult(me: GameObject): number;
-    export function UnlockTiered(me: Upgrade): void;
+    export function UnlockTiered(me: GameObject): void;
     /**
      * The list of the names of grandma synergies
      */
@@ -2857,9 +2861,14 @@ declare namespace Game {
         desc: string;
         icon: Icon;
         /**
-         * The amount of time this buff exists for, in frames
+         * The amount of frames this buff will exist for
+         * Decremented by 1 each frame
          */
         time: number;
+        /**
+         * The total length of the buff in frames
+         */
+        maxTime: number;
         /** @deprecated */
         visible?: boolean | undefined;
         /**
@@ -2881,16 +2890,21 @@ declare namespace Game {
          * Rarely used, as of v2.031 only Cursed Finger uses this
          */
         pow?: number | undefined;
+        arg1: number | undefined;
+        arg2: number | undefined;
+        arg3: number | undefined;
+        type: buffType;
+        l: HTMLDivElement;
     }
     export let buffs: Buff[];
     export let buffsN: number;
     export let buffsL: HTMLDivElement;
 
-    export function gainBuff(type: string, time: number, arg1: number, arg2: number, arg3: number): Buff;
+    export function gainBuff(type: string, time: number, arg1?: number, arg2?: number, arg3?: number): Buff;
     /**
      * Returns 0 if there is no buff in effect with this name; else, returns it
      */
-    export function hasBuff(what: string): number | Buff;
+    export function hasBuff(what: string): 0 | Buff;
 
     export function updateBuffs(): void;
     export function killBuff(what: string): void;
@@ -2902,7 +2916,7 @@ declare namespace Game {
     export let buffTypesByName: undefined[] & Record<string, buffType>;
     export let buffTypesN: number;
     export class buffType {
-        constructor(name: string, func: (time: number, arg1?: number, arg2?: number, arg3?: number) => Buff);
+        constructor(name: string, func: (time: number, arg1?: number, arg2?: number, arg3?: number) => Partial<Buff>);
         name: string;
         func: (time: number, arg1?: number, arg2?: number, arg3?: number) => Buff;
         id: number;
@@ -3072,7 +3086,7 @@ declare namespace Game {
         init?: (() => void) | undefined;
         save?: (() => string) | undefined;
         load?: ((data: string) => void) | undefined;
-        id?: number | undefined;
+        id?: string | undefined;
     }
 
     export let mods: Record<string, Mod>;
