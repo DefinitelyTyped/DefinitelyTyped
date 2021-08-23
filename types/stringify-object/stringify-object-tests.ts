@@ -1,35 +1,18 @@
-import stringifyObject = require('stringify-object');
+import stringifyObject, { Options } from 'stringify-object';
+
+const options: Options = {
+    indent: '  ',
+    singleQuotes: false,
+    inlineCharacterLimit: 12,
+    filter: (o, prop) => prop !== '_hidden_',
+    transform: (val, key, value) => value,
+};
 
 stringifyObject({ a: 1, b: 2, c: 3 });
 
 stringifyObject('abc', {
-  indent: '  '
-});
-
-stringifyObject('123', {
-  indent: '  '
-});
-
-stringifyObject(123, {
     indent: '  ',
-    singleQuotes: false
 });
+stringifyObject('abc', options);
 
-stringifyObject([1, 2, 3], {
-    indent: '  ',
-    singleQuotes: false,
-    inlineCharacterLimit: 12
-});
-
-stringifyObject([1, 2, 3], {
-    filter: (o, prop) => prop !== '_hidden_'
-});
-
-stringifyObject([1, 2, 3], {
-    transform: (val, key, value) => value
-});
-
-/** pad */
-stringifyObject([1, 2, 3], {
-    indent: '  ',
-}, ' ');
+stringifyObject([1, 2, 3], options, ' ');
