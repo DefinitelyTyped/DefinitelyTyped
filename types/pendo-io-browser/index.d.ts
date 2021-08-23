@@ -12,7 +12,7 @@ declare namespace pendo {
     }
 
     interface Metadata {
-        [key: string]: string | number | boolean;
+        [key: string]: string | number | boolean | string[];
     }
 
     type IdentityMetadata = { id?: string | undefined; } & Metadata;
