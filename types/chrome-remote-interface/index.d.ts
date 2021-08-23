@@ -184,37 +184,69 @@ declare namespace CDP {
         Runtime: ProtocolProxyApi.RuntimeApi;
         Security: ProtocolProxyApi.SecurityApi;
         Target: ProtocolProxyApi.TargetApi;
+
         // deprecated domains
+        /** @deprecated This domain is deprecated - use Runtime or Log instead. */
         Console: ProtocolProxyApi.ConsoleApi;
+        /** @deprecated This domain is deprecated. */
         Schema: ProtocolProxyApi.SchemaApi;
-        // unstable domains
+
+        // experimental domains
+        /** @deprecated this API is experimental. */
         Accessibility: ProtocolProxyApi.AccessibilityApi;
+        /** @deprecated this API is experimental. */
         Animation: ProtocolProxyApi.AnimationApi;
+        /** @deprecated this API is experimental. */
         ApplicationCache: ProtocolProxyApi.ApplicationCacheApi;
+        /** @deprecated this API is experimental. */
         Audits: ProtocolProxyApi.AuditsApi;
+        /** @deprecated this API is experimental. */
         BackgroundService: ProtocolProxyApi.BackgroundServiceApi;
+        /** @deprecated this API is experimental. */
         CacheStorage: ProtocolProxyApi.CacheStorageApi;
+        /** @deprecated this API is experimental. */
         Cast: ProtocolProxyApi.CastApi;
+        /** @deprecated this API is experimental. */
         CSS: ProtocolProxyApi.CSSApi;
+        /** @deprecated this API is experimental. */
         Database: ProtocolProxyApi.DatabaseApi;
+        /** @deprecated this API is experimental. */
         DeviceOrientation: ProtocolProxyApi.DeviceOrientationApi;
+        /** @deprecated this API is experimental. */
         DOMSnapshot: ProtocolProxyApi.DOMSnapshotApi;
+        /** @deprecated this API is experimental. */
         DOMStorage: ProtocolProxyApi.DOMStorageApi;
+        /** @deprecated this API is experimental. */
         Fetch: ProtocolProxyApi.FetchApi;
+        /** @deprecated this API is experimental. */
         HeadlessExperimental: ProtocolProxyApi.HeadlessExperimentalApi;
+        /** @deprecated this API is experimental. */
         HeapProfiler: ProtocolProxyApi.HeapProfilerApi;
+        /** @deprecated this API is experimental. */
         IndexedDB: ProtocolProxyApi.IndexedDBApi;
+        /** @deprecated this API is experimental. */
         Inspector: ProtocolProxyApi.InspectorApi;
+        /** @deprecated this API is experimental. */
         LayerTree: ProtocolProxyApi.LayerTreeApi;
+        /** @deprecated this API is experimental. */
         Media: ProtocolProxyApi.MediaApi;
+        /** @deprecated this API is experimental. */
         Memory: ProtocolProxyApi.MemoryApi;
+        /** @deprecated this API is experimental. */
         Overlay: ProtocolProxyApi.OverlayApi;
+        /** @deprecated this API is experimental. */
         ServiceWorker: ProtocolProxyApi.ServiceWorkerApi;
+        /** @deprecated this API is experimental. */
         Storage: ProtocolProxyApi.StorageApi;
+        /** @deprecated this API is experimental. */
         SystemInfo: ProtocolProxyApi.SystemInfoApi;
+        /** @deprecated this API is experimental. */
         Tethering: ProtocolProxyApi.TetheringApi;
+        /** @deprecated this API is experimental. */
         Tracing: ProtocolProxyApi.TracingApi;
+        /** @deprecated this API is experimental. */
         WebAudio: ProtocolProxyApi.WebAudioApi;
+        /** @deprecated this API is experimental. */
         WebAuthn: ProtocolProxyApi.WebAuthnApi;
     } & EventPromises<ProtocolMappingApi.Events> & EventCallbacks<ProtocolMappingApi.Events>;
 
