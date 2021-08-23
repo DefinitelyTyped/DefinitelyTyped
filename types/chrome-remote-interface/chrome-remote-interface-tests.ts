@@ -50,9 +50,9 @@ function assertType<T>(value: T): T {
         assertType<Promise<void>>(client.send('Network.enable'));
         assertType<Promise<Protocol.Page.NavigateResponse>>(client.send('Page.navigate', {url: 'https://github.com'}));
         assertType<Promise<Protocol.Page.NavigateResponse>>(client.send('Page.navigate', {url: 'https://github.com'}, 'sessionId'));
-        client.send('Page.navigate', (error: boolean | Error, response: Protocol.Page.NavigateResponse | CDP.SendError | {} | undefined) => {});
-        client.send('Page.navigate', {url: 'https://github.com'}, (error: boolean | Error, response: Protocol.Page.NavigateResponse | CDP.SendError | {} | undefined) => {});
-        client.send('Page.navigate', {url: 'https://github.com'}, 'sessionId', (error: boolean | Error, response: Protocol.Page.NavigateResponse | CDP.SendError | {} | undefined) => {});
+        client.send('Page.navigate', (error: boolean | Error, response: Protocol.Page.NavigateResponse | CDP.SendError | undefined) => {});
+        client.send('Page.navigate', {url: 'https://github.com'}, (error: boolean | Error, response: Protocol.Page.NavigateResponse | CDP.SendError | undefined) => {});
+        client.send('Page.navigate', {url: 'https://github.com'}, 'sessionId', (error: boolean | Error, response: Protocol.Page.NavigateResponse | CDP.SendError | undefined) => {});
         // @ts-expect-error
         client.send('Page.navigate', (error: boolean, response: CDP.SendError) => {});
         // @ts-expect-error

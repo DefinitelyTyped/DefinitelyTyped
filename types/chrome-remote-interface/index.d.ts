@@ -53,7 +53,7 @@ declare namespace CDP {
 
     interface SendCallback<T extends keyof ProtocolMappingApi.Commands> {
         (error: true, response: SendError): void;
-        (error: false, response: ProtocolMappingApi.Commands[T]['returnType'] | {}): void;
+        (error: false, response: ProtocolMappingApi.Commands[T]['returnType']): void;
         (error: Error, response: undefined): void;
     }
 
