@@ -230,7 +230,7 @@ function message_address_object_test() {
                 name: 'Майлер, Ноде',
                 address: 'foobar@blurdybloop.com',
             },
-        ]
+        ],
     };
 }
 
