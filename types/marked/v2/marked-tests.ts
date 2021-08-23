@@ -2,17 +2,12 @@ import * as marked from 'marked';
 
 const tokenizer = new marked.Tokenizer();
 
-tokenizer.emStrong = function emStrong(src, _maskedSrc, _prevChar) {
-    const token: marked.Tokens.Strong = {
+tokenizer.emStrong = (src, _maskedSrc, _prevChar) => {
+    return {
         type: 'strong',
         text: src,
         raw: src,
-        tokens: [],
     };
-
-    this.lexer.inline(token.text, token.tokens);
-
-    return token;
 };
 
 let options: marked.MarkedOptions = {
@@ -73,7 +68,7 @@ console.log(marked.parser(tokens));
 const lexer = new marked.Lexer(options);
 const tokens2 = lexer.lex(text);
 console.log(tokens2);
-const tokens3 = lexer.inlineTokens(text, tokens);
+const tokens3 = lexer.inline(tokens);
 console.log(tokens3);
 const re: RegExp | marked.Rules = marked.Lexer.rules['code'];
 const lexerOptions: marked.MarkedOptions = lexer.options;
@@ -97,7 +92,7 @@ const parseTestText = '- list1\n  - list1.1\n\n listend';
 const parseTestTokens: marked.TokensList = marked.lexer(parseTestText, options);
 
 const inlineTestText = '- list1\n  - list1.1\n\n listend';
-const inlineTestTokens: marked.Token[] = marked.Lexer.lexInline(inlineTestText, options);
+const inlineTestTokens: marked.TokensList = marked.Lexer.lexInline(inlineTestText, options);
 
 /* List type is `list`. */
 const listToken = parseTestTokens[0] as marked.Tokens.List;
@@ -112,7 +107,7 @@ const slugger = new marked.Slugger();
 console.log(slugger.slug('Test Slug'));
 console.log(slugger.slug('Test Slug', { dryrun: true }));
 
-marked.use({ renderer }, { tokenizer });
+marked.use({ renderer });
 
 marked.use({
     renderer: {
@@ -139,69 +134,4 @@ marked.use({
             return false;
         },
     },
-});
-
-interface NameToken {
-    type: 'name';
-    raw: string;
-    text: string;
-    tokens: marked.Token[];
-    items: marked.Token[];
-}
-
-const tokenizerExtension: marked.TokenizerExtension = {
-    name: 'name',
-    level: 'block',
-    start: (src: string) => src.indexOf('name'),
-    tokenizer(src: string): NameToken | void {
-        if (src === 'name') {
-            const token: NameToken = {
-                type: 'name',
-                raw: src,
-                text: src,
-                tokens: [],
-                items: [],
-            };
-            this.lexer.inline(token.text, token.tokens);
-            this.lexer.inline(token.text, token.items);
-            return token;
-        }
-    },
-    childTokens: ['items'],
-};
-
-const rendererExtension: marked.RendererExtension = {
-    name: 'name',
-    renderer(t) {
-        const token = t as NameToken;
-        if (token.text === 'name') {
-            return this.parser.parse(token.items);
-        }
-        return false;
-    },
-};
-
-const tokenizerAndRendererExtension = {
-    name: 'name',
-    level: 'block',
-    tokenizer(src: string) {
-        if (src === 'name') {
-            const token = {
-                type: 'name',
-                raw: src,
-            };
-            return token;
-        }
-    },
-    renderer(token: marked.Tokens.Generic) {
-        if (token.raw === 'name') {
-            return 'name';
-        }
-
-        return false;
-    },
-};
-
-marked.use({
-    extensions: [tokenizerExtension, rendererExtension, tokenizerAndRendererExtension],
 });
