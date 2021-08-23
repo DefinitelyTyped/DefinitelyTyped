@@ -1,21 +1,24 @@
-import Finder from "@ckeditor/ckeditor5-ckfinder";
+import CKFinder from "@ckeditor/ckeditor5-ckfinder";
 import { Editor, Plugin } from "@ckeditor/ckeditor5-core";
 import PluginCollection from "@ckeditor/ckeditor5-core/src/plugincollection";
+import CKFinderCommand from "@ckeditor/ckeditor5-ckfinder/src/ckfindercommand";
 
-if (!(Finder.CKFinder instanceof Plugin)) {
+if (!(CKFinder instanceof Plugin)) {
     throw new Error("CKFinder must be a Plugin instance");
 }
 
 class BaseEditor extends Editor {}
 
-const plugincollection = new PluginCollection(new BaseEditor(), [Finder.CKFinder]);
+const plugincollection = new PluginCollection(new BaseEditor(), [CKFinder.CKFinder]);
 
 class MyEditor extends Editor {
     plugins = plugincollection;
 }
 
-const ckfinderui = new Finder.CKFinderUI(new MyEditor());
+const ckfinderui = new CKFinder.CKFinderUI(new MyEditor());
 ckfinderui.init();
 
-const ckfinderediting = new Finder.CKFinderEditing(new MyEditor());
+const ckfinderediting = new CKFinder.CKFinderEditing(new MyEditor());
 ckfinderediting.init();
+
+new CKFinderCommand(new BaseEditor()).execute();

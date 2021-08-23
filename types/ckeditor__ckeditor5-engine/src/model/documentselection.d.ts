@@ -31,7 +31,7 @@ export default class DocumentSelection implements Emitter {
     containsEntireContent(element?: Element): boolean;
     destroy(): void;
     getAttribute(key: string): string | number | boolean | undefined;
-    getAttributeKeys(): IterableIterator<string>;
+    getAttributeKeys(): string[];
     getAttributes(): IterableIterator<[string, string | number | boolean]>;
     getFirstPosition(): Position | null;
     getFirstRange(): Range | null;

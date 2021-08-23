@@ -20,3 +20,5 @@ ckfinderui.init();
 
 const ckfinderediting = new CKFinderEditing(new MyEditor());
 ckfinderediting.init();
+
+new CKFinderCommand(new BaseEditor()).execute();
