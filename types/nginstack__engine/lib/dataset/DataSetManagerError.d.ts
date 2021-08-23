@@ -2,7 +2,7 @@ export = DataSetManagerError;
 declare function DataSetManagerError(...args: any[]): void;
 declare class DataSetManagerError {
     constructor(...args: any[]);
-    _name: string;
+    private _name;
 }
 declare namespace DataSetManagerError {
     const DATASET_ALREADY_EXISTS: number;

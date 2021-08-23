@@ -5,7 +5,7 @@ declare class FieldNameRepository {
     hashList: {};
     getArrayFromList(list: any): any;
     setFieldNameList(list: any): void;
-    list_: any;
+    private list_;
     clear(): void;
     hasFieldName(fieldName: any): boolean;
 }

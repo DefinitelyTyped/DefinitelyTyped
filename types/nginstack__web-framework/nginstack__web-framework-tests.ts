@@ -55,7 +55,6 @@ grid.emit('*', ['*']); // $ExpectType any
 grid.resetFields(); // $ExpectType void
 grid.clearButtons(); // $ExpectType void
 grid.name; // $ExpectType string
-grid.getFormattedHelp(); // $ExpectType string
 grid.help; // $ExpectType string | { overview: string; buttons: Record<string, string>; }
 grid.refresh(true); // $ExpectType void
 grid.tableViewFieldNames; // $ExpectType string

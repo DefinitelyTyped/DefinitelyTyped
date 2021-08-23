@@ -246,7 +246,11 @@ declare namespace HelloSign {
         remind(requestId: string, options: any): Promise<SignatureRequestResponse>;
         download(
             requestId: string,
-            options: { file_type: string },
+            options: {
+                file_type: string,
+                get_url?: boolean,
+                get_data_uri?: boolean,
+            },
             callback: (err: Error, response: IncomingMessage) => void,
         ): void;
         cancel(requestId: string): Promise<any>;

@@ -22,6 +22,9 @@ import { URL } from 'node:url';
     childProcess.spawnSync("echo test", { encoding: 'utf-8' });
     childProcess.spawnSync("echo test", { encoding: 'buffer' });
     childProcess.spawnSync("echo test", { cwd: new URL('file://aaaaaaaa')});
+
+    childProcess.spawnSync("echo test", { encoding: 'utf-8' }).output; // $ExpectType (string | null)[]
+    childProcess.spawnSync("echo test", { encoding: 'buffer' }).output; // $ExpectType (Buffer | null)[]
 }
 
 {

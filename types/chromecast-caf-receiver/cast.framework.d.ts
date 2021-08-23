@@ -229,7 +229,7 @@ interface MessageEventToMessageTypeMap {
     [messages.MessageType.QUEUE_UPDATE]: messages.QueueUpdateRequestData;
     [messages.MessageType.RESUME_SESSION]: messages.ResumeSessionRequestData;
     [messages.MessageType.SEEK]: messages.SeekRequestData;
-    [messages.MessageType.SESSION_STATE]: messages.StoreSessionRequestData;
+    [messages.MessageType.SESSION_STATE]: messages.StoreSessionResponseData;
     [messages.MessageType.SET_CREDENTIALS]: messages.SetCredentialsRequestData;
     [messages.MessageType.SET_PLAYBACK_RATE]: messages.SetPlaybackRateRequestData;
     [messages.MessageType.SET_VOLUME]: messages.VolumeRequestData;

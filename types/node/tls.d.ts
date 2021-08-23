@@ -6,7 +6,7 @@
  * ```js
  * const tls = require('tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
@@ -348,14 +348,14 @@ declare module 'tls' {
          */
         enableTrace(): void;
         /**
-         * Returns the peer certificate as an `<X509Certificate>` object.
+         * Returns the peer certificate as an `X509Certificate` object.
          *
          * If there is no peer certificate, or the socket has been destroyed,`undefined` will be returned.
          * @since v15.9.0
          */
         getPeerX509Certificate(): X509Certificate | undefined;
         /**
-         * Returns the local certificate as an `<X509Certificate>` object.
+         * Returns the local certificate as an `X509Certificate` object.
          *
          * If there is no local certificate, or the socket has been destroyed,`undefined` will be returned.
          * @since v15.9.0

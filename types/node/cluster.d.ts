@@ -49,7 +49,7 @@
  * ```
  *
  * On Windows, it is not yet possible to set up a named pipe server in a worker.
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/cluster.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/cluster.js)
  */
 declare module 'cluster' {
     import * as child from 'node:child_process';

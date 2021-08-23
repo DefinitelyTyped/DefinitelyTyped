@@ -2,7 +2,7 @@ export = NavigationTree;
 declare function NavigationTree(rootClassKey: any): void;
 declare class NavigationTree {
     constructor(rootClassKey: any);
-    classDefManager_: ClassDefManager;
+    private classDefManager_;
     rootClassKey: any;
     classe: DataSet;
     ivfs: DataSet;
@@ -82,5 +82,4 @@ declare namespace NavigationTree {
     function createEmptyNavigationTreeCollection(): DataSet;
     function obtainVisibilityMode(): number;
 }
-import ClassDefManager = require('@nginstack/engine/lib/classdef/ClassDefManager.js');
 import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
