@@ -1,4 +1,4 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.57
+// Type definitions for non-npm package vscode-notebook-renderer 1.60
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>, Matt Bierner <https://github.com/mjbvz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -96,6 +96,16 @@ export interface RendererContext<TState> {
      * object in the extension host.
      */
     onDidReceiveMessage?: VSCodeEvent<any> | undefined;
+
+    /**
+     * Information about the current workspace.
+     */
+    readonly workspace: {
+        /**
+         * When true, the user has explicitly trusted the contents of the workspace.
+         */
+        readonly isTrusted: boolean;
+    };
 }
 
 /**
