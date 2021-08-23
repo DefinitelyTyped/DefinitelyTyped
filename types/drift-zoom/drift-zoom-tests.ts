@@ -21,6 +21,7 @@ const options: Options = {
     hoverBoundingBox: false,
     touchBoundingBox: false,
     boundingBoxContainer: document.body,
+    passive: true,
 };
 // $ExpectType Drift
 const drift = new Drift(document.querySelector('img')!, {
