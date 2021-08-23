@@ -6,7 +6,9 @@
 // Minimum TypeScript Version: 3.6
 
 declare function AddEvent(htmlElement: HTMLElement, eventName: string, eventFunction: (e: Event) => void): void;
-declare function l(name: string): HTMLElement;
+declare function l(name: string): HTMLElement | null;
+declare function escapeRegExp(str: string): string;
+declare function replaceAll(find: string, replace: string, str: string): string;
 declare function PlaySound(url: string, volume?: number, pitch?: number): void;
 /**
  * Floors or ceils randomly, biased by the decimal value
@@ -29,6 +31,13 @@ declare function toFixed(x: number): string;
  * @param floats The amount of decimals to show
  */
 declare function Beautify(val: number, floats?: number): string;
+
+declare var SimpleBeautify: (val: number) => string;
+
+/**
+ * This is the global Audio class, `Audio` is a slightly modified version which disables soundjay links.
+ */
+declare var realAudio: typeof Audio;
 
 interface Math {
     /**
@@ -553,7 +562,7 @@ declare namespace Game {
     export let AscendZoomT: number;
     export let AscendDragging: number;
     export let AscendGridSnap: number;
-    export let heavenlyBounds: Record<"top" | "right" | "bottom" | "left", number>;
+    export let heavenlyBounds: Record<'top' | 'right' | 'bottom' | 'left', number>;
 
     export function UpdateAscend(): void;
 
@@ -635,8 +644,8 @@ declare namespace Game {
     export let keys: number[];
     export let heavenlyPower: number;
     export let recalculateGains: number;
-    export let cookiesPsByType: Record<string ,number>;
-    export let cookiesMultByType: Record<string ,number>;
+    export let cookiesPsByType: Record<string, number>;
+    export let cookiesMultByType: Record<string, number>;
     export interface Effects {
         cps: number;
         click: number;
@@ -1133,7 +1142,7 @@ declare namespace Game {
          * Updates the mature times of plants, affected by seedless to nay
          */
         computeMatures(): void;
-        plantContam: Record<string ,number>;
+        plantContam: Record<string, number>;
         /**
          * Computes the avaliable mutations for a tile
          * @param neighs The amount of neighbors for each plant
@@ -2244,6 +2253,8 @@ declare namespace Game {
         /**
          * The power of a cookie upgrade, present as `0` on Non-cookie upgrades
          */
+        // The TSLint disable is for the generic, which is a hack required for real use-cases some cases
+        // tslint:disable-next-line
         power: number | (<T extends Upgrade = this>(me: T) => number);
         /**
          * The price of the upgrade, this is visual only, so the lump spending must be manually implemented
