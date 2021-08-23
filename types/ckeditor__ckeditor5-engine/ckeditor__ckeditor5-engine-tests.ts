@@ -47,12 +47,12 @@ import ContainerElement, { getFillerOffset } from "@ckeditor/ckeditor5-engine/sr
 import Document from "@ckeditor/ckeditor5-engine/src/view/document";
 import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
 import ViewDocumentSelection from "@ckeditor/ckeditor5-engine/src/view/documentselection";
+import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
 import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
-import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
 import EmptyElement from "@ckeditor/ckeditor5-engine/src/view/emptyelement";
 import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
-import { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
+import Matcher, { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
 import ViewNode from "@ckeditor/ckeditor5-engine/src/view/node";
 import Position from "@ckeditor/ckeditor5-engine/src/view/position";
 import ViewRange from "@ckeditor/ckeditor5-engine/src/view/range";
@@ -112,7 +112,7 @@ pattern = (element: ViewElement) => {
         return { name: true };
     }
 
-    return nullvalue;
+    return;
 };
 
 pattern = (element: ViewElement) => {
@@ -125,7 +125,7 @@ pattern = (element: ViewElement) => {
         }
     }
 
-    return nullvalue;
+    return;
 };
 
 let viewDefinition: ElementDefinition = "p";
@@ -617,3 +617,150 @@ if (
 
 // Selectable
 new Writer().setSelection(null);
+
+// MatcherPattern
+pattern = "div";
+pattern = /foo/;
+pattern = { name: "p" };
+pattern = { name: /^(ul|ol)$/ };
+pattern = {
+    attributes: {
+        title: true,
+    },
+};
+pattern = {
+    name: "p",
+    attributes: true,
+};
+pattern = {
+    name: "figure",
+    attributes: "title",
+};
+pattern = {
+    name: "figure",
+    attributes: /^data-.*$/,
+};
+
+pattern = {
+    name: "figure",
+    attributes: {
+        title: "foobar",
+        alt: true,
+        "data-type": /^(jpg|png)$/,
+    },
+};
+pattern = {
+    name: "figure",
+    attributes: ["title", /^data-*$/],
+};
+
+pattern = {
+    name: "input",
+    attributes: [
+        {
+            key: "type",
+            value: /^(text|number|date)$/,
+        },
+        {
+            key: /^data-.*$/,
+            value: true,
+        },
+    ],
+};
+
+pattern = {
+    name: "p",
+    styles: true,
+};
+
+pattern = {
+    name: "p",
+    styles: "color",
+};
+
+pattern = {
+    name: "p",
+    styles: /^border.*$/,
+};
+
+pattern = {
+    name: "p",
+    attributes: {
+        color: /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/,
+        "font-weight": 600,
+        "text-decoration": true,
+    },
+};
+
+pattern = {
+    name: "p",
+    attributes: ["color", /^border.*$/],
+};
+
+pattern = {
+    name: "p",
+    attributes: [
+        {
+            key: "color",
+            value: /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/,
+        },
+        {
+            key: /^border.*$/,
+            value: true,
+        },
+    ],
+};
+
+pattern = {
+    name: "p",
+    classes: true,
+};
+
+pattern = {
+    name: "p",
+    classes: "highlighted",
+};
+
+pattern = {
+    name: "figure",
+    classes: /^image-side-(left|right)$/,
+};
+
+pattern = {
+    name: "p",
+    classes: {
+        highlighted: true,
+        marker: true,
+    },
+};
+
+pattern = {
+    name: "figure",
+    classes: ["image", /^image-side-(left|right)$/],
+};
+
+pattern = {
+    name: "figure",
+    classes: [
+        {
+            key: "image",
+            value: true,
+        },
+        {
+            key: /^image-side-(left|right)$/,
+            value: true,
+        },
+    ],
+};
+
+pattern = {
+    name: "span",
+    attributes: ["title"],
+    styles: {
+        "font-weight": "bold",
+    },
+    classes: "highlighted",
+};
+
+new Matcher(pattern).add(pattern);
+new Matcher(pattern, pattern).add(pattern, pattern);
