@@ -3,7 +3,7 @@
 // Definitions by: Arne Schubert <https://github.com/atd-schubert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function freeport(cb: (err: Error, port: number) => void): void;
+declare function freeport(cb: (err: Error | null, port: number | null) => void): void;
 declare namespace freeport {}
 
 export = freeport;
