@@ -146,6 +146,11 @@ export interface Condition {
 }
 
 /**
+ * IAM PolicyStatement effect.
+ */
+export type Effect = 'Allow' | 'Deny';
+
+/**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
  * https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-policy-language-overview.html
  * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html
@@ -153,7 +158,7 @@ export interface Condition {
 export type Statement = BaseStatement & StatementAction & (StatementResource | StatementPrincipal);
 
 export interface BaseStatement {
-    Effect: string;
+    Effect: Effect;
     Sid?: string | undefined;
     Condition?: ConditionBlock | undefined;
 }

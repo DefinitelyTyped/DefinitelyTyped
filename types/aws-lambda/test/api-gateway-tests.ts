@@ -30,6 +30,7 @@ import {
     ProxyCallback,
     ProxyHandler,
     Statement,
+    Effect,
     APIGatewayProxyStructuredResultV2,
 } from "aws-lambda";
 
@@ -464,36 +465,42 @@ const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, 
     return result;
 };
 
+declare let effect: Effect;
+
 function createPolicyDocument(): PolicyDocument {
     let statement: Statement = {
         Action: str,
-        Effect: str,
+        Effect: effect,
         Resource: str,
     };
 
     // $ExpectError
-    statement = { Effect: str, Action: str, Principal: 123, };
+    statement = { Effect: effect, Action: str, Principal: 123, };
 
     // Bad Resource
     // $ExpectError
-    statement = { Effect: str, Action: str, Resource: 123, };
+    statement = { Effect: effect, Action: str, Resource: 123, };
 
     // Bad Resource with valid Principal
     // $ExpectError
-    statement = { Effect: str, Action: str, Principal: { Service: str }, Resource: 123, };
+    statement = { Effect: effect, Action: str, Principal: { Service: str }, Resource: 123, };
 
     // Bad principal with valid Resource
     // $ExpectError
-    statement = { Effect: str, Action: str, Principal: 123, Resource: str, };
+    statement = { Effect: effect, Action: str, Principal: 123, Resource: str, };
 
     // No Effect
     // $ExpectError
     statement = { Action: str, Principal: str };
 
+    // String effect
+    // $ExpectError
+    statement = { Effect: str, Action: str, Resource: str };
+
     statement = {
         Sid: str,
         Action: [str, str],
-        Effect: str,
+        Effect: effect,
         Resource: [str, str],
         Condition: {
             condition1: { key: 'value' },
@@ -511,11 +518,11 @@ function createPolicyDocument(): PolicyDocument {
         NotPrincipal: [str, str],
     };
 
-    statement = { Action: str, Principal: str, Effect: str };
+    statement = { Action: str, Principal: str, Effect: effect };
 
-    statement = { Action: str, NotPrincipal: { Service: str }, Effect: str };
+    statement = { Action: str, NotPrincipal: { Service: str }, Effect: effect };
 
-    statement = { Effect: str, NotAction: str, NotResource: str };
+    statement = { Effect: effect, NotAction: str, NotResource: str };
 
     let policyDocument: PolicyDocument = { Version: str, Statement: [statement] };
 
