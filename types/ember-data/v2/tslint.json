@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "space-before-function-paren": false,
         "ban-types": false,
         "no-empty-interface": false,
         "no-return-await": false,

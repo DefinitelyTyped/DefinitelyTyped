@@ -1,62 +1,67 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactDivAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 import { ButtonProps } from "../Button";
 
 // ComposedModal
 
 type ExcludedAttributes = "onBlur" | "onClick" | "onTransitionEnd" | "ref" | "role" | "tabIndex";
-interface ComposedModalInheritedProps extends Omit<ReactDivAttr, ExcludedAttributes> { }
-
-export interface ComposedModalProps extends ComposedModalInheritedProps {
-    containerClassName?: string,
+export interface ComposedModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
+    containerClassName?: string | undefined,
+    danger?: boolean | undefined,
     onClose?(): boolean | void,
-    open?: boolean,
-    selectedPrimaryFocus?: string,
+    open?: boolean | undefined,
+    preventCloseOnClickOutside?: boolean | undefined,
+    selectedPrimaryFocus?: string | undefined,
+    selectorsFloatingMenus?: string | undefined,
+    size?: "xs" | "sm" | "md" | "lg" | undefined;
 }
 
 declare class ComposedModal extends React.Component<ComposedModalProps> { }
 
 // Header
 
-interface ModalHeaderInheritedProps extends
-    Omit<ReactDivAttr, "title">,
-    EmbeddedIconProps
-{ }
-
-export interface ModalHeaderProps extends ModalHeaderInheritedProps {
-    buttonOnClick?(): void,
-    closeClassName?: string,
-    closeIconClassName?: string,
+export interface ModalHeaderProps extends Omit<ReactDivAttr, "title"> {
+    buttonOnClick?(event: React.MouseEvent<HTMLButtonElement>): void,
+    closeClassName?: string | undefined,
+    closeIconClassName?: string | undefined,
     closeModal?(): void,
-    label?: React.ReactNode,
-    labelClassName?: string,
-    title?: React.ReactNode,
-    titleClassName?: string,
+    iconDescription?: string | undefined,
+    label?: React.ReactNode | undefined,
+    labelClassName?: string | undefined,
+    title?: React.ReactNode | undefined,
+    titleClassName?: string | undefined,
 }
 
 export declare class ModalHeader extends React.Component<ModalHeaderProps> { }
 
 // Body
 
-interface ModalBodyInheritedProps extends ReactDivAttr { }
+export interface ModalBodyProps extends ReactDivAttr {
+    hasForm?: boolean | undefined;
+    hasScrollingContent?: boolean | undefined;
+}
 
-export interface ModalBodyProps extends ModalBodyInheritedProps { }
-
-export declare class ModalBody extends React.Component<ModalBodyProps> { }
+export declare const ModalBody: React.FC<ModalBodyProps>;
 
 // Footer
 
-interface ModalFooterInheritedProps extends ReactDivAttr { }
+export interface ModalFooterSecondaryButtonConfig {
+    buttonText: NonNullable<React.ReactNode>;
+    onClick?: ButtonProps["onClick"] | undefined;
+}
 
-export interface ModalFooterProps extends ModalFooterInheritedProps {
-    closeModal?(): void,
-    primaryClassName?: string,
-    primaryButtonText?: string,
-    primaryButtonDisabled?: string,
-    secondaryClassName?: string,
-    secondaryButtonText?: string,
-    onRequestClose?: ButtonProps["onClick"],
-    onRequestSubmit?: ButtonProps["onClick"],
+export interface ModalFooterProps extends ReactDivAttr {
+    closeModal?: ButtonProps["onClick"] | undefined;
+    danger?: boolean | undefined,
+    inputref?: any; // TODO
+    primaryClassName?: string | undefined,
+    primaryButtonText?: string | undefined,
+    primaryButtonDisabled?: boolean | undefined,
+    secondaryClassName?: string | undefined,
+    secondaryButtonText?: string | undefined,
+    secondaryButtons?: readonly ModalFooterSecondaryButtonConfig[] | undefined;
+    onRequestClose?: ButtonProps["onClick"] | undefined,
+    onRequestSubmit?: ButtonProps["onClick"] | undefined,
 }
 
 export declare class ModalFooter extends React.Component<ModalFooterProps> { }

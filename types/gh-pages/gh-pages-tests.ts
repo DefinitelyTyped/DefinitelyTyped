@@ -23,3 +23,7 @@ ghpages.publish(
     },
     callback,
 );
+
+ghpages.defaults.remote; // $ExpectType string
+ghpages.getCacheDir();
+ghpages.getCacheDir('git@github.com:example-user/example-project.git');

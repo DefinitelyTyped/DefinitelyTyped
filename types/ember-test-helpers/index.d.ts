@@ -6,7 +6,7 @@
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 // NOTE: These types apply to ember-test-helper v0.7. The major
 // version had to be bumped for SemVer due to a breaking change
@@ -24,9 +24,9 @@ declare module 'ember-test-helpers' {
     import RSVP from "rsvp";
 
     interface ModuleCallbacks {
-        integration?: boolean;
-        unit?: boolean;
-        needs?: string[];
+        integration?: boolean | undefined;
+        unit?: boolean | undefined;
+        needs?: string[] | undefined;
 
         beforeSetup?(assert?: any): void;
         setup?(assert?: any): void;
@@ -98,9 +98,9 @@ declare module 'ember-test-helpers/wait' {
     import RSVP from "rsvp";
 
     interface WaitOptions {
-        waitForTimers?: boolean;
-        waitForAJAX?: boolean;
-        waitForWaiters?: boolean;
+        waitForTimers?: boolean | undefined;
+        waitForAJAX?: boolean | undefined;
+        waitForWaiters?: boolean | undefined;
     }
 
     export default function wait(options?: WaitOptions): RSVP.Promise<void>;

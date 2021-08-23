@@ -1,10 +1,10 @@
-// Type definitions for bookshelfjs v1.0.1
+// Type definitions for bookshelfjs v1.2.0
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Ian Serpa <http://github.com/ianldgs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// Minimum TypeScript Version: 3.6
 
 import Knex = require('knex');
 import knex = require('knex');
@@ -17,7 +17,7 @@ interface Bookshelf extends Bookshelf.Events<any> {
     knex: knex;
     Model: typeof Bookshelf.Model;
     Collection: typeof Bookshelf.Collection;
-
+    model(name: string, model?: typeof Bookshelf.Model | Object, staticProperties?: any): typeof Bookshelf.Model;
     plugin(name: string | string[] | Function, options?: any): Bookshelf;
     transaction<T>(callback: (transaction: knex.Transaction) => PromiseLike<T>): BlueBird<T>;
 }
@@ -37,9 +37,9 @@ declare namespace Bookshelf {
 
     interface IModelBase {
         /** Should be declared as a getter instead of a plain property. */
-        hasTimestamps?: boolean | string[];
+        hasTimestamps?: boolean | string[] | undefined;
         /** Should be declared as a getter instead of a plain property. Should be required, but cannot have abstract properties yet. */
-        tableName?: string;
+        tableName?: string | undefined;
     }
 
     interface ModelBase<T extends Model<any>> extends IModelBase {}
@@ -164,7 +164,7 @@ declare namespace Bookshelf {
          */
         save(key?: string, val?: any, options?: SaveOptions): BlueBird<T>;
         save(attrs?: { [key: string]: any }, options?: SaveOptions): BlueBird<T>;
-        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): R;
+        through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string, throughForeignKeyTarget?: string, otherKeyTarget?: string): R;
         where(properties: { [key: string]: any }): T;
         where(
             key: string,
@@ -214,32 +214,12 @@ declare namespace Bookshelf {
         where(match: { [key: string]: any }, firstOnly: boolean): T | Collection<T>;
 
         // lodash methods
-        all(
-            predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string,
-            thisArg?: any,
-        ): boolean;
-        all<R extends {}>(predicate?: R): boolean;
-        any(
-            predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string,
-            thisArg?: any,
-        ): boolean;
-        any<R extends {}>(predicate?: R): boolean;
-        collect(
-            predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string,
-            thisArg?: any,
-        ): T[];
-        collect<R extends {}>(predicate?: R): T[];
-        contains(value: any, fromIndex?: number): boolean;
+        includes(value: any, fromIndex?: number): boolean;
         countBy(
             predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string,
             thisArg?: any,
         ): Lodash.Dictionary<number>;
         countBy<R extends {}>(predicate?: R): Lodash.Dictionary<number>;
-        detect(
-            predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string,
-            thisArg?: any,
-        ): T;
-        detect<R extends {}>(predicate?: R): T;
         every(
             predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string,
             thisArg?: any,
@@ -256,8 +236,6 @@ declare namespace Bookshelf {
         ): T;
         find<R extends {}>(predicate?: R): T;
         first(): T;
-        foldl<R>(callback?: Lodash.MemoIterator<T, R>, accumulator?: R, thisArg?: any): R;
-        foldr<R>(callback?: Lodash.MemoIterator<T, R>, accumulator?: R, thisArg?: any): R;
         forEach(callback?: Lodash.ListIterator<T, void>, thisArg?: any): Lodash.List<T>;
         forEach(callback?: Lodash.DictionaryIterator<T, void>, thisArg?: any): Lodash.Dictionary<T>;
         forEach(callback?: Lodash.ObjectIterator<T, void>, thisArg?: any): T;
@@ -266,9 +244,7 @@ declare namespace Bookshelf {
             thisArg?: any,
         ): Lodash.Dictionary<T[]>;
         groupBy<R extends {}>(predicate?: R): Lodash.Dictionary<T[]>;
-        include(value: any, fromIndex?: number): boolean;
-        inject<R>(callback?: Lodash.MemoIterator<T, R>, accumulator?: R, thisArg?: any): R;
-        invoke(methodName: string | Function, ...args: any[]): any;
+        invokeMap(methodName: string | Function, ...args: any[]): any;
         isEmpty(): boolean;
         keys(): string[];
         last(): T;
@@ -286,12 +262,7 @@ declare namespace Bookshelf {
             thisArg?: any,
         ): T[];
         reject<R extends {}>(predicate?: R): T[];
-        rest(): T[];
-        select(
-            predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string,
-            thisArg?: any,
-        ): T[];
-        select<R extends {}>(predicate?: R): T[];
+        tail(): T[];
         some(
             predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string,
             thisArg?: any,
@@ -340,9 +311,9 @@ declare namespace Bookshelf {
     }
 
     interface ModelOptions {
-        tableName?: string;
-        hasTimestamps?: boolean;
-        parse?: boolean;
+        tableName?: string | undefined;
+        hasTimestamps?: boolean | undefined;
+        parse?: boolean | undefined;
     }
 
     interface LoadOptions extends SyncOptions {
@@ -351,9 +322,9 @@ declare namespace Bookshelf {
 
     interface FetchOptions extends SyncOptions {
         /** @default true */
-        require?: boolean;
-        columns?: string | string[];
-        withRelated?: (string | WithRelatedQuery)[];
+        require?: boolean | undefined;
+        columns?: string | string[] | undefined;
+        withRelated?: (string | WithRelatedQuery)[] | undefined;
     }
 
     interface WithRelatedQuery {
@@ -363,71 +334,73 @@ declare namespace Bookshelf {
     interface FetchAllOptions extends FetchOptions {}
 
     interface SaveOptions extends SyncOptions {
-        method?: string;
-        defaults?: string;
-        patch?: boolean;
+        method?: string | undefined;
+        defaults?: string | undefined;
+        patch?: boolean | undefined;
         /** @default true */
-        require?: boolean;
+        require?: boolean | undefined;
+        /** @default true */
+        autoRefresh?: boolean | undefined;
     }
 
     interface DestroyOptions extends SyncOptions {
         /** @default true */
-        require?: boolean;
+        require?: boolean | undefined;
     }
 
     interface SerializeOptions {
-        shallow?: boolean;
-        omitPivot?: boolean;
+        shallow?: boolean | undefined;
+        omitPivot?: boolean | undefined;
         /** @default true */
-        visibility?: boolean;
+        visibility?: boolean | undefined;
     }
 
     interface SetOptions {
-        unset?: boolean;
+        unset?: boolean | undefined;
     }
 
     interface TimestampOptions {
-        method?: string;
+        method?: string | undefined;
     }
 
     interface SyncOptions {
-        transacting?: Knex.Transaction;
-        debug?: boolean;
-        withSchema?: string;
+        transacting?: Knex.Transaction | undefined;
+        debug?: boolean | undefined;
+        withSchema?: string | undefined;
     }
 
     interface CollectionOptions<T> {
-        comparator?: boolean | string | ((a: T, b: T) => number);
+        comparator?: boolean | string | ((a: T, b: T) => number) | undefined;
     }
 
     interface CollectionAddOptions extends EventOptions {
-        at?: number;
-        merge?: boolean;
+        at?: number | undefined;
+        merge?: boolean | undefined;
     }
 
     interface CollectionFetchOptions {
-        require?: boolean;
-        withRelated?: string | string[];
+        require?: boolean | undefined;
+        withRelated?: string | string[] | undefined;
     }
 
     interface CollectionFetchOneOptions {
-        require?: boolean;
-        columns?: string | string[];
+        require?: boolean | undefined;
+        columns?: string | string[] | undefined;
     }
 
     interface CollectionSetOptions extends EventOptions {
-        add?: boolean;
-        remove?: boolean;
-        merge?: boolean;
+        add?: boolean | undefined;
+        remove?: boolean | undefined;
+        merge?: boolean | undefined;
     }
 
     interface PivotOptions {
-        query?: Function | any;
-        require?: boolean;
+        query?: Function | any | undefined;
+        require?: boolean | undefined;
     }
 
     interface EventOptions {
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     interface EventFunction<T> {

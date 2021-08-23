@@ -1,12 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
         "dt-header": false,
-        "eofline": false,
         "interface-name": false,
         "max-line-length": false,
-        "no-redundant-jsdoc": false,
         "no-reference-import": false,
         "npm-naming": [
             true,
@@ -20,7 +17,6 @@
                 "mode": "code"
             }
         ],
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false,
         "trim-file": false
     }

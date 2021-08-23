@@ -1,4 +1,4 @@
-// Type definitions for angular-bootstrap-lightbox
+// Type definitions for angular-bootstrap-lightbox 0.12
 // Project: https://github.com/compact/angular-bootstrap-lightbox
 // Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,15 +9,15 @@ declare namespace angular.bootstrap.lightbox {
         url: string;
         width: number;
         height: number;
-        thumbUrl?: string;
-        caption?: string;
+        thumbUrl?: string | undefined;
+        caption?: string | undefined;
     }
 
     export interface IImageDimensionLimits  {
-        minWidth?: number;
-        minHeight?: number;
-        maxWidth?: number;
-        maxHeight?: number;
+        minWidth?: number | undefined;
+        minHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        maxHeight?: number | undefined;
     }
 
     export interface IImageDimensionParameter {
@@ -40,7 +40,11 @@ declare namespace angular.bootstrap.lightbox {
     }
 
     export interface ILightbox {
-        openModal(images:ILightboxImageInfo[], index:number):void;
+        openModal(
+            images:ILightboxImageInfo[],
+            index:number,
+            modalParams?: { [key: string]: any }, // angular.ui.bootstrap.IModalSettings
+        ):void;
     }
 
     export interface ILightBoxProvider {

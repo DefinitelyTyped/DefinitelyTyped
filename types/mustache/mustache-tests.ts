@@ -34,6 +34,11 @@ var output5 = Mustache.render(template5, view5, {}, ["[[", "]]"]);
 Mustache.render("{{>text}}", {}, {"text":"from partial"});
 Mustache.render("{{>text}}", {}, (partialName) => partialName === "text" ? "from partial" : undefined);
 
+Mustache.render("[[title]]", view1, undefined, {
+    escape: () => "Escape function overridden",
+    tags: ["[[", "]]"]
+});
+
 const defaultCache = Mustache.templateCache;
 Mustache.templateCache = undefined;
 Mustache.templateCache = new Map();

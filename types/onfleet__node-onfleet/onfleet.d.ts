@@ -22,7 +22,7 @@ declare class Onfleet {
   };
 
   constructor(api_key: string);
-  verifyKey(): boolean;
+  verifyKey(): Promise<boolean>;
 
   admins: Administrators;
   containers: Containers;

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const LifetimeHooks = Ember.Object.extend({
-    resource: null as {} | null,
+    resource: undefined as {} | undefined,
 
     init() {
         this._super();
@@ -11,7 +11,7 @@ const LifetimeHooks = Ember.Object.extend({
     willDestroy() {
         delete this.resource;
         this._super();
-    }
+    },
 });
 
 class MyObject30 extends Ember.Object {

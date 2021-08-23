@@ -1,11 +1,10 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends Omit<ReactDivAttr, "title"> { }
-
-export interface TableContainerProps extends InheritedProps {
-    description?: React.ReactNode,
-    title?: React.ReactNode,
+export interface TableContainerProps extends Omit<ReactDivAttr, "title"> {
+    description?: React.ReactNode | undefined,
+    stickyHeader?: boolean | undefined,
+    title?: React.ReactNode | undefined,
 }
 
 declare const TableContainer: React.FC<TableContainerProps>;

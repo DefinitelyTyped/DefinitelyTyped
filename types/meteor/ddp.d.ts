@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-declare module "meteor/ddp" {
+declare module 'meteor/ddp' {
     module DDP {
         interface DDPStatic {
             subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
@@ -20,8 +20,8 @@ declare module "meteor/ddp" {
             connected: boolean;
             status: Status;
             retryCount: number;
-            retryTime?: number;
-            reason?: string;
+            retryTime?: number | undefined;
+            reason?: string | undefined;
         }
 
         function connect(url: string): DDPStatic;
@@ -30,21 +30,36 @@ declare module "meteor/ddp" {
     module DDPCommon {
         interface MethodInvocationOptions {
             userId: string | null;
-            setUserId?: (newUserId: string) => void;
+            setUserId?: ((newUserId: string) => void) | undefined;
             isSimulation: boolean;
             connection: Meteor.Connection;
             randomSeed: string;
         }
 
+        /** The state for a single invocation of a method, referenced by this inside a method definition. */
         interface MethodInvocation {
-            new(options: MethodInvocationOptions): MethodInvocation;
-
+            new (options: MethodInvocationOptions): MethodInvocation;
+            /**
+             * Call inside a method invocation.  Allow subsequent method from this client to begin running in a new fiber.
+             */
             unblock(): void;
-
-            setUserId(userId: string): void;
-
+            /**
+             * Set the logged in user.
+             * @param userId The value that should be returned by `userId` on this connection.
+             */
+            setUserId(userId: string | null): void;
+            /**
+             * The id of the user that made this method call, or `null` if no user was logged in.
+             */
             userId: string | null;
+            /**
+             * Access inside a method invocation.  Boolean value, true if this invocation is a stub.
+             */
             isSimulation: boolean;
+            /**
+             * Access inside a method invocation. The [connection](#meteor_onconnection) that this method was received on. `null` if the method is not associated with a connection, eg. a server
+             * initiated method call. Calls to methods made from a server method which was in turn initiated from the client share the same `connection`.
+             */
             connection: Meteor.Connection;
         }
     }

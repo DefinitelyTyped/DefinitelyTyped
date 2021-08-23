@@ -1,5 +1,5 @@
 import ReactSignatureCanvas from 'react-signature-canvas';
-import SignaturePad from 'signature_pad';
+import SignaturePad = require('signature_pad');
 import * as React from 'react';
 
 const ReactSignatureCanvasNoOptions: JSX.Element = <ReactSignatureCanvas />;

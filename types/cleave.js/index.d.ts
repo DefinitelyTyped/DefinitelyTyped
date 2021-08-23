@@ -8,8 +8,14 @@
 
 import { CleaveOptions } from './options';
 
+interface Properties extends CleaveOptions {
+    result: string;
+}
+
 declare class Cleave {
     constructor(selector: string | HTMLElement, options: CleaveOptions);
+
+    properties: Properties;
 
     getRawValue(): string;
 

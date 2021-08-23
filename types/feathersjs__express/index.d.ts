@@ -2,7 +2,7 @@
 // Project: https://feathersjs.com
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 //                 Aleksey Klimenko <https://github.com/DadUndead>
-// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { Application as FeathersApplication, ServiceMethods, SetupMethod } from '@feathersjs/feathers';
@@ -30,8 +30,8 @@ export interface Application<T = any> extends ExpressAndFeathersApplicationWitho
 }
 
 export function errorHandler(options?: {
-    public?: string,
-    logger?: { error?: (msg: string) => void },
+    public?: string | undefined,
+    logger?: { error?: ((msg: string) => void) | undefined } | undefined,
     html?: any,
     json?: any,
 }): express.ErrorRequestHandler;

@@ -60,57 +60,57 @@ declare namespace createjs {
     }
 
     export type TweenProps = {
-        useTicks?:boolean,
-        ignoreGlobalPause?:boolean,
-        loop?:number,
-        reversed?:boolean,
-        bounce?:boolean,
-        timeScale?:number,
+        useTicks?:boolean | undefined,
+        ignoreGlobalPause?:boolean | undefined,
+        loop?:number | undefined,
+        reversed?:boolean | undefined,
+        bounce?:boolean | undefined,
+        timeScale?:number | undefined,
         pluginData?:any,
-        paused?:boolean,
-        position?:number,
-        onChange?:(e:Event) => void,
-        onComplete?:(e:Event) => void,
-        override?:boolean;
+        paused?:boolean | undefined,
+        position?:number | undefined,
+        onChange?:((e:Event) => void) | undefined,
+        onComplete?:((e:Event) => void) | undefined,
+        override?:boolean | undefined;
     }
 
     export type TimelineProps = {
-        useTicks?:boolean,
-        ignoreGlobalPause?:boolean,
-        loop?:number,
-        reversed?:boolean,
-        bounce?:boolean,
-        timeScale?:number,
-        paused?:boolean,
-        position?:number,
-        onChange?:(e:Event) => void,
-        onComplete?:(e:Event) => void
+        useTicks?:boolean | undefined,
+        ignoreGlobalPause?:boolean | undefined,
+        loop?:number | undefined,
+        reversed?:boolean | undefined,
+        bounce?:boolean | undefined,
+        timeScale?:number | undefined,
+        paused?:boolean | undefined,
+        position?:number | undefined,
+        onChange?:((e:Event) => void) | undefined,
+        onComplete?:((e:Event) => void) | undefined
     }
     
     export class TweenStep {
         constructor(prev:TweenStep, t:number, d:number, props:TweenProps, ease:Function, passive:boolean);
 
-		next:TweenStep;
-		prev:TweenStep;
-		t:number;
-		d:number;
-		props:TweenProps;
-		ease:Function;
-		passive:boolean;
-		index:number;
-	}
-	
-	export class TweenAction {
+        next:TweenStep;
+        prev:TweenStep;
+        t:number;
+        d:number;
+        props:TweenProps;
+        ease:Function;
+        passive:boolean;
+        index:number;
+    }
+    
+    export class TweenAction {
         constructor(prev:TweenAction, t:number, scope:any, funct:Function, params:any[]);
 
-		next:TweenAction;
-		prev:TweenAction;
-		t:number;
-		d:number;
-		scope:any;
-		funct:Function;
-		params:any[];
-	}
+        next:TweenAction;
+        prev:TweenAction;
+        t:number;
+        d:number;
+        scope:any;
+        funct:Function;
+        params:any[];
+    }
 
     export class MotionGuidePlugin {
 
@@ -145,7 +145,7 @@ declare namespace createjs {
         ignoreGlobalPause:boolean;
         loop:number;
         useTicks:boolean;
-		reversed:boolean;
+        reversed:boolean;
         bounce:boolean;
         timeScale:number;
         duration:number;

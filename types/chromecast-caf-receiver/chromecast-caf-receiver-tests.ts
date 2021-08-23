@@ -1,14 +1,14 @@
+import { ApplicationData, LaunchedFrom } from 'chromecast-caf-receiver/cast.framework.system';
 import {
     MediaMetadata,
     LoadRequestData,
     StreamType,
     HlsSegmentFormat,
-    Track,
     TrackType,
     MessageType,
-    RequestData,
 } from 'chromecast-caf-receiver/cast.framework.messages';
-import { DetailedErrorCode, EventType } from 'chromecast-caf-receiver/cast.framework.events';
+import { DetailedErrorCode, EventType, MediaFinishedEvent } from 'chromecast-caf-receiver/cast.framework.events';
+import { BreakManager } from 'chromecast-caf-receiver/cast.framework.breaks';
 
 // The following test showcases how you can import individual types directly from the namespace:
 
@@ -46,7 +46,7 @@ pManager.addEventListener(cast.framework.events.category.FINE, () => {});
 pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
 pManager.addEventListener(
     EventType.MEDIA_FINISHED,
-    (event: cast.framework.events.MediaFinishedEvent) => `${event.currentMediaTime} ${event.endedReason}`,
+    (event: MediaFinishedEvent) => `${event.currentMediaTime} ${event.endedReason}`,
 );
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
@@ -60,8 +60,10 @@ const breakSeekData = new cast.framework.breaks.BreakSeekData(0, 100, []);
 // tslint:disable-next-line
 const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(adBreak);
 // tslint:disable-next-line
-const breakManager: cast.framework.breaks.BreakManager = {
+const breakManager: BreakManager = {
     getBreakById: () => adBreak,
+    getBreakClipCurrentTimeSec: () => null,
+    getBreakClipDurationSec: () => null,
     getBreakClipById: () => breakClip,
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],
@@ -92,12 +94,14 @@ lrd.media = {
 lrd.queueData = {};
 
 // tslint:disable-next-line
-const appData: cast.framework.system.ApplicationData = {
-    id: () => 'id',
-    launchingSenderId: () => 'launch-id',
-    name: () => 'name',
-    namespaces: () => ['namespace'],
-    sessionId: () => 1,
+const appData: ApplicationData = {
+    id: 'id',
+    launchingSenderId: 'launch-id',
+    name: 'name',
+    namespaces: ['namespace'],
+    sessionId: 1,
+    iconUrl: 'iconUrl',
+    launchedFrom: LaunchedFrom.CAST,
 };
 
 // tslint:disable-next-line
@@ -144,6 +148,12 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
     () => '¡hola!',
 );
 
+// send custom message to specific sender
+cast.framework.CastReceiverContext.getInstance().sendCustomMessage('custom-namespace', 'sender-id', {});
+
+// broadcast custom message to all connected senders
+cast.framework.CastReceiverContext.getInstance().sendCustomMessage('custom-namespace', undefined, {});
+
 const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, 'Loading failed!');
 
 // PlayerManager message interceptors
@@ -178,3 +188,56 @@ cast.framework.CastReceiverContext.getInstance()
     .addEventListener(cast.framework.events.EventType.BITRATE_CHANGED, bitrateChangedEvent => {
         const bitrate = bitrateChangedEvent.totalBitrate;
     });
+
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .addEventListener(cast.framework.events.EventType.TRACKS_CHANGED, () => {});
+
+// CastDebugLogger
+const debugLogger = cast.debug.CastDebugLogger.getInstance();
+
+debugLogger.loggerLevelByEvents = {
+    'cast.framework.events.category.CORE': cast.framework.LoggerLevel.WARNING,
+};
+
+debugLogger.setEnabled(true);
+
+debugLogger.showDebugLogs(true);
+
+debugLogger.error(
+    'REPORTING',
+    'Track could not be reported',
+    cast.framework.CastReceiverContext.getInstance().getPlayerManager().getMediaInformation(),
+);
+
+const controls = cast.framework.ui.Controls.getInstance();
+
+controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_1, cast.framework.ui.ControlsButton.LIKE);
+controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_2, cast.framework.ui.ControlsButton.DISLIKE);
+
+const playerManager = cast.framework.CastReceiverContext.getInstance().getPlayerManager();
+
+playerManager.setMessageInterceptor(
+    MessageType.CLOUD_STATUS,
+    (messageData: messages.CloudMediaStatus): messages.CloudMediaStatus | messages.ErrorData => {
+        if (Math.random() > 0.5) {
+            const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
+            errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
+            return errorData;
+        }
+
+        return messageData;
+    },
+);
+playerManager.setMessageInterceptor(
+    MessageType.DISPLAY_STATUS,
+    (messageData: messages.DisplayStatusRequestData): messages.DisplayStatusRequestData | messages.ErrorData => {
+        if (Math.random() > 0.5) {
+            const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
+            errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
+            return errorData;
+        }
+
+        return messageData;
+    },
+);

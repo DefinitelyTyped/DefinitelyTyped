@@ -30,6 +30,9 @@ const signatureWithHeaderParams = jws.sign({
 // jws.decode
 const message = jws.decode('djfakdid');
 
+// $ExpectType boolean
+const isValid = jws.isValid('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
+
 // jws.createSign
 jws.createSign({
   header: { alg: 'RS256' },
@@ -56,3 +59,6 @@ const verifier = jws.createVerify();
 pubKeyStream.pipe(verifier.publicKey);
 sigStream.pipe(verifier.signature);
 verifier.on('done', (verified, obj) => {});
+
+// jws.ALGORITHMS defined
+const algorithms = jws.ALGORITHMS;

@@ -1,6 +1,6 @@
 // Type definitions for file-entry-cache 5.0
 // Project: https://github.com/royriojas/file-entry-cache#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/me>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -73,11 +73,11 @@ export interface AnalyzedFilesInfo {
 export interface FileDescriptor {
     readonly key: string;
     readonly notFound: boolean;
-    readonly err?: Error;
-    readonly changed?: boolean;
+    readonly err?: Error | undefined;
+    readonly changed?: boolean | undefined;
     readonly meta?: {
-        readonly size?: number;
-        readonly mtime?: number;
-        readonly hash?: string;
-    };
+        readonly size?: number | undefined;
+        readonly mtime?: number | undefined;
+        readonly hash?: string | undefined;
+    } | undefined;
 }

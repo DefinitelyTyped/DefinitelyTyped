@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 function testTypeOf() {
     Ember.typeOf(); // $ExpectType "undefined"
@@ -41,22 +41,20 @@ function testIsNone() {
 }
 
 function testMerge() {
-    assertType<{ first: string, last: string }>(
-        Ember.merge({ first: 'Tom' }, { last: 'Dale' })
-    );
+    assertType<{ first: string; last: string }>(Ember.merge({ first: 'Tom' }, { last: 'Dale' }));
 }
 
 function testAssign() {
-    assertType<{ first: string, middle: string, last: string }>(
-        Ember.assign({ first: 'Tom' }, { middle: 'M' }, { last: 'Dale' })
+    assertType<{ first: string; middle: string; last: string }>(
+        Ember.assign({ first: 'Tom' }, { middle: 'M' }, { last: 'Dale' }),
     );
 }
 
 function testOnError() {
-    Ember.onerror = (error) => {
+    Ember.onerror = error => {
         Ember.$.post('/report-error', {
             stack: error.stack,
-            otherInformation: 'whatever app state you want to provide'
+            otherInformation: 'whatever app state you want to provide',
         });
     };
 }
@@ -66,7 +64,11 @@ function testDeprecateFunc() {
         return '';
     }
 
-    const oldMethod = Ember.deprecateFunc('Please use the new method', { id: 'deprecated.id', until: '6.0' }, newMethod);
+    const oldMethod = Ember.deprecateFunc(
+        'Please use the new method',
+        { id: 'deprecated.id', until: '6.0' },
+        newMethod,
+    );
     assertType<string>(newMethod('first', 123));
     assertType<string>(oldMethod('first', 123));
 }
@@ -79,23 +81,34 @@ function testDefineProperty() {
         writable: true,
         configurable: false,
         enumerable: true,
-        value: 'Charles'
+        value: 'Charles',
     });
 
     // define a simple property
     Ember.defineProperty(contact, 'lastName', undefined, 'Jolley');
 
     // define a computed property
-    Ember.defineProperty(contact, 'fullName', Ember.computed('firstName', 'lastName', function() {
-        return `${this.firstName} ${this.lastName}`;
-    }));
+    Ember.defineProperty(
+        contact,
+        'fullName',
+        Ember.computed('firstName', 'lastName', function () {
+            return `${this.firstName} ${this.lastName}`;
+        }),
+    );
 }
 
 function testTryInvoke() {
     class Foo {
-        hello() { return ['world']; }
-        add(x: number, y: string) { return x + parseInt(y, 10); }
-        apples(n: number) { return `${n} apples`; }
+        hello() {
+            return ['world'];
+        }
+        add(x: number, y: string) {
+            return x + parseInt(y, 10);
+        }
+        apples(n: number) {
+            // tslint:disable-next-line:no-unnecessary-type-assertion
+            return `${n} apples` as string;
+        }
     }
     // zero-argument function
     Ember.tryInvoke(new Foo(), 'hello'); // $ExpectType string[]
@@ -121,33 +134,34 @@ function testTryInvoke() {
 
 (() => {
     /** typeOf */
-    Ember.typeOf();                       // $ExpectType "undefined"
-    Ember.typeOf(null);                   // $ExpectType "null"
-    Ember.typeOf(undefined);              // $ExpectType "undefined"
-    Ember.typeOf('michael');              // $ExpectType "string"
+    Ember.typeOf(); // $ExpectType "undefined"
+    Ember.typeOf(null); // $ExpectType "null"
+    Ember.typeOf(undefined); // $ExpectType "undefined"
+    Ember.typeOf('michael'); // $ExpectType "string"
     // tslint:disable-next-line:no-construct
-    Ember.typeOf(new String('michael'));  // $ExpectType "string"
-    Ember.typeOf(101);                    // $ExpectType "number"
+    Ember.typeOf(new String('michael')); // $ExpectType "string"
+    Ember.typeOf(101); // $ExpectType "number"
     // tslint:disable-next-line:no-construct
-    Ember.typeOf(new Number(101));        // $ExpectType "number"
-    Ember.typeOf(true);                   // $ExpectType "boolean"
+    Ember.typeOf(new Number(101)); // $ExpectType "number"
+    Ember.typeOf(true); // $ExpectType "boolean"
     // tslint:disable-next-line:no-construct
-    Ember.typeOf(new Boolean(true));      // $ExpectType "boolean"
-    Ember.typeOf(() => 4);                // $ExpectType "function"
-    Ember.typeOf([1, 2, 90]);             // $ExpectType "array"
-    Ember.typeOf(/abc/);                  // $ExpectType "regexp"
-    Ember.typeOf(new Date());             // $ExpectType "date"
-    Ember.typeOf(({} as any) as FileList);  // $ExpectType "filelist"
-    Ember.typeOf(Ember.Object.extend());   // $ExpectType "class"
-    Ember.typeOf(Ember.Object.create());   // $ExpectType "instance"
-    Ember.typeOf(new Error('teamocil'));  // $ExpectType "error"
-    Ember.typeOf((new Date()) as RegExp | Date); // "regexp" | "date"
+    Ember.typeOf(new Boolean(true)); // $ExpectType "boolean"
+    Ember.typeOf(() => 4); // $ExpectType "function"
+    Ember.typeOf([1, 2, 90]); // $ExpectType "array"
+    Ember.typeOf(/abc/); // $ExpectType "regexp"
+    Ember.typeOf(new Date()); // $ExpectType "date"
+    Ember.typeOf(({} as any) as FileList); // $ExpectType "filelist"
+    Ember.typeOf(Ember.Object.extend()); // $ExpectType "class"
+    Ember.typeOf(Ember.Object.create()); // $ExpectType "instance"
+    Ember.typeOf(new Error('teamocil')); // $ExpectType "error"
+    Ember.typeOf(new Date() as RegExp | Date); // "regexp" | "date"
 })();
 
-(() => { /* assign */
-    Ember.assign({}, { a: 'b'});
-    Ember.assign({}, { a: 'b'}).a; // $ExpectType string
-    Ember.assign({ a: 6 }, { a: 'b'}).a; // $ExpectType string
+(() => {
+    /* assign */
+    Ember.assign({}, { a: 'b' });
+    Ember.assign({}, { a: 'b' }).a; // $ExpectType string
+    Ember.assign({ a: 6 }, { a: 'b' }).a; // $ExpectType string
     Ember.assign({ a: 6 }, {}).a; // $ExpectType number
     Ember.assign({ b: 6 }, {}).a; // $ExpectError
     Ember.assign({}, { b: 6 }, {}).b; // $ExpectType number
@@ -157,10 +171,11 @@ function testTryInvoke() {
     Ember.assign({ d: ['gobias industries'] }, { a: 'hello' }, { b: 6 }, { a: true }).d; // $ExpectType string[]
 })();
 
-(() => { /* merge */
-    Ember.merge({}, { a: 'b'});
-    Ember.merge({}, { a: 'b'}).a; // $ExpectType string
-    Ember.merge({ a: 6 }, { a: 'b'}).a; // $ExpectType string
+(() => {
+    /* merge */
+    Ember.merge({}, { a: 'b' });
+    Ember.merge({}, { a: 'b' }).a; // $ExpectType string
+    Ember.merge({ a: 6 }, { a: 'b' }).a; // $ExpectType string
     Ember.merge({ a: 6 }, {}).a; // $ExpectType number
     Ember.merge({ b: 6 }, {}).a; // $ExpectError
 })();

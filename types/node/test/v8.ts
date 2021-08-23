@@ -1,5 +1,5 @@
-import * as v8 from 'v8';
-import { Readable } from 'stream';
+import * as v8 from 'node:v8';
+import { Readable } from 'node:stream';
 
 const heapStats = v8.getHeapStatistics();
 const numOfDetached = heapStats.number_of_detached_contexts;
@@ -11,3 +11,6 @@ v8.setFlagsFromString('--collect_maps');
 
 const stream: Readable = v8.getHeapSnapshot();
 const fileName = v8.writeHeapSnapshot('file');
+
+v8.takeCoverage();
+v8.stopCoverage();

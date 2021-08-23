@@ -1,83 +1,61 @@
-// Type definitions for trusted-types 1.0
+// Type definitions for trusted-types 2.0
 // Project: https://github.com/WICG/trusted-types
-// Definitions by: Jakub Vrana <https://github.com/vrana>,
+// Definitions by: Jakub Vrana <https://github.com/vrana>
 //                 Damien Engels <https://github.com/engelsdamien>
 //                 Emanuel Tesar <https://github.com/siegrift>
+//                 Bjarki <https://github.com/bjarkler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.1
 
+import * as lib from './lib';
+
+// Re-export the type definitions globally.
 declare global {
-    interface TrustedTypePolicyOptions {
-        createHTML?: (input: string) => string;
-        createScript?: (input: string) => string;
-        createScriptURL?: (input: string) => string;
-        createURL?: (input: string) => string;
-    }
+    const TrustedHTML: typeof lib.TrustedHTML;
+    type TrustedHTML = lib.TrustedHTML;
+    const TrustedScript: typeof lib.TrustedScript;
+    type TrustedScript = lib.TrustedScript;
+    const TrustedScriptURL: typeof lib.TrustedScriptURL;
+    type TrustedScriptURL = lib.TrustedScriptURL;
 
-    class TrustedHTML {
-        private constructor(); // To prevent instantiting with 'new'.
-        private brand: true; // To prevent structural typing.
-    }
+    const TrustedTypePolicy: typeof lib.TrustedTypePolicy;
+    type TrustedTypePolicy = lib.TrustedTypePolicy;
 
-    class TrustedScript {
-        private constructor(); // To prevent instantiting with 'new'.
-        private brand: true; // To prevent structural typing.
-    }
+    const TrustedTypePolicyFactory: typeof lib.TrustedTypePolicyFactory;
+    type TrustedTypePolicyFactory = lib.TrustedTypePolicyFactory;
 
-    class TrustedScriptURL {
-        private constructor(); // To prevent instantiting with 'new'.
-        private brand: true; // To prevent structural typing.
-    }
+    type TrustedTypePolicyOptions = lib.TrustedTypePolicyOptions;
 
-    class TrustedURL {
-        private constructor(); // To prevent instantiting with 'new'.
-        private brand: true; // To prevent structural typing.
-    }
-
-    interface TrustedTypePolicy {
-        readonly name: string;
-        createHTML(input: string): TrustedHTML;
-        createScript(input: string): TrustedScript;
-        createScriptURL(input: string): TrustedScriptURL;
-        createURL(input: string): TrustedURL;
-    }
-
-    interface TrustedTypePolicyFactory {
-        createPolicy<Keys extends keyof TrustedTypePolicyOptions>(
-            name: string,
-            policyOptions: Pick<TrustedTypePolicyOptions, Keys>,
-            expose?: boolean,
-        ): Pick<TrustedTypePolicy, 'name' | Keys>;
-        getPolicyNames(): string[];
-        isHTML(value: any): value is TrustedHTML;
-        isScript(value: any): value is TrustedScript;
-        isScriptURL(value: any): value is TrustedScriptURL;
-        isURL(value: any): value is TrustedURL;
-        getAttributeType(tagName: string, attrName: string, elemNs?: string, attrNs?: string): string | undefined;
-        getPropertyType(tagName: string, propName: string, elemNs?: string): string | undefined;
-        defaultPolicy?: TrustedTypePolicy;
-        emptyHTML: TrustedHTML;
-    }
-
-    interface Window {
-        // NOTE: This is needed while the implementation in Chrome still relies
-        // on the old uppercase name, either of the values below could be
-        // undefined.
-        // See https://github.com/w3c/webappsec-trusted-types/issues/177
-        trustedTypes?: TrustedTypePolicyFactory;
-        /** @deprecated Prefer the lowercase version. */
-        TrustedTypes?: TrustedTypePolicyFactory;
-        TrustedHTML: TrustedHTML;
-        TrustedScript: TrustedScript;
-        TrustedScriptURL: TrustedScriptURL;
-        TrustedURL: TrustedURL;
-        TrustedTypePolicyFactory: TrustedTypePolicyFactory;
-        TrustedTypePolicy: TrustedTypePolicy;
-    }
+    // Attach the relevant Trusted Types properties to the Window object.
+    // tslint:disable-next-line no-empty-interface
+    interface Window extends lib.TrustedTypesWindow {}
 }
 
-// This is not available in global scope. It's only used for the export. This is
-// necessary to be able to use these types from nodejs (for SSR).
-declare const trustedTypes: TrustedTypePolicyFactory;
+// These are the available exports when using the polyfill as npm package (e.g. in nodejs)
+interface InternalTrustedTypePolicyFactory extends lib.TrustedTypePolicyFactory {
+    TrustedHTML: typeof lib.TrustedHTML;
+    TrustedScript: typeof lib.TrustedScript;
+    TrustedScriptURL: typeof lib.TrustedScriptURL;
+}
 
-export default trustedTypes;
+declare const trustedTypes: InternalTrustedTypePolicyFactory;
+
+declare class TrustedTypesEnforcer {
+    constructor(config: TrustedTypeConfig);
+    install: () => void;
+    uninstall: () => void;
+}
+
+// tslint:disable-next-line no-unnecessary-class
+declare class TrustedTypeConfig {
+    constructor(
+        isLoggingEnabled: boolean,
+        isEnforcementEnabled: boolean,
+        allowedPolicyNames: string[],
+        allowDuplicates: boolean,
+        cspString?: string | null,
+        windowObject?: Window,
+    );
+}
+
+export { trustedTypes, TrustedTypesEnforcer, TrustedTypeConfig, TrustedTypePolicy, TrustedTypePolicyFactory };

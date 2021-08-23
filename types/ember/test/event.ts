@@ -4,7 +4,7 @@ function testOn() {
     const Job = Ember.Object.extend({
         logCompleted: Ember.on('completed', () => {
             console.log('Job completed!');
-        })
+        }),
     });
 
     const job = Job.create();
@@ -16,7 +16,7 @@ function testEvented() {
     const Person = Ember.Object.extend(Ember.Evented, {
         greet() {
             this.trigger('greet');
-        }
+        },
     });
 
     const person = Person.create();
@@ -25,11 +25,14 @@ function testEvented() {
         console.log('Our person has greeted');
     });
 
-    person.on('greet', () => {
-        console.log('Our person has greeted');
-    }).one('greet', () => {
-        console.log('Offer one-time special');
-    }).off('event', {}, () => {});
+    person
+        .on('greet', () => {
+            console.log('Our person has greeted');
+        })
+        .one('greet', () => {
+            console.log('Offer one-time special');
+        })
+        .off('event', {}, () => {});
 
     person.greet();
 }
@@ -38,7 +41,7 @@ function testObserver() {
     Ember.Object.extend({
         valueObserver: Ember.observer('value', () => {
             // Executes whenever the "value" property changes
-        })
+        }),
     });
 }
 
@@ -52,7 +55,6 @@ function testListener() {
             Ember.removeListener(this, 'willDestroyElement', this, 'willDestroyListener');
             Ember.removeListener(this, 'willDestroyElement', this, this.willDestroyListener);
         },
-        willDestroyListener() {
-        }
+        willDestroyListener() {},
     });
 }

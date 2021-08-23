@@ -1,11 +1,9 @@
-// Type definitions for relay-runtime 8.0
+// Type definitions for relay-runtime 11.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
-// Definitions by: Matt Martin <https://github.com/voxmatt>
-//                 Eloy Durán <https://github.com/alloy>
-//                 Cameron Knight <https://github.com/ckknight>
-//                 Renan Machado <https://github.com/renanmav>
+// Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Stephen Pittman <https://github.com/Stephen2>
-//                 Martin Zlámal <https://github.com/mrtnzlml>
+//                 Marais Rossouw <https://github.com/maraisr>
+//                 Lorenzo Di Giacomo <https://github.com/morrys>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -29,10 +27,16 @@ export {
     ExecuteFunction,
     FetchFunction,
     GraphQLResponse,
+    GraphQLResponseWithData,
+    GraphQLResponseWithoutData,
+    GraphQLSingularResponse,
     LogRequestInfoFunction,
     Network as INetwork,
     PayloadData,
     PayloadError,
+    ReactFlightPayloadData,
+    ReactFlightPayloadQuery,
+    ReactFlightServerTree,
     SubscribeFunction,
     Uploadable,
     UploadableMap,
@@ -47,19 +51,7 @@ export {
     getRefetchableFragment,
     getRequest,
 } from './lib/query/RelayModernGraphQLTag';
-export {
-    isClientID,
-    generateClientID,
-    generateUniqueClientID,
-} from './lib/store/ClientID';
-export {
-    ConnectionEvent,
-    ConnectionID,
-    ConnectionReference,
-    ConnectionReferenceObject,
-    ConnectionResolver,
-    ConnectionSnapshot,
-} from './lib/store/RelayConnection';
+export { isClientID, generateClientID, generateUniqueClientID } from './lib/store/ClientID';
 export { TaskScheduler } from './lib/store/RelayModernQueryExecutor';
 export { RecordState } from './lib/store/RelayRecordState';
 export {
@@ -69,9 +61,11 @@ export {
     FragmentReference,
     FragmentSpecResolver,
     HandleFieldPayload,
+    InvalidationState,
     MissingFieldHandler,
     ModuleImportPointer,
     NormalizationSelector,
+    OperationAvailability,
     OperationDescriptor,
     OperationLoader,
     OperationTracker,
@@ -81,6 +75,8 @@ export {
     PluralReaderSelector,
     Props,
     PublishQueue,
+    ReactFlightPayloadDeserializer,
+    ReactFlightClientResponse,
     ReaderSelector,
     ReadOnlyRecordProxy,
     RecordProxy,
@@ -100,6 +96,7 @@ export {
     NormalizationDefer,
     NormalizationConnection,
     NormalizationField,
+    NormalizationFlightField,
     NormalizationLinkedField,
     NormalizationLinkedHandle,
     NormalizationLocalArgumentDefinition,
@@ -113,8 +110,8 @@ export { NormalizationOperation } from './lib/util/NormalizationNode';
 export {
     ReaderArgument,
     ReaderArgumentDefinition,
-    ReaderConnection,
     ReaderField,
+    ReaderFlightField,
     ReaderFragment,
     ReaderInlineDataFragment,
     ReaderInlineDataFragmentSpread,
@@ -123,21 +120,23 @@ export {
     ReaderPaginationMetadata,
     ReaderRefetchableFragment,
     ReaderRefetchMetadata,
+    ReaderRequiredField,
     ReaderScalarField,
     ReaderSelection,
+    RequiredFieldAction,
 } from './lib/util/ReaderNode';
 export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
-export { CacheConfig, DataID, Disposable, OperationType, Variables } from './lib/util/RelayRuntimeTypes';
+export * from './lib/util/RelayRuntimeTypes';
 
 // Core API
-export { RelayModernEnvironment as Environment } from './lib/store/RelayModernEnvironment';
+export { default as Environment } from './lib/store/RelayModernEnvironment';
 export { RelayNetwork as Network } from './lib/network/RelayNetwork';
 export { RelayObservable as Observable } from './lib/network/RelayObservable';
 import QueryResponseCache from './lib/network/RelayQueryResponseCache';
 export { QueryResponseCache };
 export { RelayRecordSource as RecordSource } from './lib/store/RelayRecordSource';
 export { RelayModernRecord as Record } from './lib/store/RelayModernRecord';
-export { RelayModernStore as Store } from './lib/store/RelayModernStore';
+export { default as Store } from './lib/store/RelayModernStore';
 
 export {
     areEqualSelectors,
@@ -184,17 +183,32 @@ export { applyOptimisticMutation } from './lib/mutations/applyOptimisticMutation
 export { commitLocalUpdate } from './lib/mutations/commitLocalUpdate';
 export { commitMutation } from './lib/mutations/commitMutation';
 export { fetchQuery } from './lib/query/fetchQuery';
+export { fetchQuery_DEPRECATED } from './lib/query/fetchQuery_DEPRECATED';
 export { isRelayModernEnvironment } from './lib/store/isRelayModernEnvironment';
 export { requestSubscription } from './lib/subscription/requestSubscription';
 
 // Utilities
 export { RelayProfiler } from './lib/util/RelayProfiler';
-export { getRelayHandleKey } from './lib/util/getRelayHandleKey';
+export { default as getRelayHandleKey } from './lib/util/getRelayHandleKey';
+export { default as getRequestIdentifier } from './lib/util/getRequestIdentifier';
+export { default as getFragmentIdentifier } from './lib/util/getFragmentIdentifier';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
-export { deepFreeze } from './lib/util/deepFreeze';
+export { default as deepFreeze } from './lib/util/deepFreeze';
+export { default as isPromise } from './lib/util/isPromise';
+
+import * as fetchQueryInternal from './lib/query/fetchQueryInternal';
+
+interface Internal {
+    fetchQuery: typeof fetchQueryInternal.fetchQuery;
+    fetchQueryDeduped: typeof fetchQueryInternal.fetchQueryDeduped;
+    getPromiseForActiveRequest: typeof fetchQueryInternal.getPromiseForActiveRequest;
+    getObservableForActiveRequest: typeof fetchQueryInternal.getObservableForActiveRequest;
+}
+
+export const __internal: Internal;
 
 /**
  * relay-compiler-language-typescript support for fragment references

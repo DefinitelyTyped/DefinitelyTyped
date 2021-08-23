@@ -3,15 +3,15 @@ import { Readable } from 'stream';
 import { RecordResult } from './record-result';
 
 export interface ExecuteOptions {
-    autoFetch?: boolean;
-    maxFetch?: number;
-    headers?: object;
-    scanAll?: boolean;
+    autoFetch?: boolean | undefined;
+    maxFetch?: number | undefined;
+    headers?: object | undefined;
+    scanAll?: boolean | undefined;
 }
 
 export interface QueryResult<T> {
     done: boolean;
-    nextRecordsUrl?: string;
+    nextRecordsUrl?: string | undefined;
     totalSize: number;
     records: T[];
 }
@@ -68,7 +68,7 @@ export class Query<T> extends Readable implements Promise<T> {
 
     where(conditions: Object | string): Query<T>;
 
-    finally<never>(): Promise<T>;
+    finally(): Promise<T>;
 
     [Symbol.toStringTag]: 'Promise';
 

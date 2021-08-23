@@ -27,27 +27,27 @@ export interface WindowOptions {
     /**
      * App window width in pixels.
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * App window height in pixels.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * App window top offset in pixels.
      */
-    top?: number;
+    top?: number | undefined;
 
     /**
      * App window left offset in pixels.
      */
-    left?: number;
+    left?: number | undefined;
 
     /**
      * Background color using hex notation, defaults to '#ffffff'.
      */
-    bgcolor?: string;
+    bgcolor?: string | undefined;
 }
 
 /**
@@ -57,7 +57,7 @@ export interface LaunchOptions extends WindowOptions {
     /**
      * Browser to be used, defaults to ['stable']
      */
-    channel?: Channel[];
+    channel?: Channel[] | undefined;
 
     /**
      * Application icon to be used in the system dock.
@@ -65,7 +65,7 @@ export interface LaunchOptions extends WindowOptions {
      * This feature is only available in Chrome M72+.
      * One can use 'canary' channel to see it in action before M72 hits stable.
      */
-    icon?: Buffer | string;
+    icon?: Buffer | string | undefined;
 
     /**
      * Optional parameters to share between Carlo instances.
@@ -75,24 +75,24 @@ export interface LaunchOptions extends WindowOptions {
     /**
      * Application title
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      *  Path to a User Data Directory. This folder is created upon the first app launch and contains user settings and Web storage data. Defaults to '.profile'.
      */
-    userDataDir?: string;
+    userDataDir?: string | undefined;
 
     /**
      * Path to a Chromium or Chrome executable to run instead of the automatically located Chrome.
      * If executablePath is a relative path, then it is resolved relative to current working directory.
      * Carlo is only guaranteed to work with the latest Chrome stable version.
      */
-    executablePath?: string;
+    executablePath?: string | undefined;
 
     /**
      * Additional arguments to pass to the browser instance.
      */
-    args?: string[];
+    args?: string[] | undefined;
 }
 
 export type AppEvent = 'exit' | 'window';
@@ -214,22 +214,22 @@ export interface Window {
         /**
          * Top offset in pixels.
          */
-        top?: number;
+        top?: number | undefined;
 
         /**
          * Left offset in pixels.
          */
-        left?: number;
+        left?: number | undefined;
 
         /**
          * Width in pixels.
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * Height in pixels.
          */
-        height?: number;
+        height?: number | undefined;
     }): Promise<void>;
 }
 

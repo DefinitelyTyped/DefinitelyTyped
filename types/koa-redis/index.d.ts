@@ -10,7 +10,7 @@ import { stores } from 'koa-session';
 
 declare namespace redisStore {
     interface RedisOptions extends ClientOpts {
-        duplicate?: boolean;
+        duplicate?: boolean | undefined;
         client?: any;
     }
 

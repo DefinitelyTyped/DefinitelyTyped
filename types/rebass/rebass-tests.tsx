@@ -30,12 +30,30 @@ const CssBox = () => <Box css={boxCss} />;
 const VariantBox = () => <Box tx="specialBoxes" />;
 
 export default () => (
-    <Box width={1} css={{ height: '100vh' }} py={[1, 2, 3]} ml="1em" display="block">
-        <Flex width={1} alignItems="center" justifyContent="center">
-            <Heading fontSize={5} fontWeight="bold">
+    <Box
+        width={1}
+        css={{ height: '100vh' }}
+        py={[1, 2, 3]}
+        ml="1em"
+        display="block"
+        fontFamily="monospace"
+        flexShrink={1}
+    >
+        <Flex
+            width={1}
+            flexGrow={1}
+            flexShrink={0}
+            alignItems="center"
+            alignContent="start"
+            alignSelf="stretch"
+            justifyItems="center"
+            justifyContent="start"
+            justifySelf="stretch"
+        >
+            <Heading fontSize={5} fontWeight="bold" flexShrink={1}>
                 Hi, I'm a heading.
             </Heading>
-            <Text as="p" fontSize={3} lineHeight="1em" letterSpacing="1rem">
+            <Text as="p" fontSize={3} lineHeight="1em" letterSpacing="1rem" fontStyle="italic" order={1}>
                 Hi, I'm text.
             </Text>
             <Card

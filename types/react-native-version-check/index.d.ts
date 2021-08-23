@@ -25,12 +25,12 @@ declare namespace VersionCheck {
         /**
          * App ID
          */
-        appID?: string;
-        appName?: string;
+        appID?: string | undefined;
+        packageName?: string | undefined;
         /**
          * @default true
          */
-        ignoreErrors?: boolean;
+        ignoreErrors?: boolean | undefined;
     }): Promise<string>;
     /**
      * Returns url of App Store of app.
@@ -39,12 +39,11 @@ declare namespace VersionCheck {
         /**
          * App ID
          */
-        appID?: string;
-        appName?: string;
+        appID?: string | undefined;
         /**
          * @default true
          */
-        ignoreErrors?: boolean;
+        ignoreErrors?: boolean | undefined;
     }): Promise<string>;
     /**
      * Returns url of Play Store of app.
@@ -53,11 +52,11 @@ declare namespace VersionCheck {
         /**
          * Package Name
          */
-        packageName?: string;
+        packageName?: string | undefined;
         /**
          * @default true
          */
-        ignoreErrors?: boolean;
+        ignoreErrors?: boolean | undefined;
     }): Promise<string>;
     /**
      * Returns current app version.
@@ -70,23 +69,23 @@ declare namespace VersionCheck {
         /**
          * @default false
          */
-        forceUpdate?: boolean;
+        forceUpdate?: boolean | undefined;
         /**
          * provider name or function that returns promise or value of the latest version
          */
-        provider?: (() => string) | string;
+        provider?: (() => string) | string | undefined;
         /**
          * isomorphic-fetch options (https://github.github.io/fetch/)
          */
-        fetchOptions?: RequestInit;
+        fetchOptions?: RequestInit | undefined;
         /**
          * @default true
          */
-        ignoreErrors?: boolean;
+        ignoreErrors?: boolean | undefined;
         /**
          * Package name or function that returns promise or value of package name
          */
-        packageName?: string | (() => string);
+        packageName?: string | (() => string) | undefined;
     }): Promise<string>;
     /**
      * Returns an object contains with boolean value whether update needed, current version and latest version.
@@ -96,35 +95,35 @@ declare namespace VersionCheck {
         /**
          * app's Package Name
          */
-        packageName?: string;
+        packageName?: string | undefined;
         /**
          * app's current version from getCurrentVersion()
          */
-        currentVersion?: string;
+        currentVersion?: string | undefined;
         /**
          * app's latest version from getLatestVersion()
          */
-        latestVersion?: string;
+        latestVersion?: string | undefined;
         /**
          * @default Infinity
          */
-        depth?: number;
+        depth?: number | undefined;
         /**
          * @default false
          */
-        forceUpdate?: boolean;
+        forceUpdate?: boolean | undefined;
         /**
          * provider name or function that returns promise or value of the latest version
          */
-        provider?: (() => string) | string;
+        provider?: (() => string) | string | undefined;
         /**
          * isomorphic-fetch options (https://github.github.io/fetch/)
          */
-        fetchOptions?: RequestInit;
+        fetchOptions?: RequestInit | undefined;
         /**
          * @default true
          */
-        ignoreErrors?: boolean;
+        ignoreErrors?: boolean | undefined;
     }): Promise<{
         isNeeded: boolean;
         currentVersion: string;

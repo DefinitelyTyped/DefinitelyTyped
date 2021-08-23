@@ -4,13 +4,14 @@
 //                 Brie Bunge <https://github.com/brieb>
 //                 Joe Lencioni <https://github.com/lencioni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { CSSProperties } from 'aphrodite';
 
-interface Theme { [key: string]: any; }
+// tslint:disable-next-line no-empty-interface
+interface Theme {}
 
 interface WithStylesProps<T = Theme> {
     /**
@@ -35,13 +36,13 @@ interface Styles {
 }
 
 interface WithStylesOptions {
-    flushBefore?: boolean;
-    pureComponent?: boolean;
+    flushBefore?: boolean | undefined;
+    pureComponent?: boolean | undefined;
 }
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 type ComponentClassProps<C> = C extends new (props: infer P, context?: any) => any ? P : never;
-type SFCProps<C> = C extends (props: infer P & { children?: React.ReactNode }, context?: any) => any ? P : never;
+type SFCProps<C> = C extends (props: infer P & { children?: React.ReactNode | undefined }, context?: any) => any ? P : never;
 type ElementProps<C> = C extends React.ComponentClass<any>
     ? ComponentClassProps<C>
     : C extends React.SFC<any>

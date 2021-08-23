@@ -593,7 +593,6 @@ declare namespace DAO {
         Unique: boolean;
     }
 
-    // tslint:disable-next-line:interface-name
     interface Indexes {
         Append(Index: Index): void;
         readonly Count: number;

@@ -36,32 +36,32 @@ declare global { namespace L {
             /**
             * Name of the icon. See glyphicons or font-awesome.
             */
-            icon?: string;
+            icon?: string | undefined;
 
             /**
             * Select de icon library. 'fa' for font-awesome or 'glyphicon' for bootstrap 3.
             */
-            prefix?: 'fa' | 'glyphicon';
+            prefix?: 'fa' | 'glyphicon' | undefined;
 
             /**
             * Color of the marker
             */
-            markerColor?: 'red' | 'darkred' | 'orange' | 'green' | 'darkgreen' | 'blue' | 'purple' | 'darkpurple' | 'cadetblue';
+            markerColor?: 'red' | 'darkred' | 'orange' | 'green' | 'darkgreen' | 'blue' | 'purple' | 'darkpurple' | 'cadetblue' | undefined;
 
             /**
             * Color of the icon. 'white', 'black' or css code (hex, rgba etc).
             */
-            iconColor?: 'white' | 'black' | string;
+            iconColor?: 'white' | 'black' | string | undefined;
 
             /**
             * Make the icon spin. true or false. Font-awesome required
             */
-            spin?: boolean;
+            spin?: boolean | undefined;
 
             /**
             * Additional classes in the created tag
             */
-            extraClasses?: string;
+            extraClasses?: string | undefined;
         }
 
         var Icon: AwesomeMarkers.IconStatic;

@@ -27,16 +27,16 @@ export type LogicalBooleanOperatorType = 'AND' | 'OR';
 // ----------------------------------------------------------------------
 
 export type TypeNameIdentifierType =
-  'bool' |
-  'bytea' |
-  'float4' |
-  'float8' |
-  'int2' |
-  'int4' |
-  'json' |
-  'text' |
-  'timestamptz' |
-  'uuid';
+    | 'bool'
+    | 'bytea'
+    | 'float4'
+    | 'float8'
+    | 'int2'
+    | 'int4'
+    | 'json'
+    | 'text'
+    | 'timestamptz'
+    | 'uuid';
 
 export type SerializableValueType =
     | string
@@ -48,11 +48,10 @@ export type SerializableValueType =
     | SerializableValueArray;
 
 export interface SerializableValueObject {
-  [x: string]: SerializableValueType;
+    [x: string]: SerializableValueType;
 }
 
-export interface SerializableValueArray
-  extends ReadonlyArray<SerializableValueType> {}
+export interface SerializableValueArray extends ReadonlyArray<SerializableValueType> {}
 
 export type NamedParameterValuesType = Record<string, ValueExpressionType>;
 
@@ -96,17 +95,15 @@ export type PrimitiveValueExpressionType = string | number | boolean | null | Pr
 export interface PrimitiveValueExpressionTypeArray extends Array<PrimitiveValueExpressionType> {}
 
 export type SqlTokenType =
-    ArraySqlTokenType |
-    BinarySqlTokenType |
-    IdentifierSqlTokenType |
-    JsonSqlTokenType |
-    ListSqlTokenType |
-    SqlSqlTokenType<any> |
-    UnnestSqlTokenType;
+    | ArraySqlTokenType
+    | BinarySqlTokenType
+    | IdentifierSqlTokenType
+    | JsonSqlTokenType
+    | ListSqlTokenType
+    | SqlSqlTokenType<any>
+    | UnnestSqlTokenType;
 
-export type ValueExpressionType =
-    SqlTokenType |
-    PrimitiveValueExpressionType;
+export type ValueExpressionType = SqlTokenType | PrimitiveValueExpressionType;
 
 export type NamedAssignmentType = Record<string, ValueExpressionType>;
 
@@ -123,7 +120,7 @@ export type DatabaseTransactionConnectionType = CommonQueryMethodsType & {
 };
 
 export type DatabasePoolConnectionType = CommonQueryMethodsType & {
-    stream: (sql: TaggedTemplateLiteralInvocationType, streamHandler: StreamHandlerType) => Promise<null>,
+    stream: (sql: TaggedTemplateLiteralInvocationType, streamHandler: StreamHandlerType) => Promise<null>;
     transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
@@ -140,26 +137,11 @@ export type DatabasePoolType = CommonQueryMethodsType & {
     connect: <T>(connectionRoutine: ConnectionRoutineType<T>) => Promise<T>;
     end: () => Promise<void>;
     getPoolState: () => PoolStateType;
-    stream: (sql: TaggedTemplateLiteralInvocationType, streamHandler: StreamHandlerType) => Promise<null>,
+    stream: (sql: TaggedTemplateLiteralInvocationType, streamHandler: StreamHandlerType) => Promise<null>;
     transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
-export type DatabaseConfigurationType =
-    | string
-    | {
-        database?: string;
-        host?: string;
-        idleTimeoutMillis?: number;
-        max?: number;
-        password?: string;
-        port?: number;
-        user?: string;
-    };
-
-export type ConnectionTypeType =
-    | 'EXPLICIT'
-    | 'IMPLICIT_QUERY'
-    | 'IMPLICIT_TRANSACTION';
+export type ConnectionTypeType = 'EXPLICIT' | 'IMPLICIT_QUERY' | 'IMPLICIT_TRANSACTION';
 
 export interface ConnectionContextType {
     /**
@@ -186,12 +168,12 @@ export type QueryIdType = string;
 
 export interface QueryType {
     sql: string;
-    values?: ReadonlyArray<PrimitiveValueExpressionType>;
+    values?: ReadonlyArray<PrimitiveValueExpressionType> | undefined;
 }
 
 export type QueryMethodType<RowType, Result> = (
     sql: TaggedTemplateLiteralInvocationType<RowType>,
-    values?: PrimitiveValueExpressionType[]
+    values?: PrimitiveValueExpressionType[],
 ) => Promise<Result>;
 export type QueryMethodParams<T> = Parameters<QueryMethodType<T, never>>;
 
@@ -221,6 +203,7 @@ export type QueryResultRowType<ColumnName extends string = string> = {
 
 export type QueryAnyFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<Array<T[keyof T]>>;
 export type QueryAnyFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[]>;
+export type QueryExistsFunctionType = (...args: QueryMethodParams<any>) => Promise<boolean>;
 export type QueryFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<QueryResultType<T>>;
 export type QueryManyFirstFunctionType = QueryAnyFirstFunctionType;
 export type QueryManyFunctionType = QueryAnyFunctionType;
@@ -232,6 +215,7 @@ export type QueryOneFunctionType = <T>(...args: QueryMethodParams<T>) => Promise
 export interface CommonQueryMethodsType {
     any: QueryAnyFunctionType;
     anyFirst: QueryAnyFirstFunctionType;
+    exists: QueryExistsFunctionType;
     many: QueryManyFunctionType;
     manyFirst: QueryManyFirstFunctionType;
     maybeOne: QueryMaybeOneFunctionType;
@@ -282,7 +266,7 @@ export interface QueryContextType {
     /**
      * Unique transaction ID
      */
-    transactionId?: string;
+    transactionId?: string | undefined;
 }
 
 //
@@ -299,7 +283,7 @@ export const sql: SqlTaggedTemplateType;
 export type IdentifierNormalizerType = (identifierName: string) => string;
 
 export interface SqlTagConfigurationType {
-    normalizeIdentifier?: IdentifierNormalizerType;
+    normalizeIdentifier?: IdentifierNormalizerType | undefined;
 }
 
 export function createSqlTag(configuration?: SqlTagConfigurationType): SqlTaggedTemplateType;
@@ -309,24 +293,17 @@ export interface SqlTaggedTemplateType {
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
     array: (
         values: PrimitiveValueExpressionType[],
-        memberType: TypeNameIdentifierType | SqlTokenType
+        memberType: TypeNameIdentifierType | SqlTokenType,
     ) => ArraySqlTokenType;
-    identifier: (
-        names: string[]
-    ) => IdentifierSqlTokenType;
-    json: (
-        value: SerializableValueType
-    ) => JsonSqlTokenType;
-    join: (
-      members: ReadonlyArray<ValueExpressionType>,
-      glue: SqlTokenType,
-    ) => ListSqlTokenType;
+    identifier: (names: string[]) => IdentifierSqlTokenType;
+    json: (value: SerializableValueType) => JsonSqlTokenType;
+    join: (members: ReadonlyArray<ValueExpressionType>, glue: SqlTokenType) => ListSqlTokenType;
     unnest: (
         // Value might be ReadonlyArray<ReadonlyArray<PrimitiveValueExpressionType>>,
         // or it can be infinitely nested array, e.g.
         // https://github.com/gajus/slonik/issues/44
         tuples: ReadonlyArray<ReadonlyArray<any>>,
-        columnTypes: ReadonlyArray<string>
+        columnTypes: ReadonlyArray<string>,
     ) => UnnestSqlTokenType;
 }
 
@@ -354,65 +331,57 @@ export interface PoolContextType {
 }
 
 export function createPool(
-    connectionConfiguration: DatabaseConfigurationType,
-    clientUserConfiguration?: ClientConfigurationInputType
+    connectionUri: string,
+    clientUserConfiguration?: ClientConfigurationInputType,
 ): DatabasePoolType;
 
 //
 // TRANSACTION
 // ----------------------------------------------------------------------
-export type TransactionFunctionType<T> = (
-    connection: DatabaseTransactionConnectionType
-) => Promise<T>;
+export type TransactionFunctionType<T> = (connection: DatabaseTransactionConnectionType) => Promise<T>;
 
 //
 // INTERCEPTOR
 // ----------------------------------------------------------------------
 export interface InterceptorType {
-    afterPoolConnection?: (
+    afterPoolConnection?: ((
         connectionContext: ConnectionContextType,
-        connection: DatabasePoolConnectionType
-    ) => MaybePromiseType<null>;
-    afterQueryExecution?: (
+        connection: DatabasePoolConnectionType,
+    ) => MaybePromiseType<null>) | undefined;
+    afterQueryExecution?: ((
         queryContext: QueryContextType,
         query: QueryType,
-        result: QueryResultType<QueryResultRowType>
-    ) => MaybePromiseType<null>;
-    beforePoolConnection?: (
-        connectionContext: PoolContextType
-    ) => MaybePromiseType<DatabasePoolType | null | undefined>;
-    beforePoolConnectionRelease?: (
+        result: QueryResultType<QueryResultRowType>,
+    ) => MaybePromiseType<null>) | undefined;
+    beforePoolConnection?: ((
+        connectionContext: PoolContextType,
+    ) => MaybePromiseType<DatabasePoolType | null | undefined>) | undefined;
+    beforePoolConnectionRelease?: ((
         connectionContext: ConnectionContextType,
-        connection: DatabasePoolConnectionType
-    ) => MaybePromiseType<null>;
-    beforeQueryExecution?: (
-        queryContext: QueryContextType,
-        query: QueryType
-    ) => MaybePromiseType<QueryResultType<QueryResultRowType> | null>;
-    beforeQueryResult?: (
+        connection: DatabasePoolConnectionType,
+    ) => MaybePromiseType<null>) | undefined;
+    beforeQueryExecution?: ((
         queryContext: QueryContextType,
         query: QueryType,
-        result: QueryResultType<QueryResultRowType>
-      ) => MaybePromiseType<null>;
-    beforeTransformQuery?: (
-        queryContext: QueryContextType,
-        query: QueryType
-    ) => MaybePromiseType<null>;
-    queryExecutionError?: (
+    ) => MaybePromiseType<QueryResultType<QueryResultRowType> | null>) | undefined;
+    beforeQueryResult?: ((
         queryContext: QueryContextType,
         query: QueryType,
-        error: SlonikError
-    ) => MaybePromiseType<null>;
-    transformQuery?: (
+        result: QueryResultType<QueryResultRowType>,
+    ) => MaybePromiseType<null>) | undefined;
+    beforeTransformQuery?: ((queryContext: QueryContextType, query: QueryType) => MaybePromiseType<null>) | undefined;
+    queryExecutionError?: ((
         queryContext: QueryContextType,
-        query: QueryType
-    ) => QueryType;
-    transformRow?: (
+        query: QueryType,
+        error: SlonikError,
+    ) => MaybePromiseType<null>) | undefined;
+    transformQuery?: ((queryContext: QueryContextType, query: QueryType) => QueryType) | undefined;
+    transformRow?: ((
         queryContext: QueryContextType,
         query: QueryType,
         row: QueryResultRowType,
-        fields: FieldType[]
-    ) => QueryResultRowType;
+        fields: FieldType[],
+    ) => QueryResultRowType) | undefined;
 }
 
 /**
@@ -425,12 +394,10 @@ export interface InterceptorType {
 export function createInterceptorPreset(): InterceptorType[];
 
 export function createFieldNameTransformationInterceptor(configuration: {
-    format: string,
-    test?: (field: FieldType) => boolean
+    format: string;
+    test?: ((field: FieldType) => boolean) | undefined;
 }): InterceptorType;
-export function createQueryNormalizationInterceptor(configuration?: {
-    stripComments?: boolean;
-}): InterceptorType;
+export function createQueryNormalizationInterceptor(configuration?: { stripComments?: boolean | undefined }): InterceptorType;
 export function createBenchmarkingInterceptor(): InterceptorType;
 
 //
@@ -463,37 +430,37 @@ export function createTypeParserPreset(): TypeParserType[];
 // ----------------------------------------------------------------------
 export interface ClientConfigurationType {
     /** Dictates whether to capture stack trace before executing query. Middlewares access stack trace through query execution context. (Default: true) */
-    captureStackTrace?: boolean;
+    captureStackTrace?: boolean | undefined;
 
     /** Number of times to retry establishing a new connection. (Default: 3) */
-    connectionRetryLimit?: number;
+    connectionRetryLimit?: number | undefined;
 
     /** connectionTimeout Timeout (in milliseconds) after which an error is raised if connection cannot cannot be established. (Default: 5000) */
-    connectionTimeout?: number | 'DISABLE_TIMEOUT';
+    connectionTimeout?: number | 'DISABLE_TIMEOUT' | undefined;
 
     /** idleInTransactionSessionTimeout Timeout (in milliseconds) after which idle clients are closed. Use 'DISABLE_TIMEOUT' constant to disable the timeout. (Default: 60000) */
-    idleInTransactionSessionTimeout?: number | 'DISABLE_TIMEOUT';
+    idleInTransactionSessionTimeout?: number | 'DISABLE_TIMEOUT' | undefined;
 
     /** Timeout (in milliseconds) after which idle clients are closed. (Default: 5000) */
-    idleTimeout?: number;
+    idleTimeout?: number | undefined;
 
     /** Do not allow more than this many connections. (Default: 10) */
-    maximumPoolSize?: number;
+    maximumPoolSize?: number | undefined;
 
     /** Uses libpq bindings when `pg-native` module is installed. (Default: true) */
-    preferNativeBindings?: boolean;
+    preferNativeBindings?: boolean | undefined;
 
     /** Timeout (in milliseconds) after which database is instructed to abort the query. Use 'DISABLE_TIMEOUT' constant to disable the timeout. (Default: 60000) */
-    statementTimeout?: number | 'DISABLE_TIMEOUT';
+    statementTimeout?: number | 'DISABLE_TIMEOUT' | undefined;
 
     /**
      * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)
      */
-    interceptors?: InterceptorType[];
+    interceptors?: InterceptorType[] | undefined;
     /**
      * An array of [Slonik type parsers](https://github.com/gajus/slonik#slonik-type-parsers)
      */
-    typeParsers?: TypeParserType[];
+    typeParsers?: TypeParserType[] | undefined;
 }
 
 // tslint:disable-next-line no-empty-interface
@@ -503,23 +470,25 @@ export interface ClientConfigurationInputType extends ClientConfigurationType {}
 // ERRORS
 // ----------------------------------------------------------------------
 export class SlonikError extends Error {}
+export class InvalidConfigurationError extends SlonikError {}
 export class InvalidInputError extends SlonikError {}
 export class UnexpectedStateError extends SlonikError {}
 export class ConnectionError extends SlonikError {}
-export class QueryCancelledError extends SlonikError {
-  originalError: Error;
-  constructor(error: Error);
+export class StatementCancelledError extends SlonikError {
+    originalError: Error;
+    constructor(error: Error);
 }
+export class StatementTimeoutError extends StatementCancelledError {}
 export class BackendTerminatedError extends SlonikError {
-  originalError: Error;
-  constructor(error: Error)
+    originalError: Error;
+    constructor(error: Error);
 }
 export class NotFoundError extends SlonikError {}
 export class DataIntegrityError extends SlonikError {}
 export class IntegrityConstraintViolationError extends SlonikError {
-  constraint: string;
-  originalError: Error;
-  constructor(error: Error, constraint: string);
+    constraint: string;
+    originalError: Error;
+    constructor(error: Error, constraint: string);
 }
 export class NotNullIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}
 export class ForeignKeyIntegrityConstraintViolationError extends IntegrityConstraintViolationError {}

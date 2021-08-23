@@ -1,4 +1,4 @@
-import semver = require('../');
+import semver = require('../index');
 import Comparator = require('./comparator');
 import SemVer = require('./semver');
 

@@ -1,10 +1,10 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace PostPreviewButton {
     interface Props {
-        children?: never;
-        forcePreviewLink?: string;
-        forceIsAutosaveable?: boolean;
+        children?: never | undefined;
+        forcePreviewLink?: string | undefined;
+        forceIsAutosaveable?: boolean | undefined;
     }
 }
 declare const PostPreviewButton: ComponentType<PostPreviewButton.Props>;

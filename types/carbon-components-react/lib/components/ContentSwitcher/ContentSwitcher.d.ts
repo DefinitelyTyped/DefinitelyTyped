@@ -1,15 +1,20 @@
 import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
-import { SwitchProps } from "./Switch";
+import { SwitchOnKeyDownData } from "../Switch";
 
-interface InheritedProps extends Omit<ReactDivAttr, "onChange"> {
-    onChange: NonNullable<SwitchProps["onClick"]>,
+export type ContentSwitcherOnChangeData = Omit<SwitchOnKeyDownData, "key"> & Partial<Pick<SwitchOnKeyDownData, "key">>;
+
+export interface ContentSwitcherProps extends Omit<ReactDivAttr, "onChange" | "role"> {
+    /**
+     * @deprecated
+     */
+    light?: boolean | undefined,
+    onChange?(data: ContentSwitcherOnChangeData): void,
+    selectedIndex?: number | undefined,
+    selectionMode?: "automatic" | "manual" | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | undefined;
 }
 
-export interface ContentSwitcherProps extends InheritedProps {
-    selectedIndex?: number,
-}
-
-declare const ContentSwitcher: React.FC<ContentSwitcherProps>;
+declare class ContentSwitcher extends React.Component<ContentSwitcherProps> {}
 
 export default ContentSwitcher;

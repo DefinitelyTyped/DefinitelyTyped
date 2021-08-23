@@ -4,8 +4,7 @@
         "target": "es6",
         "lib": [
             "es6",
-            "dom",
-            "es2015.promise"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -17,7 +16,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ckeditor/*": [
+                "ckeditor__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

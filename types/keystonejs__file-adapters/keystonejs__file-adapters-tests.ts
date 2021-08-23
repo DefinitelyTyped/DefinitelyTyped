@@ -4,7 +4,6 @@ import { File } from '@keystonejs/fields';
 import { LocalFileAdapter, CloudinaryFileAdapter } from '@keystonejs/file-adapters';
 
 const keystone = new Keystone({
-    name: 'Typescript Test',
     adapter: new KnexAdapter(),
 });
 

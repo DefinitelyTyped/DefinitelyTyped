@@ -2,7 +2,7 @@ import { assertType } from './lib/assert';
 import Helper, { helper } from '@ember/component/helper';
 
 class Timestamp extends Helper {
-    timer?: ReturnType<typeof setInterval>;
+    timer?: ReturnType<typeof setInterval> | undefined;
     now = new Date();
     init() {
         super.init();
@@ -20,6 +20,6 @@ const addHelper = helper(function add([a, b]: number[]) {
     return a + b;
 });
 
-const dasherizeHelper = helper(function dasherize([str]: string[], { delim = '-'}) {
+const dasherizeHelper = helper(function dasherize([str]: string[], { delim = '-' }) {
     return str.split(/[\s\n\_\.]+/g).join(delim);
 });

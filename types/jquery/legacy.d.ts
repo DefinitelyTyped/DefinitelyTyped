@@ -30,7 +30,6 @@ interface JQuerySupport extends JQuery.PlainObject { }
  * @deprecated ​ Deprecated. Use \`{@link JQuery.Deferred.Callback }\` or \`{@link JQuery.Deferred.CallbackBase }\`.
  */
 interface JQueryPromiseCallback<T> {
-    // tslint:disable-next-line:callable-types
     (value?: T, ...args: any[]): void;
 }
 /**
@@ -42,7 +41,6 @@ interface JQueryParam {
      * @param obj An array or object to serialize.
      * @param traditional A Boolean indicating whether to perform a traditional "shallow" serialization.
      */
-    // tslint:disable-next-line:callable-types
     (obj: any, traditional?: boolean): string;
 }
 /**
@@ -183,7 +181,6 @@ interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObjec
  * @deprecated ​ Deprecated.
  */
 interface JQueryPromiseOperator<T, U> {
-    // tslint:disable-next-line:callable-types
     (callback1: JQuery.TypeOrArray<JQueryPromiseCallback<T>>,
      ...callbacksN: Array<JQuery.TypeOrArray<JQueryPromiseCallback<any>>>): JQueryPromise<U>;
 }
@@ -191,7 +188,6 @@ interface JQueryPromiseOperator<T, U> {
  * @deprecated ​ Deprecated. Internal. See \`{@link https://github.com/jquery/api.jquery.com/issues/912 }\`.
  */
 interface JQueryEasingFunction {
-    // tslint:disable-next-line:callable-types
     (percent: number): number;
 }
 /**

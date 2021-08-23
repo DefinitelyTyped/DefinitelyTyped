@@ -105,13 +105,13 @@ declare namespace RSVP {
         ): RSVP.Promise<T>;
 
         then<TResult1 = T, TResult2 = never>(
-            onFulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-            onRejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+            onFulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
+            onRejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
             label?: string
         ): RSVP.Promise<TResult1 | TResult2>;
 
         catch<TResult = never>(
-            onRejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
+            onRejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
             label?: string
         ): RSVP.Promise<T | TResult>;
 

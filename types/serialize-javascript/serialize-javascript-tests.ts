@@ -17,3 +17,7 @@ serialize(obj);
 serialize(obj, { space: 2 });
 serialize(obj, { space: "\t" });
 serialize(obj, { isJSON: true });
+serialize(obj, { ignoreFunction: true });
+serialize(obj, 2);
+serialize(obj, "\t");
+serialize(obj, { unsafe: true });

@@ -27,7 +27,6 @@ class GetAndSet {
 }
 
 class Foo123 extends GetAndSet {
-    // tslint:disable-next-line:no-inferrable-types
     a: number;
     b: [boolean, boolean];
     c: string;

@@ -93,7 +93,7 @@ interface PopcornPlugin {
     frame?(event:any, track?:TrackEvent);
     toString?():string;
 
-    manifest?:PopcornManifest;
+    manifest?:PopcornManifest | undefined;
 }
 
 interface PopcornManifest {

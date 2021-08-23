@@ -1,4 +1,5 @@
-/// <reference types="node" />
+import { exec } from "child_process";
+import { EventEmitter } from "events";
 import * as fs from "fs";
 import Undertaker = require("undertaker");
 import Registry = require("undertaker-registry");
@@ -16,7 +17,7 @@ taker.task("task2", () => {
 });
 
 taker.task("task3", () => {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
         // do things
         resolve(); // when everything is done
     });
@@ -35,6 +36,18 @@ const {
     flags,
 } = taker.task("task4").unwrap();
 
+taker.task("task5", () => {
+    const emitter = new EventEmitter();
+    setTimeout(() => emitter.emit("done"), 1000);
+    return emitter;
+});
+
+taker.task("task6", () => exec("ls"));
+
+declare const task7: () => {
+    subscribe(next?: (v: any) => void, error?: (e: any) => void, complete?: () => void): any;
+};
+taker.task("task7", task7);
 taker.task("combined", taker.series("task1", "task2"));
 
 taker.task("all", taker.parallel("combined", "task3"));
@@ -42,6 +55,25 @@ taker.task("all", taker.parallel("combined", "task3"));
 taker.task("all-parallel-array", taker.parallel(["combined", "task3"]));
 
 taker.task("all-series-array", taker.series(["combined", "task3"]));
+
+const version = 7;
+taker.task("checkVersion", (cb: Parameters<Undertaker.TaskFunction>[0]) => {
+    if (version < 7) {
+        cb(new Error("version < 7!"));
+    } else if (version < 9) {
+        cb(null);
+    } else {
+        cb();
+    }
+});
+
+taker.task("mixed", (cb: Undertaker.TaskCallback, args?: number) => {
+    if (!args) {
+        cb(new Error("Undefined args!"));
+        return;
+    }
+    return Promise.resolve(args + 2);
+});
 
 const registry = new Registry();
 const CommonRegistry = (options: { buildDir: string }): Registry => {

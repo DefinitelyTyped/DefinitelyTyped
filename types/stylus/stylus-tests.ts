@@ -5,6 +5,12 @@
  */
 
 import stylus = require("stylus");
+import Renderer = require("stylus/lib/renderer");
+
+// $ExpectType typeof Renderer
+Renderer;
+// $ExpectType string
+new Renderer("str", {}).render();
 
 const str = "This is a stylus test";
 
@@ -98,3 +104,30 @@ stylus(str)
         if (err) throw err;
         console.log(css);
     });
+
+/**
+ * .deps(filename)
+ * https://github.com/stylus/stylus/blob/59bc665db295981d4e3f702e7275c5589a3c6d15/docs/js.md#deps
+ */
+
+stylus(str)
+    .deps();
+
+stylus(str)
+    .deps('test name');
+
+/**
+ * stylus.url(options)
+ * https://github.com/stylus/stylus/blob/dev/docs/functions.url.md
+ */
+stylus.url();
+stylus.url({});
+stylus.url({ paths: [] });
+stylus.url({ paths: ['./test'] });
+stylus.url({ limit: 100 });
+stylus.url({ limit: false });
+stylus.url({ limit: null });
+stylus.url({ paths: ['./test'], limit: 100 });
+stylus.url({ path: './test' }); // $ExpectError
+stylus.url({ limit: '100' }); // $ExpectError
+stylus.url({ limit: true }); // $ExpectError

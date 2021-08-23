@@ -18,3 +18,30 @@ import * as R from 'ramda';
         <V>(val: V): (obj: Record<'foo', V>) => boolean;
     } = R.propEq('foo');
 };
+
+interface Obj {
+    a: number;
+    b: number;
+}
+
+() => {
+    const xs: Obj = { a: 1, b: 0 };
+    R.propEq('a', 1, xs); // => true
+    R.propEq('a', 4, xs); // => false
+};
+
+() => {
+    interface A {
+        foo: string | null;
+    }
+
+    const obj: A = {
+        foo: 'bar',
+    };
+    const value = '';
+
+    R.propEq('foo', value)(obj);
+
+    // $ExpectError
+    R.propEq('bar', value)(obj);
+};

@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@rdfjs/namespace": [
-                "rdfjs__namespace"
+            "@rdfjs/*": [
+                "rdfjs__*"
             ]
         }
     },

@@ -1,8 +1,17 @@
 // Type definitions for twemoji 12.1
 // Project: https://github.com/twitter/twemoji
 // Definitions by: Markus Tacker <https://github.com/coderbyheart>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 David Wheatley <https://github.com/davwheat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+/**
+ * A simple library that provides standard Unicode emoji support across all platforms.
+ * Twemoji v12.0 adheres to the Unicode 12.0 spec and supports the Emoji 12.0 spec
+ * The Twemoji library offers support for 3,075 emojis.
+ */
+export as namespace twemoji;
 
 /**
  * default assets url, by default will be Twitter Inc. CDN
@@ -217,4 +226,4 @@ export interface ParseObject {
  * });
  *  // I <img class="emoji" draggable="false" alt="❤️" src="/assets/72x72/2764.png"/> emoji!
  */
-export function parse(what: string | HTMLElement, how?: Partial<ParseObject> | ParseCallback): string;
+export function parse<T extends string | HTMLElement>(what: T, how?: Partial<ParseObject> | ParseCallback): T;

@@ -5,6 +5,7 @@
 //                 Martin Ždila <https://github.com/zdila>
 //                 Eunchong Yu <https://github.com/Kroisse>
 //                 Christopher N. Katoyi-Kaba <https://github.com/Christopher2K>
+//                 Zuo Jiazi <https://github.com/Aoiujz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -32,9 +33,9 @@ declare namespace KoaWebsocket {
     }
 
     class Server<StateT = any, CustomT = {}> {
-        app: App<StateT, CustomT>;
+        app: App;
         middleware: Array<Middleware<StateT, CustomT>>;
-        server?: ws.Server;
+        server?: ws.Server | undefined;
 
         constructor(app: Koa<StateT, CustomT>);
 
@@ -43,7 +44,7 @@ declare namespace KoaWebsocket {
         use(middleware: Middleware<StateT, CustomT>): this;
     }
 
-    interface App<StateT = any, CustomT = {}> extends Koa<StateT, CustomT> {
+    interface App<StateT = Koa.DefaultState, CustomT = Koa.DefaultContext> extends Koa<StateT, CustomT> {
         ws: Server<StateT, CustomT>;
     }
 }

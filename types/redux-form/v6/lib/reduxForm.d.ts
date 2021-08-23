@@ -34,7 +34,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * the name of your form and the key to where your form's state will be
      * mounted under the redux-form reducer
      */
-    form?: string;
+    form?: string | undefined;
 
     /**
      * field names for which onBlur should trigger a call to the asyncValidate
@@ -42,7 +42,7 @@ export interface Config<FormData extends DataShape, P, S> {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncBlurFields?: string[];
+    asyncBlurFields?: string[] | undefined;
 
     /**
      * a function that takes all the form values, the dispatch function, and
@@ -58,13 +58,13 @@ export interface Config<FormData extends DataShape, P, S> {
      * Whether or not to automatically destroy your form's state in the Redux
      * store when your component is unmounted. Defaults to true.
      */
-    destroyOnUnmount?: boolean;
+    destroyOnUnmount?: boolean | undefined;
 
     /**
      * Reinitialize the form every time the initialValues prop changes.
      * Defaults to false.
      */
-    enableReinitialize?: boolean;
+    enableReinitialize?: boolean | undefined;
 
     /**
      * Whether or not to force unregistration of fields -- use in conjunction
@@ -72,7 +72,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * fields as they unmount, but not the form's state. Defaults to false, as forms
      * are normally unregistered on unmount.
      */
-    forceUnregisterOnUnmount?: boolean;
+    forceUnregisterOnUnmount?: boolean | undefined;
 
     /**
      * A function that takes the entire Redux state and returns the state slice
@@ -88,7 +88,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * This option is useful in situations where the form has live updates or continues to be editable after
      * form submission; it prevents reinitialization from overwriting user changes. Defaults to false.
      */
-    keepDirtyOnReinitialize?: boolean;
+    keepDirtyOnReinitialize?: boolean | undefined;
 
     /**
      * The values with which to initialize your form in componentWillMount().
@@ -96,7 +96,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * with single-record forms. The values should be in the form
      * { field1: 'value1', field2: 'value2' }.
      */
-    initialValues?: Partial<FormData>;
+    initialValues?: Partial<FormData> | undefined;
 
     /**
      * A callback function that will be called with all the form values any time
@@ -110,7 +110,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * you must pass it as a parameter to handleSubmit() inside your form
      * component.
      */
-    onSubmit?: SubmitHandler<FormData, P, S>;
+    onSubmit?: SubmitHandler<FormData, P, S> | undefined;
 
     /**
      * A callback function that will be called when a submission fails for whatever reason.
@@ -138,7 +138,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * using other decorator libraries on the same component to avoid prop
      * namespace collisions.
      */
-    propNamespace?: string;
+    propNamespace?: string | undefined;
 
     /**
      * If true, implements `shouldComponentUpdate` and shallowly compares _only_
@@ -147,7 +147,7 @@ export interface Config<FormData extends DataShape, P, S> {
      * component and does not rely on any input or state other than its props and
      * the selected Redux store's state. Defaults to true.
      */
-    pure?: boolean;
+    pure?: boolean | undefined;
 
     /**
      * An optional function you may provide to have full control over when sync validation happens.
@@ -163,18 +163,18 @@ export interface Config<FormData extends DataShape, P, S> {
     /**
      * marks fields as touched when the blur action is fired. Defaults to true.
      */
-    touchOnBlur?: boolean;
+    touchOnBlur?: boolean | undefined;
 
     /**
      * marks fields as touched when the change action is fired. Defaults to
      * false.
      */
-    touchOnChange?: boolean;
+    touchOnChange?: boolean | undefined;
 
     /**
      * Do not remove submit errors when the change action is fired. Defaults to false.
      */
-    persistentSubmitErrors?: boolean;
+    persistentSubmitErrors?: boolean | undefined;
 
     /**
      * a synchronous validation function that takes the form values and props
@@ -238,7 +238,7 @@ interface AsyncValidateCallback<FormData extends DataShape> {
     /**
      * Any existing asynchronous validation errors
      */
-    asyncErrors?: FormErrors<FormData>;
+    asyncErrors?: FormErrors<FormData> | undefined;
 
     /**
      * true if the form has ever been initialized with initial values
@@ -255,7 +255,7 @@ interface AsyncValidateCallback<FormData extends DataShape> {
     /**
      * The name of the field that has triggered the async validation. May be undefined.
      */
-    blurredField?: string;
+    blurredField?: string | undefined;
 
     /**
      * true if the form is pristine, false if it is dirty

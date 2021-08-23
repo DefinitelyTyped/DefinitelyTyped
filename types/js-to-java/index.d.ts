@@ -1,8 +1,8 @@
-// Type definitions for js-to-java 2.4
+// Type definitions for js-to-java 2.7
 // Project: https://github.com/node-modules/js-to-java
 // Definitions by: skyitachi <https://github.com/skyitachi>
+//                 zhaoleipeng <https://github.com/zhaoleipeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 interface Currency {
   currencyCode: string;
@@ -15,8 +15,7 @@ declare namespace java {
   function Boolean(value: boolean): object;
   function boolean(value: boolean): object;
 
-  // Note: enum is keyword
-  // function enum(className: string, value: string): object;
+  function Enum(className: string, value: string): object;
 
   function Integer(value: number): object;
   function int(value: number): object;
@@ -53,6 +52,7 @@ declare namespace java {
   namespace array {
     function Boolean(value: boolean[]): object;
     function boolean(value: boolean[]): object;
+    function Enum(value: boolean[]): object;
 
     function Integer(value: number[]): object;
     function int(value: number[]): object;
@@ -89,8 +89,7 @@ declare namespace java {
     function Locale(locale: string[], handle: string): object;
     function BigDecimal(val: string[]): object;
 
-    // Note: it doesn't allow [null, "test"], actually it should be allowed
-    function Currency(value: (null[] | string[] | Currency[])): object;
+    function Currency(value: (Array<null | string | Currency>)): object;
   }
 
   function abstract(abstractClassName: string, className: string, value: any): object;

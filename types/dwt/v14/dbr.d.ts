@@ -1,6 +1,4 @@
 // tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
-// tslint:disable:no-irregular-whitespace
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -43,7 +41,7 @@ interface dbrEnv {
 }
 
 interface TaskQueue {
-	push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
+    push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
     unshift(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
     next(): void;
 }
@@ -111,12 +109,12 @@ declare namespace dynamsoft {
             DBR_RESERVEDINFO_NOT_MATCHED = -10040,
             DBR_DBRERR_AZTEC_LICENSE_INVALID = -10041
         }
-		
+        
         enum EnumConflictMode {
             ECM_Ignore = 1,
             ECM_Overwrite = 2
         }
-		
+        
         enum EnumImagePixelFormat {
             IPF_Binary = 0,
             IPF_BinaryInverted = 1,
@@ -127,21 +125,21 @@ declare namespace dynamsoft {
             IPF_RGB_888 = 6,
             IPF_ARGB_8888 = 7
         }
-		
+        
         enum EnumResultType {
             EDT_CandidateText = 2,
             EDT_PartialText = 3,
             EDT_RawText = 1,
             EDT_StandardText = 0
         }
-		
+        
         enum EnumTerminateStage {
             ETS_Localized = 1,
             ETS_Prelocalized = 0,
             ETS_Recognized = 2
         }
-	}
-	
+    }
+    
     class BarcodeReader {
         /**
          * Constructs a new KPainter
@@ -153,7 +151,7 @@ declare namespace dynamsoft {
         static name: string;
         static length: number;
         static version: string;
-		
+        
         // appendTplStringToRuntimeSettings(b, d):
         /** 
          * Read barcode from the source image.
@@ -203,7 +201,7 @@ declare namespace dynamsoft {
         resetRuntimeSettings(): void;
         updateRuntimeSettings(setting: RunTimeSetting): void;
     }
-	
+    
     let TaskQueue: TaskQueue;
     let dbrEnv: dbrEnv;
     /**dbrMasterPage20170526 */

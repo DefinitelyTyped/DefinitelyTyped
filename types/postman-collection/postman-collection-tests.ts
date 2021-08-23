@@ -195,7 +195,7 @@ cookieDef.extensions; // $ExpectType { key: string; value: string; }[] | undefin
 
 let cookie = new pmCollection.Cookie();
 cookie = new pmCollection.Cookie(cookieDef);
-
+cookie.name; // $ExpectType string | undefined
 cookie.domain; // $ExpectType string
 cookie.expires; // $ExpectType Date
 cookie.extensions; // $ExpectType { key: string; value: string; }[] | undefined
@@ -206,15 +206,12 @@ cookie.path; // $ExpectType string
 cookie.secure; // $ExpectType boolean | undefined
 cookie.session; // $ExpectType boolean | undefined
 cookie.value; // $ExpectType string | undefined
-
 cookie.update(cookieDef); // $ExpectType void
-
 cookie.valueOf(); // $ExpectType string
-
 pmCollection.Cookie.isCookie({}); // $ExpectType boolean
-pmCollection.Cookie.parse('string'); // $ExpectType CookieDefinition
-pmCollection.Cookie.splitParam('string'); // $ExpectType { key: string; value: string | boolean; }
-
+const parsed = pmCollection.Cookie.parse('string'); // $ExpectType CookieDefinition
+const unparsed = pmCollection.Cookie.unparseSingle(parsed); // $ExpectType string
+pmCollection.Cookie.stringify(parsed); // $ExpectType string
 // CookieList Tests
 
 const cookieList = new pmCollection.CookieList(null, [cookie]);
@@ -339,7 +336,7 @@ pmCollection.HeaderList.isHeaderList(headerList); // $ExpectType boolean
 
 const itemDef: pmCollection.ItemDefinition = {};
 itemDef.request; // $ExpectType RequestDefinition | undefined
-itemDef.responses; // $ExpectType ResponseDefinition[] | undefined
+itemDef.response; // $ExpectType ResponseDefinition[] | undefined
 itemDef.events; // $ExpectType EventDefinition[] | undefined
 
 // Item Tests
@@ -445,7 +442,7 @@ pmCollection.QueryParam.unparseSingle(qpDef, true); // $ExpectType string
 const reqDef: pmCollection.RequestDefinition = {
   url: 'string',
 };
-reqDef.url; // $ExpectType string | Url
+reqDef.url; // $ExpectType string | UrlDefinition
 reqDef.method; // $ExpectType string | undefined
 reqDef.header; // $ExpectType HeaderDefinition[] | undefined
 reqDef.body; // $ExpectType RequestBodyDefinition | undefined

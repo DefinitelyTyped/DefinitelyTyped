@@ -1,0 +1,7 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // conflicts with Prettier:
+        "space-before-function-paren": false
+    }
+}

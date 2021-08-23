@@ -1,40 +1,79 @@
 /// <reference types="node" />
 
-import { OutputQuoteStyle, minify } from 'uglify-js';
+import { OutputQuoteStyle, minify, CompressOptions } from 'uglify-js';
 
 let code: any;
 
 code = {
-    "file1.js": "function add(first, second) { return first + second; }",
-    "file2.js": "console.log(add(1 + 2, 3 + 4));"
+    'file1.js': 'function add(first, second) { return first + second; }',
+    'file2.js': 'console.log(add(1 + 2, 3 + 4));',
 };
 
 minify(code);
 
-code = "function add(first, second) { return first + second; }";
-minify(code);
+code = 'function add(first, second) { return first + second; }';
+minify(code, { toplevel: true });
 
 minify(code, {
+    warnings: true,
     output: {
-        quote_style: OutputQuoteStyle.AlwaysDouble
-    }
+        beautify: true,
+        preamble: '/* uglified */',
+        quote_style: OutputQuoteStyle.AlwaysDouble,
+    },
 });
 
 const output = minify(code, {
     warnings: 'verbose',
     mangle: {
         properties: {
-            regex: /reg/
-        }
+            regex: /reg/,
+        },
+        toplevel: true,
     },
     sourceMap: {
-        filename: 'foo.map'
+        filename: 'foo.map',
+        names: false,
     },
     compress: {
-        arguments: true
-    }
+        arguments: true,
+        global_defs: {
+            '@console.log': 'alert',
+        },
+        passes: 2,
+    },
+    nameCache: {},
 });
-
 if (output.warnings) {
     output.warnings.filter(x => x === 'Dropping unused variable');
 }
+
+const compressOptions: CompressOptions = {
+    booleans: true,
+    comparisons: true,
+    conditionals: true,
+    dead_code: true,
+    evaluate: true,
+    hoist_exports: false,
+    hoist_funs: false,
+    if_return: true,
+    imports: false,
+    join_vars: true,
+    keep_fargs: true,
+    loops: true,
+    merge_vars: true,
+    negate_iife: true,
+    side_effects: true,
+    templates: false,
+    unused: true,
+    varify: true,
+};
+minify(code, {
+    compress: compressOptions,
+});
+
+minify(code, {
+    sourceMap: {
+        content: 'inline',
+    },
+});

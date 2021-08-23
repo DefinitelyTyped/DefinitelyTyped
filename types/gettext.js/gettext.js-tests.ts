@@ -16,6 +16,9 @@ const instance: Gettext.Gettext = Gettext.i18n();
 
 instance.loadJSON(json, 'messages');
 instance.setLocale('fr');
-if (instance.ngettext('There is %1 apple', 'There are %1 apples', 0) === 'Il y a %1 pomme') {
+if (instance.ngettext('There is %1 apple', 'There are %1 apples', 0) !== 'Il y a 0 pomme') {
+  throw new Error('Failed test');
+}
+if (instance.strfmt('There are %1 apples', 0) !== 'There are 0 apples') {
   throw new Error('Failed test');
 }

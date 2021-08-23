@@ -1,5 +1,5 @@
 import { PayloadError, UploadableMap } from '../network/RelayNetworkTypes';
-import { Disposable, Variables } from '../util/RelayRuntimeTypes';
+import { CacheConfig, Disposable, Variables } from '../util/RelayRuntimeTypes';
 import { DeclarativeMutationConfig } from './RelayDeclarativeMutationConfig';
 import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
 import { Environment, SelectorStoreUpdater } from '../store/RelayStoreTypes';
@@ -7,20 +7,22 @@ import { Environment, SelectorStoreUpdater } from '../store/RelayStoreTypes';
 export interface MutationParameters {
     readonly response: {};
     readonly variables: {};
-    readonly rawResponse?: {};
+    readonly rawResponse?: {} | undefined;
 }
 
 export interface MutationConfig<TOperation extends MutationParameters> {
-    configs?: DeclarativeMutationConfig[];
+    configs?: DeclarativeMutationConfig[] | undefined;
+    cacheConfig?: CacheConfig | undefined;
     mutation: GraphQLTaggedNode;
-    onError?: ((error: Error) => void) | null;
+    onError?: ((error: Error) => void) | null | undefined;
     onCompleted?:
         | ((response: TOperation['response'], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
-        | null;
-    optimisticResponse?: TOperation['response'];
-    optimisticUpdater?: SelectorStoreUpdater<TOperation['response']> | null;
-    updater?: SelectorStoreUpdater<TOperation['response']> | null;
-    uploadables?: UploadableMap | null;
+        | null | undefined;
+    onUnsubscribe?: (() => void | null | undefined) | undefined;
+    optimisticResponse?: TOperation['response'] | undefined;
+    optimisticUpdater?: SelectorStoreUpdater<TOperation['response']> | null | undefined;
+    updater?: SelectorStoreUpdater<TOperation['response']> | null | undefined;
+    uploadables?: UploadableMap | null | undefined;
     variables: TOperation['variables'];
 }
 

@@ -34,7 +34,7 @@ var job = new CronJob('00 30 11 * * 1-5', () => {
    * or Sunday.
    */
   },
-	null,
+    null,
   true, /* Start the job right now */
   timeZone /* Time zone of this job. */
 );

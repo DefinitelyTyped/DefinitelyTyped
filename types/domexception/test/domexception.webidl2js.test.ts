@@ -14,17 +14,17 @@ DOMException.createImpl(global, ['foo']); // $ExpectType DOMExceptionImpl
 DOMException.createImpl(global, ['foo', 'SyntaxError']); // $ExpectType DOMExceptionImpl
 
 if (DOMException.is(any)) {
-	any; // $ExpectType DOMException
-	const impl = DOMException.convert(any);
+    any; // $ExpectType DOMException
+    const impl = DOMException.convert(any);
 
-	impl; // $ExpectType DOMExceptionImpl
+    impl; // $ExpectType DOMExceptionImpl
 }
 
 if (DOMException.isImpl(any)) {
-	any; // $ExpectType DOMExceptionImpl
+    any; // $ExpectType DOMExceptionImpl
 }
 
 DOMException.setup<DOMException>(Object.create(global.DOMException.prototype), global, [
-	'foo',
-	'SyntaxError',
+    'foo',
+    'SyntaxError',
 ]);

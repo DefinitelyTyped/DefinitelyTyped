@@ -2,16 +2,12 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
-        "eofline": false,
         "no-any-union": false,
         "no-object-literal-type-assertion": false,
-        "no-redundant-jsdoc": false,
         "no-trailing-whitespace": false,
         "object-literal-key-quotes": false,
-        "prefer-const": false,
-        "prefer-method-signature": false
+        "prefer-const": false
     }
 }

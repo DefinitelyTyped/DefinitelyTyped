@@ -1,8 +1,9 @@
-// Type definitions for non-npm package frida-gum 15.2
+// Type definitions for non-npm package frida-gum 17.1
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
+//                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.1
 
 /**
  * Returns a hexdump of the provided ArrayBuffer or NativePointerValue target.
@@ -16,22 +17,22 @@ interface HexdumpOptions {
     /**
      * Specifies byte offset of where to start dumping. Defaults to 0.
      */
-    offset?: number;
+    offset?: number | undefined;
 
     /**
      * Limits how many bytes to dump.
      */
-    length?: number;
+    length?: number | undefined;
 
     /**
      * Whether a header should be included. Defaults to true.
      */
-    header?: boolean;
+    header?: boolean | undefined;
 
     /**
      * Whether ANSI colors should be used. Defaults to false.
      */
-    ansi?: boolean;
+    ansi?: boolean | undefined;
 }
 
 /**
@@ -140,15 +141,6 @@ type ImmediateId = number;
 
 type ScheduledCallback = (...params: any[]) => void;
 
-/**
- * Forces garbage collection.
- *
- * Useful for testing `WeakRef.bind()` logic, but also sometimes needed when
- * using the Duktape runtime and its default GC heuristics proving a bit too
- * lazy.
- */
-declare function gc(): void;
-
 declare namespace rpc {
     /**
      * Empty object that you can either replace or insert into to expose an RPC-style API to your application.
@@ -221,6 +213,30 @@ declare namespace Script {
     function unpin(): void;
 
     /**
+     * Starts monitoring the lifetime of `target`. Calls `callback` as soon as
+     * value has been garbage-collected, or the script is about to get
+     * unloaded.
+     *
+     * Useful when you're building a language-binding where you need to free
+     * native resources when a JS value is no longer needed.
+     *
+     * Be careful so `callback` is not a closure that accidentally captures
+     * `target` and keeps it alive beyond its intended lifetime.
+     *
+     * @param target Heap-allocated JavaScript value to monitor lifetime of.
+     * @param callback Function to call when `target` gets GCed.
+     */
+    function bindWeak(target: any, callback: WeakRefCallback): WeakRefId;
+
+    /**
+     * Stops monitoring the value passed to `WeakRef.bind()` and calls the
+     * callback immediately.
+     *
+     * @param id ID returned by a previous call to `WeakRef.bind()`.
+     */
+    function unbindWeak(id: WeakRefId): void;
+
+    /**
      * Installs or uninstalls a handler that is used to resolve attempts to
      * access non-existent global variables.
      *
@@ -234,6 +250,14 @@ declare namespace Script {
 }
 
 type ScriptRuntime = "DUK" | "V8";
+
+type WeakRefCallback = () => void;
+
+/**
+ * Opaque ID returned by `Script.bindWeak()`. Pass it to `Script.unbindWeak()`
+ * to stop monitoring the target value.
+ */
+type WeakRefId = number;
 
 interface GlobalAccessHandler {
     /**
@@ -593,8 +617,9 @@ declare namespace Memory {
      * is being used by code outside the JavaScript runtime.
      *
      * @param size Number of bytes to allocate.
+     * @param options Options to customize the memory allocation.
      */
-    function alloc(size: number | UInt64): NativePointer;
+    function alloc(size: number | UInt64, options?: MemoryAllocOptions): NativePointer;
 
     /**
      * Allocates, encodes and writes out `str` as a UTF-8 string on Frida's private heap.
@@ -870,7 +895,7 @@ interface ModuleImportDetails {
     /**
      * The kind of import, if available.
      */
-    type?: ModuleImportType;
+    type?: ModuleImportType | undefined;
 
     /**
      * Imported symbol name.
@@ -880,17 +905,17 @@ interface ModuleImportDetails {
     /**
      * Module name, if available.
      */
-    module?: string;
+    module?: string | undefined;
 
     /**
      * Absolute address, if available.
      */
-    address?: NativePointer;
+    address?: NativePointer | undefined;
 
     /**
      * Memory location where the import is stored, if available.
      */
-    slot?: NativePointer;
+    slot?: NativePointer | undefined;
 }
 
 interface ModuleExportDetails {
@@ -924,7 +949,7 @@ interface ModuleSymbolDetails {
     /**
      * Which section this symbol resides in, if available.
      */
-    section?: ModuleSymbolSectionDetails;
+    section?: ModuleSymbolSectionDetails | undefined;
 
     /**
      * Symbol name.
@@ -939,7 +964,7 @@ interface ModuleSymbolDetails {
     /**
      * Size in bytes, if available.
      */
-    size?: number;
+    size?: number | undefined;
 }
 
 type ModuleImportType = "function" | "variable";
@@ -996,7 +1021,7 @@ interface RangeDetails {
     /**
      * File mapping details, if available.
      */
-    file?: FileMapping;
+    file?: FileMapping | undefined;
 }
 
 interface KernelRangeDetails {
@@ -1083,7 +1108,7 @@ interface ExceptionDetails {
     /**
      * Memory operation details, if relevant.
      */
-    memory?: ExceptionMemoryDetails;
+    memory?: ExceptionMemoryDetails | undefined;
 
     /**
      * CPU registers. You may also update register values by assigning to these keys.
@@ -1147,7 +1172,7 @@ interface MemoryScanCallbacks {
      *
      * @param reason Why the memory access failed.
      */
-    onError?: (reason: string) => void;
+    onError?: ((reason: string) => void) | undefined;
 
     /**
      * Called when the memory range has been fully scanned.
@@ -1181,7 +1206,7 @@ interface KernelMemoryScanCallbacks {
      *
      * @param reason Why the memory access failed.
      */
-    onError?: (reason: string) => void;
+    onError?: ((reason: string) => void) | undefined;
 
     /**
      * Called when the memory range has been fully scanned.
@@ -1199,6 +1224,20 @@ interface KernelMemoryScanMatch {
      * Size of this match.
      */
     size: number;
+}
+
+type MemoryAllocOptions = Record<any, never> | MemoryAllocNearOptions;
+
+interface MemoryAllocNearOptions {
+    /**
+     * Memory address to try allocating near.
+     */
+    near: NativePointer;
+
+    /**
+     * Maximum distance to the given memory address, in bytes.
+     */
+    maxDistance: number;
 }
 
 type MemoryPatchApplyCallback = (code: NativePointer) => void;
@@ -1465,6 +1504,11 @@ declare class NativePointer {
     toInt32(): number;
 
     /**
+     * Converts to an unsigned 32-bit integer.
+     */
+    toUInt32(): number;
+
+    /**
      * Converts to a “0x”-prefixed hexadecimal string, unless a `radix`
      * is specified.
      */
@@ -1560,52 +1604,215 @@ type NativePointerValue = NativePointer | ObjectWrapper;
 declare const NativeFunction: NativeFunctionConstructor;
 
 interface NativeFunctionConstructor {
-    new(address: NativePointerValue, retType: NativeType, argTypes: NativeType[], abiOrOptions?: NativeABI | NativeFunctionOptions): NativeFunction;
-    readonly prototype: NativeFunction;
+    new <RetType extends NativeFunctionReturnType, ArgTypes extends NativeFunctionArgumentType[] | []>(
+        address: NativePointerValue,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abiOrOptions?: NativeABI | NativeFunctionOptions,
+    ): NativeFunction<
+        GetNativeFunctionReturnValue<RetType>,
+        ResolveVariadic<Extract<GetNativeFunctionArgumentValue<ArgTypes>, unknown[]>>
+    >;
+    readonly prototype: NativeFunction<void, []>;
 }
 
-interface NativeFunction extends NativePointer {
-    (...args: NativeArgumentValue[]): NativeReturnValue;
-    apply(thisArg: NativePointerValue | null | undefined, args: NativeArgumentValue[]): NativeReturnValue;
-    call(thisArg?: NativePointerValue | null, ...args: NativeArgumentValue[]): NativeReturnValue;
+interface NativeFunction<RetType extends NativeFunctionReturnValue, ArgTypes extends NativeFunctionArgumentValue[] | []>
+    extends NativePointer {
+    (...args: ArgTypes): RetType;
+    apply(thisArg: NativePointerValue | null | undefined, args: ArgTypes): RetType;
+    call(thisArg?: NativePointerValue | null, ...args: ArgTypes): RetType;
 }
 
 declare const SystemFunction: SystemFunctionConstructor;
 
 interface SystemFunctionConstructor {
-    new(address: NativePointerValue, retType: NativeType, argTypes: NativeType[], abiOrOptions?: NativeABI | NativeFunctionOptions): SystemFunction;
-    readonly prototype: SystemFunction;
+    new <RetType extends NativeFunctionReturnType, ArgTypes extends NativeFunctionArgumentType[] | []>(
+        address: NativePointerValue,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abiOrOptions?: NativeABI | NativeFunctionOptions,
+    ): SystemFunction<
+        GetNativeFunctionReturnValue<RetType>,
+        ResolveVariadic<Extract<GetNativeFunctionArgumentValue<ArgTypes>, unknown[]>>
+    >;
+    readonly prototype: SystemFunction<void, []>;
 }
 
-interface SystemFunction extends NativePointer {
-    (...args: NativeArgumentValue[]): SystemFunctionResult;
-    apply(thisArg: NativePointerValue | null | undefined, args: NativeArgumentValue[]): SystemFunctionResult;
-    call(thisArg?: NativePointerValue | null, ...args: NativeArgumentValue[]): SystemFunctionResult;
+interface SystemFunction<RetType extends NativeFunctionReturnValue, ArgTypes extends NativeFunctionArgumentValue[] | []>
+    extends NativePointer {
+    (...args: ArgTypes): SystemFunctionResult<RetType>;
+    apply(thisArg: NativePointerValue | null | undefined, args: ArgTypes): SystemFunctionResult<RetType>;
+    call(thisArg?: NativePointerValue | null, ...args: ArgTypes): SystemFunctionResult<RetType>;
 }
 
-type SystemFunctionResult = WindowsSystemFunctionResult | UnixSystemFunctionResult;
+type SystemFunctionResult<Value extends NativeFunctionReturnValue> =
+    | WindowsSystemFunctionResult<Value>
+    | UnixSystemFunctionResult<Value>
+    ;
 
-interface WindowsSystemFunctionResult {
-    value: NativeReturnValue;
+interface WindowsSystemFunctionResult<Value extends NativeFunctionReturnValue> {
+    value: Value;
     lastError: number;
 }
 
-interface UnixSystemFunctionResult {
-    value: NativeReturnValue;
+interface UnixSystemFunctionResult<Value extends NativeFunctionReturnValue> {
+    value: Value;
     errno: number;
 }
 
-declare class NativeCallback extends NativePointer {
-    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[]);
+declare class NativeCallback<
+    RetType extends NativeCallbackReturnType,
+    ArgTypes extends NativeCallbackArgumentType[] | [],
+> extends NativePointer {
+    constructor(
+        func: NativeCallbackImplementation<
+            GetNativeCallbackReturnValue<RetType>,
+            Extract<GetNativeCallbackArgumentValue<ArgTypes>, unknown[]>
+        >,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abi?: NativeABI,
+    );
 }
 
-type NativeCallbackImplementation = (this: InvocationContext | undefined, ...params: any[]) => any;
+type NativeCallbackImplementation<
+    RetType extends NativeCallbackReturnValue,
+    ArgTypes extends NativeCallbackArgumentValue[] | [],
+> = (this: CallbackContext | InvocationContext, ...args: ArgTypes) => RetType;
 
-type NativeArgumentValue = NativePointerValue | UInt64 | Int64 | number | boolean | any[];
+interface CallbackContext {
+    /**
+     * Return address.
+     */
+    returnAddress: NativePointer;
 
-type NativeReturnValue = NativePointer | UInt64 | Int64 | number | boolean | any[];
+    /**
+     * CPU registers, but unlike `InvocationContext` this is read-only and only
+     * contains the bare minimum needed for `Thread.backtrace()` - all others
+     * are zeroed out.
+     */
+    context: CpuContext;
+}
 
-type NativeType = string | any[];
+type Variadic = "...";
+
+type ResolveVariadic<List extends any[]> = List extends [Variadic, ...infer Tail]
+    ? [...Array<Tail[0]>]
+    : List extends [infer Head, ...infer Tail]
+    ? [Head, ...ResolveVariadic<Tail>]
+    : [];
+
+type RecursiveValuesOf<T> = T[keyof T] | Array<RecursiveValuesOf<T>>;
+
+type RecursiveKeysOf<T> = keyof T | Array<RecursiveKeysOf<T>> | [];
+
+type GetValue<Map, Value, Type, T extends Type> = Type[] extends T
+    ? Value
+    : T extends keyof Map
+    ? Map[T]
+    : { [P in keyof T]: T[P] extends Type ? GetValue<Map, Value, Type, T[P]> : never };
+
+// tslint:disable-next-line:interface-over-type-literal
+type BaseNativeTypeMap = {
+    int: number;
+    uint: number;
+    long: number;
+    ulong: number;
+    char: number;
+    uchar: number;
+    float: number;
+    double: number;
+    int8: number;
+    uint8: number;
+    int16: number;
+    uint16: number;
+    int32: number;
+    uint32: number;
+    bool: number;
+};
+
+type NativeFunctionArgumentTypeMap = BaseNativeTypeMap & {
+    void: undefined;
+    pointer: NativePointerValue;
+    size_t: number | UInt64;
+    ssize_t: number | Int64;
+    int64: number | Int64;
+    uint64: number | UInt64;
+    "...": Variadic;
+};
+
+type NativeFunctionArgumentValue = RecursiveValuesOf<NativeFunctionArgumentTypeMap>;
+
+type NativeFunctionArgumentType = RecursiveKeysOf<NativeFunctionArgumentTypeMap>;
+
+type GetNativeFunctionArgumentValue<T extends NativeFunctionArgumentType> = GetValue<
+    NativeFunctionArgumentTypeMap,
+    NativeFunctionArgumentValue,
+    NativeFunctionArgumentType,
+    T
+>;
+
+type NativeFunctionReturnTypeMap = BaseNativeTypeMap & {
+    // tslint:disable-next-line:void-return
+    void: void;
+    pointer: NativePointer;
+    size_t: UInt64;
+    ssize_t: Int64;
+    int64: Int64;
+    uint64: UInt64;
+};
+
+type NativeFunctionReturnValue = RecursiveValuesOf<NativeFunctionReturnTypeMap>;
+
+type NativeFunctionReturnType = RecursiveKeysOf<NativeFunctionReturnTypeMap>;
+
+type GetNativeFunctionReturnValue<T extends NativeFunctionReturnType> = GetValue<
+    NativeFunctionReturnTypeMap,
+    NativeFunctionReturnValue,
+    NativeFunctionReturnType,
+    T
+>;
+
+type NativeCallbackArgumentTypeMap = BaseNativeTypeMap & {
+    void: undefined;
+    pointer: NativePointer;
+    size_t: UInt64;
+    ssize_t: Int64;
+    int64: Int64;
+    uint64: UInt64;
+};
+
+type NativeCallbackArgumentValue = RecursiveValuesOf<NativeCallbackArgumentTypeMap>;
+
+type NativeCallbackArgumentType = RecursiveKeysOf<NativeCallbackArgumentTypeMap>;
+
+type GetNativeCallbackArgumentValue<T extends NativeCallbackArgumentType> = GetValue<
+    NativeCallbackArgumentTypeMap,
+    NativeCallbackArgumentValue,
+    NativeCallbackArgumentType,
+    T
+>;
+
+type NativeCallbackReturnTypeMap = BaseNativeTypeMap & {
+    // tslint:disable-next-line:void-return
+    void: void;
+    pointer: NativePointerValue;
+    size_t: number | UInt64;
+    ssize_t: number | Int64;
+    int64: number | Int64;
+    uint64: number | UInt64;
+};
+
+type NativeCallbackReturnValue = RecursiveValuesOf<NativeCallbackReturnTypeMap>;
+
+type NativeCallbackReturnType = RecursiveKeysOf<NativeCallbackReturnTypeMap>;
+
+type GetNativeCallbackReturnValue<T extends NativeCallbackReturnType> = GetValue<
+    NativeCallbackReturnTypeMap,
+    NativeCallbackReturnValue,
+    NativeCallbackReturnType,
+    T
+>;
 
 type NativeABI =
     | "default"
@@ -1620,10 +1827,10 @@ type NativeABI =
     ;
 
 interface NativeFunctionOptions {
-    abi?: NativeABI;
-    scheduling?: SchedulingBehavior;
-    exceptions?: ExceptionsBehavior;
-    traps?: CodeTraps;
+    abi?: NativeABI | undefined;
+    scheduling?: SchedulingBehavior | undefined;
+    exceptions?: ExceptionsBehavior | undefined;
+    traps?: CodeTraps | undefined;
 }
 
 type SchedulingBehavior = "cooperative" | "exclusive";
@@ -1799,7 +2006,7 @@ interface GeneratedSourcePosition {
     /**
      * Column number, if available.
      */
-    column?: number;
+    column?: number | undefined;
 }
 
 interface OriginalSourcePosition {
@@ -2030,7 +2237,7 @@ interface UnixStreamOptions {
      * Whether the file descriptor should be closed when the stream is closed,
      * either through `close()` or future garbage-collection.
      */
-    autoClose?: boolean;
+    autoClose?: boolean | undefined;
 }
 
 interface WindowsStreamOptions {
@@ -2038,7 +2245,7 @@ interface WindowsStreamOptions {
      * Whether the Windows `HANDLE` should be closed when the stream is closed,
      * either through `close()` or future garbage-collection.
      */
-    autoClose?: boolean;
+    autoClose?: boolean | undefined;
 }
 
 type AddressFamily =
@@ -2069,17 +2276,17 @@ interface TcpListenOptions extends BaseListenOptions {
     /**
      * Address family. Omit to listen on both ipv4 and ipv6 – if supported by the OS.
      */
-    family?: "ipv4" | "ipv6";
+    family?: "ipv4" | "ipv6" | undefined;
 
     /**
      * Host or IP address to listen on. Omit to listen on all interfaces.
      */
-    host?: string;
+    host?: string | undefined;
 
     /**
      * Port to listen on. Omit to listen on a randomly selected port.
      */
-    port?: number;
+    port?: number | undefined;
 }
 
 interface UnixListenOptions extends BaseListenOptions {
@@ -2091,7 +2298,7 @@ interface UnixListenOptions extends BaseListenOptions {
     /**
      * Type of UNIX socket to listen on. Defaults to UnixSocketType.Path.
      */
-    type?: UnixSocketType;
+    type?: UnixSocketType | undefined;
 
     /**
      * UNIX socket path to listen on.
@@ -2103,7 +2310,7 @@ interface BaseListenOptions {
     /**
      * Listen backlog. Defaults to 10.
      */
-    backlog?: number;
+    backlog?: number | undefined;
 }
 
 type SocketConnectOptions = TcpConnectOptions | UnixConnectOptions;
@@ -2112,12 +2319,12 @@ interface TcpConnectOptions {
     /**
      * Address family. Omit to determine based on the host specified.
      */
-    family?: "ipv4" | "ipv6";
+    family?: "ipv4" | "ipv6" | undefined;
 
     /**
      * Host or IP address to connect to. Defaults to `localhost`.
      */
-    host?: string;
+    host?: string | undefined;
 
     /**
      * IP port to connect to.
@@ -2127,7 +2334,7 @@ interface TcpConnectOptions {
     /**
      * Whether to create a TLS connection. Defaults to `false`.
      */
-    tls?: boolean;
+    tls?: boolean | undefined;
 }
 
 interface UnixConnectOptions {
@@ -2139,7 +2346,7 @@ interface UnixConnectOptions {
     /**
      * Type of UNIX socket to connect to. Defaults to UnixSocketType.Path.
      */
-    type?: UnixSocketType;
+    type?: UnixSocketType | undefined;
 
     /**
      * Path to UNIX socket to connect to.
@@ -2149,7 +2356,7 @@ interface UnixConnectOptions {
     /**
      * Whether to create a TLS connection. Defaults to `false`.
      */
-    tls?: boolean;
+    tls?: boolean | undefined;
 }
 
 type SocketEndpointAddress = TcpEndpointAddress | UnixEndpointAddress;
@@ -2274,7 +2481,7 @@ declare class SqliteDatabase {
 }
 
 interface SqliteOpenOptions {
-    flags?: SqliteOpenFlag[];
+    flags?: SqliteOpenFlag[] | undefined;
 }
 
 type SqliteOpenFlag =
@@ -2381,6 +2588,11 @@ declare namespace Interceptor {
      * Reverts the previously replaced function at `target`.
      */
     function revert(target: NativePointerValue): void;
+
+    /**
+     * Ensure any pending changes have been committed to memory.
+     */
+    function flush(): void;
 }
 
 declare class InvocationListener {
@@ -2399,12 +2611,12 @@ interface ScriptInvocationListenerCallbacks {
     /**
      * Called synchronously when a thread is about to enter the target function.
      */
-    onEnter?: (this: InvocationContext, args: InvocationArguments) => void;
+    onEnter?: ((this: InvocationContext, args: InvocationArguments) => void) | undefined;
 
     /**
      * Called synchronously when a thread is about to leave the target function.
      */
-    onLeave?: (this: InvocationContext, retval: InvocationReturnValue) => void;
+    onLeave?: ((this: InvocationContext, retval: InvocationReturnValue) => void) | undefined;
 }
 
 interface NativeInvocationListenerCallbacks {
@@ -2415,7 +2627,7 @@ interface NativeInvocationListenerCallbacks {
      *
      * Signature: `void onEnter (GumInvocationContext * ic)`
      */
-    onEnter?: NativePointer;
+    onEnter?: NativePointer | undefined;
 
     /**
      * Called synchronously when a thread is about to leave the target function.
@@ -2424,7 +2636,7 @@ interface NativeInvocationListenerCallbacks {
      *
      * Signature: `void onLeave (GumInvocationContext * ic)`
      */
-    onLeave?: NativePointer;
+    onLeave?: NativePointer | undefined;
 }
 
 /**
@@ -2546,6 +2758,31 @@ declare namespace Stalker {
     function garbageCollect(): void;
 
     /**
+     * Invalidates the current thread's translated code for a given basic block.
+     * Useful when providing a transform callback and wanting to dynamically
+     * adapt the instrumentation for a given basic block. This is much more
+     * efficient than unfollowing and re-following the thread, which would
+     * discard all cached translations and require all encountered basic blocks
+     * to be compiled from scratch.
+     *
+     * @param address Start address of basic block to invalidate.
+     */
+    function invalidate(address: NativePointerValue): void;
+
+    /**
+     * Invalidates a specific thread's translated code for a given basic block.
+     * Useful when providing a transform callback and wanting to dynamically
+     * adapt the instrumentation for a given basic block. This is much more
+     * efficient than unfollowing and re-following the thread, which would
+     * discard all cached translations and require all encountered basic blocks
+     * to be compiled from scratch.
+     *
+     * @param threadId Thread that should have some of its code invalidated.
+     * @param address Start address of basic block to invalidate.
+     */
+    function invalidate(threadId: ThreadId, address: NativePointerValue): void;
+
+    /**
      * Calls `callback` synchronously when a call is made to `address`.
      * Returns an id that can be passed to `removeCallProbe()` later.
      *
@@ -2610,34 +2847,34 @@ interface StalkerOptions {
         /**
          * Whether to generate events for CALL/BLR instructions.
          */
-        call?: boolean;
+        call?: boolean | undefined;
 
         /**
          * Whether to generate events for RET instructions.
          */
-        ret?: boolean;
+        ret?: boolean | undefined;
 
         /**
          * Whether to generate events for all instructions.
          *
          * Not recommended as it's potentially a lot of data.
          */
-        exec?: boolean;
+        exec?: boolean | undefined;
 
         /**
          * Whether to generate an event whenever a basic block is executed.
          *
          * Useful to record a coarse execution trace.
          */
-        block?: boolean;
+        block?: boolean | undefined;
 
         /**
          * Whether to generate an event whenever a basic block is compiled.
          *
          * Useful for coverage.
          */
-        compile?: boolean;
-    };
+        compile?: boolean | undefined;
+    } | undefined;
 
     /**
      * Callback that periodically receives batches of events.
@@ -2646,7 +2883,7 @@ interface StalkerOptions {
      *               See `gumevent.h` for details about the format.
      *               Use `Stalker.parse()` to examine the data.
      */
-    onReceive?: (events: ArrayBuffer) => void;
+    onReceive?: ((events: ArrayBuffer) => void) | undefined;
 
     /**
      * Callback that periodically receives a summary of `call` events that
@@ -2660,33 +2897,46 @@ interface StalkerOptions {
      * @param summary Key-value mapping of call target to number of calls, in
      *                the current time window.
      */
-    onCallSummary?: (summary: StalkerCallSummary) => void;
+    onCallSummary?: ((summary: StalkerCallSummary) => void) | undefined;
+
+    /**
+     * C callback that processes events as they occur, allowing synchronous
+     * processing of events in native code – typically implemented using
+     * CModule.
+     *
+     * This is useful when wanting to implement custom filtering and/or queuing
+     * logic to improve performance, or sacrifice performance in exchange for
+     * reliable event delivery.
+     *
+     * Note that this precludes usage of `onReceive()` and `onCallSummary()`.
+     */
+    onEvent?: StalkerNativeEventCallback | undefined;
 
     /**
      * Callback that transforms each basic block compiled whenever Stalker
      * wants to recompile a basic block of the code that's about to be executed
      * by the stalked thread.
      */
-    transform?: StalkerTransformCallback;
+    transform?: StalkerTransformCallback | undefined;
 
     /**
-     * User data to be passed to `StalkerNativeTransformCallback`.
+     * User data to be passed to `StalkerNativeEventCallback` and `StalkerNativeTransformCallback`.
      */
-    data?: NativePointerValue;
+    data?: NativePointerValue | undefined;
 }
 
 interface StalkerParseOptions {
     /**
      * Whether to include the type of each event. Defaults to `true`.
      */
-    annotate?: boolean;
+    annotate?: boolean | undefined;
 
     /**
      * Whether to format pointer values as strings instead of `NativePointer`
      * values, i.e. less overhead if you're just going to `send()` the result
      * and not actually parse the data agent-side.
      */
-    stringify?: boolean;
+    stringify?: boolean | undefined;
 }
 
 interface StalkerCallSummary {
@@ -2737,28 +2987,46 @@ type StalkerBlockEventBare = [          NativePointer | string, NativePointer | 
 type StalkerCompileEventFull = [ "compile", NativePointer | string, NativePointer | string ];
 type StalkerCompileEventBare = [            NativePointer | string, NativePointer | string ];
 
+/**
+ * Signature: `void process (const GumEvent * event, GumCpuContext * cpu_context, gpointer user_data)`
+ */
+type StalkerNativeEventCallback = NativePointer;
+
 type StalkerTransformCallback =
     | StalkerX86TransformCallback
+    | StalkerArm32TransformCallback
     | StalkerArm64TransformCallback
     | StalkerNativeTransformCallback
     ;
 
 type StalkerX86TransformCallback = (iterator: StalkerX86Iterator) => void;
-
+type StalkerArm32TransformCallback = (iterator: StalkerArmIterator | StalkerThumbIterator) => void;
 type StalkerArm64TransformCallback = (iterator: StalkerArm64Iterator) => void;
 
 /**
- * Signature: `void transform (GumStalkerIterator * iterator, GumStalkerWriter * output, gpointer user_data)`
+ * Signature: `void transform (GumStalkerIterator * iterator, GumStalkerOutput * output, gpointer user_data)`
  */
 type StalkerNativeTransformCallback = NativePointer;
 
-declare abstract class StalkerX86Iterator extends X86Writer {
+interface StalkerX86Iterator extends X86Writer {
     next(): X86Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
-declare abstract class StalkerArm64Iterator extends Arm64Writer {
+interface StalkerArmIterator extends ArmWriter {
+    next(): ArmInstruction | null;
+    keep(): void;
+    putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+}
+
+interface StalkerThumbIterator extends ThumbWriter {
+    next(): ArmInstruction | null;
+    keep(): void;
+    putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+}
+
+interface StalkerArm64Iterator extends Arm64Writer {
     next(): Arm64Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
@@ -2796,7 +3064,8 @@ declare class ApiResolver {
     /**
      * Performs the resolver-specific query.
      *
-     * @param query Resolver-specific query.
+     * @param query Resolver-specific query, optionally suffixed with `/i` to
+     *              perform case-insensitive matching.
      */
     enumerateMatches(query: string): ApiResolverMatch[];
 }
@@ -2822,6 +3091,7 @@ type ApiResolverType =
      *
      * Example query: `"exports:*!open*"`
      * Which may resolve to: `"/usr/lib/libSystem.B.dylib!opendir$INODE64"`
+     * Suffix with `/i` to perform case-insensitive matching.
      */
     | "module"
 
@@ -2834,6 +3104,7 @@ type ApiResolverType =
      *
      * Example query: `"-[NSURL* *HTTP*]"`
      * Which may resolve to: `"-[NSURLRequest valueForHTTPHeaderField:]"`
+     * Suffix with `/i` to perform case-insensitive matching.
      */
     | "objc"
     ;
@@ -2902,13 +3173,21 @@ declare class DebugSymbol {
     static findFunctionsMatching(glob: string): NativePointer[];
 
     /**
+     * Loads debug symbols for a specific module.
+     *
+     * @param path Path of module to load symbols for.
+     */
+    static load(path: string): void;
+
+    /**
      * Converts to a human-readable string.
      */
     toString(): string;
 }
 
 /**
- * Compiles C source code to machine code, straight to memory.
+ * Compiles C source code to machine code, straight to memory. May also be
+ * constructed from a precompiled shared library.
  *
  * Useful for implementing hot callbacks, e.g. for `Interceptor` and `Stalker`,
  * but also useful when needing to start new threads in order to call functions
@@ -2918,9 +3197,11 @@ declare class DebugSymbol {
  * named exactly like in the C source code. This means you can pass them to
  * `Interceptor` and `Stalker`, or call them using `NativeFunction`.
  *
- * Symbols can also be plugged in at creation, e.g. memory allocated using
- * `Memory.alloc()`, or `NativeCallback` for receiving callbacks from the C
- * module.
+ * In addition to accessing a curated subset of Gum, GLib, and standard C APIs,
+ * the code being mapped in can also communicate with JavaScript through the
+ * symbols exposed to it. These can be plugged in at creation, e.g. to share
+ * memory allocated using `Memory.alloc()`, or `NativeCallback` values for
+ * receiving callbacks from the C module.
  *
  * To perform initialization and cleanup, you may define functions with the
  * following names and signatures:
@@ -2933,26 +3214,81 @@ declare class DebugSymbol {
  * through the constructor's second argument.
  */
 declare class CModule {
-  /**
-   * Creates a new C module by compiling the provided C source code to machine
-   * code, straight to memory.
-   *
-   * @param source C source code to compile.
-   * @param symbols Symbols to expose to the C module. Declare them as `extern`.
-   */
-  constructor(source: string, symbols?: CSymbols);
+    /**
+     * Creates a new C module from the provided `code`.
+     *
+     * @param code C source code to compile, or a precompiled shared library.
+     * @param symbols Symbols to expose to the C module. Declare them as `extern`.
+     *    This may for example be one or more memory blocks allocated using
+     *     `Memory.alloc()`, and/or `NativeCallback` values for receiving
+     *     callbacks from the C module.
+     * @param options Options for customizing the construction.
+     */
+    constructor(code: string | ArrayBuffer, symbols?: CSymbols, options?: CModuleOptions);
 
-  /**
-   * Eagerly unmaps the module from memory. Useful for short-lived modules
-   * when waiting for a future garbage collection isn't desirable.
-   */
-  dispose(): void;
+    /**
+     * Eagerly unmaps the module from memory. Useful for short-lived modules
+     * when waiting for a future garbage collection isn't desirable.
+     */
+    dispose(): void;
 
-  readonly [name: string]: any;
+    readonly [name: string]: any;
+
+    static builtins: CModuleBuiltins;
 }
+
+interface CModuleOptions {
+    toolchain?: CModuleToolchain | undefined;
+}
+
+/**
+ * Toolchain to use when constructing a CModule from C source code.
+ *
+ * `internal`: Use TinyCC, which is statically linked into the runtime.
+ *     Never touches the filesystem and works even in sandboxed processes.
+ *     The generated code is however not optimized, as TinyCC optimizes for
+ *     small compiler footprint and short compilation times.
+ * `external`: Use toolchain provided by the target system, assuming it is
+ *     accessible to the process we're executing inside.
+ * `any`: Same as `internal` if `Process.arch` is supported by TinyCC, and
+ *     `external` otherwise.
+ */
+type CModuleToolchain = "any" | "internal" | "external";
 
 interface CSymbols {
     [name: string]: NativePointerValue;
+}
+
+/**
+ * Builtins present when constructing a CModule from C source code.
+ *
+ * This is typically used by a scaffolding tool such as `frida-create` in order
+ * to set up a build environment that matches what CModule uses.
+ */
+interface CModuleBuiltins {
+    defines: CModuleDefines;
+    headers: CModuleHeaders;
+}
+
+/**
+ * Preprocessor defines present when constructing a CModule from C source code.
+ *
+ * The mapping to GCC-style command-line arguments depends on the type of the value:
+ * `string`: `-Dname=value`
+ * `true`: `-Dname`
+ */
+interface CModuleDefines {
+    readonly [name: string]: string | true;
+}
+
+/**
+ * C headers present when constructing a CModule from C source code.
+ *
+ * The `name` is a relative filesystem path, and the value is the contents of
+ * the header.
+ */
+interface CModuleHeaders {
+    readonly [name: string]: string;
 }
 
 declare class Instruction {
@@ -3093,9 +3429,9 @@ interface X86ImmOperand extends X86BaseOperand {
 interface X86MemOperand extends X86BaseOperand {
     type: "mem";
     value: {
-        segment?: X86Register;
-        base?: X86Register;
-        index?: X86Register;
+        segment?: X86Register | undefined;
+        base?: X86Register | undefined;
+        index?: X86Register | undefined;
         scale: number;
         disp: number;
     };
@@ -3120,8 +3456,8 @@ interface ArmBaseOperand {
     shift?: {
         type: ArmShifter;
         value: number;
-    };
-    vectorIndex?: number;
+    } | undefined;
+    vectorIndex?: number | undefined;
     subtracted: boolean;
 }
 
@@ -3138,8 +3474,8 @@ interface ArmImmOperand extends ArmBaseOperand {
 interface ArmMemOperand extends ArmBaseOperand {
     type: "mem";
     value: {
-        base?: ArmRegister;
-        index?: ArmRegister;
+        base?: ArmRegister | undefined;
+        index?: ArmRegister | undefined;
         scale: number;
         disp: number;
     };
@@ -3170,19 +3506,6 @@ interface ArmSysregOperand extends ArmBaseOperand {
     value: ArmRegister;
 }
 
-type ArmShifter =
-    | "asr"
-    | "lsl"
-    | "lsr"
-    | "ror"
-    | "rrx"
-    | "asr-reg"
-    | "lsl-reg"
-    | "lsr-reg"
-    | "ror-reg"
-    | "rrx-reg"
-    ;
-
 type Arm64Operand = Arm64RegOperand | Arm64ImmOperand | Arm64MemOperand |
     Arm64FpOperand | Arm64CimmOperand | Arm64RegMrsOperand | Arm64RegMsrOperand |
     Arm64PstateOperand | Arm64SysOperand | Arm64PrefetchOperand | Arm64BarrierOperand;
@@ -3205,10 +3528,10 @@ interface Arm64BaseOperand {
     shift?: {
         type: Arm64Shifter;
         value: number;
-    };
-    ext?: Arm64Extender;
-    vas?: Arm64Vas;
-    vectorIndex?: number;
+    } | undefined;
+    ext?: Arm64Extender | undefined;
+    vas?: Arm64Vas | undefined;
+    vectorIndex?: number | undefined;
 }
 
 interface Arm64RegOperand extends Arm64BaseOperand {
@@ -3224,8 +3547,8 @@ interface Arm64ImmOperand extends Arm64BaseOperand {
 interface Arm64MemOperand extends Arm64BaseOperand {
     type: "mem";
     value: {
-        base?: Arm64Register;
-        index?: Arm64Register;
+        base?: Arm64Register | undefined;
+        index?: Arm64Register | undefined;
         disp: number;
     };
 }
@@ -3318,7 +3641,7 @@ interface MipsImmOperand {
 interface MipsMemOperand {
     type: "mem";
     value: {
-        base?: MipsRegister;
+        base?: MipsRegister | undefined;
         disp: number;
     };
 }
@@ -3690,22 +4013,52 @@ declare namespace ObjC {
      * implementation.
      */
     class Block implements ObjectWrapper {
-        constructor(target: NativePointer | MethodSpec<BlockMethodImplementation>, options?: NativeFunctionOptions);
+        constructor(target: NativePointer | MethodSpec<BlockImplementation>, options?: NativeFunctionOptions);
 
         handle: NativePointer;
 
         /**
          * Signature, if available.
          */
-        types?: string;
+        types?: string | undefined;
 
         /**
          * Current implementation. You may replace it by assigning to this property.
          */
         implementation: AnyFunction;
+
+        /**
+         * Declares the signature of an externally defined block. This is needed
+         * when working with blocks without signature metadata, i.e. when
+         * `block.types === undefined`.
+         *
+         * @param signature Signature to use.
+         */
+        declare(signature: BlockSignature): void;
     }
 
-    type BlockMethodImplementation = (this: Block, ...args: any[]) => any;
+    type BlockImplementation = (this: Block, ...args: any[]) => any;
+
+    type BlockSignature = SimpleBlockSignature | DetailedBlockSignature;
+
+    interface SimpleBlockSignature {
+        /**
+         * Return type.
+         */
+        retType: string;
+
+        /**
+         * Argument types.
+         */
+        argTypes: string[];
+    }
+
+    interface DetailedBlockSignature {
+        /**
+         * Signature.
+         */
+        types: string;
+    }
 
     /**
      * Creates a JavaScript implementation compatible with the signature of `method`, where `fn` is used as the
@@ -3714,7 +4067,7 @@ declare namespace ObjC {
      * @param method Method to implement.
      * @param fn Implementation.
      */
-    function implement(method: ObjectMethod, fn: AnyFunction): NativeCallback;
+    function implement(method: ObjectMethod, fn: AnyFunction): NativeCallback<any, any>;
 
     /**
      * Creates a new class designed to act as a proxy for a target object.
@@ -3785,7 +4138,7 @@ declare namespace ObjC {
         /**
          * Limit enumeration to modules in the given module map.
          */
-        ownedBy?: ModuleMap;
+        ownedBy?: ModuleMap | undefined;
     }
 
     interface EnumerateLoadedClassesCallbacks {
@@ -3830,24 +4183,24 @@ declare namespace ObjC {
          * Omit this if you don’t care about the globally visible name and would like the runtime to auto-generate one
          * for you.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * Protocols this proxy class conforms to.
          */
-        protocols?: Protocol[];
+        protocols?: Protocol[] | undefined;
 
         /**
          * Methods to implement.
          */
         methods?: {
             [name: string]: UserMethodImplementation<D, T, S> | MethodSpec<UserMethodImplementation<D, T, S>>;
-        };
+        } | undefined;
 
         /**
          * Callbacks for getting notified about events.
          */
-        events?: ProxyEventCallbacks<D, T, S>;
+        events?: ProxyEventCallbacks<D, T, S> | undefined;
     }
 
     interface ProxyEventCallbacks<D, T, S> {
@@ -3904,24 +4257,24 @@ declare namespace ObjC {
          * Omit this if you don’t care about the globally visible name and would like the runtime to auto-generate one
          * for you.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * Super-class, or `null` to create a new root class. Omit to inherit from `NSObject`.
          */
-        super?: ObjC.Object | null;
+        super?: ObjC.Object | null | undefined;
 
         /**
          * Protocols this class conforms to.
          */
-        protocols?: Protocol[];
+        protocols?: Protocol[] | undefined;
 
         /**
          * Methods to implement.
          */
         methods?: {
             [name: string]: UserMethodImplementation<D, T, S> | MethodSpec<UserMethodImplementation<D, T, S>>;
-        };
+        } | undefined;
     }
 
     type MethodSpec<I> = SimpleMethodSpec<I> | DetailedMethodSpec<I>;
@@ -3977,16 +4330,16 @@ declare namespace ObjC {
          * Omit this if you don’t care about the globally visible name and would like the runtime to auto-generate one
          * for you.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * Protocols this protocol conforms to.
          */
-        protocols?: Protocol[];
+        protocols?: Protocol[] | undefined;
 
         methods?: {
             [name: string]: ProtocolMethodSpec;
-        };
+        } | undefined;
     }
 
     type ProtocolMethodSpec = SimpleProtocolMethodSpec | DetailedProtocolMethodSpec;
@@ -4005,7 +4358,7 @@ declare namespace ObjC {
         /**
          * Whether this method is required or optional. Default is required.
          */
-        optional?: boolean;
+        optional?: boolean | undefined;
     }
 
     interface DetailedProtocolMethodSpec {
@@ -4017,7 +4370,7 @@ declare namespace ObjC {
         /**
          * Whether this method is required or optional. Default is required.
          */
-        optional?: boolean;
+        optional?: boolean | undefined;
     }
 
     type ChooseSpecifier = SimpleChooseSpecifier | DetailedChooseSpecifier;
@@ -4035,7 +4388,7 @@ declare namespace ObjC {
          *
          * The default is to also include subclasses.
          */
-        subclasses?: boolean;
+        subclasses?: boolean | undefined;
     }
 
     // tslint:enable:no-unnecessary-qualifier
@@ -4087,6 +4440,18 @@ declare namespace Java {
      * Synchronous version of `enumerateClassLoaders()`.
      */
     function enumerateClassLoadersSync(): Wrapper[];
+
+    /**
+     * Enumerates methods matching `query`.
+     *
+     * @param query Query specified as `class!method`, with globs permitted. May
+     *              also be suffixed with `/` and one or more modifiers:
+     *              - `i`: Case-insensitive matching.
+     *              - `s`: Include method signatures, so e.g. `"putInt"` becomes
+     *                `"putInt(java.lang.String, int): void"`.
+     *              - `u`: User-defined classes only, ignoring system classes.
+     */
+    function enumerateMethods(query: string): EnumerateMethodsMatchGroup[];
 
     /**
      * Runs `fn` on the main thread of the VM.
@@ -4195,6 +4560,13 @@ declare namespace Java {
      */
     function deoptimizeEverything(): void;
 
+    /**
+     * Similar to deoptimizeEverything but only deoptimizes boot image code.
+     * Use with `dalvik.vm.dex2oat-flags --inline-max-code-units=0` for best
+     * results.
+     */
+    function deoptimizeBootImage(): void;
+
     const vm: VM;
 
     /**
@@ -4230,6 +4602,41 @@ declare namespace Java {
          * Called when all class loaders have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    /**
+     * Matching methods grouped by class loader.
+     */
+    interface EnumerateMethodsMatchGroup {
+        /**
+         * Class loader, or `null` for the bootstrap class loader.
+         *
+         * Typically passed to `ClassFactory.get()` to interact with classes of
+         * interest.
+         */
+        loader: Wrapper | null;
+
+        /**
+         * One or more matching classes that have one or more methods matching
+         * the given query.
+         */
+        classes: [EnumerateMethodsMatchClass, ...EnumerateMethodsMatchClass[]];
+    }
+
+    /**
+     * Class matching query which has one or more matching methods.
+     */
+    interface EnumerateMethodsMatchClass {
+        /**
+         * Class name that matched the given query.
+         */
+        name: string;
+
+        /**
+         * One or more matching method names, each followed by signature when
+         * the `s` modifier is used.
+         */
+        methods: [string, ...string[]];
     }
 
     interface ChooseCallbacks {
@@ -4282,6 +4689,16 @@ declare namespace Java {
         $init: MethodDispatcher<T>;
 
         /**
+         * Eagerly deletes the underlying JNI global reference without having to
+         * wait for the object to become unreachable and the JavaScript
+         * runtime's garbage collector to kick in (or script to be unloaded).
+         *
+         * Useful when a lot of short-lived objects are created in a loop and
+         * there's a risk of running out of global handles.
+         */
+        $dispose(): void;
+
+        /**
          * Retrieves a `java.lang.Class` wrapper for the current class.
          */
         class: Wrapper;
@@ -4290,6 +4707,12 @@ declare namespace Java {
          * Canonical name of class being wrapped.
          */
         $className: string;
+
+        /**
+         * Method and field names exposed by this object’s class, not including
+         * parent classes.
+         */
+        $ownMembers: string[];
 
         /**
          * Instance used for chaining up to super-class method implementations.
@@ -4432,7 +4855,7 @@ declare namespace Java {
         /**
          * Class name, if applicable.
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Checks whether a given JavaScript `value` is compatible.
@@ -4442,22 +4865,22 @@ declare namespace Java {
         /**
          * Converts `value` from a JNI value to a JavaScript value.
          */
-        fromJni?: (value: any) => any;
+        fromJni?: ((value: any) => any) | undefined;
 
         /**
          * Converts `value` from a JavaScript value to a JNI value.
          */
-        toJni?: (value: any) => any;
+        toJni?: ((value: any) => any) | undefined;
 
         /**
          * Reads a value from memory.
          */
-        read?: (address: NativePointerValue) => any;
+        read?: ((address: NativePointerValue) => any) | undefined;
 
         /**
          * Writes a value to memory.
          */
-        write?: (address: NativePointerValue, value: any) => void;
+        write?: ((address: NativePointerValue, value: any) => void) | undefined;
     }
 
     interface DexFile {
@@ -4481,38 +4904,38 @@ declare namespace Java {
         /**
          * Super-class. Omit to inherit from `java.lang.Object`.
          */
-        superClass?: Wrapper;
+        superClass?: Wrapper | undefined;
 
         /**
          * Interfaces implemented by this class.
          */
-        implements?: Wrapper[];
+        implements?: Wrapper[] | undefined;
 
         /**
          * Name and type of each field to expose.
          */
         fields?: {
             [name: string]: string;
-        };
+        } | undefined;
 
         /**
          * Methods to implement. Use the special name `$init` to define one or more constructors.
          */
         methods?: {
             [name: string]: MethodImplementation | MethodSpec | MethodSpec[];
-        };
+        } | undefined;
     }
 
     interface MethodSpec {
         /**
          * Return type. Defaults to `void` if omitted.
          */
-        returnType?: string;
+        returnType?: string | undefined;
 
         /**
          * Argument types. Defaults to `[]` if omitted.
          */
-        argumentTypes?: string[];
+        argumentTypes?: string[] | undefined;
 
         /**
          * Implementation.
@@ -4548,14 +4971,16 @@ declare namespace Java {
 
     class ClassFactory {
         /**
-         * Gets the class factory instance for a given class loader.
+         * Gets the class factory instance for a given class loader, or the
+         * default factory when passing `null`.
          *
          * The default class factory used behind the scenes only interacts
          * with the application's main class loader. Other class loaders
-         * can be discovered through `Java.enumerateClassLoaders()` and
-         * interacted with through this API.
+         * can be discovered through APIs such as `Java.enumerateMethods()` and
+         * `Java.enumerateClassLoaders()`, and subsequently interacted with
+         * through this API.
          */
-        static get(classLoader: Wrapper): ClassFactory;
+        static get(classLoader: Wrapper | null): ClassFactory;
 
         /**
          * Class loader currently being used. For the default class factory this
@@ -4659,43 +5084,6 @@ declare namespace Java {
         suffix: string;
     }
 }
-
-/**
- * Monitors the lifetime of a heap-allocated JavaScript value.
- *
- * Useful when you're building a language-binding where you need to free
- * native resources when a JS value is no longer needed.
- */
-declare namespace WeakRef {
-    /**
-     * Starts monitoring the lifetime of `target`. Calls `callback` as soon as
-     * value has been garbage-collected, or the script is about to get
-     * unloaded.
-     *
-     * Be careful so `callback` is not a closure that accidentally captures
-     * `target` and keeps it alive beyond its intended lifetime.
-     *
-     * @param target Heap-allocated JavaScript value to monitor lifetime of.
-     * @param callback Function to call when `target` gets GCed.
-     */
-    function bind(target: any, callback: WeakRefCallback): WeakRefId;
-
-    /**
-     * Stops monitoring the value passed to `WeakRef.bind()` and calls the
-     * callback immediately.
-     *
-     * @param id ID returned by a previous call to `WeakRef.bind()`.
-     */
-    function unbind(id: WeakRefId): void;
-}
-
-type WeakRefCallback = () => void;
-
-/**
- * Opaque ID returned by `WeakRef.bind()`. Pass it to `WeakRef.unbind()` to
- * stop monitoring the target value.
- */
-type WeakRefId = number;
 
 /**
  * Generates machine code for x86.
@@ -5256,7 +5644,7 @@ interface X86WriterOptions {
      * temporary location that later gets mapped into memory at the
      * intended memory location.
      */
-    pc?: NativePointer;
+    pc?: NativePointer | undefined;
 }
 
 type X86CallArgument = X86Register | number | UInt64 | Int64 | NativePointerValue;
@@ -5343,12 +5731,12 @@ declare class X86Relocator {
     skipOneNoLabel(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
 
     /**
-     * write the next buffered instruction, but without a
+     * Writes the next buffered instruction, but without a
      * label for internal use. This breaks relocation of branches to locations
      * inside the relocated range, and is an optimization for use-cases where all
      * branches are rewritten (e.g. Frida's Stalker).
@@ -5496,9 +5884,58 @@ declare class ArmWriter {
     putLabel(id: string): void;
 
     /**
+     * Puts code needed for calling a C function with the specified `args`.
+     */
+    putCallAddressWithArguments(func: NativePointerValue, args: ArmCallArgument[]): void;
+
+    /**
+     * Puts code needed for branching/jumping to the given address.
+     */
+    putBranchAddress(address: NativePointerValue): void;
+
+    /**
+     * Determines whether a direct branch is possible between the two
+     * given memory locations.
+     */
+    canBranchDirectlyBetween(from: NativePointerValue, to: NativePointerValue): boolean;
+
+    /**
      * Puts a B instruction.
      */
     putBImm(target: NativePointerValue): void;
+
+    /**
+     * Puts a B COND instruction.
+     */
+    putBCondImm(cc: ArmConditionCode, target: NativePointerValue): void;
+
+    /**
+     * Puts a B instruction referencing `labelId`, defined by a past
+     * or future `putLabel()`.
+     */
+    putBLabel(labelId: string): void;
+
+    /**
+     * Puts a B COND instruction referencing `labelId`, defined by a past
+     * or future `putLabel()`.
+     */
+    putBCondLabel(cc: ArmConditionCode, labelId: string): void;
+
+    /**
+     * Puts a BL instruction.
+     */
+    putBlImm(target: NativePointerValue): void;
+
+    /**
+     * Puts a BLX instruction.
+     */
+    putBlxImm(target: NativePointerValue): void;
+
+    /**
+     * Puts a BL instruction referencing `labelId`, defined by a past
+     * or future `putLabel()`.
+     */
+    putBlLabel(labelId: string): void;
 
     /**
      * Puts a BX instruction.
@@ -5506,10 +5943,14 @@ declare class ArmWriter {
     putBxReg(reg: ArmRegister): void;
 
     /**
-     * Puts a B instruction referencing `labelId`, defined by a past
-     * or future `putLabel()`.
+     * Puts a BLX instruction.
      */
-    putBLabel(labelId: string): void;
+    putBlxReg(reg: ArmRegister): void;
+
+    /**
+     * Puts a RET instruction.
+     */
+    putRet(): void;
 
     /**
      * Puts an LDR instruction.
@@ -5522,14 +5963,104 @@ declare class ArmWriter {
     putLdrRegU32(reg: ArmRegister, val: number): void;
 
     /**
+     * Puts an LDR instruction.
+     */
+    putLdrRegRegOffset(dstReg: ArmRegister, srcReg: ArmRegister, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an LDR COND instruction.
+     */
+    putLdrCondRegRegOffset(cc: ArmConditionCode, dstReg: ArmRegister, srcReg: ArmRegister, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an LDMIA MASK instruction.
+     */
+    putLdmiaRegMask(reg: ArmRegister, mask: number): void;
+
+    /**
+     * Puts a STR instruction.
+     */
+    putStrRegRegOffset(srcReg: ArmRegister, dstReg: ArmRegister, dstOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a STR COND instruction.
+     */
+    putStrCondRegRegOffset(cc: ArmConditionCode, srcReg: ArmRegister, dstReg: ArmRegister, dstOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a MOV instruction.
+     */
+    putMovRegReg(dstReg: ArmRegister, srcReg: ArmRegister): void;
+
+    /**
+     * Puts a MOV SHIFT instruction.
+     */
+    putMovRegRegShift(dstReg: ArmRegister, srcReg: ArmRegister, shift: ArmShifter, shiftValue: number): void;
+
+    /**
+     * Puts a MOV CPSR instruction.
+     */
+    putMovRegCpsr(reg: ArmRegister): void;
+
+    /**
+     * Puts a MOV CPSR instruction.
+     */
+    putMovCpsrReg(reg: ArmRegister): void;
+
+    /**
+     * Puts an ADD U16 instruction.
+     */
+    putAddRegU16(dstReg: ArmRegister, val: number): void;
+
+    /**
+     * Puts an ADD instruction.
+     */
+    putAddRegU32(dstReg: ArmRegister, val: number): void;
+
+    /**
      * Puts an ADD instruction.
      */
     putAddRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
 
     /**
-     * Puts an LDR instruction.
+     * Puts an ADD instruction.
      */
-    putLdrRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
+    putAddRegRegReg(dstReg: ArmRegister, srcReg1: ArmRegister, srcReg2: ArmRegister): void;
+
+    /**
+     * Puts an ADD SHIFT instruction.
+     */
+    putAddRegRegRegShift(dstReg: ArmRegister, srcReg1: ArmRegister, srcReg2: ArmRegister, shift: ArmShifter, shiftValue: number): void;
+
+    /**
+     * Puts a SUB U16 instruction.
+     */
+    putSubRegU16(dstReg: ArmRegister, val: number): void;
+
+    /**
+     * Puts a SUB instruction.
+     */
+    putSubRegU32(dstReg: ArmRegister, val: number): void;
+
+    /**
+     * Puts a SUB instruction.
+     */
+    putSubRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
+
+    /**
+     * Puts a SUB instruction.
+     */
+    putSubRegRegReg(dstReg: ArmRegister, srcReg1: ArmRegister, srcReg2: ArmRegister): void;
+
+    /**
+     * Puts an ANDS instruction.
+     */
+    putAndsRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
+
+    /**
+     * Puts a CMP instruction.
+     */
+    putCmpRegImm(dstReg: ArmRegister, immVal: number): void;
 
     /**
      * Puts a NOP instruction.
@@ -5540,6 +6071,11 @@ declare class ArmWriter {
      * Puts an OS/architecture-specific breakpoint instruction.
      */
     putBreakpoint(): void;
+
+    /**
+     * Puts a BRK instruction.
+     */
+    putBrkImm(imm: number): void;
 
     /**
      * Puts a raw instruction.
@@ -5560,7 +6096,7 @@ interface ArmWriterOptions {
      * temporary location that later gets mapped into memory at the
      * intended memory location.
      */
-    pc?: NativePointer;
+    pc?: NativePointer | undefined;
 }
 
 type ArmCallArgument = ArmRegister | number | UInt64 | Int64 | NativePointerValue;
@@ -5639,7 +6175,7 @@ declare class ArmRelocator {
     skipOne(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
 
@@ -5710,6 +6246,13 @@ declare class ThumbWriter {
      * that may be referenced in past and future `put*Label()` calls.
      */
     putLabel(id: string): void;
+
+    /**
+     * Commits the first pending reference to the given label, returning
+     * `true` on success. Returns `false` if the given label hasn't been
+     * defined yet, or there are no more pending references to it.
+     */
+    commitLabel(id: string): boolean;
 
     /**
      * Puts code needed for calling a C function with the specified `args`.
@@ -5834,6 +6377,21 @@ declare class ThumbWriter {
     putLdrRegRegOffset(dstReg: ArmRegister, srcReg: ArmRegister, srcOffset: number | Int64 | UInt64): void;
 
     /**
+     * Puts an LDRB instruction.
+     */
+    putLdrbRegReg(dstReg: ArmRegister, srcReg: ArmRegister): void;
+
+    /**
+     * Puts a VLDR instruction.
+     */
+    putVldrRegRegOffset(dstReg: ArmRegister, srcReg: ArmRegister, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an LDMIA MASK instruction.
+     */
+    putLdmiaRegMask(reg: ArmRegister, mask: number): void;
+
+    /**
      * Puts a STR instruction.
      */
     putStrRegReg(srcReg: ArmRegister, dstReg: ArmRegister): void;
@@ -5852,6 +6410,16 @@ declare class ThumbWriter {
      * Puts a MOV instruction.
      */
     putMovRegU8(dstReg: ArmRegister, immValue: number): void;
+
+    /**
+     * Puts a MOV CPSR instruction.
+     */
+    putMovRegCpsr(reg: ArmRegister): void;
+
+    /**
+     * Puts a MOV CPSR instruction.
+     */
+    putMovCpsrReg(reg: ArmRegister): void;
 
     /**
      * Puts an ADD instruction.
@@ -5892,6 +6460,21 @@ declare class ThumbWriter {
      * Puts a SUB instruction.
      */
     putSubRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an AND instruction.
+     */
+    putAndRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a LSLS instruction.
+     */
+    putLslsRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number): void;
+
+    /**
+     * Puts a LSRS instruction.
+     */
+    putLsrsRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number): void;
 
     /**
      * Puts a MRS instruction.
@@ -5942,7 +6525,7 @@ interface ThumbWriterOptions {
      * temporary location that later gets mapped into memory at the
      * intended memory location.
      */
-    pc?: NativePointer;
+    pc?: NativePointer | undefined;
 }
 
 /**
@@ -6019,9 +6602,16 @@ declare class ThumbRelocator {
     skipOne(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
+
+    /**
+     * Copies out the next buffered instruction without advancing the
+     * output cursor, allowing the same instruction to be written out
+     * multiple times.
+     */
+    copyOne(): boolean;
 
     /**
      * Writes all buffered instructions.
@@ -6073,6 +6663,19 @@ type ArmConditionCode =
     | "gt"
     | "le"
     | "al"
+    ;
+
+type ArmShifter =
+    | "asr"
+    | "lsl"
+    | "lsr"
+    | "ror"
+    | "rrx"
+    | "asr-reg"
+    | "lsl-reg"
+    | "lsr-reg"
+    | "ror-reg"
+    | "rrx-reg"
     ;
 
 /**
@@ -6148,9 +6751,15 @@ declare class Arm64Writer {
     putCallRegWithArguments(reg: Arm64Register, args: Arm64CallArgument[]): void;
 
     /**
-     * Puts a BRANCH instruction.
+     * Puts code needed for branching/jumping to the given address.
      */
     putBranchAddress(address: NativePointerValue): void;
+
+    /**
+     * Determines whether a direct branch is possible between the two
+     * given memory locations.
+     */
+    canBranchDirectlyBetween(from: NativePointerValue, to: NativePointerValue): boolean;
 
     /**
      * Puts a B instruction.
@@ -6186,9 +6795,21 @@ declare class Arm64Writer {
     putBrReg(reg: Arm64Register): void;
 
     /**
+     * Puts a BR instruction expecting a raw pointer without
+     * any authentication bits.
+     */
+    putBrRegNoAuth(reg: Arm64Register): void;
+
+    /**
      * Puts a BLR instruction.
      */
     putBlrReg(reg: Arm64Register): void;
+
+    /**
+     * Puts a BLR instruction expecting a raw pointer without
+     * any authentication bits.
+     */
+    putBlrRegNoAuth(reg: Arm64Register): void;
 
     /**
      * Puts a RET instruction.
@@ -6348,6 +6969,11 @@ declare class Arm64Writer {
     putCmpRegReg(regA: Arm64Register, regB: Arm64Register): void;
 
     /**
+     * Puts an XPACI instruction.
+     */
+    putXpaciReg(reg: Arm64Register): void;
+
+    /**
      * Puts a NOP instruction.
      */
     putNop(): void;
@@ -6366,6 +6992,11 @@ declare class Arm64Writer {
      * Puts raw data.
      */
     putBytes(data: ArrayBuffer | number[] | string): void;
+
+    /**
+     * Signs the given pointer value.
+     */
+    sign(value: NativePointerValue): NativePointer;
 }
 
 interface Arm64WriterOptions {
@@ -6376,7 +7007,7 @@ interface Arm64WriterOptions {
      * temporary location that later gets mapped into memory at the
      * intended memory location.
      */
-    pc?: NativePointer;
+    pc?: NativePointer | undefined;
 }
 
 type Arm64CallArgument = Arm64Register | number | UInt64 | Int64 | NativePointerValue;
@@ -6455,7 +7086,7 @@ declare class Arm64Relocator {
     skipOne(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
 
@@ -6734,6 +7365,11 @@ declare class MipsWriter {
     putJAddress(address: NativePointerValue): void;
 
     /**
+     * Puts a J WITHOUT NOP instruction.
+     */
+    putJAddressWithoutNop(address: NativePointerValue): void;
+
+    /**
      * Puts a J instruction referencing `labelId`, defined by a past
      * or future `putLabel()`.
      */
@@ -6781,9 +7417,19 @@ declare class MipsWriter {
     putLuiRegImm(reg: MipsRegister, imm: number): void;
 
     /**
+     * Puts a DSLL instruction.
+     */
+    putDsllRegReg(dstReg: MipsRegister, srcReg: MipsRegister, amount: number): void;
+
+    /**
      * Puts an ORI instruction.
      */
     putOriRegRegImm(rt: MipsRegister, rs: MipsRegister, imm: number): void;
+
+    /**
+     * Puts an LD instruction.
+     */
+    putLdRegRegOffset(dstReg: MipsRegister, srcReg: MipsRegister, srcOffset: number | Int64 | UInt64): void;
 
     /**
      * Puts a LW instruction.
@@ -6808,17 +7454,17 @@ declare class MipsWriter {
     /**
      * Puts an ADDI instruction.
      */
-    putAddiRegRegImm(destReg: MipsRegister, leftReg: MipsRegister, imm: number): void;
+    putAddiRegRegImm(dstReg: MipsRegister, leftReg: MipsRegister, imm: number): void;
 
     /**
      * Puts an ADDI instruction.
      */
-    putAddiRegImm(destReg: MipsRegister, imm: number): void;
+    putAddiRegImm(dstReg: MipsRegister, imm: number): void;
 
     /**
      * Puts a SUB instruction.
      */
-    putSubRegRegImm(destReg: MipsRegister, leftReg: MipsRegister, imm: number): void;
+    putSubRegRegImm(dstReg: MipsRegister, leftReg: MipsRegister, imm: number): void;
 
     /**
      * Puts a PUSH instruction.
@@ -6861,6 +7507,11 @@ declare class MipsWriter {
     putBreak(): void;
 
     /**
+     * Puts a minimal sized trampoline for vectoring to the given address.
+     */
+    putPrologueTrampoline(reg: MipsRegister, address: NativePointerValue): void;
+
+    /**
      * Puts a raw instruction.
      */
     putInstruction(insn: number): void;
@@ -6879,7 +7530,7 @@ interface MipsWriterOptions {
      * temporary location that later gets mapped into memory at the
      * intended memory location.
      */
-    pc?: NativePointer;
+    pc?: NativePointer | undefined;
 }
 
 type MipsCallArgument = MipsRegister | number | UInt64 | Int64 | NativePointerValue;
@@ -6958,7 +7609,7 @@ declare class MipsRelocator {
     skipOne(): void;
 
     /**
-     * write the next buffered instruction.
+     * Writes the next buffered instruction.
      */
     writeOne(): boolean;
 

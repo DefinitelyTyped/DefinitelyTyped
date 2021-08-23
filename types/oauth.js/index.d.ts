@@ -31,7 +31,7 @@ declare namespace OAuth {
     interface Accessor {
         consumerKey: string;
         consumerSecret: string;
-        accessorSecret?: string;
+        accessorSecret?: string | undefined;
         token: string;
         tokenSecret: string;
     }

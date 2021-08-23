@@ -21,7 +21,7 @@ declare class Nedb<G = any> extends EventEmitter {
     /**
      * Load the database from the datafile, and trigger the execution of buffered commands if any
      */
-    loadDatabase(cb?: (err: Error) => void): void;
+    loadDatabase(cb?: (err: Error | null) => void): void;
 
     /**
      * Get an array of all the data in the database
@@ -39,13 +39,13 @@ declare class Nedb<G = any> extends EventEmitter {
      * We use an async API for consistency with the rest of the code
      * @param cb Optional callback, signature: err
      */
-    ensureIndex(options: Nedb.EnsureIndexOptions, cb?: (err: Error) => void): void;
+    ensureIndex(options: Nedb.EnsureIndexOptions, cb?: (err: Error | null) => void): void;
 
     /**
      * Remove an index
      * @param cb Optional callback, signature: err
      */
-    removeIndex(fieldName: string, cb?: (err: Error) => void): void;
+    removeIndex(fieldName: string, cb?: (err: Error | null) => void): void;
 
     /**
      * Add one or several document(s) to all indexes
@@ -80,14 +80,14 @@ declare class Nedb<G = any> extends EventEmitter {
      * Insert one or more new documents
      * @param cb Optional callback, signature: err, insertedDoc
      */
-    insert<T extends G>(newDoc: T, cb?: (err: Error, document: T) => void): void;
-    insert<T extends G>(newDocs: T[], cb?: (err: Error, documents: T[]) => void): void;
+    insert<T extends G>(newDoc: T, cb?: (err: Error | null, document: T) => void): void;
+    insert<T extends G>(newDocs: T[], cb?: (err: Error | null, documents: T[]) => void): void;
 
     /**
      * Count all documents matching the query
      * @param query MongoDB-style query
      */
-    count(query: any, callback: (err: Error, n: number) => void): void;
+    count(query: any, callback: (err: Error | null, n: number) => void): void;
     count(query: any): Nedb.CursorCount;
 
     /**
@@ -96,28 +96,28 @@ declare class Nedb<G = any> extends EventEmitter {
      * @param query MongoDB-style query
      * @param projection MongoDB-style projection
      */
-    find<T extends G>(query: any, projection: T, callback: (err: Error, documents: T[]) => void): void;
-    find<T extends G>(query: any, projection?: T): Nedb.Cursor<T>;
+    find<T extends G>(query: any, projection: any, callback: (err: Error | null, documents: T[]) => void): void;
+    find<T extends G>(query: any, projection?: any): Nedb.Cursor<T>;
 
     /**
      * Find all documents matching the query
      * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
      * * @param {any} query MongoDB-style query
      */
-    find<T extends G>(query: any, callback: (err: Error, documents: T[]) => void): void;
+    find<T extends G>(query: any, callback: (err: Error | null, documents: T[]) => void): void;
 
     /**
      * Find one document matching the query
      * @param query MongoDB-style query
      * @param projection MongoDB-style projection
      */
-    findOne<T extends G>(query: any, projection: T, callback: (err: Error, document: T) => void): void;
+    findOne<T extends G>(query: any, projection: any, callback: (err: Error | null, document: T) => void): void;
 
     /**
      * Find one document matching the query
      * @param query MongoDB-style query
      */
-    findOne<T extends G>(query: any, callback: (err: Error, document: T) => void): void;
+    findOne<T extends G>(query: any, callback: (err: Error | null, document: T) => void): void;
 
     /**
      * Update all docs matching query v1.7.4 and prior signature.
@@ -131,7 +131,7 @@ declare class Nedb<G = any> extends EventEmitter {
      *
      * @api private Use Datastore.update which has the same signature
      */
-    update(query: any, updateQuery: any, options?: Nedb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, upsert: boolean) => void): void;
+    update(query: any, updateQuery: any, options?: Nedb.UpdateOptions, cb?: (err: Error | null, numberOfUpdated: number, upsert: boolean) => void): void;
 
     /**
      * Update all docs matching query v1.8 signature.
@@ -146,7 +146,7 @@ declare class Nedb<G = any> extends EventEmitter {
      *
      * @api private Use Datastore.update which has the same signature
      */
-    update<T extends G>(query: any, updateQuery: any, options?: Nedb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void): void;
+    update<T extends G>(query: any, updateQuery: any, options?: Nedb.UpdateOptions, cb?: (err: Error | null, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void): void;
 
     /**
      * Remove all docs matching the query
@@ -157,8 +157,8 @@ declare class Nedb<G = any> extends EventEmitter {
      *
      * @api private Use Datastore.remove which has the same signature
      */
-    remove(query: any, options: Nedb.RemoveOptions, cb?: (err: Error, n: number) => void): void;
-    remove(query: any, cb?: (err: Error, n: number) => void): void;
+    remove(query: any, options: Nedb.RemoveOptions, cb?: (err: Error | null, n: number) => void): void;
+    remove(query: any, cb?: (err: Error | null, n: number) => void): void;
 
     addListener(event: 'compaction.done', listener: () => void): this;
     on(event: 'compaction.done', listener: () => void): this;
@@ -178,20 +178,20 @@ declare namespace Nedb {
         skip(n: number): Cursor<T>;
         limit(n: number): Cursor<T>;
         projection(query: any): Cursor<T>;
-        exec(callback: (err: Error, documents: T[]) => void): void;
+        exec(callback: (err: Error | null, documents: T[]) => void): void;
     }
 
     interface CursorCount {
-        exec(callback: (err: Error, count: number) => void): void;
+        exec(callback: (err: Error | null, count: number) => void): void;
     }
 
     interface DataStoreOptions {
-        filename?: string; // Optional, datastore will be in-memory only if not provided
-        inMemoryOnly?: boolean; // Optional, default to false
-        nodeWebkitAppName?: boolean; // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
-        autoload?: boolean; // Optional, defaults to false
+        filename?: string | undefined; // Optional, datastore will be in-memory only if not provided
+        inMemoryOnly?: boolean | undefined; // Optional, default to false
+        nodeWebkitAppName?: boolean | undefined; // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
+        autoload?: boolean | undefined; // Optional, defaults to false
         // Optional, if autoload is used this will be called after the load database with the error object as parameter. If you don't pass it the error will be thrown
-        onload?(error: Error): any;
+        onload?(error: Error | null): any;
         // (optional): hook you can use to transform data after it was serialized and before it is written to disk.
         // Can be used for example to encrypt data before writing database to disk.
         // This function takes a string as parameter (one line of an NeDB data file) and outputs the transformed string, which must absolutely not contain a \n character (or data will be lost)
@@ -206,10 +206,10 @@ declare namespace Nedb {
         beforeDeserialization?(line: string): string;
         // (optional): between 0 and 1, defaults to 10%. NeDB will refuse to start if more than this percentage of the datafile is corrupt.
         // 0 means you don't tolerate any corruption, 1 means you don't care
-        corruptAlertThreshold?: number;
+        corruptAlertThreshold?: number | undefined;
         // (optional, defaults to false)
         // timestamp the insertion and last update of all documents, with the fields createdAt and updatedAt. User-specified values override automatic generation, usually useful for testing.
-        timestampData?: boolean;
+        timestampData?: boolean | undefined;
     }
 
     /**
@@ -217,23 +217,23 @@ declare namespace Nedb {
      * upsert (defaults to false) if you want to insert a new document corresponding to the update rules if your query doesn't match anything
      */
     interface UpdateOptions {
-        multi?: boolean;
-        upsert?: boolean;
-        returnUpdatedDocs?: boolean;
+        multi?: boolean | undefined;
+        upsert?: boolean | undefined;
+        returnUpdatedDocs?: boolean | undefined;
     }
 
     /**
      * options only one option for now: multi which allows the removal of multiple documents if set to true. Default is false
      */
     interface RemoveOptions {
-        multi?: boolean;
+        multi?: boolean | undefined;
     }
 
     interface EnsureIndexOptions {
         fieldName: string;
-        unique?: boolean;
-        sparse?: boolean;
-        expireAfterSeconds?: number;
+        unique?: boolean | undefined;
+        sparse?: boolean | undefined;
+        expireAfterSeconds?: number | undefined;
     }
 
     interface Persistence {

@@ -1,13 +1,13 @@
-// Type definitions for non-npm package @ember/string 3.0
-// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fstring
+// Type definitions for non-npm package @ember/string 3.16
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fstring
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
-export { htmlSafe, isHTMLSafe } from '@ember/template';
+import { htmlSafe as templateHtmlSafe, isHTMLSafe as templateIsHTMLSafe } from '@ember/template';
 
 export function camelize(str: string): string;
 export function capitalize(str: string): string;
@@ -17,3 +17,8 @@ export function decamelize(str: string): string;
 export function loc(template: string, args?: string[]): string;
 export function underscore(str: string): string;
 export function w(str: string): string[];
+
+declare module '@ember/string' {
+  function htmlSafe(...args: Parameters<typeof templateHtmlSafe>): ReturnType<typeof templateHtmlSafe>;
+  function isHTMLSafe(...args: Parameters<typeof templateIsHTMLSafe>): ReturnType<typeof templateIsHTMLSafe>;
+}

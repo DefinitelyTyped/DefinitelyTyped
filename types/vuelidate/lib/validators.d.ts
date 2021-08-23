@@ -21,6 +21,8 @@ export interface ValidationRule {
 
 export type CustomRule = (value: any, parentVm?: any) => boolean | Promise<boolean>
 
+export type ValidationFunc = () => ValidationRule;
+
 export interface Helpers {
     withParams(params: Params, rule: CustomRule | ValidationRule): ValidationRule
     req(value: any): boolean
@@ -47,9 +49,9 @@ export function integer(): ValidationRule
 export function decimal(): ValidationRule
 export function email(): ValidationRule
 export function ipAddress(): ValidationRule
-export function macAddress(): ValidationRule
+export function macAddress(separator: string): ValidationRule
 export function sameAs(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
 export function url(): ValidationRule
 export function not(validator: ValidationRule | CustomRule): ValidationRule
-export function or(...validators: Array<ValidationRule | CustomRule>): ValidationRule
-export function and(...validators: Array<ValidationRule | CustomRule>): ValidationRule
+export function or(...validators: Array<ValidationFunc | CustomRule>): ValidationRule
+export function and(...validators: Array<ValidationFunc | CustomRule>): ValidationRule

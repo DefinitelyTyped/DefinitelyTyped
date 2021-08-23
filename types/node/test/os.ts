@@ -1,4 +1,4 @@
-import * as os from 'os';
+import * as os from 'node:os';
 {
     let result: string;
 
@@ -7,6 +7,7 @@ import * as os from 'os';
     result = os.endianness();
     result = os.hostname();
     result = os.type();
+    result = os.version();
     result = os.arch();
     result = os.release();
     result = os.EOL;
@@ -38,7 +39,7 @@ import * as os from 'os';
 }
 
 {
-    let result: { [index: string]: os.NetworkInterfaceInfo[] };
+    let result: NodeJS.Dict<os.NetworkInterfaceInfo[]>;
 
     result = os.networkInterfaces();
 }
@@ -237,4 +238,8 @@ if (os.platform() === 'win32') {
     os.setPriority(2, prio + 1);
 
     os.setPriority(os.constants.priority.PRIORITY_LOW);
+}
+
+{
+    const dnull: string = os.devNull;
 }

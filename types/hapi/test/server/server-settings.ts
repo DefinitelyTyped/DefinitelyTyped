@@ -2,9 +2,9 @@
 import { Server } from "hapi";
 
 declare module 'hapi' {
-	interface ServerOptionsApp {
-		key?: string;
-	}
+    interface ServerOptionsApp {
+        key?: string | undefined;
+    }
 }
 
 const server = new Server({

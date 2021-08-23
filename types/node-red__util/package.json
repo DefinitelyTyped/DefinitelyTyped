@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "jsonata": "1.8.3"
+    }
+}

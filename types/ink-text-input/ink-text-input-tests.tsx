@@ -26,7 +26,7 @@ class SearchQuery extends Component {
             <div>
                 Enter your query:
 
-				<TextInput
+                <TextInput
                     value={state.query}
                     onChange={this.handleChange}
                     onSubmit={this.handleSubmit}

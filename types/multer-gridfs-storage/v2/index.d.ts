@@ -2,7 +2,7 @@
 // Project: https://github.com/devconcept/multer-gridfs-storage
 // Definitions by: devconcept <https://github.com/devconcept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.2
 
 import { EventEmitter } from 'events';
 import { Express } from 'express';
@@ -32,12 +32,12 @@ declare namespace MulterGridfsStorage {
     }
 
     interface FileConfig {
-        filename?: string;
+        filename?: string | undefined;
         id?: any;
         metadata?: any;
-        chunkSize?: number;
-        bucketName?: string;
-        contentType?: string;
+        chunkSize?: number | undefined;
+        bucketName?: string | undefined;
+        contentType?: string | undefined;
     }
 }
 

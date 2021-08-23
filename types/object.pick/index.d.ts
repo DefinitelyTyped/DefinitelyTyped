@@ -10,6 +10,6 @@
  * @param object
  * @param keys
  */
-declare function pick<T extends object, U extends keyof T>(object: T, keys: U[]): Pick<T, U>;
+declare function pick<T extends object, U extends keyof T>(object: T, keys: U[] | readonly U[]): Pick<T, U>;
 
 export = pick;

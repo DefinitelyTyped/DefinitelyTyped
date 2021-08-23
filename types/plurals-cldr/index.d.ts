@@ -12,7 +12,7 @@ interface Plural {
      *
      * @param locale The locale code.
      * @param number The number to check. May be passed as a string to keep
-     * 	trailing zeroes.
+     *     trailing zeroes.
      */
     (locale: string, number: number | string): Form | null;
 
@@ -35,7 +35,7 @@ interface Plural {
      *
      * @param locale The locale code.
      * @param number The number to check. May be passed as a string to keep
-     * 	trailing zeroes.
+     *     trailing zeroes.
      */
     indexOf(locale: string, number: number | string): number;
 }

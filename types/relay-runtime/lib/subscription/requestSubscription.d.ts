@@ -1,20 +1,20 @@
 import { DeclarativeMutationConfig } from '../mutations/RelayDeclarativeMutationConfig';
 import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
-import { Variables, Disposable } from '../util/RelayRuntimeTypes';
+import { Disposable, OperationType } from '../util/RelayRuntimeTypes';
 import { SelectorStoreUpdater, Environment } from '../store/RelayStoreTypes';
 
-export interface GraphQLSubscriptionConfig<TSubscriptionPayload> {
-    configs?: ReadonlyArray<DeclarativeMutationConfig>;
+export interface GraphQLSubscriptionConfig<TSubscription extends OperationType> {
+    configs?: ReadonlyArray<DeclarativeMutationConfig> | undefined;
     subscription: GraphQLTaggedNode;
-    variables: Variables;
-    onCompleted?: () => void;
-    onError?: (error: Error) => void;
-    onNext?: (response: TSubscriptionPayload | null | undefined) => void;
-    updater?: SelectorStoreUpdater<TSubscriptionPayload>;
+    variables: TSubscription['variables'];
+    onCompleted?: (() => void) | undefined;
+    onError?: ((error: Error) => void) | undefined;
+    onNext?: ((response: TSubscription['response'] | null | undefined) => void) | undefined;
+    updater?: SelectorStoreUpdater<TSubscription['response']> | undefined;
 }
 
-export function requestSubscription<TSubscriptionPayload>(
+export function requestSubscription<TSubscription extends OperationType = OperationType>(
     environment: Environment,
     // tslint:disable-next-line no-unnecessary-generics
-    config: GraphQLSubscriptionConfig<TSubscriptionPayload>,
+    config: GraphQLSubscriptionConfig<TSubscription>,
 ): Disposable;

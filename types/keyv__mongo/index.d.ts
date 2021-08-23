@@ -13,7 +13,7 @@ export = KeyvMongo;
 
 declare class KeyvMongo<TValue> extends EventEmitter implements Store<TValue> {
     readonly ttlSupport: false;
-    namespace?: string;
+    namespace?: string | undefined;
 
     constructor(uri?: string);
     constructor(options?: KeyvMongo.Options); // tslint:disable-line:unified-signatures
@@ -26,8 +26,8 @@ declare class KeyvMongo<TValue> extends EventEmitter implements Store<TValue> {
 
 declare namespace KeyvMongo {
     interface Options {
-        uri?: string;
-        url?: string;
-        collection?: string;
+        uri?: string | undefined;
+        url?: string | undefined;
+        collection?: string | undefined;
     }
 }

@@ -331,7 +331,7 @@ async function testOfficeDirectApis() {
                 controls: [
                 {
                     id: 'button-1',
-                    visible: true,
+                    enabled: true,
                 }]
             },
         ],

@@ -1,11 +1,11 @@
-// Type definitions for non-npm package @ember/application 3.0
-// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fapplication
+// Type definitions for non-npm package @ember/application 3.16
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fapplication
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import Engine from '@ember/engine';
 import ApplicationInstance from '@ember/application/instance';
@@ -53,7 +53,7 @@ export default class Application extends Engine {
      * @param fullName type:name (e.g., 'model:user')
      * @param factory (e.g., App.Person)
      */
-    register(fullName: string, factory: any, options?: { singleton?: boolean; instantiate?: boolean }): void;
+    register(fullName: string, factory: any, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): void;
     /**
      * This removes all helpers that have been registered, and resets and functions
      * that were overridden by the helpers.

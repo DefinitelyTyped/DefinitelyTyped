@@ -49,5 +49,13 @@ describe('bintrees', () => {
 
         assert.deepEqual(ids, [100, 105, 110]);
     });
-});
 
+    it('has null as a possible max return type', () => {
+        let treeA = new RBTree((a: number, b: number) => a - b);
+
+        const max = treeA.max();
+
+        const foo: Exclude<typeof max, number> = null;
+        assert(foo === null);
+    })
+});

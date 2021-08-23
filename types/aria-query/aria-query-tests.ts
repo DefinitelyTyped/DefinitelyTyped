@@ -1,12 +1,13 @@
 import { elementRoles, roleElements, roles, ARIARoleDefintionKey, ARIARoleRelation } from 'aria-query';
 
-function prettRole(roleName: ARIARoleDefintionKey) {
+function prettyRole(roleName: ARIARoleDefintionKey) {
     const role = roles.get(roleName)!;
+    console.log(`prohibited props: ${Object.keys(role.prohibitedProps).join(', ')}`);
     console.log(`required props: ${Object.keys(role.requiredProps).join(', ')}`);
     console.log(`props: ${Object.keys(role.props).join(', ')}`);
     console.log(`Is ${!role.abstract ? 'not abstract' : 'abstract'}`);
     console.log(
-        `${role.childrenPresentational ? 'Has Child Presentational characteristics' : 'No special cahracteristics'}`,
+        `${role.childrenPresentational ? 'Has Child Presentational characteristics' : 'No special characteristics'}`,
     );
     console.log('baseConcepts:');
     role.baseConcepts.forEach(prettyRoleRelation);

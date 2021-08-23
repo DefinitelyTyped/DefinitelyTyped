@@ -31,13 +31,17 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'node',
     css: {
+      display: 'element',
       content: 'data(id)',
       'text-valign': 'center',
       'text-halign': 'center',
       shape: 'rectangle',
       'min-zoomed-font-size': 20,
       opacity: 1,
-      width: 'mapData(weight, 40, 80, 20, 60)'
+      width: 'mapData(weight, 40, 80, 20, 60)',
+      'transition-property': "opacity",
+      'transition-duration': 500,
+      'transition-delay': 500
     }
   },
   {
@@ -47,8 +51,11 @@ const showAllStyle: cytoscape.Stylesheet[] = [
   {
     selector: 'edge',
     css: {
+      'text-rotation': 'autorotate',
       'target-arrow-shape': 'triangle',
       'curve-style': 'taxi',
+      'source-endpoint': 'outside-to-node',
+      'target-endpoint': 'outside-to-node'
     }
   },
   {
@@ -372,6 +379,15 @@ cy.png({
   maxWidth: 100,
   maxHeight: 100
 });
+// $ExpectType Promise<Blob>
+cy.png({
+  output: 'blob-promise',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100
+});
 
 aliases(cy.jpg, cy.jpeg);
 // $ExpectType string
@@ -387,6 +403,16 @@ cy.jpg({
 // $ExpectType Blob
 cy.jpg({
   output: 'blob',
+  bg: oneOf('#ffffff', undefined),
+  full: true,
+  scale: 2,
+  maxWidth: 100,
+  maxHeight: 100,
+  quality: 0.5
+});
+// $ExpectType Promise<Blob>
+cy.jpg({
+  output: 'blob-promise',
   bg: oneOf('#ffffff', undefined),
   full: true,
   scale: 2,
@@ -497,6 +523,7 @@ eles.unselectify();
 eles.addClass('test');
 eles.toggleClass('test', oneOf(true, false, undefined));
 eles.removeClass('test');
+eles.classes(['lesstext']);
 eles.classes(oneOf('test', undefined));
 eles.flashClass('test flash', oneOf(1000, undefined));
 assert(ele.hasClass('test'));

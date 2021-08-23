@@ -9,13 +9,21 @@ export class Queue {
     unshiftRequest(entry: QueueEntry): Promise<void>;
 }
 
+export interface QueueOnSyncEvent {
+  queue: Queue;
+}
+
+export interface QueueOnSyncHandler {
+  (options: QueueOnSyncEvent): void|Promise<void>;
+}
+
 export interface QueueOptions {
-    maxRetentionTime?: number;
-    onSync?: () => void;
+    maxRetentionTime?: number | undefined;
+    onSync?: QueueOnSyncHandler | undefined;
 }
 
 export interface QueueEntry<Metadata = any> {
     request: Request;
-    metadata?: Metadata;
-    timestamp?: number;
+    metadata?: Metadata | undefined;
+    timestamp?: number | undefined;
 }

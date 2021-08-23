@@ -11,6 +11,7 @@ export type FirehoseTransformationCallback = Callback<FirehoseTransformationResu
 export interface FirehoseTransformationEvent {
     invocationId: string;
     deliveryStreamArn: string;
+    sourceKinesisStreamArn?: string | undefined;
     region: string;
     records: FirehoseTransformationEventRecord[];
 }
@@ -20,13 +21,13 @@ export interface FirehoseTransformationEventRecord {
     approximateArrivalTimestamp: number;
     /** Base64 encoded */
     data: string;
-    kinesisRecordMetadata?: FirehoseRecordMetadata;
+    kinesisRecordMetadata?: FirehoseRecordMetadata | undefined;
 }
 
 export interface FirehoseRecordMetadata {
     shardId: string;
     partitionKey: string;
-    approximateArrivalTimestamp: string;
+    approximateArrivalTimestamp: number;
     sequenceNumber: string;
     subsequenceNumber: string;
 }

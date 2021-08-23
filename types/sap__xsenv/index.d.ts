@@ -1,4 +1,4 @@
-// Type definitions for non-npm package @sap/xsenv 2.0
+// Type definitions for @sap/xsenv 2.0
 // Project: https://help.sap.com/hana_platform
 // Definitions by: [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 export function loadEnv(jsonFile?: string): void;
 export function readCFServices(): any;
 
-export type ServiceFilter = string | { name?: string; label?: string; tag?: string; plan?: string } | ((service: any) => boolean);
+export type ServiceFilter = string | { name?: string | undefined; label?: string | undefined; tag?: string | undefined; plan?: string | undefined } | ((service: any) => boolean);
 
 /**
  * Reads service configuration from CloudFoundry environment variable <code>VCAP_SERVICES</code>.

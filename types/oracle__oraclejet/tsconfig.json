@@ -24,11 +24,8 @@
             "../"
         ],
         "paths": {
-            "@oracle/oraclejet": [
-                "oracle__oraclejet"
-            ],
-            "@oracle/oraclejet/*": [
-                "oracle__oraclejet/*"
+            "@oracle/*": [
+                "oracle__*"
             ]
         }
     },

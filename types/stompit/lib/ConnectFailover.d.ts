@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { ConnectOptions } from "./connect";
+import { ConnectOptions, ConnectionListener } from "./connect";
 import { AddressInfo } from "./connect-failover/getAddressInfo";
 
 import Client = require("./Client");
@@ -24,25 +24,25 @@ export = ConnectFailover;
 declare namespace ConnectFailover {
     interface ConnectFailoverOptions {
         // Milliseconds delay of the first reconnect
-        initialReconnectDelay?: number;
+        initialReconnectDelay?: number | undefined;
 
         // Maximum milliseconds delay of any reconnect
-        maxReconnectDelay?: number;
+        maxReconnectDelay?: number | undefined;
 
         // Exponential increase of the reconnect delay
-        useExponentialBackOff?: boolean;
+        useExponentialBackOff?: boolean | undefined;
 
         // The exponent used in the exponential backoff attempts
-        reconnectDelayExponent?: number;
+        reconnectDelayExponent?: number | undefined;
 
         // Maximum number of reconnects
-        maxReconnects?: number;
+        maxReconnects?: number | undefined;
 
         // Randomly choose a server to use for reconnect
-        randomize?: boolean;
+        randomize?: boolean | undefined;
 
         // Override the connect function
-        connectFunction?: (options: ConnectOptions, connectionListener?: (err: Error | null, client: Client) => void) => Client;
+        connectFunction?: ((options: ConnectOptions, connectionListener?: ConnectionListener) => Client) | undefined;
     }
 
     interface Server {

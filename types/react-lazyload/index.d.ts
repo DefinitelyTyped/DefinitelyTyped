@@ -1,26 +1,28 @@
-// Type definitions for react-lazyload ver 2.6
+// Type definitions for react-lazyload ver 3.1
 // Project: https://github.com/jasonslyvia/react-lazyload
 // Definitions by: m0a <https://github.com/m0a>
 //                 svobik7 <https://github.com/svobik7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, CSSProperties } from 'react';
 
 export interface LazyLoadProps {
-    once?: boolean;
-    height?: number | string;
-    offset?: number | number[];
-    overflow?: boolean;
-    resize?: boolean;
-    scroll?: boolean;
-    children?: ReactNode;
-    throttle?: number | boolean;
-    debounce?: number | boolean;
-    placeholder?: ReactNode;
-    scrollContainer?: string | Element;
-    unmountIfInvisible?: boolean;
-    preventLoading?: boolean;
+    once?: boolean | undefined;
+    height?: number | string | undefined;
+    offset?: number | number[] | undefined;
+    overflow?: boolean | undefined;
+    resize?: boolean | undefined;
+    scroll?: boolean | undefined;
+    children?: ReactNode | undefined;
+    throttle?: number | boolean | undefined;
+    debounce?: number | boolean | undefined;
+    placeholder?: ReactNode | undefined;
+    scrollContainer?: string | Element | undefined;
+    unmountIfInvisible?: boolean | undefined;
+    preventLoading?: boolean | undefined;
+    classNamePrefix?: string | undefined;
+    style?: CSSProperties | undefined;
 }
 
 export default class LazyLoad extends Component<LazyLoadProps> {
@@ -30,3 +32,5 @@ export default class LazyLoad extends Component<LazyLoadProps> {
 export function lazyload(option: {}): LazyLoad;
 
 export function forceCheck(): void;
+
+export function forceVisible(): void;

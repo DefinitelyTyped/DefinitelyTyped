@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@hapi/joi": [
-                "hapi__joi"
+            "@hapi/*": [
+                "hapi__*"
             ]
         },
         "types": [],
