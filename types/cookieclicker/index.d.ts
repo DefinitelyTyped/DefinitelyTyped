@@ -523,10 +523,10 @@ declare namespace Game {
     export function PickAscensionMode(): void;
 
     export function UpdateLegacyPrompt(): void;
-    export let ascendl: object;
-    export let ascendContentl: object;
-    export let ascendZoomablel: object;
-    export let ascendUpgradesl: object;
+    export let ascendl: HTMLDivElement;
+    export let ascendContentl: HTMLDivElement;
+    export let ascendZoomablel: HTMLDivElement;
+    export let ascendUpgradesl: HTMLDivElement;
     export let OnAscend: number;
     export let AscendTimer: number;
     export let AscendDuration: number;
@@ -553,7 +553,7 @@ declare namespace Game {
     export let AscendZoomT: number;
     export let AscendDragging: number;
     export let AscendGridSnap: number;
-    export let heavenlyBounds: object;
+    export let heavenlyBounds: Record<"top" | "right" | "bottom" | "left", number>;
 
     export function UpdateAscend(): void;
 
@@ -625,7 +625,7 @@ declare namespace Game {
 
     export function GetMouseCoords(e: MouseEvent): void;
     export let Click: number;
-    export let lastClickedEl: object;
+    export let lastClickedEl: Element;
     export let clickFrom: number;
     export let Scroll: number;
     export let mouseDown: number;
@@ -635,8 +635,8 @@ declare namespace Game {
     export let keys: number[];
     export let heavenlyPower: number;
     export let recalculateGains: number;
-    export let cookiesPsByType: object;
-    export let cookiesMultByType: object;
+    export let cookiesPsByType: Record<string ,number>;
+    export let cookiesMultByType: Record<string ,number>;
     export interface Effects {
         cps: number;
         click: number;
@@ -749,7 +749,7 @@ declare namespace Game {
         z: number,
         pic: string,
         text: string,
-    ): Particle | object;
+    ): Particle;
 
     export function particlesDraw(z: number): void;
 
@@ -761,7 +761,7 @@ declare namespace Game {
     export let popups: number;
 
     export function Popup(text: string, x: number, y: number): void;
-    export let sparkles: object;
+    export let sparkles: HTMLDivElement;
     export let sparklesT: number;
     export let sparklesFrames: number;
 
@@ -799,10 +799,10 @@ declare namespace Game {
     export function NotesDraw(): void;
 
     export function Notify(title: string, desc?: string, pic?: Icon, quick?: number, noLog?: boolean): void;
-    export let darkenL: object;
-    export let promptL: object;
-    export let promptAnchorL: object;
-    export let promptWrapL: object;
+    export let darkenL: HTMLDivElement;
+    export let promptL: HTMLDivElement;
+    export let promptAnchorL: HTMLDivElement;
+    export let promptWrapL: HTMLDivElement;
     export let promptConfirm: string;
     export let promptOn: number;
     export let promptUpdateFunc: number;
@@ -896,8 +896,8 @@ declare namespace Game {
     export function setVolume(what: number): void;
 
     export function UpdateMenu(): void;
-    export let ascendMeter: object;
-    export let ascendNumber: object;
+    export let ascendMeter: HTMLDivElement;
+    export let ascendNumber: HTMLDivElement;
     export let lastPanel: string;
     export let Ticker: string;
     export let TickerAge: number;
@@ -1133,7 +1133,7 @@ declare namespace Game {
          * Updates the mature times of plants, affected by seedless to nay
          */
         computeMatures(): void;
-        plantContam: object;
+        plantContam: Record<string ,number>;
         /**
          * Computes the avaliable mutations for a tile
          * @param neighs The amount of neighbors for each plant
@@ -2244,7 +2244,7 @@ declare namespace Game {
         /**
          * The power of a cookie upgrade, present as `0` on Non-cookie upgrades
          */
-        power: number | ((me: this) => number);
+        power: number | (<T extends Upgrade = this>(me: T) => number);
         /**
          * The price of the upgrade, this is visual only, so the lump spending must be manually implemented
          */
