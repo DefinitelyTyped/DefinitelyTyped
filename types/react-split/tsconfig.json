@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
+    "types": [],
+    "noEmit": true,
+    "jsx": "react",
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": [
+    "index.d.ts",
+    "react-split-tests.tsx"
+  ]
+}
