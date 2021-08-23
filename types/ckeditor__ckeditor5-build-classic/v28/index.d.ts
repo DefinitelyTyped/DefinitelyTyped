@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-build-classic 29.0
+// Type definitions for @ckeditor/ckeditor5-build-classic 28.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/builds/index.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -80,14 +80,7 @@ export default class ClassicEditor extends ClassicEditorBase {
             ];
         };
         image: {
-            toolbar: [
-                'imageStyle:inline',
-                'imageStyle:block',
-                'imageStyle:side',
-                '|',
-                'toggleImageCaption',
-                'imageTextAlternative',
-            ];
+            toolbar: ['imageStyle:block', 'imageStyle:side', '|', 'imageTextAlternative'];
         };
         table: {
             contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'];
