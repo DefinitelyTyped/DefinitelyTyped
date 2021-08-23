@@ -49,8 +49,15 @@ export interface ToISOTimeDurationOptions {
 
 /**
  * Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
+ *
+ * @deprecated Use DurationLike instead.
  */
 export type DurationInput = Duration | number | DurationObjectUnits;
+
+/**
+ * Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
+ */
+export type DurationLike = Duration | DurationObjectUnits | number;
 
 /**
  * A Duration object represents a period of time, like "2 months" or "1 day, 1 hour".
@@ -268,14 +275,14 @@ export class Duration {
      *
      * @param duration - The amount to add. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
      */
-    plus(duration: DurationInput): Duration;
+    plus(duration: DurationLike): Duration;
 
     /**
      * Make this Duration shorter by the specified amount. Return a newly-constructed Duration.
      *
      * @param duration - The amount to subtract. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
      */
-    minus(duration: DurationInput): Duration;
+    minus(duration: DurationLike): Duration;
 
     /**
      * Scale this Duration by the specified amount. Return a newly-constructed Duration.

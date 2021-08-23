@@ -1,5 +1,5 @@
 import { DateTime, DateObjectUnits, DateTimeOptions, DiffOptions, ToISOTimeOptions } from './datetime';
-import { Duration, DurationInput, DurationUnit } from './duration';
+import { Duration, DurationLike, DurationUnit } from './duration';
 
 export interface IntervalObject {
     start?: DateTime | undefined;
@@ -47,7 +47,7 @@ export class Interval {
      * @param start
      * @param duration - the length of the Interval.
      */
-    static after(start: DateInput, duration: DurationInput): Interval;
+    static after(start: DateInput, duration: DurationLike): Interval;
 
     /**
      * Create an Interval from an end DateTime and a Duration to extend backwards to.
@@ -55,7 +55,7 @@ export class Interval {
      * @param end
      * @param duration - the length of the Interval.
      */
-    static before(end: DateInput, duration: DurationInput): Interval;
+    static before(end: DateInput, duration: DurationLike): Interval;
 
     /**
      * Create an Interval from an ISO 8601 string.
@@ -170,7 +170,7 @@ export class Interval {
      *
      * @param duration - The length of each resulting interval.
      */
-    splitBy(duration: DurationInput): Interval[];
+    splitBy(duration: DurationLike): Interval[];
 
     /**
      * Split this Interval into the specified number of smaller intervals.

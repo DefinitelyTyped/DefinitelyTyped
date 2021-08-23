@@ -8,7 +8,7 @@ import {
     ZoneOptions,
 } from '../index';
 import { Zone } from './zone';
-import { Duration, DurationInput, DurationUnits } from './duration';
+import { Duration, DurationLike, DurationUnits } from './duration';
 import { Interval } from './interval';
 
 export type DateTimeUnit = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
@@ -848,14 +848,14 @@ export class DateTime {
      * @example
      * DateTime.now().plus(Duration.fromObject({ hours: 3, minutes: 13 })) //~> in 3 hr, 13 min
      */
-    plus(duration: DurationInput): DateTime;
+    plus(duration: DurationLike): DateTime;
 
     /**
      * See {@link DateTime.plus}
      *
      * @param duration - The amount to subtract. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
      */
-    minus(duration: DurationInput): DateTime;
+    minus(duration: DurationLike): DateTime;
 
     /**
      * "Set" this DateTime to the beginning of a unit of time.
