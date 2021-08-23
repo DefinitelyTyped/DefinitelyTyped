@@ -39,7 +39,7 @@ declare namespace WebpackDevServer {
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
 
-    type StaticConfig = {
+    interface StaticConfig {
         /**
          * Tell the server where to serve the content from.
          * This is only necessary if you want to serve static files.
@@ -73,7 +73,7 @@ declare namespace WebpackDevServer {
          * When enabled, file changes will trigger a full page reload.
          */
         watch?: boolean | object | undefined;
-    };
+    }
 
     interface Configuration {
         /**
