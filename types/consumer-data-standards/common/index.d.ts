@@ -1,3 +1,5 @@
+import { Links, Meta } from "../banking";
+
     export enum IndustryCodeVersionType {
         ANZSIC_1292_0_2006_V1_0 = "ANZSIC_1292.0_2006_V1.0",
         ANZSIC_1292_0_2006_V2_0 = "ANZSIC_1292.0_2006_V2.0",
@@ -144,25 +146,6 @@
         isPartial?: boolean;
         explanation: string;
     }
-    export interface MetaError {
-        urn?: string;
-    }
-    export interface MetaPaginated {
-        totalRecords: number;
-        totalPages: number;
-    }
-
-    export interface Links {
-        self: string;
-    }
-
-    export interface LinksPaginated {
-        self: string;
-        first?: string;
-        prev?: string;
-        next?: string;
-        last?: string;
-    }
     export interface  ResponseCommonCustomer {
         data: ResponseCommonCustomer;
         links: Links;
@@ -178,8 +161,6 @@
         links: Links;
         meta?: Meta;
     }
-
-    export interface Meta {}
 
     export interface  ResponseCommonCustomerDetail {
         customerUType: CustomerUType;
