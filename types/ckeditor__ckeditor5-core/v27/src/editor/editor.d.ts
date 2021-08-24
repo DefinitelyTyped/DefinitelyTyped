@@ -1,4 +1,4 @@
-import * as engine from "@ckeditor/ckeditor5-engine";
+import { Conversion, Model, DataController, EditingController, DomEventData } from "@ckeditor/ckeditor5-engine";
 import Config from "@ckeditor/ckeditor5-utils/src/config";
 import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
@@ -8,55 +8,51 @@ import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import CommandCollection from "../commandcollection";
 import ContextPlugin from "../contextplugin";
 import EditingKeystrokeHandler from "../editingkeystrokehandler";
-import Plugin, { LoadedPlugins } from "../plugin";
+import Plugin from "../plugin";
 import PluginCollection from "../plugincollection";
 import { EditorConfig } from "./editorconfig";
 
 export default abstract class Editor implements Emitter, Observable {
     readonly commands: CommandCollection;
     readonly config: Config;
-    readonly conversion: engine.Conversion;
-    readonly data: engine.DataController;
-    readonly editing: engine.EditingController;
+    readonly conversion: Conversion;
+    readonly data: DataController;
+    readonly editing: EditingController;
     isReadOnly: boolean;
     readonly keystrokes: EditingKeystrokeHandler;
     readonly locale: Locale;
-    readonly model: engine.Model;
+    readonly model: Model;
     readonly plugins: PluginCollection;
     readonly state: "initializing" | "ready" | "destroyed";
 
-    static builtinPlugins: Array<typeof Plugin|typeof ContextPlugin|string>;
+    static builtinPlugins: Array<typeof Plugin | typeof ContextPlugin | string>;
     static defaultConfig?: EditorConfig | undefined;
 
     constructor(config?: EditorConfig);
     destroy(): Promise<void>;
     execute(commandName: string, ...args: unknown[]): any;
     focus(): void;
-    initPlugins(): Promise<LoadedPlugins>;
+    initPlugins(): ReturnType<PluginCollection["init"]>;
     t: Locale["t"];
 
     on: (
         event: string,
-        callback: (info: EventInfo, data: engine.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ) => void;
     once(
         event: string,
-        callback: (info: EventInfo, data: engine.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority: PriorityString | number },
     ): void;
-    off(event: string, callback?: (info: EventInfo, data: engine.DomEventData) => void): void;
+    off(event: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     listenTo(
         emitter: Emitter,
         event: string,
-        callback: (info: EventInfo, data: engine.DomEventData) => void,
+        callback: (info: EventInfo, data: DomEventData) => void,
         options?: { priority?: PriorityString | number | undefined },
     ): void;
-    stopListening(
-        emitter?: Emitter,
-        event?: string,
-        callback?: (info: EventInfo, data: engine.DomEventData) => void,
-    ): void;
+    stopListening(emitter?: Emitter, event?: string, callback?: (info: EventInfo, data: DomEventData) => void): void;
     fire(eventOrInfo: string | EventInfo, ...args: any[]): any;
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;

@@ -58,4 +58,4 @@ export interface PluginInterface<T = Plugin> {
     new (editor: Editor): T;
 }
 
-export type LoadedPlugins = Array<typeof Plugin|typeof ContextPlugin>;
+export type LoadedPlugins = Array<typeof Plugin | typeof ContextPlugin>;
