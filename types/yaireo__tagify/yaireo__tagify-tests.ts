@@ -419,6 +419,7 @@ const scopeEl: HTMLElement = tagify.DOM.scope;
 const spanEl: HTMLSpanElement = tagify.DOM.input;
 const dropdownEl: HTMLDivElement = tagify.DOM.dropdown;
 const inputEl: HTMLInputElement | HTMLTextAreaElement = tagify.DOM.originalInput;
+const invalidPatternMessage = tagify.TEXTS.pattern;
 
 if (tagify.suggestedListItems !== undefined) {
     const item: TagData = tagify.suggestedListItems[0];
