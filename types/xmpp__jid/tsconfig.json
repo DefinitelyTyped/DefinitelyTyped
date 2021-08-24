@@ -14,8 +14,8 @@
         ],
         "types": [],
         "paths": {
-            "@xmpp/jid": [
-                "xmpp__jid"
+            "@xmpp/*": [
+                "xmpp__*"
             ]
         },
         "noEmit": true,

@@ -3,12 +3,27 @@
 // Definitions by: Jesse Zhang <https://github.com/jessezhang91>
 //                 Scott Cooper <https://github.com/scttcper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.4
 
 /// <reference types="node" />
 
-import * as Knex from "knex";
 import { EventEmitter } from "events";
+
+interface Knex {
+    client: any;
+}
+
+declare namespace Knex {
+    interface Sql {
+        method: string;
+        options: any;
+        bindings: any;
+        sql: string;
+        toNative(): any;
+    }
+}
+
+export {};
 
 /**
  * Attaches mocked client to knex instance

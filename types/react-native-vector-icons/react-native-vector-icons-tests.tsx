@@ -20,6 +20,7 @@ const CustomIconTabBarItem     = CustomIcon.TabBarItem;
 const CustomIconTabBarItemIOS  = CustomIcon.TabBarItemIOS;
 const CustomIconToolbarAndroid = CustomIcon.ToolbarAndroid;
 const CustomIcongetImageSource = CustomIcon.getImageSource;
+const CustomIcongetImageSourceSync = CustomIcon.getImageSourceSync;
 
 class Example extends React.Component {
   handleButton() {
@@ -34,7 +35,7 @@ class Example extends React.Component {
         <MaterialIcon size={30} color="red" name="exit" />
         <FontAwesome5Icon size={10} name="handshake" />
         <FontAwesome5Icon size={10} name="handshake" solid />
-        <FontAwesome5ProIcon size={10} name="parachute-box" light />
+        <FontAwesome5ProIcon size={10} name="parachute-box" light={true} solid={false} />
         <Fontisto size={10} name="fontisto" />
 
         {/* Icon button  */}

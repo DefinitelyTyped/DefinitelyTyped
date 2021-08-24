@@ -1,6 +1,7 @@
-// Type definitions for Leaflet.fullscreen 1.3
+// Type definitions for Leaflet.fullscreen 1.6
 // Project: https://github.com/brunob/leaflet.fullscreen
 // Definitions by: William Comartin <https://github.com/wcomartin>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,13 +15,14 @@ declare module 'leaflet' {
     }
 
     interface FullscreenOptions {
-      content?: string;
-      position?: ControlPosition;
-      title?: string;
-      titleCancel?: string;
-      forceSeparateButton?: boolean;
-      forcePseudoFullscreen?: boolean;
-      pseudoFullscreen?: boolean;
+      content?: string | undefined;
+      position?: ControlPosition | undefined;
+      title?: string | undefined;
+      titleCancel?: string | undefined;
+      forceSeparateButton?: boolean | undefined;
+      forcePseudoFullscreen?: boolean | undefined;
+      pseudoFullscreen?: boolean | undefined;
+      fullscreenElement?: false | HTMLElement | undefined;
     }
   }
 
@@ -29,5 +31,14 @@ declare module 'leaflet' {
      * Creates a fullscreen control.
      */
     function fullscreen(options?: Control.FullscreenOptions): Control.Fullscreen;
+  }
+
+  interface MapOptions {
+    fullscreenControl?: boolean | undefined;
+    fullscreenControlOptions?: Control.FullscreenOptions | undefined;
+  }
+
+  interface Map {
+    toggleFullScreen(): void;
   }
 }

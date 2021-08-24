@@ -3,7 +3,6 @@ import { KnexAdapter } from '@keystonejs/adapter-knex';
 import { Text, Checkbox, Password } from '@keystonejs/fields';
 
 const keystone = new Keystone({
-    name: 'Typescript Test',
     adapter: new KnexAdapter(),
 });
 

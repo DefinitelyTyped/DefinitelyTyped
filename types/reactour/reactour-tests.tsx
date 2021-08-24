@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tour, { Arrow, Badge, Close, Controls, Dot, Navigation } from 'reactour';
+import Tour, { Arrow, Badge, Close, Controls, CustomHelperProps, Dot, Navigation } from 'reactour';
 
 class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
     ref = React.createRef<Tour>();
@@ -96,10 +96,15 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                             style: {
                                 display: 'flex'
                             },
-                            action: (node: HTMLElement) => node.focus()
+                            action: (node: HTMLElement) => node.focus(),
+                            navDotAriaLabel: 'Got to last step'
                         },
                         {
-                            content: 'Last step'
+                            content: 'Last step',
+                            observe: 'button.opener',
+                            highlightedSelectors: ['button.opener'],
+                            mutationObservables: ['button.opener'],
+                            resizeObservables: ['button.opener']
                         }
                     ]}
                     onRequestClose={() => this.setState({ isTourOpen: false })}
@@ -138,6 +143,49 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     startAt={1}
                     update={this.state.update}
                     updateDelay={2}
+                    disableFocusLock={false}
+                    accessibilityOptions={{
+                        ariaLabelledBy: "Tour aria label",
+                        closeButtonAriaLabel: "Close",
+                        showNavigationScreenReaders: true
+                    }}
+                    CustomHelper={({ current, content, totalSteps, gotoStep, close }: CustomHelperProps) => (
+                        <main className="CustomHelper__wrapper">
+                            <div className="CustomHelper__content">
+                                {content}
+                                <Controls
+                                    data-tour-elem="controls"
+                                    className="CustomHelper__controls"
+                                    style={{ position: 'absolute' }}
+                                >
+                                    <Arrow
+                                        onClick={() => gotoStep(current - 1)}
+                                        disabled={current === 0}
+                                        className="CustomHelper__navArrow"
+                                    />
+                                    <Navigation data-tour-elem="navigation">
+                                        {Array.from(Array(totalSteps).keys()).map((li, i) => (
+                                            <Dot
+                                                key={li}
+                                                onClick={() => current !== i && gotoStep(i)}
+                                                current={current}
+                                                index={i}
+                                                disabled={current === i}
+                                                showNumber
+                                                data-tour-elem="dot"
+                                            />
+                                        ))}
+                                    </Navigation>
+                                    <Arrow
+                                        onClick={() => gotoStep(current + 1)}
+                                        disabled={current === totalSteps - 1}
+                                        className="CustomHelper__navArrow"
+                                        inverted
+                                    />
+                                </Controls>
+                            </div>
+                        </main>
+                    )}
                 >
                     <div>Something</div>
                 </Tour>

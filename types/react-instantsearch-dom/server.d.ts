@@ -1,14 +1,7 @@
 import * as React from 'react';
+import { InstantSearchProps } from 'react-instantsearch-core';
 
-/**
- * Creates a specialized root InstantSearch component. It accepts
- * an algolia client and a specification of the root Element.
- * @param defaultAlgoliaClient - a function that builds an Algolia client
- * @returns an InstantSearch root
- */
-export function createInstantSearch(
-  defaultAlgoliaClient?: (appId: string, apiKey: string, options: { _useRequestCache: boolean }) => object
-): {
-  InstantSearch: React.ComponentClass<any>;
-  findResultsState(App: React.ComponentType<any>, props: any): Promise<any>
-};
+export function findResultsState(
+    App: React.ComponentType<Pick<InstantSearchProps, 'widgetsCollector'> & Record<string, any>>,
+    props: Pick<InstantSearchProps, 'searchClient' | 'indexName'> & Record<string, any>,
+): Promise<InstantSearchProps['resultsState']>;

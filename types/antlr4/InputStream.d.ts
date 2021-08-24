@@ -8,9 +8,9 @@ export class InputStream {
 
     consume(): void;
 
-    LA(offset: number): string;
+    LA(offset: number): number;
 
-    LT(offset: number): string;
+    LT(offset: number): number;
 
     mark(): number;
 

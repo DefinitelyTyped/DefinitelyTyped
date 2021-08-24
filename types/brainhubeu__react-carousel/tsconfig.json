@@ -15,8 +15,8 @@
             "../"
         ],
         "paths": {
-            "@brainhubeu/react-carousel": [
-                "brainhubeu__react-carousel"
+            "@brainhubeu/*": [
+                "brainhubeu__*"
             ]
         },
         "types": [],

@@ -1,13 +1,12 @@
 import * as React from "react";
 
 export type TabGroupProps = {
-    className?: string;
-    customStyles?: {[x: string]: any};
-    disableStyles?: boolean;
-    /* The index of the selected tab. */
-    selectedIndex?: number;
-    /* Callback function when the user clicks on a tab. Parameters passed to the function are `event` and `index`. */
-    onTabClick?: (event: React.MouseEvent, index: number) => void;
+    className?: string | undefined;
+    disableStyles?: boolean | undefined;
+    selectedIndex?: number | undefined;
+    size?: any;
+    tabGroupProps?: any;
+    onTabClick?: ((event: React.MouseEvent, index: number) => void) | undefined;
 } & { [x: string]: any };
 
 declare class TabGroup extends React.Component<TabGroupProps> {

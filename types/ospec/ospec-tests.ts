@@ -145,13 +145,13 @@ o.spec('ospec typings', () => {
 
     const myFunc = (a: string, b?: boolean) => 42;
     const spiedFunc = o.spy(myFunc);
-    type SpiedFuncParams = Parameters<typeof spiedFunc>; // $ExpectType [string, (boolean | undefined)?]
+    type SpiedFuncParams = Parameters<typeof spiedFunc>; // $ExpectType [string, (boolean | undefined)?] || [a: string, b?: boolean | undefined]
     const _args1: SpiedFuncParams = ['hi', true];
     const _args2: SpiedFuncParams = ['hi'];
     spiedFunc(..._args1); // $ExpectType number
     spiedFunc(..._args2); // $ExpectType number
-    spiedFunc.args; // $ExpectType [string, (boolean | undefined)?]
-    spiedFunc.calls; // $ExpectType [string, (boolean | undefined)?][]
+    spiedFunc.args; // $ExpectType [string, (boolean | undefined)?] || [a: string, b?: boolean | undefined]
+    spiedFunc.calls; // $ExpectType [string, (boolean | undefined)?][] || [a: string, b?: boolean | undefined][]
 
     // ======================================================================
 

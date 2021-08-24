@@ -1,10 +1,4 @@
-import * as React from "react";
-import { ButtonProps } from "../Button";
+import Button from "../Button";
 
-interface InheritedProps extends ButtonProps { }
-
-export interface TableBatchActionProps extends InheritedProps { }
-
-declare const TableBatchAction: React.FC<TableBatchActionProps>;
-
-export default TableBatchAction;
+// It's the same thing except it has different default props.
+export default Button;

@@ -2,74 +2,53 @@ import * as React from "react";
 import { IconSize } from "../Icon/Icon";
 
 export type ShellbarProps = {
-    /* Holds all product actions and links. */
     actions?: Array<{
-        menu?: React.ReactNode;
-        label?: string;
+        menu?: React.ReactNode | undefined;
+        label?: string | undefined;
         glyph: string;
         notificationCount: number;
-        callback?: (
-            event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-        ) => void;
-    }>;
-    className?: string;
-    /* For use with applications that utilize CoPilot. */
-    copilot?: boolean;
-    customStyles?: {[x: string]: any};
-    disableStyles?: boolean;
+        callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    }> | undefined;
+    backAction?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    className?: string | undefined;
+    copilot?: boolean | undefined;
+    disableStyles?: boolean | undefined;
     localizedText?: {
-        /* Aria-label for <span> element within the <button> element. */
         counterLabel: string;
-        /* Aria-label for <button> element. */
         notificationsButton: string;
-    };
-    /* Provide an img tag for a logo other than the SAP logo. One of the two props (`logo` or `logoSAP`) should be set. */
-    logo?: React.ReactNode;
-    /* Renders the SAP logo in the Shellbar. One of the two props (`logo` or `logoSAP`) should be set. */
-    logoSAP?: boolean;
-    /* Information about pending notifications. */
+    } | undefined;
+    logo?: React.ReactNode | undefined;
+    logoSAP?: boolean | undefined;
     notifications?: {
-        notificationsBody?: React.ReactNode;
-        noNotificationsBody?: React.ReactNode;
+        notificationsBody?: React.ReactNode | undefined;
+        noNotificationsBody?: React.ReactNode | undefined;
         notificationCount: number;
-        label?: string;
-        callback?: (
-            event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-        ) => void;
-    };
-    /* Holds product titles and navigation. */
+        label?: string | undefined;
+        callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    } | undefined;
     productMenu?: Array<{
-        link?: string;
-        callback?: (...args: any[]) => void;
-        url?: string;
-        glyph?: string;
-        size?: IconSize;
-        name?: React.ReactNode;
-    }>;
-    /* For navigating between products. */
-    productSwitcher?: object;
-    /* List of the products. */
-    productSwitcherList?: Array<{
+        link?: string | undefined;
+        callback?: ((...args: any[]) => void) | undefined;
+        url?: string | undefined;
+        glyph?: string | undefined;
+        size?: IconSize | undefined;
+        name?: React.ReactNode | undefined;
+    }> | undefined;
+    productSwitch?: object | undefined;
+    productSwitchList?: Array<{
         title: string;
-        link?: string;
-        url?: string;
+        link?: string | undefined;
+        url?: string | undefined;
         glyph: string;
         image: string;
-        callback?: (
-            event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-        ) => void;
-    }>;
-    /* Displays the current application when no product menu is used. */
-    productTitle?: string;
-    /* User information (_e.g._ name, initials, etc.) */
-    profile?: { [x: string]: any };
-    /* List of items for the profile menu. */
-    profileMenu?: Array<{ [x: string]: any }>;
-    /* Holds `searchInput` properties. */
-    searchInput?: { [x: string]: any };
-    /* Displays an application context. Should be used rarely. */
-    subtitle?: string;
-} & { [x: string]: any };
+        callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    }> | undefined;
+    productTitle?: string | undefined;
+    profile?: { [x: string]: any } | undefined;
+    profileMenu?: Array<{ [x: string]: any }> | undefined;
+    searchInput?: { [x: string]: any } | undefined;
+    subtitle?: string | undefined;
+} & React.HTMLAttributes<Element>;
 
 declare class Shellbar extends React.Component<ShellbarProps> {
     static displayName: "Shellbar";

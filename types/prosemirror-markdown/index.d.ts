@@ -1,10 +1,11 @@
-// Type definitions for prosemirror-markdown 1.0
+// Type definitions for prosemirror-markdown 1.5
 // Project: https://github.com/ProseMirror/prosemirror-markdown
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Ifiokj Jr. <https://github.com/ifiokjr>
+//                 Hayashi Takuya <https://github.com/howyi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,14 +19,14 @@ export interface TokenConfig {
      * in the schema under the given name. Exactly one of `node`,
      * `block`, or `mark` must be set.
      */
-    node?: string;
+    node?: string | undefined;
 
     /**
      * This token also comes in `_open` and `_close` variants, but
      * should add a mark (named by the value) to its content, rather
      * than wrapping it in a node.
      */
-    mark?: string;
+    mark?: string | undefined;
 
     /**
      * This token comes in `_open` and `_close` variants (which are
@@ -34,13 +35,13 @@ export interface TokenConfig {
      * wrapped in a node of the type named to by the property's
      * value.
      */
-    block?: string;
+    block?: string | undefined;
 
     /**
      * Attributes for the node or mark. When `getAttrs` is provided,
      * it takes precedence.
      */
-    attrs?: Record<string, any>;
+    attrs?: Record<string, any> | undefined;
 
     /**
      * A function used to compute the attributes for the node or mark
@@ -53,7 +54,14 @@ export interface TokenConfig {
     /**
      * When true, ignore content for the matched token.
      */
-    ignore?: boolean;
+    ignore?: boolean | undefined;
+
+    /**
+     * Indicates that the [markdown-it token](https://markdown-it.github.io/markdown-it/#Token)
+     * has no `_open` or `_close` for the nodes.
+     * This defaults to true for `code_inline`, `code_block` and `fence`.
+     */
+    noCloseToken?: boolean | undefined;
 }
 
 /**
@@ -119,7 +127,12 @@ export class MarkdownParser<S extends Schema = any> {
  * A parser parsing unextended [CommonMark](http://commonmark.org/),
  * without inline HTML, and producing a document in the basic schema.
  */
-export let defaultMarkdownParser: MarkdownParser;
+export const defaultMarkdownParser: MarkdownParser;
+
+/**
+ * Document schema for the data model used by CommonMark.
+ */
+export const schema: Schema;
 
 export type MarkSerializerMethod<S extends Schema = any> = (
     state: MarkdownSerializerState<S>,
@@ -131,9 +144,9 @@ export type MarkSerializerMethod<S extends Schema = any> = (
 export interface MarkSerializerConfig<S extends Schema = any> {
     open: string | MarkSerializerMethod<S>;
     close: string | MarkSerializerMethod<S>;
-    mixable?: boolean;
-    expelEnclosingWhitespace?: boolean;
-    escape?: boolean;
+    mixable?: boolean | undefined;
+    expelEnclosingWhitespace?: boolean | undefined;
+    escape?: boolean | undefined;
 }
 /**
  * A specification for serializing a ProseMirror document as
@@ -181,7 +194,7 @@ export class MarkdownSerializerState<S extends Schema = any> {
     /**
      * The options passed to the serializer.
      */
-    options: { tightLists?: boolean | null };
+    options: { tightLists?: boolean | null | undefined };
     /**
      * Render a block, prefixing each line with `delim`, and the first
      * line in `firstDelim`. `node` should be the node that is closed at
@@ -249,7 +262,7 @@ export class MarkdownSerializerState<S extends Schema = any> {
      * leading or trailing property of the return object will be undefined
      * if there is no match.
      */
-    getEnclosingWhitespace(text: string): { leading?: string | null; trailing?: string | null };
+    getEnclosingWhitespace(text: string): { leading?: string | null | undefined; trailing?: string | null | undefined };
 
     /**
      * Wraps the passed string in a string of its own

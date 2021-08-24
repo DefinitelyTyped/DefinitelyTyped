@@ -1,6 +1,8 @@
 /// <reference path="./common.d.ts" />
 
 declare namespace M {
+    type Views = "hours" | "minutes";
+
     class Timepicker extends Component<TimepickerOptions> {
         /**
          * Get Instance
@@ -18,6 +20,18 @@ declare namespace M {
         static init(els: MElements, options?: Partial<TimepickerOptions>): Timepicker[];
 
         /**
+         * If the time is AM or PM on twelve-hour clock
+         * @default 'PM'
+         */
+        amOrPm: "AM" | "PM";
+
+        /**
+         * Current view on the timepicker
+         * @default 'hours'
+         */
+        currentView: Views;
+
+        /**
          * If the picker is open.
          */
         isOpen: boolean;
@@ -26,6 +40,11 @@ declare namespace M {
          * The selected time.
          */
         time: string;
+
+        /**
+         * Vibrate device when dragging clock hand.
+         */
+        vibrate: "vibrate" | "webkitVibrate" | null;
 
         /**
          * Open timepicker
@@ -41,7 +60,7 @@ declare namespace M {
          * Show hours or minutes view on timepicker
          * @param view The name of the view you want to switch to, 'hours' or 'minutes'.
          */
-        showView(view: "hours" | "minutes"): void;
+        showView(view: Views): void;
     }
 
     interface TimepickerOptions {

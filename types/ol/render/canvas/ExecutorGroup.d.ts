@@ -1,14 +1,13 @@
+import RBush from 'rbush';
 import { Coordinate } from '../../coordinate';
-import Disposable from '../../Disposable';
 import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
-import { DeclutterItems } from '../../PluggableMap';
+import SimpleGeometry from '../../geom/SimpleGeometry';
 import { Transform } from '../../transform';
-import { DeclutterGroup } from '../canvas';
-import { SerializableInstructions } from './Builder';
+import { SerializableInstructions } from '../canvas';
 import BuilderType from './BuilderType';
 
-export default class ExecutorGroup extends Disposable {
+export default class ExecutorGroup {
     constructor(
         maxExtent: Extent,
         resolution: number,
@@ -20,30 +19,28 @@ export default class ExecutorGroup extends Disposable {
     clip(context: CanvasRenderingContext2D, transform: Transform): void;
     execute(
         context: CanvasRenderingContext2D,
+        contextScale: number,
         transform: Transform,
         viewRotation: number,
         snapToPixel: boolean,
         opt_builderTypes?: BuilderType[],
-        opt_declutterReplays?: { [key: string]: DeclutterGroup },
+        opt_declutterTree?: RBush<any>,
     ): void;
     forEachFeatureAtCoordinate<T>(
         coordinate: Coordinate,
         resolution: number,
         rotation: number,
         hitTolerance: number,
-        callback: (p0: FeatureLike) => T,
+        callback: (p0: FeatureLike, p1: SimpleGeometry, p2: number) => T,
         declutteredFeatures: FeatureLike[],
-    ): T;
+    ): T | undefined;
     getClipCoords(transform: Transform): number[];
     hasExecutors(executors: BuilderType[]): boolean;
     isEmpty(): boolean;
 }
-export function getCircleArray(radius: number): (boolean | undefined)[][];
-export function replayDeclutter(
-    declutterReplays: { [key: string]: any[] },
-    context: CanvasRenderingContext2D,
-    rotation: number,
-    opacity: number,
-    snapToPixel: boolean,
-    declutterItems: DeclutterItems[],
-): void;
+/**
+ * This methods creates an array with indexes of all pixels within a circle,
+ * ordered by how close they are to the center.
+ * A cache is used to increase performance.
+ */
+export function getPixelIndexArray(radius: number): number[];

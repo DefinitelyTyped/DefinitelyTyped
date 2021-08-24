@@ -13,7 +13,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@testing-library/jest-dom": ["testing-library__jest-dom"]
+            "@testing-library/*": ["testing-library__*"]
         }
     },
     "files": [

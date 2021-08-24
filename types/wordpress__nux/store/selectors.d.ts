@@ -6,11 +6,11 @@ export interface GuideInfo {
     /**
      * The guide's currently showing tip.
      */
-    currentTipId?: string;
+    currentTipId?: string | undefined;
     /**
      * The guide's next tip to show.
      */
-    nextTipId?: string;
+    nextTipId?: string | undefined;
 }
 
 /**

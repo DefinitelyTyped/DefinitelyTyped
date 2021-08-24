@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 12.1
+// Type definitions for react-beautiful-dnd 13.1
 // Project: https://github.com/atlassian/react-beautiful-dnd
 // Definitions by: varHarrie <https://github.com/varHarrie>
 //                 Bradley Ayers <https://github.com/bradleyayers>
@@ -8,6 +8,8 @@
 //                 Taeheon Kim <https://github.com/lonyele>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Arun George <https://github.com/aruniverse>
+//                 Nick Garlis <https://github.com/nickgarlis>
+//                 Brian Powers <https://github.com/brianspowers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // Refer to https://github.com/atlassian/react-beautiful-dnd/blob/master/src/types.js
@@ -178,24 +180,24 @@ export interface Scrollable {
 export interface PlaceholderInSubject {
     // might not actually be increased by
     // placeholder if there is no required space
-    increasedBy?: Position;
+    increasedBy?: Position | undefined;
     placeholderSize: Position;
     // max scroll before placeholder added
     // will be null if there was no frame
-    oldFrameMaxScroll?: Position;
+    oldFrameMaxScroll?: Position | undefined;
 }
 
 export interface DroppableSubject {
     // raw, unchanging
     page: BoxModel;
-    withPlaceholder?: PlaceholderInSubject;
+    withPlaceholder?: PlaceholderInSubject | undefined;
     // The hitbox for a droppable
     // - page margin box
     // - with scroll changes
     // - with any additional droppable placeholder
     // - clipped by frame
     // The subject will be null if the hit area is completely empty
-    active?: Rect;
+    active?: Rect | undefined;
 }
 
 export interface DroppableDimension {
@@ -210,7 +212,7 @@ export interface DroppableDimension {
     // relative to the page
     page: BoxModel;
     // The container of the droppable
-    frame?: Scrollable;
+    frame?: Scrollable | undefined;
     // what is visible through the frame
     subject: DroppableSubject;
 }
@@ -249,14 +251,6 @@ export interface DisplacedBy {
     point: Position;
 }
 
-export type VerticalUserDirection = 'up' | 'down';
-export type HorizontalUserDirection = 'left' | 'right';
-
-export interface UserDirection {
-    vertical: VerticalUserDirection;
-    horizontal: HorizontalUserDirection;
-}
-
 // details of the item that is being combined with
 export interface Combine {
     draggableId: DraggableId;
@@ -276,7 +270,6 @@ export interface ReorderImpact {
 
 export interface CombineImpact {
     type: 'COMBINE';
-    whenEntered: UserDirection;
     combine: Combine;
 }
 
@@ -290,7 +283,7 @@ export interface Displaced {
 export interface DragImpact {
     displaced: DisplacementGroups;
     displacedBy: DisplacedBy;
-    at?: ImpactLocation;
+    at?: ImpactLocation | undefined;
 }
 
 export interface ClientPositions {
@@ -307,6 +300,8 @@ export interface ClientPositions {
 export interface PagePositions {
     selection: Position;
     borderBoxCenter: Position;
+    // how much the page position has changed from the initial
+    offset: Position;
 }
 
 // There are two seperate modes that a drag can be in
@@ -322,6 +317,7 @@ export interface DragPositions {
 export interface DraggableRubric {
     draggableId: DraggableId;
     mode: MovementMode;
+    source: DraggableLocation;
 }
 
 export interface DragStart extends BeforeCapture {
@@ -344,9 +340,9 @@ export interface DragStart extends DraggableRubric {
 
 export interface DragUpdate extends DragStart {
     // may not have any destination (drag to nowhere)
-    destination?: DraggableLocation;
+    destination?: DraggableLocation | undefined;
     // populated when a draggable is dragging over another in combine mode
-    combine?: Combine;
+    combine?: Combine | undefined;
 }
 
 export type DropReason = 'DROP' | 'CANCEL';
@@ -411,7 +407,7 @@ export interface CompletedDrag {
 
 export interface IdleState {
     phase: 'IDLE';
-    completed?: CompletedDrag;
+    completed?: CompletedDrag | undefined;
     shouldFlush: boolean;
 }
 
@@ -423,7 +419,6 @@ export interface DraggingState {
     dimensions: DimensionMap;
     initial: DragPositions;
     current: DragPositions;
-    userDirection: UserDirection;
     impact: DragImpact;
     viewport: Viewport;
     afterCritical: LiftEffect;
@@ -431,9 +426,9 @@ export interface DraggingState {
     // when there is a fixed list we want to opt out of this behaviour
     isWindowScrollAllowed: boolean;
     // if we need to jump the scroll (keyboard dragging)
-    scrollJumpRequest?: Position;
+    scrollJumpRequest?: Position | undefined;
     // whether or not draggable movements should be animated
-    forceShouldAnimate?: boolean;
+    forceShouldAnimate?: boolean | undefined;
 }
 
 // While dragging we can enter into a bulk collection phase
@@ -488,10 +483,10 @@ export type OnDragUpdateResponder = (update: DragUpdate, provided: ResponderProv
 export type OnDragEndResponder = (result: DropResult, provided: ResponderProvided) => void;
 
 export interface Responders {
-    onBeforeCapture?: OnBeforeCaptureResponder;
-    onBeforeDragStart?: OnBeforeDragStartResponder;
-    onDragStart?: OnDragStartResponder;
-    onDragUpdate?: OnDragUpdateResponder;
+    onBeforeCapture?: OnBeforeCaptureResponder | undefined;
+    onBeforeDragStart?: OnBeforeDragStartResponder | undefined;
+    onDragStart?: OnDragStartResponder | undefined;
+    onDragUpdate?: OnDragUpdateResponder | undefined;
     // always required
     onDragEnd: OnDragEndResponder;
 }
@@ -531,7 +526,7 @@ export interface PreDragActions {
 }
 
 export interface TryGetLockOptions {
-    sourceEvent?: Event;
+    sourceEvent?: Event | undefined;
 }
 
 export type TryGetLock = (
@@ -561,10 +556,14 @@ export interface DragDropContextProps {
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
-    sensors?: Sensor[];
+    children: React.ReactNode | null;
+    dragHandleUsageInstructions?: string | undefined;
+    nonce?: string | undefined;
+    enableDefaultSensors?: boolean | undefined;
+    sensors?: Sensor[] | undefined;
 }
 
-export class DragDropContext extends React.Component<DragDropContextProps> {}
+export class DragDropContext extends React.Component<DragDropContextProps> { }
 
 /**
  *  Droppable
@@ -579,31 +578,31 @@ export interface DroppableProvidedProps {
 
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
-    placeholder?: React.ReactElement<HTMLElement> | null;
+    placeholder?: React.ReactElement<HTMLElement> | null | undefined;
     droppableProps: DroppableProvidedProps;
 }
 
 export interface DroppableStateSnapshot {
     isDraggingOver: boolean;
-    draggingOverWith?: DraggableId;
-    draggingFromThisWith?: DraggableId;
+    draggingOverWith?: DraggableId | undefined;
+    draggingFromThisWith?: DraggableId | undefined;
     isUsingPlaceholder: boolean;
 }
 
 export interface DroppableProps {
     droppableId: DroppableId;
-    type?: TypeId;
-    mode?: DroppableMode;
-    isDropDisabled?: boolean;
-    isCombineEnabled?: boolean;
-    direction?: Direction;
-    ignoreContainerClipping?: boolean;
-    renderClone?: DraggableChildrenFn;
-    getContainerForClone?: () => React.ReactElement<HTMLElement>;
+    type?: TypeId | undefined;
+    mode?: DroppableMode | undefined;
+    isDropDisabled?: boolean | undefined;
+    isCombineEnabled?: boolean | undefined;
+    direction?: Direction | undefined;
+    ignoreContainerClipping?: boolean | undefined;
+    renderClone?: DraggableChildrenFn | undefined;
+    getContainerForClone?: (() => React.ReactElement<HTMLElement>) | undefined;
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
 
-export class Droppable extends React.Component<DroppableProps> {}
+export class Droppable extends React.Component<DroppableProps> { }
 
 /**
  *  Draggable
@@ -613,13 +612,13 @@ export interface DropAnimation {
     duration: number;
     curve: string;
     moveTo: Position;
-    opacity?: number;
-    scale?: number;
+    opacity?: number | undefined;
+    scale?: number | undefined;
 }
 
 export interface NotDraggingStyle {
-    transform?: string;
-    transition?: 'none';
+    transform?: string | undefined;
+    transition?: 'none' | undefined;
 }
 
 export interface DraggingStyle {
@@ -630,26 +629,27 @@ export interface DraggingStyle {
     width: number;
     height: number;
     transition: 'none';
-    transform?: string;
+    transform?: string | undefined;
     zIndex: number;
-    opacity?: number;
+    opacity?: number | undefined;
     pointerEvents: 'none';
 }
 
 export interface DraggableProvidedDraggableProps {
     // inline style
-    style?: DraggingStyle | NotDraggingStyle;
+    style?: DraggingStyle | NotDraggingStyle | undefined;
     // used for shared global styles
     'data-rbd-draggable-context-id': string;
     'data-rbd-draggable-id': string;
-    onTransitionEnd?: React.TransitionEventHandler<any>;
+    onTransitionEnd?: React.TransitionEventHandler<any> | undefined;
 }
 
 export interface DraggableProvidedDragHandleProps {
     'data-rbd-drag-handle-draggable-id': DraggableId;
     'data-rbd-drag-handle-context-id': ContextId;
-    'aria-labelledby': ElementId;
+    'aria-describedby': ElementId;
 
+    role: string;
     tabIndex: number;
     draggable: boolean;
     onDragStart: React.DragEventHandler<any>;
@@ -659,20 +659,20 @@ export interface DraggableProvided {
     // will be removed after move to react 16
     innerRef(element?: HTMLElement | null): any;
     draggableProps: DraggableProvidedDraggableProps;
-    dragHandleProps?: DraggableProvidedDragHandleProps;
+    dragHandleProps?: DraggableProvidedDragHandleProps | undefined;
 }
 
 export interface DraggableStateSnapshot {
     isDragging: boolean;
     isDropAnimating: boolean;
-    dropAnimation?: DropAnimation;
-    draggingOver?: DroppableId;
+    dropAnimation?: DropAnimation | undefined;
+    draggingOver?: DroppableId | undefined;
     // the id of a draggable that you are combining with
-    combineWith?: DraggableId;
+    combineWith?: DraggableId | undefined;
     // a combine target is being dragged over by
-    combineTargetFor?: DraggableId;
+    combineTargetFor?: DraggableId | undefined;
     // What type of movement is being done: 'FLUID' or 'SNAP'
-    mode?: MovementMode;
+    mode?: MovementMode | undefined;
 }
 
 export type DraggableChildrenFn = (
@@ -685,11 +685,15 @@ export interface DraggableProps {
     draggableId: DraggableId;
     index: number;
     children: DraggableChildrenFn;
-    isDragDisabled?: boolean;
-    disableInteractiveElementBlocking?: boolean;
-    shouldRespectForcePress?: boolean;
+    isDragDisabled?: boolean | undefined;
+    disableInteractiveElementBlocking?: boolean | undefined;
+    shouldRespectForcePress?: boolean | undefined;
 }
 
-export class Draggable extends React.Component<DraggableProps> {}
+export class Draggable extends React.Component<DraggableProps> { }
 
 export function resetServerContext(): void;
+
+export const useMouseSensor: Sensor;
+export const useTouchSensor: Sensor;
+export const useKeyboardSensor: Sensor;

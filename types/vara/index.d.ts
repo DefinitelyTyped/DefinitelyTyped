@@ -16,35 +16,35 @@ interface TextProperties {
     /**
      * Size of the text
      */
-    fontSize?: number;
+    fontSize?: number | undefined;
     /**
      * Width / Thickness of the stroke
      */
-    strokeWidth?: number;
+    strokeWidth?: number | undefined;
     /**
      * Color of the text
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * Duration of the animation in milliseconds
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * Text align, accepted values are left,center,right
      */
-    textAlign?: 'left' | 'center' | 'right';
+    textAlign?: 'left' | 'center' | 'right' | undefined;
     /**
      * Whether to animate the text automatically
      */
-    autoAnimation?: boolean;
+    autoAnimation?: boolean | undefined;
     /**
      * Whether the animation should be in a queue
      */
-    queued?: boolean;
+    queued?: boolean | undefined;
     /**
      * Space between each character
      */
-    letterSpacing?: number;
+    letterSpacing?: number | undefined;
 }
 
 interface TextStep extends TextProperties {
@@ -56,27 +56,27 @@ interface TextStep extends TextProperties {
      * String or integer, for if animations are called manually or when using the get() method.
      * Default is the index of the object.
      */
-    id?: string | number;
+    id?: string | number | undefined;
     /**
      * x coordinate of the text
      */
-    x?: number;
+    x?: number | undefined;
     /**
      * y coordinate of the text
      */
-    y?: number;
+    y?: number | undefined;
     /**
      * Whether the x or y coordinate should be from its calculated position,
      * ie the position if x or y coordinates were not applied
      */
     fromCurrentPosition?: {
-        x?: boolean;
-        y?: boolean;
-    };
+        x?: boolean | undefined;
+        y?: boolean | undefined;
+    } | undefined;
     /**
      * Delay before the animation starts in milliseconds
      */
-    delay?: number;
+    delay?: number | undefined;
 }
 
 interface TextElements {
@@ -153,7 +153,7 @@ declare class VaraType {
         breakPoints: Array<Array<string | number>>;
     };
 
-    setPosition(element: SVGGElement, obj: { x?: number; y?: number }, relative?: { x: boolean; y: boolean; }): void;
+    setPosition(element: SVGGElement, obj: { x?: number | undefined; y?: number | undefined }, relative?: { x: boolean; y: boolean; }): void;
 }
 
 declare const Vara: typeof VaraType;

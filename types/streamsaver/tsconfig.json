@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es5",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "streamsaver-tests.ts"
+    ]
+}

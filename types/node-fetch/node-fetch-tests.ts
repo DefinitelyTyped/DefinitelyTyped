@@ -56,16 +56,17 @@ function test_fetchUrlWithRequestObject() {
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean,
-                once?: boolean,
-                passive?: boolean
+                capture?: boolean | undefined,
+                once?: boolean | undefined,
+                passive?: boolean | undefined
             }) => undefined,
 
             removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean
+                capture?: boolean | undefined
             }) => undefined,
 
-            dispatchEvent: (event: any) => false
+            dispatchEvent: (event: any) => false,
+            onabort: null,
         }
     };
     const request: Request = new Request(
@@ -84,6 +85,19 @@ function test_fetchUrlObject() {
     handlePromise(fetch(new URL("https://example.org")));
 }
 
+async function test_responseReturnTypes() {
+    const response = await fetch(new URL("https://example.org"));
+
+    // $ExpectType Blob
+    const blob = await response.clone().blob();
+
+    // $ExpectType string
+    const text = await response.clone().text();
+
+    // $ExpectType Buffer
+    const buffer = await response.clone().buffer();
+}
+
 function test_fetchUrlObjectWithRequestObject() {
     const requestOptions: RequestInit = {
         method: "POST",
@@ -94,16 +108,17 @@ function test_fetchUrlObjectWithRequestObject() {
             aborted: false,
 
             addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean,
-                once?: boolean,
-                passive?: boolean
+                capture?: boolean | undefined,
+                once?: boolean | undefined,
+                passive?: boolean | undefined
             }) => undefined,
 
             removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
-                capture?: boolean
+                capture?: boolean | undefined
             }) => undefined,
 
-            dispatchEvent: (event: any) => false
+            dispatchEvent: (event: any) => false,
+            onabort: null,
         }
     };
     const request: Request = new Request(
@@ -146,10 +161,15 @@ function handlePromise(
         });
 }
 
-function test_headersRaw() {
+function test_headers() {
     const headers = new Headers();
     const myHeader = "foo";
     headers.raw()[myHeader]; // $ExpectType string[]
+
+    [...headers]; // $ExpectType [string, string][]
+    [...headers.entries()]; // $ExpectType [string, string][]
+    [...headers.keys()]; // $ExpectType string[]
+    [...headers.values()]; // $ExpectType string[]
 }
 
 function test_isRedirect() {
@@ -189,4 +209,8 @@ function test_ResponseInit() {
             timeout: response.timeout
         });
     });
+}
+
+async function test_BlobText() {
+    const someString = await new Blob(["Hello world"]).text(); // $ExpectType string
 }

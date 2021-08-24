@@ -6,7 +6,8 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(
             smoothing: 0.1,
             interval: 50,
             history: 10,
-            threshold: -50
+            threshold: -50,
+            audioContext: new AudioContext()
         };
         const h: hark.Harker = hark(stream, option);
         h.stop();

@@ -11,27 +11,27 @@ declare namespace ReplaceStream {
          *
          * Default: `Infinity`
          */
-        limit?: number;
+        limit?: number | undefined;
         /**
          * The text encoding used during search and replace.
          *
          * Default: `"utf8"`
          */
-        encoding?: string;
+        encoding?: string | undefined;
         /**
          * When doing cross-chunk replacing, this sets the maximum length match
          * that will be supported.
          *
          * Default: `100`
          */
-        maxMatchLen?: number;
+        maxMatchLen?: number | undefined;
         /**
          * When doing string match (not relevant for regex matching) whether to do a
          * case insensitive search.
          *
          * Default: `true`
          */
-        ignoreCase?: boolean;
+        ignoreCase?: boolean | undefined;
         /**
          * When provided, these flags will be used when creating the search regexes
          * internally.
@@ -39,7 +39,7 @@ declare namespace ReplaceStream {
          * @deprecated as the flags set on the regex provided are no longer mutated
          * if this is not provided.
          */
-        regExpOptions?: string;
+        regExpOptions?: string | undefined;
     }
 
     type ReplaceFunction = (match: string, p1: string, offset: number, string: string) => string;

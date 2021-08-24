@@ -6,21 +6,23 @@
 //                  Nokogiri <https://github.com/nkgrnkgr>,
 //                  0815Strohhut <https://github.com/0815Strohhut>,
 //                  Daniel Fürst <https://github.com/dnlfrst>,
-//                  Erick Tamayo <https://github.com/ericktamayo>
+//                  Erick Tamayo <https://github.com/ericktamayo>,
+//                  Alexander P. Cerutti <https://github.com/alexandercerutti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, ClassAttributes, StatelessComponent, ReactNode } from "react";
+import { ClassAttributes, ReactNode } from "react";
+import { Classes } from "reactcss";
 
 export interface HSLColor {
-    a?: number;
+    a?: number | undefined;
     h: number;
     l: number;
     s: number;
 }
 
 export interface RGBColor {
-    a?: number;
+    a?: number | undefined;
     b: number;
     g: number;
     r: number;
@@ -34,17 +36,21 @@ export interface ColorResult {
     rgb: RGBColor;
 }
 
-export type ColorChangeHandler = (color: ColorResult) => void;
+export type ColorChangeHandler = (color: ColorResult, event: React.ChangeEvent<HTMLInputElement>) => void;
 
 export interface ColorPickerProps<A> extends ClassAttributes<A> {
-    color?: Color;
-    onChange?: ColorChangeHandler;
-    onChangeComplete?: ColorChangeHandler;
+    color?: Color | undefined;
+    className?: string | undefined;
+    styles?: Partial<Classes<any>> | undefined;
+    onChange?: ColorChangeHandler | undefined;
+    onChangeComplete?: ColorChangeHandler | undefined;
 }
 
 export interface CustomPickerProps<A> extends ClassAttributes<A> {
-    color?: Color;
-    pointer?: ReactNode;
+    color?: Color | undefined;
+    pointer?: ReactNode | undefined;
+    className?: string | undefined;
+    styles?: Partial<Classes<any>> | undefined;
     onChange: ColorChangeHandler;
 }
 

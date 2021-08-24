@@ -1,7 +1,7 @@
 // V2 Api
 // Used in CommonJS-like environments
 
-import rg4js, { RaygunStatic } from 'raygun4js';
+import rg4js, { RaygunStatic, RaygunPayload } from 'raygun4js';
 
 rg4js("apiKey", "api-key");
 rg4js("enableCrashReporting", true);
@@ -11,6 +11,12 @@ rg4js('setUser', {
     firstName: "Robert",
     fullName: "Robert Raygun"
 });
+rg4js('trackEvent', {
+    type: 'customTiming',
+    name: 'testDuration',
+    duration: 100
+});
+rg4js('endSession');
 
 try {
     throw new Error('oops');
@@ -26,7 +32,7 @@ const client: RaygunStatic = Raygun.noConflict();
 const newClient: RaygunStatic = client.constructNewRaygun();
 
 client.init('api-key');
-client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false });
+client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false, captureMissingRequests: true, clientIp: "test", automaticPerformanceCustomTimings: true });
 client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false }, { some: 'data' });
 
 client.withCustomData({ some: 'data' });
@@ -64,7 +70,7 @@ client.setFilterScope('all');
 
 client.whitelistCrossOriginDomains(['domain1', 'domain2']);
 
-client.onBeforeSend(payload => {
+client.onBeforeSend((payload: RaygunPayload) => {
     payload.OccurredOn = new Date();
     return payload;
 });
@@ -77,7 +83,7 @@ client.onBeforeXHR(xhr => {
     console.log(xhr.response);
 });
 
-client.onAfterSend(xhr => {
+client.onAfterSend((xhr) => {
     console.log(xhr.response);
 });
 
@@ -92,3 +98,8 @@ client.disableAutoBreadcrumbs();
 client.enableAutoBreadcrumbs();
 
 client.recordBreadcrumb("Breadcrumb Message", { custom: "data" });
+
+client.trackEvent('customTiming', {
+    name: 'static-test-duration',
+    duration: 200
+});

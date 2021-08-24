@@ -14,6 +14,7 @@ declare enum EventType {
     KEYPRESS = 'keypress',
     LOAD = 'load',
     RESIZE = 'resize',
+    TOUCHMOVE = 'touchmove',
     WHEEL = 'wheel',
 }
 

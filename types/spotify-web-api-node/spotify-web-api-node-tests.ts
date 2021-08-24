@@ -7,6 +7,18 @@ import SpotifyWebApi = require('spotify-web-api-node');
 
 const spotifyApi = new SpotifyWebApi();
 
+/**
+ * Get metadata of tracks, albums, artists, shows, and episodes
+ */
+
+// Get album
+spotifyApi.getAlbum('5U4W9E5WsYb2jUQWePT8Xm')
+  .then((data) => {
+    console.log('Album information', data.body);
+  }, (err) => {
+    console.error(err);
+  });
+
 // Get multiple albums
 spotifyApi.getAlbums(['5U4W9E5WsYb2jUQWePT8Xm', '3KyVcddATClQKIdtaap4bV'])
   .then((data) => {
@@ -168,7 +180,7 @@ spotifyApi.getUserPlaylists('thelinmichael')
   });
 
 // Create a private playlist
-spotifyApi.createPlaylist('thelinmichael', 'My Cool Playlist', { public: false })
+spotifyApi.createPlaylist('My playlist', { description: 'My description', public: true })
   .then((data) => {
     console.log('Created playlist!');
   }, (err) => {
@@ -279,22 +291,64 @@ spotifyApi.getFollowedArtists({ limit: 1 })
   });
 
 /* Follow a user */
-// TBD.
+spotifyApi.followUsers(['thelinmichael'])
+  .then((data) => {
+    console.log(data);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
 
 /* Follow an artist */
-// TBD.
+spotifyApi.followArtists(['2hazSY4Ef3aB9ATXW7F5w3', '6J6yx1t3nwIDyPXk5xa7O8'])
+  .then((data) => {
+    console.log(data);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
 
 /* Unfollow a user */
-// TBD
+spotifyApi.unfollowUsers(['thelinmichael'])
+  .then((data) => {
+    console.log(data);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
 
 /* Unfollow an artist */
-// TBD
+spotifyApi.unfollowArtists(['2hazSY4Ef3aB9ATXW7F5w3', '6J6yx1t3nwIDyPXk5xa7O8'])
+  .then((data) => {
+    console.log(data);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
 
 /* Check if a user is following a user */
-// TBD
+const usersId = ['thelinmichael'];
+
+spotifyApi.isFollowingUsers(usersId)
+  .then((data) => {
+    const isFollowing = data.body;
+
+    for (let index = 0; index < usersId.length; index++) {
+      console.log(`${usersId[index]}:${isFollowing[index]}`);
+    }
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
 
 /* Check if a user is following an artist */
-// TBD
+const artistsId = ['6mfK6Q2tzLMEchAr0e9Uzu', '4DYFVNKZ1uixa6SQTvzQwJ'];
+
+spotifyApi.isFollowingArtists(artistsId)
+  .then((data) => {
+    const isFollowing = data.body;
+
+    for (let index = 0; index < artistsId.length; index++) {
+      console.log(`${artistsId[index]}:${isFollowing[index]}`);
+    }
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
 
 /*
  * Your Music library methods
@@ -398,7 +452,7 @@ spotifyApi.getNewReleases({ limit: 5, offset: 0, country: 'SE' })
   .then((data) => {
     console.log(data.body);
   }, (err) => {
-      console.log("Something went wrong!", err);
+    console.log("Something went wrong!", err);
   });
 
 //  Retrieve featured playlists
@@ -445,23 +499,185 @@ spotifyApi.getPlaylistsForCategory('party', {
     console.log("Something went wrong!", err);
   });
 
-/* Player */
-
-// Get information about current playing song for signed in user
-spotifyApi.getMyCurrentPlaybackState({
-  })
+// Get Recommendations Based on Seeds
+spotifyApi.getRecommendations({
+      min_energy: 0.4,
+      seed_artists: ['6mfK6Q2tzLMEchAr0e9Uzu', '4DYFVNKZ1uixa6SQTvzQwJ'],
+      min_popularity: 50
+    })
   .then((data) => {
-    // Output items
-    console.log("Now Playing: ", data.body);
+    const recommendations = data.body;
+    console.log(recommendations);
+  }, (err) => {
+    console.log("Something went wrong!", err);
+  });
+
+// Get available genre seeds
+spotifyApi.getAvailableGenreSeeds()
+  .then((data) => {
+    const genreSeeds = data.body;
+    console.log(genreSeeds);
   }, (err) => {
     console.log('Something went wrong!', err);
   });
-/* Get Recommendations Based on Seeds */
+
+/* Player */
+
+// Add an Item to the User's Playback Queue
 // TBD
+
+// Get a User's Available Devices
+spotifyApi.getMyDevices()
+  .then((data) => {
+    const availableDevices = data.body.devices;
+    console.log(availableDevices);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
+
+// Get Information About The User's Current Playback State
+spotifyApi.getMyCurrentPlaybackState()
+  .then((data) => {
+    // Output items
+    if (data.body && data.body.is_playing) {
+      console.log("User is currently playing something!");
+    } else {
+      console.log("User is not playing anything, or doing so in private.");
+    }
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
+
+// Get Current User's Recently Played Tracks
+spotifyApi.getMyRecentlyPlayedTracks({
+  limit: 20
+}).then((data) => {
+    // Output items
+    console.log("Your 20 most recently played tracks are:");
+    data.body.items.forEach(item => console.log(item.track));
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
+
+// Get the User's Currently Playing Track
+spotifyApi.getMyCurrentPlayingTrack()
+  .then((data) => {
+    if (data.body.item)
+      console.log('Now playing: ' + data.body.item.name);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
+
+// Pause a User's Playback
+spotifyApi.pause()
+  .then(() => {
+    console.log('Playback paused');
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+
+// Seek To Position In Currently Playing Track
+spotifyApi.seek(10000)
+  .then(() => {
+    console.log('Seek to 10000ms');
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+
+// Set Repeat Mode On User’s Playback
+spotifyApi.setRepeat('track')
+  .then(() => {
+    console.log('Repeat track.');
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+
+// Set Volume For User's Playback
+spotifyApi.setVolume(50)
+  .then(() => {
+    console.log('Setting volume to 50.');
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+
+// Skip User’s Playback To Next Track
+spotifyApi.skipToNext()
+  .then(() => {
+    console.log('Skip to next');
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+
+// Skip User’s Playback To Previous Track
+spotifyApi.skipToPrevious()
+  .then(() => {
+    console.log('Skip to previous');
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+
+// Start/Resume a User's Playback
+spotifyApi.play()
+  .then(() => {
+    console.log('Playback started');
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+
+// Toggle Shuffle For User’s Playback
+spotifyApi.setShuffle(true)
+  .then(() => {
+    console.log('Shuffle is on.');
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
+
+// Transfer a User's Playback
+const deviceIds = ["74ASZWbe4lXaubB36ztrGX"];
+spotifyApi.transferMyPlayback(deviceIds)
+  .then(() => {
+    console.log('Transfering playback to ' + deviceIds);
+  }, (err) => {
+    // if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+    console.log('Something went wrong!', err);
+  });
 
 /**
  * Personalization Endpoints
  */
 
-/* Get a User’s Top Artists and Tracks */
-// TBD
+/* Get a User’s Top Artists*/
+spotifyApi.getMyTopArtists()
+  .then((data) => {
+    const topArtists = data.body.items;
+    console.log(topArtists);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
+
+/* Get a User’s Top Tracks*/
+spotifyApi.getMyTopTracks()
+  .then((data) => {
+    const topTracks = data.body.items;
+    console.log(topTracks);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });
+
+/* Shows */
+
+spotifyApi.getShowEpisodes('53TsTEHBmnGHUNTf5PIuSg')
+  .then((data) => {
+    const episodes = data.body.items;
+    console.log(episodes);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });

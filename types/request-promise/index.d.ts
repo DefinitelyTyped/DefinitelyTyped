@@ -23,13 +23,13 @@ declare namespace requestPromise {
     }
 
     interface RequestPromiseOptions extends request.CoreOptions {
-        simple?: boolean;
+        simple?: boolean | undefined;
         transform?(body: any, response: request.Response, resolveWithFullResponse?: boolean): any;
-        transform2xxOnly?: boolean;
-        resolveWithFullResponse?: boolean;
+        transform2xxOnly?: boolean | undefined;
+        resolveWithFullResponse?: boolean | undefined;
     }
 
-    type RequestPromiseAPI = request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
+    type RequestPromiseAPI<T= any> = request.RequestAPI<RequestPromise<T>, RequestPromiseOptions, request.RequiredUriUrl>;
     type OptionsWithUri = request.UriOptions & RequestPromiseOptions;
     type OptionsWithUrl = request.UrlOptions & RequestPromiseOptions;
     type Options = OptionsWithUri | OptionsWithUrl;

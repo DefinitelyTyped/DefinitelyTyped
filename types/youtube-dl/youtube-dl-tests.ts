@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import youtubedl = require('youtube-dl');
+import downloader = require('youtube-dl/lib/downloader');
 
 const videoUrl = 'http://www.youtube.com/watch?v=90AiXO1pAiA';
 const args = ['--format=18'];
@@ -18,6 +19,9 @@ video.on('info', (info: youtubedl.Info) => {
   console.log('_filename: ' + info._filename);
   console.log('filename: ' + info.filename);
   console.log('size: ' + info.size);
+});
+video.on('error', (error: Error) => {
+  console.log(error);
 });
 
 video.pipe(fs.createWriteStream('myvideo.mp4'));
@@ -72,4 +76,9 @@ youtubedl.getExtractors(true, (err: any, output: string[]) => {
 youtubedl.getExtractors((err: any, output: string[]) => {
   console.log(err);
   console.log(output.join('\n'));
+});
+
+downloader('path/to-binary', (err: any, message?: string) => {
+  console.log(err);
+  console.log(message);
 });

@@ -1,12 +1,21 @@
-import MarkdownIt = require(".");
-import Ruler = require("./ruler");
-import Token = require("./token");
-import StateCore = require("./rules_core/state_core");
+import MarkdownIt = require('.');
+import Ruler = require('./ruler');
+import Token = require('./token');
+import StateCore = require('./rules_core/state_core');
 
-export = ParserCore;
-
-declare class ParserCore {
-    process(state: any): void;
-    ruler: Ruler;
-    State: StateCore
+declare namespace Core {
+    type RuleCore = (state: StateCore) => boolean;
 }
+
+declare class Core {
+    ruler: Ruler<Core.RuleCore>;
+
+    /**
+     * Executes core chain rules.
+     */
+    process(state: StateCore): void;
+
+    State: typeof StateCore;
+}
+
+export = Core;

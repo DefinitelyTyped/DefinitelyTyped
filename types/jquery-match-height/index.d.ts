@@ -25,10 +25,10 @@ interface JQueryMatchHeight {
 
 declare namespace JQueryMatchHeight {
     interface Options {
-        byRow?: boolean;
-        property?: string;
-        target?: string;
-        remove?: boolean;
+        byRow?: boolean | undefined;
+        property?: string | undefined;
+        target?: string | undefined;
+        remove?: boolean | undefined;
     }
 }
 

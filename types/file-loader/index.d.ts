@@ -1,9 +1,8 @@
-// Type definitions for file-loader 4.2
+// Type definitions for file-loader 5.0
 // Project: https://github.com/webpack-contrib/file-loader
 // Definitions by: Gareth Jones <https://github.com/g-rath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
+// TypeScript Version: 3.7
 import { loader } from 'webpack';
 
 declare namespace FileLoader {
@@ -55,7 +54,7 @@ declare namespace FileLoader {
          *
          * @default '[contenthash].[ext]'
          */
-        name?: string | ((file: string) => string);
+        name?: string | ((file: string) => string) | undefined;
         /**
          * Specify a filesystem path where the target file(s) will be placed.
          *
@@ -89,7 +88,7 @@ declare namespace FileLoader {
          *
          * @default undefined
          */
-        outputPath?: string | BuildResourcePathFn;
+        outputPath?: string | BuildResourcePathFn | undefined;
         /**
          * Specifies a custom public path for the target file(s).
          *
@@ -123,7 +122,7 @@ declare namespace FileLoader {
          *
          * @default {@link https://webpack.js.org/api/module-variables/#__webpack_public_path__-webpack-specific __webpack_public_path__}
          */
-        publicPath?: string | BuildResourcePathFn;
+        publicPath?: string | BuildResourcePathFn | undefined;
         /**
          * Specifies a custom function to post-process the generated public path.
          *
@@ -148,7 +147,7 @@ declare namespace FileLoader {
          *
          * @default undefined
          */
-        postTransformPublicPath?: (p: string) => string;
+        postTransformPublicPath?: ((p: string) => string) | undefined;
         /**
          * Specifies a custom file context.
          *
@@ -173,14 +172,14 @@ declare namespace FileLoader {
          *
          * @default {@link https://webpack.js.org/configuration/entry-context/#context context}
          */
-        context?: string;
+        context?: string | undefined;
         /**
          * If `true`, emits a file (writes a file to the filesystem); otherwise, the loader will return a public URI
          * but will not emit the file. It is often useful to disable this option for server-side packages.
          *
          * @default true
          */
-        emitFile?: boolean;
+        emitFile?: boolean | undefined;
         /**
          * Specifies a Regular Expression to one or many parts of the target file path.
          * The capture groups can be reused in the name property using [N]
@@ -215,7 +214,14 @@ declare namespace FileLoader {
          *
          * @default undefined
          */
-        regExp?: RegExp;
+        regExp?: RegExp | undefined;
+
+        /**
+         * By default, file-loader generates JS modules that use the ES modules syntax.
+         * There are some cases in which using ES modules is beneficial, like in the case of module concatenation and tree shaking.
+         * @default true
+         */
+        esModule?: boolean | undefined;
     }
 
     /**

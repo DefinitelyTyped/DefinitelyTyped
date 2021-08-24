@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "strict": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "plantuml-encoder-tests.ts"
+    ]
+}

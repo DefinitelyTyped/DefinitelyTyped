@@ -540,9 +540,9 @@ export namespace Strophe {
     }
 
     interface ConnectionOptions {
-        keepalive?: boolean;
-        protocol?: string;
-        sync?: boolean;
+        keepalive?: boolean | undefined;
+        protocol?: string | undefined;
+        sync?: boolean | undefined;
     }
 
     /** Class: Strophe.Connection

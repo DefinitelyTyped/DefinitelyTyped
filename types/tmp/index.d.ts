@@ -1,29 +1,32 @@
-// Type definitions for tmp 0.1
+// Type definitions for tmp 0.2
 // Project: http://github.com/raszi/node-tmp
 // Definitions by: Jared Klopper <https://github.com/optical>
 //                 Gyusun Yeom <https://github.com/Perlmint>
 //                 Alan Plum <https://github.com/pluma>
+//                 Carsten Klein <https://github.com/silkentrance>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TmpNameOptions {
-    prefix?: string;
-    postfix?: string;
-    template?: string;
-    dir?: string;
-    tries?: number;
+    dir?: string | undefined;
+    name?: string | undefined;
+    postfix?: string | undefined;
+    prefix?: string | undefined;
+    template?: string | undefined;
+    tmpdir?: string | undefined;
+    tries?: number | undefined;
 }
 
 export interface FileOptions extends TmpNameOptions {
-    mode?: number;
-    keep?: boolean;
-    discardDescriptor?: boolean;
-    detachDescriptor?: boolean;
+    detachDescriptor?: boolean | undefined;
+    discardDescriptor?: boolean | undefined;
+    keep?: boolean | undefined;
+    mode?: number | undefined;
 }
 
 export interface DirOptions extends TmpNameOptions {
-    mode?: number;
-    keep?: boolean;
-    unsafeCleanup?: boolean;
+    keep?: boolean | undefined;
+    mode?: number | undefined;
+    unsafeCleanup?: boolean | undefined;
 }
 
 export interface FileResult {
@@ -38,19 +41,21 @@ export interface DirResult {
 }
 
 export type FileCallback = (
-    err: any,
+    err: Error|null,
     name: string,
     fd: number,
     removeCallback: () => void
 ) => void;
 
 export type DirCallback = (
-    err: any,
+    err: Error|null,
     name: string,
     removeCallback: () => void
 ) => void;
 
-export type TmpNameCallback = (err: any, name: string) => void;
+export type TmpNameCallback = (err: Error|null, name: string) => void;
+
+export const tmpdir: string;
 
 export function file(options: FileOptions, cb: FileCallback): void;
 export function file(cb: FileCallback): void;

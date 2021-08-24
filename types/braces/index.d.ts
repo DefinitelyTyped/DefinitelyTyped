@@ -17,7 +17,7 @@ declare namespace braces {
          * console.log(braces('a/{b,c}/d', { maxLength: 3 }));
          * //=> throws an error
          */
-        maxLength?: number;
+        maxLength?: number | undefined;
         /**
          * Generate an "expanded" brace pattern (alternatively you can use the `braces.expand()` method).
          *
@@ -26,13 +26,13 @@ declare namespace braces {
          * console.log(braces('a/{b,c}/d', { expand: true }));
          * //=> [ 'a/b/d', 'a/c/d' ]
          */
-        expand?: boolean;
+        expand?: boolean | undefined;
         /**
          * Remove duplicates from the returned array.
          *
          * @default undefined
          */
-        nodupes?: boolean;
+        nodupes?: boolean | undefined;
         /**
          * To prevent malicious patterns from being passed by users, an error is thrown when `braces.expand()`
          * is used or `options.expand` is true and the generated range will exceed the `rangeLimit`.
@@ -49,7 +49,7 @@ declare namespace braces {
          * console.log(braces.expand('{1..100}'));
          * //=> ['1', '2', '3', '4', '5', …, '100']
          */
-        rangeLimit?: number;
+        rangeLimit?: number | undefined;
         /**
          * Customize range expansion.
          *
@@ -62,7 +62,7 @@ declare namespace braces {
          * console.log(range);
          * //=> [ 'xfooay', 'xfooby', 'xfoocy', 'xfoody', 'xfooey' ]
          */
-        transform?: Transform;
+        transform?: Transform | undefined;
         /**
          * In regular expressions, quanitifiers can be used to specify how many times a token can be repeated.
          * For example, `a{1,3}` will match the letter `a` one to three times.
@@ -82,13 +82,13 @@ declare namespace braces {
          * console.log(braces('a/b{1,3}/{x,y,z}', {quantifiers: true, expand: true}));
          * //=> [ 'a/b{1,3}/x', 'a/b{1,3}/y', 'a/b{1,3}/z' ]
          */
-        quantifiers?: boolean;
+        quantifiers?: boolean | undefined;
         /**
          * Strip backslashes that were used for escaping from the result.
          *
          * @default undefined
          */
-        unescape?: boolean;
+        unescape?: boolean | undefined;
     }
 }
 interface Braces {

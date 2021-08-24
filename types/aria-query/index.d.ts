@@ -1,6 +1,6 @@
-// Type definitions for aria-query 3.0
+// Type definitions for aria-query 4.2
 // Project: https://github.com/A11yance/aria-query#readme
-// Definitions by: Sebastian Silbermann <https://github.com/me>
+// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -9,8 +9,8 @@ export type ARIARoleDefintionKey = ARIAAbstractRole | ARIARole | ARIADPubRole;
 
 export const aria: Map<ARIAProperty, ARIAPropertyDefinition>;
 export interface DOMDefinition {
-    reserved?: boolean;
-    interactive?: boolean;
+    reserved?: boolean | undefined;
+    interactive?: boolean | undefined;
 }
 export const dom: Map<string, DOMDefinition>;
 export const elementRoles: Map<ARIARoleRelationConcept, Set<ARIARoleDefintionKey>>;
@@ -33,15 +33,10 @@ export type ARIAAbstractRole =
     | 'window';
 
 export type ARIAWidgetRole =
-    | 'alert'
-    | 'alertdialog'
     | 'button'
     | 'checkbox'
-    | 'dialog'
     | 'gridcell'
     | 'link'
-    | 'log'
-    | 'marquee'
     | 'menuitem'
     | 'menuitemcheckbox'
     | 'menuitemradio'
@@ -52,13 +47,10 @@ export type ARIAWidgetRole =
     | 'searchbox'
     | 'slider'
     | 'spinbutton'
-    | 'status'
     | 'switch'
     | 'tab'
     | 'tabpanel'
     | 'textbox'
-    | 'timer'
-    | 'tooltip'
     | 'treeitem';
 
 export type ARIACompositeWidgetRole =
@@ -73,41 +65,60 @@ export type ARIACompositeWidgetRole =
     | 'treegrid';
 
 export type ARIADocumentStructureRole =
+    | 'application'
     | 'article'
+    | 'blockquote'
+    | 'caption'
     | 'cell'
     | 'columnheader'
     | 'definition'
+    | 'deletion'
     | 'directory'
     | 'document'
+    | 'emphasis'
     | 'feed'
     | 'figure'
+    | 'generic'
     | 'group'
     | 'heading'
     | 'img'
+    | 'insertion'
     | 'list'
     | 'listitem'
     | 'math'
+    | 'meter'
     | 'none'
     | 'note'
+    | 'paragraph'
     | 'presentation'
-    | 'region'
     | 'row'
     | 'rowgroup'
     | 'rowheader'
     | 'separator'
+    | 'strong'
+    | 'subscript'
+    | 'superscript'
     | 'table'
     | 'term'
-    | 'toolbar';
+    | 'time'
+    | 'toolbar'
+    | 'tooltip';
 
 export type ARIALandmarkRole =
-    | 'application'
     | 'banner'
     | 'complementary'
     | 'contentinfo'
     | 'form'
     | 'main'
     | 'navigation'
+    | 'region'
     | 'search';
+
+export type ARIALiveRegionRole = 'alert' | 'log' | 'marquee' | 'status' | 'timer';
+
+export type ARIAWindowRole = 'alertdialog' | 'dialog';
+
+export type ARIAUncategorizedRole = 'code';
 
 export type ARIADPubRole =
     | 'doc-abstract'
@@ -150,7 +161,14 @@ export type ARIADPubRole =
     | 'doc-tip'
     | 'doc-toc';
 
-export type ARIARole = ARIAWidgetRole | ARIACompositeWidgetRole | ARIADocumentStructureRole | ARIALandmarkRole;
+export type ARIARole =
+    | ARIAWidgetRole
+    | ARIACompositeWidgetRole
+    | ARIADocumentStructureRole
+    | ARIALandmarkRole
+    | ARIALiveRegionRole
+    | ARIAWindowRole
+    | ARIAUncategorizedRole;
 
 export interface ARIARoleDefinition {
     /* Abstract roles may not be used in HTML. */
@@ -160,6 +178,8 @@ export interface ARIARoleDefinition {
     /* Child presentational roles strip child nodes of roles and flatten the
      * content to text. */
     childrenPresentational: boolean;
+    /* aria-* properties and states disallowed on this role. */
+    prohibitedProps: ARIAPropertyMap;
     /* aria-* properties and states allowed on this role. */
     props: ARIAPropertyMap;
     /* The concepts in related domains that inform behavior mappings. */
@@ -228,68 +248,68 @@ export type ARIAProperty =
     | ARIAState;
 
 export interface ARIAPropertyMap {
-    'aria-busy'?: unknown;
-    'aria-checked'?: unknown;
-    'aria-disabled'?: unknown;
-    'aria-expanded'?: unknown;
-    'aria-grabbed'?: unknown;
-    'aria-hidden'?: unknown;
-    'aria-invalid'?: unknown;
-    'aria-pressed'?: unknown;
-    'aria-selected'?: unknown;
-    'aria-activedescendant'?: unknown;
-    'aria-atomic'?: unknown;
-    'aria-autocomplete'?: unknown;
-    'aria-colcount'?: unknown;
-    'aria-colindex'?: unknown;
-    'aria-colspan'?: unknown;
-    'aria-controls'?: unknown;
-    'aria-current'?: ARIAPropertyCurrent | null;
-    'aria-describedat'?: unknown;
-    'aria-describedby'?: unknown;
-    'aria-details'?: unknown;
-    'aria-dropeffect'?: unknown;
-    'aria-errormessage'?: unknown;
-    'aria-flowto'?: unknown;
-    'aria-haspopup'?: unknown;
-    'aria-keyshortcuts'?: unknown;
-    'aria-label'?: unknown;
-    'aria-labelledby'?: unknown;
-    'aria-level'?: unknown;
-    'aria-live'?: unknown;
-    'aria-modal'?: unknown;
-    'aria-multiline'?: unknown;
-    'aria-multiselectable'?: unknown;
-    'aria-orientation'?: unknown;
-    'aria-owns'?: unknown;
-    'aria-placeholder'?: unknown;
-    'aria-posinset'?: unknown;
-    'aria-readonly'?: unknown;
-    'aria-relevant'?: unknown;
-    'aria-required'?: unknown;
-    'aria-roledescription'?: unknown;
-    'aria-rowcount'?: unknown;
-    'aria-rowindex'?: unknown;
-    'aria-rowspan'?: unknown;
-    'aria-setsize'?: unknown;
-    'aria-sort'?: unknown;
-    'aria-valuemax'?: unknown;
-    'aria-valuemin'?: unknown;
-    'aria-valuenow'?: unknown;
-    'aria-valuetext'?: unknown;
+    'aria-busy'?: unknown | undefined;
+    'aria-checked'?: unknown | undefined;
+    'aria-disabled'?: unknown | undefined;
+    'aria-expanded'?: unknown | undefined;
+    'aria-grabbed'?: unknown | undefined;
+    'aria-hidden'?: unknown | undefined;
+    'aria-invalid'?: unknown | undefined;
+    'aria-pressed'?: unknown | undefined;
+    'aria-selected'?: unknown | undefined;
+    'aria-activedescendant'?: unknown | undefined;
+    'aria-atomic'?: unknown | undefined;
+    'aria-autocomplete'?: unknown | undefined;
+    'aria-colcount'?: unknown | undefined;
+    'aria-colindex'?: unknown | undefined;
+    'aria-colspan'?: unknown | undefined;
+    'aria-controls'?: unknown | undefined;
+    'aria-current'?: ARIAPropertyCurrent | null | undefined;
+    'aria-describedat'?: unknown | undefined;
+    'aria-describedby'?: unknown | undefined;
+    'aria-details'?: unknown | undefined;
+    'aria-dropeffect'?: unknown | undefined;
+    'aria-errormessage'?: unknown | undefined;
+    'aria-flowto'?: unknown | undefined;
+    'aria-haspopup'?: unknown | undefined;
+    'aria-keyshortcuts'?: unknown | undefined;
+    'aria-label'?: unknown | undefined;
+    'aria-labelledby'?: unknown | undefined;
+    'aria-level'?: unknown | undefined;
+    'aria-live'?: unknown | undefined;
+    'aria-modal'?: unknown | undefined;
+    'aria-multiline'?: unknown | undefined;
+    'aria-multiselectable'?: unknown | undefined;
+    'aria-orientation'?: unknown | undefined;
+    'aria-owns'?: unknown | undefined;
+    'aria-placeholder'?: unknown | undefined;
+    'aria-posinset'?: unknown | undefined;
+    'aria-readonly'?: unknown | undefined;
+    'aria-relevant'?: unknown | undefined;
+    'aria-required'?: unknown | undefined;
+    'aria-roledescription'?: unknown | undefined;
+    'aria-rowcount'?: unknown | undefined;
+    'aria-rowindex'?: unknown | undefined;
+    'aria-rowspan'?: unknown | undefined;
+    'aria-setsize'?: unknown | undefined;
+    'aria-sort'?: unknown | undefined;
+    'aria-valuemax'?: unknown | undefined;
+    'aria-valuemin'?: unknown | undefined;
+    'aria-valuenow'?: unknown | undefined;
+    'aria-valuetext'?: unknown | undefined;
 }
 
 export interface ARIAPropertyDefinition {
     type: 'string' | 'id' | 'idlist' | 'integer' | 'number' | 'boolean' | 'token' | 'tokenlist' | 'tristate';
-    value?: Array<string | boolean>;
-    allowundefined?: boolean;
+    values?: Array<string | boolean> | undefined;
+    allowundefined?: boolean | undefined;
 }
 
 export type ARIAPropertyCurrent = 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | true | false;
 
 export interface ARIARoleRelation {
-    module?: string;
-    concept?: ARIARoleRelationConcept;
+    module?: string | undefined;
+    concept?: ARIARoleRelationConcept | undefined;
 }
 
 /* The concept in a related domain that informs behavior mappings.
@@ -297,10 +317,21 @@ export interface ARIARoleRelation {
  * and ARIA to name a few. */
 export interface ARIARoleRelationConcept {
     name: string;
-    attributes?: ARIARoleRelationConceptAttribute[];
+    attributes?: ARIARoleRelationConceptAttribute[] | undefined;
+    // These constraints are drawn from the mapping between ARIA and HTML:
+    // https://www.w3.org/TR/html-aria
+    constraints?: Array<
+        | 'direct descendant of document'
+        | 'direct descendant of ol, ul or menu'
+        | 'direct descendant of details element with the open attribute defined'
+        | 'descendant of table'
+    > | undefined;
 }
 
 export interface ARIARoleRelationConceptAttribute {
     name: string;
-    value?: string;
+    value?: string | number | undefined;
+    // These constraints are drawn from the mapping between ARIA and HTML:
+    // https://www.w3.org/TR/html-aria
+    constraints?: Array<'unset' | '>1'> | undefined;
 }

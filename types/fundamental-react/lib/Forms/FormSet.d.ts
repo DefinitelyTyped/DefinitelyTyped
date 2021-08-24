@@ -1,9 +1,8 @@
 import * as React from "react";
 
 export type FormSetProps = {
-    className?: string;
-    customStyles?: {[x: string]: any};
-    disableStyles?: boolean;
+    className?: string | undefined;
+    disableStyles?: boolean | undefined;
 } & { [x: string]: any };
 
 declare const FormSet: React.FunctionComponent<FormSetProps>;

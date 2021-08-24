@@ -11,12 +11,12 @@ import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
  */
 export declare const Progress: React.StatelessComponent<PaginationProps>;
 export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    min?: number;
-    max?: number;
-    value?: number;
-    color?: ProgressColors;
-    valueText?: string;
-    meter?: ProgressMeterWithTextProps;
+    min?: number | undefined;
+    max?: number | undefined;
+    value?: number | undefined;
+    color?: ProgressColors | undefined;
+    valueText?: string | undefined;
+    meter?: ProgressMeterWithTextProps | undefined;
 }
 /**
  * Progress meter sub-component.
@@ -45,7 +45,7 @@ export interface ProgressMeterWithTextProps extends FlexboxPropTypes, React.HTML
  */
 export declare const ProgressMeterText: React.StatelessComponent<ProgressMeterTextProps>;
 export interface ProgressMeterTextProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLParagraphElement> {
-    children?: string;
+    children?: string | undefined;
 }
 /**
  * Native progress component.
@@ -55,7 +55,7 @@ export interface ProgressMeterTextProps extends FlexboxPropTypes, React.HTMLAttr
  */
 export declare const NativeProgress: React.StatelessComponent<NativeProgressProps>;
 export interface NativeProgressProps extends FlexboxPropTypes, React.ProgressHTMLAttributes<HTMLProgressElement> {
-    max?: number;
-    value?: number;
-    color?: ProgressColors;
+    max?: number | undefined;
+    value?: number | undefined;
+    color?: ProgressColors | undefined;
 }

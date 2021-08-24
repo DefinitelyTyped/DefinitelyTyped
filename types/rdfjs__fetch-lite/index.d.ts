@@ -9,7 +9,7 @@ import formats = require('@rdfjs/formats-common');
 declare namespace rdfFetch {
     interface FormatsInit extends RequestInit {
         formats: Pick<typeof formats, 'parsers'>;
-        fetch?: typeof fetch;
+        fetch?: typeof fetch | undefined;
     }
 
     interface FactoryInit<D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends FormatsInit {
@@ -17,11 +17,11 @@ declare namespace rdfFetch {
     }
 
     interface RdfFetchResponse<Q extends BaseQuad = Quad> extends Response {
-        quadStream(): Stream<Q>;
+        quadStream(): Promise<Stream<Q>>;
     }
 
     interface DatasetResponse<D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends RdfFetchResponse<OutQuad> {
-        dataset(): D;
+        dataset(): Promise<D>;
     }
 }
 

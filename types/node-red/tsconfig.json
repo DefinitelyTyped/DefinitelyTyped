@@ -6,15 +6,20 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@node-red/*": [
+                "node-red__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

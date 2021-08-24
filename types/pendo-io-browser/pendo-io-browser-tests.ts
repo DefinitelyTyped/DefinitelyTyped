@@ -1,5 +1,9 @@
 // Examples from: https://developers.pendo.io/docs/?bash#agent-api
 
+pendo.initialize();
+
+pendo.initialize({});
+
 pendo.initialize({
     visitor: {
         id: "PUT_VISITOR_ID_HERE",
@@ -86,3 +90,7 @@ pendo.dom("").closest('._pendo-guide-next_');
 pendo.onGuideAdvanced();
 pendo.onGuideAdvanced({ steps: 2 });
 pendo.onGuideDismissed();
+
+pendo.feedback.loginAndRedirect();
+const a = document.createElement("a");
+pendo.feedback.loginAndRedirect({anchor: a});

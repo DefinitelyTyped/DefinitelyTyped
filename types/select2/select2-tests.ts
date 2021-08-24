@@ -175,7 +175,7 @@ interface GithubRepositories {
         avatar_url: string
         gravatar_id: string
     };
-    description?: string;
+    description?: string | undefined;
     stargazers_count: number;
     watchers_count: number;
     forks_count: number;
@@ -404,9 +404,11 @@ $("select").select2({
 // Customizing placeholder appearance
 
 $("select").select2({
-    templateSelection: (data: Select2.IdTextPair | Select2.LoadingData | Select2.OptionData) => {
+    templateSelection: (data: Select2.IdTextPair | Select2.LoadingData | Select2.OptionData, container: JQuery) => {
         if (data.id === "") {
-            return "Custom styled placeholder text";
+            container.css("background-color", "#f6f6f6");
+
+            return "Custom styled placeholder";
         }
         return data.text;
     }

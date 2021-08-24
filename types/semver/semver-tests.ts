@@ -97,6 +97,7 @@ const op: semver.Operator = '';
 // declare const arr: any[];
 // declare const exp: RegExp;
 let strArr: ReadonlyArray<string> | null;
+let prereleaseIdAttr: ReadonlyArray<string | number> | null;
 let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
 let comparatorResult: -1 | 0 | 1;
@@ -134,7 +135,7 @@ strn = semver.inc(str, 'prerelease', 'beta');
 num = semver.major(str, loose);
 num = semver.minor(str, loose);
 num = semver.patch(str, loose);
-strArr = semver.prerelease(str, loose);
+prereleaseIdAttr = semver.prerelease(str, loose);
 
 // Comparison
 bool = semver.gt(v1, v2, loose);
@@ -153,7 +154,7 @@ versionsArr = semver.rsort(['', new semver.SemVer('')]);
 diff = semver.diff(v1, v2, loose);
 
 // Ranges
-str = semver.validRange(str, loose);
+strn = semver.validRange(str, loose);
 bool = semver.satisfies(version, str, loose);
 strn = semver.maxSatisfying(versions, str, loose);
 strn = semver.minSatisfying(versions, str, loose);
@@ -162,6 +163,17 @@ bool = semver.ltr(version, str, loose);
 bool = semver.outside(version, str, '<', loose);
 bool = semver.intersects(str, str, loose);
 sem = semver.minVersion(str, loose);
+semver.simplifyRange(versions, '1.x'); // $ExpectType string | Range
+semver.simplifyRange(versions, '1.0.0 || 1.0.1 || 1.0.2 || 1.0.3 || 1.0.4'); // $ExpectType string | Range
+semver.simplifyRange(versions, new Range('1.0.0 || 1.0.1 || 1.0.2 || 1.0.3 || 1.0.4')); // $ExpectType string | Range
+semver.simplifyRange(versions, '>=3.0.0 <3.1.0'); // $ExpectType string | Range
+semver.simplifyRange(versions, '3.0.0 || 3.1 || 3.2 || 3.3'); // $ExpectType string | Range
+semver.simplifyRange(versions, '1 || 2 || 3'); // $ExpectType string | Range
+semver.simplifyRange(versions, '2.1 || 2.2 || 2.3'); // $ExpectType string | Range
+semver.subset('1.x', '1.x'); // $ExpectType boolean
+semver.subset(new Range('1.2.3'), new Range('1.2.3')); // $ExpectType boolean
+semver.subset('^1.2.3-pre.0', '1.x', { includePrerelease: true }); // $ExpectType boolean
+semver.subset('', ''); // $ExpectType boolean
 
 // Coercion
 sem = semver.coerce(str);

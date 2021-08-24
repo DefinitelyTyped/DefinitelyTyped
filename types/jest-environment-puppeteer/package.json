@@ -1,9 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@jest/environment": "^24",
-        "@jest/fake-timers": "^24",
-        "@jest/types": "^24",
-        "jest-mock": "^24"
+        "@jest/types": ">=24 <=26",
+        "jest-environment-node": ">=24 <=26"
     }
 }

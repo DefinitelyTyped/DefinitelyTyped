@@ -8,35 +8,35 @@ declare namespace AMap {
             /**
              * 切片大小
              */
-            tileSize?: number;
+            tileSize?: number | undefined;
             /**
              * 切片取图地址(自1.3版本起，该属性与getTileUrl属性合并)
              */
-            tileUrl?: string;
+            tileUrl?: string | undefined;
             /**
              * 取图错误时的代替地址
              */
-            errorUrl?: string;
+            errorUrl?: string | undefined;
             /**
              * 获取图块取图地址
              */
-            getTileUrl?: string | ((x: number, y: number, level: number) => string);
+            getTileUrl?: string | ((x: number, y: number, level: number) => string) | undefined;
             /**
              * 图层叠加的顺序值
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
             /**
              * 图层的透明度
              */
-            opacity?: number;
+            opacity?: number | undefined;
             /**
              * 支持的缩放级别范围
              */
-            zooms?: [number, number];
+            zooms?: [number, number] | undefined;
             /**
              * 是否在高清屏下进行清晰度适配
              */
-            detectRetina?: boolean;
+            detectRetina?: boolean | undefined;
         }
         /**
          * 卫星图层
@@ -52,11 +52,11 @@ declare namespace AMap {
                 /**
                  * 是否设置可以自动刷新实时路况信息
                  */
-                autoRefresh?: boolean;
+                autoRefresh?: boolean | undefined;
                 /**
                  * 设置刷新间隔时长
                  */
-                interval?: number;
+                interval?: number | undefined;
             }
         }
         class Traffic extends TileLayer {

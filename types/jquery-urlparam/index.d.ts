@@ -7,5 +7,5 @@
 /// <reference types="jquery" />
 
 interface JQueryStatic {
-	urlParam(variable: string): string;
+    urlParam(variable: string): string;
 }

@@ -1,12 +1,13 @@
-declare module "util" {
+declare module 'util' {
     interface InspectOptions extends NodeJS.InspectOptions { }
-    function format(format: any, ...param: any[]): string;
-    function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
+    function format(format?: any, ...param: any[]): string;
+    function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use a third party module instead. */
     function log(string: string): void;
     function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     function inspect(object: any, options: InspectOptions): string;
     namespace inspect {
+        const custom: unique symbol;
         let colors: {
             [color: string]: [number, number] | undefined
         };
@@ -105,44 +106,63 @@ declare module "util" {
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     function promisify(fn: Function): Function;
+    namespace promisify {
+        const custom: unique symbol;
+    }
 
     namespace types {
-        function isAnyArrayBuffer(object: any): boolean;
+        function isAnyArrayBuffer(object: any): object is ArrayBufferLike;
         function isArgumentsObject(object: any): object is IArguments;
         function isArrayBuffer(object: any): object is ArrayBuffer;
+        function isArrayBufferView(object: any): object is NodeJS.ArrayBufferView;
         function isAsyncFunction(object: any): boolean;
+        function isBigInt64Array(value: any): value is BigInt64Array;
+        function isBigUint64Array(value: any): value is BigUint64Array;
         function isBooleanObject(object: any): object is Boolean;
-        function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* | Object(BigInt) | Object(Symbol) */);
+        function isBoxedPrimitive(object: any): object is String | Number | BigInt | Boolean | Symbol;
         function isDataView(object: any): object is DataView;
         function isDate(object: any): object is Date;
         function isExternal(object: any): boolean;
         function isFloat32Array(object: any): object is Float32Array;
         function isFloat64Array(object: any): object is Float64Array;
-        function isGeneratorFunction(object: any): boolean;
-        function isGeneratorObject(object: any): boolean;
+        function isGeneratorFunction(object: any): object is GeneratorFunction;
+        function isGeneratorObject(object: any): object is Generator;
         function isInt8Array(object: any): object is Int8Array;
         function isInt16Array(object: any): object is Int16Array;
         function isInt32Array(object: any): object is Int32Array;
-        function isMap(object: any): boolean;
+        function isMap<T>(
+            object: T | {},
+        ): object is T extends ReadonlyMap<any, any>
+            ? unknown extends T
+                ? never
+                : ReadonlyMap<any, any>
+            : Map<any, any>;
         function isMapIterator(object: any): boolean;
         function isModuleNamespaceObject(value: any): boolean;
         function isNativeError(object: any): object is Error;
         function isNumberObject(object: any): object is Number;
-        function isPromise(object: any): boolean;
+        function isPromise(object: any): object is Promise<any>;
         function isProxy(object: any): boolean;
         function isRegExp(object: any): object is RegExp;
-        function isSet(object: any): boolean;
+        function isSet<T>(
+            object: T | {},
+        ): object is T extends ReadonlySet<any>
+            ? unknown extends T
+                ? never
+                : ReadonlySet<any>
+            : Set<any>;
         function isSetIterator(object: any): boolean;
-        function isSharedArrayBuffer(object: any): boolean;
-        function isStringObject(object: any): boolean;
-        function isSymbolObject(object: any): boolean;
+        function isSharedArrayBuffer(object: any): object is SharedArrayBuffer;
+        function isStringObject(object: any): object is String;
+        function isSymbolObject(object: any): object is Symbol;
         function isTypedArray(object: any): object is NodeJS.TypedArray;
         function isUint8Array(object: any): object is Uint8Array;
         function isUint8ClampedArray(object: any): object is Uint8ClampedArray;
         function isUint16Array(object: any): object is Uint16Array;
         function isUint32Array(object: any): object is Uint32Array;
-        function isWeakMap(object: any): boolean;
-        function isWeakSet(object: any): boolean;
+        function isWeakMap(object: any): object is WeakMap<any, any>;
+        function isWeakSet(object: any): object is WeakSet<any>;
+        /** @deprecated Removed in v14.0.0 */
         function isWebAssemblyCompiledModule(object: any): boolean;
     }
 
@@ -152,11 +172,11 @@ declare module "util" {
         readonly ignoreBOM: boolean;
         constructor(
           encoding?: string,
-          options?: { fatal?: boolean; ignoreBOM?: boolean }
+          options?: { fatal?: boolean | undefined; ignoreBOM?: boolean | undefined }
         );
         decode(
           input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
-          options?: { stream?: boolean }
+          options?: { stream?: boolean | undefined }
         ): string;
     }
 

@@ -1,8 +1,13 @@
-// Type definitions for serverless 1.18
+// Type definitions for serverless 1.78
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
 //                 Alex Pavlenko <https://github.com/a-pavlenko>
+//                 Frédéric Barthelet <https://github.com/fredericbarthelet>
+//                 Bryan Hunter <https://github.com/bryan-hunter>
+//                 Thomas Aribart <https://github.com/thomasaribart>
+//                 Gareth Jones <https://github.com/G-Rath>
+//                 Abdullah Ali <https://github.com/AbdullahAli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
@@ -11,15 +16,16 @@ import PluginManager = require('./classes/PluginManager');
 import Utils = require('./classes/Utils');
 import YamlParser = require('./classes/YamlParser');
 import AwsProvider = require('./plugins/aws/provider/awsProvider');
+import ApiGatewayValidate = require('./plugins/aws/package/compile/events/apiGateway/lib/validate');
 
 declare namespace Serverless {
     interface Options {
-        function?: string;
-        watch?: boolean;
-        extraServicePath?: string;
+        function?: string | undefined;
+        watch?: boolean | undefined;
+        extraServicePath?: string | undefined;
         stage: string | null;
         region: string | null;
-        noDeploy?: boolean;
+        noDeploy?: boolean | undefined;
     }
 
     interface Config {
@@ -27,24 +33,43 @@ declare namespace Serverless {
     }
 
     interface FunctionDefinition {
-        name: string;
-        package: Package;
-        runtime?: string;
-        handler: string;
-        timeout?: number;
-        memorySize?: number;
-        environment?: { [name: string]: string };
+        name?: string | undefined;
+        package?: Package | undefined;
+        reservedConcurrency?: number | undefined;
+        runtime?: string | undefined;
+        timeout?: number | undefined;
+        memorySize?: number | undefined;
+        environment?: { [name: string]: string } | undefined;
+        events: Event[];
+        tags?: { [key: string]: string } | undefined;
     }
 
-    interface Event {
-        eventName: string;
+    interface LogOptions {
+        color?: string | undefined;
+        bold?: boolean | undefined;
+        underline?: boolean | undefined;
+        entity?: string | undefined;
     }
+
+    interface FunctionDefinitionHandler extends FunctionDefinition {
+        handler: string;
+    }
+
+    interface FunctionDefinitionImage extends FunctionDefinition {
+        image: string;
+    }
+
+    // Other events than ApiGatewayEvent are available
+    type Event = ApiGatewayValidate.ApiGatewayEvent | object;
 
     interface Package {
-        include: string[];
-        exclude: string[];
-        artifact?: string;
-        individually?: boolean;
+        /** @deprecated use `patterns` instead */
+        include?: string[] | undefined;
+        /** @deprecated use `patterns` instead */
+        exclude?: string[] | undefined;
+        patterns?: string[] | undefined;
+        artifact?: string | undefined;
+        individually?: boolean | undefined;
     }
 }
 
@@ -60,12 +85,14 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
-        log(message: string): null;
+        log(message: string, entity?: string, options?: Serverless.LogOptions): null;
     };
 
     providers: {};
     utils: Utils;
-    variables: {};
+    variables: {
+        populateService(): Promise<any>;
+    };
     yamlParser: YamlParser;
     pluginManager: PluginManager;
 
@@ -74,6 +101,17 @@ declare class Serverless {
 
     service: Service;
     version: string;
+
+    resources: AwsProvider.Resources;
+
+    configSchemaHandler: {
+        defineCustomProperties(schema: unknown): void;
+        defineFunctionEvent(provider: string, event: string, schema: Record<string, unknown>): void;
+        defineFunctionEventProperties(provider: string, existingEvent: string, schema: unknown): void;
+        defineFunctionProperties(provider: string, schema: unknown): void;
+        defineProvider(provider: string, options?: Record<string, unknown>): void;
+        defineTopLevelProperty(provider: string, schema: Record<string, unknown>): void;
+    };
 }
 
 export = Serverless;

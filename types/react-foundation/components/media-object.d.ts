@@ -10,7 +10,7 @@ import { FlexboxPropTypes } from '../utils';
  */
 export declare const MediaObject: React.StatelessComponent<MediaObjectProps>;
 export interface MediaObjectProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    stackForSmall?: boolean;
+    stackForSmall?: boolean | undefined;
 }
 /**
  * Media object section component.
@@ -20,8 +20,8 @@ export interface MediaObjectProps extends FlexboxPropTypes, React.HTMLAttributes
  */
 export declare const MediaObjectSection: React.StatelessComponent<MediaObjectSectionProps>;
 export interface MediaObjectSectionProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    alignment?: HorizontalAlignments;
-    isMain?: boolean;
-    isMiddle?: boolean;
-    isBottom?: boolean;
+    alignment?: HorizontalAlignments | undefined;
+    isMain?: boolean | undefined;
+    isMiddle?: boolean | undefined;
+    isBottom?: boolean | undefined;
 }

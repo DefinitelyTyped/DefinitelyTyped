@@ -1,7 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "no-empty-interface": false,
-        "unified-signatures": false
-    }
-}
+{ "extends": "dtslint/dt.json" }

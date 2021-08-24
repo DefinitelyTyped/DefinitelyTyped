@@ -1,9 +1,9 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace DocumentOutline {
     interface Props {
-        children?: never;
-        hasOutlineItemsDisabled?: boolean;
+        children?: never | undefined;
+        hasOutlineItemsDisabled?: boolean | undefined;
         onSelect(): void;
     }
 }

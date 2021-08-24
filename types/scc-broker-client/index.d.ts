@@ -2,11 +2,23 @@
 // Project: https://github.com/SocketCluster/scc-broker-client
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
-import SCBroker = require("sc-broker/scbroker");
-import { Secret } from "jsonwebtoken";
+import AGSimpleBroker = require('ag-simple-broker');
+import ConsumableStream = require('consumable-stream');
+import { Secret } from 'jsonwebtoken';
 
-import ClusterBrokerClient = require("./cluster-broker-client");
+import ClusterBrokerClient = require('./cluster-broker-client');
+
+export interface Broker {
+    listener(eventName: 'subscribe'): ConsumableStream<AGSimpleBroker.SubscribeData>;
+    listener(eventName: 'unsubscribe'): ConsumableStream<AGSimpleBroker.UnsubscribeData>;
+    listener(eventName: 'publish'): ConsumableStream<AGSimpleBroker.PublishData>;
+
+    invokePublish(channelName: string, data: any, suppressEvent: boolean): Promise<void>;
+
+    subscriptions(): string[];
+}
 
 export interface MappingEngine {
     setSites(sites: string[]): void;
@@ -15,26 +27,26 @@ export interface MappingEngine {
 }
 
 export interface SCCBrokerClientOptions {
-    stateServerReconnectRandomness?: number;
-    authKey?: Secret;
-    mappingEngine?: "skeletonRendezvous" | "simple" | MappingEngine;
+    stateServerReconnectRandomness?: number | undefined;
+    authKey?: Secret | undefined;
+    mappingEngine?: 'skeletonRendezvous' | 'simple' | MappingEngine | undefined;
 
-    clientPoolSize?: number;
+    clientPoolSize?: number | undefined;
 
     stateServerHost: string;
-    stateServerPort?: number;
-    stateServerConnectTimeout?: number;
-    stateServerAckTimeout?: number;
+    stateServerPort?: number | undefined;
+    stateServerConnectTimeout?: number | undefined;
+    stateServerAckTimeout?: number | undefined;
 
-    instancePort?: number;
-    instanceId?: string;
-    instanceIp?: string;
-    instanceIpFamily?: string;
+    instancePort?: number | undefined;
+    instanceId?: string | undefined;
+    instanceIp?: string | undefined;
+    instanceIpFamily?: string | undefined;
 
-    noErrorLogging?: boolean;
-    brokerRetryDelay?: number;
+    noErrorLogging?: boolean | undefined;
+    brokerRetryDelay?: number | undefined;
 
-    pubSubBatchDuration?: number;
+    pubSubBatchDuration?: number | undefined;
 }
 
-export function attach(broker: SCBroker, options: SCCBrokerClientOptions): ClusterBrokerClient;
+export function attach(broker: Broker, options: SCCBrokerClientOptions): ClusterBrokerClient;

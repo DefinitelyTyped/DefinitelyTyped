@@ -1,22 +1,33 @@
-// Type definitions for sparqljs 2.1
+// Type definitions for sparqljs 3.1
 // Project: https://github.com/RubenVerborgh/SPARQL.js
 // Definitions by: Alexey Morozov <https://github.com/AlexeyMz>
+//                 Ruben Taelman <https://github.com/rubensworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+import * as RdfJs from 'rdf-js';
+
 export const Parser: {
-    new (
-        prefixes?: { [prefix: string]: string },
-        baseIRI?: string,
-    ): SparqlParser;
+    new (options?: ParserOptions): SparqlParser;
 };
+
+export interface ParserOptions {
+    prefixes?: { [prefix: string]: string } | undefined;
+    baseIRI?: string | undefined;
+    factory?: RdfJs.DataFactory | undefined;
+    sparqlStar?: boolean | undefined;
+}
 
 export const Generator: {
     new (options?: GeneratorOptions): SparqlGenerator;
 };
 
 export interface GeneratorOptions {
-    allPrefixes?: boolean;
+    allPrefixes?: boolean | undefined;
+    prefixes?: { [prefix: string]: string } | undefined;
+    indent?: string | undefined;
+    newline?: string | undefined;
+    sparqlStar?: boolean | undefined;
 }
 
 export interface SparqlParser {
@@ -25,7 +36,22 @@ export interface SparqlParser {
 
 export interface SparqlGenerator {
     stringify(query: SparqlQuery): string;
+    createGenerator(): any;
 }
+
+export class Wildcard {
+    readonly termType: 'Wildcard';
+    readonly value: '*';
+    equals(other: RdfJs.Term | null | undefined): boolean;
+}
+
+export type Term = VariableTerm | IriTerm | LiteralTerm | BlankTerm | QuadTerm;
+
+export type VariableTerm = RdfJs.Variable;
+export type IriTerm = RdfJs.NamedNode;
+export type LiteralTerm = RdfJs.Literal;
+export type BlankTerm = RdfJs.BlankNode;
+export type QuadTerm = RdfJs.Quad;
 
 export type SparqlQuery = Query | Update;
 
@@ -33,26 +59,26 @@ export type Query = SelectQuery | ConstructQuery | AskQuery | DescribeQuery;
 
 export interface BaseQuery {
     type: 'query';
-    base?: string;
+    base?: string | undefined;
     prefixes: { [prefix: string]: string; };
-    where?: Pattern[];
-    values?: ValuePatternRow[];
+    where?: Pattern[] | undefined;
+    values?: ValuePatternRow[] | undefined;
 }
 
 export interface SelectQuery extends BaseQuery {
     queryType: 'SELECT';
-    variables: Variable[] | ['*'];
-    distinct?: boolean;
+    variables: Variable[] | [Wildcard];
+    distinct?: boolean | undefined;
     from?: {
-        default: string[];
-        named: string[];
-    };
-    reduced?: boolean;
-    group?: Grouping[];
-    having?: Expression[];
-    order?: Ordering[];
-    limit?: number;
-    offset?: number;
+        default: IriTerm[];
+        named: IriTerm[];
+    } | undefined;
+    reduced?: boolean | undefined;
+    group?: Grouping[] | undefined;
+    having?: Expression[] | undefined;
+    order?: Ordering[] | undefined;
+    limit?: number | undefined;
+    offset?: number | undefined;
 }
 
 export interface Grouping {
@@ -61,12 +87,12 @@ export interface Grouping {
 
 export interface Ordering {
     expression: Expression;
-    descending?: boolean;
+    descending?: boolean | undefined;
 }
 
 export interface ConstructQuery extends BaseQuery {
     queryType: 'CONSTRUCT';
-    template?: Triple[];
+    template?: Triple[] | undefined;
 }
 
 export interface AskQuery extends BaseQuery {
@@ -75,7 +101,7 @@ export interface AskQuery extends BaseQuery {
 
 export interface DescribeQuery extends BaseQuery {
     queryType: 'DESCRIBE';
-    variables: Variable[] | ['*'];
+    variables: Variable[] | [Wildcard];
 }
 
 export interface Update {
@@ -88,10 +114,10 @@ export type UpdateOperation = InsertDeleteOperation | ManagementOperation;
 
 export interface InsertDeleteOperation {
     updateType: 'insert' | 'delete' | 'deletewhere' | 'insertdelete';
-    graph?: string;
-    insert?: Quads[];
-    delete?: Quads[];
-    where?: Pattern[];
+    graph?: IriTerm | undefined;
+    insert?: Quads[] | undefined;
+    delete?: Quads[] | undefined;
+    where?: Pattern[] | undefined;
 }
 
 export type Quads = BgpPattern | GraphQuads;
@@ -112,14 +138,14 @@ export interface CopyMoveAddOperation {
 export interface LoadOperation {
     type: 'load';
     silent: boolean;
-    source: string;
-    destination: string | false;
+    source: IriTerm;
+    destination: IriTerm | false;
 }
 
 export interface CreateOperation {
     type: 'create';
     silent: boolean;
-    graph: string;
+    graph: IriTerm;
 }
 
 export interface ClearDropOperation {
@@ -130,31 +156,29 @@ export interface ClearDropOperation {
 
 export interface GraphOrDefault {
     type: 'graph';
-    name?: string;
-    default?: boolean;
+    name?: IriTerm | undefined;
+    default?: boolean | undefined;
 }
 
 export interface GraphReference extends GraphOrDefault {
-    named?: boolean;
-    all?: boolean;
+    named?: boolean | undefined;
+    all?: boolean | undefined;
 }
 
 /**
  * Examples: '?var', '*',
  *   SELECT (?a as ?b) ... ==> { expression: '?a', variable: '?b' }
  */
-export type Variable = VariableExpression | Term;
+export type Variable = VariableExpression | VariableTerm;
 
 export interface VariableExpression {
     expression: Expression;
-    variable: Term;
+    variable: VariableTerm;
 }
 
 export type Pattern =
     | BgpPattern
     | BlockPattern
-    | GraphPattern
-    | ServicePattern
     | FilterPattern
     | BindPattern
     | ValuesPattern
@@ -170,28 +194,49 @@ export interface BgpPattern {
 
 export interface GraphQuads {
     type: 'graph';
-    name: Term;
+    name: IriTerm;
     triples: Triple[];
 }
 
-export interface BlockPattern {
-    type: 'optional' | 'union' | 'group' | 'minus' | 'graph' | 'service';
+export type BlockPattern =
+    | OptionalPattern
+    | UnionPattern
+    | GroupPattern
+    | GraphPattern
+    | MinusPattern
+    | ServicePattern;
+
+export interface OptionalPattern {
+    type: 'optional';
     patterns: Pattern[];
 }
 
-export interface GroupPattern extends BlockPattern {
+export interface UnionPattern {
+    type: 'union';
+    patterns: Pattern[];
+}
+
+export interface GroupPattern {
     type: 'group';
+    patterns: Pattern[];
 }
 
-export interface GraphPattern extends BlockPattern {
+export interface GraphPattern {
     type: 'graph';
-    name: Term;
+    name: IriTerm;
+    patterns: Pattern[];
 }
 
-export interface ServicePattern extends BlockPattern {
+export interface MinusPattern {
+    type: 'minus';
+    patterns: Pattern[];
+}
+
+export interface ServicePattern {
     type: 'service';
-    name: Term;
+    name: IriTerm;
     silent: boolean;
+    patterns: Pattern[];
 }
 
 export interface FilterPattern {
@@ -202,7 +247,7 @@ export interface FilterPattern {
 export interface BindPattern {
     type: 'bind';
     expression: Expression;
-    variable: Term;
+    variable: VariableTerm;
 }
 
 export interface ValuesPattern {
@@ -211,27 +256,19 @@ export interface ValuesPattern {
 }
 
 export interface ValuePatternRow {
-    [variable: string]: Term;
+    [variable: string]: IriTerm | BlankTerm | LiteralTerm | undefined;
 }
 
-/**
- * Either '?var', 'schema:iri', '_:blankNode',
- * '"literal"^^<schema:datatype>' or '{undefined}'.
- *
- * Term is a nominal type based on string.
- */
-export type Term = string & { __termBrand: string; };
-
 export interface Triple {
-    subject: Term;
-    predicate: PropertyPath | Term;
+    subject: IriTerm | BlankTerm | VariableTerm | QuadTerm;
+    predicate: IriTerm | VariableTerm | PropertyPath;
     object: Term;
 }
 
 export interface PropertyPath {
     type: 'path';
     pathType: '|' | '/' | '^' | '+' | '*' | '!';
-    items: Array<PropertyPath | Term>;
+    items: Array<IriTerm | PropertyPath>;
 }
 
 export type Expression =
@@ -239,17 +276,17 @@ export type Expression =
     | FunctionCallExpression
     | AggregateExpression
     | BgpPattern
+    | GraphPattern
     | GroupPattern
     | Tuple
     | Term;
 
 // allow Expression circularly reference itself
-// tslint:disable-next-line no-empty-interface
 export interface Tuple extends Array<Expression> {}
 
 export interface BaseExpression {
     type: string;
-    distinct?: boolean;
+    distinct?: boolean | undefined;
 }
 
 export interface OperationExpression extends BaseExpression {
@@ -268,5 +305,5 @@ export interface AggregateExpression extends BaseExpression {
     type: 'aggregate';
     expression: Expression;
     aggregation: string;
-    separator?: string;
+    separator?: string | undefined;
 }

@@ -1,34 +1,40 @@
-import md5 = require("md5");
-/**
- * API
- * md5(message)
- * message -- String or Buffer
- * returns String
- *
- * Usage
- ****************************************************
- * var md5 = require('md5');                        *
- * console.log(md5('message'));                     *
- ****************************************************
- * This will print the following
- * 78e731027d8fd50ed642340b7c9a63b3
- *
- * It supports buffers, too
- ****************************************************
- * var fs = require('fs');                          *
- * var md5 = require('md5');                        *
- *                                                  *
- * fs.readFile('example.txt', function(err, buf) {  *
- *   console.log(md5(buf));                         *
- * });                                              *
- * **************************************************
- */
+import md5 = require('md5');
+
 const message = 'message';
 
-console.log(md5(message)); // should print 78e731027d8fd50ed642340b7c9a63b3
+// $ExpectType string
+md5(message);
 
 const array = new Array<number>(message.length);
-for (let i = 0; i < message.length; ++i)
-  array[i] = message.charCodeAt(i);
-const buffer = new Buffer(array);
-console.log(md5(buffer));  // Should be same result as above.
+for (let i = 0; i < message.length; ++i) array[i] = message.charCodeAt(i);
+const buffer = Buffer.from(array);
+
+// $ExpectType string
+md5(buffer);
+
+// $ExpectType string
+md5('message', { asString: true });
+
+// $ExpectType string
+md5('message', { asString: true, encoding: 'binary' });
+
+// $ExpectType string
+md5('message', { encoding: 'binary' });
+
+// $ExpectType number[]
+md5('message', { asBytes: true });
+
+// $ExpectType string
+md5(Uint8Array.of(1, 2, 3));
+
+// $ExpectType string
+md5(Uint8Array.of(1, 2, 3), { asString: true });
+
+// $ExpectType string
+md5(Uint8Array.of(1, 2, 3), { asString: true, encoding: 'binary' });
+
+// $ExpectType string
+md5(Uint8Array.of(1, 2, 3), { encoding: 'binary' });
+
+// $ExpectType number[]
+md5(Uint8Array.of(1, 2, 3), { asBytes: true });

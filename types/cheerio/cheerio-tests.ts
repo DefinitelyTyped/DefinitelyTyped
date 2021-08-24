@@ -18,10 +18,12 @@ cheerio(html);
 cheerio('ul', html);
 cheerio('li', 'ul', html);
 
+cheerio.load([$('ul').get(0)]);
+
 const $fromElement = cheerio.load($('ul').get(0));
 
 if ($fromElement('ul > li').length !== 3) {
-    throw new Error('Expecting 3 elements when passing `CheerioElement` to `load()`');
+    throw new Error('Expecting 3 elements when passing `cheerio.Element` to `load()`');
 }
 
 $ = cheerio.load(Buffer.from(html));
@@ -33,6 +35,8 @@ $ = cheerio.load(html, {
 
 $ = cheerio.load(html, {
     normalizeWhitespace: true,
+    withStartIndices: true,
+    withEndIndices: true,
     xmlMode: true,
     decodeEntities: true,
     lowerCaseTags: true,
@@ -40,6 +44,27 @@ $ = cheerio.load(html, {
     recognizeCDATA: true,
     recognizeSelfClosing: true,
 });
+
+const [$ele1] = Array.from($('.class'));
+
+/**
+ * Start and end indicies for all tags
+ */
+
+const indicesHTML = `<div id="fruits"><!-- This is a pear -->Pear</div>`;
+
+const indicesHTMLRoot = cheerio.load(indicesHTML, {
+  withStartIndices: true,
+  withEndIndices: true,
+});
+
+const tagEl = indicesHTMLRoot('*')[0] as cheerio.TagElement;
+const commentEl = tagEl.firstChild as cheerio.CommentElement;
+const textEl = tagEl.lastChild as cheerio.TextElement;
+
+tagEl.endIndex! - tagEl.startIndex!;
+commentEl.endIndex! - commentEl.startIndex!;
+textEl.endIndex! - textEl.startIndex!;
 
 /**
  * Selectors
@@ -58,7 +83,9 @@ $el.cheerio;
 $el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
+// $ExpectError
 $el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
+// $ExpectError
 $el.attr('id', el => el.tagName).html();
 $el.attr({ id: 'uniq', class: 'big' }).html();
 
@@ -304,6 +331,7 @@ $el.css('width', '50px');
 $.html();
 $.html('.class');
 $.xml();
+$.xml($el);
 
 /**
  * Miscellaneous
@@ -334,3 +362,33 @@ $.parseHTML(html, null, true);
 $el.toArray();
 
 cheerio.html($el);
+
+// $ExpectType string
+cheerio.version;
+
+const doSomething = (element: cheerio.Element): void => {
+    if (element.type !== 'text' && element.type !== 'comment' && element.type !== 'script' && element.type !== 'style') {
+        // $ExpectType { [attr: string]: string; }
+        element.attribs;
+        // $ExpectType { [attr: string]: string; }
+        element['x-attribsNamespace'];
+        // $ExpectType { [attr: string]: string; }
+        element['x-prefixNamespace'];
+        // $ExpectType Element[]
+        element.children;
+    }
+
+    // $ExpectError
+    let a = element.firstChild;
+    // $ExpectError
+    let b = element.lastChild;
+
+    if (element.next) {
+        // $ExpectType "text" | "tag" | "script" | "style" | "comment"
+        let d = element.next.type;
+    }
+    if (element.prev) {
+        // $ExpectType "text" | "tag" | "script" | "style" | "comment"
+        let d = element.prev.type;
+    }
+};

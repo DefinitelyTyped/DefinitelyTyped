@@ -4,10 +4,10 @@ import { Validator } from "../index";
 interface _BaseFieldArrayProps<P = {}, FieldValue = any> {
     name: string;
     component: ComponentType<WrappedFieldArrayProps<FieldValue> & P>;
-    validate?: Validator | Validator[];
-    warn?: Validator | Validator[];
-    withRef?: boolean;
-    rerenderOnEveryChange?: boolean;
+    validate?: Validator | Validator[] | undefined;
+    warn?: Validator | Validator[] | undefined;
+    withRef?: boolean | undefined;
+    rerenderOnEveryChange?: boolean | undefined;
 }
 
 export type BaseFieldArrayProps<P = {}, FieldValue = any> = (P | { props: P}) & _BaseFieldArrayProps<P, FieldValue>;
@@ -45,6 +45,7 @@ export interface FieldArrayFieldsProps<FieldValue> {
     push(value: FieldValue): void;
     remove(index: number): void;
     shift(): FieldValue;
+    splice(index: number, removeNum: number | null, value: FieldValue): void;
     swap(indexA: number, indexB: number): void;
     move(from: number, to: number): void;
     unshift(value: FieldValue): void;

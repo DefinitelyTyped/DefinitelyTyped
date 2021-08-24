@@ -12,7 +12,7 @@ export namespace Subscriber {
     }
     interface Props<T> extends Partial<DefaultProps> {
         channel: string;
-        children?: ((state: T) => React.ReactNode);
+        children?: ((state: T) => React.ReactNode) | undefined;
     }
 }
 

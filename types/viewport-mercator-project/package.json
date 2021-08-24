@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "gl-matrix": "^3.2.0"
+  }
+}

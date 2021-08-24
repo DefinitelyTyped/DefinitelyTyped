@@ -17,8 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@babel/traverse": [
-                "babel__traverse"
+            "@babel/*": [
+                "babel__*"
             ]
         }
     },

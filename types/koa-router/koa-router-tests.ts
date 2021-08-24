@@ -4,7 +4,11 @@ import compose = require("koa-compose");
 import etag = require("koa-etag");
 import Router = require("koa-router");
 
-type MyState = {foo: string}
+type MyState = {
+    foo: string,
+    id: string
+}
+
 type MyContext = {bar: string}
 
 const app = new Koa<{}, {}>();
@@ -15,6 +19,8 @@ const router = new Router<MyState, MyContext>({
 
 router
     .param('id', function (id, ctx, next) {
+        ctx.state.id = id;
+        ctx.bar = 'bar';
         next();
     })
     .get('/', function (ctx, next) {

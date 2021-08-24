@@ -1,27 +1,21 @@
 import * as React from "react";
 
-export type ButtonOptions = "emphasized" | "light";
+export type ButtonOptions = "emphasized" | "transparent";
 
-export type ButtonTypes = "standard" | "positive" | "negative" | "medium";
+export type ButtonTypes = "standard" | "positive" | "negative" | "medium" | "ghost" | "attention";
 
 export type ButtonProps = {
-    className?: string;
-    compact?: boolean;
-    customStyles?: {[x: string]: any};
-    disabled?: boolean;
-    disableStyles?: boolean;
-    glyph?: string;
-    /* Set to **true** if button is part of global navbar. */
-    navbar?: boolean;
-    /* Indicates the importance of the button. */
-    option?: ButtonOptions;
-    ref?: React.RefObject<HTMLButtonElement>;
-    /* Set to **true** to set state of the button to "selected". */
-    selected?: boolean;
-    type?: ButtonTypes;
-    /* Value for the `type` attribute on the `<button>` element. */
-    typeAttr?: "submit" | "reset" | "button";
-    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    className?: string | undefined;
+    compact?: boolean | undefined;
+    disabled?: boolean | undefined;
+    disableStyles?: boolean | undefined;
+    glyph?: string | undefined;
+    option?: ButtonOptions | undefined;
+    ref?: React.RefObject<HTMLButtonElement> | undefined;
+    selected?: boolean | undefined;
+    type?: ButtonTypes | undefined;
+    typeAttr?: "submit" | "reset" | "button" | undefined;
+    onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
 declare const Button: React.FunctionComponent<ButtonProps> & {displayName: "Button"};

@@ -1,12 +1,12 @@
 import {
-	hookRequire,
-	hookCreateScript,
-	unhookCreateScript,
-	hookRunInThisContext,
-	unhookRunInThisContext,
-	hookRunInContext,
-	unhookRunInContext,
-	unloadRequireCache
+    hookRequire,
+    hookCreateScript,
+    unhookCreateScript,
+    hookRunInThisContext,
+    unhookRunInThisContext,
+    hookRunInContext,
+    unhookRunInContext,
+    unloadRequireCache
 } from 'istanbul-lib-hook';
 
 const matcher = (filename: string) => true;
@@ -17,8 +17,8 @@ hookRequire(matcher, transformer, {});
 hookRequire(matcher, transformer, { verbose: true });
 
 const retVal = hookRequire(matcher, transformer, {
-	extensions: ['.js'],
-	postLoadHook: (filename: string) => {}
+    extensions: ['.js'],
+    postLoadHook: (filename: string) => {}
 });
 retVal();
 

@@ -6,15 +6,15 @@ type Result = {section: {param: string}};
 let file: string;
 
 {
-	let callback: (err: any, data: Result) => void;
-	let result: void;
+    let callback: (err: any, data: Result) => void;
+    let result: void;
 
-	iniparser.parse(file, callback);
+    iniparser.parse(file, callback);
 }
 
 {
-	let result: Result;
+    let result: Result;
 
-	result = iniparser.parseSync<Result>(file);
-	result = iniparser.parseString<Result>('');
+    result = iniparser.parseSync<Result>(file);
+    result = iniparser.parseString<Result>('');
 }

@@ -1,7 +1,7 @@
 import didYouMean from 'didyoumean';
 
 interface ListType {
-	id: string;
+    id: string;
 }
 
 let input = 'insargrm';

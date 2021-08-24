@@ -1,7 +1,9 @@
-// Type definitions for muibox 1.0
+// Type definitions for muibox 1.3
 // Project: https://github.com/chunkai1312/muibox
-// Definitions by: Diego Mijelshon <https://github.com/diegose>
+// Definitions by: Diego Mijelshon <https://github.com/diegose>, David DIVERRES <https://github.com/comxd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { ReactNode } from "react";
 
 export function DialogProvider(_: any): any;
 export function useDialog(): Dialog;
@@ -13,17 +15,26 @@ export interface Dialog {
     prompt(options: PromptOptions | string): Promise<string>;
 }
 
+export interface DialogButtonOptions {
+    text?: string | undefined;
+    color?: string | undefined;
+    variant?: string | undefined;
+    startIcon?: ReactNode | undefined;
+    endIcon?: ReactNode | undefined;
+}
+
 export interface AlertOptions {
-    title?: string;
-    message?: string;
-    ok?: string;
+    title?: string | undefined;
+    message?: string | ReactNode | undefined;
+    ok?: DialogButtonOptions | undefined;
 }
 
 export interface ConfirmOptions extends AlertOptions {
-    cancel?: string;
+    cancel?: DialogButtonOptions | undefined;
 }
 
 export interface PromptOptions extends ConfirmOptions {
-    required?: boolean;
-    defaultValue?: string | number;
+    required?: boolean | undefined;
+    defaultValue?: string | number | undefined;
+    placeholder?: string | undefined;
 }

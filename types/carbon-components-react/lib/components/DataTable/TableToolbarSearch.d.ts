@@ -1,23 +1,20 @@
 import * as React from "react";
-import { InternationalProps, ReactAttr } from "../../../typings/shared";
+import { InternationalProps } from "../../../typings/shared";
 import { SearchProps } from "../Search";
 
-type ExcludedAttributes = "aria-hidden" | "labelText" | "small";
 export type TableToolbarTranslationKey = "carbon.table.toolbar.search.label" | "carbon.table.toolbar.search.placeholder";
-interface InheritedProps extends
-    Omit<SearchProps, ExcludedAttributes>,
-    InternationalProps<TableToolbarTranslationKey>
-{
-    labelText?: React.ReactNode,
-}
 
-export interface TableToolbarSearchProps extends InheritedProps {
+export interface TableToolbarSearchProps extends Omit<SearchProps, "labelText">, InternationalProps<TableToolbarTranslationKey> {
+    defaultExpanded?: boolean | undefined,
+    expanded?: boolean | undefined,
+    labelText?: React.ReactNode | undefined,
+    onExpand?(event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement> | React.FocusEvent<HTMLDivElement>, newExpand: boolean): void;
     /**
      * @deprecated
      */
-    persistant?: boolean,
-    persistent?: boolean,
-    searchContainerClasses?: ReactAttr["className"],
+    persistant?: boolean | undefined,
+    persistent?: boolean | undefined,
+    searchContainerClass?: string | undefined,
 }
 
 declare const TableToolbarSearch: React.FC<TableToolbarSearchProps>;

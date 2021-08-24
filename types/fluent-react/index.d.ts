@@ -12,7 +12,7 @@ import {
 export interface Node {
   TEXT_NODE: 3;
   nodeType: number;
-  localName?: string;
+  localName?: string | undefined;
   textContext: string;
 }
 
@@ -24,7 +24,7 @@ export interface Context {
 }
 export interface LocalizationProviderProps {
   bundles: IterableIterator<FluentBundle>;
-  parseMarkup?: MarkupParser;
+  parseMarkup?: MarkupParser | undefined;
 }
 export class LocalizationProvider extends React.Component<LocalizationProviderProps> {
 }
@@ -36,7 +36,7 @@ export class ReactLocalization {
 
 export interface LocalizedProps {
   id: string;
-  attrs?: object;
+  attrs?: object | undefined;
   [key: string]: any;
 }
 
@@ -57,11 +57,11 @@ export class Localized extends React.Component<LocalizedProps> {
  *   DecorationTargetProps[P] definition, its definition will be that of InjectedProps[P]
  */
 export type Matching<InjectedProps, DecorationTargetProps> = {
-	[P in keyof DecorationTargetProps]: P extends keyof InjectedProps
-		? InjectedProps[P] extends DecorationTargetProps[P]
-			? DecorationTargetProps[P]
-			: InjectedProps[P]
-		: DecorationTargetProps[P];
+    [P in keyof DecorationTargetProps]: P extends keyof InjectedProps
+        ? InjectedProps[P] extends DecorationTargetProps[P]
+            ? DecorationTargetProps[P]
+            : InjectedProps[P]
+        : DecorationTargetProps[P];
 };
 
 /**

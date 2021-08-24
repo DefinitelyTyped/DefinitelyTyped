@@ -3,21 +3,18 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
         "no-inferrable-types": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-declare-function": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false
     }

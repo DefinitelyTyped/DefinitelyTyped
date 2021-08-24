@@ -10,7 +10,6 @@ export import ui = ui;
 export import system = system;
 export import messages = messages;
 
-export type HTMLMediaElement = any;
 export as namespace framework;
 export enum LoggerLevel {
     DEBUG = 0,
@@ -18,7 +17,7 @@ export enum LoggerLevel {
     INFO = 800,
     WARNING = 900,
     ERROR = 1000,
-    NONE = 1500
+    NONE = 1500,
 }
 
 export enum ContentProtection {
@@ -31,13 +30,20 @@ export enum ContentProtection {
 }
 
 /**
+ * Version of CAF receiver SDK.
+ */
+export const VERSION: string;
+
+/**
  * Manages text tracks.
+ * @throws Error If constructor is used directly. The TextTracksManager should
+ *     only be accessed by calling {@link framework.PlayerManager#getTextTracksManager}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.TextTracksManager
  */
 export class TextTracksManager {
-    constructor(params?: any);
-
     /**
      * Adds text tracks to the list.
+     * @throws Error If tracks are not available, or trackId is not unique, or add non-text tracks.
      */
     addTracks(tracks: messages.Track[]): void;
 
@@ -59,7 +65,7 @@ export class TextTracksManager {
     /**
      * Returns the current text track style.
      */
-    getTextTracksStyle(): messages.TextTrackStyle;
+    getTextTracksStyle(): messages.TextTrackStyle | undefined;
 
     /**
      * Gets text track by id.
@@ -94,14 +100,15 @@ export class TextTracksManager {
 
 /**
  * QueueManager exposes several queue manipulation APIs to developers.
+ * @throws Error If constructor is used directly. The QueueManager should only
+ *     be accessed by calling cast.framework.PlayerManager#getQueueManager.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.QueueManager
  */
 export class QueueManager {
-    constructor(params?: any);
-
     /**
      * Returns the current queue item.
      */
-    getCurrentItem(): messages.QueueItem;
+    getCurrentItem(): messages.QueueItem | null;
 
     /**
      * Returns the index of the current queue item.
@@ -189,12 +196,54 @@ export class QueueBase {
     shuffle(): messages.QueueItem[] | Promise<messages.QueueItem[]>;
 }
 
+// So we can have some auxiliary private types.
+export {};
+type MessageInterceptor<MessageType> =
+    | ((data: MessageType) => MessageType | messages.ErrorData)
+    | ((data: MessageType) => Promise<MessageType | messages.ErrorData>)
+    | ((data: MessageType) => null)
+    | null;
+
+interface MessageEventToMessageTypeMap {
+    [messages.MessageType.CLOUD_STATUS]: messages.CloudMediaStatus;
+    [messages.MessageType.CUSTOM_COMMAND]: messages.CustomCommandRequestData;
+    [messages.MessageType.DISPLAY_STATUS]: messages.DisplayStatusRequestData;
+    [messages.MessageType.EDIT_AUDIO_TRACKS]: messages.EditAudioTracksRequestData;
+    [messages.MessageType.EDIT_TRACKS_INFO]: messages.EditTracksInfoRequestData;
+    [messages.MessageType.FOCUS_STATE]: messages.FocusStateRequestData;
+    [messages.MessageType.GET_STATUS]: messages.GetStatusRequestData;
+    [messages.MessageType.LOAD]: messages.LoadRequestData;
+    [messages.MessageType.LOAD_BY_ENTITY]: messages.LoadByEntityRequestData;
+    [messages.MessageType.MEDIA_STATUS]: messages.MediaStatus;
+    [messages.MessageType.PRECACHE]: messages.PrecacheRequestData;
+    [messages.MessageType.PRELOAD]: messages.PreloadRequestData;
+    [messages.MessageType.QUEUE_CHANGE]: messages.QueueChange;
+    [messages.MessageType.QUEUE_GET_ITEMS]: messages.GetItemsInfoRequestData;
+    [messages.MessageType.QUEUE_GET_ITEM_RANGE]: messages.FetchItemsRequestData;
+    [messages.MessageType.QUEUE_INSERT]: messages.QueueInsertRequestData;
+    [messages.MessageType.QUEUE_ITEMS]: messages.ItemsInfo;
+    [messages.MessageType.QUEUE_ITEM_IDS]: messages.QueueIds;
+    [messages.MessageType.QUEUE_LOAD]: messages.QueueLoadRequestData;
+    [messages.MessageType.QUEUE_REMOVE]: messages.QueueRemoveRequestData;
+    [messages.MessageType.QUEUE_REORDER]: messages.QueueReorderRequestData;
+    [messages.MessageType.QUEUE_UPDATE]: messages.QueueUpdateRequestData;
+    [messages.MessageType.RESUME_SESSION]: messages.ResumeSessionRequestData;
+    [messages.MessageType.SEEK]: messages.SeekRequestData;
+    [messages.MessageType.SESSION_STATE]: messages.StoreSessionResponseData;
+    [messages.MessageType.SET_CREDENTIALS]: messages.SetCredentialsRequestData;
+    [messages.MessageType.SET_PLAYBACK_RATE]: messages.SetPlaybackRateRequestData;
+    [messages.MessageType.SET_VOLUME]: messages.VolumeRequestData;
+    [messages.MessageType.STORE_SESSION]: messages.StoreSessionRequestData;
+    [messages.MessageType.USER_ACTION]: messages.UserActionRequestData;
+}
+
 /**
  * Controls and monitors media playback.
+ * @throws Error If constructor is used directly. The PlayerManager should only
+ *         be accessed by calling {@link framework.CastReceiverContext#getPlayerManager}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.PlayerManager
  */
 export class PlayerManager {
-    constructor(params?: any);
-
     /**
      * Adds an event listener for events proxied from the @see{@link events.MediaElementEvent}.
      * See {@link https://dev.w3.org/html5/spec-preview/media-elements.html#mediaevents} for more information.
@@ -483,14 +532,16 @@ export class PlayerManager {
     getAudioTracksManager(): AudioTracksManager;
 
     /**
-     * Returns current time in sec in currently-playing break clip.
+     * @returns current time in sec in currently-playing break clip.
+     *    Null, if player is not playing break clip.
      */
-    getBreakClipCurrentTimeSec(): number;
+    getBreakClipCurrentTimeSec(): number | null;
 
     /**
-     * Returns duration in sec of currently-playing break clip.
+     * @returns duration in sec of currently-playing break clip.
+     *    Null, if player is not playing break clip.
      */
-    getBreakClipDurationSec(): number;
+    getBreakClipDurationSec(): number | null;
 
     /**
      * Obtain the breaks (Ads) manager.
@@ -513,19 +564,20 @@ export class PlayerManager {
     getDurationSec(): number;
 
     /**
-     * Returns live seekable range with start and end time in seconds. The values are media time based.
+     * @returns live seekable range with start and end time in seconds. The values
+     *     are media time based.
      */
-    getLiveSeekableRange(): messages.LiveSeekableRange;
+    getLiveSeekableRange(): messages.LiveSeekableRange | null;
 
     /**
      * Gets media information of current media.
      */
-    getMediaInformation(): messages.MediaInformation;
+    getMediaInformation(): messages.MediaInformation | null;
 
     /**
-     * Returns playback configuration.
+     * @returns playback configuration.
      */
-    getPlaybackConfig(): PlaybackConfig;
+    getPlaybackConfig(): PlaybackConfig | null;
 
     /**
      * Returns current playback rate.
@@ -546,12 +598,12 @@ export class PlayerManager {
     /**
      * Get the preferred text track language.
      */
-    getPreferredTextLanguage(): string;
+    getPreferredTextLanguage(): string | null;
 
     /**
      * Obtain QueueManager API.
      */
-    getQueueManager(): QueueManager;
+    getQueueManager(): QueueManager | null;
 
     getTextTracksManager(): TextTracksManager;
 
@@ -573,7 +625,7 @@ export class PlayerManager {
     /**
      * Requests a text string to be played back locally on the receiver device.
      */
-    playString(stringId: messages.PlayStringId, args?: string[]): Promise<messages.ErrorData>;
+    playString(stringId: messages.PlayStringId, args?: string[]): Promise<messages.ErrorData | null>;
 
     /**
      * Request Google Assistant to refresh the credentials. Only works if the original credentials came from the assistant.
@@ -628,7 +680,7 @@ export class PlayerManager {
     /**
      * Sets MediaElement to use. If Promise of MediaElement is set; media begins playback after Promise is resolved.
      */
-    setMediaElement(mediaElement: HTMLMediaElement): void;
+    setMediaElement(mediaElement: HTMLMediaElement | Promise<HTMLMediaElement>): void;
 
     /**
      * Sets media information.
@@ -658,223 +710,11 @@ export class PlayerManager {
      * provided, and no interceptor is provided for preload - the load
      * interceptor will be called for preload messages.
      */
-    setMessageInterceptor(
-        type: messages.MessageType.CLOUD_STATUS,
-        interceptor:
-            | ((messageData: messages.CloudMediaStatus) => messages.CloudMediaStatus)
-            | ((messageData: messages.CloudMediaStatus) => Promise<messages.CloudMediaStatus>)
-            | null,
+    setMessageInterceptor<MessageEvent extends keyof MessageEventToMessageTypeMap>(
+        type: MessageEvent,
+        interceptor: MessageInterceptor<MessageEventToMessageTypeMap[MessageEvent]>,
     ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.CUSTOM_COMMAND,
-        interceptor:
-            | ((messageData: messages.CustomCommandRequestData) => messages.CustomCommandRequestData)
-            | ((messageData: messages.CustomCommandRequestData) => Promise<messages.CustomCommandRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.DISPLAY_STATUS,
-        interceptor:
-            | ((messageData: messages.DisplayStatusRequestData) => messages.DisplayStatusRequestData)
-            | ((messageData: messages.DisplayStatusRequestData) => Promise<messages.DisplayStatusRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.EDIT_AUDIO_TRACKS,
-        interceptor:
-            | ((messageData: messages.EditAudioTracksRequestData) => messages.EditAudioTracksRequestData)
-            | ((messageData: messages.EditAudioTracksRequestData) => Promise<messages.EditAudioTracksRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.EDIT_TRACKS_INFO,
-        interceptor:
-            | ((messageData: messages.EditTracksInfoRequestData) => messages.EditTracksInfoRequestData)
-            | ((messageData: messages.EditTracksInfoRequestData) => Promise<messages.EditTracksInfoRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.FOCUS_STATE,
-        interceptor:
-            | ((messageData: messages.FocusStateRequestData) => messages.FocusStateRequestData)
-            | ((messageData: messages.FocusStateRequestData) => Promise<messages.FocusStateRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.GET_STATUS,
-        interceptor:
-            | ((messageData: messages.GetStatusRequestData) => messages.GetStatusRequestData)
-            | ((messageData: messages.GetStatusRequestData) => Promise<messages.GetStatusRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.LOAD,
-        interceptor:
-            | ((messageData: messages.LoadRequestData) => messages.LoadRequestData)
-            | ((messageData: messages.LoadRequestData) => Promise<messages.LoadRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.LOAD_BY_ENTITY,
-        interceptor:
-            | ((messageData: messages.LoadByEntityRequestData) => messages.LoadByEntityRequestData)
-            | ((messageData: messages.LoadByEntityRequestData) => Promise<messages.LoadByEntityRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.MEDIA_STATUS,
-        interceptor:
-            | ((messageData: messages.MediaStatus) => messages.MediaStatus)
-            | ((messageData: messages.MediaStatus) => Promise<messages.MediaStatus>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.PRECACHE,
-        interceptor:
-            | ((messageData: messages.PrecacheRequestData) => messages.PrecacheRequestData)
-            | ((messageData: messages.PrecacheRequestData) => Promise<messages.PrecacheRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.PRELOAD,
-        interceptor:
-            | ((messageData: messages.PreloadRequestData) => messages.PreloadRequestData)
-            | ((messageData: messages.PreloadRequestData) => Promise<messages.PreloadRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_CHANGE,
-        interceptor:
-            | ((messageData: messages.QueueChange) => messages.QueueChange)
-            | ((messageData: messages.QueueChange) => Promise<messages.QueueChange>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_GET_ITEMS,
-        interceptor:
-            | ((messageData: messages.GetItemsInfoRequestData) => messages.GetItemsInfoRequestData)
-            | ((messageData: messages.GetItemsInfoRequestData) => Promise<messages.GetItemsInfoRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_GET_ITEM_RANGE,
-        interceptor:
-            | ((messageData: messages.FetchItemsRequestData) => messages.FetchItemsRequestData)
-            | ((messageData: messages.FetchItemsRequestData) => Promise<messages.FetchItemsRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_INSERT,
-        interceptor:
-            | ((messageData: messages.QueueInsertRequestData) => messages.QueueInsertRequestData)
-            | ((messageData: messages.QueueInsertRequestData) => Promise<messages.QueueInsertRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_ITEMS,
-        interceptor:
-            | ((messageData: messages.ItemsInfo) => messages.ItemsInfo)
-            | ((messageData: messages.ItemsInfo) => Promise<messages.ItemsInfo>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_ITEM_IDS,
-        interceptor:
-            | ((messageData: messages.QueueIds) => messages.QueueIds)
-            | ((messageData: messages.QueueIds) => Promise<messages.QueueIds>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_LOAD,
-        interceptor:
-            | ((messageData: messages.QueueLoadRequestData) => messages.QueueLoadRequestData)
-            | ((messageData: messages.QueueLoadRequestData) => Promise<messages.QueueLoadRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_REMOVE,
-        interceptor:
-            | ((messageData: messages.QueueRemoveRequestData) => messages.QueueRemoveRequestData)
-            | ((messageData: messages.QueueRemoveRequestData) => Promise<messages.QueueRemoveRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_REORDER,
-        interceptor:
-            | ((messageData: messages.QueueReorderRequestData) => messages.QueueReorderRequestData)
-            | ((messageData: messages.QueueReorderRequestData) => Promise<messages.QueueReorderRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.QUEUE_UPDATE,
-        interceptor:
-            | ((messageData: messages.QueueUpdateRequestData) => messages.QueueUpdateRequestData)
-            | ((messageData: messages.QueueUpdateRequestData) => Promise<messages.QueueUpdateRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.RESUME_SESSION,
-        interceptor:
-            | ((messageData: messages.ResumeSessionRequestData) => messages.ResumeSessionRequestData)
-            | ((messageData: messages.ResumeSessionRequestData) => Promise<messages.ResumeSessionRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SEEK,
-        interceptor:
-            | ((messageData: messages.SeekRequestData) => messages.SeekRequestData)
-            | ((messageData: messages.SeekRequestData) => Promise<messages.SeekRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SESSION_STATE,
-        interceptor:
-            | ((messageData: messages.StoreSessionResponseData) => messages.StoreSessionResponseData)
-            | ((messageData: messages.StoreSessionResponseData) => Promise<messages.StoreSessionResponseData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_CREDENTIALS,
-        interceptor:
-            | ((messageData: messages.SetCredentialsRequestData) => messages.SetCredentialsRequestData)
-            | ((messageData: messages.SetCredentialsRequestData) => Promise<messages.SetCredentialsRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_PLAYBACK_RATE,
-        interceptor:
-            | ((messageData: messages.SetPlaybackRateRequestData) => messages.SetPlaybackRateRequestData)
-            | ((messageData: messages.SetPlaybackRateRequestData) => Promise<messages.SetPlaybackRateRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.SET_VOLUME,
-        interceptor:
-            | ((messageData: messages.VolumeRequestData) => messages.VolumeRequestData)
-            | ((messageData: messages.VolumeRequestData) => Promise<messages.VolumeRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.STORE_SESSION,
-        interceptor:
-            | ((messageData: messages.StoreSessionRequestData) => messages.StoreSessionRequestData)
-            | ((messageData: messages.StoreSessionRequestData) => Promise<messages.StoreSessionRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType.USER_ACTION,
-        interceptor:
-            | ((messageData: messages.UserActionRequestData) => messages.UserActionRequestData)
-            | ((messageData: messages.UserActionRequestData) => Promise<messages.UserActionRequestData>)
-            | null,
-    ): void;
-    setMessageInterceptor(
-        type: messages.MessageType,
-        interceptor:
-            | ((messageData: messages.RequestData) => messages.RequestData)
-            | ((messageData: messages.RequestData) => Promise<messages.RequestData>)
-            | null,
-    ): void;
+    setMessageInterceptor(type: messages.MessageType, interceptor: MessageInterceptor<messages.RequestData>): void;
 
     /**
      * Sets playback configuration on the PlayerManager.
@@ -882,16 +722,49 @@ export class PlayerManager {
     setPlaybackConfig(playbackConfig: PlaybackConfig): void;
 
     /**
-     * Set the preferred playback rate for follow up load or media items. The preferred playback rate will be updated automatically to the latest
-     * playback rate that was provided by a load request or explicit set of playback rate.
+     * Set receiver supported media commands.
+     * Flags describing which media commands the media player supports:
+     * 1  Pause
+     * 2  Seek
+     * 4  Stream volume
+     * 8  Stream mute
+     * 16  Skip forward
+     * 32  Skip backward
+     * Combinations are described as summations; for example, Pause+Seek+StreamVolume+Mute == 15.
      */
-    setPreferredPlaybackRate(preferredPlaybackRate: number): void;
+    setSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
 
     /**
-     * Set the preferred text track language. The preferred text track language will be updated automatically to the latest enabled language
-     * by a load request or explicit change to text tracks. (Should be called only in idle state; and Will only apply to next loaded media).
+     * Remove commands from receiver supported media commands.
+     * @param supportedMediaCommands A bitmask of media commands supported by the application.
+     * @param broadcastStatus Whether the senders should be notified about the change (if not provided, the senders will be notified).
      */
-    setPreferredTextLanguage(preferredTextLanguage: string): void;
+    removeSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Add commands to receiver supported media commands.
+     * @param supportedMediaCommands A bitmask of media commands supported by the application.
+     * @param broadcastStatus Whether the senders should be notified about the change (if not provided, the senders will be notified).
+     */
+    addSupportedMediaCommands(supportedMediaCommands: number, broadcastStatus?: boolean): void;
+
+    /**
+     * Gets the current receiver supported media commands.
+     * Should only be called after calling receiver start, otherwise it returns 0.
+     * This reflects the current media status. E.g. during ads playback, SEEK might not be supported.
+     *
+     * @returns A bitmask of media commands supported by the application.
+     */
+    getCurrentSupportedMediaCommands(): number;
+
+    /**
+     * Gets receiver supported media commands. Should only be called after calling receiver start, otherwise it returns 0.
+     * This is the static supported media commands set by receiver application.
+     * It won't be updated based on current media status.
+     *
+     * @returns A bitmask of media commands supported by the application.
+     */
+    getSupportedMediaCommands(): number;
 
     /**
      * Stops currently playing media.
@@ -906,57 +779,58 @@ export class PlaybackConfig {
     /**
      * Duration of buffered media in seconds to start buffering.
      */
-    autoPauseDuration?: number;
+    autoPauseDuration?: number | undefined;
 
     /**
      * Duration of buffered media in seconds to start/resume playback after auto-paused due to buffering.
      */
-    autoResumeDuration?: number;
+    autoResumeDuration?: number | undefined;
 
     /**
      * Minimum number of buffered segments to start/resume playback.
      */
-    autoResumeNumberOfSegments?: number;
+    autoResumeNumberOfSegments?: number | undefined;
 
     /**
      * A function to customize request to get a caption segment.
      */
-    captionsRequestHandler?: RequestHandler;
+    captionsRequestHandler?: RequestHandler | undefined;
 
     /**
      * Initial bandwidth in bits in per second.
      */
-    initialBandwidth?: number;
+    initialBandwidth?: number | undefined;
 
     /**
      * Custom license data.
      */
-    licenseCustomData?: string;
+    licenseCustomData?: string | undefined;
 
     /**
      * Handler to process license data. The handler is passed the license data; and returns the modified license data.
      */
-    licenseHandler?: BinaryHandler;
+    licenseHandler?: BinaryHandler | undefined;
 
     /**
      * A function to customize request to get a license.
      */
-    licenseRequestHandler?: RequestHandler;
+    licenseRequestHandler?: RequestHandler | undefined;
 
     /**
      * Url for acquiring the license.
      */
-    licenseUrl?: string;
+    licenseUrl?: string | undefined;
 
     /**
-     * Handler to process manifest data. The handler is passed the manifest; and returns the modified manifest.
+     * Handler to process manifest data. The handler is passed the manifest,
+     * and returns the modified manifest.
      */
-    manifestHandler?: (manifest: string) => string;
+    manifestHandler?: ((manifest: string) => string | Promise<string>) | undefined;
 
     /**
      * A function to customize request to get a manifest.
      */
-    manifestRequestHandler?: RequestHandler;
+    manifestRequestHandler?: RequestHandler | undefined;
 
     /**
      * Preferred protection system to use for decrypting content.
@@ -966,26 +840,27 @@ export class PlaybackConfig {
     /**
      * Handler to process segment data. The handler is passed the segment data; and returns the modified segment data.
      */
-    segmentHandler?: BinaryHandler;
+    segmentHandler?: BinaryHandler | undefined;
 
     /**
      * A function to customize request information to get a media segment.
      */
-    segmentRequestHandler?: RequestHandler;
+    segmentRequestHandler?: RequestHandler | undefined;
 
     /**
      * Maximum number of times to retry a network request for a segment.
      */
-    segmentRequestRetryLimit?: number;
+    segmentRequestRetryLimit?: number | undefined;
 }
 /**
  * HTTP(s) Request/Response information.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.NetworkRequestInfo
  */
 export class NetworkRequestInfo {
     /**
      * The content of the request. Can be used to modify license request body.
      */
-    content: Uint8Array;
+    content: Uint8Array | null;
 
     /**
      * An object containing properties that you would like to send in the header.
@@ -995,7 +870,7 @@ export class NetworkRequestInfo {
     /**
      * The URL requested.
      */
-    url: string;
+    url: string | null;
 
     /**
      * Indicates whether CORS Access-Control requests should be made using credentials such as cookies or authorization headers.
@@ -1016,12 +891,12 @@ export class CastReceiverOptions {
      * If true, the receiver will not set an idle timeout to close receiver if there is no activity.
      * Should only be used for non media apps.
      */
-    disableIdleTimeout?: boolean;
+    disableIdleTimeout?: boolean | undefined;
 
     /**
      * Sender id used for local requests. Default value is 'local'.
      */
-    localSenderId?: string;
+    localSenderId?: string | undefined;
 
     /**
      * Maximum time in seconds before closing an idle sender connection.
@@ -1030,61 +905,61 @@ export class CastReceiverOptions {
      * The minimum value is 5 seconds; there is no upper bound enforced but practically it's minutes before platform TCP timeouts come into play.
      * Default value is 10 seconds.
      */
-    maxInactivity?: number;
+    maxInactivity?: number | undefined;
 
     /**
      * Optional media element to play content with. Default behavior is to use the first found media element in the page.
      */
-    mediaElement?: HTMLMediaElement;
+    mediaElement?: HTMLMediaElement | undefined;
 
     /**
      * Optional playback configuration.
      */
-    playbackConfig?: PlaybackConfig;
+    playbackConfig?: PlaybackConfig | undefined;
 
     /**
      * If this is true; the watched client stitching break will also be played.
      */
-    playWatchedBreak?: boolean;
+    playWatchedBreak?: boolean | undefined;
 
     /**
      * Preferred value for player playback rate. It is used if playback rate value is not provided in the load request.
      */
-    preferredPlaybackRate?: number;
+    preferredPlaybackRate?: number | undefined;
 
     /**
      * Preferred text track language. It is used if no active track is provided in the load request.
      */
-    preferredTextLanguage?: string;
+    preferredTextLanguage?: string | undefined;
 
     /**
      * Optional queue implementation.
      */
-    queue?: QueueBase;
+    queue?: QueueBase | undefined;
 
     /**
      * Text that represents the application status.
      * It should meet internationalization rules as may be displayed by the sender application.
      */
-    statusText?: string;
+    statusText?: string | undefined;
 
     /**
      * A bitmask of media commands supported by the application.
      * LOAD; PLAY; STOP; GET_STATUS must always be supported.
      * If this value is not provided; then PAUSE; SEEK; STREAM_VOLUME; STREAM_MUTE are assumed to be supported too.
      */
-    supportedCommands?: number;
+    supportedCommands?: number | undefined;
 
     /**
      * Indicate that MPL should be used for DASH content.
      */
-    useLegacyDashSupport?: boolean;
+    useLegacyDashSupport?: boolean | undefined;
 
     /**
      * An integer used as an internal version number.
      * This number is used only to distinguish between receiver releases and higher numbers do not necessarily have to represent newer releases.
      */
-    versionCode?: number;
+    versionCode?: number | undefined;
 }
 
 /** Manages loading of underlying libraries and initializes underlying cast receiver SDK. */
@@ -1092,17 +967,15 @@ export class CastReceiverContext {
     /** Returns the CastReceiverContext singleton instance. */
     static getInstance(): CastReceiverContext;
 
-    constructor(params: any);
-
     /**
      * Sets message listener on custom message channel.
      */
-    addCustomMessageListener(namespace: string, listener: EventHandler): void;
+    addCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
 
     /**
      * Add listener to cast system events.
      */
-    addEventListener(type: system.EventType | system.EventType[], handler: EventHandler): void;
+    addEventListener(type: system.EventType | system.EventType[], handler: SystemEventHandler): void;
 
     /**
      * Checks if the given media params of video or audio streams are supported by the platform.
@@ -1110,9 +983,9 @@ export class CastReceiverContext {
     canDisplayType(mimeType: string, codecs?: string, width?: number, height?: number, framerate?: number): boolean;
 
     /**
-     * Provides application information once the system is ready; otherwise it will be null.
+     * Provides application information once the system is ready, otherwise it will be null.
      */
-    getApplicationData(): system.ApplicationData;
+    getApplicationData(): system.ApplicationData | null;
 
     /**
      * Provides device capabilities information once the system is ready; otherwise it will be null.
@@ -1128,7 +1001,7 @@ export class CastReceiverContext {
     /**
      * Get a sender by sender id
      */
-    getSender(senderId: string): system.Sender;
+    getSender(senderId: string): system.Sender | null;
 
     /**
      * Gets a list of currently-connected senders.
@@ -1147,8 +1020,11 @@ export class CastReceiverContext {
 
     /**
      * Reports if the cast application is the HDMI active input.
+     * @returns Whether the application is the HDMI active input. If it can not
+     *     be determined, because the TV does not support CEC commands, for
+     *     example, the value returned is UNKNOWN.
      */
-    getVisibilityState(): any;
+    getVisibilityState(): system.VisibilityState;
 
     /**
      * When the application calls start; the system will send the ready event to indicate
@@ -1165,17 +1041,17 @@ export class CastReceiverContext {
     /**
      * Remove a message listener on custom message channel.
      */
-    removeCustomMessageListener(namespace: string, listener: EventHandler): void;
+    removeCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
 
     /**
      * Remove listener to cast system events.
      */
-    removeEventListener(type: system.EventType, handler: EventHandler): void;
+    removeEventListener(type: system.EventType, handler: SystemEventHandler): void;
 
     /**
-     * Sends a message to a specific sender.
+     * Sends a message to a specific sender or broadcasts it to all connected senders (to broadcast pass undefined as a senderId).
      */
-    sendCustomMessage(namespace: string, senderId: string, message: any): void;
+    sendCustomMessage(namespace: string, senderId: string | undefined, message: any): void;
 
     /**
      * This function should be called in response to the feedbackstarted event if the application
@@ -1214,12 +1090,28 @@ export class CastReceiverContext {
     stop(): void;
 }
 
-/** Manages audio tracks. */
+/**
+ * Manages audio tracks.
+ * @throws Error If constructor is used directly. The AudioTracksManager should
+ *     only be accessed by calling {@link framework.PlayerManager#getAudioTracksManager}
+ *
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.AudioTracksManager
+ */
 export class AudioTracksManager {
-    constructor(params: any);
-    getActiveId(): number;
-    getActiveTrack(): messages.Track;
-    getTrackById(id: number): messages.Track;
+    /**
+     * Gets the active audio id.
+     */
+    getActiveId(): number | undefined;
+    /**
+     * Gets the active audio track.
+     */
+    getActiveTrack(): messages.Track | undefined;
+    /**
+     * Gets audio track by id.
+     * @param id
+     * @throws Error  If id is not available or invalid.
+     */
+    getTrackById(id: number): messages.Track | undefined;
     getTracks(): messages.Track[];
     getTracksByLanguage(language: string): messages.Track[];
     setActiveById(id: number): void;

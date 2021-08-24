@@ -1,11 +1,11 @@
-import * as tty from 'tty';
-import { Readable } from 'stream';
+import * as tty from 'node:tty';
+import { Readable } from 'node:stream';
 
 const rs: tty.ReadStream = new tty.ReadStream(0);
 const ws: tty.WriteStream = new tty.WriteStream(1);
 
 const rsIsRaw: boolean = rs.isRaw;
-rs.setRawMode(true);
+const rawRs: tty.ReadStream = rs.setRawMode(true);
 
 const wsColumns: number = ws.columns;
 const wsRows: number = ws.rows;

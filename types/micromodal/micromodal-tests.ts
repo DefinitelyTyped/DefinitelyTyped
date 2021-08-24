@@ -5,8 +5,10 @@ const config: MicroModalConfig = {
     onClose: (modal) => { console.log(modal!.id); },
     openTrigger: 'data-modal-open',
     closeTrigger: 'data-modal-close',
+    openClass: "opened",
     disableScroll: true,
     disableFocus: true,
+    awaitOpenAnimation: true,
     awaitCloseAnimation: true,
     debugMode: true
 };

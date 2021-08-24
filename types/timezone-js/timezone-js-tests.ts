@@ -7,14 +7,14 @@ var str: string;
 var bool: boolean;
 
 var opts: timezone.TimezoneJsOptions = {
-	async: bool,
-	success: (data: string) => {
+    async: bool,
+    success: (data: string) => {
 
-	},
-	error: (err: Error) => {
+    },
+    error: (err: Error) => {
 
-	},
-	url: str
+    },
+    url: str
 };
 
 str = tz.zoneFileBasePath;

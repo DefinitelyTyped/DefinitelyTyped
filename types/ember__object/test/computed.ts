@@ -31,7 +31,7 @@ import ComputedProperty, {
     uniq,
     deprecatingAlias,
     bool,
-    collect
+    collect,
 } from '@ember/object/computed';
 import { assertType } from './lib/assert';
 
@@ -42,11 +42,11 @@ const Person = EmberObject.extend({
 
     noArgs: computed<string>(() => 'test'),
 
-    fullName: computed<string>('firstName', 'lastName', function() {
+    fullName: computed<string>('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 
-    fullNameReadonly: computed<string>('fullName', function() {
+    fullNameReadonly: computed<string>('fullName', function () {
         return this.get('fullName');
     }).readOnly(),
 
@@ -59,13 +59,13 @@ const Person = EmberObject.extend({
             this.set('firstName', first);
             this.set('lastName', last);
             return value;
-        }
+        },
     }),
 
     fullNameGetOnly: computed<string>('fullName', {
         get() {
             return this.get('fullName');
-        }
+        },
     }),
 
     fullNameSetOnly: computed<string>('firstName', 'lastName', {
@@ -74,15 +74,16 @@ const Person = EmberObject.extend({
             this.set('firstName', first);
             this.set('lastName', last);
             return value;
-        }
+        },
     }),
 
-    combinators: computed<string>(function() {
+    combinators: computed<string>(function () {
         return this.get('firstName');
-    }).property('firstName')
-      .meta({ foo: 'bar' })
-      .volatile()
-      .readOnly(),
+    })
+        .property('firstName')
+        .meta({ foo: 'bar' })
+        .volatile()
+        .readOnly(),
 
     explicitlyDeclared: alias('fullName') as ComputedProperty<string>,
 });
@@ -115,10 +116,10 @@ assertType<string>(person.get('fullNameSetOnly'));
 assertType<string>(person.get('combinators'));
 assertType<string>(person.get('explicitlyDeclared'));
 
-assertType<{ firstName: string, fullName: string, age: number }>(person.getProperties('firstName', 'fullName', 'age'));
+assertType<{ firstName: string; fullName: string; age: number }>(person.getProperties('firstName', 'fullName', 'age'));
 
 const person2 = Person.create({
-    fullName: 'Fred Smith'
+    fullName: 'Fred Smith',
 });
 
 assertType<string>(person2.get('firstName'));
@@ -126,7 +127,7 @@ assertType<string>(person2.get('fullName'));
 
 const person3 = Person.extend({
     firstName: 'Fred',
-    fullName: 'Fred Smith'
+    fullName: 'Fred Smith',
 }).create();
 
 assertType<string>(person3.get('firstName'));
@@ -134,7 +135,7 @@ assertType<string>(person3.get('fullName'));
 
 const person4 = Person.extend({
     firstName: computed(() => 'Fred'),
-    fullName: computed(() => 'Fred Smith')
+    fullName: computed(() => 'Fred Smith'),
 }).create();
 
 assertType<string>(person4.get('firstName'));
@@ -148,13 +149,14 @@ const objectWithComputedProperties = EmberObject.extend({
     collect: collect('foo', 'bar', 'baz', 'qux'),
     deprecatingAlias: deprecatingAlias('foo', {
         id: 'hamster.deprecate-banana',
-        until: '3.0.0'
+        until: '3.0.0',
     }),
     empty: empty('foo'),
     equalNumber: equal('foo', 1),
     equalString: equal('foo', 'bar'),
     equalObject: equal('foo', {}),
-    filter: filter('foo', (item) => item === 'bar'),
+    filter1: filter('foo', item => item === 'bar'),
+    filter2: filter('foo', ['bar', 'baz'], item => item === 'bar'),
     filterBy1: filterBy('foo', 'bar'),
     filterBy2: filterBy('foo', 'bar', false),
     gt: gt('foo', 3),
@@ -185,14 +187,24 @@ const objectWithComputedProperties = EmberObject.extend({
             return 0;
         }
     }),
+    sort3: sort('foo', ['bar', 'baz'], (itemA, itemB) => {
+        if (itemA < itemB) {
+            return -1;
+        } else if (itemA > itemB) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }),
+
     sum: sum('foo'),
     union: union('foo', 'bar', 'baz', 'qux'),
     uniq: uniq('foo'),
-    uniqBy: uniqBy('foo', 'bar')
+    uniqBy: uniqBy('foo', 'bar'),
 });
 
 const component2 = EmberObject.extend({
-    isAnimal: or('isDog', 'isCat')
+    isAnimal: or('isDog', 'isCat'),
 }).create();
 
 assertType<boolean>(component2.get('isAnimal'));

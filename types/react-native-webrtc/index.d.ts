@@ -35,6 +35,8 @@ export type RTCIceConnectionState =
     | "disconnected"
     | "closed";
 
+export type RTCPeerConnectionState = "new" | "connecting" | "connected" | "disconnected" | "failed" | "closed";
+
 export class MediaStreamTrack {
     private _enabled: boolean;
 
@@ -89,8 +91,8 @@ export class MediaStream {
 }
 
 export interface ConfigurationParam {
-    username?: string;
-    credential?: string;
+    username?: string | undefined;
+    credential?: string | undefined;
 }
 
 export interface ConfigurationParamWithUrls extends ConfigurationParam {
@@ -103,7 +105,10 @@ export interface ConfigurationParamWithUrl extends ConfigurationParam {
 
 export interface RTCPeerConnectionConfiguration {
     iceServers: ConfigurationParamWithUrls[] | ConfigurationParamWithUrl[];
-    iceTransportPolicy?: "all" | "public" | "relay";
+    iceTransportPolicy?: "all" | "relay" | "nohost" | "none" | undefined;
+    bundlePolicy?: "balanced" | "max-compat" | "max-bundle" | undefined;
+    rtcpMuxPolicy?: "negotiate" | "require" | undefined;
+    iceCandidatePoolSize?: number | undefined;
 }
 
 export interface EventOnCandidate {
@@ -123,17 +128,16 @@ export interface EventOnAddStream {
 export class RTCPeerConnection {
     localDescription: RTCSessionDescriptionType;
     remoteDescription: RTCSessionDescriptionType;
+    connectionState: RTCPeerConnectionState;
 
     signalingState: RTCSignalingState;
     private privateiceGatheringState: RTCIceGatheringState;
     private privateiceConnectionState: RTCIceConnectionState;
 
-    onconnectionstatechange: () => void | undefined;
+    onconnectionstatechange: (event: Event) => void | undefined;
     onicecandidate: (event: EventOnCandidate) => void | undefined;
     onicecandidateerror: (error: Error) => void | undefined;
-    oniceconnectionstatechange: (
-        event: EventOnConnectionStateChange
-    ) => void | undefined;
+    oniceconnectionstatechange: (event: EventOnConnectionStateChange) => void | undefined;
     onicegatheringstatechange: () => void | undefined;
     onnegotiationneeded: () => void | undefined;
     onsignalingstatechange: () => void | undefined;
@@ -154,19 +158,15 @@ export class RTCPeerConnection {
 
     removeStream(stream: MediaStream): void;
 
-    createOffer(): Promise<RTCSessionDescriptionType>;
+    createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionType>;
 
-    createAnswer(): Promise<RTCSessionDescriptionType>;
+    createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionType>;
 
     setConfiguration(configuration: RTCPeerConnectionConfiguration): void;
 
-    setLocalDescription(
-        sessionDescription: RTCSessionDescriptionType
-    ): Promise<void>;
+    setLocalDescription(sessionDescription: RTCSessionDescriptionType): Promise<void>;
 
-    setRemoteDescription(
-        sessionDescription: RTCSessionDescriptionType
-    ): Promise<void>;
+    setRemoteDescription(sessionDescription: RTCSessionDescriptionType): Promise<void>;
 
     addIceCandidate(candidate: RTCIceCandidateType): Promise<void>;
 
@@ -178,10 +178,7 @@ export class RTCPeerConnection {
 
     close(): void;
 
-    private _getTrack(
-        streamReactTag: string,
-        trackId: string
-    ): MediaStreamTrack;
+    private _getTrack(streamReactTag: string, trackId: string): MediaStreamTrack;
 
     private _unregisterEvents(): void;
 
@@ -229,8 +226,8 @@ export interface MediaTrackConstraints {
 }
 
 export interface MediaStreamConstraints {
-    video?: boolean | MediaTrackConstraints;
-    audio?: boolean;
+    video?: boolean | MediaTrackConstraints | undefined;
+    audio?: boolean | undefined;
 }
 
 export class mediaDevices {
@@ -238,17 +235,28 @@ export class mediaDevices {
 
     static enumerateDevices(): Promise<any>;
 
-    static getUserMedia(constraints: MediaStreamConstraints): MediaStream;
+    static getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream | boolean>;
 }
 
 export function registerGlobals(): void;
 
 export interface RTCViewProps {
     streamURL: string;
-    mirror?: boolean;
-    zOrder?: number;
-    objectFit?: "contain" | "cover";
-    style?: ViewStyle;
+    mirror?: boolean | undefined;
+    zOrder?: number | undefined;
+    objectFit?: "contain" | "cover" | undefined;
+    style?: ViewStyle | undefined;
 }
 
 export class RTCView extends Component<RTCViewProps, any> {}
+
+export interface RTCOfferOptions {
+    iceRestart?: boolean | undefined;
+    offerToReceiveAudio?: boolean | undefined;
+    offerToReceiveVideo?: boolean | undefined;
+    voiceActivityDetection?: boolean | undefined;
+}
+
+export interface RTCAnswerOptions {
+    voiceActivityDetection?: boolean | undefined;
+}

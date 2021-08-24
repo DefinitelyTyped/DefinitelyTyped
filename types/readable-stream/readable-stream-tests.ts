@@ -1,21 +1,7 @@
-import stream = require("stream");
 import RStream = require("readable-stream");
 
-function testTypes() {
-    const ANY: any = null;
-    const _readableOpts: stream.ReadableOptions = ANY as RStream.ReadableOptions;
-    const _writableOpts: stream.WritableOptions = ANY as RStream.WritableOptions;
-    const _transformOpts: stream.TransformOptions = ANY as RStream.TransformOptions;
-    const _duplexOpts: stream.DuplexOptions = ANY as RStream.DuplexOptions;
-
-    const _readable: typeof stream.Readable = RStream.Readable;
-    const _writable: typeof stream.Writable = RStream.Writable;
-    const _transform: typeof stream.Transform = RStream.Transform;
-    const _duplex: typeof stream.Duplex = RStream.Duplex;
-}
-
 function test() {
-    const rs: stream.Stream = (null as any) as RStream.Stream;
+    const rs: RStream.Stream = (null as any) as RStream.Stream;
     const RS_Readable = RStream;
     const RS_Writable = RStream.Writable;
     const RS_Transform = RStream.Transform;
@@ -84,7 +70,8 @@ function test() {
             assertType<any>(chunk);
             assertType<string>(enc);
             assertType<(err?: Error | null) => void>(cb);
-        }
+        },
+        writableObjectMode: false
     });
     assertType<boolean>(streamD.allowHalfOpen);
     assertType<boolean>(streamD.readable);
@@ -92,6 +79,14 @@ function test() {
     assertType<boolean>(streamD.readableObjectMode);
     assertType<boolean>(streamD.writableObjectMode);
     streamD.pipe(streamW);
+    const typedEncoding: BufferEncoding = "binary";
+    streamD.setEncoding(typedEncoding);
+
+    const testBufferEncoding = new RS_Duplex({
+        write(chunk: any, enc: BufferEncoding, cb: (err?: Error | null) => void) {
+            assertType<BufferEncoding>(enc);
+        }
+    });
 
     rs.addListener("read", (...args: any[]) => console.log(args));
     rs.emit("read", 1, 2, 3);

@@ -2,17 +2,16 @@ import * as React from "react";
 import { DownshiftTypedProps, ListBoxBaseItemType } from "../../../typings/shared";
 import { MultiSelectProps } from "./MultiSelect";
 
-interface InheritedProps<ItemType extends ListBoxBaseItemType> extends MultiSelectProps<ItemType> { }
-
-interface FilterItemsExtra<ItemType> {
+interface FilterItemsExtra<T> {
     inputValue: string,
-    itemToString: NonNullable<DownshiftTypedProps<ItemType>["itemToString"]>,
+    itemToString: NonNullable<DownshiftTypedProps<T>["itemToString"]>,
 }
 
-export interface FilterableMultiSelectProps<ItemType extends ListBoxBaseItemType = string> extends InheritedProps<ItemType> {
-    filterItems?(items: ReadonlyArray<ItemType>, extra: FilterItemsExtra<ItemType>): ItemType[],
+export interface FilterableMultiSelectProps<T extends ListBoxBaseItemType = string> extends MultiSelectProps<T> {
+    filterItems?(items: readonly T[], extra: FilterItemsExtra<T>): T[],
+    placeholder: string;
 }
 
-declare class FilterableMultiSelect extends React.Component<FilterableMultiSelectProps> { }
+declare class FilterableMultiSelect<T extends ListBoxBaseItemType = string> extends React.Component<FilterableMultiSelectProps<T>> { }
 
 export default FilterableMultiSelect;

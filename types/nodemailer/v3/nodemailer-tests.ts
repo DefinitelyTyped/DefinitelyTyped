@@ -61,7 +61,7 @@ var mailOptions: nodemailer.SendMailOptions = {
 
 // send mail with defined transport object
 transporter.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
-	// nothing
+    // nothing
 });
 
 // promise send mail without callback

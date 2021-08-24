@@ -34,11 +34,53 @@ passport.use(
         {
             callbackURL,
             clientID,
-            clientSecret
+            clientSecret,
+        },
+        (_accessToken, _refreshToken, profile, done) => {
+            User.findOrCreate(profile.id, profile.provider, (err, user) => {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                done(null, user);
+            });
+        },
+    ),
+);
+
+passport.use(
+    new google.Strategy(
+        {
+            callbackURL,
+            clientID,
+            clientSecret,
+            passReqToCallback: true,
+        },
+        (_request, _accessToken, _refreshToken, profile, done) => {
+            User.findOrCreate(profile.id, profile.provider, (err, user) => {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                done(null, user);
+            });
+        },
+    ),
+);
+
+passport.use(
+    new google.Strategy(
+        {
+            callbackURL,
+            clientID,
+            clientSecret,
+            passReqToCallback: true
         },
         (
+            request: express.Request,
             accessToken: string,
             refreshToken: string,
+            params: google.GoogleCallbackParameters,
             profile: google.Profile,
             done: (error: any, user?: any) => void
         ) => {
@@ -59,12 +101,11 @@ passport.use(
             callbackURL,
             clientID,
             clientSecret,
-            passReqToCallback: true
         },
         (
-            request: express.Request,
             accessToken: string,
             refreshToken: string,
+            params: google.GoogleCallbackParameters,
             profile: google.Profile,
             done: (error: any, user?: any) => void
         ) => {

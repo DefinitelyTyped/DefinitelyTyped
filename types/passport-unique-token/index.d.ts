@@ -9,20 +9,20 @@ import passport = require('passport');
 import express = require('express');
 
 export interface StrategyOptions {
-    tokenField?: string;
-    tokenQuery?: string;
-    tokenParams?: string;
-    tokenHeader?: string;
-    failedOnMissing?: boolean;
-    passReqToCallback?: false;
+    tokenField?: string | undefined;
+    tokenQuery?: string | undefined;
+    tokenParams?: string | undefined;
+    tokenHeader?: string | undefined;
+    failedOnMissing?: boolean | undefined;
+    passReqToCallback?: false | undefined;
 }
 
 export interface StrategyOptionsWithRequest {
-    tokenField?: string;
-    tokenQuery?: string;
-    tokenParams?: string;
-    tokenHeader?: string;
-    failedOnMissing?: boolean;
+    tokenField?: string | undefined;
+    tokenQuery?: string | undefined;
+    tokenParams?: string | undefined;
+    tokenHeader?: string | undefined;
+    failedOnMissing?: boolean | undefined;
     passReqToCallback: true;
 }
 

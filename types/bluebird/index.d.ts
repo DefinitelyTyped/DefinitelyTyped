@@ -1,8 +1,7 @@
 // Type definitions for bluebird 3.5
 // Project: https://github.com/petkaantonov/bluebird
-// Definitions by: Leonard Hecker <https://github.com/lhecker>, thislooksfun <https://github.com/thislooksfun>
+// Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 
 /*!
  * The code following this comment originates from:
@@ -39,6 +38,28 @@ type Constructor<E> = new (...args: any[]) => E;
 type CatchFilter<E> = ((error: E) => boolean) | (object & E);
 type Resolvable<R> = R | PromiseLike<R>;
 type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => Resolvable<R>;
+
+type PromisifyAllKeys<T> = T extends string ? `${T}Async` : never;
+type WithoutLast<T> = T extends [...infer A, any] ? A : [];
+type Last<T> = T extends [...any[], infer L] ? L : never;
+type ExtractCallbackValueType<T> = T extends (error: any, ...data: infer D) => any ? D : never;
+
+type PromiseMethod<TArgs, TReturn> = TReturn extends never ? never : (...args: WithoutLast<TArgs>) => Promise<TReturn>;
+
+type ExtractAsyncMethod<T> = T extends (...args: infer A) => any
+  ? PromiseMethod<A, ExtractCallbackValueType<Last<Required<A>>>[0]>
+  : never;
+
+type PromisifyAllItems<T> = {
+  [K in keyof T as PromisifyAllKeys<K>]: ExtractAsyncMethod<T[K]>;
+};
+
+type NonNeverValues<T> = {
+  [K in keyof T as T[K] extends never ? never : K]: T[K];
+};
+
+// Drop `never` values
+type PromisifyAll<T> = NonNeverValues<PromisifyAllItems<T>> & T;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   readonly [Symbol.toStringTag]: "Object";
@@ -566,7 +587,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  all<Q>(this: Bluebird<R & Iterable<Q>>): Bluebird<R>;
+  all<T1, T2, T3, T4, T5>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]>): Bluebird<[T1, T2, T3, T4, T5]>;
+  all<T1, T2, T3, T4>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]>): Bluebird<[T1, T2, T3, T4]>;
+  all<T1, T2, T3>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]>): Bluebird<[T1, T2, T3]>;
+  all<T1, T2>(this: Bluebird<[Resolvable<T1>, Resolvable<T2>]>): Bluebird<[T1, T2]>;
+  all<T1>(this: Bluebird<[Resolvable<T1>]>): Bluebird<[T1]>;
+  all<R>(this: Bluebird<Iterable<Resolvable<R>>>): Bluebird<R[]>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -688,7 +714,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Create a promise with undecided fate and return a `PromiseResolver` to control it. See resolution?: Promise(#promise-resolution).
    * @see http://bluebirdjs.com/docs/deprecated-apis.html#promise-resolution
    */
-  static defer<R>(): Bluebird.Resolver<R>; // tslint:disable-line no-unnecessary-generics
+  static defer<R>(): Bluebird.Resolver<R>;
 
   /**
    * Cast the given `value` to a trusted promise.
@@ -770,7 +796,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
    */
   // TODO how to model promisifyAll?
-  static promisifyAll<T extends object>(target: T, options?: Bluebird.PromisifyAllOptions<T>): T;
+  static promisifyAll<T extends object>(target: T, options?: Bluebird.PromisifyAllOptions<T>): PromisifyAll<T>;
 
   /**
    * Returns a promise that is resolved by a node style callback function.
@@ -855,6 +881,15 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   // array with values
   static all<R>(values: Resolvable<Iterable<Resolvable<R>>>): Bluebird<R[]>;
 
+  static allSettled<T1, T2, T3, T4, T5>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>, Resolvable<T5>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>,
+    Bluebird.Inspection<T3>, Bluebird.Inspection<T4>, Bluebird.Inspection<T5>]>;
+  static allSettled<T1, T2, T3, T4>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>, Resolvable<T4>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>,
+    Bluebird.Inspection<T3>, Bluebird.Inspection<T4>]>;
+  static allSettled<T1, T2, T3>(values: [Resolvable<T1>, Resolvable<T2>, Resolvable<T3>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>, Bluebird.Inspection<T3>]>;
+  static allSettled<T1, T2>(values: [Resolvable<T1>, Resolvable<T2>]): Bluebird<[Bluebird.Inspection<T1>, Bluebird.Inspection<T2>]>;
+  static allSettled<T1>(values: [Resolvable<T1>]): Bluebird<[Bluebird.Inspection<T1>]>;
+  static allSettled<R>(values: Resolvable<Iterable<Resolvable<R>>>): Bluebird<Array<Bluebird.Inspection<R>>>;
+
   /**
    * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled.
    *
@@ -869,7 +904,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   // map
   static props<K, V>(map: Resolvable<Map<K, Resolvable<V>>>): Bluebird<Map<K, V>>;
   // trusted promise for object
-  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>; // tslint:disable-line:unified-signatures
+  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
   // object
   static props<T>(object: Bluebird.ResolvableProps<T>): Bluebird<T>; // tslint:disable-line:unified-signatures
 
@@ -1066,13 +1101,15 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     warnings?: boolean | {
       /** Enables all warnings except forgotten return statements. */
       wForgottenReturn: boolean;
-    };
+    } | undefined;
     /** Enable long stack traces */
-    longStackTraces?: boolean;
+    longStackTraces?: boolean | undefined;
     /** Enable cancellation */
-    cancellation?: boolean;
+    cancellation?: boolean | undefined;
     /** Enable monitoring */
-    monitoring?: boolean;
+    monitoring?: boolean | undefined;
+    /** Enable async hooks */
+    asyncHooks?: boolean | undefined;
   }): void;
 
   /**
@@ -1095,14 +1132,14 @@ declare namespace Bluebird {
     spread: boolean;
   }
   interface FromNodeOptions {
-    multiArgs?: boolean;
+    multiArgs?: boolean | undefined;
   }
   interface PromisifyOptions {
     context?: any;
-    multiArgs?: boolean;
+    multiArgs?: boolean | undefined;
   }
   interface PromisifyAllOptions<T> extends PromisifyOptions {
-    suffix?: string;
+    suffix?: string | undefined;
     filter?(name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean): boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
     promisifier?(this: T, originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>): () => PromiseLike<any>;

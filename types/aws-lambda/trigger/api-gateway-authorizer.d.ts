@@ -1,39 +1,125 @@
-import { APIGatewayEventRequestContext, AuthResponseContext } from "../common/api-gateway";
+import {
+    APIGatewayAuthorizerResultContext,
+    APIGatewayEventDefaultAuthorizerContext,
+    APIGatewayEventRequestContextWithAuthorizer,
+} from "../common/api-gateway";
 import { Callback, Handler } from "../handler";
 
-export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
-export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
+export type APIGatewayAuthorizerHandler = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
+    Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
-// API Gateway CustomAuthorizer "event"
+export type APIGatewayAuthorizerCallback = Callback<APIGatewayAuthorizerResult>;
+export type APIGatewayAuthorizerWithContextCallback<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
+    Callback<APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
+
+export type APIGatewayTokenAuthorizerHandler =
+    Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayTokenAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
+    Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
+
+export type APIGatewayRequestAuthorizerHandler =
+    Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayRequestAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
+    Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
+
+export type APIGatewayAuthorizerEvent = APIGatewayTokenAuthorizerEvent | APIGatewayRequestAuthorizerEvent;
+
+export interface APIGatewayTokenAuthorizerEvent {
+    type: "TOKEN";
+    methodArn: string;
+    authorizationToken: string;
+}
+
+export interface APIGatewayRequestAuthorizerEventHeaders {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventMultiValueHeaders {
+    [name: string]: string[] | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventPathParameters {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventQueryStringParameters {
+    [name: string]: string | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventMultiValueQueryStringParameters {
+    [name: string]: string[] | undefined;
+}
+
+export interface APIGatewayRequestAuthorizerEventStageVariables {
+    [name: string]: string | undefined;
+}
+
+// Note, when invoked by the tester in the AWS web console, the map values can be null,
+// but they will be empty objects in the real object.
+// Worse, it will include "body" and "isBase64Encoded" properties, unlike the real call!
+// See https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-input.html for the
+// formal definition.
+export interface APIGatewayRequestAuthorizerEvent {
+    type: "REQUEST";
+    methodArn: string;
+    resource: string;
+    path: string;
+    httpMethod: string;
+    headers: APIGatewayRequestAuthorizerEventHeaders | null;
+    multiValueHeaders: APIGatewayRequestAuthorizerEventMultiValueHeaders | null;
+    pathParameters: APIGatewayRequestAuthorizerEventPathParameters | null;
+    queryStringParameters: APIGatewayRequestAuthorizerEventQueryStringParameters | null;
+    multiValueQueryStringParameters: APIGatewayRequestAuthorizerEventMultiValueQueryStringParameters | null;
+    stageVariables: APIGatewayRequestAuthorizerEventStageVariables | null;
+    requestContext: APIGatewayEventRequestContextWithAuthorizer<undefined>;
+}
+
+export interface APIGatewayAuthorizerResult {
+    principalId: string;
+    policyDocument: PolicyDocument;
+    context?: APIGatewayAuthorizerResultContext | null | undefined;
+    usageIdentifierKey?: string | null | undefined;
+}
+
+// Separate type so the context property is required, without pulling complex type magic.
+export interface APIGatewayAuthorizerWithContextResult<TAuthorizerContext extends APIGatewayAuthorizerResultContext> {
+    principalId: string;
+    policyDocument: PolicyDocument;
+    context: TAuthorizerContext;
+    usageIdentifierKey?: string | null | undefined;
+}
+
+// Legacy event / names
+
+/** @deprecated Use APIGatewayAuthorizerHandler or a subtype */
+export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, APIGatewayAuthorizerResult>;
+
+// This one is actually fine.
+export type CustomAuthorizerCallback = APIGatewayAuthorizerCallback;
+
+/** @deprecated Use APIGatewayAuthorizerEvent or a subtype */
 export interface CustomAuthorizerEvent {
     type: string;
     methodArn: string;
-    authorizationToken?: string;
-    resource?: string;
-    path?: string;
-    httpMethod?: string;
-    headers?: { [name: string]: string };
-    multiValueHeaders?: { [name: string]: string[] };
-    pathParameters?: { [name: string]: string } | null;
-    queryStringParameters?: { [name: string]: string } | null;
-    multiValueQueryStringParameters?: { [name: string]: string[] } | null;
-    stageVariables?: { [name: string]: string };
-    requestContext?: APIGatewayEventRequestContext;
-    domainName?: string;
-    apiId?: string;
+    authorizationToken?: string | undefined;
+    resource?: string | undefined;
+    path?: string | undefined;
+    httpMethod?: string | undefined;
+    headers?: { [name: string]: string } | undefined;
+    multiValueHeaders?: { [name: string]: string[] } | undefined;
+    pathParameters?: { [name: string]: string } | null | undefined;
+    queryStringParameters?: { [name: string]: string } | null | undefined;
+    multiValueQueryStringParameters?: { [name: string]: string[] } | null | undefined;
+    stageVariables?: { [name: string]: string } | undefined;
+    requestContext?: APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext> | undefined;
+    domainName?: string | undefined;
+    apiId?: string | undefined;
 }
 
-/**
- * API Gateway CustomAuthorizer AuthResponse.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
- */
-export interface CustomAuthorizerResult {
-    principalId: string;
-    policyDocument: PolicyDocument;
-    context?: AuthResponseContext;
-    usageIdentifierKey?: string;
-}
-export type AuthResponse = CustomAuthorizerResult;
+export type CustomAuthorizerResult = APIGatewayAuthorizerResult;
+export type AuthResponse = APIGatewayAuthorizerResult;
+export type AuthResponseContext = APIGatewayAuthorizerResultContext;
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.
@@ -42,7 +128,7 @@ export type AuthResponse = CustomAuthorizerResult;
  */
 export interface PolicyDocument {
     Version: string;
-    Id?: string;
+    Id?: string | undefined;
     Statement: Statement[];
 }
 
@@ -68,18 +154,18 @@ export type Statement = BaseStatement & StatementAction & (StatementResource | S
 
 export interface BaseStatement {
     Effect: string;
-    Sid?: string;
-    Condition?: ConditionBlock;
+    Sid?: string | undefined;
+    Condition?: ConditionBlock | undefined;
 }
 
 export type PrincipalValue = { [key: string]: string | string[] } | string | string[];
 export interface MaybeStatementPrincipal {
-    Principal?: PrincipalValue;
-    NotPrincipal?: PrincipalValue;
+    Principal?: PrincipalValue | undefined;
+    NotPrincipal?: PrincipalValue | undefined;
 }
 export interface MaybeStatementResource {
-    Resource?: string | string[];
-    NotResource?: string | string[];
+    Resource?: string | string[] | undefined;
+    NotResource?: string | string[] | undefined;
 }
 export type StatementAction = { Action: string | string[] } | { NotAction: string | string[] };
 export type StatementResource = MaybeStatementPrincipal &

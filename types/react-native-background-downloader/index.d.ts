@@ -26,6 +26,8 @@ export enum DownloadTaskState {
   DOWNLOADING = 'DOWNLOADING',
   PAUSED = 'PAUSED',
   DONE = 'DONE',
+  FAILED = 'FAILED',
+  STOPPED = 'STOPPED',
 }
 
 export interface DownloadTask {
@@ -58,7 +60,7 @@ export interface DownloadOption {
     id: string;
     url: string;
     destination: string;
-    headers?: DownloadHeaders;
+    headers?: DownloadHeaders | undefined;
 }
 
 export type Download = (options: DownloadOption) => DownloadTask;

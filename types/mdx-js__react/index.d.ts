@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentType, ReactNode, StyleHTMLAttributes, FC } from 'react';
+import { Component, ComponentType, ReactNode, StyleHTMLAttributes, FC, createElement } from 'react';
 
 interface MDXProviderComponents {
     /**
@@ -16,104 +16,104 @@ interface MDXProviderComponents {
      * This means that you can do powerful things with the MDX document
      * elements.
      */
-    wrapper?: ComponentType<any>;
+    wrapper?: ComponentType<any> | undefined;
     /**
      * Paragraph
      */
-    p?: ComponentType<any>;
+    p?: ComponentType<any> | undefined;
     /**
-     * Heading 1	#
+     * Heading 1    #
      */
-    h1?: ComponentType<any>;
+    h1?: ComponentType<any> | undefined;
     /**
-     * Heading 2	##
+     * Heading 2    ##
      */
-    h2?: ComponentType<any>;
+    h2?: ComponentType<any> | undefined;
     /**
-     * Heading 3	###
+     * Heading 3    ###
      */
-    h3?: ComponentType<any>;
+    h3?: ComponentType<any> | undefined;
     /**
-     * Heading 4	####
+     * Heading 4    ####
      */
-    h4?: ComponentType<any>;
+    h4?: ComponentType<any> | undefined;
     /**
-     * Heading 5	#####
+     * Heading 5    #####
      */
-    h5?: ComponentType<any>;
+    h5?: ComponentType<any> | undefined;
     /**
-     * Heading 6	######
+     * Heading 6    ######
      */
-    h6?: ComponentType<any>;
+    h6?: ComponentType<any> | undefined;
     /**
-     * Thematic break	***
+     * Thematic break    ***
      */
-    thematicBreak?: ComponentType<any>;
+    thematicBreak?: ComponentType<any> | undefined;
     /**
-     * Blockquote	>
+     * Blockquote    >
      */
-    blockquote?: ComponentType<any>;
+    blockquote?: ComponentType<any> | undefined;
     /**
-     * List	-
+     * List    -
      */
-    ul?: ComponentType<any>;
+    ul?: ComponentType<any> | undefined;
     /**
-     * Ordered list	1.
+     * Ordered list    1.
      */
-    ol?: ComponentType<any>;
+    ol?: ComponentType<any> | undefined;
     /**
      * List item
      */
-    li?: ComponentType<any>;
+    li?: ComponentType<any> | undefined;
     /**
      * Table
      */
-    table?: ComponentType<any>;
+    table?: ComponentType<any> | undefined;
     /**
      * Table row
      */
-    tr?: ComponentType<any>;
+    tr?: ComponentType<any> | undefined;
     /**
      * Table Cell
      */
-    th?: ComponentType<any>;
-    td?: ComponentType<any>;
+    th?: ComponentType<any> | undefined;
+    td?: ComponentType<any> | undefined;
     /**
      * Pre
      */
-    pre?: ComponentType<any>;
+    pre?: ComponentType<any> | undefined;
     /**
-     * Code	`\code```
+     * Code    `\code```
      */
-    code?: ComponentType<any>;
+    code?: ComponentType<any> | undefined;
     /**
-     * Emphasis	_emphasis_
+     * Emphasis    _emphasis_
      */
-    em?: ComponentType<any>;
+    em?: ComponentType<any> | undefined;
     /**
-     * Strong	**strong**
+     * Strong    **strong**
      */
-    strong?: ComponentType<any>;
+    strong?: ComponentType<any> | undefined;
     /**
-     * Delete	~~strikethrough~~
+     * Delete    ~~strikethrough~~
      */
-    delete?: ComponentType<any>;
+    delete?: ComponentType<any> | undefined;
     /**
-     * InlineCode	`inlineCode`
+     * InlineCode    `inlineCode`
      */
-    inlineCode?: ComponentType<any>;
+    inlineCode?: ComponentType<any> | undefined;
     /**
-     * Break	---
+     * Break    ---
      */
-    hr?: ComponentType<any>;
+    hr?: ComponentType<any> | undefined;
     /**
-     * Link	<https://mdxjs.com> or [MDX](https://mdxjs.com)
+     * Link    <https://mdxjs.com> or [MDX](https://mdxjs.com)
      */
-    a?: ComponentType<any>;
+    a?: ComponentType<any> | undefined;
     /**
-     * Image	![alt](https://mdx-logo.now.sh)
+     * Image    ![alt](https://mdx-logo.now.sh)
      */
-    img?: ComponentType<any>;
+    img?: ComponentType<any> | undefined;
 
     /**
      * Any other components we wish to define
@@ -143,6 +143,8 @@ declare function withMDXComponents<GProps extends InjectedMDXProviderProps>(
     Component: ComponentType<GProps>,
 ): FC<Except<GProps, keyof InjectedMDXProviderProps>>;
 
+declare const mdx: typeof createElement;
+
 export {
     withMDXComponents,
     useMDXComponents,
@@ -151,4 +153,5 @@ export {
     InjectedMDXProviderProps,
     MDXProviderComponentsProp,
     MDXProviderComponents,
+    mdx,
 };

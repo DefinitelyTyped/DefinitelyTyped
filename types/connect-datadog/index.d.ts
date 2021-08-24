@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 import express = require('express');
-import dogstatsd = require('node-dogstatsd');
+import hotShots = require('hot-shots');
 
 export = Factory;
 
@@ -15,13 +15,13 @@ declare function Factory(options?: Factory.Options): express.RequestHandler;
 
 declare namespace Factory {
     interface Options {
-        stat?: string;
-        tags?: string[];
-        path?: boolean;
-        base_url?: boolean;
-        method?: boolean;
-        protocol?: boolean;
-        response_code?: boolean;
-        dogstatsd?: dogstatsd.StatsDClient;
+        stat?: string | undefined;
+        tags?: string[] | undefined;
+        path?: boolean | undefined;
+        base_url?: boolean | undefined;
+        method?: boolean | undefined;
+        protocol?: boolean | undefined;
+        response_code?: boolean | undefined;
+        dogstatsd?: hotShots.StatsD | undefined;
     }
 }

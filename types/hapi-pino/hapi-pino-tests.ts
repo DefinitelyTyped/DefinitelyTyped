@@ -37,7 +37,7 @@ function example1() {
             },
         })
         .then(() => {
-            server.logger().debug('using logger object directly');
+            server.logger.debug('using logger object directly');
 
             server.route({
                 method: 'GET',

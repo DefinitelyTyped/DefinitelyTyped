@@ -13,6 +13,11 @@ export const karaoke: AnimationFn;
 export type AnimationFn = (text: string, speed?: number) => Animation;
 
 export interface Animation {
+    text: string[];
+    lines: number;
+    stopped: boolean;
+    init: boolean;
+    f: number;
     start(): void;
     stop(): void;
     replace(text: string): void;

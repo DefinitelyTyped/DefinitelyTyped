@@ -1,4 +1,4 @@
-import { parse } from 'parse-numeric-range';
+import parse = require('parse-numeric-range');
 
 // $ExpectType number[]
 parse('');

@@ -5,7 +5,7 @@ export default class ReactAnimateOnScrollTest extends React.Component {
     render() {
         return (
             <ScrollAnimation animateIn="fadeIn">
-				Some Text
+                Some Text
             </ScrollAnimation>
         );
     }

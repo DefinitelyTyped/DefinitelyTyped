@@ -26,7 +26,7 @@ declare namespace AMap {
          */
         hasLayer(layer: L | ((this: null, item: L, index: number, list: L[]) => boolean)): boolean;
         /**
-         * 	从集合中删除传入的图层实例
+         *     从集合中删除传入的图层实例
          * @param layer 图层
          */
         removeLayer(layer: L | L[]): this;

@@ -1,21 +1,21 @@
 
 
 describe('specs', () => {
-	beforeEach(() => {
-		JasminePromiseMatchers.install
-	});
+    beforeEach(() => {
+        JasminePromiseMatchers.install
+    });
 
-	afterEach(() => {
-		JasminePromiseMatchers.uninstall
-	});
+    afterEach(() => {
+        JasminePromiseMatchers.uninstall
+    });
 
-	it('should have correct syntax', (done) => {
-		var foo = {};
-		var bar = {};
+    it('should have correct syntax', (done) => {
+        var foo = {};
+        var bar = {};
 
-		expect(foo).toBeResolvedWith(bar, done);
-		expect(foo).toBeRejectedWith(bar, done);
-		expect(foo).toBeResolved(done);
-		expect(foo).toBeRejected(done);
-	});
+        expect(foo).toBeResolvedWith(bar, done);
+        expect(foo).toBeRejectedWith(bar, done);
+        expect(foo).toBeResolved(done);
+        expect(foo).toBeRejected(done);
+    });
 })

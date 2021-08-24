@@ -1,4 +1,4 @@
-// Type definitions for @hapi/joi 16.0
+// Type definitions for @hapi/joi 17.1
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -23,6 +23,7 @@
 //                 Frederic Reisenhauer <https://github.com/freisenhauer>
 //                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
 //                 Simcha Wood <https://github.com/SimchaWood>
+//                 Steven Barnett <https://github.com/stevendesu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -43,6 +44,8 @@ declare namespace Joi {
         | 'string'
         | 'symbol';
 
+    type BasicType = boolean|number|string|any[]|object|null;
+
     type LanguageMessages = Record<string, string>;
 
     type PresenceMode = 'optional' | 'required' | 'forbidden';
@@ -53,11 +56,11 @@ declare namespace Joi {
          *
          * @default false
          */
-        escapeHtml?: boolean;
+        escapeHtml?: boolean | undefined;
         /**
          * defines the value used to set the label context variable.
          */
-        label?: 'path' | 'key' | false;
+        label?: 'path' | 'key' | false | undefined;
         /**
          * The preferred language code for error messages.
          * The value is matched against keys at the root of the messages object, and then the error code as a child key of that.
@@ -66,26 +69,40 @@ declare namespace Joi {
          * Note that references to the value are usually not what you want as they move around the value structure relative to where the error happens.
          * Instead, either use the global context, or the absolute value (e.g. `Joi.ref('/variable')`)
          */
-        language?: keyof LanguageMessages;
+        language?: keyof LanguageMessages | undefined;
         /**
          * when false, skips rendering error templates. Useful when error messages are generated elsewhere to save processing time.
          *
          * @default true
          */
-        render?: boolean;
+        render?: boolean | undefined;
         /**
          * when true, the main error will possess a stack trace, otherwise it will be disabled.
          * Defaults to false for performances reasons. Has no effect on platforms other than V8/node.js as it uses the Stack trace API.
          *
          * @default false
          */
-        stack?: boolean;
+        stack?: boolean | undefined;
         /**
-         * if true, array values in error messages are wrapped in [].
-         *
-         * @default true
+         * overrides the way values are wrapped (e.g. `[]` arround arrays, `""` around labels).
+         * Each key can be set to a string with one (same character before and after the value) or two characters (first character
+         * before and second character after), or `false` to disable wrapping.
          */
-        wrapArrays?: boolean;
+        wrap?: {
+            /**
+             * the characters used around `{#label}` references. Defaults to `'"'`.
+             *
+             * @default '"'
+             */
+            label?: string|false | undefined,
+
+            /**
+             * the characters used around array avlues. Defaults to `'[]'`
+             *
+             * @default '[]'
+             */
+            array?: string|false | undefined
+        } | undefined;
     }
 
     interface BaseValidationOptions {
@@ -94,75 +111,75 @@ declare namespace Joi {
          *
          * @default true
          */
-        abortEarly?: boolean;
+        abortEarly?: boolean | undefined;
         /**
          * when true, allows object to contain unknown keys which are ignored.
          *
          * @default false
          */
-        allowUnknown?: boolean;
+        allowUnknown?: boolean | undefined;
         /**
          * when true, schema caching is enabled (for schemas with explicit caching rules).
          *
          * @default false
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
         /**
          * provides an external data set to be used in references
          */
-        context?: Context;
+        context?: Context | undefined;
         /**
          * when true, attempts to cast values to the required types (e.g. a string to a number).
          *
          * @default true
          */
-        convert?: boolean;
+        convert?: boolean | undefined;
         /**
          * sets the string format used when converting dates to strings in error messages and casting.
          *
          * @default 'iso'
          */
-        dateFormat?: 'date' | 'iso' | 'string' | 'time' | 'utc';
+        dateFormat?: 'date' | 'iso' | 'string' | 'time' | 'utc' | undefined;
         /**
          * when true, valid results and throw errors are decorated with a debug property which includes an array of the validation steps used to generate the returned result.
          *
          * @default false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /**
          * error formatting settings.
          */
-        errors?: ErrorFormattingOptions;
+        errors?: ErrorFormattingOptions | undefined;
         /**
          * if false, the external rules set with `any.external()` are ignored, which is required to ignore any external validations in synchronous mode (or an exception is thrown).
          *
          * @default true
          */
-        externals?: boolean;
+        externals?: boolean | undefined;
         /**
          * when true, do not apply default values.
          *
          * @default false
          */
-        noDefaults?: boolean;
+        noDefaults?: boolean | undefined;
         /**
          * when true, inputs are shallow cloned to include non-enumerables properties.
          *
          * @default false
          */
-        nonEnumerables?: boolean;
+        nonEnumerables?: boolean | undefined;
         /**
          * sets the default presence requirements. Supported modes: 'optional', 'required', and 'forbidden'.
          *
          * @default 'optional'
          */
-        presence?: PresenceMode;
+        presence?: PresenceMode | undefined;
         /**
          * when true, ignores unknown keys with a function value.
          *
          * @default false
          */
-        skipFunctions?: boolean;
+        skipFunctions?: boolean | undefined;
         /**
          * remove unknown elements from objects and arrays.
          * - when true, all unknown elements will be removed
@@ -171,7 +188,7 @@ declare namespace Joi {
          *
          * @default false
          */
-        stripUnknown?: boolean | { arrays?: boolean; objects?: boolean };
+        stripUnknown?: boolean | { arrays?: boolean | undefined; objects?: boolean | undefined } | undefined;
     }
 
     interface ValidationOptions extends BaseValidationOptions {
@@ -182,7 +199,7 @@ declare namespace Joi {
          *
          * @default {}
          */
-        messages?: LanguageMessages;
+        messages?: LanguageMessages | undefined;
     }
 
     interface AsyncValidationOptions extends ValidationOptions {
@@ -191,7 +208,7 @@ declare namespace Joi {
          *
          * @default false
          */
-        warnings?: boolean;
+        warnings?: boolean | undefined;
     }
 
     interface LanguageMessageTemplate {
@@ -200,7 +217,7 @@ declare namespace Joi {
     }
 
     interface ErrorValidationOptions extends BaseValidationOptions {
-        messages?: Record<string, LanguageMessageTemplate>;
+        messages?: Record<string, LanguageMessageTemplate> | undefined;
     }
 
     interface RenameOptions {
@@ -209,25 +226,25 @@ declare namespace Joi {
          *
          * @default false
          */
-        alias?: boolean;
+        alias?: boolean | undefined;
         /**
          * if true, allows renaming multiple keys to the same destination where the last rename wins.
          *
          * @default false
          */
-        multiple?: boolean;
+        multiple?: boolean | undefined;
         /**
          * if true, allows renaming a key over an existing key.
          *
          * @default false
          */
-        override?: boolean;
+        override?: boolean | undefined;
         /**
          * if true, skip renaming of a key if it's undefined.
          *
          * @default false
          */
-        ignoreUndefined?: boolean;
+        ignoreUndefined?: boolean | undefined;
     }
 
     interface TopLevelDomainOptions {
@@ -236,11 +253,11 @@ declare namespace Joi {
          * - `false` to allow any TLD not listed in the `deny` list, if present.
          * - A `Set` or array of the allowed TLDs. Cannot be used together with `deny`.
          */
-        allow?: Set<string> | string[] | boolean;
+        allow?: Set<string> | string[] | boolean | undefined;
         /**
          * - A `Set` or array of the forbidden TLDs. Cannot be used together with a custom `allow` list.
          */
-        deny?: Set<string> | string[];
+        deny?: Set<string> | string[] | undefined;
     }
 
     interface HierarchySeparatorOptions {
@@ -249,7 +266,7 @@ declare namespace Joi {
          *
          * @default '.'
          */
-        separator?: string | false;
+        separator?: string | false | undefined;
     }
 
     interface EmailOptions {
@@ -258,37 +275,37 @@ declare namespace Joi {
          *
          * @default true
          */
-        allowUnicode?: boolean;
+        allowUnicode?: boolean | undefined;
         /**
          * if `true`, ignore invalid email length errors.
          *
          * @default false
          */
-        ignoreLength?: boolean;
+        ignoreLength?: boolean | undefined;
         /**
          * if true, allows multiple email addresses in a single string, separated by , or the separator characters.
          *
          * @default false
          */
-        multiple?: boolean;
+        multiple?: boolean | undefined;
         /**
          * when multiple is true, overrides the default , separator. String can be a single character or multiple separator characters.
          *
          * @default ','
          */
-        separator?: string | string[];
+        separator?: string | string[] | undefined;
         /**
          * Options for TLD (top level domain) validation. By default, the TLD must be a valid name listed on the [IANA registry](http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
          *
          * @default { allow: true }
          */
-        tlds?: TopLevelDomainOptions | false;
+        tlds?: TopLevelDomainOptions | false | undefined;
         /**
          * Number of segments required for the domain. Be careful since some domains, such as `io`, directly allow email.
          *
          * @default 2
          */
-        minDomainSegments?: number;
+        minDomainSegments?: number | undefined;
     }
 
     interface DomainOptions {
@@ -297,20 +314,20 @@ declare namespace Joi {
          *
          * @default true
          */
-        allowUnicode?: boolean;
+        allowUnicode?: boolean | undefined;
 
         /**
          * Options for TLD (top level domain) validation. By default, the TLD must be a valid name listed on the [IANA registry](http://data.iana.org/TLD/tlds-alpha-by-domain.txt)
          *
          * @default { allow: true }
          */
-        tlds?: TopLevelDomainOptions | false;
+        tlds?: TopLevelDomainOptions | false | undefined;
         /**
          * Number of segments required for the domain.
          *
          * @default 2
          */
-        minDomainSegments?: number;
+        minDomainSegments?: number | undefined;
     }
 
     interface HexOptions {
@@ -318,18 +335,18 @@ declare namespace Joi {
          * hex decoded representation must be byte aligned.
          * @default false
          */
-        byteAligned?: boolean;
+        byteAligned?: boolean | undefined;
     }
 
     interface IpOptions {
         /**
          * One or more IP address versions to validate against. Valid values: ipv4, ipv6, ipvfuture
          */
-        version?: string | string[];
+        version?: string | string[] | undefined;
         /**
          * Used to determine if a CIDR is allowed or not. Valid values: optional, required, forbidden
          */
-        cidr?: PresenceMode;
+        cidr?: PresenceMode | undefined;
     }
 
     type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5';
@@ -343,30 +360,30 @@ declare namespace Joi {
          * Specifies one or more acceptable Schemes, should only include the scheme name.
          * Can be an Array or String (strings are automatically escaped for use in a Regular Expression).
          */
-        scheme?: string | RegExp | Array<string | RegExp>;
+        scheme?: string | RegExp | Array<string | RegExp> | undefined;
         /**
          * Allow relative URIs.
          *
          * @default false
          */
-        allowRelative?: boolean;
+        allowRelative?: boolean | undefined;
         /**
          * Restrict only relative URIs.
          *
          * @default false
          */
-        relativeOnly?: boolean;
+        relativeOnly?: boolean | undefined;
         /**
          * Allows unencoded square brackets inside the query string.
          * This is NOT RFC 3986 compliant but query strings like abc[]=123&abc[]=456 are very common these days.
          *
          * @default false
          */
-        allowQuerySquareBrackets?: boolean;
+        allowQuerySquareBrackets?: boolean | undefined;
         /**
          * Validate the domain component using the options specified in `string.domain()`.
          */
-        domain?: DomainOptions;
+        domain?: DomainOptions | undefined;
     }
 
     interface DataUriOptions {
@@ -375,7 +392,7 @@ declare namespace Joi {
          *
          * @default true
          */
-        paddingRequired?: boolean;
+        paddingRequired?: boolean | undefined;
     }
 
     interface Base64Options extends Pick<DataUriOptions, 'paddingRequired'> {
@@ -384,7 +401,7 @@ declare namespace Joi {
          *
          * @default false
          */
-        urlSafe?: boolean;
+        urlSafe?: boolean | undefined;
     }
 
     interface SwitchCases {
@@ -410,44 +427,44 @@ declare namespace Joi {
         /**
          * the required condition joi type.
          */
-        is?: SchemaLike;
+        is?: SchemaLike | undefined;
 
         /**
          * the negative version of `is` (`then` and `otherwise` have reverse
          * roles).
          */
-        not?: SchemaLike;
+        not?: SchemaLike | undefined;
 
         /**
          * the alternative schema type if the condition is true. Required if otherwise or switch are missing.
          */
-        then?: SchemaLike;
+        then?: SchemaLike | undefined;
 
         /**
          * the alternative schema type if the condition is false. Required if then or switch are missing.
          */
-        otherwise?: SchemaLike;
+        otherwise?: SchemaLike | undefined;
 
         /**
          * the list of cases. Required if then is missing.  Required if then or otherwise are missing.
          */
-        switch?: Array<SwitchCases | SwitchDefault>;
+        switch?: Array<SwitchCases | SwitchDefault> | undefined;
 
         /**
          * whether to stop applying further conditions if the condition is true.
          */
-        break?: boolean;
+        break?: boolean | undefined;
     }
 
     interface WhenSchemaOptions {
         /**
          * the alternative schema type if the condition is true. Required if otherwise is missing.
          */
-        then?: SchemaLike;
+        then?: SchemaLike | undefined;
         /**
          * the alternative schema type if the condition is false. Required if then is missing.
          */
-        otherwise?: SchemaLike;
+        otherwise?: SchemaLike | undefined;
     }
 
     interface Cache {
@@ -506,14 +523,14 @@ declare namespace Joi {
          *
          * @example `(value) => value + 5`
          */
-        adjust?: (value: any) => any;
+        adjust?: ((value: any) => any) | undefined;
 
         /**
          * an array of array pairs using the format `[[key, value], [key, value]]` used to maps the resolved reference value to another value.
          * If the resolved value is not in the map, it is returned as-is.
          * Cannot be used with `adjust`.
          */
-        map?: Array<[any, any]>;
+        map?: Array<[any, any]> | undefined;
 
         /**
          * overrides default prefix characters.
@@ -524,53 +541,53 @@ declare namespace Joi {
              *
              * @default '$'
              */
-            global?: string;
+            global?: string | undefined;
 
             /**
              * references to error-specific or rule specific context.
              *
              * @default '#'
              */
-            local?: string;
+            local?: string | undefined;
 
             /**
              * references to the root value being validated.
              *
              * @default '/'
              */
-            root?: string;
-        };
+            root?: string | undefined;
+        } | undefined;
 
         /**
          * If set to a number, sets the reference relative starting point.
          * Cannot be combined with separator prefix characters.
          * Defaults to the reference key prefix (or 1 if none present)
          */
-        ancestor?: number;
+        ancestor?: number | undefined;
 
         /**
          * creates an in-reference.
          */
-        in?: boolean;
+        in?: boolean | undefined;
 
         /**
          * when true, the reference resolves by reaching into maps and sets.
          */
-        iterables?: boolean;
+        iterables?: boolean | undefined;
     }
 
     interface StringRegexOptions {
         /**
          * optional pattern name.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * when true, the provided pattern will be disallowed instead of required.
          *
          * @default false
          */
-        invert?: boolean;
+        invert?: boolean | undefined;
     }
 
     interface RuleOptions {
@@ -581,7 +598,7 @@ declare namespace Joi {
          *
          * @default false
          */
-        keep?: boolean;
+        keep?: boolean | undefined;
 
         /**
          * a single message string or a messages object where each key is an error code and corresponding message string as value.
@@ -589,12 +606,12 @@ declare namespace Joi {
          * The object is the same as the messages used as an option in `any.validate()`.
          * The strings can be plain messages or a message template.
          */
-        message?: string | LanguageMessages;
+        message?: string | LanguageMessages | undefined;
 
         /**
          * if true, turns any error generated by the ruleset to warnings.
          */
-        warn?: boolean;
+        warn?: boolean | undefined;
     }
 
     interface ErrorReport extends Error {
@@ -619,6 +636,9 @@ declare namespace Joi {
 
         /**
          * function that returns a string with an annotated version of the object pointing at the places where errors occurred.
+         *
+         * NOTE: This method does not exist in browser builds of Joi
+         *
          * @param stripColors - if truthy, will strip the colors out of the output.
          */
         annotate(stripColors?: boolean): string;
@@ -630,28 +650,28 @@ declare namespace Joi {
         message: string;
         path: Array<string | number>;
         type: string;
-        context?: Context;
+        context?: Context | undefined;
     }
 
     type ValidationErrorFunction = (errors: ErrorReport[]) => string | ValidationErrorItem | Error;
 
     interface ValidationResult {
-        error?: ValidationError;
-        errors?: ValidationError;
-        warning?: ValidationError;
+        error?: ValidationError | undefined;
+        errors?: ValidationError | undefined;
+        warning?: ValidationError | undefined;
         value: any;
     }
 
     interface CreateErrorOptions {
-        flags?: boolean;
-        messages?: LanguageMessages;
+        flags?: boolean | undefined;
+        messages?: LanguageMessages | undefined;
     }
 
     interface ModifyOptions {
-        each?: boolean;
-        once?: boolean;
-        ref?: boolean;
-        schema?: boolean;
+        each?: boolean | undefined;
+        once?: boolean | undefined;
+        ref?: boolean | undefined;
+        schema?: boolean | undefined;
     }
 
     interface MutateRegisterOptions {
@@ -703,7 +723,14 @@ declare namespace Joi {
         name: string;
         args?: {
             [key: string]: any;
-        };
+        } | undefined;
+    }
+
+    interface GetRuleOptions {
+        args?: Record<string, any> | undefined;
+        method?: string | undefined;
+        name: string;
+        operator?: string | undefined;
     }
 
     interface SchemaInternals {
@@ -747,7 +774,7 @@ declare namespace Joi {
         /**
          * Retrieve some rule configuration.
          */
-        $_getRule(name: string): ExtensionRule;
+        $_getRule(name: string): GetRuleOptions | undefined;
 
         $_mapLabels(path: string | string[]): string;
 
@@ -807,7 +834,7 @@ declare namespace Joi {
          */
         ruleset: this;
 
-        type?: Types | string;
+        type?: Types | string | undefined;
 
         /**
          * Whitelists a value
@@ -850,24 +877,22 @@ declare namespace Joi {
         custom(fn: CustomValidator, description?: string): this;
 
         /**
-         * Sets a default value if the original value is undefined.
-         * @param value - the value.
-         *   value supports references.
-         *   value may also be a function which returns the default value.
-         *   If value is specified as a function that accepts a single parameter, that parameter will be a context
-         *    object that can be used to derive the resulting value. This clones the object however, which incurs some
-         *    overhead so if you don't need access to the context define your method so that it does not accept any
-         *    parameters.
-         *   Without any value, default has no effect, except for object that will then create nested defaults
-         *    (applying inner defaults of that object).
+         * Sets a default value if the original value is `undefined` where:
+         * @param value - the default value. One of:
+         *    - a literal value (string, number, object, etc.)
+         *    - a [references](#refkey-options)
+         *    - a function which returns the default value using the signature `function(parent, helpers)` where:
+         *        - `parent` - a clone of the object containing the value being validated. Note that since specifying a
+         *          `parent` ragument performs cloning, do not declare format arguments if you are not using them.
+         *        - `helpers` - same as thsoe described in [`any.custom()`](anycustomermethod_description)
+         *
+         * When called without any `value` on an object schema type, a default value will be automatically generated
+         * based on the default values of the object keys.
          *
          * Note that if value is an object, any changes to the object after `default()` is called will change the
          *  reference and any future assignment.
-         *
-         * Additionally, when specifying a method you must either have a description property on your method or the
-         *  second parameter is required.
          */
-        default(value?: any): this;
+        default(value?: BasicType|Reference|((parent: any, helpers: CustomHelpers) => BasicType|Reference)): this;
 
         /**
          * Returns a plain object representing the schema's rules and properties
@@ -1104,7 +1129,7 @@ declare namespace Joi {
         tailor(targets: string | string[]): Schema;
 
         /**
-         * Annotates the key with an unit name.
+         * Annotates the key with a unit name.
          */
         unit(name: string): this;
 
@@ -1150,31 +1175,31 @@ declare namespace Joi {
     }
 
     interface Description {
-        type?: Types | string;
-        label?: string;
-        description?: string;
-        flags?: object;
-        notes?: string[];
-        tags?: string[];
-        meta?: any[];
-        example?: any[];
-        valids?: any[];
-        invalids?: any[];
-        unit?: string;
-        options?: ValidationOptions;
+        type?: Types | string | undefined;
+        label?: string | undefined;
+        description?: string | undefined;
+        flags?: object | undefined;
+        notes?: string[] | undefined;
+        tags?: string[] | undefined;
+        meta?: any[] | undefined;
+        example?: any[] | undefined;
+        valids?: any[] | undefined;
+        invalids?: any[] | undefined;
+        unit?: string | undefined;
+        options?: ValidationOptions | undefined;
         [key: string]: any;
     }
 
     interface Context {
         [key: string]: any;
-        key?: string;
-        label?: string;
+        key?: string | undefined;
+        label?: string | undefined;
         value?: any;
     }
 
     interface State {
-        key?: string;
-        path?: string;
+        key?: string | undefined;
+        path?: string | undefined;
         parent?: any;
         reference?: any;
         ancestors?: any;
@@ -1445,8 +1470,8 @@ declare namespace Joi {
         /**
          * @default 'ascending'
          */
-        order?: 'ascending' | 'descending';
-        by?: string | Reference;
+        order?: 'ascending' | 'descending' | undefined;
+        by?: string | Reference | undefined;
     }
 
     interface ArrayUniqueOptions extends HierarchySeparatorOptions {
@@ -1455,7 +1480,7 @@ declare namespace Joi {
          *
          * @default false
          */
-        ignoreUndefined?: boolean;
+        ignoreUndefined?: boolean | undefined;
     }
 
     type ComparatorFunction = (a: any, b: any) => boolean;
@@ -1532,7 +1557,7 @@ declare namespace Joi {
     }
 
     interface ObjectPatternOptions {
-        fallthrough?: boolean;
+        fallthrough?: boolean | undefined;
         matches: SchemaLike | Reference;
     }
 
@@ -1618,9 +1643,14 @@ declare namespace Joi {
         ref(): this;
 
         /**
+         * Requires the object to be a `RegExp` object.
+         */
+        regex(): this;
+
+        /**
          * Renames a key to another name (deletes the renamed key).
          */
-        rename(from: string, to: string, options?: RenameOptions): this;
+        rename(from: string | RegExp, to: string, options?: RenameOptions): this;
 
         /**
          * Requires the object to be a Joi schema instance.
@@ -1789,9 +1819,9 @@ declare namespace Joi {
 
     interface RuleArgs {
         name: string;
-        ref?: boolean;
-        assert?: ((value: any) => boolean) | AnySchema;
-        message?: string;
+        ref?: boolean | undefined;
+        assert?: ((value: any) => boolean) | AnySchema | undefined;
+        message?: string | undefined;
 
         /**
          * Undocumented properties
@@ -1805,23 +1835,23 @@ declare namespace Joi {
         /**
          * alternative name for this rule.
          */
-        alias?: string;
+        alias?: string | undefined;
         /**
          * whether rule supports multiple invocations.
          */
-        multi?: boolean;
+        multi?: boolean | undefined;
         /**
          * Dual rule: converts or validates.
          */
-        convert?: boolean;
+        convert?: boolean | undefined;
         /**
          * list of arguments accepted by `method`.
          */
-        args?: Array<RuleArgs | string>;
+        args?: Array<RuleArgs | string> | undefined;
         /**
          * rule body.
          */
-        method?: RuleMethod | false;
+        method?: RuleMethod | false | undefined;
         /**
          * validation function.
          */
@@ -1830,12 +1860,12 @@ declare namespace Joi {
         /**
          * undocumented flags.
          */
-        priority?: boolean;
-        manifest?: boolean;
+        priority?: boolean | undefined;
+        manifest?: boolean | undefined;
     }
 
     interface CoerceResult {
-        errors?: ErrorReport[];
+        errors?: ErrorReport[] | undefined;
         value?: any;
     }
 
@@ -1843,11 +1873,11 @@ declare namespace Joi {
 
     interface CoerceObject {
         method: CoerceFunction;
-        from?: string | string[];
+        from?: string | string[] | undefined;
     }
 
     interface ExtensionFlag {
-        setter?: string;
+        setter?: string | undefined;
         default?: any;
     }
 
@@ -1861,32 +1891,32 @@ declare namespace Joi {
     interface ExtensionTerm {
         init: any[] | null;
         register?: any;
-        manifest?: Record<string, 'schema' | 'single' | ExtensionTermManifest>;
+        manifest?: Record<string, 'schema' | 'single' | ExtensionTermManifest> | undefined;
     }
 
     interface Extension {
         type: string;
         args?(...args: SchemaLike[]): Schema;
-        base?: Schema;
-        coerce?: CoerceFunction | CoerceObject;
-        flags?: Record<string, ExtensionFlag>;
+        base?: Schema | undefined;
+        coerce?: CoerceFunction | CoerceObject | undefined;
+        flags?: Record<string, ExtensionFlag> | undefined;
         manifest?: {
             build?(obj: ExtensionBoundSchema, desc: Record<string, any>): any;
-        };
-        messages?: LanguageMessages | string;
-        modifiers?: Record<string, (rule: any, enabled?: boolean) => any>;
-        overrides?: Record<string, (value: any) => Schema>;
+        } | undefined;
+        messages?: LanguageMessages | string | undefined;
+        modifiers?: Record<string, (rule: any, enabled?: boolean) => any> | undefined;
+        overrides?: Record<string, (value: any) => Schema> | undefined;
         prepare?(value: any, helpers: CustomHelpers): any;
         rebuild?(schema: ExtensionBoundSchema): void;
-        rules?: Record<string, ExtensionRule & ThisType<SchemaInternals>>;
-        terms?: Record<string, ExtensionTerm>;
+        rules?: Record<string, ExtensionRule & ThisType<SchemaInternals>> | undefined;
+        terms?: Record<string, ExtensionTerm> | undefined;
         validate?(value: any, helpers: CustomHelpers): any;
 
         /**
          * undocumented options
          */
-        cast?: Record<string, { from(value: any): any; to(value: any, helpers: CustomHelpers): any }>;
-        properties?: Record<string, any>;
+        cast?: Record<string, { from(value: any): any; to(value: any, helpers: CustomHelpers): any }> | undefined;
+        properties?: Record<string, any> | undefined;
     }
 
     type ExtensionFactory = (joi: Root) => Extension;
@@ -1903,7 +1933,7 @@ declare namespace Joi {
          */
         version: string;
 
-        ValidationError: ValidationError;
+        ValidationError: new (message: string, details: any, original: any) => ValidationError;
 
         /**
          * Generates a schema object that matches any data type.
@@ -2053,6 +2083,11 @@ declare namespace Joi {
          * Creates a reference that when resolved, is used as an array of values to match against the rule.
          */
         in(ref: string, options?: ReferenceOptions): Reference;
+
+        /**
+         * Checks whether or not the provided argument is an instance of ValidationError
+         */
+        isError(error: any): error is ValidationError;
 
         /**
          * Checks whether or not the provided argument is an expression.

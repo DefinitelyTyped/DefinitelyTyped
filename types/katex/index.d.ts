@@ -27,7 +27,7 @@ export interface KatexOptions {
      * If `false`, math will be rendered in inline mode
      * @default false
      */
-    displayMode?: boolean;
+    displayMode?: boolean | undefined;
     /**
      * Determines the markup language of the output. The valid choices are:
      * - `html`: Outputs KaTeX in HTML only.
@@ -37,21 +37,21 @@ export interface KatexOptions {
      *
      * @default 'htmlAndMathml'
      */
-    output?: 'html' | 'mathml' | 'htmlAndMathml';
+    output?: 'html' | 'mathml' | 'htmlAndMathml' | undefined;
     /**
      * If `true`, display math has \tags rendered on the left
      * instead of the right, like \usepackage[leqno]{amsmath} in LaTeX.
      *
      * @default false
      */
-    leqno?: boolean;
+    leqno?: boolean | undefined;
     /**
      * If `true`, display math renders flush left with a 2em left margin,
      * like \documentclass[fleqn] in LaTeX with the amsmath package.
      *
      * @default false
      */
-    fleqn?: boolean;
+    fleqn?: boolean | undefined;
     /**
      * If `true`, KaTeX will throw a `ParseError` when
      * it encounters an unsupported command or invalid LaTex
@@ -61,11 +61,11 @@ export interface KatexOptions {
      * hover text giving the error, in color given by errorColor
      * @default true
      */
-    throwOnError?: boolean;
+    throwOnError?: boolean | undefined;
     /**
      * A Color string given in format `#XXX` or `#XXXXXX`
      */
-    errorColor?: string;
+    errorColor?: string | undefined;
     /**
      * A collection of custom macros.
      *
@@ -78,7 +78,7 @@ export interface KatexOptions {
      * \underline, \overline, and the borders of \fbox, \boxed, and
      * \fcolorbox.
      */
-    minRuleThickness?: number;
+    minRuleThickness?: number | undefined;
     /**
      * If `true`, `\color` will work like LaTeX's `\textcolor`
      * and takes 2 arguments
@@ -90,7 +90,7 @@ export interface KatexOptions {
      *
      * @default false
      */
-    colorIsTextColor?: boolean;
+    colorIsTextColor?: boolean | undefined;
     /**
      * All user-specified sizes will be caped to `maxSize` ems
      *
@@ -99,7 +99,7 @@ export interface KatexOptions {
      *
      * @default Infinity
      */
-    maxSize?: number;
+    maxSize?: number | undefined;
     /**
      * Limit the number of macro expansions to specified number
      *
@@ -108,7 +108,7 @@ export interface KatexOptions {
      *
      * @default 1000
      */
-    maxExpand?: number;
+    maxExpand?: number | undefined;
     /**
      * If `false` or `"ignore"`, allow features that make
      * writing in LaTex convenient but not supported by LaTex
@@ -119,7 +119,7 @@ export interface KatexOptions {
      *
      * @default "warn"
      */
-    strict?: boolean | string | Function;
+    strict?: boolean | string | Function | undefined;
     /**
      * If `false` (do not trust input), prevent any commands that could enable adverse behavior, rendering them instead in errorColor.
      *
@@ -127,13 +127,13 @@ export interface KatexOptions {
      *
      * @default false
      */
-    trust?: boolean | ((context: TrustContext) => boolean);
+    trust?: boolean | ((context: TrustContext) => boolean) | undefined;
     /**
      * Place KaTeX code in the global group.
      *
      * @default false
      */
-    globalGroup?: boolean;
+    globalGroup?: boolean | undefined;
 }
 
 export class ParseError implements Error {

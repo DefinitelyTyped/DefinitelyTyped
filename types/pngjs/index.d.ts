@@ -1,7 +1,8 @@
-// Type definitions for pngjs 3.4
+// Type definitions for pngjs 6.0
 // Project: https://github.com/lukeapage/pngjs
 // Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Imdahl <https://github.com/ffflorian>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -47,11 +48,11 @@ export class PNG extends Duplex {
         deltaY?: number,
     ): PNG;
 
-    on(event: 'metadata', callback: (metadata: Metadata) => void): this;
-    on(event: 'parsed', callback: (data: Buffer) => void): this;
-    on(event: 'error', callback: (error: Error) => void): this;
-    on(event: 'close', callback: () => void): this;
-    on(event: string, callback: (...args: any[]) => void): this;
+    on(event: 'metadata', callback: (this: PNG, metadata: Metadata) => void): this;
+    on(event: 'parsed', callback: (this: PNG, data: Buffer) => void): this;
+    on(event: 'error', callback: (this: PNG, error: Error) => void): this;
+    on(event: 'close', callback: (this: PNG) => void): this;
+    on(event: string, callback: (this: PNG, ...args: any[]) => void): this;
 
     pack(): PNG;
 
@@ -59,13 +60,14 @@ export class PNG extends Duplex {
 }
 
 export interface BaseOptions {
-    fill?: boolean;
-    height?: number;
-    width?: number;
+    fill?: boolean | undefined;
+    height?: number | undefined;
+    width?: number | undefined;
 }
 
 export interface ParserOptions {
-    checkCRC?: boolean;
+    checkCRC?: boolean | undefined;
+    skipRescale?: boolean | undefined;
 }
 
 export interface PackerOptions {
@@ -73,16 +75,16 @@ export interface PackerOptions {
         red: number;
         green: number;
         blue: number;
-    };
-    bitDepth?: BitDepth;
-    colorType?: ColorType;
-    deflateChunkSize?: number;
-    deflateFactory?: typeof createDeflate;
-    deflateLevel?: number;
-    deflateStrategy?: number;
-    filterType?: number | number[];
-    inputColorType?: ColorType;
-    inputHasAlpha?: boolean;
+    } | undefined;
+    bitDepth?: BitDepth | undefined;
+    colorType?: ColorType | undefined;
+    deflateChunkSize?: number | undefined;
+    deflateFactory?: typeof createDeflate | undefined;
+    deflateLevel?: number | undefined;
+    deflateStrategy?: number | undefined;
+    filterType?: number | number[] | undefined;
+    inputColorType?: ColorType | undefined;
+    inputHasAlpha?: boolean | undefined;
 }
 
 export type PNGOptions = BaseOptions & ParserOptions & PackerOptions;

@@ -1,4 +1,5 @@
 import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
+import webpack = require('webpack');
 
 // GenerateSW
 {
@@ -12,21 +13,28 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
 
   // With all of the examples
   plugin = new GenerateSW({
+    additionalManifestEntries: [
+        'https://example.org/api',
+    ],
+    babelPresetEnvTargets: ['target1', 'target2'],
     swDest: 'custom-sw-name.js',
-    importWorkboxFrom: 'local',
+    cleanupOutdatedCaches: true,
     // *Only* include assets that belong to these chunks:
     chunks: ['chunk-name-1', 'chunk-name-2'],
     // Exclude assets that belong to these chunks:
     excludeChunks: ['chunk-name-1', 'chunk-name-2'],
+    importScriptsViaChunks: ['sw'],
     // Only include HTML and JS assets when precaching:
     include: [/\.html$/, /\.js$/],
     // Exclude JPG and PNG assets from precaching:
     exclude: [/\.jpg$/, /\.png$/],
+    inlineWorkboxRuntime: true,
     // Use a 'wb-assets' directory for Workbox's assets,
     // under the top-level output directory.
     importsDirectory: 'wb-assets',
     precacheManifestFilename: 'wb-manifest.[manifestHash].js',
     skipWaiting: true,
+    sourcemap: true,
     clientsClaim: true,
     runtimeCaching: [{
       // Match any same-origin request that contains 'api'.
@@ -84,12 +92,13 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
     }],
     navigateFallback: '/app-shell',
     // Exempt all URLs that start with /_ or contain admin anywhere:
-    navigateFallbackBlacklist: [/^\/_/, /admin/],
+    navigateFallbackDenylist: [/^\/_/, /admin/],
     // Include URLs that start with /pages:
-    navigateFallbackWhitelist: [/^\/pages/],
+    navigateFallbackAllowlist: [/^\/pages/],
+    navigationPreload: true,
     importScripts: ['push-notifications.abcd1234.js'],
     // This will ignore all parameters:
-    ignoreUrlParametersMatching: [/./],
+    ignoreURLParametersMatching: [/./],
     directoryIndex: 'index.html',
     cacheId: 'my-app',
     offlineGoogleAnalytics: true,
@@ -108,8 +117,9 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
     },
     // Increase the limit to 4mb:
     maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-    dontCacheBustUrlsMatching: /\.\w{8}\./,
-    modifyUrlPrefix: {
+    dontCacheBustURLsMatching: /\.\w{8}\./,
+    mode: 'production',
+    modifyURLPrefix: {
       // Remove a '/dist' prefix from the URLs:
       '/dist': ''
     },
@@ -140,12 +150,16 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
 
   // With all of the examples
   plugin = new InjectManifest({
+    additionalManifestEntries: [
+        'https://example.org/api',
+    ],
     swDest: 'custom-sw-name.js',
-    importWorkboxFrom: 'local',
     // *Only* include assets that belong to these chunks:
     chunks: ['chunk-name-1', 'chunk-name-2'],
+    compileSrc: true,
     // Exclude assets that belong to these chunks:
     excludeChunks: ['chunk-name-1', 'chunk-name-2'],
+    importScriptsViaChunks: ['sw'],
     // Only include HTML and JS assets when precaching:
     include: [/\.html$/, /\.js$/],
     // Exclude JPG and PNG assets from precaching:
@@ -170,8 +184,9 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
     },
     // Increase the limit to 4mb:
     maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-    dontCacheBustUrlsMatching: /\.\w{8}\./,
-    modifyUrlPrefix: {
+    dontCacheBustURLsMatching: /\.\w{8}\./,
+    mode: 'production',
+    modifyURLPrefix: {
       // Remove a '/dist' prefix from the URLs:
       '/dist': ''
     },
@@ -184,6 +199,11 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
         const warnings = ['warning'];
         return {manifest, warnings};
       }
+    ],
+    webpackCompilationPlugins: [
+        new webpack.DefinePlugin({
+            REVISION__: JSON.stringify(process.env.COMMIT_SHA1)
+        })
     ]
   });
 }

@@ -4,20 +4,22 @@ import { ObjectEvent } from '../Object';
 import Control from './Control';
 
 export interface Options {
-    duration?: number;
-    className?: string;
-    zoomInLabel?: string | HTMLElement;
-    zoomOutLabel?: string | HTMLElement;
-    zoomInTipLabel?: string;
-    zoomOutTipLabel?: string;
-    delta?: number;
-    target?: HTMLElement | string;
+    duration?: number | undefined;
+    className?: string | undefined;
+    zoomInClassName?: string | undefined;
+    zoomOutClassName?: string | undefined;
+    zoomInLabel?: string | HTMLElement | undefined;
+    zoomOutLabel?: string | HTMLElement | undefined;
+    zoomInTipLabel?: string | undefined;
+    zoomOutTipLabel?: string | undefined;
+    delta?: number | undefined;
+    target?: HTMLElement | string | undefined;
 }
 export default class Zoom extends Control {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

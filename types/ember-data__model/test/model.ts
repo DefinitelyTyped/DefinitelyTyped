@@ -1,5 +1,5 @@
 import { computed } from '@ember/object';
-import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import Model, { attr, belongsTo, AsyncBelongsTo, hasMany, AsyncHasMany, SyncHasMany } from '@ember-data/model';
 import DS, { ChangedAttributes } from 'ember-data';
 import RSVP from 'rsvp';
 
@@ -17,7 +17,7 @@ class Person extends Model.extend({
     title: attr({ defaultValue: 'The default' }),
     title2: attr({ defaultValue: () => 'The default' }),
 
-    fullName: computed('firstName', 'lastName', function() {
+    fullName: computed('firstName', 'lastName', function () {
         return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 }) {}
@@ -33,16 +33,19 @@ const User = Model.extend({
         },
     }),
     mother: belongsTo('person'),
+    motherSync: belongsTo('person', { async: false }),
     father: belongsTo('person'),
     friends: hasMany('human'),
 });
 
 class Human extends Model {
-    @attr() age: number;
-    @belongsTo('human') mother: Human;
-    // We should remove the direct use of `DS.PromiseManyArray` by creating and
-    // exporting a type which represents `HasMany<Person>`.
-    @hasMany('person') children: DS.PromiseManyArray<Person>;
+    @attr age: number;
+    @belongsTo('human') mother: AsyncBelongsTo<Human>;
+    @belongsTo('human', { async: false }) motherSync: Human;
+    @belongsTo('human') father: AsyncBelongsTo<Human | null>;
+    @belongsTo('human', { async: false }) fatherSync: Human | null;
+    @hasMany('person') children: AsyncHasMany<Person>;
+    @hasMany('person', { async: false }) childrenSync: SyncHasMany<Person>;
 }
 
 const user = User.create({ username: 'dwickern' });
@@ -50,10 +53,22 @@ user.get('id'); // $ExpectType string
 user.get('username'); // $ExpectType string
 user.get('verified'); // $ExpectType boolean
 user.get('createdAt'); // $ExpectType Date
+user.get('mother'); // $ExpectType AsyncBelongsTo<Person | null>
+user.get('motherSync'); // $ExpectType Person | null
 
 user.serialize();
 user.serialize({ includeId: true });
 user.serialize({ includeId: true });
+
+const human = Human.create({ age: 42 });
+human.get('mother'); // $ExpectType AsyncBelongsTo<Human>
+human.get('father'); // $ExpectType AsyncBelongsTo<Human | null>
+human.get('mother').then((m) => {
+  m; // $ExpectType Human
+});
+human.get('father').then((f) => {
+  f; // $ExpectType Human | null
+});
 
 const attributes: ChangedAttributes = user.changedAttributes();
 

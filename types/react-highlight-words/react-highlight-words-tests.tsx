@@ -14,8 +14,15 @@ class HighlighterTest extends React.Component {
             <div>
                 <Highlighter
                     highlightTag="span"
+                    searchWords={[/hello/ig, "or"]}
+                    textToHighlight="Hello World"
+                    customProp="My Custom Prop"
+                />
+                <Highlighter
+                    highlightTag="span"
                     searchWords={["el", "or"]}
                     textToHighlight="Hello World"
+                    customProp="My Custom Prop"
                 />
                 <Highlighter
                     activeClassName="activeClassName"

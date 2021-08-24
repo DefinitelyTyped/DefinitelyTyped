@@ -1,6 +1,7 @@
 // Type definitions for sodium-native 2.3
 // Project: https://github.com/sodium-friends/sodium-native
-// Definitions by: Florian Keller <https://github.com/ffflorian>
+// Definitions by: Florian Keller <https://github.com/ffflorian>,
+//                 nshcore <https://github.com/nshcore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -83,42 +84,118 @@ export const crypto_aead_xchacha20poly1305_ietf_KEYBYTES: number;
 export const crypto_aead_xchacha20poly1305_ietf_MESSAGEBYTES_MAX: number;
 export const crypto_aead_xchacha20poly1305_ietf_NPUBBYTES: number;
 export const crypto_aead_xchacha20poly1305_ietf_NSECBYTES: number;
+export const crypto_auth_BYTES: number;
+export const crypto_auth_KEYBYTES: number;
+export const crypto_auth_PRIMITIVE: string;
+export const crypto_box_MACBYTES: number;
+export const crypto_box_NONCEBYTES: number;
+export const crypto_box_PRIMITIVE: string;
+export const crypto_box_PUBLICKEYBYTES: number;
+export const crypto_box_SEALBYTES: number;
+export const crypto_box_SECRETKEYBYTES: number;
+export const crypto_box_SEEDBYTES: number;
 export const crypto_core_ed25519_BYTES: number;
 export const crypto_core_ed25519_NONREDUCEDSCALARBYTES: number;
 export const crypto_core_ed25519_SCALARBYTES: number;
 export const crypto_core_ed25519_UNIFORMBYTES: number;
-export const crypto_secretstream_xchacha20poly1305_ABYTES: number;
-export const crypto_secretstream_xchacha20poly1305_HEADERBYTES: number;
 export const crypto_generichash_BYTES_MAX: number;
 export const crypto_generichash_BYTES_MIN: number;
 export const crypto_generichash_BYTES: number;
 export const crypto_generichash_KEYBYTES_MAX: number;
 export const crypto_generichash_KEYBYTES_MIN: number;
 export const crypto_generichash_KEYBYTES: number;
+export const crypto_generichash_PRIMITIVE: string;
+export const crypto_generichash_STATEBYTES: number;
+export const crypto_hash_BYTES: number;
+export const crypto_hash_PRIMITIVE: string;
+export const crypto_hash_sha256_BYTES: number;
+export const crypto_hash_sha256_STATEBYTES: number;
+export const crypto_hash_sha512_BYTES: number;
+export const crypto_hash_sha512_STATEBYTES: number;
+export const crypto_kdf_BYTES_MAX: number;
+export const crypto_kdf_BYTES_MIN: number;
+export const crypto_kdf_CONTEXTBYTES: number;
+export const crypto_kdf_KEYBYTES: number;
+export const crypto_kdf_PRIMITIVE: string;
+export const crypto_kx_PRIMITIVE: string;
+export const crypto_kx_PUBLICKEYBYTES: number;
+export const crypto_kx_SECRETKEYBYTES: number;
+export const crypto_kx_SEEDBYTES: number;
+export const crypto_kx_SESSIONKEYBYTES: number;
+export const crypto_onetimeauth_BYTES: number;
+export const crypto_onetimeauth_KEYBYTES: number;
+export const crypto_onetimeauth_PRIMITIVE: string;
+export const crypto_onetimeauth_STATEBYTES: number;
 export const crypto_pwhash_ALG_ARGON2I13: number;
 export const crypto_pwhash_ALG_ARGON2ID13: number;
 export const crypto_pwhash_ALG_DEFAULT: number;
+export const crypto_pwhash_BYTES_MAX: number;
+export const crypto_pwhash_BYTES_MIN: number;
 export const crypto_pwhash_MEMLIMIT_INTERACTIVE: number;
+export const crypto_pwhash_MEMLIMIT_MAX: number;
+export const crypto_pwhash_MEMLIMIT_MIN: number;
 export const crypto_pwhash_MEMLIMIT_MODERATE: number;
 export const crypto_pwhash_MEMLIMIT_SENSITIVE: number;
 export const crypto_pwhash_OPSLIMIT_INTERACTIVE: number;
+export const crypto_pwhash_OPSLIMIT_MAX: number;
+export const crypto_pwhash_OPSLIMIT_MIN: number;
 export const crypto_pwhash_OPSLIMIT_MODERATE: number;
 export const crypto_pwhash_OPSLIMIT_SENSITIVE: number;
+export const crypto_pwhash_PASSWD_MAX: number;
+export const crypto_pwhash_PASSWD_MIN: number;
+export const crypto_pwhash_PRIMITIVE: string;
+export const crypto_pwhash_SALTBYTES: number;
+export const crypto_pwhash_scryptsalsa208sha256_BYTES_MAX: number;
+export const crypto_pwhash_scryptsalsa208sha256_BYTES_MIN: number;
+export const crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_INTERACTIVE: number;
+export const crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MAX: number;
+export const crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MIN: number;
+export const crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_SENSITIVE: number;
+export const crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_INTERACTIVE: number;
+export const crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MAX: number;
+export const crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MIN: number;
+export const crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_SENSITIVE: number;
+export const crypto_pwhash_scryptsalsa208sha256_PASSWD_MAX: number;
+export const crypto_pwhash_scryptsalsa208sha256_PASSWD_MIN: number;
+export const crypto_pwhash_scryptsalsa208sha256_SALTBYTES: number;
+export const crypto_pwhash_scryptsalsa208sha256_STRBYTES: number;
+export const crypto_pwhash_scryptsalsa208sha256_STRPREFIX: string;
+export const crypto_pwhash_STRBYTES: number;
+export const crypto_pwhash_STRPREFIX: string;
+export const crypto_scalarmult_BYTES: number;
 export const crypto_scalarmult_ed25519_BYTES: number;
+export const crypto_scalarmult_ed25519_SCALARBYTES: number;
+export const crypto_scalarmult_PRIMITIVE: string;
+export const crypto_scalarmult_SCALARBYTES: number;
+export const crypto_secretbox_KEYBYTES: number;
+export const crypto_secretbox_MACBYTES: number;
+export const crypto_secretbox_NONCEBYTES: number;
+export const crypto_secretbox_PRIMITIVE: string;
+export const crypto_secretstream_xchacha20poly1305_ABYTES: number;
+export const crypto_secretstream_xchacha20poly1305_HEADERBYTES: number;
 export const crypto_secretstream_xchacha20poly1305_KEYBYTES: number;
 export const crypto_secretstream_xchacha20poly1305_MESSAGEBYTES_MAX: number;
-export const crypto_scalarmult_ed25519_SCALARBYTES: number;
-export const crypto_secretstream_xchacha20poly1305_TAG_FINAL: number;
-export const crypto_secretstream_xchacha20poly1305_TAG_MESSAGE: number;
-export const crypto_secretstream_xchacha20poly1305_TAG_PUSH: number;
-export const crypto_secretstream_xchacha20poly1305_TAG_REKEY: number;
+export const crypto_secretstream_xchacha20poly1305_TAG_FINAL: Buffer;
+export const crypto_secretstream_xchacha20poly1305_TAG_MESSAGE: Buffer;
+export const crypto_secretstream_xchacha20poly1305_TAG_PUSH: Buffer;
+export const crypto_secretstream_xchacha20poly1305_TAG_REKEY: Buffer;
 /** NOTE: Unofficial constant */
 export const crypto_secretstream_xchacha20poly1305_TAGBYTES: number;
-export const crypto_box_SEALBYTES: number;
-export const crypto_box_PUBLICKEYBYTES: number;
-export const crypto_box_SECRETKEYBYTES: number;
-export const crypto_box_MACBYTES: number;
-export const crypto_box_NONCEBYTES: number;
+export const crypto_shorthash_BYTES: number;
+export const crypto_shorthash_KEYBYTES: number;
+export const crypto_shorthash_PRIMITIVE: string;
+export const crypto_sign_BYTES: number;
+export const crypto_sign_PUBLICKEYBYTES: number;
+export const crypto_sign_SECRETKEYBYTES: number;
+export const crypto_sign_SEEDBYTES: number;
+export const crypto_stream_chacha20_KEYBYTES: number;
+export const crypto_stream_chacha20_NONCEBYTES: number;
+export const crypto_stream_chacha20_xor_STATEBYTES: number;
+export const crypto_stream_KEYBYTES: number;
+export const crypto_stream_NONCEBYTES: number;
+export const crypto_stream_PRIMITIVE: string;
+export const crypto_stream_xor_STATEBYTES: number;
+export const randombytes_SEEDBYTES: number;
 
 /**
  * Zero out the data in `buffer`.
@@ -139,25 +216,25 @@ export function sodium_munlock(buffer: Buffer): void;
  * Allocate a buffer of `size` which is memory protected. See [libsodium docs](https://download.libsodium.org/doc/memory_management#guarded-heap-allocations) for details. Be aware that many Buffer
  * methods may break the security guarantees of `sodium.sodium_malloc`'ed memory. To check if a `Buffer` is a "secure" buffer, you can call access the getter `buffer.secure` which will be `true`.
  */
-export function sodium_malloc(size: number): Buffer;
+export function sodium_malloc(size: number): SecureBuffer;
 
 /**
  * Make `buffer` allocated using `sodium.sodium_malloc` inaccessible, crashing the process if any access is attempted.
  * Note that this will have no effect for normal `Buffer`s.
  */
-export function sodium_mprotect_noaccess(buffer: Buffer): void;
+export function sodium_mprotect_noaccess(buffer: SecureBuffer): void;
 
 /**
  * Make `buffer` allocated using `sodium.sodium_malloc` read-only, crashing the process if any writing is attempted.
  * Note that this will have no effect for normal `Buffer`s.
  */
-export function sodium_mprotect_readonly(buffer: Buffer): void;
+export function sodium_mprotect_readonly(buffer: SecureBuffer): void;
 
 /**
  * Make `buffer` allocated using `sodium.sodium_malloc` read-write, undoing `sodium_mprotect_noaccess` or `sodium_mprotect_readonly`.
  * Note that this will have no effect for normal `Buffer`s.
  */
-export function sodium_mprotect_readwrite(buffer: Buffer): void;
+export function sodium_mprotect_readwrite(buffer: SecureBuffer): void;
 
 /**
  * Generate a random 32-bit unsigned integer `[0, 0xffffffff]` (both inclusive)
@@ -1287,4 +1364,11 @@ export interface CryptoHashSha512Wrap {
      * The generated hash is stored in `output`.
      */
     final(output: Buffer): void;
+}
+
+export interface SecureBuffer extends Buffer {
+    /**
+     * To check if a `buffer` is a "secure" `buffer`, you can access the getter `buffer.secure` which will be `true`.
+     */
+    secure: boolean;
 }

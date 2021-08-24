@@ -1,56 +1,62 @@
+import RBush from 'rbush';
 import { Coordinate } from '../../coordinate';
-import Disposable from '../../Disposable';
 import { Extent } from '../../extent';
 import { FeatureLike } from '../../Feature';
+import SimpleGeometry from '../../geom/SimpleGeometry';
+import { Size } from '../../size';
 import { Transform } from '../../transform';
-import { DeclutterGroup, FillState, StrokeState, TextState } from '../canvas';
+import { Label, SerializableInstructions } from '../canvas';
 
-export interface SerializableInstructions {
-    instructions: any[];
-    hitDetectionInstructions: any[];
-    coordinates: number[];
-    textStates: { [key: string]: TextState };
-    fillStates: { [key: string]: FillState };
-    strokeStates: { [key: string]: StrokeState };
+export interface BBox {
+    minX: number;
+    minY: number;
+    maxX: number;
+    maxY: number;
+    value: any;
 }
-export default class Executor extends Disposable {
-    constructor(resolution: number, pixelRatio: number, overlaps: boolean, instructions: SerializableInstructions);
+export type FeatureCallback<T> = (p0: FeatureLike, p1: SimpleGeometry) => T;
+export interface ImageOrLabelDimensions {
+    drawImageX: number;
+    drawImageY: number;
+    drawImageW: number;
+    drawImageH: number;
+    originX: number;
+    originY: number;
+    scale: number[];
+    declutterBox: BBox;
+    canvasTransform: Transform;
+}
+export type ReplayImageOrLabelArgs = any;
+export default class Executor {
+    constructor(
+        resolution: number,
+        pixelRatio: number,
+        overlaps: boolean,
+        instructions: SerializableInstructions,
+        renderBuffer: Size,
+    );
     protected coordinates: number[];
     protected hitDetectionInstructions: any[];
     protected instructions: any[];
     protected overlaps: boolean;
     protected pixelRatio: number;
     protected resolution: number;
-    execute(context: CanvasRenderingContext2D, transform: Transform, viewRotation: number, snapToPixel: boolean): void;
+    createLabel(text: string, textKey: string, fillKey: string, strokeKey: string): Label;
+    execute(
+        context: CanvasRenderingContext2D,
+        contextScale: number,
+        transform: Transform,
+        viewRotation: number,
+        snapToPixel: boolean,
+        opt_declutterTree?: RBush<any>,
+    ): void;
     executeHitDetection<T>(
         context: CanvasRenderingContext2D,
         transform: Transform,
         viewRotation: number,
-        opt_featureCallback?: () => void,
+        opt_featureCallback?: FeatureCallback<T>,
         opt_hitExtent?: Extent,
-    ): T;
-    getTextImage(text: string, textKey: string, fillKey: string, strokeKey: string): HTMLCanvasElement;
-    renderDeclutter(declutterGroup: DeclutterGroup, feature: FeatureLike, opacity: number, declutterTree: any): any;
-    replayImage_(
-        context: CanvasRenderingContext2D,
-        x: number,
-        y: number,
-        image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
-        anchorX: number,
-        anchorY: number,
-        declutterGroup: DeclutterGroup,
-        height: number,
-        opacity: number,
-        originX: number,
-        originY: number,
-        rotation: number,
-        scale: number,
-        snapToPixel: boolean,
-        width: number,
-        padding: number[],
-        fillInstruction: any[],
-        strokeInstruction: any[],
-    ): void;
+    ): T | undefined;
     replayTextBackground_(
         context: CanvasRenderingContext2D,
         p1: Coordinate,

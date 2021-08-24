@@ -1,26 +1,27 @@
-import * as date from "date-and-time";
+import * as date from 'date-and-time';
+import 'date-and-time/plugin/meridiem';
 
 const now = new Date();
 // $ExpectType string
-date.format(now, "YYYY/MM/DD HH:mm:ss"); // => '2015/01/02 23:14:05'
+date.format(now, 'YYYY/MM/DD HH:mm:ss'); // => '2015/01/02 23:14:05'
 // $ExpectType string
-date.format(now, "ddd MMM DD YYYY"); // => 'Fri Jan 02 2015'
+date.format(now, 'ddd MMM DD YYYY'); // => 'Fri Jan 02 2015'
 // $ExpectType string
-date.format(now, "hh:mm A [GMT]Z"); // => '11:14 p.m. GMT-0800'
+date.format(now, 'hh:mm A [GMT]Z'); // => '11:14 p.m. GMT-0800'
 // $ExpectType string
-date.format(now, "hh:mm A [GMT]Z", true); // => '07:14 a.m. GMT+0000'
+date.format(now, 'hh:mm A [GMT]Z', true); // => '07:14 a.m. GMT+0000'
 
-// $ExpectType number | Date
-date.parse("2015/01/02 23:14:05", "YYYY/MM/DD HH:mm:ss"); // => date object
-// $ExpectType number | Date
-date.parse("02-01-2015", "DD-MM-YYYY"); // => date object
-// $ExpectType number | Date
-date.parse("Jam 1 2017", "MMM D YYYY"); // => NaN
+// $ExpectType Date
+date.parse('2015/01/02 23:14:05', 'YYYY/MM/DD HH:mm:ss'); // => date object
+// $ExpectType Date
+date.parse('02-01-2015', 'DD-MM-YYYY'); // => date object
+// $ExpectType Date
+date.parse('Jam 1 2017', 'MMM D YYYY'); // => NaN
 
 // $ExpectType boolean
-date.isValid("2015/01/02 23:14:05", "YYYY/MM/DD HH:mm:ss"); // => true
+date.isValid('2015/01/02 23:14:05', 'YYYY/MM/DD HH:mm:ss'); // => true
 // $ExpectType boolean
-date.isValid("29-02-2015", "DD-MM-YYYY"); // => false
+date.isValid('29-02-2015', 'DD-MM-YYYY'); // => false
 
 // $ExpectType Date
 date.addYears(now, 1); // => Date object
@@ -46,7 +47,7 @@ date.addMilliseconds(now, 1); // => Date object
 const today = new Date(2015, 0, 2);
 const yesterday = new Date(2015, 0, 1);
 
-// $ExpectType Subtract
+// $ExpectType SubtractResult
 date.subtract(today, yesterday);
 // $ExpectType number
 date.subtract(today, yesterday).toDays(); // => 1 = today - yesterday
@@ -59,12 +60,10 @@ date.subtract(today, yesterday).toSeconds(); // => 86400
 // $ExpectType number
 date.subtract(today, yesterday).toMilliseconds(); // => 86400000
 
-const date1 = new Date(2015, 0, 2);
-const date2 = new Date(2012, 0, 2);
 // $ExpectType boolean
-date.isLeapYear(date1); // => false
+date.isLeapYear(2015); // => false
 // $ExpectType boolean
-date.isLeapYear(date2); // => true
+date.isLeapYear(2012); // => true
 
 const date1_ = new Date(2017, 0, 2, 0); // Jan 2 2017 00:00:00
 const date2_ = new Date(2017, 0, 2, 23, 59); // Jan 2 2017 23:59:00
@@ -77,10 +76,14 @@ date.isSameDay(date1_, date3); // => false
 // $ExpectType string
 date.locale();
 
-// $ExpectType any
-date.getLocales();
+// $ExpectType PreparseResult
+date.preparse('0000', 'YYYY');
+
+// $ExpectType string[]
+date.compile('YYYY');
 
 // $ExpectType void
-date.setLocales("en", {
-    A: ["AM", "PM"]
-});
+date.plugin('meridiem');
+
+// $ExpectType void
+date.extend({ res: { A: ['am', 'pm'] } });

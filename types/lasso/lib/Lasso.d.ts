@@ -7,16 +7,16 @@ import { writers } from '../index';
 import LassoPageResult from './LassoPageResult';
 
 export interface PageConfig {
-    name?: string;
+    name?: string | undefined;
     dependencies: DependencyConfig[] | string[] | string | null;
-    flags?: string[];
-    from?: string;
-    packagePath?: string;
-    packagePaths?: string[];
-    lassoContext?: LassoContext;
+    flags?: string[] | undefined;
+    from?: string | undefined;
+    packagePath?: string | undefined;
+    packagePaths?: string[] | undefined;
+    lassoContext?: LassoContext | undefined;
     cache?: any;
-    cacheKey?: string;
-    pageName?: string;
+    cacheKey?: string | undefined;
+    pageName?: string | undefined;
     data?: any;
 }
 
@@ -30,24 +30,24 @@ export interface CustomPlugin {
 }
 
 export interface LassoConfig {
-    baseDir?: string;
-    plugins?: string[] | CustomPlugin[];
+    baseDir?: string | undefined;
+    plugins?: string[] | CustomPlugin[] | undefined;
     require?: any;
-    outputDir?: string;
-    urlPrefix?: string;
-    fingerprintsEnabled?: boolean;
-    includeSlotNames?: boolean;
-    minify?: boolean;
-    minifyJS?: boolean;
-    minifyCSS?: boolean;
-    minifyInlineOnly?: boolean;
-    minifyInlineJSOnly?: boolean;
-    minifyInlineCSSOnly?: boolean;
-    resolveCssUrls?: boolean;
-    relativeUrlsEnabled?: boolean;
-    bundlingEnabled?: boolean;
-    bundles?: Bundle[];
-    noConflict?: string;
+    outputDir?: string | undefined;
+    urlPrefix?: string | undefined;
+    fingerprintsEnabled?: boolean | undefined;
+    includeSlotNames?: boolean | undefined;
+    minify?: boolean | undefined;
+    minifyJS?: boolean | undefined;
+    minifyCSS?: boolean | undefined;
+    minifyInlineOnly?: boolean | undefined;
+    minifyInlineJSOnly?: boolean | undefined;
+    minifyInlineCSSOnly?: boolean | undefined;
+    resolveCssUrls?: boolean | undefined;
+    relativeUrlsEnabled?: boolean | undefined;
+    bundlingEnabled?: boolean | undefined;
+    bundles?: Bundle[] | undefined;
+    noConflict?: string | undefined;
 
     cspNonceProvider?(out: any): string;
     fingerprintInlineCode?(code: any): string;

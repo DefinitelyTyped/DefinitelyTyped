@@ -8,15 +8,15 @@
 /// <reference types="jquery" />
 
 interface Iconfig {
-    logging?: boolean;
-    smartConvert?: boolean;
-    searchId?: string;
-    recordType?: string;
+    logging?: boolean | undefined;
+    smartConvert?: boolean | undefined;
+    searchId?: string | undefined;
+    recordType?: string | undefined;
     filterExpression?: any;
-    columns?: string;
-    start?: number;
-    end?: number;
-    maxUnitsUsage?: number;
+    columns?: string | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
+    maxUnitsUsage?: number | undefined;
 }
 declare module jSuite {
     function getVersion(): string;

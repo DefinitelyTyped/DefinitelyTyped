@@ -1,14 +1,12 @@
 import * as React from "react";
 
 export type LayoutGridProps = {
-    className?: string;
-    /* The number of columns in the grid. */
-    cols?: 1 | 2 | 3 | 4 | 5 | 6;
-    customStyles?: { [x: string]: any };
-    disableStyles?: boolean;
-    ref?: React.Ref<HTMLDivElement>;
-    /* Set to **true** to remove the margins between the panels. */
-    nogap?: boolean;
+    className?: string | undefined,
+    cols?: 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+    colSpan?: any,
+    disableStyles?: boolean | undefined,
+    nogap?: boolean | undefined
+    ref?: React.Ref<HTMLDivElement> | undefined;
 } & React.HTMLAttributes<HTMLAnchorElement>;
 
 declare const LayoutGrid: React.FunctionComponent<LayoutGridProps> & {

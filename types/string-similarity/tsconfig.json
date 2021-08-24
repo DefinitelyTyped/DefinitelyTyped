@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "string-similarity-tests.ts"
+        "test/string-similarity.global.ts",
+        "test/string-similarity.module.ts"
     ]
 }

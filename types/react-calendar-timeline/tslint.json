@@ -2,16 +2,12 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "callable-types": false,
         "dt-header": false,
         "interface-over-type-literal": false,
         "no-declare-current-package": false,
         "no-duplicate-imports": false,
         "no-object-literal-type-assertion": false,
-        "no-outside-dependencies": false,
-        "no-redundant-jsdoc": false,
         "object-literal-shorthand": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false
     }
 }

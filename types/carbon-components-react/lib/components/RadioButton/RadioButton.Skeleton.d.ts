@@ -1,12 +1,8 @@
 import * as React from "react";
-import { ReactLabelAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    id?: ReactLabelAttr["htmlFor"],
-}
+export interface RadioButtonSkeletonProps extends ReactDivAttr { }
 
-export interface RadioButtonSkeletonProps extends InheritedProps { }
-
-declare class RadioButtonSkeleton extends React.Component<RadioButtonSkeletonProps> { }
+declare const RadioButtonSkeleton: React.FC<RadioButtonSkeletonProps>;
 
 export default RadioButtonSkeleton;

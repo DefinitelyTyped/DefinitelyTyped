@@ -1,22 +1,18 @@
 import { Component, CSSProperties } from "react";
 import { CustomPickerProps, ColorState } from "../../..";
+import { Classes } from "reactcss";
 
-export interface CirclePickerDefaultStyles {
-    card?: CSSProperties;
-}
-
-export interface CirclePickerStyles {
-    default?: CirclePickerDefaultStyles;
+export interface CirclePickerStylesProps {
+    card: CSSProperties;
 }
 
 export interface CirclePickerProps extends CustomPickerProps {
-    colors?: string[];
-    width?: string;
-    circleSize?: number;
-    circleSpacing?: number;
-    onSwatchHover?: (color: ColorState, event: MouseEvent) => void;
-    styles?: CirclePickerStyles;
-    className?: string;
+    colors?: string[] | undefined;
+    width?: string | undefined;
+    circleSize?: number | undefined;
+    circleSpacing?: number | undefined;
+    onSwatchHover?: ((color: ColorState, event: MouseEvent) => void) | undefined;
+    styles?: Partial<Classes<CirclePickerStylesProps>> | undefined;
 }
 
-export default class CirclePicker extends Component<CirclePickerProps> {}
+export default class CirclePicker extends Component<CirclePickerProps> { }

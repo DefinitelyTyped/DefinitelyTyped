@@ -1,39 +1,35 @@
 import { Component, CSSProperties } from "react";
 import { RenderersProps, CustomPickerProps } from "../../..";
+import { Classes } from "reactcss";
 
-export interface ChromePickerDefaultStyles {
-    picker?: CSSProperties;
-    saturation?: CSSProperties;
-    Saturation?: CSSProperties;
-    body?: CSSProperties;
-    controls?: CSSProperties;
-    color?: CSSProperties;
-    swatch?: CSSProperties;
-    active?: CSSProperties;
-    toggles?: CSSProperties;
-    hue?: CSSProperties;
-    Hue?: CSSProperties;
-    alpha?: CSSProperties;
-    Alpha?: CSSProperties;
+export interface ChromePickerStylesProps {
+    picker: CSSProperties;
+    saturation: CSSProperties;
+    Saturation: CSSProperties;
+    body: CSSProperties;
+    controls: CSSProperties;
+    color: CSSProperties;
+    swatch: CSSProperties;
+    active: CSSProperties;
+    toggles: CSSProperties;
+    hue: CSSProperties;
+    Hue: CSSProperties;
+    alpha: CSSProperties;
+    Alpha: CSSProperties;
 }
 
 export interface ChromePickerDisableAlphaStyles {
-    color?: CSSProperties;
-    alpha?: CSSProperties;
-    hue?: CSSProperties;
-    swatch?: CSSProperties;
-}
-
-export interface ChromePickerStyles {
-    default?: ChromePickerDefaultStyles;
-    disableAlpha?: ChromePickerDisableAlphaStyles;
+    color?: CSSProperties | undefined;
+    alpha?: CSSProperties | undefined;
+    hue?: CSSProperties | undefined;
+    swatch?: CSSProperties | undefined;
 }
 
 export interface ChromePickerProps extends RenderersProps, CustomPickerProps {
-    width?: string;
-    disableAlpha?: boolean;
-    styles?: ChromePickerStyles;
-    className?: string;
+    width?: string | undefined;
+    disableAlpha?: boolean | undefined;
+    styles?: Partial<Classes<ChromePickerStylesProps>> | undefined;
+    className?: string | undefined;
 }
 
-export default class ChromePicker extends Component<ChromePickerProps> {}
+export default class ChromePicker extends Component<ChromePickerProps> { }

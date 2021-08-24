@@ -36,7 +36,7 @@ if (sweden) {
     // $ExpectType string
     sweden.sub["SE-O"].name;
     // $ExpectType string
-	sweden.code;
+    sweden.code;
 }
 
 const unitedStates = iso3166.data["US"];
@@ -44,7 +44,7 @@ const unitedStates = iso3166.data["US"];
     // $ExpectType string
     unitedStates.name;
     // $ExpectType string
-	unitedStates.sub["US-IN"].name;
+    unitedStates.sub["US-IN"].name;
 }
 
 const alpha3 = "SWE";

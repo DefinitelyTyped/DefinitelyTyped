@@ -5426,7 +5426,6 @@ declare namespace Excel {
         readonly Parent: IconSet;
     }
 
-    // tslint:disable-next-line:interface-name
     interface IconSet {
         _Default(Index: any): Icon;
         readonly Application: Application;
@@ -5462,7 +5461,6 @@ declare namespace Excel {
         readonly Type: number;
     }
 
-    // tslint:disable-next-line:interface-name
     interface IconCriteria {
         _Default(Index: any): IconCriterion;
         readonly Count: number;
@@ -5480,7 +5478,6 @@ declare namespace Excel {
         Value: number | string;
     }
 
-    // tslint:disable-next-line:interface-name
     interface IconSets {
         _Default(Index: any): any;
         readonly Application: Application;

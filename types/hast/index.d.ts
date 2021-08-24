@@ -2,6 +2,7 @@
 // Project: https://github.com/syntax-tree/hast
 // Definitions by: lukeggchapman <https://github.com/lukeggchapman>
 //                 Junyoung Choi <https://github.com/rokt33r>
+//                 Christian Murphy <https://github.com/ChristianMurphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -10,13 +11,61 @@ import { Parent as UnistParent, Literal as UnistLiteral, Node as UnistNode } fro
 export { UnistNode as Node };
 
 /**
+ * This map registers all node types that may be used as top-level content in the document.
+ *
+ * These types are accepted inside `root` nodes.
+ *
+ * This interface can be augmented to register custom node types.
+ *
+ * @example
+ * declare module 'hast' {
+ *   interface RootContentMap {
+ *     // Allow using raw nodes defined by `rehype-raw`.
+ *     raw: Raw;
+ *   }
+ * }
+ */
+export interface RootContentMap {
+    comment: Comment;
+    doctype: DocType;
+    element: Element;
+    text: Text;
+}
+
+/**
+ * This map registers all node types that may be used as content in an element.
+ *
+ * These types are accepted inside `element` nodes.
+ *
+ * This interface can be augmented to register custom node types.
+ *
+ * @example
+ * declare module 'hast' {
+ *   interface RootContentMap {
+ *     custom: Custom;
+ *   }
+ * }
+ */
+export interface ElementContentMap {
+    comment: Comment;
+    element: Element;
+    text: Text;
+}
+
+export type Content = RootContent | ElementContent;
+
+export type RootContent = RootContentMap[keyof RootContentMap];
+
+export type ElementContent = ElementContentMap[keyof ElementContentMap];
+
+/**
  * Node in hast containing other nodes.
  */
 export interface Parent extends UnistParent {
     /**
      * List representing the children of a node.
      */
-    children: Array<Element | DocType | Comment | Text>;
+    children: Content[];
 }
 
 /**
@@ -36,6 +85,11 @@ export interface Root extends Parent {
      * Represents this variant of a Node.
      */
     type: 'root';
+
+    /**
+     * List representing the children of a node.
+     */
+    children: RootContent[];
 }
 
 /**
@@ -55,24 +109,24 @@ export interface Element extends Parent {
     /**
      * Represents information associated with the element.
      */
-    properties?: Properties;
+    properties?: Properties | undefined;
 
     /**
      * If the tagName field is 'template', a content field can be present.
      */
-    content?: Root;
+    content?: Root | undefined;
 
     /**
      * List representing the children of a node.
      */
-    children: Array<Element | Comment | Text>;
+    children: ElementContent[];
 }
 
 /**
  * Represents information associated with an element.
  */
 export interface Properties {
-    [PropertyName: string]: any;
+    [PropertyName: string]: boolean | number | string | null | undefined | Array<string | number>;
 }
 
 /**
@@ -85,16 +139,6 @@ export interface DocType extends UnistNode {
     type: 'doctype';
 
     name: string;
-
-    /**
-     * Represents the document’s public identifier.
-     */
-    public?: string;
-
-    /**
-     * Represents the document’s system identifier.
-     */
-    system?: string;
 }
 
 /**

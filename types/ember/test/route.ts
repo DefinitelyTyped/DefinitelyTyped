@@ -21,7 +21,7 @@ Route.extend({
 
 Route.extend({
     afterModel(posts: Posts, transition: Transition) {
-        if (posts.length === 1) {
+        if (posts.firstObject) {
             this.transitionTo('post.show', posts.firstObject);
         }
     },
@@ -102,9 +102,9 @@ class RouteUsingClass extends Route.extend({
         this.intermediateTransitionTo('some-route');
     }
     intermediateTransitionWithModel() {
-        this.intermediateTransitionTo('some.other.route', { });
+        this.intermediateTransitionTo('some.other.route', {});
     }
     intermediateTransitionWithMultiModel() {
-        this.intermediateTransitionTo('some.other.route', 1, 2, { });
+        this.intermediateTransitionTo('some.other.route', 1, 2, {});
     }
 }

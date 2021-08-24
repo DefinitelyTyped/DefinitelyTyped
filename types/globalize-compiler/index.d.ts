@@ -1,5 +1,5 @@
 // Type definitions for globalize-compiler v0.2.0
-// Project: https://github.com/jquery-support/globalize-compiler
+// Project: https://github.com/globalizejs/globalize-compiler
 // Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -22,7 +22,7 @@ interface CompileOptions {
   /**
    * A function that replaces the default template.
    */
-  template?: (options: CompileTemplateOptions) => string;
+  template?: ((options: CompileTemplateOptions) => string) | undefined;
 }
 
 interface FormatterOrParserFunction {
@@ -42,7 +42,7 @@ interface CompileExtractsAttributes extends CompileOptions {
   /**
    * an Array of extracts obtained by @see{GlobalizeCompilerStatic.extract}
    */
-  extracts: ExtractFunction;
+  extracts: ExtractFunction | ExtractFunction[];
 
   /**
    * a locale to be used as Globalize.locale(defaultLocale) when generating the extracted formatters and parsers.
@@ -54,13 +54,13 @@ interface CompileExtractsAttributes extends CompileOptions {
    *  an Object with the CLDR data for the passed locale. Defaults to the entire supplemental data plus the entire
    *  main data for the defaultLocale.
    */
-  cldr?: Object | ((locale: string) => Object);
+  cldr?: Object | ((locale: string) => Object) | undefined;
 
   /**
    * an Object with messages data (in the JSON format) or a Function taking one argument: locale, a String; returning
    *  an Object with the messages data for the passed locale. Defaults to {}.
    */
-  messages?: Object | ((locale: string) => Object);
+  messages?: Object | ((locale: string) => Object) | undefined;
 }
 
 /**

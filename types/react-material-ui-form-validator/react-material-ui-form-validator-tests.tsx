@@ -8,6 +8,8 @@ import {
 import { MenuItem } from 'material-ui';
 
 class Test extends React.Component {
+    textValidatorRef: React.RefObject<TextValidator> = React.createRef();
+
     onSubmitted = (event: React.FormEvent) => {
         event.preventDefault(); // Actually preventDefault() is called by ValidatorForm
     }
@@ -16,6 +18,10 @@ class Test extends React.Component {
 
     componentDidMount() {
         ValidatorForm.addValidationRule('isTruthy', value => value);
+        const { textValidatorRef } = this;
+        if (textValidatorRef && textValidatorRef.current) {
+            textValidatorRef.current.validate('value');
+        }
     }
 
     componentWillUnmount() {
@@ -51,6 +57,7 @@ class Test extends React.Component {
                     <MenuItem value="option3">Option3</MenuItem>
                 </SelectValidator>
                 <TextValidator
+                    ref={this.textValidatorRef}
                     name="textValidator"
                     value="value"
                     validatorListener={this.onValidate}

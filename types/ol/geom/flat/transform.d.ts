@@ -9,6 +9,9 @@ export function rotate(
     anchor: number[],
     opt_dest?: number[],
 ): number[];
+/**
+ * Scale the coordinates.
+ */
 export function scale(
     flatCoordinates: number[],
     offset: number,

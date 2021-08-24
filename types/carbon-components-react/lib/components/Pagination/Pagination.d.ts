@@ -2,26 +2,31 @@ import * as React from "react";
 import { ReactDivAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "id" | "onChange";
-interface InheritedProps extends Omit<ReactDivAttr, ExcludedAttributes> {
-    id?: string | number,
+
+export interface PaginationPageSize {
+    text: string,
+    value: string,
 }
 
-export interface PaginationProps extends InheritedProps {
-    backwardText?: string,
-    forwardText?: string,
-    isLastPage?: boolean,
-    itemsPerPageText?: string,
+export interface PaginationProps extends Omit<ReactDivAttr, ExcludedAttributes> {
+    backwardText?: string | undefined,
+    forwardText?: string | undefined,
+    id?: number | string | undefined,
+    isLastPage?: boolean | undefined,
+    itemsPerPageText?: string | undefined,
     itemRangeText?(min: number, max: number, total: number): string,
     itemText?(min: number, max: number): string,
     onChange(data: { page: number, pageSize: number }): void,
-    page?: number,
-    pageInputDisabled?: boolean,
-    pageNumberText?: string,
+    page?: number | undefined,
+    pageInputDisabled?: boolean | undefined,
+    pageNumberText?: string | undefined,
     pageRangeText?(current: number, total: number): string,
-    pageSize?: number,
-    pageSizes: number[],
-    pagesUnknown?: boolean,
-    totalItems?: number,
+    pageSize?: number | undefined,
+    pageSizeInputDisabled?: boolean | undefined;
+    pageSizes: readonly number[] | readonly PaginationPageSize[],
+    pageText?(page: number): string,
+    pagesUnknown?: boolean | undefined,
+    totalItems?: number | undefined,
 }
 
 declare class Pagination extends React.Component<PaginationProps> { }

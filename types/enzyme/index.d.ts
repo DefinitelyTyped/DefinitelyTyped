@@ -67,7 +67,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
      */
-    contains(node: ReactElement | ReactElement[] | string): boolean;
+    contains(node: ReactElement | ReactElement[] | string | number): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
@@ -112,7 +112,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
             }[keyof P]
         >
     >(
-        invokePropName: K
+        invokePropName: K,
     ): P[K];
 
     /**
@@ -311,9 +311,9 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      */
     debug(options?: {
         /** Whether props should be omitted in the resulting string. Props are included by default. */
-        ignoreProps?: boolean;
+        ignoreProps?: boolean | undefined;
         /** Whether arrays and objects passed as props should be verbosely printed. */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }): string;
 
     /**
@@ -381,7 +381,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Renders the component to static markup and returns a Cheerio wrapper around the result.
      */
-    render(): Cheerio;
+    render(): cheerio.Cheerio;
 
     /**
      * Returns the type of the current node of this wrapper. If it's a composite component, this will be the
@@ -396,7 +396,6 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
 
 export type Parameters<T> = T extends (...args: infer A) => any ? A : never;
 
-// tslint:disable-next-line no-empty-interface
 export interface ShallowWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> {}
 export class ShallowWrapper<P = {}, S = {}, C = Component> {
     constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper<any, any>, options?: ShallowRendererProps);
@@ -410,7 +409,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     find<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     find<C2 extends Component>(
-      componentClass: ComponentClass<C2['props']>,
+        componentClass: ComponentClass<C2['props']>,
     ): ShallowWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
@@ -448,7 +447,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * NOTE: can only be called on wrapper of a single non-DOM component element node.
      */
     dive<C2 extends Component, P2 = C2['props'], S2 = C2['state']>(
-        options?: ShallowRendererProps
+        options?: ShallowRendererProps,
     ): ShallowWrapper<P2, S2, C2>;
     dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
     dive<P2, S2, C2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2, C2>;
@@ -492,7 +491,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Returns a wrapper of the node rendered by the provided render prop.
      */
     renderProp<PropName extends keyof P>(
-        prop: PropName
+        prop: PropName,
     ): (...params: Parameters<P[PropName]>) => ShallowWrapper<any, never>;
 
     /**
@@ -503,7 +502,6 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     getWrappingComponent: () => ShallowWrapper;
 }
 
-// tslint:disable-next-line no-empty-interface
 export interface ReactWrapper<P = {}, S = {}, C = Component> extends CommonWrapper<P, S, C> {}
 export class ReactWrapper<P = {}, S = {}, C = Component> {
     constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper<any, any>, options?: MountRendererProps);
@@ -545,9 +543,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
-    find<C2 extends Component>(
-      componentClass: ComponentClass<C2['props']>,
-    ): ReactWrapper<C2['props'], C2['state'], C2>;
+    find<C2 extends Component>(componentClass: ComponentClass<C2['props']>): ReactWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
 
@@ -618,12 +614,12 @@ export interface Lifecycles {
     componentDidUpdate?: {
         onSetState: boolean;
         prevContext: boolean;
-    };
-    getDerivedStateFromProps?: { hasShouldComponentUpdateBug: boolean } | boolean;
+    } | undefined;
+    getDerivedStateFromProps?: { hasShouldComponentUpdateBug: boolean } | boolean | undefined;
     getChildContext?: {
         calledByRenderer: boolean;
         [key: string]: any;
-    };
+    } | undefined;
     setState?: any;
     // TODO Maybe some life cycle are missing
     [lifecycleName: string]: any;
@@ -635,11 +631,11 @@ export interface ShallowRendererProps {
      * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
      * setProps and setContext. Default to false.
      */
-    disableLifecycleMethods?: boolean;
+    disableLifecycleMethods?: boolean | undefined;
     /**
      * Enable experimental support for full react lifecycle methods
      */
-    lifecycleExperimental?: boolean;
+    lifecycleExperimental?: boolean | undefined;
     /**
      * Context to be passed into the component
      */
@@ -648,31 +644,31 @@ export interface ShallowRendererProps {
      * The legacy enableComponentDidUpdateOnSetState option should be matched by
      * `lifecycles: { componentDidUpdate: { onSetState: true } }`, for compatibility
      */
-    enableComponentDidUpdateOnSetState?: boolean;
+    enableComponentDidUpdateOnSetState?: boolean | undefined;
     /**
      * the legacy supportPrevContextArgumentOfComponentDidUpdate option should be matched by
      * `lifecycles: { componentDidUpdate: { prevContext: true } }`, for compatibility
      */
-    supportPrevContextArgumentOfComponentDidUpdate?: boolean;
-    lifecycles?: Lifecycles;
+    supportPrevContextArgumentOfComponentDidUpdate?: boolean | undefined;
+    lifecycles?: Lifecycles | undefined;
     /**
      * A component that will render as a parent of the node.
      * It can be used to provide context to the `node`, among other things.
      * See the [getWrappingComponent() docs](https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html) for an example.
      * **Note**: `wrappingComponent` must render its children.
      */
-    wrappingComponent?: ComponentType<any>;
+    wrappingComponent?: ComponentType<any> | undefined;
     /**
      * Initial props to pass to the `wrappingComponent` if it is specified.
      */
-    wrappingComponentProps?: {};
+    wrappingComponentProps?: {} | undefined;
     /**
      * If set to true, when rendering Suspense enzyme will replace all the lazy components in children
      * with fallback element prop. Otherwise it won't handle fallback of lazy component.
      * Default to true. Note: not supported in React < 16.6.
      */
-    suspenseFallback?: boolean;
-    adapter?: EnzymeAdapter;
+    suspenseFallback?: boolean | undefined;
+    adapter?: EnzymeAdapter | undefined;
     /* TODO what are these doing??? */
     attachTo?: any;
     hydrateIn?: any;
@@ -683,26 +679,26 @@ export interface MountRendererProps {
     /**
      * Context to be passed into the component
      */
-    context?: {};
+    context?: {} | undefined;
     /**
      * DOM Element to attach the component to
      */
-    attachTo?: HTMLElement | null;
+    attachTo?: HTMLElement | null | undefined;
     /**
      * Merged contextTypes for all children of the wrapper
      */
-    childContextTypes?: {};
+    childContextTypes?: {} | undefined;
     /**
      * A component that will render as a parent of the node.
      * It can be used to provide context to the `node`, among other things.
      * See the [getWrappingComponent() docs](https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html) for an example.
      * **Note**: `wrappingComponent` must render its children.
      */
-    wrappingComponent?: ComponentType<any>;
+    wrappingComponent?: ComponentType<any> | undefined;
     /**
      * Initial props to pass to the `wrappingComponent` if it is specified.
      */
-    wrappingComponentProps?: {};
+    wrappingComponentProps?: {} | undefined;
 }
 
 /**
@@ -711,7 +707,7 @@ export interface MountRendererProps {
  */
 export function shallow<C extends Component, P = C['props'], S = C['state']>(
     node: ReactElement<P>,
-    options?: ShallowRendererProps
+    options?: ShallowRendererProps,
 ): ShallowWrapper<P, S, C>;
 export function shallow<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
 export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
@@ -721,7 +717,7 @@ export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererPr
  */
 export function mount<C extends Component, P = C['props'], S = C['state']>(
     node: ReactElement<P>,
-    options?: MountRendererProps
+    options?: MountRendererProps,
 ): ReactWrapper<P, S, C>;
 export function mount<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
 export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
@@ -729,11 +725,11 @@ export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps)
 /**
  * Render react components to static HTML and analyze the resulting HTML structure.
  */
-export function render<P, S>(node: ReactElement<P>, options?: any): Cheerio;
+export function render<P, S>(node: ReactElement<P>, options?: any): cheerio.Cheerio;
 
 // See https://github.com/airbnb/enzyme/blob/v3.10.0/packages/enzyme/src/EnzymeAdapter.js
 export class EnzymeAdapter {
-    wrapWithWrappingComponent?: (node: ReactElement, options?: ShallowRendererProps) => any;
+    wrapWithWrappingComponent?: ((node: ReactElement, options?: ShallowRendererProps) => any) | undefined;
 }
 
 /**
@@ -749,5 +745,5 @@ export function configure(options: {
      * If set to true, componentDidMount is not called on the component, and componentDidUpdate is not called after
      * setProps and setContext. Default to false.
      */
-    disableLifecycleMethods?: boolean;
+    disableLifecycleMethods?: boolean | undefined;
 }): void;

@@ -106,6 +106,7 @@ export function createReaderSelector(
     dataID: DataID,
     variables: Variables,
     request: RequestDescriptor,
+    isWithinUnmatchedTypeRefinement?: boolean, // default: `false`
 ): SingularReaderSelector;
 
 export function createNormalizationSelector(

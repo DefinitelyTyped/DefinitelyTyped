@@ -14,7 +14,7 @@ declare module 'angular' {
 
     interface PromiseValue<T> {
         state: PromiseState;
-        value?: T;
+        value?: T | undefined;
         reason?: any;
     }
 
