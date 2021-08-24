@@ -1,4 +1,5 @@
-import { DowncastWriter, Element, Model, Range } from '@ckeditor/ckeditor5-engine';
+import { DowncastWriter, Element, Model } from '@ckeditor/ckeditor5-engine';
+import Position from '@ckeditor/ckeditor5-engine/src/model/position';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import ContainerElement from '@ckeditor/ckeditor5-engine/src/view/containerelement';
 import DocumentSelection from '@ckeditor/ckeditor5-engine/src/view/documentselection';
@@ -25,4 +26,4 @@ export function createMediaFigureElement(
 
 export function getSelectedMediaModelWidget(selection: Selection): Element;
 
-export function insertMedia(model: Model, url: string, insertRange?: Range): void;
+export function insertMedia(model: Model, url: string, insertPosition?: Position): void;
