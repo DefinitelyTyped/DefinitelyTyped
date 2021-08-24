@@ -10,6 +10,7 @@ import {
     TextureEncoding,
     Mesh,
     Material,
+    ColorRepresentation,
 } from '../../../src/Three';
 import { Pass, FullScreenQuad } from '../postprocessing/Pass';
 import { Reflector } from '../objects/ReflectorForSSRPass';
@@ -24,7 +25,6 @@ export interface SSRPassParams {
     encoding: TextureEncoding;
     isPerspectiveCamera?: boolean | undefined;
     isBouncing?: boolean | undefined;
-    morphTargets?: boolean | undefined;
     groundReflector: Reflector | null;
 }
 
@@ -105,23 +105,23 @@ export class SSRPass extends Pass {
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     renderOverride: (
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 
     renderMetalness: (
         renderer: WebGLRenderer,
         passMaterial: Material,
         renderTarget: WebGLRenderTarget,
-        clearColor: Color | string | number,
-        clearAlpha: Color | string | number,
+        clearColor: ColorRepresentation,
+        clearAlpha: ColorRepresentation,
     ) => void;
 }

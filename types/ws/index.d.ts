@@ -247,6 +247,7 @@ declare namespace WebSocket {
     }
 
     interface OpenEvent {
+        type: string;
         target: WebSocket;
     }
 
@@ -261,6 +262,7 @@ declare namespace WebSocket {
         wasClean: boolean;
         code: number;
         reason: string;
+        type: string;
         target: WebSocket;
     }
 

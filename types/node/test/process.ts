@@ -1,6 +1,6 @@
-import * as p from 'process';
-import assert = require('assert');
-import EventEmitter = require('events');
+import * as p from 'node:process';
+import assert = require('node:assert');
+import EventEmitter = require('node:events');
 
 {
     let eventEmitter: EventEmitter;
@@ -18,7 +18,7 @@ import EventEmitter = require('events');
     process.once("disconnect", () => { });
     process.prependListener("exit", (code: number) => { });
     process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
-    process.on("uncaughtException", (error: Error) => { });
+    process.on("uncaughtException", (error: Error, origin: NodeJS.UncaughtExceptionOrigin) => { });
     process.once("uncaughtExceptionMonitor", (error: Error) => { });
     process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
     process.once("warning", (warning: Error) => { });

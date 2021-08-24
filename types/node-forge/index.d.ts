@@ -426,7 +426,11 @@ declare module "node-forge" {
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
+        function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
+
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
+
+        function certificationRequestToAsn1(cert: Certificate): asn1.Asn1;
 
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
@@ -498,7 +502,7 @@ declare module "node-forge" {
     }
 
     namespace random {
-        function getBytes(count: number, callback?: (bytes: Bytes) => any): Bytes;
+        function getBytes(count: number, callback?: (err: Error | null, bytes: Bytes) => any): Bytes;
         function getBytesSync(count: number): Bytes;
         type CB = (_: any, seed: string) => void;
         interface Random {

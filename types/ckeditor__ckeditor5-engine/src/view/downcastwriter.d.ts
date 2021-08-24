@@ -1,18 +1,19 @@
-import Element from "./element";
-import Position from "./position";
-import Range from "./range";
-import Document from "./document";
 import AttributeElement from "./attributeelement";
 import ContainerElement from "./containerelement";
+import Document from "./document";
+import DocumentFragment from "./documentfragment";
 import EditableElement from "./editableelement";
+import Element from "./element";
 import EmptyElement from "./emptyelement";
 import { Item } from "./item";
-import View from "./view";
+import Node from "./node";
+import Position from "./position";
+import Range from "./range";
 import RawElement from "./rawelement";
 import Selection, { Selectable } from "./selection";
 import Text from "./text";
 import UIElement from "./uielement";
-import DocumentFragment from "./documentfragment";
+import View from "./view";
 
 export default class DowncastWriter {
     readonly document: Document;
@@ -41,8 +42,8 @@ export default class DowncastWriter {
         options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): EmptyElement;
     createPositionAfter(item: Item): Position;
-    createPositionAt(itemOrPosition: View, offset?: number | "end" | "before" | "after"): Position;
-    createPositionAt(itemOrPosition: Item | Position): Position;
+    createPositionAt(itemOrPosition: Item, offset?: number | "end" | "before" | "after"): Position;
+    createPositionAt(itemOrPosition: Position): Position;
     createPositionBefore(item: Item): Position;
     createRange(start: Position, end?: Position): Range;
     createRangeIn(element: Element): Range;

@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.93.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -250,6 +250,10 @@ declare module "sap/ui/table/AnalyticalColumn" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.AnalyticalColumn.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
      *
      * If the column is grouped, this formatter is used to format the value in the group header
@@ -271,10 +275,6 @@ declare module "sap/ui/table/AnalyticalColumn" {
      * this means the property which is grouped by for dimensions or the property which is summed for measures.
      */
     getLeadingProperty(): string;
-    /**
-     * Returns a metadata object for class sap.ui.table.AnalyticalColumn.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowIfGrouped showIfGrouped}.
      *
@@ -383,29 +383,29 @@ declare module "sap/ui/table/AnalyticalColumn" {
      * Defines the primary model property which is used inside the Column. In case of the analytical extension
      * this means the property which is grouped by for dimensions or the property which is summed for measures.
      */
-    leadingProperty?: string | PropertyBindingInfo | undefined;
+    leadingProperty?: string | PropertyBindingInfo;
 
     /**
      * If defined a sum for this column is calculated
      */
-    summed?: boolean | PropertyBindingInfo | undefined;
+    summed?: boolean | PropertyBindingInfo;
 
     /**
      * Specifies that the dimension referred to by the column shall be included in the granularity of the data
      * result. It allows a finer distinction between a visible/grouped/(included)inResult column.
      */
-    inResult?: boolean | PropertyBindingInfo | undefined;
+    inResult?: boolean | PropertyBindingInfo;
 
     /**
      * Specifies whether the column is displayed within the table even if it is grouped or not. A grouped column
      * has the same value for every rows within the group.
      */
-    showIfGrouped?: boolean | PropertyBindingInfo | undefined;
+    showIfGrouped?: boolean | PropertyBindingInfo;
 
     /**
      * If the column is grouped, this formatter is used to format the value in the group header
      */
-    groupHeaderFormatter?: any | PropertyBindingInfo | undefined;
+    groupHeaderFormatter?: any | PropertyBindingInfo;
   }
 }
 
@@ -549,6 +549,31 @@ declare module "sap/ui/table/AnalyticalTable" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.table.AnalyticalTable with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, AnalyticalTable>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.AnalyticalTable.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Marks a range of tree nodes as selected, starting with iFromIndex going to iToIndex. The nodes are referenced
      * via their absolute row index. Please be aware that the absolute row index only applies to the tree which
      * is visualized by the `AnalyticalTable` control. Invisible nodes (collapsed child nodes) will not be taken
@@ -597,27 +622,6 @@ declare module "sap/ui/table/AnalyticalTable" {
      * groups are loaded, which increases the scroll range, and the scroll thumb moves up.
      */
     expandAll(): this;
-    /**
-     * Creates a new subclass of class sap.ui.table.AnalyticalTable with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, AnalyticalTable>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @deprecated (since 1.44) - replaced by the `autoExpandMode` binding parameter
      *
@@ -707,10 +711,6 @@ declare module "sap/ui/table/AnalyticalTable" {
      * The `groupBy` association is not supported by the `AnalyticalTable` control.
      */
     getGroupBy(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.table.AnalyticalTable.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.44) - replaced by the `numberOfExpandedLevels` binding parameter
      *
@@ -1071,7 +1071,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      *   });
      * ```
      */
-    sumOnTop?: boolean | PropertyBindingInfo | undefined;
+    sumOnTop?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.44) - replaced by the `numberOfExpandedLevels` binding parameter
@@ -1093,7 +1093,7 @@ declare module "sap/ui/table/AnalyticalTable" {
      *   });
      * ```
      */
-    numberOfExpandedLevels?: int | PropertyBindingInfo | undefined;
+    numberOfExpandedLevels?: int | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.44) - replaced by the `autoExpandMode` binding parameter
@@ -1116,13 +1116,13 @@ declare module "sap/ui/table/AnalyticalTable" {
      *   });
      * ```
      */
-    autoExpandMode?: string | PropertyBindingInfo | undefined;
+    autoExpandMode?: string | PropertyBindingInfo;
 
     /**
      * Functions which is used to sort the column visibility menu entries e.g.: function(ColumnA, ColumnB) {
      * return 0 = equals, <0 lower, >0 greater }; Other values than functions will be ignored.
      */
-    columnVisibilityMenuSorter?: any | PropertyBindingInfo | undefined;
+    columnVisibilityMenuSorter?: any | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.76) - replaced by the `collapseRecursive` binding parameter
@@ -1144,14 +1144,14 @@ declare module "sap/ui/table/AnalyticalTable" {
      *   });
      * ```
      */
-    collapseRecursive?: boolean | PropertyBindingInfo | undefined;
+    collapseRecursive?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.21.2) - replaced by {@link sap.ui.table.Table#setShowOverlay}
      *
      * If dirty the content of the Table will be overlayed.
      */
-    dirty?: boolean | PropertyBindingInfo | undefined;
+    dirty?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -1159,6 +1159,8 @@ declare module "sap/ui/table/Column" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import Control from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import Menu from "sap/ui/unified/Menu";
 
@@ -1209,6 +1211,31 @@ declare module "sap/ui/table/Column" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.table.Column with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Column>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.Column.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.13.1
      *
      * Adds some multiLabel to the aggregation {@link #getMultiLabels multiLabels}.
@@ -1239,7 +1266,28 @@ declare module "sap/ui/table/Column" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Column` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.33.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:columnMenuOpen columnMenuOpen} event of this
+     * `sap.ui.table.Column`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Column` itself.
+     *
+     * Fires before the column menu is opened.
+     */
+    attachColumnMenuOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Column` itself
        */
@@ -1275,33 +1323,12 @@ declare module "sap/ui/table/Column" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.table.Column with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Column>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.33.0
      *
@@ -1318,7 +1345,7 @@ declare module "sap/ui/table/Column" {
         /**
          * Refence to the selected `menu` instance to be opened.
          */
-        menu?: Menu | undefined;
+        menu?: Menu;
       }
     ): boolean;
     /**
@@ -1467,10 +1494,6 @@ declare module "sap/ui/table/Column" {
      * `menu` with a new instance of `sap.ui.unified.Menu`.
      */
     getMenu(): Menu;
-    /**
-     * Returns a metadata object for class sap.ui.table.Column.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.44.1
      *
@@ -2063,27 +2086,6 @@ declare module "sap/ui/table/Column" {
      * Toggles the sort order of the column.
      */
     toggleSort(): void;
-    /**
-     * @SINCE 1.33.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:columnMenuOpen columnMenuOpen} event of this
-     * `sap.ui.table.Column`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Column` itself.
-     *
-     * Fires before the column menu is opened.
-     */
-    attachColumnMenuOpen(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Column` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ColumnSettings extends $ElementSettings {
@@ -2094,7 +2096,7 @@ declare module "sap/ui/table/Column" {
      * If a user adjusts the column width manually, the resulting value is always set in pixels. In addition,
      * other columns with width `auto` get a fixed minimum width and do not shrink after the resizing.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * @SINCE 1.44.1
@@ -2104,7 +2106,7 @@ declare module "sap/ui/table/Column" {
      * If a user adjusts the column width manually, the column width can become smaller. Minimal column width
      * is device-dependent, for example on desktop devices the column will not be smaller than 48px.
      */
-    minWidth?: int | PropertyBindingInfo | undefined;
+    minWidth?: int | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.44) - this property has no effect. Use the property `minWidth` in combination with
@@ -2115,13 +2117,13 @@ declare module "sap/ui/table/Column" {
      * width. If all columns are set to not be flexible, an extra "dummy" column will be created at the end
      * of the table.
      */
-    flexible?: boolean | PropertyBindingInfo | undefined;
+    flexible?: boolean | PropertyBindingInfo;
 
     /**
      * If set to true, the column can be resized either using the resize bar (by mouse) or using the keyboard
      * (SHIFT + Left/Right Arrow keys)
      */
-    resizable?: boolean | PropertyBindingInfo | undefined;
+    resizable?: boolean | PropertyBindingInfo;
 
     /**
      * Horizontal alignment of the column content. Controls with a text align do not inherit the horizontal
@@ -2129,19 +2131,19 @@ declare module "sap/ui/table/Column" {
      */
     hAlign?:
       | (HorizontalAlign | keyof typeof HorizontalAlign)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Indicates if the column is sorted. This property only controls if a sort indicator is displayed in the
      * column header - it does not trigger the sort function. The column can be sorted using {@link sap.ui.table.Table#sort}.
      */
-    sorted?: boolean | PropertyBindingInfo | undefined;
+    sorted?: boolean | PropertyBindingInfo;
 
     /**
      * This property indicates the sort direction (Ascending or Descending). The corresponding icon will be
      * rendered if the property `sorted` is `true`
      */
-    sortOrder?: (SortOrder | keyof typeof SortOrder) | PropertyBindingInfo | undefined;
+    sortOrder?: (SortOrder | keyof typeof SortOrder) | PropertyBindingInfo;
 
     /**
      * Specifies the binding property on which the column will sort. Since the column template may have composite
@@ -2151,14 +2153,14 @@ declare module "sap/ui/table/Column" {
      *
      * A column menu entry for sorting can only be generated if the `sortProperty` is set.
      */
-    sortProperty?: string | PropertyBindingInfo | undefined;
+    sortProperty?: string | PropertyBindingInfo;
 
     /**
      * Indicates if the column is filtered. This property only controls if a filter indicator is displayed in
      * the column header - it does not trigger the filter function. The column can be filtered using {@link
      * sap.ui.table.Table#filter}.
      */
-    filtered?: boolean | PropertyBindingInfo | undefined;
+    filtered?: boolean | PropertyBindingInfo;
 
     /**
      * Specifies the binding property on which the column shall be filtered. Since the column template may have
@@ -2169,7 +2171,7 @@ declare module "sap/ui/table/Column" {
      * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
      * entry is a text input field.
      */
-    filterProperty?: string | PropertyBindingInfo | undefined;
+    filterProperty?: string | PropertyBindingInfo;
 
     /**
      * Specifies the value of the filter as string (will be converted into the proper data type). It is possible
@@ -2189,18 +2191,18 @@ declare module "sap/ui/table/Column" {
      * 50..100       between
      * ```
      */
-    filterValue?: string | PropertyBindingInfo | undefined;
+    filterValue?: string | PropertyBindingInfo;
 
     /**
      * Filter operator to use when filtering this column.
      */
-    filterOperator?: string | PropertyBindingInfo | undefined;
+    filterOperator?: string | PropertyBindingInfo;
 
     /**
      * If this property is set, the default filter operator of the column is overridden. By default `Contains`
      * is used for string and `EQ` for other types. A valid `sap.ui.model.FilterOperator` needs to be passed.
      */
-    defaultFilterOperator?: string | PropertyBindingInfo | undefined;
+    defaultFilterOperator?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.9.2
@@ -2213,17 +2215,17 @@ declare module "sap/ui/table/Column" {
      * a function can be passed that takes over the conversion. This cannot be done in the XMLView, use {@link
      * #setFilterType} instead.
      */
-    filterType?: any | PropertyBindingInfo | undefined;
+    filterType?: any | PropertyBindingInfo;
 
     /**
      * Indicates if the column is grouped.
      */
-    grouped?: boolean | PropertyBindingInfo | undefined;
+    grouped?: boolean | PropertyBindingInfo;
 
     /**
      * Invisible controls are not rendered.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.11.1
@@ -2232,21 +2234,21 @@ declare module "sap/ui/table/Column" {
      * If not set, the text from the multiLabels aggregation or the label aggregation (in that order) is used
      * as a fallback option.
      */
-    name?: string | PropertyBindingInfo | undefined;
+    name?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.13.0
      *
      * Defines if the filter menu entry is displayed
      */
-    showFilterMenuEntry?: boolean | PropertyBindingInfo | undefined;
+    showFilterMenuEntry?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.13.0
      *
      * Defines if the sort menu entries are displayed
      */
-    showSortMenuEntry?: boolean | PropertyBindingInfo | undefined;
+    showSortMenuEntry?: boolean | PropertyBindingInfo;
 
     /**
      * If this property is set, a span is applied for the header. When moving columns, all columns which are
@@ -2256,7 +2258,7 @@ declare module "sap/ui/table/Column" {
      * Only columns with a span equal to 1 can have a column menu. When setting a column to fixed, all columns
      * which are part of the header with the greatest span will be set to fixed.
      */
-    headerSpan?: any | PropertyBindingInfo | undefined;
+    headerSpan?: any | PropertyBindingInfo;
 
     /**
      * @SINCE 1.21.1
@@ -2267,14 +2269,14 @@ declare module "sap/ui/table/Column" {
      * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
      * sap.ui.commons.Checkbox, sap.m.CheckBox`
      */
-    autoResizable?: boolean | PropertyBindingInfo | undefined;
+    autoResizable?: boolean | PropertyBindingInfo;
 
     /**
      * Label of the column which is displayed in the column header. This aggregation is for the standard behavior,
      * where you only want to display one single row header. If a string is supplied, a default label control
      * will be created. Which control this is depends on the loaded libraries.
      */
-    label?: string | Control | PropertyBindingInfo | undefined;
+    label?: string | Control | PropertyBindingInfo;
 
     /**
      * @SINCE 1.13.1
@@ -2282,7 +2284,7 @@ declare module "sap/ui/table/Column" {
      * Labels of the column which are displayed in the column header. Define a control for each header row in
      * the table. Use this aggregation if you want to use multiple headers per column.
      */
-    multiLabels?: Control[] | Control | AggregationBindingInfo | undefined;
+    multiLabels?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * Template (cell renderer) of this column. A template is decoupled from the column. Each time the template's
@@ -2295,7 +2297,7 @@ declare module "sap/ui/table/Column" {
      * so might lead to issues with regards to scrolling, alignment, condensed mode, screen reader support,
      * and keyboard support.
      */
-    template?: string | Control | PropertyBindingInfo | undefined;
+    template?: string | Control | PropertyBindingInfo;
 
     /**
      * The menu used by the column. By default the {@link sap.ui.table.ColumnMenu} is used.
@@ -2304,14 +2306,14 @@ declare module "sap/ui/table/Column" {
      * way or create own instances of `sap.ui.table.ColumnMenu`. To add a custom menu to a column, use the aggregation
      * `menu` with a new instance of `sap.ui.unified.Menu`.
      */
-    menu?: Menu | undefined;
+    menu?: Menu;
 
     /**
      * @SINCE 1.33.0
      *
      * Fires before the column menu is opened.
      */
-    columnMenuOpen?: Function | undefined;
+    columnMenuOpen?: (oEvent: Event) => void;
   }
 }
 
@@ -2405,6 +2407,8 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     $SelectionPluginSettings,
   } from "sap/ui/table/plugins/SelectionPlugin";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { SelectionMode } from "sap/ui/table/library";
@@ -2438,6 +2442,31 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      */
     constructor();
 
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.MultiSelectionPlugin with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MultiSelectionPlugin>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.MultiSelectionPlugin.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds the given selection interval to the selection and requests the corresponding binding contexts. In
      * single-selection mode it requests the context and sets the selected index to `iIndexTo`.
@@ -2478,7 +2507,27 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.plugins.MultiSelectionPlugin`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
+     * `sap.ui.table.plugins.MultiSelectionPlugin`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.plugins.MultiSelectionPlugin` itself.
+     *
+     * This event is fired when the selection is changed.
+     */
+    attachSelectionChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.plugins.MultiSelectionPlugin`
        * itself
@@ -2505,33 +2554,12 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.table.plugins.MultiSelectionPlugin with name `sClassName` and
-     * enriches it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MultiSelectionPlugin>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      */
@@ -2543,15 +2571,15 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
         /**
          * Array of indices whose selection has been changed (either selected or deselected)
          */
-        indices?: int[] | undefined;
+        indices?: int[];
         /**
          * Indicates whether the selection limit has been reached
          */
-        limitReached?: boolean | undefined;
+        limitReached?: boolean;
         /**
          * Contains the data passed to the function that triggered the event
          */
-        customPayload?: object | undefined;
+        customPayload?: object;
       }
     ): this;
     /**
@@ -2580,10 +2608,6 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * Default value is `200`.
      */
     getLimit(): int;
-    /**
-     * Returns a metadata object for class sap.ui.table.plugins.MultiSelectionPlugin.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Zero-based indices of selected indices, wrapped in an array. An empty array means nothing has been selected.
      */
@@ -2753,26 +2777,6 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
        */
       bShowHeaderSelector?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
-     * `sap.ui.table.plugins.MultiSelectionPlugin`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.plugins.MultiSelectionPlugin` itself.
-     *
-     * This event is fired when the selection is changed.
-     */
-    attachSelectionChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.plugins.MultiSelectionPlugin`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $MultiSelectionPluginSettings
@@ -2788,19 +2792,19 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * 			the value of the {@link sap.ui.table.Table#getThreshold threshold} property of the related `sap.ui.table.Table`
      * 			control.
      */
-    limit?: int | PropertyBindingInfo | undefined;
+    limit?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.71
      *
      * Enables notifications that are displayed once a selection has been limited.
      */
-    enableNotification?: boolean | PropertyBindingInfo | undefined;
+    enableNotification?: boolean | PropertyBindingInfo;
 
     /**
      * Show header selector
      */
-    showHeaderSelector?: boolean | PropertyBindingInfo | undefined;
+    showHeaderSelector?: boolean | PropertyBindingInfo;
 
     /**
      * Selection mode of the plugin. This property controls whether single or multiple rows can be selected.
@@ -2809,17 +2813,19 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      */
     selectionMode?:
       | (SelectionMode | keyof typeof SelectionMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * This event is fired when the selection is changed.
      */
-    selectionChange?: Function | undefined;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/ui/table/plugins/SelectionPlugin" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2843,47 +2849,6 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
     constructor();
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
-     * `sap.ui.table.plugins.SelectionPlugin`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.plugins.SelectionPlugin` itself.
-     *
-     * This event is fired when the selection is changed.
-     */
-    attachSelectionChange(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.plugins.SelectionPlugin`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:selectionChange selectionChange} event of
-     * this `sap.ui.table.plugins.SelectionPlugin`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachSelectionChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.table.plugins.SelectionPlugin with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -2905,15 +2870,6 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
-     */
-    fireSelectionChange(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: object
-    ): this;
-    /**
      * Returns a metadata object for class sap.ui.table.plugins.SelectionPlugin.
      */
     static getMetadata(): ElementMetadata;
@@ -2928,14 +2884,64 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
      */
     attachSelectionChange(
       /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.plugins.SelectionPlugin`
        * itself
        */
       oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
+     * `sap.ui.table.plugins.SelectionPlugin`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.plugins.SelectionPlugin` itself.
+     *
+     * This event is fired when the selection is changed.
+     */
+    attachSelectionChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.plugins.SelectionPlugin`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:selectionChange selectionChange} event of
+     * this `sap.ui.table.plugins.SelectionPlugin`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachSelectionChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     */
+    fireSelectionChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
     ): this;
   }
 
@@ -2943,7 +2949,7 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
     /**
      * This event is fired when the selection is changed.
      */
-    selectionChange?: Function | undefined;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -2994,19 +3000,6 @@ declare module "sap/ui/table/Row" {
     );
 
     /**
-     * Adds some cell to the aggregation {@link #getCells cells}.
-     */
-    addCell(
-      /**
-       * The cell to add; if empty, nothing is inserted
-       */
-      oCell: Control
-    ): this;
-    /**
-     * Destroys all the cells in the aggregation {@link #getCells cells}.
-     */
-    destroyCells(): this;
-    /**
      * Creates a new subclass of class sap.ui.table.Row with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -3028,6 +3021,23 @@ declare module "sap/ui/table/Row" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.Row.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some cell to the aggregation {@link #getCells cells}.
+     */
+    addCell(
+      /**
+       * The cell to add; if empty, nothing is inserted
+       */
+      oCell: Control
+    ): this;
+    /**
+     * Destroys all the cells in the aggregation {@link #getCells cells}.
+     */
+    destroyCells(): this;
+    /**
      * Gets content of aggregation {@link #getCells cells}.
      *
      * The actual cells are a table-internal construct. The controls in this aggregation are the content of
@@ -3040,10 +3050,6 @@ declare module "sap/ui/table/Row" {
      * scroll position of the table and also takes fixed rows and fixed bottom rows into account.
      */
     getIndex(): int;
-    /**
-     * Returns a metadata object for class sap.ui.table.Row.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the related `RowAction` of the row.
      *
@@ -3099,7 +3105,7 @@ declare module "sap/ui/table/Row" {
      * the cells. This aggregation is managed by the table and must not be manipulated. Only read access is
      * allowed.
      */
-    cells?: Control[] | Control | AggregationBindingInfo | undefined;
+    cells?: Control[] | Control | AggregationBindingInfo;
   }
 }
 
@@ -3155,19 +3161,6 @@ declare module "sap/ui/table/RowAction" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: RowActionItem
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.table.RowAction with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -3189,15 +3182,28 @@ declare module "sap/ui/table/RowAction" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.RowAction.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: RowActionItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
+    /**
      * Gets content of aggregation {@link #getItems items}.
      *
      * The action items which should be displayed.
      */
     getItems(): RowActionItem[];
-    /**
-     * Returns a metadata object for class sap.ui.table.RowAction.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -3267,17 +3273,19 @@ declare module "sap/ui/table/RowAction" {
     /**
      * Whether the control should be visible on the screen. If set to `false`, the control is hidden.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * The action items which should be displayed.
      */
-    items?: RowActionItem[] | RowActionItem | AggregationBindingInfo | undefined;
+    items?: RowActionItem[] | RowActionItem | AggregationBindingInfo;
   }
 }
 
 declare module "sap/ui/table/RowActionItem" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -3326,44 +3334,6 @@ declare module "sap/ui/table/RowActionItem" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.table.RowActionItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.RowActionItem` itself.
-     *
-     * The `press` is fired when the user triggers the corresponding action.
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.RowActionItem` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.table.RowActionItem`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.table.RowActionItem with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -3385,6 +3355,66 @@ declare module "sap/ui/table/RowActionItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.RowActionItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.table.RowActionItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.RowActionItem` itself.
+     *
+     * The `press` is fired when the user triggers the corresponding action.
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.RowActionItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.table.RowActionItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.RowActionItem` itself.
+     *
+     * The `press` is fired when the user triggers the corresponding action.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.RowActionItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.table.RowActionItem`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -3399,10 +3429,6 @@ declare module "sap/ui/table/RowActionItem" {
      * The icon of the item.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.table.RowActionItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -3487,52 +3513,34 @@ declare module "sap/ui/table/RowActionItem" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.table.RowActionItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.RowActionItem` itself.
-     *
-     * The `press` is fired when the user triggers the corresponding action.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.RowActionItem` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $RowActionItemSettings extends $ElementSettings {
     /**
      * The icon of the item.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * Whether the item should be visible on the screen.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * The text of the item. It is used as tooltip and for accessibility purposes.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * The type of the item. Setting the type ensures default values for the properties `icon` and `text`. If
      * an icon or text is set explicitly this setting is used.
      */
-    type?: (RowActionType | keyof typeof RowActionType) | PropertyBindingInfo | undefined;
+    type?: (RowActionType | keyof typeof RowActionType) | PropertyBindingInfo;
 
     /**
      * The `press` is fired when the user triggers the corresponding action.
      */
-    press?: Function | undefined;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -3603,6 +3611,10 @@ declare module "sap/ui/table/RowSettings" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.RowSettings.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.48.0
      *
      * Gets current value of property {@link #getHighlight highlight}.
@@ -3633,10 +3645,6 @@ declare module "sap/ui/table/RowSettings" {
      * Default value is `empty string`.
      */
     getHighlightText(): string;
-    /**
-     * Returns a metadata object for class sap.ui.table.RowSettings.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.72
      *
@@ -3733,7 +3741,7 @@ declare module "sap/ui/table/RowSettings" {
      * text can be overridden by setting the `highlightText` property. In all other cases the `highlightText`
      * property must be set.
      */
-    highlight?: string | PropertyBindingInfo | undefined;
+    highlight?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.62
@@ -3741,7 +3749,7 @@ declare module "sap/ui/table/RowSettings" {
      * Defines the semantics of the {@link sap.ui.table.RowSettings#setHighlight highlight} property for accessibility
      * purposes.
      */
-    highlightText?: string | PropertyBindingInfo | undefined;
+    highlightText?: string | PropertyBindingInfo;
 
     /**
      * @SINCE 1.72
@@ -3751,7 +3759,7 @@ declare module "sap/ui/table/RowSettings" {
      * If set to `true`, a navigation indicator is displayed at the end of the row. **Note:** This property
      * must be set for **one** row only.
      */
-    navigated?: boolean | PropertyBindingInfo | undefined;
+    navigated?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -3765,6 +3773,8 @@ declare module "sap/ui/table/Table" {
   import SelectionPlugin from "sap/ui/table/plugins/SelectionPlugin";
 
   import Row from "sap/ui/table/Row";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -3846,6 +3856,31 @@ declare module "sap/ui/table/Table" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.table.Table with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Table>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.Table.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     addAriaLabelledBy(
@@ -3926,7 +3961,28 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.54
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:beforeOpenContextMenu beforeOpenContextMenu}
+     * event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * Fired when the user requests the context menu for a table cell.
+     */
+    attachBeforeOpenContextMenu(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -3952,7 +4008,28 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.37.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:busyStateChanged busyStateChanged} event of
+     * this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
+     */
+    attachBusyStateChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -3977,7 +4054,27 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.21.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:cellClick cellClick} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when the user clicks a cell of the table (experimental!).
+     */
+    attachCellClick(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4004,7 +4101,29 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.21.0
+     * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:cellContextmenu cellContextmenu} event of this
+     * `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when the user clicks a cell of the table.
+     */
+    attachCellContextmenu(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4029,7 +4148,27 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.21.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:columnFreeze columnFreeze} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when a column of the table should be freezed
+     */
+    attachColumnFreeze(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4052,7 +4191,25 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnMove columnMove} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when a table column is moved.
+     */
+    attachColumnMove(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4075,7 +4232,25 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnResize columnResize} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when a table column is resized.
+     */
+    attachColumnResize(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4098,7 +4273,25 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnSelect columnSelect} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when a column of the table has been selected
+     */
+    attachColumnSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4122,7 +4315,26 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnVisibility columnVisibility} event of
+     * this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when the visibility of a table column is changed.
+     */
+    attachColumnVisibility(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4148,7 +4360,28 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.23.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:customFilter customFilter} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * This event is triggered when the custom filter item of the column menu is pressed. The column on which
+     * the event was triggered is passed as parameter.
+     */
+    attachCustomFilter(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4171,7 +4404,25 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when the table is filtered.
+     */
+    attachFilter(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4198,7 +4449,29 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.37.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:firstVisibleRowChanged firstVisibleRowChanged}
+     * event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * This event gets fired when the first visible row is changed. It should only be used by composite controls.
+     * The event even is fired when setFirstVisibleRow is called programmatically.
+     */
+    attachFirstVisibleRowChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4221,7 +4494,25 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:group group} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when the table is grouped (experimental!).
+     */
+    attachGroup(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4247,7 +4538,28 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.60
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:paste paste} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
+     * with the standard keyboard shortcut, if the focus is inside the table.
+     */
+    attachPaste(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4274,7 +4586,29 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:rowSelectionChange rowSelectionChange} event
+     * of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when the row selection of the table has been changed (the event parameters can be used to determine
+     * selection changes - to find out the selected rows you should better use the table selection API)
+     *
+     * **Note:** If a selection plugin is applied to the table, this event won't be fired.
+     */
+    attachRowSelectionChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4302,7 +4636,30 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.86
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:rowsUpdated rowsUpdated} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * This event is fired after the table rows have been updated due to rendering, a model update, or a user
+     * interaction, for example.
+     *
+     * **Note**: This event is fired often and must not be used for performance-critical tasks.
+     */
+    attachRowsUpdated(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4325,7 +4682,25 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.table.Table`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.Table` itself.
+     *
+     * fired when the table is sorted.
+     */
+    attachSort(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
        */
@@ -4434,7 +4809,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4452,7 +4827,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4469,7 +4844,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4488,7 +4863,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4505,7 +4880,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4520,7 +4895,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4535,7 +4910,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4550,7 +4925,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4566,7 +4941,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4583,7 +4958,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4598,7 +4973,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4616,7 +4991,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4631,7 +5006,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4648,7 +5023,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4664,7 +5039,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4681,7 +5056,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4696,7 +5071,7 @@ declare module "sap/ui/table/Table" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4710,34 +5085,14 @@ declare module "sap/ui/table/Table" {
      * if not provided. For the cell content, the column's "sortProperty" will be used (experimental!)
      *
      * **Please note: This method uses synchronous requests. Support and functioning ends with the support
-     * for synchronous requests in browsers.**/
+     * for synchronous requests in browsers.**
+     */
     exportData(
       /**
        * settings for the new Export, see {@link sap.ui.core.util.Export} `constructor`
        */
       mSettings?: object
     ): Export;
-    /**
-     * Creates a new subclass of class sap.ui.table.Table with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Table>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Filters a column by a value. If no filter value is passed, the filter value equals an empty string, and
      * the filter for this column is removed.
@@ -4768,15 +5123,15 @@ declare module "sap/ui/table/Table" {
         /**
          * Row index where the context menu opens.
          */
-        rowIndex?: int | undefined;
+        rowIndex?: int;
         /**
          * Column index where the context menu opens. This is the index of the column in the `columns` aggregation.
          */
-        columnIndex?: int | undefined;
+        columnIndex?: int;
         /**
          * Context menu
          */
-        contextMenu?: IContextMenu | undefined;
+        contextMenu?: IContextMenu;
       }
     ): boolean;
     /**
@@ -4806,28 +5161,28 @@ declare module "sap/ui/table/Table" {
         /**
          * The control of the cell.
          */
-        cellControl?: Control | undefined;
+        cellControl?: Control;
         /**
          * DOM reference of the clicked cell. Can be used to position the context menu.
          */
-        cellDomRef?: Object | undefined;
+        cellDomRef?: Object;
         /**
          * Row index of the selected cell.
          */
-        rowIndex?: int | undefined;
+        rowIndex?: int;
         /**
          * Column index of the selected cell. This is the index of visible columns and might differ from the index
          * maintained in the column aggregation.
          */
-        columnIndex?: int | undefined;
+        columnIndex?: int;
         /**
          * Column ID of the selected cell.
          */
-        columnId?: string | undefined;
+        columnId?: string;
         /**
          * Row binding context of the selected cell.
          */
-        rowBindingContext?: Context | undefined;
+        rowBindingContext?: Context;
       }
     ): boolean;
     /**
@@ -4847,28 +5202,28 @@ declare module "sap/ui/table/Table" {
         /**
          * The control of the cell.
          */
-        cellControl?: Control | undefined;
+        cellControl?: Control;
         /**
          * DOM reference of the clicked cell. Can be used to position the context menu.
          */
-        cellDomRef?: Object | undefined;
+        cellDomRef?: Object;
         /**
          * Row index of the selected cell.
          */
-        rowIndex?: int | undefined;
+        rowIndex?: int;
         /**
          * Column index of the selected cell. This is the index of visible columns and might differ from the index
          * maintained in the column aggregation.
          */
-        columnIndex?: int | undefined;
+        columnIndex?: int;
         /**
          * Column ID of the selected cell.
          */
-        columnId?: string | undefined;
+        columnId?: string;
         /**
          * Row binding context of the selected cell.
          */
-        rowBindingContext?: Context | undefined;
+        rowBindingContext?: Context;
       }
     ): boolean;
     /**
@@ -4887,7 +5242,7 @@ declare module "sap/ui/table/Table" {
         /**
          * reference to the column to freeze
          */
-        column?: Column | undefined;
+        column?: Column;
       }
     ): boolean;
     /**
@@ -4904,11 +5259,11 @@ declare module "sap/ui/table/Table" {
         /**
          * moved column.
          */
-        column?: Column | undefined;
+        column?: Column;
         /**
          * new position of the column.
          */
-        newPos?: int | undefined;
+        newPos?: int;
       }
     ): boolean;
     /**
@@ -4925,11 +5280,11 @@ declare module "sap/ui/table/Table" {
         /**
          * resized column.
          */
-        column?: Column | undefined;
+        column?: Column;
         /**
          * new width of the table column as CSS Size definition.
          */
-        width?: CSSSize | undefined;
+        width?: CSSSize;
       }
     ): boolean;
     /**
@@ -4946,7 +5301,7 @@ declare module "sap/ui/table/Table" {
         /**
          * reference to the selected column
          */
-        column?: Column | undefined;
+        column?: Column;
       }
     ): boolean;
     /**
@@ -4963,11 +5318,11 @@ declare module "sap/ui/table/Table" {
         /**
          * affected column.
          */
-        column?: Column | undefined;
+        column?: Column;
         /**
          * new value of the visible property.
          */
-        newVisible?: boolean | undefined;
+        newVisible?: boolean;
       }
     ): boolean;
     /**
@@ -4995,11 +5350,11 @@ declare module "sap/ui/table/Table" {
         /**
          * filtered column.
          */
-        column?: Column | undefined;
+        column?: Column;
         /**
          * filter value.
          */
-        value?: string | undefined;
+        value?: string;
       }
     ): boolean;
     /**
@@ -5027,7 +5382,7 @@ declare module "sap/ui/table/Table" {
         /**
          * grouped column.
          */
-        column?: Column | undefined;
+        column?: Column;
       }
     ): boolean;
     /**
@@ -5047,7 +5402,7 @@ declare module "sap/ui/table/Table" {
          * 2D array of strings with data from the clipboard. The first dimension represents the rows, and the second
          * dimension represents the cells of the tabular data.
          */
-        data?: Array<string[]> | undefined;
+        data?: string[][];
       }
     ): boolean;
     /**
@@ -5061,24 +5416,24 @@ declare module "sap/ui/table/Table" {
         /**
          * row index which has been clicked so that the selection has been changed (either selected or deselected)
          */
-        rowIndex?: int | undefined;
+        rowIndex?: int;
         /**
          * binding context of the row which has been clicked so that selection has been changed
          */
-        rowContext?: object | undefined;
+        rowContext?: object;
         /**
          * array of row indices which selection has been changed (either selected or deselected)
          */
-        rowIndices?: int[] | undefined;
+        rowIndices?: int[];
         /**
          * indicator if "select all" function is used to select rows
          */
-        selectAll?: boolean | undefined;
+        selectAll?: boolean;
         /**
          * indicates that the event was fired due to an explicit user interaction like clicking the row header or
          * using the keyboard (SPACE or ENTER) to select a row or a range of rows.
          */
-        userInteraction?: boolean | undefined;
+        userInteraction?: boolean;
       }
     ): this;
     /**
@@ -5106,15 +5461,15 @@ declare module "sap/ui/table/Table" {
         /**
          * sorted column.
          */
-        column?: Column | undefined;
+        column?: Column;
         /**
          * Sort Order
          */
-        sortOrder?: SortOrder | keyof typeof SortOrder | undefined;
+        sortOrder?: SortOrder | keyof typeof SortOrder;
         /**
          * If column was added to sorter this is true. If new sort is started this is set to false
          */
-        columnAdded?: boolean | undefined;
+        columnAdded?: boolean;
       }
     ): boolean;
     /**
@@ -5389,10 +5744,6 @@ declare module "sap/ui/table/Table" {
      * ID of the element which is the current target of the association {@link #getGroupBy groupBy}, or `null`.
      */
     getGroupBy(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.table.Table.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinAutoRowCount minAutoRowCount}.
      *
@@ -6493,7 +6844,7 @@ declare module "sap/ui/table/Table" {
       /**
        * Set to true to add the new sort criterion to the existing sort criteria
        */
-      bAdd: Boolean
+      bAdd: boolean
     ): void;
     /**
      * Unbinds aggregation {@link #getColumns columns} from model data.
@@ -6503,353 +6854,13 @@ declare module "sap/ui/table/Table" {
      * Unbinds aggregation {@link #getRows rows} from model data.
      */
     unbindRows(): this;
-    /**
-     * @SINCE 1.54
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:beforeOpenContextMenu beforeOpenContextMenu}
-     * event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * Fired when the user requests the context menu for a table cell.
-     */
-    attachBeforeOpenContextMenu(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.37.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:busyStateChanged busyStateChanged} event of
-     * this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
-     */
-    attachBusyStateChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.21.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:cellClick cellClick} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when the user clicks a cell of the table (experimental!).
-     */
-    attachCellClick(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.21.0
-     * @deprecated (since 1.54) - replaced by `beforeOpenContextMenu`.
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:cellContextmenu cellContextmenu} event of this
-     * `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when the user clicks a cell of the table.
-     */
-    attachCellContextmenu(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.21.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:columnFreeze columnFreeze} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when a column of the table should be freezed
-     */
-    attachColumnFreeze(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:columnMove columnMove} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when a table column is moved.
-     */
-    attachColumnMove(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:columnResize columnResize} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when a table column is resized.
-     */
-    attachColumnResize(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:columnSelect columnSelect} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when a column of the table has been selected
-     */
-    attachColumnSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:columnVisibility columnVisibility} event of
-     * this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when the visibility of a table column is changed.
-     */
-    attachColumnVisibility(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.23.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:customFilter customFilter} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * This event is triggered when the custom filter item of the column menu is pressed. The column on which
-     * the event was triggered is passed as parameter.
-     */
-    attachCustomFilter(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:filter filter} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when the table is filtered.
-     */
-    attachFilter(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.37.0
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:firstVisibleRowChanged firstVisibleRowChanged}
-     * event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * This event gets fired when the first visible row is changed. It should only be used by composite controls.
-     * The event even is fired when setFirstVisibleRow is called programmatically.
-     */
-    attachFirstVisibleRowChanged(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:group group} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when the table is grouped (experimental!).
-     */
-    attachGroup(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.60
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:paste paste} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
-     * with the standard keyboard shortcut, if the focus is inside the table.
-     */
-    attachPaste(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:rowSelectionChange rowSelectionChange} event
-     * of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when the row selection of the table has been changed (the event parameters can be used to determine
-     * selection changes - to find out the selected rows you should better use the table selection API)
-     *
-     * **Note:** If a selection plugin is applied to the table, this event won't be fired.
-     */
-    attachRowSelectionChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @SINCE 1.86
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:rowsUpdated rowsUpdated} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * This event is fired after the table rows have been updated due to rendering, a model update, or a user
-     * interaction, for example.
-     *
-     * **Note**: This event is fired often and must not be used for performance-critical tasks.
-     */
-    attachRowsUpdated(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:sort sort} event of this `sap.ui.table.Table`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.Table` itself.
-     *
-     * fired when the table is sorted.
-     */
-    attachSort(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.Table` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TableSettings extends $ControlSettings {
     /**
      * Width of the Table.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * Row height in pixel.
@@ -6866,7 +6877,7 @@ declare module "sap/ui/table/Table" {
      * If no value is set (includes 0), a default height is applied based on the content density configuration.
      * In any `visibleRowCountMode`, the actual height can increase based on the content.
      */
-    rowHeight?: int | PropertyBindingInfo | undefined;
+    rowHeight?: int | PropertyBindingInfo;
 
     /**
      * Header row height in pixel. If a value greater than 0 is set, it overrides the height defined in the
@@ -6877,7 +6888,7 @@ declare module "sap/ui/table/Table" {
      * **Note**: In a {@link sap.ui.table.Column#getMultiLabels MultiLabel} scenario, the height is applied
      * to each individual row of the table's header.
      */
-    columnHeaderHeight?: int | PropertyBindingInfo | undefined;
+    columnHeaderHeight?: int | PropertyBindingInfo;
 
     /**
      * Flag whether the column header is visible or not.
@@ -6885,17 +6896,17 @@ declare module "sap/ui/table/Table" {
      * **Caution:** Please be aware that when setting this property to `false`, a 100% accessibility of the
      * table can't be guaranteed any more.
      */
-    columnHeaderVisible?: boolean | PropertyBindingInfo | undefined;
+    columnHeaderVisible?: boolean | PropertyBindingInfo;
 
     /**
      * Number of visible rows of the table.
      */
-    visibleRowCount?: int | PropertyBindingInfo | undefined;
+    visibleRowCount?: int | PropertyBindingInfo;
 
     /**
      * First visible row.
      */
-    firstVisibleRow?: int | PropertyBindingInfo | undefined;
+    firstVisibleRow?: int | PropertyBindingInfo;
 
     /**
      * Selection mode of the Table. This property controls whether single or multiple rows can be selected and
@@ -6907,7 +6918,7 @@ declare module "sap/ui/table/Table" {
      */
     selectionMode?:
       | (SelectionMode | keyof typeof SelectionMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * Selection behavior of the Table. This property defines whether the row selector is displayed and whether
@@ -6917,7 +6928,7 @@ declare module "sap/ui/table/Table" {
      */
     selectionBehavior?:
       | (SelectionBehavior | keyof typeof SelectionBehavior)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.69) - replaced by {@link sap.ui.table.Table#getSelectedIndices} and {@link sap.ui.table.Table#setSelectedIndex}
@@ -6928,13 +6939,13 @@ declare module "sap/ui/table/Table" {
      * invalid, the call is ignored. **Note:** If the rows of the table are bound, the value of the property
      * is reset to -1. If a selection plugin is applied to the table, the property is not bindable.
      */
-    selectedIndex?: int | PropertyBindingInfo | undefined;
+    selectedIndex?: int | PropertyBindingInfo;
 
     /**
      * Flag whether the controls of the Table are editable or not (currently this only controls the background
      * color in certain themes!)
      */
-    editable?: boolean | PropertyBindingInfo | undefined;
+    editable?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.38)
@@ -6944,7 +6955,7 @@ declare module "sap/ui/table/Table" {
      */
     navigationMode?:
       | (NavigationMode | keyof typeof NavigationMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * The `threshold` defines how many additional (not yet visible records) shall be pre-fetched to enable
@@ -6953,12 +6964,12 @@ declare module "sap/ui/table/Table" {
      * is lower than the `visibleRowCount`, the `visibleRowCount` will be used as the `threshold`. If the value
      * is 0 then the thresholding is disabled.
      */
-    threshold?: int | PropertyBindingInfo | undefined;
+    threshold?: int | PropertyBindingInfo;
 
     /**
      * Flag to enable or disable column reordering
      */
-    enableColumnReordering?: boolean | PropertyBindingInfo | undefined;
+    enableColumnReordering?: boolean | PropertyBindingInfo;
 
     /**
      * @EXPERIMENTAL (since 1.28)
@@ -6979,19 +6990,19 @@ declare module "sap/ui/table/Table" {
      * 	 - The column, by which the table is grouped, is not visible. It will become visible again only if the
      * 			table is grouped by another column or grouping is disabled.
      */
-    enableGrouping?: boolean | PropertyBindingInfo | undefined;
+    enableGrouping?: boolean | PropertyBindingInfo;
 
     /**
      * Flag to show or hide the column visibility menu. This menu will get displayed in each generated column
      * header menu. It allows to show or hide columns
      */
-    showColumnVisibilityMenu?: boolean | PropertyBindingInfo | undefined;
+    showColumnVisibilityMenu?: boolean | PropertyBindingInfo;
 
     /**
      * Flag whether to show the no data overlay or not once the table is empty. If set to false the table will
      * just show a grid of empty cells
      */
-    showNoData?: boolean | PropertyBindingInfo | undefined;
+    showNoData?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.9.2
@@ -7014,13 +7025,13 @@ declare module "sap/ui/table/Table" {
      */
     visibleRowCountMode?:
       | (VisibleRowCountMode | keyof typeof VisibleRowCountMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * This property is used to set the minimum count of visible rows when the property visibleRowCountMode
      * is set to Auto or Interactive. For any other visibleRowCountMode, it is ignored.
      */
-    minAutoRowCount?: int | PropertyBindingInfo | undefined;
+    minAutoRowCount?: int | PropertyBindingInfo;
 
     /**
      * Number of columns that are fixed on the left. Only columns which are not fixed can be scrolled horizontally.
@@ -7031,7 +7042,7 @@ declare module "sap/ui/table/Table" {
      * 			the value of the property and adapts the behavior in an appropriate way to ensure that the user is still
      * 			able to scroll horizontally.
      */
-    fixedColumnCount?: int | PropertyBindingInfo | undefined;
+    fixedColumnCount?: int | PropertyBindingInfo;
 
     /**
      * Number of rows that are fix on the top. When you use a vertical scrollbar, only the rows which are not
@@ -7040,7 +7051,7 @@ declare module "sap/ui/table/Table" {
      * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel
      * client model}.
      */
-    fixedRowCount?: int | PropertyBindingInfo | undefined;
+    fixedRowCount?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.18.7
@@ -7051,21 +7062,21 @@ declare module "sap/ui/table/Table" {
      * This property is only supported if the `rows` aggregation is bound to a {@link sap.ui.model.ClientModel
      * client model}.
      */
-    fixedBottomRowCount?: int | PropertyBindingInfo | undefined;
+    fixedBottomRowCount?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.21.0
      *
      * Flag whether to show or hide the column menu item to freeze or unfreeze a column.
      */
-    enableColumnFreeze?: boolean | PropertyBindingInfo | undefined;
+    enableColumnFreeze?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.21.0
      *
      * Flag whether to enable or disable the context menu on cells to trigger a filtering with the cell value.
      */
-    enableCellFilter?: boolean | PropertyBindingInfo | undefined;
+    enableCellFilter?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.21.2
@@ -7073,7 +7084,7 @@ declare module "sap/ui/table/Table" {
      * Setting this property to true will show an overlay on top of the Table content and users cannot click
      * anymore on the Table content.
      */
-    showOverlay?: boolean | PropertyBindingInfo | undefined;
+    showOverlay?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.23.0
@@ -7081,7 +7092,7 @@ declare module "sap/ui/table/Table" {
      * Specifies if a select all button should be displayed in the top left corner. This button is only displayed
      * if the row selector is visible and the selection mode is set to any kind of multi selection.
      */
-    enableSelectAll?: boolean | PropertyBindingInfo | undefined;
+    enableSelectAll?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.23.0
@@ -7089,7 +7100,7 @@ declare module "sap/ui/table/Table" {
      * Set this parameter to true to implement your own filter behaviour. Instead of the filter input box a
      * button will be rendered for which' press event (customFilter) you can register an event handler.
      */
-    enableCustomFilter?: boolean | PropertyBindingInfo | undefined;
+    enableCustomFilter?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.27.0
@@ -7100,7 +7111,7 @@ declare module "sap/ui/table/Table" {
      * the table switches back to not busy. The busy state of the table can still be set manually by calling
      * {@link sap.ui.core.Control#setBusy}.
      */
-    enableBusyIndicator?: boolean | PropertyBindingInfo | undefined;
+    enableBusyIndicator?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.45.0
@@ -7108,26 +7119,26 @@ declare module "sap/ui/table/Table" {
      * Number of row actions made visible which determines the width of the row action column. The values `0`,
      * `1` and `2` are possible.
      */
-    rowActionCount?: int | PropertyBindingInfo | undefined;
+    rowActionCount?: int | PropertyBindingInfo;
 
     /**
      * @SINCE 1.52
      *
      * Enables alternating table row colors. Alternate row coloring is not available for the tree mode.
      */
-    alternateRowColors?: boolean | PropertyBindingInfo | undefined;
+    alternateRowColors?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.72) - Use the `extension` aggregation instead.
      *
      * Control or text of title section of the Table (if not set it will be hidden)
      */
-    title?: string | Control | PropertyBindingInfo | undefined;
+    title?: string | Control | PropertyBindingInfo;
 
     /**
      * Control or text of footer section of the Table (if not set it will be hidden)
      */
-    footer?: string | Control | PropertyBindingInfo | undefined;
+    footer?: string | Control | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.38) - This aggregation is deprecated, use the `extension` aggregation instead.
@@ -7135,18 +7146,18 @@ declare module "sap/ui/table/Table" {
      * Toolbar of the Table If not set, no toolbar area will be rendered. Note: The CSS class sapMTBHeader-CTX
      * is applied on the given toolbar.
      */
-    toolbar?: Toolbar | undefined;
+    toolbar?: Toolbar;
 
     /**
      * Extension section of the Table. If not set, no extension area will be rendered. Note: In case a `sap.m.Toolbar`
      * is used as header the CSS class sapMTBHeader-CTX should be applied on this toolbar.
      */
-    extension?: Control[] | Control | AggregationBindingInfo | undefined;
+    extension?: Control[] | Control | AggregationBindingInfo;
 
     /**
      * Columns of the Table
      */
-    columns?: Column[] | Column | AggregationBindingInfo | undefined;
+    columns?: Column[] | Column | AggregationBindingInfo;
 
     /**
      * This aggregation is managed by the table itself. It can only be used with data binding, is read-only,
@@ -7164,28 +7175,28 @@ declare module "sap/ui/table/Table" {
      * of the table. Furthermore, row-specific settings can be defined with the {@link sap.ui.table.Table#setRowSettingsTemplate
      * rowSettingsTemplate} aggregation of the table.
      */
-    rows?: Row[] | Row | AggregationBindingInfo | undefined;
+    rows?: Row[] | Row | AggregationBindingInfo;
 
     /**
      * The value for the noData aggregation can be either a string value or a control instance. The control
      * is shown, in case there is no data for the Table available. In case of a string value this will simply
      * replace the no data text.
      */
-    noData?: string | Control | PropertyBindingInfo | undefined;
+    noData?: string | Control | PropertyBindingInfo;
 
     /**
      * Template for row actions. A template is decoupled from the row or table. Each time the template's properties
      * or aggregations are changed, the template has to be applied again via `setRowActionTemplate` for the
      * changes to take effect.
      */
-    rowActionTemplate?: RowAction | undefined;
+    rowActionTemplate?: RowAction;
 
     /**
      * Template for row settings. A template is decoupled from the row or table. Each time the template's properties
      * or aggregations are changed, the template has to be applied again via `setRowSettingsTemplate` for the
      * changes to take effect.
      */
-    rowSettingsTemplate?: RowSettings | undefined;
+    rowSettingsTemplate?: RowSettings;
 
     /**
      * @SINCE 1.54
@@ -7199,7 +7210,7 @@ declare module "sap/ui/table/Table" {
      *
      * If this aggregation is set, then the `enableCellFilter` property will have no effect.
      */
-    contextMenu?: IContextMenu | undefined;
+    contextMenu?: IContextMenu;
 
     /**
      * @SINCE 1.64
@@ -7211,7 +7222,7 @@ declare module "sap/ui/table/Table" {
      * 			use the API of the plugin.
      * 	 - Only one MultiSelectionPlugin can be applied. No other plugins can be applied.
      */
-    plugins?: SelectionPlugin[] | SelectionPlugin | AggregationBindingInfo | undefined;
+    plugins?: SelectionPlugin[] | SelectionPlugin | AggregationBindingInfo;
 
     /**
      * @EXPERIMENTAL (since 1.28)
@@ -7220,12 +7231,12 @@ declare module "sap/ui/table/Table" {
      * to `true`. Setting `groupBy` in the view does not work and throws an error. It can only be set if the
      * column by which the table is grouped is already part of the `columns` aggregation of the table.
      */
-    groupBy?: Column | string | undefined;
+    groupBy?: Column | string;
 
     /**
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * fired when the row selection of the table has been changed (the event parameters can be used to determine
@@ -7233,49 +7244,49 @@ declare module "sap/ui/table/Table" {
      *
      * **Note:** If a selection plugin is applied to the table, this event won't be fired.
      */
-    rowSelectionChange?: Function | undefined;
+    rowSelectionChange?: (oEvent: Event) => void;
 
     /**
      * fired when a column of the table has been selected
      */
-    columnSelect?: Function | undefined;
+    columnSelect?: (oEvent: Event) => void;
 
     /**
      * fired when a table column is resized.
      */
-    columnResize?: Function | undefined;
+    columnResize?: (oEvent: Event) => void;
 
     /**
      * fired when a table column is moved.
      */
-    columnMove?: Function | undefined;
+    columnMove?: (oEvent: Event) => void;
 
     /**
      * fired when the table is sorted.
      */
-    sort?: Function | undefined;
+    sort?: (oEvent: Event) => void;
 
     /**
      * fired when the table is filtered.
      */
-    filter?: Function | undefined;
+    filter?: (oEvent: Event) => void;
 
     /**
      * fired when the table is grouped (experimental!).
      */
-    group?: Function | undefined;
+    group?: (oEvent: Event) => void;
 
     /**
      * fired when the visibility of a table column is changed.
      */
-    columnVisibility?: Function | undefined;
+    columnVisibility?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.21.0
      *
      * fired when the user clicks a cell of the table (experimental!).
      */
-    cellClick?: Function | undefined;
+    cellClick?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.21.0
@@ -7283,21 +7294,21 @@ declare module "sap/ui/table/Table" {
      *
      * fired when the user clicks a cell of the table.
      */
-    cellContextmenu?: Function | undefined;
+    cellContextmenu?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.54
      *
      * Fired when the user requests the context menu for a table cell.
      */
-    beforeOpenContextMenu?: Function | undefined;
+    beforeOpenContextMenu?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.21.0
      *
      * fired when a column of the table should be freezed
      */
-    columnFreeze?: Function | undefined;
+    columnFreeze?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.23.0
@@ -7305,7 +7316,7 @@ declare module "sap/ui/table/Table" {
      * This event is triggered when the custom filter item of the column menu is pressed. The column on which
      * the event was triggered is passed as parameter.
      */
-    customFilter?: Function | undefined;
+    customFilter?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.37.0
@@ -7313,14 +7324,14 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the first visible row is changed. It should only be used by composite controls.
      * The event even is fired when setFirstVisibleRow is called programmatically.
      */
-    firstVisibleRowChanged?: Function | undefined;
+    firstVisibleRowChanged?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.37.0
      *
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      */
-    busyStateChanged?: Function | undefined;
+    busyStateChanged?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.60
@@ -7328,7 +7339,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
      * with the standard keyboard shortcut, if the focus is inside the table.
      */
-    paste?: Function | undefined;
+    paste?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.86
@@ -7338,7 +7349,7 @@ declare module "sap/ui/table/Table" {
      *
      * **Note**: This event is fired often and must not be used for performance-critical tasks.
      */
-    rowsUpdated?: Function | undefined;
+    rowsUpdated?: (oEvent: Event) => void;
   }
 }
 
@@ -7416,6 +7427,10 @@ declare module "sap/ui/table/TablePersoController" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.TablePersoController.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * Gets current value of property {@link #getAutoSave autoSave}.
      *
      * Auto save state
@@ -7433,10 +7448,6 @@ declare module "sap/ui/table/TablePersoController" {
      * Default value is `"persoKey"`.
      */
     getCustomDataKey(): string;
-    /**
-     * Returns a metadata object for class sap.ui.table.TablePersoController.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Gets current value of property {@link #getPersoService persoService}.
      *
@@ -7594,7 +7605,7 @@ declare module "sap/ui/table/TablePersoController" {
     /**
      * Auto save state
      */
-    autoSave?: boolean | PropertyBindingInfo | undefined;
+    autoSave?: boolean | PropertyBindingInfo;
 
     /**
      * Personalization Service object. Needs to have the following methods:
@@ -7602,19 +7613,19 @@ declare module "sap/ui/table/TablePersoController" {
      * 	 - setPersData(oBundle) : `jQuery Promise` (http://api.jquery.com/promise/)
      * 	 - delPersData() : `jQuery Promise` (http://api.jquery.com/promise/)
      */
-    persoService?: any | PropertyBindingInfo | undefined;
+    persoService?: any | PropertyBindingInfo;
 
     /**
      * By defining a custom data key the `TablePersoController` will try to get the key for saving the perso
      * data from the custom data of the Table and Column instead of creating it by concatenating the ID of the
      * Table and the Column. Basically this will be more stable than using the auto IDs.
      */
-    customDataKey?: string | PropertyBindingInfo | undefined;
+    customDataKey?: string | PropertyBindingInfo;
 
     /**
      * Controls the visibility of the Reset button of the `TablePersoDialog`.
      */
-    showResetAll?: boolean | PropertyBindingInfo | undefined;
+    showResetAll?: boolean | PropertyBindingInfo;
 
     /**
      * Controls the behavior of the Reset button of the `TablePersoDialog`.
@@ -7627,17 +7638,19 @@ declare module "sap/ui/table/TablePersoController" {
      */
     resetAllMode?:
       | (ResetAllMode | keyof typeof ResetAllMode)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * The target table of this controller.
      */
-    table?: Table | string | undefined;
+    table?: Table | string;
   }
 }
 
 declare module "sap/ui/table/TreeTable" {
   import { default as Table, $TableSettings } from "sap/ui/table/Table";
+
+  import Event from "sap/ui/base/Event";
 
   import { ID } from "sap/ui/core/library";
 
@@ -7691,6 +7704,31 @@ declare module "sap/ui/table/TreeTable" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.table.TreeTable with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TreeTable>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.TreeTable.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds the given selection interval to the selection. In case of single selection, only `iIndexTo` is added
      * to the selection. Invisible nodes (collapsed child nodes) will not be regarded.
      *
@@ -7725,7 +7763,26 @@ declare module "sap/ui/table/TreeTable" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.table.TreeTable` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggleOpenState toggleOpenState} event of this
+     * `sap.ui.table.TreeTable`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.table.TreeTable` itself.
+     *
+     * Fired when a row has been expanded or collapsed by user interaction. Only available in hierarchical mode.
+     */
+    attachToggleOpenState(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.table.TreeTable` itself
        */
@@ -7754,7 +7811,7 @@ declare module "sap/ui/table/TreeTable" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7784,27 +7841,6 @@ declare module "sap/ui/table/TreeTable" {
       iLevel: int
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.table.TreeTable with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TreeTable>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
      */
     fireToggleOpenState(
@@ -7815,15 +7851,15 @@ declare module "sap/ui/table/TreeTable" {
         /**
          * Index of the expanded/collapsed row
          */
-        rowIndex?: int | undefined;
+        rowIndex?: int;
         /**
          * Binding context of the expanded/collapsed row
          */
-        rowContext?: object | undefined;
+        rowContext?: object;
         /**
          * Flag that indicates whether the row has been expanded or collapsed
          */
-        expanded?: boolean | undefined;
+        expanded?: boolean;
       }
     ): this;
     /**
@@ -7896,10 +7932,6 @@ declare module "sap/ui/table/TreeTable" {
      * The property name of the rows data which will be displayed as a group header if the group mode is enabled
      */
     getGroupHeaderProperty(): string;
-    /**
-     * Returns a metadata object for class sap.ui.table.TreeTable.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.76) - replaced by the `rootLevel` binding parameter
      *
@@ -8171,25 +8203,6 @@ declare module "sap/ui/table/TreeTable" {
        */
       bUseGroupMode?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:toggleOpenState toggleOpenState} event of this
-     * `sap.ui.table.TreeTable`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.table.TreeTable` itself.
-     *
-     * Fired when a row has been expanded or collapsed by user interaction. Only available in hierarchical mode.
-     */
-    attachToggleOpenState(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.table.TreeTable` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $TreeTableSettings extends $TableSettings {
@@ -8213,18 +8226,18 @@ declare module "sap/ui/table/TreeTable" {
      *   });
      * ```
      */
-    expandFirstLevel?: boolean | PropertyBindingInfo | undefined;
+    expandFirstLevel?: boolean | PropertyBindingInfo;
 
     /**
      * If group mode is enabled nodes with subitems are rendered as if they were group headers. This can be
      * used to do the grouping for an OData service on the backend and visualize this in a table.
      */
-    useGroupMode?: boolean | PropertyBindingInfo | undefined;
+    useGroupMode?: boolean | PropertyBindingInfo;
 
     /**
      * The property name of the rows data which will be displayed as a group header if the group mode is enabled
      */
-    groupHeaderProperty?: string | PropertyBindingInfo | undefined;
+    groupHeaderProperty?: string | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.76) - replaced by the `collapseRecursive` binding parameter
@@ -8246,7 +8259,7 @@ declare module "sap/ui/table/TreeTable" {
      *   });
      * ```
      */
-    collapseRecursive?: boolean | PropertyBindingInfo | undefined;
+    collapseRecursive?: boolean | PropertyBindingInfo;
 
     /**
      * @deprecated (since 1.76) - replaced by the `rootLevel` binding parameter
@@ -8267,12 +8280,12 @@ declare module "sap/ui/table/TreeTable" {
      *   });
      * ```
      */
-    rootLevel?: int | PropertyBindingInfo | undefined;
+    rootLevel?: int | PropertyBindingInfo;
 
     /**
      * Fired when a row has been expanded or collapsed by user interaction. Only available in hierarchical mode.
      */
-    toggleOpenState?: Function | undefined;
+    toggleOpenState?: (oEvent: Event) => void;
   }
 }
 

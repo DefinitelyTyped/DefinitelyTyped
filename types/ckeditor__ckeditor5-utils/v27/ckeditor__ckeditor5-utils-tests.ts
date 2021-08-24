@@ -1,8 +1,12 @@
 import { KeyEventData } from "@ckeditor/ckeditor5-engine/src/view/observer/keyobserver";
+import CKEditorError from "@ckeditor/ckeditor5-utils/src/ckeditorerror";
+import Collection from "@ckeditor/ckeditor5-utils/src/collection";
+import compareArrays from "@ckeditor/ckeditor5-utils/src/comparearrays";
+import Config from "@ckeditor/ckeditor5-utils/src/config";
+import count from "@ckeditor/ckeditor5-utils/src/count";
+import diff from "@ckeditor/ckeditor5-utils/src/diff";
+import diffToChanges from "@ckeditor/ckeditor5-utils/src/difftochanges";
 import createElement from "@ckeditor/ckeditor5-utils/src/dom/createelement";
-import Locale from "@ckeditor/ckeditor5-utils/src/locale";
-import EmitterMixin, { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import Rect from "@ckeditor/ckeditor5-utils/src/dom/rect";
 import getAncestors from "@ckeditor/ckeditor5-utils/src/dom/getancestors";
 import getBorderWidths from "@ckeditor/ckeditor5-utils/src/dom/getborderwidths";
 import getCommonAncestor from "@ckeditor/ckeditor5-utils/src/dom/getcommonancestor";
@@ -12,41 +16,36 @@ import indexOf from "@ckeditor/ckeditor5-utils/src/dom/indexof";
 import insertAt from "@ckeditor/ckeditor5-utils/src/dom/insertat";
 import isNode from "@ckeditor/ckeditor5-utils/src/dom/isnode";
 import isRange from "@ckeditor/ckeditor5-utils/src/dom/isrange";
-import isWindow from "@ckeditor/ckeditor5-utils/src/dom/iswindow";
 import isText from "@ckeditor/ckeditor5-utils/src/dom/istext";
+import isWindow from "@ckeditor/ckeditor5-utils/src/dom/iswindow";
 import { getOptimalPosition, Options, Position } from "@ckeditor/ckeditor5-utils/src/dom/position";
+import Rect from "@ckeditor/ckeditor5-utils/src/dom/rect";
 import remove from "@ckeditor/ckeditor5-utils/src/dom/remove";
-import { scrollViewportToShowTarget, scrollAncestorsToShowTarget } from "@ckeditor/ckeditor5-utils/src/dom/scroll";
+import { scrollAncestorsToShowTarget, scrollViewportToShowTarget } from "@ckeditor/ckeditor5-utils/src/dom/scroll";
 import setDataInElement from "@ckeditor/ckeditor5-utils/src/dom/setdatainelement";
 import toUnit from "@ckeditor/ckeditor5-utils/src/dom/tounit";
-import CKEditorError from "@ckeditor/ckeditor5-utils/src/ckeditorerror";
-import Collection from "@ckeditor/ckeditor5-utils/src/collection";
-import compareArrays from "@ckeditor/ckeditor5-utils/src/comparearrays";
-import Config from "@ckeditor/ckeditor5-utils/src/config";
-import count from "@ckeditor/ckeditor5-utils/src/count";
-import diff from "@ckeditor/ckeditor5-utils/src/diff";
-import diffToChanges from "@ckeditor/ckeditor5-utils/src/difftochanges";
 import ElementReplacer from "@ckeditor/ckeditor5-utils/src/elementreplacer";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
+import EmitterMixin, { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import env from "@ckeditor/ckeditor5-utils/src/env";
+import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import fastDiff from "@ckeditor/ckeditor5-utils/src/fastdiff";
 import first from "@ckeditor/ckeditor5-utils/src/first";
 import FocusTracker from "@ckeditor/ckeditor5-utils/src/focustracker";
 import isIterable from "@ckeditor/ckeditor5-utils/src/isiterable";
-import { getCode, keyCodes, getEnvKeystrokeText, parseKeystroke } from "@ckeditor/ckeditor5-utils/src/keyboard";
+import { getCode, getEnvKeystrokeText, keyCodes, parseKeystroke } from "@ckeditor/ckeditor5-utils/src/keyboard";
 import KeystrokeHandler from "@ckeditor/ckeditor5-utils/src/keystrokehandler";
-import spy from "@ckeditor/ckeditor5-utils/src/spy";
+import Locale from "@ckeditor/ckeditor5-utils/src/locale";
 import mapsEqual from "@ckeditor/ckeditor5-utils/src/mapsequal";
 import mix from "@ckeditor/ckeditor5-utils/src/mix";
 import nth from "@ckeditor/ckeditor5-utils/src/nth";
 import objectToMap from "@ckeditor/ckeditor5-utils/src/objecttomap";
 import Observable from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import priorities from "@ckeditor/ckeditor5-utils/src/priorities";
+import spy from "@ckeditor/ckeditor5-utils/src/spy";
+import toArray from "@ckeditor/ckeditor5-utils/src/toarray";
 import toMap from "@ckeditor/ckeditor5-utils/src/tomap";
 import { add } from "@ckeditor/ckeditor5-utils/src/translation-service";
 import uid from "@ckeditor/ckeditor5-utils/src/uid";
-import toArray from "@ckeditor/ckeditor5-utils/src/toarray";
-
 import {
     isCombiningMark,
     isHighSurrogateHalf,
@@ -72,6 +71,10 @@ createElement(document, "p");
 createElement(document, "p", { class: "foo" });
 createElement(document, "p", null, "foo");
 createElement(document, "p", null, ["foo", createElement(document, "img")]);
+createElement(document, "textarea").readOnly = true;
+createElement(document, "input").value = "";
+createElement(document, "img").src = "";
+createElement(document, "a").href = "";
 
 // TODO? utils/dom/emittermixin
 
@@ -535,7 +538,7 @@ keystrokes.destroy();
 // utils/locale ===============================================================
 
 locale.t("Label");
-locale.t('Created file "%0" in %1ms.', ["fileName", "100"]);
+locale.t("Created file '%0' in %1ms.", ["fileName", "100"]);
 
 // utils/mapsequal ============================================================
 
@@ -668,6 +671,30 @@ let options: Options = {
 options = {
     element: document.createElement("div"),
     target: document.createElement("div"),
+    positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
+};
+
+options = {
+    element: document.createElement("div"),
+    target: new Rect(document.createElement("div")),
+    positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
+};
+
+options = {
+    element: document.createElement("div"),
+    target: new Range(),
+    positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
+};
+
+options = {
+    element: document.createElement("div"),
+    target: window,
+    positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
+};
+
+options = {
+    element: document.createElement("div"),
+    target: document.body.getClientRects().item(0)!,
     positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
 };
 

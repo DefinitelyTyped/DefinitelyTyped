@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.93.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -113,6 +113,8 @@ declare module "sap/ui/integration/library" {
 declare module "sap/ui/integration/ActionDefinition" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
+  import Event from "sap/ui/base/Event";
+
   import { ButtonType } from "sap/m/library";
 
   import { URI } from "sap/ui/core/library";
@@ -163,45 +165,6 @@ declare module "sap/ui/integration/ActionDefinition" {
     );
 
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.ActionDefinition` itself.
-     *
-     * Fired when the action button is pressed.
-     */
-    attachPress(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.ActionDefinition`
-       * itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachPress(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.integration.ActionDefinition with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -222,6 +185,68 @@ declare module "sap/ui/integration/ActionDefinition" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.integration.ActionDefinition.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.ActionDefinition` itself.
+     *
+     * Fired when the action button is pressed.
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.ActionDefinition`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.ActionDefinition` itself.
+     *
+     * Fired when the action button is pressed.
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.ActionDefinition`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -254,10 +279,6 @@ declare module "sap/ui/integration/ActionDefinition" {
      * The icon of the action button.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.integration.ActionDefinition.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getParameters parameters}.
      *
@@ -386,68 +407,49 @@ declare module "sap/ui/integration/ActionDefinition" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.integration.ActionDefinition`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.ActionDefinition` itself.
-     *
-     * Fired when the action button is pressed.
-     */
-    attachPress(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.ActionDefinition`
-       * itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ActionDefinitionSettings extends $ElementSettings {
     /**
      * The type of the action.
      */
-    type?: (CardActionType | keyof typeof CardActionType) | PropertyBindingInfo | undefined;
+    type?: (CardActionType | keyof typeof CardActionType) | PropertyBindingInfo;
 
     /**
      * The text of the action button.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * The icon of the action button.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * The type of the action button.
      */
-    buttonType?: (ButtonType | keyof typeof ButtonType) | PropertyBindingInfo | undefined;
+    buttonType?: (ButtonType | keyof typeof ButtonType) | PropertyBindingInfo;
 
     /**
      * Indicates whether the user can interact with the action button or not. **Note**: Disabled controls cannot
      * be focused and they are out of the navigation tab-chain.
      */
-    enabled?: boolean | PropertyBindingInfo | undefined;
+    enabled?: boolean | PropertyBindingInfo;
 
     /**
      * Whether the action button should be visible on the screen.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * The parameters of the action.
      */
-    parameters?: object | PropertyBindingInfo | undefined;
+    parameters?: object | PropertyBindingInfo;
 
     /**
      * Fired when the action button is pressed.
      */
-    press?: Function | undefined;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -528,13 +530,13 @@ declare module "sap/ui/integration/Designtime" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Returns an interface to the card, which uses this extension.
-     */
-    getCard(): CardFacade;
-    /**
      * Returns a metadata object for class sap.ui.integration.Designtime.
      */
     static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Returns an interface to the card, which uses this extension.
+     */
+    getCard(): CardFacade;
   }
 
   export interface $DesigntimeSettings extends $ManagedObjectSettings {}
@@ -820,6 +822,8 @@ declare module "sap/ui/integration/Extension" {
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   import Control from "sap/ui/core/Control";
 
   import { CardActionType, CardMenuAction } from "sap/ui/integration/library";
@@ -867,48 +871,6 @@ declare module "sap/ui/integration/Extension" {
     );
 
     /**
-     * @EXPERIMENTAL (since 1.75)
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Extension`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.Extension` itself.
-     *
-     * Fired when an action is triggered in the card.
-     */
-    attachAction(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Extension` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @EXPERIMENTAL (since 1.75)
-     *
-     * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Extension`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachAction(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Creates a new subclass of class sap.ui.integration.Extension with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -930,6 +892,72 @@ declare module "sap/ui/integration/Extension" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.integration.Extension.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
+     * @EXPERIMENTAL (since 1.75)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Extension`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Extension` itself.
+     *
+     * Fired when an action is triggered in the card.
+     */
+    attachAction(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Extension` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.75)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Extension`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Extension` itself.
+     *
+     * Fired when an action is triggered in the card.
+     */
+    attachAction(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Extension` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.75)
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:action action} event of this `sap.ui.integration.Extension`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachAction(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Fires event {@link #event:action action} to attached listeners.
@@ -945,23 +973,23 @@ declare module "sap/ui/integration/Extension" {
         /**
          * The card the action is fired from.
          */
-        card?: Control | undefined;
+        card?: Control;
         /**
          * The action configuration.
          */
-        actionConfig?: object | undefined;
+        actionConfig?: object;
         /**
          * The action source.
          */
-        actionSource?: Control | undefined;
+        actionSource?: Control;
         /**
          * The parameters related to the triggered action.
          */
-        parameters?: object | undefined;
+        parameters?: object;
         /**
          * The type of the action.
          */
-        type?: CardActionType | keyof typeof CardActionType | undefined;
+        type?: CardActionType | keyof typeof CardActionType;
       }
     ): boolean;
     /**
@@ -986,33 +1014,9 @@ declare module "sap/ui/integration/Extension" {
      */
     getFormatters(): object;
     /**
-     * Returns a metadata object for class sap.ui.integration.Extension.
-     */
-    static getMetadata(): ManagedObjectMetadata;
-    /**
      * Called when the card is ready.
      */
     onCardReady(): void;
-    /**
-     * @EXPERIMENTAL (since 1.75)
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Extension`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.Extension` itself.
-     *
-     * Fired when an action is triggered in the card.
-     */
-    attachAction(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Extension` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $ExtensionSettings extends $ManagedObjectSettings {
@@ -1022,26 +1026,28 @@ declare module "sap/ui/integration/Extension" {
      *
      * The actions configuration.
      */
-    actions?: CardMenuAction[] | PropertyBindingInfo | undefined;
+    actions?: CardMenuAction[] | PropertyBindingInfo;
 
     /**
      * @EXPERIMENTAL (since 1.79)
      *
      * The formatters, which can be used in the manifest.
      */
-    formatters?: object | PropertyBindingInfo | undefined;
+    formatters?: object | PropertyBindingInfo;
 
     /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Fired when an action is triggered in the card.
      */
-    action?: Function | undefined;
+    action?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/ui/integration/Host" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import Event from "sap/ui/base/Event";
 
   import Control from "sap/ui/core/Control";
 
@@ -1092,6 +1098,31 @@ declare module "sap/ui/integration/Host" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.integration.Host with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Host>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.integration.Host.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Host`.
@@ -1110,7 +1141,27 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.75)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when an action is triggered.
+     */
+    attachAction(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -1135,7 +1186,27 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.91)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
+     *
+     * Fired when a message from channels like navigator.serviceWorker is received.
+     */
+    attachMessage(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
        */
@@ -1152,7 +1223,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1169,33 +1240,12 @@ declare module "sap/ui/integration/Host" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.integration.Host with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Host>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @EXPERIMENTAL (since 1.75)
      *
@@ -1212,23 +1262,23 @@ declare module "sap/ui/integration/Host" {
         /**
          * The card the action is fired from.
          */
-        card?: Control | undefined;
+        card?: Control;
         /**
          * The action configuration.
          */
-        actionConfig?: object | undefined;
+        actionConfig?: object;
         /**
          * The action source.
          */
-        actionSource?: Control | undefined;
+        actionSource?: Control;
         /**
          * The parameters related to the triggered action.
          */
-        parameters?: object | undefined;
+        parameters?: object;
         /**
          * The type of the action.
          */
-        type?: CardActionType | keyof typeof CardActionType | undefined;
+        type?: CardActionType | keyof typeof CardActionType;
       }
     ): boolean;
     /**
@@ -1241,7 +1291,7 @@ declare module "sap/ui/integration/Host" {
        * Parameters to pass along with the event
        */
       mParameters?: {
-        data?: object | undefined;
+        data?: object;
       }
     ): this;
     /**
@@ -1303,10 +1353,6 @@ declare module "sap/ui/integration/Host" {
      */
     getDestinations(): Promise<any>;
     /**
-     * Returns a metadata object for class sap.ui.integration.Host.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getResolveDestination resolveDestination}.
      *
      * A function that resolves the given destination name to a URL.
@@ -1356,46 +1402,6 @@ declare module "sap/ui/integration/Host" {
        */
       fnResolveDestination: Function
     ): this;
-    /**
-     * @EXPERIMENTAL (since 1.75)
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.Host`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
-     *
-     * Fired when an action is triggered.
-     */
-    attachAction(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @EXPERIMENTAL (since 1.91)
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:message message} event of this `sap.ui.integration.Host`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.Host` itself.
-     *
-     * Fired when a message from channels like navigator.serviceWorker is received.
-     */
-    attachMessage(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.Host` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $HostSettings extends $ElementSettings {
@@ -1404,7 +1410,7 @@ declare module "sap/ui/integration/Host" {
      *
      * The actions configuration.
      */
-    actions?: CardMenuAction[] | PropertyBindingInfo | undefined;
+    actions?: CardMenuAction[] | PropertyBindingInfo;
 
     /**
      * A function that resolves the given destination name to a URL.
@@ -1417,21 +1423,21 @@ declare module "sap/ui/integration/Host" {
      * The callback receives `destinationName` as parameter and returns a string with the URL. Or alternatively
      * the callback may return a `Promise` with the URL as an argument.
      */
-    resolveDestination?: Function | PropertyBindingInfo | undefined;
+    resolveDestination?: Function | PropertyBindingInfo;
 
     /**
      * @EXPERIMENTAL (since 1.75)
      *
      * Fired when an action is triggered.
      */
-    action?: Function | undefined;
+    action?: (oEvent: Event) => void;
 
     /**
      * @EXPERIMENTAL (since 1.91)
      *
      * Fired when a message from channels like navigator.serviceWorker is received.
      */
-    message?: Function | undefined;
+    message?: (oEvent: Event) => void;
   }
 }
 
@@ -1439,6 +1445,8 @@ declare module "sap/ui/integration/widgets/Card" {
   import { default as CardBase, $CardBaseSettings } from "sap/f/CardBase";
 
   import ActionDefinition from "sap/ui/integration/ActionDefinition";
+
+  import Event from "sap/ui/base/Event";
 
   import Control from "sap/ui/core/Control";
 
@@ -1540,6 +1548,31 @@ declare module "sap/ui/integration/widgets/Card" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.integration.widgets.Card with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.CardBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Card>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.integration.widgets.Card.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
      *
@@ -1570,7 +1603,27 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.64)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.widgets.Card`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
+     *
+     * Fired when an action is triggered on the card.
+     */
+    attachAction(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
        */
@@ -1597,7 +1650,29 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:manifestApplied manifestApplied} event of this
+     * `sap.ui.integration.widgets.Card`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
+     *
+     * Fired when card utilities (like `DataProviderFactory`) and the card elements (like header) are created
+     * and initialized.
+     *
+     * Note: The card's content may not be available yet because it may depend on other resources to load.
+     */
+    attachManifestApplied(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
        */
@@ -1622,7 +1697,27 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.72)
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:manifestReady manifestReady} event of this `sap.ui.integration.widgets.Card`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
+     *
+     * Fired when the manifest is loaded.
+     */
+    attachManifestReady(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
        */
@@ -1646,7 +1741,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1662,7 +1757,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -1680,33 +1775,12 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.integration.widgets.Card with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.f.CardBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Card>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @EXPERIMENTAL (since 1.64)
      *
@@ -1723,19 +1797,19 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * The action source.
          */
-        actionSource?: Control | undefined;
+        actionSource?: Control;
         /**
          * The manifest parameters related to the triggered action.
          */
-        manifestParameters?: object | undefined;
+        manifestParameters?: object;
         /**
          * The parameters related to the triggered action.
          */
-        parameters?: object | undefined;
+        parameters?: object;
         /**
          * The type of the action.
          */
-        type?: CardActionType | keyof typeof CardActionType | undefined;
+        type?: CardActionType | keyof typeof CardActionType;
       }
     ): boolean;
     /**
@@ -1870,10 +1944,6 @@ declare module "sap/ui/integration/widgets/Card" {
       sPath: string
     ): Object;
     /**
-     * Returns a metadata object for class sap.ui.integration.widgets.Card.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * @EXPERIMENTAL (since 1.83)
      *
      * Gets translated text from the i18n properties files configured for this card.
@@ -1998,30 +2068,30 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * The mode of the request. Possible values are "cors", "no-cors", "same-origin".
          */
-        mode?: string | undefined;
+        mode?: string;
         /**
          * The HTTP method. Possible values are "GET", "POST".
          */
-        method?: string | undefined;
+        method?: string;
         /**
          * The request parameters. If the method is "POST" the parameters will be put as key/value pairs into the
          * body of the request.
          */
-        parameters?: Object | undefined;
+        parameters?: Object;
         /**
          * The expected Content-Type of the response. Possible values are "xml", "json", "text", "script", "html",
          * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
          * to an object is up to the developer.
          */
-        dataType?: Object | undefined;
+        dataType?: Object;
         /**
          * The HTTP headers of the request.
          */
-        headers?: Object | undefined;
+        headers?: Object;
         /**
          * Indicates whether cross-site requests should be made using credentials.
          */
-        withCredentials?: boolean | undefined;
+        withCredentials?: boolean;
       }
     ): Promise<any>;
     /**
@@ -2171,71 +2241,9 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * Additional parameters which will be used by the action handler to perform the action.
          */
-        parameters?: object | undefined;
+        parameters?: object;
       }
     ): void;
-    /**
-     * @EXPERIMENTAL (since 1.64)
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:action action} event of this `sap.ui.integration.widgets.Card`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
-     *
-     * Fired when an action is triggered on the card.
-     */
-    attachAction(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:manifestApplied manifestApplied} event of this
-     * `sap.ui.integration.widgets.Card`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
-     *
-     * Fired when card utilities (like `DataProviderFactory`) and the card elements (like header) are created
-     * and initialized.
-     *
-     * Note: The card's content may not be available yet because it may depend on other resources to load.
-     */
-    attachManifestApplied(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * @EXPERIMENTAL (since 1.72)
-     *
-     * Attaches event handler `fnFunction` to the {@link #event:manifestReady manifestReady} event of this `sap.ui.integration.widgets.Card`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
-     *
-     * Fired when the manifest is loaded.
-     */
-    attachManifestReady(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
-       */
-      oListener?: object
-    ): this;
   }
   /**
    * @EXPERIMENTAL (since 1.79)
@@ -2368,6 +2376,12 @@ declare module "sap/ui/integration/widgets/Card" {
       iIndex: int
     ): this;
     /**
+     * @EXPERIMENTAL (since 1.65)
+     *
+     * Refreshes the card by re-applying the manifest settings and triggering all data requests.
+     */
+    refresh(): void;
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85)
      *
@@ -2396,30 +2410,30 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * The mode of the request. Possible values are "cors", "no-cors", "same-origin".
          */
-        mode?: string | undefined;
+        mode?: string;
         /**
          * The HTTP method. Possible values are "GET", "POST".
          */
-        method?: string | undefined;
+        method?: string;
         /**
          * The request parameters. If the method is "POST" the parameters will be put as key/value pairs into the
          * body of the request.
          */
-        parameters?: Object | undefined;
+        parameters?: Object;
         /**
          * The expected Content-Type of the response. Possible values are "xml", "json", "text", "script", "html",
          * "jsonp". Note: Complex Binding is not supported when a dataType is provided. Serialization of the response
          * to an object is up to the developer.
          */
-        dataType?: Object | undefined;
+        dataType?: Object;
         /**
          * The HTTP headers of the request.
          */
-        headers?: Object | undefined;
+        headers?: Object;
         /**
          * Indicates whether cross-site requests should be made using credentials.
          */
-        withCredentials?: boolean | undefined;
+        withCredentials?: boolean;
       }
     ): Promise<any>;
     /**
@@ -2484,7 +2498,7 @@ declare module "sap/ui/integration/widgets/Card" {
         /**
          * Additional parameters which will be used by the action handler to perform the action.
          */
-        parameters?: object | undefined;
+        parameters?: object;
       }
     ): void;
   }
@@ -2493,7 +2507,7 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * The URL of the manifest or an object.
      */
-    manifest?: any | PropertyBindingInfo | undefined;
+    manifest?: any | PropertyBindingInfo;
 
     /**
      * @EXPERIMENTAL (since 1.65)
@@ -2501,7 +2515,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * Overrides the default values of the parameters, which are defined in the manifest. The value is an object
      * containing parameters in format `{parameterKey: parameterValue}`.
      */
-    parameters?: object | PropertyBindingInfo | undefined;
+    parameters?: object | PropertyBindingInfo;
 
     /**
      * @SINCE 1.65
@@ -2509,7 +2523,7 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Defines the state of the `Card`. When set to `Inactive`, the `Card` doesn't make requests.
      */
-    dataMode?: (CardDataMode | keyof typeof CardDataMode) | PropertyBindingInfo | undefined;
+    dataMode?: (CardDataMode | keyof typeof CardDataMode) | PropertyBindingInfo;
 
     /**
      * @SINCE 1.70
@@ -2518,7 +2532,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * Defines the base URL of the Card Manifest. It should be used when manifest property is an object instead
      * of a URL.
      */
-    baseUrl?: URI | PropertyBindingInfo | undefined;
+    baseUrl?: URI | PropertyBindingInfo;
 
     /**
      * @SINCE 1.76
@@ -2540,7 +2554,7 @@ declare module "sap/ui/integration/widgets/Card" {
      * ]
      * ```
      */
-    manifestChanges?: object[] | PropertyBindingInfo | undefined;
+    manifestChanges?: object[] | PropertyBindingInfo;
 
     /**
      * @SINCE 1.85
@@ -2552,26 +2566,26 @@ declare module "sap/ui/integration/widgets/Card" {
     actionDefinitions?:
       | ActionDefinition[]
       | ActionDefinition
-      | AggregationBindingInfo | undefined;
+      | AggregationBindingInfo;
 
     /**
      * The host.
      */
-    host?: Control | string | undefined;
+    host?: Control | string;
 
     /**
      * @EXPERIMENTAL (since 1.64)
      *
      * Fired when an action is triggered on the card.
      */
-    action?: Function | undefined;
+    action?: (oEvent: Event) => void;
 
     /**
      * @EXPERIMENTAL (since 1.72)
      *
      * Fired when the manifest is loaded.
      */
-    manifestReady?: Function | undefined;
+    manifestReady?: (oEvent: Event) => void;
 
     /**
      * Fired when card utilities (like `DataProviderFactory`) and the card elements (like header) are created
@@ -2579,13 +2593,15 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Note: The card's content may not be available yet because it may depend on other resources to load.
      */
-    manifestApplied?: Function | undefined;
+    manifestApplied?: (oEvent: Event) => void;
   }
 }
 
 declare namespace sap {
   namespace ui {
     /**
+     * @SINCE 1.62
+     *
      * SAPUI5 library with controls specialized for SAP Fiori apps.
      */
     namespace integration {

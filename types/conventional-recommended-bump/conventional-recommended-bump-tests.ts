@@ -41,6 +41,8 @@ namespace Module.Options {
     options.preset; // $ExpectType string | undefined
     options.tagPrefix; // $ExpectType string | undefined
     options.whatBump; // $ExpectType WhatBump | undefined
+    options.skipUnstable; // $ExpectType boolean | undefined
+    options.path; // $ExpectType string | undefined
 }
 
 namespace Module.Options.WhatBump {

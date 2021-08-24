@@ -458,7 +458,7 @@ type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTyp
 // $ExpectType true
 type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
 function CustomSelect(props: {
-    children: Array<
+    children: ReadonlyArray<
       React.ReactElement<
         React.ComponentPropsWithoutRef<typeof CustomSelectOption>
       >

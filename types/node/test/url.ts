@@ -1,6 +1,7 @@
-import assert = require('assert');
-import { RequestOptions } from 'http';
-import * as url from 'url';
+import { Blob } from 'node:buffer';
+import assert = require('node:assert');
+import { RequestOptions } from 'node:http';
+import * as url from 'node:url';
 
 {
     url.format(url.parse('http://www.example.com/xyz'));
@@ -91,6 +92,10 @@ import * as url from 'url';
         assert.equal(me, searchParams);
     });
 
+    searchParams.forEach(function() {
+        this; // $ExpectType number
+    }, 1);
+
     assert.equal(searchParams.get('abc'), '123');
 
     searchParams.append('abc', 'xyz');
@@ -153,4 +158,7 @@ import * as url from 'url';
 
 {
     const opts: RequestOptions = url.urlToHttpOptions(new url.URL('test.com'));
+}
+{
+    const dataUrl: string = url.URL.createObjectURL(new Blob(['']));
 }

@@ -157,6 +157,7 @@ const awsServerless: Aws.Serverless = {
             maxPreviousDeploymentArtifacts: 1,
             blockPublicAccess: true,
             serverSideEncryption: 'testserverSideEncryption',
+            skipPolicySetup: true,
             sseKMSKeyId: 'testsseKMSKeyId',
             sseCustomerAlgorithim: 'testsseCustomerAlgorithim',
             sseCustomerKey: 'testsseCustomerKey',
@@ -766,7 +767,31 @@ const bunchOfConfigs: Aws.Serverless[] = [
             }
         },
         functions: {}
-    }
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            httpApi: {
+                cors: {
+                    allowedOrigins: ['https://example.com'],
+                    allowedHeaders: [
+                        'Content-Type',
+                        'X-Amz-Date',
+                        'Authorization',
+                        'X-Api-Key',
+                        'X-Amz-Security-Token',
+                        'X-Amz-User-Agent',
+                    ],
+                    allowedMethods: ['OPTIONS', 'GET', 'POST'],
+                    allowCredentials: false,
+                    exposedResponseHeaders: ['x-wp-total', 'x-wp-totalpages'],
+                    maxAge: 86400,
+                },
+            },
+        },
+        functions: {},
+    },
 ];
 
 // Test Aws Class

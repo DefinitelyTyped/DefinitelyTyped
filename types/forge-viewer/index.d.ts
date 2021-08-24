@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.46
+// Type definitions for non-npm package Forge Viewer 7.48
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -454,10 +454,15 @@ declare namespace Autodesk {
         }
 
         class BubbleNode {
-          static MODEL_NODE: BubbleNodeSearchProps;
-          static GEOMETRY_SVF_NODE: BubbleNodeSearchProps;
-          static SHEET_NODE: BubbleNodeSearchProps;
+          static AEC_MODEL_DATA: BubbleNodeSearchProps;
           static GEOMETRY_F2D_NODE: BubbleNodeSearchProps;
+          static GEOMETRY_SVF_NODE: BubbleNodeSearchProps;
+          static IMAGE_NODE: BubbleNodeSearchProps;
+          static LEAFLET_NODE: BubbleNodeSearchProps;
+          static MASTER_VIEW_NODE: BubbleNodeSearchProps;
+          static MODEL_NODE: BubbleNodeSearchProps;
+          static PDF_PAGE_NODE: BubbleNodeSearchProps;
+          static SHEET_NODE: BubbleNodeSearchProps;
           static VIEWABLE_NODE: BubbleNodeSearchProps;
 
           static parseLineageUrnFromEncodedUrn(encodedUrn: string): string;
@@ -508,9 +513,15 @@ declare namespace Autodesk {
         }
 
         interface Endpoint {
-            getApiEndpoint(): string;
-            getEndpointAndApi(): string;
-            setEndpointAndApi(endpoint: string, api: string): void;
+          ENDPOINT_API_D3S: string;
+          ENDPOINT_API_DERIVATIVE_SERVICE_V2: string;
+          ENDPOINT_API_DERIVATIVE_STREAMING: string;
+          ENDPOINT_API_FLUENT: string;
+          ENDPOINT_API_MODEL_DERIVATIVE_V2: string;
+
+          getApiEndpoint(): string;
+          getEndpointAndApi(): string;
+          setEndpointAndApi(endpoint: string, api: string): void;
         }
 
         namespace EventUtils {
@@ -889,6 +900,7 @@ declare namespace Autodesk {
             setRequestTransitionWithUp(state: boolean, pos: THREE.Vector3, coi: THREE.Vector3, fov: number, up: THREE.Vector3, worldUp?: THREE.Vector3): void;
             setRequestHomeView(val?: boolean): void;
             computeOverviewDistance(bound: THREE.Box3): number;
+            orientCameraUp(force: boolean): void;
         }
 
         interface Properties {
@@ -2668,6 +2680,7 @@ declare namespace Autodesk {
       class DataVisualization extends Viewing.Extension {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
+        hasViewables: boolean;
 
         constructor(viewer: Viewing.Viewer3D, options?: {
           type: string;
@@ -2727,6 +2740,19 @@ declare namespace Autodesk {
 
         registerDefaultTools(): void;
         unregisterDefaultTools(): void;
+      }
+
+      class StringExtractor extends Viewing.Extension {
+        extractStringsFromModel(model: Viewing.Model): Promise<void>;
+        extractStringsFromModels(): Promise<any>;
+        getDocumentStrings(): Promise<string[]>;
+      }
+
+      class VisualClusters extends Viewing.Extension {
+        layoutActive: boolean;
+
+        reset(): void;
+        setLayoutActive(active: boolean): Promise<void>;
       }
     }
 }

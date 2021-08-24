@@ -5,6 +5,8 @@ export default class NodeList implements Iterable<Node> {
     readonly length: number;
     readonly maxOffset: number;
 
+    protected constructor(nodes: Iterable<Node>);
+
     getNode(index: number): Node | null;
     getNodeIndex(node: Node): number | null;
     getNodeStartOffset(node: Node): number | null;

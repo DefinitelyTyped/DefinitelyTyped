@@ -1,3 +1,4 @@
+import Document from "./document";
 import Node from "./node";
 import StylesMap from "./stylesmap";
 
@@ -6,6 +7,14 @@ export default abstract class Element extends Node {
     readonly isAllowedInsideAttributeElement: boolean;
     readonly isEmpty: boolean;
     readonly name: string;
+
+    protected constructor(
+        document: Document,
+        name: string,
+        attrs?: Record<string, string> | [string, string],
+        children?: Iterable<Node> | Node,
+    );
+
     findAncestor(
         patterns:
             | string
@@ -34,6 +43,5 @@ export default abstract class Element extends Node {
     hasAttribute(key: string): boolean;
     hasClass(className: string): boolean;
     hasStyle(property: string): boolean;
-    is(type: string, name?: string): boolean;
     isSimilar(otherElement: Element): boolean;
 }

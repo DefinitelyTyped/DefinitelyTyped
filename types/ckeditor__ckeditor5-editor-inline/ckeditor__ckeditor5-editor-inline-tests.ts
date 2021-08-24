@@ -1,4 +1,4 @@
-import { Editor } from '@ckeditor/ckeditor5-core';
+import { Editor, Plugin } from '@ckeditor/ckeditor5-core';
 import { InlineEditor } from '@ckeditor/ckeditor5-editor-inline';
 import InlineEditorUIView from '@ckeditor/ckeditor5-editor-inline/src/inlineeditoruiview';
 import InlineEditorUI from '@ckeditor/ckeditor5-editor-inline/src/inlineeditorui';

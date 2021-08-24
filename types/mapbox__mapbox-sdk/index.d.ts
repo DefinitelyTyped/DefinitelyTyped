@@ -842,7 +842,7 @@ declare module '@mapbox/mapbox-sdk/services/geocoding' {
         /**
          * Either  mapbox.places for ephemeral geocoding, or  mapbox.places-permanent for storing results and batch geocoding.
          */
-        mode: GeocodeMode;
+        mode?: GeocodeMode;
         /**
          * Limit results to one or more countries. Options are ISO 3166 alpha 2 country codes
          */

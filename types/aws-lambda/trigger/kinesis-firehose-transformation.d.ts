@@ -11,6 +11,7 @@ export type FirehoseTransformationCallback = Callback<FirehoseTransformationResu
 export interface FirehoseTransformationEvent {
     invocationId: string;
     deliveryStreamArn: string;
+    sourceKinesisStreamArn?: string | undefined;
     region: string;
     records: FirehoseTransformationEventRecord[];
 }

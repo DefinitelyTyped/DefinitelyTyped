@@ -1,36 +1,19 @@
-// Type definitions for @ckeditor/ckeditor5-font 27.1
+// Type definitions for @ckeditor/ckeditor5-font 28.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/font.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-import Font from './src/font';
-import FontBackgroundColor from './src/fontbackgroundcolor';
-import FontColor from './src/fontcolor';
-import FontFamily from './src/fontfamily';
-import FontSize from './src/fontsize';
-import FontBackgroundColorEditing from './src/fontbackgroundcolor/fontbackgroundcolorediting';
-import FontBackgroundColorUI from './src/fontbackgroundcolor/fontbackgroundcolorui';
-import FontColorEditing from './src/fontcolor/fontcolorediting';
-import FontColorUI from './src/fontcolor/fontcolorui';
-import FontFamilyEditing from './src/fontfamily/fontfamilyediting';
-import FontFamilyUI from './src/fontfamily/fontfamilyui';
-import FontSizeEditing from './src/fontsize/fontsizeediting';
-import FontSizeUI from './src/fontsize/fontsizeui';
+// Minimum TypeScript Version: 4.3
 
-declare const _default: {
-    Font: typeof Font;
-    FontBackgroundColor: typeof FontBackgroundColor;
-    FontColor: typeof FontColor;
-    FontFamily: typeof FontFamily;
-    FontSize: typeof FontSize;
-    FontBackgroundColorEditing: typeof FontBackgroundColorEditing;
-    FontBackgroundColorUI: typeof FontBackgroundColorUI;
-    FontColorEditing: typeof FontColorEditing;
-    FontColorUI: typeof FontColorUI;
-    FontFamilyEditing: typeof FontFamilyEditing;
-    FontFamilyUI: typeof FontFamilyUI;
-    FontSizeEditing: typeof FontSizeEditing;
-    FontSizeUI: typeof FontSizeUI;
-};
-
-export default _default;
+export { default as Font } from './src/font';
+export { default as FontBackgroundColor } from './src/fontbackgroundcolor';
+export { default as FontColor } from './src/fontcolor';
+export { default as FontFamily } from './src/fontfamily';
+export { default as FontSize } from './src/fontsize';
+export { default as FontBackgroundColorEditing } from './src/fontbackgroundcolor/fontbackgroundcolorediting';
+export { default as FontBackgroundColorUI } from './src/fontbackgroundcolor/fontbackgroundcolorui';
+export { default as FontColorEditing } from './src/fontcolor/fontcolorediting';
+export { default as FontColorUI } from './src/fontcolor/fontcolorui';
+export { default as FontFamilyEditing } from './src/fontfamily/fontfamilyediting';
+export { default as FontFamilyUI } from './src/fontfamily/fontfamilyui';
+export { default as FontSizeEditing } from './src/fontsize/fontsizeediting';
+export { default as FontSizeUI } from './src/fontsize/fontsizeui';

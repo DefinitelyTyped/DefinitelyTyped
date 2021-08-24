@@ -25,7 +25,7 @@ export function createViewElementFromHighlightDescriptor(
 export function insertText(): (...arg: any[]) => any;
 export function remove(): (...arg: any[]) => any;
 
-export default class DowncastHelpers extends ConversionHelpers {
+export default class DowncastHelpers extends ConversionHelpers<DowncastHelpers> {
     attributeToAttribute(config?: {
         model: string | { key: string; values: string[]; name?: string | undefined };
         view:
@@ -37,12 +37,12 @@ export default class DowncastHelpers extends ConversionHelpers {
                   key: string;
                   value: string | string[] | Record<string, string>;
               });
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): DowncastHelpers;
     attributeToElement(config?: {
         model: string | { key: string; values: string[]; name?: string | undefined };
         view: string | ElementDefinition | ((value: string, api: DowncastConversionApi) => AttributeElement);
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): DowncastHelpers;
     elementToElement(config?: {
         model: string;
@@ -52,18 +52,18 @@ export default class DowncastHelpers extends ConversionHelpers {
     markerToData(config?: {
         model: string;
         view?: ((markerName: string, api: DowncastConversionApi) => { group: string; name: string }) | undefined;
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): DowncastHelpers;
     markerToElement(config?: {
         model: string;
         view:
             | ElementDefinition
             | ((data: { [key: string]: any; isOpening: boolean }, api: DowncastConversionApi) => UIElement);
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): DowncastHelpers;
     markerToHighlight(config?: {
         model: string;
         view: HighlightDescriptor | ((data: any, api: DowncastConversionApi) => HighlightDescriptor);
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): DowncastHelpers;
 }

@@ -1,3 +1,4 @@
+import { ColorRepresentation } from '../utils';
 import { BufferAttribute } from './../core/BufferAttribute';
 
 export interface HSL {
@@ -15,7 +16,7 @@ export interface HSL {
  * const color = new THREE.Color( 0xff0000 );
  */
 export class Color {
-    constructor(color?: Color | string | number);
+    constructor(color?: ColorRepresentation);
     constructor(r: number, g: number, b: number);
 
     readonly isColor: true;
@@ -38,7 +39,7 @@ export class Color {
      */
     b: number;
 
-    set(color: Color | string | number): Color;
+    set(color: ColorRepresentation): Color;
     setScalar(scalar: number): Color;
     setHex(hex: number): Color;
 

@@ -76,6 +76,7 @@ function init() {
         // resolution:  // to be set by renderer, eventually
         dashed: false,
         alphaToCoverage: true,
+        wireframe: true,
     });
 
     line = new Line2(geometry, matLine);

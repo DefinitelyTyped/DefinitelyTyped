@@ -17,7 +17,7 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
      doc.useApiKey('YOUR-API-KEY');
 
      doc.useOAuth2Client({
-         getAccessToken: () => ({ token: "test_token" })
+         getAccessToken: async () => ({ token: 'test_token' }),
      });
 
      await doc.loadInfo(); // loads document properties and worksheets

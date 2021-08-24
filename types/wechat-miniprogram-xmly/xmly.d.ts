@@ -8,9 +8,9 @@ type RequestType = 'GET' | 'POST';
  */
 interface RequestParams {
     url: string;
-    type?: RequestType | undefined;
-    params?: object | undefined;
-    header?: object | undefined;
+    type?: RequestType;
+    params?: object;
+    header?: object;
 }
 
 /**

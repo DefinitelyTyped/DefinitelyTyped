@@ -172,3 +172,18 @@ const polyline = new naver.maps.Polyline({
     strokeLineCap: 'round',
     strokeLineJoin: 'round',
 });
+
+const getBicycleLayer = naver.maps.NaverStyleMapTypeOptions.getBicycleLayer();
+const getBlankMap = naver.maps.NaverStyleMapTypeOptions.getBlankMap();
+const getCadastralLayer = naver.maps.NaverStyleMapTypeOptions.getCadastralLayer();
+const getHybridMap = naver.maps.NaverStyleMapTypeOptions.getHybridMap();
+const getMapTypes = naver.maps.NaverStyleMapTypeOptions.getMapTypes();
+const getNormalLabelLayer = naver.maps.NaverStyleMapTypeOptions.getNormalLabelLayer();
+const getNormalMap = naver.maps.NaverStyleMapTypeOptions.getNormalMap();
+const getSatelliteLabelLayer = naver.maps.NaverStyleMapTypeOptions.getSatelliteLabelLayer();
+const getSatelliteMap = naver.maps.NaverStyleMapTypeOptions.getSatelliteMap();
+const getStreetLayer = naver.maps.NaverStyleMapTypeOptions.getStreetLayer();
+const getTerrainMap = naver.maps.NaverStyleMapTypeOptions.getTerrainMap();
+const getTrafficLayer = naver.maps.NaverStyleMapTypeOptions.getTrafficLayer();
+const getVectorMap = naver.maps.NaverStyleMapTypeOptions.getVectorMap();
+const getWorldMap = naver.maps.NaverStyleMapTypeOptions.getWorldMap();

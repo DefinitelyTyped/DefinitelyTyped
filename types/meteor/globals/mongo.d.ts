@@ -56,11 +56,7 @@ declare module Mongo {
         $near?: any;
         $nearSphere?: any;
         $all?: T[] | undefined;
-        $elemMatch?: T extends {}
-            ? Query<T>
-            :
-                  | FieldExpression<T>
-                  | undefined;
+        $elemMatch?: T extends {} ? Query<T> : FieldExpression<T> | undefined;
         $size?: number | undefined;
         $bitsAllClear?: any;
         $bitsAllSet?: any;

@@ -471,7 +471,10 @@ export interface Layout {
     transition: Transition;
     template: Template;
     clickmode: 'event' | 'select' | 'event+select' | 'none';
-    uirevision: any;
+    uirevision: number | string;
+    datarevision: number | string;
+    editrevision: number | string;
+    selectionrevision: number | string;
 }
 
 export interface Legend extends Label {
@@ -614,7 +617,7 @@ export interface Axis {
         | 'median descending';
     categoryarray: any[];
     tickfont: Partial<Font>;
-    tickangle: number;
+    tickangle: "auto" | number;
     tickprefix: string;
     /**
      * If `all`, all tick labels are displayed with a prefix.
@@ -794,6 +797,8 @@ export interface LayoutAxis extends Axis {
     layer: 'above traces' | 'below traces';
     domain: number[];
     position: number;
+    rotation: number;
+    direction: 'counterclockwise' | 'clockwise';
     rangeslider: Partial<RangeSlider>;
     rangeselector: Partial<RangeSelector>;
     automargin: boolean;
@@ -1350,7 +1355,7 @@ export interface ColorBar {
     tickcolor: Color;
     showticklabels: boolean;
     tickfont: Font;
-    tickangle: number;
+    tickangle: "auto" | number;
     tickformat: string;
     tickformatstops: Array<Partial<TickFormatStop>>;
     tickprefix: string;

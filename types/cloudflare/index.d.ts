@@ -43,7 +43,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordWithPriority {
-        type: Extract<RecordTypes, 'MX' | 'SRV' | 'URI'>;
+        type: Exclude<RecordTypes, 'MX' | 'SRV' | 'URI'>;
         name: string;
         content: string;
         ttl: number;
@@ -51,7 +51,22 @@ declare namespace Cloudflare {
         priority: number;
     }
 
-    type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority;
+    interface SrvDnsRecord {
+        type: 'SRV';
+        data: {
+          name: string;
+          service: string;
+          proto: string;
+          ttl: number;
+          proxied?: boolean | undefined;
+          priority: number;
+          weight: number;
+          port: number;
+          target: string;
+        };
+    }
+
+    type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority | SrvDnsRecord;
 
     interface DNSRecords {
         edit(

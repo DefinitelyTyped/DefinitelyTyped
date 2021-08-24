@@ -1,4 +1,4 @@
-// For Library Version: 1.91.0
+// For Library Version: 1.93.0
 
 declare module "sap/tnt/library" {
   /**
@@ -100,18 +100,6 @@ declare module "sap/tnt/InfoLabel" {
     );
 
     /**
-     * Binds property {@link #getText text} to model data.
-     *
-     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
-     * of the possible properties of `oBindingInfo`
-     */
-    bindText(
-      /**
-       * The binding information
-       */
-      oBindingInfo: PropertyBindingInfo
-    ): this;
-    /**
      * Creates a new subclass of class sap.tnt.InfoLabel with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -132,6 +120,22 @@ declare module "sap/tnt/InfoLabel" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.InfoLabel.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Binds property {@link #getText text} to model data.
+     *
+     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
+     * of the possible properties of `oBindingInfo`
+     */
+    bindText(
+      /**
+       * The binding information
+       */
+      oBindingInfo: PropertyBindingInfo
+    ): this;
     /**
      * Gets current value of property {@link #getColorScheme colorScheme}.
      *
@@ -163,10 +167,6 @@ declare module "sap/tnt/InfoLabel" {
      * Default value is `empty string`.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.tnt.InfoLabel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRenderMode renderMode}.
      *
@@ -323,13 +323,13 @@ declare module "sap/tnt/InfoLabel" {
     /**
      * Specifies the text inside the `InfoLabel` control.
      */
-    text?: string | PropertyBindingInfo | undefined;
+    text?: string | PropertyBindingInfo;
 
     /**
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
      * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
      */
-    renderMode?: (RenderMode | keyof typeof RenderMode) | PropertyBindingInfo | undefined;
+    renderMode?: (RenderMode | keyof typeof RenderMode) | PropertyBindingInfo;
 
     /**
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
@@ -337,19 +337,19 @@ declare module "sap/tnt/InfoLabel" {
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
      * Fiori 3 theme. The default `colorScheme` is 7.
      */
-    colorScheme?: int | PropertyBindingInfo | undefined;
+    colorScheme?: int | PropertyBindingInfo;
 
     /**
      * Specifies the width of the `InfoLabel` control. By default, the `InfoLabel` control has the width of
      * the content. Set this property to restrict the width to a custom value.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * Determines if the `InfoLabel` is in `displayOnly` mode. When set to `true` the control size adjusts to
      * fit other controls, for example non-editable `Forms`.
      */
-    displayOnly?: boolean | PropertyBindingInfo | undefined;
+    displayOnly?: boolean | PropertyBindingInfo;
 
     /**
      * Available options for the text direction are LTR and RTL. By default the control inherits the text direction
@@ -357,7 +357,7 @@ declare module "sap/tnt/InfoLabel" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo | undefined;
+      | PropertyBindingInfo;
 
     /**
      * @SINCE 1.74
@@ -365,7 +365,7 @@ declare module "sap/tnt/InfoLabel" {
      * Defines the icon to be displayed as graphical element within the `InfoLabel`. It can be an icon from
      * the icon font.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
   }
 }
 
@@ -375,6 +375,8 @@ declare module "sap/tnt/NavigationList" {
   import { ID, CSSSize } from "sap/ui/core/library";
 
   import NavigationListItem from "sap/tnt/NavigationListItem";
+
+  import Event from "sap/ui/base/Event";
 
   import Item from "sap/ui/core/Item";
 
@@ -424,6 +426,31 @@ declare module "sap/tnt/NavigationList" {
     );
 
     /**
+     * Creates a new subclass of class sap.tnt.NavigationList with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NavigationList>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.NavigationList.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -467,7 +494,25 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
+     *
+     * Fired when an item is selected.
+     */
+    attachItemSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
        */
@@ -486,33 +531,12 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.tnt.NavigationList with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NavigationList>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      */
@@ -524,7 +548,7 @@ declare module "sap/tnt/NavigationList" {
         /**
          * The selected item.
          */
-        item?: Item | undefined;
+        item?: Item;
       }
     ): this;
     /**
@@ -551,10 +575,6 @@ declare module "sap/tnt/NavigationList" {
      * The items displayed in the list.
      */
     getItems(): NavigationListItem[];
-    /**
-     * Returns a metadata object for class sap.tnt.NavigationList.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets the currently selected `NavigationListItem`.
      */
@@ -685,75 +705,59 @@ declare module "sap/tnt/NavigationList" {
        */
       sWidth: CSSSize
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
-     *
-     * Fired when an item is selected.
-     */
-    attachItemSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $NavigationListSettings extends $ControlSettings {
     /**
      * Specifies the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo | undefined;
+    width?: CSSSize | PropertyBindingInfo;
 
     /**
      * Specifies if the control is in expanded or collapsed mode.
      */
-    expanded?: boolean | PropertyBindingInfo | undefined;
+    expanded?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.62.0
      *
      * Specifies the currently selected key.
      */
-    selectedKey?: string | PropertyBindingInfo | undefined;
+    selectedKey?: string | PropertyBindingInfo;
 
     /**
      * The items displayed in the list.
      */
-    items?: NavigationListItem[] | NavigationListItem | AggregationBindingInfo | undefined;
+    items?: NavigationListItem[] | NavigationListItem | AggregationBindingInfo;
 
     /**
      * Association to controls / IDs, which describe this control (see WAI-ARIA attribute aria-describedby).
      */
-    ariaDescribedBy?: Array<Control | string> | undefined;
+    ariaDescribedBy?: Array<Control | string>;
 
     /**
      * Association to controls / IDs, which label this control (see WAI-ARIA attribute aria-labelledby).
      */
-    ariaLabelledBy?: Array<Control | string> | undefined;
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * @SINCE 1.52.0
      *
      * The currently selected `NavigationListItem`.
      */
-    selectedItem?: NavigationListItem | string | undefined;
+    selectedItem?: NavigationListItem | string;
 
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: Function | undefined;
+    itemSelect?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/tnt/NavigationListItem" {
   import { default as Item, $ItemSettings } from "sap/ui/core/Item";
+
+  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -803,6 +807,31 @@ declare module "sap/tnt/NavigationListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.tnt.NavigationListItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NavigationListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.NavigationListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -828,7 +857,25 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.tnt.NavigationListItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.NavigationListItem` itself.
+     *
+     * Fired when this item is selected.
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
        */
@@ -847,33 +894,12 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.tnt.NavigationListItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NavigationListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:select select} to attached listeners.
      */
@@ -885,7 +911,7 @@ declare module "sap/tnt/NavigationListItem" {
         /**
          * The selected item.
          */
-        item?: Item | undefined;
+        item?: Item;
       }
     ): this;
     /**
@@ -925,10 +951,6 @@ declare module "sap/tnt/NavigationListItem" {
      * The sub items.
      */
     getItems(): NavigationListItem[];
-    /**
-     * Returns a metadata object for class sap.tnt.NavigationListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTarget target}.
      *
@@ -1082,54 +1104,36 @@ declare module "sap/tnt/NavigationListItem" {
        */
       bVisible?: boolean
     ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.tnt.NavigationListItem`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.tnt.NavigationListItem` itself.
-     *
-     * Fired when this item is selected.
-     */
-    attachSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $NavigationListItemSettings extends $ItemSettings {
     /**
      * Specifies the icon for the item.
      */
-    icon?: URI | PropertyBindingInfo | undefined;
+    icon?: URI | PropertyBindingInfo;
 
     /**
      * Specifies if the item is expanded.
      */
-    expanded?: boolean | PropertyBindingInfo | undefined;
+    expanded?: boolean | PropertyBindingInfo;
 
     /**
      * Specifies if the item has an expander.
      */
-    hasExpander?: boolean | PropertyBindingInfo | undefined;
+    hasExpander?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.52
      *
      * Specifies if the item should be shown.
      */
-    visible?: boolean | PropertyBindingInfo | undefined;
+    visible?: boolean | PropertyBindingInfo;
 
     /**
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
      * this should not be set, but instead an event handler for the `select` event should be registered.
      */
-    href?: URI | PropertyBindingInfo | undefined;
+    href?: URI | PropertyBindingInfo;
 
     /**
      * Specifies the browsing context where the linked content will open.
@@ -1138,22 +1142,24 @@ declare module "sap/tnt/NavigationListItem" {
      * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
      * is set.
      */
-    target?: string | PropertyBindingInfo | undefined;
+    target?: string | PropertyBindingInfo;
 
     /**
      * The sub items.
      */
-    items?: NavigationListItem[] | NavigationListItem | AggregationBindingInfo | undefined;
+    items?: NavigationListItem[] | NavigationListItem | AggregationBindingInfo;
 
     /**
      * Fired when this item is selected.
      */
-    select?: Function | undefined;
+    select?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/tnt/SideNavigation" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -1216,6 +1222,31 @@ declare module "sap/tnt/SideNavigation" {
     );
 
     /**
+     * Creates a new subclass of class sap.tnt.SideNavigation with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SideNavigation>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.SideNavigation.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -1232,7 +1263,25 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
+     *
+     * Fired when an item is selected.
+     */
+    attachItemSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
        */
@@ -1271,33 +1320,12 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (p1: Event) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.tnt.SideNavigation with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SideNavigation>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      */
@@ -1309,7 +1337,7 @@ declare module "sap/tnt/SideNavigation" {
         /**
          * The selected item.
          */
-        item?: Item | undefined;
+        item?: Item;
       }
     ): this;
     /**
@@ -1338,10 +1366,6 @@ declare module "sap/tnt/SideNavigation" {
      * Defines the content inside the flexible part.
      */
     getItem(): NavigationList;
-    /**
-     * Returns a metadata object for class sap.tnt.SideNavigation.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.52.0
      *
@@ -1415,65 +1439,47 @@ declare module "sap/tnt/SideNavigation" {
      * Unbinds aggregation {@link #getItem item} from model data.
      */
     unbindItem(): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
-     *
-     * Fired when an item is selected.
-     */
-    attachItemSelect(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
-       */
-      oListener?: object
-    ): this;
   }
 
   export interface $SideNavigationSettings extends $ControlSettings {
     /**
      * Specifies if the control is expanded.
      */
-    expanded?: boolean | PropertyBindingInfo | undefined;
+    expanded?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.62.0
      *
      * Specifies the currently selected key.
      */
-    selectedKey?: string | PropertyBindingInfo | undefined;
+    selectedKey?: string | PropertyBindingInfo;
 
     /**
      * Defines the content inside the flexible part.
      */
-    item?: NavigationList | undefined;
+    item?: NavigationList;
 
     /**
      * Defines the content inside the fixed part.
      */
-    fixedItem?: NavigationList | undefined;
+    fixedItem?: NavigationList;
 
     /**
      * Defines the content inside the footer.
      */
-    footer?: NavigationList | undefined;
+    footer?: NavigationList;
 
     /**
      * @SINCE 1.52.0
      *
      * The selected `NavigationListItem`.
      */
-    selectedItem?: NavigationListItem | string | undefined;
+    selectedItem?: NavigationListItem | string;
 
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: Function | undefined;
+    itemSelect?: (oEvent: Event) => void;
   }
 }
 
@@ -1734,27 +1740,6 @@ declare module "sap/tnt/ToolPage" {
     );
 
     /**
-     * Adds some mainContent to the aggregation {@link #getMainContents mainContents}.
-     */
-    addMainContent(
-      /**
-       * The mainContent to add; if empty, nothing is inserted
-       */
-      oMainContent: Control
-    ): this;
-    /**
-     * Destroys the header in the aggregation {@link #getHeader header}.
-     */
-    destroyHeader(): this;
-    /**
-     * Destroys all the mainContents in the aggregation {@link #getMainContents mainContents}.
-     */
-    destroyMainContents(): this;
-    /**
-     * Destroys the sideContent in the aggregation {@link #getSideContent sideContent}.
-     */
-    destroySideContent(): this;
-    /**
      * Creates a new subclass of class sap.tnt.ToolPage with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -1776,6 +1761,37 @@ declare module "sap/tnt/ToolPage" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.tnt.ToolPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some mainContent to the aggregation {@link #getMainContents mainContents}.
+     */
+    addMainContent(
+      /**
+       * The mainContent to add; if empty, nothing is inserted
+       */
+      oMainContent: Control
+    ): this;
+    /**
+     * Destroys the header in the aggregation {@link #getHeader header}.
+     */
+    destroyHeader(): this;
+    /**
+     * Destroys all the mainContents in the aggregation {@link #getMainContents mainContents}.
+     */
+    destroyMainContents(): this;
+    /**
+     * Destroys the sideContent in the aggregation {@link #getSideContent sideContent}.
+     */
+    destroySideContent(): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Destroys the subHeader in the aggregation {@link #getSubHeader subHeader}.
+     */
+    destroySubHeader(): this;
+    /**
      * Gets content of aggregation {@link #getHeader header}.
      *
      * The control to appear in the header area.
@@ -1787,10 +1803,6 @@ declare module "sap/tnt/ToolPage" {
      * The content section.
      */
     getMainContents(): Control[];
-    /**
-     * Returns a metadata object for class sap.tnt.ToolPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getSideContent sideContent}.
      *
@@ -1805,6 +1817,14 @@ declare module "sap/tnt/ToolPage" {
      * Default value is `true`.
      */
     getSideExpanded(): boolean;
+    /**
+     * @SINCE 1.93
+     *
+     * Gets content of aggregation {@link #getSubHeader subHeader}.
+     *
+     * The control to appear in the subheader area.
+     */
+    getSubHeader(): IToolHeader;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getMainContents mainContents}.
      * and returns its index if found or -1 otherwise.
@@ -1873,6 +1893,17 @@ declare module "sap/tnt/ToolPage" {
       bSideExpanded: boolean
     ): this;
     /**
+     * @SINCE 1.93
+     *
+     * Sets the aggregated {@link #getSubHeader subHeader}.
+     */
+    setSubHeader(
+      /**
+       * The subHeader to set
+       */
+      oSubHeader: IToolHeader
+    ): this;
+    /**
      * Toggles the expand/collapse state of the SideContent.
      */
     toggleSideContentMode(): this;
@@ -1882,22 +1913,29 @@ declare module "sap/tnt/ToolPage" {
     /**
      * Indicates if the side menu is expanded. Overrides the `expanded` property of the `sideContent` aggregation.
      */
-    sideExpanded?: boolean | PropertyBindingInfo | undefined;
+    sideExpanded?: boolean | PropertyBindingInfo;
 
     /**
      * The control to appear in the header area.
      */
-    header?: IToolHeader | undefined;
+    header?: IToolHeader;
+
+    /**
+     * @SINCE 1.93
+     *
+     * The control to appear in the subheader area.
+     */
+    subHeader?: IToolHeader;
 
     /**
      * The side menu of the layout.
      */
-    sideContent?: SideNavigation | undefined;
+    sideContent?: SideNavigation;
 
     /**
      * The content section.
      */
-    mainContents?: Control[] | Control | AggregationBindingInfo | undefined;
+    mainContents?: Control[] | Control | AggregationBindingInfo;
   }
 }
 

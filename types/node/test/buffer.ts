@@ -8,8 +8,9 @@ import {
     kMaxLength,
     kStringMaxLength,
     Blob,
-} from 'buffer';
-import { Readable, Writable } from 'stream';
+    resolveObjectURL,
+} from 'node:buffer';
+import { Readable, Writable } from 'node:stream';
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');
@@ -392,3 +393,7 @@ buff.writeDoubleLE(123.123);
 buff.writeDoubleLE(123.123, 0);
 buff.writeDoubleBE(123.123);
 buff.writeDoubleBE(123.123, 0);
+
+{
+    resolveObjectURL(URL.createObjectURL(new Blob(['']))); // $ExpectType Blob | undefined
+}
