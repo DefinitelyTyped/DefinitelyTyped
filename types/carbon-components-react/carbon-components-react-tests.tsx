@@ -61,6 +61,7 @@ import {
 } from "carbon-components-react";
 import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
+import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
 
 // test components for "as" props
 interface TestCompProps {
@@ -995,3 +996,37 @@ const dataTableSkeleton = (
 const dataTableSkeletonBasic = (
     <DataTableSkeleton />
 );
+
+// LayoutDirection
+{
+    const layoutDirectionDefaultT1 = (
+        <LayoutDirection onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+            Contents
+        </LayoutDirection>
+    );
+
+    const layoutDirectionDefaultT2 = (
+        <LayoutDirection as={undefined} onClick={(event: React.MouseEvent<HTMLDivElement>) => {}}>
+            Contents
+        </LayoutDirection>
+    );
+
+    const layoutDirectionCustomIntrinsic = (
+        <LayoutDirection as="li" onClick={(event: React.MouseEvent<HTMLLIElement>) => {}} value="value">
+            Contents
+        </LayoutDirection>
+    );
+
+    const layoutDirectionCustomCompT1 = (
+        <LayoutDirection as={TestComp2} someProp={5}>
+            Content
+        </LayoutDirection>
+    );
+
+    const layoutDirectionCustomCompT2 = (
+        // $ExpectError
+        <LayoutDirection as={TestComp2} somethingElse={5}>
+            Content
+        </LayoutDirection>
+    );
+}
