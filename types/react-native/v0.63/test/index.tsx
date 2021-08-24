@@ -1208,6 +1208,10 @@ class AccessibilityTest extends React.Component {
     }
 }
 
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
+    console.log(isEnabled);
+});
+
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
 );
