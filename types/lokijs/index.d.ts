@@ -1465,7 +1465,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      * @param [force] - (Optional) flag indicating whether to construct index immediately
      */
     public ensureIndex(property: keyof E, force?: boolean): void;
-    
+
     /**
      * Perform checks to determine validity/consistency of all binary indices
      * @param [options] - optional configuration object
@@ -1474,7 +1474,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      * @param [options.repair] - whether to fix problems if they are encountered
      */
     public checkAllIndexes(options?: Partial<CheckIndexOptions>): string[];
-    
+
     /**
      * Perform checks to determine validity/consistency of a binary index
      * @param property - name of the binary-indexed property to check
@@ -1999,6 +1999,7 @@ declare class SortedIndex {
 
 // type aliases to allow the nested classes inside LokiConstructor to extend classes sharing them same name(s) as themselves
 declare class _Collection<E extends object> extends Collection<E> { }
+declare class _DynamicView<E extends object> extends DynamicView<E> { }
 declare class _KeyValueStore extends KeyValueStore { }
 declare class _LokiMemoryAdapter extends LokiMemoryAdapter { }
 declare class _LokiPartitioningAdapter extends LokiPartitioningAdapter { }
@@ -2029,6 +2030,8 @@ declare module LokiConstructor {
     export var LokiOps: LokiOps;
 
     export class Collection<E extends object = any> extends _Collection<E> { }
+
+    export class DynamicView<E extends object = any> extends _DynamicView<E> { }
 
     export class KeyValueStore extends _KeyValueStore { }
 

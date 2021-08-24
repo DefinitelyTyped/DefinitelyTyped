@@ -14,7 +14,7 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
@@ -1007,7 +1007,7 @@ declare module 'stream' {
          * ```
          *
          * The `pipeline` API provides a promise version, which can also
-         * receive an options argument as the last parameter with a`signal` `<AbortSignal>` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
+         * receive an options argument as the last parameter with a`signal` `AbortSignal` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
          * an`AbortError`.
          *
          * ```js

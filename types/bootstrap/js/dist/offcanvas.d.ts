@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Offcanvas extends BaseComponent {
     toggle(relatedTarget: HTMLElement): void;
@@ -8,6 +8,8 @@ declare class Offcanvas extends BaseComponent {
     hide(): void;
 
     static getInstance: GetInstanceFactory<Offcanvas>;
+
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Offcanvas>;
 
     static jQueryInterface: Offcanvas.jQueryInterface;
 }

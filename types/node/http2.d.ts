@@ -6,7 +6,7 @@
  * const http2 = require('http2');
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/http2.js)
  */
 declare module 'http2' {
     import EventEmitter = require('node:events');

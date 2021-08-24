@@ -15,8 +15,7 @@
  * ```js
  * const inspector = require('inspector');
  * ```
- * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
@@ -2697,9 +2696,9 @@ declare module 'inspector' {
      * and flow control has been passed to the debugger client.
      *
      * See the `security warning` regarding the `host`parameter usage.
-     * @param port Port to listen on for inspector connections. Optional.
-     * @param host Host to listen on for inspector connections. Optional.
-     * @param wait Block until a client has connected. Optional.
+     * @param [port='what was specified on the CLI'] Port to listen on for inspector connections. Optional.
+     * @param [host='what was specified on the CLI'] Host to listen on for inspector connections. Optional.
+     * @param [wait=false] Block until a client has connected. Optional.
      */
     function open(port?: number, host?: string, wait?: boolean): void;
     /**

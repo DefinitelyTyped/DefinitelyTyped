@@ -1,7 +1,7 @@
 export = SimpleDialog;
-declare function SimpleDialog(process?: any): void;
+declare function SimpleDialog(process?: import('../process/Process.js')): void;
 declare class SimpleDialog {
-    constructor(process?: any);
+    constructor(process?: import('../process/Process.js'));
     private _process;
     message: string;
     title: string;

@@ -29,7 +29,7 @@ declare class Button {
     order: number;
     name: string;
     label: string;
-    timeout: any;
+    timeout: number;
     defaultAction: boolean;
     defaultButton: boolean;
     minSelectedRecords: number;

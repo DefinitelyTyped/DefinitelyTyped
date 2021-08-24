@@ -1,5 +1,5 @@
 import * as Popper from "@popperjs/core";
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Tooltip extends BaseComponent {
     constructor(element: string | Element, options?: Partial<Tooltip.Options>);
@@ -50,6 +50,8 @@ declare class Tooltip extends BaseComponent {
     update(): void;
 
     static getInstance: GetInstanceFactory<Tooltip>;
+
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Tooltip>;
 
     static jQueryInterface: Tooltip.jQueryInterface;
 

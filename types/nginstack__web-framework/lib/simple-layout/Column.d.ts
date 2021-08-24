@@ -10,7 +10,7 @@ declare class Column {
     lookupType: number;
     type: string | null;
     private hasType;
-    _defineLinks(): void;
+    private _defineLinks;
     links: AnchorCollection;
     lastContent: string | number | Date;
     private group;
@@ -89,10 +89,8 @@ declare class Column {
 }
 declare namespace Column {
     export {
-        convertFieldType_,
         VerticalAligns,
         TextAligns,
-        coordinateTypes_,
         LatitudeFormat,
         LongitudeFormat,
         AngleFormat,
@@ -109,7 +107,6 @@ type LatitudeFormat = typeof import('@nginstack/engine/lib/geo/LatitudeFormat');
 type LongitudeFormat = typeof import('@nginstack/engine/lib/geo/LongitudeFormat');
 type AngleFormat = typeof import('@nginstack/engine/lib/geo/AngleFormat');
 import CssExtractor = require('../css/CssExtractor.js');
-declare var convertFieldType_: Record<string, string>;
 declare namespace VerticalAligns {
     const TOP: string;
     const MIDDLE: string;
@@ -125,5 +122,4 @@ declare namespace TextAligns {
     const INHERIT: string;
 }
 type TextAligns = string;
-declare var coordinateTypes_: string[];
 type DateFormat = typeof DateFormat;

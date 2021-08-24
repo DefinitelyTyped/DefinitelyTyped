@@ -54,6 +54,8 @@ export interface WaveSurferParams {
     height?: number | undefined;
     /** Whether to hide the horizontal scrollbar when one would normally be shown (default: false). */
     hideScrollbar?: boolean | undefined;
+    /** If true, ignores device silence mode. */
+    ignoreSilenceMode?: boolean | undefined;
     /** Whether the mouse interaction will be enabled at initialization. You can switch this parameter at any time later on (default: true). */
     interact?: boolean | undefined;
     /** (Use with regions plugin) Enable looping of selected regions (default: false). */

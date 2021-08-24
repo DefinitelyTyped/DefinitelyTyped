@@ -100,6 +100,13 @@ export function fixupLocalLinks(text: string, moduleName: string): string {
 
 export function fixupHtmlDocs(input: string, context: DocContext): string {
     // make sure code highlighting works
+
+    // This is not fast but it will do, also he is definitely coming for us now.
+    const hasMultiExample = /<pre><code class="language-mjs">.*?<\/code><\/pre>\n+<pre><code class="language-cjs">.*?<\/code><\/pre>/igms;
+    if (hasMultiExample) {
+        input = input.replace(/<pre><code class="language-cjs">.*?<\/code><\/pre>/igms, '');
+    }
+
     input = input.replaceAll(/language\-[mc]js/g, 'language-js');
     // fixup breaking comments
     input = input.replace(/\/\*(.*?)\*\//g, '//$1');

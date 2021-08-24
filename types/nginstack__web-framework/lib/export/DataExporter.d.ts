@@ -2,7 +2,7 @@ export = DataExporter;
 declare function DataExporter(): void;
 declare class DataExporter {
     fields: any[];
-    fieldIndexesByName_: any;
+    private fieldIndexesByName_;
     private _logger;
     title: string;
     dataSet: any;

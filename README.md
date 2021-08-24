@@ -262,7 +262,7 @@ Test your changes by running `npm test <package to test>` where `<package to tes
 
 This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
 
-Once you have all all your changes ready, use `npm run test-all` to see how your changes affect other modules.
+Once you have all your changes ready, use `npm run test-all` to see how your changes affect other modules.
 
 #### Naming
 

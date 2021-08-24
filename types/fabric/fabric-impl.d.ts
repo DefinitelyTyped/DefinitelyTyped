@@ -768,7 +768,11 @@ export class Pattern {
      */
     toLive(ctx: CanvasRenderingContext2D): CanvasPattern;
 }
-export class Point {
+interface IPoint {
+    x: number;
+    y: number;
+}
+export class Point implements IPoint {
     x: number;
     y: number;
     type: string;
@@ -778,14 +782,14 @@ export class Point {
      * @param {fabric.Point} that
      * @return {fabric.Point} new Point instance with added values
      */
-    add(that: Point): Point;
+    add(that: IPoint): Point;
     /**
      * Adds another point to this one
      * @param {fabric.Point} that
      * @return {fabric.Point} thisArg
      * @chainable
      */
-    addEquals(that: Point): Point;
+    addEquals(that: IPoint): Point;
     /**
      * Adds value to this point and returns a new one
      * @param {Number} scalar
@@ -804,14 +808,14 @@ export class Point {
      * @param {fabric.Point} that
      * @return {fabric.Point} new Point object with subtracted values
      */
-    subtract(that: Point): Point;
+    subtract(that: IPoint): Point;
     /**
      * Subtracts another point from this point
      * @param {fabric.Point} that
      * @return {fabric.Point} thisArg
      * @chainable
      */
-    subtractEquals(that: Point): Point;
+    subtractEquals(that: IPoint): Point;
     /**
      * Subtracts value from this point and returns a new one
      * @param {Number} scalar
@@ -856,62 +860,62 @@ export class Point {
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    eq(that: Point): Point;
+    eq(that: IPoint): Point;
     /**
      * Returns true if this point is less than another one
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    lt(that: Point): Point;
+    lt(that: IPoint): Point;
     /**
      * Returns true if this point is less than or equal to another one
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    lte(that: Point): Point;
+    lte(that: IPoint): Point;
     /**
      * Returns true if this point is greater another one
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    gt(that: Point): Point;
+    gt(that: IPoint): Point;
     /**
      * Returns true if this point is greater than or equal to another one
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    gte(that: Point): Point;
+    gte(that: IPoint): Point;
     /**
      * Returns new point which is the result of linear interpolation with this one and another one
      * @param {fabric.Point} that
      * @param {Number} t , position of interpolation, between 0 and 1 default 0.5
      * @return {fabric.Point}
      */
-    lerp(that: Point, t: number): Point;
+    lerp(that: IPoint, t: number): Point;
     /**
      * Returns distance from this point and another one
      * @param {fabric.Point} that
      * @return {Number}
      */
-    distanceFrom(that: Point): number;
+    distanceFrom(that: IPoint): number;
     /**
      * Returns the point between this point and another one
      * @param {fabric.Point} that
      * @return {fabric.Point}
      */
-    midPointFrom(that: Point): Point;
+    midPointFrom(that: IPoint): Point;
     /**
      * Returns a new point which is the min of this and another one
      * @param {fabric.Point} that
      * @return {fabric.Point}
      */
-    min(that: Point): Point;
+    min(that: IPoint): Point;
     /**
      * Returns a new point which is the max of this and another one
      * @param {fabric.Point} that
      * @return {fabric.Point}
      */
-    max(that: Point): Point;
+    max(that: IPoint): Point;
     /**
      * Returns string representation of this point
      * @return {String}
@@ -941,12 +945,12 @@ export class Point {
      * @param {fabric.Point} that
      * @chainable
      */
-    setFromPoint(that: Point): Point;
+    setFromPoint(that: IPoint): Point;
     /**
      * Swaps x/y of this point and another point
      * @param {fabric.Point} that
      */
-    swap(that: Point): Point;
+    swap(that: IPoint): Point;
     /**
      * return a cloned instance of the point
      * @return {fabric.Point}
@@ -1311,7 +1315,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      * @chainable true
      */
-    zoomToPoint(point: Point, value: number): Canvas;
+    zoomToPoint(point: IPoint, value: number): Canvas;
 
     /**
      * Sets zoom level of this canvas instance
@@ -1327,7 +1331,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      * @chainable
      */
-    absolutePan(point: Point): Canvas;
+    absolutePan(point: IPoint): Canvas;
 
     /**
      * Pans viewpoint relatively
@@ -1335,7 +1339,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      * @chainable
      */
-    relativePan(point: Point): Canvas;
+    relativePan(point: IPoint): Canvas;
 
     /**
      * Returns <canvas> element corresponding to this instance
@@ -1993,7 +1997,7 @@ export class Canvas {
      * @param {Object} pointer with "x" and "y" number values
      * @return {Object} object with "x" and "y" number values
      */
-    restorePointerVpt(pointer: Point): any;
+    restorePointerVpt(pointer: IPoint): any;
     /**
      * Returns pointer coordinates relative to canvas.
      * Can return coordinates with or without viewportTransform.

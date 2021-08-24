@@ -6,7 +6,7 @@
  * ```js
  * const util = require('util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
@@ -1538,12 +1538,12 @@ declare module 'util/types' {
      */
     function isWeakSet(object: unknown): object is WeakSet<object>;
     /**
-     * Returns `true` if `value` is a `<KeyObject>`, `false` otherwise.
+     * Returns `true` if `value` is a `KeyObject`, `false` otherwise.
      * @since v16.2.0
      */
     function isKeyObject(object: unknown): object is KeyObject;
     /**
-     * Returns `true` if `value` is a `<CryptoKey>`, `false` otherwise.
+     * Returns `true` if `value` is a `CryptoKey`, `false` otherwise.
      * @since v16.2.0
      */
     function isCryptoKey(object: unknown): object is webcrypto.CryptoKey;

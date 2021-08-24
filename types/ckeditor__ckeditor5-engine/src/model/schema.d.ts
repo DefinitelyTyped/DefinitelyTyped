@@ -77,7 +77,7 @@ export interface SchemaItemDefinition {
     allowWhere?: string | string[] | undefined;
     inheritAllFrom?: string | undefined;
     inheritTypesFrom?: string | string[] | undefined;
-    isblock?: boolean | undefined;
+    isBlock?: boolean | undefined;
     isContent?: boolean | undefined;
     isInline?: boolean | undefined;
     isLimit?: boolean | undefined;
@@ -91,11 +91,11 @@ export interface SchemaContextItem {
     getAttribute(keyName: string): boolean | string | number;
 }
 
-export type SchemaContextDefinition = Node | Position | SchemaContext | string | Array<string | Node>;
+export type SchemaContextDefinition = Item | Position | SchemaContext | string | Array<string | Item>;
 
 export interface SchemaCompiledItemDefinition {
     name: string;
-    isblock: boolean;
+    isBlock: boolean;
     isContent: boolean;
     isInline: boolean;
     isLimit: boolean;
