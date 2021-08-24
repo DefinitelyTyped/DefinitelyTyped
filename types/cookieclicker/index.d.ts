@@ -32,7 +32,18 @@ declare function toFixed(x: number): string;
  */
 declare function Beautify(val: number, floats?: number): string;
 
-declare var SimpleBeautify: (val: number) => string;
+declare function SimpleBeautify(val: number): string;
+
+declare function BeautifyInTextFunction(str: string): string;
+/**
+ * Reformats all numbers in the string be beautified
+ */
+declare function BeautifyInText(str: string): string;
+
+/**
+ * Runs BeautifyInText on all upgrades and achievements
+ */
+declare function BeautifyAll(): void;
 
 /**
  * This is the global Audio class, `Audio` is a slightly modified version which disables soundjay links.
@@ -424,8 +435,14 @@ declare namespace Game {
          * Does nothing @deprecated
          */
         wobble(): void;
-        tt: Element;
-        tta: Element;
+        /**
+         * The tooltip itself
+         */
+        tt: HTMLDivElement;
+        /**
+         * The anchor of the tooltip which is positioned with `top` and `left`
+         */
+        tta: HTMLDivElement;
     }
     export let tooltip: Tooltip;
     /**
@@ -636,7 +653,7 @@ declare namespace Game {
 
     export function GetMouseCoords(e: MouseEvent): void;
     export let Click: number;
-    export let lastClickedEl: Element;
+    export let lastClickedEl: Element | PseudoNull;
     export let clickFrom: number;
     export let Scroll: number;
     export let mouseDown: number;
@@ -2257,9 +2274,9 @@ declare namespace Game {
         /**
          * The power of a cookie upgrade, present as `0` on Non-cookie upgrades
          */
-        // The TSLint disable is for the generic, which is a hack required for real use-cases some cases
+        // The TSLint disable is for the generic, which is a hack required for a multitude of real use-cases
         // tslint:disable-next-line
-        power: number | ((me: this) => number);
+        power: number | (<T extends this = this>(me: T) => number);
         /**
          * The price of the upgrade, this is visual only, so the lump spending must be manually implemented
          */
@@ -2453,11 +2470,11 @@ declare namespace Game {
      * A generic tiered upgrade, which represents any upgrade which has a tier, mouses, cursors, kittens, etc,
      * (Different from `TieredUpgradeClass`, since that interface only applies to building tiered upgrades, names based from the original Cookie Clicker code)
      */
-    export interface GenericTieredUpgrade<Tier extends string | number = any> extends Upgrade {
+    export interface GenericTieredUpgrade<Tier extends string | number = string | number> extends Upgrade {
         pool: '';
         tier: Tier;
     }
-    export interface KittenUpgrade<Tier extends string | number = any> extends GenericTieredUpgrade<Tier> {
+    export interface KittenUpgrade<Tier extends string | number = string | number> extends GenericTieredUpgrade<Tier> {
         // Pseudo-true
         kitten: 1 | true;
     }
@@ -2465,7 +2482,8 @@ declare namespace Game {
      * A tiered upgrade which represents any upgrade which upgrades a building
      * (Different from `GenericTieredUpgrade`, since that interface applies to all upgrades which are tiered, names based from the original Cookie Clicker code)
      */
-    export interface TieredUpgradeClass<Tier extends string | number = any> extends GenericTieredUpgrade<Tier> {
+    export interface TieredUpgradeClass<Tier extends string | number = string | number>
+        extends GenericTieredUpgrade<Tier> {
         buildingTie1: GameObject;
         buildingTie: GameObject;
     }
@@ -2777,7 +2795,7 @@ declare namespace Game {
      * @param what The name of the achievement
      */
     export function HasAchiev(what: string): PseudoBoolean;
-    export interface TieredAchievementClass<Tier extends string | number = any> extends Achievement {
+    export interface TieredAchievementClass<Tier extends string | number = string | number> extends Achievement {
         tier: Tier;
         buildingTie: GameObject;
     }
@@ -2855,19 +2873,15 @@ declare namespace Game {
      */
     export function CpsAchievement(name: string, q?: string): CpsAchievementClass;
 
-    export interface Buff {
-        name: string;
-        desc: string;
-        icon: Icon;
+    export interface BuffParameter {
+        name?: string | undefined;
+        desc?: string | undefined;
+        icon?: Icon | undefined;
         /**
          * The amount of frames this buff will exist for
          * Decremented by 1 each frame
          */
-        time: number;
-        /**
-         * The total length of the buff in frames
-         */
-        maxTime: number;
+        time?: number;
         /** @deprecated */
         visible?: boolean | undefined;
         /**
@@ -2889,6 +2903,17 @@ declare namespace Game {
          * Rarely used, as of v2.031 only Cursed Finger uses this
          */
         pow?: number | undefined;
+    }
+
+    export interface Buff extends BuffParameter {
+        name: string;
+        desc: string;
+        icon: Icon;
+        time: number;
+        /**
+         * The total length of the buff in frames
+         */
+        maxTime: number;
         arg1: number | undefined;
         arg2: number | undefined;
         arg3: number | undefined;
@@ -2915,7 +2940,7 @@ declare namespace Game {
     export let buffTypesByName: undefined[] & Record<string, buffType>;
     export let buffTypesN: number;
     export class buffType {
-        constructor(name: string, func: (time: number, arg1?: number, arg2?: number, arg3?: number) => Partial<Buff>);
+        constructor(name: string, func: (time: number, arg1?: number, arg2?: number, arg3?: number) => BuffParameter);
         name: string;
         func: (time: number, arg1?: number, arg2?: number, arg3?: number) => Buff;
         id: number;
