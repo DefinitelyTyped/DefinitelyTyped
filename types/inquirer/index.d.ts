@@ -1,4 +1,4 @@
-// Type definitions for inquirer 8.1.2
+// Type definitions for inquirer 8.1
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Parvez <https://github.com/ppathan>
