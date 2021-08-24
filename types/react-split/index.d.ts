@@ -2,9 +2,13 @@
 // Project: https://split.js.org/
 // Definitions by: Steven Hankin <https://github.com/stevenhankin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 4.1
 
 import * as React from 'react';
+
+export = Split;
+
+declare class Split extends React.Component<SplitWrapper.DefaultProps, any> { }
 
 declare namespace SplitWrapper {
   interface DefaultProps {
@@ -94,7 +98,3 @@ declare namespace SplitWrapper {
     onDragEnd?: (sizes: number[]) => void;
   }
 }
-
-declare class Split extends React.Component<SplitWrapper.DefaultProps, any> { }
-
-export = Split;
