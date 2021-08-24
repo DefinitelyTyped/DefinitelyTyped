@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const ext: cytoscape.Ext;
+
 export = ext;
+export as namespace ext;
 
 declare namespace ext {
     // function( edge ){ return 1; }
