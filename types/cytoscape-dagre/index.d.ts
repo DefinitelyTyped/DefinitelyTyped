@@ -3,12 +3,12 @@
 // Definitions by: Felix Barczewicz <https://github.com/DieserFelix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const ext: cytoscape.Ext;
+declare const cytoscapeDagre: cytoscape.Ext;
 
-export = ext;
-export as namespace ext;
+export = cytoscapeDagre;
+export as namespace cytoscapeDagre;
 
-declare namespace ext {
+declare namespace cytoscapeDagre {
     // function( edge ){ return 1; }
     type EdgeAssessmentFunction = (edge: cytoscape.EdgeSingular) => number;
 
