@@ -8,7 +8,7 @@ import * as React from 'react';
 
 declare class Split extends React.Component<SplitWrapper.SplitProps, any> {}
 
-export default Split
+export = Split;
 
 declare namespace SplitWrapper {
   interface SplitProps {
