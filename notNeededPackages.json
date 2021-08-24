@@ -1017,6 +1017,10 @@
             "libraryName": "@egjs/component",
             "asOfVersion": "2.1.0"
         },
+        "egm96-universal": {
+            "libraryName": "egm96-universal",
+            "asOfVersion": "1.1.0"
+        },
         "elastic-apm-node": {
             "libraryName": "elastic-apm-node",
             "asOfVersion": "2.7.0"
