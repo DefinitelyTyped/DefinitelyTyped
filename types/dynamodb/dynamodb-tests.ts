@@ -30,9 +30,9 @@ let Account = dynamo.define('Account', {
 const AccountTyped = dynamo.define<{
     email: string;
     name: string;
-    age?: number | undefined;
-    roles?: string[] | undefined;
-    settings?: { nickname: string; acceptedTerms: boolean } | undefined;
+    age?: number;
+    roles?: string[];
+    settings?: { nickname: string; acceptedTerms: boolean };
 }>('Account', {
     hashKey: 'email',
 
