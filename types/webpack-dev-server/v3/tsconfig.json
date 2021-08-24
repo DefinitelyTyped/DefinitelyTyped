@@ -8,19 +8,22 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
+            "webpack-dev-server": [
+                "webpack-dev-server/v3"
+            ],
+            "webpack-dev-server/*": [
+                "webpack-dev-server/v3/*"
+            ],
             "webpack": [
                 "webpack/v4"
             ],
             "tapable": [
                 "tapable/v1"
-            ],
-            "webpack-dev-server": [
-                "webpack-dev-server/v3"
             ]
         },
         "types": [],
@@ -29,13 +32,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/eslintFormatter.ts",
-        "test/noopServiceWorkerMiddleware.ts",
-        "test/evalSourceMapMiddleware.ts",
-        "test/redirectServedPathMiddleware.ts",
-        "test/getPublicUrlOrPath.ts",
-        "test/utils.ts",
-        "test/webpack-plugins.ts",
-        "test/webpack-utils.ts"
+        "webpack-dev-server-tests.ts"
     ]
 }
