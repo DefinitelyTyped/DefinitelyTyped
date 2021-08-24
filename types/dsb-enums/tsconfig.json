@@ -19,6 +19,6 @@
     },
   "files": [
       "index.d.ts",
-      "consumer-data-standards-tests.ts"
+      "dsb-enums-tests.ts"
   ]
 }

@@ -32,7 +32,7 @@ declare namespace accounting {
 
     interface Static {
         // format any number or stringified number into currency
-        formatMoney(number: number | string, symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string;
+        (number: number | string, symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string;
         formatMoney(number: number | string, options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string;
 
         formatMoney(numbers: number[], symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string[];

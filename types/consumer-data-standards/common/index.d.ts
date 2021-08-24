@@ -1,13 +1,52 @@
-import { AddressPurposeType, IndustryCodeVersionType, OccupationCodeVersionType, OrganisationType, PhoneNumberType } from "./enums";
-
-declare namespace CdsCommon {
-
-    interface CommonEmailAddress {
+    export enum IndustryCodeVersionType {
+        ANZSIC_1292_0_2006_V1_0 = "ANZSIC_1292.0_2006_V1.0",
+        ANZSIC_1292_0_2006_V2_0 = "ANZSIC_1292.0_2006_V2.0",
+    }
+    export enum OrganisationType {
+        COMPANY = "COMPANY",
+        GOVERNMENT_ENTITY = "GOVERNMENT_ENTITY",
+        OTHER = "OTHER",
+        PARTNERSHIP = "PARTNERSHIP",
+        SOLE_TRADER = "SOLE_TRADER",
+        TRUST = "TRUST"
+    }
+    export enum AddressPurposeType {
+        MAIL = "MAIL",
+        PHYSICAL = "PHYSICAL",
+        OTHER = "OTHER",
+        REGISTERED = "REGISTERED",
+        WORK = "WORK",
+    }
+    export enum OccupationCodeVersionType {
+        ANZSCO_1220_0_2006_V1_0 = "ANZSCO_1220.0_2006_V1.0",
+        ANZSCO_1220_0_2006_V1_1 = "ANZSCO_1220.0_2006_V1.1",
+        ANZSCO_1220_0_2013_V1_2 = "ANZSCO_1220.0_2013_V1.2",
+        ANZSCO_1220_0_2013_V1_3 = "ANZSCO_1220.0_2013_V1.3",
+    }
+    export enum PhoneNumberType {
+        HOME = "HOME",
+        INTERNATIONAL = "INTERNATIONAL",
+        MOBILE = "MOBILE",
+        OTHER = "OTHER",
+        UNSPECIFIED = "UNSPECIFIED",
+        WORK = "WORK"
+    }
+    export enum CustomerUType {
+        ORGANISATION = "organisation",
+        PERSON = "person",
+    }
+    export enum DiscoveryStatusType {
+        OK = "OK",
+        PARTIAL_FAILURE = "PARTIAL_FAILURE",
+        SCHEDULED_OUTAGE = "SCHEDULED_OUTAGE",
+        UNAVAILABLE = "UNAVAILABLE"
+    }
+    export interface CommonEmailAddress {
         isPreferred?: boolean;
         purpose: string;
         address: string;
     }
-    interface CommonOrganisation {
+    export interface CommonOrganisation {
         lastUpdateTime?: string;
         agentFirstName?: string;
         agentLastName: string;
@@ -24,10 +63,10 @@ declare namespace CdsCommon {
         registeredCountry?: string;
         establishmentDate?: string;
     }
-    interface CommonOrganisationDetail extends CommonOrganisation {
+    export interface CommonOrganisationDetail extends CommonOrganisation {
         physicalAddresses: CommonPhysicalAddressWithPurpose[] | null;
     }
-    interface CommonPAFAddress {
+    export interface CommonPAFAddress {
         dpid?: string;
         thoroughfareNumber1?: number;
         thoroughfareNumber1Suffix?: string;
@@ -51,7 +90,7 @@ declare namespace CdsCommon {
         postcode: string;
         state: string;
     }
-    interface CommonPerson {
+    export interface CommonPerson {
         lastUpdateTime?: string;
         firstName?: string;
         lastName: string;
@@ -61,12 +100,12 @@ declare namespace CdsCommon {
         occupationCode?: string;
         occupationCodeVersion?: OccupationCodeVersionType;
     }
-    interface CommonPersonDetail extends CommonPerson {
+    export interface CommonPersonDetail extends CommonPerson {
         phoneNumbers: CommonPhoneNumber[] | null;
         emailAddresses: CommonEmailAddress[] | null;
         physicalAddresses: CommonPhysicalAddressWithPurpose[] | null;
     }
-    interface CommonPhoneNumber {
+    export interface CommonPhoneNumber {
         isPreferred?: boolean;
         purpose: PhoneNumberType;
         countryCode?: string;
@@ -76,20 +115,20 @@ declare namespace CdsCommon {
         fullNumber: string;
     }
 
-    interface CommonPhysicalAddress {
+    export interface CommonPhysicalAddress {
         addressUType: string;
         simple?: CommonSimpleAddress;
         paf?: CommonPAFAddress;
     }
-    interface CommonPhysicalAddress {
+    export interface CommonPhysicalAddress {
         addressUType: string;
         simple?: CommonSimpleAddress;
         paf?: CommonPAFAddress;
     }
-    interface CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
+    export interface CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
         purpose: AddressPurposeType;
     }
-    interface CommonSimpleAddress {
+    export interface CommonSimpleAddress {
         mailingName?: string;
         addressLine1: string;
         addressLine2: string;
@@ -99,37 +138,82 @@ declare namespace CdsCommon {
         state: string;
         country?: string;
     }
-    interface DiscoveryOutage {
+    export interface DiscoveryOutage {
         outageTime: string;
         duration: string;
         isPartial?: boolean;
         explanation: string;
     }
-    interface Meta {
-    }
-
-    interface MetaError {
+    export interface MetaError {
         urn?: string;
     }
-
-
-    interface MetaPaginated {
+    export interface MetaPaginated {
         totalRecords: number;
         totalPages: number;
     }
 
-
-    interface Links {
+    export interface Links {
         self: string;
     }
 
-    interface LinksPaginated {
+    export interface LinksPaginated {
         self: string;
         first?: string;
         prev?: string;
         next?: string;
         last?: string;
     }
-}
+    export interface  ResponseCommonCustomer {
+        data: ResponseCommonCustomer;
+        links: Links;
+        meta?: Meta;
+    }
+    export interface  ResponseCommonCustomer {
+        customerUType: CustomerUType;
+        person?: CommonPerson;
+        organisation?: CommonOrganisation;
+    }
+    export interface  ResponseCommonCustomerDetail {
+        data: ResponseCommonCustomerDetail;
+        links: Links;
+        meta?: Meta;
+    }
 
-export = CdsCommon;
+    export interface Meta {}
+
+    export interface  ResponseCommonCustomerDetail {
+        customerUType: CustomerUType;
+        person: CommonPersonDetail;
+        organisation: CommonOrganisationDetail;
+    }
+    export interface  ResponseCommonDiscoveryStatus {
+        data: ResponseCommonDiscoveryStatusData;
+        links: Links;
+        meta?: Meta;
+    }
+    export interface  ResponseCommonDiscoveryStatusData {
+        status: DiscoveryStatusType;
+        explanation?: string;
+        detectionTime?: string;
+        expectedResolutionTime?: string;
+        updateTime: string;
+    }
+    export interface  ResponseDiscoveryOutagesList {
+        data: ResponseDiscoveryOutagesList;
+        links: Links;
+        meta?: Meta;
+    }
+    export interface  ResponseDiscoveryOutagesList {
+        outages: DiscoveryOutage[] | null;
+    }
+
+    export interface  ResponseErrorListV2 {
+        errors?: ErrorsEntity[] | null;
+    }
+
+    export interface  ErrorsEntity {
+        code: string;
+        title: string;
+        detail: string;
+        meta?: Meta;
+    }
