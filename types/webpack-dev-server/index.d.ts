@@ -282,13 +282,19 @@ declare class WebpackDevServer {
 
     constructor(config: WebpackDevServer.Configuration, webpack?: webpack.Compiler | webpack.MultiCompiler);
 
-    /** @deprecated - use `startCallback` or `start` instead **/
+    /**
+     * @deprecated - use `startCallback` or `start` instead
+     */
     listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
 
-    /** @deprecated - use `startCallback` or `start` instead **/
+    /**
+     * @deprecated - use `startCallback` or `start` instead
+     */
     listen(port: number, callback?: (error?: Error) => void): http.Server;
 
-    /** @deprecated - use `stopCallback` or `stop` instead **/
+    /**
+     *  @deprecated - use `stopCallback` or `stop` instead
+     */
     close(callback?: () => void): void;
 
     /** @async */
