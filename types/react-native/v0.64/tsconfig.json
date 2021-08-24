@@ -4,10 +4,10 @@
         "lib": ["es6"],
         "paths": {
             "react-native": [
-                "react-native/v0.63"
+                "react-native/v0.64"
             ],
             "react-native/*": [
-                "react-native/v0.63/*"
+                "react-native/v0.64/*"
             ]
         },
         "noImplicitAny": true,
