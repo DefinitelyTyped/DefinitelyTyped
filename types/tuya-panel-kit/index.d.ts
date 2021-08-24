@@ -1,4 +1,4 @@
-// Type definitions for tuya-panel-kit 4.0
+// Type definitions for tuya-panel-kit 4.7
 // Project: https://github.com/TuyaInc/tuya-panel-kit#readme
 // Definitions by: youngjuning <https://github.com/youngjuning>
 //                 ShinyLeee <https://github.com/ShinyLeee>
@@ -28,7 +28,7 @@ import {
     SectionListProps,
     ListRenderItem,
 } from 'react-native';
-import { ParamListBase, RouteProp } from './@react-navigation/native';
+import { NavigationContainerProps, ParamListBase, RouteProp, NavigationContainerRef } from './@react-navigation/native';
 import { StackNavigationOptions } from './@react-navigation/stack';
 import { TransitionPreset } from './@react-navigation/stack/types';
 import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackground, BackgroundProps } from './theme';
@@ -11323,7 +11323,7 @@ export interface NavigationComponentClass<P = {}, S = {}> {
     new (props: P, context?: any): NavigatorLayout<P, S>;
 }
 // tslint:disable-next-line no-unnecessary-generics
-export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam): NavigationComponentClass<P, S>;
+export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam, navigationContainerProps?: Omit<NavigationContainerProps, 'children'>): any;
 
 export type GotoDpAlarmData = Array<{
     dpId: string;
@@ -11355,7 +11355,7 @@ export let TYSdk: {
         removeListener: (eventType: string, cb: AnyFunction) => void;
         removeAllListeners: (eventType?: string) => void;
     };
-    Navigator: DeprecatedNavigator;
+    Navigator: object | NavigationContainerRef;
     /**
      * @param a api name
      * @param postData api params

@@ -59,7 +59,7 @@ utils
 
 utils.ensureSafeUrl('').startsWith('');
 
-utils.isImageAllowed(new Writer().createElement('div'), new Schema());
+utils.isLinkableElement(new Writer().createElement('div'), new Schema());
 
 utils.isEmail('') === ''.startsWith('');
 

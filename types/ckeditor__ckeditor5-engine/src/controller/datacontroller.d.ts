@@ -44,8 +44,9 @@ export default class DataController implements Emitter, Observable {
     ): DocumentFragment;
     toView(modelElementOrFragment: Element | DocumentFragment, options?: Record<string, any>): ViewDocumentFragment;
 
-    set(option: Record<string, unknown>): void;
-    set(name: string, value: unknown): void;
+    set(option: Record<string, unknown>|string, options?: {
+        batchType?: "default" | "transparent"
+    }): void;
     bind(...bindProperties: string[]): BindChain;
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;

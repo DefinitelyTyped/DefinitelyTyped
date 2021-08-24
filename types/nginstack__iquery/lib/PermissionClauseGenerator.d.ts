@@ -1,11 +1,11 @@
 export = PermissionClauseGenerator;
 declare function PermissionClauseGenerator(): void;
 declare class PermissionClauseGenerator {
-    extrafilterClassMap_: {};
-    classesWithoutExtrafilter_: any[];
-    iGroupUser_: import('@nginstack/engine/lib/dataset/DataSet');
-    classDefManager_: ClassDefManager;
-    insertClassPermission_(classKey: any, userKey: any, extraFilterDef: any): void;
+    private extrafilterClassMap_;
+    private classesWithoutExtrafilter_;
+    private iGroupUser_;
+    private classDefManager_;
+    private insertClassPermission_;
     addClassPermission(classKey: any, userKey: any): void;
     generate(classFieldName: any):
         | string
@@ -43,4 +43,3 @@ declare class PermissionClauseGenerator {
                 }
           >;
 }
-import ClassDefManager = require('@nginstack/engine/lib/classdef/ClassDefManager.js');

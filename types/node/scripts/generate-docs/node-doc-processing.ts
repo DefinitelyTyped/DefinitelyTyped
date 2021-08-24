@@ -49,6 +49,7 @@ export interface ClassDocNode extends Stability {
     desc?: string;
     methods?: MethodDocNode[];
     meta?: MetaDocNode;
+    signatures?: SignatureDocNode[];
 }
 
 export interface PropertyDocNode extends Stability {
@@ -221,6 +222,8 @@ function fixupModuleStructure(node: DocRoot): void {
 
     // un-nest legacy and whatwg into main
     unnestSubmodule('url', [['legacy_url_api'], ['the_whatwg_url_api']]);
+    const urlClass = getClass(getModule(node, 'url'), 'URL');
+    urlClass.classMethods = urlClass.methods?.filter(m => m.textRaw.startsWith('`URL'));
 
     // methods are incorrectly nested
     const asyncHooks = getModule(node, 'async_hooks');
@@ -231,11 +234,24 @@ function fixupModuleStructure(node: DocRoot): void {
 
     unnestSubmodule('buffer', [['`buffer`_module_apis']]);
 
+    // create fake BufferConstructor for statics
+    const bufferModule = getModule(node, 'buffer');
+    const bufferClass = getClass(bufferModule, 'Buffer');
+    bufferModule.classes?.push({
+        name: 'BufferConstructor',
+        type: 'class',
+        methods: bufferClass.classMethods,
+        properties: bufferClass.properties?.filter(p => p.name === 'poolSize'),
+    });
+
     unnestSubmodule('diagnostics_channel', [['public_api']]);
     unnestSubmodule('diagnostics_channel', [['public_api', 'overview']]);
 
     // Caps
     renameModule('Events', 'events');
+    const eventsModule = getModule(node, 'events');
+    const eventEmitterClass = getClass(eventsModule, 'EventEmitter');
+    eventEmitterClass.classMethods = eventsModule.methods;
 
     unnestModule(['timers', 'timers_promises_api'], 'timers/promises');
     unnestModule(['dns', 'dns_promises_api'], 'dns/promises');

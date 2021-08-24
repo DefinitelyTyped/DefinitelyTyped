@@ -12,7 +12,7 @@ export default class ImageStyle extends Plugin {
  */
 
 export interface ImageStyleConfig {
-    options: ImageStyleOptionDefinition[];
+    options: Array<string | ImageStyleOptionDefinition>;
 }
 
 export interface ImageStyleOptionDefinition {
