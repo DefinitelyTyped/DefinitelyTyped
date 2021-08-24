@@ -198,6 +198,41 @@ declare namespace Tagify {
     }
 
     /**
+     * Messages for reasons if tag validation fails.
+     */
+    interface InvalidTagsMessages {
+        /**
+         * When a new tag is empty.
+         * @default 'empty'
+         */
+        empty: string;
+
+        /**
+         * When the new tag cannot be added, because it would exceed the maximum number of allowed tags.
+         * @default 'number of tags exceeded'
+         */
+        exceed: string;
+
+        /**
+         * When the new tag does not conform to the specified (regex) pattern.
+         * @default 'pattern mismatch'
+         */
+        pattern: string;
+
+        /**
+         * When a tag with the same value already exists and duplicates are not allowed.
+         * @default 'already exists'
+         */
+        duplicate: string;
+
+        /**
+         * When the new tag is not allowed for any other reason.
+         * @default 'not allowed'
+         */
+        notAllowed: string;
+    }
+
+    /**
      * Optional class names that can be used to add additional class names to
      * the corresponding DOM elements.
      */
@@ -641,6 +676,11 @@ declare namespace Tagify {
         editTags?: 1 | 2 | false | null | EditTagsSettings | undefined;
 
         /**
+         * Customize messages for reasons if tag validation fails.
+         */
+        texts?: Partial<InvalidTagsMessages> | undefined;
+
+        /**
          * Functions that return template strings. Can be used to customize how
          * tags, drop down menus etc. are rendered.
          */
@@ -955,12 +995,7 @@ declare namespace Tagify {
         data: T;
         /**
          * Message indicating the type of error. Can be either a boolean to indicate success,
-         * or a message code. Common message codes are:
-         * - `empty` - When the new tag is empty.
-         * - `number of tags exceeded` - When the new tag cannot be added because doing so would exceed the maximum number of allowed tags.
-         * - `pattern mismatch` - When the new tag does not conform to the specified (regex) pattern.
-         * - `already exists` - When a tag with the same name as the new tag exists already and duplicates are not allowed.
-         * - `not allowed` -  When the new tag is not allowed for any other reason.
+         * or a message code as defined with {@link InvalidTagsMessages} or returned by the custom {@link TagifySettings.validate} method.
          */
         message: string | boolean;
     }
@@ -1227,6 +1262,11 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * References to DOM elements used by this tagify instance.
      */
     DOM: Tagify.DomReference;
+
+    /**
+     * Reference to messages for reasons if tag validation fails.
+     */
+    TEXTS: Tagify.InvalidTagsMessages;
 
     /**
      * Creates a new tagify editor on the given input element.
@@ -1546,7 +1586,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     setReadonly(readonly: boolean): void;
 
     /**
-     * Toggles "disabled" mode on/off
+     * Toggles "disabled" mode on/off.
      */
     setDisabled(disabled: boolean): void;
 

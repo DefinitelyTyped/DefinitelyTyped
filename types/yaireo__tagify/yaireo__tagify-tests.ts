@@ -203,6 +203,13 @@ const settings: TagifyConstructorSettings = {
     },
     maxTags: 10,
     editTags: { clicks: 1, keepInvalid: false },
+    texts: {
+        empty: 'Enter something',
+        exceed: 'Too much',
+        pattern: 'Wrong input',
+        duplicate: 'Try something new',
+        notAllowed: 'Error'
+    },
     templates: {
         wrapper: (input, settings) => {
             // Can use "as const" in later TS versions
