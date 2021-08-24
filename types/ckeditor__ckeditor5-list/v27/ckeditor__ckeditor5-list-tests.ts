@@ -4,7 +4,7 @@ import Document from '@ckeditor/ckeditor5-engine/src/view/document';
 import DocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragment';
 import Position from '@ckeditor/ckeditor5-engine/src/view/position';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import { List, ListEditing, ListStyle, ListUI, TodoList, TodoListEditing, TodoListUI } from '@ckeditor/ckeditor5-list';
+import L from '@ckeditor/ckeditor5-list';
 import CheckTodoListCommand from '@ckeditor/ckeditor5-list/src/checktodolistcommand';
 import * as converters from '@ckeditor/ckeditor5-list/src/converters';
 import IndentCommand from '@ckeditor/ckeditor5-list/src/indentcommand';
@@ -16,25 +16,25 @@ import * as utils from '@ckeditor/ckeditor5-list/src/utils';
 class MyEditor extends Editor {}
 const editor = new MyEditor();
 
-List.requires.map(Plugin => new Plugin(editor).init());
-new List(editor);
+L.List.requires.map(Plugin => new Plugin(editor).init());
+new L.List(editor);
 
-new ListUI(editor).init();
+new L.ListUI(editor).init();
 
-ListStyle.requires.map(Plugin => new Plugin(editor).init());
-new ListStyle(editor);
+L.ListStyle.requires.map(Plugin => new Plugin(editor).init());
+new L.ListStyle(editor);
 
-ListEditing.requires.map(Plugin => new Plugin(editor).init());
-new ListEditing(editor).init();
-new ListEditing(editor).afterInit();
+L.ListEditing.requires.map(Plugin => new Plugin(editor).init());
+new L.ListEditing(editor).init();
+new L.ListEditing(editor).afterInit();
 
-TodoList.requires.map(Plugin => new Plugin(editor).init());
-new TodoList(editor);
+L.TodoList.requires.map(Plugin => new Plugin(editor).init());
+new L.TodoList(editor);
 
-new TodoListUI(editor);
+new L.TodoListUI(editor);
 
-TodoListEditing.requires.map(Plugin => new Plugin(editor).init());
-new TodoListEditing(editor);
+L.TodoListEditing.requires.map(Plugin => new Plugin(editor).init());
+new L.TodoListEditing(editor);
 
 new CheckTodoListCommand(editor).execute();
 
