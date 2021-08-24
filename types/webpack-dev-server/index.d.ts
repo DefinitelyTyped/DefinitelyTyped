@@ -161,7 +161,7 @@ declare namespace WebpackDevServer {
          * This option allows you to whitelist services that are allowed to
          * access the dev server.
          */
-        allowedHosts?: string | string[] | undefined;
+        allowedHosts?: 'all' | string | string[] | undefined;
         /**
          * This option broadcasts the server via ZeroConf networking on start.
          */
@@ -286,6 +286,15 @@ declare class WebpackDevServer {
         webpackOptions: webpack.Configuration | webpack.Configuration[],
         config: WebpackDevServer.Configuration,
     ): void;
+
+    /** @deprecated - use `startCallback` or `start` instead **/
+    listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
+
+    /** @deprecated - use `startCallback` or `start` instead **/
+    listen(port: number, callback?: (error?: Error) => void): http.Server;
+
+    /** @deprecated - use `stopCallback` or `stop` instead **/
+    close(callback?: () => void): void;
 
     /** @async */
     start(): void;
