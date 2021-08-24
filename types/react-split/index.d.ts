@@ -2,16 +2,16 @@
 // Project: https://split.js.org/
 // Definitions by: Steven Hankin <https://github.com/stevenhankin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 3.7
 
 import * as React from 'react';
 
-export = Split;
+declare class Split extends React.Component<SplitWrapper.SplitProps, any> {}
 
-declare class Split extends React.Component<SplitWrapper.DefaultProps, any> { }
+export default Split
 
 declare namespace SplitWrapper {
-  interface DefaultProps {
+  interface SplitProps {
     /** An array of initial sizes of the elements, specified as percentage values. Example: Setting the initial sizes to 25% and 75%. */
     sizes?: number[];
     /**
@@ -85,7 +85,7 @@ declare namespace SplitWrapper {
      */
     cursor?: string;
     /** Optional function called to create each gutter element.  */
-    gutter?: (index: number, direction: DefaultProps['direction'], pairElement: unknown) => HTMLElement;
+    gutter?: (index: number, direction: SplitProps['direction'], pairElement: unknown) => HTMLElement;
     /** Optional function called setting the CSS style of the elements.  */
     elementStyle?: (dimension: number, elementSize: number, gutterSize: number, index: number) => {};
     /** Optional function called when setting the CSS style of the gutters. */
