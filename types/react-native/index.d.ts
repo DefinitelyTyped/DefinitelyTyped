@@ -595,7 +595,7 @@ export namespace AppRegistry {
 
     function runApplication(appKey: string, appParameters: any): void;
 
-    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number | undefined): void
+    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void
 
     function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 
@@ -9165,7 +9165,6 @@ export namespace Animated {
 
     export interface AnimatedComponent<T extends React.ComponentType<any>>
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
-
 
     export type AnimatedComponentOptions = {
         collapsable?: boolean
