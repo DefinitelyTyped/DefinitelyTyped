@@ -21,6 +21,7 @@
 import * as Immutable from 'immutable';
 import * as React from 'react';
 
+type SyntheticClipboardEvent = React.ClipboardEvent<{}>;
 type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 type SyntheticEvent = React.SyntheticEvent<{}>;
 export as namespace Draft;
@@ -234,8 +235,8 @@ declare namespace Draft {
 
                 onBlur?(e: SyntheticEvent): void;
                 onFocus?(e: SyntheticEvent): void;
-                onCopy?(editor: Editor, e: ClipboardEvent): void;
-                onCut?(editor: Editor, e: ClipboardEvent): void;
+                onCopy?(editor: Editor, e: SyntheticClipboardEvent): void;
+                onCut?(editor: Editor, e: SyntheticClipboardEvent): void;
             }
 
             type DraftTextAlignment = 'left' | 'center' | 'right';
