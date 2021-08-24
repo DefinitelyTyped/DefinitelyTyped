@@ -619,6 +619,12 @@ declare namespace Tagify {
         enforceWhitelist?: boolean | undefined;
 
         /**
+         * Set `false` to disable manually typing/pasting/editing tags (tags may only be added from the whitelist).
+         * @default true
+         */
+        userInput?: boolean | undefined;
+
+        /**
          * Options for offering autocomplete suggestions as the user types.
          */
         autoComplete?: AutoCompleteSettings | undefined;
