@@ -53,7 +53,7 @@ interface Constants {
     scrypt: KeyStore.SCryptParams['kdfparams'];
 }
 
-type MarshalOptions = CryptoOptions & EncryptOptions & KeyStore.KeyDeriveOptions;
+type MarshalOptions = Partial<CryptoOptions & EncryptOptions & KeyStore.KeyDeriveOptions>;
 
 interface KeyStore {
     id: string;
@@ -73,6 +73,8 @@ interface CryptoInstance {
     randomBytes: typeof randomBytes;
 }
 
+type DeriveKeyOptions = Partial<CryptoOptions & KeyStore.KeyDeriveOptions>;
+
 interface Instance {
     version: string;
     browser: boolean;
@@ -86,27 +88,23 @@ interface Instance {
     decrypt(ciphertext: Buffer | string, key: Buffer | string, iv: Buffer | string, algorithm?: string): Buffer;
     privateKeyToAddress(privateKey: Buffer | string): string;
     getMAC(derivedKey: Buffer | string, ciphertext: Buffer | string): Buffer;
+    deriveKey(password: Buffer | string, salt: Buffer | string, options?: DeriveKeyOptions): Buffer;
     deriveKey(
         password: Buffer | string,
         salt: Buffer | string,
-        options: CryptoOptions & KeyStore.KeyDeriveOptions,
-    ): Buffer;
-    deriveKey(
-        password: Buffer | string,
-        salt: Buffer | string,
-        options: CryptoOptions & KeyStore.KeyDeriveOptions,
+        options: DeriveKeyOptions | undefined,
         callback: Callback<Buffer>,
     ): void;
     create(params: EncryptOptions): Record<string, Buffer>;
     create(params: EncryptOptions, callback: Callback<Record<string, Buffer>>): void;
-    marshal(derivedKey: Buffer, privateKey: Buffer, salt: Buffer, iv: Buffer, options: MarshalOptions): KeyStore.Type;
-    dump(derivedKey: Buffer, privateKey: Buffer, salt: Buffer, iv: Buffer, options: MarshalOptions): KeyStore.Type;
+    marshal(derivedKey: Buffer, privateKey: Buffer, salt: Buffer, iv: Buffer, options?: MarshalOptions): KeyStore.Type;
+    dump(derivedKey: Buffer, privateKey: Buffer, salt: Buffer, iv: Buffer, options?: MarshalOptions): KeyStore.Type;
     dump(
         derivedKey: Buffer,
         privateKey: Buffer,
         salt: Buffer,
         iv: Buffer,
-        options: MarshalOptions,
+        options: MarshalOptions | undefined,
         callback: Callback<KeyStore.Type>,
     ): void;
     generateKeystoreFilename(address: string): string;
