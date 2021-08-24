@@ -195,7 +195,7 @@ declare namespace Tampermonkey {
         /** Closes tab */
         close(): void;
         /** Set closed listener */
-        onclosed?(): void;
+        onclose?(): void;
         closed: boolean;
     }
 
