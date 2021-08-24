@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference lib="DOM" />
 
 import { EventEmitter } from "events";
 import { ElementLocation } from "parse5";
