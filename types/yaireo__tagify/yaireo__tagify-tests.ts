@@ -911,6 +911,8 @@ tagify.dropdown.show('foo');
 tagify.dropdown.selectAll();
 tagify.dropdown.hide();
 tagify.dropdown.hide(true);
+tagify.dropdown.toggle();
+tagify.dropdown.toggle(true);
 tagify.dropdown.refilter();
 tagify.dropdown.refilter('filter value');
 

@@ -1226,17 +1226,23 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
         refilter(filterValue?: string): void;
 
         /**
-         * Shows the suggestions select box.
+         * Shows the suggestions list dropdown.
          * @param filterValue Filter the whitelist by this value (optional).
          */
         show(filterValue?: string): void;
 
         /**
-         * Hide the suggestions select box.
+         * Hides the suggestions list dropdown.
          * @param force Whether the dropdown menu should be hidden even when it
          * would need to be prevented.
          */
         hide(force?: boolean): void;
+
+        /**
+         * Toggles the suggestions list dropdown show/hide.
+         * @param show Force show.
+         */
+        toggle(show?: boolean): void;
 
         /**
          * Add all whitelist items as tags and close the suggestion dropdown.
