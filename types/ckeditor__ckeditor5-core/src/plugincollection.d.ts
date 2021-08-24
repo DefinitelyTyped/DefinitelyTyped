@@ -21,7 +21,7 @@ export default class PluginCollection implements Emitter, Iterable<[typeof Plugi
     get<T extends ContextPlugin>(key: PluginInterface<T>): T;
     get(key: string): Plugin | ContextPlugin;
 
-    has(key: () => Plugin | string): boolean;
+    has(key: PluginInterface | string): boolean;
 
     init(
         plugins: Array<(() => Plugin) | string>,

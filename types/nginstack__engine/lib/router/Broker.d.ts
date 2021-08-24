@@ -1,9 +1,9 @@
 export = Broker;
 declare function Broker(): void;
 declare class Broker {
-    controllerCache_: any;
-    realmConfigCache_: any;
-    vfsForCheckChange_: any;
+    private controllerCache_;
+    private realmConfigCache_;
+    private vfsForCheckChange_;
     private logger_;
     private errorLoadingConfig_;
     private serverId_;
@@ -45,10 +45,9 @@ declare class Broker {
     getModuleVersion_(path: any): any;
 }
 declare namespace Broker {
-    export { instance_, getInstance, runStartupScripts, Request, Response };
+    export { getInstance, runStartupScripts, Request, Response };
 }
 type Request = import('../http/Request');
 type Response = import('../http/Response');
-declare var instance_: Broker;
 declare function getInstance(): Broker;
 declare function runStartupScripts(): void;

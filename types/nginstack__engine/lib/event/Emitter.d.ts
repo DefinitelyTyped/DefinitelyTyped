@@ -2,9 +2,9 @@ export = Emitter;
 declare function Emitter(opt_parentProperty?: string): void;
 declare class Emitter {
     constructor(opt_parentProperty?: string);
-    parentProperty_: string;
-    registeredEventTypes_: any;
-    listenersByType_: any;
+    private parentProperty_;
+    private registeredEventTypes_;
+    private listenersByType_;
     listenerCompareFunction: (
         arg0: (...args: any[]) => any,
         arg1: (...args: any[]) => any

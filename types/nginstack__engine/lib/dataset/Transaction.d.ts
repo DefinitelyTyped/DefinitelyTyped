@@ -2,9 +2,9 @@ export = Transaction;
 declare function Transaction(opt_database?: Database | Connection): void;
 declare class Transaction {
     constructor(opt_database?: Database | Connection);
-    database_: Database | Connection;
-    data_: DataSet[];
-    dataById_: {};
+    private database_;
+    private data_;
+    private dataById_;
     add(ds: DataSet): void;
     contains(ds: DataSet): boolean;
     get(id: string): DataSet;

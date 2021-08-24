@@ -32,7 +32,7 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/vm.js)
  */
 declare module 'vm' {
     interface Context extends NodeJS.Dict<any> {}

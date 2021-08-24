@@ -49,6 +49,11 @@ declare namespace CustomFunctions {
      */
     interface Invocation {
         /**
+         * The name of this function.
+         * [Api set: CustomFunctionsRuntime 1.1]
+         */
+        functionName?: string;
+        /**
          * The cell address where the function is being called, if requested, otherwise undefined.
          *
          * To request the address for the function, in the metadata JSON file, the function options should specify:

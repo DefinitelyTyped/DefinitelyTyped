@@ -1,7 +1,7 @@
 export = ServerId;
 declare function ServerId(): void;
 declare class ServerId {
-    value_: string;
+    private value_;
     private salt_;
     toString(): string;
     updateCookie(opt_response?: Response): void;
