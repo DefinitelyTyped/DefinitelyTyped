@@ -19,4 +19,3 @@ keythereum.create({ ivBytes: 32, keyBytes: 32 }, (result) => {});
 keythereum.marshal(Buffer.from(''), Buffer.from(''), Buffer.from(''), Buffer.from(''))
 keythereum.dump(Buffer.from(''), Buffer.from(''), Buffer.from(''), Buffer.from(''))
 keythereum.generateKeystoreFilename('0xaaaa')
-
