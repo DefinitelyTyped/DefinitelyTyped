@@ -88,7 +88,7 @@ function registryTests() {
                 this.send({
                     payload: "payload",
                     topic: "topic"
-                })
+                });
 
                 // send messages to a subset of the outputs
 
