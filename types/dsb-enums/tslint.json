@@ -1,8 +1,0 @@
-{ 
-    "extends": "dtslint/dtslint.json",
-    "rules": {
-        "no-empty-interface": false,
-        "no-const-enum": false
-    }
-    
-}
