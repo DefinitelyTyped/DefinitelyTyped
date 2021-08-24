@@ -252,29 +252,5 @@ const webpackConfig: webpack.Configuration = {
     devServer: config,
 };
 
-WebpackDevServer.addAdditionalEntries(webpackConfig, {
-    // Host and port are required options to correct work.
-    host: 'localhost',
-    port: 8080,
-
-    devMiddleware: {
-        publicPath: '/assets/',
-    },
-    https: true,
-});
-
-WebpackDevServer.addAdditionalEntries([webpackConfig], {
-    // Host and port are required options to correct work.
-    host: 'localhost',
-    port: 8080,
-
-    devMiddleware: {
-        publicPath: '/assets/',
-    },
-    https: {
-        passphrase: 'webpack-dev-server',
-    },
-});
-
 // multiple compilers
 server = new WebpackDevServer(config, multipleCompiler);

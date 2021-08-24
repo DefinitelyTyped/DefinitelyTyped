@@ -282,11 +282,6 @@ declare class WebpackDevServer {
 
     constructor(config: WebpackDevServer.Configuration, webpack?: webpack.Compiler | webpack.MultiCompiler);
 
-    static addAdditionalEntries(
-        webpackOptions: webpack.Configuration | webpack.Configuration[],
-        config: WebpackDevServer.Configuration,
-    ): void;
-
     /** @deprecated - use `startCallback` or `start` instead **/
     listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
 
