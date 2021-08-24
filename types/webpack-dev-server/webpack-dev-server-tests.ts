@@ -212,6 +212,20 @@ const c6: WebpackDevServer.Configuration = {
         verbose: true,
     },
 };
+const c7: WebpackDevServer.Configuration = {
+    // Host and port are required options to correct work.
+    host: 'localhost',
+    port: 8080,
+
+    static: '/path/to/directory',
+};
+const c8: WebpackDevServer.Configuration = {
+    // Host and port are required options to correct work.
+    host: 'localhost',
+    port: 8080,
+
+    static: ['/path/to/directory', '/path/to/another-directory'],
+};
 
 // API example
 server = new WebpackDevServer(config, compiler);
