@@ -215,9 +215,6 @@ declare namespace IORedis {
 
         getdel(key: KeyType, callback: Callback<string | null>): void;
         getdel(key: KeyType): Promise<string | null>;
-        
-        
-        
 
         getBuffer(key: KeyType, callback: Callback<Buffer>): void;
         getBuffer(key: KeyType): Promise<Buffer>;
