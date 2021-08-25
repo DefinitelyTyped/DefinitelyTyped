@@ -1,4 +1,4 @@
-import { Links, Meta } from "../banking";
+import { Links } from "../banking";
 
     export enum IndustryCodeVersionType {
         ANZSIC_1292_0_2006_V1_0 = "ANZSIC_1292.0_2006_V1.0",
@@ -149,7 +149,7 @@ import { Links, Meta } from "../banking";
     export interface  ResponseCommonCustomer {
         data: ResponseCommonCustomer;
         links: Links;
-        meta?: Meta;
+        meta?: any;
     }
     export interface  ResponseCommonCustomer {
         customerUType: CustomerUType;
@@ -159,7 +159,7 @@ import { Links, Meta } from "../banking";
     export interface  ResponseCommonCustomerDetail {
         data: ResponseCommonCustomerDetail;
         links: Links;
-        meta?: Meta;
+        meta?: any;
     }
 
     export interface  ResponseCommonCustomerDetail {
@@ -170,7 +170,7 @@ import { Links, Meta } from "../banking";
     export interface  ResponseCommonDiscoveryStatus {
         data: ResponseCommonDiscoveryStatusData;
         links: Links;
-        meta?: Meta;
+        meta?: any;
     }
     export interface  ResponseCommonDiscoveryStatusData {
         status: DiscoveryStatusType;
@@ -182,7 +182,7 @@ import { Links, Meta } from "../banking";
     export interface  ResponseDiscoveryOutagesList {
         data: ResponseDiscoveryOutagesList;
         links: Links;
-        meta?: Meta;
+        meta?: any;
     }
     export interface  ResponseDiscoveryOutagesList {
         outages: DiscoveryOutage[] | null;
@@ -196,5 +196,5 @@ import { Links, Meta } from "../banking";
         code: string;
         title: string;
         detail: string;
-        meta?: Meta;
+        meta?: any;
     }

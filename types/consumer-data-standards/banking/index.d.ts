@@ -1,4 +1,4 @@
-export interface  BankingAccount {
+export interface BankingAccount {
     accountId: string;
     creationDate?: string;
     displayName: string;
@@ -10,7 +10,7 @@ export interface  BankingAccount {
     productName: string;
 }
 
-export interface  BankingAccountDetail {
+export interface BankingAccountDetail {
     accountId: string;
     creationDate?: string;
     displayName: string;
@@ -36,17 +36,17 @@ export interface  BankingAccountDetail {
     // addresses?: CommonPhysicalAddress[] | null;
 }
 
-export interface  Feature extends BankingProductFeature {
+export interface Feature extends BankingProductFeature {
     isActivated: boolean;
 }
-export interface  BankingAuthorisedEntity {
+export interface BankingAuthorisedEntity {
     description?: string;
     financialInstitution?: string;
     abn?: string;
     acn?: string;
     arbn?: string;
 }
-export interface  BankingBalance {
+export interface BankingBalance {
     accountId: string;
     currentBalance: string;
     availableBalance: string;
@@ -55,56 +55,56 @@ export interface  BankingBalance {
     currency?: string;
     purses?: BankingBalancePurse[] | null;
 }
-export interface  BankingBalancePurse {
+export interface BankingBalancePurse {
     amount: string;
     currency?: string;
 }
-export interface  BankingBillerPayee {
+export interface BankingBillerPayee {
     billerCode: string;
     crn?: string;
     billerName: string;
 }
-export interface  BankingCreditCardAccount {
+export interface BankingCreditCardAccount {
     minPaymentAmount: string;
     paymentDueAmount: string;
     paymentCurrency?: string;
     paymentDueDate: string;
 }
-export interface  BankingDirectDebit {
+export interface BankingDirectDebit {
     accountId: string;
     authorisedEntity: BankingAuthorisedEntity;
     lastDebitDateTime?: string;
     lastDebitAmount?: string;
 }
-export interface  BankingDomesticPayee {
+export interface BankingDomesticPayee {
     payeeAccountUType: PayeeAccountUType;
     account?: BankingDomesticPayeeAccount;
     card?: BankingDomesticPayeeCard;
     payId?: BankingDomesticPayeePayId;
 }
-export interface  BankingDomesticPayeeAccount {
+export interface BankingDomesticPayeeAccount {
     accountName?: string;
     bsb: string;
     accountNumber: string;
 }
-export interface  BankingDomesticPayeeCard {
+export interface BankingDomesticPayeeCard {
     cardNumber: string;
 }
-export interface  BankingDomesticPayeePayId {
+export interface BankingDomesticPayeePayId {
     name?: string;
     identifier: string;
     type: PayeeIdType;
 }
-export interface  BankingInternationalPayee {
+export interface BankingInternationalPayee {
     beneficiaryDetails: BeneficiaryDetails;
     bankDetails: BankDetails;
 }
-export interface  BeneficiaryDetails {
+export interface BeneficiaryDetails {
     name?: string;
     country: string;
     message?: string;
 }
-export interface  BankDetails {
+export interface BankDetails {
     country: string;
     accountNumber: string;
     bankAddress?: BankAddress;
@@ -115,11 +115,11 @@ export interface  BankDetails {
     routingNumber?: string;
     legalEntityIdentifier?: string;
 }
-export interface  BankAddress {
+export interface BankAddress {
     name: string;
     address: string;
 }
-export interface  BankingLoanAccount {
+export interface BankingLoanAccount {
     originalStartDate?: string;
     originalLoanAmount?: string;
     originalLoanCurrency?: string;
@@ -136,38 +136,38 @@ export interface  BankingLoanAccount {
     repaymentType?: string;
     repaymentFrequency?: string;
 }
-export interface  BankingPayee {
+export interface BankingPayee {
     payeeId: string;
     nickname: string;
     description?: string;
     type: PayeeType;
     creationDate?: string;
 }
-export interface  BankingPayeeDetail extends BankingPayee {
+export interface BankingPayeeDetail extends BankingPayee {
     payeeUType: PayeeUType;
     domestic?: BankingDomesticPayee;
     biller?: BankingBillerPayee;
     international?: BankingInternationalPayee;
 }
-export interface  BankingProductBundle {
+export interface BankingProductBundle {
     name: string;
     description: string;
     additionalInfo?: string;
     additionalInfoUri?: string;
     productIds?: string[] | null;
 }
-export interface  BankingProductCondition {
+export interface BankingProductCondition {
     additionalInfo: string;
     additionalInfoUri: string;
 }
 
-export interface  BankingProductConstraint {
+export interface BankingProductConstraint {
     constraintType: ProductConstraintType;
     additionalValue?: string;
     additionalInfo?: string;
     additionalInfoUri?: string;
 }
-export interface  BankingProductDepositRate {
+export interface BankingProductDepositRate {
     depositRateType: DepositRateType;
     rate: string;
     calculationFrequency?: string;
@@ -177,7 +177,7 @@ export interface  BankingProductDepositRate {
     additionalInfo?: string;
     additionalInfoUri?: string;
 }
-export interface  BankingProductDetailV3 extends BankingProductV3 {
+export interface BankingProductDetailV3 extends BankingProductV3 {
     bundles?: BankingProductBundle[] | null;
     features?: BankingProductFeature[] | null;
     constraints?: BankingProductConstraint[] | null;
@@ -186,7 +186,7 @@ export interface  BankingProductDetailV3 extends BankingProductV3 {
     depositRates?: BankingProductDepositRate[] | null;
     lendingRates?: BankingProductLendingRateV2[] | null;
 }
-export interface  BankingProductDiscount {
+export interface BankingProductDiscount {
     description: string;
     discountType: DiscountType;
     amount?: string;
@@ -199,25 +199,25 @@ export interface  BankingProductDiscount {
     additionalInfoUri?: string;
     eligibility?: BankingProductDiscountEligibility[] | null;
 }
-export interface  BankingProductDiscountEligibility {
+export interface BankingProductDiscountEligibility {
     discountEligibilityType: DiscountEligibilityType;
     additionalValue?: string;
     additionalInfo?: string;
     additionalInfoUri?: string;
 }
-export interface  BankingProductEligibility {
+export interface BankingProductEligibility {
     eligibilityType: ProductEligibilityType;
     additionalValue?: string;
     additionalInfo?: string;
     additionalInfoUri?: string;
 }
-export interface  BankingProductFeature {
+export interface BankingProductFeature {
     featureType: ProductFeatureType;
     additionalValue?: string;
     additionalInfo?: string;
     additionalInfoUri?: string;
 }
-export interface  BankingProductFee {
+export interface BankingProductFee {
     name: string;
     feeType: ProductFeeType;
     amount?: string;
@@ -231,7 +231,7 @@ export interface  BankingProductFee {
     additionalInfoUri?: string;
     discounts?: BankingProductDiscount[] | null;
 }
-export interface  BankingProductLendingRateV2 {
+export interface BankingProductLendingRateV2 {
     lendingRateType: LendingRateType;
     rate: string;
     comparisonRate?: string;
@@ -245,11 +245,11 @@ export interface  BankingProductLendingRateV2 {
     additionalInfo?: string;
     additionalInfoUri?: string;
 }
-export interface  BankingProductRateCondition {
+export interface BankingProductRateCondition {
     additionalInfo?: string;
     additionalInfoUri?: string;
 }
-export interface  BankingProductRateTierV3 {
+export interface BankingProductRateTierV3 {
     name: string;
     unitOfMeasure: UnitOfMeasureType;
     minimumValue: number;
@@ -259,7 +259,7 @@ export interface  BankingProductRateTierV3 {
     additionalInfo?: string;
     additionalInfoUri?: string;
 }
-export interface  BankingProductV3 {
+export interface BankingProductV3 {
     productId: string;
     effectiveFrom?: string;
     effectiveTo?: string;
@@ -275,7 +275,7 @@ export interface  BankingProductV3 {
     cardArt?: CardArt[] | null;
 }
 
-export interface  AdditionalInformation {
+export interface AdditionalInformation {
     overviewUri?: string;
     termsUri?: string;
     eligibilityUri?: string;
@@ -283,11 +283,11 @@ export interface  AdditionalInformation {
     bundleUri?: string;
 }
 
-export interface  CardArt {
+export interface CardArt {
     title?: string;
     imageUri: string;
 }
-export interface  BankingScheduledPayment {
+export interface BankingScheduledPayment {
     scheduledPaymentId: string;
     nickname?: string;
     payerReference: string;
@@ -297,10 +297,10 @@ export interface  BankingScheduledPayment {
     paymentSet: BankingScheduledPaymentSet[] | null;
     recurrence: BankingScheduledPaymentRecurrence;
 }
-export interface  BankingScheduledPaymentFrom {
+export interface BankingScheduledPaymentFrom {
     accountId: string;
 }
-export interface  BankingScheduledPaymentRecurrence {
+export interface BankingScheduledPaymentRecurrence {
     nextPaymentDate?: string;
     recurrenceUType: BankingScheduledPaymentRecurrenceEventBasedType;
     onceOff?: BankingScheduledPaymentRecurrenceOnceOff;
@@ -309,7 +309,7 @@ export interface  BankingScheduledPaymentRecurrence {
     eventBased: BankingScheduledPaymentRecurrenceEventBased;
 }
 
-export interface  BankingScheduledPaymentRecurrenceLastWeekday {
+export interface BankingScheduledPaymentRecurrenceLastWeekday {
     finalPaymentDate: string;
     paymentsRemaining: number;
     interval: string;
@@ -317,30 +317,30 @@ export interface  BankingScheduledPaymentRecurrenceLastWeekday {
     nonBusinessDayTreatment: string;
 }
 
-export interface  BankingScheduledPaymentRecurrenceEventBased {
+export interface BankingScheduledPaymentRecurrenceEventBased {
     description: string;
 }
-export interface  BankingScheduledPaymentRecurrenceIntervalSchedule {
+export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
     finalPaymentDate?: string;
     paymentsRemaining?: number;
     nonBusinessDayTreatment?: NonBusinessDayTreatmentType;
     intervals?: BankingScheduledPaymentInterval[] | null;
 }
 
-export interface  BankingScheduledPaymentInterval {
+export interface BankingScheduledPaymentInterval {
     interval: string;
     dayInInterval?: string;
 }
-export interface  BankingScheduledPaymentRecurrenceOnceOff {
+export interface BankingScheduledPaymentRecurrenceOnceOff {
     paymentDate: string;
 }
-export interface  BankingScheduledPaymentSet {
+export interface BankingScheduledPaymentSet {
     to: BankingScheduledPaymentTo;
     isAmountCalculated?: boolean;
     amount?: string;
     currency?: string;
 }
-export interface  BankingScheduledPaymentTo {
+export interface BankingScheduledPaymentTo {
     toUType: string;
     accountId?: string;
     payeeId?: string;
@@ -350,14 +350,14 @@ export interface  BankingScheduledPaymentTo {
     biller?: BankingBillerPayee;
     international?: BankingInternationalPayee;
 }
-export interface  BankingTermDepositAccount {
+export interface BankingTermDepositAccount {
     lodgementDate: string;
     maturityDate: string;
     maturityAmount?: string;
     maturityCurrency?: string;
     maturityInstructions: MaturityInstructionType;
 }
-export interface  BankingTransaction {
+export interface BankingTransaction {
     accountId: string;
     transactionId?: string;
     isDetailAvailable: boolean;
@@ -377,11 +377,11 @@ export interface  BankingTransaction {
     crn?: string;
     apcaNumber?: string;
 }
-export interface  BankingTransactionDetail extends BankingTransaction {
+export interface BankingTransactionDetail extends BankingTransaction {
     extendedData: ExtendedData;
 }
 
-export interface  ExtendedData {
+export interface ExtendedData {
     payer?: string;
     payee?: string;
     extensionUType?: BankingTransactionExtensionUType;
@@ -389,204 +389,204 @@ export interface  ExtendedData {
     service: BankingTransactionExtensionServiceType;
 }
 
-export interface  X2p101Payload {
+export interface X2p101Payload {
     extendedDescription: string;
     endToEndId?: string;
     purposeCode?: string;
 }
 
-export interface  RequestAccountIds {
+export interface RequestAccountIds {
     data: RequestAccountIdsData;
-    meta?: Meta;
+    meta?: any;
 }
 
-export interface  RequestAccountIdsData {
+export interface RequestAccountIdsData {
     accountIds: string[];
 }
-export interface  ResponseBankingAccountBalanceList {
+export interface ResponseBankingAccountBalanceList {
     data: ResponseBankingAccountBalanceListData;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
 
-export interface  ResponseBankingAccountBalanceListData {
+export interface ResponseBankingAccountBalanceListData {
     balances?: BankingBalance[] | null;
 }
 
-export interface  ResponseBankingAccountById {
+export interface ResponseBankingAccountById {
     data: BankingAccountDetail;
     links: Links;
-    meta?: Meta;
+    meta?: any;
 }
-export interface  ResponseBankingAccountList {
+export interface ResponseBankingAccountList {
     data: ResponseBankingAccountListData;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  ResponseBankingAccountListData {
+export interface ResponseBankingAccountListData {
     accounts?: BankingAccount[] | null;
 }
-export interface  ResponseBankingDirectDebitAuthorisationList {
+export interface ResponseBankingDirectDebitAuthorisationList {
     data: ResponseBankingDirectDebitAuthorisationListData;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  ResponseBankingDirectDebitAuthorisationListData {
+export interface ResponseBankingDirectDebitAuthorisationListData {
     directDebitAuthorisations?: BankingDirectDebit[] | null;
 }
-export interface  ReponseBankingPayeeById {
+export interface ReponseBankingPayeeById {
     data: BankingPayeeDetail;
     links: Links;
-    meta?: Meta;
+    meta?: any;
 }
-export interface  ReponseBankingPayeeList {
+export interface ReponseBankingPayeeList {
     data: RespPayeeList;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  RespPayeeList {
+export interface RespPayeeList {
     payees?: BankingPayee[] | null;
 }
-export interface  ResponseBankingProductById {
+export interface ResponseBankingProductById {
     data: BankingProductV3;
     links: Links;
-    meta?: Meta;
+    meta?: any;
 }
-export interface  BankingProductList {
+export interface BankingProductList {
     data: RespProdList;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  RespProdList {
+export interface RespProdList {
     products?: BankingProductV3[];
 }
-export interface  ResponseBankingScheduledPaymentsList {
+export interface ResponseBankingScheduledPaymentsList {
     data: RespPaymentList;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  RespPaymentList {
+export interface RespPaymentList {
     scheduledPayments?: BankingScheduledPayment[] | null;
 }
-export interface  ResponseBankingTransactionById {
+export interface ResponseBankingTransactionById {
     data: BankingTransactionDetail;
     links: Links;
-    meta?: Meta;
+    meta?: any;
 }
-export interface  BankingTransactionList {
+export interface BankingTransactionList {
     data: RespTransList;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  RespTransList {
+export interface RespTransList {
     transactions?: BankingTransactionDetail[] | null;
 }
 
-export interface  RequestAccountIds {
+export interface RequestAccountIds {
     data: RequestAccountIdsData;
-    meta?: Meta;
+    meta?: any;
 }
 
-export interface  RequestAccountIdsData {
+export interface RequestAccountIdsData {
     accountIds: string[];
 }
-export interface  ResponseBankingAccountBalanceList {
+export interface ResponseBankingAccountBalanceList {
     data: ResponseBankingAccountBalanceListData;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
 
-export interface  ResponseBankingAccountBalanceListData {
+export interface ResponseBankingAccountBalanceListData {
     balances?: BankingBalance[] | null;
 }
 
-export interface  ResponseBankingAccountById {
+export interface ResponseBankingAccountById {
     data: BankingAccountDetail;
     links: Links;
-    meta?: Meta;
+    meta?: any;
 }
-export interface  ResponseBankingAccountList {
+export interface ResponseBankingAccountList {
     data: ResponseBankingAccountListData;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  ResponseBankingAccountListData {
+export interface ResponseBankingAccountListData {
     accounts?: BankingAccount[] | null;
 }
-export interface  ResponseBankingDirectDebitAuthorisationList {
+export interface ResponseBankingDirectDebitAuthorisationList {
     data: ResponseBankingDirectDebitAuthorisationListData;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  ResponseBankingDirectDebitAuthorisationListData {
+export interface ResponseBankingDirectDebitAuthorisationListData {
     directDebitAuthorisations?: BankingDirectDebit[] | null;
 }
-export interface  ReponseBankingPayeeById {
+export interface ReponseBankingPayeeById {
     data: BankingPayeeDetail;
     links: Links;
-    meta?: Meta;
+    meta?: any;
 }
-export interface  ReponseBankingPayeeList {
+export interface ReponseBankingPayeeList {
     data: RespPayeeList;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  RespPayeeList {
+export interface RespPayeeList {
     payees?: BankingPayee[] | null;
 }
-export interface  ResponseBankingProductById {
+export interface ResponseBankingProductById {
     data: BankingProductV3;
     links: Links;
-    meta?: Meta;
+    meta?: any;
 }
-export interface  BankingProductList {
+export interface BankingProductList {
     data: RespProdList;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  RespProdList {
+export interface RespProdList {
     products?: BankingProductV3[];
 }
-export interface  ResponseBankingScheduledPaymentsList {
+export interface ResponseBankingScheduledPaymentsList {
     data: RespPaymentList;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  RespPaymentList {
+export interface RespPaymentList {
     scheduledPayments?: BankingScheduledPayment[] | null;
 }
-export interface  ResponseBankingTransactionById {
+export interface ResponseBankingTransactionById {
     data: BankingTransactionDetail;
     links: Links;
-    meta?: Meta;
+    meta?: any;
 }
-export interface  BankingTransactionList {
+export interface BankingTransactionList {
     data: RespTransList;
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface  RespTransList {
+export interface RespTransList {
     transactions?: BankingTransactionDetail[] | null;
 }
-export interface  Meta {}
-export interface  MetaError {
+export interface MetaError {
     urn?: string;
 }
-export interface  MetaPaginated {
+export interface MetaPaginated {
     totalRecords: number;
     totalPages: number;
 }
-export interface  Links {
+export interface Links {
     self: string;
 }
-export interface  LinksPaginated {
+export interface LinksPaginated {
     self: string;
     first?: string;
     prev?: string;
     next?: string;
     last?: string;
 }
-export const enum BankingProductCategory {
+
+export enum BankingProductCategory {
     BUSINESS_LOANS = "BUSINES_LOANS",
     CRED_AND_CHRG_CARDS = "CRED_AND_CHRG_CARDS",
     LEASES = "LEASES",
@@ -601,14 +601,14 @@ export const enum BankingProductCategory {
     TRAVEL_CARDS = "TRAVEL_CARDS"
 }
 
-export const enum ProductCategory {
+export enum ProductCategory {
     REGULATED_TRUST_ACCOUNTS = "REGULATED_TRUST_ACCOUNTS",
     TERM_DEPOSITS = "TERM_DEPOSITS",
     TRANS_AND_SAVINGS_ACCOUNTS = "TRANS_AND_SAVINGS_ACCOUNTS",
     TRAVEL_CARDS = "TRAVEL_CARDS"
 }
 
-export const enum LendingProduct {
+export enum LendingProduct {
     BUSINESS_LOANS = "BUSINESS_LOANS",
     CRED_AND_CHRG_CARDS = "CRED_AND_CHRG_CARDS",
     LEASES = "LEASES",
@@ -619,32 +619,32 @@ export const enum LendingProduct {
     RESIDENTIAL_MORTGAGES = "RESIDENTIAL_MORTGAGES"
 }
 
-export const enum PayeeAccountUType {
+export enum PayeeAccountUType {
     ACCOUNT = "account",
     CARD = "card",
     PAY_ID = "payId"
 }
 
-export const enum PayeeIdType {
+export enum PayeeIdType {
     ABN = "ABN",
     EMAIL = "EMAIL",
     ORG_IDENTIFIER = "ORG_IDENTIFIER",
     TELEPHONE = "TELEPHONE"
 }
 
-export const enum PayeeType {
+export enum PayeeType {
     BILLER = "BILLER",
     DOMESTIC = "DOMESTIC",
     INTERNATIONAL = "INTERNATIONAL"
 }
 
-export const enum PayeeUType {
+export enum PayeeUType {
     BILLER = "biller",
     DOMESTIC = "domestic",
     INTERNATIONAL = "international"
 }
 
-export const enum ProductConstraintType {
+export enum ProductConstraintType {
     MAX_BALANCE = "MAX_BALANCE",
     MAX_LIMIT = "MAX_LIMIT",
     MIN_BALANCE = "MIN_BALANCE",
@@ -652,7 +652,7 @@ export const enum ProductConstraintType {
     OPENING_BALANCE = "OPENING_BALANCE"
 }
 
-export const enum DepositRateType {
+export enum DepositRateType {
     BONUS = "BONUS",
     BUNDLE_BONUS = "BUNDLE_BONUS",
     FIXED = "FIXED",
@@ -662,7 +662,7 @@ export const enum DepositRateType {
     VARIABLE = "VARIABLE"
 }
 
-export const enum DiscountType {
+export enum DiscountType {
     BALANCE = "BALANCE",
     DEPOSITS = "DEPOSITS",
     ELIGIBILITY_ONLY = "ELIGIBILITY_ONLY",
@@ -670,7 +670,7 @@ export const enum DiscountType {
     PAYMENTS = "PAYMENTS"
 }
 
-export const enum DiscountEligibilityType {
+export enum DiscountEligibilityType {
     BUSINESS = "BUSINESS",
     EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS",
     INTRODUCTORY = "INTRODUCTORY",
@@ -686,7 +686,7 @@ export const enum DiscountEligibilityType {
     STUDENT = "STUDENT"
 }
 
-export const enum ProductEligibilityType {
+export enum ProductEligibilityType {
     BUSINESS = "BUSINESS",
     EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS",
     MAX_AGE = "MAX_AGE",
@@ -701,7 +701,7 @@ export const enum ProductEligibilityType {
     STUDENT = "STUDENT"
 }
 
-export const enum ProductFeatureType {
+export enum ProductFeatureType {
     ADDITIONAL_CARDS = "ADDITIONAL_CARDS",
     BALANCE_TRANSFERS = "BALANCE_TRANSFERS",
     BILL_PAYMENT = "BILL_PAYMENT",
@@ -727,7 +727,7 @@ export const enum ProductFeatureType {
     UNLIMITED_TXNS = "UNLIMITED_TXNS"
 }
 
-export const enum ProductFeeType {
+export enum ProductFeeType {
     DEPOSIT = "DEPOSIT",
     EVENT = "EVENT",
     EXIT = "EXIT",
@@ -740,7 +740,7 @@ export const enum ProductFeeType {
     WITHDRAWAL = "WITHDRAWAL"
 }
 
-export const enum LendingRateType {
+export enum LendingRateType {
     BUNDLE_DISCOUNT_FIXED = "BUNDLE_DISCOUNT_FIXED",
     BUNDLE_DISCOUNT_VARIABLE = "BUNDLE_DISCOUNT_VARIABLE",
     CASH_ADVANCE = "CASH_ADVANCE",
@@ -759,60 +759,60 @@ export const enum LendingRateType {
     OWNER_OCCUPIED = "OWNER_OCCUPIED"
 }
 
-export const enum InterestPaymentDueType {
+export enum InterestPaymentDueType {
     IN_ADVANCE = "IN_ADVANCE",
     IN_ARREARS = "IN_ARREARS",
 }
 
-export const enum RepaymentType {
+export enum RepaymentType {
     INTEREST_ONLY = "INTEREST_ONLY",
     PRINCIPAL_AND_INTEREST = "PRINCIPAL_AND_INTEREST",
 }
 
-export const enum LoanPurposeType {
+export enum LoanPurposeType {
     INVESTMENT = "INVESTMENT",
     OWNER_OCCUPIED = "OWNER_OCCUPIED"
 }
 
-export const enum UnitOfMeasureType {
+export enum UnitOfMeasureType {
     DAY = "DAY",
     MONTH = "MONTH",
     DOLLAR = "DOLLAR",
     PERCENT = "PERCENT"
 }
 
-export const enum RateApplicationMethodType {
+export enum RateApplicationMethodType {
     PER_TIER = "PER_TIER",
     WHOLE_BALANCE = "WHOLE_BALANCE"
 }
 
-export const enum ScheduledPaymentStatusType {
+export enum ScheduledPaymentStatusType {
     ACTIVE = "ACTIVE",
     INACTIVE = "INACTIVE",
     SKIP = "SKIP"
 }
 
-export const enum BankingScheduledPaymentRecurrenceEventBasedType {
+export enum BankingScheduledPaymentRecurrenceEventBasedType {
     EVENT_BASED = "eventBased",
     INTERVAL_SCHEDULE = "intervalSchedule",
     LAST_WEEKDAY = "lastWeekDay",
     ONCE_OFF = "onceOff"
 }
 
-export const enum NonBusinessDayTreatmentType {
+export enum NonBusinessDayTreatmentType {
     AFTER = "AFTER",
     BEFORE = "BEFORE",
     ON = "ON",
     ONLY = "ONLY"
 }
 
-export const enum MaturityInstructionType {
+export enum MaturityInstructionType {
     HOLD_ON_MATURITY = "HOLD_ON_MATURITY",
     PAID_OUT_AT_MATURITY = "PAID_OUT_AT_MATURITY",
     ROLLED_OVER = "ROLLED_OVER"
 }
 
-export const enum BankingTransactionType {
+export enum BankingTransactionType {
     DIRECT_DEBIT = "DIRECT_DEBIT",
     FEE = "FEE",
     INTEREST_CHARGED = "INTEREST_CHARGED",
@@ -823,15 +823,15 @@ export const enum BankingTransactionType {
     TRANSFER_OUTGOING = "TRANSFER_OUTGOING"
 }
 
-export const enum BankingTransactionStatus {
+export enum BankingTransactionStatus {
     PENDING = "PENDING",
     POSTED = "POSTED",
 }
 
-export const enum BankingTransactionExtensionUType {
+export enum BankingTransactionExtensionUType {
     X2P101_PAYLOAD = "x2p101Payload",
 }
 
-export const enum BankingTransactionExtensionServiceType {
+export enum BankingTransactionExtensionServiceType {
     X2P101 = "X2P1.01",
 }
