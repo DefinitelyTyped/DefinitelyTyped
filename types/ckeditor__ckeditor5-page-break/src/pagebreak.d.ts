@@ -13,3 +13,9 @@ export default class PageBreak extends Plugin {
     static readonly requires: [typeof PageBreakEditing, typeof PageBreakUI, typeof Widget];
     static readonly pluginName: 'PageBreak';
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        PageBreak: PageBreak;
+    }
+}
