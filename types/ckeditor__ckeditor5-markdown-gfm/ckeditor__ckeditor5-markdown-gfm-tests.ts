@@ -23,3 +23,6 @@ new GFMDataProcessor(new Document(new StylesProcessor())).registerRawContentMatc
 html2markdown('').startsWith('');
 
 markdown2html('').startsWith('');
+
+// $ExpectType Markdown
+editor.plugins.get('Markdown');

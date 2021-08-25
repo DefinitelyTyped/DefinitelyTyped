@@ -17,3 +17,6 @@ inlineAutoformatEditing(new MyEditor(), autoformat, /foo/, writer => {
     writer.createText("foo");
     return false;
 });
+
+// $ExpectType Autoformat
+(new MyEditor()).plugins.get('Autoformat');

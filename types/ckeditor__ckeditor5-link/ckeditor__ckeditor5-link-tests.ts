@@ -4,7 +4,15 @@ import { DowncastConversionApi } from '@ckeditor/ckeditor5-engine/src/conversion
 import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
 import Document from '@ckeditor/ckeditor5-engine/src/view/document';
-import { AutoLink, Link, LinkEditing, LinkImage, LinkImageUI, LinkUI } from '@ckeditor/ckeditor5-link';
+import {
+    AutoLink,
+    Link,
+    LinkEditing,
+    LinkImage,
+    LinkImageEditing,
+    LinkImageUI,
+    LinkUI,
+} from '@ckeditor/ckeditor5-link';
 import LinkCommand from '@ckeditor/ckeditor5-link/src/linkcommand';
 import UnlinkCommand from '@ckeditor/ckeditor5-link/src/unlinkcommand';
 import * as utils from '@ckeditor/ckeditor5-link/src/utils';
@@ -64,3 +72,24 @@ utils.isLinkableElement(new Writer().createElement('div'), new Schema());
 utils.isEmail('') === ''.startsWith('');
 
 utils.addLinkProtocolIfApplicable('', '') === ''.startsWith('');
+
+// $ExpectType AutoLink
+editor.plugins.get('AutoLink');
+
+// $ExpectType Link
+editor.plugins.get('Link');
+
+// $ExpectType LinkEditing
+editor.plugins.get('LinkEditing');
+
+// $ExpectType LinkImage
+editor.plugins.get('LinkImage');
+
+// $ExpectType LinkImageEditing
+editor.plugins.get('LinkImageEditing');
+
+// $ExpectType LinkImageUI
+editor.plugins.get('LinkImageUI');
+
+// $ExpectType LinkUI
+editor.plugins.get('LinkUI');

@@ -52,3 +52,6 @@ normalizeSpacing('').startsWith('');
 normalizeSpacerunSpans(document);
 
 removeBoldWrapper(documentFragment, new UpcastWriter(doc));
+
+// $ExpectType PasteFromOffice
+editor.plugins.get('PasteFromOffice');

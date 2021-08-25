@@ -20,3 +20,6 @@ formatHtml('') === true;
 // $ExpectError
 formatHtml(5);
 formatHtml('') === '';
+
+// $ExpectType SourceEditing
+editor.plugins.get('SourceEditing');

@@ -6,6 +6,7 @@ import GFM from '@ckeditor/ckeditor5-markdown-gfm';
 import GFMDataProcessor from '@ckeditor/ckeditor5-markdown-gfm/src/gfmdataprocessor';
 import html2markdown from '@ckeditor/ckeditor5-markdown-gfm/src/html2markdown/html2markdown';
 import markdown2html from '@ckeditor/ckeditor5-markdown-gfm/src/markdown2html/markdown2html';
+import Markdown from '@ckeditor/ckeditor5-markdown-gfm/src/markdown';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -23,3 +24,6 @@ new GFMDataProcessor(new Document(new StylesProcessor())).registerRawContentMatc
 html2markdown('').startsWith('');
 
 markdown2html('').startsWith('');
+
+// $ExpectType Markdown
+editor.plugins.get('Markdown');

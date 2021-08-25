@@ -6,3 +6,9 @@ export default class MediaEmbedUI extends Plugin {
     static readonly pluginName: 'MediaEmbedUI';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        MediaEmbedUI: MediaEmbedUI;
+    }
+}

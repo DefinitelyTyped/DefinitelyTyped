@@ -63,3 +63,18 @@ utils.createMediaFigureElement(
 );
 utils.getSelectedMediaViewWidget(new Selection());
 utils.getSelectedMediaModelWidget(new ModelSelection(null));
+
+// $ExpectType AutoMediaEmbed
+editor.plugins.get('AutoMediaEmbed');
+
+// $ExpectType MediaEmbed
+editor.plugins.get('MediaEmbed');
+
+// $ExpectType MediaEmbedEditing
+editor.plugins.get('MediaEmbedEditing');
+
+// $ExpectType MediaEmbedToolbar
+editor.plugins.get('MediaEmbedToolbar');
+
+// $ExpectType MediaEmbedUI
+editor.plugins.get('MediaEmbedUI');

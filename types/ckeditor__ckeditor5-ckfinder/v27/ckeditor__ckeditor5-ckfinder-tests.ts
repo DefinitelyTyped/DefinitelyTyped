@@ -15,10 +15,21 @@ class MyEditor extends Editor {
     plugins = plugincollection;
 }
 
+const editor = new MyEditor();
+
 const ckfinderui = new CKFinder.CKFinderUI(new MyEditor());
 ckfinderui.init();
 
 const ckfinderediting = new CKFinder.CKFinderEditing(new MyEditor());
 ckfinderediting.init();
+
+// $ExpectType CKFinder
+editor.plugins.get('CKFinder');
+
+// $ExpectType CKFinderEditing
+editor.plugins.get('CKFinderEditing');
+
+// $ExpectType CKFinderUI
+editor.plugins.get('CKFinderUI');
 
 new CKFinderCommand(new BaseEditor()).execute();

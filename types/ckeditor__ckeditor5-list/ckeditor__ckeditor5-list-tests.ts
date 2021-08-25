@@ -61,3 +61,30 @@ const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).cre
 utils.findNestedList(emptyElement);
 utils.mergeViewLists(new DowncastWriter(new Document(new StylesProcessor())), emptyElement, emptyElement);
 utils.positionAfterUiElements(new Position(new DocumentFragment(), 1));
+
+// $ExpectType List
+editor.plugins.get('List');
+
+// $ExpectType ListEditing
+editor.plugins.get('ListEditing');
+
+// $ExpectType ListStyle
+editor.plugins.get('ListStyle');
+
+// $ExpectType ListStyleEditing
+editor.plugins.get('ListStyleEditing');
+
+// $ExpectType ListStyleUI
+editor.plugins.get('ListStyleUI');
+
+// $ExpectType ListUI
+editor.plugins.get('ListUI');
+
+// $ExpectType TodoList
+editor.plugins.get('TodoList');
+
+// $ExpectType TodoListEditing
+editor.plugins.get('TodoListEditing');
+
+// $ExpectType TodoListUI
+editor.plugins.get('TodoListUI');

@@ -12,3 +12,9 @@ export interface ImageStyleFormat {
     name: string;
     title?: string;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageStyleEditing: ImageStyleEditing;
+    }
+}

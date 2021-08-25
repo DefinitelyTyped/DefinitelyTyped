@@ -39,3 +39,9 @@ export interface UploadAdapter {
     abort(): void;
     upload(): Promise<Record<string, string>>;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        FileRepository: FileRepository;
+    }
+}

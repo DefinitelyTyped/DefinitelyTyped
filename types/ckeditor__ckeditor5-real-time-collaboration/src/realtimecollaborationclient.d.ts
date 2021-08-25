@@ -6,3 +6,9 @@ export default class RealTimeCollaborationClient extends Plugin {
     readonly lastSyncVersion: number;
     readonly offset: number;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        RealTimeCollaborationClient: RealTimeCollaborationClient;
+    }
+}

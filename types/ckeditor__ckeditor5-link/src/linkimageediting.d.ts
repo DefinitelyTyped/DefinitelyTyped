@@ -8,3 +8,9 @@ export default class LinkImageEditing extends Plugin {
     static readonly pluginName: 'LinkImageEditing';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        LinkImageEditing: LinkImageEditing;
+    }
+}

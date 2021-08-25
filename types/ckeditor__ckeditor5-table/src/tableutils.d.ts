@@ -19,3 +19,9 @@ export default class TableUtils extends Plugin {
     getColumns(table: Element): number;
     getRows(table: Element): number;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TableUtils: TableUtils;
+    }
+}

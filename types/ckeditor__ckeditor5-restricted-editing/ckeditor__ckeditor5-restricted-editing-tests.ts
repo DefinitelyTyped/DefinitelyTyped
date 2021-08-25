@@ -53,3 +53,21 @@ utils.isPositionInRangeBoundaries(
     new Range(new Position(Element.fromJSON({name: 'div'}), [0])),
     new Position(Element.fromJSON({name: 'div'}), [0]),
 );
+
+// $ExpectType RestrictedEditingMode
+editor.plugins.get('RestrictedEditingMode');
+
+// $ExpectType RestrictedEditingModeEditing
+editor.plugins.get('RestrictedEditingModeEditing');
+
+// $ExpectType RestrictedEditingModeUI
+editor.plugins.get('RestrictedEditingModeUI');
+
+// $ExpectType StandardEditingMode
+editor.plugins.get('StandardEditingMode');
+
+// $ExpectType StandardEditingModeEditing
+editor.plugins.get('StandardEditingModeEditing');
+
+// $ExpectType StandardEditingModeUI
+editor.plugins.get('StandardEditingModeUI');

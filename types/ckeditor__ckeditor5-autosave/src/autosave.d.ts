@@ -20,3 +20,9 @@ export interface AutosaveConfig {
     waitingTime?: number | undefined;
     save?(editor: Editor): Promise<unknown>;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        AutoSave: AutoSave;
+    }
+}

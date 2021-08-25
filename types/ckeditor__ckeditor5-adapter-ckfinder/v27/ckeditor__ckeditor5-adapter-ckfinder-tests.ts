@@ -3,6 +3,7 @@ import * as utils from "@ckeditor/ckeditor5-adapter-ckfinder/src/utils";
 import { Editor, Plugin } from "@ckeditor/ckeditor5-core";
 
 class MyEditor extends Editor {}
+const editor = new MyEditor();
 
 if (!(CKFinderUploadAdapter instanceof Plugin)) {
     throw new Error("UploadAdapter must extend Plugin");
@@ -30,3 +31,6 @@ class Foo extends UploadAdapter {
         this.xhr;
     }
 }
+
+// $ExpectType CKFinderUploadAdapter
+editor.plugins.get("CKFinderUploadAdapter");

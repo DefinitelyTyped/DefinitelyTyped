@@ -1,12 +1,12 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 
-export default class ImageResizeEditing extends Plugin {
-    static readonly pluginName: 'ImageResizeEditing';
+export default class TrackChangesUI extends Plugin {
+    static readonly pluginName: 'TrackChangesUI';
     init(): void;
 }
 
 declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
     interface Plugins {
-        ImageResizeEditing: ImageResizeEditing;
+        TrackChangesUI: TrackChangesUI;
     }
 }
