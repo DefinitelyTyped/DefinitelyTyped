@@ -1,10 +1,12 @@
-import { Editor } from "@ckeditor/ckeditor5-core";
-import Heading from "@ckeditor/ckeditor5-heading";
+import { Editor } from '@ckeditor/ckeditor5-core';
+import Heading from '@ckeditor/ckeditor5-heading';
+import HeadingCommand from '@ckeditor/ckeditor5-heading/src/headingcommand';
+import * as utils from '@ckeditor/ckeditor5-heading/src/utils';
 
 class MyEditor extends Editor {}
 const myEditor = new MyEditor();
 
-let str = "";
+let str = '';
 
 new Heading.Heading(myEditor);
 Heading.Heading.requires.length === 2;
@@ -24,8 +26,23 @@ title.init();
 str = title.getTitle();
 str = title.getBody();
 str = title.getBody({ rootName: str });
-str = title.getBody({ trim: "none" });
-str = title.getBody({ rootName: str, trim: "none" });
+str = title.getBody({ trim: 'none' });
+str = title.getBody({ rootName: str, trim: 'none' });
+
+// $ExpectError
+new HeadingCommand(myEditor, ['']).execute();
+new HeadingCommand(myEditor, ['']).execute({ value: '' });
+
+// $ExpectType string[]
+new HeadingCommand(myEditor, ['h1', 'h2']).modelElements;
+// $ExpectType readonly ["h1", "h2"]
+new HeadingCommand(myEditor, ['h1', 'h2'] as const).modelElements;
+
+utils.getLocalizedOptions(myEditor).forEach(value => {
+    value.title === '';
+    value.model === '';
+    value.class === '';
+});
 
 // $ExpectType Heading
 myEditor.plugins.get('Heading');

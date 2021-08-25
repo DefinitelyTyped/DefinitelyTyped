@@ -1,7 +1,7 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
 import { Heading, HeadingButtonsUI, HeadingEditing, HeadingUI, Title } from '@ckeditor/ckeditor5-heading';
 import HeadingCommand from '@ckeditor/ckeditor5-heading/src/headingcommand';
-import * as utils from "@ckeditor/ckeditor5-heading/src/utils";
+import * as utils from '@ckeditor/ckeditor5-heading/src/utils';
 
 class MyEditor extends Editor {}
 const myEditor = new MyEditor();
@@ -33,10 +33,15 @@ str = title.getBody({ rootName: str, trim: 'none' });
 new HeadingCommand(myEditor, ['']).execute();
 new HeadingCommand(myEditor, ['']).execute({ value: '' });
 
+// $ExpectType string[]
+new HeadingCommand(myEditor, ['h1', 'h2']).modelElements;
+// $ExpectType readonly ["h1", "h2"]
+new HeadingCommand(myEditor, ['h1', 'h2'] as const).modelElements;
+
 utils.getLocalizedOptions(myEditor).forEach(value => {
-    value.title === "";
-    value.model === "";
-    value.class === "";
+    value.title === '';
+    value.model === '';
+    value.class === '';
 });
 
 // $ExpectType Heading
