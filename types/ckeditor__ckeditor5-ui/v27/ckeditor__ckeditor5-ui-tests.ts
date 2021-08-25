@@ -336,7 +336,10 @@ viewCollection = boxedEditor.main;
 /**
  * EditableUIView
  */
-new InlineEditableUIView(locale, view);
+// $ExpectType boolean
+new InlineEditableUIView(locale, view)._hasExternalElement;
+// $ExpectError
+new InlineEditableUIView(locale, view)._hasExternalElement = true;
 
 /**
  * FormHeaderView
