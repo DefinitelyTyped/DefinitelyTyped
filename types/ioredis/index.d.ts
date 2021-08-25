@@ -1,4 +1,4 @@
-// Type definitions for ioredis 4.26
+// Type definitions for ioredis 4.27
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00>
 //                 Christopher Eck <https://github.com/chrisleck>
@@ -16,6 +16,7 @@
 //                 Claudiu Ceia <https://github.com/ClaudiuCeia>
 //                 Asyrique <https://github.com/asyrique>
 //                 Michael Salaverry <https://github.com/barakplasma>
+//                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -206,6 +207,9 @@ declare namespace IORedis {
 
         get(key: KeyType, callback: Callback<string | null>): void;
         get(key: KeyType): Promise<string | null>;
+
+        getdel(key: KeyType, callback: Callback<string | null>): void;
+        getdel(key: KeyType): Promise<string | null>;
 
         getBuffer(key: KeyType, callback: Callback<Buffer>): void;
         getBuffer(key: KeyType): Promise<Buffer>;
