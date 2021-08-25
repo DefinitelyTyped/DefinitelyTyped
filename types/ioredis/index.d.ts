@@ -196,11 +196,6 @@ declare namespace IORedis {
         (key: string, cursor: number, ...args: T[]): Promise<U>;
         (key: string, cursor: number, arg1: T[]): Promise<U>;
     }
-    
-    
-    
-    
-    
 
     type Command = _Command;
 
