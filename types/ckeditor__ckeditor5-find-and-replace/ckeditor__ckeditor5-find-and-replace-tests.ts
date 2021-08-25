@@ -73,3 +73,18 @@ editor.plugins.get('FindAndReplaceEditing');
 
 // $ExpectType FindAndReplaceUI
 editor.plugins.get('FindAndReplaceUI');
+
+// $ExpectType ReplaceCommand | undefined
+editor.commands.get('ReplaceCommand');
+
+// $ExpectType ReplaceAllCommand | undefined
+editor.commands.get('ReplaceAllCommand');
+
+// $ExpectType FindCommand | undefined
+editor.commands.get('FindCommand');
+
+// $ExpectType FindNextCommand | undefined
+editor.commands.get('FindNextCommand');
+
+// $ExpectType FindPreviousCommand | undefined
+editor.commands.get('FindPreviousCommand');

@@ -24,3 +24,6 @@ editor.plugins.get('SelectAllEditing');
 
 // $ExpectType SelectAllUI
 editor.plugins.get('SelectAllUI');
+
+// $ExpectType SelectAllCommand | undefined
+editor.commands.get('SelectAllCommand');
