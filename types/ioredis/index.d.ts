@@ -16,6 +16,7 @@
 //                 Claudiu Ceia <https://github.com/ClaudiuCeia>
 //                 Asyrique <https://github.com/asyrique>
 //                 Michael Salaverry <https://github.com/barakplasma>
+//                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -195,6 +196,11 @@ declare namespace IORedis {
         (key: string, cursor: number, ...args: T[]): Promise<U>;
         (key: string, cursor: number, arg1: T[]): Promise<U>;
     }
+    
+    
+    
+    
+    
 
     type Command = _Command;
 
@@ -206,6 +212,12 @@ declare namespace IORedis {
 
         get(key: KeyType, callback: Callback<string | null>): void;
         get(key: KeyType): Promise<string | null>;
+
+        getdel(key: KeyType, callback: Callback<string | null>): void;
+        getdel(key: KeyType): Promise<string | null>;
+        
+        
+        
 
         getBuffer(key: KeyType, callback: Callback<Buffer>): void;
         getBuffer(key: KeyType): Promise<Buffer>;
