@@ -1,7 +1,6 @@
 // Type definitions for @sinonjs/fake-timers 6.0
 // Project: https://github.com/sinonjs/fake-timers
 // Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Rogier Schouten <https://github.com/rogierschouten>
 //                 Yishai Zehavi <https://github.com/zyishai>
 //                 Remco Haszing <https://github.com/remcohaszing>

@@ -1,7 +1,6 @@
 // Type definitions for jsoneditor-for-react 0.0
 // Project: https://github.com/mixj93/jsoneditor-for-react#readme
-// Definitions by:  JoshGoldberg <https://github.com/joshuakgoldberg>
-//                  Joep Kockelkorn <https://github.com/joepkockelkorn>
+// Definitions by:  Joep Kockelkorn <https://github.com/joepkockelkorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
