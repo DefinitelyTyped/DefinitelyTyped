@@ -5,7 +5,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Bob Matcuk <https://github.com/bmatcuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.8
 
 import { GlobbyOptions } from 'globby';
 import * as postcss from 'postcss';
