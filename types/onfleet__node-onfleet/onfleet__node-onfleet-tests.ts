@@ -1,6 +1,22 @@
 import Onfleet = require('@onfleet/node-onfleet');
 
+const bottleneckOptions = {
+    LIMITER_RESERVOIR: 20,
+    LIMITER_WAIT_UPON_DEPLETION: 10000,
+    LIMITER_MAX_CONCURRENT: 1,
+    LIMITER_MIN_TIME: 50,
+};
+
+// constructor
+// with api key
 const onfleet = new Onfleet('test-api-key');
+
+// with api key, timeout
+new Onfleet('test-api-key', 20000);
+// with api key, timeout, bottleneck options
+new Onfleet('test-api-key', 20000, bottleneckOptions);
+// with api key, timeout, bottleneck options, base URL
+new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com');
 
 onfleet.verifyKey().then().catch();
 
