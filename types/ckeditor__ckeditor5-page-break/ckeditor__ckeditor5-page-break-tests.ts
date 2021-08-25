@@ -22,3 +22,12 @@ new PageBreakUI(editor).init();
 new PageBreakEditing(editor).init();
 
 new PageBreakCommand(editor).execute();
+
+// $ExpectType PageBreak
+editor.plugins.get('PageBreak');
+
+// $ExpectType PageBreakUI
+editor.plugins.get('PageBreakUI');
+
+// $ExpectType PageBreakEditing
+editor.plugins.get('PageBreakEditing');
