@@ -44,9 +44,9 @@ declare namespace Keyv {
         /** Namespace for the current instance. */
         namespace?: string | undefined;
         /** A custom serialization function. */
-        serialize?: ((data: TValue) => string) | undefined;
+        serialize?: ((data: { value: TValue; expires: number | null }) => string) | undefined;
         /** A custom deserialization function. */
-        deserialize?: ((data: string) => TValue) | undefined;
+        deserialize?: ((data: string) => { value: TValue; expires: number | null } | undefined) | undefined;
         /** The connection string URI. */
         uri?: string | undefined;
         /** The storage adapter instance to be used by Keyv. */

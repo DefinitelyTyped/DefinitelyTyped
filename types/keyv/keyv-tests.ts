@@ -16,7 +16,9 @@ new Keyv({ adapter: 'postgresql' });
 new Keyv({ adapter: 'mysql' });
 new Keyv({ adapter: 'foo' }); // $ExpectError
 new Keyv<boolean>({ serialize: JSON.stringify });
+new Keyv<boolean>({ serialize: (d: unknown) => d }); // $ExpectError
 new Keyv<boolean>({ deserialize: JSON.parse });
+new Keyv<boolean>({ deserialize: (d: string) => d }); // $ExpectError
 
 new Keyv<boolean>({ store: new Map() });
 
