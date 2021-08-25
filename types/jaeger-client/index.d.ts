@@ -4,6 +4,7 @@
 //                 tsachis <https://github.com/tsachi>
 //                 MiLk <https://github.com/MiLk>
 //                 doochik <https://github.com/doochik>
+//                 danilqa <https://github.com/danilqa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
