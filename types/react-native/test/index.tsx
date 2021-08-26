@@ -547,7 +547,6 @@ const AppStateExample = () => {
     );
   };
 
-
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
     render() {
