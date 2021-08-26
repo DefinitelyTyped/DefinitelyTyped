@@ -283,6 +283,11 @@ declare class WebpackDevServer {
     constructor(config: WebpackDevServer.Configuration, webpack?: webpack.Compiler | webpack.MultiCompiler);
 
     /**
+     * @deprecated - use `options` as the first argument and `compiler` as the second argument.
+     */
+    constructor(webpack: webpack.Compiler | webpack.MultiCompiler, config?: WebpackDevServer.Configuration);
+
+    /**
      * @deprecated - use `startCallback` or `start` instead
      */
     listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
