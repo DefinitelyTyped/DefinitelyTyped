@@ -146,7 +146,12 @@ export interface PushNotification {
     unsubscribeFromTopic(topic: string): void;
     presentLocalNotification(notification: PushNotificationObject): void;
     scheduleLocalNotification(notification: PushNotificationScheduleObject): void;
+
+    /**
+     * @deprecated use cancelLocalNotification method
+     */
     cancelLocalNotifications(details: { id: string }): void;
+    cancelLocalNotification(notificationId:string): void;
     clearLocalNotification(tag: string, notificationID: number): void;
     cancelAllLocalNotifications(): void;
     setApplicationIconBadgeNumber(badgeCount: number): void;
