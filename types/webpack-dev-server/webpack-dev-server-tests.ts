@@ -215,6 +215,10 @@ const c6: WebpackDevServer.Configuration = {
 
 // API example
 server = new WebpackDevServer(config, compiler);
+
+// test deprecated constructor
+server = new WebpackDevServer(compiler, config);
+
 server.start();
 
 // test the socket writer
