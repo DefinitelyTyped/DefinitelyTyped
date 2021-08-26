@@ -2,5 +2,5 @@
 // Project: https://github.com/ConsumerDataStandardsAustralia
 // Definitions by: CDR-API-Stream <https://github.com/ConsumerDataStandardsAustralia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export * from "./banking";
-export * from "./common";
+export * from './banking';
+export * from './common';
