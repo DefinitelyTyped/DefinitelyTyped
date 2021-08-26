@@ -24,6 +24,7 @@ declare module 'window-size' {
         export interface Size {
             width: number;
             height: number;
+            type: string;
         }
 
         /** Options of inner function `streamSize`. */
