@@ -7410,12 +7410,7 @@ export interface AppStateStatic {
      * Add a handler to AppState changes by listening to the change event
      * type and providing the handler
      */
-    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
-
-    /**
-     * Remove a handler by passing the change event type and the handler
-     */
-    removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
+    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): EmitterSubscription;
 }
 
 /**
