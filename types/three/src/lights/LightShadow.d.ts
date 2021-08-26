@@ -62,4 +62,5 @@ export class LightShadow {
     updateMatrices(light: Light, viewportIndex?: number): void;
     getViewport(viewportIndex: number): Vector4;
     getFrameExtents(): Vector2;
+    dispose(): void;
 }

@@ -16,7 +16,9 @@ const cbNumber = (err: Error | null, result: any) => {
 
 redis.set('foo', 'bar');
 redis.get('foo', cb);
+redis.getdel('foo', cb);
 
+redis.set('foo', 'bar');
 redis.getrangeBuffer("foo", 0, 1, cb);
 redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
 
@@ -188,6 +190,18 @@ redis.hmset('foo', '1', ['1', 2]);
 redis.hmset('foo', { a: 'b', c: 4 }).then(console.log);
 redis.hmset('foo', { a: 'b', c: 4 }, cb);
 redis.hmset('foo', new Map<string, number>(), cb);
+
+// Test OverloadedKeyedHashCommand for hmset
+redis.hmgetBuffer('foo', '1', '2', '3', '4', '5').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', '4', '5', cb);
+redis.hmgetBuffer('foo', '1', '2', '3', '4').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', '4', cb);
+redis.hmgetBuffer('foo', '1', '2', '3').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', '3', cb);
+redis.hmgetBuffer('foo', '1', '2').then(console.log);
+redis.hmgetBuffer('foo', '1', '2', cb);
+redis.hmgetBuffer('foo', '1').then(console.log);
+redis.hmgetBuffer('foo', '1', cb);
 
 // Test OverloadedHashCommand
 redis.mset('1', '2', '3', 4, '5', new Buffer([])).then(console.log);

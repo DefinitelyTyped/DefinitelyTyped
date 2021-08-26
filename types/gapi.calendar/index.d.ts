@@ -25,7 +25,7 @@ declare namespace gapi.client.calendar {
     timeMin: datetime;
     timeMax: datetime;
     groups: {
-      (key: string): {
+      [key: string]: {
         errors?: {
           domain: string;
           reason: string;
@@ -34,7 +34,7 @@ declare namespace gapi.client.calendar {
       }
     };
     calendars: {
-      (key: string): {
+      [key: string]: {
         errors?: {
           domain: string;
           reason: string;
@@ -355,10 +355,10 @@ declare namespace gapi.client.calendar {
     description?: string | undefined;
     extendedProperties?: {
       private: {
-        (key: string): string
+        [key: string]: string
       };
       shared: {
-        (key: string): string
+        [key: string]: string
       }
     } | undefined;
     gadget?: {
@@ -367,7 +367,7 @@ declare namespace gapi.client.calendar {
       iconLink: string;
       link: string;
       preferences: {
-        (key: string): string
+        [key: string]: string
       }
       title: string;
       type: string;
@@ -628,10 +628,10 @@ declare namespace gapi.client.calendar {
     // Extended properties of the event.
     extendedProperties?: {
       private: {
-        (key: string): string;
+        [key: string]: string
       };
       shared: {
-        (key: string): string;
+        [key: string]: string;
       }
     } | undefined;
 
@@ -648,7 +648,7 @@ declare namespace gapi.client.calendar {
       height?: integer | undefined;
       display?: GadgetDisplayMode | undefined;
       preferences: {
-        (key: string): string;
+        [key: string]: string
       }
     } | undefined;
 

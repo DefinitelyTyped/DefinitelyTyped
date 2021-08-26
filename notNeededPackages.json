@@ -877,6 +877,10 @@
             "libraryName": "dependency-tree",
             "asOfVersion": "8.1.0"
         },
+        "deta": {
+            "libraryName": "deta",
+            "asOfVersion": "1.0.0"
+        },
         "detect-browser": {
             "libraryName": "detect-browser",
             "asOfVersion": "4.0.0"
@@ -1012,6 +1016,10 @@
         "egjs__component": {
             "libraryName": "@egjs/component",
             "asOfVersion": "2.1.0"
+        },
+        "egm96-universal": {
+            "libraryName": "egm96-universal",
+            "asOfVersion": "1.1.0"
         },
         "elastic-apm-node": {
             "libraryName": "elastic-apm-node",
@@ -2813,6 +2821,10 @@
             "libraryName": "moment-timezone",
             "asOfVersion": "0.5.30"
         },
+        "mongodb": {
+            "libraryName": "mongodb",
+            "asOfVersion": "4.0.0"
+        },
         "mongodb-memory-server": {
             "libraryName": "mongodb-memory-server",
             "asOfVersion": "2.3.0"
@@ -3469,6 +3481,10 @@
         "preferred-pm": {
             "libraryName": "preferred-pm",
             "asOfVersion": "3.0.0"
+        },
+        "prettier-package-json": {
+            "libraryName": "prettier-package-json",
+            "asOfVersion": "2.3.0"
         },
         "pretty-bytes": {
             "libraryName": "pretty-bytes",
@@ -4598,6 +4614,10 @@
             "libraryName": "sololearn",
             "asOfVersion": "2.5.0"
         },
+        "sonic-boom": {
+            "libraryName": "sonic-boom",
+            "asOfVersion": "2.1.0"
+        },
         "soundex-code": {
             "libraryName": "soundex-code",
             "asOfVersion": "2.0.0"
@@ -4797,6 +4817,10 @@
         "strong-error-handler": {
             "libraryName": "strong-error-handler",
             "asOfVersion": "3.2.0"
+        },
+        "styled-jsx": {
+            "libraryName": "styled-jsx",
+            "asOfVersion": "3.4.4"
         },
         "stylelint-webpack-plugin": {
             "libraryName": "stylelint-webpack-plugin",

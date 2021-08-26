@@ -4,15 +4,15 @@
 //                 Deividi Cavarzan <https://github.com/cavarzan>
 //                 Artem Lyubchuk <https://github.com/needpower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.9
 
 import * as React from "react";
 
-export type maskArray = Array<string | RegExp> | boolean;
+export type maskArray = Array<string | RegExp> | false;
 
 export interface MaskedInputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
-    mask?: maskArray | ((value: string) => maskArray) | undefined;
+    mask: maskArray | ((value: string) => maskArray);
 
     guide?: boolean | undefined;
 

@@ -5,14 +5,20 @@ import {
     MediaCategory,
     QueueData,
     Image,
+    GenericMediaMetadata,
+    MovieMediaMetadata,
+    MusicTrackMediaMetadata,
+    PhotoMediaMetadata,
+    TvShowMediaMetadata,
+    AudiobookChapterMediaMetadata,
 } from './cast.framework.messages';
-import { CastReceiverContext } from './cast.framework';
 
 export as namespace ui;
 export type ContentType = 'video' | 'audio' | 'image';
 
 /**
  * UI state of receiver application.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.State
  */
 export enum State {
     LAUNCHING = 'launching',
@@ -23,6 +29,10 @@ export enum State {
     PLAYING = 'playing',
 }
 
+/**
+ * Player data changed event types.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.PlayerDataEventType
+ */
 export enum PlayerDataEventType {
     ACTIVE_TRACK_IDS_CHANGED = 'activeTrackIdsChanged',
     ANY_CHANGE = '*',
@@ -67,6 +77,7 @@ export enum PlayerDataEventType {
 
 /**
  * Data about running application or remote controlled application.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.ApplicationData
  */
 export class ApplicationData {
     constructor(name: string, iconUrl: string, groupName?: string, isRemoteControl?: boolean);
@@ -82,7 +93,7 @@ export class ApplicationData {
     iconUrl: string;
 
     /**
-     * Whether the application is running as a remote control to another playback receiver;
+     * Whether the application is running as a remote control to another playback receiver
      */
     isRemoteControl: boolean;
 
@@ -93,7 +104,8 @@ export class ApplicationData {
 }
 
 /**
- * Player data changed event. Provides the changed field (type); and new value.
+ * Player data changed event. Provides the changed field (type), and new value.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.PlayerDataChangedEvent
  */
 export class PlayerDataChangedEvent {
     constructor(type: PlayerDataEventType, field: string, value: any);
@@ -110,9 +122,11 @@ export class PlayerDataChangedEvent {
      */
     value: any;
 }
+
 /**
  * Player data binder. Bind a player data object to the player state.
  * The player data will be updated to reflect correctly the current player state without firing any change event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.PlayerDataBinder
  */
 export class PlayerDataBinder {
     constructor(playerData: object | PlayerData);
@@ -127,8 +141,10 @@ export class PlayerDataBinder {
      */
     removeEventListener: (type: PlayerDataEventType, listener: PlayerDataChangedEventHandler) => void;
 }
+
 /**
  * Player data. Provide the player media and break state.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.PlayerData
  */
 export class PlayerData {
     constructor();
@@ -149,7 +165,7 @@ export class PlayerData {
     breakPercentagePositions: number[];
 
     /**
-     * Title of the current playing break;
+     * Title of the current playing break
      */
     breakTitle: string;
 
@@ -159,7 +175,7 @@ export class PlayerData {
     currentBreakClipNumber: number;
 
     /**
-     * Media current position in seconds; or break current position if playing break.
+     * Media current position in seconds, or break current position if playing break.
      */
     currentTime: number;
 
@@ -168,19 +184,19 @@ export class PlayerData {
      * same UI code to run in a remote control. The state can be set by calling
      * cast.framework.PlayerManager#sendCustomState
      */
-    customState?: object | undefined;
+    customState?: any;
 
     /**
-     * Whether the player metadata (ie: title; currentTime) should be displayed.
+     * Whether the player metadata (ie: title, currentTime) should be displayed.
      *  This will be true if at least one field in the metadata should be displayed.
-     *  In some cases; displayStatus will be true; but parts of the metadata should be hidden
+     *  In some cases, displayStatus will be true, but parts of the metadata should be hidden
      * (ie: the media title while media is seeking).
-     * In these cases; additional css can be applied to hide those elements.
-     * For cases where the media is audio-only; this will almost always be true.
-     * In cases where the media is video; this will be true when:
-     *   (1) the video is loading; buffering; or seeking
-     *   (2) a play request was made in the last five seconds while media is already playing;
-     *   (3) there is a request made to show the status in the last five seconds; or
+     * In these cases, additional css can be applied to hide those elements.
+     * For cases where the media is audio-only, this will almost always be true.
+     * In cases where the media is video, this will be true when:
+     *   (1) the video is loading, buffering, or seeking
+     *   (2) a play request was made in the last five seconds while media is already playing
+     *   (3) there is a request made to show the status in the last five seconds, or
      *   (4) the media was paused in the last five seconds.
      */
     displayStatus: boolean;
@@ -191,7 +207,7 @@ export class PlayerData {
     displayType: string;
 
     /**
-     * Media duration in seconds; Or break duration if playing break.
+     * Media duration in seconds, or break duration if playing break.
      */
     duration: number;
 
@@ -250,7 +266,30 @@ export class PlayerData {
     /**
      * Media metadata.
      */
-    metadata?: MediaMetadata | object | undefined;
+    metadata?:
+        | MediaMetadata
+        | GenericMediaMetadata
+        | MovieMediaMetadata
+        | MusicTrackMediaMetadata
+        | PhotoMediaMetadata
+        | TvShowMediaMetadata
+        | AudiobookChapterMediaMetadata
+        | object
+        | undefined;
+
+    /**
+     * Next item metadata.
+     */
+    nextMetadata?:
+        | MediaMetadata
+        | GenericMediaMetadata
+        | MovieMediaMetadata
+        | MusicTrackMediaMetadata
+        | PhotoMediaMetadata
+        | TvShowMediaMetadata
+        | AudiobookChapterMediaMetadata
+        | object
+        | undefined;
 
     /**
      * Next Item subtitle.
@@ -303,6 +342,12 @@ export class PlayerData {
     state: State;
 
     /**
+     * The commands supported by this player
+     * @see {@link messages.Command}
+     */
+    supportedMediaCommands: number;
+
+    /**
      * Content thumbnail url.
      */
     thumbnailUrl: string;
@@ -313,7 +358,8 @@ export class PlayerData {
     title: string;
 
     /**
-     * Provide the time a break is skipable - relative to current playback time. Undefined if not skippable.
+     * Provide the time a break is skipable - relative to current playback time.
+     * Undefined if not skippable.
      */
     whenSkippable?: number | undefined;
 }
@@ -321,6 +367,7 @@ export class PlayerData {
 /**
  * Touch Controls. Provides interface for configuring controls on
  * touch-enabled devices.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.Controls
  */
 export class Controls {
     static getInstance(): Controls;
@@ -357,9 +404,14 @@ export class Controls {
      *
      * @param browseContent
      */
-    setBrowseContent(browseContent?: BrowseContent): void;
+    setBrowseContent(browseContent: BrowseContent | null): void;
 }
 
+/**
+ * Content for the media browse carousel. This content should be used for both
+ * media browse UI on IDLE screen and related content screen during playback.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.BrowseContent
+ */
 export class BrowseContent {
     /**
      * @param browseItems Array of non-null cast.framework.ui.BrowseItem
@@ -382,7 +434,7 @@ export class BrowseContent {
      * is too narrow/tall, it will be pillarboxed. If image is too wide/short,
      * it will be letterboxed.
      */
-    targetAspectRation?: BrowseImageAspectRatio | undefined;
+    targetAspectRatio?: BrowseImageAspectRatio | undefined;
 
     /**
      * Title of the list.
@@ -390,6 +442,10 @@ export class BrowseContent {
     title?: string | undefined;
 }
 
+/**
+ * Content for the individual browse item in the media browse list.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.BrowseItem
+ */
 export class BrowseItem {
     /**
      * @param entity Content entity information.
@@ -444,7 +500,22 @@ export class BrowseItem {
 }
 
 /**
+ * UI Configuration.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.UiConfig
+ */
+export class UiConfig {
+    constructor();
+
+    /**
+     * If this is true, SDK will be notified that Application has touch-optimized
+     * layout, so that SDK will not render opaque full-screen blocking overlay.
+     */
+    touchScreenOptimizedApp?: boolean | undefined;
+}
+
+/**
  * Aspect ratio of all images in the media browse carousel.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseImageAspectRatio
  */
 export enum BrowseImageAspectRatio {
     /**
@@ -468,6 +539,7 @@ export enum BrowseImageAspectRatio {
 /**
  * Type of placeholder that will be used if image is not
  * available for the browse item.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseImageType
  */
 export enum BrowseImageType {
     /**
@@ -553,6 +625,7 @@ export enum BrowseImageType {
 
 /**
  * Badge that will be displayed on top of the browse item image.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseMediaBadge
  */
 export enum BrowseMediaBadge {
     /**
@@ -564,6 +637,7 @@ export enum BrowseMediaBadge {
 
 /**
  * Predefined buttons for the Media Controls overlay
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.ControlsButton
  */
 export enum ControlsButton {
     /**
@@ -642,6 +716,10 @@ export enum ControlsButton {
     SLEEP_TIMER = 'sleep-timer',
 }
 
+/**
+ * Touch Controls interface.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.ControlsSlot
+ */
 export enum ControlsSlot {
     /**
      * Side left slot. Deprecated, use SLOT_SECONDARY_1 instead.
@@ -690,4 +768,13 @@ export enum ControlsSlot {
      * Side right slot. Aligned to the right edge of the screen.
      */
     SLOT_SECONDARY_2 = 'slot-secondary-2',
+}
+
+/**
+ * Device display type.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.DisplayType
+ */
+export enum DisplayType {
+    TV = 'tv',
+    TOUCH = 'touch',
 }

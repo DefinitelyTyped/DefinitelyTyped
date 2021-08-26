@@ -211,10 +211,12 @@ export interface AuthorizeParams {
 
 export interface AuthorizeOptions {
     ephemeralSession?: boolean | undefined;
+    customScheme?: string;
 }
 
 export interface ClearSessionParams {
     federated: boolean;
+    customScheme?: string;
 }
 
 export interface Credentials {

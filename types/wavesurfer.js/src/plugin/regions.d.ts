@@ -67,7 +67,7 @@ export class Region extends Observer {
     remove(): void;
     render(): void;
     setLoop(loop: boolean): void;
-    update(params: RegionParams): void;
+    update(params: RegionParams, eventParams?: RegionUpdatedEventParams): void;
     updateHandlesResize(resize: boolean): void;
     updateRender(): void;
 
@@ -117,6 +117,11 @@ export interface RegionParams {
     handleStyle?: HandleStyle | undefined;
     preventContextMenu?: boolean | undefined;
     showTooltip?: boolean | undefined;
+}
+
+export interface RegionUpdatedEventParams {
+    direction: 'right' | 'left' | null;
+    action: 'drag' | 'resize';
 }
 
 export interface HandleStyle {

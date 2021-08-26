@@ -22,7 +22,7 @@ export interface ReactFundamentalImpl<C, H> {
     [key: string]: any;
   }) => {
     [key: string]: any;
-  }) | undefined;
+  });
   getInstance: (context: C, props: {
     [key: string]: any;
   }, state: {
@@ -30,10 +30,10 @@ export interface ReactFundamentalImpl<C, H> {
   }) => H;
   getServerSideString?: ((context: C, props: {
     [key: string]: any;
-  }) => string) | undefined;
+  }) => string);
   getServerSideStringClose?: ((context: C, props: {
     [key: string]: any;
-  }) => string) | undefined;
+  }) => string);
   onMount: (context: C, instance: unknown, props: {
     [key: string]: any;
   }, state: {
@@ -45,29 +45,29 @@ export interface ReactFundamentalImpl<C, H> {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean) | undefined;
+  }) => boolean);
   onUpdate?: ((context: C, instance: unknown, prevProps: null | {
     [key: string]: any;
   }, nextProps: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => void) | undefined;
+  }) => void);
   onUnmount?: ((context: C, instance: unknown, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => void) | undefined;
+  }) => void);
   onHydrate?: ((context: C, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean) | undefined;
+  }) => boolean);
   onFocus?: ((context: C, props: {
     [key: string]: any;
   }, state: {
     [key: string]: any;
-  }) => boolean) | undefined;
+  }) => boolean);
 }
 
 export interface ReactFundamentalComponent<C, H> {

@@ -25,7 +25,6 @@ import FormData = require('form-data');
 import net = require('net');
 import tough = require('tough-cookie');
 import { Url } from 'url';
-import { SecureContextOptions } from 'tls';
 
 declare namespace request {
     interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {

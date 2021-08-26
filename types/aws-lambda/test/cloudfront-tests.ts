@@ -8,7 +8,8 @@ import {
     CloudFrontResponseResult,
     CloudFrontS3Origin,
     CloudFrontCustomOrigin,
-} from "aws-lambda";
+    CloudFrontFunctionsEvent,
+} from 'aws-lambda';
 
 // TODO: Update test to read all event properties, and write all result
 //       properties, like the user will.
@@ -75,7 +76,7 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
     result = null;
     result = { clientIp: str, method: str, uri: str, querystring: str, headers: cloudFrontHeaders };
     result = { status: str };
-    result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: "text", body: str };
+    result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: 'text', body: str };
     // $ExpectError
     result = {};
 
@@ -92,10 +93,10 @@ const responseHandler: CloudFrontResponseHandler = async (event, context, callba
     result = { status: str };
     // $ExpectError
     result = { clientIp: str, method: str, uri: str, querystring: str, headers: cloudFrontHeaders };
-    result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: "text", body: str };
-    result = { status: str, bodyEncoding: "base64", body: str };
+    result = { status: str, statusDescription: str, headers: cloudFrontHeaders, bodyEncoding: 'text', body: str };
+    result = { status: str, bodyEncoding: 'base64', body: str };
     // $ExpectError
-    result = { status: str, bodyEncoding: "invalid-encoding", body: str };
+    result = { status: str, bodyEncoding: 'invalid-encoding', body: str };
 
     callback(new Error());
     callback(null, result);
@@ -283,65 +284,64 @@ const originRequestEvent: CloudFrontRequestEvent = {
         {
             cf: {
                 config: {
-                    distributionDomainName: "d111111abcdef8.cloudfront.net",
-                    distributionId: "EDFDVBD6EXAMPLE",
-                    eventType: "origin-request",
-                    requestId: "4TyzHTaYWb1GX1qTfsHhEqV6HUDd_BzoBZnwfnvQc_1oF26ClkoUSEQ=="
+                    distributionDomainName: 'd111111abcdef8.cloudfront.net',
+                    distributionId: 'EDFDVBD6EXAMPLE',
+                    eventType: 'origin-request',
+                    requestId: '4TyzHTaYWb1GX1qTfsHhEqV6HUDd_BzoBZnwfnvQc_1oF26ClkoUSEQ==',
                 },
                 request: {
-                    clientIp: "203.0.113.178",
+                    clientIp: '203.0.113.178',
                     headers: {
-                        "x-forwarded-for": [
+                        'x-forwarded-for': [
                             {
-                                key: "X-Forwarded-For",
-                                value: "203.0.113.178"
-                            }
+                                key: 'X-Forwarded-For',
+                                value: '203.0.113.178',
+                            },
                         ],
-                        "user-agent": [
+                        'user-agent': [
                             {
-                                key: "User-Agent",
-                                value: "Amazon CloudFront"
-                            }
+                                key: 'User-Agent',
+                                value: 'Amazon CloudFront',
+                            },
                         ],
                         via: [
                             {
-                                key: "Via",
-                                value:
-                                    "2.0 2afae0d44e2540f472c0635ab62c232b.cloudfront.net (CloudFront)"
-                            }
+                                key: 'Via',
+                                value: '2.0 2afae0d44e2540f472c0635ab62c232b.cloudfront.net (CloudFront)',
+                            },
                         ],
                         host: [
                             {
-                                key: "Host",
-                                value: "example.org"
-                            }
+                                key: 'Host',
+                                value: 'example.org',
+                            },
                         ],
-                        "cache-control": [
+                        'cache-control': [
                             {
-                                key: "Cache-Control",
-                                value: "no-cache, cf-no-cache"
-                            }
-                        ]
+                                key: 'Cache-Control',
+                                value: 'no-cache, cf-no-cache',
+                            },
+                        ],
                     },
-                    method: "GET",
+                    method: 'GET',
                     origin: {
                         custom: {
                             customHeaders: {},
-                            domainName: "example.org",
+                            domainName: 'example.org',
                             keepaliveTimeout: 5,
-                            path: "",
+                            path: '',
                             port: 443,
-                            protocol: "https",
+                            protocol: 'https',
                             readTimeout: 30,
-                            sslProtocols: ["TLSv1", "TLSv1.1", "TLSv1.2"]
-                        }
+                            sslProtocols: ['TLSv1', 'TLSv1.1', 'TLSv1.2'],
+                        },
                     },
-                    querystring: "",
-                    uri: "/"
-                }
-            }
-        }
-    ]
+                    querystring: '',
+                    uri: '/',
+                },
+            },
+        },
+    ],
 };
 
 const originResponseEvent: CloudFrontResponseEvent = {
@@ -349,129 +349,273 @@ const originResponseEvent: CloudFrontResponseEvent = {
         {
             cf: {
                 config: {
-                    distributionDomainName: "d111111abcdef8.cloudfront.net",
-                    distributionId: "EDFDVBD6EXAMPLE",
-                    eventType: "origin-response",
-                    requestId: "4TyzHTaYWb1GX1qTfsHhEqV6HUDd_BzoBZnwfnvQc_1oF26ClkoUSEQ=="
+                    distributionDomainName: 'd111111abcdef8.cloudfront.net',
+                    distributionId: 'EDFDVBD6EXAMPLE',
+                    eventType: 'origin-response',
+                    requestId: '4TyzHTaYWb1GX1qTfsHhEqV6HUDd_BzoBZnwfnvQc_1oF26ClkoUSEQ==',
                 },
                 request: {
-                    clientIp: "203.0.113.178",
+                    clientIp: '203.0.113.178',
                     headers: {
-                        "x-forwarded-for": [
+                        'x-forwarded-for': [
                             {
-                                key: "X-Forwarded-For",
-                                value: "203.0.113.178"
-                            }
+                                key: 'X-Forwarded-For',
+                                value: '203.0.113.178',
+                            },
                         ],
-                        "user-agent": [
+                        'user-agent': [
                             {
-                                key: "User-Agent",
-                                value: "Amazon CloudFront"
-                            }
+                                key: 'User-Agent',
+                                value: 'Amazon CloudFront',
+                            },
                         ],
                         via: [
                             {
-                                key: "Via",
-                                value:
-                                    "2.0 8f22423015641505b8c857a37450d6c0.cloudfront.net (CloudFront)"
-                            }
+                                key: 'Via',
+                                value: '2.0 8f22423015641505b8c857a37450d6c0.cloudfront.net (CloudFront)',
+                            },
                         ],
                         host: [
                             {
-                                key: "Host",
-                                value: "example.org"
-                            }
+                                key: 'Host',
+                                value: 'example.org',
+                            },
                         ],
-                        "cache-control": [
+                        'cache-control': [
                             {
-                                key: "Cache-Control",
-                                value: "no-cache, cf-no-cache"
-                            }
-                        ]
+                                key: 'Cache-Control',
+                                value: 'no-cache, cf-no-cache',
+                            },
+                        ],
                     },
-                    method: "GET",
+                    method: 'GET',
                     origin: {
                         custom: {
                             customHeaders: {},
-                            domainName: "example.org",
+                            domainName: 'example.org',
                             keepaliveTimeout: 5,
-                            path: "",
+                            path: '',
                             port: 443,
-                            protocol: "https",
+                            protocol: 'https',
                             readTimeout: 30,
-                            sslProtocols: ["TLSv1", "TLSv1.1", "TLSv1.2"]
-                        }
+                            sslProtocols: ['TLSv1', 'TLSv1.1', 'TLSv1.2'],
+                        },
                     },
-                    querystring: "",
-                    uri: "/"
+                    querystring: '',
+                    uri: '/',
                 },
                 response: {
                     headers: {
-                        "access-control-allow-credentials": [
+                        'access-control-allow-credentials': [
                             {
-                                key: "Access-Control-Allow-Credentials",
-                                value: "true"
-                            }
+                                key: 'Access-Control-Allow-Credentials',
+                                value: 'true',
+                            },
                         ],
-                        "access-control-allow-origin": [
+                        'access-control-allow-origin': [
                             {
-                                key: "Access-Control-Allow-Origin",
-                                value: "*"
-                            }
+                                key: 'Access-Control-Allow-Origin',
+                                value: '*',
+                            },
                         ],
                         date: [
                             {
-                                key: "Date",
-                                value: "Mon, 13 Jan 2020 20:12:38 GMT"
-                            }
+                                key: 'Date',
+                                value: 'Mon, 13 Jan 2020 20:12:38 GMT',
+                            },
                         ],
-                        "referrer-policy": [
+                        'referrer-policy': [
                             {
-                                key: "Referrer-Policy",
-                                value: "no-referrer-when-downgrade"
-                            }
+                                key: 'Referrer-Policy',
+                                value: 'no-referrer-when-downgrade',
+                            },
                         ],
                         server: [
                             {
-                                key: "Server",
-                                value: "ExampleCustomOriginServer"
-                            }
+                                key: 'Server',
+                                value: 'ExampleCustomOriginServer',
+                            },
                         ],
-                        "x-content-type-options": [
+                        'x-content-type-options': [
                             {
-                                key: "X-Content-Type-Options",
-                                value: "nosniff"
-                            }
+                                key: 'X-Content-Type-Options',
+                                value: 'nosniff',
+                            },
                         ],
-                        "x-frame-options": [
+                        'x-frame-options': [
                             {
-                                key: "X-Frame-Options",
-                                value: "DENY"
-                            }
+                                key: 'X-Frame-Options',
+                                value: 'DENY',
+                            },
                         ],
-                        "x-xss-protection": [
+                        'x-xss-protection': [
                             {
-                                key: "X-XSS-Protection",
-                                value: "1; mode=block"
-                            }
+                                key: 'X-XSS-Protection',
+                                value: '1; mode=block',
+                            },
                         ],
-                        "content-type": [
+                        'content-type': [
                             {
-                                key: "Content-Type",
-                                value: "text/html; charset=utf-8"
-                            }
+                                key: 'Content-Type',
+                                value: 'text/html; charset=utf-8',
+                            },
                         ],
-                        "content-length": [
+                        'content-length': [
                             {
-                                key: "Content-Length",
-                                value: "9593"
-                            }
-                        ]
+                                key: 'Content-Length',
+                                value: '9593',
+                            },
+                        ],
                     },
-                    status: "200",
-                    statusDescription: "OK"
-                }
-            }
-        }
-    ]
+                    status: '200',
+                    statusDescription: 'OK',
+                },
+            },
+        },
+    ],
+};
+
+const cloudFrontFunctionsEvent: CloudFrontFunctionsEvent = {
+    version: '1.0',
+    context: {
+        distributionDomainName: 'd111111abcdef8.cloudfront.net',
+        distributionId: 'EDFDVBD6EXAMPLE',
+        eventType: 'viewer-response',
+        requestId: 'EXAMPLEntjQpEXAMPLE_SG5Z-EXAMPLEPmPfEXAMPLEu3EqEXAMPLE==',
+    },
+    viewer: {
+        ip: '198.51.100.11',
+    },
+    request: {
+        method: 'GET',
+        uri: '/media/index.mpd',
+        querystring: {
+            id: {
+                value: '42',
+            },
+            exp: {
+                value: '1619740800',
+            },
+            ttl: {
+                value: '1440',
+            },
+            novalue: {
+                value: '',
+            },
+            querymv: {
+                value: 'val1',
+                multiValue: [
+                    {
+                        value: 'val1',
+                    },
+                    {
+                        value: 'val2,val3',
+                    },
+                ],
+            },
+        },
+        headers: {
+            host: {
+                value: 'video.example.com',
+            },
+            'user-agent': {
+                value: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0',
+            },
+            accept: {
+                value: 'application/json',
+                multiValue: [
+                    {
+                        value: 'application/json',
+                    },
+                    {
+                        value: 'application/xml',
+                    },
+                    {
+                        value: 'text/html',
+                    },
+                ],
+            },
+            'accept-language': {
+                value: 'en-GB,en;q=0.5',
+            },
+            'accept-encoding': {
+                value: 'gzip, deflate, br',
+            },
+            origin: {
+                value: 'https://website.example.com',
+            },
+            referer: {
+                value: 'https://website.example.com/videos/12345678?action=play',
+            },
+            'cloudfront-viewer-country': {
+                value: 'GB',
+            },
+        },
+        cookies: {
+            cookie1: {
+                value: 'value1',
+            },
+            cookie2: {
+                value: 'value2',
+            },
+            cookie_consent: {
+                value: 'true',
+            },
+            cookiemv: {
+                value: 'value3',
+                multiValue: [
+                    {
+                        value: 'value3',
+                    },
+                    {
+                        value: 'value4',
+                    },
+                ],
+            },
+        },
+    },
+    response: {
+        statusCode: 200,
+        statusDescription: 'OK',
+        headers: {
+            date: {
+                value: 'Mon, 04 Apr 2021 18:57:56 GMT',
+            },
+            server: {
+                value: 'gunicorn/19.9.0',
+            },
+            'access-control-allow-origin': {
+                value: '*',
+            },
+            'access-control-allow-credentials': {
+                value: 'true',
+            },
+            'content-type': {
+                value: 'application/json',
+            },
+            'content-length': {
+                value: '701',
+            },
+        },
+        cookies: {
+            id: {
+                value: 'id1234',
+                attributes: 'Expires=Wed, 05 Apr 2021 07:28:00 GMT',
+            },
+            cookie1: {
+                value: 'val1',
+                attributes: 'Secure; Path=/; Domain=example.com; Expires=Wed, 05 Apr 2021 07:28:00 GMT',
+                multiValue: [
+                    {
+                        value: 'val1',
+                        attributes: 'Secure; Path=/; Domain=example.com; Expires=Wed, 05 Apr 2021 07:28:00 GMT',
+                    },
+                    {
+                        value: 'val2',
+                        attributes: 'Path=/cat; Domain=example.com; Expires=Wed, 10 Jan 2021 07:28:00 GMT',
+                    },
+                ],
+            },
+        },
+    },
 };
