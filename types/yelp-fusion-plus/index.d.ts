@@ -1,4 +1,4 @@
-// Type definitions for @kob490/yelp-fusion-plus 0.0
+// Type definitions for non-npm package yelp-fusion-api
 // Project: https://www.npmjs.com/package/@kob490/yelp-fusion-plus
 // Definitions by: Kob490 <https://github.com/kob490>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
