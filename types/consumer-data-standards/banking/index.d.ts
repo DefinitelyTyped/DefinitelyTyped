@@ -586,7 +586,7 @@ export interface LinksPaginated {
     last?: string;
 }
 
-export enum BankingProductCategory {
+export const enum BankingProductCategory {
     BUSINESS_LOANS = "BUSINES_LOANS",
     CRED_AND_CHRG_CARDS = "CRED_AND_CHRG_CARDS",
     LEASES = "LEASES",
@@ -601,14 +601,14 @@ export enum BankingProductCategory {
     TRAVEL_CARDS = "TRAVEL_CARDS"
 }
 
-export enum ProductCategory {
+export const enum ProductCategory {
     REGULATED_TRUST_ACCOUNTS = "REGULATED_TRUST_ACCOUNTS",
     TERM_DEPOSITS = "TERM_DEPOSITS",
     TRANS_AND_SAVINGS_ACCOUNTS = "TRANS_AND_SAVINGS_ACCOUNTS",
     TRAVEL_CARDS = "TRAVEL_CARDS"
 }
 
-export enum LendingProduct {
+export const enum LendingProduct {
     BUSINESS_LOANS = "BUSINESS_LOANS",
     CRED_AND_CHRG_CARDS = "CRED_AND_CHRG_CARDS",
     LEASES = "LEASES",
@@ -619,32 +619,32 @@ export enum LendingProduct {
     RESIDENTIAL_MORTGAGES = "RESIDENTIAL_MORTGAGES"
 }
 
-export enum PayeeAccountUType {
+export const enum PayeeAccountUType {
     ACCOUNT = "account",
     CARD = "card",
     PAY_ID = "payId"
 }
 
-export enum PayeeIdType {
+export const enum PayeeIdType {
     ABN = "ABN",
     EMAIL = "EMAIL",
     ORG_IDENTIFIER = "ORG_IDENTIFIER",
     TELEPHONE = "TELEPHONE"
 }
 
-export enum PayeeType {
+export const enum PayeeType {
     BILLER = "BILLER",
     DOMESTIC = "DOMESTIC",
     INTERNATIONAL = "INTERNATIONAL"
 }
 
-export enum PayeeUType {
+export const enum PayeeUType {
     BILLER = "biller",
     DOMESTIC = "domestic",
     INTERNATIONAL = "international"
 }
 
-export enum ProductConstraintType {
+export const enum ProductConstraintType {
     MAX_BALANCE = "MAX_BALANCE",
     MAX_LIMIT = "MAX_LIMIT",
     MIN_BALANCE = "MIN_BALANCE",
@@ -652,7 +652,7 @@ export enum ProductConstraintType {
     OPENING_BALANCE = "OPENING_BALANCE"
 }
 
-export enum DepositRateType {
+export const enum DepositRateType {
     BONUS = "BONUS",
     BUNDLE_BONUS = "BUNDLE_BONUS",
     FIXED = "FIXED",
@@ -662,7 +662,7 @@ export enum DepositRateType {
     VARIABLE = "VARIABLE"
 }
 
-export enum DiscountType {
+export const enum DiscountType {
     BALANCE = "BALANCE",
     DEPOSITS = "DEPOSITS",
     ELIGIBILITY_ONLY = "ELIGIBILITY_ONLY",
@@ -670,7 +670,7 @@ export enum DiscountType {
     PAYMENTS = "PAYMENTS"
 }
 
-export enum DiscountEligibilityType {
+export const enum DiscountEligibilityType {
     BUSINESS = "BUSINESS",
     EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS",
     INTRODUCTORY = "INTRODUCTORY",
@@ -686,7 +686,7 @@ export enum DiscountEligibilityType {
     STUDENT = "STUDENT"
 }
 
-export enum ProductEligibilityType {
+export const enum ProductEligibilityType {
     BUSINESS = "BUSINESS",
     EMPLOYMENT_STATUS = "EMPLOYMENT_STATUS",
     MAX_AGE = "MAX_AGE",
@@ -701,7 +701,7 @@ export enum ProductEligibilityType {
     STUDENT = "STUDENT"
 }
 
-export enum ProductFeatureType {
+export const enum ProductFeatureType {
     ADDITIONAL_CARDS = "ADDITIONAL_CARDS",
     BALANCE_TRANSFERS = "BALANCE_TRANSFERS",
     BILL_PAYMENT = "BILL_PAYMENT",
@@ -727,7 +727,7 @@ export enum ProductFeatureType {
     UNLIMITED_TXNS = "UNLIMITED_TXNS"
 }
 
-export enum ProductFeeType {
+export const enum ProductFeeType {
     DEPOSIT = "DEPOSIT",
     EVENT = "EVENT",
     EXIT = "EXIT",
@@ -740,7 +740,7 @@ export enum ProductFeeType {
     WITHDRAWAL = "WITHDRAWAL"
 }
 
-export enum LendingRateType {
+export const enum LendingRateType {
     BUNDLE_DISCOUNT_FIXED = "BUNDLE_DISCOUNT_FIXED",
     BUNDLE_DISCOUNT_VARIABLE = "BUNDLE_DISCOUNT_VARIABLE",
     CASH_ADVANCE = "CASH_ADVANCE",
@@ -759,60 +759,60 @@ export enum LendingRateType {
     OWNER_OCCUPIED = "OWNER_OCCUPIED"
 }
 
-export enum InterestPaymentDueType {
+export const enum InterestPaymentDueType {
     IN_ADVANCE = "IN_ADVANCE",
     IN_ARREARS = "IN_ARREARS",
 }
 
-export enum RepaymentType {
+export const enum RepaymentType {
     INTEREST_ONLY = "INTEREST_ONLY",
     PRINCIPAL_AND_INTEREST = "PRINCIPAL_AND_INTEREST",
 }
 
-export enum LoanPurposeType {
+export const enum LoanPurposeType {
     INVESTMENT = "INVESTMENT",
     OWNER_OCCUPIED = "OWNER_OCCUPIED"
 }
 
-export enum UnitOfMeasureType {
+export const enum UnitOfMeasureType {
     DAY = "DAY",
     MONTH = "MONTH",
     DOLLAR = "DOLLAR",
     PERCENT = "PERCENT"
 }
 
-export enum RateApplicationMethodType {
+export const enum RateApplicationMethodType {
     PER_TIER = "PER_TIER",
     WHOLE_BALANCE = "WHOLE_BALANCE"
 }
 
-export enum ScheduledPaymentStatusType {
+export const enum ScheduledPaymentStatusType {
     ACTIVE = "ACTIVE",
     INACTIVE = "INACTIVE",
     SKIP = "SKIP"
 }
 
-export enum BankingScheduledPaymentRecurrenceEventBasedType {
+export const enum BankingScheduledPaymentRecurrenceEventBasedType {
     EVENT_BASED = "eventBased",
     INTERVAL_SCHEDULE = "intervalSchedule",
     LAST_WEEKDAY = "lastWeekDay",
     ONCE_OFF = "onceOff"
 }
 
-export enum NonBusinessDayTreatmentType {
+export const enum NonBusinessDayTreatmentType {
     AFTER = "AFTER",
     BEFORE = "BEFORE",
     ON = "ON",
     ONLY = "ONLY"
 }
 
-export enum MaturityInstructionType {
+export const enum MaturityInstructionType {
     HOLD_ON_MATURITY = "HOLD_ON_MATURITY",
     PAID_OUT_AT_MATURITY = "PAID_OUT_AT_MATURITY",
     ROLLED_OVER = "ROLLED_OVER"
 }
 
-export enum BankingTransactionType {
+export const enum BankingTransactionType {
     DIRECT_DEBIT = "DIRECT_DEBIT",
     FEE = "FEE",
     INTEREST_CHARGED = "INTEREST_CHARGED",
@@ -823,15 +823,15 @@ export enum BankingTransactionType {
     TRANSFER_OUTGOING = "TRANSFER_OUTGOING"
 }
 
-export enum BankingTransactionStatus {
+export const enum BankingTransactionStatus {
     PENDING = "PENDING",
     POSTED = "POSTED",
 }
 
-export enum BankingTransactionExtensionUType {
+export const enum BankingTransactionExtensionUType {
     X2P101_PAYLOAD = "x2p101Payload",
 }
 
-export enum BankingTransactionExtensionServiceType {
+export const enum BankingTransactionExtensionServiceType {
     X2P101 = "X2P1.01",
 }
