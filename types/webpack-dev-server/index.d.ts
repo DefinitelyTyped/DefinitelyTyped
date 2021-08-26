@@ -303,12 +303,12 @@ declare class WebpackDevServer {
     close(callback?: () => void): void;
 
     /** @async */
-    start(): void;
+    start(): Promise<void>;
 
     startCallback(callback: () => void): void;
 
     /** @async */
-    stop(): void;
+    stop(): Promise<void>;
 
     stopCallback(callback: () => void): void;
 
