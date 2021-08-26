@@ -1,6 +1,6 @@
-import yelp from 'yelp-fusion';
+import yelpFusion from 'yelp-fusion';
 
 // $ExpectType LocationBusinessesSearchRequest
-yelp.LocationBusinessesSearchRequest({
+yelpFusion.LocationBusinessesSearchRequest({
     location: 'New York',
 });
