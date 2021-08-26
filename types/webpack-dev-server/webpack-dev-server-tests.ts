@@ -18,7 +18,9 @@ let server = new WebpackDevServer(
     },
     compiler,
 );
-server.start();
+(async () => {
+    await server.start();
+})();
 
 // Configuration can be used as a type
 const config: WebpackDevServer.Configuration = {
@@ -215,7 +217,9 @@ const c6: WebpackDevServer.Configuration = {
 
 // API example
 server = new WebpackDevServer(config, compiler);
-server.start();
+(async () => {
+    await server.start();
+})();
 
 // test the socket writer
 server.sendMessage(server.sockets, 'type1');
