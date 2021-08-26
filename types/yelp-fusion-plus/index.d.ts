@@ -1,6 +1,6 @@
-// Type definitions for yelp 1.1
+// Type definitions for yelp-fusion-plus 0.0.5
 // Project: https://www.npmjs.com/package/@kob490/yelp-fusion-plus
-// Definitions by: Koby <https://github.com/kob490>
+// Definitions by: Kob490 <https://github.com/kob490>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export namespace YelpFusionPlus {
