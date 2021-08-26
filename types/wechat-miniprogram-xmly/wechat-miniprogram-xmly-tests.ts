@@ -1,7 +1,7 @@
 import XMPlugin from 'wechat-miniprogram-xmly';
 
 // plugin
-let { player, xmly } = XMPlugin.init({
+const { player, xmly } = XMPlugin.init({
     appKey: 'your appKey',
     appSecret: 'your appSecret',
 });
@@ -13,11 +13,7 @@ XMPlugin.init({
     appKey: 'your appKey',
     getAccessToken: () => 'your appSecret',
 });
-const xmplugin = XMPlugin.getInstance();
-if (xmplugin) {
-    player = xmplugin.player;
-    xmly = xmplugin.xmly;
-}
+XMPlugin.getInstance();
 XMPlugin.destroy();
 // $ExpectType string
 XMPlugin.getDeviceId();
