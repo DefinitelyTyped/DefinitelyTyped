@@ -9,36 +9,34 @@
 declare module 'window-size' {
     import { WriteStream } from 'fs';
 
-    export interface Size {
-        /** Height of the terminal window.*/
-        height: number;
-        /** Width of the terminal window.*/
-        width: number;
-    }
-
-    /** Options of inner function `streamSize`. */
-    type StreamSizeOptions = Record<string, WriteStream>;
-
-    /** Options of function `windowSize.tty`. */
-    interface TtySizeOptions {
-        tty?: {
-            getWindowSize?: (out: WriteStream) => [number, number];
-        };
-    }
-
-    /** Options of function `windowSize.get` */
-    type WindowSizeOptions = StreamSizeOptions & TtySizeOptions;
-
-    const windowSize: Size & {
+    const windowSize: windowSize.Size & {
         /** Get terminal window's size with available channels. */
-        get(options?: WindowSizeOptions): Size;
+        get(options?: windowSize.WindowSizeOptions): windowSize.Size;
         /** Get terminal window's size with `process.env.COLUMNS` and `process.env.ROWS`. */
-        env(): Size;
+        env(): windowSize.Size;
         /** Get terminal window's size with `tty` module */
-        tty(options: TtySizeOptions): Size;
-        tput(): Size;
-        win(): Size;
+        tty(options: windowSize.TtySizeOptions): windowSize.Size;
+        tput(): windowSize.Size;
+        win(): windowSize.Size;
     };
+    export = windowSize;
+    namespace windowSize {
+        export interface Size {
+            width: number;
+            height: number;
+        }
 
-    export default windowSize;
+        /** Options of inner function `streamSize`. */
+        type StreamSizeOptions = Record<string, WriteStream>;
+
+        /** Options of function `windowSize.tty`. */
+        interface TtySizeOptions {
+            tty?: {
+                getWindowSize?: (out: WriteStream) => [number, number];
+            };
+        }
+
+        /** Options of function `windowSize.get` */
+        type WindowSizeOptions = StreamSizeOptions & TtySizeOptions;
+    }
 }
