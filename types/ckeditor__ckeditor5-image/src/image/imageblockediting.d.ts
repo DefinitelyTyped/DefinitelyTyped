@@ -8,3 +8,9 @@ export default class ImageBlockEditing extends Plugin {
     static readonly pluginName: 'ImageBlockEditing';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageBlockEditing: ImageBlockEditing;
+    }
+}

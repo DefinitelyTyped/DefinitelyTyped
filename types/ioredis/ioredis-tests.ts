@@ -16,7 +16,9 @@ const cbNumber = (err: Error | null, result: any) => {
 
 redis.set('foo', 'bar');
 redis.get('foo', cb);
+redis.getdel('foo', cb);
 
+redis.set('foo', 'bar');
 redis.getrangeBuffer("foo", 0, 1, cb);
 redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
 

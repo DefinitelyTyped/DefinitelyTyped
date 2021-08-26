@@ -1,8 +1,8 @@
-// Type definitions for @ckeditor/ckeditor5-build-classic 28.0
+// Type definitions for @ckeditor/ckeditor5-build-classic 29.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/builds/index.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
@@ -80,12 +80,18 @@ export default class ClassicEditor extends ClassicEditorBase {
             ];
         };
         image: {
-            toolbar: ['imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative'];
+            toolbar: [
+                'imageStyle:inline',
+                'imageStyle:block',
+                'imageStyle:side',
+                '|',
+                'toggleImageCaption',
+                'imageTextAlternative',
+            ];
         };
         table: {
             contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'];
         };
-        // This value must be kept in sync with the language defined in webpack.config.js.
-        language: 'en';
+        language: string;
     };
 }

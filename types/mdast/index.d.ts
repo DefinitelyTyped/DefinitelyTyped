@@ -215,7 +215,7 @@ export interface ThematicBreak extends Node {
 
 export interface Blockquote extends Parent {
     type: 'blockquote';
-    children: BlockContent[];
+    children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface List extends Parent {
@@ -230,7 +230,7 @@ export interface ListItem extends Parent {
     type: 'listItem';
     checked?: boolean | null | undefined;
     spread?: boolean | null | undefined;
-    children: BlockContent[];
+    children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface Table extends Parent {
@@ -269,7 +269,7 @@ export interface Definition extends Node, Association, Resource {
 
 export interface FootnoteDefinition extends Parent, Association {
     type: 'footnoteDefinition';
-    children: BlockContent[];
+    children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface Text extends Literal {

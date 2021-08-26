@@ -1,6 +1,22 @@
 import { Data, Point, Position } from 'unist';
 import { Parent, Properties, Literal, Root, Element, DocType, Comment, Text } from 'hast';
 
+// Augmentations
+
+declare module 'hast' {
+    interface RootContentMap {
+        raw: Raw;
+    }
+}
+
+interface Raw extends Literal {
+    type: 'raw';
+}
+
+// Tests
+
+declare var raw: Raw;
+
 const data: Data = {
     string: 'string',
     number: 1,
@@ -63,7 +79,7 @@ const root: Root = {
     type: 'root',
     data,
     position,
-    children: [getElement(), docType, comment, text],
+    children: [getElement(), docType, comment, text, raw],
 };
 
 const properties: Properties = {

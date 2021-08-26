@@ -19,3 +19,9 @@ export interface ImageConfig {
     toolbar?: string[] | undefined;
     upload?: ImageUploadConfig | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Image: Image;
+    }
+}

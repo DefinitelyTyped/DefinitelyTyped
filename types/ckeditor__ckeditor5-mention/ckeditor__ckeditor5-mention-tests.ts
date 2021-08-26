@@ -63,3 +63,12 @@ new MentionListItemView().children.first!.highlight();
 
 new MentionsView().selected.children.first!.highlight();
 new MentionsView().items.first!.highlight();
+
+// $ExpectType Mention
+myEditor.plugins.get('Mention');
+
+// $ExpectType MentionEditing
+myEditor.plugins.get('MentionEditing');
+
+// $ExpectType MentionUI
+myEditor.plugins.get('MentionUI');

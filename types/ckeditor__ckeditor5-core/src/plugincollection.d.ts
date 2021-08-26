@@ -7,6 +7,9 @@ import ContextPlugin from "./contextplugin";
 import Editor from "./editor/editor";
 import Plugin, { PluginInterface, LoadedPlugins } from "./plugin";
 
+// tslint:disable-next-line:no-empty-interface
+export interface Plugins {}
+
 export default class PluginCollection implements Emitter, Iterable<[typeof Plugin, Plugin]> {
     constructor(
         context: Editor | Context,
@@ -19,9 +22,10 @@ export default class PluginCollection implements Emitter, Iterable<[typeof Plugi
 
     get<T extends Plugin>(key: PluginInterface<T>): T;
     get<T extends ContextPlugin>(key: PluginInterface<T>): T;
+    get<T extends keyof Plugins>(key: T): Plugins[T];
     get(key: string): Plugin | ContextPlugin;
 
-    has(key: () => Plugin | string): boolean;
+    has(key: PluginInterface | string): boolean;
 
     init(
         plugins: Array<(() => Plugin) | string>,

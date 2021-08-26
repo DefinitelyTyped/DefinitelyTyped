@@ -29,3 +29,12 @@ const range: Range = suggestion.getRanges()[0];
 const data = new TrackChanges.TrackChangesData(editor);
 data.getDataWithAcceptedSuggestions({ rootName: '' });
 data.getDataWithDiscardedSuggestions({ rootName: '', trim: 'empty' }).then(str => str.startsWith(''));
+
+// $ExpectType TrackChanges
+editor.plugins.get('TrackChanges');
+
+// $ExpectType TrackChangesData
+editor.plugins.get('TrackChangesData');
+
+// $ExpectType TrackChangesEditing
+editor.plugins.get('TrackChangesEditing');

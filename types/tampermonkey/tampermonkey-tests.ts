@@ -287,7 +287,7 @@ const openTabObject = GM_openInTab('http://www.example.com/', {
     setParent: true
 });
 
-openTabObject.onclosed = () => {
+openTabObject.onclose = () => {
     GM_log('Tab closed', openTabObject.closed);
 };
 

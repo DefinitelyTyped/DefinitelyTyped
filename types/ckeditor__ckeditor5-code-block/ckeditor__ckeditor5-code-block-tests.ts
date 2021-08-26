@@ -41,3 +41,12 @@ new IndentCodeBlockCommand(editor).refresh();
 
 new OutdentCodeBlockCommand(editor).execute();
 new OutdentCodeBlockCommand(editor).refresh();
+
+// $ExpectType CodeBlock
+editor.plugins.get('CodeBlock');
+
+// $ExpectType CodeBlockEditing
+editor.plugins.get('CodeBlockEditing');
+
+// $ExpectType CodeBlockUI
+editor.plugins.get('CodeBlockUI');

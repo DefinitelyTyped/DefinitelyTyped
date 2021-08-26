@@ -243,6 +243,14 @@ export function verifierVerifyProof(
     revRegs: RevStates,
 ): Promise<boolean>;
 
+export function createRevocationState(
+    blobStorageReaderHandle: BlobReaderHandle,
+    revRegDef: RevRegDef,
+    revRegDelta: RevocRegDelta,
+    timestamp: number,
+    credRevId: CredRevocId,
+): Promise<RevState>;
+
 // -------------------------------------------- //
 // --------------- BLOB STORAGE --------------- //
 // -------------------------------------------- //
@@ -496,8 +504,6 @@ export interface IndyProof {
     proof: any;
     identifiers: Array<{
         schema_id: string;
-        cred_def_id: string;
-        rev_reg_id?: string | undefined;
         timestamp?: number | undefined;
     }>;
 }
@@ -522,6 +528,12 @@ export interface RevStates {
     [key: string]: {
         [key: string]: unknown;
     };
+}
+
+export interface RevState {
+    rev_reg: RevocReg;
+    witness: Witness;
+    timestamp: number;
 }
 
 export interface IndyRequestedCredentials {
@@ -610,6 +622,10 @@ export interface RevocReg {
         accum: string;
     };
     ver: string;
+}
+
+export interface Witness {
+    [key: string]: unknown;
 }
 
 export interface KeyConfig {

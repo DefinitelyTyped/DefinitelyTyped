@@ -182,6 +182,7 @@ declare namespace Bookshelf {
     abstract class CollectionBase<T extends Model<any>> extends Events<T> {
         // See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L573
         length: number;
+        models: T[];
 
         // See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L21
         constructor(models?: T[], options?: CollectionOptions<T>);

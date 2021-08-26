@@ -42,3 +42,6 @@ config = {
 config = {
     tokenUrl: "",
 };
+
+// $ExpectType ExportWord
+new MyEditor().plugins.get('ExportWord');
