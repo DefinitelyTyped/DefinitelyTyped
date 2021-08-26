@@ -2,7 +2,6 @@
 // Project: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html
 // Definitions by: Jakub Zelenka <https://github.com/bukka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 declare namespace AWSCloudFrontFunction {
     interface Event {
