@@ -805,11 +805,10 @@ declare namespace React {
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
-        // Just Pick would be sufficient for this, but I'm trying to avoid unnecessary mapping over union types
+        // Pick would not be sufficient for this. We need a distributive conditional to support unions and to avoid unnecessary mapping.
+        // https://www.typescriptlang.org/docs/handbook/advanced-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        'ref' extends keyof P
-            ? Pick<P, Exclude<keyof P, 'ref'>>
-            : P;
+        P extends any ? ('ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>> : P) : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
