@@ -251,7 +251,7 @@ declare namespace WebpackDevServer {
          * This options allows to configure options for serving static files
          * from directory (by default 'public' directory).
          */
-        static?: boolean | Static | undefined;
+        static?: boolean | string | Static | Array<string | Static> | undefined;
         /**
          * This option allows you to configure list of globs/directories/files
          * to watch for file changes.

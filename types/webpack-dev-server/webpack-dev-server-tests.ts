@@ -167,6 +167,8 @@ const c3: WebpackDevServer.Configuration = {
     host: '127.0.0.1',
     port: 8080,
 
+    static: '/path/to/directory',
+
     devMiddleware: {
         stats: 'verbose',
     },
@@ -175,6 +177,8 @@ const c4: WebpackDevServer.Configuration = {
     // Host and port are required options to correct work.
     host: 'localhost',
     port: 8080,
+
+    static: ['/path/to/directory', '/path/to/another-directory'],
 
     devMiddleware: {
         writeToDisk: (filePath: string) => true,
