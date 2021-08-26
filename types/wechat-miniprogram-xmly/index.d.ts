@@ -18,7 +18,7 @@ interface options {
      */
     appSecret?: string; // 开放平台应用接入申请的app_secret（免登录授权必传）
     accessTokenUrl?: string; // 应用登记的oauth2授权回调地址（标准登录授权，必传）
-    getAccessToken?: (() => string); // 合作方实现：获取 access_token 的 js 函数（第三方账号登录授权，必传）
+    getAccessToken?: () => string; // 合作方实现：获取 access_token 的 js 函数（第三方账号登录授权，必传）
 }
 
 export default class XMPlugin {
