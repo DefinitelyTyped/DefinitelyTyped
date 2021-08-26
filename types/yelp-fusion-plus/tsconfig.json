@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "yelp-fusion-tests.ts"
+        "yelp-fusion-plus-tests.ts"
     ]
 }

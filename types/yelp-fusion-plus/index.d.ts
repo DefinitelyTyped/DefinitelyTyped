@@ -1,9 +1,9 @@
 // Type definitions for yelp 1.1
-// Project: https://www.yelp.com/fusion
+// Project: https://www.npmjs.com/package/@kob490/yelp-fusion-plus
 // Definitions by: Koby <https://github.com/kob490>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export namespace YelpFusion {
+export namespace YelpFusionPlus {
     interface Business {
         id: string;
         alias: string;
