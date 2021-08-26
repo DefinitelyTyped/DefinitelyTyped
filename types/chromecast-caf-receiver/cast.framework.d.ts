@@ -564,6 +564,11 @@ export class PlayerManager {
     getDurationSec(): number;
 
     /**
+     * Gets media start time in absolute time for live. Time is in Epoch time.
+     */
+    getStartAbsoluteTime(): number | null;
+
+    /**
      * @returns live seekable range with start and end time in seconds. The values
      *     are media time based.
      */
