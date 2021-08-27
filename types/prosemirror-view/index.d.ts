@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.18
+// Type definitions for prosemirror-view 1.19.3
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
