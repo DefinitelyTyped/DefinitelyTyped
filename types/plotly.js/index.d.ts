@@ -1260,8 +1260,8 @@ export interface PlotData {
     showscale: boolean;
     colorscale: ColorScale;
     zsmooth: 'fast' | 'best' | false;
-    zmin: number | undefined;
-    zmax: number | undefined;
+    zmin: number;
+    zmax: number;
     ygap: number;
     xgap: number;
     transpose: boolean;
