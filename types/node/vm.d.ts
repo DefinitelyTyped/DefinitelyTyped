@@ -267,6 +267,8 @@ declare module 'vm' {
          * @since v10.6.0
          */
         createCachedData(): Buffer;
+
+		/** @deprecated in favor of `script.createCachedData()` */
 		cachedDataProduced?: boolean | undefined;
         cachedDataRejected?: boolean | undefined;
 		cachedData?: Buffer | undefined;
