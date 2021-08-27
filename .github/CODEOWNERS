@@ -366,7 +366,7 @@
 /types/aws-serverless-express/                          @threesquared @jcaffey @mattmeye @albertovasquez
 /types/aws-synthetics-puppeteer/                        @Tantalon
 /types/aws4/                                            @ajcrites
-/types/axe-webdriverjs/                                 @tylerkrupicka @peterblazejewicz
+/types/axe-webdriverjs/                                 @JoshuaKGoldberg @tylerkrupicka @peterblazejewicz
 /types/axel/                                            @ruslan-molodyko
 /types/axios-cancel/                                    @TheDSCPL
 /types/axios-curlirize/                                 @stevenhankin
@@ -717,7 +717,7 @@
 /types/cfenv/                                           @jordanadams
 /types/cfn-response/                                    @ivoisbelongtous @arturovt
 /types/cfn-response-promise/                            @arturovt
-/types/chai/                                            @jedmao @Bartvds @AGBrown @olivr70 @mwistrand @shaunluttin @Naktibalda @micksatana @ErikSchierboom @bparan @CXuesong @joeykilpatrick
+/types/chai/                                            @jedmao @Bartvds @AGBrown @olivr70 @mwistrand @joshuakgoldberg @shaunluttin @Naktibalda @micksatana @ErikSchierboom @bparan @CXuesong @joeykilpatrick
 /types/chai/v2/                                         @jedmao @Bartvds @AGBrown
 /types/chai-almost/                                     @kclnn
 /types/chai-arrays/                                     @clementprevot
@@ -1381,7 +1381,7 @@
 /types/deasync/                                         @Sicilica
 /types/death/                                           @ckknight @pranaygp
 /types/debessmann/                                      @vkorehov
-/types/debounce/                                        @denis-sokolov @wcarson
+/types/debounce/                                        @denis-sokolov @joshuakgoldberg @wcarson
 /types/debounce-promise/                                @whtsky
 /types/debug/                                           @swook @galtalmor @zamb3zi @brasten @npenin @kristianmitk @calebgregory
 /types/decay/                                           @enaeseth
@@ -1808,7 +1808,7 @@
 /types/exit/                                            @Bartvds
 /types/exorcist/                                        @TeamworkGuy2 @BendingBender
 /types/expand-tilde/                                    @carnesen
-/types/expect-puppeteer/                                @tkrotoff @jfm710
+/types/expect-puppeteer/                                @JoshuaKGoldberg @tkrotoff @jfm710
 /types/expect.js/                                       @teppeis
 /types/expectations/                                    @vvakame
 /types/expired/                                         @BendingBender
@@ -3160,11 +3160,11 @@
 /types/jcanvas/                                         @rogierschouten
 /types/jconv/                                           @thany
 /types/jdataview/                                       @RReverser
-/types/jest/                                            @NoHomey @jwbay @asvetliakov @alexjoverm @epicallan @ikatyang @wsmd @JamieMason @douglasduteil @ahnpnl @UselessPickles @r3nya @hotell @sebald @andys8 @antoinebrault @gstamac @ExE-Boss @quassnoi @Belco90 @tonyhallett @ycmjason @devanshj @pawfa @regevbr @gerkindev @domdomegg
+/types/jest/                                            @NoHomey @jwbay @asvetliakov @alexjoverm @epicallan @ikatyang @wsmd @JamieMason @douglasduteil @ahnpnl @joshuakgoldberg @UselessPickles @r3nya @hotell @sebald @andys8 @antoinebrault @gstamac @ExE-Boss @quassnoi @Belco90 @tonyhallett @ycmjason @devanshj @pawfa @regevbr @gerkindev @domdomegg
 /types/jest/v16/                                        @NoHomey @jwbay @ExE-Boss
-/types/jest-axe/                                        @erbridge
+/types/jest-axe/                                        @JoshuaKGoldberg @erbridge
 /types/jest-dev-server/                                 @ifiokjr
-/types/jest-environment-puppeteer/                      @ifiokjr
+/types/jest-environment-puppeteer/                      @joshuakgoldberg @ifiokjr
 /types/jest-expect-message/                             @mike-d-davydov @saitonakamura
 /types/jest-image-snapshot/                             @dawnmist @erbridge @peterblazejewicz
 /types/jest-in-case/                                    @geovanisouza92
@@ -3324,7 +3324,7 @@
 /types/jquerymobile/                                    @borisyankov
 /types/jqueryui/                                        @borisyankov @johnnyreilly @doberkofler
 /types/jrf-pip/                                         @jirufik
-/types/js-beautify/                                     @hansrwindhoff @gavinr @peterblazejewicz
+/types/js-beautify/                                     @JoshuaKGoldberg @hansrwindhoff @gavinr @peterblazejewicz
 /types/js-captcha/                                      @pikachuexe
 /types/js-clipper/                                      @omni360
 /types/js-cookie/                                       @theodorejb @BendingBender @alepee @yutod @nreynis
@@ -3416,7 +3416,7 @@
 /types/jsonabc/                                         @ffflorian
 /types/jsonapi-serializer/                              @chiangf
 /types/jsoneditor/                                      @alejo90 @errietta @adamvig @joepkockelkorn
-/types/jsoneditor-for-react/                            @joepkockelkorn
+/types/jsoneditor-for-react/                            @joshuakgoldberg @joepkockelkorn
 /types/jsoneditoronline/                                @vbortone
 /types/jsonexport/                                      @g-ongenae
 /types/jsonfile/                                        @dbowring @BendingBender @peterblazejewicz
@@ -4151,7 +4151,7 @@
 /types/logrotate-stream/                                @rogierschouten
 /types/logstub/                                         @forivall
 /types/lokijs/                                          @TeamworkGuy2 @thomasconner
-/types/lolex/                                           @Nemo157 @rogierschouten @zyishai
+/types/lolex/                                           @Nemo157 @joshuakgoldberg @rogierschouten @zyishai
 /types/long/                                            @peterkooijmans
 /types/long-timeout/                                    @MatthiasKunnen
 /types/loopback/                                        @kattsushi @enko @sequoia @drmikecrowe @karimsa
@@ -6707,7 +6707,7 @@
 /types/simulant/                                        @ecraig12345
 /types/single-line-log/                                 @ffflorian
 /types/single-trailing-newline/                         @peterjuras
-/types/sinon/                                           @mrbigdog2u @lumaxis @nicojs @43081j @gjednaszewski @johnjesse @alecf @SimonSchick
+/types/sinon/                                           @mrbigdog2u @lumaxis @nicojs @43081j @joshuakgoldberg @gjednaszewski @johnjesse @alecf @SimonSchick
 /types/sinon-as-promised/                               @igrayson
 /types/sinon-chai/                                      @kazimanzurrashid @jedmao @elpdpt
 /types/sinon-chai/v2/                                   @kazimanzurrashid @jedmao
@@ -6716,7 +6716,7 @@
 /types/sinon-mongoose/                                  @stevehipwell
 /types/sinon-stub-promise/                              @vintem @tstackhouse
 /types/sinon-test/                                      @mummybot
-/types/sinonjs__fake-timers/                            @Nemo157 @rogierschouten @zyishai @remcohaszing
+/types/sinonjs__fake-timers/                            @Nemo157 @joshuakgoldberg @rogierschouten @zyishai @remcohaszing
 /types/sipml/                                           @chookies
 /types/siren-parser/                                    @dillonredding
 /types/sitemap-generator/                               @grgr-dkrk
@@ -7912,7 +7912,7 @@
 /types/yog2-kernel/                                     @ssddi456 @devinux
 /types/yoga-layout/                                     @tnobody
 /types/yosay/                                           @armorik83
-/types/youtube/                                         @eliotfallon213 @terrymun @paulhobbel
+/types/youtube/                                         @JoshuaKGoldberg @eliotfallon213 @terrymun @paulhobbel
 /types/youtube-dl/                                      @bsurai @moshfeu @NotWoods
 /types/youtube-player/                                  @jurca
 /types/yt-player/                                       @troeggla
