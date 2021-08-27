@@ -436,17 +436,8 @@ declare namespace IORedis {
         zremrangebyrank(key: KeyType, start: number, stop: number, callback: Callback<number>): void;
         zremrangebyrank(key: KeyType, start: number, stop: number): Promise<number>;
 
-        zremrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-        ): Promise<number>;
-        zremrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback: Callback<number>
-        ): void;
+        zremrangebylex(key: KeyType, min: string, max: string): Promise<number>;
+        zremrangebylex(key: KeyType, min: string, max: string, callback: Callback<number>): void;
 
         zunionstore: OverloadedKeyCommand<KeyType | number, number>;
 
@@ -457,7 +448,13 @@ declare namespace IORedis {
         zrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
 
         zrangeBuffer(key: KeyType, start: number, stop: number, callback: Callback<Buffer[]>): void;
-        zrangeBuffer(key: KeyType, start: number, stop: number, withScores: 'WITHSCORES', callback: Callback<Buffer[]>): void;
+        zrangeBuffer(
+            key: KeyType,
+            start: number,
+            stop: number,
+            withScores: 'WITHSCORES',
+            callback: Callback<Buffer[]>,
+        ): void;
         zrangeBuffer(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<Buffer[]>;
 
         zrevrange(key: KeyType, start: number, stop: number, callback: Callback<string[]>): void;
@@ -554,7 +551,12 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<Buffer[]>;
-        zrangebyscoreBuffer(key: KeyType, min: number | string, max: number | string, callback: Callback<Buffer[]>): void;
+        zrangebyscoreBuffer(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            callback: Callback<Buffer[]>,
+        ): void;
         zrangebyscoreBuffer(
             key: KeyType,
             min: number | string,
@@ -656,7 +658,12 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<Buffer[]>;
-        zrevrangebyscoreBuffer(key: KeyType, max: number | string, min: number | string, callback: Callback<Buffer[]>): void;
+        zrevrangebyscoreBuffer(
+            key: KeyType,
+            max: number | string,
+            min: number | string,
+            callback: Callback<Buffer[]>,
+        ): void;
         zrevrangebyscoreBuffer(
             key: KeyType,
             max: number | string,
@@ -684,11 +691,7 @@ declare namespace IORedis {
             callback: Callback<Buffer[]>,
         ): void;
 
-        zrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-        ): Promise<string[]>;
+        zrangebylex(key: KeyType, min: string, max: string): Promise<string[]>;
         zrangebylex(
             key: KeyType,
             min: string,
@@ -697,12 +700,7 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback: Callback<string[]>,
-        ): void;
+        zrangebylex(key: KeyType, min: string, max: string, callback: Callback<string[]>): void;
         zrangebylex(
             key: KeyType,
             min: string,
@@ -713,11 +711,7 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
 
-        zrangebylexBuffer(
-            key: KeyType,
-            min: string,
-            max: string,
-        ): Promise<Buffer[]>;
+        zrangebylexBuffer(key: KeyType, min: string, max: string): Promise<Buffer[]>;
         zrangebylexBuffer(
             key: KeyType,
             min: string,
@@ -726,12 +720,7 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<Buffer[]>;
-        zrangebylexBuffer(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback: Callback<Buffer[]>,
-        ): void;
+        zrangebylexBuffer(key: KeyType, min: string, max: string, callback: Callback<Buffer[]>): void;
         zrangebylexBuffer(
             key: KeyType,
             min: string,
@@ -742,11 +731,7 @@ declare namespace IORedis {
             callback: Callback<Buffer[]>,
         ): void;
 
-        zrevrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-        ): Promise<string[]>;
+        zrevrangebylex(key: KeyType, min: string, max: string): Promise<string[]>;
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -755,12 +740,7 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrevrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback: Callback<string[]>,
-        ): void;
+        zrevrangebylex(key: KeyType, min: string, max: string, callback: Callback<string[]>): void;
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -771,11 +751,7 @@ declare namespace IORedis {
             callback: Callback<string[]>,
         ): void;
 
-        zrevrangebylexBuffer(
-            key: KeyType,
-            min: string,
-            max: string,
-        ): Promise<Buffer[]>;
+        zrevrangebylexBuffer(key: KeyType, min: string, max: string): Promise<Buffer[]>;
         zrevrangebylexBuffer(
             key: KeyType,
             min: string,
@@ -784,12 +760,7 @@ declare namespace IORedis {
             offset: number,
             count: number,
         ): Promise<Buffer[]>;
-        zrevrangebylexBuffer(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback: Callback<Buffer[]>,
-        ): void;
+        zrevrangebylexBuffer(key: KeyType, min: string, max: string, callback: Callback<Buffer[]>): void;
         zrevrangebylexBuffer(
             key: KeyType,
             min: string,
@@ -862,8 +833,14 @@ declare namespace IORedis {
         geoadd(key: KeyType, longitude: number, latitude: number, member: string, callback: Callback<number>): void;
         geoadd(key: KeyType, longitude: number, latitude: number, member: string): Promise<number>;
 
-        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi', callback: Callback<string | null>): void;
-        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi'): Promise<string | null>;
+        geodist(
+            key: KeyType,
+            member1: string,
+            member2: string,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            callback: Callback<string | null>,
+        ): void;
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm' | 'km' | 'ft' | 'mi'): Promise<string | null>;
 
         geohash: OverloadedKeyCommand<string, string[]>;
 
@@ -874,7 +851,7 @@ declare namespace IORedis {
             longitude: number,
             latitude: number,
             radius: number,
-            unit: 'm'|'km'|'ft'|'mi',
+            unit: 'm' | 'km' | 'ft' | 'mi',
             callback: Callback<string[]>,
         ): void;
         georadius(
@@ -882,24 +859,167 @@ declare namespace IORedis {
             longitude: number,
             latitude: number,
             radius: number,
-            unit: 'm'|'km'|'ft'|'mi',
-            sort?: 'ASC' | 'DESC'
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
         ): Promise<string[]>;
         georadius(
             key: KeyType,
             longitude: number,
             latitude: number,
             radius: number,
-            unit: 'm'|'km'|'ft'|'mi',
+            unit: 'm' | 'km' | 'ft' | 'mi',
             count: 'COUNT',
             countValue: number,
-            sort?: 'ASC' | 'DESC'
+            sort?: 'ASC' | 'DESC',
         ): Promise<string[]>;
 
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', callback: Callback<string[]>): void;
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback: Callback<string[]>): void;
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi'): Promise<string[]>;
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number): Promise<string[]>;
+        georadiusbymember(
+            key: KeyType,
+            member: string,
+            radius: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            callback: Callback<string[]>,
+        ): void;
+        georadiusbymember(
+            key: KeyType,
+            member: string,
+            radius: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            callback: Callback<string[]>,
+        ): void;
+        georadiusbymember(
+            key: KeyType,
+            member: string,
+            radius: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+        ): Promise<string[]>;
+        georadiusbymember(
+            key: KeyType,
+            member: string,
+            radius: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+        ): Promise<string[]>;
+
+        /**
+         * https://redis.io/commands/geosearch
+         */
+        geosearch(
+            key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYRADIUS',
+            radius: number,
+            radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Promise<string[] | Array<string[] | string[][]>>;
+        geosearch(
+            key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYBOX',
+            width: number,
+            height: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Promise<string[] | Array<string[] | string[][]>>;
+        geosearch(
+            key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number,
+            latitude: number,
+            by: 'BYRADIUS',
+            radius: number,
+            radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Promise<string[] | Array<string[] | string[][]>>;
+        geosearch(
+            key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number,
+            latitude: number,
+            by: 'BYBOX',
+            width: number,
+            height: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Promise<string[] | Array<string[] | string[][]>>;
+        // without count
+        geosearch(
+            key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYRADIUS',
+            radius: number,
+            radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Promise<string[] | Array<string[] | string[][]>>;
+        geosearch(
+            key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYBOX',
+            width: number,
+            height: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Promise<string[] | Array<string[] | string[][]>>;
+        geosearch(
+            key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number,
+            latitude: number,
+            by: 'BYRADIUS',
+            radius: number,
+            radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Promise<string[] | Array<string[] | string[][]>>;
+        geosearch(
+            key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number,
+            latitude: number,
+            by: 'BYBOX',
+            width: number,
+            height: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Promise<string[] | Array<string[] | string[][]>>;
 
         incrby(key: KeyType, increment: number, callback: Callback<number>): void;
         incrby(key: KeyType, increment: number): Promise<number>;
@@ -1354,12 +1474,7 @@ declare namespace IORedis {
 
         zremrangebyrank(key: KeyType, start: number, stop: number, callback?: Callback<number>): Pipeline;
 
-        zremrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback?: Callback<number>,
-        ): Pipeline;
+        zremrangebylex(key: KeyType, min: string, max: string, callback?: Callback<number>): Pipeline;
 
         zunionstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
 
@@ -1387,12 +1502,7 @@ declare namespace IORedis {
 
         zrevrangebyscore(key: KeyType, max: number | string, min: number | string, ...args: string[]): Pipeline;
 
-        zrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback?: Callback<string[]>,
-        ): Pipeline;
+        zrangebylex(key: KeyType, min: string, max: string, callback?: Callback<string[]>): Pipeline;
         zrangebylex(
             key: KeyType,
             min: string,
@@ -1402,12 +1512,7 @@ declare namespace IORedis {
             count: number,
             callback?: Callback<string[]>,
         ): Pipeline;
-        zrevrangebylex(
-            key: KeyType,
-            min: string,
-            max: string,
-            callback?: Callback<string[]>,
-        ): Pipeline;
+        zrevrangebylex(key: KeyType, min: string, max: string, callback?: Callback<string[]>): Pipeline;
         zrevrangebylex(
             key: KeyType,
             min: string,
@@ -1461,19 +1566,178 @@ declare namespace IORedis {
 
         hexists(key: KeyType, field: string, callback?: Callback<BooleanResponse>): Pipeline;
 
-        geoadd(key: KeyType, longitude: number, latitude: number, member: string, callback?: Callback<number>): Pipeline;
+        geoadd(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            member: string,
+            callback?: Callback<number>,
+        ): Pipeline;
 
-        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string | null>): Pipeline;
+        geodist(
+            key: KeyType,
+            member1: string,
+            member2: string,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            callback?: Callback<string | null>,
+        ): Pipeline;
 
         geohash(key: KeyType, ...fields: string[]): Pipeline;
 
         geopos(key: KeyType, ...fields: string[]): Pipeline;
 
-        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string[]>): Pipeline;
-        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
+        georadius(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            radius: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            callback?: Callback<string[]>,
+        ): Pipeline;
+        georadius(
+            key: KeyType,
+            longitude: number,
+            latitude: number,
+            radius: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            callback?: Callback<string[]>,
+        ): Pipeline;
 
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string[]>): Pipeline;
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
+        georadiusbymember(
+            key: KeyType,
+            member: string,
+            radius: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            callback?: Callback<string[]>,
+        ): Pipeline;
+        georadiusbymember(
+            key: KeyType,
+            member: string,
+            radius: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            callback?: Callback<string[]>,
+        ): Pipeline;
+
+        /**
+         * https://redis.io/commands/geosearch
+         */
+        geosearch(
+            key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYRADIUS',
+            radius: number,
+            radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Pipeline;
+        geosearch(
+            key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYBOX',
+            width: number,
+            height: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Pipeline;
+        geosearch(
+            key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number,
+            latitude: number,
+            by: 'BYRADIUS',
+            radius: number,
+            radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Pipeline;
+        geosearch(
+            key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number,
+            latitude: number,
+            by: 'BYBOX',
+            width: number,
+            height: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Pipeline;
+        // without count
+        geosearch(
+            key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYRADIUS',
+            radius: number,
+            radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Pipeline;
+        geosearch(
+            key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYBOX',
+            width: number,
+            height: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Pipeline;
+        geosearch(
+            key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number,
+            latitude: number,
+            by: 'BYRADIUS',
+            radius: number,
+            radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Pipeline;
+        geosearch(
+            key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number,
+            latitude: number,
+            by: 'BYBOX',
+            width: number,
+            height: number,
+            unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD',
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH',
+        ): Pipeline;
 
         incrby(key: KeyType, increment: number, callback?: Callback<number>): Pipeline;
 
