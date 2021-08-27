@@ -6,7 +6,7 @@
 
 import { StringSchema, Extension, Root } from 'joi';
 
-declare module 'Joi' {
+declare module 'joi' {
     interface PhoneNumberOptions {
         defaultCountry?: string[] | string | undefined;
         strict?: boolean | undefined;
