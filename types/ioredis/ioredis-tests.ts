@@ -17,8 +17,8 @@ const cbNumber = (err: Error | null, result: any) => {
 redis.set('foo', 'bar');
 redis.get('foo', cb);
 
-redis.getrangeBuffer("foo", 0, 1, cb);
-redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
+redis.getrangeBuffer('foo', 0, 1, cb);
+redis.getrangeBuffer('foo', 0, 1).then(b => cb(null, b));
 
 // Static check that returned value is always a number
 redis.del('foo', 'bar').then(result => result * 1);
@@ -196,14 +196,16 @@ redis.msetnx(new Map<string, number>(), cbNumber);
 
 // Test for GEO commands
 redis.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', cbNumber);
-redis.geoadd('Sicily', 15.087269 , 37.502669, 'Catania').then(console.log);
+redis.geoadd('Sicily', 15.087269, 37.502669, 'Catania').then(console.log);
 redis.geodist('Sicily', 'Palermo', 'Catania', 'km', cb);
 redis.geodist('Sicily', 'Palermo', 'Catania', 'km').then(console.log);
 redis.geohash('Sicily', 'Palermo', 'Catania').then(console.log);
 redis.geopos('Sicily', 'Palermo', 'Catania').then(console.log);
 redis.georadius('Sicily', 15, 37, 200, 'km').then(console.log);
 redis.georadiusbymember('Sicily', 'Palermo', 200, 'km').then(console.log);
-redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'ASC', 'WITHCOORD', 'WITHDIST').then(console.log);
+redis
+    .geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'ASC', 'WITHCOORD', 'WITHDIST')
+    .then(console.log);
 redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'COUNT', 1, 'ASC').then(console.log);
 redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYRADIUS', 200, 'km', 'ASC').then(console.log);
 redis.geosearch('Sicily', 'FROMMEMBER', 'Catania', 'BYBOX', 200, 300, 'km', 'ASC').then(console.log);
@@ -327,7 +329,7 @@ new Redis({
     tls: {
         servername: 'tlsservername',
     },
-    enableAutoPipelining: true
+    enableAutoPipelining: true,
 });
 
 const pub = new Redis();
@@ -711,7 +713,8 @@ new Command('mget', ['key1', 'key2']);
 new Command('get', ['key2'], { replyEncoding: 'utf8' });
 
 // Test all z*bylex commands in a single pipeline
-redis.pipeline()
+redis
+    .pipeline()
     .zrangebylex('foo', '-', '+', (err: Error | null, res: string[]) => {
         // do something with res or err
     })
