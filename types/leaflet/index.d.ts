@@ -233,6 +233,7 @@ export type BoundsLiteral = [PointTuple, PointTuple];
 export class Bounds {
     constructor(topLeft: PointExpression, bottomRight: PointExpression);
     constructor(points: Point[] | BoundsLiteral);
+    constructor();
     extend(point: PointExpression): this;
     getCenter(round?: boolean): Point;
     getBottomLeft(): Point;
@@ -243,6 +244,7 @@ export class Bounds {
     contains(pointOrBounds: BoundsExpression | PointExpression): boolean;
     intersects(otherBounds: BoundsExpression): boolean;
     overlaps(otherBounds: BoundsExpression): boolean;
+    isValid(): boolean;
 
     min?: Point | undefined;
     max?: Point | undefined;
