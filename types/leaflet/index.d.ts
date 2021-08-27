@@ -232,8 +232,7 @@ export type BoundsLiteral = [PointTuple, PointTuple];
 
 export class Bounds {
     constructor(topLeft: PointExpression, bottomRight: PointExpression);
-    constructor(points: Point[] | BoundsLiteral);
-    constructor();
+    constructor(points?: Point[] | BoundsLiteral);
     extend(point: PointExpression): this;
     getCenter(round?: boolean): Point;
     getBottomLeft(): Point;
