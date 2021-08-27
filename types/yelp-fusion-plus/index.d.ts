@@ -24,7 +24,7 @@ interface _BusinessesSearchResponse {
     region: Region;
 }
 
-interface Business {
+export interface Business {
     id: string;
     alias: string;
     name: string;
@@ -41,6 +41,12 @@ interface Business {
     phone: string;
     display_phone: string;
     distance: number;
+}
+
+export interface BusinessDetails extends Business {
+    is_claimed: boolean;
+    photos: string[];
+    hours: Hour[];
 }
 
 interface Category {
@@ -63,12 +69,6 @@ interface Location {
     state: string;
     display_address: string[];
     cross_streets: string;
-}
-
-interface BusinessDetails extends Business {
-    is_claimed: boolean;
-    photos: string[];
-    hours: Hour[];
 }
 
 interface Hour {
