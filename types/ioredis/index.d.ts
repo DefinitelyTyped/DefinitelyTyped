@@ -31,9 +31,9 @@ import { Readable } from 'stream';
 import { EventEmitter } from 'events';
 
 interface RedisStatic {
-    new (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
-    new (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
-    new (options?: IORedis.RedisOptions): IORedis.Redis;
+    new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+    new(host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+    new(options?: IORedis.RedisOptions): IORedis.Redis;
     (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
@@ -849,8 +849,8 @@ declare namespace IORedis {
         geoadd(key: KeyType, longitude: number, latitude: number, member: string, callback: Callback<number>): void;
         geoadd(key: KeyType, longitude: number, latitude: number, member: string): Promise<number>;
 
-        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi', callback: Callback<string | null>): void;
-        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi'): Promise<string | null>;
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm' | 'km' | 'ft' | 'mi', callback: Callback<string | null>): void;
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm' | 'km' | 'ft' | 'mi'): Promise<string | null>;
 
         geohash: OverloadedKeyCommand<string, string[]>;
 
@@ -861,7 +861,7 @@ declare namespace IORedis {
             longitude: number,
             latitude: number,
             radius: number,
-            unit: 'm'|'km'|'ft'|'mi',
+            unit: 'm' | 'km' | 'ft' | 'mi',
             callback: Callback<string[]>,
         ): void;
         georadius(
@@ -869,7 +869,7 @@ declare namespace IORedis {
             longitude: number,
             latitude: number,
             radius: number,
-            unit: 'm'|'km'|'ft'|'mi',
+            unit: 'm' | 'km' | 'ft' | 'mi',
             sort?: 'ASC' | 'DESC'
         ): Promise<string[]>;
         georadius(
@@ -877,16 +877,16 @@ declare namespace IORedis {
             longitude: number,
             latitude: number,
             radius: number,
-            unit: 'm'|'km'|'ft'|'mi',
+            unit: 'm' | 'km' | 'ft' | 'mi',
             count: 'COUNT',
             countValue: number,
             sort?: 'ASC' | 'DESC'
         ): Promise<string[]>;
 
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', callback: Callback<string[]>): void;
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback: Callback<string[]>): void;
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi'): Promise<string[]>;
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number): Promise<string[]>;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', callback: Callback<string[]>): void;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', count: 'COUNT', countValue: number, callback: Callback<string[]>): void;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi'): Promise<string[]>;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', count: 'COUNT', countValue: number): Promise<string[]>;
 
         incrby(key: KeyType, increment: number, callback: Callback<number>): void;
         incrby(key: KeyType, increment: number): Promise<number>;
@@ -1448,17 +1448,17 @@ declare namespace IORedis {
 
         geoadd(key: KeyType, longitude: number, latitude: number, member: string, callback?: Callback<number>): Pipeline;
 
-        geodist(key: KeyType, member1: string, member2: string, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string | null>): Pipeline;
+        geodist(key: KeyType, member1: string, member2: string, unit: 'm' | 'km' | 'ft' | 'mi', callback?: Callback<string | null>): Pipeline;
 
         geohash(key: KeyType, ...fields: string[]): Pipeline;
 
         geopos(key: KeyType, ...fields: string[]): Pipeline;
 
-        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string[]>): Pipeline;
-        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
+        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', callback?: Callback<string[]>): Pipeline;
+        georadius(key: KeyType, longitude: number, latitude: number, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
 
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', callback?: Callback<string[]>): Pipeline;
-        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm'|'km'|'ft'|'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', callback?: Callback<string[]>): Pipeline;
+        georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
 
         incrby(key: KeyType, increment: number, callback?: Callback<number>): Pipeline;
 
@@ -1672,7 +1672,7 @@ declare namespace IORedis {
     }
 
     interface ClusterStatic extends EventEmitter {
-        new (nodes: ClusterNode[], options?: ClusterOptions): Cluster;
+        new(nodes: ClusterNode[], options?: ClusterOptions): Cluster;
     }
 
     interface RedisOptions {
