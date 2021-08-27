@@ -19,6 +19,7 @@
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as streamPromises from 'node:stream/promises';
+    import * as streamConsumers from 'node:stream/consumers';
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -1169,6 +1170,7 @@ declare module 'stream' {
             unref(): void;
         }
         const promises: typeof streamPromises;
+        const consumers: typeof streamConsumers;
     }
     export = internal;
 }
