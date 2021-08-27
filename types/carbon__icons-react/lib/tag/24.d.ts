@@ -1,1 +1,3 @@
-export { Tag24 as default } from "../../";
+import { Tag24 } from "../../";
+
+export = Tag24;

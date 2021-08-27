@@ -1,1 +1,3 @@
-export { Chip32 as default } from "../../";
+import { Chip32 } from "../../";
+
+export = Chip32;

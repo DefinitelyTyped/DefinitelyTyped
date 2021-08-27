@@ -1,1 +1,3 @@
-export { ScooterFront32 as default } from "../../";
+import { ScooterFront32 } from "../../";
+
+export = ScooterFront32;

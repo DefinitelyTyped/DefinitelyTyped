@@ -1,1 +1,3 @@
-export { CurrencyShekel16 as default } from "../../";
+import { CurrencyShekel16 } from "../../";
+
+export = CurrencyShekel16;

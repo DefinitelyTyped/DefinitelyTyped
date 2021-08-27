@@ -1,1 +1,3 @@
-export { Upgrade32 as default } from "../../";
+import { Upgrade32 } from "../../";
+
+export = Upgrade32;

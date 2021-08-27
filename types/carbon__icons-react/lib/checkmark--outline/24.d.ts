@@ -1,1 +1,3 @@
-export { CheckmarkOutline24 as default } from "../../";
+import { CheckmarkOutline24 } from "../../";
+
+export = CheckmarkOutline24;

@@ -1,1 +1,3 @@
-export { PalmTree20 as default } from "../../";
+import { PalmTree20 } from "../../";
+
+export = PalmTree20;

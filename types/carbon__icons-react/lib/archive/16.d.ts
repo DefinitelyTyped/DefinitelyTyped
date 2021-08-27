@@ -1,1 +1,3 @@
-export { Archive16 as default } from "../../";
+import { Archive16 } from "../../";
+
+export = Archive16;

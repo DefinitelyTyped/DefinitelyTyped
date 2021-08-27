@@ -1,1 +1,3 @@
-export { VisualInsights as default } from "../../";
+import { VisualInsights } from "../../";
+
+export = VisualInsights;

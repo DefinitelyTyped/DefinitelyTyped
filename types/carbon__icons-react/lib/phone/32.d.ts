@@ -1,1 +1,3 @@
-export { Phone32 as default } from "../../";
+import { Phone32 } from "../../";
+
+export = Phone32;

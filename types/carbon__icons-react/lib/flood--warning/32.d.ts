@@ -1,1 +1,3 @@
-export { FloodWarning32 as default } from "../../";
+import { FloodWarning32 } from "../../";
+
+export = FloodWarning32;

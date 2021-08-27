@@ -1,1 +1,3 @@
-export { ListDropdown24 as default } from "../../";
+import { ListDropdown24 } from "../../";
+
+export = ListDropdown24;

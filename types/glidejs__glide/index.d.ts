@@ -171,133 +171,133 @@ declare namespace Glide {
          *
          * @default 'slider'
          */
-        type?: Type;
+        type?: Type | undefined;
 
         /**
          * Start at specific slide number
          *
          * @default 0
          */
-        startAt?: number;
+        startAt?: number | undefined;
 
         /**
          * A number of visible slides
          *
          * @default 1
          */
-        perView?: number;
+        perView?: number | undefined;
 
         /**
          * Focus currently active slide at a specified position
          *
          * @default 0
          */
-        focusAt?: number | string;
+        focusAt?: number | string | undefined;
 
         /**
          * A size of the space between slides
          *
          * @default 10
          */
-        gap?: number;
+        gap?: number | undefined;
 
         /**
          * Change slides after a specified interval
          *
          * @default false
          */
-        autoplay?: false | number;
+        autoplay?: false | number | undefined;
 
         /**
          * Stop autoplay on mouseover
          *
          * @default true
          */
-        hoverpause?: boolean;
+        hoverpause?: boolean | undefined;
 
         /**
          * Change slides with keyboard arrows
          *
          * @default true
          */
-        keyboard?: boolean;
+        keyboard?: boolean | undefined;
 
         /**
          * Stop running perView number of slides from the end
          *
          * @default false
          */
-        bound?: boolean;
+        bound?: boolean | undefined;
 
         /**
          * Minimal swipe distance needed to change the slide
          *
          * @default 80
          */
-        swipeThreshold?: number | false;
+        swipeThreshold?: number | false | undefined;
 
         /**
          * Minimal mousedrag distance needed to change the slide
          *
          * @default 120
          */
-        dragThreshold?: number | false;
+        dragThreshold?: number | false | undefined;
 
         /**
          * A maximum number of slides moved per single swipe or drag
          *
          * @default false
          */
-        perTouch?: number | false;
+        perTouch?: number | false | undefined;
 
         /**
          * Alternate moving distance ratio of swiping and dragging
          *
          * @default 0.5
          */
-        touchRatio?: number;
+        touchRatio?: number | undefined;
 
         /**
          * Angle required to activate slides moving
          *
          * @default 45
          */
-        touchAngle?: number;
+        touchAngle?: number | undefined;
 
         /**
          * Duration of the animation
          *
          * @default 400
          */
-        animationDuration?: number;
+        animationDuration?: number | undefined;
 
         /**
          * Allow looping the slider type
          *
          * @default true
          */
-        rewind?: boolean;
+        rewind?: boolean | undefined;
 
         /**
          * Duration of the rewinding animation
          *
          * @default 800
          */
-        rewindDuration?: number;
+        rewindDuration?: number | undefined;
 
         /**
          * Easing function for the animation
          *
          * @default 'cubic-bezier(0.165, 0.840, 0.440, 1.000)
          */
-        animationTimingFunc?: string;
+        animationTimingFunc?: string | undefined;
 
         /**
          * Moving direction mode
          *
          * @default 'ltr'
          */
-        direction?: 'ltr' | 'rtr';
+        direction?: 'ltr' | 'rtr' | undefined;
 
         /**
          * The value of the future viewports which have to be visible in the
@@ -305,14 +305,14 @@ declare namespace Glide {
          *
          * @default 0
          */
-        peek?: number | { before?: number; after?: number };
+        peek?: number | { before?: number | undefined; after?: number | undefined } | undefined;
 
         /**
          * Collection of options applied at specified media breakpoints
          *
          * @default {}
          */
-        breakpoints?: Record<number, Options>;
+        breakpoints?: Record<number, Options> | undefined;
 
         /**
          * Collection of used HTML classes
@@ -322,52 +322,52 @@ declare namespace Glide {
                 /**
                  * @default 'glide--ltr'
                  */
-                ltr?: string;
+                ltr?: string | undefined;
                 /**
                  * @default 'glide--rtl'
                  */
-                rtl?: string;
-            };
+                rtl?: string | undefined;
+            } | undefined;
             /**
              * @default 'glide--slider'
              */
-            slider?: string;
+            slider?: string | undefined;
             /**
              * @default 'glide--carousel'
              */
-            carousel?: string;
+            carousel?: string | undefined;
             /**
              * @default 'glide--swipeable'
              */
-            swipeable?: string;
+            swipeable?: string | undefined;
             /**
              * @default 'glide--dragging'
              */
-            dragging?: string;
+            dragging?: string | undefined;
             /**
              * @default 'glide__slide--clone'
              */
-            cloneSlide?: string;
+            cloneSlide?: string | undefined;
             /**
              * @default 'glide__bullet--active'
              */
-            activeNav?: string;
+            activeNav?: string | undefined;
             /**
              * @default 'glide__slide--active'
              */
-            activeSlide?: string;
+            activeSlide?: string | undefined;
             /**
              * @default 'glide__arrow--disabled'
              */
-            disabledArrow?: string;
-        };
+            disabledArrow?: string | undefined;
+        } | undefined;
 
         /**
          * Throttle costly events
          *
          * @default 25
          */
-        throttle?: number;
+        throttle?: number | undefined;
     }
 
     interface Properties {

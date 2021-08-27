@@ -1,1 +1,3 @@
-export { ManagingItems as default } from "../../";
+import { ManagingItems } from "../../";
+
+export = ManagingItems;

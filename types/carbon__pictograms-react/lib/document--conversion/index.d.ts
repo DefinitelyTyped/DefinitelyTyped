@@ -1,1 +1,3 @@
-export { DocumentConversion as default } from "../../";
+import { DocumentConversion } from "../../";
+
+export = DocumentConversion;

@@ -1,1 +1,3 @@
-export { Code32 as default } from "../../";
+import { Code32 } from "../../";
+
+export = Code32;

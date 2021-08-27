@@ -1,1 +1,3 @@
-export { Attachment32 as default } from "../../";
+import { Attachment32 } from "../../";
+
+export = Attachment32;

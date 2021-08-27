@@ -1,1 +1,3 @@
-export { MeterAlt32 as default } from "../../";
+import { MeterAlt32 } from "../../";
+
+export = MeterAlt32;

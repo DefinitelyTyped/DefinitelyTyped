@@ -1,1 +1,3 @@
-export { Austin as default } from "../../";
+import { Austin } from "../../";
+
+export = Austin;

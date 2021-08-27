@@ -2,7 +2,7 @@
 // Project: https://github.com/gpbl/webpack-cleanup-plugin#readme
 // Definitions by: Luka Maljic <https://github.com/malj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.7
 
 import { Plugin } from 'webpack';
 export = WebpackCleanupPlugin;
@@ -16,16 +16,16 @@ declare namespace WebpackCleanupPlugin {
         /**
          * Keep some files in the output path. It accepts globbing as in [minimatch](https://github.com/isaacs/minimatch).
          */
-        exclude?: string[];
+        exclude?: string[] | undefined;
 
         /**
          * Print the list of the files that will be deleted without actually deleting them.
          */
-        preview?: boolean;
+        preview?: boolean | undefined;
 
         /**
          * Mute the console output.
          */
-        quiet?: boolean;
+        quiet?: boolean | undefined;
     }
 }

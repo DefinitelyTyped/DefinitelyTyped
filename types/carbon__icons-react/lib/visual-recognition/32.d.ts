@@ -1,1 +1,3 @@
-export { VisualRecognition32 as default } from "../../";
+import { VisualRecognition32 } from "../../";
+
+export = VisualRecognition32;

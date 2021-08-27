@@ -1,1 +1,3 @@
-export { DuplicateFile as default } from "../../";
+import { DuplicateFile } from "../../";
+
+export = DuplicateFile;

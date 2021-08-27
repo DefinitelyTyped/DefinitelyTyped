@@ -1,4 +1,4 @@
-// Type definitions for ipaiva 0.1
+// Type definitions for ipaiva 0.2
 // Project: https://github.com/ipaiva-studio
 // Definitions by: ipaiva <https://github.com/ipaiva-studio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,11 +10,15 @@ declare module 'ipaiva' {
     export const version: string;
 
     interface TextEditorOptions {
-        placeholder?: string;
+        placeholder?: string | undefined;
+    }
+
+    interface TextEditor {
+        on(event: 'completed', fn: (content: string) => void): this;
     }
 
     export namespace textEditor {
-        export function create(elem: HTMLElement, options?: TextEditorOptions): void;
+        export function create(elem: HTMLElement, options?: TextEditorOptions): TextEditor;
     }
 
     export namespace window {
@@ -27,7 +31,7 @@ declare module 'ipaiva' {
     export namespace library {
         type OnDidPickCallback = (callback: { url: string }) => void;
         interface OnDidPickOption {
-            type?: 'image' | 'video' | 'audio';
+            type: 'image' | 'video' | 'audio';
         }
 
         function onDidPick(callback: OnDidPickCallback, option?: OnDidPickOption): void;
@@ -36,35 +40,51 @@ declare module 'ipaiva' {
     export namespace Crate {
         interface Package {
             name: string;
+            version: string;
         }
 
+        interface NodeData {
+            [key: string]: string | number | boolean | object;
+        }
+
+        type Props = Record<string, any>;
+
         interface Design {
-            main?: string;
-            options?: DesignOptions;
+            main?: string | undefined;
+            data?: NodeData | undefined;
+            options?: DesignOptions | undefined;
             dependencies?: any;
-            transformer?: Transformer;
-            styleSchema?: DesignStyleSchema;
-            controls?: DesignControls;
-            nodeEvents?: DesignNodeEvents;
+            transformer?: Transformer | undefined;
+            styleSchema?: DesignStyleSchema | undefined;
+            controls?: DesignControls | undefined;
+            nodeEvents?: DesignNodeEvents | undefined;
             preCreate?(option: PreCreateOption): PreCreateOption;
+            overrideRenderProperties?(props: Props): Props;
+
+            /**
+             * extract options
+             *
+             * @param options DesignOptions
+             */
+            extractOptions?(options: DesignOptions): DesignOptions;
         }
 
         interface Render {}
 
         interface Transformer {
-            keepRatio?: boolean;
-            minWidth?: number;
-            minHeight?: number;
-            zoomable?: string;
+            keepRatio?: boolean | undefined;
+            minWidth?: number | undefined;
+            minHeight?: number | undefined;
+            zoomable?: string | undefined;
         }
 
         interface DesignOptions {
-            width?: number;
-            height?: number;
-            hasMask?: boolean;
+            width?: number | undefined;
+            height?: number | undefined;
+            hasMask?: boolean | undefined;
             attrs?: {
                 [key: string]: any;
-            };
+            } | undefined;
         }
 
         type DesignStyleSchema = any;

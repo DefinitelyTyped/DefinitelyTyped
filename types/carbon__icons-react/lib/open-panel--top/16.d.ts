@@ -1,1 +1,3 @@
-export { OpenPanelTop16 as default } from "../../";
+import { OpenPanelTop16 } from "../../";
+
+export = OpenPanelTop16;

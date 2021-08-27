@@ -1,1 +1,3 @@
-export { DataConnected32 as default } from "../../";
+import { DataConnected32 } from "../../";
+
+export = DataConnected32;

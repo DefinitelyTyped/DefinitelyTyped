@@ -1,1 +1,3 @@
-export { OperationsRecord20 as default } from "../../";
+import { OperationsRecord20 } from "../../";
+
+export = OperationsRecord20;

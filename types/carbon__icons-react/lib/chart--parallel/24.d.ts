@@ -1,1 +1,3 @@
-export { ChartParallel24 as default } from "../../";
+import { ChartParallel24 } from "../../";
+
+export = ChartParallel24;

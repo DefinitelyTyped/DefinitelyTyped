@@ -63,12 +63,19 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.compact
 {
-    const list: _.List<AbcObject | null | undefined | false | "" | 0> | null | undefined = anything;
+    const list: _.List<AbcObject | null | undefined | false | '' | 0> | null | undefined = anything;
 
     _.compact(list); // $ExpectType AbcObject[]
     _(list).compact(); // $ExpectType Collection<AbcObject>
     _.chain(list).compact(); // $ExpectType CollectionChain<AbcObject>
     fp.compact(list); // $ExpectType AbcObject[]
+}
+
+// _.compact in a pipe with other functions
+{
+    const list: _.List<_.Many<AbcObject | null | undefined> | null | undefined> = anything;
+
+    fp.pipe(fp.flatten, fp.compact)(list); // $ExpectType AbcObject[]
 }
 
 // _.difference
@@ -5261,9 +5268,9 @@ fp.now(); // $ExpectType number
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
 
-    fp.get(Symbol.iterator, []); // $ExpectType any
-    fp.get(Symbol.iterator)([]); // $ExpectType any
-    fp.get([Symbol.iterator], []); // $ExpectType any
+    fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
+    fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>
+    fp.get([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
     fp.get(1)("abc"); // $ExpectType string
     fp.get("1")("abc"); // $ExpectType any
     fp.get("a", { a: { b: true } }); // $ExpectType { b: boolean; }
@@ -6834,7 +6841,7 @@ fp.now(); // $ExpectType number
 {
     const source: _.Dictionary<(...args: any[]) => any> = {};
     const dest: AbcObject = anything;
-    const options: {chain?: boolean} = {};
+    const options: {chain?: boolean | undefined} = {};
 
     _.mixin(source); // $ExpectType LoDashStatic
     _.mixin(source, options); // $ExpectType LoDashStatic
@@ -6953,7 +6960,7 @@ fp.now(); // $ExpectType number
     _.chain("a.b[0]").property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     _.chain(["a", "b", 0]).property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     fp.property(Symbol.iterator)([]); // $ExpectType any
-    fp.property([Symbol.iterator], []); // $ExpectType any
+    fp.property([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
     fp.property(1)("abc"); // $ExpectType string
 }
 
@@ -6964,7 +6971,7 @@ fp.now(); // $ExpectType number
     _.chain({}).propertyOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
 
     fp.propertyOf(Symbol.iterator)([]); // $ExpectType any
-    fp.propertyOf([Symbol.iterator], []); // $ExpectType any
+    fp.propertyOf([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
     fp.propertyOf(1)("abc"); // $ExpectType string
 }
 

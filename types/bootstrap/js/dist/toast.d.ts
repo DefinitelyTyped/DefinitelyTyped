@@ -1,5 +1,7 @@
-declare class Toast {
-    constructor(element: Element, options?: Partial<Toast.Options>);
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+
+declare class Toast extends BaseComponent {
+    constructor(element: string | Element, options?: Partial<Toast.Options>);
 
     /**
      * Reveals an element’s toast. Returns to the caller before the toast has actually
@@ -15,16 +17,20 @@ declare class Toast {
      */
     hide(): void;
 
-    /**
-     * Hides an element’s toast. Your toast will remain on the DOM but won’t show anymore.
-     */
-    dispose(): void;
+    static getInstance: GetInstanceFactory<Toast>;
+
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Toast>;
+
+    static jQueryInterface: Toast.jQueryInterface;
+
+    // static NAME: 'toast';
 
     /**
-     * Static method which allows you to get the toast instance associated
-     * with a DOM element
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
      */
-    static getInstance(element: Element): Toast;
+    static Default: Toast.Options;
 }
 
 declare namespace Toast {
@@ -74,6 +80,8 @@ declare namespace Toast {
          */
         delay: number;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'dispose') => void;
 }
 
 export default Toast;

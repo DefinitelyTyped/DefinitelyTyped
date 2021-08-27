@@ -1,1 +1,3 @@
-export { TropicalStorm32 as default } from "../../";
+import { TropicalStorm32 } from "../../";
+
+export = TropicalStorm32;

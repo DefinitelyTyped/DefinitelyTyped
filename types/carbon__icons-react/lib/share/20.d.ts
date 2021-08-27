@@ -1,1 +1,3 @@
-export { Share20 as default } from "../../";
+import { Share20 } from "../../";
+
+export = Share20;

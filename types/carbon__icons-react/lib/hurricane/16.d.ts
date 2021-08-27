@@ -1,1 +1,3 @@
-export { Hurricane16 as default } from "../../";
+import { Hurricane16 } from "../../";
+
+export = Hurricane16;

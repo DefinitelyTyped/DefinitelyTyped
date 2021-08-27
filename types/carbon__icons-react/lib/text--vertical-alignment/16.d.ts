@@ -1,1 +1,3 @@
-export { TextVerticalAlignment16 as default } from "../../";
+import { TextVerticalAlignment16 } from "../../";
+
+export = TextVerticalAlignment16;

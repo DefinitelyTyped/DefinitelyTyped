@@ -1,1 +1,3 @@
-export { ElectricCar as default } from "../../";
+import { ElectricCar } from "../../";
+
+export = ElectricCar;

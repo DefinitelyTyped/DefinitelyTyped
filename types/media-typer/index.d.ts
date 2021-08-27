@@ -40,5 +40,5 @@ export interface MediaType {
     /**
      * The suffix of the media type (always lower case). Example: `xml`
      */
-    suffix?: string;
+    suffix?: string | undefined;
 }

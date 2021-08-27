@@ -1,1 +1,3 @@
-export { Earth32 as default } from "../../";
+import { Earth32 } from "../../";
+
+export = Earth32;

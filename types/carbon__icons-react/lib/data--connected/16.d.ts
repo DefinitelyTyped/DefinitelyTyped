@@ -1,1 +1,3 @@
-export { DataConnected16 as default } from "../../";
+import { DataConnected16 } from "../../";
+
+export = DataConnected16;

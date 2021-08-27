@@ -1,1 +1,3 @@
-export { Xml16 as default } from "../../";
+import { Xml16 } from "../../";
+
+export = Xml16;

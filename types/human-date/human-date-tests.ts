@@ -1,6 +1,7 @@
 import hdate = require('human-date');
 
 // .prertyPrint method
+hdate.prettyPrint(); // $ExpectType string
 hdate.prettyPrint('8-16-1987');
 hdate.prettyPrint(new Date('8-16-1987'));
 hdate.prettyPrint(-6400);
@@ -22,6 +23,7 @@ hdate.monthName("8-16-1987");
 hdate.monthName(new Date("8-16-1987"));
 
 // .toUTC method
+hdate.toUTC(); // $ExpectType Date
 hdate.toUTC(1000000000000);
 hdate.toUTC(1000000000000).getFullYear();
 hdate.toUTC("8-16-1987");

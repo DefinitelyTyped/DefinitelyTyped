@@ -1,29 +1,35 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": [
-      "es6"
-    ],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "baseUrl": "../../",
-    "typeRoots": [
-      "../../"
-    ],
-    "paths": {
-        "webpack-serve": ["webpack-serve/v1"],
-        "webpack-dev-middleware": [
-          "webpack-dev-middleware/v3"
-      ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "webpack-serve": ["webpack-serve/v1"],
+            "webpack-dev-middleware": [
+                "webpack-dev-middleware/v3"
+            ],
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "webpack-serve-tests.ts"
-  ]
+    "files": [
+        "index.d.ts",
+        "webpack-serve-tests.ts"
+    ]
 }

@@ -1,1 +1,3 @@
-export { FlightSchedule32 as default } from "../../";
+import { FlightSchedule32 } from "../../";
+
+export = FlightSchedule32;

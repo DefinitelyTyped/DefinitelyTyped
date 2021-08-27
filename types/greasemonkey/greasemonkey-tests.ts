@@ -98,6 +98,11 @@ GM.notification(
 GM.openInTab('https://wiki.greasespot.net/GM.openInTab');
 GM.openInTab('https://wiki.greasespot.net/GM.openInTab', true);
 
+// GM.registerMenuCommand
+
+GM.registerMenuCommand('Do the thing', () => {});
+GM.registerMenuCommand('Do the thing', () => {}, 'd');
+
 // GM.setClipboard
 
 GM.setClipboard('Text from clipboard');

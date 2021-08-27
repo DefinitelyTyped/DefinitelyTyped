@@ -1,15 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {
-    Calendar,
-    Combobox,
-    DateTimePicker,
-    DropdownList,
-    Multiselect,
-    NumberPicker,
-    SelectList
-} from "react-widgets";
+import { Calendar, Combobox, DateTimePicker, DropdownList, Multiselect, NumberPicker, SelectList } from "react-widgets";
 import * as CalendarDefault from "react-widgets/lib/Calendar";
 import * as ComboboxDefault from "react-widgets/lib/Combobox";
 import * as DateTimePickerDefault from "react-widgets/lib/DateTimePicker";
@@ -71,29 +63,15 @@ class Test extends React.Component<React.Props<{}>> {
                     <SelectList defaultValue={"foo"} />
                 </div>
                 <div>
-                    <Multiselect
-                        tagComponent={tagComponent}
-                        itemComponent={itemComponent}
-                    />
-                    <Combobox
-                        itemComponent={itemComponent}
-                        listComponent={listComponent}
-                    />
-                    <DropdownList
-                        itemComponent={itemComponent}
-                        listComponent={listComponent}
-                    />
+                    <Multiselect tagComponent={tagComponent} itemComponent={itemComponent} />
+                    <Combobox itemComponent={itemComponent} listComponent={listComponent} />
+                    <DropdownList itemComponent={itemComponent} listComponent={listComponent} />
                     <Multiselect listComponent={listComponent} />
                     <SelectList listComponent={listComponent} />
                 </div>
                 <div>
                     <Calendar disabled readOnly />
-                    <Combobox
-                        disabled
-                        readOnly
-                        dropUp
-                        placeholder={"Some text"}
-                    />
+                    <Combobox disabled readOnly dropUp placeholder={"Some text"} />
                     <DateTimePicker disabled readOnly dropUp />
                     <DropdownList disabled readOnly dropUp />
                     <Multiselect disabled readOnly dropUp />
@@ -101,12 +79,7 @@ class Test extends React.Component<React.Props<{}>> {
                     <SelectList disabled readOnly />
                 </div>
                 <div>
-                    <Calendar
-                        autoFocus
-                        defaultValue={new Date()}
-                        defaultView="year"
-                        views={["year", "decade"]}
-                    />
+                    <Calendar autoFocus defaultValue={new Date()} defaultView="year" views={["year", "decade"]} />
                     <CalendarDefault
                         autoFocus
                         defaultValue={new Date()}
@@ -114,37 +87,30 @@ class Test extends React.Component<React.Props<{}>> {
                         views={["year", "decade"]}
                     />
                     <Combobox autoFocus delay={300} name="box" />
-                    <Combobox
-                        busy
-                        busySpinner={<span className="fas fa-sync fa-spin" />}
-                    />
+                    <Combobox busy busySpinner={<span className="fas fa-sync fa-spin" />} />
                     <DateTimePicker autoFocus open="date" />
-                    <DropdownList
-                        autoFocus
-                        delay={350}
-                        name="list"
-                        multiple={false}
-                    />
+                    <DropdownList autoFocus delay={350} name="list" multiple={false} />
                     <DropdownList containerClassName="list-items" />
                     <Multiselect autoFocus allowCreate />
                     <Multiselect containerClassName="multiselect-container" />
-                    <NumberPicker
-                        autoFocus
-                        name="numbers"
-                        placeholder="hello"
-                    />
-                    <SelectList
-                        autoFocus
-                        delay={400}
-                        tabIndex={-1}
-                        name="list"
-                    />
+                    <NumberPicker autoFocus name="numbers" placeholder="hello" />
+                    <SelectList autoFocus delay={400} tabIndex={-1} name="list" />
                 </div>
                 <div>
                     <DateTimePicker
                         dropUp={true}
                         containerClassName="d-flex"
                         timeIcon={<i className="fa fa-clock" />}
+                    />
+                </div>
+                <div>
+                    <DateTimePicker
+                        parse={(str: string): Date | undefined => {
+                            if (str) {
+                                return new Date(str);
+                            }
+                            return undefined;
+                        }}
                     />
                 </div>
             </div>

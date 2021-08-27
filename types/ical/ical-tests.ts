@@ -19,3 +19,6 @@ event.recurrences;
 event.freebusy;
 // $ExpectType string | ParamList | undefined
 event.sequence;
+
+// @ts-expect-error
+ical.fromURL;

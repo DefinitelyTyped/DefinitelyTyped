@@ -1,1 +1,3 @@
-export { Eyedropper32 as default } from "../../";
+import { Eyedropper32 } from "../../";
+
+export = Eyedropper32;

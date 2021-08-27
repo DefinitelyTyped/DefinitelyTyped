@@ -1,1 +1,3 @@
-export { QTAlt24 as default } from "../../../";
+import { QTAlt24 } from "../../../";
+
+export = QTAlt24;

@@ -1,1 +1,3 @@
-export { DoNot as default } from "../../";
+import { DoNot } from "../../";
+
+export = DoNot;

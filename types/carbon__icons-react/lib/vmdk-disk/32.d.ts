@@ -1,1 +1,3 @@
-export { VmdkDisk32 as default } from "../../";
+import { VmdkDisk32 } from "../../";
+
+export = VmdkDisk32;

@@ -1,1 +1,3 @@
-export { RepeatOne24 as default } from "../../";
+import { RepeatOne24 } from "../../";
+
+export = RepeatOne24;

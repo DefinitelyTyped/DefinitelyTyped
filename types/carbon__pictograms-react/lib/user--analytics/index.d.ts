@@ -1,1 +1,3 @@
-export { UserAnalytics as default } from "../../";
+import { UserAnalytics } from "../../";
+
+export = UserAnalytics;

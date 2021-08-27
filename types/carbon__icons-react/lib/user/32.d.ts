@@ -1,1 +1,3 @@
-export { User32 as default } from "../../";
+import { User32 } from "../../";
+
+export = User32;

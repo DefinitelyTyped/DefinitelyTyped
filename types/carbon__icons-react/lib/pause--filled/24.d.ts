@@ -1,1 +1,3 @@
-export { PauseFilled24 as default } from "../../";
+import { PauseFilled24 } from "../../";
+
+export = PauseFilled24;

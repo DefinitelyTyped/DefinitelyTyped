@@ -1,1 +1,3 @@
-export { FinancialConsultant as default } from "../../";
+import { FinancialConsultant } from "../../";
+
+export = FinancialConsultant;

@@ -287,4 +287,5 @@ var rules = new natural.RuleSet(rulesFilename);
 var tagger = new natural.BrillPOSTagger(lexicon, rules);
 
 var sentence = ['I', 'see', 'the', 'man', 'with', 'the', 'telescope'];
-tagger.tag(sentence);
+var taggedSentence = tagger.tag(sentence);
+console.log(taggedSentence.taggedWords);

@@ -29,13 +29,13 @@ declare module 'angular-es' {
      * @see https://docs.angularjs.org/guide/component
      */
     interface iComponent {
-        template: string,
         selector: string,
-        controllerAs?: string,
-        require?: string,
-        templateUrl?: string,
-        transclude?: string,
-        bindings?: Object
+        controllerAs?: string | undefined,
+        require?: string | undefined,
+        template?: string | undefined,
+        templateUrl?: string | undefined,
+        transclude?: string | undefined,
+        bindings?: Object | undefined
     }
 
     /**

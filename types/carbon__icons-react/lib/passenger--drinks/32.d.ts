@@ -1,1 +1,3 @@
-export { PassengerDrinks32 as default } from "../../";
+import { PassengerDrinks32 } from "../../";
+
+export = PassengerDrinks32;

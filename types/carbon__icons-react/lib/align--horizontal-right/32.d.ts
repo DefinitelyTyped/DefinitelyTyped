@@ -1,1 +1,3 @@
-export { AlignHorizontalRight32 as default } from "../../";
+import { AlignHorizontalRight32 } from "../../";
+
+export = AlignHorizontalRight32;

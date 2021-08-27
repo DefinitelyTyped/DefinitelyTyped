@@ -1,1 +1,3 @@
-export { HumidityAlt24 as default } from "../../";
+import { HumidityAlt24 } from "../../";
+
+export = HumidityAlt24;

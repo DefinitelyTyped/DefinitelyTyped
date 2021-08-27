@@ -1,1 +1,3 @@
-export { PhraseSentiment16 as default } from "../../";
+import { PhraseSentiment16 } from "../../";
+
+export = PhraseSentiment16;

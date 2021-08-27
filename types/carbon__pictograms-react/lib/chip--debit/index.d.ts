@@ -1,1 +1,3 @@
-export { ChipDebit as default } from "../../";
+import { ChipDebit } from "../../";
+
+export = ChipDebit;

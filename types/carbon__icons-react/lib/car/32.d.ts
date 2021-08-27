@@ -1,1 +1,3 @@
-export { Car32 as default } from "../../";
+import { Car32 } from "../../";
+
+export = Car32;

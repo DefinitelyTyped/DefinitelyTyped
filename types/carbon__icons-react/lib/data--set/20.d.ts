@@ -1,1 +1,3 @@
-export { DataSet20 as default } from "../../";
+import { DataSet20 } from "../../";
+
+export = DataSet20;

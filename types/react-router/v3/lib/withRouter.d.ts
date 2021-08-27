@@ -4,7 +4,7 @@ import { Location } from "history";
 import { PlainRoute } from "./Route";
 
 interface Options {
-    withRef?: boolean;
+    withRef?: boolean | undefined;
 }
 
 export interface WithRouterProps<P = Params, Q = any> {

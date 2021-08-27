@@ -11,7 +11,7 @@ declare namespace utpl {
         fillFromObject(vars: { [key: string]: string | { [key: string]: string} }): string;
         fill(callback: (varName: string) => string): string;
         fill(vars: { [key: string]: string | { [key: string]: string } }): string;
-        fromUri(uri: string): { [key: string]: string };
+        fromUri(uri: string): { [key: string]: string } | undefined;
         varNames: string[];
         template: string;
     }

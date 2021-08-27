@@ -17,5 +17,5 @@ export interface LoggerOptions {
      * the number of characters around the diff result between two HTML
      * @default 40
      */
-    charsAroundDiff?: number;
+    charsAroundDiff?: number | undefined;
 }

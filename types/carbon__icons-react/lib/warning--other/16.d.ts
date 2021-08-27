@@ -1,1 +1,3 @@
-export { WarningOther16 as default } from "../../";
+import { WarningOther16 } from "../../";
+
+export = WarningOther16;

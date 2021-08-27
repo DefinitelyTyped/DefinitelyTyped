@@ -1,1 +1,3 @@
-export { Enterprise20 as default } from "../../";
+import { Enterprise20 } from "../../";
+
+export = Enterprise20;

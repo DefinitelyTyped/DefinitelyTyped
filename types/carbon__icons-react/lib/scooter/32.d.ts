@@ -1,1 +1,3 @@
-export { Scooter32 as default } from "../../";
+import { Scooter32 } from "../../";
+
+export = Scooter32;

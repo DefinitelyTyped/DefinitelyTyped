@@ -1,8 +1,8 @@
 import { EditText, EditTextarea, onSaveProps } from 'react-edit-text';
 import * as React from 'react';
 
-const onSaveTest = ({ name, value }: onSaveProps) => {
-    console.log(name + value);
+const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
+    console.log(name + value + previousValue);
 };
 
 const onChangeTest = (value: string) => {

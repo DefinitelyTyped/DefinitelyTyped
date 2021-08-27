@@ -1,1 +1,3 @@
-export { Dropper as default } from "../../";
+import { Dropper } from "../../";
+
+export = Dropper;

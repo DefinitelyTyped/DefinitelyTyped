@@ -1,1 +1,3 @@
-export { NameSpace24 as default } from "../../";
+import { NameSpace24 } from "../../";
+
+export = NameSpace24;

@@ -1,1 +1,3 @@
-export { TextFill16 as default } from "../../";
+import { TextFill16 } from "../../";
+
+export = TextFill16;

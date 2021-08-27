@@ -1,1 +1,3 @@
-export { Console as default } from "../../";
+import { Console } from "../../";
+
+export = Console;

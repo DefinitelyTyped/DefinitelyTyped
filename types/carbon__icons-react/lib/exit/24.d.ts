@@ -1,1 +1,3 @@
-export { Exit24 as default } from "../../";
+import { Exit24 } from "../../";
+
+export = Exit24;

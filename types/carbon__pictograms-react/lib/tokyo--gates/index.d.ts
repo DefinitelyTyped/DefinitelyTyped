@@ -1,1 +1,3 @@
-export { TokyoGates as default } from "../../";
+import { TokyoGates } from "../../";
+
+export = TokyoGates;

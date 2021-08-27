@@ -38,7 +38,7 @@ declare module "vitalsigns" {
              * true to negate the outcome of the comparison; false or omitted to use the comparison result.
              * @type {boolean}
              */
-            negate?: boolean;
+            negate?: boolean | undefined;
 
             /**
              * The value against which the field should be compared.
@@ -52,13 +52,13 @@ declare module "vitalsigns" {
          * @interface
          */
         export interface ConstraintWrapper {
-            equals?: (num: number) => ConstraintWrapper;
+            equals?: ((num: number) => ConstraintWrapper) | undefined;
 
-            greaterThan?: (num: number) => ConstraintWrapper;
+            greaterThan?: ((num: number) => ConstraintWrapper) | undefined;
 
-            lessThan?: (num: number) => ConstraintWrapper;
+            lessThan?: ((num: number) => ConstraintWrapper) | undefined;
 
-            not?: ConstraintWrapper;
+            not?: ConstraintWrapper | undefined;
         }
 
         /**
@@ -70,19 +70,19 @@ declare module "vitalsigns" {
              * Number of milliseconds to wait between automatic health checks.
              * @type {number|boolean}
              */
-            autoCheck?: number | boolean;
+            autoCheck?: number | boolean | undefined;
 
             /**
              * HTTP response code to send back in the VitalSigns.
              * @type {number}
              */
-            httpHealthy?: number;
+            httpHealthy?: number | undefined;
 
             /**
              * HTTP response code to send back in the VitalSigns.
              * @type {number}
              */
-            httpUnhealthy?: number;
+            httpUnhealthy?: number | undefined;
         }
 
         export interface Monitor {
@@ -102,13 +102,13 @@ declare module "vitalsigns" {
              * Name.
              * @type {string}
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Units.
              * @type {string}
              */
-            units?: string;
+            units?: string | undefined;
         }
 
         /**
@@ -120,13 +120,13 @@ declare module "vitalsigns" {
              * true to flatten the report object down to a single level by concatenating nested key names; false to keep the default hierarchical format.
              * @type {boolean}
              */
-            flatten?: boolean;
+            flatten?: boolean | undefined;
 
             /**
              * If flatten is true, this string will be used to separate key names when they are concatenated together.
              * @type {boolean}
              */
-            separator?: string;
+            separator?: string | undefined;
         }
     }
 

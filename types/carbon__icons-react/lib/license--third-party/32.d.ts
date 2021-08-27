@@ -1,1 +1,3 @@
-export { LicenseThirdParty32 as default } from "../../";
+import { LicenseThirdParty32 } from "../../";
+
+export = LicenseThirdParty32;

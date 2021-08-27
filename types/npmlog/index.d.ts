@@ -57,12 +57,12 @@ declare namespace npmlog {
     type LogLevels = "silly" | "verbose" | "info" | "timing" | "http" | "notice" | "warn" | "error" | "silent";
 
     interface StyleObject {
-        fg?: string;
-        bg?: string;
-        bold?: boolean;
-        inverse?: boolean;
-        underline?: boolean;
-        bell?: boolean;
+        fg?: string | undefined;
+        bg?: string | undefined;
+        bold?: boolean | undefined;
+        inverse?: boolean | undefined;
+        underline?: boolean | undefined;
+        bell?: boolean | undefined;
     }
 
     interface MessageObject {

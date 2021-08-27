@@ -1,1 +1,3 @@
-export { CloudRain24 as default } from "../../";
+import { CloudRain24 } from "../../";
+
+export = CloudRain24;

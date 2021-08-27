@@ -1,11 +1,12 @@
-// Type definitions for svg-spritemap-webpack-plugin 3.7
+// Type definitions for svg-spritemap-webpack-plugin 4.0
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
-import { Compiler } from 'webpack';
+/// <reference types="node" />
 
-export = SVGSpritemapPlugin;
+import { Compiler, WebpackPluginInstance } from 'webpack';
 
 declare namespace SVGSpritemapPlugin {
     /**
@@ -16,8 +17,8 @@ declare namespace SVGSpritemapPlugin {
          * The input object contains the configuration for the input of the plugin.
          */
         input?: {
-            options?: object;
-        };
+            options?: object | undefined;
+        } | undefined;
         /**
          * The output object contains the configuration for the main output (SVG) of the plugin.
          */
@@ -25,82 +26,92 @@ declare namespace SVGSpritemapPlugin {
             /**
              * Filename of the generated file (located at the webpack output.path), [hash] and [contenthash] are supported.
              */
-            filename?: string;
+            filename?: string | undefined;
             svg?: {
                 /**
                  * Whether to include the width and height attributes on the root SVG element.
                  * The default value for this option is based on the value of the sprite.generate.use option but when specified will always overwrite it.
                  */
-                sizes?: boolean;
-            };
+                sizes?: boolean | undefined;
+            } | undefined;
             chunk?: {
                 /**
                  * Name of the chunk that will be generated.
                  */
-                name?: string;
+                name?: string | undefined;
                 /**
                  * Whether to keep the chunk after it's been emitted by webpack.
                  */
-                keep?: boolean;
-            };
+                keep?: boolean | undefined;
+            } | undefined;
             /**
              * Whether to include the SVG4Everybody helper in your entries.
              */
-            svg4everybody?: boolean | object;
+            svg4everybody?: boolean | object | undefined;
             /**
              * Options object to pass to SVG Optimizer.
              */
-            svgo?: boolean | object;
-        };
+            svgo?: boolean | object | undefined;
+        } | undefined;
         /**
          * The sprite object contains the configuration for the generated sprites in the output spritemap.
          */
         sprite?: {
-            prefix?: string | ((file: string) => string) | false;
+            /**
+             * @default 'sprite-'
+             */
+            prefix?: string | ((file: string) => string) | false | undefined;
+            /**
+             * Whether to also prefix any selectors that are generated in the styles file, if enabled.
+             * @default false
+             */
+            prefixStylesSelectors?: boolean | undefined;
             /**
              * Function that will be used to transform the filename of each sprite into a valid HTML id
              */
-            idify?: (file: string | false) => string;
+            idify?: ((file: string | false) => string) | undefined;
             /**
              * Amount of pixels added between each sprite to prevent overlap.
              * @default 0
              */
-            gutter?: number | false;
+            gutter?: number | false | undefined;
             generate?: {
                 /**
                  * Whether to generate a <title> element containing the filename if no title is provided in the SVG.
                  */
-                title?: boolean;
-                symbol?: boolean | string;
-                use?: boolean;
-                view?: boolean | string;
-            };
-        };
+                title?: boolean | undefined;
+                symbol?: boolean | string | undefined;
+                use?: boolean | undefined;
+                view?: boolean | string | undefined;
+            } | undefined;
+        } | undefined;
         styles?:
             | boolean
             | string
             | {
-                  filename?: string;
-                  format?: 'data' | 'fragment';
+                  filename?: string | undefined;
+                  format?: 'data' | 'fragment' | undefined;
                   /**
                    * @default false
                    */
-                  keepAttributes?: boolean;
+                  keepAttributes?: boolean | undefined;
                   variables?: {
-                      sprites?: string;
-                      sizes?: string;
-                      variables?: string;
-                      mixin?: string;
-                  };
+                      sprites?: string | undefined;
+                      sizes?: string | undefined;
+                      variables?: string | undefined;
+                      mixin?: string | undefined;
+                  } | undefined;
                   /** @default undefined */
-                  callback?: (content: string) => string
-              };
+                  callback?: ((content: string) => string) | undefined;
+              } | undefined;
     }
 }
-declare class SVGSpritemapPlugin {
+declare class SVGSpritemapPlugin implements WebpackPluginInstance {
     readonly directories: string[];
 
     constructor(pattern?: string | string[], options?: SVGSpritemapPlugin.Options);
+
+    apply(compiler: Compiler): void;
 
     private updateDependencies(): void;
     private getStylesType(styles: object, filename?: string): 'asset' | 'dir' | 'module' | undefined;
@@ -117,6 +128,6 @@ declare class SVGSpritemapPlugin {
     private getSpritemapHashes(compilation: any): string[];
     private getStylesHashes(compilation: any): string[];
     private getContentHash(source: string): string;
-
-    apply(compiler: Compiler): void;
 }
+
+export = SVGSpritemapPlugin;

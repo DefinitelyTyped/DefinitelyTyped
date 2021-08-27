@@ -1,1 +1,3 @@
-export { Http32 as default } from "../../";
+import { Http32 } from "../../";
+
+export = Http32;

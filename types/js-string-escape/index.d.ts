@@ -3,6 +3,6 @@
 // Definitions by: Jamie Davies <https://github.com/viralpickaxe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function jsStringEscape(str: string): string;
+declare function jsStringEscape(str: any): string;
 
 export = jsStringEscape;

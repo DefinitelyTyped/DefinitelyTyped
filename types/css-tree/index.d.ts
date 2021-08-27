@@ -79,7 +79,7 @@ export class List<TData> {
 
 export interface CssNodeCommon {
     type: string;
-    loc?: CssLocation;
+    loc?: CssLocation | undefined;
 }
 
 export interface AnPlusB extends CssNodeCommon {
@@ -205,8 +205,8 @@ export interface FunctionNodePlain extends CssNodeCommon {
     children: CssNodePlain[];
 }
 
-export interface HexColor extends CssNodeCommon {
-    type: 'HexColor';
+export interface Hash extends CssNodeCommon {
+    type: 'Hash';
     value: string;
 }
 
@@ -411,7 +411,7 @@ export type CssNode =
     | DeclarationList
     | Dimension
     | FunctionNode
-    | HexColor
+    | Hash
     | IdSelector
     | Identifier
     | MediaFeature
@@ -453,7 +453,7 @@ export type CssNodePlain =
     | DeclarationListPlain
     | Dimension
     | FunctionNodePlain
-    | HexColor
+    | Hash
     | IdSelector
     | Identifier
     | MediaFeature
@@ -486,18 +486,18 @@ export interface SyntaxParseError extends SyntaxError {
 }
 
 export interface ParseOptions {
-    context?: string;
-    atrule?: string;
-    positions?: boolean;
-    onParseError?: (error: SyntaxParseError, fallbackNode: CssNode) => void;
-    filename?: string;
-    offset?: number;
-    line?: number;
-    column?: number;
-    parseAtrulePrelude?: boolean;
-    parseRulePrelude?: boolean;
-    parseValue?: boolean;
-    parseCustomProperty?: boolean;
+    context?: string | undefined;
+    atrule?: string | undefined;
+    positions?: boolean | undefined;
+    onParseError?: ((error: SyntaxParseError, fallbackNode: CssNode) => void) | undefined;
+    filename?: string | undefined;
+    offset?: number | undefined;
+    line?: number | undefined;
+    column?: number | undefined;
+    parseAtrulePrelude?: boolean | undefined;
+    parseRulePrelude?: boolean | undefined;
+    parseValue?: boolean | undefined;
+    parseCustomProperty?: boolean | undefined;
 }
 
 export function parse(text: string, options?: ParseOptions): CssNode;
@@ -510,8 +510,8 @@ export interface GenerateHandlers {
 }
 
 export interface GenerateOptions {
-    sourceMap?: boolean;
-    decorator?: (handlers: GenerateHandlers) => GenerateHandlers;
+    sourceMap?: boolean | undefined;
+    decorator?: ((handlers: GenerateHandlers) => GenerateHandlers) | undefined;
 }
 
 export function generate(ast: CssNode, options?: GenerateOptions): string;
@@ -531,16 +531,16 @@ export interface WalkContext {
 export type EnterOrLeaveFn<NodeType = CssNode> = (this: WalkContext, node: NodeType, item: ListItem<CssNode>, list: List<CssNode>) => void;
 
 export interface WalkOptionsNoVisit {
-    enter?: EnterOrLeaveFn;
-    leave?: EnterOrLeaveFn;
-    reverse?: boolean;
+    enter?: EnterOrLeaveFn | undefined;
+    leave?: EnterOrLeaveFn | undefined;
+    reverse?: boolean | undefined;
 }
 
 export interface WalkOptionsVisit<NodeType extends CssNode = CssNode> {
     visit: NodeType['type'];
-    enter?: EnterOrLeaveFn<NodeType>;
-    leave?: EnterOrLeaveFn<NodeType>;
-    reverse?: boolean;
+    enter?: EnterOrLeaveFn<NodeType> | undefined;
+    leave?: EnterOrLeaveFn<NodeType> | undefined;
+    reverse?: boolean | undefined;
 }
 
 export type WalkOptions =
@@ -559,7 +559,7 @@ export type WalkOptions =
     | WalkOptionsVisit<DeclarationList>
     | WalkOptionsVisit<Dimension>
     | WalkOptionsVisit<FunctionNode>
-    | WalkOptionsVisit<HexColor>
+    | WalkOptionsVisit<Hash>
     | WalkOptionsVisit<IdSelector>
     | WalkOptionsVisit<Identifier>
     | WalkOptionsVisit<MediaFeature>
@@ -747,17 +747,17 @@ export type DSNodeMultiplied =
  * Definition syntax generate options
  */
 export interface DSGenerateOptions {
-    forceBraces?: boolean;
-    compact?: boolean;
-    decorate?: (result: string, node: DSNode) => void;
+    forceBraces?: boolean | undefined;
+    compact?: boolean | undefined;
+    decorate?: ((result: string, node: DSNode) => void) | undefined;
 }
 
 /**
  * Definition syntax walk options
  */
 export interface DSWalkOptions {
-    enter?: DSWalkEnterOrLeaveFn;
-    leave?: DSWalkEnterOrLeaveFn;
+    enter?: DSWalkEnterOrLeaveFn | undefined;
+    leave?: DSWalkEnterOrLeaveFn | undefined;
 }
 
 /**

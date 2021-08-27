@@ -1,1 +1,3 @@
-export { Automatic32 as default } from "../../";
+import { Automatic32 } from "../../";
+
+export = Automatic32;

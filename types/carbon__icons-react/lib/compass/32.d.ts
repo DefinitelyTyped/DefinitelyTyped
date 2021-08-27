@@ -1,1 +1,3 @@
-export { Compass32 as default } from "../../";
+import { Compass32 } from "../../";
+
+export = Compass32;

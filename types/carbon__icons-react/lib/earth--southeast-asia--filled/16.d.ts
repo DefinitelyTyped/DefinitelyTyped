@@ -1,1 +1,3 @@
-export { EarthSoutheastAsiaFilled16 as default } from "../../";
+import { EarthSoutheastAsiaFilled16 } from "../../";
+
+export = EarthSoutheastAsiaFilled16;

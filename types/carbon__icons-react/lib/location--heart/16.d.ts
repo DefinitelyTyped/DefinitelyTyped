@@ -1,1 +1,3 @@
-export { LocationHeart16 as default } from "../../";
+import { LocationHeart16 } from "../../";
+
+export = LocationHeart16;

@@ -1,17 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
-        "no-padding": false,
-        "no-single-declare-module": false,
-        "only-arrow-functions": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "trim-file": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "whitespace": false
-    }
+    "extends": "dtslint/dt.json"
 }

@@ -1,1 +1,3 @@
-export { LinuxAlt20 as default } from "../../";
+import { LinuxAlt20 } from "../../";
+
+export = LinuxAlt20;

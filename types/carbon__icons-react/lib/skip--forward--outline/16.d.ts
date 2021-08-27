@@ -1,1 +1,3 @@
-export { SkipForwardOutline16 as default } from "../../";
+import { SkipForwardOutline16 } from "../../";
+
+export = SkipForwardOutline16;

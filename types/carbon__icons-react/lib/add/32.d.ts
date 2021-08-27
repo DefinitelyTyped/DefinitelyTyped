@@ -1,1 +1,3 @@
-export { Add32 as default } from "../../";
+import { Add32 } from "../../";
+
+export = Add32;

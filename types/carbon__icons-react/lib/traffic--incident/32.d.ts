@@ -1,1 +1,3 @@
-export { TrafficIncident32 as default } from "../../";
+import { TrafficIncident32 } from "../../";
+
+export = TrafficIncident32;

@@ -1,1 +1,3 @@
-export { Strawberry20 as default } from "../../";
+import { Strawberry20 } from "../../";
+
+export = Strawberry20;

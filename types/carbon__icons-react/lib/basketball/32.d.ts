@@ -1,1 +1,3 @@
-export { Basketball32 as default } from "../../";
+import { Basketball32 } from "../../";
+
+export = Basketball32;

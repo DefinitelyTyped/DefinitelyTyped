@@ -1,1 +1,3 @@
-export { HybridNetworking32 as default } from "../../";
+import { HybridNetworking32 } from "../../";
+
+export = HybridNetworking32;

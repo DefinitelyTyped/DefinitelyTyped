@@ -1,1 +1,3 @@
-export { CheckmarkOutlineWarning32 as default } from "../../";
+import { CheckmarkOutlineWarning32 } from "../../";
+
+export = CheckmarkOutlineWarning32;

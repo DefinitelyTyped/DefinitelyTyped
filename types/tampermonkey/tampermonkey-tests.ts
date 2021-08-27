@@ -167,6 +167,9 @@ GM_xmlhttpRequest<RequestContext>({
     url: 'http://example.com/',
     headers: { 'User-Agent': 'greasemonkey' },
     data: 'foo=1&bar=2',
+    cookie: 'secret=42',
+    nocache: true,
+    revalidate: true,
     binary: false,
     timeout: 10,
     context: {
@@ -177,7 +180,7 @@ GM_xmlhttpRequest<RequestContext>({
     responseType: 'json',
     overrideMimeType: 'text/plain',
     anonymous: false,
-    username: 'guest',
+    user: 'guest',
     password: 'abc123',
     onabort() {},
     onerror(response) {
@@ -284,7 +287,7 @@ const openTabObject = GM_openInTab('http://www.example.com/', {
     setParent: true
 });
 
-openTabObject.onclosed = () => {
+openTabObject.onclose = () => {
     GM_log('Tab closed', openTabObject.closed);
 };
 
@@ -297,6 +300,7 @@ const textNotification: Tampermonkey.NotificationDetails = {
     title: 'Notification title',
     image: 'https://tampermonkey.net/favicon.ico',
     timeout: 5000,
+    silent: true,
     onclick() {
         GM_log(`Notification with id ${this.id} is clicked`);
     },

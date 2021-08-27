@@ -1,1 +1,3 @@
-export { Dialogue as default } from "../../";
+import { Dialogue } from "../../";
+
+export = Dialogue;

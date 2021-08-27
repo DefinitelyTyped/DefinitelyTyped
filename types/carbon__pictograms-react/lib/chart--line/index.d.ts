@@ -1,1 +1,3 @@
-export { ChartLine as default } from "../../";
+import { ChartLine } from "../../";
+
+export = ChartLine;

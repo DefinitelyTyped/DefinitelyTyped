@@ -1,1 +1,3 @@
-export { ExamMode32 as default } from "../../";
+import { ExamMode32 } from "../../";
+
+export = ExamMode32;

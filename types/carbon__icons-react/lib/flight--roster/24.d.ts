@@ -1,1 +1,3 @@
-export { FlightRoster24 as default } from "../../";
+import { FlightRoster24 } from "../../";
+
+export = FlightRoster24;

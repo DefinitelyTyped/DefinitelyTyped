@@ -1,1 +1,3 @@
-export { Forum16 as default } from "../../";
+import { Forum16 } from "../../";
+
+export = Forum16;

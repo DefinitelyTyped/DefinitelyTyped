@@ -1,1 +1,3 @@
-export { Bullhorn20 as default } from "../../";
+import { Bullhorn20 } from "../../";
+
+export = Bullhorn20;

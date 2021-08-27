@@ -1,1 +1,3 @@
-export { ChartRing32 as default } from "../../";
+import { ChartRing32 } from "../../";
+
+export = ChartRing32;

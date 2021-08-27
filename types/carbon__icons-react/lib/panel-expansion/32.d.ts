@@ -1,1 +1,3 @@
-export { PanelExpansion32 as default } from "../../";
+import { PanelExpansion32 } from "../../";
+
+export = PanelExpansion32;

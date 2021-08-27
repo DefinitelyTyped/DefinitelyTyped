@@ -13,7 +13,7 @@ export class Example extends React.Component {
             this.textFieldRef.current.value();
             this.textFieldRef.current.isFocused();
             this.textFieldRef.current.isRestricted();
-            this.textFieldRef.current.setValue("Initial value");
+            this.textFieldRef.current.setValue('Initial value');
         }
     }
 
@@ -26,6 +26,7 @@ export class Example extends React.Component {
                     placeholder="Text when field is empty"
                     value="Initial value"
                     style={{ fontSize: 10 }}
+                    labelOffset={{ x0: 1, y0: 1, x1: 1, y1: 1 }}
                 />
             </View>
         );

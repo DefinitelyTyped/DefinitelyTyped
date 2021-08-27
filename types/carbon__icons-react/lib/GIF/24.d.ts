@@ -1,1 +1,3 @@
-export { Gif24 as default } from "../../";
+import { Gif24 } from "../../";
+
+export = Gif24;

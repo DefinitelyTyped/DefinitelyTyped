@@ -1,1 +1,3 @@
-export { Run24 as default } from "../../";
+import { Run24 } from "../../";
+
+export = Run24;

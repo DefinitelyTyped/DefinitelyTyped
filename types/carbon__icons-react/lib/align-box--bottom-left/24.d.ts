@@ -1,1 +1,3 @@
-export { AlignBoxBottomLeft24 as default } from "../../";
+import { AlignBoxBottomLeft24 } from "../../";
+
+export = AlignBoxBottomLeft24;

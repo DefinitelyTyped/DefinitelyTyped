@@ -1,1 +1,3 @@
-export { StopOutlineFilled16 as default } from "../../";
+import { StopOutlineFilled16 } from "../../";
+
+export = StopOutlineFilled16;

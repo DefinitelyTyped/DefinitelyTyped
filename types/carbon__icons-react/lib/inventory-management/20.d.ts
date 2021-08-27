@@ -1,1 +1,3 @@
-export { InventoryManagement20 as default } from "../../";
+import { InventoryManagement20 } from "../../";
+
+export = InventoryManagement20;

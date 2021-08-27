@@ -1,1 +1,3 @@
-export { Tractor as default } from "../../";
+import { Tractor } from "../../";
+
+export = Tractor;

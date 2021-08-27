@@ -1,1 +1,3 @@
-export { MailAll16 as default } from "../../";
+import { MailAll16 } from "../../";
+
+export = MailAll16;

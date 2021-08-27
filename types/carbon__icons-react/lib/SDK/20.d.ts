@@ -1,1 +1,3 @@
-export { Sdk20 as default } from "../../";
+import { Sdk20 } from "../../";
+
+export = Sdk20;

@@ -1,1 +1,3 @@
-export { SplitScreen32 as default } from "../../";
+import { SplitScreen32 } from "../../";
+
+export = SplitScreen32;

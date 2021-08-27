@@ -1,4 +1,4 @@
-import { ApplicationData } from 'chromecast-caf-receiver/cast.framework.system';
+import { ApplicationData, LaunchedFrom } from 'chromecast-caf-receiver/cast.framework.system';
 import {
     MediaMetadata,
     LoadRequestData,
@@ -62,6 +62,8 @@ const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorC
 // tslint:disable-next-line
 const breakManager: BreakManager = {
     getBreakById: () => adBreak,
+    getBreakClipCurrentTimeSec: () => null,
+    getBreakClipDurationSec: () => null,
     getBreakClipById: () => breakClip,
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],
@@ -93,11 +95,13 @@ lrd.queueData = {};
 
 // tslint:disable-next-line
 const appData: ApplicationData = {
-    id: () => 'id',
-    launchingSenderId: () => 'launch-id',
-    name: () => 'name',
-    namespaces: () => ['namespace'],
-    sessionId: () => 1,
+    id: 'id',
+    launchingSenderId: 'launch-id',
+    name: 'name',
+    namespaces: ['namespace'],
+    sessionId: 1,
+    iconUrl: 'iconUrl',
+    launchedFrom: LaunchedFrom.CAST,
 };
 
 // tslint:disable-next-line
@@ -185,6 +189,10 @@ cast.framework.CastReceiverContext.getInstance()
         const bitrate = bitrateChangedEvent.totalBitrate;
     });
 
+cast.framework.CastReceiverContext.getInstance()
+    .getPlayerManager()
+    .addEventListener(cast.framework.events.EventType.TRACKS_CHANGED, () => {});
+
 // CastDebugLogger
 const debugLogger = cast.debug.CastDebugLogger.getInstance();
 
@@ -209,25 +217,27 @@ controls.assignButton(cast.framework.ui.ControlsSlot.SLOT_SECONDARY_2, cast.fram
 
 const playerManager = cast.framework.CastReceiverContext.getInstance().getPlayerManager();
 
-playerManager.setMessageInterceptor(MessageType.CLOUD_STATUS, (messageData: messages.CloudMediaStatus):
-    | messages.CloudMediaStatus
-    | messages.ErrorData => {
-    if (Math.random() > 0.5) {
-        const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
-        errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
-        return errorData;
-    }
+playerManager.setMessageInterceptor(
+    MessageType.CLOUD_STATUS,
+    (messageData: messages.CloudMediaStatus): messages.CloudMediaStatus | messages.ErrorData => {
+        if (Math.random() > 0.5) {
+            const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
+            errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
+            return errorData;
+        }
 
-    return messageData;
-});
-playerManager.setMessageInterceptor(MessageType.DISPLAY_STATUS, (messageData: messages.DisplayStatusRequestData):
-    | messages.DisplayStatusRequestData
-    | messages.ErrorData => {
-    if (Math.random() > 0.5) {
-        const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
-        errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
-        return errorData;
-    }
+        return messageData;
+    },
+);
+playerManager.setMessageInterceptor(
+    MessageType.DISPLAY_STATUS,
+    (messageData: messages.DisplayStatusRequestData): messages.DisplayStatusRequestData | messages.ErrorData => {
+        if (Math.random() > 0.5) {
+            const errorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.INVALID_REQUEST);
+            errorData.reason = cast.framework.messages.ErrorReason.NOT_SUPPORTED;
+            return errorData;
+        }
 
-    return messageData;
-});
+        return messageData;
+    },
+);

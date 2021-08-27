@@ -1,1 +1,3 @@
-export { Cloud16 as default } from "../../";
+import { Cloud16 } from "../../";
+
+export = Cloud16;

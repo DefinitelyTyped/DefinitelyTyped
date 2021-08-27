@@ -1,1 +1,3 @@
-export { ChatBot16 as default } from "../../";
+import { ChatBot16 } from "../../";
+
+export = ChatBot16;

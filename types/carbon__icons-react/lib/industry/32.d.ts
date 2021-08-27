@@ -1,1 +1,3 @@
-export { Industry32 as default } from "../../";
+import { Industry32 } from "../../";
+
+export = Industry32;

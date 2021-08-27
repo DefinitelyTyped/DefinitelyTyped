@@ -1,1 +1,3 @@
-export { Group20 as default } from "../../";
+import { Group20 } from "../../";
+
+export = Group20;

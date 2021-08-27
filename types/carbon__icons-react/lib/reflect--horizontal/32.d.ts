@@ -1,1 +1,3 @@
-export { ReflectHorizontal32 as default } from "../../";
+import { ReflectHorizontal32 } from "../../";
+
+export = ReflectHorizontal32;

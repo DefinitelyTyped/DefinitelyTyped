@@ -1,1 +1,3 @@
-export { AlarmSubtract32 as default } from "../../";
+import { AlarmSubtract32 } from "../../";
+
+export = AlarmSubtract32;

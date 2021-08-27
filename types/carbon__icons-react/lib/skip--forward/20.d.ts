@@ -1,1 +1,3 @@
-export { SkipForward20 as default } from "../../";
+import { SkipForward20 } from "../../";
+
+export = SkipForward20;

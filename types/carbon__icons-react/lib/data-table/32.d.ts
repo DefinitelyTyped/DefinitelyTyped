@@ -1,1 +1,3 @@
-export { DataTable32 as default } from "../../";
+import { DataTable32 } from "../../";
+
+export = DataTable32;

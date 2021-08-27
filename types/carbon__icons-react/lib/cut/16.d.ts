@@ -1,1 +1,3 @@
-export { Cut16 as default } from "../../";
+import { Cut16 } from "../../";
+
+export = Cut16;

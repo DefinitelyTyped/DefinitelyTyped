@@ -1,11 +1,12 @@
 import wanakana = require('wanakana');
-import { bind, unbind } from 'wanakana';
+import { bind, unbind, VERSION, TO_KANA_METHODS, ROMANIZATIONS } from 'wanakana';
 
 wanakana.isJapanese('泣き虫。！〜２￥ｚｅｎｋａｋｕ'); // $ExpectType boolean
 wanakana.isKana('あーア'); // $ExpectType boolean
 wanakana.isHiragana('すげー'); // $ExpectType boolean
 wanakana.isKatakana('ゲーム'); // $ExpectType boolean
 wanakana.isKanji('切腹'); // $ExpectType boolean
+wanakana.isMixed('Abあア'); // $ExpectType boolean
 wanakana.isRomaji('Tōkyō and Ōsaka'); // $ExpectType boolean
 
 wanakana.toKana('ONAJI buttsuuji'); // $ExpectType string
@@ -35,3 +36,7 @@ unbind(input);
 bind(textArea);
 bind(textArea, {});
 unbind(textArea);
+
+VERSION; // $ExpectType string
+TO_KANA_METHODS; // $ExpectType Record<string, string>
+ROMANIZATIONS; // $ExpectType Record<string, string>

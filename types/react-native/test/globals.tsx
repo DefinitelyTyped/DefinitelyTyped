@@ -7,6 +7,7 @@ const myInit: RequestInit = {
     method: 'GET',
     headers: myHeaders,
     mode: 'cors',
+    signal: new AbortSignal(),
 };
 
 const myRequest = new Request('flowers.jpg');
@@ -39,7 +40,10 @@ const test = new URLSearchParams();
 
 const url = new URL('path', 'http://localhost/');
 
-const blob = new Blob();
+const blobA = new Blob();
+const textA = 'i \u2665 dogs';
+
+const blob = new Blob([blobA, textA]);
 
 const reader = new FileReader();
 
@@ -57,3 +61,14 @@ fetch('https://example.org/post-image', {
     },
     method: 'POST',
 });
+
+const socket = new WebSocket('wss://echo.websocket.org');
+socket.send('hello world');
+socket.addEventListener('open', () => console.log('open'));
+socket.onopen = () => console.log('open');
+socket.addEventListener('close', e => console.log(e.code));
+socket.onclose = e => console.log(e.code);
+socket.addEventListener('message', e => console.log(e.data));
+socket.onmessage = e => console.log(e.data);
+socket.addEventListener('error', e => console.log(e.message));
+socket.onerror = e => console.log(e.message);

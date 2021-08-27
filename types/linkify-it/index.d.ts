@@ -23,7 +23,7 @@ declare namespace LinkifyIt {
 
     interface FullRule {
         validate: string | RegExp | Validate;
-        normalize?: (match: Match) => void;
+        normalize?: ((match: Match) => void) | undefined;
     }
 
     type Rule = string | FullRule;
@@ -33,9 +33,9 @@ declare namespace LinkifyIt {
     }
 
     interface Options {
-        fuzzyLink?: boolean;
-        fuzzyIP?: boolean;
-        fuzzyEmail?: boolean;
+        fuzzyLink?: boolean | undefined;
+        fuzzyIP?: boolean | undefined;
+        fuzzyEmail?: boolean | undefined;
     }
 
     interface Match {
@@ -48,7 +48,11 @@ declare namespace LinkifyIt {
     }
 
     interface LinkifyIt {
-        add(schema: string, rule: Rule | null): LinkifyIt;
+        // Use overloads to provide contextual typing to `FullRule.normalize`, which is ambiguous with string.normalize
+        // This appears unneeded to the unified-signatures lint rule.
+        add(schema: string, rule: string): LinkifyIt;
+        // tslint:disable-next-line: unified-signatures
+        add(schema: string, rule: FullRule | null): LinkifyIt;
         match(text: string): Match[] | null;
         normalize(raw: string): string;
         pretest(text: string): boolean;

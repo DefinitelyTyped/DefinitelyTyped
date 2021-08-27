@@ -1,1 +1,3 @@
-export { MacShift32 as default } from "../../";
+import { MacShift32 } from "../../";
+
+export = MacShift32;

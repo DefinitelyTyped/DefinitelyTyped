@@ -1,1 +1,3 @@
-export { ChartBullet16 as default } from "../../";
+import { ChartBullet16 } from "../../";
+
+export = ChartBullet16;

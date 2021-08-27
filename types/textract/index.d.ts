@@ -17,41 +17,41 @@ export interface Config {
      * Pass this in as true and textract will not strip any line breaks.
      * @default false
      */
-    preserveLineBreaks?: boolean;
+    preserveLineBreaks?: boolean | undefined;
     /**
      * Some extractors, like PDF, insert line breaks at the end of every line, even if the middle of a sentence.
      * If this option is set to true, then any instances of a single line break are removed but multiple line breaks are preserved.
      * Check your output with this option, though, this doesn't preserve paragraphs unless there are multiple breaks.
      * @default false
      */
-    preserveOnlyMultipleLineBreaks?: boolean;
+    preserveOnlyMultipleLineBreaks?: boolean | undefined;
     /**
      * Some extractors (dxf) use node's exec functionality.
      * This setting allows for providing config to exec execution.
      * One reason you might want to provide this config is if you are dealing with very large files.
      * You might want to increase the exec maxBuffer setting.
      */
-    exec?: ChildProc.ExecException;
+    exec?: ChildProc.ExecException | undefined;
     /**
      * Doc extractor options for non OS X.
      * See `drawingtotext` manual for available options
      */
-    doc?: extractorExecOpts;
+    doc?: extractorExecOpts | undefined;
     /**
      * DXF extractor options.
      * See `antiword` manual for available options
      */
-    dxf?: extractorExecOpts;
+    dxf?: extractorExecOpts | undefined;
     /**
      * Images (png, jpg, gif) extractor options.
      * See `tesseract` manual for available options
      */
-    images?: extractorExecOpts;
+    images?: extractorExecOpts | undefined;
     /**
      * RTF extractor options.
      * See `unrtf` manual for available options
      */
-    rtf?: extractorExecOpts;
+    rtf?: extractorExecOpts | undefined;
     tesseract?: {
         /**
          *  A pass-through to tesseract allowing for setting of language for extraction.
@@ -66,7 +66,7 @@ export interface Config {
          * you would pass `{ tesseract: { cmd:"-l chi_sim -psm 10" } }`
          */
         cmd: string
-    };
+    } | undefined;
     /**
      * This is a proxy options object to the library textract uses for pdf extraction: pdf-text-extract.
      * Options include ownerPassword, userPassword if you are extracting text from password protected PDFs.
@@ -75,41 +75,41 @@ export interface Config {
      * See [this GH issue](https://github.com/dbashford/textract/issues/75) for why textract overrides that library's default.
      */
     pdftotextOptions?: {
-        firstPage?: number,
-        lastPage?: number,
-        resolution?: number,
+        firstPage?: number | undefined,
+        lastPage?: number | undefined,
+        resolution?: number | undefined,
         crop?: {
             x: number, y: number, w: number, h: number
-        },
+        } | undefined,
         /**
          * Do not change unless you know what you are doing!
          * @default "raw"
          */
-        layout?: "layout" | "raw" | "htmlmeta",
+        layout?: "layout" | "raw" | "htmlmeta" | undefined,
         /**
          * @default "UTF-8"
          */
-        encoding?: "UCS-2" | "ASCII7" | "Latin1" | "UTF-8" | "ZapfDingbats" | "Symbol";
-        eol?: "unix" | "dos" | "mac",
-        ownerPassword?: string,
-        userPassword?: string,
+        encoding?: "UCS-2" | "ASCII7" | "Latin1" | "UTF-8" | "ZapfDingbats" | "Symbol" | undefined;
+        eol?: "unix" | "dos" | "mac" | undefined,
+        ownerPassword?: string | undefined,
+        userPassword?: string | undefined,
         /**
          * @default true
          */
-        splitPages?: boolean
-    };
+        splitPages?: boolean | undefined
+    } | undefined;
     /**
      * When extracting HTML, whether or not to include `alt` text with the extracted text.
      * @default false
      */
-    includeAltText?: boolean;
+    includeAltText?: boolean | undefined;
 }
 
 export interface URLConfig extends Config {
     /**
      * Used with fromUrl, if set, rather than using the content-type from the URL request, will use the provided typeOverride.
      */
-    typeOverride?: string;
+    typeOverride?: string | undefined;
 }
 
 /**

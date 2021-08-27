@@ -3,7 +3,7 @@ PouchDB.plugin(pouchdbUpsert);
 
 interface UpsertDocModel {
   name: string;
-  readonly?: boolean;
+  readonly?: boolean | undefined;
 }
 
 declare const docToUpsert: PouchDB.Core.Document<UpsertDocModel>;

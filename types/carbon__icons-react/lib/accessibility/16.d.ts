@@ -1,1 +1,3 @@
-export { Accessibility16 as default } from "../../";
+import { Accessibility16 } from "../../";
+
+export = Accessibility16;

@@ -50,39 +50,39 @@ declare namespace ajaxChain {
         /**
          * Configuration object label (optional).
          */
-        label?: String;
+        label?: String | undefined;
         /**
          * Returning a truthy value (Object) allows to arbitrarily overwrite the next queued Ajax call
          * 'data' property value specified in the original jQuery $.ajax method configuration
          * object ('ajaxSettings') (optional).
          */
-        transform?: (response: any) => String | Object | Object[];
+        transform?: ((response: any) => String | Object | Object[]) | undefined;
         /**
          * Returning a truthy value (String) allows to append a string to the next queued
          * Ajax call 'url' property value specified in original jQuery $.ajax method configuration
          * object ('ajaxSettings') (optional).
          */
-        appendToUrl?: (response: any) => String;
+        appendToUrl?: ((response: any) => String) | undefined;
         /**
          * Returning a truthy value determines any registered fail callback(s) to be called immediately,
          * passing the former as an argument to the latter; the queue is then rejected (optional).
          */
-        hasErrors?: (response: any) => any;
+        hasErrors?: ((response: any) => any) | undefined;
         /**
          * Returning a truthy value allows to prevent the related Ajax call from being executed,
          * passing the former as a parameter to any registered handler(s); useful to create
          * caching mechanisms (optional).
          */
-        hasCache?: (response: any) => any;
+        hasCache?: ((response: any) => any) | undefined;
         /**
          * Returning a truthy value prevents the queue from further progressing to the succeeding
          * Ajax calls; the queue is then resolved (optional).
          */
-        hasHaltingCapabilities?: (response: any) => Boolean;
+        hasHaltingCapabilities?: ((response: any) => Boolean) | undefined;
         /**
          * Returning a truthy value prevents the queue from being halted in case of Ajax error (optional).
          */
-        isSkippable?: (response: any) => Boolean;
+        isSkippable?: ((response: any) => Boolean) | undefined;
 
     }
 

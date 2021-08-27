@@ -1,1 +1,3 @@
-export { Racetrack as default } from "../../";
+import { Racetrack } from "../../";
+
+export = Racetrack;

@@ -1,1 +1,3 @@
-export { SnowDensity32 as default } from "../../";
+import { SnowDensity32 } from "../../";
+
+export = SnowDensity32;

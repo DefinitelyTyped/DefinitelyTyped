@@ -1,1 +1,3 @@
-export { Share32 as default } from "../../";
+import { Share32 } from "../../";
+
+export = Share32;

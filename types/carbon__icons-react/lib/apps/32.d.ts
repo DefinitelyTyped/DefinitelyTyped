@@ -1,1 +1,3 @@
-export { Apps32 as default } from "../../";
+import { Apps32 } from "../../";
+
+export = Apps32;

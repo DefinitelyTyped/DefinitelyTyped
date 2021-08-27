@@ -1,1 +1,3 @@
-export { Rotate32 as default } from "../../";
+import { Rotate32 } from "../../";
+
+export = Rotate32;

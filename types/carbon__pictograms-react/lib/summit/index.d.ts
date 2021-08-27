@@ -1,1 +1,3 @@
-export { Summit as default } from "../../";
+import { Summit } from "../../";
+
+export = Summit;

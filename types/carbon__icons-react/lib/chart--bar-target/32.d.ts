@@ -1,1 +1,3 @@
-export { ChartBarTarget32 as default } from "../../";
+import { ChartBarTarget32 } from "../../";
+
+export = ChartBarTarget32;

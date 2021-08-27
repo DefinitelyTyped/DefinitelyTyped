@@ -1,1 +1,3 @@
-export { ChartColumnFloating24 as default } from "../../";
+import { ChartColumnFloating24 } from "../../";
+
+export = ChartColumnFloating24;

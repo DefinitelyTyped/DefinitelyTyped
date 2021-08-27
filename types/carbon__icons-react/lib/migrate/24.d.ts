@@ -1,1 +1,3 @@
-export { Migrate24 as default } from "../../";
+import { Migrate24 } from "../../";
+
+export = Migrate24;

@@ -1,1 +1,3 @@
-export { Soccer32 as default } from "../../";
+import { Soccer32 } from "../../";
+
+export = Soccer32;

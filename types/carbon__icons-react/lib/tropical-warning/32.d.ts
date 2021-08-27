@@ -1,1 +1,3 @@
-export { TropicalWarning32 as default } from "../../";
+import { TropicalWarning32 } from "../../";
+
+export = TropicalWarning32;

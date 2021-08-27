@@ -1,1 +1,3 @@
-export { Shuttle32 as default } from "../../";
+import { Shuttle32 } from "../../";
+
+export = Shuttle32;

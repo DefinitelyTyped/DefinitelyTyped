@@ -1,1 +1,3 @@
-export { Jpg16 as default } from "../../";
+import { Jpg16 } from "../../";
+
+export = Jpg16;

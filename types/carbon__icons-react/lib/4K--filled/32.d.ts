@@ -1,1 +1,3 @@
-export { _4KFilled32 as default } from "../../";
+import { _4KFilled32 } from "../../";
+
+export = _4KFilled32;

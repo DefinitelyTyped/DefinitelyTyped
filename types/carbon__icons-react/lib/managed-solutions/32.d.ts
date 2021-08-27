@@ -1,1 +1,3 @@
-export { ManagedSolutions32 as default } from "../../";
+import { ManagedSolutions32 } from "../../";
+
+export = ManagedSolutions32;

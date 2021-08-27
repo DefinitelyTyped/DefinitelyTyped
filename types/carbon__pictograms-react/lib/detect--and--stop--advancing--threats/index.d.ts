@@ -1,1 +1,3 @@
-export { DetectAndStopAdvancingThreats as default } from "../../";
+import { DetectAndStopAdvancingThreats } from "../../";
+
+export = DetectAndStopAdvancingThreats;

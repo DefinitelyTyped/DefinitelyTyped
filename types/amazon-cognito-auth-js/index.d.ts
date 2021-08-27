@@ -1,4 +1,4 @@
-// Type definitions for amazon-cognito-auth-js 1.2
+// Type definitions for amazon-cognito-auth-js 1.3
 // Project: https://github.com/aws/amazon-cognito-auth-js, http://aws.amazon.com/cognito
 // Definitions by: Scott Escue <https://github.com/scottescue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,27 +28,27 @@ export interface CognitoSessionData {
     /**
      * The session's Id token.
      */
-    IdToken?: CognitoIdToken;
+    IdToken?: CognitoIdToken | undefined;
 
     /**
      * The session's refresh token.
      */
-    RefreshToken?: CognitoRefreshToken;
+    RefreshToken?: CognitoRefreshToken | undefined;
 
     /**
      * The session's access token.
      */
-    AccessToken?: CognitoAccessToken;
+    AccessToken?: CognitoAccessToken | undefined;
 
     /**
      * The session's token scopes.
      */
-    TokenScopes?: CognitoTokenScopes;
+    TokenScopes?: CognitoTokenScopes | undefined;
 
     /**
      * The session's state.
      */
-    State?: string;
+    State?: string | undefined;
 }
 
 export interface CognitoAuthOptions {
@@ -65,7 +65,7 @@ export interface CognitoAuthOptions {
     /**
      * Optional: The token scopes
      */
-    TokenScopesArray?: ReadonlyArray<string>;
+    TokenScopesArray?: ReadonlyArray<string> | undefined;
 
     /**
      * Required: Required: The redirect Uri, which will be launched after authentication as signed in.
@@ -80,17 +80,30 @@ export interface CognitoAuthOptions {
     /**
      * Optional: Pre-selected identity provider (this allows to automatically trigger social provider authentication flow).
      */
-    IdentityProvider?: string;
+    IdentityProvider?: string | undefined;
 
     /**
      * Optional: UserPoolId for the configured cognito userPool.
      */
-    UserPoolId?: string;
+    UserPoolId?: string | undefined;
 
     /**
      * Optional: boolean flag indicating if the data collection is enabled to support cognito advanced security features. By default, this flag is set to true.
      */
-    AdvancedSecurityDataCollectionFlag?: boolean;
+    AdvancedSecurityDataCollectionFlag?: boolean | undefined;
+
+    /**
+     * Optional: Storage provider used to store session data.
+     * By default, it uses localStorage if available or an in-memory structure.
+     * @example new CookieStorage()
+     */
+    Storage?: CognitoAuthStorage;
+
+    /**
+     * Optional: A function called to launch an Uri.
+     * By default it uses window.location in browsers, and the Linking class in react native.
+     */
+    LaunchUri?: (url: string) => void;
 }
 
 export interface CognitoAuthUserHandler {
@@ -481,9 +494,13 @@ export class CognitoAuth {
      * @param onSuccess callback
      * @param onFailure callback
      */
-    makePOSTRequest(header: object, body: object, url: string,
+    makePOSTRequest(
+        header: object,
+        body: object,
+        url: string,
         onSuccess: (responseText: string) => void,
-        onFailure: (responseText: string) => void): void;
+        onFailure: (responseText: string) => void,
+    ): void;
 
     /**
      * Create the XHR object
@@ -573,5 +590,83 @@ export class StorageHelper {
      * This is used to return the storage
      * @returns the storage
      */
-    getStorage(): Storage;
+    getStorage(): CognitoAuthStorage;
+}
+
+export interface CognitoAuthStorage {
+    /**
+     * Sets the value of the pair identified by key to value, creating a new
+     * key/value pair if none existed for key previously.
+     */
+    setItem(key: string, value: string): void;
+
+    /**
+     * Returns the current value associated with the given key, or null or
+     * undefined if the given key does not exist in the list associated with
+     * the object.
+     */
+    getItem(key: string): string | null | undefined;
+
+    /**
+     * Removes the key/value pair with the given key from the list associated
+     * with the object, if a key/value pair with the given key exists.
+     */
+    removeItem(key: string): void;
+}
+
+export interface CookieStorageOptions {
+    /**
+     * Cookies domain
+     */
+    domain: string;
+
+    /**
+     * Cookies path (default: '/')
+     */
+    path?: string;
+
+    /**
+     * Cookie expiration (in days, default: 365)
+     */
+    expires?: number;
+
+    /**
+     * Cookie secure flag (default: true)
+     */
+    secure?: boolean;
+}
+
+export class CookieStorage implements CognitoAuthStorage {
+    /**
+     * Constructs a new CookieStorage object
+     * @param data Creation options.
+     */
+    constructor(data: CookieStorageOptions);
+
+    /**
+     * This is used to set a specific item in storage
+     * @param key the key for the item
+     * @param value the value
+     * @returns value that was set
+     */
+    setItem(key: string, value: unknown): string;
+
+    /**
+     * This is used to get a specific key from storage
+     * @param key the key for the item
+     * @returns the data item
+     */
+    getItem(key: string): string | undefined;
+
+    /**
+     * This is used to remove an item from storage
+     * @param key the key being set
+     */
+    removeItem(key: string): void;
+
+    /**
+     * This is used to clear the storage
+     * @returns nothing
+     */
+    clear(): {};
 }

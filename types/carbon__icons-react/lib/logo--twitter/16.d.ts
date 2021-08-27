@@ -1,1 +1,3 @@
-export { LogoTwitter16 as default } from "../../";
+import { LogoTwitter16 } from "../../";
+
+export = LogoTwitter16;

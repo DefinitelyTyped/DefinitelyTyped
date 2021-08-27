@@ -1,1 +1,3 @@
-export { AddComment32 as default } from "../../";
+import { AddComment32 } from "../../";
+
+export = AddComment32;

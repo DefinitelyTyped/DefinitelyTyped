@@ -1,1 +1,3 @@
-export { TouchScreen as default } from "../../";
+import { TouchScreen } from "../../";
+
+export = TouchScreen;

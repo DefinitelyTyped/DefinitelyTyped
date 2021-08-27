@@ -1,1 +1,3 @@
-export { TrafficWeatherIncident32 as default } from "../../";
+import { TrafficWeatherIncident32 } from "../../";
+
+export = TrafficWeatherIncident32;

@@ -1,55 +1,38 @@
-import currencyFormatter = require('currency-formatter');
+import currencyFormatter = require("currency-formatter");
+import currencies = require("currency-formatter/currencies");
 
-currencyFormatter.format(1000000, { code: 'USD' });
-// => '$1,000,000.00'
+// $ExpectType string
+currencyFormatter.format(1000000, { code: "USD" });
+// $ExpectTYpe number
+currencyFormatter.unformat("$1,000,000.00", { code: "USD" });
+// $ExpectType string
+currencyFormatter.format(1000000, { code: "GBP" });
+// $ExpectTYpe number
+currencyFormatter.unformat("£1,000,000.00", { code: "GBP" });
+// $ExpectType string
+currencyFormatter.format(1000000, { code: "EUR" });
+// $ExpectTYpe number
+currencyFormatter.unformat("1 000 000,00 €", { code: "EUR" });
 
-currencyFormatter.unformat('$1,000,000.00', { code: 'USD' });
-// => 1000000
+currencyFormatter.findCurrency("USD"); // $ExpectType Currency | undefined
 
-currencyFormatter.format(1000000, { code: 'GBP' });
-// => '£1,000,000.00'
-
-currencyFormatter.unformat('£1,000,000.00', { code: 'GBP' });
-// => 1000000
-
-currencyFormatter.format(1000000, { code: 'EUR' });
-// => '1 000 000,00 €'
-
-currencyFormatter.unformat('1 000 000,00 €', { code: 'EUR' });
-// => 1000000
-
-currencyFormatter.findCurrency('USD');
-// returns:
-// {
-//   code: 'USD',
-//   symbol: '$',
-//   thousandsSeparator: ',',
-//   decimalSeparator: '.',
-//   symbolOnLeft: true,
-//   spaceBetweenAmountAndSymbol: false,
-//   decimalDigits: 2
-// }
-
+// $ExpectType string
 currencyFormatter.format(1000000, {
-  symbol: '@',
-  decimal: '*',
-  thousand: '^',
-  precision: 1,
-  format: '%v %s' // %s is the symbol and %v is the value
+    symbol: "@",
+    decimal: "*",
+    thousand: "^",
+    precision: 1,
+    format: "%v %s", // %s is the symbol and %v is the value
 });
 
-// => '1^000^000*0 @'
-
-// Different formatting for positive and negative values
+// $ExpectType string
 currencyFormatter.format(-10, {
-  format: {
-    pos: '%s%v', // %s is the symbol and %v is the value
-    neg: '(%s%v)',
-    zero: '%s%v'
-  }
+    format: {
+        pos: "%s%v", // %s is the symbol and %v is the value
+        neg: "(%s%v)",
+        zero: "%s%v",
+    },
 });
 
-// => ($10)
-
-import currencies = require('currency-formatter/currencies');
-currencies === currencyFormatter.currencies;
+// $ExpectType Currency[]
+currencies;

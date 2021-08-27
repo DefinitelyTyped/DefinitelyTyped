@@ -1,1 +1,3 @@
-export { Row16 as default } from "../../";
+import { Row16 } from "../../";
+
+export = Row16;

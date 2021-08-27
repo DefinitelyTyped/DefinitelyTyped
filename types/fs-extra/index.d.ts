@@ -10,6 +10,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
@@ -68,8 +69,8 @@ export function readJSON(file: string, options: ReadOptions, callback: (err: Err
 export function readJsonSync(file: string, options?: ReadOptions): any;
 export function readJSONSync(file: string, options?: ReadOptions): any;
 
-export function remove(dir: string): Promise<void>;
 export function remove(dir: string, callback: (err: Error) => void): void;
+export function remove(dir: string, callback?: (err: Error) => void): Promise<void>;
 export function removeSync(dir: string): void;
 
 export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;
@@ -126,10 +127,10 @@ export function access(path: PathLike, callback: (err: NodeJS.ErrnoException) =>
 export function access(path: PathLike, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function access(path: PathLike, mode?: number): Promise<void>;
 
-export function appendFile(file: PathLike | number, data: any, options: { encoding?: string; mode?: number | string; flag?: string; },
+export function appendFile(file: PathLike | number, data: any, options: { encoding?: string | undefined; mode?: number | string | undefined; flag?: string | undefined; },
     callback: (err: NodeJS.ErrnoException) => void): void;
 export function appendFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function appendFile(file: PathLike | number, data: any, options?: { encoding?: string; mode?: number | string; flag?: string; }): Promise<void>;
+export function appendFile(file: PathLike | number, data: any, options?: { encoding?: string | undefined; mode?: number | string | undefined; flag?: string | undefined; }): Promise<void>;
 
 export function chmod(path: PathLike, mode: Mode, callback: (err: NodeJS.ErrnoException) => void): void;
 export function chmod(path: PathLike, mode: Mode): Promise<void>;
@@ -206,17 +207,21 @@ export function read<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffe
 
 export function readFile(file: PathLike | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 export function readFile(file: PathLike | number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-export function readFile(file: PathLike | number, options: { flag?: string; } | { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-export function readFile(file: PathLike | number, options: { flag?: string; } | { encoding: string; flag?: string; }): Promise<string>;
+export function readFile(
+    file: PathLike | number,
+    options: { flag?: string | undefined; } | { encoding: string; flag?: string | undefined; },
+    callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+): void;
+export function readFile(file: PathLike | number, options: { flag?: string | undefined; } | { encoding: string; flag?: string | undefined; }): Promise<string>;
 // tslint:disable-next-line:unified-signatures
 export function readFile(file: PathLike | number, encoding: string): Promise<string>;
 export function readFile(file: PathLike | number): Promise<Buffer>;
 
 export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): Promise<string[]>;
-export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer"; withFileTypes?: false }): Promise<Buffer[]>;
-export function readdir(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false }): Promise<string[] | Buffer[]>;
-export function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<fs.Dirent[]>;
+export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false | undefined } | BufferEncoding | null): Promise<string[]>;
+export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer"; withFileTypes?: false | undefined }): Promise<Buffer[]>;
+export function readdir(path: PathLike, options?: { encoding?: string | null | undefined; withFileTypes?: false | undefined }): Promise<string[] | Buffer[]>;
+export function readdir(path: PathLike, options: { encoding?: string | null | undefined; withFileTypes: true }): Promise<fs.Dirent[]>;
 
 export function readlink(path: PathLike, callback: (err: NodeJS.ErrnoException, linkString: string) => any): void;
 export function readlink(path: PathLike): Promise<string>;
@@ -225,8 +230,27 @@ export function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, 
 export function realpath(path: PathLike, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
 export function realpath(path: PathLike, cache?: { [path: string]: string }): Promise<string>;
 
+/* tslint:disable:unified-signatures */
+export namespace realpath {
+    const native: {
+        (path: PathLike, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null): Promise<string>;
+        (path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+        (path: PathLike, options: { encoding: BufferEncoding | null } | string | undefined | null): Promise<string | Buffer>;
+        (path: PathLike): Promise<string>;
+    } & typeof fs.realpath.native;
+}
+/* tslint:enable:unified-signatures */
+
 export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
+
+/**
+ * Asynchronously removes files and directories (modeled on the standard POSIX
+ * `rm` utility).
+ *
+ * Only available in node >= v14.14.0
+ */
+export function rm(path: PathLike, options?: { force?: boolean | undefined, maxRetries?: number | undefined, recursive?: boolean | undefined, retryDelay?: number | undefined }): Promise<void>;
 
 /**
  * Asynchronous rmdir - removes the directory specified in {path}
@@ -234,7 +258,7 @@ export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function rmdir(path: PathLike): Promise<void>;
+export function rmdir(path: PathLike, options?: fs.RmDirOptions): Promise<void>;
 
 export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: PathLike): Promise<Stats>;
@@ -309,46 +333,46 @@ export type Mode = string | number;
 export type ArrayBufferView = NodeJS.TypedArray | DataView;
 
 export interface CopyOptions {
-    dereference?: boolean;
-    overwrite?: boolean;
-    preserveTimestamps?: boolean;
-    errorOnExist?: boolean;
-    filter?: CopyFilterSync | CopyFilterAsync;
-    recursive?: boolean;
+    dereference?: boolean | undefined;
+    overwrite?: boolean | undefined;
+    preserveTimestamps?: boolean | undefined;
+    errorOnExist?: boolean | undefined;
+    filter?: CopyFilterSync | CopyFilterAsync | undefined;
+    recursive?: boolean | undefined;
 }
 
 export interface CopyOptionsSync extends CopyOptions {
-    filter?: CopyFilterSync;
+    filter?: CopyFilterSync | undefined;
 }
 
 export interface EnsureOptions {
-    mode?: number;
+    mode?: number | undefined;
 }
 
 export interface MoveOptions {
-    overwrite?: boolean;
-    limit?: number;
+    overwrite?: boolean | undefined;
+    limit?: number | undefined;
 }
 
 export interface ReadOptions {
-    throws?: boolean;
-    fs?: object;
+    throws?: boolean | undefined;
+    fs?: object | undefined;
     reviver?: any;
-    encoding?: string;
-    flag?: string;
+    encoding?: string | undefined;
+    flag?: string | undefined;
 }
 
 export interface WriteFileOptions {
-    encoding?: string | null;
-    flag?: string;
-    mode?: number;
+    encoding?: string | null | undefined;
+    flag?: string | undefined;
+    mode?: number | undefined;
 }
 
 export interface WriteOptions extends WriteFileOptions {
-    fs?: object;
+    fs?: object | undefined;
     replacer?: any;
-    spaces?: number | string;
-    EOL?: string;
+    spaces?: number | string | undefined;
+    EOL?: string | undefined;
 }
 
 export interface WritevResult {

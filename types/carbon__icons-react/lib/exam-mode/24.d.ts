@@ -1,1 +1,3 @@
-export { ExamMode24 as default } from "../../";
+import { ExamMode24 } from "../../";
+
+export = ExamMode24;

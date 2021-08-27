@@ -1,1 +1,3 @@
-export { ViewNext32 as default } from "../../";
+import { ViewNext32 } from "../../";
+
+export = ViewNext32;

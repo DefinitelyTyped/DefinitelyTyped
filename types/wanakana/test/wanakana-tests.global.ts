@@ -28,3 +28,5 @@ declare const input: HTMLInputElement;
 wanakana.bind(input);
 wanakana.bind(input, {});
 wanakana.unbind(input);
+
+wanakana.VERSION; // $ExpectType string

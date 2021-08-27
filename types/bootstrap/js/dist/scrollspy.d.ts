@@ -1,5 +1,7 @@
-declare class ScrollSpy {
-    constructor(element: Element, options?: Partial<ScrollSpy.Options>);
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+
+declare class ScrollSpy extends BaseComponent {
+    constructor(element: string | Element, options?: Partial<ScrollSpy.Options>);
 
     /**
      * When using scrollspy in conjunction with adding or removing of
@@ -9,15 +11,23 @@ declare class ScrollSpy {
     refresh(): void;
 
     /**
-     * Destroys an element’s scrollspy.
-     */
-    dispose(): void;
-
-    /**
      * Static method which allows you to get the scrollspy instance associated
      * with a DOM element
      */
-    static getInstance(element: Element, options?: Partial<ScrollSpy.Options>): ScrollSpy;
+    static getInstance: GetInstanceFactory<ScrollSpy>;
+
+    static getOrCreateInstance: GetOrCreateInstanceFactory<ScrollSpy>;
+
+    static jQueryInterface: ScrollSpy.jQueryInterface;
+
+    // static NAME: 'scrollspy';
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: ScrollSpy.Options;
 }
 
 declare namespace ScrollSpy {
@@ -53,6 +63,8 @@ declare namespace ScrollSpy {
          */
         target: string | Element | JQuery;
     }
+
+    type jQueryInterface = (config?: Partial<Options> | 'refresh' | 'dispose') => void;
 }
 
 export default ScrollSpy;

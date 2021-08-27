@@ -1,1 +1,3 @@
-export { LogoRScript20 as default } from "../../";
+import { LogoRScript20 } from "../../";
+
+export = LogoRScript20;

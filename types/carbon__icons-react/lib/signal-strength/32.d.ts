@@ -1,1 +1,3 @@
-export { SignalStrength32 as default } from "../../";
+import { SignalStrength32 } from "../../";
+
+export = SignalStrength32;

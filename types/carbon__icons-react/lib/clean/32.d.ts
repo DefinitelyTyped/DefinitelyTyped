@@ -1,1 +1,3 @@
-export { Clean32 as default } from "../../";
+import { Clean32 } from "../../";
+
+export = Clean32;

@@ -1,1 +1,3 @@
-export { UserAvatarFilled24 as default } from "../../";
+import { UserAvatarFilled24 } from "../../";
+
+export = UserAvatarFilled24;

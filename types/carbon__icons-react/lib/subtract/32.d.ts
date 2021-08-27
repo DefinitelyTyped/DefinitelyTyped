@@ -1,1 +1,3 @@
-export { Subtract32 as default } from "../../";
+import { Subtract32 } from "../../";
+
+export = Subtract32;

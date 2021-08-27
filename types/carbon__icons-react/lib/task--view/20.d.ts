@@ -1,1 +1,3 @@
-export { TaskView20 as default } from "../../";
+import { TaskView20 } from "../../";
+
+export = TaskView20;

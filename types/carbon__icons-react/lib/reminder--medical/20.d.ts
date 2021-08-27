@@ -1,1 +1,3 @@
-export { ReminderMedical20 as default } from "../../";
+import { ReminderMedical20 } from "../../";
+
+export = ReminderMedical20;

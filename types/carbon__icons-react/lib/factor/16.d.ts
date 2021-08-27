@@ -1,1 +1,3 @@
-export { Factor16 as default } from "../../";
+import { Factor16 } from "../../";
+
+export = Factor16;

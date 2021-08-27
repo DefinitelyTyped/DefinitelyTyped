@@ -671,3 +671,13 @@ spotifyApi.getMyTopTracks()
   }, (err) => {
     console.log('Something went wrong!', err);
   });
+
+/* Shows */
+
+spotifyApi.getShowEpisodes('53TsTEHBmnGHUNTf5PIuSg')
+  .then((data) => {
+    const episodes = data.body.items;
+    console.log(episodes);
+  }, (err) => {
+    console.log('Something went wrong!', err);
+  });

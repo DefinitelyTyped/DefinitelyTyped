@@ -1,1 +1,3 @@
-export { AlignBoxMiddleCenter32 as default } from "../../";
+import { AlignBoxMiddleCenter32 } from "../../";
+
+export = AlignBoxMiddleCenter32;

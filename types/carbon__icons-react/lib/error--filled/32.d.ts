@@ -1,1 +1,3 @@
-export { ErrorFilled32 as default } from "../../";
+import { ErrorFilled32 } from "../../";
+
+export = ErrorFilled32;

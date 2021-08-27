@@ -1,1 +1,3 @@
-export { RockOn as default } from "../../";
+import { RockOn } from "../../";
+
+export = RockOn;

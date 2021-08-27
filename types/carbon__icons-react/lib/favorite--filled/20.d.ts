@@ -1,1 +1,3 @@
-export { FavoriteFilled20 as default } from "../../";
+import { FavoriteFilled20 } from "../../";
+
+export = FavoriteFilled20;

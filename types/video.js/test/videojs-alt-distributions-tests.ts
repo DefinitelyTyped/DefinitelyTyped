@@ -5,7 +5,16 @@ test(videojsnovtt);
 test(videojscore);
 
 function test(videojs: typeof videojsnovtt | typeof videojscore) {
-    videojs('example_video_1').ready(function() {
+    // support for inline player ready callback with proper `this`
+    videojs('example_video_1', {}, function onPlayerReady() {
+        this; // $ExpectType VideoJsPlayer
+        const playPromise = this.play();
+        this.pause();
+        const isPaused: boolean = this.paused();
+        const isPlaying: boolean = !this.paused();
+    });
+
+    videojs('example_video_1').ready(function playerReady() {
         // EXAMPLE: Start playing the video.
         const playPromise = this.play();
 
@@ -33,6 +42,16 @@ function test(videojs: typeof videojsnovtt | typeof videojscore) {
         this.currentTime(120); // 2 minutes into the video
 
         const howLongIsThis: number = this.duration();
+
+        const autoplay: boolean | string = this.autoplay();
+        this.autoplay(true);
+        this.autoplay("muted");
+
+        const controls: boolean = this.controls();
+        this.controls(true);
+
+        const loop: boolean = this.loop();
+        this.loop(true);
 
         const bufferedTimeRange: TimeRanges = this.buffered();
 
@@ -138,3 +157,6 @@ function test(videojs: typeof videojsnovtt | typeof videojscore) {
         anotherlogger('today');
     }
 }
+
+videojscore.hooks('foo'); // $ExpectType (() => any)[]
+videojscore.hooks('foo', () => {}); // $ExpectType (() => any)[]

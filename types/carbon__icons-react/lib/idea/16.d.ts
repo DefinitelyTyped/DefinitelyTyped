@@ -1,1 +1,3 @@
-export { Idea16 as default } from "../../";
+import { Idea16 } from "../../";
+
+export = Idea16;

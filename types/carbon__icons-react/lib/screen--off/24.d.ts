@@ -1,1 +1,3 @@
-export { ScreenOff24 as default } from "../../";
+import { ScreenOff24 } from "../../";
+
+export = ScreenOff24;

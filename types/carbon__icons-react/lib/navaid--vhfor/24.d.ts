@@ -1,1 +1,3 @@
-export { NavaidVhfor24 as default } from "../../";
+import { NavaidVhfor24 } from "../../";
+
+export = NavaidVhfor24;

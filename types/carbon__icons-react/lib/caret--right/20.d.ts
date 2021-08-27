@@ -1,1 +1,3 @@
-export { CaretRight20 as default } from "../../";
+import { CaretRight20 } from "../../";
+
+export = CaretRight20;

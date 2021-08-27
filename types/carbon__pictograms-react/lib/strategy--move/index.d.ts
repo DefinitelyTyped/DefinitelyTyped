@@ -1,1 +1,3 @@
-export { StrategyMove as default } from "../../";
+import { StrategyMove } from "../../";
+
+export = StrategyMove;

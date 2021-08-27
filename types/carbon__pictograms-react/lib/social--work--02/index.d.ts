@@ -1,1 +1,3 @@
-export { SocialWork_02 as default } from "../../";
+import { SocialWork_02 } from "../../";
+
+export = SocialWork_02;

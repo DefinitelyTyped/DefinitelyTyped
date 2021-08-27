@@ -1,1 +1,3 @@
-export { DataPlayer20 as default } from "../../";
+import { DataPlayer20 } from "../../";
+
+export = DataPlayer20;

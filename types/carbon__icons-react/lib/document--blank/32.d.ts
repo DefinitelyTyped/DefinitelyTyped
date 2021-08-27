@@ -1,1 +1,3 @@
-export { DocumentBlank32 as default } from "../../";
+import { DocumentBlank32 } from "../../";
+
+export = DocumentBlank32;

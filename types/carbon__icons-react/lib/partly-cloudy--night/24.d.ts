@@ -1,1 +1,3 @@
-export { PartlyCloudyNight24 as default } from "../../";
+import { PartlyCloudyNight24 } from "../../";
+
+export = PartlyCloudyNight24;

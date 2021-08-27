@@ -1,1 +1,3 @@
-export { Bot24 as default } from "../../";
+import { Bot24 } from "../../";
+
+export = Bot24;

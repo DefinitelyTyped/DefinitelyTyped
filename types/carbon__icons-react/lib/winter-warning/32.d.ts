@@ -1,1 +1,3 @@
-export { WinterWarning32 as default } from "../../";
+import { WinterWarning32 } from "../../";
+
+export = WinterWarning32;

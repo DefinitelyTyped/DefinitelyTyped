@@ -17,35 +17,35 @@ interface Options extends sass.Options {
     /**
      * 
      */
-    dest?: string;
+    dest?: string | undefined;
     /**
      * 
      */
-    root?: string;
+    root?: string | undefined;
     /**
      * 
      */
-    prefix?: string;
+    prefix?: string | undefined;
     /**
      * 
      */
-    force?: boolean;
+    force?: boolean | undefined;
     /**
      * 
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
     /**
      * 
      */
-    indentedSyntax?: boolean;
+    indentedSyntax?: boolean | undefined;
     /**
      * 
      */
-    response?: boolean;
+    response?: boolean | undefined;
     /**
      * 
      */
-    error?: () => void;
+    error?: (() => void) | undefined;
 }
 
 /**

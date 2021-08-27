@@ -1,1 +1,3 @@
-export { Radio32 as default } from "../../";
+import { Radio32 } from "../../";
+
+export = Radio32;

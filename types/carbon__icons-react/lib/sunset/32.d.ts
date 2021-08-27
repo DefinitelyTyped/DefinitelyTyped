@@ -1,1 +1,3 @@
-export { Sunset32 as default } from "../../";
+import { Sunset32 } from "../../";
+
+export = Sunset32;

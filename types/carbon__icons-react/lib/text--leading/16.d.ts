@@ -1,1 +1,3 @@
-export { TextLeading16 as default } from "../../";
+import { TextLeading16 } from "../../";
+
+export = TextLeading16;

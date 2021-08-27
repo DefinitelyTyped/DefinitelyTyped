@@ -1,1 +1,3 @@
-export { ObservedLightning32 as default } from "../../";
+import { ObservedLightning32 } from "../../";
+
+export = ObservedLightning32;

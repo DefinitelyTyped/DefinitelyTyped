@@ -1,1 +1,3 @@
-export { EdtLoop24 as default } from "../../";
+import { EdtLoop24 } from "../../";
+
+export = EdtLoop24;

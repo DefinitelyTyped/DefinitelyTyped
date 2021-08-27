@@ -1,1 +1,3 @@
-export { TextTracking16 as default } from "../../";
+import { TextTracking16 } from "../../";
+
+export = TextTracking16;

@@ -1,8 +1,13 @@
 import express = require('express');
 import hydraBox = require('hydra-box');
-import Api = require('hydra-box/Api');
+import ApiImpl = require('hydra-box/Api');
+import { Api } from 'hydra-box/Api';
 import StoreResourceLoader = require('hydra-box/StoreResourceLoader');
-import { Dataset, DatasetCore, NamedNode, Store } from 'rdf-js';
+import { Dataset, DatasetCore, NamedNode, Store, Stream } from 'rdf-js';
+import { GraphPointer } from 'clownface';
+import DatasetExt = require('rdf-ext/lib/Dataset');
+import { Readable } from 'stream';
+import { Loader } from 'rdf-loaders-registry';
 
 const codePath = '';
 const path = '';
@@ -12,18 +17,18 @@ const term: NamedNode = <any> {};
 
 function createApi(): Api<Dataset> {
     // no options
-    let api: Api = Api.fromFile('foo').fromFile('bar');
-    api = new Api().fromFile('foo');
+    let api: Api = ApiImpl.fromFile('foo').fromFile('bar');
+    api = new ApiImpl().fromFile('foo');
 
     // with options
-    let withOptions: Api<Dataset> = Api.fromFile('foo', {
+    let withOptions: Api<Dataset> = ApiImpl.fromFile('foo', {
         codePath,
         dataset,
         graph,
         path,
         term,
     });
-    withOptions = new Api({
+    withOptions = new ApiImpl({
         codePath,
         dataset,
         graph,
@@ -56,7 +61,8 @@ function appCustomConfig() {
         loader,
         store,
         middleware: {
-            resource: handler
+            resource: handler,
+            operations: handler
         }
     }));
 
@@ -65,7 +71,8 @@ function appCustomConfig() {
         loader,
         store,
         middleware: {
-            resource: [handler, handler]
+            resource: [handler, handler],
+            operations: [handler, handler]
         }
     }));
 }
@@ -78,4 +85,22 @@ async function testStoreResourceLoader() {
 
     const forClassOperation: hydraBox.Resource[] = await loader.forClassOperation(term, req);
     const forPropertyOperation: hydraBox.PropertyResource[] = await loader.forPropertyOperation(term, req);
+}
+
+const handler: express.RequestHandler = async (req) => {
+    const operations: hydraBox.PotentialOperation[] = req.hydra.operations;
+    const dataset: DatasetCore = await req.hydra.resource.dataset();
+    const quadStream: Stream & Readable = req.hydra.resource.quadStream();
+    const pointer: GraphPointer<NamedNode, DatasetExt> = await req.hydra.resource.clownface();
+};
+
+async function loader() {
+    const pointer: GraphPointer = <any> {};
+    const api = createApi();
+
+    interface LoadedFunction {
+        (): string;
+    }
+
+    const loader: LoadedFunction | undefined = await api.loaderRegistry.load<LoadedFunction>(pointer);
 }

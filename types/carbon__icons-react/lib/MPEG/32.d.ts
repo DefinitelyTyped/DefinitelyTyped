@@ -1,1 +1,3 @@
-export { Mpeg32 as default } from "../../";
+import { Mpeg32 } from "../../";
+
+export = Mpeg32;

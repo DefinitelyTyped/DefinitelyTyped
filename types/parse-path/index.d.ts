@@ -3,6 +3,8 @@
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { ParsedQuery } from 'query-string';
+
 declare namespace parsePath {
     type Protocol = 'http' | 'https' | 'ssh' | 'file' | 'git';
 
@@ -20,7 +22,7 @@ declare namespace parsePath {
         /** An array with the url protocols (usually it has one element). */
         protocols: Protocol[];
         /** The url querystring, parsed as object. */
-        query: any;
+        query: ParsedQuery;
         /** The url domain (including subdomains). */
         resource: string;
         /** The url querystring value. */

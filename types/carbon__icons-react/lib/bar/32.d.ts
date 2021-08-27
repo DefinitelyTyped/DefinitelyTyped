@@ -1,1 +1,3 @@
-export { Bar32 as default } from "../../";
+import { Bar32 } from "../../";
+
+export = Bar32;

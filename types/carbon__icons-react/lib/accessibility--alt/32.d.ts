@@ -1,1 +1,3 @@
-export { AccessibilityAlt32 as default } from "../../";
+import { AccessibilityAlt32 } from "../../";
+
+export = AccessibilityAlt32;

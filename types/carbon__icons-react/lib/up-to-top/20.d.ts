@@ -1,1 +1,3 @@
-export { UpToTop20 as default } from "../../";
+import { UpToTop20 } from "../../";
+
+export = UpToTop20;

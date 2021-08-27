@@ -1,1 +1,3 @@
-export { Data_116 as default } from "../../";
+import { Data_116 } from "../../";
+
+export = Data_116;

@@ -14,7 +14,7 @@ declare namespace domtagger {
          *
          * @default 'html'
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * Used to provide a custom algorithm for converting a template

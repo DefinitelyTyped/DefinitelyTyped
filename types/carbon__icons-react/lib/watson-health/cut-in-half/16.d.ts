@@ -1,1 +1,3 @@
-export { WatsonHealthCutInHalf16 as default } from "../../../";
+import { WatsonHealthCutInHalf16 } from "../../../";
+
+export = WatsonHealthCutInHalf16;

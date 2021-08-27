@@ -17,6 +17,12 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ],
             "@webpack-blocks/*": ["webpack-blocks__*"]
         }
     },

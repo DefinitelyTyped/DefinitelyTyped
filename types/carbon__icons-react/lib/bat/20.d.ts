@@ -1,1 +1,3 @@
-export { Bat20 as default } from "../../";
+import { Bat20 } from "../../";
+
+export = Bat20;

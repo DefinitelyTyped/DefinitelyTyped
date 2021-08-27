@@ -92,6 +92,7 @@ declare namespace Chance {
         tld(): string;
         twitter(): string;
         url(opts?: Partial<UrlOptions>): string;
+        mac_address(opts?: Partial<MacOptions>): string;
 
         // Location
         address(opts?: Options): string;
@@ -224,6 +225,11 @@ declare namespace Chance {
         extensions: string[];
     }
 
+    interface MacOptions {
+        separator: string;
+        networkVersion: boolean;
+    }
+
     interface IntegerOptions {
         min: number;
         max: number;
@@ -267,16 +273,16 @@ declare namespace Chance {
     }
 
     interface DateOptions {
-        string?: boolean;
-        american?: boolean;
-        year?: number;
-        month?: number;
-        day?: number;
-        min?: Date;
-        max?: Date;
+        string?: boolean | undefined;
+        american?: boolean | undefined;
+        year?: number | undefined;
+        month?: number | undefined;
+        day?: number | undefined;
+        min?: Date | undefined;
+        max?: Date | undefined;
     }
 
-    type UniqueOptions<T> = { comparator?: (array: T[], value: T) => boolean } & Options;
+    type UniqueOptions<T> = { comparator?: ((array: T[], value: T) => boolean) | undefined } & Options;
 
     interface Month {
         name: string;

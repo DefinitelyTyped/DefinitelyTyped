@@ -1,3 +1,3 @@
-declare module "console" {
+declare module 'console' {
     export = console;
 }

@@ -1,1 +1,3 @@
-export { CloudRain32 as default } from "../../";
+import { CloudRain32 } from "../../";
+
+export = CloudRain32;

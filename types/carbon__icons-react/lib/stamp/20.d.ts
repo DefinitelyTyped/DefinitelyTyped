@@ -1,1 +1,3 @@
-export { Stamp20 as default } from "../../";
+import { Stamp20 } from "../../";
+
+export = Stamp20;

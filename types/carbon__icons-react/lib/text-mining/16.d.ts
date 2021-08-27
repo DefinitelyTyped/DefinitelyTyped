@@ -1,1 +1,3 @@
-export { TextMining16 as default } from "../../";
+import { TextMining16 } from "../../";
+
+export = TextMining16;

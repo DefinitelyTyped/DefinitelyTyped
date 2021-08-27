@@ -1,1 +1,3 @@
-export { ChangeCatalog16 as default } from "../../";
+import { ChangeCatalog16 } from "../../";
+
+export = ChangeCatalog16;

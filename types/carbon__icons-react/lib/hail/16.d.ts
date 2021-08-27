@@ -1,1 +1,3 @@
-export { Hail16 as default } from "../../";
+import { Hail16 } from "../../";
+
+export = Hail16;

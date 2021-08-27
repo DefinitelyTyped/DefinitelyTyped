@@ -1,1 +1,3 @@
-export { Branch32 as default } from "../../";
+import { Branch32 } from "../../";
+
+export = Branch32;

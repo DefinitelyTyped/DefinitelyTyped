@@ -1,1 +1,3 @@
-export { DataRefinery20 as default } from "../../";
+import { DataRefinery20 } from "../../";
+
+export = DataRefinery20;

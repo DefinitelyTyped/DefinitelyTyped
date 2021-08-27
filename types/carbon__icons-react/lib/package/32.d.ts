@@ -1,1 +1,3 @@
-export { Package32 as default } from "../../";
+import { Package32 } from "../../";
+
+export = Package32;
