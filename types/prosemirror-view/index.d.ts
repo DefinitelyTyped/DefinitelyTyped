@@ -683,7 +683,7 @@ export interface NodeView<S extends Schema = any> {
      * no `dom` property), updating its child nodes will be handled by
      * ProseMirror.
      */
-    update?: ((node: ProsemirrorNode<S>, decorations: Decoration[]) => boolean) | null;
+    update?: ((node: ProsemirrorNode<S>, decorations: Decoration[], innerDecorations: DecorationSet) => boolean) | null;
     /**
      * Can be used to override the way the node's selected status (as a
      * node selection) is displayed.
