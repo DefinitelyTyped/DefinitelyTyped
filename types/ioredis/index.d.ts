@@ -888,6 +888,100 @@ declare namespace IORedis {
         georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi'): Promise<string[]>;
         georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', count: 'COUNT', countValue: number): Promise<string[]>;
 
+        /**
+         *  GEOSEARCH key [FROMMEMBER member] [FROMLONLAT longitude latitude] [BYRADIUS radius m|km|ft|mi] [BYBOX width height m|km|ft|mi] [ASC|DESC] [COUNT count [ANY]] [WITHCOORD] [WITHDIST] [WITHHASH]
+         * https://redis.io/commands/geosearch
+         */
+        geosearch(key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYRADIUS',
+            radius: number, radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Promise<string[] | (string[] | string[][])[]>
+        geosearch(key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYBOX',
+            width: number, height: number, unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Promise<string[] | (string[] | string[][])[]>
+        geosearch(key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number, latitude: number,
+            by: 'BYRADIUS',
+            radius: number, radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Promise<string[] | (string[] | string[][])[]>
+        geosearch(key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number, latitude: number,
+            by: 'BYBOX',
+            width: number, height: number, unit: 'm' | 'km' | 'ft' | 'mi',
+            count: 'COUNT',
+            countValue: number,
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Promise<string[] | (string[] | string[][])[]>
+        // without count
+        geosearch(key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYRADIUS',
+            radius: number, radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Promise<string[] | (string[] | string[][])[]>
+        geosearch(key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYBOX',
+            width: number, height: number, unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Promise<string[] | (string[] | string[][])[]>
+        geosearch(key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number, latitude: number,
+            by: 'BYRADIUS',
+            radius: number, radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Promise<string[] | (string[] | string[][])[]>
+        geosearch(key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number, latitude: number,
+            by: 'BYBOX',
+            width: number, height: number, unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Promise<string[] | (string[] | string[][])[]>
+
         incrby(key: KeyType, increment: number, callback: Callback<number>): void;
         incrby(key: KeyType, increment: number): Promise<number>;
 
@@ -1459,6 +1553,55 @@ declare namespace IORedis {
 
         georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', callback?: Callback<string[]>): Pipeline;
         georadiusbymember(key: KeyType, member: string, radius: number, unit: 'm' | 'km' | 'ft' | 'mi', count: 'COUNT', countValue: number, callback?: Callback<string[]>): Pipeline;
+
+         geosearch(key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYRADIUS',
+            radius: number, radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            count?: 'COUNT',
+            countValue?: number,
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Pipeline
+        geosearch(key: KeyType,
+            from: 'FROMMEMBER',
+            member: string,
+            by: 'BYBOX',
+            width: number, height: number, unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            count?: 'COUNT',
+            countValue?: number,
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Pipeline
+        geosearch(key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number, latitude: number,
+            by: 'BYRADIUS',
+            radius: number, radiusUnit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            count?: 'COUNT',
+            countValue?: number,
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Pipeline
+        geosearch(key: KeyType,
+            from: 'FROMLONLAT',
+            longitude: number, latitude: number,
+            by: 'BYBOX',
+            width: number, height: number, unit: 'm' | 'km' | 'ft' | 'mi',
+            sort?: 'ASC' | 'DESC',
+            count?: 'COUNT',
+            countValue?: number,
+            withCoord?: 'WITHCOORD', 
+            withDist?: 'WITHDIST',
+            withHash?: 'WITHHASH'
+        ): Pipeline
 
         incrby(key: KeyType, increment: number, callback?: Callback<number>): Pipeline;
 

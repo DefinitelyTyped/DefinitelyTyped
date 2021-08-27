@@ -203,6 +203,10 @@ redis.geohash('Sicily', 'Palermo', 'Catania').then(console.log);
 redis.geopos('Sicily', 'Palermo', 'Catania').then(console.log);
 redis.georadius('Sicily', 15, 37, 200, 'km').then(console.log);
 redis.georadiusbymember('Sicily', 'Palermo', 200, 'km').then(console.log);
+redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'ASC', 'WITHCOORD', 'WITHDIST').then(console.log);
+redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'COUNT', 1, 'ASC').then(console.log);
+redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYRADIUS', 200, 'km', 'ASC').then(console.log);
+redis.geosearch('Sicily', 'FROMMEMBER', 'Catania', 'BYBOX', 200, 300, 'km', 'ASC').then(console.log);
 
 // Test for memory usage
 redis.memory('USAGE', 'foo').then(console.log);
