@@ -60,7 +60,7 @@ export default class DomConverter {
     viewRangeToDom(viewRange: ViewRange): Range;
     viewToDom(
         viewNode: ViewNode | ViewDocumentFragment,
-        domDocument: Document,
+        domDocument?: Document,
         options?: { bind?: boolean | undefined; withChildren?: boolean | undefined },
     ): Node | DocumentFragment;
 }

@@ -24,48 +24,47 @@ import {
     transformSets,
     TreeWalker,
     ViewDocument,
-} from "@ckeditor/ckeditor5-engine";
-import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
-import DowncastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
-import Mapper from "@ckeditor/ckeditor5-engine/src/conversion/mapper";
-import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
-import UpcastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
-import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
-import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
-import { Item } from "@ckeditor/ckeditor5-engine/src/model/item";
-import { Marker } from "@ckeditor/ckeditor5-engine/src/model/markercollection";
-import Node from "@ckeditor/ckeditor5-engine/src/model/node";
-import Operation from "@ckeditor/ckeditor5-engine/src/model/operation/operation";
-import ModelPosition, { PositionStickiness } from "@ckeditor/ckeditor5-engine/src/model/position";
-import RootElement from "@ckeditor/ckeditor5-engine/src/model/rootelement";
-import Selection from "@ckeditor/ckeditor5-engine/src/model/selection";
-import Text from "@ckeditor/ckeditor5-engine/src/model/text";
-import TextProxy from "@ckeditor/ckeditor5-engine/src/model/textproxy";
-import Writer from "@ckeditor/ckeditor5-engine/src/model/writer";
-import AttributeElement from "@ckeditor/ckeditor5-engine/src/view/attributeelement";
-import ContainerElement, { getFillerOffset } from "@ckeditor/ckeditor5-engine/src/view/containerelement";
-import Document from "@ckeditor/ckeditor5-engine/src/view/document";
-import ViewDocumentFragment from "@ckeditor/ckeditor5-engine/src/view/documentfragment";
-import ViewDocumentSelection from "@ckeditor/ckeditor5-engine/src/view/documentselection";
-import EditableElement from "@ckeditor/ckeditor5-engine/src/view/editableelement";
-import ViewElement from "@ckeditor/ckeditor5-engine/src/view/element";
-import { ElementDefinition } from "@ckeditor/ckeditor5-engine/src/view/elementdefinition";
-import EmptyElement from "@ckeditor/ckeditor5-engine/src/view/emptyelement";
-import { BlockFillerMode } from "@ckeditor/ckeditor5-engine/src/view/filler";
-import Matcher, { MatcherPattern } from "@ckeditor/ckeditor5-engine/src/view/matcher";
-import ViewNode from "@ckeditor/ckeditor5-engine/src/view/node";
-import Position from "@ckeditor/ckeditor5-engine/src/view/position";
-import ViewRange from "@ckeditor/ckeditor5-engine/src/view/range";
-import RawElement from "@ckeditor/ckeditor5-engine/src/view/rawelement";
-import RootEditableElement from "@ckeditor/ckeditor5-engine/src/view/rooteditableelement";
-import ViewSelection from "@ckeditor/ckeditor5-engine/src/view/selection";
-import ViewText from "@ckeditor/ckeditor5-engine/src/view/text";
-import ViewTextProxy from "@ckeditor/ckeditor5-engine/src/view/textproxy";
-import UIElement from "@ckeditor/ckeditor5-engine/src/view/uielement";
-import View from "@ckeditor/ckeditor5-engine/src/view/view";
-import { EmitterMixin } from "@ckeditor/ckeditor5-utils";
+} from '@ckeditor/ckeditor5-engine';
+import DowncastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
+import DowncastHelpers from '@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers';
+import Mapper from '@ckeditor/ckeditor5-engine/src/conversion/mapper';
+import UpcastDispatcher from '@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher';
+import UpcastHelpers from '@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers';
+import Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
+import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
+import { Item } from '@ckeditor/ckeditor5-engine/src/model/item';
+import { Marker } from '@ckeditor/ckeditor5-engine/src/model/markercollection';
+import Node from '@ckeditor/ckeditor5-engine/src/model/node';
+import Operation from '@ckeditor/ckeditor5-engine/src/model/operation/operation';
+import ModelPosition, { PositionStickiness } from '@ckeditor/ckeditor5-engine/src/model/position';
+import RootElement from '@ckeditor/ckeditor5-engine/src/model/rootelement';
+import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
+import Text from '@ckeditor/ckeditor5-engine/src/model/text';
+import TextProxy from '@ckeditor/ckeditor5-engine/src/model/textproxy';
+import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
+import AttributeElement from '@ckeditor/ckeditor5-engine/src/view/attributeelement';
+import ContainerElement, { getFillerOffset } from '@ckeditor/ckeditor5-engine/src/view/containerelement';
+import ViewDocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragment';
+import ViewDocumentSelection from '@ckeditor/ckeditor5-engine/src/view/documentselection';
+import EditableElement from '@ckeditor/ckeditor5-engine/src/view/editableelement';
+import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
+import { ElementDefinition } from '@ckeditor/ckeditor5-engine/src/view/elementdefinition';
+import EmptyElement from '@ckeditor/ckeditor5-engine/src/view/emptyelement';
+import { BlockFillerMode } from '@ckeditor/ckeditor5-engine/src/view/filler';
+import Matcher, { MatcherPattern } from '@ckeditor/ckeditor5-engine/src/view/matcher';
+import ViewNode from '@ckeditor/ckeditor5-engine/src/view/node';
+import Position from '@ckeditor/ckeditor5-engine/src/view/position';
+import ViewRange from '@ckeditor/ckeditor5-engine/src/view/range';
+import RawElement from '@ckeditor/ckeditor5-engine/src/view/rawelement';
+import RootEditableElement from '@ckeditor/ckeditor5-engine/src/view/rooteditableelement';
+import ViewSelection from '@ckeditor/ckeditor5-engine/src/view/selection';
+import ViewText from '@ckeditor/ckeditor5-engine/src/view/text';
+import ViewTextProxy from '@ckeditor/ckeditor5-engine/src/view/textproxy';
+import UIElement from '@ckeditor/ckeditor5-engine/src/view/uielement';
+import View from '@ckeditor/ckeditor5-engine/src/view/view';
+import { EmitterMixin } from '@ckeditor/ckeditor5-utils';
 
-let str = "";
+let str = '';
 let viewDocumentFragment = new ViewDocumentFragment();
 let pattern: MatcherPattern = { name: /^p/ };
 
@@ -74,14 +73,14 @@ const nullvalue: null = getFillerOffset() as null;
 
 pattern = {
     attributes: {
-        title: "foobar",
+        title: 'foobar',
         foo: /^\w+/,
         bar: true,
     },
 };
 
 pattern = {
-    classes: "foobar",
+    classes: 'foobar',
 };
 
 pattern = {
@@ -89,26 +88,26 @@ pattern = {
 };
 
 pattern = {
-    classes: ["baz", "bar", /foo.../],
+    classes: ['baz', 'bar', /foo.../],
 };
 
 pattern = {
     styles: {
-        position: "absolute",
+        position: 'absolute',
         color: /^\w*blue$/,
     },
 };
 
 pattern = {
-    name: "span",
+    name: 'span',
     styles: {
-        "font-weight": "bold",
+        'font-weight': 'bold',
     },
-    classes: "highlighted",
+    classes: 'highlighted',
 };
 
 pattern = (element: ViewElement) => {
-    if (element.name === "div" && element.childCount > 0) {
+    if (element.name === 'div' && element.childCount > 0) {
         return { name: true };
     }
 
@@ -116,73 +115,73 @@ pattern = (element: ViewElement) => {
 };
 
 pattern = (element: ViewElement) => {
-    if (element.name === "p") {
-        const fontSize = element.getStyle("font-size")!;
+    if (element.name === 'p') {
+        const fontSize = element.getStyle('font-size')!;
         const size = fontSize.match(/(\d+)/px);
 
         if (size && Number(size[1]) > 26) {
-            return { name: true, attribute: ["font-size"] };
+            return { name: true, attribute: ['font-size'] };
         }
     }
 
     return;
 };
 
-let viewDefinition: ElementDefinition = "p";
+let viewDefinition: ElementDefinition = 'p';
 
 viewDefinition = {
-    name: "h1",
-    classes: ["foo", "bar"],
+    name: 'h1',
+    classes: ['foo', 'bar'],
 };
 
 viewDefinition = {
-    name: "span",
+    name: 'span',
     styles: {
-        "font-size": "12px",
-        "font-weight": "bold",
+        'font-size': '12px',
+        'font-weight': 'bold',
     },
     attributes: {
-        "data-id": "123",
+        'data-id': '123',
     },
 };
 
 let model: Model = new Model();
 model.change(writer => {
-    writer.insertText("foo", model.document.selection.getFirstPosition());
+    writer.insertText('foo', model.document.selection.getFirstPosition());
 });
 
 model.document.createRoot();
-model.schema.register("paragraph", { inheritAllFrom: "$block" });
+model.schema.register('paragraph', { inheritAllFrom: '$block' });
 
 const view: View = new View(new StylesProcessor());
 view.change(writer => {
-    writer.insert(new Position(viewDocumentFragment, 4), writer.createText("foo"));
+    writer.insert(new Position(viewDocumentFragment, 4), writer.createText('foo'));
 });
 
 class MyElement extends ViewElement {
     toJSON() {
-        return { document: "" };
+        return { document: '' };
     }
 }
 
-const viewElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement("div");
+const viewElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEmptyElement('div');
 
 let stylesProcessor = new StylesProcessor();
 let viewDocument = new ViewDocument(stylesProcessor);
 let bool: boolean = viewDocument.isReadOnly;
 num = viewDocument.roots.length;
-let rootEditableElement: RootEditableElement = viewDocument.roots.get("main")!;
+let rootEditableElement: RootEditableElement = viewDocument.roots.get('main')!;
 rootEditableElement = viewDocument.getRoot()!;
 
 enablePlaceholder({
     view,
     element: viewElement,
-    text: "foo",
+    text: 'foo',
 });
 enablePlaceholder({
     view,
     element: viewElement,
-    text: "foo",
+    text: 'foo',
     isDirectHost: true,
     keepOnFocus: true,
 });
@@ -193,78 +192,79 @@ bool = needsPlaceholder(viewElement, bool);
 
 const editingcontroller: EditingController = new EditingController(model, stylesProcessor);
 editingcontroller.destroy();
-editingcontroller.set("foo", "bar");
-editingcontroller.once("foo", () => {});
-editingcontroller.downcastDispatcher.on("insert:$element", () => {});
+editingcontroller.set('foo', 'bar');
+editingcontroller.once('foo', () => {});
+editingcontroller.downcastDispatcher.on('insert:$element', () => {});
 
 const datacontroller: DataController = new DataController(model, stylesProcessor);
 model = datacontroller.model;
 stylesProcessor = datacontroller.stylesProcessor;
 let modeldocfrag: DocumentFragment = datacontroller.parse(str);
-modeldocfrag = datacontroller.parse("foo", ["$block"]);
+modeldocfrag = datacontroller.parse('foo', ['$block']);
 datacontroller.toModel(viewElement);
 datacontroller.toModel(viewDocumentFragment);
-datacontroller.toModel(viewDocumentFragment, ["inlineRoot"]);
-datacontroller.init("").then(() => {});
+datacontroller.toModel(viewDocumentFragment, ['inlineRoot']);
+datacontroller.init('').then(() => {});
 
 const downcastDispA = new DowncastDispatcher({});
 const downcastDispB = new DowncastDispatcher({});
 const upcastDispaA = new UpcastDispatcher({});
 const conversion = new Conversion([downcastDispA, downcastDispB], [upcastDispaA]);
-conversion.addAlias("upcast", upcastDispaA);
-let upcastHelper: UpcastHelpers = conversion.for("upcast");
+conversion.addAlias('upcast', upcastDispaA);
+let upcastHelper: UpcastHelpers = conversion.for('upcast');
 upcastHelper = new UpcastHelpers([new UpcastDispatcher()]).add(() => {});
 // $ExpectError
 upcastHelper = new UpcastHelpers([new DowncastDispatcher()]);
 upcastHelper = upcastHelper.add(() => {});
 upcastHelper.attributeToAttribute({
-    view: "foo",
-    model: "bar",
+    view: 'foo',
+    model: 'bar',
     converterPriority: 5,
 });
 upcastHelper.attributeToAttribute({
-    view: "foo",
-    model: "bar",
-    converterPriority: "low",
+    view: 'foo',
+    model: 'bar',
+    converterPriority: 'low',
 });
-let downcastHelper: DowncastHelpers = conversion.for("downcast");
-downcastHelper = conversion.for("dataDowncast");
-downcastHelper = conversion.for("editingDowncast");
+let downcastHelper: DowncastHelpers = conversion.for('downcast');
+downcastHelper = conversion.for('dataDowncast');
+downcastHelper = conversion.for('editingDowncast');
 downcastHelper = downcastHelper.add(() => {});
 downcastHelper.attributeToAttribute({
-    model: "foo",
-    view: "bar",
+    model: 'foo',
+    view: 'bar',
     converterPriority: 5,
 });
 downcastHelper.attributeToAttribute({
-    model: "foo",
-    view: "bar",
-    converterPriority: "low",
+    model: 'foo',
+    view: 'bar',
+    converterPriority: 'low',
 });
 downcastHelper.markerToElement({
-    model: "foo",
-    view: "bar",
+    model: 'foo',
+    view: 'bar',
     converterPriority: 5,
 });
 downcastHelper.markerToElement({
-    model: "foo",
-    view: "bar",
-    converterPriority: "low",
+    model: 'foo',
+    view: 'bar',
+    converterPriority: 'low',
 });
 
 const dataProcessor = new HtmlDataProcessor(viewDocument);
-viewDocumentFragment = dataProcessor.toView("") as ViewDocumentFragment;
+viewDocumentFragment = dataProcessor.toView('') as ViewDocumentFragment;
 str = dataProcessor.toData(viewDocumentFragment);
-dataProcessor.registerRawContentMatcher({ name: "div", classes: "raw" });
+dataProcessor.registerRawContentMatcher({ name: 'div', classes: 'raw' });
 
 let insertOperation = new InsertOperation(
     new ModelPosition(model.document.createRoot(), [0]),
-    new Writer().createText(""),
+    new Writer().createText(''),
     model.document.version,
 );
-if (insertOperation.type === "insert") {
+if (insertOperation.type === 'insert') {
 }
-const stickiness: PositionStickiness = insertOperation.position.stickiness;
+// ExpectType PositionStickiness
+insertOperation.position.stickiness;
 model.applyOperation(insertOperation);
 insertOperation = insertOperation.clone();
 insertOperation.nodes.getNode(9);
@@ -275,8 +275,8 @@ InsertOperation.fromJSON(insertOperation.toJSON());
 
 const root = model.document.createRoot();
 let range = model.createRange(model.createPositionAt(root, 0), model.createPositionAt(root, 0));
-let markerOperation = new MarkerOperation("name", nullvalue, range, model.markers, true, 0);
-if (markerOperation.type === "marker") {
+let markerOperation = new MarkerOperation('name', nullvalue, range, model.markers, true, 0);
+if (markerOperation.type === 'marker') {
 }
 model.applyOperation(markerOperation);
 markerOperation = markerOperation.getReversed();
@@ -307,10 +307,10 @@ if (!result2.done) {
     bool = result2.value[1] as boolean;
     str = result2.value[1] as string;
 }
-documentSelection.markers.map(marker => {
-    const m: Marker = marker;
+documentSelection.markers.map((marker: Marker) => {
+    console.log(marker);
 });
-documentSelection.observeMarkers("foo");
+documentSelection.observeMarkers('foo');
 
 range = range.clone();
 let position: ModelPosition = range.start;
@@ -320,8 +320,10 @@ bool = range.isCollapsed;
 range = range.clone();
 bool = range.isIntersecting(range);
 bool = range.isEqual(range);
-let treeWalker: TreeWalker = range.getWalker();
-treeWalker = range.getWalker({ singleCharacters: true });
+// $ExpectType TreeWalker
+range.getWalker();
+// $ExpectType TreeWalker
+range.getWalker({ singleCharacters: true });
 const result3 = range.getItems({ startPosition: position }).next();
 if (!result3.done) {
     const item: Item = result3.value;
@@ -349,24 +351,24 @@ range = liveRange.toRange();
 
 let livePosition = new LivePosition(root, [0]);
 livePosition.detach();
-bool = livePosition.is("foo");
+bool = livePosition.is('foo');
 livePosition = new LivePosition(model.document.createRoot(), [0]);
 livePosition = LivePosition.fromPosition(position);
 position = livePosition.toPosition();
 
 model = new Model();
-model.change(writer => {
-    const myWriter: Writer = writer;
+model.change((writer: Writer) => {
+    return writer;
 });
-model.enqueueChange("transparent", writer => {
-    const myWriter: Writer = writer;
+model.enqueueChange('transparent', (writer: Writer) => {
+    return writer;
 });
 model.insertContent(new DocumentFragment());
-model.insertContent(new Writer().createText(""));
+model.insertContent(new Writer().createText(''));
 model.deleteContent(model.document.selection);
 model.modifySelection(model.document.selection);
-model.modifySelection(model.document.selection, { direction: "backward" });
-model.on("getSelectedContent", () => {});
+model.modifySelection(model.document.selection, { direction: 'backward' });
+model.on('getSelectedContent', () => {});
 let modelDocumentFragment = new DocumentFragment();
 modelDocumentFragment = model.getSelectedContent(model.document.selection);
 bool = model.hasContent(range);
@@ -375,54 +377,61 @@ modelPosition = model.createPositionAfter(model.document.getRoot()!.getChild(0))
 modelPosition = model.createPositionBefore(model.document.getRoot()!.getChild(0));
 range = model.createRangeIn(model.document.getRoot()!.getChild(0) as Element);
 range = model.createRangeOn(model.document.getRoot()!.getChild(0));
-const selection: Selection = model.createSelection();
-let batch: Batch = model.createBatch();
-batch = model.createBatch("transparent");
+// $ExpectType Selection
+model.createSelection();
+// $ExpectType Batch
+model.createBatch();
+// $ExpectType Batch
+model.createBatch('transparent');
 operation = model.createOperationFromJSON({
-    __className: "NoOperation",
+    __className: 'NoOperation',
     baseVersion: 0,
 });
 model.destroy();
-model.listenTo(Object.create(EmitterMixin), "event", () => {});
+model.listenTo(Object.create(EmitterMixin), 'event', () => {});
 
-treeWalker = new TreeWalker({
+// $ExpectType TreeWalker
+new TreeWalker({
     startPosition: position,
 });
-treeWalker = new TreeWalker({
+// $ExpectType TreeWalker
+new TreeWalker({
     startPosition: position,
     boundaries: range,
-    direction: "forward",
+    direction: 'forward',
     ignoreElementEnd: false,
     shallow: false,
     singleCharacters: false,
 });
 
-element = new Writer().createElement("div");
-element = new Writer().createElement("div", { foo: "bar" });
+element = new Writer().createElement('div');
+element = new Writer().createElement('div', { foo: 'bar' });
 num = element.maxOffset;
 num = element.childCount;
 let node: Text | Element = element.getChild(num);
-if ("data" in node) {
+if ('data' in node) {
     str = node.data;
 }
-bool = element.is("foo", "bar");
-const result5: Array<[string, string | number | boolean]> = Array.from(element.getAttributes());
-const result6: Node[] = Array.from(element.getChildren());
+bool = element.is('foo', 'bar');
+// $ExpectType [string, string | number | boolean][]
+Array.from(element.getAttributes());
+// $ExpectType (Element | Text)[]
+Array.from(element.getChildren());
 node = element.getNodeByPath([num]);
-node = element.findAncestor("p")!;
+node = element.findAncestor('p')!;
 num = element.getChildIndex(node);
 num = element.getChildStartOffset(node);
 num = element.offsetToIndex(num);
 
 let domConverter = new DomConverter(viewDocument);
-let blockFillerMode: BlockFillerMode = "nbsp";
-const viewEditableElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEditableElement("div");
+let blockFillerMode: BlockFillerMode = 'nbsp';
+const viewEditableElement = new DowncastWriter(new ViewDocument(new StylesProcessor())).createEditableElement('div');
 domConverter = new DomConverter(viewDocument, { blockFillerMode });
 blockFillerMode = domConverter.blockFillerMode;
-domConverter.bindElements(document.createElement("div"), viewEditableElement);
-domConverter.unbindDomElement(document.createElement("div"));
+domConverter.bindElements(document.createElement('div'), viewEditableElement);
+domConverter.unbindDomElement(document.createElement('div'));
 domConverter.focus(viewEditableElement);
-bool = domConverter.isElement(document.createElement("div"));
+bool = domConverter.isElement(document.createElement('div'));
 
 class MyObserver extends Observer {}
 const myObserver: Observer = new MyObserver(view);
@@ -430,18 +439,32 @@ viewDocument = myObserver.document;
 bool = myObserver.isEnabled;
 myObserver.enable();
 myObserver.disable();
-bool = myObserver.checkShouldIgnoreEventFromTarget(document.createElement("div"));
+bool = myObserver.checkShouldIgnoreEventFromTarget(document.createElement('div'));
 
 const clickObserver = new ClickObserver(view);
 view.addObserver(ClickObserver);
-clickObserver.domEventType === "click";
-clickObserver.onDomEvent(new MouseEvent("foo"));
+clickObserver.domEventType === 'click';
+clickObserver.onDomEvent(new MouseEvent('foo'));
 
-new Mapper().on("foo", () => {});
+new Mapper().on('foo', () => {});
 
-const downcastWriter = new DowncastWriter(new Document(new StylesProcessor()));
-downcastWriter.createPositionAt(downcastWriter.createEmptyElement("div"), "after");
-downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement("div"), 5));
+const downcastWriter = new DowncastWriter(new ViewDocument(new StylesProcessor()));
+downcastWriter.createPositionAt(downcastWriter.createEmptyElement('div'), 'after');
+downcastWriter.createPositionAt(new Position(downcastWriter.createEmptyElement('div'), 5));
+// $ExpectType UIElement
+downcastWriter.createUIElement('div');
+// $ExpectType UIElement
+downcastWriter.createUIElement('div', { class: 'foo' });
+// $ExpectType UIElement
+downcastWriter.createUIElement('div', null);
+// $ExpectType UIElement
+downcastWriter.createUIElement('div', { class: 'foo' }, (doc: Document) => {
+    return doc.createElement('div');
+});
+// $ExpectType UIElement
+downcastWriter.createUIElement('div', null, (doc: Document) => {
+    return doc.createElement('div');
+});
 
 type ModelIsTypes =
     | DocumentFragment
@@ -459,58 +482,58 @@ type ModelIsTypes =
 
 const modelObj = null as unknown as ModelIsTypes;
 
-if (modelObj.is("position") || modelObj.is("model:position")) {
+if (modelObj.is('position') || modelObj.is('model:position')) {
     const obj: ModelPosition | LivePosition = modelObj;
 }
-if (modelObj.is("livePosition") || modelObj.is("model:livePosition")) {
+if (modelObj.is('livePosition') || modelObj.is('model:livePosition')) {
     const obj: LivePosition = modelObj;
 }
-if (modelObj.is("range") || modelObj.is("model:range")) {
+if (modelObj.is('range') || modelObj.is('model:range')) {
     const obj: Range | LiveRange = modelObj;
 }
-if (modelObj.is("liveRange") || modelObj.is("model:liveRange")) {
+if (modelObj.is('liveRange') || modelObj.is('model:liveRange')) {
     const obj: LiveRange = modelObj;
 }
-if (modelObj.is("marker") || modelObj.is("model:marker")) {
+if (modelObj.is('marker') || modelObj.is('model:marker')) {
     const obj: Marker = modelObj;
 }
-if (modelObj.is("$text") || modelObj.is("model:$text") || modelObj.is("text") || modelObj.is("model:text")) {
+if (modelObj.is('$text') || modelObj.is('model:$text') || modelObj.is('text') || modelObj.is('model:text')) {
     const obj: Text = modelObj;
 }
 if (
-    modelObj.is("$textProxy") ||
-    modelObj.is("model:$textProxy") ||
-    modelObj.is("textProxy") ||
-    modelObj.is("model:textProxy")
+    modelObj.is('$textProxy') ||
+    modelObj.is('model:$textProxy') ||
+    modelObj.is('textProxy') ||
+    modelObj.is('model:textProxy')
 ) {
     const obj: TextProxy = modelObj;
 }
 if (
-    modelObj.is("element") ||
-    modelObj.is("model:element") ||
-    modelObj.is("element", "div") ||
-    modelObj.is("model:element", "div")
+    modelObj.is('element') ||
+    modelObj.is('model:element') ||
+    modelObj.is('element', 'div') ||
+    modelObj.is('model:element', 'div')
 ) {
     const obj: Element | RootElement = modelObj;
 }
 if (
-    modelObj.is("rootElement") ||
-    modelObj.is("model:rootElement") ||
-    modelObj.is("rootElement", "div") ||
-    modelObj.is("model:rootElement", "div")
+    modelObj.is('rootElement') ||
+    modelObj.is('model:rootElement') ||
+    modelObj.is('rootElement', 'div') ||
+    modelObj.is('model:rootElement', 'div')
 ) {
     const obj: RootElement = modelObj;
 }
-if (modelObj.is("selection") || modelObj.is("model:selection")) {
+if (modelObj.is('selection') || modelObj.is('model:selection')) {
     const obj: Selection | DocumentSelection = modelObj;
 }
-if (modelObj.is("documentSelection") || modelObj.is("model:documentSelection")) {
+if (modelObj.is('documentSelection') || modelObj.is('model:documentSelection')) {
     const obj: DocumentSelection = modelObj;
 }
-if (modelObj.is("node") || modelObj.is("model:node")) {
+if (modelObj.is('node') || modelObj.is('model:node')) {
     const obj: Node | Element | Text | RootElement = modelObj;
 }
-if (modelObj.is("documentFragment") || modelObj.is("model:documentFragment")) {
+if (modelObj.is('documentFragment') || modelObj.is('model:documentFragment')) {
     const obj: DocumentFragment = modelObj;
 }
 
@@ -533,30 +556,30 @@ type ViewIsTypes =
 
 const viewObj = null as unknown as ViewIsTypes;
 
-if (viewObj.is("position") || viewObj.is("view:position")) {
+if (viewObj.is('position') || viewObj.is('view:position')) {
     const obj: Position = viewObj;
 }
-if (viewObj.is("range") || viewObj.is("view:range")) {
+if (viewObj.is('range') || viewObj.is('view:range')) {
     const obj: ViewRange = viewObj;
 }
-if (viewObj.is("documentFragment") || viewObj.is("view:documentFragment")) {
+if (viewObj.is('documentFragment') || viewObj.is('view:documentFragment')) {
     const obj: ViewDocumentFragment = viewObj;
 }
-if (viewObj.is("selection") || viewObj.is("view:selection")) {
+if (viewObj.is('selection') || viewObj.is('view:selection')) {
     const obj: ViewSelection | ViewDocumentSelection = viewObj;
 }
-if (viewObj.is("documentSelection") || viewObj.is("view:documentSelection")) {
+if (viewObj.is('documentSelection') || viewObj.is('view:documentSelection')) {
     const obj: ViewDocumentSelection = viewObj;
 }
 if (
-    viewObj.is("$textProxy") ||
-    viewObj.is("view:$textProxy") ||
-    viewObj.is("textProxy") ||
-    viewObj.is("view:textProxy")
+    viewObj.is('$textProxy') ||
+    viewObj.is('view:$textProxy') ||
+    viewObj.is('textProxy') ||
+    viewObj.is('view:textProxy')
 ) {
     const obj: ViewTextProxy = viewObj;
 }
-if (viewObj.is("node") || viewObj.is("view:node")) {
+if (viewObj.is('node') || viewObj.is('view:node')) {
     const obj:
         | ViewNode
         | ViewElement
@@ -569,14 +592,14 @@ if (viewObj.is("node") || viewObj.is("view:node")) {
         | RawElement
         | EmptyElement = viewObj;
 }
-if (viewObj.is("$text") || viewObj.is("view:$text") || viewObj.is("text") || viewObj.is("view:text")) {
+if (viewObj.is('$text') || viewObj.is('view:$text') || viewObj.is('text') || viewObj.is('view:text')) {
     const obj: ViewText = viewObj;
 }
 if (
-    viewObj.is("element") ||
-    viewObj.is("view:element") ||
-    viewObj.is("element", "div") ||
-    viewObj.is("view:element", "div")
+    viewObj.is('element') ||
+    viewObj.is('view:element') ||
+    viewObj.is('element', 'div') ||
+    viewObj.is('view:element', 'div')
 ) {
     const obj:
         | ViewElement
@@ -589,58 +612,58 @@ if (
         | RootEditableElement = viewObj;
 }
 if (
-    viewObj.is("containerElement") ||
-    viewObj.is("view:containerElement") ||
-    viewObj.is("containerElement", "div") ||
-    viewObj.is("view:containerElement", "div")
+    viewObj.is('containerElement') ||
+    viewObj.is('view:containerElement') ||
+    viewObj.is('containerElement', 'div') ||
+    viewObj.is('view:containerElement', 'div')
 ) {
     const obj: ContainerElement | EditableElement | RootEditableElement = viewObj;
 }
 if (
-    viewObj.is("editableElement") ||
-    viewObj.is("view:editableElement") ||
-    viewObj.is("editableElement", "div") ||
-    viewObj.is("view:editableElement", "div")
+    viewObj.is('editableElement') ||
+    viewObj.is('view:editableElement') ||
+    viewObj.is('editableElement', 'div') ||
+    viewObj.is('view:editableElement', 'div')
 ) {
     const obj: EditableElement | RootEditableElement = viewObj;
 }
 if (
-    viewObj.is("rootEditableElement") ||
-    viewObj.is("view:rootEditableElement") ||
-    viewObj.is("rootEditableElement", "div") ||
-    viewObj.is("view:rootEditableElement", "div")
+    viewObj.is('rootEditableElement') ||
+    viewObj.is('view:rootEditableElement') ||
+    viewObj.is('rootEditableElement', 'div') ||
+    viewObj.is('view:rootEditableElement', 'div')
 ) {
     const obj: RootEditableElement = viewObj;
 }
 if (
-    viewObj.is("rawElement") ||
-    viewObj.is("view:rawElement") ||
-    viewObj.is("rawElement", "div") ||
-    viewObj.is("view:rawElement", "div")
+    viewObj.is('rawElement') ||
+    viewObj.is('view:rawElement') ||
+    viewObj.is('rawElement', 'div') ||
+    viewObj.is('view:rawElement', 'div')
 ) {
     const obj: RawElement = viewObj;
 }
 if (
-    viewObj.is("attributeElement") ||
-    viewObj.is("view:attributeElement") ||
-    viewObj.is("attributeElement", "div") ||
-    viewObj.is("view:attributeElement", "div")
+    viewObj.is('attributeElement') ||
+    viewObj.is('view:attributeElement') ||
+    viewObj.is('attributeElement', 'div') ||
+    viewObj.is('view:attributeElement', 'div')
 ) {
     const obj: AttributeElement = viewObj;
 }
 if (
-    viewObj.is("uiElement") ||
-    viewObj.is("view:uiElement") ||
-    viewObj.is("uiElement", "div") ||
-    viewObj.is("view:uiElement", "div")
+    viewObj.is('uiElement') ||
+    viewObj.is('view:uiElement') ||
+    viewObj.is('uiElement', 'div') ||
+    viewObj.is('view:uiElement', 'div')
 ) {
     const obj: UIElement = viewObj;
 }
 if (
-    viewObj.is("emptyElement") ||
-    viewObj.is("view:emptyElement") ||
-    viewObj.is("emptyElement", "div") ||
-    viewObj.is("view:emptyElement", "div")
+    viewObj.is('emptyElement') ||
+    viewObj.is('view:emptyElement') ||
+    viewObj.is('emptyElement', 'div') ||
+    viewObj.is('view:emptyElement', 'div')
 ) {
     const obj: EmptyElement = viewObj;
 }
@@ -649,9 +672,9 @@ if (
 new Writer().setSelection(null);
 
 // MatcherPattern
-pattern = "div";
+pattern = 'div';
 pattern = /foo/;
-pattern = { name: "p" };
+pattern = { name: 'p' };
 pattern = { name: /^(ul|ol)$/ };
 pattern = {
     attributes: {
@@ -659,36 +682,36 @@ pattern = {
     },
 };
 pattern = {
-    name: "p",
+    name: 'p',
     attributes: true,
 };
 pattern = {
-    name: "figure",
-    attributes: "title",
+    name: 'figure',
+    attributes: 'title',
 };
 pattern = {
-    name: "figure",
+    name: 'figure',
     attributes: /^data-.*$/,
 };
 
 pattern = {
-    name: "figure",
+    name: 'figure',
     attributes: {
-        title: "foobar",
+        title: 'foobar',
         alt: true,
-        "data-type": /^(jpg|png)$/,
+        'data-type': /^(jpg|png)$/,
     },
 };
 pattern = {
-    name: "figure",
-    attributes: ["title", /^data-*$/],
+    name: 'figure',
+    attributes: ['title', /^data-*$/],
 };
 
 pattern = {
-    name: "input",
+    name: 'input',
     attributes: [
         {
-            key: "type",
+            key: 'type',
             value: /^(text|number|date)$/,
         },
         {
@@ -699,39 +722,39 @@ pattern = {
 };
 
 pattern = {
-    name: "p",
+    name: 'p',
     styles: true,
 };
 
 pattern = {
-    name: "p",
-    styles: "color",
+    name: 'p',
+    styles: 'color',
 };
 
 pattern = {
-    name: "p",
+    name: 'p',
     styles: /^border.*$/,
 };
 
 pattern = {
-    name: "p",
+    name: 'p',
     attributes: {
         color: /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/,
-        "font-weight": 600,
-        "text-decoration": true,
+        'font-weight': 600,
+        'text-decoration': true,
     },
 };
 
 pattern = {
-    name: "p",
-    attributes: ["color", /^border.*$/],
+    name: 'p',
+    attributes: ['color', /^border.*$/],
 };
 
 pattern = {
-    name: "p",
+    name: 'p',
     attributes: [
         {
-            key: "color",
+            key: 'color',
             value: /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/,
         },
         {
@@ -742,22 +765,22 @@ pattern = {
 };
 
 pattern = {
-    name: "p",
+    name: 'p',
     classes: true,
 };
 
 pattern = {
-    name: "p",
-    classes: "highlighted",
+    name: 'p',
+    classes: 'highlighted',
 };
 
 pattern = {
-    name: "figure",
+    name: 'figure',
     classes: /^image-side-(left|right)$/,
 };
 
 pattern = {
-    name: "p",
+    name: 'p',
     classes: {
         highlighted: true,
         marker: true,
@@ -765,15 +788,15 @@ pattern = {
 };
 
 pattern = {
-    name: "figure",
-    classes: ["image", /^image-side-(left|right)$/],
+    name: 'figure',
+    classes: ['image', /^image-side-(left|right)$/],
 };
 
 pattern = {
-    name: "figure",
+    name: 'figure',
     classes: [
         {
-            key: "image",
+            key: 'image',
             value: true,
         },
         {
@@ -784,12 +807,12 @@ pattern = {
 };
 
 pattern = {
-    name: "span",
-    attributes: ["title"],
+    name: 'span',
+    attributes: ['title'],
     styles: {
-        "font-weight": "bold",
+        'font-weight': 'bold',
     },
-    classes: "highlighted",
+    classes: 'highlighted',
 };
 
 new Matcher(pattern).add(pattern);

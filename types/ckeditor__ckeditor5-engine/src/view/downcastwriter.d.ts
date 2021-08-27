@@ -1,6 +1,6 @@
 import AttributeElement from "./attributeelement";
 import ContainerElement from "./containerelement";
-import Document from "./document";
+import ViewDocument from "./document";
 import DocumentFragment from "./documentfragment";
 import EditableElement from "./editableelement";
 import Element from "./element";
@@ -16,9 +16,9 @@ import UIElement from "./uielement";
 import View from "./view";
 
 export default class DowncastWriter {
-    readonly document: Document;
+    readonly document: ViewDocument;
 
-    constructor(document: Document);
+    constructor(document: ViewDocument);
     addClass(className: string | string[], element: Element): void;
     breakAttributes(positionOrRange: Position | Range): Position | Range;
     breakContainer(position: Position): Position;
@@ -51,7 +51,7 @@ export default class DowncastWriter {
     createRawElement(
         name?: string,
         attributes?: Record<string, string>,
-        renderFunction?: (domElement: HTMLElement) => void,
+        renderFunction?: (document: Document) => HTMLElement,
         options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): RawElement;
     createSelection(
@@ -62,8 +62,8 @@ export default class DowncastWriter {
     createText(data: string): Text;
     createUIElement(
         name: string,
-        attributes?: Record<string, string>,
-        renderFunction?: (domElement: HTMLElement) => void,
+        attributes?: Record<string, string> | null,
+        renderFunction?: (this: UIElement, domElement: HTMLElement) => void,
         options?: { isAllowedInsideAttributeElement?: boolean | undefined },
     ): UIElement;
     insert(
