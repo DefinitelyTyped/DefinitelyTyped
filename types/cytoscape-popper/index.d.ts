@@ -36,18 +36,21 @@ declare namespace cytoscapePopper {
         cy?: cytoscape.Core | undefined;
         content?: () => HTMLElement | HTMLElement | undefined;
     }
+
+    type getPopperInstance = (opts?: Options) => popper.Instance;
+    type getPopperRef = (opts?: Options) => PopperRef;
 }
 
 declare global {
     namespace cytoscape {
         interface SingularData {
-            popper(opts?: cytoscapePopper.Options): popper.Instance;
-            popperRef(opts?: cytoscapePopper.Options): cytoscapePopper.PopperRef;
+            popper: cytoscapePopper.getPopperInstance;
+            popperRef: cytoscapePopper.getPopperRef;
         }
 
         interface Core {
-            popper(opts?: cytoscapePopper.Options): popper.Instance;
-            popperRef(opts?: cytoscapePopper.Options): cytoscapePopper.PopperRef;
+            popper: cytoscapePopper.getPopperInstance;
+            popperRef: cytoscapePopper.getPopperRef;
         }
     }
 }
