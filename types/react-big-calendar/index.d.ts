@@ -224,6 +224,12 @@ export interface ToolbarProps<TEvent extends object = Event, TResource extends o
 export interface EventProps<TEvent extends object = Event> {
     event: TEvent;
     title: string;
+    continuesPrior: boolean;
+    continuesAfter: boolean;
+    isAllDay: boolean;
+    localizer: DateLocalizer;
+    slotStart: Date;
+    slotEnd: Date;
 }
 
 export interface EventWrapperProps<TEvent extends object = Event> {
@@ -295,6 +301,7 @@ export class DateLocalizer {
     constructor(spec: DateLocalizerSpec);
 
     format(value: FormatInput, format: string, culture: Culture): string;
+    messages: Messages;
 }
 
 export interface CalendarProps<TEvent extends object = Event, TResource extends object = object>

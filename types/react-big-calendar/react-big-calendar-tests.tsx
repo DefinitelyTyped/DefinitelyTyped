@@ -449,6 +449,37 @@ class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResour
     }
 }
 
+// Test types EventProps, DateLocalizer
+{
+    const localizer: DateLocalizer = momentLocalizer(moment);
+
+    const event: React.FC<EventProps> = ({
+    // EventProps
+    event,
+    title,
+    continuesPrior,
+    continuesAfter,
+    isAllDay,
+    localizer,
+    slotStart,
+    slotEnd,
+    }) => {
+    // DateLocalizer
+    const { formats, propType, startOfWeek, format, messages } = localizer;
+    return <div>{title}</div>;
+    };
+
+    const Basic = ({ localizer }: CalendarProps) => (
+        <Calendar
+            events={[]}
+            localizer={localizer}
+              components={{ month: { event } }}
+        />
+    );
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
 // test OnRangeChange return types
 {
     interface Props {
