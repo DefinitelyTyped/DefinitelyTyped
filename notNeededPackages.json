@@ -5294,6 +5294,10 @@
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
         },
+        "webpack-subresource-integrity": {
+            "libraryName": "webpack-subresource-integrity",
+            "asOfVersion": "5.0.0"
+        },
         "whatwg-streams": {
             "libraryName": "typescript",
             "asOfVersion": "3.2.1"
