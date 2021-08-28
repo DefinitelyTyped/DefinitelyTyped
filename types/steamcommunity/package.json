@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "steamid": "^2.0.0",
+        "@types/steamid": "^2.0.0"
+    }
+}
