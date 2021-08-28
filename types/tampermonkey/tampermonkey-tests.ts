@@ -19,12 +19,21 @@ GM_setValue('d', { form: { name: 'Bob' } });
 
 // GM_addValueChangeListener
 
-GM_addValueChangeListener('a', (name: string, oldValue: string, newValue: string, remote: boolean) => {});
-GM_addValueChangeListener('b', (name, oldValue: number, newValue: number, remote) => {});
-GM_addValueChangeListener('c', (name, oldValue: boolean, newValue: boolean, remote) => {});
+GM_addValueChangeListener(
+    'a',
+    (name: string, oldValue: string, newValue: string, remote: boolean) => {}
+);
+GM_addValueChangeListener(
+    'b',
+    (name, oldValue: number, newValue: number, remote) => {}
+);
+GM_addValueChangeListener(
+    'c',
+    (name, oldValue: boolean, newValue: boolean, remote) => {}
+);
 const dValueChangeListenerId = GM_addValueChangeListener(
     'd',
-    (name, oldValue: AppState, newValue: AppState, remote) => {},
+    (name, oldValue: AppState, newValue: AppState, remote) => {}
 );
 
 // GM_removeValueChangeListener
@@ -70,7 +79,7 @@ const commandId = GM_registerMenuCommand(
     () => {
         GM_log('Hello, world clicked');
     },
-    'h',
+    'h'
 );
 
 // GM_unregisterMenuCommand
@@ -85,7 +94,7 @@ const abortHandle = GM_xmlhttpRequest({
     url: 'http://www.example.com/',
     onload(response) {
         alert(response.responseText);
-    },
+    }
 });
 
 abortHandle.abort();
@@ -96,13 +105,16 @@ GM_xmlhttpRequest({
     url: 'http://www.example.net/',
     headers: {
         'User-Agent': 'Mozilla/5.0',
-        Accept: 'text/xml',
+        Accept: 'text/xml'
     },
     onload(response) {
         let responseXML = response.responseXML;
         // Inject responseXML into existing Object (only appropriate for XML content).
         if (!responseXML) {
-            responseXML = new DOMParser().parseFromString(response.responseText, 'text/xml');
+            responseXML = new DOMParser().parseFromString(
+                response.responseText,
+                'text/xml'
+            );
         }
 
         GM_log(
@@ -113,10 +125,10 @@ GM_xmlhttpRequest({
                 response.responseHeaders,
                 response.responseText,
                 response.finalUrl,
-                responseXML,
-            ].join('\n'),
+                responseXML
+            ].join('\n')
         );
-    },
+    }
 });
 
 // POST request
@@ -125,13 +137,13 @@ GM_xmlhttpRequest({
     url: 'http://www.example.net/login',
     data: 'username=johndoe&password=xyz123',
     headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded'
     },
     onload(response) {
         if (response.responseText.indexOf('Logged in as') > -1) {
             location.href = 'http://www.example.net/dashboard';
         }
-    },
+    }
 });
 
 // HEAD request
@@ -140,13 +152,13 @@ GM_xmlhttpRequest({
     method: 'HEAD',
     onload(response) {
         GM_log(response.responseHeaders);
-    },
+    }
 });
 
 // All options
 interface RequestContext {
     form: {
-        name: string;
+        name: string
     };
 }
 
@@ -162,8 +174,8 @@ GM_xmlhttpRequest<RequestContext>({
     timeout: 10,
     context: {
         form: {
-            name: 'Alice',
-        },
+            name: 'Alice'
+        }
     },
     responseType: 'json',
     overrideMimeType: 'text/plain',
@@ -186,7 +198,7 @@ GM_xmlhttpRequest<RequestContext>({
     onreadystatechange(response) {
         GM_log(response.context.form.name);
     },
-    ontimeout() {},
+    ontimeout() {}
 });
 
 // Responses
@@ -207,7 +219,7 @@ GM_xmlhttpRequest({
         const lengthComputable: boolean = response.lengthComputable;
         const loaded: number = response.loaded;
         const total: number = response.total;
-    },
+    }
 });
 
 // GM_download
@@ -225,7 +237,7 @@ const downloadHandle = GM_download({
     onload() {},
     onprogress(response) {
         GM_log(response.finalUrl, response.loaded, response.total);
-    },
+    }
 });
 
 downloadHandle.abort();
@@ -240,8 +252,8 @@ interface TabState {
 
 const tabState: TabState = {
     form: {
-        name: 'Alice',
-    },
+        name: 'Alice'
+    }
 };
 
 GM_saveTab(tabState);
@@ -272,7 +284,7 @@ GM_openInTab('http://www.example.com/', true);
 const openTabObject = GM_openInTab('http://www.example.com/', {
     active: true,
     insert: true,
-    setParent: true,
+    setParent: true
 });
 
 openTabObject.onclose = () => {
@@ -294,22 +306,27 @@ const textNotification: Tampermonkey.NotificationDetails = {
     },
     ondone(clicked) {
         GM_log(`Notification with id ${this.id} is clicked ${clicked}`);
-    },
+    }
 };
 
 const highlightNotification: Tampermonkey.NotificationDetails = {
     highlight: true,
     onclick: textNotification.onclick,
-    ondone: textNotification.ondone,
+    ondone: textNotification.ondone
 };
 
 GM_notification(textNotification);
 GM_notification(highlightNotification);
 GM_notification(textNotification, textNotification.ondone);
 
-GM_notification('Notification text', 'Notification title', 'https://tampermonkey.net/favicon.ico', function() {
-    GM_log(`Notification with id ${this.id} is clicked`);
-});
+GM_notification(
+    'Notification text',
+    'Notification title',
+    'https://tampermonkey.net/favicon.ico',
+    function() {
+        GM_log(`Notification with id ${this.id} is clicked`);
+    }
+);
 
 // GM_setClipboard
 
@@ -317,14 +334,14 @@ GM_setClipboard('Some text in clipboard');
 GM_setClipboard('<b>Some text in clipboard</b>', 'text');
 GM_setClipboard('<b>Some text in clipboard</b>', {
     type: 'text',
-    mimetype: 'text/plain',
+    mimetype: 'text/plain'
 });
 
 // GM_info
 
 // I created a basic userscript and copied GM_info from there for testing if the real thing fits the types
 // I don't think there's a real way of testing this other than testing if it fits the original
-const exampleInfo: Tampermonkey.GM_info = {
+const exampleInfo: Tampermonkey.ScriptInfo = {
     isFirstPartyIsolation: undefined,
     script: {
         antifeatures: {},
