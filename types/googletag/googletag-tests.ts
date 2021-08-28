@@ -295,6 +295,18 @@ googletag.pubads().addEventListener('slotOnload', event => {
     }
 });
 
+// 1. Define a callback function.
+const onViewableListener = (event: googletag.events.Event) => {
+    setTimeout(() => {
+        googletag.pubads().refresh([event.slot]);
+    }, 30000);
+
+    // Remove the event listener after executing this callback once.
+    googletag.pubads().removeEventListener('impressionViewable', onViewableListener);
+};
+// 2. Add an event listener to execute the callback.
+googletag.pubads().addEventListener('impressionViewable', onViewableListener);
+
 // DEMO 35
 let mapping1 = googletag
     .sizeMapping()
