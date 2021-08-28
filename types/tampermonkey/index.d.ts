@@ -256,8 +256,6 @@ declare namespace Tampermonkey {
         orig_includes: string[];
         orig_matches: string[];
         orig_noframes: string | null;
-
-        /** This also uses an underscore */
         orig_run_at: string | null;
         use_blockers: string[];
         use_connects: string[];
@@ -279,8 +277,6 @@ declare namespace Tampermonkey {
         compat_wrappedjsobject: boolean;
         compatopts_for_requires: boolean;
         noframes: boolean | null;
-
-        /** This uses an underscore */
         run_at: string;
         override: ScriptMetadataOverrides;
     }
@@ -334,9 +330,6 @@ declare namespace Tampermonkey {
 
         /**
          * Never null, defaults to document-idle
-         *
-         * This uses a hyphen in TM 4.13.6136 because
-         * that's how it is in the metadata
          */
         'run-at': string;
 
