@@ -365,6 +365,8 @@ declare namespace Tampermonkey {
         /** This refers to tampermonkey's version */
         version: string;
     }
+
+    type ContentType = string | { type?: string | undefined; mimetype?: string | undefined };
 }
 
 /**
@@ -529,7 +531,7 @@ declare function GM_notification(
  */
 declare function GM_setClipboard(
     data: string,
-    info?: string | { type?: string | undefined; mimetype?: string | undefined }
+    info?: Tampermonkey.ContentType,
 ): void;
 
 // GM.*
@@ -567,7 +569,7 @@ declare const GM: Readonly<{
      * different browser tabs to communicate with each other.
      * @param name Name of the observed variable
      */
-    addValueChangeListener(): Promise<number>;
+    addValueChangeListener(name: string, listener: Tampermonkey.ValueChangeListener): Promise<number>;
 
     /** Removes a change listener by its ID */
     removeValueChangeListener(listenerId: number): Promise<void>;
@@ -577,7 +579,6 @@ declare const GM: Readonly<{
     /** Get the content of a predefined `@resource` tag at the script header */
     getResourceText(name: string): Promise<string>;
 
-    // note that it's `..Url`, not `URL` like the GM_ variant
     /**
      * Get the base64 encoded URI of a predefined `@resource` tag at the script
      * header
@@ -589,6 +590,7 @@ declare const GM: Readonly<{
     /**
      * Register a menu to be displayed at the Tampermonkey menu at pages where this
      * script runs and returns a menu command ID.
+     * @param accessKey The key to use for keyboard shortcuts
      */
     registerMenuCommand(name: string, onClick: () => void, accessKey?: string): Promise<number>;
     /**
@@ -599,7 +601,6 @@ declare const GM: Readonly<{
 
     // Requests
 
-    // note the uppercase H in `Http`
     /**
      * Makes an xmlHttpRequest
      *
@@ -621,7 +622,7 @@ declare const GM: Readonly<{
     // Tabs
 
     /** Saves the tab object to reopen it after a page unload */
-    saveTab(obj: object): Promise<void>;
+    saveTab(obj: any): Promise<void>;
 
     /** Gets a object that is persistent as long as this tab is open */
     getTab(): Promise<any>;
@@ -682,6 +683,6 @@ declare const GM: Readonly<{
      */
     setClipboard(
         data: string,
-        info?: string | { type?: string | undefined; mimetype?: string | undefined },
+        info?: Tampermonkey.ContentType,
     ): Promise<void>;
 }>;
