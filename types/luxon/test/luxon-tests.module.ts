@@ -104,6 +104,7 @@ dt.toISOWeekDate(); // $ExpectType string
 dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
 dt.toLocaleParts(); // $ExpectType ToLocalePartsOutput
+dt.toLocaleParts()[0].type; // $ExpectType ToLocalePartsType
 dt.toLocaleParts()[0].value; // $ExpectType string
 dt.toLocaleString(); // $ExpectType string
 dt.toLocaleString({ month: 'long', day: 'numeric' }); // $ExpectType string
@@ -329,17 +330,17 @@ Settings.defaultOutputCalendar = 'persian';
 DateTime.fromISO('2014-08-06T13:07:04.054').toFormat('yyyy LLL dd'); // $ExpectType string
 
 /* Parsing */
-DateTime.fromObject(); // $ExpectType DateTime
+DateTime.fromObject(); // $ExpectError
 DateTime.fromObject({}, { zone: 'America/Los_Angeles' }); // $ExpectType DateTime
-DateTime.fromISO(); // $ExpectType DateTime
+DateTime.fromISO(); // $ExpectError
 DateTime.fromISO('2016-05-25'); // $ExpectType DateTime
-DateTime.fromJSDate(); // $ExpectType DateTime
+DateTime.fromJSDate(); // $ExpectError
 DateTime.fromJSDate(new Date()); // $ExpectType DateTime
 DateTime.fromRFC2822(); // $ExpectError
 DateTime.fromRFC2822('Tue, 01 Nov 2016 13:23:12 +0630'); // $ExpectType DateTime
-DateTime.fromHTTP(); // $ExpectType DateTime
+DateTime.fromHTTP(); // $ExpectError
 DateTime.fromHTTP('Sunday, 06-Nov-94 08:49:37 GMT'); // $ExpectType DateTime
-DateTime.fromSQL(); // $ExpectType DateTime
+DateTime.fromSQL(); // $ExpectError
 DateTime.fromSQL('2017-05-15 09:24:15'); // $ExpectType DateTime
 DateTime.fromMillis(); // $ExpectError
 DateTime.fromMillis(1542674993410); // $ExpectType DateTime

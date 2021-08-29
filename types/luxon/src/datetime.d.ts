@@ -160,9 +160,10 @@ export interface DateTimeFormatPreset {
     hourCycle?: 'h23';
 }
 
+export type ToLocalePartsType = keyof Omit<DateTimeFormatPreset, 'hourCycle'> | 'literal';
 export type ToLocalePartsOutput = [
     {
-        type: keyof Omit<DateTimeFormatPreset, 'hourCycle'> | 'literal';
+        type: ToLocalePartsType;
         value: string;
     },
 ];
@@ -358,7 +359,7 @@ export class DateTime {
      * @param options - configuration options for the DateTime
      * @param options.zone - the zone to place the DateTime into
      */
-    static fromJSDate(date?: Date, options?: { zone?: string | Zone }): DateTime;
+    static fromJSDate(date: Date, options?: { zone?: string | Zone }): DateTime;
 
     /**
      * Create a DateTime from a number of milliseconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
@@ -420,7 +421,7 @@ export class DateTime {
      * @example
      * DateTime.fromObject({ weekYear: 2016, weekNumber: 2, weekday: 3 }).toISODate() //=> '2016-01-13'
      */
-    static fromObject(obj?: DateObjectUnits, opts?: DateTimeJSOptions): DateTime;
+    static fromObject(obj: DateObjectUnits, opts?: DateTimeJSOptions): DateTime;
 
     /**
      * Create a DateTime from an ISO 8601 string
@@ -444,7 +445,7 @@ export class DateTime {
      * @example
      * DateTime.fromISO('2016-W05-4')
      */
-    static fromISO(text?: string, opts?: DateTimeOptions): DateTime;
+    static fromISO(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from an RFC 2822 string
@@ -489,7 +490,7 @@ export class DateTime {
      * @example
      * DateTime.fromHTTP('Sun Nov  6 08:49:37 1994')
      */
-    static fromHTTP(text?: string, opts?: DateTimeOptions): DateTime;
+    static fromHTTP(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from an input string and format string.
@@ -541,7 +542,7 @@ export class DateTime {
      * @example
      * DateTime.fromSQL('09:12:34.342')
      */
-    static fromSQL(text?: string, opts?: DateTimeOptions): DateTime;
+    static fromSQL(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create an invalid DateTime.
@@ -866,7 +867,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).reconfigure({ locale: 'en-GB' })
      */
-    reconfigure(properties?: LocaleOptions): DateTime;
+    reconfigure(properties: LocaleOptions): DateTime;
 
     /**
      * "Set" the locale. Returns a newly-constructed DateTime.
@@ -875,7 +876,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).setLocale('en-GB')
      */
-    setLocale(locale?: string): DateTime;
+    setLocale(locale: string): DateTime;
 
     /**
      * "Set" the values of specified units. Returns a newly-constructed DateTime.
@@ -892,7 +893,7 @@ export class DateTime {
      * @example
      * dt.set({ year: 2005, ordinal: 234 })
      */
-    set(values?: DateObjectUnits): DateTime;
+    set(values: DateObjectUnits): DateTime;
 
     /**
      * Adding hours, minutes, seconds, or milliseconds increases the timestamp by the right number of milliseconds. Adding days, months, or years shifts the calendar,
