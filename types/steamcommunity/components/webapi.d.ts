@@ -7,7 +7,7 @@ export interface WebApi {
      * @param domain A domain name to associate with your key.
      * @param callback A function to be called once the key is obtained.
      */
-    getWebApiKey(domain: any, callback: (
+    getWebApiKey(domain: string, callback: (
         /** If an error occurred, this is an Error object. The message property will be Access Denied if you attempt to retrieve an API key on a limited account. */
         err: CallbackError,
         /** Your API key on success. */

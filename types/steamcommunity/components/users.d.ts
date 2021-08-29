@@ -41,7 +41,7 @@ export interface Users {
      */
     unblockCommunication(userID: userid, callback?: Callback): void;
 
-    postUserComment(userID: userid, message: any, callback: Callback): void;
+    postUserComment(userID: userid, message: string, callback: Callback): void;
 
     deleteUserComment(userID: userid, commentID: any, callback: Callback): void;
 

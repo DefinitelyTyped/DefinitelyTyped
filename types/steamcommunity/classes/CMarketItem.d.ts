@@ -5,8 +5,10 @@ declare function CMarketItem(appid: any, hashName: any, community: any, body: an
 declare class CMarketItem {
     constructor(appid: any, hashName: any, community: any, body: any, $: any);
 
+    /** `true` if this is a commodity item (buy/sell orders) or `false` otherwise. */
+    commodity: boolean;
     /** If this is a commodity item, this will be the item's commodity ID. Not defined otherwise. */
-    commodity: any;
+    commodityID: number;
     medianSalePrices: Array<{
         /** A Date object representing the hour that this object contains data for. */
         hour: Date,
@@ -18,7 +20,7 @@ declare class CMarketItem {
     firstAsset: any;
     assets: any;
     /** How many copies of this item are currently available on the market. */
-    quantity: any;
+    quantity: number;
     /** The lowest price at which this item is sold, in cents. */
     lowestPrice: number;
 
@@ -29,5 +31,5 @@ declare class CMarketItem {
      * @param currency
      * @param callback Optional. Fired when the data is updated.
      */
-    updatePrice(currency: any, callback?: any): void;
+    updatePrice(currency: string, callback?: any): void;
 }

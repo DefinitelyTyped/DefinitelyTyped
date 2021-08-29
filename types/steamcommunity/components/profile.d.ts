@@ -1,5 +1,4 @@
-import { Callback, CallbackError } from '../index';
-import SteamID = require('steamid');
+import { appid, Callback, CallbackError, EditProfileSettings, ProfileSetting } from '../index';
 
 export interface Profile {
     /**
@@ -15,28 +14,7 @@ export interface Profile {
      * @param settings
      * @param callback
      */
-    editProfile(settings: {
-        /** Your new profile name. */
-        name: any,
-        /** Your new profile "real name", or empty string to remove it. */
-        realName: any,
-        /** Your new profile summary. */
-        summary: any,
-        /** A country code, like US, or empty string to remove it. */
-        country: string,
-        /** A state code, like FL, or empty string to remove it. */
-        state: string,
-        /** A numeric city code, or empty string to remove it. */
-        city: number | string,
-        /** Your new profile custom URL. */
-        customURL: any,
-        /** The assetid of an owned profile background which you want to equip, or empty string to remove it. */
-        background: any,
-        /** The ID of your new featured badge, or empty string to remove it. Currently game badges aren't supported, only badges whose pages end in /badge/<id>. */
-        featuredBadge: any,
-        /** A SteamID object for your new primary Steam group, or a string which can parse into a SteamID. */
-        primaryGroup: SteamID | string
-    }, callback: Callback): void;
+    editProfile(settings: EditProfileSettings, callback: Callback): void;
 
     /**
      * Updates one or more parts of your profile settings.
@@ -44,22 +22,7 @@ export interface Profile {
      * @param settings An profile settings object.
      * @param callback Optional. Called when the request completes.
      */
-    profileSettings(settings: {
-        /** A value from SteamCommunity.PrivacyState for your desired profile privacy state. */
-        profile: any,
-        /** A value from SteamCommunity.PrivacyState for your desired profile comments privacy state. */
-        comments: any,
-        /** A value from SteamCommunity.PrivacyState for your desired inventory privacy state. */
-        inventory: any,
-        /** true to keep your Steam gift inventory private, false otherwise. */
-        inventoryGifts: any,
-        /** A value from SteamCommunity.PrivacyState for your desired privacy level required to view games you own and what game you're currently playing. */
-        gameDetails: any,
-        /** `true` to keep your game playtime private, `false` otherwise. */
-        playtime: boolean,
-        /** A value from SteamCommunity.PrivacyState for your desired privacy level required to view your friends list. */
-        friendsList: any
-    }, callback: Callback): void;
+    profileSettings(settings: ProfileSetting, callback: Callback): void;
 
     /**
      * Replaces your current avatar image with a new one.
@@ -85,7 +48,7 @@ export interface Profile {
      */
     postProfileStatus(statusText: any, options: {
         /** An integer appID if you want this status update to be tagged with a specific game. */
-        appID: number
+        appID: appid
     }, callback: (
         err: CallbackError,
         /** The ID of this new post. */
