@@ -11,7 +11,6 @@
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
 //                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
-//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Huw <https://github.com/hoo29>
 //                 Kelvin Jin <https://github.com/kjin>
 //                 Klaus Meinhardt <https://github.com/ajafff>
