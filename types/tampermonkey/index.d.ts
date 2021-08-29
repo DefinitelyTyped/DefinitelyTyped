@@ -239,6 +239,132 @@ declare namespace Tampermonkey {
     }
 
     type NotificationDetails = TextNotification | HighlightNotification;
+
+    // Interfaces for GM_info
+
+    /**
+     * The metadata that the user can override in the settings
+     * for example run-at or excludes
+     */
+    interface ScriptMetadataOverrides {
+        merge_connects: boolean;
+        merge_excludes: boolean;
+        merge_includes: boolean;
+        merge_matches: boolean;
+        orig_connects: string[];
+        orig_excludes: string[];
+        orig_includes: string[];
+        orig_matches: string[];
+        orig_noframes: string | null;
+        orig_run_at: string | null;
+        use_blockers: string[];
+        use_connects: string[];
+        use_excludes: string[];
+        use_includes: string[];
+        use_matches: string[];
+    }
+
+    /**
+     * The options that the user of the userscript
+     * can set in the settings (!== overrides)
+     */
+    interface ScriptSettings {
+        check_for_updates: boolean;
+        comment: string | null;
+        compat_foreach: boolean;
+        compat_metadata: boolean;
+        compat_prototypes: boolean;
+        compat_wrappedjsobject: boolean;
+        compatopts_for_requires: boolean;
+        noframes: boolean | null;
+        run_at: string;
+        override: ScriptMetadataOverrides;
+    }
+
+    /**
+     * The resources from the metadata block (@resources)
+     * that tampermonkey should preload
+     */
+    interface ScriptResource {
+        name: string;
+        url: string;
+        content: string;
+        meta: string;
+    }
+
+    /**
+     * `.. | null` means if it was not explicitely set in the metadata
+     * block it is null
+     */
+    interface ScriptMetadata {
+        antifeatures: Record<string, Record<string, string>>;
+        author: string | null;
+
+        /**
+         * Idk what this is, nothing I did changed this from any empty array
+         * and it's not documented anywhere
+         */
+        blockers: any[];
+
+        copyright: string | null;
+        description: string | null;
+        description_i18n: Record<string, string>;
+        downloadURL: string | null;
+        evilness: number;
+        excludes: string[];
+        grant: string[];
+        header: string;
+        homepage: string | null;
+        icon: string | null;
+        icon64: string | null;
+        includes: string[];
+        lastModified: number;
+        matches: string[];
+        name: string;
+        name_i18n: Record<string, string>;
+        namespace: string | null;
+        options: ScriptSettings;
+
+        position: number;
+        resources: ScriptResource[];
+
+        /**
+         * Never null, defaults to document-idle
+         */
+        'run-at': string;
+
+        supportURL: string | null;
+        sync: {
+            imported: boolean;
+        };
+        unwrap: boolean;
+        updateURL: string | null;
+        uuid: string;
+        version: string;
+        webRequest: string[];
+    }
+
+    interface ScriptInfo {
+        downloadMode: 'native' | 'browser' | 'disabled';
+        isFirstPartyIsolation: boolean | undefined;
+        isIncognito: boolean;
+        script: ScriptMetadata;
+
+        /**
+         * In tampermonkey it's "Tampermonkey"
+         * but I'll leave it as string so this can be used
+         * for other managers
+         */
+        scriptHandler: string;
+
+        scriptMetaStr: string;
+        scriptSource: string;
+        scriptUpdateURL: string | undefined;
+        scriptWillUpdate: boolean;
+
+        /** This refers to tampermonkey's version */
+        version: string;
+    }
 }
 
 /**
@@ -346,6 +472,8 @@ declare function GM_getTabs(
 ): void;
 
 // Utils
+
+declare const GM_info: Tampermonkey.ScriptInfo;
 
 /** Log a message to the console */
 declare function GM_log(...message: any[]): void;
