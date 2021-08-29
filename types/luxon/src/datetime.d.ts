@@ -103,6 +103,7 @@ export interface LocaleOptions {
     outputCalendar?: CalendarSystem | undefined;
     numberingSystem?: NumberingSystem | undefined;
 }
+export type ResolvedLocaleOptions = Required<LocaleOptions>;
 
 export interface DateTimeOptions extends LocaleOptions {
     /**
@@ -145,6 +146,19 @@ export interface DateObjectUnits {
 }
 
 export type ConversionAccuracy = 'casual' | 'longterm';
+
+export type DateTimeFormatPresetValue = 'numeric' | 'short' | 'long';
+export interface DateTimeFormatPreset {
+    year?: DateTimeFormatPresetValue;
+    month?: DateTimeFormatPresetValue;
+    day?: DateTimeFormatPresetValue;
+    weekday?: DateTimeFormatPresetValue;
+    hour?: DateTimeFormatPresetValue;
+    minute?: DateTimeFormatPresetValue;
+    second?: DateTimeFormatPresetValue;
+    timeZoneName?: DateTimeFormatPresetValue;
+    hourCycle?: 'h23';
+}
 
 export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
@@ -231,15 +245,37 @@ export class DateTime {
      * DateTime.local(2017, 3, 12, 5, 45, 10, 765)       //~> 2017-03-12T05:45:10.765
      */
     static local(
-        year?: number,
-        month?: number,
-        day?: number,
-        hour?: number,
-        minute?: number,
-        second?: number,
-        millisecond?: number,
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+        millisecond: number,
         opts?: DateTimeJSOptions,
     ): DateTime;
+    static local(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+        opts?: DateTimeJSOptions,
+    ): DateTime;
+    static local(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        opts?: DateTimeJSOptions,
+    ): DateTime;
+    static local(year: number, month: number, day: number, hour: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, month: number, day: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, month: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, opts?: DateTimeJSOptions): DateTime;
+    static local(opts?: DateTimeJSOptions): DateTime;
 
     /**
      * Create a DateTime in UTC
@@ -276,15 +312,37 @@ export class DateTime {
      * DateTime.utc(2017, 3, 12, 5, 45, 10, 765, { locale: "fr") //~> 2017-03-12T05:45:10.765Z with a French locale
      */
     static utc(
-        year?: number,
-        month?: number,
-        day?: number,
-        hour?: number,
-        minute?: number,
-        second?: number,
-        millisecond?: number,
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+        millisecond: number,
         options?: LocaleOptions,
     ): DateTime;
+    static utc(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+        options?: LocaleOptions,
+    ): DateTime;
+    static utc(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        options?: LocaleOptions,
+    ): DateTime;
+    static utc(year: number, month: number, day: number, hour: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, month: number, day: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, month: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, options?: LocaleOptions): DateTime;
+    static utc(options?: LocaleOptions): DateTime;
 
     /**
      * Create a DateTime from a JavaScript Date object. Uses the default zone.
@@ -642,7 +700,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).ordinal //=> 145
      */
-    get ordinal(): number | DateTime;
+    get ordinal(): number;
 
     /**
      * Get the human readable short month name, such as 'Oct'.
@@ -759,7 +817,7 @@ export class DateTime {
      *
      * @param opts - the same options as toLocaleString
      */
-    resolvedLocaleOptions(opts?: LocaleOptions & DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
+    resolvedLocaleOptions(opts?: LocaleOptions | DateTimeFormatOptions): ResolvedLocaleOptions;
 
     // TRANSFORM
 
@@ -943,7 +1001,7 @@ export class DateTime {
      * @example
      * DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }); //=> '11:32'
      */
-    toLocaleString(formatOpts?: DateTimeFormatOptions, opts?: LocaleOptions): string;
+    toLocaleString(formatOpts?: DateTimeFormatPreset | DateTimeFormatOptions, opts?: LocaleOptions): string;
 
     /**
      * Returns an array of format "parts", meaning individual tokens along with metadata. This is allows callers to post-process individual sections of the formatted output.
@@ -961,7 +1019,7 @@ export class DateTime {
      *                                 //=>   { type: 'year', value: '1982' }
      *                                 //=> ]
      */
-    toLocaleParts(opts: DateTimeFormatOptions): Intl.DateTimeFormat[];
+    toLocaleParts(opts?: DateTimeFormatPreset | DateTimeFormatOptions): Intl.DateTimeFormatPart[];
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime
@@ -1287,110 +1345,110 @@ export class DateTime {
     /**
      * {@link DateTime.toLocaleString} format like 10/14/1983
      */
-    static get DATE_SHORT(): DateTimeFormatOptions;
+    static get DATE_SHORT(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983'
      */
-    static get DATE_MED(): DateTimeFormatOptions;
+    static get DATE_MED(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Fri, Oct 14, 1983'
      */
-    static get DATE_MED_WITH_WEEKDAY(): DateTimeFormatOptions;
+    static get DATE_MED_WITH_WEEKDAY(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983'
      */
-    static get DATE_FULL(): DateTimeFormatOptions;
+    static get DATE_FULL(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Tuesday, October 14, 1983'
      */
-    static get DATE_HUGE(): DateTimeFormatOptions;
+    static get DATE_HUGE(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30 AM'. Only 12-hour if the locale is.
      */
-    static get TIME_SIMPLE(): DateTimeFormatOptions;
+    static get TIME_SIMPLE(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_SECONDS(): DateTimeFormatOptions;
+    static get TIME_WITH_SECONDS(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM EDT'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_SHORT_OFFSET(): DateTimeFormatOptions;
+    static get TIME_WITH_SHORT_OFFSET(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_LONG_OFFSET(): DateTimeFormatOptions;
+    static get TIME_WITH_LONG_OFFSET(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30', always 24-hour.
      */
-    static get TIME_24_SIMPLE(): DateTimeFormatOptions;
+    static get TIME_24_SIMPLE(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23', always 24-hour.
      */
-    static get TIME_24_WITH_SECONDS(): DateTimeFormatOptions;
+    static get TIME_24_WITH_SECONDS(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 EDT', always 24-hour.
      */
-    static get TIME_24_WITH_SHORT_OFFSET(): DateTimeFormatOptions;
+    static get TIME_24_WITH_SHORT_OFFSET(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 Eastern Daylight Time', always 24-hour.
      */
-    static get TIME_24_WITH_LONG_OFFSET(): DateTimeFormatOptions;
+    static get TIME_24_WITH_LONG_OFFSET(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '10/14/1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_SHORT(): DateTimeFormatOptions;
+    static get DATETIME_SHORT(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like '10/14/1983, 9:30:33 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_SHORT_WITH_SECONDS(): DateTimeFormatOptions;
+    static get DATETIME_SHORT_WITH_SECONDS(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED(): DateTimeFormatOptions;
+    static get DATETIME_MED(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983, 9:30:33 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED_WITH_SECONDS(): DateTimeFormatOptions;
+    static get DATETIME_MED_WITH_SECONDS(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Fri, 14 Oct 1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED_WITH_WEEKDAY(): DateTimeFormatOptions;
+    static get DATETIME_MED_WITH_WEEKDAY(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983, 9:30 AM EDT'. Only 12-hour if the locale is.
      */
-    static get DATETIME_FULL(): DateTimeFormatOptions;
+    static get DATETIME_FULL(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983, 9:30:33 AM EDT'. Only 12-hour if the locale is.
      */
-    static get DATETIME_FULL_WITH_SECONDS(): DateTimeFormatOptions;
+    static get DATETIME_FULL_WITH_SECONDS(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Friday, October 14, 1983, 9:30 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get DATETIME_HUGE(): DateTimeFormatOptions;
+    static get DATETIME_HUGE(): DateTimeFormatPreset;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Friday, October 14, 1983, 9:30:33 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get DATETIME_HUGE_WITH_SECONDS(): DateTimeFormatOptions;
+    static get DATETIME_HUGE_WITH_SECONDS(): DateTimeFormatPreset;
 }

@@ -17,10 +17,17 @@ import {
 VERSION; // $ExpectType string
 
 /* DateTime */
-DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
-DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
-DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
-DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatPreset
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatPreset
+DateTime.DATE_MED; // $ExpectType DateTimeFormatPreset
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatPreset
+
+DateTime.local({ zone: 'Atlantic/Azores' }); // $ExpectType DateTime
+DateTime.local(2021, 8, 28, { zone: 'Atlantic/Azores' }); // $ExpectType DateTime
+DateTime.utc(); // $ExpectType DateTime
+DateTime.utc({ locale: 'en-US' }); // $ExpectType DateTime
+DateTime.utc(2018, 5, 31, 23, { numberingSystem: 'arabext' }); // $ExpectType DateTime
+DateTime.utc(2019, { locale: 'en-GB' }, 5); // $ExpectError
 
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
@@ -74,16 +81,16 @@ const fromIso2 = DateTime.fromISO('2017-05-15T08:30:00'); // => May 15, 2017 at 
 DateTime.local().toString(); // => '2017-09-14T03:20:34.091-04:00'
 
 const getters = DateTime.local();
-getters.year;
-getters.month;
-getters.day;
-getters.second;
-getters.weekday;
-getters.zoneName;
-getters.offset;
-getters.daysInMonth;
-getters.ordinal;
-getters.isInLeapYear;
+getters.year; // $ExpectType number
+getters.month; // $ExpectType number
+getters.day; // $ExpectType number
+getters.second; // $ExpectType number
+getters.weekday; // $ExpectType number
+getters.zoneName; // $ExpectType string
+getters.offset; // $ExpectType number
+getters.daysInMonth; // $ExpectType number
+getters.ordinal; // $ExpectType number
+getters.isInLeapYear; // $ExpectType boolean
 
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
@@ -96,6 +103,9 @@ dt.toISOTime({ format: 'basic' }); // $ExpectType string
 dt.toISOWeekDate(); // $ExpectType string
 dt.toJSDate(); // $ExpectType Date
 dt.toJSON(); // $ExpectType string
+dt.toLocaleParts(); // $ExpectType DateTimeFormatPart[]
+dt.toLocaleParts()[0].type; // $ExpectType DateTimeFormatPartTypes
+dt.toLocaleParts()[0].value; // $ExpectType string
 dt.toLocaleString(); // $ExpectType string
 dt.toLocaleString({ month: 'long', day: 'numeric' }); // $ExpectType string
 dt.toLocaleString(DateTime.DATE_MED); // $ExpectType string
@@ -267,7 +277,7 @@ Settings.defaultLocale = 'fr';
 DateTime.local().locale; // $ExpectType string
 
 Settings.defaultLocale = DateTime.local().resolvedLocaleOptions().locale;
-DateTime.local().resolvedLocaleOptions({ locale: 'de' });
+DateTime.local().resolvedLocaleOptions({ locale: 'de' }); // $ExpectType Required<LocaleOptions>
 
 dt.setLocale('fr').toLocaleString(DateTime.DATE_FULL); // $ExpectType string
 dt.toLocaleString({ ...DateTime.DATE_FULL }, { locale: 'es' }); // $ExpectType string
@@ -310,6 +320,7 @@ DateTime.fromISO('2017-W23-3').plus({ weeks: 1, days: 2 }).toISOWeekDate(); // $
 
 const dtHebrew = DateTime.local().reconfigure({ outputCalendar: 'hebrew' });
 dtHebrew.outputCalendar; // $ExpectType string
+dtHebrew.numberingSystem; // $ExpectType string
 dtHebrew.toLocaleString(); // $ExpectType string
 
 DateTime.fromObject({}, { outputCalendar: 'buddhist' }).toLocaleString(DateTime.DATE_FULL);
@@ -319,14 +330,23 @@ Settings.defaultOutputCalendar = 'persian';
 DateTime.fromISO('2014-08-06T13:07:04.054').toFormat('yyyy LLL dd'); // $ExpectType string
 
 /* Parsing */
+DateTime.fromObject(); // $ExpectError
 DateTime.fromObject({}, { zone: 'America/Los_Angeles' }); // $ExpectType DateTime
+DateTime.fromISO(); // $ExpectError
 DateTime.fromISO('2016-05-25'); // $ExpectType DateTime
+DateTime.fromJSDate(); // $ExpectError
 DateTime.fromJSDate(new Date()); // $ExpectType DateTime
+DateTime.fromRFC2822(); // $ExpectError
 DateTime.fromRFC2822('Tue, 01 Nov 2016 13:23:12 +0630'); // $ExpectType DateTime
+DateTime.fromHTTP(); // $ExpectError
 DateTime.fromHTTP('Sunday, 06-Nov-94 08:49:37 GMT'); // $ExpectType DateTime
+DateTime.fromSQL(); // $ExpectError
 DateTime.fromSQL('2017-05-15 09:24:15'); // $ExpectType DateTime
+DateTime.fromMillis(); // $ExpectError
 DateTime.fromMillis(1542674993410); // $ExpectType DateTime
+DateTime.fromSeconds(); // $ExpectError
 DateTime.fromSeconds(1542674993); // $ExpectType DateTime
+DateTime.fromFormat(); // $ExpectError
 DateTime.fromFormat('May 25 1982', 'LLLL dd yyyy'); // $ExpectType DateTime
 DateTime.fromFormat('mai 25 1982', 'LLLL dd yyyy', { locale: 'fr' }); // $ExpectType DateTime
 
