@@ -199,6 +199,8 @@ openpgp.initWorker({
 
 async () => {
     const publicKey = await openpgp.key.readArmored(spubkey);
+    publicKey.keys[0].getKeys();
+    publicKey.keys[0].getSubkeys();
 
     return publicKey.keys[0].primaryKey.getFingerprint(); /* as string*/
 };

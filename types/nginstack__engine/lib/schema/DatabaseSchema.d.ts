@@ -22,7 +22,7 @@ declare class DatabaseSchema {
     private executeDDL_;
     private getColumns_;
     private getTableIndexes_;
-    updateSchemaVersion_(tableName: string): void;
+    private updateSchemaVersion_;
     private normalizeColumnDefs_;
     private notifyObservers_;
     getTables(tableNames?: string[]): TableInfo[];
@@ -122,9 +122,6 @@ declare class DatabaseSchema {
 }
 declare namespace DatabaseSchema {
     export {
-        observers_,
-        databaseConfigLoaded_,
-        loadDatabaseConfig_,
         registerObserver,
         deregisterObserver,
         Database,
@@ -198,8 +195,5 @@ interface IndexDef {
     tablespace?: string;
     compressed?: boolean;
 }
-declare var observers_: Array<import('./DatabaseSchemaObserver')>;
-declare var databaseConfigLoaded_: boolean;
-declare function loadDatabaseConfig_(): void;
 declare function registerObserver(observer: import('./DatabaseSchemaObserver')): void;
 declare function deregisterObserver(observer: import('./DatabaseSchemaObserver')): void;

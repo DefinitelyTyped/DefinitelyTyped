@@ -37,7 +37,7 @@
  *   'Host', 'mysite.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
@@ -740,7 +740,7 @@ declare module 'http' {
      * access response
      * status, headers and data.
      *
-     * Different from its `socket` value which is a subclass of `<stream.Duplex>`, the`IncomingMessage` itself extends `<stream.Readable>` and is created separately to
+     * Different from its `socket` value which is a subclass of `stream.Duplex`, the`IncomingMessage` itself extends `stream.Readable` and is created separately to
      * parse and emit the incoming HTTP headers and payload, as the underlying socket
      * may be reused multiple times in case of keep-alive.
      * @since v0.1.17
@@ -800,9 +800,9 @@ declare module 'http' {
          * With HTTPS support, use `request.socket.getPeerCertificate()` to obtain the
          * client's authentication details.
          *
-         * This property is guaranteed to be an instance of the `<net.Socket>` class,
-         * a subclass of `<stream.Duplex>`, unless the user specified a socket
-         * type other than `<net.Socket>`.
+         * This property is guaranteed to be an instance of the `net.Socket` class,
+         * a subclass of `stream.Duplex`, unless the user specified a socket
+         * type other than `net.Socket`.
          * @since v0.3.0
          */
         socket: Socket;

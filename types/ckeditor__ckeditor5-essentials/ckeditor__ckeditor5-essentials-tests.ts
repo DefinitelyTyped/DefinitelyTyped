@@ -8,3 +8,6 @@ const name: "Essentials" = Essentials.pluginName;
 let constructor: typeof Plugin = Essentials;
 constructor = Essentials.requires[5];
 const plugin: Plugin = new Essentials(new MyEditor());
+
+// $ExpectType Essentials
+new MyEditor().plugins.get('Essentials');

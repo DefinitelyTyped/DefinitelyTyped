@@ -53,15 +53,15 @@ const metaData = {
     'X-Amz-Meta-Testing': 1234,
     example: 5678
 };
-minio.putObject('testBucket', 'hello.jpg', fs.createReadStream('hello.jpg'), (error: Error|null, etag: string) => { console.log(error, etag); });
-minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100, (error: Error|null, etag: string) => { console.log(error, etag); });
-minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
+minio.putObject('testBucket', 'hello.jpg', fs.createReadStream('hello.jpg'), (error: Error|null, objInfo: Minio.UploadedObjectInfo) => { console.log(error, objInfo.etag, objInfo.versionId); });
+minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100, (error: Error|null, objInfo: Minio.UploadedObjectInfo) => { console.log(error, objInfo.etag, objInfo.versionId); });
+minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData, (error: Error|null, objInfo: Minio.UploadedObjectInfo) => { console.log(error, objInfo.etag, objInfo.versionId); });
 minio.putObject('testBucket', 'hello.jpg', fs.createReadStream('hello.jpg'));
 minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100);
 minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData);
 minio.putObject('testBucket', 'hello.txt', 'hello.txt content', metaData);
 
-minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
+minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData, (error: Error|null, objInfo: Minio.UploadedObjectInfo) => { console.log(error, objInfo.etag, objInfo.versionId); });
 minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData);
 
 const conditions = new Minio.CopyConditions();

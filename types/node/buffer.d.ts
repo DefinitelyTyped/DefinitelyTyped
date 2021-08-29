@@ -41,7 +41,7 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/buffer.js)
  */
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
@@ -86,6 +86,14 @@ declare module 'buffer' {
         new (size: number): Buffer;
         prototype: Buffer;
     };
+    /**
+     * Resolves a `'blob:nodedata:...'` an associated `Blob` object registered using
+     * a prior call to `URL.createObjectURL()`.
+     * @since v16.7.0
+     * @experimental
+     * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
+     */
+    export function resolveObjectURL(id: string): Blob | undefined;
     export { Buffer };
     /**
      * @experimental
@@ -144,11 +152,16 @@ declare module 'buffer' {
          */
         slice(start?: number, end?: number, type?: string): Blob;
         /**
-         * Returns a promise that resolves the contents of the `Blob` decoded as a UTF-8
-         * string.
+         * Returns a promise that fulfills with the contents of the `Blob` decoded as a
+         * UTF-8 string.
          * @since v15.7.0
          */
         text(): Promise<string>;
+        /**
+         * Returns a new `ReadableStream` that allows the content of the `Blob` to be read.
+         * @since v16.7.0
+         */
+        stream(): unknown; // pending web streams types
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
@@ -212,12 +225,21 @@ declare module 'buffer' {
              */
             new (buffer: Buffer): Buffer;
             /**
-             * When passed a reference to the .buffer property of a TypedArray instance,
-             * the newly created Buffer will share the same allocated memory as the TypedArray.
-             * The optional {byteOffset} and {length} arguments specify a memory range
-             * within the {arrayBuffer} that will be shared by the Buffer.
+             * Allocates a new `Buffer` using an `array` of bytes in the range `0` – `255`.
+             * Array entries outside that range will be truncated to fit into it.
              *
-             * @param arrayBuffer The .buffer property of any TypedArray or a new ArrayBuffer()
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * // Creates a new Buffer containing the UTF-8 bytes of the string 'buffer'.
+             * const buf = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
+             * ```
+             *
+             * A `TypeError` will be thrown if `array` is not an `Array` or another type
+             * appropriate for `Buffer.from()` variants.
+             *
+             * `Buffer.from(array)` and `Buffer.from(string)` may also use the internal`Buffer` pool like `Buffer.allocUnsafe()` does.
+             * @since v5.10.0
              */
             from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
             /**
@@ -245,67 +267,264 @@ declare module 'buffer' {
              */
             of(...items: number[]): Buffer;
             /**
-             * Returns true if {obj} is a Buffer
+             * Returns `true` if `obj` is a `Buffer`, `false` otherwise.
              *
-             * @param obj object to test.
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * Buffer.isBuffer(Buffer.alloc(10)); // true
+             * Buffer.isBuffer(Buffer.from('foo')); // true
+             * Buffer.isBuffer('a string'); // false
+             * Buffer.isBuffer([]); // false
+             * Buffer.isBuffer(new Uint8Array(1024)); // false
+             * ```
+             * @since v0.1.101
              */
             isBuffer(obj: any): obj is Buffer;
             /**
-             * Returns true if {encoding} is a valid encoding argument.
-             * Valid string encodings in Node 0.12: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
+             * Returns `true` if `encoding` is the name of a supported character encoding,
+             * or `false` otherwise.
              *
-             * @param encoding string to test.
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * console.log(Buffer.isEncoding('utf8'));
+             * // Prints: true
+             *
+             * console.log(Buffer.isEncoding('hex'));
+             * // Prints: true
+             *
+             * console.log(Buffer.isEncoding('utf/8'));
+             * // Prints: false
+             *
+             * console.log(Buffer.isEncoding(''));
+             * // Prints: false
+             * ```
+             * @since v0.9.1
+             * @param encoding A character encoding name to check.
              */
             isEncoding(encoding: string): encoding is BufferEncoding;
             /**
-             * Gives the actual byte length of a string. encoding defaults to 'utf8'.
-             * This is not the same as String.prototype.length since that returns the number of characters in a string.
+             * Returns the byte length of a string when encoded using `encoding`.
+             * This is not the same as [`String.prototype.length`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/length), which does not account
+             * for the encoding that is used to convert the string into bytes.
              *
-             * @param string string to test.
-             * @param encoding encoding used to evaluate (defaults to 'utf8')
+             * For `'base64'`, `'base64url'`, and `'hex'`, this function assumes valid input.
+             * For strings that contain non-base64/hex-encoded data (e.g. whitespace), the
+             * return value might be greater than the length of a `Buffer` created from the
+             * string.
+             *
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * const str = '\u00bd + \u00bc = \u00be';
+             *
+             * console.log(`${str}: ${str.length} characters, ` +
+             *             `${Buffer.byteLength(str, 'utf8')} bytes`);
+             * // Prints: ½ + ¼ = ¾: 9 characters, 12 bytes
+             * ```
+             *
+             * When `string` is a
+             * `Buffer`/[`DataView`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView)/[`TypedArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/-
+             * Reference/Global_Objects/TypedArray)/[`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)/[`SharedArrayBuffer`](https://develop-
+             * er.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer), the byte length as reported by `.byteLength`is returned.
+             * @since v0.1.90
+             * @param string A value to calculate the length of.
+             * @param [encoding='utf8'] If `string` is a string, this is its encoding.
+             * @return The number of bytes contained within `string`.
              */
             byteLength(string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer, encoding?: BufferEncoding): number;
             /**
-             * Returns a buffer which is the result of concatenating all the buffers in the list together.
+             * Returns a new `Buffer` which is the result of concatenating all the `Buffer`instances in the `list` together.
              *
-             * If the list has no items, or if the totalLength is 0, then it returns a zero-length buffer.
-             * If the list has exactly one item, then the first item of the list is returned.
-             * If the list has more than one item, then a new Buffer is created.
+             * If the list has no items, or if the `totalLength` is 0, then a new zero-length`Buffer` is returned.
              *
-             * @param list An array of Buffer objects to concatenate
-             * @param totalLength Total length of the buffers when concatenated.
-             *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
+             * If `totalLength` is not provided, it is calculated from the `Buffer` instances
+             * in `list` by adding their lengths.
+             *
+             * If `totalLength` is provided, it is coerced to an unsigned integer. If the
+             * combined length of the `Buffer`s in `list` exceeds `totalLength`, the result is
+             * truncated to `totalLength`.
+             *
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * // Create a single `Buffer` from a list of three `Buffer` instances.
+             *
+             * const buf1 = Buffer.alloc(10);
+             * const buf2 = Buffer.alloc(14);
+             * const buf3 = Buffer.alloc(18);
+             * const totalLength = buf1.length + buf2.length + buf3.length;
+             *
+             * console.log(totalLength);
+             * // Prints: 42
+             *
+             * const bufA = Buffer.concat([buf1, buf2, buf3], totalLength);
+             *
+             * console.log(bufA);
+             * // Prints: <Buffer 00 00 00 00 ...>
+             * console.log(bufA.length);
+             * // Prints: 42
+             * ```
+             *
+             * `Buffer.concat()` may also use the internal `Buffer` pool like `Buffer.allocUnsafe()` does.
+             * @since v0.7.11
+             * @param list List of `Buffer` or {@link Uint8Array} instances to concatenate.
+             * @param totalLength Total length of the `Buffer` instances in `list` when concatenated.
              */
             concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
             /**
-             * The same as buf1.compare(buf2).
+             * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of`Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
+             *
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * const buf1 = Buffer.from('1234');
+             * const buf2 = Buffer.from('0123');
+             * const arr = [buf1, buf2];
+             *
+             * console.log(arr.sort(Buffer.compare));
+             * // Prints: [ <Buffer 30 31 32 33>, <Buffer 31 32 33 34> ]
+             * // (This result is equal to: [buf2, buf1].)
+             * ```
+             * @since v0.11.13
+             * @return Either `-1`, `0`, or `1`, depending on the result of the comparison. See `compare` for details.
              */
             compare(buf1: Uint8Array, buf2: Uint8Array): number;
             /**
-             * Allocates a new buffer of {size} octets.
+             * Allocates a new `Buffer` of `size` bytes. If `fill` is `undefined`, the`Buffer` will be zero-filled.
              *
-             * @param size count of octets to allocate.
-             * @param fill if specified, buffer will be initialized by calling buf.fill(fill).
-             *    If parameter is omitted, buffer will be filled with zeros.
-             * @param encoding encoding used for call to buf.fill while initalizing
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * const buf = Buffer.alloc(5);
+             *
+             * console.log(buf);
+             * // Prints: <Buffer 00 00 00 00 00>
+             * ```
+             *
+             * If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown.
+             *
+             * If `fill` is specified, the allocated `Buffer` will be initialized by calling `buf.fill(fill)`.
+             *
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * const buf = Buffer.alloc(5, 'a');
+             *
+             * console.log(buf);
+             * // Prints: <Buffer 61 61 61 61 61>
+             * ```
+             *
+             * If both `fill` and `encoding` are specified, the allocated `Buffer` will be
+             * initialized by calling `buf.fill(fill, encoding)`.
+             *
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * const buf = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+             *
+             * console.log(buf);
+             * // Prints: <Buffer 68 65 6c 6c 6f 20 77 6f 72 6c 64>
+             * ```
+             *
+             * Calling `Buffer.alloc()` can be measurably slower than the alternative `Buffer.allocUnsafe()` but ensures that the newly created `Buffer` instance
+             * contents will never contain sensitive data from previous allocations, including
+             * data that might not have been allocated for `Buffer`s.
+             *
+             * A `TypeError` will be thrown if `size` is not a number.
+             * @since v5.10.0
+             * @param size The desired length of the new `Buffer`.
+             * @param [fill=0] A value to pre-fill the new `Buffer` with.
+             * @param [encoding='utf8'] If `fill` is a string, this is its encoding.
              */
             alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
             /**
-             * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
-             * of the newly created Buffer are unknown and may contain sensitive data.
+             * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown.
              *
-             * @param size count of octets to allocate
+             * The underlying memory for `Buffer` instances created in this way is _not_
+             * _initialized_. The contents of the newly created `Buffer` are unknown and_may contain sensitive data_. Use `Buffer.alloc()` instead to initialize`Buffer` instances with zeroes.
+             *
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * const buf = Buffer.allocUnsafe(10);
+             *
+             * console.log(buf);
+             * // Prints (contents may vary): <Buffer a0 8b 28 3f 01 00 00 00 50 32>
+             *
+             * buf.fill(0);
+             *
+             * console.log(buf);
+             * // Prints: <Buffer 00 00 00 00 00 00 00 00 00 00>
+             * ```
+             *
+             * A `TypeError` will be thrown if `size` is not a number.
+             *
+             * The `Buffer` module pre-allocates an internal `Buffer` instance of
+             * size `Buffer.poolSize` that is used as a pool for the fast allocation of new`Buffer` instances created using `Buffer.allocUnsafe()`,`Buffer.from(array)`, `Buffer.concat()`, and the
+             * deprecated`new Buffer(size)` constructor only when `size` is less than or equal
+             * to `Buffer.poolSize >> 1` (floor of `Buffer.poolSize` divided by two).
+             *
+             * Use of this pre-allocated internal memory pool is a key difference between
+             * calling `Buffer.alloc(size, fill)` vs. `Buffer.allocUnsafe(size).fill(fill)`.
+             * Specifically, `Buffer.alloc(size, fill)` will _never_ use the internal `Buffer`pool, while `Buffer.allocUnsafe(size).fill(fill)`_will_ use the internal`Buffer` pool if `size` is less
+             * than or equal to half `Buffer.poolSize`. The
+             * difference is subtle but can be important when an application requires the
+             * additional performance that `Buffer.allocUnsafe()` provides.
+             * @since v5.10.0
+             * @param size The desired length of the new `Buffer`.
              */
             allocUnsafe(size: number): Buffer;
             /**
-             * Allocates a new non-pooled buffer of {size} octets, leaving memory not initialized, so the contents
-             * of the newly created Buffer are unknown and may contain sensitive data.
+             * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown. A zero-length `Buffer` is created
+             * if `size` is 0.
              *
-             * @param size count of octets to allocate
+             * The underlying memory for `Buffer` instances created in this way is _not_
+             * _initialized_. The contents of the newly created `Buffer` are unknown and_may contain sensitive data_. Use `buf.fill(0)` to initialize
+             * such `Buffer` instances with zeroes.
+             *
+             * When using `Buffer.allocUnsafe()` to allocate new `Buffer` instances,
+             * allocations under 4 KB are sliced from a single pre-allocated `Buffer`. This
+             * allows applications to avoid the garbage collection overhead of creating many
+             * individually allocated `Buffer` instances. This approach improves both
+             * performance and memory usage by eliminating the need to track and clean up as
+             * many individual `ArrayBuffer` objects.
+             *
+             * However, in the case where a developer may need to retain a small chunk of
+             * memory from a pool for an indeterminate amount of time, it may be appropriate
+             * to create an un-pooled `Buffer` instance using `Buffer.allocUnsafeSlow()` and
+             * then copying out the relevant bits.
+             *
+             * ```js
+             * import { Buffer } from 'buffer';
+             *
+             * // Need to keep around a few small chunks of memory.
+             * const store = [];
+             *
+             * socket.on('readable', () => {
+             *   let data;
+             *   while (null !== (data = readable.read())) {
+             *     // Allocate for retained data.
+             *     const sb = Buffer.allocUnsafeSlow(10);
+             *
+             *     // Copy the data into the new allocation.
+             *     data.copy(sb, 0, 0, 10);
+             *
+             *     store.push(sb);
+             *   }
+             * });
+             * ```
+             *
+             * A `TypeError` will be thrown if `size` is not a number.
+             * @since v5.12.0
+             * @param size The desired length of the new `Buffer`.
              */
             allocUnsafeSlow(size: number): Buffer;
             /**
-             * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
+             * This is the size (in bytes) of pre-allocated internal `Buffer` instances used
+             * for pooling. This value may be modified.
+             * @since v0.11.3
              */
             poolSize: number;
         }

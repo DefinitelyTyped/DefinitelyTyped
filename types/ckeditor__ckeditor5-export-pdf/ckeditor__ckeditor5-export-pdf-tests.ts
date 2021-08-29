@@ -51,3 +51,6 @@ config = {
 config = {
     tokenUrl: "",
 };
+
+// $ExpectType ExportPdf
+(new MyEditor()).plugins.get('ExportPdf');

@@ -12,7 +12,7 @@ export default class ImageStyle extends Plugin {
  */
 
 export interface ImageStyleConfig {
-    options: ImageStyleOptionDefinition[];
+    options: Array<string | ImageStyleOptionDefinition>;
 }
 
 export interface ImageStyleOptionDefinition {
@@ -22,4 +22,10 @@ export interface ImageStyleOptionDefinition {
     modelElements?: Array<'imageBlock' | 'imageInline'> | undefined;
     name: string;
     title?: string | undefined;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageStyle: ImageStyle;
+    }
 }

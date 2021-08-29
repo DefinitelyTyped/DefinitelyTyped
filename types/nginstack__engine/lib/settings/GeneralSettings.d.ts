@@ -18,7 +18,7 @@ declare class GeneralSettings {
     version: number;
 }
 declare namespace GeneralSettings {
-    export { instance_, getInstance, SettingOptions };
+    export { getInstance, SettingOptions };
 }
 interface SettingOptions {
     type: SettingType;
@@ -32,6 +32,5 @@ interface SettingOptions {
     };
 }
 import DBKey = require('../dbkey/DBKey.js');
-declare var instance_: GeneralSettings;
 declare function getInstance(): GeneralSettings;
 import SettingType = require('./SettingType.js');

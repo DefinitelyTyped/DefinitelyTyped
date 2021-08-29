@@ -7,3 +7,9 @@ export default class PictureEditing extends Plugin {
     static readonly pluginName: 'PictureEditing';
     afterInit(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        PictureEditing: PictureEditing;
+    }
+}

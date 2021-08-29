@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Tab extends BaseComponent {
     /**
@@ -11,6 +11,8 @@ declare class Tab extends BaseComponent {
     show(): void;
 
     static getInstance: GetInstanceFactory<Tab>;
+
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Tab>;
 
     static jQueryInterface: Tab.jQueryInterface;
 

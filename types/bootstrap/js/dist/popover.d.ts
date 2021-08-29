@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 import Tooltip from "./tooltip";
 
 declare class Popover extends BaseComponent {
@@ -51,6 +51,8 @@ declare class Popover extends BaseComponent {
     update(): void;
 
     static getInstance: GetInstanceFactory<Popover>;
+
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Popover>;
 
     static jQueryInterface: Popover.jQueryInterface;
 

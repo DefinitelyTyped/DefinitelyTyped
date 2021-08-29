@@ -19,3 +19,9 @@ export interface FontFamilyConfig {
     options?: Array<string | FontFamilyOption> | undefined;
     supportAllValues?: boolean | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        FontFamily: FontFamily;
+    }
+}

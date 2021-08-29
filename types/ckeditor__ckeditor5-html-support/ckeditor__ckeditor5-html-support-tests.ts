@@ -84,3 +84,18 @@ TableElementSupport.requires.forEach(Plugin => new Plugin(editor));
 
 schemas.block.concat([]);
 schemas.inline.concat([]).lastIndexOf(schemas.inline[0]) === 0;
+
+// $ExpectType CodeBlockHtmlSupport
+editor.plugins.get('CodeBlockHtmlSupport');
+
+// $ExpectType DataFilter
+editor.plugins.get('DataFilter');
+
+// $ExpectType DataSchema
+editor.plugins.get('DataSchema');
+
+// $ExpectType GeneralHtmlSupport
+editor.plugins.get('GeneralHtmlSupport');
+
+// $ExpectType TableElementSupport
+editor.plugins.get('TableElementSupport');

@@ -2,19 +2,19 @@ export = IColumn;
 declare function IColumn(column: ColumnConfig, tableName: string): void;
 declare class IColumn {
     constructor(column: ColumnConfig, tableName: string);
-    _tableName: string;
-    _cast: string;
+    private _tableName;
+    private _cast;
     isSubQuery: boolean;
     coalesceValue: string | number;
     useCoalesce: boolean;
-    _useDistinct: boolean;
-    _castValue: string | number;
-    _literal: string;
-    _field: string | IClauseSelect;
-    _aggregate: any;
-    _weight: string;
-    _alias: string;
-    _show: boolean;
+    private _useDistinct;
+    private _castValue;
+    private _literal;
+    private _field;
+    private _aggregate;
+    private _weight;
+    private _alias;
+    private _show;
     private namePattern_;
     private sanitizeName_;
     private checkColumnCollection_;
@@ -36,15 +36,7 @@ declare class IColumn {
     private _arrayColumnToSql;
 }
 declare namespace IColumn {
-    export {
-        _AGGREGATOR_SUM,
-        _AGGREGATOR_COUNT,
-        _AGGREGATOR_MAX,
-        _AGGREGATOR_MIN,
-        _AGGREGATOR_AVG,
-        _AGGREGATORS,
-        ColumnConfig,
-    };
+    export { ColumnConfig };
 }
 interface ColumnConfig {
     alias: string;
@@ -60,9 +52,3 @@ interface ColumnConfig {
     weight: string;
 }
 import IClauseSelect = require('./IClauseSelect.js');
-declare var _AGGREGATOR_SUM: string;
-declare var _AGGREGATOR_COUNT: string;
-declare var _AGGREGATOR_MAX: string;
-declare var _AGGREGATOR_MIN: string;
-declare var _AGGREGATOR_AVG: string;
-declare var _AGGREGATORS: string[];
