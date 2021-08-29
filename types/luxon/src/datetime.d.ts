@@ -160,14 +160,6 @@ export interface DateTimeFormatPreset {
     hourCycle?: 'h23';
 }
 
-export type ToLocalePartsType = keyof Omit<DateTimeFormatPreset, 'hourCycle'> | 'literal';
-export type ToLocalePartsOutput = [
-    {
-        type: ToLocalePartsType;
-        value: string;
-    },
-];
-
 export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
 }
@@ -1027,7 +1019,7 @@ export class DateTime {
      *                                 //=>   { type: 'year', value: '1982' }
      *                                 //=> ]
      */
-    toLocaleParts(opts?: DateTimeFormatPreset | DateTimeFormatOptions): ToLocalePartsOutput;
+    toLocaleParts(opts?: DateTimeFormatPreset | DateTimeFormatOptions): Intl.DateTimeFormatPart[];
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime
