@@ -1,10 +1,22 @@
 import * as React from 'react';
 import DatePicker, { CalendarContainer, registerLocale, setDefaultLocale, getDefaultLocale } from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
+import { Modifier } from 'react-popper';
 
 registerLocale('en-GB', { options: { weekStartsOn: 1 } });
 setDefaultLocale('en-GB');
 const defaultLocale = getDefaultLocale();
+
+const topLogger: Modifier<'topLogger'> = {
+    name: 'topLogger',
+    enabled: true,
+    phase: 'main',
+    fn({ state }) {
+        if (state.placement === 'top') {
+            console.log('Popper is on the top');
+        }
+    },
+};
 
 <DatePicker
     adjustDateOnChange
@@ -88,20 +100,21 @@ const defaultLocale = getDefaultLocale();
     popperContainer={props => <div />}
     popperModifiers={[
         {
-          name: "offset",
-          options: {
-            offset: [5, 10],
-          },
+            name: 'offset',
+            options: {
+                offset: [5, 10],
+            },
         },
         {
-          name: "preventOverflow",
-          options: {
-            rootBoundary: "viewport",
-            tether: false,
-            altAxis: true,
-          },
+            name: 'preventOverflow',
+            options: {
+                rootBoundary: 'viewport',
+                tether: false,
+                altAxis: true,
+            },
         },
-      ]}
+        topLogger,
+    ]}
     popperPlacement="bottom-start"
     popperProps={{}}
     preventOpenOnFocus
@@ -177,7 +190,7 @@ const defaultLocale = getDefaultLocale();
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker | null) {
+function handleRef(ref: DatePicker<'offset' | 'preventOverflow' | 'topLogger'>) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
