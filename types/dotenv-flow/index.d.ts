@@ -26,6 +26,10 @@ export interface DotenvReadFileOptions {
      * Encoding for reading the `.env*` files.
      */
     encoding?: string | undefined;
+    /**
+     * Whether to support suppressing the console output.
+     */
+    silent?: boolean | undefined;
 }
 
 export interface DotenvParseOutput {
