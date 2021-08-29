@@ -460,6 +460,18 @@ async () => {
     // $ExpectType string[]
     await GM.listValues();
 
+    // GM.addValueChangeListener
+
+    // $ExpectType number
+    await GM.addValueChangeListener('a', (name: string, oldValue: string, newValue: string, remote: boolean) => {});
+    // $ExpectType number
+    await GM.addValueChangeListener('a', (name: string, oldValue: number, newValue: number, remote: boolean) => {});
+
+    // GM.removeValueChangeListener
+
+    // $ExpectType void
+    await GM.removeValueChangeListener(2);
+
     // GM.getResourceText
 
     // $ExpectType string
@@ -642,7 +654,9 @@ async () => {
 
     // GM.getTab
 
-    const saveTabState: TabState = await GM.getTab();
+    // $ExpectType any
+    await GM.getTab();
+    const tab: Record<string, string> = await GM.getTab();
 
     // GM.getTabs
 
