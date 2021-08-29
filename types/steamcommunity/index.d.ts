@@ -453,6 +453,8 @@ declare namespace SteamCommunity {
 
     type packageid = number | string;
 
+    type cid = number | string;
+
     type gid = SteamID | string;
 
     // region Static enums
