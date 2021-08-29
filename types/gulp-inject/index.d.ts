@@ -32,6 +32,7 @@ declare namespace inject {
         endtag?: string | ITagFunction | undefined;
         transform?: ITransformFunction | undefined;
         selfClosingTag?: boolean | undefined;
+	quiet?: boolean | undefined;
     }
 }
 
