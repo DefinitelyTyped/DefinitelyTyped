@@ -1,4 +1,4 @@
-import { EResult } from '../resources/EResult';
+import { EResult } from '../index';
 
 export interface Helpers {
     isSteamID(input: any): boolean;
