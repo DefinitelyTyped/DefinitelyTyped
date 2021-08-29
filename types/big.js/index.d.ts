@@ -218,7 +218,7 @@ export interface Big {
      * significant digits using rounding mode rm, or Big.RM if rm is not specified.
      *
      * @param sd Significant digits: integer, 1 to MAX_DP inclusive.
-     * @param rm The rounding mode, one of the RoundingMode enumeration values
+     * @param [rm] The rounding mode, one of the RoundingMode enumeration values
      * @throws `!prec!` if sd is invalid.
      * @throws `!Big.RM!` if rm is invalid.
      */
