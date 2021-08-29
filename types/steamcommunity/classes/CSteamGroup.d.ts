@@ -1,4 +1,4 @@
-import { Callback, CallbackError } from '../index';
+import { Announcement, appid, Callback, CallbackError, cid, GroupComment, GroupEventType, GroupHistory } from '../index';
 import SteamID = require('steamid');
 
 export = CSteamGroup;
@@ -12,25 +12,25 @@ declare class CSteamGroup {
     constructor(community: any, groupData: any);
 
     /** A SteamID object containing the group's SteamID. Visit a group at {@link https://steamcommunity.com/gid/SteamID}. */
-    steamID: any;
+    steamID: SteamID;
     /** The group's name (cannot be changed). */
-    name: any;
+    name: string;
     /** The group's URL (this can be changed). Visit a group at {@link https://steamcommunity.com/groups/GROUPURL}. */
-    url: any;
+    url: string;
     /** The group's headline (this can be changed). */
-    headline: any;
+    headline: string;
     /** The group's summary content (this can be changed). */
-    summary: any;
+    summary: string;
     /** The hash of the group's avatar. */
-    avatarHash: any;
+    avatarHash: string;
     /** How many members the group had when getSteamGroup was called. */
-    members: any;
+    members: number;
     /** How many group members were in group chat when getSteamGroup was called. */
-    membersInChat: any;
+    membersInChat: number;
     /** How many group members were in-game when getSteamGroup was called. */
-    membersInGame: any;
+    membersInGame: number;
     /** How many group members were online on Steam when getSteamGroup was called. */
-    membersOnline: any;
+    membersOnline: number;
 
     /**
      * Returns a URL where you can download this group's avatar.
@@ -75,18 +75,7 @@ declare class CSteamGroup {
     getAllAnnouncements(time: Date | null, callback: (
         err: CallbackError,
         /** An array of announcement objects. */
-        announcements: Array<{
-            /** The announcement's title. */
-            headline: any,
-            /** The content of the announcement. */
-            content: any,
-            /** A Date object for when this was posted. */
-            date: Date,
-            /** The Steam profile name of the author. */
-            author: any,
-            /** The ID of the announcement. */
-            aid: any
-        }>,
+        announcements: Announcement[],
     ) => any): void;
 
     /**
@@ -107,7 +96,7 @@ declare class CSteamGroup {
      * @param content The new content for the announcement.
      * @param callback Optional. Called when the request completes.
      */
-    editAnnouncement(annoucementID: any, headline: any, content: any, callback?: Callback): void;
+    editAnnouncement(annoucementID: string, headline: string, content: string, callback?: Callback): void;
 
     /**
      * Deletes an announcement in the group.
@@ -121,14 +110,14 @@ declare class CSteamGroup {
      * Schedules a new event for the group. type can be one of the strings shown below, or an AppID to schedule a game-specific event.
      *
      * @param name The event's name/headline.
-     * @param type See the docs {@link https://github.com/DoctorMcKay/node-steamcommunity/wiki/CSteamGroup#scheduleeventname-type-description-time-server-callback}.
+     * @param type Can be {@link SteamCommunity.GroupEventType}, or an `AppID` to schedule a game-specific event.
      * @param description A description for the event.
      * @param time `null` to start it immediately, otherwise a Date object representing a time in the future.
      * @param server If this is a game event (see below), this can be a string containing the game server's IP address or an object containing ip and password properties.
      * If not a game event, this should be null or undefined.
      * @param callback Called when the request completes.
      */
-    scheduleEvent(name: any, type: any, description: any, time: null | Date, server: any, callback: Callback): void;
+    scheduleEvent(name: string, type: GroupEventType | appid, description: string, time: null | Date, server: string | object, callback: Callback): void;
 
     /**
      * Edits an existing Steam group event. Parameters are identical to those in scheduleEvent.
@@ -142,7 +131,7 @@ declare class CSteamGroup {
      * If not a game event, this should be null or undefined.
      * @param callback Called when the request completes
      */
-    editEvent(id: string, name: any, type: any, description: any, time: null | Date, server: any, callback: Callback): void;
+    editEvent(id: string, name: string, type: GroupEventType | string, description: string, time: null | Date, server: string | object, callback: Callback): void;
 
     /**
      * Deletes an existing Steam group event.
@@ -183,28 +172,7 @@ declare class CSteamGroup {
      */
     getHistory(page: any, callback: (
         err: CallbackError,
-        history: {
-            /** The index of the first history item on this page, starting at 1. */
-            first: number,
-            /** The index of the last history item on this page. */
-            last: number,
-            /** How many total history items there are. */
-            total: number,
-            /** An array of group history objects. */
-            items: Array<{
-                /** A string containing the item history type. This is the type displayed on the history page, without spaces. For example, NewMember, InviteSent, etc.. */
-                'type': string,
-                /** A Date object containing the date and time when this action took place. Since the history page doesn't display any years, the year could possibly be incorrect.. */
-                date: Date,
-                /**
-                 * A SteamID object containing the SteamID of the user who either performed or received this action.
-                 * For example, on NewMember this is the new group member, on InviteSent this is the invite recipient, on NewAnnouncement, this is the author.
-                 */
-                user: SteamID,
-                /** Not present on all history types. This is the user who performed the action if user is the receipient of the action. */
-                actor: any
-            }>
-        },
+        history: GroupHistory,
     ) => any): void;
 
     /**
@@ -217,18 +185,7 @@ declare class CSteamGroup {
     getAllComments(from: number, count: number, callback: (
         err: CallbackError,
         /** An array of comments. */
-        comments: Array<{
-            /** The comment author's persona name. */
-            authorName: any,
-            /** Either the comment author's 64-bit Steam ID, or their vanity URL. */
-            authorId: any,
-            /** A Date object of when this comment was submitted. */
-            date: Date,
-            /** The ID of this comment. */
-            commentId: any,
-            /** The HTML content of this comment. */
-            text: any
-        }>,
+        comments: GroupComment[],
     ) => any): void;
 
     /**
@@ -237,7 +194,7 @@ declare class CSteamGroup {
      * @param cid The ID of the comment you want to delete.
      * @param callback Optional. Called when the request completes.
      */
-    deleteComment(cid: any, callback?: Callback): void;
+    deleteComment(cid: cid, callback?: Callback): void;
 
     /**
      * @param message

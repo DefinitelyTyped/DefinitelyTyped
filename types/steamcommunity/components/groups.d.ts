@@ -1,40 +1,40 @@
 import SteamID = require('steamid');
-import { gid, Callback } from '../index';
+import { gid, Callback, cid } from '../index';
 
 export interface Groups {
-    getGroupMembers(gid: gid, callback: Callback, members: any, link: any, addresses: any, addressIdx: any): any;
+    getGroupMembers(gid: gid, callback: Callback, members: any[], link: string, addresses: any[], addressIdx: number): any;
 
-    getGroupMembersEx(gid: gid, addresses: any, callback: Callback): void;
+    getGroupMembersEx(gid: gid, addresses: any[], callback: Callback): void;
 
     joinGroup(gid: gid, callback: Callback): void;
 
     leaveGroup(gid: gid, callback: Callback): void;
 
-    getAllGroupAnnouncements(gid: gid, time: any, callback: Callback): any;
+    getAllGroupAnnouncements(gid: gid, time: Date, callback: Callback): any;
 
-    postGroupAnnouncement(gid: gid, headline: any, content: any, hidden: any, callback: Callback): void;
+    postGroupAnnouncement(gid: gid, headline: string, content: string, hidden: boolean, callback: Callback): void;
 
-    editGroupAnnouncement(gid: gid, aid: any, headline: any, content: any, callback: Callback): void;
+    editGroupAnnouncement(gid: gid, aid: any, headline: string, content: string, callback: Callback): void;
 
     deleteGroupAnnouncement(gid: gid, aid: any, callback: Callback): void;
 
-    scheduleGroupEvent(gid: gid, name: any, type: any, description: any, time: any, server: any, callback: Callback): void;
+    scheduleGroupEvent(gid: gid, name: any, type: any, description: string, time: Date, server: any, callback: Callback): void;
 
-    editGroupEvent(gid: gid, id: any, name: any, type: any, description: any, time: any, server: any, callback: Callback): void;
+    editGroupEvent(gid: gid, id: any, name: string, type: any, description: string, time: Date, server: any, callback: Callback): void;
 
     deleteGroupEvent(gid: gid, id: any, callback: Callback): void;
 
-    setGroupPlayerOfTheWeek(gid: gid, steamID: any, callback: Callback): void;
+    setGroupPlayerOfTheWeek(gid: gid, steamID: SteamID | string, callback: Callback): void;
 
-    kickGroupMember(gid: gid, steamID: any, callback: Callback): void;
+    kickGroupMember(gid: gid, steamID: SteamID | string, callback: Callback): void;
 
-    getGroupHistory(gid: gid, page: any, callback: Callback): void;
+    getGroupHistory(gid: gid, page: number, callback: Callback): void;
 
-    getAllGroupComments(gid: gid, from: any, count: any, callback: Callback): void;
+    getAllGroupComments(gid: gid, from: number, count: number, callback: Callback): void;
 
-    deleteGroupComment(gid: gid, cid: any, callback: Callback): void;
+    deleteGroupComment(gid: gid, cid: cid, callback: Callback): void;
 
-    postGroupComment(gid: gid, message: any, callback: Callback): void;
+    postGroupComment(gid: gid, message: string, callback: Callback): void;
 
     /**
      * Get requests to join a restricted group.
