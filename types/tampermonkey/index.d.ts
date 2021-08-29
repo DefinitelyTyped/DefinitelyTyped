@@ -285,7 +285,7 @@ declare namespace Tampermonkey {
      * The resources from the metadata block (@resources)
      * that tampermonkey should preload
      */
-    interface ScriptResources {
+    interface ScriptResource {
         name: string;
         url: string;
         content: string;
@@ -326,7 +326,7 @@ declare namespace Tampermonkey {
         options: ScriptSettings;
 
         position: number;
-        resources: ScriptResources[];
+        resources: ScriptResource[];
 
         /**
          * Never null, defaults to document-idle
