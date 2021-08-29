@@ -1,28 +1,28 @@
-import { Callback } from '../index';
+import { Callback, ConfirmationType } from '../index';
 
 export = CConfirmation;
 
-declare function CConfirmation(community: any, data: any): void;
+declare function CConfirmation(community: any, data: object): void;
 
 declare class CConfirmation {
-    constructor(community: any, data: any);
+    constructor(community: any, data: object);
 
     /** The ID of this confirmation. This is not the same as a trade offer ID. */
     id: any;
     /** What type of thing this confirmation wants to confirm. The enum is available as a property of SteamCommunity. */
-    type: any;
+    type: ConfirmationType;
     /** The ID of the thing that created this confirmation (trade offer ID for a trade, market listing ID for a market listing). */
-    creator: any;
+    creator: string;
     /** The key for this confirmation. This is required when confirming or canceling the confirmation. This is not the same as the TOTP confirmation key. */
-    key: any;
+    key: string;
     /** The title of this confirmation. */
-    title: any;
+    title: string;
     /**
      * A textual description of what you will receive from this confirmation, if this is a trade.
      * If this is a market listing, then this is a string containing the list price and then the amount you will receive parenthetically.
      * For example: $115.00 ($100.00)
      */
-    receiving: any;
+    receiving: string;
     /** A textual description of when this confirmation was created. */
     time: string;
     /** The URL to your trading partner's avatar, if this is a trade. The URL to the image of the item, if this is a market listing. Otherwise, an empty string. */

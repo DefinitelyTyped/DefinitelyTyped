@@ -1,4 +1,4 @@
-import { appid, Callback, CallbackError, contextid, gid } from '../index';
+import { appid, Callback, CallbackError, contextid, gid, UserComment } from '../index';
 import CEconItem = require('../classes/CEconItem');
 import SteamID = require('steamid');
 
@@ -15,17 +15,17 @@ declare class CSteamUser {
     /** A SteamID object containing the user's SteamID. Visit a user's profile at https://steamcommunity.com/profiles/SteamID */
     steamID: SteamID;
     /** The user's current profile name (can be changed). */
-    name: any;
+    name: string;
     /** The user's current online state. One of `in-game`, `online`, or `offline`. */
-    onlineState: any;
+    onlineState: 'in-game' | 'online' | 'offline';
     /** A message describing the user's current online state. Displayed on the profile below their status. */
-    stateMessage: any;
-    /** One of public, friendsonly, private. May also be a legacy value like friendsfriendsonly, these should be treated as private. */
-    privacyState: any;
-    /** The user's visibility state relative to you, as an integer. 1 if visible, 0 if private. If privateState is a legacy value, this will be 1 although it should in effect be 0. */
+    stateMessage: string;
+    /** One of `public`, `friendsonly`, `private`. May also be a legacy value like `friendsfriendsonly`, these should be treated as private. */
+    privacyState: 'public' | 'friendsonly' | 'private' | string;
+    /** The user's visibility state relative to you, as an integer. `1` if visible, `0` if private. If privateState is a legacy value, this will be 1 although it should in effect be 0. */
     visibilityState: 0 | 1;
     /** The hash of the user's avatar. */
-    avatarHash: any;
+    avatarHash: string;
     /** `true` if the user has one or more VAC bans on record, `false` otherwise. */
     vacBanned: boolean;
     /** One of `None`, `Probation`, or `Banned`. */
@@ -33,15 +33,15 @@ declare class CSteamUser {
     /** `true` if the user's account is limited, `false` otherwise. */
     isLimitedAccount: boolean;
     /** The user's custom vanity URL. */
-    customURL: any;
+    customURL: string;
     /** A Date object for the user's account creation date (unavailable and null if private). */
     memberSince: Date;
     /** The user's given location (unavailable and null if private or not provided). */
-    location: any;
+    location: string | null;
     /** The user's given real name (unavailable and null if private or not provided). */
-    realName: any;
+    realName: string | null;
     /** The user's profile summary (unavailable and null if private). */
-    summary: any;
+    summary: string | null;
     /** An array of SteamID objects for the user's joined groups. */
     groups: SteamID[];
     /** A SteamID object for the user's chosen primary group. */
@@ -104,7 +104,7 @@ declare class CSteamUser {
      * @param commentID The ID of the comment you want to delete.
      * @param callback Optional. Called when the request completes.
      */
-    deleteComment(commentID: any, callback: Callback): void;
+    deleteComment(commentID: string, callback: Callback): void;
 
     /**
      * Gets comments from a user's Steam profile.
@@ -120,26 +120,7 @@ declare class CSteamUser {
     }>, callback: (
         err: CallbackError,
         /** An array containing objects representing the comments. */
-        comments: Array<{
-            /** The ID of the comment. */
-            id: any,
-            author: {
-                /** A SteamID object. */
-                steamID: SteamID,
-                /** The commenter's name. */
-                name: any,
-                /** A URL to the commenter's avatar. */
-                avatar: string,
-                /** offline/online/in-game. */
-                state: 'offline' | 'online' | 'in-game'
-            },
-            /** A Date object. */
-            date: Date,
-            /** The text of the comment. May contain special characters like newlines or tabs. */
-            text: any,
-            /** The rendered HTML of the comment. */
-            html: any
-        }>,
+        comments: UserComment[],
         /** The total number of comments on this profile. */
         totalCount: number,
     ) => any): void;

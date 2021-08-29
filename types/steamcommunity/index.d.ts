@@ -58,14 +58,7 @@ declare class SteamCommunity {
      */
     getClientLogonToken(callback: (
         err: SteamCommunity.CallbackError,
-        details: {
-            /** Your account's SteamID, as a SteamID object. */
-            steamID: SteamID,
-            /** Your account's logon name. */
-            accountName: any,
-            /** Your logon token. */
-            webLogonToken: any
-        },
+        details: SteamCommunity.TokenDetails,
     ) => any): void;
 
     /**
@@ -101,18 +94,7 @@ declare class SteamCommunity {
     getNotifications(callback: (
         err: SteamCommunity.CallbackError,
         /** An object containing properties for each notification type. The values of each property are the number of your notifications of that type. */
-        notifications: {
-            comments: number,
-            items: number,
-            invites: number,
-            gifts: number,
-            chat: number,
-            trades: number,
-            gameTurns: number,
-            moderatorMessages: number,
-            helpRequestReplies: number,
-            accountAlerts: number
-        },
+        notifications: SteamCommunity.Notifications,
     ) => any): void;
 
     /**
@@ -176,22 +158,7 @@ declare class SteamCommunity {
      * @param details An object containing our login details.
      * @param callback A function which will be called once we're logged in.
      */
-    login(details: {
-        /** Your Steam account name. */
-        accountName: string,
-        /** Your Steam password. */
-        password: string,
-        /** Your Steam Guard value (only required if logging in with a Steam Guard authorization). */
-        steamguard?: string,
-        /** Your Steam Guard email code (only required if logging in with a new email auth code). */
-        authCode?: string,
-        /** Your Steam Guard app code (only required if logging in with a Steam Guard app code). */
-        twoFactorCode?: string,
-        /** Value of prompted captcha (only required if you have been prompted with a CAPTCHA). */
-        captcha?: string,
-        /** Pass `true` here to have node-steamcommunity not use the mobile login flow. This might help keep your login session alive longer, but you won't get an oAuth token in the login response. */
-        disableMobile?: boolean
-    }, callback: (
+    login(details: SteamCommunity.LoginOptions, callback: (
         err: SteamCommunity.CallbackError,
         /** Your session ID value. If you're using an external library, it'll know what to do with this. Otherwise, you can ignore it. */
         sessionID: string,
@@ -218,7 +185,7 @@ declare class SteamCommunity {
         /** The query string to search for. */
         query: string,
         /** The AppID of the game you're searching for. */
-        appid: any,
+        appid: SteamCommunity.appid,
         /** `true` to also search in the descriptions of items (takes longer to search), `false` or omitted otherwise. */
         searchDescriptions: boolean,
     }, callback: (
@@ -296,6 +263,167 @@ declare namespace SteamCommunity {
         localAddress: string;
     }
 
+    interface TokenDetails {
+        /** Your account's SteamID, as a SteamID object. */
+        steamID: SteamID;
+        /** Your account's logon name. */
+        accountName: any;
+        /** Your logon token. */
+        webLogonToken: any;
+    }
+
+    interface Notifications {
+        comments: number;
+        items: number;
+        invites: number;
+        gifts: number;
+        chat: number;
+        trades: number;
+        gameTurns: number;
+        moderatorMessages: number;
+        helpRequestReplies: number;
+        accountAlerts: number;
+    }
+
+    interface LoginOptions {
+        /** Your Steam account name. */
+        accountName: string;
+        /** Your Steam password. */
+        password: string;
+        /** Your Steam Guard value (only required if logging in with a Steam Guard authorization). */
+        steamguard?: string;
+        /** Your Steam Guard email code (only required if logging in with a new email auth code). */
+        authCode?: string;
+        /** Your Steam Guard app code (only required if logging in with a Steam Guard app code). */
+        twoFactorCode?: string;
+        /** Value of prompted captcha (only required if you have been prompted with a CAPTCHA). */
+        captcha?: string;
+        /** Pass `true` here to have node-steamcommunity not use the mobile login flow. This might help keep your login session alive longer, but you won't get an oAuth token in the login response. */
+        disableMobile?: boolean;
+    }
+
+    interface EditProfileSettings {
+        /** Your new profile name. */
+        name: any;
+        /** Your new profile "real name", or empty string to remove it. */
+        realName: any;
+        /** Your new profile summary. */
+        summary: any;
+        /** A country code, like US, or empty string to remove it. */
+        country: string;
+        /** A state code, like FL, or empty string to remove it. */
+        state: string;
+        /** A numeric city code, or empty string to remove it. */
+        city: number | string;
+        /** Your new profile custom URL. */
+        customURL: any;
+        /** The assetid of an owned profile background which you want to equip, or empty string to remove it. */
+        background: any;
+        /** The ID of your new featured badge, or empty string to remove it. Currently game badges aren't supported, only badges whose pages end in /badge/<id>. */
+        featuredBadge: any;
+        /** A SteamID object for your new primary Steam group, or a string which can parse into a SteamID. */
+        primaryGroup: SteamID | string;
+    }
+
+    interface ProfileSetting {
+        /** A value from SteamCommunity.PrivacyState for your desired profile privacy state. */
+        profile: any;
+        /** A value from SteamCommunity.PrivacyState for your desired profile comments privacy state. */
+        comments: any;
+        /** A value from SteamCommunity.PrivacyState for your desired inventory privacy state. */
+        inventory: any;
+        /** true to keep your Steam gift inventory private, false otherwise. */
+        inventoryGifts: any;
+        /** A value from SteamCommunity.PrivacyState for your desired privacy level required to view games you own and what game you're currently playing. */
+        gameDetails: any;
+        /** `true` to keep your game playtime private, `false` otherwise. */
+        playtime: boolean;
+        /** A value from SteamCommunity.PrivacyState for your desired privacy level required to view your friends list. */
+        friendsList: any;
+    }
+
+    interface GroupItemHistory {
+        /** A string containing the item history type. This is the type displayed on the history page, without spaces. For example, NewMember, InviteSent, etc.. */
+        'type': string;
+        /** A Date object containing the date and time when this action took place. Since the history page doesn't display any years, the year could possibly be incorrect.. */
+        date: Date;
+        /**
+         * A SteamID object containing the SteamID of the user who either performed or received this action.
+         * For example, on NewMember this is the new group member, on InviteSent this is the invite recipient, on NewAnnouncement, this is the author.
+         */
+        user: SteamID;
+        /** Not present on all history types. This is the user who performed the action if user is the receipient of the action. */
+        actor: any;
+    }
+
+    interface GroupHistory {
+        /** The index of the first history item on this page, starting at 1. */
+        first: number;
+        /** The index of the last history item on this page. */
+        last: number;
+        /** How many total history items there are. */
+        total: number;
+        /** An array of group history objects. */
+        items: GroupItemHistory[];
+    }
+
+    interface GroupComment {
+        /** The comment author's persona name. */
+        authorName: string;
+        /** Either the comment author's 64-bit Steam ID, or their vanity URL. */
+        authorId: string;
+        /** A Date object of when this comment was submitted. */
+        date: Date;
+        /** The ID of this comment. */
+        commentId: string;
+        /** The HTML content of this comment. */
+        text: string;
+    }
+
+    interface UserComment {
+        /** The ID of the comment. */
+        id: any;
+        author: {
+            /** A SteamID object. */
+            steamID: SteamID;
+            /** The commenter's name. */
+            name: any;
+            /** A URL to the commenter's avatar. */
+            avatar: string;
+            /** offline/online/in-game. */
+            state: 'offline' | 'online' | 'in-game'
+        };
+        /** A Date object. */
+        date: Date;
+        /** The text of the comment. May contain special characters like newlines or tabs. */
+        text: any;
+        /** The rendered HTML of the comment. */
+        html: any;
+    }
+
+    interface Announcement {
+        /** The announcement's title. */
+        headline: string;
+        /** The content of the announcement. */
+        content: string;
+        /** A Date object for when this was posted. */
+        date: Date;
+        /** The Steam profile name of the author. */
+        author: string;
+        /** The ID of the announcement. */
+        aid: string;
+    }
+
+    type GroupEventType =
+        | 'ChatEvent'
+        | 'OtherEvent'
+        | 'PartyEvent'
+        | 'MeetingEvent'
+        | 'SpecialCauseEvent'
+        | 'MusicAndArtsEvent'
+        | 'SportsEvent'
+        | 'TripEvent';
+
     /**
      * @param err `null` on success, an `Error` object on failure.
      */
@@ -304,13 +432,24 @@ declare namespace SteamCommunity {
     /** `null` on success, an `Error` object on failure. */
     type CallbackError = Error & { [key: string]: any } | null;
 
+    /** Unique and can change after a trade. */
     type assetid = number | string;
 
     type userid = SteamID | string;
 
     type appid = number;
 
+    /** 2 for csgo... */
     type contextid = number;
+
+    /**
+     * In a nutshell, a classid "owns" an instanceid. The classid is all you need to get a general overview of an item.
+     * For example, items with the same classid will pretty much always have the same name and image.
+     */
+    type classid = number;
+
+    /** An ID that describes an item instance that inherits properties from a class with the class id being noted in the instance (totally not unique). */
+    type instanceid = number;
 
     type packageid = number | string;
 

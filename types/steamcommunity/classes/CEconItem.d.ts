@@ -1,3 +1,5 @@
+import { assetid, contextid, appid, classid, instanceid } from '../index';
+
 export = CEconItem;
 
 declare function CEconItem(item: any, description: any, contextID: any): void;
@@ -12,35 +14,36 @@ declare class CEconItem {
     is_currency: boolean;
     owner: any;
     market_fee_app: number;
-    cache_expiration: any;
+    /** When does the trade ban end. */
+    cache_expiration?: Date;
     actions: any[];
 
     /** The item's unique ID within its app+context. */
-    id: any;
+    id: string;
     /** Alias of id. */
-    assetid: any;
+    assetid: assetid;
     /** The ID of the context within the app in which the item resides. */
-    contextid: any;
+    contextid: contextid;
     /** The ID of the app which owns the item. */
-    appid: any;
+    appid: appid;
     /** The first half of the item cache identifier. The classid is enough to get you basic details about the item. */
-    classid: any;
+    classid: classid;
     /** The second half of the item cache identifier. */
-    instanceid: any;
+    instanceid: instanceid;
     /** How much of this item is in this stack. */
     amount: number;
     /** The item's position within the inventory (starting at 1). Not defined if this item wasn't retrieved directly from an inventory (e.g. from a trade offer or inventory history). */
-    pos: any;
+    pos: number;
     /** The item's display name. */
-    name: any;
-    /** The item's universal market name. This identifies the item's market listing page. */
-    market_hash_name: any;
+    name: string;
+    /** The item's universal market name. This identifies the item's market listing page (M4A1-S | Nightmare (Field-Tested)...). */
+    market_hash_name: string;
     /** The render color of the item's name, in hexadecimal. */
-    name_color: any;
+    name_color: string;
     /** The displayed background color, in hexadecimal. */
-    background_color: any;
-    /** The "type" that's shown under the game name to the right of the game icon. */
-    type: any;
+    background_color: string;
+    /** The "type" that's shown under the game name to the right of the game icon (Classified Rifle, Extraordinary Collectible, Restricted Rifle...). */
+    type: string;
     /** true if the item can be traded, false if not. */
     tradable: boolean;
     /** true if the item can be listed on the Steam Community Market, false if not. */
@@ -59,9 +62,9 @@ declare class CEconItem {
      */
     fraudwarnings: any[];
     /** An array of objects containing the item's inventory tags. */
-    tags: any;
+    tags: any[];
     /** Not always present. An object containing arbitrary data as reported by the game's item server. */
-    app_data: any;
+    app_data?: any;
 
     /**
      * Returns a URL where this item's image can be downloaded.

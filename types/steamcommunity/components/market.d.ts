@@ -1,4 +1,4 @@
-import { assetid, Callback, CallbackError } from '../index';
+import { appid, assetid, Callback, CallbackError } from '../index';
 
 export interface Market {
     /**
@@ -20,7 +20,7 @@ export interface Market {
      * @param assetid
      * @param callback
      */
-    getGemValue(appid: number, assetid: assetid, callback: (
+    getGemValue(appid: appid, assetid: assetid, callback: (
         err: CallbackError,
         res: {
             // ** A string containing the title which goes in the prompt shown in the Steam UI, e.g. "Turn into gems?".
@@ -37,7 +37,7 @@ export interface Market {
      * @param expectedGemsValue
      * @param callback
      */
-    turnItemIntoGems(appid: number, assetid: assetid, expectedGemsValue: number, callback: (
+    turnItemIntoGems(appid: appid, assetid: assetid, expectedGemsValue: number, callback: (
         err: CallbackError,
         res: {
             // ** How many gems you got for this item.
@@ -54,7 +54,7 @@ export interface Market {
      * @param assetid The AssetID of the booster pack in question.
      * @param callback A function to be called when the request completes.
      */
-    openBoosterPack(appid: number, assetid: assetid, callback: (
+    openBoosterPack(appid: appid, assetid: assetid, callback: (
         err: CallbackError,
         items: Array<{
             image: string,
@@ -74,7 +74,7 @@ export interface Market {
         err: CallbackError,
         res: {
             // ** The name of this gift.
-            giftName: any,
+            giftName: string,
             // ** The ID of the Steam package that you'll be granted if you redeem this gift.
             packageID: any,
             // ** A bool indicating whether your account already owns this package (if true, you can't redeem it because you own it already).
