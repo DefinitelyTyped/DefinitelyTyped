@@ -1,5 +1,5 @@
 import GoogleMapReact, {
-    BootstrapURLKeys, MapOptions, NESWBounds,
+    BootstrapURLKeys, MapOptions, FitBoundCoords,
     Size,
     fitBounds
 } from 'google-map-react';
@@ -34,7 +34,7 @@ const options: MapOptions = {
 
 <GoogleMapReact center={center} heatmapLibrary={true} zoom={3} bootstrapURLKeys={client} options={options} />;
 
-const bounds: NESWBounds = {
+const bounds: FitBoundCoords = {
     ne: {
       lat: 55,
       lng: 10,
