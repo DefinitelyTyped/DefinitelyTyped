@@ -1,7 +1,7 @@
 import AsyncStreamEmitter = require('async-stream-emitter');
 import { Secret } from 'jsonwebtoken';
 import { Server } from 'http';
-import { SCAuthEngine } from 'sc-auth';
+import { AGAuthEngine } from 'ag-auth';
 import WebSocket = require('ws');
 import WritableConsumableStream = require('writable-consumable-stream');
 import ConsumableStream = require('consumable-stream');
@@ -103,8 +103,8 @@ declare class AGServer extends AsyncStreamEmitter<any> {
 
     hasMiddleware(type: AGServer.Middlewares): boolean;
 
-    setAuthEngine(authEngine: SCAuthEngine): void;
-    auth: SCAuthEngine;
+    setAuthEngine(authEngine: AGAuthEngine): void;
+    auth: AGAuthEngine;
 
     setCodecEngine(codecEngine: AGServer.CodecEngine): void;
     codec: AGServer.CodecEngine;
@@ -270,7 +270,7 @@ declare namespace AGServer {
         socketStreamCleanupMode?: 'kill' | 'close' | undefined;
 
         authVerifyAlgorithms?: string[] | undefined;
-        authEngine?: SCAuthEngine | undefined;
+        authEngine?: AGAuthEngine | undefined;
         codecEngine?: CodecEngine | undefined;
         cloneData?: boolean | undefined;
 

@@ -1,6 +1,7 @@
 // Adapted from README
 
 import http = require('http');
+import agAuth = require('ag-auth');
 import socketClusterServer = require('socketcluster-server');
 
 const httpServer = http.createServer();
@@ -90,4 +91,8 @@ agServer = socketClusterServer.attach(httpServer, {
 
 agServer = socketClusterServer.attach(httpServer, {
     wsEngine: 'ws'
+});
+
+agServer = socketClusterServer.attach(httpServer, {
+    authEngine: new agAuth.AuthEngine()
 });
