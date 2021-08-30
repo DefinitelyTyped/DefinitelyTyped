@@ -365,6 +365,8 @@ declare namespace Tampermonkey {
         /** This refers to tampermonkey's version */
         version: string;
     }
+
+    type ContentType = string | { type?: string | undefined; mimetype?: string | undefined };
 }
 
 /**
@@ -438,7 +440,7 @@ declare function GM_registerMenuCommand(
 
 /**
  *  Unregister a menu command that was previously registered by
- * `GM_registerMenuCommand` with the given menu command ID.
+ * `GM_registerMenuCommand` or `GM.registerMenuCommand` with the given menu command ID.
  */
 declare function GM_unregisterMenuCommand(menuCommandId: number): void;
 
@@ -491,7 +493,7 @@ declare function GM_log(...message: any[]): void;
  *
  * If neither active nor loadInBackground is given, then the tab will not be
  * focused.
- * @returns Object with the function `close`, the listener `onclosed` and a flag
+ * @returns Object with the function `close`, the listener `onclose` and a flag
  * called `closed`.
  */
 declare function GM_openInTab(
@@ -529,5 +531,158 @@ declare function GM_notification(
  */
 declare function GM_setClipboard(
     data: string,
-    info?: string | { type?: string | undefined; mimetype?: string | undefined }
+    info?: Tampermonkey.ContentType,
 ): void;
+
+// GM.*
+
+/**
+ * `GM` has all the `GM_*` apis in promisified form
+ */
+declare const GM: Readonly<{
+    // Styles
+
+    /**
+     * Adds the given style to the document and returns the injected style element.
+     */
+    addStyle(css: string): Promise<HTMLStyleElement>;
+
+    // Storage
+
+    /** Sets the value of `name` to the storage */
+    setValue(name: string, value: any): Promise<void>;
+
+    /** Gets the value of 'name' from storage */
+    getValue<TValue>(name: string, defaultValue?: TValue): Promise<TValue>;
+
+    /** Deletes 'name' from storage */
+    deleteValue(name: string): Promise<void>;
+
+    /** Lists all names of the storage */
+    listValues(): Promise<string[]>;
+
+    /**
+     * Adds a change listener to the storage and returns the listener ID.
+     * The `remote` argument of the callback function shows whether this value was
+     * modified from the instance of another tab (`true`) or within this script
+     * instance (`false`). Therefore this functionality can be used by scripts of
+     * different browser tabs to communicate with each other.
+     * @param name Name of the observed variable
+     */
+    addValueChangeListener(name: string, listener: Tampermonkey.ValueChangeListener): Promise<number>;
+
+    /** Removes a change listener by its ID */
+    removeValueChangeListener(listenerId: number): Promise<void>;
+
+    // Resources
+
+    /** Get the content of a predefined `@resource` tag at the script header */
+    getResourceText(name: string): Promise<string>;
+
+    /**
+     * Get the base64 encoded URI of a predefined `@resource` tag at the script
+     * header
+     */
+    getResourceUrl(name: string): Promise<string>;
+
+    // Menu commands
+
+    /**
+     * Register a menu to be displayed at the Tampermonkey menu at pages where this
+     * script runs and returns a menu command ID.
+     * @param accessKey The key to use for keyboard shortcuts
+     */
+    registerMenuCommand(name: string, onClick: () => void, accessKey?: string): Promise<number>;
+    /**
+     *  Unregister a menu command that was previously registered by
+     * `GM_registerMenuCommand` or `GM.registerMenuCommand` with the given menu command ID.
+     */
+    unregisterMenuCommand(menuCommandId: number): Promise<void>;
+
+    // Requests
+
+    /**
+     * Makes an xmlHttpRequest
+     *
+     * @throws {Tampermonkey.ErrorResponse}
+     */
+    xmlHttpRequest<TContext = any>(
+        // onload and the like still work
+        details: Tampermonkey.Request<TContext>, // tslint:disable-line:no-unnecessary-generics
+    ): Promise<Tampermonkey.Response<TContext>>;
+
+    // GM_download has two signatures, GM.download has one
+    /**
+     * Downloads a given URL to the local disk
+     *
+     * @throws {Tampermonkey.DownloadErrorResponse}
+     */
+    download(details: Tampermonkey.DownloadRequest): Promise<void>;
+
+    // Tabs
+
+    /** Saves the tab object to reopen it after a page unload */
+    saveTab(obj: any): Promise<void>;
+
+    /** Gets a object that is persistent as long as this tab is open */
+    getTab(): Promise<any>;
+
+    /** Gets all tab objects as a hash to communicate with other script instances */
+    getTabs(): Promise<{ [tabId: number]: any }>;
+
+    // Utils
+    info: Tampermonkey.ScriptInfo;
+
+    /** Log a message to the console */
+    log(...message: any[]): Promise<void>;
+
+    /**
+     * Opens a new tab with this url.
+     * The options object can have the following properties:
+     * - `active` decides whether the new tab should be focused,
+     * - `insert` that inserts the new tab after the current one and
+     * - `setParent` makes the browser re-focus the current tab on close.
+     *
+     * Otherwise the new tab is just appended.
+     * If `options` is boolean (loadInBackground) it has the opposite meaning of
+     * active and was added to achieve Greasemonkey 3.x compatibility.
+     *
+     * If neither active nor loadInBackground is given, then the tab will not be
+     * focused.
+     * @returns Object with the function `close`, the listener `onclose` and a flag
+     * called `closed`.
+     */
+    openInTab(url: string, options?: Tampermonkey.OpenTabOptions | boolean): Promise<Tampermonkey.OpenTabObject>;
+
+    /**
+     * Shows a HTML5 Desktop notification and/or highlight the current tab.
+     * @param ondone If specified used instead of `details.ondone`
+     * @returns True if the notification was clicked
+     */
+    notification(details: Tampermonkey.NotificationDetails, ondone?: Tampermonkey.NotificationOnDone): Promise<boolean>;
+
+    /**
+     * Shows a HTML5 Desktop notification and/or highlight the current tab.
+     * @param text Text of the notification
+     * @param title Notification title. If not specified the script name is used
+     * @param onclick Called in case the user clicks the notification
+     * @returns True if the notification was clicked
+     */
+    notification(
+        text: string,
+        title?: string,
+        image?: string,
+        onclick?: Tampermonkey.NotificationOnClick,
+    ): Promise<boolean>;
+
+    /**
+     * Copies data into the clipboard.
+     * The parameter 'info' can be an object like
+     * `{ type: 'text', mimetype: 'text/plain'}` or just a string expressing the
+     * type ("text" or "html").
+     */
+    setClipboard(
+        data: string,
+        info?: Tampermonkey.ContentType,
+    ): Promise<void>;
+}>;
