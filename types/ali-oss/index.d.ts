@@ -250,8 +250,8 @@ declare namespace OSS {
     }
 
     interface PutBucketOptions {
-        acl: ACLType,
-        dataRedundancyType: RedundancyType,
+        acl: ACLType;
+        dataRedundancyType: RedundancyType;
         timeout: number;
         storageClass: StorageType;
     }
