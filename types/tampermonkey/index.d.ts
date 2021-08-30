@@ -440,7 +440,7 @@ declare function GM_registerMenuCommand(
 
 /**
  *  Unregister a menu command that was previously registered by
- * `GM_registerMenuCommand` with the given menu command ID.
+ * `GM_registerMenuCommand` or `GM.registerMenuCommand` with the given menu command ID.
  */
 declare function GM_unregisterMenuCommand(menuCommandId: number): void;
 
@@ -493,7 +493,7 @@ declare function GM_log(...message: any[]): void;
  *
  * If neither active nor loadInBackground is given, then the tab will not be
  * focused.
- * @returns Object with the function `close`, the listener `onclosed` and a flag
+ * @returns Object with the function `close`, the listener `onclose` and a flag
  * called `closed`.
  */
 declare function GM_openInTab(
@@ -595,7 +595,7 @@ declare const GM: Readonly<{
     registerMenuCommand(name: string, onClick: () => void, accessKey?: string): Promise<number>;
     /**
      *  Unregister a menu command that was previously registered by
-     * `GM_registerMenuCommand` with the given menu command ID.
+     * `GM_registerMenuCommand` or `GM.registerMenuCommand` with the given menu command ID.
      */
     unregisterMenuCommand(menuCommandId: number): Promise<void>;
 
@@ -611,7 +611,7 @@ declare const GM: Readonly<{
         details: Tampermonkey.Request<TContext>, // tslint:disable-line:no-unnecessary-generics
     ): Promise<Tampermonkey.Response<TContext>>;
 
-    // GM_download has two ways but GM.download doesn't
+    // GM_download has two signatures, GM.download has one
     /**
      * Downloads a given URL to the local disk
      *
@@ -649,7 +649,7 @@ declare const GM: Readonly<{
      *
      * If neither active nor loadInBackground is given, then the tab will not be
      * focused.
-     * @returns Object with the function `close`, the listener `onclosed` and a flag
+     * @returns Object with the function `close`, the listener `onclose` and a flag
      * called `closed`.
      */
     openInTab(url: string, options?: Tampermonkey.OpenTabOptions | boolean): Promise<Tampermonkey.OpenTabObject>;
