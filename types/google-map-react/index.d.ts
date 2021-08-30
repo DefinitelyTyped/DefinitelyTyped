@@ -99,12 +99,12 @@ declare namespace googleMapReact {
         x: number;
         y: number;
     }
-
-    interface NeSwDiagonal{
+    interface NeSwDiagonal {
         ne: Coords;
         sw: Coords;
     }
-    interface NwSeDiagonal{
+
+    interface NwSeDiagonal {
         nw: Coords;
         se: Coords;
     }
