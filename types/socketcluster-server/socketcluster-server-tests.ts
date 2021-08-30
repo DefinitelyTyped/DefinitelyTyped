@@ -81,3 +81,13 @@ agServer.setMiddleware(agServer.MIDDLEWARE_INBOUND, async middlewareStream => {
         action.allow();
     }
 });
+
+// Various server options
+
+agServer = socketClusterServer.attach(httpServer, {
+    wsEngine: require('ws')
+});
+
+agServer = socketClusterServer.attach(httpServer, {
+    wsEngine: 'ws'
+});

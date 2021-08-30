@@ -169,7 +169,7 @@ declare namespace AGServer {
 
         // This can be the name of an npm module or a path to a
         // Node.js module to use as the WebSocket server engine.
-        wsEngine?: any;
+        wsEngine?: string | { Server: WebSocket.Server };
 
         // Custom options to pass to the wsEngine when it is being
         // instantiated.
