@@ -314,7 +314,7 @@ const sshconfig: ssh2.ConnectConfig = {
     port: 22,
     username: 'ubuntu',
     password: 'password',
-    authHandler: (methodsLeft: any, partialSuccess: any, callback: any) => { if(!methodsLeft) callback('password') }
+    authHandler: (methodsLeft, partialSuccess, callback) => { if(!methodsLeft) callback('password') }
 };
 
 //
@@ -443,7 +443,18 @@ new ssh2.Server({
         console.log('Listening on port ' + this.address().port);
     });
 
+// ssh agents
+new ssh2.Client().connect({
+    agent: ssh2.createAgent('openssh')
+});
 
-
-
-
+new ssh2.Client().connect({
+    agent: new (class extends ssh2.BaseAgent<string> {
+        getIdentities(callback: (err: Error | undefined, publicKeys?: string[]) => void): void {
+            callback(undefined, ['some key'])
+        }
+        sign(publicKey: string, data: Buffer, options: ssh2.SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void {
+            callback(undefined, Buffer.concat([Buffer.from(publicKey), data]));
+        }
+    })()
+});
