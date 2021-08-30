@@ -189,6 +189,19 @@ conn2.on('ready', () => {
     });
 });
 
+// Host verification:
+new ssh2.Client().connect({
+    hostVerifier: (hash: string) => {
+        return hash === 'cool'
+    }
+});
+
+new ssh2.Client().connect({
+    hostVerifier: (hash, callback) => {
+        callback(hash === 'cool');
+    }
+});
+
 // Forward X11 connections (xeyes):
 
 var net = require('net'),
