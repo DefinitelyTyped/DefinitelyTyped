@@ -1,4 +1,4 @@
-// Type definitions for gulp-help
+// Type definitions for gulp-help 1.6
 // Project: https://github.com/chmontgomery/gulp-help
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
