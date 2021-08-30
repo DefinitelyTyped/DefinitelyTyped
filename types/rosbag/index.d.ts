@@ -2,7 +2,6 @@
 // Project: https://github.com/cruise-automation/rosbag.js#readme
 // Definitions by: Itthipol Lateh <https://github.com/Rovula>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 /// <reference types='node'/>
 
@@ -506,3 +505,5 @@ export {
     extractTime,
 };
 export default Bag;
+
+export as namespace rosbag;
