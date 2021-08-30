@@ -108,7 +108,7 @@ declare namespace googleMapReact {
         nw: Coords;
         se: Coords;
     }
-    type FitBoundCoords = NeSwDiagonal | NwSeDiagonal
+    type FitBoundCoords = NeSwDiagonal | NwSeDiagonal;
 
     interface Coords {
         lat: number;
