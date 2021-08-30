@@ -497,6 +497,12 @@ function stream_readable_pipe_test() {
     rs.close();
 }
 
+function stream_duplex_allowHalfOpen_test() {
+    const d = new Duplex();
+    assert(typeof d.allowHalfOpen === 'boolean');
+    d.allowHalfOpen = true;
+}
+
 addAbortSignal(new AbortSignal(), new Readable());
 
 {
