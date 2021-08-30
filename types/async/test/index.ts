@@ -308,6 +308,19 @@ async.auto({
 });
 
 async.auto({
+    get_data: async () => { },
+    make_folder: async () => { },
+
+    // arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', (async () => {
+        return filename;
+    }) as any],
+
+    // arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', (async (results: any) => { }) as any]
+}); // $ExpectType Promise<T{}>
+
+async.auto({
         get_data: (callback: AsyncResultCallback<any>) => { },
         make_folder: (callback: AsyncResultCallback<any>) => { },
 
@@ -326,6 +339,21 @@ interface A {
     write_file: any;
     email_link: any;
 }
+
+async.auto<A>({
+        get_data: async () => { },
+        make_folder: async () => { },
+
+        // arrays with different types are not accepted by TypeScript.
+        write_file: ['get_data', 'make_folder', (async () => {
+            return filename;
+        }) as any],
+
+        // arrays with different types are not accepted by TypeScript.
+        email_link: ['write_file', (async (results: any) => { }) as any]
+    },
+    1
+); // $ExpectType Promise<T{}>
 
 async.auto<A>({
         get_data: (callback: AsyncResultCallback<any>) => { },
