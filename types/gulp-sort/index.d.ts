@@ -21,7 +21,7 @@ interface IOptions {
     /** Whether to sort in ascending order, default is true */
     asc?: boolean | undefined;
     /** Whether to use a custom sort function. */
-    customSortFn?: (files: gulpUtil.File[], comparator: IComparatorFunction) => gulpUtil.File[];
+    customSortFn?: (files: gulpUtil.File[], comparator?: IComparatorFunction) => gulpUtil.File[];
 }
 
 interface IComparatorFunction {
