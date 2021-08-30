@@ -1254,13 +1254,7 @@ declare namespace mapkit {
         titleVisibility?: string | undefined;
     }
 
-    // prettier-ignore
-    type AnnotationEventType =
-      | 'select'
-      | 'deselect'
-      | 'drag-start'
-      | 'dragging'
-      | 'drag-end';
+    type AnnotationEventType = 'select' | 'deselect' | 'drag-start' | 'dragging' | 'drag-end';
 
     /**
      * An abstract base object that defines the methods and attributes for map overlays.
