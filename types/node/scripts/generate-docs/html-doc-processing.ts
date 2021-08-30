@@ -16,7 +16,7 @@ function getPreviousSibling(node: Node): Node | undefined {
 
 function handleRelativeLink(node: HTMLElement, context: DocContext): string {
     let content = '';
-    if (node.textContent?.startsWith(context.moduleName)) {
+    if (node.textContent?.startsWith(`${context.moduleName}.`)) {
         let symbolName = node.textContent.slice(context.moduleName.length + 1); // slice off module prefix
         symbolName = symbolName.replace(/\(.*?\)/, ''); // remove call as it causes weird formatting
         content = `{@link ${symbolName}}`;
