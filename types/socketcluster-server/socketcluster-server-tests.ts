@@ -2,7 +2,9 @@
 
 import http = require('http');
 import agAuth = require('ag-auth');
+import { AGAuthEngine } from 'ag-auth';
 import socketClusterServer = require('socketcluster-server');
+import { Secret, VerifyOptions, Jwt, SignOptions } from 'jsonwebtoken';
 
 const httpServer = http.createServer();
 let agServer = socketClusterServer.attach(httpServer);
@@ -94,5 +96,19 @@ agServer = socketClusterServer.attach(httpServer, {
 });
 
 agServer = socketClusterServer.attach(httpServer, {
-    authEngine: new agAuth.AuthEngine()
+    authEngine: new agAuth()
+});
+
+class CustomAuthEngine implements AGAuthEngine {
+    verifyToken(signedToken: string | null, key: Secret, options?: VerifyOptions): Promise<Jwt> {
+        throw new Error('Method not implemented.');
+    }
+
+    signToken(token: string | object | Buffer, key: Secret, options?: SignOptions): Promise<string | undefined> {
+        throw new Error('Method not implemented.');
+    }
+}
+
+agServer = socketClusterServer.attach(httpServer, {
+    authEngine: new CustomAuthEngine()
 });

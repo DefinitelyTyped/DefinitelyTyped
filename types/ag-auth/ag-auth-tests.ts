@@ -10,7 +10,7 @@ let cert: Buffer;
 const testObject = { foo: 'bar' };
 
 (async () => {
-    const authEngine = new agAuth.AuthEngine();
+    const authEngine = new agAuth();
 
     // sign with default (HMAC SHA256)
     let signedToken = await authEngine.signToken(testObject, 'shhhhh');
