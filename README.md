@@ -31,7 +31,6 @@ and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/RE
 * [FAQ](#faq)
 * [License](#license)
 
-
 ## Current status
 
 This section tracks the health of the repository and publishing process.
@@ -401,6 +400,8 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 ### Definition owners
+
+> TL;DR: do not modify `.github/CODEOWNERS`, always modify list of the owners in the `index.d.ts` header
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
