@@ -350,56 +350,56 @@ export namespace SQIPCardEntry {
     function setIOSCardEntryTheme(themeConfiguration: ThemeIOS): Promise<void>;
 }
 
+/* Reopresents the Apply Payment types */
+export enum ApplePayPaymentType {
+    /** A summary item representing an estimated or unknown cost. */
+    PaymentTypePending = 1,
+    /** A summary item representing the known, final cost. */
+    PaymentTypeFinal = 2,
+}
+
+/** Represents the Apple Pay configuration. */
+export interface ApplePayConfig {
+    /** The payment authorization amount as a string. */
+    price: string;
+    /** A label that displays the checkout summary in the Apple Pay view. */
+    summaryLabel: string;
+    /** The Apple Pay country code. */
+    countryCode: string;
+    /** ISO currency code of the payment amount. */
+    currencyCode: string;
+    /** Type of the payment summary item, PaymentTypeFinal for default */
+    paymentType?: ApplePayPaymentType | undefined;
+}
+
+/**
+ * Callback invoked when Apple Pay card details are available
+ * This is called before the Apple Pay payment authorization sheet is closed. Call `completeApplePayAuthorization` to close the apple pay sheet.
+ * @platform IOS
+ * @param cardDetails - The non-confidential details of the card and a nonce.
+ */
+export type ApplePayNonceRequestSuccessCallback = (cardDetails: CardDetails) => void;
+
+/**
+ * Callback invoked when a card nonce cannot be generated from Apple Pay payment authorization card input values.
+ * This callback is invoked before the native iOS Apple Pay payment authorization view controller is closed.
+ * Call `completeApplePayAuthorization` with an error message to let the user modify input values and resubmit.
+ * @platform IOS
+ * @param error - Information about the error condition that prevented a nonce from being generated.
+ */
+export type ApplePayNonceRequestFailureCallback = (error: Error) => void;
+
+/**
+ * Callback invoked when the native iOS Apple Pay payment authorization sheet is closed with success, failure, or cancellation.
+ * This callback notifies caller widget when it should switch to other views.
+ * @platform IOS
+ */
+export type ApplePayCompleteCallback = () => void;
+
 /** Apple Pay */
 export namespace SQIPApplePay {
-    // Types
-
-    enum ApplePayPaymentType {
-        /** A summary item representing an estimated or unknown cost. */
-        PaymentTypePending = 1,
-        /** A summary item representing the known, final cost. */
-        PaymentTypeFinal = 2,
-    }
-
-    /** Represents the Apple Pay configuration. */
-    interface ApplePayConfig {
-        /** The payment authorization amount as a string. */
-        price: string;
-        /** A label that displays the checkout summary in the Apple Pay view. */
-        summaryLabel: string;
-        /** The Apple Pay country code. */
-        countryCode: string;
-        /** ISO currency code of the payment amount. */
-        currencyCode: string;
-        /** Type of the payment summary item, PaymentTypeFinal for default */
-        paymentType?: ApplePayPaymentType | undefined;
-    }
-
-    // Callbacks
-
-    /**
-     * Callback invoked when Apple Pay card details are available
-     * This is called before the Apple Pay payment authorization sheet is closed. Call `completeApplePayAuthorization` to close the apple pay sheet.
-     * @platform IOS
-     * @param cardDetails - The non-confidential details of the card and a nonce.
-     */
-    type ApplePayNonceRequestSuccessCallback = (cardDetails: CardDetails) => void;
-
-    /**
-     * Callback invoked when a card nonce cannot be generated from Apple Pay payment authorization card input values.
-     * This callback is invoked before the native iOS Apple Pay payment authorization view controller is closed.
-     * Call `completeApplePayAuthorization` with an error message to let the user modify input values and resubmit.
-     * @platform IOS
-     * @param error - Information about the error condition that prevented a nonce from being generated.
-     */
-    type ApplePayNonceRequestFailureCallback = (error: Error) => void;
-
-    /**
-     * Callback invoked when the native iOS Apple Pay payment authorization sheet is closed with success, failure, or cancellation.
-     * This callback notifies caller widget when it should switch to other views.
-     * @platform IOS
-     */
-    type ApplePayCompleteCallback = () => void;
+    const PaymentTypePending: ApplePayPaymentType;
+    const PaymentTypeFinal: ApplePayPaymentType;
 
     // Functions
 
@@ -445,56 +445,63 @@ export namespace SQIPApplePay {
     function completeApplePayAuthorization(isSuccess: boolean, errorMessage?: string): Promise<void>;
 }
 
+// types
+export enum GooglePayPriceStatus {
+    /** used for a capability check */
+    TotalPriceStatusNotCurrentlyKnown = 1,
+    /** Total price may adjust based on the details of the response, such as sales tax collected based on a billing address. */
+    TotalPriceStatusEstimated = 2,
+    /** Total price will not change from the amount presented to the user. */
+    TotalPriceStatusFinal = 3,
+}
+
+export enum GooglePayEnvironment {
+    /** Environment to be used when an app is granted access to the Google Pay production environment. */
+    EnvironmentProduction = 1,
+    /** Environment to be used for development and testing an application before approval for production. */
+    EnvironmentTest = 3,
+}
+
+/** Represents the Google Pay configuration. */
+export interface GooglePayConfig {
+    /** The payment authorization amount as a string. */
+    price: string;
+    /** ISO currency code of the payment amount. */
+    currencyCode: string;
+    /** The status of the total price used */
+    priceStatus: GooglePayPriceStatus;
+}
+
+// Callbacks
+
+/**
+ * Callback invoked with cardDetails with Google Pay are available.
+ * @platform Android
+ * @param cardDetails - The non-confidential details of the card and a nonce.
+ */
+export type GooglePayNonceRequestSuccessCallback = (cardDetails: CardDetails) => void;
+
+/**
+ * Callback invoked a card nonce could not be obtained.
+ * @platform Android
+ * @param error - Information about the cause of the error.
+ */
+export type GooglePayNonceRequestFailureCallback = (error: Error) => void;
+
+/**
+ * Callback invoked when Google Pay payment authorization is canceled.
+ * @platform Android
+ */
+export type GooglePayCancelCallback = () => void;
+
 export namespace SQIPGooglePay {
     // Types
+    const EnvironmentProduction: GooglePayEnvironment;
+    const EnvironmentTest: GooglePayEnvironment;
 
-    enum GooglePayPriceStatus {
-        /** used for a capability check */
-        TotalPriceStatusNotCurrentlyKnown = 1,
-        /** Total price may adjust based on the details of the response, such as sales tax collected based on a billing address. */
-        TotalPriceStatusEstimated = 2,
-        /** Total price will not change from the amount presented to the user. */
-        TotalPriceStatusFinal = 3,
-    }
-
-    enum GooglePayEnvironment {
-        /** Environment to be used when an app is granted access to the Google Pay production environment. */
-        EnvironmentProduction = 1,
-        /** Environment to be used for development and testing an application before approval for production. */
-        EnvironmentTest = 3,
-    }
-
-    /** Represents the Google Pay configuration. */
-    interface GooglePayConfig {
-        /** The payment authorization amount as a string. */
-        price: string;
-        /** ISO currency code of the payment amount. */
-        currencyCode: string;
-        /** The status of the total price used */
-        priceStatus: GooglePayPriceStatus;
-    }
-
-    // Callbacks
-
-    /**
-     * Callback invoked with cardDetails with Google Pay are available.
-     * @platform Android
-     * @param cardDetails - The non-confidential details of the card and a nonce.
-     */
-    type GooglePayNonceRequestSuccessCallback = (cardDetails: CardDetails) => void;
-
-    /**
-     * Callback invoked a card nonce could not be obtained.
-     * @platform Android
-     * @param error - Information about the cause of the error.
-     */
-    type GooglePayNonceRequestFailureCallback = (error: Error) => void;
-
-    /**
-     * Callback invoked when Google Pay payment authorization is canceled.
-     * @platform Android
-     */
-    type GooglePayCancelCallback = () => void;
+    const TotalPriceStatusNotCurrentlyKnown: GooglePayPriceStatus;
+    const TotalPriceStatusEstimated: GooglePayPriceStatus;
+    const TotalPriceStatusFinal: GooglePayPriceStatus;
 
     // Functions
 
