@@ -147,15 +147,12 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
 {
     let count = 32;
-    let key = forge.random.getBytes(count, (err, bytes) => {
+    forge.random.getBytes(count, (err, bytes) => {
         if (err) {
             throw err;
         }
         if (bytes.length !== count) {
             throw new Error('invalid length');
-        }
-        if (key !== bytes) {
-            throw new Error('return result and callback data not match');
         }
     });
 }
