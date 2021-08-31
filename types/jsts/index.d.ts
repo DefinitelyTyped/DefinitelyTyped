@@ -2863,6 +2863,75 @@ declare namespace jsts {
             }
         }
     }
+
+    namespace precision {
+        import Geometry = jsts.geom.Geometry;
+        import PrecisionModel = jsts.geom.PrecisionModel;
+
+        /**
+         * Reduces the precision of a Geometry according to the supplied PrecisionModel,
+         * ensuring that the result is topologically valid.
+         */
+        export class GeometryPrecisionReducer {
+          
+            constructor(precisionModel: PrecisionModel);
+
+            reduce(geom: Geometry): Geometry;
+
+            /**
+             * Convenience method for doing precision reduction on a single geometry,
+             * with collapses removed and keeping the geometry precision model the same,
+             * and preserving polygonal topology.
+             * 
+             * @param g the geometry to reduce
+             * @param precModel the precision model to use
+             * 
+             * @returns the reduced geometry
+             */
+            static reduce(g: Geometry, precModel: PrecisionModel): Geometry;
+
+            /**
+             * Convenience method for doing pointwise precision reduction on a single geometry,
+             * with collapses removed and keeping the geometry precision model the same,
+             * but NOT preserving valid polygonal topology.
+             * 
+             * @param g the geometry to reduce
+             * @param precModel the precision model to use
+             * 
+             * @returns the reduced geometry
+             */
+            static reducePointwise(g: Geometry, precModel: PrecisionModel): Geometry;
+
+            /**
+             * Sets whether the PrecisionModel of the new reduced Geometry will be changed
+             * to be the PrecisionModel supplied to specify the precision reduction.
+             * The default is to NOT change the precision model
+             * 
+             * @param changePrecisionModel if true the precision model of the created Geometry
+             * will be the the precisionModel supplied in the constructor.
+             */
+            setChangePrecisionModel(changePrecisionModel: boolean): void;
+
+            /**
+             * Sets whether the precision reduction will be done in pointwise fashion only.
+             * Pointwise precision reduction reduces the precision of the individual coordinates only,
+             * but does not attempt to recreate valid topology.
+             * This is only relevant for geometries containing polygonal components.
+             * 
+             * @param isPointwise if reduction should be done pointwise only
+             */
+            setPointwise(isPointwise: boolean): void;
+
+            /**
+             * Sets whether the reduction will result in collapsed components being removed completely,
+             * or simply being collapsed to an (invalid) Geometry of the same type.
+             * The default is to remove collapsed components.
+             * 
+             * @param removeCollapsed if true collapsed components will be removed
+             */
+            setRemoveCollapsedComponents(removeCollapsed: boolean): void;
+        }
+    }
 }
 
 declare module "jsts" {
