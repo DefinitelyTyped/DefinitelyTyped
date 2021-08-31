@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 4.0
+// Type definitions for webpack-dev-server 4.1
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
@@ -200,6 +200,11 @@ declare namespace WebpackDevServer {
         https?: boolean | https.ServerOptions | undefined;
         /* The Unix socket to listen to (instead of a host). */
         ipc?: boolean | string | undefined;
+        /**
+         * Enables/Disables magic HTML routes (enabled by default).
+         * @default true
+         */
+        magicHtml?: boolean | undefined;
         /**
          * By default, the dev-server will reload/refresh the page when file
          * changes are detected. devServer.hot option must be disabled or
