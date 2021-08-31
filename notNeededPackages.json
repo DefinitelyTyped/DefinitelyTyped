@@ -712,6 +712,10 @@
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
         },
+        "countries-and-timezones": {
+            "libraryName": "countries-and-timezones",
+            "asOfVersion": "3.2.2"
+        },
         "country-code-lookup": {
             "libraryName": "country-code-lookup",
             "asOfVersion": "0.0.19"
