@@ -11,13 +11,13 @@ import { Moment } from 'moment';
 declare module 'chart.js' {
   interface ChartOptions {
     // This is deprecated on master (not released yet)
-    annotation?: ChartJsAnnotation.AnnotationConfig | undefined;
+    //annotation?: ChartJsAnnotation.AnnotationConfig | undefined;
   }
 
   // This is the correct version on master (not released yet)
-  // interface ChartPluginsOptions {
-  //   annotation?: ChartJsAnnotation.AnnotationConfig;
-  // }
+   interface ChartPluginsOptions {
+     annotation?: ChartJsAnnotation.AnnotationConfig;
+   }
 
   const Annotation: ChartJsAnnotation.AnnotationStatic;
 }
