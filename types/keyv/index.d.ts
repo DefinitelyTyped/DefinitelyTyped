@@ -44,9 +44,9 @@ declare namespace Keyv {
         /** Namespace for the current instance. */
         namespace?: string | undefined;
         /** A custom serialization function. */
-        serialize?: ((data: { value: TValue; expires: number | null }) => string) | undefined;
+        serialize?: ((data: DeserializedData<TValue>) => string) | undefined;
         /** A custom deserialization function. */
-        deserialize?: ((data: string) => { value: TValue; expires: number | null } | undefined) | undefined;
+        deserialize?: ((data: string) => DeserializedData<TValue> | undefined) | undefined;
         /** The connection string URI. */
         uri?: string | undefined;
         /** The storage adapter instance to be used by Keyv. */
@@ -57,6 +57,10 @@ declare namespace Keyv {
         adapter?: 'redis' | 'mongodb' | 'mongo' | 'sqlite' | 'postgresql' | 'postgres' | 'mysql' | undefined;
 
         [key: string]: any;
+    }
+
+    interface DeserializedData<TValue> {
+        value: TValue; expires: number | null;
     }
 
     interface Store<TValue> {
