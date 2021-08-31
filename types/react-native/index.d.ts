@@ -6150,10 +6150,11 @@ export interface Dimensions {
     addEventListener(
         type: 'change',
         handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
-    ): void;
+    ): EmitterSubscription;
 
     /**
      * Remove an event listener
+     * @deprecated Use `remove` on the EventSubscription from `addEventListener`.
      *
      * @param type the type of event
      * @param handler the event handler
@@ -7701,10 +7702,11 @@ export interface LinkingStatic extends NativeEventEmitter {
      * Add a handler to Linking changes by listening to the `url` event type
      * and providing the handler
      */
-    addEventListener(type: 'url', handler: (event: { url: string }) => void): void;
+    addEventListener(type: 'url', handler: (event: { url: string }) => void): EmitterSubscription;
 
     /**
      * Remove a handler by passing the `url` event type and the handler
+     * @deprecated Call remove() on the return value of addEventListener() instead.
      */
     removeEventListener(type: 'url', handler: (event: { url: string }) => void): void;
 
