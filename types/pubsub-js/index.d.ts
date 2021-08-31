@@ -2,6 +2,7 @@
 // Project: https://github.com/mroderick/PubSubJS
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Matthias Lindinger <https://github.com/morpheus-87>
+//                 Profesor08 <https://github.com/Profesor08>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PubSubJS {
