@@ -15,10 +15,24 @@ new Keyv({ adapter: 'postgres' });
 new Keyv({ adapter: 'postgresql' });
 new Keyv({ adapter: 'mysql' });
 new Keyv({ adapter: 'foo' }); // $ExpectError
-new Keyv<boolean>({ serialize: JSON.stringify });
-new Keyv<boolean>({ serialize: (d: unknown) => d }); // $ExpectError
+new Keyv<boolean>({
+  serialize: (d) => {
+    d.value; // $ExpectType boolean
+    d.expires; // $ExpectType number | null
+    return JSON.stringify(d);
+  }
+});
 new Keyv<boolean>({ deserialize: JSON.parse });
 new Keyv<boolean>({ deserialize: (d: string) => d }); // $ExpectError
+new Keyv<boolean>({
+  deserialize: (d) => {
+    d; // $ExpectType string
+    return {
+      value: true,
+      expires: new Date().getTime()
+    };
+  }
+});
 
 new Keyv<boolean>({ store: new Map() });
 
