@@ -6,7 +6,7 @@ export default class FileRepository extends Plugin {
     static pluginName: "FileRepository";
     static requires: [typeof PendingActions];
 
-    createUploadAdapter(): UploadAdapter;
+    createUploadAdapter?(loader: FileLoader): UploadAdapter;
     loaders: Collection<FileLoader>;
     uploadTotal: number | null;
     uploaded: number;

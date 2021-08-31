@@ -60,7 +60,7 @@
  * For certain use cases, such as automating shell scripts, the `synchronous counterparts` may be more convenient. In many cases, however,
  * the synchronous methods can have significant impact on performance due to
  * stalling the event loop while spawned processes complete.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/child_process.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/child_process.js)
  */
 declare module 'child_process' {
     import { ObjectEncodingOptions } from 'node:fs';
@@ -1342,13 +1342,13 @@ declare module 'child_process' {
      * @param args List of string arguments.
      * @return The stdout from the command.
      */
-    function execFileSync(command: string): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
+    function execFileSync(file: string): Buffer;
+    function execFileSync(file: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(file: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(file: string, options?: ExecFileSyncOptions): Buffer;
+    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
 }
 declare module 'node:child_process' {
     export * from 'child_process';

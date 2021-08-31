@@ -157,6 +157,12 @@ declare namespace intlTelInput {
         customPlaceholder?: ((selectedCountryPlaceholder: string, selectedCountryData: CountryData) => string) | undefined;
 
         /**
+         * Additional classes to add to the parent div..
+         * @default ''
+         */
+        customContainer?: string | undefined;
+
+        /**
          * Expects a node e.g. document.body. Instead of putting the country dropdown next to the input,
          * append it to the specified node, and it will then be positioned absolutely next to the input using JavaScript.
          * This is useful when the input is inside a container with overflow: hidden.

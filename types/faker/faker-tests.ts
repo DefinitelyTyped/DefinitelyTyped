@@ -145,6 +145,7 @@ resultStr = faker.finance.creditCardCVV();
 resultStr = faker.finance.ethereumAddress();
 resultStr = faker.finance.iban();
 resultStr = faker.finance.iban(true);
+resultStr = faker.finance.iban(false, "de");
 resultStr = faker.finance.bic();
 resultStr = faker.finance.transactionDescription();
 

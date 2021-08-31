@@ -204,22 +204,22 @@ export interface Blockquote extends Parent {
 
 export interface List extends Parent {
     type: 'list';
-    ordered?: boolean | undefined;
-    start?: number | undefined;
-    spread?: boolean | undefined;
+    ordered?: boolean | null | undefined;
+    start?: number | null | undefined;
+    spread?: boolean | null | undefined;
     children: ListContent[];
 }
 
 export interface ListItem extends Parent {
     type: 'listItem';
-    checked?: boolean | undefined;
-    spread?: boolean | undefined;
+    checked?: boolean | null | undefined;
+    spread?: boolean | null | undefined;
     children: BlockContent[];
 }
 
 export interface Table extends Parent {
     type: 'table';
-    align?: AlignType[] | undefined;
+    align?: AlignType[] | null | undefined;
     children: TableContent[];
 }
 
@@ -239,8 +239,8 @@ export interface HTML extends Literal {
 
 export interface Code extends Literal {
     type: 'code';
-    lang?: string | undefined;
-    meta?: string | undefined;
+    lang?: string | null | undefined;
+    meta?: string | null | undefined;
 }
 
 export interface YAML extends Literal {
@@ -318,7 +318,7 @@ export interface Resource {
 
 export interface Association {
     identifier: string;
-    label?: string | undefined;
+    label?: string | null | undefined;
 }
 
 export interface Reference extends Association {
@@ -326,5 +326,5 @@ export interface Reference extends Association {
 }
 
 export interface Alternative {
-    alt?: string | undefined;
+    alt?: string | null | undefined;
 }

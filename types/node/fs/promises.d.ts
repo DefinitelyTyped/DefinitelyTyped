@@ -29,7 +29,12 @@ declare module 'fs/promises' {
         OpenMode,
         Mode,
         WatchOptions,
+        WatchEventType,
     } from 'node:fs';
+    interface FileChangeInfo<T extends (string | Buffer)> {
+        eventType: WatchEventType;
+        filename: T;
+    }
     interface FlagAndOpenMode {
         mode?: Mode | undefined;
         flag?: OpenMode | undefined;
@@ -108,8 +113,8 @@ declare module 'fs/promises' {
          * number of bytes read is zero.
          * @since v10.0.0
          * @param buffer A buffer that will be filled with the file data read.
-         * @param offset The location in the buffer at which to start filling.
-         * @param length The number of bytes to read.
+         * @param [offset=0] The location in the buffer at which to start filling.
+         * @param [length=buffer.byteLength] The number of bytes to read.
          * @param position The location where to begin reading data from the file. If `null`, data will be read from the current file position, and the position will be updated. If `position` is an
          * integer, the current file position will remain unchanged.
          * @return Fulfills upon success with an object with two properties:
@@ -204,6 +209,7 @@ declare module 'fs/promises' {
          *
          * If `len` is negative then `0` will be used.
          * @since v10.0.0
+         * @param [len=0]
          * @return Fulfills with `undefined` upon success.
          */
         truncate(len?: number): Promise<void>;
@@ -229,6 +235,43 @@ declare module 'fs/promises' {
          * @since v10.0.0
          */
         writeFile(data: string | Uint8Array, options?: (ObjectEncodingOptions & FlagAndOpenMode & Abortable) | BufferEncoding | null): Promise<void>;
+        /**
+         * Write `buffer` to the file.
+         *
+         * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
+         *
+         * The promise is resolved with an object containing two properties:
+         *
+         * It is unsafe to use `filehandle.write()` multiple times on the same file
+         * without waiting for the promise to be resolved (or rejected). For this
+         * scenario, use `fs.createWriteStream()`.
+         *
+         * On Linux, positional writes do not work when the file is opened in append mode.
+         * The kernel ignores the position argument and always appends the data to
+         * the end of the file.
+         * @since v10.0.0
+         * @param [offset=0] The start position from within `buffer` where the data to write begins.
+         * @param [length=buffer.byteLength] The number of bytes from `buffer` to write.
+         * @param position The offset from the beginning of the file where the data from `buffer` should be written. If `position` is not a `number`, the data will be written at the current position.
+         * See the POSIX pwrite(2) documentation for more detail.
+         */
+        write<TBuffer extends Uint8Array>(
+            buffer: TBuffer,
+            offset?: number | null,
+            length?: number | null,
+            position?: number | null
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        write(
+            data: string,
+            position?: number | null,
+            encoding?: BufferEncoding | null
+        ): Promise<{
+            bytesWritten: number;
+            buffer: string;
+        }>;
         /**
          * Write an array of [&lt;ArrayBufferView&gt;](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView)s to the file.
          *
@@ -301,6 +344,7 @@ declare module 'fs/promises' {
      * calls. Instead, user code should open/read/write the file directly and handle
      * the error raised if the file is not accessible.
      * @since v10.0.0
+     * @param [mode=fs.constants.F_OK]
      * @return Fulfills with `undefined` upon success.
      */
     function access(path: PathLike, mode?: number): Promise<void>;
@@ -334,11 +378,11 @@ declare module 'fs/promises' {
      * @since v10.0.0
      * @param src source filename to copy
      * @param dest destination filename of the copy operation
-     * @param mode Optional modifiers that specify the behavior of the copy operation. It is possible to create a mask consisting of the bitwise OR of two or more values (e.g.
+     * @param [mode=0] Optional modifiers that specify the behavior of the copy operation. It is possible to create a mask consisting of the bitwise OR of two or more values (e.g.
      * `fs.constants.COPYFILE_EXCL | fs.constants.COPYFILE_FICLONE`)
      * @return Fulfills with `undefined` upon success.
      */
-    function copyFile(src: PathLike, dest: PathLike, flags?: number): Promise<void>;
+    function copyFile(src: PathLike, dest: PathLike, mode?: number): Promise<void>;
     /**
      * Opens a `<FileHandle>`.
      *
@@ -348,8 +392,8 @@ declare module 'fs/promises' {
      * by [Naming Files, Paths, and Namespaces](https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file). Under NTFS, if the filename contains
      * a colon, Node.js will open a file system stream, as described by[this MSDN page](https://docs.microsoft.com/en-us/windows/desktop/FileIO/using-streams).
      * @since v10.0.0
-     * @param flags See `support of file system `flags``.
-     * @param mode Sets the file mode (permission and sticky bits) if the file is created.
+     * @param [flags='r'] See `support of file system `flags``.
+     * @param [mode=0o666] Sets the file mode (permission and sticky bits) if the file is created.
      * @return Fulfills with a {FileHandle} object.
      */
     function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
@@ -362,6 +406,7 @@ declare module 'fs/promises' {
     /**
      * Truncates (shortens or extends the length) of the content at `path` to `len`bytes.
      * @since v10.0.0
+     * @param [len=0]
      * @return Fulfills with `undefined` upon success.
      */
     function truncate(path: PathLike, len?: number): Promise<void>;
@@ -523,6 +568,7 @@ declare module 'fs/promises' {
      * to be absolute. When using `'junction'`, the `target` argument will
      * automatically be normalized to absolute path.
      * @since v10.0.0
+     * @param [type='file']
      * @return Fulfills with `undefined` upon success.
      */
     function symlink(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
@@ -693,8 +739,7 @@ declare module 'fs/promises' {
      */
     function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
     /**
-     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a `<Buffer>`, or an object with an own `toString` function
-     * property.
+     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a `<Buffer>`, or, an object with an own (not inherited)`toString` function property.
      *
      * The `encoding` option is ignored if `data` is a buffer.
      *
@@ -715,6 +760,7 @@ declare module 'fs/promises' {
      *
      * ```js
      * import { writeFile } from 'fs/promises';
+     * import { Buffer } from 'buffer';
      *
      * try {
      *   const controller = new AbortController();
@@ -739,7 +785,7 @@ declare module 'fs/promises' {
      * @return Fulfills with `undefined` upon success.
      */
     function writeFile(
-        path: PathLike | FileHandle,
+        file: PathLike | FileHandle,
         data: string | NodeJS.ArrayBufferView | Iterable<string | NodeJS.ArrayBufferView> | AsyncIterable<string | NodeJS.ArrayBufferView> | Stream,
         options?:
             | (ObjectEncodingOptions & {
@@ -912,7 +958,7 @@ declare module 'fs/promises' {
                   encoding: 'buffer';
               })
             | 'buffer'
-    ): AsyncIterable<Buffer>;
+    ): AsyncIterable<FileChangeInfo<Buffer>>;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
@@ -921,7 +967,7 @@ declare module 'fs/promises' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options?: WatchOptions | BufferEncoding): AsyncIterable<string>;
+    function watch(filename: PathLike, options?: WatchOptions | BufferEncoding): AsyncIterable<FileChangeInfo<string>>;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
@@ -930,7 +976,7 @@ declare module 'fs/promises' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<Buffer>;
+    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<FileChangeInfo<string>> | AsyncIterable<FileChangeInfo<Buffer>>;
 }
 declare module 'node:fs/promises' {
     export * from 'fs/promises';

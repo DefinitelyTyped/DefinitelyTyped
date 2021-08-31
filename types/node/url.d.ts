@@ -5,11 +5,7 @@
  * ```js
  * import url from 'url';
  * ```
- *
- * ```js
- * const url = require('url');
- * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/url.js)
  */
 declare module 'url' {
     import { ClientRequestArgs } from 'node:http';
@@ -65,18 +61,15 @@ declare module 'url' {
      * @since v0.1.25
      * @deprecated Legacy: Use the WHATWG URL API instead.
      * @param urlString The URL string to parse.
-     * @param parseQueryString If `true`, the `query` property will always be set to an object returned by the {@link querystring} module's `parse()` method. If `false`, the `query` property on the
-     * returned URL object will be an unparsed, undecoded string.
-     * @param slashesDenoteHost If `true`, the first token after the literal string `//` and preceding the next `/` will be interpreted as the `host`. For instance, given `//foo/bar`, the result
-     * would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
+     * @param [parseQueryString=false] If `true`, the `query` property will always be set to an object returned by the {@link querystring} module's `parse()` method. If `false`, the `query` property
+     * on the returned URL object will be an unparsed, undecoded string.
+     * @param [slashesDenoteHost=false] If `true`, the first token after the literal string `//` and preceding the next `/` will be interpreted as the `host`. For instance, given `//foo/bar`, the
+     * result would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
      */
-    function parse(urlStr: string): UrlWithStringQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
-    function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
+    function parse(urlString: string): UrlWithStringQuery;
+    function parse(urlString: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
      * The `url.format()` method returns a formatted URL string derived from`urlObject`.
      *
@@ -140,8 +133,7 @@ declare module 'url' {
      * @deprecated Legacy: Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
-    function format(URL: URL, options?: URLFormatOptions): string;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
+    function format(urlObject: URL, options?: URLFormatOptions): string;
     function format(urlObject: UrlObject | string): string;
     /**
      * The `url.resolve()` method resolves a target URL relative to a base URL in a
@@ -195,17 +187,6 @@ declare module 'url' {
      * console.log(url.domainToASCII('xn--iñvalid.com'));
      * // Prints an empty string
      * ```
-     *
-     * ```js
-     * const url = require('url');
-     *
-     * console.log(url.domainToASCII('español.com'));
-     * // Prints xn--espaol-zwa.com
-     * console.log(url.domainToASCII('中文.com'));
-     * // Prints xn--fiq228c.com
-     * console.log(url.domainToASCII('xn--iñvalid.com'));
-     * // Prints an empty string
-     * ```
      * @since v7.4.0, v6.13.0
      */
     function domainToASCII(domain: string): string;
@@ -219,17 +200,6 @@ declare module 'url' {
      *
      * ```js
      * import url from 'url';
-     *
-     * console.log(url.domainToUnicode('xn--espaol-zwa.com'));
-     * // Prints español.com
-     * console.log(url.domainToUnicode('xn--fiq228c.com'));
-     * // Prints 中文.com
-     * console.log(url.domainToUnicode('xn--iñvalid.com'));
-     * // Prints an empty string
-     * ```
-     *
-     * ```js
-     * const url = require('url');
      *
      * console.log(url.domainToUnicode('xn--espaol-zwa.com'));
      * // Prints español.com
@@ -262,21 +232,6 @@ declare module 'url' {
      * new URL('file:///hello world').pathname;   // Incorrect: /hello%20world
      * fileURLToPath('file:///hello world');      // Correct:   /hello world (POSIX)
      * ```
-     *
-     * ```js
-     * const { fileURLToPath } = require('url');
-     * new URL('file:///C:/path/').pathname;      // Incorrect: /C:/path/
-     * fileURLToPath('file:///C:/path/');         // Correct:   C:\path\ (Windows)
-     *
-     * new URL('file://nas/foo.txt').pathname;    // Incorrect: /foo.txt
-     * fileURLToPath('file://nas/foo.txt');       // Correct:   \\nas\foo.txt (Windows)
-     *
-     * new URL('file:///你好.txt').pathname;      // Incorrect: /%E4%BD%A0%E5%A5%BD.txt
-     * fileURLToPath('file:///你好.txt');         // Correct:   /你好.txt (POSIX)
-     *
-     * new URL('file:///hello world').pathname;   // Incorrect: /hello%20world
-     * fileURLToPath('file:///hello world');      // Correct:   /hello world (POSIX)
-     * ```
      * @since v10.12.0
      * @param url The file URL string or URL object to convert to a path.
      * @return The fully-resolved platform-specific Node.js file path.
@@ -295,50 +250,17 @@ declare module 'url' {
      * new URL('/some/path%.c', 'file:');    // Incorrect: file:///some/path%.c
      * pathToFileURL('/some/path%.c');       // Correct:   file:///some/path%25.c (POSIX)
      * ```
-     *
-     * ```js
-     * const { pathToFileURL } = require('url');
-     * new URL(__filename);                  // Incorrect: throws (POSIX)
-     * new URL(__filename);                  // Incorrect: C:\... (Windows)
-     * pathToFileURL(__filename);            // Correct:   file:///... (POSIX)
-     * pathToFileURL(__filename);            // Correct:   file:///C:/... (Windows)
-     *
-     * new URL('/foo#1', 'file:');           // Incorrect: file:///foo#1
-     * pathToFileURL('/foo#1');              // Correct:   file:///foo%231 (POSIX)
-     *
-     * new URL('/some/path%.c', 'file:');    // Incorrect: file:///some/path%.c
-     * pathToFileURL('/some/path%.c');       // Correct:   file:///some/path%25.c (POSIX)
-     * ```
      * @since v10.12.0
      * @param path The path to convert to a File URL.
      * @return The file URL object.
      */
-    function pathToFileURL(url: string): URL;
+    function pathToFileURL(path: string): URL;
     /**
      * This utility function converts a URL object into an ordinary options object as
      * expected by the `http.request()` and `https.request()` APIs.
      *
      * ```js
      * import { urlToHttpOptions } from 'url';
-     * const myURL = new URL('https://a:b@測試?abc#foo');
-     *
-     * console.log(urlToHttpOptions(myUrl));
-     *
-     * {
-     *   protocol: 'https:',
-     *   hostname: 'xn--g6w251d',
-     *   hash: '#foo',
-     *   search: '?abc',
-     *   pathname: '/',
-     *   path: '/?abc',
-     *   href: 'https://a:b@xn--g6w251d/?abc#foo',
-     *   auth: 'a:b'
-     * }
-     *
-     * ```
-     *
-     * ```js
-     * const { urlToHttpOptions } = require('url');
      * const myURL = new URL('https://a:b@測試?abc#foo');
      *
      * console.log(urlToHttpOptions(myUrl));
@@ -758,7 +680,7 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
+        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: this) => void, thisArg?: TThis): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.

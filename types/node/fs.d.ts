@@ -5,30 +5,18 @@
  * To use the promise-based APIs:
  *
  * ```js
- * // Using ESM Module syntax:
  * import * as fs from 'fs/promises';
- * ```
- *
- * ```js
- * // Using CommonJS syntax:
- * const fs = require('fs/promises');
  * ```
  *
  * To use the callback and sync APIs:
  *
  * ```js
- * // Using ESM Module syntax:
  * import * as fs from 'fs';
- * ```
- *
- * ```js
- * // Using CommonJS syntax:
- * const fs = require('fs');
  * ```
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -305,8 +293,6 @@ declare module 'fs' {
         prependOnceListener(event: 'close', listener: () => void): this;
     }
     /**
-     * * Extends: `<stream.Readable>`
-     *
      * Instances of `<fs.ReadStream>` are created and returned using the {@link createReadStream} function.
      * @since v0.1.93
      */
@@ -518,6 +504,7 @@ declare module 'fs' {
      *
      * See the POSIX [`truncate(2)`](http://man7.org/linux/man-pages/man2/truncate.2.html) documentation for more details.
      * @since v0.8.6
+     * @param [len=0]
      */
     export function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
     /**
@@ -540,6 +527,7 @@ declare module 'fs' {
      * Passing a file descriptor is deprecated and may result in an error being thrown
      * in the future.
      * @since v0.8.6
+     * @param [len=0]
      */
     export function truncateSync(path: PathLike, len?: number | null): void;
     /**
@@ -583,6 +571,7 @@ declare module 'fs' {
      *
      * If `len` is negative then `0` will be used.
      * @since v0.8.6
+     * @param [len=0]
      */
     export function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
     /**
@@ -604,6 +593,7 @@ declare module 'fs' {
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link ftruncate}.
      * @since v0.8.6
+     * @param [len=0]
      */
     export function ftruncateSync(fd: number, len?: number | null): void;
     /**
@@ -1954,7 +1944,8 @@ declare module 'fs' {
      *
      * Functions based on `fs.open()` exhibit this behavior as well:`fs.writeFile()`, `fs.readFile()`, etc.
      * @since v0.0.2
-     * @param flags See `support of file system `flags``.
+     * @param [flags='r'] See `support of file system `flags``.
+     * @param [mode=0o666]
      */
     export function open(path: PathLike, flags: OpenMode, mode: Mode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     /**
@@ -1976,6 +1967,8 @@ declare module 'fs' {
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link open}.
      * @since v0.1.21
+     * @param [flags='r']
+     * @param [mode=0o666]
      */
     export function openSync(path: PathLike, flags: OpenMode, mode?: Mode | null): number;
     /**
@@ -2172,6 +2165,8 @@ declare module 'fs' {
         }>;
     }
     /**
+     * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
+     *
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link write}.
      * @since v0.1.21
@@ -2198,9 +2193,9 @@ declare module 'fs' {
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a promise for an `Object` with `bytesRead` and `buffer` properties.
      * @since v0.0.2
-     * @param buffer The buffer that the data will be written to.
-     * @param offset The position in `buffer` to write the data to.
-     * @param length The number of bytes to read.
+     * @param [buffer=Buffer.alloc(16384)] The buffer that the data will be written to.
+     * @param [offset=0] The position in `buffer` to write the data to.
+     * @param [length=buffer.byteLength] The number of bytes to read.
      * @param position Specifies where to begin reading from in the file. If `position` is `null` or `-1 `, data will be read from the current file position, and the file position will be updated. If
      * `position` is an integer, the file position will be unchanged.
      */
@@ -2349,7 +2344,7 @@ declare module 'fs' {
                   encoding: BufferEncoding;
                   flag?: string | undefined;
               } & Abortable)
-            | string,
+            | BufferEncoding,
         callback: (err: NodeJS.ErrnoException | null, data: string) => void
     ): void;
     /**
@@ -2365,7 +2360,7 @@ declare module 'fs' {
             | (ObjectEncodingOptions & {
                   flag?: string | undefined;
               } & Abortable)
-            | string
+            | BufferEncoding
             | undefined
             | null,
         callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void
@@ -2406,7 +2401,7 @@ declare module 'fs' {
                       encoding: BufferEncoding;
                       flag?: string | undefined;
                   }
-                | string
+                | BufferEncoding
         ): Promise<string>;
         /**
          * Asynchronously reads the entire contents of a file.
@@ -2422,7 +2417,7 @@ declare module 'fs' {
                 | (ObjectEncodingOptions & {
                       flag?: string | undefined;
                   })
-                | string
+                | BufferEncoding
                 | null
         ): Promise<string | Buffer>;
     }
@@ -2495,7 +2490,7 @@ declare module 'fs' {
                   mode?: Mode | undefined;
                   flag?: string | undefined;
               })
-        | string
+        | BufferEncoding
         | null;
     /**
      * When `file` is a filename, asynchronously writes data to the file, replacing the
@@ -2505,10 +2500,12 @@ declare module 'fs' {
      * a file descriptor.
      *
      * The `encoding` option is ignored if `data` is a buffer.
-     * If `data` is a normal object, it must have an own `toString` function property.
+     *
+     * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
      *
      * ```js
      * import { writeFile } from 'fs';
+     * import { Buffer } from 'buffer';
      *
      * const data = new Uint8Array(Buffer.from('Hello Node.js'));
      * writeFile('message.txt', data, (err) => {
@@ -2539,6 +2536,7 @@ declare module 'fs' {
      *
      * ```js
      * import { writeFile } from 'fs';
+     * import { Buffer } from 'buffer';
      *
      * const controller = new AbortController();
      * const { signal } = controller;
@@ -2555,7 +2553,7 @@ declare module 'fs' {
      * @since v0.1.29
      * @param file filename or file descriptor
      */
-    export function writeFile(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options: WriteFileOptions, callback: NoParamCallback): void;
+    export function writeFile(file: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options: WriteFileOptions, callback: NoParamCallback): void;
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2581,12 +2579,14 @@ declare module 'fs' {
     /**
      * Returns `undefined`.
      *
+     * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
+     *
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link writeFile}.
      * @since v0.1.29
      * @param file filename or file descriptor
      */
-    export function writeFileSync(path: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
+    export function writeFileSync(file: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
     /**
      * Asynchronously append data to a file, creating the file if it does not yet
      * exist. `data` can be a string or a `<Buffer>`.
@@ -2638,7 +2638,7 @@ declare module 'fs' {
      * @since v0.6.7
      * @param path filename or file descriptor
      */
-    export function appendFile(file: PathOrFileDescriptor, data: string | Uint8Array, options: WriteFileOptions, callback: NoParamCallback): void;
+    export function appendFile(path: PathOrFileDescriptor, data: string | Uint8Array, options: WriteFileOptions, callback: NoParamCallback): void;
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
      * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -2706,7 +2706,7 @@ declare module 'fs' {
      * @since v0.6.7
      * @param path filename or file descriptor
      */
-    export function appendFileSync(file: PathOrFileDescriptor, data: string | Uint8Array, options?: WriteFileOptions): void;
+    export function appendFileSync(path: PathOrFileDescriptor, data: string | Uint8Array, options?: WriteFileOptions): void;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each
      * time the file is accessed.
@@ -2786,7 +2786,8 @@ declare module 'fs' {
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
     }
-    export type WatchListener<T> = (event: 'rename' | 'change', filename: T) => void;
+    export type WatchEventType = 'rename' | 'change';
+    export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a
      * directory.
@@ -2805,6 +2806,7 @@ declare module 'fs' {
      * If a `signal` is passed, aborting the corresponding AbortController will close
      * the returned `<fs.FSWatcher>`.
      * @since v0.5.10
+     * @param listener
      */
     export function watch(
         filename: PathLike,
@@ -3139,7 +3141,7 @@ declare module 'fs' {
      * });
      *
      * // Check if the file exists in the current directory, and if it is writable.
-     * access(file, constants.F_OK | fs.constants.W_OK, (err) => {
+     * access(file, constants.F_OK | constants.W_OK, (err) => {
      *   if (err) {
      *     console.error(
      *       `${file} ${err.code === 'ENOENT' ? 'does not exist' : 'is read-only'}`);
@@ -3270,6 +3272,7 @@ declare module 'fs' {
      * ACL and therefore may report that a path is accessible even if the ACL restricts
      * the user from reading or writing to it.
      * @since v0.11.15
+     * @param [mode=fs.constants.F_OK]
      */
     export function access(path: PathLike, mode: number | undefined, callback: NoParamCallback): void;
     /**
@@ -3307,6 +3310,7 @@ declare module 'fs' {
      * }
      * ```
      * @since v0.11.15
+     * @param [mode=fs.constants.F_OK]
      */
     export function accessSync(path: PathLike, mode?: number): void;
     interface StreamOptions {
@@ -3389,7 +3393,7 @@ declare module 'fs' {
      * @since v0.1.31
      * @return See `Readable Stream`.
      */
-    export function createReadStream(path: PathLike, options?: string | ReadStreamOptions): ReadStream;
+    export function createReadStream(path: PathLike, options?: BufferEncoding | ReadStreamOptions): ReadStream;
     /**
      * `options` may also include a `start` option to allow writing data at some
      * position past the beginning of the file, allowed values are in the
@@ -3417,7 +3421,7 @@ declare module 'fs' {
      * @since v0.1.31
      * @return See `Writable Stream`.
      */
-    export function createWriteStream(path: PathLike, options?: string | StreamOptions): WriteStream;
+    export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
     /**
      * Forces all currently queued I/O operations associated with the file to the
      * operating system's synchronized I/O completion state. Refer to the POSIX[`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. No arguments other
@@ -3476,34 +3480,12 @@ declare module 'fs' {
      * @since v8.5.0
      * @param src source filename to copy
      * @param dest destination filename of the copy operation
-     * @param mode modifiers for copy operation.
+     * @param [mode=0] modifiers for copy operation.
      */
     export function copyFile(src: PathLike, dest: PathLike, callback: NoParamCallback): void;
-    /**
-     * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
-     * No arguments other than a possible exception are given to the callback function.
-     * Node.js makes no guarantees about the atomicity of the copy operation.
-     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
-     * to remove the destination.
-     * @param src A path to the source file.
-     * @param dest A path to the destination file.
-     * @param flags An integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
-     */
-    export function copyFile(src: PathLike, dest: PathLike, flags: number, callback: NoParamCallback): void;
+    export function copyFile(src: PathLike, dest: PathLike, mode: number, callback: NoParamCallback): void;
     export namespace copyFile {
-        /**
-         * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
-         * No arguments other than a possible exception are given to the callback function.
-         * Node.js makes no guarantees about the atomicity of the copy operation.
-         * If an error occurs after the destination file has been opened for writing, Node.js will attempt
-         * to remove the destination.
-         * @param src A path to the source file.
-         * @param dest A path to the destination file.
-         * @param flags An optional integer that specifies the behavior of the copy operation.
-         * The only supported flag is fs.constants.COPYFILE_EXCL,
-         * which causes the copy operation to fail if dest already exists.
-         */
-        function __promisify__(src: PathLike, dst: PathLike, flags?: number): Promise<void>;
+        function __promisify__(src: PathLike, dst: PathLike, mode?: number): Promise<void>;
     }
     /**
      * Synchronously copies `src` to `dest`. By default, `dest` is overwritten if it
@@ -3537,9 +3519,9 @@ declare module 'fs' {
      * @since v8.5.0
      * @param src source filename to copy
      * @param dest destination filename of the copy operation
-     * @param mode modifiers for copy operation.
+     * @param [mode=0] modifiers for copy operation.
      */
-    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
+    export function copyFileSync(src: PathLike, dest: PathLike, mode?: number): void;
     /**
      * Write an array of `ArrayBufferView`s to the file specified by `fd` using`writev()`.
      *

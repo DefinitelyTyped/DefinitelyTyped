@@ -140,7 +140,6 @@ export interface DateObjectUnits {
 }
 
 export interface DateObject extends DateObjectUnits, LocaleOptions {
-    zone?: string | Zone | undefined;
 }
 
 export type ConversionAccuracy = 'casual' | 'longterm';
@@ -328,15 +327,15 @@ export class DateTime {
      * @example
      * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //~> today at 10:26:06
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'utc' }),
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'utc' }),
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'local' })
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'local' })
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'America/New_York' })
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'America/New_York' })
      * @example
      * DateTime.fromObject({ weekYear: 2016, weekNumber: 2, weekday: 3 }).toISODate() //=> '2016-01-13'
      */
-    static fromObject(obj: DateObject): DateTime;
+    static fromObject(obj: DateObject, options?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from an RFC 2822 string
@@ -425,6 +424,7 @@ export class DateTime {
      * @param [minute=0] - The minute of the hour, meaning a number between 0 and 59
      * @param [second=0] - The second of the minute, meaning a number between 0 and 59
      * @param [millisecond=0] - The millisecond of the second, meaning a number between 0 and 999
+     * @param [options] - Options for creating this DateTime
      * @example
      * DateTime.local()                            //~> now
      * @example
@@ -450,6 +450,7 @@ export class DateTime {
         minute?: number,
         second?: number,
         millisecond?: number,
+        options?: DateTimeOptions,
     ): DateTime;
 
     /** Return the maximum of several date times */
@@ -480,6 +481,7 @@ export class DateTime {
      * @param [minute=0] - The minute of the hour, meaning a number between 0 and 59
      * @param [second=0] - The second of the minute, meaning a number between 0 and 59
      * @param [millisecond=0] - The millisecond of the second, meaning a number between 0 and 999
+     * @param [options] - Options for creating this DateTime
      * @example
      * DateTime.utc()                            //~> now
      * @example
@@ -505,6 +507,7 @@ export class DateTime {
         minute?: number,
         second?: number,
         millisecond?: number,
+        options?: DateTimeOptions,
     ): DateTime;
 
     /**
@@ -809,7 +812,7 @@ export class DateTime {
      * Returns the resolved Intl options for this DateTime.
      * This is useful in understanding the behavior of formatting methods
      */
-    resolvedLocaleOpts(options?: LocaleOptions & DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
+    resolvedLocaleOptions(options?: LocaleOptions & DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
 
     /**
      * "Set" the values of specified units. Returns a newly-constructed DateTime.
@@ -991,7 +994,7 @@ export class DateTime {
      * @example
      * DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hour12: false }); //=> '11:32'
      */
-    toLocaleString(options?: LocaleOptions & DateTimeFormatOptions): string;
+    toLocaleString(formatOptions?: DateTimeFormatOptions, options?: LocaleOptions): string;
 
     /**
      * Returns the epoch milliseconds of this DateTime.
@@ -1002,6 +1005,9 @@ export class DateTime {
      * Returns a JavaScript object with this DateTime's year, month, day, and so on.
      * @example
      * DateTime.now().toObject() //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268 }
+     * @example
+     * DateTime.now().toObject({ includeConfig: true })
+     *   //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268, locale: 'en-US', numberingSystem: null, outputCalendar: null }
      */
     toObject(options?: {
         /**

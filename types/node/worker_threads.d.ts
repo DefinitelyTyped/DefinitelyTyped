@@ -49,7 +49,7 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/worker_threads.js)
  */
 declare module 'worker_threads' {
     import { Blob } from 'node:buffer';
@@ -583,7 +583,7 @@ declare module 'worker_threads' {
      * @param port The message port to transfer.
      * @param contextifiedSandbox A `contextified` object as returned by the `vm.createContext()` method.
      */
-    function moveMessagePortToContext(port: MessagePort, context: Context): MessagePort;
+    function moveMessagePortToContext(port: MessagePort, contextifiedSandbox: Context): MessagePort;
     /**
      * Receive a single message from a given `MessagePort`. If no message is available,`undefined` is returned, otherwise an object with a single `message` property
      * that contains the message payload, corresponding to the oldest message in the`MessagePort`’s queue.

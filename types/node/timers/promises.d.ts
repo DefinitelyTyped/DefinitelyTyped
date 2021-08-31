@@ -9,14 +9,6 @@
  *   setInterval,
  * } from 'timers/promises';
  * ```
- *
- * ```js
- * const {
- *   setTimeout,
- *   setImmediate,
- *   setInterval,
- * } = require('timers/promises');
- * ```
  * @since v15.0.0
  */
 declare module 'timers/promises' {
@@ -31,18 +23,8 @@ declare module 'timers/promises' {
      *
      * console.log(res);  // Prints 'result'
      * ```
-     *
-     * ```js
-     * const {
-     *   setTimeout,
-     * } = require('timers/promises');
-     *
-     * setTimeout(100, 'result').then((res) => {
-     *   console.log(res);  // Prints 'result'
-     * });
-     * ```
      * @since v15.0.0
-     * @param delay The number of milliseconds to wait before fulfilling the promise.
+     * @param [delay=1] The number of milliseconds to wait before fulfilling the promise.
      * @param value A value with which the promise is fulfilled.
      */
     function setTimeout<T = void>(delay?: number, value?: T, options?: TimerOptions): Promise<T>;
@@ -55,16 +37,6 @@ declare module 'timers/promises' {
      * const res = await setImmediate('result');
      *
      * console.log(res);  // Prints 'result'
-     * ```
-     *
-     * ```js
-     * const {
-     *   setImmediate,
-     * } = require('timers/promises');
-     *
-     * setImmediate('result').then((res) => {
-     *   console.log(res);  // Prints 'result'
-     * });
      * ```
      * @since v15.0.0
      * @param value A value with which the promise is fulfilled.
@@ -86,23 +58,6 @@ declare module 'timers/promises' {
      *     break;
      * }
      * console.log(Date.now());
-     * ```
-     *
-     * ```js
-     * const {
-     *   setInterval,
-     * } = require('timers/promises');
-     * const interval = 100;
-     *
-     * (async function() {
-     *   for await (const startTime of setInterval(interval, Date.now())) {
-     *     const now = Date.now();
-     *     console.log(now);
-     *     if ((now - startTime) > 1000)
-     *       break;
-     *   }
-     *   console.log(Date.now());
-     * })();
      * ```
      * @since v15.9.0
      */
