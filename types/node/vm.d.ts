@@ -269,9 +269,9 @@ declare module 'vm' {
         createCachedData(): Buffer;
 
 		/** @deprecated in favor of `script.createCachedData()` */
-		cachedDataProduced?: boolean | undefined;
+        cachedDataProduced?: boolean | undefined;
         cachedDataRejected?: boolean | undefined;
-		cachedData?: Buffer | undefined;
+        cachedData?: Buffer | undefined;
     }
     /**
      * If given a `contextObject`, the `vm.createContext()` method will `prepare
