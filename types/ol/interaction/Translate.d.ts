@@ -1,6 +1,7 @@
 import Collection from '../Collection';
 import { Coordinate } from '../coordinate';
 import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
 import Feature, { FeatureLike } from '../Feature';
 import Geometry from '../geom/Geometry';
@@ -19,6 +20,7 @@ import PointerInteraction from './Pointer';
  */
 export type FilterFunction = (p0: FeatureLike, p1: Layer<Source>) => boolean;
 export interface Options {
+    condition?: Condition | undefined;
     features?: Collection<Feature<Geometry>> | undefined;
     layers?: Layer<Source>[] | ((p0: Layer<Source>) => boolean) | undefined;
     filter?: FilterFunction | undefined;
