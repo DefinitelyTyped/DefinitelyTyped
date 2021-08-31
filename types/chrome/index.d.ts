@@ -2631,7 +2631,7 @@ declare namespace chrome.downloads {
         /** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
         method?: "GET" | "POST";
         /** Optional. The action to take if filename already exists.  */
-        conflictAction?: FilenameConflictAction;
+        conflictAction?: FilenameConflictAction | undefined;
     }
 
     export interface DownloadDelta {
