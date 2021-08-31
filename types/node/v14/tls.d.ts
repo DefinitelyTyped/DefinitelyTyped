@@ -152,7 +152,7 @@ declare module 'tls' {
          * String containing the selected ALPN protocol.
          * When ALPN has no selected protocol, tlsSocket.alpnProtocol equals false.
          */
-        alpnProtocol?: string | undefined;
+        alpnProtocol?: string | false | undefined;
 
         /**
          * Returns an object representing the local certificate. The returned
