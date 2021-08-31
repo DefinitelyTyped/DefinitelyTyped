@@ -54,7 +54,6 @@ intercomSettings = {
     monthly_spend: 10
   }
 };
-Intercom('trackEvent', 'invited-friend', metadata);
 
 /*
   From https://developers.intercom.com/installing-intercom/
