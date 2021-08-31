@@ -326,8 +326,19 @@ interface IObservable<T> {
      * @param eventName Event name (eg. 'after:render')
      * @param handler Function that receives a notification when an event of the specified type occurs
      */
-    on(eventName: 'mouse:up' | 'mouse:down' | 'mouse:move' | 'mouse:up:before' | 'mouse:down:before' | 'mouse:move:before' | 'mouse:dblclick' | 'mouse:over' | 'mouse:out',
-       handler: (e: IEvent<MouseEvent>) => void): T;
+    on(
+        eventName:
+            | 'mouse:up'
+            | 'mouse:down'
+            | 'mouse:move'
+            | 'mouse:up:before'
+            | 'mouse:down:before'
+            | 'mouse:move:before'
+            | 'mouse:dblclick'
+            | 'mouse:over'
+            | 'mouse:out',
+        handler: (e: IEvent<MouseEvent>) => void,
+    ): T;
     on(eventName: 'mouse:wheel', handler: (e: IEvent<WheelEvent>) => void): T;
     on(eventName: string, handler: (e: IEvent) => void): T;
 
