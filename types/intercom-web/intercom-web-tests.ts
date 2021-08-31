@@ -54,6 +54,26 @@ intercomSettings = {
     monthly_spend: 10
   }
 };
+Intercom('trackEvent', 'invited-friend', metadata);
+
+/*
+  From https://developers.intercom.com/installing-intercom/
+         docs/javascript-api-attributes-objects#section-company-object
+*/
+intercomSettings = {
+  app_id: "pi3243fa",
+  user_id: "12345",
+  company: {
+    company_id: "6",
+    created_at: 1394531169,
+    name: "Blue Sun",
+    monthly_spend: 49,
+    plan: "Pro",
+    size: 85,
+    website: "http://example.com",
+    industry: "Manufacturing"
+  }
+};
 
 /*
   From https://docs.intercom.io/configure-intercom-for-your-product-or-site/
