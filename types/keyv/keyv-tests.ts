@@ -51,6 +51,8 @@ new Keyv();
     await keyv.set('foo', 'expires in 1 second', 1000); // $ExpectType true
     await keyv.set('foo', 'never expires'); // $ExpectType true
     await keyv.get('foo'); // $ExpectType string | undefined
+    await keyv.get('foo', { raw: false }); // $ExpectType string | undefined
+    await keyv.get('foo', { raw: true }); // $ExpectType DeserializedData<string> | undefined
     await keyv.delete('foo'); // $ExpectType boolean
     await keyv.clear(); // $ExpectType void
 })();

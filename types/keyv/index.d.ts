@@ -22,7 +22,10 @@ declare class Keyv<TValue = any> extends EventEmitter {
     constructor(uri?: string, opts?: Keyv.Options<TValue>);
 
     /** Returns the value. */
-    get(key: string): Promise<TValue | undefined>;
+    get<TRaw extends boolean = false>(key: string, options?: { raw?: TRaw }):
+      Promise<(TRaw extends false
+        ? TValue
+        : Keyv.DeserializedData<TValue>)  | undefined>;
     /**
      * Set a value.
      *
