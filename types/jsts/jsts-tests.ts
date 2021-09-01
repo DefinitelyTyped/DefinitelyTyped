@@ -311,3 +311,7 @@ bool = li.isProper();
 c = li.getIntersectionAlongSegment(n, n);
 n = li.getIndexAlongSegment(n, n);
 n = li.getEdgeDistance(n, n);
+
+var rli = new jsts.algorithm.RobustLineIntersector();
+rli.computeIntersection(c, c, c);
+rli.computeIntersection(c, c, c, c);
