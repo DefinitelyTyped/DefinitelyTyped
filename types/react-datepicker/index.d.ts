@@ -17,8 +17,9 @@
 // Minimum TypeScript Version: 3.8
 
 import * as React from 'react';
-import * as Popper from "@popperjs/core";
+import * as Popper from '@popperjs/core';
 import { Locale } from 'date-fns';
+import { Modifier } from 'react-popper';
 
 export function registerLocale(localeName: string, localeData: {}): void;
 export function setDefaultLocale(localeName: string): void;
@@ -34,7 +35,7 @@ interface HighlightDates {
     [className: string]: Date[];
 }
 
-export interface ReactDatePickerProps {
+export interface ReactDatePickerProps<Modifiers> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
@@ -121,7 +122,7 @@ export interface ReactDatePickerProps {
     placeholderText?: string | undefined;
     popperClassName?: string | undefined;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: Popper.StrictModifiers[] | undefined;
+    popperModifiers?: ReadonlyArray<Modifier<Modifiers>> | undefined;
     popperPlacement?: Popper.Placement | undefined;
     popperProps?: {} | undefined;
     preventOpenOnFocus?: boolean | undefined;
@@ -192,7 +193,7 @@ export interface ReactDatePickerProps {
     yearItemNumber?: number | undefined;
 }
 
-declare class ReactDatePicker extends React.Component<ReactDatePickerProps> {
+declare class ReactDatePicker<Modifiers> extends React.Component<ReactDatePickerProps<Modifiers>> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;

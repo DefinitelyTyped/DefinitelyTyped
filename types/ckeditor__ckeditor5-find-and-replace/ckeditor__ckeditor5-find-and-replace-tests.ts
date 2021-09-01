@@ -64,3 +64,12 @@ utils.updateFindResultFromRange(range, new Model(), (str, options) => {
     str.startsWith('');
     return utils.findByTextCallback(str, options);
 });
+
+// $ExpectType FindAndReplace
+editor.plugins.get('FindAndReplace');
+
+// $ExpectType FindAndReplaceEditing
+editor.plugins.get('FindAndReplaceEditing');
+
+// $ExpectType FindAndReplaceUI
+editor.plugins.get('FindAndReplaceUI');

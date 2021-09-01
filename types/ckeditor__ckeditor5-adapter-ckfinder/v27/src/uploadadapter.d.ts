@@ -67,3 +67,9 @@ export class UploadAdapter implements IUploadAdapter {
      */
     private _sendRequest(file: File): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        CKFinderUploadAdapter: CKFinderUploadAdapter;
+    }
+}

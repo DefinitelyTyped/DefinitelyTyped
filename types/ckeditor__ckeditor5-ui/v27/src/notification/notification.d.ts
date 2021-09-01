@@ -31,3 +31,9 @@ export default class Notification extends ContextPlugin implements Emitter {
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Notification: Notification;
+    }
+}

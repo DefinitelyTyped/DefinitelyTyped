@@ -10,3 +10,9 @@ export default class ImageInsert extends Plugin {
 export interface ImageInsertConfig {
     integrations: string[];
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageInsert: ImageInsert;
+    }
+}

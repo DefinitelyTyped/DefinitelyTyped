@@ -16,3 +16,12 @@ new InsertHtmlEmbedCommand(editor).refresh();
 
 new UpdateHtmlEmbedCommand(editor).execute('');
 new UpdateHtmlEmbedCommand(editor).refresh();
+
+// $ExpectType HtmlEmbed
+editor.plugins.get('HtmlEmbed');
+
+// $ExpectType HtmlEmbedEditing
+editor.plugins.get('HtmlEmbedEditing');
+
+// $ExpectType HtmlEmbedUI
+editor.plugins.get('HtmlEmbedUI');

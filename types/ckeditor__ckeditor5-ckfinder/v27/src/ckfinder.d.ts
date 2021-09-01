@@ -43,3 +43,9 @@ export interface CKFinderConfig {
         width?: string | number | undefined;
     } | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        CKFinder: CKFinder;
+    }
+}

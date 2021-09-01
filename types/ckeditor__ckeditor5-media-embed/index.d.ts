@@ -1,20 +1,11 @@
-// Type definitions for @ckeditor/ckeditor5-meia-embed 27.1
+// Type definitions for @ckeditor/ckeditor5-meia-embed 29.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/media-embed.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-import MediaEmbed from './src/mediaembed';
-import MediaEmbedEditing from './src/mediaembedediting';
-import MediaEmbedUI from './src/mediaembedui';
-import AutoMediaEmbed from './src/automediaembed';
-import MediaEmbedToolbar from './src/mediaembedtoolbar';
+// Minimum TypeScript Version: 4.3
 
-declare const _default: {
-    MediaEmbed: typeof MediaEmbed;
-    MediaEmbedEditing: typeof MediaEmbedEditing;
-    MediaEmbedUI: typeof MediaEmbedUI;
-    MediaEmbedToolbar: typeof MediaEmbedToolbar;
-    AutoMediaEmbed: typeof AutoMediaEmbed;
-};
-
-export default _default;
+export { default as MediaEmbed } from './src/mediaembed';
+export { default as MediaEmbedEditing } from './src/mediaembedediting';
+export { default as MediaEmbedUI } from './src/mediaembedui';
+export { default as AutoMediaEmbed } from './src/automediaembed';
+export { default as MediaEmbedToolbar } from './src/mediaembedtoolbar';

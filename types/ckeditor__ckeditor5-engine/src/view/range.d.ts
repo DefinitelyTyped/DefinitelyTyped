@@ -76,7 +76,6 @@ export default class Range implements Iterable<TreeWalkerValue> {
     is(type: "documentSelection" | "view:documentSelection"): this is DocumentSelection;
     is(
         type: "element" | "view:element",
-        name?: string,
     ): this is
         | Element
         | ContainerElement
@@ -86,22 +85,47 @@ export default class Range implements Iterable<TreeWalkerValue> {
         | UIElement
         | RawElement
         | EmptyElement;
-    is(type: "attributeElement" | "view:attributeElement", name?: string): this is AttributeElement;
+    is<K extends string>(
+        type: "element" | "view:element",
+        name: K,
+    ): this is (
+        | Element
+        | ContainerElement
+        | EditableElement
+        | RootEditableElement
+        | AttributeElement
+        | UIElement
+        | RawElement
+        | EmptyElement
+    ) & { name: K };
+    is(type: "attributeElement" | "view:attributeElement"): this is AttributeElement;
+    is<K extends string>(
+        type: "attributeElement" | "view:attributeElement",
+        name: K,
+    ): this is AttributeElement & { name: K };
     is(
         type: "containerElement" | "view:containerElement",
-        name?: string,
     ): this is ContainerElement | EditableElement | RootEditableElement;
-    is(
+    is<K extends string>(
+        type: "containerElement" | "view:containerElement",
+        name: K,
+    ): this is (ContainerElement | EditableElement | RootEditableElement) & { name: K };
+    is(type: "editableElement" | "view:editableElement"): this is EditableElement | RootEditableElement;
+    is<K extends string>(
         type: "editableElement" | "view:editableElement",
-        name?: string,
-    ): this is EditableElement | RootEditableElement;
-    is(
+        name: K,
+    ): this is (EditableElement | RootEditableElement) & { name: K };
+    is(type: "rootEditableElement" | "view:rootEditableElement"): this is RootEditableElement;
+    is<K extends string>(
         type: "rootEditableElement" | "view:rootEditableElement",
-        name?: string,
-    ): this is RootEditableElement;
-    is(type: "uiElement" | "view:uiElement", name?: string): this is UIElement;
-    is(type: "rawElement" | "view:rawElement", name?: string): this is RawElement;
-    is(type: "emptyElement" | "view:emptyElement", name?: string): this is EmptyElement;
+        name: K,
+    ): this is RootEditableElement & { name: K };
+    is(type: "uiElement" | "view:uiElement"): this is UIElement;
+    is<K extends string>(type: "uiElement" | "view:uiElement", name: K): this is UIElement & { name: K };
+    is(type: "rawElement" | "view:rawElement"): this is RawElement;
+    is<K extends string>(type: "rawElement" | "view:rawElement", name: K): this is RawElement & { name: K };
+    is(type: "emptyElement" | "view:emptyElement"): this is EmptyElement;
+    is<K extends string>(type: "emptyElement" | "view:emptyElement", name: K): this is EmptyElement & { name: K };
     is(type: "$textProxy" | "view:$textProxy" | "textProxy" | "view:textProxy"): this is TextProxy;
     is(type: "$text" | "view:$text" | "text" | "view:text"): this is Text;
     is(type: string, name?: string): boolean;

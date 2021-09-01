@@ -9,3 +9,9 @@ export interface AlignmentFormat {
     className: string;
     name: "left" | "right" | "center" | "justify";
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        AlignmentEditing: AlignmentEditing;
+    }
+}

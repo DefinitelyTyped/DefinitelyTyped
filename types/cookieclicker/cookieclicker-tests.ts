@@ -118,8 +118,66 @@ const selector: Game.SelectorSwitchChoice = { name: 'Example choice', icon: [10,
 // $ExpectError
 Game.TickerEffect.type;
 
-new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2]).parents.push(Game.UpgradesById[17]);
+const coolUpgrade = new Game.Upgrade('Example upgrade', 'Does <b>nothing</b>.', 456, [1, 2]);
+
+coolUpgrade.parents.push(Game.UpgradesById[17]);
 
 Game.registerHook('reset', hard => {
     alert(`This reset is ${hard ? '' : 'not '}hard!`);
 });
+
+const tiered = Game.TieredUpgrade('Cool socks', '', 'Grandma', 10);
+
+// One of the many real use cases of :2260:9 type parameter hack
+
+tiered.power = me => me.buildingTie1.price;
+
+Game.Objects.Cursor.tieredUpgrades[10] = tiered;
+
+Game.cookiesPsByType.kitten;
+
+// $ExpectError
+l('lumps').style;
+
+// $ExpectError
+Game.Notify('Hello!');
+
+replaceAll(escapeRegExp('++'), '--', '++--++');
+
+const testMod = Game.mods['test-mod'];
+
+// $ExpectError
+if (testMod && testMod.id) testMod.id++;
+
+Math.seedrandom();
+
+Game.foolObjects['Cursor'].desc += '<br/>Haha!';
+
+Game.Objects.Bank.sacrifice(123);
+
+Game.tooltip.tta.removeChild(Game.tooltip.tt);
+
+Game.UnlockTiered(Game.Objects.Factory);
+
+const buildingPicture: Game.BuildingArtPicture = { frame: 0, id: 0, pic: 'icons.png', x: 0, y: 0, z: 0 };
+
+// $ExpectError
+Game.effs.cps + 1;
+
+Game.eff('cps', 5) + 123;
+
+const buffType = new Game.buffType('type definitions', (time, arg1) => ({
+    name: 'Type definitions!',
+    // There's no icon, will default to [0, 0]
+    desc: 'Type definitions make everything good!',
+    time: time * Game.fps,
+    pow: (arg1 ?? 0) * 10,
+}));
+
+const gainedBuff = Game.gainBuff('type definitons', 60);
+
+if (gainedBuff.time === gainedBuff.maxTime && gainedBuff.arg1) console.log(gainedBuff.pow === gainedBuff.arg1 * 10);
+
+gainedBuff.type === buffType;
+
+console.log(SimpleBeautify(1e6));

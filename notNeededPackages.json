@@ -712,6 +712,10 @@
             "libraryName": "cosmiconfig",
             "asOfVersion": "6.0.0"
         },
+        "countries-and-timezones": {
+            "libraryName": "countries-and-timezones",
+            "asOfVersion": "3.2.2"
+        },
         "country-code-lookup": {
             "libraryName": "country-code-lookup",
             "asOfVersion": "0.0.19"
@@ -1016,6 +1020,10 @@
         "egjs__component": {
             "libraryName": "@egjs/component",
             "asOfVersion": "2.1.0"
+        },
+        "egm96-universal": {
+            "libraryName": "egm96-universal",
+            "asOfVersion": "1.1.0"
         },
         "elastic-apm-node": {
             "libraryName": "elastic-apm-node",
@@ -5292,6 +5300,10 @@
         },
         "webpack-merge": {
             "libraryName": "webpack-merge",
+            "asOfVersion": "5.0.0"
+        },
+        "webpack-subresource-integrity": {
+            "libraryName": "webpack-subresource-integrity",
             "asOfVersion": "5.0.0"
         },
         "whatwg-streams": {

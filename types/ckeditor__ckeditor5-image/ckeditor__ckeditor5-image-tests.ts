@@ -26,6 +26,7 @@ import {
     ImageTextAlternativeUI,
     ImageToolbar,
     ImageUpload,
+    ImageUploadEditing,
     ImageUploadProgress,
     ImageUploadUI,
 } from '@ckeditor/ckeditor5-image';
@@ -35,9 +36,12 @@ import ImageTypeCommand from '@ckeditor/ckeditor5-image/src/image/imagetypecomma
 import ImageInsertCommand from '@ckeditor/ckeditor5-image/src/image/insertimagecommand';
 import * as ImageUIUtils from '@ckeditor/ckeditor5-image/src/image/ui/utils';
 import ImageBlock from '@ckeditor/ckeditor5-image/src/imageblock';
+import ImageBlockEditing from '@ckeditor/ckeditor5-image/src/image/imageblockediting';
 import ImageCaptionUI from '@ckeditor/ckeditor5-image/src/imagecaption/imagecaptionui';
 import ToggleImageCaptionCommand from '@ckeditor/ckeditor5-image/src/imagecaption/toggleimagecaptioncommand';
 import * as ImageCaptionUtils from '@ckeditor/ckeditor5-image/src/imagecaption/utils';
+import ImageInline from '@ckeditor/ckeditor5-image/src/imageinline';
+import ImageInlineEditing from '@ckeditor/ckeditor5-image/src/image/imageinlineediting';
 import ImageInsertFormRowView from '@ckeditor/ckeditor5-image/src/imageinsert/ui/imageinsertformrowview';
 import ImageInsertPanelView from '@ckeditor/ckeditor5-image/src/imageinsert/ui/imageinsertpanelview';
 import * as ImageInsertUtils from '@ckeditor/ckeditor5-image/src/imageinsert/utils';
@@ -47,7 +51,7 @@ import ImageStyleCommand from '@ckeditor/ckeditor5-image/src/imagestyle/imagesty
 import ImageStyleUtils from '@ckeditor/ckeditor5-image/src/imagestyle/utils';
 import ImageAlternateCommand from '@ckeditor/ckeditor5-image/src/imagetextalternative/imagetextalternativecommand';
 import TextAlternativeFormView from '@ckeditor/ckeditor5-image/src/imagetextalternative/ui/textalternativeformview';
-import ImageUploadEditing, { isHtmlIncluded } from '@ckeditor/ckeditor5-image/src/imageupload/imageuploadediting';
+import { isHtmlIncluded } from '@ckeditor/ckeditor5-image/src/imageupload/imageuploadediting';
 import ImageUploadCommand from '@ckeditor/ckeditor5-image/src/imageupload/uploadimagecommand';
 import * as ImageUploadUtils from '@ckeditor/ckeditor5-image/src/imageupload/utils';
 import ImageUtils from '@ckeditor/ckeditor5-image/src/imageutils';
@@ -257,3 +261,90 @@ new MyEditor({
         },
     },
 });
+
+// $ExpectType AutoImage
+editor.plugins.get('AutoImage');
+
+// $ExpectType Image
+editor.plugins.get('Image');
+
+// $ExpectType ImageBlock
+editor.plugins.get('ImageBlock');
+
+// $ExpectType ImageBlockEditing
+editor.plugins.get('ImageBlockEditing');
+
+// $ExpectType ImageCaption
+editor.plugins.get('ImageCaption');
+
+// $ExpectType ImageCaptionEditing
+editor.plugins.get('ImageCaptionEditing');
+
+// $ExpectType ImageCaptionUI
+editor.plugins.get('ImageCaptionUI');
+
+// $ExpectType ImageEditing
+editor.plugins.get('ImageEditing');
+
+// $ExpectType ImageInline
+editor.plugins.get('ImageInline');
+
+// $ExpectType ImageInlineEditing
+editor.plugins.get('ImageInlineEditing');
+
+// $ExpectType ImageInsert
+editor.plugins.get('ImageInsert');
+
+// $ExpectType ImageInsertUI
+editor.plugins.get('ImageInsertUI');
+
+// $ExpectType ImageResize
+editor.plugins.get('ImageResize');
+
+// $ExpectType ImageResizeButtons
+editor.plugins.get('ImageResizeButtons');
+
+// $ExpectType ImageResizeEditing
+editor.plugins.get('ImageResizeEditing');
+
+// $ExpectType ImageResizeHandles
+editor.plugins.get('ImageResizeHandles');
+
+// $ExpectType ImageStyle
+editor.plugins.get('ImageStyle');
+
+// $ExpectType ImageStyleEditing
+editor.plugins.get('ImageStyleEditing');
+
+// $ExpectType ImageStyleUI
+editor.plugins.get('ImageStyleUI');
+
+// $ExpectType ImageTextAlternative
+editor.plugins.get('ImageTextAlternative');
+
+// $ExpectType ImageTextAlternativeEditing
+editor.plugins.get('ImageTextAlternativeEditing');
+
+// $ExpectType ImageTextAlternativeUI
+editor.plugins.get('ImageTextAlternativeUI');
+
+// $ExpectType ImageToolbar
+editor.plugins.get('ImageToolbar');
+
+// $ExpectType ImageUpload
+editor.plugins.get('ImageUpload');
+
+// $ExpectType ImageUploadEditing
+editor.plugins.get('ImageUploadEditing');
+
+// $ExpectType ImageUploadProgress
+editor.plugins.get('ImageUploadProgress');
+
+// $ExpectType ImageUploadUI
+editor.plugins.get('ImageUploadUI');
+
+// $ExpectType ImageUtils
+editor.plugins.get('ImageUtils');
+
+// $ExpectType PictureEditing
+editor.plugins.get('PictureEditing');

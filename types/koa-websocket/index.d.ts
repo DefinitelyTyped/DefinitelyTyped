@@ -23,7 +23,7 @@ declare module "koa" {
 }
 
 declare namespace KoaWebsocket {
-    type Middleware<StateT, CustomT> = compose.Middleware<MiddlewareContext<StateT> & CustomT>;
+    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = compose.Middleware<MiddlewareContext<StateT> & ContextT>;
 
     interface MiddlewareContext<StateT> extends Koa.Context {
         // Limitation: Declaration merging cannot overwrap existing properties.
@@ -32,23 +32,30 @@ declare namespace KoaWebsocket {
         state: StateT;
     }
 
-    class Server<StateT = any, CustomT = {}> {
+    class Server<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
         app: App;
-        middleware: Array<Middleware<StateT, CustomT>>;
+        middleware: Array<Middleware<StateT, ContextT>>;
         server?: ws.Server | undefined;
 
-        constructor(app: Koa<StateT, CustomT>);
+        constructor(app: Koa<StateT, ContextT>);
 
         listen(options: ws.ServerOptions): ws.Server;
         onConnection(socket: ws, request: http.IncomingMessage): void;
-        use(middleware: Middleware<StateT, CustomT>): this;
+        use(middleware: Middleware<StateT, ContextT>): this;
     }
 
-    interface App<StateT = Koa.DefaultState, CustomT = Koa.DefaultContext> extends Koa<StateT, CustomT> {
-        ws: Server<StateT, CustomT>;
+    interface App<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> extends Koa<StateT, ContextT> {
+        ws: Server<StateT, ContextT>;
     }
 }
 
-declare function KoaWebsocket<StateT = any, CustomT = {}>(app: Koa<StateT, CustomT>, wsOptions?: ws.ServerOptions, httpsOptions?: https.ServerOptions): KoaWebsocket.App<StateT, CustomT>;
+declare function KoaWebsocket<
+  StateT = Koa.DefaultState,
+  ContextT = Koa.DefaultContext
+>(
+  app: Koa<StateT, ContextT>,
+  wsOptions?: ws.ServerOptions,
+  httpsOptions?: https.ServerOptions
+): KoaWebsocket.App<StateT, ContextT>;
 
 export = KoaWebsocket;

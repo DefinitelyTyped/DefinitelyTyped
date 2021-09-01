@@ -199,3 +199,69 @@ new MyEditor({
         ],
     },
 });
+
+// $ExpectType AutoImage
+editor.plugins.get('AutoImage');
+
+// $ExpectType Image
+editor.plugins.get('Image');
+
+// $ExpectType ImageCaption
+editor.plugins.get('ImageCaption');
+
+// $ExpectType ImageCaptionEditing
+editor.plugins.get('ImageCaptionEditing');
+
+// $ExpectType ImageEditing
+editor.plugins.get('ImageEditing');
+
+// $ExpectType ImageInsert
+editor.plugins.get('ImageInsert');
+
+// $ExpectType ImageInsertUI
+editor.plugins.get('ImageInsertUI');
+
+// $ExpectType ImageResize
+editor.plugins.get('ImageResize');
+
+// $ExpectType ImageResizeButtons
+editor.plugins.get('ImageResizeButtons');
+
+// $ExpectType ImageResizeEditing
+editor.plugins.get('ImageResizeEditing');
+
+// $ExpectType ImageResizeHandles
+editor.plugins.get('ImageResizeHandles');
+
+// $ExpectType ImageStyle
+editor.plugins.get('ImageStyle');
+
+// $ExpectType ImageStyleEditing
+editor.plugins.get('ImageStyleEditing');
+
+// $ExpectType ImageStyleUI
+editor.plugins.get('ImageStyleUI');
+
+// $ExpectType ImageTextAlternative
+editor.plugins.get('ImageTextAlternative');
+
+// $ExpectType ImageTextAlternativeEditing
+editor.plugins.get('ImageTextAlternativeEditing');
+
+// $ExpectType ImageTextAlternativeUI
+editor.plugins.get('ImageTextAlternativeUI');
+
+// $ExpectType ImageToolbar
+editor.plugins.get('ImageToolbar');
+
+// $ExpectType ImageUpload
+editor.plugins.get('ImageUpload');
+
+// $ExpectType ImageUploadEditing
+editor.plugins.get('ImageUploadEditing');
+
+// $ExpectType ImageUploadProgress
+editor.plugins.get('ImageUploadProgress');
+
+// $ExpectType ImageUploadUI
+editor.plugins.get('ImageUploadUI');

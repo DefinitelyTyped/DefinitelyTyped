@@ -18,3 +18,9 @@ export interface HighlightOption {
 export interface HighlightConfig {
     options: HighlightOption[];
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Highlight: Highlight;
+    }
+}

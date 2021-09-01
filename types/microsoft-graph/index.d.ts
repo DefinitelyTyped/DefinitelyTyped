@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.3
+// Type definitions for non-npm package microsoft-graph 2.4
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -2308,7 +2308,7 @@ export interface Invitation extends Entity {
     inviteRedeemUrl?: NullableOption<string>;
     // The URL user should be redirected to once the invitation is redeemed. Required.
     inviteRedirectUrl?: string;
-    // Indicates whether an email should be sent to the user being invited or not. The default is false.
+    // Indicates whether an email should be sent to the user being invited. The default is false.
     sendInvitationMessage?: NullableOption<boolean>;
     // The status of the invitation. Possible values: PendingAcceptance, Completed, InProgress, and Error
     status?: NullableOption<string>;
@@ -3440,6 +3440,9 @@ export interface Site extends BaseItem {
     permissions?: NullableOption<Permission[]>;
     // The collection of the sub-sites under this site.
     sites?: NullableOption<Site[]>;
+    // The termStore under this site.
+    termStore?: NullableOption<TermStore.Store>;
+    termStores?: NullableOption<TermStore.Store[]>;
     // Calls the OneNote service for notebook related operations.
     onenote?: NullableOption<Onenote>;
 }
@@ -4337,7 +4340,7 @@ export interface AuthenticationMethodsPolicy extends Entity {
 export interface AuthenticationMethodTarget extends Entity {
     // Determines if the user is enforced to register the authentication method.
     isRegistrationRequired?: boolean;
-    // Possible values are: user, group.
+    // Possible values are: user, group, and unknownFutureValue.
     targetType?: AuthenticationMethodTargetType;
 }
 export interface EmailAuthenticationMethodConfiguration extends AuthenticationMethodConfiguration {
@@ -4370,14 +4373,14 @@ export interface MicrosoftAuthenticatorAuthenticationMethodConfiguration extends
 }
 export interface MicrosoftAuthenticatorAuthenticationMethodTarget extends AuthenticationMethodTarget {
     /**
-     * Determines which types of notifications can be used for sign-in. Possible values are: any, deviceBasedPush
-     * (passwordless only), push.
+     * Determines which types of notifications can be used for sign-in. The possible values are: deviceBasedPush (passwordless
+     * only), push, and any.
      */
     authenticationMode?: MicrosoftAuthenticatorAuthenticationMode;
     /**
-     * Determines what additional settings should be applied to Microsoft Authenticator. Possible values are: null,
+     * Determines what additional settings should be applied to Microsoft Authenticator. The possible values are:
      * requireNumberMatching (Requires number matching for MFA notifications. Value is ignored for phone sign-in
-     * notifications).
+     * notifications). Nullable.
      */
     featureSettings?: NullableOption<AuthenticatorAppFeatureSettings>;
 }
@@ -4567,6 +4570,479 @@ export interface ThreatAssessmentRequest extends Entity {
      * this property unless you apply $expand on it.
      */
     results?: NullableOption<ThreatAssessmentResult[]>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface Compliance {}
+export interface Group extends DirectoryObject {
+    /**
+     * The list of sensitivity label pairs (label ID, label name) associated with a Microsoft 365 group. Returned only on
+     * $select.
+     */
+    assignedLabels?: NullableOption<AssignedLabel[]>;
+    // The licenses that are assigned to the group. Returned only on $select. Supports $filter (eq). Read-only.
+    assignedLicenses?: NullableOption<AssignedLicense[]>;
+    /**
+     * Describes a classification for the group (such as low, medium or high business impact). Valid values for this property
+     * are defined by creating a ClassificationList setting value, based on the template definition.Returned by default.
+     * Supports $filter (eq, ne, NOT, ge, le, startsWith).
+     */
+    classification?: NullableOption<string>;
+    /**
+     * Timestamp of when the group was created. The value cannot be modified and is automatically populated when the group is
+     * created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For
+     * example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne, NOT, ge,
+     * le, in). Read-only.
+     */
+    createdDateTime?: NullableOption<string>;
+    /**
+     * An optional description for the group. Returned by default. Supports $filter (eq, ne, NOT, ge, le, startsWith) and
+     * $search.
+     */
+    description?: NullableOption<string>;
+    /**
+     * The display name for the group. This property is required when a group is created and cannot be cleared during updates.
+     * Returned by default. Supports $filter (eq, ne, NOT, ge, le, in, startsWith), $search, and $orderBy.
+     */
+    displayName?: NullableOption<string>;
+    /**
+     * Timestamp of when the group is set to expire. The value cannot be modified and is automatically populated when the
+     * group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC
+     * time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne,
+     * NOT, ge, le, in). Read-only.
+     */
+    expirationDateTime?: NullableOption<string>;
+    /**
+     * Specifies the group type and its membership. If the collection contains Unified, the group is a Microsoft 365 group;
+     * otherwise, it's either a security group or distribution group. For details, see groups overview.If the collection
+     * includes DynamicMembership, the group has dynamic membership; otherwise, membership is static. Returned by default.
+     * Supports $filter (eq, NOT).
+     */
+    groupTypes?: string[];
+    /**
+     * Indicates whether there are members in this group that have license errors from its group-based license assignment.
+     * This property is never returned on a GET operation. You can use it as a $filter argument to get groups that have
+     * members with license errors (that is, filter for this property being true). Supports $filter (eq).
+     */
+    hasMembersWithLicenseErrors?: NullableOption<boolean>;
+    /**
+     * Indicates whether this group can be assigned to an Azure Active Directory role.This property can only be set while
+     * creating the group and is immutable. If set to true, the securityEnabled property must also be set to true and the
+     * group cannot be a dynamic group (that is, groupTypes cannot contain DynamicMembership). Only callers in Global
+     * administrator and Privileged role administrator roles can set this property. The caller must be assigned the
+     * RoleManagement.ReadWrite.Directory permission to set this property or update the membership of such groups. For more,
+     * see Using a group to manage Azure AD role assignmentsReturned by default. Supports $filter (eq, ne, NOT).
+     */
+    isAssignableToRole?: NullableOption<boolean>;
+    /**
+     * Indicates status of the group license assignment to all members of the group. Possible values: QueuedForProcessing,
+     * ProcessingInProgress, and ProcessingComplete. Returned only on $select. Read-only.
+     */
+    licenseProcessingState?: NullableOption<LicenseProcessingState>;
+    /**
+     * The SMTP address for the group, for example, 'serviceadmins@contoso.onmicrosoft.com'. Returned by default. Read-only.
+     * Supports $filter (eq, ne, NOT, ge, le, in, startsWith).
+     */
+    mail?: NullableOption<string>;
+    // Specifies whether the group is mail-enabled. Returned by default. Supports $filter (eq, ne, NOT).
+    mailEnabled?: NullableOption<boolean>;
+    /**
+     * The mail alias for the group, unique in the organization. This property must be specified when a group is created.
+     * These characters cannot be used in the mailNickName: @()/[]';:.&amp;lt;&amp;gt;,SPACE. Returned by default. Supports
+     * $filter (eq, ne, NOT, ge, le, in, startsWith).
+     */
+    mailNickname?: NullableOption<string>;
+    /**
+     * The rule that determines members for this group if the group is a dynamic group (groupTypes contains
+     * DynamicMembership). For more information about the syntax of the membership rule, see Membership Rules syntax. Returned
+     * by default. Supports $filter (eq, ne, NOT, ge, le, startsWith).
+     */
+    membershipRule?: NullableOption<string>;
+    /**
+     * Indicates whether the dynamic membership processing is on or paused. Possible values are On or Paused. Returned by
+     * default. Supports $filter (eq, ne, NOT, in).
+     */
+    membershipRuleProcessingState?: NullableOption<string>;
+    /**
+     * Contains the on-premises domain FQDN, also called dnsDomainName synchronized from the on-premises directory. The
+     * property is only populated for customers who are synchronizing their on-premises directory to Azure Active Directory
+     * via Azure AD Connect.Returned by default. Read-only.
+     */
+    onPremisesDomainName?: NullableOption<string>;
+    /**
+     * Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date
+     * and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
+     * 2014-01-01T00:00:00Z. Returned by default. Read-only. Supports $filter (eq, ne, NOT, ge, le, in).
+     */
+    onPremisesLastSyncDateTime?: NullableOption<string>;
+    /**
+     * Contains the on-premises netBios name synchronized from the on-premises directory. The property is only populated for
+     * customers who are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect.Returned by
+     * default. Read-only.
+     */
+    onPremisesNetBiosName?: NullableOption<string>;
+    /**
+     * Errors when using Microsoft synchronization product during provisioning. Returned by default. Supports $filter (eq,
+     * NOT).
+     */
+    onPremisesProvisioningErrors?: NullableOption<OnPremisesProvisioningError[]>;
+    /**
+     * Contains the on-premises SAM account name synchronized from the on-premises directory. The property is only populated
+     * for customers who are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect.Returned
+     * by default. Supports $filter (eq, ne, NOT, ge, le, in, startsWith). Read-only.
+     */
+    onPremisesSamAccountName?: NullableOption<string>;
+    /**
+     * Contains the on-premises security identifier (SID) for the group that was synchronized from on-premises to the cloud.
+     * Returned by default. Supports $filter on null values. Read-only.
+     */
+    onPremisesSecurityIdentifier?: NullableOption<string>;
+    /**
+     * true if this group is synced from an on-premises directory; false if this group was originally synced from an
+     * on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory
+     * (default). Returned by default. Read-only. Supports $filter (eq, ne, NOT, in).
+     */
+    onPremisesSyncEnabled?: NullableOption<boolean>;
+    // The preferred data location for the group. For more information, see OneDrive Online Multi-Geo. Returned by default.
+    preferredDataLocation?: NullableOption<string>;
+    /**
+     * The preferred language for a Microsoft 365 group. Should follow ISO 639-1 Code; for example 'en-US'. Returned by
+     * default. Supports $filter (eq, ne, NOT, ge, le, in, startsWith).
+     */
+    preferredLanguage?: NullableOption<string>;
+    /**
+     * Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp:
+     * bob@sales.contoso.com']. The any operator is required for filter expressions on multi-valued properties. Returned by
+     * default. Read-only. Not nullable. Supports $filter (eq, NOT, ge, le, startsWith).
+     */
+    proxyAddresses?: string[];
+    /**
+     * Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew
+     * service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC
+     * time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne,
+     * NOT, ge, le, in). Read-only.
+     */
+    renewedDateTime?: NullableOption<string>;
+    // Specifies whether the group is a security group. Returned by default. Supports $filter (eq, ne, NOT, in).
+    securityEnabled?: NullableOption<boolean>;
+    // Security identifier of the group, used in Windows scenarios. Returned by default.
+    securityIdentifier?: NullableOption<string>;
+    /**
+     * Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red.
+     * Returned by default.
+     */
+    theme?: NullableOption<string>;
+    /**
+     * Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or
+     * Hiddenmembership. Hiddenmembership can be set only for Microsoft 365 groups, when the groups are created. It can't be
+     * updated later. Other values of visibility can be updated after group creation. If visibility value is not specified
+     * during group creation on Microsoft Graph, a security group is created as Private by default and Microsoft 365 group is
+     * Public. See group visibility options to learn more. Returned by default.
+     */
+    visibility?: NullableOption<string>;
+    /**
+     * Indicates if people external to the organization can send messages to the group. Default value is false. Returned only
+     * on $select. Supported only on the Get group API (GET /groups/{ID}).
+     */
+    allowExternalSenders?: NullableOption<boolean>;
+    /**
+     * Indicates if new members added to the group will be auto-subscribed to receive email notifications. You can set this
+     * property in a PATCH request for the group; do not set it in the initial POST request that creates the group. Default
+     * value is false. Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
+     */
+    autoSubscribeNewMembers?: NullableOption<boolean>;
+    /**
+     * true if the group is not displayed in certain parts of the Outlook user interface: in the Address Book, in address
+     * lists for selecting message recipients, and in the Browse Groups dialog for searching groups; false otherwise. Default
+     * value is false. Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
+     */
+    hideFromAddressLists?: NullableOption<boolean>;
+    /**
+     * true if the group is not displayed in Outlook clients, such as Outlook for Windows and Outlook on the web, false
+     * otherwise. Default value is false. Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
+     */
+    hideFromOutlookClients?: NullableOption<boolean>;
+    /**
+     * Indicates whether the signed-in user is subscribed to receive email conversations. Default value is true. Returned only
+     * on $select. Supported only on the Get group API (GET /groups/{ID}).
+     */
+    isSubscribedByMail?: NullableOption<boolean>;
+    /**
+     * Count of conversations that have received new posts since the signed-in user last visited the group. This property is
+     * the same as unseenConversationsCount.Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
+     */
+    unseenCount?: NullableOption<number>;
+    isArchived?: NullableOption<boolean>;
+    // Represents the app roles a group has been granted for an application. Supports $expand.
+    appRoleAssignments?: NullableOption<AppRoleAssignment[]>;
+    // The user (or application) that created the group. Note: This is not set if the user is an administrator. Read-only.
+    createdOnBehalfOf?: NullableOption<DirectoryObject>;
+    /**
+     * Groups and administrative units that this group is a member of. HTTP Methods: GET (supported for all groups).
+     * Read-only. Nullable. Supports $expand.
+     */
+    memberOf?: NullableOption<DirectoryObject[]>;
+    /**
+     * Users, contacts, and groups that are members of this group. HTTP Methods: GET (supported for all groups), POST
+     * (supported for security groups and mail-enabled security groups), DELETE (supported only for security groups)
+     * Read-only. Nullable. Supports $expand.
+     */
+    members?: NullableOption<DirectoryObject[]>;
+    // A list of group members with license errors from this group-based license assignment. Read-only.
+    membersWithLicenseErrors?: NullableOption<DirectoryObject[]>;
+    /**
+     * The owners of the group. The owners are a set of non-admin users who are allowed to modify this object. HTTP Methods:
+     * GET (supported for all groups), POST (supported for security groups and mail-enabled security groups), DELETE
+     * (supported only for security groups) Read-only. Nullable. Supports $expand.
+     */
+    owners?: NullableOption<DirectoryObject[]>;
+    // The permissions that have been granted for a group to a specific application. Supports $expand.
+    permissionGrants?: NullableOption<ResourceSpecificPermissionGrant[]>;
+    // Settings that can govern this group's behavior, like whether members can invite guest users to the group. Nullable.
+    settings?: NullableOption<GroupSetting[]>;
+    transitiveMemberOf?: NullableOption<DirectoryObject[]>;
+    transitiveMembers?: NullableOption<DirectoryObject[]>;
+    /**
+     * The list of users or groups that are allowed to create post's or calendar events in this group. If this list is
+     * non-empty then only users or groups listed here are allowed to post.
+     */
+    acceptedSenders?: NullableOption<DirectoryObject[]>;
+    // The group's calendar. Read-only.
+    calendar?: NullableOption<Calendar>;
+    // The calendar view for the calendar. Read-only.
+    calendarView?: NullableOption<Event[]>;
+    // The group's conversations.
+    conversations?: NullableOption<Conversation[]>;
+    // The group's events.
+    events?: NullableOption<Event[]>;
+    // The group's profile photo.
+    photo?: NullableOption<ProfilePhoto>;
+    // The profile photos owned by the group. Read-only. Nullable.
+    photos?: NullableOption<ProfilePhoto[]>;
+    // The list of users or groups that are not allowed to create posts or calendar events in this group. Nullable
+    rejectedSenders?: NullableOption<DirectoryObject[]>;
+    // The group's conversation threads. Nullable.
+    threads?: NullableOption<ConversationThread[]>;
+    // The group's default drive. Read-only.
+    drive?: NullableOption<Drive>;
+    // The group's drives. Read-only.
+    drives?: NullableOption<Drive[]>;
+    // The list of SharePoint sites in this group. Access the default site with /sites/root.
+    sites?: NullableOption<Site[]>;
+    // The collection of open extensions defined for the group. Read-only. Nullable.
+    extensions?: NullableOption<Extension[]>;
+    // The collection of lifecycle policies for this group. Read-only. Nullable.
+    groupLifecyclePolicies?: NullableOption<GroupLifecyclePolicy[]>;
+    // Selective Planner services available to the group. Read-only. Nullable.
+    planner?: NullableOption<PlannerGroup>;
+    // Read-only.
+    onenote?: NullableOption<Onenote>;
+    team?: NullableOption<Team>;
+}
+export interface ResourceSpecificPermissionGrant extends DirectoryObject {
+    // ID of the service principal of the Azure AD app that has been granted access. Read-only.
+    clientAppId?: NullableOption<string>;
+    // ID of the Azure AD app that has been granted access. Read-only.
+    clientId?: NullableOption<string>;
+    // The name of the resource-specific permission. Read-only.
+    permission?: NullableOption<string>;
+    // The type of permission. Possible values are: Application, Delegated. Read-only.
+    permissionType?: NullableOption<string>;
+    // ID of the Azure AD app that is hosting the resource. Read-only.
+    resourceAppId?: NullableOption<string>;
+}
+export interface GroupSetting extends Entity {
+    // Display name of this group of settings, which comes from the associated template.
+    displayName?: NullableOption<string>;
+    // Unique identifier for the template used to create this group of settings. Read-only.
+    templateId?: NullableOption<string>;
+    // Collection of name value pairs. Must contain and set all the settings defined in the template.
+    values?: SettingValue[];
+}
+export interface Conversation extends Entity {
+    // Indicates whether any of the posts within this Conversation has at least one attachment.
+    hasAttachments?: boolean;
+    /**
+     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     */
+    lastDeliveredDateTime?: string;
+    // A short summary from the body of the latest post in this converstaion.
+    preview?: string;
+    // The topic of the conversation. This property can be set when the conversation is created, but it cannot be updated.
+    topic?: string;
+    // All the users that sent a message to this Conversation.
+    uniqueSenders?: string[];
+    // A collection of all the conversation threads in the conversation. A navigation property. Read-only. Nullable.
+    threads?: NullableOption<ConversationThread[]>;
+}
+export interface ConversationThread extends Entity {
+    // The Cc: recipients for the thread. Returned only on $select.
+    ccRecipients?: Recipient[];
+    // Indicates whether any of the posts within this thread has at least one attachment. Returned by default.
+    hasAttachments?: boolean;
+    // Indicates if the thread is locked. Returned by default.
+    isLocked?: boolean;
+    /**
+     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default.
+     */
+    lastDeliveredDateTime?: string;
+    // A short summary from the body of the latest post in this conversation. Returned by default.
+    preview?: string;
+    /**
+     * The topic of the conversation. This property can be set when the conversation is created, but it cannot be updated.
+     * Returned by default.
+     */
+    topic?: string;
+    // The To: recipients for the thread. Returned only on $select.
+    toRecipients?: Recipient[];
+    // All the users that sent a message to this thread. Returned by default.
+    uniqueSenders?: string[];
+    // Read-only. Nullable.
+    posts?: NullableOption<Post[]>;
+}
+export interface GroupLifecyclePolicy extends Entity {
+    /**
+     * List of email address to send notifications for groups without owners. Multiple email address can be defined by
+     * separating email address with a semicolon.
+     */
+    alternateNotificationEmails?: NullableOption<string>;
+    /**
+     * Number of days before a group expires and needs to be renewed. Once renewed, the group expiration is extended by the
+     * number of days defined.
+     */
+    groupLifetimeInDays?: NullableOption<number>;
+    // The group type for which the expiration policy applies. Possible values are All, Selected or None.
+    managedGroupTypes?: NullableOption<string>;
+}
+export interface PlannerGroup extends Entity {
+    // Read-only. Nullable. Returns the plannerPlans owned by the group.
+    plans?: NullableOption<PlannerPlan[]>;
+}
+// tslint:disable-next-line: interface-name
+export interface ItemAnalytics extends Entity {
+    allTime?: NullableOption<ItemActivityStat>;
+    itemActivityStats?: NullableOption<ItemActivityStat[]>;
+    lastSevenDays?: NullableOption<ItemActivityStat>;
+}
+export interface ColumnDefinition extends Entity {
+    // This column stores boolean values.
+    boolean?: NullableOption<BooleanColumn>;
+    // This column's data is calculated based on other columns.
+    calculated?: NullableOption<CalculatedColumn>;
+    // This column stores data from a list of choices.
+    choice?: NullableOption<ChoiceColumn>;
+    // For site columns, the name of the group this column belongs to. Helps organize related columns.
+    columnGroup?: NullableOption<string>;
+    // This column stores currency values.
+    currency?: NullableOption<CurrencyColumn>;
+    // This column stores DateTime values.
+    dateTime?: NullableOption<DateTimeColumn>;
+    // The default value for this column.
+    defaultValue?: NullableOption<DefaultColumnValue>;
+    // The user-facing description of the column.
+    description?: NullableOption<string>;
+    // The user-facing name of the column.
+    displayName?: NullableOption<string>;
+    // If true, no two list items may have the same value for this column.
+    enforceUniqueValues?: NullableOption<boolean>;
+    // This column stores a geolocation.
+    geolocation?: NullableOption<GeolocationColumn>;
+    // Specifies whether the column is displayed in the user interface.
+    hidden?: NullableOption<boolean>;
+    // Specifies whether the column values can used for sorting and searching.
+    indexed?: NullableOption<boolean>;
+    // This column's data is looked up from another source in the site.
+    lookup?: NullableOption<LookupColumn>;
+    /**
+     * The API-facing name of the column as it appears in the [fields][] on a [listItem][]. For the user-facing name, see
+     * displayName.
+     */
+    name?: NullableOption<string>;
+    // This column stores number values.
+    number?: NullableOption<NumberColumn>;
+    // This column stores Person or Group values.
+    personOrGroup?: NullableOption<PersonOrGroupColumn>;
+    // Specifies whether the column values can be modified.
+    readOnly?: NullableOption<boolean>;
+    // Specifies whether the column value isn't optional.
+    required?: NullableOption<boolean>;
+    // This column stores text values.
+    text?: NullableOption<TextColumn>;
+}
+export interface ContentType extends Entity {
+    // The descriptive text for the item.
+    description?: NullableOption<string>;
+    // The name of the group this content type belongs to. Helps organize related content types.
+    group?: NullableOption<string>;
+    // Indicates whether the content type is hidden in the list's 'New' menu.
+    hidden?: NullableOption<boolean>;
+    /**
+     * If this content type is inherited from another scope (like a site), provides a reference to the item where the content
+     * type is defined.
+     */
+    inheritedFrom?: NullableOption<ItemReference>;
+    // The name of the content type.
+    name?: NullableOption<string>;
+    // Specifies the order in which the content type appears in the selection UI.
+    order?: NullableOption<ContentTypeOrder>;
+    // The unique identifier of the content type.
+    parentId?: NullableOption<string>;
+    // If true, the content type cannot be modified unless this value is first set to false.
+    readOnly?: NullableOption<boolean>;
+    /**
+     * If true, the content type cannot be modified by users or through push-down operations. Only site collection
+     * administrators can seal or unseal content types.
+     */
+    sealed?: NullableOption<boolean>;
+    // The collection of columns that are required by this content type
+    columnLinks?: NullableOption<ColumnLink[]>;
+}
+export interface List extends BaseItem {
+    // The displayable title of the list.
+    displayName?: NullableOption<string>;
+    // Provides additional details about the list.
+    list?: NullableOption<ListInfo>;
+    // Returns identifiers useful for SharePoint REST compatibility. Read-only.
+    sharepointIds?: NullableOption<SharepointIds>;
+    // If present, indicates that this is a system-managed list. Read-only.
+    system?: NullableOption<SystemFacet>;
+    // The collection of field definitions for this list.
+    columns?: NullableOption<ColumnDefinition[]>;
+    // The collection of content types present in this list.
+    contentTypes?: NullableOption<ContentType[]>;
+    // Only present on document libraries. Allows access to the list as a [drive][] resource with [driveItems][driveItem].
+    drive?: NullableOption<Drive>;
+    // All items contained in the list.
+    items?: NullableOption<ListItem[]>;
+    // The set of subscriptions on the list.
+    subscriptions?: NullableOption<Subscription[]>;
+}
+export interface Permission extends Entity {
+    /**
+     * A format of yyyy-MM-ddTHH:mm:ssZ of DateTimeOffset indicates the expiration time of the permission. DateTime.MinValue
+     * indicates there is no expiration set for this permission. Optional.
+     */
+    expirationDateTime?: NullableOption<string>;
+    // For user type permissions, the details of the users &amp; applications for this permission. Read-only.
+    grantedTo?: NullableOption<IdentitySet>;
+    // For link type permissions, the details of the users to whom permission was granted. Read-only.
+    grantedToIdentities?: NullableOption<IdentitySet[]>;
+    /**
+     * This indicates whether password is set for this permission, it's only showing in response. Optional and Read-only and
+     * for OneDrive Personal only.
+     */
+    hasPassword?: NullableOption<boolean>;
+    // Provides a reference to the ancestor of the current permission, if it is inherited from an ancestor. Read-only.
+    inheritedFrom?: NullableOption<ItemReference>;
+    // Details of any associated sharing invitation for this permission. Read-only.
+    invitation?: NullableOption<SharingInvitation>;
+    // Provides the link details of the current permission, if it is a link type permissions. Read-only.
+    link?: NullableOption<SharingLink>;
+    // The type of permission, e.g. read. See below for the full list of roles. Read-only.
+    roles?: NullableOption<string[]>;
+    // A unique token that can be used to access this shared item via the [shares API][]. Read-only.
+    shareId?: NullableOption<string>;
 }
 // tslint:disable-next-line: interface-name
 export interface IdentityApiConnector extends Entity {
@@ -5033,352 +5509,6 @@ export interface DomainDnsUnavailableRecord extends DomainDnsRecord {
     // Provides the reason why the DomainDnsUnavailableRecord entity is returned.
     description?: NullableOption<string>;
 }
-export interface Group extends DirectoryObject {
-    /**
-     * The list of sensitivity label pairs (label ID, label name) associated with a Microsoft 365 group. Returned only on
-     * $select.
-     */
-    assignedLabels?: NullableOption<AssignedLabel[]>;
-    // The licenses that are assigned to the group. Returned only on $select. Supports $filter (eq). Read-only.
-    assignedLicenses?: NullableOption<AssignedLicense[]>;
-    /**
-     * Describes a classification for the group (such as low, medium or high business impact). Valid values for this property
-     * are defined by creating a ClassificationList setting value, based on the template definition.Returned by default.
-     * Supports $filter (eq, ne, NOT, ge, le, startsWith).
-     */
-    classification?: NullableOption<string>;
-    /**
-     * Timestamp of when the group was created. The value cannot be modified and is automatically populated when the group is
-     * created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For
-     * example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne, NOT, ge,
-     * le, in). Read-only.
-     */
-    createdDateTime?: NullableOption<string>;
-    /**
-     * An optional description for the group. Returned by default. Supports $filter (eq, ne, NOT, ge, le, startsWith) and
-     * $search.
-     */
-    description?: NullableOption<string>;
-    /**
-     * The display name for the group. This property is required when a group is created and cannot be cleared during updates.
-     * Returned by default. Supports $filter (eq, ne, NOT, ge, le, in, startsWith), $search, and $orderBy.
-     */
-    displayName?: NullableOption<string>;
-    /**
-     * Timestamp of when the group is set to expire. The value cannot be modified and is automatically populated when the
-     * group is created. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC
-     * time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne,
-     * NOT, ge, le, in). Read-only.
-     */
-    expirationDateTime?: NullableOption<string>;
-    /**
-     * Specifies the group type and its membership. If the collection contains Unified, the group is a Microsoft 365 group;
-     * otherwise, it's either a security group or distribution group. For details, see groups overview.If the collection
-     * includes DynamicMembership, the group has dynamic membership; otherwise, membership is static. Returned by default.
-     * Supports $filter (eq, NOT).
-     */
-    groupTypes?: string[];
-    /**
-     * Indicates whether there are members in this group that have license errors from its group-based license assignment.
-     * This property is never returned on a GET operation. You can use it as a $filter argument to get groups that have
-     * members with license errors (that is, filter for this property being true). Supports $filter (eq).
-     */
-    hasMembersWithLicenseErrors?: NullableOption<boolean>;
-    /**
-     * Indicates whether this group can be assigned to an Azure Active Directory role.This property can only be set while
-     * creating the group and is immutable. If set to true, the securityEnabled property must also be set to true and the
-     * group cannot be a dynamic group (that is, groupTypes cannot contain DynamicMembership). Only callers in Global
-     * administrator and Privileged role administrator roles can set this property. The caller must also be assigned the
-     * Directory.AccessAsUser.All permission to set this property. For more, see Using a group to manage Azure AD role
-     * assignmentsReturned by default. Supports $filter (eq, ne, NOT).
-     */
-    isAssignableToRole?: NullableOption<boolean>;
-    /**
-     * Indicates status of the group license assignment to all members of the group. Possible values: QueuedForProcessing,
-     * ProcessingInProgress, and ProcessingComplete. Returned only on $select. Read-only.
-     */
-    licenseProcessingState?: NullableOption<LicenseProcessingState>;
-    /**
-     * The SMTP address for the group, for example, 'serviceadmins@contoso.onmicrosoft.com'. Returned by default. Read-only.
-     * Supports $filter (eq, ne, NOT, ge, le, in, startsWith).
-     */
-    mail?: NullableOption<string>;
-    // Specifies whether the group is mail-enabled. Returned by default. Supports $filter (eq, ne, NOT).
-    mailEnabled?: NullableOption<boolean>;
-    /**
-     * The mail alias for the group, unique in the organization. This property must be specified when a group is created.
-     * These characters cannot be used in the mailNickName: @()/[]';:.&amp;lt;&amp;gt;,SPACE. Returned by default. Supports
-     * $filter (eq, ne, NOT, ge, le, in, startsWith).
-     */
-    mailNickname?: NullableOption<string>;
-    /**
-     * The rule that determines members for this group if the group is a dynamic group (groupTypes contains
-     * DynamicMembership). For more information about the syntax of the membership rule, see Membership Rules syntax. Returned
-     * by default. Supports $filter (eq, ne, NOT, ge, le, startsWith).
-     */
-    membershipRule?: NullableOption<string>;
-    /**
-     * Indicates whether the dynamic membership processing is on or paused. Possible values are On or Paused. Returned by
-     * default. Supports $filter (eq, ne, NOT, in).
-     */
-    membershipRuleProcessingState?: NullableOption<string>;
-    /**
-     * Contains the on-premises domain FQDN, also called dnsDomainName synchronized from the on-premises directory. The
-     * property is only populated for customers who are synchronizing their on-premises directory to Azure Active Directory
-     * via Azure AD Connect.Returned by default. Read-only.
-     */
-    onPremisesDomainName?: NullableOption<string>;
-    /**
-     * Indicates the last time at which the group was synced with the on-premises directory.The Timestamp type represents date
-     * and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is
-     * 2014-01-01T00:00:00Z. Returned by default. Read-only. Supports $filter (eq, ne, NOT, ge, le, in).
-     */
-    onPremisesLastSyncDateTime?: NullableOption<string>;
-    /**
-     * Contains the on-premises netBios name synchronized from the on-premises directory. The property is only populated for
-     * customers who are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect.Returned by
-     * default. Read-only.
-     */
-    onPremisesNetBiosName?: NullableOption<string>;
-    /**
-     * Errors when using Microsoft synchronization product during provisioning. Returned by default. Supports $filter (eq,
-     * NOT).
-     */
-    onPremisesProvisioningErrors?: NullableOption<OnPremisesProvisioningError[]>;
-    /**
-     * Contains the on-premises SAM account name synchronized from the on-premises directory. The property is only populated
-     * for customers who are synchronizing their on-premises directory to Azure Active Directory via Azure AD Connect.Returned
-     * by default. Supports $filter (eq, ne, NOT, ge, le, in, startsWith). Read-only.
-     */
-    onPremisesSamAccountName?: NullableOption<string>;
-    /**
-     * Contains the on-premises security identifier (SID) for the group that was synchronized from on-premises to the cloud.
-     * Returned by default. Supports $filter on null values. Read-only.
-     */
-    onPremisesSecurityIdentifier?: NullableOption<string>;
-    /**
-     * true if this group is synced from an on-premises directory; false if this group was originally synced from an
-     * on-premises directory but is no longer synced; null if this object has never been synced from an on-premises directory
-     * (default). Returned by default. Read-only. Supports $filter (eq, ne, NOT, in).
-     */
-    onPremisesSyncEnabled?: NullableOption<boolean>;
-    // The preferred data location for the group. For more information, see OneDrive Online Multi-Geo. Returned by default.
-    preferredDataLocation?: NullableOption<string>;
-    /**
-     * The preferred language for a Microsoft 365 group. Should follow ISO 639-1 Code; for example 'en-US'. Returned by
-     * default. Supports $filter (eq, ne, NOT, ge, le, in, startsWith).
-     */
-    preferredLanguage?: NullableOption<string>;
-    /**
-     * Email addresses for the group that direct to the same group mailbox. For example: ['SMTP: bob@contoso.com', 'smtp:
-     * bob@sales.contoso.com']. The any operator is required for filter expressions on multi-valued properties. Returned by
-     * default. Read-only. Not nullable. Supports $filter (eq, NOT, ge, le, startsWith).
-     */
-    proxyAddresses?: string[];
-    /**
-     * Timestamp of when the group was last renewed. This cannot be modified directly and is only updated via the renew
-     * service action. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC
-     * time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default. Supports $filter (eq, ne,
-     * NOT, ge, le, in). Read-only.
-     */
-    renewedDateTime?: NullableOption<string>;
-    // Specifies whether the group is a security group. Returned by default. Supports $filter (eq, ne, NOT, in).
-    securityEnabled?: NullableOption<boolean>;
-    // Security identifier of the group, used in Windows scenarios. Returned by default.
-    securityIdentifier?: NullableOption<string>;
-    /**
-     * Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red.
-     * Returned by default.
-     */
-    theme?: NullableOption<string>;
-    /**
-     * Specifies the group join policy and group content visibility for groups. Possible values are: Private, Public, or
-     * Hiddenmembership. Hiddenmembership can be set only for Microsoft 365 groups, when the groups are created. It can't be
-     * updated later. Other values of visibility can be updated after group creation. If visibility value is not specified
-     * during group creation on Microsoft Graph, a security group is created as Private by default and Microsoft 365 group is
-     * Public. See group visibility options to learn more. Returned by default.
-     */
-    visibility?: NullableOption<string>;
-    /**
-     * Indicates if people external to the organization can send messages to the group. Default value is false. Returned only
-     * on $select. Supported only on the Get group API (GET /groups/{ID}).
-     */
-    allowExternalSenders?: NullableOption<boolean>;
-    /**
-     * Indicates if new members added to the group will be auto-subscribed to receive email notifications. You can set this
-     * property in a PATCH request for the group; do not set it in the initial POST request that creates the group. Default
-     * value is false. Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
-     */
-    autoSubscribeNewMembers?: NullableOption<boolean>;
-    /**
-     * true if the group is not displayed in certain parts of the Outlook user interface: in the Address Book, in address
-     * lists for selecting message recipients, and in the Browse Groups dialog for searching groups; false otherwise. Default
-     * value is false. Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
-     */
-    hideFromAddressLists?: NullableOption<boolean>;
-    /**
-     * true if the group is not displayed in Outlook clients, such as Outlook for Windows and Outlook on the web, false
-     * otherwise. Default value is false. Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
-     */
-    hideFromOutlookClients?: NullableOption<boolean>;
-    /**
-     * Indicates whether the signed-in user is subscribed to receive email conversations. Default value is true. Returned only
-     * on $select. Supported only on the Get group API (GET /groups/{ID}).
-     */
-    isSubscribedByMail?: NullableOption<boolean>;
-    /**
-     * Count of conversations that have received new posts since the signed-in user last visited the group. This property is
-     * the same as unseenConversationsCount.Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
-     */
-    unseenCount?: NullableOption<number>;
-    isArchived?: NullableOption<boolean>;
-    // Represents the app roles a group has been granted for an application. Supports $expand.
-    appRoleAssignments?: NullableOption<AppRoleAssignment[]>;
-    // The user (or application) that created the group. Note: This is not set if the user is an administrator. Read-only.
-    createdOnBehalfOf?: NullableOption<DirectoryObject>;
-    /**
-     * Groups and administrative units that this group is a member of. HTTP Methods: GET (supported for all groups).
-     * Read-only. Nullable. Supports $expand.
-     */
-    memberOf?: NullableOption<DirectoryObject[]>;
-    /**
-     * Users, contacts, and groups that are members of this group. HTTP Methods: GET (supported for all groups), POST
-     * (supported for security groups and mail-enabled security groups), DELETE (supported only for security groups)
-     * Read-only. Nullable. Supports $expand.
-     */
-    members?: NullableOption<DirectoryObject[]>;
-    // A list of group members with license errors from this group-based license assignment. Read-only.
-    membersWithLicenseErrors?: NullableOption<DirectoryObject[]>;
-    /**
-     * The owners of the group. The owners are a set of non-admin users who are allowed to modify this object. HTTP Methods:
-     * GET (supported for all groups), POST (supported for security groups and mail-enabled security groups), DELETE
-     * (supported only for security groups) Read-only. Nullable. Supports $expand.
-     */
-    owners?: NullableOption<DirectoryObject[]>;
-    // The permissions that have been granted for a group to a specific application. Supports $expand.
-    permissionGrants?: NullableOption<ResourceSpecificPermissionGrant[]>;
-    // Settings that can govern this group's behavior, like whether members can invite guest users to the group. Nullable.
-    settings?: NullableOption<GroupSetting[]>;
-    transitiveMemberOf?: NullableOption<DirectoryObject[]>;
-    transitiveMembers?: NullableOption<DirectoryObject[]>;
-    /**
-     * The list of users or groups that are allowed to create post's or calendar events in this group. If this list is
-     * non-empty then only users or groups listed here are allowed to post.
-     */
-    acceptedSenders?: NullableOption<DirectoryObject[]>;
-    // The group's calendar. Read-only.
-    calendar?: NullableOption<Calendar>;
-    // The calendar view for the calendar. Read-only.
-    calendarView?: NullableOption<Event[]>;
-    // The group's conversations.
-    conversations?: NullableOption<Conversation[]>;
-    // The group's events.
-    events?: NullableOption<Event[]>;
-    // The group's profile photo.
-    photo?: NullableOption<ProfilePhoto>;
-    // The profile photos owned by the group. Read-only. Nullable.
-    photos?: NullableOption<ProfilePhoto[]>;
-    // The list of users or groups that are not allowed to create posts or calendar events in this group. Nullable
-    rejectedSenders?: NullableOption<DirectoryObject[]>;
-    // The group's conversation threads. Nullable.
-    threads?: NullableOption<ConversationThread[]>;
-    // The group's default drive. Read-only.
-    drive?: NullableOption<Drive>;
-    // The group's drives. Read-only.
-    drives?: NullableOption<Drive[]>;
-    // The list of SharePoint sites in this group. Access the default site with /sites/root.
-    sites?: NullableOption<Site[]>;
-    // The collection of open extensions defined for the group. Read-only. Nullable.
-    extensions?: NullableOption<Extension[]>;
-    // The collection of lifecycle policies for this group. Read-only. Nullable.
-    groupLifecyclePolicies?: NullableOption<GroupLifecyclePolicy[]>;
-    // Selective Planner services available to the group. Read-only. Nullable.
-    planner?: NullableOption<PlannerGroup>;
-    // Read-only.
-    onenote?: NullableOption<Onenote>;
-    team?: NullableOption<Team>;
-}
-export interface ResourceSpecificPermissionGrant extends DirectoryObject {
-    // ID of the service principal of the Azure AD app that has been granted access. Read-only.
-    clientAppId?: NullableOption<string>;
-    // ID of the Azure AD app that has been granted access. Read-only.
-    clientId?: NullableOption<string>;
-    // The name of the resource-specific permission. Read-only.
-    permission?: NullableOption<string>;
-    // The type of permission. Possible values are: Application, Delegated. Read-only.
-    permissionType?: NullableOption<string>;
-    // ID of the Azure AD app that is hosting the resource. Read-only.
-    resourceAppId?: NullableOption<string>;
-}
-export interface GroupSetting extends Entity {
-    // Display name of this group of settings, which comes from the associated template.
-    displayName?: NullableOption<string>;
-    // Unique identifier for the template used to create this group of settings. Read-only.
-    templateId?: NullableOption<string>;
-    // Collection of name value pairs. Must contain and set all the settings defined in the template.
-    values?: SettingValue[];
-}
-export interface Conversation extends Entity {
-    // Indicates whether any of the posts within this Conversation has at least one attachment.
-    hasAttachments?: boolean;
-    /**
-     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
-     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
-     */
-    lastDeliveredDateTime?: string;
-    // A short summary from the body of the latest post in this converstaion.
-    preview?: string;
-    // The topic of the conversation. This property can be set when the conversation is created, but it cannot be updated.
-    topic?: string;
-    // All the users that sent a message to this Conversation.
-    uniqueSenders?: string[];
-    // A collection of all the conversation threads in the conversation. A navigation property. Read-only. Nullable.
-    threads?: NullableOption<ConversationThread[]>;
-}
-export interface ConversationThread extends Entity {
-    // The Cc: recipients for the thread. Returned only on $select.
-    ccRecipients?: Recipient[];
-    // Indicates whether any of the posts within this thread has at least one attachment. Returned by default.
-    hasAttachments?: boolean;
-    // Indicates if the thread is locked. Returned by default.
-    isLocked?: boolean;
-    /**
-     * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
-     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Returned by default.
-     */
-    lastDeliveredDateTime?: string;
-    // A short summary from the body of the latest post in this conversation. Returned by default.
-    preview?: string;
-    /**
-     * The topic of the conversation. This property can be set when the conversation is created, but it cannot be updated.
-     * Returned by default.
-     */
-    topic?: string;
-    // The To: recipients for the thread. Returned only on $select.
-    toRecipients?: Recipient[];
-    // All the users that sent a message to this thread. Returned by default.
-    uniqueSenders?: string[];
-    // Read-only. Nullable.
-    posts?: NullableOption<Post[]>;
-}
-export interface GroupLifecyclePolicy extends Entity {
-    /**
-     * List of email address to send notifications for groups without owners. Multiple email address can be defined by
-     * separating email address with a semicolon.
-     */
-    alternateNotificationEmails?: NullableOption<string>;
-    /**
-     * Number of days before a group expires and needs to be renewed. Once renewed, the group expiration is extended by the
-     * number of days defined.
-     */
-    groupLifetimeInDays?: NullableOption<number>;
-    // The group type for which the expiration policy applies. Possible values are All, Selected or None.
-    managedGroupTypes?: NullableOption<string>;
-}
-export interface PlannerGroup extends Entity {
-    // Read-only. Nullable. Returns the plannerPlans owned by the group.
-    plans?: NullableOption<PlannerPlan[]>;
-}
 export interface GroupSettingTemplate extends DirectoryObject {
     // Description of the template.
     description?: NullableOption<string>;
@@ -5803,7 +5933,7 @@ export interface EducationCategory extends Entity {
     displayName?: NullableOption<string>;
 }
 export interface EducationAssignmentResource extends Entity {
-    // Indicates whether this resource should be copied to each student submission for modification and submission.
+    // Indicates whether this resource should be copied to each student submission for modification and submission. Required
     distributeForStudentWork?: NullableOption<boolean>;
     // Resource object that has been associated with this assignment.
     resource?: NullableOption<EducationResource>;
@@ -6189,26 +6319,6 @@ export interface DriveItem extends BaseItem {
     // The list of previous versions of the item. For more info, see [getting previous versions][]. Read-only. Nullable.
     versions?: NullableOption<DriveItemVersion[]>;
 }
-export interface List extends BaseItem {
-    // The displayable title of the list.
-    displayName?: NullableOption<string>;
-    // Provides additional details about the list.
-    list?: NullableOption<ListInfo>;
-    // Returns identifiers useful for SharePoint REST compatibility. Read-only.
-    sharepointIds?: NullableOption<SharepointIds>;
-    // If present, indicates that this is a system-managed list. Read-only.
-    system?: NullableOption<SystemFacet>;
-    // The collection of field definitions for this list.
-    columns?: NullableOption<ColumnDefinition[]>;
-    // The collection of content types present in this list.
-    contentTypes?: NullableOption<ContentType[]>;
-    // Only present on document libraries. Allows access to the list as a [drive][] resource with [driveItems][driveItem].
-    drive?: NullableOption<Drive>;
-    // All items contained in the list.
-    items?: NullableOption<ListItem[]>;
-    // The set of subscriptions on the list.
-    subscriptions?: NullableOption<Subscription[]>;
-}
 export interface Workbook extends Entity {
     application?: NullableOption<WorkbookApplication>;
     comments?: NullableOption<WorkbookComment[]>;
@@ -6225,12 +6335,6 @@ export interface Workbook extends Entity {
     // Represents a collection of worksheets associated with the workbook. Read-only.
     worksheets?: NullableOption<WorkbookWorksheet[]>;
 }
-// tslint:disable-next-line: interface-name
-export interface ItemAnalytics extends Entity {
-    allTime?: NullableOption<ItemActivityStat>;
-    itemActivityStats?: NullableOption<ItemActivityStat[]>;
-    lastSevenDays?: NullableOption<ItemActivityStat>;
-}
 export interface ListItem extends BaseItem {
     // The content type of this list item
     contentType?: NullableOption<ContentTypeInfo>;
@@ -6244,32 +6348,6 @@ export interface ListItem extends BaseItem {
     fields?: NullableOption<FieldValueSet>;
     // The list of previous versions of the list item.
     versions?: NullableOption<ListItemVersion[]>;
-}
-export interface Permission extends Entity {
-    /**
-     * A format of yyyy-MM-ddTHH:mm:ssZ of DateTimeOffset indicates the expiration time of the permission. DateTime.MinValue
-     * indicates there is no expiration set for this permission. Optional.
-     */
-    expirationDateTime?: NullableOption<string>;
-    // For user type permissions, the details of the users &amp; applications for this permission. Read-only.
-    grantedTo?: NullableOption<IdentitySet>;
-    // For link type permissions, the details of the users to whom permission was granted. Read-only.
-    grantedToIdentities?: NullableOption<IdentitySet[]>;
-    /**
-     * This indicates whether password is set for this permission, it's only showing in response. Optional and Read-only and
-     * for OneDrive Personal only.
-     */
-    hasPassword?: NullableOption<boolean>;
-    // Provides a reference to the ancestor of the current permission, if it is inherited from an ancestor. Read-only.
-    inheritedFrom?: NullableOption<ItemReference>;
-    // Details of any associated sharing invitation for this permission. Read-only.
-    invitation?: NullableOption<SharingInvitation>;
-    // Provides the link details of the current permission, if it is a link type permissions. Read-only.
-    link?: NullableOption<SharingLink>;
-    // The type of permission, e.g. read. See below for the full list of roles. Read-only.
-    roles?: NullableOption<string[]>;
-    // A unique token that can be used to access this shared item via the [shares API][]. Read-only.
-    shareId?: NullableOption<string>;
 }
 export interface Subscription extends Entity {
     // Identifier of the application used to create the subscription. Read-only.
@@ -6338,6 +6416,7 @@ export interface Subscription extends Entity {
     notificationQueryOptions?: NullableOption<string>;
     // The URL of the endpoint that receives the change notifications. This URL must make use of the HTTPS protocol. Required.
     notificationUrl?: string;
+    notificationUrlAppId?: NullableOption<string>;
     /**
      * Specifies the resource that will be monitored for changes. Do not include the base URL
      * (https://graph.microsoft.com/beta/). See the possible resource path values for each supported resource. Required.
@@ -6366,79 +6445,6 @@ export interface DriveItemVersion extends BaseItemVersion {
     content?: NullableOption<any>;
     // Indicates the size of the content stream for this version of the item.
     size?: NullableOption<number>;
-}
-export interface ColumnDefinition extends Entity {
-    // This column stores boolean values.
-    boolean?: NullableOption<BooleanColumn>;
-    // This column's data is calculated based on other columns.
-    calculated?: NullableOption<CalculatedColumn>;
-    // This column stores data from a list of choices.
-    choice?: NullableOption<ChoiceColumn>;
-    // For site columns, the name of the group this column belongs to. Helps organize related columns.
-    columnGroup?: NullableOption<string>;
-    // This column stores currency values.
-    currency?: NullableOption<CurrencyColumn>;
-    // This column stores DateTime values.
-    dateTime?: NullableOption<DateTimeColumn>;
-    // The default value for this column.
-    defaultValue?: NullableOption<DefaultColumnValue>;
-    // The user-facing description of the column.
-    description?: NullableOption<string>;
-    // The user-facing name of the column.
-    displayName?: NullableOption<string>;
-    // If true, no two list items may have the same value for this column.
-    enforceUniqueValues?: NullableOption<boolean>;
-    // This column stores a geolocation.
-    geolocation?: NullableOption<GeolocationColumn>;
-    // Specifies whether the column is displayed in the user interface.
-    hidden?: NullableOption<boolean>;
-    // Specifies whether the column values can used for sorting and searching.
-    indexed?: NullableOption<boolean>;
-    // This column's data is looked up from another source in the site.
-    lookup?: NullableOption<LookupColumn>;
-    /**
-     * The API-facing name of the column as it appears in the [fields][] on a [listItem][]. For the user-facing name, see
-     * displayName.
-     */
-    name?: NullableOption<string>;
-    // This column stores number values.
-    number?: NullableOption<NumberColumn>;
-    // This column stores Person or Group values.
-    personOrGroup?: NullableOption<PersonOrGroupColumn>;
-    // Specifies whether the column values can be modified.
-    readOnly?: NullableOption<boolean>;
-    // Specifies whether the column value isn't optional.
-    required?: NullableOption<boolean>;
-    // This column stores text values.
-    text?: NullableOption<TextColumn>;
-}
-export interface ContentType extends Entity {
-    // The descriptive text for the item.
-    description?: NullableOption<string>;
-    // The name of the group this content type belongs to. Helps organize related content types.
-    group?: NullableOption<string>;
-    // Indicates whether the content type is hidden in the list's 'New' menu.
-    hidden?: NullableOption<boolean>;
-    /**
-     * If this content type is inherited from another scope (like a site), provides a reference to the item where the content
-     * type is defined.
-     */
-    inheritedFrom?: NullableOption<ItemReference>;
-    // The name of the content type.
-    name?: NullableOption<string>;
-    // Specifies the order in which the content type appears in the selection UI.
-    order?: NullableOption<ContentTypeOrder>;
-    // The unique identifier of the content type.
-    parentId?: NullableOption<string>;
-    // If true, the content type cannot be modified unless this value is first set to false.
-    readOnly?: NullableOption<boolean>;
-    /**
-     * If true, the content type cannot be modified by users or through push-down operations. Only site collection
-     * administrators can seal or unseal content types.
-     */
-    sealed?: NullableOption<boolean>;
-    // The collection of columns that are required by this content type
-    columnLinks?: NullableOption<ColumnLink[]>;
 }
 export interface WorkbookApplication extends Entity {
     // Returns the calculation mode used in the workbook. Possible values are: Automatic, AutomaticExceptTables, Manual.
@@ -7384,7 +7390,17 @@ export interface AccessReviewInstance extends Entity {
      * $select. Read-only.
      */
     endDateTime?: NullableOption<string>;
+    /**
+     * This collection of reviewer scopes is used to define the list of fallback reviewers. These fallback reviewers will be
+     * notified to take action if no users are found from the list of reviewers specified. This could occur when either the
+     * group owner is specified as the reviewer but the group owner does not exist, or manager is specified as reviewer but a
+     * user's manager does not exist. Supports $select.
+     */
     fallbackReviewers?: NullableOption<AccessReviewReviewerScope[]>;
+    /**
+     * This collection of access review scopes is used to define who the reviewers are. Supports $select. For examples of
+     * options for assigning reviewers, see Assign reviewers to your access review definition using the Microsoft Graph API.
+     */
     reviewers?: NullableOption<AccessReviewReviewerScope[]>;
     /**
      * Created based on scope and instanceEnumerationScope at the accessReviewScheduleDefinition level. Defines the scope of
@@ -7505,9 +7521,9 @@ export interface AccessReviewScheduleDefinition extends Entity {
      */
     reviewers?: NullableOption<AccessReviewReviewerScope[]>;
     /**
-     * Defines scope of resources to review. For supported scopes, see accessReviewScope. Required on create. Supports $select
-     * and $filter (contains only). For examples of options for configuring scope, see Configure the scope of your access
-     * review definition using the Microsoft Graph API.
+     * Defines the entities whose access is reviewed. For supported scopes, see accessReviewScope. Required on create.
+     * Supports $select and $filter (contains only). For examples of options for configuring scope, see Configure the scope of
+     * your access review definition using the Microsoft Graph API.
      */
     scope?: NullableOption<AccessReviewScope>;
     // The settings for an access review series, see type definition below. Supports $select. Required on create.
@@ -13714,6 +13730,70 @@ export interface Fido2KeyRestrictions {
     // Determines if the configured key enforcement is enabled.
     isEnforced?: NullableOption<boolean>;
 }
+// tslint:disable-next-line: interface-name
+export interface IdentitySet {
+    // Optional. The application associated with this action.
+    application?: NullableOption<Identity>;
+    // Optional. The device associated with this action.
+    device?: NullableOption<Identity>;
+    // Optional. The user associated with this action.
+    user?: NullableOption<Identity>;
+}
+export interface ResultInfo {
+    // The result code.
+    code?: number;
+    // The message.
+    message?: NullableOption<string>;
+    // The result sub-code.
+    subcode?: number;
+}
+export interface AssignedLabel {
+    // The display name of the label. Read-only.
+    displayName?: NullableOption<string>;
+    // The unique identifier of the label.
+    labelId?: NullableOption<string>;
+}
+export interface LicenseProcessingState {
+    state?: NullableOption<string>;
+}
+export interface PublicError {
+    // Represents the error code.
+    code?: NullableOption<string>;
+    // Details of the error.
+    details?: NullableOption<PublicErrorDetail[]>;
+    // Details of the inner error.
+    innerError?: NullableOption<PublicInnerError>;
+    // A non-localized message for the developer.
+    message?: NullableOption<string>;
+    // The target of the error.
+    target?: NullableOption<string>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface Root {}
+export interface SharepointIds {
+    // The unique identifier (guid) for the item's list in SharePoint.
+    listId?: NullableOption<string>;
+    // An integer identifier for the item within the containing list.
+    listItemId?: NullableOption<string>;
+    // The unique identifier (guid) for the item within OneDrive for Business or a SharePoint site.
+    listItemUniqueId?: NullableOption<string>;
+    // The unique identifier (guid) for the item's site collection (SPSite).
+    siteId?: NullableOption<string>;
+    // The SharePoint URL for the site that contains the item.
+    siteUrl?: NullableOption<string>;
+    // The unique identifier (guid) for the tenancy.
+    tenantId?: NullableOption<string>;
+    // The unique identifier (guid) for the item's site (SPWeb).
+    webId?: NullableOption<string>;
+}
+export interface SiteCollection {
+    // The geographic region code for where this site collection resides. Read-only.
+    dataLocationCode?: NullableOption<string>;
+    // The hostname for the site collection. Read-only.
+    hostname?: NullableOption<string>;
+    // If present, indicates that this is a root site collection in SharePoint. Read-only.
+    root?: NullableOption<Root>;
+}
 // tslint:disable-next-line: no-empty-interface
 export interface ApiAuthenticationConfigurationBase {}
 export interface AssignmentOrder {
@@ -13794,12 +13874,6 @@ export interface PreAuthorizedApplication {
     appId?: NullableOption<string>;
     delegatedPermissionIds?: string[];
 }
-export interface AssignedLabel {
-    // The display name of the label. Read-only.
-    displayName?: NullableOption<string>;
-    // The unique identifier of the label.
-    labelId?: NullableOption<string>;
-}
 export interface CertificateAuthority {
     // Required. The base64 encoded string representing the public certificate.
     certificate?: number;
@@ -13866,9 +13940,6 @@ export interface InstanceResourceAccess {
 export interface ResourcePermission {
     type?: string;
     value?: string;
-}
-export interface LicenseProcessingState {
-    state?: NullableOption<string>;
 }
 export interface LicenseUnitsDetail {
     // The number of units that are enabled for the active subscription of the service SKU.
@@ -14014,15 +14085,6 @@ export interface EducationAssignmentGrade {
      * 2014-01-01T00:00:00Z
      */
     gradedDateTime?: NullableOption<string>;
-}
-// tslint:disable-next-line: interface-name
-export interface IdentitySet {
-    // Optional. The application associated with this action.
-    application?: NullableOption<Identity>;
-    // Optional. The device associated with this action.
-    device?: NullableOption<Identity>;
-    // Optional. The user associated with this action.
-    user?: NullableOption<Identity>;
 }
 // tslint:disable-next-line: no-empty-interface
 export interface EducationAssignmentGradeType {}
@@ -14291,22 +14353,6 @@ export interface Quota {
     // Total space used, in bytes. Read-only.
     used?: NullableOption<number>;
 }
-export interface SharepointIds {
-    // The unique identifier (guid) for the item's list in SharePoint.
-    listId?: NullableOption<string>;
-    // An integer identifier for the item within the containing list.
-    listItemId?: NullableOption<string>;
-    // The unique identifier (guid) for the item within OneDrive for Business or a SharePoint site.
-    listItemUniqueId?: NullableOption<string>;
-    // The unique identifier (guid) for the item's site collection (SPSite).
-    siteId?: NullableOption<string>;
-    // The SharePoint URL for the site that contains the item.
-    siteUrl?: NullableOption<string>;
-    // The unique identifier (guid) for the tenancy.
-    tenantId?: NullableOption<string>;
-    // The unique identifier (guid) for the item's site (SPWeb).
-    webId?: NullableOption<string>;
-}
 // tslint:disable-next-line: no-empty-interface
 export interface SystemFacet {}
 export interface Audio {
@@ -14464,8 +14510,6 @@ export interface RemoteItem {
     // URL that displays the resource in the browser. Read-only.
     webUrl?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
-export interface Root {}
 export interface SearchResult {
     /**
      * A callback URL that can be used to record telemetry information. The application should issue a GET on this URL if the
@@ -14519,26 +14563,6 @@ export interface ListInfo {
      * documentLibrary, genericList, task, survey, announcements, contacts, and more.
      */
     template?: NullableOption<string>;
-}
-export interface PublicError {
-    // Represents the error code.
-    code?: NullableOption<string>;
-    // Details of the error.
-    details?: NullableOption<PublicErrorDetail[]>;
-    // Details of the inner error.
-    innerError?: NullableOption<PublicInnerError>;
-    // A non-localized message for the developer.
-    message?: NullableOption<string>;
-    // The target of the error.
-    target?: NullableOption<string>;
-}
-export interface SiteCollection {
-    // The geographic region code for where this site collection resides. Read-only.
-    dataLocationCode?: NullableOption<string>;
-    // The hostname for the site collection. Read-only.
-    hostname?: NullableOption<string>;
-    // If present, indicates that this is a root site collection in SharePoint. Read-only.
-    root?: NullableOption<Root>;
 }
 export interface AttendeeAvailability {
     /**
@@ -15603,6 +15627,8 @@ export interface ConditionalAccessApplications {
      * to All.
      */
     includeApplications?: string[];
+    // Authentication context class references include. Supported values are c1 through c25.
+    includeAuthenticationContextClassReferences?: string[];
     // User actions to include. Supported values are urn:user:registersecurityinfo and urn:user:registerdevice
     includeUserActions?: string[];
 }
@@ -17987,14 +18013,6 @@ export interface RejectJoinResponse extends ParticipantJoiningResponse {
     // The rejection reason. Possible values are None, Busy, and Forbidden.
     reason?: RejectReason;
 }
-export interface ResultInfo {
-    // The result code.
-    code?: number;
-    // The message.
-    message?: NullableOption<string>;
-    // The result sub-code.
-    subcode?: number;
-}
 export interface ServiceHostedMediaConfig extends MediaConfig {
     // The list of media to pre-fetch.
     preFetchMedia?: NullableOption<MediaInfo[]>;
@@ -18458,6 +18476,103 @@ export interface WorkforceIntegrationEncryption {
     secret?: NullableOption<string>;
 }
 
+export namespace TermStore {
+    type RelationType = "pin" | "reuse" | "unknownFutureValue";
+    type TermGroupScope = "global" | "system" | "siteCollection" | "unknownFutureValue";
+    interface Store extends microsoftgraph.Entity {
+        // Default language of the term store.
+        defaultLanguageTag?: string;
+        // List of languages for the term store.
+        languageTags?: string[];
+        // Collection of all groups available in the term store.
+        groups?: NullableOption<Group[]>;
+        // Collection of all sets available in the term store.
+        sets?: NullableOption<Set[]>;
+    }
+    interface Group extends microsoftgraph.Entity {
+        // Date and time of group creation. Read-only.
+        createdDateTime?: NullableOption<string>;
+        // Description giving details on the term usage.
+        description?: NullableOption<string>;
+        // Name of group.
+        displayName?: NullableOption<string>;
+        // Id of the parent site of this group.
+        parentSiteId?: NullableOption<string>;
+        // Returns type of group. Possible values are 'global', 'system' and 'siteCollection'.
+        scope?: NullableOption<TermGroupScope>;
+        // All sets under the group in a term [store].
+        sets?: NullableOption<Set[]>;
+    }
+    interface Set extends microsoftgraph.Entity {
+        // Date and time of set creation. Read-only.
+        createdDateTime?: NullableOption<string>;
+        // Description giving details on the term usage.
+        description?: NullableOption<string>;
+        // Name of the set for each languageTag.
+        localizedNames?: NullableOption<LocalizedName[]>;
+        // Custom properties for the set.
+        properties?: NullableOption<microsoftgraph.KeyValue[]>;
+        // Children terms of set in term [store].
+        children?: NullableOption<Term[]>;
+        // The parent [group] that contains the set.
+        parentGroup?: Group;
+        // Indicates which terms have been pinned or reused directly under the set.
+        relations?: NullableOption<Relation[]>;
+        // All the terms under the set.
+        terms?: NullableOption<Term[]>;
+    }
+    interface Relation extends microsoftgraph.Entity {
+        // The type of relation. Possible values are: pin, reuse.
+        relationship?: NullableOption<RelationType>;
+        /**
+         * The from [term] of the relation. The term from which the relationship is defined. A null value would indicate the
+         * relation is directly with the [set].
+         */
+        fromTerm?: NullableOption<Term>;
+        // The [set] in which the relation is relevant.
+        set?: NullableOption<Set>;
+        // The to [term] of the relation. The term to which the relationship is defined.
+        toTerm?: NullableOption<Term>;
+    }
+    interface Term extends microsoftgraph.Entity {
+        // Date and time of term creation. Read-only
+        createdDateTime?: NullableOption<string>;
+        // Description about term that is dependent on the languageTag
+        descriptions?: NullableOption<LocalizedDescription[]>;
+        // Label metadata for a term
+        labels?: NullableOption<LocalizedLabel[]>;
+        // Last date and time of term modification. Read-only
+        lastModifiedDateTime?: NullableOption<string>;
+        // Collection of properties on the term
+        properties?: NullableOption<microsoftgraph.KeyValue[]>;
+        // Children of current term
+        children?: NullableOption<Term[]>;
+        // To indicate which terms are related to the current term as either pinned or reused
+        relations?: NullableOption<Relation[]>;
+        // The [set] in which the term is created
+        set?: NullableOption<Set>;
+    }
+    interface LocalizedDescription {
+        // The description in the localized language.
+        description?: NullableOption<string>;
+        // The language tag for the label.
+        languageTag?: NullableOption<string>;
+    }
+    interface LocalizedLabel {
+        // Indicates whether the label is the default label.
+        isDefault?: NullableOption<boolean>;
+        // The language tag for the label.
+        languageTag?: NullableOption<string>;
+        // The name of the label.
+        name?: NullableOption<string>;
+    }
+    interface LocalizedName {
+        // The language tag for the label.
+        languageTag?: NullableOption<string>;
+        // The name in the localized language.
+        name?: NullableOption<string>;
+    }
+}
 export namespace CallRecords {
     type CallType = "unknown" | "groupCall" | "peerToPeer" | "unknownFutureValue";
     type ClientPlatform =

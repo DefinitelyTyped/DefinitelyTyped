@@ -70,7 +70,7 @@ declare module 'child_process' {
     import { URL } from 'node:url';
     type Serializable = string | object | number | boolean | bigint;
     type SendHandle = net.Socket | net.Server;
-    interface ChildProcess extends EventEmitter {
+    class ChildProcess extends EventEmitter {
         /**
          * A `Writable Stream` that represents the child process's `stdin`.
          *
