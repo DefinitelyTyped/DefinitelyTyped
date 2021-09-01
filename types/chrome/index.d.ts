@@ -2686,9 +2686,9 @@ declare namespace chrome.downloads {
         previous?: string | undefined;
     }
 
-    export type InterruptReason = "FILE_FAILED" | "FILE_ACCESS_DENIED" | "FILE_NO_SPACE" | "FILE_NAME_TOO_LONG" | "FILE_TOO_LARGE" | "FILE_VIRUS_INFECTED" | "FILE_TRANSIENT_ERROR" | "FILE_BLOCKED" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_SHORT" | "FILE_HASH_MISMATCH" | "FILE_SAME_AS_SOURCE" | "NETWORK_FAILED" | "NETWORK_TIMEOUT" | "NETWORK_DISCONNECTED" | "NETWORK_SERVER_DOWN" | "NETWORK_INVALID_REQUEST" | "SERVER_FAILED" | "SERVER_NO_RANGE" | "SERVER_BAD_CONTENT" | "SERVER_UNAUTHORIZED" | "SERVER_CERT_PROBLEM" | "SERVER_FORBIDDEN" | "SERVER_UNREACHABLE" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "USER_CANCELED" | "USER_SHUTDOWN" | "CRASH";
+    export type DownloadInterruptReason = "FILE_FAILED" | "FILE_ACCESS_DENIED" | "FILE_NO_SPACE" | "FILE_NAME_TOO_LONG" | "FILE_TOO_LARGE" | "FILE_VIRUS_INFECTED" | "FILE_TRANSIENT_ERROR" | "FILE_BLOCKED" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_SHORT" | "FILE_HASH_MISMATCH" | "FILE_SAME_AS_SOURCE" | "NETWORK_FAILED" | "NETWORK_TIMEOUT" | "NETWORK_DISCONNECTED" | "NETWORK_SERVER_DOWN" | "NETWORK_INVALID_REQUEST" | "SERVER_FAILED" | "SERVER_NO_RANGE" | "SERVER_BAD_CONTENT" | "SERVER_UNAUTHORIZED" | "SERVER_CERT_PROBLEM" | "SERVER_FORBIDDEN" | "SERVER_UNREACHABLE" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "USER_CANCELED" | "USER_SHUTDOWN" | "CRASH";
 
-    export type State = "in_progress" | "interrupted" | "complete";
+    export type DownloadState = "in_progress" | "interrupted" | "complete";
 
     export type DangerType = "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted";
 
@@ -6873,12 +6873,12 @@ declare namespace chrome.runtime {
 
         // Optional
         background?:
-        | {
-            scripts?: string[] | undefined;
-            page?: string | undefined;
-            persistent?: boolean | undefined;
-        }
-        | undefined;
+            | {
+                  scripts?: string[] | undefined;
+                  page?: string | undefined;
+                  persistent?: boolean | undefined;
+              }
+            | undefined;
         content_security_policy?: string | undefined;
         optional_permissions?: string[] | undefined;
         permissions?: string[] | undefined;
@@ -6892,11 +6892,11 @@ declare namespace chrome.runtime {
         // Optional
         action?: ManifestAction | undefined;
         background?:
-        | {
-            service_worker: string;
-            type?: 'module'; // If the service worker uses ES modules
-        }
-        | undefined;
+            | {
+                  service_worker: string;
+                  type?: 'module'; // If the service worker uses ES modules
+              }
+            | undefined;```
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;
@@ -9452,7 +9452,7 @@ declare namespace chrome.tabs {
  * Permissions:  "tabGroups"
  * @since Chrome 89. Manifest V3 and above.
  */
-declare namespace chrome.tabGroups {
+ declare namespace chrome.tabGroups {
 
     /** An ID that represents the absence of a group. */
     export var TAB_GROUP_ID_NONE: -1;
