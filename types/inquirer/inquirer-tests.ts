@@ -1,7 +1,7 @@
 import { Separator } from "inquirer";
 import inquirer = require("inquirer");
 import InputPrompt = require("inquirer/lib/prompts/input");
-import { fetchAsyncQuestionProperty } from "./lib/utils/utils";
+import { fetchAsyncQuestionProperty } from "inquirer/lib/utils/utils";
 {
     new inquirer.Separator("");
     const promptModule = inquirer.createPromptModule();
@@ -109,7 +109,6 @@ fetchAsyncQuestionProperty(
     },
     "message",
     {}).pipe(
-        (source) =>
-        {
+        (source) => {
             return source;
-        })
+        });
