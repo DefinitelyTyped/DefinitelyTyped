@@ -697,7 +697,7 @@ declare namespace OSRM {
 
     interface TableResults {
         durations: Duration[][];
-        distances: Distance[][];
+        distances?: Distance[][];
         sources: Waypoint[];
         destinations: Waypoint[];
         fallback_speed_cells?: number[];
