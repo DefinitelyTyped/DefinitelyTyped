@@ -7,7 +7,8 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "forceConsistentCasingInFileNames":true,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typeRoots": ["../"]
     },
     "files": [
         "index.d.ts",
