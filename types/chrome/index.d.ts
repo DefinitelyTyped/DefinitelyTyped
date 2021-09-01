@@ -2629,7 +2629,7 @@ declare namespace chrome.downloads {
         /** Optional. Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.  */
         headers?: HeaderNameValuePair[] | undefined;
         /** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
-        method?: "GET" | "POST";
+        method?: "GET" | "POST" | undefined;
         /** Optional. The action to take if filename already exists.  */
         conflictAction?: FilenameConflictAction | undefined;
     }
