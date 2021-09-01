@@ -514,6 +514,18 @@ declare namespace Office {
         */
         value: T;
     }
+    /**
+     * Manages actions and keyboard shortcuts.
+     */
+     interface Actions {
+        /**
+         * Associates the ID of an action with a function.
+         * 
+         * @param actionId The ID of an action that is defined in an extended manifest.
+         * @param actionFunction The function that is run when the action is invoked. 
+         */
+        associate: (actionId: string, actionFunction: (arg?: any) => void) => void;
+    }   
 	/**
      * Message used in the `onVisibilityModeChanged` invocation.
      */
@@ -84048,6 +84060,7 @@ declare namespace PowerPoint {
      */
     function createPresentation(base64File?: string): Promise<void>;
 }
+
 
 
 ////////////////////////////////////////////////////////////////
