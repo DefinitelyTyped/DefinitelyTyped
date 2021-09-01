@@ -183,11 +183,11 @@ export let selectParentNodeItem: MenuItem;
 /**
  * Menu item for the `undo` command.
  */
-export function undoItem(p: { [key: string]: any }): MenuItem;
+export function undoItem: MenuItem;
 /**
  * Menu item for the `redo` command.
  */
-export function redoItem(p: { [key: string]: any }): MenuItem;
+export function redoItem: MenuItem;
 /**
  * Build a menu item for wrapping the selection in a given node type.
  * Adds `run` and `select` properties to the ones present in
