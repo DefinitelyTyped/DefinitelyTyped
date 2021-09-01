@@ -362,3 +362,24 @@ sharp('input.jpg').clahe({ width: 10, height: 10 }).toFile('output.jpg');
 sharp('input.jpg').clahe({ width: 10, height: 10, maxSlope: 5 }).toFile('outfile.jpg');
 
 sharp(new Uint8Array(input.buffer)).toFile('output.jpg');
+
+// Support for negate options
+sharp('input.png').negate({ alpha: false }).toFile('output.png');
+
+// From https://github.com/lovell/sharp/pull/2704
+// Type support for pipelineColourspace
+sharp(input)
+    .pipelineColourspace('rgb16')
+    .resize(320, 240)
+    .gamma()
+    .toColourspace('srgb') // this is the default, but included here for clarity
+    .toBuffer();
+
+// Support for raw depth specification
+sharp('16bpc.png')
+    .toColourspace('rgb16')
+    .raw({ depth: 'ushort' })
+    .toBuffer((error, data, { width, height, channels, size }) => {
+        console.log((size / width / height / channels) * 8);
+        console.log(new Uint16Array(data.buffer));
+    });
