@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 2.4.2
+// Type definitions for plotly.js 2.4
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -1017,7 +1017,7 @@ export interface PlotNumber {
 }
 
 export interface Template {
-    data?: { [type in PlotType]?: Partial<PlotData>[] } | undefined;
+    data?: { [type in PlotType]?: Array<Partial<PlotData>> } | undefined;
     layout?: Partial<Layout> | undefined;
 }
 
