@@ -303,6 +303,26 @@ export interface PolarLayout {
 
 export type Root = string | HTMLElement;
 
+export interface TemplateValidationError {
+    code: 'missing' | 'unused' | 'reused' | 'noLayout' | 'noData';
+    msg: string;
+}
+
+export interface ValidationError {
+    code: 'object' | 'array' | 'schema' | 'unused' | 'invisible' | 'value';
+    container: 'data' | 'layout';
+    trace: number;
+    path: any[];
+    astr: string;
+    msg: string;
+}
+
+interface Figure {
+    data: Data[];
+    layout?: Partial<Layout>;
+    config?: Partial<Config>;
+}
+
 export function newPlot(
     root: Root,
     data: Data[],
@@ -326,6 +346,9 @@ export function update(
     layoutUpdate: Partial<Layout>,
     traces?: number[] | number,
 ): Promise<PlotlyHTMLElement>;
+export function validate(data: Data[], layout: Partial<Layout>): ValidationError[];
+export function makeTemplate(figure: Figure): Partial<Template>;
+export function validateTemplate(figure: Figure, template: Template): TemplateValidationError[];
 export function addTraces(
     root: Root,
     traces: Data | Data[],
@@ -994,7 +1017,7 @@ export interface PlotNumber {
 }
 
 export interface Template {
-    data?: { [type in PlotType]?: Partial<PlotData> } | undefined;
+    data?: { [type in PlotType]?: Partial<PlotData>[] } | undefined;
     layout?: Partial<Layout> | undefined;
 }
 
