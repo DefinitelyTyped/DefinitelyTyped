@@ -4930,6 +4930,10 @@
             "libraryName": "terser",
             "asOfVersion": "3.12.0"
         },
+        "terser-webpack-plugin": {
+            "libraryName": "terser-webpack-plugin",
+            "asOfVersion": "5.2.0"
+        },
         "tesseract.js": {
             "libraryName": "tesseract.js",
             "asOfVersion": "2.0.0"
