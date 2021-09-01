@@ -8,7 +8,8 @@
         "strictFunctionTypes": true,
         "forceConsistentCasingInFileNames":true,
         "baseUrl": "../",
-        "typeRoots": ["../"]
+        "typeRoots": ["../"],
+        "types": []
     },
     "files": [
         "index.d.ts",
