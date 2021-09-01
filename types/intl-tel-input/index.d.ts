@@ -1,22 +1,22 @@
-// Type definitions for intl-tel-input 14.0
+// Type definitions for intl-tel-input 17.0
 // Project: https://github.com/jackocnr/intl-tel-input
 // Definitions by: Fidan Hakaj <https://github.com/fdnhkj>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Márton Molnár <https://github.com/molnarm>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export as namespace intlTelInput;
 
-export = IntlTelInput;
+export = intlTelInput;
 
 /**
  * initialise the plugin with optional options.
  * @param options options that can be provided during initialization.
  */
-declare function IntlTelInput(node: Element, options?: IntlTelInput.Options): IntlTelInput.Plugin;
+declare function intlTelInput(node: Element, options?: intlTelInput.Options): intlTelInput.Plugin;
 
-declare namespace IntlTelInput {
+declare namespace intlTelInput {
     interface Static {
         /**
          * Default options for all instances
@@ -27,13 +27,19 @@ declare namespace IntlTelInput {
          * Get all of the plugin's country data - either to re-use elsewhere
          * e.g. to populate a country dropdown.
          */
-        getCountryData(): intlTelInputUtils.CountryData[];
+        getCountryData(): CountryData[];
 
         /**
          * Load the utils.js script (included in the lib directory) to enable
          * formatting/validation etc.
          */
         loadUtils(path: string, utilsScriptDeferred?: boolean): void;
+
+        /**
+         * After initialising the plugin, you can always access the instance again using this method,
+         * by just passing in the relevant input element.
+         */
+        getInstance(node: Element): Plugin;
     }
 
     interface Plugin {
@@ -76,7 +82,7 @@ declare namespace IntlTelInput {
         /**
          * Get the country data for the currently selected flag.
          */
-        getSelectedCountryData(): intlTelInputUtils.CountryData;
+        getSelectedCountryData(): CountryData;
 
         /**
          * Get more information about a validation error.
@@ -114,93 +120,7 @@ declare namespace IntlTelInput {
          * Set the type of the placeholder number
          * @param type Placeholder number type to be set
          */
-        setPlaceholderNumberType(type: intlTelInputUtils.placeholderNumberType): void;
-    }
-
-    interface JQueryPlugin {
-        /**
-         * initialise the plugin with optional options.
-         * @param options options that can be provided during initialization.
-         */
-        (options?: Options): JQueryDeferred<any>;
-
-        /**
-         * Remove the plugin from the input, and unbind any event listeners.
-         */
-        (method: 'destroy'): void;
-
-        /**
-         * Get the extension from the current number.
-         * Requires the utilsScript option.
-         * e.g. if the input value was "(702) 555-5555 ext. 1234", this would
-         * return "1234".
-         */
-        (method: 'getExtension'): string;
-
-        /**
-         * Get the current number in the given format (defaults to E.164 standard).
-         * The different formats are available in the enum
-         * intlTelInputUtils.numberFormat - taken from here.
-         * Requires the utilsScript option.
-         * Note that even if nationalMode is enabled, this can still return a full
-         * international number.
-         * @param numberFormat the format in which the number will be returned.
-         */
-        (method: 'getNumber', numberFormat?: intlTelInputUtils.numberFormat): string;
-        (method: string, numberFormat: intlTelInputUtils.numberFormat): string;
-
-        /**
-         * Get the type (fixed-line/mobile/toll-free etc) of the current number.
-         * Requires the utilsScript option.
-         * Returns an integer, which you can match against the various options in the
-         * global enum intlTelInputUtils.numberType.
-         * Note that in the US there's no way to differentiate between fixed-line and
-         * mobile numbers, so instead it will return FIXED_LINE_OR_MOBILE.
-         */
-        (method: 'getNumberType'): intlTelInputUtils.numberType;
-
-        /**
-         * Get the country data for the currently selected flag.
-         */
-        (method: 'getSelectedCountryData'): intlTelInputUtils.CountryData;
-
-        /**
-         * Get more information about a validation error.
-         * Requires the utilsScript option.
-         * Returns an integer, which you can match against the various options in the
-         * global enum ValidationError
-         */
-        (method: 'getValidationError'): intlTelInputUtils.validationError;
-
-        /**
-         * Validate the current number. Expects an internationally formatted number
-         * (unless nationalMode is enabled). If validation fails, you can use
-         * getValidationError to get more information.
-         * Requires the utilsScript option.
-         * Also see getNumberType if you want to make sure the user enters a certain
-         * type of number e.g. a mobile number.
-         */
-        (method: 'isValidNumber'): boolean;
-
-        /**
-         * Change the country selection (e.g. when the user is entering their address).
-         * @param countryCode country code of the country to be set.
-         */
-        (method: 'setCountry', countryCode: string): void;
-
-        /**
-         * Insert a number, and update the selected flag accordingly.
-         * Note that by default, if nationalMode is enabled it will try to use
-         * national formatting.
-         * @param aNumber number to be set.
-         */
-        (method: 'setNumber', aNumber: string): void;
-
-        /**
-         * Set the type of the placeholder number
-         * @param type Placeholder number type to be set
-         */
-        (method: 'setPlaceholderNumberType', type: intlTelInputUtils.placeholderNumberType): void;
+        setPlaceholderNumberType(type: placeholderNumberType): void;
     }
 
     interface Options {
@@ -210,7 +130,7 @@ declare namespace IntlTelInput {
          * selected flag on the right instead because it is just a marker of state.
          * Default = true
          */
-        allowDropdown?: boolean;
+        allowDropdown?: boolean | undefined;
 
         /**
          * If there is just a dial code in the input: remove it on blur or submit,
@@ -218,7 +138,7 @@ declare namespace IntlTelInput {
          * submitted with the form. Requires nationalMode to be set to false.
          * Default = true
          */
-        autoHideDialCode?: boolean;
+        autoHideDialCode?: boolean | undefined;
 
         /**
          * Set the input's placeholder to an example number for the selected country, and update it if the country changes.
@@ -228,13 +148,19 @@ declare namespace IntlTelInput {
          * Requires the utilsScript option.
          * Default = "polite"
          */
-        autoPlaceholder?: "off" | "polite" | "aggressive";
+        autoPlaceholder?: 'off' | 'polite' | 'aggressive' | undefined;
 
         /**
          * Change the placeholder generated by autoPlaceholder. Must return a string.
          * Default = null
          */
-        customPlaceholder?: (selectedCountryPlaceholder: string, selectedCountryData: intlTelInputUtils.CountryData) => string;
+        customPlaceholder?: ((selectedCountryPlaceholder: string, selectedCountryData: CountryData) => string) | undefined;
+
+        /**
+         * Additional classes to add to the parent div..
+         * @default ''
+         */
+        customContainer?: string | undefined;
 
         /**
          * Expects a node e.g. document.body. Instead of putting the country dropdown next to the input,
@@ -243,20 +169,20 @@ declare namespace IntlTelInput {
          * Note that the absolute positioning can be broken by scrolling, so it will automatically close on the window scroll event.
          * Default = null
          */
-        dropdownContainer?: Node;
+        dropdownContainer?: Node | undefined;
 
         /**
          * In the dropdown, display all countries except the ones you specify here.
          * Default = null
          */
-        excludeCountries?: string[];
+        excludeCountries?: string[] | undefined;
 
         /**
          * Format the input value (according to the nationalMode option) during initialisation, and on setNumber.
          * Requires the utilsScript option.
          * Default = true
          */
-        formatOnDisplay?: boolean;
+        formatOnDisplay?: boolean | undefined;
 
         /**
          * When setting initialCountry to "auto", you must use this option to
@@ -267,7 +193,7 @@ declare namespace IntlTelInput {
          * do something like iti.promise.then(callback) to know when initialisation requests like this have completed.
          * Default = null
          */
-        geoIpLookup?: (callback: (countryCode: string) => void) => void;
+        geoIpLookup?: ((callback: (countryCode: string) => void) => void) | undefined;
 
         /**
          * Add a hidden input with the given name (or if your input name contains square brackets then it will give the hidden input the same name,
@@ -277,7 +203,7 @@ declare namespace IntlTelInput {
          * Also note that since this uses getNumber internally, it expects a valid number, and so should only be used after validation.
          * Default = ""
          */
-        hiddenInput?: string;
+        hiddenInput?: string | undefined;
 
         /**
          * Set the initial country selection by specifying it's country code.
@@ -287,13 +213,13 @@ declare namespace IntlTelInput {
          * input already contains a number. If you leave initialCountry blank,
          * it will default to the first country in the list.
          */
-        initialCountry?: string;
+        initialCountry?: string | undefined;
 
         /**
          * Allows to translate the countries by its given iso code e.g.: { 'de': 'Deutschland' }
          * Default = {}
          */
-        localizedCountries?: object;
+        localizedCountries?: object | undefined;
 
         /**
          * Allow users to enter national numbers (and not have to think about
@@ -303,26 +229,26 @@ declare namespace IntlTelInput {
          * that way as it provides a better experience for the user.
          * Default = true
          */
-        nationalMode?: boolean;
+        nationalMode?: boolean | undefined;
 
         /**
          * In the dropdown, display only the countries you specify.
          * Default = undefined
          */
-        onlyCountries?: string[];
+        onlyCountries?: string[] | undefined;
 
         /**
          * Specify one of the keys from the global enum intlTelInputUtils.numberType
          * e.g. "FIXED_LINE" to set the number type to use for the placeholder.
          * Default = MOBILE
          */
-        placeholderNumberType?: intlTelInputUtils.placeholderNumberType;
+        placeholderNumberType?: placeholderNumberType | undefined;
 
         /**
          * Specify the countries to appear at the top of the list.
          * Default = ["us", "gb"]
          */
-        preferredCountries?: string[];
+        preferredCountries?: string[] | undefined;
 
         /**
          * Display the country dial code next to the selected flag so it's not part
@@ -331,7 +257,7 @@ declare namespace IntlTelInput {
          * dial code separated.
          * Default = false
          */
-        separateDialCode?: boolean;
+        separateDialCode?: boolean | undefined;
 
         /**
          * Enable formatting/validation etc. by specifying the URL of the included utils.js script
@@ -344,22 +270,36 @@ declare namespace IntlTelInput {
          * Example: "build/js/utils.js"
          * Default = ""
          */
-        utilsScript?: string;
+        utilsScript?: string | undefined;
     }
-}
 
-declare namespace intlTelInputUtils {
     interface CountryData {
         name: string;
         iso2: string;
         dialCode: string;
     }
 
+    type placeholderNumberType =
+        | 'FIXED_LINE_OR_MOBILE'
+        | 'FIXED_LINE'
+        | 'MOBILE'
+        | 'PAGER'
+        | 'PERSONAL_NUMBER'
+        | 'PREMIUM_RATE'
+        | 'SHARED_COST'
+        | 'TOLL_FREE'
+        | 'UAN'
+        | 'UNKNOWN'
+        | 'VOICEMAIL'
+        | 'VOIP';
+}
+
+declare namespace intlTelInputUtils {
     enum numberFormat {
         E164 = 0,
         INTERNATIONAL = 1,
         NATIONAL = 2,
-        RFC3966 = 3
+        RFC3966 = 3,
     }
 
     enum numberType {
@@ -374,7 +314,7 @@ declare namespace intlTelInputUtils {
         PAGER = 8,
         UAN = 9,
         VOICEMAIL = 10,
-        UNKNOWN = -1
+        UNKNOWN = -1,
     }
 
     enum validationError {
@@ -382,31 +322,23 @@ declare namespace intlTelInputUtils {
         INVALID_COUNTRY_CODE = 1,
         TOO_SHORT = 2,
         TOO_LONG = 3,
-        NOT_A_NUMBER = 4
+        NOT_A_NUMBER = 4,
     }
-
-    type placeholderNumberType =
-        | "FIXED_LINE_OR_MOBILE"
-        | "FIXED_LINE"
-        | "MOBILE"
-        | "PAGER"
-        | "PERSONAL_NUMBER"
-        | "PREMIUM_RATE"
-        | "SHARED_COST"
-        | "TOLL_FREE"
-        | "UAN"
-        | "UNKNOWN"
-        | "VOICEMAIL"
-        | "VOIP";
 }
 
 declare global {
     namespace intlTelInputUtils {
+        function formatNumber(number: string, countryCode: string, format: numberFormat): string;
+        function getExampleNumber(countryCode: string, isNational: boolean, numberType: numberType): string;
+        function getNumberType(number: string, countryCode: string): numberType;
+        function getValidationError(number: string, countryCode: string): string;
+        function isValidNumber(number: string, countryCode: string): string;
+
         enum numberFormat {
             E164 = 0,
             INTERNATIONAL = 1,
             NATIONAL = 2,
-            RFC3966 = 3
+            RFC3966 = 3,
         }
 
         enum numberType {
@@ -421,7 +353,7 @@ declare global {
             PAGER = 8,
             UAN = 9,
             VOICEMAIL = 10,
-            UNKNOWN = -1
+            UNKNOWN = -1,
         }
 
         enum validationError {
@@ -429,21 +361,17 @@ declare global {
             INVALID_COUNTRY_CODE = 1,
             TOO_SHORT = 2,
             TOO_LONG = 3,
-            NOT_A_NUMBER = 4
+            NOT_A_NUMBER = 4,
         }
     }
 
     interface Window {
-        intlTelInputGlobals: IntlTelInput.Static;
+        intlTelInputGlobals: intlTelInput.Static;
 
         /**
          * initialise the plugin with optional options.
          * @param options options that can be provided during initialization.
          */
-        intlTelInput(node: Element, options?: IntlTelInput.Options): IntlTelInput.Plugin;
-    }
-
-    interface JQuery {
-        intlTelInput: IntlTelInput.JQueryPlugin;
+        intlTelInput(node: Element, options?: intlTelInput.Options): intlTelInput.Plugin;
     }
 }

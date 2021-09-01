@@ -1,5 +1,5 @@
 // Type definitions for validate-npm-package 1.0
-// Project: https://github.com/thejameskyle/validate-npm-package#readme
+// Project: https://github.com/atlassian/validate-npm-package#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -8,15 +8,25 @@
  * @see {@link https://www.npmjs.com/package/validate-npm-package-name#naming-rules}
  * @see {@link https://www.npmjs.com/package/validate-npm-package-license}
  */
-declare function validateNpmPackage(pck: object): validateNpmPackage.Result;
+declare function isValidPkg(pck: object): isValidPkg.ValidNames | isValidPkg.InvalidNames | isValidPkg.LegacyNames;
 
-declare namespace validateNpmPackage {
-    interface Result {
+declare namespace isValidPkg {
+    interface ValidNames {
+        validForNewPackages: true;
+        validForOldPackages: true;
+    }
+
+    interface InvalidNames {
+        validForNewPackages: false;
+        validForOldPackages: false;
         errors: string[];
-        validForNewPackages: boolean;
-        validForOldPackages: boolean;
+    }
+
+    interface LegacyNames {
+        validForNewPackages: false;
+        validForOldPackages: true;
         warnings: string[];
     }
 }
 
-export = validateNpmPackage;
+export = isValidPkg;

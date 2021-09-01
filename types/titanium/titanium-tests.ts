@@ -162,3 +162,12 @@ function test_string_extension() {
     String.formatDecimal(12.04, 'en-US', '%d');
     String.formatTime(new Date(), 'medium');
 }
+
+function test_media() {
+    Ti.Media.openPhotoGallery({
+        allowMultiple: true,
+        success: (result: CameraMediaMultipleItemsType) => {
+            console.log(`Selected ${result.images.length} photos!`);
+        }
+    });
+}

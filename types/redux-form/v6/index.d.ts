@@ -17,9 +17,9 @@ import {
 export type FieldValue = any;
 
 export interface FieldState {
-    active?: boolean;
-    touched?: boolean;
-    visited?: boolean;
+    active?: boolean | undefined;
+    touched?: boolean | undefined;
+    visited?: boolean | undefined;
     error?: any;
 }
 
@@ -30,11 +30,11 @@ export interface DataShape {
 }
 
 export type FormErrors<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement | string | { _error?: string };
+    [P in keyof FormData]?: ReactElement | string | { _error?: string | undefined };
 };
 
 export type FormWarnings<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement | string | { _warning?: string };
+    [P in keyof FormData]?: ReactElement | string | { _warning?: string | undefined };
 };
 
 export type FormMeta<FormData extends DataShape> = {

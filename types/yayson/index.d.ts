@@ -42,7 +42,7 @@ declare module 'yayson' {
   }
 
   interface YaysonOptions {
-    adapter?: 'default' | 'sequelize';
+    adapter?: 'default' | 'sequelize' | undefined;
   }
 
   function y(arg?: YaysonOptions): Yayson;
@@ -50,7 +50,7 @@ declare module 'yayson' {
   namespace y {
     interface JsonOptions {
       [key: string]: any;
-      meta?: {};
+      meta?: {} | undefined;
     }
     interface Record {
       id: any;

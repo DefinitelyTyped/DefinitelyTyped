@@ -17,35 +17,59 @@ import Layer from './Layer';
 import VectorTileRenderType from './VectorTileRenderType';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    renderOrder?: OrderFunction;
-    renderBuffer?: number;
-    renderMode?: VectorTileRenderType | string;
-    source?: VectorTile;
-    map?: PluggableMap;
-    declutter?: boolean;
-    style?: StyleLike;
-    updateWhileAnimating?: boolean;
-    updateWhileInteracting?: boolean;
-    preload?: number;
-    useInterimTilesOnError?: boolean;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    renderOrder?: OrderFunction | undefined;
+    renderBuffer?: number | undefined;
+    renderMode?: VectorTileRenderType | string | undefined;
+    source?: VectorTile | undefined;
+    map?: PluggableMap | undefined;
+    declutter?: boolean | undefined;
+    style?: StyleLike | undefined;
+    updateWhileAnimating?: boolean | undefined;
+    updateWhileInteracting?: boolean | undefined;
+    preload?: number | undefined;
+    useInterimTilesOnError?: boolean | undefined;
 }
 export default class VectorTileLayer extends BaseVectorLayer<VectorTile> {
     constructor(opt_options?: Options);
+    /**
+     * Create a renderer for this layer.
+     */
     protected createRenderer(): LayerRenderer<Layer<Source>>;
+    /**
+     * Get the topmost feature that intersects the given pixel on the viewport. Returns a promise
+     * that resolves with an array of features. The array will either contain the topmost feature
+     * when a hit was detected, or it will be empty.
+     * The hit detection algorithm used for this method is optimized for performance, but is less
+     * accurate than the one used in {@link module:ol/PluggableMap~PluggableMap#getFeaturesAtPixel}: Text
+     * is not considered, and icons are only represented by their bounding box instead of the exact
+     * image.
+     */
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
+    /**
+     * Return the level as number to which we will preload tiles up to.
+     */
     getPreload(): number;
     getRenderMode(): VectorTileRenderType;
+    /**
+     * Whether we use interim tiles on error.
+     */
     getUseInterimTilesOnError(): boolean;
+    /**
+     * Set the level as number to which we will preload tiles up to.
+     */
     setPreload(preload: number): void;
+    /**
+     * Set whether we use interim tiles on error.
+     */
     setUseInterimTilesOnError(useInterimTilesOnError: boolean): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

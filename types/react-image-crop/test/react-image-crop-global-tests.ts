@@ -1,6 +1,6 @@
 interface TestState {
-    crop?: ReactCrop.Crop;
-    percentCrop?: ReactCrop.PercentCrop;
+    crop?: ReactCrop.Crop | undefined;
+    percentCrop?: ReactCrop.PercentCrop | undefined;
 }
 const initialState = {
     crop: {

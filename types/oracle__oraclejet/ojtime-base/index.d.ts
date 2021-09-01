@@ -9,8 +9,6 @@ export interface dvtTimeComponent<SP extends dvtTimeComponentSettableProperties 
     setProperty<T extends string>(property: T, value: JetSetPropertyType<T, dvtTimeComponentSettableProperties>): void;
     setProperties(properties: dvtTimeComponentSettablePropertiesLenient): void;
 }
-// These interfaces are empty but required to keep the event chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
 export interface dvtTimeComponentEventMap<SP extends dvtTimeComponentSettableProperties = dvtTimeComponentSettableProperties> extends dvtBaseComponentEventMap<SP> {
 }
 // These interfaces are empty but required to keep the component chain intact. Avoid lint-rule

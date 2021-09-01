@@ -3,19 +3,16 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "callable-types": false,
         "dt-header": false,
         "export-just-namespace": false,
         "no-duplicate-variable": false,
         "no-mergeable-namespace": false,
-        "no-redundant-jsdoc": false,
         "no-reference-import": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "strict-export-declare-modifiers": false
     }
 }

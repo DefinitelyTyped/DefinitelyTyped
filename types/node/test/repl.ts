@@ -1,5 +1,5 @@
-import { start, Recoverable } from "repl";
-import { Context } from "vm";
+import { start, Recoverable } from 'node:repl';
+import { Context } from 'node:vm';
 
 {
     let server = start({
@@ -30,7 +30,9 @@ import { Context } from "vm";
     server = server.prependOnceListener("reset", () => { });
 
     server.outputStream.write("test");
-    const line = server.inputStream.read();
+    server.output.write("test");
+    const lineDeprecated = server.inputStream.read();
+    const line = server.input.read();
 
     server.clearBufferedCommand();
     server.displayPrompt();

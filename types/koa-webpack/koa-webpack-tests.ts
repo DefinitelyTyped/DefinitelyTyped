@@ -5,6 +5,7 @@ import koaWebpack = require('koa-webpack');
 const app = new Koa();
 const config: webpack.Configuration = {};
 const compiler = webpack(config);
+const multiCompiler = webpack([]);
 
 app.use(ctx => {
     // $ExpectType MemoryFileSystem | undefined
@@ -17,6 +18,8 @@ app.use(ctx => {
     ctx.state.stats;
     ctx.body = ctx.state.stats.toJson();
 });
+
+koaWebpack({ compiler: multiCompiler });
 
 // Using the middleware
 koaWebpack({

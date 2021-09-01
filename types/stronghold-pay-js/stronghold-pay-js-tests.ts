@@ -31,7 +31,8 @@ function test_charge() {
     client.charge('customer_token', {
         charge: {
             amount: 4950,
-            paymentSourceId: 'payment_source_id'
+            paymentSourceId: 'payment_source_id',
+            externalId: 'qwerty123456789',
         },
         authorizeOnly: true,
         tip: {

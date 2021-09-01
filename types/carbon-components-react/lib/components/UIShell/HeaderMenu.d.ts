@@ -1,18 +1,15 @@
 import * as React from "react";
-import { ReactAttr, FCReturn } from '../../../typings/shared';
+import { FCReturn } from "../../../typings/shared";
 
-interface InheritedProps {
-    "aria-label"?: ReactAttr["aria-label"],
-    "aria-labelledby"?: ReactAttr["aria-labelledby"],
-    children?: ReactAttr["children"],
-    className?: ReactAttr["className"],
-    tabIndex?: ReactAttr["tabIndex"],
-}
-
-export interface HeaderMenuProps<RP = {}> extends InheritedProps {
+export interface HeaderMenuProps<RP = {}> {
+    "aria-label"?: string | undefined,
+    "aria-labelledby"?: string | undefined,
+    children?: React.ReactNode | undefined,
+    className?: string | undefined,
     menuLinkName: string,
     ref?(element: HTMLElement): void;
-    renderMenuContent?: React.ComponentType<RP>,
+    renderMenuContent?: React.ComponentType<RP> | undefined,
+    tabIndex?: number | undefined,
 }
 
 declare class HeaderMenu extends React.Component<HeaderMenuProps> { }

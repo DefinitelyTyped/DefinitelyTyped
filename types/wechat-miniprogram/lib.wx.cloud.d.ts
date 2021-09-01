@@ -3,10 +3,10 @@ interface IAPIError {
 }
 
 interface IAPIParam<T = any> {
-    config?: ICloudConfig
-    success?: (res: T) => void
-    fail?: (err: IAPIError) => void
-    complete?: (val: T | IAPIError) => void
+    config?: ICloudConfig | undefined
+    success?: ((res: T) => void) | undefined
+    fail?: ((err: IAPIError) => void) | undefined
+    complete?: ((val: T | IAPIError) => void) | undefined
 }
 
 interface IAPISuccessParam {
@@ -21,16 +21,16 @@ interface IInitCloudConfig {
     env?:
         | string
         | {
-              database?: string
-              functions?: string
-              storage?: string
-          }
-    traceUser?: boolean
+              database?: string | undefined
+              functions?: string | undefined
+              storage?: string | undefined
+          } | undefined
+    traceUser?: boolean | undefined
 }
 
 interface ICloudConfig {
-    env?: string
-    traceUser?: boolean
+    env?: string | undefined
+    traceUser?: boolean | undefined
 }
 
 interface IICloudAPI {
@@ -103,7 +103,7 @@ interface WxCloud {
 
 declare namespace ICloud {
     interface ICloudAPIParam<T = any> extends IAPIParam<T> {
-        config?: ICloudConfig
+        config?: ICloudConfig | undefined
     }
 
     // === API: callFunction ===
@@ -115,8 +115,8 @@ declare namespace ICloud {
 
     interface CallFunctionParam extends ICloudAPIParam<CallFunctionResult> {
         name: string
-        data?: CallFunctionData
-        slow?: boolean
+        data?: CallFunctionData | undefined
+        slow?: boolean | undefined
     }
     // === end ===
 
@@ -129,7 +129,7 @@ declare namespace ICloud {
     interface UploadFileParam extends ICloudAPIParam<UploadFileResult> {
         cloudPath: string
         filePath: string
-        header?: AnyObject
+        header?: AnyObject | undefined
     }
     // === end ===
 
@@ -141,7 +141,7 @@ declare namespace ICloud {
 
     interface DownloadFileParam extends ICloudAPIParam<DownloadFileResult> {
         fileID: string
-        cloudPath?: string
+        cloudPath?: string | undefined
     }
     // === end ===
 
@@ -239,7 +239,7 @@ declare namespace DB {
     class DocumentReference {
         private constructor(docId: string | number, database: Database)
 
-        field(object: object): this
+        field(object: Record<string, any>): this
 
         get(options: OQ<IGetDocumentOptions>): void
         get(options?: RQ<IGetDocumentOptions>): Promise<IQuerySingleResult>
@@ -274,7 +274,7 @@ declare namespace DB {
 
         skip(offset: number): Query
 
-        field(object: object): Query
+        field(object: Record<string, any>): Query
 
         get(options: OQ<IGetDocumentOptions>): void
         get(options?: RQ<IGetDocumentOptions>): Promise<IQueryResult>
@@ -342,7 +342,7 @@ declare namespace DB {
         }
 
         aggregate: {
-            __safe_props__?: Set<string>
+            __safe_props__?: Set<string> | undefined
 
             abs(val: any): DatabaseAggregateCommand
             add(val: any): DatabaseAggregateCommand
@@ -459,7 +459,7 @@ declare namespace DB {
         AND = 'and',
         OR = 'or',
         NOT = 'not',
-        NOR = 'nor',
+        NOR = 'nor'
     }
 
     class DatabaseLogicCommand {
@@ -490,7 +490,7 @@ declare namespace DB {
         // array
         ALL = 'all',
         ELEM_MATCH = 'elemMatch',
-        SIZE = 'size',
+        SIZE = 'size'
     }
 
     class DatabaseQueryCommand extends DatabaseLogicCommand {
@@ -519,7 +519,7 @@ declare namespace DB {
     }
 
     enum PROJECTION_COMMANDS_LITERAL {
-        SLICE = 'slice',
+        SLICE = 'slice'
     }
 
     class DatabaseProjectionCommand {}
@@ -542,7 +542,7 @@ declare namespace DB {
         UNSHIFT = 'unshift',
         ADD_TO_SET = 'addToSet',
         PULL = 'pull',
-        PULL_ALL = 'pullAll',
+        PULL_ALL = 'pullAll'
     }
 
     class DatabaseUpdateCommand {}
@@ -553,21 +553,21 @@ declare namespace DB {
      * A contract that all API provider must adhere to
      */
     class APIBaseContract<
-        PROMISE_RETURN,
-        CALLBACK_RETURN,
-        PARAM extends IAPIParam,
-        CONTEXT = any
+        PromiseReturn,
+        CallbackReturn,
+        Param extends IAPIParam,
+        Context = any
     > {
-        getContext(param: PARAM): CONTEXT
+        getContext(param: Param): Context
 
         /**
          * In case of callback-style invocation, this function will be called
          */
-        getCallbackReturn(param: PARAM, context: CONTEXT): CALLBACK_RETURN
+        getCallbackReturn(param: Param, context: Context): CallbackReturn
 
-        getFinalParam<T extends PARAM>(param: PARAM, context: CONTEXT): T
+        getFinalParam<T extends Param>(param: Param, context: Context): T
 
-        run<T extends PARAM>(param: T): Promise<PROMISE_RETURN>
+        run<T extends Param>(param: T): Promise<PromiseReturn>
     }
 
     interface IGeoPointConstructor {
@@ -659,7 +659,7 @@ declare namespace DB {
 
         constructor(longitude: number, latitude: number)
 
-        toJSON(): object
+        toJSON(): Record<string, any>
         toString(): string
     }
 
@@ -718,8 +718,8 @@ declare namespace DB {
 
     interface IGeoNearCommandOptions {
         geometry: GeoPoint
-        maxDistance?: number
-        minDistance?: number
+        maxDistance?: number | undefined
+        minDistance?: number | undefined
     }
 
     interface IGeoWithinCommandOptions {
@@ -747,7 +747,7 @@ declare namespace DB {
 
     interface IRegExpOptions {
         regexp: string
-        options?: string
+        options?: string | undefined
     }
 
     interface IRegExpConstructor {
@@ -764,7 +764,7 @@ declare namespace DB {
     type DocumentId = string | number
 
     interface IDocumentData {
-        _id?: DocumentId
+        _id?: DocumentId | undefined
         [key: string]: any
     }
 
@@ -811,7 +811,7 @@ declare namespace DB {
         id: number
         docChanges: ISingleDBEvent[]
         docs: Record<string, any>
-        type?: SnapshotType
+        type?: SnapshotType | undefined
     }
 
     type SnapshotType = 'init'
@@ -822,8 +822,8 @@ declare namespace DB {
         queueType: QueueType
         docId: string
         doc: Record<string, any>
-        updatedFields?: Record<string, any>
-        removedFields?: string[]
+        updatedFields?: Record<string, any> | undefined
+        removedFields?: string[] | undefined
     }
 
     type DataType = 'init' | 'update' | 'replace' | 'add' | 'remove' | 'limit'

@@ -9,6 +9,7 @@ const args: any[] = [];
 const resCallback: (err: Error | null, res: any) => void = () => {};
 const numCallback: (err: Error | null, res: number) => void = () => {};
 const strCallback: (err: Error | null, res: string) => void = () => {};
+const numArrayCallback: (err: Error | null, res: number[]) => void = () => {};
 const nullableStrCallback: (err: Error | null, res: string | null) => void = () => {};
 const okCallback: (err: Error | null, res: 'OK') => void = () => {};
 const messageHandler: (channel: string, message: any) => void = () => {};
@@ -17,6 +18,10 @@ const messageHandler: (channel: string, message: any) => void = () => {};
 
 const debug_mode: boolean = redis.debug_mode;
 redis.print(err, value);
+
+// Add command
+redis.add_command('my command');
+redis.addCommand('my other command');
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -74,6 +79,7 @@ client.unref();
 client.append(str, str, numCallback);
 client.bitcount(str, numCallback);
 client.bitcount(str, num, num, numCallback);
+client.bitfield(str, [str, str, str, num], numArrayCallback);
 client.set(str, str, okCallback);
 client.get(str, nullableStrCallback);
 client.exists(str, numCallback);
@@ -83,6 +89,13 @@ client.on(str, messageHandler);
 client.once(str, messageHandler);
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+// set
+client.set('key', 'value', resCallback);
+client.set('key', 'value', 'NX', resCallback);
+client.set('key', 'value', 'EX', 1000, resCallback);
+client.set('key', 'value', 'NX', 'EX', 1000, resCallback);
+client.set('key', 'value', 'EX', 1000, 'NX', resCallback);
 
 // some of the bulk methods
 client.get('test');
@@ -149,10 +162,6 @@ client.cork();
 client.set('abc', 'fff', strCallback);
 client.get('abc', resCallback);
 client.uncork();
-
-// Add command
-client.add_command('my command');
-client.addCommand('my other command');
 
 // redis.print as callback
 client.set(str, str, redis.print);

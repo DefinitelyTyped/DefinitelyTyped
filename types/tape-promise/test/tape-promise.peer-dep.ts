@@ -1,4 +1,3 @@
-// tslint:disable: no-async-without-await
 // peerDependencies: { tape: '*' }
 import tape = require('tape-promise/tape');
 

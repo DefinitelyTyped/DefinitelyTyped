@@ -16,6 +16,9 @@ tokenizer = new natural.WordPunctTokenizer();
 console.log(tokenizer.tokenize("my dog hasn't any fleas."));
 // [ 'my',  'dog',  'hasn',  '\'',  't',  'any',  'fleas',  '.' ]
 
+tokenizer = new natural.SentenceTokenizer();
+console.log(tokenizer.tokenize('One sentence. Another sentence.'));
+
 // String Distance
 console.log(natural.JaroWinklerDistance('dixon', 'dicksonx'));
 console.log(natural.JaroWinklerDistance('not', 'same'));
@@ -284,4 +287,5 @@ var rules = new natural.RuleSet(rulesFilename);
 var tagger = new natural.BrillPOSTagger(lexicon, rules);
 
 var sentence = ['I', 'see', 'the', 'man', 'with', 'the', 'telescope'];
-tagger.tag(sentence);
+var taggedSentence = tagger.tag(sentence);
+console.log(taggedSentence.taggedWords);

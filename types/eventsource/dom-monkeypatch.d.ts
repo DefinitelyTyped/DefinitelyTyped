@@ -1,5 +1,4 @@
 interface EventListener {
-  // tslint:disable-next-line: callable-types
   (evt: Event): void;
 }
 
@@ -60,15 +59,15 @@ interface Event {
 }
 
 interface EventInit {
-  bubbles?: boolean;
-  cancelable?: boolean;
-  composed?: boolean;
+  bubbles?: boolean | undefined;
+  cancelable?: boolean | undefined;
+  composed?: boolean | undefined;
 }
 
 interface MessageEventInit<T = any> extends EventInit {
-  data?: T;
-  lastEventId?: string;
-  origin?: string;
+  data?: T | undefined;
+  lastEventId?: string | undefined;
+  origin?: string | undefined;
 }
 
 /** The MessageEvent interface represents a message received by a target object. */

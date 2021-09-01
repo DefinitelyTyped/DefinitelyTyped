@@ -116,23 +116,23 @@ declare module "../index" {
         /**
         * The "escape" delimiter.
         **/
-        escape?: RegExp;
+        escape?: RegExp | undefined;
         /**
         * The "evaluate" delimiter.
         **/
-        evaluate?: RegExp;
+        evaluate?: RegExp | undefined;
         /**
         * An object to import into the template as local variables.
         */
-        imports?: Dictionary<any>;
+        imports?: Dictionary<any> | undefined;
         /**
         * The "interpolate" delimiter.
         */
-        interpolate?: RegExp;
+        interpolate?: RegExp | undefined;
         /**
         * Used to reference the data object in the template text.
         */
-        variable?: string;
+        variable?: string | undefined;
     }
     /**
      * Creates a cache object to store key/value pairs.
@@ -166,7 +166,7 @@ declare module "../index" {
         /**
          * Removes all key-value entries from the map.
          */
-        clear?: () => void;
+        clear?: (() => void) | undefined;
     }
     interface MapCacheConstructor {
         new (): MapCache;
@@ -231,7 +231,7 @@ declare module "../index" {
     type MemoIteratorCapped<T, TResult> = (prev: TResult, curr: T) => TResult;
     type MemoIteratorCappedRight<T, TResult> = (curr: T, prev: TResult) => TResult;
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
-    type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
+    type MemoVoidDictionaryIterator<T, K extends string | number | symbol, TResult> = (acc: TResult, curr: T, key: K, dict: Record<K, T>) => void;
     type MemoVoidIteratorCapped<T, TResult> = (acc: TResult, curr: T) => void;
     type ValueIteratee<T> = ((value: T) => NotVoid) | IterateeShorthand<T>;
     type ValueIterateeCustom<T, TResult> = ((value: T) => TResult) | IterateeShorthand<T>;

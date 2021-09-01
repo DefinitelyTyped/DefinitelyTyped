@@ -11,21 +11,27 @@ import Layer from './Layer';
 
 export interface Options {
     style: LiteralStyle;
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    source?: VectorSource<Geometry>;
-    disableHitDetection?: boolean;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    source?: VectorSource<Geometry> | undefined;
+    disableHitDetection?: boolean | undefined;
 }
 export default class WebGLPointsLayer extends Layer {
     constructor(options: Options);
+    /**
+     * Create a renderer for this layer.
+     */
     createRenderer(): WebGLPointsLayerRenderer;
+    /**
+     * Clean up.
+     */
     disposeInternal(): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

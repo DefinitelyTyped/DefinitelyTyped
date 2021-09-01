@@ -23,6 +23,7 @@ new Vue({
         <DatePicker
             :date.sync="date"
             :locale="locale"
+            enable-grid-switch
         >
             <input
             v-model.trim="date"

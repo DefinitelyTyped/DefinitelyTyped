@@ -5,10 +5,10 @@
 //                 João Loff <https://github.com/jfloff>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Alberto Restifo <https://github.com/albertorestifo>
-//                 Behind The Math <https://github.com/BehindTheMath>
 //                 Janne Liuhtonen <https://github.com/jliuhtonen>
 //                 Raphaël Barbazza <https://github.com/rbarbazz>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -32,7 +32,7 @@ export function unparse(data: object[] | any[][] | UnparseObject, config?: Unpar
  * Read-Only Properties
  */
 // An array of characters that are not allowed as delimiters.
-export const BAD_DELIMETERS: string[];
+export const BAD_DELIMITERS: string[];
 
 // The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for.
 export type RECORD_SEP_TYPE = '';
@@ -90,27 +90,27 @@ export class Parser {
 }
 
 export interface ParseConfig<T = any> {
-    delimiter?: string; // default: ","
-    newline?: string; // default: "\r\n"
-    quoteChar?: string; // default: '"'
-    escapeChar?: string; // default: '"'
-    header?: boolean; // default: false
-    trimHeaders?: boolean; // default: false
+    delimiter?: string | undefined; // default: ","
+    newline?: string | undefined; // default: "\r\n"
+    quoteChar?: string | undefined; // default: '"'
+    escapeChar?: string | undefined; // default: '"'
+    header?: boolean | undefined; // default: false
+    trimHeaders?: boolean | undefined; // default: false
     dynamicTyping?:
         | boolean
         | { [headerName: string]: boolean; [columnNumber: number]: boolean }
-        | ((field: string | number) => boolean); // default: false
-    preview?: number; // default: 0
-    encoding?: string; // default: ""
-    worker?: boolean; // default: false
-    comments?: boolean | string; // default: false
-    download?: boolean; // default: false
-    downloadRequestHeaders?: { [headerName: string]: string }; // default: undefined
-    skipEmptyLines?: boolean | 'greedy'; // default: false
-    fastMode?: boolean; // default: undefined
-    withCredentials?: boolean; // default: undefined
-    delimitersToGuess?: GuessableDelimiters[]; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
-    chunkSize?: number; // default: undefined
+        | ((field: string | number) => boolean) | undefined; // default: false
+    preview?: number | undefined; // default: 0
+    encoding?: string | undefined; // default: ""
+    worker?: boolean | undefined; // default: false
+    comments?: boolean | string | undefined; // default: false
+    download?: boolean | undefined; // default: false
+    downloadRequestHeaders?: { [headerName: string]: string } | undefined; // default: undefined
+    skipEmptyLines?: boolean | 'greedy' | undefined; // default: false
+    fastMode?: boolean | undefined; // default: undefined
+    withCredentials?: boolean | undefined; // default: undefined
+    delimitersToGuess?: GuessableDelimiters[] | undefined; // default: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+    chunkSize?: number | undefined; // default: undefined
 
     // Callbacks
     step?(results: ParseResult<T>, parser: Parser): void; // default: undefined
@@ -123,20 +123,21 @@ export interface ParseConfig<T = any> {
 }
 
 export interface UnparseConfig {
-    quotes?: boolean | boolean[] | ((value: any) => boolean); // default: false
-    quoteChar?: string; // default: '"'
-    escapeChar?: string; // default: '"'
-    delimiter?: string; // default: ","
+    quotes?: boolean | boolean[] | ((value: any) => boolean) | undefined; // default: false
+    quoteChar?: string | undefined; // default: '"'
+    escapeChar?: string | undefined; // default: '"'
+    escapeFormulae?: boolean | undefined; // default: false
+    delimiter?: string | undefined; // default: ","
     /**
      * If defined and the download property is true,
      * a POST request will be made instead of a GET request and the passed argument will be set as the body of the request.
      * @default undefined
      */
-    downloadRequestBody?: boolean;
-    header?: boolean; // default: true
-    newline?: string; // default: "\r\n"
-    skipEmptyLines?: boolean | 'greedy'; // default: false
-    columns?: string[]; // default: null
+    downloadRequestBody?: boolean | undefined;
+    header?: boolean | undefined; // default: true
+    newline?: string | undefined; // default: "\r\n"
+    skipEmptyLines?: boolean | 'greedy' | undefined; // default: false
+    columns?: string[] | undefined; // default: null
 }
 
 export interface UnparseObject {
@@ -155,7 +156,7 @@ export interface ParseMeta {
     delimiter: string; // Delimiter used
     linebreak: string; // Line break sequence used
     aborted: boolean; // Whether process was aborted
-    fields?: string[]; // Array of field names
+    fields?: string[] | undefined; // Array of field names
     truncated: boolean; // Whether preview consumed all input
     cursor: number;
 }

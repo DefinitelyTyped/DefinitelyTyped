@@ -16,7 +16,7 @@ export = flash;
 declare global {
     namespace Express {
         interface Request {
-            session?: Session;
+            session?: Session | undefined;
         }
 
         interface Session {
@@ -51,7 +51,7 @@ declare global {
             flash(type: string, msg: string | any[]): void;
 
             locals: {
-                flash?: Flash
+                flash?: Flash | undefined
             };
         }
     }

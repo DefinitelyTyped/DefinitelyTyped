@@ -1,4 +1,4 @@
-interface TInputs { inputString?: string; }
+interface TInputs { inputString?: string | undefined; }
 interface TOutputs { testString: string; }
 
 class TestControl implements ComponentFramework.StandardControl<TInputs, TOutputs> {
@@ -145,4 +145,27 @@ const propertyTest: ComponentFramework.PropertyTypes.Property = {
     raw: '',
     type: '',
     attributes: metadataTest,
+};
+
+const lookupValueTest: ComponentFramework.LookupValue = {
+    id: '',
+    name: '',
+    entityType: '',
+};
+
+const lookupPropertyTest: ComponentFramework.PropertyTypes.LookupProperty = {
+    error: false,
+    errorMessage: '',
+    type: '',
+    raw: [lookupValueTest],
+    getTargetEntityType: () => '',
+    getViewId: () => '',
+};
+
+const webApiTest: ComponentFramework.WebApi = {
+    createRecord: () => Promise.resolve(lookupValueTest),
+    updateRecord: () => Promise.resolve(lookupValueTest),
+    deleteRecord: () => Promise.resolve(lookupValueTest),
+    retrieveMultipleRecords: () => Promise.resolve({ entities: [], nextLink: '' }),
+    retrieveRecord: () => Promise.resolve({}),
 };

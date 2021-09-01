@@ -1,4 +1,4 @@
-import { Schema } from '@wordpress/api-fetch';
+import { Schema } from '@wordpress/core-data';
 
 export type UploadMediaErrorCode =
     | 'MIME_TYPE_NOT_ALLOWED_FOR_USER'
@@ -18,11 +18,11 @@ export interface UploadMediaOptions {
     /**
      * Additional data to include in the request.
      */
-    additionalData?: Record<string, any>;
+    additionalData?: Record<string, any> | undefined;
     /**
      * Array with the types of media that can be uploaded, if unset all types are allowed.
      */
-    allowedTypes?: string[];
+    allowedTypes?: string[] | undefined;
     /**
      * List of files.
      */
@@ -48,7 +48,7 @@ export interface UploadMediaOptions {
      * }
      * ```
      */
-    wpAllowedMimeTypes?: Record<string, string>;
+    wpAllowedMimeTypes?: Record<string, string> | undefined;
 }
 
 /**

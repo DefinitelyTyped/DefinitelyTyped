@@ -1,31 +1,31 @@
-declare module "repl" {
-    import { Interface, Completer, AsyncCompleter } from "readline";
-    import { Context } from "vm";
-    import { InspectOptions } from "util";
+declare module 'repl' {
+    import { Interface, Completer, AsyncCompleter } from 'readline';
+    import { Context } from 'vm';
+    import { InspectOptions } from 'util';
 
     interface ReplOptions {
         /**
          * The input prompt to display.
-         * Default: `"> "`
+         * @default "> "
          */
-        prompt?: string;
+        prompt?: string | undefined;
         /**
          * The `Readable` stream from which REPL input will be read.
-         * Default: `process.stdin`
+         * @default process.stdin
          */
-        input?: NodeJS.ReadableStream;
+        input?: NodeJS.ReadableStream | undefined;
         /**
          * The `Writable` stream to which REPL output will be written.
-         * Default: `process.stdout`
+         * @default process.stdout
          */
-        output?: NodeJS.WritableStream;
+        output?: NodeJS.WritableStream | undefined;
         /**
          * If `true`, specifies that the output should be treated as a TTY terminal, and have
          * ANSI/VT100 escape codes written to it.
          * Default: checking the value of the `isTTY` property on the output stream upon
          * instantiation.
          */
-        terminal?: boolean;
+        terminal?: boolean | undefined;
         /**
          * The function to be used when evaluating each given line of input.
          * Default: an async wrapper for the JavaScript `eval()` function. An `eval` function can
@@ -35,40 +35,40 @@ declare module "repl" {
          * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_default_evaluation
          * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_custom_evaluation_functions
          */
-        eval?: REPLEval;
+        eval?: REPLEval | undefined;
         /**
          * If `true`, specifies that the default `writer` function should include ANSI color
          * styling to REPL output. If a custom `writer` function is provided then this has no
          * effect.
          * Default: the REPL instance's `terminal` value.
          */
-        useColors?: boolean;
+        useColors?: boolean | undefined;
         /**
          * If `true`, specifies that the default evaluation function will use the JavaScript
          * `global` as the context as opposed to creating a new separate context for the REPL
          * instance. The node CLI REPL sets this value to `true`.
          * Default: `false`.
          */
-        useGlobal?: boolean;
+        useGlobal?: boolean | undefined;
         /**
          * If `true`, specifies that the default writer will not output the return value of a
          * command if it evaluates to `undefined`.
          * Default: `false`.
          */
-        ignoreUndefined?: boolean;
+        ignoreUndefined?: boolean | undefined;
         /**
          * The function to invoke to format the output of each command before writing to `output`.
          * Default: a wrapper for `util.inspect`.
          *
          * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_customizing_repl_output
          */
-        writer?: REPLWriter;
+        writer?: REPLWriter | undefined;
         /**
          * An optional function used for custom Tab auto completion.
          *
          * @see https://nodejs.org/dist/latest-v11.x/docs/api/readline.html#readline_use_of_the_completer_function
          */
-        completer?: Completer | AsyncCompleter;
+        completer?: Completer | AsyncCompleter | undefined;
         /**
          * A flag that specifies whether the default evaluator executes all JavaScript commands in
          * strict mode or default (sloppy) mode.
@@ -77,13 +77,13 @@ declare module "repl" {
          * - `repl.REPL_MODE_STRICT` - evaluates expressions in strict mode. This is equivalent to
          *   prefacing every repl statement with `'use strict'`.
          */
-        replMode?: typeof REPL_MODE_SLOPPY | typeof REPL_MODE_STRICT;
+        replMode?: typeof REPL_MODE_SLOPPY | typeof REPL_MODE_STRICT | undefined;
         /**
          * Stop evaluating the current piece of code when `SIGINT` is received, i.e. `Ctrl+C` is
          * pressed. This cannot be used together with a custom `eval` function.
          * Default: `false`.
          */
-        breakEvalOnSigint?: boolean;
+        breakEvalOnSigint?: boolean | undefined;
     }
 
     type REPLEval = (this: REPLServer, evalCmd: string, context: Context, file: string, cb: (err: Error | null, result: any) => void) => void;
@@ -101,7 +101,7 @@ declare module "repl" {
         /**
          * Help text to be displayed when `.help` is entered.
          */
-        help?: string;
+        help?: string | undefined;
         /**
          * The function to execute, optionally accepting a single string argument.
          */
@@ -131,13 +131,21 @@ declare module "repl" {
          */
         readonly context: Context;
         /**
-         * The `Readable` stream from which REPL input will be read.
+         * Outdated alias for `input`.
          */
         readonly inputStream: NodeJS.ReadableStream;
         /**
-         * The `Writable` stream to which REPL output will be written.
+         * Outdated alias for `output`.
          */
         readonly outputStream: NodeJS.WritableStream;
+        /**
+         * The `Readable` stream from which REPL input will be read.
+         */
+        readonly input: NodeJS.ReadableStream;
+        /**
+         * The `Writable` stream to which REPL output will be written.
+         */
+        readonly output: NodeJS.WritableStream;
         /**
          * The commands registered via `replServer.defineCommand()`.
          */

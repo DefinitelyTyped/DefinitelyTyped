@@ -1,3 +1,6 @@
+/**
+ * Relationship to an extent.
+ */
 declare enum Relationship {
     UNKNOWN = 0,
     INTERSECTING = 1,

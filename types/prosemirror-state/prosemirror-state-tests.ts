@@ -20,7 +20,7 @@ plugin = new state.Plugin({
         },
     },
 
-    props: {}
+    props: {},
 });
 
 // Verify that Transaction (that extends Transform) has the correct return types
@@ -55,11 +55,11 @@ transaction = transaction.split(0);
 transaction = transaction.join(0);
 transaction = transaction.step(step);
 
-const res1_1: state.PluginSpec["appendTransaction"] = null;
-const res1_2: state.PluginSpec["appendTransaction"] = () => {};
-const res1_3: state.PluginSpec["appendTransaction"] = () => null;
-const res1_4: state.PluginSpec["appendTransaction"] = () => undefined;
-const res1_5: state.PluginSpec["appendTransaction"] = () => ({} as state.Transaction);
+const res1_1: state.PluginSpec['appendTransaction'] = null;
+const res1_2: state.PluginSpec['appendTransaction'] = () => {};
+const res1_3: state.PluginSpec['appendTransaction'] = () => null;
+const res1_4: state.PluginSpec['appendTransaction'] = () => undefined;
+const res1_5: state.PluginSpec['appendTransaction'] = () => ({} as state.Transaction);
 
 const res2_1 = new state.PluginKey();
 const res2_2: state.Plugin = res2_1.get({} as state.EditorState)!;

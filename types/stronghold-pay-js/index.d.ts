@@ -27,7 +27,7 @@ declare global {
         }
         enum ERROR_TYPE {
             API_ERROR = "api_error",
-            AUTHENTICATION_ERROR = "authentication_error",
+            AUTH_ERROR = "auth_error",
             INVALID_REQUEST_ERROR = "invalid_request_error",
             OBJECT_ERROR = "object_error",
             VALIDATION_ERROR = "validation_error"
@@ -35,22 +35,29 @@ declare global {
         enum ERROR_CODE {
             SERVER_ERROR = "server_error",
             CONNECTION_ERROR = "connection_error",
+            MERCHANT_SOFTWARE_ERROR = "merchant_software_error",
             INVALID_API_KEY = "invalid_api_key",
+            LIVE_NOT_APPROVED = "live_not_approved",
             FORBIDDEN_RESOURCE = "forbidden_resource",
             INVALID_ACCESS_TOKEN = "invalid_access_token",
             NOT_FOUND = "not_found",
             INVALID_ID = "invalid_id",
             TICKET_NOT_FOUND = "ticket_not_found",
             DISPENSARY_NOT_FOUND = "dispensary_not_found",
+            SANDBOX_ONLY = "sandbox_only",
+            INVALID_OPERATION = "invalid_operation",
             PAYMENT_SOURCE_ALREADY_EXISTS = "payment_source_already_exists",
             PAYMENT_SOURCE_LOGIN_REQUIRED = "payment_source_login_required",
             PAYMENT_SOURCE_UNAVAILABLE = "payment_source_unavailable",
             PAYMENT_SOURCE_LOGIN_UNAVAILABLE = "payment_source_login_unavailable",
+            PAYMENT_SOURCE_INACTIVE = "payment_source_inactive",
+            PAYMENT_SOURCE_ACTION_REQUIRED = "payment_source_action_required",
             INSUFFICIENT_BALANCE = "insufficient_balance",
             CUSTOMER_BLOCKED = "customer_blocked",
             PAY_LINK_CANCELED = "pay_link_canceled",
             PAY_LINK_EXPIRED = "pay_link_expired",
             PAY_LINK_ALREADY_USED = "pay_link_already_used",
+            INVALID_CHARGE_AMOUNT = "invalid_charge_amount",
             MISSING_FIELD = "missing_field",
             INVALID_FIELD = "invalid_field",
             VALUE_TAKEN = "value_taken"
@@ -69,7 +76,7 @@ declare global {
         interface ClientOptions {
             environment: ENVIRONMENT;
             publishableKey: string;
-            host?: string;
+            host?: string | undefined;
         }
         type AddPaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
         type UpdatePaymentSourceOnSuccess = (paymentSource: PaymentSource) => void;
@@ -80,27 +87,27 @@ declare global {
         type OnError = (error: StrongholdPayError) => void;
         type OnEvent = (event: StrongholdMessageEvent) => void;
         interface Options {
-            onExit?: OnExit;
-            onError?: OnError;
-            onEvent?: OnEvent;
-            onReady?: OnReady;
+            onExit?: OnExit | undefined;
+            onError?: OnError | undefined;
+            onEvent?: OnEvent | undefined;
+            onReady?: OnReady | undefined;
         }
         interface AddPaymentSourceOptions extends Options {
             onSuccess: AddPaymentSourceOnSuccess;
         }
         interface UpdatePaymentSourceOptions extends Options {
-            onSuccess?: UpdatePaymentSourceOnSuccess;
+            onSuccess?: UpdatePaymentSourceOnSuccess | undefined;
             paymentSourceId: string;
         }
         interface ChargeOptions extends Options {
             charge: ChargeDropin;
-            tip?: TipDataDropin;
-            authorizeOnly?: boolean;
+            tip?: TipDataDropin | undefined;
+            authorizeOnly?: boolean | undefined;
             onSuccess: ChargeOnSuccess;
         }
         interface TipOptions extends Options {
             tip: TipDropin;
-            authorizeOnly?: boolean;
+            authorizeOnly?: boolean | undefined;
             onSuccess: TipOnSuccess;
         }
         interface StrongholdMessageEvent extends MessageEvent {
@@ -118,6 +125,7 @@ declare global {
              */
             amount: number;
             paymentSourceId: string;
+            externalId?: string | undefined;
         }
         interface TipDataDropin {
             /**
@@ -126,10 +134,10 @@ declare global {
             amount: number;
             beneficiaryName: string;
             details?: {
-                displayMessage?: string;
-                terminalId?: string;
-                drawerId?: string;
-            };
+                displayMessage?: string | undefined;
+                terminalId?: string | undefined;
+                drawerId?: string | undefined;
+            } | undefined;
         }
         interface TipDropin extends TipDataDropin {
             chargeId: string;
@@ -168,14 +176,17 @@ declare global {
             amount: number;
             beneficiary_name: string;
             details?: {
-                display_message?: string;
-                terminal_id?: string;
-                drawer_id?: string;
-            };
+                display_message?: string | undefined;
+                terminal_id?: string | undefined;
+                drawer_id?: string | undefined;
+            } | undefined;
             charge_id: string;
             payment_source_id: string;
         }
         function frameForSrc(src: string): JQuery;
+        function getOptionQuery(options: Options): {
+            [key: string]: string | number | boolean | undefined;
+        };
         function getChargeQuery(charge?: ChargeDropin): {
             [key: string]: string | number | boolean | undefined;
         };

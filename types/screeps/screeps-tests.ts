@@ -51,9 +51,12 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     type StoreStructure = StructureContainer | StructureStorage | StructureLink;
-    const storeID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
-    const stringID: string = storeID; // Id<T> assignable implicitly to string
-    const storeObject = Game.getObjectById(storeID)!;
+    const storeUnionID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
+    const storeIdUnion: StoreStructure["id"] = "1234" as StoreStructure["id"];
+    const stringID: string = storeUnionID; // Id<T> assignable implicitly to string
+    const stringID2: string = storeIdUnion; // Id<T> assignable implicitly to string
+    const storeObject = Game.getObjectById(storeUnionID)!;
+    const storeObject2 = Game.getObjectById(storeIdUnion)!;
 
     // Object recognized
     switch (storeObject.structureType) {
@@ -152,6 +155,12 @@ function resources(o: GenericStore): ResourceConstant[] {
 
         creep = new StructureSpawn.Spawning("" as Id<Spawning>);
         creep = StructureSpawn.Spawning("" as Id<Spawning>);
+
+        const invaderCore = new StructureInvaderCore("" as Id<StructureInvaderCore>);
+        const invader = invaderCore.spawning;
+        if (invader) {
+            const name = invader.name;
+        }
     }
 }
 
@@ -421,6 +430,10 @@ function resources(o: GenericStore): ResourceConstant[] {
     const avgPrice: number = priceHistory[0].avgPrice;
     const stddevPrice: number = priceHistory[0].stddevPrice;
     const volume: number = priceHistory[0].volume;
+
+    // Game.market.getHistory([resourceType])
+    const energyHistory = Game.market.getHistory(RESOURCE_ENERGY);
+    const pixelHistory = Game.market.getHistory(PIXEL);
 }
 
 // PathFinder
@@ -567,6 +580,14 @@ function resources(o: GenericStore): ResourceConstant[] {
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     sites[0].remove();
 
+    const extensionsites = room.find(FIND_CONSTRUCTION_SITES, {
+        filter: (site): site is ConstructionSite<STRUCTURE_EXTENSION> => {
+            return site.structureType === STRUCTURE_EXTENSION;
+        },
+    });
+    // Should always be true. needs proper testing
+    extensionsites[0].structureType === STRUCTURE_EXTENSION;
+
     // Should have type (_HasRoomPosition | RoomPosition)[]
     const exits = room.find(FIND_EXIT);
 
@@ -583,6 +604,19 @@ function resources(o: GenericStore): ResourceConstant[] {
     towers[0].attack(powerCreep);
     towers[0].attack(spawns[0]);
     towers[0].heal(powerCreep);
+
+    const isTower = (structure: AnyStructure): structure is StructureTower => {
+        return structure.structureType === STRUCTURE_TOWER;
+    };
+
+    const tower = room.find(FIND_MY_STRUCTURES, {
+        filter: isTower,
+    })[0];
+    tower.attack(creeps[0]);
+    tower.attack(creeps[0] as AnyCreep);
+    tower.attack(powerCreep);
+    tower.attack(spawns[0]);
+    tower.heal(powerCreep);
 }
 
 // RoomPosition Finds
@@ -598,11 +632,34 @@ function resources(o: GenericStore): ResourceConstant[] {
         filter: structure => {
             return structure.structureType === STRUCTURE_TOWER;
         },
+        algorithm: "astar",
     });
     if (tower !== null) {
         tower.attack(creep);
         tower.attack(powerCreep);
     }
+
+    // Generic type predicate filter
+    const isStructureType = <T extends StructureConstant, S extends ConcreteStructure<T>>(structureType: T) => {
+        return (structure: AnyStructure): structure is S => {
+            return structure.structureType === structureType;
+        };
+    };
+
+    const tower2 = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
+        filter: isStructureType(STRUCTURE_TOWER),
+        algorithm: "astar",
+    });
+    if (tower2 !== null) {
+        tower2.attack(creep);
+        tower2.attack(powerCreep);
+    }
+
+    const creepWithEnergy = creep.pos.findClosestByPath(creep.room.find(FIND_CREEPS), { filter: c => c.store.energy > 0 });
+
+    const creepAbove = creep.pos.findClosestByPath(creep.room.find(FIND_CREEPS).map(c => c.pos), {
+        filter: p => p.getDirectionTo(creep) === TOP,
+    });
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
         filter: structure => {
@@ -877,7 +934,7 @@ function atackPower(creep: Creep) {
         .reduce((a, b) => a + b);
 }
 
-// Facotries and Commodities
+// Factories and Commodities
 
 {
     const factory = new StructureFactory("" as Id<StructureFactory>);
@@ -896,6 +953,57 @@ function atackPower(creep: Creep) {
     factory.produce(RESOURCE_GHODIUM_MELT);
 
     creep.withdraw(factory, RESOURCE_PHLEGM);
+
+    // Energy and ghodium commodities
+    COMMODITIES[RESOURCE_ENERGY];
+    COMMODITIES[RESOURCE_GHODIUM];
+
+    // Mineral commodities
+    COMMODITIES[RESOURCE_UTRIUM];
+    COMMODITIES[RESOURCE_LEMERGIUM];
+    COMMODITIES[RESOURCE_KEANIUM];
+    COMMODITIES[RESOURCE_ZYNTHIUM];
+    COMMODITIES[RESOURCE_OXYGEN];
+    COMMODITIES[RESOURCE_HYDROGEN];
+    COMMODITIES[RESOURCE_CATALYST];
+
+    // Commodity commodities
+    COMMODITIES[RESOURCE_UTRIUM_BAR];
+    COMMODITIES[RESOURCE_LEMERGIUM_BAR];
+    COMMODITIES[RESOURCE_ZYNTHIUM_BAR];
+    COMMODITIES[RESOURCE_KEANIUM_BAR];
+    COMMODITIES[RESOURCE_GHODIUM_MELT];
+    COMMODITIES[RESOURCE_OXIDANT];
+    COMMODITIES[RESOURCE_REDUCTANT];
+    COMMODITIES[RESOURCE_PURIFIER];
+    COMMODITIES[RESOURCE_BATTERY];
+    COMMODITIES[RESOURCE_COMPOSITE];
+    COMMODITIES[RESOURCE_CRYSTAL];
+    COMMODITIES[RESOURCE_LIQUID];
+    COMMODITIES[RESOURCE_WIRE];
+    COMMODITIES[RESOURCE_SWITCH];
+    COMMODITIES[RESOURCE_TRANSISTOR];
+    COMMODITIES[RESOURCE_MICROCHIP];
+    COMMODITIES[RESOURCE_CIRCUIT];
+    COMMODITIES[RESOURCE_DEVICE];
+    COMMODITIES[RESOURCE_CELL];
+    COMMODITIES[RESOURCE_PHLEGM];
+    COMMODITIES[RESOURCE_TISSUE];
+    COMMODITIES[RESOURCE_MUSCLE];
+    COMMODITIES[RESOURCE_ORGANOID];
+    COMMODITIES[RESOURCE_ORGANISM];
+    COMMODITIES[RESOURCE_ALLOY];
+    COMMODITIES[RESOURCE_TUBE];
+    COMMODITIES[RESOURCE_FIXTURES];
+    COMMODITIES[RESOURCE_FRAME];
+    COMMODITIES[RESOURCE_HYDRAULICS];
+    COMMODITIES[RESOURCE_MACHINE];
+    COMMODITIES[RESOURCE_CONDENSATE];
+    COMMODITIES[RESOURCE_CONCENTRATE];
+    COMMODITIES[RESOURCE_EXTRACT];
+    COMMODITIES[RESOURCE_SPIRIT];
+    COMMODITIES[RESOURCE_EMANATION];
+    COMMODITIES[RESOURCE_ESSENCE];
 }
 
 // <strike>Horse armor!</strike>Pixels!
@@ -918,4 +1026,8 @@ function atackPower(creep: Creep) {
         .rect(point3, 50, 50);
 
     const size: number = mapVis.getSize();
+
+    const visData = mapVis.export();
+    mapVis.clear();
+    mapVis.import(visData);
 }

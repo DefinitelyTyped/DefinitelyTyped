@@ -9,9 +9,7 @@ const myRenderer = (Base = HTMLElement) =>
 
 const Component = withComponent(myRenderer());
 
-// tslint:disable-next-line interface-over-type-literal
 type Props = { name: string };
-// tslint:disable-next-line interface-over-type-literal
 type State = { count: number };
 
 class WithComponent extends withComponent(myRenderer())<Props, State> {

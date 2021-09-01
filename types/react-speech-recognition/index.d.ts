@@ -1,19 +1,20 @@
-// Type definitions for react-speech-recognition 3.1
+// Type definitions for react-speech-recognition 3.6
 // Project: https://github.com/JamesBrill/react-speech-recognition#readme
 // Definitions by: OleksandrYehorov <https://github.com/OleksandrYehorov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Command {
-    command: string | RegExp;
+    command: string | string[] | RegExp;
     callback: (...args: any[]) => unknown;
-    isFuzzyMatch?: boolean;
-    matchInterim?: boolean;
-    fuzzyMatchingThreshold?: number;
+    isFuzzyMatch?: boolean | undefined;
+    matchInterim?: boolean | undefined;
+    fuzzyMatchingThreshold?: number | undefined;
+    bestMatchOnly?: boolean | undefined;
 }
 
 export interface ListeningOptions {
-    continuous?: boolean;
-    language?: string;
+    continuous?: boolean | undefined;
+    language?: string | undefined;
 }
 
 interface SpeechRecognition {
@@ -25,9 +26,9 @@ interface SpeechRecognition {
 }
 
 export interface SpeechRecognitionOptions {
-    transcribing?: boolean;
-    clearTranscriptOnListen?: boolean;
-    commands?: ReadonlyArray<Command>;
+    transcribing?: boolean | undefined;
+    clearTranscriptOnListen?: boolean | undefined;
+    commands?: ReadonlyArray<Command> | undefined;
 }
 
 export function useSpeechRecognition(

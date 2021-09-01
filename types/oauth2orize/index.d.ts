@@ -12,7 +12,7 @@ import { IncomingMessage, ServerResponse } from "http";
 declare global {
   namespace Express {
     interface Request {
-      oauth2?: OAuth2;
+      oauth2?: OAuth2 | undefined;
     }
   }
 }
@@ -40,7 +40,7 @@ export interface OAuth2Info {
 }
 
 export interface MiddlewareRequest extends IncomingMessage {
-  oauth2?: OAuth2;
+  oauth2?: OAuth2 | undefined;
   user?: any;
 }
 
@@ -52,8 +52,8 @@ export interface ServerOptions {
 export function createServer(options?: ServerOptions): OAuth2Server;
 
 export interface AuthorizeOptions {
-  idLength?: number;
-  sessionKey?: string;
+  idLength?: number | undefined;
+  sessionKey?: string | undefined;
 }
 
 export interface DecisionOptions {
@@ -63,13 +63,13 @@ export interface DecisionOptions {
 }
 
 export interface ErrorHandlerOptions {
-  mode?: string;
+  mode?: string | undefined;
 }
 
 export class OAuth2Error extends Error {
     code: string;
     status: number;
-    uri?: string;
+    uri?: string | undefined;
 
     /**
      * @param code Defaults to *server_error*.
@@ -183,7 +183,7 @@ export namespace grant {
     // with either space or comma (' ', ',').  This violates the specification,
     // but achieves compatibility with existing client libraries that are already
     // deployed.
-    scopeSeparator?: string;
+    scopeSeparator?: string | undefined;
   }
 
   function code(options: Options, issue: IssueGrantCodeFunction): MiddlewareFunction;
@@ -197,14 +197,14 @@ export namespace exchange {
   interface Options {
     // The 'user' property of `req` holds the authenticated user.  In the case
     // of the token endpoint, the property will contain the OAuth 2.0 client.
-    userProperty?: string;
+    userProperty?: string | undefined;
 
     // For maximum flexibility, multiple scope spearators can optionally be
     // allowed.  This allows the server to accept clients that separate scope
     // with either space or comma (' ', ',').  This violates the specification,
     // but achieves compatibility with existing client libraries that are already
     // deployed.
-    scopeSeparator?: string;
+    scopeSeparator?: string | undefined;
   }
 
   function authorizationCode(options: Options, issue: IssueExchangeCodeFunction): MiddlewareFunction;

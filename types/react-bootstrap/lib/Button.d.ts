@@ -3,13 +3,13 @@ import { Sizes } from 'react-bootstrap';
 
 declare namespace Button {
     export interface ButtonProps extends React.HTMLProps<Button> {
-        bsClass?: string;
-        active?: boolean;
-        block?: boolean;
-        bsStyle?: string | null;
-        bsSize?: Sizes;
-        componentClass?: React.ReactType;
-        disabled?: boolean;
+        bsClass?: string | undefined;
+        active?: boolean | undefined;
+        block?: boolean | undefined;
+        bsStyle?: string | null | undefined;
+        bsSize?: Sizes | undefined;
+        componentClass?: React.ReactType | undefined;
+        disabled?: boolean | undefined;
     }
 }
 declare class Button extends React.Component<Button.ButtonProps> { }

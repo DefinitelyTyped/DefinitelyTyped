@@ -8,13 +8,13 @@ export type BraintreeConfig = {
 
 export type DirectConfig = {
   display?: {
-    displayName?: string;
-  };
+    displayName?: string | undefined;
+  } | undefined;
 };
 
 export type PayPalConfig = BraintreeConfig | DirectConfig;
 
-export type PayPalEvent = 'error' | 'token';
+export type PayPalEvent = 'error' | 'token' | 'cancel' | 'ready';
 
 export type PayPalStartOptions = {
   options: {

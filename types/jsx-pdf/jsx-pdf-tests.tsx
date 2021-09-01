@@ -116,6 +116,8 @@ const doc5 = (
           </svg>
         `}
             />
+            <svg content="..." width={10} height={10} />
+            <svg content="..." fit={[150, 150]} />
         </content>
     </document>
 );
@@ -148,7 +150,7 @@ const doc7 = (
 
 const Signature = () => <text>JSX-PDF, Inc.</text>;
 
-const SignedGreeting = ({ name }: { name?: string }) => (
+const SignedGreeting = ({ name }: { name?: string | undefined }) => (
     <stack>
         {name && <Greeting name={name} />}
         <Signature />
@@ -165,7 +167,7 @@ const doc8 = (
 
 const AnonymousGreeting = () => <text>We don't know you.</text>;
 
-const SignedGreeting2 = ({ name }: { name?: string }) => (
+const SignedGreeting2 = ({ name }: { name?: string | undefined }) => (
     <stack>
         {name ? <Greeting name={name} /> : <AnonymousGreeting />}
         <Signature />
@@ -180,7 +182,7 @@ const doc9 = (
     </document>
 );
 
-const SignedGreeting3 = ({ name }: { name?: string }) => {
+const SignedGreeting3 = ({ name }: { name?: string | undefined }) => {
     const greeting = name ? <Greeting name={name} /> : <AnonymousGreeting />;
 
     return (
@@ -229,11 +231,23 @@ const doc12 = (
     </document>
 );
 
+const doc13 = (
+    <document>
+        <content>
+            <qr content="hi" />
+            <qr content="hi" foreground="#f9c7bf" />
+        </content>
+    </document>
+);
+
 // @ts-expect-error image can't have children
 const invalid1 = <image>children</image>;
 
 // @ts-expect-error svg can't have children
 const invalid1 = <svg>children</svg>;
+
+// @ts-expect-error qr can't have children
+const invalid2 = <qr content="hi">children</qr>;
 
 // @ts-expect-error header doesn't accept props
 const invalid1 = <header color="green">children</header>;

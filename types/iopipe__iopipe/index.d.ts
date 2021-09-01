@@ -1,4 +1,4 @@
-// Type definitions for iopipe__iopipe 1.12
+// Type definitions for @iopipe/iopipe 1.12
 // Project: https://github.com/iopipe/iopipe, https://github.com/iopipe/the-meta-package
 // Definitions by: Javon Harper <https://github.com/javonharper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,10 +16,10 @@ declare namespace iopipe {
     }
 
     interface LibraryConfig {
-        debug?: boolean;
-        token?: string;
-        networkTimeout?: number;
-        timeoutWindow?: number;
+        debug?: boolean | undefined;
+        token?: string | undefined;
+        networkTimeout?: number | undefined;
+        timeoutWindow?: number | undefined;
     }
 
     type FunctionWrapper = <T>(handler: T) => T;

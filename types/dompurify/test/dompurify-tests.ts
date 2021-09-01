@@ -1,6 +1,6 @@
 import dompurify = require('dompurify');
 
-dompurify.sanitize('<script>alert("hi")</script>');
+dompurify.sanitize('<script>alert("hi")</script>'); // $ExpectType string
 dompurify.addHook('beforeSanitizeElements', (el, data, config) => undefined);
 
 // examples from the DOMPurify README
@@ -35,6 +35,8 @@ str = dompurify.sanitize(dirty, {ADD_DATA_URI_TAGS: ['a', 'area']});
 // prohibit HTML5 data attributes (default is true)
 str = dompurify.sanitize(dirty, { ALLOW_DATA_ATTR: false });
 
+str = dompurify.sanitize(dirty, { NAMESPACE: "http://www.w3.org/2000/svg" });
+
 // return a DOM HTMLBodyElement instead of an HTML string (default is false)
 str = dompurify.sanitize(dirty, { RETURN_DOM: false });
 elem = dompurify.sanitize(dirty, { RETURN_DOM: true });
@@ -57,9 +59,6 @@ trustedHtml = dompurify.sanitize(dirty, { RETURN_TRUSTED_TYPE: true });
 
 // return entire document including <html> tags (default is false)
 str = dompurify.sanitize(dirty, { WHOLE_DOCUMENT: true });
-
-// make output safe for usage in jQuery's $()/html() method (default is false)
-str = dompurify.sanitize(dirty, { SAFE_FOR_JQUERY: true });
 
 // disable DOM Clobbering protection on output (default is true, handle with care!)
 str = dompurify.sanitize(dirty, { SANITIZE_DOM: false });
@@ -99,5 +98,6 @@ dompurify.addHook('uponSanitizeElement', (currentNode: Element, event: DOMPurify
 dompurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
   if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
       event.allowedAttributes[event.attrName] = true;
+      event.forceKeepAttr = true;
   }
 });

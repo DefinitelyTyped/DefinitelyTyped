@@ -27,44 +27,44 @@ declare namespace browserSync {
          * weinre.port - Default: 8080
          * Note: Requires at least version 2.0.0.
          */
-        ui?: UIOptions | boolean;
+        ui?: UIOptions | boolean | undefined;
         /**
          * Browsersync can watch your files as you work. Changes you make will either be injected into the page (CSS
          * & images) or will cause all browsers to do a full-page refresh. See anymatch for more information on glob
          * patterns.
          * Default: false
          */
-        files?: string | (string | FileCallback | object)[];
+        files?: string | (string | FileCallback | object)[] | undefined;
         /**
          * Specify which file events to respond to.
          * Available events: `add`, `change`, `unlink`, `addDir`, `unlinkDir`
          */
-        watchEvents?: WatchEvents | string[];
+        watchEvents?: WatchEvents | string[] | undefined;
         /**
          * Watch files automatically.
          */
-        watch?: boolean;
+        watch?: boolean | undefined;
         /**
          * Patterns for any watchers to ignore.
          * Anything provided here will end up inside 'watchOptions.ignored'.
          */
-        ignore?: string[];
+        ignore?: string[] | undefined;
         /**
          * Serve an index.html file for all non-asset routes.
          * Useful when using client-routers.
          */
-        single?: boolean;
+        single?: boolean | undefined;
         /**
          * File watching options that get passed along to Chokidar. Check their docs for available options
          * Default: undefined
          * Note: Requires at least version 2.6.0.
          */
-        watchOptions?: chokidar.WatchOptions;
+        watchOptions?: chokidar.WatchOptions | undefined;
         /**
          * Use the built-in static server for basic HTML/JS/CSS websites.
          * Default: false
          */
-        server?: string | boolean | string[] | ServerOptions;
+        server?: string | boolean | string[] | ServerOptions | undefined;
         /**
          * Proxy an EXISTING vhost. Browsersync will wrap your vhost with a proxy URL to view your site.
          * Passing only a URL as a string equates to passing only target property of ProxyOptions type.
@@ -75,151 +75,151 @@ declare namespace browserSync {
          * proxyRes - Default: undefined (http.ServerResponse if expecting single parameter)
          * proxyReq - Default: undefined
          */
-        proxy?: string | ProxyOptions;
+        proxy?: string | ProxyOptions | undefined;
         /**
          * Use a specific port (instead of the one auto-detected by Browsersync)
          * Default: 3000
          */
-        port?: number;
+        port?: number | undefined;
         /**
          * Functions or actual plugins used as middleware.
          */
-        middleware?: MiddlewareHandler | PerRouteMiddleware | (MiddlewareHandler | PerRouteMiddleware)[];
+        middleware?: MiddlewareHandler | PerRouteMiddleware | (MiddlewareHandler | PerRouteMiddleware)[] | undefined;
         /**
          * Add additional directories from which static files should be served.
          * Should only be used in proxy or snippet mode.
          * Default: []
          * Note: Requires at least version 2.8.0.
          */
-        serveStatic?: StaticOptions[] | string[];
+        serveStatic?: StaticOptions[] | string[] | undefined;
         /**
          * Options that are passed to the serve-static middleware when you use the
          * string[] syntax: eg: `serveStatic: ['./app']`.
          * Please see [serve-static](https://github.com/expressjs/serve-static) for details.
          */
-        serveStaticOptions?: ServeStaticOptions;
+        serveStaticOptions?: ServeStaticOptions | undefined;
         /**
          * Enable https for localhost development.
          * Note: This may not be needed for proxy option as it will try to infer from your target url.
          * Note: If privacy error is encountered please see HttpsOptions below, setting those will resolve.
          * Note: Requires at least version 1.3.0.
          */
-        https?: boolean | HttpsOptions;
+        https?: boolean | HttpsOptions | undefined;
         /**
          * Override http module to allow using 3rd party server modules (such as http2).
          */
-        httpModule?: string;
+        httpModule?: string | undefined;
         /**
          * Clicks, Scrolls & Form inputs on any device will be mirrored to all others.
          * clicks - Default: true
          * scroll - Default: true
          * forms - Default: true
          */
-        ghostMode?: GhostOptions | boolean;
+        ghostMode?: GhostOptions | boolean | undefined;
         /**
          * Can be either "info", "debug", "warn", or "silent"
          * Default: info
          */
-        logLevel?: LogLevel;
+        logLevel?: LogLevel | undefined;
         /**
          * Change the console logging prefix. Useful if you're creating your own project based on Browsersync
          * Default: BS
          * Note: Requires at least version 1.5.1.
          */
-        logPrefix?: string;
+        logPrefix?: string | undefined;
         /**
          * Whether or not to log connections
          * Default: false
          */
-        logConnections?: boolean;
+        logConnections?: boolean | undefined;
         /**
          * Whether or not to log information about changed files
          * Default: false
          */
-        logFileChanges?: boolean;
+        logFileChanges?: boolean | undefined;
         /**
          * Log the snippet to the console when you're in snippet mode (no proxy/server)
          * Default: true
          * Note: Requires at least version 1.5.2.
          */
-        logSnippet?: boolean;
+        logSnippet?: boolean | undefined;
         /**
          * You can control how the snippet is injected onto each page via a custom regex + function.
          * You can also provide patterns for certain urls that should be ignored from the snippet injection.
          * Note: Requires at least version 2.0.0.
          */
-        snippetOptions?: SnippetOptions;
+        snippetOptions?: SnippetOptions | undefined;
         /**
          * Add additional HTML rewriting rules.
          * Default: false
          * Note: Requires at least version 2.4.0.
          */
-        rewriteRules?: boolean | RewriteRules[];
+        rewriteRules?: boolean | RewriteRules[] | undefined;
         /**
          * Tunnel the Browsersync server through a random Public URL
          * Default: null
          */
-        tunnel?: string | boolean;
+        tunnel?: string | boolean | undefined;
         /**
          * Some features of Browsersync (such as xip & tunnel) require an internet connection, but if you're
          * working offline, you can reduce start-up time by setting this option to false
          */
-        online?: boolean;
+        online?: boolean | undefined;
         /**
          * Default: true
          * Decide which URL to open automatically when Browsersync starts. Defaults to "local" if none set.
          * Can be true, local, external, ui, ui-external, tunnel or false
          */
-        open?: OpenOptions | boolean;
+        open?: OpenOptions | boolean | undefined;
         /**
          * The browser(s) to open
          * Default: default
          */
-        browser?: string | string[];
+        browser?: string | string[] | undefined;
         /**
          * Add HTTP access control (CORS) headers to assets served by Browsersync.
          * Default: false
          * Note: Requires at least version 2.16.0.
          */
-        cors?: boolean;
+        cors?: boolean | undefined;
         /**
          * Requires an internet connection - useful for services such as Typekit as it allows you to configure
          * domains such as *.xip.io in your kit settings
          * Default: false
          */
-        xip?: boolean;
+        xip?: boolean | undefined;
         /**
          * Reload each browser when Browsersync is restarted.
          * Default: false
          */
-        reloadOnRestart?: boolean;
+        reloadOnRestart?: boolean | undefined;
         /**
          * The small pop-over notifications in the browser are not always needed/wanted.
          * Default: true
          */
-        notify?: boolean;
+        notify?: boolean | undefined;
         /**
          * scrollProportionally: false // Sync viewports to TOP position
          * Default: true
          */
-        scrollProportionally?: boolean;
+        scrollProportionally?: boolean | undefined;
         /**
          * How often to send scroll events
          * Default: 0
          */
-        scrollThrottle?: number;
+        scrollThrottle?: number | undefined;
         /**
          * Decide which technique should be used to restore scroll position following a reload.
          * Can be window.name or cookie
          * Default: 'window.name'
          */
-        scrollRestoreTechnique?: string;
+        scrollRestoreTechnique?: string | undefined;
         /**
          * Sync the scroll position of any element on the page. Add any amount of CSS selectors
          * Default: []
          * Note: Requires at least version 2.9.0.
          */
-        scrollElements?: string[];
+        scrollElements?: string[] | undefined;
         /**
          * Default: []
          * Note: Requires at least version 2.9.0.
@@ -227,74 +227,74 @@ declare namespace browserSync {
          * all others to match scroll position. This is helpful when a breakpoint alters which element
          * is actually scrolling
          */
-        scrollElementMapping?: string[];
+        scrollElementMapping?: string[] | undefined;
         /**
          * Time, in milliseconds, to wait before instructing the browser to reload/inject following a file
          * change event
          * Default: 0
          */
-        reloadDelay?: number;
+        reloadDelay?: number | undefined;
         /**
          * Restrict the frequency in which browser:reload events can be emitted to connected clients
          * Default: 0
          * Note: Requires at least version 2.6.0.
          */
-        reloadDebounce?: number;
+        reloadDebounce?: number | undefined;
         /**
          * Emit only the first event during sequential time windows of a specified duration.
          * Note: Requires at least version 2.13.0.
          */
-        reloadThrottle?: number;
+        reloadThrottle?: number | undefined;
         /**
          * User provided plugins
          * Default: []
          * Note: Requires at least version 2.6.0.
          */
-        plugins?: any[];
+        plugins?: any[] | undefined;
         /**
          * Whether to inject changes (rather than a page refresh)
          * Default: true
          */
-        injectChanges?: boolean;
+        injectChanges?: boolean | undefined;
         /**
          * The initial path to load
          */
-        startPath?: string;
+        startPath?: string | undefined;
         /**
          * Whether to minify the client script
          * Default: true
          */
-        minify?: boolean;
+        minify?: boolean | undefined;
         /**
          * Override host detection if you know the correct IP to use
          */
-        host?: string;
+        host?: string | undefined;
         /**
          * Support environments where dynamic hostnames are not required (ie: electron).
          */
-        localOnly?: boolean;
+        localOnly?: boolean | undefined;
         /**
          * Send file-change events to the browser
          * Default: true
          */
-        codeSync?: boolean;
+        codeSync?: boolean | undefined;
         /**
          * Append timestamps to injected files
          * Default: true
          */
-        timestamps?: boolean;
+        timestamps?: boolean | undefined;
         /**
          * ¯\_(ツ)_/¯
          * Best guess, when ghostMode (or SocketIO?) is setup the events
          * listed here will be emitted and able to hook into.
          */
-        clientEvents?: string[];
+        clientEvents?: string[] | undefined;
         /**
          * Alter the script path for complete control over where the Browsersync Javascript is served
          * from. Whatever you return from this function will be used as the script path.
          * Note: Requires at least version 1.5.0.
          */
-        scriptPath?: (path: string) => string;
+        scriptPath?: ((path: string) => string) | undefined;
         /**
          * Configure the Socket.IO path and namespace & domain to avoid collisions.
          * path - Default: "/browser-sync/socket.io"
@@ -305,19 +305,19 @@ declare namespace browserSync {
          * clients.heartbeatTimeout - Default: 5000
          * Note: Requires at least version 1.6.2.
          */
-        socket?: SocketOptions;
+        socket?: SocketOptions | undefined;
         /**
          * ¯\_(ツ)_/¯
          */
-        tagNames?: TagNamesOptions;
+        tagNames?: TagNamesOptions | undefined;
         /**
          * ¯\_(ツ)_/¯
          */
-        injectFileTypes?: string[];
+        injectFileTypes?: string[] | undefined;
         /**
          * ¯\_(ツ)_/¯
          */
-        excludeFileTypes?: string[];
+        excludeFileTypes?: string[] | undefined;
     }
 
     type WatchEvents = "add" | "change" | "unlink" | "addDir" | "unlinkDir";
@@ -332,44 +332,44 @@ declare namespace browserSync {
 
     interface UIOptions {
         /** set the default port */
-        port?: number;
+        port?: number | undefined;
         /** set the default weinre port */
         weinre?: {
-            port?: number;
-        };
+            port?: number | undefined;
+        } | undefined;
     }
 
     interface FileCallback {
-        match?: string | string[];
+        match?: string | string[] | undefined;
         fn: (event: string, file: string) => any;
-        options?: chokidar.WatchOptions;
+        options?: chokidar.WatchOptions | undefined;
     }
 
     interface ServerOptions {
         /** set base directory */
-        baseDir?: string | string[];
+        baseDir?: string | string[] | undefined;
         /** enable directory listing */
-        directory?: boolean;
+        directory?: boolean | undefined;
         /** set index filename */
-        index?: string;
+        index?: string | undefined;
         /**
          * key-value object hash, where the key is the url to match,
          * and the value is the folder to serve (relative to your working directory)
          */
-        routes?: Hash<string>;
+        routes?: Hash<string> | undefined;
         /** configure custom middleware */
-        middleware?: (MiddlewareHandler | PerRouteMiddleware)[];
-        serveStaticOptions?: ServeStaticOptions;
+        middleware?: (MiddlewareHandler | PerRouteMiddleware)[] | undefined;
+        serveStaticOptions?: ServeStaticOptions | undefined;
     }
 
     interface ProxyOptions {
-        target?: string;
-        middleware?: MiddlewareHandler;
-        ws?: boolean;
-        reqHeaders?: (config: object) => Hash<object>;
-        proxyRes?: ProxyResponseMiddleware | ProxyResponseMiddleware[];
-        proxyReq?: ((res: http.IncomingMessage) => void)[] | ((res: http.IncomingMessage) => void);
-        error?: (err: NodeJS.ErrnoException, req: http.IncomingMessage, res: http.ServerResponse) => void;
+        target?: string | undefined;
+        middleware?: MiddlewareHandler | undefined;
+        ws?: boolean | undefined;
+        reqHeaders?: ((config: object) => Hash<object>) | undefined;
+        proxyRes?: ProxyResponseMiddleware | ProxyResponseMiddleware[] | undefined;
+        proxyReq?: ((res: http.IncomingMessage) => void)[] | ((res: http.IncomingMessage) => void) | undefined;
+        error?: ((err: NodeJS.ErrnoException, req: http.IncomingMessage, res: http.ServerResponse) => void) | undefined;
     }
 
     interface ProxyResponseMiddleware {
@@ -377,8 +377,8 @@ declare namespace browserSync {
     }
 
     interface HttpsOptions {
-        key?: string;
-        cert?: string;
+        key?: string | undefined;
+        cert?: string | undefined;
     }
 
     interface StaticOptions {
@@ -391,15 +391,15 @@ declare namespace browserSync {
     }
 
     interface PerRouteMiddleware {
-        id?: string;
+        id?: string | undefined;
         route: string;
         handle: MiddlewareHandler;
     }
 
     interface GhostOptions {
-        clicks?: boolean;
-        scroll?: boolean;
-        forms?: FormsOptions | boolean;
+        clicks?: boolean | undefined;
+        scroll?: boolean | undefined;
+        forms?: FormsOptions | boolean | undefined;
     }
 
     interface FormsOptions {
@@ -409,45 +409,45 @@ declare namespace browserSync {
     }
 
     interface SnippetOptions {
-        async?: boolean;
-        whitelist?: string[],
-        blacklist?: string[],
+        async?: boolean | undefined;
+        whitelist?: string[] | undefined,
+        blacklist?: string[] | undefined,
         rule?: {
-            match?: RegExp;
-            fn?: (snippet: string, match: string) => any
-        };
+            match?: RegExp | undefined;
+            fn?: ((snippet: string, match: string) => any) | undefined
+        } | undefined;
     }
 
     interface SocketOptions {
-        path?: string;
-        clientPath?: string;
-        namespace?: string;
-        domain?: string;
-        port?: number;
-        clients?: { heartbeatTimeout?: number; };
+        path?: string | undefined;
+        clientPath?: string | undefined;
+        namespace?: string | undefined;
+        domain?: string | undefined;
+        port?: number | undefined;
+        clients?: { heartbeatTimeout?: number | undefined; } | undefined;
     }
 
     interface TagNamesOptions {
-        less?: string;
-        scss?: string;
-        css?: string;
-        jpg?: string;
-        jpeg?: string;
-        png?: string;
-        svg?: string;
-        gif?: string;
-        js?: string;
+        less?: string | undefined;
+        scss?: string | undefined;
+        css?: string | undefined;
+        jpg?: string | undefined;
+        jpeg?: string | undefined;
+        png?: string | undefined;
+        svg?: string | undefined;
+        gif?: string | undefined;
+        js?: string | undefined;
     }
 
     interface RewriteRules {
         match: RegExp;
-        replace?: string;
-        fn?: (req: http.IncomingMessage, res: http.ServerResponse, match: string) => string;
+        replace?: string | undefined;
+        fn?: ((req: http.IncomingMessage, res: http.ServerResponse, match: string) => string) | undefined;
     }
 
     interface StreamOptions {
-        once?: boolean;
-        match?: mm.Pattern | mm.Pattern[];
+        once?: boolean | undefined;
+        match?: mm.Pattern | mm.Pattern[] | undefined;
     }
 
     interface BrowserSyncStatic extends BrowserSyncInstance {
@@ -550,7 +550,7 @@ declare namespace browserSync {
          * @param {object} options The
          * @param {any} cb A callback function that will return any errors.
          */
-        use(module: { "plugin:name"?: string, plugin: (opts: object, bs: BrowserSyncInstance) => any }, options?: object, cb?: any): void;
+        use(module: { "plugin:name"?: string | undefined, plugin: (opts: object, bs: BrowserSyncInstance) => any }, options?: object, cb?: any): void;
         /**
          * Callback helper to examine what options have been set.
          * @param {string} name The key to search options map for.

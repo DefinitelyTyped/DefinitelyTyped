@@ -29,15 +29,15 @@ declare namespace PubSubJS {
     }
 
     interface Publish {
-        publish(message: string, data?: any): boolean;
+        publish(message: string | Symbol, data?: any): boolean;
 
-        publishSync(message: string, data?: any): boolean;
+        publishSync(message: string | Symbol, data?: any): boolean;
     }
 
     interface Subscribe {
-        subscribe(message: string, func: Function): string;
+        subscribe(message: string | Symbol, func: Function): string;
 
-        subscribeOnce(message: string, func: Function): any;
+        subscribeOnce(message: string | Symbol, func: Function): any;
     }
 
     interface Unsubscribe {

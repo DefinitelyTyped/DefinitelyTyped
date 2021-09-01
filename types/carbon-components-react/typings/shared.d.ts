@@ -31,26 +31,17 @@ export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string;
 }
 
-export interface EmbeddedIconProps {
-    iconDescription?: string;
-}
-
-export interface EmbeddedTooltipProps {
-    tooltipAlignment?: TooltipAlignment;
-    tooltipPosition?: TooltipPosition;
-}
-
-export interface InternationalProps<MID = string> {
-    translateWithId?(messageId: MID): string;
+export interface InternationalProps<MID = string, ARGS = Record<string, unknown>> {
+    translateWithId?(messageId: MID, args?: ARGS): string;
 }
 
 export interface MenuOffsetData {
-    left?: number;
-    top?: number;
+    left?: number | undefined;
+    top?: number | undefined;
 }
 
 export interface RenderIconProps<P = any> {
-    renderIcon?: React.ComponentType<P>;
+    renderIcon?: React.ComponentType<P> | undefined;
 }
 
 export interface RequiresChildrenProps<T = React.ReactNode> {
@@ -62,28 +53,15 @@ export interface RequiresIdProps<T = ReactAttr['id']> {
 }
 
 export interface SizingProps {
-    small?: boolean;
-}
-
-export interface ThemeProps {
-    light?: boolean;
-}
-
-export interface ValidityProps {
-    invalid?: boolean;
-    invalidText?: string;
+    small?: boolean | undefined;
 }
 
 export interface SideNavSharedProps {
-    isSideNavExpanded?: boolean;
+    isSideNavExpanded?: boolean | undefined;
 }
 
 export interface SideNavSizingProps {
-    large?: boolean;
-}
-
-export interface RefForwardingProps<T = HTMLElement> {
-    ref?: React.RefObject<T>;
+    large?: boolean | undefined;
 }
 
 //
@@ -94,7 +72,7 @@ export interface RefForwardingProps<T = HTMLElement> {
 //  function component with no generics: export declare const Comp: React.FC<PropsInterface>;
 //  function component with generics: export declare function Comp<T extends SomeType>(props: FCProps<PropsInterface<T>>): FCReturn;
 //  forwardRef component with no generics: export declare const Comp: ForwardRefReturn<HTMLElement, PropsInterface>;
-//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<PropsInterface<T>>): FCReturn;
+//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<HTMLElement, PropsInterface<T>>): FCReturn;
 //
 export type FCProps<P = {}> = Parameters<React.FC<P>>[0];
 export type FCReturn = ReturnType<React.FC>;

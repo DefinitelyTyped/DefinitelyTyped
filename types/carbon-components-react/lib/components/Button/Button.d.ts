@@ -1,43 +1,52 @@
 import * as React from "react";
 import {
-    EmbeddedIconProps,
-    EmbeddedTooltipProps,
     ReactButtonAttr,
-    FCReturn, JSXIntrinsicElementProps, ReactAnchorAttr, ForwardRefProps,
-} from '../../../typings/shared';
+    FCReturn,
+    JSXIntrinsicElementProps,
+    ReactAnchorAttr,
+    ForwardRefProps,
+    TooltipAlignment,
+    TooltipPosition,
+} from "../../../typings/shared";
 
-export type ButtonKind = "danger" | "danger--primary" | "ghost" | "primary" | "secondary" | "tertiary";
-export type ButtonSize = "default" | "field" | "small";
+export type ButtonKind = "danger" | "danger--ghost" | "danger--primary" | "danger--tertiary" | "ghost" | "primary" | "secondary" | "tertiary";
+export type ButtonSize = "default" | "field" | "lg" | "md" | "sm" | "small" | "xl" | "2xl";
 
 export interface ButtonRenderIconRenderProps {
-    "aria-hidden"?: boolean;
-    "aria-label"?: EmbeddedIconProps["iconDescription"];
-    className?: string;
+    "aria-hidden"?: boolean | undefined;
+    "aria-label"?: string | undefined;
+    className?: string | undefined;
 }
 
 // this is split due to a typing issue with the specialized buttons (SecondaryButton, etc)
-interface ButtonKindProps {
-    kind?: ButtonKind;  // required by has default value
+export interface ButtonKindProps {
+    kind?: ButtonKind | undefined;  // required by has default value
 }
 
 // these props are not passed to the general createElement call
-interface ButtonBaseIsolatedProps extends EmbeddedIconProps, EmbeddedTooltipProps {
-    hasIconOnly?: boolean;
+interface ButtonBaseIsolatedProps {
+    dangerDescription?: string | undefined;
+    hasIconOnly?: boolean | undefined;
+    iconDescription?: string | undefined;
+    isExpressive?: boolean | undefined;
+    isSelected?: boolean | undefined;
     // trying to type this just causes problems around inference, overload selection, and anon fn vs typed component references.
     // if anon render props type is desired, import ButtonRenderIconRenderProps.
     renderIcon?: any;
-    size?: ButtonSize;
+    size?: ButtonSize | undefined;
     /**
      * @deprecated
      */
-    small?: boolean;
+    small?: boolean | undefined;
+    tooltipAlignment?: TooltipAlignment | undefined;
+    tooltipPosition?: TooltipPosition | undefined;
 }
 type SafeProps<P> = Omit<P, 'as' | keyof ButtonBaseIsolatedProps>;
 
 interface ButtonBaseProps extends ButtonBaseIsolatedProps {
-    children?: React.ReactNode;
-    className?: string;
-    disabled?: boolean;
+    children?: React.ReactNode | undefined;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
 }
 
 export interface ButtonDefaultProps extends ButtonBaseProps, ReactButtonAttr {

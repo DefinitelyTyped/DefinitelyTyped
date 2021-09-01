@@ -1,5 +1,5 @@
 // Type definitions for @storybook/addon-info 5.2
-// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/addons/info
+// Project: https://github.com/storybookjs/storybook
 // Definitions by: Mark Kornblum <https://github.com/mkornblum>
 //                 Mattias Wikstrom <https://github.com/fyrkant>
 //                 Kevin Lee <https://github.com/RunningCoderLee>
@@ -10,9 +10,9 @@ import { ComponentType, ReactElement } from 'react';
 import { DecoratorFunction, StoryFn, StoryContext, Parameters, StoryApi } from '@storybook/addons';
 
 export interface WrapStoryProps {
-    storyFn?: StoryFn;
-    context?: object;
-    options?: object;
+    storyFn?: StoryFn | undefined;
+    context?: object | undefined;
+    options?: object | undefined;
 }
 
 export interface TableComponentOptionProps {
@@ -26,26 +26,26 @@ export interface TableComponentOptionProps {
 }
 
 export interface Options {
-    text?: string;
-    header?: boolean;
-    inline?: boolean;
-    source?: boolean;
-    propTables?: Array<ComponentType<any>> | false;
-    propTablesExclude?: Array<ComponentType<any>>;
-    styles?: object;
+    text?: string | undefined;
+    header?: boolean | undefined;
+    inline?: boolean | undefined;
+    source?: boolean | undefined;
+    propTables?: Array<ComponentType<any>> | false | undefined;
+    propTablesExclude?: Array<ComponentType<any>> | undefined;
+    styles?: object | undefined;
     components?: {
         [key: string]: ComponentType<any>
-    };
+    } | undefined;
     /**
      * @deprecated "marksyConf" option has been renamed to "components"
      */
-    marksyConf?: object;
-    maxPropsIntoLine?: number;
-    maxPropObjectKeys?: number;
-    maxPropArrayLength?: number;
-    maxPropStringLength?: number;
-    TableComponent?: ComponentType<TableComponentOptionProps>;
-    excludedPropTypes?: string[];
+    marksyConf?: object | undefined;
+    maxPropsIntoLine?: number | undefined;
+    maxPropObjectKeys?: number | undefined;
+    maxPropArrayLength?: number | undefined;
+    maxPropStringLength?: number | undefined;
+    TableComponent?: ComponentType<TableComponentOptionProps> | undefined;
+    excludedPropTypes?: string[] | undefined;
 }
 
 export function withInfo<A = unknown>(

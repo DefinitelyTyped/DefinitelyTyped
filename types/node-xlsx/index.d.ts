@@ -16,7 +16,7 @@ export function parse(
     options?: {}
 ): Array<{
     name: string;
-    data: Array<[]>;
+    data: unknown[][];
 }>;
 
 /**
@@ -26,7 +26,7 @@ export function parse(
  * @returns returns a buffer of worksheets
  */
 export function build(
-    worksheets: Array<{ name: string; data: any[][]; options?: {} }>,
+    worksheets: Array<{ name: string; data: any[][]; options?: {} | undefined }>,
     options?: {}
 ): ArrayBuffer;
 declare const _default: {

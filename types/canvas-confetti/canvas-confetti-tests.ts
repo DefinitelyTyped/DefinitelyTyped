@@ -26,6 +26,7 @@ confetti({
 confetti({
     particleCount: 100,
     spread: 70,
+    drift: 1,
     origin: {
         y: 0.6
     }
@@ -39,6 +40,7 @@ confetti({
     angle: r(55, 125),
     spread: r(50, 70),
     particleCount: r(50, 100),
+    drift: 0,
     origin: {
         y: 0.6
     },
@@ -55,5 +57,12 @@ confetti.reset();
 myConfetti.reset();
 
 myConfetti({
-    particleCount: 150
+    particleCount: 150,
+});
+
+confetti()!.then(() => {
+    // ready
+});
+confetti()!.then(param => {
+    param; // $ExpectType undefined
 });

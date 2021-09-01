@@ -4,7 +4,7 @@ const {
     runInDebug,
     warn,
     debug,
-    Debug: { registerDeprecationHandler, registerWarnHandler }
+    Debug: { registerDeprecationHandler, registerWarnHandler },
 } = Ember;
 
 // Workaround for https://github.com/microsoft/TypeScript/issues/36931.
@@ -20,8 +20,9 @@ runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
 const tomsterCount = 2;
 warn('Too many tomsters!'); // $ExpectType void
 warn('Too many tomsters!', tomsterCount <= 3); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3, { // $ExpectType void
-    id: 'ember-debug.too-many-tomsters'
+// $ExpectType void
+warn('Too many tomsters!', tomsterCount <= 3, {
+    id: 'ember-debug.too-many-tomsters',
 });
 
 debug(); // $ExpectError
@@ -31,26 +32,30 @@ debug('Too many tomsters!', 'foo'); // $ExpectError
 // next is not called, so no warnings get the default behavior
 registerWarnHandler(); // $ExpectError
 registerWarnHandler(() => {}); // $ExpectType void
-registerWarnHandler((message, { id }, next) => { // $ExpectType void
+// $ExpectType void
+registerWarnHandler((message, { id }, next) => {
     message; // $ExpectType string
     id; // $ExpectType string
     next; // $ExpectType (message?: string | undefined, options?: { id: string; } | undefined) => void
 });
-registerWarnHandler((message, { id }, next) => { // $ExpectType void
-  message; // $ExpectType string
-  id; // $ExpectType string
-  next(); // $ExpectType void
+// $ExpectType void
+registerWarnHandler((message, { id }, next) => {
+    message; // $ExpectType string
+    id; // $ExpectType string
+    next(); // $ExpectType void
 });
-registerWarnHandler((message, { id }, next) => { // $ExpectType void
-  message; // $ExpectType string
-  id; // $ExpectType string
-  next(message, { id }); // $ExpectType void
+// $ExpectType void
+registerWarnHandler((message, { id }, next) => {
+    message; // $ExpectType string
+    id; // $ExpectType string
+    next(message, { id }); // $ExpectType void
 });
 
 // next is not called, so no warnings get the default behavior
 registerDeprecationHandler(); // $ExpectError
 registerDeprecationHandler(() => {}); // $ExpectType void
-registerDeprecationHandler((message, { id, until }, next) => { // $ExpectType void
+// $ExpectType void
+registerDeprecationHandler((message, { id, until }, next) => {
     message; // $ExpectType string
     id; // $ExpectType string
     until; // $ExpectType string

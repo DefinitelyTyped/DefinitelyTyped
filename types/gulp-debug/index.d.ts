@@ -7,8 +7,8 @@
 
 
 interface IOptions {
-    title?: string;
-    minimal?: boolean;
+    title?: string | undefined;
+    minimal?: boolean | undefined;
 }
 
 declare function debug(options?: IOptions): NodeJS.ReadWriteStream;

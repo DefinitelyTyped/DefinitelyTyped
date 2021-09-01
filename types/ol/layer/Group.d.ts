@@ -9,22 +9,30 @@ import BaseLayer from './Base';
 import Layer, { State } from './Layer';
 
 export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    layers?: BaseLayer[] | Collection<BaseLayer>;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    layers?: BaseLayer[] | Collection<BaseLayer> | undefined;
 }
 export default class LayerGroup extends BaseLayer {
     constructor(opt_options?: Options);
+    /**
+     * Returns the {@link module:ol/Collection collection} of {@link module:ol/layer/Layer~Layer layers}
+     * in this group.
+     */
     getLayers(): Collection<BaseLayer>;
     getLayersArray(opt_array?: Layer<Source>[]): Layer<Source>[];
     getLayerStatesArray(opt_states?: State[]): State[];
     getSourceState(): State_1;
+    /**
+     * Set the {@link module:ol/Collection collection} of {@link module:ol/layer/Layer~Layer layers}
+     * in this group.
+     */
     setLayers(layers: Collection<BaseLayer>): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

@@ -23,9 +23,85 @@ declare namespace ymaps {
             options: object) => Promise<string | IClassConstructor<IOverlay>>);
     type InteractivityModelKey = "default#opaque" | "default#geoObject" | "default#layer" | "default#transparent" | "default#silent" | string;
 
-    type PresetKey = string; //option.presetStorage
+    type PresetWithTextKey =
+        'islands#blueIcon' | 'islands#darkGreenIcon' | 'islands#redIcon' | 'islands#violetIcon' |
+        'islands#darkOrangeIcon' | 'islands#blackIcon' | 'islands#nightIcon' | 'islands#yellowIcon' |
+        'islands#darkBlueIcon' | 'islands#greenIcon' | 'islands#pinkIcon' | 'islands#orangeIcon' |
+        'islands#grayIcon' | 'islands#lightBlueIcon' | 'islands#brownIcon' | 'islands#oliveIcon';
+    type PresetWithTextStretchyKey =
+        'islands#blueStretchyIcon' | 'islands#darkGreenStretchyIcon' | 'islands#redStretchyIcon' | 'islands#violetStretchyIcon' |
+        'islands#darkOrangeStretchyIcon' | 'islands#blackStretchyIcon' | 'islands#nightStretchyIcon' | 'islands#yellowStretchyIcon' |
+        'islands#darkBlueStretchyIcon' | 'islands#greenStretchyIcon' | 'islands#pinkStretchyIcon' | 'islands#orangeStretchyIcon' |
+        'islands#grayStretchyIcon' | 'islands#lightBlueStretchyIcon' | 'islands#brownStretchyIcon' | 'islands#oliveStretchyIcon';
+    type PresetDotKey =
+        'islands#blueDotIcon' | 'islands#darkGreenDotIcon' | 'islands#redDotIcon' | 'islands#violetDotIcon' |
+        'islands#darkOrangeDotIcon' | 'islands#blackDotIcon' | 'islands#nightDotIcon' | 'islands#yellowDotIcon' |
+        'islands#darkBlueDotIcon' | 'islands#greenDotIcon' | 'islands#pinkDotIcon' | 'islands#orangeDotIcon' |
+        'islands#grayDotIcon' | 'islands#lightBlueDotIcon' | 'islands#brownDotIcon' | 'islands#oliveDotIcon';
+    type PresetCircleKey =
+        'islands#blueCircleIcon' | 'islands#darkGreenCircleIcon' | 'islands#redCircleIcon' | 'islands#violetCircleIcon' |
+        'islands#darkOrangeCircleIcon' | 'islands#blackCircleIcon' | 'islands#nightCircleIcon' | 'islands#yellowCircleIcon' |
+        'islands#darkBlueCircleIcon' | 'islands#greenCircleIcon' | 'islands#pinkCircleIcon' | 'islands#orangeCircleIcon' |
+        'islands#grayCircleIcon' | 'islands#lightBlueCircleIcon' | 'islands#brownCircleIcon' | 'islands#oliveCircleIcon';
+    type PresetCircleDotKey =
+        'islands#blueCircleDotIcon' | 'islands#darkGreenCircleDotIcon' | 'islands#redCircleDotIcon' | 'islands#violetCircleDotIcon' |
+        'islands#darkOrangeCircleDotIcon' | 'islands#blackCircleDotIcon' | 'islands#nightCircleDotIcon' | 'islands#yellowCircleDotIcon' |
+        'islands#darkBlueCircleDotIcon' | 'islands#greenCircleDotIcon' | 'islands#pinkCircleDotIcon' | 'islands#orangeCircleDotIcon' |
+        'islands#grayCircleDotIcon' | 'islands#lightBlueCircleDotIcon' | 'islands#brownCircleDotIcon' | 'islands#oliveCircleDotIcon';
+    type PresetWithIconKey =
+        'islands#blueAirportIcon' | 'islands#blueAttentionIcon' | 'islands#blueAutoIcon' | 'islands#blueBarIcon' |
+        'islands#blueBarberIcon' | 'islands#blueBeachIcon' | 'islands#blueBicycleIcon' | 'islands#blueBicycle2Icon' |
+        'islands#blueBookIcon' | 'islands#blueCarWashIcon' | 'islands#blueChristianIcon' | 'islands#blueCinemaIcon' |
+        'islands#blueCircusIcon' | 'islands#blueCourtIcon' | 'islands#blueDeliveryIcon' | 'islands#blueDiscountIcon' |
+        'islands#blueDogIcon' | 'islands#blueEducationIcon' | 'islands#blueEntertainmentCenterIcon' | 'islands#blueFactoryIcon' |
+        'islands#blueFamilyIcon' | 'islands#blueFashionIcon' | 'islands#blueFoodIcon' | 'islands#blueFuelStationIcon' |
+        'islands#blueGardenIcon' | 'islands#blueGovernmentIcon' | 'islands#blueHeartIcon' | 'islands#blueHomeIcon' |
+        'islands#blueHotelIcon' | 'islands#blueHydroIcon' | 'islands#blueInfoIcon' | 'islands#blueLaundryIcon' |
+        'islands#blueLeisureIcon' | 'islands#blueMassTransitIcon' | 'islands#blueMedicalIcon' | 'islands#blueMoneyIcon' |
+        'islands#blueMountainIcon' | 'islands#blueNightClubIcon' | 'islands#blueObservationIcon' | 'islands#blueParkIcon' |
+        'islands#blueParkingIcon' | 'islands#bluePersonIcon' | 'islands#bluePocketIcon' | 'islands#bluePoolIcon' |
+        'islands#bluePostIcon' | 'islands#blueRailwayIcon' | 'islands#blueRapidTransitIcon' | 'islands#blueRepairShopIcon' |
+        'islands#blueRunIcon' | 'islands#blueScienceIcon' | 'islands#blueShoppingIcon' | 'islands#blueSouvenirsIcon' |
+        'islands#blueSportIcon' | 'islands#blueStarIcon' | 'islands#blueTheaterIcon' | 'islands#blueToiletIcon' |
+        'islands#blueUnderpassIcon' | 'islands#blueVegetationIcon' | 'islands#blueVideoIcon' | 'islands#blueWasteIcon' |
+        'islands#blueWaterParkIcon' | 'islands#blueWaterwayIcon' | 'islands#blueWorshipIcon' | 'islands#blueZooIcon';
+    type PresetWithIconCircleKey =
+        'islands#blueHomeCircleIcon' | 'islands#blueScienceCircleIcon' | 'islands#blueAirportCircleIcon' | 'islands#blueAttentionCircleIcon' |
+        'islands#blueAutoCircleIcon' | 'islands#blueBarCircleIcon' | 'islands#blueBarberCircleIcon' | 'islands#blueBeachCircleIcon' |
+        'islands#blueBicycleCircleIcon' | 'islands#blueBicycle2CircleIcon' | 'islands#blueBookCircleIcon' | 'islands#blueCarWashCircleIcon' |
+        'islands#blueChristianCircleIcon' | 'islands#blueCinemaCircleIcon' | 'islands#blueCircusCircleIcon' | 'islands#blueCourtCircleIcon' |
+        'islands#blueDeliveryCircleIcon' | 'islands#blueDiscountCircleIcon' | 'islands#blueDogCircleIcon' | 'islands#blueEducationCircleIcon' |
+        'islands#blueEntertainmentCenterCircleIcon' | 'islands#blueFactoryCircleIcon' | 'islands#blueFamilyCircleIcon' | 'islands#blueFashionCircleIcon' |
+        'islands#blueFoodCircleIcon' | 'islands#blueFuelStationCircleIcon' | 'islands#blueGardenCircleIcon' | 'islands#blueGovernmentCircleIcon' |
+        'islands#blueHeartCircleIcon' | 'islands#blueHotelCircleIcon' | 'islands#blueHydroCircleIcon' | 'islands#blueInfoCircleIcon' |
+        'islands#blueLaundryCircleIcon' | 'islands#blueLeisureCircleIcon' | 'islands#blueMassTransitCircleIcon' | 'islands#blueMedicalCircleIcon' |
+        'islands#blueMoneyCircleIcon' | 'islands#blueMountainCircleIcon' | 'islands#blueNightClubCircleIcon' | 'islands#blueObservationCircleIcon' |
+        'islands#blueParkCircleIcon' | 'islands#blueParkingCircleIcon' | 'islands#bluePersonCircleIcon' | 'islands#bluePocketCircleIcon' |
+        'islands#bluePoolCircleIcon' | 'islands#bluePostCircleIcon' | 'islands#blueRailwayCircleIcon' | 'islands#blueRapidTransitCircleIcon' |
+        'islands#blueRepairShopCircleIcon' | 'islands#blueRunCircleIcon' | 'islands#blueShoppingCircleIcon' | 'islands#blueSouvenirsCircleIcon' |
+        'islands#blueSportCircleIcon' | 'islands#blueStarCircleIcon' | 'islands#blueTheaterCircleIcon' | 'islands#blueToiletCircleIcon' |
+        'islands#blueUnderpassCircleIcon' | 'islands#blueVegetationCircleIcon' | 'islands#blueVideoCircleIcon' | 'islands#blueWasteCircleIcon' |
+        'islands#blueWaterParkCircleIcon' | 'islands#blueWaterwayCircleIcon' | 'islands#blueWorshipCircleIcon' | 'islands#blueZooCircleIcon';
+    type PresetPictogramKey = 'islands#geolocationIcon';
+    type PresetClusterKey =
+        'islands#blueClusterIcons' | 'islands#invertedBlueClusterIcons' | 'islands#redClusterIcons' | 'islands#invertedRedClusterIcons' |
+        'islands#darkOrangeClusterIcons' | 'islands#invertedDarkOrangeClusterIcons' | 'islands#nightClusterIcons' | 'islands#invertedNightClusterIcons' |
+        'islands#darkBlueClusterIcons' | 'islands#invertedDarkBlueClusterIcons' | 'islands#pinkClusterIcons' | 'islands#invertedPinkClusterIcons' |
+        'islands#grayClusterIcons' | 'islands#invertedGrayClusterIcons' | 'islands#brownClusterIcons' | 'islands#invertedBrownClusterIcons' |
+        'islands#darkGreenClusterIcons' | 'islands#invertedDarkGreenClusterIcons' | 'islands#violetClusterIcons' | 'islands#invertedVioletClusterIcons' |
+        'islands#blackClusterIcons' | 'islands#invertedBlackClusterIcons' | 'islands#yellowClusterIcons' | 'islands#invertedYellowClusterIcons' |
+        'islands#greenClusterIcons' | 'islands#invertedGreenClusterIcons' | 'islands#orangeClusterIcons' | 'islands#invertedOrangeClusterIcons' |
+        'islands#lightBlueClusterIcons' | 'islands#invertedLightBlueClusterIcons' | 'islands#oliveClusterIcons' | 'islands#invertedOliveClusterIcons';
+
+    type PresetKey =
+        PresetWithTextKey | PresetWithTextStretchyKey | PresetDotKey | PresetCircleKey | PresetCircleDotKey |
+        PresetWithIconKey | PresetWithIconCircleKey | PresetPictogramKey | PresetClusterKey | string; //option.presetStorage
     //[number, number]
     //[[number, number], [number, number]]
+
+    type IconLayoutKey = 'default#image' | 'default#imageWithContent' | string;
+    type ClusterLayoutKey = 'cluster#balloonTwoColumns' | 'cluster#balloonCarousel' | 'cluster#balloonAccordion' | string;
+    type ClusterContentLayoutKey = 'cluster#balloonTwoColumnsItemContent' | 'cluster#balloonCarouselItemContent' | 'cluster#balloonAccordionItemContent' | string;
 
     namespace behavior {
         class DblClickZoom implements IBehavior {
@@ -46,8 +122,8 @@ declare namespace ymaps {
         }
 
         interface IDblClickZoomOptions extends IMapMarginOptions {
-            centering?: boolean;
-            duration?: number;
+            centering?: boolean | undefined;
+            duration?: number | undefined;
         }
 
         class Drag implements IBehavior {
@@ -68,11 +144,11 @@ declare namespace ymaps {
         }
 
         interface IDragOptions {
-            actionCursor?: string;
-            cursor?: string;
-            inertia?: boolean;
-            inertiaDuration?: number;
-            tremor?: number;
+            actionCursor?: string | undefined;
+            cursor?: string | undefined;
+            inertia?: boolean | undefined;
+            inertiaDuration?: number | undefined;
+            tremor?: number | undefined;
         }
 
         class LeftMouseButtonMagnifier implements IBehavior {
@@ -93,9 +169,9 @@ declare namespace ymaps {
         }
 
         interface ILeftMouseButtonMagnifierOptions {
-            actionCursor?: string;
-            cursor?: string;
-            duration?: number;
+            actionCursor?: string | undefined;
+            cursor?: string | undefined;
+            duration?: number | undefined;
         }
 
         class MultiTouch implements IBehavior {
@@ -116,7 +192,7 @@ declare namespace ymaps {
         }
 
         interface IMultiTouchOptions {
-            tremor?: number;
+            tremor?: number | undefined;
         }
 
         class RightMouseButtonMagnifier implements IBehavior {
@@ -137,8 +213,8 @@ declare namespace ymaps {
         }
 
         interface IRightMouseButtonMagnifierOptions {
-            actionCursor?: string;
-            duration?: number;
+            actionCursor?: string | undefined;
+            duration?: number | undefined;
         }
 
         class RouteEditor implements IBehavior {
@@ -186,7 +262,7 @@ declare namespace ymaps {
         }
 
         interface IRulerOptions {
-            balloonAutoPan?: boolean;
+            balloonAutoPan?: boolean | undefined;
         }
 
         class ScrollZoom implements IBehavior {
@@ -207,15 +283,15 @@ declare namespace ymaps {
         }
 
         interface IScrollZoomOptions {
-            maximumDelta?: number;
-            speed?: number;
+            maximumDelta?: number | undefined;
+            speed?: number | undefined;
         }
 
         const storage: util.Storage;
     }
 
     namespace clusterer {
-        class Balloon implements IBalloonManager<Clusterer> { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<Clusterer> {
             constructor(clusterer: Clusterer);
 
             events: IEventManager;
@@ -324,34 +400,34 @@ declare namespace ymaps {
         }
 
         interface IBaseButtonParametersOptions {
-            adjustMapMargin?: boolean;
-            float?: "none" | "left" | "right";
-            floatIndex?: number;
-            layout?: IClassConstructor<ISelectableControlLayout> | string;
-            maxWidth?: number[][] | number[] | number;
+            adjustMapMargin?: boolean | undefined;
+            float?: "none" | "left" | "right" | undefined;
+            floatIndex?: number | undefined;
+            layout?: IClassConstructor<ISelectableControlLayout> | string | undefined;
+            maxWidth?: number[][] | number[] | number | undefined;
             position?: {
-                bottom?: number | string;
-                left?: number | string;
-                right?: number | string;
-                top?: number | string;
-            };
-            visible?: boolean;
+                bottom?: number | string | undefined;
+                left?: number | string | undefined;
+                right?: number | string | undefined;
+                top?: number | string | undefined;
+            } | undefined;
+            visible?: boolean | undefined;
         }
 
         interface IButtonParameters {
             data?: {
-                content?: string;
-                image?: string;
-                title?: string;
-            };
+                content?: string | undefined;
+                image?: string | undefined;
+                title?: string | undefined;
+            } | undefined;
             options?: IBaseButtonParametersOptions & {
-                selectOnClick?: boolean;
-                size?: "auto" | "small" | "medium" | "large";
-            };
+                selectOnClick?: boolean | undefined;
+                size?: "auto" | "small" | "medium" | "large" | undefined;
+            } | undefined;
             state?: {
-                enabled?: boolean;
-                selected?: boolean;
-            };
+                enabled?: boolean | undefined;
+                selected?: boolean | undefined;
+            } | undefined;
         }
 
         class FullscreenControl extends Button {
@@ -364,16 +440,16 @@ declare namespace ymaps {
 
         interface IFullscreenControlParameters {
             data?: {
-                title?: string;
-            };
+                title?: string | undefined;
+            } | undefined;
             options?: IBaseButtonParametersOptions & {
-                collapseOnBlur?: boolean;
-                expandOnClick?: boolean;
-                popupFloat?: "left" | "right";
-            };
+                collapseOnBlur?: boolean | undefined;
+                expandOnClick?: boolean | undefined;
+                popupFloat?: "left" | "right" | undefined;
+            } | undefined;
             state?: {
-                expanded?: boolean;
-            };
+                expanded?: boolean | undefined;
+            } | undefined;
         }
 
         class GeolocationControl extends Button {
@@ -382,10 +458,10 @@ declare namespace ymaps {
 
         interface IGeolocationControlParameters extends IButtonParameters {
             data?: {
-                image?: string;
-                title?: string;
-            };
-            options?: IBaseButtonParametersOptions;
+                image?: string | undefined;
+                title?: string | undefined;
+            } | undefined;
+            options?: IBaseButtonParametersOptions | undefined;
         }
 
         class ListBox implements ICollection, IControl, ICustomizable {
@@ -409,8 +485,8 @@ declare namespace ymaps {
 
         interface IListBoxParameters extends IButtonParameters {
             options?: IBaseButtonParametersOptions & {
-                noPlacemark?: boolean;
-            };
+                noPlacemark?: boolean | undefined;
+            } | undefined;
         }
 
         class ListBoxItem implements ICustomizable, ISelectableControl {
@@ -442,19 +518,19 @@ declare namespace ymaps {
 
         interface IListBoxItemParameters {
             data?: {
-                content?: string;
-            };
+                content?: string | undefined;
+            } | undefined;
             options?: {
-                layout?: string | IClassConstructor<ISelectableControlLayout>;
-                selectableLayout?: string | IClassConstructor<ISelectableControlLayout>;
-                selectOnClick?: boolean;
-                separatorLayout?: string | IClassConstructor<ISelectableControlLayout>;
-                type?: "selectable" | "separator";
-                visible?: boolean;
-            };
+                layout?: string | IClassConstructor<ISelectableControlLayout> | undefined;
+                selectableLayout?: string | IClassConstructor<ISelectableControlLayout> | undefined;
+                selectOnClick?: boolean | undefined;
+                separatorLayout?: string | IClassConstructor<ISelectableControlLayout> | undefined;
+                type?: "selectable" | "separator" | undefined;
+                visible?: boolean | undefined;
+            } | undefined;
             state?: {
-                selected?: boolean;
-            };
+                selected?: boolean | undefined;
+            } | undefined;
         }
 
         class Manager {
@@ -482,20 +558,20 @@ declare namespace ymaps {
         }
 
         interface IManagerOptions {
-            margin?: number;
-            pane?: IPane;
-            states?: string[];
+            margin?: number | undefined;
+            pane?: IPane | undefined;
+            states?: string[] | undefined;
         }
 
         interface IManagerControlOptions {
-            float?: "none" | "left" | "right";
-            floatIndex?: number;
+            float?: "none" | "left" | "right" | undefined;
+            floatIndex?: number | undefined;
             position?: {
-                bottom?: number | string;
-                left?: number | string;
-                right?: number | string;
-                top?: number | string;
-            };
+                bottom?: number | string | undefined;
+                left?: number | string | undefined;
+                right?: number | string | undefined;
+                top?: number | string | undefined;
+            } | undefined;
         }
 
         class RouteButton implements IControl, ICustomizable {
@@ -512,25 +588,25 @@ declare namespace ymaps {
 
         interface IRouteButtonParameters {
             options?: {
-                adjustMapMargin?: boolean;
-                collapseOnBlur?: boolean;
-                float?: "none" | "left" | "right";
-                floatIndex?: number;
-                popupAnimate?: boolean;
-                popupFloat?: "auto" | "left" | "right";
-                popupWidth?: string;
+                adjustMapMargin?: boolean | undefined;
+                collapseOnBlur?: boolean | undefined;
+                float?: "none" | "left" | "right" | undefined;
+                floatIndex?: number | undefined;
+                popupAnimate?: boolean | undefined;
+                popupFloat?: "auto" | "left" | "right" | undefined;
+                popupWidth?: string | undefined;
                 position?: {
-                    bottom?: number | string;
-                    left?: number | string;
-                    right?: number | string;
-                    top?: number | string;
-                };
-                size?: "auto" | "small" | "medium" | "large";
-                visible?: boolean;
-            };
+                    bottom?: number | string | undefined;
+                    left?: number | string | undefined;
+                    right?: number | string | undefined;
+                    top?: number | string | undefined;
+                } | undefined;
+                size?: "auto" | "small" | "medium" | "large" | undefined;
+                visible?: boolean | undefined;
+            } | undefined;
             state?: {
-                expanded?: boolean;
-            };
+                expanded?: boolean | undefined;
+            } | undefined;
         }
 
         class RouteEditor extends Button {
@@ -541,11 +617,11 @@ declare namespace ymaps {
 
         interface IRouteEditorParameters {
             data?: {
-                image?: string;
-                title?: string;
-            };
-            options?: IBaseButtonParametersOptions;
-            state?: {};
+                image?: string | undefined;
+                title?: string | undefined;
+            } | undefined;
+            options?: IBaseButtonParametersOptions | undefined;
+            state?: {} | undefined;
         }
 
         class RulerControl extends Button {
@@ -553,19 +629,19 @@ declare namespace ymaps {
         }
 
         interface IRulerControlParameters {
-            data?: {};
+            data?: {} | undefined;
             options?: {
-                adjustMapMargin?: boolean;
+                adjustMapMargin?: boolean | undefined;
                 position?: {
-                    bottom?: number | string;
-                    left?: number | string;
-                    right?: number | string;
-                    top?: number | string;
-                };
-                scaleLine?: boolean;
-                visible?: boolean;
-            };
-            state?: {};
+                    bottom?: number | string | undefined;
+                    left?: number | string | undefined;
+                    right?: number | string | undefined;
+                    top?: number | string | undefined;
+                } | undefined;
+                scaleLine?: boolean | undefined;
+                visible?: boolean | undefined;
+            } | undefined;
+            state?: {} | undefined;
         }
 
         class SearchControl implements IControl, ICustomizable {
@@ -603,41 +679,96 @@ declare namespace ymaps {
         }
 
         interface ISearchControlParameters {
-            data?: {};
+            data?: {} | undefined;
             options?: {
-                adjustMapMargin?: boolean;
-                boundedBy?: number[][];
-                fitMaxWidth?: boolean;
-                float?: "none" | "left" | "right";
-                floatIndex?: number;
-                formLayout?: string | IClassConstructor<ILayout>;
-                kind?: "house" | "street" | "metro" | "district" | "locality";
-                layout?: string | IClassConstructor<ISearchControlLayout>;
-                maxWidth?: number[][] | number[] | number;
-                noCentering?: boolean;
-                noPlacemark?: boolean;
-                noPopup?: boolean;
-                noSelect?: boolean;
-                noSuggestPanel?: boolean;
-                placeholderContent?: string;
-                popupItemLayout?: string | IClassConstructor<ILayout>;
-                popupLayout?: string | IClassConstructor<ILayout>;
+                adjustMapMargin?: boolean | undefined;
+                boundedBy?: number[][] | undefined;
+                fitMaxWidth?: boolean | undefined;
+                float?: "none" | "left" | "right" | undefined;
+                floatIndex?: number | undefined;
+                formLayout?: string | IClassConstructor<ILayout> | undefined;
+                kind?: "house" | "street" | "metro" | "district" | "locality" | undefined;
+                layout?: string | IClassConstructor<ISearchControlLayout> | undefined;
+                maxWidth?: number[][] | number[] | number | undefined;
+                noCentering?: boolean | undefined;
+                noPlacemark?: boolean | undefined;
+                noPopup?: boolean | undefined;
+                noSelect?: boolean | undefined;
+                noSuggestPanel?: boolean | undefined;
+                placeholderContent?: string | undefined;
+                popupItemLayout?: string | IClassConstructor<ILayout> | undefined;
+                popupLayout?: string | IClassConstructor<ILayout> | undefined;
                 position?: {
-                    bottom?: number | string;
-                    left?: number | string;
-                    right?: number | string;
-                    top?: number | string;
-                };
-                provider?: IGeocodeProvider | "yandex#map" | "yandex#search";
-                searchCoordOrder?: "latlong" | "longlat";
-                size?: "auto" | "small" | "medium" | "large";
-                strictBounds?: boolean;
-                suppressYandexSearch?: boolean;
-                useMapBounds?: boolean;
-                zoomMargin?: number;
-                visible?: boolean;
-            };
-            state?: {};
+                    bottom?: number | string | undefined;
+                    left?: number | string | undefined;
+                    right?: number | string | undefined;
+                    top?: number | string | undefined;
+                } | undefined;
+                provider?: IGeocodeProvider | "yandex#map" | "yandex#search" | undefined;
+                searchCoordOrder?: "latlong" | "longlat" | undefined;
+                size?: "auto" | "small" | "medium" | "large" | undefined;
+                strictBounds?: boolean | undefined;
+                suppressYandexSearch?: boolean | undefined;
+                useMapBounds?: boolean | undefined;
+                zoomMargin?: number | undefined;
+                visible?: boolean | undefined;
+            } | undefined;
+            state?: {} | undefined;
+        }
+
+        class ZoomControl implements IControl, ICustomizable {
+            constructor(parameters?: IZoomControlParameters);
+
+            events: IEventManager;
+            options: IOptionManager;
+            state: data.Manager;
+
+            getParent(): null | IControlParent;
+
+            setParent(parent: IControlParent): this;
+
+            clear(): void;
+
+            getMap(): Map;
+
+            getRequestString(): string;
+
+            getResponseMetaData(): object;
+
+            getResult(index: number): Promise<object>;
+
+            getResultsArray(): object[];
+
+            getResultsCount(): number;
+
+            getSelectedIndex(): number;
+
+            hideResult(): void;
+
+            search(request: string): Promise<void>;
+
+            showResult(index: number): this;
+        }
+
+        interface IZoomControlParameters {
+            options?: {
+                position?: {
+                    top?: number | string | 'auto' | undefined;
+                    right?: number | string | 'auto' | undefined;
+                    bottom?: number | string | 'auto' | undefined;
+                    left?: number | string | 'auto' | undefined;
+                } | undefined
+            } | undefined;
+        }
+
+        class TypeSelector extends ListBox {
+            constructor(parameters?: ITypeSelectorParameters);
+        }
+
+        interface ITypeSelectorParameters {
+            options?: {
+                panoramasItemMode: 'on' | 'off' | 'ifMercator';
+            } | undefined;
         }
     }
 
@@ -651,7 +782,7 @@ declare namespace ymaps {
 
             getAll(): object;
 
-            set(path: object | string, value: object): this;
+            set(path: object | string, value: object | number | string | null | undefined): this;
 
             setAll(): this;
 
@@ -675,15 +806,16 @@ declare namespace ymaps {
 
             setParent(parent: IEventManager | null): this;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
         }
     }
 
     namespace event {
-        class Manager implements IEventManager {
-            constructor(params?: { context?: object; controllers?: IEventWorkflowController[]; parent?: IEventManager });
+        class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
+            constructor(params?: { context?: object | undefined; controllers?: IEventWorkflowController[] | undefined; parent?: IEventManager | undefined });
 
-            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+            add(types: 'mousedown', callback: (event: (IEvent<MouseEvent, TargetGeometry>)) => void, context?: object, priority?: number): this;
+            add(types: string[][] | string[] | string, callback: (event: (IEvent<{}, TargetGeometry>)) => void, context?: object, priority?: number): this;
 
             getParent(): IEventManager | null;
 
@@ -693,9 +825,9 @@ declare namespace ymaps {
 
             setParent(parent: IEventManager | null): this;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
 
-            createEventobject(type: string, event: object, target: object): Event;
+            createEventObject(type: string, event: object, target: object): Event;
 
             once(types: string[][] | string[] | string, callback: (event: IEvent) => any, context?: object, priority?: number): this;
         }
@@ -703,12 +835,12 @@ declare namespace ymaps {
 
     namespace geometry {
         namespace base {
-            class LineString implements IBaseLineStringGeometry { //tslint:disable-line no-shadowed-variable
+            class LineString implements IBaseLineStringGeometry {
                 events: IEventManager;
 
-                static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString; //tslint:disable-line function-name
+                static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString;
 
-                static toEncodedCoordinates(geometry: geometry.LineString): string; //tslint:disable-line function-name
+                static toEncodedCoordinates(geometry: geometry.LineString): string;
 
                 getBounds(): number[][] | null;
 
@@ -732,7 +864,7 @@ declare namespace ymaps {
 
                 set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-                setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+                setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
                 splice(index: number, length: number): number[][];
 
@@ -750,10 +882,10 @@ declare namespace ymaps {
 
                 setParent(parent: IEventManager | null): this;
 
-                fire(type: string, eventobject: object | IEvent): this;
+                fire(type: string, eventObject: object | IEvent): this;
             }
 
-            class Point implements IBasePointGeometry { //tslint:disable-line no-shadowed-variable
+            class Point implements IBasePointGeometry {
                 events: IEventManager;
 
                 getBounds(): number[][] | null;
@@ -770,8 +902,8 @@ declare namespace ymaps {
 
                 events: IEventManager;
 
-                static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
-                static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+                static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+                static toEncodedCoordinates(geometry: Polygon): string;
 
                 contains(position: number[]): boolean;
 
@@ -813,18 +945,18 @@ declare namespace ymaps {
 
         class LineString implements ILineStringGeometry {
             constructor(coordinates?: number[][], options?: {
-                coordRendering?: "shortestPath" | "straightPath";
-                geodesic?: boolean;
-                pixelRendering?: "jumpy" | "static";
-                projection?: IProjection;
-                simplification?: boolean;
+                coordRendering?: "shortestPath" | "straightPath" | undefined;
+                geodesic?: boolean | undefined;
+                pixelRendering?: "jumpy" | "static" | undefined;
+                projection?: IProjection | undefined;
+                simplification?: boolean | undefined;
             });
 
             events: IEventManager;
             options: IOptionManager;
 
-            static fromEncodedCoordinates(encodedCoordinates: string): LineString; //tslint:disable-line function-name
-            static toEncodedCoordinates(geometry: LineString): string; //tslint:disable-line function-name
+            static fromEncodedCoordinates(encodedCoordinates: string): LineString;
+            static toEncodedCoordinates(geometry: LineString): string;
 
             getMap(): Map | null;
 
@@ -854,7 +986,7 @@ declare namespace ymaps {
 
             set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-            setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+            setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
             splice(index: number, length: number): number[][];
 
@@ -872,7 +1004,7 @@ declare namespace ymaps {
 
             setParent(parent: IEventManager | null): this;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
         }
 
         class Point implements IPointGeometry {
@@ -902,14 +1034,14 @@ declare namespace ymaps {
             events: IEventManager;
             options: IOptionManager;
 
-            static fromEncodedCoordinates(encodedCoordinates: string): Polygon; //tslint:disable-line function-name
-            static toEncodedCoordinates(geometry: Polygon): string; //tslint:disable-line function-name
+            static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+            static toEncodedCoordinates(geometry: Polygon): string;
 
             add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
             contains(position: number[]): boolean;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
 
             freeze(): IFreezable;
 
@@ -1381,7 +1513,7 @@ declare namespace ymaps {
     }
 
     namespace geoObject {
-        class Balloon implements IBalloonManager<GeoObject> { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<GeoObject> {
             constructor(geoObject: GeoObject);
 
             events: IEventManager;
@@ -1508,6 +1640,52 @@ declare namespace ymaps {
                 rebuild(): void;
             }
         }
+
+        class Image implements ILayout {
+            events: IEventManager;
+
+            destroy(): void;
+
+            getData(): object;
+
+            getParentElement(): HTMLElement;
+
+            getShape(): IShape | null;
+
+            isEmpty(): boolean;
+
+            setData(data: object): void;
+
+            setParentElement(parent: HTMLElement | null): void;
+        }
+
+        interface IImageOptionsWithIconPrefix {
+            iconImageClipRect?: number[][] | undefined;
+            iconImageHref?: string | undefined;
+            iconImageOffset?: number[] | undefined;
+            iconImageSize?: number[] | undefined;
+            iconShape?: IShape | object | null | undefined;
+        }
+
+        class ImageWithContent extends Image {}
+
+        interface IImageWithContentOptionsWithIconPrefix extends IImageOptionsWithIconPrefix {
+            iconContentLayout?: IClassConstructor<ILayout> | string | undefined;
+            iconContentOffset?: number[] | undefined;
+            iconContentSize?: number[] | undefined;
+        }
+
+        class PieChart extends templateBased.Base {}
+
+        interface IPieChartOptionsWithIconPrefix {
+            iconPieChartCaptionMaxWidth?: number | undefined;
+            iconPieChartCoreFillStyle?: string | undefined;
+            iconPieChartCoreRadius?: number | (() => number) | undefined;
+            iconPieChartStrokeStyle?: string | undefined;
+            iconPieChartStrokeWidth?: number | undefined;
+        }
+
+        const storage: util.Storage;
     }
 
     namespace map {
@@ -1531,7 +1709,7 @@ declare namespace ymaps {
             }
         }
 
-        namespace behavior { //tslint:disable-line no-shadowed-variable
+        namespace behavior {
             class Manager implements ICustomizable, IEventEmitter, IParentOnMap {
                 constructor(map: Map, behaviors?: string[][] | string[], options?: object);
 
@@ -1553,9 +1731,9 @@ declare namespace ymaps {
         namespace layer {
             class Manager implements ILayer, IMapObjectCollection {
                 constructor(map: Map, options?: {
-                    trafficImageZIndex?: number;
-                    trafficInfoZIndex?: number;
-                    trafficJamZIndex?: number;
+                    trafficImageZIndex?: number | undefined;
+                    trafficInfoZIndex?: number | undefined;
+                    trafficJamZIndex?: number | undefined;
                 });
 
                 events: IEventManager;
@@ -1574,6 +1752,8 @@ declare namespace ymaps {
                 remove(object: object): this;
 
                 getMap(): Map;
+
+                getAll(): Array<Collection<Layer>>;
             }
         }
 
@@ -1623,7 +1803,7 @@ declare namespace ymaps {
             }
         }
 
-        class Balloon implements IBalloonManager<Balloon>/*, IBalloonSharingManager*/ { //tslint:disable-line no-shadowed-variable
+        class Balloon implements IBalloonManager<Balloon>/*, IBalloonSharingManager*/ {
             constructor(map: Map);
 
             events: IEventManager;
@@ -1705,7 +1885,7 @@ declare namespace ymaps {
             options: IOptionManager;
             events: IEventManager;
 
-            add(child: IGeoObject, index?: number): this;
+            add(child: IGeoObject | ObjectManager, index?: number): this;
 
             each(callback: (object: IGeoObject) => void, context?: object): void;
 
@@ -1721,7 +1901,7 @@ declare namespace ymaps {
 
             indexOf(object: IGeoObject): number;
 
-            remove(child: IGeoObject): this;
+            remove(child: IGeoObject | ObjectManager): this;
 
             removeAll(): this;
 
@@ -2068,12 +2248,12 @@ declare namespace ymaps {
 
         class MultiRoute implements IGeoObject {
             constructor(model: MultiRouteModel | IMultiRouteModelJson, options?: {
-                activeRouteAutoSelection?: boolean;
-                boundsAutoApply?: boolean;
-                dragUpdateInterval?: string | number;
-                preventDragUpdate?: boolean;
-                useMapMargin?: boolean;
-                zoomMargin?: number[][] | number[] | number;
+                activeRouteAutoSelection?: boolean | undefined;
+                boundsAutoApply?: boolean | undefined;
+                dragUpdateInterval?: string | number | undefined;
+                preventDragUpdate?: boolean | undefined;
+                useMapMargin?: boolean | undefined;
+                zoomMargin?: number[][] | number[] | number | undefined;
                 [index: string]: any;
             });
 
@@ -2229,7 +2409,7 @@ declare namespace ymaps {
 
             resolve(key: string, name?: string): object;
 
-            set(key: object | string, value?: object): this;
+            set(key: object | string, value?: object | number | string | null): this;
 
             unset(keys: string[][] | string[] | string): this;
 
@@ -2253,11 +2433,153 @@ declare namespace ymaps {
 
             remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-            fire(type: string, eventobject: object | IEvent): this;
+            fire(type: string, eventObject: object | IEvent): this;
+        }
+
+        const presetStorage: util.Storage;
+    }
+
+    namespace pane {
+        class EventsPane implements IEventPane {
+            constructor(map: Map, params: {
+                className?: string,
+                css?: CSSStyleDeclaration;
+                patch?: {
+                    selectable?: boolean;
+                },
+                transparent?: boolean;
+                checkContextMenu?: boolean;
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+        }
+
+        class MovablePane implements IContainerPane {
+            constructor(map: Map, params: {
+                css?: CSSStyleDeclaration;
+                margin?: number;
+                overflow?: 'hidden' | 'visible';
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            fromClientPixels(clientPixelPoint: number[]): number[];
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+
+            getZoom(): number;
+
+            toClientPixels(globalPixelPoint: number[]): number[];
+        }
+
+        class StaticPane implements IContainerPane {
+            constructor(map: Map, params: {
+                css?: CSSStyleDeclaration;
+                margin?: number;
+                overflow?: 'visible' | 'hidden';
+                zIndex?: number;
+            });
+
+            events: IEventManager;
+
+            destroy(): void;
+
+            fromClientPixels(clientPixelPoint: number[]): number[];
+
+            getElement(): HTMLElement;
+
+            getMap(): Map;
+
+            getOverflow(): 'visible' | 'hidden';
+
+            getZIndex(): number;
+
+            getZoom(): number;
+
+            toClientPixels(globalPixelPoint: number[]): number[];
         }
     }
 
     namespace panorama {
+        type Layer = 'yandex#panorama' | 'yandex#airPanorama';
+
+        class Base implements IPanorama {
+            getAngularBBox(): number[];
+
+            getConnectionArrows(): IPanoramaConnectionArrow[];
+
+            getConnectionMarkers(): IPanoramaConnectionMarker[];
+
+            getConnections(): IPanoramaConnectionMarker[];
+
+            getCoordSystem(): ICoordSystem;
+
+            getDefaultDirection(): number[];
+
+            getDefaultSpan(): number[];
+
+            getGraph(): IPanoramaGraph | null;
+
+            getMarkers(): IPanoramaMarker[];
+
+            getName(): string;
+
+            getPosition(): number[];
+
+            getThoroughfares(): IPanoramaConnectionArrow[];
+
+            getTileLevels(): IPanoramaTileLevel[];
+
+            getTileSize(): number[];
+
+            validate(): void;
+
+            static createPanorama(params: {
+                angularBBox: number[],
+                coordSystem?: ICoordSystem | undefined;
+                name?: string | undefined;
+                position: number[];
+                tilesLevels: IPanoramaTileLevel[];
+                tileSize: number[];
+            }): IPanorama;
+
+            static getMarkerPositionFromDirection(
+                panorama: IPanorama,
+                direction: number[],
+                distance: number,
+            ): number[];
+        }
+
+        function createPlayer(element: HTMLElement | string, point: number[], options?: {
+            direction?: number[] | string | undefined;
+            layer?: Layer | undefined;
+            span?: number[] | string | undefined;
+        }): Promise<Player>;
+
+        function isSupported(): boolean;
+
+        function locate(point: number[], options?: { layer?: Layer | undefined; }): Promise<IPanorama[]>;
+
         class Manager implements IEventEmitter {
             events: IEventManager;
 
@@ -2276,13 +2598,13 @@ declare namespace ymaps {
 
         class Player implements IEventEmitter {
             constructor(element: HTMLElement | string, panorama: IPanorama, options?: {
-                autoFitToViewport?: "none" | "ifNull" | "always";
-                controls?: string[];
-                direction?: number[] | string;
-                hotkeysEnabled?: boolean;
-                scrollZoomBehavior?: boolean;
-                span?: number[] | string;
-                suppressMapOpenBlock?: boolean;
+                autoFitToViewport?: "none" | "ifNull" | "always" | undefined;
+                controls?: string[] | undefined;
+                direction?: number[] | string | undefined;
+                hotkeysEnabled?: boolean | undefined;
+                scrollZoomBehavior?: boolean | undefined;
+                span?: number[] | string | undefined;
+                suppressMapOpenBlock?: boolean | undefined;
             })
 
             events: IEventManager;
@@ -2300,9 +2622,9 @@ declare namespace ymaps {
             lookAt(point: number[]): this;
 
             moveTo(point: number[], options?: {
-                direction?: number[] | string;
-                layer?: "yandex#panorama" | "yandex#airPanorama";
-                span?: number[] | string;
+                direction?: number[] | string | undefined;
+                layer?: Layer | undefined;
+                span?: number[] | string | undefined;
             }): Promise<void>;
 
             setDirection(direction: number[] | string): this;
@@ -2319,12 +2641,12 @@ declare namespace ymaps {
             events: IEventManager;
 
             start(options?: {
-                addViaPoints?: boolean;
-                addWayPoints?: boolean;
-                editViaPoints?: boolean;
-                editWayPoints?: boolean;
-                removeViaPoints?: boolean;
-                removeWayPoints?: boolean;
+                addViaPoints?: boolean | undefined;
+                addWayPoints?: boolean | undefined;
+                editViaPoints?: boolean | undefined;
+                editWayPoints?: boolean | undefined;
+                removeViaPoints?: boolean | undefined;
+                removeWayPoints?: boolean | undefined;
             }): void;
 
             stop(): void;
@@ -2373,9 +2695,9 @@ declare namespace ymaps {
             constructor(
                 pixelGeometry: IPixelCircleGeometry,
                 params?: {
-                    fill?: boolean;
-                    outline?: boolean;
-                    strokeWidth?: number;
+                    fill?: boolean | undefined;
+                    outline?: boolean | undefined;
+                    strokeWidth?: number | undefined;
                 }
             );
 
@@ -2398,7 +2720,7 @@ declare namespace ymaps {
             constructor(
                 pixelGeometry: IPixelLineStringGeometry,
                 params?: {
-                    strokeWidth?: number;
+                    strokeWidth?: number | undefined;
                 }
             );
 
@@ -2421,9 +2743,9 @@ declare namespace ymaps {
             constructor(
                 pixelGeometry: IPixelMultiPolygonGeometry,
                 params?: {
-                    fill?: boolean;
-                    outline?: boolean;
-                    strokeWidth?: number;
+                    fill?: boolean | undefined;
+                    outline?: boolean | undefined;
+                    strokeWidth?: number | undefined;
                 }
             );
 
@@ -2446,9 +2768,9 @@ declare namespace ymaps {
             constructor(
                 pixelGeometry: IPixelPolygonGeometry,
                 params?: {
-                    fill?: boolean;
-                    outline?: boolean;
-                    strokeWidth?: number;
+                    fill?: boolean | undefined;
+                    outline?: boolean | undefined;
+                    strokeWidth?: number | undefined;
                 }
             );
 
@@ -2471,9 +2793,9 @@ declare namespace ymaps {
             constructor(
                 geometry: IPixelRectangleGeometry,
                 params?: {
-                    fill?: boolean;
-                    outline?: boolean;
-                    strokeWidth?: number;
+                    fill?: boolean | undefined;
+                    outline?: boolean | undefined;
+                    strokeWidth?: number | undefined;
                 }
             );
 
@@ -2493,7 +2815,16 @@ declare namespace ymaps {
         }
     }
 
-    class Balloon extends Popup<Balloon> implements IBaloon<Balloon> {
+    interface meta {
+        coordinatesOrder: 'latlong' | 'longlat';
+        countryCode: string;
+        languageCode: string;
+        mode: 'release' | 'debug';
+        ns: typeof ymaps;
+        version: string;
+    }
+
+    class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
         constructor(map: Map, options?: IBalloonOptions);
 
         getData(): object;
@@ -2518,33 +2849,71 @@ declare namespace ymaps {
 
         remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-        fire(type: string, eventobject: object | IEvent): this;
+        fire(type: string, eventObject: object | IEvent): this;
+
+        destroy(): void;
+
+        getOptions(): IOptionManager | null;
+
+        setOptions(options: object): Promise<Balloon>;
     }
 
     interface IBalloonOptions {
-        autoPan?: boolean;
-        autoPanCheckZoomRange?: boolean;
-        autoPanDuration?: number;
-        autoPanMargin?: number[][] | number[] | number;
-        autoPanUseMapMargin?: boolean;
-        closeButton?: boolean;
-        contentLayout?: IClassConstructor<ILayout> | string;
-        layout?: IClassConstructor<ILayout> | string;
-        maxHeight?: number;
-        maxWidth?: number;
-        minHeight?: number;
-        minWidth?: number;
-        offset?: number[];
-        pane?: string;
-        panelContentLayout?: IClassConstructor<ILayout> | string;
-        panelMaxHeightRatio?: number;
-        panelMaxMapArea?: number;
-        shadow?: boolean;
-        shadowLayout?: IClassConstructor<ILayout> | string;
-        shadowOffset?: number[];
+        autoPan?: boolean | undefined;
+        autoPanCheckZoomRange?: boolean | undefined;
+        autoPanDuration?: number | undefined;
+        autoPanMargin?: number | number[] | undefined;
+        autoPanUseMapMargin?: boolean | undefined;
+        closeButton?: boolean | undefined;
+        closeTimeout?: number | undefined;
+        contentLayout?: IClassConstructor<ILayout> | string | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
+        layout?: IClassConstructor<ILayout> | string | undefined;
+        maxHeight?: number | undefined;
+        maxWidth?: number | undefined;
+        minHeight?: number | undefined;
+        minWidth?: number | undefined;
+        offset?: number[] | undefined;
+        openTimeout?: number | undefined;
+        pane?: string | undefined;
+        panelContentLayout?: IClassConstructor<ILayout> | string | undefined;
+        panelMaxHeightRatio?: number | undefined;
+        panelMaxMapArea?: number | undefined;
+        shadow?: boolean | undefined;
+        shadowLayout?: IClassConstructor<ILayout> | string | undefined;
+        shadowOffset?: number[] | undefined;
+        zIndex?: string | undefined;
     }
 
-    class Circle implements GeoObject {
+    interface IBalloonOptionsWithBalloonPrefix {
+        balloonContent?: string | undefined;
+        balloonAutoPan?: boolean | undefined;
+        balloonAutoPanCheckZoomRange?: boolean | undefined;
+        balloonAutoPanDuration?: number | undefined;
+        balloonAutoPanMargin?: number | number[] | undefined;
+        balloonAutoPanUseMapMargin?: boolean | undefined;
+        balloonCloseButton?: boolean | undefined;
+        balloonCloseTimeout?: number | undefined;
+        balloonContentLayout?: IClassConstructor<ILayout> | string | undefined;
+        balloonInteractivityModel?: InteractivityModelKey | undefined;
+        balloonLayout?: IClassConstructor<ILayout> | string | undefined;
+        balloonMaxHeight?: number | undefined;
+        balloonMaxWidth?: number | undefined;
+        balloonMinHeight?: number | undefined;
+        balloonMinWidth?: number | undefined;
+        balloonOffset?: number[] | undefined;
+        balloonOpenTimeout?: number | undefined;
+        balloonPane?: string | undefined;
+        balloonPanelContentLayout?: IClassConstructor<ILayout> | string | undefined;
+        balloonPanelMaxHeightRatio?: number | undefined;
+        balloonPanelMaxMapArea?: number | undefined;
+        balloonShadow?: boolean | undefined;
+        balloonShadowLayout?: IClassConstructor<ILayout> | string | undefined;
+        balloonShadowOffset?: number[] | undefined;
+        balloonZIndex?: string | undefined;
+    }
+
+    class Circle implements GeoObject<ICircleGeometry> {
         constructor(geometry: ICircleGeometry[][][][] | number[][] | object, properties?: object | IDataManager, options?: ICircleOptions)
 
         balloon: geoObject.Balloon;
@@ -2555,7 +2924,7 @@ declare namespace ymaps {
         properties: data.Manager;
         state: data.Manager;
 
-        geometry: IGeometry | null;
+        geometry: ICircleGeometry | null;
         indices: ArrayBuffer;
         vertices: ArrayBuffer;
 
@@ -2571,70 +2940,98 @@ declare namespace ymaps {
     }
 
     interface ICircleOptions {
-        circleOverlay?: string | ((geometry: IPixelCircleGeometry, data: object, options: object) => Promise<IOverlay>);
-        cursor?: string;
-        draggable?: boolean;
-        fill?: boolean;
-        fillColor?: string;
-        fillImageHref?: string;
-        fillMethod?: "stretch" | "tile";
-        fillOpacity?: number;
-        hasBalloon?: boolean;
-        hasHint?: boolean;
-        hideIconOnBalloonOpen?: boolean;
-        interactiveZIndex?: boolean;
-        interactivityModel?: InteractivityModelKey;
-        opacity?: number;
-        openBalloonOnClick?: boolean;
-        openEmptyBalloon?: boolean;
-        openEmptyHint?: boolean;
-        openHintOnHover?: boolean;
-        outline?: boolean;
-        pane?: string;
-        strokeColor?: string[][] | string[] | string;
-        strokeOpacity?: number[][] | number[] | number;
-        strokeStyle?: string[][][] | object[][] | string[] | object[] | string | object;
-        strokeWidth?: number[][] | number[] | number;
-        syncOverlayInit?: boolean;
-        useMapMarginInDragging?: boolean;
-        visible?: boolean;
-        zIndex?: number;
-        zIndexActive?: number;
-        zIndexDrag?: number;
-        zIndexHover?: number;
+        circleOverlay?: string | ((geometry: IPixelCircleGeometry, data: object, options: object) => Promise<IOverlay>) | undefined;
+        cursor?: string | undefined;
+        draggable?: boolean | undefined;
+        fill?: boolean | undefined;
+        fillColor?: string | undefined;
+        fillImageHref?: string | undefined;
+        fillMethod?: "stretch" | "tile" | undefined;
+        fillOpacity?: number | undefined;
+        hasBalloon?: boolean | undefined;
+        hasHint?: boolean | undefined;
+        hideIconOnBalloonOpen?: boolean | undefined;
+        interactiveZIndex?: boolean | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
+        opacity?: number | undefined;
+        openBalloonOnClick?: boolean | undefined;
+        openEmptyBalloon?: boolean | undefined;
+        openEmptyHint?: boolean | undefined;
+        openHintOnHover?: boolean | undefined;
+        outline?: boolean | undefined;
+        pane?: string | undefined;
+        strokeColor?: string[][] | string[] | string | undefined;
+        strokeOpacity?: number[][] | number[] | number | undefined;
+        strokeStyle?: string[][][] | object[][] | string[] | object[] | string | object | undefined;
+        strokeWidth?: number[][] | number[] | number | undefined;
+        syncOverlayInit?: boolean | undefined;
+        useMapMarginInDragging?: boolean | undefined;
+        visible?: boolean | undefined;
+        zIndex?: number | undefined;
+        zIndexActive?: number | undefined;
+        zIndexDrag?: number | undefined;
+        zIndexHover?: number | undefined;
     }
 
     class Clusterer implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
         constructor(options?: IClustererOptions);
 
-        events: IEventManager;
-        options: IOptionManager;
         balloon: clusterer.Balloon;
-        //     balloonopen:
-        hint: clusterer.Hint;
-
-        getParent(): null | IControlParent;
-
-        setParent(parent: IControlParent): this;
-
+        // balloonopen:
         // balloonclose:
+        events: IEventManager;
+        hint: clusterer.Hint;
+        options: IOptionManager;
+
+        add(objects: IGeoObject | IGeoObject[]): this;
+
+        createCluster(center: number[], geoObjects: IGeoObject[]): IGeoObject;
+
+        getBounds(): number[][] | null;
+
+        getClusters(): IGeoObject[];
+
+        getGeoObjects(): IGeoObject[];
 
         getMap(): Map;
+
+        getObjectState(geoObject: IGeoObject): { isShown: boolean; cluster: Cluster; isClustered: boolean };
+
+        getParent(): IParentOnMap | null;
+
+        remove(objects: IGeoObject | IGeoObject[]): this;
+
+        removeAll(): this;
+
+        setParent(parent: IParentOnMap | null): this;
     }
 
-    interface IClustererOptions {
-        gridSize?: number;
-        groupByCoordinates?: boolean;
-        hasBalloon?: boolean;
-        hasHint?: boolean;
-        margin?: number[][] | number[] | number;
-        maxZoom?: number[] | number;
-        minClusterSize?: number;
-        preset?: PresetKey;
-        showInAlphabeticalOrder?: boolean;
-        useMapMargin?: boolean;
-        viewportMargin?: number[][] | number[] | number;
-        zoomMargin?: number[][] | number[] | number;
+    interface Cluster {
+        id: string;
+        geometry: IGeometry;
+        properties: {
+            geoObjects: IGeoObject[];
+            [k: string]: any;
+        };
+        options: IOptionManager;
+    }
+
+    interface IClustererOptionsInject {
+        gridSize?: number | undefined;
+        groupByCoordinates?: boolean | undefined;
+        margin?: number[] | number | undefined;
+        maxZoom?: number[] | number | undefined;
+        minClusterSize?: number | undefined;
+        preset?: PresetKey | undefined;
+        showInAlphabeticalOrder?: boolean | undefined;
+        useMapMargin?: boolean | undefined;
+        viewportMargin?: number[] | number | undefined;
+        zoomMargin?: number[] | number | undefined;
+    }
+
+    interface IClustererOptions extends IClustererOptionsInject {
+        hasBalloon?: boolean | undefined;
+        hasHint?: boolean | undefined;
     }
 
     class ClusterPlacemark implements IGeoObject, collection.Item {
@@ -2670,33 +3067,60 @@ declare namespace ymaps {
     }
 
     interface IClusterPlacemarkOptions {
-        balloonContentLayout?: "cluster#balloonTwoColumns" | "cluster#balloonCarousel" | "cluster#balloonAccordion" | string | IClassConstructor<ILayout>;
-        balloonContentLayoutHeight?: number;
-        balloonContentLayoutWidth?: number;
-        balloonItemContentLayout?: ILayout | string;
-        balloonPanelContentLayout?: string | IClassConstructor<ILayout>;
-        cursor?: string;
-        disableClickZoom?: boolean;
-        hideIconOnBalloonOpen?: boolean;
-        iconColor?: string;
-        iconContentLayout?: string | IClassConstructor<ILayout>;
-        iconLayout?: string | IClassConstructor<ILayout>;
+        balloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey |  undefined;
+        balloonContentLayoutHeight?: number | undefined;
+        balloonContentLayoutWidth?: number | undefined;
+        balloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
+        balloonPanelContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
+        cursor?: string | undefined;
+        disableClickZoom?: boolean | undefined;
+        hideIconOnBalloonOpen?: boolean | undefined;
+        iconColor?: string | undefined;
+        iconContentLayout?: string | IClassConstructor<ILayout> | undefined;
+        iconLayout?: string | IClassConstructor<ILayout> | undefined;
         icons?: Array<{
             href: string;
             size: number[];
-            ooffset: number[];
-            shape?: IShape | IGeometryJson;
-        }>;
-        iconShape?: IGeometryJson;
-        interactivityModel?: InteractivityModelKey;
-        numbers?: number[];
-        openBalloonOnClick?: boolean;
-        openEmptyHint?: boolean;
-        openHintOnHover?: boolean;
-        zIndexHover?: number;
+            offset: number[];
+            shape?: IShape | IGeometryJson | undefined;
+        }> | undefined;
+        iconShape?: IGeometryJson | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
+        numbers?: number[] | undefined;
+        openBalloonOnClick?: boolean | undefined;
+        openEmptyHint?: boolean | undefined;
+        openHintOnHover?: boolean | undefined;
+        zIndexHover?: number | undefined;
     }
 
-    class Collection implements ICollection, collection.Item {
+    interface IClusterPlacemarkOptionsWithClusterPrefix {
+        clusterBalloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
+        clusterBalloonContentLayoutHeight?: number | undefined;
+        clusterBalloonContentLayoutWidth?: number | undefined;
+        clusterBalloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
+        clusterBalloonPanelContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
+        clusterCursor?: string | undefined;
+        clusterDisableClickZoom?: boolean | undefined;
+        clusterHideIconOnBalloonOpen?: boolean | undefined;
+        clusterIconColor?: string | undefined;
+        clusterIconContentLayout?: IClassConstructor<ILayout> | string | undefined;
+        clusterIconLayout?: IClassConstructor<ILayout> | string | undefined;
+        clusterIcons?: Array<{
+            href: string;
+            size: number[];
+            offset: number[];
+            shape?: IShape | IGeometryJson | undefined;
+        }> | undefined;
+        clusterIconShape?: IGeometryJson | undefined;
+        clusterInteractivityModel?: InteractivityModelKey | undefined;
+        clusterNumbers?: number[] | undefined;
+        clusterOpenBalloonOnClick?: boolean | undefined;
+        clusterOpenEmptyHint?: boolean | undefined;
+        clusterOpenHintOnHover?: boolean | undefined;
+        clusterZIndexHover?: number | undefined;
+    }
+
+    class Collection<T = {}> implements ICollection, collection.Item {
         constructor(options?: object);
 
         events: IEventManager;
@@ -2722,7 +3146,7 @@ declare namespace ymaps {
 
         get(index: number): object;
 
-        getAll(): object[];
+        getAll(): T[];
 
         getLength(): number;
 
@@ -2731,16 +3155,17 @@ declare namespace ymaps {
         removeAll(): this;
     }
 
-    class Event implements IEvent {
+    class Event<OriginalEvent = {}, TargetGeometry = {}> implements IEvent<OriginalEvent, TargetGeometry> {
         constructor(originalEvent: object, sourceEvent: IEvent);
 
         allowMapEvent(): void;
 
         callMethod(name: string): void;
 
+        get<T extends {}, K extends keyof T= keyof T>(name: K): T[K];
         get(name: string): object;
 
-        getSourceEvent(): IEvent | null;
+        getSourceEvent(): IEvent<OriginalEvent> | null;
 
         isDefaultPrevented(): boolean;
 
@@ -2755,16 +3180,25 @@ declare namespace ymaps {
         stopImmediatePropagation(): boolean;
 
         stopPropagation(): boolean;
+
+        originalEvent: {
+            domEvent: {
+                originalEvent: OriginalEvent;
+            }
+            target: {
+                geometry?: TargetGeometry | undefined;
+            };
+        };
     }
 
-    class GeoObject implements IGeoObject {
+    class GeoObject<T = IGeometry, TargetGeometry = {}> implements IGeoObject<T> {
         constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
 
-        geometry: IGeometry | null;
+        geometry: T | null;
         balloon: geoObject.Balloon;
         editor: IGeometryEditor;
         hint: geoObject.Hint;
-        events: event.Manager;
+        events: event.Manager<TargetGeometry>;
         options: option.Manager;
         properties: data.Manager;
         state: data.Manager;
@@ -2781,46 +3215,46 @@ declare namespace ymaps {
     }
 
     interface IGeoObjectFeature {
-        geometry?: IGeometry | IGeometryJson;
-        properties?: IDataManager | object;
+        geometry?: IGeometry | IGeometryJson | undefined;
+        properties?: IDataManager | object | undefined;
     }
 
-    interface IGeoObjectOptions extends ICircleOptions {
-        iconCaptionMaxWidth?: number;
-        iconColor?: string;
-        iconContentLayout?: string | IClassConstructor<ILayout>;
-        iconContentOffset?: number[];
-        iconContentPadding?: number[];
-        iconContentSize?: number[];
-        iconImageClipRect?: number[][];
-        iconImageHref?: string;
-        iconImageOffset?: number[];
-        iconImageShape?: IShape | null;
-        iconImageSize?: number[];
-        iconLayout?: string | IClassConstructor<ILayout>;
-        iconMaxHeight?: number;
-        iconMaxWidth?: number;
-        iconOffset?: number[];
-        iconShadow?: boolean;
-        iconShadowImageClipRect?: number[][];
-        iconShadowImageHref?: string;
-        iconShadowImageOffset?: number[];
-        iconShadowImageSize?: number[];
-        iconShadowLayout?: string | IClassConstructor<ILayout>;
-        iconShadowOffset?: number[];
-        lineStringOverlay?: OverlayKey;
-        pointOverlay?: OverlayKey;
-        polygonOverlay?: OverlayKey;
-        preset?: string;
-        rectangleOverlay?: OverlayKey;
-        setMapCursorInDragging?: boolean;
+    interface IGeoObjectOptions extends ICircleOptions, IBalloonOptionsWithBalloonPrefix {
+        iconCaptionMaxWidth?: number | undefined;
+        iconColor?: string | undefined;
+        iconContentLayout?: string | IClassConstructor<ILayout> | undefined;
+        iconContentOffset?: number[] | undefined;
+        iconContentPadding?: number[] | undefined;
+        iconContentSize?: number[] | undefined;
+        iconImageClipRect?: number[][] | undefined;
+        iconImageHref?: string | undefined;
+        iconImageOffset?: number[] | undefined;
+        iconImageShape?: IShape | null | undefined;
+        iconImageSize?: number[] | undefined;
+        iconLayout?: string | IClassConstructor<ILayout> | undefined;
+        iconMaxHeight?: number | undefined;
+        iconMaxWidth?: number | undefined;
+        iconOffset?: number[] | undefined;
+        iconShadow?: boolean | undefined;
+        iconShadowImageClipRect?: number[][] | undefined;
+        iconShadowImageHref?: string | undefined;
+        iconShadowImageOffset?: number[] | undefined;
+        iconShadowImageSize?: number[] | undefined;
+        iconShadowLayout?: string | IClassConstructor<ILayout> | undefined;
+        iconShadowOffset?: number[] | undefined;
+        lineStringOverlay?: OverlayKey | undefined;
+        pointOverlay?: OverlayKey | undefined;
+        polygonOverlay?: OverlayKey | undefined;
+        preset?: PresetKey | undefined;
+        rectangleOverlay?: OverlayKey | undefined;
+        setMapCursorInDragging?: boolean | undefined;
     }
 
     class GeoObjectCollection implements IGeoObject, IGeoObjectCollection {
         constructor(feature?: {
-            children?: IGeoObject[];
-            geometry?: IGeometry | object;
-            properties?: IDataManager | object;
+            children?: IGeoObject[] | undefined;
+            geometry?: IGeometry | object | undefined;
+            properties?: IDataManager | object | undefined;
         }, options?: object);
 
         geometry: IGeometry | null;
@@ -2883,6 +3317,10 @@ declare namespace ymaps {
         setParent(parent: IControlParent): this;
 
         getMap(): Map;
+
+        getAlias(): string;
+
+        getElement(): HTMLElement;
     }
 
     class Map implements IDomEventEmitter {
@@ -2933,30 +3371,30 @@ declare namespace ymaps {
     }
 
     interface IMapMarginOptions {
-        useMapMargin?: boolean;
+        useMapMargin?: boolean | undefined;
     }
 
     interface IMapCheckZoomRangeOptions {
-        checkZoomRange?: boolean;
+        checkZoomRange?: boolean | undefined;
     }
 
     interface IMapZoomOptions extends IMapMarginOptions, IMapCheckZoomRangeOptions {
-        duration?: number;
+        duration?: number | undefined;
     }
 
     interface IMapPositionOptions extends IMapZoomOptions {
-        timingFunction?: string;
+        timingFunction?: string | undefined;
     }
 
     interface IMapBoundsOptions extends IMapPositionOptions {
-        preciseZoom?: boolean;
-        zoomMargin?: number[][] | number[];
+        preciseZoom?: boolean | undefined;
+        zoomMargin?: number[][] | number[] | undefined;
     }
 
     interface IMapPanOptions extends IMapPositionOptions {
-        delay?: number;
-        flying?: boolean;
-        safe?: boolean;
+        delay?: number | undefined;
+        flying?: boolean | undefined;
+        safe?: boolean | undefined;
     }
 
     class MapType {
@@ -2964,128 +3402,141 @@ declare namespace ymaps {
     }
 
     interface IMapState {
-        behaviors?: string[];
-        bounds?: number[][];
-        center?: number[];
-        controls?: string[];
-        margin?: number[][] | number[];
-        type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid";
-        zoom?: number;
+        behaviors?: string[] | undefined;
+        bounds?: number[][] | undefined;
+        center?: number[] | undefined;
+        controls?: Array<
+            string
+            | control.ZoomControl
+            | control.RulerControl
+            | control.TypeSelector
+        > | undefined;
+        margin?: number[][] | number[] | undefined;
+        type?: "yandex#map" | "yandex#satellite" | "yandex#hybrid" | undefined;
+        zoom?: number | undefined;
     }
 
     interface IMapOptions {
-        autoFitToViewport?: "none" | "ifNull" | "always";
-        avoidFractionalZoom?: boolean;
-        exitFullscreenByEsc?: boolean;
-        fullscreenZIndex?: number;
-        mapAutoFocus?: boolean;
-        maxAnimationZoomDifference?: number;
-        maxZoom?: number;
-        minZoom?: number;
-        nativeFullscreen?: boolean;
-        projection?: IProjection;
-        restrictMapArea?: boolean;
-        suppressMapOpenBlock?: boolean;
-        suppressObsoleteBrowserNotifier?: boolean;
-        yandexMapAutoSwitch?: boolean;
-        yandexMapDisablePoiInteractivity?: boolean;
+        autoFitToViewport?: "none" | "ifNull" | "always" | undefined;
+        avoidFractionalZoom?: boolean | undefined;
+        exitFullscreenByEsc?: boolean | undefined;
+        fullscreenZIndex?: number | undefined;
+        mapAutoFocus?: boolean | undefined;
+        maxAnimationZoomDifference?: number | undefined;
+        maxZoom?: number | undefined;
+        minZoom?: number | undefined;
+        nativeFullscreen?: boolean | undefined;
+        projection?: IProjection | undefined;
+        restrictMapArea?: boolean | number[][] | undefined;
+        suppressMapOpenBlock?: boolean | undefined;
+        suppressObsoleteBrowserNotifier?: boolean | undefined;
+        yandexMapAutoSwitch?: boolean | undefined;
+        yandexMapDisablePoiInteractivity?: boolean | undefined;
+
+        copyrightLogoVisible?: boolean | undefined;
+        copyrightProvidersVisible?: boolean | undefined;
+        copyrightUaVisible?: boolean | undefined;
     }
 
-    class Placemark extends GeoObject {
+    class Placemark extends GeoObject<IPointGeometry, geometry.Point> {
         constructor(geometry: number[] | object | IPointGeometry, properties: object | IDataManager, options?: IPlacemarkOptions)
     }
 
-    interface IPlacemarkOptions {
-        cursor?: string;
-        draggable?: boolean;
-        hasBalloon?: boolean;
-        hasHint?: boolean;
-        hideIconOnBalloonOpen?: boolean;
-        iconOffset?: number[];
-        iconShape?: IGeometryJson | null;
-        interactiveZIndex?: boolean;
-        interactivityModel?: string;
-        openBalloonOnClick?: boolean;
-        openEmptyBalloon?: boolean;
-        openEmptyHint?: boolean;
-        openHintOnHover?: boolean;
-        pane?: string;
-        pointOverlay?: string;
-        syncOverlayInit?: boolean;
-        useMapMarginInDragging?: boolean;
-        visible?: boolean;
-        zIndex?: number;
-        zIndexActive?: number;
-        zIndexDrag?: number;
-        zIndexHover?: number;
+    interface IPlacemarkOptions extends IBalloonOptionsWithBalloonPrefix, layout.IImageWithContentOptionsWithIconPrefix, layout.IPieChartOptionsWithIconPrefix {
+        preset?: PresetKey | undefined;
+        iconColor?: string | undefined;
+        iconLayout?: IClassConstructor<ILayout> | IconLayoutKey | undefined;
+
+        cursor?: string | undefined;
+        draggable?: boolean | undefined;
+        hasBalloon?: boolean | undefined;
+        hasHint?: boolean | undefined;
+        hideIconOnBalloonOpen?: boolean | undefined;
+        iconOffset?: number[] | undefined;
+        iconShape?: IGeometryJson | null | undefined;
+        interactiveZIndex?: boolean | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
+        openBalloonOnClick?: boolean | undefined;
+        openEmptyBalloon?: boolean | undefined;
+        openEmptyHint?: boolean | undefined;
+        openHintOnHover?: boolean | undefined;
+        pane?: string | undefined;
+        pointOverlay?: string | ((geometry: IPixelPointGeometry, data?: IDataManager, options?: object) => vow.Promise) | undefined;
+        syncOverlayInit?: boolean | undefined;
+        useMapMarginInDragging?: boolean | undefined;
+        visible?: boolean | undefined;
+        zIndex?: number | undefined;
+        zIndexActive?: number | undefined;
+        zIndexDrag?: number | undefined;
+        zIndexHover?: number | undefined;
     }
 
-    class Polygon extends GeoObject {
+    class Polygon extends GeoObject<IPolygonGeometry> {
         constructor(geometry: number[][][] | object| IPolygonGeometry, properties?: object | IDataManager, options?: IPolygonOptions)
     }
 
     interface IPolygonOptions {
-        cursor?: string;
-        draggable?: boolean;
-        fill?: boolean;
-        fillColor?: string;
-        fillImageHref?: string;
-        fillMethod?: 'stretch' | 'tile';
-        fillOpacity?: number;
-        hasBalloon?: boolean;
-        hasHint?: boolean;
-        interactiveZIndex?: boolean;
-        interactivityModel?: string;
-        opacity?: number;
-        openBalloonOnClick?: boolean;
-        openEmptyBalloon?: boolean;
-        openEmptyHint?: boolean;
-        openHintOnHover?: boolean;
-        outline?: boolean;
-        pane?: string;
-        polygonOverlay?: string;
-        strokeColor?: string | string[];
-        strokeOpacity?: number | number[];
-        strokeStyle?: string | string[] | object | object[];
-        strokeWidth?: number | number[];
-        syncOverlayInit?: boolean;
-        useMapMarginInDragging?: boolean;
-        visible?: boolean;
-        zIndex?: number;
-        zIndexActive?: number;
-        zIndexDrag?: number;
-        zIndexHover?: number;
+        cursor?: string | undefined;
+        draggable?: boolean | undefined;
+        fill?: boolean | undefined;
+        fillColor?: string | undefined;
+        fillImageHref?: string | undefined;
+        fillMethod?: 'stretch' | 'tile' | undefined;
+        fillOpacity?: number | undefined;
+        hasBalloon?: boolean | undefined;
+        hasHint?: boolean | undefined;
+        interactiveZIndex?: boolean | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
+        opacity?: number | undefined;
+        openBalloonOnClick?: boolean | undefined;
+        openEmptyBalloon?: boolean | undefined;
+        openEmptyHint?: boolean | undefined;
+        openHintOnHover?: boolean | undefined;
+        outline?: boolean | undefined;
+        pane?: string | undefined;
+        polygonOverlay?: string | undefined;
+        strokeColor?: string | string[] | undefined;
+        strokeOpacity?: number | number[] | undefined;
+        strokeStyle?: string | string[] | object | object[] | undefined;
+        strokeWidth?: number | number[] | undefined;
+        syncOverlayInit?: boolean | undefined;
+        useMapMarginInDragging?: boolean | undefined;
+        visible?: boolean | undefined;
+        zIndex?: number | undefined;
+        zIndexActive?: number | undefined;
+        zIndexDrag?: number | undefined;
+        zIndexHover?: number | undefined;
     }
 
-    class Polyline extends GeoObject {
-        constructor(geometry: number[][]| object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions)
+    class Polyline extends GeoObject<ILineStringGeometry> {
+        constructor(geometry: number[][]| object | ILineStringGeometry, properties?: object | IDataManager, options?: IPolylineOptions);
     }
 
     interface IPolylineOptions {
-        cursor?: string;
-        draggable?: boolean;
-        hasBalloon?: boolean;
-        hasHint?: boolean;
-        interactiveZIndex?: boolean;
-        interactivityModel?: string;
-        lineStringOverlay?: () => object | string;
-        opacity?: number;
-        openBalloonOnClick?: boolean;
-        openEmptyBalloon?: boolean;
-        openEmptyHint?: boolean;
-        openHintOnHover?: boolean;
-        pane?: string;
-        strokeColor?: string | string[];
-        strokeOpacity?: number | number[];
-        strokeStyle?: string | string[] | object | object[];
-        strokeWidth?: number | number[];
-        syncOverlayInit?: boolean;
-        useMapMarginInDragging?: boolean;
-        visible?: boolean;
-        zIndex?: number;
-        zIndexActive?: number;
-        zIndexDrag?: number;
-        zIndexHover?: number;
+        cursor?: string | undefined;
+        draggable?: boolean | undefined;
+        hasBalloon?: boolean | undefined;
+        hasHint?: boolean | undefined;
+        interactiveZIndex?: boolean | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
+        lineStringOverlay?: (() => object | string) | undefined;
+        opacity?: number | undefined;
+        openBalloonOnClick?: boolean | undefined;
+        openEmptyBalloon?: boolean | undefined;
+        openEmptyHint?: boolean | undefined;
+        openHintOnHover?: boolean | undefined;
+        pane?: string | undefined;
+        strokeColor?: string | string[] | undefined;
+        strokeOpacity?: number | number[] | undefined;
+        strokeStyle?: string | string[] | object | object[] | undefined;
+        strokeWidth?: number | number[] | undefined;
+        syncOverlayInit?: boolean | undefined;
+        useMapMarginInDragging?: boolean | undefined;
+        visible?: boolean | undefined;
+        zIndex?: number | undefined;
+        zIndexActive?: number | undefined;
+        zIndexDrag?: number | undefined;
+        zIndexHover?: number | undefined;
     }
 
     class Popup<T> implements IPopup<T> {
@@ -3114,19 +3565,19 @@ declare namespace ymaps {
     }
 
     interface IPopupOptions {
-        closeTimeout?: number;
-        interactivityModel?: InteractivityModelKey;
-        openTimeout?: number;
-        pane?: IPane | string;
-        projection?: IProjection;
-        zIndex?: number;
+        closeTimeout?: number | undefined;
+        interactivityModel?: InteractivityModelKey | undefined;
+        openTimeout?: number | undefined;
+        pane?: IPane | string | undefined;
+        projection?: IProjection | undefined;
+        zIndex?: number | undefined;
     }
 
-    function ready(successCallback?: () => any | IReadyobject, errorCallback?: () => any, context?: object): Promise<void>;
+    function ready(successCallback?: () => any | IReadyObject, errorCallback?: () => any, context?: object): Promise<void>;
 
-    interface IReadyobject {
-        require?: string[];
-        context?: object;
+    interface IReadyObject {
+        require?: string[] | undefined;
+        context?: object | undefined;
 
         successCallback?(): void;
 
@@ -3134,7 +3585,11 @@ declare namespace ymaps {
     }
 
     namespace templateLayoutFactory {
-        function createClass(template: string, overrides?: object, staticMethods?: object): IClassConstructor<layout.templateBased.Base>;
+        function createClass<O extends {} = {}, S extends {} = {}>(
+            template: string,
+            overrides?: O,
+            staticMethods?: S
+        ): IClassConstructor<layout.templateBased.Base & O & S>;
     }
 
     namespace util {
@@ -3177,11 +3632,25 @@ declare namespace ymaps {
         class Promise {
             constructor(resolver?: () => void);
 
-            done(onFulfilled?: () => void, onRejected?: () => void, onProgress?: () => void, ctx?: object): void;
+            done(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                onProgress?: (...args: any[]) => void,
+                ctx?: object
+            ): void;
 
-            spread(onFulfilled?: () => void, onRejected?: () => void, ctx?: object): Promise;
+            spread(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                ctx?: object
+            ): Promise;
 
-            then(onFulfilled?: () => void, onRejected?: () => void, onProgress?: () => void, ctx?: object): Promise;
+            then(
+                onFulfilled?: (...args: any[]) => void,
+                onRejected?: (err?: Error | any) => void,
+                onProgress?: (...args: any[]) => void,
+                ctx?: object
+            ): Promise;
 
             valueOf(): object;
         }
@@ -3203,13 +3672,13 @@ declare namespace ymaps {
         getType(): string;
     }
 
-    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {
     }
 
-    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {
     }
 
-    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {//tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {
     }
 
     interface IBehavior extends IChildOnMap, ICustomizable {
@@ -3226,10 +3695,10 @@ declare namespace ymaps {
         setParent(parent: object | null): this;
     }
 
-    interface IChildOnMap extends IChild<IControlParent> { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IChildOnMap extends IChild<IControlParent> {
     }
 
-    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ICircleGeometry extends ICircleGeometryAccess, IGeometry {
     }
 
     interface ICircleGeometryAccess extends IFreezable {
@@ -3254,7 +3723,9 @@ declare namespace ymaps {
         remove(object: object): this;
     }
 
-    interface IControl extends IChildOnMap { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IContainerPane extends IPane, IPositioningContext {}
+
+    interface IControl extends IChildOnMap { // tslint:disable-line no-empty-interface
         // new (options?: object);
     }
 
@@ -3270,7 +3741,7 @@ declare namespace ymaps {
         solveInverseProblem(startPoint: number[], endPoint: number[], reverseDirection?: boolean): object;
     }
 
-    interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ICopyrightsAccessor extends ICopyrightsProvider { //tslint:disable-line no-empty-interface
     }
 
     interface ICopyrightsProvider extends IEventEmitter {
@@ -3289,17 +3760,23 @@ declare namespace ymaps {
         get(path: string, defaultValue: object): object;
     }
 
-    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface
     }
 
-    interface IEvent {
+    interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
         allowMapEvent(): void;
 
         callMethod(name: string): void;
 
+        get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
+
+        get(name: 'type'): string;
+        get(name: 'objectId'): string | undefined;
+        get(name: 'newZoom' | 'oldZoom'): number | undefined;
+
         get(name: string): object;
 
-        getSourceEvent(): IEvent | null;
+        getSourceEvent(): IEvent<OriginalEvent> | null;
 
         isDefaultPrevented(): boolean;
 
@@ -3314,6 +3791,15 @@ declare namespace ymaps {
         stopImmediatePropagation(): boolean;
 
         stopPropagation(): boolean;
+
+        originalEvent: {
+            domEvent: {
+                originalEvent: OriginalEvent;
+            }
+            target: {
+                geometry?: TargetGeometry | undefined;
+            };
+        };
     }
 
     interface IEventController {
@@ -3334,8 +3820,9 @@ declare namespace ymaps {
         removeAll(): this;
     }
 
-    interface IEventManager extends IEventTrigger {
-        add(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+    interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
+        add(types: 'mousedown', callback: (event: IEvent<MouseEvent, TargetGeometry>) => void, context?: object, priority?: number): this;
+        add(types: string[][] | string[] | string, callback: (event: IEvent) => void, context?: object, priority?: number): this;
 
         getParent(): object | null;
 
@@ -3346,8 +3833,10 @@ declare namespace ymaps {
         setParent(parent: object | null): this;
     }
 
+    interface IEventPane extends IDomEventEmitter, IPane {}
+
     interface IEventTrigger {
-        fire(type: string, eventobject?: object | IEvent): this;
+        fire(type: string, eventObject?: object | IEvent): this;
     }
 
     interface IEventWorkflowController extends IEventController {
@@ -3356,7 +3845,7 @@ declare namespace ymaps {
         onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
     }
 
-    interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface
     }
 
     interface IFreezable {
@@ -3370,9 +3859,9 @@ declare namespace ymaps {
     }
 
     interface IGeocodeProvider {
-        geocode(request: string, options?: { boundedBy?: number[][], results?: number, skip?: number, strictBounds?: boolean }): Promise<object>;
+        geocode(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, skip?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
 
-        suggest(request: string, options?: { boundedBy?: number[][], results?: number, strictBounds?: boolean }): Promise<object>;
+        suggest(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
     }
 
     interface IGeometry extends IBaseGeometry, ICustomizable {
@@ -3407,15 +3896,15 @@ declare namespace ymaps {
         getPixels(): number[];
     }
 
-    interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IGeometryEditorRootModel extends IGeometryEditorModel { //tslint:disable-line no-empty-interface
     }
 
     interface IGeometryJson {
         type: string;
     }
 
-    interface IGeoObject extends IChildOnMap, ICustomizable, IDomEventEmitter, IParentOnMap {
-        geometry: IGeometry | null;
+    interface IGeoObject<T = IGeometry> extends IChildOnMap, ICustomizable, IDomEventEmitter, IParentOnMap {
+        geometry: T | null;
         properties: IDataManager;
         state: IDataManager;
 
@@ -3466,7 +3955,7 @@ declare namespace ymaps {
         indexOf(geoObject: IGeoObject): number;
     }
 
-    interface IHintManager<T> extends IPopupManager<T> { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IHintManager<T> extends IPopupManager<T> {
     }
 
     interface IIterator {
@@ -3532,7 +4021,7 @@ declare namespace ymaps {
         unfreeze(): IFreezable;
     }
 
-    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ILineStringGeometry extends IGeometry, ILineStringGeometryAccess {
     }
 
     interface ILineStringGeometryAccess extends IFreezable {
@@ -3552,7 +4041,7 @@ declare namespace ymaps {
 
         set(index: number, coordinates: number[]): ILineStringGeometryAccess;
 
-        setCoordinates(coordinates: number[]): ILineStringGeometryAccess;
+        setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
 
         splice(index: number, length: number): number[][];
     }
@@ -3563,7 +4052,7 @@ declare namespace ymaps {
         end(): void;
     }
 
-    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {
     }
 
     interface IMultiRouteModelJson {
@@ -3572,15 +4061,15 @@ declare namespace ymaps {
     }
 
     interface IMultiRouteParams {
-        avoidTrafficJams?: boolean;
-        boundedBy?: number[][] | null;
-        requestSendInterval?: string | number;
-        results?: number;
-        reverseGeocoding?: boolean;
-        routingMode?: "auto" | "masstransit" | "pedestrian";
-        searchCoordOrder?: string;
-        strictBounds?: boolean;
-        viaIndexes?: number[];
+        avoidTrafficJams?: boolean | undefined;
+        boundedBy?: number[][] | null | undefined;
+        requestSendInterval?: string | number | undefined;
+        results?: number | undefined;
+        reverseGeocoding?: boolean | undefined;
+        routingMode?: "auto" | "masstransit" | "pedestrian" | undefined;
+        searchCoordOrder?: string | undefined;
+        strictBounds?: boolean | undefined;
+        viaIndexes?: number[] | undefined;
     }
 
     type IMultiRouteReferencePoint = string | number[] | geometry.Point;
@@ -3667,7 +4156,7 @@ declare namespace ymaps {
         getPanorama(): IPanorama;
     }
 
-    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {  //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {
     }
 
     interface IPanoramaGraph {
@@ -3784,7 +4273,7 @@ declare namespace ymaps {
         shift(offset: number[]): IPixelGeometry;
     }
 
-    interface IPointGeometry extends IGeometry, IPointGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPointGeometry extends IGeometry, IPointGeometryAccess {
     }
 
     interface IPointGeometryAccess {
@@ -3793,7 +4282,7 @@ declare namespace ymaps {
         setCoordinates(coordinates: number[] | null): this;
     }
 
-    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface IPolygonGeometry extends IGeometry, IPolygonGeometryAccess {
     }
 
     interface IPolygonGeometryAccess extends IFreezable {
@@ -3897,7 +4386,7 @@ declare namespace ymaps {
         switchPoints(): void;
     }
 
-    interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ISearchControlLayout extends IExpandableControlLayout { //tslint:disable-line no-empty-interface
     }
 
     interface ISelectableControl extends IControl {
@@ -3914,7 +4403,7 @@ declare namespace ymaps {
         select(): void;
     }
 
-    interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
+    interface ISelectableControlLayout extends ILayout { //tslint:disable-line no-empty-interface
     }
 
     interface IShape {
@@ -3932,6 +4421,7 @@ declare namespace ymaps {
 
         shift(offset: number[]): IShape;
     }
+
     class Monitor {
         constructor(dataManager: IDataManager | IOptionManager);
            add(name: string[] | string, changeCallback: (event: (object | IEvent)) => void, context?: any, params?: any): Monitor;
@@ -3939,6 +4429,179 @@ declare namespace ymaps {
         get(name: string): any;
         remove(name: string): Monitor;
         removeAll(): Monitor;
+    }
+
+    interface IObjectManagerOptions extends IClustererOptionsInject, IClusterPlacemarkOptionsWithClusterPrefix {
+        clusterize?: boolean | undefined;
+        syncOverlayInit?: boolean | undefined;
+        viewportMargin?: number[] | number | undefined;
+
+        geoObjectOpenBalloonOnClick?: boolean | undefined;
+    }
+
+    class ObjectManager implements ICustomizable, IEventEmitter, IGeoObject, IParentOnMap {
+        constructor(options: IObjectManagerOptions);
+
+        clusters: objectManager.ClusterCollection;
+
+        events: IEventManager;
+
+        geometry: IGeometry | null;
+
+        objects: objectManager.ObjectCollection;
+
+        options: IOptionManager;
+
+        properties: IDataManager;
+
+        state: IDataManager;
+
+        add(objects: object | object[] | string): this;
+
+        getBounds(): number[][] | null;
+
+        getFilter(): string | ((object: object | string) => boolean) | null;
+
+        getMap(): Map;
+
+        getObjectState(id: string): { found: boolean; isShown: boolean; cluster?: Cluster | undefined; isClustered: boolean; isFilteredOut: boolean };
+
+        getOverlay(): Promise<IOverlay | null>;
+
+        getOverlaySync(): IOverlay | null;
+
+        getParent(): IParentOnMap | null;
+
+        getPixelBounds(): number[][] | null;
+
+        remove(objects: object | object[] | string): this;
+
+        removeAll(): this;
+
+        setFilter(filer: (object: object | string) => boolean): void;
+
+        setParent(parent: IParentOnMap | null): this;
+    }
+
+    namespace objectManager {
+        class Balloon implements Omit<IBalloonManager<map.Balloon>, 'open'> {
+            events: IEventManager;
+
+            autoPan(): Promise<ymaps.Balloon>;
+
+            close(force?: boolean): Promise<ymaps.Balloon>;
+
+            destroy(): void;
+
+            getData(): object | null;
+
+            getOptions(): IOptionManager | null;
+
+            getOverlay(): Promise<IOverlay | null>;
+
+            getOverlaySync(): IOverlay | null;
+
+            getPosition(): number[] | null;
+
+            isOpen(): boolean;
+
+            open(objectId: object | string, anchorPixelPosition?: boolean): Promise<ymaps.Balloon>;
+
+            setData(data: object | string | HTMLElement): Promise<ymaps.Balloon>;
+
+            setOptions(options: object): Promise<ymaps.Balloon>;
+
+            setPosition(position: number[]): Promise<ymaps.Balloon>;
+        }
+
+        class ClusterCollection implements ICustomizable, IEventEmitter {
+            balloon: Balloon;
+
+            events: IEventManager;
+
+            hint: Hint;
+
+            options: option.Manager;
+
+            state: data.Manager;
+
+            getAll(): object[];
+
+            getById(id: string | null | undefined): Cluster | null;
+
+            getIterator(): IIterator;
+
+            getLength(): number;
+
+            getObjectManager(): ObjectManager;
+
+            setClusterOptions(objectId: string, options: object): ObjectCollection;
+        }
+
+        class Hint implements Omit<IHintManager<map.Hint>, 'open'> {
+            events: IEventManager;
+
+            close(force?: boolean): Promise<map.Hint>;
+
+            destroy(): void;
+
+            getData(): object | null;
+
+            getOptions(): IOptionManager | null;
+
+            getOverlay(): Promise<IOverlay | null>;
+
+            getOverlaySync(): IOverlay | null;
+
+            getPosition(): number[] | null;
+
+            isOpen(): boolean;
+
+            open(objectId: object | string, position?: number[]): Promise<map.Hint>;
+
+            setData(data: object | string | HTMLElement): Promise<map.Hint>;
+
+            setOptions(options: object): Promise<map.Hint>;
+
+            setPosition(position: number[]): Promise<map.Hint>;
+        }
+
+        class ObjectCollection implements ICollection, ICustomizable {
+            options: option.Manager;
+
+            events: IEventManager;
+
+            add(object: object): this;
+
+            getById(id: string | null | undefined): object | null;
+
+            getIterator(): IIterator;
+
+            remove(object: object): this;
+
+            setObjectOptions(objectId: string, options: object): ObjectCollection;
+        }
+    }
+
+    namespace modules {
+        type ResolveCallbackFunction = (provide: (module: any, error?: any) => void, ...depends: any[]) => void;
+
+        function define(module: string, depends?: string[], resolveCallback?: ResolveCallbackFunction, context?: object): typeof modules;
+        function define(module: string, resolveCallback?: ResolveCallbackFunction, context?: object): typeof modules;
+
+        function require(modules: string | string[]): vow.Promise;
+
+        function isDefined(module: string): boolean;
+    }
+
+    class Hotspot implements IHotspot {
+        constructor(shape: IShape, zIndex?: number);
+
+        events: IEventManager;
+    }
+
+    interface IHotspot extends IDomEventEmitter {
+        events: IEventManager;
     }
 }
 

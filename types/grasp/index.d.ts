@@ -15,10 +15,10 @@ export = grasp;
 
 declare function grasp(options: {
     args: string[] | Record<string, any> | string;
-    error?: (message: string) => void;
-    callback?: (result: string) => void;
-    exit?: (code: number) => void;
-    input?: string;
+    error?: ((message: string) => void) | undefined;
+    callback?: ((result: string) => void) | undefined;
+    exit?: ((code: number) => void) | undefined;
+    input?: string | undefined;
 
     // The following are "overrides" for defaults, such as console, cli-color,
     // process.stdin, or fs. In most cases grasp only makes use of a small
@@ -27,10 +27,10 @@ declare function grasp(options: {
     // it should be up to them to use a cast rather than the typedef to be
     // overly lenient. We never know if grasp might change their internal use of
     // fs, after all.
-    fs?: typeof fs;
-    console?: typeof console;
-    textFormat?: typeof cliColor;
-    stdin?: typeof process.stdin;
+    fs?: typeof fs | undefined;
+    console?: typeof console | undefined;
+    textFormat?: typeof cliColor | undefined;
+    stdin?: typeof process.stdin | undefined;
 }): void;
 
 declare namespace grasp {

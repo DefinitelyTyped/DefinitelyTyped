@@ -1807,7 +1807,7 @@ declare module "../index" {
          *   'vegetables': ['carrot']
          * };
          *
-         * _.merge(object, other, customizer);
+         * _.mergeWith(object, other, customizer);
          * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
          */
         mergeWith<TObject, TSource>(object: TObject, source: TSource, customizer: MergeWithCustomizer): TObject & TSource;
@@ -2263,11 +2263,15 @@ declare module "../index" {
          * @param accumulator The custom accumulator value.
          * @return Returns the accumulated value.
          */
-        transform<T, TResult>(object: T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<T, TResult>(object: ReadonlyArray<T>, iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         /**
          * @see _.transform
          */
-        transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<T, TResult>(object: Dictionary<T>, iteratee: MemoVoidDictionaryIterator<T, string, TResult>, accumulator?: TResult): TResult;
+        /**
+         * @see _.transform
+         */
+        transform<T extends object, TResult>(object: T, iteratee: MemoVoidDictionaryIterator<T[keyof T], keyof T, TResult>, accumulator?: TResult): TResult;
         /**
          * @see _.transform
          */
@@ -2291,7 +2295,11 @@ declare module "../index" {
         /**
          * @see _.transform
          */
-        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): ImpChain<TResult>;
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], string, TResult>, accumulator?: TResult): ImpChain<TResult>;
+        /**
+         * @see _.transform
+         */
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], keyof T, TResult>, accumulator?: TResult): ImpChain<TResult>;
         /**
          * @see _.transform
          */
@@ -2311,7 +2319,11 @@ declare module "../index" {
         /**
          * @see _.transform
          */
-        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], TResult>, accumulator?: TResult): ExpChain<TResult>;
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], string, TResult>, accumulator?: TResult): ExpChain<TResult>;
+        /**
+         * @see _.transform
+         */
+        transform<TResult>(iteratee: MemoVoidDictionaryIterator<T[keyof T], keyof T, TResult>, accumulator?: TResult): ExpChain<TResult>;
         /**
          * @see _.transform
          */

@@ -1,9 +1,9 @@
-// Type definitions for @wordpress/components 9.8
+// Type definitions for @wordpress/components 14.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/components/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
 //                 Philip Jackson <https://github.com/p-jackson>
-//                 Sara Marcondes <https://github.com/saramarcondes>
+//                 Sara Marcondes <https://github.com/sarayourfriend>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -29,6 +29,7 @@ export { default as ClipboardButton } from './clipboard-button';
 export { default as ColorIndicator } from './color-indicator';
 export { default as ColorPalette } from './color-palette';
 export { default as ColorPicker } from './color-picker';
+export { default as CustomSelectControl } from './custom-select-control';
 export { default as Dashicon } from './dashicon';
 export { DateTimePicker, DatePicker, TimePicker } from './date-time';
 export { default as Disabled } from './disabled';

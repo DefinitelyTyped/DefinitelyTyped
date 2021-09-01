@@ -3,7 +3,7 @@
 // Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 import {
     Configuration,
@@ -24,8 +24,8 @@ export interface ConstantOptions {
 }
 
 export interface OptimizationOptions {
-    minimize?: boolean;
-    minimizer?: Plugin[] | PluginFunction;
+    minimize?: boolean | undefined;
+    minimizer?: Plugin[] | PluginFunction | undefined;
 }
 
 export function createConfig(configSetters: Block | Block[]): Configuration;

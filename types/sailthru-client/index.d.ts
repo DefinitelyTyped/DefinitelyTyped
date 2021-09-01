@@ -25,16 +25,16 @@ export interface PurchaseItem {
     price: number;
     id: string | number;
     url: string;
-    tags?: string[];
-    vars?: object;
+    tags?: string[] | undefined;
+    vars?: object | undefined;
     images?: {
         full?: {
             url: string
-        },
+        } | undefined,
         thumb?: {
             url: string
-        }
-    };
+        } | undefined
+    } | undefined;
 }
 
 export type SailthruResponse = object | string;

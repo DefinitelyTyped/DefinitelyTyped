@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactAttr, ReactInputAttr, ValidityProps, InternationalProps } from "../../../typings/shared";
+import { ReactAttr, InternationalProps, ReactButtonAttr } from "../../../typings/shared";
 
 // ProgressStep
 
@@ -9,40 +9,33 @@ export type ProgressStepTranslationKey =
     | "carbon.progress-step.current"
     | "carbon.progress-step.invalid";
 
-interface ProgressStepInheritedProps extends InternationalProps<ProgressStepTranslationKey> {
-    className?: ReactAttr["className"],
-    disabled?: ReactInputAttr["disabled"],
-    invalid?: ValidityProps["invalid"],
-}
-
 export interface RenderLabelProps {
     className: ReactAttr["className"],
 }
 
-export interface ProgressStepProps extends ProgressStepInheritedProps {
-    complete?: boolean, // provided by parent
-    current?: boolean,
-    description?: string,
-    index?: number, // provided by parent
+export interface ProgressStepProps extends Omit<ReactButtonAttr, "onClick">, InternationalProps<ProgressStepTranslationKey> {
+    complete?: boolean | undefined, // provided by parent
+    current?: boolean | undefined,
+    description?: string | undefined,
+    index?: number | undefined, // provided by parent
+    invalid?: boolean | undefined,
     label: NonNullable<React.ReactNode>,
-    onClick?(e?: React.MouseEvent<HTMLDivElement>): void, // provided by parent
-    overflowTooltipProps?: object,
-    renderLabel?: React.FC<RenderLabelProps>,
-    secondaryLabel?: string,
-    tooltipId?: string,
+    onClick?(e?: React.MouseEvent<HTMLButtonElement>): void, // provided by parent
+    overflowTooltipProps?: object | undefined,
+    renderLabel?: React.FC<RenderLabelProps> | undefined,
+    secondaryLabel?: string | undefined,
+    tooltipId?: string | undefined,
 }
 
 export declare const ProgressStep: React.FC<ProgressStepProps>;
 
 // ProgressIndicator
 
-interface ProgressIndicatorInheritedProps extends Omit<ReactAttr<HTMLUListElement>, "onChange"> { }
-
-export interface ProgressIndicatorProps extends ProgressIndicatorInheritedProps {
-    currentIndex?: number,
+export interface ProgressIndicatorProps extends Omit<ReactAttr<HTMLUListElement>, "onChange"> {
+    currentIndex?: number | undefined,
     onChange?(index: number): void,
-    vertical?: boolean,
-    spaceEqually?: boolean,
+    vertical?: boolean | undefined,
+    spaceEqually?: boolean | undefined,
 }
 
 export declare class ProgressIndicator extends React.Component<ProgressIndicatorProps> { }

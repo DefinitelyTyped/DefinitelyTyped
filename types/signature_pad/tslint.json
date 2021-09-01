@@ -2,10 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "callable-types": false,
         "max-line-length": false,
-        "no-redundant-jsdoc": false,
-        "prefer-method-signature": false,
         "semicolon": false
     }
 }

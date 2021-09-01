@@ -35,6 +35,7 @@ export class Remote {
     static isValidName(remoteName: string): boolean;
     static list(repo: Repository): Promise<any[]>;
     static lookup(repo: Repository, name: string | Remote, callback?: Function): Promise<Remote>;
+    static rename(repo: Repository, oldName: string, newName: string): Promise<void>;
     static setAutotag(repo: Repository, remote: string, value: number): number;
     static setPushurl(repo: Repository, remote: string, url: string): number;
     static setUrl(repo: Repository, remote: string, url: string): number;
@@ -42,7 +43,7 @@ export class Remote {
     autotag(): number;
     connect(direction: Enums.DIRECTION, callbacks: RemoteCallbacks, callback?: Function): Promise<number>;
     connected(): number;
-    defaultBranch(): Promise<Buf>;
+    defaultBranch(): Promise<string>;
     disconnect(): Promise<void>;
     download(refSpecs: any[], opts?: FetchOptions, callback?: Function): Promise<number>;
     dup(): Promise<Remote>;

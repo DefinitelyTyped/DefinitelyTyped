@@ -1,5 +1,16 @@
 import Multimap = require('multimap');
 
+const genericMap = new Multimap<string, number>();
+genericMap.get("a"); // $ExpectType number[]
+genericMap.set("a", 1); // $ExpectType Multimap<string, number>
+genericMap.set("a", 2, 3, 4); // $ExpectType Multimap<string, number>
+genericMap.delete("a"); // $ExpectType boolean
+genericMap.delete("a", 1); // $ExpectType boolean
+genericMap.keys().next().value; // $ExpectType string
+genericMap.values().next().value; // $ExpectType number
+genericMap.forEach((value: number, key: string) => {});
+genericMap.forEachEntry((value: number[], key: string) => {});
+
 const map: Multimap = new Multimap();
 
 map.size;                 // 4

@@ -29,49 +29,57 @@ declare module Blaze {
         [key: string]: Function;
     }
 
-    interface EventsMap {
-        [key: string]: Function;
+    interface EventsMap<D = Record<string, any>, T = TemplateInstance<D>> {
+        [key: string]: (event: Meteor.Event, instance: T) => any;
     }
 
     var Template: TemplateStatic;
 
-    interface TemplateStatic {
+    interface TemplateStatic<D = Record<string, any>, T = TemplateInstance<D>> {
         new (viewName?: string, renderFunction?: Function): Template;
 
         registerHelper(name: string, func: Function): void;
-        instance(): TemplateInstance;
-        currentData(): any;
-        parentData(numLevels: number): any;
+        instance(): T;
+        currentData(): D;
+        parentData(numLevels?: number): Record<string, any>;
     }
 
-    interface Template {
+    interface Template<D = Record<string, any>, T = TemplateInstance<D>> {
         viewName: string;
         renderFunction: Function;
         constructView(): View;
         head: Template;
         find(selector: string): HTMLElement;
         findAll(selector: string): HTMLElement[];
-        $: any;
-        onCreated(cb: Function): void;
-        onRendered(cb: Function): void;
-        onDestroyed(cb: Function): void;
+        $: typeof $;
+        /**
+         * Register a function to be called when an instance of this template is created.
+         * @param callback A function to be added as a callback.
+         */
+        onCreated(callback: (this: T) => any): void;
+        /**
+         * Register a function to be called when an instance of this template is inserted into the DOM.
+         * @param callback A function to be added as a callback.
+         */
+        onRendered(callback: (this: T) => any): void;
+        /**
+         * Register a function to be called when an instance of this template is removed from the DOM and destroyed.
+         * @param callback A function to be added as a callback.
+         */
+        onDestroyed(callback: (this: T) => any): void;
         created: Function;
         rendered: Function;
         destroyed: Function;
         helpers(helpersMap: HelpersMap): void;
-        events(eventsMap: EventsMap): void;
+        events(eventsMap: EventsMap<D, T>): void;
     }
 
-    var TemplateInstance: TemplateInstanceStatic;
+    class TemplateInstance<D = Record<string, any>> {
+        constructor(view: View);
 
-    interface TemplateInstanceStatic {
-        new (view: View): TemplateInstance;
-    }
-
-    interface TemplateInstance {
-        $(selector: string): any;
+        $<TElement extends HTMLElement = HTMLElement>(selector: string): JQuery<TElement>;
         autorun(runFunc: (computation: Tracker.Computation) => void): Tracker.Computation;
-        data: Record<string, any>;
+        data: D;
         find(selector: string): HTMLElement;
         findAll(selector: string): HTMLElement[];
         firstNode: Object;
@@ -99,7 +107,13 @@ declare module Blaze {
 
     function render(templateOrView: Template | View, parentNode: Node, nextNode?: Node, parentView?: View): View;
 
-    function renderWithData(templateOrView: Template | View, data: Object | Function, parentNode: Node, nextNode?: Node, parentView?: View): View;
+    function renderWithData(
+        templateOrView: Template | View,
+        data: Object | Function,
+        parentNode: Node,
+        nextNode?: Node,
+        parentView?: View,
+    ): View;
 
     function toHTML(templateOrView: Template | View): string;
 

@@ -12,12 +12,12 @@ interface NpmWhichOptions {
     /**
      * The environment to use for resolving the binary.
      */
-    env?: NodeJS.ProcessEnv;
+    env?: NodeJS.ProcessEnv | undefined;
 
     /**
      * The directory to find the binary for.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 }
 
 /**
@@ -27,7 +27,7 @@ interface StaticWhichOptions {
     /**
      * The environment to use for resolving the binary.
      */
-    env?: NodeJS.ProcessEnv;
+    env?: NodeJS.ProcessEnv | undefined;
 
     /**
      * The directory to find the binary for.

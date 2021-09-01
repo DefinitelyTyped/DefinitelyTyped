@@ -1,5 +1,7 @@
-import assert = require("assert");
-import * as url from 'url';
+import { Blob } from 'node:buffer';
+import assert = require('node:assert');
+import { RequestOptions } from 'node:http';
+import * as url from 'node:url';
 
 {
     url.format(url.parse('http://www.example.com/xyz'));
@@ -90,6 +92,10 @@ import * as url from 'url';
         assert.equal(me, searchParams);
     });
 
+    searchParams.forEach(function() {
+        this; // $ExpectType number
+    }, 1);
+
     assert.equal(searchParams.get('abc'), '123');
 
     searchParams.append('abc', 'xyz');
@@ -124,7 +130,7 @@ import * as url from 'url';
 {
     const searchParams = new url.URLSearchParams({
         user: 'abc',
-        query: ['first', 'second']
+        query: ['first', 'second'] as ReadonlyArray<string>
     });
 
     assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
@@ -137,7 +143,7 @@ import * as url from 'url';
         ['user', 'abc'],
         ['query', 'first'],
         ['query', 'second'],
-    ] as Array<[string, string]>);
+    ] as ReadonlyArray<[string, string]>);
     assert.equal(params.toString(), 'user=abc&query=first&query=second');
 }
 
@@ -148,4 +154,11 @@ import * as url from 'url';
 
 {
     const path: url.URL = url.pathToFileURL('file://test');
+}
+
+{
+    const opts: RequestOptions = url.urlToHttpOptions(new url.URL('test.com'));
+}
+{
+    const dataUrl: string = url.URL.createObjectURL(new Blob(['']));
 }

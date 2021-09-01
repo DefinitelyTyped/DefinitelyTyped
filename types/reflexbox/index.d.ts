@@ -8,12 +8,11 @@
 //                 Erin Noe-Payne <https://github.com/autoric>
 //                 akameco <https://github.com/akameco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 import * as StyledSystem from 'styled-system';
 import { StyledComponent } from '@emotion/styled/types/index';
-import { Omit } from '@emotion/styled-base/types/helper';
 
 export interface BoxProps
     extends StyledSystem.SpaceProps,
@@ -21,13 +20,12 @@ export interface BoxProps
         StyledSystem.TypographyProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexboxProps {
-    as?: React.ElementType;
+    as?: React.ElementType | undefined;
 }
 
 export type BoxType = StyledComponent<
     JSX.IntrinsicElements['div'],
-    Omit<JSX.IntrinsicElements['div'] & BoxProps, keyof React.ClassAttributes<any>>,
-    {}
+    Omit<JSX.IntrinsicElements['div'] & BoxProps, keyof React.ClassAttributes<any>>
 >;
 
 export const Box: BoxType;

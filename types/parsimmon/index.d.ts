@@ -133,7 +133,6 @@ declare namespace Parsimmon {
          * expects anotherParser to follow parser, and yields the result of anotherParser.
          * NB: the result of parser here is ignored.
          */
-        // tslint:disable-next-line:unified-signatures
         then<U>(anotherParser: Parser<U>): Parser<U>;
         /**
          * Transforms the input of parser with the given function.
@@ -251,9 +250,9 @@ declare namespace Parsimmon {
         /**
          * Equivalent to Parsimmon.sepBy(parser, separator).
          *
-         * Expects one or more matches for parser, separated by the parser separator, yielding an array.
+         * Expects one or more matches for parser, separated by the parser separator, yielding a non-empty array.
          */
-        sepBy1<U>(separator: Parser<U>): Parser<T[]>;
+        sepBy1<U>(separator: Parser<U>): Parser<[T, ...T[]]>;
         /**
          * Equivalent to Parsimmon.of(result).
          */
@@ -336,7 +335,7 @@ declare namespace Parsimmon {
     /**
      * is a parser that expects to find "my-string", and will yield the same.
      */
-    function string(string: string): Parser<string>;
+    function string<T extends string>(string: T): Parser<T>;
 
     /**
      * Returns a parser that looks for exactly one character from string, and yields that character.
@@ -473,7 +472,7 @@ declare namespace Parsimmon {
     /**
      * This is the same as Parsimmon.sepBy, but matches the content parser at least once.
      */
-    function sepBy1<T, U>(content: Parser<T>, separator: Parser<U>): Parser<T[]>;
+    function sepBy1<T, U>(content: Parser<T>, separator: Parser<U>): Parser<[T, ...T[]]>;
 
     /**
      * accepts a function that returns a parser, which is evaluated the first time the parser is used.

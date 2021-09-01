@@ -1,7 +1,7 @@
 // Type definitions for hapi 12.0.1
 // Project: https://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Note/Disclaimer:
 // Copied directly from 918608a5e007d925f4f60a275881057f07c12619 which seems to
@@ -65,34 +65,34 @@ declare module "hapi" {
         /**  a prototype function or catbox engine object.  */
         engine: any;
         /**   an identifier used later when provisioning or configuring caching for server methods or plugins. Each cache name must be unique. A single item may omit the name option which defines the default cache. If every cache includes a name, a default memory cache is provisions as well.  */
-        name?: string;
+        name?: string | undefined;
         /**   if true, allows multiple cache users to share the same segment (e.g. multiple methods using the same cache storage container). Default to false.  */
-        shared?: boolean;
+        shared?: boolean | undefined;
     }
 
     /** Any connections configuration server defaults can be included to override and customize the individual connection. */
     export interface IServerConnectionOptions extends IConnectionConfigurationServerDefaults {
         /**  - the public hostname or IP address. Used only to set server.info.host and server.info.uri. If not configured, defaults to the operating system hostname and if not available, to 'localhost'.*/
-        host?: string;
+        host?: string | undefined;
         /** - sets the host name or IP address the connection will listen on.If not configured, defaults to host if present, otherwise to all available network interfaces (i.e. '0.0.0.0').Set to 127.0.0.1 or localhost to restrict connection to only those coming from the same machine.*/
-        address?: string;
+        address?: string | undefined;
         /** - the TCP port the connection will listen to.Defaults to an ephemeral port (0) which uses an available port when the server is started (and assigned to server.info.port).If port is a string containing a '/' character, it is used as a UNIX domain socket path and if it starts with '\.\pipe' as a Windows named pipe.*/
-        port?: string | number;
+        port?: string | number | undefined;
         /** - the full public URI without the path (e.g. 'http://example.com:8080').If present, used as the connection info.uri otherwise constructed from the connection settings.*/
-        uri?: string;
+        uri?: string | undefined;
         /**  - optional node.js HTTP (or HTTPS) http.Server object or any compatible object.If the listener needs to be manually started, set autoListen to false.If the listener uses TLS, set tls to true.*/
         listener?: any;
         /**  - indicates that the connection.listener will be started manually outside the framework.Cannot be specified with a port setting.Defaults to true.*/
-        autoListen?: boolean;
+        autoListen?: boolean | undefined;
         /**  caching headers configuration: */
         cache?: {
             /** - an array of HTTP response status codes (e.g. 200) which are allowed to include a valid caching directive.Defaults to [200]. */
             statuses: number[];
-        };
+        } | undefined;
         /** - a string or string array of labels used to server.select() specific connections matching the specified labels.Defaults to an empty array [](no labels).*/
-        labels?: string | string[];
+        labels?: string | string[] | undefined;
         /**  - used to create an HTTPS connection.The tls object is passed unchanged as options to the node.js HTTPS server as described in the node.js HTTPS documentation.Set to true when passing a listener object that has been configured to use TLS directly. */
-        tls?: boolean | { key?: string; cert?: string; pfx?: string; } | Object;
+        tls?: boolean | { key?: string | undefined; cert?: string | undefined; pfx?: string | undefined; } | Object | undefined;
 
     }
 
@@ -102,12 +102,12 @@ declare module "hapi" {
         /**  connection load limits configuration where:  */
         load?: {
             /**  maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-            maxHeapUsedBytes?: number;
+            maxHeapUsedBytes?: number | undefined;
             /**  maximum process RSS size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-            maxRssBytes?: number;
+            maxRssBytes?: number | undefined;
             /**  maximum event loop delay duration in milliseconds over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
-            maxEventLoopDelay?: number;
-        };
+            maxEventLoopDelay?: number | undefined;
+        } | undefined;
         /**  plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
         plugins?: any;
         /**  controls how incoming request URIs are matched against the routing table: */
@@ -116,10 +116,10 @@ declare module "hapi" {
             isCaseSensitive: boolean;
             /**  removes trailing slashes on incoming paths. Defaults to false.  */
             stripTrailingSlash: boolean;
-        };
+        } | undefined;
         /** a route options object used to set the default configuration for every route. */
-        routes?: IRouteAdditionalConfigurationOptions;
-        state?: IServerState;
+        routes?: IRouteAdditionalConfigurationOptions | undefined;
+        state?: IServerState | undefined;
     }
 
     /** Note that the options object is deeply cloned and cannot contain any values that are unsafe to perform deep copy on.*/
@@ -134,33 +134,33 @@ declare module "hapi" {
         sharedif true, allows multiple cache users to share the same segment (e.g. multiple methods using the same cache storage container). Default to false.
         other options passed to the catbox strategy used.
         an array of the above object for configuring multiple cache instances, each with a unique name. When an array of objects is provided, multiple cache connections are established and each array item (except one) must include a name.  */
-        cache?: string | ICatBoxCacheOptions | Array<ICatBoxCacheOptions> | any;
+        cache?: string | ICatBoxCacheOptions | Array<ICatBoxCacheOptions> | any | undefined;
         /**  sets the default connections configuration which can be overridden by each connection where:  */
-        connections?: IConnectionConfigurationServerDefaults;
+        connections?: IConnectionConfigurationServerDefaults | undefined;
         /** determines which logged events are sent to the console (this should only be used for development and does not affect which events are actually logged internally and recorded). Set to false to disable all console logging, or to an object*/
         debug?: boolean | {
             /** - a string array of server log tags to be displayed via console.error() when the events are logged via server.log() as well as internally generated server logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error. */
             log: string[];
             /**  - a string array of request log tags to be displayed via console.error() when the events are logged via request.log() as well as internally generated request logs. For example, to display all errors, set the option to ['error']. To turn off all console debug messages set it to false. Defaults to uncaught errors thrown in external code (these errors are handled automatically and result in an Internal Server Error response) or runtime errors due to developer error.*/
             request: string[];
-        };
+        } | undefined;
         /** file system related settings*/
         files?: {
             /**  sets the maximum number of file etag hash values stored in the etags cache. Defaults to 10000.*/
-            etagsCacheMaxSize?: number;
-        };
+            etagsCacheMaxSize?: number | undefined;
+        } | undefined;
         /**  process load monitoring*/
         load?: {
             /**  the frequency of sampling in milliseconds. Defaults to 0 (no sampling).*/
-            sampleInterval?: number;
-        };
+            sampleInterval?: number | undefined;
+        } | undefined;
 
         /** options passed to the mimos module (https://github.com/hapijs/mimos) when generating the mime database used by the server and accessed via server.mime.*/
         mime?: any;
         /**  if true, does not load the inert (file and directory support), h2o2 (proxy support), and vision (views support) plugins automatically. The plugins can be loaded manually after construction. Defaults to false (plugins loaded). */
-        minimal?: boolean;
+        minimal?: boolean | undefined;
         /** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}.*/
-        plugins?: IDictionary<any>;
+        plugins?: IDictionary<any> | undefined;
 
     }
 
@@ -171,37 +171,37 @@ declare module "hapi" {
 
     export interface IServerViewsAdditionalOptions {
         /**    path - the root file path used to resolve and load the templates identified when calling reply.view().Defaults to current working directory.*/
-        path?: string;
+        path?: string | undefined;
         /**partialsPath - the root file path where partials are located.Partials are small segments of template code that can be nested and reused throughout other templates.Defaults to no partials support (empty path).
         */
-        partialsPath?: string;
+        partialsPath?: string | undefined;
         /**helpersPath - the directory path where helpers are located.Helpers are functions used within templates to perform transformations and other data manipulations using the template context or other inputs.Each '.js' file in the helpers directory is loaded and the file name is used as the helper name.The files must export a single method with the signature function(context) and return a string.Sub - folders are not supported and are ignored.Defaults to no helpers support (empty path).Note that jade does not support loading helpers this way.*/
-        helpersPath?: string;
+        helpersPath?: string | undefined;
         /**relativeTo - a base path used as prefix for path and partialsPath.No default.*/
-        relativeTo?: string;
+        relativeTo?: string | undefined;
 
         /**layout - if set to true or a layout filename, layout support is enabled.A layout is a single template file used as the parent template for other view templates in the same engine.If true, the layout template name must be 'layout.ext' where 'ext' is the engine's extension. Otherwise, the provided filename is suffixed with the engine's extension and loaded.Disable layout when using Jade as it will handle including any layout files independently.Defaults to false.*/
-        layout?: boolean;
+        layout?: boolean | undefined;
         /**layoutPath - the root file path where layout templates are located (using the relativeTo prefix if present). Defaults to path.*/
-        layoutPath?: string;
+        layoutPath?: string | undefined;
         /**layoutKeyword - the key used by the template engine to denote where primary template content should go.Defaults to 'content'.*/
-        layoutKeywork?: string;
+        layoutKeywork?: string | undefined;
         /**encoding - the text encoding used by the templates when reading the files and outputting the result.Defaults to 'utf8'.*/
-        encoding?: string;
+        encoding?: string | undefined;
         /**isCached - if set to false, templates will not be cached (thus will be read from file on every use).Defaults to true.*/
-        isCached?: boolean;
+        isCached?: boolean | undefined;
         /**allowAbsolutePaths - if set to true, allows absolute template paths passed to reply.view().Defaults to false.*/
-        allowAbsolutePaths?: boolean;
+        allowAbsolutePaths?: boolean | undefined;
         /**allowInsecureAccess - if set to true, allows template paths passed to reply.view() to contain '../'.Defaults to false.*/
-        allowInsecureAccess?: boolean;
+        allowInsecureAccess?: boolean | undefined;
         /**compileOptions - options object passed to the engine's compile function. Defaults to empty options {}.*/
         compileOptions?: any;
         /**runtimeOptions - options object passed to the returned function from the compile operation.Defaults to empty options {}.*/
         runtimeOptions?: any;
         /**contentType - the content type of the engine results.Defaults to 'text/html'.*/
-        contentType?: string;
+        contentType?: string | undefined;
         /**compileMode - specify whether the engine compile() method is 'sync' or 'async'.Defaults to 'sync'.*/
-        compileMode?: string;
+        compileMode?: string | undefined;
         /**context - a global context used with all templates.The global context option can be either an object or a function that takes no arguments and returns a context object.When rendering views, the global context will be merged with any context object specified on the handler or using reply.view().When multiple context objects are used, values from the global context always have lowest precedence.*/
         context?: any;
     }
@@ -232,7 +232,7 @@ declare module "hapi" {
         /** - required object where each key is a file extension (e.g. 'html', 'hbr'), mapped to the npm module used for rendering the templates.Alternatively, the extension can be mapped to an object with the following options:*/
         engines: IDictionary<any> | IServerViewsEnginesOptions;
         /**  defines the default filename extension to append to template names when multiple engines are configured and not explicit extension is provided for a given template. No default value.*/
-        defaultExtension?: string;
+        defaultExtension?: string | undefined;
     }
 
     /**  Concludes the handler activity by setting a response and returning control over to the framework where:
@@ -261,12 +261,12 @@ declare module "hapi" {
             /**  optional settings:  */
             options?: {
                 /** - an optional filename to specify if sending a 'Content-Disposition' header, defaults to the basename of path*/
-                filename?: string;
+                filename?: string | undefined;
                 /** specifies whether to include the 'Content-Disposition' header with the response. Available values:
                 false - header is not included. This is the default value.
                 'attachment'
                 'inline'*/
-                mode?: boolean | string;
+                mode?: boolean | string | undefined;
                 /**   if true, looks for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.  */
                 lookupCompressed: boolean;
             }): void;
@@ -284,7 +284,7 @@ declare module "hapi" {
         The response flow control rules do not apply. */
         close(options?: {
             /**   if false, the router will not call request.raw.res.end()) to ensure the response was ended. Defaults to true.  */
-            end?: boolean;
+            end?: boolean | undefined;
         }): void;
         /** Proxies the request to an upstream endpoint.
         the response flow control rules do not apply. */
@@ -310,51 +310,51 @@ declare module "hapi" {
     /**  generates a reverse proxy handler */
     export interface IProxyHandlerConfig {
         /** the upstream service host to proxy requests to. The same path on the client request will be used as the path on the host.*/
-        host?: string;
+        host?: string | undefined;
         /** the upstream service port. */
-        port?: number;
+        port?: number | undefined;
         /**  The protocol to use when making a request to the proxied host:
         'http'
         'https'*/
-        protocol?: string;
+        protocol?: string | undefined;
         /**  an absolute URI used instead of the incoming host, port, protocol, path, and query. Cannot be used with host, port, protocol, or mapUri.*/
-        uri?: string;
+        uri?: string | undefined;
         /**  if true, forwards the headers sent from the client to the upstream service being proxied to, headers sent from the upstream service will also be forwarded to the client. Defaults to false.*/
-        passThrough?: boolean;
+        passThrough?: boolean | undefined;
         /** localStatePassThrough - if false, any locally defined state is removed from incoming requests before being passed upstream. This is a security feature to prevent local state (e.g. authentication cookies) from leaking upstream to other servers along with the cookies intended for those servers. This value can be overridden on a per state basis via the server.state() passThrough option. Defaults to false.*/
-        localStatePassThrough?: boolean;
+        localStatePassThrough?: boolean | undefined;
         /**acceptEncoding - if false, does not pass-through the 'Accept-Encoding' HTTP header which is useful when using an onResponse post-processing to avoid receiving an encoded response (e.g. gzipped). Can only be used together with passThrough. Defaults to true (passing header).*/
-        acceptEncoding?: boolean;
+        acceptEncoding?: boolean | undefined;
         /** rejectUnauthorized - sets the rejectUnauthorized property on the https agent making the request. This value is only used when the proxied server uses TLS/SSL. When set it will override the node.js rejectUnauthorized property. If false then ssl errors will be ignored. When true the server certificate is verified and an 500 response will be sent when verification fails. This shouldn't be used alongside the agent setting as the agent will be used instead. Defaults to the https agent default value of true.*/
-        rejectUnauthorized?: boolean;
+        rejectUnauthorized?: boolean | undefined;
         /**if true, sets the 'X-Forwarded-For', 'X-Forwarded-Port', 'X-Forwarded-Proto' headers when making a request to the proxied upstream endpoint. Defaults to false.*/
-        xforward?: boolean;
+        xforward?: boolean | undefined;
         /** the maximum number of HTTP redirections allowed, to be followed automatically by the handler. Set to false or 0 to disable all redirections (the response will contain the redirection received from the upstream service). If redirections are enabled, no redirections (301, 302, 307, 308) will be passed along to the client, and reaching the maximum allowed redirections will return an error response. Defaults to false.*/
-        redirects?: boolean | number;
+        redirects?: boolean | number | undefined;
         /**number of milliseconds before aborting the upstream request. Defaults to 180000 (3 minutes).*/
-        timeout?: number;
+        timeout?: number | undefined;
         /** a function used to map the request URI to the proxied URI. Cannot be used together with host, port, protocol, or uri. The function signature is function(request, callback) where:
         request - is the incoming request object.
         callback - is function(err, uri, headers) where:
         err - internal error condition.
         uri - the absolute proxy URI.
         headers - optional object where each key is an HTTP request header and the value is the header content.*/
-        mapUri?: (request: Request, callback: (err: any, uri: string, headers?: { [key: string]: string }) => void) => void;
+        mapUri?: ((request: Request, callback: (err: any, uri: string, headers?: { [key: string]: string }) => void) => void) | undefined;
         /**  a custom function for processing the response from the upstream service before sending to the client. Useful for custom error handling of responses from the proxied endpoint or other payload manipulation. Function signature is function(err, res, request, reply, settings, ttl) where: - err - internal or upstream error returned from attempting to contact the upstream proxy. - res - the node response object received from the upstream service. res is a readable stream (use the wreck module read method to easily convert it to a Buffer or string). - request - is the incoming request object. - reply - the reply interface function. - settings - the proxy handler configuration. - ttl - the upstream TTL in milliseconds if proxy.ttl it set to 'upstream' and the upstream response included a valid 'Cache-Control' header with 'max-age'.*/
-        onResponse?: (
+        onResponse?: ((
             err: any,
             res: http.ServerResponse,
             req: Request,
             reply: IReply,
             settings: IProxyHandlerConfig,
             ttl: number
-        ) => void;
+        ) => void) | undefined;
         /** if set to 'upstream', applies the upstream response caching policy to the response using the response.ttl() method (or passed as an argument to the onResponse method if provided).*/
-        ttl?: number;
+        ttl?: number | undefined;
         /** - a node http(s) agent to be used for connections to upstream server.  see https://nodejs.org/api/http.html#http_class_http_agent */
-        agent?: http.Agent;
+        agent?: http.Agent | undefined;
         /** sets the maximum number of sockets available per outgoing proxy host connection. false means use the wreck module default value (Infinity). Does not affect non-proxy outgoing client connections. Defaults to Infinity.*/
-        maxSockets?: boolean | number;
+        maxSockets?: boolean | number | undefined;
     }
     /**  TODO: fill in joi definition  */
     export interface IJoi {
@@ -397,27 +397,27 @@ declare module "hapi" {
             'required'authentication is required.
             'optional'authentication is optional (must be valid if present).
             'try'same as 'optional' but allows for invalid authentication. */
-            mode?: string;
+            mode?: string | undefined;
             /**  a string array of strategy names in order they should be attempted.If only one strategy is used, strategy can be used instead with the single string value.Defaults to the default authentication strategy which is available only when a single strategy is configured.  */
-            strategies?: string | Array<string>;
+            strategies?: string | Array<string> | undefined;
             /**  if set, the payload (in requests other than 'GET' and 'HEAD') is authenticated after it is processed.Requires a strategy with payload authentication support (e.g.Hawk).Cannot be set to a value other than 'required' when the scheme sets the options.payload to true.Available values:
             falseno payload authentication.This is the default value.
             'required'payload authentication required.This is the default value when the scheme sets options.payload to true.
             'optional'payload authentication performed only when the client includes payload authentication information (e.g.hash attribute in Hawk). */
-            payload?: string;
+            payload?: string | undefined;
             /**  the application scope required to access the route.Value can be a scope string or an array of scope strings.The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.Set to false to remove scope requirements.Defaults to no scope required.  */
-            scope?: string | Array<string> | boolean;
+            scope?: string | Array<string> | boolean | undefined;
             /** the required authenticated entity type.If set, must match the entity value of the authentication credentials.Available values:
             anythe authentication can be on behalf of a user or application.This is the default value.
             userthe authentication must be on behalf of a user.
             appthe authentication must be on behalf of an application. */
-            entity?: string;
+            entity?: string | undefined;
             /**
             * an object or array of objects specifying the route access rules. Each rule is evaluated against an incoming
             * request and access is granted if at least one rule matches. Each rule object must include at least one of:
             */
-            access?: IRouteAdditionalConfigurationAuthAccess | IRouteAdditionalConfigurationAuthAccess[];
-        };
+            access?: IRouteAdditionalConfigurationAuthAccess | IRouteAdditionalConfigurationAuthAccess[] | undefined;
+        } | undefined;
         /** an object passed back to the provided handler (via this) when called. */
         bind?: any;
         /** if the route method is 'GET', the route can be configured to include caching directives in the response using the following options */
@@ -431,94 +431,94 @@ declare module "hapi" {
             expiresIn: number;
             /**  time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records for the route expire.Cannot be used together with expiresIn.  */
             expiresAt: string;
-        };
+        } | undefined;
         /** the Cross- Origin Resource Sharing protocol allows browsers to make cross- origin API calls.CORS is required by web applications running inside a browser which are loaded from a different domain than the API server.CORS headers are disabled by default. To enable, set cors to true, or to an object with the following options: */
         cors?: {
             /** a strings array of allowed origin servers ('Access-Control-Allow-Origin').The array can contain any combination of fully qualified origins along with origin strings containing a wildcard '' character, or a single `''origin string. Defaults to any origin['*']`. */
-            origin?: Array<string>;
+            origin?: Array<string> | undefined;
             /** if true, matches the value of the incoming 'Origin' header to the list of origin values ('*' matches anything) and if a match is found, uses that as the value of the 'Access-Control-Allow-Origin' response header.When false, the origin config is returned as- is.Defaults to true.  */
-            matchOrigin?: boolean;
+            matchOrigin?: boolean | undefined;
             /** if false, prevents the connection from returning the full list of non- wildcard origin values if the incoming origin header does not match any of the values.Has no impact if matchOrigin is set to false.Defaults to true. */
-            isOriginExposed?: boolean;
+            isOriginExposed?: boolean | undefined;
             /**  number of seconds the browser should cache the CORS response ('Access-Control-Max-Age').The greater the value, the longer it will take before the browser checks for changes in policy.Defaults to 86400 (one day). */
-            maxAge?: number;
+            maxAge?: number | undefined;
             /**  a strings array of allowed headers ('Access-Control-Allow-Headers').Defaults to ['Authorization', 'Content-Type', 'If-None-Match']. */
-            headers?: string[];
+            headers?: string[] | undefined;
             /**  a strings array of additional headers to headers.Use this to keep the default headers in place. */
-            additionalHeaders?: string[];
+            additionalHeaders?: string[] | undefined;
             /**  a strings array of allowed HTTP methods ('Access-Control-Allow-Methods').Defaults to ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS']. */
-            methods?: string[];
+            methods?: string[] | undefined;
             /**  a strings array of additional methods to methods.Use this to keep the default methods in place. */
-            additionalMethods?: string[];
+            additionalMethods?: string[] | undefined;
             /**  a strings array of exposed headers ('Access-Control-Expose-Headers').Defaults to ['WWW-Authenticate', 'Server-Authorization']. */
-            exposedHeaders?: string[];
+            exposedHeaders?: string[] | undefined;
             /**  a strings array of additional headers to exposedHeaders.Use this to keep the default headers in place. */
-            additionalExposedHeaders?: string[];
+            additionalExposedHeaders?: string[] | undefined;
             /**  if true, allows user credentials to be sent ('Access-Control-Allow-Credentials').Defaults to false. */
-            credentials?: boolean;
+            credentials?: boolean | undefined;
             /** if false, preserves existing CORS headers set manually before the response is sent.Defaults to true. */
-            override?: boolean;
-        };
+            override?: boolean | undefined;
+        } | undefined;
         /**   defines the behavior for serving static resources using the built-in route handlers for files and directories: */
         files?: {/** determines the folder relative paths are resolved against when using the file and directory handlers. */
             relativeTo: string;
-        };
+        } | undefined;
 
         /**  an alternative location for the route handler option. */
-        handler?: ISessionHandler | string | IRouteHandlerConfig;
+        handler?: ISessionHandler | string | IRouteHandlerConfig | undefined;
         /** an optional unique identifier used to look up the route using server.lookup(). */
-        id?: number;
+        id?: number | undefined;
         /** optional arguments passed to JSON.stringify() when converting an object or error response to a string payload.Supports the following: */
         json?: {
             /** the replacer function or array.Defaults to no action. */
-            replacer?: Function | string[];
+            replacer?: Function | string[] | undefined;
             /**  number of spaces to indent nested object keys.Defaults to no indentation. */
-            space?: number | string;
+            space?: number | string | undefined;
             /** string suffix added after conversion to JSON string.Defaults to no suffix. */
-            suffix?: string;
-        };
+            suffix?: string | undefined;
+        } | undefined;
         /** enables JSONP support by setting the value to the query parameter name containing the function name used to wrap the response payload.For example, if the value is 'callback', a request comes in with 'callback=me', and the JSON response is '{ "a":"b" }', the payload will be 'me({ "a":"b" });'.Does not work with stream responses. */
-        jsonp?: string;
+        jsonp?: string | undefined;
         /** determines how the request payload is processed: */
         payload?: {
             /**  the type of payload representation requested. The value must be one of:
             'data'the incoming payload is read fully into memory.If parse is true, the payload is parsed (JSON, formdecoded, multipart) based on the 'Content- Type' header.If parse is false, the raw Buffer is returned.This is the default value except when a proxy handler is used.
             'stream'the incoming payload is made available via a Stream.Readable interface.If the payload is 'multipart/form-data' and parse is true, fields values are presented as text while files are provided as streams.File streams from a 'multipart/form-data' upload will also have a property hapi containing filename and headers properties.
             'file'the incoming payload in written to temporary file in the directory specified by the server's payload.uploads settings. If the payload is 'multipart/ formdata' and parse is true, fields values are presented as text while files are saved. Note that it is the sole responsibility of the application to clean up the files generated by the framework. This can be done by keeping track of which files are used (e.g. using the request.app object), and listening to the server 'response' event to perform any needed cleaup. */
-            output?: string;
+            output?: string | undefined;
             /**  can be true, false, or gunzip; determines if the incoming payload is processed or presented raw. true and gunzip includes gunzipping when the appropriate 'Content-Encoding' is specified on the received request. If parsing is enabled and the 'Content-Type' is known (for the whole payload as well as parts), the payload is converted into an object when possible. If the format is unknown, a Bad Request (400) error response is sent. Defaults to true, except when a proxy handler is used. The supported mime types are:
             'application/json'
             'application/x-www-form-urlencoded'
             'application/octet-stream'
             'text/ *'
             'multipart/form-data' */
-            parse?: string | boolean;
+            parse?: string | boolean | undefined;
             /** a string or an array of strings with the allowed mime types for the endpoint.Defaults to any of the supported mime types listed above.Note that allowing other mime types not listed will not enable them to be parsed, and that if parsing mode is 'parse', the request will result in an error response. */
-            allow?: string | string[];
+            allow?: string | string[] | undefined;
             /** a mime type string overriding the 'Content-Type' header value received.Defaults to no override. */
-            override?: string;
+            override?: string | undefined;
             /**  limits the size of incoming payloads to the specified byte count.Allowing very large payloads may cause the server to run out of memory.Defaults to 1048576 (1MB).  */
-            maxBytes?: number;
+            maxBytes?: number | undefined;
             /** payload reception timeout in milliseconds.Sets the maximum time allowed for the client to transmit the request payload (body) before giving up and responding with a Request Timeout (408) error response.Set to false to disable.Defaults to 10000 (10 seconds). */
-            timeout?: number;
+            timeout?: number | undefined;
             /**  the directory used for writing file uploads.Defaults to os.tmpDir(). */
-            uploads?: string;
+            uploads?: string | undefined;
             /**  determines how to handle payload parsing errors. Allowed values are:
             'error'return a Bad Request (400) error response. This is the default value.
             'log'report the error but continue processing the request.
             'ignore'take no action and continue processing the request. */
-            failAction?: string;
-        };
+            failAction?: string | undefined;
+        } | undefined;
         /** pluginspecific configuration.plugins is an object where each key is a plugin name and the value is the plugin configuration.  */
-        plugins?: IDictionary<any>;
+        plugins?: IDictionary<any> | undefined;
         /** an array with [route prerequisites] methods which are executed in serial or in parallel before the handler is called.  */
-        pre?: any[];
+        pre?: any[] | undefined;
         /** validation rules for the outgoing response payload (response body).Can only validate object response: */
         response?: {
             /** the default HTTP status code when the payload is empty. Value can be 200 or 204.
             Note that a 200 status code is converted to a 204 only at the time or response transmission
             (the response status code will remain 200 throughout the request lifecycle unless manually set). Defaults to 200. */
-            emptyStatusCode?: number;
+            emptyStatusCode?: number | undefined;
             /**   the default response object validation rules (for all non-error responses) expressed as one of:
             true - any payload allowed (no validation performed). This is the default.
             false - no payload allowed.
@@ -527,45 +527,45 @@ declare module "hapi" {
             value - the object containing the response object.
             options - the server validation options.
             next(err) - the callback function called when validation is completed.  */
-            schema?: boolean | any;
+            schema?: boolean | any | undefined;
             /** HTTP status- codespecific validation rules.The status key is set to an object where each key is a 3 digit HTTP status code and the value has the same definition as schema.If a response status code is not present in the status object, the schema definition is used, expect for errors which are not validated by default.  */
-            status?: { [statusCode: number] : boolean | any };
+            status?: { [statusCode: number] : boolean | any } | undefined;
             /** the percent of responses validated (0100).Set to 0 to disable all validation.Defaults to 100 (all responses). */
-            sample?: number;
+            sample?: number | undefined;
             /**  defines what to do when a response fails validation.Options are:
             errorreturn an Internal Server Error (500) error response.This is the default value.
             loglog the error but send the response.  */
-            failAction?: string;
+            failAction?: string | undefined;
             /** if true, applies the validation rule changes to the response.Defaults to false. */
-            modify?: boolean;
+            modify?: boolean | undefined;
             /** options to pass to Joi.Useful to set global options such as stripUnknown or abortEarly (the complete list is available here: https://github.com/hapijs/joi#validatevalue-schema-options-callback ).Defaults to no options.  */
             options?: any;
-        };
+        } | undefined;
         /** sets common security headers (disabled by default).To enable set security to true or to an object with the following options */
         security?: boolean | {
             /** controls the 'Strict-Transport-Security' header.If set to true the header will be set to max- age=15768000, if specified as a number the maxAge parameter will be set to that number.Defaults to true.You may also specify an object with the following fields: */
             hsts?: boolean | number | {
                 /** the max- age portion of the header, as a number.Default is 15768000. */
-                maxAge?: number;
+                maxAge?: number | undefined;
                 /**  a boolean specifying whether to add the includeSubdomains flag to the header. */
-                includeSubdomains?: boolean;
+                includeSubdomains?: boolean | undefined;
                 /** a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header. */
-                preload?: boolean;
-            };
+                preload?: boolean | undefined;
+            } | undefined;
             /** controls the 'X-Frame-Options' header.When set to true the header will be set to DENY, you may also specify a string value of 'deny' or 'sameorigin'.To use the 'allow-from' rule, you must set this to an object with the following fields: */
             xframe?: {
                 /** either 'deny', 'sameorigin', or 'allow-from' */
                 rule: string;
                 /** when rule is 'allow-from' this is used to form the rest of the header, otherwise this field is ignored.If rule is 'allow-from' but source is unset, the rule will be automatically changed to 'sameorigin'. */
                 source: string;
-            };
+            } | undefined;
             /** boolean that controls the 'X-XSS-PROTECTION' header for IE.Defaults to true which sets the header to equal '1; mode=block'.NOTE: This setting can create a security vulnerability in versions of IE below 8, as well as unpatched versions of IE8.See here and here for more information.If you actively support old versions of IE, it may be wise to explicitly set this flag to false. */
-            xss?: boolean;
+            xss?: boolean | undefined;
             /**  boolean controlling the 'X-Download-Options' header for IE, preventing downloads from executing in your context.Defaults to true setting the header to 'noopen'. */
-            noOpen?: boolean;
+            noOpen?: boolean | undefined;
             /** boolean controlling the 'X-Content-Type-Options' header.Defaults to true setting the header to its only and default option, 'nosniff'. */
-            noSniff?: boolean;
-        };
+            noSniff?: boolean | undefined;
+        } | undefined;
         /** HTTP state management (cookies) allows the server to store information on the client which is sent back to the server with every request (as defined in RFC 6265).state supports the following options: */
         state?: {
             /** determines if incoming 'Cookie' headers are parsed and stored in the request.state object.Defaults to true. */
@@ -575,7 +575,7 @@ declare module "hapi" {
             'log'report the error but continue processing the request.
             'ignore'take no action. */
             failAction: string;
-        };
+        } | undefined;
         /**  request input validation rules for various request components.When using a Joi validation object, the values of the other inputs (i.e.headers, query, params, payload, and auth) are made available under the validation context (accessible in rules as Joi.ref('$query.key')).Note that validation is performed in order(i.e.headers, params, query, payload) and if type casting is used (converting a string to number), the value of inputs not yet validated will reflect the raw, unvalidated and unmodified values.The validate object supports: */
         validate?: {
             /** validation rules for incoming request headers.Values allowed:
@@ -587,7 +587,7 @@ declare module "hapi" {
             optionsthe server validation options.
             next(err, value)the callback function called when validation is completed.
             */
-            headers?: boolean | IJoi | IValidationFunction;
+            headers?: boolean | IJoi | IValidationFunction | undefined;
 
 
             /** validation rules for incoming request path parameters, after matching the path against the route and extracting any parameters then stored in request.params.Values allowed:
@@ -598,7 +598,7 @@ declare module "hapi" {
             valuethe object containing the path parameters.
             optionsthe server validation options.
             next(err, value)the callback function called when validation is completed. */
-            params?: boolean | IJoi | IValidationFunction;
+            params?: boolean | IJoi | IValidationFunction | undefined;
             /** validation rules for an incoming request URI query component (the key- value part of the URI between '?' and '#').The query is parsed into its individual key- value pairs (using the qs module) and stored in request.query prior to validation.Values allowed:
             trueany query parameters allowed (no validation performed).This is the default.
             falseno query parameters allowed.
@@ -607,7 +607,7 @@ declare module "hapi" {
             valuethe object containing the query parameters.
             optionsthe server validation options.
             next(err, value)the callback function called when validation is completed. */
-            query?: boolean | IJoi | IValidationFunction;
+            query?: boolean | IJoi | IValidationFunction | undefined;
             /**  validation rules for an incoming request payload (request body).Values allowed:
             trueany payload allowed (no validation performed).This is the default.
             falseno payload allowed.
@@ -616,7 +616,7 @@ declare module "hapi" {
             valuethe object containing the payload object.
             optionsthe server validation options.
             next(err, value)the callback function called when validation is completed.  */
-            payload?: boolean | IJoi | IValidationFunction;
+            payload?: boolean | IJoi | IValidationFunction | undefined;
             /** an optional object with error fields copied into every validation error response. */
             errorFields?: any;
             /** determines how to handle invalid requests.Allowed values are:
@@ -628,30 +628,30 @@ declare module "hapi" {
             replythe continuation reply interface.
             sourcethe source of the invalid field (e.g. 'path', 'query', 'payload').
             errorthe error object prepared for the client response (including the validation function error under error.data). */
-            failAction?: string | IRouteFailFunction;
+            failAction?: string | IRouteFailFunction | undefined;
             /** options to pass to Joi.Useful to set global options such as stripUnknown or abortEarly (the complete list is available here: https://github.com/hapijs/joi#validatevalue-schema-options-callback ).Defaults to no options. */
             options?: any;
-        };
+        } | undefined;
         /** define timeouts for processing durations: */
         timeout?: {
             /** response timeout in milliseconds.Sets the maximum time allowed for the server to respond to an incoming client request before giving up and responding with a Service Unavailable (503) error response.Disabled by default (false). */
             server: boolean | number;
             /** by default, node sockets automatically timeout after 2 minutes.Use this option to override this behavior.Defaults to undefined which leaves the node default unchanged.Set to false to disable socket timeouts. */
             socket: boolean | number;
-        };
+        } | undefined;
 
         /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
         *route description used for generating documentation (string).
         */
-        description?: string;
+        description?: string | undefined;
         /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
         *route notes used for generating documentation (string or array of strings).
         */
-        notes?: string | string[];
+        notes?: string | string[] | undefined;
         /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
         *route tags used for generating documentation (array of strings).
         */
-        tags?: string[]
+        tags?: string[] | undefined
     }
 
     /**
@@ -667,13 +667,13 @@ declare module "hapi" {
         * on the request object (query and params} to populate a dynamic scope by using {} characters around the property name,
         * such as 'user-{params.id}'. Defaults to false (no scope requirements).
         */
-        scope?: string | Array<string> | boolean;
+        scope?: string | Array<string> | boolean | undefined;
         /** the required authenticated entity type. If set, must match the entity value of the authentication credentials. Available values:
         * any - the authentication can be on behalf of a user or application. This is the default value.
         * user - the authentication must be on behalf of a user which is identified by the presence of a user attribute in the credentials object returned by the authentication strategy.
         * app - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
         */
-        entity?: string;
+        entity?: string | undefined;
     }
 
     /** server.realm http://hapijs.com/api#serverrealm
@@ -749,12 +749,12 @@ declare module "hapi" {
         /**  a path string or function as described above.*/
         path: string;
         /** an optional filename to specify if sending a 'Content-Disposition' header, defaults to the basename of path*/
-        filename?: string;
+        filename?: string | undefined;
         /**- specifies whether to include the 'Content-Disposition' header with the response. Available values:
         false - header is not included. This is the default value.
         'attachment'
         'inline'*/
-        mode?: boolean | string;
+        mode?: boolean | string | undefined;
         /** if true, looks for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.*/
         lookupCompressed: boolean;
     }
@@ -768,7 +768,7 @@ declare module "hapi" {
                     a relative or absolute file path string (relative paths are resolved based on the route files configuration).
         a function with the signature function(request) which returns the relative or absolute file path.
         an object with the following options */
-        file?: string | IRequestHandler<void> | IFileHandlerConfig;
+        file?: string | IRequestHandler<void> | IFileHandlerConfig | undefined;
         /** directory - generates a directory endpoint for serving static content from a directory. Routes using the directory handler must include a path parameter at the end of the path string (e.g. /path/to/somewhere/{param} where the parameter name does not matter). The path parameter can use any of the parameter options (e.g. {param} for one level files only, {param?} for one level files or the directory root, {param*} for any level, or {param*3} for a specific level). If additional path parameters are present, they are ignored for the purpose of selecting the file system resource. The directory handler is an object with the following options:
                     path - (required) the directory root path (relative paths are resolved based on the route files configuration). Value can be:
         a single path string used as the prefix for any resources requested by appending the request path parameter to the provided string.
@@ -782,14 +782,14 @@ declare module "hapi" {
         defaultExtension - optional string, appended to file requests if the requested file is not found. Defaults to no extension.*/
         directory?: {
             path: string | Array<string> | IRequestHandler<string> | IRequestHandler<Array<string>>;
-            index?: boolean | string | string[];
-            listing?: boolean;
-            showHidden?: boolean;
-            redirectToSlash?: boolean;
-            lookupCompressed?: boolean;
-            defaultExtension?: string;
-        };
-        proxy?: IProxyHandlerConfig;
+            index?: boolean | string | string[] | undefined;
+            listing?: boolean | undefined;
+            showHidden?: boolean | undefined;
+            redirectToSlash?: boolean | undefined;
+            lookupCompressed?: boolean | undefined;
+            defaultExtension?: string | undefined;
+        } | undefined;
+        proxy?: IProxyHandlerConfig | undefined;
         view?: string | {
             template: string;
             context: {
@@ -798,7 +798,7 @@ declare module "hapi" {
                 query: any;
                 pre: any;
             }
-        };
+        } | undefined;
         config?: {
             handler: any;
             bind: any;
@@ -813,7 +813,7 @@ declare module "hapi" {
                 query: any;
                 payload: any;
                 errorFields?: any;
-                failAction?: string | IFailAction;
+                failAction?: string | IFailAction | undefined;
             };
             payload: {
                 output: {
@@ -822,11 +822,11 @@ declare module "hapi" {
                     file: any;
                 };
                 parse?: any;
-                allow?: string | Array<string>;
-                override?: string;
-                maxBytes?: number;
-                uploads?: number;
-                failAction?: string;
+                allow?: string | Array<string> | undefined;
+                override?: string | undefined;
+                maxBytes?: number | undefined;
+                uploads?: number | undefined;
+                failAction?: string | undefined;
             };
             response: {
                 schema: any;
@@ -841,17 +841,17 @@ declare module "hapi" {
             auth: string | boolean | {
                 mode: string;
                 strategies: Array<string>;
-                payload?: boolean | string;
-                tos?: boolean | string;
-                scope?: string | Array<string>;
+                payload?: boolean | string | undefined;
+                tos?: boolean | string | undefined;
+                scope?: string | Array<string> | undefined;
                 entity: string;
             };
-            cors?: boolean;
-            jsonp?: string;
-            description?: string;
-            notes?: string | Array<string>;
-            tags?: Array<string>;
-        };
+            cors?: boolean | undefined;
+            jsonp?: string | undefined;
+            description?: string | undefined;
+            notes?: string | Array<string> | undefined;
+            tags?: Array<string> | undefined;
+        } | undefined;
     }
     /** Route configuration
     The route configuration object*/
@@ -862,11 +862,11 @@ declare module "hapi" {
         * Can be assigned an array of methods which has the same result as adding the same route with different methods manually.*/
         method: string | string[];
         /**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
-        vhost?: string;
+        vhost?: string | undefined;
         /**  - (required) the function called to generate the response after successful authentication and validation.The handler function is described in Route handler.If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed.Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler.*/
         handler: ISessionHandler | string | IRouteHandlerConfig;
         /** - additional route options.*/
-        config?: IRouteAdditionalConfigurationOptions;
+        config?: IRouteAdditionalConfigurationOptions | undefined;
     }
     /** Route public interface When route information is returned or made available as a property.  http://hapijs.com/api#route-public-interface */
     export interface IRoute {
@@ -877,7 +877,7 @@ declare module "hapi" {
         /** the route path. */
         path: string;
         /** the route vhost option if configured. */
-        vhost?: string | Array<string>;
+        vhost?: string | Array<string> | undefined;
         /** the [active realm] associated with the route.*/
         realm: IServerRealm;
         /** the [route options]  object with all defaults applied. */
@@ -934,7 +934,7 @@ declare module "hapi" {
         options?: {
             /**  if true, requires payload validation as part of the scheme and forbids routes from disabling payload auth validation. Defaults to false.*/
             payload: boolean;
-        }
+        } | undefined
     }
 
 
@@ -946,9 +946,9 @@ declare module "hapi" {
             /** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
             url: string;
             /** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
-            headers?: IDictionary<string>;
+            headers?: IDictionary<string> | undefined;
             /** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
-            payload?: string | {} | Buffer;
+            payload?: string | {} | Buffer | undefined;
             /** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
             credentials?: any;
             /** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
@@ -958,9 +958,9 @@ declare module "hapi" {
             /** sets the initial value of request.plugins*/
             plugins?: any;
             /** allows access to routes with config.isInternal set to true. Defaults to false.*/
-            allowInternals?: boolean;
+            allowInternals?: boolean | undefined;
             /** sets the remote address for the incoming connection.*/
-            remoteAddress?: boolean;
+            remoteAddress?: boolean | undefined;
             /**object with options used to simulate client request stream conditions for testing:
             error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
             close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
@@ -969,7 +969,7 @@ declare module "hapi" {
                 error: boolean;
                 close: boolean;
                 end: boolean;
-            };
+            } | undefined;
         },
             callback: (
                 /**the response object where:
@@ -1004,34 +1004,34 @@ declare module "hapi" {
 
     export interface ICookieSettings {
         /** - time - to - live in milliseconds.Defaults to null (session time- life - cookies are deleted when the browser is closed).*/
-        ttl?: number;
+        ttl?: number | undefined;
         /** - sets the 'Secure' flag.Defaults to false.*/
-        isSecure?: boolean;
+        isSecure?: boolean | undefined;
         /** - sets the 'HttpOnly' flag.Defaults to false.*/
-        isHttpOnly?: boolean;
+        isHttpOnly?: boolean | undefined;
         /** - the path scope.Defaults to null (no path).*/
-        path?: string;
+        path?: string | undefined;
         /** - the domain scope.Defaults to null (no domain).*/
         domain?: any;
         /** - if present and the cookie was not received from the client or explicitly set by the route handler, the cookie is automatically added to the response with the provided value.The value can be a function with signature function(request, next) where:
         request - the request object.
         next - the continuation function using the function(err, value) signature.*/
-        autoValue?: (request: Request, next: (err: any, value: any) => void) => void;
+        autoValue?: ((request: Request, next: (err: any, value: any) => void) => void) | undefined;
         /** - encoding performs on the provided value before serialization.Options are:
         'none' - no encoding.When used, the cookie value must be a string.This is the default value.
         'base64' - string value is encoded using Base64.
         'base64json' - object value is JSON- stringified than encoded using Base64.
         'form' - object value is encoded using the x- www - form - urlencoded method. */
-        encoding?: string;
+        encoding?: string | undefined;
         /**  - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:
         integrity - algorithm options.Defaults to require('iron').defaults.integrity.
         password - password used for HMAC key generation. */
-        sign?: { integrity: any; password: string; }
-        password?: string;
+        sign?: { integrity: any; password: string; } | undefined
+        password?: string | undefined;
         iron?: any;
-        ignoreErrors?: boolean;
-        clearInvalid?: boolean;
-        strictHeader?: boolean;
+        ignoreErrors?: boolean | undefined;
+        clearInvalid?: boolean | undefined;
+        strictHeader?: boolean | undefined;
         passThrough?: any;
     }
 
@@ -1062,8 +1062,8 @@ declare module "hapi" {
     generateKey - a function used to generate a unique key (for caching) from the arguments passed to the method function (the callback argument is not passed as input). The server will automatically generate a unique key if the function's arguments are all of types 'string', 'number', or 'boolean'. However if the method uses other types of arguments, a key generation function must be provided which takes the same arguments as the function and returns a unique string (or null if no key can be generated).*/
     export interface IServerMethodOptions {
         bind?: any;
-        cache?: ICatBoxCacheOptions;
-        callback?: boolean;
+        cache?: ICatBoxCacheOptions | undefined;
+        callback?: boolean | undefined;
         generateKey?(args: any[]): string;
     }
     /** Request object
@@ -2126,9 +2126,9 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         }
         });*/
         method(methods: {
-            name: string; method: IServerMethod; options?: IServerMethodOptions
+            name: string; method: IServerMethod; options?: IServerMethodOptions | undefined
         } | Array<{
-            name: string; method: IServerMethod; options?: IServerMethodOptions
+            name: string; method: IServerMethod; options?: IServerMethodOptions | undefined
         }>): void;
         /**server.path(relativeTo)
         Sets the path prefix used to locate static resources (files and view templates) when relative paths are used where:
@@ -2167,7 +2167,7 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         register(plugins: any | any[], options: {
             select: string | string[];
             routes: {
-                prefix: string; vhost?: string | string[]
+                prefix: string; vhost?: string | string[] | undefined
             };
         }
             , callback: (err: any) => void): void;

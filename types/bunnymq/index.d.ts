@@ -53,23 +53,23 @@ declare namespace bunnymq {
     }
 
     interface Options {
-        consumerSuffix?: string;
-        host?: string;
-        hostname?: string;
+        consumerSuffix?: string | undefined;
+        host?: string | undefined;
+        hostname?: string | undefined;
 
         /**
          * Number of fetched messages at once on the channel.
          *
          */
-        prefetch?: number;
+        prefetch?: number | undefined;
 
         /**
          * Requeue put back message into the broker if consumer crashes/trigger exception.
          *
          */
-        requeue?: boolean;
-        rpcTimeout?: number;
-        timeout?: number;
+        requeue?: boolean | undefined;
+        rpcTimeout?: number | undefined;
+        timeout?: number | undefined;
         transport?: any;
     }
 
@@ -85,9 +85,9 @@ declare namespace bunnymq {
     }
 
     interface ProducerOptions {
-        routingKey?: string;
-        rpc?: boolean;
-        timeout?: number;
+        routingKey?: string | undefined;
+        rpc?: boolean | undefined;
+        timeout?: number | undefined;
     }
 }
 

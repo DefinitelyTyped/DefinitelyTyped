@@ -149,6 +149,8 @@ if (action) {
         field.class;
         field.type;
         field.title;
+        field.max; // $ExpectType number | undefined
+        field.min; // $ExpectTYpe number | undefined
 
         // Field.hasClass
         field.hasClass('foo');

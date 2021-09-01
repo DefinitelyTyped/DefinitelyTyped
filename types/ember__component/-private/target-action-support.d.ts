@@ -1,10 +1,9 @@
-import EmberObject from "@ember/object";
+import EmberObject from '@ember/object';
 
-// tslint:disable-next-line:strict-export-declare-modifiers
 interface TriggerActionOptions {
-    action?: string;
-    target?: EmberObject;
-    actionContext?: EmberObject;
+    action?: string | undefined;
+    target?: EmberObject | undefined;
+    actionContext?: EmberObject | undefined;
 }
 
 /**

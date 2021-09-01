@@ -1,4 +1,4 @@
-// Type definitions for node-wit 4.2
+// Type definitions for node-wit 6.0
 // Project: https://github.com/wit-ai/node-wit#readme
 // Definitions by: Julien Dufresne <https://github.com/julienduf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,51 +15,58 @@ export namespace log {
 }
 
 export interface WitEntityValue {
-    value?: string;
-    expressions?: string[];
+    value?: string | undefined;
+    expressions?: string[] | undefined;
 }
 
 export interface WitEntity {
-    id?: string;
-    values?: WitEntityValue[];
+    id?: string | undefined;
+    values?: WitEntityValue[] | undefined;
 }
 
 export interface WitContext {
-    state?: string[];
-    reference_time?: string;
-    timezone?: string;
-    entities?: WitEntity[];
-    location?: string;
+    state?: string[] | undefined;
+    reference_time?: string | undefined;
+    timezone?: string | undefined;
+    entities?: WitEntity[] | undefined;
+    location?: string | undefined;
 }
 
 export interface WitRequest {
-    sessionId?: string;
-    context?: WitContext;
-    text?: string;
-    entities?: WitEntity[];
+    sessionId?: string | undefined;
+    context?: WitContext | undefined;
+    text?: string | undefined;
+    entities?: WitEntity[] | undefined;
 }
 
 export interface WitResponse {
-    text?: string;
+    text?: string | undefined;
     quickReplies?: any;
 }
 
 export interface WitOption {
     accessToken: string;
     actions?: any;
-    logger?: log.Logger;
+    logger?: log.Logger | undefined;
 }
 
 export interface MessageResponseEntity {
-    confidence?: number;
-    value?: string;
-    type?: string;
+    confidence?: number | undefined;
+    value?: string | undefined;
+    type?: string | undefined;
+}
+
+export interface WitIntent {
+    id: string;
+    name: string;
+    confidence: number;
 }
 
 export interface MessageResponse {
-    msg_id: string;
-    _text: string;
+    text: string;
+    intents: WitIntent[];
     entities: any;
+    traits: any;
 }
 
 export class Wit {

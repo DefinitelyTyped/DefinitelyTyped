@@ -3,15 +3,7 @@
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ExtensionDefinition } from 'jsreport-core';
-
-declare module 'jsreport-core' {
-    interface Template {
-        chrome?: Partial<JsReportChromePdf.Chrome>;
-        chromeImage?: Partial<JsReportChromePdf.ChromeImage>;
-        recipe: 'chrome-pdf' | 'chrome-image' | string;
-    }
-}
+import { ExtensionDefinition, Template } from 'jsreport-core';
 
 declare namespace JsReportChromePdf {
     // https://jsreport.net/learn/chrome-pdf
@@ -29,10 +21,10 @@ declare namespace JsReportChromePdf {
         width: string | number;
         height: string | number;
         margin: {
-            top?: string | number;
-            right?: string | number;
-            bottom?: string | number;
-            left?: string | number;
+            top?: string | number | undefined;
+            right?: string | number | undefined;
+            bottom?: string | number | undefined;
+            left?: string | number | undefined;
         };
         preferCSSPageSize: boolean;
 
@@ -109,6 +101,18 @@ declare namespace JsReportChromePdf {
         portRightBoundary: number;
         allowedModules: string[];
         launchOptions: Partial<LaunchOptions>;
+    }
+    interface ChromeTemplate extends Template {
+        chrome?: Partial<Chrome> | undefined;
+        chromeImage?: Partial<ChromeImage> | undefined;
+        recipe: 'chrome-pdf' | 'chrome-image' | string;
+        content: string;
+    }
+}
+
+declare module 'jsreport-core' {
+    interface TemplateRegistry {
+        ChromeTemplate: JsReportChromePdf.ChromeTemplate;
     }
 }
 

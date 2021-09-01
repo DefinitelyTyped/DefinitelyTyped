@@ -25,5 +25,5 @@ interface expired {
 }
 
 declare namespace expired {
-    type Headers = string | { [header: string]: string | string[] | undefined };
+    type Headers = string | { [header: string]: string | number | string[] | undefined };
 }

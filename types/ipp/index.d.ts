@@ -103,16 +103,16 @@ export class Printer {
 }
 
 export interface PrinterOptions {
-    version?: IPPVersion;
-    uri?: string;
-    charset?: string;
-    language?: string;
+    version?: IPPVersion | undefined;
+    uri?: string | undefined;
+    charset?: string | undefined;
+    language?: string | undefined;
 }
 
 export interface FullRequest {
-    'operation-attributes-tag'?: OperationAttributes;
-    'job-attributes-tag'?: JobTemplateAttributes;
-    data?: Buffer;
+    'operation-attributes-tag'?: OperationAttributes | undefined;
+    'job-attributes-tag'?: JobTemplateAttributes | undefined;
+    data?: Buffer | undefined;
 }
 
 export interface FullResponse {
@@ -120,17 +120,17 @@ export interface FullResponse {
     statusCode: StatusCode;
     id: number;
     'operation-attributes-tag': OperationAttributes;
-    'unsupported-attributes'?: string[];
-    'job-attributes-tag'?: object;
-    'printer-attributes-tag'?: PrinterDescription;
+    'unsupported-attributes'?: string[] | undefined;
+    'job-attributes-tag'?: object | undefined;
+    'printer-attributes-tag'?: PrinterDescription | undefined;
 }
 
 export interface SimpleRequest {
     'operation-attributes-tag': {
         'requesting-user-name': string;
-        'attributes-charset'?: CharacterSet;
-        'attributes-natural-language'?: string;
-        'printer-uri'?: string;
+        'attributes-charset'?: CharacterSet | undefined;
+        'attributes-natural-language'?: string | undefined;
+        'printer-uri'?: string | undefined;
     };
 }
 
@@ -141,10 +141,10 @@ export interface SimpleResponse {
     'operation-attributes-tag': {
         'attributes-charset': CharacterSet;
         'attributes-natural-language': string;
-        'detailed-status-message'?: string;
-        'status-message'?: string;
+        'detailed-status-message'?: string | undefined;
+        'status-message'?: string | undefined;
     };
-    'unsupported-attributes'?: string[];
+    'unsupported-attributes'?: string[] | undefined;
 }
 
 // PRINT-JOB
@@ -152,20 +152,20 @@ export interface SimpleResponse {
 export interface PrintJobRequest {
     'operation-attributes-tag': {
         'requesting-user-name': string;
-        'attributes-charset'?: CharacterSet;
-        'attributes-natural-language'?: string;
-        compression?: Compression;
-        'document-format'?: MimeMediaType;
-        'document-name'?: string;
-        'document-natural-language'?: string;
-        'ipp-attribute-fidelity'?: boolean;
-        'job-impressions'?: number;
-        'job-k-octets'?: number;
-        'job-media-sheets'?: number;
-        'job-name'?: string;
-        'printer-uri'?: string;
+        'attributes-charset'?: CharacterSet | undefined;
+        'attributes-natural-language'?: string | undefined;
+        compression?: Compression | undefined;
+        'document-format'?: MimeMediaType | undefined;
+        'document-name'?: string | undefined;
+        'document-natural-language'?: string | undefined;
+        'ipp-attribute-fidelity'?: boolean | undefined;
+        'job-impressions'?: number | undefined;
+        'job-k-octets'?: number | undefined;
+        'job-media-sheets'?: number | undefined;
+        'job-name'?: string | undefined;
+        'printer-uri'?: string | undefined;
     };
-    'job-attributes-tag'?: JobTemplateAttributes;
+    'job-attributes-tag'?: JobTemplateAttributes | undefined;
     data: Buffer;
 }
 
@@ -176,17 +176,17 @@ export interface PrintJobResponse {
     'operation-attributes-tag': {
         'attributes-charset': CharacterSet;
         'attributes-natural-language': string;
-        'detailed-status-message'?: string;
-        'status-message'?: string;
+        'detailed-status-message'?: string | undefined;
+        'status-message'?: string | undefined;
     };
-    'unsupported-attributes'?: string[];
+    'unsupported-attributes'?: string[] | undefined;
     'job-attributes-tag': {
         'job-id': number;
         'job-state': JobState;
         'job-state-reasons': JobStateReasons[];
         'job-uri': string;
-        'job-state-message'?: string;
-        'number-of-intervening-jobs'?: number;
+        'job-state-message'?: string | undefined;
+        'number-of-intervening-jobs'?: number | undefined;
     };
 }
 
@@ -195,72 +195,72 @@ export interface PrintJobResponse {
 
 export interface PrintURIRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
+        'attributes-charset'?: CharacterSet | undefined;
         'requesting-user-name': string;
-        'attributes-natural-language'?: string;
-        'document-format'?: MimeMediaType;
-        'printer-uri'?: string;
-        'job-name'?: string;
-        'ipp-attribute-fidelity'?: boolean;
-        'document-name'?: string;
-        'document-natural-language'?: string;
-        compression?: Compression;
-        'job-k-octets'?: number;
-        'job-impressions'?: number;
-        'job-media-sheets'?: number;
+        'attributes-natural-language'?: string | undefined;
+        'document-format'?: MimeMediaType | undefined;
+        'printer-uri'?: string | undefined;
+        'job-name'?: string | undefined;
+        'ipp-attribute-fidelity'?: boolean | undefined;
+        'document-name'?: string | undefined;
+        'document-natural-language'?: string | undefined;
+        compression?: Compression | undefined;
+        'job-k-octets'?: number | undefined;
+        'job-impressions'?: number | undefined;
+        'job-media-sheets'?: number | undefined;
         'document-uri': string;
     };
-    'job-attributes-tag'?: JobTemplateAttributes;
+    'job-attributes-tag'?: JobTemplateAttributes | undefined;
 }
 
 // VALIDATE-JOB
 
 export interface ValidateJobRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
+        'attributes-charset'?: CharacterSet | undefined;
         'requesting-user-name': string;
-        'attributes-natural-language'?: string;
-        'document-format'?: MimeMediaType;
-        'printer-uri'?: string;
-        'job-name'?: string;
-        'ipp-attribute-fidelity'?: boolean;
-        'document-name'?: string;
-        'document-natural-language'?: string;
-        compression?: Compression;
-        'job-k-octets'?: number;
-        'job-impressions'?: number;
-        'job-media-sheets'?: number;
+        'attributes-natural-language'?: string | undefined;
+        'document-format'?: MimeMediaType | undefined;
+        'printer-uri'?: string | undefined;
+        'job-name'?: string | undefined;
+        'ipp-attribute-fidelity'?: boolean | undefined;
+        'document-name'?: string | undefined;
+        'document-natural-language'?: string | undefined;
+        compression?: Compression | undefined;
+        'job-k-octets'?: number | undefined;
+        'job-impressions'?: number | undefined;
+        'job-media-sheets'?: number | undefined;
     };
-    'job-attributes-tag'?: JobTemplateAttributes;
+    'job-attributes-tag'?: JobTemplateAttributes | undefined;
 }
 
 // CREATE-JOB
 
 export interface CreateJobRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
+        'attributes-charset'?: CharacterSet | undefined;
         'requesting-user-name': string;
-        'attributes-natural-language'?: string;
-        'printer-uri'?: string;
-        'job-name'?: string;
-        'ipp-attribute-fidelity'?: boolean;
-        'job-k-octets'?: number;
-        'job-impressions'?: number;
-        'job-media-sheets'?: number;
+        'attributes-natural-language'?: string | undefined;
+        'printer-uri'?: string | undefined;
+        'job-name'?: string | undefined;
+        'ipp-attribute-fidelity'?: boolean | undefined;
+        'job-k-octets'?: number | undefined;
+        'job-impressions'?: number | undefined;
+        'job-media-sheets'?: number | undefined;
     };
-    'job-attributes-tag'?: JobTemplateAttributes;
+    'job-attributes-tag'?: JobTemplateAttributes | undefined;
 }
 
 // GET-PRINTER-ATTRIBUTES
 
 export interface GetPrinterAttributesRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
+        'attributes-charset'?: CharacterSet | undefined;
         'requesting-user-name': string;
-        'attributes-natural-language'?: string;
-        'document-format'?: MimeMediaType;
-        'requested-attributes'?: Array<RequestedPrinterAttributeGroups | keyof PrinterDescription>;
-        'printer-uri'?: string;
+        'attributes-natural-language'?: string | undefined;
+        'document-format'?: MimeMediaType | undefined;
+        'requested-attributes'?: Array<RequestedPrinterAttributeGroups | keyof PrinterDescription> | undefined;
+        'printer-uri'?: string | undefined;
     };
 }
 
@@ -271,10 +271,10 @@ export interface GetPrinterAttributesResponse {
     'operation-attributes-tag': {
         'attributes-charset': CharacterSet;
         'attributes-natural-language': string;
-        'detailed-status-message'?: string;
-        'status-message'?: string;
+        'detailed-status-message'?: string | undefined;
+        'status-message'?: string | undefined;
     };
-    'unsupported-attributes'?: string[];
+    'unsupported-attributes'?: string[] | undefined;
     'printer-attributes-tag': object;
 }
 
@@ -282,16 +282,16 @@ export interface GetPrinterAttributesResponse {
 
 export interface GetJobsRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
-        'attributes-natural-language'?: string;
+        'attributes-charset'?: CharacterSet | undefined;
+        'attributes-natural-language'?: string | undefined;
         'requesting-user-name': string;
-        limit?: number;
+        limit?: number | undefined;
         'requested-attributes'?: Array<
             RequestedJobAttributeGroups | keyof JobTemplateAttributes | keyof JobStatusAttributes
-        >;
-        'which-jobs'?: WhichJobs;
-        'my-jobs'?: boolean;
-        'printer-uri'?: string;
+        > | undefined;
+        'which-jobs'?: WhichJobs | undefined;
+        'my-jobs'?: boolean | undefined;
+        'printer-uri'?: string | undefined;
     };
 }
 
@@ -302,30 +302,30 @@ export interface GetJobsResponse {
     'operation-attributes-tag': {
         'attributes-charset': CharacterSet;
         'attributes-natural-language': string;
-        'detailed-status-message'?: string;
-        'status-message'?: string;
+        'detailed-status-message'?: string | undefined;
+        'status-message'?: string | undefined;
     };
-    'unsupported-attributes'?: string[];
-    'job-attributes-tag'?: JobTemplateAttributes | JobTemplateAttributes[];
+    'unsupported-attributes'?: string[] | undefined;
+    'job-attributes-tag'?: JobTemplateAttributes | JobTemplateAttributes[] | undefined;
 }
 
 // SEND-DOCUMENT
 
 export interface SendDocumentRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
-        'attributes-natural-language'?: string;
-        'printer-uri'?: string;
-        'job-id'?: number;
-        'job-uri'?: string;
+        'attributes-charset'?: CharacterSet | undefined;
+        'attributes-natural-language'?: string | undefined;
+        'printer-uri'?: string | undefined;
+        'job-id'?: number | undefined;
+        'job-uri'?: string | undefined;
         'requesting-user-name': string;
-        'document-name'?: string;
-        compression?: Compression;
-        'document-format'?: MimeMediaType;
-        'document-natural-language'?: string;
+        'document-name'?: string | undefined;
+        compression?: Compression | undefined;
+        'document-format'?: MimeMediaType | undefined;
+        'document-natural-language'?: string | undefined;
         'last-document': boolean;
     };
-    data?: Buffer;
+    data?: Buffer | undefined;
 }
 
 export interface SendDocumentResponse {
@@ -335,17 +335,17 @@ export interface SendDocumentResponse {
     'operation-attributes-tag': {
         'attributes-charset': CharacterSet;
         'attributes-natural-language': string;
-        'detailed-status-message'?: string;
-        'status-message'?: string;
+        'detailed-status-message'?: string | undefined;
+        'status-message'?: string | undefined;
     };
-    'unsupported-attributes'?: string[];
+    'unsupported-attributes'?: string[] | undefined;
     'job-attributes-tag': {
         'job-id': number;
         'job-uri': string;
         'job-state': JobState;
         'job-state-reasons': JobStateReasons[];
-        'job-state-message'?: string;
-        'number-of-intervening-jobs'?: number;
+        'job-state-message'?: string | undefined;
+        'number-of-intervening-jobs'?: number | undefined;
     };
 }
 
@@ -353,16 +353,16 @@ export interface SendDocumentResponse {
 
 export interface SendURIRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
-        'attributes-natural-language'?: string;
-        'printer-uri'?: string;
-        'job-id'?: number;
-        'job-uri'?: string;
+        'attributes-charset'?: CharacterSet | undefined;
+        'attributes-natural-language'?: string | undefined;
+        'printer-uri'?: string | undefined;
+        'job-id'?: number | undefined;
+        'job-uri'?: string | undefined;
         'requesting-user-name': string;
-        'document-name'?: string;
-        compression?: Compression;
-        'document-format'?: MimeMediaType;
-        'document-natural-language'?: string;
+        'document-name'?: string | undefined;
+        compression?: Compression | undefined;
+        'document-format'?: MimeMediaType | undefined;
+        'document-natural-language'?: string | undefined;
         'last-document': boolean;
         'document-uri': string;
     };
@@ -372,13 +372,13 @@ export interface SendURIRequest {
 
 export interface CancelReleaseJobRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
-        'attributes-natural-language'?: string;
-        'printer-uri'?: string;
-        'job-id'?: number;
-        'job-uri'?: string;
+        'attributes-charset'?: CharacterSet | undefined;
+        'attributes-natural-language'?: string | undefined;
+        'printer-uri'?: string | undefined;
+        'job-id'?: number | undefined;
+        'job-uri'?: string | undefined;
         'requesting-user-name': string;
-        message?: string;
+        message?: string | undefined;
     };
 }
 
@@ -386,14 +386,14 @@ export interface CancelReleaseJobRequest {
 
 export interface GetJobAttributesRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
-        'attributes-natural-language'?: string;
-        'printer-uri'?: string;
-        'job-id'?: number;
-        'job-uri'?: string;
+        'attributes-charset'?: CharacterSet | undefined;
+        'attributes-natural-language'?: string | undefined;
+        'printer-uri'?: string | undefined;
+        'job-id'?: number | undefined;
+        'job-uri'?: string | undefined;
         'requested-attributes'?: Array<
             RequestedJobAttributeGroups | keyof JobTemplateAttributes | keyof JobStatusAttributes
-        >;
+        > | undefined;
     };
 }
 
@@ -404,10 +404,10 @@ export interface GetJobAttributesResponse {
     'operation-attributes-tag': {
         'attributes-charset': CharacterSet;
         'attributes-natural-language': string;
-        'detailed-status-message'?: string;
-        'status-message'?: string;
+        'detailed-status-message'?: string | undefined;
+        'status-message'?: string | undefined;
     };
-    'unsupported-attributes'?: string[];
+    'unsupported-attributes'?: string[] | undefined;
     'job-attributes-tag': JobTemplateAttributes;
 }
 
@@ -415,431 +415,431 @@ export interface GetJobAttributesResponse {
 
 export interface HoldRestartJobRequest {
     'operation-attributes-tag': {
-        'attributes-charset'?: CharacterSet;
-        'attributes-natural-language'?: string;
-        'printer-uri'?: string;
-        'job-id'?: number;
-        'job-uri'?: string;
+        'attributes-charset'?: CharacterSet | undefined;
+        'attributes-natural-language'?: string | undefined;
+        'printer-uri'?: string | undefined;
+        'job-id'?: number | undefined;
+        'job-uri'?: string | undefined;
         'requesting-user-name': string;
-        message?: string;
-        'job-hold-until'?: JobHoldUntil;
+        message?: string | undefined;
+        'job-hold-until'?: JobHoldUntil | undefined;
     };
 }
 
 export interface OperationAttributes {
-    'attributes-charset'?: string;
-    'attributes-natural-language'?: string;
-    'charge-info-message'?: string;
-    compression?: Compression;
-    'compression-accepted'?: Compression[];
-    'destination-accesses'?: DestionationAccesses[];
-    'detailed-status-message'?: string;
-    'document-access'?: DocumentAccess;
-    'document-access-error'?: string;
-    'document-charset'?: string;
-    'document-data-get-interval'?: number;
-    'document-data-wait'?: boolean;
-    'document-digital-signature'?: DocumentDigitalSignature;
-    'document-format'?: MimeMediaType;
-    'document-format-accepted'?: MimeMediaType[];
-    'document-format-details'?: DocumentFormatDetails;
-    'document-message'?: string;
-    'document-metadata'?: string[];
-    'document-name'?: string;
-    'document-natural-language'?: string;
-    'document-number'?: number;
-    'document-password'?: string;
-    'document-preprocessed'?: boolean;
-    'fetch-status-code'?: StatusCode; // Except "successful-ok"
-    'fetch-status-message'?: string;
-    'first-index'?: number;
-    'identify-actions'?: IdentifyActions[];
-    'input-attributes'?: InputAttributes;
-    'ipp-attribute-fidelity'?: boolean;
-    'job-authorization-uri'?: string;
-    'job-hold-until'?: JobHoldUntil;
-    'job-hold-until-time'?: string;
-    'job-id'?: number;
-    'job-ids'?: number[];
-    'job-impressions'?: number;
-    'job-impressions-col'?: Impressions;
-    'job-impressions-estimated'?: number;
-    'job-k-octets'?: number;
-    'job-mandatory-attributes'?: Array<keyof JobTemplateAttributes>;
-    'job-media-sheets'?: number;
-    'job-media-sheets-col'?: MediaSheets;
-    'job-message-from-operator'?: string;
-    'job-name'?: string;
-    'job-pages'?: number;
-    'job-pages-col'?: Pages;
-    'job-password'?: string;
-    'job-password-encryption'?: JobPasswordEncryption;
-    'job-state'?: JobState;
-    'job-state-message'?: string;
-    'job-state-reasons'?: JobStateReasons[];
-    'job-uri'?: string;
-    'last-document'?: boolean;
-    limit?: number;
-    message?: string;
-    'my-jobs'?: boolean;
-    'notify-get-interval'?: number;
-    'notify-printer-ids'?: number[];
-    'notify-resource-id'?: number;
-    'notify-sequence-numbers'?: number[];
-    'notify-subscription-ids'?: number[];
-    'notify-wait'?: boolean;
-    'original-requesting-user-name'?: string;
-    'output-attributes'?: OutputAttributes;
-    'output-device-job-states'?: string[];
-    'output-device-uuid'?: string;
-    'preferred-attributes'?: object;
-    'printer-geo-location'?: string;
-    'printer-id'?: number;
-    'printer-ids'?: number[];
-    'printer-location'?: string;
-    'printer-message-from-operator'?: string;
-    'printer-service-type'?: PrinterServiceType[];
-    'printer-up-time'?: number;
-    'printer-uri'?: string;
-    'printer-xri-requested'?: PrinterXri[];
-    'profile-uri-actual'?: string;
+    'attributes-charset'?: string | undefined;
+    'attributes-natural-language'?: string | undefined;
+    'charge-info-message'?: string | undefined;
+    compression?: Compression | undefined;
+    'compression-accepted'?: Compression[] | undefined;
+    'destination-accesses'?: DestionationAccesses[] | undefined;
+    'detailed-status-message'?: string | undefined;
+    'document-access'?: DocumentAccess | undefined;
+    'document-access-error'?: string | undefined;
+    'document-charset'?: string | undefined;
+    'document-data-get-interval'?: number | undefined;
+    'document-data-wait'?: boolean | undefined;
+    'document-digital-signature'?: DocumentDigitalSignature | undefined;
+    'document-format'?: MimeMediaType | undefined;
+    'document-format-accepted'?: MimeMediaType[] | undefined;
+    'document-format-details'?: DocumentFormatDetails | undefined;
+    'document-message'?: string | undefined;
+    'document-metadata'?: string[] | undefined;
+    'document-name'?: string | undefined;
+    'document-natural-language'?: string | undefined;
+    'document-number'?: number | undefined;
+    'document-password'?: string | undefined;
+    'document-preprocessed'?: boolean | undefined;
+    'fetch-status-code'?: StatusCode | undefined; // Except "successful-ok"
+    'fetch-status-message'?: string | undefined;
+    'first-index'?: number | undefined;
+    'identify-actions'?: IdentifyActions[] | undefined;
+    'input-attributes'?: InputAttributes | undefined;
+    'ipp-attribute-fidelity'?: boolean | undefined;
+    'job-authorization-uri'?: string | undefined;
+    'job-hold-until'?: JobHoldUntil | undefined;
+    'job-hold-until-time'?: string | undefined;
+    'job-id'?: number | undefined;
+    'job-ids'?: number[] | undefined;
+    'job-impressions'?: number | undefined;
+    'job-impressions-col'?: Impressions | undefined;
+    'job-impressions-estimated'?: number | undefined;
+    'job-k-octets'?: number | undefined;
+    'job-mandatory-attributes'?: Array<keyof JobTemplateAttributes> | undefined;
+    'job-media-sheets'?: number | undefined;
+    'job-media-sheets-col'?: MediaSheets | undefined;
+    'job-message-from-operator'?: string | undefined;
+    'job-name'?: string | undefined;
+    'job-pages'?: number | undefined;
+    'job-pages-col'?: Pages | undefined;
+    'job-password'?: string | undefined;
+    'job-password-encryption'?: JobPasswordEncryption | undefined;
+    'job-state'?: JobState | undefined;
+    'job-state-message'?: string | undefined;
+    'job-state-reasons'?: JobStateReasons[] | undefined;
+    'job-uri'?: string | undefined;
+    'last-document'?: boolean | undefined;
+    limit?: number | undefined;
+    message?: string | undefined;
+    'my-jobs'?: boolean | undefined;
+    'notify-get-interval'?: number | undefined;
+    'notify-printer-ids'?: number[] | undefined;
+    'notify-resource-id'?: number | undefined;
+    'notify-sequence-numbers'?: number[] | undefined;
+    'notify-subscription-ids'?: number[] | undefined;
+    'notify-wait'?: boolean | undefined;
+    'original-requesting-user-name'?: string | undefined;
+    'output-attributes'?: OutputAttributes | undefined;
+    'output-device-job-states'?: string[] | undefined;
+    'output-device-uuid'?: string | undefined;
+    'preferred-attributes'?: object | undefined;
+    'printer-geo-location'?: string | undefined;
+    'printer-id'?: number | undefined;
+    'printer-ids'?: number[] | undefined;
+    'printer-location'?: string | undefined;
+    'printer-message-from-operator'?: string | undefined;
+    'printer-service-type'?: PrinterServiceType[] | undefined;
+    'printer-up-time'?: number | undefined;
+    'printer-uri'?: string | undefined;
+    'printer-xri-requested'?: PrinterXri[] | undefined;
+    'profile-uri-actual'?: string | undefined;
     'requested-attributes'?: Array<
         | RequestedJobAttributeGroups
         | RequestedPrinterAttributeGroups
         | keyof JobTemplateAttributes
         | keyof JobStatusAttributes
         | keyof PrinterDescription
-    >;
-    'requesting-user-name'?: string;
-    'requesting-user-uri'?: string;
-    'resource-format'?: MimeMediaType;
-    'resource-format-accepted'?: MimeMediaType[];
-    'resource-formats'?: MimeMediaType[];
-    'resource-id'?: number;
-    'resource-ids'?: number[];
-    'resource-k-octets'?: number;
-    'resource-natural-language'?: string;
-    'resource-patches'?: string;
-    'resource-signature'?: string[];
-    'resource-states'?: ResourceState[];
-    'resource-string-version'?: string;
-    'resource-type'?: ResourceType;
-    'resource-types'?: ResourceType[];
-    'resource-version'?: string;
-    'restart-get-interval'?: number;
-    'status-message'?: string;
-    'system-uri'?: string;
-    'which-jobs'?: WhichJobs;
-    'which-printers'?: string;
+    > | undefined;
+    'requesting-user-name'?: string | undefined;
+    'requesting-user-uri'?: string | undefined;
+    'resource-format'?: MimeMediaType | undefined;
+    'resource-format-accepted'?: MimeMediaType[] | undefined;
+    'resource-formats'?: MimeMediaType[] | undefined;
+    'resource-id'?: number | undefined;
+    'resource-ids'?: number[] | undefined;
+    'resource-k-octets'?: number | undefined;
+    'resource-natural-language'?: string | undefined;
+    'resource-patches'?: string | undefined;
+    'resource-signature'?: string[] | undefined;
+    'resource-states'?: ResourceState[] | undefined;
+    'resource-string-version'?: string | undefined;
+    'resource-type'?: ResourceType | undefined;
+    'resource-types'?: ResourceType[] | undefined;
+    'resource-version'?: string | undefined;
+    'restart-get-interval'?: number | undefined;
+    'status-message'?: string | undefined;
+    'system-uri'?: string | undefined;
+    'which-jobs'?: WhichJobs | undefined;
+    'which-printers'?: string | undefined;
 }
 
 export interface JobDescriptionAttributes {
-    'current-page-order'?: PageOrder;
-    'document-metadata'?: string[];
-    'job-charge-info'?: string;
-    'job-mandatory-attributes'?: Array<keyof JobTemplateAttributes>;
-    'job-message-from-operator'?: string;
-    'job-message-to-operator-actual'?: string[];
-    'job-name'?: string;
-    'job-save-printer-make-and-model'?: string;
+    'current-page-order'?: PageOrder | undefined;
+    'document-metadata'?: string[] | undefined;
+    'job-charge-info'?: string | undefined;
+    'job-mandatory-attributes'?: Array<keyof JobTemplateAttributes> | undefined;
+    'job-message-from-operator'?: string | undefined;
+    'job-message-to-operator-actual'?: string[] | undefined;
+    'job-name'?: string | undefined;
+    'job-save-printer-make-and-model'?: string | undefined;
 }
 
 export interface JobTemplateAttributes {
-    'chamber-humidity'?: number;
-    'chamber-temperature'?: number;
-    'confirmation-sheet-print'?: boolean;
-    copies?: number;
-    'cover-back'?: Cover;
-    'cover-front'?: Cover;
-    'cover-sheet-info'?: CoverSheetInfo;
-    'destination-uris'?: DestinationUris[];
-    finishings?: Finishings[];
-    'finishings-col'?: FinishingsInterface[];
-    'font-name-requested'?: string;
-    'font-size-requested'?: number;
-    'force-front-side'?: number[];
-    'imposition-template'?: ImpositionTemplate;
-    'insert-sheet'?: InsertSheet[];
-    'job-account-id'?: string;
-    'job-account-type'?: JobAccountType;
-    'job-accounting-sheets'?: JobAccontingSheets;
-    'job-accounting-user-id'?: string;
-    'job-cancel-after'?: number;
-    'job-copies'?: number;
-    'job-cover-back'?: Cover;
-    'job-cover-front'?: Cover;
-    'job-delay-output-until'?: JobDelayOutputUntil;
-    'job-delay-output-until-time'?: string;
-    'job-error-action'?: JobErrorAction;
-    'job-error-sheet'?: JobErrorSheet;
-    'job-finishings'?: Finishings[];
-    'job-finishings-col'?: FinishingsInterface;
-    'job-hold-until'?: JobHoldUntil;
-    'job-hold-until-time'?: string;
-    'job-message-to-operator'?: string;
-    'job-pages-per-set'?: number;
-    'job-phone-number'?: string;
-    'job-priority'?: number;
-    'job-recipient-name'?: string;
-    'job-retain-until'?: JobRetainUntil;
-    'job-retain-until-interval'?: number;
-    'job-retain-until-time'?: string;
-    'job-save-disposition'?: JobSaveDisposition;
-    'job-sheet-message'?: string;
-    'job-sheets'?: JobSheets;
-    'job-sheets-col'?: JobSheetsInterface;
-    'materials-col'?: Materials[];
-    media?: Media;
-    'media-col'?: MediaInterface;
-    'media-input-tray-check'?: MediaIntputTray;
-    'multiple-document-handling'?: MultipleDocumentHandling;
-    'multiple-object-handling'?: MultipleObjectHandling;
-    'number-of-retries'?: number;
-    'number-up'?: number;
-    'orientation-requested'?: OrientationRequested;
-    'output-bin'?: OutputBin;
-    'output-device'?: string;
-    overrides?: Overrides[];
-    'page-delivery'?: PageDelivery;
-    'page-order-received'?: PageOrder;
-    'page-ranges'?: string;
-    'pages-per-subset'?: number[];
-    'pclm-source-resolution'?: Resolution;
-    'pdl-init-file'?: PdlInitFile;
-    'platform-temperature'?: number;
-    'presentation-direction-number-up'?: PresentationDirectionNumberUp;
-    'print-accuracy'?: PrintAccuracy;
-    'print-base'?: PrintBase;
-    'print-color-mode'?: PrintColorMode;
-    'print-content-optimize'?: PrintContentOptimize;
-    'print-objects'?: PrintObjects[];
-    'print-quality'?: PrintQuality;
-    'print-rendering-intent'?: PrintRenderingIntent;
-    'print-scaling'?: PrintScaling;
-    'print-supports'?: PrintSupports;
-    'printer-resolution'?: Resolution;
-    'proof-print'?: ProofPrint;
-    'retry-interval'?: number;
-    'retry-time-out'?: number;
-    'separator-sheets'?: SeparatorSheets;
-    sides?: Sides;
-    'x-image-position'?: XImagePosition;
-    'x-image-shift'?: number;
-    'x-side1-image-shift'?: number;
-    'x-side2-image-shift'?: number;
-    'y-image-position'?: YImagePosition;
-    'y-image-shift'?: number;
-    'y-side1-image-shift'?: number;
-    'y-side2-image-shift'?: number;
+    'chamber-humidity'?: number | undefined;
+    'chamber-temperature'?: number | undefined;
+    'confirmation-sheet-print'?: boolean | undefined;
+    copies?: number | undefined;
+    'cover-back'?: Cover | undefined;
+    'cover-front'?: Cover | undefined;
+    'cover-sheet-info'?: CoverSheetInfo | undefined;
+    'destination-uris'?: DestinationUris[] | undefined;
+    finishings?: Finishings[] | undefined;
+    'finishings-col'?: FinishingsInterface[] | undefined;
+    'font-name-requested'?: string | undefined;
+    'font-size-requested'?: number | undefined;
+    'force-front-side'?: number[] | undefined;
+    'imposition-template'?: ImpositionTemplate | undefined;
+    'insert-sheet'?: InsertSheet[] | undefined;
+    'job-account-id'?: string | undefined;
+    'job-account-type'?: JobAccountType | undefined;
+    'job-accounting-sheets'?: JobAccontingSheets | undefined;
+    'job-accounting-user-id'?: string | undefined;
+    'job-cancel-after'?: number | undefined;
+    'job-copies'?: number | undefined;
+    'job-cover-back'?: Cover | undefined;
+    'job-cover-front'?: Cover | undefined;
+    'job-delay-output-until'?: JobDelayOutputUntil | undefined;
+    'job-delay-output-until-time'?: string | undefined;
+    'job-error-action'?: JobErrorAction | undefined;
+    'job-error-sheet'?: JobErrorSheet | undefined;
+    'job-finishings'?: Finishings[] | undefined;
+    'job-finishings-col'?: FinishingsInterface | undefined;
+    'job-hold-until'?: JobHoldUntil | undefined;
+    'job-hold-until-time'?: string | undefined;
+    'job-message-to-operator'?: string | undefined;
+    'job-pages-per-set'?: number | undefined;
+    'job-phone-number'?: string | undefined;
+    'job-priority'?: number | undefined;
+    'job-recipient-name'?: string | undefined;
+    'job-retain-until'?: JobRetainUntil | undefined;
+    'job-retain-until-interval'?: number | undefined;
+    'job-retain-until-time'?: string | undefined;
+    'job-save-disposition'?: JobSaveDisposition | undefined;
+    'job-sheet-message'?: string | undefined;
+    'job-sheets'?: JobSheets | undefined;
+    'job-sheets-col'?: JobSheetsInterface | undefined;
+    'materials-col'?: Materials[] | undefined;
+    media?: Media | undefined;
+    'media-col'?: MediaInterface | undefined;
+    'media-input-tray-check'?: MediaIntputTray | undefined;
+    'multiple-document-handling'?: MultipleDocumentHandling | undefined;
+    'multiple-object-handling'?: MultipleObjectHandling | undefined;
+    'number-of-retries'?: number | undefined;
+    'number-up'?: number | undefined;
+    'orientation-requested'?: OrientationRequested | undefined;
+    'output-bin'?: OutputBin | undefined;
+    'output-device'?: string | undefined;
+    overrides?: Overrides[] | undefined;
+    'page-delivery'?: PageDelivery | undefined;
+    'page-order-received'?: PageOrder | undefined;
+    'page-ranges'?: string | undefined;
+    'pages-per-subset'?: number[] | undefined;
+    'pclm-source-resolution'?: Resolution | undefined;
+    'pdl-init-file'?: PdlInitFile | undefined;
+    'platform-temperature'?: number | undefined;
+    'presentation-direction-number-up'?: PresentationDirectionNumberUp | undefined;
+    'print-accuracy'?: PrintAccuracy | undefined;
+    'print-base'?: PrintBase | undefined;
+    'print-color-mode'?: PrintColorMode | undefined;
+    'print-content-optimize'?: PrintContentOptimize | undefined;
+    'print-objects'?: PrintObjects[] | undefined;
+    'print-quality'?: PrintQuality | undefined;
+    'print-rendering-intent'?: PrintRenderingIntent | undefined;
+    'print-scaling'?: PrintScaling | undefined;
+    'print-supports'?: PrintSupports | undefined;
+    'printer-resolution'?: Resolution | undefined;
+    'proof-print'?: ProofPrint | undefined;
+    'retry-interval'?: number | undefined;
+    'retry-time-out'?: number | undefined;
+    'separator-sheets'?: SeparatorSheets | undefined;
+    sides?: Sides | undefined;
+    'x-image-position'?: XImagePosition | undefined;
+    'x-image-shift'?: number | undefined;
+    'x-side1-image-shift'?: number | undefined;
+    'x-side2-image-shift'?: number | undefined;
+    'y-image-position'?: YImagePosition | undefined;
+    'y-image-shift'?: number | undefined;
+    'y-side1-image-shift'?: number | undefined;
+    'y-side2-image-shift'?: number | undefined;
 }
 
 export interface JobStatusAttributes {
-    'attributes-charset'?: string;
-    'attributes-natural-language'?: string;
-    'chamber-humidity-actual'?: number[];
-    'chamber-temperature-actual'?: number[];
-    'compression-supplied'?: Compression;
-    'copies-actual'?: number[];
-    'cover-back-actual'?: Cover[];
-    'cover-front-actual'?: Cover[];
-    'date-time-at-completed'?: string;
-    'date-time-at-creation'?: string;
-    'date-time-at-processing'?: string;
-    'destination-statuses'?: DestinationStatuses[];
-    'document-charset-supplied'?: string;
-    'document-digital-signature-supplied'?: DocumentDigitalSignature;
-    'document-format-details-supplied'?: DocumentFormatDetails;
-    'document-format-ready'?: MimeMediaType[];
-    'document-format-supplied'?: MimeMediaType;
-    'document-format-version-supplied'?: string;
-    'document-message-supplied'?: string;
-    'document-name-supplied'?: string;
-    'document-natural-language-supplied'?: string;
-    'errors-count'?: number;
-    'finishings-actual'?: Finishings[];
-    'finishings-col-actual'?: FinishingsInterface[];
-    'force-front-side-actual'?: number[][];
-    'imposition-template-actual'?: ImpositionTemplate[];
-    'input-attributes-actual'?: InputAttributes;
-    'insert-sheet-actual'?: InsertSheet[];
-    'job-account-id-actual'?: string[];
-    'job-account-type-actual'?: JobAccountType;
-    'job-accounting-sheets-actual'?: JobAccontingSheets[];
-    'job-accounting-user-id-actual'?: string[];
-    'job-attribute-fidelity'?: boolean;
-    'job-detailed-status-messages'?: string[];
-    'job-document-access-errors'?: string[];
-    'job-error-sheet-actual'?: JobErrorSheet[];
-    'job-hold-until-actual'?: JobHoldUntil[];
-    'job-id'?: number;
-    'job-impressions'?: number;
-    'job-impressions-col'?: Impressions;
-    'job-impressions-completed'?: number;
-    'job-impressions-completed-col'?: Impressions;
-    'job-k-octets'?: number;
-    'job-k-octets-processed'?: number;
-    'job-media-sheets'?: number;
-    'job-media-sheets-col'?: MediaSheets;
-    'job-media-sheets-completed'?: number;
-    'job-media-sheets-completed-col'?: Impressions;
-    'job-more-info'?: string;
-    'job-originating-user-name'?: string;
-    'job-originating-user-uri'?: string;
-    'job-pages'?: number;
-    'job-pages-col'?: Pages;
-    'job-pages-completed'?: number;
-    'job-pages-completed-col'?: Pages;
-    'job-pages-completed-current-copy'?: number;
-    'job-printer-up-time'?: number;
-    'job-printer-uri'?: string;
-    'job-priority-actual'?: number[];
-    'job-resource-ids'?: number[];
-    'job-sheet-message-actual'?: number[];
-    'job-sheets-actual'?: JobSheets[];
-    'job-sheets-col-actual'?: JobSheetsInterface[];
-    'job-state'?: JobState;
-    'job-state-message'?: string;
-    'job-state-reasons'?: JobStateReasons[];
-    'job-uri'?: string;
-    'job-uuid'?: string;
-    'materials-col-actual'?: Materials[];
-    'media-actual'?: string[];
-    'media-col-actual'?: MediaInterface[];
-    'media-input-tray-check-actual'?: string[];
-    'multiple-document-handling-actual'?: MultipleDocumentHandling[];
-    'multiple-object-handling-actual'?: MultipleObjectHandling;
-    'number-of-documents'?: number;
-    'number-of-intervening-jobs'?: number;
-    'number-up-actual'?: number[];
-    'orientation-requested-actual'?: OrientationRequested[];
-    'original-requesting-user-name'?: string;
-    'output-attributes-actual'?: OutputAttributes;
-    'output-bin-actual'?: OutputBin[];
-    'output-device-actual'?: string[];
-    'output-device-assigned'?: string;
-    'output-device-job-state'?: JobState;
-    'output-device-job-state-message'?: string;
-    'output-device-job-state-reasons'?: JobStateReasons[];
-    'output-device-uuid-assigned'?: string;
-    'overrides-actual'?: Overrides[];
-    'page-delivery-actual'?: PageDelivery[];
-    'page-order-received-actual'?: PageOrder[];
-    'page-ranges-actual'?: number[];
-    'platform-temperature-actual'?: number[];
-    'presentation-direction-number-up-actual'?: PresentationDirectionNumberUp[];
-    'print-accuracy-actual'?: PrintAccuracy;
-    'print-base-actual'?: PrintBase[];
-    'print-color-mode-actual'?: PrintColorMode[];
-    'print-content-optimize-actual'?: PrintContentOptimize[];
-    'print-objects-actual'?: PrintObjects[];
-    'print-quality-actual'?: PrintQuality[];
-    'print-rendering-intent-actual'?: PrintRenderingIntent[];
-    'print-supports-actual'?: PrintSupports[];
-    'printer-resolution-actual'?: Resolution[];
-    'separator-sheets-actual'?: SeparatorSheets[];
-    'sheet-collate-actual'?: Array<'collated' | 'uncollated'>;
-    'sides-actual'?: Sides[];
-    'time-at-completed'?: number;
-    'time-at-creation'?: number;
-    'time-at-processing'?: number;
-    'warnings-count'?: number;
-    'x-image-position-actual'?: XImagePosition[];
-    'x-image-shift-actual'?: number[];
-    'x-side1-image-shift-actual'?: number[];
-    'x-side2-image-shift-actual'?: number[];
-    'y-image-position-actual'?: YImagePosition[];
-    'y-image-shift-actual'?: number[];
-    'y-side1-image-shift-actual'?: number[];
-    'y-side2-image-shift-actual'?: number[];
+    'attributes-charset'?: string | undefined;
+    'attributes-natural-language'?: string | undefined;
+    'chamber-humidity-actual'?: number[] | undefined;
+    'chamber-temperature-actual'?: number[] | undefined;
+    'compression-supplied'?: Compression | undefined;
+    'copies-actual'?: number[] | undefined;
+    'cover-back-actual'?: Cover[] | undefined;
+    'cover-front-actual'?: Cover[] | undefined;
+    'date-time-at-completed'?: string | undefined;
+    'date-time-at-creation'?: string | undefined;
+    'date-time-at-processing'?: string | undefined;
+    'destination-statuses'?: DestinationStatuses[] | undefined;
+    'document-charset-supplied'?: string | undefined;
+    'document-digital-signature-supplied'?: DocumentDigitalSignature | undefined;
+    'document-format-details-supplied'?: DocumentFormatDetails | undefined;
+    'document-format-ready'?: MimeMediaType[] | undefined;
+    'document-format-supplied'?: MimeMediaType | undefined;
+    'document-format-version-supplied'?: string | undefined;
+    'document-message-supplied'?: string | undefined;
+    'document-name-supplied'?: string | undefined;
+    'document-natural-language-supplied'?: string | undefined;
+    'errors-count'?: number | undefined;
+    'finishings-actual'?: Finishings[] | undefined;
+    'finishings-col-actual'?: FinishingsInterface[] | undefined;
+    'force-front-side-actual'?: number[][] | undefined;
+    'imposition-template-actual'?: ImpositionTemplate[] | undefined;
+    'input-attributes-actual'?: InputAttributes | undefined;
+    'insert-sheet-actual'?: InsertSheet[] | undefined;
+    'job-account-id-actual'?: string[] | undefined;
+    'job-account-type-actual'?: JobAccountType | undefined;
+    'job-accounting-sheets-actual'?: JobAccontingSheets[] | undefined;
+    'job-accounting-user-id-actual'?: string[] | undefined;
+    'job-attribute-fidelity'?: boolean | undefined;
+    'job-detailed-status-messages'?: string[] | undefined;
+    'job-document-access-errors'?: string[] | undefined;
+    'job-error-sheet-actual'?: JobErrorSheet[] | undefined;
+    'job-hold-until-actual'?: JobHoldUntil[] | undefined;
+    'job-id'?: number | undefined;
+    'job-impressions'?: number | undefined;
+    'job-impressions-col'?: Impressions | undefined;
+    'job-impressions-completed'?: number | undefined;
+    'job-impressions-completed-col'?: Impressions | undefined;
+    'job-k-octets'?: number | undefined;
+    'job-k-octets-processed'?: number | undefined;
+    'job-media-sheets'?: number | undefined;
+    'job-media-sheets-col'?: MediaSheets | undefined;
+    'job-media-sheets-completed'?: number | undefined;
+    'job-media-sheets-completed-col'?: Impressions | undefined;
+    'job-more-info'?: string | undefined;
+    'job-originating-user-name'?: string | undefined;
+    'job-originating-user-uri'?: string | undefined;
+    'job-pages'?: number | undefined;
+    'job-pages-col'?: Pages | undefined;
+    'job-pages-completed'?: number | undefined;
+    'job-pages-completed-col'?: Pages | undefined;
+    'job-pages-completed-current-copy'?: number | undefined;
+    'job-printer-up-time'?: number | undefined;
+    'job-printer-uri'?: string | undefined;
+    'job-priority-actual'?: number[] | undefined;
+    'job-resource-ids'?: number[] | undefined;
+    'job-sheet-message-actual'?: number[] | undefined;
+    'job-sheets-actual'?: JobSheets[] | undefined;
+    'job-sheets-col-actual'?: JobSheetsInterface[] | undefined;
+    'job-state'?: JobState | undefined;
+    'job-state-message'?: string | undefined;
+    'job-state-reasons'?: JobStateReasons[] | undefined;
+    'job-uri'?: string | undefined;
+    'job-uuid'?: string | undefined;
+    'materials-col-actual'?: Materials[] | undefined;
+    'media-actual'?: string[] | undefined;
+    'media-col-actual'?: MediaInterface[] | undefined;
+    'media-input-tray-check-actual'?: string[] | undefined;
+    'multiple-document-handling-actual'?: MultipleDocumentHandling[] | undefined;
+    'multiple-object-handling-actual'?: MultipleObjectHandling | undefined;
+    'number-of-documents'?: number | undefined;
+    'number-of-intervening-jobs'?: number | undefined;
+    'number-up-actual'?: number[] | undefined;
+    'orientation-requested-actual'?: OrientationRequested[] | undefined;
+    'original-requesting-user-name'?: string | undefined;
+    'output-attributes-actual'?: OutputAttributes | undefined;
+    'output-bin-actual'?: OutputBin[] | undefined;
+    'output-device-actual'?: string[] | undefined;
+    'output-device-assigned'?: string | undefined;
+    'output-device-job-state'?: JobState | undefined;
+    'output-device-job-state-message'?: string | undefined;
+    'output-device-job-state-reasons'?: JobStateReasons[] | undefined;
+    'output-device-uuid-assigned'?: string | undefined;
+    'overrides-actual'?: Overrides[] | undefined;
+    'page-delivery-actual'?: PageDelivery[] | undefined;
+    'page-order-received-actual'?: PageOrder[] | undefined;
+    'page-ranges-actual'?: number[] | undefined;
+    'platform-temperature-actual'?: number[] | undefined;
+    'presentation-direction-number-up-actual'?: PresentationDirectionNumberUp[] | undefined;
+    'print-accuracy-actual'?: PrintAccuracy | undefined;
+    'print-base-actual'?: PrintBase[] | undefined;
+    'print-color-mode-actual'?: PrintColorMode[] | undefined;
+    'print-content-optimize-actual'?: PrintContentOptimize[] | undefined;
+    'print-objects-actual'?: PrintObjects[] | undefined;
+    'print-quality-actual'?: PrintQuality[] | undefined;
+    'print-rendering-intent-actual'?: PrintRenderingIntent[] | undefined;
+    'print-supports-actual'?: PrintSupports[] | undefined;
+    'printer-resolution-actual'?: Resolution[] | undefined;
+    'separator-sheets-actual'?: SeparatorSheets[] | undefined;
+    'sheet-collate-actual'?: Array<'collated' | 'uncollated'> | undefined;
+    'sides-actual'?: Sides[] | undefined;
+    'time-at-completed'?: number | undefined;
+    'time-at-creation'?: number | undefined;
+    'time-at-processing'?: number | undefined;
+    'warnings-count'?: number | undefined;
+    'x-image-position-actual'?: XImagePosition[] | undefined;
+    'x-image-shift-actual'?: number[] | undefined;
+    'x-side1-image-shift-actual'?: number[] | undefined;
+    'x-side2-image-shift-actual'?: number[] | undefined;
+    'y-image-position-actual'?: YImagePosition[] | undefined;
+    'y-image-shift-actual'?: number[] | undefined;
+    'y-side1-image-shift-actual'?: number[] | undefined;
+    'y-side2-image-shift-actual'?: number[] | undefined;
 }
 
 export interface PrinterDescription {
-    'accuracy-units-supported'?: AccuracyUnits[];
-    'baling-type-supported'?: BalingType[];
-    'baling-when-supported'?: BalingWhen[];
-    'binding-reference-edge-supported'?: ReferenceEdge[];
-    'binding-type-supported'?: BindingType[];
-    'chamber-humidity-default'?: number;
-    'chamber-humidity-supported'?: boolean;
-    'chamber-temperature-default'?: number;
-    'chamber-temperature-supported'?: Array<number | string>;
-    'charset-configured'?: string;
-    'charset-supported'?: string[];
-    'coating-sides-supported'?: FinishingSides[];
-    'coating-type-supported'?: CoatingType[];
-    'color-supported'?: boolean;
-    'compression-supported'?: Compression[];
-    'confirmation-sheet-print-default'?: boolean;
-    'copies-default'?: number;
-    'copies-supported'?: number[];
-    'cover-back-default'?: Cover;
-    'cover-back-supported'?: string[];
-    'cover-front-default'?: Cover;
-    'cover-front-supported'?: string[];
-    'cover-sheet-info-default'?: CoverSheetInfo;
-    'cover-sheet-info-supported'?: string[];
-    'covering-name-supported'?: string[];
-    'destination-accesses-supported'?: string[];
-    'destination-uri-ready'?: DestinationUriReady[];
-    'destination-uri-schemes-supported'?: UriSchemes[];
-    'destination-uris-supported'?: string[];
-    'document-access-supported'?: string[];
-    'document-charset-default'?: string;
-    'document-charset-supported'?: string[];
-    'document-creation-attributes-supported'?: string[];
-    'document-digital-signature-default'?: DocumentDigitalSignature;
-    'document-digital-signature-supported'?: DocumentDigitalSignature[];
-    'document-format-default'?: MimeMediaType;
-    'document-format-details-default'?: DocumentFormatDetails;
-    'document-format-details-supported'?: string[];
-    'document-format-supported'?: MimeMediaType[];
-    'document-format-version-default'?: string;
-    'document-format-version-supported'?: string[];
-    'document-natural-language-default'?: string;
-    'document-natural-language-supported'?: string[];
-    'document-password-supported'?: number;
-    'document-privacy-attributes'?: string[];
-    'document-privacy-scope'?: 'all' | 'default' | 'none' | 'owner';
-    'feed-orientation-default'?: FeedOrientation;
-    'feed-orientation-supported'?: FeedOrientation[];
-    'fetch-document-attributes-supported'?: string[];
-    'finishing-template-supported'?: Finishings[];
-    'finishings-col-database'?: FinishingsInterface[];
-    'finishings-col-default'?: FinishingsInterface;
-    'finishings-col-ready'?: FinishingsInterface[];
-    'finishings-col-supported'?: Array<keyof FinishingsInterface>;
-    'finishings-default'?: Finishings[];
-    'finishings-ready'?: Finishings[];
-    'finishings-supported'?: Finishings[];
-    'folding-direction-supported'?: FoldingDirection[];
-    'folding-offset-supported'?: Array<number | string>;
-    'folding-reference-edge-supported'?: ReferenceEdge[];
-    'font-name-requested-default'?: string;
-    'font-name-requested-supported'?: string[];
-    'font-size-requested-default'?: number;
-    'font-size-requested-supported'?: string[];
-    'from-name-supported'?: number;
-    'generated-natural-language-supported'?: string[];
-    'identify-actions-default'?: IdentifyActions[];
-    'identify-actions-supported'?: IdentifyActions[];
-    'imposition-template-default'?: ImpositionTemplate;
-    'imposition-template-supported'?: ImpositionTemplate[];
-    'input-attributes-default'?: InputAttributes;
-    'input-attributes-supported'?: string[];
-    'input-color-mode-supported'?: InputColorMode[];
-    'input-content-type-supported'?: InputContentType[];
-    'input-film-scan-mode-supported'?: InputFilmScanMode[];
-    'input-media-supported'?: Array<MediaName | MediaSizeName>;
-    'input-orientation-requested-supported'?: OrientationRequested[];
-    'input-quality-supported'?: PrintQuality[];
-    'input-resolution-supported'?: Resolution[];
-    'input-scan-regions-supported'?: InputScanRegion;
-    'input-sides-supported'?: Sides[];
-    'input-source-supported'?: InputSource[];
-    'insert-after-page-number-supported'?: string;
-    'insert-count-supported'?: string;
-    'insert-sheet-default'?: InsertSheet[];
-    'insert-sheet-supported'?: Array<keyof InsertSheet>;
+    'accuracy-units-supported'?: AccuracyUnits[] | undefined;
+    'baling-type-supported'?: BalingType[] | undefined;
+    'baling-when-supported'?: BalingWhen[] | undefined;
+    'binding-reference-edge-supported'?: ReferenceEdge[] | undefined;
+    'binding-type-supported'?: BindingType[] | undefined;
+    'chamber-humidity-default'?: number | undefined;
+    'chamber-humidity-supported'?: boolean | undefined;
+    'chamber-temperature-default'?: number | undefined;
+    'chamber-temperature-supported'?: Array<number | string> | undefined;
+    'charset-configured'?: string | undefined;
+    'charset-supported'?: string[] | undefined;
+    'coating-sides-supported'?: FinishingSides[] | undefined;
+    'coating-type-supported'?: CoatingType[] | undefined;
+    'color-supported'?: boolean | undefined;
+    'compression-supported'?: Compression[] | undefined;
+    'confirmation-sheet-print-default'?: boolean | undefined;
+    'copies-default'?: number | undefined;
+    'copies-supported'?: number[] | undefined;
+    'cover-back-default'?: Cover | undefined;
+    'cover-back-supported'?: string[] | undefined;
+    'cover-front-default'?: Cover | undefined;
+    'cover-front-supported'?: string[] | undefined;
+    'cover-sheet-info-default'?: CoverSheetInfo | undefined;
+    'cover-sheet-info-supported'?: string[] | undefined;
+    'covering-name-supported'?: string[] | undefined;
+    'destination-accesses-supported'?: string[] | undefined;
+    'destination-uri-ready'?: DestinationUriReady[] | undefined;
+    'destination-uri-schemes-supported'?: UriSchemes[] | undefined;
+    'destination-uris-supported'?: string[] | undefined;
+    'document-access-supported'?: string[] | undefined;
+    'document-charset-default'?: string | undefined;
+    'document-charset-supported'?: string[] | undefined;
+    'document-creation-attributes-supported'?: string[] | undefined;
+    'document-digital-signature-default'?: DocumentDigitalSignature | undefined;
+    'document-digital-signature-supported'?: DocumentDigitalSignature[] | undefined;
+    'document-format-default'?: MimeMediaType | undefined;
+    'document-format-details-default'?: DocumentFormatDetails | undefined;
+    'document-format-details-supported'?: string[] | undefined;
+    'document-format-supported'?: MimeMediaType[] | undefined;
+    'document-format-version-default'?: string | undefined;
+    'document-format-version-supported'?: string[] | undefined;
+    'document-natural-language-default'?: string | undefined;
+    'document-natural-language-supported'?: string[] | undefined;
+    'document-password-supported'?: number | undefined;
+    'document-privacy-attributes'?: string[] | undefined;
+    'document-privacy-scope'?: 'all' | 'default' | 'none' | 'owner' | undefined;
+    'feed-orientation-default'?: FeedOrientation | undefined;
+    'feed-orientation-supported'?: FeedOrientation[] | undefined;
+    'fetch-document-attributes-supported'?: string[] | undefined;
+    'finishing-template-supported'?: Finishings[] | undefined;
+    'finishings-col-database'?: FinishingsInterface[] | undefined;
+    'finishings-col-default'?: FinishingsInterface | undefined;
+    'finishings-col-ready'?: FinishingsInterface[] | undefined;
+    'finishings-col-supported'?: Array<keyof FinishingsInterface> | undefined;
+    'finishings-default'?: Finishings[] | undefined;
+    'finishings-ready'?: Finishings[] | undefined;
+    'finishings-supported'?: Finishings[] | undefined;
+    'folding-direction-supported'?: FoldingDirection[] | undefined;
+    'folding-offset-supported'?: Array<number | string> | undefined;
+    'folding-reference-edge-supported'?: ReferenceEdge[] | undefined;
+    'font-name-requested-default'?: string | undefined;
+    'font-name-requested-supported'?: string[] | undefined;
+    'font-size-requested-default'?: number | undefined;
+    'font-size-requested-supported'?: string[] | undefined;
+    'from-name-supported'?: number | undefined;
+    'generated-natural-language-supported'?: string[] | undefined;
+    'identify-actions-default'?: IdentifyActions[] | undefined;
+    'identify-actions-supported'?: IdentifyActions[] | undefined;
+    'imposition-template-default'?: ImpositionTemplate | undefined;
+    'imposition-template-supported'?: ImpositionTemplate[] | undefined;
+    'input-attributes-default'?: InputAttributes | undefined;
+    'input-attributes-supported'?: string[] | undefined;
+    'input-color-mode-supported'?: InputColorMode[] | undefined;
+    'input-content-type-supported'?: InputContentType[] | undefined;
+    'input-film-scan-mode-supported'?: InputFilmScanMode[] | undefined;
+    'input-media-supported'?: Array<MediaName | MediaSizeName> | undefined;
+    'input-orientation-requested-supported'?: OrientationRequested[] | undefined;
+    'input-quality-supported'?: PrintQuality[] | undefined;
+    'input-resolution-supported'?: Resolution[] | undefined;
+    'input-scan-regions-supported'?: InputScanRegion | undefined;
+    'input-sides-supported'?: Sides[] | undefined;
+    'input-source-supported'?: InputSource[] | undefined;
+    'insert-after-page-number-supported'?: string | undefined;
+    'insert-count-supported'?: string | undefined;
+    'insert-sheet-default'?: InsertSheet[] | undefined;
+    'insert-sheet-supported'?: Array<keyof InsertSheet> | undefined;
     'ipp-features-supported'?: Array<
         | 'document-object'
         | 'faxout'
@@ -855,179 +855,179 @@ export interface PrinterDescription {
         | 'scan'
         | 'subscription-object'
         | 'system-object'
-    >;
-    'ipp-versions-supported'?: IPPVersion[];
-    'ippget-event-life'?: number;
-    'job-account-id-default'?: string;
-    'job-account-id-supported'?: boolean;
-    'job-account-type-default'?: JobAccountType;
-    'job-account-type-supported'?: JobAccountType[];
-    'job-accounting-sheets-default'?: JobAccontingSheets;
-    'job-accounting-sheets-supported'?: string[];
-    'job-accounting-user-id-default'?: string;
-    'job-accounting-user-id-supported'?: boolean;
-    'job-authorization-uri-supported'?: boolean;
-    'job-cancel-after-default'?: number;
-    'job-cancel-after-supported'?: string;
-    'job-constraints-supported'?: JobConstraintsSupported[];
-    'job-creation-attributes-supported'?: Array<keyof JobTemplateAttributes>;
-    'job-delay-output-until-default'?: JobDelayOutputUntil;
-    'job-delay-output-until-interval-supported'?: string;
-    'job-delay-output-until-supported'?: JobDelayOutputUntil[];
-    'job-delay-output-until-time-supported'?: string;
-    'job-destination-spooling-supported'?: string;
-    'job-error-action-default'?: JobErrorAction;
-    'job-error-action-supported'?: JobErrorAction[];
-    'job-error-sheet-default'?: JobErrorSheet;
-    'job-error-sheet-supported'?: string[];
-    'job-history-attributes-configured'?: string[];
-    'job-history-attributes-supported'?: string[];
-    'job-history-interval-configured'?: number;
-    'job-history-interval-supported'?: string;
-    'job-hold-until-default'?: JobHoldUntil;
-    'job-hold-until-supported'?: JobHoldUntil[];
-    'job-hold-until-time-supported'?: string;
-    'job-ids-supported'?: boolean;
-    'job-impressions-supported'?: string;
-    'job-k-octets-supported'?: string;
-    'job-mandatory-attributes-supported'?: boolean;
-    'job-media-sheets-supported'?: string;
-    'job-message-to-operator-default'?: string;
-    'job-message-to-operator-supported'?: boolean;
-    'job-pages-per-set-supported'?: boolean;
-    'job-password-encryption-supported'?: JobPasswordEncryption[];
-    'job-password-length-supported'?: string;
-    'job-password-repertoire-configured'?: JobPasswordRepertoire;
-    'job-password-repertoire-supported'?: JobPasswordRepertoire[];
-    'job-password-supported'?: number;
-    'job-phone-number-default'?: string;
-    'job-phone-number-supported'?: boolean;
-    'job-presets-supported'?: JobPresetsSupported[];
-    'job-priority-default'?: number;
-    'job-priority-supported'?: number;
-    'job-privacy-attributes'?: string[];
-    'job-privacy-scope'?: 'all' | 'default' | 'none' | 'owner';
-    'job-recipient-name-default'?: string;
-    'job-recipient-name-supported'?: boolean;
-    'job-resolvers-supported'?: JobResolversSupported[];
-    'job-retain-until-default'?: JobRetainUntil;
-    'job-retain-until-interval-supported'?: string;
-    'job-retain-until-supported'?: JobRetainUntil[];
-    'job-retain-until-time-supported'?: string;
-    'job-sheet-message-default'?: string;
-    'job-sheet-message-supported'?: boolean;
-    'job-sheets-col-default'?: JobSheetsInterface;
-    'job-sheets-col-supported'?: string[];
-    'job-sheets-default'?: JobSheets;
-    'job-sheets-supported'?: JobSheets[];
-    'job-spooling-supported'?: 'automatic' | 'spool' | 'stream';
-    'job-triggers-supported'?: JobTriggersSupported;
+    > | undefined;
+    'ipp-versions-supported'?: IPPVersion[] | undefined;
+    'ippget-event-life'?: number | undefined;
+    'job-account-id-default'?: string | undefined;
+    'job-account-id-supported'?: boolean | undefined;
+    'job-account-type-default'?: JobAccountType | undefined;
+    'job-account-type-supported'?: JobAccountType[] | undefined;
+    'job-accounting-sheets-default'?: JobAccontingSheets | undefined;
+    'job-accounting-sheets-supported'?: string[] | undefined;
+    'job-accounting-user-id-default'?: string | undefined;
+    'job-accounting-user-id-supported'?: boolean | undefined;
+    'job-authorization-uri-supported'?: boolean | undefined;
+    'job-cancel-after-default'?: number | undefined;
+    'job-cancel-after-supported'?: string | undefined;
+    'job-constraints-supported'?: JobConstraintsSupported[] | undefined;
+    'job-creation-attributes-supported'?: Array<keyof JobTemplateAttributes> | undefined;
+    'job-delay-output-until-default'?: JobDelayOutputUntil | undefined;
+    'job-delay-output-until-interval-supported'?: string | undefined;
+    'job-delay-output-until-supported'?: JobDelayOutputUntil[] | undefined;
+    'job-delay-output-until-time-supported'?: string | undefined;
+    'job-destination-spooling-supported'?: string | undefined;
+    'job-error-action-default'?: JobErrorAction | undefined;
+    'job-error-action-supported'?: JobErrorAction[] | undefined;
+    'job-error-sheet-default'?: JobErrorSheet | undefined;
+    'job-error-sheet-supported'?: string[] | undefined;
+    'job-history-attributes-configured'?: string[] | undefined;
+    'job-history-attributes-supported'?: string[] | undefined;
+    'job-history-interval-configured'?: number | undefined;
+    'job-history-interval-supported'?: string | undefined;
+    'job-hold-until-default'?: JobHoldUntil | undefined;
+    'job-hold-until-supported'?: JobHoldUntil[] | undefined;
+    'job-hold-until-time-supported'?: string | undefined;
+    'job-ids-supported'?: boolean | undefined;
+    'job-impressions-supported'?: string | undefined;
+    'job-k-octets-supported'?: string | undefined;
+    'job-mandatory-attributes-supported'?: boolean | undefined;
+    'job-media-sheets-supported'?: string | undefined;
+    'job-message-to-operator-default'?: string | undefined;
+    'job-message-to-operator-supported'?: boolean | undefined;
+    'job-pages-per-set-supported'?: boolean | undefined;
+    'job-password-encryption-supported'?: JobPasswordEncryption[] | undefined;
+    'job-password-length-supported'?: string | undefined;
+    'job-password-repertoire-configured'?: JobPasswordRepertoire | undefined;
+    'job-password-repertoire-supported'?: JobPasswordRepertoire[] | undefined;
+    'job-password-supported'?: number | undefined;
+    'job-phone-number-default'?: string | undefined;
+    'job-phone-number-supported'?: boolean | undefined;
+    'job-presets-supported'?: JobPresetsSupported[] | undefined;
+    'job-priority-default'?: number | undefined;
+    'job-priority-supported'?: number | undefined;
+    'job-privacy-attributes'?: string[] | undefined;
+    'job-privacy-scope'?: 'all' | 'default' | 'none' | 'owner' | undefined;
+    'job-recipient-name-default'?: string | undefined;
+    'job-recipient-name-supported'?: boolean | undefined;
+    'job-resolvers-supported'?: JobResolversSupported[] | undefined;
+    'job-retain-until-default'?: JobRetainUntil | undefined;
+    'job-retain-until-interval-supported'?: string | undefined;
+    'job-retain-until-supported'?: JobRetainUntil[] | undefined;
+    'job-retain-until-time-supported'?: string | undefined;
+    'job-sheet-message-default'?: string | undefined;
+    'job-sheet-message-supported'?: boolean | undefined;
+    'job-sheets-col-default'?: JobSheetsInterface | undefined;
+    'job-sheets-col-supported'?: string[] | undefined;
+    'job-sheets-default'?: JobSheets | undefined;
+    'job-sheets-supported'?: JobSheets[] | undefined;
+    'job-spooling-supported'?: 'automatic' | 'spool' | 'stream' | undefined;
+    'job-triggers-supported'?: JobTriggersSupported | undefined;
     'jpeg-features-supported'?: Array<
         'arithmetic' | 'cmyk' | 'deep' | 'hierarchical' | 'icc' | 'lossless' | 'none' | 'progressive'
-    >;
-    'jpeg-k-octets-supported'?: string;
-    'jpeg-x-dimension-supported'?: string;
-    'jpeg-y-dimension-supported'?: string;
-    'laminating-sides-supported'?: FinishingSides[];
-    'laminating-type-supported'?: LaminatingType[];
-    'logo-uri-formats-supported'?: MimeMediaType[];
-    'logo-uri-schemes-supported'?: UriSchemes[];
-    'material-amount-units-supported'?: MaterialAmountUnits[];
-    'material-diameter-supported'?: Array<number | string>;
-    'material-nozzle-diameter-supported'?: Array<number | string>;
-    'material-purpose-supported'?: MaterialPurpose[];
-    'material-rate-supported'?: Array<number | string>;
-    'material-rate-units-supported'?: MaterialRateUnits[];
-    'material-shell-thickness-supported'?: Array<number | string>;
-    'material-temperature-supported'?: Array<number | string>;
-    'material-type-supported'?: MaterialType[];
-    'materials-col-database'?: Materials[];
-    'materials-col-default'?: Materials[];
-    'materials-col-ready'?: Materials[];
-    'materials-col-supported'?: Array<keyof Materials>;
-    'max-materials-col-supported'?: number;
-    'max-page-ranges-supported'?: number;
-    'max-save-info-supported'?: number;
-    'max-stitching-locations-supported'?: number;
-    'media-back-coating-supported'?: MediaCoating[];
-    'media-bottom-margin-supported'?: number[];
-    'media-col-database'?: MediaInterface[];
+    > | undefined;
+    'jpeg-k-octets-supported'?: string | undefined;
+    'jpeg-x-dimension-supported'?: string | undefined;
+    'jpeg-y-dimension-supported'?: string | undefined;
+    'laminating-sides-supported'?: FinishingSides[] | undefined;
+    'laminating-type-supported'?: LaminatingType[] | undefined;
+    'logo-uri-formats-supported'?: MimeMediaType[] | undefined;
+    'logo-uri-schemes-supported'?: UriSchemes[] | undefined;
+    'material-amount-units-supported'?: MaterialAmountUnits[] | undefined;
+    'material-diameter-supported'?: Array<number | string> | undefined;
+    'material-nozzle-diameter-supported'?: Array<number | string> | undefined;
+    'material-purpose-supported'?: MaterialPurpose[] | undefined;
+    'material-rate-supported'?: Array<number | string> | undefined;
+    'material-rate-units-supported'?: MaterialRateUnits[] | undefined;
+    'material-shell-thickness-supported'?: Array<number | string> | undefined;
+    'material-temperature-supported'?: Array<number | string> | undefined;
+    'material-type-supported'?: MaterialType[] | undefined;
+    'materials-col-database'?: Materials[] | undefined;
+    'materials-col-default'?: Materials[] | undefined;
+    'materials-col-ready'?: Materials[] | undefined;
+    'materials-col-supported'?: Array<keyof Materials> | undefined;
+    'max-materials-col-supported'?: number | undefined;
+    'max-page-ranges-supported'?: number | undefined;
+    'max-save-info-supported'?: number | undefined;
+    'max-stitching-locations-supported'?: number | undefined;
+    'media-back-coating-supported'?: MediaCoating[] | undefined;
+    'media-bottom-margin-supported'?: number[] | undefined;
+    'media-col-database'?: MediaInterface[] | undefined;
     // "media-col-database media-source-properties collection;
     // "media-col-database media-source-properties media-source-feed-direction"?: string;
     // "media-col-database media-source-properties media-source-feed-orientation"?: string;
-    'media-col-default'?: MediaInterface;
-    'media-col-ready'?: MediaInterface[];
+    'media-col-default'?: MediaInterface | undefined;
+    'media-col-ready'?: MediaInterface[] | undefined;
     // "media-col-ready media-source-properties collection;
     // "media-col-ready media-source-properties media-source-feed-direction"?: string;
     // "media-col-ready media-source-properties media-source-feed-orientation"?: string;
-    'media-col-supported'?: MediaColSupported[];
-    'media-color-supported'?: MediaColor[];
-    'media-default'?: Media;
-    'media-front-coating-supported'?: MediaCoating[];
-    'media-grain-supported'?: MediaGrain[];
-    'media-hole-count-supported'?: string[];
-    'media-key-supported'?: Array<MediaSizeName | MediaName>;
-    'media-left-margin-supported'?: number[];
-    'media-order-count-supported'?: string[];
-    'media-pre-printed-supported'?: MediaPrePrinted[];
-    'media-ready'?: Array<MediaSizeName | MediaName>;
-    'media-recycled-supported'?: MediaPrePrinted[];
-    'media-right-margin-supported'?: number[];
-    'media-size-supported'?: MediaSizeSupported;
-    'media-source-supported'?: MediaSource[];
-    'media-supported'?: Media[];
-    'media-thickness-supported'?: string;
-    'media-tooth-supported'?: MediaTooth[];
-    'media-top-margin-supported'?: number[];
-    'media-type-supported'?: MediaType[];
-    'media-weight-metric-supported'?: string[];
-    'message-supported'?: number;
-    'multiple-destination-uris-supported'?: boolean;
-    'multiple-document-handling-default'?: MultipleDocumentHandling;
-    'multiple-document-handling-supported'?: MultipleDocumentHandling[];
-    'multiple-document-jobs-supported'?: boolean;
-    'multiple-object-handling-default'?: MultipleObjectHandling;
-    'multiple-object-handling-supported'?: MultipleObjectHandling[];
-    'multiple-operation-time-out'?: number;
-    'multiple-operation-time-out-action'?: 'abort-job' | 'hold-job' | 'process-job';
-    'natural-language-configured'?: string;
-    'notify-attributes-supported'?: string[];
-    'notify-events-default'?: NotifyEvents[];
-    'notify-events-supported'?: NotifyEvents[];
-    'notify-lease-duration-default'?: number;
-    'notify-lease-duration-supported'?: Array<number | string>;
-    'notify-pull-method-supported'?: Array<'ippget'>;
-    'notify-schemes-supported'?: UriSchemes[];
-    'number-of-retries-default'?: number;
-    'number-of-retries-supported'?: string;
-    'number-up-default'?: number;
-    'number-up-supported'?: number | string;
-    'oauth-authorization-scope'?: string[];
-    'oauth-authorization-server-uri'?: string;
-    'operations-supported'?: string[];
-    'organization-name-supported'?: number;
-    'orientation-requested-default'?: OrientationRequested;
-    'orientation-requested-supported'?: OrientationRequested[];
-    'output-attributes-default'?: OutputAttributes;
-    'output-attributes-supported'?: string[];
-    'output-bin-default'?: OutputBin;
-    'output-bin-supported'?: OutputBin[];
-    'output-device-supported'?: string[];
-    'output-device-uuid-supported'?: string[];
-    'overrides-supported'?: Overrides[];
-    'page-delivery-default'?: PageDelivery;
-    'page-delivery-supported'?: PageDelivery[];
-    'page-order-received-default'?: PageOrder;
-    'page-order-received-supported'?: PageOrder[];
-    'page-ranges-supported'?: boolean;
-    'pages-per-subset-supported'?: boolean;
-    'parent-printers-supported'?: string[];
-    'pclm-raster-back-side'?: 'flipped' | 'normal' | 'rotated';
-    'pclm-source-resolution-supported'?: Resolution[];
-    'pclm-strip-height-preferred'?: number[];
-    'pclm-strip-height-supported'?: number;
-    'pdf-features-supported'?: Array<'prc' | 'u3d'>;
-    'pdf-k-octets-supported'?: string;
+    'media-col-supported'?: MediaColSupported[] | undefined;
+    'media-color-supported'?: MediaColor[] | undefined;
+    'media-default'?: Media | undefined;
+    'media-front-coating-supported'?: MediaCoating[] | undefined;
+    'media-grain-supported'?: MediaGrain[] | undefined;
+    'media-hole-count-supported'?: string[] | undefined;
+    'media-key-supported'?: Array<MediaSizeName | MediaName> | undefined;
+    'media-left-margin-supported'?: number[] | undefined;
+    'media-order-count-supported'?: string[] | undefined;
+    'media-pre-printed-supported'?: MediaPrePrinted[] | undefined;
+    'media-ready'?: Array<MediaSizeName | MediaName> | undefined;
+    'media-recycled-supported'?: MediaPrePrinted[] | undefined;
+    'media-right-margin-supported'?: number[] | undefined;
+    'media-size-supported'?: MediaSizeSupported | undefined;
+    'media-source-supported'?: MediaSource[] | undefined;
+    'media-supported'?: Media[] | undefined;
+    'media-thickness-supported'?: string | undefined;
+    'media-tooth-supported'?: MediaTooth[] | undefined;
+    'media-top-margin-supported'?: number[] | undefined;
+    'media-type-supported'?: MediaType[] | undefined;
+    'media-weight-metric-supported'?: string[] | undefined;
+    'message-supported'?: number | undefined;
+    'multiple-destination-uris-supported'?: boolean | undefined;
+    'multiple-document-handling-default'?: MultipleDocumentHandling | undefined;
+    'multiple-document-handling-supported'?: MultipleDocumentHandling[] | undefined;
+    'multiple-document-jobs-supported'?: boolean | undefined;
+    'multiple-object-handling-default'?: MultipleObjectHandling | undefined;
+    'multiple-object-handling-supported'?: MultipleObjectHandling[] | undefined;
+    'multiple-operation-time-out'?: number | undefined;
+    'multiple-operation-time-out-action'?: 'abort-job' | 'hold-job' | 'process-job' | undefined;
+    'natural-language-configured'?: string | undefined;
+    'notify-attributes-supported'?: string[] | undefined;
+    'notify-events-default'?: NotifyEvents[] | undefined;
+    'notify-events-supported'?: NotifyEvents[] | undefined;
+    'notify-lease-duration-default'?: number | undefined;
+    'notify-lease-duration-supported'?: Array<number | string> | undefined;
+    'notify-pull-method-supported'?: Array<'ippget'> | undefined;
+    'notify-schemes-supported'?: UriSchemes[] | undefined;
+    'number-of-retries-default'?: number | undefined;
+    'number-of-retries-supported'?: string | undefined;
+    'number-up-default'?: number | undefined;
+    'number-up-supported'?: number | string | undefined;
+    'oauth-authorization-scope'?: string[] | undefined;
+    'oauth-authorization-server-uri'?: string | undefined;
+    'operations-supported'?: string[] | undefined;
+    'organization-name-supported'?: number | undefined;
+    'orientation-requested-default'?: OrientationRequested | undefined;
+    'orientation-requested-supported'?: OrientationRequested[] | undefined;
+    'output-attributes-default'?: OutputAttributes | undefined;
+    'output-attributes-supported'?: string[] | undefined;
+    'output-bin-default'?: OutputBin | undefined;
+    'output-bin-supported'?: OutputBin[] | undefined;
+    'output-device-supported'?: string[] | undefined;
+    'output-device-uuid-supported'?: string[] | undefined;
+    'overrides-supported'?: Overrides[] | undefined;
+    'page-delivery-default'?: PageDelivery | undefined;
+    'page-delivery-supported'?: PageDelivery[] | undefined;
+    'page-order-received-default'?: PageOrder | undefined;
+    'page-order-received-supported'?: PageOrder[] | undefined;
+    'page-ranges-supported'?: boolean | undefined;
+    'pages-per-subset-supported'?: boolean | undefined;
+    'parent-printers-supported'?: string[] | undefined;
+    'pclm-raster-back-side'?: 'flipped' | 'normal' | 'rotated' | undefined;
+    'pclm-source-resolution-supported'?: Resolution[] | undefined;
+    'pclm-strip-height-preferred'?: number[] | undefined;
+    'pclm-strip-height-supported'?: number | undefined;
+    'pdf-features-supported'?: Array<'prc' | 'u3d'> | undefined;
+    'pdf-k-octets-supported'?: string | undefined;
     'pdf-versions-supported'?: Array<
         | 'adobe-1.3'
         | 'adobe-1.4'
@@ -1046,577 +1046,577 @@ export interface PrinterDescription {
         | 'iso-32000-1_2008'
         | 'none'
         | 'pwg-5102.3'
-    >;
-    'pdl-init-file-default'?: PdlInitFile;
-    'pdl-init-file-entry-supported'?: string[];
-    'pdl-init-file-location-supported'?: string[];
-    'pdl-init-file-name-subdirectory-supported'?: boolean;
-    'pdl-init-file-name-supported'?: string[];
-    'pdl-init-file-supported'?: Array<'pdl-init-file-entry' | 'pdl-init-file-location' | 'pdl-init-file-name'>;
-    'pdl-override-guaranteed-supported'?: string[];
-    'pdl-override-supported'?: 'attempted' | 'guaranteed' | 'not-attempted';
-    'platform-shape'?: string;
-    'platform-temperature-default'?: number;
-    'platform-temperature-supported'?: Array<number | string>;
-    'preferred-attributes-supported'?: boolean;
-    'presentation-direction-number-up-default'?: PresentationDirectionNumberUp;
-    'presentation-direction-number-up-supported'?: PresentationDirectionNumberUp[];
-    'print-accuracy-supported'?: PrintAccuracySupported;
-    'print-base-default'?: PrintBase;
-    'print-base-supported'?: PrintBase[];
-    'print-color-mode-default'?: PrintColorMode;
-    'print-color-mode-supported'?: PrintColorMode[];
-    'print-content-optimize-default'?: PrintContentOptimize;
-    'print-content-optimize-supported'?: PrintContentOptimize[];
-    'print-objects-supported'?: Array<keyof PrintObjects>;
-    'print-quality-default'?: PrintQuality;
-    'print-quality-supported'?: PrintQuality[];
-    'print-rendering-intent-default'?: PrintRenderingIntent;
-    'print-rendering-intent-supported'?: PrintRenderingIntent[];
-    'print-scaling-default'?: PrintScaling;
-    'print-scaling-supported'?: PrintScaling[];
-    'print-supports-default'?: PrintSupports;
-    'print-supports-supported'?: PrintSupports[];
-    'printer-camera-image-uri'?: string[];
-    'printer-charge-info'?: string;
-    'printer-charge-info-uri'?: string;
-    'printer-contact-col'?: PrinterContact;
-    'printer-current-time'?: string;
-    'printer-device-id'?: string;
-    'printer-dns-sd-name'?: string;
-    'printer-driver-installer'?: string;
-    'printer-fax-log-uri'?: string;
-    'printer-fax-modem-info'?: string[];
-    'printer-fax-modem-name'?: string[];
-    'printer-fax-modem-number'?: string[];
-    'printer-geo-location'?: string;
-    'printer-get-attributes-supported'?: Array<keyof JobTemplateAttributes | keyof JobStatusAttributes>;
-    'printer-icc-profiles'?: PrinterIccProfiles[];
-    'printer-icons'?: string[];
-    'printer-info'?: string;
-    'printer-kind'?: PrinterKind[];
-    'printer-location'?: string;
-    'printer-make-and-model'?: string;
-    'printer-mandatory-job-attributes'?: Array<keyof JobTemplateAttributes | keyof JobStatusAttributes>;
-    'printer-more-info-manufacturer'?: string;
-    'printer-name'?: string;
-    'printer-organization'?: string[];
-    'printer-organizational-unit'?: string[];
-    'printer-privacy-policy-uri'?: string;
-    'printer-resolution-default'?: Resolution;
-    'printer-resolution-supported'?: Resolution;
-    'printer-static-resource-directory-uri'?: string;
-    'printer-static-resource-k-octets-supported'?: number;
-    'printer-strings-languages-supported'?: string[];
-    'printer-strings-uri'?: string;
-    'printer-volume-supported'?: PrinterVolumeSupported;
-    'printer-xri-supported'?: PrinterXri[];
-    'proof-print-default'?: ProofPrint;
-    'proof-print-supported'?: Array<'media' | 'media-col' | 'proof-print-copies'>;
-    'punching-hole-diameter-configured'?: number;
-    'punching-locations-supported'?: Array<number | string>;
-    'punching-offset-supported'?: Array<number | string>;
-    'punching-reference-edge-supported'?: ReferenceEdge[];
-    'pwg-raster-document-resolution-supported'?: Resolution[];
-    'pwg-raster-document-sheet-back'?: 'flipped' | 'manual-tumble' | 'normal' | 'rotated';
-    'pwg-raster-document-type-supported'?: PwgRasterDocumentTypeSupported[];
-    'pwg-safe-gcode-supported'?: string[];
-    'reference-uri-schemes-supported'?: UriSchemes[];
-    'repertoire-supported'?: string[];
-    'requesting-user-uri-supported'?: boolean;
-    'retry-interval-default'?: number;
-    'retry-interval-supported'?: string;
-    'retry-time-out-default'?: number;
-    'retry-time-out-supported'?: string;
-    'save-disposition-supported'?: SaveDisposition[];
-    'save-document-format-default'?: MimeMediaType;
-    'save-document-format-supported'?: MimeMediaType[];
-    'save-location-default'?: string;
-    'save-location-supported'?: string[];
-    'save-name-subdirectory-supported'?: boolean;
-    'save-name-supported'?: boolean;
-    'separator-sheets-default'?: SeparatorSheets;
-    'separator-sheets-supported'?: SeparatorSheetsType[];
-    'sides-default'?: Sides;
-    'sides-supported'?: Sides[];
-    'smi2699-auth-print-group'?: string;
-    'smi2699-auth-proxy-group'?: string;
-    'smi2699-device-command'?: string;
-    'smi2699-device-format'?: MimeMediaType;
-    'smi2699-device-name'?: string;
-    'smi2699-device-uri'?: string;
-    'stitching-angle-supported'?: Array<number | string>;
-    'stitching-locations-supported'?: Array<number | string>;
-    'stitching-method-supported'?: StitchingMethod[];
-    'stitching-offset-supported'?: Array<number | string>;
-    'stitching-reference-edge-supported'?: ReferenceEdge[];
-    'subject-supported'?: number;
-    'subordinate-printers-supported'?: string[];
-    'subscription-privacy-attributes'?: string[];
-    'subscription-privacy-scope'?: string;
-    'to-name-supported'?: number;
-    'trimming-offset-supported'?: Array<number | string>;
-    'trimming-reference-edge-supported'?: ReferenceEdge[];
-    'trimming-type-supported'?: TrimmingType[];
-    'trimming-when-supported'?: string[];
+    > | undefined;
+    'pdl-init-file-default'?: PdlInitFile | undefined;
+    'pdl-init-file-entry-supported'?: string[] | undefined;
+    'pdl-init-file-location-supported'?: string[] | undefined;
+    'pdl-init-file-name-subdirectory-supported'?: boolean | undefined;
+    'pdl-init-file-name-supported'?: string[] | undefined;
+    'pdl-init-file-supported'?: Array<'pdl-init-file-entry' | 'pdl-init-file-location' | 'pdl-init-file-name'> | undefined;
+    'pdl-override-guaranteed-supported'?: string[] | undefined;
+    'pdl-override-supported'?: 'attempted' | 'guaranteed' | 'not-attempted' | undefined;
+    'platform-shape'?: string | undefined;
+    'platform-temperature-default'?: number | undefined;
+    'platform-temperature-supported'?: Array<number | string> | undefined;
+    'preferred-attributes-supported'?: boolean | undefined;
+    'presentation-direction-number-up-default'?: PresentationDirectionNumberUp | undefined;
+    'presentation-direction-number-up-supported'?: PresentationDirectionNumberUp[] | undefined;
+    'print-accuracy-supported'?: PrintAccuracySupported | undefined;
+    'print-base-default'?: PrintBase | undefined;
+    'print-base-supported'?: PrintBase[] | undefined;
+    'print-color-mode-default'?: PrintColorMode | undefined;
+    'print-color-mode-supported'?: PrintColorMode[] | undefined;
+    'print-content-optimize-default'?: PrintContentOptimize | undefined;
+    'print-content-optimize-supported'?: PrintContentOptimize[] | undefined;
+    'print-objects-supported'?: Array<keyof PrintObjects> | undefined;
+    'print-quality-default'?: PrintQuality | undefined;
+    'print-quality-supported'?: PrintQuality[] | undefined;
+    'print-rendering-intent-default'?: PrintRenderingIntent | undefined;
+    'print-rendering-intent-supported'?: PrintRenderingIntent[] | undefined;
+    'print-scaling-default'?: PrintScaling | undefined;
+    'print-scaling-supported'?: PrintScaling[] | undefined;
+    'print-supports-default'?: PrintSupports | undefined;
+    'print-supports-supported'?: PrintSupports[] | undefined;
+    'printer-camera-image-uri'?: string[] | undefined;
+    'printer-charge-info'?: string | undefined;
+    'printer-charge-info-uri'?: string | undefined;
+    'printer-contact-col'?: PrinterContact | undefined;
+    'printer-current-time'?: string | undefined;
+    'printer-device-id'?: string | undefined;
+    'printer-dns-sd-name'?: string | undefined;
+    'printer-driver-installer'?: string | undefined;
+    'printer-fax-log-uri'?: string | undefined;
+    'printer-fax-modem-info'?: string[] | undefined;
+    'printer-fax-modem-name'?: string[] | undefined;
+    'printer-fax-modem-number'?: string[] | undefined;
+    'printer-geo-location'?: string | undefined;
+    'printer-get-attributes-supported'?: Array<keyof JobTemplateAttributes | keyof JobStatusAttributes> | undefined;
+    'printer-icc-profiles'?: PrinterIccProfiles[] | undefined;
+    'printer-icons'?: string[] | undefined;
+    'printer-info'?: string | undefined;
+    'printer-kind'?: PrinterKind[] | undefined;
+    'printer-location'?: string | undefined;
+    'printer-make-and-model'?: string | undefined;
+    'printer-mandatory-job-attributes'?: Array<keyof JobTemplateAttributes | keyof JobStatusAttributes> | undefined;
+    'printer-more-info-manufacturer'?: string | undefined;
+    'printer-name'?: string | undefined;
+    'printer-organization'?: string[] | undefined;
+    'printer-organizational-unit'?: string[] | undefined;
+    'printer-privacy-policy-uri'?: string | undefined;
+    'printer-resolution-default'?: Resolution | undefined;
+    'printer-resolution-supported'?: Resolution | undefined;
+    'printer-static-resource-directory-uri'?: string | undefined;
+    'printer-static-resource-k-octets-supported'?: number | undefined;
+    'printer-strings-languages-supported'?: string[] | undefined;
+    'printer-strings-uri'?: string | undefined;
+    'printer-volume-supported'?: PrinterVolumeSupported | undefined;
+    'printer-xri-supported'?: PrinterXri[] | undefined;
+    'proof-print-default'?: ProofPrint | undefined;
+    'proof-print-supported'?: Array<'media' | 'media-col' | 'proof-print-copies'> | undefined;
+    'punching-hole-diameter-configured'?: number | undefined;
+    'punching-locations-supported'?: Array<number | string> | undefined;
+    'punching-offset-supported'?: Array<number | string> | undefined;
+    'punching-reference-edge-supported'?: ReferenceEdge[] | undefined;
+    'pwg-raster-document-resolution-supported'?: Resolution[] | undefined;
+    'pwg-raster-document-sheet-back'?: 'flipped' | 'manual-tumble' | 'normal' | 'rotated' | undefined;
+    'pwg-raster-document-type-supported'?: PwgRasterDocumentTypeSupported[] | undefined;
+    'pwg-safe-gcode-supported'?: string[] | undefined;
+    'reference-uri-schemes-supported'?: UriSchemes[] | undefined;
+    'repertoire-supported'?: string[] | undefined;
+    'requesting-user-uri-supported'?: boolean | undefined;
+    'retry-interval-default'?: number | undefined;
+    'retry-interval-supported'?: string | undefined;
+    'retry-time-out-default'?: number | undefined;
+    'retry-time-out-supported'?: string | undefined;
+    'save-disposition-supported'?: SaveDisposition[] | undefined;
+    'save-document-format-default'?: MimeMediaType | undefined;
+    'save-document-format-supported'?: MimeMediaType[] | undefined;
+    'save-location-default'?: string | undefined;
+    'save-location-supported'?: string[] | undefined;
+    'save-name-subdirectory-supported'?: boolean | undefined;
+    'save-name-supported'?: boolean | undefined;
+    'separator-sheets-default'?: SeparatorSheets | undefined;
+    'separator-sheets-supported'?: SeparatorSheetsType[] | undefined;
+    'sides-default'?: Sides | undefined;
+    'sides-supported'?: Sides[] | undefined;
+    'smi2699-auth-print-group'?: string | undefined;
+    'smi2699-auth-proxy-group'?: string | undefined;
+    'smi2699-device-command'?: string | undefined;
+    'smi2699-device-format'?: MimeMediaType | undefined;
+    'smi2699-device-name'?: string | undefined;
+    'smi2699-device-uri'?: string | undefined;
+    'stitching-angle-supported'?: Array<number | string> | undefined;
+    'stitching-locations-supported'?: Array<number | string> | undefined;
+    'stitching-method-supported'?: StitchingMethod[] | undefined;
+    'stitching-offset-supported'?: Array<number | string> | undefined;
+    'stitching-reference-edge-supported'?: ReferenceEdge[] | undefined;
+    'subject-supported'?: number | undefined;
+    'subordinate-printers-supported'?: string[] | undefined;
+    'subscription-privacy-attributes'?: string[] | undefined;
+    'subscription-privacy-scope'?: string | undefined;
+    'to-name-supported'?: number | undefined;
+    'trimming-offset-supported'?: Array<number | string> | undefined;
+    'trimming-reference-edge-supported'?: ReferenceEdge[] | undefined;
+    'trimming-type-supported'?: TrimmingType[] | undefined;
+    'trimming-when-supported'?: string[] | undefined;
     'uri-authentication-supported'?: Array<
         'basic' | 'certificate' | 'digest' | 'negotiate' | 'none' | 'requesting-user-name'
-    >;
-    'uri-security-supported'?: Array<'none' | 'ssl3' | 'tls'>;
-    'user-defined-values-supported'?: string[];
-    'which-jobs-supported'?: WhichJobs[];
-    'x-image-position-default'?: XImagePosition;
-    'x-image-position-supported'?: XImagePosition[];
-    'x-image-shift-default'?: number;
-    'x-image-shift-supported'?: string;
-    'x-side1-image-shift-default'?: number;
-    'x-side1-image-shift-supported'?: string;
-    'x-side2-image-shift-default'?: number;
-    'x-side2-image-shift-supported'?: string;
-    'y-image-position-default'?: YImagePosition;
-    'y-image-position-supported'?: YImagePosition[];
-    'y-image-shift-default'?: number;
-    'y-image-shift-supported'?: string;
-    'y-side1-image-shift-default'?: number;
-    'y-side1-image-shift-supported'?: string;
-    'y-side2-image-shift-default'?: number;
-    'y-side2-image-shift-supported'?: string;
+    > | undefined;
+    'uri-security-supported'?: Array<'none' | 'ssl3' | 'tls'> | undefined;
+    'user-defined-values-supported'?: string[] | undefined;
+    'which-jobs-supported'?: WhichJobs[] | undefined;
+    'x-image-position-default'?: XImagePosition | undefined;
+    'x-image-position-supported'?: XImagePosition[] | undefined;
+    'x-image-shift-default'?: number | undefined;
+    'x-image-shift-supported'?: string | undefined;
+    'x-side1-image-shift-default'?: number | undefined;
+    'x-side1-image-shift-supported'?: string | undefined;
+    'x-side2-image-shift-default'?: number | undefined;
+    'x-side2-image-shift-supported'?: string | undefined;
+    'y-image-position-default'?: YImagePosition | undefined;
+    'y-image-position-supported'?: YImagePosition[] | undefined;
+    'y-image-shift-default'?: number | undefined;
+    'y-image-shift-supported'?: string | undefined;
+    'y-side1-image-shift-default'?: number | undefined;
+    'y-side1-image-shift-supported'?: string | undefined;
+    'y-side2-image-shift-default'?: number | undefined;
+    'y-side2-image-shift-supported'?: string | undefined;
 }
 
 export interface PrinterStatus {
-    'chamber-humidity-current'?: number;
-    'chamber-temperature-current'?: number;
-    'device-service-count'?: number;
-    'device-uuid'?: string;
-    'document-format-varying-attributes'?: Array<keyof JobTemplateAttributes | 'none'>;
-    'job-settable-attributes-supported'?: Array<keyof JobTemplateAttributes>;
-    'pages-per-minute'?: number;
-    'pages-per-minute-color'?: number;
-    'printer-alert'?: string[];
-    'printer-alert-description'?: string[];
-    'printer-camera-image-uri'?: string[];
-    'printer-config-change-date-time'?: string;
-    'printer-config-change-time'?: number;
-    'printer-config-changes'?: number;
-    'printer-detailed-status-messages'?: string[];
-    'printer-finisher'?: string[];
-    'printer-finisher-description'?: string[];
-    'printer-finisher-supplies'?: string[];
-    'printer-finisher-supplies-description'?: string[];
-    'printer-id'?: number;
-    'printer-impressions-completed'?: number;
-    'printer-impressions-completed-col'?: Impressions;
-    'printer-input-tray'?: string[];
-    'printer-is-accepting-jobs'?: boolean;
-    'printer-media-sheets-completed'?: number;
-    'printer-media-sheets-completed-col'?: MediaSheets;
-    'printer-message-date-time'?: string;
-    'printer-message-from-operator'?: string;
-    'printer-message-time'?: number;
-    'printer-more-info'?: string;
-    'printer-output-tray'?: string[];
-    'printer-pages-completed'?: number;
-    'printer-pages-completed-col'?: Pages;
-    'printer-service-type'?: PrinterServiceType;
-    'printer-settable-attributes-supported'?: Array<keyof JobTemplateAttributes | 'none'>;
-    'printer-state'?: PrinterState;
-    'printer-state-change-date-time'?: string;
-    'printer-state-change-time'?: number;
-    'printer-state-message'?: string;
-    'printer-state-reasons'?: PrinterStateReasons[];
-    'printer-static-resource-k-octets-free'?: number;
-    'printer-supply'?: string[];
-    'printer-supply-description'?: string[];
-    'printer-supply-info-uri'?: string;
-    'printer-up-time'?: number;
-    'printer-uri-supported'?: string[];
-    'printer-uuid'?: string;
-    'queued-job-count'?: number;
-    'xri-authentication-supported'?: XriAuthentication[];
-    'xri-security-supported'?: XriSecurity[];
-    'xri-uri-scheme-supported'?: UriSchemes[];
+    'chamber-humidity-current'?: number | undefined;
+    'chamber-temperature-current'?: number | undefined;
+    'device-service-count'?: number | undefined;
+    'device-uuid'?: string | undefined;
+    'document-format-varying-attributes'?: Array<keyof JobTemplateAttributes | 'none'> | undefined;
+    'job-settable-attributes-supported'?: Array<keyof JobTemplateAttributes> | undefined;
+    'pages-per-minute'?: number | undefined;
+    'pages-per-minute-color'?: number | undefined;
+    'printer-alert'?: string[] | undefined;
+    'printer-alert-description'?: string[] | undefined;
+    'printer-camera-image-uri'?: string[] | undefined;
+    'printer-config-change-date-time'?: string | undefined;
+    'printer-config-change-time'?: number | undefined;
+    'printer-config-changes'?: number | undefined;
+    'printer-detailed-status-messages'?: string[] | undefined;
+    'printer-finisher'?: string[] | undefined;
+    'printer-finisher-description'?: string[] | undefined;
+    'printer-finisher-supplies'?: string[] | undefined;
+    'printer-finisher-supplies-description'?: string[] | undefined;
+    'printer-id'?: number | undefined;
+    'printer-impressions-completed'?: number | undefined;
+    'printer-impressions-completed-col'?: Impressions | undefined;
+    'printer-input-tray'?: string[] | undefined;
+    'printer-is-accepting-jobs'?: boolean | undefined;
+    'printer-media-sheets-completed'?: number | undefined;
+    'printer-media-sheets-completed-col'?: MediaSheets | undefined;
+    'printer-message-date-time'?: string | undefined;
+    'printer-message-from-operator'?: string | undefined;
+    'printer-message-time'?: number | undefined;
+    'printer-more-info'?: string | undefined;
+    'printer-output-tray'?: string[] | undefined;
+    'printer-pages-completed'?: number | undefined;
+    'printer-pages-completed-col'?: Pages | undefined;
+    'printer-service-type'?: PrinterServiceType | undefined;
+    'printer-settable-attributes-supported'?: Array<keyof JobTemplateAttributes | 'none'> | undefined;
+    'printer-state'?: PrinterState | undefined;
+    'printer-state-change-date-time'?: string | undefined;
+    'printer-state-change-time'?: number | undefined;
+    'printer-state-message'?: string | undefined;
+    'printer-state-reasons'?: PrinterStateReasons[] | undefined;
+    'printer-static-resource-k-octets-free'?: number | undefined;
+    'printer-supply'?: string[] | undefined;
+    'printer-supply-description'?: string[] | undefined;
+    'printer-supply-info-uri'?: string | undefined;
+    'printer-up-time'?: number | undefined;
+    'printer-uri-supported'?: string[] | undefined;
+    'printer-uuid'?: string | undefined;
+    'queued-job-count'?: number | undefined;
+    'xri-authentication-supported'?: XriAuthentication[] | undefined;
+    'xri-security-supported'?: XriSecurity[] | undefined;
+    'xri-uri-scheme-supported'?: UriSchemes[] | undefined;
 }
 
 export interface DestionationAccesses {
-    'access-oauth-token'?: string[];
-    'access-oauth-uri'?: string;
-    'access-password'?: string;
-    'access-pin'?: string;
-    'access-user-name'?: string;
+    'access-oauth-token'?: string[] | undefined;
+    'access-oauth-uri'?: string | undefined;
+    'access-password'?: string | undefined;
+    'access-pin'?: string | undefined;
+    'access-user-name'?: string | undefined;
 }
 
 export interface DocumentAccess {
-    'access-oauth-token'?: string[];
-    'access-oauth-uri'?: string;
-    'access-password'?: string;
-    'access-pin'?: string;
-    'access-user-name'?: string;
+    'access-oauth-token'?: string[] | undefined;
+    'access-oauth-uri'?: string | undefined;
+    'access-password'?: string | undefined;
+    'access-pin'?: string | undefined;
+    'access-user-name'?: string | undefined;
 }
 
 export interface DocumentFormatDetails {
-    'document-format'?: MimeMediaType;
-    'document-format-device-id'?: string;
-    'document-format-version'?: string;
-    'document-natural-language'?: string[];
-    'document-source-application-name'?: string;
-    'document-source-application-version'?: string;
-    'document-source-os-name'?: string;
-    'document-source-os-version'?: string;
+    'document-format'?: MimeMediaType | undefined;
+    'document-format-device-id'?: string | undefined;
+    'document-format-version'?: string | undefined;
+    'document-natural-language'?: string[] | undefined;
+    'document-source-application-name'?: string | undefined;
+    'document-source-application-version'?: string | undefined;
+    'document-source-os-name'?: string | undefined;
+    'document-source-os-version'?: string | undefined;
 }
 
 export interface InputAttributes {
-    'input-auto-scaling'?: boolean;
-    'input-auto-skew-correction'?: boolean;
-    'input-brightness'?: number;
-    'input-color-mode'?: InputColorMode;
-    'input-content-type'?: InputContentType;
-    'input-contrast'?: number;
-    'input-film-scan-mode'?: InputFilmScanMode;
-    'input-images-to-transfer'?: number;
-    'input-media'?: MediaName | MediaSizeName;
-    'input-orientation-requested'?: OrientationRequested;
-    'input-quality'?: PrintQuality;
-    'input-resolution'?: Resolution;
-    'input-scaling-height'?: number;
-    'input-scaling-width'?: number;
-    'input-scan-regions'?: PPScanRegions[];
-    'input-sharpness'?: number;
-    'input-sides'?: Sides;
-    'input-source'?: InputSource;
+    'input-auto-scaling'?: boolean | undefined;
+    'input-auto-skew-correction'?: boolean | undefined;
+    'input-brightness'?: number | undefined;
+    'input-color-mode'?: InputColorMode | undefined;
+    'input-content-type'?: InputContentType | undefined;
+    'input-contrast'?: number | undefined;
+    'input-film-scan-mode'?: InputFilmScanMode | undefined;
+    'input-images-to-transfer'?: number | undefined;
+    'input-media'?: MediaName | MediaSizeName | undefined;
+    'input-orientation-requested'?: OrientationRequested | undefined;
+    'input-quality'?: PrintQuality | undefined;
+    'input-resolution'?: Resolution | undefined;
+    'input-scaling-height'?: number | undefined;
+    'input-scaling-width'?: number | undefined;
+    'input-scan-regions'?: PPScanRegions[] | undefined;
+    'input-sharpness'?: number | undefined;
+    'input-sides'?: Sides | undefined;
+    'input-source'?: InputSource | undefined;
 }
 
 export interface PPScanRegions {
-    'x-dimension'?: number;
-    'x-origin'?: number;
-    'y-dimension'?: number;
-    'y-origin'?: number;
+    'x-dimension'?: number | undefined;
+    'x-origin'?: number | undefined;
+    'y-dimension'?: number | undefined;
+    'y-origin'?: number | undefined;
 }
 
 export interface OutputAttributes {
-    'noise-removal'?: number;
-    'output-compression-quality-factor'?: number;
+    'noise-removal'?: number | undefined;
+    'output-compression-quality-factor'?: number | undefined;
 }
 
 export interface DestinationUriReady {
-    'destination-attributes'?: object[];
-    'destination-attributes-supported'?: string[];
-    'destination-info'?: string;
-    'destination-is-directory'?: boolean;
-    'destination-mandatory-access-attributes'?: string[];
-    'destination-name'?: string;
-    'destination-oauth-scope'?: string[];
-    'destination-oauth-token'?: string[];
-    'destination-oauth-uri'?: string;
-    'destination-uri'?: string;
+    'destination-attributes'?: object[] | undefined;
+    'destination-attributes-supported'?: string[] | undefined;
+    'destination-info'?: string | undefined;
+    'destination-is-directory'?: boolean | undefined;
+    'destination-mandatory-access-attributes'?: string[] | undefined;
+    'destination-name'?: string | undefined;
+    'destination-oauth-scope'?: string[] | undefined;
+    'destination-oauth-token'?: string[] | undefined;
+    'destination-oauth-uri'?: string | undefined;
+    'destination-uri'?: string | undefined;
 }
 
 export interface InputScanRegion {
-    'x-dimension'?: string;
-    'x-origin'?: string;
-    'y-dimension'?: string;
-    'y-origin'?: string;
+    'x-dimension'?: string | undefined;
+    'x-origin'?: string | undefined;
+    'y-dimension'?: string | undefined;
+    'y-origin'?: string | undefined;
 }
 
 export interface JobConstraintsSupported {
-    'resolver-name'?: string;
+    'resolver-name'?: string | undefined;
 }
 
 export interface JobPresetsSupported {
-    'preset-name'?: string;
+    'preset-name'?: string | undefined;
 }
 
 export interface JobResolversSupported {
-    'resolver-name'?: string;
+    'resolver-name'?: string | undefined;
 }
 
 export interface JobTriggersSupported {
-    'preset-name'?: string;
+    'preset-name'?: string | undefined;
 }
 
 export interface MediaSizeSupported {
-    'x-dimension'?: number | string;
-    'y-dimension'?: number | string;
+    'x-dimension'?: number | string | undefined;
+    'y-dimension'?: number | string | undefined;
 }
 
 export interface PrintAccuracySupported {
-    'accuracy-units'?: AccuracyUnits;
-    'x-accuracy'?: number;
-    'y-accuracy'?: number;
-    'z-accuracy'?: number;
+    'accuracy-units'?: AccuracyUnits | undefined;
+    'x-accuracy'?: number | undefined;
+    'y-accuracy'?: number | undefined;
+    'z-accuracy'?: number | undefined;
 }
 
 export interface PrinterContact {
-    'contact-name'?: string;
-    'contact-uri'?: string;
-    'contact-vcard'?: string[];
+    'contact-name'?: string | undefined;
+    'contact-uri'?: string | undefined;
+    'contact-vcard'?: string[] | undefined;
 }
 
 export interface PrinterIccProfiles {
-    'profile-name'?: string;
-    'profile-url'?: string;
+    'profile-name'?: string | undefined;
+    'profile-url'?: string | undefined;
 }
 
 export interface PrinterVolumeSupported {
-    'x-dimension'?: number;
-    'y-dimension'?: number;
-    'z-dimension'?: number;
+    'x-dimension'?: number | undefined;
+    'y-dimension'?: number | undefined;
+    'z-dimension'?: number | undefined;
 }
 
 export interface PrinterXri {
-    'xri-authentication'?: XriAuthentication;
-    'xri-security'?: XriSecurity;
-    'xri-uri'?: string;
+    'xri-authentication'?: XriAuthentication | undefined;
+    'xri-security'?: XriSecurity | undefined;
+    'xri-uri'?: string | undefined;
 }
 
 export interface DestinationStatuses {
-    'destination-uri'?: string;
-    'images-completed'?: number;
-    'transmission-status'?: TransmissionStatus;
+    'destination-uri'?: string | undefined;
+    'images-completed'?: number | undefined;
+    'transmission-status'?: TransmissionStatus | undefined;
 }
 
 export interface Impressions {
-    blank?: number;
-    'blank-two-sided'?: number;
-    'full-color'?: number;
-    'full-color-two-sided'?: number;
-    'highlight-color'?: number;
-    'highlight-color-two-sided'?: number;
-    monochrome?: number;
-    'monochrome-two-sided'?: number;
+    blank?: number | undefined;
+    'blank-two-sided'?: number | undefined;
+    'full-color'?: number | undefined;
+    'full-color-two-sided'?: number | undefined;
+    'highlight-color'?: number | undefined;
+    'highlight-color-two-sided'?: number | undefined;
+    monochrome?: number | undefined;
+    'monochrome-two-sided'?: number | undefined;
 }
 
 export interface MediaSheets {
-    blank?: number;
-    'full-color'?: number;
-    'highlight-color'?: number;
-    monochrome?: number;
+    blank?: number | undefined;
+    'full-color'?: number | undefined;
+    'highlight-color'?: number | undefined;
+    monochrome?: number | undefined;
 }
 
 export interface Pages {
-    'full-color'?: number;
-    monochrome?: number;
+    'full-color'?: number | undefined;
+    monochrome?: number | undefined;
 }
 
 export interface Cover {
-    'cover-type'?: CoverType;
-    media?: Media;
-    'media-col'?: MediaInterface[];
+    'cover-type'?: CoverType | undefined;
+    media?: Media | undefined;
+    'media-col'?: MediaInterface[] | undefined;
 }
 
 export interface CoverSheetInfo {
-    'from-name'?: string;
-    logo?: string;
-    message?: string;
-    'organization-name'?: string;
-    subject?: string;
-    'to-name'?: string;
+    'from-name'?: string | undefined;
+    logo?: string | undefined;
+    message?: string | undefined;
+    'organization-name'?: string | undefined;
+    subject?: string | undefined;
+    'to-name'?: string | undefined;
 }
 
 export interface DestinationUris {
-    'destination-attributes'?: object[];
-    'destination-uri'?: string;
-    'post-dial-string'?: string;
-    'pre-dial-string'?: string;
-    't33-subaddress'?: number;
-    'feed-orientation'?: FeedOrientation;
+    'destination-attributes'?: object[] | undefined;
+    'destination-uri'?: string | undefined;
+    'post-dial-string'?: string | undefined;
+    'pre-dial-string'?: string | undefined;
+    't33-subaddress'?: number | undefined;
+    'feed-orientation'?: FeedOrientation | undefined;
 }
 
 export interface FinishingBailing {
-    'baling-type'?: BalingType;
-    'baling-when'?: BalingWhen;
+    'baling-type'?: BalingType | undefined;
+    'baling-when'?: BalingWhen | undefined;
 }
 
 export interface FinishingBinding {
-    'binding-reference-edge'?: ReferenceEdge;
-    'binding-type'?: BindingType;
+    'binding-reference-edge'?: ReferenceEdge | undefined;
+    'binding-type'?: BindingType | undefined;
 }
 
 export interface FinishingCoating {
-    'coating-sides'?: FinishingSides;
-    'coating-type'?: CoatingType;
+    'coating-sides'?: FinishingSides | undefined;
+    'coating-type'?: CoatingType | undefined;
 }
 
 export interface FinishingCovering {
-    'covering-name'?: string;
+    'covering-name'?: string | undefined;
 }
 
 export interface FinishingFolding {
-    'folding-direction'?: FoldingDirection;
-    'folding-offset'?: number;
-    'folding-reference-edge'?: ReferenceEdge;
+    'folding-direction'?: FoldingDirection | undefined;
+    'folding-offset'?: number | undefined;
+    'folding-reference-edge'?: ReferenceEdge | undefined;
 }
 
 export interface FinishingLaminating {
-    'laminating-sides'?: FinishingSides;
-    'laminating-type'?: LaminatingType;
+    'laminating-sides'?: FinishingSides | undefined;
+    'laminating-type'?: LaminatingType | undefined;
 }
 
 export interface FinishingPunching {
-    'punching-locations'?: number[];
-    'punching-offset'?: number;
-    'punching-reference-edge'?: ReferenceEdge;
+    'punching-locations'?: number[] | undefined;
+    'punching-offset'?: number | undefined;
+    'punching-reference-edge'?: ReferenceEdge | undefined;
 }
 
 export interface FinishingStitching {
-    'stitching-angle'?: number;
-    'stitching-locations'?: number[];
-    'stitching-method'?: StitchingMethod;
-    'stitching-offset'?: number;
-    'stitching-reference-edge'?: ReferenceEdge;
+    'stitching-angle'?: number | undefined;
+    'stitching-locations'?: number[] | undefined;
+    'stitching-method'?: StitchingMethod | undefined;
+    'stitching-offset'?: number | undefined;
+    'stitching-reference-edge'?: ReferenceEdge | undefined;
 }
 
 export interface FinishingTrimming {
-    'trimming-offset'?: number;
-    'trimming-reference-edge'?: ReferenceEdge;
-    'trimming-type'?: TrimmingType;
-    'trimming-when'?: string;
+    'trimming-offset'?: number | undefined;
+    'trimming-reference-edge'?: ReferenceEdge | undefined;
+    'trimming-type'?: TrimmingType | undefined;
+    'trimming-when'?: string | undefined;
 }
 
 export interface FinishingsInterface {
-    baling?: FinishingBailing;
-    binding?: FinishingBinding;
-    coating?: FinishingCoating;
-    covering?: FinishingCovering;
-    'finishing-template'?: Finishings;
-    folding?: FinishingFolding[];
-    'imposition-template'?: ImpositionTemplate;
-    laminating?: FinishingLaminating;
-    'media-sheets-supported'?: string;
-    'media-size'?: MediaSize;
-    'media-size-name'?: string;
-    punching?: FinishingPunching;
-    stitching?: FinishingStitching;
-    trimming?: FinishingTrimming[];
+    baling?: FinishingBailing | undefined;
+    binding?: FinishingBinding | undefined;
+    coating?: FinishingCoating | undefined;
+    covering?: FinishingCovering | undefined;
+    'finishing-template'?: Finishings | undefined;
+    folding?: FinishingFolding[] | undefined;
+    'imposition-template'?: ImpositionTemplate | undefined;
+    laminating?: FinishingLaminating | undefined;
+    'media-sheets-supported'?: string | undefined;
+    'media-size'?: MediaSize | undefined;
+    'media-size-name'?: string | undefined;
+    punching?: FinishingPunching | undefined;
+    stitching?: FinishingStitching | undefined;
+    trimming?: FinishingTrimming[] | undefined;
 }
 
 export interface InsertSheet {
-    'insert-after-page-number'?: number;
-    'insert-count'?: number;
-    media?: Media;
-    'media-col'?: MediaInterface;
+    'insert-after-page-number'?: number | undefined;
+    'insert-count'?: number | undefined;
+    media?: Media | undefined;
+    'media-col'?: MediaInterface | undefined;
 }
 
 export interface JobAccontingSheets {
-    'job-accounting-output-bin'?: OutputBin;
-    'job-accounting-sheets-type'?: 'none' | 'standard';
-    media?: Media;
-    'media-col'?: MediaInterface;
+    'job-accounting-output-bin'?: OutputBin | undefined;
+    'job-accounting-sheets-type'?: 'none' | 'standard' | undefined;
+    media?: Media | undefined;
+    'media-col'?: MediaInterface | undefined;
 }
 
 export interface JobErrorSheet {
-    'job-error-sheet-type'?: 'none' | 'standard';
-    'job-error-sheet-when'?: 'always' | 'on-error';
-    media?: Media;
-    'media-col'?: MediaInterface;
+    'job-error-sheet-type'?: 'none' | 'standard' | undefined;
+    'job-error-sheet-when'?: 'always' | 'on-error' | undefined;
+    media?: Media | undefined;
+    'media-col'?: MediaInterface | undefined;
 }
 
 export interface JobSaveDisposition {
-    'save-disposition'?: SaveDisposition;
-    'save-info'?: SaveInfo[];
+    'save-disposition'?: SaveDisposition | undefined;
+    'save-info'?: SaveInfo[] | undefined;
 }
 
 export interface SaveInfo {
-    'save-document-format'?: MimeMediaType;
-    'save-location'?: string;
-    'save-name'?: string;
+    'save-document-format'?: MimeMediaType | undefined;
+    'save-location'?: string | undefined;
+    'save-name'?: string | undefined;
 }
 
 export interface JobSheetsInterface {
-    'job-sheets'?: JobSheets;
-    media?: Media;
-    'media-col'?: MediaInterface;
+    'job-sheets'?: JobSheets | undefined;
+    media?: Media | undefined;
+    'media-col'?: MediaInterface | undefined;
 }
 
 export interface Materials {
-    'material-amount'?: number;
-    'material-amount-units'?: MaterialAmountUnits;
-    'material-color'?: string;
-    'material-diameter'?: number;
-    'material-diameter-tolerance'?: number;
-    'material-fill-density'?: number;
-    'material-key'?: string;
-    'material-name'?: string;
-    'material-nozzle-diameter'?: number;
-    'material-purpose'?: MaterialPurpose[];
-    'material-rate'?: number;
-    'material-rate-units'?: MaterialRateUnits;
-    'material-retraction'?: boolean;
-    'material-shell-thickness'?: number;
-    'material-temperature'?: number;
-    'material-type'?: MaterialType;
+    'material-amount'?: number | undefined;
+    'material-amount-units'?: MaterialAmountUnits | undefined;
+    'material-color'?: string | undefined;
+    'material-diameter'?: number | undefined;
+    'material-diameter-tolerance'?: number | undefined;
+    'material-fill-density'?: number | undefined;
+    'material-key'?: string | undefined;
+    'material-name'?: string | undefined;
+    'material-nozzle-diameter'?: number | undefined;
+    'material-purpose'?: MaterialPurpose[] | undefined;
+    'material-rate'?: number | undefined;
+    'material-rate-units'?: MaterialRateUnits | undefined;
+    'material-retraction'?: boolean | undefined;
+    'material-shell-thickness'?: number | undefined;
+    'material-temperature'?: number | undefined;
+    'material-type'?: MaterialType | undefined;
 }
 
 export interface MediaInterface {
-    'media-back-coating'?: MediaCoating;
-    'media-bottom-margin'?: number;
-    'media-color'?: MediaColor;
-    'media-front-coating'?: MediaCoating;
-    'media-grain'?: MediaGrain;
-    'media-hole-count'?: number;
-    'media-info'?: string;
-    'media-key'?: MediaSizeName | MediaName;
-    'media-left-margin'?: number;
-    'media-order-count'?: number;
-    'media-pre-printed'?: MediaPrePrinted;
-    'media-recycled'?: MediaPrePrinted;
-    'media-right-margin'?: number;
-    'media-size'?: MediaSize;
-    'media-size-name'?: MediaSizeName;
-    'media-source'?: MediaSource;
-    'media-thickness'?: number;
-    'media-tooth'?: MediaTooth;
-    'media-top-margin'?: number;
-    'media-type'?: MediaType;
-    'media-weight-metric'?: number;
+    'media-back-coating'?: MediaCoating | undefined;
+    'media-bottom-margin'?: number | undefined;
+    'media-color'?: MediaColor | undefined;
+    'media-front-coating'?: MediaCoating | undefined;
+    'media-grain'?: MediaGrain | undefined;
+    'media-hole-count'?: number | undefined;
+    'media-info'?: string | undefined;
+    'media-key'?: MediaSizeName | MediaName | undefined;
+    'media-left-margin'?: number | undefined;
+    'media-order-count'?: number | undefined;
+    'media-pre-printed'?: MediaPrePrinted | undefined;
+    'media-recycled'?: MediaPrePrinted | undefined;
+    'media-right-margin'?: number | undefined;
+    'media-size'?: MediaSize | undefined;
+    'media-size-name'?: MediaSizeName | undefined;
+    'media-source'?: MediaSource | undefined;
+    'media-thickness'?: number | undefined;
+    'media-tooth'?: MediaTooth | undefined;
+    'media-top-margin'?: number | undefined;
+    'media-type'?: MediaType | undefined;
+    'media-weight-metric'?: number | undefined;
 }
 
 export interface MediaSize {
-    'x-dimension'?: number;
-    'y-dimension'?: number;
+    'x-dimension'?: number | undefined;
+    'y-dimension'?: number | undefined;
 }
 
 export interface PdlInitFile {
-    'pdl-init-file-entry'?: string;
-    'pdl-init-file-location'?: string;
-    'pdl-init-file-name'?: string;
+    'pdl-init-file-entry'?: string | undefined;
+    'pdl-init-file-location'?: string | undefined;
+    'pdl-init-file-name'?: string | undefined;
 }
 
 export interface PrintAccuracy {
-    'accuracy-units'?: AccuracyUnits;
-    'x-accuracy'?: number;
-    'y-accuracy'?: number;
-    'z-accuracy'?: number;
+    'accuracy-units'?: AccuracyUnits | undefined;
+    'x-accuracy'?: number | undefined;
+    'y-accuracy'?: number | undefined;
+    'z-accuracy'?: number | undefined;
 }
 
 export interface PrintObjects {
-    'document-number'?: number;
-    'object-offset'?: ObjectOffset;
-    'object-size'?: ObjectSize;
-    'object-uuid'?: string;
+    'document-number'?: number | undefined;
+    'object-offset'?: ObjectOffset | undefined;
+    'object-size'?: ObjectSize | undefined;
+    'object-uuid'?: string | undefined;
 }
 
 export interface ObjectOffset {
-    'x-offset'?: number;
-    'y-offset'?: number;
-    'z-offset'?: number;
+    'x-offset'?: number | undefined;
+    'y-offset'?: number | undefined;
+    'z-offset'?: number | undefined;
 }
 
 export interface ObjectSize {
-    'x-dimension'?: number;
-    'y-dimension'?: number;
-    'z-dimension'?: number;
+    'x-dimension'?: number | undefined;
+    'y-dimension'?: number | undefined;
+    'z-dimension'?: number | undefined;
 }
 
 export interface ProofPrint {
-    media?: Media;
-    'media-col'?: MediaInterface;
-    'proof-print-copies'?: number;
+    media?: Media | undefined;
+    'media-col'?: MediaInterface | undefined;
+    'proof-print-copies'?: number | undefined;
 }
 
 export interface SeparatorSheets {
-    media?: Media;
-    'media-col'?: MediaInterface;
-    'separator-sheets-type'?: SeparatorSheetsType[];
+    media?: Media | undefined;
+    'media-col'?: MediaInterface | undefined;
+    'separator-sheets-type'?: SeparatorSheetsType[] | undefined;
 }
 
 export type StatusCode =

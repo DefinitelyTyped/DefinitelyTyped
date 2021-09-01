@@ -99,4 +99,13 @@ function shallowWithIntlTests() {
   stateComponentWrapper.state().constructed; // $ExpectType boolean
 }
 
+function getIntlTests() {
+  intl.getIntl(); // $ExpectType IntlProvider
+}
+
+function loadTranslationObjectTests() {
+  intl.loadTranslationObject({ A: 'aaaa', C: 'cccc' }).A; // $ExpectType string
+  intl.loadTranslationObject({ C: 'cccc', B: 'bbbb' }).B; // $ExpectType string
+}
+
 intl.setLocale('pl');

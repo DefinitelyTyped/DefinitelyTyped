@@ -65,7 +65,7 @@ interface DecodeArgsWithSecret extends DecodeArgs {
 interface EncodeArgs {
     code: string;
     secret: string;
-    identifier?: number;
+    identifier?: number | undefined;
     /**
      * This can be an object: { attribute_name: attribute_value, ... }, 
      * an array within an array: [ [ attribute_name, attribute_value ], ... ],
@@ -74,7 +74,7 @@ interface EncodeArgs {
      * Tag field-attributes can be specified like so: [ [ attribute_name, tag_number, attribute_value ] ... ]
      **/
     attributes?: any;
-    add_message_authenticator?: boolean;
+    add_message_authenticator?: boolean | undefined;
 }
 
 /**

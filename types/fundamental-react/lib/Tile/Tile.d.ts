@@ -1,36 +1,31 @@
-export type TileProps = {
-    active?: boolean,
-    backgroundImage?: string,
-    className?: string,
-    disabled?: boolean,
-    disableStyles?: boolean,
-    productTile?: boolean,
-    tabIndex?: number,
-    onClick?: (...args: any[]) => any
-} & { [x: string]: any };
+import * as React from "react";
 
-export type TileActionsProps = {
-    className?: string;
+export type TileProps = {
+    className?: string | undefined;
+    isDouble?: boolean | undefined;
+    size?: "s" | undefined;
+    onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
 } & { [x: string]: any };
 
 export type TileContentProps = {
-    title: string,
-    className?: string,
-    headingLevel?: 2 | 3 | 4 | 5 | 6;
-    productTile?: boolean,
-    titleProps?: any
+    className?: string | undefined;
+    twoColumns?: boolean | undefined,
 } & { [x: string]: any };
 
-export type TileMediaProps = {
-    className?: string;
-    productTile?: boolean;
+export type TileFooterProps = {
+    className?: string | undefined;
 } & { [x: string]: any };
 
-declare const Tile: React.FunctionComponent<TileProps> & {
+export type TileHeaderProps = {
+    className?: string | undefined;
+    subtitle?: string | undefined;
+} & { [x: string]: any };
+
+declare const Tile: React.FC<TileProps> & {
     displayName: "Tile";
-    Actions: React.FunctionComponent<TileActionsProps> & {displayName: "Tile.Actions"};
-    Content: React.FunctionComponent<TileContentProps> & {displayName: "Tile.Content"};
-    Media: React.FunctionComponent<TileMediaProps> & {displayName: "Tile.Media"};
+    Content: React.FC<TileContentProps> & {displayName: "Tile.Content"};
+    Footer: React.FC<TileFooterProps> & {displayName: "Tile.Footer"};
+    Header: React.FC<TileHeaderProps> & {displayName: "Tile.Header"};
 };
 
 export default Tile;

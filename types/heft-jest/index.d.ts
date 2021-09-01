@@ -3,7 +3,7 @@
 // Definitions by: Pete Gonzalez <https://github.com/octogonz>
 //                 Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.8
 
 /// <reference types="jest" />
 /// <reference path="./mocked.d.ts" />

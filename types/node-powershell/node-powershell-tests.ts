@@ -1,33 +1,38 @@
-import nodePowershell = require('node-powershell');
+import nodePowershell = require("node-powershell");
 
-var options: nodePowershell.ShellOptions = {
-    debugMsg: true
+// Set base options
+const options: nodePowershell.ShellOptions = {
+    debugMsg: true,
 };
 
 // Initialization
-var ps = new nodePowershell(options);
+const powershell = new nodePowershell(options);
 
-// Methods
-ps.addCommand('Write-Host node-powershell', [
-    { name: 'foregroundcolor', value: 'red' },
-    { name: 'nonewline' } //switch
-]).then((cmdsArr: string[]) => { }).catch((err: any) => { });
+async function run() {
+    // Adding commands
+    await powershell.addCommand('Write-Host "node-powershell is pretty awesome"');
 
-ps.addCommand('Write-Host node-powershell', [
-    { foregroundcolor: 'red' }
-]);
+    // Adding parameters
+    // $ExpectType string[]
+    const afterParameters = await powershell.addParameters([
+        { name: "ForegroundColor", value: "Red" },
+        { name: "NoNewLine", value: true },
+    ]);
 
-ps.invoke().then((output: string) => { }).catch((err: any) => { });
+    // $ExpectType string
+    const output = await powershell.invoke();
 
-ps.dispose().then((code: string) => { }).catch((err: any) => { });
+    // $ExpectType string
+    const disposedCode = await powershell.dispose();
+}
 
-// Properties
-console.log(ps.history);
+// $ExpectType unknown[]
+const history = powershell.history;
 
-ps.streams.stdin.write('data');
-ps.streams.stdout.on('data', (data: any) => { });
+powershell.streams.stdin.write("data");
+powershell.streams.stdout.on("data", (data: any) => {});
 
 // Events
-ps.on('output', (data: string) => { });
-ps.on('err', (err: string) => { });
-ps.on('end', (code: string) => { });
+powershell.on("output", data => {});
+powershell.on("err", err => {});
+powershell.on("end", code => {});

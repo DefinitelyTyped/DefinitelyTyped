@@ -199,6 +199,8 @@ openpgp.initWorker({
 
 async () => {
     const publicKey = await openpgp.key.readArmored(spubkey);
+    publicKey.keys[0].getKeys();
+    publicKey.keys[0].getSubkeys();
 
     return publicKey.keys[0].primaryKey.getFingerprint(); /* as string*/
 };
@@ -255,10 +257,13 @@ openpgp.crypto.signature.verify(
 openpgp.key.generate(keyoptions);
 openpgp.key.readArmored('');
 
-openpgp.message.fromBinary(new Uint8Array([0x01, 0x02, 0x03]));
+const message = openpgp.message.fromBinary(new Uint8Array([0x01, 0x02, 0x03]));
 openpgp.message.fromText('');
 openpgp.message.readArmored('');
 
+message.packets.filterByTag(openpgp.enums.packet.literal).write();
+message.packets.indexOfTag(openpgp.enums.packet.literal).filter(() => {});
+message.packets.findPacket(openpgp.enums.packet.literal) as openpgp.packet.Literal;
 openpgp.packet.fromStructuredClone({});
 openpgp.packet.newPacketFromTag('');
 
@@ -277,3 +282,5 @@ openpgp.util.Uint8Array_to_str(openpgp.util.str_to_Uint8Array(''));
 
 new openpgp.wkd.WKD().lookup({ email: 'test-wkd@metacode.biz', rawBytes: true });
 new openpgp.wkd.WKD().lookup({ email: 'test-wkd@metacode.biz' });
+
+new openpgp.HKP("https://keyserver.ubuntu.com").lookup({query: 'test@test.com'});

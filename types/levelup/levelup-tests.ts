@@ -18,6 +18,8 @@ const db = levelup(new AbstractLevelDOWN('here'), {
 db.open();
 db.close();
 db.open((error) => {
+    if (error instanceof levelup.errors.InitializationError) {
+    }
 });
 
 db.close((error) => {

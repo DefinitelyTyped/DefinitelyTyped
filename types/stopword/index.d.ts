@@ -1,50 +1,85 @@
-// Type definitions for stopword 0.3
+// Type definitions for stopword 1.0
 // Project: https://github.com/fergiemcdowall/stopword
 // Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Stopword removal
- *
- * @param text Array string of words
- * @param stopwords Array string of your custom stopwords (default: English stopwords | .en)
- */
-export function removeStopwords(text: string[], stopwords?: string[]): string[];
+export as namespace sw;
 
-/**
- * Get array of stopwords according by language code
- */
-export const af: string[];
-export const ar: string[];
-export const bn: string[];
-export const br: string[];
-export const da: string[];
-export const de: string[];
-export const en: string[];
-export const es: string[];
-export const fa: string[];
-export const fr: string[];
-export const fi: string[];
-export const ha: string[];
-export const he: string[];
-export const hi: string[];
-export const id: string[];
-export const it: string[];
-export const ja: string[];
-export const lgg: string[];
-export const lggo: string[];
-export const my: string[];
-export const nl: string[];
-export const no: string[];
-export const pa: string[];
-export const pl: string[];
-export const pt: string[];
-export const ru: string[];
-export const so: string[];
-export const st: string[];
-export const sv: string[];
-export const sw: string[];
-export const vi: string[];
-export const yo: string[];
-export const zh: string[];
-export const zu: string[];
+declare namespace stopword {
+    interface Stopword {
+        /**
+         * Stopword removal
+         *
+         * @param text Array string of words
+         * @param stopwords Array string of your custom stopwords (default: English stopwords | .en)
+         */
+        removeStopwords: (text: string[], stopwords?: string[]) => string[];
+    }
+
+    type LanguageCode =
+        | 'af'
+        | 'ar'
+        | 'bg'
+        | 'bn'
+        | 'br'
+        | 'ca'
+        | 'cs'
+        | 'da'
+        | 'de'
+        | 'el'
+        | 'en'
+        | 'eo'
+        | 'es'
+        | 'et'
+        | 'eu'
+        | 'fa'
+        | 'fi'
+        | 'fr'
+        | 'ga'
+        | 'gl'
+        | 'ha'
+        | 'he'
+        | 'hi'
+        | 'hr'
+        | 'hu'
+        | 'hy'
+        | 'id'
+        | 'it'
+        | 'ja'
+        | 'ko'
+        | 'la'
+        | 'lgg'
+        | 'lggo'
+        | 'lv'
+        | 'mr'
+        | 'my'
+        | 'nl'
+        | 'no'
+        | 'pa'
+        | 'pl'
+        | 'pt'
+        | 'ptbr'
+        | 'ro'
+        | 'ru'
+        | 'sk'
+        | 'sl'
+        | 'so'
+        | 'st'
+        | 'sv'
+        | 'sw'
+        | 'th'
+        | 'tr'
+        | 'ur'
+        | 'vi'
+        | 'yo'
+        | 'zh'
+        | 'zu';
+}
+
+declare const stopword: {
+    [Language in stopword.LanguageCode]: string[];
+} &
+    stopword.Stopword;
+
+export = stopword;

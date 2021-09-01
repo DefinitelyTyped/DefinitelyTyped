@@ -151,7 +151,7 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
  *   console.log(f.content_type);
  * }
  */
-export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+export function file(data: string | bytes | ArrayBuffer, filename?: string, contentType?: string): FileData;
 
 /**
  * Get active cookie jar.
@@ -161,6 +161,19 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
  * let jar = http.cookieJar();
  */
 export function cookieJar(): CookieJar;
+
+/**
+ * Returns a callback to be used with setResponseCallback to mark responses
+ * as expected based only on their status codes.
+ * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses
+ */
+export function expectedStatuses(...param: Array<number | ExpectedStatusesObject>): ExpectedStatusesCallback;
+
+/**
+ * Set the response callback to be called to determine if a response was expected/successful or not.
+ * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback
+ */
+export function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
 
 // === SSL/TLS versions ===
 // ------------------------
@@ -218,31 +231,34 @@ export const OCSP_REASON_UNSPECIFIED = 'unspecified';
  */
 export interface Params {
     /** Authentication method. */
-    auth?: AuthMethod;
+    auth?: AuthMethod | undefined;
 
     /** Request body compression. */
-    compression?: string;
+    compression?: string | undefined;
 
     /** Request scoped cookies. */
-    cookies?: { [name: string]: ParamsCookieValue };
+    cookies?: { [name: string]: ParamsCookieValue } | undefined;
 
     /** Request headers. */
-    headers?: { [name: string]: string };
+    headers?: { [name: string]: string } | undefined;
 
     /** Cookie jar to override default VU cookie jar with. */
-    jar?: CookieJar;
+    jar?: CookieJar | undefined;
 
     /** Maximum redirects to follow. */
-    redirects?: number;
+    redirects?: number | undefined;
 
     /** Response type. */
-    responseType?: ResponseType;
+    responseType?: ResponseType | undefined;
 
     /** Response time metric tags. */
-    tags?: { [name: string]: string };
+    tags?: { [name: string]: string } | undefined;
 
     /** Request timeout. */
-    timeout?: number;
+    timeout?: string | number | undefined;
+
+    /** Sets a ResponseCallback only for this request. */
+    responseCallback?: ExpectedStatusesCallback | undefined;
 }
 
 /**
@@ -250,7 +266,7 @@ export interface Params {
  * Used to infer response body type.
  */
 export interface RefinedParams<RT extends ResponseType | undefined> extends Params {
-    responseType?: RT;
+    responseType?: RT | undefined;
 }
 
 /**
@@ -267,7 +283,7 @@ export type ResponseType = 'binary' | 'none' | 'text';
  * Cookie value in request parameters.
  * https://k6.io/docs/javascript-api/k6-http/params-k6-http
  */
-export type ParamsCookieValue = string | { value?: string; replace?: boolean };
+export type ParamsCookieValue = string | { value?: string | undefined; replace?: boolean | undefined };
 
 // === Request body ===
 // --------------------
@@ -275,7 +291,7 @@ export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 /**
  * Request body.
  */
-export type RequestBody = string | StructuredRequestBody;
+export type RequestBody = string | StructuredRequestBody | ArrayBuffer;
 
 /**
  * Structured request body. May include file uploads.
@@ -309,10 +325,10 @@ export interface ObjectBatchRequest {
     url: string;
 
     /** Request body. */
-    body?: RequestBody | null;
+    body?: RequestBody | null | undefined;
 
     /** Requset parameters. */
-    params?: Params | null;
+    params?: Params | null | undefined;
 }
 
 /**
@@ -348,8 +364,8 @@ export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
 export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> {
     method: string;
     url: string;
-    body?: RequestBody | null;
-    params?: RefinedParams<RT> | null;
+    body?: RequestBody | null | undefined;
+    params?: RefinedParams<RT> | null | undefined;
 }
 
 // === Batch responses ===
@@ -436,6 +452,9 @@ export interface Response {
     /** HTTP status code. */
     status: number;
 
+    /** HTTP status text returned by the server. */
+    status_text: string;
+
     /** Performance timing information. */
     timings: {
         /** Milliseconds spent blocked before initiating request. */
@@ -477,13 +496,13 @@ export interface Response {
      * @returns Link click response.
      */
     clickLink<RT extends ResponseType | undefined>(args?: {
-        selector?: string;
-        params?: RefinedParams<RT> | null;
+        selector?: string | undefined;
+        params?: RefinedParams<RT> | null | undefined;
     }): RefinedResponse<RT>;
 
     /**
      * Parse body as HTML. Optionally filter by selector.
-     * https://docs.k6.io/docs/response-k6http
+     * https://k6.io/docs/javascript-api/k6-http/response/response-html
      * @param selector - Selector expression.
      * @returns Document node or selected elements.
      * @example
@@ -494,7 +513,7 @@ export interface Response {
 
     /**
      * Parse body as JSON. Optionally filter by selector.
-     * https://docs.k6.io/docs/response-k6http
+     * https://k6.io/docs/javascript-api/k6-http/response/response-json-selector
      * @param selector - GJSON expression.
      * @returns Parse result if successful, `undefined` if unsuccessful.
      * @example
@@ -513,10 +532,10 @@ export interface Response {
      * @returns Form submission response.
      */
     submitForm<RT extends ResponseType | undefined>(args?: {
-        formSelector?: string;
-        fields?: { [name: string]: string };
-        submitSelector?: string;
-        params?: RefinedParams<RT> | null;
+        formSelector?: string | undefined;
+        fields?: { [name: string]: string } | undefined;
+        submitSelector?: string | undefined;
+        params?: RefinedParams<RT> | null | undefined;
     }): RefinedResponse<RT>;
 }
 
@@ -638,13 +657,13 @@ export abstract class FileData {
     protected __brand: never;
 
     /** File data. */
-    data: string | bytes;
+    data: string | bytes | ArrayBuffer;
 
     /** Filename to include in MIME message. */
-    filename?: string;
+    filename?: string | undefined;
 
     /** Content type to include in MIME message. */
-    content_type?: string;
+    content_type?: string | undefined;
 }
 
 // === Cookie jar ===
@@ -652,14 +671,14 @@ export abstract class FileData {
 
 /**
  * Object for storing cookies.
- * https://docs.k6.io/docs/cookiejar-k6http
+ * https://k6.io/docs/javascript-api/k6-http/cookiejar/
  */
 export class CookieJar {
     protected __brand: never;
 
     /**
      * Get cookies set for a particular URL.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-cookiesforurl-url
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-cookiesforurl-url/
      * @param url - URL for which to get cookies.
      * @returns Cookies for URL.
      */
@@ -667,12 +686,13 @@ export class CookieJar {
 
     /**
      * Set cookie.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options/
+     * @param url - Cookie URL.
      * @param name - Cookie name.
      * @param value - Cookie value.
      * @param options - Optional settings.
      */
-    set(name: string, value: string, options?: CookieOptions | null): void;
+    set(url: string, name: string, value: string, options?: CookieOptions | null): void;
 }
 
 /**
@@ -687,32 +707,41 @@ export interface CookieJarCookies {
  */
 export interface CookieOptions {
     /** Domain allowed to receive. */
-    domain?: string;
+    domain?: string | undefined;
 
     /** Scope path. */
-    path?: string;
+    path?: string | undefined;
 
     /** Expiry time in RFC1123 format. */
-    expires?: string;
+    expires?: string | undefined;
 
     /** Seconds until expiration. */
-    max_age?: number;
+    max_age?: number | undefined;
 
     /** Secure. */
-    secure?: boolean;
+    secure?: boolean | undefined;
 
     /** HTTP only. */
-    http_only?: boolean;
+    http_only?: boolean | undefined;
+}
+
+interface ExpectedStatusesCallback {
+    [n: string]: never;
+}
+
+export interface ExpectedStatusesObject {
+    min: number;
+    max: number;
 }
 
 /**
  * The http module contains functionality for performing HTTP transactions.
- * https://k6.io/docs/javascript-api/k6-http
+ * https://k6.io/docs/javascript-api/k6-http/
  */
 declare namespace http {
     /**
      * Make DELETE  request.
-     * https://k6.io/docs/javascript-api/k6-http/del-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/del-url-body-params/
      * @param url - Request URL.
      * @param body - Discouraged. Request body. Object form encoded.
      * @param params - Request parameters.
@@ -726,7 +755,7 @@ declare namespace http {
 
     /**
      * Make GET request.
-     * https://k6.io/docs/javascript-api/k6-http/get-url-params
+     * https://k6.io/docs/javascript-api/k6-http/get-url-params/
      * @param url - Request URL.
      * @param params - Request parameters.
      * @returns Resulting response.
@@ -740,7 +769,7 @@ declare namespace http {
 
     /**
      * Make OPTIONS request.
-     * https://k6.io/docs/javascript-api/k6-http/options-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/options-url-body-params/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -754,7 +783,7 @@ declare namespace http {
 
     /**
      * Make PATCH request.
-     * https://k6.io/docs/javascript-api/k6-http/patch-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/patch-url-body-params/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -768,7 +797,7 @@ declare namespace http {
 
     /**
      * Make POST request.
-     * https://k6.io/docs/javascript-api/k6-http/post-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/post-url-body-params/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -786,7 +815,7 @@ declare namespace http {
 
     /**
      * Make PUT request.
-     * https://k6.io/docs/javascript-api/k6-http/put-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/put-url-body-params/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -800,7 +829,7 @@ declare namespace http {
 
     /**
      * Make request.
-     * https://k6.io/docs/javascript-api/k6-http/request-method-url-body-params
+     * https://k6.io/docs/javascript-api/k6-http/request-method-url-body-params/
      * @param method - HTTP method.
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
@@ -821,7 +850,7 @@ declare namespace http {
     /**
      * Batch multiple HTTP requests together,
      * to issue them in parallel over multiple TCP connections.
-     * https://k6.io/docs/javascript-api/k6-http/batch-requests
+     * https://k6.io/docs/javascript-api/k6-http/batch-requests/
      * @param requests - Request specifications.
      * @returns Resulting responses.
      * @example
@@ -860,16 +889,28 @@ declare namespace http {
      *   console.log(f.content_type);
      * }
      */
-    function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+    function file(data: string | bytes | ArrayBuffer, filename?: string, contentType?: string): FileData;
 
     /**
      * Get active cookie jar.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar/
      * @returns Active cookie jar.
      * @example
      * let jar = http.cookieJar();
      */
     function cookieJar(): CookieJar;
+    /**
+     * Returns a callback to be used with setResponseCallback to mark responses
+     * as expected based only on their status codes.
+     * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses/
+     */
+    function expectedStatuses(...param: Array<number | ExpectedStatusesObject>): ExpectedStatusesCallback;
+
+    /**
+     * Set the response callback to be called to determine if a response was expected/successful or not.
+     * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback/
+     */
+    function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
 }
 
 export default http;

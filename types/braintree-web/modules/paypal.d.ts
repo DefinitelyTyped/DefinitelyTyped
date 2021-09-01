@@ -139,32 +139,32 @@ export interface PayPal {
      */
     tokenize(options: {
         flow: string;
-        intent?: string;
-        offerCredit?: boolean;
-        useraction?: string;
-        amount?: string | number;
-        currency?: string;
-        displayName?: string;
-        locale?: string;
-        enableShippingAddress?: boolean;
-        shippingAddressOverride?: PayPalShippingAddress;
-        shippingAddressEditable?: boolean;
-        billingAgreementDescription?: string;
+        intent?: string | undefined;
+        offerCredit?: boolean | undefined;
+        useraction?: string | undefined;
+        amount?: string | number | undefined;
+        currency?: string | undefined;
+        displayName?: string | undefined;
+        locale?: string | undefined;
+        enableShippingAddress?: boolean | undefined;
+        shippingAddressOverride?: PayPalShippingAddress | undefined;
+        shippingAddressEditable?: boolean | undefined;
+        billingAgreementDescription?: string | undefined;
     }): Promise<PayPalTokenizePayload>;
     tokenize(
         options: {
             flow: string;
-            intent?: string;
-            offerCredit?: boolean;
-            useraction?: string;
-            amount?: string | number;
-            currency?: string;
-            displayName?: string;
-            locale?: string;
-            enableShippingAddress?: boolean;
-            shippingAddressOverride?: PayPalShippingAddress;
-            shippingAddressEditable?: boolean;
-            billingAgreementDescription?: string;
+            intent?: string | undefined;
+            offerCredit?: boolean | undefined;
+            useraction?: string | undefined;
+            amount?: string | number | undefined;
+            currency?: string | undefined;
+            displayName?: string | undefined;
+            locale?: string | undefined;
+            enableShippingAddress?: boolean | undefined;
+            shippingAddressOverride?: PayPalShippingAddress | undefined;
+            shippingAddressEditable?: boolean | undefined;
+            billingAgreementDescription?: string | undefined;
         },
         callback: callback<PayPalTokenizePayload>,
     ): PayPalTokenizeReturn;

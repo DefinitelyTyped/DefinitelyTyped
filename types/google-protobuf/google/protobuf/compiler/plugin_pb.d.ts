@@ -37,10 +37,10 @@ export class Version extends jspb.Message {
 
 export namespace Version {
   export type AsObject = {
-    major?: number,
-    minor?: number,
-    patch?: number,
-    suffix?: string,
+    major?: number | undefined,
+    minor?: number | undefined,
+    patch?: number | undefined,
+    suffix?: string | undefined,
   }
 }
 
@@ -78,9 +78,9 @@ export class CodeGeneratorRequest extends jspb.Message {
 export namespace CodeGeneratorRequest {
   export type AsObject = {
     fileToGenerateList: Array<string>,
-    parameter?: string,
+    parameter?: string | undefined,
     protoFileList: Array<google_protobuf_descriptor_pb.FileDescriptorProto.AsObject>,
-    compilerVersion?: Version.AsObject,
+    compilerVersion?: Version.AsObject | undefined,
   }
 }
 
@@ -89,6 +89,11 @@ export class CodeGeneratorResponse extends jspb.Message {
   clearError(): CodeGeneratorResponse;
   getError(): string | undefined;
   setError(value: string): CodeGeneratorResponse;
+
+  hasSupportedFeatures(): boolean;
+  clearSupportedFeatures(): CodeGeneratorResponse;
+  getSupportedFeatures(): number | undefined;
+  setSupportedFeatures(value: number): CodeGeneratorResponse;
 
   clearFileList(): CodeGeneratorResponse;
   getFileList(): Array<CodeGeneratorResponse.File>;
@@ -107,8 +112,14 @@ export class CodeGeneratorResponse extends jspb.Message {
 
 export namespace CodeGeneratorResponse {
   export type AsObject = {
-    error?: string,
+    error?: string | undefined,
+    supportedFeatures?: number | undefined,
     fileList: Array<File.AsObject>,
+  }
+
+  export enum Feature {
+    FEATURE_NONE = 0,
+    FEATURE_PROTO3_OPTIONAL = 1,
   }
 
   export class File extends jspb.Message {
@@ -139,9 +150,9 @@ export namespace CodeGeneratorResponse {
 
   export namespace File {
     export type AsObject = {
-      name?: string,
-      insertionPoint?: string,
-      content?: string,
+      name?: string | undefined,
+      insertionPoint?: string | undefined,
+      content?: string | undefined,
     }
   }
 }

@@ -15,26 +15,26 @@ export interface LayerObject {
 export interface Options {
     styleUrl: string;
     accessToken: string;
-    source?: string;
-    layers?: string[];
-    declutter?: boolean;
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    renderOrder?: OrderFunction;
-    renderBuffer?: number;
-    renderMode?: VectorTileRenderType | string;
-    map?: PluggableMap;
-    updateWhileAnimating?: boolean;
-    updateWhileInteracting?: boolean;
-    preload?: number;
-    useInterimTilesOnError?: boolean;
+    source?: string | undefined;
+    layers?: string[] | undefined;
+    declutter?: boolean | undefined;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    renderOrder?: OrderFunction | undefined;
+    renderBuffer?: number | undefined;
+    renderMode?: VectorTileRenderType | string | undefined;
+    map?: PluggableMap | undefined;
+    updateWhileAnimating?: boolean | undefined;
+    updateWhileInteracting?: boolean | undefined;
+    preload?: number | undefined;
+    useInterimTilesOnError?: boolean | undefined;
 }
 export interface SourceObject {
     url: string;
@@ -46,13 +46,25 @@ export interface StyleObject {
     glyphs: string;
     layers: LayerObject[];
 }
+/**
+ * The Mapbox source type.
+ */
 declare enum SourceType {
     VECTOR = 'vector',
 }
 export default class MapboxVectorLayer extends VectorTileLayer {
     constructor(options: Options);
+    /**
+     * Fetch the style object.
+     */
     protected fetchStyle(styleUrl: string): void;
+    /**
+     * Handle configuration or loading error.
+     */
     protected handleError(error: Error): void;
+    /**
+     * Handle the loaded style object.
+     */
     protected onStyleLoad(style: StyleObject): void;
     on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];

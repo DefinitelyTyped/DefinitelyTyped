@@ -31,6 +31,7 @@ import { values } from 'lodash';
     toggle: {
       freeShipping: true
     },
+    relevancyStrictness: 98,
     hitsPerPage: 10,
     sortBy: 'mostPopular',
     query: 'ora',

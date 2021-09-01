@@ -2,18 +2,15 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "callable-types": false,
         "comment-format": false,
         "dt-header": false,
         "interface-name": false,
         "no-empty-interface": false,
         "no-namespace": false,
         "no-padding": false,
-        "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "semicolon": false,
         "typedef-whitespace": false,
         "whitespace": false
