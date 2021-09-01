@@ -3,21 +3,21 @@
 // Definitions by: Drazi Crendraven <https://github.com/drazisil/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module 'netlify-auth-providers' {
-  interface Config {
-    site_id?: string
-    base_url?: string
-  }
+    interface Config {
+        site_id?: string;
+        base_url?: string;
+    }
 
-  interface AuthenticatorConfig {
-    provider: string
-    scope?: string
-  }
+    interface AuthenticatorConfig {
+        provider: string;
+        scope?: string;
+    }
 
-  class Authenticator {
-    constructor(config: Config)
+    class Authenticator {
+        constructor(config: Config);
 
-    authenticate(options: AuthenticatorConfig, cb: (err: Error, data: any) => void): void
-  }
+        authenticate(options: AuthenticatorConfig, cb: (err: Error, data: any) => void): void;
+    }
 
-  export default Authenticator
+    export default Authenticator;
 }
