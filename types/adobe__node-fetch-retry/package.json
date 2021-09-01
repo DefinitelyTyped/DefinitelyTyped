@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "form-data": "^3.0.0"
+        "node-fetch": "^3.0.0"
     }
 }
