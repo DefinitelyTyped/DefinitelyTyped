@@ -6896,7 +6896,7 @@ declare namespace chrome.runtime {
                   service_worker: string;
                   type?: 'module'; // If the service worker uses ES modules
               }
-            | undefined;```
+            | undefined;
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;
