@@ -3,12 +3,12 @@
 // Definitions by: Drazi Crendraven <https://github.com/drazisil/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Config {
+export interface Config {
     site_id?: string;
     base_url?: string;
 }
 
-interface AuthenticatorConfig {
+export interface AuthenticatorConfig {
     provider: string;
     scope?: string;
 }
@@ -18,6 +18,3 @@ export default class Authenticator {
 
     authenticate(options: AuthenticatorConfig, cb: (err: Error, data: any) => void): void;
 }
-
-
-
