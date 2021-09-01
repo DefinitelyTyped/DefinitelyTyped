@@ -1,6 +1,13 @@
 {
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "netlify-auth-providers-tests.ts"
+    ]
+
 }
