@@ -2711,7 +2711,7 @@ declare namespace chrome.downloads {
         /** True if the download has stopped reading data from the host, but kept the connection open. */
         paused: boolean;
         /** Indicates whether the download is progressing, interrupted, or complete. */
-        state: State;
+        state: DownloadState;
         /** The file's MIME type. */
         mime: string;
         /** Number of bytes in the whole file post-decompression, or -1 if unknown. */
@@ -2719,7 +2719,7 @@ declare namespace chrome.downloads {
         /** The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})}) */
         startTime: string;
         /** Optional. Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_.  */
-        error?: InterruptReason | undefined;
+        error?: DownloadInterruptReason | undefined;
         /** Optional. The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})  */
         endTime?: string | undefined;
         /** An identifier that is persistent across browser sessions. */
