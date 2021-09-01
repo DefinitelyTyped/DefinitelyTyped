@@ -45,5 +45,5 @@ function startUserMedia(stream: MediaStream) {
 
     const voiceActivityDetection = vad(audioContext, stream, options);
 
-    voiceActivityDetection.destroy()
+    voiceActivityDetection.destroy();
 }
