@@ -1,20 +1,16 @@
 {
     "compilerOptions": {
-        "target": "ES2019",
         "module": "commonjs",
-        "lib": ["ES2019", "ESNext"],
-        "moduleResolution": "Node",
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "allowUnreachableCode": false,
-        "noImplicitReturns": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": [],
-        "noEmit": true
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "diskspace-tests.ts"]
 }
