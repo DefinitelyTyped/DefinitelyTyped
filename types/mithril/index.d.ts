@@ -5,12 +5,12 @@
 // TypeScript Version: 3.2
 
 /** Renders a vnode structure into a DOM element. */
-declare function render(el: Element, vnodes: Mithril.Children): void;
+declare function render(el: HTMLElement, vnodes: Mithril.Children): void;
 
 /** Mounts a component to a DOM element, enabling it to autoredraw on user events. */
-declare function mount(element: Element, component: Mithril.ComponentTypes<any, any>): void;
+declare function mount(element: HTMLElement, component: Mithril.ComponentTypes<any, any>): void;
 /** Unmounts a component from a DOM element. */
-declare function mount(element: Element, component: null): void; // tslint:disable-line unified-signatures
+declare function mount(element: HTMLElement, component: null): void; // tslint:disable-line unified-signatures
 
 /** Makes an XHR request and returns a promise. */
 declare function request<T>(options: Mithril.RequestOptions<T> & { url: string }): Promise<T>;
@@ -94,7 +94,7 @@ declare namespace Mithril {
 
     interface Route {
         /** Creates application routes and mounts Components and/or RouteResolvers to a DOM element. */
-        (element: Element, defaultRoute: string, routes: RouteDefs): void;
+        (element: HTMLElement, defaultRoute: string, routes: RouteDefs): void;
         /** Returns the last fully resolved routing path, without the prefix. */
         get(): string;
         /** Redirects to a matching route or to the default route if no matching routes can be found. */
@@ -227,7 +227,7 @@ declare namespace Mithril {
     // and possibly a domSize property.
     interface VnodeDOM<Attrs = {}, State = {}> extends Vnode<Attrs, State> {
         /** Points to the element that corresponds to the vnode. */
-        dom: Element;
+        dom: HTMLElement;
         /** This defines the number of DOM elements that the vnode represents (starting from the element referenced by the dom property). */
         domSize?: number | undefined;
     }
