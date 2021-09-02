@@ -3,6 +3,6 @@
         "baseUrl": "types",
         "typeRoots": ["types"]
     },
-    "files": ["./index.d.ts"]
+    "files": ["index.d.ts"]
 }
 
