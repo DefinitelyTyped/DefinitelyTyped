@@ -3,7 +3,7 @@
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// THIS FILE WAS COPIED FROM mapbox-gl
+// THIS FILE WAS PARTIALLY COPIED FROM mapbox-gl
 
 /// <reference types="geojson" />
 
@@ -766,7 +766,7 @@ declare namespace TrimbleMaps {
         scrollZoom?: boolean | undefined;
 
         /** stylesheet location */
-        style?: TrimbleMaps.Style | string | undefined;
+        style?: TrimbleMaps.Style | string | TrimbleMaps.Common.Style | undefined;
 
         /** If  true, the map will automatically resize when the browser window resizes */
         trackResize?: boolean | undefined;
@@ -809,6 +809,8 @@ declare namespace TrimbleMaps {
          * @default null
         */
         testMode?: boolean | undefined;
+
+        region?: TrimbleMaps.Common.Region;
     }
 
     type quat = number[];
@@ -2521,4 +2523,445 @@ declare namespace TrimbleMaps {
     export type ElevationQueryOptions = {
         exaggerated: boolean
     };
+
+    export namespace Common {
+        enum Style {
+            DEFAULT,
+            TRANSPORTATION,
+            satellite,
+            TERRAIN,
+            BASIC,
+            DATALIGHT,
+            DATADARK,
+        }
+        enum Region {
+            AF,
+            AS,
+            EU,
+            ME,
+            NA,
+            OC,
+            SA,
+            WW,
+        }
+        enum VehicleType {
+            TRUCK,
+            LIGHT_TRUCK,
+            AUTOMOBILE,
+        }
+        enum RouteType {
+            PRACTICAL,
+            SHORTEST,
+            FASTEST,
+        }
+        enum RouteOptimization {
+            NONE,
+            OPTIMIZE_ALL_STOPS,
+            OPTIMIZE_INTERMEDIATE_STOPS,
+        }
+        enum ClassOverride {
+            NONE,
+            FIFTY_THREE,
+            NATIONAL_NETWORK,
+            ALL,
+        }
+        enum HazMatType {
+            NONE,
+            GENERAL,
+            CAUSTIC,
+            EXPLOSIVES,
+            FLAMMABLE,
+            INHALANTS,
+            RADIOACTIVE,
+            HARMFULTOWATER,
+            TUNNEL,
+        }
+        enum DistanceUnit {
+            MILES,
+            KILOMETERS,
+        }
+        enum TruckUnit {
+            ENGLISH,
+            METRIC,
+        }
+        enum FuelUnit {
+            GALLONS,
+            LITERS,
+        }
+        enum TruckConfig {
+            NONE,
+            TWENTY_EIGHT,
+            FORTY,
+            FORTY_EIGHT,
+            FIFTY_THREE,
+          }
+        enum TollCurrency {
+            USD,
+            CAD,
+        }
+        enum DataVersion {
+            CURRENT,
+            EU,
+            OC,
+            SA,
+            AF,
+            ME,
+            IN,
+            SE,
+            JP,
+        }
+        enum ReportType {
+            MILEAGE,
+            DIRECTIONS,
+            DETAIL,
+            STATE,
+            TOLL,
+        }
+        enum Language {
+            AR,
+            BE,
+            BG,
+            BN,
+            BS,
+            CA,
+            CS,
+            CY,
+            DA,
+            DE,
+            EL,
+            EN,
+            EN_AU,
+            EN_GB,
+            ES,
+            ES_LA,
+            ET,
+            EU,
+            FI,
+            FR,
+            GL,
+            HE,
+            HI,
+            HR,
+            HU,
+            ID,
+            IS,
+            IT,
+            JA,
+            KO,
+            LT,
+            LV,
+            MK,
+            MS,
+            MT,
+            NL,
+            NL_BE,
+            NO,
+            PL,
+            PT,
+            PT_BR,
+            RO,
+            RU,
+            SK,
+            SL,
+            SQ,
+            SR,
+            SV,
+            TH,
+            TR,
+            UK,
+            VI,
+            ZH,
+            ZH_HK,
+            ZH_HANS,
+        }
+    }
+
+    export interface RouteOptions {
+        /**
+         * A unique string values used to identify a route. It is needed when removing or updating a route.
+         */
+        routeId?: string | undefined;
+
+        /**
+         * The color of the route line
+         */
+        routeColor?: string | undefined;
+
+        /**
+         * An array of at least two TrimbleMaps.LngLat objects containing the locations of the stops of the route.
+         */
+        stops?: LngLat[] | undefined;
+
+        /**
+         * Restricts the route to roads that are accessible by the selected vehicle type.
+         *
+         * @default TrimbleMaps.Common.VehicleType.TRUCK
+         */
+        vehicleType?: TrimbleMaps.Common.VehicleType | undefined;
+
+        /**
+         * Type of route.
+         *
+         * @default TrimbleMaps.Common.RouteType.PRACTICAL
+         */
+        routeType?: TrimbleMaps.Common.RouteType | undefined;
+
+        /**
+         * @default TrimbleMaps.Common.RouteOptimization.NONE
+         */
+        routeOptimization?: TrimbleMaps.Common.RouteOptimization | undefined;
+
+        /**
+         * Generates the route by trying to avoid toll roads.
+         *
+         * @default false
+         */
+        tollDiscourage?: boolean | undefined;
+
+        /**
+         * Indicates whether borders are open for travel.
+         *
+         * @default true
+         */
+        bordersOpen?: boolean | undefined;
+
+        /**
+         * Indicates whether or not to override truck restrictions.
+         *
+         * @default false
+         */
+         overrideRestrict?: boolean | undefined;
+
+         /**
+         * Restricts the route to only highway roads.
+         *
+         * @default false
+         */
+        highwayOnly?: boolean | undefined;
+
+        /**
+         * Restricts the route to roads that allow transportation of the selected hazardous material.
+         *
+         * @default TrimbleMaps.Common.HazMatType.NONE
+         */
+        hazMatType?: TrimbleMaps.Common.HazMatType | undefined;
+
+        /**
+         * Indicates the hazardous material types.
+         */
+        hazMatTypes?: TrimbleMaps.Common.HazMatType[] | undefined;
+
+        /**
+         * Distance units as miles or kilometers.
+         *
+         * @default TrimbleMaps.Common.DistanceUnit.MILES
+         */
+        distanceUnits?: TrimbleMaps.Common.DistanceUnit | undefined;
+
+        /**
+         * Sets truck dimensions as English or Metric.
+         *
+         * @default TrimbleMaps.Common.TruckUnit.ENGLISH
+         */
+        trkUnits?: TrimbleMaps.Common.TruckUnit | undefined;
+
+        /**
+         * The height of the vehicle in feet and inches or meters depending on units. Example 13'6" or 4.1148.
+         */
+        trkHeight?: number | string | undefined;
+
+        /**
+         * The length of the vehicle in feet and inches or meters depending on units. Example 13'6" or 4.1148.
+         */
+        trkLength?: number | string | undefined;
+
+        /**
+         * The width of the vehicle in feet and inches or meters depending on units. Example 13'6" or 4.1148.
+         */
+        trkWidth?: number | string | undefined;
+
+        /**
+         * The weight of the vehicle in pounds or kilograms depending on units.
+         */
+        trkWeight?: number | undefined;
+
+        /**
+         * The number of axles on the vehicle; acceptable values are 2 through 14.
+         *
+         * @default 5
+         */
+        trkAxles?: number | undefined;
+
+        /**
+         * Indicates whether or not to include ferry distances in mileage calculations of reports.
+         *
+         * @default true
+         */
+        inclFerryDist?: boolean | undefined;
+
+        /**
+         * Fuel units as gallons and liters.
+         *
+         * @default TrimbleMaps.Common.FuelUnit.GALLONS
+         */
+        fuelUnits?: TrimbleMaps.Common.FuelUnit | undefined;
+
+        /**
+         * The vehicle style.
+         *  TrimbleMaps.Common.TruckConfig.NONE - Indicates that no particular vehicle style is chosen.
+         *  TrimbleMaps.Common.TruckConfig.TWENTY_EIGHT - 28' double trailer.
+         *  TrimbleMaps.Common.TruckConfig.FORTY - 40' straight trailer.
+         *  TrimbleMaps.Common.TruckConfig.FORTY_EIGHT - 48' semitrailer.
+         *  TrimbleMaps.Common.TruckConfig.FIFTY_THREE - 53' semitrailer.
+         * @default TrimbleMaps.Common.TruckConfig.NONE
+         */
+        truckConfig?: TrimbleMaps.Common.TruckConfig | undefined;
+
+        /**
+         * Indicates whether or not reports should calculate toll costs in reports.
+         *
+         * @default true
+         */
+        inclTollData?: boolean | undefined;
+
+        /**
+         * The fuel efficiency (distance units per fuel units) when loaded. Used for reports.
+         */
+        fuelEconLoad?: number | undefined;
+
+        /**
+         * The fuel efficiency (distance units per fuel units) when empty. Used for reports.
+         */
+        fuelEconEmpty?: number | undefined;
+
+        /**
+         * The cost per fuel unit of fuel. Used for reports.
+         */
+        costPerFuelUnit?: number | undefined;
+
+        /**
+         * The cost of greenhouse gas in lbs. per fuel unit. Used for reports
+         */
+        costGHG?: number | undefined;
+
+        /**
+         * The maintenance cost per distance unit when loaded. Used for reports.
+         */
+        costMaintLoad?: number | undefined;
+
+        /**
+         * The maintenance cost per distance unit when empty. Used for reports.
+         */
+        costMaintEmpty?: number | undefined;
+
+        /**
+         * The time cost per mile/km when loaded. Used for reports.
+         */
+        costTimeLoad?: number | undefined;
+
+        /**
+         * The time cost per mile/km when empty. Used for reports.
+         */
+        costTimeEmpty?: number | undefined;
+
+        /**
+         * The toll currency.
+         *
+         * @default TrimbleMaps.Common.TollCurrency.USD
+         */
+        tollCurrency?: TrimbleMaps.Common.TollCurrency | undefined;
+
+        /**
+         * The change rate to convert US dollars to Canadian dollars. Used for reports.
+         */
+        exchangeRate?: number | undefined;
+
+        /**
+         * The cite interval to be used when generating a geotunnel report. The minimum value is 0.1. Used for reports.
+         */
+        citeInt?: number | undefined;
+
+        /**
+         * The data region in which the route stops are located.
+         *
+         * @default TrimbleMaps.Common.Region.NA
+         */
+        region?: TrimbleMaps.Common.Region | undefined;
+
+        dataVersion?: TrimbleMaps.Common.DataVersion | undefined;
+
+        /**
+         * The data region in which the route stops are located.
+         *
+         * @default [TrimbleMaps.Common.ReportType.MILEAGE]
+         */
+        reportType?: TrimbleMaps.Common.ReportType[] | undefined;
+
+        /**
+         * @default false
+         */
+        useSites?: boolean | undefined;
+
+        /**
+         * @default false
+         */
+        isDraggable?: boolean | undefined;
+
+        /**
+         * The ID of the asset (device, vehicle or driver) associated.
+         */
+        assetId?: string | undefined;
+
+        /**
+         * Estimated time options allow you to specify either a day of the week or a specific date and the time for which you would like you depart from your origin or arrive at your destination.
+         */
+        estimatedTimeOpts?: string | undefined;
+    }
+
+    export class Route extends Evented {
+        constructor(options?: RouteOptions);
+
+        addTo(map: Map): this;
+        remove(): this;
+        update(options: RouteOptions): void;
+        frameRoute(): this;
+        getRouteId(): string;
+        getReports(options: RouteOptions): void;
+        setDraggable(isDraggable: boolean): this;
+    }
+
+    interface GeocodeOptions {
+        address: {
+            addr?: string | undefined;
+            city?: string | undefined;
+            state?: string | undefined;
+            zip?: string | undefined;
+            country?: string | undefined;
+            postcodeFilter?: string | undefined;
+            splc?: string | undefined;
+            searchString?: string | undefined;
+            region?: TrimbleMaps.Common.Region | undefined;
+            dataset?: TrimbleMaps.Common.DataVersion | undefined;
+        };
+        listSize?: number | undefined;
+        success: (result: any) => void;
+        failure?: (error: any) => void;
+    }
+
+    interface ReverseGeocodeOptions {
+        lonLat: LngLatLike;
+        region?: TrimbleMaps.Common.Region | undefined;
+        dataset?: TrimbleMaps.Common.DataVersion | undefined;
+        success: (result: any) => void;
+        failure?: (error: any) => void;
+    }
+
+    interface GeocodeTask {
+        cancel(): void;
+    }
+
+    export namespace Geocoder {
+        export function geocode(options: GeocodeOptions): GeocodeTask;
+        export function reverseGeocode(options: ReverseGeocodeOptions): GeocodeTask;
+    }
 }
