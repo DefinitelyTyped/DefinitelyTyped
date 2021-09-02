@@ -61,3 +61,18 @@ findAttributeRange(new Position(Element.fromJSON({ name: "div" }), [3]), "", "",
 getLastTextLine(new Range(new Position(Element.fromJSON({ name: "div" }), [4])), new Model());
 
 injectUnsafeKeystrokesHandling(editor);
+
+// $ExpectType Delete
+editor.plugins.get('Delete');
+
+// $ExpectType Input
+editor.plugins.get('Input');
+
+// $ExpectType TextTransformation
+editor.plugins.get('TextTransformation');
+
+// $ExpectType TwoStepCaretMovement
+editor.plugins.get('TwoStepCaretMovement');
+
+// $ExpectType Typing
+editor.plugins.get('Typing');

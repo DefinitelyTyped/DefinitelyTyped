@@ -511,6 +511,9 @@ const customFontStyles = system({
         defaultScale: [200, 400, 600],
         transform: (n, scale) => get(scale, n),
     },
+    fontSize: (value, scale, props) => ({
+        fontSize: props.fontWeight === 'bold' ? 16 : get(scale, value),
+    }),
     letterSpacing: true,
 });
 

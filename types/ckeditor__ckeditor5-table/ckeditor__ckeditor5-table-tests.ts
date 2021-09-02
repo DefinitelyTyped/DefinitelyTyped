@@ -69,3 +69,48 @@ new CKTable.TableCellPropertiesUI(editor).destroy();
 
 CKTable.TableCellPropertiesEditing.requires.map(Plugin => new Plugin(editor).init());
 new CKTable.TableCellPropertiesEditing(editor).init();
+
+// $ExpectType Table
+editor.plugins.get('Table');
+
+// $ExpectType TableCellProperties
+editor.plugins.get('TableCellProperties');
+
+// $ExpectType TableCellPropertiesEditing
+editor.plugins.get('TableCellPropertiesEditing');
+
+// $ExpectType TableCellPropertiesUI
+editor.plugins.get('TableCellPropertiesUI');
+
+// $ExpectType TableClipboard
+editor.plugins.get('TableClipboard');
+
+// $ExpectType TableEditing
+editor.plugins.get('TableEditing');
+
+// $ExpectType TableKeyboard
+editor.plugins.get('TableKeyboard');
+
+// $ExpectType TableMouse
+editor.plugins.get('TableMouse');
+
+// $ExpectType TableProperties
+editor.plugins.get('TableProperties');
+
+// $ExpectType TablePropertiesEditing
+editor.plugins.get('TablePropertiesEditing');
+
+// $ExpectType TablePropertiesUI
+editor.plugins.get('TablePropertiesUI');
+
+// $ExpectType TableSelection
+editor.plugins.get('TableSelection');
+
+// $ExpectType TableToolbar
+editor.plugins.get('TableToolbar');
+
+// $ExpectType TableUI
+editor.plugins.get('TableUI');
+
+// $ExpectType TableUtils
+editor.plugins.get('TableUtils');

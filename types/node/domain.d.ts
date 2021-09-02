@@ -1,5 +1,5 @@
 /**
- * **This module is pending deprecation**. Once a replacement API has been
+ * **This module is pending deprecation.** Once a replacement API has been
  * finalized, this module will be fully deprecated. Most developers should**not** have cause to use this module. Users who absolutely must have
  * the functionality that domains provide may rely on it for the time being
  * but should expect to have to migrate to a different solution
@@ -11,7 +11,7 @@
  * will be notified, rather than losing the context of the error in the`process.on('uncaughtException')` handler, or causing the program to
  * exit immediately with an error code.
  * @deprecated Since v1.4.2 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/domain.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/domain.js)
  */
 declare module 'domain' {
     import EventEmitter = require('node:events');

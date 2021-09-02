@@ -2,10 +2,10 @@ export = URLSearchParams;
 declare function URLSearchParams(query?: string | string[][] | Record<string, string>): void;
 declare class URLSearchParams {
     constructor(query?: string | string[][] | Record<string, string>);
-    paramsMap_: any;
-    paramsList_: any[];
+    private paramsMap_;
+    private paramsList_;
     private decode_;
-    encode_(str: any): string;
+    private encode_;
     private percentSignRegex_;
     private getPercentSignRegex_;
     private plusSignRegex_;

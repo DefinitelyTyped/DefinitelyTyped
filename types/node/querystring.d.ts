@@ -7,9 +7,9 @@
  * ```
  *
  * The `querystring` API is considered Legacy. While it is still maintained,
- * new code should use the `<URLSearchParams>` API instead.
+ * new code should use the `URLSearchParams` API instead.
  * @deprecated Legacy
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/querystring.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/querystring.js)
  */
 declare module 'querystring' {
     interface StringifyOptions {
@@ -54,8 +54,8 @@ declare module 'querystring' {
      * ```
      * @since v0.1.25
      * @param obj The object to serialize into a URL query string
-     * @param sep The substring used to delimit key and value pairs in the query string.
-     * @param eq . The substring used to delimit keys and values in the query string.
+     * @param [sep='&'] The substring used to delimit key and value pairs in the query string.
+     * @param [eq='='] . The substring used to delimit keys and values in the query string.
      */
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
     /**
@@ -87,8 +87,8 @@ declare module 'querystring' {
      * ```
      * @since v0.1.25
      * @param str The URL query string to parse
-     * @param sep The substring used to delimit key and value pairs in the query string.
-     * @param eq . The substring used to delimit keys and values in the query string.
+     * @param [sep='&'] The substring used to delimit key and value pairs in the query string.
+     * @param [eq='='] . The substring used to delimit keys and values in the query string.
      */
     function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     /**

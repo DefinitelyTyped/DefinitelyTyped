@@ -4,8 +4,10 @@ import { createReadStream, createWriteStream } from 'node:fs';
 import { createGzip, constants } from 'node:zlib';
 import assert = require('node:assert');
 import { Http2ServerResponse } from 'node:http2';
+import { text, json, buffer } from 'node:stream/consumers';
 import { pipeline as pipelinePromise } from 'node:stream/promises';
 import { stdout } from 'node:process';
+import 'node:stream/web';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -454,6 +456,27 @@ async function streamPipelineAsyncPromiseAbortTransform() {
         });
 }
 
+async function readableToString() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType string
+    await text(r);
+}
+
+async function readableToJson() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType unknown
+    await json(r);
+}
+
+async function readableToBuffer() {
+    const r = createReadStream('file.txt');
+
+    // $ExpectType Buffer
+    await buffer(r);
+}
+
 // http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
     const rs = createReadStream(Buffer.from('file.txt'));
@@ -472,6 +495,12 @@ function stream_readable_pipe_test() {
     r.close();
     z.close();
     rs.close();
+}
+
+function stream_duplex_allowHalfOpen_test() {
+    const d = new Duplex();
+    assert(typeof d.allowHalfOpen === 'boolean');
+    d.allowHalfOpen = true;
 }
 
 addAbortSignal(new AbortSignal(), new Readable());

@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 50.0
+// Type definitions for @nginstack/engine 51.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -270,7 +270,6 @@
 /// <reference path="lib/math/RoundingMode.d.ts" />
 /// <reference path="lib/math/trunc.d.ts" />
 /// <reference path="lib/mime/isTextualType.d.ts" />
-/// <reference path="lib/module/Module.d.ts" />
 /// <reference path="lib/multipart/MultipartFormData.d.ts" />
 /// <reference path="lib/multipart/MultipartFormDataOptions.d.ts" />
 /// <reference path="lib/multipart/MultipartFormDataPart.d.ts" />

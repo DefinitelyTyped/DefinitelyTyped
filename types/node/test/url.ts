@@ -1,3 +1,4 @@
+import { Blob } from 'node:buffer';
 import assert = require('node:assert');
 import { RequestOptions } from 'node:http';
 import * as url from 'node:url';
@@ -157,4 +158,7 @@ import * as url from 'node:url';
 
 {
     const opts: RequestOptions = url.urlToHttpOptions(new url.URL('test.com'));
+}
+{
+    const dataUrl: string = url.URL.createObjectURL(new Blob(['']));
 }

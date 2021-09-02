@@ -1,18 +1,10 @@
-// Type definitions for @ckeditor/ckeditor5-indent 27.1
+// Type definitions for @ckeditor/ckeditor5-indent 29.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/indent.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-import Indent from './src/indent';
-import IndentEditing from './src/indentediting';
-import IndentUI from './src/indentui';
-import IndentBlock from './src/indentblock';
+// Minimum TypeScript Version: 4.3
 
-declare const _default: {
-    Indent: typeof Indent;
-    IndentEditing: typeof IndentEditing;
-    IndentUI: typeof IndentUI;
-    IndentBlock: typeof IndentBlock;
-};
-
-export default _default;
+export { default as Indent } from './src/indent';
+export { default as IndentEditing } from './src/indentediting';
+export { default as IndentUI } from './src/indentui';
+export { default as IndentBlock } from './src/indentblock';

@@ -37,7 +37,7 @@
  *   'Host', 'mysite.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
@@ -156,38 +156,154 @@ declare module 'http' {
         insecureHTTPParser?: boolean | undefined;
     }
     type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
-    interface HttpBase {
-        setTimeout(msecs?: number, callback?: () => void): this;
-        setTimeout(callback: () => void): this;
-        /**
-         * Limits maximum incoming headers count. If set to 0, no limit will be applied.
-         * @default 2000
-         * {@link https://nodejs.org/api/http.html#http_server_maxheaderscount}
-         */
-        maxHeadersCount: number | null;
-        timeout: number;
-        /**
-         * Limit the amount of time the parser will wait to receive the complete HTTP headers.
-         * @default 60000
-         * {@link https://nodejs.org/api/http.html#http_server_headerstimeout}
-         */
-        headersTimeout: number;
-        keepAliveTimeout: number;
-        /**
-         * Sets the timeout value in milliseconds for receiving the entire request from the client.
-         * @default 0
-         * {@link https://nodejs.org/api/http.html#http_server_requesttimeout}
-         */
-        requestTimeout: number;
-    }
-    interface Server extends HttpBase {}
     /**
-     * * Extends: `<net.Server>`
      * @since v0.1.17
      */
     class Server extends NetServer {
         constructor(requestListener?: RequestListener);
         constructor(options: ServerOptions, requestListener?: RequestListener);
+        /**
+         * Sets the timeout value for sockets, and emits a `'timeout'` event on
+         * the Server object, passing the socket as an argument, if a timeout
+         * occurs.
+         *
+         * If there is a `'timeout'` event listener on the Server object, then it
+         * will be called with the timed-out socket as an argument.
+         *
+         * By default, the Server does not timeout sockets. However, if a callback
+         * is assigned to the Server's `'timeout'` event, timeouts must be handled
+         * explicitly.
+         * @since v0.9.12
+         * @param [msecs=0 (no timeout)]
+         */
+        setTimeout(msecs?: number, callback?: () => void): this;
+        setTimeout(callback: () => void): this;
+        /**
+         * Limits maximum incoming headers count. If set to 0, no limit will be applied.
+         * @since v0.7.0
+         */
+        maxHeadersCount: number | null;
+        /**
+         * The number of milliseconds of inactivity before a socket is presumed
+         * to have timed out.
+         *
+         * A value of `0` will disable the timeout behavior on incoming connections.
+         *
+         * The socket timeout logic is set up on connection, so changing this
+         * value only affects new connections to the server, not any existing connections.
+         * @since v0.9.12
+         */
+        timeout: number;
+        /**
+         * Limit the amount of time the parser will wait to receive the complete HTTP
+         * headers.
+         *
+         * In case of inactivity, the rules defined in `server.timeout` apply. However,
+         * that inactivity based timeout would still allow the connection to be kept open
+         * if the headers are being sent very slowly (by default, up to a byte per 2
+         * minutes). In order to prevent this, whenever header data arrives an additional
+         * check is made that more than `server.headersTimeout` milliseconds has not
+         * passed since the connection was established. If the check fails, a `'timeout'`event is emitted on the server object, and (by default) the socket is destroyed.
+         * See `server.timeout` for more information on how timeout behavior can be
+         * customized.
+         * @since v11.3.0, v10.14.0
+         */
+        headersTimeout: number;
+        /**
+         * The number of milliseconds of inactivity a server needs to wait for additional
+         * incoming data, after it has finished writing the last response, before a socket
+         * will be destroyed. If the server receives new data before the keep-alive
+         * timeout has fired, it will reset the regular inactivity timeout, i.e.,`server.timeout`.
+         *
+         * A value of `0` will disable the keep-alive timeout behavior on incoming
+         * connections.
+         * A value of `0` makes the http server behave similarly to Node.js versions prior
+         * to 8.0.0, which did not have a keep-alive timeout.
+         *
+         * The socket timeout logic is set up on connection, so changing this value only
+         * affects new connections to the server, not any existing connections.
+         * @since v8.0.0
+         */
+        keepAliveTimeout: number;
+        /**
+         * Sets the timeout value in milliseconds for receiving the entire request from
+         * the client.
+         *
+         * If the timeout expires, the server responds with status 408 without
+         * forwarding the request to the request listener and then closes the connection.
+         *
+         * It must be set to a non-zero value (e.g. 120 seconds) to protect against
+         * potential Denial-of-Service attacks in case the server is deployed without a
+         * reverse proxy in front.
+         * @since v14.11.0
+         */
+        requestTimeout: number;
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: 'close', listener: () => void): this;
+        addListener(event: 'connection', listener: (socket: Socket) => void): this;
+        addListener(event: 'error', listener: (err: Error) => void): this;
+        addListener(event: 'listening', listener: () => void): this;
+        addListener(event: 'checkContinue', listener: RequestListener): this;
+        addListener(event: 'checkExpectation', listener: RequestListener): this;
+        addListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        addListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        addListener(event: 'request', listener: RequestListener): this;
+        addListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: 'close'): boolean;
+        emit(event: 'connection', socket: Socket): boolean;
+        emit(event: 'error', err: Error): boolean;
+        emit(event: 'listening'): boolean;
+        emit(event: 'checkContinue', req: IncomingMessage, res: ServerResponse): boolean;
+        emit(event: 'checkExpectation', req: IncomingMessage, res: ServerResponse): boolean;
+        emit(event: 'clientError', err: Error, socket: stream.Duplex): boolean;
+        emit(event: 'connect', req: IncomingMessage, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: 'request', req: IncomingMessage, res: ServerResponse): boolean;
+        emit(event: 'upgrade', req: IncomingMessage, socket: stream.Duplex, head: Buffer): boolean;
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: 'close', listener: () => void): this;
+        on(event: 'connection', listener: (socket: Socket) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'listening', listener: () => void): this;
+        on(event: 'checkContinue', listener: RequestListener): this;
+        on(event: 'checkExpectation', listener: RequestListener): this;
+        on(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        on(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'request', listener: RequestListener): this;
+        on(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: 'close', listener: () => void): this;
+        once(event: 'connection', listener: (socket: Socket) => void): this;
+        once(event: 'error', listener: (err: Error) => void): this;
+        once(event: 'listening', listener: () => void): this;
+        once(event: 'checkContinue', listener: RequestListener): this;
+        once(event: 'checkExpectation', listener: RequestListener): this;
+        once(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        once(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        once(event: 'request', listener: RequestListener): this;
+        once(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: 'close', listener: () => void): this;
+        prependListener(event: 'connection', listener: (socket: Socket) => void): this;
+        prependListener(event: 'error', listener: (err: Error) => void): this;
+        prependListener(event: 'listening', listener: () => void): this;
+        prependListener(event: 'checkContinue', listener: RequestListener): this;
+        prependListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        prependListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(event: 'request', listener: RequestListener): this;
+        prependListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: 'close', listener: () => void): this;
+        prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
+        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+        prependOnceListener(event: 'listening', listener: () => void): this;
+        prependOnceListener(event: 'checkContinue', listener: RequestListener): this;
+        prependOnceListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependOnceListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        prependOnceListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(event: 'request', listener: RequestListener): this;
+        prependOnceListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
     }
     /**
      * This class serves as the parent class of {@link ClientRequest} and {@link ServerResponse}. It is an abstract of outgoing message from
@@ -620,13 +736,11 @@ declare module 'http' {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
     /**
-     * * Extends: `<stream.Readable>`
-     *
      * An `IncomingMessage` object is created by {@link Server} or {@link ClientRequest} and passed as the first argument to the `'request'` and `'response'` event respectively. It may be used to
      * access response
      * status, headers and data.
      *
-     * Different from its `socket` value which is a subclass of `<stream.Duplex>`, the`IncomingMessage` itself extends `<stream.Readable>` and is created separately to
+     * Different from its `socket` value which is a subclass of `stream.Duplex`, the`IncomingMessage` itself extends `stream.Readable` and is created separately to
      * parse and emit the incoming HTTP headers and payload, as the underlying socket
      * may be reused multiple times in case of keep-alive.
      * @since v0.1.17
@@ -677,7 +791,7 @@ declare module 'http' {
         /**
          * Alias for `message.socket`.
          * @since v0.1.90
-         * @deprecated Since v16.0.0 - Deprecated. Use `socket`.
+         * @deprecated Since v16.0.0 - Use `socket`.
          */
         connection: Socket;
         /**
@@ -686,9 +800,9 @@ declare module 'http' {
          * With HTTPS support, use `request.socket.getPeerCertificate()` to obtain the
          * client's authentication details.
          *
-         * This property is guaranteed to be an instance of the `<net.Socket>` class,
-         * a subclass of `<stream.Duplex>`, unless the user specified a socket
-         * type other than `<net.Socket>`.
+         * This property is guaranteed to be an instance of the `net.Socket` class,
+         * a subclass of `stream.Duplex`, unless the user specified a socket
+         * type other than `net.Socket`.
          * @since v0.3.0
          */
         socket: Socket;

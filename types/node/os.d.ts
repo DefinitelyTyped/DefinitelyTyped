@@ -5,7 +5,7 @@
  * ```js
  * const os = require('os');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/os.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/os.js)
  */
 declare module 'os' {
     interface CpuInfo {
@@ -430,7 +430,7 @@ declare module 'os' {
      * Returns the scheduling priority for the process specified by `pid`. If `pid` is
      * not provided or is `0`, the priority of the current process is returned.
      * @since v10.10.0
-     * @param pid The process ID to retrieve scheduling priority for.
+     * @param [pid=0] The process ID to retrieve scheduling priority for.
      */
     function getPriority(pid?: number): number;
     /**
@@ -444,7 +444,7 @@ declare module 'os' {
      * On Windows, setting priority to `PRIORITY_HIGHEST` requires elevated user
      * privileges. Otherwise the set priority will be silently reduced to`PRIORITY_HIGH`.
      * @since v10.10.0
-     * @param pid The process ID to set scheduling priority for.
+     * @param [pid=0] The process ID to set scheduling priority for.
      * @param priority The scheduling priority to assign to the process.
      */
     function setPriority(priority: number): void;

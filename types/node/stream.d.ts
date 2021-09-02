@@ -14,11 +14,12 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as streamPromises from 'node:stream/promises';
+    import * as streamConsumers from 'node:stream/consumers';
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -587,7 +588,7 @@ declare module 'stream' {
              * @since v0.9.4
              * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a string, `Buffer` or `Uint8Array`. For object mode streams, `chunk` may be any
              * JavaScript value other than `null`.
-             * @param encoding The encoding, if `chunk` is a string.
+             * @param [encoding='utf8'] The encoding, if `chunk` is a string.
              * @param callback Callback for when this chunk of data is flushed.
              * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
              */
@@ -789,6 +790,7 @@ declare module 'stream' {
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
+            allowHalfOpen: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
@@ -1007,7 +1009,7 @@ declare module 'stream' {
          * ```
          *
          * The `pipeline` API provides a promise version, which can also
-         * receive an options argument as the last parameter with a`signal` `<AbortSignal>` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
+         * receive an options argument as the last parameter with a`signal` `AbortSignal` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
          * an`AbortError`.
          *
          * ```js
@@ -1169,6 +1171,7 @@ declare module 'stream' {
             unref(): void;
         }
         const promises: typeof streamPromises;
+        const consumers: typeof streamConsumers;
     }
     export = internal;
 }

@@ -6,7 +6,7 @@
  * ```js
  * const tls = require('tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
@@ -127,8 +127,6 @@ declare module 'tls' {
         requestOCSP?: boolean | undefined;
     }
     /**
-     * * Extends: `<net.Socket>`
-     *
      * Performs transparent encryption of written data and all required TLS
      * negotiation.
      *
@@ -144,7 +142,9 @@ declare module 'tls' {
          */
         constructor(socket: net.Socket, options?: TLSSocketOptions);
         /**
-         * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
+         * Returns `true` if the peer certificate was signed by one of the CAs specified
+         * when creating the `tls.TLSSocket` instance, otherwise `false`.
+         * @since v0.11.4
          */
         authorized: boolean;
         /**
@@ -160,9 +160,10 @@ declare module 'tls' {
         encrypted: boolean;
         /**
          * String containing the selected ALPN protocol.
-         * When ALPN has no selected protocol, tlsSocket.alpnProtocol equals false.
+         * Before a handshake has completed, this value is always null.
+         * When a handshake is completed but not ALPN protocol was selected, tlsSocket.alpnProtocol equals false.
          */
-        alpnProtocol?: string | undefined;
+        alpnProtocol: string | false | null;
         /**
          * Returns an object representing the local certificate. The returned object has
          * some properties corresponding to the fields of the certificate.
@@ -328,7 +329,7 @@ declare module 'tls' {
          * smaller fragments add extra TLS framing bytes and CPU overhead, which may
          * decrease overall server throughput.
          * @since v0.11.11
-         * @param size The maximum TLS fragment size. The maximum value is `16384`.
+         * @param [size=16384] The maximum TLS fragment size. The maximum value is `16384`.
          */
         setMaxSendFragment(size: number): boolean;
         /**
@@ -348,14 +349,14 @@ declare module 'tls' {
          */
         enableTrace(): void;
         /**
-         * Returns the peer certificate as an `<X509Certificate>` object.
+         * Returns the peer certificate as an `X509Certificate` object.
          *
          * If there is no peer certificate, or the socket has been destroyed,`undefined` will be returned.
          * @since v15.9.0
          */
         getPeerX509Certificate(): X509Certificate | undefined;
         /**
-         * Returns the local certificate as an `<X509Certificate>` object.
+         * Returns the local certificate as an `X509Certificate` object.
          *
          * If there is no local certificate, or the socket has been destroyed,`undefined` will be returned.
          * @since v15.9.0
@@ -452,7 +453,7 @@ declare module 'tls' {
          * SecureContext.) If SNICallback wasn't provided the default callback
          * with high-level API will be used (see below).
          */
-        SNICallback?: ((servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void) | undefined;
+        SNICallback?: ((servername: string, cb: (err: Error | null, ctx?: SecureContext) => void) => void) | undefined;
         /**
          * If true the server will reject any connection which is not
          * authorized with the list of supplied CAs. This option only has an
@@ -542,8 +543,6 @@ declare module 'tls' {
         pskCallback?(hint: string | null): PSKCallbackNegotation | null;
     }
     /**
-     * * Extends: `<net.Server>`
-     *
      * Accepts encrypted connections using TLS or SSL.
      * @since v0.3.2
      */

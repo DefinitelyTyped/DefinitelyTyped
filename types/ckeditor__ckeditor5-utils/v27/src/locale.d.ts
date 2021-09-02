@@ -1,8 +1,14 @@
+import { Message } from "./translation-service";
+
 /**
  * Represents the localization services.
  */
 export default class Locale {
-    constructor(options?: { uiLanguage: string; contentLanguage: string });
+	/**
+	 * Creates a new instance of the locale class. Learn more about
+	 * {@glink features/ui-language configuring the language of the editor}.
+	 */
+    constructor(options?: { uiLanguage?: string; contentLanguage?: string });
     /**
      * The editor UI language code in the [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) format.
      *
@@ -75,5 +81,7 @@ export default class Locale {
      *
      * For messages supporting plural forms the first value will determine the plural form.
      */
-    t: (message: string, values?: string[]) => string;
+    t(message: string | Message, values?: string | number | Array<string | number>): string;
+
+    private _t(message: string | Message, values?: string | number | Array<string | number>): string;
 }

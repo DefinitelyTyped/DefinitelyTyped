@@ -1,15 +1,15 @@
 export = IQuery;
 declare function IQuery(): void;
 declare class IQuery {
-    _joinManager: IJoinManager;
-    _checkPermission: boolean;
-    iClauseWhereManager_: IClauseWhereManager;
+    private _joinManager;
+    private _checkPermission;
+    private iClauseWhereManager_;
     private _leftJoinIQuery;
     private _permissionJoins;
     private userKey;
     column(field: IClauseSelect | Record<any, any>, ...args: any[]): IClauseSelect;
     from(classKey: number, alias: any): IQuery;
-    _iClauseFrom: IClauseFrom;
+    private _iClauseFrom;
     innerJoin(iQueryJoin: any): IClauseJoin;
     leftOuterJoin(iQueryJoin: any): IClauseJoin;
     where(where: any): IQuery;
@@ -26,11 +26,10 @@ declare class IQuery {
 declare namespace IQuery {
     export { defaultCheckPermission, from, DBKey, IClauseJoin };
 }
-import IJoinManager = require('./IJoinManager.js');
-import IClauseWhereManager = require('./IClauseWhereManager.js');
 import IClauseSelect = require('./IClauseSelect.js');
-import IClauseFrom = require('./IClauseFrom.js');
 type IClauseJoin = import('./IClauseJoin');
+import IJoinManager = require('./IJoinManager.js');
+import IClauseFrom = require('./IClauseFrom.js');
 declare var defaultCheckPermission: boolean;
 declare var from: any;
 type DBKey = import('@nginstack/engine/lib/dbkey/DBKey');

@@ -17,3 +17,6 @@ const config: PaginationConfig = {
     pageWidth: '',
     pageHeight: '',
 };
+
+// $ExpectType Pagination
+editor.plugins.get('Pagination');

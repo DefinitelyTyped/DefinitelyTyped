@@ -191,6 +191,7 @@ export * from './renderers/shaders/ShaderChunk';
 export * from './renderers/webgl/WebGLBufferRenderer';
 export * from './renderers/webgl/WebGLCapabilities';
 export * from './renderers/webgl/WebGLClipping';
+export * from './renderers/webgl/WebGLCubeUVMaps';
 export * from './renderers/webgl/WebGLExtensions';
 export * from './renderers/webgl/WebGLGeometries';
 export * from './renderers/webgl/WebGLIndexedBufferRenderer';
