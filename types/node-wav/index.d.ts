@@ -42,8 +42,16 @@ export function encode(
         /**
          * When true, the WAVE file is encoded in floating point.
          * It is otherwise encoded in fixed point.
+         * An alias of {@link floatingPoint}.
          */
         readonly float?: boolean;
+
+        /**
+         * When true, the WAVE file is encoded in floating point.
+         * It is otherwise encoded in fixed point.
+         * An alias of {@link float}.
+         */
+        readonly floatingPoint?: boolean;
 
         /**
          * The bit depth of the WAVE file to encode.
