@@ -1,5 +1,11 @@
 import * as React from 'react';
-import DatePicker, { CalendarContainer, registerLocale, setDefaultLocale, getDefaultLocale } from 'react-datepicker';
+import DatePicker, {
+    CalendarContainer,
+    registerLocale,
+    setDefaultLocale,
+    getDefaultLocale,
+    ReactDatePickerProps,
+} from 'react-datepicker';
 import enUS from 'date-fns/locale/en-US';
 import { Modifier } from 'react-popper';
 
@@ -206,3 +212,5 @@ function handleRef(ref: DatePicker<'offset' | 'preventOverflow' | 'topLogger'>) 
 </CalendarContainer>;
 
 <CalendarContainer />;
+
+const props: ReactDatePickerProps = { onChange: () => {} };

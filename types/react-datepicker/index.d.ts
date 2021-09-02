@@ -35,7 +35,7 @@ interface HighlightDates {
     [className: string]: Date[];
 }
 
-export interface ReactDatePickerProps<Modifiers> {
+export interface ReactDatePickerProps<Modifiers = any> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
@@ -193,7 +193,7 @@ export interface ReactDatePickerProps<Modifiers> {
     yearItemNumber?: number | undefined;
 }
 
-declare class ReactDatePicker<Modifiers> extends React.Component<ReactDatePickerProps<Modifiers>> {
+declare class ReactDatePicker<Modifiers = any> extends React.Component<ReactDatePickerProps<Modifiers>> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;
