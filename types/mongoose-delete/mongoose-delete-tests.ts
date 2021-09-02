@@ -33,7 +33,7 @@ PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, inde
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' });
 
-const idUser = mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
+const idUser = new mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
 
 const Pet = mongoose.model<
   PetDocument,
