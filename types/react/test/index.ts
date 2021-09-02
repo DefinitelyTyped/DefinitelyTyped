@@ -878,5 +878,9 @@ const sfc: React.SFC<any> = Memoized2;
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",
     foo: 42,
-    children: functionComponent,
+    children: React.createElement(functionComponent),
 };
+
+// $ExpectError
+React.createElement("p", null, { hi: "world" });
+
