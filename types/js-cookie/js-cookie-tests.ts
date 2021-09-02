@@ -68,3 +68,6 @@ const BlankConverterCookies = Cookies.withConverter({
 
 document.cookie = 'hoge=hogehoge';
 BlankConverterCookies.get('hoge');
+
+// $ExpectType CookiesStatic<object>
+Cookies.withAttributes({ expires: 7, path: '', domain: '', secure: true });

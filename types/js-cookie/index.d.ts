@@ -97,6 +97,14 @@ declare namespace Cookies {
         noConflict?(): CookiesStatic<T>;
 
         /**
+         * Cookie attribute defaults can be set globally by creating an
+         * instance of the api via withAttributes(), or individually for
+         * each call to Cookies.set(...) by passing a plain object as the
+         * last argument. Per-call attributes override the default attributes.
+         */
+        withAttributes(attributes: CookieAttributes): CookiesStatic<T>;
+
+        /**
          * Create a new instance of the api that overrides the default
          * decoding implementation. All methods that rely in a proper
          * decoding to work, such as Cookies.remove() and Cookies.get(),
