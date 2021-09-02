@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "got": "^11.8.2"
+    "@types/got": "^7.1.8"
   }
 }
