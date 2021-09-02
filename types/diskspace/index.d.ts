@@ -2,7 +2,6 @@
 // Project: https://github.com/keverw/diskspace.js
 // Definitions by: Vladislav <https://github.com/swedesjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.31
 
 /**
  * @param err RU: Ошибка при выполнении  EN: Runtime error
