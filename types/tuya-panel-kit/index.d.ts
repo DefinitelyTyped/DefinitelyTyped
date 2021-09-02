@@ -11377,7 +11377,7 @@ export let TYSdk: {
         removeListener: (eventType: string, cb: AnyFunction) => void;
         removeAllListeners: (eventType?: string) => void;
     };
-    Navigator: object | NavigationContainerRef;
+    Navigator: DeprecatedNavigator | NavigationContainerRef;
     /**
      * @param a api name
      * @param postData api params
