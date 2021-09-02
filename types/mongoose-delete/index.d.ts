@@ -115,5 +115,5 @@ interface Options {
     deletedByType: any;
 }
 
-declare function MongooseDelete<T>(schema: mongoose.Schema<T>, options?: Partial<Options>): void;
+declare function MongooseDelete(schema: mongoose.Schema<any>, options?: Partial<Options>): void;
 export = MongooseDelete;
