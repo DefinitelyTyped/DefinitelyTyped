@@ -118,7 +118,7 @@ interface Comp4State {
 
 // Either of these two Comp4 defs will work:
 type Comp4 = Component<Comp4Attrs, Comp4State> & Comp4State;
-// interface Comp4 extends Component<Comp4Attrs,Comp4State>, Comp4State {}
+interface Comp4v2 extends Component<Comp4Attrs,Comp4State>, Comp4State {}
 
 const comp4: Comp4 = {
     count: 0, // <- Must be declared to satisfy Comp4 type which includes Comp4State type
@@ -143,6 +143,9 @@ const comp4: Comp4 = {
         ];
     },
 };
+
+// Test second type
+const comp4v2: Comp4v2 = comp4;
 
 ///////////////////////////////////////////////////////////
 // 5.
