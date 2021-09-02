@@ -28,6 +28,7 @@ main().then(() => {
     runSequence([
         ["git", ["add", ".github/CODEOWNERS"]], // Add CODEOWNERS
         ["git", ["commit", "-m", `"🤖 Update CODEOWNERS"`]], // Commit all changes
+        ["git", ["pull"]], // Ensure we're up-to-date
         ["git", ["push"]] // push the branch
     ]);
     console.log(`Pushed new commit.`);
