@@ -201,6 +201,12 @@ declare namespace Xrm {
          * Indicates whether the Skype protocol is used for the current organization.
          */
         useSkypeProtocol: boolean;
+
+        /**
+         * Returns the region of the current organization.
+         * @see {@link https://docs.microsoft.com/en-us/power-platform/admin/geo-to-geo-migrations External Link: Geo to geo migrations}
+         */
+        organizationGeo: string;
     }
 
     /**
@@ -2478,6 +2484,13 @@ declare namespace Xrm {
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.NumberControl>;
+
+            /**
+            * Sets the number of digits allowed to the right of the decimal point.
+            * @param precision Number of digits allowed to the right of the decimal point.
+            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setPrecision External Link: setPrecision (Client API reference)}
+            */
+             setPrecision(precision: number): void;
         }
 
         /**
