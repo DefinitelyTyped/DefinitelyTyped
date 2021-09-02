@@ -334,6 +334,62 @@ declare namespace TrimbleMaps {
 
         getLayer(id: string): TrimbleMaps.AnyLayer;
 
+        setTrafficVisibility(isVisible: boolean): this;
+
+        isTrafficVisible(): boolean;
+
+        toggleTrafficVisibility(): this;
+
+        setWeatherRadarVisibility(isVisible: boolean): this;
+
+        isWeatherRadarVisible(): boolean;
+
+        toggleWeatherRadarVisibility(): this;
+
+        setWeatherCloudVisibility(isVisible: boolean): this;
+
+        isWeatherCloudVisible(): boolean;
+
+        toggleWeatherCloudVisibility(): this;
+
+        setWeatherAlertVisibility(isVisible: boolean): this;
+
+        isWeatherAlertVisible(): boolean;
+
+        toggleWeatherAlertVisibility(): this;
+
+        setRoadSurfaceVisibility(isVisible: boolean): this;
+
+        isRoadSurfaceVisible(): boolean;
+
+        toggleRoadSurfaceVisibility(): this;
+
+        setPOIVisibility(isVisible: boolean): this;
+
+        isPOIVisible(): boolean;
+
+        togglePOIVisibility(): this;
+
+        set3dBuildingVisibility(isVisible: boolean): this;
+
+        is3dBuildingVisible(): boolean;
+
+        toggle3dBuildingVisibility(): this;
+
+        setPlacesVisibility(isVisible: boolean): this;
+
+        isPlacesVisible(): boolean;
+
+        togglePlacesVisibility(): this;
+
+        setCustomRoadVisibility(isVisible: boolean): this;
+
+        isCustomRoadVisible(): boolean;
+
+        toggleCustomRoadVisibility(): this;
+
+        setLanguage(language: string): void;
+
         setFilter(layer: string, filter?: any[] | boolean | null, options?: FilterOptions | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
@@ -1126,6 +1182,59 @@ declare namespace TrimbleMaps {
          * By default, the map container element will be made full screen.
          */
         container?: HTMLElement | null | undefined;
+    }
+
+    export class WeatherAlertClickControl extends Control {
+        constructor(options?: WeatherAlertClickControlOptions | null);
+    }
+
+    export interface WeatherAlertClickControlOptions {
+    }
+
+    export class WeatherAlertLegendControl extends Control {
+        constructor(options?: WeatherAlertLegendControlOptions | null);
+    }
+
+    export interface WeatherAlertLegendControlOptions {
+    }
+
+    export class WeatherAlertFilterControl extends Control {
+        constructor(options?: WeatherAlertFilterControlOptions | null);
+    }
+
+    export interface WeatherAlertFilterControlOptions {
+        /**
+         * Filters results based on the alert severity ("All", "Extreme", "Severe", "Moderate", "Minor", "Unknown").
+         *
+         * @default 'All'
+         */
+        severity?: string | undefined;
+
+        /**
+         * Filters results based on the alert urgency ("All", "Immediate", "Expected", "Future", "Past", "Unknown").
+         *
+         * @default 'All'
+         */
+        urgency?: string | undefined;
+
+        /**
+         * Filters results based on the alert certainty ("All", "Observed", "Likely", "Possible", "Unlikely", "Unknown").
+         *
+         * @default 'All'
+         */
+        certainty?: string | undefined;
+
+        /**
+         * Array of event names such as ["Winter Storm Warning", "Flood Watch"] .
+         */
+        eventNames?: string[] | undefined;
+
+        /**
+         * Controls the visibility of the selection controls
+         *
+         * @default true
+         */
+        isVisible?: boolean | undefined;
     }
 
     /**

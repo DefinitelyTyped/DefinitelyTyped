@@ -43,6 +43,8 @@ myMap.on('load', () => {
   route.setDraggable(true);
 
   route.on('report', () => {});
+
+  myMap.setWeatherAlertVisibility(true);
 });
 
 var geocodeLocation = TrimbleMaps.Geocoder.geocode({
@@ -74,3 +76,12 @@ var reverseGeocodeLocation = TrimbleMaps.Geocoder.reverseGeocode({
   }
 });
 geocodeLocation.cancel();
+
+var weatherAlertClickControl = new TrimbleMaps.WeatherAlertClickControl();
+myMap.addControl(weatherAlertClickControl);
+
+var weatherAlertLegendControl = new TrimbleMaps.WeatherAlertLegendControl();
+myMap.addControl(weatherAlertLegendControl);
+
+var weatherAlertFilterControl = new TrimbleMaps.WeatherAlertFilterControl();
+myMap.addControl(weatherAlertFilterControl);
