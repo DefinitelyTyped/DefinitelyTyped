@@ -25,6 +25,7 @@ m.mount(document.getElementById('comp0')!, null);
 const comp1: Component = {
     oncreate({ dom }) {
         // vnode.dom type inferred
+        const x: HTMLElement = dom;
     },
     view(vnode) {
         return m('span', 'Test');
