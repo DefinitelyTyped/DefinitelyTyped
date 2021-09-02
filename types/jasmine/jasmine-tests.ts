@@ -12,6 +12,15 @@ import JasmineClass from "jasmine";
 
     jasmineClass.env.configure({
         random: true,
+        Promise,
+        failSpecWithNoExpectations: true,
+        hideDisabled: true,
+        seed: "4321",
+        specFilter: spec => spec.name.startsWith("it"),
+        stopOnSpecFailure: true,
+        stopSpecOnExpectationFailure: true,
+        failFast: true,
+        oneFailurePerSpec: true,
     });
 
     jasmineClass.loadConfig({
