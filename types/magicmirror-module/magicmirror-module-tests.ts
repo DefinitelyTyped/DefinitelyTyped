@@ -1,8 +1,8 @@
 Module.register('test', {});
-type TestConfig = {
+interface TestConfig {
     bla: number;
     blubb: string;
-};
+}
 
 Module.register<TestConfig>('test', {
     defaults: {
