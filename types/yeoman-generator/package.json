@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "definitely-typed": "file:../..",
         "rxjs": "^6.4.0"
     }
 }
