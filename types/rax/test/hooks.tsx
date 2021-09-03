@@ -15,7 +15,6 @@ import {
  	useReducer, 
  	useLayoutEffect, 
  	ComponentRef, 
- 	useImperativeMethods, 
  	useMemo 
  } from "rax";
 
@@ -165,8 +164,6 @@ function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
     const id = useMemo(() => Math.random(), []);
     useImperativeHandle(ref, () => ({ id }), [id]);
     // was named like this in the first alpha, renamed before release
-    // $ExpectError
-    useImperativeMethods(ref, () => ({}), [id]);
 
     // make sure again this is not going to the |null convenience overload
     // $ExpectType MutableRefObject<boolean>
