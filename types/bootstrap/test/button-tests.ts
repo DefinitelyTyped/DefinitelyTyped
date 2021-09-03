@@ -8,7 +8,7 @@ new Button(element);
 
 // $ExpectType Button | null
 Button.getInstance(element);
-// $ExpectType Button | null
+// $ExpectType Button
 Button.getOrCreateInstance(element);
 
 // $ExpectType void
