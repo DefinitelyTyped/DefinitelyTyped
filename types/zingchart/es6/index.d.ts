@@ -1057,6 +1057,1372 @@ declare namespace zingchart {
         'wrap-text'?: boolean | undefined;
       } | undefined;
     } | undefined;
+    'crosshair-x'?: {
+      /**
+       * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+       * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+       */
+      alpha?: number | undefined;
+      /**
+       * X-Axis Crosshairs Only: When true, plot nodes will be highlighted only when the guide is directly next to the node. When false (th
+       * e default setting), the plot nodes closest to the guide will be highlighted. true | false | 1 | 0
+       */
+      exact?: boolean | undefined;
+      /**
+       * Sets the line color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+       */
+      'line-color'?: string | undefined;
+      /**
+       * Can be used to create custom dashed or dotted lines when used with line-segment-size. This will control the size of the gaps betwe
+       * en each line segment. 4 | "6px" | ...
+       */
+      'line-gap-size'?: any;
+      /**
+       * Can be used to create custom dashed or dotted lines when used with line-gap-size. This will control the size of the visible segmen
+       * t of line. 4 | "6px" | ...
+       */
+      'line-segment-size'?: any;
+      /**
+       * Sets the style applied to lines and borders of the object. "solid" | "dotted" | "dashed"
+       */
+      'line-style'?: string | undefined;
+      /**
+       * Sets the line width of the object. 4 | "6px" | ...
+       */
+      'line-width'?: any;
+      /**
+       * Reverses the order of items in plotLabel. Generally used with positive stacked charts.
+       */
+      'reverse-series'?: boolean | undefined;
+      /**
+       * X-Axis Crosshairs Only: For graphsets with multiple chart objects, setting the attribute to true in "crosshair-x" will allow you t
+       * o use crosshairs across all charts simultaneously. true | false | 1 | 0
+       */
+      shared?: boolean | undefined;
+      /**
+       * X-Axis Crosshairs Only: Sets the mode used to display crosshair plot-labels. When set to "move" (the default setting), plot-labels
+       *  for all nodes will be displayed. The "hover" setting will allow only one plot-label to be displayed at a time, with the visibilit
+       * y of each label being triggered when the user hovers over a node. "move" | "hover"
+       */
+      trigger?: string | undefined;
+      /**
+       * Y-Axis Crosshairs Only: Sets the type of the "crosshair-y", either in single mode (one line for all scales) or multiple (a line fo
+       * r every plot). "single" | "multiple"
+       */
+      type?: string | undefined;
+      /**
+       * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+       */
+      visible?: boolean | undefined;
+      marker?: {
+        /**
+         * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        alpha?: number | undefined;
+        /**
+         * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
+         * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
+         * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use gradient-co
+         * lors and gradient-stops. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color'?: string | undefined;
+        /**
+         * Sets the border color of the object, applicable on closed shapes. See the square points between the lines. "none" | "transparent"
+         * | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'border-color'?: string | undefined;
+        /**
+         * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
+         */
+        'border-width'?: number | undefined;
+        /**
+         * Sets the size of the object/shape. 4 | "6px" | ...
+         */
+        size?: number | undefined;
+        /**
+         * The type of the marker object to render. square | circle | diamond | triangle | star5 | star6 | star7 | star8 | rpoly5 | gear5 | g
+         * ear6 | gear7 | gear8
+         */
+        type?: string | undefined;
+        /**
+         * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+         */
+        visible?: boolean | undefined;
+      } | undefined;
+      'plot-label'?: {
+        /**
+         * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        alpha?: number | undefined;
+        /**
+         * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
+         * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
+         * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use gradient-co
+         * lors and gradient-stops. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color'?: string | undefined;
+        /**
+         * Sets the first color of a 2 color background gradient of the object. To be used with background-color-2. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color-1'?: string | undefined;
+        /**
+         * Sets the second color of a 2 color background gradient of the object. To be used with background-color-1. "none" | "transparent" |
+         *  "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color-2'?: string | undefined;
+        /**
+         * Sets the direction/s on which the background image is being "stretched". "x" | "y" | "xy"
+         */
+        'background-fit'?: string | undefined;
+        /**
+         * Sets a background image for the object. Value can be a local file or a web image's location. "image.png" | ...
+         */
+        'background-image'?: string | undefined;
+        /**
+         * Sets the position of the background when the background-repeat value is no-repeat. "0 0" | "50 100" | "80% 60%" | ...
+         */
+        'background-position'?: string | undefined;
+        /**
+         * Sets the repeating mode for the background image. "no-repeat" | "repeat" | "repeat-x" | "repeat-y"
+         */
+        'background-repeat'?: string | undefined;
+        /**
+         * Sets whether the text is displayed with bold characters or not. true | false | 1 | 0
+         */
+        bold?: boolean | undefined;
+        /**
+         * Sets the transparency of the border. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        'border-alpha'?: number | undefined;
+        /**
+         * Sets the object's bottom border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-bottom'?: string | undefined;
+        /**
+         * Sets the border color of the object, applicable on closed shapes. See also line-color for closed shapes. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'border-color'?: string | undefined;
+        /**
+         * Sets the object's left border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-left'?: string | undefined;
+        /**
+         * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+         * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+         * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
+         * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+         */
+        'border-radius'?: any;
+        /**
+         * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
+         * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-bottom-left'?: any;
+        /**
+         * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
+         * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-bottom-right'?: any;
+        /**
+         * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
+         * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-top-left'?: any;
+        /**
+         * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
+         * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-top-right'?: any;
+        /**
+         * Sets the object's right border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-right'?: string | undefined;
+        /**
+         * Sets the object's top border style. Values must include the border width, style, and color. Accepts solid, dashed, and dotted styl
+         * es. "2px solid #f00" | ...
+         */
+        'border-top'?: string | undefined;
+        /**
+         * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
+         */
+        'border-width'?: any;
+        /**
+         * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
+         */
+        callout?: boolean | undefined;
+        /**
+         * Sets the height of the object's callout arrow. A larger value will create a taller callout arrow. 4 | "6px" | ...
+         */
+        'callout-height'?: any;
+        /**
+         * Clips text that runs longer than the width of the parent object. true | false | 1 | 0
+         */
+        'clip-text'?: boolean | undefined;
+        /**
+         * Sets the text's color of the crosshair xy label when you hover over the graph items. "none" | "transparent" | "#f00" | "#f00 #00f"
+         *  | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        color?: string | undefined;
+        /**
+         * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
+         */
+        'fill-angle'?: number | undefined;
+        /**
+         * Sets an X offset to apply to the fill. 4 | "6px" | ...
+         */
+        'fill-offset-x'?: any;
+        /**
+         * Sets an Y offset to apply to the fill. 4 | "6px" | ...
+         */
+        'fill-offset-y'?: any;
+        /**
+         * Sets the background gradient fill type to either linear or radial. "linear" | "radial"
+         */
+        'fill-type'?: string | undefined;
+        /**
+         * Sets the rotation angle of the crosshair xy label when you hover over the graph items. Similar with angle. -45 | 115 | ...
+         */
+        'font-angle'?: number | undefined;
+        /**
+         * Sets the text's color of the crosshair xy label when you hover over the graph items. Similar with color. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'font-color'?: string | undefined;
+        /**
+         * Sets the text's font family of the crosshair xy label when you hover over the graph items. "Arial" | "Tahoma,Verdana" | ...
+         */
+        'font-family'?: string | undefined;
+        /**
+         * Sets the text's font size of the crosshair xy label when you hover over the graph items. 4 | "6px" | ...
+         */
+        'font-size'?: any;
+        /**
+         * Sets the text's font style of the crosshair xy label when you hover over the graph items. "none" | "italic" | "oblique"
+         */
+        'font-style'?: string | undefined;
+        /**
+         * Sets the text's font weight of the crosshair xy label when you hover over the graph items. Similar with bold. "normal" | "bold"
+         */
+        'font-weight'?: string | undefined;
+        /**
+         * Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops. "#f00 #0f0
+         * #00f" | ...
+         */
+        'gradient-colors'?: string | undefined;
+        /**
+         * Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors. "0.1 0.
+         * 5 0.9" | ...
+         */
+        'gradient-stops'?: string | undefined;
+        /**
+         * Sets the object's height. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        height?: any;
+        /**
+         * Sets whether the text of the crosshair xy label when you hover over the graph items is displayed with italic characters or not . t
+         * rue | false | 1 | 0
+         */
+        italic?: boolean | undefined;
+        /**
+         * Sets the maximum numbers of characters displayed in the object. The value determines how many characters will be displayed before
+         * the text is cut and appended with "..." 5 | 10 | ...
+         */
+        'max-chars'?: number | undefined;
+        /**
+         * Sets the maximum width of the text box. If text is longer than the max-width value, it will overlap the box or will wrap if wrap-t
+         * ext is set to true. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        'max-width'?: any;
+        /**
+         * To separate the plot labels so that a label appears for each series. You can assign unique text and styling to each label by going
+         *  to the "series" array. In each series object, create a "guide-label"object, where you can place your series-specific text and sty
+         * ling attributes. true | false | 1 | 0
+         */
+        multiple?: boolean | undefined;
+        /**
+         * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
+         */
+        'offset-x'?: any;
+        /**
+         * Sets a Y offset to apply when positioning the object/shape. 4 | "6px" | ...
+         */
+        'offset-y'?: any;
+        /**
+         * Sets the object's padding around the text. Up to four values can be entered to set the padding for all four sides, with the first
+         * value affecting the top padding, the second value affecting the right padding, and so on, in a clockwise direction. 10 | "5px" | "
+         * 10 20" | "5px 10px 15px 20px" | ...
+         */
+        padding?: any;
+        /**
+         * Sets the object's bottom padding around the text. 4 | "6px" | ...
+         */
+        'padding-bottom'?: any;
+        /**
+         * Sets the object's left padding around the text. 4 | "6px" | ...
+         */
+        'padding-left'?: any;
+        /**
+         * Sets the object's right padding around the text. 4 | "6px" | ...
+         */
+        'padding-right'?: any;
+        /**
+         * Sets the object's top padding around the text. 4 | "6px" | ...
+         */
+        'padding-top'?: any;
+        /**
+         * Renders text right-to-left. Default value is false. true | false | 1 | 0
+         */
+        'rtl (right-to-left)'?: boolean | undefined;
+        /**
+         * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
+         */
+        shadow?: boolean | undefined;
+        /**
+         * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
+         * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        'shadow-alpha'?: number | undefined;
+        /**
+         * Sets the angle of the shadow underneath the object. -45 | 115 | ...
+         */
+        'shadow-angle'?: number | undefined;
+        /**
+         * Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation. 4 | "6px" | ...
+         */
+        'shadow-blur'?: any;
+        /**
+         * Sets the color of the shadow of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ..
+         * .
+         */
+        'shadow-color'?: string | undefined;
+        /**
+         * Sets the distance between the shadow and the object. 4 | "6px" | ...
+         */
+        'shadow-distance'?: any;
+        /**
+         * Sets the text content of the object. "Some Text" | ...
+         */
+        text?: string | undefined;
+        /**
+         * Sets the text's horizontal alignment relative to the object's box. "left" | "center" | "right"
+         */
+        'text-align'?: string | undefined;
+        /**
+         * Sets the text's transparency independent of the object's transparency. Value must be between 0.0 and 1.0, with 0.0 being 100% tran
+         * sparent and 1.0 being 100% opaque. The leading 0 before the decimal is required. 0.3 | 0.9 | ...
+         */
+        'text-alpha'?: number | undefined;
+        /**
+         * Sets the text's decoration to use underlined characters. Similar to underline. May not display properly in Mozilla Firefox when ch
+         * arts are rendered using SVG. "none" | "underline"
+         */
+        'text-decoration'?: string | undefined;
+        /**
+         * Allows the underlying data to be 'transformed' to a new format if it was in that format originally. For example, if data is coded
+         * as a date and time, and 'type':'date' is specified as an attribute of this object, '1311261385209' will display 'Wed, 19 of May 05
+         * :00 PM' if '%D, %d %M %h:%i %A' is specified under the transform attribute of scale-x. {...}
+         */
+        transform?: any;
+        /**
+         * Sets whether the text is displayed with underlined characters or not. Similar to text-decoration. May not display properly in Mozi
+         * lla Firefox when charts are rendered using SVG. true | false | 1 | 0
+         */
+        underline?: boolean | undefined;
+        /**
+         * Sets the text's vertical alignment to one of the three applicable values, relative to the object's box. "top" | "middle" | "bottom
+         * "
+         */
+        'vertical-align'?: string | undefined;
+        /**
+         * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+         */
+        visible?: boolean | undefined;
+        /**
+         * Sets the object's width. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        width?: any;
+        /**
+         * Sets whether the text will wrap, depending on the width of the object. true | false | 1 | 0
+         */
+        'wrap-text'?: boolean | undefined;
+      } | undefined;
+      'scale-label'?: {
+        /**
+         * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        alpha?: number | undefined;
+        /**
+         * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
+         * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
+         * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use gradient-co
+         * lors and gradient-stops. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color'?: string | undefined;
+        /**
+         * Sets the first color of a 2 color background gradient of the object. To be used with background-color-2. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color-1'?: string | undefined;
+        /**
+         * Sets the second color of a 2 color background gradient of the object. To be used with background-color-1. "none" | "transparent" |
+         *  "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color-2'?: string | undefined;
+        /**
+         * Sets the direction/s on which the background image is being "stretched". "x" | "y" | "xy"
+         */
+        'background-fit'?: string | undefined;
+        /**
+         * Sets a background image for the object. Value can be a local file or a web image's location. "image.png" | ...
+         */
+        'background-image'?: string | undefined;
+        /**
+         * Sets the position of the background when the background-repeat value is no-repeat. "0 0" | "50 100" | "80% 60%" | ...
+         */
+        'background-position'?: string | undefined;
+        /**
+         * Sets the repeating mode for the background image. "no-repeat" | "repeat" | "repeat-x" | "repeat-y"
+         */
+        'background-repeat'?: string | undefined;
+        /**
+         * Sets whether the text of the scale label is displayed with bold characters or not. To see this, hover over the axis to the bottom.
+         *  true | false | 1 | 0
+         */
+        bold?: boolean | undefined;
+        /**
+         * Sets the transparency of the border. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        'border-alpha'?: number | undefined;
+        /**
+         * Sets the object's bottom border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-bottom'?: string | undefined;
+        /**
+         * Sets the border color of the object, applicable on closed shapes. See also line-color for closed shapes. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'border-color'?: string | undefined;
+        /**
+         * Sets the object's left border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-left'?: string | undefined;
+        /**
+         * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+         * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+         * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
+         * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+         */
+        'border-radius'?: any;
+        /**
+         * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
+         * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-bottom-left'?: any;
+        /**
+         * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
+         * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-bottom-right'?: any;
+        /**
+         * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
+         * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-top-left'?: any;
+        /**
+         * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
+         * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-top-right'?: any;
+        /**
+         * Sets the object's right border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-right'?: string | undefined;
+        /**
+         * Sets the object's top border style. Values must include the border width, style, and color. Accepts solid, dashed, and dotted styl
+         * es. "2px solid #f00" | ...
+         */
+        'border-top'?: string | undefined;
+        /**
+         * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
+         */
+        'border-width'?: any;
+        /**
+         * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
+         */
+        callout?: boolean | undefined;
+        /**
+         * Sets the width of the object's callout arrow. A larger value will create a wider callout arrow. 4 | "6px" | ...
+         */
+        'callout-width'?: any;
+        /**
+         * Sets the text's color of the crosshair xy label when you hover over the graph items. "none" | "transparent" | "#f00" | "#f00 #00f"
+         *  | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        color?: string | undefined;
+        /**
+         * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
+         */
+        'fill-angle'?: number | undefined;
+        /**
+         * Sets an X offset to apply to the fill. 4 | "6px" | ...
+         */
+        'fill-offset-x'?: any;
+        /**
+         * Sets an Y offset to apply to the fill. 4 | "6px" | ...
+         */
+        'fill-offset-y'?: any;
+        /**
+         * Sets the background gradient fill type to either linear or radial. "linear" | "radial"
+         */
+        'fill-type'?: string | undefined;
+        /**
+         * Sets the rotation angle of the crosshair xy label when you hover over the graph items. Similar with angle. -45 | 115 | ...
+         */
+        'font-angle'?: number | undefined;
+        /**
+         * Sets the text's color of the crosshair xy label when you hover over the graph items. Similar with color. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'font-color'?: string | undefined;
+        /**
+         * Sets the text's font family of the crosshair xy label when you hover over the graph items. "Arial" | "Tahoma,Verdana" | ...
+         */
+        'font-family'?: string | undefined;
+        /**
+         * Sets the text's font size of the crosshair xy label when you hover over the graph items. 4 | "6px" | ...
+         */
+        'font-size'?: any;
+        /**
+         * Sets the text's font style of the crosshair xy label when you hover over the graph items. Similar with italic. "none" | "italic" |
+         *  "oblique"
+         */
+        'font-style'?: string | undefined;
+        /**
+         * Sets the text's font weight of the crosshair xy label when you hover over the graph items. Similar with bold. "normal" | "bold"
+         */
+        'font-weight'?: string | undefined;
+        /**
+         * Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops. "#f00 #0f0
+         * #00f" | ...
+         */
+        'gradient-colors'?: string | undefined;
+        /**
+         * Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors. "0.1 0.
+         * 5 0.9" | ...
+         */
+        'gradient-stops'?: string | undefined;
+        /**
+         * Sets the object's height. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        height?: any;
+        /**
+         * Sets whether the text of the crosshair xy label when you hover over the graph items is displayed with italic characters or not . t
+         * rue | false | 1 | 0
+         */
+        italic?: boolean | undefined;
+        /**
+         * Sets the maximum numbers of characters displayed in the object. The value determines how many characters will be displayed before
+         * the text is cut and appended with "..." 5 | 10 | ...
+         */
+        'max-chars'?: number | undefined;
+        /**
+         * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
+         */
+        'offset-x'?: any;
+        /**
+         * Sets a Y offset to apply when positioning the object/shape. 4 | "6px" | ...
+         */
+        'offset-y'?: any;
+        /**
+         * Sets the object's padding around the text. Up to four values can be entered to set the padding for all four sides, with the first
+         * value affecting the top padding, the second value affecting the right padding, and so on, in a clockwise direction. 10 | "5px" | "
+         * 10 20" | "5px 10px 15px 20px" | ...
+         */
+        padding?: any;
+        /**
+         * Sets the object's bottom padding around the text. 4 | "6px" | ...
+         */
+        'padding-bottom'?: any;
+        /**
+         * Sets the object's left padding around the text. 4 | "6px" | ...
+         */
+        'padding-left'?: any;
+        /**
+         * Sets the object's right padding around the text. 4 | "6px" | ...
+         */
+        'padding-right'?: any;
+        /**
+         * Sets the object's top padding around the text. 4 | "6px" | ...
+         */
+        'padding-top'?: any;
+        /**
+         * Renders text right-to-left. Default value is false. true | false | 1 | 0
+         */
+        'rtl (right-to-left)'?: boolean | undefined;
+        /**
+         * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
+         */
+        shadow?: boolean | undefined;
+        /**
+         * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
+         * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        'shadow-alpha'?: number | undefined;
+        /**
+         * Sets the angle of the shadow underneath the object. -45 | 115 | ...
+         */
+        'shadow-angle'?: number | undefined;
+        /**
+         * Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation. 4 | "6px" | ...
+         */
+        'shadow-blur'?: any;
+        /**
+         * Sets the color of the shadow of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ..
+         * .
+         */
+        'shadow-color'?: string | undefined;
+        /**
+         * Sets the distance between the shadow and the object. 4 | "6px" | ...
+         */
+        'shadow-distance'?: any;
+        /**
+         * X-Axis Crosshair Scale Labels Only: Sets the text content of the object. "Some Text" | ...
+         */
+        text?: string | undefined;
+        /**
+         * Sets the text's horizontal alignment relative to the object's box. "left" | "center" | "right"
+         */
+        'text-align'?: string | undefined;
+        /**
+         * Sets the text's transparency independent of the object's transparency. Value must be between 0.0 and 1.0, with 0.0 being 100% tran
+         * sparent and 1.0 being 100% opaque. The leading 0 before the decimal is required. 0.3 | 0.9 | ...
+         */
+        'text-alpha'?: number | undefined;
+        /**
+         * Sets the text's decoration to use underlined characters. Similar to underline. May not display properly in Mozilla Firefox when ch
+         * arts are rendered using SVG. "none" | "underline"
+         */
+        'text-decoration'?: string | undefined;
+        /**
+         * Allows the underlying data to be 'transformed' to a new format if it was in that format originally. For example, if data is coded
+         * as a date and time, and 'type':'date' is specified as an attribute of this object, '1311261385209' will display 'Wed, 19 of May 05
+         * :00 PM' if '%D, %d %M %h:%i %A' is specified under the transform attribute of scale-x. {...}
+         */
+        transform?: any;
+        /**
+         * Sets whether the text is displayed with underlined characters or not. Similar to text-decoration. May not display properly in Mozi
+         * lla Firefox when charts are rendered using SVG. true | false | 1 | 0
+         */
+        underline?: boolean | undefined;
+        /**
+         * Sets the text's vertical alignment to one of the three applicable values, relative to the object's box. "top" | "middle" | "bottom
+         * "
+         */
+        'vertical-align'?: string | undefined;
+        /**
+         * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+         */
+        visible?: boolean | undefined;
+        /**
+         * Sets the object's width. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        width?: any;
+        /**
+         * Sets whether the text will wrap, depending on the width of the object. true | false | 1 | 0
+         */
+        'wrap-text'?: boolean | undefined;
+      } | undefined;
+    } | undefined;
+    'crosshair-y'?: {
+      /**
+       * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+       * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+       */
+      alpha?: number | undefined;
+      /**
+       * X-Axis Crosshairs Only: When true, plot nodes will be highlighted only when the guide is directly next to the node. When false (th
+       * e default setting), the plot nodes closest to the guide will be highlighted. true | false | 1 | 0
+       */
+      exact?: boolean | undefined;
+      /**
+       * Sets the line color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+       */
+      'line-color'?: string | undefined;
+      /**
+       * Can be used to create custom dashed or dotted lines when used with line-segment-size. This will control the size of the gaps betwe
+       * en each line segment. 4 | "6px" | ...
+       */
+      'line-gap-size'?: any;
+      /**
+       * Can be used to create custom dashed or dotted lines when used with line-gap-size. This will control the size of the visible segmen
+       * t of line. 4 | "6px" | ...
+       */
+      'line-segment-size'?: any;
+      /**
+       * Sets the style applied to lines and borders of the object. "solid" | "dotted" | "dashed"
+       */
+      'line-style'?: string | undefined;
+      /**
+       * Sets the line width of the object. 4 | "6px" | ...
+       */
+      'line-width'?: any;
+      /**
+       * Reverses the order of items in plotLabel. Generally used with positive stacked charts.
+       */
+      'reverse-series'?: boolean | undefined;
+      /**
+       * X-Axis Crosshairs Only: For graphsets with multiple chart objects, setting the attribute to true in "crosshair-x" will allow you t
+       * o use crosshairs across all charts simultaneously. true | false | 1 | 0
+       */
+      shared?: boolean | undefined;
+      /**
+       * X-Axis Crosshairs Only: Sets the mode used to display crosshair plot-labels. When set to "move" (the default setting), plot-labels
+       *  for all nodes will be displayed. The "hover" setting will allow only one plot-label to be displayed at a time, with the visibilit
+       * y of each label being triggered when the user hovers over a node. "move" | "hover"
+       */
+      trigger?: string | undefined;
+      /**
+       * Y-Axis Crosshairs Only: Sets the type of the "crosshair-y", either in single mode (one line for all scales) or multiple (a line fo
+       * r every plot). "single" | "multiple"
+       */
+      type?: string | undefined;
+      /**
+       * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+       */
+      visible?: boolean | undefined;
+      marker?: {
+        /**
+         * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        alpha?: number | undefined;
+        /**
+         * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
+         * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
+         * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use gradient-co
+         * lors and gradient-stops. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color'?: string | undefined;
+        /**
+         * Sets the border color of the object, applicable on closed shapes. See the square points between the lines. "none" | "transparent"
+         * | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'border-color'?: string | undefined;
+        /**
+         * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
+         */
+        'border-width'?: number | undefined;
+        /**
+         * Sets the size of the object/shape. 4 | "6px" | ...
+         */
+        size?: number | undefined;
+        /**
+         * The type of the marker object to render. square | circle | diamond | triangle | star5 | star6 | star7 | star8 | rpoly5 | gear5 | g
+         * ear6 | gear7 | gear8
+         */
+        type?: string | undefined;
+        /**
+         * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+         */
+        visible?: boolean | undefined;
+      } | undefined;
+      'plot-label'?: {
+        /**
+         * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        alpha?: number | undefined;
+        /**
+         * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
+         * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
+         * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use gradient-co
+         * lors and gradient-stops. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color'?: string | undefined;
+        /**
+         * Sets the first color of a 2 color background gradient of the object. To be used with background-color-2. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color-1'?: string | undefined;
+        /**
+         * Sets the second color of a 2 color background gradient of the object. To be used with background-color-1. "none" | "transparent" |
+         *  "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color-2'?: string | undefined;
+        /**
+         * Sets the direction/s on which the background image is being "stretched". "x" | "y" | "xy"
+         */
+        'background-fit'?: string | undefined;
+        /**
+         * Sets a background image for the object. Value can be a local file or a web image's location. "image.png" | ...
+         */
+        'background-image'?: string | undefined;
+        /**
+         * Sets the position of the background when the background-repeat value is no-repeat. "0 0" | "50 100" | "80% 60%" | ...
+         */
+        'background-position'?: string | undefined;
+        /**
+         * Sets the repeating mode for the background image. "no-repeat" | "repeat" | "repeat-x" | "repeat-y"
+         */
+        'background-repeat'?: string | undefined;
+        /**
+         * Sets whether the text is displayed with bold characters or not. true | false | 1 | 0
+         */
+        bold?: boolean | undefined;
+        /**
+         * Sets the transparency of the border. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        'border-alpha'?: number | undefined;
+        /**
+         * Sets the object's bottom border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-bottom'?: string | undefined;
+        /**
+         * Sets the border color of the object, applicable on closed shapes. See also line-color for closed shapes. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'border-color'?: string | undefined;
+        /**
+         * Sets the object's left border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-left'?: string | undefined;
+        /**
+         * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+         * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+         * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
+         * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+         */
+        'border-radius'?: any;
+        /**
+         * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
+         * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-bottom-left'?: any;
+        /**
+         * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
+         * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-bottom-right'?: any;
+        /**
+         * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
+         * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-top-left'?: any;
+        /**
+         * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
+         * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-top-right'?: any;
+        /**
+         * Sets the object's right border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-right'?: string | undefined;
+        /**
+         * Sets the object's top border style. Values must include the border width, style, and color. Accepts solid, dashed, and dotted styl
+         * es. "2px solid #f00" | ...
+         */
+        'border-top'?: string | undefined;
+        /**
+         * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
+         */
+        'border-width'?: any;
+        /**
+         * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
+         */
+        callout?: boolean | undefined;
+        /**
+         * Sets the height of the object's callout arrow. A larger value will create a taller callout arrow. 4 | "6px" | ...
+         */
+        'callout-height'?: any;
+        /**
+         * Clips text that runs longer than the width of the parent object. true | false | 1 | 0
+         */
+        'clip-text'?: boolean | undefined;
+        /**
+         * Sets the text's color of the crosshair xy label when you hover over the graph items. "none" | "transparent" | "#f00" | "#f00 #00f"
+         *  | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        color?: string | undefined;
+        /**
+         * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
+         */
+        'fill-angle'?: number | undefined;
+        /**
+         * Sets an X offset to apply to the fill. 4 | "6px" | ...
+         */
+        'fill-offset-x'?: any;
+        /**
+         * Sets an Y offset to apply to the fill. 4 | "6px" | ...
+         */
+        'fill-offset-y'?: any;
+        /**
+         * Sets the background gradient fill type to either linear or radial. "linear" | "radial"
+         */
+        'fill-type'?: string | undefined;
+        /**
+         * Sets the rotation angle of the crosshair xy label when you hover over the graph items. Similar with angle. -45 | 115 | ...
+         */
+        'font-angle'?: number | undefined;
+        /**
+         * Sets the text's color of the crosshair xy label when you hover over the graph items. Similar with color. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'font-color'?: string | undefined;
+        /**
+         * Sets the text's font family of the crosshair xy label when you hover over the graph items. "Arial" | "Tahoma,Verdana" | ...
+         */
+        'font-family'?: string | undefined;
+        /**
+         * Sets the text's font size of the crosshair xy label when you hover over the graph items. 4 | "6px" | ...
+         */
+        'font-size'?: any;
+        /**
+         * Sets the text's font style of the crosshair xy label when you hover over the graph items. "none" | "italic" | "oblique"
+         */
+        'font-style'?: string | undefined;
+        /**
+         * Sets the text's font weight of the crosshair xy label when you hover over the graph items. Similar with bold. "normal" | "bold"
+         */
+        'font-weight'?: string | undefined;
+        /**
+         * Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops. "#f00 #0f0
+         * #00f" | ...
+         */
+        'gradient-colors'?: string | undefined;
+        /**
+         * Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors. "0.1 0.
+         * 5 0.9" | ...
+         */
+        'gradient-stops'?: string | undefined;
+        /**
+         * Sets the object's height. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        height?: any;
+        /**
+         * Sets whether the text of the crosshair xy label when you hover over the graph items is displayed with italic characters or not . t
+         * rue | false | 1 | 0
+         */
+        italic?: boolean | undefined;
+        /**
+         * Sets the maximum numbers of characters displayed in the object. The value determines how many characters will be displayed before
+         * the text is cut and appended with "..." 5 | 10 | ...
+         */
+        'max-chars'?: number | undefined;
+        /**
+         * Sets the maximum width of the text box. If text is longer than the max-width value, it will overlap the box or will wrap if wrap-t
+         * ext is set to true. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        'max-width'?: any;
+        /**
+         * To separate the plot labels so that a label appears for each series. You can assign unique text and styling to each label by going
+         *  to the "series" array. In each series object, create a "guide-label"object, where you can place your series-specific text and sty
+         * ling attributes. true | false | 1 | 0
+         */
+        multiple?: boolean | undefined;
+        /**
+         * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
+         */
+        'offset-x'?: any;
+        /**
+         * Sets a Y offset to apply when positioning the object/shape. 4 | "6px" | ...
+         */
+        'offset-y'?: any;
+        /**
+         * Sets the object's padding around the text. Up to four values can be entered to set the padding for all four sides, with the first
+         * value affecting the top padding, the second value affecting the right padding, and so on, in a clockwise direction. 10 | "5px" | "
+         * 10 20" | "5px 10px 15px 20px" | ...
+         */
+        padding?: any;
+        /**
+         * Sets the object's bottom padding around the text. 4 | "6px" | ...
+         */
+        'padding-bottom'?: any;
+        /**
+         * Sets the object's left padding around the text. 4 | "6px" | ...
+         */
+        'padding-left'?: any;
+        /**
+         * Sets the object's right padding around the text. 4 | "6px" | ...
+         */
+        'padding-right'?: any;
+        /**
+         * Sets the object's top padding around the text. 4 | "6px" | ...
+         */
+        'padding-top'?: any;
+        /**
+         * Renders text right-to-left. Default value is false. true | false | 1 | 0
+         */
+        'rtl (right-to-left)'?: boolean | undefined;
+        /**
+         * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
+         */
+        shadow?: boolean | undefined;
+        /**
+         * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
+         * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        'shadow-alpha'?: number | undefined;
+        /**
+         * Sets the angle of the shadow underneath the object. -45 | 115 | ...
+         */
+        'shadow-angle'?: number | undefined;
+        /**
+         * Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation. 4 | "6px" | ...
+         */
+        'shadow-blur'?: any;
+        /**
+         * Sets the color of the shadow of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ..
+         * .
+         */
+        'shadow-color'?: string | undefined;
+        /**
+         * Sets the distance between the shadow and the object. 4 | "6px" | ...
+         */
+        'shadow-distance'?: any;
+        /**
+         * Sets the text content of the object. "Some Text" | ...
+         */
+        text?: string | undefined;
+        /**
+         * Sets the text's horizontal alignment relative to the object's box. "left" | "center" | "right"
+         */
+        'text-align'?: string | undefined;
+        /**
+         * Sets the text's transparency independent of the object's transparency. Value must be between 0.0 and 1.0, with 0.0 being 100% tran
+         * sparent and 1.0 being 100% opaque. The leading 0 before the decimal is required. 0.3 | 0.9 | ...
+         */
+        'text-alpha'?: number | undefined;
+        /**
+         * Sets the text's decoration to use underlined characters. Similar to underline. May not display properly in Mozilla Firefox when ch
+         * arts are rendered using SVG. "none" | "underline"
+         */
+        'text-decoration'?: string | undefined;
+        /**
+         * Allows the underlying data to be 'transformed' to a new format if it was in that format originally. For example, if data is coded
+         * as a date and time, and 'type':'date' is specified as an attribute of this object, '1311261385209' will display 'Wed, 19 of May 05
+         * :00 PM' if '%D, %d %M %h:%i %A' is specified under the transform attribute of scale-x. {...}
+         */
+        transform?: any;
+        /**
+         * Sets whether the text is displayed with underlined characters or not. Similar to text-decoration. May not display properly in Mozi
+         * lla Firefox when charts are rendered using SVG. true | false | 1 | 0
+         */
+        underline?: boolean | undefined;
+        /**
+         * Sets the text's vertical alignment to one of the three applicable values, relative to the object's box. "top" | "middle" | "bottom
+         * "
+         */
+        'vertical-align'?: string | undefined;
+        /**
+         * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+         */
+        visible?: boolean | undefined;
+        /**
+         * Sets the object's width. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        width?: any;
+        /**
+         * Sets whether the text will wrap, depending on the width of the object. true | false | 1 | 0
+         */
+        'wrap-text'?: boolean | undefined;
+      } | undefined;
+      'scale-label'?: {
+        /**
+         * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        alpha?: number | undefined;
+        /**
+         * Sets the background color of the object. Colors can be entered by name (e.g. "red", "blue", "yellow"), in hexadecimal notation (e.
+         * g. "#FF0000", "#0000FF", "#FFFF00"), or in RGB notation (e.g. "rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"). One color will se
+         * t a solid background color, two colors will, by default, create a horizontal gradient. For more complex gradients, use gradient-co
+         * lors and gradient-stops. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color'?: string | undefined;
+        /**
+         * Sets the first color of a 2 color background gradient of the object. To be used with background-color-2. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color-1'?: string | undefined;
+        /**
+         * Sets the second color of a 2 color background gradient of the object. To be used with background-color-1. "none" | "transparent" |
+         *  "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'background-color-2'?: string | undefined;
+        /**
+         * Sets the direction/s on which the background image is being "stretched". "x" | "y" | "xy"
+         */
+        'background-fit'?: string | undefined;
+        /**
+         * Sets a background image for the object. Value can be a local file or a web image's location. "image.png" | ...
+         */
+        'background-image'?: string | undefined;
+        /**
+         * Sets the position of the background when the background-repeat value is no-repeat. "0 0" | "50 100" | "80% 60%" | ...
+         */
+        'background-position'?: string | undefined;
+        /**
+         * Sets the repeating mode for the background image. "no-repeat" | "repeat" | "repeat-x" | "repeat-y"
+         */
+        'background-repeat'?: string | undefined;
+        /**
+         * Sets whether the text of the scale label is displayed with bold characters or not. To see this, hover over the axis to the bottom.
+         *  true | false | 1 | 0
+         */
+        bold?: boolean | undefined;
+        /**
+         * Sets the transparency of the border. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
+         * letely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        'border-alpha'?: number | undefined;
+        /**
+         * Sets the object's bottom border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-bottom'?: string | undefined;
+        /**
+         * Sets the border color of the object, applicable on closed shapes. See also line-color for closed shapes. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'border-color'?: string | undefined;
+        /**
+         * Sets the object's left border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-left'?: string | undefined;
+        /**
+         * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
+         * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
+         * alue affecting the top-left corner, the second value affecting the top-right corner, and so on, in a clockwise direction. A negati
+         * ve value will cut a corner off without rounding. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+         */
+        'border-radius'?: any;
+        /**
+         * Sets the object's bottom-left border radius, for rounded corners. Larger values create rounder corners, while smaller values creat
+         * e sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-bottom-left'?: any;
+        /**
+         * Sets the object's bottom-right border radius, for rounded corners. Larger values create rounder corners, while smaller values crea
+         * te sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-bottom-right'?: any;
+        /**
+         * Sets the object's top-left border radius, for rounded corners. Larger values create rounder corners, while smaller values create s
+         * harper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-top-left'?: any;
+        /**
+         * Sets the object's top-right border radius, for rounded corners. Larger values create rounder corners, while smaller values create
+         * sharper corners. A negative value will cut a corner off without rounding. 4 | "6px" | "-6px" | -4 | ...
+         */
+        'border-radius-top-right'?: any;
+        /**
+         * Sets the object's right border style. Accepts solid, dashed, and dotted styles. "2px solid #f00" | ...
+         */
+        'border-right'?: string | undefined;
+        /**
+         * Sets the object's top border style. Values must include the border width, style, and color. Accepts solid, dashed, and dotted styl
+         * es. "2px solid #f00" | ...
+         */
+        'border-top'?: string | undefined;
+        /**
+         * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
+         */
+        'border-width'?: any;
+        /**
+         * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
+         */
+        callout?: boolean | undefined;
+        /**
+         * Sets the width of the object's callout arrow. A larger value will create a wider callout arrow. 4 | "6px" | ...
+         */
+        'callout-width'?: any;
+        /**
+         * Sets the text's color of the crosshair xy label when you hover over the graph items. "none" | "transparent" | "#f00" | "#f00 #00f"
+         *  | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        color?: string | undefined;
+        /**
+         * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
+         */
+        'fill-angle'?: number | undefined;
+        /**
+         * Sets an X offset to apply to the fill. 4 | "6px" | ...
+         */
+        'fill-offset-x'?: any;
+        /**
+         * Sets an Y offset to apply to the fill. 4 | "6px" | ...
+         */
+        'fill-offset-y'?: any;
+        /**
+         * Sets the background gradient fill type to either linear or radial. "linear" | "radial"
+         */
+        'fill-type'?: string | undefined;
+        /**
+         * Sets the rotation angle of the crosshair xy label when you hover over the graph items. Similar with angle. -45 | 115 | ...
+         */
+        'font-angle'?: number | undefined;
+        /**
+         * Sets the text's color of the crosshair xy label when you hover over the graph items. Similar with color. "none" | "transparent" |
+         * "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
+         */
+        'font-color'?: string | undefined;
+        /**
+         * Sets the text's font family of the crosshair xy label when you hover over the graph items. "Arial" | "Tahoma,Verdana" | ...
+         */
+        'font-family'?: string | undefined;
+        /**
+         * Sets the text's font size of the crosshair xy label when you hover over the graph items. 4 | "6px" | ...
+         */
+        'font-size'?: any;
+        /**
+         * Sets the text's font style of the crosshair xy label when you hover over the graph items. Similar with italic. "none" | "italic" |
+         *  "oblique"
+         */
+        'font-style'?: string | undefined;
+        /**
+         * Sets the text's font weight of the crosshair xy label when you hover over the graph items. Similar with bold. "normal" | "bold"
+         */
+        'font-weight'?: string | undefined;
+        /**
+         * Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops. "#f00 #0f0
+         * #00f" | ...
+         */
+        'gradient-colors'?: string | undefined;
+        /**
+         * Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors. "0.1 0.
+         * 5 0.9" | ...
+         */
+        'gradient-stops'?: string | undefined;
+        /**
+         * Sets the object's height. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        height?: any;
+        /**
+         * Sets whether the text of the crosshair xy label when you hover over the graph items is displayed with italic characters or not . t
+         * rue | false | 1 | 0
+         */
+        italic?: boolean | undefined;
+        /**
+         * Sets the maximum numbers of characters displayed in the object. The value determines how many characters will be displayed before
+         * the text is cut and appended with "..." 5 | 10 | ...
+         */
+        'max-chars'?: number | undefined;
+        /**
+         * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
+         */
+        'offset-x'?: any;
+        /**
+         * Sets a Y offset to apply when positioning the object/shape. 4 | "6px" | ...
+         */
+        'offset-y'?: any;
+        /**
+         * Sets the object's padding around the text. Up to four values can be entered to set the padding for all four sides, with the first
+         * value affecting the top padding, the second value affecting the right padding, and so on, in a clockwise direction. 10 | "5px" | "
+         * 10 20" | "5px 10px 15px 20px" | ...
+         */
+        padding?: any;
+        /**
+         * Sets the object's bottom padding around the text. 4 | "6px" | ...
+         */
+        'padding-bottom'?: any;
+        /**
+         * Sets the object's left padding around the text. 4 | "6px" | ...
+         */
+        'padding-left'?: any;
+        /**
+         * Sets the object's right padding around the text. 4 | "6px" | ...
+         */
+        'padding-right'?: any;
+        /**
+         * Sets the object's top padding around the text. 4 | "6px" | ...
+         */
+        'padding-top'?: any;
+        /**
+         * Renders text right-to-left. Default value is false. true | false | 1 | 0
+         */
+        'rtl (right-to-left)'?: boolean | undefined;
+        /**
+         * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
+         */
+        shadow?: boolean | undefined;
+        /**
+         * Sets the transparency of the shadow of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and
+         * 1.0 being completely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
+         */
+        'shadow-alpha'?: number | undefined;
+        /**
+         * Sets the angle of the shadow underneath the object. -45 | 115 | ...
+         */
+        'shadow-angle'?: number | undefined;
+        /**
+         * Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation. 4 | "6px" | ...
+         */
+        'shadow-blur'?: any;
+        /**
+         * Sets the color of the shadow of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ..
+         * .
+         */
+        'shadow-color'?: string | undefined;
+        /**
+         * Sets the distance between the shadow and the object. 4 | "6px" | ...
+         */
+        'shadow-distance'?: any;
+        /**
+         * X-Axis Crosshair Scale Labels Only: Sets the text content of the object. "Some Text" | ...
+         */
+        text?: string | undefined;
+        /**
+         * Sets the text's horizontal alignment relative to the object's box. "left" | "center" | "right"
+         */
+        'text-align'?: string | undefined;
+        /**
+         * Sets the text's transparency independent of the object's transparency. Value must be between 0.0 and 1.0, with 0.0 being 100% tran
+         * sparent and 1.0 being 100% opaque. The leading 0 before the decimal is required. 0.3 | 0.9 | ...
+         */
+        'text-alpha'?: number | undefined;
+        /**
+         * Sets the text's decoration to use underlined characters. Similar to underline. May not display properly in Mozilla Firefox when ch
+         * arts are rendered using SVG. "none" | "underline"
+         */
+        'text-decoration'?: string | undefined;
+        /**
+         * Allows the underlying data to be 'transformed' to a new format if it was in that format originally. For example, if data is coded
+         * as a date and time, and 'type':'date' is specified as an attribute of this object, '1311261385209' will display 'Wed, 19 of May 05
+         * :00 PM' if '%D, %d %M %h:%i %A' is specified under the transform attribute of scale-x. {...}
+         */
+        transform?: any;
+        /**
+         * Sets whether the text is displayed with underlined characters or not. Similar to text-decoration. May not display properly in Mozi
+         * lla Firefox when charts are rendered using SVG. true | false | 1 | 0
+         */
+        underline?: boolean | undefined;
+        /**
+         * Sets the text's vertical alignment to one of the three applicable values, relative to the object's box. "top" | "middle" | "bottom
+         * "
+         */
+        'vertical-align'?: string | undefined;
+        /**
+         * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
+         */
+        visible?: boolean | undefined;
+        /**
+         * Sets the object's width. 10 | "20px" | 0.3 | "30%" | ...
+         */
+        width?: any;
+        /**
+         * Sets whether the text will wrap, depending on the width of the object. true | false | 1 | 0
+         */
+        'wrap-text'?: boolean | undefined;
+      } | undefined;
+    } | undefined;
     csv?: {
       /**
        * In case of fixed width column format of the CSV data, specifies the dimensions for each column. Some csv files are formatted based
@@ -7191,6 +8557,10 @@ declare namespace zingchart {
          * 5 0.9" | ...
          */
         'gradient-stops'?: string | undefined;
+        /**
+         * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
+         */
+         'line-color'?: string | undefined;
         /**
          * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
          */
@@ -14364,6 +15734,10 @@ declare namespace zingchart {
          */
         visible?: boolean | undefined;
       } | undefined;
+      /** 
+       * To enabled shared zooming when there are mulitple charts in a graphset
+       */
+      shared?: boolean | undefined;
     } | undefined;
   }
 
