@@ -1,11 +1,11 @@
 import AsyncStreamEmitter = require('async-stream-emitter');
 import { Secret } from 'jsonwebtoken';
 import { Server } from 'http';
-import { AGAuthEngine } from 'ag-auth';
 import WebSocket = require('ws');
 import WritableConsumableStream = require('writable-consumable-stream');
 import ConsumableStream = require('consumable-stream');
 import AGSimpleBroker = require('ag-simple-broker');
+import AuthEngine = require('ag-auth');
 
 import AGServerSocket = require('./serversocket');
 import AGAction = require('./action');
@@ -103,8 +103,8 @@ declare class AGServer extends AsyncStreamEmitter<any> {
 
     hasMiddleware(type: AGServer.Middlewares): boolean;
 
-    setAuthEngine(authEngine: AGAuthEngine): void;
-    auth: AGAuthEngine;
+    setAuthEngine(authEngine: AGServer.AuthEngineType): void;
+    auth: AGServer.AuthEngineType;
 
     setCodecEngine(codecEngine: AGServer.CodecEngine): void;
     codec: AGServer.CodecEngine;
@@ -270,7 +270,7 @@ declare namespace AGServer {
         socketStreamCleanupMode?: 'kill' | 'close';
 
         authVerifyAlgorithms?: string[];
-        authEngine?: AGAuthEngine;
+        authEngine?: AuthEngineType;
         codecEngine?: CodecEngine;
         cloneData?: boolean;
 
@@ -298,4 +298,6 @@ declare namespace AGServer {
         decode: (input: any) => any;
         encode: (object: any) => any;
     }
+
+    type AuthEngineType = Pick<AuthEngine, "verifyToken" | "signToken">;
 }

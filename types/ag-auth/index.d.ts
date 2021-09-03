@@ -6,18 +6,9 @@
 
 import { VerifyOptions, Secret, SignOptions, Jwt } from 'jsonwebtoken';
 
-declare class AuthEngine implements AuthEngine.AGAuthEngine {
-    constructor();
-
+declare class AuthEngine {
     verifyToken(signedToken: string | null, key: Secret, options?: VerifyOptions): Promise<Jwt>;
     signToken(token: string | object | Buffer, key: Secret, options?: SignOptions): Promise<string | undefined>;
 }
 
 export = AuthEngine;
-
-declare namespace AuthEngine {
-    interface AGAuthEngine {
-        verifyToken(signedToken: string | null, key: Secret, options?: VerifyOptions): Promise<Jwt>;
-        signToken(token: string | object | Buffer, key: Secret, options?: SignOptions): Promise<string | undefined>;
-    }
-}

@@ -1,8 +1,7 @@
 // Adapted from README
 
 import http = require('http');
-import agAuth = require('ag-auth');
-import { AGAuthEngine } from 'ag-auth';
+import AuthEngine = require('ag-auth');
 import socketClusterServer = require('socketcluster-server');
 import { Secret, VerifyOptions, Jwt, SignOptions } from 'jsonwebtoken';
 
@@ -96,10 +95,10 @@ agServer = socketClusterServer.attach(httpServer, {
 });
 
 agServer = socketClusterServer.attach(httpServer, {
-    authEngine: new agAuth()
+    authEngine: new AuthEngine()
 });
 
-class CustomAuthEngine implements AGAuthEngine {
+class CustomAuthEngine implements socketClusterServer.AGServer.AuthEngineType {
     verifyToken(signedToken: string | null, key: Secret, options?: VerifyOptions): Promise<Jwt> {
         throw new Error('Method not implemented.');
     }
