@@ -330,6 +330,7 @@ declare namespace Rax {
 
   interface RenderOption {
     driver: any;
+    hydrate: boolean;
   }
   export const render: Renderer;
 
