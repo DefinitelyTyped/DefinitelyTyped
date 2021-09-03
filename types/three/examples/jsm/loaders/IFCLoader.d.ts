@@ -58,7 +58,7 @@ export class IFCLoader extends Loader {
      * @all If true, it picks the translucent items as well.
      *
      */
-    pickItem(items: Intersection[], geometry: BufferGeometry, transparent?: boolean): Intersection | null | undefined;
+    pickItem(items: Array<Intersection<Object3D>>, geometry: BufferGeometry, transparent?: boolean): Intersection<Object3D> | null | undefined;
     /**
      * Sets the RGB color and transparency of the specified items.
      * @ids The items whose visibility to change.
