@@ -2,6 +2,7 @@
     "private": true,
     "dependencies": {
         "chalk": "^4.1.0",
+        "definitely-typed": "file:../..",
         "rxjs": "^6.4.0"
     }
 }

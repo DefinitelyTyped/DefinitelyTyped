@@ -199,6 +199,7 @@ generator.option('opt4', {
   type: Number,
   default: 3.2,
 });
+generator.option('opt5');
 
 const optionValue1 = generator.options.opt1;
 

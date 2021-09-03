@@ -561,7 +561,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param config The configuration of the option.
      * @returns This generator
      */
-    option(name: string, config: Generator.OptionConfig): this;
+    option(name: string, config?: Generator.OptionConfig): this;
 
     /**
      * Prompt user to answer questions.
