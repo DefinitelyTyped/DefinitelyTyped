@@ -388,6 +388,10 @@
             "libraryName": "browserslist",
             "asOfVersion": "4.15.0"
         },
+        "bson": {
+            "libraryName": "bson",
+            "asOfVersion": "4.2.0"
+        },
         "bugsnag": {
             "libraryName": "bugsnag-js",
             "asOfVersion": "3.1.0"
