@@ -169,7 +169,7 @@ export interface MUIDataTableFilterOptions {
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js)
      */
-    logic?: ((prop: string, filterValue: any[]) => boolean) | undefined;
+    logic?: ((prop: string, filterValue: any[], row: any[]) => boolean) | undefined;
     /**
      * A function to customize filter choices.
      * Use case: changing empty strings to "(empty)" in a dropdown.
