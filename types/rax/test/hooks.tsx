@@ -1,21 +1,21 @@
 import {
-	forwardRef,
-	MutableRefObject,
-	RefObject,
-	useRef,
-	useState,
- 	useEffect,
- 	useContext,
- 	useCallback, 
- 	createRef,
- 	createContext, 
- 	RaxNode, 
- 	useImperativeHandle, 
- 	Ref, 
- 	useReducer, 
- 	useLayoutEffect, 
- 	ComponentRef, 
- 	useMemo 
+  forwardRef,
+  MutableRefObject,
+  RefObject,
+  useRef,
+  useState,
+  useEffect,
+  useContext,
+  useCallback, 
+  createRef,
+  createContext,
+  RaxNode, 
+  useImperativeHandle, 
+  Ref, 
+  useReducer, 
+  useLayoutEffect, 
+  ComponentRef, 
+  useMemo, 
  } from "rax";
 
 interface PersonProps {
@@ -109,13 +109,6 @@ const context = createContext<Context>({ test: true });
 function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
     const value: Context = useContext(context);
     const [, setState] = useState(() => 0);
-    // Bonus typescript@next version
-    // const [reducerState, dispatch] = useReducer(reducer, true as const, arg => arg && initialState);
-    // Compile error in typescript@3.0 but not in typescript@3.1.
-    // const [reducerState, dispatch] = useReducer(reducer, true as true, arg => arg && initialState);
-    const [reducerState, dispatch] = useReducer(reducer, true as true, (arg: true): AppState => arg && initialState);
-
-    const [, simpleDispatch] = useReducer(v => v + 1, 0);
 
     // inline object, to (manually) check if autocomplete works
     useReducer(reducer, { age: 42, name: 'The Answer' });
@@ -173,14 +166,6 @@ function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
         setState(1);
         setState(prevState => prevState - 1);
         didLayout.current = true;
-    }, []);
-    useEffect(() => {
-        dispatch({ type: 'getOlder' });
-        // $ExpectError
-        dispatch();
-
-        simpleDispatch();
-        setState(reducerState.age);
     }, []);
 
     // effects are only allowed to either be actually void or return actually void functions
