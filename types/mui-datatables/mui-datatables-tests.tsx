@@ -43,6 +43,17 @@ const MuiCustomTable: React.FC<Props> = props => {
             label: 'Color',
             options: {
                 filter: true,
+                filterOptions: {
+                    logic: (prop: string, filterValue: any[], row: any[] | undefined) => {
+                        if(prop === "test") return true;
+                        if(filterValue.includes("test")) {
+                            return false;
+                        }
+                        if(row && row.length < 1) return false;
+                        return true;
+                        }     
+                    }
+                },
                 customFilterListOptions: {
                     render: (value: string) => value.toUpperCase(),
                 },
