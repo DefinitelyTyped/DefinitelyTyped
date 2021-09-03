@@ -1,3 +1,5 @@
+import React = require('react');
+
 interface TInputs { inputString?: string | undefined; }
 interface TOutputs { testString: string; }
 
@@ -5,6 +7,21 @@ class TestControl implements ComponentFramework.StandardControl<TInputs, TOutput
     init(context: ComponentFramework.Context<TInputs>, notifyOutputChanged?: () => void, state?: ComponentFramework.Dictionary, container?: HTMLDivElement) {
     }
     updateView(context: ComponentFramework.Context<TInputs>) {
+    }
+    destroy() {
+    }
+    getOutputs() {
+        return {
+            testString: '',
+        };
+    }
+}
+
+class TestVirtualControl implements ComponentFramework.VirtualControl<TInputs, TOutputs> {
+    init(context: ComponentFramework.Context<TInputs>, notifyOutputChanged?: () => void) {
+    }
+    updateView(context: ComponentFramework.Context<TInputs>) {
+        return React.createElement('div', {id:'test-id'});
     }
     destroy() {
     }

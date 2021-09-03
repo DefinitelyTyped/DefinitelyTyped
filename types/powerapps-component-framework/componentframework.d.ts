@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 declare namespace ComponentFramework {
     /**
      * Interface for the PowerApps Controls (Standard)
@@ -34,6 +36,20 @@ declare namespace ComponentFramework {
          * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as "bound" or "output"
          */
         getOutputs?(): TOutputs;
+    }
+
+    /**
+     * Interface for PowerApps React controls
+     */
+     interface VirtualControl<TInputs, TOutputs> extends StandardControl<TInputs, TOutputs> {
+        /**
+         * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
+         * offline status, control metadata values such as label, visible, etc.
+         * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names
+         * defined in the manifest, as well as utility functions
+         * @returns an React component
+         */
+        updateView(context: Context<TInputs>): ReactElement;
     }
 
     /**
