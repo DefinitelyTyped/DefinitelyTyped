@@ -6,7 +6,7 @@ export type GetInstanceFactory<T> = (element: string | Element) => T | null;
 export type GetOrCreateInstanceFactory<T, C extends ComponentOptions = ComponentOptions> = (
     element: string | Element,
     config?: C,
-) => T | null;
+) => T;
 export type ComponentOptions = Record<string, any>;
 
 /**
