@@ -45,12 +45,12 @@ const MuiCustomTable: React.FC<Props> = props => {
                 filter: true,
                 filterOptions: {
                     logic: (prop: string, filterValue: any[], row: any[] | undefined) => {
-                        if(prop === "test") return true;
+                        if(prop === "test") return true
                         if(filterValue.includes("test")) {
-                            return false;
+                            return false
                         }
-                        if(row && row.length < 1) return false;
-                        return true;
+                        if(row && row.length < 1) return false
+                        return true
                         }     
                     }
                 },
