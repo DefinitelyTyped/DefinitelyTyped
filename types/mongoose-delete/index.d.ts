@@ -2,7 +2,7 @@
 // Project: https://github.com/dsanel/mongoose-delete
 // Definitions by: Mochamad Arifin <https://github.com/ndunks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 4.1
 
 import mongoose = require('mongoose');
 
@@ -115,5 +115,5 @@ interface Options {
     deletedByType: any;
 }
 
-declare function MongooseDelete(schema: mongoose.Schema<any>, options?: Partial<Options>): void;
+declare function MongooseDelete(schema: mongoose.Schema, options?: Partial<Options>): void;
 export = MongooseDelete;
