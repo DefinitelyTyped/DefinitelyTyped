@@ -1,5 +1,5 @@
-import { Offcanvas } from "bootstrap";
-import * as $ from "jquery";
+import { Offcanvas } from 'bootstrap';
+import * as $ from 'jquery';
 
 const element = new Element();
 
@@ -8,7 +8,7 @@ new Offcanvas(element);
 
 // $ExpectType Offcanvas | null
 Offcanvas.getInstance(element);
-// $ExpectType Offcanvas
+// $ExpectType Offcanvas | null
 Offcanvas.getOrCreateInstance(element);
 
 // $ExpectType string
@@ -43,9 +43,9 @@ element.addEventListener(Offcanvas.Events.shown, event => {
 });
 
 // $ExpectType void
-$(".alert").offcanvas();
+$('.alert').offcanvas();
 
-$(".alert").offcanvas("toggle"); // $ExpectType void
-$(".alert").offcanvas("show"); // $ExpectType void
-$(".alert").offcanvas("hide"); // $ExpectType void
-$(".alert").offcanvas("dispose"); // $ExpectType void
+$('.alert').offcanvas('toggle'); // $ExpectType void
+$('.alert').offcanvas('show'); // $ExpectType void
+$('.alert').offcanvas('hide'); // $ExpectType void
+$('.alert').offcanvas('dispose'); // $ExpectType void

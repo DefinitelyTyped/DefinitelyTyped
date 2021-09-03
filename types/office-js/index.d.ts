@@ -5685,7 +5685,7 @@ declare namespace Office {
          * 
          * `format: {numberFormat:"0.00%"}`
          * 
-         * For more detail, see how to {@link https://support.office.com/article/create-or-delete-a-custom-number-format-78f2a361-936b-4c03-8772-09fab54be7f4 | Create a custom number format}.
+         * For more detail, see how to {@link https://support.microsoft.com/office/78f2a361-936b-4c03-8772-09fab54be7f4 | Create a custom number format}.
          * 
          * To set formatting on tables when writing data, use the tableOptions and cellFormat optional parameters of the 
          * `Document.setSelectedDataAsync` or `TableBinding.setDataAsync` methods.
@@ -5784,7 +5784,7 @@ declare namespace Office {
          * 
          * `format: {numberFormat:"0.00%"}`
          * 
-         * For more detail, see how to {@link https://support.office.com/article/create-or-delete-a-custom-number-format-78f2a361-936b-4c03-8772-09fab54be7f4 | Create a custom number format}.
+         * For more detail, see how to {@link https://support.microsoft.com/office/78f2a361-936b-4c03-8772-09fab54be7f4 | Create a custom number format}.
          * 
          * To set formatting on tables when writing data, use the tableOptions and cellFormat optional parameters of the 
          * `Document.setSelectedDataAsync` or `TableBinding.setDataAsync` methods.
@@ -6014,7 +6014,7 @@ declare namespace Office {
      * A ProjectResourceFields constant can be used as a parameter of the {@link Office.Document | Document}.getResourceFieldAsync method.
      *
      * For more information about working with fields in Project, see 
-     * {@link https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. In 
+     * {@link https://support.microsoft.com/office/615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. In 
      * Project Help, search for Available fields.
      */
     enum ProjectResourceFields {
@@ -6828,7 +6828,7 @@ declare namespace Office {
      * A ProjectTaskFields constant can be used as a parameter of the {@link Office.Document | Document}.getTaskFieldAsync method.
      *
      * For more information about working with fields in Project, see the 
-     * {@link https://support.office.com/article/Available-fields-reference-615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. 
+     * {@link https://support.microsoft.com/office/615a4563-1cc3-40f4-b66f-1b17e793a460 | Available fields} reference. 
      * In Project Help, search for Available fields.
      */
     enum ProjectTaskFields {
@@ -10313,7 +10313,7 @@ declare namespace Office {
          *
          * **Note**: In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
-         * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
+         * For a workaround, see {@link https://docs.microsoft.com/outlook/troubleshoot/calendars/cannot-save-meeting-as-draft-in-outlook-for-mac | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -10349,7 +10349,7 @@ declare namespace Office {
          *
          * **Note**: In Outlook on Mac, only build 16.35.308 or later supports saving a meeting.
          * Otherwise, the `saveAsync` method fails when called from a meeting in compose mode.
-         * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
+         * For a workaround, see {@link https://docs.microsoft.com/outlook/troubleshoot/calendars/cannot-save-meeting-as-draft-in-outlook-for-mac | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -10625,7 +10625,7 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Attendee
          *
          * **Note**: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, refer to 
-         * {@link https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519 | Blocked attachments in Outlook}.
+         * {@link https://support.microsoft.com/office/434752e1-02d3-4e90-9124-8b81e49a8519 | Blocked attachments in Outlook}.
          *
          */
         attachments: AttachmentDetails[];
@@ -15449,7 +15449,7 @@ declare namespace Office {
          * 
          * **Note**: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. 
          * For more information, see 
-         * {@link https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519 | Blocked attachments in Outlook}.
+         * {@link https://support.microsoft.com/office/434752e1-02d3-4e90-9124-8b81e49a8519 | Blocked attachments in Outlook}.
          *
          */
         attachments: AttachmentDetails[];

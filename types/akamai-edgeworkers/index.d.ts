@@ -4,6 +4,7 @@
 //                 Will Bain <https://github.com/wabain>
 //                 Swathi Bala <https://github.com/swathimr>
 //                 Aman Nanner <https://github.com/ananner>
+//                 Ben Matthews <https://github.com/bmatthew>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace EW {

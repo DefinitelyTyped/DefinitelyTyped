@@ -317,13 +317,23 @@ declare namespace mapboxgl {
                 | ImageData
                 | ImageBitmap,
             options?: { pixelRatio?: number | undefined; sdf?: boolean | undefined },
-        ): this;
+        ): void;
+
+        updateImage(
+            name: string,
+            image:
+                | HTMLImageElement
+                | ArrayBufferView
+                | { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
+                | ImageData
+                | ImageBitmap,
+        ): void;
 
         hasImage(name: string): boolean;
 
-        removeImage(name: string): this;
+        removeImage(name: string): void;
 
-        loadImage(url: string, callback: (error?: Error, result?: HTMLImageElement | ImageBitmap) => void): this;
+        loadImage(url: string, callback: (error?: Error, result?: HTMLImageElement | ImageBitmap) => void): void;
 
         listImages(): string[];
 

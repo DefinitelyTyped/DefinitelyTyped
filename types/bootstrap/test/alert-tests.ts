@@ -1,5 +1,5 @@
-import { Alert } from "bootstrap";
-import * as $ from "jquery";
+import { Alert } from 'bootstrap';
+import * as $ from 'jquery';
 
 const element = new Element();
 
@@ -10,13 +10,12 @@ alert.dispose();
 
 // $ExpectType Alert | null
 Alert.getInstance(element);
-// $ExpectType Alert
+// $ExpectType Alert | null
 Alert.getOrCreateInstance(element);
 
 // $ExpectType void | undefined
 Alert.getInstance(element)?.close();
-// $ExpectType void
-Alert.getOrCreateInstance(element).close();
+Alert.getOrCreateInstance(element)?.close();
 
 Alert.VERSION; // $ExpectType string
 Alert.NAME; // $ExpectType "alert"
@@ -30,7 +29,7 @@ element.addEventListener(Alert.Events.closed, event => {
 });
 
 // $ExpectType void
-$(".alert").alert();
+$('.alert').alert();
 
 // $ExpectType void
-$(".alert").alert("close");
+$('.alert').alert('close');
