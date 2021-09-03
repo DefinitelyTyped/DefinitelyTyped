@@ -1,40 +1,40 @@
-Module.register("test", {})
+Module.register('test', {});
 type TestConfig = {
-    bla: number
-    blubb: string
-}
+    bla: number;
+    blubb: string;
+};
 
-Module.register<TestConfig>("test", {
+Module.register<TestConfig>('test', {
     defaults: {
         bla: 1,
-        blubb: "abc"
+        blubb: 'abc',
     },
     config: {
         bla: 1,
-        blubb: "abc"
+        blubb: 'abc',
     },
-    getHeader(){
-        return config.address
+    getHeader() {
+        return config.address;
     },
-    getDom(){
-        return new HTMLElement()
+    getDom() {
+        return new HTMLElement();
     },
-    getStyles(){
-        return ["abc"]
+    getStyles() {
+        return ['abc'];
     },
-    getTemplate(){
-        return "abc"
+    getTemplate() {
+        return 'abc';
     },
-    getTemplateData(){
-        return {bla: 123, blubb: "abc"}
+    getTemplateData() {
+        return { bla: 123, blubb: 'abc' };
     },
-    getTranslations(){
-        return {de: "bla", en: "blubb"}
-    }
-})
+    getTranslations() {
+        return { de: 'bla', en: 'blubb' };
+    },
+});
 
 node_helper.create({
-    start(){
-        return
-    }
-})
+    start() {
+        return;
+    },
+});
