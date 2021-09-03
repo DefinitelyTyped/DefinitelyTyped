@@ -10,31 +10,45 @@ declare namespace Module {
     function register<T>(moduleName: string, moduleProperties: ModuleProperties<T>): void;
 
     type ModuleProperties<T> = {
-     config?: T
-     defaults?: T
-     getDom?: () => HTMLElement
-     getHeader?: () => string
-     getStyles?: () => string[]
-     getTemplate?: () => string
-     getTemplateData?: () => object
-     getTranslations?: () => { [key: string]: string }
-     notificationReceived?: (notification: string, payload: any, sender: object) => void
-     resume?: () => void
-     socketNotificationReceived?: (notification: string, payload: any) => void
-     suspend?: () => void
-     [key: string]: any
-   } & ThisType<ModuleProperties<T>>;
- }
+        config?: T;
+        defaults?: T;
+        getDom?: () => HTMLElement;
+        getHeader?: () => string;
+        getStyles?: () => string[];
+        getTemplate?: () => string;
+        getTemplateData?: () => object;
+        getTranslations?: () => { [key: string]: string };
+        notificationReceived?: (notification: string, payload: any, sender: object) => void;
+        resume?: () => void;
+        socketNotificationReceived?: (notification: string, payload: any) => void;
+        suspend?: () => void;
+        [key: string]: any;
+    } & ThisType<ModuleProperties<T>>;
+}
 
- declare namespace node_helper {
+declare namespace node_helper {
     function create(object: NodeHelperModule): void;
 
     type NodeHelperModule = {
-     init?(): void
-     start?(): void
-     stop?(): void
-     socketNotificationReceived?(notification: string, payload: any): void
-     sendSocketNotification?(notification: string, payload: any): void
-     [key: string]: any
-   } & ThisType<NodeHelperModule>;
- }
+        init?: () => void;
+        start?: () => void;
+        stop?: () => void;
+        socketNotificationReceived?: (notification: string, payload: any) => void;
+        sendSocketNotification?: (notification: string, payload: any) => void;
+        [key: string]: any;
+    } & ThisType<NodeHelperModule>;
+}
+
+declare const config: {
+    address: string;
+    customCss: string;
+    electronOptions: any;
+    ipWhitelist: string[];
+    language: string;
+    locale: string;
+    modules: any[];
+    port: number;
+    timeFormat: 12 | 24;
+    units: 'metric' | 'imperial';
+    zoom: number;
+};
