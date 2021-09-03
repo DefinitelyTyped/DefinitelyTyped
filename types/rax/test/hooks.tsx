@@ -9,13 +9,13 @@ import {
   useCallback, 
   createRef,
   createContext,
-  RaxNode, 
-  useImperativeHandle, 
+  RaxNode,
+  useImperativeHandle,
   Ref, 
-  useReducer, 
-  useLayoutEffect, 
-  ComponentRef, 
-  useMemo, 
+  useReducer,
+  useLayoutEffect,
+  ComponentRef,
+  useMemo,
  } from "rax";
 
 interface PersonProps {
