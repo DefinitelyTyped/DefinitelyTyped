@@ -1,4 +1,4 @@
-// Type definitions for hyper-function-component 1.0
+// Type definitions for hyper-function-component 1.0.0
 // Project: https://hyper-function.com/ponent
 // Definitions by: terry-fei <https://github.com/terry-fei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
