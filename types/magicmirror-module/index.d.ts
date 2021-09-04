@@ -6,9 +6,13 @@
 
 declare namespace Module {
     /* tslint:disable:no-unnecessary-generics */
-    function register<T>(moduleName: string, moduleProperties: ModuleProperties<T>): void;
+    function register<T>(
+        moduleName: string,
+        moduleProperties: ThisType<NonNullable<ModuleProperties<T>>> &
+            Partial<ModuleProperties<T>>,
+    ): void;
 
-    class CoreModule<T> {
+    class ModuleProperties<T> {
         readonly name: string;
         readonly identifier: string;
         readonly hidden: boolean;
@@ -46,11 +50,9 @@ declare namespace Module {
             options?: { lockString?: string; force?: boolean; onError?: () => void },
         ) => void;
         readonly translate: (identifier: string, variables?: any) => string;
-    }
 
-    type ModuleProperties<T> = {
         [key: string]: any;
-    } & ThisType<NonNullable<CoreModule<T>>> & Partial<CoreModule<T>>;
+    }
 }
 
 declare namespace node_helper {

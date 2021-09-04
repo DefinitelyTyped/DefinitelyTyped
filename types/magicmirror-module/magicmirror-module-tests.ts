@@ -76,6 +76,14 @@ Module.register<TestConfig>('test', {
     },
     loaded() {
         console.log('loaded');
+        this.myCustom();
+    },
+    myCustom(): string {
+        return 'abc';
+    },
+    blabla(): number {
+        this.config;
+        return 3;
     },
 });
 
