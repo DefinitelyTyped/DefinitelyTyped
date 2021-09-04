@@ -1,7 +1,8 @@
-// Type definitions for scroll-into-view 1.13.1
+// Type definitions for scroll-into-view 1.16.0
 // Project: https://github.com/KoryNunn/scroll-into-view
 // Definitions by: zivni <https://github.com/zivni>
 //                 Thibaut <https://github.com/Thibaut-Fatus>
+//                 goodCycle <https://github.com/goodCycle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module __ScrollIntoView {
