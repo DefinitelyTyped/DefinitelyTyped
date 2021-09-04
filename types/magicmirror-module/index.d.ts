@@ -8,11 +8,10 @@ declare namespace Module {
     /* tslint:disable:no-unnecessary-generics */
     function register<T>(
         moduleName: string,
-        moduleProperties: ThisType<NonNullable<ModuleProperties<T>>> &
-            Partial<ModuleProperties<T>>,
+        moduleProperties: ThisType<NonNullable<ModuleProperties<T>>> & Partial<ModuleProperties<T>>,
     ): void;
 
-    class ModuleProperties<T> {
+    interface ModuleProperties<T> {
         readonly name: string;
         readonly identifier: string;
         readonly hidden: boolean;
@@ -40,7 +39,7 @@ declare namespace Module {
 
         // Instance methods
         readonly file: (filename: string) => string;
-        readonly updateDom: (speed: number) => void;
+        readonly updateDom: (speed?: number) => void;
         readonly sendNotification: (notification: string, payload: any) => void;
         readonly sendSocketNotification: (notification: string, payload: any) => void;
         readonly hide: NonNullable<(speed?: number, callback?: () => void, options?: { lockString: string }) => void>;
@@ -55,17 +54,26 @@ declare namespace Module {
     }
 }
 
-declare namespace node_helper {
-    function create(object: NodeHelperModule): void;
+/* tslint:disable:no-single-declare-module */
+declare module 'node_helper' {
+    function create(object: ThisType<NonNullable<NodeHelperModule>> & Partial<NodeHelperModule>): void;
 
-    type NodeHelperModule = {
-        init?: () => void;
-        start?: () => void;
-        stop?: () => void;
-        socketNotificationReceived?: (notification: string, payload: any) => void;
-        sendSocketNotification?: (notification: string, payload: any) => void;
+    interface NodeHelperModule {
+        readonly name: string;
+        readonly path: string;
+        readonly expressApp: any;
+        readonly io: any;
+        readonly requiresVersion: string;
+
+        // Subclassable methods
+        init: () => void;
+        start: () => void;
+        stop: () => void;
+        socketNotificationReceived: (notification: string, payload: any) => void;
+
+        sendSocketNotification: (notification: string, payload: any) => void;
         [key: string]: any;
-    } & ThisType<NodeHelperModule>;
+    }
 }
 
 declare const config: {

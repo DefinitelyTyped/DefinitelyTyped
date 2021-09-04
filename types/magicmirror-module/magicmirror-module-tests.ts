@@ -1,3 +1,5 @@
+import * as NodeHelper from 'node_helper';
+
 Module.register('test', {});
 interface TestConfig {
     bla: number;
@@ -85,10 +87,25 @@ Module.register<TestConfig>('test', {
         this.config;
         return 3;
     },
+    hidden: false,
 });
 
-node_helper.create({
+NodeHelper.create({
     start() {
         return;
+    },
+    stop() {
+        this.name;
+        this.init();
+        this.requiresVersion === 'abc';
+        this.sendSocketNotification('abc', {});
+        this.path;
+    },
+    socketNotificationReceived(notification, payload) {
+        notification === 'abc';
+        this.myCustom();
+    },
+    myCustom() {
+        console.log('hi');
     },
 });
