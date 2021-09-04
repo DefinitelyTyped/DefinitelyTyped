@@ -10,36 +10,35 @@ import * as sourceMap from 'source-map';
 /**
  * JS2Coffee API.
  *
- * @param {string} source JavaScript code to compile. In order to compile JSON as CSON, you must wrap the string in
+ * @param source JavaScript code to compile. In order to compile JSON as CSON, you must wrap the string in
  * parentheses like so: `(...)`.
- * @param {Options} [options] JS2Coffee compiler options.
- * @param {boolean} [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
- * @param {boolean} [options.comments=true] Whether to keep comments in the output.
- * @param {boolean} [options.compat=false] Compatibility mode with JS.
- * @param {string} [options.filename=index.js] File name for JS script to compile to CoffeeScript.
- * @param {number} [options.indent=2] Indentation character(s) used in the compiler output.
- * @param {string} [options.source] The source code itself - always overwritten by
+ * @param [options] JS2Coffee compiler options.
+ * @param [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
+ * @param [options.comments=true] Whether to keep comments in the output.
+ * @param [options.compat=false] Compatibility mode with JS.
+ * @param [options.filename=index.js] File name for JS script to compile to CoffeeScript.
+ * @param [options.indent=2] Indentation character(s) used in the compiler output.
+ * @param [options.source] The source code itself - always overwritten by
  * `source`.
- * @returns {string} Compiled CoffeeScript code.
+ * @returns Compiled CoffeeScript code.
  */
 declare function js2coffee(source: string, options?: js2coffee.Options): string;
 
 declare namespace js2coffee {
-
 	/**
-	 * @param {string} source JavaScript code to compile. In order to compile JSON as CSON, you must wrap the string in
+	 * @param source JavaScript code to compile. In order to compile JSON as CSON, you must wrap the string in
 	 * parentheses like so: `(...)`.
-	 * @param {Options} [options] JS2Coffee compiler options.
-	 * @param {boolean} [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
-	 * @param {boolean} [options.comments=true] Whether to keep comments in the output.
-	 * @param {boolean} [options.compat=false] Compatibility mode with JS.
-	 * @param {string} [options.filename=index.js] File name for JS script to compile to CoffeeScript.
-	 * @param {number} [options.indent=2] Indentation character(s) used in the compiler output.
-	 * @param {string} [options.source] The source code itself - always overwritten by
+	 * @param [options] JS2Coffee compiler options.
+	 * @param [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
+	 * @param [options.comments=true] Whether to keep comments in the output.
+	 * @param [options.compat=false] Compatibility mode with JS.
+	 * @param [options.filename=index.js] File name for JS script to compile to CoffeeScript.
+	 * @param [options.indent=2] Indentation character(s) used in the compiler output.
+	 * @param [options.source] The source code itself - always overwritten by
 	 * `source`.
-	 * @returns {Build} Build output in CoffeeScript.
+	 * @returns Build output in CoffeeScript.
 	 */
-	function build(source: string, options?: js2coffee.Options): js2coffee.Build;
+	function build(source: string, options?: Options): Build;
 
 	/**
 	 * Compiles JavaScript into a ESTree-style CoffeeScript AST. The AST has the following custom types exclusive to
@@ -50,51 +49,51 @@ declare namespace js2coffee {
 	 * - `CoffeeLoopStatement`
 	 * - `CoffeePrototypeExpression`
 	 *
-	 * @param {string} source JavaScript code to compile. In order to compile JSON as CSON,
+	 * @param source JavaScript code to compile. In order to compile JSON as CSON,
 	 * you must wrap the string in parentheses like so: `(...)`.
-	 * @param {Options} [options] JS2Coffee compiler options.
-	 * @param {boolean} [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
-	 * @param {boolean} [options.comments=true] Whether to keep comments in the output.
-	 * @param {boolean} [options.compat=false] Compatibility mode with JS.
-	 * @param {string} [options.filename=index.js] File name for JS script to compile to CoffeeScript.
-	 * @param {number} [options.indent=2] Indentation character(s) used in the compiler output.
-	 * @param {string} [options.source] The source code itself - always overwritten by
+	 * @param [options] JS2Coffee compiler options.
+	 * @param [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
+	 * @param [options.comments=true] Whether to keep comments in the output.
+	 * @param [options.compat=false] Compatibility mode with JS.
+	 * @param [options.filename=index.js] File name for JS script to compile to CoffeeScript.
+	 * @param [options.indent=2] Indentation character(s) used in the compiler output.
+	 * @param [options.source] The source code itself - always overwritten by
 	 * `source`.
-	 * @returns {AST} JavaScript AST in ESTree format.
+	 * @returns JavaScript AST in ESTree format.
 	 */
-	function parseJS(source: string, options?: js2coffee.Options): js2coffee.AST;
+	function parseJS(source: string, options?: Options): AST;
 
 	/**
 	 * Mutates the `ast` JavaScript syntax tree into a CoffeeScript AST transform.
 	 *
-	 * @param {AST} JavaScript AST in ESTree format.
-	 * @param {Options} [options] JS2Coffee compiler options.
-	 * @param {boolean} [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
-	 * @param {boolean} [options.comments=true] Whether to keep comments in the output.
-	 * @param {boolean} [options.compat=false] Compatibility mode with JS.
-	 * @param {string} [options.filename=index.js] File name for JS script to compile to CoffeeScript.
-	 * @param {number} [options.indent=2] Indentation character(s) used in the compiler output.
-	 * @param {string} [options.source] The source code itself - always overwritten by
+	 * @param JavaScript AST in ESTree format.
+	 * @param [options] JS2Coffee compiler options.
+	 * @param [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
+	 * @param [options.comments=true] Whether to keep comments in the output.
+	 * @param [options.compat=false] Compatibility mode with JS.
+	 * @param [options.filename=index.js] File name for JS script to compile to CoffeeScript.
+	 * @param [options.indent=2] Indentation character(s) used in the compiler output.
+	 * @param [options.source] The source code itself - always overwritten by
 	 * `source`.
-	 * @returns {Transform} Abstract syntax tree for post-transform CoffeeScript.
+	 * @returns Abstract syntax tree for post-transform CoffeeScript.
 	 */
-	function transform(ast: js2coffee.AST, options?: js2coffee.Options): js2coffee.Transform;
+	function transform(ast: AST, options?: Options): Transform;
 
 	/**
 	 * Generates a CoffeeScript `CodeWithSourceMap` instance from a given CoffeeScript transform.
 	 *
-	 * @param {AST} ast Transformed CoffeeScript AST in ESTree format.
-	 * @param {Options} [options] JS2Coffee compiler options.
-	 * @param {boolean} [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
-	 * @param {boolean} [options.comments=true] Whether to keep comments in the output.
-	 * @param {boolean} [options.compat=false] Compatibility mode with JS.
-	 * @param {string} [options.filename=index.js] File name for JS script to compile to CoffeeScript.
-	 * @param {number} [options.indent=2] Indentation character(s) used in the compiler output.
-	 * @param {string} [options.source] The source code itself - always overwritten by
+	 * @param ast Transformed CoffeeScript AST in ESTree format.
+	 * @param [options] JS2Coffee compiler options.
+	 * @param [options.bare=false] Whether to omit a top-level IIFE safety wrapper.
+	 * @param [options.comments=true] Whether to keep comments in the output.
+	 * @param [options.compat=false] Compatibility mode with JS.
+	 * @param [options.filename=index.js] File name for JS script to compile to CoffeeScript.
+	 * @param [options.indent=2] Indentation character(s) used in the compiler output.
+	 * @param [options.source] The source code itself - always overwritten by
 	 * `source`.
-	 * @returns {CodeWithSourceMap} CoffeeScript output as a `CodeWithSourceMap` object.
+	 * @returns CoffeeScript output as a `CodeWithSourceMap` object.
 	 */
-	function generate(ast: js2coffee.Transform, options?: js2coffee.Options): sourceMap.CodeWithSourceMap;
+	function generate(ast: Transform, options?: Options): sourceMap.CodeWithSourceMap;
 
 	/**
 	 * Version number. Type defintions are written for JS2Coffee v1.9.2.
@@ -102,14 +101,12 @@ declare namespace js2coffee {
 	let version: string;
 
 	/**
-	 * Collection of helper functions used to parse JavaScript in JS2Coffee.
+	 * Collection of helper functions used to parse JavaScript in
 	 */
-	let helpers: js2coffee.Helpers;
+	let helpers: Helpers;
 
 	/**
 	 * ESTree node types for CoffeeScript AST nodes in `AST` body.
-	 *
-	 * @type {string} String prefixed with `"Coffee"`.
 	 */
 	type CoffeeNodeType = (
 		| "CoffeeDoExpression"
@@ -121,11 +118,9 @@ declare namespace js2coffee {
 
 	/**
 	 * Custom ESTree-style node used to define CoffeeScript in JS2Coffee ASTs.
-	 *
-	 * @extends {estree.Node}
 	 */
 	interface CustomNode extends Omit<estree.Node, "type"> {
-		type: js2coffee.CoffeeNodeType;
+		type: CoffeeNodeType;
 	}
 
 	/**
@@ -144,15 +139,13 @@ declare namespace js2coffee {
 
 	/**
 	 * Custom ESTree-style node used to define converted CoffeeScript nodes JS2Coffee ASTs.
-	 *
-	 * @extends {estree.Node}
 	 */
 	interface CoffeeNode extends Omit<estree.Node, "type"> {
-		type: estree.Node["type"] | js2coffee.CoffeeNodeType;
+		type: estree.Node["type"] | CoffeeNodeType;
 	}
 
 	/**
-	 * Generic compilation error in JS2Coffee.
+	 * Generic compilation error in
 	 *
 	 */
 	interface CompileError extends Error {
@@ -168,7 +161,7 @@ declare namespace js2coffee {
 	}
 
 	/**
-	 * Esprima-style error thrown by JS2Coffee.
+	 * Esprima-style error thrown by
 	 *
 	 */
 	interface EsprimaStyleError {
@@ -179,8 +172,6 @@ declare namespace js2coffee {
 
 	/**
 	 * JavaScript syntax error thrown by JS2Coffee compiler.
-	 *
-	 * @extends Error
 	 */
 	interface SyntaxProblem extends CompileError {
 		filename: string;
@@ -189,7 +180,7 @@ declare namespace js2coffee {
 	}
 
 	/**
-	 * Collection of helper functions used to parse JavaScript in JS2Coffee.
+	 * Collection of helper functions used to parse JavaScript in
 	 */
 	interface Helpers {
 		/**
@@ -211,14 +202,14 @@ declare namespace js2coffee {
 		 * @param file File name including extension.
 		 */
 		buildError(
-			err: js2coffee.CompileError | js2coffee.EsprimaStyleError,
+			err: CompileError | EsprimaStyleError,
 			source: string,
 			file: string
-		): js2coffee.SyntaxProblem;
+		): SyntaxProblem;
 		/**
 		 * Duplicates all primitive members of an object recursively.
 		 *
-		 * @param {object} obj Object to clone.
+		 * @param obj Object to clone.
 		 * @returns Deep copy of object.
 		 */
 		clone(obj: object): object;
@@ -241,10 +232,10 @@ declare namespace js2coffee {
 		/**
 		 * Escapes JS that cannot be converted to CoffeeScript.
 		 *
-		 * @param {Node} node Unconvertable node.
-		 * @returns {CoffeeNode} Node with type "CoffeeEscapedExpression".
+		 * @param node Unconvertable node.
+		 * @returns Node with type "CoffeeEscapedExpression".
 		 */
-		escapeJs(node: estree.Node): js2coffee.CoffeeNode & { type: "CoffeeEscapedExpression" };
+		escapeJs(node: estree.Node): CoffeeNode & { type: "CoffeeEscapedExpression" };
 		/**
 		 * Inspect a ESTree node for debugging.
 		 *
@@ -255,23 +246,23 @@ declare namespace js2coffee {
 		/**
 		 * ESTree comment node assertion.
 		 *
-		 * @param {BaseNode} node Node to apply test to.
-		 * @returns {boolean} Whether the ESTree node is a comment.
+		 * @param node Node to apply test to.
+		 * @returns Whether the ESTree node is a comment.
 		 */
 		isComment(node: estree.BaseNode): boolean;
 		/**
 		 * ESTree infinite loop node assertion.
 		 *
-		 * @param {BaseNode} node Node to apply test to.
-		 * @returns {boolean} Whether the ESTree node is a infinite loop.
+		 * @param node Node to apply test to.
+		 * @returns Whether the ESTree node is a infinite loop.
 		 */
 		isLoop(node: estree.BaseNode): boolean;
 		/**
 		 * ESTree "truthy" node assertion.
 		 * A node is truthy when it has a "Literal" type and a value.
 		 *
-		 * @param {BaseNode} node Node to apply test to.
-		 * @returns {boolean} Whether the ESTree node is a "truthy" node.
+		 * @param node Node to apply test to.
+		 * @returns Whether the ESTree node is a "truthy" node.
 		 */
 		isTruthy(node: estree.BaseNode): boolean;
 		/**
@@ -333,7 +324,7 @@ declare namespace js2coffee {
 		/**
 		 * Quotes a string or primitive with single quotes.
 		 *
-		 * @param {any} str String to quote.
+		 * @param str String to quote.
 		 */
 		quote(str: any): string;
 		/**
@@ -341,11 +332,11 @@ declare namespace js2coffee {
 		 * location.
 		 *
 		 * @param node Prevous node.
-		 * @param {SourceLocation} node.loc Previous node"s location (preserved in output).
-		 * @param {number[]} node.range Previous node"s character range (preserved in output).
+		 * @param node.loc Previous node"s location (preserved in output).
+		 * @param node.range Previous node"s character range (preserved in output).
 		 * @param newNode New ESTree node with a specified `type` and `name`.
-		 * @param {string} newNode.type ESTree or JS2Coffee type for the new node.
-		 * @param {string} newNode.name Name of the new node.
+		 * @param newNode.type ESTree or JS2Coffee type for the new node.
+		 * @param newNode.name Name of the new node.
 		 * @returns Newly typed and named node with previous source location.
 		 */
 		replace(node: estree.BaseNode, newNode: estree.BaseNode): estree.BaseNode;
@@ -354,7 +345,7 @@ declare namespace js2coffee {
 		 * statements begin with a new line, such as in the case of function
 		 * expressions and object expressions.
 		 *
-		 * @param {string[]} list Array of code tokens.
+		 * @param list Array of code tokens.
 		 * @returns Array of code tokens separated by spaces.
 		 */
 		space(list: string[]): string[];
@@ -370,14 +361,14 @@ declare namespace js2coffee {
 	/**
 	 * Collection of syntax warnings to return to user (may be empty).
 	 */
-	type Warnings = js2coffee.SyntaxProblem[] | [];
+	type Warnings = SyntaxProblem[] | [];
 
 	/**
 	 * Abstract syntax tree for CoffeeScript file.
 	 *
 	 */
 	interface AST extends Omit<estree.Program, "body"> {
-		body: js2coffee.CoffeeNode[];
+		body: CoffeeNode[];
 	}
 
 	/**
@@ -385,17 +376,17 @@ declare namespace js2coffee {
 	 *
 	 */
 	interface Transform {
-		ast: js2coffee.AST;
-		warnings: js2coffee.Warnings;
+		ast: AST;
+		warnings: Warnings;
 	}
 
 	/**
 	 * Build output for JS code compiled to CoffeeScript.
 	 *
-	 * (see `CodeWithSourceMap` definition in `source-map`).
+	 * (See `CodeWithSourceMap` definition in `source-map`).
 	 */
 	interface Build {
-		ast: js2coffee.AST;
+		ast: AST;
 		code: string;
 		map: sourceMap.CodeWithSourceMap;
 		warnings: Warnings;

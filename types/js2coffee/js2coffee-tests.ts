@@ -12,12 +12,4 @@ const outputWithOptions = js2coffee(javaScriptFn, { comments: true, indent: 2 })
 const noOutputGotZero = js2coffee();
 
 // $ExpectError
-const noOutputGotInvalidOptions = js2coffee(javaScriptFn, {
-    ast: false,
-    bare: true,
-    filename: 'isUnique-polyfill.js',
-    header: true,
-    inlineMap: true,
-    sourceMap: false,
-    transpile: { presets: ["@babel/env"] }
-});
+const noOutputGotInvalidOptions = js2coffee(javaScriptFn, { ast: false, transpile: { presets: ["@babel/env"] } });
