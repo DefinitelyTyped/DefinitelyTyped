@@ -6,10 +6,7 @@ const javaScriptFn = "function isUnique(v, i, a) {\n  return a.indexOf(v) == i;\
 const outputWithoutOptions = js2coffee(javaScriptFn);
 
 // $ExpectType string
-const outputWithOptions = js2coffee(javaScriptFn);
-
-// $ExpectType CodeWithSourceMap
-const outputWithSourceMap = js2coffee.build(javaScriptFn, { comments: true, indent: 2 });
+const outputWithOptions = js2coffee(javaScriptFn, { comments: true, indent: 2 });
 
 // $ExpectError
 const noOutputGotZero = js2coffee();
