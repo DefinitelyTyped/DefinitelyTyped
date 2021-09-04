@@ -5,7 +5,7 @@
 // Minimum TypeScript Version: 4.1
 
 import * as estree from "estree";
-import * as sourceMap from 'source-map';
+import * as sourceMap from "source-map";
 
 /**
  * JS2Coffee API.
