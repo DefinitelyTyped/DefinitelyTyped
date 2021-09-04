@@ -3,7 +3,7 @@
 // Definitions by: Jalibu <https://github.com/jalibu>
 //                 MichMich <https://github.com/MichMich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.7
 
 declare namespace Module {
     /* tslint:disable:no-unnecessary-generics */
