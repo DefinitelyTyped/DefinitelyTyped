@@ -1,4 +1,4 @@
-// Type definitions for express-less
+// Type definitions for express-less 0.1
 // Project: https://www.npmjs.com/package/express-less
 // Definitions by: xyb <https://github.com/xieyubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,8 +13,9 @@ declare function less(root: string, options?: less.Options): express.RequestHand
 
 declare namespace less {
     export interface Options {
-        debug?: boolean | undefined;
-        compress?: boolean | undefined;
+        debug?: boolean;
+        compress?: boolean;
+        cache?: boolean;
     }
 }
 

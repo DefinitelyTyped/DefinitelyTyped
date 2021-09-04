@@ -1,5 +1,5 @@
-import { Alert } from "bootstrap";
-import * as $ from "jquery";
+import { Alert } from 'bootstrap';
+import * as $ from 'jquery';
 
 const element = new Element();
 
@@ -30,7 +30,7 @@ element.addEventListener(Alert.Events.closed, event => {
 });
 
 // $ExpectType void
-$(".alert").alert();
+$('.alert').alert();
 
 // $ExpectType void
-$(".alert").alert("close");
+$('.alert').alert('close');
