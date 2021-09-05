@@ -12,7 +12,11 @@
         "typeRoots"                       : [
             "../"
         ],
-        "types"                           : [ ],
+        "paths"                           : {
+            "@nick-thompson/*": [
+                "nick-thompson__*"
+            ]
+        },
         "noEmit"                          : true,
         "forceConsistentCasingInFileNames": true
     },
