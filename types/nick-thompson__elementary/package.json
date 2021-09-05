@@ -1,0 +1,14 @@
+{
+    "dependencies"     : {
+        "@types/node": "*"
+    },
+    "description"      : "TypeScript definitions for @nick-thompson/elementary",
+    "homepage"         : "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+    "license"          : "MIT",
+    "main"             : "index.d.ts",
+    "name"             : "@types/nick-thompson__elementary",
+    "scripts"          : { },
+    "typeScriptVersion": "4.4.2",
+    "types"            : "index.d.ts",
+    "version"          : "0.9.6"
+}
