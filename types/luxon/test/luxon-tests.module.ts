@@ -28,6 +28,7 @@ DateTime.utc(); // $ExpectType DateTime
 DateTime.utc({ locale: 'en-US' }); // $ExpectType DateTime
 DateTime.utc(2018, 5, 31, 23, { numberingSystem: 'arabext' }); // $ExpectType DateTime
 DateTime.utc(2019, { locale: 'en-GB' }, 5); // $ExpectError
+DateTime.isDateTime(0 as unknown); // $ExpectType boolean
 
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
@@ -215,6 +216,7 @@ if (Duration.isDuration(anything)) {
 }
 Duration.invalid(); // $ExpectError
 Duration.invalid('code', 'because I said so'); // $ExpectType Duration
+Duration.isDuration(0 as unknown); // $ExpectType boolean
 
 /* Interval */
 const later = DateTime.local();
@@ -240,6 +242,7 @@ if (Interval.isInterval(anything)) {
 }
 Interval.invalid(); // $ExpectError
 Interval.invalid('code', 'because I said so'); // $ExpectType Interval
+Interval.isInterval(0 as unknown); // $ExpectType boolean
 
 /* Info */
 Info.months();

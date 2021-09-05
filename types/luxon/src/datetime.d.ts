@@ -549,7 +549,7 @@ export class DateTime {
      *
      * @param o
      */
-    static isDateTime(o: object): o is DateTime;
+    static isDateTime(o: unknown): o is DateTime;
 
     // INFO
 
