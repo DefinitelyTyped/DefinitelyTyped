@@ -119,7 +119,6 @@ const topLogger: Modifier<'topLogger'> = {
                 altAxis: true,
             },
         },
-        topLogger,
     ]}
     popperPlacement="bottom-start"
     popperProps={{}}
@@ -196,7 +195,7 @@ const topLogger: Modifier<'topLogger'> = {
 
 <DatePicker formatWeekDay={() => <div />} onChange={() => null} />;
 
-function handleRef(ref: DatePicker<'offset' | 'preventOverflow' | 'topLogger'>) {
+function handleRef(ref: DatePicker) {
     if (ref) {
         ref.setBlur();
         ref.setFocus();
@@ -213,4 +212,12 @@ function handleRef(ref: DatePicker<'offset' | 'preventOverflow' | 'topLogger'>) 
 
 <CalendarContainer />;
 
-const props: ReactDatePickerProps = { onChange: () => {} };
+const props: ReactDatePickerProps = {
+    onChange: () => {},
+};
+
+<DatePicker<'topLogger'>
+    onChange={() => {}}
+    popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
+    ref={handleRef}
+/>;
