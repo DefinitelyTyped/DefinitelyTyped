@@ -214,7 +214,7 @@ declare namespace Generator {
      * Represents a generator-constructor.
      */
     interface GeneratorConstructor {
-        new(...args: any[]): Generator<any>;
+        new (...args: any[]): Generator<any>;
     }
 
     /**
@@ -257,17 +257,17 @@ declare namespace Generator {
         /**
          * Tasks methods starts with prefix. Allows api methods (non tasks) without prefix.
          */
-         taskPrefix?: string | undefined;
+        taskPrefix?: string | undefined;
 
         /**
          * Enable customCommitTask()
          */
-         customCommitTask?: boolean | undefined;
+        customCommitTask?: boolean | undefined;
 
-         /**
-          * Enable customInstallTask()
-          */
-         customInstallTask?: boolean | undefined;
+        /**
+         * Enable customInstallTask()
+         */
+        customInstallTask?: boolean | undefined;
     }
 
     /**
@@ -609,6 +609,8 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      */
     queueTaskGroup(taskGroup: Record<string, (...args: any[]) => any>, taskOptions?: Generator.TaskOptions): void;
 
+    queueTransformStream(stream: Transform | Transform[]): this;
+
     /**
      * Registers the specified {@link priorities `priorities`}.
      *
@@ -631,7 +633,9 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     /**
      * Adds a transform stream to the commit stream.
+     * **DEPRECATED** Use queueTransformStream instead.
      *
+     * @deprecated
      * @param stream An array of transform streams or a single one.
      */
     registerTransformStream(stream: Transform | Transform[]): this;
