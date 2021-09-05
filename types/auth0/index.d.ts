@@ -973,7 +973,7 @@ export interface SignInOptions {
     /**
      * @deprecated
      */
-    connection?: string | undefined;
+    connection?: 'email' | 'sms';
 }
 
 export interface SocialSignInOptions {
