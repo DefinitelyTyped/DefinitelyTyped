@@ -118,7 +118,7 @@ declare namespace URI {
         preventInvalidHostname: boolean;
     }
 
-    type QueryDataMap = Record<string, any>;
+    type QueryDataMap = Partial<Record<string, any>>;
 }
 
 interface URI {
