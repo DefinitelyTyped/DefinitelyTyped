@@ -2,14 +2,20 @@ import TrimbleMaps = require('@trimblemaps/trimblemaps-js');
 
 TrimbleMaps.APIKey = "YOUR_KEY_HERE";
 
-const myMap = new TrimbleMaps.Map({
+// $ExpectType void
+TrimbleMaps.prewarm();
+
+// $ExpectType void
+TrimbleMaps.clearPrewarmedResources();
+
+const map = new TrimbleMaps.Map({
   container: "myMap",
   center: new TrimbleMaps.LngLat(-96, 35),
   zoom: 3,
   region: TrimbleMaps.Common.Region.EU,
 });
 
-myMap.on('load', () => {
+map.on('load', () => {
   const route = new TrimbleMaps.Route({
     routeId: 'tollRoute',
     stops: [
@@ -31,7 +37,7 @@ myMap.on('load', () => {
     distanceUnits: TrimbleMaps.Common.DistanceUnit.MILES,
   });
 
-  route.addTo(myMap);
+  route.addTo(map);
   route.remove();
   route.update({});
   route.frameRoute();
@@ -44,10 +50,10 @@ myMap.on('load', () => {
 
   route.on('report', () => {});
 
-  myMap.setWeatherAlertVisibility(true);
+  map.setWeatherAlertVisibility(true);
 });
 
-var geocodeLocation = TrimbleMaps.Geocoder.geocode({
+const geocodeLocation = TrimbleMaps.Geocoder.geocode({
   address: {
     addr: '1 Independence Way',
     city: 'Princeton',
@@ -65,7 +71,7 @@ var geocodeLocation = TrimbleMaps.Geocoder.geocode({
 });
 geocodeLocation.cancel();
 
-var reverseGeocodeLocation = TrimbleMaps.Geocoder.reverseGeocode({
+const reverseGeocodeLocation = TrimbleMaps.Geocoder.reverseGeocode({
   lonLat: new TrimbleMaps.LngLat(-122.31693, 47.60784),
   region: TrimbleMaps.Common.Region.NA,
   success: (response) => {
@@ -77,11 +83,11 @@ var reverseGeocodeLocation = TrimbleMaps.Geocoder.reverseGeocode({
 });
 geocodeLocation.cancel();
 
-var weatherAlertClickControl = new TrimbleMaps.WeatherAlertClickControl();
-myMap.addControl(weatherAlertClickControl);
+const weatherAlertClickControl = new TrimbleMaps.WeatherAlertClickControl();
+map.addControl(weatherAlertClickControl);
 
-var weatherAlertLegendControl = new TrimbleMaps.WeatherAlertLegendControl();
-myMap.addControl(weatherAlertLegendControl);
+const weatherAlertLegendControl = new TrimbleMaps.WeatherAlertLegendControl();
+map.addControl(weatherAlertLegendControl);
 
-var weatherAlertFilterControl = new TrimbleMaps.WeatherAlertFilterControl();
-myMap.addControl(weatherAlertFilterControl);
+const weatherAlertFilterControl = new TrimbleMaps.WeatherAlertFilterControl();
+map.addControl(weatherAlertFilterControl);
