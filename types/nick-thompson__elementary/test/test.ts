@@ -22,6 +22,13 @@ type Basic =
 function expect<T extends Serializable | Basic>(x: T)
 {
     return {
+        passes:
+            (given: (y: T) => boolean) =>
+                console.log(
+                    given(x) ?
+                    'x: ' + x.toString() + ' passed \"' + given.toString() + '\".' :
+                    'F: ' + x.toString() + ' did not pass \"' + given.toString() + '\".'),
+
         isANumber:
             () =>
                 console.log(
@@ -99,25 +106,31 @@ function expect<T extends Serializable | Basic>(x: T)
 }
 
 
-core.on('load', () =>
-{
-    // Variables
+core.on(
+    'load',
+    () =>
+    {
+        // Variables
 
-    const inputCount = core.getNumInputChannels();
-    const outputCount = core.getNumOutputChannels();
-    const blockSize = core.getBlockSize();
+        const inputCount = core.getNumInputChannels();
+        const outputCount = core.getNumOutputChannels();
+        const blockSize = core.getBlockSize();
 
-
-    // Tests
-
-    expect(inputCount).isEqualTo(0);
-    expect(outputCount).isEqualTo(2);
-    expect(blockSize).isANumber();
+        const leftPhasor = new core.Node('phasor', {}, [el.const({ value: 90 })]);
+        const rightPhasor = el.phasor(92);
 
 
-    // Render
+        // Tests
 
-    return core.render(
-        el.phasor(440),
-        el.phasor(441));
-});
+        expect(inputCount).isEqualTo(0);
+        expect(outputCount).isEqualTo(2);
+        expect(blockSize).isANumber();
+
+        expect(leftPhasor).passes(x => core.Node.isNode(x));
+        expect(rightPhasor).passes(x => core.Node.isNode(x));
+
+
+        // Render
+
+        return core.render(leftPhasor, rightPhasor);
+    });
