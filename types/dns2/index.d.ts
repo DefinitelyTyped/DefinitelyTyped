@@ -1,4 +1,4 @@
-// Type definitions for dns2 1.4
+// Type definitions for dns2 2.0
 // Project: https://github.com/song940/node-dns#readme
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,7 @@
 
 import * as net from 'net';
 import * as udp from 'dgram';
+import { EventEmitter } from 'events';
 
 declare class Packet {
     static TYPE: {
@@ -73,14 +74,33 @@ declare namespace DNS {
     }
 }
 
+declare class DnsServer extends EventEmitter {
+    addresses(): {
+        udp?: net.AddressInfo;
+        tcp?: net.AddressInfo;
+        doh?: net.AddressInfo;
+    };
+
+    listen(ports: {
+        udp?: number,
+        tcp?: number,
+        doh?: number
+    }): Promise<void>;
+
+    close(): Promise<void>;
+}
+
 declare class DNS {
-    static createServer(
-        callback: (
+    static createServer(options: {
+        udp?: boolean,
+        tcp?: boolean,
+        doh?: boolean,
+        handle: (
             request: DNS.DnsRequest,
             sendResponse: (response: DNS.DnsResponse) => void,
             remoteInfo: udp.RemoteInfo,
-        ) => void,
-    ): net.Server;
+        ) => void
+    }): DnsServer;
 
     static Packet: typeof Packet;
 
