@@ -88,3 +88,15 @@ editor.plugins.get('TodoListEditing');
 
 // $ExpectType TodoListUI
 editor.plugins.get('TodoListUI');
+
+// $ExpectType CheckTodoListCommand | undefined
+editor.commands.get('CheckTodoListCommand');
+
+// $ExpectType IndentCommand | undefined
+editor.commands.get('IndentCommand');
+
+// $ExpectType ListCommand | undefined
+editor.commands.get('ListCommand');
+
+// $ExpectType ListStyleCommand | undefined
+editor.commands.get('ListStyleCommand');

@@ -9,3 +9,9 @@ export default class ImageTypeCommand extends Command {
         newElement: Element;
     } | null;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        ImageTypeCommand: ImageTypeCommand;
+    }
+}

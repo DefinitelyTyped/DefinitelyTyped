@@ -22,3 +22,6 @@ editor.plugins.get('HorizontalLineEditing');
 
 // $ExpectType HorizontalLineUI
 editor.plugins.get('HorizontalLineUI');
+
+// $ExpectType HorizontalLineCommand | undefined
+editor.commands.get('HorizontalLineCommand');

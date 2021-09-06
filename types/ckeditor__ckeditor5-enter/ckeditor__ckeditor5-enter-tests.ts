@@ -33,3 +33,12 @@ myEditor.plugins.get('Enter');
 
 // $ExpectType ShiftEnter
 myEditor.plugins.get('ShiftEnter');
+
+// $ExpectType ShiftEnter
+myEditor.plugins.get('ShiftEnter');
+
+// $ExpectType ShiftEnterCommand | undefined
+myEditor.commands.get('ShiftEnterCommand');
+
+// $ExpectType EnterCommand | undefined
+myEditor.commands.get('EnterCommand');

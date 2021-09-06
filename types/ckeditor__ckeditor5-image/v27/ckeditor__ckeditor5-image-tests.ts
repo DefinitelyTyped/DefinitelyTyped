@@ -8,21 +8,21 @@ import View from '@ckeditor/ckeditor5-engine/src/view/view';
 import Image from '@ckeditor/ckeditor5-image';
 import * as ImageConverters from '@ckeditor/ckeditor5-image/src/image/converters';
 import ImageLoadObserver from '@ckeditor/ckeditor5-image/src/image/imageloadobserver';
-import ImageInsertCommand from '@ckeditor/ckeditor5-image/src/image/insertimagecommand';
+import InsertImageCommand from '@ckeditor/ckeditor5-image/src/image/insertimagecommand';
 import * as ImageUIUtils from '@ckeditor/ckeditor5-image/src/image/ui/utils';
 import * as ImageUtils from '@ckeditor/ckeditor5-image/src/image/utils';
 import * as ImageCaptionUtils from '@ckeditor/ckeditor5-image/src/imagecaption/utils';
 import ImageInsertFormRowView from '@ckeditor/ckeditor5-image/src/imageinsert/ui/imageinsertformrowview';
 import ImageInsertPanelView from '@ckeditor/ckeditor5-image/src/imageinsert/ui/imageinsertpanelview';
 import * as ImageInsertUtils from '@ckeditor/ckeditor5-image/src/imageinsert/utils';
-import ImageResizeCommand from '@ckeditor/ckeditor5-image/src/imageresize/resizeimagecommand';
+import ResizeImageCommand from '@ckeditor/ckeditor5-image/src/imageresize/resizeimagecommand';
 import * as ImageStyleConverters from '@ckeditor/ckeditor5-image/src/imagestyle/converters';
 import ImageStyleCommand from '@ckeditor/ckeditor5-image/src/imagestyle/imagestylecommand';
 import * as ImageStyleUtils from '@ckeditor/ckeditor5-image/src/imagestyle/utils';
-import ImageAlternateCommand from '@ckeditor/ckeditor5-image/src/imagetextalternative/imagetextalternativecommand';
+import ImageTextAlternativeCommand from '@ckeditor/ckeditor5-image/src/imagetextalternative/imagetextalternativecommand';
 import TextAlternativeFormView from '@ckeditor/ckeditor5-image/src/imagetextalternative/ui/textalternativeformview';
 import { isHtmlIncluded } from '@ckeditor/ckeditor5-image/src/imageupload/imageuploadediting';
-import ImageUploadCommand from '@ckeditor/ckeditor5-image/src/imageupload/uploadimagecommand';
+import UploadImageCommand from '@ckeditor/ckeditor5-image/src/imageupload/uploadimagecommand';
 import * as ImageUploadUtils from '@ckeditor/ckeditor5-image/src/imageupload/utils';
 import { Locale } from '@ckeditor/ckeditor5-utils';
 
@@ -75,9 +75,9 @@ ImageConverters.modelToViewAttributeConverter('foo')(downcastdispatcher as unkno
 
 new ImageLoadObserver(new View(new StylesProcessor()));
 
-new ImageInsertCommand(editor).execute();
-new ImageInsertCommand(editor).execute('');
-new ImageInsertCommand(editor).execute(['']);
+new InsertImageCommand(editor).execute();
+new InsertImageCommand(editor).execute('');
+new InsertImageCommand(editor).execute(['']);
 
 ImageUIUtils.getBalloonPositionData(editor).positions;
 ImageUIUtils.repositionContextualBalloon(editor);
@@ -96,7 +96,7 @@ new ImageInsertPanelView(new Locale());
 ImageInsertUtils.prepareIntegrations(editor).foo.setTemplate;
 ImageInsertUtils.createLabeledInputView(new Locale()).setTemplate;
 
-new ImageResizeCommand(editor).execute({ width: null });
+new ResizeImageCommand(editor).execute({ width: null });
 
 ImageStyleConverters.modelToViewStyleAttribute([{ icon: '', name: '', className: '', title: '' }]);
 ImageStyleConverters.viewToModelStyleAttribute([{ icon: '', name: '', className: '', title: '' }]);
@@ -108,11 +108,11 @@ new ImageStyleCommand(editor, [{ icon: '', name: '', className: '', title: '' }]
 ImageStyleUtils.normalizeImageStyles(['']);
 ImageStyleUtils.normalizeImageStyles([{ name: '' }]);
 
-new ImageAlternateCommand(editor).execute({ newValue: '' });
+new ImageTextAlternativeCommand(editor).execute({ newValue: '' });
 
 new TextAlternativeFormView().setTemplate;
 
-new ImageUploadCommand(editor);
+new UploadImageCommand(editor);
 
 const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
 ImageUploadUtils.isLocalImage(emptyElement);
@@ -124,19 +124,15 @@ ImageUploadUtils.fetchLocalImage(emptyElement);
 new MyEditor({
     image: {
         insert: {
-            integrations: [
-                'insertImageViaUrl',
-                'openCKFinder',
-                'pluginXButton'
-            ]
+            integrations: ['insertImageViaUrl', 'openCKFinder', 'pluginXButton'],
         },
         resizeOptions: [
             {
                 name: 'resizeImage:25',
                 value: '25',
                 icon: 'small',
-                label: 'Small'
-            }
+                label: 'Small',
+            },
         ],
         resizeUnit: '%',
         styles: [
@@ -145,21 +141,25 @@ new MyEditor({
                 icon: '<svg></svg>',
                 title: 'Full size image',
                 className: 'image-full-size',
-            }
+            },
         ],
         toolbar: [
-            'imageStyle:inline', 'imageStyle:wrapText', 'imageStyle:breakText', '|',
-            'toggleImageCaption', 'imageTextAlternative'
+            'imageStyle:inline',
+            'imageStyle:wrapText',
+            'imageStyle:breakText',
+            '|',
+            'toggleImageCaption',
+            'imageTextAlternative',
         ],
         upload: {
-            types: [ 'png', 'jpeg' ]
-        }
-    }
+            types: ['png', 'jpeg'],
+        },
+    },
 });
 
 // Everything is optional
 new MyEditor({
-    image: {}
+    image: {},
 });
 
 // resizeOptions require only name and value
@@ -169,7 +169,7 @@ new MyEditor({
             {
                 name: 'resizeImage:25',
                 value: '25',
-            }
+            },
         ],
     },
 });
@@ -180,7 +180,7 @@ new MyEditor({
         styles: [
             {
                 name: 'fullSize',
-            }
+            },
         ],
     },
 });
@@ -195,7 +195,7 @@ new MyEditor({
                 title: 'Full size image',
                 className: 'image-full-size',
             },
-            '50%'
+            '50%',
         ],
     },
 });
@@ -265,3 +265,18 @@ editor.plugins.get('ImageUploadProgress');
 
 // $ExpectType ImageUploadUI
 editor.plugins.get('ImageUploadUI');
+
+// $ExpectType InsertImageCommand | undefined
+editor.commands.get('InsertImageCommand');
+
+// $ExpectType ResizeImageCommand | undefined
+editor.commands.get('ResizeImageCommand');
+
+// $ExpectType ImageStyleCommand | undefined
+editor.commands.get('ImageStyleCommand');
+
+// $ExpectType ImageTextAlternativeCommand | undefined
+editor.commands.get('ImageTextAlternativeCommand');
+
+// $ExpectType UploadImageCommand | undefined
+editor.commands.get('UploadImageCommand');

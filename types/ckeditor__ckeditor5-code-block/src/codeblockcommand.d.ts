@@ -4,3 +4,9 @@ export default class CodeBlockCommand extends Command {
     refresh(): void;
     execute(options?: { forceValue?: boolean; language?: string; usePreviousLanguageChoice?: boolean }): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        CodeBlockCommand: CodeBlockCommand;
+    }
+}
