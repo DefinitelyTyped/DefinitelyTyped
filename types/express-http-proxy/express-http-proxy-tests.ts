@@ -58,7 +58,7 @@ proxy("www.google.com", {
 proxy("www.google.com", {
     userResHeaderDecorator(headers, userReq, userRes, proxyReq, proxyRes) {
         console.log(userReq.url, userRes.statusCode);
-        console.log(proxyReq.url, proxyRes.statusCode);
+        console.log(proxyReq.host, proxyRes.statusCode);
         if (headers["content-type"] === "image/png") {
             headers["x-custom-header"] = "additional-info";
         }
