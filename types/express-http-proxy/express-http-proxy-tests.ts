@@ -153,3 +153,15 @@ proxy("www.google.com", {
         });
     },
 });
+
+proxy("www.google.com", {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        const contentType = proxyRes.headers["content-type"];
+        if (contentType !== "text/html") {
+            return proxyResData;
+        }
+        // apply some transformation to proxyResData's HTML if you need
+        const modifiedHTML = proxyResData;
+        return modifiedHTML;
+    },
+})
