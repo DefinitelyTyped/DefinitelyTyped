@@ -6,30 +6,6 @@
 
 *[管理员手册](./docs/admin.md)*
 
-## 目录
-
-* [当前状态](#当前状态)
-* [什么是声明文件？](#什么是声明文件)
-* [如何去获取它？](#如何去获取它)
-* [我该如何贡献？](#我该如何贡献)
-  - [测试](#测试)
-  - [发起一个 pull request](#发起一个-pull-request)<details><summary></summary>
-    - [编辑一个现有包](#编辑一个现有包)
-    - [创建一个新的包](#创建一个新的包)
-    - [删除一个包](#删除一个包)
-    - [验证](#验证)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [常见错误](#常见错误)
-    </details>
-  - [Definition owners](#definition-owners)
-* [FAQ](#faq)
-* [许可证](#许可证)
-
 ## 当前状态
 
 这个部分会跟踪仓库和发布过程的运行状况。

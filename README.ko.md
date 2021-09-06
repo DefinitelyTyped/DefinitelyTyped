@@ -8,30 +8,6 @@
 
 *[관리자 설명서](./docs/admin.md) 링크*
 
-## 목차
-
-* [현재 상태](#현재-상태)
-* [선언 파일(Declaration file)이 뭔가요?](#선언-파일declaration-file이-뭔가요)
-* [어떻게 받을 수 있나요?](#어떻게-받을-수-있나요)
-* [어떻게 기여하나요?](#어떻게-기여하나요)
-  - [테스트](#테스트)
-  - [풀 리퀘스트(Pull request) 만들기](#풀-리퀘스트pull-request-만들기)<details><summary></summary>
-    - [이미 존재하는 패키지를 수정하기](#이미-존재하는-패키지를-수정하기)
-    - [새 패키지를 만들기](#새-패키지를-만들기)
-    - [패키지 삭제하기](#패키지-삭제하기)
-    - [검증하기](#검증하기)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [많이 저지르는 실수들](#많이-저지르는-실수들)
-    </details>
-  - [Definition owners](#definition-owners)
-* [자주 하는 질문들](#자주-하는-질문들)
-* [라이센스](#라이센스)
-
 ## 현재 상태
 
 저장소 및 퍼블리싱 과정의 상태를 표시합니다.

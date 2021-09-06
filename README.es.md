@@ -4,29 +4,6 @@
 
 Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aunque la información en este README está más actualizada.
 
-## Contents
-
-* [¿Qué son los `declaration files`?](#qué-son-los-declaration-files)
-* [¿Cómo los obtengo?](#cómo-los-obtengo)
-* [¿Cómo puedo contribuir?](#cómo-puedo-contribuir)
-  - [Prueba](#prueba)
-  - [Haz un pull request](#haz-un-pull-request)<details><summary></summary>
-    - [Editar un paquete existente](#editar-un-paquete-existente)
-    - [Crear un nuevo paquete](#crear-un-nuevo-paquete)
-    - [Remover un paquete](#remover-un-paquete)
-    - [Running tests](#running-tests)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [Errores comunes](#errores-comunes)
-    </details>
-  - [Definition owners](#definition-owners)
-* [FAQ](#faq)
-* [Licencia](#licencia)
-
 ## ¿Qué son los `declaration files`?
 
 Vea el [Manual de TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).

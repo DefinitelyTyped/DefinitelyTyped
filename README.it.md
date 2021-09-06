@@ -6,31 +6,6 @@
 
 *Link per il [manuale dell'amministratore](./docs/admin.md)*
 
-## Contenuti
-
-* [Stato attuale](#stato-attuale)
-* [Cosa cono i file di dichiarazione e come li ottengo?](#cosa-sono-i-file-di-dichiarazione-e-come-li-ottengo)
-* [Come posso contribuire?](#come-posso-contribuire)
-  - [Test](#Test)
-    - [Fare una pull request](#fai-una-pull-request)<details><summary></summary>
-      - [Clonare parzialmente](#clone-parziale)
-        - [Editare un package che già esite](#modificare-un-package-preesistente)
-        - [Creare un nuovo package](#creare-un-nuovo-package)
-        - [Rimuovere un package](#rimuovere-un-package)
-        - [Eseguire test](#eseguire-test)
-        - [Nomenclatura](#nomenclatura)
-        - [`<mio-package>-test.ts`](#mio-package-teststs)
-        - [Linter: `tslint.json`](#linter-tslintjson)
-        - [`tsconfig.json`](#tsconfigjson)
-        - [`package.json`](#packagejson)
-        - [`OTHER_FILES.txt`](#other_filestxt)
-        - [Errori comuni](#errori-comuni)
-        </details>
-      - [Definizione dei proprietari](#proprietari-delle-definizioni)
-  * [Domande frequenti](#domande-frequenti)
-* [Licenza](#licenza)
-
-
 ## Stato attuale
 
 Questa sezione tiene traccia della salute della repo e del processo di pubblicazione.
