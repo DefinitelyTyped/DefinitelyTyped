@@ -9,31 +9,31 @@ type Stringifiable = NodeJS.Dict<string | number | boolean | ReadonlyArray<strin
 type Method = 'GET' | 'POST';
 
 interface Options {
-    serve?: string;
-    host?: string;
-    hostname?: string;
-    rejectUnauthorized?: boolean;
-    requestCert?: boolean;
-    agent?: string;
-    sslProtocol?: boolean;
-    concurrent?: number;
-    enableCookie?: boolean;
-    enable304?: boolean;
-    method?: Method;
+    serve?: string | undefined;
+    host?: string | undefined;
+    hostname?: string | undefined;
+    rejectUnauthorized?: boolean | undefined;
+    requestCert?: boolean | undefined;
+    agent?: string | undefined;
+    sslProtocol?: boolean | undefined;
+    concurrent?: number | undefined;
+    enableCookie?: boolean | undefined;
+    enable304?: boolean | undefined;
+    method?: Method | undefined;
 }
 
 interface ReportOptions {
-    rps?: boolean;
-    status?: boolean;
-    timeout?: boolean;
-    responseTime?: number[];
-    weight?: boolean;
+    rps?: boolean | undefined;
+    status?: boolean | undefined;
+    timeout?: boolean | undefined;
+    responseTime?: number[] | undefined;
+    weight?: boolean | undefined;
     graph?: {
-        dot?: string;
-        line?: string;
-        c2mem?: string;
-    };
-    type?: 'json' | 'plain' | 'color';
+        dot?: string | undefined;
+        line?: string | undefined;
+        c2mem?: string | undefined;
+    } | undefined;
+    type?: 'json' | 'plain' | 'color' | undefined;
 }
 
 declare class For<T> {
@@ -47,15 +47,15 @@ declare class Task {
     for(num: number): For<Task>;
     request(options: {
         path: string;
-        method?: Method;
-        query?: Stringifiable;
+        method?: Method | undefined;
+        query?: Stringifiable | undefined;
     }): void;
     concurrent(concurrent: number): Task;
     report(options: ReportOptions): void;
     readonly withCookie: Siege;
     readonly withoutCookie: Siege;
     readonly with304: Siege;
-    readonly without304?: Siege;
+    readonly without304?: Siege | undefined;
 }
 
 declare class Siege {
@@ -73,7 +73,7 @@ declare class Siege {
     readonly withCookie: Siege;
     readonly withoutCookie: Siege;
     readonly with304: Siege;
-    readonly without304?: Siege;
+    readonly without304?: Siege | undefined;
     concurrent(n: number): Siege;
     for(n: number): For<Siege>;
     get(url: string, query?: Stringifiable): Siege;

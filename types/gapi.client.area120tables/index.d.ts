@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Area120 Tables API v1alpha1 1.0
-// Project: https://tables.area120.google.com
+// Project: https://support.google.com/area120-tables/answer/10011390
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

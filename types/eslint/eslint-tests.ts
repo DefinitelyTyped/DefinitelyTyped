@@ -70,28 +70,44 @@ loc.column; // $ExpectType number
 
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 
-sourceCode.getTokenByRangeStart(0); // $ExpectType Comment | Token | null
-sourceCode.getTokenByRangeStart(0, { includeComments: true });
+sourceCode.getTokenByRangeStart(0); // $ExpectType Token | null
+sourceCode.getTokenByRangeStart(0, { includeComments: true }); // $ExpectType Comment | Token | null
+sourceCode.getTokenByRangeStart(0, { includeComments: false }); // $ExpectType Token | null
+sourceCode.getTokenByRangeStart(0, { includeComments: false as boolean }); // $ExpectType Comment | Token | null
 
-sourceCode.getFirstToken(AST);
+sourceCode.getFirstToken(AST); // $ExpectType Token | null
 sourceCode.getFirstToken(AST, 0);
 sourceCode.getFirstToken(AST, { skip: 0 });
-sourceCode.getFirstToken(AST, t => t.type === "Identifier");
-sourceCode.getFirstToken(AST, { filter: t => t.type === "Identifier" });
+sourceCode.getFirstToken(AST, (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier"); // $ExpectType (Token & { type: "Identifier"; }) | null
+sourceCode.getFirstToken(AST, { filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier" }); // $ExpectType (Token & { type: "Identifier"; }) | null
 sourceCode.getFirstToken(AST, { skip: 0, filter: t => t.type === "Identifier" });
-sourceCode.getFirstToken(AST, { includeComments: true });
+sourceCode.getFirstToken(AST, { includeComments: true }); // $ExpectType Comment | Token | null
 sourceCode.getFirstToken(AST, { includeComments: true, skip: 0 });
-sourceCode.getFirstToken(AST, { includeComments: true, skip: 0, filter: t => t.type === "Identifier" });
+// prettier-ignore
+sourceCode.getFirstToken(AST, { // $ExpectType (Token & { type: "Identifier"; }) | null
+    includeComments: true,
+    skip: 0,
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
 
-sourceCode.getFirstTokens(AST);
-sourceCode.getFirstTokens(AST, 0);
+sourceCode.getFirstTokens(AST); // $ExpectType Token[]
+sourceCode.getFirstTokens(AST, 0); // $ExpectType Token[]
 sourceCode.getFirstTokens(AST, { count: 0 });
-sourceCode.getFirstTokens(AST, t => t.type === "Identifier");
-sourceCode.getFirstTokens(AST, { filter: t => t.type === "Identifier" });
-sourceCode.getFirstTokens(AST, { count: 0, filter: t => t.type === "Identifier" });
-sourceCode.getFirstTokens(AST, { includeComments: true });
-sourceCode.getFirstTokens(AST, { includeComments: true, count: 0 });
-sourceCode.getFirstTokens(AST, { includeComments: true, count: 0, filter: t => t.type === "Identifier" });
+sourceCode.getFirstTokens(AST, (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier"); // $ExpectType (Token & { type: "Identifier"; })[]
+sourceCode.getFirstTokens(AST, { filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier" }); // $ExpectType (Token & { type: "Identifier"; })[]
+// prettier-ignore
+sourceCode.getFirstTokens(AST, { // $ExpectType (Token & { type: "Identifier"; })[]
+    count: 0,
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
+sourceCode.getFirstTokens(AST, { includeComments: true }); //  $ ExpectType (Comment | Token)[]
+sourceCode.getFirstTokens(AST, { includeComments: true, count: 0 }); //  $ ExpectType (Comment | Token)[]
+// prettier-ignore
+sourceCode.getFirstTokens(AST, {// $ExpectType (Token & { type: "Identifier"; })[]
+    includeComments: true,
+    count: 0,
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
 
 sourceCode.getLastToken(AST);
 sourceCode.getLastToken(AST, 0);
@@ -161,25 +177,44 @@ sourceCode.getTokensAfter(AST, { includeComments: true, count: 0, filter: t => t
 sourceCode.getTokensAfter(TOKEN, 0);
 sourceCode.getTokensAfter(COMMENT, 0);
 
-sourceCode.getFirstTokenBetween(AST, AST);
+sourceCode.getFirstTokenBetween(AST, AST); // $ExpectType Token | null
 sourceCode.getFirstTokenBetween(AST, AST, 0);
 sourceCode.getFirstTokenBetween(AST, AST, { skip: 0 });
-sourceCode.getFirstTokenBetween(AST, AST, t => t.type === "Identifier");
-sourceCode.getFirstTokenBetween(AST, AST, { filter: t => t.type === "Identifier" });
-sourceCode.getFirstTokenBetween(AST, AST, { skip: 0, filter: t => t.type === "Identifier" });
-sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true });
+sourceCode.getFirstTokenBetween(AST, AST, (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier"); // $ExpectType (Token & { type: "Identifier"; }) | null
+// prettier-ignore
+sourceCode.getFirstTokenBetween(AST, AST, { // $ExpectType (Token & { type: "Identifier"; }) | null
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
+sourceCode.getFirstTokenBetween(AST, AST, {
+    skip: 0,
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
+sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true }); // $ExpectType Comment | Token | null
 sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0 });
-sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0, filter: t => t.type === "Identifier" });
+// prettier-ignore
+sourceCode.getFirstTokenBetween(AST, AST, { // $ExpectType (Token & { type: "Identifier"; }) | null
+    includeComments: true,
+    skip: 0,
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
 
-sourceCode.getFirstTokensBetween(AST, AST);
+sourceCode.getFirstTokensBetween(AST, AST); // $ExpectType Token[]
 sourceCode.getFirstTokensBetween(AST, AST, 0);
 sourceCode.getFirstTokensBetween(AST, AST, { count: 0 });
-sourceCode.getFirstTokensBetween(AST, AST, t => t.type === "Identifier");
-sourceCode.getFirstTokensBetween(AST, AST, { filter: t => t.type === "Identifier" });
+sourceCode.getFirstTokensBetween(AST, AST, (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier"); // $ExpectType (Token & { type: "Identifier"; })[]
+// prettier-ignore
+sourceCode.getFirstTokensBetween(AST, AST, { // $ExpectType (Token & { type: "Identifier"; })[]
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
 sourceCode.getFirstTokensBetween(AST, AST, { count: 0, filter: t => t.type === "Identifier" });
-sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true });
+sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true }); // $ExpectType (Comment | Token)[]
 sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0 });
-sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0, filter: t => t.type === "Identifier" });
+// prettier-ignore
+sourceCode.getFirstTokensBetween(AST, AST, { // $ExpectType (Token & { type: "Identifier"; })[]
+    includeComments: true,
+    count: 0,
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
 
 sourceCode.getLastTokenBetween(AST, AST);
 sourceCode.getLastTokenBetween(AST, AST, 0);
@@ -204,13 +239,17 @@ sourceCode.getLastTokensBetween(AST, AST, { includeComments: true, count: 0, fil
 sourceCode.getTokensBetween(AST, AST);
 sourceCode.getTokensBetween(AST, AST, 0);
 
-sourceCode.getTokens(AST);
+sourceCode.getTokens(AST); // $ExpectType Token[]
 sourceCode.getTokens(AST, 0);
 sourceCode.getTokens(AST, 0, 0);
-sourceCode.getTokens(AST, t => t.type === "Identifier");
-sourceCode.getTokens(AST, { filter: t => t.type === "Identifier" });
-sourceCode.getTokens(AST, { includeComments: true });
-sourceCode.getTokens(AST, { includeComments: true, filter: t => t.type === "Identifier" });
+sourceCode.getTokens(AST, (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier"); // $ExpectType (Token & { type: "Identifier"; })[]
+sourceCode.getTokens(AST, { filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier" }); // $ExpectType (Token & { type: "Identifier"; })[]
+sourceCode.getTokens(AST, { includeComments: true }); // $ExpectType (Comment | Token)[]
+// prettier-ignore
+sourceCode.getTokens(AST, { // $ExpectType (Token & { type: "Identifier"; })[]
+    includeComments: true,
+    filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
+});
 
 sourceCode.commentsExistBetween(AST, AST);
 sourceCode.commentsExistBetween(TOKEN, TOKEN);
@@ -335,6 +374,10 @@ rule = {
         context.getDeclaredVariables(AST);
 
         context.getFilename();
+
+        context.getPhysicalFilename();
+
+        context.getCwd();
 
         context.getSourceCode();
 
@@ -592,6 +635,7 @@ eslint = new ESLint({ overrideConfig: {} });
 eslint = new ESLint({ overrideConfigFile: "foo" });
 eslint = new ESLint({ cache: true });
 eslint = new ESLint({ cacheLocation: "foo" });
+eslint = new ESLint({ cacheStrategy: "content" });
 eslint = new ESLint({ cwd: "foo" });
 eslint = new ESLint({ errorOnUnmatchedPattern: true });
 eslint = new ESLint({ extensions: ["js"] });
@@ -693,6 +737,7 @@ cli = new CLIEngine({ baseConfig: false });
 cli = new CLIEngine({ baseConfig: { extends: ["lynt"] } });
 cli = new CLIEngine({ cache: true });
 cli = new CLIEngine({ cacheFile: "foo" });
+cli = new CLIEngine({ cacheStrategy: "content" });
 cli = new CLIEngine({ configFile: "foo" });
 cli = new CLIEngine({ cwd: "foo" });
 cli = new CLIEngine({ envs: ["browser"] });

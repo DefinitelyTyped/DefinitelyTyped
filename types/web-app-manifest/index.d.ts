@@ -3,8 +3,8 @@
 // Definitions by: Yamagishi Kazutoshi <https://github.com/ykzts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type TextDirectionType = 'ltr' | 'rtl' | 'auto';
-type DisplayModeType = 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
+export type TextDirectionType = 'ltr' | 'rtl' | 'auto';
+export type DisplayModeType = 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
 
 /**
  * Each `ImageResource` represents an image that is used as part of a web application, suitable to use in
@@ -13,7 +13,7 @@ type DisplayModeType = 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
  *
  * @see https://w3c.github.io/manifest/#imageresource-and-its-members
  */
-interface ImageResource {
+export interface ImageResource {
     /**
      * The `src` member of an `ImageResource` is a URL from which a user agent can fetch the image's data.
      *
@@ -27,14 +27,14 @@ interface ImageResource {
      *
      * @see https://w3c.github.io/manifest/#sizes-member
      */
-    sizes?: string;
+    sizes?: string | undefined;
 
     /**
      * The `type` member of an `ImageResource` is a hint as to the MIME type of the image.
      *
      * @see https://w3c.github.io/manifest/#type-member
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * The purpose member is an unordered set of unique space-separated tokens that are ASCII case-
@@ -42,14 +42,14 @@ interface ImageResource {
      *
      * @see https://w3c.github.io/manifest/#purpose-member
      */
-    purpose?: string;
+    purpose?: string | undefined;
 
     /**
      * The `platform` member represents the platform to which a containing object applies.
      *
      * @see https://w3c.github.io/manifest/#platform-member
      */
-    platform?: string;
+    platform?: string | undefined;
 }
 
 /**
@@ -58,9 +58,9 @@ interface ImageResource {
  *
  * @see https://w3c.github.io/manifest/#fingerprints-member
  */
-interface Fingerprint {
-    type?: string;
-    value?: string;
+export interface Fingerprint {
+    type?: string | undefined;
+    value?: string | undefined;
 }
 
 /**
@@ -68,7 +68,7 @@ interface Fingerprint {
  *
  * @see https://w3c.github.io/manifest/#externalapplicationresource-and-its-members
  */
-interface ExternalApplicationResource {
+export interface ExternalApplicationResource {
     /**
      * The `platform` member represents the platform to which a containing object applies.
      *
@@ -82,7 +82,7 @@ interface ExternalApplicationResource {
      *
      * @see https://w3c.github.io/manifest/#url-member-0
      */
-    url?: string;
+    url?: string | undefined;
 
     /**
      * The `id` member of an ExternalApplicationResource dictionary represents the id which is used to
@@ -90,7 +90,7 @@ interface ExternalApplicationResource {
      *
      * @see https://w3c.github.io/manifest/#id-member
      */
-    id?: string;
+    id?: string | undefined;
 
     /**
      * The `min_version` member of an `ExternalApplicationResource` dictionary represents the minimum version
@@ -98,7 +98,7 @@ interface ExternalApplicationResource {
      *
      * @see https://w3c.github.io/manifest/#min_version-member
      */
-    min_version?: string;
+    min_version?: string | undefined;
 
     /**
      * The `fingerprints` member of an `ExternalApplicationResource` dictionary represents an array of
@@ -106,7 +106,7 @@ interface ExternalApplicationResource {
      *
      * @see https://w3c.github.io/manifest/#fingerprints-member
      */
-    fingerprints?: Fingerprint[];
+    fingerprints?: Fingerprint[] | undefined;
 }
 
 /**
@@ -114,7 +114,7 @@ interface ExternalApplicationResource {
  *
  * @see https://w3c.github.io/manifest/#shortcutitem-and-its-members
  */
-interface ShortcutItem {
+export interface ShortcutItem {
     /**
      * The `name` member of a `ShortcutItem` is a `string` that represents the name of the shortcut as it is usually
      * displayed to the user in a context menu.
@@ -129,7 +129,7 @@ interface ShortcutItem {
      *
      * @see https://w3c.github.io/manifest/#short_name-member-0
      */
-    short_name?: string;
+    short_name?: string | undefined;
 
     /**
      * The `description` member of a `ShortcutItem` is a `string` that allows the developer to describe the
@@ -137,7 +137,7 @@ interface ShortcutItem {
      *
      * @see https://w3c.github.io/manifest/#description-member-0
      */
-    description?: string;
+    description?: string | undefined;
 
     /**
      * The `url` member of a `ShortcutItem` is the URL within the application's scope that opens when the
@@ -153,7 +153,7 @@ interface ShortcutItem {
      *
      * @see https://w3c.github.io/manifest/#icons-member-0
      */
-    icons?: ImageResource[];
+    icons?: ImageResource[] | undefined;
 }
 
 /**
@@ -162,13 +162,13 @@ interface ShortcutItem {
  *
  * @see https://w3c.github.io/manifest/#webappmanifest-dictionary
  */
-interface WebAppManifest {
+export interface WebAppManifest {
     /**
      * The `dir` member specifies the base direction for the directionality-capable members of the manifest.
      *
      * @see https://w3c.github.io/manifest/#dir-member
      */
-    dir?: TextDirectionType;
+    dir?: TextDirectionType | undefined;
 
     /**
      * The `lang` member is a language tag (`string`) that specifies the primary language for the values of
@@ -176,7 +176,7 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#lang-member
      */
-    lang?: string;
+    lang?: string | undefined;
 
     /**
      * The `name` member is a `string` that represents the name of the web application as it is usually displayed
@@ -184,21 +184,21 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#name-member
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * The `short_name` member is a `string` that represents a short version of the name of the web application.
      *
      * @see https://w3c.github.io/manifest/#short_name-member
      */
-    short_name?: string;
+    short_name?: string | undefined;
 
     /**
      * The `description` member allows the developer to describe the purpose of the web application.
      *
      * @see https://w3c.github.io/manifest/#description-member
      */
-    description?: string;
+    description?: string | undefined;
 
     /**
      * The `icons` member is an array of `ImageResource`s that can serve as iconic representations of the web
@@ -206,7 +206,7 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#icons-member
      */
-    icons?: ImageResource[];
+    icons?: ImageResource[] | undefined;
 
     /**
      * The `screenshots` member is an array of `ImageResource`s, representing the web application in common
@@ -214,14 +214,14 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#screenshots-member
      */
-    screenshots?: ImageResource[];
+    screenshots?: ImageResource[] | undefined;
 
     /**
      * The `categories` member describes the expected application categories to which the web application belongs.
      *
      * @see https://w3c.github.io/manifest/#categories-member
      */
-    categories?: string[];
+    categories?: string[] | undefined;
 
     /**
      * The `iarc_rating_id` member is a `string` that represents the International Age Rating Coalition (IARC)
@@ -229,7 +229,7 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#iarc_rating_id-member
      */
-    iarc_rating_id?: string;
+    iarc_rating_id?: string | undefined;
 
     /**
      * The `start_url` member is a `string` that represents the start URL , which is URL that the developer
@@ -238,14 +238,14 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#start_url-member
      */
-    start_url?: string;
+    start_url?: string | undefined;
 
     /**
      * The `display` member is a `DisplayModeType`, whose value is one of display modes values.
      *
      * @see https://w3c.github.io/manifest/#display-member
      */
-    display?: DisplayModeType;
+    display?: DisplayModeType | undefined;
 
     /**
      * The `orientation` member is a string that serves as the default screen orientation for all top-level
@@ -253,21 +253,21 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#orientation-member
      */
-    orientation?: OrientationLockType;
+    orientation?: OrientationLockType | undefined;
 
     /**
      * The `theme_color` member serves as the default theme color for an application context.
      *
      * @see https://w3c.github.io/manifest/#theme_color-member
      */
-    theme_color?: string;
+    theme_color?: string | undefined;
 
     /**
      * The `background_color` member describes the expected background color of the web application.
      *
      * @see https://w3c.github.io/manifest/#background_color-member
      */
-    background_color?: string;
+    background_color?: string | undefined;
 
     /**
      * The `scope` member is a string that represents the navigation scope of this web application's
@@ -275,7 +275,7 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#scope-member
      */
-    scope?: string;
+    scope?: string | undefined;
 
     /**
      * The `related_applications` member lists related applications and serves as an indication of such a
@@ -283,7 +283,7 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#related_applications-member
      */
-    related_applications?: ExternalApplicationResource[];
+    related_applications?: ExternalApplicationResource[] | undefined;
 
     /**
      * The `prefer_related_applications` member is a boolean value that is used as a hint for the user agent
@@ -291,12 +291,12 @@ interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#prefer_related_applications-member
      */
-    prefer_related_applications?: boolean;
+    prefer_related_applications?: boolean | undefined;
 
     /**
      * The `shortcuts` member is an `array` of `ShortcutItem`s that provide access to key tasks within a web application.
      *
      * @see https://w3c.github.io/manifest/#shortcuts-member
      */
-    shortcuts?: ShortcutItem[];
+    shortcuts?: ShortcutItem[] | undefined;
 }

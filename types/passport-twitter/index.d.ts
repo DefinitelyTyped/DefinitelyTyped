@@ -25,24 +25,24 @@ interface IStrategyOptionBase {
     consumerSecret: string;
     callbackURL: string;
 
-    includeEmail?: boolean;
-    includeStatus?: boolean;
-    includeEntities?: boolean;
+    includeEmail?: boolean | undefined;
+    includeStatus?: boolean | undefined;
+    includeEntities?: boolean | undefined;
 
-    requestTokenURL?: string;
-    accessTokenURL?: string;
-    userAuthorizationURL?: string;
-    sessionKey?: string;
+    requestTokenURL?: string | undefined;
+    accessTokenURL?: string | undefined;
+    userAuthorizationURL?: string | undefined;
+    sessionKey?: string | undefined;
 
-    forceLogin?: boolean;
-    screenName?: string;
+    forceLogin?: boolean | undefined;
+    screenName?: string | undefined;
 
-    userProfileURL?: string;
-    skipExtendedUserProfile?: boolean;
+    userProfileURL?: string | undefined;
+    skipExtendedUserProfile?: boolean | undefined;
 }
 
 interface IStrategyOption extends IStrategyOptionBase {
-    passReqToCallback?: false;
+    passReqToCallback?: false | undefined;
 }
 
 interface IStrategyOptionWithRequest  extends IStrategyOptionBase {

@@ -34,7 +34,7 @@ declare global {
         type Subscriber<T> = (observer: SubscriptionObserver<T>) => void | (() => void) | Subscription;
 
         interface ObservableLike<T> {
-            subscribe?: Subscriber<T>;
+            subscribe?: Subscriber<T> | undefined;
             [Symbol.observable](): Observable<T> | ObservableLike<T>;
         }
     }

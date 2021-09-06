@@ -23,12 +23,12 @@ export interface UrlAndMap {
  * Options to install().
  */
 export interface Options {
-    handleUncaughtExceptions?: boolean;
-    hookRequire?: boolean;
-    emptyCacheBetweenOperations?: boolean;
-    environment?: 'auto' | 'browser' | 'node';
-    overrideRetrieveFile?: boolean;
-    overrideRetrieveSourceMap?: boolean;
+    handleUncaughtExceptions?: boolean | undefined;
+    hookRequire?: boolean | undefined;
+    emptyCacheBetweenOperations?: boolean | undefined;
+    environment?: 'auto' | 'browser' | 'node' | undefined;
+    overrideRetrieveFile?: boolean | undefined;
+    overrideRetrieveSourceMap?: boolean | undefined;
     retrieveFile?(path: string): string;
     retrieveSourceMap?(source: string): UrlAndMap | null;
 }

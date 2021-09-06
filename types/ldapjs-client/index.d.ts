@@ -13,18 +13,18 @@ declare namespace LdapClient {
     }
 
     interface SearchOptions {
-        scope?: string;
-        filter?: string;
-        attributes?: string[];
-        sizeLimit?: number;
-        timeLimit?: number;
-        typesOnly?: boolean;
+        scope?: string | undefined;
+        filter?: string | undefined;
+        attributes?: string[] | undefined;
+        sizeLimit?: number | undefined;
+        timeLimit?: number | undefined;
+        typesOnly?: boolean | undefined;
     }
 
     interface ClientOptions {
         url: string;
-        tlsOptions?: object;
-        timeout?: number;
+        tlsOptions?: object | undefined;
+        timeout?: number | undefined;
     }
 }
 

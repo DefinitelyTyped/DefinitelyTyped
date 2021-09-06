@@ -12,24 +12,24 @@ import SMTPConnection = require('../smtp-connection');
 
 declare namespace SMTPPool {
     interface MailOptions extends Mail.Options {
-        auth?: SMTPConnection.AuthenticationType;
-        dsn?: SMTPConnection.DSNOptions;
+        auth?: SMTPConnection.AuthenticationType | undefined;
+        dsn?: SMTPConnection.DSNOptions | undefined;
     }
 
     interface Options extends MailOptions, TransportOptions, SMTPConnection.Options {
         /** set to true to use pooled connections (defaults to false) instead of creating a new connection for every email */
         pool: true;
-        service?: string;
+        service?: string | undefined;
         getSocket?(options: Options, callback: (err: Error | null, socketOptions: any) => void): void; // TODO http.ClientRequest?
-        url?: string;
+        url?: string | undefined;
         /** the count of maximum simultaneous connections to make against the SMTP server (defaults to 5) */
-        maxConnections?: number;
+        maxConnections?: number | undefined;
         /** limits the message count to be sent using a single connection (defaults to 100). After maxMessages is reached the connection is dropped and a new one is created for the following messages */
-        maxMessages?: number;
+        maxMessages?: number | undefined;
         /** defines the time measuring period in milliseconds (defaults to 1000, ie. to 1 second) for rate limiting */
-        rateDelta?: number;
+        rateDelta?: number | undefined;
         /** limits the message count to be sent in rateDelta time. Once rateLimit is reached, sending is paused until the end of the measuring period. This limit is shared between connections, so if one connection uses up the limit, then other connections are paused as well. If rateLimit is not set then sending rate is not limited */
-        rateLimit?: number;
+        rateLimit?: number | undefined;
     }
 
     interface SentMessageInfo extends SMTPConnection.SentMessageInfo {
@@ -43,10 +43,10 @@ declare namespace SMTPPool {
 /**
  * Creates a SMTP pool transport object for Nodemailer
  */
-declare class SMTPPool extends EventEmitter implements Transport {
+declare class SMTPPool extends EventEmitter implements Transport<SMTPPool.SentMessageInfo> {
     options: SMTPPool.Options;
 
-    mailer: Mail;
+    mailer: Mail<SMTPPool.SentMessageInfo>;
     logger: shared.Logger;
 
     name: string;
@@ -60,7 +60,7 @@ declare class SMTPPool extends EventEmitter implements Transport {
     getSocket(options: SMTPPool.Options, callback: (err: Error | null, socketOptions: any) => void): void;
 
     /** Sends an e-mail using the selected settings */
-    send(mail: MailMessage, callback: (err: Error | null, info: SMTPPool.SentMessageInfo) => void): void;
+    send(mail: MailMessage<SMTPPool.SentMessageInfo>, callback: (err: Error | null, info: SMTPPool.SentMessageInfo) => void): void;
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;

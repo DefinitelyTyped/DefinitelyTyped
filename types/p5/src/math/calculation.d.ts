@@ -243,5 +243,13 @@ declare module '../../index' {
          *   @return square root of number
          */
         sqrt(n: number): number;
+
+        /**
+         * Calculates the fractional part of a number.
+         *
+         * @param [num] Number whose fractional part needs to be found out
+         * @returns fractional part of x, i.e, {x}
+         */
+        fract(num: number): number;
     }
 }

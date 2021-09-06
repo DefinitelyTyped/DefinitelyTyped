@@ -14,7 +14,7 @@ declare namespace AV {
         currentTime: number;
         volume: number;
         pan: number;
-        format?: Format;
+        format?: Format | undefined;
         metadata: Metadata;
         asset: Asset;
         filters: Filter[];

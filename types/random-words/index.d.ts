@@ -12,20 +12,20 @@ declare function words(
         join: string;
     },
 ): string;
-declare function words(options: words.Options | number): string | string[];
+declare function words(options: words.Options | number): string[];
 
 declare namespace words {
-    let wordList: string[];
+    const wordList: string[];
 
     interface Options {
-        exactly?: number;
-        formatter?: WordFormatter;
-        join?: string;
-        max?: number;
-        maxLength?: number;
-        min?: number;
-        separator?: string;
-        wordsPerString?: number;
+        exactly?: number | undefined;
+        formatter?: WordFormatter | undefined;
+        join?: string | undefined;
+        max?: number | undefined;
+        maxLength?: number | undefined;
+        min?: number | undefined;
+        separator?: string | undefined;
+        wordsPerString?: number | undefined;
     }
 
     type WordFormatter = (word: string, relativeIndex?: number) => string;

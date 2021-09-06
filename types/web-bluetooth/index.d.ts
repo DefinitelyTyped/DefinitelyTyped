@@ -3,76 +3,73 @@
 // Definitions by: Uri Shaked <https://github.com/urish>
 //                    Xavier Lozinguez <http://github.com/xlozinguez>
 //                    Rob Moran <https://github.com/thegecko>
+//                    David Bjerremose <https://github.com/DaBs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type BluetoothServiceUUID = number | string;
 type BluetoothCharacteristicUUID = number | string;
 type BluetoothDescriptorUUID = number | string;
 
-interface BluetoothRequestDeviceFilter {
-    services?: BluetoothServiceUUID[];
-    name?: string;
-    namePrefix?: string;
-    manufacturerId?: number;
-    serviceDataUUID?: BluetoothServiceUUID;
-}
-
-type RequestDeviceOptions = {
-    filters: BluetoothRequestDeviceFilter[];
-    optionalServices?: BluetoothServiceUUID[];
-} | {
-    acceptAllDevices: boolean;
-    optionalServices?: BluetoothServiceUUID[];
-};
-
 type BluetoothManufacturerData = Map<number, DataView>;
 type BluetoothServiceData = Map<BluetoothServiceUUID, DataView>;
 
 interface BluetoothDataFilter {
-    readonly dataPrefix: DataView;
-    readonly mask: DataView;
+    readonly dataPrefix?: BufferSource | undefined;
+    readonly mask?: BufferSource | undefined;
 }
 
-interface BluetoothManufacturerDataFilter {
-    readonly [manufacturerId: number]: BluetoothDataFilter;
+interface BluetoothManufacturerDataFilter extends BluetoothDataFilter {
+    companyIdentifier: number;
 }
 
-type BluetoothServiceDataFilter = {
-    readonly [serviceUUID in BluetoothServiceUUID]: BluetoothDataFilter;
-};
+interface BluetoothServiceDataFilter extends BluetoothDataFilter {
+    service: BluetoothServiceUUID;
+}
 
 interface BluetoothLEScanFilter {
-    readonly name?: string;
-    readonly namePrefix?: string;
-    readonly services?: BluetoothServiceUUID[];
-    readonly manufacturerData?: BluetoothManufacturerDataFilter;
-    readonly serviceData?: BluetoothServiceDataFilter;
+    readonly name?: string | undefined;
+    readonly namePrefix?: string | undefined;
+    readonly services?: BluetoothServiceUUID[] | undefined;
+    readonly manufacturerData?: BluetoothManufacturerDataFilter[] | undefined;
+    readonly serviceData?: BluetoothServiceDataFilter[] | undefined;
 }
 
-interface RequestLEScanOptions {
-    readonly filters?: BluetoothLEScanFilter[];
-    readonly keepRepeatedDevices?: boolean;
-    readonly acceptAllAdvertisements?: boolean;
+interface BluetoothLEScanOptions {
+    readonly filters?: BluetoothLEScanFilter[] | undefined;
+    readonly keepRepeatedDevices?: boolean | undefined;
+    readonly acceptAllAdvertisements?: boolean | undefined;
 }
 
-interface BluetoothLEScan extends RequestLEScanOptions {
+interface BluetoothLEScan extends BluetoothLEScanOptions {
     active: boolean;
     stop: () => void;
 }
 
-interface BluetoothAdvertisementEvent extends Event {
-    device: BluetoothDevice;
-    rssi: number;
-    txPower: number;
-    manufacturerData?: BluetoothManufacturerData;
-    serviceData?: BluetoothServiceData;
-    uuids?: BluetoothServiceUUID[];
+type RequestDeviceOptions = {
+    filters: BluetoothLEScanFilter[];
+    optionalServices?: BluetoothServiceUUID[] | undefined;
+    optionalManufacturerData?: number[] | undefined;
+} | {
+    acceptAllDevices: boolean;
+    optionalServices?: BluetoothServiceUUID[] | undefined;
+    optionalManufacturerData?: number[] | undefined;
+};
+
+interface BluetoothAdvertisingEvent extends Event {
+    readonly device: BluetoothDevice;
+    readonly uuids: BluetoothServiceUUID[];
+    readonly manufacturerData: BluetoothManufacturerData;
+    readonly serviceData: BluetoothServiceData;
+    readonly name?: string | undefined;
+    readonly appearance?: number | undefined;
+    readonly rssi?: number | undefined;
+    readonly txPower?: number | undefined;
 }
 
 interface BluetoothRemoteGATTDescriptor {
     readonly characteristic: BluetoothRemoteGATTCharacteristic;
     readonly uuid: string;
-    readonly value?: DataView;
+    readonly value?: DataView | undefined;
     readValue(): Promise<DataView>;
     writeValue(value: BufferSource): Promise<void>;
 }
@@ -94,10 +91,10 @@ interface CharacteristicEventHandlers {
 }
 
 interface BluetoothRemoteGATTCharacteristic extends EventTarget, CharacteristicEventHandlers {
-    readonly service?: BluetoothRemoteGATTService;
+    readonly service: BluetoothRemoteGATTService;
     readonly uuid: string;
     readonly properties: BluetoothCharacteristicProperties;
-    readonly value?: DataView;
+    readonly value?: DataView | undefined;
     getDescriptor(descriptor: BluetoothDescriptorUUID): Promise<BluetoothRemoteGATTDescriptor>;
     getDescriptors(descriptor?: BluetoothDescriptorUUID): Promise<BluetoothRemoteGATTDescriptor[]>;
     readValue(): Promise<DataView>;
@@ -146,9 +143,9 @@ interface BluetoothDeviceEventHandlers {
 
 interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
     readonly id: string;
-    readonly name?: string;
-    readonly gatt?: BluetoothRemoteGATTServer;
-    readonly uuids?: string[];
+    readonly name?: string | undefined;
+    readonly gatt?: BluetoothRemoteGATTServer | undefined;
+    readonly uuids?: string[] | undefined;
     watchAdvertisements(): Promise<void>;
     unwatchAdvertisements(): void;
     readonly watchingAdvertisements: boolean;
@@ -161,11 +158,11 @@ interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, Character
     getDevices(): Promise<BluetoothDevice[]>;
     getAvailability(): Promise<boolean>;
     onavailabilitychanged: (this: this, ev: Event) => any;
-    readonly referringDevice?: BluetoothDevice;
+    readonly referringDevice?: BluetoothDevice | undefined;
     requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
-    requestLEScan(options?: RequestLEScanOptions): Promise<BluetoothLEScan>;
+    requestLEScan(options?: BluetoothLEScanOptions): Promise<BluetoothLEScan>;
     addEventListener(type: "availabilitychanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisementEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisingEvent) => any, useCapture?: boolean): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 

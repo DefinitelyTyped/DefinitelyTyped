@@ -8,19 +8,19 @@ import TileSource from '../source/Tile';
 import Layer from './Layer';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    preload?: number;
-    source?: TileSource;
-    map?: PluggableMap;
-    useInterimTilesOnError?: boolean;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    preload?: number | undefined;
+    source?: TileSource | undefined;
+    map?: PluggableMap | undefined;
+    useInterimTilesOnError?: boolean | undefined;
 }
 export default class BaseTileLayer extends Layer<TileSource> {
     constructor(opt_options?: Options);

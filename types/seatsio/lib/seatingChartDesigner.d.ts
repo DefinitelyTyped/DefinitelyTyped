@@ -13,20 +13,20 @@ declare namespace Seatsio {
         divId: string;
         secretKey: string;
         chartKey: string;
-        language?: string;
+        language?: string | undefined;
         features?: {
             enabled: string[],
             disabled: string[],
             readOnly: string[]
-        };
-        openDraftDrawing?: boolean;
-        openLatestDrawing?: boolean;
+        } | undefined;
+        openDraftDrawing?: boolean | undefined;
+        openLatestDrawing?: boolean | undefined;
 
-        onChartCreated?: (chartKey: string) => void;
-        onChartUpdated?: (chartKey: string) => void;
-        onChartPublished?: (chartKey: string) => void;
-        onExitRequested?: () => void;
-        onDesignerRendered?: (designer: SeatingChartDesigner) => void;
-        onDesignerRenderingFailed?: (designer: SeatingChartDesigner) => void;
+        onChartCreated?: ((chartKey: string) => void) | undefined;
+        onChartUpdated?: ((chartKey: string) => void) | undefined;
+        onChartPublished?: ((chartKey: string) => void) | undefined;
+        onExitRequested?: (() => void) | undefined;
+        onDesignerRendered?: ((designer: SeatingChartDesigner) => void) | undefined;
+        onDesignerRenderingFailed?: ((designer: SeatingChartDesigner) => void) | undefined;
     }
 }

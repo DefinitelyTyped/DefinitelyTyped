@@ -2,7 +2,7 @@ import awsLambdaFastify from 'aws-lambda-fastify';
 import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import { Context, Callback } from 'aws-lambda/handler';
 import { RouteGenericInterface } from 'fastify/types/route';
-import { Server, IncomingMessage, ServerResponse } from 'node:http';
+import { Server, IncomingMessage, ServerResponse } from 'http';
 
 const app = fastify();
 const proxy = awsLambdaFastify(app, { binaryMimeTypes: ['application/octet-stream'] });

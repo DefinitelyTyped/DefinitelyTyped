@@ -1,10 +1,8 @@
 // Type definitions for non-npm package office-runtime 1.0
 // Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>,
-//                 Michelle Scharlock <https://github.com/mscharlock>,
 //                 David Chesnut <https://github.com/davidchesnut>,
 //                 Alex Jerabek <https://github.com/AlexJerabek>,
-//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
 //                 Ricky Kirkham <https://github.com/rick-kirkham>,
 //                 Alison McKay <https://github.com/alison-mk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

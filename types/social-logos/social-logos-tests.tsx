@@ -38,7 +38,9 @@ export default class SocialLogos extends React.PureComponent {
                 <SocialLogo icon="instagram" size={48} onClick={this.makeHandleClick('instagram')} />
                 <SocialLogo icon="linkedin" size={48} onClick={this.makeHandleClick('linkedin')} />
                 <SocialLogo icon="mail" size={48} onClick={this.makeHandleClick('mail')} />
+                <SocialLogo icon="medium-alt" size={48} onClick={this.makeHandleClick('medium-alt')} />
                 <SocialLogo icon="medium" size={48} onClick={this.makeHandleClick('medium')} />
+                <SocialLogo icon="patreon" size={48} onClick={this.makeHandleClick('patreon')} />
                 <SocialLogo icon="pinterest-alt" size={48} onClick={this.makeHandleClick('pinterest-alt')} />
                 <SocialLogo icon="pinterest" size={48} onClick={this.makeHandleClick('pinterest')} />
                 <SocialLogo icon="pocket" size={48} onClick={this.makeHandleClick('pocket')} />
@@ -51,6 +53,8 @@ export default class SocialLogos extends React.PureComponent {
                 <SocialLogo icon="squarespace" size={48} onClick={this.makeHandleClick('squarespace')} />
                 <SocialLogo icon="stumbleupon" size={48} onClick={this.makeHandleClick('stumbleupon')} />
                 <SocialLogo icon="telegram" size={48} onClick={this.makeHandleClick('telegram')} />
+                <SocialLogo icon="tiktok-alt" size={48} onClick={this.makeHandleClick('tiktok-alt')} />
+                <SocialLogo icon="tiktok" size={48} onClick={this.makeHandleClick('tiktok')} />
                 <SocialLogo icon="tumblr-alt" size={48} onClick={this.makeHandleClick('tumblr-alt')} />
                 <SocialLogo icon="tumblr" size={48} onClick={this.makeHandleClick('tumblr')} />
                 <SocialLogo icon="twitch" size={48} onClick={this.makeHandleClick('twitch')} />

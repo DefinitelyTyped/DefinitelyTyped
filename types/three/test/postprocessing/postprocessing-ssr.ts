@@ -163,7 +163,7 @@ function init() {
     groundReflector.maxDistance = ssrPass.maxDistance;
     ssrPass.opacity = 1;
     groundReflector.opacity = ssrPass.opacity;
-    ssrPass.surfDist = 0.0015;
+    ssrPass.thickness = 0.0015;
 }
 
 function onWindowResize() {

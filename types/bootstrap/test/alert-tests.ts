@@ -4,13 +4,22 @@ import * as $ from 'jquery';
 const element = new Element();
 
 // $ExpectType Alert
-new Alert(element);
+const alert = new Alert(element);
+alert.close();
+alert.dispose();
 
-// $ExpectType Alert
+// $ExpectType Alert | null
 Alert.getInstance(element);
+// $ExpectType Alert
+Alert.getOrCreateInstance(element);
 
-// $ExpectType string
-Alert.VERSION;
+// $ExpectType void | undefined
+Alert.getInstance(element)?.close();
+// $ExpectType void
+Alert.getOrCreateInstance(element).close();
+
+Alert.VERSION; // $ExpectType string
+Alert.NAME; // $ExpectType "alert"
 
 element.addEventListener(Alert.Events.close, event => {
     // do something…

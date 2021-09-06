@@ -88,4 +88,6 @@ declare module './index' {
     type VIDEO = 'video';
     type WAIT = 'wait';
     type WEBGL = 'webgl';
+    type LABEL = 'label';
+    type FALLBACK = 'fallback';
 }

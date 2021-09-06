@@ -88,12 +88,22 @@ rpio.i2cSetClockDivider(2500);  /* 250MHz / 2500 = 100kHz */
 const txbuf = Buffer.from([0x0b, 0x0e, 0x0e, 0x0f]);
 const rxbuf = Buffer.alloc(32);
 
+// $ExpectType I2cStatusCode
 rpio.i2cWrite(txbuf);           /* Sends 4 bytes */
+
+// $ExpectType I2cStatusCode
 rpio.i2cWrite(txbuf, 2);         /* Sends 2 bytes */
+
+// $ExpectType I2cStatusCode
 rpio.i2cRead(rxbuf);            /* Reads 32 bytes */
+
+// $ExpectType I2cStatusCode
 rpio.i2cRead(rxbuf, 16);        /* Reads 16 bytes */
 
+// $ExpectType I2cStatusCode
 rpio.i2cReadRegisterRestart(0x3, rxbuf, 16);
+
+// $ExpectType I2cStatusCode
 rpio.i2cWriteReadRestart(txbuf, 32, rxbuf, 16);
 
 rpio.i2cEnd();

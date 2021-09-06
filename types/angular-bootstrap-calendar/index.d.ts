@@ -17,7 +17,7 @@ declare module 'angular' {
             /**
              * CSS class to be added to the action element
              */
-            cssClass?: string;
+            cssClass?: string | undefined;
             /**
              * The action that occurs when it's clicked
              * @param args - the IEvent whose action was clicked
@@ -45,7 +45,7 @@ declare module 'angular' {
             /**
              * The type of the event (determines its color). Can be important, warning, info, inverse, success or special
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * A javascript date object for when the event starts
              */
@@ -53,47 +53,47 @@ declare module 'angular' {
             /**
              * Optional - a javascript date object for when the event ends
              */
-            endsAt?: Date;
+            endsAt?: Date | undefined;
             /**
              * Color of the Event
              */
-            color?: IEventColor;
+            color?: IEventColor | undefined;
             /**
              * Actions of the Event
              */
-            actions?: Array<IEventAction>;
+            actions?: Array<IEventAction> | undefined;
             /**
              * If edit-event-html is set and this field is explicitly set to false then dont make it editable.
              */
-            editable?: boolean;
+            editable?: boolean | undefined;
             /**
              * If delete-event-html is set and this field is explicitly set to false then dont make it deleteable
              */
-            deletable?: boolean;
+            deletable?: boolean | undefined;
             /**
              * Allow an event to be dragged and dropped
              */
-            draggable?: boolean;
+            draggable?: boolean | undefined;
             /**
              * Allow an event to be resizable
              */
-            resizable?: boolean;
+            resizable?: boolean | undefined;
             /**
              * If set to false then will not count towards the badge total amount on the month and year view
              */
-            incrementsBadgeTotal?: boolean;
+            incrementsBadgeTotal?: boolean | undefined;
             /**
              * If set the event will recur on the given period. Valid values are year or month
              */
-            recursOn?: string;
+            recursOn?: string | undefined;
             /**
              * A CSS class (or more, just separate with spaces) that will be added to the event when it is displayed on each view. Useful for marking an event as selected / active etc
              */
-            cssClass?: string;
+            cssClass?: string | undefined;
             /**
              * If set the event will display as all-day event
              */
-            allDay?: boolean;
+            allDay?: boolean | undefined;
         }
 
         interface ICalendarConfig {

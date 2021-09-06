@@ -1,14 +1,15 @@
 // Type definitions for faker 5.5
 // Project: http://marak.com/faker.js/
-// Definitions by: Ben Swartz <https://github.com/bensw>,
-//                 Bas Pennings <https://github.com/basp>,
-//                 Yuki Kokubun <https://github.com/Kuniwak>,
-//                 Matt Bishop <https://github.com/mattbishop>,
+// Definitions by: Ben Swartz <https://github.com/bensw>
+//                 Bas Pennings <https://github.com/basp>
+//                 Yuki Kokubun <https://github.com/Kuniwak>
+//                 Matt Bishop <https://github.com/mattbishop>
 //                 Leonardo Testa <https://github.com/testica>
 //                 Sebastian Pettersson <https://github.com/TastefulElk>
 //                 Daniel Montesinos <https://github.com/damonpam>
 //                 Shinya Ohyanagi <https://github.com/heavenshell>
 //                 Piotr Kuczynski <https://github.com/pkuczynski>
+//                 Jérémie Parker <https://github.com/p-j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -21,7 +22,8 @@ declare namespace Faker {
         address: {
             zipCodeByState(state: string): string;
             zipCode(format?: string): string;
-            city(format?: number): string;
+            city(format?: string): string;
+            cityName(): string;
             cityPrefix(): string;
             citySuffix(): string;
             streetName(): string;
@@ -39,7 +41,11 @@ declare namespace Faker {
             direction(useAbbr?: boolean): string;
             cardinalDirection(useAbbr?: boolean): string;
             ordinalDirection(useAbbr?: boolean): string;
-            nearbyGPSCoordinate(coordinate?: ReadonlyArray<string>, radius?: number, isMetric?: boolean): string[];
+            nearbyGPSCoordinate(
+                coordinate?: ReadonlyArray<number | string>,
+                radius?: number,
+                isMetric?: boolean,
+            ): string[];
             timeZone(): string;
         };
 
@@ -77,11 +83,11 @@ declare namespace Faker {
 
         datatype: {
             number(max?: number): number;
-            number(options?: { min?: number; max?: number; precision?: number }): number;
-            float(max?: number): number;
-            float(options?: { min?: number; max?: number; precision?: number }): number;
+            number(options?: { min?: number | undefined; max?: number | undefined; precision?: number | undefined }): number;
+            float(precision?: number): number;
+            float(options?: { min?: number | undefined; max?: number | undefined; precision?: number | undefined }): number;
             datetime(max?: number): Date;
-            datetime(options?: { min?: number; max?: number }): Date;
+            datetime(options?: { min?: number | undefined; max?: number | undefined }): Date;
             string(length?: number): string;
             uuid(): string;
             boolean(): boolean;
@@ -96,8 +102,8 @@ declare namespace Faker {
             between(from: string | number | Date, to: string | Date): Date;
             recent(days?: number, refDate?: string | Date): Date;
             soon(days?: number, refDate?: string | Date): Date;
-            month(options?: { abbr?: boolean; context?: boolean }): string;
-            weekday(options?: { abbr?: boolean; context?: boolean }): string;
+            month(options?: { abbr?: boolean | undefined; context?: boolean | undefined }): string;
+            weekday(options?: { abbr?: boolean | undefined; context?: boolean | undefined }): string;
         };
 
         fake(str: string): string;
@@ -113,7 +119,7 @@ declare namespace Faker {
             currencyName(): string;
             currencySymbol(): string;
             bitcoinAddress(): string;
-            iban(formatted?: boolean): string;
+            iban(formatted?: boolean, countryCode?: string): string;
             bic(): string;
             litecoinAddress(): string;
             creditCardNumber(provider?: string): string;
@@ -240,11 +246,11 @@ declare namespace Faker {
             /** @deprecated faker.random.number is now located in faker.datatype.number */
             number(max?: number): number;
             /** @deprecated faker.random.number is now located in faker.datatype.number */
-            number(options?: { min?: number; max?: number; precision?: number }): number;
+            number(options?: { min?: number | undefined; max?: number | undefined; precision?: number | undefined }): number;
             /** @deprecated faker.random.float is now located in faker.datatype.float */
             float(max?: number): number;
             /** @deprecated faker.random.float is now located in faker.datatype.float */
-            float(options?: { min?: number; max?: number; precision?: number }): number;
+            float(options?: { min?: number | undefined; max?: number | undefined; precision?: number | undefined }): number;
             arrayElement(): string;
             arrayElement<T>(array: T[]): T;
             arrayElement<T>(array: ReadonlyArray<T>): T;
@@ -261,7 +267,7 @@ declare namespace Faker {
             words(count?: number): string;
             image(): string;
             locale(): string;
-            alpha(options?: { count?: number; upcase?: boolean }): string;
+            alpha(options?: { count?: number | undefined; upcase?: boolean | undefined }): string;
             alphaNumeric(count?: number): string;
             /** @deprecated faker.random.hexaDecimal is now located in faker.datatype.hexaDecimal */
             hexaDecimal(count?: number): string;
@@ -287,7 +293,7 @@ declare namespace Faker {
         };
 
         seed(value: number): void;
-        seedValue?: number;
+        seedValue?: number | undefined;
 
         vehicle: {
             vehicle(): string;
@@ -304,7 +310,7 @@ declare namespace Faker {
         unique<T extends (...args: any) => any>(
             method: T,
             args?: Parameters<T>,
-            opts?: { maxTime?: number; maxRetries?: number },
+            opts?: { maxTime?: number | undefined; maxRetries?: number | undefined },
         ): ReturnType<T>;
     }
 

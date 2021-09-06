@@ -7,11 +7,11 @@
 import { Action, Middleware, Store } from 'redux';
 
 export interface Options {
-    connected?: () => void;
-    disconnected?: () => void;
-    params?: object;
-    prefix?: string;
-    optimisticOnFail?: boolean;
+    connected?: (() => void) | undefined;
+    disconnected?: (() => void) | undefined;
+    params?: object | undefined;
+    prefix?: string | undefined;
+    optimisticOnFail?: boolean | undefined;
 }
 
 export interface CableCar {

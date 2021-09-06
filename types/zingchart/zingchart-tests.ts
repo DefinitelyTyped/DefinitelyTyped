@@ -1,4 +1,5 @@
-import { zingchart, ZC } from "zingchart/server/zingchart-nodejs.min.js";
+import { ZC } from "zingchart/server/zingchart-nodejs.min.js";
+import zingchart from "zingchart/es6";
 
 zingchart.ASYNC = true;
 zingchart.DEV.CANVASVERSION = 2;
@@ -25,6 +26,12 @@ zingchart.render({
               method: 4,
               sequence: 2,
               speed: 275,
+            },
+            tooltip: {
+                text: 'Hello world',
+            },
+            'value-box': {
+                text: 'Hello World',
             }
         },
     },

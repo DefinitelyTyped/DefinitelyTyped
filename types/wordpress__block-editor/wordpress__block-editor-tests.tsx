@@ -118,8 +118,8 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 // button-block-appender
 //
-<be.ButtonBlockerAppender rootClientId="foo" />;
-<be.ButtonBlockerAppender rootClientId="foo" className="bar" />;
+<be.ButtonBlockAppender rootClientId="foo" />;
+<be.ButtonBlockAppender rootClientId="foo" className="bar" />;
 
 //
 // color-palette/with-color-context
@@ -199,7 +199,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 // inner-blocks
 //
 <be.InnerBlocks />;
-<be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockerAppender} />;
+<be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
 
@@ -271,9 +271,9 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     initialOpen={false}
     colorSettings={[
         {
-            value: { name: 'Red', color: '#ff0000' },
+            value: '#ff0000',
             onChange(color) {
-                color && console.log(color.name);
+                color && console.log(color);
             },
             label: 'Background Color',
             disableCustomColors: true,
@@ -293,9 +293,9 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 <be.PanelColorSettings
     colorSettings={[
         {
-            value: { name: 'Red', color: '#ff0000' },
+            value: '#ff0000' ,
             onChange(color) {
-                color && console.log(color.name);
+                color && console.log(color);
             },
             label: 'Background Color',
         },
@@ -411,6 +411,9 @@ be.transformStyles(STYLES, '.foobar');
 //
 // Store
 // ============================================================================
+
+// $ExpectType any
+be.store;
 
 // $ExpectType void
 dispatch('core/block-editor').insertBlock(BLOCK_INSTANCE);

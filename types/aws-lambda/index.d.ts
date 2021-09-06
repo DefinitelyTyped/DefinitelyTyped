@@ -38,6 +38,7 @@
 //                 Zach Anthony <https://github.com/zach-anthony>
 //                 Peter Savnik <https://github.com/savnik>
 //                 Sven Milewski <https://github.com/svenmilewski>
+//                 Benoit Boure <https://github.com/bboure>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -81,5 +82,6 @@ export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
 export * from './trigger/msk';
+export * from "./trigger/secretsmanager";
 
 export as namespace AWSLambda;

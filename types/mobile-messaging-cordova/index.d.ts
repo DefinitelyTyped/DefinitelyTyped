@@ -26,113 +26,113 @@ declare namespace MobileMessagingCordova {
          * The application code of your Application from Push Portal website
          */
         applicationCode: string;
-        geofencingEnabled?: boolean;
-        inAppChatEnabled?: boolean;
+        geofencingEnabled?: boolean | undefined;
+        inAppChatEnabled?: boolean | undefined;
         /**
          * Message storage save callback
          */
-        messageStorage?: string;
-        defaultMessageStorage?: boolean;
+        messageStorage?: string | undefined;
+        defaultMessageStorage?: boolean | undefined;
         ios?: {
-            notificationTypes?: string[];
-            forceCleanup?: boolean;
-            logging?: boolean
-        };
+            notificationTypes?: string[] | undefined;
+            forceCleanup?: boolean | undefined;
+            logging?: boolean | undefined
+        } | undefined;
         android?: {
             notificationIcon: string; // a resource name for a status bar icon (without extension), located in '/platforms/android/app/src/main/res/mipmap'
             multipleNotifications: boolean;
             notificationAccentColor: string;
-        };
+        } | undefined;
         privacySettings?: {
-            applicationCodePersistingDisabled?: boolean;
-            userDataPersistingDisabled?: boolean;
-            carrierInfoSendingDisabled?: boolean;
-            systemInfoSendingDisabled?: boolean
-        };
+            applicationCodePersistingDisabled?: boolean | undefined;
+            userDataPersistingDisabled?: boolean | undefined;
+            carrierInfoSendingDisabled?: boolean | undefined;
+            systemInfoSendingDisabled?: boolean | undefined
+        } | undefined;
         notificationCategories?: [
             {
-                identifier?: string;
+                identifier?: string | undefined;
                 actions?: [
                     {
-                        identifier?: string;
-                        title?: string;
-                        foreground?: boolean;
-                        authenticationRequired?: boolean;
-                        moRequired?: boolean;
-                        destructive?: boolean;
-                        icon?: string;
-                        textInputActionButtonTitle?: string;
-                        textInputPlaceholder?: string
-                    }]
-            }];
+                        identifier?: string | undefined;
+                        title?: string | undefined;
+                        foreground?: boolean | undefined;
+                        authenticationRequired?: boolean | undefined;
+                        moRequired?: boolean | undefined;
+                        destructive?: boolean | undefined;
+                        icon?: string | undefined;
+                        textInputActionButtonTitle?: string | undefined;
+                        textInputPlaceholder?: string | undefined
+                    }] | undefined
+            }] | undefined;
     }
 
     interface UserData {
         externalUserId: string;
-        firstName?: string;
-        lastName?: string;
-        middleName?: string;
-        gender?: Gender;
-        birthday?: string;
-        phones?: string[];
-        emails?: string[];
-        tags?: string[];
-        customAttributes?: Record<string, string | number | boolean | object[]>;
+        firstName?: string | undefined;
+        lastName?: string | undefined;
+        middleName?: string | undefined;
+        gender?: Gender | undefined;
+        birthday?: string | undefined;
+        phones?: string[] | undefined;
+        emails?: string[] | undefined;
+        tags?: string[] | undefined;
+        customAttributes?: Record<string, string | number | boolean | object[]> | undefined;
     }
 
     interface Installation {
-        isPrimaryDevice?: boolean;
-        isPushRegistrationEnabled?: boolean;
-        notificationsEnabled?: boolean;
-        geoEnabled?: boolean;
-        sdkVersion?: string;
-        appVersion?: string;
-        os?: OS;
+        isPrimaryDevice?: boolean | undefined;
+        isPushRegistrationEnabled?: boolean | undefined;
+        notificationsEnabled?: boolean | undefined;
+        geoEnabled?: boolean | undefined;
+        sdkVersion?: string | undefined;
+        appVersion?: string | undefined;
+        os?: OS | undefined;
         osVersion: string;
-        deviceManufacturer?: string;
-        deviceModel?: string;
-        deviceSecure?: boolean;
-        language?: string;
-        deviceTimezoneId?: string;
-        applicationUserId?: string;
-        deviceName?: string;
-        customAttributes?: Record<string, string | number | boolean>;
+        deviceManufacturer?: string | undefined;
+        deviceModel?: string | undefined;
+        deviceSecure?: boolean | undefined;
+        language?: string | undefined;
+        deviceTimezoneId?: string | undefined;
+        applicationUserId?: string | undefined;
+        deviceName?: string | undefined;
+        customAttributes?: Record<string, string | number | boolean> | undefined;
     }
 
     interface UserIdentity {
-        phones?: string[];
-        emails?: string[];
+        phones?: string[] | undefined;
+        emails?: string[] | undefined;
         externalUserId: string;
     }
 
     interface PersonalizeContext {
         userIdentity: UserIdentity;
-        userAttributes?: Record<string, string | number | boolean | object[]>;
-        forceDepersonalize?: boolean;
+        userAttributes?: Record<string, string | number | boolean | object[]> | undefined;
+        forceDepersonalize?: boolean | undefined;
     }
 
     interface Message {
         messageId: string;
-        title?: string;
-        body?: string;
-        sound?: string;
-        silent?: string;
-        customPayload?: Record<string, string>;
-        internalData?: string;
-        receivedTimestamp?: number;
-        seenDate?: number;
-        contentUrl?: string;
-        seen?: boolean;
-        geo?: boolean;
-        originalPayload?: Record<string, string>; // iOS only
-        vibrate?: boolean; // Android only
-        icon?: string; // Android only
-        category?: string; // Android only
-        chat?: string;
-        browserUrl?: string;
-        deeplink?: string;
-        webViewUrl?: string;
-        inAppDismissTitle?: string;
+        title?: string | undefined;
+        body?: string | undefined;
+        sound?: string | undefined;
+        silent?: string | undefined;
+        customPayload?: Record<string, string> | undefined;
+        internalData?: string | undefined;
+        receivedTimestamp?: number | undefined;
+        seenDate?: number | undefined;
+        contentUrl?: string | undefined;
+        seen?: boolean | undefined;
+        geo?: boolean | undefined;
+        originalPayload?: Record<string, string> | undefined; // iOS only
+        vibrate?: boolean | undefined; // Android only
+        icon?: string | undefined; // Android only
+        category?: string | undefined; // Android only
+        chat?: string | undefined;
+        browserUrl?: string | undefined;
+        deeplink?: string | undefined;
+        webViewUrl?: string | undefined;
+        inAppDismissTitle?: string | undefined;
     }
 
     interface MobileMessagingError {
@@ -143,7 +143,7 @@ declare namespace MobileMessagingCordova {
     interface ChatConfig {
         ios?: {
             showModally: boolean;
-        };
+        } | undefined;
     }
 
     interface DefaultMessageStorage {

@@ -621,11 +621,16 @@ async function testMetadata(conn: sf.Connection): Promise<void> {
         },
         deploymentStatus: 'InDevelopment',
         sharingModel: 'Private'
+    }, {
+        fullName: `TestObject`,
+        label: 'Test Object',
+        pluralLabel: `Test Objects`
     }];
 
     const result: sf.SaveResult | sf.SaveResult[] = await md.create('CustomObject', metadata);
     console.log(`created ${(result as sf.SaveResult[])[0].fullName} - ${(result as sf.SaveResult[])[0].success}`);
     console.log(`created ${(result as sf.SaveResult[])[1].fullName} - ${(result as sf.SaveResult[])[1].success}`);
+    console.log(`failed with error: ${((result as sf.SaveResult[])[2].errors as sf.SaveError).message}`);
 
     const fullNames2: string[] = [`TestObject${now}__c`, `TestObject${now2}__c`];
     const result2: sf.SaveResult | sf.SaveResult[] =
@@ -1115,4 +1120,6 @@ function testSfDate(): void {
     const sfDateTimeFromDate = sf.SfDate.toDateTimeLiteral(today);
     const sfDateTimeFromString = sf.SfDate.toDateTimeLiteral('01-01-2000');
     const sfDateTimeFromNumber = sf.SfDate.toDateTimeLiteral(0);
+    // Test creating SfDate instances with Date Literals from Salesforce
+    const instance = new sf.SfDate('NEXT_WEEK')
 }

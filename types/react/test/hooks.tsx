@@ -12,12 +12,12 @@ export function Person(props: PersonProps) {
 
 export interface FancyButtonProps {
     onClick: () => void;
-    children?: React.ReactNode;
+    children?: React.ReactNode | undefined;
 }
-export interface FancyButton {
+export interface FancyButtonMethod {
     fancyClick(): void;
 }
-export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React.Ref<FancyButton>) => {
+export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React.Ref<FancyButtonMethod>) => {
     const buttonRef = React.useRef<HTMLButtonElement | null>(null);
     const [count, setCount] = React.useState(0);
 
@@ -60,7 +60,7 @@ const initialState = {
 
 export function App() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
-    const birthdayRef = React.useRef<FancyButton>(null);
+    const birthdayRef = React.useRef<React.ComponentRef<typeof FancyButton>>(null);
 
     React.useLayoutEffect(() => {
         if (birthdayRef.current !== null) {
@@ -230,5 +230,7 @@ const UsesEveryHook = React.forwardRef(
 const everyHookRef = React.createRef<{ id: number }>();
 <UsesEveryHook ref={everyHookRef}/>;
 
-// TODO: "implicit any" in typescript@3.0 but not in typescript@3.1
-// <UsesEveryHook ref={ref => { ref && console.log(ref.id); }}/>;
+<UsesEveryHook ref={ref => {
+    // $ExpectType { id: number; } | null
+    ref;
+ }}/>;

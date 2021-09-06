@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@mparticle/web-sdk": [
+                "mparticle__web-sdk"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "test/mparticle__web-sdk-tests.ts",
+        "test/mparticle__web-sdk-instance-tests.ts"
+    ]
+}

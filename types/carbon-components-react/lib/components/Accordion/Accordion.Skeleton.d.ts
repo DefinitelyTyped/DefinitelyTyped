@@ -2,9 +2,9 @@ import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
 export interface AccordionSkeletonProps extends  ReactAttr<HTMLUListElement> {
-    align?: "end" | "start";
-    count?: number,
-    open?: boolean,
+    align?: "end" | "start" | undefined;
+    count?: number | undefined,
+    open?: boolean | undefined,
     /**
      * @deprecated
      */

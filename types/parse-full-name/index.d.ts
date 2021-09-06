@@ -15,13 +15,13 @@ export type partToReturn =
     | 'all';
 
 export interface Name {
-    title?: string;
-    first?: string;
-    middle?: string;
-    last?: string;
-    nick?: string;
-    suffix?: string;
-    error?: [];
+    title?: string | undefined;
+    first?: string | undefined;
+    middle?: string | undefined;
+    last?: string | undefined;
+    nick?: string | undefined;
+    suffix?: string | undefined;
+    error?: [] | undefined;
 }
 
 /**
@@ -35,7 +35,7 @@ export interface Name {
 export function parseFullName(
     nameToParse: string,
     partToReturn?: partToReturn,
-    fixCase?: boolean,
-    stopOnError?: boolean,
-    useLongLists?: boolean
+    fixCase?: boolean | -1 | 0 | 1,
+    stopOnError?: boolean | 0 | 1,
+    useLongLists?: boolean | 0 | 1
 ): Name;

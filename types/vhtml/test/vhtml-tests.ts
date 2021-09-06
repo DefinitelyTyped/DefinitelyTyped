@@ -70,7 +70,7 @@ h('main', { dangerouslySetInnerHTML: 'foo bar' });
 
 // -------- Functional Pseudo-Components -------- //
 
-function Component({ prop1, prop2 }: { prop1: string; prop2?: number }): string {
+function Component({ prop1, prop2 }: { prop1: string; prop2?: number | undefined }): string {
     return h('div', { id: prop1 }, prop2);
 }
 

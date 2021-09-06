@@ -31,12 +31,12 @@ declare module _ {
         /**
         * If you'd like to disable the leading-edge call, pass this as false.
         **/
-        leading?: boolean;
+        leading?: boolean | undefined;
 
         /**
         * If you'd like to disable the execution on the trailing-edge, pass false.
         **/
-        trailing?: boolean;
+        trailing?: boolean | undefined;
     }
 
     /**
@@ -47,23 +47,23 @@ declare module _ {
         /**
         * Default value is '/<%([\s\S]+?)%>/g'.
         **/
-        evaluate?: RegExp;
+        evaluate?: RegExp | undefined;
 
         /**
         * Default value is '/<%=([\s\S]+?)%>/g'.
         **/
-        interpolate?: RegExp;
+        interpolate?: RegExp | undefined;
 
         /**
         * Default value is '/<%-([\s\S]+?)%>/g'.
         **/
-        escape?: RegExp;
+        escape?: RegExp | undefined;
 
         /**
         * By default, 'template()' places the values from your data in the local scope via the 'with' statement.
         * However, you can specify a single variable name with this setting.
         **/
-        variable?: string;
+        variable?: string | undefined;
     }
 
     interface CompiledTemplate {
@@ -3720,6 +3720,15 @@ declare module _ {
          * @param defaultValue Default if not found.
          * @returns The item on the `object` or the `defaultValue`
          **/
+        get(
+            object: null | undefined,
+            path: string | string[]
+        ): undefined;
+        get<U>(
+            object: null | undefined,
+            path: string | string[],
+            defaultValue?: U
+        ): U;
         get<V extends Collection<any>>(
             object: V,
             path: string | string[]

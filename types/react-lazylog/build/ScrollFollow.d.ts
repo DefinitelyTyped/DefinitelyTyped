@@ -11,7 +11,7 @@ export interface ScrollFollowRenderProps {
 
 export interface ScrollFollowProps {
     render: (props: ScrollFollowRenderProps) => ReactNode;
-    startFollowing?: boolean;
+    startFollowing?: boolean | undefined;
 }
 
 export class ScrollFollow extends Component<ScrollFollowProps> {}

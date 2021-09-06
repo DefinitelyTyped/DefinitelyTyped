@@ -1,7 +1,7 @@
 /// Demonstrate usage in the browser's window object
 
 window.Xrm.Utility.alertDialog("message", () => { });
-parent.Xrm.Page.context.getOrgLcid();
+parent && parent.Xrm.Page && parent.Xrm.Page.context && parent.Xrm.Page.context.getOrgLcid();
 
 /// Demonstrate clientglobalcontext.d.ts
 
@@ -335,3 +335,12 @@ const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
     // setVisible
     gridControl.setVisible(!visibility);
 };
+
+async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEntity: Xrm.EntityReference) {
+    if (commandProperties.SourceControlId === "AddExistingRecordFromSubGridAssociated") {
+        await Promise.resolve(Xrm.Navigation.openAlertDialog({
+            title: `${commandProperties.CommandValueId}`,
+            text: `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
+        }));
+    }
+}

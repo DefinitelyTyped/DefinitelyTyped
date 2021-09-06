@@ -1,9 +1,9 @@
-import * as childProcess from 'node:child_process';
-import * as net from 'node:net';
-import * as fs from 'node:fs';
-import assert = require('node:assert');
-import { promisify } from 'node:util';
-import { Writable, Readable, Pipe } from 'node:stream';
+import * as childProcess from 'child_process';
+import * as net from 'net';
+import * as fs from 'fs';
+import assert = require('assert');
+import { promisify } from 'util';
+import { Writable, Readable, Pipe } from 'stream';
 
 {
     childProcess.exec("echo test");
@@ -18,6 +18,9 @@ import { Writable, Readable, Pipe } from 'node:stream';
     childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
     childProcess.spawnSync("echo test", {input: new Uint8Array([])});
     childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
+
+    childProcess.spawnSync("echo test", { encoding: 'utf-8' }).output; // $ExpectType (string | null)[]
+    childProcess.spawnSync("echo test", { encoding: 'buffer' }).output; // $ExpectType (Buffer | null)[]
 }
 
 {

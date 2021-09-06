@@ -1,3 +1,4 @@
+import RBush from 'rbush';
 import Collection from './Collection';
 import Control from './control/Control';
 import { Coordinate } from './coordinate';
@@ -5,6 +6,7 @@ import { EventsKey } from './events';
 import BaseEvent from './events/Event';
 import { Extent } from './extent';
 import { FeatureLike } from './Feature';
+import SimpleGeometry from './geom/SimpleGeometry';
 import Interaction from './interaction/Interaction';
 import BaseLayer from './layer/Base';
 import LayerGroup from './layer/Group';
@@ -24,13 +26,9 @@ import { Transform } from './transform';
 import View, { State } from './View';
 
 export interface AtPixelOptions {
-    layerFilter?: (p0: Layer<Source>) => boolean;
-    hitTolerance?: number;
-    checkWrapped?: boolean;
-}
-export interface DeclutterItems {
-    items: any[];
-    opacity: number;
+    layerFilter?: ((p0: Layer<Source>) => boolean) | undefined;
+    hitTolerance?: number | undefined;
+    checkWrapped?: boolean | undefined;
 }
 /**
  * State of the current frame. Only pixelRatio, time and viewState should
@@ -42,8 +40,8 @@ export interface FrameState {
     viewState: State;
     animate: boolean;
     coordinateToPixelTransform: Transform;
-    extent: Extent;
-    declutterItems: DeclutterItems[];
+    declutterTree: RBush<any>;
+    extent: null | Extent;
     index: number;
     layerStatesArray: State_1[];
     layerIndex: number;
@@ -59,20 +57,20 @@ export interface FrameState {
  * Object literal with config options for the map.
  */
 export interface MapOptions {
-    controls?: Collection<Control> | Control[];
-    pixelRatio?: number;
-    interactions?: Collection<Interaction> | Interaction[];
-    keyboardEventTarget?: HTMLElement | Document | string;
-    layers?: BaseLayer[] | Collection<BaseLayer> | LayerGroup;
-    maxTilesLoading?: number;
-    moveTolerance?: number;
-    overlays?: Collection<Overlay> | Overlay[];
-    target?: HTMLElement | string;
-    view?: View;
+    controls?: Collection<Control> | Control[] | undefined;
+    pixelRatio?: number | undefined;
+    interactions?: Collection<Interaction> | Interaction[] | undefined;
+    keyboardEventTarget?: HTMLElement | Document | string | undefined;
+    layers?: BaseLayer[] | Collection<BaseLayer> | LayerGroup | undefined;
+    maxTilesLoading?: number | undefined;
+    moveTolerance?: number | undefined;
+    overlays?: Collection<Overlay> | Overlay[] | undefined;
+    target?: HTMLElement | string | undefined;
+    view?: View | undefined;
 }
 export interface MapOptionsInternal {
-    controls?: Collection<Control>;
-    interactions?: Collection<Interaction>;
+    controls?: Collection<Control> | undefined;
+    interactions?: Collection<Interaction> | undefined;
     keyboardEventTarget: HTMLElement | Document;
     overlays: Collection<Overlay>;
     values: { [key: string]: any };
@@ -117,7 +115,7 @@ export default class PluggableMap extends BaseObject {
      */
     forEachFeatureAtPixel<S, T>(
         pixel: Pixel,
-        callback: (this: S, p0: FeatureLike, p1: Layer<Source>) => T,
+        callback: (p0: FeatureLike, p1: Layer<Source>, p2: SimpleGeometry) => T,
         opt_options?: AtPixelOptions,
     ): T | undefined;
     /**
@@ -203,6 +201,7 @@ export default class PluggableMap extends BaseObject {
      * associated with the map.
      */
     getOverlays(): Collection<Overlay>;
+    getOwnerDocument(): Document;
     /**
      * Get the pixel for a coordinate.  This takes a coordinate in the user
      * projection and returns the corresponding pixel.

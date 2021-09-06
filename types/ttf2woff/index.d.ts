@@ -12,7 +12,7 @@ declare function ttf2woff(
          *
          * See https://www.w3.org/TR/WOFF/#Metadata
          */
-        metadata?: string;
+        metadata?: string | undefined;
     },
 ): Buffer;
 

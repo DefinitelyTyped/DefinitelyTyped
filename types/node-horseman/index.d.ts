@@ -136,9 +136,9 @@ declare class horseman {
 
     /** Save the current page as a pdf. */
     pdf(path: string, paperSize: {
-        format?: "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid",
-        orientation?: "portrait" | "landscape",
-        margin?: string
+        format?: "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid" | undefined,
+        orientation?: "portrait" | "landscape" | undefined,
+        margin?: string | undefined
     }): this;
 
     /** Get the plain text for the body of the page. */

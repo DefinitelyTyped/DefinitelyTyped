@@ -167,7 +167,11 @@ function clientTest2() {
             console.log(`on frame - ${frame.binaryPayload.toString()}`);
         });
         conn.on('message', data => {
-            console.log(`on message - ${data.utf8Data}`);
+            if (data.type === 'utf8') {
+                console.log(`on message - ${data.utf8Data}`);
+            } else if (data.type === 'binary') {
+                console.log(`on message - ${data.binaryData}`);
+            }
         });
     });
     client.on('connectFailed', err => {

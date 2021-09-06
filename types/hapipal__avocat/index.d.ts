@@ -7,8 +7,8 @@ import { ResponseObject } from '@hapi/hapi';
 import { Boom } from '@hapi/boom';
 
 export interface Options {
-    return?: boolean;
-    includeMessage?: boolean;
+    return?: boolean | undefined;
+    includeMessage?: boolean | undefined;
 }
 
 // the return type has to be any because the following scenarios exist:

@@ -17,27 +17,27 @@ export interface Response {
 }
 
 export interface ConnectParams {
-    plaintext?: boolean;
+    plaintext?: boolean | undefined;
 
-    timeout?: number;
+    timeout?: number | undefined;
 }
 
 export interface Params {
-    headers?: object;
+    headers?: object | undefined;
 
-    tags?: object;
+    tags?: object | undefined;
 
-    timeout?: string;
+    timeout?: string | undefined;
 }
 
 /**
  * This module provides a gRPC client for Remote Procedure Calls over HTTP/2.
- * https://k6.io/docs/javascript-api/k6-net-grpc
+ * https://k6.io/docs/javascript-api/k6-net-grpc/
  */
 declare namespace grpc {
     /**
      * gRPC client to interact with a gRPC server.
-     * https://k6.io/docs/javascript-api/k6-net-grpc/client
+     * https://k6.io/docs/javascript-api/k6-net-grpc/client/
      */
     class Client {
         protected __brand: never;
@@ -56,6 +56,24 @@ declare namespace grpc {
         /** Close the connection. */
         close(): void;
     }
+
+    const StatusOK: number;
+    const StatusCanceled: number;
+    const StatusUnknown: number;
+    const StatusInvalidArgument: number;
+    const StatusDeadlineExceeded: number;
+    const StatusNotFound: number;
+    const StatusAlreadyExists: number;
+    const StatusPermissionDenied: number;
+    const StatusResourceExhausted: number;
+    const StatusFailedPrecondition: number;
+    const StatusAborted: number;
+    const StatusOutOfRange: number;
+    const StatusUnimplemented: number;
+    const StatusInternal: number;
+    const StatusUnavailable: number;
+    const StatusDataLoss: number;
+    const StatusUnauthenticated: number;
 }
 
 export default grpc;
