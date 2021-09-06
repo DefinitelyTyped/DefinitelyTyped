@@ -177,7 +177,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 * `cd types/<package to edit>`
 * 作出修改之后，[记得新增测试](#my-package-teststs)。
-  如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本，我应该如何更新它的类型声明包？)
+  如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本我应该如何更新它的类型声明包)
 * 你可能还想将自己添加到包头部的 "Definitions by" 部分。
   - 这会导致一旦有人对该包发起 PR 或者 issue，都会通知你（通过你的 GitHub 用户名）。
   - 通过将您的名字添加到行尾来执行此操作，比如 `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.

@@ -9,26 +9,26 @@
 ## Contenuti
 
 * [Stato attuale](#stato-attuale)
-* [Cosa cono i file di dichiarazione e come li ottengo?](#what-are-declaration-files-and-how-do-i-get-them)
-* [Come posso contribuire?](#how-can-i-contribute)
-  - [Test](#testing)
-    - [Fare una pull request](#make-a-pull-request)<details><summary></summary>
-      - [Clonare parzialmente](#partial-clone)
-        - [Editare un package che già esite](#edit-an-existing-package)
-        - [Creare un nuovo package](#create-a-new-package)
-        - [Rimuovere un package](#removing-a-package)
-        - [Eseguire test](#running-tests)
-        - [Nomenclatura](#naming)
-        - [`<mio-package>-test.ts`](#my-package-teststs)
+* [Cosa cono i file di dichiarazione e come li ottengo?](#cosa-sono-i-file-di-dichiarazione-e-come-li-ottengo)
+* [Come posso contribuire?](#come-posso-contribuire)
+  - [Test](#Test)
+    - [Fare una pull request](#fai-una-pull-request)<details><summary></summary>
+      - [Clonare parzialmente](#clone-parziale)
+        - [Editare un package che già esite](#modificare-un-package-preesistente)
+        - [Creare un nuovo package](#creare-un-nuovo-package)
+        - [Rimuovere un package](#rimuovere-un-package)
+        - [Eseguire test](#eseguire-test)
+        - [Nomenclatura](#nomenclatura)
+        - [`<mio-package>-test.ts`](#mio-package-teststs)
         - [Linter: `tslint.json`](#linter-tslintjson)
         - [`tsconfig.json`](#tsconfigjson)
         - [`package.json`](#packagejson)
         - [`OTHER_FILES.txt`](#other_filestxt)
-        - [Errori comuni](#common-mistakes)
+        - [Errori comuni](#errori-comuni)
         </details>
-      - [Definizione dei proprietari](#definition-owners)
-  * [Domande frequenti](#faq)
-* [Licenza](#license)
+      - [Definizione dei proprietari](#proprietari-delle-definizioni)
+  * [Domande frequenti](#domande-frequenti)
+* [Licenza](#licenza)
 
 
 ## Stato attuale
@@ -149,14 +149,14 @@ Crea un `types/foo/index.d.ts` contenente le dichiarazioni per il tuo modulo "pi
 Ora dovresti essere in grado di importare `"pippo"` nel tuo codice, con i tipi riferiti alle dichiarazioni che hai appena creato.
 Poi fai una build **ed** esegui il codice per essere sicuro che le definizioni dei tipi corrispondano effettivamente a ciò che capita a runtime.
 
-Una volta che hai testato le definizioni su del codice reale, fai una [pull request](#make-a-pull-request), 
+Una volta che hai testato le definizioni su del codice reale, fai una [pull request](#fai-una-pull-request), 
 poi segui le istruzioni per [modificare un package preesistente](#modificare-un-package-preesistente] o [creare un nuovo package](#creare-un-nuovo-package).
 
 ### Fai una pull request
 
 Una volta che hai testato il tuo package, puoi condividerlo su Definitely Typed.
 
-Inanzitutto, [sdoppia](https://guides.github.com/activities/forking/) questa repo, [clonala](#partial-clone), installa [node](https://nodejs.org/) ed esegui `npm install`. Se stai usando `npm` v7 devi aggiungere `--legacy-peer-deps` al comando.
+Inanzitutto, [sdoppia](https://guides.github.com/activities/forking/) questa repo, [clonala](#clone-parziale), installa [node](https://nodejs.org/) ed esegui `npm install`. Se stai usando `npm` v7 devi aggiungere `--legacy-peer-deps` al comando.
 
 Utilizziamo un bot per far sì che un gran numero di pull request su Definitely Typed possano essere gestite interamente in modo autonomo. Puoi scoprire di più a riguardo di come e perchè [qui](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). 
 
@@ -180,9 +180,9 @@ Per clonare la repo in modo più agibile, clonando _solo_ i package DT per te ri
 #### Modificare un package preesistente
 
 * `cd types/<package to edit>`
-* Fai le tue modifiche. Ricorda di [testle](#my-package-teststs).
-  Se fai modifiche essenziali, non ti dimenticare di [aggiornare il major della versione](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
-  * [Esegui `npm test <package da testare>`](#running-tests).
+* Fai le tue modifiche. Ricorda di [testle](#mio-package-teststs).
+  Se fai modifiche essenziali, non ti dimenticare di [aggiornare il major della versione](#se-laggiornamento-di-una-libreria-comprende-modifiche-sostanziali-aggiornamento-major-come-faccio-ad-aggiornare-il-suo-pacchetto-types).
+  * [Esegui `npm test <package da testare>`](#eseguire-test).
 
 Quando crei una pull request ad un package che esiste già, `dt-bot` dovrebbe @menzionare gli autori precedenti.
 Se non lo fa, puoi farlo direttamente tu nel commento associato alla pull request.
@@ -200,7 +200,7 @@ Il tuo package dovrebbe avere questa struttura:
 | File          | Scopo |
 | ------------- | ------- |
 | `index.d.ts`  | Contiene le dichiarazioni dei tipi del package. |
-| [`<nome-package>-tests.ts`](#my-package-teststs)  | Contiene codice di esempio con test delle dichiarazioni dei tipi. Se il codice *non* funziona anche se viene traspilato da tsc senza errori.
+| [`<nome-package>-tests.ts`](#mio-package-teststs)  | Contiene codice di esempio con test delle dichiarazioni dei tipi. Se il codice *non* funziona anche se viene traspilato da tsc senza errori.
 | [`tsconfig.json`](#tsconfigjson) | Ti permette di eseguire `tsc` all'interno del package. |
 | [`tslint.json`](#linter-tslintjson)   | Abilita il linting. |
 
@@ -286,7 +286,7 @@ const result = twoslash("//")
 
 Se ti stai chiedendo da dove cominciare per fare i test, gli esempi nel README del modulo sono un buon punto da dove partire.
 
-Puoi [validare le tue modifiche](#running-tests) con `npm test <package da testare>` nella root di questa repo, che prende in considerazione i file cambiati.
+Puoi [validare le tue modifiche](#eseguire-test) con `npm test <package da testare>` nella root di questa repo, che prende in considerazione i file cambiati.
 Usa `$ExpectType` per asserire che un'espressione è del tipo dato e `$ExpectError` per asserire un errore di compilazione. Ad esempio:
 
 ```js

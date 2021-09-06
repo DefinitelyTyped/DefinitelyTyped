@@ -6,9 +6,9 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
 
 ## Contents
 
-* [¿Qué son los `declaration files`?](#¿qué-son-los-declaration-files)
-* [¿Cómo los obtengo?](#¿cómo-los-obtengo)
-* [¿Cómo puedo contribuir?](#¿cómo-puedo-contribuir)
+* [¿Qué son los `declaration files`?](#qué-son-los-declaration-files)
+* [¿Cómo los obtengo?](#cómo-los-obtengo)
+* [¿Cómo puedo contribuir?](#cómo-puedo-contribuir)
   - [Prueba](#prueba)
   - [Haz un pull request](#haz-un-pull-request)<details><summary></summary>
     - [Editar un paquete existente](#editar-un-paquete-existente)
