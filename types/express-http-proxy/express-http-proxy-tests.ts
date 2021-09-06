@@ -164,4 +164,4 @@ proxy("www.google.com", {
         const modifiedHTML = proxyResData;
         return modifiedHTML;
     },
-})
+});
