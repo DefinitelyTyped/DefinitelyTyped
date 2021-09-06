@@ -1,4 +1,4 @@
-// Type definitions for @babel/core 7.15
+// Type definitions for @babel/core 7.1
 // Project: https://github.com/babel/babel/tree/master/packages/babel-core, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
@@ -351,7 +351,7 @@ export interface TransformCaller {
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 
-export type FileResultCallback = (err: Error | null, result: FileResult | null) => any;
+export type FileResultCallback = (err: Error | null, result: BabelFileResult | null) => any;
 
 export interface MatchPatternContext {
     envName: string;
@@ -373,17 +373,17 @@ export function transform(code: string, opts: TransformOptions | undefined, call
 /**
  * Here for backward-compatibility. Ideally use `transformSync` if you want a synchronous API.
  */
-export function transform(code: string, opts?: TransformOptions): FileResult | null;
+export function transform(code: string, opts?: TransformOptions): BabelFileResult | null;
 
 /**
  * Transforms the passed in code. Returning an object with the generated code, source map, and AST.
  */
-export function transformSync(code: string, opts?: TransformOptions): FileResult | null;
+export function transformSync(code: string, opts?: TransformOptions): BabelFileResult | null;
 
 /**
  * Transforms the passed in code. Calling a callback with an object with the generated code, source map, and AST.
  */
-export function transformAsync(code: string, opts?: TransformOptions): Promise<FileResult | null>;
+export function transformAsync(code: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
 
 /**
  * Asynchronously transforms the entire contents of a file.
@@ -398,12 +398,12 @@ export function transformFile(filename: string, opts: TransformOptions | undefin
 /**
  * Synchronous version of `babel.transformFile`. Returns the transformed contents of the `filename`.
  */
-export function transformFileSync(filename: string, opts?: TransformOptions): FileResult | null;
+export function transformFileSync(filename: string, opts?: TransformOptions): BabelFileResult | null;
 
 /**
  * Asynchronously transforms the entire contents of a file.
  */
-export function transformFileAsync(filename: string, opts?: TransformOptions): Promise<FileResult | null>;
+export function transformFileAsync(filename: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
 
 /**
  * Given an AST, transform it.
@@ -423,7 +423,7 @@ export function transformFromAst(
 /**
  * Here for backward-compatibility. Ideally use ".transformSync" if you want a synchronous API.
  */
-export function transformFromAstSync(ast: Node, code?: string, opts?: TransformOptions): FileResult | null;
+export function transformFromAstSync(ast: Node, code?: string, opts?: TransformOptions): BabelFileResult | null;
 
 /**
  * Given an AST, transform it.
@@ -432,7 +432,7 @@ export function transformFromAstAsync(
     ast: Node,
     code?: string,
     opts?: TransformOptions,
-): Promise<FileResult | null>;
+): Promise<BabelFileResult | null>;
 
 // A babel plugin is a simple function which must return an object matching
 // the following interface. Babel will throw if it finds unknown properties.
@@ -462,7 +462,7 @@ export class File {
 	scope: Scope;
 	inputMap: object | null;
 	code: string;
-	constructor(options: {}, {code, ast, inputMap}: NormalizedFile);
+	constructor(options: {}, { code, ast, inputMap }: NormalizedFile);
 }
 
 export interface PluginPass {
@@ -474,7 +474,7 @@ export interface PluginPass {
     [key: string]: unknown;
 }
 
-export interface FileResult {
+export interface BabelFileResult {
     ast?: t.File | null | undefined;
     code?: string | null | undefined;
     ignored?: boolean | undefined;
@@ -487,20 +487,20 @@ export interface FileResult {
         mappings: string;
         file: string;
     } | null | undefined;
-    metadata?: FileMetadata | undefined;
+    metadata?: BabelFileMetadata | undefined;
 }
 
-export interface FileMetadata {
+export interface BabelFileMetadata {
     usedHelpers: string[];
     marked: Array<{
         type: string;
         message: string;
         loc: object;
     }>;
-    modules: FileModulesMetadata;
+    modules: BabelFileModulesMetadata;
 }
 
-export interface FileModulesMetadata {
+export interface BabelFileModulesMetadata {
     imports: object[];
     exports: {
         exported: object[];
