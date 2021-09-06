@@ -9,6 +9,7 @@ declare namespace pendo {
         /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
         visitor?: IdentityMetadata | undefined;
         account?: IdentityMetadata | undefined;
+        parentAccount?: IdentityMetadata | undefined;
     }
 
     interface Metadata {
