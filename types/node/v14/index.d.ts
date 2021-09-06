@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Node.js 14.17
-// Project: https://nodejs.org/
+// Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
