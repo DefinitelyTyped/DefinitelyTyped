@@ -3,6 +3,6 @@
 // Definitions by: Hannes Falk <https://github.com/ExeAy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function setTZ(a: string): void;
+declare function setTZ(timeZone: string): void;
 
 export = setTZ;
