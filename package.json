@@ -29,6 +29,7 @@
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/utils": "latest",
         "@octokit/rest": "^16.0.0",
+        "@types/node": "^16.7.10",
         "danger": "^10.1.1",
         "dtslint": "latest",
         "prettier": "^2.1.1",
