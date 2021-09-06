@@ -1,12 +1,13 @@
-import { expect } from './expect';
+import { expect } from './tester';
 import { Core, Elementary, ElementaryCallback } from './core';
 
 export const testNative: ElementaryCallback =
     (core: Core, el: Elementary) =>
     {
-        const randNode = el.rand();
+        const isNode = core.Node.isNode;
 
-        expect(randNode).passes(core.Node.isNode);
+        const randNode = el.rand();
+        expect(randNode).passes(isNode);
 
         return core.render(randNode, randNode);
     };

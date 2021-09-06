@@ -1,4 +1,4 @@
-import { expect } from './expect';
+import { expect } from './tester';
 import * as el from '@nick-thompson/elementary';
 
 const core: Core = (global as any).elementary.core;
@@ -17,6 +17,11 @@ export function onCoreLoad(...callbacks: ElementaryCallback[])
                         core.render(
                             el.const({ value: 0 }),
                             el.const({ value: 0 }));
+
+                        console.log(
+                            '\n ' +
+                            'Running: ' + callback.name +
+                            ' \n');
                         callback(core, el);
                     },
                     index * 100)));

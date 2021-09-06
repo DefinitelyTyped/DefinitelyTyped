@@ -2,15 +2,21 @@ import { core } from './core';
 
 
 /**
- * A very simple single-sample delay node (z^-1).
+ * A very simple single-sample delay {@link core.Node} (z^-1).
  *
- * @returns core.Node
+ * @returns {core.Node}
+ * the signal {@link core.Node} to delay
  */
 export declare function z(): core.Node;
 
 
-// TODO: document
-
+/**
+ * Props for el.delay.
+ *
+ * Size determines the delay time.
+ *
+ * @typedef {{size: number}} DelayProps
+ */
 export declare interface DelayProps extends core.Props
 {
     size: number;
@@ -39,13 +45,16 @@ export declare interface DelayProps extends core.Props
  *       signal));
  *
  * @param {DelayProps} props
- * prop object
+ * {@link DelayProps} object
  * @param {core.Node} length
- * delay time node in samples
+ * delay time {@link core.Node} in samples
  * @param {core.Node} feedback
- * feedback node that returns the coefficient in the range of [-1, 1]
+ * feedback {@link core.Node} that returns the coefficient
+ * in the range of [-1, 1]
  * @param {core.Node} signal
- * the signal node to delay
+ * the signal {@link core.Node} to delay
+ * @returns {core.Node}
+ * a {@link core.Node} that computes the output of the delay
  */
 export declare function delay(
     props: DelayProps,

@@ -1,3 +1,5 @@
+// TODO: document
+
 export declare interface MidiEventBase
 {
     type: string;

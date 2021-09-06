@@ -1,7 +1,8 @@
-import { expect } from './expect';
+import { expect } from './tester';
 import { Core, Elementary, ElementaryCallback } from './core';
 
 export const testSignals: ElementaryCallback =
     (core: Core, el: Elementary) =>
     {
+        const isNode = core.Node.isNode;
     };

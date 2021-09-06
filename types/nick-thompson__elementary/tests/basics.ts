@@ -1,4 +1,4 @@
-import { expect } from './expect';
+import { expect } from './tester';
 import { Core, Elementary, ElementaryCallback } from './core';
 
 export const testBasics: ElementaryCallback =

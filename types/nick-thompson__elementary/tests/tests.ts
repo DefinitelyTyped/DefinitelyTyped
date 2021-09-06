@@ -20,5 +20,10 @@ onCoreLoad(
     testOscillators,
     testSamples,
     testSignals,
-    // TODO: stop somehow
-    () => { throw Error('stop'); });
+    // TODO: better workaround
+    () =>
+    {
+        throw Error('Don\'t worry about this error. \n' +
+                    'This is a workaround to stop the tests once ' +
+                    'they are finished.');
+    });

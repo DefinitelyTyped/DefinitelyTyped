@@ -1,4 +1,4 @@
-// TODO: add somehow
+// TODO: add somehow and document a bit more
 // import { EventEmitter } from 'events';
 
 import { Node } from './nodes';
