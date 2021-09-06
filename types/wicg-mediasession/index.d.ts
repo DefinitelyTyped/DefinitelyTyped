@@ -29,6 +29,12 @@ interface MediaSession {
 
     // Set/unset position state
     setPositionState: SetPositionState;
+
+    // Set/unset active camera
+    setCameraActive(active: boolean): void;
+
+    // Set/unset active microphone
+    setMicrophoneActive(active: boolean): void;
 }
 
 interface MediaImage {
