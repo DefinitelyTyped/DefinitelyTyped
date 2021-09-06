@@ -257,6 +257,7 @@ declare module "meteor/meteor" {
         /** Global props **/
         var isDevelopment: boolean;
         var isTest: boolean;
+        var isAppTest: boolean;
         /** Global props **/
     }
 }
