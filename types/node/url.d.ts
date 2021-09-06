@@ -5,9 +5,10 @@
  * ```js
  * import url from 'url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/url.js)
  */
 declare module 'url' {
+    import { Blob } from 'node:buffer';
     import { ClientRequestArgs } from 'node:http';
     import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
     // Input to `url.format`
@@ -263,7 +264,7 @@ declare module 'url' {
      * import { urlToHttpOptions } from 'url';
      * const myURL = new URL('https://a:b@測試?abc#foo');
      *
-     * console.log(urlToHttpOptions(myUrl));
+     * console.log(urlToHttpOptions(myURL));
      *
      * {
      *   protocol: 'https:',
@@ -301,6 +302,40 @@ declare module 'url' {
      * @since v7.0.0, v6.13.0
      */
     class URL {
+        /**
+         * Creates a `'blob:nodedata:...'` URL string that represents the given `Blob` object and can be used to retrieve the `Blob` later.
+         *
+         * ```js
+         * const {
+         *   Blob,
+         *   resolveObjectURL,
+         * } = require('buffer');
+         *
+         * const blob = new Blob(['hello']);
+         * const id = URL.createObjectURL(blob);
+         *
+         * // later...
+         *
+         * const otherBlob = resolveObjectURL(id);
+         * console.log(otherBlob.size);
+         * ```
+         *
+         * The data stored by the registered `Blob` will be retained in memory until`URL.revokeObjectURL()` is called to remove it.
+         *
+         * `Blob` objects are registered within the current thread. If using Worker
+         * Threads, `Blob` objects registered within one Worker will not be available
+         * to other workers or the main thread.
+         * @since v16.7.0
+         * @experimental
+         */
+        static createObjectURL(blob: Blob): string;
+        /**
+         * Removes the stored `Blob` identified by the given ID.
+         * @since v16.7.0
+         * @experimental
+         * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
+         */
+        static revokeObjectURL(objectUrl: string): void;
         constructor(input: string, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
@@ -662,7 +697,7 @@ declare module 'url' {
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
          * Each item of the iterator is a JavaScript `Array`. The first item of the `Array`is the `name`, the second item of the `Array` is the `value`.
          *
-         * Alias for {@link earchParams[@@iterator]}.
+         * Alias for `urlSearchParams[@@iterator]()`.
          */
         entries(): IterableIterator<[string, string]>;
         /**

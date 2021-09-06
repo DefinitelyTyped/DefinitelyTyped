@@ -6,3 +6,9 @@ export default class Input extends Plugin {
     init(): void;
     isInput(batch: Batch): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Input: Input;
+    }
+}

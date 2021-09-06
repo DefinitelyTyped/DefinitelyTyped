@@ -1,4 +1,3 @@
-
 import express = require('express');
 import expressLess = require('express-less');
 
@@ -8,4 +7,5 @@ lessOptions.compress = true;
 lessOptions.debug = true;
 
 app.use('/less-css', expressLess(__dirname));
-app.use('/less-css-with-options', expressLess(__dirname + "/less", lessOptions));
+app.use('/less-css-with-options', expressLess(__dirname + '/less', lessOptions));
+app.use('/more-css', expressLess(__dirname + '/less', { cache: true }));

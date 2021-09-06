@@ -7118,16 +7118,22 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
     }
 
-    export interface ScriptInjection {
-        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
-        args?: any[] | undefined;
-        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
-        files?: string[] | undefined;
-        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        func?: ((...args: any[]) => void) | undefined;
+    export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
-    }
+    } & ({
+        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
+        files: string[];
+    } | ({
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        func: ((...args: Args) => void);
+    } & (Args extends [] ? {
+        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
+        args?: Args;
+    } : {
+        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
+        args: Args;
+    })))
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7135,7 +7141,7 @@ declare namespace chrome.scripting {
      * The details of the script which to inject.
      * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript(injection: ScriptInjection): Promise<InjectionResult[]>;
+    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>): Promise<InjectionResult[]>;
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7144,7 +7150,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript(injection: ScriptInjection, callback?: (results: InjectionResult[]) => void): void;
+    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>, callback?: (results: InjectionResult[]) => void): void;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.

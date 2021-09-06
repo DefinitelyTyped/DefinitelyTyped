@@ -18,6 +18,11 @@ Macro.add('if', {
     }
 });
 
+Macro.add('dummy', {
+    tags: null,
+    handler() { }
+});
+
 Macro.delete("if"); // $ExpectType void
 Macro.delete(["if", "iif"]); // $ExpectType void
 

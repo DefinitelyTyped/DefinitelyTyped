@@ -1,12 +1,7 @@
-// Type definitions for @ckeditor/ckeditor5-autosave 27.1
+// Type definitions for @ckeditor/ckeditor5-autosave 29.0
 // Project: https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-autosave
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-import Autosave from './src/autosave';
+// Minimum TypeScript Version: 4.3
 
-declare const _default: {
-    Autosave: typeof Autosave;
-};
-
-export default _default;
+export { default as Autosave } from './src/autosave';

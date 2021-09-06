@@ -7,3 +7,9 @@ export default class ImageTextAlternativeUI extends Plugin {
     init(): void;
     destroy(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageTextAlternativeUI: ImageTextAlternativeUI;
+    }
+}

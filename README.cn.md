@@ -37,7 +37,7 @@
 
 * 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* 所有的包都会在1小时内 [发布到 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* 所有的包都会在1小时30分钟内 [发布到 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 如果这里面的任何内容出现问题或者失败的情况，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 提出问题。
@@ -72,9 +72,9 @@ npm install --save-dev @types/node
 这通常会通过 `package.json` 文件中的 `"types"` 或 `"typings"` 字段提供，
 或者将包中包含类型定义的 ".d.ts" 文件手动通过 `/// <reference path="" />` 引入.
 
-#### 旧版本的 TypeScript（3.5 和更早版本）
+#### 旧版本的 TypeScript（3.6 和更早版本）
 
-Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.6 及更高版本。如果您使用的是 TypeScript 2.0 到 3.5，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.7 及更高版本。如果您使用的是 TypeScript 2.0 到 3.6，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 | Version | Released       | End of Support |
 | ------- | -------------- | -------------- |
@@ -94,6 +94,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 | 4.1     | November 2020  | November 2022  |
 | 4.2     | February 2021  | February 2023  |
 | 4.3     | May 2021       | May 2023       |
+| 4.4     | August 2021    | August 2023    |
 
 `@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您能看到 TypeScript 2.5 最高支持 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则最高支持 react@16.4：
 

@@ -38,3 +38,4 @@ PushNotification.channelExists("chanel_id", exists => {});
 PushNotification.createChannel({ channelId: "id", channelName: "name", importance: Importance.DEFAULT, playSound: false }, created => {});
 PushNotification.channelBlocked("chanel_id", blocked => {});
 PushNotification.deleteChannel("id");
+PushNotification.cancelLocalNotification("id");

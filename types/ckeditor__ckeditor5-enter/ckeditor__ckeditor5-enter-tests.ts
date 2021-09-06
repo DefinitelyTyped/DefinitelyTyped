@@ -27,3 +27,9 @@ const shiftEnterCommand = new ShiftEnterCommand(myEditor);
 shiftEnterCommand.execute();
 
 const result: Generator<number> = utils.getCopyOnEnterAttributes(new Schema(), [4, 5, 6]);
+
+// $ExpectType Enter
+myEditor.plugins.get('Enter');
+
+// $ExpectType ShiftEnter
+myEditor.plugins.get('ShiftEnter');

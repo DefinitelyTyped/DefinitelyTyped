@@ -13,7 +13,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/crypto.js)
  */
 declare module 'crypto' {
     import * as stream from 'node:stream';
@@ -2207,7 +2207,7 @@ declare module 'crypto' {
     function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: BufferEncoding;
-    type KeyType = 'rsa' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
+    type KeyType = 'rsa' | 'rsa-pss' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
     type KeyFormat = 'pem' | 'der';
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
@@ -2229,6 +2229,16 @@ declare module 'crypto' {
         namedCurve: string;
     }
     interface RSAKeyPairKeyObjectOptions {
+        /**
+         * Key size in bits
+         */
+        modulusLength: number;
+        /**
+         * @default 0x10001
+         */
+        publicExponent?: number | undefined;
+    }
+    interface RSAPSSKeyPairKeyObjectOptions {
         /**
          * Key size in bits
          */
@@ -2263,6 +2273,23 @@ declare module 'crypto' {
         };
         privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
             type: 'pkcs1' | 'pkcs8';
+        };
+    }
+    interface RSAPSSKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        /**
+         * Key size in bits
+         */
+        modulusLength: number;
+        /**
+         * @default 0x10001
+         */
+        publicExponent?: number | undefined;
+        publicKeyEncoding: {
+            type: 'spki';
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: 'pkcs8';
         };
     }
     interface DSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
@@ -2374,13 +2401,18 @@ declare module 'crypto' {
      * When PEM encoding was selected, the respective key will be a string, otherwise
      * it will be a buffer containing the data encoded as DER.
      * @since v10.12.0
-     * @param type Must be `'rsa'`, `'dsa'`, `'ec'`, `'ed25519'`, `'ed448'`, `'x25519'`, `'x448'`, or `'dh'`.
+     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`, `'ed448'`, `'x25519'`, `'x448'`, or `'dh'`.
      */
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
     function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
     function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
     function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
@@ -2455,6 +2487,11 @@ declare module 'crypto' {
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairKeyObjectOptions, callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairKeyObjectOptions, callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void): void;
     function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
     function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
     function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
@@ -2515,6 +2552,35 @@ declare module 'crypto' {
             privateKey: Buffer;
         }>;
         function __promisify__(type: 'rsa', options: RSAKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
+        function __promisify__(
+            type: 'rsa-pss',
+            options: RSAPSSKeyPairOptions<'pem', 'pem'>
+        ): Promise<{
+            publicKey: string;
+            privateKey: string;
+        }>;
+        function __promisify__(
+            type: 'rsa-pss',
+            options: RSAPSSKeyPairOptions<'pem', 'der'>
+        ): Promise<{
+            publicKey: string;
+            privateKey: Buffer;
+        }>;
+        function __promisify__(
+            type: 'rsa-pss',
+            options: RSAPSSKeyPairOptions<'der', 'pem'>
+        ): Promise<{
+            publicKey: Buffer;
+            privateKey: string;
+        }>;
+        function __promisify__(
+            type: 'rsa-pss',
+            options: RSAPSSKeyPairOptions<'der', 'der'>
+        ): Promise<{
+            publicKey: Buffer;
+            privateKey: Buffer;
+        }>;
+        function __promisify__(type: 'rsa-pss', options: RSAPSSKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
         function __promisify__(
             type: 'dsa',
             options: DSAKeyPairOptions<'pem', 'pem'>
@@ -2791,7 +2857,7 @@ declare module 'crypto' {
      */
     function getCipherInfo(nameOrNid: string | number, options?: CipherInfoOptions): CipherInfo | undefined;
     /**
-     * HKDF is a simple key derivation function defined in RFC 5869\. The given `key`,`salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
+     * HKDF is a simple key derivation function defined in RFC 5869\. The given `ikm`,`salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
      *
      * The supplied `callback` function is called with two arguments: `err` and`derivedKey`. If an errors occurs while deriving the key, `err` will be set;
      * otherwise `err` will be `null`. The successfully generated `derivedKey` will
@@ -2811,16 +2877,16 @@ declare module 'crypto' {
      * ```
      * @since v15.0.0
      * @param digest The digest algorithm to use.
-     * @param key The secret key. It must be at least one byte in length.
+     * @param ikm The input keying material. It must be at least one byte in length.
      * @param salt The salt value. Must be provided but can be zero-length.
      * @param info Additional info value. Must be provided but can be zero-length, and cannot be more than 1024 bytes.
      * @param keylen The length of the key to generate. Must be greater than 0. The maximum allowable value is `255` times the number of bytes produced by the selected digest function (e.g. `sha512`
      * generates 64-byte hashes, making the maximum HKDF output 16320 bytes).
      */
-    function hkdf(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => void): void;
+    function hkdf(digest: string, irm: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number, callback: (err: Error | null, derivedKey: ArrayBuffer) => void): void;
     /**
      * Provides a synchronous HKDF key derivation function as defined in RFC 5869\. The
-     * given `key`, `salt` and `info` are used with the `digest` to derive a key of`keylen` bytes.
+     * given `ikm`, `salt` and `info` are used with the `digest` to derive a key of`keylen` bytes.
      *
      * The successfully generated `derivedKey` will be returned as an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
      *
@@ -2838,13 +2904,13 @@ declare module 'crypto' {
      * ```
      * @since v15.0.0
      * @param digest The digest algorithm to use.
-     * @param key The secret key. It must be at least one byte in length.
+     * @param ikm The input keying material. It must be at least one byte in length.
      * @param salt The salt value. Must be provided but can be zero-length.
      * @param info Additional info value. Must be provided but can be zero-length, and cannot be more than 1024 bytes.
      * @param keylen The length of the key to generate. Must be greater than 0. The maximum allowable value is `255` times the number of bytes produced by the selected digest function (e.g. `sha512`
      * generates 64-byte hashes, making the maximum HKDF output 16320 bytes).
      */
-    function hkdfSync(digest: string, key: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number): ArrayBuffer;
+    function hkdfSync(digest: string, ikm: BinaryLike | KeyObject, salt: BinaryLike, info: BinaryLike, keylen: number): ArrayBuffer;
     interface SecureHeapUsage {
         /**
          * The total allocated secure heap size as specified using the `--secure-heap=n` command-line flag.
@@ -2879,7 +2945,7 @@ declare module 'crypto' {
         disableEntropyCache?: boolean | undefined;
     }
     /**
-     * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) Version 4 UUID. The UUID is generated using a
+     * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
      * cryptographic pseudorandom number generator.
      * @since v15.6.0
      */
@@ -2967,7 +3033,7 @@ declare module 'crypto' {
          */
         readonly issuerCertificate?: X509Certificate | undefined;
         /**
-         * The public key `<KeyObject>` for this certificate.
+         * The public key `KeyObject` for this certificate.
          * @since v15.6.0
          */
         readonly publicKey: KeyObject;

@@ -2,22 +2,27 @@ import {
     CalendarSystem,
     DateTimeFormatOptions,
     NumberingSystem,
-    StringUnitLength, ToISOFormat, ToISOTimeDurationOptions,
+    StringUnitLength,
+    ToISOFormat,
+    ToISOTimeDurationOptions,
     ZoneOptions,
 } from '../index';
 import { Zone } from './zone';
-import { Duration, DurationInput, DurationUnit, DurationUnits } from './duration';
+import { Duration, DurationLike, DurationUnits } from './duration';
 import { Interval } from './interval';
 
-export type ToRelativeUnit =
-    | 'years'
-    | 'quarters'
-    | 'months'
-    | 'weeks'
-    | 'days'
-    | 'hours'
-    | 'minutes'
-    | 'seconds';
+export type DateTimeUnit = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
+export type ToRelativeUnit = 'years' | 'quarters' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds';
+
+export interface ToObjectOutput extends DateTimeJSOptions {
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+    millisecond: number;
+}
 
 export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, 'unit'> {
     /**
@@ -98,6 +103,7 @@ export interface LocaleOptions {
     outputCalendar?: CalendarSystem | undefined;
     numberingSystem?: NumberingSystem | undefined;
 }
+export type ResolvedLocaleOptions = Required<LocaleOptions>;
 
 export interface DateTimeOptions extends LocaleOptions {
     /**
@@ -139,10 +145,20 @@ export interface DateObjectUnits {
     millisecond?: number | undefined;
 }
 
-export interface DateObject extends DateObjectUnits, LocaleOptions {
-}
-
 export type ConversionAccuracy = 'casual' | 'longterm';
+
+export type DateTimeFormatPresetValue = 'numeric' | 'short' | 'long';
+export interface DateTimeFormatPreset {
+    year?: DateTimeFormatPresetValue;
+    month?: DateTimeFormatPresetValue;
+    day?: DateTimeFormatPresetValue;
+    weekday?: DateTimeFormatPresetValue;
+    hour?: DateTimeFormatPresetValue;
+    minute?: DateTimeFormatPresetValue;
+    second?: DateTimeFormatPresetValue;
+    timeZoneName?: DateTimeFormatPresetValue;
+    hourCycle?: 'h23';
+}
 
 export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
@@ -170,129 +186,246 @@ export interface ExplainedFormat {
  *
  * Here is a brief overview of the most commonly used functionality it provides:
  *
- * * **Creation**: To create a DateTime from its components, use one of its factory class methods: {@link local}, {@link utc}, and (most flexibly) {@link fromObject}.
- *      To create one from a standard string format, use {@link fromISO}, {@link fromHTTP}, and {@link fromRFC2822}.
- *      To create one from a custom string format, use {@link fromFormat}. To create one from a native JS date, use {@link fromJSDate}.
- * * **Gregorian calendar and time**: To examine the Gregorian properties of a DateTime individually
- *      (i.e as opposed to collectively through {@link toObject}), use the {@link year}, {@link month}, {@link day}, {@link hour}, {@link minute}, {@link second}, {@link millisecond} accessors.
- * * **Week calendar**: For ISO week calendar attributes, see the {@link weekYear}, {@link weekNumber}, and {@link weekday} accessors.
- * * **Configuration** See the {@link locale} and {@link numberingSystem} accessors.
- * * **Transformation**: To transform the DateTime into other DateTimes, use {@link set}, {@link reconfigure}, {@link setZone}, {@link setLocale},
- *      {@link plus}, {@link minus}, {@link endOf}, {@link startOf}, {@link toUTC}, and {@link toLocal}.
- * * **Output**: To convert the DateTime to other representations, use the {@link toRelative}, {@link toRelativeCalendar}, {@link toJSON}, {@link toISO},
- *      {@link toHTTP}, {@link toObject}, {@link toRFC2822}, {@link toString}, {@link toLocaleString}, {@link toFormat}, {@link toMillis} and {@link toJSDate}.
+ * * **Creation**: To create a DateTime from its components, use one of its factory class methods: {@link DateTime.local}, {@link DateTime.utc}, and (most flexibly) {@link DateTime.fromObject}.
+ * To create one from a standard string format, use {@link DateTime.fromISO}, {@link DateTime.fromHTTP}, and {@link DateTime.fromRFC2822}.
+ * To create one from a custom string format, use {@link DateTime.fromFormat}. To create one from a native JS date, use {@link DateTime.fromJSDate}.
+ * * **Gregorian calendar and time**: To examine the Gregorian properties of a DateTime individually (i.e as opposed to collectively through {@link DateTime#toObject}), use the {@link DateTime#year},
+ * {@link DateTime#month}, {@link DateTime#day}, {@link DateTime#hour}, {@link DateTime#minute}, {@link DateTime#second}, {@link DateTime#millisecond} accessors.
+ * * **Week calendar**: For ISO week calendar attributes, see the {@link DateTime#weekYear}, {@link DateTime#weekNumber}, and {@link DateTime#weekday} accessors.
+ * * **Configuration** See the {@link DateTime#locale} and {@link DateTime#numberingSystem} accessors.
+ * * **Transformation**: To transform the DateTime into other DateTimes, use {@link DateTime#set}, {@link DateTime#reconfigure}, {@link DateTime#setZone}, {@link DateTime#setLocale},
+ * {@link DateTime.plus}, {@link DateTime#minus}, {@link DateTime#endOf}, {@link DateTime#startOf}, {@link DateTime#toUTC}, and {@link DateTime#toLocal}.
+ * * **Output**: To convert the DateTime to other representations, use the {@link DateTime#toRelative}, {@link DateTime#toRelativeCalendar}, {@link DateTime#toJSON}, {@link DateTime#toISO},
+ * {@link DateTime#toHTTP}, {@link DateTime#toObject}, {@link DateTime#toRFC2822}, {@link DateTime#toString}, {@link DateTime#toLocaleString}, {@link DateTime#toFormat},
+ * {@link DateTime#toMillis} and {@link DateTime#toJSDate}.
  *
  * There's plenty others documented below. In addition, for more information on subtler topics
  * like internationalization, time zones, alternative calendars, validity, and so on, see the external documentation.
  */
 export class DateTime {
     /**
-     * {@link toLocaleString} format like 'October 14, 1983, 9:30 AM EDT'. Only 12-hour if the locale is.
+     * Create a DateTime for the current instant, in the system's time zone.
+     *
+     * Use Settings to override these default values if needed.
+     * @example
+     * DateTime.now().toISO() //~> now in the ISO format
      */
-    static readonly DATETIME_FULL: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'October 14, 1983, 9:30:33 AM EDT'. Only 12-hour if the locale is.
-     */
-    static readonly DATETIME_FULL_WITH_SECONDS: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'Friday, October 14, 1983, 9:30 AM Eastern Daylight Time'. Only 12-hour if the locale is.
-     */
-    static readonly DATETIME_HUGE: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'Friday, October 14, 1983, 9:30:33 AM Eastern Daylight Time'. Only 12-hour if the locale is.
-     */
-    static readonly DATETIME_HUGE_WITH_SECONDS: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'Oct 14, 1983, 9:30 AM'. Only 12-hour if the locale is.
-     */
-    static readonly DATETIME_MED: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'Oct 14, 1983, 9:30:33 AM'. Only 12-hour if the locale is.
-     */
-    static readonly DATETIME_MED_WITH_SECONDS: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'Fri, 14 Oct 1983, 9:30 AM'. Only 12-hour if the locale is.
-     */
-    static readonly DATETIME_MED_WITH_WEEKDAY: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '10/14/1983, 9:30 AM'. Only 12-hour if the locale is.
-     */
-    static readonly DATETIME_SHORT: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '10/14/1983, 9:30:33 AM'. Only 12-hour if the locale is.
-     */
-    static readonly DATETIME_SHORT_WITH_SECONDS: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'October 14, 1983'
-     */
-    static readonly DATE_FULL: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'Tuesday, October 14, 1983'
-     */
-    static readonly DATE_HUGE: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'Oct 14, 1983'
-     */
-    static readonly DATE_MED: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 'Fri, Oct 14, 1983'
-     */
-    static readonly DATE_MED_WITH_WEEKDAY: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like 10/14/1983
-     */
-    static readonly DATE_SHORT: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '09:30', always 24-hour.
-     */
-    static readonly TIME_24_SIMPLE: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '09:30:23 Eastern Daylight Time', always 24-hour.
-     */
-    static readonly TIME_24_WITH_LONG_OFFSET: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '09:30:23', always 24-hour.
-     */
-    static readonly TIME_24_WITH_SECONDS: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '09:30:23 EDT', always 24-hour.
-     */
-    static readonly TIME_24_WITH_SHORT_OFFSET: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '09:30 AM'. Only 12-hour if the locale is.
-     */
-    static readonly TIME_SIMPLE: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '09:30:23 AM Eastern Daylight Time'. Only 12-hour if the locale is.
-     */
-    static readonly TIME_WITH_LONG_OFFSET: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '09:30:23 AM'. Only 12-hour if the locale is.
-     */
-    static readonly TIME_WITH_SECONDS: DateTimeFormatOptions;
-    /**
-     * {@link toLocaleString} format like '09:30:23 AM EDT'. Only 12-hour if the locale is.
-     */
-    static readonly TIME_WITH_SHORT_OFFSET: DateTimeFormatOptions;
+    static now(): DateTime;
 
     /**
-     * Create a DateTime from an HTTP header date
-     * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1
-     * @param text - the HTTP header date
-     * @param [options] - options to affect the creation
-     * @param [options.zone='local'] - convert the time to this zone.
-     * Since HTTP dates are always in UTC, this has no effect on the interpretation of string, merely the zone the resulting DateTime is expressed in.
+     * Create a local DateTime
+     *
+     * @param year - The calendar year. If omitted (as in, call `local()` with no arguments), the current time will be used
+     * @param month - The month, 1-indexed
+     * @param day - The day of the month, 1-indexed
+     * @param hour - The hour of the day, in 24-hour time
+     * @param minute - The minute of the hour, meaning a number between 0 and 59
+     * @param second - The second of the minute, meaning a number between 0 and 59
+     * @param millisecond - The millisecond of the second, meaning a number between 0 and 999
+     *
      * @example
-     * DateTime.fromHTTP('Sun, 06 Nov 1994 08:49:37 GMT')
+     * DateTime.local()                                  //~> now
      * @example
-     * DateTime.fromHTTP('Sunday, 06-Nov-94 08:49:37 GMT')
+     * DateTime.local({ zone: "America/New_York" })      //~> now, in US east coast time
      * @example
-     * DateTime.fromHTTP('Sun Nov  6 08:49:37 1994')
+     * DateTime.local(2017)                              //~> 2017-01-01T00:00:00
+     * @example
+     * DateTime.local(2017, 3)                           //~> 2017-03-01T00:00:00
+     * @example
+     * DateTime.local(2017, 3, 12, { locale: "fr")       //~> 2017-03-12T00:00:00, with a French locale
+     * @example
+     * DateTime.local(2017, 3, 12, 5)                    //~> 2017-03-12T05:00:00
+     * @example
+     * DateTime.local(2017, 3, 12, 5, { zone: "utc" })   //~> 2017-03-12T05:00:00, in UTC
+     * @example
+     * DateTime.local(2017, 3, 12, 5, 45)                //~> 2017-03-12T05:45:00
+     * @example
+     * DateTime.local(2017, 3, 12, 5, 45, 10)            //~> 2017-03-12T05:45:10
+     * @example
+     * DateTime.local(2017, 3, 12, 5, 45, 10, 765)       //~> 2017-03-12T05:45:10.765
      */
-    static fromHTTP(text: string, options?: DateTimeOptions): DateTime;
+    static local(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+        millisecond: number,
+        opts?: DateTimeJSOptions,
+    ): DateTime;
+    static local(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+        opts?: DateTimeJSOptions,
+    ): DateTime;
+    static local(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        opts?: DateTimeJSOptions,
+    ): DateTime;
+    static local(year: number, month: number, day: number, hour: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, month: number, day: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, month: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, opts?: DateTimeJSOptions): DateTime;
+    static local(opts?: DateTimeJSOptions): DateTime;
+
+    /**
+     * Create a DateTime in UTC
+     *
+     * @param year - The calendar year. If omitted (as in, call `utc()` with no arguments), the current time will be used
+     * @param month - The month, 1-indexed
+     * @param day - The day of the month
+     * @param hour - The hour of the day, in 24-hour time
+     * @param minute - The minute of the hour, meaning a number between 0 and 59
+     * @param second - The second of the minute, meaning a number between 0 and 59
+     * @param millisecond - The millisecond of the second, meaning a number between 0 and 999
+     * @param options - configuration options for the DateTime
+     * @param options.locale - a locale to set on the resulting DateTime instance
+     * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
+     * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
+     *
+     * @example
+     * DateTime.utc()                                            //~> now
+     * @example
+     * DateTime.utc(2017)                                        //~> 2017-01-01T00:00:00Z
+     * @example
+     * DateTime.utc(2017, 3)                                     //~> 2017-03-01T00:00:00Z
+     * @example
+     * DateTime.utc(2017, 3, 12)                                 //~> 2017-03-12T00:00:00Z
+     * @example
+     * DateTime.utc(2017, 3, 12, 5)                              //~> 2017-03-12T05:00:00Z
+     * @example
+     * DateTime.utc(2017, 3, 12, 5, 45)                          //~> 2017-03-12T05:45:00Z
+     * @example
+     * DateTime.utc(2017, 3, 12, 5, 45, { locale: "fr" } )       //~> 2017-03-12T05:45:00Z with a French locale
+     * @example
+     * DateTime.utc(2017, 3, 12, 5, 45, 10)                      //~> 2017-03-12T05:45:10Z
+     * @example
+     * DateTime.utc(2017, 3, 12, 5, 45, 10, 765, { locale: "fr") //~> 2017-03-12T05:45:10.765Z with a French locale
+     */
+    static utc(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+        millisecond: number,
+        options?: LocaleOptions,
+    ): DateTime;
+    static utc(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+        options?: LocaleOptions,
+    ): DateTime;
+    static utc(
+        year: number,
+        month: number,
+        day: number,
+        hour: number,
+        minute: number,
+        options?: LocaleOptions,
+    ): DateTime;
+    static utc(year: number, month: number, day: number, hour: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, month: number, day: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, month: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, options?: LocaleOptions): DateTime;
+    static utc(options?: LocaleOptions): DateTime;
+
+    /**
+     * Create a DateTime from a JavaScript Date object. Uses the default zone.
+     *
+     * @param date - a JavaScript Date object
+     * @param options - configuration options for the DateTime
+     * @param options.zone - the zone to place the DateTime into
+     */
+    static fromJSDate(date: Date, options?: { zone?: string | Zone }): DateTime;
+
+    /**
+     * Create a DateTime from a number of milliseconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
+     *
+     * @param milliseconds - a number of milliseconds since 1970 UTC
+     * @param options - configuration options for the DateTime
+     * @param options.zone - the zone to place the DateTime into. Defaults to 'local'.
+     * @param options.locale - a locale to set on the resulting DateTime instance
+     * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
+     * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
+     */
+    static fromMillis(milliseconds: number, options?: DateTimeJSOptions): DateTime;
+
+    /**
+     * Create a DateTime from a number of seconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
+     *
+     * @param seconds - a number of seconds since 1970 UTC
+     * @param options - configuration options for the DateTime
+     * @param options.zone - the zone to place the DateTime into. Defaults to 'local'.
+     * @param options.locale - a locale to set on the resulting DateTime instance
+     * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
+     * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
+     */
+    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTime;
+
+    /**
+     * Create a DateTime from a JavaScript object with keys like 'year' and 'hour' with reasonable defaults.
+     *
+     * @param obj - the object to create the DateTime from
+     * @param obj.year - a year, such as 1987
+     * @param obj.month - a month, 1-12
+     * @param obj.day - a day of the month, 1-31, depending on the month
+     * @param obj.ordinal - day of the year, 1-365 or 366
+     * @param obj.weekYear - an ISO week year
+     * @param obj.weekNumber - an ISO week number, between 1 and 52 or 53, depending on the year
+     * @param obj.weekday - an ISO weekday, 1-7, where 1 is Monday and 7 is Sunday
+     * @param obj.hour - hour of the day, 0-23
+     * @param obj.minute - minute of the hour, 0-59
+     * @param obj.second - second of the minute, 0-59
+     * @param obj.millisecond - millisecond of the second, 0-999
+     * @param opts - options for creating this DateTime
+     * @param opts.zone - interpret the numbers in the context of a particular zone. Can take any value taken as the first argument to setZone(). Defaults to 'local'.
+     * @param opts.locale - a locale to set on the resulting DateTime instance. Defaults to 'system's locale'.
+     * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+     * @param opts.numberingSystem - the numbering system to set on the resulting DateTime instance
+     *
+     * @example
+     * DateTime.fromObject({ year: 1982, month: 5, day: 25}).toISODate() //=> '1982-05-25'
+     * @example
+     * DateTime.fromObject({ year: 1982 }).toISODate() //=> '1982-01-01'
+     * @example
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //~> today at 10:26:06
+     * @example
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'utc' }),
+     * @example
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'local' })
+     * @example
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { }zone: 'America/New_York' })
+     * @example
+     * DateTime.fromObject({ weekYear: 2016, weekNumber: 2, weekday: 3 }).toISODate() //=> '2016-01-13'
+     */
+    static fromObject(obj: DateObjectUnits, opts?: DateTimeJSOptions): DateTime;
 
     /**
      * Create a DateTime from an ISO 8601 string
+     *
+     * @param text - the ISO string
+     * @param opts - options to affect the creation
+     * @param opts.zone - use this zone if no offset is specified in the input string itself. Will also convert the time to this zone. Defaults to 'local'.
+     * @param opts.setZone - override the zone with a fixed-offset zone specified in the string itself, if it specifies one. Defaults to false.
+     * @param opts.locale - a locale to set on the resulting DateTime instance. Defaults to 'system's locale'.
+     * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+     * @param opts.numberingSystem - the numbering system to set on the resulting DateTime instance
+     *
      * @example
      * DateTime.fromISO('2016-05-25T09:08:34.123')
      * @example
@@ -304,41 +437,20 @@ export class DateTime {
      * @example
      * DateTime.fromISO('2016-W05-4')
      */
-    static fromISO(text: string, options?: DateTimeOptions): DateTime;
-
-    /**
-     * Create a DateTime from a JavaScript Date object.
-     * Uses the default zone.
-     */
-    static fromJSDate(date: Date, options?: DateTimeJSOptions): DateTime;
-
-    /**
-     * Create a DateTime from a number of milliseconds since the epoch (meaning since 1 January 1970 00:00:00 UTC).
-     * Uses the default zone.
-     */
-    static fromMillis(ms: number, options?: DateTimeOptions): DateTime;
-
-    /**
-     * Create a DateTime from a JavaScript object with keys like 'year' and 'hour' with reasonable defaults.
-     * @example
-     * DateTime.fromObject({ year: 1982, month: 5, day: 25}).toISODate() //=> '1982-05-25'
-     * @example
-     * DateTime.fromObject({ year: 1982 }).toISODate() //=> '1982-01-01'
-     * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //~> today at 10:26:06
-     * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'utc' }),
-     * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'local' })
-     * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6}, { zone: 'America/New_York' })
-     * @example
-     * DateTime.fromObject({ weekYear: 2016, weekNumber: 2, weekday: 3 }).toISODate() //=> '2016-01-13'
-     */
-    static fromObject(obj: DateObject, options?: DateTimeOptions): DateTime;
+    static fromISO(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from an RFC 2822 string
+     *
+     * @param text - the RFC 2822 string
+     * @param opts - options to affect the creation
+     * @param opts.zone - convert the time to this zone. Since the offset is always specified in the string itself,
+     * this has no effect on the interpretation of string, merely the zone the resulting DateTime is expressed in. Defaults to 'local'
+     * @param opts.setZone - override the zone with a fixed-offset zone specified in the string itself, if it specifies one. Defaults to false.
+     * @param opts.locale - a locale to set on the resulting DateTime instance. Defaults to 'system's locale'.
+     * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+     * @param opts.numberingSystem - the numbering system to set on the resulting DateTime instance
+     *
      * @example
      * DateTime.fromRFC2822('25 Nov 2016 13:23:12 GMT')
      * @example
@@ -346,17 +458,65 @@ export class DateTime {
      * @example
      * DateTime.fromRFC2822('25 Nov 2016 13:23 Z')
      */
-    static fromRFC2822(text: string, options?: DateTimeOptions): DateTime;
+    static fromRFC2822(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
-     * Create a DateTime from a number of seconds since the epoch (meaning since 1 January 1970 00:00:00 UTC).
-     * Uses the default zone.
+     * Create a DateTime from an HTTP header date
+     *
+     * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1
+     *
+     * @param text - the HTTP header date
+     * @param opts - options to affect the creation
+     * @param opts.zone - convert the time to this zone. Since HTTP dates are always in UTC,
+     * this has no effect on the interpretation of string,merely the zone the resulting DateTime is expressed in. Defaults to 'local'.
+     * @param opts.setZone - override the zone with the fixed-offset zone specified in the string. For HTTP dates, this is always UTC,
+     * so this option is equivalent to setting the `zone` option to 'utc', but this option is included for consistency with similar methods. Defaults to false.
+     * @param opts.locale - a locale to set on the resulting DateTime instance. Defaults to 'system's locale'.
+     * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+     * @param opts.numberingSystem - the numbering system to set on the resulting DateTime instance
+     *
+     * @example
+     * DateTime.fromHTTP('Sun, 06 Nov 1994 08:49:37 GMT')
+     * @example
+     * DateTime.fromHTTP('Sunday, 06-Nov-94 08:49:37 GMT')
+     * @example
+     * DateTime.fromHTTP('Sun Nov  6 08:49:37 1994')
      */
-    static fromSeconds(seconds: number, options?: DateTimeOptions): DateTime;
+    static fromHTTP(text: string, opts?: DateTimeOptions): DateTime;
+
+    /**
+     * Create a DateTime from an input string and format string.
+     * Defaults to en-US if no locale has been specified, regardless of the system's locale. For a table of tokens and their interpretations,
+     * see [here](https://moment.github.io/luxon/#/parsing?id=table-of-tokens).
+     *
+     * @param text - the string to parse
+     * @param fmt - the format the string is expected to be in (see the link below for the formats)
+     * @param opts - options to affect the creation
+     * @param opts.zone - use this zone if no offset is specified in the input string itself. Will also convert the DateTime to this zone. Defaults to 'local'.
+     * @param opts.setZone - override the zone with a zone specified in the string itself, if it specifies one. Defaults to false.
+     * @param opts.locale - a locale string to use when parsing. Will also set the DateTime to this locale. Defaults to 'en-US'.
+     * @param opts.numberingSystem - the numbering system to use when parsing. Will also set the resulting DateTime to this numbering system
+     * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+     */
+    static fromFormat(text: string, fmt: string, opts?: DateTimeOptions): DateTime;
+
+    /**
+     * @deprecated use fromFormat instead
+     */
+    static fromString(text: string, format: string, options?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from a SQL date, time, or datetime
      * Defaults to en-US if no locale has been specified, regardless of the system's locale
+     *
+     * @param text - the string to parse
+     * @param opts - options to affect the creation
+     * @param opts.zone - use this zone if no offset is specified in the input string itself. Will also convert the DateTime to this zone. Defaults to 'local'.
+     * @param opts.setZone - override the zone with a zone specified in the string itself, if it specifies one. Defaults to false.
+     * @param opts.locale - a locale string to use when parsing. Will also set the DateTime to this locale. Defaults to 'en-US'.
+     * @param opts.numberingSystem - the numbering system to use when parsing. Will also set the resulting DateTime to this numbering system
+     * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+     *
      * @example
      * DateTime.fromSQL('2017-05-15')
      * @example
@@ -374,392 +534,30 @@ export class DateTime {
      * @example
      * DateTime.fromSQL('09:12:34.342')
      */
-    static fromSQL(text: string, options?: DateTimeOptions): DateTime;
-
-    /**
-     * Create a DateTime from an input string and format string.
-     * Defaults to en-US if no locale has been specified, regardless of the system's locale.
-     * @see https://moment.github.io/luxon/docs/manual/parsing.html#table-of-tokens
-     */
-    static fromFormat(text: string, format: string, opts?: DateTimeOptions): DateTime;
-
-    /**
-     * Explain how a string would be parsed by {@link fromFormat}
-     */
-    static fromFormatExplain(text: string, format: string, opts?: DateTimeOptions): ExplainedFormat;
-
-    /**
-     * @deprecated since 0.3.0. Use {@link fromFormat} instead
-     */
-    static fromString(text: string, format: string, options?: DateTimeOptions): DateTime;
-
-    /**
-     * @deprecated 0.3.0. Use {@link fromFormatExplain} instead
-     */
-    static fromStringExplain(
-        text: string,
-        format: string,
-        options?: DateTimeOptions,
-    ): ExplainedFormat;
+    static fromSQL(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create an invalid DateTime.
-     * @param reason - simple string of why this DateTime is invalid.
-     *                 Should not contain parameters or anything else data-dependent
-     * @param [explanation] - longer explanation, may include parameters and other useful debugging information
+     *
+     * @param reason - simple string of why this DateTime is invalid. Should not contain parameters or anything else data-dependent
+     * @param explanation - longer explanation, may include parameters and other useful debugging information. Defaults to null.
      */
     static invalid(reason: string, explanation?: string): DateTime;
 
     /**
      * Check if an object is a DateTime. Works across context boundaries
-     */
-    static isDateTime(o: any): o is DateTime;
-
-    /**
-     * Create a local DateTime
-     * @param [year] - The calendar year. If omitted (as in, call `local()` with no arguments), the current time will be used
-     * @param [month=1] - The month, 1-indexed
-     * @param [day=1] - The day of the month, 1-indexed
-     * @param [hour=0] - The hour of the day, in 24-hour time
-     * @param [minute=0] - The minute of the hour, meaning a number between 0 and 59
-     * @param [second=0] - The second of the minute, meaning a number between 0 and 59
-     * @param [millisecond=0] - The millisecond of the second, meaning a number between 0 and 999
-     * @param [options] - Options for creating this DateTime
-     * @example
-     * DateTime.local()                            //~> now
-     * @example
-     * DateTime.local(2017)                        //~> 2017-01-01T00:00:00
-     * @example
-     * DateTime.local(2017, 3)                     //~> 2017-03-01T00:00:00
-     * @example
-     * DateTime.local(2017, 3, 12)                 //~> 2017-03-12T00:00:00
-     * @example
-     * DateTime.local(2017, 3, 12, 5)              //~> 2017-03-12T05:00:00
-     * @example
-     * DateTime.local(2017, 3, 12, 5, 45)          //~> 2017-03-12T05:45:00
-     * @example
-     * DateTime.local(2017, 3, 12, 5, 45, 10)      //~> 2017-03-12T05:45:10
-     * @example
-     * DateTime.local(2017, 3, 12, 5, 45, 10, 765) //~> 2017-03-12T05:45:10.765
-     */
-    static local(
-        year?: number,
-        month?: number,
-        day?: number,
-        hour?: number,
-        minute?: number,
-        second?: number,
-        millisecond?: number,
-        options?: DateTimeOptions,
-    ): DateTime;
-
-    /** Return the maximum of several date times */
-    static max(): undefined;
-    /** Return the maximum of several date times */
-    static max(...dateTimes: DateTime[]): DateTime;
-
-    /** Return the minimum of several date times */
-    static min(): undefined;
-    /** Return the minimum of several date times */
-    static min(...dateTimes: DateTime[]): DateTime;
-
-    /**
-     * Create a DateTime for the current instant, in the system's time zone.
      *
-     * Use Settings to override these default values if needed.
-     * @example
-     * DateTime.now().toISO() //~> now in the ISO format
+     * @param o
      */
-    static now(): DateTime;
+    static isDateTime(o: unknown): o is DateTime;
 
-    /**
-     * Create a DateTime in UTC
-     * @param [year] - The calendar year. If omitted (as in, call `utc()` with no arguments), the current time will be used
-     * @param [month=1] - The month, 1-indexed
-     * @param [day=1] - The day of the month
-     * @param [hour=0] - The hour of the day, in 24-hour time
-     * @param [minute=0] - The minute of the hour, meaning a number between 0 and 59
-     * @param [second=0] - The second of the minute, meaning a number between 0 and 59
-     * @param [millisecond=0] - The millisecond of the second, meaning a number between 0 and 999
-     * @param [options] - Options for creating this DateTime
-     * @example
-     * DateTime.utc()                            //~> now
-     * @example
-     * DateTime.utc(2017)                        //~> 2017-01-01T00:00:00Z
-     * @example
-     * DateTime.utc(2017, 3)                     //~> 2017-03-01T00:00:00Z
-     * @example
-     * DateTime.utc(2017, 3, 12)                 //~> 2017-03-12T00:00:00Z
-     * @example
-     * DateTime.utc(2017, 3, 12, 5)              //~> 2017-03-12T05:00:00Z
-     * @example
-     * DateTime.utc(2017, 3, 12, 5, 45)          //~> 2017-03-12T05:45:00Z
-     * @example
-     * DateTime.utc(2017, 3, 12, 5, 45, 10)      //~> 2017-03-12T05:45:10Z
-     * @example
-     * DateTime.utc(2017, 3, 12, 5, 45, 10, 765) //~> 2017-03-12T05:45:10.765Z
-     */
-    static utc(
-        year?: number,
-        month?: number,
-        day?: number,
-        hour?: number,
-        minute?: number,
-        second?: number,
-        millisecond?: number,
-        options?: DateTimeOptions,
-    ): DateTime;
-
-    /**
-     * Get the day of the month (1-30ish).
-     * @example
-     * DateTime.local(2017, 5, 25).day //=> 25
-     */
-    day: number;
-    /**
-     * Returns the number of days in this DateTime's month
-     * @example
-     * DateTime.local(2016, 2).daysInMonth //=> 29
-     * @example
-     * DateTime.local(2016, 3).daysInMonth //=> 31
-     */
-    daysInMonth: number;
-    /**
-     * Returns the number of days in this DateTime's year
-     * @example
-     * DateTime.local(2016).daysInYear //=> 366
-     * @example
-     * DateTime.local(2013).daysInYear //=> 365
-     */
-    daysInYear: number;
-    /**
-     * Get the hour of the day (0-23).
-     * @example
-     * DateTime.local(2017, 5, 25, 9).hour //=> 9
-     */
-    hour: number;
-    /**
-     * Returns an error code if this DateTime is invalid, or null if the DateTime is valid
-     */
-    invalidReason: string | null;
-    /**
-     * Returns an explanation of why this DateTime became invalid, or null if the DateTime is valid
-     */
-    invalidExplanation: string | null;
-    /**
-     * Get whether the DateTime is in a DST.
-     */
-    isInDST: boolean;
-    /**
-     * Returns true if this DateTime is in a leap year, false otherwise
-     * @example
-     * DateTime.local(2016).isInLeapYear //=> true
-     * @example
-     * DateTime.local(2013).isInLeapYear //=> false
-     */
-    isInLeapYear: boolean;
-    /**
-     * Get whether this zone's offset ever changes, as in a DST.
-     */
-    isOffsetFixed: boolean;
-    /**
-     * Returns whether the DateTime is valid. Invalid DateTimes occur when:
-     * * The DateTime was created from invalid calendar information, such as the 13th month or February 30
-     * * The DateTime was created by an operation on another invalid date
-     */
-    isValid: boolean;
-    /**
-     * Get the locale of a DateTime, such 'en-GB'. The locale is used when formatting the DateTime
-     *
-     */
-    locale: string;
-    /**
-     * Get the millisecond of the second (0-999).
-     * @example
-     * DateTime.local(2017, 5, 25, 9, 30, 52, 654).millisecond //=> 654
-     */
-    millisecond: number;
-    /**
-     * Get the minute of the hour (0-59).
-     * @example
-     * DateTime.local(2017, 5, 25, 9, 30).minute //=> 30
-     */
-    minute: number;
-    /**
-     * Get the month (1-12).
-     * @example
-     * DateTime.local(2017, 5, 25).month //=> 5
-     */
-    month: number;
-    /**
-     * Get the human readable long month name, such as 'October'.
-     * Defaults to the system's locale if no locale has been specified
-     * @example
-     * DateTime.local(2017, 10, 30).monthLong //=> October
-     */
-    monthLong: string;
-    /**
-     * Get the human readable short month name, such as 'Oct'.
-     * Defaults to the system's locale if no locale has been specified
-     * @example
-     * DateTime.local(2017, 10, 30).monthShort //=> Oct
-     */
-    monthShort: string;
-    /**
-     * Get the numbering system of a DateTime, such 'beng'. The numbering system is used when formatting the DateTime
-     *
-     */
-    numberingSystem: string;
-    /**
-     * Get the UTC offset of this DateTime in minutes
-     * @example
-     * DateTime.now().offset //=> -240
-     * @example
-     * DateTime.utc().offset //=> 0
-     */
-    offset: number;
-    /**
-     * Get the long human name for the zone's current offset, for example "Eastern Standard Time" or "Eastern Daylight Time".
-     * Defaults to the system's locale if no locale has been specified
-     */
-    offsetNameLong: string;
-    /**
-     * Get the short human name for the zone's current offset, for example "EST" or "EDT".
-     * Defaults to the system's locale if no locale has been specified
-     */
-    offsetNameShort: string;
-    /**
-     * Get the ordinal (meaning the day of the year)
-     * @example
-     * DateTime.local(2017, 5, 25).ordinal //=> 145
-     */
-    ordinal: number;
-
-    /**
-     * Get the output calendar of a DateTime, such 'islamic'. The output calendar is used when formatting the DateTime
-     */
-    outputCalendar: string;
-    /**
-     * Get the quarter
-     * @example
-     * DateTime.local(2017, 5, 25).quarter //=> 2
-     */
-    quarter: number;
-    /**
-     * Get the second of the minute (0-59).
-     * @example
-     * DateTime.local(2017, 5, 25, 9, 30, 52).second //=> 52
-     */
-    second: number;
-    /**
-     * Get the week number of the week year (1-52ish).
-     * @see https://en.wikipedia.org/wiki/ISO_week_date
-     * @example
-     * DateTime.local(2017, 5, 25).weekNumber //=> 21
-     */
-    weekNumber: number;
-    /**
-     * Get the week year
-     * @see https://en.wikipedia.org/wiki/ISO_week_date
-     * @example
-     * DateTime.local(2014, 11, 31).weekYear //=> 2015
-     */
-    weekYear: number;
-    /**
-     * Get the day of the week.
-     * 1 is Monday and 7 is Sunday
-     * @see https://en.wikipedia.org/wiki/ISO_week_date
-     * @example
-     * DateTime.local(2014, 11, 31).weekday //=> 4
-     */
-    weekday: number;
-    /**
-     * Get the human readable long weekday, such as 'Monday'.
-     * Defaults to the system's locale if no locale has been specified
-     * @example
-     * DateTime.local(2017, 10, 30).weekdayLong //=> Monday
-     */
-    weekdayLong: string;
-    /**
-     * Get the human readable short weekday, such as 'Mon'.
-     * Defaults to the system's locale if no locale has been specified
-     * @example
-     * DateTime.local(2017, 10, 30).weekdayShort //=> Mon
-     */
-    weekdayShort: string;
-    /**
-     * Returns the number of weeks in this DateTime's year
-     * @see https://en.wikipedia.org/wiki/ISO_week_date
-     * @example
-     * DateTime.local(2004).weeksInWeekYear //=> 53
-     * @example
-     * DateTime.local(2013).weeksInWeekYear //=> 52
-     */
-    weeksInWeekYear: number;
-    /**
-     * Get the year
-     * @example
-     * DateTime.local(2017, 5, 25).year //=> 2017
-     */
-    year: number;
-    /**
-     * Get the name of the time zone.
-     */
-    zoneName: string;
-    /**
-     * Get the time zone associated with this DateTime.
-     */
-    zone: Zone;
-
-    /**
-     * Return the difference between two DateTimes as a Duration.
-     * @param other - the DateTime to compare this one to
-     * @param [unit=['milliseconds']] - the unit or array of units (such as 'hours' or 'days') to include in the duration.
-     * @param [options] - options that affect the creation of the Duration
-     * @param [options.conversionAccuracy='casual'] - the conversion system to use
-     * @example
-     * let i1 = DateTime.fromISO('1982-05-25T09:45'),
-     *     i2 = DateTime.fromISO('1983-10-14T10:30');
-     * i2.diff(i1).toObject() //=> { milliseconds: 43807500000 }
-     * i2.diff(i1, 'hours').toObject() //=> { hours: 12168.75 }
-     * i2.diff(i1, ['months', 'days']).toObject() //=> { months: 16, days: 19.03125 }
-     * i2.diff(i1, ['months', 'days', 'hours']).toObject() //=> { months: 16, days: 19, hours: 0.75 }
-     */
-    diff(other: DateTime, unit?: DurationUnits, options?: DiffOptions): Duration;
-
-    /**
-     * Return the difference between this DateTime and right now.
-     * See {@link diff}
-     * @param [unit=['milliseconds']] - the unit or units units (such as 'hours' or 'days') to include in the duration
-     * @param [options] - options that affect the creation of the Duration
-     * @param [options.conversionAccuracy='casual'] - the conversion system to use
-     */
-    diffNow(unit?: DurationUnits, options?: DiffOptions): Duration;
-
-    /**
-     * "Set" this DateTime to the end (meaning the last millisecond) of a unit of time
-     * @example
-     * DateTime.local(2014, 3, 3).endOf('month').toISO(); //=> '2014-03-31T23:59:59.999-05:00'
-     * @example
-     * DateTime.local(2014, 3, 3).endOf('year').toISO(); //=> '2014-12-31T23:59:59.999-05:00'
-     * @example
-     * DateTime.local(2014, 3, 3).endOf('week').toISO(); // => '2014-03-09T23:59:59.999-05:00', weeks start on Mondays
-     * @example
-     * DateTime.local(2014, 3, 3, 5, 30).endOf('day').toISO(); //=> '2014-03-03T23:59:59.999-05:00'
-     * @example
-     * DateTime.local(2014, 3, 3, 5, 30).endOf('hour').toISO(); //=> '2014-03-03T05:59:59.999-05:00'
-     */
-    endOf(unit: DurationUnit): DateTime;
-
-    /**
-     * Equality check
-     * Two DateTimes are equal if they represent the same millisecond, have the same zone and location, and are both valid.
-     * To compare just the millisecond values, use `+dt1 === +dt2`.
-     */
-    equals(other: DateTime): boolean;
+    // INFO
 
     /**
      * Get the value of unit.
+     *
+     * @param unit - a unit such as 'minute' or 'day'
+     *
      * @example
      * DateTime.local(2017, 7, 4).get('month'); //=> 7
      * @example
@@ -768,26 +566,333 @@ export class DateTime {
     get(unit: keyof DateTime): number;
 
     /**
-     * Return whether this DateTime is in the same unit of time as another DateTime.
-     * Higher-order units must also be identical for this function to return `true`.
-     * Note that time zones are **ignored** in this comparison, which compares the **local** calendar time. Use {@link setZone} to convert one of the dates if needed.
-     * @example
-     * DateTime.now().hasSame(otherDT, 'day'); //~> true if otherDT is in the same current calendar day
+     * Returns whether the DateTime is valid. Invalid DateTimes occur when:
+     * * The DateTime was created from invalid calendar information, such as the 13th month or February 30
+     * * The DateTime was created by an operation on another invalid date
      */
-    hasSame(other: DateTime, unit: DurationUnit): boolean;
+    get isValid(): boolean;
 
     /**
-     * Subtract a period of time to this DateTime and return the resulting DateTime
-     * See {@link plus}
+     * Returns an error code if this DateTime is invalid, or null if the DateTime is valid
      */
-    minus(duration: DurationInput): DateTime;
+    get invalidReason(): string | null;
 
     /**
-     * Add a period of time to this DateTime and return the resulting DateTime
+     * Returns an explanation of why this DateTime became invalid, or null if the DateTime is valid
+     */
+    get invalidExplanation(): string | null;
+
+    /**
+     * Get the locale of a DateTime, such 'en-GB'. The locale is used when formatting the DateTime
+     */
+    get locale(): string;
+
+    /**
+     * Get the numbering system of a DateTime, such 'beng'. The numbering system is used when formatting the DateTime
+     */
+    get numberingSystem(): string;
+
+    /**
+     * Get the output calendar of a DateTime, such 'islamic'. The output calendar is used when formatting the DateTime
+     */
+    get outputCalendar(): string;
+
+    /**
+     * Get the time zone associated with this DateTime.
+     */
+    get zone(): Zone;
+
+    /**
+     * Get the name of the time zone.
+     */
+    get zoneName(): string;
+
+    /**
+     * Get the year
      *
-     * Adding hours, minutes, seconds, or milliseconds increases the timestamp by the right number of milliseconds.
-     * Adding days, months, or years shifts the calendar, accounting for DSTs and leap years along the way.
-     * Thus, `dt.plus({ hours: 24 })` may result in a different time than `dt.plus({ days: 1 })` if there's a DST shift in between.
+     * @example DateTime.local(2017, 5, 25).year //=> 2017
+     */
+    get year(): number;
+
+    /**
+     * Get the quarter
+     *
+     * @example DateTime.local(2017, 5, 25).quarter //=> 2
+     */
+    get quarter(): number;
+
+    /**
+     * Get the month (1-12).
+     *
+     * @example DateTime.local(2017, 5, 25).month //=> 5
+     */
+    get month(): number;
+
+    /**
+     * Get the day of the month (1-30ish).
+     *
+     * @example DateTime.local(2017, 5, 25).day //=> 25
+     */
+    get day(): number;
+
+    /**
+     * Get the hour of the day (0-23).
+     *
+     * @example DateTime.local(2017, 5, 25, 9).hour //=> 9
+     */
+    get hour(): number;
+
+    /**
+     * Get the minute of the hour (0-59).
+     *
+     * @example
+     * DateTime.local(2017, 5, 25, 9, 30).minute //=> 30
+     */
+    get minute(): number;
+
+    /**
+     * Get the second of the minute (0-59).
+     *
+     * @example
+     * DateTime.local(2017, 5, 25, 9, 30, 52).second //=> 52
+     */
+    get second(): number;
+
+    /**
+     * Get the millisecond of the second (0-999).
+     *
+     * @example
+     * DateTime.local(2017, 5, 25, 9, 30, 52, 654).millisecond //=> 654
+     */
+    get millisecond(): number;
+
+    /**
+     * Get the week year
+     * @see https://en.wikipedia.org/wiki/ISO_week_date
+     *
+     * @example
+     * DateTime.local(2014, 12, 31).weekYear //=> 2015
+     */
+    get weekYear(): number;
+
+    /**
+     * Get the week number of the week year (1-52ish).
+     * @see https://en.wikipedia.org/wiki/ISO_week_date
+     *
+     * @example
+     * DateTime.local(2017, 5, 25).weekNumber //=> 21
+     */
+    get weekNumber(): number;
+
+    /**
+     * Get the day of the week.
+     * 1 is Monday and 7 is Sunday
+     * @see https://en.wikipedia.org/wiki/ISO_week_date
+     *
+     * @example
+     * DateTime.local(2014, 11, 31).weekday //=> 4
+     */
+    get weekday(): number;
+
+    /**
+     * Get the ordinal (meaning the day of the year)
+     *
+     * @example
+     * DateTime.local(2017, 5, 25).ordinal //=> 145
+     */
+    get ordinal(): number;
+
+    /**
+     * Get the human readable short month name, such as 'Oct'.
+     * Defaults to the system's locale if no locale has been specified
+     *
+     * @example
+     * DateTime.local(2017, 10, 30).monthShort //=> Oct
+     */
+    get monthShort(): string;
+
+    /**
+     * Get the human readable long month name, such as 'October'.
+     * Defaults to the system's locale if no locale has been specified
+     *
+     * @example
+     * DateTime.local(2017, 10, 30).monthLong //=> October
+     */
+    get monthLong(): string;
+
+    /**
+     * Get the human readable short weekday, such as 'Mon'.
+     * Defaults to the system's locale if no locale has been specified
+     *
+     * @example
+     * DateTime.local(2017, 10, 30).weekdayShort //=> Mon
+     */
+    get weekdayShort(): string;
+
+    /**
+     * Get the human readable long weekday, such as 'Monday'.
+     * Defaults to the system's locale if no locale has been specified
+     *
+     * @example
+     * DateTime.local(2017, 10, 30).weekdayLong //=> Monday
+     */
+    get weekdayLong(): string;
+
+    /**
+     * Get the UTC offset of this DateTime in minutes
+     *
+     * @example
+     * DateTime.now().offset //=> -240
+     * @example
+     * DateTime.utc().offset //=> 0
+     */
+    get offset(): number;
+
+    /**
+     * Get the short human name for the zone's current offset, for example "EST" or "EDT".
+     * Defaults to the system's locale if no locale has been specified
+     */
+    get offsetNameShort(): string;
+
+    /**
+     * Get the long human name for the zone's current offset, for example "Eastern Standard Time" or "Eastern Daylight Time".
+     * Defaults to the system's locale if no locale has been specified
+     */
+    get offsetNameLong(): string;
+
+    /**
+     * Get whether this zone's offset ever changes, as in a DST.
+     */
+    get isOffsetFixed(): boolean;
+
+    /**
+     * Get whether the DateTime is in a DST.
+     */
+    get isInDST(): boolean;
+
+    /**
+     * Returns true if this DateTime is in a leap year, false otherwise
+     *
+     * @example
+     * DateTime.local(2016).isInLeapYear //=> true
+     * @example
+     * DateTime.local(2013).isInLeapYear //=> false
+     */
+    get isInLeapYear(): boolean;
+
+    /**
+     * Returns the number of days in this DateTime's month
+     *
+     * @example
+     * DateTime.local(2016, 2).daysInMonth //=> 29
+     * @example
+     * DateTime.local(2016, 3).daysInMonth //=> 31
+     */
+    get daysInMonth(): number;
+
+    /**
+     * Returns the number of days in this DateTime's year
+     *
+     * @example
+     * DateTime.local(2016).daysInYear //=> 366
+     * @example
+     * DateTime.local(2013).daysInYear //=> 365
+     */
+    get daysInYear(): number;
+
+    /**
+     * Returns the number of weeks in this DateTime's year
+     * @see https://en.wikipedia.org/wiki/ISO_week_date
+     *
+     * @example
+     * DateTime.local(2004).weeksInWeekYear //=> 53
+     * @example
+     * DateTime.local(2013).weeksInWeekYear //=> 52
+     */
+    get weeksInWeekYear(): number;
+
+    /**
+     * Returns the resolved Intl options for this DateTime.
+     * This is useful in understanding the behavior of formatting methods
+     *
+     * @param opts - the same options as toLocaleString
+     */
+    resolvedLocaleOptions(opts?: LocaleOptions | DateTimeFormatOptions): ResolvedLocaleOptions;
+
+    // TRANSFORM
+
+    /**
+     * "Set" the DateTime's zone to UTC. Returns a newly-constructed DateTime.
+     *
+     * Equivalent to {@link DateTime.setZone}('utc')
+     *
+     * @param offset - optionally, an offset from UTC in minutes. Defaults to 0.
+     * @param opts - options to pass to `setZone()`. Defaults to {}.
+     */
+    toUTC(offset?: number, opts?: ZoneOptions): DateTime;
+
+    /**
+     * "Set" the DateTime's zone to the host's local zone. Returns a newly-constructed DateTime.
+     *
+     * Equivalent to `setZone('local')`
+     */
+    toLocal(): DateTime;
+
+    /**
+     * "Set" the DateTime's zone to specified zone. Returns a newly-constructed DateTime.
+     *
+     * By default, the setter keeps the underlying time the same (as in, the same timestamp), but the new instance will report different local times and consider DSTs when making computations,
+     * as with {@link DateTime.plus}. You may wish to use {@link DateTime.toLocal} and {@link DateTime.toUTC} which provide simple convenience wrappers for commonly used zones.
+     *
+     * @param zone - a zone identifier. As a string, that can be any IANA zone supported by the host environment, or a fixed-offset name of the form 'UTC+3', or the strings 'local' or 'utc'.
+     * You may also supply an instance of a {@link DateTime.Zone} class. Defaults to 'local'.
+     * @param opts - options
+     * @param opts.keepLocalTime - If true, adjust the underlying time so that the local time stays the same, but in the target zone. You should rarely need this. Defaults to false.
+     */
+    setZone(zone?: string | Zone, opts?: ZoneOptions): DateTime;
+
+    /**
+     * "Set" the locale, numberingSystem, or outputCalendar. Returns a newly-constructed DateTime.
+     *
+     * @param properties - the properties to set
+     *
+     * @example
+     * DateTime.local(2017, 5, 25).reconfigure({ locale: 'en-GB' })
+     */
+    reconfigure(properties: LocaleOptions): DateTime;
+
+    /**
+     * "Set" the locale. Returns a newly-constructed DateTime.
+     * Just a convenient alias for reconfigure({ locale })
+     *
+     * @example
+     * DateTime.local(2017, 5, 25).setLocale('en-GB')
+     */
+    setLocale(locale: string): DateTime;
+
+    /**
+     * "Set" the values of specified units. Returns a newly-constructed DateTime.
+     * You can only set units with this method; for "setting" metadata, see {@link DateTime.reconfigure} and {@link DateTime.setZone}.
+     *
+     * @param values - a mapping of units to numbers
+     *
+     * @example
+     * dt.set({ year: 2017 })
+     * @example
+     * dt.set({ hour: 8, minute: 30 })
+     * @example
+     * dt.set({ weekday: 5 })
+     * @example
+     * dt.set({ year: 2005, ordinal: 234 })
+     */
+    set(values: DateObjectUnits): DateTime;
+
+    /**
+     * Adding hours, minutes, seconds, or milliseconds increases the timestamp by the right number of milliseconds. Adding days, months, or years shifts the calendar,
+     * accounting for DSTs and leap years along the way. Thus, `dt.plus({ hours: 24 })` may result in a different time than `dt.plus({ days: 1 })` if there's a DST shift in between.
+     *
+     * @param duration - The amount to add. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
+     *
      * @example
      * DateTime.now().plus(123) //~> in 123 milliseconds
      * @example
@@ -801,47 +906,20 @@ export class DateTime {
      * @example
      * DateTime.now().plus(Duration.fromObject({ hours: 3, minutes: 13 })) //~> in 3 hr, 13 min
      */
-    plus(duration: DurationInput): DateTime;
+    plus(duration: DurationLike): DateTime;
 
     /**
-     * "Set" the locale options. Returns a newly-constructed DateTime.
-     */
-    reconfigure(properties: LocaleOptions): DateTime;
-
-    /**
-     * Returns the resolved Intl options for this DateTime.
-     * This is useful in understanding the behavior of formatting methods
-     */
-    resolvedLocaleOptions(options?: LocaleOptions & DateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions;
-
-    /**
-     * "Set" the values of specified units. Returns a newly-constructed DateTime.
-     * You can only set units with this method; for setting metadata, see {@link reconfigure} and {@link setZone}.
-     */
-    set(values: DateObjectUnits): DateTime;
-
-    /**
-     * "Set" the locale. Returns a newly-constructed DateTime.
-     * Just a convenient alias for reconfigure({ locale })
-     */
-    setLocale(locale: string): DateTime;
-
-    /**
-     * "Set" the DateTime's zone to specified zone. Returns a newly-constructed DateTime.
+     * See {@link DateTime.plus}
      *
-     * By default, the setter keeps the underlying time the same (as in, the same timestamp), but the new instance will
-     * report different local times and consider DSTs when making computations, as with {@link plus}.
-     * You may wish to use {@link toLocal} and {@link toUTC} which provide simple convenience wrappers for commonly used zones.
-     *
-     * @param zone - a zone identifier. As a string, that can be any IANA zone supported by the host environment,
-     * or a fixed-offset name of the form 'UTC+3', or the strings 'local' or 'utc'.
-     * You may also supply an instance of a {@link Zone} class.
-     * @param [options] - options
+     * @param duration - The amount to subtract. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
      */
-    setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
+    minus(duration: DurationLike): DateTime;
 
     /**
      * "Set" this DateTime to the beginning of a unit of time.
+     *
+     * @param unit - The unit to go to the beginning of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
+     *
      * @example
      * DateTime.local(2014, 3, 3).startOf('month').toISODate(); //=> '2014-03-01'
      * @example
@@ -853,23 +931,37 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 3, 3, 5, 30).startOf('hour').toISOTime(); //=> '05:00:00.000-05:00'
      */
-    startOf(unit: DurationUnit): DateTime;
+    startOf(unit: DateTimeUnit): DateTime;
 
     /**
-     * Returns a BSON serializable equivalent to this DateTime.
+     * "Set" this DateTime to the end (meaning the last millisecond) of a unit of time
+     *
+     * @param unit - The unit to go to the end of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
+     *
+     * @example
+     * DateTime.local(2014, 3, 3).endOf('month').toISO(); //=> '2014-03-31T23:59:59.999-05:00'
+     * @example
+     * DateTime.local(2014, 3, 3).endOf('year').toISO(); //=> '2014-12-31T23:59:59.999-05:00'
+     * @example
+     * DateTime.local(2014, 3, 3).endOf('week').toISO(); // => '2014-03-09T23:59:59.999-05:00', weeks start on Mondays
+     * @example
+     * DateTime.local(2014, 3, 3, 5, 30).endOf('day').toISO(); //=> '2014-03-03T23:59:59.999-05:00'
+     * @example
+     * DateTime.local(2014, 3, 3, 5, 30).endOf('hour').toISO(); //=> '2014-03-03T05:59:59.999-05:00'
      */
-    toBSON(): Date;
+    endOf(unit: DateTimeUnit): DateTime;
+
+    // OUTPUT
 
     /**
      * Returns a string representation of this DateTime formatted according to the specified format string.
-     *
-     * **You may not want this.** See {@link toLocaleString} for a more flexible formatting tool.
-     *
-     * For a table of tokens and their interpretations, see [here](https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens).
-     *
+     * **You may not want this.** See {@link DateTime.toLocaleString} for a more flexible formatting tool. For a table of tokens and their interpretations,
+     * see [here](https://moment.github.io/luxon/#/formatting?id=table-of-tokens).
      * Defaults to en-US if no locale has been specified, regardless of the system's locale.
      *
-     * @see https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
+     * @param fmt - the format string
+     * @param opts - opts to override the configuration options on this DateTime
+     *
      * @example
      * DateTime.now().toFormat('yyyy LLL dd') //=> '2017 Apr 22'
      * @example
@@ -879,102 +971,17 @@ export class DateTime {
      * @example
      * DateTime.now().toFormat("HH 'hours and' mm 'minutes'") //=> '20 hours and 55 minutes'
      */
-    toFormat(format: string, options?: LocaleOptions & DateTimeFormatOptions): string;
+    toFormat(fmt: string, opts?: LocaleOptions): string;
 
     /**
-     * Returns a string representation of this DateTime appropriate for use in HTTP headers.
-     * Specifically, the string conforms to RFC 1123.
-     * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1
-     * @example
-     * DateTime.utc(2014, 7, 13).toHTTP() //=> 'Sun, 13 Jul 2014 00:00:00 GMT'
-     * @example
-     * DateTime.utc(2014, 7, 13, 19).toHTTP() //=> 'Sun, 13 Jul 2014 19:00:00 GMT'
-     */
-    toHTTP(): string;
-
-    /**
-     * Returns an ISO 8601-compliant string representation of this DateTime
-     * @example
-     * DateTime.utc(1982, 5, 25).toISO() //=> '1982-05-25T00:00:00.000Z'
-     * @example
-     * DateTime.now().toISO() //=> '2017-04-22T20:47:05.335-04:00'
-     * @example
-     * DateTime.now().toISO({ includeOffset: false }) //=> '2017-04-22T20:47:05.335'
-     * @example
-     * DateTime.now().toISO({ format: 'basic' }) //=> '20170422T204705.335-0400'
-     */
-    toISO(options?: ToISOTimeOptions): string;
-
-    /**
-     * Returns an ISO 8601-compliant string representation of this DateTime's date component
-     * @example
-     * DateTime.utc(1982, 5, 25).toISODate() //=> '1982-05-25'
-     * @example
-     * DateTime.utc(1982, 5, 25).toISODate({ format: 'basic' }) //=> '19820525'
-     */
-    toISODate(options?: ToISODateOptions): string;
-
-    /**
-     * Returns an ISO 8601-compliant string representation of this DateTime's time component
-     * @example
-     * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime() //=> '07:34:19.361Z'
-     * @example
-     * DateTime.utc().set({ hour: 7, minute: 34, seconds: 0, milliseconds: 0 }).toISOTime({ suppressSeconds: true }) //=> '07:34Z'
-     * @example
-     * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ format: 'basic' }) //=> '073419.361Z'
-     * @example
-     * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ includePrefix: true }) //=> 'T07:34:19.361Z'
-     */
-    toISOTime(options?: ToISOTimeOptions): string;
-
-    /**
-     * Returns an ISO 8601-compliant string representation of this DateTime's week date
-     * @example
-     * DateTime.utc(1982, 5, 25).toISOWeekDate() //=> '1982-W21-2'
-     */
-    toISOWeekDate(): string;
-
-    /**
-     * Returns a JavaScript Date equivalent to this DateTime.
-     */
-    toJSDate(): Date;
-
-    /**
-     * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.
-     * Called implicitly via {@link JSON.stringify}
-     */
-    toJSON(): string;
-
-    /**
-     * "Set" the DateTime's zone to the host's local zone. Returns a newly-constructed DateTime.
-     *
-     * Equivalent to {@link setZone}('local')
-     */
-    toLocal(): DateTime;
-
-    /**
-     * Returns an array of format "parts", meaning individual tokens along with metadata.
-     * This is allows callers to post-process individual sections of the formatted output.
-     * Defaults to the system's locale if no locale has been specified
-     * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat/formatToParts
-     * @example
-     * DateTime.now().toLocaleParts(); //=> [
-     *                                 //=>   { type: 'day', value: '25' },
-     *                                 //=>   { type: 'literal', value: '/' },
-     *                                 //=>   { type: 'month', value: '05' },
-     *                                 //=>   { type: 'literal', value: '/' },
-     *                                 //=>   { type: 'year', value: '1982' }
-     *                                 //=> ]
-     */
-    toLocaleParts(options?: LocaleOptions & DateTimeFormatOptions): any[];
-
-    /**
-     * Returns a localized string representing this date.
-     * Accepts the same options as the Intl.DateTimeFormat constructor and any presets defined by Luxon, such as {@link DateTime.DATE_FULL} or {@link DateTime.TIME_SIMPLE}.
-     * The exact behavior of this method is browser-specific, but in general it will return an appropriate representation
-     * of the DateTime in the assigned locale.
+     * Returns a localized string representing this date. Accepts the same options as the Intl.DateTimeFormat constructor and any presets defined by Luxon,
+     * such as `DateTime.DATE_FULL` or `DateTime.TIME_SIMPLE` of the DateTime in the assigned locale.
      * Defaults to the system's locale if no locale has been specified
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat
+     *
+     * @param formatOpts - Intl.DateTimeFormat constructor options and configuration options
+     * @param opts - opts to override the configuration options on this DateTime
+     *
      * @example
      * DateTime.now().toLocaleString(); //=> 4/20/2017
      * @example
@@ -992,9 +999,165 @@ export class DateTime {
      * @example
      * DateTime.now().toLocaleString({ weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }); //=> 'Thu, Apr 20, 11:27 AM'
      * @example
-     * DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hour12: false }); //=> '11:32'
+     * DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }); //=> '11:32'
      */
-    toLocaleString(formatOptions?: DateTimeFormatOptions, options?: LocaleOptions): string;
+    toLocaleString(formatOpts?: DateTimeFormatPreset | DateTimeFormatOptions, opts?: LocaleOptions): string;
+
+    /**
+     * Returns an array of format "parts", meaning individual tokens along with metadata. This is allows callers to post-process individual sections of the formatted output.
+     * Defaults to the system's locale if no locale has been specified
+     * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat/formatToParts
+     *
+     * @param opts - Intl.DateTimeFormat constructor options, same as `toLocaleString`.
+     *
+     * @example
+     * DateTime.now().toLocaleParts(); //=> [
+     *                                 //=>   { type: 'day', value: '25' },
+     *                                 //=>   { type: 'literal', value: '/' },
+     *                                 //=>   { type: 'month', value: '05' },
+     *                                 //=>   { type: 'literal', value: '/' },
+     *                                 //=>   { type: 'year', value: '1982' }
+     *                                 //=> ]
+     */
+    toLocaleParts(opts?: DateTimeFormatPreset | DateTimeFormatOptions): Intl.DateTimeFormatPart[];
+
+    /**
+     * Returns an ISO 8601-compliant string representation of this DateTime
+     *
+     * @param opts - options
+     * @param opts.suppressMilliseconds - exclude milliseconds from the format if they're 0. Defaults to false.
+     * @param opts.suppressSeconds - exclude seconds from the format if they're 0. Defaults to false.
+     * @param opts.includeOffset - include the offset, such as 'Z' or '-04:00'. Defaults to true.
+     * @param opts.format - choose between the basic and extended format. Defaults to 'extended'.
+     *
+     * @example
+     * DateTime.utc(1982, 5, 25).toISO() //=> '1982-05-25T00:00:00.000Z'
+     * @example
+     * DateTime.now().toISO() //=> '2017-04-22T20:47:05.335-04:00'
+     * @example
+     * DateTime.now().toISO({ includeOffset: false }) //=> '2017-04-22T20:47:05.335'
+     * @example
+     * DateTime.now().toISO({ format: 'basic' }) //=> '20170422T204705.335-0400'
+     */
+    toISO(opts?: ToISOTimeOptions): string;
+
+    /**
+     * Returns an ISO 8601-compliant string representation of this DateTime's date component
+     *
+     * @param opts - options
+     * @param opts.format - choose between the basic and extended format. Defaults to 'extended'.
+     *
+     * @example
+     * DateTime.utc(1982, 5, 25).toISODate() //=> '1982-05-25'
+     * @example
+     * DateTime.utc(1982, 5, 25).toISODate({ format: 'basic' }) //=> '19820525'
+     */
+    toISODate(opts?: ToISODateOptions): string;
+
+    /**
+     * Returns an ISO 8601-compliant string representation of this DateTime's week date
+     *
+     * @example
+     * DateTime.utc(1982, 5, 25).toISOWeekDate() //=> '1982-W21-2'
+     */
+    toISOWeekDate(): string;
+
+    /**
+     * Returns an ISO 8601-compliant string representation of this DateTime's time component
+     *
+     * @param opts - options
+     * @param opts.suppressMilliseconds - exclude milliseconds from the format if they're 0. Defaults to false.
+     * @param opts.suppressSeconds - exclude seconds from the format if they're 0. Defaults to false.
+     * @param opts.includeOffset - include the offset, such as 'Z' or '-04:00'. Defaults to true.
+     * @param opts.includePrefix - include the `T` prefix. Defaults to false.
+     * @param opts.format - choose between the basic and extended format. Defaults to 'extended'.
+     *
+     * @example
+     * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime() //=> '07:34:19.361Z'
+     * @example
+     * DateTime.utc().set({ hour: 7, minute: 34, seconds: 0, milliseconds: 0 }).toISOTime({ suppressSeconds: true }) //=> '07:34Z'
+     * @example
+     * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ format: 'basic' }) //=> '073419.361Z'
+     * @example
+     * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ includePrefix: true }) //=> 'T07:34:19.361Z'
+     */
+    toISOTime(ops?: ToISOTimeOptions): string;
+
+    /**
+     * Returns an RFC 2822-compatible string representation of this DateTime, always in UTC
+     *
+     * @example
+     * DateTime.utc(2014, 7, 13).toRFC2822() //=> 'Sun, 13 Jul 2014 00:00:00 +0000'
+     * @example
+     * DateTime.local(2014, 7, 13).toRFC2822() //=> 'Sun, 13 Jul 2014 00:00:00 -0400'
+     */
+    toRFC2822(): string;
+
+    /**
+     * Returns a string representation of this DateTime appropriate for use in HTTP headers.
+     * Specifically, the string conforms to RFC 1123.
+     * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1
+     *
+     * @example
+     * DateTime.utc(2014, 7, 13).toHTTP() //=> 'Sun, 13 Jul 2014 00:00:00 GMT'
+     * @example
+     * DateTime.utc(2014, 7, 13, 19).toHTTP() //=> 'Sun, 13 Jul 2014 19:00:00 GMT'
+     */
+    toHTTP(): string;
+
+    /**
+     * Returns a string representation of this DateTime appropriate for use in SQL Date
+     *
+     * @example
+     * DateTime.utc(2014, 7, 13).toSQLDate() //=> '2014-07-13'
+     */
+    toSQLDate(): string;
+
+    /**
+     * Returns a string representation of this DateTime appropriate for use in SQL Time
+     *
+     * @param opts - options
+     * @param opts.includeZone - include the zone, such as 'America/New_York'. Overrides includeOffset. Defaults to false.
+     * @param opts.includeOffset - include the offset, such as 'Z' or '-04:00'. Defaults to true.
+     *
+     * @example
+     * DateTime.utc().toSQL() //=> '05:15:16.345'
+     * @example
+     * DateTime.now().toSQL() //=> '05:15:16.345 -04:00'
+     * @example
+     * DateTime.now().toSQL({ includeOffset: false }) //=> '05:15:16.345'
+     * @example
+     * DateTime.now().toSQL({ includeZone: false }) //=> '05:15:16.345 America/New_York'
+     */
+    toSQLTime(opts?: ToSQLOptions): string;
+
+    /**
+     * Returns a string representation of this DateTime appropriate for use in SQL DateTime
+     *
+     * @param opts - options
+     * @param opts.includeZone - include the zone, such as 'America/New_York'. Overrides includeOffset. Defaults to false.
+     * @param opts.includeOffset - include the offset, such as 'Z' or '-04:00'. Defaults to true.
+     *
+     * @example
+     * DateTime.utc(2014, 7, 13).toSQL() //=> '2014-07-13 00:00:00.000 Z'
+     * @example
+     * DateTime.local(2014, 7, 13).toSQL() //=> '2014-07-13 00:00:00.000 -04:00'
+     * @example
+     * DateTime.local(2014, 7, 13).toSQL({ includeOffset: false }) //=> '2014-07-13 00:00:00.000'
+     * @example
+     * DateTime.local(2014, 7, 13).toSQL({ includeZone: true }) //=> '2014-07-13 00:00:00.000 America/New_York'
+     */
+    toSQL(opts?: ToSQLOptions): string;
+
+    /**
+     * Returns a string representation of this DateTime appropriate for debugging
+     */
+    toString(): string;
+
+    /**
+     * Returns the epoch milliseconds of this DateTime. Alias of {@link DateTime.toMillis}
+     */
+    valueOf(): number;
 
     /**
      * Returns the epoch milliseconds of this DateTime.
@@ -1002,24 +1165,115 @@ export class DateTime {
     toMillis(): number;
 
     /**
-     * Returns a JavaScript object with this DateTime's year, month, day, and so on.
-     * @example
-     * DateTime.now().toObject() //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268 }
-     * @example
-     * DateTime.now().toObject({ includeConfig: true })
-     *   //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268, locale: 'en-US', numberingSystem: null, outputCalendar: null }
+     * Returns the epoch seconds of this DateTime.
      */
-    toObject(options?: {
-        /**
-         * Include configuration attributes in the output
-         * @default false
-         */
-        includeConfig?: boolean | undefined
-    }): DateObject;
+    toSeconds(): number;
 
     /**
-     * Returns a string representation of a this time relative to now, such as "in two days".
-     * Can only internationalize if your platform supports Intl.RelativeTimeFormat. Rounds down by default.
+     * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.
+     */
+    toJSON(): string;
+
+    /**
+     * Returns a BSON serializable equivalent to this DateTime.
+     */
+    toBSON(): Date;
+
+    /**
+     * Returns a JavaScript object with this DateTime's year, month, day, and so on.
+     *
+     * @param opts - options for generating the object
+     * @param opts.includeConfig - include configuration attributes in the output. Defaults to false.
+     *
+     * @example
+     * DateTime.now().toObject() //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268 }
+     */
+    toObject(opts?: {
+        /**
+         * Include configuration attributes in the output
+         * @defaultValue false
+         */
+        includeConfig?: boolean | undefined;
+    }): ToObjectOutput;
+
+    /**
+     * Returns a JavaScript Date equivalent to this DateTime.
+     */
+    toJSDate(): Date;
+
+    // COMPARE
+
+    /**
+     * Return the difference between two DateTimes as a Duration.
+     *
+     * @param otherDateTime - the DateTime to compare this one to
+     * @param unit- the unit or array of units (such as 'hours' or 'days') to include in the duration. Defaults to ['milliseconds'].
+     * @param opts - options that affect the creation of the Duration
+     * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
+     *
+     * @example
+     * var i1 = DateTime.fromISO('1982-05-25T09:45'),
+     *     i2 = DateTime.fromISO('1983-10-14T10:30');
+     * i2.diff(i1).toObject() //=> { milliseconds: 43807500000 }
+     * i2.diff(i1, 'hours').toObject() //=> { hours: 12168.75 }
+     * i2.diff(i1, ['months', 'days']).toObject() //=> { months: 16, days: 19.03125 }
+     * i2.diff(i1, ['months', 'days', 'hours']).toObject() //=> { months: 16, days: 19, hours: 0.75 }
+     */
+    diff(otherDateTime: DateTime, unit?: DurationUnits, opts?: DiffOptions): Duration;
+
+    /**
+     * Return the difference between this DateTime and right now.
+     * See {@link DateTime.diff}
+     *
+     * @param unit - the unit or units units (such as 'hours' or 'days') to include in the duration. Defaults to ['milliseconds'].
+     * @param opts - options that affect the creation of the Duration
+     * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
+     */
+    diffNow(unit?: DurationUnits, opts?: DiffOptions): Duration;
+
+    /**
+     * Return an Interval spanning between this DateTime and another DateTime
+     *
+     * @param otherDateTime - the other end point of the Interval
+     */
+    until(otherDateTime: DateTime): Interval;
+
+    /**
+     * Return whether this DateTime is in the same unit of time as another DateTime.
+     * Note that time zones are **ignored** in this comparison, which compares the **local** calendar time. Use {@link DateTime.setZone} to convert one of the dates if needed.
+     *
+     * @param otherDateTime - the other DateTime
+     * @param unit - the unit of time to check sameness on
+     *
+     * @example
+     * DateTime.now().hasSame(otherDT, 'day'); //~> true if otherDT is in the same current calendar day
+     */
+    hasSame(otherDateTime: DateTime, unit: DateTimeUnit): boolean;
+
+    /**
+     * Equality check
+     * Two DateTimes are equal iff they represent the same millisecond, have the same zone and location, and are both valid.
+     * To compare just the millisecond values, use `+dt1 === +dt2`.
+     *
+     * @param other - the other DateTime
+     */
+    equals(other: DateTime): boolean;
+
+    /**
+     * Returns a string representation of a this time relative to now, such as "in two days". Can only internationalize if your
+     * platform supports Intl.RelativeTimeFormat. Rounds down by default.
+     *
+     * @param options - options that affect the output
+     * @param options.base - the DateTime to use as the basis to which this time is compared. Defaults to now.
+     * @param options.style - the style of units, must be "long", "short", or "narrow". Defaults to long.
+     * @param options.unit - use a specific unit or array of units; if omitted, or an array, the method will pick the best unit.
+     * Use an array or one of "years", "quarters", "months", "weeks", "days", "hours", "minutes", or "seconds"
+     * @param options.round - whether to round the numbers in the output. Defaults to true.
+     * @param options.padding - padding in milliseconds. This allows you to round up the result if it fits inside the threshold. Don't use in combination with {round: false}
+     * because the decimal output will include the padding. Defaults to 0.
+     * @param options.locale - override the locale of this DateTime
+     * @param options.numberingSystem - override the numberingSystem of this DateTime. The Intl system may choose not to honor this
+     *
      * @example
      * DateTime.now().plus({ days: 1 }).toRelative() //=> "in 1 day"
      * @example
@@ -1038,10 +1292,17 @@ export class DateTime {
     /**
      * Returns a string representation of this date relative to today, such as "yesterday" or "next month".
      * Only internationalizes on platforms that supports Intl.RelativeTimeFormat.
+     *
+     * @param options - options that affect the output
+     * @param options.base - the DateTime to use as the basis to which this time is compared. Defaults to now.
+     * @param options.locale - override the locale of this DateTime
+     * @param options.unit - use a specific unit; if omitted, the method will pick the unit. Use one of "years", "quarters", "months", "weeks", or "days"
+     * @param options.numberingSystem - override the numberingSystem of this DateTime. The Intl system may choose not to honor this
+     *
      * @example
      * DateTime.now().plus({ days: 1 }).toRelativeCalendar() //=> "tomorrow"
      * @example
-     * DateTime.now().setLocale("es").plus({ days: 1 }).toRelative() //=> "mañana"
+     * DateTime.now().setLocale("es").plus({ days: 1 }).toRelative() //=> ""mañana"
      * @example
      * DateTime.now().plus({ days: 1 }).toRelativeCalendar({ locale: "fr" }) //=> "demain"
      * @example
@@ -1050,74 +1311,144 @@ export class DateTime {
     toRelativeCalendar(options?: ToRelativeCalendarOptions): string | null;
 
     /**
-     * Returns an RFC 2822-compatible string representation of this DateTime, always in UTC
-     * @example
-     * DateTime.utc(2014, 7, 13).toRFC2822() //=> 'Sun, 13 Jul 2014 00:00:00 +0000'
-     * @example
-     * DateTime.local(2014, 7, 13).toRFC2822() //=> 'Sun, 13 Jul 2014 00:00:00 -0400'
-     */
-    toRFC2822(): string;
-
-    /**
-     * Returns the epoch seconds of this DateTime.
-     */
-    toSeconds(): number;
-
-    /**
-     * Returns a string representation of this DateTime appropriate for use in SQL DateTime
-     * @example
-     * DateTime.utc(2014, 7, 13).toSQL() //=> '2014-07-13 00:00:00.000 Z'
-     * @example
-     * DateTime.local(2014, 7, 13).toSQL() //=> '2014-07-13 00:00:00.000 -04:00'
-     * @example
-     * DateTime.local(2014, 7, 13).toSQL({ includeOffset: false }) //=> '2014-07-13 00:00:00.000'
-     * @example
-     * DateTime.local(2014, 7, 13).toSQL({ includeZone: true }) //=> '2014-07-13 00:00:00.000 America/New_York'
-     */
-    toSQL(options?: ToSQLOptions): string;
-
-    /**
-     * Returns a string representation of this DateTime appropriate for use in SQL Date
-     * @example
-     * DateTime.utc(2014, 7, 13).toSQLDate() //=> '2014-07-13'
-     */
-    toSQLDate(): string;
-
-    /**
-     * Returns a string representation of this DateTime appropriate for use in SQL Time
-     * @example
-     * DateTime.utc().toSQL() //=> '05:15:16.345'
-     * @example
-     * DateTime.now().toSQL() //=> '05:15:16.345 -04:00'
-     * @example
-     * DateTime.now().toSQL({ includeOffset: false }) //=> '05:15:16.345'
-     * @example
-     * DateTime.now().toSQL({ includeZone: false }) //=> '05:15:16.345 America/New_York'
-     */
-    toSQLTime(options?: ToSQLOptions): string;
-
-    /**
-     * Returns a string representation of this DateTime appropriate for debugging
-     */
-    toString(): string;
-
-    /**
-     * "Set" the DateTime's zone to UTC. Returns a newly-constructed DateTime.
+     * Return the min of several date times
      *
-     * Equivalent to {@link setZone}('utc')
-     * @param [offset=0] - optionally, an offset from UTC in minutes
-     * @param [options] - options to pass to `setZone()`
+     * @param dateTimes - the DateTimes from which to choose the minimum
      */
-    toUTC(offset?: number, options?: ZoneOptions): DateTime;
+    static min(...dateTimes: DateTime[]): DateTime;
 
     /**
-     * Return an Interval spanning between this DateTime and another DateTime
+     * Return the max of several date times
+     *
+     * @param dateTimes - the DateTimes from which to choose the maximum
      */
-    until(other: DateTime): Interval;
+    static max(...dateTimes: DateTime[]): DateTime;
+
+    // MISC
 
     /**
-     * Returns the epoch milliseconds of this DateTime. Alias of {@link toMillis}
-     * Called implicitly when coercing types.
+     * Explain how a string would be parsed by fromFormat()
+     *
+     * @param text - the string to parse
+     * @param fmt - the format the string is expected to be in (see description)
+     * @param options - options taken by fromFormat()
      */
-    valueOf(): number;
+    static fromFormatExplain(text: string, fmt: string, options?: DateTimeOptions): ExplainedFormat;
+
+    /**
+     * @deprecated use fromFormatExplain instead
+     */
+    static fromStringExplain(text: string, fmt: string, options?: DateTimeOptions): ExplainedFormat;
+
+    // FORMAT PRESETS
+
+    /**
+     * {@link DateTime.toLocaleString} format like 10/14/1983
+     */
+    static get DATE_SHORT(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'Oct 14, 1983'
+     */
+    static get DATE_MED(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'Fri, Oct 14, 1983'
+     */
+    static get DATE_MED_WITH_WEEKDAY(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'October 14, 1983'
+     */
+    static get DATE_FULL(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'Tuesday, October 14, 1983'
+     */
+    static get DATE_HUGE(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '09:30 AM'. Only 12-hour if the locale is.
+     */
+    static get TIME_SIMPLE(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '09:30:23 AM'. Only 12-hour if the locale is.
+     */
+    static get TIME_WITH_SECONDS(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '09:30:23 AM EDT'. Only 12-hour if the locale is.
+     */
+    static get TIME_WITH_SHORT_OFFSET(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '09:30:23 AM Eastern Daylight Time'. Only 12-hour if the locale is.
+     */
+    static get TIME_WITH_LONG_OFFSET(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '09:30', always 24-hour.
+     */
+    static get TIME_24_SIMPLE(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '09:30:23', always 24-hour.
+     */
+    static get TIME_24_WITH_SECONDS(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '09:30:23 EDT', always 24-hour.
+     */
+    static get TIME_24_WITH_SHORT_OFFSET(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '09:30:23 Eastern Daylight Time', always 24-hour.
+     */
+    static get TIME_24_WITH_LONG_OFFSET(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '10/14/1983, 9:30 AM'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_SHORT(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like '10/14/1983, 9:30:33 AM'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_SHORT_WITH_SECONDS(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'Oct 14, 1983, 9:30 AM'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_MED(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'Oct 14, 1983, 9:30:33 AM'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_MED_WITH_SECONDS(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'Fri, 14 Oct 1983, 9:30 AM'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_MED_WITH_WEEKDAY(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'October 14, 1983, 9:30 AM EDT'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_FULL(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'October 14, 1983, 9:30:33 AM EDT'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_FULL_WITH_SECONDS(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'Friday, October 14, 1983, 9:30 AM Eastern Daylight Time'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_HUGE(): DateTimeFormatPreset;
+
+    /**
+     * {@link DateTime.toLocaleString} format like 'Friday, October 14, 1983, 9:30:33 AM Eastern Daylight Time'. Only 12-hour if the locale is.
+     */
+    static get DATETIME_HUGE_WITH_SECONDS(): DateTimeFormatPreset;
 }

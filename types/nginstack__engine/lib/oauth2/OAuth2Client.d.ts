@@ -9,8 +9,11 @@ declare class OAuth2Client {
     exchangeClientCredentials(scopes?: string | string[]): TokenResponse;
     introspect(accessToken: string): TokenIntrospectionResponse;
     revoke(token: string, tokenType?: string): void;
-    getDeviceAuthorizationCode(scopes?: string | string[]): DeviceAuthorizationResponse;
-    getDeviceAccessToken(timeout?: number): TokenResponse;
+    getDeviceAuthorization(scopes?: string | string[]): DeviceAuthorizationResponse;
+    exchangeDeviceAuthorization(
+        deviceAuthResponse: DeviceAuthorizationResponse,
+        timeout?: number
+    ): TokenResponse;
     getCodeVerifier(): string;
     getCodeChallenge(verifier: string): string;
 }

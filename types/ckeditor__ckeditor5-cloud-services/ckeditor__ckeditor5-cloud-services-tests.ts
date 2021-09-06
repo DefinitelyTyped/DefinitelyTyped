@@ -3,6 +3,7 @@ import Token from "@ckeditor/ckeditor5-cloud-services/src/token/token";
 import { Editor } from "@ckeditor/ckeditor5-core";
 
 class MyEditor extends Editor {}
+const editor = new MyEditor();
 
 const instance = new CloudServices(new MyEditor());
 instance.uploadUrl = "foo";
@@ -20,3 +21,9 @@ const core = new CloudServicesCore(new MyEditor());
 token = core.createToken("foo");
 token = core.createToken("foo", { autoRefresh: true, initValue: "bar" });
 core.createUploadGateway(token, "foo");
+
+// $ExpectType CloudServices
+editor.plugins.get('CloudServices');
+
+// $ExpectType CloudServicesCore
+editor.plugins.get('CloudServicesCore');

@@ -17,9 +17,12 @@ new GFMDataProcessor(new Document(new StylesProcessor())).toView('') instanceof 
 new GFMDataProcessor(new Document(new StylesProcessor())).keepHtml('');
 new GFMDataProcessor(new Document(new StylesProcessor())).useFillerType();
 new GFMDataProcessor(new Document(new StylesProcessor())).registerRawContentMatcher('');
-new GFMDataProcessor(new Document(new StylesProcessor())).registerRawContentMatcher(() => null);
+new GFMDataProcessor(new Document(new StylesProcessor())).registerRawContentMatcher(() => undefined);
 new GFMDataProcessor(new Document(new StylesProcessor())).registerRawContentMatcher({ name: 'foo' });
 
 html2markdown('').startsWith('');
 
 markdown2html('').startsWith('');
+
+// $ExpectType Markdown
+editor.plugins.get('Markdown');

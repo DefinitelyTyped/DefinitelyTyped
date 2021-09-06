@@ -3,9 +3,9 @@ declare function AnchorCollection(attachedTo: any, process: Process): void;
 declare class AnchorCollection {
     constructor(attachedTo: any, process: Process);
     process: import('../process/Process');
-    attachedTo_: any;
+    private attachedTo_;
     anchors: any[];
-    pairName_: string;
+    private pairName_;
     private cssClass;
     private written_;
     size: number;
@@ -31,15 +31,7 @@ declare class AnchorCollection {
             bookmark?: string;
         }
     ): string;
-    anchorToMenuItem_(
-        anchor: any,
-        parameters: any
-    ): {
-        name: any;
-        caption: any;
-        isFieldLink: boolean;
-        parameters: string;
-    };
+    private anchorToMenuItem_;
     private act_showMenu_;
 }
 declare namespace AnchorCollection {

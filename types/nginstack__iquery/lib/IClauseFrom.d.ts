@@ -2,14 +2,14 @@ export = IClauseFrom;
 declare function IClauseFrom(iQuery: IQuery, classKey: number, alias: string): void;
 declare class IClauseFrom {
     constructor(iQuery: IQuery, classKey: number, alias: string);
-    _classKey: number;
-    _classDefManager: ClassDefManager;
-    _instanceClass: any;
-    _fieldsCache: {};
-    _permissionJoins: {};
+    private _classKey;
+    private _classDefManager;
+    private _instanceClass;
+    private _fieldsCache;
+    private _permissionJoins;
     iQuery: IQuery;
-    _joinManager: IJoinManager;
-    _alias: string;
+    private _joinManager;
+    private _alias;
     joinManager: IJoinManager;
     extraFilter: any[];
     permissionFields: any[];
@@ -34,5 +34,4 @@ declare namespace IClauseFrom {
     function resetSequenceAlias(): void;
 }
 import IQuery = require('./IQuery.js');
-import ClassDefManager = require('@nginstack/engine/lib/classdef/ClassDefManager.js');
 import IJoinManager = require('./IJoinManager.js');

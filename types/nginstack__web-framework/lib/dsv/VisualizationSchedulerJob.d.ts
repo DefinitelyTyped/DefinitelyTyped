@@ -17,8 +17,6 @@ declare class VisualizationSchedulerJob {
     run(): void;
 }
 declare namespace VisualizationSchedulerJob {
-    const JOB_PARAMS_NAME_: string;
-    const JOB_PARAMS_VERSION_: number;
     function formatParametersField(
         jobKey: number,
         dsvKey: number,

@@ -26,3 +26,18 @@ str = title.getBody();
 str = title.getBody({ rootName: str });
 str = title.getBody({ trim: "none" });
 str = title.getBody({ rootName: str, trim: "none" });
+
+// $ExpectType Heading
+myEditor.plugins.get('Heading');
+
+// $ExpectType HeadingButtonsUI
+myEditor.plugins.get('HeadingButtonsUI');
+
+// $ExpectType HeadingEditing
+myEditor.plugins.get('HeadingEditing');
+
+// $ExpectType HeadingUI
+myEditor.plugins.get('HeadingUI');
+
+// $ExpectType Title
+myEditor.plugins.get('Title');

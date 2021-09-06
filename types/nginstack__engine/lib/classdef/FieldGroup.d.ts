@@ -2,7 +2,7 @@ export = FieldGroup;
 declare function FieldGroup(name: string, ...args: any[]): void;
 declare class FieldGroup {
     constructor(name: string, ...args: any[]);
-    name_: string;
+    private name_;
     label: string;
     id: number;
     name: string;
@@ -19,7 +19,4 @@ declare class FieldGroup {
     private createId_;
     assign(obj: FieldGroup): void;
     clone(): FieldGroup;
-}
-declare namespace FieldGroup {
-    const lastId_: number;
 }

@@ -1,8 +1,8 @@
 export = ReportVisualizationColumns;
 declare function ReportVisualizationColumns(): void;
 declare class ReportVisualizationColumns {
-    items_: Record<string, ReportVisualizationColumn>;
-    orderedNames_: string[];
+    private items_;
+    private orderedNames_;
     add(column: ReportVisualizationColumn): void;
     getColumn(name: string): ReportVisualizationColumn;
     toArray(): ReportVisualizationColumn[];

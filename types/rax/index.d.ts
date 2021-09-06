@@ -330,6 +330,7 @@ declare namespace Rax {
 
   interface RenderOption {
     driver: any;
+    hydrate?: boolean;
   }
   export const render: Renderer;
 
@@ -632,6 +633,14 @@ declare namespace Rax {
     ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
     : PropsWithRef<ComponentProps<T>>;
   type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<ComponentProps<T>>;
+
+  type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
+      ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
+  >
+      ? Method
+      : ComponentPropsWithRef<T> extends RefAttributes<infer Method>
+          ? Method
+          : never;
 
   // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
   // but can be given its own specific name

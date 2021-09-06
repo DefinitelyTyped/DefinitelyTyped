@@ -14,7 +14,7 @@ declare class Link {
         newTab?: boolean,
         ...args: any[]
     );
-    paramsFieldNames_: any[];
+    private paramsFieldNames_;
     cssClass: string;
     private written_;
     srcId: string;
