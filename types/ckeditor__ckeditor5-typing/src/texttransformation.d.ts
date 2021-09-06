@@ -15,3 +15,9 @@ export interface TextTransformationConfig {
     include: TextTransformationDescription[];
     remove: TextTransformationDescription[];
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TextTransformation: TextTransformation;
+    }
+}

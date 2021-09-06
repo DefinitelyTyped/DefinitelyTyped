@@ -496,6 +496,38 @@ import { promisify } from 'node:util';
         },
     });
 
+    const rsaPssRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            cipher: 'some-cipher',
+            format: 'pem',
+            passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const rsaPssResNoPassphrase: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
     const dsaRes: {
         publicKey: string;
         privateKey: Buffer;
@@ -571,6 +603,24 @@ import { promisify } from 'node:util';
             publicKeyEncoding: {
                 format: 'der',
                 type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        'rsa-pss',
+        {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'spki',
             },
             privateKeyEncoding: {
                 cipher: 'some-cipher',
@@ -661,6 +711,23 @@ import { promisify } from 'node:util';
         publicKeyEncoding: {
             format: 'der',
             type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            cipher: 'some-cipher',
+            format: 'pem',
+            passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const rsaPssRes: Promise<{
+        publicKey: Buffer;
+        privateKey: string;
+    }> = generateKeyPairPromisified('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
         },
         privateKeyEncoding: {
             cipher: 'some-cipher',

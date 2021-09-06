@@ -415,10 +415,6 @@ export interface ResponseBankingAccountsBalanceById {
     meta?: MetaPaginated;
 }
 
-// export interface ResponseBankingAccountBalanceListData {
-//     balances?: BankingBalance[] | null;
-// }
-
 export interface ResponseBankingAccountById {
     data: BankingAccountDetail;
     links: Links;
@@ -429,25 +425,19 @@ export interface ResponseBankingAccountList {
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-// export interface ResponseBankingAccountListData {
-//     accounts?: BankingAccount[] | null;
-// }
+
 export interface ResponseBankingDirectDebitAuthorisationList {
     data: {directDebitAuthorisations: BankingDirectDebit[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-// export interface ResponseBankingDirectDebitAuthorisationListData {
-//     directDebitAuthorisations?: BankingDirectDebit[] | null;
-// }
+
 export interface ResponseBankingPayeeById {
     data: BankingPayeeDetail;
     links: Links;
     meta?: any;
 }
-// export interface RespPayeeList {
-//     payees?: BankingPayee[] | null;
-// }
+
 export interface ResponseBankingProductById {
     data: BankingProductV3;
     links: Links;
@@ -458,17 +448,13 @@ export interface ResponseBankingProductList {
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-// export interface RespProdList {
-//     products?: BankingProductV3[];
-// }
+
 export interface ResponseBankingScheduledPaymentsList {
     data: {scheduledPayments: BankingScheduledPayment[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-// export interface RespPaymentList {
-//     scheduledPayments?: BankingScheduledPayment[] | null;
-// }
+
 export interface ResponseBankingTransactionById {
     data: BankingTransactionDetail;
     links: Links;

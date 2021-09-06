@@ -8,3 +8,9 @@ export default class TableElementSupport extends Plugin {
     static readonly requires: [typeof DataFilter];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TableElementSupport: TableElementSupport;
+    }
+}

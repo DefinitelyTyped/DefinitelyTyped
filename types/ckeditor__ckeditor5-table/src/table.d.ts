@@ -40,3 +40,9 @@ export type TableColorConfig =
           label: string;
           hasBorder?: boolean | undefined;
       };
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Table: Table;
+    }
+}

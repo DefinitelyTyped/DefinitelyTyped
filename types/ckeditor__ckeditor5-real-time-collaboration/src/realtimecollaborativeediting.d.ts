@@ -7,3 +7,9 @@ export default class RealTimeCollaborativeEditing extends Plugin {
 export interface RealTimeCollaborationConfig {
     channelId?: string | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        RealTimeCollaborativeEditing: RealTimeCollaborativeEditing;
+    }
+}

@@ -8,3 +8,9 @@ export default class ImageInlineEditing extends Plugin {
     static readonly pluginName: 'ImageInlineEditing';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageInlineEditing: ImageInlineEditing;
+    }
+}

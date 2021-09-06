@@ -8,3 +8,9 @@ export default class LinkImageUI extends Plugin {
     static readonly pluginName: 'LinkImageUI';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        LinkImageUI: LinkImageUI;
+    }
+}

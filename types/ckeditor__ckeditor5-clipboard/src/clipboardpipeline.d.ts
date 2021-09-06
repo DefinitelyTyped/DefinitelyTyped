@@ -12,3 +12,9 @@ export interface ClipboardOutputEventData {
     readonly dataTransfer: DataTransfer;
     method: 'copy' | 'cut';
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ClipboardPipeline: ClipboardPipeline;
+    }
+}

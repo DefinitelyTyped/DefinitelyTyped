@@ -1,6 +1,13 @@
 import fs = require('fs');
 
 import initSqlJs, { Database as SqlJsDatabase } from 'sql.js';
+import initAsmDebugSqlJs, { Database as AsmDebugSqlJsDatabase } from 'sql.js/dist/sql-asm-debug.js';
+import initAsmMemoryGrowthSqlJs, {
+    Database as AsmMemoryGrowthSqlJsDatabase,
+} from 'sql.js/dist/sql-asm-memory-growth.js';
+import initAsmSqlJs, { Database as AsmSqlJsDatabase } from 'sql.js/dist/sql-asm.js';
+import initWasmDebugSqlJs, { Database as WasmDebugSqlJsDatabase } from 'sql.js/dist/sql-wasm-debug.js';
+import initWasmSqlJs, { Database as WasmSqlJsDatabase } from 'sql.js/dist/sql-wasm.js';
 
 const DB_PATH = 'data.db';
 
@@ -101,4 +108,29 @@ initSqlJs().then(SqlJs => {
     x.value.step();
 
     db.run('DROP TABLE test;');
+});
+
+initAsmDebugSqlJs().then(async SqlJs => {
+    const db: AsmDebugSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
+});
+
+initAsmMemoryGrowthSqlJs().then(async SqlJs => {
+    const db: AsmMemoryGrowthSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
+});
+
+initAsmSqlJs().then(async SqlJs => {
+    const db: AsmSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
+});
+
+initWasmDebugSqlJs().then(async SqlJs => {
+    const db: WasmDebugSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
+});
+
+initWasmSqlJs().then(async SqlJs => {
+    const db: WasmSqlJsDatabase = new SqlJs.Database();
+    db.exec('SELECT sqlite_version() AS version');
 });
