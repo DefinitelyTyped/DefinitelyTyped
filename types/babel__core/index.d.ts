@@ -1,10 +1,11 @@
-// Type definitions for @babel/core 7.1
+// Type definitions for @babel/core 7.15
 // Project: https://github.com/babel/babel/tree/master/packages/babel-core, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
+//                 Morgan Barrett <https://github.com/morganbarrett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
@@ -350,7 +351,7 @@ export interface TransformCaller {
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 
-export type FileResultCallback = (err: Error | null, result: BabelFileResult | null) => any;
+export type FileResultCallback = (err: Error | null, result: FileResult | null) => any;
 
 export interface MatchPatternContext {
     envName: string;
@@ -372,17 +373,17 @@ export function transform(code: string, opts: TransformOptions | undefined, call
 /**
  * Here for backward-compatibility. Ideally use `transformSync` if you want a synchronous API.
  */
-export function transform(code: string, opts?: TransformOptions): BabelFileResult | null;
+export function transform(code: string, opts?: TransformOptions): FileResult | null;
 
 /**
  * Transforms the passed in code. Returning an object with the generated code, source map, and AST.
  */
-export function transformSync(code: string, opts?: TransformOptions): BabelFileResult | null;
+export function transformSync(code: string, opts?: TransformOptions): FileResult | null;
 
 /**
  * Transforms the passed in code. Calling a callback with an object with the generated code, source map, and AST.
  */
-export function transformAsync(code: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
+export function transformAsync(code: string, opts?: TransformOptions): Promise<FileResult | null>;
 
 /**
  * Asynchronously transforms the entire contents of a file.
@@ -397,12 +398,12 @@ export function transformFile(filename: string, opts: TransformOptions | undefin
 /**
  * Synchronous version of `babel.transformFile`. Returns the transformed contents of the `filename`.
  */
-export function transformFileSync(filename: string, opts?: TransformOptions): BabelFileResult | null;
+export function transformFileSync(filename: string, opts?: TransformOptions): FileResult | null;
 
 /**
  * Asynchronously transforms the entire contents of a file.
  */
-export function transformFileAsync(filename: string, opts?: TransformOptions): Promise<BabelFileResult | null>;
+export function transformFileAsync(filename: string, opts?: TransformOptions): Promise<FileResult | null>;
 
 /**
  * Given an AST, transform it.
@@ -422,7 +423,7 @@ export function transformFromAst(
 /**
  * Here for backward-compatibility. Ideally use ".transformSync" if you want a synchronous API.
  */
-export function transformFromAstSync(ast: Node, code?: string, opts?: TransformOptions): BabelFileResult | null;
+export function transformFromAstSync(ast: Node, code?: string, opts?: TransformOptions): FileResult | null;
 
 /**
  * Given an AST, transform it.
@@ -431,7 +432,7 @@ export function transformFromAstAsync(
     ast: Node,
     code?: string,
     opts?: TransformOptions,
-): Promise<BabelFileResult | null>;
+): Promise<FileResult | null>;
 
 // A babel plugin is a simple function which must return an object matching
 // the following interface. Babel will throw if it finds unknown properties.
@@ -440,25 +441,32 @@ export function transformFromAstAsync(
 export interface PluginObj<S = PluginPass> {
     name?: string | undefined;
     manipulateOptions?(opts: any, parserOpts: any): void;
-    pre?(this: S, file: BabelFile): void;
+    pre?(this: S, file: File): void;
     visitor: Visitor<S>;
-    post?(this: S, file: BabelFile): void;
+    post?(this: S, file: File): void;
     inherits?: any;
 }
 
-export interface BabelFile {
-    ast: t.File;
-    opts: TransformOptions;
-    hub: Hub;
-    metadata: object;
-    path: NodePath<t.Program>;
-    scope: Scope;
-    inputMap: object | null;
-    code: string;
+interface NormalizedFile {
+	code: string;
+	ast: {};
+	inputMap?: object;
+}
+
+export class File {
+	ast: t.File;
+	opts: TransformOptions;
+	hub: Hub;
+	metadata: object;
+	path: NodePath<t.Program>;
+	scope: Scope;
+	inputMap: object | null;
+	code: string;
+	constructor(options: {}, {code, ast, inputMap}: NormalizedFile);
 }
 
 export interface PluginPass {
-    file: BabelFile;
+    file: File;
     key: string;
     opts: PluginOptions;
     cwd: string;
@@ -466,7 +474,7 @@ export interface PluginPass {
     [key: string]: unknown;
 }
 
-export interface BabelFileResult {
+export interface FileResult {
     ast?: t.File | null | undefined;
     code?: string | null | undefined;
     ignored?: boolean | undefined;
@@ -479,20 +487,20 @@ export interface BabelFileResult {
         mappings: string;
         file: string;
     } | null | undefined;
-    metadata?: BabelFileMetadata | undefined;
+    metadata?: FileMetadata | undefined;
 }
 
-export interface BabelFileMetadata {
+export interface FileMetadata {
     usedHelpers: string[];
     marked: Array<{
         type: string;
         message: string;
         loc: object;
     }>;
-    modules: BabelFileModulesMetadata;
+    modules: FileModulesMetadata;
 }
 
-export interface BabelFileModulesMetadata {
+export interface FileModulesMetadata {
     imports: object[];
     exports: {
         exported: object[];

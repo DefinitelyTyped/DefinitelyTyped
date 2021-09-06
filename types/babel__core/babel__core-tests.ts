@@ -156,3 +156,5 @@ const plugin: babel.PluginObj = {
     },
     visitor: {},
 };
+
+const file = new babel.File({}, {code: "test", ast: {}});
