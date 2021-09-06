@@ -150,7 +150,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function disable(tabId: number): Promise<void>;
+    export function disable(tabId?: number): Promise<void>;
 
     /**
      * Since Chrome 88.
@@ -158,7 +158,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function disable(tabId: number, callback?: () => void): void;
+    export function disable(tabId?: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -166,7 +166,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function enable(tabId: number): Promise<void>;
+    export function enable(tabId?: number): Promise<void>;
 
     /**
      * Since Chrome 88.
@@ -174,7 +174,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function enable(tabId: number, callback?: () => void): void;
+    export function enable(tabId?: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
