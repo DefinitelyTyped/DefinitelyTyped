@@ -34,3 +34,17 @@ server.on('request', (request, response, rinfo) => {
 });
 
 server.listen({ udp: 5333 });
+
+const udpServer = new DNS.UDPServer((request, send, rinfo) => {
+  const response = Packet.createResponseFromRequest(request);
+  send(response);
+});
+
+udpServer.listen(5353, "127.0.0.1");
+
+const tcpServer = DNS.createTCPServer((request, send, rinfo) => {
+  const response = Packet.createResponseFromRequest(request);
+  send(response);
+});
+
+tcpServer.listen(5454, "127.0.0.1");

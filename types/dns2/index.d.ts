@@ -72,6 +72,12 @@ declare namespace DNS {
         ttl: number;
         address: string;
     }
+
+    type DnsHandler = (
+        request: DnsRequest,
+        sendResponse: (response: DnsResponse) => void,
+        remoteInfo: udp.RemoteInfo,
+    ) => void;
 }
 
 declare class DnsServer extends EventEmitter {
@@ -90,19 +96,30 @@ declare class DnsServer extends EventEmitter {
     close(): Promise<void>;
 }
 
+declare class UdpDnsServer extends udp.Socket {
+    constructor(callback?: DNS.DnsHandler);
+    listen(port: number, address: string): Promise<void>;
+}
+
+declare class TcpDnsServer extends net.Server {
+    constructor(callback?: DNS.DnsHandler);
+}
+
 declare class DNS {
     static createServer(options: {
         udp?: boolean,
         tcp?: boolean,
         doh?: boolean,
-        handle: (
-            request: DNS.DnsRequest,
-            sendResponse: (response: DNS.DnsResponse) => void,
-            remoteInfo: udp.RemoteInfo,
-        ) => void
+        handle: DNS.DnsHandler
     }): DnsServer;
 
     static Packet: typeof Packet;
+
+    static createUDPServer: (...options: ConstructorParameters<typeof UdpDnsServer>) => UdpDnsServer;
+    static UDPServer: typeof UdpDnsServer;
+
+    static createTCPServer: (...options: ConstructorParameters<typeof TcpDnsServer>) => TcpDnsServer;
+    static TCPServer: typeof TcpDnsServer;
 
     resolveA(domain: string, clientIp?: string): Promise<DNS.DnsResponse>;
     resolveAAAA(domain: string): Promise<DNS.DnsResponse>;
