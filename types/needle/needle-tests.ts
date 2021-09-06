@@ -19,14 +19,14 @@ function Usage() {
 
 function ResponsePipeline() {
     // using promises
-    needle('get', 'https://stackoverflow.com/feeds', { compressed: true })
+    needle('get', 'http://stackoverflow.com/feeds', { compressed: true })
         .then((resp) => {
             console.log(resp.body); // this little guy won't be a Gzipped binary blob
             // but a nice object containing all the latest entries
         });
 
     // using callback
-    needle.get('https://stackoverflow.com/feeds', { compressed: true }, (err, resp) => {
+    needle.get('http://stackoverflow.com/feeds', { compressed: true }, (err, resp) => {
         console.log(resp.body); // this little guy won't be a Gzipped binary blob
         // but a nice object containing all the latest entries
     });

@@ -13,7 +13,7 @@ function Usage() {
 }
 
 function ResponsePipeline() {
-    needle.get('https://stackoverflow.com/feeds', { compressed: true }, function (err, resp) {
+    needle.get('http://stackoverflow.com/feeds', { compressed: true }, function (err, resp) {
         console.log(resp.body); // this little guy won't be a Gzipped binary blob
         // but a nice object containing all the latest entries
     });
