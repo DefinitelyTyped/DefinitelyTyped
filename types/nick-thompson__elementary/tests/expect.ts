@@ -1,10 +1,3 @@
-import * as el from '@nick-thompson/elementary';
-
-const core: typeof el.core = (global as any).elementary.core;
-
-
-// Expect
-
 interface Serializable
 {
     toString(): string;
@@ -16,18 +9,23 @@ type Basic =
     bigint |
     boolean |
     symbol |
-    object |
-    { (...args: any[]): any };
+    { (...args: unknown[]): unknown } |
+    any[] |
+    object;
 
-function expect<T extends Serializable | Basic>(x: T)
+export function expect<T extends Serializable | Basic>(x: T)
 {
     return {
         passes:
             (given: (y: T) => boolean) =>
                 console.log(
                     given(x) ?
-                    'x: ' + x.toString() + ' passed \"' + given.toString() + '\".' :
-                    'F: ' + x.toString() + ' did not pass \"' + given.toString() + '\".'),
+
+                    'x: ' + x.toString() + ' passed \"' +
+                    given.toString().slice(0, 20) + '\"...' :
+
+                    'F: ' + x.toString() + ' did not pass \"' +
+                    given.toString().slice(0, 20) + '\"...'),
 
         isANumber:
             () =>
@@ -65,6 +63,12 @@ function expect<T extends Serializable | Basic>(x: T)
                     typeof x === 'symbol' ?
                     'x: ' + x.toString() + ' is a symbol.' :
                     'F: ' + x.toString() + ' is not a symbol.'),
+        isAnArray:
+            () =>
+                console.log(
+                    Array.isArray(x) ?
+                    'x: ' + x.toString() + ' is an array.' :
+                    'F: ' + x.toString() + ' is not an array.'),
         isAnObject:
             () =>
                 console.log(
@@ -104,33 +108,3 @@ function expect<T extends Serializable | Basic>(x: T)
                     'F: ' + x.toString() + ' > ' + y.toString()),
     };
 }
-
-
-core.on(
-    'load',
-    () =>
-    {
-        // Variables
-
-        const inputCount = core.getNumInputChannels();
-        const outputCount = core.getNumOutputChannels();
-        const blockSize = core.getBlockSize();
-
-        const leftPhasor = new core.Node('phasor', {}, [el.const({ value: 90 })]);
-        const rightPhasor = el.phasor(92);
-
-
-        // Tests
-
-        expect(inputCount).isEqualTo(0);
-        expect(outputCount).isEqualTo(2);
-        expect(blockSize).isANumber();
-
-        expect(leftPhasor).passes(x => core.Node.isNode(x));
-        expect(rightPhasor).passes(x => core.Node.isNode(x));
-
-
-        // Render
-
-        return core.render(leftPhasor, rightPhasor);
-    });

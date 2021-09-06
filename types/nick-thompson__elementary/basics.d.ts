@@ -34,18 +34,18 @@ export declare function sr(): core.Node;
 
 /**
  * Outputs a continuous count of elapsed samples.
- * Expects one child, a pulse train alternating between 0 and 1.
- * When the child is high, the counter will run.
- * When the child is low, the counter will reset and output 0 until the
- * child is high again.
+ * Expects a pulse train alternating between 0 and 1.
+ * When the pulse is high, the counter will run.
+ * When the pulse is low, the counter will reset and output 0 until the
+ * pulse is high again.
  *
- * @param {core.Node} child
- * child pulse to count
+ * @param {core.Node | number} pulse
+ * pulse to count
  * @returns {core.Node}
  * node that computes the count of the counter
  */
 export declare function counter(
-    child: core.Node): core.Node;
+    pulse: core.Node | number): core.Node;
 
 
 /**
@@ -108,17 +108,17 @@ export declare function ms2samps(
  * For values of the signal between (0, 1), performs a linear interpolation
  * between high and low.
  *
- * @param {core.Node} signal
+ * @param {core.Node | number} signal
  * the signal to test
- * @param {core.Node} high
+ * @param {core.Node | number} high
  * result when signal is high
- * @param {core.Node} low
+ * @param {core.Node | number} low
  * result when signal is low
- * @returns {core.Node}
+ * @returns {core.Node | number}
  * a node that results in high or low or their interpolation
  * depending on the signal
  */
 export declare function select(
-    signal: core.Node,
-    high: core.Node,
-    low: core.Node): core.Node;
+    signal: core.Node | number,
+    high: core.Node | number,
+    low: core.Node | number): core.Node;

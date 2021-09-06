@@ -22,6 +22,6 @@
     },
     "files"          : [
         "index.d.ts",
-        "test/test.ts"
+        "tests/index.ts"
     ]
 }
