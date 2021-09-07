@@ -28,6 +28,12 @@ interface HfcPropTypes {
 
 type HfcPropTypeDef = any;
 
-interface Int {}
-interface Float {}
-interface Any {}
+interface Int {
+    valueOf(): 'HFC_TYPE_INT';
+}
+interface Float {
+    valueOf(): 'HFC_TYPE_FLOAT';
+}
+interface Any {
+    valueOf(): 'HFC_TYPE_ANY';
+}
