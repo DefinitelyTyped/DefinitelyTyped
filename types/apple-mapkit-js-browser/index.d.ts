@@ -613,9 +613,8 @@ declare namespace mapkit {
         target: T;
     }
 
-    // prettier-ignore
-    interface MapEvents<T> {
-        // Map Display Events
+    // Map Display Events
+    interface MapDisplayEvents<T> {
         'region-change-start': EventBase<T>;
         'region-change-end': EventBase<T>;
         'rotation-start': EventBase<T>;
@@ -625,23 +624,34 @@ declare namespace mapkit {
         'zoom-start': EventBase<T>;
         'zoom-end': EventBase<T>;
         'map-type-change': EventBase<T>;
-
-        // Map Interaction Events
-        'single-tap': EventBase<T>;
-        'double-tap': EventBase<T>;
-        'long-press': EventBase<T>;
-
-        // Annotation Events
-        'select': EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
-        'deselect': EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
+    }
+    // Map Annotations Overlay Events
+    interface MapAnnotationOverlayEvents<T> {
+        select: EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
+        deselect: EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
         'drag-start': EventBase<T> & { annotation: Annotation };
-        'dragging': EventBase<T> & { annotation: Annotation; coordinate: Coordinate };
+        dragging: EventBase<T> & { annotation: Annotation; coordinate: Coordinate };
         'drag-end': EventBase<T> & { annotation: Annotation };
+    }
 
-        // User Location Events
+    // User Location Events
+    interface MapUserLocationEvents<T> {
         'user-location-change': EventBase<T> & { coordinate: Coordinate; timestamp: Date };
         'user-location-error': EventBase<T> & { code: number; message: string };
     }
+
+    // Map Interaction Events
+    interface MapInteractionEvents<T> {
+        'single-tap': EventBase<T>;
+        'double-tap': EventBase<T>;
+        'long-press': EventBase<T>;
+    }
+
+    // All map events
+    type MapEvents<T> = MapDisplayEvents<T> &
+        MapAnnotationOverlayEvents<T> &
+        MapUserLocationEvents<T> &
+        MapInteractionEvents<T>;
 
     /**
      * Options that determine map parameters used when showing items.
@@ -1254,13 +1264,7 @@ declare namespace mapkit {
         titleVisibility?: string | undefined;
     }
 
-    // prettier-ignore
-    type AnnotationEventType =
-      | 'select'
-      | 'deselect'
-      | 'drag-start'
-      | 'dragging'
-      | 'drag-end';
+    type AnnotationEventType = 'select' | 'deselect' | 'drag-start' | 'dragging' | 'drag-end';
 
     /**
      * An abstract base object that defines the methods and attributes for map overlays.

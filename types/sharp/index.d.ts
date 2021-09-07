@@ -11,7 +11,7 @@
 
 /// <reference types="node" />
 
-import { Duplex } from "stream";
+import { Duplex } from 'stream';
 
 //#region Constructor functions
 
@@ -23,7 +23,21 @@ import { Duplex } from "stream";
  * @returns A sharp instance that can be used to chain operations
  */
 declare function sharp(options?: sharp.SharpOptions): sharp.Sharp;
-declare function sharp(input?: string | Buffer, options?: sharp.SharpOptions): sharp.Sharp;
+declare function sharp(
+    input?:
+        | Buffer
+        | Uint8Array
+        | Uint8ClampedArray
+        | Int8Array
+        | Uint16Array
+        | Int16Array
+        | Uint32Array
+        | Int32Array
+        | Float32Array
+        | Float64Array
+        | string,
+    options?: sharp.SharpOptions,
+): sharp.Sharp;
 
 declare namespace sharp {
     /** Object containing nested boolean values representing the available input and output formats/methods. */
@@ -422,7 +436,11 @@ declare namespace sharp {
          * @param options describes the modulation
          * @returns A sharp instance that can be used to chain operations
          */
-        modulate(options?: { brightness?: number | undefined; saturation?: number | undefined; hue?: number | undefined }): Sharp;
+        modulate(options?: {
+            brightness?: number | undefined;
+            saturation?: number | undefined;
+            hue?: number | undefined;
+        }): Sharp;
 
         //#endregion
 
@@ -885,7 +903,7 @@ declare namespace sharp {
         /** quality, integer 1-100 (optional, default 50) */
         quality?: number | undefined;
         /** compression format: av1, hevc (optional, default 'av1') */
-        compression?: "av1" | "hevc" | undefined;
+        compression?: 'av1' | 'hevc' | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
         /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
@@ -898,14 +916,14 @@ declare namespace sharp {
      * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
      */
     interface GifOptions extends OutputOptions, AnimationOptions {
-      /** Page height for animated output */
-      pageHeight?: number;
-      /** Number of animation iterations, use 0 for infinite animation (optional, default 0) */
-      loop?: number;
-      /** List of delays between animation frames (in milliseconds) */
-      delay?: number[];
-      /** Force GIF output, otherwise attempt to use input format (optional, default true) */
-      force?: boolean;
+        /** Page height for animated output */
+        pageHeight?: number;
+        /** Number of animation iterations, use 0 for infinite animation (optional, default 0) */
+        loop?: number;
+        /** List of delays between animation frames (in milliseconds) */
+        delay?: number[];
+        /** Force GIF output, otherwise attempt to use input format (optional, default true) */
+        force?: boolean;
     }
 
     interface TiffOptions extends OutputOptions {
@@ -1029,12 +1047,12 @@ declare namespace sharp {
     }
 
     interface ClaheOptions {
-      /** width of the region */
-      width: number;
-      /** height of the region */
-      height: number;
-      /** max slope of the cumulative contrast. (optional, default 3) */
-      maxSlope?: number | undefined;
+        /** width of the region */
+        width: number;
+        /** height of the region */
+        height: number;
+        /** max slope of the cumulative contrast. (optional, default 3) */
+        maxSlope?: number | undefined;
     }
 
     interface ThresholdOptions {
@@ -1124,65 +1142,65 @@ declare namespace sharp {
     }
 
     interface FitEnum {
-        contain: "contain";
-        cover: "cover";
-        fill: "fill";
-        inside: "inside";
-        outside: "outside";
+        contain: 'contain';
+        cover: 'cover';
+        fill: 'fill';
+        inside: 'inside';
+        outside: 'outside';
     }
 
     interface KernelEnum {
-        nearest: "nearest";
-        cubic: "cubic";
-        mitchell: "mitchell";
-        lanczos2: "lanczos2";
-        lanczos3: "lanczos3";
+        nearest: 'nearest';
+        cubic: 'cubic';
+        mitchell: 'mitchell';
+        lanczos2: 'lanczos2';
+        lanczos3: 'lanczos3';
     }
 
     interface BoolEnum {
-        and: "and";
-        or: "or";
-        eor: "eor";
+        and: 'and';
+        or: 'or';
+        eor: 'eor';
     }
 
     interface ColourspaceEnum {
         multiband: string;
-        "b-w": string;
+        'b-w': string;
         bw: string;
         cmyk: string;
         srgb: string;
     }
 
-    type TileLayout = "dz" | "iiif" | "zoomify" | "google";
+    type TileLayout = 'dz' | 'iiif' | 'zoomify' | 'google';
 
     type Blend =
-        | "clear"
-        | "source"
-        | "over"
-        | "in"
-        | "out"
-        | "atop"
-        | "dest"
-        | "dest-over"
-        | "dest-in"
-        | "dest-out"
-        | "dest-atop"
-        | "xor"
-        | "add"
-        | "saturate"
-        | "multiply"
-        | "screen"
-        | "overlay"
-        | "darken"
-        | "lighten"
-        | "colour-dodge"
-        | "colour-dodge"
-        | "colour-burn"
-        | "colour-burn"
-        | "hard-light"
-        | "soft-light"
-        | "difference"
-        | "exclusion";
+        | 'clear'
+        | 'source'
+        | 'over'
+        | 'in'
+        | 'out'
+        | 'atop'
+        | 'dest'
+        | 'dest-over'
+        | 'dest-in'
+        | 'dest-out'
+        | 'dest-atop'
+        | 'xor'
+        | 'add'
+        | 'saturate'
+        | 'multiply'
+        | 'screen'
+        | 'overlay'
+        | 'darken'
+        | 'lighten'
+        | 'colour-dodge'
+        | 'colour-dodge'
+        | 'colour-burn'
+        | 'colour-burn'
+        | 'hard-light'
+        | 'soft-light'
+        | 'difference'
+        | 'exclusion';
 
     type Gravity = number | string;
 

@@ -1,5 +1,7 @@
 import Code from '@ckeditor/ckeditor5-code-block';
 import CodeCommand from '@ckeditor/ckeditor5-code-block/src/codeblockcommand';
+import CodeBlockEditing from '@ckeditor/ckeditor5-code-block/src/codeblockediting';
+import CodeBlockUI from '@ckeditor/ckeditor5-code-block/src/codeblockui';
 import * as converters from '@ckeditor/ckeditor5-code-block/src/converters';
 import IndentCodeBlockCommand from '@ckeditor/ckeditor5-code-block/src/indentcodeblockcommand';
 import OutdentCodeBlockCommand from '@ckeditor/ckeditor5-code-block/src/outdentcodeblockcommand';
@@ -40,3 +42,21 @@ new IndentCodeBlockCommand(editor).refresh();
 
 new OutdentCodeBlockCommand(editor).execute();
 new OutdentCodeBlockCommand(editor).refresh();
+
+// $ExpectType CodeBlock
+editor.plugins.get('CodeBlock');
+
+// $ExpectType CodeBlockEditing
+editor.plugins.get('CodeBlockEditing');
+
+// $ExpectType CodeBlockUI
+editor.plugins.get('CodeBlockUI');
+
+// $ExpectType CodeBlockCommand | undefined
+editor.commands.get('CodeBlockCommand');
+
+// $ExpectType OutdentCodeBlockCommand | undefined
+editor.commands.get('OutdentCodeBlockCommand');
+
+// $ExpectType IndentCodeBlockCommand | undefined
+editor.commands.get('IndentCodeBlockCommand');

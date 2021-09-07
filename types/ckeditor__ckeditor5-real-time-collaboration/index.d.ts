@@ -2,7 +2,7 @@
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/module_real-time-collaboration_realtimecollaborationclient.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 import PresenceList from './src/presencelist';
 import RealTimeCollaborationClient from './src/realtimecollaborationclient';
 import RealTimeCollaborativeComments from './src/realtimecollaborativecomments';

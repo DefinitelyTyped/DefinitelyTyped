@@ -68,6 +68,21 @@ declare namespace LocalizeJS.Context {
         localizeImages?: boolean;
 
         /**
+         * Array of CSS ID selectors.
+         */
+        blockedIds: string[];
+
+        /**
+         * Defaults to false. When true, the default Localize widget is disabled.
+         */
+        disableWidget: boolean;
+
+        /**
+         * Defaults to false. If true, the image URLs used in your website will appear in your phrases bin to allow for image replacement based on language.
+         */
+        localizeImages: boolean;
+
+        /**
          * Array of class names for which Localize will translate. If you use this option, Localize will only translate content
          * contained in these classes and will ignore all other content in the body of the page.
          */
@@ -110,6 +125,11 @@ declare namespace LocalizeJS.Context {
          * Defaults to true. If true, unrecognized phrases will be added to your Localize account. Disable this in development.
          */
         saveNewPhrases?: boolean;
+
+        /**
+         * Defaults to true. If true, unrecognized phrases will be added to your Localize account. Disable this in development.
+         */
+        saveNewPhrases: boolean;
 
         /**
          * Defaults to false. If true, Localize will detect phrases only when the page is not translated.

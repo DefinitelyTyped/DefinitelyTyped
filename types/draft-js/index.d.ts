@@ -21,6 +21,7 @@
 import * as Immutable from 'immutable';
 import * as React from 'react';
 
+type SyntheticClipboardEvent = React.ClipboardEvent<{}>;
 type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 type SyntheticEvent = React.SyntheticEvent<{}>;
 export as namespace Draft;
@@ -151,10 +152,9 @@ declare namespace Draft {
                  * that you set this to `true`.
                  */
                 stripPastedStyles?: boolean | undefined;
-                formatPastedText?: ((
-                    text: string,
-                    html?: string,
-                ) => { text: string, html: string | undefined }) | undefined,
+                formatPastedText?:
+                    | ((text: string, html?: string) => { text: string; html: string | undefined })
+                    | undefined;
 
                 tabIndex?: number | undefined;
 
@@ -235,6 +235,8 @@ declare namespace Draft {
 
                 onBlur?(e: SyntheticEvent): void;
                 onFocus?(e: SyntheticEvent): void;
+                onCopy?(editor: Editor, e: SyntheticClipboardEvent): void;
+                onCut?(editor: Editor, e: SyntheticClipboardEvent): void;
             }
 
             type DraftTextAlignment = 'left' | 'center' | 'right';
@@ -867,19 +869,24 @@ declare namespace Draft {
             }
 
             interface SelectionStateProperties {
-                anchorKey: string
-                anchorOffset: number
-                focusKey: string
-                focusOffset: number
-                isBackward: boolean
-                hasFocus: boolean
+                anchorKey: string;
+                anchorOffset: number;
+                focusKey: string;
+                focusOffset: number;
+                isBackward: boolean;
+                hasFocus: boolean;
             }
 
             class SelectionState extends Record {
                 static createEmpty(key: string): SelectionState;
 
-                merge(...iterables: Immutable.Iterable<keyof SelectionStateProperties, SelectionStateProperties[keyof SelectionStateProperties]>[]): SelectionState
-                merge(...iterables: Partial<SelectionStateProperties>[]): SelectionState
+                merge(
+                    ...iterables: Immutable.Iterable<
+                        keyof SelectionStateProperties,
+                        SelectionStateProperties[keyof SelectionStateProperties]
+                    >[]
+                ): SelectionState;
+                merge(...iterables: Partial<SelectionStateProperties>[]): SelectionState;
 
                 serialize(): string;
                 getAnchorKey(): string;

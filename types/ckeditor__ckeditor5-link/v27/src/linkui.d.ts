@@ -11,3 +11,9 @@ export default class LinkUI extends Plugin {
     readonly actionsView: LinkActionsView;
     readonly formview: LinkFormView;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        LinkUI: LinkUI;
+    }
+}

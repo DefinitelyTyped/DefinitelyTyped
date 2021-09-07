@@ -1059,6 +1059,10 @@ namespace MeteorTests {
         // do something
     }
 
+    if (Meteor.isAppTest) {
+        // do something
+    }
+  
     DDPRateLimiter.addRule({ userId: 'foo' }, 5, 1000);
 
     DDPRateLimiter.addRule({ userId: userId => userId == 'foo' }, 5, 1000);
@@ -1072,6 +1076,7 @@ namespace MeteorTests {
         connection: null,
     });
 } // End of namespace
+
 
 // absoluteUrl
 Meteor.absoluteUrl('/sub', { rootUrl: 'http://wonderful.com' });

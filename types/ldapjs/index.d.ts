@@ -166,8 +166,8 @@ export interface Client extends EventEmitter {
      * @param callback of the form f(err, value, res).
      * @throws {TypeError} on invalid input.
      */
-    exop(name: string, value: string, callback: ExopCallback): void;
-    exop(name: string, value: string, controls: Control | Array<Control>, callback: ExopCallback): void;
+    exop(name: string, value: string | Buffer, callback: ExopCallback): void;
+    exop(name: string, value: string | Buffer, controls: Control | Array<Control>, callback: ExopCallback): void;
 
     /**
      * Performs an LDAP modify against the server.

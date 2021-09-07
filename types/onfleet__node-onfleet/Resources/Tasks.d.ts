@@ -1,7 +1,6 @@
 import { OnfleetDestination, CreateDestinationProps } from './Destinations';
-import { OnfleetMetadata } from '../metadata';
+import { OnfleetMetadata, MatchMetadata } from '../metadata';
 import { OnfleetRecipient, CreateRecipientProps } from './Recipients';
-import Container = require('./Containers');
 
 declare class Task {
   autoAssign(tasks: Task.OnfleetTask[]): Promise<any>; // TODO need to confirm response
@@ -12,6 +11,7 @@ declare class Task {
   forceComplete(id: string): Promise<void>;
   get(queryOrId: string, queryKey?: Task.TaskQueryKey): Promise<Task.OnfleetTask>;
   get(queryParams?: Task.TaskQueryParam): Promise<Task.OnfleetTask[]>;
+  matchMetadata: MatchMetadata<Task.OnfleetTask['metadata']>;
   update(id: string, task: Partial<Task.CreateTaskProps>): Promise<Task.UpdateTaskResult>;
 }
 

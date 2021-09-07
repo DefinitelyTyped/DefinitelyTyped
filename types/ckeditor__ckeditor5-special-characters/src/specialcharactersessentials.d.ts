@@ -14,3 +14,9 @@ export default class SpecialCharactersEssentials extends Plugin {
         typeof SpecialCharactersLatin,
     ];
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        SpecialCharactersEssentials: SpecialCharactersEssentials;
+    }
+}
