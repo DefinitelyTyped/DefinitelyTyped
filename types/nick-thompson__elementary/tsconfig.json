@@ -22,6 +22,6 @@
     },
     "files"          : [
         "index.d.ts",
-        "tests/index.ts"
+        "nick-thompson__elementary-tests.ts"
     ]
 }

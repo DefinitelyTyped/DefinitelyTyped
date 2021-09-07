@@ -12,8 +12,8 @@
     "main"             : "index.d.ts",
     "name"             : "@types/nick-thompson__elementary",
     "scripts"          : {
-        "build-test"    : "tsc --outDir ./build ./tests/tests.ts",
-        "test"          : "elementary -i 0 -o 2 ./build/tests.js",
+        "build-test"    : "tsc --outDir ./build ./nick-thompson__elementary-tests.ts",
+        "test"          : "elementary -i 0 -o 2 ./build/nick-thompson__elementary-tests.js",
         "build-and-test": "npm run build-test & npm run test"
     },
     "typeScriptVersion": "4.4.2",

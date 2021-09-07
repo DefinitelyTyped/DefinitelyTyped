@@ -3,12 +3,4 @@
 // Definitions by: [~YOUR NAME~] <[~A URL FOR YOU~]>
 
 
-import * as Elementary from './elementary';
-
-declare const el:
-    typeof Elementary &
-    Elementary.ReservedMath &
-    Elementary.ReservedBasics;
-
-export = el;
-
+export * from './src';

@@ -1,3 +1,5 @@
+import { el, core } from './load';
+
 interface Serializable
 {
     toString(): string;
@@ -23,7 +25,7 @@ function log<T extends boolean>(
         expression
             .toString()
             .slice(0, 20)
-            .padEnd(20, '                    ');
+            .padEnd(20, ' ');
 
     if (success !== undefined && fail !== undefined)
     {
@@ -35,8 +37,8 @@ function log<T extends boolean>(
         success = 'is true';
         fail = 'is false';
     }
-    success = success.padEnd(20, '                    ');
-    fail = fail.padEnd(20, '                    ');
+    success = success.padEnd(20, ' ');
+    fail = fail.padEnd(20, ' ');
 
     console.log(
         passed ?
@@ -46,7 +48,7 @@ function log<T extends boolean>(
     return passed;
 }
 
-export function expect<T extends Serializable | Basic>(x: T)
+export function expect<T extends Serializable | Basic | el.core.Node>(x: T)
 {
     return {
         passes:
@@ -125,5 +127,39 @@ export function expect<T extends Serializable | Basic>(x: T)
             (y: T) =>
                 log(x <= y,
                     `${x} <= ${y}`),
+
+        isANode:
+            () =>
+                log(core.Node.isNode(x),
+                    `${x} is a Node`),
+        isANodeOfType:
+            (t: el.core.NodeType) =>
+                log((() =>
+                    {
+                        if (!core.Node.isNode(x)) return false;
+                        return x._type === t;
+                    })(),
+                    `${x} is a Node of type ${t}`),
+        hasNodeProps:
+            (p: {}) =>
+                log((() =>
+                    {
+                        if (!core.Node.isNode(x)) return false;
+                        return Object.keys(p).reduce(
+                            (r, k) =>
+                                !r ? false :
+                                x[k as keyof typeof x] ===
+                                p[k as keyof typeof p],
+                            true);
+                    })(),
+                    `${x} has props ${p}`),
+        hasNodeChildren:
+            (c: number[]) =>
+                log((() =>
+                    {
+                        if (!core.Node.isNode(x)) return false;
+                        return x._children === c;
+                    })(),
+                    `${x} has children ${c}`),
     };
 }
