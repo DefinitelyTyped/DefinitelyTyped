@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.28
+// Type definitions for sharp 0.29
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
@@ -6,6 +6,7 @@
 //                 Jamie Woodbury <https://github.com/JamieWoodbury>
 //                 Floris de Bijl <https://github.com/Fdebijl>
 //                 Billy Kwok <https://github.com/billykwok>
+//                 Espen Hovlandsdal <https://github.com/rexxars>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -199,6 +200,26 @@ declare namespace sharp {
         grayscale(grayscale?: boolean): Sharp;
 
         /**
+         * Set the pipeline colourspace.
+         * The input image will be converted to the provided colourspace at the start of the pipeline.
+         * All operations will use this colourspace before converting to the output colourspace, as defined by toColourspace.
+         * This feature is experimental and has not yet been fully-tested with all operations.
+         *
+         * @param colourspace pipeline colourspace e.g. rgb16, scrgb, lab, grey16 ...
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        pipelineColourspace(colourspace?: string): Sharp;
+
+        /**
+         * Alternative spelling of pipelineColourspace
+         * @param colorspace pipeline colourspace e.g. rgb16, scrgb, lab, grey16 ...
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        pipelineColorspace(colorspace?: string): Sharp;
+
+        /**
          * Set the output colourspace.
          * By default output image will be web-friendly sRGB, with additional channels interpreted as alpha channels.
          * @param colourspace output colourspace e.g. srgb, rgb, cmyk, lab, b-w ...
@@ -356,10 +377,10 @@ declare namespace sharp {
 
         /**
          * Produce the "negative" of the image.
-         * @param negate true to enable and false to disable (defaults to true)
+         * @param negate true to enable and false to disable, or an object of options (defaults to true)
          * @returns A sharp instance that can be used to chain operations
          */
-        negate(negate?: boolean): Sharp;
+        negate(negate?: boolean | NegateOptions): Sharp;
 
         /**
          * Enhance output image contrast by stretching its luminance to cover the full dynamic range.
@@ -563,9 +584,11 @@ declare namespace sharp {
 
         /**
          * Force output to be raw, uncompressed uint8 pixel data.
+         * @param options Raw output options.
+         * @throws {Error} Invalid options
          * @returns A sharp instance that can be used to chain operations
          */
-        raw(): Sharp;
+        raw(options?: RawOptions): Sharp;
 
         /**
          * Force output to a given format.
@@ -803,6 +826,10 @@ declare namespace sharp {
         xmp?: Buffer | undefined;
         /** Buffer containing raw TIFFTAG_PHOTOSHOP data, if present */
         tifftagPhotoshop?: Buffer | undefined;
+        /** The encoder used to compress an HEIF file, `av1` (AVIF) or `hevc` (HEIC) */
+        compression?: 'av1' | 'hevc';
+        /** Default background colour, if present, for PNG (bKGD) and GIF images, either an RGB Object or a single greyscale value */
+        background?: { r: number; g: number; b: number } | number;
     }
 
     interface Stats {
@@ -978,6 +1005,11 @@ declare namespace sharp {
         background?: Color | undefined;
     }
 
+    interface NegateOptions {
+        /** whether or not to negate any alpha channel. (optional, default true) */
+        alpha?: boolean | undefined;
+    }
+
     interface ResizeOptions {
         /** Alternative means of specifying width. If both are present this take priority. */
         width?: number | undefined;
@@ -1019,6 +1051,10 @@ declare namespace sharp {
         right?: number | undefined;
         /** background colour, parsed by the color module, defaults to black without transparency. (optional, default {r:0,g:0,b:0,alpha:1}) */
         background?: Color | undefined;
+    }
+
+    interface RawOptions {
+        depth?: 'char' | 'uchar' | 'short' | 'ushort' | 'int' | 'uint' | 'float' | 'complex' | 'double' | 'dpcomplex';
     }
 
     /** 3 for sRGB, 4 for CMYK */
