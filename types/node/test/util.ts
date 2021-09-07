@@ -183,3 +183,7 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
     logger.enabled; // $ExpectType boolean
     util.debuglog('section', (fn: util.DebugLoggerFunction) => { });
 }
+
+{
+    const foo: string = util.toUSVString('foo');
+}
