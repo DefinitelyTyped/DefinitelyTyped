@@ -119,3 +119,12 @@ const fragmentTests = () => {
     // $ExpectType string
     const textBetweenSeparatorAndNullLeafArgs = prosemirrorFragment.textBetween(1, 2, 'separator', null);
 };
+
+const schemaTests = () => {
+    const nodeSpec: model.NodeSpec = { content: 'text*' };
+    const schema = new model.Schema({ nodes: { foo: nodeSpec } });
+
+    // get node type by name
+    // $ExpectType ProsemirrorNode<Schema<"foo", any>>
+    schema.nodeType('foo');
+};
