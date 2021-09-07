@@ -1,4 +1,4 @@
-import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal, compose } from 'node:stream';
+import { Readable, Writable, Transform, finished, pipeline, Duplex, addAbortSignal } from 'node:stream';
 import { promisify } from 'node:util';
 import { createReadStream, createWriteStream } from 'node:fs';
 import { createGzip, constants } from 'node:zlib';
@@ -514,20 +514,6 @@ addAbortSignal(new AbortSignal(), new Readable());
 {
     const a = new Readable();
     a.unshift('something', 'utf8');
-}
-
-{
-    const removeSpaces = new Transform({
-        transform(chunk, encoding, callback) {
-            callback(null, String(chunk).replace(' ', ''));
-        }
-    });
-    const toUpper = new Transform({
-        transform(chunk, encoding, callback) {
-            callback(null, String(chunk).toUpperCase());
-        }
-    });
-    compose(removeSpaces, toUpper).end('hello world');
 }
 
 {
