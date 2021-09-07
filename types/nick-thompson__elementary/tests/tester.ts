@@ -15,6 +15,8 @@ type Basic =
     any[] |
     object;
 
+const logLimit = 40;
+
 function log<T extends boolean>(
     passed: T,
     expression: Serializable | Basic,
@@ -24,31 +26,31 @@ function log<T extends boolean>(
     expression =
         expression
             .toString()
-            .slice(0, 20)
-            .padEnd(20, ' ');
+            .slice(0, logLimit)
+            .padEnd(logLimit, ' ');
 
     if (success !== undefined && fail !== undefined)
     {
-        success = success.slice(0, 20);
-        fail = fail.slice(0, 20);
+        success = success.slice(0, logLimit);
+        fail = fail.slice(0, logLimit);
     }
     else
     {
         success = 'is true';
         fail = 'is false';
     }
-    success = success.padEnd(20, ' ');
-    fail = fail.padEnd(20, ' ');
+    success = success.padEnd(logLimit, ' ');
+    fail = fail.padEnd(logLimit, ' ');
 
     console.log(
         passed ?
-        `x: ${expression} ${success}` :
-        `F: ${expression} ${fail}`);
+        `x: ${expression}\n${success}\n` :
+        `F: ${expression}\n${fail}\n`);
 
     return passed;
 }
 
-export function expect<T extends Serializable | Basic | el.core.Node>(x: T)
+export function expect<T extends Serializable | Basic>(x: T)
 {
     return {
         passes:
@@ -136,29 +138,35 @@ export function expect<T extends Serializable | Basic | el.core.Node>(x: T)
             (t: el.core.NodeType) =>
                 log((() =>
                     {
-                        if (!core.Node.isNode(x)) return false;
-                        return x._type === t;
+                        if (core.Node.isNode(x))
+                            return (x as el.core.Node)._type === t;
+
+                        return false;
                     })(),
                     `${x} is a Node of type ${t}`),
         hasNodeProps:
             (p: {}) =>
                 log((() =>
                     {
-                        if (!core.Node.isNode(x)) return false;
-                        return Object.keys(p).reduce(
-                            (r, k) =>
-                                !r ? false :
-                                x[k as keyof typeof x] ===
-                                p[k as keyof typeof p],
-                            true);
+                        if (!core.Node.isNode(x))
+                            return Object.keys(p).reduce(
+                                (r, k) =>
+                                    !r ? false :
+                                    (x as el.core.Node)._props[k as keyof {}] ===
+                                    p[k as keyof typeof p],
+                                true);
+
+                        return false;
                     })(),
                     `${x} has props ${p}`),
         hasNodeChildren:
             (c: number[]) =>
                 log((() =>
                     {
-                        if (!core.Node.isNode(x)) return false;
-                        return x._children === c;
+                        if (core.Node.isNode(x))
+                            return (x as el.core.Node)._children === c;
+
+                        return false;
                     })(),
                     `${x} has children ${c}`),
     };
