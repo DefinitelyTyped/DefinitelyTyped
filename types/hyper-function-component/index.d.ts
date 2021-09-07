@@ -27,3 +27,7 @@ interface HfcPropTypes {
 }
 
 type HfcPropTypeDef = any;
+
+interface Int {}
+interface Float {}
+interface Any {}
