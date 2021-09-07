@@ -78,7 +78,7 @@ export interface NavLinkProps<S = H.LocationState> extends Omit<LinkProps<S>, "c
     strict?: boolean | undefined;
     isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params> | null, location: H.Location<S>): boolean;
     location?: H.Location<S> | undefined;
-    className?: string | ((props: { isActive: boolean }) => string);
+    className?: string | ((isActive: boolean) => string);
     style?:
       | React.CSSProperties
       | ((props: { isActive: boolean }) => React.CSSProperties);
