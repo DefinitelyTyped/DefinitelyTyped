@@ -12,7 +12,7 @@ export type maskArray = Array<string | RegExp> | false;
 
 export interface MaskedInputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
-    mask: maskArray | ((value: string) => maskArray);
+    mask: maskArray | ((value: string) => maskArray) | false;
 
     guide?: boolean | undefined;
 
