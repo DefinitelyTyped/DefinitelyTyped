@@ -518,7 +518,7 @@ addAbortSignal(new AbortSignal(), new Readable());
 
 {
     const readable = new Readable();
-    Readable.isDisturbed(readable);
+    Readable.isDisturbed(readable); // $ExpectType boolean
     const readableDidRead: boolean = readable.readableDidRead;
     const readableAborted: boolean = readable.readableAborted;
 }
