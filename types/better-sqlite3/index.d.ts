@@ -122,7 +122,7 @@ declare namespace BetterSqlite3 {
 
         prepare<
             BindParameters extends any[] | {} = any[],
-            Row extends Dict = Dict,
+            Row extends object = object,
             RowTypes extends any[] | {} = any[],
         >(
             source: string,
@@ -200,7 +200,7 @@ declare namespace Database {
     type SqliteError = typeof SqliteError;
     type Statement<
         BindParameters extends any[] | {} = any[],
-        Row extends BetterSqlite3.Dict = BetterSqlite3.Dict,
+        Row extends object = object,
         RowTypes extends any[] | {} = any[],
     > = BindParameters extends any[]
         ? BetterSqlite3.NormalStatement<BindParameters, Row, RowTypes>
