@@ -91,7 +91,7 @@ export class ImapFlow extends EventEmitter {
         range: SequenceString | number[] | SearchObject,
         destination: string,
         options?: { uid?: boolean },
-    ): Promise<boolean>;
+    ): Promise<CopyResponseObject>;
 
     fetchOne(
         seq: SequenceString,
