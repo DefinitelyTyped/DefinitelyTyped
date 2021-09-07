@@ -1380,6 +1380,10 @@ export class Schema<N extends string = any, M extends string = any> {
      * bound.
      */
     markFromJSON(json: { [key: string]: any }): Mark<Schema<N, M>>;
+    /**
+     * Get schema's node type by name. This method uses `schema.nodes` internally
+     */
+    nodeType(name: string): ProsemirrorNode<Schema<N, M>>;
 }
 export interface DOMOutputSpecArray {
     0: string;
