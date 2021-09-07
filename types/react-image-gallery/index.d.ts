@@ -24,6 +24,7 @@ export interface ReactImageGalleryItem {
         currentIndex: number;
     }): void;
     description?: string | undefined;
+    embedUrl?: string | undefined;
     original: string;
     originalHeight?: number | undefined;
     originalWidth?: number | undefined;
