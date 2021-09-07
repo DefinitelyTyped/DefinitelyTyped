@@ -49,7 +49,7 @@ export interface TokenConfig {
      * token](https://markdown-it.github.io/markdown-it/#Token) and
      * returns an attribute object.
      */
-    getAttrs?(token: Token): Record<string, any>;
+    getAttrs?(token: Token, tokens: Token[], i: number): Record<string, any>;
 
     /**
      * When true, ignore content for the matched token.
