@@ -49,7 +49,7 @@ import * as inspector from 'node:inspector';
 import * as trace_events from 'node:trace_events';
 
 //////////////////////////////////////////////////////
-/// Https tests : http://nodejs.org/api/https.html ///
+/// Https tests : https://nodejs.org/api/https.html ///
 //////////////////////////////////////////////////////
 
 {

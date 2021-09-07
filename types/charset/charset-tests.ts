@@ -1,7 +1,7 @@
 import charset = require('charset');
 import http = require('http');
 
-http.get('http://nodejs.org', (res) => {
+http.get('https://nodejs.org', (res) => {
   res.on('data', (chunk: Buffer) => {
     console.log(charset(res.headers, chunk));
     console.log(charset(res, chunk));

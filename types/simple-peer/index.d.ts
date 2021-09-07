@@ -124,7 +124,7 @@ declare namespace SimplePeer {
          *
          * Note: If this method is called before the `peer.on('connect')` event has fired,
          * then an exception will be thrown. Use `peer.write(data)`
-         * (which is inherited from the node.js [duplex stream](http://nodejs.org/api/stream.html) interface)
+         * (which is inherited from the node.js [duplex stream](https://nodejs.org/api/stream.html) interface)
          * if you want this data to be buffered instead.
          */
         send(data: SimplePeerData): void;

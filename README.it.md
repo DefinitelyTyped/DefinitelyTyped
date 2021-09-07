@@ -46,7 +46,7 @@ Se qualcosa sembra sbagliato o una qualunque delle cose qui in alto fallisce, fa
 
 ## Cosa sono i file di dichiarazione e come li ottengo
 
-Leggi il [manuale di TypeScript](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
+Leggi il [manuale di TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
 
 ### npm
 
@@ -65,12 +65,12 @@ Potresti dover aggiungere un riferimento `types` se non stai usando i moduli:
 /// <reference types="node" />
 ```
 
-Approfondisci leggendo il [manuale](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
+Approfondisci leggendo il [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
 Per un package "pippo", i tipi associati saranno disponibili sul package "@types/pippo".
 Se non riesci a trovare i tipi di un package, cercalo su [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
-Se ancora non riesci a trovarlo, vuol dire che sono [inclusi](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel package stesso.
+Se ancora non riesci a trovarlo, vuol dire che sono [inclusi](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel package stesso.
 Di solito vengono specificati nel campo `"types"` o `"typings"` nel `package.json`;
 se vuoi puoi semplicemente cercare per dei file ".d.ts" nel package ed includerli manualmente con `/// <reference path="" />`.
 
@@ -119,9 +119,9 @@ Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 pot
 
 * Scarica manualmente la branch `master` di questa repo e collocala nel tuo progetto.
 * ~~[Typings](https://github.com/typings/typings)~~ (usa altre alternative migliori, in quanto typings è deprecata)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (usa altre alternative, in quanto la pubblicazione di tipi su nuget DT non è più possibile)
+* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (usa altre alternative, in quanto la pubblicazione di tipi su nuget DT non è più possibile)
 
-Potresti dover aggiungere manualmente i [riferimenti](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+Potresti dover aggiungere manualmente i [riferimenti](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
 ## Come posso contribuire?
 
@@ -133,7 +133,7 @@ Prima di condividere il tuo contributo col mondo, provalo tu stesso.
 
 #### Test per la modifica di un package DT (@types) preesistente
 
-Per testare localmente le tue modifiche, puoi usare [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) per estendere i tipi esistenti del modulo DT su cui vuoi lavorare.
+Per testare localmente le tue modifiche, puoi usare [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) per estendere i tipi esistenti del modulo DT su cui vuoi lavorare.
 Altrimenti, puoi modificare i tipi direttamente nel `node_modules/@types/foo/index.d.ts` per validare le tue modifiche, per poi riportarle su questa repo seguendo i passi che troverai scritti più in basso.
 
 #### Test per un nuovo package DT
@@ -189,7 +189,7 @@ Se non lo fa, puoi farlo direttamente tu nel commento associato alla pull reques
 
 #### Creare un nuovo package
 
-Se sei l'autore della libreria ed il tuo package è scritto in TypeScript, [includi i file di dichiarazione generati automaticamente] (http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel tuo package invece di pubblicarli su Definitely Typed.
+Se sei l'autore della libreria ed il tuo package è scritto in TypeScript, [includi i file di dichiarazione generati automaticamente] (https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel tuo package invece di pubblicarli su Definitely Typed.
 
 Se stai aggiungendo i tipo per un package npm, crea una cartella con lo stesso nome.
 Se il package a cui stai aggiungendo i tipi non è su npm, assicurati che il nome che scegli non entri in conflitto con quello di un package npm.
@@ -215,7 +215,7 @@ Per l'esempio di un buon package, guarda [base64-js](https://github.com/Definite
 
 #### Rimuovere un package
 
-Quando un package [include](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) i suoi dichiarazioni, esse dovrebbero venire rimosse da Definitely Typed per evitare di far confusione.
+Quando un package [include](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) i suoi dichiarazioni, esse dovrebbero venire rimosse da Definitely Typed per evitare di far confusione.
 
 Puoi rimuoverli eseguendo `npm run not-needed -- <nome-package> <versione> [<nome-libreria>]`.
 * `<nome-package>`: È il nome della cartella da rimuovere.
@@ -328,7 +328,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 
 #### Errori comuni
 
-* Inanzitutto segui i consigli nel [manuale](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Inanzitutto segui i consigli nel [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `npm run prettier -- --write path/to/package/**/*.ts`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
   ```tsx
     // prettier-ignore
@@ -345,7 +345,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
     Esempio dove un parametro è accettabile: `function id<T>(value: T): T;`.
     Esempio in cui non lo è: `function parseJson<T>(json: string): T;`.
     Eccezione: `new Map<string, number>()` va bene.
-* Usare i tipi `Function` e `Object` non è quasi mai una buona idea. Nel 99% si può specificare un tipo più preciso. Alcuni esempi sono `(x: number) => number` per le [funzioni](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` per gli oggetti. Se non si è sicuri del tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) è la scelta migliore, non `Object`. Se l'unica cosa di cui si sa è che il tipo è un oggetto di qualche tipo, usa il tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), non `Object` o `{ [key: string]: any }`.
+* Usare i tipi `Function` e `Object` non è quasi mai una buona idea. Nel 99% si può specificare un tipo più preciso. Alcuni esempi sono `(x: number) => number` per le [funzioni](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` per gli oggetti. Se non si è sicuri del tipo, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) è la scelta migliore, non `Object`. Se l'unica cosa di cui si sa è che il tipo è un oggetto di qualche tipo, usa il tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), non `Object` o `{ [key: string]: any }`.
 * `var foo: string | any`:
   Quando `any` è usato in un tipo disgiuntipo, il tipo risultanto rimane `any`. Quindi mentre la porzione `string` di questo tipo potrebbe _sembrare_ utile, in realtà non offre nessuna precisazione rispetto ad un banalissimo `any`.
     In funzione delle tue intenzioni, delle alternative accettabili sono `any`, `string` o `string | object`.
@@ -496,7 +496,7 @@ Ad esempio, queste sono le prime righe delle [dichiarazioni di tipi di Node](htt
 
 ```js
 // Type definitions for Node.js 10.12
-// Project: http://nodejs.org/
+// Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 Definitely Typed <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
@@ -591,7 +591,7 @@ Quando `dts-gen` viene usato per uno pacchetto con scope, nel `tsconfig.json`, l
 
 #### La cronologia dei file su Github sembra incompleta.
 
-Github non [supporta](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) la cronologia per file rinominati. Usa invece [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
+Github non [supporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) la cronologia per file rinominati. Usa invece [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 ## Licenza
 

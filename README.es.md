@@ -29,7 +29,7 @@ Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aun
 
 ## ¿Qué son los `declaration files`?
 
-Vea el [Manual de TypeScript](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
+Vea el [Manual de TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
 
 
 ## ¿Cómo los obtengo?
@@ -43,12 +43,12 @@ npm install --save-dev @types/node
 ```
 
 Los types deberían ser incluidos automáticamente por el compilador.
-Vea más en el [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
+Vea más en el [manual](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
 Para un paquete npm "foo", estos `typings` estarán en "@types/foo".
 Si no puedes encontrar tu paquete, búscalo en [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
-Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) los typings.
+Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) los typings.
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
@@ -95,9 +95,9 @@ Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript
 
 * Descárguelo manualmente desde la `master` branch de este repositorio
 * [Typings](https://github.com/typings/typings)~~ (use las alternativas preferidas, typings es obsoleto)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use las alternativas preferidas, la publicación DT type de nuget ha sido desactivada)
+* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (use las alternativas preferidas, la publicación DT type de nuget ha sido desactivada)
 
-Tal vez debas añadir manualmente las [referencias](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+Tal vez debas añadir manualmente las [referencias](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
 
 ## ¿Cómo puedo contribuir?
@@ -110,7 +110,7 @@ Antes de compartir tu mejora con el mundo, úselo usted mismo.
 
 #### Prueba editando un paquete existente
 
-Para agregar nuevas funciones puedes usar el [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html).
+Para agregar nuevas funciones puedes usar el [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html).
 También puedes editar directamente los types en `node_modules/@types/foo/index.d.ts`, o copiarlos de ahí y seguir los pasos explicados a continuación.
 
 
@@ -162,7 +162,7 @@ Si no lo hace, puedes hacerlo en el comentario asociado con el PR.
 
 #### Crear un nuevo paquete
 
-Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca, [bundle types](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) en vez de publicarlo en Definitely Typed.
+Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca, [bundle types](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) en vez de publicarlo en Definitely Typed.
 
 Si estás agregando typings para un paquete npm, crea un directorio con el mismo nombre.
 Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
@@ -186,7 +186,7 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 
 #### Remover un paquete
 
-Cuando un paquete [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de Definitely Typed para evitar que generen confusión.
+Cuando un paquete [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de Definitely Typed para evitar que generen confusión.
 
 Se puede remover ejecutando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
 - `<typingsPackageName>`: Este es el nombre del directorio que tienes que eliminar.
@@ -284,7 +284,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 
 #### Errores comunes
 
-* Primero, sigue el consejo del [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Primero, sigue el consejo del [manual](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formatear: Utiliza 4 espacios.
 * `function sum(nums: number[]): number`: Utiliza `ReadonlyArray` si una función no escribe a sus parámetros.
 * `interface Foo { new(): Foo; }`:
@@ -297,7 +297,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Un ejemplo donde un tipo de parámetro es aceptable: `function id<T>(value: T): T;`.
   Un ejemplo donde no es aceptable: `function parseJson<T>(json: string): T;`.
   Una excepción: `new Map<string, number>()` está bien.
-* Utilizando los tipos `Function` y `Object` casi nunca es una buena idea. En 99% de los casos es posible especificar un tipo más específico. Los ejemplos son `(x: number) => number` para [funciones](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) y `{ x: number, y: number }` para objetos. Si no hay certeza en lo absoluto del tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) es la opción correcta, no `Object`. Si el único hecho conocido sobre el tipo es que es un objecto, usa el tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), no `Object` o `{ [key: string]: any }`.
+* Utilizando los tipos `Function` y `Object` casi nunca es una buena idea. En 99% de los casos es posible especificar un tipo más específico. Los ejemplos son `(x: number) => number` para [funciones](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) y `{ x: number, y: number }` para objetos. Si no hay certeza en lo absoluto del tipo, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) es la opción correcta, no `Object`. Si el único hecho conocido sobre el tipo es que es un objecto, usa el tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), no `Object` o `{ [key: string]: any }`.
 * `var foo: string | any`:
   Cuando es usado `any` en un tipo de unión, el tipo resultante todavía es `any`. Así que mientras la porción `string` de este tipo de anotación puede _verse_ útil, de hecho, no ofrece ningún typechecking adicional más que un simple `any`.
   Dependiendo de la intención, una alternativa aceptable puede ser `any`, `string`, o `string | object`.
@@ -356,7 +356,7 @@ Si las types son parte de los estándares web, estas deberán ser contribuidas a
 
 #### Un paquete utiliza `export =`, pero prefiero utilizar las import predeterminadas. ¿Puedo cambiar `export =` por `export default`?
 
-Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
+Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
 No cambies la type definition si es preciso.
 Para un paquete npm, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
 
@@ -428,7 +428,7 @@ Cuando `dts-gen` es utilizado como scaffold en un paquete scoped, las propiedade
 
 #### El historial de archivos en GitHub parece incompleto.
 
-GitHub no le hace [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) historial de archivos para archivos renombrados. Utilice [`git log --follow`](https://www.git-scm.com/docs/git-log) en su lugar.
+GitHub no le hace [support](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) historial de archivos para archivos renombrados. Utilice [`git log --follow`](https://www.git-scm.com/docs/git-log) en su lugar.
 
 #### Debería añadir un namespace que no exporte un módulo que utilice que utilice imports estilo ES6?
 
