@@ -13,6 +13,13 @@ type VariableArgFunction = (...params: any[]) => any;
 type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
 
 declare namespace BetterSqlite3 {
+    interface Dict {
+        [key: string]: any;
+    }
+    interface NamespacedDict {
+        [key: string]: Dict;
+    }
+
     interface Statement<BindParameters extends any[]> {
         database: Database;
         source: string;
@@ -25,9 +32,64 @@ declare namespace BetterSqlite3 {
         pluck(toggleState?: boolean): this;
         expand(toggleState?: boolean): this;
         raw(toggleState?: boolean): this;
-        bind(...params: BindParameters): this;
         columns(): ColumnDefinition[];
         safeIntegers(toggleState?: boolean): this;
+    }
+
+    interface NormalStatement<BindParameters extends any[], Row extends Dict, RowTypes extends any[] | {}>
+        extends Statement<BindParameters> {
+        get(...params: BindParameters): Row | undefined;
+        all(...params: BindParameters): Row[];
+        iterate(...params: BindParameters): IterableIterator<Row>;
+        pluck(toggleState?: true): PluckedStatement<BindParameters, Row, RowTypes>;
+        pluck(toggleState: false): this;
+        expand(toggleState?: true): ExpandedStatement<BindParameters, Row, RowTypes>;
+        expand(toggleState: false): this;
+        raw(toggleState?: true): RawStatement<BindParameters, Row, RowTypes>;
+        raw(toggleState: false): this;
+        bind(...params: BindParameters): NormalStatement<[], Row, RowTypes>;
+    }
+
+    interface PluckedStatement<BindParameters extends any[], Row extends Dict, RowTypes extends any[] | {}>
+        extends Statement<BindParameters> {
+        get(...params: BindParameters): (RowTypes extends any[] ? RowTypes[0] : RowTypes) | undefined;
+        all(...params: BindParameters): RowTypes extends any[] ? Array<RowTypes[0]> : RowTypes[];
+        iterate(...params: BindParameters): IterableIterator<RowTypes extends any[] ? RowTypes[0] : RowTypes>;
+        pluck(toggleState?: true): this;
+        pluck(toggleState: false): NormalStatement<BindParameters, Row, RowTypes>;
+        expand(toggleState?: true): ExpandedStatement<BindParameters, Row, RowTypes>;
+        expand(toggleState: false): this;
+        raw(toggleState?: true): RawStatement<BindParameters, Row, RowTypes>;
+        raw(toggleState: false): this;
+        bind(...params: BindParameters): PluckedStatement<[], Row, RowTypes>;
+    }
+
+    interface ExpandedStatement<BindParameters extends any[], Row extends Dict, RowTypes extends any[] | {}>
+        extends Statement<BindParameters> {
+        get(...params: BindParameters): NamespacedDict | undefined;
+        all(...params: BindParameters): NamespacedDict[];
+        iterate(...params: BindParameters): IterableIterator<NamespacedDict>;
+        pluck(toggleState?: true): PluckedStatement<BindParameters, Row, RowTypes>;
+        pluck(toggleState: false): this;
+        expand(toggleState?: true): this;
+        expand(toggleState: false): NormalStatement<BindParameters, Row, RowTypes>;
+        raw(toggleState?: true): RawStatement<BindParameters, Row, RowTypes>;
+        raw(toggleState: false): this;
+        bind(...params: BindParameters): ExpandedStatement<[], Row, RowTypes>;
+    }
+
+    interface RawStatement<BindParameters extends any[], Row extends Dict, RowTypes extends any[] | {}>
+        extends Statement<BindParameters> {
+        get(...params: BindParameters): (RowTypes extends any[] ? RowTypes : [RowTypes, {}]) | undefined;
+        all(...params: BindParameters): RowTypes extends any[] ? RowTypes[] : Array<[RowTypes, {}]>;
+        iterate(...params: BindParameters): IterableIterator<RowTypes extends any[] ? RowTypes : [RowTypes, {}]>;
+        pluck(toggleState?: true): PluckedStatement<BindParameters, Row, RowTypes>;
+        pluck(toggleState: false): this;
+        expand(toggleState?: true): ExpandedStatement<BindParameters, Row, RowTypes>;
+        expand(toggleState: false): this;
+        raw(toggleState?: true): this;
+        raw(toggleState: false): NormalStatement<BindParameters, Row, RowTypes>;
+        bind(...params: BindParameters): RawStatement<[], Row, RowTypes>;
     }
 
     interface ColumnDefinition {
@@ -61,9 +123,15 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        prepare<BindParameters extends any[] | {} = any[]>(
+        prepare<
+            BindParameters extends any[] | {} = any[],
+            Row extends Dict = Dict,
+            RowTypes extends any[] | {} = any[],
+        >(
             source: string,
-        ): BindParameters extends any[] ? Statement<BindParameters> : Statement<[BindParameters]>;
+        ): BindParameters extends any[]
+            ? NormalStatement<BindParameters, Row, RowTypes>
+            : NormalStatement<[BindParameters], Row, RowTypes>;
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): any;
@@ -133,9 +201,13 @@ declare namespace Database {
     }
 
     type SqliteError = typeof SqliteError;
-    type Statement<BindParameters extends any[] | {} = any[]> = BindParameters extends any[]
-        ? BetterSqlite3.Statement<BindParameters>
-        : BetterSqlite3.Statement<[BindParameters]>;
+    type Statement<
+        BindParameters extends any[] | {} = any[],
+        Row extends BetterSqlite3.Dict = BetterSqlite3.Dict,
+        RowTypes extends any[] | {} = any[],
+    > = BindParameters extends any[]
+        ? BetterSqlite3.NormalStatement<BindParameters, Row, RowTypes>
+        : BetterSqlite3.NormalStatement<[BindParameters], Row, RowTypes>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
     type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
     type Database = BetterSqlite3.Database;

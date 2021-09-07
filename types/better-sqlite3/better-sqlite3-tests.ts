@@ -83,6 +83,38 @@ interface NamedBindParameters {
 }
 const stmtWithNamedBind = db.prepare<NamedBindParameters>('INSERT INTO test VALUES (@name, @age, @id)');
 stmtWithNamedBind.run({ name: 'bob', age: 20, id: BigInt(1234) });
+// After binding you shouldn't be able to
+stmtWithNamedBind.bind({ name: 'bob', age: 20, id: BigInt(1234) }).all();
+
+// Test query return types
+const fullyTypedStmt = db.prepare<{ age: number }, { name: string }, [string]>(
+    'SELECT name FROM test WHERE age = @age',
+);
+// $ExpectType { name: string; }
+fullyTypedStmt.get({ age: 42 })!;
+// $ExpectType { name: string; }[]
+fullyTypedStmt.all({ age: 42 });
+// $ExpectType string
+fullyTypedStmt.pluck(true).get({ age: 42 })!;
+// $ExpectType string[]
+fullyTypedStmt.pluck().all({ age: 42 });
+// $ExpectType [string]
+fullyTypedStmt.raw().get({ age: 42 })!;
+// $ExpectType [string][]
+fullyTypedStmt.raw(true).all({ age: 42 });
+// $ExpectType NamespacedDict
+fullyTypedStmt.expand(true).get({ age: 42 })!;
+// $ExpectType NamespacedDict[]
+fullyTypedStmt.expand().all({ age: 42 });
+
+// Extra cases
+const boundFullyTypedStmt = fullyTypedStmt.bind({ age: 42 });
+// $ExpectType string
+boundFullyTypedStmt.pluck().get()!;
+// $ExpectType [string][]
+boundFullyTypedStmt.raw().all();
+// $ExpectType NamespacedDict
+boundFullyTypedStmt.pluck(true).expand(true).get()!;
 
 const trans: Sqlite.Transaction = db.transaction(param => stmt.all(param));
 trans('name');
