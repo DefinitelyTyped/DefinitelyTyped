@@ -316,7 +316,7 @@ declare namespace angular {
         /**
          * this is necessary to be able to access the scoped attributes. it's not very elegant
          * because you have to use attrs['foo'] instead of attrs.foo but I don't know of a better way
-         * this should really be limited to return string but it creates this problem: https://stackoverflow.com/q/17201854/165656
+         * this should really be limited to return string but it creates this problem: http://stackoverflow.com/q/17201854/165656
          */
         [name: string]: any;
 
