@@ -13,11 +13,8 @@ type VariableArgFunction = (...params: any[]) => any;
 type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
 
 declare namespace BetterSqlite3 {
-    interface Dict {
-        [key: string]: any;
-    }
     interface NamespacedDict {
-        [key: string]: Dict;
+        [key: string]: object;
     }
 
     interface Statement<BindParameters extends any[]> {
@@ -36,7 +33,7 @@ declare namespace BetterSqlite3 {
         safeIntegers(toggleState?: boolean): this;
     }
 
-    interface NormalStatement<BindParameters extends any[], Row extends Dict, RowTypes extends any[] | {}>
+    interface NormalStatement<BindParameters extends any[], Row extends object, RowTypes extends any[] | {}>
         extends Statement<BindParameters> {
         get(...params: BindParameters): Row | undefined;
         all(...params: BindParameters): Row[];
@@ -50,7 +47,7 @@ declare namespace BetterSqlite3 {
         bind(...params: BindParameters): NormalStatement<[], Row, RowTypes>;
     }
 
-    interface PluckedStatement<BindParameters extends any[], Row extends Dict, RowTypes extends any[] | {}>
+    interface PluckedStatement<BindParameters extends any[], Row extends object, RowTypes extends any[] | {}>
         extends Statement<BindParameters> {
         get(...params: BindParameters): (RowTypes extends any[] ? RowTypes[0] : RowTypes) | undefined;
         all(...params: BindParameters): RowTypes extends any[] ? Array<RowTypes[0]> : RowTypes[];
@@ -64,7 +61,7 @@ declare namespace BetterSqlite3 {
         bind(...params: BindParameters): PluckedStatement<[], Row, RowTypes>;
     }
 
-    interface ExpandedStatement<BindParameters extends any[], Row extends Dict, RowTypes extends any[] | {}>
+    interface ExpandedStatement<BindParameters extends any[], Row extends object, RowTypes extends any[] | {}>
         extends Statement<BindParameters> {
         get(...params: BindParameters): NamespacedDict | undefined;
         all(...params: BindParameters): NamespacedDict[];
@@ -78,7 +75,7 @@ declare namespace BetterSqlite3 {
         bind(...params: BindParameters): ExpandedStatement<[], Row, RowTypes>;
     }
 
-    interface RawStatement<BindParameters extends any[], Row extends Dict, RowTypes extends any[] | {}>
+    interface RawStatement<BindParameters extends any[], Row extends object, RowTypes extends any[] | {}>
         extends Statement<BindParameters> {
         get(...params: BindParameters): (RowTypes extends any[] ? RowTypes : [RowTypes, {}]) | undefined;
         all(...params: BindParameters): RowTypes extends any[] ? RowTypes[] : Array<[RowTypes, {}]>;
