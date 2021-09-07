@@ -42,6 +42,7 @@
 //                 Yongsheng Zhang <https://github.com/ZYSzys>
 //                 NodeJS Contributors <https://github.com/NodeJS>
 //                 Linus Unnebäck <https://github.com/LinusU>
+//                 wafuwafu13 <https://github.com/wafuwafu13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
