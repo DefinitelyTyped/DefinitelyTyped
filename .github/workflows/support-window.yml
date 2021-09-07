@@ -1,0 +1,54 @@
+name: Update support window diagram
+on:
+  # When translations are added/removed
+  push:
+    paths: README*.md
+  # Manually, when TypeScript is released
+  # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          personal <- Sys.getenv("R_LIBS_USER")
+          dir.create(personal, recursive = TRUE)
+          install.packages(c("ggplot2", "svglite"), personal)
+        shell: Rscript {0}
+      - name: Fetch TypeScript versions and release dates from npm
+        run: |
+          npm view --json typescript time |
+            jq '
+              to_entries
+              # Earliest non-pre-release <major>.<minor>
+              | map(
+                (.key |= capture("^(?<version>[0-9]+\\.[0-9]+)\\.[0-9]+$").version)
+                | select(.key)
+              )
+              | unique_by(.key)
+              | from_entries
+            ' > docs/support-window.json
+      - run: git rm --ignore-unmatch 'docs/support-window*.svg'
+      - name: Make SVG diagram
+        run: |
+          export LOCPATH=.locale
+          mkdir "$LOCPATH"
+          for readme in README*.md; do (
+            if [ "$readme" != README.md ]; then
+              LANG=${readme:7:-3}
+              # Use e.g. en_EN if it exists, or the first ${LANG}_*
+              # otherwise
+              locale=/usr/share/i18n/locales/${LANG}_${LANG^^}
+              [ -e "$locale" ] || locale=(/usr/share/i18n/locales/${LANG}_*)
+              localedef --charmap UTF-8 --inputfile "$locale" "$LOCPATH/$LANG"
+            fi
+            jq --raw-output 'to_entries[] | map(values) | @tsv' docs/support-window.json |
+              Rscript scripts/support-window.R
+          ) done
+      - run: git add docs/support-window.*
+      - run: git config user.name .github/workflows/support-window.yml
+      - run: git config user.email bot@typescriptlang.org
+      - run: git diff --quiet --cached || git commit --message '[README] 🤖 Update support window diagram'
+      - run: git push

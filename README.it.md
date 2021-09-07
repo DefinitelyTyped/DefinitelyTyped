@@ -57,25 +57,7 @@ Se stai usando una versiond di TypeScript tra 2.0 e la 3.6, puoi ancora provare 
 Non c'è comunque nessuna garanzia che funzioneranno.
 Ecco le informazioni riguardanti le versioni supportate:
 
-| Versione | Data rilascio | Data fine supporto  |
-| ------- | -------------- | --------------      |
-| 2.8     | Marzo 2018     | Marzo 2020          |
-| 2.9     | Maggio 2018    | Maggio 2020         |
-| 3.0     | Luglio 2018    | Agosto 2020         |
-| 3.1     | Settembre 2018 | Settembre 2020      |
-| 3.2     | Novembre 2018  | Novembre 2020       |
-| 3.3     | Gennaio 2019   | Gennaio 2021        |
-| 3.4     | Marzo 2019     | Marzo 2021          |
-| 3.5     | Maggio 2019    | Maggio 2021         |
-| 3.6     | Agosto 2019    | Agosto 2021         |
-| 3.7     | Novembre 2019  | Novembre 2021       |
-| 3.8     | Febbraio 2020  | Febbraio 2022       |
-| 3.9     | Maggio 2020    | Maggio 2022         |
-| 4.0     | Agosto 2020    | Agosto 2022         |
-| 4.1     | Novembre 2020  | Novembre 2022       |
-| 4.2     | Febbraio 2021  | Febbraio 2023       |
-| 4.3     | Maggio 2021    | Maggio 2023         |
-| 4.4     | Agosto 2021    | Agosto 2023         |
+<img src=docs/support-window.it.svg style=width:100%>
 
 I package `@types` hanno dei tag per la versione di TypeScript che supportano, quindi di solito puoi installare vecchi package che sono più vecchi di due anni.
 Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 potrà usare i tipi per react@16.0, mentre TypeScript 2.6 e 2.7 potranno usare i tipi per react@16.4:
