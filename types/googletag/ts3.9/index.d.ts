@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT) 1.1
-// Project: https://developers.google.com/publisher-tag
-// Definitions by: Wei Wang <https://github.com/atwwei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * This is the global namespace that the Google Publisher Tag uses for its API.
  */
@@ -19,13 +13,13 @@ declare namespace googletag {
      * Used for native ads (see related article).
      * Note that both 'fluid' and ['fluid'] are acceptable forms to declare a slot size as fluid.
      */
-    type NamedSize = 'fluid' | ['fluid'];
+    type NamedSize = string | string[];
     type SingleSize = SingleSizeArray | NamedSize;
     /**
      * Array of two numbers representing [width, height].
      */
-    type SingleSizeArray = [number, number];
-    type SizeMapping = [SingleSizeArray, GeneralSize];
+    type SingleSizeArray = number[];
+    type SizeMapping = GeneralSize[];
     type SizeMappingArray = SizeMapping[];
     /**
      * Flag indicating that GPT API is loaded and ready to be called.
@@ -182,13 +176,11 @@ declare namespace googletag {
      * @param opt_div ID of the div that will contain this ad unit.
      * @returns The newly created slot.
      */
-    function defineSlot(adUnitPath: string, size: GeneralSize, opt_div: string): Slot | null;
-    function defineSlot(adUnitPath: string, size: GeneralSize): Slot;
+    function defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
     /**
      * Same as `googletag.defineSlot`
      */
-    function defineUnit(adUnitPath: string, size: GeneralSize, opt_div: string): Slot | null;
-    function defineUnit(adUnitPath: string, size: GeneralSize): Slot;
+    function defineUnit(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
     /**
      * Destroys the given slots, removing all related objects and references of those slots from GPT.
      * This API does not support passback slots and companion slots.
