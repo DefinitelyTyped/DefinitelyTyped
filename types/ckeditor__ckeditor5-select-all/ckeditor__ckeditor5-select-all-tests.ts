@@ -15,3 +15,15 @@ new SelectAll.SelectAllEditing(editor).init();
 new SelectAllCommand(editor).execute();
 // $ExpectError
 new SelectAllCommand(editor).execute(true);
+
+// $ExpectType SelectAll
+editor.plugins.get('SelectAll');
+
+// $ExpectType SelectAllEditing
+editor.plugins.get('SelectAllEditing');
+
+// $ExpectType SelectAllUI
+editor.plugins.get('SelectAllUI');
+
+// $ExpectType SelectAllCommand | undefined
+editor.commands.get('SelectAllCommand');

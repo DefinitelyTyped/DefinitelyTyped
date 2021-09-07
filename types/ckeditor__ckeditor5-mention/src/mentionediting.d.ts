@@ -11,3 +11,9 @@ export default class MentionEditing extends Plugin {
     static readonly pluginName: 'MentionEditing';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        MentionEditing: MentionEditing;
+    }
+}

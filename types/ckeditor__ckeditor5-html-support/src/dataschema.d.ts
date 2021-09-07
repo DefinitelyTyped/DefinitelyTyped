@@ -68,3 +68,9 @@ export interface DataSchemaInlineElementDefinition extends DataSchemaDefinition 
     isInline: boolean;
     priority?: number | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        DataSchema: DataSchema;
+    }
+}

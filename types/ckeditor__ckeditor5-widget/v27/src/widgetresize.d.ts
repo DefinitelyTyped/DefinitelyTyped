@@ -23,3 +23,9 @@ export default class WidgetResize extends Plugin {
     attachTo(options?: ResizerOptions): Resizer;
     getResizerByViewElement(viewElement: ContainerElement): Resizer | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        WidgetResize: WidgetResize;
+    }
+}

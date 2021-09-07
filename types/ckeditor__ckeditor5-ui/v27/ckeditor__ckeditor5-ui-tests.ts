@@ -336,7 +336,10 @@ viewCollection = boxedEditor.main;
 /**
  * EditableUIView
  */
-new InlineEditableUIView(locale, view);
+// $ExpectType boolean
+new InlineEditableUIView(locale, view)._hasExternalElement;
+// $ExpectError
+new InlineEditableUIView(locale, view)._hasExternalElement = true;
 
 /**
  * FormHeaderView
@@ -508,3 +511,15 @@ new ListSeparatorView().element!.tagName.startsWith("foo");
  */
 new ToolbarLineBreakView().render();
 new ToolbarLineBreakView().element!.tagName.startsWith("foo");
+
+// $ExpectType BalloonToolbar
+editor.plugins.get('BalloonToolbar');
+
+// $ExpectType BlockToolbar
+editor.plugins.get('BlockToolbar');
+
+// $ExpectType ContextualBalloon
+editor.plugins.get('ContextualBalloon');
+
+// $ExpectType Notification
+editor.plugins.get('Notification');

@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.18
+// Type definitions for prosemirror-view 1.19
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -683,7 +683,7 @@ export interface NodeView<S extends Schema = any> {
      * no `dom` property), updating its child nodes will be handled by
      * ProseMirror.
      */
-    update?: ((node: ProsemirrorNode<S>, decorations: Decoration[]) => boolean) | null;
+    update?: ((node: ProsemirrorNode<S>, decorations: Decoration[], innerDecorations: DecorationSet) => boolean) | null;
     /**
      * Can be used to override the way the node's selected status (as a
      * node selection) is displayed.

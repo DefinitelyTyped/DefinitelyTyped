@@ -59,3 +59,9 @@ export default class DataFilter extends Plugin {
      */
     disallowAttributes(config: MatcherPattern): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        DataFilter: DataFilter;
+    }
+}

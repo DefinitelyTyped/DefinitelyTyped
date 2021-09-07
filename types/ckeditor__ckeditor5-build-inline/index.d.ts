@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-build-inline 28.0
+// Type definitions for @ckeditor/ckeditor5-build-inline 29.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/builds/index.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -80,12 +80,18 @@ export default class InlineEditor extends InlineEditorBase {
             ];
         };
         image: {
-            toolbar: ['imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative'];
+            toolbar: [
+                'imageStyle:inline',
+                'imageStyle:block',
+                'imageStyle:side',
+                '|',
+                'toggleImageCaption',
+                'imageTextAlternative',
+            ];
         };
         table: {
             contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'];
         };
-        // This value must be kept in sync with the language defined in webpack.config.js.
-        language: 'en';
+        language: string;
     };
 }

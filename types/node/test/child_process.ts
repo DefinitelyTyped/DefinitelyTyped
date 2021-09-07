@@ -62,6 +62,11 @@ import { URL } from 'node:url';
 }
 
 {
+    const y: childProcess.ChildProcess = childProcess.spawn('echo', ['test']);
+    const x = y instanceof childProcess.ChildProcess;
+}
+
+{
     childProcess.execFileSync("echo test", {input: new Uint8Array([])});
     childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
 }

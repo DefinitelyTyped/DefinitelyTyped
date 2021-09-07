@@ -10,6 +10,8 @@
 //                 Petr Zahradník <https://github.com/petrzjunior>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node"/>
+
 export interface DefaultPlugin<N extends string, P = never> {
     active?: boolean | undefined;
     name: N;
@@ -332,7 +334,7 @@ export type RemoveAttrsPlugin = DefaultPlugin<
         /** @default false */
         preserveCurrentColor?: boolean | undefined;
         /** @default [] */
-        attrs?: any[] | undefined;
+        attrs: string | string[];
     }
 >;
 
@@ -768,7 +770,7 @@ export interface OptimizeOptions {
 }
 
 /* The core of SVGO is optimize function. */
-export function optimize(svgString: string, options?: OptimizeOptions): OptimizedSvg;
+export function optimize(svgString: string | Buffer, options?: OptimizeOptions): OptimizedSvg;
 
 /**
  * If you write a tool on top of svgo you might need a way to load svgo config.

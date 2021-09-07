@@ -26,7 +26,9 @@ const testCases = [
     <span autoCorrect="on" />,
     <span translate="no" />,
     <span translate="yes" />,
-    <svg><image crossOrigin="anonymous" /></svg>,
+    <svg>
+        <image crossOrigin="anonymous" />
+    </svg>,
     <details open={true} onToggle={() => {}} />,
     <input value={['one', 'two'] as ReadonlyArray<string>} />,
     <input value={['one', 'two'] as string[]} />,
@@ -37,8 +39,13 @@ const testCases = [
     <svg role="treeitem" />,
     <a target="_blank"></a>,
     <a target="some-frame"></a>,
+    <input type="button" />,
+    <input type="some-type" />,
     // $ExpectError
     <input enterKeyHint="don" />,
     <video disableRemotePlayback />,
-    <picture><source media="test" srcSet="test" width={50} height={50} /><img src="test" width={100} height={100}/></picture>
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img src="test" width={100} height={100} />
+    </picture>,
 ];

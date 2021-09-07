@@ -31,7 +31,6 @@ and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/RE
 * [FAQ](#faq)
 * [License](#license)
 
-
 ## Current status
 
 This section tracks the health of the repository and publishing process.
@@ -78,9 +77,9 @@ or just look for any ".d.ts" files in the package and manually include them with
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
 
 <details>
-<summary>Currently versions 3.6 and above are tested...</summary>
+<summary>Currently versions 3.7 and above are tested...</summary>
 
-If you're using TypeScript 2.0 to 3.5, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+If you're using TypeScript 2.0 to 3.6, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -102,6 +101,7 @@ Here is the support window:
 | 4.1     | November 2020  | November 2022  |
 | 4.2     | February 2021  | February 2023  |
 | 4.3     | May 2021       | May 2023       |
+| 4.4     | August 2021    | August 2023    |
 
 `@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
 For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
@@ -400,6 +400,8 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 ### Definition owners
+
+> TL;DR: do not modify `.github/CODEOWNERS`, always modify list of the owners in the `index.d.ts` header
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 

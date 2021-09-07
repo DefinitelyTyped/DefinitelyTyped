@@ -1714,7 +1714,7 @@ declare module 'http2' {
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
         writeHead(statusCode: number, statusMessage: string, headers?: OutgoingHttpHeaders): this;
         /**
-         * Call {@link tream.pushStream} with the given headers, and wrap the
+         * Call `http2stream.pushStream()` with the given headers, and wrap the
          * given `Http2Stream` on a newly created `Http2ServerResponse` as the callback
          * parameter if successful. When `Http2ServerRequest` is closed, the callback is
          * called with an error `ERR_HTTP2_INVALID_STREAM`.

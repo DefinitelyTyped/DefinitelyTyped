@@ -1,7 +1,31 @@
-import * as Popper from "@popperjs/core";
+import * as Popper from '@popperjs/core';
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Dropdown extends BaseComponent {
+    /**
+     * Static method which allows you to get the dropdown instance associated
+     * with a DOM element.
+     */
+    static getInstance: GetInstanceFactory<Dropdown>;
+
+    /**
+     * Static method which returns a dropdown instance associated to a DOM element or
+     *  create a new one in case it wasn't initialised.
+     * You can use it like this: bootstrap.Dropdown.getOrCreateInstance(element)
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Dropdown, Partial<Dropdown.Options>>;
+
+    static jQueryInterface: Dropdown.jQueryInterface;
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Dropdown.Options;
+
+    static DefaultType: Record<keyof Dropdown.Options, string>;
+
     constructor(element: string | Element, options?: Partial<Dropdown.Options>);
 
     /**
@@ -23,23 +47,6 @@ declare class Dropdown extends BaseComponent {
      * Updates the position of an element's dropdown.
      */
     update(): void;
-
-    static getInstance: GetInstanceFactory<Dropdown>;
-    static getOrCreateInstance: GetOrCreateInstanceFactory<Dropdown>;
-    static jQueryInterface: Dropdown.jQueryInterface;
-
-    // static NAME: 'dropdown';
-
-    /**
-     * Default settings of this plugin
-     *
-     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
-     */
-    static Default: Dropdown.Options;
-
-    static DefaultType: Record<keyof Dropdown.Options, string>;
-
-    static DATA_KEY: string;
 }
 
 declare namespace Dropdown {
@@ -47,24 +54,24 @@ declare namespace Dropdown {
         /**
          * Fires immediately when the show instance method is called.
          */
-        show = "show.bs.dropdown",
+        show = 'show.bs.dropdown',
 
         /**
          * Fired when the dropdown has been made visible to the user and CSS
          * transitions have completed.
          */
-        shown = "shown.bs.dropdown",
+        shown = 'shown.bs.dropdown',
 
         /**
          * Fires immediately when the hide instance method has been called.
          */
-        hide = "hide.bs.dropdown",
+        hide = 'hide.bs.dropdown',
 
         /**
          * Fired when the dropdown has finished being hidden from the user and
          * CSS transitions have completed.
          */
-        hidden = "hidden.bs.dropdown",
+        hidden = 'hidden.bs.dropdown',
     }
 
     type Offset = [number, number];
@@ -111,7 +118,7 @@ declare namespace Dropdown {
          * @see {@link https://popper.js.org/docs/v2/constructors/#createpopper}
          * @default "toggle"
          */
-        reference: "toggle" | "parent" | Element | Popper.Rect;
+        reference: 'toggle' | 'parent' | Element | Popper.Rect;
 
         /**
          * By default, we use Popper.js for dynamic positioning. Disable this
@@ -119,7 +126,7 @@ declare namespace Dropdown {
          *
          * @default "dynamic"
          */
-        display: "dynamic" | "static";
+        display: 'dynamic' | 'static';
 
         /**
          * To change Bootstrap's default Popper.js config, see Popper.js's
@@ -137,7 +144,7 @@ declare namespace Dropdown {
         popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
     }
 
-    type jQueryInterface = (config?: Partial<Options> | "toggle" | "show" | "hide" | "update" | "dispose") => void;
+    type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => void;
 }
 
 export default Dropdown;

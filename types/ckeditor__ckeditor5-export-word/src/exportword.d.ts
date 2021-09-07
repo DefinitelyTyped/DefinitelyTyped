@@ -58,3 +58,9 @@ export interface ExportWordConfig {
     stylesheets?: string[] | undefined;
     tokenUrl?: false | string | (() => Promise<string>) | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ExportWord: ExportWord;
+    }
+}
