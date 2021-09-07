@@ -6,30 +6,6 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 
 *Link para o [manual do Admin](./docs/admin.md)*
 
-## Tabela de conteúdos
-
-* [Status atual](#status-atual)
-* [O que são arquivos de declaração?](#o-que-são-arquivos-de-declaração)
-* [Como eu consigo eles?](#como-eu-consigo-eles)
-* [Como eu posso contribuir?](#como-eu-posso-contribuir)
-  - [Testando](#testando)
-  - [Faça uma pull request](#faça-uma-pull-request)<details><summary></summary>
-    - [Edite um pacote existente](#edite-um-pacote-existente)
-    - [Crie um novo pacote](#crie-um-novo-pacote)
-    - [Removendo um pacote](#removendo-um-pacote)
-    - [Verificando](#verificando)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [Erros comuns](#erros-comuns)
-    </details>
-  - [Donos de definição](#donos-de-definição)
-* [FAQ](#faq)
-* [Licença](#licença)
-
 ## Status atual
 
 Essa seção acompanha a saúde do respositório e o processo de publicação.

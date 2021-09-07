@@ -7,30 +7,6 @@ and [Japanese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/RE
 
 *Link to [Admin manual](./docs/admin.md)*
 
-## Contents
-
-* [Current status](#current-status)
-* [What are declaration files and how do I get them?](#what-are-declaration-files-and-how-do-i-get-them)
-* [How can I contribute?](#how-can-i-contribute)
-  - [Testing](#testing)
-  - [Make a pull request](#make-a-pull-request)<details><summary></summary>
-    - [Partial clone](#partial-clone)
-    - [Edit an existing package](#edit-an-existing-package)
-    - [Create a new package](#create-a-new-package)
-    - [Removing a package](#removing-a-package)
-    - [Running tests](#running-tests)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [Common mistakes](#common-mistakes)
-    </details>
-  - [Definition owners](#definition-owners)
-* [FAQ](#faq)
-* [License](#license)
-
 ## Current status
 
 This section tracks the health of the repository and publishing process.
