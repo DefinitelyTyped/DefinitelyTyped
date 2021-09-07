@@ -1292,6 +1292,7 @@ interface CollectionOptions<E> {
     disableMeta: boolean;
     disableChangesApi: boolean;
     disableDeltaChangesApi: boolean;
+    disableFreeze: boolean;
     adaptiveBinaryIndices: boolean;
     asyncListeners: boolean;
     autoupdate: boolean;
@@ -1344,6 +1345,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
     };
     disableChangesApi: boolean;
     disableDeltaChangesApi: boolean;
+    disableFreeze: boolean;
     DynamicViews: DynamicView<object>[];
     idIndex: number[];
     ttl: { age: any; ttlInterval: any; daemon: any; };
