@@ -15,107 +15,107 @@ declare namespace LocalizeJS.Context {
          * If true and you have machine translations enabled, any new phrases found in your website will be automatically
          * moved to the Published bin, and a machine translation will be generated.
          */
-        autoApprove: boolean;
+        autoApprove?: boolean;
 
         /**
          * Language to translate your website to.
          */
-        targetLanguage: string;
+        targetLanguage?: string;
 
         /**
          * Defaults to false. If true, Localize will translate your website to the last selected language on subsequent page views.
          */
-        rememberLanguage: boolean;
+        rememberLanguage?: boolean;
 
         /**
          * Defaults to true. If true, translations will be fetched from Localize if not bootstrapped.
          */
-        fetchTranslations: boolean;
+        fetchTranslations?: boolean;
 
         /**
          * Defaults to true. If true, "alt" attributes will be translated.
          */
-        translateAlt: boolean;
+        translateAlt?: boolean;
 
         /**
          * Defaults to true. If true, aria-label attributes within HTML elements will be found by Localize and brought into the dashboard, allowing you to translate them.
          */
-        translateAriaLabels: boolean;
+        translateAriaLabels?: boolean;
 
         /**
          * Defaults to false. Set to true to prefetch all active languages, or pass a language code or an array of codes to.
          */
-        prefetch: boolean;
+        prefetch?: boolean;
 
         /**
          * Array of class names for which Localize will ignore.
          */
-        blockedClasses: string[];
+        blockedClasses?: string[];
 
         /**
          * Array of CSS ID selectors.
          */
-        blockedIds: string[];
+        blockedIds?: string[];
 
         /**
          * Defaults to false. When true, the default Localize widget is disabled.
          */
-        disableWidget: boolean;
+        disableWidget?: boolean;
 
         /**
          * Defaults to false. If true, the image URLs used in your website will appear in your phrases bin to allow for image replacement based on language.
          */
-        localizeImages: boolean;
+        localizeImages?: boolean;
 
         /**
          * Array of class names for which Localize will translate. If you use this option, Localize will only translate content
          * contained in these classes and will ignore all other content in the body of the page.
          */
-        translateClasses: string[];
+        translateClasses?: string[];
 
         /**
          * Defaults to true. Automatically default the page language to the user's preferred language. The first path segment
          * in the URL is used to check to detect the language, ie. www.localize.com/fr. If no language dictionary exists for that
          * segment then the language setting in their browser is used.
          */
-        autodetectLanguage: boolean;
+        autodetectLanguage?: boolean;
 
         /**
          * Defaults to false. When true, Localize will attempt to translate the entire body of the page.
          * If false, Localize will only translate content contained with a "localizejs" class name.
          */
-        translateBody: boolean;
+        translateBody?: boolean;
 
         /**
          * The default language your website will be in when no language has been selected. Defaults to the source language of your website.
          */
-        defaultLanguage: string;
+        defaultLanguage?: string;
 
         /**
          * The base path will be stripped from the URL of the phrase as seen in the "Filter by pages" feature.
          */
-        basePath: string;
+        basePath?: string;
 
         /**
          * Defaults to true. If true, the <title> of the page will translate.
          */
-        translateTitle: boolean;
+        translateTitle?: boolean;
 
         /**
          * Defaults to false. Allows users to turn on meta tag translation. This optimizes your site for SEO.
          */
-        translateMetaTags: boolean;
+        translateMetaTags?: boolean;
 
         /**
          * Defaults to true. If true, unrecognized phrases will be added to your Localize account. Disable this in development.
          */
-        saveNewPhrases: boolean;
+        saveNewPhrases?: boolean;
 
         /**
          * Defaults to false. If true, Localize will detect phrases only when the page is not translated.
          * Please contact support@localizejs.com prior to updating this option.
          */
-        saveNewPhrasesFromSource: boolean;
+        saveNewPhrasesFromSource?: boolean;
 
         /**
          * Defaults to false. Automatically translate content that is added dynamically to your webpage.
@@ -124,29 +124,29 @@ declare namespace LocalizeJS.Context {
          * dictionary file with all your translated content is available for use with Localize.translate().
          * However, translations are not generated instantly, so use with our library event updatedDictionary is recommended.
          */
-        retranslateOnNewPhrases: boolean;
+        retranslateOnNewPhrases?: boolean;
 
         /**
          * Defaults to false. If true, the Localize library will not send additional metadata to our servers.
          * This metadata includes the surrounding HTML of the phrases detected on your website.
          */
-        enhancedContentSecurity: boolean;
+        enhancedContentSecurity?: boolean;
 
         /**
          * Defaults to false. If true, the Localize library will pick up phrases in the <time> elements.
          */
-        translateTimeElement: boolean;
+        translateTimeElement?: boolean;
 
         /**
          * Defaults to false. If true, the Localize library will pick up numbers as phrases.
          */
-        translateNumbers: boolean;
+        translateNumbers?: boolean;
 
         /**
          * Defaults to true. If true, text contained within SVGs will be found by Localize and brought into the dashboard,
          * allowing you to translate the text. (SVG files are not supported)
          */
-        translateSVGElement: boolean;
+        translateSVGElement?: boolean;
     }
 
     interface RateData {
