@@ -88,13 +88,13 @@ function testMap() {
     }
 
     const mapped: stream.Transform = map<Foo, number>(function(chunk, _) {
-        const baz: number = this.variables.get('baz') as any;
+        const baz: number = this.variables.get('baz');
 
         return chunk.bar * baz;
     });
 
     const lazyMapped: stream.Transform = map<Foo, number>(async function(chunk, _) {
-        const baz: number = this.variables.get('baz') as any;
+        const baz: number = this.variables.get('baz');
 
         return chunk.bar * baz;
     });
