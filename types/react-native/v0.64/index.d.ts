@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.65
+// Type definitions for react-native 0.64
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -491,12 +491,6 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
     children?: React.ReactNode | ((state: PressableStateCallbackType) => React.ReactNode) | undefined;
 
     /**
-     * Whether a press gesture can be interrupted by a parent gesture such as a
-     * scroll event. Defaults to true.
-     */
-    cancelable?: null | boolean | undefined,
-
-    /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
      */
     delayLongPress?: null | number | undefined;
@@ -594,8 +588,6 @@ export namespace AppRegistry {
     function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
     function runApplication(appKey: string, appParameters: any): void;
-
-    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void
 
     function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 
@@ -1050,9 +1042,6 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
      * Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
      */
     onPress?: ((event: GestureResponderEvent) => void) | undefined;
-
-    onPressIn?: ((event: GestureResponderEvent) => void) | undefined;
-    onPressOut?: ((event: GestureResponderEvent) => void) | undefined;
 
     /**
      * This function is called on long press.
@@ -3027,13 +3016,6 @@ export interface DatePickerIOSProps extends ViewProps {
      * For instance, to show times in Pacific Standard Time, pass -7 * 60.
      */
     timeZoneOffsetInMinutes?: number | undefined;
-
-    /**
-     * The date picker style
-     * This is only available on devices with iOS 14.0 and later.
-     * 'spinner' is the default style if this prop isn't set.
-     */
-    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined,
 }
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
@@ -4050,7 +4032,6 @@ export class Image extends ImageBase {
         failure?: (error: any) => void,
     ): any;
     static prefetch(url: string): Promise<boolean>;
-    static prefetchWithMetadata(url: string, queryRootName: string, rootTag?: number): Promise<boolean>;
     static abortPrefetch?(requestId: number): void;
     static queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
 
@@ -6064,8 +6045,6 @@ export type ProcessedColorValue = number | OpaqueColorValue;
 type DynamicColorIOSTuple = {
     light: ColorValue;
     dark: ColorValue;
-    highContrastLight?: ColorValue | undefined;
-    highContrastDark?: ColorValue | undefined;
 };
 
 /**
@@ -6150,11 +6129,10 @@ export interface Dimensions {
     addEventListener(
         type: 'change',
         handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
-    ): EmitterSubscription;
+    ): void;
 
     /**
      * Remove an event listener
-     * @deprecated Use `remove` on the EventSubscription from `addEventListener`.
      *
      * @param type the type of event
      * @param handler the event handler
@@ -7274,6 +7252,13 @@ export interface AccessibilityInfoStatic {
     isScreenReaderEnabled: () => Promise<boolean>;
 
     /**
+     * Query whether a screen reader is currently enabled.
+     *
+     * @deprecated use isScreenReaderChanged instead
+     */
+    fetch: () => Promise<boolean>;
+
+    /**
      * Add an event handler. Supported events:
      * - announcementFinished: iOS-only event. Fires when the screen reader has finished making an announcement.
      *                         The argument to the event handler is a dictionary with these keys:
@@ -7411,7 +7396,12 @@ export interface AppStateStatic {
      * Add a handler to AppState changes by listening to the change event
      * type and providing the handler
      */
-    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): EmitterSubscription;
+    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
+
+    /**
+     * Remove a handler by passing the change event type and the handler
+     */
+    removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
 }
 
 /**
@@ -7518,7 +7508,6 @@ export interface ButtonProps {
      * Used to locate this button in end-to-end tests.
      */
     testID?: string | undefined;
-    accessibilityState?: AccessibilityState | undefined;
 }
 
 export class Button extends React.Component<ButtonProps> {}
@@ -7702,13 +7691,12 @@ export interface LinkingStatic extends NativeEventEmitter {
      * Add a handler to Linking changes by listening to the `url` event type
      * and providing the handler
      */
-    addEventListener(type: 'url', handler: (event: { url: string }) => void): EmitterSubscription;
+    addEventListener(type: string, handler: (event: { url: string }) => void): void;
 
     /**
      * Remove a handler by passing the `url` event type and the handler
-     * @deprecated Call remove() on the return value of addEventListener() instead.
      */
-    removeEventListener(type: 'url', handler: (event: { url: string }) => void): void;
+    removeEventListener(type: string, handler: (event: { url: string }) => void): void;
 
     /**
      * Try to open the given url with any of the installed apps.
@@ -7901,7 +7889,6 @@ export type Permission =
     | 'android.permission.GET_ACCOUNTS'
     | 'android.permission.ACCESS_FINE_LOCATION'
     | 'android.permission.ACCESS_COARSE_LOCATION'
-    | 'android.permission.ACCESS_BACKGROUND_LOCATION'
     | 'android.permission.RECORD_AUDIO'
     | 'android.permission.READ_PHONE_STATE'
     | 'android.permission.CALL_PHONE'
@@ -8559,8 +8546,6 @@ export interface UIManagerStatic {
         Commands: { [key: string]: number };
     };
 
-    hasViewManagerConfig: (name: string) => boolean;
-
     /**
      * Used to call a native view method from JavaScript
      *
@@ -9164,14 +9149,10 @@ export namespace Animated {
     export interface AnimatedComponent<T extends React.ComponentType<any>>
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
-    export type AnimatedComponentOptions = {
-        collapsable?: boolean
-    };
-
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent<T extends React.ComponentType<any>>(component: T, options?: AnimatedComponentOptions): AnimatedComponent<T>;
+    export function createAnimatedComponent<T extends React.ComponentType<any>>(component: T): AnimatedComponent<T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
