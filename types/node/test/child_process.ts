@@ -393,7 +393,7 @@ async function testPromisify() {
         stdin: Stdin,
         stdout: Stdout,
         stderr: Stderr,
-        stdio: [Stdin, Stdout, Stderr, any, any, any, any, any, any, any];
+        stdio: [Stdin, Stdout, Stderr, any, any, any, any, any, any, any]
     }>): void {
         return undefined;
     }
