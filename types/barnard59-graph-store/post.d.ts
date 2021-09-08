@@ -1,5 +1,5 @@
 import { Writable } from 'readable-stream';
-import { StreamClientOptions } from '../sparql-http-client/StreamClient';
+import { StreamClientOptions } from 'sparql-http-client';
 
 type Options = Pick<StreamClientOptions, 'user' | 'password'> & {
     endpoint: string;
