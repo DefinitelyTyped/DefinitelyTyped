@@ -5,7 +5,7 @@ import { GraphPointer } from 'clownface';
 import { Logger } from 'winston';
 import { LoaderRegistry } from 'rdf-loaders-registry';
 import * as Stream from 'readable-stream';
-import Step from './lib/Step';
+import Step from 'barnard59-core/lib/Step';
 
 function testCreatePipeline() {
     const ptr: GraphPointer = <any> {};

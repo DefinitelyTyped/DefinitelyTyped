@@ -1,7 +1,8 @@
 import { Logger } from 'winston';
 import { GraphPointer } from 'clownface';
-import LoaderRegistry = require('rdf-loaders-registry');
-import Pipeline, { VariableMap } from "../Pipeline";
+import { LoaderRegistry } from 'rdf-loaders-registry';
+import Pipeline from "../Pipeline";
+import { VariableMap } from '../..';
 
 interface CreatePipeline {
     basePath: string;
