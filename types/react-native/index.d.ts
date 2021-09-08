@@ -41,6 +41,7 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
+//                 Brett Lindsay <https://github.com/bdlindsay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -7416,7 +7417,7 @@ export interface AppStateStatic {
 
     /**
      * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
-     * 
+     *
      * Remove a handler by passing the change event type and the handler
      */
     removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
