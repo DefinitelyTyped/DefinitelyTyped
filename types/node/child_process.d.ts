@@ -178,6 +178,16 @@ declare module 'child_process' {
             // stderr
             Readable | Writable | null | undefined,
             // extra
+            Readable | Writable | null | undefined,
+            // extra
+            Readable | Writable | null | undefined,
+            // extra
+            Readable | Writable | null | undefined,
+            // extra
+            Readable | Writable | null | undefined,
+            // extra
+            Readable | Writable | null | undefined,
+            // extra
             Readable | Writable | null | undefined // extra
         ];
         /**
@@ -566,6 +576,16 @@ declare module 'child_process' {
             // stderr
             Readable | Writable | null | undefined,
             // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
             Readable | Writable | null | undefined // extra, no modification
         ];
     }
@@ -578,6 +598,16 @@ declare module 'child_process' {
             I,
             O,
             E,
+            Readable | Writable | null | undefined,
+            // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
+            Readable | Writable | null | undefined,
+            // extra, no modification
             Readable | Writable | null | undefined,
             // extra, no modification
             Readable | Writable | null | undefined // extra, no modification
