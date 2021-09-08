@@ -5,13 +5,13 @@ import { core } from './core';
 /**
  * Identity function, f(x) = x.
  *
- * @param {core.NodeChild} operand
+ * @param {core.Child} operand
  * to return the result of
  *
  * @returns {core.InNode}
  * a {@link core.InNode} that returns the result of the operand
  */
-declare function _in(operand: core.NodeChild): core.InNode;
+declare function _in(operand: core.Child): core.InNode;
 
 /**
  * Used for accepting an input signal from the audio driver,

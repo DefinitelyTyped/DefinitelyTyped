@@ -11,18 +11,18 @@ import { core } from './core';
  * 1. The control signal
  * 2. The input signal to sample.
  *
- * @param {core.NodeChild} control
+ * @param {core.Child} control
  * the control signal
  *
- * @param {core.NodeChild} input
+ * @param {core.Child} input
  * the input signal
  *
  * @returns {core.LatchNode}
  * a {@link core.LatchNode} that computes the controlled input signal output
  */
 export declare function latch(
-    control: core.NodeChild,
-    input: core.NodeChild): core.LatchNode;
+    control: core.Child,
+    input: core.Child): core.LatchNode;
 
 
 /**
@@ -39,10 +39,10 @@ export declare function latch(
  * @param {core.SeqProps} props
  * {@link core.SeqProps} object
  *
- * @param {core.NodeChild} next
+ * @param {core.Child} next
  * the next step
  *
- * @param {core.NodeChild?} last
+ * @param {core.Child?} last
  * the last step
  *
  * @returns {core.SeqNode}
@@ -50,8 +50,8 @@ export declare function latch(
  */
 export declare function seq(
     props: core.SeqProps,
-    next: core.NodeChild,
-    last?: core.NodeChild): core.SeqNode;
+    next: core.Child,
+    last?: core.Child): core.SeqNode;
 
 
 /**
@@ -64,30 +64,30 @@ export declare function seq(
  * 1 (number or signal) 4. Release time in seconds (number or signal) 5.
  * Gate signal; a pulse train alternating between 0 and 1.
  *
- * @param {core.NodeChild} attack
+ * @param {core.Child} attack
  * the attack time in seconds
  *
- * @param {core.NodeChild} delay
+ * @param {core.Child} delay
  * the decay time in seconds
  *
- * @param {core.NodeChild} sustain
+ * @param {core.Child} sustain
  * the sustain amplitude between 0 and 1
  *
- * @param {core.NodeChild} release
+ * @param {core.Child} release
  * the release time in seconds
  *
- * @param {core.NodeChild} gate
+ * @param {core.Child} gate
  * the gate signal limited to values of 0 and 1
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the envelope
  */
 export declare function adsr(
-    attack: core.NodeChild,
-    delay: core.NodeChild,
-    sustain: core.NodeChild,
-    release: core.NodeChild,
-    gate: core.NodeChild): core.Node;
+    attack: core.Child,
+    delay: core.Child,
+    sustain: core.Child,
+    release: core.Child,
+    gate: core.Child): core.Node;
 
 
 /**
@@ -98,11 +98,11 @@ export declare function adsr(
  *
  * Expects exactly one argument, the incoming phase.
  *
- * @param {core.NodeChild} phase
+ * @param {core.Child} phase
  * the incoming phase
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the generator
  */
 export declare function hann(
-    phase: core.NodeChild): core.Node;
+    phase: core.Child): core.Node;

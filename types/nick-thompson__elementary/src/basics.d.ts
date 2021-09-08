@@ -59,14 +59,14 @@ export declare function sr(): core.SrNode;
  * When the pulse is low, the counter will reset and output 0 until the
  * pulse is high again.
  *
- * @param {core.NodeChild} pulse
+ * @param {core.Child} pulse
  * pulse to count
  *
  * @returns {core.CounterNode}
  * a {@link core.CounterNode} that computes the count of the counter
  */
 export declare function counter(
-    pulse: core.NodeChild): core.CounterNode;
+    pulse: core.Child): core.CounterNode;
 
 
 /**
@@ -133,13 +133,13 @@ export declare function ms2samps(
  * For values of the signal between (0, 1), performs a linear interpolation
  * between high and low.
  *
- * @param {core.NodeChild} signal
+ * @param {core.Child} signal
  * the signal to test
  *
- * @param {core.NodeChild} high
+ * @param {core.Child} high
  * result when signal is high
  *
- * @param {core.NodeChild} low
+ * @param {core.Child} low
  * result when signal is low
  *
  * @returns {core.Node}
@@ -147,6 +147,6 @@ export declare function ms2samps(
  * depending on the signal
  */
 export declare function select(
-    signal: core.NodeChild,
-    high: core.NodeChild,
-    low: core.NodeChild): core.Node;
+    signal: core.Child,
+    high: core.Child,
+    low: core.Child): core.Node;

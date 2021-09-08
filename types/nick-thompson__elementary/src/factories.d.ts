@@ -22,23 +22,16 @@ import { core } from './core';
  * a {@link core.Node} for the given {@link core.NodeType},
  * {@link core.NodeProps<T>}, and {@link core.NodeChildren<T>}
  */
-export declare function
-createNode<T extends core.NodeType>(
-    type: T,
-    props: core.NodeProps<T>,
-    ...children: core.NodeChildren<T>): core.Node;
+export declare const
+    createNode:
+        (<T extends core.NodeType>(
+            type: T,
+            props: core.NodeProps<T>,
+            ...children: core.NodeChildren<T>) => core.ConcreteNode<T>) &
+        (<T extends core.NodeType>(
+            type: T,
+            ...children: core.NodeChildren<T>) => core.ConcreteNode<T>);
 
-
-/**
- * Returns a callback factory for the appropriate {@link core.NodeType}.
- *
- * @template T
- * @typedef {
- *   (props: core.NodeProps<T>, ...children: core.NodeChildren<T>) => core.Node
- * } NodeFactory
- */
-export declare type NodeFactory<T extends core.NodeType> =
-    (props: core.NodeProps<T>, ...children: core.NodeChildren<T>) => core.Node;
 
 /**
  * A convenience wrapper for defining factory functions around
@@ -52,5 +45,5 @@ export declare type NodeFactory<T extends core.NodeType> =
  * @returns {NodeFactory<T>}
  * a factory for the given {@link core.NodeType}
  */
-export declare function
-createNodeFactory<T extends core.NodeType>(type: T): NodeFactory<T>;
+export declare const createNodeFactory:
+    <T extends core.NodeType>(type: T) => core.NodeFactory<T>;

@@ -6,14 +6,14 @@ import { core } from './core';
  *
  * Expects exactly one argument, providing the rate in Hz.
  *
- * @param {core.NodeChild} rate
+ * @param {core.Child} rate
  * the rate in Hz
  *
  * @returns {core.PhasorNode}
  * a {@link core.PhasorNode} the output of the phasor
  */
 export declare function phasor(
-    rate: core.NodeChild): core.PhasorNode;
+    rate: core.Child): core.PhasorNode;
 
 
 /**
@@ -21,14 +21,14 @@ export declare function phasor(
  *
  * Expects exactly one argument, providing the rate in Hz.
  *
- * @param {core.NodeChild} rate
+ * @param {core.Child} rate
  * the rate in Hz
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the pulse train
  */
 export declare function train(
-    rate: core.NodeChild): core.Node;
+    rate: core.Child): core.Node;
 
 
 /**
@@ -36,14 +36,14 @@ export declare function train(
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @param {core.NodeChild} frequency
+ * @param {core.Child} frequency
  * the frequency in Hz
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the sine wave
  */
 export declare function cycle(
-    frequency: core.NodeChild): core.Node;
+    frequency: core.Child): core.Node;
 
 
 /**
@@ -54,14 +54,14 @@ export declare function cycle(
  * Typically, due to the aliasing of the naive sawtooth at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @param {core.NodeChild} frequency
+ * @param {core.Child} frequency
  * the frequency in Hz
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the saw wave
  */
 export declare function saw(
-    frequency: core.NodeChild): core.Node;
+    frequency: core.Child): core.Node;
 
 
 /**
@@ -72,14 +72,14 @@ export declare function saw(
  * Typically, due to the aliasing of the naive square at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @param {core.NodeChild} frequency
+ * @param {core.Child} frequency
  * the frequency in Hz
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the square wave
  */
 export declare function square(
-    frequency: core.NodeChild): core.Node;
+    frequency: core.Child): core.Node;
 
 
 /**
@@ -90,14 +90,14 @@ export declare function square(
  * Typically, due to the aliasing of the naive square at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @param {core.NodeChild} frequency
+ * @param {core.Child} frequency
  * the frequency in Hz
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the triangle wave
  */
 export declare function triangle(
-    frequency: core.NodeChild): core.Node;
+    frequency: core.Child): core.Node;
 
 
 /**
@@ -105,14 +105,14 @@ export declare function triangle(
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @param {core.NodeChild} frequency
+ * @param {core.Child} frequency
  * the frequency in Hz
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the blepsaw
  */
 export declare function blepsaw(
-    frequency: core.NodeChild): core.Node;
+    frequency: core.Child): core.Node;
 
 
 /**
@@ -120,13 +120,13 @@ export declare function blepsaw(
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @param {core.NodeChild} frequency
+ * @param {core.Child} frequency
  * the frequency in Hz
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the blepsquare
  */
 export declare function blepsquare(
-    frequency: core.NodeChild): core.Node;
+    frequency: core.Child): core.Node;
 
 
 /**
@@ -145,11 +145,11 @@ export declare function blepsquare(
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @param {core.NodeChild} frequency
+ * @param {core.Child} frequency
  * the frequency in Hz
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the bleptriangle
  */
 export declare function bleptriangle(
-    frequency: core.NodeChild): core.Node;
+    frequency: core.Child): core.Node;

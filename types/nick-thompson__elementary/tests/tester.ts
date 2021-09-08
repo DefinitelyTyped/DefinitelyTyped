@@ -137,24 +137,24 @@ export function expect<T extends Serializable | Basic>(x: T)
         isANodeOfType:
             (t: el.core.NodeType) =>
                 log(core.Node.isNode(x) &&
-                    (x as el.core.Node)._type === t,
+                    (x as any)._type === t,
                     `${x} is a Node of type ${t}`),
         hasNodeProps:
-            (p: el.core.AnyProps) =>
+            (p: el.core.Props) =>
                 log(core.Node.isNode(x) &&
                     Object.keys(p).reduce(
                         (r, k, v) =>
                             !r ? false :
-                            (x as el.core.Node)._props[k as keyof {}] === v,
+                            (x as any)._props[k as keyof {}] === v,
                         true),
                     `${x} has props ${p}`),
         hasNodeChildren:
-            (...c: el.core.AnyNodeChildrenArray) =>
+            (...c: el.core.ChildrenArray) =>
                 log(core.Node.isNode(x) &&
-                    (c as el.core.NodeChild[]).reduce(
+                    (c as el.core.Child[]).reduce(
                         (r, v, i) =>
                             !r ? false :
-                            (x as el.core.Node)._children[i as keyof []] === v,
+                            (x as any)._children[i as keyof []] === v,
                         true),
                     `${x} has children ${c}`),
     };

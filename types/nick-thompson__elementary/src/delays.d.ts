@@ -35,13 +35,13 @@ export declare function z(): core.ZNode;
  * @param {core.DelayProps} props
  * {@link core.DelayProps} object
  *
- * @param {core.NodeChild} length
+ * @param {core.Child} length
  * delay time in samples
  *
- * @param {core.NodeChild} feedback
+ * @param {core.Child} feedback
  * feedback in the range of [-1, 1]
  *
- * @param {core.NodeChild} signal
+ * @param {core.Child} signal
  * the signal to delay
  *
  * @returns {core.DelayNode}
@@ -49,6 +49,6 @@ export declare function z(): core.ZNode;
  */
 export declare function delay(
     props: core.DelayProps,
-    length: core.NodeChild,
-    feedback: core.NodeChild,
-    signal: core.NodeChild): core.DelayNode;
+    length: core.Child,
+    feedback: core.Child,
+    signal: core.Child): core.DelayNode;

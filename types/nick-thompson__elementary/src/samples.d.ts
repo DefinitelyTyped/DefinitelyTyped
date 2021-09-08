@@ -28,7 +28,7 @@ import { core } from './core';
  */
 export declare function sample(
     props: core.SampleProps,
-    trigger: core.NodeChild): core.SampleNode;
+    trigger: core.Child): core.SampleNode;
 
 
 /**
@@ -69,4 +69,4 @@ export declare function sample(
  */
 export declare function table(
     props: core.TableProps,
-    trigger: core.NodeChild): core.TableNode;
+    trigger: core.Child): core.TableNode;
