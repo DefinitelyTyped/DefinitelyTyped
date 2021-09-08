@@ -322,6 +322,11 @@ async function testPromisify() {
             Readable,
             Readable,
             any,
+            any,
+            any,
+            any,
+            any,
+            any,
             any
         ];
     }): void {
@@ -347,7 +352,7 @@ async function testPromisify() {
         stdin: Stdin,
         stdout: Stdout,
         stderr: Stderr,
-        stdio: [Stdin, Stdout, Stderr, any, any]
+        stdio: [Stdin, Stdout, Stderr, any, any, any, any, any, any, any];
     }>): void {
         return undefined;
     }
