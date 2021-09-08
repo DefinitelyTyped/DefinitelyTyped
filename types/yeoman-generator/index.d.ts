@@ -637,15 +637,6 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     ): void;
 
     /**
-     * Adds a transform stream to the commit stream.
-     * **DEPRECATED** Use `queueTransformStream` instead.
-     *
-     * @deprecated
-     * @param stream An array of transform streams or a single one.
-     */
-    registerTransformStream(stream: Transform | Transform[]): this;
-
-    /**
      * Determines the root generator name (the one who's extending this generator).
      */
     rootGeneratorName(): string;
