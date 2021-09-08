@@ -17,6 +17,11 @@ declare module 'child_process' {
             Readable | null, // stdout
             Readable | null, // stderr
             Readable | Writable | null | undefined, // extra
+            Readable | Writable | null | undefined, // extra
+            Readable | Writable | null | undefined, // extra
+            Readable | Writable | null | undefined, // extra
+            Readable | Writable | null | undefined, // extra
+            Readable | Writable | null | undefined, // extra
             Readable | Writable | null | undefined // extra
         ];
         readonly killed: boolean;
@@ -96,6 +101,11 @@ declare module 'child_process' {
             Readable, // stdout
             Readable, // stderr
             Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
             Readable | Writable | null | undefined // extra, no modification
         ];
     }
@@ -113,6 +123,11 @@ declare module 'child_process' {
             I,
             O,
             E,
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
+            Readable | Writable | null | undefined, // extra, no modification
             Readable | Writable | null | undefined, // extra, no modification
             Readable | Writable | null | undefined // extra, no modification
         ];
