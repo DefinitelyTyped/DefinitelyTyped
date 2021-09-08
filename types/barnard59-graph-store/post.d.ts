@@ -1,10 +1,11 @@
 import { Writable } from 'readable-stream';
-import { StreamClientOptions } from 'sparql-http-client';
 
-type Options = Pick<StreamClientOptions, 'user' | 'password'> & {
+interface Options {
+    user?: string;
+    password?: string;
     endpoint: string;
-    maxQuadsPerRequest?: number
-};
+    maxQuadsPerRequest?: number;
+}
 
 export default function post(arg: Options): Writable;
 export {};

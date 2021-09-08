@@ -1,10 +1,11 @@
 import { DefaultGraph, NamedNode, Stream } from 'rdf-js';
-import { StreamClientOptions } from 'sparql-http-client';
 
-type Options = Pick<StreamClientOptions, 'user' | 'password'> & {
+interface Options {
+    user?: string;
+    password?: string;
     endpoint: string;
-    graph?: DefaultGraph | NamedNode | string
-};
+    graph?: DefaultGraph | NamedNode | string;
+}
 
 export default function get(arg: Options): Stream;
 export {};
