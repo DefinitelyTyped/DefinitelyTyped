@@ -4,6 +4,7 @@
         "lib": [
             "es6"
         ],
+        "paths": { "@babel/core": [ "babel__core" ] },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
