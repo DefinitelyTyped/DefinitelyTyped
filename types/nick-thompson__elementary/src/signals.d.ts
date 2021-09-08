@@ -2,42 +2,6 @@ import { core } from './core';
 
 
 /**
- * An exponential ADSR envelope generator, triggered by the gate signal g.
- * When the gate is high (1), this generates the ADS phase. When the gate
- * is low, the R phase.
- *
- * Expected children: 1. Attack time in seconds (number or signal) 2. Decay
- * time in seconds (number or signal) 3. Sustain amplitude between 0 and
- * 1 (number or signal) 4. Release time in seconds (number or signal) 5.
- * Gate signal; a pulse train alternating between 0 and 1.
- *
- * @param {core.Argument} attack
- * the attack time in seconds
- *
- * @param {core.Argument} delay
- * the decay time in seconds
- *
- * @param {core.Argument} sustain
- * the sustain amplitude between 0 and 1
- *
- * @param {core.Argument} release
- * the release time in seconds
- *
- * @param {core.Argument} gate
- * the gate signal limited to values of 0 and 1
- *
- * @returns {core.Node}
- * a {@link core.Node} that computes the output of the envelope
- */
-export declare function adsr(
-    attack: core.Argument,
-    delay: core.Argument,
-    sustain: core.Argument,
-    release: core.Argument,
-    gate: core.Argument): core.Node;
-
-
-/**
  * A sample and hold node.
  * Samples a new value from the input on a rising edge of the control signal,
  * then holds and emits that value until the next rising edge of
@@ -47,18 +11,18 @@ export declare function adsr(
  * 1. The control signal
  * 2. The input signal to sample.
  *
- * @param {core.Argument} control
+ * @param {core.NodeChild} control
  * the control signal
  *
- * @param {core.Argument} input
+ * @param {core.NodeChild} input
  * the input signal
  *
- * @returns {core.Node}
- * a {@link core.Node} that computes the controlled input signal output
+ * @returns {core.LatchNode}
+ * a {@link core.LatchNode} that computes the controlled input signal output
  */
 export declare function latch(
-    control: core.Argument,
-    input: core.Argument): core.Node;
+    control: core.NodeChild,
+    input: core.NodeChild): core.LatchNode;
 
 
 /**
@@ -75,19 +39,55 @@ export declare function latch(
  * @param {core.SeqProps} props
  * {@link core.SeqProps} object
  *
- * @param {core.Argument} next
+ * @param {core.NodeChild} next
  * the next step
  *
- * @param {core.Argument?} last
+ * @param {core.NodeChild?} last
  * the last step
  *
- * @returns {core.Node}
- * a {@link core.Node} that computes the output of the sequencer
+ * @returns {core.SeqNode}
+ * a {@link core.SeqNode} that computes the output of the sequencer
  */
 export declare function seq(
     props: core.SeqProps,
-    next: core.Argument,
-    last?: core.Argument): core.Node;
+    next: core.NodeChild,
+    last?: core.NodeChild): core.SeqNode;
+
+
+/**
+ * An exponential ADSR envelope generator, triggered by the gate signal g.
+ * When the gate is high (1), this generates the ADS phase. When the gate
+ * is low, the R phase.
+ *
+ * Expected children: 1. Attack time in seconds (number or signal) 2. Decay
+ * time in seconds (number or signal) 3. Sustain amplitude between 0 and
+ * 1 (number or signal) 4. Release time in seconds (number or signal) 5.
+ * Gate signal; a pulse train alternating between 0 and 1.
+ *
+ * @param {core.NodeChild} attack
+ * the attack time in seconds
+ *
+ * @param {core.NodeChild} delay
+ * the decay time in seconds
+ *
+ * @param {core.NodeChild} sustain
+ * the sustain amplitude between 0 and 1
+ *
+ * @param {core.NodeChild} release
+ * the release time in seconds
+ *
+ * @param {core.NodeChild} gate
+ * the gate signal limited to values of 0 and 1
+ *
+ * @returns {core.Node}
+ * a {@link core.Node} that computes the output of the envelope
+ */
+export declare function adsr(
+    attack: core.NodeChild,
+    delay: core.NodeChild,
+    sustain: core.NodeChild,
+    release: core.NodeChild,
+    gate: core.NodeChild): core.Node;
 
 
 /**
@@ -98,11 +98,11 @@ export declare function seq(
  *
  * Expects exactly one argument, the incoming phase.
  *
- * @param {core.Argument} phase
+ * @param {core.NodeChild} phase
  * the incoming phase
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the generator
  */
 export declare function hann(
-    phase: core.Argument): core.Node;
+    phase: core.NodeChild): core.Node;

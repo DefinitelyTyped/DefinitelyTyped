@@ -20,7 +20,7 @@ export const testCore: ElementaryCallback =
             new core.Node(
                 'phasor',
                 {},
-                [el.const({ value: 92 })]);
+                [92]);
 
 
         // Tests

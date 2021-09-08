@@ -19,7 +19,7 @@ export const testBasics: ElementaryCallback =
         expect(counter).passes(isNode);
         expect(counter).isANodeOfType('counter');
         expect(counter).hasNodeProps({});
-        expect(counter).hasNodeChildren([10]);
+        expect(counter).hasNodeChildren(10);
 
         let tau2pole: el.core.Node | number = el.tau2pole(sr);
         expect(tau2pole).passes(isNode);

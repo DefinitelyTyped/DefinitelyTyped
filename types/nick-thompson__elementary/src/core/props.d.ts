@@ -17,6 +17,20 @@ export declare interface Props
 }
 
 
+/**
+ * Base props object for {@link Node}.
+ *
+ * Unlike {@link Props}, this type allows any key and any prop value.
+ * Useful in some situations.
+ *
+ * @typedef {Props & {[key: string]: any}} AnyProps
+ */
+export declare interface AnyProps extends Props
+{
+    [key: string]: any;
+}
+
+
 // Basics
 
 /**

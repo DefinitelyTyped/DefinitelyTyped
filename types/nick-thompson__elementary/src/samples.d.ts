@@ -23,12 +23,12 @@ import { core } from './core';
  * @param {core.Node} trigger
  * the pulse train that triggers the playback
  *
- * @returns {core.Node}
- * a {@link core.Node} that outputs the playback of the sample
+ * @returns {core.SampleNode}
+ * a {@link core.SampleNode} that outputs the playback of the sample
  */
 export declare function sample(
     props: core.SampleProps,
-    trigger: core.Argument): core.Node;
+    trigger: core.NodeChild): core.SampleNode;
 
 
 /**
@@ -64,9 +64,9 @@ export declare function sample(
  * @param {core.Node} trigger
  * the pulse train that triggers the playback
  *
- * @returns {core.Node}
- * a {@link core.Node} that computes the lookup table output
+ * @returns {core.TableNode}
+ * a {@link core.TableNode} that computes the lookup table output
  */
 export declare function table(
     props: core.TableProps,
-    trigger: core.Argument): core.Node;
+    trigger: core.NodeChild): core.TableNode;

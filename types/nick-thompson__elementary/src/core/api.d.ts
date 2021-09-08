@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-import { Node, NodeConstructor } from './nodes';
+import { Node, NodeStatic } from './nodes';
 import { MidiEvent } from './midi';
 
 
@@ -98,7 +98,7 @@ export declare interface Core extends EventEmitter
      *     core.render(first, second);
      *
      * @param {...Node} signals
-     * children to render in channels
+     * {@link Node}s to render in channels
      */
     render(...signals: Node[]): void;
 
@@ -106,5 +106,5 @@ export declare interface Core extends EventEmitter
     /**
      * Basic building block of the Elementary audio graph.
      */
-    Node: NodeConstructor;
+    Node: NodeStatic;
 }

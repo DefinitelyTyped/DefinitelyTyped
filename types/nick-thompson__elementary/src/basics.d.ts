@@ -15,11 +15,11 @@ import { core } from './core';
  *     el.inputs() === [el.in({channel: 0}), el.in({channel: 1})]
  *
  *
- * @returns {core.Node[]}
- * an array of {@link core.Node} that output the input signals of their
+ * @returns {core.InNode[]}
+ * an array of {@link core.InNode} that output the input signals of their
  * designated channels
  */
-export declare function inputs(): core.Node[];
+export declare function inputs(): core.InNode[];
 
 
 /**
@@ -34,10 +34,10 @@ export declare function inputs(): core.Node[];
  * @param {core.ConstProps} props
  * {@link core.ConstProps} object
  *
- * @returns {core.Node}
- * a {@link core.Node} that returns the given value
+ * @returns {core.ConstNode}
+ * a {@link core.ConstNode} that returns the given value
  */
-declare function _const(props: core.ConstProps): core.Node;
+declare function _const(props: core.ConstProps): core.ConstNode;
 
 // noinspection ReservedWordAsName
 export { _const as const };
@@ -46,10 +46,10 @@ export { _const as const };
 /**
  * A constant value node whose value is the current sample rate of the system.
  *
- * @returns {core.Node}
- * a {@link core.Node} that returns the current sample rate
+ * @returns {core.SrNode}
+ * a {@link core.SrNode} that returns the current sample rate
  */
-export declare function sr(): core.Node;
+export declare function sr(): core.SrNode;
 
 
 /**
@@ -59,14 +59,14 @@ export declare function sr(): core.Node;
  * When the pulse is low, the counter will reset and output 0 until the
  * pulse is high again.
  *
- * @param {core.Argument} pulse
+ * @param {core.NodeChild} pulse
  * pulse to count
  *
- * @returns {core.Node}
- * a {@link core.Node} that computes the count of the counter
+ * @returns {core.CounterNode}
+ * a {@link core.CounterNode} that computes the count of the counter
  */
 export declare function counter(
-    pulse: core.Argument): core.Node;
+    pulse: core.NodeChild): core.CounterNode;
 
 
 /**
@@ -133,13 +133,13 @@ export declare function ms2samps(
  * For values of the signal between (0, 1), performs a linear interpolation
  * between high and low.
  *
- * @param {core.Argument} signal
+ * @param {core.NodeChild} signal
  * the signal to test
  *
- * @param {core.Argument} high
+ * @param {core.NodeChild} high
  * result when signal is high
  *
- * @param {core.Argument} low
+ * @param {core.NodeChild} low
  * result when signal is low
  *
  * @returns {core.Node}
@@ -147,6 +147,6 @@ export declare function ms2samps(
  * depending on the signal
  */
 export declare function select(
-    signal: core.Argument,
-    high: core.Argument,
-    low: core.Argument): core.Node;
+    signal: core.NodeChild,
+    high: core.NodeChild,
+    low: core.NodeChild): core.Node;

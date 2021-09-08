@@ -136,38 +136,26 @@ export function expect<T extends Serializable | Basic>(x: T)
                     `${x} is a Node`),
         isANodeOfType:
             (t: el.core.NodeType) =>
-                log((() =>
-                    {
-                        if (core.Node.isNode(x))
-                            return (x as el.core.Node)._type === t;
-
-                        return false;
-                    })(),
+                log(core.Node.isNode(x) &&
+                    (x as el.core.Node)._type === t,
                     `${x} is a Node of type ${t}`),
         hasNodeProps:
-            (p: {}) =>
-                log((() =>
-                    {
-                        if (!core.Node.isNode(x))
-                            return Object.keys(p).reduce(
-                                (r, k) =>
-                                    !r ? false :
-                                    (x as el.core.Node)._props[k as keyof {}] ===
-                                    p[k as keyof typeof p],
-                                true);
-
-                        return false;
-                    })(),
+            (p: el.core.AnyProps) =>
+                log(core.Node.isNode(x) &&
+                    Object.keys(p).reduce(
+                        (r, k, v) =>
+                            !r ? false :
+                            (x as el.core.Node)._props[k as keyof {}] === v,
+                        true),
                     `${x} has props ${p}`),
         hasNodeChildren:
-            (c: number[]) =>
-                log((() =>
-                    {
-                        if (core.Node.isNode(x))
-                            return (x as el.core.Node)._children === c;
-
-                        return false;
-                    })(),
+            (...c: el.core.AnyNodeChildrenArray) =>
+                log(core.Node.isNode(x) &&
+                    (c as el.core.NodeChild[]).reduce(
+                        (r, v, i) =>
+                            !r ? false :
+                            (x as el.core.Node)._children[i as keyof []] === v,
+                        true),
                     `${x} has children ${c}`),
     };
 }

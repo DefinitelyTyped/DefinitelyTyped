@@ -18,7 +18,7 @@ import { core } from './core';
  * Generates a stream of random numbers
  * uniformly distributed on the range [0, 1].
  *
- * @returns {core.Node}
- * a {@link core.Node} that computes a stream of random numbers
+ * @returns {core.RandNode}
+ * a {@link core.RandNode} that computes a stream of random numbers
  */
-export declare function rand(): core.Node;
+export declare function rand(): core.RandNode;

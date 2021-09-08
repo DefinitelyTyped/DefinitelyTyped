@@ -4,10 +4,10 @@ import { core } from './core';
 /**
  * A very simple single-sample delay {@link core.Node} (z^-1).
  *
- * @returns {core.Node}
- * the signal {@link core.Node} to delay
+ * @returns {core.ZNode}
+ * the signal {@link core.ZNode} to delay
  */
-export declare function z(): core.Node;
+export declare function z(): core.ZNode;
 
 
 /**
@@ -35,20 +35,20 @@ export declare function z(): core.Node;
  * @param {core.DelayProps} props
  * {@link core.DelayProps} object
  *
- * @param {core.Argument} length
+ * @param {core.NodeChild} length
  * delay time in samples
  *
- * @param {core.Argument} feedback
+ * @param {core.NodeChild} feedback
  * feedback in the range of [-1, 1]
  *
- * @param {core.Argument} signal
+ * @param {core.NodeChild} signal
  * the signal to delay
  *
- * @returns {core.Node}
- * a {@link core.Node} that computes the output of the delay
+ * @returns {core.DelayNode}
+ * a {@link core.DelayNode} that computes the output of the delay
  */
 export declare function delay(
     props: core.DelayProps,
-    length: core.Argument,
-    feedback: core.Argument,
-    signal: core.Argument): core.Node;
+    length: core.NodeChild,
+    feedback: core.NodeChild,
+    signal: core.NodeChild): core.DelayNode;
