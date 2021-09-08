@@ -7,6 +7,8 @@
 
 /// <reference types="geojson" />
 
+export as namespace TrimbleMaps;
+
 export let version: string;
 
 /**
