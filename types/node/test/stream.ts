@@ -515,3 +515,10 @@ addAbortSignal(new AbortSignal(), new Readable());
     const a = new Readable();
     a.unshift('something', 'utf8');
 }
+
+{
+    const readable = new Readable();
+    Readable.isDisturbed(readable); // $ExpectType boolean
+    const readableDidRead: boolean = readable.readableDidRead;
+    const readableAborted: boolean = readable.readableAborted;
+}
