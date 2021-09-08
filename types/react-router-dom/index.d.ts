@@ -81,7 +81,7 @@ export interface NavLinkProps<S = H.LocationState> extends Omit<LinkProps<S>, "c
     className?: string | ((isActive: boolean) => string);
     style?:
       | React.CSSProperties
-      | ((props: { isActive: boolean }) => React.CSSProperties);
+      | ((isActive: boolean) => React.CSSProperties);
 }
 export function NavLink<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.
