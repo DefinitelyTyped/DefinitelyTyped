@@ -33792,7 +33792,7 @@ declare namespace Excel {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         * Returns the PivotFields associated with the PivotField.
+         * Returns the PivotItems associated with the PivotField.
          *
          * @remarks
          * [Api set: ExcelApi 1.8]
@@ -56037,7 +56037,7 @@ declare namespace Excel {
         /** An interface describing the data returned by calling `pivotField.toJSON()`. */
         interface PivotFieldData {
             /**
-            * Returns the PivotFields associated with the PivotField.
+            * Returns the PivotItems associated with the PivotField.
             *
             * @remarks
             * [Api set: ExcelApi 1.8]
