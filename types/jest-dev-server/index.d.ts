@@ -1,8 +1,9 @@
-// Type definitions for jest-dev-server 4.2
+// Type definitions for jest-dev-server 5.0
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-dev-server
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
+//                 Tony Brix <https://github.com/UziTech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 4.3
 
 /// <reference types="node" />
 
@@ -58,6 +59,21 @@ export interface JestDevServerOptions {
      * ```
      */
     host?: string | undefined;
+
+    /**
+     * Path to resource to wait for activity on before considering the server running. Must be used in conjunction with host and port.
+     * @default null
+     *
+     * ```js
+     * module.exports = {
+     *   command: 'npm run start --port 3000',
+     *   host: 'customhost.com',
+     *   port: 3000,
+     *   path: 'thing',
+     * }
+     * ```
+     */
+    path?: string | undefined;
 
     /**
      * To wait for an HTTP or TCP endpoint before considering the server running, include http or tcp as a protocol. Must be used in conjunction with port.
