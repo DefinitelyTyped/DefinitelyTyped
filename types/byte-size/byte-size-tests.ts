@@ -1,6 +1,8 @@
-import { byteSize } from 'byte-size';
+import byteSize from 'byte-size';
 
-const toStringFn = () => {};
+const toStringFn = () => {
+    return 'test';
+};
 
 byteSize(256, {
     locale: 'en-gb',
@@ -13,7 +15,7 @@ byteSize(12, {
     locale: 'en-gb',
     precision: 2.5,
     toStringFn,
-    units: 'test',
+    units: 'iec',
     customUnits: {
         test: 'sth',
     },
