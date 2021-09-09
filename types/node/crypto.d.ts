@@ -548,6 +548,10 @@ declare module 'crypto' {
     class KeyObject {
         private constructor();
         /**
+         * @since v15.0.0
+         */
+        static from(key: webcrypto.CryptoKey): KeyObject;
+        /**
          * For asymmetric keys, this property represents the type of the key. Supported key
          * types are:
          *
