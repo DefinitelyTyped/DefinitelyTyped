@@ -249,7 +249,7 @@ export interface Store {
      * internal record source. Subscribers are not immediately notified - this
      * occurs when `notify()` is called.
      */
-    publish(source: RecordSource, idsMarkedForInvalidation?: Set<DataID>): void;
+    publish(source: RecordSource, idsMarkedForInvalidation?: DataIDSet): void;
 
     /**
      * Ensure that all the records necessary to fulfill the given selector are
@@ -419,7 +419,7 @@ interface OperationDescriptor {
 export type LogEvent =
     | Readonly<{
         name: 'suspense.fragment',
-        data: any,
+        data: unknown,
         fragment: ReaderFragment,
         isRelayHooks: boolean,
         isMissingData: boolean,
@@ -441,7 +441,7 @@ export type LogEvent =
          */
         resourceID: number;
         operation: OperationDescriptor;
-        profilerContext: any;
+        profilerContext: unknown;
         fetchPolicy: FetchPolicy;
         renderPolicy: RenderPolicy;
         queryAvailability: OperationAvailability;
@@ -451,7 +451,7 @@ export type LogEvent =
         name: 'queryresource.retain';
         resourceID: number;
         // value from ProfilerContext
-        profilerContext: any;
+        profilerContext: unknown;
     }>
     | Readonly<{
         name: 'network.info';
@@ -530,7 +530,7 @@ export type LogEvent =
     }>
     | Readonly<{
         name: 'store.gc';
-        references: Set<DataID>;
+        references: DataIDSet;
     }>
     | Readonly<{
         name: 'store.notify.start';
@@ -539,8 +539,8 @@ export type LogEvent =
     | Readonly<{
         name: 'store.notify.complete';
         sourceOperation?: OperationDescriptor | undefined;
-        updatedRecordIDs: UpdatedRecords;
-        invalidatedRecordIDs: Set<DataID>;
+        updatedRecordIDs: DataIDSet;
+        invalidatedRecordIDs: DataIDSet;
     }>
     | Readonly<{
         name: 'store.notify.subscription';
@@ -550,7 +550,7 @@ export type LogEvent =
     }>
     | Readonly<{
         name: 'entrypoint.root.consume';
-        profilerContext: any;
+        profilerContext: unknown;
         rootModuleID: string;
     }>;
 
@@ -745,12 +745,7 @@ export interface LoadingState {
     error?: Error | undefined;
 }
 
-/**
- * A map of records affected by an update operation.
- */
-export interface UpdatedRecords {
-    [dataID: string]: boolean;
-}
+export type DataIDSet = Set<DataID>;
 
 /**
  * A function that updates a store (via a proxy) given the results of a "handle"
