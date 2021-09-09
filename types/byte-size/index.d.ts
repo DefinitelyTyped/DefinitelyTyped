@@ -13,4 +13,10 @@ export interface byteSizeOptions {
     locale: string | string[];
 }
 
-export function byteSize(bytes: number, options?: byteSizeOptions): object;
+export interface ByteSizeObject {
+    value: string;
+    unit: string;
+    long: string;
+}
+
+export function byteSize(bytes: number, options?: byteSizeOptions): ByteSizeObject;
