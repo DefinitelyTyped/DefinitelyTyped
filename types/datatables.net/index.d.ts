@@ -471,7 +471,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters
          */
-        each(fn: ((value: any, index: number, dt: Api) => void)): Api;
+        each(fn: ((value: any, index?: number, dt?: Api) => void)): Api;
 
         /**
          * Reduce an Api instance to a single context and result set.
