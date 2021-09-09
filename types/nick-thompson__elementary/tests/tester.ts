@@ -1,4 +1,5 @@
 import { el, core } from './load';
+import * as colors from 'colors';
 
 interface Serializable
 {
@@ -44,8 +45,8 @@ function log<T extends boolean>(
 
     console.log(
         passed ?
-        `x: ${expression}\n${success}\n` :
-        `F: ${expression}\n${fail}\n`);
+        colors.green('x') + `: ${expression}\n${success}\n` :
+        colors.red('F') + `: ${expression}\n${fail}\n`);
 
     return passed;
 }
