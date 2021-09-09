@@ -4,10 +4,18 @@ import { core } from './core';
 /**
  * A very simple single-sample delay {@link core.Node} (z^-1).
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @returns {core.ZNode}
  * the signal {@link core.ZNode} to delay
  */
-export declare function z(): core.ZNode;
+export declare const z:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        []>;
 
 
 /**
@@ -32,7 +40,9 @@ export declare function z(): core.ZNode;
  *       feedback,
  *       signal));
  *
- * @param {core.DelayProps} props
+ * @function
+ *
+ * @param {core.DelayProps?} props
  * {@link core.DelayProps} object
  *
  * @param {core.Child} length
@@ -47,8 +57,11 @@ export declare function z(): core.ZNode;
  * @returns {core.DelayNode}
  * a {@link core.DelayNode} that computes the output of the delay
  */
-export declare function delay(
-    props: core.DelayProps,
-    length: core.Child,
-    feedback: core.Child,
-    signal: core.Child): core.DelayNode;
+export declare const delay:
+    core.NodeFactory<'delay',
+        core.DelayProps,
+        [
+            length: core.Child,
+            feedback: core.Child,
+            signal: core.Child
+        ]>;

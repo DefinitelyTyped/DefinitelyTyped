@@ -17,7 +17,9 @@ import { core } from './core';
  *
  * Expects exactly one argument, the pulse train to trigger playback.
  *
- * @param {core.SampleProps} props
+ * @function
+ *
+ * @param {core.SampleProps?} props
  * {@link core.SampleProps} object
  *
  * @param {core.Node} trigger
@@ -26,9 +28,12 @@ import { core } from './core';
  * @returns {core.SampleNode}
  * a {@link core.SampleNode} that outputs the playback of the sample
  */
-export declare function sample(
-    props: core.SampleProps,
-    trigger: core.Child): core.SampleNode;
+export declare const sample:
+    core.NodeFactory<'sample',
+        core.SampleProps,
+        [
+            trigger: core.Child
+        ]>;
 
 
 /**
@@ -58,7 +63,9 @@ export declare function sample(
  *  {path: '/path/to/padSound.wav'},
  *  el.add(0.1, el.mul(0.1, el.phasor(1))));
  *
- * @param {TableProps} props
+ * @function
+ *
+ * @param {TableProps?} props
  * {@link core.TableProps} object
  *
  * @param {core.Node} trigger
@@ -67,6 +74,9 @@ export declare function sample(
  * @returns {core.TableNode}
  * a {@link core.TableNode} that computes the lookup table output
  */
-export declare function table(
-    props: core.TableProps,
-    trigger: core.Child): core.TableNode;
+export declare const table:
+    core.NodeFactory<'table',
+        core.KeyProps,
+        [
+            trigger: core.Child
+        ]>;

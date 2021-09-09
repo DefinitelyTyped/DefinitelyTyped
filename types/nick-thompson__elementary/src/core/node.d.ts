@@ -196,7 +196,9 @@ export type ConcreteNode<T extends NodeType,
     P extends NativeNodeProps<T> ?
     C extends NativeNodeChildren<T> ?
     NativeNode<T> : never : never :
-    CompositeNode<T, P, C>;
+    T extends CompositeNodeType ?
+    CompositeNode<T, P, C> :
+    never;
 
 
 // Native

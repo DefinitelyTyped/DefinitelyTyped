@@ -11,6 +11,11 @@ import { core } from './core';
  * 1. The control signal
  * 2. The input signal to sample.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} control
  * the control signal
  *
@@ -20,9 +25,13 @@ import { core } from './core';
  * @returns {core.LatchNode}
  * a {@link core.LatchNode} that computes the controlled input signal output
  */
-export declare function latch(
-    control: core.Child,
-    input: core.Child): core.LatchNode;
+export declare const latch:
+    core.NodeFactory<'latch',
+        core.KeyProps,
+        [
+            control: core.Child,
+            input: core.Child
+        ]>;
 
 
 /**
@@ -36,7 +45,9 @@ export declare function latch(
  * another control signal (pulse train) whose rising edge will
  * reset the sequence position back to the beginning.
  *
- * @param {core.SeqProps} props
+ * @function
+ *
+ * @param {core.SeqProps?} props
  * {@link core.SeqProps} object
  *
  * @param {core.Child} next
@@ -48,10 +59,15 @@ export declare function latch(
  * @returns {core.SeqNode}
  * a {@link core.SeqNode} that computes the output of the sequencer
  */
-export declare function seq(
-    props: core.SeqProps,
-    next: core.Child,
-    last?: core.Child): core.SeqNode;
+export declare const seq:
+    core.NodeFactory<'seq',
+        core.SeqProps,
+        [
+            next: core.Child
+        ] | [
+            next: core.Child,
+            last: core.Child
+        ]>;
 
 
 /**
@@ -63,6 +79,11 @@ export declare function seq(
  * time in seconds (number or signal) 3. Sustain amplitude between 0 and
  * 1 (number or signal) 4. Release time in seconds (number or signal) 5.
  * Gate signal; a pulse train alternating between 0 and 1.
+ *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
  *
  * @param {core.Child} attack
  * the attack time in seconds
@@ -82,12 +103,16 @@ export declare function seq(
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the envelope
  */
-export declare function adsr(
-    attack: core.Child,
-    delay: core.Child,
-    sustain: core.Child,
-    release: core.Child,
-    gate: core.Child): core.Node;
+export declare const adsr:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            attack: core.Child,
+            delay: core.Child,
+            sustain: core.Child,
+            release: core.Child,
+            gate: core.Child
+        ]>;
 
 
 /**
@@ -98,11 +123,20 @@ export declare function adsr(
  *
  * Expects exactly one argument, the incoming phase.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} phase
  * the incoming phase
  *
  * @returns {core.Node}
  * a {@link core.Node} that computes the output of the generator
  */
-export declare function hann(
-    phase: core.Child): core.Node;
+export declare const hann:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            phase: core.Child
+        ]>;

@@ -7,6 +7,11 @@ import { core } from './core';
  * Expects two children, the first is the pole position,
  * the second is the signal to filter.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} polePosition
  * the pole position
  *
@@ -16,15 +21,24 @@ import { core } from './core';
  * @returns {core.PoleNode}
  * a {@link core.PoleNode} that filters the signal
  */
-export declare function pole(
-    polePosition: core.Child,
-    signal: core.Child): core.PoleNode;
+export declare const pole:
+    core.NodeFactory<'pole',
+        core.KeyProps,
+        [
+            polePosition: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A second order transposed direct-form II filter implementation.
  * Expects six children, the first five of which are the raw filter
  * coefficients (b0, b1, b2, a1, a2). The final input is the signal to filter.
+ *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
  *
  * @param {core.Child} b0
  * the first coefficient
@@ -47,20 +61,26 @@ export declare function pole(
  * @returns {core.BiquadNode}
  * a {@link core.BiquadNode} that filters the signal
  */
-export declare function biquad(
-    b0: core.Child,
-    b1: core.Child,
-    b2: core.Child,
-    a1: core.Child,
-    a2: core.Child,
-    signal: core.Child): core.BiquadNode;
+export declare const biquad:
+    core.NodeFactory<'biquad',
+        core.KeyProps,
+        [
+            b0: core.Child,
+            b1: core.Child,
+            b2: core.Child,
+            a1: core.Child,
+            a2: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A convolution node which reads an impulse response from disk and
  * convolves it with the input signal.
  *
- * @param {core.ConvolveProps} props
+ * @function
+ *
+ * @param {core.ConvolveProps?} props
  * {@link core.ConvolveProps} object
  *
  * @param {core.Child} signal
@@ -69,9 +89,12 @@ export declare function biquad(
  * @returns {core.ConvolveNode}
  * a {@link core.ConvolveNode} that convolves the signal
  */
-export declare function convolve(
-    props: core.ConvolveProps,
-    signal: core.Child): core.ConvolveNode;
+export declare const convolve:
+    core.NodeFactory<'convolve',
+        core.ConvolveProps,
+        [
+            signal: core.Child
+        ]>;
 
 
 /**
@@ -79,6 +102,11 @@ export declare function convolve(
  * Expects the b0 coefficient as the first argument,
  * the zero position b1 as the second argument,
  * and the input to the filter as the third.
+ *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
  *
  * @param {core.Child} b0
  * the first coefficient
@@ -92,15 +120,24 @@ export declare function convolve(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function zero(
-    b0: core.Child,
-    b1: core.Child,
-    signal: core.Child): core.Node;
+export declare const zero:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            b0: core.Child,
+            b1: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * Implements a default DC blocking filter with a pole at 0.995 and a zero at 1.
  * This filter has a -3dB point near 35Hz at 44.1kHz.
+ *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
  *
  * @param {core.Child} signal
  * signal to filter
@@ -108,12 +145,21 @@ export declare function zero(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function dcblock(
-    signal: core.Child): core.Node;
+export declare const dcblock:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            signal: core.Child
+        ]>;
 
 
 /**
  * A simple first order pole-zero filter, Direct Form 1.
+ *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
  *
  * @param {core.Child} b0
  * the first coefficient
@@ -130,11 +176,15 @@ export declare function dcblock(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function df11(
-    b0: core.Child,
-    b1: core.Child,
-    a1: core.Child,
-    signal: core.Child): core.Node;
+export declare const df11:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            b0: core.Child,
+            b1: core.Child,
+            a1: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
@@ -142,6 +192,11 @@ export declare function df11(
  * discontinuities in control signals.
  * Expects two children, the first is the pole position,
  * the second is the signal to filter.
+ *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
  *
  * @param {core.Child} polePosition
  * the pole position
@@ -152,9 +207,13 @@ export declare function df11(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function smooth(
-    polePosition: core.Child,
-    signal: core.Child): core.Node;
+export declare const smooth:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            polePosition: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
@@ -162,20 +221,34 @@ export declare function smooth(
  * @example
  *     el.smooth(el.tau2pole(0.02), signal)
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} signal
  * signal to filter
  *
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function sm(
-    signal: core.Child): core.Node;
+export declare const sm:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            signal: core.Child
+        ]>;
 
 
 /**
  * A simple lowpass biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} cutoff
  * the filter cutoff
  *
@@ -188,16 +261,25 @@ export declare function sm(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function lowpass(
-    cutoff: core.Child,
-    Q: core.Child,
-    signal: core.Child): core.Node;
+export declare const lowpass:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            cutoff: core.Child,
+            Q: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A simple highpass biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} cutoff
  * the filter cutoff
  *
@@ -210,16 +292,25 @@ export declare function lowpass(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function highpass(
-    cutoff: core.Child,
-    Q: core.Child,
-    signal: core.Child): core.Node;
+export declare const highpass:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            cutoff: core.Child,
+            Q: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A simple bandpass biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} cutoff
  * the filter cutoff
  *
@@ -232,16 +323,25 @@ export declare function highpass(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function bandpass(
-    cutoff: core.Child,
-    Q: core.Child,
-    signal: core.Child): core.Node;
+export declare const bandpass:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            cutoff: core.Child,
+            Q: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * An allpass biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} cutoff
  * the filter cutoff
  *
@@ -254,16 +354,25 @@ export declare function bandpass(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function allpass(
-    cutoff: core.Child,
-    Q: core.Child,
-    signal: core.Child): core.Node;
+export declare const allpass:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            cutoff: core.Child,
+            Q: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A notch biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} cutoff
  * the filter cutoff
  *
@@ -276,16 +385,25 @@ export declare function allpass(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function notch(
-    cutoff: core.Child,
-    Q: core.Child,
-    signal: core.Child): core.Node;
+export declare const notch:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            cutoff: core.Child,
+            Q: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A peaking (bell) biquad filter with a cutoff frequency, a Q,
  * gain in decibels, and which filters the signal.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} cutoff
  * the filter cutoff
  *
@@ -301,17 +419,26 @@ export declare function notch(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function peak(
-    cutoff: core.Child,
-    Q: core.Child,
-    gain: core.Child,
-    signal: core.Child): core.Node;
+export declare const peak:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            cutoff: core.Child,
+            Q: core.Child,
+            gain: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A lowshelf biquad filter with a cutoff frequency, a Q,
  * gain in decibels, and which filters the signal.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} cutoff
  * the filter cutoff
  *
@@ -327,17 +454,26 @@ export declare function peak(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function lowshelf(
-    cutoff: core.Child,
-    Q: core.Child,
-    gain: core.Child,
-    signal: core.Child): core.Node;
+export declare const lowshelf:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            cutoff: core.Child,
+            Q: core.Child,
+            gain: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A highshelf biquad filter with a cutoff frequency, a Q,
  * gain in decibels, and which filters the signal.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} cutoff
  * the filter cutoff
  *
@@ -353,16 +489,25 @@ export declare function lowshelf(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function highshelf(
-    cutoff: core.Child,
-    Q: core.Child,
-    gain: core.Child,
-    signal: core.Child): core.Node;
+export declare const highshelf:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            cutoff: core.Child,
+            Q: core.Child,
+            gain: core.Child,
+            signal: core.Child
+        ]>;
 
 
 /**
  * A pink noise filter designed to apply a -3dB/octave lowpass to the
  * incoming signal.
+ *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
  *
  * @param {core.Child} signal
  * signal to filter
@@ -370,5 +515,9 @@ export declare function highshelf(
  * @returns {core.Node}
  * a {@link core.Node} that filters the signal
  */
-export declare function pink(
-    signal: core.Child): core.Node;
+export declare const pink:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            signal: core.Child
+        ]>;

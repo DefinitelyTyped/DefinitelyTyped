@@ -14,12 +14,13 @@ import { core } from './core';
  * @example
  *     el.inputs() === [el.in({channel: 0}), el.in({channel: 1})]
  *
+ * @function
  *
  * @returns {core.InNode[]}
  * an array of {@link core.InNode} that output the input signals of their
  * designated channels
  */
-export declare function inputs(): core.InNode[];
+export declare const inputs: () => core.InNode[];
 
 
 /**
@@ -31,13 +32,21 @@ export declare function inputs(): core.InNode[];
  *     el.cycle(440)
  *     el.cycle(el.const({value: 440}))
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.ConstProps} props
  * {@link core.ConstProps} object
  *
  * @returns {core.ConstNode}
  * a {@link core.ConstNode} that returns the given value
  */
-declare function _const(props: core.ConstProps): core.ConstNode;
+declare const _const:
+    core.NodeFactory<core.CompositeNodeType,
+        core.ConstProps,
+        []>;
 
 // noinspection ReservedWordAsName
 export { _const as const };
@@ -46,10 +55,18 @@ export { _const as const };
 /**
  * A constant value node whose value is the current sample rate of the system.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @returns {core.SrNode}
  * a {@link core.SrNode} that returns the current sample rate
  */
-export declare function sr(): core.SrNode;
+export declare const sr:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        []>;
 
 
 /**
@@ -59,20 +76,29 @@ export declare function sr(): core.SrNode;
  * When the pulse is low, the counter will reset and output 0 until the
  * pulse is high again.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} pulse
  * pulse to count
  *
  * @returns {core.CounterNode}
  * a {@link core.CounterNode} that computes the count of the counter
  */
-export declare function counter(
-    pulse: core.Child): core.CounterNode;
+export declare const counter:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [pulse: core.Child]>;
 
 
 /**
  * Computes a real pole position giving exponential decay over t,
  * where t is the time to decay 60dB.
  * Computes lazily.
+ *
+ * @function
  *
  * @param {core.Node} child
  * {@link core.Node} to compute the real pole position of
@@ -87,6 +113,8 @@ export declare function tau2pole(
  * Computes a real pole position giving exponential decay over t,
  * where t is the time to decay 60dB.
  * Computes eagerly.
+ *
+ * @function
  *
  * @param {number} time
  * time to compute the real pole position of
@@ -103,6 +131,8 @@ export declare function tau2pole(
  * where time is the input time in milliseconds.
  * Computes lazily.
  *
+ * @function
+ *
  * @param {core.Node} child
  * {@link core.Node} to compute the sample count of
  *
@@ -116,6 +146,8 @@ export declare function ms2samps(
  * Equivalent to (time / 1000) * sampleRate,
  * where time is the input time in milliseconds.
  * Computes eagerly.
+ *
+ * @function
  *
  * @param {number} time
  * time to convert to sample count
@@ -133,6 +165,11 @@ export declare function ms2samps(
  * For values of the signal between (0, 1), performs a linear interpolation
  * between high and low.
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @param {core.Child} signal
  * the signal to test
  *
@@ -146,7 +183,11 @@ export declare function ms2samps(
  * a {@link core.Node} that results in high or low or their interpolation
  * depending on the signal
  */
-export declare function select(
-    signal: core.Child,
-    high: core.Child,
-    low: core.Child): core.Node;
+export declare const select:
+    core.NodeFactory<core.CompositeNodeType,
+        core.KeyProps,
+        [
+            signal: core.Child,
+            high: core.Child,
+            low: core.Child
+        ]>;

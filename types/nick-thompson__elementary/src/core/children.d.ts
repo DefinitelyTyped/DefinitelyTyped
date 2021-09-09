@@ -106,6 +106,30 @@ export type ChildrenArray =
     SizedChildrenArray<7> |
     SizedChildrenArray<8>;
 
+/**
+ * Helper type to describe that {@link Node}s can have a maximum of eight
+ * children and a minimum of 1.
+ *
+ * @typedef {
+ *   SizedChildrenArray<1> |
+ *   SizedChildrenArray<2> |
+ *   SizedChildrenArray<3> |
+ *   SizedChildrenArray<4> |
+ *   SizedChildrenArray<5> |
+ *   SizedChildrenArray<6> |
+ *   SizedChildrenArray<7> |
+ *   SizedChildrenArray<8>
+ * } NodeChildrenArray
+ */
+export type VariadicChildrenArray =
+    SizedChildrenArray<1> |
+    SizedChildrenArray<2> |
+    SizedChildrenArray<3> |
+    SizedChildrenArray<4> |
+    SizedChildrenArray<5> |
+    SizedChildrenArray<6> |
+    SizedChildrenArray<7> |
+    SizedChildrenArray<8>;
 
 // Generic
 

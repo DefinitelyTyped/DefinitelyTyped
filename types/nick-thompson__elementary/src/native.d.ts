@@ -1,24 +1,22 @@
 import { core } from './core';
 
 
-// TODO: figure out what this is
-// /**
-//  * Computes the root of the arguments.
-//  *
-//  * @param {...core.Node} args
-//  * args to compute the root of
-//  * @returns {core.Node}
-//  * a {@link core.Node} that computes the root of the arguments
-//  */
-// export declare function root(
-//   ...args: core.Node[]): core.Node;
+// TODO: figure out what root is and put it here
 
 
 /**
  * Generates a stream of random numbers
  * uniformly distributed on the range [0, 1].
  *
+ * @function
+ *
+ * @param {core.KeyProps?} props
+ * props object with optional key
+ *
  * @returns {core.RandNode}
  * a {@link core.RandNode} that computes a stream of random numbers
  */
-export declare function rand(): core.RandNode;
+export declare const rand:
+    core.NodeFactory<'rand',
+        core.KeyProps,
+        []>;

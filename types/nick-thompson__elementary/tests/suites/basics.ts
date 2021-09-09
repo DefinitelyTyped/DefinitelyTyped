@@ -13,7 +13,7 @@ export const testBasics: ElementaryCallback =
         const sr = el.sr();
         expect(sr).passes(isNode);
 
-        let counter = el.counter(sr);
+        let counter = el.counter({ key: 'counter' }, sr);
         expect(counter).passes(isNode);
         counter = el.counter(10);
         expect(counter).passes(isNode);
