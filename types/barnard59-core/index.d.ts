@@ -7,7 +7,7 @@ import { Logger } from 'winston';
 import LoaderRegistry = require('rdf-loaders-registry');
 export { default as createPipeline } from './lib/factory/pipeline';
 export { default as run } from './lib/run';
-export { Variables, VariableMap } from './lib/StreamObject';
+export { Variables, Context, VariableMap } from './lib/StreamObject';
 
 interface DefaultLogger {
     console?: boolean;
