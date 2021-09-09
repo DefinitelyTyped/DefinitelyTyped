@@ -1,27 +1,22 @@
-import { Stream } from "stream";
-import { Logger } from 'winston';
+import * as stream from "readable-stream";
+import StreamObject from "./StreamObject";
 
-// tslint:disable-next-line:no-empty-interface
-export interface Variables {}
+export { Context } from './StreamObject';
 
-type Keys = keyof Variables extends never ? string : keyof Variables;
+export default class Pipeline extends StreamObject {
+    readable: boolean;
+    readableObjectMode: boolean;
+    writable: boolean;
+    writableObjectMode: boolean;
+    onInit: () => void;
+    init: () => void;
+    stream: stream.Readable | stream.Writable;
 
-interface TypedMap extends Map<Keys, any> {
-    // tslint:disable-next-line:no-unnecessary-generics
-    get<K extends keyof Variables>(key: K): Variables[typeof key];
-    // tslint:disable-next-line:no-unnecessary-generics
-    set<K extends keyof Variables>(key: K, value: Variables[typeof key] | undefined): this;
-}
+    get firstChild(): StreamObject;
+    get lastChild(): StreamObject;
 
-export type VariableMap = keyof Variables extends never ? Map<string, any> : TypedMap;
-
-export interface Context {
-    logger: Logger;
-    variables: VariableMap;
-}
-
-export default class Pipeline extends Stream {
-    context: Context;
+    destroy(err: Error): void;
+    finish(): stream['push'];
 }
 
 export {};

@@ -1,7 +1,8 @@
 import { GraphPointer } from "clownface";
 import { Writable } from "stream";
 import { Logger } from 'winston';
-import Pipeline, { VariableMap } from 'barnard59-core/lib/Pipeline';
+import Pipeline from 'barnard59-core/lib/Pipeline';
+import { VariableMap } from 'barnard59-core';
 
 interface Runner {
     finished: Promise<any>;
