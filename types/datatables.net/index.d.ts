@@ -1386,7 +1386,7 @@ declare namespace DataTables {
         /**
          * Data property name that DataTables will use to set <tr> element DOM IDs. Since: 1.10.8
          */
-        rowId?: string | undefined;
+        rowId?: string | ((data: any) => string) | undefined;
 
         /**
          * Allow the table to reduce in height when a limited number of rows are shown. Since: 1.10
