@@ -1,58 +1,107 @@
-// Type definitions for cytoscape-edgehandles 3.6
+// Type definitions for cytoscape-edgehandles 4.0
 // Project: https://github.com/cytoscape/cytoscape.js-edgehandles
 // Definitions by: o-su <https://github.com/o-su>
+//                 Felix Barczewicz <https://github.com/DieserFelix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import cy = require('cytoscape');
 
-export const ext: cy.Ext;
+declare const cytoscapeEdgehandles: cy.Ext;
+export = cytoscapeEdgehandles;
+export as namespace cytoscapeEdgehandles;
 
-declare module 'cytoscape' {
-    interface Core {
-        edgehandles: (options?: EdgeHandlesOptions) => EdgeHandlesApi;
-    }
-
+declare namespace cytoscapeEdgehandles {
     interface EdgeHandlesOptions {
-        preview?: boolean | undefined; // whether to show added edges preview before releasing selection
-        hoverDelay?: number | undefined; // time spent hovering over a target node before it is considered selected
-        handleNodes?: string | undefined; // selector/filter function for whether edges can be made from a given node
-        snap?: boolean | undefined; // when enabled, the edge can be drawn by just moving close to a target node
-        snapThreshold?: number | undefined; // the target node must be less than or equal to this many pixels away from the cursor/finger
-        snapFrequency?: number | undefined; // the number of times per second (Hz) that snap checks done (lower is less expensive)
-        noEdgeEventsInDraw?: boolean | undefined; // set events:no to edges during draws, prevents mouseouts on compounds
-        disableBrowserGestures?: boolean | undefined; // during an edge drawing gesture, disable browser gestures such as two-finger trackpad swipe and pinch-to-zoom
-        handlePosition?: ((node: NodeSingular) => string) | undefined; // sets the position of the handle in the format of "X-AXIS Y-AXIS" such as "left top", "middle top"
-        handleInDrawMode?: boolean | undefined; // whether to show the handle in draw mode
-        // can return 'flat' for flat edges between nodes or 'node' for intermediate node between them, returning null/undefined means an edge can't be added between the two nodes
-        edgeType?: ((sourceNode: NodeSingular, targetNode: NodeSingular) => string | undefined) | undefined;
-        loopAllowed?: ((node: NodeSingular) => boolean) | undefined; // for the specified node, return whether edges from itself to itself are allowed
-        nodeLoopOffset?: number | undefined; // offset for edgeType: 'node' loops
-        // for edges between the specified source and target, return element object to be passed to cy.add() for intermediary node
-        nodeParams?: ((sourceNode: NodeSingular, targetNode: NodeSingular) => any) | undefined;
-        edgeParams?: ((sourceNode: NodeSingular, targetNode: NodeSingular, i: number) => any) | undefined;
-        ghostEdgeParams?: (() => any) | undefined; // return element object to be passed to cy.add() for the ghost edge
-        show?: ((sourceNode: NodeSingular) => void) | undefined; // fired when handle is shown
-        hide?: ((sourceNode: NodeSingular) => void) | undefined; // fired when the handle is hidden
-        start?: ((sourceNode: NodeSingular) => void) | undefined; // fired when edgehandles interaction starts (drag on handle)
-        complete?: ((sourceNode: NodeSingular, targetNode: NodeSingular, addedEles: EdgeCollection) => void) | undefined; // fired when edgehandles is done and elements are added
-        stop?: ((sourceNode: NodeSingular) => void) | undefined; // fired when edgehandles interaction is stopped (either complete with added edges or incomplete)
-        cancel?: ((sourceNode: NodeSingular, cancelledTargets: any) => void) | undefined; // fired when edgehandles are cancelled (incomplete gesture)
-        hoverover?: ((sourceNode: NodeSingular, targetNode: NodeSingular) => void) | undefined; // fired when a target is hovered
-        hoverout?: ((sourceNode: NodeSingular, targetNode: NodeSingular) => void) | undefined; // fired when a target isn't hovered anymore
-        previewon?: ((sourceNode: NodeSingular, targetNode: NodeSingular, previewEles: EdgeCollection) => void) | undefined; // fired when preview is shown
-        previewoff?: ((sourceNode: NodeSingular, targetNode: NodeSingular, previewEles: EdgeCollection) => void) | undefined; // fired when preview is hidden
-        drawon?: (() => void) | undefined; // fired when draw mode enabled
-        drawoff?: (() => void) | undefined; // fired when draw mode disabled
+        /**
+         * Check, if the source and target node can be connected with each other.
+         *
+         * Default: Disable self loops
+         */
+        canConnect?: ((source: cytoscape.NodeSingular, target: cytoscape.NodeSingular) => boolean) | undefined;
+        /**
+         * for edges between the specified source and target
+         * return element object to be passed to cy.add() for edge
+         */
+        edgeParams?:
+            | ((source: cytoscape.NodeSingular, target: cytoscape.NodeSingular) => cytoscape.ElementDefinition)
+            | undefined;
+        /**
+         * Time spent hovering over a target node before it is considered selected.
+         *
+         * Default: 150
+         */
+        hoverDelay?: number | undefined;
+        /**
+         * When enabled, the edge can be drawn by just moving close to a target node (can be confusing on compound graphs).
+         *
+         * Default: true
+         */
+        snap?: boolean | undefined;
+        /**
+         * The target node must be less than or equal to this many pixels away from the cursor/finger.
+         *
+         * Default: 50
+         */
+        snapThreshold?: number | undefined;
+        /**
+         * The number of times per second (Hz) that snap checks done (lower is less expensive).
+         *
+         * Default: 15
+         */
+        snapFrequency?: number | undefined;
+        /**
+         * Set events:no to edges during draws, prevents mouseouts on compounds.
+         *
+         * Default: true
+         */
+        noEdgeEventsInDraw?: boolean | undefined;
+        /**
+         * During an edge drawing gesture, disable browser gestures such as two-finger trackpad swipe and pinch-to-zoom.
+         *
+         * Default: true
+         */
+        disableBrowserGestures?: boolean | undefined;
     }
 
-    interface EdgeHandlesApi {
-        start: (sourceNode: string) => void; // manually start the gesture (as if the handle were already held)
-        stop: () => void; // manually completes or cancels the gesture
-        hide: () => void; // remove the handle node from the graph
-        disable: () => void; // disables edgehandles behaviour
-        enable: () => void; // enables edgehandles behaviour
-        enableDrawMode: () => void; // turn on draw mode (the entire node body acts like the handle)
-        disableDrawMode: () => void; // turn off draw mode
+    interface EdgeHandlesInstance {
+        /**
+         * Manually start the gesture (as if the handle were already held)
+         */
+        start: (sourceNode: string) => void;
+        /**
+         * Manually completes or cancels the gesture
+         */
+        stop: () => void;
+        /**
+         * Remove the handle node from the graph
+         */
+        hide: () => void;
+        /**
+         * Disables edgehandles behaviour
+         */
+        disable: () => void;
+        /**
+         * Enables edgehandles behaviour
+         */
+        enable: () => void;
+        /**
+         * Turn on draw mode (the entire node body acts like the handle)
+         */
+        enableDrawMode: () => void;
+        /**
+         * Turn off draw mode
+         */
+        disableDrawMode: () => void;
         destroy: () => void;
+    }
+}
+
+declare global {
+    namespace cytoscape {
+        interface Core {
+            edgehandles: (
+                options?: cytoscapeEdgehandles.EdgeHandlesOptions,
+            ) => cytoscapeEdgehandles.EdgeHandlesInstance;
+        }
     }
 }
