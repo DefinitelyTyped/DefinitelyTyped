@@ -6,6 +6,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function md5(value: string, key?: string | null, raw?: boolean): string;
-
-export as namespace md5;
+declare namespace md5 {}
 export = md5;
