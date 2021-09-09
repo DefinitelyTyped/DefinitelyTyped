@@ -1,6 +1,7 @@
 import { Editor } from "@ckeditor/ckeditor5-core";
 import { ExportPdf } from "@ckeditor/ckeditor5-export-pdf";
 import { ExportPdfConfig } from "@ckeditor/ckeditor5-export-pdf/src/exportpdf";
+import ExportPdfCommand from "@ckeditor/ckeditor5-export-pdf/src/exportpdfcommand";
 
 class MyEditor extends Editor {}
 
@@ -52,5 +53,10 @@ config = {
     tokenUrl: "",
 };
 
+new ExportPdfCommand(new MyEditor()).execute();
+
 // $ExpectType ExportPdf
 (new MyEditor()).plugins.get('ExportPdf');
+
+// $ExpectType ExportPdfCommand | undefined
+(new MyEditor()).commands.get('ExportPdfCommand');

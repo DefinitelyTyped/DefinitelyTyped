@@ -162,7 +162,7 @@ export interface ClientOpts {
     rename_commands?: { [command: string]: string } | null | undefined;
     /**
      * An object containing options to pass to
-     * [tls.connect](http://nodejs.org/api/tls.html#tls_tls_connect_port_host_options_callback)
+     * [tls.connect](https://nodejs.org/api/tls.html#tls_tls_connect_port_host_options_callback)
      * to set up a TLS connection to Redis
      * (if, for example, it is set up to be accessible via a tunnel).
      * @default null

@@ -9,7 +9,7 @@
 //                 Devid Farinelli <https://github.com/misterdev>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 
 import { spawn, SpawnOptions, SpawnSyncOptions } from 'child_process';
 import { Debugger } from 'debug';

@@ -770,6 +770,8 @@ function testSetBrowserBadgeText() {
 
 // https://developer.chrome.com/docs/extensions/reference/action/
 async function testActionForPromise() {
+    await chrome.action.disable();
+    await chrome.action.enable();
     await chrome.action.disable(0);
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});

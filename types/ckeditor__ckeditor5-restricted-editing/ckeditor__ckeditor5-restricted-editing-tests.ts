@@ -71,3 +71,9 @@ editor.plugins.get('StandardEditingModeEditing');
 
 // $ExpectType StandardEditingModeUI
 editor.plugins.get('StandardEditingModeUI');
+
+// $ExpectType RestrictedEditingModeNavigationCommand | undefined
+editor.commands.get('RestrictedEditingModeNavigationCommand');
+
+// $ExpectType RestrictedEditingExceptionCommand | undefined
+editor.commands.get('RestrictedEditingExceptionCommand');
