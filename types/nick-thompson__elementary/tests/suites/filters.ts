@@ -32,6 +32,37 @@ export const testFilters: ElementaryCallback =
         const smooth = el.smooth(1, 2);
         expect(smooth).hasNodeChildren(1, 2);
 
-        const add = el.add(pole, biquad, zero, dcblock, df11, smooth);
+        const sm = el.sm({ key: 'mySm' }, 1);
+        expect(sm).hasNodeProps({ key: 'mySm' });
+        expect(sm).hasNodeChildren(1);
+
+        const lowpass = el.lowpass(sm, smooth, 2);
+        expect(lowpass).isANode();
+
+        const highpass = el.highpass(sm, smooth, 2);
+        expect(highpass).isANode();
+
+        const bandpass = el.bandpass(sm, smooth, 2);
+        expect(bandpass).isANode();
+
+        const allpass = el.allpass(sm, smooth, 2);
+        expect(allpass).isANode();
+
+        const notch = el.notch(sm, smooth, 2);
+        expect(notch).isANode();
+
+        const peak = el.peak(sm, smooth, 2, highpass);
+        expect(peak).isANode();
+
+        const lowshelf = el.lowshelf(sm, smooth, 2, highpass);
+        expect(lowshelf).isANode();
+
+        const highshelf = el.highshelf(sm, smooth, 2, highpass);
+        expect(highshelf).isANode();
+
+        const pink = el.pink(smooth);
+        expect(pink).isANode();
+
+        const add = el.add(pole, biquad, zero, dcblock, df11, smooth, sm);
         core.render(add, add);
     };
