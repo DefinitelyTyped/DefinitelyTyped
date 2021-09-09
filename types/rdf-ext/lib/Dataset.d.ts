@@ -11,7 +11,7 @@ interface DatasetExt extends Dataset<QuadExt> {
 
 // tslint:disable-next-line:no-unnecessary-class
 declare class DatasetExt {
-    constructor(quads: Quad[]);
+    constructor(quads?: Quad[]);
 }
 
 export = DatasetExt;

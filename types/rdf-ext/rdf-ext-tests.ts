@@ -328,4 +328,8 @@ function constructedTerms() {
     quad = new QuadExt(blankNode, namedNode, literal, null);
     quad = new QuadExt(blankNode, namedNode, literal, namedNode);
     quad = new QuadExt(blankNode, namedNode, literal, new DefaultGraphExt());
+
+    let dataset: Dataset;
+    dataset = new DatasetExt();
+    dataset = new DatasetExt([quad, quad, quad]);
 }
