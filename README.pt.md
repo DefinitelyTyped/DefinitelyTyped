@@ -57,7 +57,7 @@ Se você está usando as versões 2.0 a 3.6 do TypeScript, você ainda pode tent
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
-<img src=docs/support-window.pt.svg style=width:100%>
+<img src="docs/support-window.svg" style="width:100%">
 
 Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
 Por exemplo, se você executar o comando `npm dist-tags @types/react`, você verá que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:

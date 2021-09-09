@@ -57,7 +57,7 @@ Se stai usando una versiond di TypeScript tra 2.0 e la 3.6, puoi ancora provare 
 Non c'è comunque nessuna garanzia che funzioneranno.
 Ecco le informazioni riguardanti le versioni supportate:
 
-<img src=docs/support-window.it.svg style=width:100%>
+<img src="docs/support-window.svg" style="width:100%">
 
 I package `@types` hanno dei tag per la versione di TypeScript che supportano, quindi di solito puoi installare vecchi package che sono più vecchi di due anni.
 Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 potrà usare i tipi per react@16.0, mentre TypeScript 2.6 e 2.7 potranno usare i tipi per react@16.4:

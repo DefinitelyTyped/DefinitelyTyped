@@ -57,7 +57,7 @@ npm install --save-dev @types/node
 
 График обновлений:
 
-<img src=docs/support-window.ru.svg style=width:100%>
+<img src="docs/support-window.svg" style="width:100%">
 
 Пакеты, которые существовали до ноября 2019 года, могут иметь более старые версии, которые явно помечены как совместимые с более старыми версиями Typescript; используйте тег "ts2.6" для Typescript 2.6, например.
 

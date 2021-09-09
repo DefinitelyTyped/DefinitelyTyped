@@ -1,8 +1,5 @@
 name: Update support window diagram
 on:
-  # When translations are added/removed
-  push:
-    paths: README*.md
   # Manually, when TypeScript is released
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
@@ -30,24 +27,9 @@ jobs:
               | unique_by(.key)
               | from_entries
             ' > docs/support-window.json
-      - run: git rm --ignore-unmatch 'docs/support-window*.svg'
       - name: Make SVG diagram
-        run: |
-          export LOCPATH=.locale
-          mkdir "$LOCPATH"
-          for readme in README*.md; do (
-            if [ "$readme" != README.md ]; then
-              LANG=${readme:7:-3}
-              # Use e.g. en_EN if it exists, or the first ${LANG}_*
-              # otherwise
-              locale=/usr/share/i18n/locales/${LANG}_${LANG^^}
-              [ -e "$locale" ] || locale=(/usr/share/i18n/locales/${LANG}_*)
-              localedef --charmap UTF-8 --inputfile "$locale" "$LOCPATH/$LANG"
-            fi
-            jq --raw-output 'to_entries[] | map(values) | @tsv' docs/support-window.json |
-              Rscript scripts/support-window.R
-          ) done
-      - run: git add docs/support-window.*
+        run: jq --raw-output 'to_entries[] | map(values) | @tsv' docs/support-window.json | Rscript scripts/support-window.R
+      - run: git add docs/support-window.json docs/support-window.svg
       - run: git config user.name .github/workflows/support-window.yml
       - run: git config user.email bot@typescriptlang.org
       - run: git diff --quiet --cached || git commit --message '[README] 🤖 Update support window diagram'

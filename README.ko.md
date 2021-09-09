@@ -59,7 +59,7 @@ TypeScript 2.0에서 3.6 버전을 사용하는 경우, 그래도 `@types` 패�
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
-<img src=docs/support-window.ko.svg style=width:100%>
+<img src="docs/support-window.svg" style="width:100%">
 
 `@types` 패키지 안에는 패키지가 확실하게 지원하는 TypeScript 버전이 태그로 쓰여 있으므로, 2년 지원 기간이 지난 오래된 패키지도 보통 찾아보실 수 있습니다.
 예를 들어, `npm dist-tags @types/react` 명령어를 입력하면 TypeScript 2.5는 react@16.0용 타입을, TypeScript 2.6 및 2.7은 react@16.4용 타입을 사용할 수 있는 것을 확인하실 수 있습니다:
