@@ -143,9 +143,9 @@ export function expect<T extends Serializable | Basic>(x: T)
             (p: el.core.Props) =>
                 log(core.Node.isNode(x) &&
                     Object.keys(p).reduce(
-                        (r, k, v) =>
+                        (r, k) =>
                             !r ? false :
-                            (x as any)._props[k as keyof {}] === v,
+                            (x as any)._props[k as keyof {}] === p[k],
                         true),
                     `${x} has props ${p}`),
         hasNodeChildren:

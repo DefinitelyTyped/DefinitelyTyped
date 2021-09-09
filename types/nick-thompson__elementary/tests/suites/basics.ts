@@ -13,12 +13,14 @@ export const testBasics: ElementaryCallback =
         const sr = el.sr();
         expect(sr).passes(isNode);
 
-        let counter = el.counter({ key: 'counter' }, sr);
+        let counter = el.counter({ key: 'myCounter' }, sr);
         expect(counter).passes(isNode);
+        expect(counter).isANodeOfType('counter');
+        expect(counter).hasNodeProps({ key: 'myCounter' });
+        expect(counter).hasNodeChildren(sr);
         counter = el.counter(10);
         expect(counter).passes(isNode);
         expect(counter).isANodeOfType('counter');
-        expect(counter).hasNodeProps({});
         expect(counter).hasNodeChildren(10);
 
         let tau2pole: el.core.Node | number = el.tau2pole(sr);
