@@ -6,11 +6,11 @@
 export type byteSizeUnit = 'metric' | 'iec' | 'metric_octet' | 'iec_octet';
 
 export interface byteSizeOptions {
-    precision: number;
-    units: byteSizeUnit | string;
+    precision?: number;
+    units?: byteSizeUnit;
     customUnits?: object;
-    toStringFn: () => void;
-    locale: string | string[];
+    toStringFn?: () => string;
+    locale?: string | string[];
 }
 
 export interface ByteSizeObject {
@@ -19,4 +19,4 @@ export interface ByteSizeObject {
     long: string;
 }
 
-export function byteSize(bytes: number, options?: byteSizeOptions): ByteSizeObject;
+export default function byteSize(bytes: number, options?: byteSizeOptions): ByteSizeObject;
