@@ -1,7 +1,6 @@
 // Type definitions for non-npm package magicmirror-module 2.16
 // Project: https://magicmirror.builders/
 // Definitions by: Jalibu <https://github.com/jalibu>
-//                 MichMich <https://github.com/MichMich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Module {
