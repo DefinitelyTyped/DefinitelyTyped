@@ -257,6 +257,7 @@ sharp('input.gif')
 
     .modulate({ brightness: 2 })
     .modulate({ hue: 180 })
+    .modulate({ lightness: 10 })
     .modulate({ brightness: 0.5, saturation: 0.5, hue: 90 });
 
 // From https://sharp.pixelplumbing.com/api-output#examples-9

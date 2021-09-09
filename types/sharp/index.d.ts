@@ -453,7 +453,8 @@ declare namespace sharp {
         recomb(inputMatrix: Matrix3x3): Sharp;
 
         /**
-         * Transforms the image using brightness, saturation and hue rotation.
+         * Transforms the image using brightness, saturation, hue rotation and lightness.
+         * Brightness and lightness both operate on luminance, with the difference being that brightness is multiplicative whereas lightness is additive.
          * @param options describes the modulation
          * @returns A sharp instance that can be used to chain operations
          */
@@ -461,6 +462,7 @@ declare namespace sharp {
             brightness?: number | undefined;
             saturation?: number | undefined;
             hue?: number | undefined;
+            lightness?: number | undefined;
         }): Sharp;
 
         //#endregion
@@ -920,7 +922,7 @@ declare namespace sharp {
         quality?: number | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
+        /** CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5) */
         speed?: number | undefined;
         /** set to '4:4:4' to prevent chroma subsampling otherwise defaults to '4:2:0' chroma subsampling, requires libvips v8.11.0 (optional, default '4:2:0') */
         chromaSubsampling?: string;
@@ -933,7 +935,7 @@ declare namespace sharp {
         compression?: 'av1' | 'hevc' | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
+        /** CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5) */
         speed?: number | undefined;
     }
 
