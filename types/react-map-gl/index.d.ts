@@ -128,8 +128,8 @@ export interface MapControllerOptions {
 }
 
 export interface ViewportProps {
-    width: number;
-    height: number;
+    width: number | string;
+    height: number | string;
     latitude: number;
     longitude: number;
     zoom: number;
