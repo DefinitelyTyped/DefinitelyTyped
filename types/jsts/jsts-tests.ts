@@ -281,3 +281,7 @@ n = dop.distance();
 n = jsts.operation.distance.DistanceOp.distance(g, g);
 bool = jsts.operation.distance.DistanceOp.isWithinDistance(g, g, n);
 [c, c] = jsts.operation.distance.DistanceOp.nearestPoints(g, g);
+
+var ch: jsts.algorithm.ConvexHull = new jsts.algorithm.ConvexHull(g);
+ch = new jsts.algorithm.ConvexHull([c], factory);
+g = ch.getConvexHull();

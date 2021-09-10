@@ -11,6 +11,8 @@ declare namespace jsts {
     namespace algorithm {
         import Point = jsts.geom.Point;
         import Coordinate = jsts.geom.Coordinate;
+        import Geometry = jsts.geom.Geometry;
+        import GeometryFactory = jsts.geom.GeometryFactory;
 
         export class Orientation {
             static CLOCKWISE: number;
@@ -26,6 +28,34 @@ declare namespace jsts {
         }
 
         export class BoundaryNodeRule {}
+
+        /**
+         * Computes the convex hull of a Geometry.
+         * The convex hull is the smallest convex Geometry that contains
+         * all the points in the input Geometry.
+         * Uses the Graham Scan algorithm.
+         */
+        export class ConvexHull {
+            /**
+             * Create a new convex hull construction for the input Coordinate array.
+             */
+            constructor(pts: Coordinate[], geomFactory: GeometryFactory);
+            /**
+             * Create a new convex hull construction for the input Geometry.
+             */
+            constructor(geometry: Geometry);
+
+            /**
+             * Returns a Geometry that represents the convex hull of the input geometry.
+             * The returned geometry contains the minimal number of points needed
+             * to represent the convex hull. In particular,
+             * no more than two consecutive points will be collinear.
+             *
+             * @returns if the convex hull contains 3 or more points, a Polygon;
+             * 2 points, a LineString; 1 point, a Point; 0 points, an empty GeometryCollection.
+             */
+            getConvexHull(): Geometry;
+        }
     }
 
     namespace geom {
