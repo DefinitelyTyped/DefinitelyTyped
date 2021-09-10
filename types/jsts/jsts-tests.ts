@@ -264,3 +264,11 @@ g = jsts.precision.GeometryPrecisionReducer.reducePointwise(g, precisionModel);
 pr.setChangePrecisionModel(bool);
 pr.setPointwise(bool);
 pr.setRemoveCollapsedComponents(bool);
+
+var gl: jsts.operation.distance.GeometryLocation = new jsts.operation.distance.GeometryLocation(g, n, c);
+gl = new jsts.operation.distance.GeometryLocation(g, c);
+g = gl.getGeometryComponent();
+n = gl.getSegmentIndex();
+c = gl.getCoordinate();
+bool = gl.isInsideArea();
+str = gl.toString();
