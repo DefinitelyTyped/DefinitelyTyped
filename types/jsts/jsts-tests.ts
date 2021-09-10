@@ -289,3 +289,8 @@ g = ch.getConvexHull();
 var ipa: jsts.algorithm.InteriorPointArea = new jsts.algorithm.InteriorPointArea(g);
 c = ipa.getInteriorPoint();
 c = jsts.algorithm.InteriorPointArea.getInteriorPoint(g);
+
+var densifier: jsts.densify.Densifier = new jsts.densify.Densifier(g);
+densifier.setDistanceTolerance(n);
+g = densifier.getResultGeometry();
+g = jsts.densify.Densifier.densify(g, n);

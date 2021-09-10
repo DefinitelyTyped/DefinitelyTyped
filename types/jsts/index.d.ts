@@ -90,6 +90,49 @@ declare namespace jsts {
         }
     }
 
+    namespace densify {
+        import Geometry = jsts.geom.Geometry;
+        /**
+         * Densifies a Geometry by inserting extra vertices along the line segments
+         * contained in the geometry. All segments in the created densified geometry
+         * will be no longer than than the given distance tolerance.
+         * Densified polygonal geometries are guaranteed to be topologically correct.
+         * The coordinates created during densification respect the input geometry's PrecisionModel.
+         */
+        export class Densifier {
+            /**
+             * Creates a new densifier instance.
+             */
+            constructor(inputGeom: Geometry);
+
+            /**
+             * Densifies a geometry using a given distance tolerance,
+             * and respecting the input geometry's PrecisionModel.
+             *
+             * @param geom the geometry to densify
+             * @param {double} distanceTolerance the distance tolerance to densify
+             *
+             * @returns the densified geometry
+             */
+            static densify(geom: Geometry, distanceTolerance: number): Geometry;
+
+            /**
+             * Sets the distance tolerance for the densification.
+             * All line segments in the densified geometry will be no longer than
+             * the distance tolerance. simplified geometry will be within this distance
+             * of the original geometry. The distance tolerance must be positive.
+             *
+             * @param {double} distanceTolerance the densification tolerance to use
+             */
+            setDistanceTolerance(distanceTolerance: number): void;
+
+            /**
+             * Gets the densified geometry.
+             */
+            getResultGeometry(): Geometry;
+        }
+    }
+
     namespace geom {
         /**
          * Specifies the precision model of the Coordinates in a Geometry. In other words, specifies the grid of allowable points for all Geometrys.
