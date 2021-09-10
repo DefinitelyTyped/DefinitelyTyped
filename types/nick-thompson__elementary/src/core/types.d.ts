@@ -1,6 +1,10 @@
 import { Node } from './node';
 import { Props } from './props';
-import { ChildrenArray } from './children';
+import {
+    ChildrenArray,
+    ChildrenArraySize,
+    SizedChildrenArray,
+} from './children';
 
 // for docs
 // noinspection ES6UnusedImports
@@ -105,8 +109,15 @@ export declare type NativeNodeType =
  *
  * @memberOf core
  * @typedef {
- *   ((...children: AnyNodeChildrenArray) => Node) |
- *   ((props: AnyProps, ...children: AnyNodeChildrenArray) => Node);
+ *   ({
+ *       [key in ChildrenArraySize]:
+ *       (...children: SizedChildrenArray<key>) => Node
+ *   }[ChildrenArraySize])
+ *   |
+ *   ({
+ *       [key in ChildrenArraySize]:
+ *       (props: Props, ...children: SizedChildrenArray<key>) => Node
+ *   }[ChildrenArraySize])
  * }
  *
  * @see core
@@ -115,8 +126,15 @@ export declare type NativeNodeType =
  * @see ChildrenArray
  */
 export declare type CompositeNodeType =
-    ((...children: ChildrenArray) => Node) |
-    ((props: Props, ...children: ChildrenArray) => Node);
+    ({
+        [key in ChildrenArraySize]:
+        (...children: SizedChildrenArray<key>) => Node
+    }[ChildrenArraySize])
+    |
+    ({
+        [key in ChildrenArraySize]:
+        (props: Props, ...children: SizedChildrenArray<key>) => Node
+    }[ChildrenArraySize]);
 
 /**
  * Types of {@link Node}.

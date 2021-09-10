@@ -8,6 +8,21 @@ import * as el from '../';
 /**
  * The Elementary namespace containing all Elementary functions and factories.
  *
+ * The example demonstrates how to use this namespace properly.
+ *
+ * @example
+ *     import * as el from '@nick-thompson/elementary';
+ *     const core: el.Core = (global as any).elementary.core;
+ *
+ *     function render(core: el.Core, el: el.Elementary)
+ *     {
+ *         core.render(el.phasor(440));
+ *     }
+ *
+ *     core.on('load', () => render(core, el));
+ *
+ *     export { core };
+ *
  * @namespace Elementary
  *
  * @see el
@@ -18,15 +33,21 @@ import ElementaryNamespace = _Elementary;
  * Type of {@link ElementaryNamespace}.
  * When you import Elementary use this as the type of variable for it.
  *
- * The following examples demonstrate how to use this type properly.
+ * The example demonstrates how to use this type properly.
  *
  * @example
  *     import * as el from '@nick-thompson/elementary';
+ *     const core: el.Core = (global as any).elementary.core;
  *
- *     declare function render(el: el.Elementary);
- *     render(el);
+ *     function render(core: el.Core, el: el.Elementary)
+ *     {
+ *         // Your code goes here
+ *         core.render(el.phasor(440));
+ *     }
  *
- *     export { el };
+ *     core.on('load', () => render(core, el));
+ *
+ *     export { core };
  *
  * @memberOf el
  * @typedef {typeof ElementaryNamespace}

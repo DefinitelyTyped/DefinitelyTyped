@@ -15,14 +15,19 @@ import * as el from '../../';
  * can be subscribed to following the EventEmitter API.
  *
  * The examples explain how to properly setup the core variable from
- * Elementary and use its type in functions.
+ * Elementary and use it in functions.
  *
  * @example
  *     import * as el from '@nick-thompson/elementary';
  *     const core: el.Core = (global as any).elementary.core;
  *
- *     declare function render(core: el.Core);
- *     render(core);
+ *     function render(core: el.Core, el: el.Elementary)
+ *     {
+ *         // Your code goes here
+ *         core.render(el.phasor(440));
+ *     }
+ *
+ *     core.on('load', () => render(core, el));
  *
  *     export { core };
  *
@@ -69,7 +74,8 @@ export declare interface Core extends EventEmitter
      * The load event fires when the runtime has finished preparing the audio
      * rendering thread and is ready to handle render calls.
      *
-     * @function
+     * @public
+     * @function on
      *
      * @param {'load'} event
      * event name
@@ -86,7 +92,8 @@ export declare interface Core extends EventEmitter
      * any connected and enabled device. By default, the runtime will be
      * listening to any such device, which may yield frequent MIDI events.
      *
-     * @function
+     * @public
+     * @function on
      *
      * @param {'midi'} event
      * event name
@@ -105,7 +112,8 @@ export declare interface Core extends EventEmitter
      * 'tick' event will fire just after the runtime has finished applying
      * any queued changes at the end of a given quantization interval.
      *
-     * @function
+     * @public
+     * @function on
      *
      * @param {'tick'} event
      * event name
@@ -123,7 +131,8 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @function
+     * @public
+     * @function getSampleRate
      *
      * @returns {number} sample rate
      *
@@ -136,7 +145,8 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @function
+     * @public
+     * @function getBlockSize
      *
      * @returns {number} block size
      *
@@ -149,7 +159,8 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @function
+     * @public
+     * @function getNumInputChannels
      *
      * @returns {number} input channel count
      *
@@ -162,7 +173,8 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @function
+     * @public
+     * @function getNumOutputChannels
      *
      * @returns {number} output channel count
      *
@@ -176,7 +188,8 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @function
+     * @public
+     * @function getQuantizationInterval
      *
      * @returns {number} quantization interval
      *
@@ -197,7 +210,8 @@ export declare interface Core extends EventEmitter
      * @example
      *     core.render(first, second);
      *
-     * @function
+     * @public
+     * @function render
      *
      * @param {...Child} children
      * {@link Child}ren to render in channels
@@ -210,7 +224,8 @@ export declare interface Core extends EventEmitter
 
 
     /**
-     * Object containing methods for dealing with {@link Node}s.
+     * Object containing methods for creating and
+     * checking the type of {@link Node}s.
      *
      * @public
      * @readonly

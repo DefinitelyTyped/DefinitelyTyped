@@ -1,4 +1,4 @@
-import { NativeNodeType, NodeType } from './types';
+import { NativeNodeType, CompositeNodeType, NodeType } from './types';
 import { Node } from './node';
 
 // for docs
@@ -237,8 +237,7 @@ export declare interface SeqProps extends KeyProps
 // Generic
 
 /**
- * Given a {@link NativeNodeType} returns a type of props appropriate for the
- * type.
+ * Type of props of any given {@link NodeType}.
  *
  * @memberOf core
  * @template T
@@ -280,8 +279,9 @@ export declare type NativeNodeProps<T extends NativeNodeType> =
     }[T];
 
 /**
- * Type of props of any composite {@link Node}.
+ * Type of props of any given {@link CompositeNodeType}.
  *
+ * @template T
  * @memberOf core
  *
  * @typedef {Props}
@@ -289,11 +289,15 @@ export declare type NativeNodeProps<T extends NativeNodeType> =
  * @see core
  * @see Props
  */
-export declare type CompositeNodeProps =
-    Props;
+export declare type CompositeNodeProps<T extends CompositeNodeType> =
+    Parameters<T> extends [] ? KeyProps :
+    Parameters<T> extends [infer IProps, ...any] ?
+    IProps extends Props ? IProps : KeyProps :
+    never;
+
 
 /**
- * Given a {@link NodeType} returns a type of props appropriate for the type.
+ * Type of props of any {@link NodeType}.
  *
  * @memberOf core
  * @template T
@@ -310,5 +314,7 @@ export declare type CompositeNodeProps =
  * @see CompositeNodeProps
  */
 export declare type NodeProps<T extends NodeType> =
+    NodeType extends T ? Props :
     T extends NativeNodeType ? NativeNodeProps<T> :
-    CompositeNodeProps;
+    T extends CompositeNodeType ? CompositeNodeProps<T> :
+    never;

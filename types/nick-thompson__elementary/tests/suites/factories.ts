@@ -6,12 +6,18 @@ export const testFactories: ElementaryCallback =
     {
         const isNode = core.Node.isNode;
 
-        const createAdd = el.createNodeFactory('add');
+        const createAdd = el.createNodeFactory('mod');
+        const createAdd2 =
+            el.createNodeFactory(
+                (child: el.core.Child) => el.add(child, 2));
 
-        let add = el.createNode('add', { key: 'add' });
-        expect(add).passes(isNode);
-        add = createAdd({});
-        expect(add).passes(isNode);
+        let mod = el.createNode('mod', { key: 'mod' }, 1, 2);
+        expect(mod).passes(isNode);
+        mod = createAdd({}, 2, 3);
+        expect(mod).passes(isNode);
 
-        core.render(add);
+        let add2 = createAdd2(2);
+        expect(add2).passes(isNode);
+
+        core.render(mod);
     };

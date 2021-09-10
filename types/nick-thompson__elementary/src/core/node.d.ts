@@ -1,20 +1,6 @@
-import {
-    NodeType,
-    NativeNodeType,
-    CompositeNodeType,
-} from './types';
-import {
-    Props,
-    NativeNodeProps,
-    CompositeNodeProps,
-    NodeProps,
-} from './props';
-import {
-    Children,
-    NativeNodeChildren,
-    CompositeNodeChildren,
-    NodeChildren,
-} from './children';
+import { NodeType, NativeNodeType, CompositeNodeType } from './types';
+import { NodeProps } from './props';
+import { NodeChildren } from './children';
 
 // for docs
 // noinspection ES6UnusedImports
@@ -48,7 +34,7 @@ export declare interface Node
  * @see core
  * @see Node
  */
-export declare interface NativeNode<T extends NativeNodeType> extends Node
+export declare interface NativeNode<T extends NativeNodeType = NativeNodeType> extends Node
 {
 }
 
@@ -63,9 +49,8 @@ export declare interface NativeNode<T extends NativeNodeType> extends Node
  * @see core
  * @see Node
  */
-export declare interface CompositeNode<T extends CompositeNodeType = CompositeNodeType,
-    P extends CompositeNodeProps = CompositeNodeProps,
-    C extends CompositeNodeChildren = CompositeNodeChildren> extends Node
+export declare interface CompositeNode<T extends CompositeNodeType = CompositeNodeType>
+    extends Node
 {
 }
 
@@ -97,16 +82,9 @@ export declare interface CompositeNode<T extends CompositeNodeType = CompositeNo
  * @see NodeProps
  * @see NodeConstructor
  */
-export declare type ConcreteNode<T extends NodeType,
-    P extends Props = NodeProps<T>,
-    C extends Children = NodeChildren<T>> =
-
-    T extends NativeNodeType ?
-    P extends NativeNodeProps<T> ?
-    C extends NativeNodeChildren<T> ?
-    NativeNode<T> : never : never :
-    T extends CompositeNodeType ?
-    CompositeNode<T, P, C> :
+export declare type ConcreteNode<T extends NodeType> =
+    T extends NativeNodeType ? NativeNode<T> :
+    T extends CompositeNodeType ? CompositeNode<T> :
     never;
 
 
@@ -200,12 +178,12 @@ export declare type SeqNode = NativeNode<'seq'>;
  * @see NodeProps
  * @see NodeChildren
  */
-export declare type NodeFactory<T extends NodeType,
-    P extends Props = NodeProps<T>,
-    C extends Children = NodeChildren<T>> =
-
-    ((props: P, ...children: C) => ConcreteNode<T, P, C>) &
-    ((...children: C) => ConcreteNode<T, P, C>);
+export declare type NodeFactory<T extends NodeType = NodeType,
+    P extends NodeProps<T> = NodeProps<T>,
+    C extends NodeChildren<T> = NodeChildren<T>,
+    R extends ConcreteNode<T> = ConcreteNode<T>> =
+    ((props: P, ...children: C) => R) &
+    ((...children: C) => R);
 
 
 /**
@@ -239,11 +217,11 @@ export declare interface NodeConstructor
 {
     new<T extends NodeType>(
         type: T, props: NodeProps<T>, children: NodeChildren<T>):
-        ConcreteNode<T, NodeProps<T>, NodeChildren<T>>;
+        ConcreteNode<T>;
 
     new<T extends NodeType>(
         type: T, children: NodeChildren<T>):
-        ConcreteNode<T, {}, NodeChildren<T>>;
+        ConcreteNode<T>;
 }
 
 /**

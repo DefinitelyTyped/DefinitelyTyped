@@ -29,6 +29,6 @@ onCoreLoad(
     () =>
     {
         throw Error('Don\'t worry about this error. \n' +
-                    'This is a workaround to stop the tests once ' +
-                    'they are finished.');
+                    'This is a workaround to stop the tests ' +
+                    'once they are finished.');
     });

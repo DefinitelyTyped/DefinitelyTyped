@@ -1,5 +1,6 @@
-import { NativeNodeType, NodeType } from './types';
+import { NativeNodeType, CompositeNodeType, NodeType } from './types';
 import { Node } from './node';
+import { Props } from './props';
 
 // for docs
 // noinspection ES6UnusedImports
@@ -13,6 +14,7 @@ import { core } from './';
  * internally.
  *
  * @memberOf core
+ *
  * @typedef {Node | number}
  *
  * @see core
@@ -28,6 +30,7 @@ export declare type Child = Node | number;
  * children at most.
  *
  * @memberOf core
+ *
  * @typedef {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}
  *
  * @see core
@@ -100,6 +103,7 @@ export declare type SizedChildrenArray<Size extends ChildrenArraySize> =
  * children.
  *
  * @memberOf core
+ *
  * @typedef {
  *   SizedChildrenArray<0> |
  *   SizedChildrenArray<1> |
@@ -133,6 +137,7 @@ export declare type ChildrenArray =
  * children and a minimum of 1.
  *
  * @memberOf core
+ *
  * @typedef {
  *   SizedChildrenArray<1> |
  *   SizedChildrenArray<2> |
@@ -166,6 +171,7 @@ export declare type VariadicChildrenArray =
  * Base type for children.
  *
  * @memberOf core
+ *
  * @typedef {ChildrenArray}
  *
  * @see core
@@ -178,8 +184,7 @@ export declare type Children =
     ChildrenArray;
 
 /**
- * Given a {@link NativeNodeType} returns the type of children appropriate
- * for the type.
+ * Type of children of any given {@link NativeNodeType}.
  *
  * @memberOf core
  * @template T
@@ -270,8 +275,9 @@ export declare type NativeNodeChildren<T extends NativeNodeType> =
      })[T];
 
 /**
- * Type of children of any composite {@link Node}.
+ * Type of children of any given {@link NativeNodeType}.
  *
+ * @template T
  * @memberOf core
  *
  * @typedef {ChildrenArray}
@@ -282,11 +288,14 @@ export declare type NativeNodeChildren<T extends NativeNodeType> =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export declare type CompositeNodeChildren = ChildrenArray;
+export declare type CompositeNodeChildren<T extends CompositeNodeType> =
+    Parameters<T> extends [] ? [] :
+    Parameters<T> extends [infer IProps, ...infer IChildren] ?
+    IProps extends Props ? IChildren : [IProps, ...IChildren] :
+    never;
 
 /**
- * Given a {@link NativeNodeType} returns the type of children appropriate
- * for the type.
+ * Type of children of any given {@link NodeType}.
  *
  * @memberOf core
  * @template T
@@ -304,7 +313,8 @@ export declare type CompositeNodeChildren = ChildrenArray;
  * @see NativeNodeChildren
  * @see CompositeNodeChildren
  */
-export declare type NodeChildren<T extends NodeType = NodeType> =
+export declare type NodeChildren<T extends NodeType> =
     NodeType extends T ? Children :
     T extends NativeNodeType ? NativeNodeChildren<T> :
-    CompositeNodeChildren;
+    T extends CompositeNodeType ? CompositeNodeChildren<T> :
+    never;

@@ -12,16 +12,21 @@ import * as _el from './src';
  * type of variable passed to other functions and {@link el.Core} type for the
  * type of elementary.core from the global namespace.
  *
- * Look at the examples to see how you could use these types properly.
+ * You can use the example as a template for setting up Elementary properly.
  *
  * @example
  *     import * as el from '@nick-thompson/elementary';
  *     const core: el.Core = (global as any).elementary.core;
  *
- *     declare function render(core: el.Core, el: el.Elementary);
- *     render(core, el);
+ *     function render(core: el.Core, el: el.Elementary)
+ *     {
+ *         // Your code goes here
+ *         core.render(el.phasor(440));
+ *     }
  *
- *     export { el, core };
+ *     core.on('load', () => render(core, el));
+ *
+ *     export { core };
  *
  *
  * @namespace el

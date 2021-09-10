@@ -9,19 +9,31 @@ export function onCoreLoad(...callbacks: ElementaryCallback[])
     core.on('load', () =>
         callbacks.forEach(
             (callback, index) =>
-                setTimeout(() =>
+            {
+                const timeoutTime = index * 100;
+                setTimeout(
+                    () =>
                     {
                         core.render(
                             el.const({ value: 0 }),
                             el.const({ value: 0 }));
 
+                        const callbackName =
+                            callback
+                                .name
+                                .slice(0, 20)
+                                .padEnd(20, ' ');
+
                         console.log(
                             '\n ' +
-                            'Running: ' + callback.name +
+                            `Running: ${callbackName} ` +
+                            `Number: ${index} ` +
+                            `At: ${timeoutTime} ms` +
                             ' \n');
                         callback(core, el);
                     },
-                    index * 100)));
+                    timeoutTime);
+            }));
 }
 
 export { el, core };
