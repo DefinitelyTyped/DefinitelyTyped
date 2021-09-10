@@ -1,6 +1,7 @@
 // Type definitions for @nick-thompson/elementary v0.9.6
 // Project: elementary
-// Definitions by: [~YOUR NAME~] <[~A URL FOR YOU~]>
+// Definitions by: Hrle97 https://github.com/Hrle97
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 import * as _el from './src';
