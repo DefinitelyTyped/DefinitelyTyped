@@ -56,22 +56,22 @@
 <text x='275.51' y='153.71' text-anchor='middle' style='font-size: 11.04px; font-weight: bold; fill: #FFFFFF; font-family: Liberation Sans;' textLength='19.54px' lengthAdjust='spacingAndGlyphs'>4.2</text>
 <text x='312.88' y='177.10' text-anchor='middle' style='font-size: 11.04px; font-weight: bold; fill: #FFFFFF; font-family: Liberation Sans;' textLength='19.54px' lengthAdjust='spacingAndGlyphs'>4.3</text>
 <text x='350.25' y='200.50' text-anchor='middle' style='font-size: 11.04px; font-weight: bold; fill: #FFFFFF; font-family: Liberation Sans;' textLength='19.54px' lengthAdjust='spacingAndGlyphs'>4.4</text>
-<text x='8.22' y='35.90' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='42.34px' lengthAdjust='spacingAndGlyphs'>Nov 2019</text>
-<text x='51.68' y='59.30' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='40.75px' lengthAdjust='spacingAndGlyphs'>Feb 2020</text>
-<text x='84.59' y='82.70' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='43.36px' lengthAdjust='spacingAndGlyphs'>May 2020</text>
-<text x='125.21' y='106.10' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='42.35px' lengthAdjust='spacingAndGlyphs'>Aug 2020</text>
-<text x='162.17' y='129.49' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='42.34px' lengthAdjust='spacingAndGlyphs'>Nov 2020</text>
-<text x='201.17' y='152.89' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='40.75px' lengthAdjust='spacingAndGlyphs'>Feb 2021</text>
-<text x='238.54' y='176.29' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='43.36px' lengthAdjust='spacingAndGlyphs'>May 2021</text>
-<text x='275.91' y='199.69' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='42.35px' lengthAdjust='spacingAndGlyphs'>Aug 2021</text>
-<text x='156.49' y='35.90' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='42.34px' lengthAdjust='spacingAndGlyphs'>Nov 2021</text>
-<text x='199.95' y='59.30' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='40.75px' lengthAdjust='spacingAndGlyphs'>Feb 2022</text>
-<text x='233.26' y='82.70' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='43.36px' lengthAdjust='spacingAndGlyphs'>May 2022</text>
-<text x='273.88' y='106.10' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='42.35px' lengthAdjust='spacingAndGlyphs'>Aug 2022</text>
-<text x='310.85' y='129.49' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='42.34px' lengthAdjust='spacingAndGlyphs'>Nov 2022</text>
-<text x='349.85' y='152.89' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='40.75px' lengthAdjust='spacingAndGlyphs'>Feb 2023</text>
-<text x='387.22' y='176.29' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='43.36px' lengthAdjust='spacingAndGlyphs'>May 2023</text>
-<text x='424.59' y='199.69' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='42.35px' lengthAdjust='spacingAndGlyphs'>Aug 2023</text>
+<text x='8.22' y='35.90' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2019-11</text>
+<text x='51.68' y='59.30' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2020-02</text>
+<text x='84.59' y='82.70' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2020-05</text>
+<text x='125.21' y='106.10' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2020-08</text>
+<text x='162.17' y='129.49' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2020-11</text>
+<text x='201.17' y='152.89' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2021-02</text>
+<text x='238.54' y='176.29' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2021-05</text>
+<text x='275.91' y='199.69' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2021-08</text>
+<text x='156.49' y='35.90' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2021-11</text>
+<text x='199.95' y='59.30' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2022-02</text>
+<text x='233.26' y='82.70' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2022-05</text>
+<text x='273.88' y='106.10' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2022-08</text>
+<text x='310.85' y='129.49' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2022-11</text>
+<text x='349.85' y='152.89' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2023-02</text>
+<text x='387.22' y='176.29' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2023-05</text>
+<text x='424.59' y='199.69' text-anchor='middle' style='font-size: 8.80px; fill: #FFFFFF; font-family: Liberation Sans;' textLength='36.74px' lengthAdjust='spacingAndGlyphs'>2023-08</text>
 </g>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwyMTYuMDA=)'>
 <text x='105.71' y='13.72' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Liberation Sans;' textLength='22.38px' lengthAdjust='spacingAndGlyphs'>2021</text>
