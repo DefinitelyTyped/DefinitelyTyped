@@ -272,3 +272,12 @@ n = gl.getSegmentIndex();
 c = gl.getCoordinate();
 bool = gl.isInsideArea();
 str = gl.toString();
+
+var dop: jsts.operation.distance.DistanceOp = new jsts.operation.distance.DistanceOp(g, g);
+dop = new jsts.operation.distance.DistanceOp(g, g, n);
+n = dop.distance();
+[c, c] = dop.nearestPoints();
+[gl, gl] = dop.nearestLocations();
+n = jsts.operation.distance.DistanceOp.distance(g, g);
+bool = jsts.operation.distance.DistanceOp.isWithinDistance(g, g, n);
+[c, c] = jsts.operation.distance.DistanceOp.nearestPoints(g, g);
