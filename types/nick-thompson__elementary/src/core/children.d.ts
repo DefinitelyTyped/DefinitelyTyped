@@ -18,7 +18,7 @@ import { core } from './';
  * @see core
  * @see Node
  */
-export type Child = Node | number;
+export declare type Child = Node | number;
 
 
 // Arrays
@@ -32,7 +32,7 @@ export type Child = Node | number;
  *
  * @see core
  */
-export type ChildrenArraySize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export declare type ChildrenArraySize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 /**
  * A helper children array of fixed size in the range of [0, 8].
@@ -70,7 +70,7 @@ export type ChildrenArraySize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
  * @see Child
  * @see ChildrenArraySize
  */
-export type SizedChildrenArray<Size extends ChildrenArraySize> =
+export declare type SizedChildrenArray<Size extends ChildrenArraySize> =
     Size extends 1 ?
     [Child] :
     Size extends 2 ?
@@ -117,7 +117,7 @@ export type SizedChildrenArray<Size extends ChildrenArraySize> =
  * @see ChildrenArraySize
  * @see SizedChildrenArray
  */
-export type ChildrenArray =
+export declare type ChildrenArray =
     SizedChildrenArray<0> |
     SizedChildrenArray<1> |
     SizedChildrenArray<2> |
@@ -149,7 +149,7 @@ export type ChildrenArray =
  * @see ChildrenArraySize
  * @see SizedChildrenArray
  */
-export type VariadicChildrenArray =
+export declare type VariadicChildrenArray =
     SizedChildrenArray<1> |
     SizedChildrenArray<2> |
     SizedChildrenArray<3> |
@@ -174,7 +174,7 @@ export type VariadicChildrenArray =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export type Children =
+export declare type Children =
     ChildrenArray;
 
 /**
@@ -230,7 +230,7 @@ export type Children =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export type NativeNodeChildren<T extends NativeNodeType> =
+export declare type NativeNodeChildren<T extends NativeNodeType> =
     ({
          [key in // Native
             'rand' |
@@ -282,7 +282,7 @@ export type NativeNodeChildren<T extends NativeNodeType> =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export type CompositeNodeChildren = ChildrenArray;
+export declare type CompositeNodeChildren = ChildrenArray;
 
 /**
  * Given a {@link NativeNodeType} returns the type of children appropriate
@@ -304,7 +304,7 @@ export type CompositeNodeChildren = ChildrenArray;
  * @see NativeNodeChildren
  * @see CompositeNodeChildren
  */
-export type NodeChildren<T extends NodeType = NodeType> =
+export declare type NodeChildren<T extends NodeType = NodeType> =
     NodeType extends T ? Children :
     T extends NativeNodeType ? NativeNodeChildren<T> :
     CompositeNodeChildren;

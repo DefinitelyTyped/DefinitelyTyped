@@ -267,7 +267,7 @@ export declare interface SeqProps extends KeyProps
  * @see SeqProps
  * @see KeyProps
  */
-export type NativeNodeProps<T extends NativeNodeType> =
+export declare type NativeNodeProps<T extends NativeNodeType> =
     {
         in: InProps | KeyProps,
         const: ConstProps,
@@ -289,7 +289,7 @@ export type NativeNodeProps<T extends NativeNodeType> =
  * @see core
  * @see Props
  */
-export type CompositeNodeProps =
+export declare type CompositeNodeProps =
     Props;
 
 /**
@@ -309,6 +309,6 @@ export type CompositeNodeProps =
  * @see NativeNodeProps
  * @see CompositeNodeProps
  */
-export type NodeProps<T extends NodeType> =
+export declare type NodeProps<T extends NodeType> =
     T extends NativeNodeType ? NativeNodeProps<T> :
     CompositeNodeProps;

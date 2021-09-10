@@ -31,51 +31,10 @@ import { core } from './';
  * @memberOf core
  * @interface Node
  *
- * @property {NodeType} _type
- * type of {@link Node}
- *
- * @property {Props} _props
- * {@link Node} properties
- *
- * @property {Children} _children
- * {@link Node} children
- *
  * @see core
  */
 export declare interface Node
 {
-    // /**
-    //  * This is a private field and please don't try to change it!
-    //  * Use this only for debugging or testing!
-    //  *
-    //  * @private
-    //  * @readonly
-    //  *
-    //  * @member {NodeType} _type
-    //  */
-    // readonly _type: NodeType,
-    //
-    // /**
-    //  * This is a private field and please don't try to change it!
-    //  * Use this only for debugging or testing!
-    //  *
-    //  * @private
-    //  * @readonly
-    //  *
-    //  * @member {Props} _props
-    //  */
-    // readonly _props: Props,
-    //
-    // /**
-    //  * This is a private field and please don't try to change it!
-    //  * Use this only for debugging or testing!
-    //  *
-    //  * @private
-    //  * @readonly
-    //  *
-    //  * @member {Children} _children
-    //  */
-    // readonly _children: Children
 }
 
 /**
@@ -86,52 +45,11 @@ export declare interface Node
  * @interface NativeNode
  * @extends Node
  *
- * @property {NodeType} _type
- * type of {@link Node}
- *
- * @property {Props} _props
- * {@link Node} properties
- *
- * @property {Children} _children
- * {@link Node} children
- *
  * @see core
  * @see Node
  */
 export declare interface NativeNode<T extends NativeNodeType> extends Node
 {
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     *
-     * @member {T} _type
-     */
-    readonly _type: T,
-
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     *
-     * @member {NativeNodeProps<T>} _props
-     */
-    readonly _props: NativeNodeProps<T>,
-
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     *
-     * @member {NativeNodeChildren<T>} _children
-     */
-    readonly _children: NativeNodeChildren<T>
 }
 
 /**
@@ -142,15 +60,6 @@ export declare interface NativeNode<T extends NativeNodeType> extends Node
  * @interface CompositeNode
  * @extends Node
  *
- * @property {NodeType} _type
- * type of {@link Node}
- *
- * @property {Props} _props
- * {@link Node} properties
- *
- * @property {Children} _children
- * {@link Node} children
- *
  * @see core
  * @see Node
  */
@@ -158,38 +67,6 @@ export declare interface CompositeNode<T extends CompositeNodeType = CompositeNo
     P extends CompositeNodeProps = CompositeNodeProps,
     C extends CompositeNodeChildren = CompositeNodeChildren> extends Node
 {
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     *
-     * @member {T} _type
-     */
-    readonly _type: T,
-
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     *
-     * @member {P} _type
-     */
-    readonly _props: P,
-
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     *
-     * @member {C} _children
-     */
-    readonly _children: C
 }
 
 /**
@@ -220,7 +97,7 @@ export declare interface CompositeNode<T extends CompositeNodeType = CompositeNo
  * @see NodeProps
  * @see NodeConstructor
  */
-export type ConcreteNode<T extends NodeType,
+export declare type ConcreteNode<T extends NodeType,
     P extends Props = NodeProps<T>,
     C extends Children = NodeChildren<T>> =
 
@@ -235,74 +112,72 @@ export type ConcreteNode<T extends NodeType,
 
 // Native
 
-// TODO: document?
-
 // Math
 
-export type SinNode = NativeNode<'sin'>;
-export type CosNode = NativeNode<'cos'>;
-export type TanNode = NativeNode<'tan'>;
-export type TanhNode = NativeNode<'tanh'>;
-export type AsinhNode = NativeNode<'asinh'>;
-export type LnNode = NativeNode<'ln'>;
-export type LogNode = NativeNode<'log'>;
-export type Log2Node = NativeNode<'log2'>;
-export type CeilNode = NativeNode<'ceil'>;
-export type FloorNode = NativeNode<'floor'>;
-export type SqrtNode = NativeNode<'sqrt'>;
-export type ExpNode = NativeNode<'exp'>;
+export declare type SinNode = NativeNode<'sin'>;
+export declare type CosNode = NativeNode<'cos'>;
+export declare type TanNode = NativeNode<'tan'>;
+export declare type TanhNode = NativeNode<'tanh'>;
+export declare type AsinhNode = NativeNode<'asinh'>;
+export declare type LnNode = NativeNode<'ln'>;
+export declare type LogNode = NativeNode<'log'>;
+export declare type Log2Node = NativeNode<'log2'>;
+export declare type CeilNode = NativeNode<'ceil'>;
+export declare type FloorNode = NativeNode<'floor'>;
+export declare type SqrtNode = NativeNode<'sqrt'>;
+export declare type ExpNode = NativeNode<'exp'>;
 
-export type AbsNode = NativeNode<'abs'>;
-export type LeNode = NativeNode<'le'>;
-export type LeqNode = NativeNode<'leq'>;
-export type GeNode = NativeNode<'ge'>;
-export type GeqNode = NativeNode<'geq'>;
-export type PowNode = NativeNode<'pow'>;
-export type ModNode = NativeNode<'mod'>;
-export type MinNode = NativeNode<'min'>;
-export type MaxNode = NativeNode<'max'>;
+export declare type AbsNode = NativeNode<'abs'>;
+export declare type LeNode = NativeNode<'le'>;
+export declare type LeqNode = NativeNode<'leq'>;
+export declare type GeNode = NativeNode<'ge'>;
+export declare type GeqNode = NativeNode<'geq'>;
+export declare type PowNode = NativeNode<'pow'>;
+export declare type ModNode = NativeNode<'mod'>;
+export declare type MinNode = NativeNode<'min'>;
+export declare type MaxNode = NativeNode<'max'>;
 
-export type AddNode = NativeNode<'add'>;
-export type SubNode = NativeNode<'sub'>;
-export type MulNode = NativeNode<'mul'>;
-export type DivNode = NativeNode<'div'>;
+export declare type AddNode = NativeNode<'add'>;
+export declare type SubNode = NativeNode<'sub'>;
+export declare type MulNode = NativeNode<'mul'>;
+export declare type DivNode = NativeNode<'div'>;
 
 // Native
 
-export type RootNode = NativeNode<'root'>;
-export type RandNode = NativeNode<'rand'>;
+export declare type RootNode = NativeNode<'root'>;
+export declare type RandNode = NativeNode<'rand'>;
 
 // Basics
 
-export type InNode = NativeNode<'in'>;
-export type SrNode = NativeNode<'sr'>;
-export type ConstNode = NativeNode<'const'>;
-export type CounterNode = NativeNode<'counter'>;
+export declare type InNode = NativeNode<'in'>;
+export declare type SrNode = NativeNode<'sr'>;
+export declare type ConstNode = NativeNode<'const'>;
+export declare type CounterNode = NativeNode<'counter'>;
 
 // Delays
 
-export type ZNode = NativeNode<'z'>;
-export type DelayNode = NativeNode<'delay'>;
+export declare type ZNode = NativeNode<'z'>;
+export declare type DelayNode = NativeNode<'delay'>;
 
 // Filters
 
-export type PoleNode = NativeNode<'pole'>;
-export type BiquadNode = NativeNode<'biquad'>;
-export type ConvolveNode = NativeNode<'convolve'>;
+export declare type PoleNode = NativeNode<'pole'>;
+export declare type BiquadNode = NativeNode<'biquad'>;
+export declare type ConvolveNode = NativeNode<'convolve'>;
 
 // Oscillators
 
-export type PhasorNode = NativeNode<'phasor'>;
+export declare type PhasorNode = NativeNode<'phasor'>;
 
 // Samples
 
-export type SampleNode = NativeNode<'sample'>;
-export type TableNode = NativeNode<'table'>;
+export declare type SampleNode = NativeNode<'sample'>;
+export declare type TableNode = NativeNode<'table'>;
 
 // Signals
 
-export type LatchNode = NativeNode<'latch'>;
-export type SeqNode = NativeNode<'seq'>;
+export declare type LatchNode = NativeNode<'latch'>;
+export declare type SeqNode = NativeNode<'seq'>;
 
 
 // Creation
