@@ -7,15 +7,25 @@
 //                 Andrew Kaiser <https://github.com/andykais>
 //                 Mark Stewart <https://github.com/mrkstwrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// TypeScript Version: 4.2
+
+/// <reference types="node"/>
 
 type VariableArgFunction = (...params: any[]) => any;
 type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
 
 declare namespace BetterSqlite3 {
-    interface NamespacedDict {
-        [key: string]: object;
-    }
+    type ValueType = bigint | number | string | Buffer | null;
+    type Dict = Record<string, ValueType>;
+    type NamespacedDict = Record<string, Dict>;
+    type OrderedParameterType = ValueType | ValueType[];
+    type ParameterTypes =
+        | [OrderedParameterType]
+        | OrderedParameterType[]
+        | [object, ...OrderedParameterType[]]
+        | [...OrderedParameterType[], object]
+        | [object];
+    type StrictDict<T> = Pick<T, { [Key in keyof T]-?: [T[Key]] extends [ValueType] ? Key : never }[keyof T]>;
 
     interface Statement<BindParameters extends any[]> {
         database: Database;
@@ -33,8 +43,11 @@ declare namespace BetterSqlite3 {
         safeIntegers(toggleState?: boolean): this;
     }
 
-    interface NormalStatement<BindParameters extends any[], Row extends object, RowTypes extends any[] | {}>
-        extends Statement<BindParameters> {
+    interface NormalStatement<
+        BindParameters extends ParameterTypes,
+        Row extends object,
+        RowTypes extends ValueType[] | ValueType,
+    > extends Statement<BindParameters> {
         get(...params: BindParameters): Row | undefined;
         all(...params: BindParameters): Row[];
         iterate(...params: BindParameters): IterableIterator<Row>;
@@ -47,11 +60,14 @@ declare namespace BetterSqlite3 {
         bind(...params: BindParameters): NormalStatement<[], Row, RowTypes>;
     }
 
-    interface PluckedStatement<BindParameters extends any[], Row extends object, RowTypes extends any[] | {}>
-        extends Statement<BindParameters> {
-        get(...params: BindParameters): (RowTypes extends any[] ? RowTypes[0] : RowTypes) | undefined;
-        all(...params: BindParameters): RowTypes extends any[] ? Array<RowTypes[0]> : RowTypes[];
-        iterate(...params: BindParameters): IterableIterator<RowTypes extends any[] ? RowTypes[0] : RowTypes>;
+    interface PluckedStatement<
+        BindParameters extends ParameterTypes,
+        Row extends object,
+        RowTypes extends ValueType[] | ValueType,
+    > extends Statement<BindParameters> {
+        get(...params: BindParameters): (RowTypes extends ValueType[] ? RowTypes[0] : RowTypes) | undefined;
+        all(...params: BindParameters): RowTypes extends ValueType[] ? Array<RowTypes[0]> : RowTypes[];
+        iterate(...params: BindParameters): IterableIterator<RowTypes extends ValueType[] ? RowTypes[0] : RowTypes>;
         pluck(toggleState?: true): this;
         pluck(toggleState: false): NormalStatement<BindParameters, Row, RowTypes>;
         expand(toggleState?: true): ExpandedStatement<BindParameters, Row, RowTypes>;
@@ -61,8 +77,11 @@ declare namespace BetterSqlite3 {
         bind(...params: BindParameters): PluckedStatement<[], Row, RowTypes>;
     }
 
-    interface ExpandedStatement<BindParameters extends any[], Row extends object, RowTypes extends any[] | {}>
-        extends Statement<BindParameters> {
+    interface ExpandedStatement<
+        BindParameters extends ParameterTypes,
+        Row extends object,
+        RowTypes extends ValueType[] | ValueType,
+    > extends Statement<BindParameters> {
         get(...params: BindParameters): NamespacedDict | undefined;
         all(...params: BindParameters): NamespacedDict[];
         iterate(...params: BindParameters): IterableIterator<NamespacedDict>;
@@ -75,11 +94,16 @@ declare namespace BetterSqlite3 {
         bind(...params: BindParameters): ExpandedStatement<[], Row, RowTypes>;
     }
 
-    interface RawStatement<BindParameters extends any[], Row extends object, RowTypes extends any[] | {}>
-        extends Statement<BindParameters> {
-        get(...params: BindParameters): (RowTypes extends any[] ? RowTypes : [RowTypes, {}]) | undefined;
-        all(...params: BindParameters): RowTypes extends any[] ? RowTypes[] : Array<[RowTypes, {}]>;
-        iterate(...params: BindParameters): IterableIterator<RowTypes extends any[] ? RowTypes : [RowTypes, {}]>;
+    interface RawStatement<
+        BindParameters extends ParameterTypes,
+        Row extends object,
+        RowTypes extends ValueType[] | ValueType,
+    > extends Statement<BindParameters> {
+        get(...params: BindParameters): (RowTypes extends ValueType[] ? RowTypes : [RowTypes, ValueType]) | undefined;
+        all(...params: BindParameters): RowTypes extends ValueType[] ? RowTypes[] : Array<[RowTypes, ValueType]>;
+        iterate(
+            ...params: BindParameters
+        ): IterableIterator<RowTypes extends ValueType[] ? RowTypes : [RowTypes, ValueType]>;
         pluck(toggleState?: true): PluckedStatement<BindParameters, Row, RowTypes>;
         pluck(toggleState: false): this;
         expand(toggleState?: true): ExpandedStatement<BindParameters, Row, RowTypes>;
@@ -121,14 +145,39 @@ declare namespace BetterSqlite3 {
         inTransaction: boolean;
 
         prepare<
-            BindParameters extends any[] | {} = any[],
-            Row extends object = object,
-            RowTypes extends any[] | {} = any[],
+            BindParameters extends
+                | ValueType
+                | OrderedParameterType[]
+                | [...OrderedParameterType[], object]
+                | [object, ...OrderedParameterType[]]
+                | object = any,
+            Row extends object = Dict,
+            RowTypes extends ValueType[] | ValueType = ValueType[],
         >(
             source: string,
-        ): BindParameters extends any[]
-            ? NormalStatement<BindParameters, Row, RowTypes>
-            : NormalStatement<[BindParameters], Row, RowTypes>;
+        ): BindParameters extends ValueType
+            ? NormalStatement<[BindParameters], StrictDict<Row>, RowTypes>
+            : BindParameters extends OrderedParameterType[]
+            ? NormalStatement<BindParameters, StrictDict<Row>, RowTypes>
+            : BindParameters extends [...infer Ordered, infer Named]
+            ? Ordered extends OrderedParameterType[]
+                ? NormalStatement<[...Ordered, StrictDict<Named>], StrictDict<Row>, RowTypes>
+                : BindParameters extends [infer Named, ...infer Ordered]
+                ? Ordered extends OrderedParameterType[]
+                    ? NormalStatement<[StrictDict<Named>, ...Ordered], StrictDict<Row>, RowTypes>
+                    : never
+                : never
+            : BindParameters extends object
+            ? NormalStatement<[StrictDict<BindParameters>], StrictDict<Row>, RowTypes>
+            : NormalStatement<
+                  | [ValueType]
+                  | [Dict]
+                  | OrderedParameterType[]
+                  | [...OrderedParameterType[], Dict]
+                  | [Dict, ...OrderedParameterType[]],
+                  StrictDict<Row>,
+                  RowTypes
+              >;
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): any;
@@ -199,12 +248,49 @@ declare namespace Database {
 
     type SqliteError = typeof SqliteError;
     type Statement<
-        BindParameters extends any[] | {} = any[],
-        Row extends object = object,
-        RowTypes extends any[] | {} = any[],
-    > = BindParameters extends any[]
-        ? BetterSqlite3.NormalStatement<BindParameters, Row, RowTypes>
-        : BetterSqlite3.NormalStatement<[BindParameters], Row, RowTypes>;
+        BindParameters extends
+            | BetterSqlite3.ValueType
+            | BetterSqlite3.OrderedParameterType[]
+            | [...BetterSqlite3.OrderedParameterType[], object]
+            | [object, ...BetterSqlite3.OrderedParameterType[]]
+            | object = any,
+        Row extends object = BetterSqlite3.Dict,
+        RowTypes extends BetterSqlite3.ValueType[] | BetterSqlite3.ValueType = BetterSqlite3.ValueType[],
+    > = BindParameters extends BetterSqlite3.ValueType
+        ? BetterSqlite3.NormalStatement<[BindParameters], BetterSqlite3.StrictDict<Row>, RowTypes>
+        : BindParameters extends BetterSqlite3.OrderedParameterType[]
+        ? BetterSqlite3.NormalStatement<BindParameters, BetterSqlite3.StrictDict<Row>, RowTypes>
+        : BindParameters extends [...infer Ordered, infer Named]
+        ? Ordered extends BetterSqlite3.OrderedParameterType[]
+            ? BetterSqlite3.NormalStatement<
+                  [...Ordered, BetterSqlite3.StrictDict<Named>],
+                  BetterSqlite3.StrictDict<Row>,
+                  RowTypes
+              >
+            : BindParameters extends [infer Named, ...infer Ordered]
+            ? Ordered extends BetterSqlite3.OrderedParameterType[]
+                ? BetterSqlite3.NormalStatement<
+                      [BetterSqlite3.StrictDict<Named>, ...Ordered],
+                      BetterSqlite3.StrictDict<Row>,
+                      RowTypes
+                  >
+                : never
+            : never
+        : BindParameters extends object
+        ? BetterSqlite3.NormalStatement<
+              [BetterSqlite3.StrictDict<BindParameters>],
+              BetterSqlite3.StrictDict<Row>,
+              RowTypes
+          >
+        : BetterSqlite3.NormalStatement<
+              | [BetterSqlite3.ValueType]
+              | BetterSqlite3.OrderedParameterType[]
+              | [...BetterSqlite3.OrderedParameterType[], BetterSqlite3.Dict]
+              | [BetterSqlite3.Dict, ...BetterSqlite3.OrderedParameterType[]]
+              | [BetterSqlite3.Dict],
+              BetterSqlite3.StrictDict<Row>,
+              RowTypes
+          >;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
     type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
     type Database = BetterSqlite3.Database;
