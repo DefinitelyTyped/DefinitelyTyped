@@ -1,6 +1,10 @@
 import { NativeNodeType, NodeType } from './types';
 import { Node } from './node';
 
+// for docs
+// noinspection ES6UnusedImports
+import { core } from './';
+
 
 // Child
 
@@ -8,7 +12,11 @@ import { Node } from './node';
  * {@link Node} child type. Any number will be converted to an el.const node
  * internally.
  *
- * @typedef {Node | number} NodeChild
+ * @memberOf core
+ * @typedef {Node | number}
+ *
+ * @see core
+ * @see Node
  */
 export type Child = Node | number;
 
@@ -19,13 +27,17 @@ export type Child = Node | number;
  * {@link Node} children array size range. {@link Node}s can have eight
  * children at most.
  *
- * @typedef {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8} NodeChildrenArraySize
+ * @memberOf core
+ * @typedef {0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}
+ *
+ * @see core
  */
 export type ChildrenArraySize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 /**
- * A helper children array of fixed size.
+ * A helper children array of fixed size in the range of [0, 8].
  *
+ * @memberOf core
  * @template Size
  *
  * @typedef {
@@ -52,7 +64,11 @@ export type ChildrenArraySize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
  *       NodeChild, NodeChild
  *   ] :
  *   never[];
- * } SizedNodeChildrenArray
+ * }
+ *
+ * @see core
+ * @see Child
+ * @see ChildrenArraySize
  */
 export type SizedChildrenArray<Size extends ChildrenArraySize> =
     Size extends 1 ?
@@ -80,9 +96,10 @@ export type SizedChildrenArray<Size extends ChildrenArraySize> =
     never[];
 
 /**
- * Helper type to describe that {@link Node}s can have a maximum of eight
+ * Helper type to describe that some {@link Node}s can have a maximum of eight
  * children.
  *
+ * @memberOf core
  * @typedef {
  *   SizedChildrenArray<0> |
  *   SizedChildrenArray<1> |
@@ -93,7 +110,12 @@ export type SizedChildrenArray<Size extends ChildrenArraySize> =
  *   SizedChildrenArray<6> |
  *   SizedChildrenArray<7> |
  *   SizedChildrenArray<8>
- * } NodeChildrenArray
+ * }
+ *
+ * @see core
+ * @see Child
+ * @see ChildrenArraySize
+ * @see SizedChildrenArray
  */
 export type ChildrenArray =
     SizedChildrenArray<0> |
@@ -107,9 +129,10 @@ export type ChildrenArray =
     SizedChildrenArray<8>;
 
 /**
- * Helper type to describe that {@link Node}s can have a maximum of eight
+ * Helper type to describe that some {@link Node}s can have a maximum of eight
  * children and a minimum of 1.
  *
+ * @memberOf core
  * @typedef {
  *   SizedChildrenArray<1> |
  *   SizedChildrenArray<2> |
@@ -119,7 +142,12 @@ export type ChildrenArray =
  *   SizedChildrenArray<6> |
  *   SizedChildrenArray<7> |
  *   SizedChildrenArray<8>
- * } NodeChildrenArray
+ * }
+ *
+ * @see core
+ * @see Child
+ * @see ChildrenArraySize
+ * @see SizedChildrenArray
  */
 export type VariadicChildrenArray =
     SizedChildrenArray<1> |
@@ -131,12 +159,20 @@ export type VariadicChildrenArray =
     SizedChildrenArray<7> |
     SizedChildrenArray<8>;
 
+
 // Generic
 
 /**
  * Base type for children.
  *
- * @typedef {ChildrenArray} Children
+ * @memberOf core
+ * @typedef {ChildrenArray}
+ *
+ * @see core
+ * @see Child
+ * @see ChildrenArraySize
+ * @see SizedChildrenArray
+ * @see ChildrenArray
  */
 export type Children =
     ChildrenArray;
@@ -145,6 +181,7 @@ export type Children =
  * Given a {@link NativeNodeType} returns the type of children appropriate
  * for the type.
  *
+ * @memberOf core
  * @template T
  *
  * @typedef {
@@ -185,7 +222,13 @@ export type Children =
  *    } & {
  *        [other: string]: ChildrenArray
  *    })[T]
- * } NativeNodeChildren
+ * }
+ *
+ * @see core
+ * @see Child
+ * @see ChildrenArraySize
+ * @see SizedChildrenArray
+ * @see ChildrenArray
  */
 export type NativeNodeChildren<T extends NativeNodeType> =
     ({
@@ -229,7 +272,15 @@ export type NativeNodeChildren<T extends NativeNodeType> =
 /**
  * Type of children of any composite {@link Node}.
  *
- * @typedef {{ChildrenArray}} CompositeNodeChildren
+ * @memberOf core
+ *
+ * @typedef {ChildrenArray}
+ *
+ * @see core
+ * @see Child
+ * @see ChildrenArraySize
+ * @see SizedChildrenArray
+ * @see ChildrenArray
  */
 export type CompositeNodeChildren = ChildrenArray;
 
@@ -237,13 +288,21 @@ export type CompositeNodeChildren = ChildrenArray;
  * Given a {@link NativeNodeType} returns the type of children appropriate
  * for the type.
  *
+ * @memberOf core
  * @template T
  *
  * @typedef {
  *   NodeType extends T ? Children :
  *   T extends NativeNodeType ? NativeNodeChildren<T> :
  *   NodeChildrenArray;
- * } NodeChildren
+ * }
+ *
+ * @see core
+ * @see NodeType
+ * @see NativeNodeType
+ * @see CompositeNodeType
+ * @see NativeNodeChildren
+ * @see CompositeNodeChildren
  */
 export type NodeChildren<T extends NodeType = NodeType> =
     NodeType extends T ? Children :

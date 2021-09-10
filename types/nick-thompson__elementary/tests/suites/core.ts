@@ -32,5 +32,6 @@ export const testCore: ElementaryCallback =
         expect(leftPhasor).passes(isNode);
         expect(rightPhasor).passes(isNode);
 
-        return core.render(leftPhasor, rightPhasor);
+        core.render(1, 2);
+        core.render(leftPhasor, rightPhasor);
     };

@@ -4,12 +4,29 @@ import { NodeStatic } from './node';
 import { Child } from './children';
 import { MidiEvent } from './midi';
 
+// for docs
+// noinspection ES6UnusedImports
+import * as el from '../../';
+
 
 /**
  * The elementary.core object is an instance of Node.js' events.EventEmitter.
  * The events below will be dispatched from the native module and
  * can be subscribed to following the EventEmitter API.
  *
+ * The examples explain how to properly setup the core variable from
+ * Elementary and use its type in functions.
+ *
+ * @example
+ *     import * as el from '@nick-thompson/elementary';
+ *     const core: el.Core = (global as any).elementary.core;
+ *
+ *     declare function render(core: el.Core);
+ *     render(core);
+ *
+ *     export { core };
+ *
+ * @memberOf el
  * @interface Core
  * @extends EventEmitter
  *
@@ -42,6 +59,9 @@ import { MidiEvent } from './midi';
  *
  * @property {(...children: Child[]) => number} render
  * render the given children into the output channels at their position
+ *
+ * @see el
+ * @see EventEmitter
  */
 export declare interface Core extends EventEmitter
 {
@@ -56,6 +76,8 @@ export declare interface Core extends EventEmitter
      *
      * @param {() => void} doThis
      * callback to call
+     *
+     * @see Core
      */
     on(event: 'load', doThis: () => void): this;
 
@@ -71,6 +93,9 @@ export declare interface Core extends EventEmitter
      *
      * @param {(event: MidiEvent) => void} doThis
      * callback to call with the MIDI Event
+     *
+     * @see Core
+     * @see MidiEvent
      */
     on(event: 'midi', doThis: (event: MidiEvent) => void): this;
 
@@ -87,6 +112,8 @@ export declare interface Core extends EventEmitter
      *
      * @param {() => void} doThis
      * callback to call
+     *
+     * @see Core
      */
     on(event: 'tick', doThis: () => void): this;
 
@@ -99,6 +126,8 @@ export declare interface Core extends EventEmitter
      * @function
      *
      * @returns {number} sample rate
+     *
+     * @see Core
      */
     getSampleRate(): number;
 
@@ -110,6 +139,8 @@ export declare interface Core extends EventEmitter
      * @function
      *
      * @returns {number} block size
+     *
+     * @see Core
      */
     getBlockSize(): number;
 
@@ -121,6 +152,8 @@ export declare interface Core extends EventEmitter
      * @function
      *
      * @returns {number} input channel count
+     *
+     * @see Core
      */
     getNumInputChannels(): number;
 
@@ -132,6 +165,8 @@ export declare interface Core extends EventEmitter
      * @function
      *
      * @returns {number} output channel count
+     *
+     * @see Core
      */
     getNumOutputChannels(): number;
 
@@ -144,6 +179,8 @@ export declare interface Core extends EventEmitter
      * @function
      *
      * @returns {number} quantization interval
+     *
+     * @see Core
      */
     getQuantizationInterval(): number;
 
@@ -164,16 +201,25 @@ export declare interface Core extends EventEmitter
      *
      * @param {...Child} children
      * {@link Child}ren to render in channels
+     *
+     * @see Core
+     * @see Child
+     * @see Node
      */
     render(...children: Child[]): void;
 
 
     /**
-     * Basic building block of the Elementary audio graph.
+     * Object containing methods for dealing with {@link Node}s.
      *
      * @public
      * @readonly
-     * @type {NodeStatic}
+     *
+     * @member {NodeStatic} Node
+     *
+     * @see Core
+     * @see Node
+     * @see NodeStatic
      */
     readonly Node: NodeStatic;
 }

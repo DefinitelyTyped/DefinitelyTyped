@@ -6,6 +6,9 @@ export const testMath: ElementaryCallback =
     {
         // Unary
 
+        const input = el.in(2);
+        expect(input).isANode();
+
         const sin = el.sin(1);
         expect(sin).isANode();
 

@@ -4,6 +4,8 @@ import { el, ElementaryCallback } from '../load';
 export const testBasics: ElementaryCallback =
     (core: el.Core, el: el.Elementary) =>
     {
+        // TODO: test in somehow
+
         const isNode = core.Node.isNode;
 
         const inputs = el.inputs();

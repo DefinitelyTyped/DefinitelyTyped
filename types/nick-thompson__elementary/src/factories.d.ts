@@ -1,5 +1,12 @@
 import { core } from './core';
 
+// for docs
+// noinspection ES6UnusedImports
+import * as el from '../';
+
+
+// ============================================================================
+// Functions
 
 /**
  * A convenience wrapper around Node construction to facilitate optionally
@@ -7,7 +14,9 @@ import { core } from './core';
  *
  * Users may also construct `core.Node` instances manually.
  *
+ * @memberOf el
  * @template T
+ * @function createNode
  *
  * @param {T} type
  * {@link core.NodeType} of the {@link core.Node} to create
@@ -21,6 +30,13 @@ import { core } from './core';
  * @returns {core.Node}
  * a {@link core.Node} for the given {@link core.NodeType},
  * {@link core.NodeProps<T>}, and {@link core.NodeChildren<T>}
+ *
+ * @see el
+ * @see core.Node
+ * @see core.ConcreteNode
+ * @see core.NodeType
+ * @see core.NodeProps
+ * @see core.NodeChildren
  */
 export declare const
     createNode:
@@ -37,13 +53,20 @@ export declare const
  * A convenience wrapper for defining factory functions around
  * {@link createNode}.
  *
+ * @memberOf el
  * @template T
+ * @function createNodeFactory
  *
  * @param {T} type
  * {@link core.NodeType} of {@link core.Node} to create a factory for
  *
  * @returns {NodeFactory<T>}
  * a factory for the given {@link core.NodeType}
+ *
+ * @see el
+ * @see core.Node
+ * @see core.NodeType
+ * @see core.NodeFactory
  */
 export declare const createNodeFactory:
     <T extends core.NodeType>(type: T) => core.NodeFactory<T>;

@@ -16,12 +16,19 @@ import {
     NodeChildren,
 } from './children';
 
+// for docs
+// noinspection ES6UnusedImports
+import { Core } from './api';
+// noinspection ES6UnusedImports
+import { core } from './';
+
 
 // Nodes
 
 /**
  * The fundamental building block of the Elementary audio graph.
  *
+ * @memberOf core
  * @interface Node
  *
  * @property {NodeType} _type
@@ -32,47 +39,51 @@ import {
  *
  * @property {Children} _children
  * {@link Node} children
+ *
+ * @see core
  */
 export declare interface Node
 {
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     * @type {NodeType}
-     */
-    readonly _type: NodeType,
-
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     * @type {Props}
-     */
-    readonly _props: Props,
-
-    /**
-     * This is a private field and please don't try to change it!
-     * Use this only for debugging or testing!
-     *
-     * @private
-     * @readonly
-     * @type {Children}
-     */
-    readonly _children: Children
+    // /**
+    //  * This is a private field and please don't try to change it!
+    //  * Use this only for debugging or testing!
+    //  *
+    //  * @private
+    //  * @readonly
+    //  *
+    //  * @member {NodeType} _type
+    //  */
+    // readonly _type: NodeType,
+    //
+    // /**
+    //  * This is a private field and please don't try to change it!
+    //  * Use this only for debugging or testing!
+    //  *
+    //  * @private
+    //  * @readonly
+    //  *
+    //  * @member {Props} _props
+    //  */
+    // readonly _props: Props,
+    //
+    // /**
+    //  * This is a private field and please don't try to change it!
+    //  * Use this only for debugging or testing!
+    //  *
+    //  * @private
+    //  * @readonly
+    //  *
+    //  * @member {Children} _children
+    //  */
+    // readonly _children: Children
 }
 
 /**
  * Native node specific to the {@link NativeNodeType}.
  *
+ * @memberOf core
  * @template T
- *
  * @interface NativeNode
- *
  * @extends Node
  *
  * @property {NodeType} _type
@@ -83,6 +94,9 @@ export declare interface Node
  *
  * @property {Children} _children
  * {@link Node} children
+ *
+ * @see core
+ * @see Node
  */
 export declare interface NativeNode<T extends NativeNodeType> extends Node
 {
@@ -92,7 +106,8 @@ export declare interface NativeNode<T extends NativeNodeType> extends Node
      *
      * @private
      * @readonly
-     * @type {T}
+     *
+     * @member {T} _type
      */
     readonly _type: T,
 
@@ -102,7 +117,8 @@ export declare interface NativeNode<T extends NativeNodeType> extends Node
      *
      * @private
      * @readonly
-     * @type {NativeNodeProps<T>}
+     *
+     * @member {NativeNodeProps<T>} _props
      */
     readonly _props: NativeNodeProps<T>,
 
@@ -112,7 +128,8 @@ export declare interface NativeNode<T extends NativeNodeType> extends Node
      *
      * @private
      * @readonly
-     * @type {NativeNodeChildren<T>}
+     *
+     * @member {NativeNodeChildren<T>} _children
      */
     readonly _children: NativeNodeChildren<T>
 }
@@ -120,10 +137,9 @@ export declare interface NativeNode<T extends NativeNodeType> extends Node
 /**
  * Native node specific to the {@link NativeNodeType}, props, and children.
  *
+ * @memberOf core
  * @template T, P, C
- *
  * @interface CompositeNode
- *
  * @extends Node
  *
  * @property {NodeType} _type
@@ -134,6 +150,9 @@ export declare interface NativeNode<T extends NativeNodeType> extends Node
  *
  * @property {Children} _children
  * {@link Node} children
+ *
+ * @see core
+ * @see Node
  */
 export declare interface CompositeNode<T extends CompositeNodeType = CompositeNodeType,
     P extends CompositeNodeProps = CompositeNodeProps,
@@ -145,7 +164,8 @@ export declare interface CompositeNode<T extends CompositeNodeType = CompositeNo
      *
      * @private
      * @readonly
-     * @type {T}
+     *
+     * @member {T} _type
      */
     readonly _type: T,
 
@@ -155,7 +175,8 @@ export declare interface CompositeNode<T extends CompositeNodeType = CompositeNo
      *
      * @private
      * @readonly
-     * @type {P}
+     *
+     * @member {P} _type
      */
     readonly _props: P,
 
@@ -165,28 +186,39 @@ export declare interface CompositeNode<T extends CompositeNodeType = CompositeNo
      *
      * @private
      * @readonly
-     * @type {C}
+     *
+     * @member {C} _children
      */
     readonly _children: C
 }
 
 /**
- * The node for the given {@link NodeType}, props and children. If a native
- * node type is passed props and children must match the nodes prop and
- * children types.
+ * The node for the given {@link NodeType}, props and children.
+ * If a {@link NativeNodeType} is passed props and children must match
+ * the nodes' props and children types.
  *
+ * @memberOf core
  * @template T, P, C
- *
- * @typedef {Node} ConcreteNode
+ * @interface ConcreteNode
  *
  * @property {NodeType} _type
  * type of {@link Node}
  *
- * @property {Props} _props
- * {@link Node} properties
+ * @property {NodeProps<T>} _props
+ * {@link Node} props
  *
- * @property {Children} _children
+ * @property {NodeChildren<T>} _children
  * {@link Node} children
+ *
+ * @see core
+ * @see Node
+ * @see NativeNode
+ * @see CompositeNode
+ * @see NodeType
+ * @see NativeNodeType
+ * @see CompositeNodeType
+ * @see NodeProps
+ * @see NodeConstructor
  */
 export type ConcreteNode<T extends NodeType,
     P extends Props = NodeProps<T>,
@@ -202,6 +234,8 @@ export type ConcreteNode<T extends NodeType,
 
 
 // Native
+
+// TODO: document?
 
 // Math
 
@@ -275,13 +309,21 @@ export type SeqNode = NativeNode<'seq'>;
 
 /**
  * Returns a factory for the appropriate {@link NodeType}, props and children.
+ * Most Elementary function types are created this way.
  *
+ * @memberOf core
  * @template T, P, C
  *
  * @typedef {
  *   ((props: P, ...children: C) => ConcreteNode<T, P, C>) &
  *   ((...children: C) => ConcreteNode<T, P, C>)
- * } NodeFactory
+ * }
+ *
+ * @see core
+ * @see Node
+ * @see NodeType
+ * @see NodeProps
+ * @see NodeChildren
  */
 export declare type NodeFactory<T extends NodeType,
     P extends Props = NodeProps<T>,
@@ -290,75 +332,74 @@ export declare type NodeFactory<T extends NodeType,
     ((props: P, ...children: C) => ConcreteNode<T, P, C>) &
     ((...children: C) => ConcreteNode<T, P, C>);
 
+
 /**
- * Static members of {@link Node}.
+ * Constructs a {@link Node} of the given {@link NodeType}.
  *
- * @interface
+ * @memberOf core
+ * @template T
+ * @class Node NodeConstructor
  *
- * @property {} new
- * creates a new node
+ * @param {T} type
+ * {@link NodeType} of the {@link Node} to create
  *
- * @property {(toCheck: any) => toCheck is Node} isNode
- * function for type checking {@link Node}s.
+ * @param {NodeProps<T>} [props = {}]
+ * {@link NodeProps<T>} of the {@link Node} to create
+ *
+ * @param {NodeChildren<T>} children
+ * {@link NodeChildren<T>} of the {@link Node} to create
+ *
+ * @returns {Node}
+ * a {@link Node} for the given {@link NodeType},
+ * {@link NodeProps<T>}, and {@link NodeChildren<T>}
+ *
+ * @see core
+ * @see Node
+ * @see NodeType
+ * @see NodeProps
+ * @see NodeChildren
+ * @see NodeStatic
  */
-export declare interface NodeStatic
+export declare interface NodeConstructor
 {
-    /**
-     * Constructs a {@link Node} of the given {@link NodeType}.
-     *
-     * @template T
-     * @constructor
-     *
-     * @param {T} type
-     * {@link NodeType} of the {@link Node} to create
-     *
-     * @param {NodeProps<T>} props
-     * {@link NodeProps<T>} of the {@link Node} to create
-     *
-     * @param {NodeChildren<T>} children
-     * {@link NodeChildren<T>} of the {@link Node} to create
-     *
-     * @returns {Node}
-     * a {@link Node} for the given {@link NodeType},
-     * {@link NodeProps<T>}, and {@link NodeChildren<T>}
-     */
     new<T extends NodeType>(
         type: T, props: NodeProps<T>, children: NodeChildren<T>):
         ConcreteNode<T, NodeProps<T>, NodeChildren<T>>;
 
-    /**
-     * Constructs a {@link Node} of the given {@link NodeType} with empty
-     * props.
-     *
-     * @template T
-     * @constructor
-     *
-     * @param {T} type
-     * {@link NodeType} of the {@link Node} to create
-     *
-     * @param {NodeChildren<T>} children
-     * {@link NodeChildren<T>} of the {@link Node} to create
-     *
-     * @returns {Node}
-     * a {@link Node} for the given {@link NodeType},
-     * {@link NodeProps<T>}, and {@link NodeChildren<T>}
-     */
     new<T extends NodeType>(
         type: T, children: NodeChildren<T>):
         ConcreteNode<T, {}, NodeChildren<T>>;
+}
 
-
+/**
+ * Static members of {@link Node}.
+ *
+ * @memberOf core
+ * @interface NodeStatic
+ * @extends NodeConstructor
+ *
+ * @property {(toCheck: any) => toCheck is Node} isNode
+ * function for type checking {@link Node}s.
+ *
+ * @see core
+ * @see Node
+ * @see NodeConstructor
+ */
+export declare interface NodeStatic extends NodeConstructor
+{
     /**
      * Checks whether an object is a {@link Node}
      *
-     * @static
      * @function
      *
-     * @param toCheck
+     * @param {any} toCheck
      * object to check whether it is a {@link Node}
      *
      * @returns {toCheck is Node}
      * whether toCheck is a {@link Node}
+     *
+     * @see NodeStatic
+     * @see Node
      */
     isNode(toCheck: any): toCheck is Node;
 }

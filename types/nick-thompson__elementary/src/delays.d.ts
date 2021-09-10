@@ -1,16 +1,28 @@
 import { core } from './core';
 
+// for docs
+// noinspection ES6UnusedImports
+import * as el from '../';
+
+
+// ============================================================================
+// Native
 
 /**
  * A very simple single-sample delay {@link core.Node} (z^-1).
  *
- * @function
+ * @memberOf el
+ * @function z
  *
- * @param {core.KeyProps?} props
+ * @param {core.KeyProps} [props]
  * props object with optional key
  *
  * @returns {core.ZNode}
  * the signal {@link core.ZNode} to delay
+ *
+ * @see el
+ * @see core.KeyProps
+ * @see core.ZNode
  */
 export declare const z:
     core.NodeFactory<core.CompositeNodeType,
@@ -40,9 +52,10 @@ export declare const z:
  *       feedback,
  *       signal));
  *
- * @function
+ * @memberOf el
+ * @function delay
  *
- * @param {core.DelayProps?} props
+ * @param {core.DelayProps} [props]
  * {@link core.DelayProps} object
  *
  * @param {core.Child} length
@@ -56,6 +69,11 @@ export declare const z:
  *
  * @returns {core.DelayNode}
  * a {@link core.DelayNode} that computes the output of the delay
+ *
+ * @see el
+ * @see core.DelayProps
+ * @see core.Child
+ * @see core.DelayNode
  */
 export declare const delay:
     core.NodeFactory<'delay',

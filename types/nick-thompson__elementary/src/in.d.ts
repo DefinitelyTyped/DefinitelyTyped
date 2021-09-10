@@ -1,5 +1,13 @@
 import { core } from './core';
 
+// for docs
+// noinspection ES6UnusedImports
+import * as el from '../';
+
+
+// ============================================================================
+// Native
+
 // placed in here because the two functions from basics and math would collide
 
 
@@ -7,9 +15,10 @@ import { core } from './core';
 /**
  * Identity function, f(x) = x.
  *
- * @function
+ * @memberOf el
+ * @function in
  *
- * @param {core.KeyProps?} props
+ * @param {core.KeyProps} [props]
  * props object with optional key
  *
  * @param {core.Child} operand
@@ -17,8 +26,13 @@ import { core } from './core';
  *
  * @returns {core.InNode}
  * a {@link core.InNode} that returns the result of the operand
+ *
+ * @see el
+ * @see core.KeyProps
+ * @see core.Child
+ * @see core.Node
  */
-declare const _in_identity:
+declare const identity:
     core.NodeFactory<'in',
         core.KeyProps,
         [
@@ -31,15 +45,21 @@ declare const _in_identity:
  * whereupon the channel prop will be used to decide which
  * incoming signal channel will be passed forward.
  *
- * @function
+ * @memberOf el
+ * @function in
  *
- * @param {core.InProps?} props
+ * @param {core.InProps} [props]
  * {@link core.InProps} object
  *
  * @returns {core.InNode}
  * a {@link core.InNode} that returns a stream of the input
+ *
+ * @see el
+ * @see core.InProps
+ * @see core.Child
+ * @see core.Node
  */
-declare const _in_input:
+declare const input:
     core.NodeFactory<'in',
         core.InProps,
         []>;
@@ -47,14 +67,30 @@ declare const _in_input:
 
 /**
  * Either the identity or the input function.
- * See the functions above for more detail.
  *
- * @see _in_input
- * @see _in_identity
+ * @memberOf el
+ * @function in
  *
- * @function
+ * @param {core.KeyProps | core.InProps} [props]
+ * props object optional key or {@link core.InProps}
+ *
+ * @param {core.Child} [operand]
+ * if using in as the identity function the child of which the result will
+ * be returned
+ *
+ * @returns {core.InNode}
+ * a {@link core.InNode} that returns the result of the operand or the
+ * stream of the input
+ *
+ * @see identity
+ * @see input
+ * @see el
+ * @see core.InProps
+ * @see core.KeyProps
+ * @see core.Child
+ * @see core.Node
  */
-declare const _in: typeof _in_identity & typeof _in_input;
+declare const _in: typeof identity & typeof input;
 
 // noinspection ReservedWordAsName
 export { _in as in };

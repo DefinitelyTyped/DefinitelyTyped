@@ -1,5 +1,13 @@
 import { core } from './core';
 
+// for docs
+// noinspection ES6UnusedImports
+import * as el from '../';
+
+
+// ============================================================================
+// Native
+
 
 /**
  * Loads a sample from disk and triggers its playback on the rising edge of
@@ -17,7 +25,8 @@ import { core } from './core';
  *
  * Expects exactly one argument, the pulse train to trigger playback.
  *
- * @function
+ * @memberOf el
+ * @function sample
  *
  * @param {core.SampleProps?} props
  * {@link core.SampleProps} object
@@ -27,6 +36,12 @@ import { core } from './core';
  *
  * @returns {core.SampleNode}
  * a {@link core.SampleNode} that outputs the playback of the sample
+ *
+ * @see el
+ * @see core.KeyProps
+ * @see core.SampleProps
+ * @see core.Child
+ * @see core.SampleNode
  */
 export declare const sample:
     core.NodeFactory<'sample',
@@ -53,17 +68,18 @@ export declare const sample:
  * In the example below, if kick.wav is a stereo wav file sample, the
  * sample node here will only play the right channel.
  * @example
- * // Sweep the whole table, as in wavetable synthesis
- * el.table(
- *  {path: '/path/to/squareWaveTable.wav'},
- *  el.phasor(220));
+ *     // Sweep the whole table, as in wavetable synthesis
+ *     el.table(
+ *      {path: '/path/to/squareWaveTable.wav'},
+ *      el.phasor(220));
  *
- * // Or to sweep a specific segment
- * el.table(
- *  {path: '/path/to/padSound.wav'},
- *  el.add(0.1, el.mul(0.1, el.phasor(1))));
+ *     // Or to sweep a specific segment
+ *     el.table(
+ *      {path: '/path/to/padSound.wav'},
+ *      el.add(0.1, el.mul(0.1, el.phasor(1))));
  *
- * @function
+ * @memberOf el
+ * @function table
  *
  * @param {TableProps?} props
  * {@link core.TableProps} object
@@ -73,6 +89,12 @@ export declare const sample:
  *
  * @returns {core.TableNode}
  * a {@link core.TableNode} that computes the lookup table output
+ *
+ * @see el
+ * @see core.KeyProps
+ * @see core.TableProps
+ * @see core.Child
+ * @see core.TableNode
  */
 export declare const table:
     core.NodeFactory<'table',
