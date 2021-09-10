@@ -2,7 +2,7 @@
 
 > 高品質な TypeScript の型定義用レポジトリ
 
-*この README は[英語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)・[スペイン語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)・[韓国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)・[ロシア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)・[中国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)・[ポルトガル語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)でも閲覧できます！*
+*この README は[英語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)・[スペイン語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)・[韓国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)・[ロシア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)・[中国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md)・[ポルトガル語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)でも閲覧できます！*
 
 *[管理者用マニュアル](./docs/admin.md) はこちら*
 
