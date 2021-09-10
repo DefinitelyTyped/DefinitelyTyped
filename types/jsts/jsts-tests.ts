@@ -285,3 +285,7 @@ bool = jsts.operation.distance.DistanceOp.isWithinDistance(g, g, n);
 var ch: jsts.algorithm.ConvexHull = new jsts.algorithm.ConvexHull(g);
 ch = new jsts.algorithm.ConvexHull([c], factory);
 g = ch.getConvexHull();
+
+var ipa: jsts.algorithm.InteriorPointArea = new jsts.algorithm.InteriorPointArea(g);
+c = ipa.getInteriorPoint();
+c = jsts.algorithm.InteriorPointArea.getInteriorPoint(g);

@@ -56,6 +56,38 @@ declare namespace jsts {
              */
             getConvexHull(): Geometry;
         }
+
+        /**
+         * Computes a point in the interior of an areal geometry.
+         * The point will lie in the geometry interior in all except certain pathological cases.
+         *
+         * KNOWN BUGS
+         * If a fixed precision model is used, in some cases this method
+         * may return a point which does not lie in the interior.
+         * If the input polygon is extremely narrow the computed point
+         * may not lie in the interior of the polygon.
+         */
+        export class InteriorPointArea {
+            /**
+             * Creates a new interior point finder for an areal geometry.
+             */
+            constructor(g: Geometry);
+
+            /**
+             * Computes an interior point for the polygonal components of a Geometry.
+             *
+             * @param geom the geometry to compute
+             * @returns the computed interior point, or null if the geometry has no polygonal components
+             */
+            static getInteriorPoint(geom: Geometry): Coordinate | null;
+
+            /**
+             * Gets the computed interior point.
+             *
+             * @returns the coordinate of an interior point or null if the input geometry is empty
+             */
+            getInteriorPoint(): Coordinate | null;
+        }
     }
 
     namespace geom {
