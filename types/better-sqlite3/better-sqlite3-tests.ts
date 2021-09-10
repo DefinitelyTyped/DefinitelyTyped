@@ -90,9 +90,10 @@ stmtWithNamedBind.bind({ name: 'bob', age: 20, id: BigInt(1234) }).all();
 const fullyTypedStmt = db.prepare<{ age: number }, { name: string }, [string]>(
     'SELECT name FROM test WHERE age = @age',
 );
-// $ExpectType { name: string; }
+
+// $ExpectType StrictDict<{ name: string; }>
 fullyTypedStmt.get({ age: 42 })!;
-// $ExpectType { name: string; }[]
+// $ExpectType StrictDict<{ name: string; }>[]
 fullyTypedStmt.all({ age: 42 });
 // $ExpectType string
 fullyTypedStmt.pluck(true).get({ age: 42 })!;
