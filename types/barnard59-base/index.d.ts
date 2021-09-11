@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Writable } from 'stream';
+import { Writable } from 'readable-stream';
 
 export { default as combine } from './combine';
 export { default as concat, object as concatObject } from './concat';
