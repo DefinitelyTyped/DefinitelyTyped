@@ -10,9 +10,9 @@ d3.layout.cloud();
 interface ICompTextSize {
     text: string;
     size: number;
-    x?: number;
-    y?: number;
-    rotate?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    rotate?: number | undefined;
 }
 
 function archimedeanSpiral(size: [number, number]): (t: number) => [number, number] {
@@ -33,13 +33,16 @@ d3.layout
         }),
     )
     .padding(5)
+    .rotate(10)
     .rotate(function() {
         return ~~(Math.random() * 2) * 90;
     })
     .font('Impact')
+    .fontSize(10)
     .fontSize(function(d: ICompTextSize) {
         return d.size;
     })
+    .spiral('archimedean')
     .spiral(archimedeanSpiral)
     .on('end', draw)
     .random()

@@ -1,4 +1,3 @@
-/* tslint:disable:dt-header variable-name */
 // Type definitions for Angular JS 1.5 component router
 // Project: http://angularjs.org
 // Definitions by: David Reher <https://github.com/davidreher>

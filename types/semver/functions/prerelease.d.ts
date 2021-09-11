@@ -1,5 +1,5 @@
 import SemVer = require('../classes/semver');
-import semver = require('../');
+import semver = require('../index');
 
 /**
  * Returns an array of prerelease components, or null if none exist.
@@ -7,6 +7,6 @@ import semver = require('../');
 declare function prerelease(
     version: string | SemVer,
     optionsOrLoose?: boolean | semver.Options,
-): ReadonlyArray<string> | null;
+): ReadonlyArray<string | number> | null;
 
 export = prerelease;

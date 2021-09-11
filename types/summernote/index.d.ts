@@ -10,48 +10,53 @@
 
 declare global {
     namespace Summernote {
+        type fontSizeUnitOptions = 'px' | 'pt';
+
         interface Options {
-            airMode?: boolean;
-            tabDisable?: boolean;
-            codeviewFilter?: boolean;
-            codeviewFilterRegex?: string;
-            codeviewIframeWhitelistSrc?: string[];
-            codeviewIframeFilter?: boolean;
-            callbacks?: any; // todo
-            codemirror?: CodemirrorOptions;
-            colors?: colorsDef;
-            dialogsInBody?: boolean;
-            dialogsFade?: boolean;
-            direction?: string;
-            disableDragAndDrop?: boolean;
-            focus?: boolean;
-            fontNames?: string[];
-            fontNamesIgnoreCheck?: string[];
-            height?: number;
-            hint?: HintOptions;
-            icons?: IconsOptions;
-            insertTableMaxSize?: InsertTableMaxSizeOptions;
-            keyMap?: KeyMapOptions;
-            lang?: string;
-            lineHeights?: string[];
-            minHeight?: number;
-            maxHeight?: number;
+            airMode?: boolean | undefined;
+            tabDisable?: boolean | undefined;
+            codeviewFilter?: boolean | undefined;
+            codeviewFilterRegex?: string | undefined;
+            codeviewIframeWhitelistSrc?: string[] | undefined;
+            codeviewIframeFilter?: boolean | undefined;
+            callbacks?: SummernoteCallbacks | SummernoteUndocumentedCallbacks | undefined; // todo
+            codemirror?: CodemirrorOptions | undefined;
+            colors?: colorsDef | undefined;
+            dialogsInBody?: boolean | undefined;
+            dialogsFade?: boolean | undefined;
+            direction?: string | undefined;
+            disableDragAndDrop?: boolean | undefined;
+            focus?: boolean | undefined;
+            fontNames?: string[] | undefined;
+            fontNamesIgnoreCheck?: string[] | undefined;
+            fontSizes?: string[] | undefined;
+            fontSizeUnits?: fontSizeUnitOptions[] | undefined;
+            height?: number | undefined;
+            hint?: HintOptions | undefined;
+            icons?: IconsOptions | undefined;
+            insertTableMaxSize?: InsertTableMaxSizeOptions | undefined;
+            keyMap?: KeyMapOptions | undefined;
+            lang?: string | undefined;
+            lineHeights?: string[] | undefined;
+            minHeight?: number | undefined;
+            maxHeight?: number | undefined;
             maximumImageFileSize?: any;
-            modules?: ModuleOptions;
-            popover?: PopoverOptions;
-            placeholder?: string;
-            shortcuts?: boolean;
-            styleTags?: styleTagsOptions[];
-            styleWithSpan?: boolean;
-            tabsize?: number;
-            tableClassName?: string;
-            textareaAutoSync?: boolean;
-            toolbar?: toolbarDef;
-            width?: number;
+            modules?: ModuleOptions | undefined;
+            popover?: PopoverOptions | undefined;
+            placeholder?: string | undefined;
+            shortcuts?: boolean | undefined;
+            styleTags?: styleTagsOptions[] | undefined;
+            styleWithSpan?: boolean | undefined;
+            tabsize?: number | undefined;
+            tableClassName?: string | undefined;
+            textareaAutoSync?: boolean | undefined;
+            toolbar?: toolbarDef | undefined;
+            width?: number | undefined;
         }
 
         type toolbarStyleGroupOptions = 'style' | 'bold' | 'italic' | 'underline' | 'clear';
-        type toolbarFontGroupOptions = 'fontname' | 'fontsize' | 'color' | 'forecolor' | 'backcolor' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'superscript' | 'subscript' | 'clear';
+        type toolbarFontGroupOptions = 'fontname' | 'fontsize' | 'fontsizeunit' | 'color' | 'forecolor' | 'backcolor' | 'bold' | 'italic' | 'underline' | 'strikethrough' | 'superscript' |
+            'subscript' | 'clear';
         type toolbarFontsizeGroupOptions = 'fontsize' | 'fontname' | 'color';
         type toolbarColorGroupOptions = 'color';
         type toolbarParaGroupOptions = 'ul' | 'ol' | 'paragraph' | 'style' | 'height';
@@ -65,6 +70,7 @@ declare global {
         type toolbarDef = Array<
             ['style', toolbarStyleGroupOptions[]]
             | ['font', toolbarFontGroupOptions[]]
+            | ['fontname', toolbarFontNameOptions[]]
             | ['fontsize', toolbarFontsizeGroupOptions[]]
             | ['color', toolbarColorGroupOptions[]]
             | ['para', toolbarParaGroupOptions[]]
@@ -89,8 +95,8 @@ declare global {
         }
 
         interface KeyMapOptions {
-            pc?: KeyMapPcOptions;
-            mac?: KeyMapMacOptions;
+            pc?: KeyMapPcOptions | undefined;
+            mac?: KeyMapMacOptions | undefined;
         }
 
         interface KeyMapPcOptions {
@@ -104,19 +110,19 @@ declare global {
         type htmlElement = string;
 
         interface HintOptions {
-            words?: string[];
-            mentions?: string[];
+            words?: string[] | undefined;
+            mentions?: string[] | undefined;
             match: RegExp;
             search: (keyword: string, callback: (plausibleItems: string[]) => void) => void;
-            template?: (item: string) => htmlElement;
-            content?: (item: string) => htmlElement | JQuery.Node;
+            template?: ((item: string) => htmlElement) | undefined;
+            content?: ((item: string) => htmlElement | JQuery.Node) | undefined;
         }
 
         interface CodemirrorOptions {
-            mode?: string;
-            htmlNode?: boolean;
-            lineNumbers?: boolean;
-            theme?: string;
+            mode?: string | undefined;
+            htmlNode?: boolean | undefined;
+            lineNumbers?: boolean | undefined;
+            theme?: string | undefined;
         }
 
         type popoverImageOptionsImagesize = 'imageSize100' | 'imageSize50' | 'imageSize25';
@@ -147,9 +153,9 @@ declare global {
         ];
 
         interface PopoverOptions {
-            image?: popoverImageDef;
-            link?: popoverLinkDef;
-            air?: popoverAirDef;
+            image?: popoverImageDef | undefined;
+            link?: popoverLinkDef | undefined;
+            air?: popoverAirDef | undefined;
         }
 
         interface ModuleOptions {
@@ -163,6 +169,33 @@ declare global {
         }
 
         type EditImageCallback = ($image: JQuery.Node) => void;
+
+        type toolbarFontNameOptions = string;
+
+        interface SummernoteCallbacks {
+            onBeforeCommand?: (contents: string) => void;
+            onChange?: (contents: string, $editable: JQuery) => void;
+            onChangeCodeview?: (code: string, $editor: JQuery) => void;
+            onDialogShown?: () => void;
+            onEnter?: (ev: Event) => void;
+            onFocus?: (ev: Event) => void;
+            onBlur?: (ev: Event) => void;
+            onBlurCodeview?: (code: string, ev: Event) => void;
+            onImageLinkInsert?: (url: string) => void;
+            onImageUpload?: (files: Blob[]) => void;
+            onImageUploadError?: (err: any) => void;
+            onInit?: () => void;
+            onKeyup?: (ev: KeyboardEvent) => void;
+            onKeydown?: (ev: KeyboardEvent) => void;
+            onMouseDown?: (ev: MouseEvent) => void;
+            onMouseUp?: (ev: MouseEvent) => void;
+            onPaste?: (e: Event) => void;
+            onScroll?: (e: Event) => void;
+        }
+
+        type SummernoteUndocumentedCallbacks = {
+            [key in Exclude<keyof SummernoteCallbacks, string>]: (...args: any[]) => void;
+        };
     }
 
     interface JQuery {
@@ -175,7 +208,8 @@ declare global {
         summernote(command: string, url: string, filename?: (string | Summernote.EditImageCallback)): JQuery;
 
         summernote(command: 'destroy'): JQuery;
-        summernote(command: 'code', markupStr?: string): JQuery;
+        summernote(command: 'code'): string;
+        summernote(command: 'code', markupStr: string): undefined;
         summernote(command: 'editor.pasteHTML' | 'pasteHTML', markup: string): JQuery;
 
         // Basic API
@@ -215,7 +249,7 @@ declare global {
         summernote(command: 'formatH1'): JQuery;
         summernote(command: 'formatH2'): JQuery;
         summernote(command: 'formatH3'): JQuery;
-            summernote(command: 'formatH4'): JQuery;
+        summernote(command: 'formatH4'): JQuery;
         summernote(command: 'formatH5'): JQuery;
         summernote(command: 'formatH6'): JQuery;
         // Insertion API
@@ -245,4 +279,4 @@ declare global {
     }
 }
 
-export {};
+export { };

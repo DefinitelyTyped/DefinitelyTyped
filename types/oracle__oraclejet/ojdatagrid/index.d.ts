@@ -6,11 +6,11 @@ export interface ojDataGrid<K, D> extends baseComponent<ojDataGridSettableProper
         row: number;
     };
     cell: {
-        className?: ((context: ojDataGrid.CellContext<K, D>) => string | void | null) | string | null;
+        className?: ((context: ojDataGrid.CellContext<K, D>) => string | void | null) | string | null | undefined;
         renderer?: ((context: ojDataGrid.CellContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void | null) | null;
-        style?: ((context: ojDataGrid.CellContext<K, D>) => string | void | null) | string | null;
+        } | void | null) | null | undefined;
+        style?: ((context: ojDataGrid.CellContext<K, D>) => string | void | null) | string | null | undefined;
     };
     currentCell: ojDataGrid.CurrentCell<K> | null;
     data: DataProvider<K, D>;
@@ -26,78 +26,78 @@ export interface ojDataGrid<K, D> extends baseComponent<ojDataGridSettableProper
     };
     header: {
         column: {
-            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             label: {
-                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
                 renderer?: ((context: ojDataGrid.LabelContext<K, D>) => {
                     insert: HTMLElement | string;
-                } | void | null) | null;
-                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                } | void | null) | null | undefined;
+                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
             };
             renderer?: ((context: ojDataGrid.HeaderContext<K, D>) => {
                 insert: HTMLElement | string;
-            } | void | null) | null;
+            } | void | null) | null | undefined;
             resizable: {
                 height: 'enable' | 'disable';
-                width?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
+                width?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
             };
-            sortable?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
-            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            sortable?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
+            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
         };
         columnEnd: {
-            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             label: {
-                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
                 renderer?: ((context: ojDataGrid.LabelContext<K, D>) => {
                     insert: HTMLElement | string;
-                } | void | null) | null;
-                style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+                } | void | null) | null | undefined;
+                style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             };
             renderer?: ((context: ojDataGrid.HeaderContext<K, D>) => {
                 insert: HTMLElement | string;
-            } | void | null) | null;
+            } | void | null) | null | undefined;
             resizable: {
                 height: 'enable' | 'disable';
-                width?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
+                width?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
             };
-            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
         };
         row: {
-            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             label: {
-                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
                 renderer?: ((context: ojDataGrid.LabelContext<K, D>) => {
                     insert: HTMLElement | string;
-                } | void | null) | null;
-                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                } | void | null) | null | undefined;
+                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
             };
             renderer?: ((context: ojDataGrid.HeaderContext<K, D>) => {
                 insert: HTMLElement | string;
-            } | void | null) | null;
+            } | void | null) | null | undefined;
             resizable: {
-                height?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
+                height?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
                 width: 'enable' | 'disable';
             };
-            sortable?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
-            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            sortable?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
+            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
         };
         rowEnd: {
-            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             label: {
-                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
                 renderer?: ((context: ojDataGrid.LabelContext<K, D>) => {
                     insert: HTMLElement | string;
-                } | void | null) | null;
-                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                } | void | null) | null | undefined;
+                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
             };
             renderer?: ((context: ojDataGrid.HeaderContext<K, D>) => {
                 insert: HTMLElement | string;
-            } | void | null) | null;
+            } | void | null) | null | undefined;
             resizable: {
-                height?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
+                height?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
                 width: 'enable' | 'disable';
             };
-            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
         };
     };
     scrollPolicy: 'auto' | 'loadMoreOnScroll' | 'scroll';
@@ -106,14 +106,14 @@ export interface ojDataGrid<K, D> extends baseComponent<ojDataGridSettableProper
         maxRowCount: number;
     };
     scrollPosition: {
-        x?: number;
-        y?: number;
-        rowIndex?: number;
-        columnIndex?: number;
-        rowKey?: K;
-        columnKey?: K;
-        offsetX?: number;
-        offsetY?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        rowIndex?: number | undefined;
+        columnIndex?: number | undefined;
+        rowKey?: K | undefined;
+        columnKey?: K | undefined;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
     };
     selection: Array<ojDataGrid.Selection<K>>;
     selectionMode: {
@@ -121,52 +121,52 @@ export interface ojDataGrid<K, D> extends baseComponent<ojDataGridSettableProper
         row: 'none' | 'single' | 'multiple';
     };
     translations: {
-        accessibleActionableMode?: string;
-        accessibleColumnContext?: string;
-        accessibleColumnEndHeaderContext?: string;
-        accessibleColumnHeaderContext?: string;
-        accessibleColumnSelected?: string;
-        accessibleColumnSpanContext?: string;
-        accessibleFirstColumn?: string;
-        accessibleFirstRow?: string;
-        accessibleLastColumn?: string;
-        accessibleLastRow?: string;
-        accessibleLevelContext?: string;
-        accessibleMultiCellSelected?: string;
-        accessibleNavigationMode?: string;
-        accessibleRangeSelectModeOff?: string;
-        accessibleRangeSelectModeOn?: string;
-        accessibleRowCollapsed?: string;
-        accessibleRowContext?: string;
-        accessibleRowEndHeaderContext?: string;
-        accessibleRowExpanded?: string;
-        accessibleRowHeaderContext?: string;
-        accessibleRowSelected?: string;
-        accessibleRowSpanContext?: string;
-        accessibleSelectionAffordanceBottom?: string;
-        accessibleSelectionAffordanceTop?: string;
-        accessibleSortAscending?: string;
-        accessibleSortDescending?: string;
-        accessibleStateSelected?: string;
-        accessibleSummaryEstimate?: string;
-        accessibleSummaryExact?: string;
-        accessibleSummaryExpanded?: string;
-        labelCut?: string;
-        labelDisableNonContiguous?: string;
-        labelEnableNonContiguous?: string;
-        labelPaste?: string;
-        labelResize?: string;
-        labelResizeDialogSubmit?: string;
-        labelResizeHeight?: string;
-        labelResizeWidth?: string;
-        labelSortCol?: string;
-        labelSortColAsc?: string;
-        labelSortColDsc?: string;
-        labelSortRow?: string;
-        labelSortRowAsc?: string;
-        labelSortRowDsc?: string;
-        msgFetchingData?: string;
-        msgNoData?: string;
+        accessibleActionableMode?: string | undefined;
+        accessibleColumnContext?: string | undefined;
+        accessibleColumnEndHeaderContext?: string | undefined;
+        accessibleColumnHeaderContext?: string | undefined;
+        accessibleColumnSelected?: string | undefined;
+        accessibleColumnSpanContext?: string | undefined;
+        accessibleFirstColumn?: string | undefined;
+        accessibleFirstRow?: string | undefined;
+        accessibleLastColumn?: string | undefined;
+        accessibleLastRow?: string | undefined;
+        accessibleLevelContext?: string | undefined;
+        accessibleMultiCellSelected?: string | undefined;
+        accessibleNavigationMode?: string | undefined;
+        accessibleRangeSelectModeOff?: string | undefined;
+        accessibleRangeSelectModeOn?: string | undefined;
+        accessibleRowCollapsed?: string | undefined;
+        accessibleRowContext?: string | undefined;
+        accessibleRowEndHeaderContext?: string | undefined;
+        accessibleRowExpanded?: string | undefined;
+        accessibleRowHeaderContext?: string | undefined;
+        accessibleRowSelected?: string | undefined;
+        accessibleRowSpanContext?: string | undefined;
+        accessibleSelectionAffordanceBottom?: string | undefined;
+        accessibleSelectionAffordanceTop?: string | undefined;
+        accessibleSortAscending?: string | undefined;
+        accessibleSortDescending?: string | undefined;
+        accessibleStateSelected?: string | undefined;
+        accessibleSummaryEstimate?: string | undefined;
+        accessibleSummaryExact?: string | undefined;
+        accessibleSummaryExpanded?: string | undefined;
+        labelCut?: string | undefined;
+        labelDisableNonContiguous?: string | undefined;
+        labelEnableNonContiguous?: string | undefined;
+        labelPaste?: string | undefined;
+        labelResize?: string | undefined;
+        labelResizeDialogSubmit?: string | undefined;
+        labelResizeHeight?: string | undefined;
+        labelResizeWidth?: string | undefined;
+        labelSortCol?: string | undefined;
+        labelSortColAsc?: string | undefined;
+        labelSortColDsc?: string | undefined;
+        labelSortRow?: string | undefined;
+        labelSortRowAsc?: string | undefined;
+        labelSortRowDsc?: string | undefined;
+        msgFetchingData?: string | undefined;
+        msgNoData?: string | undefined;
     };
     onBandingIntervalChanged: ((event: JetElementCustomEvent<ojDataGrid<K, D>["bandingInterval"]>) => any) | null;
     onCellChanged: ((event: JetElementCustomEvent<ojDataGrid<K, D>["cell"]>) => any) | null;
@@ -270,18 +270,18 @@ export namespace ojDataGrid {
     // tslint:disable-next-line interface-over-type-literal
     type CurrentCell<K> = {
         type: 'cell' | 'header' | 'label';
-        axis?: 'column' | 'columnEnd' | 'row' | 'rowEnd';
-        index?: number;
-        level?: number;
+        axis?: 'column' | 'columnEnd' | 'row' | 'rowEnd' | undefined;
+        index?: number | undefined;
+        level?: number | undefined;
         key?: any;
         indexes?: {
             row: number;
             column: number;
-        };
+        } | undefined;
         keys?: {
             row: K;
             column: K;
-        };
+        } | undefined;
     };
     // tslint:disable-next-line interface-over-type-literal
     type HeaderContext<K, D> = {
@@ -309,20 +309,20 @@ export namespace ojDataGrid {
     type Selection<K> = {
         startIndex?: {
             row: number;
-            column?: number;
-        };
+            column?: number | undefined;
+        } | undefined;
         startKey?: {
             row: K;
-            column?: K;
-        };
+            column?: K | undefined;
+        } | undefined;
         endIndex?: {
             row: number;
-            column?: number;
-        };
+            column?: number | undefined;
+        } | undefined;
         endKey?: {
             row: K;
-            column?: K;
-        };
+            column?: K | undefined;
+        } | undefined;
     };
 }
 export interface ojDataGridEventMap<K, D> extends baseComponentEventMap<ojDataGridSettableProperties<K, D>> {
@@ -352,11 +352,11 @@ export interface ojDataGridSettableProperties<K, D> extends baseComponentSettabl
         row: number;
     };
     cell: {
-        className?: ((context: ojDataGrid.CellContext<K, D>) => string | void | null) | string | null;
+        className?: ((context: ojDataGrid.CellContext<K, D>) => string | void | null) | string | null | undefined;
         renderer?: ((context: ojDataGrid.CellContext<K, D>) => {
             insert: HTMLElement | string;
-        } | void | null) | null;
-        style?: ((context: ojDataGrid.CellContext<K, D>) => string | void | null) | string | null;
+        } | void | null) | null | undefined;
+        style?: ((context: ojDataGrid.CellContext<K, D>) => string | void | null) | string | null | undefined;
     };
     currentCell: ojDataGrid.CurrentCell<K> | null;
     data: DataProvider<K, D> | null;
@@ -372,78 +372,78 @@ export interface ojDataGridSettableProperties<K, D> extends baseComponentSettabl
     };
     header: {
         column: {
-            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             label: {
-                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
                 renderer?: ((context: ojDataGrid.LabelContext<K, D>) => {
                     insert: HTMLElement | string;
-                } | void | null) | null;
-                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                } | void | null) | null | undefined;
+                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
             };
             renderer?: ((context: ojDataGrid.HeaderContext<K, D>) => {
                 insert: HTMLElement | string;
-            } | void | null) | null;
+            } | void | null) | null | undefined;
             resizable: {
                 height: 'enable' | 'disable';
-                width?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
+                width?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
             };
-            sortable?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
-            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            sortable?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
+            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
         };
         columnEnd: {
-            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             label: {
-                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
                 renderer?: ((context: ojDataGrid.LabelContext<K, D>) => {
                     insert: HTMLElement | string;
-                } | void | null) | null;
-                style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+                } | void | null) | null | undefined;
+                style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             };
             renderer?: ((context: ojDataGrid.HeaderContext<K, D>) => {
                 insert: HTMLElement | string;
-            } | void | null) | null;
+            } | void | null) | null | undefined;
             resizable: {
                 height: 'enable' | 'disable';
-                width?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
+                width?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
             };
-            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
         };
         row: {
-            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             label: {
-                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
                 renderer?: ((context: ojDataGrid.LabelContext<K, D>) => {
                     insert: HTMLElement | string;
-                } | void | null) | null;
-                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                } | void | null) | null | undefined;
+                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
             };
             renderer?: ((context: ojDataGrid.HeaderContext<K, D>) => {
                 insert: HTMLElement | string;
-            } | void | null) | null;
+            } | void | null) | null | undefined;
             resizable: {
-                height?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
+                height?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
                 width: 'enable' | 'disable';
             };
-            sortable?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
-            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            sortable?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
+            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
         };
         rowEnd: {
-            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            className?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
             label: {
-                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                className?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
                 renderer?: ((context: ojDataGrid.LabelContext<K, D>) => {
                     insert: HTMLElement | string;
-                } | void | null) | null;
-                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null;
+                } | void | null) | null | undefined;
+                style?: ((context: ojDataGrid.LabelContext<K, D>) => string | void | null) | string | null | undefined;
             };
             renderer?: ((context: ojDataGrid.HeaderContext<K, D>) => {
                 insert: HTMLElement | string;
-            } | void | null) | null;
+            } | void | null) | null | undefined;
             resizable: {
-                height?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null;
+                height?: ((context: ojDataGrid.HeaderContext<K, D>) => string) | string | null | undefined;
                 width: 'enable' | 'disable';
             };
-            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null;
+            style?: ((context: ojDataGrid.HeaderContext<K, D>) => string | void | null) | string | null | undefined;
         };
     };
     scrollPolicy: 'auto' | 'loadMoreOnScroll' | 'scroll';
@@ -452,14 +452,14 @@ export interface ojDataGridSettableProperties<K, D> extends baseComponentSettabl
         maxRowCount: number;
     };
     scrollPosition: {
-        x?: number;
-        y?: number;
-        rowIndex?: number;
-        columnIndex?: number;
-        rowKey?: K;
-        columnKey?: K;
-        offsetX?: number;
-        offsetY?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        rowIndex?: number | undefined;
+        columnIndex?: number | undefined;
+        rowKey?: K | undefined;
+        columnKey?: K | undefined;
+        offsetX?: number | undefined;
+        offsetY?: number | undefined;
     };
     selection: Array<ojDataGrid.Selection<K>>;
     selectionMode: {
@@ -467,52 +467,52 @@ export interface ojDataGridSettableProperties<K, D> extends baseComponentSettabl
         row: 'none' | 'single' | 'multiple';
     };
     translations: {
-        accessibleActionableMode?: string;
-        accessibleColumnContext?: string;
-        accessibleColumnEndHeaderContext?: string;
-        accessibleColumnHeaderContext?: string;
-        accessibleColumnSelected?: string;
-        accessibleColumnSpanContext?: string;
-        accessibleFirstColumn?: string;
-        accessibleFirstRow?: string;
-        accessibleLastColumn?: string;
-        accessibleLastRow?: string;
-        accessibleLevelContext?: string;
-        accessibleMultiCellSelected?: string;
-        accessibleNavigationMode?: string;
-        accessibleRangeSelectModeOff?: string;
-        accessibleRangeSelectModeOn?: string;
-        accessibleRowCollapsed?: string;
-        accessibleRowContext?: string;
-        accessibleRowEndHeaderContext?: string;
-        accessibleRowExpanded?: string;
-        accessibleRowHeaderContext?: string;
-        accessibleRowSelected?: string;
-        accessibleRowSpanContext?: string;
-        accessibleSelectionAffordanceBottom?: string;
-        accessibleSelectionAffordanceTop?: string;
-        accessibleSortAscending?: string;
-        accessibleSortDescending?: string;
-        accessibleStateSelected?: string;
-        accessibleSummaryEstimate?: string;
-        accessibleSummaryExact?: string;
-        accessibleSummaryExpanded?: string;
-        labelCut?: string;
-        labelDisableNonContiguous?: string;
-        labelEnableNonContiguous?: string;
-        labelPaste?: string;
-        labelResize?: string;
-        labelResizeDialogSubmit?: string;
-        labelResizeHeight?: string;
-        labelResizeWidth?: string;
-        labelSortCol?: string;
-        labelSortColAsc?: string;
-        labelSortColDsc?: string;
-        labelSortRow?: string;
-        labelSortRowAsc?: string;
-        labelSortRowDsc?: string;
-        msgFetchingData?: string;
-        msgNoData?: string;
+        accessibleActionableMode?: string | undefined;
+        accessibleColumnContext?: string | undefined;
+        accessibleColumnEndHeaderContext?: string | undefined;
+        accessibleColumnHeaderContext?: string | undefined;
+        accessibleColumnSelected?: string | undefined;
+        accessibleColumnSpanContext?: string | undefined;
+        accessibleFirstColumn?: string | undefined;
+        accessibleFirstRow?: string | undefined;
+        accessibleLastColumn?: string | undefined;
+        accessibleLastRow?: string | undefined;
+        accessibleLevelContext?: string | undefined;
+        accessibleMultiCellSelected?: string | undefined;
+        accessibleNavigationMode?: string | undefined;
+        accessibleRangeSelectModeOff?: string | undefined;
+        accessibleRangeSelectModeOn?: string | undefined;
+        accessibleRowCollapsed?: string | undefined;
+        accessibleRowContext?: string | undefined;
+        accessibleRowEndHeaderContext?: string | undefined;
+        accessibleRowExpanded?: string | undefined;
+        accessibleRowHeaderContext?: string | undefined;
+        accessibleRowSelected?: string | undefined;
+        accessibleRowSpanContext?: string | undefined;
+        accessibleSelectionAffordanceBottom?: string | undefined;
+        accessibleSelectionAffordanceTop?: string | undefined;
+        accessibleSortAscending?: string | undefined;
+        accessibleSortDescending?: string | undefined;
+        accessibleStateSelected?: string | undefined;
+        accessibleSummaryEstimate?: string | undefined;
+        accessibleSummaryExact?: string | undefined;
+        accessibleSummaryExpanded?: string | undefined;
+        labelCut?: string | undefined;
+        labelDisableNonContiguous?: string | undefined;
+        labelEnableNonContiguous?: string | undefined;
+        labelPaste?: string | undefined;
+        labelResize?: string | undefined;
+        labelResizeDialogSubmit?: string | undefined;
+        labelResizeHeight?: string | undefined;
+        labelResizeWidth?: string | undefined;
+        labelSortCol?: string | undefined;
+        labelSortColAsc?: string | undefined;
+        labelSortColDsc?: string | undefined;
+        labelSortRow?: string | undefined;
+        labelSortRowAsc?: string | undefined;
+        labelSortRowDsc?: string | undefined;
+        msgFetchingData?: string | undefined;
+        msgNoData?: string | undefined;
     };
 }
 export interface ojDataGridSettablePropertiesLenient<K, D> extends Partial<ojDataGridSettableProperties<K, D>> {

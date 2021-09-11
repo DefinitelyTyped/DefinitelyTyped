@@ -1,5 +1,4 @@
-/// <reference types="node" />
-
+import boxen = require('boxen');
 import UpdateNotifier = require('update-notifier');
 
 let notifier = UpdateNotifier();
@@ -8,7 +7,7 @@ if (notifier.update) {
     notifier.notify();
 }
 
-console.log(notifier.update);
+notifier.update; // $ExpectType UpdateInfo | undefined
 
 // Also exposed as a class
 notifier = new UpdateNotifier.UpdateNotifier({
@@ -26,10 +25,15 @@ if (notifier.update) {
         isGlobal: true,
         boxenOptions: {
             padding: 1,
-            margin: 1,
+            margin: {
+                top: 1,
+                bottom: 1,
+                left: 2,
+                right: 2,
+            },
             align: 'center',
             borderColor: 'yellow',
-            borderStyle: 'round',
+            borderStyle: boxen.BorderStyle.Round,
         },
     });
 }

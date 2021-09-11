@@ -173,3 +173,10 @@ var FizzyText = function () {
     });
 }
 
+{
+    // __folders is a name --> GUI mapping, not a list.
+    const gui = new dat.GUI();
+    gui.addFolder('folder name');
+    const folder = gui.__folders['folder name'];
+    folder.add({value: 0}, 'value');
+}

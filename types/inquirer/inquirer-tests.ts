@@ -1,5 +1,7 @@
+import { Separator } from "inquirer";
 import inquirer = require("inquirer");
 import InputPrompt = require("inquirer/lib/prompts/input");
+import { fetchAsyncQuestionProperty } from "inquirer/lib/utils/utils";
 {
     new inquirer.Separator("");
     const promptModule = inquirer.createPromptModule();
@@ -46,6 +48,21 @@ import InputPrompt = require("inquirer/lib/prompts/input");
         }
     ]);
 }
+{
+    let choice: inquirer.DistinctChoice;
+
+    choice = {
+        type: "separator",
+        line: "This is a test"
+    };
+
+    if (
+        choice.type === "separator" &&
+        !(choice instanceof Separator)) {
+        // $ExpectType SeparatorOptions
+        choice;
+    }
+}
 
 interface ChalkQuestionOptions<T extends inquirer.Answers = inquirer.Answers> extends inquirer.InputQuestionOptions<T> {
     previewColors: boolean;
@@ -57,6 +74,8 @@ interface ChalkQuestion<T extends inquirer.Answers = inquirer.Answers> extends C
 
 class ChalkPrompt extends InputPrompt {
     /* stuff */
+
+    protected onKeypress() { }
 }
 
 inquirer.registerPrompt("chalk", ChalkPrompt);
@@ -73,3 +92,23 @@ inquirer.prompt([
         previewColors: true
     }
 ]);
+
+inquirer.prompt([
+    {
+        name: 'foo',
+        default: 'bar'
+    }
+], {
+    foo: 'baz'
+});
+
+fetchAsyncQuestionProperty(
+    {
+        name: 'foo',
+        default: 'bar'
+    },
+    "message",
+    {}).pipe(
+        (source) => {
+            return source;
+        });

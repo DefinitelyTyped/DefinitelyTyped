@@ -11,7 +11,10 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "target": "es6",
-        "strictFunctionTypes": true
+        "strictFunctionTypes": true,
+        "paths": {
+            "@hapi/*": [ "hapi__*" ]
+        }
     },
     "files": [
         "index.d.ts",

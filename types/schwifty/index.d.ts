@@ -1,6 +1,7 @@
-// Type definitions for schwifty 4.0
+// Type definitions for schwifty 5.0
 // Project: https://github.com/hapipal/schwifty
 // Definitions by: ozum <https://github.com/ozum>
+//                 timcosta <https://github.com/timcosta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -9,22 +10,23 @@
 
 import * as Objection from "objection";
 import * as Joi from "joi";
-import { Server, Request, ResponseToolkit, Plugin } from "hapi";
+import { Server, Request, ResponseToolkit, Plugin } from "@hapi/hapi";
 import * as Knex from "knex";
 
 export type ModelClass = typeof Model | typeof Objection.Model;
 
 export class Model extends Objection.Model {
     static getJoiSchema(patch?: boolean): Joi.Schema;
-    joiSchema: Joi.Schema;
+    static field(name: string): Joi.Schema;
+    static joiSchema: Joi.Schema;
 }
 
 export interface RegistrationOptions {
-    knex?: Knex | Knex.Config;
-    models?: ModelClass[] | string;
-    migrationsDir?: string;
-    teardownOnStop?: boolean;
-    migrateOnStart?: boolean | "latest" | "rollback";
+    knex?: Knex | Knex.Config | undefined;
+    models?: ModelClass[] | string | undefined;
+    migrationsDir?: string | undefined;
+    teardownOnStop?: boolean | undefined;
+    migrateOnStart?: boolean | "latest" | "rollback" | undefined;
 }
 
 export function assertCompatible(
@@ -35,6 +37,10 @@ export function assertCompatible(
 
 export const plugin: Plugin<RegistrationOptions>;
 
+export interface RegisteredModels {
+    [key: string]: ModelClass;
+}
+
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                      Hapi Decorations                                     +
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
@@ -42,7 +48,7 @@ export const plugin: Plugin<RegistrationOptions>;
 /**
  * Merge decorations into hapi objects.
  */
-declare module "hapi" {
+declare module "@hapi/hapi" {
     interface Server {
         schwifty: (
             config:
@@ -55,16 +61,16 @@ declare module "hapi" {
                   }
         ) => void;
         knex: () => Knex;
-        models: (all?: boolean) => { [key: string]: typeof Model };
+        models: (all?: boolean) => RegisteredModels;
     }
 
     interface Request {
         knex: () => Knex;
-        models: (all?: boolean) => { [key: string]: typeof Model };
+        models: (all?: boolean) => RegisteredModels;
     }
 
     interface ResponseToolkit {
         knex: () => Knex;
-        models: (all?: boolean) => { [key: string]: typeof Model };
+        models: (all?: boolean) => RegisteredModels;
     }
 }

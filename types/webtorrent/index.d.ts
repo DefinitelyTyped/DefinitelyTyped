@@ -1,8 +1,9 @@
-// Type definitions for WebTorrent 0.107
+// Type definitions for WebTorrent 0.109
 // Project: https://github.com/feross/webtorrent, https://webtorrent.io
 // Definitions by: Bazyli Brzóska <https://github.com/niieani>
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
 //                 Gabriel Juchault <https://github.com/gjuchault>
+//                 Adam Crowder <https://github.com/cheeseandcereal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -21,21 +22,26 @@ declare namespace WebTorrent {
         WEBRTC_SUPPORT: boolean;
     }
     interface Options {
-        maxConns?: number;
-        nodeId?: string | Buffer;
-        peerId?: string | Buffer;
-        tracker?: boolean | {};
-        dht?: boolean | {};
-        webSeeds?: boolean;
+        maxConns?: number | undefined;
+        nodeId?: string | Buffer | undefined;
+        peerId?: string | Buffer | undefined;
+        tracker?: boolean | {} | undefined;
+        dht?: boolean | {} | undefined;
+        webSeeds?: boolean | undefined;
+        utp?: boolean | undefined;
     }
 
     interface TorrentOptions {
-        announce?: any[];
+        announce?: any[] | undefined;
         getAnnounceOpts?(): void;
-        maxWebConns?: number;
-        path?: string;
+        maxWebConns?: number | undefined;
+        path?: string | undefined;
         store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
-        name?: string;
+        private?: boolean | undefined;
+    }
+
+    interface TorrentDestroyOptions {
+        destroyStore?: boolean | undefined;
     }
 
     interface Instance extends NodeJS.EventEmitter {
@@ -48,7 +54,7 @@ declare namespace WebTorrent {
         seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], opts?: TorrentOptions, cb?: (torrent: Torrent) => any): Torrent;
         seed(input: string | string[] | File | File[] | FileList | Buffer | Buffer[] | NodeJS.ReadableStream | NodeJS.ReadableStream[], cb?: (torrent: Torrent) => any): Torrent;
 
-        remove(torrentId: Torrent | string | Buffer, callback?: (err: Error | string) => void): void;
+        remove(torrentId: Torrent | string | Buffer, opts?: TorrentDestroyOptions, callback?: (err: Error | string) => void): void;
 
         destroy(callback?: (err: Error | string) => void): void;
 
@@ -122,7 +128,7 @@ declare namespace WebTorrent {
 
         readonly maxWebConns: number;
 
-        destroy(cb?: (err: Error | string) => void): void;
+        destroy(opts?: TorrentDestroyOptions, cb?: (err: Error | string) => void): void;
 
         addPeer(peer: string | SimplePeer): boolean;
 
@@ -172,13 +178,13 @@ declare namespace WebTorrent {
 
         appendTo(
             rootElement: HTMLElement | string,
-            opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number },
+            opts?: { autoplay?: boolean | undefined, controls?: boolean | undefined, maxBlobLength?: number | undefined },
             callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
         appendTo(rootElement: HTMLElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
 
         renderTo(
             rootElement: HTMLMediaElement | string,
-            opts?: { autoplay?: boolean, controls?: boolean, maxBlobLength?: number },
+            opts?: { autoplay?: boolean | undefined, controls?: boolean | undefined, maxBlobLength?: number | undefined },
             callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
         renderTo(rootElement: HTMLMediaElement | string, callback?: (err: Error | undefined, element: HTMLMediaElement) => void): void;
 

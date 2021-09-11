@@ -11,6 +11,7 @@ const config: Pubnub.PubnubConfig = {
     secretKey: '',
     ssl: true,
     authKey: '',
+    useRandomIVs: false
 };
 
 const pubnub = new Pubnub(config);
@@ -80,20 +81,16 @@ pubnub.addListener({
         publisher,
         subscription,
         timetoken,
-        message: {
-            event,
-            data: { type, value, uuid, actionTimetoken, messageTimetoken },
-        },
+        event,
+        data: { type, value, uuid, actionTimetoken, messageTimetoken },
     }) =>
         console.log({
             channel,
             publisher,
             subscription,
             timetoken,
-            message: {
-                event,
-                data: { type, value, uuid, actionTimetoken, messageTimetoken },
-            },
+            event,
+            data: { type, value, uuid, actionTimetoken, messageTimetoken },
         }),
     objects: ({
         channel,
@@ -119,12 +116,39 @@ pubnub.addListener({
                 }
             }
         );
-    }
+    },
+    file: ({
+        channel,
+        subscription,
+        timetoken,
+        publisher,
+        message,
+        file: {
+            id,
+            name,
+            url
+        }
+    }) => console.log({
+        channel,
+        subscription,
+        timetoken,
+        publisher,
+        message,
+        file: {
+            id,
+            name,
+            url
+        }
+    })
 });
 
 pubnub.unsubscribe({ channels: ['channel-1'] });
 
 pubnub.unsubscribeAll();
+
+pubnub.getSubscribedChannels();
+
+pubnub.getSubscribedChannelGroups();
 
 pubnub.setUUID(Pubnub.generateUUID());
 const uuid = pubnub.getUUID();
@@ -165,8 +189,32 @@ const grantOptions = {
     read: true,
     write: false,
     manage: false,
+    delete: false,
+    update: false,
+    join: true,
+    ttl: 1440
 };
 pubnub.grant(grantOptions).then(status => {
+    console.log(status);
+});
+
+const grantUuidOptions = {
+    uuids: ['uuid-1'],
+    authKeys: ['auth-key'],
+    update: true
+};
+pubnub.grant(grantUuidOptions).then(status => {
+    console.log(status);
+});
+
+const grantchannelGroupsOptions = {
+    channelGroups: ['cg-1'],
+    authKeys: ['auth-key'],
+    read: true,
+    manage: false,
+    ttl: 1440
+};
+pubnub.grant(grantchannelGroupsOptions).then(status => {
     console.log(status);
 });
 
@@ -180,6 +228,8 @@ pubnub.fetchMessages(
         stringifiedTimeToken: true,
         start: '15343325214676133',
         end: '15343325004275466',
+        includeUUID: true,
+        includeMessageType: true,
         includeMeta: true,
         includeMessageActions: true,
     },
@@ -850,9 +900,45 @@ pubnub.objects.getChannelMembers({
 pubnub.objects.setChannelMembers({
     channel: 'myChannel',
     uuids: ['uuid-1', 'uuid-2'],
+    page: {
+        next: "abc",
+        prev: "def"
+    }
 });
 
 pubnub.objects.removeChannelMembers({
     channel: 'myChannel',
     uuids: ['uuid-1', 'uuid-2'],
+});
+
+pubnub.listFiles({
+    channel: 'myChannel',
+    limit: 10
+});
+
+pubnub.sendFile({
+    channel: 'myChannel',
+    file: {
+        data: [ 12, 34 ],
+        name: 'cat_picture.jpg'
+    }
+});
+
+pubnub.downloadFile({
+    channel: 'myChannel',
+    id: '...',
+    name: 'cat_picture.jpg'
+});
+
+pubnub.deleteFile({
+    channel: 'myChannel',
+    id: '...',
+    name: 'cat_picture.jpg'
+});
+
+pubnub.publishFile({
+    channel: 'myChannel',
+    fileId: '...',
+    fileName: 'cat_picture.jpg',
+    message: { field: 'value' }
 });

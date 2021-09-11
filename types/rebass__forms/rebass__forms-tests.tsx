@@ -4,7 +4,7 @@ import { Label, Input, Select, Textarea, Radio, Checkbox, Slider, Switch } from 
 
 export default () => (
     <>
-        <Label htmlFor="name">Name</Label>
+        <Label fontWeight='bold' fontSize={1} htmlFor="name">Bold Name</Label>
         <Input id="name" name="name" defaultValue="Jane Doe" />
 
         <Label htmlFor="location">Location</Label>

@@ -1,10 +1,9 @@
-// Type definitions for bull 3.14
+// Type definitions for bull 3.15
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
 //                 Marshall Cottrell <https://github.com/marshall007>
 //                 Weeco <https://github.com/weeco>
-//                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
 //                 Bond Akinmade <https://github.com/bondz>
@@ -19,6 +18,7 @@
 //                 Remko Klein <https://github.com/remko79>
 //                 Levi Bostian <https://github.com/levibostian>
 //                 Todd Dukart <https://github.com/tdukart>
+//                 Mix <https://github.com/mnixry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -46,14 +46,16 @@ declare namespace Bull {
     /** Per duration in milliseconds */
     duration: number;
     /** When jobs get rate limited, they stay in the waiting queue and are not moved to the delayed queue */
-    bounceBack?: boolean;
+    bounceBack?: boolean | undefined;
+    /** Groups jobs with the specified key from the data object passed to the Queue#add ex. "network.handle" */
+    groupKey?: string | undefined;
   }
 
   interface QueueOptions {
     /**
      * Options passed directly to the `ioredis` constructor
      */
-    redis?: Redis.RedisOptions | string;
+    redis?: Redis.RedisOptions | string | undefined;
 
     /**
      * When specified, the `Queue` will use this function to create new `ioredis` client connections.
@@ -64,58 +66,58 @@ declare namespace Bull {
     /**
      * Prefix to use for all redis keys
      */
-    prefix?: string;
+    prefix?: string | undefined;
 
-    settings?: AdvancedSettings;
+    settings?: AdvancedSettings | undefined;
 
-    limiter?: RateLimiter;
+    limiter?: RateLimiter | undefined;
 
-    defaultJobOptions?: JobOptions;
+    defaultJobOptions?: JobOptions | undefined;
   }
 
   interface AdvancedSettings {
     /**
      * Key expiration time for job locks
      */
-    lockDuration?: number;
+    lockDuration?: number | undefined;
 
     /**
      * Interval in milliseconds on which to acquire the job lock.
      */
-    lockRenewTime?: number;
+    lockRenewTime?: number | undefined;
 
     /**
      * How often check for stalled jobs (use 0 for never checking)
      */
-    stalledInterval?: number;
+    stalledInterval?: number | undefined;
 
     /**
      * Max amount of times a stalled job will be re-processed
      */
-    maxStalledCount?: number;
+    maxStalledCount?: number | undefined;
 
     /**
      * Poll interval for delayed jobs and added jobs
      */
-    guardInterval?: number;
+    guardInterval?: number | undefined;
 
     /**
      * Delay before processing next job in case of internal error
      */
-    retryProcessDelay?: number;
+    retryProcessDelay?: number | undefined;
 
     /**
      * Define a custom backoff strategy
      */
     backoffStrategies?: {
       [key: string]: (attemptsMade: number, err: Error) => number;
-    };
+    } | undefined;
 
     /**
      * A timeout for when the queue is in `drained` state (empty waiting for jobs).
      * It is used when calling `queue.getNextJob()`, which will pass it to `.brpoplpush` on the Redis client.
      */
-    drainDelay?: number;
+    drainDelay?: number | undefined;
   }
 
   type DoneCallback = (error?: Error | null, value?: any) => void;
@@ -146,12 +148,12 @@ declare namespace Bull {
     /**
      * When this job was started (unix milliseconds)
      */
-    processedOn?: number;
+    processedOn?: number | undefined;
 
     /**
      * When this job was completed (unix milliseconds)
      */
-    finishedOn?: number;
+    finishedOn?: number | undefined;
 
     /**
      * Which queue this job was part of
@@ -172,7 +174,7 @@ declare namespace Bull {
 
     returnvalue: any;
 
-    failedReason?: string;
+    failedReason?: string | undefined;
 
     /**
      * Get progress on a job
@@ -237,7 +239,7 @@ declare namespace Bull {
     /**
      * Update a specific job's data. Promise resolves when the job has been updated.
      */
-    update(data: any): Promise<void>;
+    update(data: T): Promise<void>;
 
     /**
      * Removes a job from the queue and from any lists it may be included in.
@@ -327,24 +329,24 @@ declare namespace Bull {
     /**
      * Backoff delay, in milliseconds
      */
-    delay?: number;
+    delay?: number | undefined;
   }
 
   interface RepeatOptions {
     /**
      * Timezone
      */
-    tz?: string;
+    tz?: string | undefined;
 
     /**
      * End date when the repeat job should stop repeating
      */
-    endDate?: Date | string | number;
+    endDate?: Date | string | number | undefined;
 
     /**
      * Number of times the job should repeat at max.
      */
-    limit?: number;
+    limit?: number | undefined;
   }
 
   interface CronRepeatOptions extends RepeatOptions {
@@ -356,7 +358,7 @@ declare namespace Bull {
     /**
      * Start date when the repeat job should start repeating (only with cron).
      */
-    startDate?: Date | string | number;
+    startDate?: Date | string | number | undefined;
   }
 
   interface EveryRepeatOptions extends RepeatOptions {
@@ -371,39 +373,39 @@ declare namespace Bull {
      * Optional priority value. ranges from 1 (highest priority) to MAX_INT  (lowest priority).
      * Note that using priorities has a slight impact on performance, so do not use it if not required
      */
-    priority?: number;
+    priority?: number | undefined;
 
     /**
      * An amount of miliseconds to wait until this job can be processed.
      * Note that for accurate delays, both server and clients should have their clocks synchronized. [optional]
      */
-    delay?: number;
+    delay?: number | undefined;
 
     /**
      * The total number of attempts to try the job until it completes
      */
-    attempts?: number;
+    attempts?: number | undefined;
 
     /**
      * Repeat job according to a cron specification
      */
-    repeat?: CronRepeatOptions | EveryRepeatOptions;
+    repeat?: CronRepeatOptions | EveryRepeatOptions | undefined;
 
     /**
      * Backoff setting for automatic retries if the job fails
      */
-    backoff?: number | BackoffOptions;
+    backoff?: number | BackoffOptions | undefined;
 
     /**
      * A boolean which, if true, adds the job to the right
      * of the queue instead of the left (default false)
      */
-    lifo?: boolean;
+    lifo?: boolean | undefined;
 
     /**
      *  The number of milliseconds after which the job should be fail with a timeout error
      */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /**
      * Override the job ID - by default, the job ID is a unique
@@ -412,31 +414,31 @@ declare namespace Bull {
      * jobId is unique. If you attempt to add a job with an id that
      * already exists, it will not be added.
      */
-    jobId?: JobId;
+    jobId?: JobId | undefined;
 
     /**
      * A boolean which, if true, removes the job when it successfully completes.
      * When a number, it specifies the amount of jobs to keep.
-     * Default behavior is to keep the job in the failed set.
+     * Default behavior is to keep the job in the completed set.
      */
-    removeOnComplete?: boolean | number;
+    removeOnComplete?: boolean | number | undefined;
 
     /**
      * A boolean which, if true, removes the job when it fails after all attempts.
      * When a number, it specifies the amount of jobs to keep.
-     * Default behavior is to keep the job in the completed set.
+     * Default behavior is to keep the job in the failed set.
      */
-    removeOnFail?: boolean | number;
+    removeOnFail?: boolean | number | undefined;
 
     /**
      * Limits the amount of stack trace lines that will be recorded in the stacktrace.
      */
-    stackTraceLimit?: number;
+    stackTraceLimit?: number | undefined;
 
     /**
      * Prevents JSON data from being parsed.
      */
-    preventParsingData?: boolean;
+    preventParsingData?: boolean | undefined;
   }
 
   interface JobCounts {
@@ -450,9 +452,9 @@ declare namespace Bull {
   interface JobInformation {
     key: string;
     name: string;
-    id?: string;
-    endDate?: number;
-    tz?: string;
+    id?: string | undefined;
+    endDate?: number | undefined;
+    tz?: string | undefined;
     cron: string;
     every: number;
     next: number;
@@ -589,7 +591,7 @@ declare namespace Bull {
      * If the queue is empty the jobs will be executed directly,
      * otherwise they will be placed in the queue and executed as soon as possible.
      */
-    addBulk(jobs: Array<{name?: string, data: T, opts?: JobOptions}>): Promise<Array<Job<T>>>;
+    addBulk(jobs: Array<{name?: string | undefined, data: T, opts?: JobOptions | undefined}>): Promise<Array<Job<T>>>;
 
     /**
      * Returns a promise that resolves when the queue is paused.
@@ -617,6 +619,11 @@ declare namespace Bull {
      * Resuming a queue that is not paused does nothing.
      */
     resume(isLocal?: boolean): Promise<void>;
+
+    /**
+     * Returns a promise that resolves with a boolean if queue is paused
+     */
+    isPaused(isLocal?: boolean): Promise<boolean>;
 
     /**
      * Returns a promise that returns the number of jobs in the queue, waiting or paused.
@@ -683,7 +690,7 @@ declare namespace Bull {
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
      * used for the job when it was added.
      */
-    removeRepeatable(repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId | undefined }): Promise<void>;
 
     /**
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
@@ -691,7 +698,7 @@ declare namespace Bull {
      *
      * name: The name of the to be removed job
      */
-    removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId | undefined }): Promise<void>;
 
     /**
      * Removes a given repeatable job by key.
@@ -705,10 +712,15 @@ declare namespace Bull {
     getJobs(types: JobStatus[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
 
     /**
+     * Returns a promise that resolves to the next job in queue.
+     */
+    getNextJob(): Promise<Job<T> | undefined>;
+
+    /**
      * Returns a object with the logs according to the start and end arguments. The returned count
      * value is the total amount of logs, useful for implementing pagination.
      */
-    getJobLogs(jobId: string, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
+    getJobLogs(jobId: JobId, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.
@@ -773,6 +785,12 @@ declare namespace Bull {
      * Returns the queue specific key.
      */
     toKey(queueType: string): string;
+
+    /**
+     * Completely destroys the queue and all of its contents irreversibly.
+     * @param ops.force Obliterate the queue even if there are active jobs
+     */
+    obliterate(ops?: { force: boolean}): Promise<void>;
 
     /**
      * Listens to queue events

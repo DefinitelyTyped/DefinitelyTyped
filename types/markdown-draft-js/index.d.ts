@@ -19,16 +19,17 @@ export interface BlockTypesParam {
 }
 
 export interface MarkdownToDraftOptions {
-    blockEntities?: BlockEntitiesParam;
+    blockEntities?: BlockEntitiesParam | undefined;
     blockStyles?: {
         [key: string]: string;
-    };
-    blockTypes?: BlockTypesParam;
+    } | undefined;
+    blockTypes?: BlockTypesParam | undefined;
     remarkableOptions?: {
         [key: string]: boolean | {};
-    };
-    remarkablePlugins?: any[];
-    remarkablePreset?: string;
+    } | undefined;
+    remarkablePlugins?: any[] | undefined;
+    remarkablePreset?: string | undefined;
+    preserveNewlines?: boolean | undefined;
 }
 
 export interface DraftToMarkdownOptions {
@@ -37,13 +38,15 @@ export interface DraftToMarkdownOptions {
             open: (entity?: Entity) => string;
             close: (entity?: Entity) => string;
         };
-    };
+    } | undefined;
     styleItems?: {
         [key: string]: {
             open: () => string;
             close: () => string;
         };
-    };
+    } | undefined;
+    preserveNewlines?: boolean | undefined;
+    escapeMarkdownCharacters?: boolean | undefined;
 }
 
 export function markdownToDraft(markdown: string, options?: MarkdownToDraftOptions): RawDraftContentState;

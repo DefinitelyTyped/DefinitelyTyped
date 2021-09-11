@@ -5,6 +5,18 @@ import * as inquirer from 'inquirer';
 import { Editor } from 'mem-fs-editor';
 import Storage = require('yeoman-generator/lib/util/storage');
 
+class MyES2015GeneratorWithFeatures extends Base {
+    constructor(args: any, options: Base.GeneratorOptions) {
+        super(args, options, { customInstallTask: true, customCommitTask: true });
+    }
+
+    customInstallTask() {
+    }
+
+    customCommitTask() {
+    }
+}
+
 class MyES2015Generator extends Base { }
 
 const generator = new MyES2015Generator(
@@ -187,6 +199,7 @@ generator.option('opt4', {
   type: Number,
   default: 3.2,
 });
+generator.option('opt5');
 
 const optionValue1 = generator.options.opt1;
 
@@ -197,6 +210,15 @@ const answers2: Promise<Answers> = generator.prompt([{ store: true }]);
 const answers3: Promise<Answers> = generator.prompt([{ type: 'input' }]);
 const answers4: Promise<Answers> = generator.prompt({ type: 'input' });
 const answers5: Promise<Answers> = generator.prompt({ type: 'input', store: false });
+
+generator.registerPriorities(
+  [
+    {
+      priorityName: 'cleanup',
+      queueName: 'my#cleanup',
+      before: 'end'
+    }
+  ]);
 
 generator.registerConfigPrompts([{ storage: generator.config, exportOption: true, type: "input" }]);
 generator.registerTransformStream([]);
@@ -238,3 +260,10 @@ generator.renderTemplates(
     }
   ],
   {});
+
+generator.addDependencies("yeoman-generator@^5.0.0");
+generator.addDevDependencies("yo@^4.0.0");
+generator.packageJson.merge({ scripts: { test: "mocha" } });
+
+// $ExpectType string | undefined
+generator.options.resolved;

@@ -1,6 +1,6 @@
-import * as paypal from 'paypal-checkout-components';
+const buttonRenderer: paypal.ButtonRenderer = paypal.Button;
 
-paypal.Button.render(
+buttonRenderer.render(
     {
         env: paypal.Environment.Production,
 
@@ -11,7 +11,7 @@ paypal.Button.render(
         onAuthorize: async (
             data: paypal.AuthorizationData,
             actions: object,
-        ): Promise<paypal.AuthorizationTokenizePayload> => {
+        ): Promise<paypal.AuthorizationResponse> => {
             console.log('onAuthorize', data, actions);
 
             return {
@@ -33,6 +33,11 @@ paypal.Button.render(
         onError: (error: string) => {
             console.error('checkout.js error', error);
         },
+
+        funding: {
+            allowed: [paypal.FUNDING.CARD],
+            disallowed: [paypal.FUNDING.VENMO]
+        }
     },
     '#paypal-button',
 );

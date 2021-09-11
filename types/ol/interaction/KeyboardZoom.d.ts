@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
 import BaseEvent from '../events/Event';
 import MapBrowserEvent from '../MapBrowserEvent';
@@ -6,13 +6,19 @@ import { ObjectEvent } from '../Object';
 import Interaction from './Interaction';
 
 export interface Options {
-    duration?: number;
-    condition?: Condition;
-    delta?: number;
+    duration?: number | undefined;
+    condition?: Condition | undefined;
+    delta?: number | undefined;
 }
 export default class KeyboardZoom extends Interaction {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    /**
+     * Handles the {@link module:ol/MapBrowserEvent map browser event} if it was a
+     * KeyEvent, and decides whether to zoom in or out (depending on whether the
+     * key pressed was '+' or '-').
+     */
+    handleEvent(mapBrowserEvent: MapBrowserEvent<UIEvent>): boolean;
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

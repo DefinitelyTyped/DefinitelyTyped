@@ -1,5 +1,11 @@
 import * as React from "react";
-import { DownshiftTypedProps, InternationalProps, ListBoxBaseItemType, RequiresIdProps, ThemeProps, ValidityProps } from "../../../typings/shared";
+import {
+    InternationalProps,
+    ListBoxBaseItemType,
+    VerticalDirection,
+    ForwardRefProps,
+    FCReturn
+} from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 import FilterableMultiSelect from "./FilterableMultiSelect";
@@ -7,36 +13,42 @@ import { MultiSelectSortingProps } from "./MultiSelectPropTypes";
 import { ListBoxSize } from "../ListBox/ListBoxPropTypes";
 import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";
 
-interface InheritedProps<T extends ListBoxBaseItemType = string> extends
-    DownshiftTypedProps<T>,
-    InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>,
+export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extends
     MultiSelectSortingProps<T>,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps
+    InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>
 {
-    disabled?: ListBoxProps["disabled"],
-    size?: ListBoxSize,
-    type?: ListBoxProps["type"],
-}
-
-export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extends InheritedProps<T> {
-    direction?: "bottom" | "top",
+    clearSelectionDescription?: string | undefined;
+    clearSelectionText?: string | undefined;
+    direction?: VerticalDirection | undefined,
+    disabled?: ListBoxProps["disabled"] | undefined,
     downshiftProps?: any, // TODO
-    initialSelectedItems?: readonly T[],
+    id: string,
+    initialSelectedItems?: readonly T[] | undefined,
     items: readonly T[],
-    inline?: boolean,
-    label?: React.ReactNode,
-    locale?: string,
+    itemToString?(item: T | null | undefined): string;
+    inline?: boolean | undefined,
+    invalid?: boolean | undefined,
+    invalidText?: React.ReactNode | undefined,
+    label?: React.ReactNode | undefined,
+    light?: boolean | undefined,
+    locale?: string | undefined,
     onChange: ({ selectedItems }: { selectedItems: T[] }) => void,
-    open?: boolean,
-    selectionFeedback?: "fixed" | "top" | "top-after-reopen",
-    titleText?: string,
-    useTitleInItem?: boolean,
+    onMenuChange?(open: boolean): void;
+    open?: boolean | undefined,
+    selectionFeedback?: "fixed" | "top" | "top-after-reopen" | undefined,
+    size?: ListBoxSize | undefined,
+    titleText?: React.ReactNode | undefined,
+    type?: ListBoxProps["type"] | undefined,
+    useTitleInItem?: boolean | undefined,
+    warn?: boolean | undefined,
+    warnText?: React.ReactNode | undefined,
 }
 
-declare class MultiSelect<T extends ListBoxBaseItemType = string> extends React.Component<MultiSelectProps<T>> {
-    static readonly Filterable: typeof FilterableMultiSelect;
+interface MultiSelect {
+    <T extends ListBoxBaseItemType = string>(props: ForwardRefProps<HTMLButtonElement, MultiSelectProps<T>>): FCReturn;
+    readonly Filterable: typeof FilterableMultiSelect;
 }
+
+declare const MultiSelect: MultiSelect;
 
 export default MultiSelect;

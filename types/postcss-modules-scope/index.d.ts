@@ -1,14 +1,14 @@
 // Type definitions for postcss-modules-scope 1.1
 // Project: https://github.com/css-modules/postcss-modules-scope
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
-// Definitions: https://github.com/huan086/postcss-plugins-typings
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 import { Plugin } from "postcss";
 
 declare namespace scope {
     interface Options {
-        generateScopedName?: (exportedName: string, path: string, css: string) => string;
+        generateScopedName?: ((exportedName: string, path: string, css: string) => string) | undefined;
     }
 
     type Scope = Plugin<Options>;

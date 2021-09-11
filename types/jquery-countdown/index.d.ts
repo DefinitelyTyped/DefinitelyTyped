@@ -1,5 +1,5 @@
 // Type definitions for jQuery Countdown 2.2
-// Project: https://github.com/hilios/jQuery.countdown, http://hilios.github.io/jquery.countdown
+// Project: https://github.com/hilios/jQuery.countdown
 // Definitions by: Anderson Friaça <https://github.com/AndersonFriaca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -11,17 +11,17 @@ declare namespace jQueryCountdown {
         /**
          * Allow to continue after finishes
          */
-        elapse?: boolean;
+        elapse?: boolean | undefined;
 
         /**
          * The update rate in milliseconds
          */
-        precision?: number;
+        precision?: number | undefined;
 
         /**
          * Deferred initialization mode
          */
-        defer?: boolean;
+        defer?: boolean | undefined;
     }
 
     interface Event extends JQuery.Event {

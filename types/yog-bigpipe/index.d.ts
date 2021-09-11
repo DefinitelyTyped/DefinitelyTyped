@@ -9,19 +9,19 @@ import { Readable } from 'stream';
 import { RequestHandler } from 'express';
 
 interface BigPipeOption {
-    skipAnalysis?: boolean;
+    skipAnalysis?: boolean | undefined;
     tpl?: {
-        _default?: string,
-        quickling?: string
-    };
+        _default?: string | undefined,
+        quickling?: string | undefined
+    } | undefined;
 }
 
 type Callback = (done: (err: any, data: any) => any) => any;
 
 interface AddPageletConfig {
     id: string;
-    lazy?: boolean;
-    mode?: yogBigpipe.Pagelet.mode;
+    lazy?: boolean | undefined;
+    mode?: yogBigpipe.Pagelet.mode | undefined;
 }
 
 declare function yogBigpipe(option?: BigPipeOption): RequestHandler;
@@ -80,15 +80,15 @@ declare namespace yogBigpipe {
 
     interface PageletOption {
         id: string;
-        mode?: Pagelet.mode;
-        lazy?: boolean;
+        mode?: Pagelet.mode | undefined;
+        lazy?: boolean | undefined;
         reqID: string;
         skipAnalysis: boolean;
 
-        locals?: {};
-        compiled?: boolean;
-        container?: string;
-        for?: string;
+        locals?: {} | undefined;
+        compiled?: boolean | undefined;
+        container?: string | undefined;
+        for?: string | undefined;
         model: {};
     }
     interface PageletData {

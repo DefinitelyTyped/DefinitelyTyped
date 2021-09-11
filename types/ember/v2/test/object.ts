@@ -11,7 +11,7 @@ const LifetimeHooks = Ember.Object.extend({
     willDestroy() {
         delete this.resource;
         this._super();
-    }
+    },
 });
 
 class MyObject30 extends Ember.Object {

@@ -22,10 +22,10 @@ export default class RelayModernStore implements Store {
     constructor(
         source: MutableRecordSource,
         options?: {
-            gcScheduler?: Scheduler | null;
-            operationLoader?: OperationLoader | null;
-            gcReleaseBufferSize?: number | null;
-            queryCacheExpirationTime?: number | null;
+            gcScheduler?: Scheduler | null | undefined;
+            operationLoader?: OperationLoader | null | undefined;
+            gcReleaseBufferSize?: number | null | undefined;
+            queryCacheExpirationTime?: number | null | undefined;
         },
     );
     getSource(): RecordSource;
@@ -42,4 +42,5 @@ export default class RelayModernStore implements Store {
     toJSON(): unknown;
     snapshot(): void;
     restore(): void;
+    scheduleGC(): void;
 }

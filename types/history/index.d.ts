@@ -29,15 +29,15 @@ export interface Location<S = LocationState> {
     search: Search;
     state: S;
     hash: Hash;
-    key?: LocationKey;
+    key?: LocationKey | undefined;
 }
 
 export interface LocationDescriptorObject<S = LocationState> {
-    pathname?: Pathname;
-    search?: Search;
-    state?: S;
-    hash?: Hash;
-    key?: LocationKey;
+    pathname?: Pathname | undefined;
+    search?: Search | undefined;
+    state?: S | undefined;
+    hash?: Hash | undefined;
+    key?: LocationKey | undefined;
 }
 
 export namespace History {
@@ -45,14 +45,7 @@ export namespace History {
     export type LocationKey = string;
     export type LocationListener<S = LocationState> = (location: Location<S>, action: Action) => void;
 
-    // TODO: The value type here is a version of `unknown` with an acceptably lossy amount of accuracy.
-    // Now that TypeScript's DT support is  3.0+, we can look into replacing this with `unknown`.
-    type UnknownFacade = {} | null | undefined;
-
-    /** @deprecated - Use `UnknownFacade` instead. It is a better classifier for the type */
-    type PoorMansUnknown = UnknownFacade
-
-    export type LocationState = UnknownFacade;
+    export type LocationState = unknown;
     export type Path = string;
     export type Pathname = string;
     export type Search = string;

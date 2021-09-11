@@ -1,7 +1,7 @@
 // Type definitions for AngularJS HTML5 Fullscreen v1.0.1
 // Project: https://github.com/fabiobiondi/angular-fullscreen
 // Definitions by: Julien Paroche <https://github.com/julienpa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/angular-fullscreen
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="angular" />
@@ -12,7 +12,7 @@ declare module 'angular' {
   export namespace fullscreen {
 
     /**
-     * Prefixing interface name with "I" is not recommended: http://www.typescriptlang.org/Handbook#writing-dts-files
+     * Prefixing interface name with "I" is not recommended: https://www.typescriptlang.org/Handbook#writing-dts-files
      * However, we let it here to keep consistency with all the other Angular-related definitions
      */
     interface IFullscreen {

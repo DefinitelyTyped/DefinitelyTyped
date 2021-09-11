@@ -6,11 +6,11 @@
 
 
 interface Options {
-    production?: boolean;
-    ignoreScripts?: boolean;
-    noOptional?: boolean;
-    allowRoot?: boolean;
-    args?: string | string[];
+    production?: boolean | undefined;
+    ignoreScripts?: boolean | undefined;
+    noOptional?: boolean | undefined;
+    allowRoot?: boolean | undefined;
+    args?: string | string[] | undefined;
 }
 
 interface Install {

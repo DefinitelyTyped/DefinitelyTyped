@@ -38,65 +38,65 @@ export interface FtpServerOptions {
      * If set to true, then files which the client uploads are buffered in memory and then written to disk using writeFile.
      * If false, files are written using writeStream.
      */
-    useWriteFile?: boolean;
+    useWriteFile?: boolean | undefined;
     /**
      * If set to true, then files which the client uploads are slurped using 'readFile'.
      * If false, files are read using readStream.
      */
-    useReadFile?: boolean;
+    useReadFile?: boolean | undefined;
     /**
      * Determines the maximum file size (in bytes) for which uploads are buffered in memory before being written to disk.
      * Has an effect only if useWriteFile is set to true.
      * If uploadMaxSlurpSize is not set, then there is no limit on buffer size.
      */
-    uploadMaxSlurpSize?: number;
+    uploadMaxSlurpSize?: number | undefined;
     /**
      * The maximum number of concurrent calls to fs.stat which will be made when processing a LIST request. Default 5.
      */
-    maxStatsAtOnce?: number;
+    maxStatsAtOnce?: number | undefined;
     /**
      * A function which can be used as the argument of an array's sort method. Used to sort filenames for directory listings.
      * See [https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/sort] for more info.
      */
-    filenameSortFunc?: (a: string, b: string) => number;
+    filenameSortFunc?: ((a: string, b: string) => number) | undefined;
     /**
      * A function which is applied to each filename before sorting.
      * If set to false, filenames are unaltered.
      */
-    filenameSortMap?: ((a: string) => string) | boolean;
+    filenameSortMap?: ((a: string) => string) | boolean | undefined;
     /**
      * If this is set, then filenames are not sorted in responses to the LIST and NLST commands.
      */
-    dontSortFilenames?: boolean;
+    dontSortFilenames?: boolean | undefined;
     /**
      * If set to true, then LIST and NLST treat the characters ? and * as literals instead of as wildcards.
      */
-    noWildcards?: boolean;
+    noWildcards?: boolean | undefined;
     /**
      * If this is set, the server will allow explicit TLS authentication. Value should be a dictionary which is suitable as the options argument of tls.createServer.
      */
-    tlsOptions?: tls.TlsOptions;
+    tlsOptions?: tls.TlsOptions | undefined;
     /**
      * If this is set to true, and tlsOptions is also set, then the server will not allow logins over non-secure connections.
      * Default false
      */
-    tlsOnly?: boolean;
+    tlsOnly?: boolean | undefined;
     /**
      * I obviously set this to true when tlsOnly is on -someone needs to update this.
      */
-    allowUnauthorizedTls?: boolean;
+    allowUnauthorizedTls?: boolean | undefined;
     /**
      * Integer, specifies the lower-bound port (min port) for creating PASV connections
      */
-    pasvPortRangeStart?: number;
+    pasvPortRangeStart?: number | undefined;
     /**
      * Integer, specifies the upper-bound port (max port) for creating PASV connections
      */
-    pasvPortRangeEnd?: number;
+    pasvPortRangeEnd?: number | undefined;
     /**
      * Integer from 0-4 representing the Log Level to show.
      */
-    logLevel?: LogLevel;
+    logLevel?: LogLevel | undefined;
 
 }
 
@@ -147,36 +147,37 @@ export interface FtpFileSystem {
     /**
      * if useReadFile option is not set or is false
      */
-    createReadStream?: (path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        fd?: string;
-        mode?: string;
-        bufferSize?: number;
-    }) => fs.ReadStream;
+    createReadStream?: ((path: string, options?: {
+        flags?: string | undefined;
+        encoding?: string | undefined;
+        fd?: string | undefined;
+        mode?: string | undefined;
+        bufferSize?: number | undefined;
+    }) => fs.ReadStream) | undefined;
     /**
      * if useWriteFile option is not set or is false
      */
-    createWriteStream?: (path: string, options?: {
-        flags?: string;
-        encoding?: string;
-        string?: string;
-    }) => fs.WriteStream;
+    createWriteStream?: ((path: string, options?: {
+        flags?: string | undefined;
+        encoding?: string | undefined;
+        string?: string | undefined;
+    }) => fs.WriteStream) | undefined;
     /**
      * if useReadFile option is set to 'true'
      */
     readFile?:
     ((filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
-    | ((filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
-    | ((filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void)
-    | ((filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void);
+    | ((filename: string, options: { encoding: string; flag?: string | undefined; }, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
+    | ((filename: string, options: { flag?: string | undefined; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void)
+    | ((filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void) | undefined;
     /**
      * if useWriteFile option is set to 'true'
      */
     writeFile?:
     ((filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void) => void)
-    | ((filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void) => void)
-    | ((filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void) => void);
+    | ((filename: string, data: any, options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void) => void)
+    | ((filename: string, data: any, options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void) => void)
+    | undefined;
 
 }
 

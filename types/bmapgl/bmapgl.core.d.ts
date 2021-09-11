@@ -56,18 +56,20 @@ declare namespace BMapGL {
         getDraggingCursor(): string;
         setMinZoom(zoom: number): void;
         setMaxZoom(zoom: number): void;
-        setHeading(zoom: number): void;
-        setTilt(zoom: number): void;
+        setHeading(heading: number): void;
+        setTilt(tilt: number): void;
         setMapStyle(mapStyle: MapStyle): void;
         setMapStyleV2(style: MapStyleV2): void;
         setPanorama(pano: Panorama): void;
+        setTrafficOn(): void;
+        setTrafficOff(): void;
         disable3DBuilding(): void;
         getBounds(): Bounds;
         getCenter(): Point;
         getDistance(start: Point, end: Point): number;
         getMapType(): MapType;
         getSize(): Size;
-        getViewport(view: Point[], viewportOptions?: ViewportOptions): Viewport;
+        getViewport(view: Point[] | Bounds, viewportOptions?: ViewportOptions): Viewport;
         getZoom(): number;
         getPanorama(): Panorama;
         centerAndZoom(center: Point, zoom: number): void;
@@ -78,7 +80,7 @@ declare namespace BMapGL {
         setCenter(center: Point | string): void;
         setCurrentCity(city: string): void;
         setMapType(mapType: MapType): void;
-        setViewport(view: Point[], viewportOptions?: ViewportOptions): void;
+        setViewport(view: Point[] | Viewport, viewportOptions?: ViewportOptions): void;
         setZoom(zoom: number): void;
         highResolutionEnabled(): boolean;
         zoomIn(): void;
@@ -143,25 +145,25 @@ declare namespace BMapGL {
         removeEventListener(event: string, handler: Callback): void;
     }
     interface PanOptions {
-        noAnimation?: boolean;
+        noAnimation?: boolean | undefined;
     }
     interface MapOptions {
-        minZoom?: number;
-        maxZoom?: number;
-        mapType?: MapType;
-        enableHighResolution?: boolean;
-        enableAutoResize?: boolean;
-        enableMapClick?: boolean;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        mapType?: MapType | undefined;
+        enableHighResolution?: boolean | undefined;
+        enableAutoResize?: boolean | undefined;
+        enableMapClick?: boolean | undefined;
     }
     interface Viewport {
         center: Point;
         zoom: number;
     }
     interface ViewportOptions {
-        enableAnimation?: boolean;
-        margins?: number[];
-        zoomFactor?: number;
-        delay?: number;
+        enableAnimation?: boolean | undefined;
+        margins?: number[] | undefined;
+        zoomFactor?: number | undefined;
+        delay?: number | undefined;
     }
     type APIVersion = number;
     interface MapStyle {
@@ -169,19 +171,19 @@ declare namespace BMapGL {
         style: string;
     }
     interface MapStyleItem {
-        featureType?: string;
-        elementType?: string;
+        featureType?: string | undefined;
+        elementType?: string | undefined;
         stylers: MapStyleItemStylers;
     }
     interface MapStyleItemStylers {
         [k: string]: string | undefined;
-        color?: string;
-        visibility?: string;
-        level?: string;
-        curZoomRegionId?: string;
-        curZoomRegion?: string;
-        fontsize?: string;
-        weight?: string;
+        color?: string | undefined;
+        visibility?: string | undefined;
+        level?: string | undefined;
+        curZoomRegionId?: string | undefined;
+        curZoomRegion?: string | undefined;
+        fontsize?: string | undefined;
+        weight?: string | undefined;
     }
     type MapStyleV2 = { styleJson: MapStyleItem[] } | { styleId: string };
 }

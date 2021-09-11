@@ -1,7 +1,7 @@
 import { Extent } from './extent';
 import { Size } from './size';
 
-export type Type = (p0: number | undefined, p1: number, p2: Size, p3?: boolean) => number;
+export type Type = (p0: number | undefined, p1: number, p2: Size, p3?: boolean) => number | undefined;
 export function createMinMaxResolution(
     maxResolution: number,
     minResolution: number,

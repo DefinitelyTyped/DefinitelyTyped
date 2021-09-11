@@ -9,8 +9,8 @@ declare namespace zip {
     export var useWebWorkers: boolean;
     export var workerScriptsPath: string;
     export var workerScripts: {
-        deflater?: string[];
-        inflater?: string[];
+        deflater?: string[] | undefined;
+        inflater?: string[] | undefined;
     };
 
     export class Reader {
@@ -80,11 +80,11 @@ declare namespace zip {
     export function createWriter(writer: zip.Writer, callback: (zipWriter: zip.ZipWriter) => void, onerror?: (error: any) => void, dontDeflate?: boolean): void;
 
     export interface WriteOptions {
-        directory?: boolean;
-        level?: number;
-        comment?: string;
-        lastModDate?: Date;
-        version?: number;
+        directory?: boolean | undefined;
+        level?: number | undefined;
+        comment?: string | undefined;
+        lastModDate?: Date | undefined;
+        version?: number | undefined;
     }
 
     export class ZipWriter {

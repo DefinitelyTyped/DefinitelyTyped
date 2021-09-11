@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import Feature from '../Feature';
@@ -14,27 +14,27 @@ import { State as State_2 } from '../View';
 import BaseLayer from './Base';
 
 export interface Options {
-    className?: string;
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    source?: Source;
-    map?: PluggableMap;
-    render?: RenderFunction;
+    className?: string | undefined;
+    opacity?: number | undefined;
+    visible?: boolean | undefined;
+    extent?: Extent | undefined;
+    zIndex?: number | undefined;
+    minResolution?: number | undefined;
+    maxResolution?: number | undefined;
+    minZoom?: number | undefined;
+    maxZoom?: number | undefined;
+    source?: Source | undefined;
+    map?: PluggableMap | undefined;
+    render?: RenderFunction | undefined;
 }
 export type RenderFunction = (p0: FrameState) => HTMLElement;
 export interface State {
-    layer: BaseLayer;
+    layer: Layer<Source>;
     opacity: number;
     sourceState: State_1;
     visible: boolean;
     managed: boolean;
-    extent?: Extent;
+    extent?: Extent | undefined;
     zIndex: number;
     maxResolution: number;
     minResolution: number;
@@ -43,18 +43,47 @@ export interface State {
 }
 export default class Layer<SourceType extends Source = Source> extends BaseLayer {
     constructor(options: Options);
+    /**
+     * Create a renderer for this layer.
+     */
     protected createRenderer(): LayerRenderer<Layer<Source>>;
+    /**
+     * Clean up.
+     */
+    disposeInternal(): void;
     getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]>;
     getLayersArray(opt_array?: Layer<Source>[]): Layer<Source>[];
     getLayerStatesArray(opt_states?: State[]): State[];
+    /**
+     * Get the renderer for this layer.
+     */
     getRenderer(): LayerRenderer<Layer<Source>>;
+    /**
+     * Get the layer source.
+     */
     getSource(): SourceType;
     getSourceState(): State_1;
     hasRenderer(): boolean;
+    /**
+     * In charge to manage the rendering of the layer. One layer type is
+     * bounded with one layer renderer.
+     */
     render(frameState: FrameState, target: HTMLElement): HTMLElement;
+    /**
+     * Sets the layer to be rendered on top of other layers on a map. The map will
+     * not manage this layer in its layers collection, and the callback in
+     * {@link module:ol/Map#forEachLayerAtPixel} will receive null as layer. This
+     * is useful for temporary layers. To remove an unmanaged layer from the map,
+     * use #setMap(null).
+     * To add the layer to a map and have it managed by the map, use
+     * {@link module:ol/Map#addLayer} instead.
+     */
     setMap(map: PluggableMap): void;
+    /**
+     * Set the layer source.
+     */
     setSource(source: SourceType): void;
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
@@ -100,4 +129,8 @@ export default class Layer<SourceType extends Source = Source> extends BaseLayer
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
+/**
+ * Return true if the layer is visible and if the provided view state
+ * has resolution and zoom levels that are in range of the layer's min/max.
+ */
 export function inView(layerState: State, viewState: State_2): boolean;

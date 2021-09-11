@@ -11,7 +11,7 @@ monday.listen('context', res => res); // $ExpectType void
 monday.execute('openItemCard', { itemId: 123 }); // $ExpectType Promise<any>
 monday.execute('confirm', { message: 'Hello' }); // $ExpectType Promise<any>
 monday.execute('notice', { message: 'Hello' }); // $ExpectType Promise<any>
-monday.oauth();
+monday.oauth({clientId: 'clientId'});
 monday.storage.instance.getItem('test'); // $ExpectType Promise<GetResponse>
 monday.storage.instance.setItem('test', '123'); // $ExpectType Promise<SetResponse>
 

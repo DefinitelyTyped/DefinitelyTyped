@@ -4,11 +4,11 @@ import { SubscriptionPricingInstance } from './subscription';
 
 export type Tax = {
   tax_code: string;
-  vat_number?: string;
+  vat_number?: string | undefined;
   amounts?: {
-    now?: string;
-    next?: string;
-  };
+    now?: string | undefined;
+    next?: string | undefined;
+  } | undefined;
 };
 
 export type PricingEvent =
@@ -33,6 +33,13 @@ export interface PricingInstance<PricingPromise> extends Emitter<PricingEvent> {
 }
 
 export type Pricing = {
+  /**
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#pricing|Pricing}
+   */
   Checkout: () => CheckoutPricingInstance;
+
+  /**
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#pricing|Pricing}
+   */
   Subscription: () => SubscriptionPricingInstance;
 };

@@ -3,7 +3,7 @@ import { KapShareService } from 'kap-plugin';
 interface Config {
     name: string;
     greeting: string;
-    accessToken?: string;
+    accessToken?: string | undefined;
 }
 
 const service: KapShareService<Config> = {
@@ -20,7 +20,7 @@ const service: KapShareService<Config> = {
         greeting: { type: 'string', default: true },
     },
     action: async context => {
-        // $ExpectType string | undefined
+        // $ExpectType string
         const name = context.config.get('name');
 
         context.config.get('accessToken');

@@ -119,6 +119,15 @@ passport.use('login', new LocalStrategy({
     })
 );
 
+type _User = User;
+
+declare global {
+    namespace Express {
+        interface User extends PassportLocalModel<_User> {
+        }
+    }
+}
+
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 

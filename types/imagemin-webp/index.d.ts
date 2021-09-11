@@ -1,10 +1,14 @@
 // Type definitions for imagemin-webp 5.1
 // Project: https://github.com/imagemin/imagemin-webp#readme
 // Definitions by: Brett M <https://github.com/brettm12345>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Plugin } from 'imagemin';
 
+/**
+ * WebP imagemin plugin
+ */
 declare function imageminWebp(options?: imageminWebp.Options): Plugin;
 
 declare namespace imageminWebp {
@@ -26,17 +30,17 @@ declare namespace imageminWebp {
          * Preset setting.
          * @default default
          */
-        preset?: Preset;
+        preset?: Preset | undefined;
         /**
          * Set quality factor between 0 and 100.
          * @default 75
          */
-        quality?: number;
+        quality?: number | undefined;
         /**
          * Set transparency-compression quality between 0 and 100.
          * @default 100
          */
-        alphaQuality?: number;
+        alphaQuality?: number | undefined;
         /**
          * Specify the compression method to use,
          * between 0 (fastest) and 6 (slowest).
@@ -44,58 +48,54 @@ declare namespace imageminWebp {
          * and the compressed file size and quality.
          * @default 4
          */
-        method?: number;
+        method?: number | undefined;
         /**
          * Set target size in bytes.
          */
-        size?: number;
+        size?: number | undefined;
         /**
          * Set the amplitude of spatial noise shaping between 0 and 100.
          * @default 80
          */
-        sns?: number;
+        sns?: number | undefined;
         /**
          * Set deblocking filter strength between 0 (off) and 100.
          */
-        filter?: number;
+        filter?: number | undefined;
         /**
          * Adjust filter strength automatically.
          * @default false
          */
-        autoFilter?: boolean;
+        autoFilter?: boolean | undefined;
         /**
          * Set filter sharpness between 0 (sharpest) and 7 (least sharp).
          * @default 0
          */
-        sharpness?: number;
+        sharpness?: number | undefined;
         /**
          * Encode images losslessly.
          * @default false
          */
-        lossless?: boolean;
+        lossless?: boolean | undefined;
         /**
          * Encode losslessly with an additional lossy pre-processing step,
          * with a quality factor between
          * 0 (maximum pre-processing) and 100 (same as lossless).
          * @default 100
          */
-        nearLossless?: number;
+        nearLossless?: number | undefined;
         /**
          * Crop the image.
          */
-        crop?: Crop;
+        crop?: Crop | undefined;
         /**
          * Resize the image. Happens after crop.
          */
-        resize?: Resize;
+        resize?: Resize | undefined;
         /**
          * A list of metadata to copy from the input to the output if present.
          */
-        metadata?: Metadata | Metadata[];
-        /**
-         * Buffer to optimize.
-         */
-        buffer?: Buffer;
+        metadata?: Metadata | Metadata[] | undefined;
     }
 }
 

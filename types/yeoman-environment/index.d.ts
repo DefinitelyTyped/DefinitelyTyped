@@ -1,8 +1,9 @@
 // Type definitions for yeoman-environment 2.10
 // Project: https://github.com/yeoman/environment, http://yeoman.io
 // Definitions by: c4605 <https://github.com/bolasblack>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 
 import { EventEmitter } from "events";
 import { Store as MemFsStore } from "mem-fs";
@@ -14,7 +15,7 @@ import { Logger as LoggerBase } from "./lib/util/log";
 import util = require("./lib/util/util");
 
 /**
- * `Environment` object is responsible of handling the lifecyle and bootstrap
+ * `Environment` object is responsible of handling the lifecycle and bootstrap
  * of generators in a specific environment (your app).
  *
  * It provides a high-level API to create and run generators, as well as further
@@ -464,7 +465,7 @@ declare namespace Environment {
         /**
          * The working-directory of the environment.
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * Additional options.
@@ -509,12 +510,12 @@ declare namespace Environment {
         /**
          * The arguments to pass to the generator.
          */
-        arguments?: string | string[];
+        arguments?: string | string[] | undefined;
 
         /**
          * The options for creating the generator.
          */
-        options?: TOptions;
+        options?: TOptions | undefined;
     }
 
     /**
@@ -524,7 +525,7 @@ declare namespace Environment {
         /**
          * A value indicating whether globally installed packages should be ignored.
          */
-        localOnly?: boolean;
+        localOnly?: boolean | undefined;
     }
 
     /**
@@ -534,12 +535,12 @@ declare namespace Environment {
         /**
          * A value indicating whether the path to the package should be returned instead of the path to the generator.
          */
-        packagePath?: boolean;
+        packagePath?: boolean | undefined;
 
         /**
          * A value indicating whether only one result should be returned.
          */
-        singleResult?: boolean;
+        singleResult?: boolean | undefined;
     }
 
     /**
@@ -549,7 +550,7 @@ declare namespace Environment {
         /**
          * A value indicating whether paths which don't end with a supported directory-name should be filtered (unless they are part of `NODE_PATH`).
          */
-        filterPaths?: boolean;
+        filterPaths?: boolean | undefined;
     }
 
     /**
@@ -559,32 +560,32 @@ declare namespace Environment {
         /**
          * The paths to look for generators.
          */
-        packagePaths?: string[];
+        packagePaths?: string[] | undefined;
 
         /**
          * The repüository paths to look for generator packages.
          */
-        npmPaths?: string[];
+        npmPaths?: string[] | undefined;
 
         /**
          * The file-patterns to look for.
          */
-        filePatterns?: string[];
+        filePatterns?: string[] | undefined;
 
         /**
          * The package patterns to look for.
          */
-        packagePatterns?: string[];
+        packagePatterns?: string[] | undefined;
 
         /**
          * A value indicating whether the lookup should be stopped after finding the first result.
          */
-        singleResult?: boolean;
+        singleResult?: boolean | undefined;
 
         /**
          * The `deep` option to pass to `globby`.
          */
-        globbyDeep?: number;
+        globbyDeep?: number | undefined;
     }
 
     /**
@@ -594,7 +595,7 @@ declare namespace Environment {
         /**
          * The package-patterns to look for.
          */
-        packagePatterns?: string[];
+        packagePatterns?: string[] | undefined;
     }
 
     /**

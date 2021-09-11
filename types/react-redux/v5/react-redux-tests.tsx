@@ -415,7 +415,7 @@ ReactDOM.render(
 
 // Inject just dispatch and don't listen to store
 
-const AppWrap = (props: DispatchProp<any> & { children?: React.ReactNode }) => <div />
+const AppWrap = (props: DispatchProp<any> & { children?: React.ReactNode | undefined }) => <div />
 const WrappedApp = connect()(AppWrap);
 
 <WrappedApp />
@@ -535,7 +535,7 @@ connect(undefined, mapDispatchToProps6)(TodoApp);
 
 interface TestProp {
     property1: number;
-    someOtherProperty?: string;
+    someOtherProperty?: string | undefined;
 }
 interface TestState {
     isLoaded: boolean;

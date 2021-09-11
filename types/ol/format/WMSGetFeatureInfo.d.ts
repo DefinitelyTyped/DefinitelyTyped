@@ -4,11 +4,11 @@ import { ReadOptions } from './Feature';
 import XMLFeature from './XMLFeature';
 
 export interface Options {
-    layers?: string[];
+    layers?: string[] | undefined;
 }
 export default class WMSGetFeatureInfo extends XMLFeature {
     constructor(opt_options?: Options);
-    protected readFeaturesFromNode(node: Node, opt_options?: ReadOptions): Feature<Geometry>[];
+    protected readFeaturesFromNode(node: Element, opt_options?: ReadOptions): Feature<Geometry>[];
     getLayers(): string[];
     setLayers(layers: string[]): void;
 }

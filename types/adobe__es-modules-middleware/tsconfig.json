@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@adobe/es-modules-middleware": [
-                "adobe__es-modules-middleware"
+            "@adobe/*": [
+                "adobe__*"
             ]
         }
     },

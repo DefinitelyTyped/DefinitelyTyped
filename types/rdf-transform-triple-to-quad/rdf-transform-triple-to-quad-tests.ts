@@ -10,5 +10,6 @@ const sink: Sink<Stream, Stream> = <any> {};
 
 const transformedStream1: TripleToQuadTransform = inputStream.pipe(new TripleToQuadTransform());
 const transformedStream2: Stream = inputStream.pipe(new TripleToQuadTransform(graph));
+const transformedStreamGraphString: Stream = inputStream.pipe(new TripleToQuadTransform('http://graph.name/'));
 const transformedStream3: Stream = inputStream.pipe(new TripleToQuadTransform(graph, { factory }));
 const emitter: EventEmitter = sink.import(transformedStream1);

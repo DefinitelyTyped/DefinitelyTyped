@@ -16,11 +16,11 @@ new vis.Network(new HTMLDivElement(), { nodes: new vis.DataSet(), edges: new vis
 
 interface TestData {
   id: number;
-  text?: string;
+  text?: string | undefined;
   date?: any;
-  group?: number;
-  balance?: number;
-  first?: boolean;
+  group?: number | undefined;
+  balance?: number | undefined;
+  first?: boolean | undefined;
 }
 
 // create a DataSet
@@ -255,4 +255,41 @@ nodeWidthConstraintOptions = {
 };
 nodeWidthConstraintOptions = {
     widthConstraint: 150
+};
+
+// should accept different types of event names
+
+let networkEvent: vis.NetworkEvents = 'controlNodeDragEnd';
+networkEvent = 'controlNodeDragging';
+
+// Network Configure options
+const networkConfig: vis.NetworkConfigure = {
+  enabled: true,
+  filter: true,
+  showButton: true
+};
+
+networkConfig.enabled = false;
+
+// Testing new EdgeOptions
+
+let edgeArrow: vis.EdgeOptions = {
+  arrows: {
+    to: {
+      imageHeight: 50,
+      imageWidth: 50
+    }
+  },
+  font: {
+      color: 'red'
+  }
+};
+
+edgeArrow = {
+    arrows: {
+        to: {
+            imageHeight: 100,
+            imageWidth: 100
+        }
+    }
 };

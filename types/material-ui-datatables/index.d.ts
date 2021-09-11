@@ -2,25 +2,25 @@
 // Project: https://github.com/hyojin/material-ui-datatables#readme
 // Definitions by: Ravi L. <https://github.com/coding2012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.5
 
 import * as React from 'react';
 
 export interface Column {
     /** The element key */
-    key?: string;
+    key?: string | undefined;
     /** Style for column */
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
     /** Label */
-    label?: string;
+    label?: string | undefined;
     /** Cell tooltip */
-    tooltip?: string;
+    tooltip?: string | undefined;
     /** If the column is sortable */
-    sortable?: boolean;
+    sortable?: boolean | undefined;
     /** Align right */
-    alignRight?: boolean;
+    alignRight?: boolean | undefined;
     /** Class name to use */
-    className?: string;
+    className?: string | undefined;
     /**
      * Render function. Given the value extracted
      * from the row; and the row also. Can return JSX content.
@@ -28,7 +28,7 @@ export interface Column {
      * @param row - the data object representing this row
      * @returns Any react node (JSX compatible return)
      */
-    render?: (value: any, row: any) => any;
+    render?: ((value: any, row: any) => any) | undefined;
 }
 
 export interface DataTableProps {

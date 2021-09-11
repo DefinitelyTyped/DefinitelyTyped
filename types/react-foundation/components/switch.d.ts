@@ -11,12 +11,12 @@ import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
  */
 export declare const Switch: React.StatelessComponent<SwitchProps>;
 export interface SwitchProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    size?: SwitchSizes;
-    id?: string;
-    input?: SwitchInputProps;
-    paddle?: SwitchPaddleProps;
-    active?: SwitchActiveProps;
-    inactive?: SwitchInactiveProps;
+    size?: SwitchSizes | undefined;
+    id?: string | undefined;
+    input?: SwitchInputProps | undefined;
+    paddle?: SwitchPaddleProps | undefined;
+    active?: SwitchActiveProps | undefined;
+    inactive?: SwitchInactiveProps | undefined;
 }
 /**
  * Switch input sub-component.
@@ -26,8 +26,8 @@ export interface SwitchProps extends FlexboxPropTypes, React.HTMLAttributes<HTML
  */
 export declare const SwitchInput: React.StatelessComponent<SwitchInputProps>;
 export interface SwitchInputProps extends GeneralPropTypes, React.InputHTMLAttributes<HTMLInputElement> {
-    type?: SwitchInputTypes;
-    id?: string;
+    type?: SwitchInputTypes | undefined;
+    id?: string | undefined;
 }
 /**
  * Switch paddle sub-component.
@@ -46,7 +46,7 @@ export interface SwitchPaddleProps extends GeneralPropTypes, React.LabelHTMLAttr
  */
 export declare const SwitchActive: React.StatelessComponent<SwitchActiveProps>;
 export interface SwitchActiveProps extends GeneralPropTypes, React.HTMLAttributes<HTMLSpanElement> {
-    text?: string;
+    text?: string | undefined;
 }
 /**
  * Switch inactive sub-component.
@@ -56,5 +56,5 @@ export interface SwitchActiveProps extends GeneralPropTypes, React.HTMLAttribute
  */
 export declare const SwitchInactive: React.StatelessComponent<SwitchInactiveProps>;
 export interface SwitchInactiveProps extends GeneralPropTypes, React.HTMLAttributes<HTMLSpanElement> {
-    text?: string;
+    text?: string | undefined;
 }

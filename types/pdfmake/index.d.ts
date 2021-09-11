@@ -13,8 +13,6 @@
 
 import { BufferOptions, TDocumentDefinitions, TFontDictionary } from './interfaces';
 
-// 'export =' syntax forbids any other export.
-// tslint:disable-next-line: strict-export-declare-modifiers
 declare class PdfPrinter {
     constructor(fontDescriptors: TFontDictionary);
     createPdfKitDocument(docDefinition: TDocumentDefinitions, options?: BufferOptions): PDFKit.PDFDocument;

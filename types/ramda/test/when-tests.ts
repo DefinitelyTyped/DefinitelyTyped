@@ -11,4 +11,12 @@ import * as R from 'ramda';
   );
   const a: string = truncate('12345'); // => '12345'
   const b: string = truncate('0123456789ABC'); // => '0123456789…'
+
+  const addOneIfNotNil = R.when(
+      R.complement(R.isNil),
+      R.add(1)
+  );
+
+  const nil: undefined = addOneIfNotNil(undefined);
+  const two: number = addOneIfNotNil(1);
 };

@@ -3,6 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Florian Plattner <https://github.com/flowpl>
 //                 Tieu Philippe Khim <https://github.com/spike008t>
+//                 Seohyun Yoon <https://github.com/seohyun0120>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -134,11 +135,11 @@ export interface RecurrenceSpecDateRange {
     /**
      * Starting date in date range.
      */
-    start: Date | string | number;
+    start?: Date | string | number | undefined;
     /**
      * Ending date in date range.
      */
-    end: Date | string | number;
+    end?: Date | string | number | undefined;
     /**
      * Cron expression string.
      */
@@ -146,7 +147,7 @@ export interface RecurrenceSpecDateRange {
     /**
      * Timezone
      */
-    tz?: Timezone;
+    tz?: Timezone | undefined;
 }
 
 /**
@@ -156,17 +157,17 @@ export interface RecurrenceSpecObjLit {
     /**
      * Day of the month.
      */
-    date?: RecurrenceSegment;
-    dayOfWeek?: RecurrenceSegment;
-    hour?: RecurrenceSegment;
-    minute?: RecurrenceSegment;
-    month?: RecurrenceSegment;
-    second?: RecurrenceSegment;
-    year?: RecurrenceSegment;
+    date?: RecurrenceSegment | undefined;
+    dayOfWeek?: RecurrenceSegment | undefined;
+    hour?: RecurrenceSegment | undefined;
+    minute?: RecurrenceSegment | undefined;
+    month?: RecurrenceSegment | undefined;
+    second?: RecurrenceSegment | undefined;
+    year?: RecurrenceSegment | undefined;
     /**
      * Timezone
      */
-    tz?: Timezone;
+    tz?: Timezone | undefined;
 }
 
 export class Invocation {

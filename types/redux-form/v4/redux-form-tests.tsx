@@ -176,7 +176,7 @@ namespace SumbitValidation {
   export const fields = ['username', 'password'];
 
   const submit = (values: any, dispatch: any) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         if (['john', 'paul', 'george', 'ringo'].indexOf(values.username) === -1) {
           reject({username: 'User does not exist', _error: 'Login failed!'});

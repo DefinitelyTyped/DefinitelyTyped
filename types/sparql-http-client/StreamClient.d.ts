@@ -3,6 +3,7 @@ import BaseClient = require('./BaseClient');
 import StreamQuery = require('./StreamQuery');
 import StreamStore = require('./StreamStore');
 import { Endpoint, EndpointOptions } from './Endpoint';
+import { Readable } from 'stream';
 
 interface Constructor<T, Q extends BaseQuad = Quad> {
     new (options: { endpoint: Endpoint; factory: DataFactory<Q>; }): T;
@@ -10,8 +11,8 @@ interface Constructor<T, Q extends BaseQuad = Quad> {
 
 declare namespace StreamClient {
     interface QueryOptions {
-        headers?: HeadersInit;
-        operation?: 'get' | 'postUrlencoded' | 'postDirect';
+        headers?: HeadersInit | undefined;
+        operation?: 'get' | 'postUrlencoded' | 'postDirect' | undefined;
     }
 
     interface QueryInit {
@@ -40,16 +41,16 @@ declare namespace StreamClient {
 
     interface Store<Q extends BaseQuad = Quad> {
         endpoint: Endpoint;
-        get(graph: Quad['graph']): Promise<Stream<Q>>;
+        get(graph: Quad['graph']): Promise<Stream<Q> & Readable>;
         post(stream: Stream): Promise<void>;
         put(stream: Stream): Promise<void>;
     }
 
     interface ClientOptions<TQuery extends Query, Q extends BaseQuad = Quad, TStore extends Store<Q> = never> {
         endpoint: Endpoint;
-        factory?: DataFactory<Q>;
-        Query?: Constructor<TQuery, Q>;
-        Store?: Constructor<TStore, Q>;
+        factory?: DataFactory<Q> | undefined;
+        Query?: Constructor<TQuery, Q> | undefined;
+        Store?: Constructor<TStore, Q> | undefined;
     }
 
     type StreamClientOptions<Q extends BaseQuad = Quad> = EndpointOptions & Pick<ClientOptions<StreamQuery, Q, StreamStore<Q>>, 'factory'>;

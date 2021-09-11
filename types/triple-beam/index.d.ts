@@ -5,9 +5,9 @@
 
 export as namespace TripleBeam;
 
-export const LEVEL: string;
-export const MESSAGE: string;
-export const SPLAT: string;
+export const LEVEL: unique symbol;
+export const MESSAGE: unique symbol;
+export const SPLAT: unique symbol;
 export const configs: Configs;
 
 export interface Config {

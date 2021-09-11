@@ -55,7 +55,7 @@ declare module 'meteor/universe:i18n' {
         // executes function in the locale context,
         // it means that every default locale used inside a called function will be set to a passed locale
         // keep in mind that locale must be loaded first (if it is not bundled)
-        function runWithLocale(locale: string, func: (...keys: any[]) => void): void;
+        function runWithLocale<T>(locale: string, func: () => T): T;
 
         // language getters
         let _locales: Readonly<{ [locale: string]: Readonly<i18nLocaleEntry> }>;
@@ -78,12 +78,12 @@ declare module 'meteor/universe:i18n' {
     }
 
     interface ReactComponentProps {
-        _locale?: string;
-        _tagType?: string;
-        _namespace?: string;
-        _props?: React.HTMLAttributes<React.Component>;
-        _translateProps?: string[];
-        _containerType?: string;
+        _locale?: string | undefined;
+        _tagType?: string | undefined;
+        _namespace?: string | undefined;
+        _props?: React.HTMLAttributes<React.Component> | undefined;
+        _translateProps?: string[] | undefined;
+        _containerType?: string | undefined;
     }
 
     type i18nLocaleEntry = [
@@ -101,37 +101,37 @@ declare module 'meteor/universe:i18n' {
         defaultLocale: string;
         open: string;
         close: string;
-        purify?: () => void;
+        purify?: (() => void) | undefined;
         hideMissing: boolean;
         hostUrl: string;
-        translationsHeaders?: OutgoingHttpHeaders;
+        translationsHeaders?: OutgoingHttpHeaders | undefined;
         sameLocaleOnServerConnection: boolean;
     }
 
     interface GetTranslationParams {
-        _locale?: string;
-        _namespace?: string;
+        _locale?: string | undefined;
+        _namespace?: string | undefined;
         [key: string]: any;
     }
 
     interface TranslaterOptions {
-        _locale?: string;
-        _purify?: boolean;
+        _locale?: string | undefined;
+        _purify?: boolean | undefined;
     }
 
     interface LoadLocaleParams {
-        fresh?: boolean;
-        async?: boolean;
-        silent?: boolean;
-        host?: string;
-        pathOnHost?: string;
+        fresh?: boolean | undefined;
+        async?: boolean | undefined;
+        silent?: boolean | undefined;
+        host?: string | undefined;
+        pathOnHost?: string | undefined;
     }
 
     interface LocateParams {
-        noDownload?: boolean;
-        silent?: boolean;
-        async?: boolean;
-        fresh?: boolean;
+        noDownload?: boolean | undefined;
+        silent?: boolean | undefined;
+        async?: boolean | undefined;
+        fresh?: boolean | undefined;
     }
 
     type Translator = (...args: any[]) => string;

@@ -10,9 +10,8 @@
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
  */
 
-/// <reference types="tween.js" />
-
 import * as three from 'three';
+import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
 import * as tween from '@tweenjs/tween.js';
 
 export type ThreeLib = typeof three;
@@ -61,13 +60,13 @@ export interface Behavior {
 }
 
 export interface Component<T extends object = any, S extends System = System> {
-    attrName?: string;
+    attrName?: string | undefined;
     data: T;
-    dependencies?: string[];
+    dependencies?: string[] | undefined;
     el: Entity;
     id: string;
     initialized: boolean;
-    multiple?: boolean;
+    multiple?: boolean | undefined;
     name: string;
     schema: Schema<T>;
     system: S | undefined;
@@ -127,7 +126,7 @@ export interface Entity<C = ObjectMap<Component>> extends ANode {
     isPlaying: boolean;
     object3D: THREE.Object3D;
     object3DMap: ObjectMap<THREE.Object3D>;
-    sceneEl?: Scene;
+    sceneEl?: Scene | undefined;
 
     destroy(): void;
     addState(name: string): void;
@@ -203,7 +202,7 @@ export interface EntityEventMap {
 export interface Geometry<T = any> {
     data: T;
     name: string;
-    geometry: THREE.Geometry;
+    geometry: threeDeprecated.Geometry;
     schema: Schema<any>;
 
     init(data: any): void;
@@ -295,8 +294,8 @@ export interface ShaderDescriptor<T extends Shader = Shader> {
 }
 
 export interface SinglePropertySchema<T> {
-    type?: PropertyTypes;
-    default?: T;
+    type?: PropertyTypes | undefined;
+    default?: T | undefined;
     parse?(value: string): T;
     stringify?(value: T): string;
 }
@@ -332,7 +331,6 @@ export interface Utils {
     };
     device: {
         isWebXRAvailable: boolean;
-        getVRDisplay(): VRDisplay[];
         checkHeadsetConnected(): boolean;
         checkHasPositionalTracking(): boolean;
         isMobile(): boolean;
@@ -374,7 +372,7 @@ export type GeometryDefinition<T extends object = object, U = any> = T & Partial
 export type NodeDefinition<T extends object = object> = T & Partial<ANode>;
 export interface PrimitiveDefinition {
     defaultComponents?: any; // TODO cleanup type
-    deprecated?: boolean;
+    deprecated?: boolean | undefined;
     mappings?: any; // TODO cleanup type
     transforms?: any; // TODO cleanup type
 }

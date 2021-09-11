@@ -5,17 +5,19 @@ import DropdownMenu = require('./DropdownMenu');
 
 declare namespace Dropdown {
     export interface DropdownBaseProps {
-        bsClass?: string;
-        componentClass?: React.ReactType;
-        disabled?: boolean;
-        dropup?: boolean;
+        bsClass?: string | undefined;
+        componentClass?: React.ReactType | undefined;
+        disabled?: boolean | undefined;
+        dropup?: boolean | undefined;
         id: string;
-        onClose?: Function;
-        onSelect?: SelectCallback;
-        onToggle?: (isOpen: boolean) => void;
-        open?: boolean;
-        pullRight?: boolean;
-        role?: string;
+        onClose?: Function | undefined;
+        onSelect?: SelectCallback | undefined;
+        onToggle?: ((isOpen: boolean, event: React.SyntheticEvent, metadata: {
+          source: 'select' | 'click' | 'rootClose' | 'keydown'
+        }) => void) | undefined;
+        open?: boolean | undefined;
+        pullRight?: boolean | undefined;
+        role?: string | undefined;
     }
 
     export type DropdownProps = Dropdown.DropdownBaseProps & React.HTMLProps<Dropdown>;

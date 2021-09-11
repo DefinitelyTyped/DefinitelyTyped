@@ -1,12 +1,9 @@
 import * as React from "react";
-import { ReactDivAttr, RequiresIdProps } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends
-    Omit<ReactDivAttr, "id">,
-    RequiresIdProps
-{ }
-
-export interface ListBoxFieldProps extends InheritedProps { }
+export interface ListBoxFieldProps extends Omit<ReactDivAttr, "id"> {
+    id: string,
+}
 
 export interface ListBoxFieldComponent extends React.FC<ListBoxFieldProps> { }
 

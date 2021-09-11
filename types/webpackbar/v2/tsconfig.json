@@ -15,6 +15,12 @@
         "paths": {
             "webpackbar": [
                 "webpackbar/v2"
+            ],
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
             ]
         },
         "types": [],

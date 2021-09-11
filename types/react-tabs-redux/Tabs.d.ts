@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 export interface TabsProps {
-    name?: string;
-    onChange?: (selectedTab: string, name: string) => void;
-    handleSelect?: (tab: string, name: string) => void;
-    selectedTab?: string;
-    activeLinkStyle?: object;
-    visibleTabStyle?: object;
-    disableInlineStyles?: boolean;
-    renderActiveTabContentOnly?: boolean;
+    name?: string | undefined;
+    onChange?: ((selectedTab: string, name: string) => void) | undefined;
+    handleSelect?: ((tab: string, name: string) => void) | undefined;
+    selectedTab?: string | undefined;
+    activeLinkStyle?: object | undefined;
+    visibleTabStyle?: object | undefined;
+    disableInlineStyles?: boolean | undefined;
+    renderActiveTabContentOnly?: boolean | undefined;
 }
 
 export class Tabs extends React.Component<TabsProps> {}

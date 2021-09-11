@@ -20,7 +20,7 @@ html(
     {
         fileContent,
         requestTransform(options) {
-            // $ExpectType (UriOptions & CoreOptions) | (UrlOptions & CoreOptions)
+            // $ExpectType (UriOptions & CoreOptions) | (UrlOptions & CoreOptions) || RequiredUriUrl & CoreOptions
             options;
             return options;
         },

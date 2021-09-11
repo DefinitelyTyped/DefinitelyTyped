@@ -34,22 +34,22 @@ declare namespace createLogger {
         /**
          * A set of categories and assigned `chalk`-formats.
          */
-        colors?: ColorMap<TCategories>;
+        colors?: ColorMap<TCategories> | undefined;
 
         /**
          * The console to write log-messages to.
          */
-        console?: Console;
+        console?: Console | undefined;
 
         /**
          * The stream to write other messages to.
          */
-        stderr?: WriteStream;
+        stderr?: WriteStream | undefined;
 
         /**
          * The stream to write other messages to.
          */
-        stdout?: WriteStream;
+        stdout?: WriteStream | undefined;
     }
 
     /**
@@ -66,11 +66,17 @@ declare namespace createLogger {
          *
          * @param format
          * The format of the log-messages.
+         * See <https://github.com/mikeal/logref> for more info.
          *
          * @param params
          * The parameters to replace variables with.
          */
-        (format: string, params?: Record<string, any>): Logger<TCategories>;
+        (format?: string, params?: Record<string, any>): Logger<TCategories>;
+
+        /**
+         * Writes a log-message.
+         */
+        (...args: Parameters<Console["error"]>): Logger<TCategories>;
 
         /**
          * Writes a log-message.

@@ -12,8 +12,8 @@ export interface LintResult {
 }
 
 export interface FormatOptions {
-    indent?: number;
-    colors?: boolean;
+    indent?: number | undefined;
+    colors?: boolean | undefined;
 }
 
 export interface Rule {
@@ -27,6 +27,7 @@ export interface RuleSet {
 }
 
 export namespace HTMLHint {
+    function addRule(rule: Rule): void;
     function verify(fileContent: string, ruleSet?: RuleSet): LintResult[];
     function format(arrMessages: LintResult[], options?: FormatOptions): string[];
 }

@@ -1,5 +1,5 @@
 import passport = require('passport');
-import streamlabs = require('ottomated__passport-streamlabs');
+import streamlabs = require('@ottomated/passport-streamlabs');
 import { Request } from 'express';
 
 // just some test model

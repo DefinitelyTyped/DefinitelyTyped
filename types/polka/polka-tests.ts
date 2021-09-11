@@ -11,7 +11,7 @@ const middleware: Polka.Middleware<any, MyResponse, any, any> = async (req, res,
 
     res.send({ foo: 'bar' });
 
-    await new Promise((resolve, reject) => resolve());
+    await new Promise<void>((resolve, reject) => resolve());
     next();
 };
 
@@ -21,7 +21,9 @@ const routesA = Polka()
     .post('/b', (req, res) => {});
 
 const routesB = Polka()
-    .get('/1', (req, res) => {})
+    .get('/1', (req, res) => {
+        app.server?.close();
+    })
     .delete('/2', (req, res) => {});
 
 const app = Polka()

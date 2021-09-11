@@ -8,12 +8,12 @@ declare namespace mp {
     type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'v' | 'debug' | 'trace';
 
     interface AddKeyBindingFlags {
-        repeatable?: boolean;
-        complex?: boolean;
-        event?: 'down' | 'repeat' | 'up' | 'press';
-        is_mouse?: boolean;
-        key_name?: string;
-        key_text?: string;
+        repeatable?: boolean | undefined;
+        complex?: boolean | undefined;
+        event?: 'down' | 'repeat' | 'up' | 'press' | undefined;
+        is_mouse?: boolean | undefined;
+        key_name?: string | undefined;
+        key_text?: string | undefined;
     }
 
     interface OSDOverlay {
@@ -26,9 +26,9 @@ declare namespace mp {
     }
 
     interface OSDSize {
-        width?: number;
-        height?: number;
-        aspect?: number;
+        width?: number | undefined;
+        height?: number | undefined;
+        aspect?: number | undefined;
     }
 
     interface FileInfo {

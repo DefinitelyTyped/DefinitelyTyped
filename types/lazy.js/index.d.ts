@@ -5,7 +5,7 @@
 //                 Gabriel Lorquet <https://github.com/gablorquet>
 //                 Alexey Gerasimov <https://github.com/fan-tom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.4
 
 declare namespace LazyJS {
     interface LazyStatic {
@@ -136,14 +136,45 @@ declare namespace LazyJS {
               : T
             // workaround for https://github.com/microsoft/TypeScript/issues/26980
             : {
-                0: T extends Sequence<infer U> ? Flatten<U, Shallow> : never;
+                0: T extends Sequence<infer U>
+                    ? Flatten<U, Shallow>
+                    : T extends Array<infer U>
+                        ? Flatten<U, Shallow>
+                        : T extends ReadonlyArray<infer U>
+                            ? Flatten<U, Shallow>
+                            : never;
                 1: T;
-            } [T extends Sequence<any> ? 0 : 1];
+            } [T extends Sequence<any> ? 0 : T extends any[] ? 0 : T extends ReadonlyArray<any> ? 0 : 1];
+
+    type PushFront<TailT extends any[], FrontT> = (
+        ((front: FrontT, ...rest: TailT) => any) extends ((...tuple: infer TupleT) => any) ?
+            TupleT :
+            never
+        );
+
+    type Tuple<ElementT, LengthT extends number, OutputT extends any[] = []> = {
+        0: ElementT[],
+        1: unknown,
+        2: OutputT,
+        3: Tuple<ElementT, LengthT, PushFront<OutputT, ElementT>>,
+    }[
+        // LengthT is not compile-time constant
+        number extends LengthT
+            ? 0
+            // LengthT is 0 constant, forbidden
+            : LengthT extends 0
+            ? 1
+            // LengthT = OutputT["length']
+            : OutputT["length"] extends LengthT
+                ? 2
+                // we need to go deeper
+                : 3
+        ];
 
     interface SequenceBaser<T> {
       // TODO improve define() (needs ugly overload)
       async(interval: number): AsyncSequence<T>;
-      chunk(size: number): Sequence<T>;
+      chunk<N extends number>(size: N): Sequence<Tuple<T, N>>;
       compact(): Sequence<T>;
       concat(var_args: T[]): Sequence<T>;
       consecutive(length: number): Sequence<T>;

@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@root/asn1": ["root__asn1"]
+            "@root/*": ["root__*"]
         }
     },
     "files": [

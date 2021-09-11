@@ -7,15 +7,15 @@ import BootstrapTable, {
 } from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { render } from 'react-dom';
-import ToolkitProvider, { InjectedSearchProps, Search } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider, { InjectedSearchProps, Search, CSVExport } from 'react-bootstrap-table2-toolkit';
 
 interface Product {
     id: number;
     name: string;
-    price?: number;
-    quality?: number;
-    inStockStatus?: number;
-    sales?: number;
+    price?: number | undefined;
+    quality?: number | undefined;
+    inStockStatus?: number | undefined;
+    sales?: number | undefined;
 }
 
 const products: Product[] = [
@@ -176,15 +176,38 @@ const { SearchBar, ClearSearchButton } = Search;
 render(
     <ToolkitProvider
         keyField="id"
-        data={ products }
-        columns={ productColumns }
+        data={products}
+        columns={productColumns}
         search
     >
         {({ baseProps, searchProps }) => (
             <>
-                <SearchBar { ...searchProps } />
-                <ClearSearchButton { ...searchProps } />
-                <BootstrapTable { ...baseProps } />
+                <SearchBar {...searchProps} />
+                <ClearSearchButton {...searchProps} />
+                <BootstrapTable {...baseProps} />
+            </>
+        )}
+    </ToolkitProvider>,
+    document.getElementById('app'),
+);
+
+/**
+ * Toolkit CSVExport with ExportCSVButton
+ */
+
+const { ExportCSVButton } = CSVExport;
+
+render(
+    <ToolkitProvider
+        keyField="id"
+        data={products}
+        columns={productColumns}
+        search
+    >
+        {({ baseProps, csvProps }) => (
+            <>
+                <ExportCSVButton {...csvProps}>Export</ExportCSVButton>
+                <BootstrapTable {...baseProps} />
             </>
         )}
     </ToolkitProvider>,

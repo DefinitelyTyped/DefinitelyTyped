@@ -107,3 +107,6 @@ i18n.normalize('en');
 i18n.onChangeLocale((newLocale: string) => {
     console.log(newLocale);
 });
+
+// $ExpectType number
+i18n.runWithLocale('de-CH', () => 1);

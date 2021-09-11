@@ -32,16 +32,16 @@ export interface WrapperProps<T extends HTMLElement>
      * If false, the menu will not automatically close when a
      * selection is made. Default: `true`.
      */
-    closeOnSelection?: boolean;
+    closeOnSelection?: boolean | undefined;
 
     /**
      * By default, it does automatically close.
      * If false, the menu will not automatically close when it
      * blurs. Default: `true`.
      */
-    closeOnBlur?: boolean;
+    closeOnBlur?: boolean | undefined;
 
-    tag?: T["tagName"];
+    tag?: T["tagName"] | undefined;
 }
 
 /**
@@ -61,12 +61,12 @@ export interface ButtonProps<T extends HTMLElement>
      * If true, the element is disabled
      * (aria-disabled='true', not in tab order, clicking has no effect).
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
-    tag?: T["tagName"];
+    tag?: T["tagName"] | undefined;
 }
 
 /**
@@ -77,14 +77,14 @@ export interface ButtonProps<T extends HTMLElement>
  * Each `Button` must be wrapped in a Wrapper, and each Wrapper can wrap only
  * one `Button`.
  */
-export class Button extends React.Component<ButtonProps<HTMLElement>> {}
+export const Button: React.ForwardRefExoticComponent<ButtonProps<HTMLElement>>;
 
 export interface MenuProps<T extends HTMLElement>
     extends React.HTMLProps<T> {
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
-    tag?: T["tagName"];
+    tag?: T["tagName"] | undefined;
     children: JSX.Element | (({ isOpen }: { isOpen: boolean }) => JSX.Element);
 }
 
@@ -105,12 +105,12 @@ export interface MenuItemProps<T extends HTMLElement>
      * If `text` has a value, its first letter will be the letter a user can
      * type to navigate to that item.
      */
-    text?: string;
+    text?: string | undefined;
 
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
-    tag?: T["tagName"];
+    tag?: T["tagName"] | undefined;
 }
 
 /**

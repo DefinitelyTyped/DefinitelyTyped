@@ -1,165 +1,309 @@
-// Type definitions for react-date-range 0.95
+// Type definitions for react-date-range 1.1
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
 //                 John Demetriou <https://github.com/DevsAnon>
+//                 Minseok Choi <https://github.com/Curzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as moment from "moment-timezone";
+import * as React from 'react';
+import { Locale } from 'date-fns';
 
-export type AnyDate = string | moment.Moment;
-export type DateFunc = (now: moment.Moment) => AnyDate;
+export type AnyDate = string | Date;
+export type DateFunc = (now: Date) => AnyDate;
 export type DateInputType = AnyDate | DateFunc;
 export type LanguageType =
-    | "cn"
-    | "jp"
-    | "fr"
-    | "it"
-    | "de"
-    | "ko"
-    | "es"
-    | "ru"
-    | "tr";
+    | 'cn'
+    | 'jp'
+    | 'fr'
+    | 'it'
+    | 'de'
+    | 'ko'
+    | 'es'
+    | 'ru'
+    | 'tr';
 export type SizeType = number;
 
 export interface DateContainerType {
-    date: moment.Moment;
+    date: Date;
 }
 
 export interface CalendarTheme {
-    DateRange?: React.CSSProperties;
-    Calendar?: React.CSSProperties;
-    Day?: React.CSSProperties;
-    DayPassive?: React.CSSProperties;
-    DayHover?: React.CSSProperties;
-    DayToday?: React.CSSProperties;
-    DaySunday?: React.CSSProperties;
-    DaySpecialDay?: React.CSSProperties;
-    DayActive?: React.CSSProperties;
-    DaySelected?: React.CSSProperties;
-    DayStartEdge?: React.CSSProperties;
-    DayEndEdge?: React.CSSProperties;
-    DayInRange?: React.CSSProperties;
-    Weekday?: React.CSSProperties;
-    MonthAndYear?: React.CSSProperties;
-    MonthButton?: React.CSSProperties;
-    MonthArrow?: React.CSSProperties;
-    MonthArrowPrev?: React.CSSProperties;
-    MonthArrowNext?: React.CSSProperties;
-    PredefinedRanges?: React.CSSProperties;
-    PredefinedRangesItem?: React.CSSProperties;
-    PredefinedRangesItemActive?: React.CSSProperties;
+    DateRange?: React.CSSProperties | undefined;
+    Calendar?: React.CSSProperties | undefined;
+    Day?: React.CSSProperties | undefined;
+    DayPassive?: React.CSSProperties | undefined;
+    DayHover?: React.CSSProperties | undefined;
+    DayToday?: React.CSSProperties | undefined;
+    DaySunday?: React.CSSProperties | undefined;
+    DaySpecialDay?: React.CSSProperties | undefined;
+    DayActive?: React.CSSProperties | undefined;
+    DaySelected?: React.CSSProperties | undefined;
+    DayStartEdge?: React.CSSProperties | undefined;
+    DayEndEdge?: React.CSSProperties | undefined;
+    DayInRange?: React.CSSProperties | undefined;
+    Weekday?: React.CSSProperties | undefined;
+    MonthAndYear?: React.CSSProperties | undefined;
+    MonthButton?: React.CSSProperties | undefined;
+    MonthArrow?: React.CSSProperties | undefined;
+    MonthArrowPrev?: React.CSSProperties | undefined;
+    MonthArrowNext?: React.CSSProperties | undefined;
+    PredefinedRanges?: React.CSSProperties | undefined;
+    PredefinedRangesItem?: React.CSSProperties | undefined;
+    PredefinedRangesItemActive?: React.CSSProperties | undefined;
 }
 
 export interface Range {
     /** default: today */
-    startDate?: moment.Moment;
+    startDate?: Date | undefined;
     /** default: today */
-    endDate?: moment.Moment;
+    endDate?: Date | undefined;
+}
+
+export interface RangeWithKey extends Range {
+    key: 'selection';
+}
+
+export type OnCalendarChangeProps = Date;
+
+export interface OnDateRangeChangeProps {
+    [key: string]: Range;
 }
 
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
-    format?: string;
-    /** default: moment.localeData().firstDayOfWeek() */
-    firstDayOfWeek?: number;
-    theme?: CalendarTheme;
+    format?: string | undefined;
+    firstDayOfWeek?: number | undefined;
+    theme?: CalendarTheme | undefined;
     /** default: none */
-    onInit?: (range: Range) => void;
+    onInit?: ((range: Range) => void) | undefined;
     /** default: none */
-    onChange?: (range: Range) => void;
+    minDate?: DateInputType | undefined;
     /** default: none */
-    minDate?: DateInputType;
+    maxDate?: DateInputType | undefined;
+    /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
+    locale?: Locale | undefined;
+    /** Custom class names for elements */
+    classNames?: Partial<ClassNames> | undefined;
     /** default: none */
-    maxDate?: DateInputType;
-    /**
-     * Calendar languages.
-     * ('cn' - Chinese, 'jp' - Japanese,
-     * 'fr' - French, 'it' - Italian,
-     * 'de' - German, 'ko' - Korean,
-     * 'es' - Spanish, 'ru' - Russian,
-     * 'tr' - Turkish) default: none
-     */
-    lang?: LanguageType;
+    navigatorRenderer?: ((
+        currentFocusedDate: Date,
+        changeShownDate: (shownDate: Date) => void,
+        props: CommonCalendarProps,
+    ) => JSX.Element) | undefined;
+    /** default: none */
+    onShownDateChange?: ((visibleMonth: Date) => void) | undefined;
+    /** default: false */
+    editableDateInputs?: boolean | undefined;
+    /** default: true */
+    dragSelectionEnabled?: boolean | undefined;
+    /** default: false */
+    fixedHeight?: boolean | undefined;
 }
 
 export interface CalendarProps extends CommonCalendarProps {
     /** default: today */
     date: DateInputType;
+    /** default: none */
+    onChange?: ((range: OnCalendarChangeProps) => void) | undefined;
 }
 
-export class Calendar extends React.Component<CalendarProps> { }
+export class Calendar extends React.Component<CalendarProps> {
+}
 
 export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
-    locale?: object;
+    locale?: Locale | undefined;
     /** default: false */
-    linkedCalendars?: boolean;
+    linkedCalendars?: boolean | undefined;
     /** default: 2 */
-    calendars?: number;
+    calendars?: number | undefined;
     /** default: none */
-    ranges?: object;
+    ranges?: Range[] | undefined;
     /** default: { enabled: false } */
-    scroll?: object;
+    scroll?: ScrollOptions | undefined;
     /** default: false */
-    showSelectionPreview?: boolean;
+    showSelectionPreview?: boolean | undefined;
     /** default: false */
-    twoStepChange?: boolean;
+    twoStepChange?: boolean | undefined;
     /** default: true */
-    showMonthArrow?: boolean;
+    showMonthArrow?: boolean | undefined;
     /** default: false */
-    rangedCalendars?: boolean;
+    rangedCalendars?: boolean | undefined;
     /** default: none */
-    specialDays?: DateContainerType[];
+    specialDays?: DateContainerType[] | undefined;
     /** default: 1 */
-    months?: number;
+    months?: number | undefined;
     /** default: */
-    weekStartsOn?: number;
+    weekStartsOn?: number | undefined;
     /** default: true */
-    showMonthAndYearPickers?: boolean;
+    showMonthAndYearPickers?: boolean | undefined;
     /** default: [] */
-    rangeColors?: string[];
+    rangeColors?: string[] | undefined;
     /** default: */
-    shownDate?: Date;
+    shownDate?: Date | undefined;
     /** default: */
-    disabledDates?: Date[];
+    disabledDates?: Date[] | undefined;
+    /** default: */
+    disabledDay?: ((date: Date) => boolean) | undefined;
     /** default: Early */
-    startDatePlaceholder?: string;
+    startDatePlaceholder?: string | undefined;
     /** default: */
-    className?: string;
+    className?: string | undefined;
     /** default: Continuous */
-    endDatePlaceholder?: string;
+    endDatePlaceholder?: string | undefined;
     /** default: MMM d, yyyy */
-    dateDisplayFormat?: string;
+    dateDisplayFormat?: string | undefined;
     /** default: d */
-    dayDisplayFormat?: string;
+    dayDisplayFormat?: string | undefined;
     /** default: E */
-    weekdayDisplayFormat?: string;
+    weekdayDisplayFormat?: string | undefined;
     /** default: MMM yyyy */
-    monthDisplayFormat?: string;
+    monthDisplayFormat?: string | undefined;
     /** default: vertical */
-    direction?: string;
+    direction?: string | undefined;
     /** default: false */
-    moveRangeOnFirstSelection?: boolean;
+    moveRangeOnFirstSelection?: boolean | undefined;
     /** default: false */
-    editableDateInputs?: boolean;
+    editableDateInputs?: boolean | undefined;
+    /** default: */
+    focusedRange?: RangeFocus | undefined;
+    /** default: [0, 0] */
+    initialFocusedRange?: RangeFocus | undefined;
+    /** default: */
+    onRangeFocusChange?: ((focusedRange: RangeFocus) => void) | undefined;
+    /** default: */
+    preview?: Preview | undefined;
+    /** default: true */
+    showPreview?: boolean | undefined;
+    /** default: */
+    onPreviewChange?: ((preview: Preview) => void) | undefined;
+    /** default: none */
+    onChange?: ((range: OnDateRangeChangeProps) => void) | undefined;
 }
 
-export class DateRange extends React.Component<DateRangeProps> { }
+export interface DateRangePickerProps extends DateRangeProps {
+    renderStaticRangeLabel?: ((range: DefinedRange) => JSX.Element) | undefined;
+    staticRanges?: StaticRange[] | undefined;
+    inputRanges?: InputRange[] | undefined;
+}
 
-export class DateRangePicker extends React.Component<DateRangeProps> { }
+export class DateRange extends React.Component<DateRangeProps> {
+}
+
+export class DateRangePicker extends React.Component<DateRangePickerProps> {
+}
 
 export type DateRangeIndex =
-    | "Today"
-    | "Yesterday"
-    | "Last 7 Days"
-    | "Last 30 Days";
+    | 'Today'
+    | 'Yesterday'
+    | 'Last 7 Days'
+    | 'Last 30 Days';
 
-export interface DateRangeObject {
-    startDate: (now: moment.Moment) => moment.Moment;
-    endDate: (now: moment.Moment) => moment.Moment;
+export interface Range {
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    color?: string | undefined;
+    key?: string | undefined;
+    autoFocus?: boolean | undefined;
+    disabled?: boolean | undefined;
+    showDateDisplay?: boolean | undefined;
 }
-export const defaultRanges: {
-    [measure: string]: DateRangeObject;
-};
+
+export interface ScrollOptions {
+    enabled: boolean;
+    monthHeight?: number | undefined;
+    longMonthHeight?: number | undefined;
+    monthWidth?: number | undefined;
+    calendarWidth?: number | undefined;
+    calendarHeight?: number | undefined;
+}
+
+export interface DefinedRangeCommon {
+    label: string;
+    isSelected: (range: Range) => boolean;
+    hasCustomRendering?: boolean | undefined;
+}
+
+export interface StaticRange extends DefinedRangeCommon {
+    range: (props: CommonCalendarProps) => Range;
+}
+
+export interface ClassNames {
+    dateRangeWrapper: string;
+    calendarWrapper: string;
+    dateDisplay: string;
+    dateDisplayItem: string;
+    dateDisplayItemActive: string;
+    monthAndYearWrapper: string;
+    monthAndYearPickers: string;
+    nextPrevButton: string;
+    month: string;
+    weekDays: string;
+    weekDay: string;
+    days: string;
+    day: string;
+    dayNumber: string;
+    dayPassive: string;
+    dayToday: string;
+    dayStartOfWeek: string;
+    dayEndOfWeek: string;
+    daySelected: string;
+    dayDisabled: string;
+    dayStartOfMonth: string;
+    dayEndOfMonth: string;
+    dayWeekend: string;
+    dayStartPreview: string;
+    dayInPreview: string;
+    dayEndPreview: string;
+    dayHovered: string;
+    dayActive: string;
+    inRange: string;
+    endEdge: string;
+    startEdge: string;
+    prevButton: string;
+    nextButton: string;
+    selected: string;
+    months: string;
+    monthPicker: string;
+    yearPicker: string;
+    dateDisplayWrapper: string;
+    definedRangesWrapper: string;
+    staticRanges: string;
+    staticRange: string;
+    inputRanges: string;
+    inputRange: string;
+    inputRangeInput: string;
+    dateRangePickerWrapper: string;
+    staticRangeLabel: string;
+    staticRangeSelected: string;
+    monthName: string;
+    infiniteMonths: string;
+    monthsVertical: string;
+    monthsHorizontal: string;
+}
+
+export interface InputRange extends DefinedRangeCommon {
+    range: (value: string, props: CommonCalendarProps) => Range;
+    getCurrentValue: (range: Range) => string;
+}
+
+export type DefinedRange = StaticRange | InputRange;
+
+/**
+ * Represents range focus `[range, rangeElement]`. `range` represents the index of the range
+ * that's focused and the `rangeElement` the element of the range that's
+ * focused, `0` for start date and `1` for end date
+ */
+export type RangeFocus = [number, number];
+
+export interface Preview {
+    startDate: Date;
+    endDate: Date;
+    color?: string | undefined;
+}
+
+export const defaultStaticRanges: StaticRange[];
+export const defaultInputRanges: InputRange[];
+
+export function createStaticRanges(ranges: StaticRange[]): StaticRange[];

@@ -7,7 +7,7 @@ declare const store: DS.Store;
 
 const Person = DS.Model.extend({
     children: DS.hasMany('folder', { inverse: 'parent' }),
-    parent: DS.belongsTo('folder', { inverse: 'children' })
+    parent: DS.belongsTo('folder', { inverse: 'children' }),
 });
 
 // $ExpectType void
@@ -33,11 +33,12 @@ Person.eachTransformedAttribute(() => {}, {});
 // $ExpectType void
 Person.eachTransformedAttribute((name, type) => {
     assertType<'children' | 'parent'>(name);
-    let t: keyof TransformRegistry = type;
+    assertType<keyof TransformRegistry>(type);
 });
 
 const Polymorphic = DS.Model.extend({
-    paymentMethods: DS.hasMany('payment-method', { polymorphic: true })
+    status: DS.attr('string'),
+    paymentMethods: DS.hasMany('payment-method', { polymorphic: true }),
 });
 
 // $ExpectType void
@@ -46,18 +47,19 @@ Polymorphic.eachRelationship(() => '');
 Polymorphic.eachRelationship(() => '', {});
 // $ExpectType void
 Polymorphic.eachRelationship((n, meta) => {
-    let s: string = n;
-    let m: 'belongsTo' | 'hasMany' = meta.kind;
+    assertType<never>(n);
+    assertType<'belongsTo' | 'hasMany'>(meta.kind);
 });
-let p = Polymorphic.create();
+
+const p = Polymorphic.create();
 // $ExpectType void
 p.eachRelationship(() => '');
 // $ExpectType void
 p.eachRelationship(() => '', {});
 // $ExpectType void
 p.eachRelationship((n, meta) => {
-    let s: string = n;
-    let m: 'belongsTo' | 'hasMany' = meta.kind;
+    assertType<'status' | 'paymentMethods'>(n);
+    assertType<'belongsTo' | 'hasMany'>(meta.kind);
 });
 
 // $ExpectType void
@@ -65,8 +67,8 @@ Polymorphic.eachRelatedType(() => '');
 // $ExpectType void
 Polymorphic.eachRelatedType(() => '', {});
 // $ExpectType void
-Polymorphic.eachRelatedType((name) => {
-    let s: string = name;
+Polymorphic.eachRelatedType(name => {
+    assertType<string>(name);
 });
 
 export class Comment extends DS.Model {
@@ -94,7 +96,7 @@ declare module 'ember-data/types/registries/model' {
 }
 
 let blogPost = store.peekRecord('relational-post', 1);
-blogPost!.get('comments').then((comments) => {
+blogPost!.get('comments').then(comments => {
     // now we can work with the comments
     let author: string = comments.get('firstObject')!.get('author');
 });

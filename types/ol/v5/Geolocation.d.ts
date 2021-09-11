@@ -7,9 +7,9 @@ import { ProjectionLike } from './proj';
 import Projection from './proj/Projection';
 
 export interface Options {
-    tracking?: boolean;
-    trackingOptions?: PositionOptions;
-    projection?: ProjectionLike;
+    tracking?: boolean | undefined;
+    trackingOptions?: PositionOptions | undefined;
+    projection?: ProjectionLike | undefined;
 }
 export default class Geolocation extends BaseObject {
     constructor(opt_options?: Options);

@@ -1,4 +1,4 @@
-// Type definitions for redux-form 8.2
+// Type definitions for redux-form 8.3
 // Project: https://github.com/erikras/redux-form, https://redux-form.com
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>
 //                 Karol Janyst <https://github.com/LKay>
@@ -24,7 +24,7 @@ import {
 export type FieldType = "Field" | "FieldArray";
 
 export interface ErrorOther<T = string> {
-    _error?: T;
+    _error?: T | undefined;
 }
 
 export type FormErrors<FormData = {}, T = string> = {
@@ -32,7 +32,7 @@ export type FormErrors<FormData = {}, T = string> = {
 } & ErrorOther<T>;
 
 export interface WarningOther<T = void> {
-    _warning?: T;
+    _warning?: T | undefined;
 }
 
 export type FormWarnings<FormData = {}, T = void> = {

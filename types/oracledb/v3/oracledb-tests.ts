@@ -30,33 +30,31 @@ const initSession = (connection: oracledb.Connection, requestedTag: string, call
 };
 
 const testBreak = (connection: oracledb.Connection): Promise<void> =>
-    new Promise(
-        (resolve): void => {
-            console.log('Testing connection.execute()...');
+    new Promise((resolve): void => {
+        console.log('Testing connection.execute()...');
 
-            connection.execute(
-                `   BEGIN
+        connection.execute(
+            `   BEGIN
                         dbms_lock.sleep(:seconds);
                     END;
                 `,
-                [2],
-                (error: oracledb.DBError): void => {
-                    // ORA-01013: user requested cancel of current operation
-                    assert(error.message.includes('ORA-01013'), 'message not defined for DB error');
-                    assert(error.errorNum !== undefined, 'errorNum not defined for DB error');
-                    assert(error.offset !== undefined, 'offset not defined for DB error');
+            [2],
+            (error: oracledb.DBError): void => {
+                // ORA-01013: user requested cancel of current operation
+                assert(error.message.includes('ORA-01013'), 'message not defined for DB error');
+                assert(error.errorNum !== undefined, 'errorNum not defined for DB error');
+                assert(error.offset !== undefined, 'offset not defined for DB error');
 
-                    return resolve();
-                },
-            );
+                return resolve();
+            },
+        );
 
-            setTimeout((): void => {
-                console.log('Testing connection.execute()...');
+        setTimeout((): void => {
+            console.log('Testing connection.execute()...');
 
-                connection.break().then((): void => {});
-            }, 1000);
-        },
-    );
+            connection.break().then((): void => {});
+        }, 1000);
+    });
 
 const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<void> => {
     console.log('Testing connection.getStatementInfo()...');

@@ -20,11 +20,11 @@ declare function HtmlValidator(
 
 declare namespace HtmlValidator {
     interface BasicOptions {
-        validator?: object;
-        ignore?: string | string[];
-        isLocal?: boolean;
-        isFragment?: boolean;
-        headers?: Record<string, string>;
+        validator?: object | undefined;
+        ignore?: string | string[] | undefined;
+        isLocal?: boolean | undefined;
+        isFragment?: boolean | undefined;
+        headers?: Record<string, string> | undefined;
     }
 
     interface OptionsForHtmlFileAsValidationTarget extends BasicOptions {
@@ -46,7 +46,7 @@ declare namespace HtmlValidator {
     }
 
     interface OptionsForHtmlFileAsValidationTargetAndObjectAsResult extends OptionsForHtmlFileAsValidationTarget {
-        format?: 'json';
+        format?: 'json' | undefined;
     }
 
     interface OptionsForHtmlFileAsValidationTargetAndTextAsResults extends OptionsForHtmlFileAsValidationTarget {
@@ -54,7 +54,7 @@ declare namespace HtmlValidator {
     }
 
     interface OptionsForExternalUrlAsValidationTargetAndObjectAsResult extends OptionsForExternalUrlAsValidationTarget {
-        format?: 'json';
+        format?: 'json' | undefined;
     }
 
     interface OptionsForExternalUrlAsValidationTargetAndTextAsResults extends OptionsForHtmlFileAsValidationTarget {
@@ -96,17 +96,17 @@ declare namespace HtmlValidator {
 
     interface ValidationMessageBasicErrorObject {
         type: 'error';
-        subType?: 'fatal';
+        subType?: 'fatal' | undefined;
     }
 
     interface ValidationMessageBasicInfoObject {
         type: 'info';
-        subType?: 'warning';
+        subType?: 'warning' | undefined;
     }
 
     interface ValidationMessageBasicNonDocumentErrorObject {
         type: 'non-document-error';
-        subType?: 'internal' | 'io' | 'schema';
+        subType?: 'internal' | 'io' | 'schema' | undefined;
     }
 
     type ValidationMessageSimpleObject = (ValidationMessageBasicErrorObject | ValidationMessageBasicInfoObject | ValidationMessageBasicNonDocumentErrorObject) & ValidationMessageBasicObject;

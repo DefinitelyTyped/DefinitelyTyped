@@ -16,8 +16,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@rdfjs/dataset": [
-                "rdfjs__dataset"
+            "@rdfjs/*": [
+                "rdfjs__*"
             ]
         }
     },

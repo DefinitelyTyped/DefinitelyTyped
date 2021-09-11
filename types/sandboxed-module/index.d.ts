@@ -10,15 +10,15 @@ interface SandboxOptions {
      * An object containing moduleIds and the values to inject for them when required by the sandboxed module.
      * This does not affect children of the sandboxed module.
      */
-    requires?: Object;
+    requires?: Object | undefined;
     /**
      * An object of global variables to inject into the sandboxed module.
      */
-    globals?: Object;
+    globals?: Object | undefined;
     /**
      * An object of local variables to inject into the sandboxed module.
      */
-    locals?: Object;
+    locals?: Object | undefined;
     /**
      * An object of named functions which will transform the source code required with SandboxedModule.require.
      * For example, CoffeeScript & istanbul support is implemented with built-in sourceTransformer functions
@@ -37,18 +37,18 @@ interface SandboxOptions {
      *   }
      * })
      */
-    sourceTransformers?: Object;
+    sourceTransformers?: Object | undefined;
     /**
      * If false, modules that are required by the sandboxed module will not be sandboxed. By default all modules
      * required by the sandboxedModule will be sandboxed using the same options that were used for the original
      * sandboxed module.
      */
-    singleOnly?: boolean;
+    singleOnly?: boolean | undefined;
     /**
      * If false, the source transformers will not be run against modules required by the sandboxed module.
      * By default it will take the same value as {@link SandboxOptions.singleOnly}.
      */
-    sourceTransformersSingleOnly?: boolean;
+    sourceTransformersSingleOnly?: boolean | undefined;
 }
 
 declare class SandboxedModule {

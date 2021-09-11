@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import { Versions } from '../format/IIIFInfo';
@@ -11,30 +11,31 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    attributionsCollapsible?: boolean;
-    cacheSize?: number;
-    crossOrigin?: string;
-    extent?: Extent;
-    format?: string;
-    projection?: ProjectionLike;
-    quality?: string;
-    reprojectionErrorThreshold?: number;
-    resolutions?: number[];
+    attributions?: AttributionLike | undefined;
+    attributionsCollapsible?: boolean | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    extent?: Extent | undefined;
+    format?: string | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    quality?: string | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    resolutions?: number[] | undefined;
     size: Size;
-    sizes?: Size[];
-    state?: State;
-    supports?: string[];
-    tilePixelRatio?: number;
-    tileSize?: number | Size;
-    transition?: number;
-    url?: string;
-    version?: Versions;
-    zDirection?: number;
+    sizes?: Size[] | undefined;
+    state?: State | undefined;
+    supports?: string[] | undefined;
+    tilePixelRatio?: number | undefined;
+    tileSize?: number | Size | undefined;
+    transition?: number | undefined;
+    url?: string | undefined;
+    version?: Versions | undefined;
+    zDirection?: number | undefined;
 }
 export default class IIIF extends TileImage {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

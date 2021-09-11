@@ -1,4 +1,4 @@
-import { EventsKey, ListenerFunction } from '../events';
+import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
 import { Extent } from '../extent';
 import ImageTile from '../ImageTile';
@@ -13,19 +13,20 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
-    projection?: ProjectionLike;
-    tilePixelRatio?: number;
-    reprojectionErrorThreshold?: number;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    tilePixelRatio?: number | undefined;
+    reprojectionErrorThreshold?: number | undefined;
     url: string;
-    tierSizeCalculation?: string;
+    tierSizeCalculation?: string | undefined;
     size: Size;
-    extent?: Extent;
-    transition?: number;
-    tileSize?: number;
-    zDirection?: number;
+    extent?: Extent | undefined;
+    transition?: number | undefined;
+    tileSize?: number | undefined;
+    zDirection?: number | undefined;
 }
 export class CustomTile extends ImageTile {
     constructor(
@@ -37,10 +38,14 @@ export class CustomTile extends ImageTile {
         tileLoadFunction: LoadFunction,
         opt_options?: Options_1,
     );
+    /**
+     * Get the image element for this tile.
+     */
+    getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
 }
 export default class Zoomify extends TileImage {
     constructor(opt_options: Options);
-    on(type: string | string[], listener: ListenerFunction): EventsKey | EventsKey[];
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;

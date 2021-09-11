@@ -26,6 +26,7 @@ import {
     SubmissionError,
     FieldArrayFieldsProps,
     DecoratedFormProps,
+    ReduxFormContext
 } from 'redux-form';
 
 import {
@@ -53,7 +54,7 @@ interface TestFormData {
 /* Some tests only make sense with multiple values */
 interface MultivalueFormData {
     foo: string;
-    bar?: string;
+    bar?: string | undefined;
     fizz: string;
 }
 
@@ -486,5 +487,17 @@ class TestFormComponent2 extends React.Component<TestFormComponentProps & Inject
 
         handleSubmit((values) => ({ foo: ['string'], _error: [] }));
         return null;
+    }
+}
+
+// Test ReduxFormContext
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/46798
+class TestReduxFormContext extends React.Component {
+    render() {
+        return (
+            <ReduxFormContext.Consumer>
+                {values => <div>{values.form}</div>}
+            </ReduxFormContext.Consumer>
+        );
     }
 }

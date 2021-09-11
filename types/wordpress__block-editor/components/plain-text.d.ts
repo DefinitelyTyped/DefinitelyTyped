@@ -6,7 +6,7 @@ declare namespace PlainText {
         /**
          * The component forwards the `ref` property to the `TextareaAutosize` component.
          */
-        ref?: Ref<typeof TextareaAutosize>;
+        ref?: Ref<typeof TextareaAutosize> | undefined;
         /**
          * String value of the textarea
          */

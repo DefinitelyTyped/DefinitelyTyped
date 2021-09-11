@@ -35,7 +35,7 @@ export default function elements() {
 
   const el = document.querySelector('div');
   if (el) {
-    cardElement.attach(el);
+    cardElement.attach(el).configure({}).focus().remove();
   }
 
   [
@@ -44,7 +44,7 @@ export default function elements() {
     elements.CardYearElement(elementOptions),
     elements.CardCvvElement(elementOptions)
   ].forEach(element => {
-    element.attach('#recurly-elements');
+    element.attach('#recurly-elements').configure({}).focus().remove();
     element.on('attach', () => {});
     element.on('blur', () => {});
     element.on('change', () => {});

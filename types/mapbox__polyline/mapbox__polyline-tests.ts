@@ -1,8 +1,11 @@
-const decodedString: number[][] = polyline.decode('_p~iF~ps|U_ulLnnqC_mqNvxq`@');
-const decodedStringWithPrecision: number[][] = polyline.decode('_p~iF~ps|U_ulLnnqC_mqNvxq`@', 2);
+const decodedString: Array<[number, number]> = polyline.decode('_p~iF~ps|U_ulLnnqC_mqNvxq`@');
+const decodedStringWithPrecision: Array<[number, number]> = polyline.decode('_p~iF~ps|U_ulLnnqC_mqNvxq`@', 2);
 
 const encoded: string = polyline.encode([[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]]);
 const encodedWithPrecision: string = polyline.encode([[38.5, -120.2], [40.7, -120.95], [43.252, -126.453]], 2);
+
+// $ExpectError
+const encodedMissingLng: string = polyline.encode([[38.5, -120.2], [40.7], [43.252, -126.453]]);
 
 const fromGeoJSON: string = polyline.fromGeoJSON({
     type: 'Feature',

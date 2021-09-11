@@ -1,13 +1,16 @@
-// Type definitions for nodegit 0.26
+// Type definitions for nodegit 0.27
 // Project: https://github.com/nodegit/nodegit, http://nodegit.org
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>,
 //                 Tobias Nießen <https://github.com/tniessen>,
 //                 Pierre Vigier <https://github.com/pvigier>
 //                 Jibril Saffi <https://github.com/IGI-111>
 //                 Benjamin Schuster-Boeckler <https://github.com/DaGaMs>
+//                 Julien Chaumond <https://github.com/julien-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';
+export { Apply } from './apply';
+export { ApplyOptions } from './apply-options';
 export { Attr } from './attr';
 export { BlameHunk } from './blame-hunk';
 export { BlameOptions } from './blame-options';

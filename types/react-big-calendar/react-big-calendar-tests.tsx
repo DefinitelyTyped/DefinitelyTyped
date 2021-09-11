@@ -18,6 +18,12 @@ import {
     EventWrapperProps,
     NavigateAction,
     Culture, DayLayoutAlgorithm, DayLayoutFunction,
+    stringOrDate,
+    ViewProps,
+    Day,
+    TimeGrid,
+    Week,
+    HeaderProps
 } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
@@ -37,8 +43,8 @@ class CalendarEvent {
     start: Date;
     endDate: Date;
     desc: string;
-    resourceId?: string;
-    tooltip?: string;
+    resourceId?: string | undefined;
+    tooltip?: string | undefined;
 
     constructor(_title: string, _start: Date, _endDate: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
@@ -102,12 +108,42 @@ class CalendarResource {
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
 
-// Drag and Drop Example Test
+// handle-drag-start Example Test
 {
     interface Props {
         localizer: DateLocalizer;
     }
-    const DragAndDropCalendar = withDragAndDrop(Calendar);
+    const HandleDragStart = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+            handleDragStart={console.log}
+        />
+    );
+
+    const localizer = dateFnsLocalizer(dateFnsConfig);
+
+    ReactDOM.render(<HandleDragStart localizer={localizer} />, document.body);
+}
+
+// Drag and Drop Example Test
+{
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    interface DragAndDropEvent {
+        isAllDay: boolean;
+    }
+    const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
+    const handleEventMove = ({ isAllDay }: DragAndDropEvent) => {
+        console.log(isAllDay);
+    };
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
             events={getEvents()}
@@ -118,8 +154,8 @@ class CalendarResource {
             localizer={localizer}
             selectable={true}
             resizable={true}
-            onEventDrop={console.log}
-            onEventResize={console.log}
+            onEventDrop={handleEventMove}
+            onEventResize={handleEventMove}
             onDragStart={console.log}
             onDropFromOutside={console.log}
             draggableAccessor={() => true}
@@ -129,6 +165,9 @@ class CalendarResource {
                 event: Event,
                 agenda: {
                     event: EventAgenda,
+                },
+                work_week: {
+                  event: Event
                 },
                 toolbar: Toolbar,
                 eventWrapper: EventWrapper,
@@ -141,12 +180,12 @@ class CalendarResource {
     ReactDOM.render(<DnD localizer={localizer} />, document.body);
 }
 
-// overriding 'views' props
+// overriding 'views' props, with custom day view
 {
-    interface DayProps {
-        random: string;
+    interface DayComponentProps {
+        date: stringOrDate;
     }
-    class DayComponent extends React.Component<DayProps> {
+    class DayComponent extends React.Component<DayComponentProps> {
         static title() {
             return 'title';
         }
@@ -166,7 +205,29 @@ class CalendarResource {
     />, document.body);
 }
 
-// optional 'views' prop
+// overriding 'views' props, with custom day view using ViewProps interface
+{
+    class DayComponent extends React.Component<ViewProps> {
+        static title() {
+            return 'title';
+        }
+
+        static navigate() {
+            return new Date();
+        }
+    }
+    // supplying object to 'views' prop with only some of the supported views.
+    // A view can be a boolean or implement title() and navigate()
+    ReactDOM.render(<Calendar
+                        localizer={momentLocalizer(moment)}
+                        views={{
+                            day: DayComponent,
+                            work_week: true
+                        }}
+    />, document.body);
+}
+
+// optional 'localizer' prop
 {
     ReactDOM.render(<Calendar localizer={momentLocalizer(moment)} />, document.body);
 }
@@ -193,12 +254,14 @@ class CalendarResource {
                         const slots = slotInfo.slots;
                     }}
                     onSelectEvent={event => {}}
+                    onKeyPressEvent={event => {}}
                     onSelecting={slotInfo => {
                         const start = slotInfo.start;
                         const end = slotInfo.end;
                         return true;
                     }}
                     dayLayoutAlgorithm={customLayoutAlgorithm}
+                    showAllEvents={false}
                     views={['day']}
                     toolbar={true}
                     popup={true}
@@ -206,6 +269,7 @@ class CalendarResource {
                     onShowMore={(events, date) => {
                         console.log('onShowMore fired, events: %O, date: %O', events, date);
                     }}
+                    doShowMoreDrillDown={true}
                     selectable={true}
                     step={20}
                     rtl={true}
@@ -252,6 +316,7 @@ class CalendarResource {
                         },
                         toolbar: Toolbar,
                         eventWrapper: EventWrapper,
+                        header: CustomHeader
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
@@ -299,7 +364,7 @@ function getResources(): CalendarResource[] {
     ];
 }
 
-class EventAgenda extends React.Component<any, any> {
+class EventAgenda extends React.Component<EventProps<CalendarEvent>> {
     render() {
         // const { label } = this.props;
         return (
@@ -308,6 +373,14 @@ class EventAgenda extends React.Component<any, any> {
             </div>
         );
     }
+}
+
+class CustomHeader extends React.Component<HeaderProps> {
+  render() {
+    return (
+      <div>Custom header</div>
+    );
+  }
 }
 
 const customDayPropGetter = (date: Date) => {
@@ -365,7 +438,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     );
 }
 
-class Toolbar extends React.Component<ToolbarProps> {
+class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResource>> {
     render() {
         const { date, label, view } = this.props;
         return (
@@ -398,4 +471,108 @@ class Toolbar extends React.Component<ToolbarProps> {
     const localizer = momentLocalizer(moment);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// Test Week and TimeGrid types
+class MyWorkWeek extends Week {
+    render() {
+        const { date } = this.props;
+        const range = MyWorkWeek.range(date);
+        return <TimeGrid {...this.props} range={range} eventOffset={15} />;
+    }
+}
+
+MyWorkWeek.range = date => {
+    const start = date;
+    return [start, new Date(start.setDate(start.getDate() + 1))];
+};
+
+MyWorkWeek.navigate = (date, action) => {
+    const week = 7 * 24 * 60 * 60 * 1000; // week in milliseconds
+    switch (action) {
+        case Navigate.PREVIOUS:
+            return new Date(date.valueOf() - week);
+        case Navigate.NEXT:
+            return new Date(date.valueOf() + week);
+        default:
+            return date;
+    }
+};
+
+MyWorkWeek.title = date => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+class MyWeek extends Week {
+    render() {
+        const { date } = this.props;
+        const range = MyWeek.range(date);
+        return <TimeGrid {...this.props} range={range} eventOffset={15} />;
+    }
+}
+
+MyWeek.range = date => {
+    const start = date;
+    return [start, new Date(start.setDate(start.getDate() + 1))];
+};
+
+MyWeek.navigate = (date, action) => {
+    return date;
+};
+
+MyWeek.title = date => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+// Test Day types
+class MyDay extends Day {
+    render() {
+        const { date } = this.props;
+        return date.toString();
+    }
+}
+
+// Using backgroundEvents
+{
+    ReactDOM.render(<Calendar backgroundEvents={getEvents()} localizer={momentLocalizer(moment)} />, document.body);
+}
+
+// defaultView initializer
+{
+    const localizer = dateFnsLocalizer(dateFnsConfig);
+
+    const MonthView = () => (
+        <Calendar
+            defaultView={Views.MONTH}
+            localizer={localizer}
+        />
+    );
+
+    const WeekView = () => (
+        <Calendar
+            defaultView={Views.WEEK}
+            localizer={localizer}
+        />
+    );
+
+    const WorkWeekView = () => (
+        <Calendar
+            defaultView={Views.WORK_WEEK}
+            localizer={localizer}
+        />
+    );
+
+    const DAYView = () => (
+        <Calendar
+            defaultView={Views.DAY}
+            localizer={localizer}
+        />
+    );
+
+    const AgendaView = () => (
+        <Calendar
+            defaultView={Views.AGENDA}
+            localizer={localizer}
+        />
+    );
 }

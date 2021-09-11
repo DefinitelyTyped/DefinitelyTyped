@@ -1,6 +1,3 @@
-
-/// <reference types="express-session" />
-
 import express = require('express');
 import session = require('express-session');
 import cookieParser = require('cookie-parser');

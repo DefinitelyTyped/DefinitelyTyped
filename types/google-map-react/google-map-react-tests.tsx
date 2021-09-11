@@ -1,14 +1,14 @@
 import GoogleMapReact, {
     BootstrapURLKeys, MapOptions, NESWBounds,
-    Size
+    Size,
+    fitBounds
 } from 'google-map-react';
-import { fitBounds } from 'google-map-react/utils';
 import * as React from 'react';
 
 const center = { lat: 0, lng: 0 };
 
 const key: BootstrapURLKeys = { key: 'my-google-maps-key', libraries: "places" };
-const client: BootstrapURLKeys = { client: 'my-client-identifier', v: '3.28' , language: 'en', libraries: "places", region: "PR" };
+const client: BootstrapURLKeys = { client: 'my-client-identifier', v: '3.28' , language: 'en', libraries: "places", region: "PR", id: 'custom-id' };
 const options: MapOptions = {
     zoomControl: false,
     gestureHandling: 'cooperative',

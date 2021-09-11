@@ -1,6 +1,6 @@
-// Type definitions for Forge-apis 0.7
+// Type definitions for Forge-apis 0.8
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>
+// Definitions by: Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>, Cyrille Fauvel <https://github.com/cyrillef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -60,7 +60,7 @@ export interface Credentials {
     client_id: string;
     client_secret: string;
     grant_type: string;
-    scope?: Scope;
+    scope?: Scope | undefined;
 }
 
 /**
@@ -71,7 +71,7 @@ export interface AuthToken {
     access_token: string;
     expires_in: number;
     token_type: string;
-    refresh_token?: string;
+    refresh_token?: string | undefined;
 }
 
 export class AuthClientTwoLegged {
@@ -79,206 +79,30 @@ export class AuthClientTwoLegged {
 
     authenticate(): Promise<AuthToken>;
     getCredentials(): AuthToken;
-    setCredentials(credentials: AuthToken): void;
+    setCredentials(
+        credentials: AuthToken
+    ): void;
     isAuthorized(): boolean;
 }
 
 export class AuthClientThreeLegged {
     constructor(clientId: string, clientSecret: string, redirectUri: string, scopes: Scope[], autoRefresh: boolean);
 
-    generateAuthUrl(state: string): string;
-    getToken(code: string): Promise<AuthToken>;
-    refreshToken(credentials: { refresh_token?: string }, scope?: Scope[]): Promise<AuthToken>;
+    generateAuthUrl(
+        state: string
+    ): string;
+
+    getToken(
+        code: string
+    ): Promise<AuthToken>;
+
+    refreshToken(
+        credentials: { refresh_token?: string | undefined },
+        scope?: Scope[]
+    ): Promise<AuthToken>;
 }
 
 export type AuthClient = AuthClientTwoLegged | AuthClientThreeLegged;
-
-export interface Activity {
-    Id: string;
-    Instruction: object;
-    AppPackages: string[];
-    RequiredEngineVersion: string;
-    Parameters: object;
-    AllowedChildProcesses: object[];
-    Version: number;
-    Description?: string;
-    HostApplication?: string;
-    IsPublic: boolean;
-}
-
-export interface ActivityOptional {
-    Id?: string;
-    Instruction?: object;
-    AppPackages?: string[];
-    RequiredEngineVersion?: string;
-    Parameters?: object;
-    AllowedChildProcesses?: object[];
-    Version?: number;
-    Description?: string;
-    HostApplication?: string;
-    IsPublic?: boolean;
-}
-
-export interface ActivityVersion {
-    Version?: number;
-}
-
-export class ActivitiesApi {
-    /**
-     * Creates a new Activity.
-     */
-    createActivity(activity: Activity, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Removes a specific Activity.
-     */
-    deleteActivity(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Removes the version history of the specified Activity.
-     */
-    deleteActivityHistory(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of a specific Activity.
-     */
-    getActivity(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns all old versions of a specified Activity.
-     */
-    getActivityVersions(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of all Activities.
-     */
-    getAllActivities(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Updates an Activity by specifying only the changed attributes.
-     */
-    patchActivity(
-        id: string,
-        activity: ActivityOptional,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-
-    /**
-     * Sets the Activity to the specified version.
-     */
-    setActivityVersion(
-        id: string,
-        activity: ActivityOptional,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-}
-
-export interface AppPackage {
-    id: string;
-    resource: string;
-    references: string[];
-    requiredEngineVersion: string;
-    version: number;
-    description?: string;
-    isPublic?: boolean;
-    isObjectEnabler?: boolean;
-}
-
-export interface AppPackageOptional {
-    id?: string;
-    resource?: string;
-    references?: string[];
-    requiredEngineVersion?: string;
-    version?: number;
-    description?: string;
-    isPublic?: boolean;
-    isObjectEnabler?: boolean;
-}
-
-export interface AppPackageVersion {
-    version?: number;
-}
-
-export class AppPackagesApi {
-    /**
-     * Creates an AppPackage module.
-     */
-    createAppPackage(appPackage: AppPackage, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Removes a specific AppPackage.
-     */
-    deleteAppPackage(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Removes the version history of the specified AppPackage.
-     */
-    deleteAppPackageHistory(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of all AppPackages.
-     */
-    getAllAppPackages(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of a specific AppPackage.
-     */
-    getAppPackage(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns all old versions of a specified AppPackage.
-     */
-    getAppPackageVersions(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
-     */
-    getUploadUrl(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Requests a pre-signed URL for uploading a zip file that contains the binaries for this AppPackage.
-     * Unlike the GetUploadUrl method that takes no parameters, this method allows the client to request
-     * that the pre-signed URL to be issued so that the subsequent HTTP PUT operation will require
-     * Content-Type=binary/octet-stream.
-     */
-    getUploadUrlWithRequireContentType(
-        require: boolean,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-
-    /**
-     * Updates an AppPackage by specifying only the changed attributes.
-     */
-    patchAppPackage(
-        id: string,
-        appPackage: AppPackageOptional,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-
-    /**
-     * Sets the AppPackage to the specified version.
-     */
-    setAppPackageVersion(
-        id: string,
-        appPackageVersion: AppPackageVersion,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-
-    /**
-     * Updates an AppPackage by redefining the entire Activity object.
-     */
-    updateAppPackage(
-        id: string,
-        appPackage: AppPackage,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
-    ): Promise<ApiResponse>;
-}
 
 export interface PostBucketsPayloadAllow {
     authId: string;
@@ -287,11 +111,12 @@ export interface PostBucketsPayloadAllow {
 
 export interface PostBucketsPayload {
     bucketKey: string;
-    allow?: PostBucketsPayloadAllow[];
+    allow?: PostBucketsPayloadAllow[] | undefined;
     policyKey: string;
 }
 
 export class BucketsApi {
+    constructor(apiClient?: any);
     /**
      * Use this endpoint to create a bucket. Buckets are arbitrary spaces created and owned by applications.
      * Bucket keys are globally unique across all regions, regardless of where they were created, and they
@@ -299,7 +124,7 @@ export class BucketsApi {
      */
     createBucket(
         postBuckets: PostBucketsPayload,
-        opts: { xAdsRegion?: string },
+        opts: { xAdsRegion?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -307,18 +132,26 @@ export class BucketsApi {
     /**
      * This endpoint will delete a bucket.
      */
-    deleteBucket(bucketKey: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    deleteBucket(
+        bucketKey: string,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * This endpoint will return the details of a bucket.
      */
-    getBucketDetails(bucketKey: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getBucketDetails(
+        bucketKey: string,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * This endpoint will return the buckets owned by the application. This endpoint supports pagination.
      */
     getBuckets(
-        opts: { region?: string; limit?: number; startAt?: string },
+        opts: { region?: string | undefined; limit?: number | undefined; startAt?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -326,68 +159,125 @@ export class BucketsApi {
 
 export interface JobPayloadInput {
     urn: string;
-    compressedUrn?: boolean;
-    rootFilename?: string;
+    compressedUrn?: boolean | undefined;
+    rootFilename?: string | undefined;
 }
 
 export interface JobObjOutputPayloadAdvanced {
-    exportFileStructure?: string;
-    modelGuid?: string;
-    objectIds?: string[];
+    exportFileStructure?: string | undefined;
+    modelGuid?: string | undefined;
+    objectIds?: string[] | undefined;
 }
 
 export interface JobPayloadItem {
     type: string;
-    views?: string[];
-    advanced?: JobObjOutputPayloadAdvanced;
+    views?: string[] | undefined;
+    advanced?: JobObjOutputPayloadAdvanced | undefined;
 }
 
 export interface JobPayloadOutput {
     formats: JobPayloadItem[];
 }
 
+export interface JobPayloadMisc {
+    workflow?: string | undefined;
+    workflowAttributes?: object | undefined;
+}
+
 export interface JobPayload {
     input: JobPayloadInput;
     output: JobPayloadOutput;
+    misc?: JobPayloadMisc | undefined;
 }
 
 export class CommandsApi {
+    constructor(apiClient?: any);
     /**
      * Checks if a user has permission to perform specified actions on specified resources.
      */
-    checkPermission(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    checkPermission(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Retrieves the custom relationships between specified versions of items and other resources in the data domain service
      */
-    listRefs(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    listRefs(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Retrieves metadata for up to 50 specified items. For example, an item name, or the date it was created. It returns the tip (latest) version of the items.
      */
-    listItems(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    listItems(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Creates folders in BIM 360 Docs.
      */
-    createFolder(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    createFolder(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Publishes the latest version of a Collaboration for Revit (C4R) model to BIM 360 Docs.
      */
-    publishModel(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    publishModel(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Verifies whether a Collaboration for Revit (C4R) model needs to be published to BIM 360 Docs.
      */
-    getPublishModelJob(projectId: string, body: CommandsBodyObject, opts: object, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getPublishModelJob(
+        projectId: string,
+        body: CommandsBodyObject,
+        opts: object,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+}
+
+export namespace DerivativesApi {
+    enum RegionEnum {
+        US = 'US',
+        EMEA = 'EMEA',
+        EU = 'EMEA'
+    }
 }
 
 export class DerivativesApi {
+    constructor(apiClient?: any, region?: string);
+
     /**
      * Deletes the manifest and all its translated output files (derivatives). However, it does not delete the design source file.
      */
-    deleteManifest(urn: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    deleteManifest(
+        urn: string,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Downloads a selected derivative. To download the file, you need to specify the file’s URN, which you retrieve by calling the GET {urn}/manifest endpoint.
@@ -398,7 +288,18 @@ export class DerivativesApi {
     getDerivativeManifest(
         urn: string,
         derivativeUrn: string,
-        opts: { range?: number },
+        opts: { range?: number | undefined, acceptEncoding?: string | undefined},
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
+
+    /**
+     * Returns information about the specified derivative.
+     */
+    getDerivativeManifestInfo(
+        urn: string,
+        derivativeUrn: string,
+        opts: any,
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -409,7 +310,7 @@ export class DerivativesApi {
      * Formats table for more details about supported translations. Note that we are constantly adding new file formats to the list of Forge translations.
      */
     getFormats(
-        opts: { ifModifiedSince?: Date; acceptEncoding?: string },
+        opts: { ifModifiedSince?: Date | undefined; acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -424,7 +325,7 @@ export class DerivativesApi {
      */
     getManifest(
         urn: string,
-        opts: { acceptEncoding?: string },
+        opts: { acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -438,7 +339,7 @@ export class DerivativesApi {
      */
     getMetadata(
         urn: string,
-        opts: { acceptEncoding?: string },
+        opts: { acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -453,7 +354,7 @@ export class DerivativesApi {
     getModelviewMetadata(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string },
+        opts: { acceptEncoding?: string | undefined, xAdsForce?: boolean | undefined, forceget?: boolean | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -468,7 +369,7 @@ export class DerivativesApi {
     getModelviewProperties(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string },
+        opts: { acceptEncoding?: string | undefined, xAdsForce?: boolean | undefined, forceget?: boolean | undefined, objectid?: number | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -478,7 +379,19 @@ export class DerivativesApi {
      */
     getThumbnail(
         urn: string,
-        opts: { width?: number; height?: number },
+        opts: { width?: number | undefined; height?: number | undefined },
+        oauth2Client: AuthClient,
+        credentials: AuthToken,
+    ): Promise<ApiResponse>;
+
+    /**
+     * To create references for a composite design in Model Derivative. The description of references is stored in
+     * Model Derivative. To use it with the POST job endpoint, you need to set checkReferences to true.
+     */
+    setReferences(
+        urn: string,
+        body: any,
+        opts: any,
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -490,22 +403,10 @@ export class DerivativesApi {
      */
     translate(
         job: JobPayload,
-        opts: { xAdsForce?: boolean },
+        opts: { xAdsForce?: boolean | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
-}
-
-export class EnginesApi {
-    /**
-     * Returns the details of all available AutoCAD core engines.
-     */
-    getAllEngines(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
-
-    /**
-     * Returns the details of a specific AutoCAD core engine.
-     */
-    getEngine(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
 }
 
 export interface JsonApiVersionJsonapi {
@@ -520,13 +421,13 @@ export interface BaseAttributesExtensionObject {
     type: string;
     version: string;
     schema: JsonApiLink;
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface CreateFolderDataAttributesExtension {
     type: string;
     version: string;
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface CreateFolderDataAttributes {
@@ -549,19 +450,19 @@ export interface CreateFolderDataRelationships {
 
 export interface CreateFolderData {
     type: string;
-    attributes?: CreateFolderDataAttributes;
-    relationships?: CreateFolderDataRelationships;
+    attributes?: CreateFolderDataAttributes | undefined;
+    relationships?: CreateFolderDataRelationships | undefined;
 }
 
 export interface CreateFolder {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateFolderData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateFolderData | undefined;
 }
 
 export interface CreateRefDataMetaExtension {
     type: string;
     version: string;
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface CreateRefDataMeta {
@@ -571,18 +472,18 @@ export interface CreateRefDataMeta {
 export interface CreateRefData {
     type: string;
     id: string;
-    meta?: CreateRefDataMeta;
+    meta?: CreateRefDataMeta | undefined;
 }
 
 export interface CreateRef {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateRefData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateRefData | undefined;
 }
 
 export interface CommandsAttributesExtensionObject {
     type: string;
     version: string;
-    data?: object;
+    data?: object | undefined;
 }
 
 export interface CommandsAttributesObject {
@@ -600,7 +501,7 @@ export interface CommandsRelationshipsObject {
 export interface CommandsBodyObject {
     jsonapi: JsonApiVersionJsonapi;
     data: CommandsBodyObjectData;
-    included?: object;
+    included?: object | undefined;
 }
 
 export interface CommandsBodyObjectData {
@@ -610,6 +511,7 @@ export interface CommandsBodyObjectData {
 }
 
 export class FoldersApi {
+    constructor(apiClient?: any);
     /**
      * Returns the folder by ID for any folder within a given project. All folders or sub-folders within a project
      * are associated with their own unique ID, including the root folder.
@@ -628,11 +530,11 @@ export class FoldersApi {
         projectId: string,
         folderId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterExtensionType?: string[];
-            pageNumber?: number;
-            pageLimit?: number;
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterExtensionType?: string[] | undefined;
+            pageNumber?: number | undefined;
+            pageLimit?: number | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -657,9 +559,9 @@ export class FoldersApi {
         projectId: string,
         folderId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterExtensionType?: string[];
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterExtensionType?: string[] | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -673,11 +575,11 @@ export class FoldersApi {
         projectId: string,
         folderId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterRefType?: string[];
-            filterDirection?: string;
-            filterExtensionType?: string[];
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterRefType?: string[] | undefined;
+            filterDirection?: string | undefined;
+            filterExtensionType?: string[] | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -706,16 +608,21 @@ export class FoldersApi {
 }
 
 export class HubsApi {
+    constructor(apiClient?: any);
     /**
      * Returns data on a specific `hub_id`.
      */
-    getHub(hubId: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getHub(
+        hubId: string,
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 
     /**
      * Returns a collection of accessible hubs for this member. A Hub represents an A360 Team/Personal hub or a BIM 360 account.
      */
     getHubs(
-        opts: { filterId?: string[]; filterExtensionType?: string[] },
+        opts: { filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -723,7 +630,7 @@ export class HubsApi {
 
 export interface CreateStorageDataAttributes {
     name: string;
-    extension?: BaseAttributesExtensionObject;
+    extension?: BaseAttributesExtensionObject | undefined;
 }
 
 export interface CreateItemDataRelationshipsTipData {
@@ -732,7 +639,7 @@ export interface CreateItemDataRelationshipsTipData {
 }
 
 export interface CreateItemDataRelationshipsTip {
-    data?: CreateItemDataRelationshipsTipData;
+    data?: CreateItemDataRelationshipsTipData | undefined;
 }
 
 export interface StorageRelationshipsTargetData {
@@ -741,18 +648,18 @@ export interface StorageRelationshipsTargetData {
 }
 
 export interface CreateStorageDataRelationshipsTarget {
-    data?: StorageRelationshipsTargetData;
+    data?: StorageRelationshipsTargetData | undefined;
 }
 
 export interface CreateItemDataRelationships {
-    tip?: CreateItemDataRelationshipsTip;
-    parent?: CreateStorageDataRelationshipsTarget;
+    tip?: CreateItemDataRelationshipsTip | undefined;
+    parent?: CreateStorageDataRelationshipsTarget | undefined;
 }
 
 export interface CreateItemData {
     type: string;
-    attributes?: CreateStorageDataAttributes;
-    relationships?: CreateItemDataRelationships;
+    attributes?: CreateStorageDataAttributes | undefined;
+    relationships?: CreateItemDataRelationships | undefined;
 }
 
 export interface CreateItemRelationshipsStorageData {
@@ -761,27 +668,28 @@ export interface CreateItemRelationshipsStorageData {
 }
 
 export interface CreateItemRelationshipsStorage {
-    data?: CreateItemRelationshipsStorageData;
+    data?: CreateItemRelationshipsStorageData | undefined;
 }
 
 export interface CreateItemRelationships {
-    storage?: CreateItemRelationshipsStorage;
+    storage?: CreateItemRelationshipsStorage | undefined;
 }
 
 export interface CreateItemIncluded {
     type: string;
     id: string;
-    attributes?: CreateStorageDataAttributes;
-    relationships?: CreateItemRelationships;
+    attributes?: CreateStorageDataAttributes | undefined;
+    relationships?: CreateItemRelationships | undefined;
 }
 
 export interface CreateItem {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateItemData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateItemData | undefined;
     included: CreateItemIncluded[];
 }
 
 export class ItemsApi {
+    constructor(apiClient?: any);
     /**
      * Returns a resource item by ID for any item within a given project. Resource items represent word documents, fusion design files, drawings, spreadsheets, etc.
      */
@@ -804,7 +712,7 @@ export class ItemsApi {
     getItemRefs(
         projectId: string,
         itemId: string,
-        opts: { filterType?: string[]; filterId?: string[]; filterExtensionType?: string[] },
+        opts: { filterType?: string[] | undefined; filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -817,11 +725,11 @@ export class ItemsApi {
         projectId: string,
         itemId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterRefType?: string;
-            filterDirection?: string;
-            filterExtensionType?: string[];
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterRefType?: string | undefined;
+            filterDirection?: string | undefined;
+            filterExtensionType?: string[] | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -844,12 +752,12 @@ export class ItemsApi {
         projectId: string,
         itemId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterExtensionType?: string[];
-            filterVersionNumber?: number[];
-            pageNumber?: number;
-            pageLimit?: number;
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterExtensionType?: string[] | undefined;
+            filterVersionNumber?: number[] | undefined;
+            pageNumber?: number | undefined;
+            pageLimit?: number | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -882,6 +790,7 @@ export interface PostBucketsSigned {
 }
 
 export class ObjectsApi {
+    constructor(apiClient?: any);
     /**
      * Copies an object to another object name in the same bucket.
      */
@@ -902,7 +811,7 @@ export class ObjectsApi {
         bucketKey: string,
         objectName: string,
         postBucketsSigned: PostBucketsSigned,
-        opts: { access?: string },
+        opts: { access?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -922,9 +831,7 @@ export class ObjectsApi {
      */
     deleteSignedResource(
         id: string,
-        region: string,
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
+        region: string
     ): Promise<ApiResponse>;
 
     /**
@@ -933,7 +840,7 @@ export class ObjectsApi {
     getObject(
         bucketKey: string,
         objectName: string,
-        opts: { range?: string; ifNoneMatch?: string; ifModifiedSince?: Date; acceptEncoding?: string },
+        opts: { range?: string | undefined; ifNoneMatch?: string | undefined; ifModifiedSince?: Date | undefined; acceptEncoding?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -944,7 +851,7 @@ export class ObjectsApi {
     getObjectDetails(
         bucketKey: string,
         objectName: string,
-        opts: { ifModifiedSince?: Date; _with?: string },
+        opts: { ifModifiedSince?: Date | undefined; _with?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -954,7 +861,7 @@ export class ObjectsApi {
      */
     getObjects(
         bucketKey: string,
-        opts: { limit?: number; beginsWith?: string; startAt?: string },
+        opts: { limit?: number | undefined; beginsWith?: string | undefined; startAt?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -965,14 +872,12 @@ export class ObjectsApi {
     getSignedResource(
         id: string,
         opts: {
-            range?: string;
-            ifNoneMatch?: string;
-            ifModifiedSince?: string;
-            acceptEncoding?: string;
-            region?: string;
-        },
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
+            range?: string | undefined;
+            ifNoneMatch?: string | undefined;
+            ifModifiedSince?: string | undefined;
+            acceptEncoding?: string | undefined;
+            region?: string | undefined;
+        }
     ): Promise<ApiResponse>;
 
     /**
@@ -996,7 +901,7 @@ export class ObjectsApi {
         contentRange: string,
         sessionId: string,
         body: string | Buffer,
-        opts: { contentDisposition?: string; ifMatch?: string },
+        opts: { contentDisposition?: string | undefined; ifMatch?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -1010,7 +915,7 @@ export class ObjectsApi {
         objectName: string,
         contentLength: number,
         body: string | Buffer,
-        opts: { contentDisposition?: string; ifMatch?: string },
+        opts: { contentDisposition?: string | undefined; ifMatch?: string | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -1023,9 +928,7 @@ export class ObjectsApi {
         id: string,
         contentLength: number,
         body: string | Buffer,
-        opts: { contentDisposition?: string; xAdsRegion?: string; ifMatch?: string },
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
+        opts: { contentDisposition?: string | undefined; xAdsRegion?: string | undefined; ifMatch?: string | undefined }
     ): Promise<ApiResponse>;
 
     /**
@@ -1033,31 +936,30 @@ export class ObjectsApi {
      */
     uploadSignedResourcesChunk(
         id: string,
-        contentLength: number,
+        contentRange: number,
         sessionId: string,
         body: string | Buffer,
-        opts: { contentDisposition?: string; ifMatch?: string },
-        oauth2Client: AuthClient,
-        credentials: AuthToken,
+        opts: { contentDisposition?: string | undefined; xAdsRegion?: string | undefined; ifMatch?: string | undefined }
     ): Promise<ApiResponse>;
 }
 
 export interface CreateStorageDataRelationships {
-    target?: CreateStorageDataRelationshipsTarget;
+    target?: CreateStorageDataRelationshipsTarget | undefined;
 }
 
 export interface CreateStorageData {
     type: string;
-    attributes?: CreateStorageDataAttributes;
-    relationships?: CreateStorageDataRelationships;
+    attributes?: CreateStorageDataAttributes | undefined;
+    relationships?: CreateStorageDataRelationships | undefined;
 }
 
 export interface CreateStorage {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateStorageData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateStorageData | undefined;
 }
 
 export class ProjectsApi {
+    constructor(apiClient?: any);
     /**
      * Returns a collection of projects for a given `hub_id`. A project represents an A360 project or a BIM 360 project which
      * is set up under an A360 hub or BIM 360 account, respectively. Within a hub or an account, multiple projects can be
@@ -1065,7 +967,7 @@ export class ProjectsApi {
      */
     getHubProjects(
         hubId: string,
-        opts: { filterId?: string[]; filterExtensionType?: string[] },
+        opts: { filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -1112,10 +1014,14 @@ export class ProjectsApi {
 }
 
 export class UserProfileApi {
+    constructor(apiClient?: any);
     /**
      * Returns the profile information of an authorizing end user.
      */
-    getUserProfile(oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    getUserProfile(
+        oauth2Client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 }
 
 export interface CreateVersionDataRelationshipsItemData {
@@ -1124,26 +1030,27 @@ export interface CreateVersionDataRelationshipsItemData {
 }
 
 export interface CreateVersionDataRelationshipsItem {
-    data?: CreateVersionDataRelationshipsItemData;
+    data?: CreateVersionDataRelationshipsItemData | undefined;
 }
 
 export interface CreateVersionDataRelationships {
-    item?: CreateVersionDataRelationshipsItem;
-    storage?: CreateItemRelationshipsStorage;
+    item?: CreateVersionDataRelationshipsItem | undefined;
+    storage?: CreateItemRelationshipsStorage | undefined;
 }
 
 export interface CreateVersionData {
     type: string;
-    attributes?: CreateStorageDataAttributes;
-    relationships?: CreateVersionDataRelationships;
+    attributes?: CreateStorageDataAttributes | undefined;
+    relationships?: CreateVersionDataRelationships | undefined;
 }
 
 export interface CreateVersion {
-    jsonapi?: JsonApiVersionJsonapi;
-    data?: CreateVersionData;
+    jsonapi?: JsonApiVersionJsonapi | undefined;
+    data?: CreateVersionData | undefined;
 }
 
 export class VersionsApi {
+    constructor(apiClient?: any);
     /**
      * Returns the version with the given `version_id`.
      */
@@ -1172,7 +1079,7 @@ export class VersionsApi {
     getVersionRefs(
         projectId: string,
         versionId: string,
-        opts: { filterType?: string[]; filterId?: string[]; filterExtensionType?: string[] },
+        opts: { filterType?: string[] | undefined; filterId?: string[] | undefined; filterExtensionType?: string[] | undefined },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -1185,11 +1092,11 @@ export class VersionsApi {
         projectId: string,
         versionId: string,
         opts: {
-            filterType?: string[];
-            filterId?: string[];
-            filterRefType?: string[];
-            filterDirection?: string;
-            filterExtensionType?: string[];
+            filterType?: string[] | undefined;
+            filterId?: string[] | undefined;
+            filterRefType?: string[] | undefined;
+            filterDirection?: string | undefined;
+            filterExtensionType?: string[] | undefined;
         },
         oauth2Client: AuthClient,
         credentials: AuthToken,
@@ -1217,35 +1124,164 @@ export class VersionsApi {
     ): Promise<ApiResponse>;
 }
 
-export interface WorkItem {
-    Id: string;
-    Arguments: object;
-    Status?: string;
-    StatusDetail?: object;
-    AvailabilityZone?: string;
-    ActivityId: string;
-    Version?: number;
-    Timestamp?: string;
+export namespace WebhooksApi {
+    enum RegionEnum {
+        US = 'US',
+        EMEA = 'EMEA',
+        EU = 'EMEA'
+    }
+
+    enum StatusEnum {
+        Active = 'active',
+        Inactive = 'inactive',
+    }
+
+    enum WebhooksSystemEnum {
+        derivative = 'derivative',
+        data = 'data',
+        c4r = 'adsk.c4r'
+    }
+
+    enum WebhookEventEnum {
+        // Data Management
+        VersionAdded = 'dm.version.added',
+        VersionModified = 'dm.version.modified',
+        VersionDeleted = 'dm.version.deleted',
+        VersionMoved = 'dm.version.moved',
+        VersionCopied = 'dm.version.copied',
+        FolderAdded = 'dm.folder.added',
+        FolderModified = 'dm.folder.modified',
+        FolderDeleted = 'dm.folder.deleted',
+        FolderMoved = 'dm.folder.moved',
+        FolderCopied = 'dm.folder.copied',
+
+        // Model Derivatives
+        ExtractionFinished = 'extraction.finished',
+        ExtractionUpdated = 'extraction.updated',
+
+        // Revit Cloud Worksharing
+        ModelSync = 'model.sync',
+        ModelPublish = 'model.publish',
+
+        // Fusion Lifecycle
+        ItemClone = 'item.clone',
+        ItemCreate = 'item.create',
+        ItemLock = 'item.lock',
+        ItemRelease = 'item.release',
+        ItemUnlock = 'item.unlock',
+        ItemUpdate = 'item.update',
+        WorkflowTransition = 'workflow.transition'
+    }
+
+    interface HooksOptions {
+        acceptEncoding?: string | undefined;
+        xAdsRegion?: RegionEnum | undefined;
+        status?: StatusEnum | undefined;
+        pageState?: string | undefined;
+        scopeName?: string | undefined;
+        scopeValue?: string | undefined;
+        hookAttribute?: any;
+        tenant?: string | undefined;
+        filter?: string | undefined;
+        hubId: string;
+        projectId?: string | undefined;
+    }
 }
 
-export class WorkItemsApi {
-    /**
-     * Creates a new WorkItem.
-     */
-    createWorkItem(workItem: WorkItem, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+export class WebhooksApi {
+    constructor(apiClient?: any, region?: WebhooksApi.RegionEnum);
 
-    /**
-     * Removes a specific WorkItem.
-     */
-    deleteWorkItem(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    GetHooks(
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    GetSystemHooks(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    GetSystemEventsHooks(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    GetHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        hookId: string,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    CreateSystemHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        callbackUrl: string,
+        scope: any,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    CreateSystemEventHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        callbackUrl: string,
+        scope: any,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    UpdateSystemEventHook(
+        webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        hookId: string,
+        payload: string,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    DeleteHook(webhooksSystem: WebhooksApi.WebhooksSystemEnum,
+        eventType: WebhooksApi.WebhookEventEnum,
+        hookId: string,
+        opts: WebhooksApi.HooksOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+}
 
-    /**
-     * Returns the details of all WorkItems.
-     */
-    getAllWorkItems(skip: number, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+export namespace TokensApi {
+    enum RegionEnum {
+        US = 'US',
+        EMEA = 'EMEA',
+        EU = 'EMEA'
+    }
 
-    /**
-     * Returns the details of a specific WorkItem.
-     */
-    getWorkItem(id: string, oauth2Client: AuthClient, credentials: AuthToken): Promise<ApiResponse>;
+    interface TokensOptions {
+        xAdsRegion?: RegionEnum | undefined;
+    }
+}
+
+export class TokensApi {
+    constructor(apiClient?: any, region?: WebhooksApi.RegionEnum);
+
+    CreateToken(
+        token: string,
+        opts: TokensApi.TokensOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    UpdateToken(
+        token: string,
+        opts: TokensApi.TokensOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
+    DeleteToken(
+        opts: TokensApi.TokensOptions,
+        oauth2client: AuthClient,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
 }
