@@ -22,10 +22,8 @@ const config: Configuration = {
         }),
         new CompressionPlugin({
             filename: pathData => {
-                pathData.file; // $ExpectType string
-                pathData.path; // $ExpectType string
-                pathData.query; // $ExpectType string
-                return `${pathData.path}.gz${pathData.query}`;
+                pathData.filename; // $ExpectType string
+                return `${pathData.filename}.gz`;
             },
             deleteOriginalAssets: 'keep-source-map',
         }),

@@ -1,4 +1,4 @@
-// Type definitions for compression-webpack-plugin 6.0
+// Type definitions for compression-webpack-plugin 9.0
 // Project: https://github.com/webpack-contrib/compression-webpack-plugin
 // Definitions by: Anton Kandybo <https://github.com/dublicator>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -22,7 +22,7 @@ declare class CompressionPlugin<O = any> implements WebpackPluginInstance {
 
 declare namespace CompressionPlugin {
     type AlgorithmCallback = (error: Error | null, result: Uint8Array) => void;
-    type Algorithm<O> = (source: string, options: O, callback: AlgorithmCallback) => void;
+    type Algorithm<O> = (input: string, compressionOptions: O, callback: AlgorithmCallback) => void;
 
     // NOTE: These are the async compression algorithms on the zlib object.
     type ZlibAlgorithm = 'deflate' | 'deflateRaw' | 'gzip' | 'brotliCompress';
@@ -35,11 +35,7 @@ declare namespace CompressionPlugin {
 
     interface FileInfo {
         /** original asset filename */
-        file: string;
-        /** path of the original asset */
-        path: string;
-        /** query */
-        query: string;
+        filename: string;
     }
 
     type FilenameFunction = (pathData: FileInfo) => string;
