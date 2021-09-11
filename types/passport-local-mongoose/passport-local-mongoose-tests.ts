@@ -122,7 +122,7 @@ type _User = User;
 
 declare global {
     namespace Express {
-        // tslint:disable-next-line
+        // tslint:disable-next-line:no-padding no-empty-interface
         interface User extends _User {}
     }
 }
@@ -133,7 +133,7 @@ passport.deserializeUser(UserModel.deserializeUser());
 let router: Router = Router();
 
 router.post('/login', passport.authenticate('local'), function(req: Request, res: Response) {
-    console.log(req.user?.username);
+    req.user?.username; // $ExpectType string | undefined
     res.redirect('/');
 });
 //#endregion
