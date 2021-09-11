@@ -1,8 +1,13 @@
 import { Index, Document } from 'flexsearch';
 
-import { INDEX_EN_DATA, INDEX_JA_DATA, INDEX_REPLACE_EN_DATA, DOCUMENT_DATA, DOCUMENT_REPLACE_DATA } from './data';
-
-import type { ITestDocument } from './data';
+import {
+    INDEX_EN_DATA,
+    INDEX_JA_DATA,
+    INDEX_REPLACE_EN_DATA,
+    DOCUMENT_DATA,
+    DOCUMENT_REPLACE_DATA,
+    TestDocument,
+} from './data';
 
 // 1. Index search
 
@@ -53,13 +58,14 @@ const indexForAsyncTest = new Index({
 // Document:
 // * https://github.com/nextapps-de/flexsearch#async
 // * https://github.com/nextapps-de/flexsearch#append-contents
-INDEX_EN_DATA.map((x, id) => indexForAsyncTest.addAsync(id, x)),
-    INDEX_JA_DATA.map((x, id) => indexForAsyncTest.appendAsync(id, x)),
-    // 1.2.2 Search items
-    // Document:
-    // * https://github.com/nextapps-de/flexsearch#async
-    indexForSyncTest.searchAsync('no'),
-    indexForSyncTest.searchAsync('no', 1);
+INDEX_EN_DATA.map((x, id) => indexForAsyncTest.addAsync(id, x));
+INDEX_JA_DATA.map((x, id) => indexForAsyncTest.appendAsync(id, x));
+
+// 1.2.2 Search items
+// Document:
+// * https://github.com/nextapps-de/flexsearch#async
+indexForSyncTest.searchAsync('no');
+indexForSyncTest.searchAsync('no', 1);
 
 // 1.2.3 Update and remove
 // Document:
@@ -81,7 +87,7 @@ const documentForSyncTest = new Document(
             index: ['title', 'performer'],
         },
     },
-    {} as unknown as ITestDocument,
+    {} as unknown as TestDocument,
 );
 
 // 2.1.2 Add, update or remove data

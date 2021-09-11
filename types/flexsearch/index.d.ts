@@ -7,6 +7,7 @@
 /* Utils                            */
 /************************************/
 export type Id = number | string;
+export type Limit = number;
 export type ExportHandler<T> = (id: string | number, value: T) => void;
 export type AsyncCallback = () => void;
 export type UnknownFunction = (...x: unknown[]) => unknown;
@@ -22,14 +23,14 @@ export type EnrichStoreOption = true | string | string[];
  * **Document:**
  * * Presets: https://github.com/nextapps-de/flexsearch#presets
  */
-type Preset = "memory" | "performance" | "match" | "score" | "default";
+export type Preset = "memory" | "performance" | "match" | "score" | "default";
 
 /**
  * **Document:**
  * * Tokenizer: https://github.com/nextapps-de/flexsearch#tokenizer-prefix-search
  * * Add custom tokenizer: https://github.com/nextapps-de/flexsearch#add-custom-tokenizer
  */
-type Tokenizer =
+export type Tokenizer =
    | "strict"
    | "forward"
    | "reverse"
@@ -40,7 +41,7 @@ type Tokenizer =
  * **Document:**
  * * Encoders: https://github.com/nextapps-de/flexsearch#encoders
  */
-type Encoders =
+export type Encoders =
    | false
    | "default"
    | "simple"
@@ -53,7 +54,7 @@ type Encoders =
  * **Document:**
  * * Contextual search: https://github.com/nextapps-de/flexsearch#contextual
  */
-export interface IContextOptions {
+export interface ContextOptions {
    resolution: number;
    depth: false | number;
    bidirectional: boolean;
@@ -63,7 +64,7 @@ export interface IContextOptions {
  * **Document:**
  * * Search options: https://github.com/nextapps-de/flexsearch#search-options
  */
-export interface ISearchOptions {
+export interface SearchOptions {
    limit?: number;
    offset?: number;
    suggest?: boolean;
@@ -73,16 +74,16 @@ export interface ISearchOptions {
  * **Document:**
  * * The document descriptor: https://github.com/nextapps-de/flexsearch#the-document-descriptor
  */
-export interface IDescriptor<T, Store extends StoreOption = false> {
+export interface Descriptor<T, Store extends StoreOption = false> {
    id: string | number;
-   field: string[] | IIndexOptions<T, Store>[];
+   field: string[] | Array<IndexOptions<T, Store>>;
 }
 
 /**
  * **Document:**
  * * Context Options: https://github.com/nextapps-de/flexsearch#context-options
  */
-export interface IContextOptions {
+export interface ContextOptions {
    resolution: number;
    depth: false | number;
    bidirectional: boolean;
@@ -92,7 +93,7 @@ export interface IContextOptions {
  * **Document:**
  * * Charset options: https://github.com/nextapps-de/flexsearch#charset-options
  */
-export interface ICharsetOptions {
+export interface CharsetOptions {
    split: false | string | RegExp;
    rtl: boolean;
    encode: (x: string) => string[];
@@ -114,7 +115,7 @@ export type FilterArray = string[];
  * * Language Options: https://github.com/nextapps-de/flexsearch#language-options
  * * Language: https://github.com/nextapps-de/flexsearch#languages
  */
-export interface ILanguageOptions {
+export interface LanguageOptions {
    stemmer: false | string | Stemmer | UnknownFunction;
    filter: false | string | FilterArray | FilterFunction;
    matcher: false | string | Matcher | UnknownFunction;
@@ -132,22 +133,22 @@ export interface ILanguageOptions {
  * * Index options: https://github.com/nextapps-de/flexsearch#index-options
  * * Language: https://github.com/nextapps-de/flexsearch#languages
  */
-export interface IIndexOptions<T, Store extends StoreOption = false> {
+export interface IndexOptions<T, Store extends StoreOption = false> {
    preset?: Preset;
    tokenize?: Tokenizer;
    cache?: boolean | number;
    resolution?: number;
-   context?: boolean | IIndexOptions<T, Store> | IContextOptions;
+   context?: boolean | IndexOptions<T, Store> | ContextOptions;
    optimize?: boolean;
    boost?: (words: string[], term: string, index: number) => number;
 
    // Language-specific Options and Encoding
-   charset?: ICharsetOptions | string;
-   language?: ILanguageOptions | string;
+   charset?: CharsetOptions | string;
+   language?: LanguageOptions | string;
    encode?: Encoders;
-   stemmer?: ILanguageOptions['stemmer'];
-   filter?: ILanguageOptions['filter'];
-   matcher?: ILanguageOptions['matcher'];
+   stemmer?: LanguageOptions['stemmer'];
+   filter?: LanguageOptions['filter'];
+   matcher?: LanguageOptions['matcher'];
 }
 
 /************************************/
@@ -162,23 +163,20 @@ export type IndexSearchResult = Id[];
  * * API overview: https://github.com/nextapps-de/flexsearch#api-overview
  * * Usage: https://github.com/nextapps-de/flexsearch#usage
  */
+
 export class Index {
-   constructor();
-   constructor(preset: string);
-   constructor(options: IIndexOptions<string, false>);
+   constructor(x?: Preset | IndexOptions<string>);
    add(id: Id, item: string): Index;
    append(id: Id, item: string): void;
    update(id: Id, item: string): void;
    remove(target: Id): void;
-   search(query: string): IndexSearchResult;
-   search(query: string, limit: number): IndexSearchResult;
-   search(query: string, options: ISearchOptions): IndexSearchResult;
+   search(query: string, options?: Limit | SearchOptions): IndexSearchResult;
    search(
       query: string,
       limit: number,
-      options: ISearchOptions
+      options: SearchOptions
    ): IndexSearchResult;
-   search(options: ISearchOptions): IndexSearchResult;
+   search(options: SearchOptions): IndexSearchResult;
 
    // https://github.com/nextapps-de/flexsearch#check-existence-of-already-indexed-ids
    contain(id: Id): boolean;
@@ -191,18 +189,16 @@ export class Index {
    appendAsync(id: Id, item: string, callback?: AsyncCallback): Promise<void>;
    updateAsync(id: Id, item: string, callback?: AsyncCallback): Promise<void>;
    removeAsync(target: Id, callback?: AsyncCallback): Promise<void>;
-   searchAsync(query: string): Promise<IndexSearchResult>;
-   searchAsync(query: string, limit: number): Promise<IndexSearchResult>;
    searchAsync(
       query: string,
-      options: ISearchOptions
+      options?: Limit | SearchOptions
    ): Promise<IndexSearchResult>;
    searchAsync(
       query: string,
       limit: number,
-      options: ISearchOptions
+      options: SearchOptions
    ): IndexSearchResult;
-   searchAsync(options: ISearchOptions): Promise<IndexSearchResult>;
+   searchAsync(options: SearchOptions): Promise<IndexSearchResult>;
 }
 
 /**
@@ -221,10 +217,10 @@ export class WorkerIndex extends Index { }
 * **Document:**
 * * Document options: https://github.com/nextapps-de/flexsearch#document-options
 */
-export interface IDocumentOptions<T, Store extends StoreOption = false> {
+export interface DocumentOptions<T, Store extends StoreOption = false> {
    id: string;
    tag?: false | string;
-   index: string | string[] | (IIndexOptions<T, Store> & { field: string })[];
+   index: string | string[] | Array<IndexOptions<T, Store> & { field: string }>;
    store?: Store;
 }
 
@@ -232,28 +228,28 @@ export interface IDocumentOptions<T, Store extends StoreOption = false> {
 * **Document:**
 * * Index options: https://github.com/nextapps-de/flexsearch#index-options
 */
-export interface IIndexOptionsForDocumentSearch<
+export interface IndexOptionsForDocumentSearch<
    T,
    Store extends StoreOption = false
-   > extends IIndexOptions<T, Store> {
+   > extends IndexOptions<T, Store> {
    // Additional Options for Document Indexes
    worker?: boolean;
-   document?: IDocumentOptions<T, Store> | IDescriptor<T, Store>;
+   document?: DocumentOptions<T, Store> | Descriptor<T, Store>;
 }
 
-export interface ISimpleDocumentSearchResultSetUnit {
+export interface SimpleDocumentSearchResultSetUnit {
    field: string;
    result: Id[];
 }
 
-export interface IEnrichedDocumentSearchResultSetUnitResultUnit<T> {
+export interface EnrichedDocumentSearchResultSetUnitResultUnit<T> {
    id: Id[];
    doc: T;
 }
 
-export interface IEnrichedDocumentSearchResultSetUnit<T> {
+export interface EnrichedDocumentSearchResultSetUnit<T> {
    field: string;
-   result: IEnrichedDocumentSearchResultSetUnitResultUnit<T>[];
+   result: Array<EnrichedDocumentSearchResultSetUnitResultUnit<T>>;
 }
 
 /**
@@ -270,16 +266,16 @@ export type DocumentSearchResult<
    Store extends StoreOption = false,
    Enrich extends boolean = false
    > = [Store, Enrich] extends [EnrichStoreOption, true]
-   ? IEnrichedDocumentSearchResultSetUnit<T>[]
-   : ISimpleDocumentSearchResultSetUnit[];
+   ? Array<EnrichedDocumentSearchResultSetUnit<T>>
+   : SimpleDocumentSearchResultSetUnit[];
 
 /**
  * **Document:**
  * * Document search options: https://github.com/nextapps-de/flexsearch#document-search-options
  */
-export interface IDocumentSearchOptions<T extends boolean>
-   extends ISearchOptions {
-   index?: string | string[] | ISearchOptions[];
+export interface DocumentSearchOptions<T extends boolean>
+   extends SearchOptions {
+   index?: string | string[] | SearchOptions[];
    tag?: string | string[];
    enrich?: T;
    bool?: "and" | "or";
@@ -293,29 +289,29 @@ export interface IDocumentSearchOptions<T extends boolean>
  */
 export class Document<T, Store extends StoreOption = false> {
    constructor(
-      options: IIndexOptionsForDocumentSearch<T, Store>,
+      options: IndexOptionsForDocumentSearch<T, Store>,
       typeHack?: T
    );
    add(id: Id, document: T): Document<T, Store>;
    append(id: Id, document: T): void;
    update(id: Id, document: T): void;
    remove(target: Id | T): void;
-   search(query: string, limit?: number): ISimpleDocumentSearchResultSetUnit[];
+   search(query: string, limit?: number): SimpleDocumentSearchResultSetUnit[];
 
    // https://github.com/nextapps-de/flexsearch#field-search
-   search(query: string, fields: string[]): ISimpleDocumentSearchResultSetUnit[];
+   search(query: string, fields: string[]): SimpleDocumentSearchResultSetUnit[];
 
    search<Enrich extends boolean = false>(
       query: string,
       limit?: number,
-      options?: Partial<IDocumentSearchOptions<Enrich>>
+      options?: Partial<DocumentSearchOptions<Enrich>>
    ): DocumentSearchResult<T, Store, Enrich>;
-   search<Enrich extends boolean = false>(
+   search(
       query: string,
-      options: Partial<IDocumentSearchOptions<Enrich>>
+      options: Partial<DocumentSearchOptions<boolean>>
    ): void;
-   search<Enrich extends boolean = false>(
-      options: Partial<IDocumentSearchOptions<Enrich>>
+   search(
+      options: Partial<DocumentSearchOptions<boolean>>
    ): void;
    export(handler: ExportHandler<T>): Promise<void>;
    import(id: Id, document: T): Promise<void>;
@@ -329,14 +325,14 @@ export class Document<T, Store extends StoreOption = false> {
       query: string,
       limit?: number,
       callback?: AsyncCallback
-   ): Promise<ISimpleDocumentSearchResultSetUnit[]>;
+   ): Promise<SimpleDocumentSearchResultSetUnit[]>;
    searchAsync<Enrich extends boolean = false>(
       query: string,
-      options?: Partial<IDocumentSearchOptions<Enrich>>,
+      options?: Partial<DocumentSearchOptions<Enrich>>,
       callback?: AsyncCallback
    ): Promise<DocumentSearchResult<T, Store, Enrich>>;
    searchAsync<Enrich extends boolean = false>(
-      options: Partial<IDocumentSearchOptions<Enrich>>,
+      options: Partial<DocumentSearchOptions<Enrich>>,
       callback?: AsyncCallback
    ): Promise<DocumentSearchResult<T, Store, Enrich>>;
 }
@@ -344,9 +340,9 @@ export class Document<T, Store extends StoreOption = false> {
 /************************************/
 /* Miscellaneous                    */
 /************************************/
-export function create(options: IIndexOptions<string, false>): Index;
-export function registerCharset(name: string, charset: ICharsetOptions): void;
+export function create(options: IndexOptions<string>): Index;
+export function registerCharset(name: string, charset: CharsetOptions): void;
 export function registerLanguage(
    name: string,
-   language: ILanguageOptions
+   language: LanguageOptions
 ): void;

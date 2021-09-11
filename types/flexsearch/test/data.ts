@@ -33,13 +33,13 @@ export const INDEX_JA_DATA = [
 
 export const INDEX_REPLACE_JA_DATA = 'ドラえもん音頭';
 
-export interface ITestDocument {
+export interface TestDocument {
     id: number;
     title: string;
     performer: string;
 }
 
-export const DOCUMENT_DATA: ITestDocument[] = [
+export const DOCUMENT_DATA: TestDocument[] = [
     {
         id: 0,
         title: 'Aoi Sora wa Poketto sa',
