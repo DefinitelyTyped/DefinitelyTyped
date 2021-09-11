@@ -15,7 +15,6 @@ import * as el from '../';
 /**
  * Identity function, f(x) = x.
  *
- * @memberOf el
  * @function in
  *
  * @param {core.KeyProps} [props]
@@ -45,7 +44,6 @@ declare const identity:
  * whereupon the channel prop will be used to decide which
  * incoming signal channel will be passed forward.
  *
- * @memberOf el
  * @function in
  *
  * @param {core.InProps} [props]
@@ -68,7 +66,6 @@ declare const input:
 /**
  * Either the identity or the input function.
  *
- * @memberOf el
  * @function in
  *
  * @param {core.KeyProps | core.InProps} [props]

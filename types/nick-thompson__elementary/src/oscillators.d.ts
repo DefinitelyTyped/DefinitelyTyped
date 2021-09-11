@@ -14,7 +14,6 @@ import * as el from '../';
  *
  * Expects exactly one argument, providing the rate in Hz.
  *
- * @memberOf el
  * @function phasor
  *
  * @param {core.KeyProps?} props
@@ -47,7 +46,6 @@ export declare const phasor:
  *
  * Expects exactly one argument, providing the rate in Hz.
  *
- * @memberOf el
  * @function train
  *
  * @param {core.KeyProps?} props
@@ -77,7 +75,6 @@ export declare const train:
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @memberOf el
  * @function cycle
  *
  * @param {core.KeyProps?} props
@@ -110,7 +107,6 @@ export declare const cycle:
  * Typically, due to the aliasing of the naive sawtooth at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @memberOf el
  * @function saw
  *
  * @param {core.KeyProps?} props
@@ -143,7 +139,6 @@ export declare const saw:
  * Typically, due to the aliasing of the naive square at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @memberOf el
  * @function square
  *
  * @param {core.KeyProps?} props
@@ -176,7 +171,6 @@ export declare const square:
  * Typically, due to the aliasing of the naive square at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @memberOf el
  * @function triangle
  *
  * @param {core.KeyProps?} props
@@ -206,7 +200,6 @@ export declare const triangle:
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @memberOf el
  * @function blepsaw
  *
  * @param {core.KeyProps?} props
@@ -236,7 +229,6 @@ export declare const blepsaw:
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @memberOf el
  * @function blepsquare
  *
  * @param {core.KeyProps?} props
@@ -276,7 +268,6 @@ export declare const blepsquare:
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @memberOf el
  * @function bleptriangle
  *
  * @param {core.KeyProps?} props

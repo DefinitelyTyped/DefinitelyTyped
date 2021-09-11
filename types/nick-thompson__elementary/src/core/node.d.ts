@@ -16,9 +16,6 @@ import { core } from './';
 /**
  * The fundamental building block of the Elementary audio graph.
  *
- * @memberOf core
- * @interface Node
- *
  * @see core
  */
 export declare interface Node
@@ -26,11 +23,6 @@ export declare interface Node
     /**
      * Do not use this! It is only here to differentiate {@link Node} and
      * {@link Props} types.
-     *
-     * @private
-     * @readonly
-     *
-     * @member {unknown} '$$typeof'
      *
      * @see Node
      * @see Props
@@ -40,11 +32,6 @@ export declare interface Node
 
 /**
  * Native node specific to the {@link NativeNodeType}.
- *
- * @memberOf core
- * @template T
- * @interface NativeNode
- * @extends Node
  *
  * @see core
  * @see Node
@@ -56,11 +43,6 @@ export declare interface NativeNode<T extends NativeNodeType =
 
 /**
  * Native node specific to the {@link NativeNodeType}, props, and children.
- *
- * @memberOf core
- * @template T, P, C
- * @interface CompositeNode
- * @extends Node
  *
  * @see core
  * @see Node
@@ -74,19 +56,6 @@ export declare interface CompositeNode<T extends CompositeNodeType =
  * The node for the given {@link NodeType}, props and children.
  * If a {@link NativeNodeType} is passed props and children must match
  * the nodes' props and children types.
- *
- * @memberOf core
- * @template T, P, C
- * @interface ConcreteNode
- *
- * @property {NodeType} _type
- * type of {@link Node}
- *
- * @property {NodeProps<T>} _props
- * {@link Node} props
- *
- * @property {NodeChildren<T>} _children
- * {@link Node} children
  *
  * @see core
  * @see Node
@@ -180,14 +149,6 @@ export declare type SeqNode = NativeNode<'seq'>;
  * Returns a factory for the appropriate {@link NodeType}, props and children.
  * Most Elementary function types are created this way.
  *
- * @memberOf core
- * @template T, P, C
- *
- * @typedef {
- *   ((props: P, ...children: C) => ConcreteNode<T, P, C>) &
- *   ((...children: C) => ConcreteNode<T, P, C>)
- * }
- *
  * @see core
  * @see Node
  * @see NodeType
@@ -204,10 +165,6 @@ export declare type NodeFactory<T extends NodeType = NodeType,
 
 /**
  * Constructs a {@link Node} of the given {@link NodeType}.
- *
- * @memberOf core
- * @template T
- * @class Node NodeConstructor
  *
  * @param {T} type
  * {@link NodeType} of the {@link Node} to create
@@ -243,10 +200,6 @@ export declare interface NodeConstructor
 /**
  * Static members of {@link Node}.
  *
- * @memberOf core
- * @interface NodeStatic
- * @extends NodeConstructor
- *
  * @property {(toCheck: any) => toCheck is Node} isNode
  * function for type checking {@link Node}s.
  *
@@ -258,8 +211,6 @@ export declare interface NodeStatic extends NodeConstructor
 {
     /**
      * Checks whether an object is a {@link Node}
-     *
-     * @function
      *
      * @param {any} toCheck
      * object to check whether it is a {@link Node}

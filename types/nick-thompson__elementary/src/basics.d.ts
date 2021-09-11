@@ -21,7 +21,6 @@ import * as el from '../';
  * @example
  *     el.inputs() === [el.in({channel: 0}), el.in({channel: 1})]
  *
- * @memberOf el
  * @function inputs
  *
  * @returns {core.InNode[]}
@@ -43,7 +42,6 @@ export declare const inputs: () => core.InNode[];
  *     el.cycle(440)
  *     el.cycle(el.const({value: 440}))
  *
- * @memberOf el
  * @function const
  *
  * @param {core.ConstProps} [props]
@@ -70,7 +68,6 @@ export { _const as const };
 /**
  * A constant value node whose value is the current sample rate of the system.
  *
- * @memberOf el
  * @function sr
  *
  * @param {core.KeyProps} [props]
@@ -97,7 +94,6 @@ export declare const sr:
  * When the pulse is low, the counter will reset and output 0 until the
  * pulse is high again.
  *
- * @memberOf el
  * @function counter
  *
  * @param {core.KeyProps} [props]
@@ -128,9 +124,6 @@ export declare const counter:
  * where t is the time to decay 60dB.
  * Computes lazily.
  *
- * @memberOf el
- * @function
- *
  * @param {core.Node} child
  * {@link core.Node} to compute the real pole position of
  *
@@ -147,9 +140,6 @@ export declare function tau2pole(
  * Computes a real pole position giving exponential decay over t,
  * where t is the time to decay 60dB.
  * Computes eagerly.
- *
- * @memberOf el
- * @function tau2pole
  *
  * @param {number} time
  * time to compute the real pole position of
@@ -168,9 +158,6 @@ export declare function tau2pole(
  * where time is the input time in milliseconds.
  * Computes lazily.
  *
- * @memberOf el
- * @function ms2samps
- *
  * @param {core.Node} child
  * {@link core.Node} to compute the sample count of
  *
@@ -187,9 +174,6 @@ export declare function ms2samps(
  * Equivalent to (time / 1000) * sampleRate,
  * where time is the input time in milliseconds.
  * Computes eagerly.
- *
- * @memberOf el
- * @function ms2samps
  *
  * @param {number} time
  * time to convert to sample count
@@ -212,7 +196,6 @@ export declare function ms2samps(
  * For values of the signal between (0, 1), performs a linear interpolation
  * between high and low.
  *
- * @memberOf el
  * @function select
  *
  * @param {core.KeyProps} [props]

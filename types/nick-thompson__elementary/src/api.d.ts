@@ -23,8 +23,6 @@ import * as el from '../';
  *
  *     export { core };
  *
- * @namespace Elementary
- *
  * @see el
  */
 import ElementaryNamespace = _Elementary;
@@ -48,9 +46,6 @@ import ElementaryNamespace = _Elementary;
  *     core.on('load', () => render(core, el));
  *
  *     export { core };
- *
- * @memberOf el
- * @typedef {typeof ElementaryNamespace}
  *
  * @see el
  * @see ElementaryNamespace

@@ -15,7 +15,6 @@ import * as el from '../';
  * Generates a stream of random numbers
  * uniformly distributed on the range [0, 1].
  *
- * @memberOf el
  * @function rand
  *
  * @param {core.KeyProps} [props]

@@ -31,10 +31,6 @@ import * as el from '../../';
  *
  *     export { core };
  *
- * @memberOf el
- * @interface Core
- * @extends EventEmitter
- *
  * @property {(event: 'load', doThis: () => void) => this} on
  * load event after which it is safe to call other functions
  *
@@ -74,9 +70,6 @@ export declare interface Core extends EventEmitter
      * The load event fires when the runtime has finished preparing the audio
      * rendering thread and is ready to handle render calls.
      *
-     * @public
-     * @function on
-     *
      * @param {'load'} event
      * event name
      *
@@ -91,9 +84,6 @@ export declare interface Core extends EventEmitter
      * The midi event fires any time the runtime receives a MIDI event from
      * any connected and enabled device. By default, the runtime will be
      * listening to any such device, which may yield frequent MIDI events.
-     *
-     * @public
-     * @function on
      *
      * @param {'midi'} event
      * event name
@@ -112,9 +102,6 @@ export declare interface Core extends EventEmitter
      * 'tick' event will fire just after the runtime has finished applying
      * any queued changes at the end of a given quantization interval.
      *
-     * @public
-     * @function on
-     *
      * @param {'tick'} event
      * event name
      *
@@ -131,9 +118,6 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @public
-     * @function getSampleRate
-     *
      * @returns {number} sample rate
      *
      * @see Core
@@ -144,9 +128,6 @@ export declare interface Core extends EventEmitter
      * Returns the audio device block size.
      *
      * Will throw an error if called before the load event has fired.
-     *
-     * @public
-     * @function getBlockSize
      *
      * @returns {number} block size
      *
@@ -159,9 +140,6 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @public
-     * @function getNumInputChannels
-     *
      * @returns {number} input channel count
      *
      * @see Core
@@ -172,9 +150,6 @@ export declare interface Core extends EventEmitter
      * Returns the number of output channels with which the audio device was opened.
      *
      * Will throw an error if called before the load event has fired.
-     *
-     * @public
-     * @function getNumOutputChannels
      *
      * @returns {number} output channel count
      *
@@ -187,9 +162,6 @@ export declare interface Core extends EventEmitter
      * or -1 if no quantization was enabled.
      *
      * Will throw an error if called before the load event has fired.
-     *
-     * @public
-     * @function getQuantizationInterval
      *
      * @returns {number} quantization interval
      *
@@ -210,9 +182,6 @@ export declare interface Core extends EventEmitter
      * @example
      *     core.render(first, second);
      *
-     * @public
-     * @function render
-     *
      * @param {...Child} children
      * {@link Child}ren to render in channels
      *
@@ -226,11 +195,6 @@ export declare interface Core extends EventEmitter
     /**
      * Object containing methods for creating and
      * checking the type of {@link Node}s.
-     *
-     * @public
-     * @readonly
-     *
-     * @member {NodeStatic} Node
      *
      * @see Core
      * @see Node

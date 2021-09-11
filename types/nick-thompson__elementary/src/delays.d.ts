@@ -11,7 +11,6 @@ import * as el from '../';
 /**
  * A very simple single-sample delay {@link core.Node} (z^-1).
  *
- * @memberOf el
  * @function z
  *
  * @param {core.KeyProps} [props]
@@ -52,7 +51,6 @@ export declare const z:
  *       feedback,
  *       signal));
  *
- * @memberOf el
  * @function delay
  *
  * @param {core.DelayProps} [props]

@@ -10,11 +10,8 @@ import { core } from './';
  * By default, Elementary listens to all MIDI events from all available MIDI
  * devices.
  *
- * @memberOf core
- * @interface MidiEventBase
- *
  * @property {string} type
- * type of MIDI Event which can be 'noteOn', 'noteOff', or 'controller' for now
+ * type of MIDI Event
  *
  * @property {string} source
  * source of the MIDI event like a keyboard, control surface or even a
@@ -29,18 +26,26 @@ import { core } from './';
  */
 export declare interface MidiEventBase
 {
+    /**
+     * Type of MIDI Event.
+     */
     type: string;
+
+    /**
+     * Source of the MIDI event like a keyboard, control surface or even a
+     * virtual MIDI device.
+     */
     source: string;
+
+    /**
+     * The raw MIDI payload used for further deserialization.
+     */
     bytes: string;
 }
 
 
 /**
  * Base type for MIDI note events.
- *
- * @memberOf core
- * @interface MidiNoteEvent
- * @extends MidiEventBase
  *
  * @property {number} noteFrequency
  * frequency of the note being played which doesn't have to match the
@@ -63,17 +68,29 @@ export declare interface MidiEventBase
  */
 export declare interface MidiNoteEventBase extends MidiEventBase
 {
+    /**
+     * Frequency of the note being played which doesn't have to match the
+     * 'noteName' and 'noteNumber' properties to express motions like
+     * portamento and vibrato.
+     * - please refer to http://midi.teragonaudio.com/tutr/notenum.htm
+     */
     noteFrequency: number;
+
+    /**
+     * Name of the note being played.
+     * - please refer to http://midi.teragonaudio.com/tutr/notenum.htm
+     */
     noteName: string;
+
+    /**
+     * Number of the note being played.
+     * - please refer to http://midi.teragonaudio.com/tutr/notenum.htm
+     */
     noteNumber: number;
 }
 
 /**
  * A stricter type for 'noteOn' MIDI event types.
- *
- * @memberOf core
- * @interface MidiNoteOnEvent
- * @extends MidiNoteEventBase
  *
  * @property {'noteOn'} type
  * since this is a 'noteOn' event it can only be a 'noteOn' value
@@ -83,15 +100,14 @@ export declare interface MidiNoteEventBase extends MidiEventBase
  */
 export declare interface MidiNoteOnEvent extends MidiNoteEventBase
 {
+    /**
+     * Since this is a 'noteOn' event it can only be a 'noteOn' value.
+     */
     type: 'noteOn';
 }
 
 /**
  * A stricter type for 'noteOff' MIDI event types.
- *
- * @memberOf core
- * @interface MidiNoteOffEvent
- * @extends MidiNoteEventBase
  *
  * @property {'noteOff'} type
  * since this is a 'noteOff' event it can only be a 'noteOff' value
@@ -101,6 +117,9 @@ export declare interface MidiNoteOnEvent extends MidiNoteEventBase
  */
 export declare interface MidiNoteOffEvent extends MidiNoteEventBase
 {
+    /**
+     * Since this is a 'noteOff' event it can only be a 'noteOff' value.
+     */
     type: 'noteOff';
 }
 
@@ -108,10 +127,6 @@ export declare interface MidiNoteOffEvent extends MidiNoteEventBase
  * A stricter type for MIDI note events.
  * Unlike the base type, this one does not allow for types of note events
  * other than 'noteOn' and 'noteOff'.
- *
- * @memberOf core
- *
- * @typedef {MidiNoteOnEvent | MidiNoteOffEvent}
  *
  * @see core
  * @see MidiNoteOnEvent
@@ -125,10 +140,6 @@ export declare type MidiNoteEvent =
 
 /**
  * Base type for MIDI controller events usually emitted by control surfaces.
- *
- * @memberOf core
- * @interface MidiControllerEvent
- * @extends MidiEventBase
  *
  * @property {'controller'} type
  * since this is a 'controller' event the only possible value of this field
@@ -149,9 +160,26 @@ export declare type MidiNoteEvent =
  */
 export declare interface MidiControllerEvent extends MidiEventBase
 {
+    /**
+     * Since this is a 'controller' event the only possible value of this field
+     * is 'controller'.
+     */
     type: 'controller',
+
+    /**
+     * One of the 16 available MIDI channels where each one represents a
+     * separate 'instrument'.
+     */
     channel: number,
+
+    /**
+     * The property of the channel to target; volume, pan and such.
+     */
     target: number,
+
+    /**
+     * The value of the target property.
+     */
     value: number
 }
 
@@ -160,10 +188,6 @@ export declare interface MidiControllerEvent extends MidiEventBase
  * @todo document more
  *
  * More information is needed to document this type of event.
- *
- * @memberOf core
- * @interface MidiProgramChangeEvent
- * @extends MidiEventBase
  *
  * @see core
  * @see MidiEventBase
@@ -178,10 +202,6 @@ export declare interface MidiProgramChangeEvent extends MidiEventBase
  *
  * More information is needed to document this type of event.
  *
- * @memberOf core
- * @interface MidiPitchWheelEvent
- * @extends MidiEventBase
- *
  * @see core
  * @see MidiEventBase
  */
@@ -194,10 +214,6 @@ export declare interface MidiPitchWheelEvent extends MidiEventBase
  * @todo document more
  *
  * More information is needed to document this type of event.
- *
- * @memberOf core
- * @interface MidiAftertouchEvent
- * @extends MidiEventBase
  *
  * @see core
  * @see MidiEventBase
@@ -212,10 +228,6 @@ export declare interface MidiAftertouchEvent extends MidiEventBase
  *
  * More information is needed to document this type of event.
  *
- * @memberOf core
- * @interface MidiChannelPressureEvent
- * @extends MidiEventBase
- *
  * @see core
  * @see MidiEventBase
  */
@@ -228,10 +240,6 @@ export declare interface MidiChannelPressureEvent extends MidiEventBase
  * @todo document more
  *
  * More information is needed to document this type of event.
- *
- * @memberOf core
- * @interface MidiAllNotesOffEvent
- * @extends MidiEventBase
  *
  * @see core
  * @see MidiEventBase
@@ -246,10 +254,6 @@ export declare interface MidiAllNotesOffEvent extends MidiEventBase
  *
  * More information is needed to document this type of event.
  *
- * @memberOf core
- * @interface MidiAllSoundOffEvent
- * @extends MidiEventBase
- *
  * @see core
  * @see MidiEventBase
  */
@@ -263,10 +267,6 @@ export declare interface MidiAllSoundOffEvent extends MidiEventBase
  *
  * More information is needed to document this type of event.
  *
- * @memberOf core
- * @interface MidiMetaEventEvent
- * @extends MidiEventBase
- *
  * @see core
  * @see MidiEventBase
  */
@@ -276,14 +276,8 @@ export declare interface MidiMetaEventEvent extends MidiEventBase
 
 
 /**
- * @todo confirm this is it
- *
  * Raw MIDI event that is emitted when Elementary does not know which type
  * of event is appropriate for the given MIDI message.
- *
- * @memberOf core
- * @interface MidiRawEvent
- * @extends MidiEventBase
  *
  * @property {'raw'} type
  * the type can only be 'raw' for this type of event
@@ -293,6 +287,9 @@ export declare interface MidiMetaEventEvent extends MidiEventBase
  */
 export declare interface MidiRawEvent extends MidiEventBase
 {
+    /**
+     * The type can only be 'raw' for this type of event.
+     */
     type: 'raw';
 }
 
@@ -301,21 +298,6 @@ export declare interface MidiRawEvent extends MidiEventBase
  * A stricter type for MIDI events.
  * The base type is a lot looser and does not allow for fields that are
  * specific to certain types.
- *
- * @memberOf core
- * @typedef {(
- *   MidiNoteOnEvent |
- *   MidiNoteOffEvent |
- *   MidiControllerEvent
- *   MidiProgramChangeEvent |
- *   MidiPitchWheelEvent |
- *   MidiAftertouchEvent |
- *   MidiChannelPressureEvent |
- *   MidiAllNotesOffEvent |
- *   MidiAllSoundOffEvent |
- *   MidiMetaEventEvent |
- *   MidiRawEvent
- * )}
  *
  * @see core
  * @see MidiNoteOnEvent

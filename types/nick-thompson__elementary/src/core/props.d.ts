@@ -5,6 +5,8 @@ import { Child } from './children';
 // for docs
 // noinspection ES6UnusedImports
 import { core } from './';
+// noinspection ES6UnusedImports
+import * as el from '../../';
 
 
 // Base
@@ -15,9 +17,6 @@ import { core } from './';
  * Unlike {@link KeyProps}, this type allows for any prop value with a
  * string key.
  * Useful in some situations.
- *
- * @memberOf core
- * @interface Props
  *
  * @see core
  * @see KeyProps
@@ -33,9 +32,6 @@ export declare interface Props
  * Key determines whether props changed or the whole node changed upon
  * re-render.
  *
- * @memberOf core
- * @interface KeyProps
- *
  * @property {string?} [key = '']
  * key of the node being created
  *
@@ -44,6 +40,9 @@ export declare interface Props
  */
 export declare interface KeyProps
 {
+    /**
+     * Key of the node being created.
+     */
     key?: string;
 }
 
@@ -53,36 +52,42 @@ export declare interface KeyProps
 /**
  * Props for el.in.
  *
- * @memberOf core
- * @interface InProps
- * @extends KeyProps
- *
  * @property {number} [channel = 0]
  * input channel of the el.in node
  *
  * @see core
+ * @see el.in
  * @see KeyProps
  */
 export declare interface InProps extends KeyProps
 {
+    /**
+     * Input channel of the el.in node.
+     *
+     * @see InProps
+     * @see el.in
+     */
     channel?: number;
 }
 
 /**
  * Props for el.const.
  *
- * @memberOf core
- * @interface ConstProps
- * @extends KeyProps
- *
  * @property {number} [value = 0]
  * value of the el.const node
  *
  * @see core
+ * @see el.const
  * @see KeyProps
  */
 export declare interface ConstProps extends KeyProps
 {
+    /**
+     * Value of the el.const node.
+     *
+     * @see ConstProps
+     * @see el.const
+     */
     value: number;
 }
 
@@ -94,10 +99,6 @@ export declare interface ConstProps extends KeyProps
  *
  * Size determines the delay time.
  *
- * @memberOf core
- * @interface DelayProps
- * @extends KeyProps
- *
  * @property {number} [size = 0]
  * maximum delay line in samples
  *
@@ -106,6 +107,12 @@ export declare interface ConstProps extends KeyProps
  */
 export declare interface DelayProps extends KeyProps
 {
+    /**
+     * Maximum delay line in samples.
+     *
+     * @see el.delay
+     * @see DelayProps
+     */
     size?: number;
 }
 
@@ -115,10 +122,6 @@ export declare interface DelayProps extends KeyProps
 /**
  * Props for el.convolve.
  *
- * @memberOf core
- * @interface ConvolveProps
- * @extends KeyProps
- *
  * @property {string} [path = '']
  * path to the file of the impulse response on disk
  *
@@ -127,6 +130,12 @@ export declare interface DelayProps extends KeyProps
  */
 export declare interface ConvolveProps extends KeyProps
 {
+    /**
+     * Path to the file of the impulse response on disk.
+     *
+     * @see ConvolveProps
+     * @see el.convolve
+     */
     path?: string;
 }
 
@@ -135,10 +144,6 @@ export declare interface ConvolveProps extends KeyProps
 
 /**
  * Props for el.sample.
- *
- * @memberOf core
- * @interface SampleProps
- * @extends KeyProps
  *
  * @property {string=0} [path = '']
  * path to the file of the sample
@@ -165,10 +170,50 @@ export declare interface ConvolveProps extends KeyProps
  */
 export declare interface SampleProps extends KeyProps
 {
+    /**
+     * Path to the file of the sample.
+     *
+     * @see SampleProps
+     * @see el.sample
+     */
     path?: string,
+
+    /**
+     * Nodes can output only one channel so you have to select the channel
+     * to read from the sample.
+     *
+     * @see SampleProps
+     * @see el.sample
+     */
     channel?: number,
+
+    /**
+     * - trigger: plays the sample once fully on a rising edge of the pulse
+     *   train
+     * - gate: resumes playing the sample on a rising edge and pauses on a
+     *   falling edge of the pulse train until the end of the sample
+     * - loop: same as gate but it doesn't stop at the end of the sample,
+     *   instead it continues playing it back from the start in a loop
+     *
+     * @see SampleProps
+     * @see el.sample
+     */
     mode?: 'trigger' | 'gate' | 'loop',
+
+    /**
+     * Offset in samples from the start of the sample where playback starts.
+     *
+     * @see SampleProps
+     * @see el.sample
+     */
     startOffset?: number,
+
+    /**
+     * Offset in samples from the end of the sample where playback ends.
+     *
+     * @see SampleProps
+     * @see el.sample
+     */
     stopOffset?: number
 }
 
@@ -176,10 +221,6 @@ export declare interface SampleProps extends KeyProps
 /**
  * Props for el.table.
  * Properties 'path' and 'data' are mutually exclusive.
- *
- * @memberOf core
- * @interface TableProps
- * @extends KeyProps
  *
  * @property {string} [path = '']
  * the location of the sample file on disk
@@ -212,9 +253,6 @@ export declare type TableProps =
 /**
  * Props for el.seq
  *
- * @interface SeqProps
- * @extends KeyProps
- *
  * @property {Array<number>} [seq = []]
  * sequence of values to generate
  *
@@ -229,8 +267,28 @@ export declare type TableProps =
  */
 export declare interface SeqProps extends KeyProps
 {
+    /**
+     * Sequence of values to generate.
+     *
+     * @see SeqProps
+     * @see el.seq
+     */
     seq?: Array<number>,
+
+    /**
+     * When true, continues to output the sequence value until the next trigger.
+     *
+     * @see SeqProps
+     * @see el.seq
+     */
     hold?: boolean,
+
+    /**
+     * When true, sequence repeats, looping from start to end, indefinitely.
+     *
+     * @see SeqProps
+     * @see el.seq
+     */
     loop?: boolean
 }
 
@@ -239,22 +297,6 @@ export declare interface SeqProps extends KeyProps
 
 /**
  * Type of props of any given {@link NodeType}.
- *
- * @memberOf core
- * @template T
- *
- * @typedef {
- *   {
- *       in: InProps | KeyProps,
- *       const: ConstProps,
- *       delay: DelayProps,
- *       convolve: ConvolveProps,
- *       sample: SampleProps,
- *       table: TableProps,
- *       seq: SeqProps,
- *       [other: string]: KeyProps
- *   }[T]
- * }
  *
  * @see core
  * @see NativeNodeType
@@ -282,11 +324,6 @@ export declare type NativeNodeProps<T extends NativeNodeType> =
 /**
  * Type of props of any given {@link CompositeNodeType}.
  *
- * @template T
- * @memberOf core
- *
- * @typedef {Props}
- *
  * @see core
  * @see Props
  */
@@ -299,14 +336,6 @@ export declare type CompositeNodeProps<T extends CompositeNodeType> =
 
 /**
  * Type of props of any {@link NodeType}.
- *
- * @memberOf core
- * @template T
- *
- * @typedef {
- *   T extends NativeNodeType ? NativeNodeProps<T> :
- *   CompositeNodeProps;
- * }
  *
  * @see core
  * @see NodeType

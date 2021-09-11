@@ -17,7 +17,6 @@ import * as el from '../';
 /**
  * Computes the sine of the operand.
  *
- * @memberOf el
  * @function sin
  *
  * @param {core.KeyProps} [props]
@@ -45,7 +44,6 @@ export declare const sin:
 /**
  * Computes the cosine of the operand.
  *
- * @memberOf el
  * @function cos
  *
  * @param {core.KeyProps} [props]
@@ -73,7 +71,6 @@ export declare const cos:
 /**
  * Computes the tangent of the operand.
  *
- * @memberOf el
  * @function tan
  *
  * @param {core.KeyProps} [props]
@@ -101,7 +98,6 @@ export declare const tan:
 /**
  * Computes the hyperbolic tangent of the operand.
  *
- * @memberOf el
  * @function tanh
  *
  * @param {core.KeyProps} [props]
@@ -129,7 +125,6 @@ export declare const tanh:
 /**
  * Computes the inverse hyperbolic sine of the operand.
  *
- * @memberOf el
  * @function asinh
  *
  * @param {core.KeyProps} [props]
@@ -158,7 +153,6 @@ export declare const asinh:
 /**
  * Computes the natural logarithm of the operand.
  *
- * @memberOf el
  * @function ln
  *
  * @param {core.KeyProps} [props]
@@ -188,7 +182,6 @@ export declare const ln:
 /**
  * Computes the logarithm in base 10 of the operand.
  *
- * @memberOf el
  * @function log
  *
  * @param {core.KeyProps} [props]
@@ -216,7 +209,6 @@ export declare const log:
 /**
  * Computes the logarithm in base 2 of the operand.
  *
- * @memberOf el
  * @function log2
  *
  * @param {core.KeyProps} [props]
@@ -244,7 +236,6 @@ export declare const log2:
 /**
  * Computes the ceiling of the operand.
  *
- * @memberOf el
  * @function ceil
  *
  * @param {core.KeyProps} [props]
@@ -272,7 +263,6 @@ export declare const ceil:
 /**
  * Computes the floor of the operand.
  *
- * @memberOf el
  * @function floor
  *
  * @param {core.KeyProps} [props]
@@ -300,7 +290,6 @@ export declare const floor:
 /**
  * Computes the square root of the operand.
  *
- * @memberOf el
  * @function sqrt
  *
  * @param {core.KeyProps} [props]
@@ -330,7 +319,6 @@ export declare const sqrt:
 /**
  * Computes the exponential in base 10 of the operand.
  *
- * @memberOf el
  * @function exp
  *
  * @param {core.KeyProps} [props]
@@ -358,7 +346,6 @@ export declare const exp:
 /**
  * Computes the absolute number of the operand.
  *
- * @memberOf el
  * @function abs
  *
  * @param {core.KeyProps} [props]
@@ -388,7 +375,6 @@ export declare const abs:
 /**
  * Computes whether the first is lesser than the second.
  *
- * @memberOf el
  * @function le
  *
  * @param {core.KeyProps} [props]
@@ -421,7 +407,6 @@ export declare const le:
 /**
  * Computes whether the first is lesser or equal than the second.
  *
- * @memberOf el
  * @function leq
  *
  * @param {core.KeyProps} [props]
@@ -454,7 +439,6 @@ export declare const leq:
 /**
  * Computes whether the first is greater than the second.
  *
- * @memberOf el
  * @function ge
  *
  * @param {core.KeyProps} [props]
@@ -487,7 +471,6 @@ export declare const ge:
 /**
  * Computes whether the first is greater or equal than the second.
  *
- * @memberOf el
  * @function geq
  *
  * @param {core.KeyProps} [props]
@@ -520,7 +503,6 @@ export declare const geq:
 /**
  * Computes the power of the first with with the second as the exponent.
  *
- * @memberOf el
  * @function pow
  *
  * @param {core.KeyProps} [props]
@@ -553,7 +535,6 @@ export declare const pow:
 /**
  * Computes the modulo of the first with the second.
  *
- * @memberOf el
  * @function mod
  *
  * @param {core.KeyProps} [props]
@@ -585,7 +566,6 @@ export declare const mod:
 /**
  * Returns the result of the minimal operand.
  *
- * @memberOf el
  * @function min
  *
  * @param {core.KeyProps} [props]
@@ -617,7 +597,6 @@ export declare const min:
 /**
  * Returns the result of the maximal operand.
  *
- * @memberOf el
  * @function max
  *
  * @param {core.KeyProps} [props]
@@ -655,7 +634,6 @@ export declare const max:
  * Expects at least one operand.
  * If only one is passed it behaves as the identity function.
  *
- * @memberOf el
  * @function add
  *
  * @param {core.KeyProps} [props]
@@ -687,7 +665,6 @@ export declare const add:
  * Expects at least one operand.
  * If only one is passed it behaves as the identity function.
  *
- * @memberOf el
  * @function sub
  *
  * @param {core.VariadicChildrenArray} operands
@@ -716,7 +693,6 @@ export declare const sub:
  * Expects at least one operand.
  * If only one is passed it as the identity function.
  *
- * @memberOf el
  * @function mul
  *
  * @param {core.KeyProps} [props]
@@ -748,7 +724,6 @@ export declare const mul:
  * Expects at least one operand.
  * If only one is passed it behaves as the identity function.
  *
- * @memberOf el
  * @function div
  *
  * @param {core.KeyProps} [props]

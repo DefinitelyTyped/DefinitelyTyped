@@ -25,7 +25,6 @@ import * as el from '../';
  *
  * Expects exactly one argument, the pulse train to trigger playback.
  *
- * @memberOf el
  * @function sample
  *
  * @param {core.SampleProps?} props
@@ -78,7 +77,6 @@ export declare const sample:
  *      {path: '/path/to/padSound.wav'},
  *      el.add(0.1, el.mul(0.1, el.phasor(1))));
  *
- * @memberOf el
  * @function table
  *
  * @param {TableProps?} props

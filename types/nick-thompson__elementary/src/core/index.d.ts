@@ -14,9 +14,6 @@ import * as el from '../../';
  * Examples of such are {@link Node}s, {@link Props}, {@link Children},
  * {@link MidiEvent}s and more.
  *
- * @memberOf el
- * @namespace core
- *
  * @see el
  * @see Node
  * @see Props

@@ -19,7 +19,6 @@ import * as el from '../';
  * 1. The control signal
  * 2. The input signal to sample.
  *
- * @memberOf el
  * @function latch
  *
  * @param {core.KeyProps?} props
@@ -59,7 +58,6 @@ export declare const latch:
  * another control signal (pulse train) whose rising edge will
  * reset the sequence position back to the beginning.
  *
- * @memberOf el
  * @function seq
  *
  * @param {core.SeqProps?} props
@@ -103,7 +101,6 @@ export declare const seq:
  * 1 (number or signal) 4. Release time in seconds (number or signal) 5.
  * Gate signal; a pulse train alternating between 0 and 1.
  *
- * @memberOf el
  * @function adsr
  *
  * @param {core.KeyProps?} props
@@ -152,7 +149,6 @@ export declare const adsr:
  *
  * Expects exactly one child, the incoming phase.
  *
- * @memberOf el
  * @function hann
  *
  * @param {core.KeyProps?} props

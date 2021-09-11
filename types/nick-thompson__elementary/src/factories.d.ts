@@ -14,7 +14,6 @@ import * as el from '../';
  *
  * Users may also construct `core.Node` instances manually.
  *
- * @memberOf el
  * @template T
  * @function createNode
  *
@@ -53,7 +52,6 @@ export declare const
  * A convenience wrapper for defining factory functions around
  * {@link createNode}.
  *
- * @memberOf el
  * @template T
  * @function createNodeFactory
  *

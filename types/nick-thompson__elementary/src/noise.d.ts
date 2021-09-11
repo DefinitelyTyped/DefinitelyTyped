@@ -12,7 +12,6 @@ import * as el from '../';
  * A simple white noise generator.
  * Generates values uniformly distributed on the range [-1, 1].
  *
- * @memberOf el
  * @function noise
  *
  * @param {core.KeyProps?} props
@@ -36,7 +35,6 @@ export declare const noise:
  * A simple pink noise generator.
  * Generates noise with a -3dB/octave rolloff in the frequency response.
  *
- * @memberOf el
  * @function pinknoise
  *
  * @param {core.KeyProps?} props

@@ -14,7 +14,6 @@ import * as el from '../';
  * Expects two children, the first is the pole position,
  * the second is the signal to filter.
  *
- * @memberOf el
  * @function pole
  *
  * @param {core.KeyProps} [props]
@@ -48,7 +47,6 @@ export declare const pole:
  * Expects six children, the first five of which are the raw filter
  * coefficients (b0, b1, b2, a1, a2). The final input is the signal to filter.
  *
- * @memberOf el
  * @function biquad
  *
  * @param {core.KeyProps} [props]
@@ -97,7 +95,6 @@ export declare const biquad:
  * A convolution node which reads an impulse response from disk and
  * convolves it with the input signal.
  *
- * @memberOf el
  * @function convolve
  *
  * @param {core.ConvolveProps} [props]
@@ -131,7 +128,6 @@ export declare const convolve:
  * the zero position b1 as the second argument,
  * and the input to the filter as the third.
  *
- * @memberOf el
  * @function zero
  *
  * @param {core.KeyProps} [props]
@@ -168,7 +164,6 @@ export declare const zero:
  * Implements a default DC blocking filter with a pole at 0.995 and a zero at 1.
  * This filter has a -3dB point near 35Hz at 44.1kHz.
  *
- * @memberOf el
  * @function dcblock
  *
  * @param {core.KeyProps} [props]
@@ -196,7 +191,6 @@ export declare const dcblock:
 /**
  * A simple first order pole-zero filter, Direct Form 1.
  *
- * @memberOf el
  * @function df11
  *
  * @param {core.KeyProps} [props]
@@ -239,7 +233,6 @@ export declare const df11:
  * Expects two children, the first is the pole position,
  * the second is the signal to filter.
  *
- * @memberOf el
  * @function smooth
  *
  * @param {core.KeyProps} [props]
@@ -273,7 +266,6 @@ export declare const smooth:
  * @example
  *     el.smooth(el.tau2pole(0.02), signal)
  *
- * @memberOf el
  * @function sm
  *
  * @param {core.KeyProps} [props]
@@ -302,7 +294,6 @@ export declare const sm:
  * A simple lowpass biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
- * @memberOf el
  * @function lowpass
  *
  * @param {core.KeyProps} [props]
@@ -339,7 +330,6 @@ export declare const lowpass:
  * A simple highpass biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
- * @memberOf el
  * @function highpass
  *
  * @param {core.KeyProps} [props]
@@ -376,7 +366,6 @@ export declare const highpass:
  * A simple bandpass biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
- * @memberOf el
  * @function bandpass
  *
  * @param {core.KeyProps} [props]
@@ -413,7 +402,6 @@ export declare const bandpass:
  * An allpass biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
- * @memberOf el
  * @function allpass
  *
  * @param {core.KeyProps} [props]
@@ -450,7 +438,6 @@ export declare const allpass:
  * A notch biquad filter with a cutoff frequency, a Q,
  * and which filters the signal.
  *
- * @memberOf el
  * @function notch
  *
  * @param {core.KeyProps} [props]
@@ -487,7 +474,6 @@ export declare const notch:
  * A peaking (bell) biquad filter with a cutoff frequency, a Q,
  * gain in decibels, and which filters the signal.
  *
- * @memberOf el
  * @function peak
  *
  * @param {core.KeyProps} [props]
@@ -528,7 +514,6 @@ export declare const peak:
  * A lowshelf biquad filter with a cutoff frequency, a Q,
  * gain in decibels, and which filters the signal.
  *
- * @memberOf el
  * @function lowshelf
  *
  * @param {core.KeyProps} [props]
@@ -569,7 +554,6 @@ export declare const lowshelf:
  * A highshelf biquad filter with a cutoff frequency, a Q,
  * gain in decibels, and which filters the signal.
  *
- * @memberOf el
  * @function highshelf
  *
  * @param {core.KeyProps} [props]
@@ -610,7 +594,6 @@ export declare const highshelf:
  * A pink noise filter designed to apply a -3dB/octave lowpass to the
  * incoming signal.
  *
- * @memberOf el
  * @function pink
  *
  * @param {core.KeyProps} [props]
