@@ -18,7 +18,7 @@ interface ReactNativeBcrypt {
      *  is seeded properly!
      * @param random Function taking the number of bytes to generate as its
      *  sole argument, returning the corresponding array of cryptographically secure random byte values.
-     * @see http://nodejs.org/api/crypto.html
+     * @see https://nodejs.org/api/crypto.html
      * @see http://www.w3.org/TR/WebCryptoAPI/
      */
     setRandomFallback(random?: (number: number) => number[]): void;

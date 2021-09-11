@@ -9,6 +9,8 @@ declare const stream: MediaStream;
         initiator: location.hash === "#1",
         trickle: false,
         stream,
+        iceCompleteTimeout: 500,
+        allowHalfTrickle: false
     });
 
     p.on("error", err => console.log("error", err));

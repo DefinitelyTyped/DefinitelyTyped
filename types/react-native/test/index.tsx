@@ -517,6 +517,36 @@ appState = 'inactive';
 appState = 'unknown';
 appState = 'extension';
 
+const AppStateExample = () => {
+    const appState = React.useRef(AppState.currentState);
+    const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
+
+    React.useEffect(() => {
+      const subscription = AppState.addEventListener("change", nextAppState => {
+        if (
+          appState.current.match(/inactive|background/) &&
+          nextAppState === "active"
+        ) {
+          console.log("App has come to the foreground!");
+        }
+
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        console.log("AppState", appState.current);
+      });
+
+      return () => {
+        subscription.remove();
+      };
+    }, []);
+
+    return (
+      <View style={styles.container}>
+        <Text>Current state is: {appStateVisible}</Text>
+      </View>
+    );
+  };
+
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
     render() {
@@ -1196,10 +1226,6 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
-
-const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
-    console.log(isEnabled);
-});
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
