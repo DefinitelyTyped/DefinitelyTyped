@@ -121,4 +121,15 @@ configuration = {
     ],
 };
 
+{
+    // noRuntime
+    new MiniCssExtractPlugin({});
+    new MiniCssExtractPlugin({
+        noRuntime: false,
+    });
+    new MiniCssExtractPlugin({
+        noRuntime: true,
+    });
+}
+
 new MiniCssExtractPlugin().apply(new webpack.Compiler('context'));
