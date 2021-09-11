@@ -1,13 +1,7 @@
 {
-  "devDependencies": {
+  "dependencies": {
     "@types/react": "^17.0.20",
     "@warden-sk/babel-plugin": "^1.1.0"
   },
-  "name": "@types/warden-sk__babel-plugin",
-  "repository": {
-    "directory": "packages/types",
-    "type": "git",
-    "url": "https://github.com/warden-sk/design.git"
-  },
-  "version": "1.0.0"
+  "private": true
 }

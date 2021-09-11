@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "../",
     "esModuleInterop": true,
-    "module": "CommonJS",
-    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["dom", "es6"],
+    "module": "commonjs",
+    "noEmit": true,
     "strict": true,
-    "target": "ESNext"
+    "typeRoots": ["../"],
+    "types": []
   }
 }
