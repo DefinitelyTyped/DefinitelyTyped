@@ -20,7 +20,7 @@ export const testOscillators: ElementaryCallback =
         const square = el.square(10);
         expect(square).isANode();
 
-        const triangle = el.triangle({}, saw);
+        const triangle = el.triangle({}, 1);
         expect(triangle).isANode();
 
 
@@ -34,5 +34,5 @@ export const testOscillators: ElementaryCallback =
         expect(bleptriangle).isANode();
 
 
-        core.render(bleptriangle, triangle);
+        core.render(bleptriangle, saw);
     };

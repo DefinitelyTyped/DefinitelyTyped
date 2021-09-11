@@ -9,14 +9,16 @@ export const testFactories: ElementaryCallback =
         const createAdd = el.createNodeFactory('mod');
         const createAdd2 =
             el.createNodeFactory(
-                (child: el.core.Child) => el.add(child, 2));
+                (
+                    props: { a?: number },
+                    child: el.core.Node) => el.add(child, 2));
 
         let mod = el.createNode('mod', { key: 'mod' }, 1, 2);
         expect(mod).passes(isNode);
         mod = createAdd({}, 2, 3);
         expect(mod).passes(isNode);
 
-        let add2 = createAdd2(2);
+        let add2 = createAdd2({ key: 'b' }, 2);
         expect(add2).passes(isNode);
 
         core.render(mod);

@@ -1,5 +1,6 @@
 import { NativeNodeType, CompositeNodeType, NodeType } from './types';
 import { Node } from './node';
+import { Child } from './children';
 
 // for docs
 // noinspection ES6UnusedImports
@@ -292,7 +293,7 @@ export declare type NativeNodeProps<T extends NativeNodeType> =
 export declare type CompositeNodeProps<T extends CompositeNodeType> =
     Parameters<T> extends [] ? KeyProps :
     Parameters<T> extends [infer IProps, ...any] ?
-    IProps extends Props ? IProps : KeyProps :
+    IProps extends Child ? KeyProps : IProps & KeyProps :
     never;
 
 

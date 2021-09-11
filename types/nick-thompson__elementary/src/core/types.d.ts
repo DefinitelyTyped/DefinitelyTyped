@@ -2,7 +2,7 @@ import { Node } from './node';
 import { Props } from './props';
 import {
     ChildrenArray,
-    ChildrenArraySize,
+    ChildrenArraySizeRange,
     SizedChildrenArray,
 } from './children';
 
@@ -110,14 +110,14 @@ export declare type NativeNodeType =
  * @memberOf core
  * @typedef {
  *   ({
- *       [key in ChildrenArraySize]:
+ *       [key in ChildrenArraySizeRange]:
  *       (...children: SizedChildrenArray<key>) => Node
- *   }[ChildrenArraySize])
+ *   }[ChildrenArraySizeRange])
  *   |
  *   ({
- *       [key in ChildrenArraySize]:
+ *       [key in ChildrenArraySizeRange]:
  *       (props: Props, ...children: SizedChildrenArray<key>) => Node
- *   }[ChildrenArraySize])
+ *   }[ChildrenArraySizeRange])
  * }
  *
  * @see core
@@ -127,14 +127,14 @@ export declare type NativeNodeType =
  */
 export declare type CompositeNodeType =
     ({
-        [key in ChildrenArraySize]:
+        [key in ChildrenArraySizeRange]:
         (...children: SizedChildrenArray<key>) => Node
-    }[ChildrenArraySize])
+    }[ChildrenArraySizeRange])
     |
     ({
-        [key in ChildrenArraySize]:
+        [key in ChildrenArraySizeRange]:
         (props: Props, ...children: SizedChildrenArray<key>) => Node
-    }[ChildrenArraySize]);
+    }[ChildrenArraySizeRange]);
 
 /**
  * Types of {@link Node}.

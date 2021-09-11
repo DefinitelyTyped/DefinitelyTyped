@@ -1,6 +1,5 @@
 import { NativeNodeType, CompositeNodeType, NodeType } from './types';
 import { Node } from './node';
-import { Props } from './props';
 
 // for docs
 // noinspection ES6UnusedImports
@@ -35,7 +34,8 @@ export declare type Child = Node | number;
  *
  * @see core
  */
-export declare type ChildrenArraySize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export declare type ChildrenArraySizeRange =
+    0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 /**
  * A helper children array of fixed size in the range of [0, 8].
@@ -71,9 +71,9 @@ export declare type ChildrenArraySize = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
  *
  * @see core
  * @see Child
- * @see ChildrenArraySize
+ * @see ChildrenArraySizeRange
  */
-export declare type SizedChildrenArray<Size extends ChildrenArraySize> =
+export declare type SizedChildrenArray<Size extends ChildrenArraySizeRange> =
     Size extends 1 ?
     [Child] :
     Size extends 2 ?
@@ -118,7 +118,7 @@ export declare type SizedChildrenArray<Size extends ChildrenArraySize> =
  *
  * @see core
  * @see Child
- * @see ChildrenArraySize
+ * @see ChildrenArraySizeRange
  * @see SizedChildrenArray
  */
 export declare type ChildrenArray =
@@ -151,7 +151,7 @@ export declare type ChildrenArray =
  *
  * @see core
  * @see Child
- * @see ChildrenArraySize
+ * @see ChildrenArraySizeRange
  * @see SizedChildrenArray
  */
 export declare type VariadicChildrenArray =
@@ -163,6 +163,22 @@ export declare type VariadicChildrenArray =
     SizedChildrenArray<6> |
     SizedChildrenArray<7> |
     SizedChildrenArray<8>;
+
+/**
+ * Helper type to get the children array size of {@link Node}s.
+ *
+ * @memberOf core
+ *
+ * @typedef {Array['length']}
+ *
+ * @see core
+ * @see Child
+ * @see ChildrenArraySizeRange
+ * @see SizedChildrenArray
+ * @see ChildrenArray
+ */
+export declare type ChildrenArraySize<Array extends any[]> =
+    Array['length'] & ChildrenArraySizeRange;
 
 
 // Generic
@@ -176,7 +192,7 @@ export declare type VariadicChildrenArray =
  *
  * @see core
  * @see Child
- * @see ChildrenArraySize
+ * @see ChildrenArraySizeRange
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
@@ -231,7 +247,7 @@ export declare type Children =
  *
  * @see core
  * @see Child
- * @see ChildrenArraySize
+ * @see ChildrenArraySizeRange
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
@@ -284,14 +300,16 @@ export declare type NativeNodeChildren<T extends NativeNodeType> =
  *
  * @see core
  * @see Child
- * @see ChildrenArraySize
+ * @see ChildrenArraySizeRange
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
 export declare type CompositeNodeChildren<T extends CompositeNodeType> =
     Parameters<T> extends [] ? [] :
     Parameters<T> extends [infer IProps, ...infer IChildren] ?
-    IProps extends Props ? IChildren : [IProps, ...IChildren] :
+    IProps extends Child ?
+    SizedChildrenArray<ChildrenArraySize<[IProps, ...IChildren]>> :
+    SizedChildrenArray<ChildrenArraySize<IChildren>> :
     never;
 
 /**

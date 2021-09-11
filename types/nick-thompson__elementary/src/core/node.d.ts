@@ -4,6 +4,8 @@ import { NodeChildren } from './children';
 
 // for docs
 // noinspection ES6UnusedImports
+import { Props } from './props';
+// noinspection ES6UnusedImports
 import { Core } from './api';
 // noinspection ES6UnusedImports
 import { core } from './';
@@ -21,6 +23,19 @@ import { core } from './';
  */
 export declare interface Node
 {
+    /**
+     * Do not use this! It is only here to differentiate {@link Node} and
+     * {@link Props} types.
+     *
+     * @private
+     * @readonly
+     *
+     * @member {unknown} '$$typeof'
+     *
+     * @see Node
+     * @see Props
+     */
+    $$typeof: unknown;
 }
 
 /**
@@ -34,7 +49,8 @@ export declare interface Node
  * @see core
  * @see Node
  */
-export declare interface NativeNode<T extends NativeNodeType = NativeNodeType> extends Node
+export declare interface NativeNode<T extends NativeNodeType =
+    NativeNodeType> extends Node
 {
 }
 
@@ -49,8 +65,8 @@ export declare interface NativeNode<T extends NativeNodeType = NativeNodeType> e
  * @see core
  * @see Node
  */
-export declare interface CompositeNode<T extends CompositeNodeType = CompositeNodeType>
-    extends Node
+export declare interface CompositeNode<T extends CompositeNodeType =
+    CompositeNodeType> extends Node
 {
 }
 
