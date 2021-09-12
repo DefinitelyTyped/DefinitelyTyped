@@ -6,7 +6,7 @@
 
 export = deasync;
 
-declare function deasync(fn: (...args: any[]) => void): (...args: any[]) => any;
+declare function deasync(fn: (...args: any[]) => any): (...args: any[]) => any;
 declare namespace deasync {
     function loopWhile(pred: () => boolean): void;
     function runLoopOnce(): void;

@@ -1,5 +1,7 @@
 import * as deasync from "deasync";
 
+deasync(() => 4);
+
 function asyncFunction(input: number, cb: (res: number) => void) {}
 function handle(res: number) {}
 
