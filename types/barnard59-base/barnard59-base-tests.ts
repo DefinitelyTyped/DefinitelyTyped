@@ -10,7 +10,9 @@ import {
     limit,
     map,
     nul,
-    offset, stdout, toString,
+    offset,
+    stdout,
+    toString,
 } from 'barnard59-base';
 import { object as concatObject } from 'barnard59-base/concat';
 import forEach from 'barnard59-base/forEach';
@@ -19,19 +21,23 @@ import { Readable, Duplex, Writable, Transform } from 'readable-stream';
 import Pipeline from 'barnard59-core/lib/Pipeline';
 
 function testCombine() {
+    // prettier-ignore
     const a: stream.Readable = <any> {};
+    // prettier-ignore
     const b: stream.Readable = <any> {};
+    // prettier-ignore
     const c: stream.Writable = <any> {};
 
     const combinedDuplex: stream.Duplex = combine([a, b, c]);
     const combineSingle: stream.Readable = combine([a]);
 
     const combinedWithOpts: stream.Duplex = combine([a, b, c], {
-        allowHalfOpen: true
+        allowHalfOpen: true,
     });
 }
 
 function testConcat() {
+    // prettier-ignore
     const streams: stream[] = <any> {};
 
     let concatenated: Readable;
@@ -46,7 +52,7 @@ function testFilter() {
         bar: string;
     }
 
-    const filtered: stream.Transform = filter<Foo>(function(chunk) {
+    const filtered: stream.Transform = filter<Foo>(function filterFunc(chunk) {
         return chunk.bar === this.variables.get('baz');
     });
 }
@@ -56,6 +62,7 @@ function testFlatten() {
 }
 
 function testForEach() {
+    // prettier-ignore
     const pipeline: Pipeline = <any> {};
 
     let loop: Duplex = forEach(pipeline);
@@ -64,12 +71,12 @@ function testForEach() {
 
 function testGlob() {
     let globbed: Readable = glob({
-        pattern: 'foo/**/bar'
+        pattern: 'foo/**/bar',
     });
 
     globbed = glob({
         pattern: '*.foo',
-        absolute: true
+        absolute: true,
     });
 }
 
@@ -86,14 +93,13 @@ function testMap() {
     interface Foo {
         bar: number;
     }
-
-    const mapped: stream.Transform = map<Foo, number>(function(chunk, _) {
+    const mapped: stream.Transform = map<Foo, number>(function mapFunc(chunk, _) {
         const baz: number = this.variables.get('baz');
 
         return chunk.bar * baz;
     });
 
-    const lazyMapped: stream.Transform = map<Foo, number>(async function(chunk, _) {
+    const lazyMapped: stream.Transform = map<Foo, number>(async function mapFunc(chunk, _) {
         const baz: number = this.variables.get('baz');
 
         return chunk.bar * baz;
