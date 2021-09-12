@@ -53,7 +53,7 @@ export function newInstance(config: Options): any;
  * getter/setter for global options. If used as a setter, this function is
  * chainable, allowing you to do things such as... say... return the middleware.
  */
-export function options(options: Options): any;
+export function options(options?: Options): any;
 
 export function resetIndex(): void;
 
