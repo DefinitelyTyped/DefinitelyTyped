@@ -3,6 +3,13 @@
 // Definitions by: Totto16 <https://github.com/Totto16>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/**
+ * Login to qBittorrent
+ * @async
+ * @param host - Host name of your qBittorrent instance
+ * @param username - Username used to access the WebUI
+ * @param password - Password used to access the WebUI
+ */
 export function connect(host: string, username: string, password: string): Promise<QBittorrentApiEndpoint>;
 
 export interface QBittorrentApiEndpoint {
