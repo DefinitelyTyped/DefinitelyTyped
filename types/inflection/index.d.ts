@@ -20,6 +20,7 @@ interface Inflection {
     foreign_key(str: string, drop_id_ubar?: boolean): string;
     ordinalize(str: string): string;
     transform(str: string, arr: string[]): string;
+    version: string;
 }
 
 declare var inflection: Inflection;
