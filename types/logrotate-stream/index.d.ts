@@ -21,7 +21,7 @@ declare namespace logrotateStream {
         /**
          * The max file size of a log before rotation occurs. Supports 1024, 1k, 1m, 1g
          */
-        size: string;
+        size: string | number;
         /**
          * The number of rotated log files to keep (including the primary log file). Additional logs are deleted no rotation.
          */
