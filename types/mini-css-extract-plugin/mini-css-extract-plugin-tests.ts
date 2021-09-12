@@ -122,7 +122,7 @@ configuration = {
 };
 
 {
-    // noRuntime
+    // runtime
     new MiniCssExtractPlugin({});
     new MiniCssExtractPlugin({
         runtime: false,
