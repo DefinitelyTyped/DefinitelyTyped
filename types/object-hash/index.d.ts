@@ -1,4 +1,4 @@
-// Type definitions for object-hash 2.1
+// Type definitions for object-hash 2.2
 // Project: https://github.com/puleos/object-hash
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Artur Diniz <https://github.com/artdiniz>
