@@ -96,6 +96,6 @@ declare namespace objectHash {
 /**
  * @see https://github.com/puleos/object-hash#hashvalue-options
  */
-declare function objectHash(object: {} | null, options?: objectHash.Options): string;
+declare function objectHash(object: {} | null, options?: objectHash.Options): string | Buffer;
 
 export = objectHash;
