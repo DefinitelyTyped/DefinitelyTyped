@@ -8,7 +8,13 @@
 import * as ReactInstance from 'react';
 import * as ReactDOMInstance from 'react-dom';
 
-export const BdApi: typeof BdApiModule;
+declare global {
+    const BdApi: typeof BdApiModule;
+    interface Window {
+        BdApi: typeof BdApiModule;
+    }
+    const global: Window;
+}
 
 /**
  * Function with no arguments and no return value that may be called to revert changes made by `monkeyPatch` method, restoring (unpatching) original method.
