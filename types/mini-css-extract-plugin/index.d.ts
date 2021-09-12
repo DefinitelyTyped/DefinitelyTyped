@@ -82,7 +82,7 @@ declare namespace MiniCssExtractPlugin {
          * then use your own runtime code to download assets when needed.
          * @default false
          */
-        noRuntime?: boolean | undefined;
+        runtime?: boolean | undefined;
     }
     interface LoaderOptions {
         /**
