@@ -5,8 +5,8 @@
 
 export = abbrev;
 
-declare function abbrev(words: string[]): { [abbreviation: string]: string };
-declare function abbrev(...words: string[]): { [abbreviation: string]: string };
+declare function abbrev(words: Array<string | { toString(): string }>): { [abbreviation: string]: string };
+declare function abbrev(...words: Array<string | { toString(): string }>): { [abbreviation: string]: string };
 
 declare namespace abbrev {
     function monkeyPatch(): void;
