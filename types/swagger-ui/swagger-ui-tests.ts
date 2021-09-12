@@ -9,6 +9,9 @@ SwaggerUI({
     urls: [{ name: "123", url: "http://www.example.com" }],
 
     layout: "Idontknow",
+    pluginsOptions: {
+        pluginLoadType: 'legacy',
+    },
     plugins: [
         () => {
             return {
