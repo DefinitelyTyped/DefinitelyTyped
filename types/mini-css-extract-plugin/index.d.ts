@@ -77,9 +77,9 @@ declare namespace MiniCssExtractPlugin {
          */
         linkType?: string | false | 'text/css' | undefined;
         /**
-         * An option to avoid the runtime generation. Assets are still extracted and can be used for a custom loading methods.
-         * For example, you can use [assets-webpack-plugin](https://github.com/ztoben/assets-webpack-plugin) to retreive them
-         * then use your own runtime code to download assets when needed.
+         * Allows to enable/disable the runtime generation.
+         * CSS will be still extracted and can be used for a custom loading methods.
+         * For example, you can use [assets-webpack-plugin](https://github.com/ztoben/assets-webpack-plugin) to retreive them then use your own runtime code to download assets when needed.
          * @default false
          */
         runtime?: boolean | undefined;
