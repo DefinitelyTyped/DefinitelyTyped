@@ -1,4 +1,4 @@
-// Type definitions for gulp-help
+// Type definitions for gulp-help 1.6
 // Project: https://github.com/chmontgomery/gulp-help
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -106,6 +106,10 @@ declare namespace gulpHelp {
          * A function to run after the default help task runs
          */
         afterPrintCallback?: Function | undefined;
+        /**
+         * Object documenting options which can be passed to your task
+         */
+        options?: { [key: string]: string } | undefined;
     }
 
 }
