@@ -16,6 +16,7 @@ interface args {
     examples(list: Example[]): args;
     parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };
     showHelp(): void;
+    showVersion(): void;
 }
 
 type OptionInitFunction = (value: any) => any;
