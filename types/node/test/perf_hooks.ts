@@ -64,7 +64,7 @@ obs.observe({
     entryTypes: ['gc'],
 });
 obs.observe({
-    type: 'gc'
+    type: 'gc',
 });
 
 const monitor: IntervalHistogram = monitorEventLoopDelay({
