@@ -597,6 +597,7 @@ export interface FlexItemProps {
     children?: React.ReactNode | undefined;
     flex?: 'grow' | 'shrink' | 'none' | undefined;
     minWidth?: number | string | undefined;
+    flexBasis?: string | number | undefined;
 }
 
 /**
