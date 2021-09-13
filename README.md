@@ -510,7 +510,7 @@ Here's a short example to get you started:
 4. Back in the root of the package, add the TypeScript 3.7 features you want to use.
    When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
 
-   You can look at [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) for an example.
+   You can look at [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) for an example.
 
 #### I want to add a DOM API not present in TypeScript by default.
 

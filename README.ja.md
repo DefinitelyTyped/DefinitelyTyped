@@ -433,7 +433,7 @@ npm パッケージでは、モジュールを `node -p 'require("foo")'` でイ
 4. パッケージのルートに戻り、使用したい TypeScript 3.7 の機能を追加する。
    これで、パッケージが使用されるときは、 TypeScript 3.6 以下の場合は `ts3.6/index.d.ts` を、 TypeScript 3.7 以上の場合は `index.d.ts` をそれぞれ読みにいくようになります。
 
-   [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) モジュールを参考にしてください。
+   [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) モジュールを参考にしてください。
 
 #### デフォルトでは TypeScript に存在しない DOM API を追加したいです。
 
