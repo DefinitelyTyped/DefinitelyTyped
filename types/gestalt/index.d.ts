@@ -1677,6 +1677,7 @@ export interface VideoProps {
     volume?: number | undefined;
     children?: Node | undefined;
     controls?: boolean | undefined;
+    disableRemotePlayback?: boolean | undefined;
     crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
     loop?: boolean | undefined;
     objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down' | undefined;
