@@ -1,5 +1,16 @@
 import * as React from 'react';
-import { init, fbt, GenderConst, IntlVariations } from 'fbt';
+import {
+    init,
+    fbt,
+    GenderConst,
+    IntlVariations,
+    FbtPlural,
+    FbtParam,
+    FbtEnum,
+    FbtName,
+    FbtPronoun,
+    FbtSameParam,
+} from 'fbt';
 
 init({
     hooks: {
@@ -55,7 +66,7 @@ const paramNumExample = fbt('Likes: ' + fbt.param('likeCount', person.getLikeCou
 const paramBoolExample = fbt('Has acccess :' + fbt.param('isAdmin', person.isAdmin()), 'paramBoolExample');
 const paramExampleWithParams = fbt(
     'Hello, ' +
-        fbt.param('userName', 'retyui', {
+        fbt.param('userName', person.getName(), {
             gender: IntlVariations.GENDER_FEMALE,
             number: true,
         }),
@@ -63,7 +74,7 @@ const paramExampleWithParams = fbt(
 );
 const JSXParamExample = (
     <fbt desc="JSX Param example">
-        Hello, <fbt:param name="name">{person.getName()}</fbt:param>
+        Hello, <FbtParam name="name">{person.getName()}</FbtParam>
     </fbt>
 );
 
@@ -77,11 +88,11 @@ const sameParamAndFbtNameExample = fbt(
 );
 const JSXSameParamAndFbtNameExample = (
     <fbt desc="JSXSameParamAndFbtNameExample">
-        <fbt:name name="name" gender={IntlVariations.GENDER_MALE}>
+        <FbtName name="name" gender={IntlVariations.GENDER_MALE}>
             {<a href="#">{'retyui'}</a>}
-        </fbt:name>
+        </FbtName>
         shared a link. Tell
-        <fbt:same-param name="name" />
+        <FbtSameParam name="name" />
         you liked it.
     </fbt>
 );
@@ -107,13 +118,13 @@ const pluralExampleWithParams = fbt(
 const JSXPluralExample = (
     <fbt desc="JSXPluralExample">
         You have
-        <fbt:plural count={person.getLikeCount()} name="number of likes" showCount="ifMany" many="likes">
+        <FbtPlural count={person.getLikeCount()} name="number of likes" showCount="ifMany" many="likes">
             a like
-        </fbt:plural>
+        </FbtPlural>
         on your
-        <fbt:plural count={person.getPhotoCount()} showCount="no">
+        <FbtPlural count={person.getPhotoCount()} showCount="no">
             photo
-        </fbt:plural>.
+        </FbtPlural>.
     </fbt>
 );
 
@@ -131,7 +142,7 @@ const enumMapExample = fbt(
 const JSXEnumMapExample = (
     <fbt desc="JSXEnumMapExample">
         Buy a new
-        <fbt:enum
+        <FbtEnum
             enum-range={{
                 CAR: 'car',
                 HOUSE: 'house',
@@ -145,7 +156,7 @@ const JSXEnumMapExample = (
 const JSXEnumArrayExample = (
     <fbt desc="JSXEnumArrayExample">
         Buy a new
-        <fbt:enum enum-range={['car', 'house', 'boat', 'houseboat']} value="car" />
+        <FbtEnum enum-range={['car', 'house', 'boat', 'houseboat']} value="car" />
     </fbt>
 );
 
@@ -156,9 +167,9 @@ const enumArrayExample = fbt(
 
 const JSXPronounExample = (
     <fbt desc="JSXPronounExample">
-        <fbt:param name="name">{person.getName()}</fbt:param>
+        <FbtParam name="name">{person.getName()}</FbtParam>
         shared
-        <fbt:pronoun type="possessive" gender={person.getPronounGender()} human={true} />
+        <FbtPronoun type="possessive" gender={person.getPronounGender()} human={true} />
         photo with you.
     </fbt>
 );
@@ -209,19 +220,19 @@ const invalid3 = (
 // @ts-expect-error second argument 'value' is required
 const invalid4 = fbt.param('userName');
 
-const invalid5 = fbt.param('userName', 'retyui', {
+const invalid5 = fbt.param('userName', person.getName(), {
     // @ts-expect-error 'gender' have to be enum value
     gender: 'not enum value',
 });
 
 const invalid6 = (
     <fbt desc="Param example">
-        <fbt:param
+        <FbtParam
             // @ts-expect-error 'name' is string
             name={1}
         >
             Name
-        </fbt:param>
+        </FbtParam>
     </fbt>
 );
 
@@ -237,7 +248,7 @@ const invalid8 = fbt.plural('a like', 1, {
 
 const invalid9 = (
     <fbt desc="pronoun example">
-        <fbt:pronoun
+        <FbtPronoun
             // @ts-expect-error 'pronounType' have to be one of 'object' | 'possessive' | 'reflexive' | 'subject'
             type="possessive___"
             gender={person.getPronounGender()}
@@ -247,7 +258,7 @@ const invalid9 = (
 );
 const invalid10 = (
     <fbt desc="pronoun example">
-        <fbt:pronoun
+        <FbtPronoun
             type="object"
             // @ts-expect-error 'gender' have to be enum value
             gender={'not enum value'}
