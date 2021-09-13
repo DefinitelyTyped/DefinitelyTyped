@@ -214,8 +214,8 @@ declare namespace autobahn {
     type DeferFactory = () => When.Promise<any>;
 
     type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
-    type OnInternalErrorHandler = (error: object | Error, error_message?: string) => void;
-    type OnUserErrorHandler = (error: object | Error, error_message?: string) => void;
+    type OnInternalErrorHandler = (error: object | Error, error_message?: string | undefined) => void;
+    type OnUserErrorHandler = (error: object | Error, error_message?: string | undefined) => void;
 
     interface IConnectionOptions {
         use_es6_promises?: boolean | undefined;
@@ -236,6 +236,11 @@ declare namespace autobahn {
         realm: string;
         authmethods?: string[] | undefined;
         authid?: string | undefined;
+        authextra?: object | undefined;
+        // Below options only work when the transport is websocket and the underlying platform is NodeJS/Electron.
+        autoping_interval?: number | undefined;
+        autoping_timeout?: number | undefined;
+        autoping_size?: number | undefined;
     }
 
     interface ICloseEventDetails {
