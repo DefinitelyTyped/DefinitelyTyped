@@ -20,3 +20,19 @@ byteSize(12, {
         test: 'sth',
     },
 });
+
+byteSize.defaultOptions({
+    units: 'simple',
+    precision: 2,
+    customUnits: {
+      simple: [
+        { from: 0, to: 1e3, unit: '' },
+        { from: 1e3, to: 1e6, unit: 'k' },
+        { from: 1e6, to: 1e9, unit: 'm' },
+        { from: 1e9, to: 1e12, unit: 'bn' },
+      ]
+    },
+    toStringFn: function () {
+        return 'test';
+    }
+  });
