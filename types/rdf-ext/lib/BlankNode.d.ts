@@ -9,4 +9,9 @@ interface BlankNodeExt extends BlankNode {
   };
 }
 
+// tslint:disable-next-line:no-unnecessary-class
+declare class BlankNodeExt {
+    constructor(id: string);
+}
+
 export = BlankNodeExt;
