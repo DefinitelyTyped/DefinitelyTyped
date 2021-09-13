@@ -1669,6 +1669,7 @@ export interface VideoProps {
     accessibilityPlayLabel?: string | undefined;
     accessibilityUnmuteLabel?: string | undefined;
     aspectRatio: number;
+    backgroundColor?: 'black' | 'transparent' | undefined;
     captions: string;
     playbackRate?: number | undefined;
     playing?: boolean | undefined;
