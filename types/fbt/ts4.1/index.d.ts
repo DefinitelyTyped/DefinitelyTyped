@@ -1,9 +1,3 @@
-// Type definitions for fbt 0.16
-// Project: https://github.com/facebook/fbt
-// Definitions by: Davyd <https://github.com/retyui>
-//                 Alexander Nanberg <https://github.com/alexandernanberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
 import * as React from 'react';
 
 export interface ParamOptions {
@@ -270,16 +264,8 @@ export interface FbtProps extends FbtOptions {
 
 declare global {
     namespace JSX {
-        type PropsWithChildren<P> = P & { children?: React.ReactNode | undefined };
-
         interface IntrinsicElements {
-            fbt: PropsWithChildren<FbtProps>;
-            'fbt:enum': PropsWithChildren<FbtEnumProps>;
-            'fbt:name': PropsWithChildren<FbtNameProps>;
-            'fbt:param': PropsWithChildren<FbtParamProps>;
-            'fbt:plural': PropsWithChildren<FbtPluralProps>;
-            'fbt:pronoun': PropsWithChildren<FbtPronounProps>;
-            'fbt:same-param': PropsWithChildren<FbtSameParamProps>;
+            fbt: FbtProps & { children?: React.ReactNode | undefined };
         }
     }
 }
