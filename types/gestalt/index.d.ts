@@ -1205,6 +1205,7 @@ export interface SelectListProps {
  * https://gestalt.netlify.app/Sheet
  */
 export type SheetNodeOrRenderProp = ((prop: { onDismissStart: () => void }) => React.ReactNode) | React.ReactNode;
+export type OnAnimationEndStateType = 'in' | 'out';
 export interface SheetProps {
     accessibilityDismissButtonLabel: string;
     accessibilitySheetLabel: string;
@@ -1215,6 +1216,7 @@ export interface SheetProps {
     heading?: string | undefined;
     size?: 'sm' | 'md' | 'lg' | undefined;
     subHeading?: SheetNodeOrRenderProp | undefined;
+    onAnimationEnd?: (args: { animationState: OnAnimationEndStateType }) => void;
 }
 
 /**
@@ -1462,7 +1464,7 @@ export interface TextProps {
     italic?: boolean | undefined;
     overflow?: 'normal' | 'breakWord' | 'noWrap' | undefined;
     size?: 'sm' | 'md' | 'lg' | undefined;
-    truncate?: boolean | undefined;
+    lineClamp?: number;
     underline?: boolean | undefined;
     weight?: 'bold' | 'normal' | undefined;
 }
