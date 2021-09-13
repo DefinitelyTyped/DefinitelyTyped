@@ -214,6 +214,8 @@ declare namespace autobahn {
     type DeferFactory = () => When.Promise<any>;
 
     type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
+    type OnInternalErrorHandler = (error: object | Error, error_message?: string) => void;
+    type OnUserErrorHandler = (error: object | Error, error_message?: string) => void;
 
     interface IConnectionOptions {
         use_es6_promises?: boolean | undefined;
@@ -229,6 +231,8 @@ declare namespace autobahn {
         url?: string | undefined;
         protocols?: string[] | undefined;
         onchallenge?: OnChallengeHandler | undefined;
+        on_internal_error?: OnInternalErrorHandler | undefined;
+        on_user_error?: OnUserErrorHandler | undefined;
         realm: string;
         authmethods?: string[] | undefined;
         authid?: string | undefined;
