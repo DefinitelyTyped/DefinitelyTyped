@@ -21,7 +21,7 @@ export interface ByteSizeResult {
 declare function byteSize(bytes: number, options?: byteSizeOptions): ByteSizeResult;
 
 declare namespace byteSize {
-    export function defaultOptions(options: byteSizeOptions): void;
+    function defaultOptions(options: byteSizeOptions): void;
 }
 
 export default byteSize;

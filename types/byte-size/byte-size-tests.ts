@@ -32,7 +32,5 @@ byteSize.defaultOptions({
         { from: 1e9, to: 1e12, unit: 'bn' },
       ]
     },
-    toStringFn: function () {
-        return 'test';
-    }
-  });
+    toStringFn
+});
