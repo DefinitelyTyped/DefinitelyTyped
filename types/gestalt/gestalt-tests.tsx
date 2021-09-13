@@ -352,7 +352,7 @@ const CheckUseReducedMotion = () => {
 <TextArea id="id" onChange={() => {}} />;
 <TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
 
-<Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
+<Toast variant="error" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;

@@ -9,6 +9,7 @@
 //                 Charlie Gu <https://github.com/czgu>
 //                 Jay Kim <https://github.com/keyworks>
 //                 Vaibhav Sharma <https://github.com/v4iv>
+//                 Juan Alvarez <https://github.com/juanjalvarez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
