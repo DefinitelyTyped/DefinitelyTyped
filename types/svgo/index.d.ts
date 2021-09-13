@@ -1,4 +1,4 @@
-// Type definitions for svgo 2.4
+// Type definitions for svgo 2.6
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
@@ -670,6 +670,14 @@ export interface Js2SvgOptions {
     doctypeStart?: string | undefined;
     /** @default '>' */
     doctypeEnd?: string | undefined;
+    /**
+     * Allows to customize end of line characters which is usually resolved by os.EOL in node.
+     */
+    eol?: 'lf' | 'crlf' | undefined;
+    /**
+     * Ensures SVG output has a final newline which is required for some tools like git.
+     */
+    finalNewline?: boolean | undefined;
     /** @default '<?' */
     procInstStart?: string | undefined;
     /** @default '?>' */
