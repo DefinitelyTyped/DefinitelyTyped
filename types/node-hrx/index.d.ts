@@ -37,14 +37,14 @@ export class File {
 export type HrxItem = File | Directory;
 
 export class ParseProblem extends Error {
-    constructor(message: string, position: { line: number, col: number }, details?: {});
+    constructor(message: string, position: { line: number, col: number }, details?: Record<string, unknown>);
     readonly line: number;
     readonly col: number;
     readonly details: {};
 }
 
 export class LexicalProblem extends Error {
-    constructor(message: string, line: number, details?: { path?: string });
+    constructor(message: string, line: number, details?: { path?: string, [key: string]: unknown });
     readonly line: number;
     readonly details: {
         path?: string;
