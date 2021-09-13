@@ -142,6 +142,14 @@ declare module 'util' {
      */
     export function log(string: string): void;
     /**
+     * Returns the `string` after replacing any surrogate code points
+     * (or equivalently, any unpaired surrogate code units) with the
+     * Unicode "replacement character" U+FFFD.
+     *
+     * @since v16.8.0
+     */
+    export function toUSVString(string: string): string;
+    /**
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be

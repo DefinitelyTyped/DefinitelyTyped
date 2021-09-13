@@ -66,7 +66,6 @@ function testTrack(): void {
     }
   });
 
-  // $ExpectError
   analytics.track({
     event: 'Purchased an Item',
     properties: {

@@ -6,7 +6,8 @@ class MyEditor extends Editor {}
 const myEditor = new MyEditor();
 const plugin = new Autosave.Autosave(new MyEditor());
 plugin.once("click", () => {});
-const isContext: boolean = Autosave.Autosave.isContextPlugin;
+// $ExpectType false
+Autosave.Autosave.isContextPlugin;
 const state: "synchronized" | "waiting" | "saving" = plugin.state;
 plugin.adapter.save(new MyEditor());
 

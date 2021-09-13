@@ -205,6 +205,9 @@ declare namespace IORedis {
         bitcount(key: KeyType): Promise<number>;
         bitcount(key: KeyType, start: number, end: number): Promise<number>;
 
+        bitfield(key: KeyType, args: ValueType, callback: Callback<number[]>): void;
+        bitfield(key: KeyType, args: ValueType): Promise<number[]>;
+
         get(key: KeyType, callback: Callback<string | null>): void;
         get(key: KeyType): Promise<string | null>;
 
@@ -1305,6 +1308,8 @@ declare namespace IORedis {
 
         bitcount(key: KeyType, callback?: Callback<number>): Pipeline;
         bitcount(key: KeyType, start: number, end: number, callback?: Callback<number>): Pipeline;
+
+        bitfield(key: KeyType, args: ValueType, callback?: Callback<number[]>): Pipeline;
 
         get(key: KeyType, callback?: Callback<string>): Pipeline;
         getBuffer(key: KeyType, callback?: Callback<Buffer>): Pipeline;

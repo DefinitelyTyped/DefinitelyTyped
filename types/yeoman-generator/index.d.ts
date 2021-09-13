@@ -9,9 +9,9 @@
 //                 Devid Farinelli <https://github.com/misterdev>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 
-import { SpawnOptions, SpawnSyncOptions } from 'child_process';
+import { spawn, SpawnOptions, SpawnSyncOptions } from 'child_process';
 import { Debugger } from 'debug';
 import { Data as TemplateData, Options as TemplateOptions } from 'ejs';
 import { EventEmitter } from 'events';
@@ -52,6 +52,11 @@ declare namespace Generator {
          * Gets or sets additional properties.
          */
         [name: string]: any;
+
+        /**
+         * The path to the generator.
+         */
+        resolved?: string;
 
         /**
          * Gets or sets a collection of custom priorities.
@@ -320,12 +325,12 @@ declare namespace Generator {
         when?: ((templateData: TemplateData, generator: T) => boolean) | undefined;
 
         /**
-         * The template file, absolute or relative to `templatePath()`.
+         * The template file, absolute or relative to {@link Generator.templatePath `templatePath()`}.
          */
         source: string | string[];
 
         /**
-         * The destination, absolute or relative to `destinationPath()`.
+         * The destination, absolute or relative to {@link Generator.destinationPath `destinationPath()`}.
          */
         destination?: string | string[] | undefined;
 
@@ -342,7 +347,7 @@ declare namespace Generator {
 }
 
 /**
- * The `Generator` class provides the common API shared by all generators.
+ * The {@link Generator `Generator`} class provides the common API shared by all generators.
  * It define options, arguments, file, prompt, log, API, etc.
  *
  * Every generator should extend this base class.
@@ -358,7 +363,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Provides arguments at initialization.
      */
-    args: {};
+    args: string[];
 
     /**
      * The path to the current generator.
@@ -401,7 +406,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     log: Logger;
 
     /**
-     * The path from where the user is running `yo`
+     * The path from where the user is running `yo`.
      */
     contextRoot: string;
 
@@ -419,8 +424,8 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * is how they are parsed from the command line, arguments are retrieved
      * based on their position.
      *
-     * Besides, arguments are used inside your code as a property (`this.argument`),
-     * while options are all kept in a hash (`this.options`).
+     * Besides, arguments are used inside your code as a property ({@link Generator.args `this.args`}),
+     * while options are all kept in a hash ({@link Generator.options `this.options`}).
      *
      *
      * @param name Argument name.
@@ -440,7 +445,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param generator The path to the generator module or an object (see examples).
      * @param options The options passed to the Generator.
      * @param returnNewGenerator Returns the created generator instead of returning this.
-     * @return This generator or the composed generator when `returnNewGenerator` is `true`.
+     * @return This generator or the composed generator when {@link returnNewGenerator `returnNewGenerator`} is `true`.
      *
      * @example
      * this.composeWith('bootstrap', { sass: true });
@@ -517,7 +522,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      *
      * @param storagePath The path to the `json`-file of the storage.
      * @param key The key in which the options are stored inside the `json`.
-     * @param lodashPath A value indicating whether the `key` argument should be treated as a lodash path.
+     * @param lodashPath A value indicating whether the {@link key `key`} argument should be treated as a lodash path.
      */
     createStorage(storagePath: string, key?: string, lodashPath?: boolean): Storage;
 
@@ -536,10 +541,11 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Changes the generator destination root directory.
      *
-     * This path is used to find storage, when using file system helper methods (such as `this.writeDestination` and `this.copyDestination`).
+     * This path is used to find storage, when using file system helper methods
+     * (such as {@link Generator.writeDestination `this.writeDestination`} and {@link Generator.copyDestination `this.copyDestination`}).
      *
      * @param rootPath The new destination root path.
-     * @param skipEnvironment A value indicating whether `this.env.cwd` and the current working directory shouldn't be changed.
+     * @param skipEnvironment A value indicating whether {@link Environment.cwd `this.env.cwd`} and the current working directory shouldn't be changed.
      */
     destinationRoot(rootPath?: string, skipEnvironment?: boolean): string;
 
@@ -555,13 +561,13 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     /**
      * Adds an option to the set of generator expected options, only used to generate generator usage.
-     * By default, generators get all the cli options parsed by nopt as a `this.options` hash object.
+     * By default, generators get all the cli options parsed by nopt as a {@link Generator.options `this.options`} hash object.
      *
      * @param name The name of the option.
      * @param config The configuration of the option.
      * @returns This generator
      */
-    option(name: string, config: Generator.OptionConfig): this;
+    option(name: string, config?: Generator.OptionConfig): this;
 
     /**
      * Prompt user to answer questions.
@@ -768,8 +774,8 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     /**
      * Copies a template from templates folder to the destination.
      *
-     * @param source The template file, absolute or relative to `templatePath()`.
-     * @param destination The destination, absolute or relative to `destinationPath()`.
+     * @param source The template file, absolute or relative to {@link Generator.templatePath `templatePath()`}.
+     * @param destination The destination, absolute or relative to {@link Generator.destinationPath `destinationPath()`}.
      * @param templateData The `ejs`-data or the name of the storage-key to get the data from.
      * @param templateOptions The `ejs`-options.
      * @param copyOptions The `mem-fs-editor` copy options.
@@ -822,7 +828,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     argumentsHelp(): string;
 
     /**
-     * Sets a custom `description` for the help output.
+     * Sets a custom {@link description `description`} for the help output.
      *
      * @param description The new description.
      */
@@ -865,15 +871,15 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
     // actions/install mixin
     /**
      * @deprecated
-     * Receives a list of `components` and an `options` object to install through bower.
+     * Receives a list of {@link components `components`} and an {@link options `options`} object to install through bower.
      *
      * The installation will automatically run during the run loop `install` phase.
      *
-     * @param component Components to install
+     * @param components Components to install
      * @param options Options to pass to `dargs` as arguments
-     * @param spawnOptions Options to pass `child_process.spawn`.
+     * @param spawnOptions Options to pass {@link spawn `child_process.spawn`}.
      */
-    bowerInstall(component?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+    bowerInstall(components?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     /**
      * @deprecated
@@ -897,15 +903,15 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     /**
      * @deprecated
-     * Receives a list of `packages` and an `options` object to install through npm.
+     * Receives a list of {@link packages `packages`} and an {@link options `options`} object to install through npm.
      *
      * The installation will automatically run during the run loop `install` phase.
      *
-     * @param pkgs Packages to install
+     * @param packages Packages to install
      * @param options Options to pass to `dargs` as arguments
-     * @param spawnOptions Options to pass `child_process.spawn`.
+     * @param spawnOptions Options to pass {@link spawn `child_process.spawn`}.
      */
-    npmInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+    npmInstall(packages?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     /**
      * @deprecated
@@ -917,7 +923,7 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
      * @param installer Which package manager to use
      * @param paths Packages to install. Use an empty string for `npm install`
      * @param options Options to pass to `dargs` as arguments
-     * @param spawnOptions Options to pass `child_process.spawn`.
+     * @param spawnOptions Options to pass {@link spawn `child_process.spawn`}.
      */
     scheduleInstallTask(
         installer: string,
@@ -928,15 +934,15 @@ declare class Generator<T extends Generator.GeneratorOptions = Generator.Generat
 
     /**
      * @deprecated
-     * Receives a list of `packages` and an `options` object to install through npm.
+     * Receives a list of {@link packages `packages`} and an {@link options `options`} object to install through npm.
      *
      * The installation will automatically run during the run loop `install` phase.
      *
-     * @param pkgs Packages to install
+     * @param packages Packages to install
      * @param options Options to pass to `dargs` as arguments
-     * @param spawnOptions Options to pass `child_process.spawn`.
+     * @param spawnOptions Options to pass {@link spawn `child_process.spawn`}.
      */
-    yarnInstall(pkgs?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
+    yarnInstall(packages?: string | string[], options?: object, spawnOptions?: SpawnOptions): void;
 
     // actions/package.json
     /**

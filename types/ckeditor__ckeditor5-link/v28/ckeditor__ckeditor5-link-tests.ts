@@ -85,3 +85,9 @@ editor.plugins.get('LinkImageUI');
 
 // $ExpectType LinkUI
 editor.plugins.get('LinkUI');
+
+// $ExpectType LinkCommand | undefined
+editor.commands.get('LinkCommand');
+
+// $ExpectType UnlinkCommand | undefined
+editor.commands.get('UnlinkCommand');
