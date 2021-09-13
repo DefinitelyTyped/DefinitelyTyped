@@ -990,6 +990,10 @@ export interface MasonryProps<T = any> {
  * https://gestalt.netlify.app/Modal
  */
 export interface ModalProps {
+    /*
+    * Temporary undocumented prop to disable ScrollBoundaryContainer.
+    */
+    _dangerouslyDisableScrollBoundaryContainer?: boolean;
     accessibilityModalLabel: string;
     onDismiss: () => void;
     /**
