@@ -1555,10 +1555,10 @@ export interface TextFieldProps {
  */
 export interface ToastProps {
     button?: React.ReactNode | undefined;
-    color?: 'white' | 'red' | undefined;
     text?: string | React.ReactNode | undefined;
     thumbnail?: React.ReactNode | undefined;
     thumbnailShape?: 'circle' | 'rectangle' | 'square' | undefined;
+    variant?: 'default' | 'error' | undefined;
 }
 
 /**
