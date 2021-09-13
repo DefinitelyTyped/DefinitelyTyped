@@ -90,10 +90,10 @@ export function deprecate(
         /**
          * A namespace for the deprecation, usually the package name.
          */
-        for?: string;
+        for: string;
         /**
          * Describes when the deprecation became available and enabled.
          */
-        since?: Partial<Record<'available' | 'enabled', string>>;
+        since: Partial<Record<'available' | 'enabled', string>>;
     },
 ): void;
