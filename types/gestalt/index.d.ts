@@ -882,6 +882,7 @@ export interface IconButtonProps {
 export interface ImageProps {
     alt: string;
     color: string;
+    crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
     elementTiming?: string | undefined;
     naturalHeight: number;
     naturalWidth: number;
