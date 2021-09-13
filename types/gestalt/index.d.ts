@@ -465,6 +465,19 @@ export interface ContainerProps {
 }
 
 /**
+ * DataPoint Props Interface
+ * https://gestalt.netlify.app/DataPoint
+ */
+export interface DataPointProps {
+    title: string;
+    value: string;
+    size?: 'md' | 'lg' | undefined;
+    tooltipText?: string | undefined;
+    trend?: { accesibilityLabel: string, value: number } | undefined;
+    trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
+}
+
+/**
  * ScrollBoundaryContainer Props Interface
  * https://gestalt.netlify.app/ScrollBoundaryContainer
  */
@@ -1749,6 +1762,7 @@ export class Collage extends React.Component<CollageProps, any> {}
 export class ColorSchemeProvider extends React.Component<ColorSchemeProviderProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
+export class DataPoint extends React.Component<DataPointProps, any> {}
 export class ScrollBoundaryContainer extends React.Component<ScrollBoundaryContainerProps, any> {}
 export class Divider extends React.Component<{}, any> {}
 export class Dropdown extends React.Component<DropdownProps, any> {
