@@ -303,8 +303,8 @@ declare class SteamUser extends EventEmitter {
      */
     getProductInfo(apps: Array<number | App>, packages: Array<number | Package>, inclTokens?: boolean, callback?: (
         err: Error | null,
-        apps: AppInfo,
-        packages: PackageInfo,
+        apps: Record<number, AppInfo>,
+        packages: Record<number, PackageInfo>,
         unknownApps: number[],
         unknownPackages: number[],
         ) => void,
@@ -921,13 +921,13 @@ interface Package {
 interface AppInfo {
     changenumber: number;
     missingToken: boolean;
-    appinfo: Record<string, any>; // too complex to describe
+    appinfo: any; // too complex to describe
 }
 
 interface PackageInfo {
     changenumber: number;
     missingToken: boolean;
-    packageinfo: Record<string, any>; // too complex to describe
+    packageinfo: any; // too complex to describe
 }
 
 interface RichPresence {
@@ -1175,8 +1175,8 @@ interface ProductChanges {
 }
 
 interface ProductInfo {
-    apps: AppInfo;
-    packages: PackageInfo;
+    apps: Record<number, AppInfo>;
+    packages: Record<number, PackageInfo>;
     unknownApps: number[];
     unknownPackages: number[];
 }
