@@ -14,4 +14,9 @@ interface LiteralExt extends Literal {
   };
 }
 
+// tslint:disable-next-line:no-unnecessary-class
+declare class LiteralExt {
+    constructor(value: string, language?: string | null, datatype?: NamedNode | null);
+}
+
 export = LiteralExt;

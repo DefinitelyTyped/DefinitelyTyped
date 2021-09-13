@@ -16,17 +16,18 @@ declare namespace proxy {
     type MapFunction = (path: string) => string;
 
     interface Options {
-        host?: string | undefined;
-        url?: string | undefined;
-        map?: IndexedObject | MapFunction | undefined;
-        match?: RegExp | undefined;
-        jar?: boolean | undefined;
-        suppressRequestHeaders?: string[] | undefined; // case-insensitive
-        suppressResponseHeaders?: string[] | undefined; // case-insensitive
+        host?: string;
+        encoding?: string | null;
+        url?: string;
+        map?: IndexedObject | MapFunction;
+        match?: RegExp;
+        jar?: boolean;
+        suppressRequestHeaders?: string[]; // case-insensitive
+        suppressResponseHeaders?: string[]; // case-insensitive
         overrideResponseHeaders?: any;
-        requestOptions?: RequestOptionFunc | IndexedObject | undefined;
-        followRedirect?: boolean | undefined;
-        yieldNext?: boolean | undefined;
+        requestOptions?: RequestOptionFunc | IndexedObject;
+        followRedirect?: boolean;
+        yieldNext?: boolean;
     }
 }
 
