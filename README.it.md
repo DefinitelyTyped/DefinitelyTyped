@@ -452,7 +452,7 @@ Ecco qui un breve esempio per iniziare:
 4. Nel root del package, aggiungi le funzionalità di Typescript 3.7 che vuoi usare.
    Quando il package viene installato, Typescript 3.6 o inferiore partirà da `ts3.6/index.d.ts`, mentre Typescript 3.7 o superiore partirà da `index.d.ts`.
 
-   Dai un'occhiata a [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) per averne un esempio.
+   Dai un'occhiata a [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) per averne un esempio.
    
 #### Voglio aggiungere una API DOM che non è presente di default su Typescript.
 
