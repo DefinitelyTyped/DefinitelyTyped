@@ -564,8 +564,10 @@ export interface DropdownSectionProps {
  */
 export interface FieldsetProps {
     children: React.ReactNode;
+    id?: string;
     legend: string;
     legendDisplay?: 'visible' | 'hidden' | undefined;
+    errorMessage?: string;
 }
 
 /**
