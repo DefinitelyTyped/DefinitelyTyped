@@ -21,6 +21,6 @@ export interface ByteSizeResult {
 
 declare function byteSize(bytes: number, options?: byteSizeOptions): ByteSizeResult;
 
-export function defaultOptions (options: byteSizeOptions): void;
+export function defaultOptions(options: byteSizeOptions): void;
 
 export default byteSize;
