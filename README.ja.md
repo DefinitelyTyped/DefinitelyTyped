@@ -6,30 +6,6 @@
 
 *[管理者用マニュアル](./docs/admin.md) はこちら*
 
-## 目次
-
-* [現在のステータス](#現在のステータス)
-* [型定義ファイルとは何ですか？ またどのように入手できますか？](#型定義ファイルとは何ですか-またどのように入手できますか)
-* [コントリビュート（貢献）する方法](#コントリビュート（貢献）する方法)
-  - [試してみる](#試してみる)
-  - [PR を作成する](#pr-を作成する)<details><summary></summary>
-    - [既存のパッケージを編集する](#既存のパッケージを編集する)
-    - [新しくパッケージを作成する](#新しくパッケージを作成する)
-    - [パッケージを削除する](#パッケージを削除する)
-    - [テストの実行](#テストの実行)
-    - [Naming](#naming)
-    - [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [よくあるミス](#よくあるミス)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    </details>
-  - [型定義のオーナー](#型定義のオーナー)
-* [よくある質問](#よくある質問)
-* [ライセンス](#ライセンス)
-
-
 ## 現在のステータス
 
 このセクションではレポジトリと公開プロセスの稼働状況を追跡できます。
@@ -45,7 +21,7 @@ PR やパッケージに何か不具合がある場合は、これらが役に�
 
 ## 型定義ファイルとは何ですか？ またどのように入手できますか？
 
-[TypeScript ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)<small>（英語）</small>を参照してください。
+[TypeScript ハンドブック](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)<small>（英語）</small>を参照してください。
 
 ### npm
 
@@ -62,20 +38,20 @@ npm install --save-dev @types/node
 /// <reference types="node" />
 ```
 
-詳しくは[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)を参照してください。
+詳しくは[ハンドブック](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)を参照してください。
 
 「foo」という名前の npm モジュール用の型定義は「@types/foo」になります。
 パッケージが見つからない場合は [TypeSearch](https://microsoft.github.io/TypeSearch/) で検索してください。
 
-検索しても見つからない場合は、パッケージ内に型定義が[含まれている](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)かどうか確認してください。
+検索しても見つからない場合は、パッケージ内に型定義が[含まれている](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)かどうか確認してください。
 大抵は `package.json` の `"types"` フィールドや `"typings"`  フィールドに指定されています。
 もしくは、パッケージ内の各 ".d.ts" ファイルを確認し、 `/// <reference path="" />` を使って手動でインクルードしてください。
 
-#### 古いバージョンの TypeScript （3.5 以前）
+#### 古いバージョンの TypeScript （3.6 以前）
 
 Definitely Typed では、リリースから2年以内のバージョンの TypeScript 上でのみパッケージのテストを実施しています。
-現時点ではバージョン 3.6 以上でテストされています。
-TypeScript 2.0 ～ 3.5 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
+現時点ではバージョン 3.7 以上でテストされています。
+TypeScript 2.0 ～ 3.6 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
 ただし、正常に動作する保証もありません。
 サポート期間については下記のとおりです。
 
@@ -97,6 +73,7 @@ TypeScript 2.0 ～ 3.5 を使用している場合、引き続き `@types` パ�
 | 4.1        | 2020年11月 | 2022年11月   |
 | 4.2        | 2021年2月  | 2023年2月    |
 | 4.3        | 2021年5月  | 2023年5月    |
+| 4.4        | 2021年8月  | 2023年8月    |
 
 `@types` パッケージには、サポートする TypeScript のバージョンを明示的に指定するタグがあるため、多くの場合はサポート期間外のバージョン用のパッケージでも入手できます。
 たとえば、 `npm dist-tags @types/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることが確認できます。
@@ -115,9 +92,9 @@ TypeScript 2.0 ～ 3.5 を使用している場合、引き続き `@types` パ�
 
 * このレポジトリの `master` ブランチから手動でダウンロードして、開発しているプロジェクトに配置してください。
 * ~~[Typings](https://github.com/typings/typings)~~ （Typings は非推奨になったので、他の方式を使用すること）
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ （NuGet 上の DefinitelyTyped の公開は終了したので、他の方式を使用すること）
+* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ （NuGet 上の DefinitelyTyped の公開は終了したので、他の方式を使用すること）
 
-手動で[リファレンス](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)を追加する必要があります。
+手動で[リファレンス](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)を追加する必要があります。
 
 ## コントリビュート（貢献）する方法
 
@@ -131,7 +108,7 @@ Definitely Typed は、あなたのようなユーザーによるコントリビ
 
 #### 既存のパッケージへの変更点を試す
 
-（訳注: 変更した型定義を試すための）あなたのアプリでローカル環境でテストする場合、[モジュール拡張](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)<small>（module augmentation）</small>を使うと、編集したい DefinitelyTyped モジュールからの型定義を拡張できます。
+（訳注: 変更した型定義を試すための）あなたのアプリでローカル環境でテストする場合、[モジュール拡張](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)<small>（module augmentation）</small>を使うと、編集したい DefinitelyTyped モジュールからの型定義を拡張できます。
 また、 `node_modules/@types/foo/index.d.ts` にある型定義を直接編集しても、変更点を検証できます。そのあとに、下記手順に沿って変更をこのレポジトリに反映させてください。
 
 #### 新しいパッケージを試す
@@ -163,7 +140,7 @@ DefinitelyTyped への大量の PR を全てセルフサービス方式で処理
 
 * `cd types/<編集したいパッケージ名>` を実行。
 * 変更を加える。[テストを編集する](#パッケージ名-teststs)のも忘れずに行う。
-  破壊的な変更を加えるときは、必ず[メジャーバージョンを更新する](#ライブラリが破壊的な変更をして、メジャーバージョンが更新されました。型定義パッケージはどのように更新すればよいですか？)。
+  破壊的な変更を加えるときは、必ず[メジャーバージョンを更新する](#ライブラリが破壊的な変更をしてメジャーバージョンが更新されました型定義パッケージはどのように更新すればよいですか)。
 * [`npm test <テストしたいパッケージ名>` を実行](#テストの実行)。
 
 既存のパッケージを編集する PR を作成すると、 `dt-bot` が今までの型定義作者に@メンションを送ります。
@@ -171,7 +148,7 @@ DefinitelyTyped への大量の PR を全てセルフサービス方式で処理
 
 #### 新しくパッケージを作成する
 
-もし、あなたがライブラリの作者で、そのライブラリが TypeScript で書かれている場合は、 Definitely Typed で型定義を公開するのではなく、ライブラリのパッケージ自体に[自動生成された型定義ファイルをバンドル](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)してください。
+もし、あなたがライブラリの作者で、そのライブラリが TypeScript で書かれている場合は、 Definitely Typed で型定義を公開するのではなく、ライブラリのパッケージ自体に[自動生成された型定義ファイルをバンドル](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)してください。
 
 npm のパッケージに型定義を追加する場合は、パッケージと同名でディレクトリを作成してください。
 npm 上にないパッケージの型定義を追加したい場合は、その名前が npm 上のパッケージを競合しないか確認してください。
@@ -197,7 +174,7 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 #### パッケージを削除する
 
-パッケージに型定義が[バンドル](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
+パッケージに型定義が[バンドル](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
 
 `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
 * `<typingsPackageName>`: 削除したいディレクトリ名。
@@ -308,7 +285,7 @@ DefinitelyTyped 外のモジュールに依存しないパッケージについ�
 
 #### よくあるミス
 
-* はじめに、[ハンドブック](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
+* はじめに、[ハンドブック](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)に記載されているアドバイスに従ってください。
 * フォーマットについて: 4個のスペースを使ってください。このレポジトリでは Prettier がセットアップされているので、 `npm run prettier -- --write path/to/package/**/*.ts` で実行できます。[アサーションを使用している場合](https://github.com/SamVerschueren/tsd#assertions)、 `// prettier-ignore` を使ってその行をフォーマット対象から除外してください。
   ```tsx
   // prettier-ignore
@@ -325,7 +302,7 @@ DefinitelyTyped 外のモジュールに依存しないパッケージについ�
   型パラメーターを使用してよい例: `function id<T>(value: T): T;`。
   使用してはいけない例: `function parseJson<T>(json: string): T;`。
   例外: `new Map<string, number>()` はOKです。
-* `Function` 型や `Object` 型<small>（訳注: 大文字の`O`から始まることに注意）</small>を使用するのは基本的に良くありません。ほとんどの場合で、より詳しい型を指定することが可能です。たとえば、[関数](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)は `(x: number) => number` 、 object は `{ x: number, y: number }` と書けます。どのような型になるか全くわからないときは、 `Object` 型ではなく [`any` 型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)が正しいです。何らかの object であることしかわからないときは、 `Object` 型や `{ [key: string]: any }` ではなく、 [`object` 型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)<small>（訳注: 小文字の`o`から始まることに注意）</small>を使ってください。
+* `Function` 型や `Object` 型<small>（訳注: 大文字の`O`から始まることに注意）</small>を使用するのは基本的に良くありません。ほとんどの場合で、より詳しい型を指定することが可能です。たとえば、[関数](https://www.typescriptlang.org/docs/handbook/functions.html#function-types)は `(x: number) => number` 、 object は `{ x: number, y: number }` と書けます。どのような型になるか全くわからないときは、 `Object` 型ではなく [`any` 型](https://www.typescriptlang.org/docs/handbook/basic-types.html#any)が正しいです。何らかの object であることしかわからないときは、 `Object` 型や `{ [key: string]: any }` ではなく、 [`object` 型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type)<small>（訳注: 小文字の`o`から始まることに注意）</small>を使ってください。
 * `var foo: string | any`:
   `any` を共用体型で使用した場合、最終的な型は `any` 型にしかなりません。したがって、例示された型注釈では、 `string` の部分が有用に**見えますが**、実際には単に `any` と指定したとき以上の型チェックは行われません。
   シチュエーションにもよりますが、 `any` や `string`、 `string | object` が代替案として考えられます。
@@ -475,7 +452,7 @@ Definitely Typed の各パッケージは npm に公開される際にバージ�
 
 ```js
 // Type definitions for Node.js 10.12
-// Project: http://nodejs.org/
+// Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 Definitely Typed <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
@@ -568,7 +545,7 @@ TypeScript ハンドブックには、[型定義を書くにあたっての一�
 
 #### GitHub のファイル履歴がおかしいです。
 
-GitHubは、名前が変更されたファイルの履歴には[対応していない](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames)ので、代わりに [`git log --follow`](https://www.git-scm.com/docs/git-log) を使用してください。
+GitHubは、名前が変更されたファイルの履歴には[対応していない](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames)ので、代わりに [`git log --follow`](https://www.git-scm.com/docs/git-log) を使用してください。
 
 ## ライセンス
 

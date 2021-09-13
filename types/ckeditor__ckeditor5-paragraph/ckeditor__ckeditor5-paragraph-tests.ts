@@ -23,3 +23,9 @@ pc.execute();
 const bool: boolean = pc.value;
 // $ExpectError
 pc.value = true;
+
+// $ExpectType Paragraph
+editor.plugins.get('Paragraph');
+
+// $ExpectType ParagraphButtonUI
+editor.plugins.get('ParagraphButtonUI');

@@ -6,31 +6,6 @@
 
 *Link per il [manuale dell'amministratore](./docs/admin.md)*
 
-## Contenuti
-
-* [Stato attuale](#stato-attuale)
-* [Cosa cono i file di dichiarazione e come li ottengo?](#what-are-declaration-files-and-how-do-i-get-them)
-* [Come posso contribuire?](#how-can-i-contribute)
-  - [Test](#testing)
-    - [Fare una pull request](#make-a-pull-request)<details><summary></summary>
-      - [Clonare parzialmente](#partial-clone)
-        - [Editare un package che già esite](#edit-an-existing-package)
-        - [Creare un nuovo package](#create-a-new-package)
-        - [Rimuovere un package](#removing-a-package)
-        - [Eseguire test](#running-tests)
-        - [Nomenclatura](#naming)
-        - [`<mio-package>-test.ts`](#my-package-teststs)
-        - [Linter: `tslint.json`](#linter-tslintjson)
-        - [`tsconfig.json`](#tsconfigjson)
-        - [`package.json`](#packagejson)
-        - [`OTHER_FILES.txt`](#other_filestxt)
-        - [Errori comuni](#common-mistakes)
-        </details>
-      - [Definizione dei proprietari](#definition-owners)
-  * [Domande frequenti](#faq)
-* [Licenza](#license)
-
-
 ## Stato attuale
 
 Questa sezione tiene traccia della salute della repo e del processo di pubblicazione.
@@ -46,7 +21,7 @@ Se qualcosa sembra sbagliato o una qualunque delle cose qui in alto fallisce, fa
 
 ## Cosa sono i file di dichiarazione e come li ottengo
 
-Leggi il [manuale di TypeScript](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
+Leggi il [manuale di TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
 
 ### npm
 
@@ -65,20 +40,20 @@ Potresti dover aggiungere un riferimento `types` se non stai usando i moduli:
 /// <reference types="node" />
 ```
 
-Approfondisci leggendo il [manuale](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
+Approfondisci leggendo il [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
 Per un package "pippo", i tipi associati saranno disponibili sul package "@types/pippo".
 Se non riesci a trovare i tipi di un package, cercalo su [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
-Se ancora non riesci a trovarlo, vuol dire che sono [inclusi](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel package stesso.
+Se ancora non riesci a trovarlo, vuol dire che sono [inclusi](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel package stesso.
 Di solito vengono specificati nel campo `"types"` o `"typings"` nel `package.json`;
 se vuoi puoi semplicemente cercare per dei file ".d.ts" nel package ed includerli manualmente con `/// <reference path="" />`.
 
-#### Vecchie vesioni di TypeScript (3.5 e precedenti)
+#### Vecchie vesioni di TypeScript (3.6 e precedenti)
 
 Definitely Typed testa packages solo su versioni di TypeScript che hanno meno di due anni.
-Attualmente vengono testate le versioni 3.6 e successive.
-Se stai usando una versiond di TypeScript tra 2.0 e la 3.5, puoi ancora provare ad installare i package `@types`, in quanto la maggior parte di questi non usano le funzionalità più all'avanguardia di Typescript.
+Attualmente vengono testate le versioni 3.7 e successive.
+Se stai usando una versiond di TypeScript tra 2.0 e la 3.6, puoi ancora provare ad installare i package `@types`, in quanto la maggior parte di questi non usano le funzionalità più all'avanguardia di Typescript.
 Non c'è comunque nessuna garanzia che funzioneranno.
 Ecco le informazioni riguardanti le versioni supportate:
 
@@ -100,6 +75,7 @@ Ecco le informazioni riguardanti le versioni supportate:
 | 4.1     | Novembre 2020  | Novembre 2022       |
 | 4.2     | Febbraio 2021  | Febbraio 2023       |
 | 4.3     | Maggio 2021    | Maggio 2023         |
+| 4.4     | Agosto 2021    | Agosto 2023         |
 
 I package `@types` hanno dei tag per la versione di TypeScript che supportano, quindi di solito puoi installare vecchi package che sono più vecchi di due anni.
 Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 potrà usare i tipi per react@16.0, mentre TypeScript 2.6 e 2.7 potranno usare i tipi per react@16.4:
@@ -118,9 +94,9 @@ Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 pot
 
 * Scarica manualmente la branch `master` di questa repo e collocala nel tuo progetto.
 * ~~[Typings](https://github.com/typings/typings)~~ (usa altre alternative migliori, in quanto typings è deprecata)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (usa altre alternative, in quanto la pubblicazione di tipi su nuget DT non è più possibile)
+* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (usa altre alternative, in quanto la pubblicazione di tipi su nuget DT non è più possibile)
 
-Potresti dover aggiungere manualmente i [riferimenti](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+Potresti dover aggiungere manualmente i [riferimenti](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
 ## Come posso contribuire?
 
@@ -132,7 +108,7 @@ Prima di condividere il tuo contributo col mondo, provalo tu stesso.
 
 #### Test per la modifica di un package DT (@types) preesistente
 
-Per testare localmente le tue modifiche, puoi usare [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) per estendere i tipi esistenti del modulo DT su cui vuoi lavorare.
+Per testare localmente le tue modifiche, puoi usare [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) per estendere i tipi esistenti del modulo DT su cui vuoi lavorare.
 Altrimenti, puoi modificare i tipi direttamente nel `node_modules/@types/foo/index.d.ts` per validare le tue modifiche, per poi riportarle su questa repo seguendo i passi che troverai scritti più in basso.
 
 #### Test per un nuovo package DT
@@ -148,14 +124,14 @@ Crea un `types/foo/index.d.ts` contenente le dichiarazioni per il tuo modulo "pi
 Ora dovresti essere in grado di importare `"pippo"` nel tuo codice, con i tipi riferiti alle dichiarazioni che hai appena creato.
 Poi fai una build **ed** esegui il codice per essere sicuro che le definizioni dei tipi corrispondano effettivamente a ciò che capita a runtime.
 
-Una volta che hai testato le definizioni su del codice reale, fai una [pull request](#make-a-pull-request), 
+Una volta che hai testato le definizioni su del codice reale, fai una [pull request](#fai-una-pull-request), 
 poi segui le istruzioni per [modificare un package preesistente](#modificare-un-package-preesistente] o [creare un nuovo package](#creare-un-nuovo-package).
 
 ### Fai una pull request
 
 Una volta che hai testato il tuo package, puoi condividerlo su Definitely Typed.
 
-Inanzitutto, [sdoppia](https://guides.github.com/activities/forking/) questa repo, [clonala](#partial-clone), installa [node](https://nodejs.org/) ed esegui `npm install`. Se stai usando `npm` v7 devi aggiungere `--legacy-peer-deps` al comando.
+Inanzitutto, [sdoppia](https://guides.github.com/activities/forking/) questa repo, [clonala](#clone-parziale), installa [node](https://nodejs.org/) ed esegui `npm install`. Se stai usando `npm` v7 devi aggiungere `--legacy-peer-deps` al comando.
 
 Utilizziamo un bot per far sì che un gran numero di pull request su Definitely Typed possano essere gestite interamente in modo autonomo. Puoi scoprire di più a riguardo di come e perchè [qui](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). 
 
@@ -179,16 +155,16 @@ Per clonare la repo in modo più agibile, clonando _solo_ i package DT per te ri
 #### Modificare un package preesistente
 
 * `cd types/<package to edit>`
-* Fai le tue modifiche. Ricorda di [testle](#my-package-teststs).
-  Se fai modifiche essenziali, non ti dimenticare di [aggiornare il major della versione](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
-  * [Esegui `npm test <package da testare>`](#running-tests).
+* Fai le tue modifiche. Ricorda di [testle](#mio-package-teststs).
+  Se fai modifiche essenziali, non ti dimenticare di [aggiornare il major della versione](#se-laggiornamento-di-una-libreria-comprende-modifiche-sostanziali-aggiornamento-major-come-faccio-ad-aggiornare-il-suo-pacchetto-types).
+  * [Esegui `npm test <package da testare>`](#eseguire-test).
 
 Quando crei una pull request ad un package che esiste già, `dt-bot` dovrebbe @menzionare gli autori precedenti.
 Se non lo fa, puoi farlo direttamente tu nel commento associato alla pull request.
 
 #### Creare un nuovo package
 
-Se sei l'autore della libreria ed il tuo package è scritto in TypeScript, [includi i file di dichiarazione generati automaticamente] (http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel tuo package invece di pubblicarli su Definitely Typed.
+Se sei l'autore della libreria ed il tuo package è scritto in TypeScript, [includi i file di dichiarazione generati automaticamente] (https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel tuo package invece di pubblicarli su Definitely Typed.
 
 Se stai aggiungendo i tipo per un package npm, crea una cartella con lo stesso nome.
 Se il package a cui stai aggiungendo i tipi non è su npm, assicurati che il nome che scegli non entri in conflitto con quello di un package npm.
@@ -199,7 +175,7 @@ Il tuo package dovrebbe avere questa struttura:
 | File          | Scopo |
 | ------------- | ------- |
 | `index.d.ts`  | Contiene le dichiarazioni dei tipi del package. |
-| [`<nome-package>-tests.ts`](#my-package-teststs)  | Contiene codice di esempio con test delle dichiarazioni dei tipi. Se il codice *non* funziona anche se viene traspilato da tsc senza errori.
+| [`<nome-package>-tests.ts`](#mio-package-teststs)  | Contiene codice di esempio con test delle dichiarazioni dei tipi. Se il codice *non* funziona anche se viene traspilato da tsc senza errori.
 | [`tsconfig.json`](#tsconfigjson) | Ti permette di eseguire `tsc` all'interno del package. |
 | [`tslint.json`](#linter-tslintjson)   | Abilita il linting. |
 
@@ -214,7 +190,7 @@ Per l'esempio di un buon package, guarda [base64-js](https://github.com/Definite
 
 #### Rimuovere un package
 
-Quando un package [include](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) i suoi dichiarazioni, esse dovrebbero venire rimosse da Definitely Typed per evitare di far confusione.
+Quando un package [include](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) i suoi dichiarazioni, esse dovrebbero venire rimosse da Definitely Typed per evitare di far confusione.
 
 Puoi rimuoverli eseguendo `npm run not-needed -- <nome-package> <versione> [<nome-libreria>]`.
 * `<nome-package>`: È il nome della cartella da rimuovere.
@@ -285,7 +261,7 @@ const result = twoslash("//")
 
 Se ti stai chiedendo da dove cominciare per fare i test, gli esempi nel README del modulo sono un buon punto da dove partire.
 
-Puoi [validare le tue modifiche](#running-tests) con `npm test <package da testare>` nella root di questa repo, che prende in considerazione i file cambiati.
+Puoi [validare le tue modifiche](#eseguire-test) con `npm test <package da testare>` nella root di questa repo, che prende in considerazione i file cambiati.
 Usa `$ExpectType` per asserire che un'espressione è del tipo dato e `$ExpectError` per asserire un errore di compilazione. Ad esempio:
 
 ```js
@@ -327,7 +303,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 
 #### Errori comuni
 
-* Inanzitutto segui i consigli nel [manuale](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+* Inanzitutto segui i consigli nel [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `npm run prettier -- --write path/to/package/**/*.ts`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
   ```tsx
     // prettier-ignore
@@ -344,7 +320,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
     Esempio dove un parametro è accettabile: `function id<T>(value: T): T;`.
     Esempio in cui non lo è: `function parseJson<T>(json: string): T;`.
     Eccezione: `new Map<string, number>()` va bene.
-* Usare i tipi `Function` e `Object` non è quasi mai una buona idea. Nel 99% si può specificare un tipo più preciso. Alcuni esempi sono `(x: number) => number` per le [funzioni](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` per gli oggetti. Se non si è sicuri del tipo, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) è la scelta migliore, non `Object`. Se l'unica cosa di cui si sa è che il tipo è un oggetto di qualche tipo, usa il tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), non `Object` o `{ [key: string]: any }`.
+* Usare i tipi `Function` e `Object` non è quasi mai una buona idea. Nel 99% si può specificare un tipo più preciso. Alcuni esempi sono `(x: number) => number` per le [funzioni](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) e `{ x: number, y: number }` per gli oggetti. Se non si è sicuri del tipo, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) è la scelta migliore, non `Object`. Se l'unica cosa di cui si sa è che il tipo è un oggetto di qualche tipo, usa il tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), non `Object` o `{ [key: string]: any }`.
 * `var foo: string | any`:
   Quando `any` è usato in un tipo disgiuntipo, il tipo risultanto rimane `any`. Quindi mentre la porzione `string` di questo tipo potrebbe _sembrare_ utile, in realtà non offre nessuna precisazione rispetto ad un banalissimo `any`.
     In funzione delle tue intenzioni, delle alternative accettabili sono `any`, `string` o `string | object`.
@@ -495,7 +471,7 @@ Ad esempio, queste sono le prime righe delle [dichiarazioni di tipi di Node](htt
 
 ```js
 // Type definitions for Node.js 10.12
-// Project: http://nodejs.org/
+// Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 Definitely Typed <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
@@ -590,7 +566,7 @@ Quando `dts-gen` viene usato per uno pacchetto con scope, nel `tsconfig.json`, l
 
 #### La cronologia dei file su Github sembra incompleta.
 
-Github non [supporta](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) la cronologia per file rinominati. Usa invece [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
+Github non [supporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) la cronologia per file rinominati. Usa invece [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 ## Licenza
 

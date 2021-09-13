@@ -1,4 +1,5 @@
 import * as bitauth from 'bitauth';
+import * as express from 'express';
 
 const keys = bitauth.generateSin();
 
@@ -21,3 +22,6 @@ const password = 's4705hiru13z!';
 
 const enc = bitauth.encrypt(password, secret);
 bitauth.decrypt(password, enc);
+
+const app = express();
+app.use(bitauth.middleware);

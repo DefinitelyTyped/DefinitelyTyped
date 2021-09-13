@@ -22,5 +22,6 @@ declare class Label {
     visible: boolean;
     css: string;
     text: string;
+    autoSanitize: boolean;
     write(): void;
 }

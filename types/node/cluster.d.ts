@@ -7,9 +7,12 @@
  * server ports.
  *
  * ```js
- * const cluster = require('cluster');
- * const http = require('http');
- * const numCPUs = require('os').cpus().length;
+ * import cluster from 'cluster';
+ * import http from 'http';
+ * import { cpus } from 'os';
+ * import process from 'process';
+ *
+ * const numCPUs = cpus().length;
  *
  * if (cluster.isPrimary) {
  *   console.log(`Primary ${process.pid} is running`);
@@ -46,7 +49,7 @@
  * ```
  *
  * On Windows, it is not yet possible to set up a named pipe server in a worker.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/cluster.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/cluster.js)
  */
 declare module 'cluster' {
     import * as child from 'node:child_process';
@@ -215,9 +218,12 @@ declare module 'cluster' {
          * because of exiting or being signaled). Otherwise, it returns `false`.
          *
          * ```js
-         * const cluster = require('cluster');
-         * const http = require('http');
-         * const numCPUs = require('os').cpus().length;
+         * import cluster from 'cluster';
+         * import http from 'http';
+         * import { cpus } from 'os';
+         * import process from 'process';
+         *
+         * const numCPUs = cpus().length;
          *
          * if (cluster.isPrimary) {
          *   console.log(`Primary ${process.pid} is running`);

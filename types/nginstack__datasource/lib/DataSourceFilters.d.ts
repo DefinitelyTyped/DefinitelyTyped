@@ -2,9 +2,9 @@ export = DataSourceFilters;
 declare function DataSourceFilters(opt_dataSource?: any, opt_filtersValues?: any[]): void;
 declare class DataSourceFilters {
     constructor(opt_dataSource?: any, opt_filtersValues?: any[]);
-    filtersArray_: any[];
-    filtersHash_: {};
-    indexByName_: any;
+    private filtersArray_;
+    private filtersHash_;
+    private indexByName_;
     private newDynFilter_;
     private unshare_;
     getLength(): number;

@@ -5,9 +5,8 @@
     ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "target": "esnext",
         "lib": [
-            "es6",
             "dom"
         ],
         "noImplicitAny": true,

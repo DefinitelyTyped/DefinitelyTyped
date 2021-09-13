@@ -4,7 +4,11 @@
 //                 Will Bain <https://github.com/wabain>
 //                 Swathi Bala <https://github.com/swathimr>
 //                 Aman Nanner <https://github.com/ananner>
+//                 Ben Matthews <https://github.com/bmatthew>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//
+// Modifyed by: Shige Fukushima <sfukushi@akamai.com>
+//
 
 declare namespace EW {
     interface ReadsHeaders {
@@ -780,6 +784,38 @@ declare module "streams" {
     interface TransformStream<I = any, O = any> {
         readonly readable: ReadableStream<O>;
         readonly writable: WritableStream<I>;
+    }
+
+    const TransformStream: {
+        prototype: TransformStream;
+        new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
+    };
+
+    interface Transformer<I = any, O = any> {
+        flush?: TransformerFlushCallback<O>;
+        readableType?: undefined;
+        start?: TransformerStartCallback<O>;
+        transform?: TransformerTransformCallback<I, O>;
+        writableType?: undefined;
+    }
+
+    interface TransformerFlushCallback<O> {
+        (controller: TransformStreamDefaultController<O>): void | Promise<void>;
+    }
+
+    interface TransformerStartCallback<O> {
+        (controller: TransformStreamDefaultController<O>): void | Promise<void>;
+    }
+
+    interface TransformerTransformCallback<I, O> {
+        (chunk: I, controller: TransformStreamDefaultController<O>): void | Promise<void>;
+    }
+
+    interface TransformStreamDefaultController<O = any> {
+        readonly desiredSize: number | null;
+        enqueue(chunk: O): void;
+        error(reason?: any): void;
+        terminate(): void;
     }
 
     interface CountQueuingStrategy {

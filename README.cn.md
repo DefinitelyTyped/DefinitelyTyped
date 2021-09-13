@@ -6,30 +6,6 @@
 
 *[管理员手册](./docs/admin.md)*
 
-## 目录
-
-* [当前状态](#当前状态)
-* [什么是声明文件？](#什么是声明文件)
-* [如何去获取它？](#如何去获取它)
-* [我该如何贡献？](#我该如何贡献)
-  - [测试](#测试)
-  - [发起一个 pull request](#发起一个-pull-request)<details><summary></summary>
-    - [编辑一个现有包](#编辑一个现有包)
-    - [创建一个新的包](#创建一个新的包)
-    - [删除一个包](#删除一个包)
-    - [验证](#验证)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [常见错误](#常见错误)
-    </details>
-  - [Definition owners](#definition-owners)
-* [FAQ](#faq)
-* [许可证](#许可证)
-
 ## 当前状态
 
 这个部分会跟踪仓库和发布过程的运行状况。
@@ -37,14 +13,14 @@
 
 * 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* 所有的包都会在1小时内 [发布到 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* 所有的包都会在1小时30分钟内 [发布到 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 如果这里面的任何内容出现问题或者失败的情况，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 提出问题。
 
 ## 什么是声明文件？
 
-可以查看 [TypeScript 手册](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)。
+可以查看 [TypeScript 手册](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)。
 
 ## 如何去获取它？
 
@@ -63,18 +39,18 @@ npm install --save-dev @types/node
 /// <reference types="node" />
 ```
 
-可以在 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html) 中查看更多信息。
+可以在 [手册](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html) 中查看更多信息。
 
 对于 npm 包 "foo"，它的类型定义的包名应该是 "@types/foo"。
 如果没有找到你的包，请在 [TypeSearch](https://microsoft.github.io/TypeSearch/) 查询。
 
-如果你仍然没有找到它，请检查它是否 [捆绑](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型。
+如果你仍然没有找到它，请检查它是否 [捆绑](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型。
 这通常会通过 `package.json` 文件中的 `"types"` 或 `"typings"` 字段提供，
 或者将包中包含类型定义的 ".d.ts" 文件手动通过 `/// <reference path="" />` 引入.
 
-#### 旧版本的 TypeScript（3.5 和更早版本）
+#### 旧版本的 TypeScript（3.6 和更早版本）
 
-Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.6 及更高版本。如果您使用的是 TypeScript 2.0 到 3.5，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 3.7 及更高版本。如果您使用的是 TypeScript 2.0 到 3.6，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 | Version | Released       | End of Support |
 | ------- | -------------- | -------------- |
@@ -94,6 +70,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 | 4.1     | November 2020  | November 2022  |
 | 4.2     | February 2021  | February 2023  |
 | 4.3     | May 2021       | May 2023       |
+| 4.4     | August 2021    | August 2023    |
 
 `@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您能看到 TypeScript 2.5 最高支持 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则最高支持 react@16.4：
 
@@ -113,9 +90,9 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 * 从该仓库的 `master` 分支手动下载并将其放入您的项目中
 * ~~[Typings](https://github.com/typings/typings)~~ (使用首选替代方案，typings 已经被弃用)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (使用首选替代方案, nuget DT 类型发布已关闭)
+* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (使用首选替代方案, nuget DT 类型发布已关闭)
 
-你可能需要手动添加 [引用](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)。
+你可能需要手动添加 [引用](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)。
 
 ## 我该如何贡献？
 
@@ -127,7 +104,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 #### 测试编辑现有的包
 
-你可以使用 [module augmentation](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) 添加新功能。
+你可以使用 [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) 添加新功能。
 你也可以直接在 `node_modules/@types/foo/index.d.ts` 编辑类型，或者从那里复制它们并按照以下步骤操作。
 
 #### 为新创建的库添加测试
@@ -176,7 +153,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 * `cd types/<package to edit>`
 * 作出修改之后，[记得新增测试](#my-package-teststs)。
-  如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本，我应该如何更新它的类型声明包？)
+  如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本我应该如何更新它的类型声明包)
 * 你可能还想将自己添加到包头部的 "Definitions by" 部分。
   - 这会导致一旦有人对该包发起 PR 或者 issue，都会通知你（通过你的 GitHub 用户名）。
   - 通过将您的名字添加到行尾来执行此操作，比如 `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
@@ -194,7 +171,7 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 #### 创建一个新的包
 
-如果你是库作者并且你的包是用 TypeScript 编写的，那么请在你的包里 [捆绑自动生成的声明文件](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 而不是发布到 Definitely Typed.
+如果你是库作者并且你的包是用 TypeScript 编写的，那么请在你的包里 [捆绑自动生成的声明文件](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 而不是发布到 Definitely Typed.
 
 如果你要为 npm 包添加类型，请创建具有相同名字的目录。
 如果你要添加类型的包不再 npm 上，请确保为它选择的名字不会与 npm 上面的包名冲突。
@@ -220,7 +197,7 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 
 #### 删除一个包
 
-当一个包 [捆绑](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型时，应该从 Definitely Typed 中删除类型避免被混淆。
+当一个包 [捆绑](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 了自己的类型时，应该从 Definitely Typed 中删除类型避免被混淆。
 
 你可以运行以下命令来删除它 `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
 - `<typingsPackageName>`: 这是你要删除的目录名字.
@@ -341,7 +318,7 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 
 #### 常见错误
 
-* 首先，请遵循 [手册](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) 的建议。
+* 首先，请遵循 [手册](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) 的建议。
 * 格式化：使用 4 个空格。 该仓库已经设置了 prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`. [使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
   ```tsx
   // prettier-ignore
@@ -358,7 +335,7 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
   类型参数可接受的示例：`function id<T>(value: T): T;`.
   类型参数不可接受的示例：`function parseJson<T>(json: string): T;`.
   有一个例外：`new Map<string, number>()` 是 OK 的。
-* 使用 `Function` 和 `Object` 的类型基本上不是一个好方法。在 99% 的情况你可以去指定一个更具体的类型。比如，对于 [Function](http://www.typescriptlang.org/docs/handbook/functions.html#function-types)，可以使用 `(x: number) => number`，对于 `Object` 可以使用 `{ x: number, y: number }`. 对于不确定的类型，你需要使用 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 而不是 `Object`. 只有当它类型确定且是某个对象的时候，使用 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), 而不是 `Object` 或 `{ [key: string]: any }`.
+* 使用 `Function` 和 `Object` 的类型基本上不是一个好方法。在 99% 的情况你可以去指定一个更具体的类型。比如，对于 [Function](https://www.typescriptlang.org/docs/handbook/functions.html#function-types)，可以使用 `(x: number) => number`，对于 `Object` 可以使用 `{ x: number, y: number }`. 对于不确定的类型，你需要使用 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) 而不是 `Object`. 只有当它类型确定且是某个对象的时候，使用 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), 而不是 `Object` 或 `{ [key: string]: any }`.
 * `var foo: string | any`:
   如果在联合类型中使用 `any`, 则结果始终为 `any`. 因此，即便类型中的 `string` 部分看起来很有用，但实际上在类型检查方面与 `any` 没有什么区别。根据你的意图，可以选择 `any`, `string`, 或 `string | object`.
 
@@ -490,7 +467,7 @@ _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.
 
 ```js
 // Type definitions for Node.js 10.12
-// Project: http://nodejs.org/
+// Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 Definitely Typed <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
@@ -579,7 +556,7 @@ TypeScript 手册包含了优秀的 [关于编写类型定义的概括信息](ht
 
 #### GitHub 中的文件记录看起来不完整。
 
-GitHub 不 [支持](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) 重命名文件的历史记录。请使用 [`git log --follow`](https://www.git-scm.com/docs/git-log) 命令代替。
+GitHub 不 [支持](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) 重命名文件的历史记录。请使用 [`git log --follow`](https://www.git-scm.com/docs/git-log) 命令代替。
 
 ## 许可证
 

@@ -2,7 +2,7 @@ export = RemoteScheduler;
 declare function RemoteScheduler(database: any): void;
 declare class RemoteScheduler {
     constructor(database: any);
-    database_: any;
+    private database_;
     private runAction_;
     maxSimultaneousTasks: number;
     getTasks(options?: { scriptKey?: string; scriptURI?: string }): any;

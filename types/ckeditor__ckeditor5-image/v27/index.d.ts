@@ -2,7 +2,7 @@
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/image.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 import AutoImage from './src/autoimage';
 import Image from './src/image';
 import ImageEditing from './src/image/imageediting';

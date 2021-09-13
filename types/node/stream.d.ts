@@ -14,11 +14,12 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
     import * as streamPromises from 'node:stream/promises';
+    import * as streamConsumers from 'node:stream/consumers';
     class internal extends EventEmitter {
         pipe<T extends NodeJS.WritableStream>(
             destination: T,
@@ -52,11 +53,26 @@ declare module 'stream' {
              */
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
             /**
+             * Returns whether the stream has been read from or cancelled.
+             * @since v16.8.0
+             */
+            static isDisturbed(stream: Readable | NodeJS.ReadableStream): boolean;
+            /**
+             * Returns whether the stream was destroyed or errored before emitting `'end'`.
+             * @since v16.8.0
+             */
+            readonly readableAborted: boolean;
+            /**
              * Is `true` if it is safe to call `readable.read()`, which means
              * the stream has not been destroyed or emitted `'error'` or `'end'`.
              * @since v11.4.0
              */
             readable: boolean;
+            /**
+             * Returns whether `'data'` has been emitted.
+             * @since v16.7.0
+             */
+            readonly readableDidRead: boolean;
             /**
              * Getter for the property `encoding` of a given `Readable` stream. The `encoding`property can be set using the `readable.setEncoding()` method.
              * @since v12.7.0
@@ -789,7 +805,30 @@ declare module 'stream' {
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
+            allowHalfOpen: boolean;
             constructor(opts?: DuplexOptions);
+            /**
+             * A utility method for creating duplex streams.
+             *
+             * - `Stream` converts writable stream into writable `Duplex` and readable stream
+             *   to `Duplex`.
+             * - `Blob` converts into readable `Duplex`.
+             * - `string` converts into readable `Duplex`.
+             * - `ArrayBuffer` converts into readable `Duplex`.
+             * - `AsyncIterable` converts into a readable `Duplex`. Cannot yield `null`.
+             * - `AsyncGeneratorFunction` converts into a readable/writable transform
+             *   `Duplex`. Must take a source `AsyncIterable` as first parameter. Cannot yield
+             *   `null`.
+             * - `AsyncFunction` converts into a writable `Duplex`. Must return
+             *   either `null` or `undefined`
+             * - `Object ({ writable, readable })` converts `readable` and
+             *   `writable` into `Stream` and then combines them into `Duplex` where the
+             *   `Duplex` will write to the `writable` and read from the `readable`.
+             * - `Promise` converts into readable `Duplex`. Value `null` is ignored.
+             *
+             * @since v16.8.0
+             */
+            static from(src: Stream | Blob | ArrayBuffer | string | Iterable<any> | AsyncIterable<any> | AsyncGeneratorFunction | Promise<any> | Object): Duplex;
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
                 chunks: Array<{
@@ -1007,7 +1046,7 @@ declare module 'stream' {
          * ```
          *
          * The `pipeline` API provides a promise version, which can also
-         * receive an options argument as the last parameter with a`signal` `<AbortSignal>` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
+         * receive an options argument as the last parameter with a`signal` `AbortSignal` property. When the signal is aborted,`destroy` will be called on the underlying pipeline, with
          * an`AbortError`.
          *
          * ```js
@@ -1169,6 +1208,7 @@ declare module 'stream' {
             unref(): void;
         }
         const promises: typeof streamPromises;
+        const consumers: typeof streamConsumers;
     }
     export = internal;
 }

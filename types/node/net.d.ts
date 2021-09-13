@@ -10,7 +10,7 @@
  * ```js
  * const net = require('net');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/net.js)
  */
 declare module 'net' {
     import * as stream from 'node:stream';
@@ -99,7 +99,7 @@ declare module 'net' {
          * * `socket.connect(options[, connectListener])`
          * * `socket.connect(path[, connectListener])` for `IPC` connections.
          * * `socket.connect(port[, host][, connectListener])` for TCP connections.
-         * * Returns: `<net.Socket>` The socket itself.
+         * * Returns: `net.Socket` The socket itself.
          *
          * This function is asynchronous. When the connection is established, the `'connect'` event will be emitted. If there is a problem connecting,
          * instead of a `'connect'` event, an `'error'` event will be emitted with

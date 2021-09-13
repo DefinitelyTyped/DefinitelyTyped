@@ -263,13 +263,15 @@ googletag.pubads().updateCorrelator();
 // The listener will be called only when the pubads service renders a slot.
 // To listen to companion ads, add a similar listener to
 // googletag.companionAds().
-googletag.pubads().addEventListener("slotRenderEnded", (event) => {
+const slotRenderEndedListener1 = (event: googletag.events.SlotRenderEndedEvent) => {
     console.log("Slot has been rendered:");
     console.log(event.isEmpty);
     console.log(event.lineItemId);
     console.log(event.creativeId);
     console.log(event.campaignId);
-});
+};
+googletag.pubads().addEventListener("slotRenderEnded", slotRenderEndedListener1);
+googletag.pubads().removeEventListener("slotRenderEnded", slotRenderEndedListener1);
 
 // 2. Slot render ended listener, slot specific logic.
 // Listeners operate at service level, which means that you cannot add a
@@ -277,39 +279,49 @@ googletag.pubads().addEventListener("slotRenderEnded", (event) => {
 // however, programmatically filter a listener to respond only to a certain
 // ad slot, using this pattern:
 let targetSlot = slot1;
-googletag.pubads().addEventListener("slotRenderEnded", (event) => {
+const slotRenderEndedListener2 = (event: googletag.events.SlotRenderEndedEvent) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-});
+};
+googletag.pubads().addEventListener("slotRenderEnded", slotRenderEndedListener2);
+googletag.pubads().removeEventListener("slotRenderEnded", slotRenderEndedListener2);
 
 // 3. Impression viewable listener, slot specific logic.
 // The listener will be called when the impression is considered viewable.
 // This event also operates at service level, but, as above, you can filter
 // to respond only to a certain ad slot by using this pattern:
-googletag.pubads().addEventListener("impressionViewable", (event) => {
+const impressionViewableListener = (event: googletag.events.ImpressionViewableEvent) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-});
+};
+googletag.pubads().addEventListener("impressionViewable", impressionViewableListener);
+googletag.pubads().removeEventListener("impressionViewable", impressionViewableListener);
 
-googletag.pubads().addEventListener("slotRequested", (event) => {
+const slotRequestedListener = (event: googletag.events.SlotRequestedEvent) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-});
+};
+googletag.pubads().addEventListener("slotRequested", slotRequestedListener);
+googletag.pubads().removeEventListener("slotRequested", slotRequestedListener);
 
-googletag.pubads().addEventListener("slotResponseReceived", (event) => {
+const slotResponseReceivedListener = (event: googletag.events.SlotResponseReceived) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
-});
+};
+googletag.pubads().addEventListener("slotResponseReceived", slotResponseReceivedListener);
+googletag.pubads().removeEventListener("slotResponseReceived", slotResponseReceivedListener);
 
-googletag.pubads().addEventListener("slotVisibilityChanged", (event) => {
+const slotVisibilityChangedListener = (event: googletag.events.SlotVisibilityChangedEvent) => {
     if (event.slot === targetSlot) {
         console.log(event.inViewPercentage);
     }
-});
+};
+googletag.pubads().addEventListener("slotVisibilityChanged", slotVisibilityChangedListener);
+googletag.pubads().removeEventListener("slotVisibilityChanged", slotVisibilityChangedListener);
 
 let mapping1 = googletag.sizeMapping().
         addSize([1024, 768], [970, 250]).

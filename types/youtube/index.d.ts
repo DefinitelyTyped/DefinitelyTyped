@@ -255,6 +255,22 @@ declare namespace YT
     }
 
     /**
+     * Whether or not to start the video muted. Some browsers require this set to 1 for autoplay to work (e.g. Chrome).
+     */
+    export enum Mute
+    {
+        /**
+         * Player will start not muted, with sound
+         */
+        NotMuted = 0,
+
+        /**
+         * Player will start muted
+         */
+        Muted = 1
+    }
+
+    /**
      * Whether to playback video inline or full-screen in an HTML5 player on iOS
      */
     export enum PlaysInline
@@ -536,6 +552,11 @@ declare namespace YT
          * Whether to hide some YouTube branding (by default, Full).
          */
         modestbranding?: ModestBranding | undefined;
+
+        /**
+         * Whether to start the video muted (by default, NotMuted).
+         */
+        mute?: Mute | undefined;
 
         /**
          * Origin domain for additional security if using the JavaScript API.

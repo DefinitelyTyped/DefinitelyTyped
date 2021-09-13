@@ -7,3 +7,9 @@ export default class ImageInline extends Plugin {
     static readonly requires: [typeof ImageInlineEditing, typeof Widget, typeof ImageTextAlternative];
     static pluginName: 'ImageInline';
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageInline: ImageInline;
+    }
+}

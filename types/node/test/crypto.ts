@@ -496,6 +496,38 @@ import { promisify } from 'node:util';
         },
     });
 
+    const rsaPssRes: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            cipher: 'some-cipher',
+            format: 'pem',
+            passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const rsaPssResNoPassphrase: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
     const dsaRes: {
         publicKey: string;
         privateKey: Buffer;
@@ -571,6 +603,24 @@ import { promisify } from 'node:util';
             publicKeyEncoding: {
                 format: 'der',
                 type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        'rsa-pss',
+        {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'spki',
             },
             privateKeyEncoding: {
                 cipher: 'some-cipher',
@@ -661,6 +711,23 @@ import { promisify } from 'node:util';
         publicKeyEncoding: {
             format: 'der',
             type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            cipher: 'some-cipher',
+            format: 'pem',
+            passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const rsaPssRes: Promise<{
+        publicKey: Buffer;
+        privateKey: string;
+    }> = generateKeyPairPromisified('rsa-pss', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'spki',
         },
         privateKeyEncoding: {
             cipher: 'some-cipher',
@@ -1154,6 +1221,15 @@ import { promisify } from 'node:util';
                 if (keyObject.asymmetricKeyDetails.namedCurve) {
                     const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
                 }
+                if (keyObject.asymmetricKeyDetails.mgf1HashAlgorithm) {
+                    const mgf1HashAlgorithm: string = keyObject.asymmetricKeyDetails.mgf1HashAlgorithm;
+                }
+                if (keyObject.asymmetricKeyDetails.hashAlgorithm) {
+                    const hashAlgorithm: string = keyObject.asymmetricKeyDetails.hashAlgorithm;
+                }
+                if (keyObject.asymmetricKeyDetails.saltLength) {
+                    const saltLength: number = keyObject.asymmetricKeyDetails.saltLength;
+                }
             }
         }
     });
@@ -1194,22 +1270,6 @@ import { promisify } from 'node:util';
 }
 
 {
-    crypto.generateKeyPair('ec', { namedCurve: 'P-256' }, (err, publicKey, privateKey) => {
-        for (const keyObject of [publicKey, privateKey]) {
-            if (keyObject.asymmetricKeyDetails) {
-                if (keyObject.asymmetricKeyDetails.modulusLength) {
-                    const modulusLength: number = keyObject.asymmetricKeyDetails.modulusLength;
-                }
-                if (keyObject.asymmetricKeyDetails.publicExponent) {
-                    const publicExponent: bigint = keyObject.asymmetricKeyDetails.publicExponent;
-                }
-                if (keyObject.asymmetricKeyDetails.divisorLength) {
-                    const divisorLength: number = keyObject.asymmetricKeyDetails.divisorLength;
-                }
-                if (keyObject.asymmetricKeyDetails.namedCurve) {
-                    const namedCurve: string = keyObject.asymmetricKeyDetails.namedCurve;
-                }
-            }
-        }
-    });
+    // tslint:disable-next-line no-object-literal-type-assertion (webcrypto.CryptoKey is a placeholder)
+    crypto.KeyObject.from({} as crypto.webcrypto.CryptoKey); // $ExpectType KeyObject
 }

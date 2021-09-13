@@ -18,7 +18,7 @@ export function getLocalizedDecorators(t: Locale['t'], decorators: LinkDecorator
 
 export function normalizeDecorators(decorators: Record<string, LinkDecoratorDefinition>): LinkDecoratorDefinition[];
 
-export function isImageAllowed(element: Element, schema: Schema): boolean;
+export function isLinkableElement(element: Element, schema: Schema): boolean;
 
 export function isEmail(value: string): boolean;
 

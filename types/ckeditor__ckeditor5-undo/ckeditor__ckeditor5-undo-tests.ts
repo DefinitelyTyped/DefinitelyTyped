@@ -1,6 +1,7 @@
 import { Editor } from "@ckeditor/ckeditor5-core";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
-import { Undo } from "@ckeditor/ckeditor5-undo";
+import { Undo, UndoEditing } from "@ckeditor/ckeditor5-undo";
+import UndoUI from "@ckeditor/ckeditor5-undo/src/undoui";
 import RedoCommand from "@ckeditor/ckeditor5-undo/src/redocommand";
 import UndoCommand from "@ckeditor/ckeditor5-undo/src/undocommand";
 
@@ -21,3 +22,18 @@ const redo = new RedoCommand(editor);
 redo.execute();
 // $ExpectError
 redo.execute(new Batch());
+
+// $ExpectType Undo
+editor.plugins.get('Undo');
+
+// $ExpectType UndoEditing
+editor.plugins.get('UndoEditing');
+
+// $ExpectType UndoUI
+editor.plugins.get('UndoUI');
+
+// $ExpectType RedoCommand | undefined
+editor.commands.get('RedoCommand');
+
+// $ExpectType UndoCommand | undefined
+editor.commands.get('UndoCommand');

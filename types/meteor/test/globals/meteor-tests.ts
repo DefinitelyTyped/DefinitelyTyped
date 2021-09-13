@@ -784,6 +784,12 @@ namespace MeteorTests {
     // Outside an object
     check(undefined, Match.Optional('test')); // OK
 
+    var buffer: unknown;
+
+    check(buffer, Match.Where(EJSON.isBinary));
+    // $ExpectType Uint8Array
+    buffer;
+
     /**
      * From Deps, Tracker.autorun section
      */
@@ -1053,6 +1059,10 @@ namespace MeteorTests {
         // do something
     }
 
+    if (Meteor.isAppTest) {
+        // do something
+    }
+  
     DDPRateLimiter.addRule({ userId: 'foo' }, 5, 1000);
 
     DDPRateLimiter.addRule({ userId: userId => userId == 'foo' }, 5, 1000);
@@ -1066,6 +1076,7 @@ namespace MeteorTests {
         connection: null,
     });
 } // End of namespace
+
 
 // absoluteUrl
 Meteor.absoluteUrl('/sub', { rootUrl: 'http://wonderful.com' });

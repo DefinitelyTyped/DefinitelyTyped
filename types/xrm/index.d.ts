@@ -201,6 +201,12 @@ declare namespace Xrm {
          * Indicates whether the Skype protocol is used for the current organization.
          */
         useSkypeProtocol: boolean;
+
+        /**
+         * Returns the region of the current organization.
+         * @see {@link https://docs.microsoft.com/en-us/power-platform/admin/geo-to-geo-migrations External Link: Geo to geo migrations}
+         */
+        organizationGeo: string;
     }
 
     /**
@@ -2433,6 +2439,14 @@ declare namespace Xrm {
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
             setValue(value: T | null): void;
+
+            /**
+            * Sets a value for a column to determine whether it is valid or invalid with a message
+            * @param isValid Specify false to set the column value to invalid and true to set the value to valid.
+            * @param message The message to display.
+            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setisvalid External Link: setIsValid (Client API reference)}
+            */
+            setIsValid(isValid: boolean, message?: string): void;
         }
 
         /**
@@ -2470,6 +2484,13 @@ declare namespace Xrm {
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.NumberControl>;
+
+            /**
+            * Sets the number of digits allowed to the right of the decimal point.
+            * @param precision Number of digits allowed to the right of the decimal point.
+            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setPrecision External Link: setPrecision (Client API reference)}
+            */
+             setPrecision(precision: number): void;
         }
 
         /**
@@ -3614,6 +3635,13 @@ declare namespace Xrm {
              * Navigates the user to this form.
              */
             navigate(): void;
+
+            /**
+             * Sets a value that indicates whether the form is visible.
+             * @param isVisible Specify true to show the form; false to hide the form.
+             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui-formselector/setvisible External Link: setVisible (Client API reference)}
+             */
+            setVisible(isVisible: boolean): void;
         }
 
         /**
@@ -3684,10 +3712,10 @@ declare namespace Xrm {
          */
         addOnPostSave(handler: Events.ContextSensitiveHandler): void;
 
-         /**
-         * Adds a handler to be called when the record is saved.
-         * @param handler The handler.
-         */
+        /**
+        * Adds a handler to be called when the record is saved.
+        * @param handler The handler.
+        */
         addOnSave(handler: Events.ContextSensitiveHandler): void;
 
         /**
@@ -5156,7 +5184,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/createrecord External Link: createRecord (Client API reference)}
          */
-        createRecord(entityLogicalName: string, record: any): Async.PromiseLike<CreateResponse>;
+        createRecord(entityLogicalName: string, record: Entity): Async.PromiseLike<EntityReference>;
 
         /**
          * Deletes an entity record.
@@ -5165,7 +5193,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/deleterecord External Link: deleteRecord (Client API reference)}
          */
-        deleteRecord(entityLogicalName: string, id: string): Async.PromiseLike<string>;
+        deleteRecord(entityLogicalName: string, id: string): Async.PromiseLike<EntityReference>;
 
         /**
          * Retrieves an entity record.
@@ -5186,7 +5214,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
-        retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<any>;
+        retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<Entity>;
 
         /**
          * Retrieves a collection of entity records.
@@ -5214,15 +5242,27 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
-        updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<any>;
+        updateRecord(entityLogicalName: string, id: string, data: Entity): Async.PromiseLike<EntityReference>;
     }
 
     /**
-     * Interface for the WebAPI CreateRecord request response
+     * An object that encapsulates an Entity Reference as a plain object suitable for storing in the state tree
      */
-    interface CreateResponse {
-        entityType: string;
-        id: string;
+     interface EntityReference {
+        /**
+         * The record id. Read-only.
+         */
+        id: { guid: string; };
+
+        /**
+         * The entity logical name. Read-only.
+         */
+        etn?: string;
+
+        /**
+         * The name of the entity reference. Read-only.
+         */
+        name: string;
     }
 
     /**
@@ -5234,13 +5274,20 @@ declare namespace Xrm {
     }
 
     /**
+    * Interface that describes an entity sent or received from the SDK through the Web API.
+    */
+    interface Entity {
+        [key: string]: any;
+    }
+
+    /**
      * Interface for the WebAPI RetrieveMultiple request response
      */
     interface RetrieveMultipleResult {
         /**
          * An array of JSON objects, where each object represents the retrieved entity record containing attributes and their values as key: value pairs. The Id of the entity record is retrieved by default.
          */
-        entities: any[];
+        entities: Entity[];
         /**
          * If the number of records being retrieved is more than the value specified in the maxPageSize parameter, this attribute returns the URL to return next set of records.
          */
