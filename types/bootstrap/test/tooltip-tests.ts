@@ -1,10 +1,10 @@
-import { Tooltip } from "bootstrap";
-import * as $ from "jquery";
+import { Tooltip } from 'bootstrap';
+import * as $ from 'jquery';
 
 const element = new Element();
 
 // $ExpectType Tooltip
-new Tooltip(element, { delay: 0.5, title: () => "foo", customClass: () => "custom-class" });
+new Tooltip(element, { delay: 0.5, title: () => 'foo', customClass: () => 'custom-class' });
 
 // $ExpectType Tooltip | null
 Tooltip.getInstance(element);
@@ -65,15 +65,15 @@ element.addEventListener(Tooltip.Events.shown, event => {
 });
 
 // $ExpectType void
-$(".alert").tooltip();
+$('.alert').tooltip();
 
 // $ExpectType void
-$(".alert").tooltip({ delay: 0.5, title: () => "foo", customClass: () => "custom-class" });
+$('.alert').tooltip({ delay: 0.5, title: () => 'foo', customClass: () => 'custom-class' });
 
-$(".alert").tooltip("hide"); // $ExpectType void
-$(".alert").tooltip("show"); // $ExpectType void
-$(".alert").tooltip("toggle"); // $ExpectType void
-$(".alert").tooltip("enable"); // $ExpectType void
-$(".alert").tooltip("disable"); // $ExpectType void
-$(".alert").tooltip("toggleEnabled"); // $ExpectType void
-$(".alert").tooltip("update"); // $ExpectType void
+$('.alert').tooltip('hide'); // $ExpectType void
+$('.alert').tooltip('show'); // $ExpectType void
+$('.alert').tooltip('toggle'); // $ExpectType void
+$('.alert').tooltip('enable'); // $ExpectType void
+$('.alert').tooltip('disable'); // $ExpectType void
+$('.alert').tooltip('toggleEnabled'); // $ExpectType void
+$('.alert').tooltip('update'); // $ExpectType void

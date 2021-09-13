@@ -1,10 +1,11 @@
-import { Editor } from "@ckeditor/ckeditor5-core";
-import Heading from "@ckeditor/ckeditor5-heading";
+import { Editor } from '@ckeditor/ckeditor5-core';
+import Heading from '@ckeditor/ckeditor5-heading';
+import HeadingCommand from '@ckeditor/ckeditor5-heading/src/headingcommand';
 
 class MyEditor extends Editor {}
 const myEditor = new MyEditor();
 
-let str = "";
+let str = '';
 
 new Heading.Heading(myEditor);
 Heading.Heading.requires.length === 2;
@@ -24,8 +25,12 @@ title.init();
 str = title.getTitle();
 str = title.getBody();
 str = title.getBody({ rootName: str });
-str = title.getBody({ trim: "none" });
-str = title.getBody({ rootName: str, trim: "none" });
+str = title.getBody({ trim: 'none' });
+str = title.getBody({ rootName: str, trim: 'none' });
+
+// $ExpectError
+new HeadingCommand(myEditor, ['']).execute();
+new HeadingCommand(myEditor, ['']).execute({ value: '' });
 
 // $ExpectType Heading
 myEditor.plugins.get('Heading');
@@ -41,3 +46,9 @@ myEditor.plugins.get('HeadingUI');
 
 // $ExpectType Title
 myEditor.plugins.get('Title');
+
+// $ExpectType HeadingCommand | undefined
+myEditor.commands.get('HeadingCommand');
+
+// $ExpectType HeadingCommand | undefined
+myEditor.commands.get('HeadingCommand');

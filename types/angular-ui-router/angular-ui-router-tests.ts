@@ -219,7 +219,7 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         }
 
         // Accesses the currently resolved values for the current state
-        // http://stackoverflow.com/questions/28026620/is-there-a-way-to-access-resolved-state-dependencies-besides-injecting-them-into/28027023#28027023
+        // https://stackoverflow.com/questions/28026620/is-there-a-way-to-access-resolved-state-dependencies-besides-injecting-them-into/28027023#28027023
         var resolvedValues = this.$state.$current.locals.globals;
     }
 }

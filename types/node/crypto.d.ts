@@ -509,6 +509,18 @@ declare module 'crypto' {
          */
         publicExponent?: bigint | undefined;
         /**
+         * Name of the message digest (RSA-PSS).
+         */
+        hashAlgorithm?: string | undefined;
+        /**
+         * Name of the message digest used by MGF1 (RSA-PSS).
+         */
+        mgf1HashAlgorithm?: string | undefined;
+        /**
+         * Minimal salt length in bytes (RSA-PSS).
+         */
+        saltLength?: number | undefined;
+        /**
          * Size of q in bits (DSA).
          */
         divisorLength?: number | undefined;
@@ -535,6 +547,10 @@ declare module 'crypto' {
      */
     class KeyObject {
         private constructor();
+        /**
+         * @since v15.0.0
+         */
+        static from(key: webcrypto.CryptoKey): KeyObject;
         /**
          * For asymmetric keys, this property represents the type of the key. Supported key
          * types are:
@@ -565,8 +581,11 @@ declare module 'crypto' {
          * through this property can be used to uniquely identify a key or to compromise
          * the security of the key.
          *
-         * RSA-PSS parameters, DH, or any future key type details might be exposed via this
-         * API using additional attributes.
+         * For RSA-PSS keys, if the key material contains a `RSASSA-PSS-params` sequence,
+         * the `hashAlgorithm`, `mgf1HashAlgorithm`, and `saltLength` properties will be
+         * set.
+         *
+         * Other key details might be exposed via this API using additional attributes.
          * @since v15.7.0
          */
         asymmetricKeyDetails?: AsymmetricKeyDetails | undefined;

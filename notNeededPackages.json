@@ -388,6 +388,10 @@
             "libraryName": "browserslist",
             "asOfVersion": "4.15.0"
         },
+        "bson": {
+            "libraryName": "bson",
+            "asOfVersion": "4.2.0"
+        },
         "bugsnag": {
             "libraryName": "bugsnag-js",
             "asOfVersion": "3.1.0"
@@ -2992,6 +2996,10 @@
         "node-downloader-helper": {
             "libraryName": "node-downloader-helper",
             "asOfVersion": "1.0.16"
+        },
+        "node-fetch": {
+            "libraryName": "node-fetch",
+            "asOfVersion": "3.0.0"
         },
         "node-json-db": {
             "libraryName": "node-json-db",

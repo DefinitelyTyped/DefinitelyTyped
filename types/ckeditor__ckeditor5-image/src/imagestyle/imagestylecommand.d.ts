@@ -8,3 +8,9 @@ export default class ImageStyleCommand extends Command {
     execute(options?: { value: ImageStyleOptionDefinition['name'] }): void;
     shouldConvertImageType(requestedStyle: ImageStyleOptionDefinition, imageElement: Element): boolean;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        ImageStyleCommand: ImageStyleCommand;
+    }
+}

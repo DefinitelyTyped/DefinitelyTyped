@@ -9,6 +9,7 @@
 //                 Romain LE BARO <https://github.com/scandinave>
 //                 Sarun Intaralawan <https://github.com/sarunint>
 //                 Tony Brix <https://github.com/UziTech>
+//                 Anatolii Titov <https://github.com/Toliak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -333,7 +334,7 @@ declare namespace marked {
             type: 'list';
             raw: string;
             ordered: boolean;
-            start: boolean;
+            start: number | '';
             loose: boolean;
             items: ListItem[];
         }
@@ -342,7 +343,7 @@ declare namespace marked {
             type: 'list_item';
             raw: string;
             task: boolean;
-            checked: boolean;
+            checked?: boolean | undefined;
             loose: boolean;
             text: string;
             tokens: Token[];

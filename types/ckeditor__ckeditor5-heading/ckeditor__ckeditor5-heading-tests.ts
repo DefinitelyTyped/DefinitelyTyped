@@ -53,3 +53,6 @@ myEditor.plugins.get('HeadingUI');
 
 // $ExpectType Title
 myEditor.plugins.get('Title');
+
+// $ExpectType HeadingCommand | undefined
+myEditor.commands.get('HeadingCommand');

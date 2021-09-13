@@ -17,10 +17,10 @@ import {
 VERSION; // $ExpectType string
 
 /* DateTime */
-DateTime.DATETIME_MED; // $ExpectType DateTimeFormatPreset
-DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatPreset
-DateTime.DATE_MED; // $ExpectType DateTimeFormatPreset
-DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatPreset
+DateTime.DATETIME_MED; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; hour: "numeric"; minute: "numeric"; }
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; weekday: "short"; hour: "numeric"; minute: "numeric"; }
+DateTime.DATE_MED; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; }
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; weekday: "short"; }
 
 DateTime.local({ zone: 'Atlantic/Azores' }); // $ExpectType DateTime
 DateTime.local(2021, 8, 28, { zone: 'Atlantic/Azores' }); // $ExpectType DateTime
@@ -28,6 +28,7 @@ DateTime.utc(); // $ExpectType DateTime
 DateTime.utc({ locale: 'en-US' }); // $ExpectType DateTime
 DateTime.utc(2018, 5, 31, 23, { numberingSystem: 'arabext' }); // $ExpectType DateTime
 DateTime.utc(2019, { locale: 'en-GB' }, 5); // $ExpectError
+DateTime.isDateTime(0 as unknown); // $ExpectType boolean
 
 const dt = DateTime.local(2017, 5, 15, 8, 30);
 
@@ -215,6 +216,7 @@ if (Duration.isDuration(anything)) {
 }
 Duration.invalid(); // $ExpectError
 Duration.invalid('code', 'because I said so'); // $ExpectType Duration
+Duration.isDuration(0 as unknown); // $ExpectType boolean
 
 /* Interval */
 const later = DateTime.local();
@@ -240,6 +242,7 @@ if (Interval.isInterval(anything)) {
 }
 Interval.invalid(); // $ExpectError
 Interval.invalid('code', 'because I said so'); // $ExpectType Interval
+Interval.isInterval(0 as unknown); // $ExpectType boolean
 
 /* Info */
 Info.months();
@@ -413,3 +416,15 @@ class SampleZone extends Zone {
         return 0;
     }
 }
+
+DateTime.fromISO('2021-09-13T07:52:27.697Z').toLocaleString({
+    ...DateTime.DATETIME_FULL_WITH_SECONDS,
+    hour: '2-digit',
+    second: '2-digit',
+});
+
+DateTime.fromISO('2021-09-13T07:52:27.697Z').toLocaleString({
+    ...DateTime.DATETIME_MED,
+    hour: '2-digit',
+    day: '2-digit',
+});

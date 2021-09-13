@@ -25,3 +25,6 @@ editor.plugins.get('BlockQuoteEditing');
 
 // $ExpectType BlockQuoteUI
 editor.plugins.get('BlockQuoteUI');
+
+// $ExpectType BlockQuoteCommand | undefined
+editor.commands.get('BlockQuoteCommand');
