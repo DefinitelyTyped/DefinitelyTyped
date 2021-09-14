@@ -12514,8 +12514,8 @@ declare namespace Office {
     /**
      * Represents an email account on an Exchange Server.
      *
-     * `EmailUser` objects can primarily be received upon extracting {@link Office.MeetingSuggestion | MeetingSuggestion} and
-     * {@link Office.TaskSuggestion | TaskSuggestion} entities from an Outlook item. To learn more about this scenario, refer to
+     * `EmailUser` objects are primarily extracted from the {@link Office.MeetingSuggestion | MeetingSuggestion} and
+     * {@link Office.TaskSuggestion | TaskSuggestion} entities in an Outlook item. To learn more about this scenario, refer to
      * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/extract-entity-strings-from-an-item | Extract entity strings from an Outlook item}.
      *
      * @remarks
