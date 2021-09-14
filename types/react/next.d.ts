@@ -196,4 +196,12 @@ declare module '.' {
      * @see https://github.com/reactjs/rfcs/blob/master/text/0147-use-mutable-source.md
      */
     export function unstable_useMutableSource<T, TResult extends unknown>(MutableSource: MutableSource<T>, getSnapshot: (source: T) => TResult, subscribe: MutableSourceSubscribe<T>): TResult;
+
+    /**
+     * @param effect Imperative function that can return a cleanup function
+     * @param deps If present, effect will only activate if the values in the list change.
+     *
+     * @see https://github.com/facebook/react/pull/21913
+     */
+     export function unstable_useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
 }
