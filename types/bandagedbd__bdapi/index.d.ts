@@ -7,11 +7,14 @@
 
 import * as ReactInstance from 'react';
 import * as ReactDOMInstance from 'react-dom';
+import * as _ from 'lodash';
 
 declare global {
     const BdApi: typeof BdApiModule;
+    const _: typeof _;
     interface Window {
         BdApi: typeof BdApiModule;
+        _: typeof _;
     }
     const global: Window;
 }
