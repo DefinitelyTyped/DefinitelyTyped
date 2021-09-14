@@ -23,3 +23,9 @@ export interface ImageStyleOptionDefinition {
     name: string;
     title?: string | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageStyle: ImageStyle;
+    }
+}

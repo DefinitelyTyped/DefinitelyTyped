@@ -43,5 +43,7 @@ function startUserMedia(stream: MediaStream) {
         }
     };
 
-    vad(audioContext, stream, options);
+    const voiceActivityDetection = vad(audioContext, stream, options);
+
+    voiceActivityDetection.destroy();
 }

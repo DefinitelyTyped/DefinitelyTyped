@@ -5,6 +5,9 @@ import plainTextToHTML from '@ckeditor/ckeditor5-clipboard/src/utils/plaintextto
 import viewToPlainText from '@ckeditor/ckeditor5-clipboard/src/utils/viewtoplaintext';
 import { Editor } from '@ckeditor/ckeditor5-core';
 import { DowncastWriter, StylesProcessor, ViewDocument } from '@ckeditor/ckeditor5-engine';
+import ClipboardPipeline from '@ckeditor/ckeditor5-clipboard/src/clipboardpipeline';
+import DragDrop from '@ckeditor/ckeditor5-clipboard/src/dragdrop';
+import PastePlainText from '@ckeditor/ckeditor5-clipboard/src/pasteplaintext';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
 
 class MyEditor extends Editor {}
@@ -27,6 +30,18 @@ new Clipboard.ClipboardPipeline(editor).init();
 plainTextToHTML(plainTextToHTML(''));
 
 normalizeClipboardData(plainTextToHTML(''));
+
+// $ExpectType Clipboard
+editor.plugins.get('Clipboard');
+
+// $ExpectType ClipboardPipeline
+editor.plugins.get('ClipboardPipeline');
+
+// $ExpectType DragDrop
+editor.plugins.get('DragDrop');
+
+// $ExpectType PastePlainText
+editor.plugins.get('PastePlainText');
 
 plainTextToHTML(viewToPlainText(viewElement));
 

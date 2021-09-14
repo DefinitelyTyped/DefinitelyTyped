@@ -9,3 +9,9 @@ export default class BalloonToolbar extends Plugin {
     hide(): void;
     show(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        BalloonToolbar: BalloonToolbar;
+    }
+}

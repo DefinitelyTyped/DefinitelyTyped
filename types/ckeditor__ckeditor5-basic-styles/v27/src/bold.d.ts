@@ -6,3 +6,9 @@ export default class Bold extends Plugin {
     static readonly requires: [typeof BoldEditing, typeof BoldUI];
     static readonly pluginName: "Bold";
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Bold: Bold;
+    }
+}

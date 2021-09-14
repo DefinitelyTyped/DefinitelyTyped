@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.28
+// Type definitions for sharp 0.29
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
@@ -6,12 +6,13 @@
 //                 Jamie Woodbury <https://github.com/JamieWoodbury>
 //                 Floris de Bijl <https://github.com/Fdebijl>
 //                 Billy Kwok <https://github.com/billykwok>
+//                 Espen Hovlandsdal <https://github.com/rexxars>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
 
-import { Duplex } from "stream";
+import { Duplex } from 'stream';
 
 //#region Constructor functions
 
@@ -23,7 +24,21 @@ import { Duplex } from "stream";
  * @returns A sharp instance that can be used to chain operations
  */
 declare function sharp(options?: sharp.SharpOptions): sharp.Sharp;
-declare function sharp(input?: string | Buffer, options?: sharp.SharpOptions): sharp.Sharp;
+declare function sharp(
+    input?:
+        | Buffer
+        | Uint8Array
+        | Uint8ClampedArray
+        | Int8Array
+        | Uint16Array
+        | Int16Array
+        | Uint32Array
+        | Int32Array
+        | Float32Array
+        | Float64Array
+        | string,
+    options?: sharp.SharpOptions,
+): sharp.Sharp;
 
 declare namespace sharp {
     /** Object containing nested boolean values representing the available input and output formats/methods. */
@@ -185,6 +200,26 @@ declare namespace sharp {
         grayscale(grayscale?: boolean): Sharp;
 
         /**
+         * Set the pipeline colourspace.
+         * The input image will be converted to the provided colourspace at the start of the pipeline.
+         * All operations will use this colourspace before converting to the output colourspace, as defined by toColourspace.
+         * This feature is experimental and has not yet been fully-tested with all operations.
+         *
+         * @param colourspace pipeline colourspace e.g. rgb16, scrgb, lab, grey16 ...
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        pipelineColourspace(colourspace?: string): Sharp;
+
+        /**
+         * Alternative spelling of pipelineColourspace
+         * @param colorspace pipeline colourspace e.g. rgb16, scrgb, lab, grey16 ...
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        pipelineColorspace(colorspace?: string): Sharp;
+
+        /**
          * Set the output colourspace.
          * By default output image will be web-friendly sRGB, with additional channels interpreted as alpha channels.
          * @param colourspace output colourspace e.g. srgb, rgb, cmyk, lab, b-w ...
@@ -342,10 +377,10 @@ declare namespace sharp {
 
         /**
          * Produce the "negative" of the image.
-         * @param negate true to enable and false to disable (defaults to true)
+         * @param negate true to enable and false to disable, or an object of options (defaults to true)
          * @returns A sharp instance that can be used to chain operations
          */
-        negate(negate?: boolean): Sharp;
+        negate(negate?: boolean | NegateOptions): Sharp;
 
         /**
          * Enhance output image contrast by stretching its luminance to cover the full dynamic range.
@@ -418,11 +453,17 @@ declare namespace sharp {
         recomb(inputMatrix: Matrix3x3): Sharp;
 
         /**
-         * Transforms the image using brightness, saturation and hue rotation.
+         * Transforms the image using brightness, saturation, hue rotation and lightness.
+         * Brightness and lightness both operate on luminance, with the difference being that brightness is multiplicative whereas lightness is additive.
          * @param options describes the modulation
          * @returns A sharp instance that can be used to chain operations
          */
-        modulate(options?: { brightness?: number | undefined; saturation?: number | undefined; hue?: number | undefined }): Sharp;
+        modulate(options?: {
+            brightness?: number | undefined;
+            saturation?: number | undefined;
+            hue?: number | undefined;
+            lightness?: number | undefined;
+        }): Sharp;
 
         //#endregion
 
@@ -545,9 +586,11 @@ declare namespace sharp {
 
         /**
          * Force output to be raw, uncompressed uint8 pixel data.
+         * @param options Raw output options.
+         * @throws {Error} Invalid options
          * @returns A sharp instance that can be used to chain operations
          */
-        raw(): Sharp;
+        raw(options?: RawOptions): Sharp;
 
         /**
          * Force output to a given format.
@@ -785,6 +828,10 @@ declare namespace sharp {
         xmp?: Buffer | undefined;
         /** Buffer containing raw TIFFTAG_PHOTOSHOP data, if present */
         tifftagPhotoshop?: Buffer | undefined;
+        /** The encoder used to compress an HEIF file, `av1` (AVIF) or `hevc` (HEIC) */
+        compression?: 'av1' | 'hevc';
+        /** Default background colour, if present, for PNG (bKGD) and GIF images, either an RGB Object or a single greyscale value */
+        background?: { r: number; g: number; b: number } | number;
     }
 
     interface Stats {
@@ -875,7 +922,7 @@ declare namespace sharp {
         quality?: number | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
+        /** CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5) */
         speed?: number | undefined;
         /** set to '4:4:4' to prevent chroma subsampling otherwise defaults to '4:2:0' chroma subsampling, requires libvips v8.11.0 (optional, default '4:2:0') */
         chromaSubsampling?: string;
@@ -885,10 +932,10 @@ declare namespace sharp {
         /** quality, integer 1-100 (optional, default 50) */
         quality?: number | undefined;
         /** compression format: av1, hevc (optional, default 'av1') */
-        compression?: "av1" | "hevc" | undefined;
+        compression?: 'av1' | 'hevc' | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /** CPU effort vs file size, 0 (slowest/smallest) to 8 (fastest/largest) (optional, default 5) */
+        /** CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5) */
         speed?: number | undefined;
     }
 
@@ -898,14 +945,14 @@ declare namespace sharp {
      * {@link https://sharp.pixelplumbing.com/install#custom-libvips installing a custom libvips}.
      */
     interface GifOptions extends OutputOptions, AnimationOptions {
-      /** Page height for animated output */
-      pageHeight?: number;
-      /** Number of animation iterations, use 0 for infinite animation (optional, default 0) */
-      loop?: number;
-      /** List of delays between animation frames (in milliseconds) */
-      delay?: number[];
-      /** Force GIF output, otherwise attempt to use input format (optional, default true) */
-      force?: boolean;
+        /** Page height for animated output */
+        pageHeight?: number;
+        /** Number of animation iterations, use 0 for infinite animation (optional, default 0) */
+        loop?: number;
+        /** List of delays between animation frames (in milliseconds) */
+        delay?: number[];
+        /** Force GIF output, otherwise attempt to use input format (optional, default true) */
+        force?: boolean;
     }
 
     interface TiffOptions extends OutputOptions {
@@ -960,6 +1007,11 @@ declare namespace sharp {
         background?: Color | undefined;
     }
 
+    interface NegateOptions {
+        /** whether or not to negate any alpha channel. (optional, default true) */
+        alpha?: boolean | undefined;
+    }
+
     interface ResizeOptions {
         /** Alternative means of specifying width. If both are present this take priority. */
         width?: number | undefined;
@@ -1003,6 +1055,10 @@ declare namespace sharp {
         background?: Color | undefined;
     }
 
+    interface RawOptions {
+        depth?: 'char' | 'uchar' | 'short' | 'ushort' | 'int' | 'uint' | 'float' | 'complex' | 'double' | 'dpcomplex';
+    }
+
     /** 3 for sRGB, 4 for CMYK */
     type Channels = 3 | 4;
 
@@ -1029,12 +1085,12 @@ declare namespace sharp {
     }
 
     interface ClaheOptions {
-      /** width of the region */
-      width: number;
-      /** height of the region */
-      height: number;
-      /** max slope of the cumulative contrast. (optional, default 3) */
-      maxSlope?: number | undefined;
+        /** width of the region */
+        width: number;
+        /** height of the region */
+        height: number;
+        /** max slope of the cumulative contrast. (optional, default 3) */
+        maxSlope?: number | undefined;
     }
 
     interface ThresholdOptions {
@@ -1124,65 +1180,65 @@ declare namespace sharp {
     }
 
     interface FitEnum {
-        contain: "contain";
-        cover: "cover";
-        fill: "fill";
-        inside: "inside";
-        outside: "outside";
+        contain: 'contain';
+        cover: 'cover';
+        fill: 'fill';
+        inside: 'inside';
+        outside: 'outside';
     }
 
     interface KernelEnum {
-        nearest: "nearest";
-        cubic: "cubic";
-        mitchell: "mitchell";
-        lanczos2: "lanczos2";
-        lanczos3: "lanczos3";
+        nearest: 'nearest';
+        cubic: 'cubic';
+        mitchell: 'mitchell';
+        lanczos2: 'lanczos2';
+        lanczos3: 'lanczos3';
     }
 
     interface BoolEnum {
-        and: "and";
-        or: "or";
-        eor: "eor";
+        and: 'and';
+        or: 'or';
+        eor: 'eor';
     }
 
     interface ColourspaceEnum {
         multiband: string;
-        "b-w": string;
+        'b-w': string;
         bw: string;
         cmyk: string;
         srgb: string;
     }
 
-    type TileLayout = "dz" | "iiif" | "zoomify" | "google";
+    type TileLayout = 'dz' | 'iiif' | 'zoomify' | 'google';
 
     type Blend =
-        | "clear"
-        | "source"
-        | "over"
-        | "in"
-        | "out"
-        | "atop"
-        | "dest"
-        | "dest-over"
-        | "dest-in"
-        | "dest-out"
-        | "dest-atop"
-        | "xor"
-        | "add"
-        | "saturate"
-        | "multiply"
-        | "screen"
-        | "overlay"
-        | "darken"
-        | "lighten"
-        | "colour-dodge"
-        | "colour-dodge"
-        | "colour-burn"
-        | "colour-burn"
-        | "hard-light"
-        | "soft-light"
-        | "difference"
-        | "exclusion";
+        | 'clear'
+        | 'source'
+        | 'over'
+        | 'in'
+        | 'out'
+        | 'atop'
+        | 'dest'
+        | 'dest-over'
+        | 'dest-in'
+        | 'dest-out'
+        | 'dest-atop'
+        | 'xor'
+        | 'add'
+        | 'saturate'
+        | 'multiply'
+        | 'screen'
+        | 'overlay'
+        | 'darken'
+        | 'lighten'
+        | 'colour-dodge'
+        | 'colour-dodge'
+        | 'colour-burn'
+        | 'colour-burn'
+        | 'hard-light'
+        | 'soft-light'
+        | 'difference'
+        | 'exclusion';
 
     type Gravity = number | string;
 

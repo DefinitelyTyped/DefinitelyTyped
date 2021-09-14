@@ -889,6 +889,60 @@ oauthAuthenticator.refreshToken({ refresh_token: '{YOUR_REFRESH_TOKEN}' }, (err,
     console.log(tokenResponse);
 });
 
+async () => {
+    const signInUserData: auth0.SignInOptions = {
+        username: '{YOUR_USERNAME}',
+        otp: '123456',
+    };
+    signInUserData.realm = 'email';
+    signInUserData.realm = 'sms';
+    const emailUserData: auth0.RequestEmailCodeOrLinkOptions = {
+        email: '{YOUR_EMAIL}',
+        send: 'code',
+    };
+    emailUserData.send = 'link';
+    const smsUserData: auth0.RequestSMSCodeOptions = {
+        client_id: '{YOUR_CLIENT_ID}',
+        phone_number: '{YOUR_PHONE_NUMBER}',
+    };
+    const options: auth0.PasswordlessOptions = {};
+    options.forwardedFor = '{YOUR_IP}';
+
+    let token: auth0.SignInToken;
+    token = await authentication.passwordless.signIn(signInUserData);
+    token = await authentication.passwordless.signIn(signInUserData, options);
+    authentication.passwordless.signIn(signInUserData, (err, data) => {
+        err; // $ExpectType Error
+        token = data;
+    });
+    authentication.passwordless.signIn(signInUserData, options, (err, data) => {
+        err; // $ExpectType Error
+        token = data;
+    });
+
+    await authentication.passwordless.sendEmail(emailUserData);
+    await authentication.passwordless.sendEmail(emailUserData, options);
+    authentication.passwordless.sendEmail(emailUserData, (err, message) => {
+        err; // $ExpectType Error
+        message; // $ExpectType string
+    });
+    authentication.passwordless.sendEmail(emailUserData, options, (err, message) => {
+        err; // $ExpectType Error
+        message; // $ExpectType string
+    });
+
+    await authentication.passwordless.sendSMS(smsUserData);
+    await authentication.passwordless.sendSMS(smsUserData, options);
+    authentication.passwordless.sendSMS(smsUserData, (err, message) => {
+        err; // $ExpectType Error
+        message; // $ExpectType string
+    });
+    authentication.passwordless.sendSMS(smsUserData, options, (err, message) => {
+        err; // $ExpectType Error
+        message; // $ExpectType string
+    });
+};
+
 async function signupTest(): Promise<void> {
     const signupResult = await authentication.database.signUp({ email: 'email', password: 'password' });
     signupResult._id; // $ExpectType string

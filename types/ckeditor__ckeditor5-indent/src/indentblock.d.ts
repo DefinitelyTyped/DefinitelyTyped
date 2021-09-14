@@ -11,3 +11,9 @@ export interface IndentBlockConfig {
     offset?: number | undefined;
     unit?: string | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        IndentBlock: IndentBlock;
+    }
+}

@@ -1,4 +1,4 @@
-// Type definitions for dotenv-flow 3.1
+// Type definitions for dotenv-flow 3.2
 // Project: https://github.com/kerimdzhanov/dotenv-flow
 // Definitions by: Vincent Langlet <https://github.com/vincentlanglet>
 //                 Dan Kerimdzhanov <https://github.com/kerimdzhanov>
@@ -26,6 +26,10 @@ export interface DotenvReadFileOptions {
      * Encoding for reading the `.env*` files.
      */
     encoding?: string | undefined;
+    /**
+     * Whether to support suppressing the console output.
+     */
+    silent?: boolean | undefined;
 }
 
 export interface DotenvParseOutput {

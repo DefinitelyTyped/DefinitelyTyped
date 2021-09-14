@@ -6,3 +6,9 @@ export default class TableMouse extends Plugin {
     static readonly requires: [typeof TableSelection];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TableMouse: TableMouse;
+    }
+}

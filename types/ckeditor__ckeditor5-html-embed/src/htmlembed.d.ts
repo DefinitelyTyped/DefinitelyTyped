@@ -16,3 +16,9 @@ export interface HtmlEmbedSanitizeOutput {
     html: string;
     hasChanged: boolean;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        HtmlEmbed: HtmlEmbed;
+    }
+}

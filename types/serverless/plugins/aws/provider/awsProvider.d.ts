@@ -127,6 +127,9 @@ declare namespace Aws {
         binaryMediaTypes?: string[] | undefined;
         metrics?: boolean | undefined;
         shouldStartNameWithService?: boolean | undefined;
+        apiKeys?: string[] | undefined;
+        resourcePolicy?: ResourcePolicy[] | undefined;
+        usagePlan?: UsagePlan | undefined;
     }
 
     interface CognitoAuthorizer {

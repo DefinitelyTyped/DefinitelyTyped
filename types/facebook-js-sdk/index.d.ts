@@ -7,6 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+declare function fbAsyncInit(): void;
+
 import fb = facebook;
 declare var FB: fb.FacebookStatic;
 declare namespace facebook {

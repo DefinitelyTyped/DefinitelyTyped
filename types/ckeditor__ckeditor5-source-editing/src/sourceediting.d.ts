@@ -58,3 +58,9 @@ export default class SourceEditing extends Plugin {
      */
     private _isAllowedToHandleSourceEditingMode(): boolean;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        SourceEditing: SourceEditing;
+    }
+}

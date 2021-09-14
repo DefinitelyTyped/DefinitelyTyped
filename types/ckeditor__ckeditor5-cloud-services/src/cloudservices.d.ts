@@ -43,3 +43,9 @@ export interface CloudServicesConfig {
     uploadUrl: string;
     webSocketUrl?: string | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        CloudServices: CloudServices;
+    }
+}

@@ -11,6 +11,7 @@ render(app, {
     async: true,
     debug: true,
     delimiter: '',
+    writeResp: true,
 });
 
 const ejsRenderer: typeof ejs = render.ejs;

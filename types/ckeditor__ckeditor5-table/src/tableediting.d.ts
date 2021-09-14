@@ -6,3 +6,9 @@ export default class TableEditing extends Plugin {
     static readonly requires: [typeof TableUtils];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TableEditing: TableEditing;
+    }
+}

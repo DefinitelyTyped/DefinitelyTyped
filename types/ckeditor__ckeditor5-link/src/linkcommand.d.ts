@@ -11,3 +11,9 @@ export default class LinkCommand extends Command {
     refresh(): void;
     execute(href: string, manualDecoratorIds?: Record<string, unknown>): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        LinkCommand: LinkCommand;
+    }
+}

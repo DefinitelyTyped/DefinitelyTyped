@@ -128,7 +128,7 @@ declare namespace chrome.action {
         popup: string;
     }
 
-    export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
+    export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> { }
 
     export interface TabIconDetails {
         /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
@@ -150,7 +150,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @return The `disable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function disable(tabId: number): Promise<void>;
+    export function disable(tabId?: number): Promise<void>;
 
     /**
      * Since Chrome 88.
@@ -158,7 +158,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function disable(tabId: number, callback?: () => void): void;
+    export function disable(tabId?: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -166,7 +166,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @return The `enable` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function enable(tabId: number): Promise<void>;
+    export function enable(tabId?: number): Promise<void>;
 
     /**
      * Since Chrome 88.
@@ -174,7 +174,7 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function enable(tabId: number, callback?: () => void): void;
+    export function enable(tabId?: number, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -2615,6 +2615,8 @@ declare namespace chrome.downloads {
         value: string;
     }
 
+    export type FilenameConflictAction = "uniquify" | "overwrite" | "prompt";
+
     export interface DownloadOptions {
         /** Optional. Post body.  */
         body?: string | undefined;
@@ -2627,9 +2629,9 @@ declare namespace chrome.downloads {
         /** Optional. Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.  */
         headers?: HeaderNameValuePair[] | undefined;
         /** Optional. The HTTP method to use if the URL uses the HTTP[S] protocol.  */
-        method?: string | undefined;
+        method?: "GET" | "POST" | undefined;
         /** Optional. The action to take if filename already exists.  */
-        conflictAction?: string | undefined;
+        conflictAction?: FilenameConflictAction | undefined;
     }
 
     export interface DownloadDelta {
@@ -2643,7 +2645,7 @@ declare namespace chrome.downloads {
          * Optional. The change in finalUrl, if any.
          * @since Since Chrome 54.
          */
-        finalUrl: StringDelta;
+        finalUrl?: StringDelta | undefined;
         /** Optional. The change in totalBytes, if any.  */
         totalBytes?: DoubleDelta | undefined;
         /** Optional. The change in filename, if any.  */
@@ -2684,11 +2686,17 @@ declare namespace chrome.downloads {
         previous?: string | undefined;
     }
 
+    export type DownloadInterruptReason = "FILE_FAILED" | "FILE_ACCESS_DENIED" | "FILE_NO_SPACE" | "FILE_NAME_TOO_LONG" | "FILE_TOO_LARGE" | "FILE_VIRUS_INFECTED" | "FILE_TRANSIENT_ERROR" | "FILE_BLOCKED" | "FILE_SECURITY_CHECK_FAILED" | "FILE_TOO_SHORT" | "FILE_HASH_MISMATCH" | "FILE_SAME_AS_SOURCE" | "NETWORK_FAILED" | "NETWORK_TIMEOUT" | "NETWORK_DISCONNECTED" | "NETWORK_SERVER_DOWN" | "NETWORK_INVALID_REQUEST" | "SERVER_FAILED" | "SERVER_NO_RANGE" | "SERVER_BAD_CONTENT" | "SERVER_UNAUTHORIZED" | "SERVER_CERT_PROBLEM" | "SERVER_FORBIDDEN" | "SERVER_UNREACHABLE" | "SERVER_CONTENT_LENGTH_MISMATCH" | "SERVER_CROSS_ORIGIN_REDIRECT" | "USER_CANCELED" | "USER_SHUTDOWN" | "CRASH";
+
+    export type DownloadState = "in_progress" | "interrupted" | "complete";
+
+    export type DangerType = "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted";
+
     export interface DownloadItem {
         /** Number of bytes received so far from the host, without considering file compression. */
         bytesReceived: number;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
-        danger: string;
+        danger: DangerType;
         /** The absolute URL that this download initiated from, before any redirects. */
         url: string;
         /**
@@ -2703,7 +2711,7 @@ declare namespace chrome.downloads {
         /** True if the download has stopped reading data from the host, but kept the connection open. */
         paused: boolean;
         /** Indicates whether the download is progressing, interrupted, or complete. */
-        state: string;
+        state: DownloadState;
         /** The file's MIME type. */
         mime: string;
         /** Number of bytes in the whole file post-decompression, or -1 if unknown. */
@@ -2711,7 +2719,7 @@ declare namespace chrome.downloads {
         /** The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})}) */
         startTime: string;
         /** Optional. Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_.  */
-        error?: string | undefined;
+        error?: DownloadInterruptReason | undefined;
         /** Optional. The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})  */
         endTime?: string | undefined;
         /** An identifier that is persistent across browser sessions. */
@@ -2735,7 +2743,7 @@ declare namespace chrome.downloads {
     export interface GetFileIconOptions {
         /** Optional. * The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size.
          */
-        size?: number | undefined;
+        size?: 16 | 32 | undefined;
     }
 
     export interface DownloadQuery {
@@ -7118,16 +7126,22 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
     }
 
-    export interface ScriptInjection {
-        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
-        args?: any[] | undefined;
-        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
-        files?: string[] | undefined;
-        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        func?: ((...args: any[]) => void) | undefined;
+    export type ScriptInjection<Args extends any[] = []> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
-    }
+    } & ({
+        /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
+        files: string[];
+    } | ({
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        func: ((...args: Args) => void);
+    } & (Args extends [] ? {
+        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
+        args?: Args;
+    } : {
+        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
+        args: Args;
+    })))
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7135,7 +7149,7 @@ declare namespace chrome.scripting {
      * The details of the script which to inject.
      * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript(injection: ScriptInjection): Promise<InjectionResult[]>;
+    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>): Promise<InjectionResult[]>;
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7144,7 +7158,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript(injection: ScriptInjection, callback?: (results: InjectionResult[]) => void): void;
+    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>, callback?: (results: InjectionResult[]) => void): void;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.

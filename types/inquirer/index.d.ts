@@ -1,4 +1,4 @@
-// Type definitions for inquirer 7.3
+// Type definitions for inquirer 8.1
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Parvez <https://github.com/ppathan>
@@ -12,7 +12,7 @@
 //                 Jed Mao <https://github.com/jedmao>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 import { Interface as ReadlineInterface } from "readline";
 import { Observable } from "rxjs";
 import Choice = require("./lib/objects/choice");

@@ -11,6 +11,10 @@ import { Configuration } from 'webpack';
             styles: 'src/scss/_sprites.scss',
         }),
         new SVGSpritemapPlugin('src/**/*.svg', {
+            input: {
+                options: {},
+                allowDuplicates: true,
+            },
             output: {
                 svg: {
                     sizes: false,
@@ -33,7 +37,7 @@ import { Configuration } from 'webpack';
                     sprites: 'sprites',
                     sizes: 'sizes',
                     variables: 'variables',
-                    mixin: 'sprite'
+                    mixin: 'sprite',
                 },
                 callback: content => `[class*="sprite-"] { background-size: cover; } ${content}`,
             },

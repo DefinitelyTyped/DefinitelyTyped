@@ -122,7 +122,7 @@ const environment = new Environment({
             case 'network.error':
             case 'network.info':
             case 'network.unsubscribe':
-            case 'execute.info':
+            case 'execute.start':
             case 'queryresource.fetch':
             default:
                 break;
