@@ -1,6 +1,6 @@
 // Type definitions for ax 0.1
 // Project: https://github.com/AstroxNetwork/ax
-// Definitions by: Hsehoiki <https://github.com/AstroxNetwork>
+// Definitions by: Hsehoiki <https://github.com/kasumisk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AxType {
