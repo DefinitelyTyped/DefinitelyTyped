@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.94.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -4674,9 +4674,6 @@ declare module "sap/m/Avatar" {
      *
      * Determines the background color of the control.
      *
-     * **Note:** By using background colors from the predefined sets, your colors can later be customized from
-     * the Theme Designer.
-     *
      * Default value is `Accent6`.
      */
     getBackgroundColor(): AvatarColor | keyof typeof AvatarColor;
@@ -4820,9 +4817,6 @@ declare module "sap/m/Avatar" {
      * Sets a new value for property {@link #getBackgroundColor backgroundColor}.
      *
      * Determines the background color of the control.
-     *
-     * **Note:** By using background colors from the predefined sets, your colors can later be customized from
-     * the Theme Designer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5082,9 +5076,6 @@ declare module "sap/m/Avatar" {
 
     /**
      * Determines the background color of the control.
-     *
-     * **Note:** By using background colors from the predefined sets, your colors can later be customized from
-     * the Theme Designer.
      */
     backgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
@@ -12870,6 +12861,12 @@ declare module "sap/m/CustomDynamicDateOption" {
      */
     getToDates(): Function;
     /**
+     * Gets current value of property {@link #getValidateValueHelpUI validateValueHelpUI}.
+     *
+     * Defines a method that can validate all controls from the value help UI related to a given option.
+     */
+    getValidateValueHelpUI(): Function;
+    /**
      * Sets a new value for property {@link #getCreateValueHelpUI createValueHelpUI}.
      *
      * Defines a method that can create the option's value help UI. For custom scenarios where getValueHelpUITypes
@@ -13003,6 +13000,19 @@ declare module "sap/m/CustomDynamicDateOption" {
        */
       fnToDates: Function
     ): this;
+    /**
+     * Sets a new value for property {@link #getValidateValueHelpUI validateValueHelpUI}.
+     *
+     * Defines a method that can validate all controls from the value help UI related to a given option.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setValidateValueHelpUI(
+      /**
+       * New value for property `validateValueHelpUI`
+       */
+      fnValidateValueHelpUI: Function
+    ): this;
   }
 
   export interface $CustomDynamicDateOptionSettings
@@ -13023,6 +13033,11 @@ declare module "sap/m/CustomDynamicDateOption" {
      * is not enough to define the UI.
      */
     createValueHelpUI?: Function | PropertyBindingInfo;
+
+    /**
+     * Defines a method that can validate all controls from the value help UI related to a given option.
+     */
+    validateValueHelpUI?: Function | PropertyBindingInfo;
 
     /**
      * Defines a method that can collect the value from the value help UI.
@@ -17509,7 +17524,11 @@ declare module "sap/m/DynamicDate" {
    * @SINCE 1.92
    * @EXPERIMENTAL (since 1.92)
    *
-   * This class represents the dynamic date range type.
+   * This class represents the dynamic date range type. Model values should be in the following format: {
+   * operator: "KEY", values: [param1, param2] }. Where the supported parameters are timestamps, month indexes
+   * and numbers (all three are numbers). Their type is defined by the corresponding DynamicDateOption instance
+   * identified by the same "KEY". This class is capable of formatting only the value parameters expected
+   * by the DynamicDateRange control. A display format may be provided via the format options.
    */
   export default class DynamicDate extends SimpleType {
     /**
@@ -17517,19 +17536,22 @@ declare module "sap/m/DynamicDate" {
      */
     constructor(
       /**
-       * Formatting options.
+       * Format options. There are format options for each of the supported types of value parameters.
        */
       oFormatOptions?: {
         /**
-         * Format options controlling the options that contain dates in their display values.
+         * Display format options for the values that contain dates. For a list of all available options, see {@link
+         * sap.ui.core.format.DateFormat.getDateInstance DateFormat}.
          */
         date?: object;
         /**
-         * Format options controlling the options that contain months in their display values.
+         * Display format options for the values that contain month names. The only supported option is the `pattern`
+         * using the respective symbols for displaying months "MM", "MMM" or "MMMM".
          */
         month?: object;
         /**
-         * Format options controlling the options that contain numbers in their display values.
+         * Display format options for the values that contain numbers. For a list of all available options, see
+         * {@link sap.ui.core.format.NumberFormat.getInstance NumberFormat}.
          */
         int?: object;
       },
@@ -17589,7 +17611,7 @@ declare module "sap/m/DynamicDate" {
      * Parses the given object value to a similar object. The whole value is in the following format { operator:
      * "KEY", values: [...array with JS dates or numbers to be parsed]}. Only parses the 'values' part of the
      * given object. The dates are expected as Javascript Dates and are converted to timestamps. The numbers
-     * and strings are left untouched.
+     * and strings are left untouched. Special values with operator: "PARSEERROR" generate a parse exception.
      */
     parseValue(
       /**
@@ -17848,6 +17870,17 @@ declare module "sap/m/DynamicDateOption" {
        */
       oValue: object
     ): /* was: sap.ui.core.date.UniversalDate */ any[];
+    /**
+     * Validates all input controls in the value help UI related to the current option. If one of the input
+     * controls contains invalid value, then validation will return `false`. If all input controls contain valid
+     * value, then the validation will return `true`.
+     */
+    validateValueHelpUI(
+      /**
+       * The control instance
+       */
+      oControl: DynamicDateRange
+    ): boolean;
   }
 
   export interface $DynamicDateOptionSettings extends $ElementSettings {
@@ -31025,6 +31058,17 @@ declare module "sap/m/Input" {
      */
     getSelectedRow(): ID;
     /**
+     * @SINCE 1.94
+     *
+     * Gets current value of property {@link #getShowClearIcon showClearIcon}.
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     *
+     * Default value is `false`.
+     */
+    getShowClearIcon(): boolean;
+    /**
      * @SINCE 1.16.1
      *
      * Gets current value of property {@link #getShowSuggestion showSuggestion}.
@@ -31711,6 +31755,24 @@ declare module "sap/m/Input" {
       oListItem: ColumnListItem
     ): this;
     /**
+     * @SINCE 1.94
+     *
+     * Sets a new value for property {@link #getShowClearIcon showClearIcon}.
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setShowClearIcon(
+      /**
+       * New value for property `showClearIcon`
+       */
+      bShowClearIcon?: boolean
+    ): this;
+    /**
      * @SINCE 1.16.1
      *
      * Sets a new value for property {@link #getShowSuggestion showSuggestion}.
@@ -32164,6 +32226,14 @@ declare module "sap/m/Input" {
     autocomplete?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.94
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     */
+    showClearIcon?: boolean | PropertyBindingInfo;
+
+    /**
      * @SINCE 1.16.1
      *
      * Defines the items displayed in the suggestion popup. Changing this aggregation (by calling `addSuggestionItem`,
@@ -32406,7 +32476,11 @@ declare module "sap/m/InputBase" {
       /**
        * settings for creating an icon
        */
-      oIconSettings: object
+      oIconSettings: object,
+      /**
+       * position to be inserted in the aggregation. If not provided, the icon gets inserted on last position.
+       */
+      iPosition: int
     ): null | Icon;
     /**
      * Applies the focus info. To be overwritten by subclasses.
@@ -34062,7 +34136,10 @@ declare module "sap/m/LightBox" {
 
   import LightBoxItem from "sap/m/LightBoxItem";
 
-  import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
+  import {
+    AggregationBindingInfo,
+    default as ManagedObject,
+  } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -34237,7 +34314,7 @@ declare module "sap/m/LightBox" {
       /**
        * Origin of the invalidation.
        */
-      oOrigin: object
+      oOrigin: ManagedObject
     ): this;
     /**
      * Returns if the LightBox is open.
@@ -39193,6 +39270,53 @@ declare module "sap/m/MenuButton" {
       vAriaLabelledBy: ID | Control
     ): this;
     /**
+     * @SINCE 1.94.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:beforeMenuOpen beforeMenuOpen} event of this
+     * `sap.m.MenuButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.MenuButton` itself.
+     *
+     * Fired before menu opening when the `buttonMode` is set to `Split` and the user presses the arrow button.
+     */
+    attachBeforeMenuOpen(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.MenuButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.94.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:beforeMenuOpen beforeMenuOpen} event of this
+     * `sap.m.MenuButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.MenuButton` itself.
+     *
+     * Fired before menu opening when the `buttonMode` is set to `Split` and the user presses the arrow button.
+     */
+    attachBeforeMenuOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.MenuButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:defaultAction defaultAction} event of this `sap.m.MenuButton`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -39240,6 +39364,24 @@ declare module "sap/m/MenuButton" {
      */
     destroyMenu(): this;
     /**
+     * @SINCE 1.94.0
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:beforeMenuOpen beforeMenuOpen} event of this
+     * `sap.m.MenuButton`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachBeforeMenuOpen(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:defaultAction defaultAction} event of this
      * `sap.m.MenuButton`.
      *
@@ -39254,6 +39396,17 @@ declare module "sap/m/MenuButton" {
        * Context object on which the given function had to be called
        */
       oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.94.0
+     *
+     * Fires event {@link #event:beforeMenuOpen beforeMenuOpen} to attached listeners.
+     */
+    fireBeforeMenuOpen(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
     ): this;
     /**
      * Fires event {@link #event:defaultAction defaultAction} to attached listeners.
@@ -39708,6 +39861,13 @@ declare module "sap/m/MenuButton" {
      * is set to `false` and another action from the menu has been selected previously.
      */
     defaultAction?: (oEvent: Event) => void;
+
+    /**
+     * @SINCE 1.94.0
+     *
+     * Fired before menu opening when the `buttonMode` is set to `Split` and the user presses the arrow button.
+     */
+    beforeMenuOpen?: (oEvent: Event) => void;
   }
 }
 
@@ -46564,7 +46724,7 @@ declare module "sap/m/NavContainer" {
          */
         placeholder: /* was: sap.ui.core.Placeholder */ any;
       }
-    ): void;
+    ): Promise<any>;
     /**
      * Navigates to the next page (with drill-down semantic) with the given (or default) animation. This creates
      * a new history item inside the NavContainer and allows going back.
@@ -63945,6 +64105,20 @@ declare module "sap/m/PlanningCalendar" {
      */
     getEndDate(): Date;
     /**
+     * @SINCE 1.94
+     *
+     * Gets current value of property {@link #getFirstDayOfWeek firstDayOfWeek}.
+     *
+     * If set, the first day of the displayed week is this day. Valid values are 0 to 6 starting on Sunday.
+     * If there is no valid value set, the default of the used locale is used.
+     *
+     * Note: this property will only have effect in the weekly – based views of the PlanningCalendar – Week
+     * view, and OneMonth view (on small devices).
+     *
+     * Default value is `-1`.
+     */
+    getFirstDayOfWeek(): int;
+    /**
      * @SINCE 1.48.0
      *
      * Gets current value of property {@link #getGroupAppointmentsMode groupAppointmentsMode}.
@@ -64462,6 +64636,27 @@ declare module "sap/m/PlanningCalendar" {
       fnSorter: appointmentsSorterCallback
     ): this;
     /**
+     * @SINCE 1.94
+     *
+     * Sets a new value for property {@link #getFirstDayOfWeek firstDayOfWeek}.
+     *
+     * If set, the first day of the displayed week is this day. Valid values are 0 to 6 starting on Sunday.
+     * If there is no valid value set, the default of the used locale is used.
+     *
+     * Note: this property will only have effect in the weekly – based views of the PlanningCalendar – Week
+     * view, and OneMonth view (on small devices).
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     */
+    setFirstDayOfWeek(
+      /**
+       * New value for property `firstDayOfWeek`
+       */
+      iFirstDayOfWeek?: int
+    ): this;
+    /**
      * @SINCE 1.48.0
      *
      * Sets a new value for property {@link #getGroupAppointmentsMode groupAppointmentsMode}.
@@ -64922,6 +65117,17 @@ declare module "sap/m/PlanningCalendar" {
      * all features and restrictions of the property in `sap.m.Table` apply to the `PlanningCalendar` as well.
      */
     stickyHeader?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.94
+     *
+     * If set, the first day of the displayed week is this day. Valid values are 0 to 6 starting on Sunday.
+     * If there is no valid value set, the default of the used locale is used.
+     *
+     * Note: this property will only have effect in the weekly – based views of the PlanningCalendar – Week
+     * view, and OneMonth view (on small devices).
+     */
+    firstDayOfWeek?: int | PropertyBindingInfo;
 
     /**
      * Rows of the `PlanningCalendar`.
@@ -95139,6 +95345,8 @@ declare module "sap/m/StandardDynamicDateOption" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import DynamicDateRange from "sap/m/DynamicDateRange";
+
   /**
    * @EXPERIMENTAL (since 1.92)
    *
@@ -95207,6 +95415,17 @@ declare module "sap/m/StandardDynamicDateOption" {
      * Returns a metadata object for class sap.m.StandardDynamicDateOption.
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Validates all input controls in the value help UI related to the current option. If one of the input
+     * controls contains invalid value, then validation will return `false`. If all input controls contain valid
+     * value, then the validation will return `true`.
+     */
+    validateValueHelpUI(
+      /**
+       * The control instance
+       */
+      oControl: DynamicDateRange
+    ): boolean;
   }
 
   export interface $StandardDynamicDateOptionSettings
@@ -95393,6 +95612,23 @@ declare module "sap/m/StandardListItem" {
      * Default value is `Inherit`.
      */
     getTitleTextDirection(): TextDirection | keyof typeof TextDirection;
+    /**
+     * @SINCE 1.94
+     *
+     * Gets current value of property {@link #getWrapCharLimit wrapCharLimit}.
+     *
+     * This property can be used to change the default character limits for the wrapping behavior.
+     *
+     * If this property is set to 0, then the default character limit used by the wrapping behavior is used.
+     * For details see {@link #getWrapping wrapping}.
+     *
+     * **Note:**
+     *
+     * 0 or a positive integer must be used for this property.
+     *
+     * Default value is `0`.
+     */
+    getWrapCharLimit(): int;
     /**
      * @SINCE 1.67
      *
@@ -95597,6 +95833,30 @@ declare module "sap/m/StandardListItem" {
       sTitleTextDirection?: TextDirection | keyof typeof TextDirection
     ): this;
     /**
+     * @SINCE 1.94
+     *
+     * Sets a new value for property {@link #getWrapCharLimit wrapCharLimit}.
+     *
+     * This property can be used to change the default character limits for the wrapping behavior.
+     *
+     * If this property is set to 0, then the default character limit used by the wrapping behavior is used.
+     * For details see {@link #getWrapping wrapping}.
+     *
+     * **Note:**
+     *
+     * 0 or a positive integer must be used for this property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     */
+    setWrapCharLimit(
+      /**
+       * New value for property `wrapCharLimit`
+       */
+      iWrapCharLimit?: int
+    ): this;
+    /**
      * @SINCE 1.67
      *
      * Sets a new value for property {@link #getWrapping wrapping}.
@@ -95714,6 +95974,20 @@ declare module "sap/m/StandardListItem" {
      * to `true`.
      */
     infoStateInverted?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.94
+     *
+     * This property can be used to change the default character limits for the wrapping behavior.
+     *
+     * If this property is set to 0, then the default character limit used by the wrapping behavior is used.
+     * For details see {@link #getWrapping wrapping}.
+     *
+     * **Note:**
+     *
+     * 0 or a positive integer must be used for this property.
+     */
+    wrapCharLimit?: int | PropertyBindingInfo;
   }
 }
 
