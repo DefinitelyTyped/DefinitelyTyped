@@ -1,6 +1,6 @@
-// Type definitions for @nick-thompson/elementary v0.9.6
-// Project: elementary
-// Definitions by: Hrle97 https://github.com/Hrle97
+// Type definitions for @nick-thompson/elementary 0.9
+// Project: https://www.elementary.audio/
+// Definitions by: Hrle97 <https://github.com/Hrle97>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

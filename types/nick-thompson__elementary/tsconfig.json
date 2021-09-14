@@ -17,6 +17,7 @@
                 "nick-thompson__*"
             ]
         },
+        "types"                           : [ ],
         "noEmit"                          : true,
         "forceConsistentCasingInFileNames": true
     },
