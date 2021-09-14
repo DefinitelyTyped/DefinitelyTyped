@@ -1,6 +1,7 @@
-import * as flowjs from '@flowjs/flow.js';
+import Flow, * as flowjs from '@flowjs/flow.js';
+
 // flow object
-let flowObject!: flowjs.Flow;
+let flowObject: flowjs.FlowStatic = Flow;
 let bool: boolean = flowObject.support;
 bool = flowObject.supportDirectory;
 const flowOpts: flowjs.FlowOptions = flowObject.opts;

@@ -3,7 +3,7 @@
 // Definitions by: gentoo90 <https://github.com/gentoo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Flow } from 'flowjs';
+import { Flow as FlowStatic } from 'flowjs';
 export {
     CatchAllCallbackArguments,
     CompleteCallbackArguments,
@@ -17,7 +17,7 @@ export {
     FilesAddedCallbackArguments,
     FilesSubmittedCallbackArguments,
     FileSuccessCallbackArguments,
-    Flow,
+    Flow as FlowStatic,
     FlowChunk,
     FlowChunkParams,
     FlowEvent,
@@ -29,4 +29,5 @@ export {
     ProgressCallbackArguments,
     UploadStartCallbackArguments,
 } from 'flowjs';
+declare const Flow: FlowStatic;
 export default Flow;
