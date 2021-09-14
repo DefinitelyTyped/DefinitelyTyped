@@ -12,8 +12,8 @@ declare const ParseTorrent: ParseTorrent.ParseTorrent;
 
 declare namespace ParseTorrent {
     interface ParseTorrent {
-        (torrent: string): MagnetUri.Instance;
-        (torrent: Buffer): MagnetUri.Instance | ParseTorrentFile.Instance;
+        (torrent: string): MagnetUri.Instance & {infoHash: string};
+        (torrent: Buffer): (MagnetUri.Instance | ParseTorrentFile.Instance) & {infoHash: string};
         (torrent: Instance | MagnetUri.Instance | ParseTorrentFile.Instance): Instance;
 
         toMagnetURI: typeof MagnetUri.encode;
