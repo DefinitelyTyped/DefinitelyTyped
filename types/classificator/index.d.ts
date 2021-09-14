@@ -1,4 +1,4 @@
-// Type definitions for classificator
+// Type definitions for classificator 0.3
 // Project: https://github.com/Wozacosta/classificator
 // Definitions by: Nixinova <https://github.com/Nixinova>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,6 @@ export = Classificator;
 declare function Classificator(options?: Classificator.Options): Classificator.NaiveBayes;
 
 declare namespace Classificator {
-
     interface ClassificationResults {
         likelihoods: Array<{
             category: string,
@@ -55,9 +54,9 @@ declare namespace Classificator {
      * - `tokenizer` => custom tokenization function
      */
     class NaiveBayes {
-        constructor(options?: Classificator.Options);
+        constructor(options?: Options);
 
-        private options: Classificator.Options;
+        private options: Options;
         private alpha: number;
         private fitPrior: boolean;
         private vocabulary: Record<string, number>;
@@ -72,28 +71,28 @@ declare namespace Classificator {
         /**
          * Initialize each of data structure entry for a new category
          */
-        private initializeCategory(category: string): Classificator.NaiveBayes;
+        private initializeCategory(category: string): NaiveBayes;
 
         /**
          * Properly remove a category, unlearning all strings that were associated with it.
          */
-        removeCategory(category: string): Classificator.NaiveBayes;
+        removeCategory(category: string): NaiveBayes;
 
         /**
          * Train the naive Bayes classifier by telling it what `category` the `text` to add corresponds to.
          */
-        learn(text: string, category: string): Classificator.NaiveBayes;
+        learn(text: string, category: string): NaiveBayes;
 
         /**
          * Untrain the naive Bayes classifier by telling it what `category` the `text` to remove corresponds to.
          */
-        unlearn(text: string, category: string): Classificator.NaiveBayes;
+        unlearn(text: string, category: string): NaiveBayes;
 
         /**
          * Determine what category `text` belongs to.
          * @return predicted category and likelihoods stats.
          */
-        categorize(text: string): Classificator.ClassificationResults;
+        categorize(text: string): ClassificationResults;
 
         /**
          * Calculate the probability that the `token` belongs to a `category`
@@ -113,7 +112,6 @@ declare namespace Classificator {
          * @return Representation of the classifier.
          */
         toJson(): string;
-
     }
 
     /**
@@ -121,7 +119,7 @@ declare namespace Classificator {
      *
      * Use this with NaiveBayes::toJson().
      */
-    function fromJson(jsonStrOrObject: string | object): Classificator.NaiveBayes;
+    function fromJson(jsonStrOrObject: string | object): NaiveBayes;
 
     const STATE_KEYS: Readonly<string[]>;
 }
