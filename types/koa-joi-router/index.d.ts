@@ -12,6 +12,7 @@ import * as Koa from 'koa';
 import * as Joi from 'joi';
 import * as KoaRouter from 'koa-router';
 import * as CoBody from 'co-body';
+import * as busboy from 'busboy';
 
 declare module "koa" {
     interface Request {
@@ -46,7 +47,7 @@ declare namespace createRouter {
           type?: 'form'|'json'|'multipart' | undefined;
           formOptions?: CoBody.Options | undefined;
           jsonOptions?: CoBody.Options | undefined;
-          multipartOptions?: CoBody.Options | undefined;
+          multipartOptions?: busboy.BusboyConfig | undefined;
           output?: {[status: string]: OutputValidation} | undefined;
           continueOnError?: boolean | undefined;
           validateOptions?: Joi.ValidationOptions | undefined;

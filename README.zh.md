@@ -448,7 +448,7 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 }
 ```
 
-你可以在 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/debounce-promise) 和 [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) 查看示例。
+你可以在 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) 和 [express](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/95a309dcd7dc2632b4ebab87a75329f17af62dbc/types/express) 查看示例。
 
 #### 我想去添加默认情况下不存在于 TypeScript 的 DOM API.
 

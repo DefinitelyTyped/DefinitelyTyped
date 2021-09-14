@@ -184,3 +184,16 @@ router().param('/:id', async (id: string, ctx: koa.Context, next: koa.Next) => {
   ctx.state.id = id;
   await next();
 });
+
+const config1: router.Config = {
+  validate: {
+    type: 'multipart',
+    multipartOptions: {
+      limits: {
+        fields: 5,
+        fieldSize: 300000
+      }
+    }
+  }
+};
+router().get('/', config1, handler1);
