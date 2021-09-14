@@ -6,7 +6,6 @@
 //                 Joshua Cherry <https://github.com/tasadar2>
 //                 Arthur Corenzan <https://github.com/haggen>
 //                 Richard Lea <https://github.com/chigix>
-//                 Devid Farinelli <https://github.com/misterdev>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
