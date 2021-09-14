@@ -101,7 +101,7 @@ declare namespace Classificator {
          * - the keys are the entries in `tokens`
          * - the values are the frequency of each entry in `tokens`
          */
-        frequencyTable(tokens: string[]): Record<string, number>;
+        frequencyTable(tokens: Readonly<string[]>): Record<string, number>;
 
         /**
          * Dump the classifier's state as a JSON string.
