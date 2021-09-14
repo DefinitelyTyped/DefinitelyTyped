@@ -2,10 +2,12 @@ import parseTorrent = require('parse-torrent');
 import * as fs from 'fs';
 
 // info hash (as a hex string)
+// $ExpectType { infoHash: string }
 parseTorrent('d2474e86c95b19b8bcfdb92bc12c9d44667cfa36');
 // { infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36' }
 
 // info hash (as a Buffer)
+// $ExpectType { infoHash: string }
 parseTorrent(new Buffer('d2474e86c95b19b8bcfdb92bc12c9d44667cfa36', 'hex'));
 // { infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36' }
 
