@@ -1,31 +1,26 @@
-// Type definitions for classificator 0.3
-// Project: https://github.com/Wozacosta/classificator
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: Nixinova <https://github.com/Nixinova>
-
 import * as classificator from 'classificator';
 
-// $ExpectType classificator.NaiveBayes
+// $ExpectType NaiveBayes
 classificator();
-// $ExpectType classificator.NaiveBayes
+// $ExpectType NaiveBayes
 classificator({ alpha: 1 });
-// $ExpectType classificator.NaiveBayes
+// $ExpectType NaiveBayes
 classificator({ tokenizer: (text: string) => text.split(' ') });
 
 // $ExpectError
-classificator.fromJson(['array']);
+classificator.fromJson(100);
 
-// $ExpectType classificator.NaiveBayes
+// $ExpectType NaiveBayes
 const classifier = classificator();
-// $ExpectType classificator.NaiveBayes
+// $ExpectType NaiveBayes
 classifier.learn('text', 'category');
-// $ExpectType classificator.NaiveBayes
+// $ExpectType NaiveBayes
 classifier.unlearn('text', 'category');
 // $ExpectType string
 classifier.toJson();
 
 classifier.learn('text!', 'category!');
-// $ExpectType classificator.ClassificationResults
+// $ExpectType ClassificationResults
 const results = classifier.categorize('text');
 // $ExpectType string
 results.predictedCategory;
