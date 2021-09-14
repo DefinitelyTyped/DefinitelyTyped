@@ -1,5 +1,12 @@
 name: Update support window diagram
 on:
+  # When our dependencies change
+  push:
+    paths:
+      - .github/workflows/support-window.yml
+      - package.json
+      - scripts/support-window.ts
+      - scripts/tsconfig.json
   # Manually, when TypeScript is released
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
@@ -8,12 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: |
-          personal <- Sys.getenv("R_LIBS_USER")
-          dir.create(personal, recursive = TRUE)
-          install.packages(c("ggplot2", "svglite"), personal)
-        shell: Rscript {0}
+      - uses: actions/setup-node@v2
+        #with:
+        #  cache: npm
+      - run: npm install
+      - run: tsc --build scripts
       - name: Fetch TypeScript versions and release dates from npm
         run: |
           npm view --json typescript time |
@@ -28,9 +34,9 @@ jobs:
               | from_entries
             ' > docs/support-window.json
       - name: Make SVG diagram
-        run: jq --raw-output 'to_entries[] | map(values) | @tsv' docs/support-window.json | Rscript scripts/support-window.R
+        run: node --experimental-json-modules scripts/support-window > docs/support-window.svg
       - run: git add docs/support-window.json docs/support-window.svg
       - run: git config user.name .github/workflows/support-window.yml
       - run: git config user.email bot@typescriptlang.org
-      - run: git diff --quiet --cached || git commit --message '[README] 🤖 Update support window diagram'
+      - run: git diff --quiet --cached || git commit --message "[README] 🤖 Update support window diagram"
       - run: git push
