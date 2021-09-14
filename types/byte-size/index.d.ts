@@ -18,7 +18,7 @@ export interface ByteSizeResult {
     toString: () => string;
 }
 
-declare function byteSize(bytes: number, options?: byteSizeOptions): ByteSizeResult;
+declare function byteSize(bytes: number, options?: ByteSizeOptions): ByteSizeResult;
 
 declare namespace byteSize {
     function defaultOptions(options: byteSizeOptions): void;
