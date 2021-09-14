@@ -85,6 +85,11 @@ function registryTests() {
                     topic: "topic"
                 });
 
+                this.send({
+                    payload: "payload",
+                    topic: "topic"
+                });
+
                 // send messages to a subset of the outputs
 
                 send (
@@ -104,6 +109,40 @@ function registryTests() {
                             topic: "topic"
                         },
                         null
+                    ]
+                );
+
+                // send multiple messages to a particular output
+
+                send (
+                    [
+                        null,
+                        [
+                            {
+                                payload: "payload",
+                                topic: "topic"
+                            },
+                            {
+                                payload: "payload",
+                                topic: "topic"
+                            }
+                        ]
+                    ]
+                );
+
+                this.send (
+                    [
+                        null,
+                        [
+                            {
+                                payload: "payload",
+                                topic: "topic"
+                            },
+                            {
+                                payload: "payload",
+                                topic: "topic"
+                            }
+                        ]
                     ]
                 );
 
