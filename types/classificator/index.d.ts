@@ -1,3 +1,8 @@
+// Type definitions for classificator
+// Project: https://github.com/Wozacosta/classificator
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions by: Nixinova <https://github.com/Nixinova>
+
 export as namespace classificator;
 
 export = Classificator;
