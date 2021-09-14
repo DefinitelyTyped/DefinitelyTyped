@@ -558,6 +558,21 @@ class ModellessView extends Backbone.View {
     }
 }
 
+interface SVGViewOptions extends Backbone.ViewOptions<Backbone.Model, SVGGraphicsElement> {
+}
+
+class SVGView extends Backbone.View<Backbone.Model, SVGGraphicsElement> {
+    matrix: DOMMatrix | null = null;
+    document: SVGSVGElement | null = null;
+    constructor(options: SVGViewOptions) {
+        super(options);
+        if (options.el instanceof SVGElement) {
+            this.document = options.el.ownerSVGElement;
+        }
+        this.matrix = this.el.getCTM();
+    }
+}
+
 interface TypedModelAttributes {
     stringAttr: string;
     numberAttr: number;

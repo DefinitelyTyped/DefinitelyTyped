@@ -2,7 +2,7 @@
 
 > 이 저장소는 고품질의 타입스크립트(TypeScript) 자료형 정의(Type definition)를 위한 저장소입니다.
 
-*이 도움말은 [영어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [스페인어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [러시아어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), 그리고 [중국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)로도 읽으실 수 있습니다!*
+*이 도움말은 [영어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [스페인어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [러시아어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), 그리고 [중국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md)로도 읽으실 수 있습니다!*
 
 <!-- For translators: add link to README.ja.md above! -->
 

@@ -384,3 +384,18 @@ sharp('16bpc.png')
         console.log((size / width / height / channels) * 8);
         console.log(new Uint16Array(data.buffer));
     });
+
+// Output channels are constrained from 1-4, can be used as raw input
+sharp(input)
+    .toBuffer({ resolveWithObject: true })
+    .then(result => {
+        const newImg = sharp(result.data, {
+            raw: {
+                channels: result.info.channels,
+                width: result.info.width,
+                height: result.info.height,
+            },
+        });
+
+        return newImg.toBuffer();
+    });
