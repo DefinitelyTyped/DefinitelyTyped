@@ -211,6 +211,12 @@ declare namespace autobahn {
         type: TransportType;
     }
 
+    interface ITlsConfiguration {
+        ca: string;
+        cert: string;
+        key: string;
+    }
+
     type DeferFactory = () => When.Promise<any>;
 
     type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
@@ -241,6 +247,7 @@ declare namespace autobahn {
         autoping_interval?: number | undefined;
         autoping_timeout?: number | undefined;
         autoping_size?: number | undefined;
+        tlsConfiguration?: ITlsConfiguration | undefined;
     }
 
     interface ICloseEventDetails {
