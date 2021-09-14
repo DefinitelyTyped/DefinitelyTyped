@@ -109,8 +109,8 @@ export declare type VariadicChildrenArray =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export declare type ChildrenArraySize<Array extends any[]> =
-    Array['length'] & ChildrenArraySizeRange;
+export declare type ChildrenArraySize<A extends any[]> =
+    A['length'] & ChildrenArraySizeRange;
 
 
 // Generic

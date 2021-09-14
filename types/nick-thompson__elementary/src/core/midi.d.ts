@@ -164,23 +164,23 @@ export declare interface MidiControllerEvent extends MidiEventBase
      * Since this is a 'controller' event the only possible value of this field
      * is 'controller'.
      */
-    type: 'controller',
+    type: 'controller';
 
     /**
      * One of the 16 available MIDI channels where each one represents a
      * separate 'instrument'.
      */
-    channel: number,
+    channel: number;
 
     /**
      * The property of the channel to target; volume, pan and such.
      */
-    target: number,
+    target: number;
 
     /**
      * The value of the target property.
      */
-    value: number
+    value: number;
 }
 
 

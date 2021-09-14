@@ -2,10 +2,9 @@
 // Project: https://www.elementary.audio/
 // Definitions by: Hrle97 <https://github.com/Hrle97>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// Minimum TypeScript Version: 4.0
 
 import * as _el from './src';
-
 
 /**
  * The main export of Elementary. Use the {@link el.Elementary} type for the
@@ -16,7 +15,8 @@ import * as _el from './src';
  *
  * @example
  *     import * as el from '@nick-thompson/elementary';
- *     const core: el.Core = (global as any).elementary.core;
+ *     declare const global: any;
+ *     const core: el.Core = global.elementary.core;
  *
  *     function render(core: el.Core, el: el.Elementary)
  *     {
@@ -28,13 +28,9 @@ import * as _el from './src';
  *
  *     export { core };
  *
- *
- * @namespace el
- *
  * @see el.Elementary
  * @see el.Core
  */
 import el = _el;
-
 
 export = el;

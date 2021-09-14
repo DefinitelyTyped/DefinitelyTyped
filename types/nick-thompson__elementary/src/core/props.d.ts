@@ -176,7 +176,7 @@ export declare interface SampleProps extends KeyProps
      * @see SampleProps
      * @see el.sample
      */
-    path?: string,
+    path?: string;
 
     /**
      * Nodes can output only one channel so you have to select the channel
@@ -185,7 +185,7 @@ export declare interface SampleProps extends KeyProps
      * @see SampleProps
      * @see el.sample
      */
-    channel?: number,
+    channel?: number;
 
     /**
      * - trigger: plays the sample once fully on a rising edge of the pulse
@@ -198,7 +198,7 @@ export declare interface SampleProps extends KeyProps
      * @see SampleProps
      * @see el.sample
      */
-    mode?: 'trigger' | 'gate' | 'loop',
+    mode?: 'trigger' | 'gate' | 'loop';
 
     /**
      * Offset in samples from the start of the sample where playback starts.
@@ -206,7 +206,7 @@ export declare interface SampleProps extends KeyProps
      * @see SampleProps
      * @see el.sample
      */
-    startOffset?: number,
+    startOffset?: number;
 
     /**
      * Offset in samples from the end of the sample where playback ends.
@@ -214,7 +214,7 @@ export declare interface SampleProps extends KeyProps
      * @see SampleProps
      * @see el.sample
      */
-    stopOffset?: number
+    stopOffset?: number;
 }
 
 
@@ -253,7 +253,7 @@ export declare type TableProps =
 /**
  * Props for el.seq
  *
- * @property {Array<number>} [seq = []]
+ * @property {number[]} [seq = []]
  * sequence of values to generate
  *
  * @property {boolean} [hold = false]
@@ -273,7 +273,7 @@ export declare interface SeqProps extends KeyProps
      * @see SeqProps
      * @see el.seq
      */
-    seq?: Array<number>,
+    seq?: number[];
 
     /**
      * When true, continues to output the sequence value until the next trigger.
@@ -281,7 +281,7 @@ export declare interface SeqProps extends KeyProps
      * @see SeqProps
      * @see el.seq
      */
-    hold?: boolean,
+    hold?: boolean;
 
     /**
      * When true, sequence repeats, looping from start to end, indefinitely.
@@ -289,7 +289,7 @@ export declare interface SeqProps extends KeyProps
      * @see SeqProps
      * @see el.seq
      */
-    loop?: boolean
+    loop?: boolean;
 }
 
 

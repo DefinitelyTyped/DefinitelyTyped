@@ -10,7 +10,7 @@ export const testBasics: ElementaryCallback =
 
         const inputs = el.inputs();
         expect(inputs).isAnArray();
-        expect(inputs).passes(x => x.length == 0);
+        expect(inputs).passes(x => x.length === 0);
 
         const sr = el.sr();
         expect(sr).passes(isNode);

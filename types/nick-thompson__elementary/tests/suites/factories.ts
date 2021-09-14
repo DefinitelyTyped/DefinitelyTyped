@@ -18,7 +18,7 @@ export const testFactories: ElementaryCallback =
         mod = createAdd({}, 2, 3);
         expect(mod).passes(isNode);
 
-        let add2 = createAdd2({ key: 'b' }, 2);
+        const add2 = createAdd2({ key: 'b' }, 2);
         expect(add2).passes(isNode);
 
         core.render(mod);

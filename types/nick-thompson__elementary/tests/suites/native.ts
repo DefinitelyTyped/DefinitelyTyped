@@ -9,5 +9,5 @@ export const testNative: ElementaryCallback =
         const randNode = el.rand();
         expect(randNode).passes(isNode);
 
-        return core.render(randNode, randNode);
+        core.render(randNode, randNode);
     };

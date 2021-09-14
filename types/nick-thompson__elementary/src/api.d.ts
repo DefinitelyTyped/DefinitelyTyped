@@ -12,7 +12,8 @@ import * as el from '../';
  *
  * @example
  *     import * as el from '@nick-thompson/elementary';
- *     const core: el.Core = (global as any).elementary.core;
+ *     declare const global: any;
+ *     const core: el.Core = global.elementary.core;
  *
  *     function render(core: el.Core, el: el.Elementary)
  *     {
@@ -35,7 +36,8 @@ import ElementaryNamespace = _Elementary;
  *
  * @example
  *     import * as el from '@nick-thompson/elementary';
- *     const core: el.Core = (global as any).elementary.core;
+ *     declare const global: any;
+ *     const core: el.Core = global.elementary.core;
  *
  *     function render(core: el.Core, el: el.Elementary)
  *     {
