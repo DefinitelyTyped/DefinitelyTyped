@@ -241,7 +241,12 @@ function test_collection() {
     books.set([{ title: 'Title 0', author: 'Johan' }]);
     books.reset();
 
-    const book1: Book = new Book({ title: 'Title 1', author: 'Mike' });
+    const book1: Book = new Book({ title: 'Title 1', author: 'Mike' }, {
+        // We sneak in an arbitrary option to check that
+        // `CombinedModelSetOptions` no longer breaks pre-1.4.4 code
+        // (see #55764 and #46513).
+        testOption: 'banana',
+    });
     books.add(book1);
 
     // Test adding sort option to add.
