@@ -4190,10 +4190,6 @@
             "libraryName": "reapop",
             "asOfVersion": "3.0.0"
         },
-        "recharts": {
-            "libraryName": "recharts",
-            "asOfVersion": "2.0.0"
-        },
         "recoil": {
             "libraryName": "recoil",
             "asOfVersion": "0.0.9"
