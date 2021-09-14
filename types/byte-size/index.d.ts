@@ -3,7 +3,7 @@
 // Definitions by: lntel <https://github.com/lntel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface byteSizeOptions {
+export interface ByteSizeOptions {
     precision?: number;
     units?: string;
     customUnits?: object;
