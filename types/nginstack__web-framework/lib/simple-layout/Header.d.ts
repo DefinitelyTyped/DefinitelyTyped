@@ -10,6 +10,7 @@ declare class Header {
     complement: string;
     useTagsAsLiterals: boolean;
     visible: boolean;
+    autoSanitize: boolean;
     writePlain(
         sender: SimpleLayout,
         outputObj: {
@@ -28,6 +29,7 @@ declare class Header {
         }
     ): void;
     onAfterComplement: Event;
+    private sanitize_;
     writeHtml(
         sender: Visualization | SimpleLayout,
         outputObj: {
