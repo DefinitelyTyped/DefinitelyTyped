@@ -1,11 +1,11 @@
 import AsyncStreamEmitter = require('async-stream-emitter');
 import { Secret } from 'jsonwebtoken';
 import { Server } from 'http';
-import { SCAuthEngine } from 'sc-auth';
 import WebSocket = require('ws');
 import WritableConsumableStream = require('writable-consumable-stream');
 import ConsumableStream = require('consumable-stream');
 import AGSimpleBroker = require('ag-simple-broker');
+import AuthEngine = require('ag-auth');
 
 import AGServerSocket = require('./serversocket');
 import AGAction = require('./action');
@@ -30,22 +30,22 @@ declare class AGServer extends AsyncStreamEmitter<any> {
     pingTimeout: number;
     pingTimeoutDisabled: boolean;
     allowClientPublish: boolean;
-    perMessageDeflate?: boolean | {} | undefined;
+    perMessageDeflate?: boolean | {};
     httpServer: Server;
-    socketChannelLimit?: number | undefined;
+    socketChannelLimit?: number;
     protocolVersion: 1 | 2;
     strictHandshake: boolean;
     brokerEngine: AGSimpleBroker;
     middlewareEmitFailures: boolean;
     isReady: boolean;
-    signatureKey?: Secret | undefined;
-    verificationKey?: Secret | undefined;
+    signatureKey?: Secret;
+    verificationKey?: Secret;
     defaultVerificationOptions: {
-        algorithms?: string[] | undefined;
+        algorithms?: string[];
     };
     defaultSignatureOptions: {
         expiresIn: number;
-        algorithm?: string | undefined;
+        algorithm?: string;
     };
     exchange: AGSimpleBroker.SimpleExchange;
 
@@ -103,8 +103,8 @@ declare class AGServer extends AsyncStreamEmitter<any> {
 
     hasMiddleware(type: AGServer.Middlewares): boolean;
 
-    setAuthEngine(authEngine: SCAuthEngine): void;
-    auth: SCAuthEngine;
+    setAuthEngine(authEngine: AGServer.AuthEngineType): void;
+    auth: AGServer.AuthEngineType;
 
     setCodecEngine(codecEngine: AGServer.CodecEngine): void;
     codec: AGServer.CodecEngine;
@@ -165,22 +165,22 @@ declare namespace AGServer {
         // https://nodejs.org/api/http.html#http_class_http_server
         // This option should not be set if the server is created
         // with socketClusterServer.attach(...).
-        httpServer?: Server | undefined;
+        httpServer?: Server;
 
         // This can be the name of an npm module or a path to a
         // Node.js module to use as the WebSocket server engine.
-        wsEngine?: any;
+        wsEngine?: string | { Server: WebSocket.Server };
 
         // Custom options to pass to the wsEngine when it is being
         // instantiated.
-        wsEngineServerOptions?: WebSocket.ClientOptions | undefined;
+        wsEngineServerOptions?: WebSocket.ClientOptions;
 
         // The key which SC will use to encrypt/decrypt authTokens,
         // defaults to a 256 bits cryptographically random hex
         // string. The default JWT algorithm used is 'HS256'.
         // If you want to use RSA or ECDSA, you should provide an
         // authPrivateKey and authPublicKey instead of authKey.
-        authKey?: Secret | undefined;
+        authKey?: Secret;
 
         // perMessageDeflate compression. Note that this option is
         // passed directly to the wsEngine's Server object.
@@ -188,76 +188,76 @@ declare namespace AGServer {
         // object instead of a boolean.
         // Note that by default, per-message deflate only kicks in
         // for messages > 1024 bytes.
-        perMessageDeflate?: boolean | {} | undefined;
+        perMessageDeflate?: boolean | {};
 
         // If using an RSA or ECDSA algorithm to sign the
         // authToken, you will need to provide an authPrivateKey
         // and authPublicKey in PEM format (string or Buffer).
-        authPrivateKey?: Secret | undefined;
-        authPublicKey?: Secret | undefined;
+        authPrivateKey?: Secret;
+        authPublicKey?: Secret;
 
         // The default expiry for auth tokens in seconds
-        authDefaultExpiry?: number | undefined;
+        authDefaultExpiry?: number;
 
         // The algorithm to use to sign and verify JWT tokens.
-        authAlgorithm?: string | undefined;
+        authAlgorithm?: string;
 
         // Can be 1 or 2. Version 1 is for maximum backwards
         // compatibility with SocketCluster clients.
-        protocolVersion?: 1 | 2 | undefined;
+        protocolVersion?: 1 | 2;
 
         // In milliseconds - If the socket handshake hasn't been
         // completed before this timeout is reached, the new
         // connection attempt will be terminated.
-        handshakeTimeout?: number | undefined;
+        handshakeTimeout?: number;
 
         // In milliseconds, the timeout for receiving a response
         // when using invoke() or invokePublish().
-        ackTimeout?: number | undefined;
+        ackTimeout?: number;
 
         // Origins which are allowed to connect to the server.
-        origins?: string | undefined;
+        origins?: string;
 
         // The maximum number of unique channels which a single
         // socket can subscribe to.
-        socketChannelLimit?: number | undefined;
+        socketChannelLimit?: number;
 
         // The interval in milliseconds on which to
         // send a ping to the client to check that
         // it is still alive.
-        pingInterval?: number | undefined;
+        pingInterval?: number;
 
         // How many milliseconds to wait without receiving a ping
         // before closing the socket.
-        pingTimeout?: number | undefined;
+        pingTimeout?: number;
 
         // Whether or not an error should be emitted on
         // the socket whenever an action is blocked by a
         // middleware function
-        middlewareEmitFailures?: boolean | undefined;
+        middlewareEmitFailures?: boolean;
 
         // The URL path reserved by SocketCluster clients to
         // interact with the server.
-        path?: string | undefined;
+        path?: string;
 
         // Whether or not clients are allowed to publish messages
         // to channels.
-        allowClientPublish?: boolean | undefined;
+        allowClientPublish?: boolean;
 
         // Whether or not to batch all socket messages
         // for some time immediately after completing
         // a handshake. This can be useful in failure-recovery
         // scenarios (e.g. batch resubscribe).
-        batchOnHandshake?: boolean | undefined;
+        batchOnHandshake?: boolean;
 
         // If batchOnHandshake is true, this lets you specify
         // How long to enable batching (in milliseconds) following
         // a successful socket handshake.
-        batchOnHandshakeDuration?: number | undefined;
+        batchOnHandshakeDuration?: number;
 
         // If batchOnHandshake is true, this lets you specify
         // the size of each batch in milliseconds.
-        batchInterval?: number | undefined;
+        batchInterval?: number;
 
         // Lets you specify the default cleanup behaviour for
         // when a socket becomes disconnected.
@@ -267,12 +267,12 @@ declare namespace AGServer {
         // Close mode means that consumers on the socket will
         // be able to finish processing their stream backlogs
         // bebfore they are ended.
-        socketStreamCleanupMode?: 'kill' | 'close' | undefined;
+        socketStreamCleanupMode?: 'kill' | 'close';
 
-        authVerifyAlgorithms?: string[] | undefined;
-        authEngine?: SCAuthEngine | undefined;
-        codecEngine?: CodecEngine | undefined;
-        cloneData?: boolean | undefined;
+        authVerifyAlgorithms?: string[];
+        authEngine?: AuthEngineType;
+        codecEngine?: CodecEngine;
+        cloneData?: boolean;
 
         [additionalOptions: string]: any;
     }
@@ -298,4 +298,6 @@ declare namespace AGServer {
         decode: (input: any) => any;
         encode: (object: any) => any;
     }
+
+    type AuthEngineType = Pick<AuthEngine, "verifyToken" | "signToken">;
 }

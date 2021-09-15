@@ -2,7 +2,7 @@
 // Project: https://github.com/ember-cli/console-ui#readme
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 4.2
 
 import { QuestionCollection } from 'inquirer';
 

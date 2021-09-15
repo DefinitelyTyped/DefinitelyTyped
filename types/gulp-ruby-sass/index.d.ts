@@ -32,7 +32,7 @@ interface SassOptions {
     quiet?: boolean | undefined;
 
     // Actually, there should be a string. However due to ts spec, overriding member should be the same type or a subtype.
-    // http://stackoverflow.com/questions/19605557/incompatible-static-properties-in-three-d-ts-with-latest-typescript
+    // https://stackoverflow.com/questions/19605557/incompatible-static-properties-in-three-d-ts-with-latest-typescript
     // We need Options.soucemap to be boolean, so here 'any' is used instead of string.
     sourcemap?: any;
 

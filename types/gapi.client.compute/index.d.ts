@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Compute Engine API v1 1.0
-// Project: https://developers.google.com/compute/docs/reference/latest/
+// Project: https://cloud.google.com/compute/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

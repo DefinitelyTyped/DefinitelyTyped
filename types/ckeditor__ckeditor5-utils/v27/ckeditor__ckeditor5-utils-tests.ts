@@ -1,77 +1,78 @@
-import { KeyEventData } from "@ckeditor/ckeditor5-engine/src/view/observer/keyobserver";
-import createElement from "@ckeditor/ckeditor5-utils/src/dom/createelement";
-import Locale from "@ckeditor/ckeditor5-utils/src/locale";
-import EmitterMixin, { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import Rect from "@ckeditor/ckeditor5-utils/src/dom/rect";
-import getAncestors from "@ckeditor/ckeditor5-utils/src/dom/getancestors";
-import getBorderWidths from "@ckeditor/ckeditor5-utils/src/dom/getborderwidths";
-import getCommonAncestor from "@ckeditor/ckeditor5-utils/src/dom/getcommonancestor";
-import getDataFromElement from "@ckeditor/ckeditor5-utils/src/dom/getdatafromelement";
-import getPositionedAncestor from "@ckeditor/ckeditor5-utils/src/dom/getpositionedancestor";
-import indexOf from "@ckeditor/ckeditor5-utils/src/dom/indexof";
-import insertAt from "@ckeditor/ckeditor5-utils/src/dom/insertat";
-import isNode from "@ckeditor/ckeditor5-utils/src/dom/isnode";
-import isRange from "@ckeditor/ckeditor5-utils/src/dom/isrange";
-import isWindow from "@ckeditor/ckeditor5-utils/src/dom/iswindow";
-import isText from "@ckeditor/ckeditor5-utils/src/dom/istext";
-import { getOptimalPosition, Options, Position } from "@ckeditor/ckeditor5-utils/src/dom/position";
-import remove from "@ckeditor/ckeditor5-utils/src/dom/remove";
-import { scrollViewportToShowTarget, scrollAncestorsToShowTarget } from "@ckeditor/ckeditor5-utils/src/dom/scroll";
-import setDataInElement from "@ckeditor/ckeditor5-utils/src/dom/setdatainelement";
-import toUnit from "@ckeditor/ckeditor5-utils/src/dom/tounit";
-import CKEditorError from "@ckeditor/ckeditor5-utils/src/ckeditorerror";
-import Collection from "@ckeditor/ckeditor5-utils/src/collection";
-import compareArrays from "@ckeditor/ckeditor5-utils/src/comparearrays";
-import Config from "@ckeditor/ckeditor5-utils/src/config";
-import count from "@ckeditor/ckeditor5-utils/src/count";
-import diff from "@ckeditor/ckeditor5-utils/src/diff";
-import diffToChanges from "@ckeditor/ckeditor5-utils/src/difftochanges";
-import ElementReplacer from "@ckeditor/ckeditor5-utils/src/elementreplacer";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import env from "@ckeditor/ckeditor5-utils/src/env";
-import fastDiff from "@ckeditor/ckeditor5-utils/src/fastdiff";
-import first from "@ckeditor/ckeditor5-utils/src/first";
-import FocusTracker from "@ckeditor/ckeditor5-utils/src/focustracker";
-import isIterable from "@ckeditor/ckeditor5-utils/src/isiterable";
-import { getCode, keyCodes, getEnvKeystrokeText, parseKeystroke } from "@ckeditor/ckeditor5-utils/src/keyboard";
-import KeystrokeHandler from "@ckeditor/ckeditor5-utils/src/keystrokehandler";
-import spy from "@ckeditor/ckeditor5-utils/src/spy";
-import mapsEqual from "@ckeditor/ckeditor5-utils/src/mapsequal";
-import mix from "@ckeditor/ckeditor5-utils/src/mix";
-import nth from "@ckeditor/ckeditor5-utils/src/nth";
-import objectToMap from "@ckeditor/ckeditor5-utils/src/objecttomap";
-import Observable from "@ckeditor/ckeditor5-utils/src/observablemixin";
-import priorities from "@ckeditor/ckeditor5-utils/src/priorities";
-import toMap from "@ckeditor/ckeditor5-utils/src/tomap";
-import { add } from "@ckeditor/ckeditor5-utils/src/translation-service";
-import uid from "@ckeditor/ckeditor5-utils/src/uid";
-import toArray from "@ckeditor/ckeditor5-utils/src/toarray";
-
+import { KeyEventData } from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
+import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
+import Collection from '@ckeditor/ckeditor5-utils/src/collection';
+import compareArrays from '@ckeditor/ckeditor5-utils/src/comparearrays';
+import Config from '@ckeditor/ckeditor5-utils/src/config';
+import count from '@ckeditor/ckeditor5-utils/src/count';
+import diff from '@ckeditor/ckeditor5-utils/src/diff';
+import diffToChanges from '@ckeditor/ckeditor5-utils/src/difftochanges';
+import createElement from '@ckeditor/ckeditor5-utils/src/dom/createelement';
+import getAncestors from '@ckeditor/ckeditor5-utils/src/dom/getancestors';
+import getBorderWidths from '@ckeditor/ckeditor5-utils/src/dom/getborderwidths';
+import getCommonAncestor from '@ckeditor/ckeditor5-utils/src/dom/getcommonancestor';
+import getDataFromElement from '@ckeditor/ckeditor5-utils/src/dom/getdatafromelement';
+import getPositionedAncestor from '@ckeditor/ckeditor5-utils/src/dom/getpositionedancestor';
+import indexOf from '@ckeditor/ckeditor5-utils/src/dom/indexof';
+import insertAt from '@ckeditor/ckeditor5-utils/src/dom/insertat';
+import isNode from '@ckeditor/ckeditor5-utils/src/dom/isnode';
+import isRange from '@ckeditor/ckeditor5-utils/src/dom/isrange';
+import isText from '@ckeditor/ckeditor5-utils/src/dom/istext';
+import isWindow from '@ckeditor/ckeditor5-utils/src/dom/iswindow';
+import { getOptimalPosition, Options, Position } from '@ckeditor/ckeditor5-utils/src/dom/position';
+import Rect from '@ckeditor/ckeditor5-utils/src/dom/rect';
+import remove from '@ckeditor/ckeditor5-utils/src/dom/remove';
+import { scrollAncestorsToShowTarget, scrollViewportToShowTarget } from '@ckeditor/ckeditor5-utils/src/dom/scroll';
+import setDataInElement from '@ckeditor/ckeditor5-utils/src/dom/setdatainelement';
+import toUnit from '@ckeditor/ckeditor5-utils/src/dom/tounit';
+import ElementReplacer from '@ckeditor/ckeditor5-utils/src/elementreplacer';
+import EmitterMixin, { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import env from '@ckeditor/ckeditor5-utils/src/env';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import fastDiff from '@ckeditor/ckeditor5-utils/src/fastdiff';
+import first from '@ckeditor/ckeditor5-utils/src/first';
+import FocusTracker from '@ckeditor/ckeditor5-utils/src/focustracker';
+import isIterable from '@ckeditor/ckeditor5-utils/src/isiterable';
+import { getCode, getEnvKeystrokeText, keyCodes, parseKeystroke } from '@ckeditor/ckeditor5-utils/src/keyboard';
+import KeystrokeHandler from '@ckeditor/ckeditor5-utils/src/keystrokehandler';
+import Locale from '@ckeditor/ckeditor5-utils/src/locale';
+import mapsEqual from '@ckeditor/ckeditor5-utils/src/mapsequal';
+import mix from '@ckeditor/ckeditor5-utils/src/mix';
+import nth from '@ckeditor/ckeditor5-utils/src/nth';
+import objectToMap from '@ckeditor/ckeditor5-utils/src/objecttomap';
+import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import priorities from '@ckeditor/ckeditor5-utils/src/priorities';
+import spy from '@ckeditor/ckeditor5-utils/src/spy';
+import toArray from '@ckeditor/ckeditor5-utils/src/toarray';
+import toMap from '@ckeditor/ckeditor5-utils/src/tomap';
+import { add } from '@ckeditor/ckeditor5-utils/src/translation-service';
+import uid from '@ckeditor/ckeditor5-utils/src/uid';
 import {
     isCombiningMark,
     isHighSurrogateHalf,
     isInsideCombinedSymbol,
     isInsideSurrogatePair,
     isLowSurrogateHalf,
-} from "@ckeditor/ckeditor5-utils/src/unicode";
+} from '@ckeditor/ckeditor5-utils/src/unicode';
 
 declare const document: Document;
-declare const locale: Locale;
 declare let emitter: Emitter;
 declare let htmlElement: HTMLElement;
 declare let map: Map<string, number>;
 declare let num: number;
 declare let bool: boolean;
 declare let rect: Rect;
-declare let rectOrNull: Rect | null;
 declare let str: string;
 
 // utils/dom
 
-createElement(document, "p");
-createElement(document, "p", { class: "foo" });
-createElement(document, "p", null, "foo");
-createElement(document, "p", null, ["foo", createElement(document, "img")]);
+createElement(document, 'p');
+createElement(document, 'p', { class: 'foo' });
+createElement(document, 'p', null, 'foo');
+createElement(document, 'p', null, ['foo', createElement(document, 'img')]);
+createElement(document, 'textarea').readOnly = true;
+createElement(document, 'input').value = '';
+createElement(document, 'img').src = '';
+createElement(document, 'a').href = '';
 
 // TODO? utils/dom/emittermixin
 
@@ -83,8 +84,10 @@ getCommonAncestor(htmlElement, htmlElement);
 
 str = getDataFromElement(htmlElement);
 
-let strNull: HTMLElement | null = getPositionedAncestor();
-strNull = getPositionedAncestor(htmlElement);
+// $ExpectType HTMLElement | null
+getPositionedAncestor();
+// $ExpectType HTMLElement | null
+getPositionedAncestor(htmlElement);
 
 num = indexOf(htmlElement);
 
@@ -96,7 +99,7 @@ bool = isNode(new Date());
 bool = isRange(new Range());
 bool = isRange(new Date());
 
-bool = isText(new Text("foo"));
+bool = isText(new Text('foo'));
 bool = isText(new Date());
 
 bool = isWindow(window);
@@ -111,7 +114,7 @@ position = getOptimalPosition({
         (targetRect, elementRect) => ({
             top: targetRect.top,
             left: targetRect.left + elementRect.width,
-            name: "right",
+            name: 'right',
         }),
     ],
 });
@@ -123,12 +126,12 @@ position = getOptimalPosition({
         targetRect => ({
             top: targetRect.bottom,
             left: targetRect.left,
-            name: "mySouthEastPosition",
+            name: 'mySouthEastPosition',
         }),
         (targetRect, elementRect) => ({
             top: targetRect.top - elementRect.height,
             left: targetRect.left,
-            name: "myNorthEastPosition",
+            name: 'myNorthEastPosition',
         }),
     ],
     limiter: document.body,
@@ -148,7 +151,8 @@ rect = rect.excludeScrollbarsAndBorders();
 num = rect.getArea();
 rect = rect.getIntersection(rect);
 num = rect.getIntersectionArea(rect);
-rectOrNull = rect.getVisible();
+// $ExpectType Rect | null
+rect.getVisible();
 bool = rect.isEqual(rect);
 rect = rect.moveBy(1, 1);
 rect = rect.moveTo(1, 1);
@@ -163,19 +167,19 @@ scrollViewportToShowTarget({ target: htmlElement });
 scrollViewportToShowTarget({ target: new Range(), viewportOffset: 30 });
 scrollViewportToShowTarget({ target: htmlElement, viewportOffset: 30 });
 
-setDataInElement(htmlElement, "<b>foo</b>");
+setDataInElement(htmlElement, '<b>foo</b>');
 
-str = toUnit("rem")(10);
+str = toUnit('rem')(10);
 
 // utils/ckeditorerror ========================================================
 
-const regularError = new Error("foo");
-let ckeditorError: CKEditorError<"foo">;
-let ckeditorErrorWithData: CKEditorError<"foo", { bar: number }>;
+const regularError = new Error('foo');
+let ckeditorError: CKEditorError<'foo'>;
+let ckeditorErrorWithData: CKEditorError<'foo', { bar: number }>;
 
 const data = { bar: 1 };
-ckeditorError = new CKEditorError("foo");
-ckeditorErrorWithData = new CKEditorError("foo", data);
+ckeditorError = new CKEditorError('foo');
+ckeditorErrorWithData = new CKEditorError('foo', data);
 
 ckeditorError.is(ckeditorError);
 ckeditorError.is(regularError);
@@ -200,13 +204,13 @@ let items: PropsStr[];
 let itemOrNull: Props | null;
 let itemOrUndef: Props | undefined;
 
-const item1 = { id: "id1" };
-const item2 = { id: "id2" };
-const itemStr1 = { id: "foo", name: "yy" };
-const itemStr2 = { id: "foo", name: "xx" };
+const item1 = { id: 'id1' };
+const item2 = { id: 'id2' };
+const itemStr1 = { id: 'foo', name: 'yy' };
+const itemStr2 = { id: 'foo', name: 'xx' };
 
 const coll = new Collection<Props>();
-const collStr = new Collection<PropsStr>({ idProperty: "name" });
+const collStr = new Collection<PropsStr>({ idProperty: 'name' });
 
 coll.add(item1);
 coll.add(item2);
@@ -218,26 +222,26 @@ coll.add(item1).add(item2);
 
 coll.clear();
 
-items = collStr.filter(item => item.name === "yy");
+items = collStr.filter(item => item.name === 'yy');
 items = collStr.filter((_, idx) => idx > 0);
 items = collStr.filter(function(this: Foo, _, idx) {
     return this.foo > 0 && idx === 0;
 }, foo);
 
-itemOrUndef = collStr.find(item => item.name === "yy");
+itemOrUndef = collStr.find(item => item.name === 'yy');
 itemOrUndef = collStr.find((_, idx) => idx === 3);
 itemOrUndef = collStr.find(function(this: Foo, _, idx) {
     return this.foo > 0 && idx === 0;
 }, foo);
 
 itemOrNull = coll.get(0);
-itemOrNull = coll.get("id1");
+itemOrNull = coll.get('id1');
 
-num = coll.getIndex("id1");
+num = coll.getIndex('id1');
 num = coll.getIndex(item1);
 
 coll.remove(0);
-coll.remove("id1");
+coll.remove('id1');
 coll.remove(item1);
 
 const strings: string[] = collStr.map(item => item.name);
@@ -267,13 +271,13 @@ class FactoryClass {
     }
 }
 
-const source1 = new Collection<LabelObj>({ idProperty: "label" });
+const source1 = new Collection<LabelObj>({ idProperty: 'label' });
 const target1 = new Collection<FactoryClass>();
 
 target1.bindTo(source1).as(FactoryClass);
 
-source1.add({ label: "foo" });
-source1.add({ label: "bar" });
+source1.add({ label: 'foo' });
+source1.add({ label: 'bar' });
 
 source1.remove(0);
 console.log(target1.length);
@@ -293,31 +297,31 @@ class BarClass {
     }
 }
 
-const source2 = new Collection<LabelObj>({ idProperty: "label" });
+const source2 = new Collection<LabelObj>({ idProperty: 'label' });
 const target2 = new Collection<FooClass | BarClass>();
 
 target2.bindTo(source2).using(item => {
-    if (item.label === "foo") {
+    if (item.label === 'foo') {
         return new FooClass(item);
     } else {
         return new BarClass(item);
     }
 });
 
-source2.add({ label: "foo" });
-source2.add({ label: "bar" });
+source2.add({ label: 'foo' });
+source2.add({ label: 'bar' });
 
 console.log(target2.length);
 console.log(target2.get(0)! instanceof FooClass);
 console.log(target2.get(1)! instanceof BarClass);
 
-const source3 = new Collection<LabelValueObj>({ idProperty: "label" });
-const target3 = new Collection<LabelValueObj["label"]>();
+const source3 = new Collection<LabelValueObj>({ idProperty: 'label' });
+const target3 = new Collection<LabelValueObj['label']>();
 
-target3.bindTo(source2).using("label");
+target3.bindTo(source2).using('label');
 
-source3.add({ label: { value: "foo" } });
-source3.add({ label: { value: "bar" } });
+source3.add({ label: { value: 'foo' } });
+source3.add({ label: { value: 'bar' } });
 
 console.log(target3.length);
 console.log(target3.get(0)!.value);
@@ -340,7 +344,7 @@ source4.add({ hidden: false });
 // utils/comparearrays ========================================================
 
 compareArrays([0, 2], [0, 2, 1]);
-compareArrays(["abc", 0], ["abc", 0, 3]);
+compareArrays(['abc', 0], ['abc', 0, 3]);
 
 // utils/config ===============================================================
 
@@ -363,15 +367,15 @@ config.define({
     },
 });
 
-config.define("resize", { minHeight: 400, hidden: true });
-config.define("language", "en");
-config.define("resize.minHeight", 400);
+config.define('resize', { minHeight: 400, hidden: true });
+config.define('language', 'en');
+config.define('resize.minHeight', 400);
 
-str = config.get("language");
-num = config.get("resize.minHeight");
+str = config.get('language');
+num = config.get('resize.minHeight');
 
-config.define("language", undefined);
-strOrUndef = config.get("language");
+config.define('language', undefined);
+strOrUndef = config.get('language');
 
 // utils/count ================================================================
 
@@ -379,18 +383,18 @@ num = count([1, 2, 3, 4, 5]);
 
 // utils/diff =================================================================
 
-let changes = diff("aba", "acca");
-changes = diff(Array.from("aba"), Array.from("acca"));
+let changes = diff('aba', 'acca');
+changes = diff(Array.from('aba'), Array.from('acca'));
 
 // utils/difftochanges ========================================================
 
-const input = Array.from("abc");
-const output = Array.from("xaby");
+const input = Array.from('abc');
+const output = Array.from('xaby');
 const allChanges = diffToChanges(diff(input, output), output);
 allChanges.forEach(change => {
-    if (change.type === "insert") {
+    if (change.type === 'insert') {
         input.splice(change.index, 0, ...change.values);
-    } else if (change.type === "delete") {
+    } else if (change.type === 'delete') {
         input.splice(change.index, change.howMany);
     }
 });
@@ -408,47 +412,47 @@ replacer.restore();
 
 emitter = Object.create(EmitterMixin);
 
-emitter.delegate("foo");
-emitter.delegate("foo", "bar");
-emitter.delegate("foo").to(emitter);
-emitter.delegate("foo").to(emitter, "bar");
-emitter.delegate("foo").to(emitter, name => name + "-delegated");
+emitter.delegate('foo');
+emitter.delegate('foo', 'bar');
+emitter.delegate('foo').to(emitter);
+emitter.delegate('foo').to(emitter, 'bar');
+emitter.delegate('foo').to(emitter, name => name + '-delegated');
 
-emitter.fire("foo");
-emitter.fire("foo", 1, "b", true);
-emitter.fire("getSelectedContent", (evt: EventInfo) => {
+emitter.fire('foo');
+emitter.fire('foo', 1, 'b', true);
+emitter.fire('getSelectedContent', (evt: EventInfo) => {
     evt.stop();
 });
 
-emitter.listenTo(emitter, "foo", () => {});
-emitter.listenTo(emitter, "foo", () => {}, { priority: 10 });
-emitter.listenTo(emitter, "foo", () => {}, { priority: "highest" });
+emitter.listenTo(emitter, 'foo', () => {});
+emitter.listenTo(emitter, 'foo', () => {}, { priority: 10 });
+emitter.listenTo(emitter, 'foo', () => {}, { priority: 'highest' });
 
-emitter.off("foo");
-emitter.off("foo", () => {});
+emitter.off('foo');
+emitter.off('foo', () => {});
 
-emitter.on("foo", () => {});
-emitter.on("foo", (info, data) => {
+emitter.on('foo', () => {});
+emitter.on('foo', (info, data) => {
     info.stop();
 });
-emitter.on("foo", () => {}, { priority: 10 });
-emitter.on("foo", () => {}, { priority: "normal" });
+emitter.on('foo', () => {}, { priority: 10 });
+emitter.on('foo', () => {}, { priority: 'normal' });
 
-emitter.once("foo", () => {});
-emitter.once("foo", (info, data) => {
+emitter.once('foo', () => {});
+emitter.once('foo', (info, data) => {
     info.stop();
 });
-emitter.once("foo", () => {}, { priority: 10 });
-emitter.once("foo", () => {}, { priority: "lowest" });
+emitter.once('foo', () => {}, { priority: 10 });
+emitter.once('foo', () => {}, { priority: 'lowest' });
 
 emitter.stopDelegating();
-emitter.stopDelegating("foo");
-emitter.stopDelegating("foo", emitter);
+emitter.stopDelegating('foo');
+emitter.stopDelegating('foo', emitter);
 
 emitter.stopListening();
 emitter.stopListening(emitter);
-emitter.stopListening(emitter, "foo");
-emitter.stopListening(emitter, "foo", () => {});
+emitter.stopListening(emitter, 'foo');
+emitter.stopListening(emitter, 'foo', () => {});
 
 // utils/env ==================================================================
 
@@ -457,7 +461,7 @@ bool = env.isMac;
 
 // utils/eventinfo ============================================================
 
-const event = new EventInfo(EmitterMixin, "test");
+const event = new EventInfo(EmitterMixin, 'test');
 const emit: Emitter = event.source;
 str = event.name;
 
@@ -471,10 +475,10 @@ bool = event.off.called;
 
 // utils/fastdiff =============================================================
 
-fastDiff(str, "2ab").forEach(change => {
-    if (change.type === "insert") {
-        str = str.substring(0, change.index) + change.values.join("") + str.substring(change.index);
-    } else if (change.type === "delete") {
+fastDiff(str, '2ab').forEach(change => {
+    if (change.type === 'insert') {
+        str = str.substring(0, change.index) + change.values.join('') + str.substring(change.index);
+    } else if (change.type === 'delete') {
         str = str.substring(0, change.index) + str.substring(change.index + change.howMany);
     }
 });
@@ -502,17 +506,17 @@ bool = isIterable([1, 2, 3]);
 // utils/keyboard =============================================================
 
 num = keyCodes.a;
-num = keyCodes["a"];
+num = keyCodes['a'];
 
-num = getCode("0");
+num = getCode('0');
 num = getCode({ keyCode: 48 });
 num = getCode({ keyCode: 48, altKey: true, ctrlKey: true, shiftKey: true });
 
-str = getEnvKeystrokeText("alt+A");
+str = getEnvKeystrokeText('alt+A');
 
-num = parseKeystroke("Ctrl+A");
-num = parseKeystroke(["ctrl", "a"]);
-num = parseKeystroke(["shift", 33]);
+num = parseKeystroke('Ctrl+A');
+num = parseKeystroke(['ctrl', 'a']);
+num = parseKeystroke(['shift', 33]);
 
 // utils/keystrokehandler =====================================================
 
@@ -520,10 +524,10 @@ declare const keystroke: KeyEventData;
 const keystrokes = new KeystrokeHandler();
 
 const mySpy = spy();
-keystrokes.set("Ctrl+A", mySpy);
-keystrokes.set(["Ctrl", "A"], mySpy);
-keystrokes.set(["Ctrl", "A"], mySpy, { priority: "high" });
-keystrokes.set(["Ctrl", 33], mySpy, { priority: 10 });
+keystrokes.set('Ctrl+A', mySpy);
+keystrokes.set(['Ctrl', 'A'], mySpy);
+keystrokes.set(['Ctrl', 'A'], mySpy, { priority: 'high' });
+keystrokes.set(['Ctrl', 33], mySpy, { priority: 10 });
 
 const emitterMixxin = Object.create(EmitterMixin) as Emitter;
 keystrokes.listenTo(emitterMixxin);
@@ -534,8 +538,26 @@ keystrokes.destroy();
 
 // utils/locale ===============================================================
 
-locale.t("Label");
-locale.t('Created file "%0" in %1ms.', ["fileName", "100"]);
+new Locale();
+new Locale({ uiLanguage: "en" });
+new Locale({ contentLanguage: "en" });
+new Locale({ uiLanguage: "en", contentLanguage: "en" });
+// $ExpectType string
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).contentLanguage;
+// $ExpectType string
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).uiLanguage;
+// $ExpectType string
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).uiLanguageDirection;
+// $ExpectType string
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).contentLanguageDirection;
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Label");
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Created file '%0' in %1ms.", ["fileName", "100"]);
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Created file in %1ms.", 5);
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", "");
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", [5]);
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", [5, ""]);
+// $ExpectError
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", false);
 
 // utils/mapsequal ============================================================
 
@@ -556,7 +578,7 @@ class Editor implements SomeMixin {
 
 const SomeMixin = {
     a() {
-        return "a";
+        return 'a';
     },
 };
 
@@ -586,40 +608,66 @@ nth(2, getGenerator());
 // utils/objecttomap ==========================================================
 
 const objMap: Map<string, number> = objectToMap({ foo: 1, bar: 2 });
-num = objMap.get("foo")!;
+num = objMap.get('foo')!;
 
 // utils/observablemixin ======================================================
 
-const vehicle = Object.create(Observable);
-const car = Object.create(Observable);
+class Car implements Observable {
+    color: string;
+    used: boolean;
+    set(option: Record<string, string>): void;
+    set(name: string, value: unknown): void;
+    set(name: any, value?: any): void {
+        throw new Error('Method not implemented.');
+    }
+    bind(...bindProperties: string[]): BindChain {
+        throw new Error('Method not implemented.');
+    }
+    unbind(...unbindProperties: string[]): void {
+        throw new Error('Method not implemented.');
+    }
+    decorate(methodName: string): void {
+        throw new Error('Method not implemented.');
+    }
+}
+const bettle = new Car();
+const ranger = new Car();
 
-vehicle.bind("color");
-vehicle.bind("color", "year");
-vehicle.bind("color", "year").to(car);
-vehicle.bind("color", "year").to(car, "color");
-vehicle.bind("color", "year").to(car, "color", car, "year");
-vehicle.bind("year").to(car, "color", car, "year", (a: string, b: number) => a + b);
-vehicle.bind("custom").to(car, "color", car, "year", car, "hue", (...args: Array<string | number>) => args.join("/")); // TS 3.0: [string, number, string]
-vehicle.bind("color").toMany([car, car], "color", () => {});
+bettle.bind('color', 'year').to(ranger);
+bettle.bind('color').to(ranger, 'color');
+// $ExpectError
+bettle.bind('color').to(ranger, 'foo');
+// $ExpectError
+bettle.bind('color', 'year').to(ranger, 'color', ranger, 'used');
+bettle.bind('color', 'year').to(ranger, 'color', ranger, 'used', (color: string, used: boolean) => {
+    console.log(color, used);
+});
+bettle.bind('custom').to(ranger, 'color', ranger, 'used', (...args: Array<string | boolean>) => args.join('/'));
+// $ExpectError
+bettle.bind('custom').to(ranger, 'color', ranger, 'used', (...args: number[]) => args.join('/'));
 
-vehicle.decorate("method");
+bettle.bind('color').toMany([ranger, ranger], 'color', (color1: string, color2: string) => {
+    console.log(color1, color2);
+});
+// $ExpectError
+bettle.bind('color').toMany([ranger, ranger], 'year', () => {});
 
-car.set("color", "red");
-car.set("seats", undefined);
-car.set({
-    color: "blue",
-    wheels: 4,
-    seats: 5,
+bettle.decorate('method');
+
+bettle.set('color', 'red');
+bettle.set('seats', undefined);
+bettle.set({
+    color: 'red',
 });
 
-vehicle.unbind();
-vehicle.unbind("color");
-vehicle.unbind("color", "year");
+bettle.unbind();
+bettle.unbind('color');
+bettle.unbind('color', 'year');
 
 // utils/priorities ===========================================================
 
 num = priorities.get(2);
-num = priorities.get("normal");
+num = priorities.get('normal');
 
 // utils/spy
 
@@ -631,16 +679,16 @@ bool = fn1.called;
 
 map = toMap({ foo: 1, bar: 2 });
 map = toMap([
-    ["foo", 1],
-    ["bar", 2],
+    ['foo', 1],
+    ['bar', 2],
 ]);
 map = toMap(map);
 
 // utils/translation-service ==================================================
 
-add("pl", {
-    OK: "OK",
-    "Cancel [context: reject]": "Anuluj",
+add('pl', {
+    OK: 'OK',
+    'Cancel [context: reject]': 'Anuluj',
 });
 
 // utils/uid ==================================================================
@@ -649,8 +697,8 @@ str = uid();
 
 // utils/unicode ==============================================================
 
-bool = isCombiningMark("a");
-bool = isHighSurrogateHalf("a");
+bool = isCombiningMark('a');
+bool = isHighSurrogateHalf('a');
 bool = isInsideCombinedSymbol(str, 2);
 bool = isInsideSurrogatePair(str, 2);
 bool = isLowSurrogateHalf(String.fromCharCode(57166));
@@ -658,17 +706,41 @@ bool = isLowSurrogateHalf(String.fromCharCode(57166));
 // src/dom/position ===========================================================
 
 let options: Options = {
-    element: document.createElement("div"),
-    target: () => document.createElement("div"),
-    positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
-    limiter: () => document.createElement("div"),
+    element: document.createElement('div'),
+    target: () => document.createElement('div'),
+    positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
+    limiter: () => document.createElement('div'),
     fitInViewport: true,
 };
 
 options = {
-    element: document.createElement("div"),
-    target: document.createElement("div"),
-    positions: [() => null, () => ({ top: 3, left: 3, name: "" })],
+    element: document.createElement('div'),
+    target: document.createElement('div'),
+    positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
+};
+
+options = {
+    element: document.createElement('div'),
+    target: new Rect(document.createElement('div')),
+    positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
+};
+
+options = {
+    element: document.createElement('div'),
+    target: new Range(),
+    positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
+};
+
+options = {
+    element: document.createElement('div'),
+    target: window,
+    positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
+};
+
+options = {
+    element: document.createElement('div'),
+    target: document.body.getClientRects().item(0)!,
+    positions: [() => null, () => ({ top: 3, left: 3, name: '' })],
 };
 
 // utils/toArray ==============================================================

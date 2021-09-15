@@ -1,6 +1,7 @@
 import { Editor } from "@ckeditor/ckeditor5-core";
 import { ExportWord } from "@ckeditor/ckeditor5-export-word";
 import { ExportWordConfig } from "@ckeditor/ckeditor5-export-word/src/exportword";
+import ExportWordCommand from "@ckeditor/ckeditor5-export-word/src/exportwordcommand";
 
 class MyEditor extends Editor {}
 
@@ -42,3 +43,11 @@ config = {
 config = {
     tokenUrl: "",
 };
+
+new ExportWordCommand(new MyEditor()).execute();
+
+// $ExpectType ExportWord
+new MyEditor().plugins.get('ExportWord');
+
+// $ExpectType ExportWordCommand | undefined
+new MyEditor().commands.get('ExportWordCommand');

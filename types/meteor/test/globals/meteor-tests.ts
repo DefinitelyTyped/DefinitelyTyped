@@ -653,8 +653,66 @@ namespace MeteorTests {
     var userId = instance.data.userId;
 
     var data = Template.currentData();
-    var data = Template.parentData(1);
+    var data2 = Template.parentData();
+    var data3 = Template.parentData(2);
     var body = Template.body;
+
+    const Template2 = Template as TemplateStaticTyped<
+        { foo: string },
+        'newTemplate2',
+        {
+            state: ReactiveDict<{ bar: number }>;
+            getFooBar(): string;
+        }
+    >;
+
+    const newTemplate2 = Template2.newTemplate2;
+
+    newTemplate2.helpers({
+        helperName: function () {
+            // $ExpectType string
+            Template2.currentData().foo;
+
+            // $ExpectType string
+            Template2.instance().getFooBar();
+        },
+    });
+
+    newTemplate2.onCreated(function () {
+        this.state.clear();
+        this.state = new ReactiveDict();
+        this.getFooBar = () => {
+            // $ExpectType string
+            this.data.foo;
+
+            // $ExpectType number | undefined
+            this.state.get('bar');
+
+            return this.data.foo + this.state.get('bar');
+        };
+
+        this.autorun(() => {
+            var dataContext = Template2.currentData();
+
+            // $ExpectType string
+            dataContext.foo;
+
+            this.subscribe('comments', dataContext.foo);
+        });
+    });
+
+    newTemplate2.rendered = function () {};
+
+    newTemplate2.events({
+        'click .something'(_event, template) {
+            const a = template.state.get('bar');
+            // $ExpectType number | undefined
+            a;
+
+            // $ExpectType string
+            template.getFooBar();
+        },
+    });
 
     /**
      * From Match section
@@ -725,6 +783,12 @@ namespace MeteorTests {
 
     // Outside an object
     check(undefined, Match.Optional('test')); // OK
+
+    var buffer: unknown;
+
+    check(buffer, Match.Where(EJSON.isBinary));
+    // $ExpectType Uint8Array
+    buffer;
 
     /**
      * From Deps, Tracker.autorun section
@@ -995,6 +1059,10 @@ namespace MeteorTests {
         // do something
     }
 
+    if (Meteor.isAppTest) {
+        // do something
+    }
+  
     DDPRateLimiter.addRule({ userId: 'foo' }, 5, 1000);
 
     DDPRateLimiter.addRule({ userId: userId => userId == 'foo' }, 5, 1000);
@@ -1008,6 +1076,7 @@ namespace MeteorTests {
         connection: null,
     });
 } // End of namespace
+
 
 // absoluteUrl
 Meteor.absoluteUrl('/sub', { rootUrl: 'http://wonderful.com' });

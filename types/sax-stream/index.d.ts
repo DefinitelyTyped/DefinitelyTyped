@@ -46,6 +46,10 @@ declare namespace saxStream {
          * If true, only parse predefined XML entities (&amp;, &apos;, &gt;, &lt;, and &quot;).
          */
         strictEntities?: boolean | undefined;
+        /**
+         * Whether to support the noscript option of sax.js
+         */
+        noscript?: boolean | undefined;
     }
 }
 

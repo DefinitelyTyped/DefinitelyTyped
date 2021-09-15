@@ -1,5 +1,5 @@
 // Type definitions for non-npm package Access Approval API v1 1.0
-// Project: https://cloud.google.com/access-approval/docs
+// Project: https://cloud.google.com/cloud-provider-access-management/access-approval/docs
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>
 //                 Declan Vong <https://github.com/declanvong>

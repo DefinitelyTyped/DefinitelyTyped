@@ -130,6 +130,7 @@ const tests = (options: MapOptions, hash: Hash, sourceMap: RawSourceMap) => {
     replaceSource.sourceAndMap(options); // $ExpectType SourceAndMapResult
 
     const sourceMapSource = new SourceMapSource(replaceSource.source(), 'sourceMapSource', sourceMap);
+    sourceMapSource.buffer(); // $ExpectType Buffer
     sourceMapSource.source(); // $ExpectType string
     sourceMapSource.updateHash(hash); // $ExpectType void
     sourceMapSource.map(options); // $ExpectType RawSourceMap | null

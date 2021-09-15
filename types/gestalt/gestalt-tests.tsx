@@ -14,8 +14,10 @@ import {
     Collage,
     ColorSchemeProvider,
     Column,
+    ComboBox,
     CompositeZIndex,
     Container,
+    DataPoint,
     Divider,
     Dropdown,
     Fieldset,
@@ -146,6 +148,13 @@ const CheckUseReducedMotion = () => {
     <Button text={'Click me'} />
 </ButtonGroup>;
 <Card />;
+<ComboBox
+    accessibilityClearButtonLabel="combobox"
+    id="combobox"
+    label="combobox"
+    noResultText="combobox"
+    options={[{ label: 'combobox', value: 'combobox' }]}
+/>;
 <Callout
     type="info"
     iconAccessibilityLabel="Info icon"
@@ -159,7 +168,13 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <Checkbox id={'1'} onChange={() => {}} />;
-<Collage columns={1} height={1} renderImage={({ height, index, width }) => () => {}} width={1} />;
+<Collage
+    columns={1}
+    height={1}
+    renderImage={({ height, index, width }) =>
+        () => {}}
+    width={1}
+/>;
 <ColorSchemeProvider colorScheme="dark" id="docsExample" />;
 <Column span={1} />;
 <Container />;
@@ -338,7 +353,7 @@ const CheckUseReducedMotion = () => {
 <TextArea id="id" onChange={() => {}} />;
 <TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
 
-<Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
+<Toast variant="error" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;
@@ -385,3 +400,5 @@ const CheckUseReducedMotion = () => {
 
 new FixedZIndex(1);
 new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)])]);
+
+<DataPoint title="Test Value" value="100" trend={{ accesibilityLabel: "Trending up", value: 50 }} trendSentiment="good" />;

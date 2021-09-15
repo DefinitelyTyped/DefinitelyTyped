@@ -4,12 +4,13 @@
 //                 Sebastian Clausen <https://github.com/sclausen>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Armaan Tobaccowalla <https://github.com/ArmaanT>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 export as namespace jsyaml;
 
-export function load(str: string, opts?: LoadOptions): object | string | number | null | undefined;
+export function load(str: string, opts?: LoadOptions): unknown;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
@@ -30,8 +31,8 @@ export class Schema {
     extend(types: SchemaDefinition | Type[] | Type): Schema;
 }
 
-export function loadAll(str: string, iterator?: null, opts?: LoadOptions): any[];
-export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): void;
+export function loadAll(str: string, iterator?: null, opts?: LoadOptions): unknown[];
+export function loadAll(str: string, iterator: (doc: unknown) => void, opts?: LoadOptions): void;
 
 export function dump(obj: any, opts?: DumpOptions): string;
 

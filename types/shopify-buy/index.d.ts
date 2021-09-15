@@ -88,6 +88,11 @@ declare namespace ShopifyBuy {
         removeLineItems(checkoutId: string | number, lineItemIds: string[]): Promise<Cart>;
 
         /**
+         * Add discount to cart
+         */
+        addDiscount(checkoutId: string | number, discountCode: string): Promise<Cart>;
+
+        /**
          * Remove discounts from cart
          */
         removeDiscount(checkoutId: string | number): Promise<Cart>;
@@ -110,7 +115,7 @@ declare namespace ShopifyBuy {
          * as their  community guidelines
          */
         query: string;
-        sortBy: string;
+        sortKey: string;
         after?: string | undefined;
         before?: string | undefined;
         first?: number | undefined;

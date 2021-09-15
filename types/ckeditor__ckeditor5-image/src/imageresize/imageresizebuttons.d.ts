@@ -10,6 +10,12 @@ export default class ImageResizeButtons extends Plugin {
 export interface ImageResizeOption {
     label?: string | undefined;
     name: string;
-    icon: 'small' | 'medium' | 'large' | 'original';
+    icon?: 'small' | 'medium' | 'large' | 'original' | undefined;
     value: string | null;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageResizeButtons: ImageResizeButtons;
+    }
 }

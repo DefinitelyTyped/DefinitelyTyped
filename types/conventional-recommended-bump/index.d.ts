@@ -1,4 +1,4 @@
-// Type definitions for conventional-recommended-bump 6.0
+// Type definitions for conventional-recommended-bump 6.1
 // Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-recommended-bump#readme
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -134,6 +134,11 @@ declare namespace conventionalRecommendedBump {
         tagPrefix?: string | undefined;
 
         /**
+         * If given, unstable tags (e.g. `x.x.x-alpha.1`, `x.x.x-rc.2`) will be skipped.
+         */
+        skipUnstable?: boolean | undefined;
+
+        /**
          * Specify the name of a package in a [Lerna](https://lernajs.io/)-managed
          * repository. The package name will be used when fetching all changes to a
          * package since the last time that package was released.
@@ -145,7 +150,14 @@ declare namespace conventionalRecommendedBump {
          * `conventional-changelog` as the value of the `lernaPackage` option.
          */
         lernaPackage?: string | undefined;
-    }
+
+        /**
+         * Specify the path to only calculate with git commits related to the path.
+         * If you want to calculate recommended bumps of packages in a Lerna-managed
+         * repository, path should be use along with lernaPackage for each of the package.
+         */
+        path?: string | undefined;
+     }
 
     namespace Options {
         type WhatBump = (commits: Commit[]) => WhatBump.Result;

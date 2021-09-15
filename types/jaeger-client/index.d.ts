@@ -87,6 +87,7 @@ export interface TracingOptions {
     logger?: Logger | undefined;
     tags?: any;
     traceId128bit?: boolean | undefined;
+    contextKey?: string;
 }
 
 export interface Injector {

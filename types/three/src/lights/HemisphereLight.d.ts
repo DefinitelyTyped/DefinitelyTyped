@@ -1,6 +1,7 @@
 import { Color } from './../math/Color';
 import { Vector3 } from '../math/Vector3';
 import { Light } from './Light';
+import { ColorRepresentation } from '../utils';
 
 export class HemisphereLight extends Light {
     /**
@@ -8,7 +9,7 @@ export class HemisphereLight extends Light {
      * @param groundColor
      * @param [intensity=1]
      */
-    constructor(skyColor?: Color | string | number, groundColor?: Color | string | number, intensity?: number);
+    constructor(skyColor?: ColorRepresentation, groundColor?: ColorRepresentation, intensity?: number);
 
     /**
      * @default 'HemisphereLight'

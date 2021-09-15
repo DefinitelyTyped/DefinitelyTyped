@@ -39,6 +39,7 @@ pm.toRegex(state.output);
 
 pm.scan('!./foo/*.js', { tokens: true });
 
+pm.makeRe('foo/*.js').test('foo/bar.js');
 pm.makeRe('foo/{01..25}/bar', {
     expandRange(a, b) {
       return `(<fill-range output>)`;

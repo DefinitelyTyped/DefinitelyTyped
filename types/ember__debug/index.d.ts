@@ -87,5 +87,13 @@ export function deprecate(
          * An optional url to the transition guide on the emberjs.com website.
          */
         url?: string | undefined;
+        /**
+         * A namespace for the deprecation, usually the package name.
+         */
+        for: string;
+        /**
+         * Describes when the deprecation became available and enabled.
+         */
+        since: Partial<Record<'available' | 'enabled', string>>;
     },
 ): void;

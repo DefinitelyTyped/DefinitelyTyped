@@ -92,6 +92,7 @@ auth0.webAuth.authorize(
     },
     {
         ephemeralSession: true,
+        customScheme: 'customUrlScheme',
     },
 );
 
@@ -130,6 +131,7 @@ auth0.webAuth
     .then(credentials => credentials.doesNotExist); // $ExpectError
 
 auth0.webAuth.clearSession({ federated: false });
+auth0.webAuth.clearSession({ federated: true, customScheme: 'customUrlScheme' });
 auth0.webAuth.clearSession();
 
 auth0.users('token').getUser({ id: 'userId' });

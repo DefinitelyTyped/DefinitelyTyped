@@ -1,10 +1,2 @@
-src/commands/acceptsuggestioncommand.d.ts
-src/commands/acceptallsuggestionscommand.d.ts
-src/commands/acceptselectedsuggestionsinselection.d.ts
-src/commands/discardsuggestioncommand.d.ts
-src/commands/discardallsuggestionscommand.d.ts
-src/commands/discardsuggestionsinselection.d.ts
 src/suggestiondescriptionfactory.d.ts
-src/trackchangescommand.d.ts
-src/trackchangesediting.d.ts
 src/ui/view/suggestionthreadview.d.ts
