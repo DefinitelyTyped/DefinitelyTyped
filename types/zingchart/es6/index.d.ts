@@ -1,7 +1,7 @@
 declare namespace zingchart {
   function render(config: object): null;
   function bind(id: string, eventName: string, cb?: any): void;
-  function exec(id: string, call: string, params: any): any;
+  function exec(id: string, call: string, params?: any): any;
   function unbind(id: string, event: string, fn?: any): void;
 
   let BUILDCODE: string[];
