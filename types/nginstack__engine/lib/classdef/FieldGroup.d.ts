@@ -9,6 +9,7 @@ declare class FieldGroup {
     parent: string;
     private css;
     collapsed: boolean;
+    autoSanitize: boolean;
     private setFieldsProperties;
     private reservedWords;
     private parseStylePropertyName;
