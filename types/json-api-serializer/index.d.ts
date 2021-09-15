@@ -22,7 +22,7 @@ declare namespace JSONAPISerializer {
     alternativeKey?: string | undefined;
     schema?: string | undefined;
     links?: LinksObject | LinksCallback | undefined;
-    meta?: MetaCallback | unknown | undefined;
+    meta?: MetaCallback | Meta | undefined;
     beforeSerialize?: BeforeSerializeCallback | undefined;
   }
 
@@ -36,7 +36,7 @@ declare namespace JSONAPISerializer {
     links?: LinksObject | LinksCallback | undefined;
     topLevelLinks?: LinksCallback | LinksObject | undefined;
     topLevelMeta?: MetaCallback | unknown | undefined;
-    meta?: MetaCallback | unknown | undefined;
+    meta?: MetaCallback | Meta | undefined;
     relationships?: {
       [key: string]: RelationshipOptions;
     } | undefined;
@@ -58,11 +58,12 @@ declare namespace JSONAPISerializer {
 
   interface LinkObject {
     href: string;
-    meta: unknown;
+    meta?: Meta;
   }
 
   interface LinksObject {
-    [name: string]: LinkObject | LinksCallback | string | null;
+    self?: LinkObject | LinksCallback | string | null;
+    related?: LinkObject | LinksCallback | string | null;
   }
 
   interface ResourceObject<T> {
@@ -70,9 +71,33 @@ declare namespace JSONAPISerializer {
     type: string;
     attributes?: Omit<T, 'id'> | undefined;
     relationships?: {
-      [key: string]: { data: ResourceObject<any> | Array<ResourceObject<any>> };
+      [key: string]: Relationship;
     } | undefined;
     links?: LinksObject | LinksCallback | undefined;
+  }
+
+  type Relationship = {
+    links?: LinksObject | LinksCallback | undefined;
+    data: Linkage | Linkage[];
+    meta?: Meta;
+  } | {
+      links?: LinksObject | LinksCallback | undefined;
+      data?: Linkage | Linkage[];
+      meta: Meta;
+  } | {
+      links: LinksObject | LinksCallback | undefined;
+      data?: Linkage | Linkage[];
+      meta?: Meta;
+  };
+
+  interface Meta {
+    [name: string]: unknown;
+  }
+
+  interface Linkage {
+    type: string;
+    id: string;
+    meta?: Meta;
   }
 
   interface JsonApiObject {
@@ -89,7 +114,7 @@ declare namespace JSONAPISerializer {
     title?: string | undefined;
     detail?: string | undefined;
     source?: unknown | undefined;
-    meta?: unknown | undefined;
+    meta?: Meta | undefined;
   }
 
   interface JSONAPIDocument {
@@ -97,7 +122,7 @@ declare namespace JSONAPISerializer {
     links?: LinksObject | undefined;
     data?: ResourceObject<unknown> | Array<ResourceObject<unknown>> | undefined;
     errors?: ErrorObject[] | undefined;
-    meta?: { [key: string]: unknown } | undefined;
+    meta?: Meta | undefined;
     included?: Array<ResourceObject<unknown>> | undefined;
   }
 }

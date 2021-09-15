@@ -424,7 +424,7 @@ declare class JiraApi {
      * List all Viewable Projects
      * [Jira Doc](http://docs.atlassian.com/jira/REST/latest/#id289193)
      */
-    listProjects(): Promise<JiraApi.JsonResponse>;
+    listProjects(): Promise<JiraApi.JsonResponse[]>;
 
     /**
      * Add a comment to an issue
@@ -621,7 +621,7 @@ declare class JiraApi {
      * @param [fields] - [optional] The list of fields to return for each issue.
      * @param [expand] - [optional] A comma-separated list of the parameters to expand.
      */
-    getIssue(issueIdOrKey: string, fields?: string, expand?: string): Promise<JiraApi.JsonResponse>;
+    getIssue(issueIdOrKey: string, fields?: string | string[], expand?: string): Promise<JiraApi.JsonResponse>;
 
     /**
      * Move issues to backlog

@@ -1,4 +1,4 @@
-// Type definitions for audio-play 2.2
+// Type definitions for audio-play 2.3
 // Project: https://github.com/audiojs/audio-play
 // Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +17,7 @@ declare namespace audioPlay {
     interface AudioPlayHandle {
         play: () => any;
         pause: () => any;
+        currentTime: number;
     }
 
     /**

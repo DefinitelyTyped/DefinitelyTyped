@@ -7,3 +7,4 @@ const d: boolean = isFunction({ type: "number" });
 const e: boolean = isFunction(() => {
     return "I am anounymous!";
 });
+const f: boolean = isFunction();

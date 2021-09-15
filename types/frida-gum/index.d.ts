@@ -1,9 +1,9 @@
-// Type definitions for non-npm package frida-gum 17.0
+// Type definitions for non-npm package frida-gum 17.1
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
+// Minimum TypeScript Version: 4.1
 
 /**
  * Returns a hexdump of the provided ArrayBuffer or NativePointerValue target.
@@ -1604,46 +1604,81 @@ type NativePointerValue = NativePointer | ObjectWrapper;
 declare const NativeFunction: NativeFunctionConstructor;
 
 interface NativeFunctionConstructor {
-    new(address: NativePointerValue, retType: NativeType, argTypes: NativeType[], abiOrOptions?: NativeABI | NativeFunctionOptions): NativeFunction;
-    readonly prototype: NativeFunction;
+    new <RetType extends NativeFunctionReturnType, ArgTypes extends NativeFunctionArgumentType[] | []>(
+        address: NativePointerValue,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abiOrOptions?: NativeABI | NativeFunctionOptions,
+    ): NativeFunction<
+        GetNativeFunctionReturnValue<RetType>,
+        ResolveVariadic<Extract<GetNativeFunctionArgumentValue<ArgTypes>, unknown[]>>
+    >;
+    readonly prototype: NativeFunction<void, []>;
 }
 
-interface NativeFunction extends NativePointer {
-    (...args: NativeArgumentValue[]): NativeReturnValue;
-    apply(thisArg: NativePointerValue | null | undefined, args: NativeArgumentValue[]): NativeReturnValue;
-    call(thisArg?: NativePointerValue | null, ...args: NativeArgumentValue[]): NativeReturnValue;
+interface NativeFunction<RetType extends NativeFunctionReturnValue, ArgTypes extends NativeFunctionArgumentValue[] | []>
+    extends NativePointer {
+    (...args: ArgTypes): RetType;
+    apply(thisArg: NativePointerValue | null | undefined, args: ArgTypes): RetType;
+    call(thisArg?: NativePointerValue | null, ...args: ArgTypes): RetType;
 }
 
 declare const SystemFunction: SystemFunctionConstructor;
 
 interface SystemFunctionConstructor {
-    new(address: NativePointerValue, retType: NativeType, argTypes: NativeType[], abiOrOptions?: NativeABI | NativeFunctionOptions): SystemFunction;
-    readonly prototype: SystemFunction;
+    new <RetType extends NativeFunctionReturnType, ArgTypes extends NativeFunctionArgumentType[] | []>(
+        address: NativePointerValue,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abiOrOptions?: NativeABI | NativeFunctionOptions,
+    ): SystemFunction<
+        GetNativeFunctionReturnValue<RetType>,
+        ResolveVariadic<Extract<GetNativeFunctionArgumentValue<ArgTypes>, unknown[]>>
+    >;
+    readonly prototype: SystemFunction<void, []>;
 }
 
-interface SystemFunction extends NativePointer {
-    (...args: NativeArgumentValue[]): SystemFunctionResult;
-    apply(thisArg: NativePointerValue | null | undefined, args: NativeArgumentValue[]): SystemFunctionResult;
-    call(thisArg?: NativePointerValue | null, ...args: NativeArgumentValue[]): SystemFunctionResult;
+interface SystemFunction<RetType extends NativeFunctionReturnValue, ArgTypes extends NativeFunctionArgumentValue[] | []>
+    extends NativePointer {
+    (...args: ArgTypes): SystemFunctionResult<RetType>;
+    apply(thisArg: NativePointerValue | null | undefined, args: ArgTypes): SystemFunctionResult<RetType>;
+    call(thisArg?: NativePointerValue | null, ...args: ArgTypes): SystemFunctionResult<RetType>;
 }
 
-type SystemFunctionResult = WindowsSystemFunctionResult | UnixSystemFunctionResult;
+type SystemFunctionResult<Value extends NativeFunctionReturnValue> =
+    | WindowsSystemFunctionResult<Value>
+    | UnixSystemFunctionResult<Value>
+    ;
 
-interface WindowsSystemFunctionResult {
-    value: NativeReturnValue;
+interface WindowsSystemFunctionResult<Value extends NativeFunctionReturnValue> {
+    value: Value;
     lastError: number;
 }
 
-interface UnixSystemFunctionResult {
-    value: NativeReturnValue;
+interface UnixSystemFunctionResult<Value extends NativeFunctionReturnValue> {
+    value: Value;
     errno: number;
 }
 
-declare class NativeCallback extends NativePointer {
-    constructor(func: NativeCallbackImplementation, retType: NativeType, argTypes: NativeType[], abi?: NativeABI);
+declare class NativeCallback<
+    RetType extends NativeCallbackReturnType,
+    ArgTypes extends NativeCallbackArgumentType[] | [],
+> extends NativePointer {
+    constructor(
+        func: NativeCallbackImplementation<
+            GetNativeCallbackReturnValue<RetType>,
+            Extract<GetNativeCallbackArgumentValue<ArgTypes>, unknown[]>
+        >,
+        retType: RetType,
+        argTypes: ArgTypes,
+        abi?: NativeABI,
+    );
 }
 
-type NativeCallbackImplementation = (this: CallbackContext | InvocationContext, ...params: any[]) => any;
+type NativeCallbackImplementation<
+    RetType extends NativeCallbackReturnValue,
+    ArgTypes extends NativeCallbackArgumentValue[] | [],
+> = (this: CallbackContext | InvocationContext, ...args: ArgTypes) => RetType;
 
 interface CallbackContext {
     /**
@@ -1659,11 +1694,125 @@ interface CallbackContext {
     context: CpuContext;
 }
 
-type NativeArgumentValue = NativePointerValue | UInt64 | Int64 | number | boolean | any[];
+type Variadic = "...";
 
-type NativeReturnValue = NativePointer | UInt64 | Int64 | number | boolean | any[];
+type ResolveVariadic<List extends any[]> = List extends [Variadic, ...infer Tail]
+    ? [...Array<Tail[0]>]
+    : List extends [infer Head, ...infer Tail]
+    ? [Head, ...ResolveVariadic<Tail>]
+    : [];
 
-type NativeType = string | any[];
+type RecursiveValuesOf<T> = T[keyof T] | Array<RecursiveValuesOf<T>>;
+
+type RecursiveKeysOf<T> = keyof T | Array<RecursiveKeysOf<T>> | [];
+
+type GetValue<Map, Value, Type, T extends Type> = Type[] extends T
+    ? Value
+    : T extends keyof Map
+    ? Map[T]
+    : { [P in keyof T]: T[P] extends Type ? GetValue<Map, Value, Type, T[P]> : never };
+
+// tslint:disable-next-line:interface-over-type-literal
+type BaseNativeTypeMap = {
+    int: number;
+    uint: number;
+    long: number;
+    ulong: number;
+    char: number;
+    uchar: number;
+    float: number;
+    double: number;
+    int8: number;
+    uint8: number;
+    int16: number;
+    uint16: number;
+    int32: number;
+    uint32: number;
+    bool: number;
+};
+
+type NativeFunctionArgumentTypeMap = BaseNativeTypeMap & {
+    void: undefined;
+    pointer: NativePointerValue;
+    size_t: number | UInt64;
+    ssize_t: number | Int64;
+    int64: number | Int64;
+    uint64: number | UInt64;
+    "...": Variadic;
+};
+
+type NativeFunctionArgumentValue = RecursiveValuesOf<NativeFunctionArgumentTypeMap>;
+
+type NativeFunctionArgumentType = RecursiveKeysOf<NativeFunctionArgumentTypeMap>;
+
+type GetNativeFunctionArgumentValue<T extends NativeFunctionArgumentType> = GetValue<
+    NativeFunctionArgumentTypeMap,
+    NativeFunctionArgumentValue,
+    NativeFunctionArgumentType,
+    T
+>;
+
+type NativeFunctionReturnTypeMap = BaseNativeTypeMap & {
+    // tslint:disable-next-line:void-return
+    void: void;
+    pointer: NativePointer;
+    size_t: UInt64;
+    ssize_t: Int64;
+    int64: Int64;
+    uint64: UInt64;
+};
+
+type NativeFunctionReturnValue = RecursiveValuesOf<NativeFunctionReturnTypeMap>;
+
+type NativeFunctionReturnType = RecursiveKeysOf<NativeFunctionReturnTypeMap>;
+
+type GetNativeFunctionReturnValue<T extends NativeFunctionReturnType> = GetValue<
+    NativeFunctionReturnTypeMap,
+    NativeFunctionReturnValue,
+    NativeFunctionReturnType,
+    T
+>;
+
+type NativeCallbackArgumentTypeMap = BaseNativeTypeMap & {
+    void: undefined;
+    pointer: NativePointer;
+    size_t: UInt64;
+    ssize_t: Int64;
+    int64: Int64;
+    uint64: UInt64;
+};
+
+type NativeCallbackArgumentValue = RecursiveValuesOf<NativeCallbackArgumentTypeMap>;
+
+type NativeCallbackArgumentType = RecursiveKeysOf<NativeCallbackArgumentTypeMap>;
+
+type GetNativeCallbackArgumentValue<T extends NativeCallbackArgumentType> = GetValue<
+    NativeCallbackArgumentTypeMap,
+    NativeCallbackArgumentValue,
+    NativeCallbackArgumentType,
+    T
+>;
+
+type NativeCallbackReturnTypeMap = BaseNativeTypeMap & {
+    // tslint:disable-next-line:void-return
+    void: void;
+    pointer: NativePointerValue;
+    size_t: number | UInt64;
+    ssize_t: number | Int64;
+    int64: number | Int64;
+    uint64: number | UInt64;
+};
+
+type NativeCallbackReturnValue = RecursiveValuesOf<NativeCallbackReturnTypeMap>;
+
+type NativeCallbackReturnType = RecursiveKeysOf<NativeCallbackReturnTypeMap>;
+
+type GetNativeCallbackReturnValue<T extends NativeCallbackReturnType> = GetValue<
+    NativeCallbackReturnTypeMap,
+    NativeCallbackReturnValue,
+    NativeCallbackReturnType,
+    T
+>;
 
 type NativeABI =
     | "default"
@@ -3065,27 +3214,27 @@ declare class DebugSymbol {
  * through the constructor's second argument.
  */
 declare class CModule {
-  /**
-   * Creates a new C module from the provided `code`.
-   *
-   * @param code C source code to compile, or a precompiled shared library.
-   * @param symbols Symbols to expose to the C module. Declare them as `extern`.
-   *    This may for example be one or more memory blocks allocated using
-   *     `Memory.alloc()`, and/or `NativeCallback` values for receiving
-   *     callbacks from the C module.
-   * @param options Options for customizing the construction.
-   */
-  constructor(code: string | ArrayBuffer, symbols?: CSymbols, options?: CModuleOptions);
+    /**
+     * Creates a new C module from the provided `code`.
+     *
+     * @param code C source code to compile, or a precompiled shared library.
+     * @param symbols Symbols to expose to the C module. Declare them as `extern`.
+     *    This may for example be one or more memory blocks allocated using
+     *     `Memory.alloc()`, and/or `NativeCallback` values for receiving
+     *     callbacks from the C module.
+     * @param options Options for customizing the construction.
+     */
+    constructor(code: string | ArrayBuffer, symbols?: CSymbols, options?: CModuleOptions);
 
-  /**
-   * Eagerly unmaps the module from memory. Useful for short-lived modules
-   * when waiting for a future garbage collection isn't desirable.
-   */
-  dispose(): void;
+    /**
+     * Eagerly unmaps the module from memory. Useful for short-lived modules
+     * when waiting for a future garbage collection isn't desirable.
+     */
+    dispose(): void;
 
-  readonly [name: string]: any;
+    readonly [name: string]: any;
 
-  static builtins: CModuleBuiltins;
+    static builtins: CModuleBuiltins;
 }
 
 interface CModuleOptions {
@@ -3918,7 +4067,7 @@ declare namespace ObjC {
      * @param method Method to implement.
      * @param fn Implementation.
      */
-    function implement(method: ObjectMethod, fn: AnyFunction): NativeCallback;
+    function implement(method: ObjectMethod, fn: AnyFunction): NativeCallback<any, any>;
 
     /**
      * Creates a new class designed to act as a proxy for a target object.

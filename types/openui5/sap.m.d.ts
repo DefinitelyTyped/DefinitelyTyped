@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.94.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -1406,6 +1406,21 @@ declare module "sap/m/library" {
     Split = "Split",
   }
   /**
+   * @SINCE 1.93
+   *
+   * Enumeration of the `multiSelectMode>/code> in ListBase`.
+   */
+  export enum MultiSelectMode {
+    /**
+     * Renders the `clearAll` icon.
+     */
+    ClearAll = "ClearAll",
+    /**
+     * Renders the `selectAll` checkbox (default behavior).
+     */
+    Default = "Default",
+  }
+  /**
    * Marker interface for controls which are suitable as items for the ObjectHeader.
    */
   export interface ObjectHeaderContainer {
@@ -2780,9 +2795,6 @@ declare module "sap/m/library" {
   }
 
   export namespace InputODataSuggestProvider {
-    /**
-     *
-     */
     function suggest(
       oEvent: Event,
       /**
@@ -3051,15 +3063,6 @@ declare module "sap/m/ActionSelect" {
     );
 
     /**
-     * Adds some button into the association {@link #getButtons buttons}.
-     */
-    addButton(
-      /**
-       * The buttons to add; if empty, nothing is inserted
-       */
-      vButton: ID | Button
-    ): this;
-    /**
      * Creates a new subclass of class sap.m.ActionSelect with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -3081,14 +3084,23 @@ declare module "sap/m/ActionSelect" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.ActionSelect.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some button into the association {@link #getButtons buttons}.
+     */
+    addButton(
+      /**
+       * The buttons to add; if empty, nothing is inserted
+       */
+      vButton: ID | Button
+    ): this;
+    /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getButtons
      * buttons}.
      */
     getButtons(): ID[];
-    /**
-     * Returns a metadata object for class sap.m.ActionSelect.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Remove all buttons from the ActionSelect.
      */
@@ -3181,6 +3193,31 @@ declare module "sap/m/ActionSheet" {
       mSettings?: $ActionSheetSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ActionSheet with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ActionSheet>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ActionSheet.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
      */
@@ -3555,27 +3592,6 @@ declare module "sap/m/ActionSheet" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ActionSheet with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ActionSheet>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      */
     fireAfterClose(
@@ -3660,10 +3676,6 @@ declare module "sap/m/ActionSheet" {
      * is set to false.
      */
     getCancelButtonText(): string;
-    /**
-     * Returns a metadata object for class sap.m.ActionSheet.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPlacement placement}.
      *
@@ -3863,27 +3875,27 @@ declare module "sap/m/ActionSheet" {
      * This event is fired when the cancelButton is tapped. For iPad, this event is also fired when showCancelButton
      * is set to true, and Popover is closed by tapping outside.
      */
-    cancelButtonTap?: Function;
+    cancelButtonTap?: (oEvent: Event) => void;
 
     /**
      * This event will be fired before the ActionSheet is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
 
     /**
      * This event will be fired after the ActionSheet is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * This event will be fired before the ActionSheet is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
 
     /**
      * This event will be fired after the ActionSheet is closed.
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the cancelButton is clicked.
@@ -3891,7 +3903,7 @@ declare module "sap/m/ActionSheet" {
      * **Note: ** For any device other than phones, this event would be fired always when the Popover closes.
      * To prevent this behavior, the `showCancelButton` property needs to be set to `false`.
      */
-    cancelButtonPress?: Function;
+    cancelButtonPress?: (oEvent: Event) => void;
   }
 }
 
@@ -3964,6 +3976,31 @@ declare module "sap/m/App" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.App with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.NavContainer.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, App>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.App.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @deprecated (since 1.20.0) - use {@link sap.ui.Device.orientation.attachHandler} instead.
      *
      * Attaches event handler `fnFunction` to the {@link #event:orientationChange orientationChange} event of
@@ -4028,27 +4065,6 @@ declare module "sap/m/App" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.App with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.NavContainer.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, App>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @deprecated (since 1.20.0) - use {@link sap.ui.Device.orientation.attachHandler} instead.
      *
@@ -4154,10 +4170,6 @@ declare module "sap/m/App" {
      * Default value is `true`.
      */
     getIsTopLevel(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.App.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.58.0
      *
@@ -4435,7 +4447,7 @@ declare module "sap/m/App" {
      *
      * Fired when the orientation (portrait/landscape) of the device is changed.
      */
-    orientationChange?: Function;
+    orientationChange?: (oEvent: Event) => void;
   }
 }
 
@@ -4523,6 +4535,31 @@ declare module "sap/m/Avatar" {
       mSettings?: $AvatarSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Avatar with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Avatar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Avatar.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -4614,27 +4651,6 @@ declare module "sap/m/Avatar" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Avatar with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Avatar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -4657,9 +4673,6 @@ declare module "sap/m/Avatar" {
      * Gets current value of property {@link #getBackgroundColor backgroundColor}.
      *
      * Determines the background color of the control.
-     *
-     * **Note:** By using background colors from the predefined sets, your colors can later be customized from
-     * the Theme Designer.
      *
      * Default value is `Accent6`.
      */
@@ -4761,10 +4774,6 @@ declare module "sap/m/Avatar" {
      */
     getInitials(): string;
     /**
-     * Returns a metadata object for class sap.m.Avatar.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getShowBorder showBorder}.
      *
      * Determines whether the control is displayed with border.
@@ -4808,9 +4817,6 @@ declare module "sap/m/Avatar" {
      * Sets a new value for property {@link #getBackgroundColor backgroundColor}.
      *
      * Determines the background color of the control.
-     *
-     * **Note:** By using background colors from the predefined sets, your colors can later be customized from
-     * the Theme Designer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5070,9 +5076,6 @@ declare module "sap/m/Avatar" {
 
     /**
      * Determines the background color of the control.
-     *
-     * **Note:** By using background colors from the predefined sets, your colors can later be customized from
-     * the Theme Designer.
      */
     backgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
@@ -5127,7 +5130,7 @@ declare module "sap/m/Avatar" {
     /**
      * Fired when the user selects the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -5367,6 +5370,10 @@ declare module "sap/m/BadgeCustomData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.BadgeCustomData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.87
      *
      * Gets current value of property {@link #getAnimation animation}.
@@ -5376,10 +5383,6 @@ declare module "sap/m/BadgeCustomData" {
      * Default value is `Full`.
      */
     getAnimation(): BadgeAnimationType | keyof typeof BadgeAnimationType;
-    /**
-     * Returns a metadata object for class sap.m.BadgeCustomData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -5458,9 +5461,6 @@ declare module "sap/m/BadgeEnabler" {
    * 			If no selector is passed, the main ID of the control is automatically set as selector value.
    */
   export default class BadgeEnabler {
-    /**
-     *
-     */
     constructor();
   }
 }
@@ -5468,7 +5468,7 @@ declare module "sap/m/BadgeEnabler" {
 declare module "sap/m/Bar" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { IBar, BarDesign, TitleAlignment } from "sap/m/library";
+  import { IBar, BarDesign, IBarHTMLTag, TitleAlignment } from "sap/m/library";
 
   import { ID } from "sap/ui/core/library";
 
@@ -5532,44 +5532,40 @@ declare module "sap/m/Bar" {
        */
       mSettings?: $BarSettings
     );
+
+    /**
+     * Creates a new subclass of class sap.m.Bar with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Bar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Bar.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Sets classes according to the context of the page. Possible contexts are header, footer and subheader.
      */
-    _applyContextClassFor: undefined;
-
+    _applyContextClassFor(): IBar;
     /**
      * Sets HTML tag according to the context of the page. Possible contexts are header, footer and subheader.
      */
-    _applyTag: undefined;
-
-    /**
-     * Sets classes and HTML tag according to the context of the page. Possible contexts are header, footer
-     * and subheader.
-     */
-    applyTagAndContextClassFor: undefined;
-
-    /**
-     * Gets the available Bar contexts.
-     */
-    getContext: undefined;
-
-    /**
-     * Gets the HTML tag of the root element.
-     */
-    getHTMLTag: undefined;
-
-    /**
-     * Determines whether the Bar is sensitive to the container context.
-     *
-     * Implementation of the IBar interface.
-     */
-    isContextSensitive: undefined;
-
-    /**
-     * Sets the HTML tag of the root element.
-     */
-    setHTMLTag: undefined;
-
+    _applyTag(): IBar;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -5607,6 +5603,11 @@ declare module "sap/m/Bar" {
       oContentRight: Control
     ): this;
     /**
+     * Sets classes and HTML tag according to the context of the page. Possible contexts are header, footer
+     * and subheader.
+     */
+    applyTagAndContextClassFor(): IBar;
+    /**
      * Destroys all the contentLeft in the aggregation {@link #getContentLeft contentLeft}.
      */
     destroyContentLeft(): this;
@@ -5618,27 +5619,6 @@ declare module "sap/m/Bar" {
      * Destroys all the contentRight in the aggregation {@link #getContentRight contentRight}.
      */
     destroyContentRight(): this;
-    /**
-     * Creates a new subclass of class sap.m.Bar with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Bar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
      * ariaLabelledBy}.
@@ -5666,6 +5646,10 @@ declare module "sap/m/Bar" {
      */
     getContentRight(): Control[];
     /**
+     * Gets the available Bar contexts.
+     */
+    getContext(): Object;
+    /**
      * @SINCE 1.22
      *
      * Gets current value of property {@link #getDesign design}.
@@ -5689,9 +5673,9 @@ declare module "sap/m/Bar" {
      */
     getEnableFlexBox(): boolean;
     /**
-     * Returns a metadata object for class sap.m.Bar.
+     * Gets the HTML tag of the root element.
      */
-    static getMetadata(): ElementMetadata;
+    getHTMLTag(): IBarHTMLTag | keyof typeof IBarHTMLTag;
     /**
      * @SINCE 1.85
      *
@@ -5793,6 +5777,12 @@ declare module "sap/m/Bar" {
       iIndex: int
     ): this;
     /**
+     * Determines whether the Bar is sensitive to the container context.
+     *
+     * Implementation of the IBar interface.
+     */
+    isContextSensitive(): boolean;
+    /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     removeAllAriaLabelledBy(): ID[];
@@ -5887,6 +5877,15 @@ declare module "sap/m/Bar" {
        */
       bEnableFlexBox?: boolean
     ): this;
+    /**
+     * Sets the HTML tag of the root element.
+     */
+    setHTMLTag(
+      /**
+       * The HTML tag of the root element
+       */
+      sTag: IBarHTMLTag | keyof typeof IBarHTMLTag
+    ): IBar;
     /**
      * @SINCE 1.85
      *
@@ -6053,6 +6052,31 @@ declare module "sap/m/Breadcrumbs" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Breadcrumbs with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Breadcrumbs>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Breadcrumbs.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.92
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -6081,27 +6105,6 @@ declare module "sap/m/Breadcrumbs" {
      */
     destroyLinks(): this;
     /**
-     * Creates a new subclass of class sap.m.Breadcrumbs with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Breadcrumbs>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.92
      *
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
@@ -6126,10 +6129,6 @@ declare module "sap/m/Breadcrumbs" {
      * will work, but their effect may be undesirable.
      */
     getLinks(): Link[];
-    /**
-     * Returns a metadata object for class sap.m.Breadcrumbs.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.69
      *
@@ -6339,6 +6338,31 @@ declare module "sap/m/BusyDialog" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.BusyDialog with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, BusyDialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.BusyDialog.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     addAriaLabelledBy(
@@ -6414,27 +6438,6 @@ declare module "sap/m/BusyDialog" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.BusyDialog with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, BusyDialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:close close} to attached listeners.
      */
@@ -6514,10 +6517,6 @@ declare module "sap/m/BusyDialog" {
      * Gets the DOM reference for the BusyDialog.
      */
     getDomRef(): Element;
-    /**
-     * Returns a metadata object for class sap.m.BusyDialog.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowCancelButton showCancelButton}.
      *
@@ -6760,7 +6759,7 @@ declare module "sap/m/BusyDialog" {
      * Fires when the busy dialog is closed. Note: the BusyDialog will not be closed by the InstanceManager.closeAllDialogs
      * method
      */
-    close?: Function;
+    close?: (oEvent: Event) => void;
   }
 }
 
@@ -6822,17 +6821,6 @@ declare module "sap/m/BusyIndicator" {
     );
 
     /**
-     * @SINCE 1.27.0
-     *
-     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
-     */
-    addAriaLabelledBy(
-      /**
-       * The ariaLabelledBy to add; if empty, nothing is inserted
-       */
-      vAriaLabelledBy: ID | Control
-    ): this;
-    /**
      * Creates a new subclass of class sap.m.BusyIndicator with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -6853,6 +6841,21 @@ declare module "sap/m/BusyIndicator" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.BusyIndicator.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.27.0
+     *
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
     /**
      * @SINCE 1.27.0
      *
@@ -6916,10 +6919,6 @@ declare module "sap/m/BusyIndicator" {
      * Default value is `"auto"`.
      */
     getDesign(): string;
-    /**
-     * Returns a metadata object for class sap.m.BusyIndicator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSize size}.
      *
@@ -7258,6 +7257,31 @@ declare module "sap/m/Button" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Button with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Button>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Button.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -7394,27 +7418,6 @@ declare module "sap/m/Button" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Button with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Button>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -7514,10 +7517,6 @@ declare module "sap/m/Button" {
      * Default value is `true`.
      */
     getIconFirst(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.Button.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Defines to which DOM reference the Popup should be docked
      */
@@ -7862,12 +7861,12 @@ declare module "sap/m/Button" {
      *
      * Fired when the user taps the control.
      */
-    tap?: Function;
+    tap?: (oEvent: Event) => void;
 
     /**
      * Fired when the user clicks or taps on the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -7950,6 +7949,31 @@ declare module "sap/m/Carousel" {
       mSettings?: $CarouselSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Carousel with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Carousel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Carousel.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some page to the aggregation {@link #getPages pages}.
      */
@@ -8219,27 +8243,6 @@ declare module "sap/m/Carousel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Carousel with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Carousel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:beforePageChanged beforePageChanged} to attached listeners.
      */
     fireBeforePageChanged(
@@ -8352,10 +8355,6 @@ declare module "sap/m/Carousel" {
      * Default value is `false`.
      */
     getLoop(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.Carousel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPageIndicatorPlacement pageIndicatorPlacement}.
      *
@@ -8665,7 +8664,7 @@ declare module "sap/m/Carousel" {
      *
      * Carousel requires a new page to be loaded. This event may be used to fill the content of that page
      */
-    loadPage?: Function;
+    loadPage?: (oEvent: Event) => void;
 
     /**
      * @deprecated (since 1.18.7) - Since 1.18.7 pages are no longer loaded or unloaded
@@ -8673,21 +8672,21 @@ declare module "sap/m/Carousel" {
      * Carousel does not display a page any longer and unloads it. This event may be used to clean up the content
      * of that page.
      */
-    unloadPage?: Function;
+    unloadPage?: (oEvent: Event) => void;
 
     /**
      * This event is fired after a carousel swipe has been completed. It is triggered both by physical swipe
      * events and through API carousel manipulations such as calling 'next', 'previous' or 'setActivePageId'
      * functions.
      */
-    pageChanged?: Function;
+    pageChanged?: (oEvent: Event) => void;
 
     /**
      * This event is fired before a carousel swipe has been completed. It is triggered both by physical swipe
      * events and through API carousel manipulations such as calling 'next', 'previous' or 'setActivePageId'
      * functions.
      */
-    beforePageChanged?: Function;
+    beforePageChanged?: (oEvent: Event) => void;
   }
 }
 
@@ -8897,6 +8896,31 @@ declare module "sap/m/CheckBox" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.CheckBox with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CheckBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.CheckBox.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -8971,27 +8995,6 @@ declare module "sap/m/CheckBox" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.CheckBox with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CheckBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:select select} to attached listeners.
      */
     fireSelect(
@@ -9063,10 +9066,6 @@ declare module "sap/m/CheckBox" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.CheckBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -9591,7 +9590,7 @@ declare module "sap/m/CheckBox" {
     /**
      * Event is triggered when the control status is changed by the user by selecting or deselecting the checkbox.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -9673,6 +9672,31 @@ declare module "sap/m/ColorPalette" {
       mSettings?: $ColorPaletteSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ColorPalette with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColorPalette>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ColorPalette.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:colorSelect colorSelect} event of this `sap.m.ColorPalette`.
      *
@@ -9792,27 +9816,6 @@ declare module "sap/m/ColorPalette" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ColorPalette with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ColorPalette>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:colorSelect colorSelect} to attached listeners.
      */
     fireColorSelect(
@@ -9888,10 +9891,6 @@ declare module "sap/m/ColorPalette" {
      */
     getColors(): CSSColor[];
     /**
-     * Returns a metadata object for class sap.m.ColorPalette.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Sets a selected color for the ColorPicker control.
      */
     setColorPickerSelectedColor(
@@ -9927,14 +9926,14 @@ declare module "sap/m/ColorPalette" {
     /**
      * Fired when the user selects a color.
      */
-    colorSelect?: Function;
+    colorSelect?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.85
      *
      * Fired when the value is changed by user interaction in the internal ColorPicker
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -9988,6 +9987,31 @@ declare module "sap/m/ColorPalettePopover" {
       mSettings?: $ColorPalettePopoverSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ColorPalettePopover with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColorPalettePopover>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ColorPalettePopover.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:colorSelect colorSelect} event of this `sap.m.ColorPalettePopover`.
      *
@@ -10111,27 +10135,6 @@ declare module "sap/m/ColorPalettePopover" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ColorPalettePopover with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ColorPalettePopover>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:colorSelect colorSelect} to attached listeners.
      */
     fireColorSelect(
@@ -10225,10 +10228,6 @@ declare module "sap/m/ColorPalettePopover" {
     getDisplayMode():
       | ColorPickerDisplayMode
       | keyof typeof ColorPickerDisplayMode;
-    /**
-     * Returns a metadata object for class sap.m.ColorPalettePopover.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowDefaultColorButton showDefaultColorButton}.
      *
@@ -10403,14 +10402,14 @@ declare module "sap/m/ColorPalettePopover" {
     /**
      * Fired when the user selects a color.
      */
-    colorSelect?: Function;
+    colorSelect?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.85
      *
      * Fired when the value is changed by user interaction in the internal ColorPicker of the ColorPalette
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -10476,20 +10475,6 @@ declare module "sap/m/Column" {
     );
 
     /**
-     * @SINCE 1.20.4
-     *
-     * Clears the last value of the column if mergeDuplicates property is true
-     */
-    clearLastValue(): this;
-    /**
-     * Destroys the footer in the aggregation {@link #getFooter footer}.
-     */
-    destroyFooter(): this;
-    /**
-     * Destroys the header in the aggregation {@link #getHeader header}.
-     */
-    destroyHeader(): this;
-    /**
      * Creates a new subclass of class sap.m.Column with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -10510,6 +10495,24 @@ declare module "sap/m/Column" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Column.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.20.4
+     *
+     * Clears the last value of the column if mergeDuplicates property is true
+     */
+    clearLastValue(): this;
+    /**
+     * Destroys the footer in the aggregation {@link #getFooter footer}.
+     */
+    destroyFooter(): this;
+    /**
+     * Destroys the header in the aggregation {@link #getHeader header}.
+     */
+    destroyHeader(): this;
     /**
      * @SINCE 1.76
      *
@@ -10582,6 +10585,10 @@ declare module "sap/m/Column" {
      */
     getImportance(): Priority | keyof typeof Priority;
     /**
+     * Gets the rendering index of the column
+     */
+    getIndex(): void;
+    /**
      * Gets the initial order of the column
      */
     getInitialOrder(): int;
@@ -10622,10 +10629,6 @@ declare module "sap/m/Column" {
      * Default value is `'getText'`.
      */
     getMergeFunctionName(): string;
-    /**
-     * Returns a metadata object for class sap.m.Column.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinScreenWidth minScreenWidth}.
      *
@@ -11260,6 +11263,31 @@ declare module "sap/m/ColumnListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.ColumnListItem with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColumnListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ColumnListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.26
      *
      * Returns pop-in DOMRef as a jQuery Object
@@ -11291,37 +11319,12 @@ declare module "sap/m/ColumnListItem" {
      */
     destroyCells(): this;
     /**
-     * Creates a new subclass of class sap.m.ColumnListItem with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ColumnListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getCells cells}.
      *
      * Every `control` inside the `cells` aggregation defines one cell of the row. **Note:** The order of the
      * `cells` aggregation must match the order of the `columns` aggregation of `sap.m.Table`.
      */
     getCells(): Control[];
-    /**
-     * Returns a metadata object for class sap.m.ColumnListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.30.9
      *
@@ -11547,6 +11550,31 @@ declare module "sap/m/ComboBox" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.ComboBox with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ComboBoxBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ComboBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ComboBox.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Configures the SuggestionsPopover's list.
      */
     _configureList(
@@ -11713,27 +11741,6 @@ declare module "sap/m/ComboBox" {
      */
     exit(): void;
     /**
-     * Creates a new subclass of class sap.m.ComboBox with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ComboBoxBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ComboBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -11780,10 +11787,6 @@ declare module "sap/m/ComboBox" {
      * Default value is `false`.
      */
     getFilterSecondaryValues(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.ComboBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets the selected item object from the aggregation named `items`.
      */
@@ -11967,13 +11970,13 @@ declare module "sap/m/ComboBox" {
      * 	 - The Enter key is pressed
      * 	 - An item in the list is selected
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the user types something that matches with an item in the list; it is also fired
      * when the user presses on a list item, or when navigating via keyboard.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -12041,6 +12044,31 @@ declare module "sap/m/ComboBoxBase" {
       mSettings?: $ComboBoxBaseSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ComboBoxBase with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ComboBoxTextField.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ComboBoxBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ComboBoxBase.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Gets the ID of the hidden label for the group header items
      */
@@ -12179,27 +12207,6 @@ declare module "sap/m/ComboBoxBase" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ComboBoxBase with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ComboBoxTextField.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ComboBoxBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.38
      *
      * Fires event {@link #event:loadItems loadItems} to attached listeners.
@@ -12268,10 +12275,6 @@ declare module "sap/m/ComboBoxBase" {
      * Gets the `list`.
      */
     getList(): List;
-    /**
-     * Returns a metadata object for class sap.m.ComboBoxBase.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOpen open}.
      *
@@ -12557,7 +12560,7 @@ declare module "sap/m/ComboBoxBase" {
      *
      * **Note**: Currently the `sap.m.MultiComboBox` does not support this event.
      */
-    loadItems?: Function;
+    loadItems?: (oEvent: Event) => void;
   }
 }
 
@@ -12631,6 +12634,10 @@ declare module "sap/m/ComboBoxTextField" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.ComboBoxTextField.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Returns the arrow icon
      */
     getIcon(): Icon;
@@ -12642,10 +12649,6 @@ declare module "sap/m/ComboBoxTextField" {
      * Default value is `"100%"`.
      */
     getMaxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.ComboBoxTextField.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.38
      *
@@ -12790,6 +12793,10 @@ declare module "sap/m/CustomDynamicDateOption" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.CustomDynamicDateOption.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getCreateValueHelpUI createValueHelpUI}.
      *
      * Defines a method that can create the option's value help UI. For custom scenarios where getValueHelpUITypes
@@ -12842,10 +12849,6 @@ declare module "sap/m/CustomDynamicDateOption" {
      */
     getGetValueHelpUITypes(): Function;
     /**
-     * Returns a metadata object for class sap.m.CustomDynamicDateOption.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getParse parse}.
      *
      * Defines a method that parses the option's value from a string. See DynamicDateOption.parse.
@@ -12857,6 +12860,12 @@ declare module "sap/m/CustomDynamicDateOption" {
      * Defines a method that calculates an absolute date range from the options relative value. See DynamicDateOption.toDates.
      */
     getToDates(): Function;
+    /**
+     * Gets current value of property {@link #getValidateValueHelpUI validateValueHelpUI}.
+     *
+     * Defines a method that can validate all controls from the value help UI related to a given option.
+     */
+    getValidateValueHelpUI(): Function;
     /**
      * Sets a new value for property {@link #getCreateValueHelpUI createValueHelpUI}.
      *
@@ -12991,6 +13000,19 @@ declare module "sap/m/CustomDynamicDateOption" {
        */
       fnToDates: Function
     ): this;
+    /**
+     * Sets a new value for property {@link #getValidateValueHelpUI validateValueHelpUI}.
+     *
+     * Defines a method that can validate all controls from the value help UI related to a given option.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setValidateValueHelpUI(
+      /**
+       * New value for property `validateValueHelpUI`
+       */
+      fnValidateValueHelpUI: Function
+    ): this;
   }
 
   export interface $CustomDynamicDateOptionSettings
@@ -13011,6 +13033,11 @@ declare module "sap/m/CustomDynamicDateOption" {
      * is not enough to define the UI.
      */
     createValueHelpUI?: Function | PropertyBindingInfo;
+
+    /**
+     * Defines a method that can validate all controls from the value help UI related to a given option.
+     */
+    validateValueHelpUI?: Function | PropertyBindingInfo;
 
     /**
      * Defines a method that can collect the value from the value help UI.
@@ -13105,6 +13132,31 @@ declare module "sap/m/CustomListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.CustomListItem with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CustomListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.CustomListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -13130,27 +13182,6 @@ declare module "sap/m/CustomListItem" {
      */
     destroyContent(): this;
     /**
-     * Creates a new subclass of class sap.m.CustomListItem with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CustomListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.84
      *
      * Gets current value of property {@link #getAccDescription accDescription}.
@@ -13167,10 +13198,6 @@ declare module "sap/m/CustomListItem" {
      * The content of this list item
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.m.CustomListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -13300,10 +13327,6 @@ declare module "sap/m/CustomTile" {
     );
 
     /**
-     * Destroys the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.m.CustomTile with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -13325,15 +13348,19 @@ declare module "sap/m/CustomTile" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.CustomTile.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * Defines the content of the CustomTile.
      */
     getContent(): Control;
-    /**
-     * Returns a metadata object for class sap.m.CustomTile.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets the aggregated {@link #getContent content}.
      */
@@ -13406,6 +13433,31 @@ declare module "sap/m/CustomTreeItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.CustomTreeItem with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.TreeItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CustomTreeItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.CustomTreeItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -13431,36 +13483,11 @@ declare module "sap/m/CustomTreeItem" {
      */
     destroyContent(): this;
     /**
-     * Creates a new subclass of class sap.m.CustomTreeItem with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.TreeItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CustomTreeItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * The content of this tree item.
      */
     getContent(): Control[];
-    /**
-     * Returns a metadata object for class sap.m.CustomTreeItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -13641,6 +13668,31 @@ declare module "sap/m/DatePicker" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.DatePicker with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.DateTimeField.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DatePicker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.DatePicker.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.38.5
      *
      * Adds some `specialDate` to the aggregation `specialDates`.
@@ -13719,27 +13771,6 @@ declare module "sap/m/DatePicker" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.DatePicker with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.DateTimeField.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DatePicker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fire event change to attached listeners.
      *
@@ -13823,10 +13854,6 @@ declare module "sap/m/DatePicker" {
      * before rendering.
      */
     getMaxDate(): object;
-    /**
-     * Returns a metadata object for class sap.m.DatePicker.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.38.0
      *
@@ -14163,7 +14190,7 @@ declare module "sap/m/DatePicker" {
      *
      * Fired when navigating in `Calendar` popup.
      */
-    navigate?: Function;
+    navigate?: (oEvent: Event) => void;
   }
 }
 
@@ -14299,6 +14326,10 @@ declare module "sap/m/DateRangeSelection" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.DateRangeSelection.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Fire event change to attached listeners.
      *
      * Expects following event parameters:
@@ -14343,10 +14374,6 @@ declare module "sap/m/DateRangeSelection" {
      * Start date of the range.
      */
     getFrom(): object;
-    /**
-     * Returns a metadata object for class sap.m.DateRangeSelection.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSecondDateValue secondDateValue}.
      *
@@ -14579,6 +14606,10 @@ declare module "sap/m/DateTimeField" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.DateTimeField.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getDateValue dateValue}.
      *
      * Holds a reference to a JavaScript Date Object. The `value` (string) property will be set according to
@@ -14609,10 +14640,6 @@ declare module "sap/m/DateTimeField" {
      * 			parts of the JavaScript Date Object.
      */
     getInitialFocusedDateValue(): object;
-    /**
-     * Returns a metadata object for class sap.m.DateTimeField.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getValueFormat valueFormat}.
      *
@@ -14785,6 +14812,31 @@ declare module "sap/m/DateTimeInput" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.DateTimeInput with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DateTimeInput>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.DateTimeInput.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.27.0
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -14864,27 +14916,6 @@ declare module "sap/m/DateTimeInput" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.DateTimeInput with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DateTimeInput>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -14953,10 +14984,6 @@ declare module "sap/m/DateTimeInput" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.DateTimeInput.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -15418,7 +15445,7 @@ declare module "sap/m/DateTimeInput" {
     /**
      * This event gets fired when the selection has finished and the value has changed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -15550,6 +15577,10 @@ declare module "sap/m/DateTimePicker" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.DateTimePicker.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
@@ -15558,10 +15589,6 @@ declare module "sap/m/DateTimePicker" {
      * Apply the correct icon to the used Date control
      */
     getIconSrc(): void;
-    /**
-     * Returns a metadata object for class sap.m.DateTimePicker.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.56
      *
@@ -15743,6 +15770,31 @@ declare module "sap/m/Dialog" {
       mSettings?: $DialogSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Dialog with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Dialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Dialog.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Returns the custom header instance when the `customHeader` aggregation is set. Otherwise, it returns
      * the internal managed header instance. This method can be called within composite controls which use `sap.m.Dialog`
@@ -16050,27 +16102,6 @@ declare module "sap/m/Dialog" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Dialog with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Dialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      */
     fireAfterClose(
@@ -16138,10 +16169,12 @@ declare module "sap/m/Dialog" {
      * The button which is rendered to the left side (right side in RTL mode) of the `endButton` in the footer
      * area inside the Dialog. As of version 1.21.1, there's a new aggregation `buttons` created with which
      * more than 2 buttons can be added to the footer area of the Dialog. If the new `buttons` aggregation is
-     * set, any change made to this aggregation has no effect anymore. When running on a phone, this `button`
-     * (and the `endButton` together when set) is (are) rendered at the center of the footer area. When running
-     * on other platforms, this `button` (and the `endButton` together when set) is (are) rendered at the right
-     * side (left side in RTL mode) of the footer area.
+     * set, any change made to this aggregation has no effect anymore. With the Belize themes when running on
+     * a phone, this `button` (and the `endButton` together when set) is (are) rendered at the center of the
+     * footer area. While with the Quartz themes when running on a phone, this `button` (and the `endButton`
+     * together when set) is (are) rendered on the right side of the footer area. When running on other platforms,
+     * this `button` (and the `endButton` together when set) is (are) rendered at the right side (left side
+     * in RTL mode) of the footer area.
      */
     getBeginButton(): Button;
     /**
@@ -16224,10 +16257,12 @@ declare module "sap/m/Dialog" {
      * The button which is rendered to the right side (left side in RTL mode) of the `beginButton` in the footer
      * area inside the Dialog. As of version 1.21.1, there's a new aggregation `buttons` created with which
      * more than 2 buttons can be added to the footer area of Dialog. If the new `buttons` aggregation is set,
-     * any change made to this aggregation has no effect anymore. When running on a phone, this `button` (and
-     * the `beginButton` together when set) is (are) rendered at the center of the footer area. When running
-     * on other platforms, this `button` (and the `beginButton` together when set) is (are) rendered at the
-     * right side (left side in RTL mode) of the footer area.
+     * any change made to this aggregation has no effect anymore. With the Belize themes when running on a phone,
+     * this `button` (and the `beginButton` together when set) is (are) rendered at the center of the footer
+     * area. While with the Quartz themes when running on a phone, this `button` (and the `beginButton` together
+     * when set) is (are) rendered on the right side of the footer area. When running on other platforms, this
+     * `button` (and the `beginButton` together when set) is (are) rendered at the right side (left side in
+     * RTL mode) of the footer area.
      */
     getEndButton(): Button;
     /**
@@ -16277,10 +16312,6 @@ declare module "sap/m/Dialog" {
      * `null`.
      */
     getLeftButton(): ID;
-    /**
-     * Returns a metadata object for class sap.m.Dialog.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.30
      *
@@ -17072,10 +17103,12 @@ declare module "sap/m/Dialog" {
      * The button which is rendered to the left side (right side in RTL mode) of the `endButton` in the footer
      * area inside the Dialog. As of version 1.21.1, there's a new aggregation `buttons` created with which
      * more than 2 buttons can be added to the footer area of the Dialog. If the new `buttons` aggregation is
-     * set, any change made to this aggregation has no effect anymore. When running on a phone, this `button`
-     * (and the `endButton` together when set) is (are) rendered at the center of the footer area. When running
-     * on other platforms, this `button` (and the `endButton` together when set) is (are) rendered at the right
-     * side (left side in RTL mode) of the footer area.
+     * set, any change made to this aggregation has no effect anymore. With the Belize themes when running on
+     * a phone, this `button` (and the `endButton` together when set) is (are) rendered at the center of the
+     * footer area. While with the Quartz themes when running on a phone, this `button` (and the `endButton`
+     * together when set) is (are) rendered on the right side of the footer area. When running on other platforms,
+     * this `button` (and the `endButton` together when set) is (are) rendered at the right side (left side
+     * in RTL mode) of the footer area.
      */
     beginButton?: Button;
 
@@ -17085,10 +17118,12 @@ declare module "sap/m/Dialog" {
      * The button which is rendered to the right side (left side in RTL mode) of the `beginButton` in the footer
      * area inside the Dialog. As of version 1.21.1, there's a new aggregation `buttons` created with which
      * more than 2 buttons can be added to the footer area of Dialog. If the new `buttons` aggregation is set,
-     * any change made to this aggregation has no effect anymore. When running on a phone, this `button` (and
-     * the `beginButton` together when set) is (are) rendered at the center of the footer area. When running
-     * on other platforms, this `button` (and the `beginButton` together when set) is (are) rendered at the
-     * right side (left side in RTL mode) of the footer area.
+     * any change made to this aggregation has no effect anymore. With the Belize themes when running on a phone,
+     * this `button` (and the `beginButton` together when set) is (are) rendered at the center of the footer
+     * area. While with the Quartz themes when running on a phone, this `button` (and the `beginButton` together
+     * when set) is (are) rendered on the right side of the footer area. When running on other platforms, this
+     * `button` (and the `beginButton` together when set) is (are) rendered at the right side (left side in
+     * RTL mode) of the footer area.
      */
     endButton?: Button;
 
@@ -17147,22 +17182,22 @@ declare module "sap/m/Dialog" {
     /**
      * This event will be fired before the Dialog is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
 
     /**
      * This event will be fired after the Dialog is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * This event will be fired before the Dialog is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
 
     /**
      * This event will be fired after the Dialog is closed.
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
   }
 }
 
@@ -17239,15 +17274,15 @@ declare module "sap/m/DisplayListItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.DisplayListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getLabel label}.
      *
      * Defines the label of the list item.
      */
     getLabel(): string;
-    /**
-     * Returns a metadata object for class sap.m.DisplayListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getValue value}.
      *
@@ -17381,10 +17416,6 @@ declare module "sap/m/DraftIndicator" {
     );
 
     /**
-     * Clears the indicator state
-     */
-    clearDraftState(): void;
-    /**
      * Creates a new subclass of class sap.m.DraftIndicator with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -17409,6 +17440,10 @@ declare module "sap/m/DraftIndicator" {
      * Returns a metadata object for class sap.m.DraftIndicator.
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Clears the indicator state
+     */
+    clearDraftState(): void;
     /**
      * Gets current value of property {@link #getMinDisplayTime minDisplayTime}.
      *
@@ -17489,7 +17524,11 @@ declare module "sap/m/DynamicDate" {
    * @SINCE 1.92
    * @EXPERIMENTAL (since 1.92)
    *
-   * This class represents the dynamic date range type.
+   * This class represents the dynamic date range type. Model values should be in the following format: {
+   * operator: "KEY", values: [param1, param2] }. Where the supported parameters are timestamps, month indexes
+   * and numbers (all three are numbers). Their type is defined by the corresponding DynamicDateOption instance
+   * identified by the same "KEY". This class is capable of formatting only the value parameters expected
+   * by the DynamicDateRange control. A display format may be provided via the format options.
    */
   export default class DynamicDate extends SimpleType {
     /**
@@ -17497,21 +17536,37 @@ declare module "sap/m/DynamicDate" {
      */
     constructor(
       /**
-       * Formatting options.
+       * Format options. There are format options for each of the supported types of value parameters.
        */
       oFormatOptions?: {
         /**
-         * Format options controlling the options that contain dates in their display values.
+         * Display format options for the values that contain dates. For a list of all available options, see {@link
+         * sap.ui.core.format.DateFormat.getDateInstance DateFormat}.
          */
         date?: object;
         /**
-         * Format options controlling the options that contain months in their display values.
+         * Display format options for the values that contain month names. The only supported option is the `pattern`
+         * using the respective symbols for displaying months "MM", "MMM" or "MMMM".
          */
         month?: object;
         /**
-         * Format options controlling the options that contain numbers in their display values.
+         * Display format options for the values that contain numbers. For a list of all available options, see
+         * {@link sap.ui.core.format.NumberFormat.getInstance NumberFormat}.
          */
         int?: object;
+      },
+      /**
+       * Value constraints
+       */
+      oConstraints?: {
+        /**
+         * Smallest resulting date allowed for this type. Must be provided as a timestamps.
+         */
+        minimum?: int;
+        /**
+         * Greatest resulting date allowed for this type. Must be provided as a timestamps.
+         */
+        maximum?: int;
       }
     );
 
@@ -17537,6 +17592,10 @@ declare module "sap/m/DynamicDate" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.DynamicDate.
+     */
+    static getMetadata(): Metadata;
+    /**
      * Formats the given object value to a similar object. The whole value is in the following format { operator:
      * "KEY", values: [...array with dates or numbers to be formatted]}. Only formats the 'values' part of the
      * given object. The dates are expected as 'timestamp' numbers and are converted to Javascript Date objects.
@@ -17549,14 +17608,10 @@ declare module "sap/m/DynamicDate" {
       oValue: object
     ): object;
     /**
-     * Returns a metadata object for class sap.m.DynamicDate.
-     */
-    static getMetadata(): Metadata;
-    /**
      * Parses the given object value to a similar object. The whole value is in the following format { operator:
      * "KEY", values: [...array with JS dates or numbers to be parsed]}. Only parses the 'values' part of the
      * given object. The dates are expected as Javascript Dates and are converted to timestamps. The numbers
-     * and strings are left untouched.
+     * and strings are left untouched. Special values with operator: "PARSEERROR" generate a parse exception.
      */
     parseValue(
       /**
@@ -17577,20 +17632,8 @@ declare module "sap/m/DynamicDateFormat" {
    * manner according to a set of format options.
    */
   export default class DynamicDateFormat {
-    /**
-     *
-     */
     constructor();
 
-    /**
-     * Formats a list according to the given format options.
-     */
-    format(
-      /**
-       * The value to format
-       */
-      oObj: object
-    ): string;
     /**
      * Get an instance of the DynamicDateFormat which can be used for formatting.
      */
@@ -17604,6 +17647,15 @@ declare module "sap/m/DynamicDateFormat" {
        */
       oLocale?: Locale
     ): DynamicDateFormat;
+    /**
+     * Formats a list according to the given format options.
+     */
+    format(
+      /**
+       * The value to format
+       */
+      oObj: object
+    ): string;
     /**
      * Parses a given list string into an array.
      */
@@ -17668,24 +17720,6 @@ declare module "sap/m/DynamicDateOption" {
     );
 
     /**
-     * Creates the option's value help UI. Mainly used for custom scenarios where getValueHelpUITypes is not
-     * enough to define the UI.
-     */
-    createValueHelpUI(
-      /**
-       * The control instance
-       */
-      oControl: DynamicDateRange,
-      /**
-       * A callback invoked when any of the created controls updates its value
-       */
-      fnControlsUpdated: Function
-    ): Control[];
-    /**
-     * Controls whether the formatted date range should be concatenated to the formatted value when displayed.
-     */
-    enhanceFormattedValue(): boolean;
-    /**
      * Creates a new subclass of class sap.m.DynamicDateOption with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -17706,6 +17740,28 @@ declare module "sap/m/DynamicDateOption" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.DynamicDateOption.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Creates the option's value help UI. Mainly used for custom scenarios where getValueHelpUITypes is not
+     * enough to define the UI.
+     */
+    createValueHelpUI(
+      /**
+       * The control instance
+       */
+      oControl: DynamicDateRange,
+      /**
+       * A callback invoked when any of the created controls updates its value
+       */
+      fnControlsUpdated: Function
+    ): Control[];
+    /**
+     * Controls whether the formatted date range should be concatenated to the formatted value when displayed.
+     */
+    enhanceFormattedValue(): boolean;
     /**
      * Formats the option's value to a string.
      */
@@ -17731,10 +17787,6 @@ declare module "sap/m/DynamicDateOption" {
      * the option key.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.DynamicDateOption.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Defines the option's label for the DynamicDateRange's list of options.
      */
@@ -17818,6 +17870,17 @@ declare module "sap/m/DynamicDateOption" {
        */
       oValue: object
     ): /* was: sap.ui.core.date.UniversalDate */ any[];
+    /**
+     * Validates all input controls in the value help UI related to the current option. If one of the input
+     * controls contains invalid value, then validation will return `false`. If all input controls contain valid
+     * value, then the validation will return `true`.
+     */
+    validateValueHelpUI(
+      /**
+       * The control instance
+       */
+      oControl: DynamicDateRange
+    ): boolean;
   }
 
   export interface $DynamicDateOptionSettings extends $ElementSettings {
@@ -17908,6 +17971,31 @@ declare module "sap/m/DynamicDateRange" {
       mSettings?: $DynamicDateRangeSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.DynamicDateRange with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DynamicDateRange>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.DynamicDateRange.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.92
      *
@@ -18000,27 +18088,6 @@ declare module "sap/m/DynamicDateRange" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.DynamicDateRange with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DynamicDateRange>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -18093,10 +18160,6 @@ declare module "sap/m/DynamicDateRange" {
      * and parsing functionality.
      */
     getFormatter(): object;
-    /**
-     * Returns a metadata object for class sap.m.DynamicDateRange.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.92
      *
@@ -18525,7 +18588,7 @@ declare module "sap/m/DynamicDateRange" {
      * Is fired when the text in the input field has changed and the focus leaves the input field or the Enter
      * key is pressed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -18748,18 +18811,6 @@ declare module "sap/m/ExpandableText" {
     );
 
     /**
-     * Binds property {@link #getText text} to model data.
-     *
-     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
-     * of the possible properties of `oBindingInfo`
-     */
-    bindText(
-      /**
-       * The binding information
-       */
-      oBindingInfo: PropertyBindingInfo
-    ): this;
-    /**
      * Creates a new subclass of class sap.m.ExpandableText with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -18780,6 +18831,22 @@ declare module "sap/m/ExpandableText" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ExpandableText.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Binds property {@link #getText text} to model data.
+     *
+     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
+     * of the possible properties of `oBindingInfo`
+     */
+    bindText(
+      /**
+       * The binding information
+       */
+      oBindingInfo: PropertyBindingInfo
+    ): this;
     /**
      * Gets the accessibility information for the text.
      * See:
@@ -18806,10 +18873,6 @@ declare module "sap/m/ExpandableText" {
      * Default value is `100`.
      */
     getMaxCharacters(): int;
-    /**
-     * Returns a metadata object for class sap.m.ExpandableText.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOverflowMode overflowMode}.
      *
@@ -19160,6 +19223,31 @@ declare module "sap/m/FacetFilter" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.FacetFilter with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FacetFilter>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.FacetFilter.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some list to the aggregation {@link #getLists lists}.
      */
     addList(
@@ -19295,27 +19383,6 @@ declare module "sap/m/FacetFilter" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.FacetFilter with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FacetFilter>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:confirm confirm} to attached listeners.
      */
     fireConfirm(
@@ -19347,10 +19414,6 @@ declare module "sap/m/FacetFilter" {
      * Default value is `true`.
      */
     getLiveSearch(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.FacetFilter.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowPersonalization showPersonalization}.
      *
@@ -19594,12 +19657,12 @@ declare module "sap/m/FacetFilter" {
      * filtering behavior has to be defined at application level inside the `search` and `reset` event handler
      * functions.
      */
-    reset?: Function;
+    reset?: (oEvent: Event) => void;
 
     /**
      * Fired when the user confirms filter selection.
      */
-    confirm?: Function;
+    confirm?: (oEvent: Event) => void;
   }
 }
 
@@ -19674,6 +19737,10 @@ declare module "sap/m/FacetFilterItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.FacetFilterItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @deprecated (since 1.18.11) - replaced by `setCounter` method
      *
      * Gets current value of property {@link #getCount count}.
@@ -19687,10 +19754,6 @@ declare module "sap/m/FacetFilterItem" {
      * Can be used as input for subsequent actions.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.FacetFilterItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -19823,6 +19886,31 @@ declare module "sap/m/FacetFilterList" {
       mSettings?: $FacetFilterListSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.FacetFilterList with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.List.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FacetFilterList>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.FacetFilterList.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:listClose listClose} event of this `sap.m.FacetFilterList`.
      *
@@ -20018,27 +20106,6 @@ declare module "sap/m/FacetFilterList" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.FacetFilterList with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.List.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FacetFilterList>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:listClose listClose} to attached listeners.
      */
     fireListClose(
@@ -20139,10 +20206,6 @@ declare module "sap/m/FacetFilterList" {
      * Unique identifier for this filter list.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.FacetFilterList.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.20.0) - replaced by `setMode` method. `FacetFilterList` overrides the `setMode`
      * method to restrict the possible modes to `MultiSelect` and `SingleSelectMaster`. All other modes are
@@ -20514,12 +20577,12 @@ declare module "sap/m/FacetFilterList" {
      * function in the `listOpen` event handler function. If the default filtering behavior is prevented then
      * filtering behavior has to be defined at application level inside the `listOpen` event handler function.
      */
-    listOpen?: Function;
+    listOpen?: (oEvent: Event) => void;
 
     /**
      * Triggered after the list of items is closed.
      */
-    listClose?: Function;
+    listClose?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.76
@@ -20532,7 +20595,7 @@ declare module "sap/m/FacetFilterList" {
      * are loaded initially. If the default filtering behavior is prevented then filtering behavior has to be
      * defined at application level inside the `search` event handler function.
      */
-    search?: Function;
+    search?: (oEvent: Event) => void;
   }
 }
 
@@ -20584,6 +20647,31 @@ declare module "sap/m/FeedContent" {
       mSettings?: $FeedContentSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.FeedContent with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FeedContent>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.FeedContent.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.FeedContent`.
      *
@@ -20641,27 +20729,6 @@ declare module "sap/m/FeedContent" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.FeedContent with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FeedContent>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -20676,10 +20743,6 @@ declare module "sap/m/FeedContent" {
      * The content text.
      */
     getContentText(): string;
-    /**
-     * Returns a metadata object for class sap.m.FeedContent.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.38.0) - The FeedContent control has now a fixed size, depending on the used media
      * (desktop, tablet or phone).
@@ -20841,7 +20904,7 @@ declare module "sap/m/FeedContent" {
     /**
      * The event is triggered when the feed content is pressed.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -20900,6 +20963,31 @@ declare module "sap/m/FeedInput" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.FeedInput with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FeedInput>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.FeedInput.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:post post} event of this `sap.m.FeedInput`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -20957,27 +21045,6 @@ declare module "sap/m/FeedInput" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.FeedInput with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FeedInput>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:post post} to attached listeners.
      */
@@ -21102,10 +21169,6 @@ declare module "sap/m/FeedInput" {
      * Default value is `0`.
      */
     getMaxLength(): int;
-    /**
-     * Returns a metadata object for class sap.m.FeedInput.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -21540,7 +21603,7 @@ declare module "sap/m/FeedInput" {
      * The Post event is triggered when the user has entered a value and pressed the post button. After firing
      * this event, the value is reset.
      */
-    post?: Function;
+    post?: (oEvent: Event) => void;
   }
 }
 
@@ -21608,6 +21671,31 @@ declare module "sap/m/FeedListItem" {
       mSettings?: $FeedListItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.FeedListItem with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FeedListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.FeedListItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.52.0
      *
@@ -21737,27 +21825,6 @@ declare module "sap/m/FeedListItem" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.FeedListItem with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FeedListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:iconPress iconPress} to attached listeners.
      */
@@ -21918,10 +21985,6 @@ declare module "sap/m/FeedListItem" {
      * is able to set the value to its needs.
      */
     getMaxCharacters(): int;
-    /**
-     * Returns a metadata object for class sap.m.FeedListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.60
      *
@@ -22453,12 +22516,12 @@ declare module "sap/m/FeedListItem" {
     /**
      * Event is fired when name of the sender is pressed.
      */
-    senderPress?: Function;
+    senderPress?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the icon is pressed.
      */
-    iconPress?: Function;
+    iconPress?: (oEvent: Event) => void;
   }
 }
 
@@ -22510,6 +22573,31 @@ declare module "sap/m/FeedListItemAction" {
       mSettings?: $FeedListItemActionSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.FeedListItemAction with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FeedListItemAction>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.FeedListItemAction.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.FeedListItemAction`.
      *
@@ -22567,27 +22655,6 @@ declare module "sap/m/FeedListItemAction" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.FeedListItemAction with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FeedListItemAction>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -22619,10 +22686,6 @@ declare module "sap/m/FeedListItemAction" {
      * Default value is `empty string`.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.FeedListItemAction.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -22745,7 +22808,7 @@ declare module "sap/m/FeedListItemAction" {
     /**
      * The `press` event is fired when the user triggers the corresponding action.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -22817,19 +22880,6 @@ declare module "sap/m/FlexBox" {
     );
 
     /**
-     * Adds item in the FlexBox.
-     */
-    addItem(
-      /**
-       * Added item.
-       */
-      oItem: object
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.m.FlexBox with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -22850,6 +22900,23 @@ declare module "sap/m/FlexBox" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.FlexBox.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: Control
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
     /**
      * Gets the accessibility information.
      * See:
@@ -22936,10 +23003,6 @@ declare module "sap/m/FlexBox" {
      */
     getJustifyContent(): FlexJustifyContent | keyof typeof FlexJustifyContent;
     /**
-     * Returns a metadata object for class sap.m.FlexBox.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getRenderType renderType}.
      *
      * Determines whether the layout is rendered as a series of divs or as an unordered list (ul).
@@ -22982,31 +23045,35 @@ declare module "sap/m/FlexBox" {
       oItem: Control
     ): int;
     /**
-     * Inserts single item.
+     * Inserts a item into the aggregation {@link #getItems items}.
      */
     insertItem(
       /**
-       * Inserted item.
+       * The item to insert; if empty, nothing is inserted
        */
-      oItem: object,
+      oItem: Control,
       /**
-       * Index of the inserted item.
+       * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
+       * the last position
        */
       iIndex: int
     ): this;
     /**
-     * Removes all items.
+     * Removes all the controls from the aggregation {@link #getItems items}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
      */
-    removeAllItems(): object;
+    removeAllItems(): Control[];
     /**
-     * Removes single item.
+     * Removes a item from the aggregation {@link #getItems items}.
      */
     removeItem(
       /**
-       * Item to be removed.
+       * The item to remove or its index or id
        */
-      vItem: any
-    ): object;
+      vItem: int | string | Control
+    ): Control;
     /**
      * @SINCE 1.36.0
      *
@@ -23346,6 +23413,10 @@ declare module "sap/m/FlexItemData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.FlexItemData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getAlignSelf alignSelf}.
      *
      * Determines cross-axis alignment of individual element.
@@ -23411,10 +23482,6 @@ declare module "sap/m/FlexItemData" {
      * Default value is `empty string`.
      */
     getMaxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.FlexItemData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.36.0
      *
@@ -23698,19 +23765,6 @@ declare module "sap/m/FormattedText" {
     );
 
     /**
-     * Adds some control to the aggregation {@link #getControls controls}.
-     */
-    addControl(
-      /**
-       * The control to add; if empty, nothing is inserted
-       */
-      oControl: Link
-    ): this;
-    /**
-     * Destroys all the controls in the aggregation {@link #getControls controls}.
-     */
-    destroyControls(): this;
-    /**
      * Creates a new subclass of class sap.m.FormattedText with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -23731,6 +23785,23 @@ declare module "sap/m/FormattedText" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.FormattedText.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some control to the aggregation {@link #getControls controls}.
+     */
+    addControl(
+      /**
+       * The control to add; if empty, nothing is inserted
+       */
+      oControl: Link
+    ): this;
+    /**
+     * Destroys all the controls in the aggregation {@link #getControls controls}.
+     */
+    destroyControls(): this;
     /**
      * Gets content of aggregation {@link #getControls controls}.
      *
@@ -23808,10 +23879,6 @@ declare module "sap/m/FormattedText" {
      * Default value is `empty string`.
      */
     getHtmlText(): string;
-    /**
-     * Returns a metadata object for class sap.m.FormattedText.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.86.0
      *
@@ -24167,6 +24234,31 @@ declare module "sap/m/GenericTag" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.GenericTag with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GenericTag>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.GenericTag.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.GenericTag`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -24227,27 +24319,6 @@ declare module "sap/m/GenericTag" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.GenericTag with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GenericTag>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -24264,10 +24335,6 @@ declare module "sap/m/GenericTag" {
      * Default value is `Full`.
      */
     getDesign(): GenericTagDesign | keyof typeof GenericTagDesign;
-    /**
-     * Returns a metadata object for class sap.m.GenericTag.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets the behavior of the `GenericTag` inside an `OverflowToolbar` configuration.
      */
@@ -24413,7 +24480,7 @@ declare module "sap/m/GenericTag" {
     /**
      * Fired when the user clicks/taps on the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -24481,6 +24548,31 @@ declare module "sap/m/GenericTile" {
       mSettings?: $GenericTileSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.GenericTile with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, GenericTile>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.GenericTile.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some tileContent to the aggregation {@link #getTileContent tileContent}.
      */
@@ -24569,27 +24661,6 @@ declare module "sap/m/GenericTile" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.GenericTile with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, GenericTile>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -24712,10 +24783,6 @@ declare module "sap/m/GenericTile" {
      * Description of a header image that is used in the tooltip.
      */
     getImageDescription(): string;
-    /**
-     * Returns a metadata object for class sap.m.GenericTile.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMode mode}.
      *
@@ -25367,7 +25434,7 @@ declare module "sap/m/GenericTile" {
     /**
      * The event is triggered when the user presses the tile.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -25444,16 +25511,16 @@ declare module "sap/m/GroupHeaderListItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.GroupHeaderListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getCount count}.
      *
      * Defines the count of items in the group, but it could also be an amount which represents the sum of all
      * amounts in the group. **Note:** Will not be displayed if not set.
      */
     getCount(): string;
-    /**
-     * Returns a metadata object for class sap.m.GroupHeaderListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -25956,6 +26023,31 @@ declare module "sap/m/HeaderContainer" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.HeaderContainer with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, HeaderContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.HeaderContainer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.62.0
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -26036,27 +26128,6 @@ declare module "sap/m/HeaderContainer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.HeaderContainer with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, HeaderContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:scroll scroll} to attached listeners.
      */
     fireScroll(
@@ -26094,10 +26165,6 @@ declare module "sap/m/HeaderContainer" {
      * and as '100%' in vertical orientation.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.HeaderContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOrientation orientation}.
      *
@@ -26427,7 +26494,7 @@ declare module "sap/m/HeaderContainer" {
     /**
      * This event is triggered on pressing the scroll button.
      */
-    scroll?: Function;
+    scroll?: (oEvent: Event) => void;
   }
 }
 
@@ -26539,6 +26606,31 @@ declare module "sap/m/IconTabBar" {
       mSettings?: $IconTabBarSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.IconTabBar with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, IconTabBar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.IconTabBar.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -26684,27 +26776,6 @@ declare module "sap/m/IconTabBar" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.IconTabBar with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, IconTabBar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.15.0
      *
      * Fires event {@link #event:expand expand} to attached listeners.
@@ -26845,7 +26916,7 @@ declare module "sap/m/IconTabBar" {
      *
      * Gets current value of property {@link #getHeaderMode headerMode}.
      *
-     * Specifies the header mode. **Note:** The Inline mode works only if no icons are set.
+     * Specifies the header mode.
      *
      * Default value is `Standard`.
      */
@@ -26869,10 +26940,6 @@ declare module "sap/m/IconTabBar" {
      * Default value is `0`.
      */
     getMaxNestingLevel(): int;
-    /**
-     * Returns a metadata object for class sap.m.IconTabBar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Reflector for the internal header's selectedKey property.
      */
@@ -27320,7 +27387,7 @@ declare module "sap/m/IconTabBar" {
     /**
      * @SINCE 1.40
      *
-     * Specifies the header mode. **Note:** The Inline mode works only if no icons are set.
+     * Specifies the header mode.
      */
     headerMode?:
       | (IconTabHeaderMode | keyof typeof IconTabHeaderMode)
@@ -27419,14 +27486,14 @@ declare module "sap/m/IconTabBar" {
     /**
      * Fires when an item is selected.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.15.0
      *
      * Indicates that the tab will expand or collapse.
      */
-    expand?: Function;
+    expand?: (oEvent: Event) => void;
   }
 }
 
@@ -27489,6 +27556,31 @@ declare module "sap/m/IconTabFilter" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.IconTabFilter with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, IconTabFilter>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.IconTabFilter.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.15.0
      *
      * Adds some content to the aggregation {@link #getContent content}.
@@ -27524,27 +27616,6 @@ declare module "sap/m/IconTabFilter" {
      * Destroys all the items in the aggregation {@link #getItems items}.
      */
     destroyItems(): this;
-    /**
-     * Creates a new subclass of class sap.m.IconTabFilter with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, IconTabFilter>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.15.0
      *
@@ -27612,10 +27683,6 @@ declare module "sap/m/IconTabFilter" {
      * The sub items of this filter (optional).
      */
     getItems(): IconTab[];
-    /**
-     * Returns a metadata object for class sap.m.IconTabFilter.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowAll showAll}.
      *
@@ -28030,6 +28097,31 @@ declare module "sap/m/IconTabHeader" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.IconTabHeader with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, IconTabHeader>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.IconTabHeader.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -28098,27 +28190,6 @@ declare module "sap/m/IconTabHeader" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.IconTabHeader with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, IconTabHeader>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:select select} to attached listeners.
      */
@@ -28193,15 +28264,11 @@ declare module "sap/m/IconTabHeader" {
      */
     getMaxNestingLevel(): int;
     /**
-     * Returns a metadata object for class sap.m.IconTabHeader.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * @SINCE 1.40
      *
      * Gets current value of property {@link #getMode mode}.
      *
-     * Specifies the header mode. **Note:** The Inline mode works only if no icons are set.
+     * Specifies the header mode.
      *
      * Default value is `Standard`.
      */
@@ -28400,7 +28467,7 @@ declare module "sap/m/IconTabHeader" {
      *
      * Sets a new value for property {@link #getMode mode}.
      *
-     * Specifies the header mode. **Note:** The Inline mode works only if no icons are set.
+     * Specifies the header mode.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -28547,7 +28614,7 @@ declare module "sap/m/IconTabHeader" {
     /**
      * @SINCE 1.40
      *
-     * Specifies the header mode. **Note:** The Inline mode works only if no icons are set.
+     * Specifies the header mode.
      */
     mode?:
       | (IconTabHeaderMode | keyof typeof IconTabHeaderMode)
@@ -28638,7 +28705,7 @@ declare module "sap/m/IconTabHeader" {
     /**
      * Fires when an item is selected.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -28713,6 +28780,10 @@ declare module "sap/m/IconTabSeparator" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.IconTabSeparator.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * The icon to display for this separator. If no icon is given, a separator line is used instead.
@@ -28731,10 +28802,6 @@ declare module "sap/m/IconTabSeparator" {
      * Default value is `true`.
      */
     getIconDensityAware(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.IconTabSeparator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -28921,6 +28988,31 @@ declare module "sap/m/Image" {
       mSettings?: $ImageSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Image with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Image>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Image.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Checks if the given value is valid for the `background-position` CSS property
      */
@@ -29223,27 +29315,6 @@ declare module "sap/m/Image" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Image with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Image>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.36.2
      *
      * Fires event {@link #event:error error} to attached listeners.
@@ -29440,10 +29511,6 @@ declare module "sap/m/Image" {
      * Default value is `false`.
      */
     getLazyLoading(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.Image.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.30.0
      *
@@ -29969,19 +30036,19 @@ declare module "sap/m/Image" {
     /**
      * Event is fired when the user clicks on the control. (This event is deprecated, use the press event instead)
      */
-    tap?: Function;
+    tap?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the user clicks on the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.36.2
      *
      * Event is fired when the image resource is loaded.
      */
-    load?: Function;
+    load?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.36.2
@@ -29989,7 +30056,7 @@ declare module "sap/m/Image" {
      * Event is fired when the image resource can't be loaded. If densityAware is set to true, the event is
      * fired when none of the fallback resources can be loaded.
      */
-    error?: Function;
+    error?: (oEvent: Event) => void;
   }
 }
 
@@ -30041,6 +30108,31 @@ declare module "sap/m/ImageContent" {
       mSettings?: $ImageContentSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ImageContent with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ImageContent>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ImageContent.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.ImageContent`.
      *
@@ -30098,27 +30190,6 @@ declare module "sap/m/ImageContent" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ImageContent with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ImageContent>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -30133,10 +30204,6 @@ declare module "sap/m/ImageContent" {
      * Description of image. This text is used to provide ScreenReader information.
      */
     getDescription(): string;
-    /**
-     * Returns a metadata object for class sap.m.ImageContent.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSrc src}.
      *
@@ -30188,7 +30255,7 @@ declare module "sap/m/ImageContent" {
     /**
      * The event is triggered when the image content is pressed.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -30314,6 +30381,31 @@ declare module "sap/m/Input" {
       mSettings?: $InputSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Input with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.InputBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Input>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Input.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.21.1
      *
@@ -30734,27 +30826,6 @@ declare module "sap/m/Input" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Input with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.InputBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Input>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      */
     fireLiveChange(
@@ -30961,10 +31032,6 @@ declare module "sap/m/Input" {
      */
     getMaxSuggestionWidth(): CSSSize;
     /**
-     * Returns a metadata object for class sap.m.Input.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * @SINCE 1.44
      *
      * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
@@ -30990,6 +31057,17 @@ declare module "sap/m/Input" {
      * or `null`.
      */
     getSelectedRow(): ID;
+    /**
+     * @SINCE 1.94
+     *
+     * Gets current value of property {@link #getShowClearIcon showClearIcon}.
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     *
+     * Default value is `false`.
+     */
+    getShowClearIcon(): boolean;
     /**
      * @SINCE 1.16.1
      *
@@ -31290,7 +31368,7 @@ declare module "sap/m/Input" {
     /**
      * Indicates whether the control should use `sap.m.Dialog` or not.
      */
-    isMobileDevice(): Boolean;
+    isMobileDevice(): boolean;
     /**
      * Gets the supported openers for the valueHelpOnly. In the context of the Input, all targets are valid.
      */
@@ -31299,7 +31377,7 @@ declare module "sap/m/Input" {
        * The target of the event.
        */
       oTarget: HTMLElement | undefined
-    ): Boolean;
+    ): boolean;
     /**
      * Overwrites the onBeforeRendering.
      */
@@ -31675,6 +31753,24 @@ declare module "sap/m/Input" {
        * may be given or `null` to clear the selection.
        */
       oListItem: ColumnListItem
+    ): this;
+    /**
+     * @SINCE 1.94
+     *
+     * Sets a new value for property {@link #getShowClearIcon showClearIcon}.
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setShowClearIcon(
+      /**
+       * New value for property `showClearIcon`
+       */
+      bShowClearIcon?: boolean
     ): this;
     /**
      * @SINCE 1.16.1
@@ -32130,6 +32226,14 @@ declare module "sap/m/Input" {
     autocomplete?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.94
+     *
+     * Specifies whether clear icon is shown. Pressing the icon will clear input's value and fire the change
+     * and liveChange events.
+     */
+    showClearIcon?: boolean | PropertyBindingInfo;
+
+    /**
      * @SINCE 1.16.1
      *
      * Defines the items displayed in the suggestion popup. Changing this aggregation (by calling `addSuggestionItem`,
@@ -32190,14 +32294,14 @@ declare module "sap/m/Input" {
      *
      * **Note:** Browsing autocomplete suggestions does not fires the event.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16
      *
      * When the value help indicator is clicked, this event will be fired.
      */
-    valueHelpRequest?: Function;
+    valueHelpRequest?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16.1
@@ -32205,7 +32309,7 @@ declare module "sap/m/Input" {
      * This event is fired when user types in the input and showSuggestion is set to true. Changing the suggestItems
      * aggregation will show the suggestions within a popup.
      */
-    suggest?: Function;
+    suggest?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16.3
@@ -32213,7 +32317,7 @@ declare module "sap/m/Input" {
      * This event is fired when suggestionItem shown in suggestion popup are selected. This event is only fired
      * when showSuggestion is set to true and there are suggestionItems shown in the suggestion popup.
      */
-    suggestionItemSelected?: Function;
+    suggestionItemSelected?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.33.0
@@ -32226,7 +32330,7 @@ declare module "sap/m/Input" {
      * 	 - The event is also fired when an item of the select list is selected via Enter.
      * 	 - The event is only fired on an input which allows text input (`editable`, `enabled` and not `valueHelpOnly`).
      */
-    submit?: Function;
+    submit?: (oEvent: Event) => void;
   }
 }
 
@@ -32306,6 +32410,31 @@ declare module "sap/m/InputBase" {
     bShowLabelAsPlaceholder: undefined;
 
     /**
+     * Creates a new subclass of class sap.m.InputBase with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, InputBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.InputBase.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.90
      *
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
@@ -32347,7 +32476,11 @@ declare module "sap/m/InputBase" {
       /**
        * settings for creating an icon
        */
-      oIconSettings: object
+      oIconSettings: object,
+      /**
+       * position to be inserted in the aggregation. If not provided, the icon gets inserted on last position.
+       */
+      iPosition: int
     ): null | Icon;
     /**
      * Applies the focus info. To be overwritten by subclasses.
@@ -32436,27 +32569,6 @@ declare module "sap/m/InputBase" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.InputBase with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, InputBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -32557,10 +32669,6 @@ declare module "sap/m/InputBase" {
      * Gets the last value of the InputBase
      */
     getLastValue(): string;
-    /**
-     * Returns a metadata object for class sap.m.InputBase.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -33093,7 +33201,7 @@ declare module "sap/m/InputBase" {
      * Is fired when the text in the input field has changed and the focus leaves the input field or the enter
      * key is pressed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -33154,6 +33262,31 @@ declare module "sap/m/InputListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.InputListItem with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, InputListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.InputListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -33179,27 +33312,6 @@ declare module "sap/m/InputListItem" {
      */
     destroyContent(): this;
     /**
-     * Creates a new subclass of class sap.m.InputListItem with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, InputListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * Content controls can be added
@@ -33222,10 +33334,6 @@ declare module "sap/m/InputListItem" {
      * Default value is `Inherit`.
      */
     getLabelTextDirection(): TextDirection | keyof typeof TextDirection;
-    /**
-     * Returns a metadata object for class sap.m.InputListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
@@ -33657,6 +33765,10 @@ declare module "sap/m/Label" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.Label.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Provides the current accessibility state of the control.
      * See:
      * 	{@link sap.ui.core.Control#getAccessibilityInfo}.
@@ -33686,10 +33798,6 @@ declare module "sap/m/Label" {
      * ID of the element which is the current target of the association {@link #getLabelFor labelFor}, or `null`.
      */
     getLabelFor(): ID;
-    /**
-     * Returns a metadata object for class sap.m.Label.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Enables the `sap.m.Label` to move inside the sap.m.OverflowToolbar. Required by the {@link sap.m.IOverflowToolbarContent}
      * interface.
@@ -34028,7 +34136,10 @@ declare module "sap/m/LightBox" {
 
   import LightBoxItem from "sap/m/LightBoxItem";
 
-  import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
+  import {
+    AggregationBindingInfo,
+    default as ManagedObject,
+  } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -34103,6 +34214,31 @@ declare module "sap/m/LightBox" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.LightBox with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, LightBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.LightBox.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some imageContent to the aggregation {@link #getImageContent imageContent}.
      */
     addImageContent(
@@ -34136,37 +34272,12 @@ declare module "sap/m/LightBox" {
      */
     exit(): void;
     /**
-     * Creates a new subclass of class sap.m.LightBox with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, LightBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getImageContent imageContent}.
      *
      * Aggregation which holds data about the image and its description. Although multiple LightBoxItems may
      * be added to this aggregation only the first one in the list will be taken into account.
      */
     getImageContent(): LightBoxItem[];
-    /**
-     * Returns a metadata object for class sap.m.LightBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.m.LightBoxItem` in the aggregation {@link #getImageContent imageContent}.
      * and returns its index if found or -1 otherwise.
@@ -34203,7 +34314,7 @@ declare module "sap/m/LightBox" {
       /**
        * Origin of the invalidation.
        */
-      oOrigin: object
+      oOrigin: ManagedObject
     ): this;
     /**
      * Returns if the LightBox is open.
@@ -34320,6 +34431,10 @@ declare module "sap/m/LightBoxItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.LightBoxItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getAlt alt}.
      *
      * Alt value for the image.
@@ -34335,10 +34450,6 @@ declare module "sap/m/LightBoxItem" {
      * Default value is `empty string`.
      */
     getImageSrc(): URI;
-    /**
-     * Returns a metadata object for class sap.m.LightBoxItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSubtitle subtitle}.
      *
@@ -34505,6 +34616,31 @@ declare module "sap/m/Link" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Link with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Link>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Link.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -34578,27 +34714,6 @@ declare module "sap/m/Link" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.Link with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Link>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      *
@@ -34694,10 +34809,6 @@ declare module "sap/m/Link" {
      * this should not be set, but instead an event handler for the `press` event should be registered.
      */
     getHref(): URI;
-    /**
-     * Returns a metadata object for class sap.m.Link.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.84
      *
@@ -35194,7 +35305,7 @@ declare module "sap/m/Link" {
     /**
      * Event is fired when the user triggers the link control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -35273,6 +35384,10 @@ declare module "sap/m/List" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.List.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.14
      *
      * Gets current value of property {@link #getBackgroundDesign backgroundDesign}.
@@ -35283,10 +35398,6 @@ declare module "sap/m/List" {
      * Default value is `Solid`.
      */
     getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
-    /**
-     * Returns a metadata object for class sap.m.List.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.14
      *
@@ -35340,6 +35451,7 @@ declare module "sap/m/ListBase" {
     ListHeaderDesign,
     ListKeyboardMode,
     ListMode,
+    MultiSelectMode,
     ListSeparators,
     Sticky,
   } from "sap/m/library";
@@ -35398,6 +35510,31 @@ declare module "sap/m/ListBase" {
       mSettings?: $ListBaseSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ListBase with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ListBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ListBase.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.28.0
      *
@@ -36105,27 +36242,6 @@ declare module "sap/m/ListBase" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ListBase with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ListBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.54
      *
      * Fires event {@link #event:beforeOpenContextMenu beforeOpenContextMenu} to attached listeners.
@@ -36525,10 +36641,6 @@ declare module "sap/m/ListBase" {
      */
     getLastMode(): void;
     /**
-     * Returns a metadata object for class sap.m.ListBase.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getMode mode}.
      *
      * Defines the mode of the control (e.g. `None`, `SingleSelect`, `MultiSelect`, `Delete`).
@@ -36544,6 +36656,26 @@ declare module "sap/m/ListBase" {
      * Default value is `true`.
      */
     getModeAnimationOn(): boolean;
+    /**
+     * @SINCE 1.93
+     *
+     * Gets current value of property {@link #getMultiSelectMode multiSelectMode}.
+     *
+     * Defines the multi-selection mode for the control. If this property is set to the `Default` value, the
+     * `sap.m.Table` control renders the Select All checkbox in the column header, otherwise the Deselect All
+     * icon is rendered. The Select All checkbox allows the user to select all the items in the control, and
+     * the Deselect All icon deselects the items. If the property is set to `ClearAll`, then selecting items
+     * via the `selectAll` method is not possible. See {@link #selectAll selectAll} for more details.
+     *
+     * **Note:** This property must be used with the `MultiSelect` mode. If this property is set to `ClearAll`,
+     * then a selection of multiple items is still possible via the range selection feature except CTRL +
+     * A. Additionally, the CTRL + SHIFT + A key combination can be used for deselecting all the
+     * items. For details on the range selection, please see {@link topic:8a0d4efa29d44ef39219c18d832012da Keyboard
+     * Handling for Item Selection}.
+     *
+     * Default value is `Default`.
+     */
+    getMultiSelectMode(): MultiSelectMode | keyof typeof MultiSelectMode;
     /**
      * Gets current value of property {@link #getNoDataText noDataText}.
      *
@@ -36761,9 +36893,10 @@ declare module "sap/m/ListBase" {
     /**
      * @SINCE 1.16
      *
-     * Select all items in "MultiSelection" mode.
+     * Selects all items in the `MultiSelection` mode.
      *
-     * **Note:** In case `growing` is enabled, only the visible items in the list will be selected.
+     * **Note:** If `growing` is enabled, only the visible items in the list are selected. Since version 1.93,
+     * the items are not selected if `getMultiSelectMode=ClearAll`.
      */
     selectAll(): this;
     /**
@@ -37036,6 +37169,33 @@ declare module "sap/m/ListBase" {
        * New value for property `modeAnimationOn`
        */
       bModeAnimationOn?: boolean
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Sets a new value for property {@link #getMultiSelectMode multiSelectMode}.
+     *
+     * Defines the multi-selection mode for the control. If this property is set to the `Default` value, the
+     * `sap.m.Table` control renders the Select All checkbox in the column header, otherwise the Deselect All
+     * icon is rendered. The Select All checkbox allows the user to select all the items in the control, and
+     * the Deselect All icon deselects the items. If the property is set to `ClearAll`, then selecting items
+     * via the `selectAll` method is not possible. See {@link #selectAll selectAll} for more details.
+     *
+     * **Note:** This property must be used with the `MultiSelect` mode. If this property is set to `ClearAll`,
+     * then a selection of multiple items is still possible via the range selection feature except CTRL +
+     * A. Additionally, the CTRL + SHIFT + A key combination can be used for deselecting all the
+     * items. For details on the range selection, please see {@link topic:8a0d4efa29d44ef39219c18d832012da Keyboard
+     * Handling for Item Selection}.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Default`.
+     */
+    setMultiSelectMode(
+      /**
+       * New value for property `multiSelectMode`
+       */
+      sMultiSelectMode?: MultiSelectMode | keyof typeof MultiSelectMode
     ): this;
     /**
      * Sets a new value for property {@link #getNoDataText noDataText}.
@@ -37404,6 +37564,25 @@ declare module "sap/m/ListBase" {
     sticky?: Array<Sticky | keyof typeof Sticky> | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.93
+     *
+     * Defines the multi-selection mode for the control. If this property is set to the `Default` value, the
+     * `sap.m.Table` control renders the Select All checkbox in the column header, otherwise the Deselect All
+     * icon is rendered. The Select All checkbox allows the user to select all the items in the control, and
+     * the Deselect All icon deselects the items. If the property is set to `ClearAll`, then selecting items
+     * via the `selectAll` method is not possible. See {@link #selectAll selectAll} for more details.
+     *
+     * **Note:** This property must be used with the `MultiSelect` mode. If this property is set to `ClearAll`,
+     * then a selection of multiple items is still possible via the range selection feature except CTRL +
+     * A. Additionally, the CTRL + SHIFT + A key combination can be used for deselecting all the
+     * items. For details on the range selection, please see {@link topic:8a0d4efa29d44ef39219c18d832012da Keyboard
+     * Handling for Item Selection}.
+     */
+    multiSelectMode?:
+      | (MultiSelectMode | keyof typeof MultiSelectMode)
+      | PropertyBindingInfo;
+
+    /**
      * Defines the items contained within this control.
      */
     items?: ListItemBase[] | ListItemBase | AggregationBindingInfo;
@@ -37451,19 +37630,19 @@ declare module "sap/m/ListBase" {
      * Fires when selection is changed via user interaction. In `MultiSelect` mode, this event is also fired
      * on deselection.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16
      *
      * Fires when selection is changed via user interaction inside the control.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
 
     /**
      * Fires when delete icon is pressed by user.
      */
-    delete?: Function;
+    delete?: (oEvent: Event) => void;
 
     /**
      * Fires after user's swipe action and before the `swipeContent` is shown. On the `swipe` event handler,
@@ -37473,7 +37652,7 @@ declare module "sap/m/ListBase" {
      * **Note:** There is no accessible alternative provided by the control for swiping. Applications that use
      * this functionality must provide an accessible alternative UI to perform the same action.
      */
-    swipe?: Function;
+    swipe?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16
@@ -37481,7 +37660,7 @@ declare module "sap/m/ListBase" {
      *
      * Fires before the new growing chunk is requested from the model.
      */
-    growingStarted?: Function;
+    growingStarted?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16
@@ -37489,7 +37668,7 @@ declare module "sap/m/ListBase" {
      *
      * Fires after the new growing chunk has been fetched from the model and processed by the control.
      */
-    growingFinished?: Function;
+    growingFinished?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16.3
@@ -37498,21 +37677,21 @@ declare module "sap/m/ListBase" {
      *
      * **Note:** Event handler should not invalidate the control.
      */
-    updateStarted?: Function;
+    updateStarted?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16.3
      *
      * Fires after `items` binding is updated and processed by the control.
      */
-    updateFinished?: Function;
+    updateFinished?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.20
      *
      * Fires when an item is pressed unless the item's `type` property is `Inactive`.
      */
-    itemPress?: Function;
+    itemPress?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.54
@@ -37520,7 +37699,7 @@ declare module "sap/m/ListBase" {
      * Fired when the context menu is opened. When the context menu is opened, the binding context of the item
      * is set to the given `contextMenu`.
      */
-    beforeOpenContextMenu?: Function;
+    beforeOpenContextMenu?: (oEvent: Event) => void;
   }
 }
 
@@ -37573,13 +37752,32 @@ declare module "sap/m/ListItemBase" {
        */
       mSettings?: $ListItemBaseSettings
     );
-    /**
-     * @deprecated (since 1.10.2) - API Change makes this method unnecessary. Use getSelected method instead.
-     *
-     * Returns the state of the item selection as a boolean
-     */
-    isSelected: undefined;
 
+    /**
+     * Creates a new subclass of class sap.m.ListItemBase with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ListItemBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ListItemBase.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.28.0
      *
@@ -37834,27 +38032,6 @@ declare module "sap/m/ListItemBase" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ListItemBase with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ListItemBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:detailPress detailPress} to attached listeners.
      */
     fireDetailPress(
@@ -37943,10 +38120,6 @@ declare module "sap/m/ListItemBase" {
      */
     getHighlightText(): string;
     /**
-     * Returns a metadata object for class sap.m.ListItemBase.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * @SINCE 1.72
      *
      * Gets current value of property {@link #getNavigated navigated}.
@@ -38000,6 +38173,13 @@ declare module "sap/m/ListItemBase" {
      * Default value is `true`.
      */
     getVisible(): boolean;
+    /**
+     * @deprecated (since 1.10.2) - API Change makes this method unnecessary. Use the {@link #getSelected} method
+     * instead.
+     *
+     * Returns the state of the item selection as a boolean
+     */
+    isSelected(): boolean;
     /**
      * @SINCE 1.28.0
      *
@@ -38232,14 +38412,14 @@ declare module "sap/m/ListItemBase" {
      *
      * Fires when the user taps on the control.
      */
-    tap?: Function;
+    tap?: (oEvent: Event) => void;
 
     /**
      * @deprecated (since 1.20.0) - Instead, use `detailPress` event.
      *
      * Fires when the user taps on the detail button of the control.
      */
-    detailTap?: Function;
+    detailTap?: (oEvent: Event) => void;
 
     /**
      * Fires when the user clicks on the control. **Note:** This event is not fired when the parent `mode` is
@@ -38247,12 +38427,12 @@ declare module "sap/m/ListItemBase" {
      * element that handles its own `press` event then the list item's `press` event is not fired. Also see
      * {@link sap.m.ListBase#attachItemPress}.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
 
     /**
      * Fires when the user clicks on the detail button of the control.
      */
-    detailPress?: Function;
+    detailPress?: (oEvent: Event) => void;
   }
 }
 
@@ -38312,19 +38492,6 @@ declare module "sap/m/MaskInput" {
     );
 
     /**
-     * Adds some rule to the aggregation {@link #getRules rules}.
-     */
-    addRule(
-      /**
-       * The rule to add; if empty, nothing is inserted
-       */
-      oRule: MaskInputRule
-    ): this;
-    /**
-     * Destroys all the rules in the aggregation {@link #getRules rules}.
-     */
-    destroyRules(): this;
-    /**
      * Creates a new subclass of class sap.m.MaskInput with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -38346,6 +38513,23 @@ declare module "sap/m/MaskInput" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.MaskInput.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some rule to the aggregation {@link #getRules rules}.
+     */
+    addRule(
+      /**
+       * The rule to add; if empty, nothing is inserted
+       */
+      oRule: MaskInputRule
+    ): this;
+    /**
+     * Destroys all the rules in the aggregation {@link #getRules rules}.
+     */
+    destroyRules(): this;
+    /**
      * Gets current value of property {@link #getMask mask}.
      *
      * Mask defined by its characters type (respectively, by its length). You should consider the following
@@ -38358,10 +38542,6 @@ declare module "sap/m/MaskInput" {
      * one.
      */
     getMask(): string;
-    /**
-     * Returns a metadata object for class sap.m.MaskInput.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPlaceholderSymbol placeholderSymbol}.
      *
@@ -38545,6 +38725,10 @@ declare module "sap/m/MaskInputRule" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.MaskInputRule.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getMaskFormatSymbol maskFormatSymbol}.
      *
      * Defines the symbol used in the mask format which will accept a certain range of characters.
@@ -38552,10 +38736,6 @@ declare module "sap/m/MaskInputRule" {
      * Default value is `"*"`.
      */
     getMaskFormatSymbol(): string;
-    /**
-     * Returns a metadata object for class sap.m.MaskInputRule.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRegex regex}.
      *
@@ -38664,6 +38844,31 @@ declare module "sap/m/Menu" {
       mSettings?: $MenuSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Menu with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Menu>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Menu.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -38806,27 +39011,6 @@ declare module "sap/m/Menu" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Menu with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Menu>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:closed closed} to attached listeners.
      */
     fireClosed(
@@ -38855,10 +39039,6 @@ declare module "sap/m/Menu" {
      * Defines the items contained within this control.
      */
     getItems(): MenuItem[];
-    /**
-     * Returns a metadata object for class sap.m.Menu.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -38979,12 +39159,12 @@ declare module "sap/m/Menu" {
     /**
      * Fired when a `MenuItem` is selected.
      */
-    itemSelected?: Function;
+    itemSelected?: (oEvent: Event) => void;
 
     /**
      * Fired when the menu is closed.
      */
-    closed?: Function;
+    closed?: (oEvent: Event) => void;
   }
 }
 
@@ -39047,6 +39227,31 @@ declare module "sap/m/MenuButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.MenuButton with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MenuButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MenuButton.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -39063,6 +39268,53 @@ declare module "sap/m/MenuButton" {
        * The ariaLabelledBy to add; if empty, nothing is inserted
        */
       vAriaLabelledBy: ID | Control
+    ): this;
+    /**
+     * @SINCE 1.94.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:beforeMenuOpen beforeMenuOpen} event of this
+     * `sap.m.MenuButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.MenuButton` itself.
+     *
+     * Fired before menu opening when the `buttonMode` is set to `Split` and the user presses the arrow button.
+     */
+    attachBeforeMenuOpen(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.MenuButton` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.94.0
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:beforeMenuOpen beforeMenuOpen} event of this
+     * `sap.m.MenuButton`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.MenuButton` itself.
+     *
+     * Fired before menu opening when the `buttonMode` is set to `Split` and the user presses the arrow button.
+     */
+    attachBeforeMenuOpen(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.MenuButton` itself
+       */
+      oListener?: object
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:defaultAction defaultAction} event of this `sap.m.MenuButton`.
@@ -39112,6 +39364,24 @@ declare module "sap/m/MenuButton" {
      */
     destroyMenu(): this;
     /**
+     * @SINCE 1.94.0
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:beforeMenuOpen beforeMenuOpen} event of this
+     * `sap.m.MenuButton`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachBeforeMenuOpen(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:defaultAction defaultAction} event of this
      * `sap.m.MenuButton`.
      *
@@ -39128,26 +39398,16 @@ declare module "sap/m/MenuButton" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.MenuButton with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
+     * @SINCE 1.94.0
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     * Fires event {@link #event:beforeMenuOpen beforeMenuOpen} to attached listeners.
      */
-    static extend<T extends Record<string, unknown>>(
+    fireBeforeMenuOpen(
       /**
-       * Name of the class being created
+       * Parameters to pass along with the event
        */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MenuButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
+      mParameters?: object
+    ): this;
     /**
      * Fires event {@link #event:defaultAction defaultAction} to attached listeners.
      */
@@ -39236,10 +39496,6 @@ declare module "sap/m/MenuButton" {
      * Default value is `BeginBottom`.
      */
     getMenuPosition(): Dock;
-    /**
-     * Returns a metadata object for class sap.m.MenuButton.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -39604,7 +39860,14 @@ declare module "sap/m/MenuButton" {
      * Fired when the `buttonMode` is set to `Split` and the user presses the main button unless `useDefaultActionOnly`
      * is set to `false` and another action from the menu has been selected previously.
      */
-    defaultAction?: Function;
+    defaultAction?: (oEvent: Event) => void;
+
+    /**
+     * @SINCE 1.94.0
+     *
+     * Fired before menu opening when the `buttonMode` is set to `Split` and the user presses the arrow button.
+     */
+    beforeMenuOpen?: (oEvent: Event) => void;
   }
 }
 
@@ -39657,6 +39920,31 @@ declare module "sap/m/MenuItem" {
       mSettings?: $MenuItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.MenuItem with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MenuItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MenuItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -39857,27 +40145,6 @@ declare module "sap/m/MenuItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.MenuItem with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MenuItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:aggregationChanged aggregationChanged} to attached listeners.
      */
     fireAggregationChanged(
@@ -39938,10 +40205,6 @@ declare module "sap/m/MenuItem" {
      * Defines the sub-items contained within this element.
      */
     getItems(): MenuItem[];
-    /**
-     * Returns a metadata object for class sap.m.MenuItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getStartsSection startsSection}.
      *
@@ -40077,17 +40340,17 @@ declare module "sap/m/MenuItem" {
     /**
      * Fired after the item has been pressed.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
 
     /**
      * Fired when a property of the item changes.
      */
-    propertyChanged?: Function;
+    propertyChanged?: (oEvent: Event) => void;
 
     /**
      * Fired when aggregation of the item changes.
      */
-    aggregationChanged?: Function;
+    aggregationChanged?: (oEvent: Event) => void;
   }
 }
 
@@ -40193,6 +40456,21 @@ declare module "sap/m/MessageBox" {
          */
         title?: string;
         /**
+         * Either a single action, or an array of actions. If no action(s) are given, the single action MessageBox.Action.OK
+         * is taken as a default for the parameter. Custom action(s) string or an array can be provided, and then
+         * the translation of custom actions needs to be done by the application.
+         */
+        actions?:
+          | (Action | keyof typeof Action)
+          | Array<Action | keyof typeof Action>
+          | string
+          | string[];
+        /**
+         * Added since version 1.75.0. Specifies which action of the created dialog will be emphasized. EmphasizedAction
+         * will apply only if the property `actions` is provided.
+         */
+        emphasizedAction?: (Action | keyof typeof Action) | string;
+        /**
          * ID to be used for the alert dialog. Intended for test scenarios, not recommended for productive apps
          */
         id?: string;
@@ -40291,6 +40569,21 @@ declare module "sap/m/MessageBox" {
          */
         title?: string;
         /**
+         * Either a single action, or an array of actions. If no action(s) are given, the single action MessageBox.Action.OK
+         * is taken as a default for the parameter. Custom action(s) string or an array can be provided, and then
+         * the translation of custom actions needs to be done by the application.
+         */
+        actions?:
+          | (Action | keyof typeof Action)
+          | Array<Action | keyof typeof Action>
+          | string
+          | string[];
+        /**
+         * Added since version 1.75.0. Specifies which action of the created dialog will be emphasized. EmphasizedAction
+         * will apply only if the property `actions` is provided.
+         */
+        emphasizedAction?: (Action | keyof typeof Action) | string;
+        /**
          * ID to be used for the confirmation dialog. Intended for test scenarios, not recommended for productive
          * apps
          */
@@ -40386,6 +40679,21 @@ declare module "sap/m/MessageBox" {
          */
         title?: string;
         /**
+         * Either a single action, or an array of actions. If no action(s) are given, the single action MessageBox.Action.OK
+         * is taken as a default for the parameter. Custom action(s) string or an array can be provided, and then
+         * the translation of custom actions needs to be done by the application.
+         */
+        actions?:
+          | (Action | keyof typeof Action)
+          | Array<Action | keyof typeof Action>
+          | string
+          | string[];
+        /**
+         * Added since version 1.75.0. Specifies which action of the created dialog will be emphasized. EmphasizedAction
+         * will apply only if the property `actions` is provided.
+         */
+        emphasizedAction?: (Action | keyof typeof Action) | string;
+        /**
          * ID for the error dialog. Intended for test scenarios, not recommended for productive apps
          */
         id?: string;
@@ -40477,6 +40785,21 @@ declare module "sap/m/MessageBox" {
          * Title of the information dialog
          */
         title?: string;
+        /**
+         * Either a single action, or an array of actions. If no action(s) are given, the single action MessageBox.Action.OK
+         * is taken as a default for the parameter. Custom action(s) string or an array can be provided, and then
+         * the translation of custom actions needs to be done by the application.
+         */
+        actions?:
+          | (Action | keyof typeof Action)
+          | Array<Action | keyof typeof Action>
+          | string
+          | string[];
+        /**
+         * Added since version 1.75.0. Specifies which action of the created dialog will be emphasized. EmphasizedAction
+         * will apply only if the property `actions` is provided.
+         */
+        emphasizedAction?: (Action | keyof typeof Action) | string;
         /**
          * ID for the information dialog. Intended for test scenarios, not recommended for productive apps
          */
@@ -40693,6 +41016,21 @@ declare module "sap/m/MessageBox" {
          */
         title?: string;
         /**
+         * Either a single action, or an array of actions. If no action(s) are given, the single action MessageBox.Action.OK
+         * is taken as a default for the parameter. Custom action(s) string or an array can be provided, and then
+         * the translation of custom actions needs to be done by the application.
+         */
+        actions?:
+          | (Action | keyof typeof Action)
+          | Array<Action | keyof typeof Action>
+          | string
+          | string[];
+        /**
+         * Added since version 1.75.0. Specifies which action of the created dialog will be emphasized. EmphasizedAction
+         * will apply only if the property `actions` is provided.
+         */
+        emphasizedAction?: (Action | keyof typeof Action) | string;
+        /**
          * ID for the success dialog. Intended for test scenarios, not recommended for productive apps
          */
         id?: string;
@@ -40784,6 +41122,21 @@ declare module "sap/m/MessageBox" {
          * Title of the warning dialog
          */
         title?: string;
+        /**
+         * Either a single action, or an array of actions. If no action(s) are given, the single action MessageBox.Action.OK
+         * is taken as a default for the parameter. Custom action(s) string or an array can be provided, and then
+         * the translation of custom actions needs to be done by the application.
+         */
+        actions?:
+          | (Action | keyof typeof Action)
+          | Array<Action | keyof typeof Action>
+          | string
+          | string[];
+        /**
+         * Added since version 1.75.0. Specifies which action of the created dialog will be emphasized. EmphasizedAction
+         * will apply only if the property `actions` is provided.
+         */
+        emphasizedAction?: (Action | keyof typeof Action) | string;
         /**
          * ID to for the warning dialog. Intended for test scenarios, not recommended for productive apps
          */
@@ -40964,10 +41317,6 @@ declare module "sap/m/MessageItem" {
     );
 
     /**
-     * Destroys the link in the aggregation {@link #getLink link}.
-     */
-    destroyLink(): this;
-    /**
      * Creates a new subclass of class sap.m.MessageItem with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -40988,6 +41337,14 @@ declare module "sap/m/MessageItem" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MessageItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the link in the aggregation {@link #getLink link}.
+     */
+    destroyLink(): this;
     /**
      * @SINCE 1.58
      *
@@ -41040,10 +41397,6 @@ declare module "sap/m/MessageItem" {
      * Default value is `false`.
      */
     getMarkupDescription(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.MessageItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSubtitle subtitle}.
      *
@@ -41329,6 +41682,31 @@ declare module "sap/m/MessagePage" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.MessagePage with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MessagePage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MessagePage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -41437,27 +41815,6 @@ declare module "sap/m/MessagePage" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.MessagePage with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MessagePage>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.28.1
      *
      * Fires event {@link #event:navButtonPress navButtonPress} to attached listeners.
@@ -41541,10 +41898,6 @@ declare module "sap/m/MessagePage" {
      * Defines the alt attribute of the icon displayed on the `MessagePage`.
      */
     getIconAlt(): string;
-    /**
-     * Returns a metadata object for class sap.m.MessagePage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowHeader showHeader}.
      *
@@ -41913,7 +42266,7 @@ declare module "sap/m/MessagePage" {
      *
      * This event is fired when Nav Button is pressed.
      */
-    navButtonPress?: Function;
+    navButtonPress?: (oEvent: Event) => void;
   }
 }
 
@@ -42016,6 +42369,49 @@ declare module "sap/m/MessagePopover" {
       mSettings?: $MessagePopoverSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.MessagePopover with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MessagePopover>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MessagePopover.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Setter for default description and URL validation callbacks across all instances of MessagePopover
+     */
+    static setDefaultHandlers(
+      /**
+       * An object setting default callbacks
+       */
+      mDefaultHandlers: {
+        /**
+         * The description handler
+         */
+        asyncDescriptionHandler: Function;
+        /**
+         * The URL handler
+         */
+        asyncURLHandler: Function;
+      }
+    ): void;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -42554,27 +42950,6 @@ declare module "sap/m/MessagePopover" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.MessagePopover with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MessagePopover>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.58
      *
      * Fires event {@link #event:activeTitlePress activeTitlePress} to attached listeners.
@@ -42741,10 +43116,6 @@ declare module "sap/m/MessagePopover" {
      */
     getItems(): Array<MessageItem | MessagePopoverItem>;
     /**
-     * Returns a metadata object for class sap.m.MessagePopover.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getPlacement placement}.
      *
      * Determines the position, where the control will appear on the screen. The default value is `sap.m.VerticalPlacementType.Vertical`.
@@ -42840,24 +43211,6 @@ declare module "sap/m/MessagePopover" {
        */
       oAsyncURLHandler?: any
     ): this;
-    /**
-     * Setter for default description and URL validation callbacks across all instances of MessagePopover
-     */
-    static setDefaultHandlers(
-      /**
-       * An object setting default callbacks
-       */
-      mDefaultHandlers: {
-        /**
-         * The description handler
-         */
-        asyncDescriptionHandler: Function;
-        /**
-         * The URL handler
-         */
-        asyncURLHandler: Function;
-      }
-    ): void;
     /**
      * Sets a new value for property {@link #getGroupItems groupItems}.
      *
@@ -42979,49 +43332,49 @@ declare module "sap/m/MessagePopover" {
     /**
      * Event fired after the popover is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * Event fired after the popover is closed.
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
 
     /**
      * Event fired before the popover is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
 
     /**
      * Event fired before the popover is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
 
     /**
      * Event fired when description is shown.
      */
-    itemSelect?: Function;
+    itemSelect?: (oEvent: Event) => void;
 
     /**
      * Event fired when one of the lists is shown when (not) filtered by type.
      */
-    listSelect?: Function;
+    listSelect?: (oEvent: Event) => void;
 
     /**
      * Event fired when the long text description data from a remote URL is loaded.
      */
-    longtextLoaded?: Function;
+    longtextLoaded?: (oEvent: Event) => void;
 
     /**
      * Event fired when a validation of a URL from long text description is ready.
      */
-    urlValidated?: Function;
+    urlValidated?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.58
      *
      * Event fired when an active title of a `MessageItem` is clicked.
      */
-    activeTitlePress?: Function;
+    activeTitlePress?: (oEvent: Event) => void;
   }
 }
 
@@ -43171,6 +43524,31 @@ declare module "sap/m/MessageStrip" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.MessageStrip with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MessageStrip>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MessageStrip.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:close close} event of this `sap.m.MessageStrip`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -43236,27 +43614,6 @@ declare module "sap/m/MessageStrip" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.MessageStrip with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MessageStrip>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:close close} to attached listeners.
      */
     fireClose(
@@ -43299,10 +43656,6 @@ declare module "sap/m/MessageStrip" {
      * Adds an sap.m.Link control which will be displayed at the end of the message.
      */
     getLink(): Link;
-    /**
-     * Returns a metadata object for class sap.m.MessageStrip.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowCloseButton showCloseButton}.
      *
@@ -43499,7 +43852,7 @@ declare module "sap/m/MessageStrip" {
     /**
      * This event will be fired after the container is closed.
      */
-    close?: Function;
+    close?: (oEvent: Event) => void;
   }
 }
 
@@ -43590,7 +43943,7 @@ declare module "sap/m/MessageToast" {
          * Specifies the reference element to which the message toast should be aligned, by default it is aligned
          * to the browser visual viewport.
          */
-        of?: Control | Element | jQuery | Window | undefined;
+        of?: Control | Element | jQuery | Window;
         /**
          * The offset relative to the docking point, specified as a string with space-separated pixel values (e.g.
          * "10 5" to move the message toast 10 pixels to the right and 5 pixels to the bottom).
@@ -43718,6 +44071,49 @@ declare module "sap/m/MessageView" {
       mSettings?: $MessageViewSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.MessageView with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MessageView>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MessageView.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Setter for default description and URL validation callbacks across all instances of MessageView
+     */
+    static setDefaultHandlers(
+      /**
+       * An object setting default callbacks
+       */
+      mDefaultHandlers: {
+        /**
+         * The description handler
+         */
+        asyncDescriptionHandler: Function;
+        /**
+         * The URL handler
+         */
+        asyncURLHandler: Function;
+      }
+    ): void;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -44090,27 +44486,6 @@ declare module "sap/m/MessageView" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.MessageView with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MessageView>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.58
      *
      * Fires event {@link #event:activeTitlePress activeTitlePress} to attached listeners.
@@ -44228,10 +44603,6 @@ declare module "sap/m/MessageView" {
      */
     getItems(): MessageItem[];
     /**
-     * Returns a metadata object for class sap.m.MessageView.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getShowDetailsPageHeader showDetailsPageHeader}.
      *
      * Defines whether the header of details page will be shown.
@@ -44312,24 +44683,6 @@ declare module "sap/m/MessageView" {
       oAsyncURLHandler?: any
     ): this;
     /**
-     * Setter for default description and URL validation callbacks across all instances of MessageView
-     */
-    static setDefaultHandlers(
-      /**
-       * An object setting default callbacks
-       */
-      mDefaultHandlers: {
-        /**
-         * The description handler
-         */
-        asyncDescriptionHandler: Function;
-        /**
-         * The URL handler
-         */
-        asyncURLHandler: Function;
-      }
-    ): void;
-    /**
      * Sets a new value for property {@link #getGroupItems groupItems}.
      *
      * Defines whether the MessageItems are grouped or not.
@@ -44409,34 +44762,34 @@ declare module "sap/m/MessageView" {
      *
      * Event fired after the popover is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * Event fired when description is shown.
      */
-    itemSelect?: Function;
+    itemSelect?: (oEvent: Event) => void;
 
     /**
      * Event fired when one of the lists is shown when (not) filtered by type.
      */
-    listSelect?: Function;
+    listSelect?: (oEvent: Event) => void;
 
     /**
      * Event fired when the long text description data from a remote URL is loaded.
      */
-    longtextLoaded?: Function;
+    longtextLoaded?: (oEvent: Event) => void;
 
     /**
      * Event fired when a validation of a URL from long text description is ready.
      */
-    urlValidated?: Function;
+    urlValidated?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.58
      *
      * Event fired when an activeTitle of a MessageItem is pressed.
      */
-    activeTitlePress?: Function;
+    activeTitlePress?: (oEvent: Event) => void;
   }
 }
 
@@ -44541,6 +44894,31 @@ declare module "sap/m/MultiComboBox" {
       mSettings?: $MultiComboBoxSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.MultiComboBox with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ComboBoxBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MultiComboBox>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MultiComboBox.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item `oItem` to the association named `selectedItems`.
      */
@@ -44702,27 +45080,6 @@ declare module "sap/m/MultiComboBox" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.MultiComboBox with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ComboBoxBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MultiComboBox>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      */
     fireSelectionChange(
@@ -44735,9 +45092,17 @@ declare module "sap/m/MultiComboBox" {
          */
         changedItem?: Item;
         /**
+         * Array of items whose selection has changed.
+         */
+        changedItems?: Item[];
+        /**
          * Selection state: true if item is selected, false if item is not selected
          */
         selected?: boolean;
+        /**
+         * Indicates whether the select all action is triggered or not.
+         */
+        selectAll?: boolean;
       }
     ): this;
     /**
@@ -44760,10 +45125,6 @@ declare module "sap/m/MultiComboBox" {
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
     getAccessibilityInfo(): object;
-    /**
-     * Returns a metadata object for class sap.m.MultiComboBox.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Retrieves the selected item objects from the association named `selectedItems`.
      */
@@ -44878,12 +45239,12 @@ declare module "sap/m/MultiComboBox" {
      * Event is fired when selection of an item is changed. Note: please do not use the "change" event inherited
      * from sap.m.InputBase
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
 
     /**
      * Event is fired when user has finished a selection of items in a list box and list box has been closed.
      */
-    selectionFinish?: Function;
+    selectionFinish?: (oEvent: Event) => void;
   }
 }
 
@@ -44978,6 +45339,31 @@ declare module "sap/m/MultiInput" {
       mSettings?: $MultiInputSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.MultiInput with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Input.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MultiInput>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.MultiInput.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some token to the aggregation {@link #getTokens tokens}.
      */
@@ -45166,27 +45552,6 @@ declare module "sap/m/MultiInput" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.MultiInput with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Input.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MultiInput>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @deprecated (since 1.46) - Please use the new event tokenUpdate.
      *
      * Fires event {@link #event:tokenChange tokenChange} to attached listeners.
@@ -45285,10 +45650,6 @@ declare module "sap/m/MultiInput" {
      */
     getMaxTokens(): int;
     /**
-     * Returns a metadata object for class sap.m.MultiInput.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Function returns domref which acts as reference point for the opening suggestion menu
      */
     getPopupAnchorDomRef(): Element;
@@ -45335,7 +45696,7 @@ declare module "sap/m/MultiInput" {
        * The target of the event.
        */
       oTarget: HTMLElement
-    ): Boolean;
+    ): boolean;
     /**
      * Overwrites the change event handler of the {@link sap.m.InputBase}. In case of added token it will not
      * reset the value.
@@ -45510,14 +45871,14 @@ declare module "sap/m/MultiInput" {
      *
      * Fired when the tokens aggregation changed (add / remove token)
      */
-    tokenChange?: Function;
+    tokenChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.46
      *
      * Fired when the tokens aggregation changed due to a user interaction (add / remove token)
      */
-    tokenUpdate?: Function;
+    tokenUpdate?: (oEvent: Event) => void;
   }
 }
 
@@ -45580,6 +45941,31 @@ declare module "sap/m/NavContainer" {
       mSettings?: $NavContainerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.NavContainer with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NavContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.NavContainer.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds a custom transition to the NavContainer type (not to a particular instance!). The transition is
      * identified by a "name". Make sure to only use names that will not collide with transitions which may
@@ -45911,27 +46297,6 @@ declare module "sap/m/NavContainer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.NavContainer with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NavContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.7.1
      *
      * Fires event {@link #event:afterNavigate afterNavigate} to attached listeners.
@@ -46096,10 +46461,6 @@ declare module "sap/m/NavContainer" {
      * or `null`.
      */
     getInitialPage(): ID;
-    /**
-     * Returns a metadata object for class sap.m.NavContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the control with the given ID from the "pages" aggregation (if available).
      */
@@ -46363,7 +46724,7 @@ declare module "sap/m/NavContainer" {
          */
         placeholder: /* was: sap.ui.core.Placeholder */ any;
       }
-    ): void;
+    ): Promise<any>;
     /**
      * Navigates to the next page (with drill-down semantic) with the given (or default) animation. This creates
      * a new history item inside the NavContainer and allows going back.
@@ -46560,7 +46921,7 @@ declare module "sap/m/NavContainer" {
      * controls are fired). The transition (if any) to the new page has not started yet. This event can be aborted
      * by the application with preventDefault(), which means that there will be no navigation.
      */
-    navigate?: Function;
+    navigate?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.7.1
@@ -46569,7 +46930,7 @@ declare module "sap/m/NavContainer" {
      * have been fired). In case of animated transitions this event is fired with some delay after the "navigate"
      * event.
      */
-    afterNavigate?: Function;
+    afterNavigate?: (oEvent: Event) => void;
   }
 }
 
@@ -46621,6 +46982,31 @@ declare module "sap/m/NewsContent" {
       mSettings?: $NewsContentSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.NewsContent with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NewsContent>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.NewsContent.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.NewsContent`.
      *
@@ -46678,27 +47064,6 @@ declare module "sap/m/NewsContent" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.NewsContent with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NewsContent>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -46713,10 +47078,6 @@ declare module "sap/m/NewsContent" {
      * The content text.
      */
     getContentText(): string;
-    /**
-     * Returns a metadata object for class sap.m.NewsContent.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.38.0) - The NewsContent control has now a fixed size, depending on the used media
      * (desktop, tablet or phone).
@@ -46802,7 +47163,7 @@ declare module "sap/m/NewsContent" {
     /**
      * The event is triggered when the News Content is pressed.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -46959,6 +47320,31 @@ declare module "sap/m/NotificationListBase" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.NotificationListBase with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NotificationListBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.NotificationListBase.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
      */
     addButton(
@@ -47034,27 +47420,6 @@ declare module "sap/m/NotificationListBase" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.NotificationListBase with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NotificationListBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:close close} to attached listeners.
      */
     fireClose(
@@ -47091,10 +47456,6 @@ declare module "sap/m/NotificationListBase" {
      * Default value is `empty string`.
      */
     getDatetime(): string;
-    /**
-     * Returns a metadata object for class sap.m.NotificationListBase.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPriority priority}.
      *
@@ -47323,7 +47684,7 @@ declare module "sap/m/NotificationListBase" {
      * Fired when the close button of the notification is pressed.
      * **Note:** Pressing the close button doesn't destroy the notification automatically.
      */
-    close?: Function;
+    close?: (oEvent: Event) => void;
   }
 }
 
@@ -47389,6 +47750,31 @@ declare module "sap/m/NotificationListGroup" {
       mSettings?: $NotificationListGroupSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.NotificationListGroup with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.NotificationListBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NotificationListGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.NotificationListGroup.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -47465,27 +47851,6 @@ declare module "sap/m/NotificationListGroup" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.NotificationListGroup with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.NotificationListBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NotificationListGroup>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.44
      *
      * Fires event {@link #event:onCollapse onCollapse} to attached listeners.
@@ -47560,10 +47925,6 @@ declare module "sap/m/NotificationListGroup" {
      * The NotificationListItems inside the group.
      */
     getItems(): NotificationListItem[];
-    /**
-     * Returns a metadata object for class sap.m.NotificationListGroup.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowEmptyGroup showEmptyGroup}.
      *
@@ -47818,7 +48179,7 @@ declare module "sap/m/NotificationListGroup" {
      *
      * `onCollapse` event is called when collapse property value is changed
      */
-    onCollapse?: Function;
+    onCollapse?: (oEvent: Event) => void;
   }
 }
 
@@ -47880,10 +48241,6 @@ declare module "sap/m/NotificationListItem" {
     );
 
     /**
-     * Destroys the processingMessage in the aggregation {@link #getProcessingMessage processingMessage}.
-     */
-    destroyProcessingMessage(): this;
-    /**
      * Creates a new subclass of class sap.m.NotificationListItem with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -47904,6 +48261,14 @@ declare module "sap/m/NotificationListItem" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.NotificationListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the processingMessage in the aggregation {@link #getProcessingMessage processingMessage}.
+     */
+    destroyProcessingMessage(): this;
     /**
      * Gets current value of property {@link #getAuthorAvatarColor authorAvatarColor}.
      *
@@ -47937,10 +48302,6 @@ declare module "sap/m/NotificationListItem" {
      * Default value is `false`.
      */
     getHideShowMoreButton(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.NotificationListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getProcessingMessage processingMessage}.
      *
@@ -48142,6 +48503,31 @@ declare module "sap/m/NumericContent" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.NumericContent with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NumericContent>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.NumericContent.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.NumericContent`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -48197,27 +48583,6 @@ declare module "sap/m/NumericContent" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.NumericContent with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, NumericContent>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:press press} to attached listeners.
      */
@@ -48277,10 +48642,6 @@ declare module "sap/m/NumericContent" {
      * Default value is `"None"`.
      */
     getIndicator(): DeviationIndicator | keyof typeof DeviationIndicator;
-    /**
-     * Returns a metadata object for class sap.m.NumericContent.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNullifyValue nullifyValue}.
      *
@@ -48677,7 +49038,7 @@ declare module "sap/m/NumericContent" {
     /**
      * The event is fired when the user chooses the numeric content.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -48734,6 +49095,31 @@ declare module "sap/m/ObjectAttribute" {
       mSettings?: $ObjectAttributeSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ObjectAttribute with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ObjectAttribute>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ObjectAttribute.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.ObjectAttribute`.
      *
@@ -48795,27 +49181,6 @@ declare module "sap/m/ObjectAttribute" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ObjectAttribute with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ObjectAttribute>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -48849,10 +49214,6 @@ declare module "sap/m/ObjectAttribute" {
      * **Note:** It will only allow sap.m.Text and sap.m.Link controls.
      */
     getCustomContent(): Control;
-    /**
-     * Returns a metadata object for class sap.m.ObjectAttribute.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Defines to which DOM reference the Popup should be docked.
      */
@@ -48990,7 +49351,7 @@ declare module "sap/m/ObjectAttribute" {
     /**
      * Fires when the user clicks on active text.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -49073,6 +49434,31 @@ declare module "sap/m/ObjectHeader" {
       mSettings?: $ObjectHeaderSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ObjectHeader with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ObjectHeader>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ObjectHeader.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.38.0
      *
@@ -49403,27 +49789,6 @@ declare module "sap/m/ObjectHeader" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ObjectHeader with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ObjectHeader>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:iconPress iconPress} to attached listeners.
      */
     fireIconPress(
@@ -49711,10 +50076,6 @@ declare module "sap/m/ObjectHeader" {
      * Default value is `false`.
      */
     getMarkFlagged(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.ObjectHeader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -50900,24 +51261,24 @@ declare module "sap/m/ObjectHeader" {
     /**
      * Event is fired when the title is active and the user taps/clicks on it
      */
-    titlePress?: Function;
+    titlePress?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the intro is active and the user taps/clicks on it
      */
-    introPress?: Function;
+    introPress?: (oEvent: Event) => void;
 
     /**
      * Event is fired when the title icon is active and the user taps/clicks on it
      */
-    iconPress?: Function;
+    iconPress?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.16.0
      *
      * Event is fired when the object header title selector (down-arrow) is pressed
      */
-    titleSelectorPress?: Function;
+    titleSelectorPress?: (oEvent: Event) => void;
   }
 }
 
@@ -50981,6 +51342,31 @@ declare module "sap/m/ObjectIdentifier" {
       mSettings?: $ObjectIdentifierSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ObjectIdentifier with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ObjectIdentifier>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ObjectIdentifier.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -51053,27 +51439,6 @@ declare module "sap/m/ObjectIdentifier" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ObjectIdentifier with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ObjectIdentifier>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.26
      *
      * Fires event {@link #event:titlePress titlePress} to attached listeners.
@@ -51135,10 +51500,6 @@ declare module "sap/m/ObjectIdentifier" {
     getEmptyIndicatorMode():
       | EmptyIndicatorMode
       | keyof typeof EmptyIndicatorMode;
-    /**
-     * Returns a metadata object for class sap.m.ObjectIdentifier.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -51390,7 +51751,7 @@ declare module "sap/m/ObjectIdentifier" {
      *
      * Fires when the title is active and the user taps/clicks on it.
      */
-    titlePress?: Function;
+    titlePress?: (oEvent: Event) => void;
   }
 }
 
@@ -51462,6 +51823,31 @@ declare module "sap/m/ObjectListItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.ObjectListItem with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ObjectListItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ObjectListItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some attribute to the aggregation {@link #getAttributes attributes}.
      */
     addAttribute(
@@ -51495,27 +51881,6 @@ declare module "sap/m/ObjectListItem" {
      * Destroys the secondStatus in the aggregation {@link #getSecondStatus secondStatus}.
      */
     destroySecondStatus(): this;
-    /**
-     * Creates a new subclass of class sap.m.ObjectListItem with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ObjectListItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Gets current value of property {@link #getActiveIcon activeIcon}.
      *
@@ -51615,10 +51980,6 @@ declare module "sap/m/ObjectListItem" {
      * Default value is `false`.
      */
     getMarkLocked(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.ObjectListItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -52184,6 +52545,31 @@ declare module "sap/m/ObjectMarker" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.ObjectMarker with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ObjectMarker>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ObjectMarker.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -52258,27 +52644,6 @@ declare module "sap/m/ObjectMarker" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ObjectMarker with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ObjectMarker>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -52307,10 +52672,6 @@ declare module "sap/m/ObjectMarker" {
      * ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
-    /**
-     * Returns a metadata object for class sap.m.ObjectMarker.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getType type}.
      *
@@ -52463,7 +52824,7 @@ declare module "sap/m/ObjectMarker" {
     /**
      * Event is fired when the `ObjectMarker` is interactive and the user taps/clicks on it.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -52537,6 +52898,31 @@ declare module "sap/m/ObjectNumber" {
       mSettings?: $ObjectNumberSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ObjectNumber with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ObjectNumber>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ObjectNumber.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -52618,27 +53004,6 @@ declare module "sap/m/ObjectNumber" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ObjectNumber with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ObjectNumber>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.86
      *
      * Fires event {@link #event:press press} to attached listeners.
@@ -52706,10 +53071,6 @@ declare module "sap/m/ObjectNumber" {
      * Default value is `false`.
      */
     getInverted(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.ObjectNumber.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -53028,7 +53389,7 @@ declare module "sap/m/ObjectNumber" {
      *
      * Fires when the user clicks/taps on active `Object Number`.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -53090,6 +53451,31 @@ declare module "sap/m/ObjectStatus" {
       mSettings?: $ObjectStatusSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ObjectStatus with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ObjectStatus>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ObjectStatus.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -53162,27 +53548,6 @@ declare module "sap/m/ObjectStatus" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ObjectStatus with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ObjectStatus>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.54
      *
      * Fires event {@link #event:press press} to attached listeners.
@@ -53254,10 +53619,6 @@ declare module "sap/m/ObjectStatus" {
      * Default value is `false`.
      */
     getInverted(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.ObjectStatus.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getState state}.
      *
@@ -53514,7 +53875,7 @@ declare module "sap/m/ObjectStatus" {
      *
      * Fires when the user clicks/taps on active text.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -53631,25 +53992,6 @@ declare module "sap/m/OverflowToolbar" {
     );
 
     /**
-     * Moves each control in the suitable collection - Popover only, movable controls and toolbar only
-     */
-    _moveControlInSuitableCollection(
-      oControl: undefined,
-
-      sPriority: undefined
-    ): void;
-    /**
-     * Removes Control from collections
-     */
-    _removeContentFromControlsCollections(oControl: undefined): void;
-    /**
-     * @SINCE 1.40
-     *
-     * Closes the overflow area. Useful to manually close the overflow after having suppressed automatic closing
-     * with "closeOverflowOnInteraction=false".
-     */
-    closeOverflow(): void;
-    /**
      * Creates a new subclass of class sap.m.OverflowToolbar with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -53671,6 +54013,29 @@ declare module "sap/m/OverflowToolbar" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.OverflowToolbar.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Moves each control in the suitable collection - Popover only, movable controls and toolbar only
+     */
+    _moveControlInSuitableCollection(
+      oControl: undefined,
+
+      sPriority: undefined
+    ): void;
+    /**
+     * Removes Control from collections
+     */
+    _removeContentFromControlsCollections(oControl: undefined): void;
+    /**
+     * @SINCE 1.40
+     *
+     * Closes the overflow area. Useful to manually close the overflow after having suppressed automatic closing
+     * with "closeOverflowOnInteraction=false".
+     */
+    closeOverflow(): void;
+    /**
      * @SINCE 1.67
      *
      * Gets current value of property {@link #getAsyncMode asyncMode}.
@@ -53684,10 +54049,6 @@ declare module "sap/m/OverflowToolbar" {
      * Default value is `false`.
      */
     getAsyncMode(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.OverflowToolbar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.67
      *
@@ -53857,6 +54218,10 @@ declare module "sap/m/OverflowToolbarLayoutData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.OverflowToolbarLayoutData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.40
      *
      * Gets current value of property {@link #getCloseOverflowOnInteraction closeOverflowOnInteraction}.
@@ -53879,10 +54244,6 @@ declare module "sap/m/OverflowToolbarLayoutData" {
      * Default value is `0`.
      */
     getGroup(): int;
-    /**
-     * Returns a metadata object for class sap.m.OverflowToolbarLayoutData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.32)
      *
@@ -54173,6 +54534,10 @@ declare module "sap/m/P13nColumnsItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.P13nColumnsItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.26.0
      *
      * Gets current value of property {@link #getColumnKey columnKey}.
@@ -54188,10 +54553,6 @@ declare module "sap/m/P13nColumnsItem" {
      * This property contains the index of a table column
      */
     getIndex(): int;
-    /**
-     * Returns a metadata object for class sap.m.P13nColumnsItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.26.0
      *
@@ -54382,6 +54743,31 @@ declare module "sap/m/P13nColumnsPanel" {
       mSettings?: $P13nColumnsPanelSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.P13nColumnsPanel with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, P13nColumnsPanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.P13nColumnsPanel.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.26.0
      *
@@ -54614,27 +55000,6 @@ declare module "sap/m/P13nColumnsPanel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.P13nColumnsPanel with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, P13nColumnsPanel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.26.0
      * @deprecated (since 1.50) - replaced by extended event {@link sap.m.P13nColumnsPanel#event:changeColumnsItems}
      *
@@ -54698,10 +55063,6 @@ declare module "sap/m/P13nColumnsPanel" {
      * List of columns that has been changed.
      */
     getColumnsItems(): P13nColumnsItem[];
-    /**
-     * Returns a metadata object for class sap.m.P13nColumnsPanel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.26.7
      *
@@ -54865,14 +55226,14 @@ declare module "sap/m/P13nColumnsPanel" {
      *
      * Event raised when a `columnsItem` is added.
      */
-    addColumnsItem?: Function;
+    addColumnsItem?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.26.7
      *
      * Event raised if `columnsItems` is changed or new one needs to be created in the model.
      */
-    changeColumnsItems?: Function;
+    changeColumnsItems?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.26.7
@@ -54881,7 +55242,7 @@ declare module "sap/m/P13nColumnsPanel" {
      * Event raised if `setData` is called in model. The event serves the purpose of minimizing such calls since
      * they can take up a lot of performance.
      */
-    setData?: Function;
+    setData?: (oEvent: Event) => void;
   }
 }
 
@@ -54935,6 +55296,52 @@ declare module "sap/m/P13nConditionPanel" {
       mSettings?: $P13nConditionPanelSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.P13nConditionPanel with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, P13nConditionPanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * creates and returns a formatted text for the specified condition
+     */
+    static getFormatedConditionText(
+      /**
+       * the operation type sap.m.P13nConditionOperation
+       */
+      sOperation: string,
+      /**
+       * value of the first range field
+       */
+      sValue1: string,
+      /**
+       * value of the second range field
+       */
+      sValue2: string,
+      /**
+       * indicates if the range is an Exclude range
+       */
+      bExclude: boolean
+    ): string;
+    /**
+     * Returns a metadata object for class sap.m.P13nConditionPanel.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * add a single condition.
      */
@@ -55021,27 +55428,6 @@ declare module "sap/m/P13nConditionPanel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.P13nConditionPanel with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, P13nConditionPanel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:dataChange dataChange} to attached listeners.
      */
     fireDataChange(
@@ -55114,27 +55500,6 @@ declare module "sap/m/P13nConditionPanel" {
      */
     getExclude(): boolean;
     /**
-     * creates and returns a formatted text for the specified condition
-     */
-    static getFormatedConditionText(
-      /**
-       * the operation type sap.m.P13nConditionOperation
-       */
-      sOperation: string,
-      /**
-       * value of the first range field
-       */
-      sValue1: string,
-      /**
-       * value of the second range field
-       */
-      sValue2: string,
-      /**
-       * indicates if the range is an Exclude range
-       */
-      bExclude: boolean
-    ): string;
-    /**
      * getter for KeyFields array
      */
     getKeyFields(): object[];
@@ -55153,10 +55518,6 @@ declare module "sap/m/P13nConditionPanel" {
      * Default value is `'-1'`.
      */
     getMaxConditions(): string;
-    /**
-     * Returns a metadata object for class sap.m.P13nConditionPanel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * returns the default array of operations
      */
@@ -55484,7 +55845,7 @@ declare module "sap/m/P13nConditionPanel" {
     /**
      * Workaround for updating the binding
      */
-    dataChange?: Function;
+    dataChange?: (oEvent: Event) => void;
   }
 }
 
@@ -55545,6 +55906,31 @@ declare module "sap/m/P13nDialog" {
       mSettings?: $P13nDialogSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.P13nDialog with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Dialog.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, P13nDialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.P13nDialog.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some panel to the aggregation {@link #getPanels panels}.
      */
@@ -55739,27 +56125,6 @@ declare module "sap/m/P13nDialog" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.P13nDialog with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Dialog.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, P13nDialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -55795,10 +56160,6 @@ declare module "sap/m/P13nDialog" {
      * panel without expanding the type.
      */
     getInitialVisiblePanelType(): string;
-    /**
-     * Returns a metadata object for class sap.m.P13nDialog.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getPanels panels}.
      *
@@ -55986,17 +56347,17 @@ declare module "sap/m/P13nDialog" {
     /**
      * Event fired if the 'ok' button in `P13nDialog` is clicked.
      */
-    ok?: Function;
+    ok?: (oEvent: Event) => void;
 
     /**
      * Event fired if the 'cancel' button in `P13nDialog` is clicked.
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
 
     /**
      * Event fired if the 'reset' button in `P13nDialog` is clicked.
      */
-    reset?: Function;
+    reset?: (oEvent: Event) => void;
   }
 }
 
@@ -56066,6 +56427,10 @@ declare module "sap/m/P13nDimMeasureItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.P13nDimMeasureItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumnKey columnKey}.
      *
      * Specifies the unique chart column key. In this context a column refers to dimensions or measures of a
@@ -56080,10 +56445,6 @@ declare module "sap/m/P13nDimMeasureItem" {
      * Default value is `-1`.
      */
     getIndex(): int;
-    /**
-     * Returns a metadata object for class sap.m.P13nDimMeasureItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRole role}.
      *
@@ -56234,6 +56595,31 @@ declare module "sap/m/P13nDimMeasurePanel" {
       mSettings?: $P13nDimMeasurePanelSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.P13nDimMeasurePanel with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, P13nDimMeasurePanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.P13nDimMeasurePanel.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some availableChartType to the aggregation {@link #getAvailableChartTypes availableChartTypes}.
      */
@@ -56405,27 +56791,6 @@ declare module "sap/m/P13nDimMeasurePanel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.P13nDimMeasurePanel with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, P13nDimMeasurePanel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.50.0
      *
      * Fires event {@link #event:changeChartType changeChartType} to attached listeners.
@@ -56467,10 +56832,6 @@ declare module "sap/m/P13nDimMeasurePanel" {
      * List of columns that has been changed.
      */
     getDimMeasureItems(): P13nDimMeasureItem[];
-    /**
-     * Returns a metadata object for class sap.m.P13nDimMeasurePanel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Item` in the aggregation {@link #getAvailableChartTypes availableChartTypes}.
      * and returns its index if found or -1 otherwise.
@@ -56597,14 +56958,14 @@ declare module "sap/m/P13nDimMeasurePanel" {
      * Event raised when one or more `DimMeasureItems` has been updated. Aggregation `DimMeasureItems` should
      * be updated outside...
      */
-    changeDimMeasureItems?: Function;
+    changeDimMeasureItems?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.50.0
      *
      * Event raised when a `ChartType` has been updated.
      */
-    changeChartType?: Function;
+    changeChartType?: (oEvent: Event) => void;
   }
 }
 
@@ -56674,6 +57035,10 @@ declare module "sap/m/P13nFilterItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.P13nFilterItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumnKey columnKey}.
      *
      * key of the column
@@ -56687,10 +57052,6 @@ declare module "sap/m/P13nFilterItem" {
      * Default value is `false`.
      */
     getExclude(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.P13nFilterItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOperation operation}.
      *
@@ -56861,6 +57222,31 @@ declare module "sap/m/P13nFilterPanel" {
       mSettings?: $P13nFilterPanelSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.P13nFilterPanel with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, P13nFilterPanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.P13nFilterPanel.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some filterItem to the aggregation {@link #getFilterItems filterItems}.
      */
@@ -57131,27 +57517,6 @@ declare module "sap/m/P13nFilterPanel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.P13nFilterPanel with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, P13nFilterPanel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:addFilterItem addFilterItem} to attached listeners.
      */
     fireAddFilterItem(
@@ -57281,10 +57646,6 @@ declare module "sap/m/P13nFilterPanel" {
      * Defines an optional message strip to be displayed in the content area
      */
     getMessageStrip(): MessageStrip;
-    /**
-     * Returns a metadata object for class sap.m.P13nFilterPanel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.m.P13nFilterItem` in the aggregation {@link #getFilterItems filterItems}.
      * and returns its index if found or -1 otherwise.
@@ -57511,24 +57872,24 @@ declare module "sap/m/P13nFilterPanel" {
     /**
      * Event raised if a filter item has been added.
      */
-    addFilterItem?: Function;
+    addFilterItem?: (oEvent: Event) => void;
 
     /**
      * Event raised if a filter item has been removed.
      */
-    removeFilterItem?: Function;
+    removeFilterItem?: (oEvent: Event) => void;
 
     /**
      * Event raised if a filter item has been updated.
      */
-    updateFilterItem?: Function;
+    updateFilterItem?: (oEvent: Event) => void;
 
     /**
      * @EXPERIMENTAL (since 1.56)
      *
      * Event raised if a filter item has been changed. reason can be added, updated or removed.
      */
-    filterItemChanged?: Function;
+    filterItemChanged?: (oEvent: Event) => void;
   }
 }
 
@@ -57598,15 +57959,15 @@ declare module "sap/m/P13nGroupItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.P13nGroupItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumnKey columnKey}.
      *
      * key of the column
      */
     getColumnKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.P13nGroupItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOperation operation}.
      *
@@ -57733,6 +58094,31 @@ declare module "sap/m/P13nGroupPanel" {
       mSettings?: $P13nGroupPanelSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.P13nGroupPanel with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, P13nGroupPanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.P13nGroupPanel.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some groupItem to the aggregation {@link #getGroupItems groupItems}.
      */
@@ -57933,27 +58319,6 @@ declare module "sap/m/P13nGroupPanel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.P13nGroupPanel with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, P13nGroupPanel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:addGroupItem addGroupItem} to attached listeners.
      */
     fireAddGroupItem(
@@ -58010,10 +58375,6 @@ declare module "sap/m/P13nGroupPanel" {
      * Default value is `'-1'`.
      */
     getMaxGroups(): string;
-    /**
-     * Returns a metadata object for class sap.m.P13nGroupPanel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.m.P13nGroupItem` in the aggregation {@link #getGroupItems groupItems}. and
      * returns its index if found or -1 otherwise.
@@ -58157,17 +58518,17 @@ declare module "sap/m/P13nGroupPanel" {
     /**
      * Event raised if a `GroupItem` has been added.
      */
-    addGroupItem?: Function;
+    addGroupItem?: (oEvent: Event) => void;
 
     /**
      * Event raised if a `GroupItem` has been removed.
      */
-    removeGroupItem?: Function;
+    removeGroupItem?: (oEvent: Event) => void;
 
     /**
      * Event raised if a `GroupItem` has been updated.
      */
-    updateGroupItem?: Function;
+    updateGroupItem?: (oEvent: Event) => void;
   }
 }
 
@@ -58237,6 +58598,10 @@ declare module "sap/m/P13nItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.P13nItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.34.0
      *
      * Gets current value of property {@link #getAggregationRole aggregationRole}.
@@ -58299,10 +58664,6 @@ declare module "sap/m/P13nItem" {
      * specifies the number of characters which can be entered in the value fields of the condition panel
      */
     getMaxLength(): string;
-    /**
-     * Returns a metadata object for class sap.m.P13nItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNullable nullable}.
      *
@@ -58854,6 +59215,31 @@ declare module "sap/m/P13nPanel" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.P13nPanel with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, P13nPanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.P13nPanel.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
     addItem(
@@ -58950,27 +59336,6 @@ declare module "sap/m/P13nPanel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.P13nPanel with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, P13nPanel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.28.0
      *
      * Fires event {@link #event:beforeNavigationTo beforeNavigationTo} to attached listeners.
@@ -58993,10 +59358,6 @@ declare module "sap/m/P13nPanel" {
      * Defines personalization items (e.g. columns in the `P13nColumnsPanel`).
      */
     getItems(): P13nItem[];
-    /**
-     * Returns a metadata object for class sap.m.P13nPanel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.26.7
      * @deprecated (since 1.50) - replaced by the event of the respective inherited control, for example {@link
@@ -59257,7 +59618,7 @@ declare module "sap/m/P13nPanel" {
      *
      * Due to performance the data of the panel can be requested in lazy mode e.g. when the panel is displayed
      */
-    beforeNavigationTo?: Function;
+    beforeNavigationTo?: (oEvent: Event) => void;
   }
 }
 
@@ -59327,15 +59688,15 @@ declare module "sap/m/P13nSortItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.P13nSortItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getColumnKey columnKey}.
      *
      * key of the column
      */
     getColumnKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.P13nSortItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getOperation operation}.
      *
@@ -59434,6 +59795,31 @@ declare module "sap/m/P13nSortPanel" {
       mSettings?: $P13nSortPanelSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.P13nSortPanel with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, P13nSortPanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.P13nSortPanel.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some sortItem to the aggregation {@link #getSortItems sortItems}.
      */
@@ -59634,27 +60020,6 @@ declare module "sap/m/P13nSortPanel" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.P13nSortPanel with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.P13nPanel.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, P13nSortPanel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:addSortItem addSortItem} to attached listeners.
      */
     fireAddSortItem(
@@ -59697,10 +60062,6 @@ declare module "sap/m/P13nSortPanel" {
      * With "Desktop", "Table" or "Phone" you can set a fixed layout.
      */
     getLayoutMode(): string;
-    /**
-     * Returns a metadata object for class sap.m.P13nSortPanel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getSortItems sortItems}.
      *
@@ -59830,17 +60191,17 @@ declare module "sap/m/P13nSortPanel" {
     /**
      * event raised when a SortItem was added
      */
-    addSortItem?: Function;
+    addSortItem?: (oEvent: Event) => void;
 
     /**
      * event raised when a SortItem was removed
      */
-    removeSortItem?: Function;
+    removeSortItem?: (oEvent: Event) => void;
 
     /**
      * event raised when a SortItem was updated
      */
-    updateSortItem?: Function;
+    updateSortItem?: (oEvent: Event) => void;
   }
 }
 
@@ -59921,6 +60282,31 @@ declare module "sap/m/Page" {
       mSettings?: $PageSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Page with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Page>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Page.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -60091,27 +60477,6 @@ declare module "sap/m/Page" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Page with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Page>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.12.2
      *
      * Fires event {@link #event:navButtonPress navButtonPress} to attached listeners.
@@ -60228,10 +60593,6 @@ declare module "sap/m/Page" {
      * If not set, no landmarks will be written.
      */
     getLandmarkInfo(): PageAccessibleLandmarkInfo;
-    /**
-     * Returns a metadata object for class sap.m.Page.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.20) - Deprecated since the MVI theme is removed now. This property only affected
      * the NavButton in that theme.
@@ -60914,14 +61275,14 @@ declare module "sap/m/Page" {
      *
      * this event is fired when Nav Button is tapped
      */
-    navButtonTap?: Function;
+    navButtonTap?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.12.2
      *
      * this event is fired when Nav Button is pressed
      */
-    navButtonPress?: Function;
+    navButtonPress?: (oEvent: Event) => void;
   }
 }
 
@@ -60993,6 +61354,10 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.PageAccessibleLandmarkInfo.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getContentLabel contentLabel}.
      *
      * Texts that describe the landmark of the content container of the corresponding `sap.m.Page` control.
@@ -61055,10 +61420,6 @@ declare module "sap/m/PageAccessibleLandmarkInfo" {
     getHeaderRole():
       | AccessibleLandmarkRole
       | keyof typeof AccessibleLandmarkRole;
-    /**
-     * Returns a metadata object for class sap.m.PageAccessibleLandmarkInfo.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRootLabel rootLabel}.
      *
@@ -61406,6 +61767,31 @@ declare module "sap/m/PagingButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.PagingButton with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, PagingButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.PagingButton.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:positionChange positionChange} event of this
      * `sap.m.PagingButton`.
      *
@@ -61465,27 +61851,6 @@ declare module "sap/m/PagingButton" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.PagingButton with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, PagingButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:positionChange positionChange} to attached listeners.
      */
     firePositionChange(
@@ -61512,10 +61877,6 @@ declare module "sap/m/PagingButton" {
      * Default value is `1`.
      */
     getCount(): int;
-    /**
-     * Returns a metadata object for class sap.m.PagingButton.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.36
      *
@@ -61643,7 +62004,7 @@ declare module "sap/m/PagingButton" {
     /**
      * Fired when the current position is changed.
      */
-    positionChange?: Function;
+    positionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -61738,6 +62099,31 @@ declare module "sap/m/Panel" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Panel with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Panel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Panel.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -61824,27 +62210,6 @@ declare module "sap/m/Panel" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.Panel with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Panel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.22
      *
@@ -61965,10 +62330,6 @@ declare module "sap/m/Panel" {
      * information to the user.
      */
     getInfoToolbar(): Toolbar;
-    /**
-     * Returns a metadata object for class sap.m.Panel.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
@@ -62260,7 +62621,7 @@ declare module "sap/m/Panel" {
      *
      * Indicates that the panel will expand or collapse.
      */
-    expand?: Function;
+    expand?: (oEvent: Event) => void;
   }
 }
 
@@ -62327,6 +62688,31 @@ declare module "sap/m/PDFViewer" {
       mSettings?: $PDFViewerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.PDFViewer with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, PDFViewer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.PDFViewer.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some popupButton to the aggregation {@link #getPopupButtons popupButtons}.
      */
@@ -62528,27 +62914,6 @@ declare module "sap/m/PDFViewer" {
      */
     downloadPDF(): void;
     /**
-     * Creates a new subclass of class sap.m.PDFViewer with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, PDFViewer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:error error} to attached listeners.
      */
     fireError(
@@ -62622,10 +62987,6 @@ declare module "sap/m/PDFViewer" {
      * Default value is `"100%"`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.PDFViewer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getPopupButtons popupButtons}.
      *
@@ -62968,12 +63329,12 @@ declare module "sap/m/PDFViewer" {
      * This event is fired when a PDF file is loaded. If the PDF is loaded in smaller chunks, this event is
      * fired as often as defined by the browser's plugin. This may happen after a couple chunks are processed.
      */
-    loaded?: Function;
+    loaded?: (oEvent: Event) => void;
 
     /**
      * This event is fired when there is an error loading the PDF file.
      */
-    error?: Function;
+    error?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the PDF viewer control cannot check the loaded content. For example, the default
@@ -62981,7 +63342,7 @@ declare module "sap/m/PDFViewer" {
      * happen when the source PDF file is stored in a different domain. If you want no error message to be displayed
      * when this event is fired, call the preventDefault() method inside the event handler.
      */
-    sourceValidationFailed?: Function;
+    sourceValidationFailed?: (oEvent: Event) => void;
   }
 }
 
@@ -63100,6 +63461,31 @@ declare module "sap/m/PlanningCalendar" {
       mSettings?: $PlanningCalendarSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.PlanningCalendar with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, PlanningCalendar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.PlanningCalendar.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.40.0
      *
@@ -63527,27 +63913,6 @@ declare module "sap/m/PlanningCalendar" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.PlanningCalendar with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, PlanningCalendar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:appointmentSelect appointmentSelect} to attached listeners.
      */
     fireAppointmentSelect(
@@ -63740,6 +64105,20 @@ declare module "sap/m/PlanningCalendar" {
      */
     getEndDate(): Date;
     /**
+     * @SINCE 1.94
+     *
+     * Gets current value of property {@link #getFirstDayOfWeek firstDayOfWeek}.
+     *
+     * If set, the first day of the displayed week is this day. Valid values are 0 to 6 starting on Sunday.
+     * If there is no valid value set, the default of the used locale is used.
+     *
+     * Note: this property will only have effect in the weekly – based views of the PlanningCalendar – Week
+     * view, and OneMonth view (on small devices).
+     *
+     * Default value is `-1`.
+     */
+    getFirstDayOfWeek(): int;
+    /**
      * @SINCE 1.48.0
      *
      * Gets current value of property {@link #getGroupAppointmentsMode groupAppointmentsMode}.
@@ -63780,10 +64159,6 @@ declare module "sap/m/PlanningCalendar" {
      * date of the month in which the `maxDate` belongs.
      */
     getMaxDate(): object;
-    /**
-     * Returns a metadata object for class sap.m.PlanningCalendar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.38.0
      *
@@ -64261,6 +64636,27 @@ declare module "sap/m/PlanningCalendar" {
       fnSorter: appointmentsSorterCallback
     ): this;
     /**
+     * @SINCE 1.94
+     *
+     * Sets a new value for property {@link #getFirstDayOfWeek firstDayOfWeek}.
+     *
+     * If set, the first day of the displayed week is this day. Valid values are 0 to 6 starting on Sunday.
+     * If there is no valid value set, the default of the used locale is used.
+     *
+     * Note: this property will only have effect in the weekly – based views of the PlanningCalendar – Week
+     * view, and OneMonth view (on small devices).
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     */
+    setFirstDayOfWeek(
+      /**
+       * New value for property `firstDayOfWeek`
+       */
+      iFirstDayOfWeek?: int
+    ): this;
+    /**
      * @SINCE 1.48.0
      *
      * Sets a new value for property {@link #getGroupAppointmentsMode groupAppointmentsMode}.
@@ -64723,6 +65119,17 @@ declare module "sap/m/PlanningCalendar" {
     stickyHeader?: boolean | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.94
+     *
+     * If set, the first day of the displayed week is this day. Valid values are 0 to 6 starting on Sunday.
+     * If there is no valid value set, the default of the used locale is used.
+     *
+     * Note: this property will only have effect in the weekly – based views of the PlanningCalendar – Week
+     * view, and OneMonth view (on small devices).
+     */
+    firstDayOfWeek?: int | PropertyBindingInfo;
+
+    /**
      * Rows of the `PlanningCalendar`.
      */
     rows?: PlanningCalendarRow[] | PlanningCalendarRow | AggregationBindingInfo;
@@ -64768,17 +65175,17 @@ declare module "sap/m/PlanningCalendar" {
     /**
      * Fired if an appointment is selected.
      */
-    appointmentSelect?: Function;
+    appointmentSelect?: (oEvent: Event) => void;
 
     /**
      * Fired if an interval was selected in the calendar header or in the row.
      */
-    intervalSelect?: Function;
+    intervalSelect?: (oEvent: Event) => void;
 
     /**
      * Fires when row selection is changed.
      */
-    rowSelectionChange?: Function;
+    rowSelectionChange?: (oEvent: Event) => void;
 
     /**
      * Fired when the `startDate` property was changed while navigating in the `PlanningCalendar`. The new value
@@ -64786,19 +65193,19 @@ declare module "sap/m/PlanningCalendar" {
      * in case when the `viewKey` property is changed, and as a result of which the view requires a change in
      * the `startDate` property.
      */
-    startDateChange?: Function;
+    startDateChange?: (oEvent: Event) => void;
 
     /**
      * Fired when the `viewKey` property was changed by user interaction.
      */
-    viewChange?: Function;
+    viewChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.46.0
      *
      * Fires when a row header is clicked.
      */
-    rowHeaderClick?: Function;
+    rowHeaderClick?: (oEvent: Event) => void;
   }
 }
 
@@ -64857,19 +65264,6 @@ declare module "sap/m/PlanningCalendarLegend" {
     );
 
     /**
-     * Adds some appointmentItem to the aggregation {@link #getAppointmentItems appointmentItems}.
-     */
-    addAppointmentItem(
-      /**
-       * The appointmentItem to add; if empty, nothing is inserted
-       */
-      oAppointmentItem: CalendarLegendItem
-    ): this;
-    /**
-     * Destroys all the appointmentItems in the aggregation {@link #getAppointmentItems appointmentItems}.
-     */
-    destroyAppointmentItems(): this;
-    /**
      * Creates a new subclass of class sap.m.PlanningCalendarLegend with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -64890,6 +65284,23 @@ declare module "sap/m/PlanningCalendarLegend" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.PlanningCalendarLegend.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some appointmentItem to the aggregation {@link #getAppointmentItems appointmentItems}.
+     */
+    addAppointmentItem(
+      /**
+       * The appointmentItem to add; if empty, nothing is inserted
+       */
+      oAppointmentItem: CalendarLegendItem
+    ): this;
+    /**
+     * Destroys all the appointmentItems in the aggregation {@link #getAppointmentItems appointmentItems}.
+     */
+    destroyAppointmentItems(): this;
     /**
      * Gets content of aggregation {@link #getAppointmentItems appointmentItems}.
      *
@@ -64913,10 +65324,6 @@ declare module "sap/m/PlanningCalendarLegend" {
      * Default value is `"Calendar"`.
      */
     getItemsHeader(): string;
-    /**
-     * Returns a metadata object for class sap.m.PlanningCalendarLegend.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.unified.CalendarLegendItem` in the aggregation {@link #getAppointmentItems
      * appointmentItems}. and returns its index if found or -1 otherwise.
@@ -65074,6 +65481,31 @@ declare module "sap/m/PlanningCalendarRow" {
       mSettings?: $PlanningCalendarRowSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.PlanningCalendarRow with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, PlanningCalendarRow>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.PlanningCalendarRow.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some appointment to the aggregation {@link #getAppointments appointments}.
      */
@@ -65411,27 +65843,6 @@ declare module "sap/m/PlanningCalendarRow" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.PlanningCalendarRow with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, PlanningCalendarRow>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.56
      *
      * Fires event {@link #event:appointmentCreate appointmentCreate} to attached listeners.
@@ -65674,10 +66085,6 @@ declare module "sap/m/PlanningCalendarRow" {
      * Defines the identifier of the row.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.PlanningCalendarRow.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNoAppointmentsText noAppointmentsText}.
      *
@@ -66334,7 +66741,7 @@ declare module "sap/m/PlanningCalendarRow" {
      *
      * Fired if an appointment is dropped.
      */
-    appointmentDrop?: Function;
+    appointmentDrop?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.56
@@ -66348,21 +66755,21 @@ declare module "sap/m/PlanningCalendarRow" {
      * the event to prevent this default behavior. In this case, the placeholder will no longer be available
      * and it will not be possible to drop the appointment in the row.
      */
-    appointmentDragEnter?: Function;
+    appointmentDragEnter?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.56
      *
      * Fired if an appointment is resized.
      */
-    appointmentResize?: Function;
+    appointmentResize?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.56
      *
      * Fired if an appointment is created.
      */
-    appointmentCreate?: Function;
+    appointmentCreate?: (oEvent: Event) => void;
   }
 }
 
@@ -66440,6 +66847,10 @@ declare module "sap/m/PlanningCalendarView" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.PlanningCalendarView.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.81.0
      *
      * Gets current value of property {@link #getAppointmentHeight appointmentHeight}.
@@ -66457,6 +66868,26 @@ declare module "sap/m/PlanningCalendarView" {
      * Defines the description of the `PlanningCalendarView`.
      */
     getDescription(): string;
+    /**
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Gets current value of property {@link #getIntervalLabelFormatter intervalLabelFormatter}.
+     *
+     * A function that formats the interval.
+     */
+    getIntervalLabelFormatter(): object;
+    /**
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Gets current value of property {@link #getIntervalSize intervalSize}.
+     *
+     * An integer that defines the period size.
+     *
+     * Default value is `1`.
+     */
+    getIntervalSize(): int;
     /**
      * Gets current value of property {@link #getIntervalsL intervalsL}.
      *
@@ -66502,9 +66933,17 @@ declare module "sap/m/PlanningCalendarView" {
      */
     getKey(): string;
     /**
-     * Returns a metadata object for class sap.m.PlanningCalendarView.
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Gets current value of property {@link #getRelative relative}.
+     *
+     * Defines if the view will be relative. NOTE: Relative views, can be only used with intervalType - Day
+     * and when used they need intervalSize and intervalLabelFormatter defined.
+     *
+     * Default value is `false`.
      */
-    static getMetadata(): ElementMetadata;
+    getRelative(): boolean;
     /**
      * Gets current value of property {@link #getShowSubIntervals showSubIntervals}.
      *
@@ -66549,6 +66988,40 @@ declare module "sap/m/PlanningCalendarView" {
        * New value for property `description`
        */
       sDescription: string
+    ): this;
+    /**
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Sets a new value for property {@link #getIntervalLabelFormatter intervalLabelFormatter}.
+     *
+     * A function that formats the interval.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setIntervalLabelFormatter(
+      /**
+       * New value for property `intervalLabelFormatter`
+       */
+      oIntervalLabelFormatter: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Sets a new value for property {@link #getIntervalSize intervalSize}.
+     *
+     * An integer that defines the period size.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `1`.
+     */
+    setIntervalSize(
+      /**
+       * New value for property `intervalSize`
+       */
+      iIntervalSize?: int
     ): this;
     /**
      * Sets a new value for property {@link #getIntervalsL intervalsL}.
@@ -66630,6 +67103,25 @@ declare module "sap/m/PlanningCalendarView" {
       sKey?: string
     ): this;
     /**
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Sets a new value for property {@link #getRelative relative}.
+     *
+     * Defines if the view will be relative. NOTE: Relative views, can be only used with intervalType - Day
+     * and when used they need intervalSize and intervalLabelFormatter defined.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setRelative(
+      /**
+       * New value for property `relative`
+       */
+      bRelative?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getShowSubIntervals showSubIntervals}.
      *
      * If set, subintervals are displayed as lines in the rows.
@@ -66664,6 +67156,31 @@ declare module "sap/m/PlanningCalendarView" {
      * the descriptions in the {@link sap.ui.unified.CalendarIntervalType CalendarIntervalType} enumeration.
      */
     intervalType?: CalendarIntervalType | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * An integer that defines the period size.
+     */
+    intervalSize?: int | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * A function that formats the interval.
+     */
+    intervalLabelFormatter?: object | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.93
+     * @EXPERIMENTAL (since 1.93)
+     *
+     * Defines if the view will be relative. NOTE: Relative views, can be only used with intervalType - Day
+     * and when used they need intervalSize and intervalLabelFormatter defined.
+     */
+    relative?: boolean | PropertyBindingInfo;
 
     /**
      * Defines the description of the `PlanningCalendarView`.
@@ -66757,6 +67274,31 @@ declare module "sap/m/plugins/ColumnResizer" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.plugins.ColumnResizer with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ColumnResizer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.plugins.ColumnResizer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:columnResize columnResize} event of this `sap.m.plugins.ColumnResizer`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -66813,27 +67355,6 @@ declare module "sap/m/plugins/ColumnResizer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.plugins.ColumnResizer with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ColumnResizer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -66855,10 +67376,6 @@ declare module "sap/m/plugins/ColumnResizer" {
       }
     ): boolean;
     /**
-     * Returns a metadata object for class sap.m.plugins.ColumnResizer.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Displays the resize handle for the provided column `DOM` reference.
      */
     startResizing(
@@ -66873,7 +67390,7 @@ declare module "sap/m/plugins/ColumnResizer" {
     /**
      * This event is fired when the column is resized.
      */
-    columnResize?: Function;
+    columnResize?: (oEvent: Event) => void;
   }
 }
 
@@ -66929,6 +67446,31 @@ declare module "sap/m/plugins/DataStateIndicator" {
       mSettings?: $DataStateIndicatorSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.plugins.DataStateIndicator with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DataStateIndicator>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.plugins.DataStateIndicator.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.89
      *
@@ -67117,27 +67659,6 @@ declare module "sap/m/plugins/DataStateIndicator" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.plugins.DataStateIndicator with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DataStateIndicator>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.89
      *
      * Fires event {@link #event:applyFilter applyFilter} to attached listeners.
@@ -67215,10 +67736,6 @@ declare module "sap/m/plugins/DataStateIndicator" {
      * related control} parameters. Return `true` to keep the message, `false` otherwise.
      */
     getFilter(): Function;
-    /**
-     * Returns a metadata object for class sap.m.plugins.DataStateIndicator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.89
      *
@@ -67305,7 +67822,7 @@ declare module "sap/m/plugins/DataStateIndicator" {
     /**
      * This event is fired when the {@link sap.ui.model.DataState data state} of the plugin parent is changed.
      */
-    dataStateChange?: Function;
+    dataStateChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.89
@@ -67313,7 +67830,7 @@ declare module "sap/m/plugins/DataStateIndicator" {
      * This event is fired when the user filters data state messages and if the `enableFiltering` property is
      * set to `true`.
      */
-    applyFilter?: Function;
+    applyFilter?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.89
@@ -67321,7 +67838,7 @@ declare module "sap/m/plugins/DataStateIndicator" {
      * This event is fired when the user clears the data state message filter and if the `enableFiltering` property
      * is set to `true`.
      */
-    clearFilter?: Function;
+    clearFilter?: (oEvent: Event) => void;
   }
 }
 
@@ -67374,6 +67891,31 @@ declare module "sap/m/plugins/PasteProvider" {
       mSettings?: $PasteProviderSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.plugins.PasteProvider with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, PasteProvider>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.plugins.PasteProvider.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:paste paste} event of this `sap.m.plugins.PasteProvider`.
      *
@@ -67439,27 +67981,6 @@ declare module "sap/m/plugins/PasteProvider" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.plugins.PasteProvider with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, PasteProvider>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:paste paste} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -67481,10 +68002,6 @@ declare module "sap/m/plugins/PasteProvider" {
         text?: string;
       }
     ): boolean;
-    /**
-     * Returns a metadata object for class sap.m.plugins.PasteProvider.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * ID of the element which is the current target of the association {@link #getPasteFor pasteFor}, or `null`.
      */
@@ -67514,7 +68031,7 @@ declare module "sap/m/plugins/PasteProvider" {
      * event that represents the paste data gets dispatched for the control defined in the `pasteFor` association.
      * To avoid this, call `preventDefault` on the event instance.
      */
-    paste?: Function;
+    paste?: (oEvent: Event) => void;
   }
 }
 
@@ -67604,6 +68121,58 @@ declare module "sap/m/Popover" {
       mSettings?: $PopoverSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Popover with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Popover>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Popover.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Calculate outerHeight of the element; used as hook for SVG elements
+     */
+    static outerHeight(
+      /**
+       * An Element for which outerHeight will be calculated.
+       */
+      oElement: HTMLElement,
+      /**
+       * Determines if the margins should be included in the calculated outerHeight * @returns {number} The outer
+       * height of the element
+       */
+      bIncludeMargin?: boolean
+    ): void;
+    /**
+     * Calculate outerWidth of the element; used as hook for SVG elements
+     */
+    static outerWidth(
+      /**
+       * An Element for which outerWidth will be calculated
+       */
+      oElement: HTMLElement,
+      /**
+       * Determines if the margins should be included in the calculated outerWidth
+       */
+      bIncludeMargin?: boolean
+    ): number;
     /**
      * Hook called after adjusment of the Popover position.
      */
@@ -67903,27 +68472,6 @@ declare module "sap/m/Popover" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Popover with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Popover>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      */
     fireAfterClose(
@@ -68106,10 +68654,6 @@ declare module "sap/m/Popover" {
      */
     getLeftButton(): ID;
     /**
-     * Returns a metadata object for class sap.m.Popover.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getModal modal}.
      *
      * If the popover will not be closed when tapping outside the popover. It also blocks any interaction with
@@ -68276,33 +68820,6 @@ declare module "sap/m/Popover" {
        */
       bSkipInstanceManager: boolean
     ): this;
-    /**
-     * Calculate outerHeight of the element; used as hook for SVG elements
-     */
-    static outerHeight(
-      /**
-       * An Element for which outerHeight will be calculated.
-       */
-      oElement: HTMLElement,
-      /**
-       * Determines if the margins should be included in the calculated outerHeight * @returns {number} The outer
-       * height of the element
-       */
-      bIncludeMargin?: boolean
-    ): void;
-    /**
-     * Calculate outerWidth of the element; used as hook for SVG elements
-     */
-    static outerWidth(
-      /**
-       * An Element for which outerWidth will be calculated
-       */
-      oElement: HTMLElement,
-      /**
-       * Determines if the margins should be included in the calculated outerWidth
-       */
-      bIncludeMargin?: boolean
-    ): number;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -68943,22 +69460,22 @@ declare module "sap/m/Popover" {
     /**
      * This event will be fired after the popover is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * This event will be fired after the popover is closed.
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
 
     /**
      * This event will be fired before the popover is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
 
     /**
      * This event will be fired before the popover is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
   }
 }
 
@@ -69023,6 +69540,31 @@ declare module "sap/m/ProgressIndicator" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.ProgressIndicator with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ProgressIndicator>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ProgressIndicator.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.69
      *
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
@@ -69044,27 +69586,6 @@ declare module "sap/m/ProgressIndicator" {
        */
       vAriaLabelledBy: ID | Control
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.ProgressIndicator with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ProgressIndicator>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Returns the `sap.m.ProgressIndicator` accessibility information.
      * See:
@@ -69129,10 +69650,6 @@ declare module "sap/m/ProgressIndicator" {
      * use is 2.5rem (40px). Suggested size for small size (like for use in ObjectHeader) is 1.375rem (22px).
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.ProgressIndicator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPercentValue percentValue}.
      *
@@ -69518,6 +70035,31 @@ declare module "sap/m/PullToRefresh" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.PullToRefresh with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, PullToRefresh>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.PullToRefresh.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:refresh refresh} event of this `sap.m.PullToRefresh`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -69574,27 +70116,6 @@ declare module "sap/m/PullToRefresh" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.PullToRefresh with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, PullToRefresh>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:refresh refresh} to attached listeners.
      */
     fireRefresh(
@@ -69628,10 +70149,6 @@ declare module "sap/m/PullToRefresh" {
      * Default value is `true`.
      */
     getIconDensityAware(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.PullToRefresh.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowIcon showIcon}.
      *
@@ -69739,7 +70256,7 @@ declare module "sap/m/PullToRefresh" {
     /**
      * Event indicates that the user has requested new data
      */
-    refresh?: Function;
+    refresh?: (oEvent: Event) => void;
   }
 }
 
@@ -69815,6 +70332,31 @@ declare module "sap/m/QuickView" {
       mSettings?: $QuickViewSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.QuickView with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.QuickViewBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, QuickView>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.QuickView.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:afterClose afterClose} event of this `sap.m.QuickView`.
      *
@@ -70044,27 +70586,6 @@ declare module "sap/m/QuickView" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.QuickView with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.QuickViewBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, QuickView>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      */
     fireAfterClose(
@@ -70131,10 +70652,6 @@ declare module "sap/m/QuickView" {
       }
     ): this;
     /**
-     * Returns a metadata object for class sap.m.QuickView.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getPlacement placement}.
      *
      * This property is reused from sap.m.Popover and only takes effect when running on desktop or tablet. Please
@@ -70197,22 +70714,22 @@ declare module "sap/m/QuickView" {
     /**
      * This event fires after the QuickView is opened.
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * This event fires after the QuickView is closed.
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
 
     /**
      * This event fires before the QuickView is opened.
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
 
     /**
      * This event fires before the QuickView is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
   }
 }
 
@@ -70264,6 +70781,31 @@ declare module "sap/m/QuickViewBase" {
       mSettings?: $QuickViewBaseSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.QuickViewBase with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, QuickViewBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.QuickViewBase.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some page to the aggregation {@link #getPages pages}.
      */
@@ -70407,27 +70949,6 @@ declare module "sap/m/QuickViewBase" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.QuickViewBase with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, QuickViewBase>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterNavigate afterNavigate} to attached listeners.
      */
     fireAfterNavigate(
@@ -70545,10 +71066,6 @@ declare module "sap/m/QuickViewBase" {
       }
     ): boolean;
     /**
-     * Returns a metadata object for class sap.m.QuickViewBase.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets content of aggregation {@link #getPages pages}.
      *
      * Displays a page header, object icon or image, object name with short description, and object information
@@ -70616,13 +71133,13 @@ declare module "sap/m/QuickViewBase" {
      * The event is fired when navigation between two pages has been triggered. The transition (if any) to the
      * new page has not started yet.
      */
-    navigate?: Function;
+    navigate?: (oEvent: Event) => void;
 
     /**
      * The event is fired when navigation between two pages has completed. In case of animated transitions this
      * event is fired with some delay after the "navigate" event.
      */
-    afterNavigate?: Function;
+    afterNavigate?: (oEvent: Event) => void;
   }
 }
 
@@ -70783,6 +71300,31 @@ declare module "sap/m/QuickViewGroup" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.QuickViewGroup with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, QuickViewGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.QuickViewGroup.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some element to the aggregation {@link #getElements elements}.
      */
     addElement(
@@ -70808,27 +71350,6 @@ declare module "sap/m/QuickViewGroup" {
      */
     destroyElements(): this;
     /**
-     * Creates a new subclass of class sap.m.QuickViewGroup with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, QuickViewGroup>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getElements elements}.
      *
      * A combination of one label and another control (Link or Text) associated to this label.
@@ -70842,10 +71363,6 @@ declare module "sap/m/QuickViewGroup" {
      * Default value is `empty string`.
      */
     getHeading(): string;
-    /**
-     * Returns a metadata object for class sap.m.QuickViewGroup.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -71020,6 +71537,10 @@ declare module "sap/m/QuickViewGroupElement" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.QuickViewGroupElement.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getEmailSubject emailSubject}.
      *
      * The subject of the email. Works only with QuickViewGroupElement of type email.
@@ -71035,10 +71556,6 @@ declare module "sap/m/QuickViewGroupElement" {
      * Default value is `empty string`.
      */
     getLabel(): string;
-    /**
-     * Returns a metadata object for class sap.m.QuickViewGroupElement.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPageLinkId pageLinkId}.
      *
@@ -71323,6 +71840,31 @@ declare module "sap/m/QuickViewPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.QuickViewPage with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, QuickViewPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.QuickViewPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some group to the aggregation {@link #getGroups groups}.
      */
     addGroup(
@@ -71367,27 +71909,6 @@ declare module "sap/m/QuickViewPage" {
      * Destroys all the groups in the aggregation {@link #getGroups groups}.
      */
     destroyGroups(): this;
-    /**
-     * Creates a new subclass of class sap.m.QuickViewPage with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, QuickViewPage>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.92
      *
@@ -71448,10 +71969,6 @@ declare module "sap/m/QuickViewPage" {
      * Default value is `empty string`.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.m.QuickViewPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPageId pageId}.
      *
@@ -71820,6 +72337,31 @@ declare module "sap/m/RadioButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.RadioButton with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RadioButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.RadioButton.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Maintains the RadioButton's internal Label's text property.
      */
     _updateLabelProperties(
@@ -71907,27 +72449,6 @@ declare module "sap/m/RadioButton" {
      */
     exit(): void;
     /**
-     * Creates a new subclass of class sap.m.RadioButton with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RadioButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:select select} to attached listeners.
      */
     fireSelect(
@@ -71999,10 +72520,6 @@ declare module "sap/m/RadioButton" {
      * Default value is `'sapMRbDefaultGroup'`.
      */
     getGroupName(): string;
-    /**
-     * Returns a metadata object for class sap.m.RadioButton.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -72371,7 +72888,7 @@ declare module "sap/m/RadioButton" {
     /**
      * Event is triggered when the user makes a change on the radio button (selecting or unselecting it).
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -72448,6 +72965,31 @@ declare module "sap/m/RadioButtonGroup" {
       mSettings?: $RadioButtonGroupSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.RadioButtonGroup with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RadioButtonGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.RadioButtonGroup.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -72557,27 +73099,6 @@ declare module "sap/m/RadioButtonGroup" {
      */
     exit(): void;
     /**
-     * Creates a new subclass of class sap.m.RadioButtonGroup with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RadioButtonGroup>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:select select} to attached listeners.
      */
     fireSelect(
@@ -72633,10 +73154,6 @@ declare module "sap/m/RadioButtonGroup" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.RadioButtonGroup.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the selected radio button.
      */
@@ -72922,7 +73439,7 @@ declare module "sap/m/RadioButtonGroup" {
     /**
      * Fires when selection is changed by user interaction.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 
@@ -73166,6 +73683,31 @@ declare module "sap/m/RatingIndicator" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.RatingIndicator with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RatingIndicator>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.RatingIndicator.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -73308,27 +73850,6 @@ declare module "sap/m/RatingIndicator" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.RatingIndicator with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RatingIndicator>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -73440,10 +73961,6 @@ declare module "sap/m/RatingIndicator" {
      * Default value is `5`.
      */
     getMaxValue(): int;
-    /**
-     * Returns a metadata object for class sap.m.RatingIndicator.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getValue value}.
      *
@@ -73726,12 +74243,12 @@ declare module "sap/m/RatingIndicator" {
     /**
      * The event is fired when the user has done a rating.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * This event is triggered during the dragging period, each time the rating value changes.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -73803,6 +74320,31 @@ declare module "sap/m/ResponsivePopover" {
       mSettings?: $ResponsivePopoverSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ResponsivePopover with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ResponsivePopover>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ResponsivePopover.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -74079,27 +74621,6 @@ declare module "sap/m/ResponsivePopover" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ResponsivePopover with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ResponsivePopover>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterClose afterClose} to attached listeners.
      */
     fireAfterClose(
@@ -74234,10 +74755,6 @@ declare module "sap/m/ResponsivePopover" {
      * or `null`.
      */
     getInitialFocus(): ID;
-    /**
-     * Returns a metadata object for class sap.m.ResponsivePopover.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getModal modal}.
      *
@@ -74831,22 +75348,22 @@ declare module "sap/m/ResponsivePopover" {
     /**
      * Event is fired before popover or dialog is open.
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
 
     /**
      * Event is fired after popover or dialog is open.
      */
-    afterOpen?: Function;
+    afterOpen?: (oEvent: Event) => void;
 
     /**
      * Event is fired before popover or dialog is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
 
     /**
      * Event is fired after popover or dialog is closed.
      */
-    afterClose?: Function;
+    afterClose?: (oEvent: Event) => void;
   }
 }
 
@@ -74904,23 +75421,6 @@ declare module "sap/m/ResponsiveScale" {
     );
 
     /**
-     * How many tickmarks could be placed on the axis/scale?
-     */
-    calcNumberOfTickmarks(
-      /**
-       * Size of the scale. This is the distance between the start and end point i.e. 0..100
-       */
-      fSize: float,
-      /**
-       * The step walking from start to end.
-       */
-      fStep: float,
-      /**
-       * Limits the number of tickmarks.
-       */
-      iTickmarksThreshold: int
-    ): number;
-    /**
      * Creates a new subclass of class sap.m.ResponsiveScale with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -74945,6 +75445,23 @@ declare module "sap/m/ResponsiveScale" {
      * Returns a metadata object for class sap.m.ResponsiveScale.
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * How many tickmarks could be placed on the axis/scale?
+     */
+    calcNumberOfTickmarks(
+      /**
+       * Size of the scale. This is the distance between the start and end point i.e. 0..100
+       */
+      fSize: float,
+      /**
+       * The step walking from start to end.
+       */
+      fStep: float,
+      /**
+       * Limits the number of tickmarks.
+       */
+      iTickmarksThreshold: int
+    ): number;
     /**
      * Gets current value of property {@link #getTickmarksBetweenLabels tickmarksBetweenLabels}.
      *
@@ -75040,10 +75557,6 @@ declare module "sap/m/routing/RouteMatchedHandler" {
     );
 
     /**
-     * Removes the routeMatchedHandler from the Router
-     */
-    destroy(): this;
-    /**
      * Creates a new subclass of class sap.m.routing.RouteMatchedHandler with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -75065,13 +75578,17 @@ declare module "sap/m/routing/RouteMatchedHandler" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Gets if a navigation should close dialogs
-     */
-    getCloseDialogs(): boolean;
-    /**
      * Returns a metadata object for class sap.m.routing.RouteMatchedHandler.
      */
     static getMetadata(): Metadata;
+    /**
+     * Removes the routeMatchedHandler from the Router
+     */
+    destroy(): this;
+    /**
+     * Gets if a navigation should close dialogs
+     */
+    getCloseDialogs(): boolean;
     /**
      * Sets if a navigation should close dialogs
      */
@@ -75370,13 +75887,13 @@ declare module "sap/m/routing/TargetHandler" {
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Gets if a navigation should close dialogs.
-     */
-    getCloseDialogs(): boolean;
-    /**
      * Returns a metadata object for class sap.m.routing.TargetHandler.
      */
     static getMetadata(): Metadata;
+    /**
+     * Gets if a navigation should close dialogs.
+     */
+    getCloseDialogs(): boolean;
     /**
      * Sets if a navigation should close dialogs.
      */
@@ -75844,19 +76361,6 @@ declare module "sap/m/ScrollContainer" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.m.ScrollContainer with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -75877,6 +76381,23 @@ declare module "sap/m/ScrollContainer" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ScrollContainer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -75915,10 +76436,6 @@ declare module "sap/m/ScrollContainer" {
      * Default value is `true`.
      */
     getHorizontal(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.ScrollContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVertical vertical}.
      *
@@ -76235,6 +76752,31 @@ declare module "sap/m/SearchField" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.SearchField with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SearchField>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SearchField.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -76532,27 +77074,6 @@ declare module "sap/m/SearchField" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.SearchField with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SearchField>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.77
      *
      * Fires event {@link #event:change change} to attached listeners.
@@ -76664,14 +77185,11 @@ declare module "sap/m/SearchField" {
      */
     getMaxLength(): int;
     /**
-     * Returns a metadata object for class sap.m.SearchField.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
-     * Text shown when no value available. Default placeholder text is the word "Search" in the current local
-     * language (if supported) or in English.
+     * Text shown when no value available. If no placeholder value is set, the word "Search" in the current
+     * local language (if supported) or in English will be displayed as a placeholder (property value will still
+     * be `null` in that case).
      */
     getPlaceholder(): string;
     /**
@@ -76893,8 +77411,9 @@ declare module "sap/m/SearchField" {
     /**
      * Sets a new value for property {@link #getPlaceholder placeholder}.
      *
-     * Text shown when no value available. Default placeholder text is the word "Search" in the current local
-     * language (if supported) or in English.
+     * Text shown when no value available. If no placeholder value is set, the word "Search" in the current
+     * local language (if supported) or in English will be displayed as a placeholder (property value will still
+     * be `null` in that case).
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
@@ -77049,7 +77568,7 @@ declare module "sap/m/SearchField" {
        * This method may be called only as a response to the `suggest` event to ensure that the suggestion list
        * is shown at the moment when the user expects it.
        */
-      bShow?: boolean | undefined
+      bShow?: boolean
     ): this;
     /**
      * Unbinds property {@link #getValue value} from model data.
@@ -77084,8 +77603,9 @@ declare module "sap/m/SearchField" {
     maxLength?: int | PropertyBindingInfo;
 
     /**
-     * Text shown when no value available. Default placeholder text is the word "Search" in the current local
-     * language (if supported) or in English.
+     * Text shown when no value available. If no placeholder value is set, the word "Search" in the current
+     * local language (if supported) or in English will be displayed as a placeholder (property value will still
+     * be `null` in that case).
      */
     placeholder?: string | PropertyBindingInfo;
 
@@ -77167,7 +77687,7 @@ declare module "sap/m/SearchField" {
     /**
      * Event which is fired when the user triggers a search.
      */
-    search?: Function;
+    search?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.77
@@ -77175,7 +77695,7 @@ declare module "sap/m/SearchField" {
      * This event is fired when the user changes the value of the search field. Unlike the `liveChange` event,
      * the `change` event is not fired for each key press.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.9.1
@@ -77183,7 +77703,7 @@ declare module "sap/m/SearchField" {
      * This event is fired each time when the value of the search field is changed by the user - e.g. at each
      * key press. Do not invalidate a focused search field, especially during the liveChange event.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.34
@@ -77192,7 +77712,7 @@ declare module "sap/m/SearchField" {
      * event means that suggestion data should be updated, in case if suggestions are used. Use the value parameter
      * to create new suggestions for it.
      */
-    suggest?: Function;
+    suggest?: (oEvent: Event) => void;
   }
 }
 
@@ -77271,6 +77791,31 @@ declare module "sap/m/SegmentedButton" {
       mSettings?: $SegmentedButtonSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.SegmentedButton with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SegmentedButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SegmentedButton.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -77502,27 +78047,6 @@ declare module "sap/m/SegmentedButton" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.SegmentedButton with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SegmentedButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @deprecated (since 1.52) - replaced by `selectionChange` event
      *
      * Fires event {@link #event:select select} to attached listeners.
@@ -77610,10 +78134,6 @@ declare module "sap/m/SegmentedButton" {
      * in the page.
      */
     getItems(): SegmentedButtonItem[];
-    /**
-     * Returns a metadata object for class sap.m.SegmentedButton.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.52) - replaced by `selectedItem` association
      *
@@ -77913,14 +78433,14 @@ declare module "sap/m/SegmentedButton" {
      *
      * Fires when the user selects a button, which returns the ID and button object.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.52
      *
      * Fires when the user selects an item, which returns the item object.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -77972,6 +78492,31 @@ declare module "sap/m/SegmentedButtonItem" {
       mSettings?: $SegmentedButtonItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.SegmentedButtonItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SegmentedButtonItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SegmentedButtonItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.SegmentedButtonItem`.
      *
@@ -78033,27 +78578,6 @@ declare module "sap/m/SegmentedButtonItem" {
      */
     exit(): void;
     /**
-     * Creates a new subclass of class sap.m.SegmentedButtonItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SegmentedButtonItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -78068,10 +78592,6 @@ declare module "sap/m/SegmentedButtonItem" {
      * The icon, which belongs to the button. This can be a URI to an image or an icon font URI.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.m.SegmentedButtonItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -78155,7 +78675,7 @@ declare module "sap/m/SegmentedButtonItem" {
     /**
      * Fires when the user clicks on an individual button.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -78241,6 +78761,31 @@ declare module "sap/m/Select" {
       mSettings?: $SelectSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Select with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Select>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Select.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.27.0
      *
@@ -78356,27 +78901,6 @@ declare module "sap/m/Select" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.Select with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Select>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -78548,10 +79072,6 @@ declare module "sap/m/Select" {
      * Default value is `"100%"`.
      */
     getMaxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.Select.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -78984,7 +79504,7 @@ declare module "sap/m/Select" {
        * New value for property `selectedItemId`. If the provided `vItem` has a default value, the first enabled
        * item will be selected (if any items exist).
        */
-      vItem?: string | undefined
+      vItem?: string
     ): this;
     /**
      * @SINCE 1.11
@@ -79348,12 +79868,15 @@ declare module "sap/m/Select" {
      * 	 - The Enter key is pressed
      * 	 - The item is pressed
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
 declare module "sap/m/SelectDialog" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+  import {
+    default as SelectDialogBase,
+    $SelectDialogBaseSettings,
+  } from "sap/m/SelectDialogBase";
 
   import ListItemBase from "sap/m/ListItemBase";
 
@@ -79418,7 +79941,7 @@ declare module "sap/m/SelectDialog" {
    * 			following classes depending on your use case: `sapUiResponsivePadding--header`, `sapUiResponsivePadding--subHeader`,
    * 			`sapUiResponsivePadding--content`, `sapUiResponsivePadding--footer`.
    */
-  export default class SelectDialog extends Control {
+  export default class SelectDialog extends SelectDialogBase {
     /**
      * Constructor for a new SelectDialog.
      *
@@ -79456,6 +79979,31 @@ declare module "sap/m/SelectDialog" {
       mSettings?: $SelectDialogSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.SelectDialog with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.SelectDialogBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SelectDialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SelectDialog.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -79716,27 +80264,6 @@ declare module "sap/m/SelectDialog" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.SelectDialog with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SelectDialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -79878,10 +80405,6 @@ declare module "sap/m/SelectDialog" {
      * dialog but other combinations are also possible.
      */
     getItems(): ListItemBase[];
-    /**
-     * Returns a metadata object for class sap.m.SelectDialog.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMultiSelect multiSelect}.
      *
@@ -80218,7 +80741,7 @@ declare module "sap/m/SelectDialog" {
     ): this;
   }
 
-  export interface $SelectDialogSettings extends $ControlSettings {
+  export interface $SelectDialogSettings extends $SelectDialogBaseSettings {
     /**
      * Determines the title text that appears in the dialog header
      */
@@ -80336,22 +80859,396 @@ declare module "sap/m/SelectDialog" {
      * by pressing the confirmation button in multi selection mode . The items being selected are returned as
      * event parameters.
      */
-    confirm?: Function;
+    confirm?: (oEvent: Event) => void;
 
     /**
      * This event will be fired when the search button has been clicked on the searchfield on the visual control
      */
-    search?: Function;
+    search?: (oEvent: Event) => void;
 
     /**
      * This event will be fired when the value of the search field is changed by a user - e.g. at each key press
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
 
     /**
      * This event will be fired when the cancel button is clicked or ESC key is pressed
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
+  }
+}
+
+declare module "sap/m/SelectDialogBase" {
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import Event from "sap/ui/base/Event";
+
+  import ListItemBase from "sap/m/ListItemBase";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  /**
+   * @SINCE 1.93
+   *
+   * The `sap.m.SelectDialogBase` control provides a base functionality of the `sap.m.SelectDialog` and `sap.m.TableSelectDialog`
+   * controls.
+   */
+  export default class SelectDialogBase extends Control {
+    /**
+     * Constructor for a new SelectDialogBase.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SelectDialogBaseSettings
+    );
+    /**
+     * Constructor for a new SelectDialogBase.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SelectDialogBaseSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.m.SelectDialogBase with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SelectDialogBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SelectDialogBase.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
+     * `sap.m.SelectDialogBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.SelectDialogBase` itself.
+     *
+     * Fires when selection is changed via user interaction inside the control.
+     */
+    attachSelectionChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.SelectDialogBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
+     * `sap.m.SelectDialogBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.SelectDialogBase` itself.
+     *
+     * Fires when selection is changed via user interaction inside the control.
+     */
+    attachSelectionChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.SelectDialogBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:updateFinished updateFinished} event of this
+     * `sap.m.SelectDialogBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.SelectDialogBase` itself.
+     *
+     * Fires after `items` binding is updated and processed by the control.
+     */
+    attachUpdateFinished(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.SelectDialogBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:updateFinished updateFinished} event of this
+     * `sap.m.SelectDialogBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.SelectDialogBase` itself.
+     *
+     * Fires after `items` binding is updated and processed by the control.
+     */
+    attachUpdateFinished(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.SelectDialogBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:updateStarted updateStarted} event of this `sap.m.SelectDialogBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.SelectDialogBase` itself.
+     *
+     * Fires before `items` binding is updated (e.g. sorting, filtering)
+     *
+     * **Note:** Event handler should not invalidate the control. *
+     */
+    attachUpdateStarted(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.SelectDialogBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:updateStarted updateStarted} event of this `sap.m.SelectDialogBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.SelectDialogBase` itself.
+     *
+     * Fires before `items` binding is updated (e.g. sorting, filtering)
+     *
+     * **Note:** Event handler should not invalidate the control. *
+     */
+    attachUpdateStarted(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.SelectDialogBase` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:selectionChange selectionChange} event of
+     * this `sap.m.SelectDialogBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachSelectionChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:updateFinished updateFinished} event of this
+     * `sap.m.SelectDialogBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachUpdateFinished(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:updateStarted updateStarted} event of this
+     * `sap.m.SelectDialogBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     */
+    detachUpdateStarted(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     */
+    fireSelectionChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The item whose selection has changed. In `MultiSelect` mode, only the up-most selected item is returned.
+         * This parameter can be used for single-selection modes.
+         */
+        listItem?: ListItemBase;
+        /**
+         * Array of items whose selection has changed. This parameter can be used for `MultiSelect` mode.
+         */
+        listItems?: ListItemBase[];
+        /**
+         * Indicates whether the `listItem` parameter is selected or not.
+         */
+        selected?: boolean;
+        /**
+         * Indicates whether the select all action is triggered or not.
+         */
+        selectAll?: boolean;
+      }
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Fires event {@link #event:updateFinished updateFinished} to attached listeners.
+     */
+    fireUpdateFinished(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The reason of the update, e.g. Binding, Filter, Sort, Growing, Change, Refresh, Context.
+         */
+        reason?: string;
+        /**
+         * Actual number of items.
+         */
+        actual?: int;
+        /**
+         * The total count of bound items. This can be used if the `growing` property is set to `true`.
+         */
+        total?: int;
+      }
+    ): this;
+    /**
+     * @SINCE 1.93
+     *
+     * Fires event {@link #event:updateStarted updateStarted} to attached listeners.
+     */
+    fireUpdateStarted(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The reason of the update, e.g. Binding, Filter, Sort, Growing, Change, Refresh, Context.
+         */
+        reason?: string;
+        /**
+         * Actual number of items.
+         */
+        actual?: int;
+        /**
+         * The total count of bound items. This can be used if the `growing` property is set to `true`.
+         */
+        total?: int;
+      }
+    ): this;
+  }
+
+  export interface $SelectDialogBaseSettings extends $ControlSettings {
+    /**
+     * @SINCE 1.93
+     *
+     * Fires before `items` binding is updated (e.g. sorting, filtering)
+     *
+     * **Note:** Event handler should not invalidate the control. *
+     */
+    updateStarted?: (oEvent: Event) => void;
+
+    /**
+     * @SINCE 1.93
+     *
+     * Fires after `items` binding is updated and processed by the control.
+     */
+    updateFinished?: (oEvent: Event) => void;
+
+    /**
+     * @SINCE 1.93
+     *
+     * Fires when selection is changed via user interaction inside the control.
+     */
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -80412,6 +81309,31 @@ declare module "sap/m/SelectionDetails" {
       mSettings?: $SelectionDetailsSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.SelectionDetails with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SelectionDetails>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SelectionDetails.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some action to the aggregation {@link #getActions actions}.
      */
@@ -80705,27 +81627,6 @@ declare module "sap/m/SelectionDetails" {
      */
     detachSelectionHandler(): this;
     /**
-     * Creates a new subclass of class sap.m.SelectionDetails with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SelectionDetails>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:actionPress actionPress} to attached listeners.
      */
     fireActionPress(
@@ -80819,10 +81720,6 @@ declare module "sap/m/SelectionDetails" {
      * Contains {@link sap.m.SelectionDetailsItem items} that are displayed on the first page.
      */
     getItems(): SelectionDetailsItem[];
-    /**
-     * Returns a metadata object for class sap.m.SelectionDetails.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Item` in the aggregation {@link #getActions actions}. and returns
      * its index if found or -1 otherwise.
@@ -81000,22 +81897,22 @@ declare module "sap/m/SelectionDetails" {
     /**
      * Event is triggered before the popover is open.
      */
-    beforeOpen?: Function;
+    beforeOpen?: (oEvent: Event) => void;
 
     /**
      * Event is triggered before the popover is closed.
      */
-    beforeClose?: Function;
+    beforeClose?: (oEvent: Event) => void;
 
     /**
      * Event is triggered after a list item of {@link sap.m.SelectionDetailsItem} is pressed.
      */
-    navigate?: Function;
+    navigate?: (oEvent: Event) => void;
 
     /**
      * Event is triggered when a custom action is pressed.
      */
-    actionPress?: Function;
+    actionPress?: (oEvent: Event) => void;
   }
 }
 
@@ -81409,6 +82306,31 @@ declare module "sap/m/SelectionDetailsItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.SelectionDetailsItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SelectionDetailsItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SelectionDetailsItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some action to the aggregation {@link #getActions actions}.
      */
     addAction(
@@ -81447,27 +82369,6 @@ declare module "sap/m/SelectionDetailsItem" {
      */
     destroyLines(): this;
     /**
-     * Creates a new subclass of class sap.m.SelectionDetailsItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SelectionDetailsItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getActions actions}.
      *
      * Contains custom actions shown below the main content of the item.
@@ -81492,10 +82393,6 @@ declare module "sap/m/SelectionDetailsItem" {
      * obtained via selection in chart controls.
      */
     getLines(): SelectionDetailsItemLine[];
-    /**
-     * Returns a metadata object for class sap.m.SelectionDetailsItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.ui.core.Item` in the aggregation {@link #getActions actions}. and returns
      * its index if found or -1 otherwise.
@@ -81688,6 +82585,10 @@ declare module "sap/m/SelectionDetailsItemLine" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.SelectionDetailsItemLine.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getDisplayValue displayValue}.
      *
      * The display value of the line. If this property is set, it overrides the value property and is displayed
@@ -81708,10 +82609,6 @@ declare module "sap/m/SelectionDetailsItemLine" {
      * The only valid tags are: svg, path, line.
      */
     getLineMarker(): string;
-    /**
-     * Returns a metadata object for class sap.m.SelectionDetailsItemLine.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getUnit unit}.
      *
@@ -81884,6 +82781,31 @@ declare module "sap/m/SelectList" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.SelectList with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SelectList>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SelectList.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.27.0
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -82051,27 +82973,6 @@ declare module "sap/m/SelectList" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.SelectList with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SelectList>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.32.4
      *
      * Fires event {@link #event:itemPress itemPress} to attached listeners.
@@ -82196,10 +83097,6 @@ declare module "sap/m/SelectList" {
      * Default value is `"100%"`.
      */
     getMaxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.SelectList.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets the selected item object from the aggregation named `items`.
      */
@@ -82523,14 +83420,14 @@ declare module "sap/m/SelectList" {
      * **Note: ** The selection can be changed by pressing a non-selected item or via keyboard and after the
      * enter or space key is pressed.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.32.4
      *
      * This event is fired when an item is pressed.
      */
-    itemPress?: Function;
+    itemPress?: (oEvent: Event) => void;
   }
 }
 
@@ -82899,6 +83796,31 @@ declare module "sap/m/semantic/DetailPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.semantic.DetailPage with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.ShareMenuPage.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DetailPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.semantic.DetailPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Destroys the addAction in the aggregation {@link #getAddAction addAction}.
      */
     destroyAddAction(): this;
@@ -82983,27 +83905,6 @@ declare module "sap/m/semantic/DetailPage" {
      */
     destroyShareInJamAction(): this;
     /**
-     * Creates a new subclass of class sap.m.semantic.DetailPage with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.ShareMenuPage.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DetailPage>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getAddAction addAction}.
      *
      * Add action
@@ -83069,10 +83970,6 @@ declare module "sap/m/semantic/DetailPage" {
      * MessagesIndicator
      */
     getMessagesIndicator(): MessagesIndicator;
-    /**
-     * Returns a metadata object for class sap.m.semantic.DetailPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getNegativeAction negativeAction}.
      *
@@ -84157,6 +85054,31 @@ declare module "sap/m/semantic/FullscreenPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.semantic.FullscreenPage with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.ShareMenuPage.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FullscreenPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.semantic.FullscreenPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Destroys the addAction in the aggregation {@link #getAddAction addAction}.
      */
     destroyAddAction(): this;
@@ -84241,27 +85163,6 @@ declare module "sap/m/semantic/FullscreenPage" {
      */
     destroyShareInJamAction(): this;
     /**
-     * Creates a new subclass of class sap.m.semantic.FullscreenPage with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.ShareMenuPage.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, FullscreenPage>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getAddAction addAction}.
      *
      * Add action
@@ -84327,10 +85228,6 @@ declare module "sap/m/semantic/FullscreenPage" {
      * MessagesIndicator
      */
     getMessagesIndicator(): MessagesIndicator;
-    /**
-     * Returns a metadata object for class sap.m.semantic.FullscreenPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getNegativeAction negativeAction}.
      *
@@ -85079,6 +85976,31 @@ declare module "sap/m/semantic/MasterPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.semantic.MasterPage with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.SemanticPage.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MasterPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.semantic.MasterPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Destroys the addAction in the aggregation {@link #getAddAction addAction}.
      */
     destroyAddAction(): this;
@@ -85135,27 +86057,6 @@ declare module "sap/m/semantic/MasterPage" {
      */
     destroySort(): this;
     /**
-     * Creates a new subclass of class sap.m.semantic.MasterPage with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.SemanticPage.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MasterPage>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Gets content of aggregation {@link #getAddAction addAction}.
      *
      * Add action
@@ -85209,10 +86110,6 @@ declare module "sap/m/semantic/MasterPage" {
      * MessagesIndicator
      */
     getMessagesIndicator(): MessagesIndicator;
-    /**
-     * Returns a metadata object for class sap.m.semantic.MasterPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getMultiSelectAction multiSelectAction}.
      *
@@ -86124,6 +87021,31 @@ declare module "sap/m/semantic/SemanticButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.semantic.SemanticButton with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.SemanticControl.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SemanticButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.semantic.SemanticButton.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.semantic.SemanticButton`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -86180,27 +87102,6 @@ declare module "sap/m/semantic/SemanticButton" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.semantic.SemanticButton with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.SemanticControl.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SemanticButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -86217,10 +87118,6 @@ declare module "sap/m/semantic/SemanticButton" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.semantic.SemanticButton.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -86247,7 +87144,7 @@ declare module "sap/m/semantic/SemanticButton" {
     /**
      * See {@link sap.m.Button#event:press}
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -86456,6 +87353,31 @@ declare module "sap/m/semantic/SemanticPage" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.semantic.SemanticPage with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SemanticPage>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.semantic.SemanticPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
     addContent(
@@ -86562,27 +87484,6 @@ declare module "sap/m/semantic/SemanticPage" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.semantic.SemanticPage with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SemanticPage>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:navButtonPress navButtonPress} to attached listeners.
      */
     fireNavButtonPress(
@@ -86648,10 +87549,6 @@ declare module "sap/m/semantic/SemanticPage" {
      * If not set, no landmarks will be written.
      */
     getLandmarkInfo(): PageAccessibleLandmarkInfo;
-    /**
-     * Returns a metadata object for class sap.m.semantic.SemanticPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.44
      *
@@ -87082,7 +87979,7 @@ declare module "sap/m/semantic/SemanticPage" {
     /**
      * See {@link sap.m.Page#navButtonPress}
      */
-    navButtonPress?: Function;
+    navButtonPress?: (oEvent: Event) => void;
   }
 }
 
@@ -87142,6 +88039,31 @@ declare module "sap/m/semantic/SemanticSelect" {
       mSettings?: $SemanticSelectSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.semantic.SemanticSelect with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.SemanticControl.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SemanticSelect>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.semantic.SemanticSelect.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -87224,27 +88146,6 @@ declare module "sap/m/semantic/SemanticSelect" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.semantic.SemanticSelect with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.SemanticControl.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SemanticSelect>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -87272,10 +88173,6 @@ declare module "sap/m/semantic/SemanticSelect" {
      * See {@link sap.m.Select#getItems}
      */
     getItems(): Item[];
-    /**
-     * Returns a metadata object for class sap.m.semantic.SemanticSelect.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
      * or `null`.
@@ -87399,7 +88296,7 @@ declare module "sap/m/semantic/SemanticSelect" {
     /**
      * See {@link sap.m.Select#event:change}
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -87811,19 +88708,6 @@ declare module "sap/m/semantic/ShareMenuPage" {
     );
 
     /**
-     * Adds some customShareMenuContent to the aggregation {@link #getCustomShareMenuContent customShareMenuContent}.
-     */
-    addCustomShareMenuContent(
-      /**
-       * The customShareMenuContent to add; if empty, nothing is inserted
-       */
-      oCustomShareMenuContent: Button
-    ): this;
-    /**
-     * Destroys all the customShareMenuContent in the aggregation {@link #getCustomShareMenuContent customShareMenuContent}.
-     */
-    destroyCustomShareMenuContent(): this;
-    /**
      * Creates a new subclass of class sap.m.semantic.ShareMenuPage with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -87845,15 +88729,28 @@ declare module "sap/m/semantic/ShareMenuPage" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.semantic.ShareMenuPage.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some customShareMenuContent to the aggregation {@link #getCustomShareMenuContent customShareMenuContent}.
+     */
+    addCustomShareMenuContent(
+      /**
+       * The customShareMenuContent to add; if empty, nothing is inserted
+       */
+      oCustomShareMenuContent: Button
+    ): this;
+    /**
+     * Destroys all the customShareMenuContent in the aggregation {@link #getCustomShareMenuContent customShareMenuContent}.
+     */
+    destroyCustomShareMenuContent(): this;
+    /**
      * Gets content of aggregation {@link #getCustomShareMenuContent customShareMenuContent}.
      *
      * Custom share menu buttons
      */
     getCustomShareMenuContent(): Button[];
-    /**
-     * Returns a metadata object for class sap.m.semantic.ShareMenuPage.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Checks for the provided `sap.m.Button` in the aggregation {@link #getCustomShareMenuContent customShareMenuContent}.
      * and returns its index if found or -1 otherwise.
@@ -88148,6 +89045,31 @@ declare module "sap/m/Shell" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Shell with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Shell>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Shell.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:logout logout} event of this `sap.m.Shell`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -88207,27 +89129,6 @@ declare module "sap/m/Shell" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.Shell with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Shell>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:logout logout} to attached listeners.
      */
@@ -88333,10 +89234,6 @@ declare module "sap/m/Shell" {
      * please see: {@link sap.ui.core.theming.Parameters}
      */
     getLogo(): URI;
-    /**
-     * Returns a metadata object for class sap.m.Shell.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowLogout showLogout}.
      *
@@ -88674,7 +89571,7 @@ declare module "sap/m/Shell" {
     /**
      * Fires when the user presses the logout button/link.
      */
-    logout?: Function;
+    logout?: (oEvent: Event) => void;
   }
 }
 
@@ -88768,6 +89665,31 @@ declare module "sap/m/SinglePlanningCalendar" {
       mSettings?: $SinglePlanningCalendarSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.SinglePlanningCalendar with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SinglePlanningCalendar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SinglePlanningCalendar.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some action to the aggregation {@link #getActions actions}.
      */
@@ -89380,27 +90302,6 @@ declare module "sap/m/SinglePlanningCalendar" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.SinglePlanningCalendar with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SinglePlanningCalendar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.65
      *
      * Fires event {@link #event:appointmentCreate appointmentCreate} to attached listeners.
@@ -89575,6 +90476,9 @@ declare module "sap/m/SinglePlanningCalendar" {
      * The appointments to be displayed in the grid. Appointments outside the visible time frame are not rendered.
      * Appointments, longer than a day, will be displayed in all of the affected days. To display an all-day
      * appointment, the appointment must start at 00:00 and end on any day in the future in 00:00h.
+     *
+     * Note: The `customContent` functionality of the `CalendarAppointment` is not available in the `SinglePlanningCalendar`.
+     * If set, it will not make any effect.
      */
     getAppointments(): CalendarAppointment[];
     /**
@@ -89642,10 +90546,6 @@ declare module "sap/m/SinglePlanningCalendar" {
      * ID of the element which is the current target of the association {@link #getLegend legend}, or `null`.
      */
     getLegend(): ID;
-    /**
-     * Returns a metadata object for class sap.m.SinglePlanningCalendar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.62
      *
@@ -90170,6 +91070,9 @@ declare module "sap/m/SinglePlanningCalendar" {
      * The appointments to be displayed in the grid. Appointments outside the visible time frame are not rendered.
      * Appointments, longer than a day, will be displayed in all of the affected days. To display an all-day
      * appointment, the appointment must start at 00:00 and end on any day in the future in 00:00h.
+     *
+     * Note: The `customContent` functionality of the `CalendarAppointment` is not available in the `SinglePlanningCalendar`.
+     * If set, it will not make any effect.
      */
     appointments?:
       | CalendarAppointment[]
@@ -90212,58 +91115,58 @@ declare module "sap/m/SinglePlanningCalendar" {
     /**
      * Fired when the selected state of an appointment is changed.
      */
-    appointmentSelect?: Function;
+    appointmentSelect?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.64
      *
      * Fired if an appointment is dropped.
      */
-    appointmentDrop?: Function;
+    appointmentDrop?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.65
      *
      * Fired when an appointment is resized.
      */
-    appointmentResize?: Function;
+    appointmentResize?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.65
      *
      * Fired if an appointment is created.
      */
-    appointmentCreate?: Function;
+    appointmentCreate?: (oEvent: Event) => void;
 
     /**
      * Fired if a date is selected in the calendar header.
      */
-    headerDateSelect?: Function;
+    headerDateSelect?: (oEvent: Event) => void;
 
     /**
      * `startDate` is changed while navigating in the `SinglePlanningCalendar`.
      */
-    startDateChange?: Function;
+    startDateChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.65
      *
      * Fired when a grid cell is pressed.
      */
-    cellPress?: Function;
+    cellPress?: (oEvent: Event) => void;
 
     /**
      * Fired when a 'more' button is pressed. **Note:** The 'more' button appears in a month view cell when
      * multiple appointments exist and the available space is not sufficient to display all of them.
      */
-    moreLinkPress?: Function;
+    moreLinkPress?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.71.0
      *
      * The view was changed by user interaction.
      */
-    viewChange?: Function;
+    viewChange?: (oEvent: Event) => void;
   }
 }
 
@@ -90479,16 +91382,6 @@ declare module "sap/m/SinglePlanningCalendarView" {
     );
 
     /**
-     * Should calculate the startDate which will be displayed in the `sap.m.SinglePlanningCalendar` based on
-     * a given date.
-     */
-    calculateStartDate(
-      /**
-       * the given date
-       */
-      oDate: object
-    ): void;
-    /**
      * Creates a new subclass of class sap.m.SinglePlanningCalendarView with name `sClassName` and enriches
      * it with the information contained in `oClassInfo`.
      *
@@ -90510,6 +91403,20 @@ declare module "sap/m/SinglePlanningCalendarView" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.SinglePlanningCalendarView.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Should calculate the startDate which will be displayed in the `sap.m.SinglePlanningCalendar` based on
+     * a given date.
+     */
+    calculateStartDate(
+      /**
+       * the given date
+       */
+      oDate: object
+    ): void;
+    /**
      * Should return the number of columns to be displayed in the grid of the `sap.m.SinglePlanningCalendar`.
      */
     getEntityCount(): void;
@@ -90519,10 +91426,6 @@ declare module "sap/m/SinglePlanningCalendarView" {
      * Indicates a unique key for the view
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.SinglePlanningCalendarView.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Should return a number of entities until the next/previous startDate of the `sap.m.SinglePlanningCalendar`
      * after navigating forward/backward with the arrows. For example, by pressing the forward button inside
@@ -90842,6 +91745,31 @@ declare module "sap/m/Slider" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Slider with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Slider>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Slider.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.27.0
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -91006,27 +91934,6 @@ declare module "sap/m/Slider" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Slider with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Slider>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -91130,10 +92037,6 @@ declare module "sap/m/Slider" {
      * Default value is `100`.
      */
     getMax(): float;
-    /**
-     * Returns a metadata object for class sap.m.Slider.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMin min}.
      *
@@ -91666,12 +92569,12 @@ declare module "sap/m/Slider" {
     /**
      * This event is triggered after the end user finishes interacting, if there is any change.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * This event is triggered during the dragging period, each time the slider value changes.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -91822,6 +92725,31 @@ declare module "sap/m/SlideTile" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.SlideTile with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SlideTile>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SlideTile.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some tile to the aggregation {@link #getTiles tiles}.
      */
     addTile(
@@ -91909,27 +92837,6 @@ declare module "sap/m/SlideTile" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.SlideTile with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SlideTile>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.46.0
      *
      * Fires event {@link #event:press press} to attached listeners.
@@ -91962,10 +92869,6 @@ declare module "sap/m/SlideTile" {
      * Default value is `5000`.
      */
     getDisplayTime(): int;
-    /**
-     * Returns a metadata object for class sap.m.SlideTile.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.46.0
      *
@@ -92182,7 +93085,7 @@ declare module "sap/m/SlideTile" {
      *
      * The event is fired when the user chooses the tile. The event is available only in Actions scope.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -92246,6 +93149,31 @@ declare module "sap/m/SplitApp" {
       mSettings?: $SplitAppSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.SplitApp with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.SplitContainer.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SplitApp>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SplitApp.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.87) - use {@link sap.ui.Device.orientation.attachHandler} instead.
      *
@@ -92312,27 +93240,6 @@ declare module "sap/m/SplitApp" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.SplitApp with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.SplitContainer.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SplitApp>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @deprecated (since 1.87) - use {@link sap.ui.Device.orientation.attachHandler} instead.
      *
      * Fires event {@link #event:orientationChange orientationChange} to attached listeners.
@@ -92373,10 +93280,6 @@ declare module "sap/m/SplitApp" {
      * property to true.
      */
     getHomeIcon(): any;
-    /**
-     * Returns a metadata object for class sap.m.SplitApp.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Sets a new value for property {@link #getHomeIcon homeIcon}.
      *
@@ -92441,7 +93344,7 @@ declare module "sap/m/SplitApp" {
      *
      * Fires when orientation (portrait/landscape) is changed.
      */
-    orientationChange?: Function;
+    orientationChange?: (oEvent: Event) => void;
   }
 }
 
@@ -92518,6 +93421,31 @@ declare module "sap/m/SplitContainer" {
       mSettings?: $SplitContainerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.SplitContainer with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SplitContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.SplitContainer.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some detailPage to the aggregation {@link #getDetailPages detailPages}.
      */
@@ -93282,27 +94210,6 @@ declare module "sap/m/SplitContainer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.SplitContainer with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SplitContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterDetailNavigate afterDetailNavigate} to attached listeners.
      */
     fireAfterDetailNavigate(
@@ -93720,10 +94627,6 @@ declare module "sap/m/SplitContainer" {
      * BeforeShow}, they are documented in the pseudo interface {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
     getMasterPages(): Control[];
-    /**
-     * Returns a metadata object for class sap.m.SplitContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMode mode}.
      *
@@ -94385,52 +95288,52 @@ declare module "sap/m/SplitContainer" {
      * the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    masterNavigate?: Function;
+    masterNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in master area has completed. NOTE: In case of animated transitions
      * this event is fired with some delay after the navigate event.
      */
-    afterMasterNavigate?: Function;
+    afterMasterNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when a Master Button needs to be shown or hidden. This is necessary for custom headers when the
      * SplitContainer control does not handle the placement of the master button automatically.
      */
-    masterButton?: Function;
+    masterButton?: (oEvent: Event) => void;
 
     /**
      * Fires before the master area is opened.
      */
-    beforeMasterOpen?: Function;
+    beforeMasterOpen?: (oEvent: Event) => void;
 
     /**
      * Fires when the master area is fully opened after animation if any.
      */
-    afterMasterOpen?: Function;
+    afterMasterOpen?: (oEvent: Event) => void;
 
     /**
      * Fires before the master area is closed.
      */
-    beforeMasterClose?: Function;
+    beforeMasterClose?: (oEvent: Event) => void;
 
     /**
      * Fires when the master area is fully closed after the animation (if any).
      */
-    afterMasterClose?: Function;
+    afterMasterClose?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in detail area has been triggered. The transition (if any) to
      * the new page has not started yet. NOTE: This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
      */
-    detailNavigate?: Function;
+    detailNavigate?: (oEvent: Event) => void;
 
     /**
      * Fires when navigation between two pages in detail area has completed. NOTE: In case of animated transitions
      * this event is fired with some delay after the "navigate" event.
      */
-    afterDetailNavigate?: Function;
+    afterDetailNavigate?: (oEvent: Event) => void;
   }
 }
 
@@ -94441,6 +95344,8 @@ declare module "sap/m/StandardDynamicDateOption" {
   } from "sap/m/DynamicDateOption";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import DynamicDateRange from "sap/m/DynamicDateRange";
 
   /**
    * @EXPERIMENTAL (since 1.92)
@@ -94510,6 +95415,17 @@ declare module "sap/m/StandardDynamicDateOption" {
      * Returns a metadata object for class sap.m.StandardDynamicDateOption.
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Validates all input controls in the value help UI related to the current option. If one of the input
+     * controls contains invalid value, then validation will return `false`. If all input controls contain valid
+     * value, then the validation will return `true`.
+     */
+    validateValueHelpUI(
+      /**
+       * The control instance
+       */
+      oControl: DynamicDateRange
+    ): boolean;
   }
 
   export interface $StandardDynamicDateOptionSettings
@@ -94588,6 +95504,10 @@ declare module "sap/m/StandardListItem" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.StandardListItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getActiveIcon activeIcon}.
      *
@@ -94676,10 +95596,6 @@ declare module "sap/m/StandardListItem" {
      */
     getInfoTextDirection(): TextDirection | keyof typeof TextDirection;
     /**
-     * Returns a metadata object for class sap.m.StandardListItem.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
      * Gets current value of property {@link #getTitle title}.
      *
      * Defines the title of the list item.
@@ -94696,6 +95612,23 @@ declare module "sap/m/StandardListItem" {
      * Default value is `Inherit`.
      */
     getTitleTextDirection(): TextDirection | keyof typeof TextDirection;
+    /**
+     * @SINCE 1.94
+     *
+     * Gets current value of property {@link #getWrapCharLimit wrapCharLimit}.
+     *
+     * This property can be used to change the default character limits for the wrapping behavior.
+     *
+     * If this property is set to 0, then the default character limit used by the wrapping behavior is used.
+     * For details see {@link #getWrapping wrapping}.
+     *
+     * **Note:**
+     *
+     * 0 or a positive integer must be used for this property.
+     *
+     * Default value is `0`.
+     */
+    getWrapCharLimit(): int;
     /**
      * @SINCE 1.67
      *
@@ -94900,6 +95833,30 @@ declare module "sap/m/StandardListItem" {
       sTitleTextDirection?: TextDirection | keyof typeof TextDirection
     ): this;
     /**
+     * @SINCE 1.94
+     *
+     * Sets a new value for property {@link #getWrapCharLimit wrapCharLimit}.
+     *
+     * This property can be used to change the default character limits for the wrapping behavior.
+     *
+     * If this property is set to 0, then the default character limit used by the wrapping behavior is used.
+     * For details see {@link #getWrapping wrapping}.
+     *
+     * **Note:**
+     *
+     * 0 or a positive integer must be used for this property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     */
+    setWrapCharLimit(
+      /**
+       * New value for property `wrapCharLimit`
+       */
+      iWrapCharLimit?: int
+    ): this;
+    /**
      * @SINCE 1.67
      *
      * Sets a new value for property {@link #getWrapping wrapping}.
@@ -95017,6 +95974,20 @@ declare module "sap/m/StandardListItem" {
      * to `true`.
      */
     infoStateInverted?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.94
+     *
+     * This property can be used to change the default character limits for the wrapping behavior.
+     *
+     * If this property is set to 0, then the default character limit used by the wrapping behavior is used.
+     * For details see {@link #getWrapping wrapping}.
+     *
+     * **Note:**
+     *
+     * 0 or a positive integer must be used for this property.
+     */
+    wrapCharLimit?: int | PropertyBindingInfo;
   }
 }
 
@@ -95072,15 +96043,6 @@ declare module "sap/m/StandardTile" {
     );
 
     /**
-     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
-     */
-    addAriaDescribedBy(
-      /**
-       * The ariaDescribedBy to add; if empty, nothing is inserted
-       */
-      vAriaDescribedBy: ID | Control
-    ): this;
-    /**
      * Creates a new subclass of class sap.m.StandardTile with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -95101,6 +96063,19 @@ declare module "sap/m/StandardTile" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.StandardTile.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     */
+    addAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to add; if empty, nothing is inserted
+       */
+      vAriaDescribedBy: ID | Control
+    ): this;
     /**
      * Gets current value of property {@link #getActiveIcon activeIcon}.
      *
@@ -95141,10 +96116,6 @@ declare module "sap/m/StandardTile" {
      * Default value is `None`.
      */
     getInfoState(): ValueState | keyof typeof ValueState;
-    /**
-     * Returns a metadata object for class sap.m.StandardTile.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -95441,15 +96412,15 @@ declare module "sap/m/StandardTreeItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.StandardTreeItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * Defines the tree item icon.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.m.StandardTreeItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -95615,6 +96586,31 @@ declare module "sap/m/StepInput" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.StepInput with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, StepInput>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.StepInput.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     addAriaDescribedBy(
@@ -95696,27 +96692,6 @@ declare module "sap/m/StepInput" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.StepInput with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, StepInput>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:change change} to attached listeners.
      */
@@ -95814,10 +96789,6 @@ declare module "sap/m/StepInput" {
      * Sets the maximum possible value of the defined range.
      */
     getMax(): float;
-    /**
-     * Returns a metadata object for class sap.m.StepInput.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMin min}.
      *
@@ -96396,7 +97367,7 @@ declare module "sap/m/StepInput" {
      *
      * 	 - One of the decrement or increment buttons is pressed
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -96471,6 +97442,10 @@ declare module "sap/m/SuggestionItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.SuggestionItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getDescription description}.
      *
      * Additional text of type string, optionally to be displayed along with this item.
@@ -96486,10 +97461,6 @@ declare module "sap/m/SuggestionItem" {
      * Default value is `empty string`.
      */
     getIcon(): string;
-    /**
-     * Returns a metadata object for class sap.m.SuggestionItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Return suggestion text. By default, it is the value of the `text` property.
      *
@@ -96622,6 +97593,31 @@ declare module "sap/m/Switch" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Switch with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Switch>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Switch.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.27.0
      *
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
@@ -96689,27 +97685,6 @@ declare module "sap/m/Switch" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Switch with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Switch>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -96760,10 +97735,6 @@ declare module "sap/m/Switch" {
      * Default value is `true`.
      */
     getEnabled(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.Switch.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getName name}.
      *
@@ -96953,7 +97924,7 @@ declare module "sap/m/Switch" {
     /**
      * Triggered when a switch changes the state.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -97042,6 +98013,31 @@ declare module "sap/m/TabContainer" {
       mSettings?: $TabContainerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.TabContainer with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TabContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TabContainer.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -97239,27 +98235,6 @@ declare module "sap/m/TabContainer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.TabContainer with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TabContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:addNewButtonPress addNewButtonPress} to attached listeners.
      */
     fireAddNewButtonPress(
@@ -97320,10 +98295,6 @@ declare module "sap/m/TabContainer" {
      * The items displayed in the `TabContainer`.
      */
     getItems(): TabContainerItem[];
-    /**
-     * Returns a metadata object for class sap.m.TabContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
      * or `null`.
@@ -97455,17 +98426,17 @@ declare module "sap/m/TabContainer" {
     /**
      * Fired when an item is closed.
      */
-    itemClose?: Function;
+    itemClose?: (oEvent: Event) => void;
 
     /**
      * Fired when an item is pressed.
      */
-    itemSelect?: Function;
+    itemSelect?: (oEvent: Event) => void;
 
     /**
      * Fired when the Add New Tab button is pressed.
      */
-    addNewButtonPress?: Function;
+    addNewButtonPress?: (oEvent: Event) => void;
   }
 }
 
@@ -97522,6 +98493,31 @@ declare module "sap/m/TabContainerItem" {
       mSettings?: $TabContainerItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.TabContainerItem with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TabContainerItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TabContainerItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -97595,27 +98591,6 @@ declare module "sap/m/TabContainerItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.TabContainerItem with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TabContainerItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemPropertyChanged itemPropertyChanged} to attached listeners.
      */
     fireItemPropertyChanged(
@@ -97676,10 +98651,6 @@ declare module "sap/m/TabContainerItem" {
      * Determines the name of the item. Can be used as input for subsequent actions.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.TabContainerItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getModified modified}.
      *
@@ -97888,7 +98859,7 @@ declare module "sap/m/TabContainerItem" {
     /**
      * Sends information that some of the properties have changed.
      */
-    itemPropertyChanged?: Function;
+    itemPropertyChanged?: (oEvent: Event) => void;
   }
 }
 
@@ -97970,6 +98941,31 @@ declare module "sap/m/Table" {
       mSettings?: $TableSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Table with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Table>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Table.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some column to the aggregation {@link #getColumns columns}.
      */
@@ -98191,27 +99187,6 @@ declare module "sap/m/Table" {
       mAriaProps: object
     ): void;
     /**
-     * Creates a new subclass of class sap.m.Table with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Table>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.54
      *
      * Fires event {@link #event:beforeOpenContextMenu beforeOpenContextMenu} to attached listeners.
@@ -98330,7 +99305,7 @@ declare module "sap/m/Table" {
       /**
        * set true to get the columns in an order that respects personalization settings
        */
-      bSort?: Boolean
+      bSort?: boolean
     ): Column[];
     /**
      * @SINCE 1.60
@@ -98409,10 +99384,6 @@ declare module "sap/m/Table" {
      * Configuring Responsive Behavior of a Table} and {@link sap.m.Table#getAutoPopinMode}.
      */
     getHiddenInPopin(): Array<Priority | keyof typeof Priority>;
-    /**
-     * Returns a metadata object for class sap.m.Table.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.52
      *
@@ -98815,7 +99786,7 @@ declare module "sap/m/Table" {
      * Fired when the context menu is opened. When the context menu is opened, the binding context of the item
      * is set to the given `contextMenu`.
      */
-    beforeOpenContextMenu?: Function;
+    beforeOpenContextMenu?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.60
@@ -98823,14 +99794,14 @@ declare module "sap/m/Table" {
      * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
      * via the context menu or the standard paste keyboard shortcut, if the focus is inside the table.
      */
-    paste?: Function;
+    paste?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.77
      *
      * Fired when the table pop-in has changed.
      */
-    popinChanged?: Function;
+    popinChanged?: (oEvent: Event) => void;
   }
 }
 
@@ -98891,6 +99862,31 @@ declare module "sap/m/TablePersoController" {
       mSettings?: $TablePersoControllerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.TablePersoController with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TablePersoController>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TablePersoController.
+     */
+    static getMetadata(): ManagedObjectMetadata;
     /**
      * Activates the controller, i.e. tries to retrieve existing persisted personalizations, creates a TablePersoDialog
      * for the associated table and attaches a close handler to apply the personalizations to the table and
@@ -99002,27 +99998,6 @@ declare module "sap/m/TablePersoController" {
      */
     exit(): void;
     /**
-     * Creates a new subclass of class sap.m.TablePersoController with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TablePersoController>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:personalizationsDone personalizationsDone} to attached listeners.
      */
     firePersonalizationsDone(
@@ -99052,10 +100027,6 @@ declare module "sap/m/TablePersoController" {
      * Default value is `false`.
      */
     getHasGrouping(): boolean;
-    /**
-     * Returns a metadata object for class sap.m.TablePersoController.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Gets content of aggregation {@link #getPersoService persoService}.
      */
@@ -99286,7 +100257,7 @@ declare module "sap/m/TablePersoController" {
      */
     tables?: Array<Table | string>;
 
-    personalizationsDone?: Function;
+    personalizationsDone?: (oEvent: Event) => void;
   }
 }
 
@@ -99357,6 +100328,31 @@ declare module "sap/m/TablePersoDialog" {
       mSettings?: $TablePersoDialogSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.TablePersoDialog with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TablePersoDialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TablePersoDialog.
+     */
+    static getMetadata(): ManagedObjectMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.m.TablePersoDialog`.
      *
@@ -99469,27 +100465,6 @@ declare module "sap/m/TablePersoDialog" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.TablePersoDialog with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TablePersoDialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -99527,10 +100502,6 @@ declare module "sap/m/TablePersoDialog" {
      * Gets current value of property {@link #getInitialColumnState initialColumnState}.
      */
     getInitialColumnState(): object;
-    /**
-     * Returns a metadata object for class sap.m.TablePersoDialog.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * ID of the element which is the current target of the association {@link #getPersoDialogFor persoDialogFor},
      * or `null`.
@@ -99709,9 +100680,9 @@ declare module "sap/m/TablePersoDialog" {
      */
     persoDialogFor?: Table | string;
 
-    confirm?: Function;
+    confirm?: (oEvent: Event) => void;
 
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
   }
 }
 
@@ -99742,11 +100713,6 @@ declare module "sap/m/TablePersoProvider" {
     constructor();
 
     /**
-     * Removes the personalization bundle.
-     *  This must return a {@link http://api.jquery.com/promise/ jQuery promise}.
-     */
-    delPersData(): void;
-    /**
      * Creates a new subclass of class sap.m.TablePersoProvider with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -99767,6 +100733,15 @@ declare module "sap/m/TablePersoProvider" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TablePersoProvider.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
+     * Removes the personalization bundle.
+     *  This must return a {@link http://api.jquery.com/promise/ jQuery promise}.
+     */
+    delPersData(): void;
     /**
      * Callback function which can be used to determine the title of a given column within the TablePersoDialog.
      * As a default, the column header controls are asked for their 'text' or 'title' property. This works in
@@ -99801,10 +100776,6 @@ declare module "sap/m/TablePersoProvider" {
        */
       oColumn: Column
     ): void;
-    /**
-     * Returns a metadata object for class sap.m.TablePersoProvider.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Retrieves the personalization bundle.
      *  This must return a {@link http://api.jquery.com/promise/ jQuery Promise}, which resolves in the desired
@@ -99844,7 +100815,10 @@ declare module "sap/m/TablePersoProvider" {
 }
 
 declare module "sap/m/TableSelectDialog" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+  import {
+    default as SelectDialogBase,
+    $SelectDialogBaseSettings,
+  } from "sap/m/SelectDialogBase";
 
   import Column from "sap/m/Column";
 
@@ -99911,7 +100885,7 @@ declare module "sap/m/TableSelectDialog" {
    * 			of the control, you have to add the following classes depending on your use case: `sapUiResponsivePadding--header`,
    * 			`sapUiResponsivePadding--subHeader`, `sapUiResponsivePadding--content`, `sapUiResponsivePadding--footer`.
    */
-  export default class TableSelectDialog extends Control {
+  export default class TableSelectDialog extends SelectDialogBase {
     /**
      * Constructor for a new TableSelectDialog.
      *
@@ -99947,6 +100921,31 @@ declare module "sap/m/TableSelectDialog" {
       mSettings?: $TableSelectDialogSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.TableSelectDialog with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.SelectDialogBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TableSelectDialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TableSelectDialog.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some column to the aggregation {@link #getColumns columns}.
      */
@@ -100233,27 +101232,6 @@ declare module "sap/m/TableSelectDialog" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.TableSelectDialog with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TableSelectDialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -100403,10 +101381,6 @@ declare module "sap/m/TableSelectDialog" {
      * The items of the table.
      */
     getItems(): ColumnListItem[];
-    /**
-     * Returns a metadata object for class sap.m.TableSelectDialog.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMultiSelect multiSelect}.
      *
@@ -100801,7 +101775,8 @@ declare module "sap/m/TableSelectDialog" {
     unbindItems(): this;
   }
 
-  export interface $TableSelectDialogSettings extends $ControlSettings {
+  export interface $TableSelectDialogSettings
+    extends $SelectDialogBaseSettings {
     /**
      * Specifies the title text in the dialog header.
      */
@@ -100926,22 +101901,22 @@ declare module "sap/m/TableSelectDialog" {
      * Fires when the dialog is confirmed by selecting an item in single-selection mode or by pressing the confirmation
      * button in multi-selection mode. The items being selected are returned as event parameters.
      */
-    confirm?: Function;
+    confirm?: (oEvent: Event) => void;
 
     /**
      * Fires when the search button has been clicked on dialog.
      */
-    search?: Function;
+    search?: (oEvent: Event) => void;
 
     /**
      * Fires when the value of the search field is changed by a user (for example at each key press).
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
 
     /**
      * Fires when the Cancel button is clicked.
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
   }
 }
 
@@ -101053,6 +102028,47 @@ declare module "sap/m/Text" {
     normalLineHeight: int;
 
     /**
+     * Creates a new subclass of class sap.m.Text with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Text>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Text.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.30.3
+     *
+     * To prevent from the layout thrashing of the `textContent` call, this method first tries to set the `nodeValue`
+     * of the first child if it exists.
+     */
+    static setNodeValue(
+      /**
+       * DOM reference of the text node container.
+       */
+      oDomRef: HTMLElement,
+      /**
+       * new Node value.
+       */
+      sNodeValue?: string
+    ): void;
+    /**
      * Binds property {@link #getText text} to model data.
      *
      * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
@@ -101071,7 +102087,7 @@ declare module "sap/m/Text" {
      *
      * In RTL mode native line clamp feature is not supported.
      */
-    canUseNativeLineClamp(): Boolean;
+    canUseNativeLineClamp(): boolean;
     /**
      * @SINCE 1.22
      *
@@ -101103,27 +102119,6 @@ declare module "sap/m/Text" {
        */
       iEndPos?: int
     ): int | undefined;
-    /**
-     * Creates a new subclass of class sap.m.Text with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Text>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Gets the accessibility information for the text.
      * See:
@@ -101178,10 +102173,6 @@ declare module "sap/m/Text" {
      * this will be shown as ellipsis, for the other browsers the overflow will just be hidden.
      */
     getMaxLines(): int;
-    /**
-     * Returns a metadata object for class sap.m.Text.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.51
      *
@@ -101299,22 +102290,6 @@ declare module "sap/m/Text" {
        */
       iMaxLines?: int
     ): this;
-    /**
-     * @SINCE 1.30.3
-     *
-     * To prevent from the layout thrashing of the `textContent` call, this method first tries to set the `nodeValue`
-     * of the first child if it exists.
-     */
-    static setNodeValue(
-      /**
-       * DOM reference of the text node container.
-       */
-      oDomRef: HTMLElement,
-      /**
-       * new Node value.
-       */
-      sNodeValue?: string
-    ): void;
     /**
      * @SINCE 1.51
      *
@@ -101581,6 +102556,31 @@ declare module "sap/m/TextArea" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.TextArea with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.InputBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TextArea>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TextArea.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.m.TextArea`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -101636,27 +102636,6 @@ declare module "sap/m/TextArea" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.m.TextArea with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.InputBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TextArea>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
      */
@@ -101715,10 +102694,6 @@ declare module "sap/m/TextArea" {
      * Default value is `0`.
      */
     getMaxLength(): int;
-    /**
-     * Returns a metadata object for class sap.m.TextArea.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRows rows}.
      *
@@ -101980,7 +102955,7 @@ declare module "sap/m/TextArea" {
     /**
      * Is fired whenever the user has modified the text shown on the text area.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
   }
 }
 
@@ -102034,6 +103009,31 @@ declare module "sap/m/Tile" {
       mSettings?: $TileSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Tile with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Tile>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Tile.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.Tile`.
      *
@@ -102091,27 +103091,6 @@ declare module "sap/m/Tile" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Tile with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Tile>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -102120,10 +103099,6 @@ declare module "sap/m/Tile" {
        */
       mParameters?: object
     ): this;
-    /**
-     * Returns a metadata object for class sap.m.Tile.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRemovable removable}.
      *
@@ -102161,7 +103136,7 @@ declare module "sap/m/Tile" {
     /**
      * Tap event is raised if the user taps or clicks the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -102219,6 +103194,31 @@ declare module "sap/m/TileContainer" {
       mSettings?: $TileContainerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.TileContainer with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TileContainer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TileContainer.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds a Tile to the end of the tiles collection.
      */
@@ -102410,27 +103410,6 @@ declare module "sap/m/TileContainer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.TileContainer with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TileContainer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:tileAdd tileAdd} to attached listeners.
      */
     fireTileAdd(
@@ -102491,10 +103470,6 @@ declare module "sap/m/TileContainer" {
      * Default value is `'100%'`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.TileContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the index of the first Tile visible in the current page.
      */
@@ -102674,17 +103649,17 @@ declare module "sap/m/TileContainer" {
     /**
      * Fires if a Tile is moved.
      */
-    tileMove?: Function;
+    tileMove?: (oEvent: Event) => void;
 
     /**
      * Fires if a Tile is deleted in Edit mode.
      */
-    tileDelete?: Function;
+    tileDelete?: (oEvent: Event) => void;
 
     /**
      * Fires when a Tile is added.
      */
-    tileAdd?: Function;
+    tileAdd?: (oEvent: Event) => void;
   }
 }
 
@@ -102738,22 +103713,6 @@ declare module "sap/m/TileContent" {
     );
 
     /**
-     * Binds aggregation {@link #getContent content} to model data.
-     *
-     * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
-     * of the possible properties of `oBindingInfo`.
-     */
-    bindContent(
-      /**
-       * The binding information
-       */
-      oBindingInfo: AggregationBindingInfo
-    ): this;
-    /**
-     * Destroys the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.m.TileContent with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -102774,6 +103733,26 @@ declare module "sap/m/TileContent" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TileContent.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Binds aggregation {@link #getContent content} to model data.
+     *
+     * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
+     * of the possible properties of `oBindingInfo`.
+     */
+    bindContent(
+      /**
+       * The binding information
+       */
+      oBindingInfo: AggregationBindingInfo
+    ): this;
+    /**
+     * Destroys the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -102812,10 +103791,6 @@ declare module "sap/m/TileContent" {
      * Default value is `"Auto"`.
      */
     getFrameType(): FrameType | keyof typeof FrameType;
-    /**
-     * Returns a metadata object for class sap.m.TileContent.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.38.0) - The TileContent control has now a fixed size, depending on the used media
      * (desktop, tablet or phone).
@@ -103120,19 +104095,6 @@ declare module "sap/m/TimePicker" {
     );
 
     /**
-     * Adds some rule to the aggregation {@link #getRules rules}.
-     */
-    addRule(
-      /**
-       * The rule to add; if empty, nothing is inserted
-       */
-      oRule: MaskInputRule
-    ): this;
-    /**
-     * Destroys all the rules in the aggregation {@link #getRules rules}.
-     */
-    destroyRules(): this;
-    /**
      * Creates a new subclass of class sap.m.TimePicker with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -103153,6 +104115,23 @@ declare module "sap/m/TimePicker" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TimePicker.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some rule to the aggregation {@link #getRules rules}.
+     */
+    addRule(
+      /**
+       * The rule to add; if empty, nothing is inserted
+       */
+      oRule: MaskInputRule
+    ): this;
+    /**
+     * Destroys all the rules in the aggregation {@link #getRules rules}.
+     */
+    destroyRules(): this;
     /**
      * Fires change event to attached listeners.
      *
@@ -103239,10 +104218,6 @@ declare module "sap/m/TimePicker" {
      * Default value is `On`.
      */
     getMaskMode(): TimePickerMaskMode | keyof typeof TimePickerMaskMode;
-    /**
-     * Returns a metadata object for class sap.m.TimePicker.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.40
      *
@@ -103789,6 +104764,31 @@ declare module "sap/m/TimePickerSliders" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.TimePickerSliders with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TimePickerSliders>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.TimePickerSliders.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.m.TimePickerSliders`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -103849,27 +104849,6 @@ declare module "sap/m/TimePickerSliders" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.TimePickerSliders with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TimePickerSliders>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -103917,10 +104896,6 @@ declare module "sap/m/TimePickerSliders" {
      * 'a', which stands for day period string.
      */
     getLocaleId(): string;
-    /**
-     * Returns a metadata object for class sap.m.TimePickerSliders.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinutesStep minutesStep}.
      *
@@ -104151,7 +105126,7 @@ declare module "sap/m/TimePickerSliders" {
     /**
      * Fired when the value is changed.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 
@@ -104242,12 +105217,6 @@ declare module "sap/m/Title" {
     );
 
     /**
-     * @SINCE 1.87
-     *
-     * Destroys the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.m.Title with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -104268,6 +105237,16 @@ declare module "sap/m/Title" {
        */
       FNMetaImpl?: Function
     ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Title.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @SINCE 1.87
+     *
+     * Destroys the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
     /**
      * Gets the accessibility information for the `sap.m.Title` control.
      * See:
@@ -104302,10 +105281,6 @@ declare module "sap/m/Title" {
      * Default value is `Auto`.
      */
     getLevel(): TitleLevel | keyof typeof TitleLevel;
-    /**
-     * Returns a metadata object for class sap.m.Title.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -104700,6 +105675,31 @@ declare module "sap/m/ToggleButton" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.ToggleButton with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Button.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ToggleButton>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ToggleButton.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.m.ToggleButton`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -104756,27 +105756,6 @@ declare module "sap/m/ToggleButton" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ToggleButton with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Button.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ToggleButton>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -104795,10 +105774,6 @@ declare module "sap/m/ToggleButton" {
      * 	sap.ui.core.Control#getAccessibilityInfo
      */
     getAccessibilityInfo(): object;
-    /**
-     * Returns a metadata object for class sap.m.ToggleButton.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getPressed pressed}.
      *
@@ -104833,7 +105808,7 @@ declare module "sap/m/ToggleButton" {
     /**
      * Fired when the user clicks or taps on the control.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -104892,6 +105867,31 @@ declare module "sap/m/Token" {
       mSettings?: $TokenSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Token with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Token>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Token.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -105135,27 +106135,6 @@ declare module "sap/m/Token" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Token with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Token>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:delete delete} to attached listeners.
      */
     fireDelete(
@@ -105217,10 +106196,6 @@ declare module "sap/m/Token" {
      * Default value is `empty string`.
      */
     getKey(): string;
-    /**
-     * Returns a metadata object for class sap.m.Token.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -105398,22 +106373,22 @@ declare module "sap/m/Token" {
     /**
      * This event is fired if the user clicks the token's delete icon.
      */
-    delete?: Function;
+    delete?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the user clicks on the token.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the token gets selected.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the token gets deselected.
      */
-    deselect?: Function;
+    deselect?: (oEvent: Event) => void;
   }
 }
 
@@ -105483,6 +106458,31 @@ declare module "sap/m/Tokenizer" {
       mSettings?: $TokenizerSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Tokenizer with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Tokenizer>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Tokenizer.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
@@ -105745,27 +106745,6 @@ declare module "sap/m/Tokenizer" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Tokenizer with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Tokenizer>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @deprecated (since 1.82) - replaced by `tokenDelete` event.
      *
      * Fires event {@link #event:tokenChange tokenChange} to attached listeners.
@@ -105882,10 +106861,6 @@ declare module "sap/m/Tokenizer" {
      * Default value is `"100%"`.
      */
     getMaxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.Tokenizer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getRenderMode renderMode}.
      *
@@ -106163,7 +107138,7 @@ declare module "sap/m/Tokenizer" {
      *
      * Fired when the tokens aggregation changed (add / remove token)
      */
-    tokenChange?: Function;
+    tokenChange?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.46
@@ -106171,7 +107146,7 @@ declare module "sap/m/Tokenizer" {
      *
      * Fired when the tokens aggregation changed due to a user interaction (add / remove token)
      */
-    tokenUpdate?: Function;
+    tokenUpdate?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.82
@@ -106179,7 +107154,7 @@ declare module "sap/m/Tokenizer" {
      * Fired when a token is deleted by clicking icon, pressing backspace or delete button.  Once the
      * event is fired, application is responsible for removing / destroying the token from the aggregation.
      */
-    tokenDelete?: Function;
+    tokenDelete?: (oEvent: Event) => void;
   }
 }
 
@@ -106268,6 +107243,31 @@ declare module "sap/m/Toolbar" {
       mSettings?: $ToolbarSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.Toolbar with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Toolbar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Toolbar.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Sets classes according to the context of the page. Possible contexts are header, footer and subheader.
      */
@@ -106360,27 +107360,6 @@ declare module "sap/m/Toolbar" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Toolbar with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Toolbar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -106466,10 +107445,6 @@ declare module "sap/m/Toolbar" {
      * Gets the HTML tag of the root domref
      */
     getHTMLTag(): string;
-    /**
-     * Returns a metadata object for class sap.m.Toolbar.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.54
      *
@@ -106762,7 +107737,7 @@ declare module "sap/m/Toolbar" {
     /**
      * Fired when the user clicks on the toolbar, if the Active property is set to "true".
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -106841,15 +107816,15 @@ declare module "sap/m/ToolbarLayoutData" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.ToolbarLayoutData.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getMaxWidth maxWidth}.
      *
      * Sets the maximum width of the toolbar item.
      */
     getMaxWidth(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.ToolbarLayoutData.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
@@ -107190,6 +108165,31 @@ declare module "sap/m/Tree" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Tree with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListBase.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Tree>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Tree.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.50
      *
      * Attaches event handler `fnFunction` to the {@link #event:toggleOpenState toggleOpenState} event of this
@@ -107308,27 +108308,6 @@ declare module "sap/m/Tree" {
       iLevel: int
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Tree with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListBase.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Tree>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.50
      *
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
@@ -107352,10 +108331,6 @@ declare module "sap/m/Tree" {
         expanded?: boolean;
       }
     ): this;
-    /**
-     * Returns a metadata object for class sap.m.Tree.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.46)
      *
@@ -107419,7 +108394,7 @@ declare module "sap/m/Tree" {
      *
      * Fired when an item has been expanded or collapsed by user interaction.
      */
-    toggleOpenState?: Function;
+    toggleOpenState?: (oEvent: Event) => void;
   }
 }
 
@@ -107496,11 +108471,15 @@ declare module "sap/m/TreeItemBase" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.TreeItemBase.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.42.0
      *
      * Gets the expanding information of the node.
      */
-    getExpanded(): Boolean;
+    getExpanded(): boolean;
     /**
      * @SINCE 1.42.0
      *
@@ -107513,10 +108492,6 @@ declare module "sap/m/TreeItemBase" {
      * Gets the node level in the hierarchy.
      */
     getLevel(): int;
-    /**
-     * Returns a metadata object for class sap.m.TreeItemBase.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.42.0
      *
@@ -107576,6 +108551,49 @@ declare module "sap/m/upload/Uploader" {
      */
     constructor();
 
+    /**
+     * Creates a new subclass of class sap.m.upload.Uploader with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Uploader>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.upload.Uploader.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Starts function for uploading one file object to given url. Returns promise that resolves when the upload
+     * is finished or rejects when the upload fails.
+     */
+    static uploadFile(
+      /**
+       * File or Blob object to be uploaded.
+       */
+      oFile: File | Blob,
+      /**
+       * Upload Url.
+       */
+      sUrl: string,
+      /**
+       * Collection of request header fields to be send along.
+       */
+      aHeaderFields?: Item[]
+    ): Promise<any>;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:uploadAborted uploadAborted} event of this `sap.m.upload.Uploader`.
      *
@@ -107826,27 +108844,6 @@ declare module "sap/m/upload/Uploader" {
       bAskForLocation: boolean
     ): boolean;
     /**
-     * Creates a new subclass of class sap.m.upload.Uploader with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Uploader>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:uploadAborted uploadAborted} to attached listeners.
      */
     fireUploadAborted(
@@ -107928,10 +108925,6 @@ declare module "sap/m/upload/Uploader" {
      * Default value is `Post`.
      */
     getHttpRequestMethod(): UploaderHttpRequestMethod;
-    /**
-     * Returns a metadata object for class sap.m.upload.Uploader.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getUploadUrl uploadUrl}.
      *
@@ -108020,24 +109013,6 @@ declare module "sap/m/upload/Uploader" {
       oItem: UploadSetItem
     ): void;
     /**
-     * Starts function for uploading one file object to given url. Returns promise that resolves when the upload
-     * is finished or rejects when the upload fails.
-     */
-    static uploadFile(
-      /**
-       * File or Blob object to be uploaded.
-       */
-      oFile: File | Blob,
-      /**
-       * Upload Url.
-       */
-      sUrl: string,
-      /**
-       * Collection of request header fields to be send along.
-       */
-      aHeaderFields?: Item[]
-    ): Promise<any>;
-    /**
      * Starts the process of uploading the specified file.
      */
     uploadItem(
@@ -108081,22 +109056,22 @@ declare module "sap/m/upload/Uploader" {
     /**
      * The event is fired just after the POST request was sent.
      */
-    uploadStarted?: Function;
+    uploadStarted?: (oEvent: Event) => void;
 
     /**
      * The event is fired every time an XHR request reports progress in uploading.
      */
-    uploadProgressed?: Function;
+    uploadProgressed?: (oEvent: Event) => void;
 
     /**
      * The event is fired when an XHR request reports successful completion of upload process.
      */
-    uploadCompleted?: Function;
+    uploadCompleted?: (oEvent: Event) => void;
 
     /**
      * The event is fired when an XHR request reports its abortion.
      */
-    uploadAborted?: Function;
+    uploadAborted?: (oEvent: Event) => void;
   }
 }
 
@@ -108185,6 +109160,31 @@ declare module "sap/m/upload/UploadSet" {
       mSettings?: $UploadSetSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.upload.UploadSet with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, UploadSet>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.upload.UploadSet.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some headerField to the aggregation {@link #getHeaderFields headerFields}.
      */
@@ -109160,27 +110160,6 @@ declare module "sap/m/upload/UploadSet" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.upload.UploadSet with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, UploadSet>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:afterItemAdded afterItemAdded} to attached listeners.
      */
     fireAfterItemAdded(
@@ -109484,10 +110463,6 @@ declare module "sap/m/upload/UploadSet" {
      * If this property is not set, any file can be uploaded.
      */
     getMediaTypes(): string[];
-    /**
-     * Returns a metadata object for class sap.m.upload.UploadSet.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNoDataDescription noDataDescription}.
      *
@@ -109978,58 +110953,58 @@ declare module "sap/m/upload/UploadSet" {
     /**
      * This event is fired when a new file is added to the set of items to be uploaded.
      */
-    afterItemAdded?: Function;
+    afterItemAdded?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.83
      *
      * This event is fired after the item is removed on click of ok button in confirmation dialog.
      */
-    afterItemRemoved?: Function;
+    afterItemRemoved?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.83
      *
      * This event is fired after item edit is confirmed.
      */
-    afterItemEdited?: Function;
+    afterItemEdited?: (oEvent: Event) => void;
 
     /**
      * This event is fired just before a new file is added to the set of items to be uploaded.
      */
-    beforeItemAdded?: Function;
+    beforeItemAdded?: (oEvent: Event) => void;
 
     /**
      * This event is fired just before the confirmation dialog for 'Remove' action is displayed.
      */
-    beforeItemRemoved?: Function;
+    beforeItemRemoved?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the edit button is clicked for an item and no other item is being edited at
      * the same time.
      * If there is another item that has unsaved changes, the editing of the clicked item cannot be started.
      */
-    beforeItemEdited?: Function;
+    beforeItemEdited?: (oEvent: Event) => void;
 
     /**
      * This event is fired right before the upload process begins.
      */
-    beforeUploadStarts?: Function;
+    beforeUploadStarts?: (oEvent: Event) => void;
 
     /**
      * This event is fired right after the upload process is finished.
      */
-    uploadCompleted?: Function;
+    uploadCompleted?: (oEvent: Event) => void;
 
     /**
      * This event is fired right before the upload is terminated.
      */
-    beforeUploadTermination?: Function;
+    beforeUploadTermination?: (oEvent: Event) => void;
 
     /**
      * This event is fired right after the upload is terminated.
      */
-    uploadTerminated?: Function;
+    uploadTerminated?: (oEvent: Event) => void;
 
     /**
      * This event is fired in either of the following cases:
@@ -110037,7 +111012,7 @@ declare module "sap/m/upload/UploadSet" {
      *
      * 	 - When the file type restriction changes, and the file to be uploaded fails to meet the new restriction.
      */
-    fileTypeMismatch?: Function;
+    fileTypeMismatch?: (oEvent: Event) => void;
 
     /**
      * This event is fired in either of the following cases:
@@ -110046,7 +111021,7 @@ declare module "sap/m/upload/UploadSet" {
      * 	 - When the file name length restriction changes, and the file to be uploaded fails to meet the new
      * 			restriction.
      */
-    fileNameLengthExceeded?: Function;
+    fileNameLengthExceeded?: (oEvent: Event) => void;
 
     /**
      * This event is fired in either of the following cases:
@@ -110054,7 +111029,7 @@ declare module "sap/m/upload/UploadSet" {
      * 			the `maxFileSize` property.
      * 	 - When the file size restriction changes, and the file to be uploaded fails to meet the new restriction.
      */
-    fileSizeExceeded?: Function;
+    fileSizeExceeded?: (oEvent: Event) => void;
 
     /**
      * This event is fired in either of the following cases:
@@ -110062,12 +111037,12 @@ declare module "sap/m/upload/UploadSet" {
      * 			the `mediaTypes` property.
      * 	 - When the media type restriction changes, and the file to be uploaded fails to meet the new restriction.
      */
-    mediaTypeMismatch?: Function;
+    mediaTypeMismatch?: (oEvent: Event) => void;
 
     /**
      * This event is fired simultaneously with the respective event in the inner {@link sap.m.List} control.
      */
-    selectionChanged?: Function;
+    selectionChanged?: (oEvent: Event) => void;
   }
 }
 
@@ -110132,6 +111107,31 @@ declare module "sap/m/upload/UploadSetItem" {
       mSettings?: $UploadSetItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.upload.UploadSetItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, UploadSetItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.upload.UploadSetItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some attribute to the aggregation {@link #getAttributes attributes}.
      */
@@ -110311,27 +111311,6 @@ declare module "sap/m/upload/UploadSetItem" {
       bAskForLocation: boolean
     ): boolean;
     /**
-     * Creates a new subclass of class sap.m.upload.UploadSetItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, UploadSetItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:openPressed openPressed} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
@@ -110411,10 +111390,6 @@ declare module "sap/m/upload/UploadSetItem" {
      * Specifies the MIME type of the file.
      */
     getMediaType(): string;
-    /**
-     * Returns a metadata object for class sap.m.upload.UploadSetItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getStatuses statuses}.
      *
@@ -110868,12 +111843,12 @@ declare module "sap/m/upload/UploadSetItem" {
     /**
      * This event is fired when an open action is invoked on an item.
      */
-    openPressed?: Function;
+    openPressed?: (oEvent: Event) => void;
 
     /**
      * This event is fired when a remove action is invoked on an item.
      */
-    removePressed?: Function;
+    removePressed?: (oEvent: Event) => void;
   }
 }
 
@@ -110944,6 +111919,31 @@ declare module "sap/m/UploadCollection" {
       mSettings?: $UploadCollectionSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.UploadCollection with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, UploadCollection>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.UploadCollection.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some headerParameter to the aggregation {@link #getHeaderParameters headerParameters}.
      */
@@ -111620,27 +112620,6 @@ declare module "sap/m/UploadCollection" {
       askForLocation: boolean
     ): boolean;
     /**
-     * Creates a new subclass of class sap.m.UploadCollection with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, UploadCollection>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:beforeUploadStarts beforeUploadStarts} to attached listeners.
      */
     fireBeforeUploadStarts(
@@ -111940,10 +112919,6 @@ declare module "sap/m/UploadCollection" {
      * This property is not supported by Internet Explorer 8 and 9.
      */
     getMaximumFileSize(): float;
-    /**
-     * Returns a metadata object for class sap.m.UploadCollection.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMimeType mimeType}.
      *
@@ -112712,58 +113687,58 @@ declare module "sap/m/UploadCollection" {
      * and headerParameters which will be dispatched to the embedded FileUploader control. Restriction: parameters
      * and headerParameters are not supported by Internet Explorer 9.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
 
     /**
      * The event is triggered when an uploaded attachment is selected and the Delete button is pressed.
      */
-    fileDeleted?: Function;
+    fileDeleted?: (oEvent: Event) => void;
 
     /**
      * The event is triggered when the name of a chosen file is longer than the value specified with the maximumFilenameLength
      * property (only if provided by the application).
      */
-    filenameLengthExceed?: Function;
+    filenameLengthExceed?: (oEvent: Event) => void;
 
     /**
      * The event is triggered when the file name is changed.
      */
-    fileRenamed?: Function;
+    fileRenamed?: (oEvent: Event) => void;
 
     /**
      * The event is triggered when the file size of an uploaded file is exceeded (only if the maxFileSize property
      * was provided by the application). This event is not supported by Internet Explorer 9.
      */
-    fileSizeExceed?: Function;
+    fileSizeExceed?: (oEvent: Event) => void;
 
     /**
      * The event is triggered when the file type or the MIME type don't match the permitted types (only if the
      * fileType property or the mimeType property are provided by the application).
      */
-    typeMissmatch?: Function;
+    typeMissmatch?: (oEvent: Event) => void;
 
     /**
      * The event is triggered as soon as the upload request is completed.
      */
-    uploadComplete?: Function;
+    uploadComplete?: (oEvent: Event) => void;
 
     /**
      * The event is triggered as soon as the upload request was terminated by the user.
      */
-    uploadTerminated?: Function;
+    uploadTerminated?: (oEvent: Event) => void;
 
     /**
      * The event is triggered before the actual upload starts. An event is fired per file. All the necessary
      * header parameters should be set here.
      */
-    beforeUploadStarts?: Function;
+    beforeUploadStarts?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.36.0
      *
      * Fires when selection is changed via user interaction inside the control.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -112826,6 +113801,31 @@ declare module "sap/m/UploadCollectionItem" {
       mSettings?: $UploadCollectionItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.UploadCollectionItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, UploadCollectionItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.UploadCollectionItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.30.0
      *
@@ -113062,27 +114062,6 @@ declare module "sap/m/UploadCollectionItem" {
       askForLocation: boolean
     ): boolean;
     /**
-     * Creates a new subclass of class sap.m.UploadCollectionItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, UploadCollectionItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * @SINCE 1.50.0
      *
      * Fires event {@link #event:deletePress deletePress} to attached listeners.
@@ -113191,10 +114170,6 @@ declare module "sap/m/UploadCollectionItem" {
      * mode
      */
     getMarkers(): ObjectMarker[];
-    /**
-     * Returns a metadata object for class sap.m.UploadCollectionItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMimeType mimeType}.
      *
@@ -113773,7 +114748,7 @@ declare module "sap/m/UploadCollectionItem" {
      * This event is triggered when the user presses the filename link. If this event is provided, it overwrites
      * the default behavior of opening the file.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.50.0
@@ -113782,7 +114757,7 @@ declare module "sap/m/UploadCollectionItem" {
      * event is triggered. If this event is triggered, it overwrites the default delete behavior of UploadCollection
      * and the fileDeleted event of UploadCollection is not triggered.
      */
-    deletePress?: Function;
+    deletePress?: (oEvent: Event) => void;
   }
 }
 
@@ -114137,27 +115112,6 @@ declare module "sap/m/ViewSettingsCustomItem" {
     );
 
     /**
-     * Creates a clone of the ViewSettingsCustomItem instance.
-     */
-    clone(
-      /**
-       * a suffix to be appended to the cloned object id
-       */
-      sIdSuffix?: string,
-      /**
-       * an array of local IDs within the cloned hierarchy (internally used)
-       */
-      aLocalIds?: string[],
-      /**
-       * configuration object
-       */
-      oOptions?: object
-    ): this;
-    /**
-     * Destroys the customControl in the aggregation {@link #getCustomControl customControl}.
-     */
-    destroyCustomControl(): this;
-    /**
      * Creates a new subclass of class sap.m.ViewSettingsCustomItem with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -114179,6 +115133,31 @@ declare module "sap/m/ViewSettingsCustomItem" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.ViewSettingsCustomItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Creates a clone of the ViewSettingsCustomItem instance.
+     */
+    clone(
+      /**
+       * a suffix to be appended to the cloned object id
+       */
+      sIdSuffix?: string,
+      /**
+       * an array of local IDs within the cloned hierarchy (internally used)
+       */
+      aLocalIds?: string[],
+      /**
+       * configuration object
+       */
+      oOptions?: object
+    ): this;
+    /**
+     * Destroys the customControl in the aggregation {@link #getCustomControl customControl}.
+     */
+    destroyCustomControl(): this;
+    /**
      * Internally the control is handled as a managed object instead of an aggregation because this control
      * is sometimes aggregated in other controls like a popover or a dialog.
      */
@@ -114192,10 +115171,6 @@ declare module "sap/m/ViewSettingsCustomItem" {
      * Default value is `0`.
      */
     getFilterCount(): int;
-    /**
-     * Returns a metadata object for class sap.m.ViewSettingsCustomItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Internally the control is handled as a managed object instead of an aggregation as this control is sometimes
      * aggregated in other controls like a popover or a dialog.
@@ -114284,19 +115259,6 @@ declare module "sap/m/ViewSettingsCustomTab" {
     );
 
     /**
-     * Adds some content to the aggregation {@link #getContent content}.
-     */
-    addContent(
-      /**
-       * The content to add; if empty, nothing is inserted
-       */
-      oContent: Control
-    ): this;
-    /**
-     * Destroys all the content in the aggregation {@link #getContent content}.
-     */
-    destroyContent(): this;
-    /**
      * Creates a new subclass of class sap.m.ViewSettingsCustomTab with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -114318,6 +115280,23 @@ declare module "sap/m/ViewSettingsCustomTab" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.ViewSettingsCustomTab.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     */
+    destroyContent(): this;
+    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * The content of this Custom tab
@@ -114331,10 +115310,6 @@ declare module "sap/m/ViewSettingsCustomTab" {
      * Default value is `"sap-icon://competitor"`.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.m.ViewSettingsCustomTab.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
@@ -114536,6 +115511,31 @@ declare module "sap/m/ViewSettingsDialog" {
       mSettings?: $ViewSettingsDialogSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ViewSettingsDialog with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ViewSettingsDialog>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ViewSettingsDialog.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Overwrites the aggregation setter in order to have ID validation logic as some strings are reserved for
      * the predefined tabs.
@@ -114989,27 +115989,6 @@ declare module "sap/m/ViewSettingsDialog" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ViewSettingsDialog with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ViewSettingsDialog>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -115154,10 +116133,6 @@ declare module "sap/m/ViewSettingsDialog" {
      * The list of items with key and value that can be grouped on (for example, a list of columns for a table).
      */
     getGroupItems(): ViewSettingsItem[];
-    /**
-     * Returns a metadata object for class sap.m.ViewSettingsDialog.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.16
      *
@@ -115820,27 +116795,27 @@ declare module "sap/m/ViewSettingsDialog" {
      * **Note:** Custom tabs are not converted to event parameters automatically. For custom tabs, you have
      * to read the state of your controls inside the callback of this event.
      */
-    confirm?: Function;
+    confirm?: (oEvent: Event) => void;
 
     /**
      * Called when the Cancel button is pressed. It can be used to set the state of custom filter controls.
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
 
     /**
      * Called when the filters are being reset.
      */
-    resetFilters?: Function;
+    resetFilters?: (oEvent: Event) => void;
 
     /**
      * Called when the Reset button is pressed. It can be used to set the state of custom tabs.
      */
-    reset?: Function;
+    reset?: (oEvent: Event) => void;
 
     /**
      * Fired when the filter detail page is opened.
      */
-    filterDetailPageOpened?: Function;
+    filterDetailPageOpened?: (oEvent: Event) => void;
   }
 }
 
@@ -115898,6 +116873,31 @@ declare module "sap/m/ViewSettingsFilterItem" {
       mSettings?: $ViewSettingsFilterItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ViewSettingsFilterItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ViewSettingsItem.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ViewSettingsFilterItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ViewSettingsFilterItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -115983,27 +116983,6 @@ declare module "sap/m/ViewSettingsFilterItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ViewSettingsFilterItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ViewSettingsItem.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ViewSettingsFilterItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:filterDetailItemsAggregationChange filterDetailItemsAggregationChange} to attached
      * listeners.
      */
@@ -116020,10 +116999,6 @@ declare module "sap/m/ViewSettingsFilterItem" {
      * filter details in the ViewSettingsDialog.
      */
     getItems(): ViewSettingsItem[];
-    /**
-     * Returns a metadata object for class sap.m.ViewSettingsFilterItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMultiSelect multiSelect}.
      *
@@ -116109,7 +117084,7 @@ declare module "sap/m/ViewSettingsFilterItem" {
     /**
      * Let the outside world know that the filter detail aggregation was changed.
      */
-    filterDetailItemsAggregationChange?: Function;
+    filterDetailItemsAggregationChange?: (oEvent: Event) => void;
   }
 }
 
@@ -116162,6 +117137,31 @@ declare module "sap/m/ViewSettingsItem" {
       mSettings?: $ViewSettingsItemSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.ViewSettingsItem with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, ViewSettingsItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.ViewSettingsItem.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:itemPropertyChanged itemPropertyChanged} event
      * of this `sap.m.ViewSettingsItem`.
@@ -116222,27 +117222,6 @@ declare module "sap/m/ViewSettingsItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.ViewSettingsItem with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ViewSettingsItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:itemPropertyChanged itemPropertyChanged} to attached listeners.
      */
     fireItemPropertyChanged(
@@ -116264,10 +117243,6 @@ declare module "sap/m/ViewSettingsItem" {
         propertyValue?: any;
       }
     ): this;
-    /**
-     * Returns a metadata object for class sap.m.ViewSettingsItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelected selected}.
      *
@@ -116305,7 +117280,7 @@ declare module "sap/m/ViewSettingsItem" {
     /**
      * Let the outside world know that some of its properties has changed.
      */
-    itemPropertyChanged?: Function;
+    itemPropertyChanged?: (oEvent: Event) => void;
   }
 }
 
@@ -116361,6 +117336,31 @@ declare module "sap/m/WheelSlider" {
       mSettings?: $WheelSliderSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.WheelSlider with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, WheelSlider>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.WheelSlider.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      */
@@ -116546,27 +117546,6 @@ declare module "sap/m/WheelSlider" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.WheelSlider with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, WheelSlider>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:collapsed collapsed} to attached listeners.
      */
     fireCollapsed(
@@ -116626,10 +117605,6 @@ declare module "sap/m/WheelSlider" {
      * Defines the descriptive text for the slider, placed as a label above it.
      */
     getLabel(): string;
-    /**
-     * Returns a metadata object for class sap.m.WheelSlider.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSelectedKey selectedKey}.
      *
@@ -116763,17 +117738,17 @@ declare module "sap/m/WheelSlider" {
     /**
      * Fires when the slider is expanded.
      */
-    expanded?: Function;
+    expanded?: (oEvent: Event) => void;
 
     /**
      * Fires when the slider is collapsed.
      */
-    collapsed?: Function;
+    collapsed?: (oEvent: Event) => void;
 
     /**
      * Fires when the selected key changes.
      */
-    selectedKeyChange?: Function;
+    selectedKeyChange?: (oEvent: Event) => void;
   }
 }
 
@@ -116829,19 +117804,6 @@ declare module "sap/m/WheelSliderContainer" {
     );
 
     /**
-     * Adds some slider to the aggregation {@link #getSliders sliders}.
-     */
-    addSlider(
-      /**
-       * The slider to add; if empty, nothing is inserted
-       */
-      oSlider: WheelSlider
-    ): this;
-    /**
-     * Destroys all the sliders in the aggregation {@link #getSliders sliders}.
-     */
-    destroySliders(): this;
-    /**
      * Creates a new subclass of class sap.m.WheelSliderContainer with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
@@ -116863,6 +117825,23 @@ declare module "sap/m/WheelSliderContainer" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.m.WheelSliderContainer.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some slider to the aggregation {@link #getSliders sliders}.
+     */
+    addSlider(
+      /**
+       * The slider to add; if empty, nothing is inserted
+       */
+      oSlider: WheelSlider
+    ): this;
+    /**
+     * Destroys all the sliders in the aggregation {@link #getSliders sliders}.
+     */
+    destroySliders(): this;
+    /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Sets the height of the container. If percentage value is used, the parent container must have specified
@@ -116875,10 +117854,6 @@ declare module "sap/m/WheelSliderContainer" {
      * Defines the text of the picker label.
      */
     getLabelText(): string;
-    /**
-     * Returns a metadata object for class sap.m.WheelSliderContainer.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets content of aggregation {@link #getSliders sliders}.
      *
@@ -117091,6 +118066,31 @@ declare module "sap/m/Wizard" {
     );
 
     /**
+     * Creates a new subclass of class sap.m.Wizard with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Wizard>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.Wizard.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds a new step to the Wizard.
      */
     addStep(
@@ -117232,27 +118232,6 @@ declare module "sap/m/Wizard" {
       bPreserveNextStep: boolean
     ): this;
     /**
-     * Creates a new subclass of class sap.m.Wizard with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Wizard>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:complete complete} to attached listeners.
      */
     fireComplete(
@@ -117319,10 +118298,6 @@ declare module "sap/m/Wizard" {
      * Default value is `"100%"`.
      */
     getHeight(): CSSSize;
-    /**
-     * Returns a metadata object for class sap.m.Wizard.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the number of the last activated step in the Wizard.
      */
@@ -117592,13 +118567,13 @@ declare module "sap/m/Wizard" {
     /**
      * The StepActivated event is fired every time a new step is activated.
      */
-    stepActivate?: Function;
+    stepActivate?: (oEvent: Event) => void;
 
     /**
      * The complete event is fired when the user clicks the finish button of the Wizard. The finish button is
      * only available on the last step of the Wizard.
      */
-    complete?: Function;
+    complete?: (oEvent: Event) => void;
   }
 }
 
@@ -117660,6 +118635,31 @@ declare module "sap/m/WizardStep" {
       mSettings?: $WizardStepSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.m.WizardStep with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, WizardStep>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.WizardStep.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      */
@@ -117799,27 +118799,6 @@ declare module "sap/m/WizardStep" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.m.WizardStep with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, WizardStep>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:activate activate} to attached listeners.
      */
     fireActivate(
@@ -117853,10 +118832,6 @@ declare module "sap/m/WizardStep" {
      * Default value is `empty string`.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.m.WizardStep.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.32
      *
@@ -118093,12 +119068,12 @@ declare module "sap/m/WizardStep" {
      * This event is fired after the user presses the Next button in the Wizard, or on `nextStep` method call
      * from the app developer.
      */
-    complete?: Function;
+    complete?: (oEvent: Event) => void;
 
     /**
      * This event is fired on next step activation from the Wizard.
      */
-    activate?: Function;
+    activate?: (oEvent: Event) => void;
   }
 }
 
@@ -118337,9 +119312,6 @@ declare namespace sap {
      * be switched off via the `bResolveInput/bResolveOutput` parameter of the suggest function.
      */
     namespace InputODataSuggestProvider {
-      /**
-       *
-       */
       function suggest(
         oEvent: import("sap/ui/base/Event").default,
         /**
@@ -118413,9 +119385,6 @@ declare namespace sap {
      * Helper Class for implementing the IBar interface. Should be created once per IBar instance.
      */
     class IBarInPageEnabler {
-      /**
-       *
-       */
       constructor();
 
       /**
@@ -118830,6 +119799,8 @@ declare namespace sap {
     "sap/m/Select": undefined;
 
     "sap/m/SelectDialog": undefined;
+
+    "sap/m/SelectDialogBase": undefined;
 
     "sap/m/SelectionDetails": undefined;
 

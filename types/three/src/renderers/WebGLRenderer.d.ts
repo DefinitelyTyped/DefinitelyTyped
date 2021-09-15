@@ -23,6 +23,7 @@ import { XRAnimationLoopCallback } from './webxr/WebXR';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
 import { DataTexture2DArray } from '../textures/DataTexture2DArray';
+import { ColorRepresentation } from '../utils';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -30,6 +31,10 @@ export interface Renderer {
     render(scene: Object3D, camera: Camera): void;
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
+
+/** This is only available in worker JS contexts, not the DOM. */
+// tslint:disable-next-line:no-empty-interface
+export interface OffscreenCanvas extends EventTarget {}
 
 export interface WebGLRendererParameters {
     /**
@@ -291,7 +296,7 @@ export class WebGLRenderer implements Renderer {
     /**
      * Sets the clear color, using color for the color and alpha for the opacity.
      */
-    setClearColor(color: Color | string | number, alpha?: number): void;
+    setClearColor(color: ColorRepresentation, alpha?: number): void;
 
     /**
      * Returns a float with the current clear alpha. Ranges from 0 to 1.

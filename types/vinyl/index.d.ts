@@ -34,7 +34,7 @@ interface ConstructorOptions {
     /**
      * The result of an fs.stat call. This is how you mark the file as a directory or
      * symbolic link. See `isDirectory()`, `isSymbolic()` and `fs.Stats` for more information.
-     * http://nodejs.org/api/fs.html#fs_class_fs_stats
+     * https://nodejs.org/api/fs.html#fs_class_fs_stats
      */
     stat?: fs.Stats | undefined;
 

@@ -1,6 +1,27 @@
-import BaseComponent from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Modal extends BaseComponent {
+    /**
+     * Static method which allows you to get the modal instance associated with
+     * a DOM element
+     */
+    static getInstance: GetInstanceFactory<Modal>;
+
+    /**
+     * Static method which allows you to get the modal instance associated with
+     * a DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Modal, Partial<Modal.Options>>;
+
+    static jQueryInterface: Modal.jQueryInterface;
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Modal.Options;
+
     constructor(element: string | Element, options?: Partial<Modal.Options>);
 
     /**
@@ -27,23 +48,6 @@ declare class Modal extends BaseComponent {
      * changes while it is open (i.e. in case a scrollbar appears).
      */
     handleUpdate(): void;
-
-    /**
-     * Static method which allows you to get the modal instance associated with
-     * a DOM element
-     */
-    static getInstance(element: Element, options?: Partial<Modal.Options>): Modal | null;
-
-    static jQueryInterface: Modal.jQueryInterface;
-
-    // static NAME: 'modal';
-
-    /**
-     * Default settings of this plugin
-     *
-     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
-     */
-    static Default: Modal.Options;
 }
 
 declare namespace Modal {

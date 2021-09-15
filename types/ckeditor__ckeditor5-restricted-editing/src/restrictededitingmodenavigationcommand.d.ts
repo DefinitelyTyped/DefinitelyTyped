@@ -5,3 +5,9 @@ export default class RestrictedEditingModeNavigationCommand extends Command {
     refresh(): void;
     execute(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        RestrictedEditingModeNavigationCommand: RestrictedEditingModeNavigationCommand;
+    }
+}

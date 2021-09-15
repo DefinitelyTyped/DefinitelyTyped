@@ -19,7 +19,11 @@ export interface MutationConfig<TOperation extends MutationParameters> {
         | ((response: TOperation['response'], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
         | null | undefined;
     onUnsubscribe?: (() => void | null | undefined) | undefined;
-    optimisticResponse?: TOperation['response'] | undefined;
+    /**
+     * An object whose type matches the raw response type of the mutation. Make sure you decorate
+     * your mutation with `@raw_response_type` if you are using this field.
+     */
+    optimisticResponse?: (TOperation['rawResponse'] extends {} ? TOperation['rawResponse'] : never) | undefined;
     optimisticUpdater?: SelectorStoreUpdater<TOperation['response']> | null | undefined;
     updater?: SelectorStoreUpdater<TOperation['response']> | null | undefined;
     uploadables?: UploadableMap | null | undefined;

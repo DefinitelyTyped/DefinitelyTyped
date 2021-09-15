@@ -75,10 +75,11 @@ import * as timers from 'node:timers';
 
 // unresolved callback argument types
 {
-    new Promise(resolve => setTimeout(resolve, 100));
-    new Promise(resolve => setInterval(resolve, 100));
+    // `NodeJS.*` is present to make sure we're not using `dom` types
+    new Promise((resolve): NodeJS.Timeout => timers.setTimeout(resolve, 100));
+    new Promise((resolve): NodeJS.Timer => timers.setInterval(resolve, 100));
     // tslint:disable-next-line no-unnecessary-callback-wrapper
-    new Promise(resolve => setImmediate(resolve));
+    new Promise((resolve): NodeJS.Immediate => timers.setImmediate(resolve));
 }
 
 // globals

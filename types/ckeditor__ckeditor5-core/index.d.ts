@@ -3,7 +3,7 @@
 // Definitions by: Federico Panico <https://github.com/fedemp>
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 
 export { default as Plugin } from './src/plugin';
 export { default as Command } from './src/command';

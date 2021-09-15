@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 1.17
+// Type definitions for prosemirror-view 1.19
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -58,6 +58,12 @@ export interface WidgetDecorationSpec {
      * of this widget, the editor view should ignore.
      */
     stopEvent?: ((event: Event) => boolean) | null | undefined;
+    /**
+     * When set (defaults to false), selection changes inside the
+     * widget are ignored, and don't cause ProseMirror to try and
+     * re-sync the selection with its selection state.
+     */
+    ignoreSelection?: boolean;
     /**
      * When comparing decorations of this type (in order to decide
      * whether it needs to be redrawn), ProseMirror will by default
@@ -411,7 +417,10 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
      * before the input is applied. If it returns `true`, the default
      * behavior of actually inserting the text is suppressed.
      */
-    handleTextInput?: ((this: ThisT, view: EditorView<S>, from: number, to: number, text: string) => boolean) | null | undefined;
+    handleTextInput?:
+        | ((this: ThisT, view: EditorView<S>, from: number, to: number, text: string) => boolean)
+        | null
+        | undefined;
     /**
      * Called for each node around a click, from the inside out. The
      * `direct` flag will be true for the inner node.
@@ -426,7 +435,8 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
               event: MouseEvent,
               direct: boolean,
           ) => boolean)
-        | null | undefined;
+        | null
+        | undefined;
     /**
      * Called when the editor is clicked, after `handleClickOn` handlers
      * have been called.
@@ -445,11 +455,15 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
               event: MouseEvent,
               direct: boolean,
           ) => boolean)
-        | null | undefined;
+        | null
+        | undefined;
     /**
      * Called when the editor is double-clicked, after `handleDoubleClickOn`.
      */
-    handleDoubleClick?: ((this: ThisT, view: EditorView<S>, pos: number, event: MouseEvent) => boolean) | null | undefined;
+    handleDoubleClick?:
+        | ((this: ThisT, view: EditorView<S>, pos: number, event: MouseEvent) => boolean)
+        | null
+        | undefined;
     /**
      * Called for each node around a triple click.
      */
@@ -463,23 +477,33 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
               event: MouseEvent,
               direct: boolean,
           ) => boolean)
-        | null | undefined;
+        | null
+        | undefined;
     /**
      * Called when the editor is triple-clicked, after `handleTripleClickOn`.
      */
-    handleTripleClick?: ((this: ThisT, view: EditorView<S>, pos: number, event: MouseEvent) => boolean) | null | undefined;
+    handleTripleClick?:
+        | ((this: ThisT, view: EditorView<S>, pos: number, event: MouseEvent) => boolean)
+        | null
+        | undefined;
     /**
      * Can be used to override the behavior of pasting. `slice` is the
      * pasted content parsed by the editor, but you can directly access
      * the event to get at the raw content.
      */
-    handlePaste?: ((this: ThisT, view: EditorView<S>, event: ClipboardEvent, slice: Slice<S>) => boolean) | null | undefined;
+    handlePaste?:
+        | ((this: ThisT, view: EditorView<S>, event: ClipboardEvent, slice: Slice<S>) => boolean)
+        | null
+        | undefined;
     /**
      * Called when something is dropped on the editor. `moved` will be
      * true if this drop moves from the current selection (which should
      * thus be deleted).
      */
-    handleDrop?: ((this: ThisT, view: EditorView<S>, event: Event, slice: Slice<S>, moved: boolean) => boolean) | null | undefined;
+    handleDrop?:
+        | ((this: ThisT, view: EditorView<S>, event: Event, slice: Slice<S>, moved: boolean) => boolean)
+        | null
+        | undefined;
     /**
      * Called when the view, after updating its state, tries to scroll
      * the selection into view. A handler function may return false to
@@ -498,7 +522,8 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
               anchor: ResolvedPos<S>,
               head: ResolvedPos<S>,
           ) => Selection<S> | null | undefined)
-        | null | undefined;
+        | null
+        | undefined;
     /**
      * The [parser](#model.DOMParser) to use when reading editor changes
      * from the DOM. Defaults to calling
@@ -532,7 +557,10 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
      * The `plain` flag will be true when the text is pasted as plain
      * text.
      */
-    clipboardTextParser?: ((this: ThisT, text: string, $context: ResolvedPos<S>, plain: boolean) => Slice<S>) | null | undefined;
+    clipboardTextParser?:
+        | ((this: ThisT, text: string, $context: ResolvedPos<S>, plain: boolean) => Slice<S>)
+        | null
+        | undefined;
     /**
      * Can be used to transform pasted content before it is applied to
      * the document.
@@ -554,14 +582,17 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
      * they can also be used as a way to provide context information to
      * the node view without adding it to the document itself.
      */
-    nodeViews?: {
-        [name: string]: (
-            node: ProsemirrorNode<S>,
-            view: EditorView<S>,
-            getPos: (() => number) | boolean,
-            decorations: Decoration[],
-        ) => NodeView<S>;
-    } | null | undefined;
+    nodeViews?:
+        | {
+              [name: string]: (
+                  node: ProsemirrorNode<S>,
+                  view: EditorView<S>,
+                  getPos: (() => number) | boolean,
+                  decorations: Decoration[],
+              ) => NodeView<S>;
+          }
+        | null
+        | undefined;
     /**
      * The DOM serializer to use when putting content onto the
      * clipboard. If not given, the result of
@@ -599,7 +630,8 @@ export interface EditorProps<ThisT = unknown, S extends Schema = any> {
     attributes?:
         | { [name: string]: string }
         | ((this: ThisT, p: EditorState<S>) => { [name: string]: string } | null | undefined | void)
-        | null | undefined;
+        | null
+        | undefined;
     /**
      * Determines the distance (in pixels) between the cursor and the
      * end of the visible viewport at which point, when scrolling the
@@ -677,7 +709,10 @@ export interface NodeView<S extends Schema = any> {
      * no `dom` property), updating its child nodes will be handled by
      * ProseMirror.
      */
-    update?: ((node: ProsemirrorNode<S>, decorations: Decoration[]) => boolean) | null | undefined;
+    update?:
+        | ((node: ProsemirrorNode<S>, decorations: Decoration[], innerDecorations: DecorationSet) => boolean)
+        | null
+        | undefined;
     /**
      * Can be used to override the way the node's selected status (as a
      * node selection) is displayed.
@@ -721,7 +756,8 @@ export interface NodeView<S extends Schema = any> {
                         target: Element;
                     },
           ) => boolean)
-        | null | undefined;
+        | null
+        | undefined;
     /**
      * Called when the node view is removed from the editor or the whole
      * editor is destroyed.

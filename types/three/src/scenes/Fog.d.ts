@@ -1,3 +1,4 @@
+import { ColorRepresentation } from '../utils';
 import { Color } from './../math/Color';
 
 export interface FogBase {
@@ -11,7 +12,7 @@ export interface FogBase {
  * This class contains the parameters that define linear fog, i.e., that grows linearly denser with the distance.
  */
 export class Fog implements FogBase {
-    constructor(color: Color | number | string, near?: number, far?: number);
+    constructor(color: ColorRepresentation, near?: number, far?: number);
 
     /**
      * @default ''

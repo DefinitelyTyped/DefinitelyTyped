@@ -46,7 +46,16 @@ export default class Rect {
     left: number;
     width: number;
     height: number;
-    constructor(source: HTMLElement | Range | Window | ClientRect | Rect | object);
+    constructor(
+        source:
+            | HTMLElement
+            | Range
+            | Window
+            | ClientRect
+            | DOMRect
+            | Rect
+            | { top: number; right: number; bottom: number; left: number; width: number; height: number },
+    );
     /**
      * Returns a clone of the rect.
      *

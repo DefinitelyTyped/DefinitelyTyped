@@ -2,6 +2,7 @@
 // Project: https://github.com/adelsz/inquirer-fuzzy-path
 // Definitions by: 迷子 (Maiko Tan) <https://github.com/MaikoTan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.2
 
 import { Answers, KeyUnion, QuestionCollection } from 'inquirer';
 import { AutocompleteQuestionOptions } from 'inquirer-autocomplete-prompt';

@@ -241,7 +241,12 @@ function test_collection() {
     books.set([{ title: 'Title 0', author: 'Johan' }]);
     books.reset();
 
-    const book1: Book = new Book({ title: 'Title 1', author: 'Mike' });
+    const book1: Book = new Book({ title: 'Title 1', author: 'Mike' }, {
+        // We sneak in an arbitrary option to check that
+        // `CombinedModelSetOptions` no longer breaks pre-1.4.4 code
+        // (see #55764 and #46513).
+        testOption: 'banana',
+    });
     books.add(book1);
 
     // Test adding sort option to add.
@@ -555,6 +560,21 @@ class ModellessView extends Backbone.View {
     constructor(options: ModellessViewOptions) {
         super(options);
         this.color = options.color;
+    }
+}
+
+interface SVGViewOptions extends Backbone.ViewOptions<Backbone.Model, SVGGraphicsElement> {
+}
+
+class SVGView extends Backbone.View<Backbone.Model, SVGGraphicsElement> {
+    matrix: DOMMatrix | null = null;
+    document: SVGSVGElement | null = null;
+    constructor(options: SVGViewOptions) {
+        super(options);
+        if (options.el instanceof SVGElement) {
+            this.document = options.el.ownerSVGElement;
+        }
+        this.matrix = this.el.getCTM();
     }
 }
 

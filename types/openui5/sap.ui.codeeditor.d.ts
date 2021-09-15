@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.94.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -54,6 +54,31 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       mSettings?: $CodeEditorSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.codeeditor.CodeEditor with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CodeEditor>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.codeeditor.CodeEditor.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.52
      *
@@ -180,27 +205,6 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.codeeditor.CodeEditor with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, CodeEditor>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:change change} to attached listeners.
      */
     fireChange(
@@ -295,10 +299,6 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * Default value is `0`.
      */
     getMaxLines(): int;
-    /**
-     * Returns a metadata object for class sap.ui.codeeditor.CodeEditor.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getSyntaxHints syntaxHints}.
      *
@@ -599,12 +599,12 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: Function;
+    liveChange?: (oEvent: Event) => void;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: Function;
+    change?: (oEvent: Event) => void;
   }
 }
 

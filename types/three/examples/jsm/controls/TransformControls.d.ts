@@ -1,4 +1,4 @@
-import { Object3D, Camera, MOUSE } from '../../../src/Three';
+import { Object3D, Camera, MOUSE, Raycaster } from '../../../src/Three';
 
 export class TransformControls extends Object3D {
     constructor(object: Camera, domElement?: HTMLElement);
@@ -30,6 +30,7 @@ export class TransformControls extends Object3D {
     attach(object: Object3D): this;
     detach(): this;
     getMode(): string;
+    getRaycaster(): Raycaster;
     setMode(mode: string): void;
     setTranslationSnap(translationSnap: number | null): void;
     setRotationSnap(rotationSnap: number | null): void;

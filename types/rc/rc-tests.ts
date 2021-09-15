@@ -34,3 +34,19 @@ const customArgv = rc(
         },
     }
 );
+
+////////////////////
+
+interface AppConfig {
+    port: number;
+    views: {
+        engine: string,
+    };
+}
+
+const genericConf = rc<AppConfig>('appname4', {
+    port: 1234,
+    views: {
+        engine: 'jade'
+    }
+});

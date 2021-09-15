@@ -1,4 +1,4 @@
-import indy from "indy-sdk";
+import indy from 'indy-sdk';
 import { Buffer } from 'buffer/';
 
 indy.openBlobStorageWriter('default', {
@@ -170,6 +170,7 @@ indy.signRequest(10, 'myDid', ledgerRequest);
 indy.signAndSubmitRequest(10, 10, 'myDid', ledgerRequest);
 indy.submitRequest(10, ledgerRequest);
 indy.parseGetNymResponse(ledgerRejectResponse);
+indy.buildNymRequest('myDid', 'targetDid', 'verKey', 'alias', 'TRUSTEE');
 indy.buildGetSchemaRequest('myDid', 'a');
 indy.parseGetSchemaResponse(ledgerWriteReply);
 indy.buildGetAcceptanceMechanismsRequest(null);
@@ -253,7 +254,7 @@ indy.verifierVerifyProof(
     proofReq,
     {
         proof: 'proof',
-        identifiers: [{ schema_id: 'shcema_id', cred_def_id: 'cred_Def_id' }],
+        identifiers: [{ schema_id: 'shcema_id'}],
         requested_proof: {
             requested_predicates: {},
             revealed_attr_groups: {},
@@ -279,6 +280,22 @@ indy.proverCreateProof(
     {},
     {},
     {},
+);
+
+indy.createRevocationState(
+    10,
+    {},
+    {
+        value: {
+            prevAccum: 'prevAccum',
+            accum: 'accum',
+            issued: [],
+            revoked: []
+        },
+        ver: 'ver'
+    },
+    new Date().getDate(),
+    'credRevId'
 );
 
 // TODO
@@ -356,6 +373,7 @@ indy.buildGetRevocRegRequest('myDid', 'revRegDefId', 100);
 indy.parseGetRevocRegResponse(ledgerRejectResponse);
 indy.buildGetRevocRegDeltaRequest('myDid', 'revRegDefId', 100, 100);
 indy.parseGetRevocRegDeltaResponse(ledgerRejectResponse);
+
 // indy.buildGetValidatorInfoRequest(myDid)
 // indy.submitAction(pool.handle, req, null, null)
 // indy.buildGetAuthRuleRequest(trusteeDid, 'NYM', 'ADD', 'role', null, '101')
