@@ -178,7 +178,7 @@ declare module 'opentok' {
 
     public createSession(
       options: OpenTok.SessionOptions,
-      callback: (error: Error | null, session?: OpenTok.Session) => void
+      callback: (error: Error | null, session?: OpenTok.Session) => void,
     ): void;
     public deleteArchive(archiveId: string, callback: (error: Error | null) => void): void;
     public dial(
@@ -186,72 +186,72 @@ declare module 'opentok' {
       token: OpenTok.Token,
       sipUri: string,
       options: OpenTok.DialOptions,
-      callback: (error: Error | null, sipInterconnect: OpenTok.SipInterconnect) => void
+      callback: (error: Error | null, sipInterconnect: OpenTok.SipInterconnect) => void,
     ): void;
     public forceDisconnect(sessionId: string, connectionId: string, callback: (error: Error | null) => void): void;
     public generateToken(sessionId: string, options?: OpenTok.TokenOptions): OpenTok.Token;
     public getArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
     public getBroadcast(
       broadcastId: string,
-      callback: (error: Error | null, broadcast?: OpenTok.Broadcast) => void
+      callback: (error: Error | null, broadcast?: OpenTok.Broadcast) => void,
     ): void;
     public getStream(
       sessionId: string,
       options: OpenTok.StreamId,
-      callback: (error: Error | null, stream?: OpenTok.Stream) => void
+      callback: (error: Error | null, stream?: OpenTok.Stream) => void,
     ): void;
     public listArchives(
       options: OpenTok.ListArchivesOptions,
-      callback: (error: Error | null, archives?: OpenTok.Archive[], totalCount?: number) => void
+      callback: (error: Error | null, archives?: OpenTok.Archive[], totalCount?: number) => void,
     ): void;
     public listBroadcasts(
       options: OpenTok.ListBroadcastsOptions,
-      callback: (error: Error | null, broadcasts?: OpenTok.Broadcast[]) => void
+      callback: (error: Error | null, broadcasts?: OpenTok.Broadcast[]) => void,
     ): void;
     public listStreams(sessionId: string, callback: (error: Error | null, streams?: OpenTok.Stream[]) => void): void;
     public playDTMF(
       sessionId: string,
       connectionId: string,
       digits: string,
-      callback: (error: Error | null) => void
+      callback: (error: Error | null) => void,
     ): void;
     public setArchiveLayout(
       archiveId: string,
       type: OpenTok.BroadcastLayoutType | 'custom',
       stylesheet: string | null,
-      callback: (error: Error | null) => void
+      callback: (error: Error | null) => void,
     ): void;
     public setBroadcastLayout(
       broadcastId: string,
       type: OpenTok.BroadcastLayoutType | 'custom',
       stylesheet: string | null,
-      callback: (error: Error | null) => void
+      callback: (error: Error | null) => void,
     ): void;
     public setStreamClassLists(
       sessionId: string,
       classListArray: ReadonlyArray<{ id: string; layoutClassList: string[] }>,
-      callback: (error: Error | null) => void
+      callback: (error: Error | null) => void,
     ): void;
     public signal(
       sessionId: string,
       connectionId: string | null,
       data: OpenTok.SignalOptions,
-      callback: (error: Error | null) => void
+      callback: (error: Error | null) => void,
     ): void;
     public startArchive(
       sessionId: string,
       options: OpenTok.ArchiveOptions,
-      callback: (error: Error | null, archive?: OpenTok.Archive) => void
+      callback: (error: Error | null, archive?: OpenTok.Archive) => void,
     ): void;
     public startBroadcast(
       sessionId: string,
       options: OpenTok.BroadcastOptions,
-      callback: (error: Error | null, broadcast: OpenTok.Broadcast) => void
+      callback: (error: Error | null, broadcast: OpenTok.Broadcast) => void,
     ): void;
     public stopArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
     public stopBroadcast(
       broadcastId: string,
-      callback: (error: Error | null, broadcast: OpenTok.BroadcastStopResponse) => void
+      callback: (error: Error | null, broadcast: OpenTok.BroadcastStopResponse) => void,
     ): void;
   }
 
