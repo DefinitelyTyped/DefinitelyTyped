@@ -1,4 +1,5 @@
-import Flow, * as flow_js from '@flowjs/flow.js';
+import Flow = require('@flowjs/flow.js');
+import * as flow_js from '@flowjs/flow.js';
 
 // flow object
 let flowObject: Flow = new Flow({});
