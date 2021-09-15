@@ -562,11 +562,21 @@ const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer re
 
 // UI Shell - HeaderMenu
 
-const uisHeaderMenuAnonRender = (
-    <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />}>
-        <div />
-    </HeaderMenu>
-);
+{
+    const uisHeaderMenuAnonRender = (
+        <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />} ref={element => {}}>
+            <div />
+        </HeaderMenu>
+    );
+
+    const testRef = React.useRef<HTMLElement | null>();
+    const uisHeaderRefT1 = (
+        // $ExpectError
+        <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />} ref={testRef}>
+            <div />
+        </HeaderMenu>
+    );
+}
 
 /*
  * TODO: this should be a fail case but the priority is to correctly type the anonymous render as that's likely how it
