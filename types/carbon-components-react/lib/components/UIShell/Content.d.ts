@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactCreateElementParam, FCReturn, FCProps } from "../../../typings/shared";
+import { ReactCreateElementParam, FCReturn, FCProps, ReactAttr } from "../../../typings/shared";
 
 export interface ContentPropsBase {
     className?: string | undefined,
@@ -7,8 +7,8 @@ export interface ContentPropsBase {
     tagName?: ReactCreateElementParam | undefined,
 }
 
-export type ContentProps<E extends object = {}> = E & ContentPropsBase;
+export type ContentProps<E extends object = ReactAttr> = E & ContentPropsBase;
 
-declare function Content<E extends object = {}>(props: FCProps<ContentProps<E>>): FCReturn;
+declare function Content<E extends object = ReactAttr>(props: FCProps<ContentProps<E>>): FCReturn;
 
 export default Content;

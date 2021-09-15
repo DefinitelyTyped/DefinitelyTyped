@@ -6,6 +6,7 @@ import {
     CodeSnippet,
     CodeSnippetType,
     Column,
+    Content,
     DataTable,
     DataTableCustomRenderProps,
     DataTableHeader,
@@ -509,6 +510,13 @@ const t5 = (
     );
 }
 
+// UIShell - Content
+{
+    const uisContentT1 = (
+        <Content onClick={(evt: HTMLElement) => {}} role="main" data-testid="main-content"><div/></Content>
+    );
+}
+
 // UIShell - Link
 {
     const uisLinkT1 = <UIShellLink href="#test">Test</UIShellLink>;
@@ -561,7 +569,6 @@ const uisHeaderContainerCompRenderNotMatchingRequiredProps = <HeaderContainer re
 const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer render={HeaderCompRender2} />;
 
 // UI Shell - HeaderMenu
-
 {
     const uisHeaderMenuAnonRender = (
         <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />} ref={element => {}}>
