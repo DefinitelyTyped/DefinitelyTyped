@@ -19,6 +19,7 @@ declare class Link {
     private written_;
     srcId: string;
     paramsFieldNames: any[];
+    autoSanitize: boolean;
     private getProcessedParameters;
     private toString;
     private getClientFunction_;
