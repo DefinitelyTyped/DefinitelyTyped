@@ -64,6 +64,7 @@ export * from "./lib/components/Pagination";
 export * from "./lib/components/PaginationNav";
 export * from "./lib/components/Pagination/experimental/Pagination";
 export * from "./lib/components/Pagination/experimental/PageSelector";
+export * from "./lib/components/PasswordInput";
 export * from "./lib/components/PrimaryButton";
 export * from "./lib/components/ProgressBar";
 export * from "./lib/components/ProgressIndicator";
