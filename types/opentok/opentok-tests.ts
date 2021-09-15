@@ -54,14 +54,14 @@ const archiveCustomLayoutOptions: OpenTok.ArchiveOptions = {
   layout: {
     type: 'custom',
     stylesheet: 'derp',
-  }
+  },
 };
 
 const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
   outputMode: 'composed',
   layout: {
     type: 'pip',
-  }
+  },
 };
 
 client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.Archive) => {
@@ -116,11 +116,11 @@ client.playDTMF('SESSION_ID', 'CONNECTION_ID', '0', (err: Error) => {
 
 const broadcastOptions: OpenTok.BroadcastOptions = {
   outputs: {
-    hls: {}
+    hls: {},
   },
   layout: {
     type: 'bestFit',
-  }
+  },
 };
 
 client.startBroadcast('SESSION_ID', broadcastOptions, (err: Error, broadcast: OpenTok.Broadcast) => {
@@ -135,7 +135,7 @@ client.stopBroadcast('BROADCAST_ID', (err: Error, broadcast: OpenTok.BroadcastSt
 
 client.listBroadcasts(
   {
-    sessionId: 'SESSION_ID'
+    sessionId: 'SESSION_ID',
   },
   (err: Error, broadcasts: OpenTok.Broadcast[]) => {
     if (err) return console.log(err);
@@ -173,8 +173,8 @@ client.setStreamClassLists('SESSION_ID', [{ id: 'STREAM_ID', layoutClassList: ['
 const signalOptions: OpenTok.SignalOptions = {
   type: 'any',
   data: {
-    any: 'any'
-  }
+    any: 'any',
+  },
 };
 
 client.signal('SESSION_ID', null, signalOptions, (err: Error) => {
