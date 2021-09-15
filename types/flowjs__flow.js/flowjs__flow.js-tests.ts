@@ -1,18 +1,18 @@
-import Flow, * as flowjs from '@flowjs/flow.js';
+import Flow, * as flow_js from '@flowjs/flow.js';
 
 // flow object
 let flowObject: flowjs.FlowStatic = Flow;
 let bool: boolean = flowObject.support;
 bool = flowObject.supportDirectory;
-const flowOpts: flowjs.FlowOptions = flowObject.opts;
-const flowFileArray: flowjs.FlowFile[] = flowObject.files;
-let flowChunkParams: flowjs.FlowChunkParams;
+const flowOpts: flow_js.FlowOptions = flowObject.opts;
+const flowFileArray: flow_js.FlowFile[] = flowObject.files;
+let flowChunkParams: flow_js.FlowChunkParams;
 
 flowObject.assignBrowse([] as HTMLElement[]);
 flowObject.assignBrowse([] as HTMLElement[], false, false, {});
 flowObject.assignDrop([] as HTMLElement[]);
 flowObject.unAssignDrop([] as HTMLElement[]);
-flowObject.on('fileSuccess', (file: flowjs.FlowFile, serverMessage: string, chunk: flowjs.FlowChunk) => {});
+flowObject.on('fileSuccess', (file: flow_js.FlowFile, serverMessage: string, chunk: flow_js.FlowChunk) => {});
 flowObject.off('fileSuccess', () => {});
 flowObject.upload();
 flowObject.pause();
@@ -21,14 +21,14 @@ flowObject.cancel();
 flowObject.progress();
 bool = flowObject.isUploading();
 flowObject.addFile({} as any as File);
-flowObject.removeFile({} as any as flowjs.FlowFile);
-let flowFile: flowjs.FlowFile = flowObject.getFromUniqueIdentifier('');
+flowObject.removeFile({} as any as flow_js.FlowFile);
+let flowFile: flow_js.FlowFile = flowObject.getFromUniqueIdentifier('');
 let num: number = flowObject.getSize();
 num = flowObject.sizeUploaded();
 num = flowObject.timeRemaining();
 
 // flow options
-const flowOptions: flowjs.FlowOptions = {};
+const flowOptions: flow_js.FlowOptions = {};
 flowOptions.target = '';
 flowOptions.singleFile = true;
 flowOptions.chunkSize = 0;
@@ -63,7 +63,7 @@ num = flowFile.size;
 str = flowFile.uniqueIdentifier;
 num = flowFile.averageSpeed;
 num = flowFile.currentSpeed;
-const chunksArray: ReadonlyArray<flowjs.FlowChunk> = flowFile.chunks;
+const chunksArray: ReadonlyArray<flow_js.FlowChunk> = flowFile.chunks;
 chunksArray[0].abort();
 num = chunksArray[0].chunkSize;
 num = chunksArray[0].endByte;
