@@ -5,15 +5,19 @@ export const testFilters: ElementaryCallback =
     (core: el.Core, el: el.Elementary) => {
         // TODO: test convolve somehow
 
+        // $ExpectType NativeNode<"const">
         const c = el.const({value: 5});
         expect(c).hasNodeProps({value: 5});
 
+        // $ExpectType NativeNode<"pole">
         let pole = el.pole(c, c);
         expect(pole).isANodeOfType('pole');
+        // $ExpectType NativeNode<"pole">
         pole = el.pole(1, 1);
         expect(pole).isANodeOfType('pole');
         expect(pole).hasNodeChildren(1, 1);
 
+        // $ExpectType NativeNode<"biquad">
         const biquad = el.biquad(1, 2, 3, 4, c, 6);
         expect(biquad).isANodeOfType('biquad');
         expect(biquad).hasNodeChildren(1, 2, 3, 4, c, 6);

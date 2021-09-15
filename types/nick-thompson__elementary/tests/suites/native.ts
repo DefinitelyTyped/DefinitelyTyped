@@ -3,10 +3,10 @@ import { el, ElementaryCallback } from '../load';
 
 export const testNative: ElementaryCallback =
     (core: el.Core, el: el.Elementary) => {
-        const isNode = core.Node.isNode;
-
+        // $ExpectType NativeNode<"rand">
         const randNode = el.rand();
-        expect(randNode).passes(isNode);
+        expect(randNode).isANode();
 
+        // $ExpectType void
         core.render(randNode, randNode);
     };

@@ -21,7 +21,7 @@ import * as el from '../';
  * @see core.ZNode
  */
 export const z:
-    core.NodeFactory<core.CompositeNodeType,
+    core.NodeFactory<'z',
         core.KeyProps,
         []>;
 

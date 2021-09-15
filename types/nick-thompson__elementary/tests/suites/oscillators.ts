@@ -3,6 +3,7 @@ import { el, ElementaryCallback } from '../load';
 
 export const testOscillators: ElementaryCallback =
     (core: el.Core, el: el.Elementary) => {
+        // $ExpectType NativeNode<"phasor">
         const phasor = el.phasor({}, 10);
         expect(phasor).isANode();
 
