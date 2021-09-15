@@ -62,6 +62,7 @@ import {
 import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
+import { Text } from "carbon-components-react/lib/components/Text";
 
 // test components for "as" props
 interface TestCompProps {
@@ -753,6 +754,17 @@ const SliderHasOnChange = <Slider max={0} min={10} value={5} onChange={newValue 
     const ChipTagFalse = <Tag filter={false} />;
 
     const FilterTag = <Tag filter onClose={() => {}} />;
+}
+
+// Text
+{
+    const TextT1 = <Text dir="ltr">Text</Text>;
+
+    const TextIntrinsicT1 = (
+        <Text as="li" dir="auto" onClick={(evt: React.MouseEvent<HTMLLIElement>) => {}} value="test">Text</Text>
+    );
+
+    const TextCustomCompT1 = <Text as={TestComp2} dir="rtl" someProp={5}>Text</Text>;
 }
 
 // TextArea
