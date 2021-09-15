@@ -46,7 +46,7 @@ export declare const SelectableTile: React.FC<SelectableTileProps>;
 
 // ExpandableTile
 
-export interface ExpandableTileProps extends Omit<ReactButtonAttr, "onClick"> {
+export interface ExpandableTileProps extends ReactButtonAttr {
     expanded?: boolean | undefined,
     handleClick?(e: React.MouseEvent<HTMLButtonElement>): void,
     light?: boolean | undefined,
