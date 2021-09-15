@@ -274,6 +274,12 @@ declare namespace ReactGridLayout {
          * Calls when some element has been dropped
          */
         onDrop?(layout: Layout[], item: Layout, e: Event): void;
+        
+        /**
+         * This callback should return an object to dynamically change the droppingItem size
+         * Return false to short-circuit the dragover
+         */
+        onDropDragOver?(e: DragOverEvent): ({w?: number, h?: number} | false);
     }
 
     interface ReactGridLayoutProps extends CoreProps {
