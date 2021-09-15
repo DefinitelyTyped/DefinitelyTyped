@@ -11,7 +11,7 @@ import {
     testOscillators,
     testSamples,
     testSignals
-} from './tests';
+} from './tests/index';
 import { flush } from './tests/tester';
 
 const stopMessage = `
@@ -33,5 +33,4 @@ onCoreLoad(
     testOscillators,
     testSamples,
     testSignals,
-    // TODO: better workaround
     () => flush(stopMessage));
