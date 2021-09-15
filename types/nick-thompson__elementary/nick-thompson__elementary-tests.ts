@@ -12,10 +12,13 @@ import {
     testSamples,
     testSignals
 } from './tests';
+import { flush } from './tests/tester';
 
 const stopMessage = `
 Don\'t worry about this error.
 This is a workaround to stop the tests once they are finished.
+
+Everything is looking good!
 `.trim();
 
 onCoreLoad(
@@ -31,6 +34,4 @@ onCoreLoad(
     testSamples,
     testSignals,
     // TODO: better workaround
-    () => {
-        throw Error(stopMessage);
-    });
+    () => flush(stopMessage));

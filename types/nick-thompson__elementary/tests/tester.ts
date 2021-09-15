@@ -2,8 +2,16 @@ import { el, core } from './load';
 
 // import * as colors from 'colors';
 
+const messages: string[] = [];
+
 export function print(message: string) {
-    // console.log(message);
+    messages.push(message);
+}
+
+export function flush(endMessage?: string) {
+    throw Error(`
+${messages.reduce((e, m) => `${e}\n${m}`, '')}
+${endMessage}`);
 }
 
 export function padEnd(s: string, n: number, c: string) {
@@ -52,10 +60,10 @@ function log(
     success = padEnd(success, logLimit, ' ');
     fail = padEnd(fail, logLimit, ' ');
 
-    print(
-        passed ?
-        `x : ${expression}\n${success}\n` :
-        `F : ${expression}\n${fail}\n`);
+    if (passed)
+        print(`x: ${expression}\n${success}\n`);
+    else
+        flush(`FAIL:\n${expression}\n${success}\n`);
 
     return passed;
 }
