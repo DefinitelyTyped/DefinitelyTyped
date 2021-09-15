@@ -143,7 +143,7 @@ client.listBroadcasts(
     for (var i = 0; i < broadcasts.length; i++) {
       console.log(broadcasts[i].id);
     }
-  }
+  },
 );
 
 client.listStreams('SESSION_ID', (err: Error, streams: OpenTok.Stream[]) => {
