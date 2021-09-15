@@ -7,7 +7,6 @@ export interface ReactDivAttr extends ReactAttr<HTMLDivElement> {}
 export interface ReactInputAttr<T = HTMLInputElement> extends React.InputHTMLAttributes<T> {}
 export interface ReactLabelAttr<T = HTMLLabelElement> extends React.LabelHTMLAttributes<T> {}
 export interface ReactLIAttr<T = HTMLLIElement> extends React.LiHTMLAttributes<T> {}
-export type ReactCreateElementParam = Parameters<typeof React.createElement>[0];
 
 export type ShapeOf<B extends object, E extends object = { [key: string]: any }> = (E extends never ? {} : E) & B;
 export type Overwrite<T, U> = [T] extends [never] ? U : Omit<T, keyof U> & U;
