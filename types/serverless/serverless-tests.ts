@@ -177,6 +177,7 @@ const awsServerless: Aws.Serverless = {
         endpointType: 'regional',
         apiKeys: ['testApiKeys'],
         apiGateway: {
+            apiKeys: ['testApiKeys'],
             restApiId: 'testrestApiId',
             restApiRootResourceId: 'testrestApiRootResourceId',
             restApiResources: {
@@ -186,7 +187,29 @@ const awsServerless: Aws.Serverless = {
             apiKeySourceType: 'HEADER',
             minimumCompressionSize: 1,
             description: 'testdescription',
-            binaryMediaTypes: ['testbinaryMediaTypes']
+            binaryMediaTypes: ['testbinaryMediaTypes'],
+            usagePlan: {
+                quota: {
+                    limit: 1,
+                    offset: 1,
+                    period: '20'
+                },
+                throttle: {
+                    burstLimit: 1,
+                    rateLimit: 1
+                }
+            },
+            resourcePolicy: [
+                {
+                    Effect: 'Allow',
+                    Principal: 'testPrincipal',
+                    Action: 'testAction',
+                    Resource: 'testResource',
+                    Condition: {
+                        testcondition: 'testconditionvalue'
+                    }
+                }
+            ],
         },
         alb: {
             targetGroupPrefix: 'testtargetGroupPrefix',
@@ -767,7 +790,31 @@ const bunchOfConfigs: Aws.Serverless[] = [
             }
         },
         functions: {}
-    }
+    },
+    {
+        service: 'users',
+        provider: {
+            name: 'aws',
+            httpApi: {
+                cors: {
+                    allowedOrigins: ['https://example.com'],
+                    allowedHeaders: [
+                        'Content-Type',
+                        'X-Amz-Date',
+                        'Authorization',
+                        'X-Api-Key',
+                        'X-Amz-Security-Token',
+                        'X-Amz-User-Agent',
+                    ],
+                    allowedMethods: ['OPTIONS', 'GET', 'POST'],
+                    allowCredentials: false,
+                    exposedResponseHeaders: ['x-wp-total', 'x-wp-totalpages'],
+                    maxAge: 86400,
+                },
+            },
+        },
+        functions: {},
+    },
 ];
 
 // Test Aws Class

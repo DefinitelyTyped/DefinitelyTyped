@@ -64,6 +64,7 @@ bounds = L.bounds(pointTuple, pointTuple);
 bounds = L.bounds([point, point]);
 bounds = L.bounds(boundsLiteral);
 
+bounds = new L.Bounds();
 bounds = new L.Bounds(point, point);
 bounds = new L.Bounds(pointTuple, pointTuple);
 bounds = new L.Bounds([point, point]);
@@ -73,6 +74,8 @@ const topLeft = bounds.getTopLeft();
 const topRight = bounds.getTopRight();
 const bottomLeft = bounds.getBottomLeft();
 const bottomRight = bounds.getBottomRight();
+
+bounds.isValid();
 
 let points: L.Point[];
 points = L.LineUtil.simplify([point, point], 1);

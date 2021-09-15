@@ -30,6 +30,7 @@ const players: YT.Player[] = [
             listType: "search",
             loop: YT.Loop.Loop,
             modestbranding: YT.ModestBranding.Full,
+            mute: YT.Mute.Muted,
             origin: "localhost",
             playlist: "1,2",
             playsinline: YT.PlaysInline.Fullscreen,
@@ -80,6 +81,7 @@ ensureNumeric<YT.FullscreenButton>();
 ensureNumeric<YT.IvLoadPolicy>();
 ensureNumeric<YT.Loop>();
 ensureNumeric<YT.ModestBranding>();
+ensureNumeric<YT.Mute>();
 ensureNumeric<YT.PlaysInline>();
 ensureNumeric<YT.RelatedVideos>();
 ensureNumeric<YT.ShowInfo>();

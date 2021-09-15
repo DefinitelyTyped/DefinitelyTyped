@@ -6,9 +6,15 @@ export default class ImageStyleEditing extends Plugin {
 }
 
 export interface ImageStyleFormat {
-    className: string;
-    icon: string;
+    className?: string;
+    icon?: string;
     isDefault?: boolean;
     name: string;
-    title: string;
+    title?: string;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageStyleEditing: ImageStyleEditing;
+    }
 }

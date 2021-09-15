@@ -244,7 +244,7 @@ export class LoadEvent extends Event {
     /**
      * Information about the media being loaded.
      */
-    media: MediaInformation;
+    media?: MediaInformation | undefined;
 }
 /**
  * Event data for @see{@link EventType.INBAND_TRACK_ADDED} event.
@@ -273,7 +273,8 @@ export class Id3Event extends Event {
     timestamp: number;
 }
 /**
- * Event data for @see{@link EventType.EMSG} event.
+ * Event data for {@link EventType.EMSG} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.EmsgEvent
  */
 export class EmsgEvent extends Event {
     constructor(emsgData: any);
@@ -281,52 +282,54 @@ export class EmsgEvent extends Event {
     /**
      * The time that the event ends (in presentation time). Undefined if using legacy Dash support.
      */
-    endTime: any;
+    endTime?: number | undefined;
 
     /**
      * The duration of the event (in units of timescale). Undefined if using legacy Dash support.
      */
-    eventDuration: any;
+    eventDuration?: number | undefined;
 
     /**
      * A field identifying this instance of the message. Undefined if using legacy Dash support.
      */
-    id: any;
+    id?: number | undefined;
 
     /**
-     * Body of the message. Undefined if using legacy Dash support.
+     * Body of the message, which can contain ID3 metadata if signaled by the
+     * schemeIdUri value. The schemeIdUri "https://aomedia.org/emsg/ID3" and
+     * "https://developer.apple.com/streaming/emsg-id3" will always signal ID3 metadata.
      */
-    messageData: any;
+    messageData?: Uint8Array | undefined;
 
     /**
      * The offset that the event starts; relative to the start of the segment this is contained in (in units of timescale). Undefined if using legacy Dash support.
      */
-    presentationTimeDelta: any;
+    presentationTimeDelta?: number | undefined;
 
     /**
      * Identifies the message scheme. Undefined if using legacy Dash support.
      */
-    schemeIdUri: any;
+    schemeIdUri?: string | undefined;
 
     /**
      * The segment data. This is only defined if using legacy Dash support.
      */
-    segmentData: any;
+    segmentData?: Uint8Array | undefined;
 
     /**
      * The time that the event starts (in presentation time). Undefined if using legacy Dash support.
      */
-    startTime: any;
+    startTime?: number | undefined;
 
     /**
      * Provides the timescale; in ticks per second. Undefined if using legacy Dash support.
      */
-    timescale: any;
+    timescale?: number | undefined;
 
     /**
      * Specifies the value for the event. Undefined if using legacy Dash support.
      */
-    value: any;
+    value?: string | undefined;
 }
 /**
  * Event data for @see{@link EventType.CLIP_ENDED} event.
@@ -346,7 +349,8 @@ export class ClipEndedEvent extends Event {
 }
 
 /**
- * Event data for @see{@link EventType.CACHE_LOADED} event.
+ * Event data for {@link EventType.CACHE_LOADED} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.CacheLoadedEvent
  */
 export class CacheLoadedEvent extends Event {
     constructor(media?: MediaInformation);
@@ -354,7 +358,7 @@ export class CacheLoadedEvent extends Event {
     /**
      * Information about the media being cached.
      */
-    media: MediaInformation;
+    media?: MediaInformation | undefined;
 }
 
 export class CacheItemEvent extends Event {
@@ -375,6 +379,10 @@ export class BufferingEvent extends Event {
     isBuffering: boolean;
 }
 
+/**
+ * Event data for all events pertaining to breaks.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.BreaksEvent
+ */
 export class BreaksEvent extends Event {
     constructor(
         type: EventType,
@@ -410,12 +418,12 @@ export class BreaksEvent extends Event {
     /**
      * Index of break clip; which starts from 1.
      */
-    index: number;
+    index?: number | undefined;
 
     /**
      * Total number of break clips.
      */
-    total: number;
+    total?: number | undefined;
 
     /**
      * When to skip current break clip in sec; after break clip begins to play.
@@ -424,13 +432,14 @@ export class BreaksEvent extends Event {
 }
 
 /**
- * Event data for @see {@link EventType.BITRATE_CHANGED} event.
+ * Event data for {@link EventType.BITRATE_CHANGED} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.BitrateChangedEvent
  */
 export class BitrateChangedEvent extends Event {
     constructor(totalBitrate?: number);
 
     /** The bitrate of the media (audio and video) in bits per second. */
-    totalBitrate: number;
+    totalBitrate?: number | undefined;
 }
 
 /**

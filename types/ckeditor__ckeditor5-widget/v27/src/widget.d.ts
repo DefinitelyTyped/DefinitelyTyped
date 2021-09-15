@@ -7,3 +7,9 @@ export default class Widget extends Plugin {
     static readonly requires: [typeof WidgetTypeAround, typeof Delete];
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Widget: Widget;
+    }
+}

@@ -1,4 +1,4 @@
-// Type definitions for Natural 2.1
+// Type definitions for Natural 5.0
 // Project: https://github.com/NaturalNode/natural
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire>
 //                 Emily Marigold Klassen <https://github.com/forivall>
@@ -26,7 +26,7 @@ declare class RegexpTokenizer implements Tokenizer {
     tokenize(text: string): string[];
 }
 declare class OrthographyTokenizer implements Tokenizer {
-    constructor(options: RegexTokenizerOptions & {language: string});
+    constructor(options: RegexTokenizerOptions & { language: string });
     tokenize(text: string): string[];
 }
 declare class WordPunctTokenizer implements Tokenizer {
@@ -330,9 +330,21 @@ declare class Lexicon {
     tagWord(word: string): string[];
 }
 
+interface TaggedWord {
+    token: string;
+    tag: string;
+}
+
+declare class Sentence {
+    constructor(data?: string[]);
+    taggedWords: TaggedWord[];
+    addTaggedWord(token: string, tag: string): void;
+    clone(): Sentence;
+}
+
 declare class BrillPOSTagger {
     constructor(lexicon: Lexicon, ruleSet: RuleSet);
     lexicon: Lexicon;
     ruleSet: RuleSet;
-    tag(sentence: string[]): string[][];
+    tag(sentence: string[]): Sentence;
 }

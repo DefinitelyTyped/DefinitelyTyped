@@ -3,7 +3,7 @@ declare function PropertyMapper(translateFunction: (arg0: string) => string): vo
 declare class PropertyMapper {
     constructor(translateFunction: (arg0: string) => string);
     translateFunction_: (arg0: string) => string;
-    hash_: {};
+    private hash_;
     get(obj: any, propertyName: string): any;
     getTranslatedPropertyName(propertyName: string): string;
 }

@@ -1,8 +1,8 @@
 export = PermissionFieldScope;
 declare function PermissionFieldScope(): void;
 declare class PermissionFieldScope {
-    classes_: number[];
-    mimeTypes_: number[];
+    private classes_;
+    private mimeTypes_;
     addClass(classKey: number): void;
     getClasses(): number[];
     getMimeTypes(): number[];

@@ -6,7 +6,7 @@ declare class EChartsVisualization {
     private chart_;
     render(outputObj: any): void;
     queryData(filterValues: Record<string, any>): void;
-    ds_: any;
+    private ds_;
 }
 declare namespace EChartsVisualization {
     export { Event };

@@ -59,8 +59,35 @@ utils
 
 utils.ensureSafeUrl('').startsWith('');
 
-utils.isImageAllowed(new Writer().createElement('div'), new Schema());
+utils.isLinkableElement(new Writer().createElement('div'), new Schema());
 
 utils.isEmail('') === ''.startsWith('');
 
 utils.addLinkProtocolIfApplicable('', '') === ''.startsWith('');
+
+// $ExpectType AutoLink
+editor.plugins.get('AutoLink');
+
+// $ExpectType Link
+editor.plugins.get('Link');
+
+// $ExpectType LinkEditing
+editor.plugins.get('LinkEditing');
+
+// $ExpectType LinkImage
+editor.plugins.get('LinkImage');
+
+// $ExpectType LinkImageEditing
+editor.plugins.get('LinkImageEditing');
+
+// $ExpectType LinkImageUI
+editor.plugins.get('LinkImageUI');
+
+// $ExpectType LinkUI
+editor.plugins.get('LinkUI');
+
+// $ExpectType LinkCommand | undefined
+editor.commands.get('LinkCommand');
+
+// $ExpectType UnlinkCommand | undefined
+editor.commands.get('UnlinkCommand');

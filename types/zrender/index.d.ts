@@ -44,7 +44,7 @@ declare namespace zrender {
             x2: X2;
             y2: Y2;
             colorStops: ColorStops;
-            globalCoord: GlobalCoords;
+            global: GlobalCoords;
 
             addColorStop(offset: number, color: string): void;
         };

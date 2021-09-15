@@ -14,10 +14,10 @@ declare class MultipartFormDataReader {
             charset?: string;
         }
     );
-    content_: Request | File | string;
-    options_: any;
-    newLine_: string;
-    currentPart_: MultipartFormDataPart;
+    private content_;
+    private options_;
+    private newLine_;
+    private currentPart_;
     private boundary_;
     private charset_;
     private contentLength_;

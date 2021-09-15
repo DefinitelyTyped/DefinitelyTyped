@@ -14,11 +14,12 @@ declare class Link {
         newTab?: boolean,
         ...args: any[]
     );
-    paramsFieldNames_: any[];
+    private paramsFieldNames_;
     cssClass: string;
     private written_;
     srcId: string;
     paramsFieldNames: any[];
+    autoSanitize: boolean;
     private getProcessedParameters;
     private toString;
     private getClientFunction_;

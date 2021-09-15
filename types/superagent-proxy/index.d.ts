@@ -12,6 +12,6 @@ declare module 'superagent' {
     }
 }
 
-declare function superagentProxy(s: typeof superagent): void;
+declare function superagentProxy(s: superagent.SuperAgentStatic): void;
 
 export = superagentProxy;

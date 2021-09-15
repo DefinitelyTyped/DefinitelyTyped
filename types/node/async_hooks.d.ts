@@ -3,19 +3,19 @@
  * can be accessed using:
  *
  * ```js
- * const async_hooks = require('async_hooks');
+ * import async_hooks from 'async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/async_hooks.js)
  */
 declare module 'async_hooks' {
     /**
      * ```js
-     * const async_hooks = require('async_hooks');
+     * import { executionAsyncId } from 'async_hooks';
      *
-     * console.log(async_hooks.executionAsyncId());  // 1 - bootstrap
+     * console.log(executionAsyncId());  // 1 - bootstrap
      * fs.open(path, 'r', (err, fd) => {
-     *   console.log(async_hooks.executionAsyncId());  // 6 - open()
+     *   console.log(executionAsyncId());  // 6 - open()
      * });
      * ```
      *
@@ -51,11 +51,11 @@ declare module 'async_hooks' {
      * but having an object representing the top-level can be helpful.
      *
      * ```js
-     * const { open } = require('fs');
-     * const { executionAsyncId, executionAsyncResource } = require('async_hooks');
+     * import { open } from 'fs';
+     * import { executionAsyncId, executionAsyncResource } from 'async_hooks';
      *
      * console.log(executionAsyncId(), executionAsyncResource());  // 1 {}
-     * open(__filename, 'r', (err, fd) => {
+     * open(new URL(import.meta.url), 'r', (err, fd) => {
      *   console.log(executionAsyncId(), executionAsyncResource());  // 7 FSReqWrap
      * });
      * ```
@@ -64,12 +64,12 @@ declare module 'async_hooks' {
      * use of a tracking `Map` to store the metadata:
      *
      * ```js
-     * const { createServer } = require('http');
-     * const {
+     * import { createServer } from 'http';
+     * import {
      *   executionAsyncId,
      *   executionAsyncResource,
      *   createHook
-     * } = require('async_hooks');
+     * } from 'async_hooks';
      * const sym = Symbol('state'); // Private symbol to avoid pollution
      *
      * createHook({
@@ -167,9 +167,9 @@ declare module 'async_hooks' {
      * specifics of all functions that can be passed to `callbacks` is in the `Hook Callbacks` section.
      *
      * ```js
-     * const async_hooks = require('async_hooks');
+     * import { createHook } from 'async_hooks';
      *
-     * const asyncHook = async_hooks.createHook({
+     * const asyncHook = createHook({
      *   init(asyncId, type, triggerAsyncId, resource) { },
      *   destroy(asyncId) { }
      * });
@@ -223,7 +223,7 @@ declare module 'async_hooks' {
      * The following is an overview of the `AsyncResource` API.
      *
      * ```js
-     * const { AsyncResource, executionAsyncId } = require('async_hooks');
+     * import { AsyncResource, executionAsyncId } from 'async_hooks';
      *
      * // AsyncResource() is meant to be extended. Instantiating a
      * // new AsyncResource() also triggers init. If triggerAsyncId is omitted then
@@ -331,8 +331,8 @@ declare module 'async_hooks' {
      * logged within each request.
      *
      * ```js
-     * const http = require('http');
-     * const { AsyncLocalStorage } = require('async_hooks');
+     * import http from 'http';
+     * import { AsyncLocalStorage } from 'async_hooks';
      *
      * const asyncLocalStorage = new AsyncLocalStorage();
      *

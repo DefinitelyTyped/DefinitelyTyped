@@ -16,7 +16,7 @@ function getPreviousSibling(node: Node): Node | undefined {
 
 function handleRelativeLink(node: HTMLElement, context: DocContext): string {
     let content = '';
-    if (node.textContent?.startsWith(context.moduleName)) {
+    if (node.textContent?.startsWith(`${context.moduleName}.`)) {
         let symbolName = node.textContent.slice(context.moduleName.length + 1); // slice off module prefix
         symbolName = symbolName.replace(/\(.*?\)/, ''); // remove call as it causes weird formatting
         content = `{@link ${symbolName}}`;
@@ -100,6 +100,13 @@ export function fixupLocalLinks(text: string, moduleName: string): string {
 
 export function fixupHtmlDocs(input: string, context: DocContext): string {
     // make sure code highlighting works
+
+    // This is not fast but it will do, also he is definitely coming for us now.
+    const hasMultiExample = /<pre><code class="language-mjs">.*?<\/code><\/pre>\n+<pre><code class="language-cjs">.*?<\/code><\/pre>/igms;
+    if (hasMultiExample) {
+        input = input.replace(/<pre><code class="language-cjs">.*?<\/code><\/pre>/igms, '');
+    }
+
     input = input.replaceAll(/language\-[mc]js/g, 'language-js');
     // fixup breaking comments
     input = input.replace(/\/\*(.*?)\*\//g, '//$1');

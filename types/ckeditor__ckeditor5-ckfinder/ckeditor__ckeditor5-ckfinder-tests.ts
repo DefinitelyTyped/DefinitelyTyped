@@ -14,9 +14,24 @@ const plugincollection = new PluginCollection(new BaseEditor(), [CKFinder]);
 class MyEditor extends Editor {
     plugins = plugincollection;
 }
+const editor = new MyEditor();
 
 const ckfinderui = new CKFinderUI(new MyEditor());
 ckfinderui.init();
 
 const ckfinderediting = new CKFinderEditing(new MyEditor());
 ckfinderediting.init();
+
+// $ExpectType CKFinder
+editor.plugins.get('CKFinder');
+
+// $ExpectType CKFinderEditing
+editor.plugins.get('CKFinderEditing');
+
+// $ExpectType CKFinderUI
+editor.plugins.get('CKFinderUI');
+
+new CKFinderCommand(new BaseEditor()).execute();
+
+// $ExpectType CKFinderCommand | undefined
+editor.commands.get('CKFinderCommand');

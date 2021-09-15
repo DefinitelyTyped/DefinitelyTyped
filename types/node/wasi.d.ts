@@ -5,10 +5,11 @@
  * ```js
  * import fs from 'fs';
  * import { WASI } from 'wasi';
+ * import { argv, env } from 'process';
  *
  * const wasi = new WASI({
- *   args: process.argv,
- *   env: process.env,
+ *   args: argv,
+ *   env,
  *   preopens: {
  *     '/sandbox': '/some/real/path/that/wasm/can/access'
  *   }
@@ -19,27 +20,6 @@
  * const instance = await WebAssembly.instantiate(wasm, importObject);
  *
  * wasi.start(instance);
- * ```
- *
- * ```js
- * 'use strict';
- * const fs = require('fs');
- * const { WASI } = require('wasi');
- * const wasi = new WASI({
- *   args: process.argv,
- *   env: process.env,
- *   preopens: {
- *     '/sandbox': '/some/real/path/that/wasm/can/access'
- *   }
- * });
- * const importObject = { wasi_snapshot_preview1: wasi.wasiImport };
- *
- * (async () => {
- *   const wasm = await WebAssembly.compile(fs.readFileSync('./demo.wasm'));
- *   const instance = await WebAssembly.instantiate(wasm, importObject);
- *
- *   wasi.start(instance);
- * })();
  * ```
  *
  * To run the above example, create a new WebAssembly text format file named`demo.wat`:
@@ -83,7 +63,7 @@
  * The `--experimental-wasi-unstable-preview1` CLI argument is needed for this
  * example to run.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/wasi.js)
  */
 declare module 'wasi' {
     interface WASIOptions {

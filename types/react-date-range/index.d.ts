@@ -6,22 +6,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import { Locale } from "date-fns";
+import * as React from 'react';
+import { Locale } from 'date-fns';
 
 export type AnyDate = string | Date;
 export type DateFunc = (now: Date) => AnyDate;
 export type DateInputType = AnyDate | DateFunc;
 export type LanguageType =
-    | "cn"
-    | "jp"
-    | "fr"
-    | "it"
-    | "de"
-    | "ko"
-    | "es"
-    | "ru"
-    | "tr";
+    | 'cn'
+    | 'jp'
+    | 'fr'
+    | 'it'
+    | 'de'
+    | 'ko'
+    | 'es'
+    | 'ru'
+    | 'tr';
 export type SizeType = number;
 
 export interface DateContainerType {
@@ -64,7 +64,11 @@ export interface RangeWithKey extends Range {
     key: 'selection';
 }
 
-export type OnChangeProps = Range | { selection: RangeWithKey } | Date;
+export type OnCalendarChangeProps = Date;
+
+export interface OnDateRangeChangeProps {
+    [key: string]: Range;
+}
 
 export interface CommonCalendarProps {
     /** default: DD/MM/YYY */
@@ -73,8 +77,6 @@ export interface CommonCalendarProps {
     theme?: CalendarTheme | undefined;
     /** default: none */
     onInit?: ((range: Range) => void) | undefined;
-    /** default: none */
-    onChange?: ((range: OnChangeProps) => void) | undefined;
     /** default: none */
     minDate?: DateInputType | undefined;
     /** default: none */
@@ -87,7 +89,7 @@ export interface CommonCalendarProps {
     navigatorRenderer?: ((
         currentFocusedDate: Date,
         changeShownDate: (shownDate: Date) => void,
-        props: CommonCalendarProps
+        props: CommonCalendarProps,
     ) => JSX.Element) | undefined;
     /** default: none */
     onShownDateChange?: ((visibleMonth: Date) => void) | undefined;
@@ -102,9 +104,12 @@ export interface CommonCalendarProps {
 export interface CalendarProps extends CommonCalendarProps {
     /** default: today */
     date: DateInputType;
+    /** default: none */
+    onChange?: ((range: OnCalendarChangeProps) => void) | undefined;
 }
 
-export class Calendar extends React.Component<CalendarProps> { }
+export class Calendar extends React.Component<CalendarProps> {
+}
 
 export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
@@ -173,6 +178,8 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     showPreview?: boolean | undefined;
     /** default: */
     onPreviewChange?: ((preview: Preview) => void) | undefined;
+    /** default: none */
+    onChange?: ((range: OnDateRangeChangeProps) => void) | undefined;
 }
 
 export interface DateRangePickerProps extends DateRangeProps {
@@ -181,15 +188,17 @@ export interface DateRangePickerProps extends DateRangeProps {
     inputRanges?: InputRange[] | undefined;
 }
 
-export class DateRange extends React.Component<DateRangeProps> {}
+export class DateRange extends React.Component<DateRangeProps> {
+}
 
-export class DateRangePicker extends React.Component<DateRangePickerProps> { }
+export class DateRangePicker extends React.Component<DateRangePickerProps> {
+}
 
 export type DateRangeIndex =
-    | "Today"
-    | "Yesterday"
-    | "Last 7 Days"
-    | "Last 30 Days";
+    | 'Today'
+    | 'Yesterday'
+    | 'Last 7 Days'
+    | 'Last 30 Days';
 
 export interface Range {
     startDate?: Date | undefined;
@@ -296,4 +305,5 @@ export interface Preview {
 
 export const defaultStaticRanges: StaticRange[];
 export const defaultInputRanges: InputRange[];
+
 export function createStaticRanges(ranges: StaticRange[]): StaticRange[];

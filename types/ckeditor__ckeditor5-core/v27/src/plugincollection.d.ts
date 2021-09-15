@@ -3,8 +3,12 @@ import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/sr
 import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
 import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
 import Context from "./context";
+import ContextPlugin from "./contextplugin";
 import Editor from "./editor/editor";
-import Plugin, { LoadedPlugins } from "./plugin";
+import Plugin, { PluginInterface, LoadedPlugins } from "./plugin";
+
+// tslint:disable-next-line:no-empty-interface
+export interface Plugins {}
 
 export default class PluginCollection implements Emitter, Iterable<[typeof Plugin, Plugin]> {
     constructor(
@@ -15,8 +19,14 @@ export default class PluginCollection implements Emitter, Iterable<[typeof Plugi
 
     [Symbol.iterator](): Iterator<[typeof Plugin, Plugin]>;
     destroy(): Promise<void>;
-    get(key: (() => Plugin) | string): Plugin;
-    has(key: (() => Plugin) | string): boolean;
+
+    get<T extends Plugin>(key: PluginInterface<T>): T;
+    get<T extends ContextPlugin>(key: PluginInterface<T>): T;
+    get<T extends keyof Plugins>(key: T): Plugins[T];
+    get(key: string): Plugin | ContextPlugin;
+
+    has(key: PluginInterface | string): boolean;
+
     init(
         plugins: Array<(() => Plugin) | string>,
         pluginsToRemove: Array<(() => Plugin) | string>,

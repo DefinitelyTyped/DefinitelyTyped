@@ -7,7 +7,7 @@ ZC.VERSION = '2.9.4';
 
 zingchart.render({
     id: 'myChart',
-    data: {
+    data: [{
         type: 'line',
         series: [
             {
@@ -27,12 +27,18 @@ zingchart.render({
               sequence: 2,
               speed: 275,
             },
+            'selected-state': {
+                'line-color': 'red',
+            },
             tooltip: {
                 text: 'Hello world',
             },
             'value-box': {
                 text: 'Hello World',
-            }
+            },
         },
-    },
+        zoom: {
+            shared: true,
+        }
+    }],
 });
