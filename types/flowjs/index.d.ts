@@ -5,7 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace flowjs {
-    interface Flow {
+    class Flow {
+        constructor(options?: FlowOptions);
         support: boolean;
         supportDirectory: boolean;
         opts: FlowOptions;

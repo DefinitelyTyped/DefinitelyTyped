@@ -1,5 +1,5 @@
 // flow object
-let flowObject!: flowjs.Flow;
+let flowObject = new flowjs.Flow({});
 let bool: boolean = flowObject.support;
 bool = flowObject.supportDirectory;
 let flowOpts: flowjs.FlowOptions = flowObject.opts;

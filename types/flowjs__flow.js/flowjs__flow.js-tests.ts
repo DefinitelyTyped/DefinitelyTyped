@@ -1,7 +1,7 @@
 import Flow, * as flow_js from '@flowjs/flow.js';
 
 // flow object
-let flowObject: flowjs.FlowStatic = Flow;
+let flowObject: Flow = new Flow({});
 let bool: boolean = flowObject.support;
 bool = flowObject.supportDirectory;
 const flowOpts: flow_js.FlowOptions = flowObject.opts;
