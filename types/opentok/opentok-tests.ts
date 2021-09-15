@@ -5,7 +5,7 @@ const client = new OpenTok('API_KEY', 'API_SECRET');
 const sessionOptions: OpenTok.SessionOptions = {
   mediaMode: 'routed',
   archiveMode: 'manual',
-  location: '12.34.56.78'
+  location: '12.34.56.78',
 };
 
 client.createSession(sessionOptions, (err: Error, session: OpenTok.Session) => {
@@ -16,7 +16,7 @@ client.createSession(sessionOptions, (err: Error, session: OpenTok.Session) => {
 const tokenOptions: OpenTok.TokenOptions = {
   role: 'subscriber',
   data: 'name=Seth',
-  expireTime: 123456
+  expireTime: 123456,
 };
 
 const token = client.generateToken('SESSION_ID', tokenOptions);
@@ -46,21 +46,21 @@ const archiveOptions: OpenTok.ArchiveOptions = {
   name: 'name',
   hasAudio: true,
   hasVideo: true,
-  outputMode: 'individual'
+  outputMode: 'individual',
 };
 
 const archiveCustomLayoutOptions: OpenTok.ArchiveOptions = {
   outputMode: 'composed',
   layout: {
     type: 'custom',
-    stylesheet: 'derp'
+    stylesheet: 'derp',
   }
 };
 
 const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
   outputMode: 'composed',
   layout: {
-    type: 'pip'
+    type: 'pip',
   }
 };
 
@@ -97,7 +97,7 @@ client.deleteArchive('ARCHIVE_ID', (err: Error) => {
 const listArchivesOptions: OpenTok.ListArchivesOptions = {
   count: 10,
   offset: 5,
-  sessionId: '9_JY17LWC6LeKsGQ2-DXQlBac32PLwRSI7TV0FKOIDEX0PsmejJOGhrRtAW3PWABpEW3C-cp'
+  sessionId: '9_JY17LWC6LeKsGQ2-DXQlBac32PLwRSI7TV0FKOIDEX0PsmejJOGhrRtAW3PWABpEW3C-cp',
 };
 
 client.listArchives(listArchivesOptions, (err: Error, archives: OpenTok.Archive[], totalCount: number) => {
@@ -119,7 +119,7 @@ const broadcastOptions: OpenTok.BroadcastOptions = {
     hls: {}
   },
   layout: {
-    type: 'bestFit'
+    type: 'bestFit',
   }
 };
 
