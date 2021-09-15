@@ -1,4 +1,4 @@
-// Type definitions for opentok v2.10.0
+// Type definitions for opentok v2.12.1
 // Project: https://github.com/opentok/opentok-node
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
