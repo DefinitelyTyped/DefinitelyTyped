@@ -2,8 +2,7 @@ import { expect } from '../tester';
 import { el, ElementaryCallback } from '../load';
 
 export const testCore: ElementaryCallback =
-    (core: el.Core, el: el.Elementary) =>
-    {
+    (core: el.Core, el: el.Elementary) => {
         const isNode = core.Node.isNode;
 
         const inputCount = core.getNumInputChannels();
@@ -14,14 +13,13 @@ export const testCore: ElementaryCallback =
             new core.Node(
                 'phasor',
                 {},
-                [el.const({ value: 90 })]);
+                [el.const({value: 90})]);
 
         const rightPhasor =
             new core.Node(
                 'phasor',
                 {},
                 [92]);
-
 
         // Tests
 

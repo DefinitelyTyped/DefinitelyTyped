@@ -3,24 +3,20 @@ import { Core } from './api';
 
 // for docs
 // noinspection ES6UnusedImports
-import { Node, Props, Children } from './core';
-// noinspection ES6UnusedImports
 import * as el from '../../';
-
 
 /**
  * The core namespace holds types of everything Elementary.
  *
- * Examples of such are {@link Node}s, {@link Props}, {@link Children},
- * {@link MidiEvent}s and more.
+ * Examples of such are {@link core.Node}s, {@link core.Props}, {@link core.Children},
+ * {@link core.MidiEvent}s and more.
  *
  * @see el
- * @see Node
- * @see Props
- * @see Children
- * @see MidiEvent
+ * @see core.Node
+ * @see core.Props
+ * @see core.Children
+ * @see core.MidiEvent
  */
 import core = _core;
-
 
 export { core, Core };

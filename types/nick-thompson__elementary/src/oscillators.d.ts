@@ -4,25 +4,21 @@ import { core } from './core';
 // noinspection ES6UnusedImports
 import * as el from '../';
 
-
 // ============================================================================
 // Native
-
 
 /**
  * Outputs a ramp from 0 to 1 at the given rate.
  *
  * Expects exactly one argument, providing the rate in Hz.
  *
- * @function phasor
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} rate
+ * @param rate
  * the rate in Hz
  *
- * @returns {core.PhasorNode}
+ * @returns
  * a {@link core.PhasorNode} the output of the phasor
  *
  * @see el
@@ -30,13 +26,12 @@ import * as el from '../';
  * @see core.Child
  * @see core.PhasorNode
  */
-export declare const phasor:
+export const phasor:
     core.NodeFactory<'phasor',
         core.KeyProps,
         [
             rate: core.Child
         ]>;
-
 
 // ============================================================================
 // Composite
@@ -46,15 +41,13 @@ export declare const phasor:
  *
  * Expects exactly one argument, providing the rate in Hz.
  *
- * @function train
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} rate
+ * @param rate
  * the rate in Hz
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that computes the output of the pulse train
  *
  * @see el
@@ -62,28 +55,25 @@ export declare const phasor:
  * @see core.Child
  * @see core.Node
  */
-export declare const train:
+export const train:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         [
             rate: core.Child
         ]>;
 
-
 /**
  * Outputs a periodic sine tone at the given frequency.
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @function cycle
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} frequency
+ * @param frequency
  * the frequency in Hz
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that computes the output of the sine wave
  *
  * @see el
@@ -91,13 +81,12 @@ export declare const train:
  * @see core.Child
  * @see core.Node
  */
-export declare const cycle:
+export const cycle:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         [
             frequency: core.Child
         ]>;
-
 
 /**
  * Outputs a naive sawtooth oscillator at the given frequency.
@@ -107,15 +96,13 @@ export declare const cycle:
  * Typically, due to the aliasing of the naive sawtooth at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @function saw
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} frequency
+ * @param frequency
  * the frequency in Hz
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that computes the output of the saw wave
  *
  * @see el
@@ -123,13 +110,12 @@ export declare const cycle:
  * @see core.Child
  * @see core.Node
  */
-export declare const saw:
+export const saw:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         [
             frequency: core.Child
         ]>;
-
 
 /**
  * Outputs a naive square oscillator at the given frequency.
@@ -139,15 +125,13 @@ export declare const saw:
  * Typically, due to the aliasing of the naive square at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @function square
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} frequency
+ * @param frequency
  * the frequency in Hz
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that computes the output of the square wave
  *
  * @see el
@@ -155,13 +139,12 @@ export declare const saw:
  * @see core.Child
  * @see core.Node
  */
-export declare const square:
+export const square:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         [
             frequency: core.Child
         ]>;
-
 
 /**
  * Outputs a naive triangle oscillator at the given frequency.
@@ -171,15 +154,13 @@ export declare const square:
  * Typically, due to the aliasing of the naive square at audio rates,
  * this oscillator is used for low frequency modulation.
  *
- * @function triangle
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} frequency
+ * @param frequency
  * the frequency in Hz
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that computes the output of the triangle wave
  *
  * @see el
@@ -187,28 +168,25 @@ export declare const square:
  * @see core.Child
  * @see core.Node
  */
-export declare const triangle:
+export const triangle:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         [
             frequency: core.Child
         ]>;
 
-
 /**
  * Outputs a band-limited polyblep sawtooth waveform at the given frequency.
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @function blepsaw
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} frequency
+ * @param frequency
  * the frequency in Hz
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that computes the output of the blepsaw
  *
  * @see el
@@ -216,27 +194,24 @@ export declare const triangle:
  * @see core.Child
  * @see core.Node
  */
-export declare const blepsaw:
+export const blepsaw:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         [
             frequency: core.Child
         ]>;
 
-
 /**
  * Outputs a band-limited polyblep square waveform at the given frequency.
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @function blepsquare
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} frequency
+ * @param frequency
  * the frequency in Hz
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that computes the output of the blepsquare
  *
  * @see el
@@ -244,13 +219,12 @@ export declare const blepsaw:
  * @see core.Child
  * @see core.Node
  */
-export declare const blepsquare:
+export const blepsquare:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         [
             frequency: core.Child
         ]>;
-
 
 /**
  * Outputs a band-limited polyblep triangle waveform at the given frequency.
@@ -268,15 +242,13 @@ export declare const blepsquare:
  *
  * Expects exactly one argument specifying the frequency in Hz.
  *
- * @function bleptriangle
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} frequency
+ * @param frequency
  * the frequency in Hz
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that computes the output of the bleptriangle
  *
  * @see el
@@ -284,7 +256,7 @@ export declare const blepsquare:
  * @see core.Child
  * @see core.Node
  */
-export declare const bleptriangle:
+export const bleptriangle:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         [

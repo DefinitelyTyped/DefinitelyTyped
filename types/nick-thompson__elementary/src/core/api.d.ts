@@ -8,7 +8,6 @@ import { MidiEvent } from './midi';
 // noinspection ES6UnusedImports
 import * as el from '../../';
 
-
 /**
  * The elementary.core object is an instance of Node.js' events.EventEmitter.
  * The events below will be dispatched from the native module and
@@ -32,64 +31,38 @@ import * as el from '../../';
  *
  *     export { core };
  *
- * @property {(event: 'load', doThis: () => void) => this} on
- * load event after which it is safe to call other functions
- *
- * @property {(event: 'midi', doThis: (midi: MidiEvent) => void) => this} on
- * fires off any time there is a MIDI Event
- *
- * @property {(event: 'tick', doThis: () => void) => this} on
- * fires off every quantization interval if quantization is enabled
- *
- * @property {() => number} getSampleRate
- * get the current sample rate
- *
- * @property {() => number} getBlockSize
- * get the current block size
- *
- * @property {() => number} getInputChannelCount
- * get the current input channel count
- *
- * @property {() => number} getNumInputChannels
- * get the current output channel count
- *
- * @property {() => number} getNumOutputChannels
- * get the current output channel count
- *
- * @property {() => number} getQuantizationInterval
- * get the current quantization interval
- *
- * @property {(...children: Child[]) => number} render
- * render the given children into the output channels at their position
- *
  * @see el
  * @see EventEmitter
  */
-export declare interface Core extends EventEmitter
-{
+export interface Core extends EventEmitter {
     /**
      * The load event fires when the runtime has finished preparing the audio
      * rendering thread and is ready to handle render calls.
      *
-     * @param {'load'} event
+     * The tick event fires only when the quantize option is enabled. See Command
+     * Line Options for more details on the quantize option. Specifically, the
+     * 'tick' event will fire just after the runtime has finished applying
+     * any queued changes at the end of a given quantization interval.
+     *
+     * @param event
      * event name
      *
-     * @param {() => void} doThis
+     * @param doThis
      * callback to call
      *
      * @see Core
      */
-    on(event: 'load', doThis: () => void): this;
+    on(event: 'load' | 'tick', doThis: () => void): this;
 
     /**
      * The midi event fires any time the runtime receives a MIDI event from
      * any connected and enabled device. By default, the runtime will be
      * listening to any such device, which may yield frequent MIDI events.
      *
-     * @param {'midi'} event
+     * @param event
      * event name
      *
-     * @param {(event: MidiEvent) => void} doThis
+     * @param doThis
      * callback to call with the MIDI Event
      *
      * @see Core
@@ -98,28 +71,11 @@ export declare interface Core extends EventEmitter
     on(event: 'midi', doThis: (event: MidiEvent) => void): this;
 
     /**
-     * The tick event fires only when the quantize option is enabled. See Command
-     * Line Options for more details on the quantize option. Specifically, the
-     * 'tick' event will fire just after the runtime has finished applying
-     * any queued changes at the end of a given quantization interval.
-     *
-     * @param {'tick'} event
-     * event name
-     *
-     * @param {() => void} doThis
-     * callback to call
-     *
-     * @see Core
-     */
-    on(event: 'tick', doThis: () => void): this;
-
-
-    /**
      * Returns the audio device sample rate.
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @returns {number} sample rate
+     * @returns sample rate
      *
      * @see Core
      */
@@ -130,7 +86,7 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @returns {number} block size
+     * @returns block size
      *
      * @see Core
      */
@@ -141,7 +97,7 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @returns {number} input channel count
+     * @returns input channel count
      *
      * @see Core
      */
@@ -152,7 +108,7 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @returns {number} output channel count
+     * @returns output channel count
      *
      * @see Core
      */
@@ -164,12 +120,11 @@ export declare interface Core extends EventEmitter
      *
      * Will throw an error if called before the load event has fired.
      *
-     * @returns {number} quantization interval
+     * @returns quantization interval
      *
      * @see Core
      */
     getQuantizationInterval(): number;
-
 
     /**
      * Accepts a variadic set of arguments, each one representing the audio
@@ -183,7 +138,7 @@ export declare interface Core extends EventEmitter
      * @example
      *     core.render(first, second);
      *
-     * @param {...Child} children
+     * @param children
      * {@link Child}ren to render in channels
      *
      * @see Core
@@ -191,7 +146,6 @@ export declare interface Core extends EventEmitter
      * @see Node
      */
     render(...children: Child[]): void;
-
 
     /**
      * Object containing methods for creating and

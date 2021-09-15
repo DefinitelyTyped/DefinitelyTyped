@@ -4,23 +4,19 @@ import { core } from './core';
 // noinspection ES6UnusedImports
 import * as el from '../';
 
-
 // ============================================================================
 // Native
 
 // TODO: figure out what root is and put it here
 
-
 /**
  * Generates a stream of random numbers
  * uniformly distributed on the range [0, 1].
  *
- * @function rand
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @returns {core.RandNode}
+ * @returns
  * a {@link core.RandNode} that computes a stream of random numbers
  *
  * @see el
@@ -28,7 +24,7 @@ import * as el from '../';
  * @see core.Child
  * @see core.RandNode
  */
-export declare const rand:
+export const rand:
     core.NodeFactory<'rand',
         core.KeyProps,
         []>;

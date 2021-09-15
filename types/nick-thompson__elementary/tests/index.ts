@@ -11,7 +11,6 @@ import { testOscillators } from './suites/oscillators';
 import { testSamples } from './suites/samples';
 import { testSignals } from './suites/signals';
 
-
 export {
     onCoreLoad,
     testCore,
@@ -24,5 +23,5 @@ export {
     testNoise,
     testOscillators,
     testSamples,
-    testSignals,
+    testSignals
 };

@@ -4,26 +4,22 @@ import { core } from './core';
 // noinspection ES6UnusedImports
 import * as el from '../';
 
-
 // ============================================================================
 // Native
 
 // placed in here because the two functions from basics and math would collide
 
-
 // noinspection JSUnusedLocalSymbols
 /**
  * Identity function, f(x) = x.
  *
- * @function in
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to return the result of
  *
- * @returns {core.InNode}
+ * @returns
  * a {@link core.InNode} that returns the result of the operand
  *
  * @see el
@@ -38,18 +34,15 @@ declare const identity:
             operand: core.Child
         ]>;
 
-
 /**
  * Used for accepting an input signal from the audio driver,
  * whereupon the channel prop will be used to decide which
  * incoming signal channel will be passed forward.
  *
- * @function in
- *
- * @param {core.InProps} [props]
+ * @param [props]
  * {@link core.InProps} object
  *
- * @returns {core.InNode}
+ * @returns
  * a {@link core.InNode} that returns a stream of the input
  *
  * @see el
@@ -62,20 +55,17 @@ declare const input:
         core.InProps,
         []>;
 
-
 /**
  * Either the identity or the input function.
  *
- * @function in
- *
- * @param {core.KeyProps | core.InProps} [props]
+ * @param [props]
  * props object optional key or {@link core.InProps}
  *
- * @param {core.Child} [operand]
+ * @param [operand]
  * if using in as the identity function the child of which the result will
  * be returned
  *
- * @returns {core.InNode}
+ * @returns
  * a {@link core.InNode} that returns the result of the operand or the
  * stream of the input
  *

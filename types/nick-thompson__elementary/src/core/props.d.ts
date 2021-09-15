@@ -8,7 +8,6 @@ import { core } from './';
 // noinspection ES6UnusedImports
 import * as el from '../../';
 
-
 // Base
 
 /**
@@ -21,8 +20,7 @@ import * as el from '../../';
  * @see core
  * @see KeyProps
  */
-export declare interface Props
-{
+export interface Props {
     [key: string]: any;
 }
 
@@ -32,35 +30,26 @@ export declare interface Props
  * Key determines whether props changed or the whole node changed upon
  * re-render.
  *
- * @property {string?} [key = '']
- * key of the node being created
- *
  * @see core
  * @see Props
  */
-export declare interface KeyProps
-{
+export interface KeyProps {
     /**
      * Key of the node being created.
      */
     key?: string;
 }
 
-
 // Basics
 
 /**
  * Props for el.in.
  *
- * @property {number} [channel = 0]
- * input channel of the el.in node
- *
  * @see core
  * @see el.in
  * @see KeyProps
  */
-export declare interface InProps extends KeyProps
-{
+export interface InProps extends KeyProps {
     /**
      * Input channel of the el.in node.
      *
@@ -73,15 +62,11 @@ export declare interface InProps extends KeyProps
 /**
  * Props for el.const.
  *
- * @property {number} [value = 0]
- * value of the el.const node
- *
  * @see core
  * @see el.const
  * @see KeyProps
  */
-export declare interface ConstProps extends KeyProps
-{
+export interface ConstProps extends KeyProps {
     /**
      * Value of the el.const node.
      *
@@ -91,22 +76,15 @@ export declare interface ConstProps extends KeyProps
     value: number;
 }
 
-
 // Delays
 
 /**
  * Props for el.delay.
  *
- * Size determines the delay time.
- *
- * @property {number} [size = 0]
- * maximum delay line in samples
- *
  * @see core
  * @see KeyProps
  */
-export declare interface DelayProps extends KeyProps
-{
+export interface DelayProps extends KeyProps {
     /**
      * Maximum delay line in samples.
      *
@@ -116,20 +94,15 @@ export declare interface DelayProps extends KeyProps
     size?: number;
 }
 
-
 // Filters
 
 /**
  * Props for el.convolve.
  *
- * @property {string} [path = '']
- * path to the file of the impulse response on disk
- *
  * @see core
  * @see KeyProps
  */
-export declare interface ConvolveProps extends KeyProps
-{
+export interface ConvolveProps extends KeyProps {
     /**
      * Path to the file of the impulse response on disk.
      *
@@ -139,37 +112,15 @@ export declare interface ConvolveProps extends KeyProps
     path?: string;
 }
 
-
 // Samples
 
 /**
  * Props for el.sample.
  *
- * @property {string=0} [path = '']
- * path to the file of the sample
- *
- * @property {number} [channel = 0]
- * nodes can output only one channel so you have to select the channel to read
- * from the sample
- *
- * @property {('trigger' | 'gate' | 'loop')} [mode = 'trigger']
- * - trigger: plays the sample once fully on a rising edge of the pulse train
- * - gate: resumes playing the sample on a rising edge and pauses on a falling
- *   edge of the pulse train until the end of the sample
- * - loop: same as gate but it doesn't stop at the end of the sample, instead
- *   it continues playing it back from the start in a loop
- *
- * @property {number} [startOffset = 0]
- * offset in samples from the start of the sample where playback starts
- *
- * @property {number} [endOffset = 0]
- * offset in samples from the end of the sample where playback ends
- *
  * @see core
  * @see KeyProps
  */
-export declare interface SampleProps extends KeyProps
-{
+export interface SampleProps extends KeyProps {
     /**
      * Path to the file of the sample.
      *
@@ -217,24 +168,14 @@ export declare interface SampleProps extends KeyProps
     stopOffset?: number;
 }
 
-
 /**
  * Props for el.table.
  * Properties 'path' and 'data' are mutually exclusive.
  *
- * @property {string} [path = '']
- * the location of the sample file on disk
- *
- * @property {Float32Array} [data = null]
- * manually constructed lookup table data
- *
- * @property {number} [number = 0]
- * the channel to read from the sample
- *
  * @see core
  * @see KeyProps
  */
-export declare type TableProps =
+export type TableProps =
     KeyProps &
     ({
          path?: string,
@@ -247,26 +188,15 @@ export declare type TableProps =
         channel?: number
     };
 
-
 // Signals
 
 /**
  * Props for el.seq
  *
- * @property {number[]} [seq = []]
- * sequence of values to generate
- *
- * @property {boolean} [hold = false]
- * when true, continues to output the sequence value until the next trigger
- *
- * @property {boolean} [loop = false]
- * when true, sequence repeats, looping from start to end, indefinitely
- *
  * @see core
  * @see KeyProps
  */
-export declare interface SeqProps extends KeyProps
-{
+export interface SeqProps extends KeyProps {
     /**
      * Sequence of values to generate.
      *
@@ -292,7 +222,6 @@ export declare interface SeqProps extends KeyProps
     loop?: boolean;
 }
 
-
 // Generic
 
 /**
@@ -309,7 +238,7 @@ export declare interface SeqProps extends KeyProps
  * @see SeqProps
  * @see KeyProps
  */
-export declare type NativeNodeProps<T extends NativeNodeType> =
+export type NativeNodeProps<T extends NativeNodeType> =
     {
         in: InProps | KeyProps,
         const: ConstProps,
@@ -327,12 +256,11 @@ export declare type NativeNodeProps<T extends NativeNodeType> =
  * @see core
  * @see Props
  */
-export declare type CompositeNodeProps<T extends CompositeNodeType> =
+export type CompositeNodeProps<T extends CompositeNodeType> =
     Parameters<T> extends [] ? KeyProps :
     Parameters<T> extends [infer IProps, ...any] ?
     IProps extends Child ? KeyProps : IProps & KeyProps :
     never;
-
 
 /**
  * Type of props of any {@link NodeType}.
@@ -343,7 +271,7 @@ export declare type CompositeNodeProps<T extends CompositeNodeType> =
  * @see NativeNodeProps
  * @see CompositeNodeProps
  */
-export declare type NodeProps<T extends NodeType> =
+export type NodeProps<T extends NodeType> =
     NodeType extends T ? Props :
     T extends NativeNodeType ? NativeNodeProps<T> :
     T extends CompositeNodeType ? CompositeNodeProps<T> :

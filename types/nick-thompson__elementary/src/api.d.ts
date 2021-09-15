@@ -4,7 +4,6 @@ import * as _Elementary from './elementary';
 // noinspection ES6UnusedImports
 import * as el from '../';
 
-
 /**
  * The Elementary namespace containing all Elementary functions and factories.
  *
@@ -52,4 +51,4 @@ import ElementaryNamespace = _Elementary;
  * @see el
  * @see ElementaryNamespace
  */
-export declare type Elementary = typeof ElementaryNamespace;
+export type Elementary = typeof ElementaryNamespace;

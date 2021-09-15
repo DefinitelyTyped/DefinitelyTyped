@@ -4,28 +4,23 @@ import { core } from './core';
 // noinspection ES6UnusedImports
 import * as el from '../';
 
-
 // ============================================================================
 // Native
-
 
 // Unary
 
 // in is in in.d.ts because it collides with the in function from basics
 
-
 /**
  * Computes the sine of the operand.
  *
- * @function sin
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the sine of
  *
- * @returns {core.SinNode}
+ * @returns
  * a {@link core.SinNode} that computes the sine of the operand
  *
  * @see el
@@ -33,26 +28,23 @@ import * as el from '../';
  * @see core.Child
  * @see core.SinNode
  */
-export declare const sin:
+export const sin:
     core.NodeFactory<'sin',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the cosine of the operand.
  *
- * @function cos
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the cosine of
  *
- * @returns {core.CosNode}
+ * @returns
  * a {@link core.CosNode} that computes the cosine of the operand
  *
  * @see el
@@ -60,26 +52,23 @@ export declare const sin:
  * @see core.Child
  * @see core.CosNode
  */
-export declare const cos:
+export const cos:
     core.NodeFactory<'cos',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the tangent of the operand.
  *
- * @function tan
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the tangent of
  *
- * @returns {core.TanNode}
+ * @returns
  * a {@link core.TanNode} that computes the tangent of the operand
  *
  * @see el
@@ -87,26 +76,23 @@ export declare const cos:
  * @see core.Child
  * @see core.TanNode
  */
-export declare const tan:
+export const tan:
     core.NodeFactory<'tan',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the hyperbolic tangent of the operand.
  *
- * @function tanh
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the hyperbolic tangent of
  *
- * @returns {core.TanhNode}
+ * @returns
  * a {@link core.TanhNode} that computes the hyperbolic tangent of the operand
  *
  * @see el
@@ -114,26 +100,23 @@ export declare const tan:
  * @see core.Child
  * @see core.TanhNode
  */
-export declare const tanh:
+export const tanh:
     core.NodeFactory<'tanh',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the inverse hyperbolic sine of the operand.
  *
- * @function asinh
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the inverse hyperbolic sine of
  *
- * @returns {core.AsinhNode}
+ * @returns
  * a {@link core.AsinhNode} that computes the inverse hyperbolic sine
  * of the operand
  *
@@ -142,26 +125,23 @@ export declare const tanh:
  * @see core.Child
  * @see core.AsinhNode
  */
-export declare const asinh:
+export const asinh:
     core.NodeFactory<'asinh',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the natural logarithm of the operand.
  *
- * @function ln
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the natural logarithm of
  *
- * @returns {core.LnNode}
+ * @returns
  * a {@link core.LnNode} that computes the natural logarithm of the operand
  *
  * @see el
@@ -169,28 +149,25 @@ export declare const asinh:
  * @see core.Child
  * @see core.LnNode
  */
-export declare const ln:
+export const ln:
     core.NodeFactory<'ln',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 // TODO: confirm its the log in base 10
 
 /**
  * Computes the logarithm in base 10 of the operand.
  *
- * @function log
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the logarithm in base 10 of
  *
- * @returns {core.LogNode}
+ * @returns
  * a {@link core.LogNode} that computes the logarithm in base 10 of the operand
  *
  * @see el
@@ -198,26 +175,23 @@ export declare const ln:
  * @see core.Child
  * @see core.LogNode
  */
-export declare const log:
+export const log:
     core.NodeFactory<'log',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the logarithm in base 2 of the operand.
  *
- * @function log2
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the logarithm in base 2 of
  *
- * @returns {core.Log2Node}
+ * @returns
  * a {@link core.Log2Node} that computes the logarithm in base 2 of the operand
  *
  * @see el
@@ -225,26 +199,23 @@ export declare const log:
  * @see core.Child
  * @see core.Log2Node
  */
-export declare const log2:
+export const log2:
     core.NodeFactory<'log2',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the ceiling of the operand.
  *
- * @function ceil
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the ceiling of
  *
- * @returns {core.CeilNode}
+ * @returns
  * a {@link core.CeilNode} that computes the ceiling of the operand
  *
  * @see el
@@ -252,26 +223,23 @@ export declare const log2:
  * @see core.Child
  * @see core.CeilNode
  */
-export declare const ceil:
+export const ceil:
     core.NodeFactory<'ceil',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the floor of the operand.
  *
- * @function floor
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the floor of
  *
- * @returns {core.FloorNode}
+ * @returns
  * a {@link core.FloorNode} that computes the floor of the operand
  *
  * @see el
@@ -279,26 +247,23 @@ export declare const ceil:
  * @see core.Child
  * @see core.FloorNode
  */
-export declare const floor:
+export const floor:
     core.NodeFactory<'floor',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the square root of the operand.
  *
- * @function sqrt
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the square root of
  *
- * @returns {core.SqrtNode}
+ * @returns
  * a {@link core.SqrtNode} that computes the square root of the operand
  *
  * @see el
@@ -306,28 +271,25 @@ export declare const floor:
  * @see core.Child
  * @see core.SqrtNode
  */
-export declare const sqrt:
+export const sqrt:
     core.NodeFactory<'sqrt',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 // TODO: confirm base 10
 
 /**
  * Computes the exponential in base 10 of the operand.
  *
- * @function exp
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the exponential in base 10 of
  *
- * @returns {core.ExpNode}
+ * @returns
  * a {@link core.ExpNode} that computes the exponential in base 10 of the operand
  *
  * @see el
@@ -335,26 +297,23 @@ export declare const sqrt:
  * @see core.Child
  * @see core.ExpNode
  */
-export declare const exp:
+export const exp:
     core.NodeFactory<'exp',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 /**
  * Computes the absolute number of the operand.
  *
- * @function abs
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} operand
+ * @param operand
  * to compute the absolute number of
  *
- * @returns {core.AbsNode}
+ * @returns
  * a {@link core.AbsNode} that computes the absolute number of the operand
  *
  * @see el
@@ -362,31 +321,28 @@ export declare const exp:
  * @see core.Child
  * @see core.AbsNode
  */
-export declare const abs:
+export const abs:
     core.NodeFactory<'abs',
         core.KeyProps,
         [
             operand: core.Child
         ]>;
 
-
 // Binary
 
 /**
  * Computes whether the first is lesser than the second.
  *
- * @function le
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} first
+ * @param first
  * first operand
  *
- * @param {core.Child} second
+ * @param second
  * second operand
  *
- * @returns {core.LeNode}
+ * @returns
  * a {@link core.LeNode} that computes whether the first is lesser
  * than the second operand
  *
@@ -395,7 +351,7 @@ export declare const abs:
  * @see core.Child
  * @see core.LeNode
  */
-export declare const le:
+export const le:
     core.NodeFactory<'le',
         core.KeyProps,
         [
@@ -403,22 +359,19 @@ export declare const le:
             second: core.Child
         ]>;
 
-
 /**
  * Computes whether the first is lesser or equal than the second.
  *
- * @function leq
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} first
+ * @param first
  * first operand
  *
- * @param {core.Child} second
+ * @param second
  * second operand
  *
- * @returns {core.LeqNode}
+ * @returns
  * a {@link core.LeqNode} that computes whether the first is lesser or equal
  * than the second operand
  *
@@ -427,7 +380,7 @@ export declare const le:
  * @see core.Child
  * @see core.LeqNode
  */
-export declare const leq:
+export const leq:
     core.NodeFactory<'leq',
         core.KeyProps,
         [
@@ -435,22 +388,19 @@ export declare const leq:
             second: core.Child
         ]>;
 
-
 /**
  * Computes whether the first is greater than the second.
  *
- * @function ge
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} first
+ * @param first
  * first operand
  *
- * @param {core.Child} second
+ * @param second
  * second operand
  *
- * @returns {core.GeNode}
+ * @returns
  * a {@link core.GeNode} that computes whether the first is greater
  * than the second operand
  *
@@ -459,7 +409,7 @@ export declare const leq:
  * @see core.Child
  * @see core.GeNode
  */
-export declare const ge:
+export const ge:
     core.NodeFactory<'ge',
         core.KeyProps,
         [
@@ -467,22 +417,19 @@ export declare const ge:
             second: core.Child
         ]>;
 
-
 /**
  * Computes whether the first is greater or equal than the second.
  *
- * @function geq
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} first
+ * @param first
  * first operand
  *
- * @param {core.Child} second
+ * @param second
  * second operand
  *
- * @returns {core.GeqNode}
+ * @returns
  * a {@link core.GeqNode} that computes whether the first is greater or equal
  * than the second operand
  *
@@ -491,7 +438,7 @@ export declare const ge:
  * @see core.Child
  * @see core.GeqNode
  */
-export declare const geq:
+export const geq:
     core.NodeFactory<'geq',
         core.KeyProps,
         [
@@ -499,22 +446,19 @@ export declare const geq:
             second: core.Child
         ]>;
 
-
 /**
  * Computes the power of the first with with the second as the exponent.
  *
- * @function pow
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} first
+ * @param first
  * first operand
  *
- * @param {core.Child} second
+ * @param second
  * second operand
  *
- * @returns {core.PowNode}
+ * @returns
  * a {@link core.PowNode} that computes the power of the first with
  * the second as the exponent
  *
@@ -523,7 +467,7 @@ export declare const geq:
  * @see core.Child
  * @see core.PowNode
  */
-export declare const pow:
+export const pow:
     core.NodeFactory<'pow',
         core.KeyProps,
         [
@@ -531,22 +475,19 @@ export declare const pow:
             second: core.Child
         ]>;
 
-
 /**
  * Computes the modulo of the first with the second.
  *
- * @function mod
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} first
+ * @param first
  * first operand
  *
- * @param {core.Child} second
+ * @param second
  * second operand
  *
- * @returns {core.ModNode}
+ * @returns
  * a {@link core.ModNode} that computes the module of the first with the second
  *
  * @see el
@@ -554,7 +495,7 @@ export declare const pow:
  * @see core.Child
  * @see core.ModNode
  */
-export declare const mod:
+export const mod:
     core.NodeFactory<'mod',
         core.KeyProps,
         [
@@ -562,22 +503,19 @@ export declare const mod:
             second: core.Child
         ]>;
 
-
 /**
  * Returns the result of the minimal operand.
  *
- * @function min
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} first
+ * @param first
  * first operand
  *
- * @param {core.Child} second
+ * @param second
  * second operand
  *
- * @returns {core.MinNode}
+ * @returns
  * a {@link core.MinNode} that returns the result of the minimal operand
  *
  * @see el
@@ -585,7 +523,7 @@ export declare const mod:
  * @see core.Child
  * @see core.MinNode
  */
-export declare const min:
+export const min:
     core.NodeFactory<'min',
         core.KeyProps,
         [
@@ -593,22 +531,19 @@ export declare const min:
             second: core.Child
         ]>;
 
-
 /**
  * Returns the result of the maximal operand.
  *
- * @function max
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.Child} first
+ * @param first
  * first operand
  *
- * @param {core.Child} second
+ * @param second
  * second operand
  *
- * @returns {core.MaxNode}
+ * @returns
  * a {@link core.MaxNode} that returns the result of the maximal operand
  *
  * @see el
@@ -616,14 +551,13 @@ export declare const min:
  * @see core.Child
  * @see core.MaxNode
  */
-export declare const max:
+export const max:
     core.NodeFactory<'max',
         core.KeyProps,
         [
             first: core.Child,
             second: core.Child
         ]>;
-
 
 // Variadic
 
@@ -634,15 +568,13 @@ export declare const max:
  * Expects at least one operand.
  * If only one is passed it behaves as the identity function.
  *
- * @function add
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.VariadicChildrenArray} operands
+ * @param operands
  * the operands to add up
  *
- * @returns {core.AddNode}
+ * @returns
  * a {@link core.AddNode} that sums up the operands
  *
  * @see el
@@ -650,13 +582,12 @@ export declare const max:
  * @see core.Child
  * @see core.AddNode
  */
-export declare const add:
+export const add:
     core.NodeFactory<'add',
         core.KeyProps,
         [
             ...operands: core.VariadicChildrenArray
         ]>;
-
 
 /**
  * Subtracts the rest of the operands from the first.
@@ -665,12 +596,10 @@ export declare const add:
  * Expects at least one operand.
  * If only one is passed it behaves as the identity function.
  *
- * @function sub
- *
- * @param {core.VariadicChildrenArray} operands
+ * @param operands
  * the operands to subtract
  *
- * @returns {core.SubNode}
+ * @returns
  * a {@link core.SubNode} that subtracts the rest of the operands from the first
  *
  * @see el
@@ -678,13 +607,12 @@ export declare const add:
  * @see core.Child
  * @see core.SubNode
  */
-export declare const sub:
+export const sub:
     core.NodeFactory<'sub',
         core.KeyProps,
         [
             ...operands: core.VariadicChildrenArray
         ]>;
-
 
 /**
  * Multiplies the operands.
@@ -693,15 +621,13 @@ export declare const sub:
  * Expects at least one operand.
  * If only one is passed it as the identity function.
  *
- * @function mul
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.VariadicChildrenArray} rest
+ * @param rest
  * the operands to multiply
  *
- * @returns {core.MulNode}
+ * @returns
  * a {@link core.MulNode} that multiplies the operands
  *
  * @see el
@@ -709,13 +635,12 @@ export declare const sub:
  * @see core.Child
  * @see core.MulNode
  */
-export declare const mul:
+export const mul:
     core.NodeFactory<'mul',
         core.KeyProps,
         [
             ...operands: core.VariadicChildrenArray
         ]>;
-
 
 /**
  * Divides the first with the rest of the operands.
@@ -724,15 +649,13 @@ export declare const mul:
  * Expects at least one operand.
  * If only one is passed it behaves as the identity function.
  *
- * @function div
- *
- * @param {core.KeyProps} [props]
+ * @param [props]
  * props object with optional key
  *
- * @param {core.VariadicChildrenArray} operands
+ * @param operands
  * the operands to divide
  *
- * @returns {core.DivNode}
+ * @returns
  * a {@link core.DivNode} that divides the first with the rest of the operands
  *
  * @see el
@@ -740,7 +663,7 @@ export declare const mul:
  * @see core.Child
  * @see core.DivNode
  */
-export declare const div:
+export const div:
     core.NodeFactory<'div',
         core.KeyProps,
         [

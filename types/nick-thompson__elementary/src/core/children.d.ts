@@ -5,7 +5,6 @@ import { Node } from './node';
 // noinspection ES6UnusedImports
 import { core } from './';
 
-
 // Child
 
 /**
@@ -15,8 +14,7 @@ import { core } from './';
  * @see core
  * @see Node
  */
-export declare type Child = Node | number;
-
+export type Child = Node | number;
 
 // Arrays
 
@@ -26,7 +24,7 @@ export declare type Child = Node | number;
  *
  * @see core
  */
-export declare type ChildrenArraySizeRange =
+export type ChildrenArraySizeRange =
     0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 /**
@@ -36,7 +34,7 @@ export declare type ChildrenArraySizeRange =
  * @see Child
  * @see ChildrenArraySizeRange
  */
-export declare type SizedChildrenArray<Size extends ChildrenArraySizeRange> =
+export type SizedChildrenArray<Size extends ChildrenArraySizeRange> =
     Size extends 1 ?
     [Child] :
     Size extends 2 ?
@@ -70,7 +68,7 @@ export declare type SizedChildrenArray<Size extends ChildrenArraySizeRange> =
  * @see ChildrenArraySizeRange
  * @see SizedChildrenArray
  */
-export declare type ChildrenArray =
+export type ChildrenArray =
     SizedChildrenArray<0> |
     SizedChildrenArray<1> |
     SizedChildrenArray<2> |
@@ -90,7 +88,7 @@ export declare type ChildrenArray =
  * @see ChildrenArraySizeRange
  * @see SizedChildrenArray
  */
-export declare type VariadicChildrenArray =
+export type VariadicChildrenArray =
     SizedChildrenArray<1> |
     SizedChildrenArray<2> |
     SizedChildrenArray<3> |
@@ -109,9 +107,8 @@ export declare type VariadicChildrenArray =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export declare type ChildrenArraySize<A extends any[]> =
+export type ChildrenArraySize<A extends any[]> =
     A['length'] & ChildrenArraySizeRange;
-
 
 // Generic
 
@@ -124,7 +121,7 @@ export declare type ChildrenArraySize<A extends any[]> =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export declare type Children =
+export type Children =
     ChildrenArray;
 
 /**
@@ -136,7 +133,7 @@ export declare type Children =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export declare type NativeNodeChildren<T extends NativeNodeType> =
+export type NativeNodeChildren<T extends NativeNodeType> =
     ({
          [key in // Basics
             'in']: SizedChildrenArray<0> | SizedChildrenArray<1>
@@ -179,7 +176,6 @@ export declare type NativeNodeChildren<T extends NativeNodeType> =
          [other: string]: ChildrenArray
      })[T];
 
-
 /**
  * Type of children of any given {@link CompositeNodeType}.
  *
@@ -189,7 +185,7 @@ export declare type NativeNodeChildren<T extends NativeNodeType> =
  * @see SizedChildrenArray
  * @see ChildrenArray
  */
-export declare type CompositeNodeChildren<T extends CompositeNodeType> =
+export type CompositeNodeChildren<T extends CompositeNodeType> =
     Parameters<T> extends [] ? [] :
     Parameters<T> extends [infer IProps, ...infer IChildren] ?
     IProps extends Child ?
@@ -207,7 +203,7 @@ export declare type CompositeNodeChildren<T extends CompositeNodeType> =
  * @see NativeNodeChildren
  * @see CompositeNodeChildren
  */
-export declare type NodeChildren<T extends NodeType> =
+export type NodeChildren<T extends NodeType> =
     NodeType extends T ? Children :
     T extends NativeNodeType ? NativeNodeChildren<T> :
     T extends CompositeNodeType ? CompositeNodeChildren<T> :

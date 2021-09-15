@@ -2,17 +2,15 @@ import { expect } from '../tester';
 import { el, ElementaryCallback } from '../load';
 
 export const testOscillators: ElementaryCallback =
-    (core: el.Core, el: el.Elementary) =>
-    {
+    (core: el.Core, el: el.Elementary) => {
         const phasor = el.phasor({}, 10);
         expect(phasor).isANode();
 
-        const train = el.train({ key: 'myTrain' }, 10);
+        const train = el.train({key: 'myTrain'}, 10);
         expect(train).isANode();
 
         const cycle = el.cycle(train);
         expect(cycle).isANode();
-
 
         const saw = el.saw({}, 10);
         expect(saw).isANode();
@@ -23,8 +21,7 @@ export const testOscillators: ElementaryCallback =
         const triangle = el.triangle({}, 1);
         expect(triangle).isANode();
 
-
-        const blepsaw = el.blepsaw({ key: 'myBlepsaw' }, 10);
+        const blepsaw = el.blepsaw({key: 'myBlepsaw'}, 10);
         expect(blepsaw).isANode();
 
         const blepsquare = el.blepsquare(blepsaw);
@@ -32,7 +29,6 @@ export const testOscillators: ElementaryCallback =
 
         const bleptriangle = el.bleptriangle({}, 10);
         expect(bleptriangle).isANode();
-
 
         core.render(bleptriangle, saw);
     };

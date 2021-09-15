@@ -1,8 +1,18 @@
 import { el, core } from './load';
-import * as colors from 'colors';
 
-interface Serializable
-{
+// import * as colors from 'colors';
+
+export function print(message: string) {
+    // console.log(message);
+}
+
+export function padEnd(s: string, n: number, c: string) {
+    s = s.slice(0, n);
+    c = c.slice(0, n - s.length);
+    return s + c;
+}
+
+interface Serializable {
     toString(): string;
 }
 
@@ -11,51 +21,49 @@ type Basic =
     string |
     bigint |
     boolean |
-    symbol |
     { (...args: unknown[]): unknown } |
     any[] |
     object;
 
+export type Testable = Serializable | Basic;
+
 const logLimit = 40;
 
-function log<T extends boolean>(
-    passed: T,
-    expression: Serializable | Basic,
+function log(
+    passed: boolean,
+    expression: Testable,
     success?: string,
-    fail?: string)
-{
+    fail?: string) {
     expression =
-        expression
-            .toString()
-            .slice(0, logLimit)
-            .padEnd(logLimit, ' ');
+        padEnd(
+            expression
+                .toString()
+                .slice(0, logLimit),
+            logLimit,
+            ' ');
 
-    if (success !== undefined && fail !== undefined)
-    {
+    if (success !== undefined && fail !== undefined) {
         success = success.slice(0, logLimit);
         fail = fail.slice(0, logLimit);
-    }
-    else
-    {
+    } else {
         success = 'is true';
         fail = 'is false';
     }
-    success = success.padEnd(logLimit, ' ');
-    fail = fail.padEnd(logLimit, ' ');
+    success = padEnd(success, logLimit, ' ');
+    fail = padEnd(fail, logLimit, ' ');
 
-    console.log(
+    print(
         passed ?
-        colors.green('x') + `: ${expression}\n${success}\n` :
-        colors.red('F') + `: ${expression}\n${fail}\n`);
+        `x : ${expression}\n${success}\n` :
+        `F : ${expression}\n${fail}\n`);
 
     return passed;
 }
 
-export function expect<T extends Serializable | Basic>(x: T)
-{
+export function expect(x: Testable) {
     return {
         passes:
-            (given: (y: T) => boolean) =>
+            (given: (y: Testable) => boolean) =>
                 log(given(x),
                     x,
                     `passed ${given.name}`,
@@ -111,23 +119,23 @@ export function expect<T extends Serializable | Basic>(x: T)
                     'is not an object'),
 
         isEqualTo:
-            (y: T) =>
+            (y: Testable) =>
                 log(x === y,
                     `${x} == ${y}`),
         isGreaterThan:
-            (y: T) =>
+            (y: Testable) =>
                 log(x > y,
                     `${x} > ${y}`),
         isGreaterOrEqualTo:
-            (y: T) =>
+            (y: Testable) =>
                 log(x >= y,
                     `${x} >= ${y}`),
         isLesserThan:
-            (y: T) =>
+            (y: Testable) =>
                 log(x < y,
                     `${x} < ${y}`),
         isLesserOrEqualTo:
-            (y: T) =>
+            (y: Testable) =>
                 log(x <= y,
                     `${x} <= ${y}`),
 
@@ -144,19 +152,19 @@ export function expect<T extends Serializable | Basic>(x: T)
             (p: el.core.Props) =>
                 log(core.Node.isNode(x) &&
                     Object.keys(p).reduce(
-                        (r, k) =>
+                        (r: boolean, k: string) =>
                             !r ? false :
                             (x as any)._props[k as keyof {}] === p[k],
                         true),
                     `${x} has props ${p}`),
         hasNodeChildren:
-            (...c: el.core.ChildrenArray) =>
+            (...c: el.core.Children) =>
                 log(core.Node.isNode(x) &&
                     (c as el.core.Child[]).reduce(
-                        (r, v, i) =>
+                        (r: boolean, v: el.core.Child, i: number) =>
                             !r ? false :
                             (x as any)._children[i as keyof []] === v,
                         true),
-                    `${x} has children ${c}`),
+                    `${x} has children ${c}`)
     };
 }

@@ -4,10 +4,8 @@ import { core } from './core';
 // noinspection ES6UnusedImports
 import * as el from '../';
 
-
 // ============================================================================
 // Native
-
 
 /**
  * Loads a sample from disk and triggers its playback on the rising edge of
@@ -25,15 +23,13 @@ import * as el from '../';
  *
  * Expects exactly one argument, the pulse train to trigger playback.
  *
- * @function sample
- *
- * @param {core.SampleProps?} props
+ * @param [props]
  * {@link core.SampleProps} object
  *
- * @param {core.Node} trigger
+ * @param trigger
  * the pulse train that triggers the playback
  *
- * @returns {core.SampleNode}
+ * @returns
  * a {@link core.SampleNode} that outputs the playback of the sample
  *
  * @see el
@@ -42,13 +38,12 @@ import * as el from '../';
  * @see core.Child
  * @see core.SampleNode
  */
-export declare const sample:
+export const sample:
     core.NodeFactory<'sample',
         core.SampleProps,
         [
             trigger: core.Child
         ]>;
-
 
 /**
  * Loads a lookup table which is then read from with a position determined
@@ -77,15 +72,13 @@ export declare const sample:
  *      {path: '/path/to/padSound.wav'},
  *      el.add(0.1, el.mul(0.1, el.phasor(1))));
  *
- * @function table
- *
- * @param {TableProps?} props
+ * @param [props]
  * {@link core.TableProps} object
  *
- * @param {core.Node} trigger
+ * @param trigger
  * the pulse train that triggers the playback
  *
- * @returns {core.TableNode}
+ * @returns
  * a {@link core.TableNode} that computes the lookup table output
  *
  * @see el
@@ -94,7 +87,7 @@ export declare const sample:
  * @see core.Child
  * @see core.TableNode
  */
-export declare const table:
+export const table:
     core.NodeFactory<'table',
         core.KeyProps,
         [

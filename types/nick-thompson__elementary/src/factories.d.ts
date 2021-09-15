@@ -4,7 +4,6 @@ import { core } from './core';
 // noinspection ES6UnusedImports
 import * as el from '../';
 
-
 // ============================================================================
 // Functions
 
@@ -14,21 +13,18 @@ import * as el from '../';
  *
  * Users may also construct `core.Node` instances manually.
  *
- * @template T
- * @function createNode
- *
- * @param {T} type
+ * @param type
  * {@link core.NodeType} of the {@link core.Node} to create
  *
- * @param {core.NodeProps<T>} props
- * {@link core.NodeProps<T>} of the {@link core.Node} to create
+ * @param [props]
+ * {@link core.NodeProps} of the {@link core.Node} to create
  *
- * @param {...core.NodeChildren<T>} children
- * {@link core.NodeChildren<T>} of the {@link core.Node} to create
+ * @param children
+ * {@link core.NodeChildren} of the {@link core.Node} to create
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} for the given {@link core.NodeType},
- * {@link core.NodeProps<T>}, and {@link core.NodeChildren<T>}
+ * {@link core.NodeProps}, and {@link core.NodeChildren}
  *
  * @see el
  * @see core.Node
@@ -37,7 +33,7 @@ import * as el from '../';
  * @see core.NodeProps
  * @see core.NodeChildren
  */
-export declare const
+export const
     createNode:
         (<T extends core.NodeType>(
             type: T,
@@ -47,18 +43,14 @@ export declare const
             type: T,
             ...children: core.NodeChildren<T>) => core.ConcreteNode<T>);
 
-
 /**
  * A convenience wrapper for defining factory functions around
  * {@link createNode}.
  *
- * @template T
- * @function createNodeFactory
- *
- * @param {T} type
+ * @param type
  * {@link core.NodeType} of {@link core.Node} to create a factory for
  *
- * @returns {NodeFactory<T>}
+ * @returns
  * a factory for the given {@link core.NodeType}
  *
  * @see el
@@ -66,5 +58,5 @@ export declare const
  * @see core.NodeType
  * @see core.NodeFactory
  */
-export declare const createNodeFactory:
-    <T extends core.NodeType>(type: T) => core.NodeFactory<T>;
+export function createNodeFactory<T extends core.NodeType>(
+    type: T): core.NodeFactory<T>;

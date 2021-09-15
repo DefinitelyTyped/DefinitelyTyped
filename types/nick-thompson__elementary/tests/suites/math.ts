@@ -2,8 +2,7 @@ import { expect } from '../tester';
 import { el, ElementaryCallback } from '../load';
 
 export const testMath: ElementaryCallback =
-    (core: el.Core, el: el.Elementary) =>
-    {
+    (core: el.Core, el: el.Elementary) => {
         // Unary
 
         const input = el.in(2);
@@ -33,13 +32,13 @@ export const testMath: ElementaryCallback =
         const log2 = el.log2(log);
         expect(log2).isANode();
 
-        const ceil = el.ceil({ key: 'myCeil' }, 1);
+        const ceil = el.ceil({key: 'myCeil'}, 1);
         expect(ceil).isANode();
 
         const floor = el.floor(1);
         expect(floor).isANode();
 
-        const sqrt = el.sqrt({ key: 'mySqrt' }, floor);
+        const sqrt = el.sqrt({key: 'mySqrt'}, floor);
         expect(sqrt).isANode();
 
         const exp = el.exp(1);
@@ -47,7 +46,6 @@ export const testMath: ElementaryCallback =
 
         const abs = el.abs(1);
         expect(abs).isANode();
-
 
         // Binary
 
@@ -66,7 +64,7 @@ export const testMath: ElementaryCallback =
         const pow = el.pow(1, 2);
         expect(pow).isANode();
 
-        const mod = el.mod({ key: 'myMod' }, 1, 2);
+        const mod = el.mod({key: 'myMod'}, 1, 2);
         expect(mod).isANode();
 
         const min = el.min(1, sin);
@@ -74,7 +72,6 @@ export const testMath: ElementaryCallback =
 
         const max = el.max(1, 2);
         expect(max).isANode();
-
 
         // Variadic
 
@@ -84,12 +81,11 @@ export const testMath: ElementaryCallback =
         const sub = el.sub(1, 2, 3, 4, 5, 6, 7, 8);
         expect(sub).isANode();
 
-        const mul = el.mul({ key: 'myMul' }, sin, cos);
+        const mul = el.mul({key: 'myMul'}, sin, cos);
         expect(mul).isANode();
 
         const div = el.div(1, 2);
         expect(div).isANode();
-
 
         core.render(add, sub);
     };

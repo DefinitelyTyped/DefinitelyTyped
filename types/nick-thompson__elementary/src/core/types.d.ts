@@ -3,7 +3,7 @@ import { Props } from './props';
 import {
     ChildrenArray,
     ChildrenArraySizeRange,
-    SizedChildrenArray,
+    SizedChildrenArray
 } from './children';
 
 // for docs
@@ -16,7 +16,7 @@ import { core } from './';
  * @see core
  * @see Node
  */
-export declare type NativeNodeType =
+export type NativeNodeType =
     'sin' |
     'cos' |
     'tan' |
@@ -67,7 +67,7 @@ export declare type NativeNodeType =
  * @see Props
  * @see ChildrenArray
  */
-export declare type CompositeNodeType =
+export type CompositeNodeType =
     ({
         [key in ChildrenArraySizeRange]:
         ((...children: SizedChildrenArray<key>) => Node) |
@@ -82,4 +82,4 @@ export declare type CompositeNodeType =
  * @see NativeNodeType
  * @see CompositeNodeType
  */
-export declare type NodeType = NativeNodeType | CompositeNodeType;
+export type NodeType = NativeNodeType | CompositeNodeType;

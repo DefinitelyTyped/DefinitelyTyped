@@ -13,6 +13,11 @@ import {
     testSignals
 } from './tests';
 
+const stopMessage = `
+Don\'t worry about this error.
+This is a workaround to stop the tests once they are finished.
+`.trim();
+
 onCoreLoad(
     testCore,
     testFactories,
@@ -27,7 +32,5 @@ onCoreLoad(
     testSignals,
     // TODO: better workaround
     () => {
-        throw Error('Don\'t worry about this error. \n' +
-                    'This is a workaround to stop the tests ' +
-                    'once they are finished.');
+        throw Error(stopMessage);
     });

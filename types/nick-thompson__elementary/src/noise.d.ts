@@ -4,7 +4,6 @@ import { core } from './core';
 // noinspection ES6UnusedImports
 import * as el from '../';
 
-
 // ============================================================================
 // Composite
 
@@ -12,12 +11,10 @@ import * as el from '../';
  * A simple white noise generator.
  * Generates values uniformly distributed on the range [-1, 1].
  *
- * @function noise
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that generates white noise
  *
  * @see el
@@ -25,22 +22,19 @@ import * as el from '../';
  * @see core.Child
  * @see core.Node
  */
-export declare const noise:
+export const noise:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         []>;
-
 
 /**
  * A simple pink noise generator.
  * Generates noise with a -3dB/octave rolloff in the frequency response.
  *
- * @function pinknoise
- *
- * @param {core.KeyProps?} props
+ * @param [props]
  * props object with optional key
  *
- * @returns {core.Node}
+ * @returns
  * a {@link core.Node} that generates pink noise
  *
  * @see el
@@ -48,7 +42,7 @@ export declare const noise:
  * @see core.Child
  * @see core.Node
  */
-export declare const pinknoise:
+export const pinknoise:
     core.NodeFactory<core.CompositeNodeType,
         core.KeyProps,
         []>;

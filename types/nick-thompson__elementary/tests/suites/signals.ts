@@ -2,8 +2,7 @@ import { expect } from '../tester';
 import { el, ElementaryCallback } from '../load';
 
 export const testSignals: ElementaryCallback =
-    (core: el.Core, el: el.Elementary) =>
-    {
+    (core: el.Core, el: el.Elementary) => {
         const latch = el.latch({key: 'myLatch'}, 1, 2);
         expect(latch).isANode();
         expect(latch).hasNodeProps({key: 'myLatch'});
