@@ -477,7 +477,7 @@ async function readableToBuffer() {
     await buffer(r);
 }
 
-// http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
+// https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
     const rs = createReadStream(Buffer.from('file.txt'));
     const r = createReadStream('file.txt');
@@ -497,6 +497,12 @@ function stream_readable_pipe_test() {
     rs.close();
 }
 
+function stream_duplex_allowHalfOpen_test() {
+    const d = new Duplex();
+    assert(typeof d.allowHalfOpen === 'boolean');
+    d.allowHalfOpen = true;
+}
+
 addAbortSignal(new AbortSignal(), new Readable());
 
 {
@@ -508,4 +514,11 @@ addAbortSignal(new AbortSignal(), new Readable());
 {
     const a = new Readable();
     a.unshift('something', 'utf8');
+}
+
+{
+    const readable = new Readable();
+    Readable.isDisturbed(readable); // $ExpectType boolean
+    const readableDidRead: boolean = readable.readableDidRead;
+    const readableAborted: boolean = readable.readableAborted;
 }

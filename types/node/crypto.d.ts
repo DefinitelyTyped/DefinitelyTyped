@@ -509,6 +509,18 @@ declare module 'crypto' {
          */
         publicExponent?: bigint | undefined;
         /**
+         * Name of the message digest (RSA-PSS).
+         */
+        hashAlgorithm?: string | undefined;
+        /**
+         * Name of the message digest used by MGF1 (RSA-PSS).
+         */
+        mgf1HashAlgorithm?: string | undefined;
+        /**
+         * Minimal salt length in bytes (RSA-PSS).
+         */
+        saltLength?: number | undefined;
+        /**
          * Size of q in bits (DSA).
          */
         divisorLength?: number | undefined;
@@ -535,6 +547,10 @@ declare module 'crypto' {
      */
     class KeyObject {
         private constructor();
+        /**
+         * @since v15.0.0
+         */
+        static from(key: webcrypto.CryptoKey): KeyObject;
         /**
          * For asymmetric keys, this property represents the type of the key. Supported key
          * types are:
@@ -565,8 +581,11 @@ declare module 'crypto' {
          * through this property can be used to uniquely identify a key or to compromise
          * the security of the key.
          *
-         * RSA-PSS parameters, DH, or any future key type details might be exposed via this
-         * API using additional attributes.
+         * For RSA-PSS keys, if the key material contains a `RSASSA-PSS-params` sequence,
+         * the `hashAlgorithm`, `mgf1HashAlgorithm`, and `saltLength` properties will be
+         * set.
+         *
+         * Other key details might be exposed via this API using additional attributes.
          * @since v15.7.0
          */
         asymmetricKeyDetails?: AsymmetricKeyDetails | undefined;
@@ -2207,7 +2226,7 @@ declare module 'crypto' {
     function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: BufferEncoding;
-    type KeyType = 'rsa' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
+    type KeyType = 'rsa' | 'rsa-pss' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
     type KeyFormat = 'pem' | 'der';
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
@@ -2229,6 +2248,16 @@ declare module 'crypto' {
         namedCurve: string;
     }
     interface RSAKeyPairKeyObjectOptions {
+        /**
+         * Key size in bits
+         */
+        modulusLength: number;
+        /**
+         * @default 0x10001
+         */
+        publicExponent?: number | undefined;
+    }
+    interface RSAPSSKeyPairKeyObjectOptions {
         /**
          * Key size in bits
          */
@@ -2263,6 +2292,23 @@ declare module 'crypto' {
         };
         privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
             type: 'pkcs1' | 'pkcs8';
+        };
+    }
+    interface RSAPSSKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        /**
+         * Key size in bits
+         */
+        modulusLength: number;
+        /**
+         * @default 0x10001
+         */
+        publicExponent?: number | undefined;
+        publicKeyEncoding: {
+            type: 'spki';
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: 'pkcs8';
         };
     }
     interface DSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
@@ -2374,13 +2420,18 @@ declare module 'crypto' {
      * When PEM encoding was selected, the respective key will be a string, otherwise
      * it will be a buffer containing the data encoded as DER.
      * @since v10.12.0
-     * @param type Must be `'rsa'`, `'dsa'`, `'ec'`, `'ed25519'`, `'ed448'`, `'x25519'`, `'x448'`, or `'dh'`.
+     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`, `'ed448'`, `'x25519'`, `'x448'`, or `'dh'`.
      */
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
     function generateKeyPairSync(type: 'rsa', options: RSAKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
+    function generateKeyPairSync(type: 'rsa-pss', options: RSAPSSKeyPairKeyObjectOptions): KeyPairKeyObjectResult;
     function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
     function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
     function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
@@ -2455,6 +2506,11 @@ declare module 'crypto' {
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairKeyObjectOptions, callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'rsa-pss', options: RSAPSSKeyPairKeyObjectOptions, callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void): void;
     function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
     function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
     function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
@@ -2515,6 +2571,35 @@ declare module 'crypto' {
             privateKey: Buffer;
         }>;
         function __promisify__(type: 'rsa', options: RSAKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
+        function __promisify__(
+            type: 'rsa-pss',
+            options: RSAPSSKeyPairOptions<'pem', 'pem'>
+        ): Promise<{
+            publicKey: string;
+            privateKey: string;
+        }>;
+        function __promisify__(
+            type: 'rsa-pss',
+            options: RSAPSSKeyPairOptions<'pem', 'der'>
+        ): Promise<{
+            publicKey: string;
+            privateKey: Buffer;
+        }>;
+        function __promisify__(
+            type: 'rsa-pss',
+            options: RSAPSSKeyPairOptions<'der', 'pem'>
+        ): Promise<{
+            publicKey: Buffer;
+            privateKey: string;
+        }>;
+        function __promisify__(
+            type: 'rsa-pss',
+            options: RSAPSSKeyPairOptions<'der', 'der'>
+        ): Promise<{
+            publicKey: Buffer;
+            privateKey: Buffer;
+        }>;
+        function __promisify__(type: 'rsa-pss', options: RSAPSSKeyPairKeyObjectOptions): Promise<KeyPairKeyObjectResult>;
         function __promisify__(
             type: 'dsa',
             options: DSAKeyPairOptions<'pem', 'pem'>

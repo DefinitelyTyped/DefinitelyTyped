@@ -39,3 +39,17 @@ gulpHelp(gulp2, {
         console.log('done');
     }
 });
+
+var gulp3 = require('gulp');
+gulpHelp(gulp3, {
+    description: 'Desc',
+    aliases: ['h'],
+    hideEmpty: true,
+    hideDepsMessage: false,
+    afterPrintCallback(): any {
+        console.log('done');
+    },
+    options: {
+	    an: 'option'
+    },
+});

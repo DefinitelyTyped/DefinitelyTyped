@@ -43,7 +43,7 @@
         strict?: boolean | undefined;
     }
 
-    interface RouterParamContext<StateT = any, CustomT = {}> {
+    interface RouterParamContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
         /**
          * url params
          */
@@ -51,7 +51,7 @@
         /**
          * the router instance
          */
-        router: Router<StateT, CustomT>;
+        router: Router<StateT, ContextT>;
         /**
          * Matched route
          */
@@ -59,9 +59,9 @@
         _matchedRouteName: string | undefined;
     }
 
-    type RouterContext<StateT = any, CustomT = {}> = Koa.ParameterizedContext<StateT, CustomT & RouterParamContext<StateT, CustomT>>;
+    type RouterContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = Koa.ParameterizedContext<StateT, ContextT & RouterParamContext<StateT, ContextT>>;
 
-    type Middleware<StateT = any, CustomT = {}> = Koa.Middleware<StateT, CustomT & RouterParamContext<StateT, CustomT>>;
+    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = Koa.Middleware<StateT, ContextT & RouterParamContext<StateT, ContextT>>;
 
     interface ParamMiddleware {
         (param: string, ctx: RouterContext, next: Koa.Next): any;
@@ -155,7 +155,7 @@
     }
 }
 
-declare class Router<StateT = any, CustomT = {}> {
+declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
     params: object;
     stack: Router.Layer[];
 
@@ -171,11 +171,11 @@ declare class Router<StateT = any, CustomT = {}> {
      * sequentially, requests start at the first middleware and work their way
      * "down" the middleware stack.
      */
-    use(...middleware: Array<Router.Middleware<StateT, CustomT>>): Router<StateT, CustomT>;
+    use(...middleware: Array<Router.Middleware<StateT, ContextT>>): Router<StateT, ContextT>;
     use(
         path: string | string[] | RegExp,
-        ...middleware: Array<Router.Middleware<StateT, CustomT>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT, ContextT>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP get method
@@ -183,12 +183,12 @@ declare class Router<StateT = any, CustomT = {}> {
     get<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     get<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP post method
@@ -196,12 +196,12 @@ declare class Router<StateT = any, CustomT = {}> {
     post<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     post<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP put method
@@ -209,12 +209,12 @@ declare class Router<StateT = any, CustomT = {}> {
     put<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     put<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP link method
@@ -222,12 +222,12 @@ declare class Router<StateT = any, CustomT = {}> {
     link<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     link<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP unlink method
@@ -235,12 +235,12 @@ declare class Router<StateT = any, CustomT = {}> {
     unlink<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     unlink<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP delete method
@@ -248,12 +248,12 @@ declare class Router<StateT = any, CustomT = {}> {
     delete<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     delete<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * Alias for `router.delete()` because delete is a reserved word
@@ -261,12 +261,12 @@ declare class Router<StateT = any, CustomT = {}> {
     del<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     del<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP head method
@@ -274,12 +274,12 @@ declare class Router<StateT = any, CustomT = {}> {
     head<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     head<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP options method
@@ -287,12 +287,12 @@ declare class Router<StateT = any, CustomT = {}> {
     options<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     options<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * HTTP patch method
@@ -300,12 +300,12 @@ declare class Router<StateT = any, CustomT = {}> {
     patch<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     patch<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * Register route with all methods.
@@ -313,27 +313,27 @@ declare class Router<StateT = any, CustomT = {}> {
     all<T = {}, U = {}>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
     all<T = {}, U = {}>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, CustomT & U>>
-    ): Router<StateT, CustomT>;
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+    ): Router<StateT, ContextT>;
 
     /**
      * Set the path prefix for a Router instance that was already initialized.
      */
-    prefix(prefix: string): Router<StateT, CustomT>;
+    prefix(prefix: string): Router<StateT, ContextT>;
 
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    routes(): Router.Middleware<StateT, CustomT>;
+    routes(): Router.Middleware<StateT, ContextT>;
 
     /**
      * Returns router middleware which dispatches a route matching the request.
      */
-    middleware(): Router.Middleware<StateT, CustomT>;
+    middleware(): Router.Middleware<StateT, ContextT>;
 
     /**
      * Returns separate middleware for responding to `OPTIONS` requests with
@@ -342,14 +342,14 @@ declare class Router<StateT = any, CustomT = {}> {
      */
     allowedMethods(
         options?: Router.RouterAllowedMethodsOptions
-    ): Router.Middleware<StateT, CustomT>;
+    ): Router.Middleware<StateT, ContextT>;
 
     /**
      * Redirect `source` to `destination` URL with optional 30x status `code`.
      *
      * Both `source` and `destination` can be route names.
      */
-    redirect(source: string, destination: string, code?: number): Router<StateT, CustomT>;
+    redirect(source: string, destination: string, code?: number): Router<StateT, ContextT>;
 
     /**
      * Create and register a route.
@@ -357,7 +357,7 @@ declare class Router<StateT = any, CustomT = {}> {
     register(
         path: string | RegExp,
         methods: string[],
-        middleware: Router.Middleware<StateT, CustomT> | Array<Router.Middleware<StateT, CustomT>>,
+        middleware: Router.Middleware<StateT, ContextT> | Array<Router.Middleware<StateT, ContextT>>,
         opts?: Router.LayerOptions,
     ): Router.Layer;
 
@@ -397,7 +397,7 @@ declare class Router<StateT = any, CustomT = {}> {
     /**
      * Run middleware for named route parameters. Useful for auto-loading or validation.
      */
-    param(param: string, middleware: Router.ParamMiddleware): Router<StateT, CustomT>;
+    param(param: string, middleware: Router.ParamMiddleware): Router<StateT, ContextT>;
 
     /**
      * Generate URL from url pattern and given `params`.

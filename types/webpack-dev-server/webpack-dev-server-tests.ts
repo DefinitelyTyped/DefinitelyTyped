@@ -27,6 +27,7 @@ const config: WebpackDevServer.Configuration = {
     // webpack-dev-server options Host and port is a required options to correct
     // work.
     host: 'localhost',
+    magicHtml: false,
     port: 8080,
 
     client: {

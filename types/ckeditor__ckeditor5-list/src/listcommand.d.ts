@@ -7,3 +7,9 @@ export default class ListCommand extends Command {
     refresh(): void;
     execute(options?: { forceValue?: boolean | undefined }): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        ListCommand: ListCommand;
+    }
+}

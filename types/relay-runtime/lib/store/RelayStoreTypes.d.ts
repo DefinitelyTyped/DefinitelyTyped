@@ -249,7 +249,7 @@ export interface Store {
      * internal record source. Subscribers are not immediately notified - this
      * occurs when `notify()` is called.
      */
-    publish(source: RecordSource, idsMarkedForInvalidation?: Set<DataID>): void;
+    publish(source: RecordSource, idsMarkedForInvalidation?: DataIDSet): void;
 
     /**
      * Ensure that all the records necessary to fulfill the given selector are
@@ -416,88 +416,143 @@ interface OperationDescriptor {
     readonly root: NormalizationSelector;
 }
 
-type LogEvent =
+export type LogEvent =
     | Readonly<{
-          name: 'queryresource.fetch';
-          /**
-           * ID of this query resource request and will be the same if there is an associated queryresource.retain event.
-           */
-          resourceID: number;
-          operation: OperationDescriptor;
-          profilerContext: any;
-          fetchPolicy: FetchPolicy;
-          renderPolicy: RenderPolicy;
-          queryAvailability: OperationAvailability;
-          shouldFetch: boolean;
-      }>
+        name: 'suspense.fragment',
+        data: unknown,
+        fragment: ReaderFragment,
+        isRelayHooks: boolean,
+        isMissingData: boolean,
+        isPromiseCached: boolean,
+        pendingOperations: ReadonlyArray<RequestDescriptor>,
+    }>
     | Readonly<{
-          name: 'queryresource.retain';
-          resourceID: number;
-          // value from ProfilerContext
-          profilerContext: any;
-      }>
+        name: 'suspense.query',
+        fetchPolicy: string,
+        isPromiseCached: boolean,
+        operation: OperationDescriptor,
+        queryAvailability?: OperationAvailability | undefined,
+        renderPolicy: RenderPolicy,
+    }>
     | Readonly<{
-          name: 'execute.info';
-          transactionID: number;
-          info: any;
-      }>
+        name: 'queryresource.fetch';
+        /**
+         * ID of this query resource request and will be the same if there is an associated queryresource.retain event.
+         */
+        resourceID: number;
+        operation: OperationDescriptor;
+        profilerContext: unknown;
+        fetchPolicy: FetchPolicy;
+        renderPolicy: RenderPolicy;
+        queryAvailability: OperationAvailability;
+        shouldFetch: boolean;
+    }>
     | Readonly<{
-          name: 'network.info';
-          transactionID: number;
-          info: unknown;
-      }>
+        name: 'queryresource.retain';
+        resourceID: number;
+        // value from ProfilerContext
+        profilerContext: unknown;
+    }>
     | Readonly<{
-          name: 'network.start';
-          transactionID: number;
-          params: RequestParameters;
-          variables: Variables;
-      }>
+        name: 'network.info';
+        networkRequestId: number;
+        info: unknown;
+    }>
     | Readonly<{
-          name: 'network.next';
-          transactionID: number;
-          response: GraphQLResponse;
-      }>
+        name: 'network.start';
+        networkRequestId: number;
+        params: RequestParameters;
+        variables: Variables;
+        cacheConfig: CacheConfig;
+    }>
     | Readonly<{
-          name: 'network.error';
-          transactionID: number;
-          error: Error;
-      }>
+        name: 'network.next';
+        networkRequestId: number;
+        response: GraphQLResponse;
+    }>
     | Readonly<{
-          name: 'network.complete';
-          transactionID: number;
-      }>
+        name: 'network.error';
+        networkRequestId: number;
+        error: Error;
+    }>
     | Readonly<{
-          name: 'network.unsubscribe';
-          transactionID: number;
-      }>
+        name: 'network.complete';
+        networkRequestId: number;
+    }>
     | Readonly<{
-          name: 'store.publish';
-          source: RecordSource;
-          optimistic: boolean;
-      }>
+        name: 'network.unsubscribe';
+        networkRequestId: number;
+    }>
     | Readonly<{
-          name: 'store.snapshot';
-      }>
+        name: 'execute.start';
+        executeId: number;
+        params: RequestParameters;
+        variables: Variables;
+        cacheConfig: CacheConfig;
+    }>
     | Readonly<{
-          name: 'store.restore';
-      }>
+        name: "execute.next";
+        executeId: number;
+        response: GraphQLResponse;
+        duration: number;
+    }>
     | Readonly<{
-          name: 'store.gc';
-          references: Set<DataID>;
-      }>
+        name: 'execute.async.module';
+        executeId: number;
+        operationName: string;
+        duration: number;
+    }>
     | Readonly<{
-          name: 'store.notify.start';
-      }>
+        name: 'execute.flight.payload_deserialize';
+        executeId: number;
+        operationName: string;
+        duration: number;
+    }>
     | Readonly<{
-          name: 'store.notify.complete';
-          updatedRecordIDs: UpdatedRecords;
-          invalidatedRecordIDs: Set<DataID>;
-      }>
+        name: 'execute.error';
+        executeId: number;
+        error: Error;
+    }>
     | Readonly<{
-          name: 'entrypoint.root.consume';
-          profilerContext: any;
-          rootModuleID: string;
-      }>;
+        name: 'execute.complete';
+        executeId: number;
+    }>
+    | Readonly<{
+        name: 'store.publish';
+        source: RecordSource;
+        optimistic: boolean;
+    }>
+    | Readonly<{
+        name: 'store.snapshot';
+    }>
+    | Readonly<{
+        name: 'store.restore';
+    }>
+    | Readonly<{
+        name: 'store.gc';
+        references: DataIDSet;
+    }>
+    | Readonly<{
+        name: 'store.notify.start';
+        sourceOperation?: OperationDescriptor | undefined;
+    }>
+    | Readonly<{
+        name: 'store.notify.complete';
+        sourceOperation?: OperationDescriptor | undefined;
+        updatedRecordIDs: DataIDSet;
+        invalidatedRecordIDs: DataIDSet;
+    }>
+    | Readonly<{
+        name: 'store.notify.subscription';
+        sourceOperation?: OperationDescriptor | undefined;
+        snapshot: Snapshot;
+        nextSnapshot: Snapshot;
+    }>
+    | Readonly<{
+        name: 'entrypoint.root.consume';
+        profilerContext: unknown;
+        rootModuleID: string;
+    }>;
 
 export type LogFunction = (logEvent: LogEvent) => void;
 
@@ -690,12 +745,7 @@ export interface LoadingState {
     error?: Error | undefined;
 }
 
-/**
- * A map of records affected by an update operation.
- */
-export interface UpdatedRecords {
-    [dataID: string]: boolean;
-}
+export type DataIDSet = Set<DataID>;
 
 /**
  * A function that updates a store (via a proxy) given the results of a "handle"

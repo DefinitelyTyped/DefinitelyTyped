@@ -2165,6 +2165,31 @@ declare namespace React {
         dateTime?: string | undefined;
     }
 
+    type HTMLInputTypeAttribute =
+        | 'button'
+        | 'checkbox'
+        | 'color'
+        | 'date'
+        | 'datetime-local'
+        | 'email'
+        | 'file'
+        | 'hidden'
+        | 'image'
+        | 'month'
+        | 'number'
+        | 'password'
+        | 'radio'
+        | 'range'
+        | 'reset'
+        | 'search'
+        | 'submit'
+        | 'tel'
+        | 'text'
+        | 'time'
+        | 'url'
+        | 'week'
+        | (string & {});
+
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string | undefined;
         alt?: string | undefined;
@@ -2195,7 +2220,7 @@ declare namespace React {
         size?: number | undefined;
         src?: string | undefined;
         step?: number | string | undefined;
-        type?: string | undefined;
+        type?: HTMLInputTypeAttribute | undefined;
         value?: string | ReadonlyArray<string> | number | undefined;
         width?: number | string | undefined;
 

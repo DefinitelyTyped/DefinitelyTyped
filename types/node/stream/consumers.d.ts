@@ -11,7 +11,6 @@ interface Blob {
     stream(): NodeJS.ReadableStream;
     text(): Promise<string>;
 }
-
 declare module 'stream/consumers' {
     import { Readable } from 'node:stream';
     function buffer(stream: NodeJS.ReadableStream | Readable | AsyncIterator<any>): Promise<Buffer>;

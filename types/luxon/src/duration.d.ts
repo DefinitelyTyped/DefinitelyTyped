@@ -164,7 +164,7 @@ export class Duration {
      *
      * @param o
      */
-    static isDuration(o: object): o is Duration;
+    static isDuration(o: unknown): o is Duration;
 
     /**
      * Get  the locale of a Duration, such 'en-GB'

@@ -5,3 +5,9 @@ import Command from "@ckeditor/ckeditor5-core/src/command";
 export default class ExportWordCommand extends Command implements Emitter, Observable {
     isBusy: boolean;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        ExportWordCommand: ExportWordCommand;
+    }
+}

@@ -182,7 +182,6 @@ examples/jsm/objects/Lensflare.d.ts
 examples/jsm/objects/LightningStorm.d.ts
 examples/jsm/objects/LightningStorm.d.ts
 examples/jsm/objects/MarchingCubes.d.ts
-examples/jsm/objects/Reflector.d.ts
 examples/jsm/objects/ReflectorRTT.d.ts
 examples/jsm/objects/Refractor.d.ts
 examples/jsm/objects/ShadowMesh.d.ts

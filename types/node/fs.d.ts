@@ -188,7 +188,7 @@ declare module 'fs' {
     /**
      * A class representing a directory stream.
      *
-     * Created by {@link opendir}, {@link opendirSync}, or {@link promises.opendir}.
+     * Created by {@link opendir}, {@link opendirSync}, or `fsPromises.opendir()`.
      *
      * ```js
      * import { opendir } from 'fs/promises';
@@ -208,7 +208,7 @@ declare module 'fs' {
      */
     export class Dir implements AsyncIterable<Dirent> {
         /**
-         * The read-only path of this directory as was provided to {@link opendir}, {@link opendirSync}, or {@link promises.opendir}.
+         * The read-only path of this directory as was provided to {@link opendir},{@link opendirSync}, or `fsPromises.opendir()`.
          * @since v12.12.0
          */
         readonly path: string;

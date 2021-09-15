@@ -73,3 +73,6 @@ myEditor.plugins.get('MentionEditing');
 
 // $ExpectType MentionUI
 myEditor.plugins.get('MentionUI');
+
+// $ExpectType MentionCommand | undefined
+myEditor.commands.get('MentionCommand');

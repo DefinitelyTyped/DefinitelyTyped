@@ -168,6 +168,8 @@ redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100).then(console.log);
 redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100, cb);
 redis.pfadd('key', 'a', 'b', 'c').then(console.log);
 redis.pfadd('key', 'a', 'b', 'c', cbNumber);
+redis.bitfield('key', ['INCRBY', 'i5', '100', '1', 'GET', 'u4', '0'], cb);
+redis.bitfield('key', ['INCRBY', 'i5', '100', '1', 'GET', 'u4', '0']).then(console.log);
 
 // Test OverloadedKeyedHashCommand for hset
 redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);

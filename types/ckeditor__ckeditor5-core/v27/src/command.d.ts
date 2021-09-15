@@ -45,3 +45,8 @@ export default class Command implements Emitter, Observable {
     delegate(...events: string[]): EmitterMixinDelegateChain;
     stopDelegating(event?: string, emitter?: Emitter): void;
 }
+
+// Beware that this defines a command constructor, not the class instance.
+export interface CommandInterface<T = Command> {
+    new (editor: Editor): T;
+}

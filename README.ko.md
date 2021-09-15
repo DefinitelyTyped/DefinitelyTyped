@@ -2,35 +2,11 @@
 
 > 이 저장소는 고품질의 타입스크립트(TypeScript) 자료형 정의(Type definition)를 위한 저장소입니다.
 
-*이 도움말은 [영어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [스페인어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [러시아어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), 그리고 [중국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)로도 읽으실 수 있습니다!*
+*이 도움말은 [영어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [스페인어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [러시아어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), 그리고 [중국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md)로도 읽으실 수 있습니다!*
 
 <!-- For translators: add link to README.ja.md above! -->
 
 *[관리자 설명서](./docs/admin.md) 링크*
-
-## 목차
-
-* [현재 상태](#현재-상태)
-* [선언 파일(Declaration file)이 뭔가요?](#선언-파일declaration-file이-뭔가요)
-* [어떻게 받을 수 있나요?](#어떻게-받을-수-있나요)
-* [어떻게 기여하나요?](#어떻게-기여하나요)
-  - [테스트](#테스트)
-  - [풀 리퀘스트(Pull request) 만들기](#풀-리퀘스트pull-request-만들기)<details><summary></summary>
-    - [이미 존재하는 패키지를 수정하기](#이미-존재하는-패키지를-수정하기)
-    - [새 패키지를 만들기](#새-패키지를-만들기)
-    - [패키지 삭제하기](#패키지-삭제하기)
-    - [검증하기](#검증하기)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [많이 저지르는 실수들](#많이-저지르는-실수들)
-    </details>
-  - [Definition owners](#definition-owners)
-* [자주 하는 질문들](#자주-하는-질문들)
-* [라이센스](#라이센스)
 
 ## 현재 상태
 
@@ -46,7 +22,7 @@
 
 ## 선언 파일(Declaration file)이 뭔가요?
 
-[타입스크립트 안내서(TypeScript handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)를 읽어보세요.
+[타입스크립트 안내서(TypeScript handbook)](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)를 읽어보세요.
 
 ## 어떻게 받을 수 있나요?
 
@@ -65,13 +41,13 @@ npm install --save-dev @types/node
 /// <reference types="node" />
 ```
 
-더 자세한 내용은 [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)에서 확인해보실 수 있습니다.
+더 자세한 내용은 [안내서(Handbook)](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)에서 확인해보실 수 있습니다.
 
 npm 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입니다.
 원하시는 패키지를 찾을 수 없는 경우, [타입서치(TypeSearch)](https://microsoft.github.io/TypeSearch/) 사이트에서 한 번 찾아보세요.
 
 그래도 찾을 수 없는 경우, 찾고 있는 패키지가 자료형(Typing)을
-[함께 제공](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하고 있지는 않은지 확인해보세요.
+[함께 제공](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하고 있지는 않은지 확인해보세요.
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
@@ -120,9 +96,9 @@ TypeScript 2.0에서 3.6 버전을 사용하는 경우, 그래도 `@types` 패�
 
 * 이 저장소의 `master` 브랜치에서 직접 다운로드해 프로젝트에 삽입하기
 * ~~[Typings](https://github.com/typings/typings)를 사용하기~~ (다른 방법을 사용해주세요. typings는 더이상 추천하지 않습니다)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped) 을 사용하기~~ (다른 방법을 사용해주세요. NuGet은 더 이상 DT 자료형(Typing)을 제공하지 않습니다.)
+* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped) 을 사용하기~~ (다른 방법을 사용해주세요. NuGet은 더 이상 DT 자료형(Typing)을 제공하지 않습니다.)
 
-위 방법을 사용할 경우 수동으로 [참조(Reference)](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)를 추가해주어야 할 수 있습니다.
+위 방법을 사용할 경우 수동으로 [참조(Reference)](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)를 추가해주어야 할 수 있습니다.
 
 
 ## 어떻게 기여하나요?
@@ -135,7 +111,7 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 
 #### 이미 존재하는 패키지를 수정하고 테스트하기
 
-새로운 기능을 추가하려면 [모듈 증강(module augmentation)](http://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)를 사용할 수 있습니다.
+새로운 기능을 추가하려면 [모듈 증강(module augmentation)](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)를 사용할 수 있습니다.
 물론 `node_modules/@types/foo/index.d.ts` 를 직접 수정하실 수도 있으며, 이 파일을 복사한 다음 아래의 과정을 따라하실 수도 있습니다.
 
 
@@ -186,7 +162,7 @@ Definitely Typed는 여러분과 같은 많은 기여자들의 도움 덕분에 
 
 #### 새 패키지를 만들기
 
-만약 라이브러리를 만드는 중이고 라이브러리가 타입스크립트(TypeScript)로 쓰여있다면, Definitely Typed 에 선언(Declaration)을 올리는 대신 패키지에 [자동생성된 선언(Declaration) 파일을 포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)시킬 수 있습니다.
+만약 라이브러리를 만드는 중이고 라이브러리가 타입스크립트(TypeScript)로 쓰여있다면, Definitely Typed 에 선언(Declaration)을 올리는 대신 패키지에 [자동생성된 선언(Declaration) 파일을 포함](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)시킬 수 있습니다.
 
 npm 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 패키지의 이름과 같은 이름의 디렉토리를 만들어주세요.
 npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지를 만드시려면, 그 패키지가 npm 에 올라와 있는 패키지와 이름이 겹치지 않는지 확인해주세요.
@@ -212,7 +188,7 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 
 #### 패키지 삭제하기
 
-패키지가 스스로의 형(Type)을 [포함](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, Definitely Typed 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
+패키지가 스스로의 형(Type)을 [포함](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, Definitely Typed 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
 
 `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
 - `<typingsPackageName>` 는 삭제할 디렉토리의 이름입니다.
@@ -311,7 +287,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 
 #### 많이 저지르는 실수들
 
-* 우선, [안내서(Handbook)](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)에 나와있는 내용들을 따라주세요.
+* 우선, [안내서(Handbook)](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)에 나와있는 내용들을 따라주세요.
 * 코드에서는 모든 곳에서 탭(Tab)을 사용하거나, 항상 4 개의 띄어쓰기를 사용해주세요.
 * `function sum(nums: number[]): number`의 경우, 만약 함수가 인자를 변경하지 않는다면 `ReadonlyArray` 를 사용해주세요.
 * `interface Foo { new(): Foo; }`의 경우,
@@ -324,7 +300,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   다음은 괜찮은 제너릭(Generic)의 예시입니다. `function id<T>(value: T): T;`.
   다음은 문제가 있는 제너릭(Generic)의 예시입니다. `function parseJson<T>(json: string): T;`.
   예외적으로, `new Map<string, number>()` 와 같은 경우는 괜찮습니다.
-* `Function` 이나 `Object` 와 같은 형(Type)을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 형(Type)을 사용하는게 가능합니다. [함수(Function)](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 형(Type)들을 사용할 수 있습니다. 형(Type)에 대한 정보가 전혀 없을 경우에는, `Object` 형(Type)이 아니라 [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) 형(Type)을 사용해야 합니다. 만일 어떤 형(Type)이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
+* `Function` 이나 `Object` 와 같은 형(Type)을 사용하는 것은 대부분의 경우 문제를 일으킵니다. 99% 의 경우 더 구체적인 형(Type)을 사용하는게 가능합니다. [함수(Function)](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) 를 위해서는 `(x: number) => number` 와 같은, 객체를 위해서는 `{ x: number, y: number }` 와 같은 형(Type)들을 사용할 수 있습니다. 형(Type)에 대한 정보가 전혀 없을 경우에는, `Object` 형(Type)이 아니라 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) 형(Type)을 사용해야 합니다. 만일 어떤 형(Type)이 객체라는 사실만 알고 있는 경우, `Object` 나 `{ [key: string]: any }` 가 아니라 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type) 를 사용해주세요.
 * `var foo: string | any`의 경우,
   `any` 가 합 자료형(Union type)의 안에서 사용될 경우, 결과 형(Type)은 언제나 `any` 가 됩니다. 따라서 형(Type)의 `string` 부분이 유용해 보인다 하더라도, 사실은 자료형 검사(Type checking)의 측면에서 `any` 와 다른 것이 없습니다.
   대신, `any`, `string`, 나 `string | object` 중 하나를 필요에 맞게 골라서 사용해주세요.
@@ -384,7 +360,7 @@ npm 의 패키지들은 수시간 안에 갱신될 겁니다. 만약 24 시간�
 #### 어떤 패키지가 `export =` 를 쓰고 있는데, 저는 디폴트 임포트(Default import)가 더 좋습니다. `export =` 를 `export default` 로 바꿔도 되나요?
 
 타입스크립트(TypeScript) 2.7 이상을 사용하고 계시면 프로젝트 안에서 `--esModuleInterop` 를 사용해주세요.
-그 이하의 경우, 디폴트 임포트(Default import)가 동작하는 환경(Webpack, SystemJS, esm)에서 작업 중이시면 [`--allowSyntheticDefaultImports`](http://www.typescriptlang.org/docs/handbook/compiler-options.html) 를 사용하는 걸 고려해보세요.
+그 이하의 경우, 디폴트 임포트(Default import)가 동작하는 환경(Webpack, SystemJS, esm)에서 작업 중이시면 [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) 를 사용하는 걸 고려해보세요.
 자료형 정의(Type definition)가 맞는 경우에는 자료형 정의(Type definition)을 수정하지 마세요.
 npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `export =` 이 맞고, `node -p 'require("foo").default'` 이 원하는 값이라면 `export default` 이 맞습니다.
 
@@ -457,7 +433,7 @@ npm 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 
 #### 깃헙(GitHub)이 보여주는 파일 히스토리(History)가 불완전해요.
 
-깃헙은 이름이 바뀐 파일의 히스토리(History)를 [지원하지 않습니다](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames). 대신 [`git log --follow`](https://www.git-scm.com/docs/git-log) 명령을 사용하세요.
+깃헙은 이름이 바뀐 파일의 히스토리(History)를 [지원하지 않습니다](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames). 대신 [`git log --follow`](https://www.git-scm.com/docs/git-log) 명령을 사용하세요.
 
 #### ES6 에서 사용하는 임포트(Import)를 사용하기 위해 모듈을 익스포트(Export)하지 않는 패키지들에 빈 이름공간을 추가해야 하나요?
 

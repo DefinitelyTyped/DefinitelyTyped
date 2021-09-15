@@ -145,7 +145,7 @@ const buttonIconT3 = (
 
 const anchorRef = React.useRef<HTMLAnchorElement>(null);
 const buttonAnchorT1 = (
-    <Button href="https://github.com/DefinitelyTyped/DefinitelyTyped" asdf={'asdf'} target="_blank" ref={anchorRef}>
+    <Button href="https://github.com/DefinitelyTyped/DefinitelyTyped" target="_blank" ref={anchorRef}>
         Anchor Link
     </Button>
 );

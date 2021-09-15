@@ -55,7 +55,6 @@ import {
 } from '@ckeditor/ckeditor5-utils/src/unicode';
 
 declare const document: Document;
-declare const locale: Locale;
 declare let emitter: Emitter;
 declare let htmlElement: HTMLElement;
 declare let map: Map<string, number>;
@@ -539,8 +538,26 @@ keystrokes.destroy();
 
 // utils/locale ===============================================================
 
-locale.t('Label');
-locale.t("Created file '%0' in %1ms.", ['fileName', '100']);
+new Locale();
+new Locale({ uiLanguage: "en" });
+new Locale({ contentLanguage: "en" });
+new Locale({ uiLanguage: "en", contentLanguage: "en" });
+// $ExpectType string
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).contentLanguage;
+// $ExpectType string
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).uiLanguage;
+// $ExpectType string
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).uiLanguageDirection;
+// $ExpectType string
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).contentLanguageDirection;
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Label");
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Created file '%0' in %1ms.", ["fileName", "100"]);
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Created file in %1ms.", 5);
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", "");
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", [5]);
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", [5, ""]);
+// $ExpectError
+new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", false);
 
 // utils/mapsequal ============================================================
 

@@ -1,8 +1,12 @@
 import RecordRTC, { Options } from 'recordrtc';
 
-const opts: Options = {};
+const opts: Options = {
+    frameRate: 59.9
+};
 
-navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
+navigator.mediaDevices
+    .getUserMedia({ audio: true, video: true })
+    .then(stream => {
         const instance = new RecordRTC(stream, {
             type: 'video',
             disableLogs: true,
@@ -34,9 +38,7 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream =>
 
         // $ExpectType void
         instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
-    },
-    console.error,
-);
+    });
 
 const canvas = document.querySelector('canvas')!;
 
@@ -53,3 +55,18 @@ multiStreamRecorder.stop((blob: Blob) => {});
 multiStreamRecorder.pause();
 multiStreamRecorder.resume();
 multiStreamRecorder.clearRecordedData();
+
+RecordRTC.getSeekableBlob(new Blob(), (outputBlob) => {
+    outputBlob; // $ExpectType Blob
+});
+
+RecordRTC.DiskStorage.Fetch((dataUrl, type) => {
+    dataUrl; // $ExpectType string
+    const check1 = type === "audioBlob";
+    // $ExpectError
+    const check2 = type === "invalid";
+});
+RecordRTC.DiskStorage.Store({
+    audioBlob: new Blob(),
+    videoBlob: new Blob(),
+});

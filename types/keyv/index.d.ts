@@ -22,7 +22,10 @@ declare class Keyv<TValue = any> extends EventEmitter {
     constructor(uri?: string, opts?: Keyv.Options<TValue>);
 
     /** Returns the value. */
-    get(key: string): Promise<TValue | undefined>;
+    get<TRaw extends boolean = false>(key: string, options?: { raw?: TRaw }):
+      Promise<(TRaw extends false
+        ? TValue
+        : Keyv.DeserializedData<TValue>)  | undefined>;
     /**
      * Set a value.
      *
@@ -44,9 +47,9 @@ declare namespace Keyv {
         /** Namespace for the current instance. */
         namespace?: string | undefined;
         /** A custom serialization function. */
-        serialize?: ((data: TValue) => string) | undefined;
+        serialize?: ((data: DeserializedData<TValue>) => string) | undefined;
         /** A custom deserialization function. */
-        deserialize?: ((data: string) => TValue) | undefined;
+        deserialize?: ((data: string) => DeserializedData<TValue> | undefined) | undefined;
         /** The connection string URI. */
         uri?: string | undefined;
         /** The storage adapter instance to be used by Keyv. */
@@ -57,6 +60,10 @@ declare namespace Keyv {
         adapter?: 'redis' | 'mongodb' | 'mongo' | 'sqlite' | 'postgresql' | 'postgres' | 'mysql' | undefined;
 
         [key: string]: any;
+    }
+
+    interface DeserializedData<TValue> {
+        value: TValue; expires: number | null;
     }
 
     interface Store<TValue> {

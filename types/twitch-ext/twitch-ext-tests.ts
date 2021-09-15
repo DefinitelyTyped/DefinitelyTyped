@@ -3,6 +3,7 @@ console.log(`Running ${Twitch.ext.version} on ${Twitch.ext.environment}`);
 Twitch.ext.onAuthorized(auth => {
     console.log('The JWT that will be passed to the EBS is', auth.token);
     console.log('The channel ID is', auth.channelId);
+    console.log('JWT that can be used for front end API requests is', auth.helixToken);
 });
 
 Twitch.ext.onContext((context, changed) => {
