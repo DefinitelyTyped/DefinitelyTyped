@@ -43,8 +43,5 @@
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
         }
-    },
-    "dependencies": {
-        "@nick-thompson/elementary": "^0.9.6"
     }
 }
