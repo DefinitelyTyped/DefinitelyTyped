@@ -11,6 +11,7 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths": {
             "@flowjs/flow.js": ["flowjs__flow.js"]
         }
