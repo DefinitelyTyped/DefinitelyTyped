@@ -166,8 +166,8 @@ export function useTable<D extends object = {}>(
  * NOTE: To use custom options, use "Interface Merging" to add the custom options
  */
 export type UseTableOptions<D extends object> = {
-    columns: Array<Column<D>>;
-    data: D[];
+    columns: ReadonlyArray<Column<D>>;
+    data: readonly D[];
 } & Partial<{
     initialState: Partial<TableState<D>>;
     stateReducer: (newState: TableState<D>, action: ActionType, previousState: TableState<D>, instance?: TableInstance<D>) => TableState<D>;
