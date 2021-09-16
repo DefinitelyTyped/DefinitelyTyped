@@ -5,6 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
+/// <reference types="node" />
+
 import { OutgoingHttpHeaders, RequestOptions } from 'http';
 
 export interface Request extends RequestOptions {
