@@ -512,7 +512,6 @@ const t5 = (
 
 // UIShell - Content
 {
-    // TODO: change title prop to a number and it will instead match the custom component overload even though tagName is not specified. Confused.
     const uisContentT1 = (
         <Content
             className="test-class"
@@ -531,16 +530,6 @@ const t5 = (
             data-testid="fieldset-content"
             form="form"
             onClick={(evt) => void evt.currentTarget}
-        >
-            <div />
-        </Content>
-    );
-
-    const uisContentCustomCompT1 = (
-        <Content
-            tagName={TestComp2}
-            className="test-class"
-            someProp={3}
         >
             <div />
         </Content>

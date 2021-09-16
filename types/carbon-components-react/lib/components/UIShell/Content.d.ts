@@ -16,18 +16,7 @@ export type ContentIntrinsicProps<K extends keyof JSX.IntrinsicElements> = Conte
         tagName: K;
     };
 
-// TODO: fix this overload getting selected when props don't match the default overload and tagName is not specified.
-export type ContentCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
-    ? ContentBaseProps &
-          P & {
-              tagName: NonNullable<C>;
-          }
-    : never;
-
 declare function Content(props: ContentDefaultProps): FCReturn;
 declare function Content<T extends keyof JSX.IntrinsicElements>(props: ContentIntrinsicProps<T>): FCReturn;
-declare function Content<T extends React.JSXElementConstructor<any>>(props: ContentCustomComponentProps<T>): FCReturn;
 
 export default Content;
