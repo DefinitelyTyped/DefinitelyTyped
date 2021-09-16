@@ -68,6 +68,7 @@ const promise = myPlugin.init?.();
 promise != null && promise.then(() => {});
 myPlugin.myMethod();
 myPlugin.isEnabled = true;
+myPlugin.destroy();
 
 /**
  * PluginCollection

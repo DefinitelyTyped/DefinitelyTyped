@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.94.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -3795,6 +3795,8 @@ declare module "sap/ui/table/Table" {
 
   import Binding from "sap/ui/model/Binding";
 
+  import DragDropBase from "sap/ui/core/dnd/DragDropBase";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import RowAction from "sap/ui/table/RowAction";
@@ -5579,7 +5581,7 @@ declare module "sap/ui/table/Table" {
      * 	 - Group header rows
      * 	 - Sum rows
      */
-    getDragDropConfig(): undefined;
+    getDragDropConfig(): DragDropBase[];
     /**
      * Gets current value of property {@link #getEditable editable}.
      *

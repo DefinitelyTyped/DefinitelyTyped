@@ -1,23 +1,25 @@
-// Type definitions for non-npm package kakaomaps-browser 1.0
+// Type definitions for non-npm package kakaomaps-browser 1.1
 // Project: https://apis.map.kakao.com/web/documentation/
 // Definitions by: MinByeongDon <https://github.com/MinByeongDon>
+//                 PositiveKo <https://github.com/positiveko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
   // # Core
+  interface MapOptions {
+    center: LatLng;
+    level?: number;
+    mapTypeId?: MapTypeId;
+    draggable?: boolean;
+    scrollwheel?: boolean;
+    disableDoubleClick?: boolean;
+    disableDoubleClickZoom?: boolean;
+    projectionId?: string;
+    tileAnimation?: boolean;
+    keyboardShortcuts?: boolean|object;
+    speed?: number;
+  }
   class Map {
-    constructor(container: HTMLElement, options?: {
-      center: LatLng,
-      level?: number,
-      mapTypeId?: MapTypeId,
-      draggable?: boolean,
-      scrollwheel?: boolean,
-      disableDoubleClick?: boolean,
-      disableDoubleClickZoom?: boolean,
-      projectionId?: string,
-      tileAnimation?: boolean,
-      keyboardShortcuts?: boolean|object,
-      speed?: number
-    })
+    constructor(container: HTMLElement, options?: MapOptions)
     setCenter(latlng: LatLng): void;
     getCenter(): LatLng;
     setLevel(level: number, options?: { animate?: boolean | {duration?: number}, anchor?: LatLng }): void;
@@ -218,17 +220,18 @@ declare namespace kakao.maps {
       spriteSize?: Size
     })
   }
+  interface InfoWindowOptions {
+    content?: HTMLElement|string;
+    disableAutoPan?: boolean;
+    map?: Map|Roadview;
+    position?: LatLng;
+    removable?: boolean;
+    zIndex?: number;
+    altitude?: number;
+    range?: number;
+  }
   class InfoWindow {
-    constructor(options?: {
-      content?: HTMLElement|string,
-      disableAutoPan?: boolean,
-      map?: Map|Roadview,
-      position?: LatLng,
-      removable?: boolean,
-      zIndex?: number,
-      altitude?: number,
-      range?: number
-    })
+    constructor(options?: InfoWindowOptions)
     open(map_or_roadview: Map|Roadview, marker?: Marker): void;
     close(): void;
     getMap(): Map|null;
@@ -243,16 +246,17 @@ declare namespace kakao.maps {
     setRange(range: number): void;
     getRange(): number;
   }
+  interface CustomOverlayOptions {
+    clickable?: boolean;
+    content?: HTMLElement|string;
+    map?: Map|Roadview;
+    position?: LatLng|Viewpoint;
+    xAnchor?: number;
+    yAnchor?: number;
+    zIndex?: number;
+  }
   class CustomOverlay {
-    constructor(options?: {
-      clickable?: boolean,
-      content?: HTMLElement|string,
-      map?: Map|Roadview,
-      position?: LatLng|Viewpoint,
-      xAnchor?: number,
-      yAnchor?: number,
-      zIndex?: number,
-    })
+    constructor(options?: CustomOverlayOptions)
     setMap(map_or_roadview: Map|Roadview|null): void;
     getMap(): Map|null;
     setPosition(position: LatLng|Viewpoint): void;
@@ -410,15 +414,16 @@ declare namespace kakao.maps {
     getZIndex(): number;
     // event: mouseover,mouseout,mousemove,mousedown,click
   }
+  interface RoadviewOptions {
+    panoId: number;
+    panoX: number;
+    panoY: number;
+    pan: number;
+    tilt: number;
+    zoom: number;
+  }
   class Roadview {
-    constructor(container: HTMLElement, options: {
-      panoId: number,
-      panoX: number,
-      panoY: number,
-      pan: number,
-      tilt: number,
-      zoom: number,
-    })
+    constructor(container: HTMLElement, options?: RoadviewOptions)
     setPanoId(panoId: number, position: LatLng): void;
     getPanoId(): number;
     setViewpoint(viewpoint: Viewpoint): void;
@@ -430,7 +435,7 @@ declare namespace kakao.maps {
   }
   class RoadviewClient {
     constructor()
-    getNearestPanoId(position: LatLng, radius: number, callback: () => void): void;
+    getNearestPanoId(position: LatLng, radius: number, callback: (panoId: number) => void): void;
   }
   class RoadviewOverlay {
     constructor()
@@ -444,13 +449,14 @@ declare namespace kakao.maps {
     panoId?: number;
     constructor(pan: number, tilt: number, zoom: number, panoId?: number)
   }
+  interface StaticMapOptions {
+    center: LatLng;
+    level: number;
+    mapTypeId: MapTypeId;
+    marker: object|object[];
+  }
   class StaticMap {
-    constructor(container: HTMLElement, options: {
-      center: LatLng,
-      level: number,
-      mapTypeId: MapTypeId,
-      marker: object|object[]
-    })
+    constructor(container: HTMLElement, options: StaticMapOptions)
     setCenter(latlng: LatLng): void;
     getCenter(): LatLng;
     setLevel(level: number): void;
@@ -567,21 +573,22 @@ declare namespace kakao.maps {
       gotoFirst(): void;
       gotoLast(): void;
     }
+    interface MarkerClusterOptions {
+      map?: Map;
+      markers?: Marker[];
+      gridSize?: number;
+      averageCenter?: boolean;
+      minLevel?: number;
+      minClusterSize?: number;
+      styles?: object;
+      texts?: string[]|(() => void);
+      calculator?: number[];
+      disableClickZoom?: boolean;
+      clickable?: boolean;
+      hoverable?: boolean;
+    }
     class MarkerCluster {
-      constructor(options?: {
-        map?: Map,
-        markers?: Marker[],
-        gridSize?: number,
-        averageCenter?: boolean,
-        minLevel?: number,
-        minClusterSize?: number,
-        styles?: object,
-        texts?: string[]|(() => void),
-        calculator?: number[],
-        disableClickZoom?: boolean,
-        clickable?: boolean,
-        hoverable?: boolean,
-      })
+      constructor(options?: MarkerClusterOptions)
       addMarker(marker: Marker, nodraw?: boolean): void;
       removeMarker(marker: Marker, nodraw?: boolean): void;
       addMarkers(marker: Marker[], nodraw?: boolean): void;
@@ -719,19 +726,20 @@ declare namespace kakao.maps {
       fillColor: string;
       fillOpacity: number;
     }
+    interface DrawingManagerOptions {
+      map: Map;
+      guideTooltip: string[];
+      drawingMode: OverlayType[];
+      markerOptions: MarkerOptions;
+      rectangleOptions: RectangleOptions;
+      circleOptions: CircleOptions;
+      ellipseOptions: EllipseOptions;
+      polylineOptions: PolylineOptions;
+      arrowOptions: ArrowOptions;
+      polygonOptions: PolygonOptions;
+    }
     class DrawingManager {
-      constructor(options?: {
-        map: Map,
-        guideTooltip: string[],
-        drawingMode: OverlayType[],
-        markerOptions: MarkerOptions,
-        rectangleOptions: RectangleOptions,
-        circleOptions: CircleOptions,
-        ellipseOptions: EllipseOptions,
-        polylineOptions: PolylineOptions,
-        arrowOptions: ArrowOptions,
-        polygonOptions: PolygonOptions,
-      })
+      constructor(options?: DrawingManagerOptions)
       setStyle(type: OverlayType, prop: string, value: string|number): void;
       setStrokeWeight(strokeWeight: number): void;
       setStrokeColor(strokeColor: string): void;
@@ -747,7 +755,7 @@ declare namespace kakao.maps {
       remove(overlay: any/*ExtendsOverlay*/): void;
       // event: select,drawstart,draw,drawend,drawnext,cancel,remove,state_changed
     }
-    class Toolbax {
+    class Toolbox {
       constructor(options?: {
         drawingManager?: DrawingManager
       })

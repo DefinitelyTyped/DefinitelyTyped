@@ -2,6 +2,9 @@ import { Editor } from '@ckeditor/ckeditor5-core';
 import Lang from '@ckeditor/ckeditor5-language';
 import Command from '@ckeditor/ckeditor5-language/src/textpartlanguagecommand';
 import * as utils from '@ckeditor/ckeditor5-language/src/utils';
+import TextPartLanguage from '@ckeditor/ckeditor5-language/src/textpartlanguage';
+import TextPartLanguageEditing from '@ckeditor/ckeditor5-language/src/textpartlanguageediting';
+import TextPartLanguageUI from '@ckeditor/ckeditor5-language/src/textpartlanguageui';
 
 class MyEditor extends Editor {}
 const editor = new MyEditor();
@@ -27,3 +30,15 @@ new Command(editor).execute({
 
 utils.stringifyLanguageAttribute('', 'ltr');
 utils.stringifyLanguageAttribute.call(this, utils.parseLanguageAttribute(''));
+
+// $ExpectType TextPartLanguage
+editor.plugins.get('TextPartLanguage');
+
+// $ExpectType TextPartLanguageEditing
+editor.plugins.get('TextPartLanguageEditing');
+
+// $ExpectType TextPartLanguageUI
+editor.plugins.get('TextPartLanguageUI');
+
+// $ExpectType TextPartLanguageCommand | undefined
+editor.commands.get('TextPartLanguageCommand');

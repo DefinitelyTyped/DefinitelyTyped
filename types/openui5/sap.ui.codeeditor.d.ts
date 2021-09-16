@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.94.0
 
 declare module "sap/ui/codeeditor/library" {}
 

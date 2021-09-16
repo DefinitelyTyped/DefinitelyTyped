@@ -19,3 +19,8 @@ iquery.checkPermission(); // $ExpectType IQuery
 iquery.getLeftJoinIQuery(); // $ExpectType IClauseJoin
 iquery.getWhereSql(true); // $ExpectType string
 iquery.toSql(); // $ExpectType string
+
+function testMajorVersions(prior: number, current: number): boolean {
+    return current > prior;
+}
+testMajorVersions(51, 52); // $ExpectType boolean

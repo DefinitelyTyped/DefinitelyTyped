@@ -293,7 +293,7 @@ declare namespace braintree {
         countryCodeAlpha3?: string | undefined;
         countryCodeNumeric?: string | undefined;
         countryName?: string | undefined;
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         extendedAddress?: string | undefined;
         firstName?: string | undefined;
@@ -303,7 +303,7 @@ declare namespace braintree {
         postalCode?: string | undefined;
         region?: string | undefined;
         streetAddress?: string | undefined;
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     export interface AddressCreateRequest {
@@ -393,7 +393,7 @@ declare namespace braintree {
         cardType: string;
         commercial: Commercial;
         countryOfIssuance: string;
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         customerLocation: CustomerLocation;
         debit: string;
@@ -414,7 +414,7 @@ declare namespace braintree {
         subscriptions?: Subscription[] | undefined;
         token: string;
         uniqueNumberIdentifier: string;
-        updatedAt: Date;
+        updatedAt: string;
         verification?: CreditCardVerification | undefined;
     }
 
@@ -498,7 +498,7 @@ declare namespace braintree {
             region?: string | undefined;
             streetAddress?: string | undefined;
         } | undefined;
-        createdAt: Date;
+        createdAt: string;
         creditCard?: {
             bin: string;
             cardholderName?: string | undefined;
@@ -541,7 +541,7 @@ declare namespace braintree {
         androidPayCards?: AndroidPayCard[] | undefined;
         applePayCards?: ApplePayCard[] | undefined;
         company?: string | undefined;
-        createdAt: Date;
+        createdAt: string;
         creditCards?: CreditCard[] | undefined;
         customFields?: any;
         email?: string | undefined;
@@ -554,7 +554,7 @@ declare namespace braintree {
         paypalAccounts?: PayPalAccount[] | undefined;
         phone?: string | undefined;
         samsungPayCards?: SamsungPayCard[] | undefined;
-        updatedAt: Date;
+        updatedAt: string;
         venmoAccounts?: VenmoAccount[] | undefined;
         visaCheckoutCards?: VisaCheckoutCard[] | undefined;
         website?: string | undefined;
@@ -637,7 +637,7 @@ declare namespace braintree {
         amountDisputed: string;
         amountWon: string;
         caseNumber: string;
-        createdAt: Date;
+        createdAt: string;
         currencyIsoCode: string;
         evidence: Evidence;
         id: string;
@@ -655,13 +655,13 @@ declare namespace braintree {
         statusHistory: DisputeStatusHistory[];
         transaction: {
             amount: string;
-            createdAt: Date;
+            createdAt: string;
             id: string;
             orderId: string;
             paymentInstrumentSubtype: string;
             purchaseOrderNumber: string;
         };
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     export type DisputeStatus = 'Accepted' | 'Disputed' | 'Expired' | 'Open' | 'Lost' | 'Won';
@@ -675,7 +675,7 @@ declare namespace braintree {
 
     export interface Evidence {
         comment?: string | undefined;
-        createdAt: Date;
+        createdAt: string;
         id: string;
         sendToProcessorAt: Date;
         url?: string | undefined;
@@ -1110,7 +1110,7 @@ declare namespace braintree {
         addOns?: AddOn[] | undefined;
         billingDayOfMonth: number;
         billingFrequency: number;
-        createdAt: Date;
+        createdAt: string;
         currencyIsoCode: string;
         description?: string | undefined;
         discounts?: Discount[] | undefined;
@@ -1121,7 +1121,7 @@ declare namespace braintree {
         trialDuration?: number | undefined;
         trialDurationUnit?: string | undefined;
         trialPeriod?: boolean | undefined;
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     /**
@@ -1151,7 +1151,7 @@ declare namespace braintree {
         billingDayOfMonth?: number | undefined;
         billingPeriodEndDate: string;
         billingPeriodStartDate: string;
-        createdAt: Date;
+        createdAt: string;
         currentBillingCycle: number;
         daysPastDue?: number | undefined;
         descriptor?: Descriptor | undefined;
@@ -1175,7 +1175,7 @@ declare namespace braintree {
         trialDuration?: number | undefined;
         trialDurationUnit?: string | undefined;
         trialPeriod?: boolean | undefined;
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     export interface SubscriptionRequest {
@@ -1337,7 +1337,7 @@ declare namespace braintree {
             streetAddress?: string | undefined;
         } | undefined;
         channel?: string | undefined;
-        createdAt: Date;
+        createdAt: string;
         creditCard?: {
             bin: string;
             cardholderName?: string | undefined;
@@ -1498,7 +1498,7 @@ declare namespace braintree {
         taxExempt?: boolean | undefined;
         threeDSecureInfo?: TransactionThreeDSecureInfo | undefined;
         type: string;
-        updatedAt: Date;
+        updatedAt: string;
         venmoAccount?: {
             imageUrl: string;
             sourceDescription: string;
@@ -1787,7 +1787,7 @@ declare namespace braintree {
 
     export class AndroidPayCard {
         bin: string;
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         default: boolean;
         expirationMonth: string;
@@ -1799,7 +1799,7 @@ declare namespace braintree {
         sourceDescription: string;
         subscriptions?: Subscription[] | undefined;
         token: string;
-        updatedAt: Date;
+        updatedAt: string;
         virtualCardLast4: string;
         virtualCardType: string;
     }
@@ -1812,7 +1812,7 @@ declare namespace braintree {
         bin: string;
         cardType: string;
         cardholderName: string;
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         default: boolean;
         expirationMonth: string;
@@ -1824,7 +1824,7 @@ declare namespace braintree {
         sourceDescription: string;
         token: string;
         subscriptions?: Subscription[] | undefined;
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     /**
@@ -1838,7 +1838,7 @@ declare namespace braintree {
         cardholderName: string;
         commercial: Commercial;
         countryOfIssuance: string;
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         customerLocation: CustomerLocation;
         debit: Debit;
@@ -1858,7 +1858,7 @@ declare namespace braintree {
         token: string;
         subscriptions?: Subscription[] | undefined;
         uniqueNumberIdentifier: string;
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     /**
@@ -1870,13 +1870,13 @@ declare namespace braintree {
         payerId: string;
         token: string;
         billingAgreementId: string;
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         default: boolean;
         email: string;
         revokedAt: string;
         subscriptions?: Subscription[] | undefined;
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     /**
@@ -1890,7 +1890,7 @@ declare namespace braintree {
         cardholderName: string;
         commercial: Commercial;
         countryOfIssuance: string;
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         customerLocation: CustomerLocation;
         debit: Debit;
@@ -1911,7 +1911,7 @@ declare namespace braintree {
         subscriptions?: Subscription[] | undefined;
         token: string;
         uniqueNumberIdentifier: string;
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     /**
@@ -1919,7 +1919,7 @@ declare namespace braintree {
      */
 
     export class VenmoAccount {
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         default: boolean;
         imageUrl: string;
@@ -1927,7 +1927,7 @@ declare namespace braintree {
         subscriptions?: Subscription[] | undefined;
         token: string;
         username: string;
-        updatedAt: Date;
+        updatedAt: string;
         venmoUserId: string;
     }
 
@@ -1943,7 +1943,7 @@ declare namespace braintree {
         cardholderName: string;
         commercial: Commercial;
         countryOfIssuance: string;
-        createdAt: Date;
+        createdAt: string;
         customerId: string;
         customerLocation: CustomerLocation;
         debit: Debit;
@@ -1964,7 +1964,7 @@ declare namespace braintree {
         subscriptions?: Subscription[] | undefined;
         token: string;
         uniqueNumberIdentifier: string;
-        updatedAt: Date;
+        updatedAt: string;
     }
 
     /**

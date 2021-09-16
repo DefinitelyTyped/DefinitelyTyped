@@ -493,6 +493,18 @@ if (
 ) {
     const obj: Element | RootElement = modelObj;
 }
+if (modelObj.is("element", "div")) {
+    const obj: (Element | RootElement) & { name: "div"; } = modelObj;
+}
+if (modelObj.is("model:element", "div")) {
+    const obj: (Element | RootElement) & { name: "div"; } = modelObj;
+}
+if (modelObj.is("element", "div") || modelObj.is("element", "span")) {
+    const obj: Element | RootElement = modelObj;
+}
+if (modelObj.is("model:element", "div") || modelObj.is("model:element", "span")) {
+    const obj: Element | RootElement = modelObj;
+}
 if (
     modelObj.is("rootElement") ||
     modelObj.is("model:rootElement") ||
@@ -501,6 +513,53 @@ if (
 ) {
     const obj: RootElement = modelObj;
 }
+{
+    const obj = modelObj as RootElement;
+    if (obj.is("rootElement", "paragraph")) {
+        // $ExpectType RootElement & { name: "paragraph"; }
+        obj;
+    }
+    if (obj.is("model:rootElement", "paragraph")) {
+        // $ExpectType RootElement & { name: "paragraph"; }
+        obj;
+    }
+    if (obj.is("rootElement", "paragraph") || obj.is("rootElement", "blockQuote")) {
+        // $ExpectType (RootElement & { name: "paragraph"; }) | (RootElement & { name: "blockQuote"; })
+        obj;
+    }
+    if (obj.is("model:rootElement", "paragraph") || obj.is("model:rootElement", "blockQuote")) {
+        // $ExpectType (RootElement & { name: "paragraph"; }) | (RootElement & { name: "blockQuote"; })
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("rootElement") || obj.is("rootElement", "paragraph")) 1;
+    // $ExpectError
+    if (obj.is("model:rootElement") || obj.is("model:rootElement", "paragraph")) 1;
+}
+{
+    const obj = modelObj as Element;
+    if (obj.is("element", "paragraph")) {
+        // $ExpectType (RootElement | Element) & { name: "paragraph"; }
+        obj;
+    }
+    if (obj.is("model:element", "paragraph")) {
+        // $ExpectType (RootElement | Element) & { name: "paragraph"; }
+        obj;
+    }
+    if (obj.is("element", "paragraph") || obj.is("element", "blockQuote")) {
+        // $ExpectType "paragraph" | "blockQuote"
+        obj.name;
+    }
+    if (obj.is("model:element", "paragraph") || obj.is("model:element", "blockQuote")) {
+        // $ExpectType "paragraph" | "blockQuote"
+        obj.name;
+    }
+    // $ExpectError
+    if (obj.is("element") || obj.is("element", "paragraph")) 1;
+    // $ExpectError
+    if (obj.is("model:element") || obj.is("model:element", "paragraph")) 1;
+}
+
 if (modelObj.is("selection") || modelObj.is("model:selection")) {
     const obj: Selection | DocumentSelection = modelObj;
 }
@@ -588,6 +647,31 @@ if (
         | EmptyElement
         | RootEditableElement = viewObj;
 }
+
+{
+    const obj = viewObj as ViewElement;
+    if (obj.is("element", "p") || obj.is("element", "div")) {
+        // $ExpectType (Element & { name: "p"; }) | (Element & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:element", "p") || obj.is("view:element", "div")) {
+        // $ExpectType (Element & { name: "p"; }) | (Element & { name: "div"; })
+        obj;
+    }
+    if (obj.is("element", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    if (obj.is("view:element", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    // $ExpectError
+    if (obj.is("element") || obj.is("element", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:element") || obj.is("view:element", "p")) 1;
+}
+
 if (
     viewObj.is("containerElement") ||
     viewObj.is("view:containerElement") ||
@@ -596,6 +680,31 @@ if (
 ) {
     const obj: ContainerElement | EditableElement | RootEditableElement = viewObj;
 }
+
+{
+    const obj = viewObj as ContainerElement;
+    if (obj.is("containerElement", "p") || obj.is("containerElement", "div")) {
+        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:containerElement", "p") || obj.is("view:containerElement", "div")) {
+        // $ExpectType (ContainerElement & { name: "p"; }) | (ContainerElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("containerElement", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    if (obj.is("view:containerElement", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    // $ExpectError
+    if (obj.is("containerElement") || obj.is("containerElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:containerElement") || obj.is("view:containerElement", "p")) 1;
+}
+
 if (
     viewObj.is("editableElement") ||
     viewObj.is("view:editableElement") ||
@@ -604,6 +713,30 @@ if (
 ) {
     const obj: EditableElement | RootEditableElement = viewObj;
 }
+{
+    const obj = viewObj as EditableElement;
+    if (obj.is("editableElement", "p") || obj.is("editableElement", "div")) {
+        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:editableElement", "p") || obj.is("view:editableElement", "div")) {
+        // $ExpectType (EditableElement & { name: "p"; }) | (EditableElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("editableElement", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    if (obj.is("view:editableElement", "p")) {
+        // $ExpectType "p"
+        obj.name;
+    }
+    // $ExpectError
+    if (obj.is("editableElement") || obj.is("editableElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:editableElement") || obj.is("view:editableElement", "p")) 1;
+}
+
 if (
     viewObj.is("rootEditableElement") ||
     viewObj.is("view:rootEditableElement") ||
@@ -611,6 +744,29 @@ if (
     viewObj.is("view:rootEditableElement", "div")
 ) {
     const obj: RootEditableElement = viewObj;
+}
+{
+    const obj = viewObj as RootEditableElement;
+    if (obj.is("rootEditableElement", "p") || obj.is("rootEditableElement", "div")) {
+        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:rootEditableElement", "p") || obj.is("view:rootEditableElement", "div")) {
+        // $ExpectType (RootEditableElement & { name: "p"; }) | (RootEditableElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("rootEditableElement", "p")) {
+        // $ExpectType RootEditableElement & { name: "p"; }
+        obj;
+    }
+    if (obj.is("view:rootEditableElement", "p")) {
+        // $ExpectType RootEditableElement & { name: "p"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("rootEditableElement") || obj.is("rootEditableElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:rootEditableElement") || obj.is("view:rootEditableElement", "p")) 1;
 }
 if (
     viewObj.is("rawElement") ||
@@ -620,6 +776,30 @@ if (
 ) {
     const obj: RawElement = viewObj;
 }
+{
+    const obj = viewObj as RawElement;
+    if (obj.is("rawElement", "p") || obj.is("rawElement", "div")) {
+        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:rawElement", "p") || obj.is("view:rawElement", "div")) {
+        // $ExpectType (RawElement & { name: "p"; }) | (RawElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("rawElement", "p")) {
+        // $ExpectType RawElement & { name: "p"; }
+        obj;
+    }
+    if (obj.is("view:rawElement", "p")) {
+        // $ExpectType RawElement & { name: "p"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("rawElement") || obj.is("rawElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:rawElement") || obj.is("view:rawElement", "p")) 1;
+}
+
 if (
     viewObj.is("attributeElement") ||
     viewObj.is("view:attributeElement") ||
@@ -628,6 +808,30 @@ if (
 ) {
     const obj: AttributeElement = viewObj;
 }
+{
+    const obj = viewObj as AttributeElement;
+    if (obj.is("attributeElement", "p") || obj.is("attributeElement", "div")) {
+        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:attributeElement", "p") || obj.is("view:attributeElement", "div")) {
+        // $ExpectType (AttributeElement & { name: "p"; }) | (AttributeElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("attributeElement", "p")) {
+        // $ExpectType AttributeElement & { name: "p"; }
+        obj;
+    }
+    if (obj.is("view:attributeElement", "p")) {
+        // $ExpectType AttributeElement & { name: "p"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("attributeElement") || obj.is("attributeElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:attributeElement") || obj.is("view:attributeElement", "p")) 1;
+}
+
 if (
     viewObj.is("uiElement") ||
     viewObj.is("view:uiElement") ||
@@ -636,6 +840,30 @@ if (
 ) {
     const obj: UIElement = viewObj;
 }
+{
+    const obj = viewObj as UIElement;
+    if (obj.is("uiElement", "p") || obj.is("uiElement", "div")) {
+        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("view:uiElement", "p") || obj.is("view:uiElement", "div")) {
+        // $ExpectType (UIElement & { name: "p"; }) | (UIElement & { name: "div"; })
+        obj;
+    }
+    if (obj.is("uiElement", "p")) {
+        // $ExpectType UIElement & { name: "p"; }
+        obj;
+    }
+    if (obj.is("view:uiElement", "p")) {
+        // $ExpectType UIElement & { name: "p"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("uiElement") || obj.is("uiElement", "p")) 1;
+    // $ExpectError
+    if (obj.is("view:uiElement") || obj.is("view:uiElement", "p")) 1;
+}
+
 if (
     viewObj.is("emptyElement") ||
     viewObj.is("view:emptyElement") ||
@@ -643,6 +871,29 @@ if (
     viewObj.is("view:emptyElement", "div")
 ) {
     const obj: EmptyElement = viewObj;
+}
+{
+    const obj = viewObj as EmptyElement;
+    if (obj.is("emptyElement", "hr") || obj.is("emptyElement", "img")) {
+        // $ExpectType (EmptyElement & { name: "hr"; }) | (EmptyElement & { name: "img"; })
+        obj;
+    }
+    if (obj.is("view:emptyElement", "hr") || obj.is("view:emptyElement", "img")) {
+        // $ExpectType (EmptyElement & { name: "hr"; }) | (EmptyElement & { name: "img"; })
+        obj;
+    }
+    if (obj.is("emptyElement", "hr")) {
+        // $ExpectType EmptyElement & { name: "hr"; }
+        obj;
+    }
+    if (obj.is("view:emptyElement", "hr")) {
+        // $ExpectType EmptyElement & { name: "hr"; }
+        obj;
+    }
+    // $ExpectError
+    if (obj.is("emptyElement") || obj.is("emptyElement", "hr")) 1;
+    // $ExpectError
+    if (obj.is("view:emptyElement") || obj.is("view:emptyElement", "hr")) 1;
 }
 
 // Selectable

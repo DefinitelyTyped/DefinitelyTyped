@@ -1120,4 +1120,6 @@ function testSfDate(): void {
     const sfDateTimeFromDate = sf.SfDate.toDateTimeLiteral(today);
     const sfDateTimeFromString = sf.SfDate.toDateTimeLiteral('01-01-2000');
     const sfDateTimeFromNumber = sf.SfDate.toDateTimeLiteral(0);
+    // Test creating SfDate instances with Date Literals from Salesforce
+    const instance = new sf.SfDate('NEXT_WEEK')
 }

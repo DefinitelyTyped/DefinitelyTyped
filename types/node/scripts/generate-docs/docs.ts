@@ -70,7 +70,6 @@ function transformer(printer: Printer, typeChecker: TypeChecker, rootDocs: DocRo
 const ignoreFiles = new Set([
     'index.d.ts', // infra
     'base.d.ts', // infra
-    'ts3.6/base.d.ts', // infra
     'globals.global.d.ts', // infra
     'assert/strict.d.ts', // re-export only
     'globals.d.ts', // virtual

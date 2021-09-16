@@ -53,8 +53,7 @@ declare module "../index" {
          * and/or values.
          *
          * @category Array
-         * @param array The array to concatenate.
-         * @param [values] The values to concatenate.
+         * @param [values] The array values to concatenate.
          * @returns Returns the new concatenated array.
          * @example
          *
@@ -67,7 +66,7 @@ declare module "../index" {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
+         concat<T>(...values: Array<Many<T>>): T[];
     }
     interface Primitive<T> {
         /**

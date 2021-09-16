@@ -3,9 +3,11 @@ import { AutosaveAdapter, AutosaveConfig } from "@ckeditor/ckeditor5-autosave/sr
 import { Editor } from "@ckeditor/ckeditor5-core";
 
 class MyEditor extends Editor {}
+const myEditor = new MyEditor();
 const plugin = new Autosave.Autosave(new MyEditor());
 plugin.once("click", () => {});
-const isContext: boolean = Autosave.Autosave.isContextPlugin;
+// $ExpectType false
+Autosave.Autosave.isContextPlugin;
 const state: "synchronized" | "waiting" | "saving" = plugin.state;
 plugin.adapter.save(new MyEditor());
 
@@ -14,6 +16,9 @@ const adapter: AutosaveAdapter = {
         return Promise.resolve(editor);
     },
 };
+
+// $ExpectType AutoSave
+myEditor.plugins.get('AutoSave');
 
 let config: AutosaveConfig = {
     save(editor: Editor) {

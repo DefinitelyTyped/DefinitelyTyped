@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as moment from "moment";
+import * as React from 'react';
+import * as moment from 'moment';
 
-export default class Scheduler extends React.Component<SchedulerProps, any> { }
+export default class Scheduler extends React.Component<SchedulerProps, any> {}
 
 export interface SchedulerProps {
     schedulerData: SchedulerData;
@@ -15,6 +15,25 @@ export interface SchedulerProps {
     nextClick(schedulerData: SchedulerData): void;
     onSelectDate(schedulerData: SchedulerData, date: string): void;
     onViewChange(schedulerData: SchedulerData, view: View): void;
+    eventItemClick?(schedulerData: SchedulerData, event: Event): void;
+    eventItemTemplateResolver?(
+        schedulerData: SchedulerData,
+        event: Event,
+        bgColor: string,
+        isStart: boolean,
+        isEnd: boolean,
+        mustAddCssClass: string,
+        mustBeHeight: number,
+        agendaMaxEventWidth: number,
+    ): void;
+    eventItemPopoverTemplateResolver?(
+        schedulerData: SchedulerData,
+        eventItem: Event,
+        title: string,
+        start: moment.Moment,
+        end: moment.Moment,
+        statusColor: string,
+    ): void;
 }
 
 export class SchedulerData {
@@ -30,24 +49,20 @@ export class SchedulerData {
         isEventPerspective?: boolean,
         newConfig?: SchedulerDataConfig,
         newBehaviours?: object,
-        localeMoment?: typeof moment
+        localeMoment?: typeof moment,
     );
 
     setResources(resources: Resource[]): void;
     setEvents(events: Event[]): void;
     prev(): void;
     next(): void;
-    setViewType(
-        viewType?: ViewTypes,
-        showAgenda?: boolean,
-        isEventPerspective?: boolean
-    ): void;
+    setViewType(viewType?: ViewTypes, showAgenda?: boolean, isEventPerspective?: boolean): void;
     setDate(date?: string): void;
 }
 
 export enum CellUnits {
     Day,
-    Hour
+    Hour,
 }
 
 export enum ViewTypes {
@@ -58,7 +73,7 @@ export enum ViewTypes {
     Year,
     Custom,
     Custom1,
-    Custom2
+    Custom2,
 }
 
 export interface View {
@@ -140,7 +155,7 @@ export enum SummaryPos {
     TopLeft,
     Bottom,
     BottomRight,
-    BottomLeft
+    BottomLeft,
 }
 
 export interface SchedulerDataBehaviors {
@@ -148,6 +163,6 @@ export interface SchedulerDataBehaviors {
     getCustomDateFunc?(
         schedulerData: SchedulerData,
         num: number,
-        date?: string
+        date?: string,
     ): { startDate: string; endDate: string; cellUnit: CellUnits };
 }

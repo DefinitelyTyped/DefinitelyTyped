@@ -1,5 +1,5 @@
 import { Location } from './Destinations';
-import { OnfleetMetadata } from '../metadata';
+import { OnfleetMetadata, MatchMetadata } from '../metadata';
 
 declare class Worker {
   create(worker: Worker.CreateWorkerProps): Promise<Worker.OnfleetWorker>;
@@ -9,6 +9,7 @@ declare class Worker {
   getByLocation(location: Worker.GetWorkerByLocationProps): Promise<{ workers: Worker.OnfleetWorker[] }>;
   getSchedule(id: string): Promise<{ entries: Worker.WorkerSchedule[] }>;
   insertTask(id: string, obj: { tasks: string[] }): Promise<Worker.OnfleetWorker>;
+  matchMetadata: MatchMetadata<Worker.OnfleetWorker['metadata']>;
   setSchedule(id: string, schedule: Worker.WorkerSchedule): Promise<{ entries: Worker.WorkerSchedule[] }>;
   update(id: string, worker: Worker.UpdateWorkerProps): Promise<Worker.OnfleetWorker>;
 }

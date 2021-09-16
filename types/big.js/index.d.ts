@@ -214,6 +214,16 @@ export interface Big {
      */
     pow(exp: number): Big;
     /**
+     * Return a new Big whose value is the value of this Big rounded to a maximum precision of sd
+     * significant digits using rounding mode rm, or Big.RM if rm is not specified.
+     *
+     * @param sd Significant digits: integer, 1 to MAX_DP inclusive.
+     * @param [rm] The rounding mode, one of the RoundingMode enumeration values
+     * @throws `!prec!` if sd is invalid.
+     * @throws `!Big.RM!` if rm is invalid.
+     */
+    prec(sd: number, rm?: RoundingMode): Big;
+    /**
      * Returns a Big number whose value is the value of this Big number rounded using rounding mode rm to a maximum of dp decimal places.
      *
      * @param dp Decimal places, 0 to 1e+6 inclusive

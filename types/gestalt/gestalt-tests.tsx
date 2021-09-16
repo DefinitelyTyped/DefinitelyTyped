@@ -17,6 +17,7 @@ import {
     ComboBox,
     CompositeZIndex,
     Container,
+    DataPoint,
     Divider,
     Dropdown,
     Fieldset,
@@ -352,7 +353,7 @@ const CheckUseReducedMotion = () => {
 <TextArea id="id" onChange={() => {}} />;
 <TextField id="email" onChange={({ value }) => value} tags={[<Tag text="Foo" />, <Tag text="Bar" />]} />;
 
-<Toast color="red" text={<>Oops! Something went wrong. Please try again later.</>} />;
+<Toast variant="error" text={<>Oops! Something went wrong. Please try again later.</>} />;
 <Tooltip text="tooltip">
     <div />
 </Tooltip>;
@@ -399,3 +400,5 @@ const CheckUseReducedMotion = () => {
 
 new FixedZIndex(1);
 new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)])]);
+
+<DataPoint title="Test Value" value="100" trend={{ accesibilityLabel: "Trending up", value: 50 }} trendSentiment="good" />;
