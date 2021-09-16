@@ -2052,6 +2052,11 @@ declare namespace IORedis {
          */
         connectTimeout?: number | undefined;
         /**
+         * The milliseconds before socket.destroy() is called after socket.end() if the connection remains half-open during disconnection.
+         * default: 2000
+         */
+        disconnectTimeout?: number | undefined;
+        /**
          * After reconnected, if the previous connection was in the subscriber mode, client will auto re-subscribe these channels.
          * default: true.
          */

@@ -371,6 +371,7 @@ new Redis({
         servername: 'tlsservername',
     },
     enableAutoPipelining: true,
+    disconnectTimeout: 1000
 });
 // Test commandTimeout
 new Redis({
