@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from '../../../typings/shared';
+import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn, ReactComponentConstructor } from '../../../typings/shared';
 import { TextDirection } from './TextDirectionContext';
 
 interface TextBaseProps {
@@ -18,8 +18,8 @@ export type TextIntrinsicProps<K extends keyof JSX.IntrinsicElements> = TextBase
     };
 
 export type TextCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
+    C extends ReactComponentConstructor<never>
+> = C extends ReactComponentConstructor<infer P>
     ? TextBaseProps &
           P & {
               as: C;
@@ -28,6 +28,6 @@ export type TextCustomComponentProps<
 
 declare function Text(props: TextDefaultProps): FCReturn;
 declare function Text<T extends keyof JSX.IntrinsicElements>(props: TextIntrinsicProps<T>): FCReturn;
-declare function Text<T extends React.JSXElementConstructor<any>>(props: TextCustomComponentProps<T>): FCReturn;
+declare function Text<T extends ReactComponentConstructor<never>>(props: TextCustomComponentProps<T>): FCReturn;
 
 export { Text };

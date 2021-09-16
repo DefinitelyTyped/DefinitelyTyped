@@ -1,6 +1,6 @@
 import { LayoutDirectionContext } from './LayoutDirectionContext';
 import * as React from "react";
-import { FCReturn, JSXIntrinsicElementProps, ReactAttr, ReactDivAttr } from '../../../typings/shared';
+import { FCReturn, JSXIntrinsicElementProps, ReactAttr, ReactComponentConstructor, ReactDivAttr } from '../../../typings/shared';
 
 interface LayoutDirectionBaseProps {
     children?: React.ReactNode | undefined;
@@ -17,8 +17,8 @@ export type LayoutDirectionIntrinsicProps<K extends keyof JSX.IntrinsicElements>
     };
 
 export type LayoutDirectionCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
+    C extends ReactComponentConstructor<never>
+> = C extends ReactComponentConstructor<infer P>
     ? LayoutDirectionBaseProps &
           P & {
               as: C;
@@ -29,7 +29,7 @@ declare function LayoutDirection(props: LayoutDirectionDefaultProps): FCReturn;
 declare function LayoutDirection<T extends keyof JSX.IntrinsicElements>(
     props: LayoutDirectionIntrinsicProps<T>,
 ): FCReturn;
-declare function LayoutDirection<T extends React.JSXElementConstructor<any>>(
+declare function LayoutDirection<T extends ReactComponentConstructor<never>>(
     props: LayoutDirectionCustomComponentProps<T>,
 ): FCReturn;
 
