@@ -1164,6 +1164,11 @@ declare namespace IORedis {
 
         punsubscribe: OverloadedCommand<string, number>;
 
+        pubsub(subcommand: 'CHANNELS' | 'NUMSUB' | 'channels' | 'numsub', ...args: [...string[], Callback<string[]>]): void;
+        pubsub(subcommand: 'CHANNELS' | 'NUMSUB' | 'channels' | 'numsub', ...args: string[]): Promise<string[]>;
+        pubsub(subcommand: 'NUMPAT' | 'numpat', callback: Callback<number>): void;
+        pubsub(subcommand: 'NUMPAT' | 'numpat'): Promise<number>;
+
         publish(channel: string, message: string, callback: Callback<number>): void;
         publish(channel: string, message: string): Promise<number>;
 

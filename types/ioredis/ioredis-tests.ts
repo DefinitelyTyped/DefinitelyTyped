@@ -289,6 +289,13 @@ redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 redis.exists('foo').then(result => result * 1);
 redis.exists('foo', (err, data) => data * 1);
 
+// Pubsub commands
+redis.pubsub("channels", (err, data) => {});
+redis.pubsub("channels", "one", (err, data) => {});
+redis.pubsub("channels", "one", "two", (err, data) => {});
+redis.pubsub("numsub", "one", "two", (err, data) => {});
+redis.pubsub("numpat", (err, data) => {});
+
 // Should support usage of Buffer
 redis.set(Buffer.from('key'), '100');
 redis.setBuffer(Buffer.from('key'), '100', 'NX', 'EX', 10);
