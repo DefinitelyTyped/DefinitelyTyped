@@ -12,6 +12,10 @@ declare namespace expressRequestId {
         setHeader?: boolean | undefined;
         headerName?: string | undefined;
         attributeName?: string | undefined;
+        msecs?: Date;
+        nsecs?: number;
+        clockseq?: number;
+        node?: number[];
     }
 }
 
