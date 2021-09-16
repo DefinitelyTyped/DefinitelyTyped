@@ -95,3 +95,14 @@ const test3 = (
         flagComponent={(props: {country: string, flagUrl: string}) => <span>country: {props.country}, flagUrl: {props.flagUrl}</span>}
     />
 );
+
+const test4 = (
+    <PhoneInput
+        value="+12345678901"
+        onChange={(value: string) => {
+            console.log(value);
+        }}
+        international
+        countryCallingCodeEditable={false}
+    />
+);
