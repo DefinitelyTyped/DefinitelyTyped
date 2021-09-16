@@ -14,14 +14,10 @@ const data = {
 };
 
 const initialValues = [ 2, 4 ];
-const maxValues = [4, 8];
-const minValues = [0, 0];
 
 const options = {
   damping: 1.5,
   initialValues,
-  maxValues,
-  minValues,
   gradientDifference: 10e-2,
   maxIterations: 100,
   errorTolerance: 10e-3
