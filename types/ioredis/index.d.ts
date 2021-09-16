@@ -18,7 +18,7 @@
 //                 Michael Salaverry <https://github.com/barakplasma>
 //                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 4.2
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";
