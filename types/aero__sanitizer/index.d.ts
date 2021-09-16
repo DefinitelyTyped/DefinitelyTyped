@@ -11,4 +11,6 @@
  * @example
  * clean("に間違いがないか、再度確認してください。再読み込みしてください。"); // niJian Wei iganaika, Zai Du Que Ren sitekudasai. Zai Du miIp misitekudasai.
  */
-export default function clean(str: string): string;
+declare function clean(str: string): string;
+
+export = clean;
