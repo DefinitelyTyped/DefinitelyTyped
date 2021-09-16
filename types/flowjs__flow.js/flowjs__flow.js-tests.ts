@@ -1,16 +1,19 @@
+import Flow = require('@flowjs/flow.js');
+import * as flow_js from '@flowjs/flow.js';
+
 // flow object
-let flowObject = new flowjs.Flow({});
+let flowObject: Flow = new Flow({});
 let bool: boolean = flowObject.support;
 bool = flowObject.supportDirectory;
-let flowOpts: flowjs.FlowOptions = flowObject.opts;
-let flowFileArray: flowjs.FlowFile[] = flowObject.files;
-let flowChunkParams: flowjs.FlowChunkParams;
+const flowOpts: flow_js.FlowOptions = flowObject.opts;
+const flowFileArray: flow_js.FlowFile[] = flowObject.files;
+let flowChunkParams: flow_js.FlowChunkParams;
 
 flowObject.assignBrowse([] as HTMLElement[]);
 flowObject.assignBrowse([] as HTMLElement[], false, false, {});
 flowObject.assignDrop([] as HTMLElement[]);
 flowObject.unAssignDrop([] as HTMLElement[]);
-flowObject.on('fileSuccess', (file: flowjs.FlowFile, serverMessage: string, chunk: flowjs.FlowChunk) => {});
+flowObject.on('fileSuccess', (file: flow_js.FlowFile, serverMessage: string, chunk: flow_js.FlowChunk) => {});
 flowObject.off('fileSuccess', () => {});
 flowObject.upload();
 flowObject.pause();
@@ -19,14 +22,14 @@ flowObject.cancel();
 flowObject.progress();
 bool = flowObject.isUploading();
 flowObject.addFile({} as any as File);
-flowObject.removeFile({} as any as flowjs.FlowFile);
-let flowFile: flowjs.FlowFile = flowObject.getFromUniqueIdentifier('');
+flowObject.removeFile({} as any as flow_js.FlowFile);
+let flowFile: flow_js.FlowFile = flowObject.getFromUniqueIdentifier('');
 let num: number = flowObject.getSize();
 num = flowObject.sizeUploaded();
 num = flowObject.timeRemaining();
 
 // flow options
-let flowOptions: flowjs.FlowOptions = {};
+const flowOptions: flow_js.FlowOptions = {};
 flowOptions.target = '';
 flowOptions.singleFile = true;
 flowOptions.chunkSize = 0;
@@ -54,14 +57,14 @@ flowOptions.permanentErrors = [404, 415, 500, 501];
 
 // flow file
 flowObject = flowFile.flowObj;
-let htmlFile: File = flowFile.file;
+const htmlFile: File = flowFile.file;
 let str: string = flowFile.name;
 str = flowFile.relativePath;
 num = flowFile.size;
 str = flowFile.uniqueIdentifier;
 num = flowFile.averageSpeed;
 num = flowFile.currentSpeed;
-let chunksArray: ReadonlyArray<flowjs.FlowChunk> = flowFile.chunks;
+const chunksArray: ReadonlyArray<flow_js.FlowChunk> = flowFile.chunks;
 chunksArray[0].abort();
 num = chunksArray[0].chunkSize;
 num = chunksArray[0].endByte;
