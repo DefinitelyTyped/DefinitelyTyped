@@ -393,7 +393,7 @@ declare namespace jasmine {
 
     interface Any extends AsymmetricMatcher<any> {
         new (expectedClass: any): any;
-        jasmineToString(): string;
+        jasmineToString(prettyPrint: typeof pp): string;
     }
 
     interface AsymmetricMatcher<TValue> {
@@ -401,7 +401,7 @@ declare namespace jasmine {
          * customTesters are deprecated and will be replaced with matcherUtils in the future.
          */
         asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | ReadonlyArray<CustomEqualityTester>): boolean;
-        jasmineToString?(): string;
+        jasmineToString?(prettyPrint: typeof pp): string;
     }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
@@ -412,13 +412,13 @@ declare namespace jasmine {
 
     interface ArrayContaining<T> extends AsymmetricMatcher<any> {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
-        jasmineToString(): string;
+        jasmineToString(prettyPrint: typeof pp): string;
     }
 
     interface ObjectContaining<T> extends AsymmetricMatcher<T> {
         new?(sample: { [K in keyof T]?: any }): { [K in keyof T]?: any };
 
-        jasmineToString?(): string;
+        jasmineToString?(prettyPrint: typeof pp): string;
     }
 
     interface Clock {
