@@ -52,8 +52,6 @@ declare namespace Classificator {
      * - `tokenizer` => custom tokenization function
      */
     interface NaiveBayes {
-        (options?: Options): NaiveBayes;
-
         /**
          * Properly remove a category, unlearning all strings that were associated with it.
          */
