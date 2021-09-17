@@ -337,7 +337,7 @@ interface IObservable<T> {
             | 'mouse:dblclick'
             | 'mouse:over'
             | 'mouse:out',
-        handler: (e: IEvent<MouseEvent>) => void,
+        handler: (e: IEvent<MouseEvent | TouchEvent>) => void,
     ): T;
     on(eventName: 'mouse:wheel', handler: (e: IEvent<WheelEvent>) => void): T;
     on(eventName: string, handler: (e: IEvent) => void): T;
