@@ -3,14 +3,11 @@
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
+// TypeScript Version: 2.3
 
 import { Middleware } from 'koa';
 
-type Transporter = (
-    str: string,
-    args: [format: string, method: string, url: string, status?: number, time?: string, length?: string],
-) => void;
+type Transporter = (str: string, args: (string | number)[]) => void;
 
 interface TransporterOpts {
     transporter: Transporter;
