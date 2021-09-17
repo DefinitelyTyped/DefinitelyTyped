@@ -103,4 +103,18 @@ declare namespace Classificator {
      * Use this with NaiveBayes::toJson().
      */
     function fromJson(jsonStrOrObject: string | { [key: string]: any }): NaiveBayes;
+
+	/**
+	 * Used to serialize a classifier's state.
+	 */
+	const STATE_KEYS: readonly [
+		'categories',
+		'docCount',
+		'totalDocuments',
+		'vocabulary',
+		'vocabularySize',
+		'wordCount',
+		'wordFrequencyCount',
+		'options',
+	];
 }
