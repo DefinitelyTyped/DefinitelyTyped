@@ -3,8 +3,6 @@
 // Definitions by: Nixinova <https://github.com/Nixinova>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace classificator;
-
 export = Classificator;
 
 declare function Classificator(options?: Classificator.Options): Classificator.NaiveBayes;
