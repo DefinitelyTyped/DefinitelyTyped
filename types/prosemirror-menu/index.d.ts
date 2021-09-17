@@ -158,7 +158,7 @@ export class DropdownSubmenu<S extends Schema = any> {
  */
 export function renderGrouped<S extends Schema = any>(
     view: EditorView<S>,
-    content: ReadonlyArray<MenuElement<S> | ReadonlyArray<MenuElement<S>>>,
+    content: ReadonlyArray<ReadonlyArray<MenuElement<S>>>,
 ): { dom: DocumentFragment; update(p: EditorState<S>): boolean };
 /**
  * A set of basic editor-related icons. Contains the properties
