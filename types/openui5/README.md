@@ -43,6 +43,18 @@ Long story short:
 * For perfectly matching definitions, use the version of [`@openui5/ts-types-esm`](https://www.npmjs.com/package/@openui5/ts-types-esm) which is identical to the used OpenUI5 version.
 
 
+## TSLint Ruleset Remarks
+
+Our goal is to reduce the number of disabled tslint rules, but due to years of UI5 development before trying to conform to TypeScript rules, this is not possible for all of them. For the rules which are not aimed to be re-enabled, the reasoning is explained here:
+
+ * `"interface-name": false` - for compatibility reasons, the existing interface names with "I" prefix cannot be changed
+ * `"max-line-length": false` - we do not want to enforce a specific max line length - it also breaks e.g. long links
+ * `"no-any-union": false` - for documentation purposes, it is useful to also see the alternatives which are more specific than "any"
+ * `"no-single-declare-module": false` - these modules do exist and we want TypeScript to know about them
+ * `"interface-over-type-literal": false` - this rule is considered debatable (see e.g. https://github.com/palantir/tslint/issues/3248)
+
+
+
 ## Copyright
 
 Copyright (c) 2021 SAP SE or an SAP affiliate company and OpenUI5 contributors.
