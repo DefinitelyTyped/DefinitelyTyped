@@ -53,25 +53,8 @@ declare namespace Classificator {
      * Takes an (optional) options object containing:
      * - `tokenizer` => custom tokenization function
      */
-    class NaiveBayes {
-        constructor(options?: Options);
-
-        private options: Options;
-        private alpha: number;
-        private fitPrior: boolean;
-        private vocabulary: Record<string, number>;
-        private vocabularySize: number;
-        private totalDocuments: number;
-        private docCount: Record<string, number>;
-        private wordCount: Record<string, number>;
-        private wordFrequencyCount: Record<string, Record<string, number>>;
-        private categories: Record<string, boolean>;
-        private tokenizer(text: string): string[];
-
-        /**
-         * Initialize each of data structure entry for a new category
-         */
-        private initializeCategory(category: string): NaiveBayes;
+    interface NaiveBayes {
+        (options?: Options): NaiveBayes;
 
         /**
          * Properly remove a category, unlearning all strings that were associated with it.
@@ -119,7 +102,5 @@ declare namespace Classificator {
      *
      * Use this with NaiveBayes::toJson().
      */
-    function fromJson(jsonStrOrObject: string | object): NaiveBayes;
-
-    const STATE_KEYS: Readonly<string[]>;
+    function fromJson(jsonStrOrObject: string | { [key: string]: any }): NaiveBayes;
 }
