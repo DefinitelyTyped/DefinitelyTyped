@@ -52,7 +52,7 @@ export interface Dictionary<T> {
 }
 
 export interface ParamsDictionary {
-    [key: string]: string;
+    [key: string]: any;
 }
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
