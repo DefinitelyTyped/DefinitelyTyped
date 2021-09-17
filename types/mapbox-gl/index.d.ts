@@ -2339,7 +2339,7 @@ declare namespace mapboxgl {
     }
 
     export interface LineLayout extends Layout {
-        'line-cap'?: 'butt' | 'round' | 'square' | undefined;
+        'line-cap'?: 'butt' | 'round' | 'square' | Expression | undefined;
         'line-join'?: 'bevel' | 'round' | 'miter' | Expression | undefined;
         'line-miter-limit'?: number | Expression | undefined;
         'line-round-limit'?: number | Expression | undefined;
