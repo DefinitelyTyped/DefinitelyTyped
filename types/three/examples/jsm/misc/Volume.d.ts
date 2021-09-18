@@ -9,6 +9,8 @@ export class Volume {
     yLength: number;
     zLength: number;
 
+    axisOrder: Array<'x' | 'y' | 'z'>;
+
     data: ArrayLike<number>;
 
     spacing: number[];

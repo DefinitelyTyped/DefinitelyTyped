@@ -1,22 +1,18 @@
-declare module 'node:cluster' {
-    export * from 'cluster';
-}
-
 declare module 'cluster' {
-    import * as child from 'node:child_process';
-    import EventEmitter = require('node:events');
-    import * as net from 'node:net';
+    import * as child from 'child_process';
+    import EventEmitter = require('events');
+    import * as net from 'net';
 
     // interfaces
     interface ClusterSettings {
-        execArgv?: string[]; // default: process.execArgv
-        exec?: string;
-        args?: string[];
-        silent?: boolean;
-        stdio?: any[];
-        uid?: number;
-        gid?: number;
-        inspectPort?: number | (() => number);
+        execArgv?: string[] | undefined; // default: process.execArgv
+        exec?: string | undefined;
+        args?: string[] | undefined;
+        silent?: boolean | undefined;
+        stdio?: any[] | undefined;
+        uid?: number | undefined;
+        gid?: number | undefined;
+        inspectPort?: number | (() => number) | undefined;
     }
 
     interface Address {
@@ -103,10 +99,10 @@ declare module 'cluster' {
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
         setupMaster(settings?: ClusterSettings): void;
-        worker?: Worker;
+        worker?: Worker | undefined;
         workers?: {
             [index: string]: Worker | undefined
-        };
+        } | undefined;
 
         /**
          * events.EventEmitter

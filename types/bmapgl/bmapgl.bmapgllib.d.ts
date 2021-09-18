@@ -34,49 +34,49 @@ SOFTWARE.
 declare namespace BMapGL {
     type DrawingType = 'marker' | 'polyline' | 'polygon' | 'rectangle' | 'circle';
     interface DrawingManagerOptions {
-        isOpen?: boolean;
-        drawingMode?: DrawingType;
-        enableDrawingTool?: boolean;
-        enableCalculate?: boolean;
-        enableSorption?: boolean;
-        enableGpc?: boolean;
-        enableLimit?: boolean;
-        sorptionDistance?: number;
-        limitOptions?: DrawingLimitOptions;
-        drawingToolOptions?: DrawingToolOptions;
-        markerOptions?: MarkerOptions;
-        circleOptions?: CircleOptions;
-        polylineOptions?: PolylineOptions;
-        polygonOptions?: PolygonOptions;
-        rectangleOptions?: PolygonOptions;
+        isOpen?: boolean | undefined;
+        drawingMode?: DrawingType | undefined;
+        enableDrawingTool?: boolean | undefined;
+        enableCalculate?: boolean | undefined;
+        enableSorption?: boolean | undefined;
+        enableGpc?: boolean | undefined;
+        enableLimit?: boolean | undefined;
+        sorptionDistance?: number | undefined;
+        limitOptions?: DrawingLimitOptions | undefined;
+        drawingToolOptions?: DrawingToolOptions | undefined;
+        markerOptions?: MarkerOptions | undefined;
+        circleOptions?: CircleOptions | undefined;
+        polylineOptions?: PolylineOptions | undefined;
+        polygonOptions?: PolygonOptions | undefined;
+        rectangleOptions?: PolygonOptions | undefined;
     }
 
     interface DrawingToolOptions {
-        enableTips?: boolean;
-        customContainer?: string | HTMLElement;
-        hasCustomStyle?: boolean;
-        anchor?: ControlAnchor;
-        offset?: Size;
-        scale?: number;
-        drawingModes?: DrawingType[];
+        enableTips?: boolean | undefined;
+        customContainer?: string | HTMLElement | undefined;
+        hasCustomStyle?: boolean | undefined;
+        anchor?: ControlAnchor | undefined;
+        offset?: Size | undefined;
+        scale?: number | undefined;
+        drawingModes?: DrawingType[] | undefined;
     }
 
     interface DrawingLimitOptions {
-        area?: number;
-        distance?: number;
+        area?: number | undefined;
+        distance?: number | undefined;
     }
 
     interface DistanceToolOptions {
-        tips?: string;
-        followText?: string;
-        unit?: 'metric' | 'us';
-        lineColor?: string;
-        lineStroke?: number;
-        opacity?: number;
-        lineStyle?: 'solid' | 'dashed' | 'dotted';
-        cursor?: string;
-        secIcon?: Icon;
-        closeIcon?: Icon;
+        tips?: string | undefined;
+        followText?: string | undefined;
+        unit?: 'metric' | 'us' | undefined;
+        lineColor?: string | undefined;
+        lineStroke?: number | undefined;
+        opacity?: number | undefined;
+        lineStyle?: 'solid' | 'dashed' | 'dotted' | undefined;
+        cursor?: string | undefined;
+        secIcon?: Icon | undefined;
+        closeIcon?: Icon | undefined;
     }
 }
 

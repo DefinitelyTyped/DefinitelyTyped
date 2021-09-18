@@ -6,7 +6,9 @@
 // Minimum TypeScript Version: 3.6
 
 declare function AddEvent(htmlElement: HTMLElement, eventName: string, eventFunction: (e: Event) => void): void;
-declare function l(name: string): HTMLElement;
+declare function l(name: string): HTMLElement | null;
+declare function escapeRegExp(str: string): string;
+declare function replaceAll(find: string, replace: string, str: string): string;
 declare function PlaySound(url: string, volume?: number, pitch?: number): void;
 /**
  * Floors or ceils randomly, biased by the decimal value
@@ -30,11 +32,29 @@ declare function toFixed(x: number): string;
  */
 declare function Beautify(val: number, floats?: number): string;
 
+declare function SimpleBeautify(val: number): string;
+
+declare function BeautifyInTextFunction(str: string): string;
+/**
+ * Reformats all numbers in the string be beautified
+ */
+declare function BeautifyInText(str: string): string;
+
+/**
+ * Runs BeautifyInText on all upgrades and achievements
+ */
+declare function BeautifyAll(): void;
+
+/**
+ * This is the global Audio class, `Audio` is a slightly modified version which disables soundjay links.
+ */
+declare var realAudio: typeof Audio;
+
 interface Math {
     /**
      * Changes `Math.random` to output numbers based on the seed
      */
-    seedrandom(seed: string): void;
+    seedrandom(seed?: string): void;
 }
 
 interface CanvasRenderingContext2D {
@@ -415,6 +435,14 @@ declare namespace Game {
          * Does nothing @deprecated
          */
         wobble(): void;
+        /**
+         * The tooltip itself
+         */
+        tt: HTMLDivElement;
+        /**
+         * The anchor of the tooltip which is positioned with `top` and `left`
+         */
+        tta: HTMLDivElement;
     }
     export let tooltip: Tooltip;
     /**
@@ -523,10 +551,10 @@ declare namespace Game {
     export function PickAscensionMode(): void;
 
     export function UpdateLegacyPrompt(): void;
-    export let ascendl: object;
-    export let ascendContentl: object;
-    export let ascendZoomablel: object;
-    export let ascendUpgradesl: object;
+    export let ascendl: HTMLDivElement;
+    export let ascendContentl: HTMLDivElement;
+    export let ascendZoomablel: HTMLDivElement;
+    export let ascendUpgradesl: HTMLDivElement;
     export let OnAscend: number;
     export let AscendTimer: number;
     export let AscendDuration: number;
@@ -553,7 +581,7 @@ declare namespace Game {
     export let AscendZoomT: number;
     export let AscendDragging: number;
     export let AscendGridSnap: number;
-    export let heavenlyBounds: object;
+    export let heavenlyBounds: Record<'top' | 'right' | 'bottom' | 'left', number>;
 
     export function UpdateAscend(): void;
 
@@ -625,7 +653,7 @@ declare namespace Game {
 
     export function GetMouseCoords(e: MouseEvent): void;
     export let Click: number;
-    export let lastClickedEl: object;
+    export let lastClickedEl: Element | PseudoNull;
     export let clickFrom: number;
     export let Scroll: number;
     export let mouseDown: number;
@@ -635,34 +663,34 @@ declare namespace Game {
     export let keys: number[];
     export let heavenlyPower: number;
     export let recalculateGains: number;
-    export let cookiesPsByType: object;
-    export let cookiesMultByType: object;
+    export let cookiesPsByType: Record<string, number>;
+    export let cookiesMultByType: Record<string, number>;
     export interface Effects {
-        cps: number;
-        click: number;
-        cursorCps: number;
-        grandmaCps: number;
-        goldenCookieGain: number;
-        goldenCookieFreq: number;
-        goldenCookieDur: number;
-        goldenCookieEffDur: number;
-        wrathCookieGain: number;
-        wrathCookieFreq: number;
-        wrathCookieDur: number;
-        wrathCookieEffDur: number;
-        reindeerGain: number;
-        reindeerFreq: number;
-        reindeerDur: number;
-        itemDrops: number;
-        milk: number;
-        wrinklerSpawn: number;
-        wrinklerEat: number;
-        upgradeCost: number;
-        buildingCost: number;
+        cps?: number | undefined;
+        click?: number | undefined;
+        cursorCps?: number | undefined;
+        grandmaCps?: number | undefined;
+        goldenCookieGain?: number | undefined;
+        goldenCookieFreq?: number | undefined;
+        goldenCookieDur?: number | undefined;
+        goldenCookieEffDur?: number | undefined;
+        wrathCookieGain?: number | undefined;
+        wrathCookieFreq?: number | undefined;
+        wrathCookieDur?: number | undefined;
+        wrathCookieEffDur?: number | undefined;
+        reindeerGain?: number | undefined;
+        reindeerFreq?: number | undefined;
+        reindeerDur?: number | undefined;
+        itemDrops?: number | undefined;
+        milk?: number | undefined;
+        wrinklerSpawn?: number | undefined;
+        wrinklerEat?: number | undefined;
+        upgradeCost?: number | undefined;
+        buildingCost?: number | undefined;
     }
     export let effs: Effects;
 
-    export function eff(name: string, def: string): Effects;
+    export function eff(name: string, def: number): number;
 
     export function CalculateGains(): void;
 
@@ -732,7 +760,7 @@ declare namespace Game {
         pic: string;
         picPos: [number, number];
         text: string | number;
-        l?: HTMLElement;
+        l?: HTMLElement | undefined;
     }
 
     export let particles: Particle[];
@@ -749,7 +777,7 @@ declare namespace Game {
         z: number,
         pic: string,
         text: string,
-    ): Particle | object;
+    ): Particle;
 
     export function particlesDraw(z: number): void;
 
@@ -761,7 +789,7 @@ declare namespace Game {
     export let popups: number;
 
     export function Popup(text: string, x: number, y: number): void;
-    export let sparkles: object;
+    export let sparkles: HTMLDivElement;
     export let sparklesT: number;
     export let sparklesFrames: number;
 
@@ -798,11 +826,11 @@ declare namespace Game {
 
     export function NotesDraw(): void;
 
-    export function Notify(title: string, desc?: string, pic?: Icon, quick?: number, noLog?: boolean): void;
-    export let darkenL: object;
-    export let promptL: object;
-    export let promptAnchorL: object;
-    export let promptWrapL: object;
+    export function Notify(title: string, desc: string, pic?: Icon, quick?: number, noLog?: boolean): void;
+    export let darkenL: HTMLDivElement;
+    export let promptL: HTMLDivElement;
+    export let promptAnchorL: HTMLDivElement;
+    export let promptWrapL: HTMLDivElement;
     export let promptConfirm: string;
     export let promptOn: number;
     export let promptUpdateFunc: number;
@@ -896,8 +924,8 @@ declare namespace Game {
     export function setVolume(what: number): void;
 
     export function UpdateMenu(): void;
-    export let ascendMeter: object;
-    export let ascendNumber: object;
+    export let ascendMeter: HTMLDivElement;
+    export let ascendNumber: HTMLDivElement;
     export let lastPanel: string;
     export let Ticker: string;
     export let TickerAge: number;
@@ -959,7 +987,7 @@ declare namespace Game {
         /**
          * The chance of contaminating a neighbor plant
          */
-        contam?: number;
+        contam?: number | undefined;
         /**
          * The cost of the plant, in second of CpS
          */
@@ -971,7 +999,7 @@ declare namespace Game {
         /**
          * An additional description for the plant, eg. "Immortal"
          */
-        detailsStr?: string;
+        detailsStr?: string | undefined;
         /**
          * The HTML string of the effects of the plant
          */
@@ -979,7 +1007,7 @@ declare namespace Game {
         /**
          * True if the plant is a fungus
          */
-        fungus?: boolean;
+        fungus?: boolean | undefined;
         /**
          * The icon row for the plant in the plant sheet
          */
@@ -988,7 +1016,7 @@ declare namespace Game {
         /**
          * True if the plant should never go past the mature stage
          */
-        immortal?: PseudoBoolean | boolean;
+        immortal?: PseudoBoolean | boolean | undefined;
         /**
          * The internal name of the plant
          */
@@ -1012,19 +1040,19 @@ declare namespace Game {
         /**
          * If true, the plant can't be contaminated
          */
-        noContam?: boolean;
+        noContam?: boolean | undefined;
         /**
          * Called when the plant has died due to natural causes
          */
-        onDie?: (x: number, y: number) => void;
+        onDie?: ((x: number, y: number) => void) | undefined;
         /**
          * Called when the plant has been harvested
          */
-        onHarvest?: (x: number, y: number, age: number) => void;
+        onHarvest?: ((x: number, y: number, age: number) => void) | undefined;
         /**
          * Called when the plant has been harvested or freezed to death
          */
-        onKill?: (x: number, y: number, age: number) => void;
+        onKill?: ((x: number, y: number, age: number) => void) | undefined;
 
         plantable: boolean;
         /**
@@ -1087,7 +1115,7 @@ declare namespace Game {
         /**
          * A function which generates the description for the tool
          */
-        descFunc?: () => string;
+        descFunc?: (() => string) | undefined;
         /**
          * Function which is called on usage of the tool
          */
@@ -1100,11 +1128,11 @@ declare namespace Game {
         /**
          * Determines if the tool should be displayed
          */
-        isDisplayed?: () => boolean;
+        isDisplayed?: (() => boolean) | undefined;
         /**
          * Determines if the tool should be displayed as currently in use
          */
-        isOn?: () => boolean;
+        isOn?: (() => boolean) | undefined;
         /**
          * The internal name of the tool
          */
@@ -1133,7 +1161,7 @@ declare namespace Game {
          * Updates the mature times of plants, affected by seedless to nay
          */
         computeMatures(): void;
-        plantContam: object;
+        plantContam: Record<string, number>;
         /**
          * Computes the avaliable mutations for a tile
          * @param neighs The amount of neighbors for each plant
@@ -1323,27 +1351,27 @@ declare namespace Game {
         /**
          * Additional description which is only shown if the spirit is slotted
          */
-        activeDescFunc?: () => string;
+        activeDescFunc?: (() => string) | undefined;
         /**
          * The description of the effects of having the spirit in the first slot in HTML text
          */
-        desc1?: string;
+        desc1?: string | undefined;
         /**
          * The description of the effects of having the spirit in the second slot in HTML text
          */
-        desc2?: string;
+        desc2?: string | undefined;
         /**
          * The description of the effects of having the spirit in the third slot in HTLM text
          */
-        desc3?: string;
+        desc3?: string | undefined;
         /**
          * The text to display after all other descriptions
          */
-        descAfter?: string;
+        descAfter?: string | undefined;
         /**
          * The text to display before all other descriptions
          */
-        descBefore?: string;
+        descBefore?: string | undefined;
 
         icon: Icon;
 
@@ -1446,7 +1474,7 @@ declare namespace Game {
         /**
          * The cost of the spell, in raw multiplier of max mana
          */
-        costPercent?: number;
+        costPercent?: number | undefined;
         /**
          * The description of the positive effect of the spell, in HTML text
          */
@@ -1458,11 +1486,11 @@ declare namespace Game {
         /**
          * The description of the negative effect of the spell, in HTML text
          */
-        failDesc?: string;
+        failDesc?: string | undefined;
         /**
          * Called when the spell fails
          */
-        fail?: () => -1 | void;
+        fail?: (() => -1 | void) | undefined;
         id: number;
         icon: Icon;
         /**
@@ -1495,27 +1523,27 @@ declare namespace Game {
                 /**
                  * The overridden cost of the spell
                  */
-                cost?: number;
+                cost?: number | undefined;
                 /**
                  * The overridden fail chance of the spell
                  */
-                failChanceSet?: number;
+                failChanceSet?: number | undefined;
                 /**
                  * The additional fail chance of the spell
                  */
-                failChanceAdd?: number;
+                failChanceAdd?: number | undefined;
                 /**
                  * The multiplier of the fail chance of the spell
                  */
-                failChanceMult?: number;
+                failChanceMult?: number | undefined;
                 /**
                  * The minimum the fail chance of the spell
                  */
-                failChanceMax?: number;
+                failChanceMax?: number | undefined;
                 /**
                  * If true, the spell isn't counted towards the spell count
                  */
-                passthrough?: boolean;
+                passthrough?: boolean | undefined;
             },
         ): boolean;
         /**
@@ -1808,30 +1836,30 @@ declare namespace Game {
     export let ObjectsN: number;
     export let BuildingsOwned: number;
     interface BaselessArt {
-        xV?: number;
-        yV?: number;
-        w?: number;
-        h?: number;
-        rows?: number;
-        x?: number;
-        y?: number;
+        xV?: number | undefined;
+        yV?: number | undefined;
+        w?: number | undefined;
+        h?: number | undefined;
+        rows?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
         pic: string | ((building: GameObject, i: number) => string);
         bg: string | ((building: GameObject, ctx: CanvasRenderingContext2D) => void);
-        frames?: number;
+        frames?: number | undefined;
     }
 
     interface BaseArt {
         base: string;
-        xV?: number;
-        yV?: number;
-        w?: number;
-        h?: number;
-        rows?: number;
-        x?: number;
-        y?: number;
-        pic?: string | ((building: GameObject, i: number) => string);
-        bg?: string | ((building: GameObject, ctx: CanvasRenderingContext2D) => void);
-        frames?: number;
+        xV?: number | undefined;
+        yV?: number | undefined;
+        w?: number | undefined;
+        h?: number | undefined;
+        rows?: number | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        pic?: string | ((building: GameObject, i: number) => string) | undefined;
+        bg?: string | ((building: GameObject, ctx: CanvasRenderingContext2D) => void) | undefined;
+        frames?: number | undefined;
     }
 
     export type Art = BaselessArt | BaseArt;
@@ -1853,11 +1881,20 @@ declare namespace Game {
          */
         launch(): void;
         init(div: HTMLDivElement): void;
-        effs?: Effects;
+        effs?: Effects | undefined;
         onLevel?(): void;
         onRuinTheFun?(): void;
         draw?(): void;
         logic?(): void;
+    }
+
+    export interface BuildingArtPicture {
+        frame: number;
+        id: number;
+        pic: string;
+        x: number;
+        y: number;
+        z: number;
     }
 
     class GameObject {
@@ -1941,7 +1978,7 @@ declare namespace Game {
          * Sells buildings without refunding the cookies
          * @param amount The amount of buildings to sacrifice
          */
-        sacrafice(amount: number): void;
+        sacrifice(amount: number): void;
         /**
          * The function that gets called on buy
          */
@@ -2043,7 +2080,7 @@ declare namespace Game {
         /**
          * The function that determines the buildings big icon, overridden by business day
          */
-        iconFunc?: (type: undefined) => [number, number];
+        iconFunc?: ((type: undefined) => [number, number]) | undefined;
         /**
          * Buildings id, 0 based
          */
@@ -2066,11 +2103,11 @@ declare namespace Game {
          */
         locked: PseudoBoolean;
 
-        minigame?: Minigame;
+        minigame?: Minigame | undefined;
 
         minigameLoaded: boolean;
 
-        minigameLoading?: boolean;
+        minigameLoading?: boolean | undefined;
 
         minigameSave: string;
 
@@ -2102,14 +2139,7 @@ declare namespace Game {
         /**
          * The singular pictures used in the art
          */
-        pics: Array<{
-            frame: number;
-            id: number;
-            pic: string;
-            x: number;
-            y: number;
-            z: number;
-        }>;
+        pics: BuildingArtPicture[];
         single: string;
         plural: string;
 
@@ -2125,7 +2155,7 @@ declare namespace Game {
          */
         storedTotalCps: number;
 
-        grandma?: GrandmaSynergyClass;
+        grandma?: GrandmaSynergyClass | undefined;
 
         synergies: Array<SynergyUpgradeClass<string>>;
 
@@ -2172,7 +2202,7 @@ declare namespace Game {
 
     export function magicCpS(what: unknown): number;
     export let SpecialGrandmaUnlock: number;
-    export let foolObjects: FoolBuilding[];
+    export let foolObjects: Record<string, FoolBuilding>;
 
     export function ClickProduct(what: GameObject): void;
 
@@ -2207,7 +2237,7 @@ declare namespace Game {
         /**
          * The function to generate the upgrade descroption
          */
-        descFunc?: () => string;
+        descFunc?: (() => string) | undefined;
         /**
          * The price of the upgrade without the cost multipliers
          */
@@ -2244,7 +2274,9 @@ declare namespace Game {
         /**
          * The power of a cookie upgrade, present as `0` on Non-cookie upgrades
          */
-        power: number | ((me: this) => number);
+        // The TSLint disable is for the generic, which is a hack required for a multitude of real use-cases
+        // tslint:disable-next-line
+        power: number | (<T extends this = this>(me: T) => number);
         /**
          * The price of the upgrade, this is visual only, so the lump spending must be manually implemented
          */
@@ -2265,15 +2297,15 @@ declare namespace Game {
          * If true, it is considered a pseudo cookie
          * A pseudo cookie upgrade which represents an upgrade which doesn't have to be in the cookie pool but its power is calculated in cookie CpS bonuses
          */
-        pseudoCookie?: PseudoBoolean | boolean;
+        pseudoCookie?: PseudoBoolean | boolean | undefined;
         /**
          * If true, the upgrade is always unlocked, across ascensions
          */
-        lasting?: PseudoBoolean | boolean;
+        lasting?: PseudoBoolean | boolean | undefined;
         /**
          * If true, the upgrade cannot be put inside a permanent slot
          */
-        noPerm?: PseudoBoolean | boolean;
+        noPerm?: PseudoBoolean | boolean | undefined;
         /**
          * The function that gets triggered on click, vaults or buys the upgrade
          */
@@ -2286,11 +2318,11 @@ declare namespace Game {
         /**
          * Function triggered when the upgrade is attempted to be bought, return value specifies if the upgrade is allowed to be bough
          */
-        clickFunction?: () => boolean;
+        clickFunction?: (() => boolean) | undefined;
         /**
          * Called everytime the upgrade is attempted to be bought, originally designed for permaslots
          */
-        activateFunction?: () => void;
+        activateFunction?: (() => void) | undefined;
         /**
          * The function that gets triggered on buy
          */
@@ -2300,10 +2332,10 @@ declare namespace Game {
          * Calculates the price for the upgrade
          */
         getPrice(): number;
-        priceFunc?: () => number;
+        priceFunc?: (() => number) | undefined;
 
         canBuy(): boolean;
-        canBuyFunc?: () => boolean;
+        canBuyFunc?: (() => boolean) | undefined;
 
         isVaulted(): boolean;
         vault(): void;
@@ -2367,11 +2399,11 @@ declare namespace Game {
         /**
          * The name of the upgrade or achievement required to unlock the cookie
          */
-        require?: string;
+        require?: string | undefined;
         /**
          * The cookie required to unlock the cookie
          */
-        season?: string;
+        season?: string | undefined;
     }
     export let UnlockAt: UnlockRequirement[];
     export interface CookieUpgrade {
@@ -2383,11 +2415,11 @@ declare namespace Game {
         /**
          * The name of cookie required to unlock the cookie
          */
-        require?: string;
+        require?: string | undefined;
         /**
          * The season required to unlock the cookie
          */
-        season?: string;
+        season?: string | undefined;
     }
     /**
      * Creates a cookie upgrade
@@ -2417,7 +2449,7 @@ declare namespace Game {
         /**
          * The name of the upgrade to be required to unlock the tier (Only checked for synergy upgrades)
          */
-        req?: string;
+        req?: string | undefined;
 
         /**
          * If true, Upgrades with this tier won't count towards tiered CpS multiplier
@@ -2498,7 +2530,7 @@ declare namespace Game {
      * Computes the multiplier for the building from the upgrades
      */
     export function GetTieredCpsMult(me: GameObject): number;
-    export function UnlockTiered(me: Upgrade): void;
+    export function UnlockTiered(me: GameObject): void;
     /**
      * The list of the names of grandma synergies
      */
@@ -2517,14 +2549,14 @@ declare namespace Game {
     export function GrandmaSynergy(name: string, desc: string, building: string): GrandmaSynergyClass;
     export interface SelectorSwitchChoice {
         name: string;
-        selected?: boolean | PseudoBoolean;
-        id?: number;
-        order?: number;
+        selected?: boolean | PseudoBoolean | undefined;
+        id?: number | undefined;
+        order?: number | undefined;
         icon: Icon;
         /**
          * True to make a line
          */
-        div?: boolean;
+        div?: boolean | undefined;
     }
     export interface SelectorSwitch extends Upgrade {
         pool: 'toggle';
@@ -2548,7 +2580,7 @@ declare namespace Game {
         /**
          * Should return the amount of time left, -1 for no time
          */
-        timerDisplay?: () => number;
+        timerDisplay?: (() => number) | undefined;
     }
 
     export interface SeasonSwitch extends TimerSwitch {
@@ -2679,7 +2711,7 @@ declare namespace Game {
         /**
          * The function that determines if the heavenly upgrade should be shown
          */
-        showIf?: () => boolean;
+        showIf?: (() => boolean) | undefined;
     }
 
     export let PrestigeUpgrades: HeavenlyUpgrade[];
@@ -2737,7 +2769,7 @@ declare namespace Game {
         /**
          * Called when the achievement crate is clicked
          */
-        clickFunction?: () => void;
+        clickFunction?: (() => void) | undefined;
         /**
          * Toggles the achievement state
          */
@@ -2841,45 +2873,62 @@ declare namespace Game {
      */
     export function CpsAchievement(name: string, q?: string): CpsAchievementClass;
 
-    export interface Buff {
-        name: string;
-        desc: string;
-        icon: Icon;
+    export interface BuffParameter {
+        name?: string | undefined;
+        desc?: string | undefined;
+        icon?: Icon | undefined;
         /**
-         * The amount of time this buff exists for, in frames
+         * The amount of frames this buff will exist for
+         * Decremented by 1 each frame
          */
-        time: number;
+        time?: number;
         /** @deprecated */
-        visible?: boolean;
+        visible?: boolean | undefined;
         /**
          * If true, when a buff it gained when it already exists, adds the buff times together
          */
-        add?: boolean;
+        add?: boolean | undefined;
         /**
          * If true, when a buff it gained when it already exists, use the maximum buff time of the two
          */
-        max?: boolean;
-        onDie?: () => void;
-        multCpS?: number;
-        multClick?: number;
+        max?: boolean | undefined;
+        onDie?: (() => void) | undefined;
+        multCpS?: number | undefined;
+        multClick?: number | undefined;
         /**
          * If 1, show the good aura, if 2, show the bad aura
          */
-        aura?: 1 | 2;
+        aura?: 1 | 2 | undefined;
         /**
          * Rarely used, as of v2.031 only Cursed Finger uses this
          */
-        pow?: number;
+        pow?: number | undefined;
+    }
+
+    export interface Buff extends BuffParameter {
+        name: string;
+        desc: string;
+        icon: Icon;
+        time: number;
+        /**
+         * The total length of the buff in frames
+         */
+        maxTime: number;
+        arg1: number | undefined;
+        arg2: number | undefined;
+        arg3: number | undefined;
+        type: buffType;
+        l: HTMLDivElement;
     }
     export let buffs: Buff[];
     export let buffsN: number;
     export let buffsL: HTMLDivElement;
 
-    export function gainBuff(type: string, time: number, arg1: number, arg2: number, arg3: number): Buff;
+    export function gainBuff(type: string, time: number, arg1?: number, arg2?: number, arg3?: number): Buff;
     /**
      * Returns 0 if there is no buff in effect with this name; else, returns it
      */
-    export function hasBuff(what: string): number | Buff;
+    export function hasBuff(what: string): 0 | Buff;
 
     export function updateBuffs(): void;
     export function killBuff(what: string): void;
@@ -2891,7 +2940,7 @@ declare namespace Game {
     export let buffTypesByName: undefined[] & Record<string, buffType>;
     export let buffTypesN: number;
     export class buffType {
-        constructor(name: string, func: (time: number, arg1?: number, arg2?: number, arg3?: number) => Buff);
+        constructor(name: string, func: (time: number, arg1?: number, arg2?: number, arg3?: number) => BuffParameter);
         name: string;
         func: (time: number, arg1?: number, arg2?: number, arg3?: number) => Buff;
         id: number;
@@ -3058,10 +3107,10 @@ declare namespace Game {
     export let choiceSelectorSelected: number;
 
     export interface Mod {
-        init?: () => void;
-        save?: () => string;
-        load?: (data: string) => void;
-        id?: number;
+        init?: (() => void) | undefined;
+        save?: (() => string) | undefined;
+        load?: ((data: string) => void) | undefined;
+        id?: string | undefined;
     }
 
     export let mods: Record<string, Mod>;

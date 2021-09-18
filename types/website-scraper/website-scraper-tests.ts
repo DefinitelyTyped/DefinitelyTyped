@@ -2,8 +2,8 @@ import scraper = require('website-scraper');
 
 scraper({
     urls: [
-        'http://nodejs.org/',
-        { url: 'http://nodejs.org/about', filename: 'about.html' },
+        'https://nodejs.org/',
+        { url: 'https://nodejs.org/about', filename: 'about.html' },
         { url: 'http://blog.nodejs.org/', filename: 'blog.html' },
     ],
     directory: '/path/to/save',

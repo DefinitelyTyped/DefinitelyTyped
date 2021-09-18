@@ -166,331 +166,331 @@ declare namespace __MaterialUI {
 
     export namespace Styles {
         interface Spacing {
-            iconSize?: number;
+            iconSize?: number | undefined;
 
-            desktopGutter?: number;
-            desktopGutterMore?: number;
-            desktopGutterLess?: number;
-            desktopGutterMini?: number;
-            desktopKeylineIncrement?: number;
-            desktopDropDownMenuItemHeight?: number;
-            desktopDropDownMenuFontSize?: number;
-            desktopLeftNavMenuItemHeight?: number;
-            desktopSubheaderHeight?: number;
-            desktopToolbarHeight?: number;
+            desktopGutter?: number | undefined;
+            desktopGutterMore?: number | undefined;
+            desktopGutterLess?: number | undefined;
+            desktopGutterMini?: number | undefined;
+            desktopKeylineIncrement?: number | undefined;
+            desktopDropDownMenuItemHeight?: number | undefined;
+            desktopDropDownMenuFontSize?: number | undefined;
+            desktopLeftNavMenuItemHeight?: number | undefined;
+            desktopSubheaderHeight?: number | undefined;
+            desktopToolbarHeight?: number | undefined;
         }
         export let Spacing: Spacing;
 
         interface ThemePalette {
-            primary1Color?: string;
-            primary2Color?: string;
-            primary3Color?: string;
-            accent1Color?: string;
-            accent2Color?: string;
-            accent3Color?: string;
-            textColor?: string;
-            secondaryTextColor?: string;
-            alternateTextColor?: string;
-            canvasColor?: string;
-            borderColor?: string;
-            disabledColor?: string;
-            pickerHeaderColor?: string;
-            clockCircleColor?: string;
-            shadowColor?: string;
+            primary1Color?: string | undefined;
+            primary2Color?: string | undefined;
+            primary3Color?: string | undefined;
+            accent1Color?: string | undefined;
+            accent2Color?: string | undefined;
+            accent3Color?: string | undefined;
+            textColor?: string | undefined;
+            secondaryTextColor?: string | undefined;
+            alternateTextColor?: string | undefined;
+            canvasColor?: string | undefined;
+            borderColor?: string | undefined;
+            disabledColor?: string | undefined;
+            pickerHeaderColor?: string | undefined;
+            clockCircleColor?: string | undefined;
+            shadowColor?: string | undefined;
         }
         export let ThemePalette: ThemePalette;
         interface MuiTheme {
-            spacing?: Spacing;
-            fontFamily?: string;
-            palette?: ThemePalette;
-            isRtl?: boolean;
-            userAgent?: string | boolean;
-            zIndex?: zIndex;
-            baseTheme?: RawTheme;
-            rawTheme?: RawTheme;
+            spacing?: Spacing | undefined;
+            fontFamily?: string | undefined;
+            palette?: ThemePalette | undefined;
+            isRtl?: boolean | undefined;
+            userAgent?: string | boolean | undefined;
+            zIndex?: zIndex | undefined;
+            baseTheme?: RawTheme | undefined;
+            rawTheme?: RawTheme | undefined;
             appBar?: {
-                color?: string;
-                textColor?: string;
-                height?: number;
-                titleFontWeight?: number;
-                padding?: number;
-            };
+                color?: string | undefined;
+                textColor?: string | undefined;
+                height?: number | undefined;
+                titleFontWeight?: number | undefined;
+                padding?: number | undefined;
+            } | undefined;
             avatar?: {
-                color?: string;
-                backgroundColor?: string;
-                borderColor?: string;
-            };
+                color?: string | undefined;
+                backgroundColor?: string | undefined;
+                borderColor?: string | undefined;
+            } | undefined;
             badge?: {
-                color?: string;
-                textColor?: string;
-                primaryColor?: string;
-                primaryTextColor?: string;
-                secondaryColor?: string;
-                secondaryTextColor?: string;
-                fontWeight?: number;
-            };
+                color?: string | undefined;
+                textColor?: string | undefined;
+                primaryColor?: string | undefined;
+                primaryTextColor?: string | undefined;
+                secondaryColor?: string | undefined;
+                secondaryTextColor?: string | undefined;
+                fontWeight?: number | undefined;
+            } | undefined;
             button?: {
-                height?: number;
-                minWidth?: number;
-                iconButtonSize?: number;
-                textTransform?: string;
-            };
+                height?: number | undefined;
+                minWidth?: number | undefined;
+                iconButtonSize?: number | undefined;
+                textTransform?: string | undefined;
+            } | undefined;
             card?: {
-                titleColor?: string;
-                subtitleColor?: string;
-                fontWeight?: number;
-            };
+                titleColor?: string | undefined;
+                subtitleColor?: string | undefined;
+                fontWeight?: number | undefined;
+            } | undefined;
             cardMedia?: {
-                color?: string;
-                overlayContentBackground?: string;
-                titleColor?: string;
-                subtitleColor?: string;
-            };
+                color?: string | undefined;
+                overlayContentBackground?: string | undefined;
+                titleColor?: string | undefined;
+                subtitleColor?: string | undefined;
+            } | undefined;
             cardText?: {
-                textColor?: string;
-            };
+                textColor?: string | undefined;
+            } | undefined;
             checkbox?: {
-                boxColor?: string;
-                checkedColor?: string;
-                requiredColor?: string;
-                disabledColor?: string;
-                labelColor?: string;
-                labelDisabledColor?: string;
-            };
+                boxColor?: string | undefined;
+                checkedColor?: string | undefined;
+                requiredColor?: string | undefined;
+                disabledColor?: string | undefined;
+                labelColor?: string | undefined;
+                labelDisabledColor?: string | undefined;
+            } | undefined;
             chip?: {
-                backgroundColor?: string;
-                deleteIconColor?: string;
-                textColor?: string;
-                fontSize?: number;
-                fontWeight?: number;
-                shadow?: string;
-            };
+                backgroundColor?: string | undefined;
+                deleteIconColor?: string | undefined;
+                textColor?: string | undefined;
+                fontSize?: number | undefined;
+                fontWeight?: number | undefined;
+                shadow?: string | undefined;
+            } | undefined;
             datePicker?: {
-                color?: string;
-                textColor?: string;
-                calendarTextColor?: string;
-                selectColor?: string;
-                selectTextColor?: string;
-                calendarYearBackgroundColor?: string;
-                headerColor?: string;
-            };
+                color?: string | undefined;
+                textColor?: string | undefined;
+                calendarTextColor?: string | undefined;
+                selectColor?: string | undefined;
+                selectTextColor?: string | undefined;
+                calendarYearBackgroundColor?: string | undefined;
+                headerColor?: string | undefined;
+            } | undefined;
             dialog?: {
-                titleFontSize?: number;
-                bodyFontSize?: number;
-                bodyColor?: string;
-            };
+                titleFontSize?: number | undefined;
+                bodyFontSize?: number | undefined;
+                bodyColor?: string | undefined;
+            } | undefined;
             dropDownMenu?: {
-                accentColor?: string;
-            };
+                accentColor?: string | undefined;
+            } | undefined;
             enhancedButton?: {
-                tapHighlightColor?: string;
-            };
+                tapHighlightColor?: string | undefined;
+            } | undefined;
             flatButton?: {
-                color?: string;
-                buttonFilterColor?: string;
-                disabledTextColor?: string;
-                textColor?: string;
-                primaryTextColor?: string;
-                secondaryTextColor?: string;
-                fontSize?: number;
-                fontWeight?: number;
-            };
+                color?: string | undefined;
+                buttonFilterColor?: string | undefined;
+                disabledTextColor?: string | undefined;
+                textColor?: string | undefined;
+                primaryTextColor?: string | undefined;
+                secondaryTextColor?: string | undefined;
+                fontSize?: number | undefined;
+                fontWeight?: number | undefined;
+            } | undefined;
             floatingActionButton?: {
-                buttonSize?: number;
-                miniSize?: number;
-                color?: string;
-                iconColor?: string;
-                secondaryColor?: string;
-                secondaryIconColor?: string;
-                disabledTextColor?: string;
-                disabledColor?: string;
-            };
+                buttonSize?: number | undefined;
+                miniSize?: number | undefined;
+                color?: string | undefined;
+                iconColor?: string | undefined;
+                secondaryColor?: string | undefined;
+                secondaryIconColor?: string | undefined;
+                disabledTextColor?: string | undefined;
+                disabledColor?: string | undefined;
+            } | undefined;
             gridTile?: {
-                textColor?: string;
-            };
+                textColor?: string | undefined;
+            } | undefined;
             icon?: {
-                color?: string;
-                backgroundColor?: string;
-            };
+                color?: string | undefined;
+                backgroundColor?: string | undefined;
+            } | undefined;
             inkBar?: {
-                backgroundColor?: string;
-            };
+                backgroundColor?: string | undefined;
+            } | undefined;
             drawer?: {
-                width?: number;
-                color?: string;
-            };
+                width?: number | undefined;
+                color?: string | undefined;
+            } | undefined;
             listItem?: {
-                nestedLevelDepth?: number;
-                secondaryTextColor?: string;
-                leftIconColor?: string;
-                rightIconColor?: string;
-            };
+                nestedLevelDepth?: number | undefined;
+                secondaryTextColor?: string | undefined;
+                leftIconColor?: string | undefined;
+                rightIconColor?: string | undefined;
+            } | undefined;
             menu?: {
-                backgroundColor?: string;
-                containerBackgroundColor?: string;
-            };
+                backgroundColor?: string | undefined;
+                containerBackgroundColor?: string | undefined;
+            } | undefined;
             menuItem?: {
-                dataHeight?: number;
-                height?: number;
-                hoverColor?: string;
-                padding?: number;
-                selectedTextColor?: string;
-                rightIconDesktopFill?: string;
-            };
+                dataHeight?: number | undefined;
+                height?: number | undefined;
+                hoverColor?: string | undefined;
+                padding?: number | undefined;
+                selectedTextColor?: string | undefined;
+                rightIconDesktopFill?: string | undefined;
+            } | undefined;
             menuSubheader?: {
-                padding?: number;
-                borderColor?: string;
-                textColor?: string;
-            };
+                padding?: number | undefined;
+                borderColor?: string | undefined;
+                textColor?: string | undefined;
+            } | undefined;
             overlay?: {
-                backgroundColor?: string;
-            };
+                backgroundColor?: string | undefined;
+            } | undefined;
             paper?: {
-                color?: string;
-                backgroundColor?: string;
-                zDepthShadows?: string[];
-            };
+                color?: string | undefined;
+                backgroundColor?: string | undefined;
+                zDepthShadows?: string[] | undefined;
+            } | undefined;
             radioButton?: {
-                borderColor?: string;
-                backgroundColor?: string;
-                checkedColor?: string;
-                requiredColor?: string;
-                disabledColor?: string;
-                size?: number;
-                labelColor?: string;
-                labelDisabledColor?: string;
-            };
+                borderColor?: string | undefined;
+                backgroundColor?: string | undefined;
+                checkedColor?: string | undefined;
+                requiredColor?: string | undefined;
+                disabledColor?: string | undefined;
+                size?: number | undefined;
+                labelColor?: string | undefined;
+                labelDisabledColor?: string | undefined;
+            } | undefined;
             raisedButton?: {
-                color?: string;
-                textColor?: string;
-                primaryColor?: string;
-                primaryTextColor?: string;
-                secondaryColor?: string;
-                secondaryTextColor?: string;
-                disabledColor?: string;
-                disabledTextColor?: string;
-                fontSize?: number;
-                fontWeight?: number;
-            };
+                color?: string | undefined;
+                textColor?: string | undefined;
+                primaryColor?: string | undefined;
+                primaryTextColor?: string | undefined;
+                secondaryColor?: string | undefined;
+                secondaryTextColor?: string | undefined;
+                disabledColor?: string | undefined;
+                disabledTextColor?: string | undefined;
+                fontSize?: number | undefined;
+                fontWeight?: number | undefined;
+            } | undefined;
             refreshIndicator?: {
-                strokeColor?: string;
-                loadingStrokeColor?: string;
-            };
+                strokeColor?: string | undefined;
+                loadingStrokeColor?: string | undefined;
+            } | undefined;
             ripple?: {
-                color?: string;
-            };
+                color?: string | undefined;
+            } | undefined;
             slider?: {
-                trackSize?: number;
-                trackColor?: string;
-                trackColorSelected?: string;
-                handleSize?: number;
-                handleSizeDisabled?: number;
-                handleSizeActive?: number;
-                handleColorZero?: string;
-                handleFillColor?: string;
-                selectionColor?: string;
-                rippleColor?: string;
-            };
+                trackSize?: number | undefined;
+                trackColor?: string | undefined;
+                trackColorSelected?: string | undefined;
+                handleSize?: number | undefined;
+                handleSizeDisabled?: number | undefined;
+                handleSizeActive?: number | undefined;
+                handleColorZero?: string | undefined;
+                handleFillColor?: string | undefined;
+                selectionColor?: string | undefined;
+                rippleColor?: string | undefined;
+            } | undefined;
             snackbar?: {
-                textColor?: string;
-                backgroundColor?: string;
-                actionColor?: string;
-            };
+                textColor?: string | undefined;
+                backgroundColor?: string | undefined;
+                actionColor?: string | undefined;
+            } | undefined;
             subheader?: {
-                color?: string;
-                fontWeight?: number;
-            };
+                color?: string | undefined;
+                fontWeight?: number | undefined;
+            } | undefined;
             stepper?: {
-                backgroundColor?: string;
-                hoverBackgroundColor?: string;
-                iconColor?: string;
-                hoveredIconColor?: string;
-                inactiveIconColor?: string;
-                textColor?: string;
-                disabledTextColor?: string;
-                connectorLineColor?: string;
-            };
+                backgroundColor?: string | undefined;
+                hoverBackgroundColor?: string | undefined;
+                iconColor?: string | undefined;
+                hoveredIconColor?: string | undefined;
+                inactiveIconColor?: string | undefined;
+                textColor?: string | undefined;
+                disabledTextColor?: string | undefined;
+                connectorLineColor?: string | undefined;
+            } | undefined;
             svgIcon?: {
-                color?: string,
-            };
+                color?: string | undefined,
+            } | undefined;
             table?: {
-                backgroundColor?: string;
-            };
+                backgroundColor?: string | undefined;
+            } | undefined;
             tableFooter?: {
-                borderColor?: string;
-                textColor?: string;
-            };
+                borderColor?: string | undefined;
+                textColor?: string | undefined;
+            } | undefined;
             tableHeader?: {
-                borderColor?: string;
-            };
+                borderColor?: string | undefined;
+            } | undefined;
             tableHeaderColumn?: {
-                textColor?: string;
-                height?: number;
-                spacing?: number;
-            };
+                textColor?: string | undefined;
+                height?: number | undefined;
+                spacing?: number | undefined;
+            } | undefined;
             tableRow?: {
-                hoverColor?: string;
-                stripeColor?: string;
-                selectedColor?: string;
-                textColor?: string;
-                borderColor?: string;
-                height?: number;
-            };
+                hoverColor?: string | undefined;
+                stripeColor?: string | undefined;
+                selectedColor?: string | undefined;
+                textColor?: string | undefined;
+                borderColor?: string | undefined;
+                height?: number | undefined;
+            } | undefined;
             tableRowColumn?: {
-                height?: number;
-                spacing?: number;
-            };
+                height?: number | undefined;
+                spacing?: number | undefined;
+            } | undefined;
             tabs?: {
-                backgroundColor?: string;
-                textColor?: string;
-                selectedTextColor?: string;
-            };
+                backgroundColor?: string | undefined;
+                textColor?: string | undefined;
+                selectedTextColor?: string | undefined;
+            } | undefined;
             textField?: {
-                textColor?: string;
-                hintColor?: string;
-                floatingLabelColor?: string;
-                disabledTextColor?: string;
-                errorColor?: string;
-                focusColor?: string;
-                backgroundColor?: string;
-                borderColor?: string;
-            };
+                textColor?: string | undefined;
+                hintColor?: string | undefined;
+                floatingLabelColor?: string | undefined;
+                disabledTextColor?: string | undefined;
+                errorColor?: string | undefined;
+                focusColor?: string | undefined;
+                backgroundColor?: string | undefined;
+                borderColor?: string | undefined;
+            } | undefined;
             timePicker?: {
-                color?: string;
-                textColor?: string;
-                accentColor?: string;
-                clockColor?: string;
-                clockCircleColor?: string;
-                headerColor?: string;
-                selectColor?: string;
-                selectTextColor?: string;
-            };
+                color?: string | undefined;
+                textColor?: string | undefined;
+                accentColor?: string | undefined;
+                clockColor?: string | undefined;
+                clockCircleColor?: string | undefined;
+                headerColor?: string | undefined;
+                selectColor?: string | undefined;
+                selectTextColor?: string | undefined;
+            } | undefined;
             toggle?: {
-                thumbOnColor?: string;
-                thumbOffColor?: string;
-                thumbDisabledColor?: string;
-                thumbRequiredColor?: string;
-                trackOnColor?: string;
-                trackOffColor?: string;
-                trackDisabledColor?: string;
-                labelColor?: string;
-                labelDisabledColor?: string;
-                trackRequiredColor?: string;
-            };
+                thumbOnColor?: string | undefined;
+                thumbOffColor?: string | undefined;
+                thumbDisabledColor?: string | undefined;
+                thumbRequiredColor?: string | undefined;
+                trackOnColor?: string | undefined;
+                trackOffColor?: string | undefined;
+                trackDisabledColor?: string | undefined;
+                labelColor?: string | undefined;
+                labelDisabledColor?: string | undefined;
+                trackRequiredColor?: string | undefined;
+            } | undefined;
             toolbar?: {
-                color?: string;
-                hoverColor?: string;
-                backgroundColor?: string;
-                height?: number;
-                titleFontSize?: number;
-                iconColor?: string;
-                separatorColor?: string;
-                menuHoverColor?: string;
-            };
+                color?: string | undefined;
+                hoverColor?: string | undefined;
+                backgroundColor?: string | undefined;
+                height?: number | undefined;
+                titleFontSize?: number | undefined;
+                iconColor?: string | undefined;
+                separatorColor?: string | undefined;
+                menuHoverColor?: string | undefined;
+            } | undefined;
             tooltip?: {
-                color?: string;
-                rippleBackgroundColor?: string;
-            };
+                color?: string | undefined;
+                rippleBackgroundColor?: string | undefined;
+            } | undefined;
         }
 
         interface zIndex {
@@ -508,20 +508,20 @@ declare namespace __MaterialUI {
         export let zIndex: zIndex;
 
         interface RawTheme {
-            spacing?: Spacing;
-            fontFamily?: string;
-            palette?: ThemePalette;
+            spacing?: Spacing | undefined;
+            fontFamily?: string | undefined;
+            palette?: ThemePalette | undefined;
         }
         let lightBaseTheme: RawTheme;
         let darkBaseTheme: RawTheme;
 
         export function muiThemeable(): <
             TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
-            P extends {muiTheme?: MuiTheme}
+            P extends {muiTheme?: MuiTheme | undefined}
         >(component: TComponent) => TComponent;
 
         export interface MuiThemeProviderProps {
-            muiTheme?: MuiTheme;
+            muiTheme?: MuiTheme | undefined;
         }
         export class MuiThemeProvider extends React.Component<MuiThemeProviderProps> {
         }
@@ -556,21 +556,21 @@ declare namespace __MaterialUI {
     }
 
     export interface AppBarProps {
-        className?: string;
-        iconClassNameLeft?: string;
-        iconClassNameRight?: string;
-        iconElementLeft?: React.ReactElement;
-        iconElementRight?: React.ReactElement;
-        iconStyleRight?: React.CSSProperties;
-        iconStyleLeft?: React.CSSProperties;
-        onLeftIconButtonClick?: React.MouseEventHandler<{}>;
-        onRightIconButtonClick?: React.MouseEventHandler<{}>;
-        onTitleClick?: React.MouseEventHandler<{}>;
-        showMenuIconButton?: boolean;
-        style?: React.CSSProperties;
-        title?: React.ReactNode;
-        titleStyle?: React.CSSProperties;
-        zDepth?: number;
+        className?: string | undefined;
+        iconClassNameLeft?: string | undefined;
+        iconClassNameRight?: string | undefined;
+        iconElementLeft?: React.ReactElement | undefined;
+        iconElementRight?: React.ReactElement | undefined;
+        iconStyleRight?: React.CSSProperties | undefined;
+        iconStyleLeft?: React.CSSProperties | undefined;
+        onLeftIconButtonClick?: React.MouseEventHandler<{}> | undefined;
+        onRightIconButtonClick?: React.MouseEventHandler<{}> | undefined;
+        onTitleClick?: React.MouseEventHandler<{}> | undefined;
+        showMenuIconButton?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
+        title?: React.ReactNode | undefined;
+        titleStyle?: React.CSSProperties | undefined;
+        zDepth?: number | undefined;
     }
     export class AppBar extends React.Component<AppBarProps> {
     }
@@ -607,35 +607,35 @@ declare namespace __MaterialUI {
     }
 
     export interface AutoCompleteProps<DataItem> extends TextFieldProps {
-        anchorOrigin?: propTypes.origin;
-        animated?: boolean;
-        animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
+        anchorOrigin?: propTypes.origin | undefined;
+        animated?: boolean | undefined;
+        animation?: React.ComponentClass<Popover.PopoverAnimationProps> | undefined;
         dataSource: DataItem[];
-        dataSourceConfig?: { text: string; value: string; };
-        disableFocusRipple?: boolean;
-        errorStyle?: React.CSSProperties;
-        errorText?: React.ReactNode;
+        dataSourceConfig?: { text: string; value: string; } | undefined;
+        disableFocusRipple?: boolean | undefined;
+        errorStyle?: React.CSSProperties | undefined;
+        errorText?: React.ReactNode | undefined;
         filter?(searchText: string, key: string, item: DataItem): boolean;
-        floatingLabelText?: React.ReactNode;
-        fullWidth?: boolean;
-        hintText?: React.ReactNode;
-        listStyle?: React.CSSProperties;
-        maxSearchResults?: number;
-        menuCloseDelay?: number;
+        floatingLabelText?: React.ReactNode | undefined;
+        fullWidth?: boolean | undefined;
+        hintText?: React.ReactNode | undefined;
+        listStyle?: React.CSSProperties | undefined;
+        maxSearchResults?: number | undefined;
+        menuCloseDelay?: number | undefined;
         menuProps?: any;
-        menuStyle?: React.CSSProperties;
-        onBlur?: React.FocusEventHandler<{}>;
-        onFocus?: React.FocusEventHandler<{}>;
-        onKeyDown?: React.KeyboardEventHandler<{}>;
+        menuStyle?: React.CSSProperties | undefined;
+        onBlur?: React.FocusEventHandler<{}> | undefined;
+        onFocus?: React.FocusEventHandler<{}> | undefined;
+        onKeyDown?: React.KeyboardEventHandler<{}> | undefined;
         onNewRequest?(chosenRequest: DataItem, index: number): void;
         onUpdateInput?(searchText: string, dataSource: DataItem[]): void;
-        open?: boolean;
-        openOnFocus?: boolean;
-        popoverProps?: Popover.PopoverProps;
-        searchText?: string;
-        style?: React.CSSProperties;
-        targetOrigin?: propTypes.origin;
-        textFieldStyle?: React.CSSProperties;
+        open?: boolean | undefined;
+        openOnFocus?: boolean | undefined;
+        popoverProps?: Popover.PopoverProps | undefined;
+        searchText?: string | undefined;
+        style?: React.CSSProperties | undefined;
+        targetOrigin?: propTypes.origin | undefined;
+        textFieldStyle?: React.CSSProperties | undefined;
     }
     export class AutoComplete extends React.Component<AutoCompleteProps<any>> {
         static noFilter(): boolean;
@@ -651,185 +651,185 @@ declare namespace __MaterialUI {
     }
 
     export interface AvatarProps {
-        backgroundColor?: string;
-        className?: string;
-        color?: string;
-        icon?: React.ReactElement;
-        size?: number;
-        src?: string;
-        style?: React.CSSProperties;
-        onClick?: React.MouseEventHandler<{}>;
+        backgroundColor?: string | undefined;
+        className?: string | undefined;
+        color?: string | undefined;
+        icon?: React.ReactElement | undefined;
+        size?: number | undefined;
+        src?: string | undefined;
+        style?: React.CSSProperties | undefined;
+        onClick?: React.MouseEventHandler<{}> | undefined;
     }
     export class Avatar extends React.Component<AvatarProps> {
     }
 
     export interface BadgeProps {
         badgeContent: React.ReactNode;
-        badgeStyle?: React.CSSProperties;
-        className?: string;
-        primary?: boolean;
-        secondary?: boolean;
-        style?: React.CSSProperties;
+        badgeStyle?: React.CSSProperties | undefined;
+        className?: string | undefined;
+        primary?: boolean | undefined;
+        secondary?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
     }
     export class Badge extends React.Component<BadgeProps> {
     }
 
     export interface BeforeAfterWrapperProps {
-        afterElementType?: string;
-        afterStyle?: React.CSSProperties;
-        beforeElementType?: string;
-        beforeStyle?: React.CSSProperties;
-        elementType?: string;
-        style?: React.CSSProperties;
+        afterElementType?: string | undefined;
+        afterStyle?: React.CSSProperties | undefined;
+        beforeElementType?: string | undefined;
+        beforeStyle?: React.CSSProperties | undefined;
+        elementType?: string | undefined;
+        style?: React.CSSProperties | undefined;
     }
     export class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> {
     }
 
     // non generally overridden elements of EnhancedButton
     export interface SharedEnhancedButtonProps<T> {
-        centerRipple?: boolean;
-        disableFocusRipple?: boolean;
-        disableKeyboardFocus?: boolean;
-        disableTouchRipple?: boolean;
-        focusRippleColor?: string;
-        focusRippleOpacity?: number;
-        href?: string;
-        keyboardFocused?: boolean;
-        onBlur?: React.FocusEventHandler<{}>;
-        onFocus?: React.FocusEventHandler<{}>;
+        centerRipple?: boolean | undefined;
+        disableFocusRipple?: boolean | undefined;
+        disableKeyboardFocus?: boolean | undefined;
+        disableTouchRipple?: boolean | undefined;
+        focusRippleColor?: string | undefined;
+        focusRippleOpacity?: number | undefined;
+        href?: string | undefined;
+        keyboardFocused?: boolean | undefined;
+        onBlur?: React.FocusEventHandler<{}> | undefined;
+        onFocus?: React.FocusEventHandler<{}> | undefined;
         onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
-        onKeyDown?: React.KeyboardEventHandler<{}>;
-        onKeyUp?: React.KeyboardEventHandler<{}>;
-        onClick?: React.MouseEventHandler<{}>;
-        style?: React.CSSProperties;
-        tabIndex?: number;
-        target?: string;
-        touchRippleColor?: string;
-        touchRippleOpacity?: number;
-        type?: string;
-        containerElement?: React.ReactNode | string;
+        onKeyDown?: React.KeyboardEventHandler<{}> | undefined;
+        onKeyUp?: React.KeyboardEventHandler<{}> | undefined;
+        onClick?: React.MouseEventHandler<{}> | undefined;
+        style?: React.CSSProperties | undefined;
+        tabIndex?: number | undefined;
+        target?: string | undefined;
+        touchRippleColor?: string | undefined;
+        touchRippleOpacity?: number | undefined;
+        type?: string | undefined;
+        containerElement?: React.ReactNode | string | undefined;
     }
 
     export interface EnhancedButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<EnhancedButton> {
         // container element, <button/>, or <span/>(if disabled link) is the element that get the 'other' properties
-        containerElement?: React.ReactNode | string;
-        disabled?: boolean;
+        containerElement?: React.ReactNode | string | undefined;
+        disabled?: boolean | undefined;
     }
     export class EnhancedButton extends React.Component<EnhancedButtonProps> {
     }
 
     export interface FlatButtonProps extends React.DOMAttributes<{}>, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
-        backgroundColor?: string;
-        className?: string;
-        disabled?: boolean;
-        fullWidth?: boolean;
-        hoverColor?: string;
-        icon?: React.ReactNode;
-        label?: React.ReactNode;
-        labelPosition?: "before" | "after";
-        labelStyle?: React.CSSProperties;
-        linkButton?: boolean;
+        backgroundColor?: string | undefined;
+        className?: string | undefined;
+        disabled?: boolean | undefined;
+        fullWidth?: boolean | undefined;
+        hoverColor?: string | undefined;
+        icon?: React.ReactNode | undefined;
+        label?: React.ReactNode | undefined;
+        labelPosition?: "before" | "after" | undefined;
+        labelStyle?: React.CSSProperties | undefined;
+        linkButton?: boolean | undefined;
         onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
-        onMouseEnter?: React.MouseEventHandler<{}>;
-        onMouseLeave?: React.MouseEventHandler<{}>;
-        onTouchStart?: React.TouchEventHandler<{}>;
-        primary?: boolean;
-        rippleColor?: string;
-        secondary?: boolean;
-        style?: React.CSSProperties;
+        onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+        onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+        onTouchStart?: React.TouchEventHandler<{}> | undefined;
+        primary?: boolean | undefined;
+        rippleColor?: string | undefined;
+        secondary?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
     }
     export class FlatButton extends React.Component<FlatButtonProps> {
     }
 
     export interface RaisedButtonProps extends SharedEnhancedButtonProps<RaisedButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
-        backgroundColor?: string;
-        buttonStyle?: React.CSSProperties;
-        className?: string;
-        disabled?: boolean;
-        disabledBackgroundColor?: string;
-        disabledLabelColor?: string;
-        fullWidth?: boolean;
-        icon?: React.ReactNode;
-        label?: React.ReactNode;
-        labelColor?: string;
-        labelPosition?: "before" | "after";
-        labelStyle?: React.CSSProperties;
-        linkButton?: boolean;
-        onMouseDown?: React.MouseEventHandler<{}>;
-        onMouseEnter?: React.MouseEventHandler<{}>;
-        onMouseLeave?: React.MouseEventHandler<{}>;
-        onMouseUp?: React.MouseEventHandler<{}>;
-        onTouchEnd?: React.TouchEventHandler<{}>;
-        onTouchStart?: React.TouchEventHandler<{}>;
-        overlayStyle?: React.CSSProperties;
-        primary?: boolean;
-        rippleStyle?: React.CSSProperties;
-        secondary?: boolean;
-        style?: React.CSSProperties;
+        backgroundColor?: string | undefined;
+        buttonStyle?: React.CSSProperties | undefined;
+        className?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledBackgroundColor?: string | undefined;
+        disabledLabelColor?: string | undefined;
+        fullWidth?: boolean | undefined;
+        icon?: React.ReactNode | undefined;
+        label?: React.ReactNode | undefined;
+        labelColor?: string | undefined;
+        labelPosition?: "before" | "after" | undefined;
+        labelStyle?: React.CSSProperties | undefined;
+        linkButton?: boolean | undefined;
+        onMouseDown?: React.MouseEventHandler<{}> | undefined;
+        onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+        onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+        onMouseUp?: React.MouseEventHandler<{}> | undefined;
+        onTouchEnd?: React.TouchEventHandler<{}> | undefined;
+        onTouchStart?: React.TouchEventHandler<{}> | undefined;
+        overlayStyle?: React.CSSProperties | undefined;
+        primary?: boolean | undefined;
+        rippleStyle?: React.CSSProperties | undefined;
+        secondary?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
     }
     export class RaisedButton extends React.Component<RaisedButtonProps> {
     }
 
     export interface FloatingActionButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<FloatingActionButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
-        backgroundColor?: string;
-        className?: string;
-        disabled?: boolean;
-        disabledColor?: string;
-        iconClassName?: string;
-        iconStyle?: React.CSSProperties;
-        mini?: boolean;
-        onMouseDown?: React.MouseEventHandler<{}>;
-        onMouseEnter?: React.MouseEventHandler<{}>;
-        onMouseLeave?: React.MouseEventHandler<{}>;
-        onMouseUp?: React.MouseEventHandler<{}>;
-        onTouchEnd?: React.TouchEventHandler<{}>;
-        onTouchStart?: React.TouchEventHandler<{}>;
-        secondary?: boolean;
-        style?: React.CSSProperties;
-        zDepth?: number;
+        backgroundColor?: string | undefined;
+        className?: string | undefined;
+        disabled?: boolean | undefined;
+        disabledColor?: string | undefined;
+        iconClassName?: string | undefined;
+        iconStyle?: React.CSSProperties | undefined;
+        mini?: boolean | undefined;
+        onMouseDown?: React.MouseEventHandler<{}> | undefined;
+        onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+        onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+        onMouseUp?: React.MouseEventHandler<{}> | undefined;
+        onTouchEnd?: React.TouchEventHandler<{}> | undefined;
+        onTouchStart?: React.TouchEventHandler<{}> | undefined;
+        secondary?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
+        zDepth?: number | undefined;
     }
     export class FloatingActionButton extends React.Component<FloatingActionButtonProps> {
     }
 
     export interface IconButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<IconButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
-        className?: string;
-        disableTouchRipple?: boolean;
-        disabled?: boolean;
-        hoveredStyle?: React.CSSProperties;
-        iconClassName?: string;
-        iconStyle?: React.CSSProperties;
-        onBlur?: React.FocusEventHandler<{}>;
-        onFocus?: React.FocusEventHandler<{}>;
+        className?: string | undefined;
+        disableTouchRipple?: boolean | undefined;
+        disabled?: boolean | undefined;
+        hoveredStyle?: React.CSSProperties | undefined;
+        iconClassName?: string | undefined;
+        iconStyle?: React.CSSProperties | undefined;
+        onBlur?: React.FocusEventHandler<{}> | undefined;
+        onFocus?: React.FocusEventHandler<{}> | undefined;
         onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
-        onMouseEnter?: React.MouseEventHandler<{}>;
-        onMouseLeave?: React.MouseEventHandler<{}>;
-        onMouseOut?: React.MouseEventHandler<{}>;
-        style?: React.CSSProperties;
-        tooltip?: React.ReactNode | string;
-        tooltipPosition?: propTypes.cornersAndCenter;
-        tooltipStyles?: React.CSSProperties;
-        touch?: boolean;
+        onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+        onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+        onMouseOut?: React.MouseEventHandler<{}> | undefined;
+        style?: React.CSSProperties | undefined;
+        tooltip?: React.ReactNode | string | undefined;
+        tooltipPosition?: propTypes.cornersAndCenter | undefined;
+        tooltipStyles?: React.CSSProperties | undefined;
+        touch?: boolean | undefined;
     }
     export class IconButton extends React.Component<IconButtonProps> {
     }
 
     namespace BottomNavigation {
         export interface BottomNavigationProps {
-            className?: string;
-            selectedIndex?: number;
-            style?: React.CSSProperties;
+            className?: string | undefined;
+            selectedIndex?: number | undefined;
+            style?: React.CSSProperties | undefined;
         }
 
         export class BottomNavigation extends React.Component<BottomNavigationProps> { }
 
         export interface BottomNavigationItemProps extends SharedEnhancedButtonProps<BottomNavigationItem> {
-            className?: string;
-            icon?: React.ReactNode;
-            label?: React.ReactNode;
+            className?: string | undefined;
+            icon?: React.ReactNode | undefined;
+            label?: React.ReactNode | undefined;
         }
 
         export class BottomNavigationItem extends React.Component<BottomNavigationItemProps> { }
@@ -837,107 +837,107 @@ declare namespace __MaterialUI {
 
     namespace Card {
         export interface CardProps {
-            className?: string;
-            actAsExpander?: boolean;
-            containerStyle?: React.CSSProperties;
-            expandable?: boolean;
-            expanded?: boolean;
-            initiallyExpanded?: boolean;
+            className?: string | undefined;
+            actAsExpander?: boolean | undefined;
+            containerStyle?: React.CSSProperties | undefined;
+            expandable?: boolean | undefined;
+            expanded?: boolean | undefined;
+            initiallyExpanded?: boolean | undefined;
             onExpandChange?(isExpanded: boolean): void;
-            showExpandableButton?: boolean;
-            style?: React.CSSProperties;
+            showExpandableButton?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class Card extends React.Component<CardProps> {
         }
 
         export interface CardActionsProps {
-            actAsExpander?: boolean;
-            expandable?: boolean;
-            showExpandableButton?: boolean;
-            style?: React.CSSProperties;
-            className?: string;
+            actAsExpander?: boolean | undefined;
+            expandable?: boolean | undefined;
+            showExpandableButton?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
+            className?: string | undefined;
         }
         export class CardActions extends React.Component<CardActionsProps> {
         }
 
         export interface CardExpandableProps {
-            expanded?: boolean;
+            expanded?: boolean | undefined;
             onExpanding?(isExpanded: boolean): void;
-            style?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
         }
         export class CardExpandable extends React.Component<CardExpandableProps> {
         }
 
         export interface CardHeaderProps {
-            actAsExpander?: boolean;
-            avatar?: React.ReactNode;
-            expandable?: boolean;
-            showExpandableButton?: boolean;
-            style?: React.CSSProperties;
-            subtitle?: React.ReactNode;
-            subtitleColor?: string;
-            subtitleStyle?: React.CSSProperties;
-            textStyle?: React.CSSProperties;
-            title?: React.ReactNode;
-            titleColor?: string;
-            titleStyle?: React.CSSProperties;
-            className?: string;
-            openIcon?: React.ReactNode;
-            closeIcon?: React.ReactNode;
-            iconStyle?: React.CSSProperties;
+            actAsExpander?: boolean | undefined;
+            avatar?: React.ReactNode | undefined;
+            expandable?: boolean | undefined;
+            showExpandableButton?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
+            subtitle?: React.ReactNode | undefined;
+            subtitleColor?: string | undefined;
+            subtitleStyle?: React.CSSProperties | undefined;
+            textStyle?: React.CSSProperties | undefined;
+            title?: React.ReactNode | undefined;
+            titleColor?: string | undefined;
+            titleStyle?: React.CSSProperties | undefined;
+            className?: string | undefined;
+            openIcon?: React.ReactNode | undefined;
+            closeIcon?: React.ReactNode | undefined;
+            iconStyle?: React.CSSProperties | undefined;
         }
         export class CardHeader extends React.Component<CardHeaderProps> {
         }
 
         export interface CardMediaProps {
-            actAsExpander?: boolean;
-            expandable?: boolean;
-            mediaStyle?: React.CSSProperties;
-            overlay?: React.ReactNode;
-            overlayContainerStyle?: React.CSSProperties;
-            overlayContentStyle?: React.CSSProperties;
-            overlayStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
+            actAsExpander?: boolean | undefined;
+            expandable?: boolean | undefined;
+            mediaStyle?: React.CSSProperties | undefined;
+            overlay?: React.ReactNode | undefined;
+            overlayContainerStyle?: React.CSSProperties | undefined;
+            overlayContentStyle?: React.CSSProperties | undefined;
+            overlayStyle?: React.CSSProperties | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class CardMedia extends React.Component<CardMediaProps> {
         }
 
         export interface CardTextProps {
-            actAsExpander?: boolean;
-            color?: string;
-            expandable?: boolean;
-            style?: React.CSSProperties;
-            className?: string;
+            actAsExpander?: boolean | undefined;
+            color?: string | undefined;
+            expandable?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
+            className?: string | undefined;
         }
         export class CardText extends React.Component<CardTextProps> {
         }
 
         export interface CardTitleProps {
-            actAsExpander?: boolean;
-            expandable?: boolean;
-            showExpandableButton?: boolean;
-            style?: React.CSSProperties;
-            subtitle?: React.ReactNode;
-            subtitleColor?: string;
-            subtitleStyle?: React.CSSProperties;
-            title?: React.ReactNode;
-            titleColor?: string;
-            titleStyle?: React.CSSProperties;
+            actAsExpander?: boolean | undefined;
+            expandable?: boolean | undefined;
+            showExpandableButton?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
+            subtitle?: React.ReactNode | undefined;
+            subtitleColor?: string | undefined;
+            subtitleStyle?: React.CSSProperties | undefined;
+            title?: React.ReactNode | undefined;
+            titleColor?: string | undefined;
+            titleStyle?: React.CSSProperties | undefined;
         }
         export class CardTitle extends React.Component<CardTitleProps> {
         }
     }
 
     export interface ChipProps {
-        backgroundColor?: string;
-        className?: string;
-        containerElement?: React.ReactNode | string;
-        labelColor?: string;
-        labelStyle?: React.CSSProperties;
-        onClick?: React.MouseEventHandler<Chip>;
-        onRequestDelete?: React.TouchEventHandler<Chip>;
-        style?: React.CSSProperties;
-        deleteIconStyle?: React.CSSProperties;
+        backgroundColor?: string | undefined;
+        className?: string | undefined;
+        containerElement?: React.ReactNode | string | undefined;
+        labelColor?: string | undefined;
+        labelStyle?: React.CSSProperties | undefined;
+        onClick?: React.MouseEventHandler<Chip> | undefined;
+        onRequestDelete?: React.TouchEventHandler<Chip> | undefined;
+        style?: React.CSSProperties | undefined;
+        deleteIconStyle?: React.CSSProperties | undefined;
     }
 
     export class Chip extends React.Component<ChipProps> {
@@ -946,56 +946,56 @@ declare namespace __MaterialUI {
     namespace DatePicker {
         export interface DatePickerProps {
             // <TextField/> is the element that get the 'other' properties
-            DateTimeFormat?: typeof Intl.DateTimeFormat;
-            autoOk?: boolean;
-            cancelLabel?: React.ReactNode;
-            container?: "dialog" | "inline";
-            defaultDate?: Date;
-            dialogContainerStyle?: React.CSSProperties;
-            disableYearSelection?: boolean;
-            disabled?: boolean;
-            firstDayOfWeek?: number;
+            DateTimeFormat?: typeof Intl.DateTimeFormat | undefined;
+            autoOk?: boolean | undefined;
+            cancelLabel?: React.ReactNode | undefined;
+            container?: "dialog" | "inline" | undefined;
+            defaultDate?: Date | undefined;
+            dialogContainerStyle?: React.CSSProperties | undefined;
+            disableYearSelection?: boolean | undefined;
+            disabled?: boolean | undefined;
+            firstDayOfWeek?: number | undefined;
             formatDate?(date: Date): string;
-            locale?: string;
-            maxDate?: Date;
-            minDate?: Date;
-            mode?: "portrait" | "landscape";
-            okLabel?: React.ReactNode;
+            locale?: string | undefined;
+            maxDate?: Date | undefined;
+            minDate?: Date | undefined;
+            mode?: "portrait" | "landscape" | undefined;
+            okLabel?: React.ReactNode | undefined;
             onChange?(e: any, date: Date): void; // e is always null
             onDismiss?(): void;
-            onFocus?: React.FocusEventHandler<{}>;
+            onFocus?: React.FocusEventHandler<{}> | undefined;
             onShow?(): void;
-            onClick?: React.TouchEventHandler<{}>;
+            onClick?: React.TouchEventHandler<{}> | undefined;
             shouldDisableDate?(day: Date): boolean;
-            style?: React.CSSProperties;
-            textFieldStyle?: React.CSSProperties;
-            value?: Date;
+            style?: React.CSSProperties | undefined;
+            textFieldStyle?: React.CSSProperties | undefined;
+            value?: Date | undefined;
 
             // From <TextField />
-            className?: string;
-            defaultValue?: string;
-            errorStyle?: React.CSSProperties;
-            errorText?: React.ReactNode;
-            floatingLabelStyle?: React.CSSProperties;
-            floatingLabelText?: React.ReactNode;
-            fullWidth?: boolean;
-            hideCalendarDate?: boolean;
-            hintStyle?: React.CSSProperties;
-            hintText?: React.ReactNode;
-            id?: string;
-            inputStyle?: React.CSSProperties;
-            onBlur?: React.FocusEventHandler<{}>;
-            onKeyDown?: React.KeyboardEventHandler<{}>;
-            openToYearSelection?: boolean;
-            rows?: number;
-            rowsMax?: number;
-            name?: string;
-            type?: string;
-            underlineDisabledStyle?: React.CSSProperties;
-            underlineFocusStyle?: React.CSSProperties;
-            underlineShow?: boolean;
-            underlineStyle?: React.CSSProperties;
-            utils?: propTypes.utils;
+            className?: string | undefined;
+            defaultValue?: string | undefined;
+            errorStyle?: React.CSSProperties | undefined;
+            errorText?: React.ReactNode | undefined;
+            floatingLabelStyle?: React.CSSProperties | undefined;
+            floatingLabelText?: React.ReactNode | undefined;
+            fullWidth?: boolean | undefined;
+            hideCalendarDate?: boolean | undefined;
+            hintStyle?: React.CSSProperties | undefined;
+            hintText?: React.ReactNode | undefined;
+            id?: string | undefined;
+            inputStyle?: React.CSSProperties | undefined;
+            onBlur?: React.FocusEventHandler<{}> | undefined;
+            onKeyDown?: React.KeyboardEventHandler<{}> | undefined;
+            openToYearSelection?: boolean | undefined;
+            rows?: number | undefined;
+            rowsMax?: number | undefined;
+            name?: string | undefined;
+            type?: string | undefined;
+            underlineDisabledStyle?: React.CSSProperties | undefined;
+            underlineFocusStyle?: React.CSSProperties | undefined;
+            underlineShow?: boolean | undefined;
+            underlineStyle?: React.CSSProperties | undefined;
+            utils?: propTypes.utils | undefined;
         }
         export class DatePicker extends React.Component<DatePickerProps> {
             focus(): void;
@@ -1004,25 +1004,25 @@ declare namespace __MaterialUI {
 
         export interface DatePickerDialogProps {
             // <Container/> is the element that get the 'other' properties
-            DateTimeFormat?: typeof Intl.DateTimeFormat;
-            animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
-            autoOk?: boolean;
-            cancelLabel?: React.ReactNode;
-            container?: "dialog" | "inline";
-            disableYearSelection?: boolean;
-            firstDayOfWeek?: number;
-            initialDate?: Date;
-            locale?: string;
-            maxDate?: Date;
-            minDate?: Date;
-            mode?: "portrait" | "landscape";
-            okLabel?: React.ReactNode;
+            DateTimeFormat?: typeof Intl.DateTimeFormat | undefined;
+            animation?: React.ComponentClass<Popover.PopoverAnimationProps> | undefined;
+            autoOk?: boolean | undefined;
+            cancelLabel?: React.ReactNode | undefined;
+            container?: "dialog" | "inline" | undefined;
+            disableYearSelection?: boolean | undefined;
+            firstDayOfWeek?: number | undefined;
+            initialDate?: Date | undefined;
+            locale?: string | undefined;
+            maxDate?: Date | undefined;
+            minDate?: Date | undefined;
+            mode?: "portrait" | "landscape" | undefined;
+            okLabel?: React.ReactNode | undefined;
             onAccept?(d: Date): void;
             onDismiss?(): void;
             onShow?(): void;
             shouldDisableDate?(day: Date): boolean;
-            style?: React.CSSProperties;
-            utils?: propTypes.utils;
+            style?: React.CSSProperties | undefined;
+            utils?: propTypes.utils | undefined;
         }
         export class DatePickerDialog extends React.Component<DatePickerDialogProps> {
             show(): void;
@@ -1032,91 +1032,91 @@ declare namespace __MaterialUI {
 
     /** @deprecated use array of components instead */
     export interface DialogAction {
-        id?: string;
-        onClick?: React.MouseEventHandler<{}>;
-        ref?: string;
+        id?: string | undefined;
+        onClick?: React.MouseEventHandler<{}> | undefined;
+        ref?: string | undefined;
         text: string;
     }
     export interface DialogProps extends React.DOMAttributes<{}>, React.Props<Dialog> {
-        actions?: Array<DialogAction | React.ReactElement>;
+        actions?: Array<DialogAction | React.ReactElement> | undefined;
         /** @deprecated use a custom `actions` property instead */
-        actionFocus?: string;
-        actionsContainerClassName?: string;
-        actionsContainerStyle?: React.CSSProperties;
-        autoDetectWindowHeight?: boolean;
-        autoScrollBodyContent?: boolean;
-        bodyClassName?: string;
-        bodyStyle?: React.CSSProperties;
-        className?: string;
-        contentClassName?: string;
-        contentStyle?: React.CSSProperties;
-        modal?: boolean;
+        actionFocus?: string | undefined;
+        actionsContainerClassName?: string | undefined;
+        actionsContainerStyle?: React.CSSProperties | undefined;
+        autoDetectWindowHeight?: boolean | undefined;
+        autoScrollBodyContent?: boolean | undefined;
+        bodyClassName?: string | undefined;
+        bodyStyle?: React.CSSProperties | undefined;
+        className?: string | undefined;
+        contentClassName?: string | undefined;
+        contentStyle?: React.CSSProperties | undefined;
+        modal?: boolean | undefined;
         onRequestClose?(buttonClicked: boolean): void;
         open: boolean;
-        overlayClassName?: string;
-        overlayStyle?: React.CSSProperties;
-        paperClassName?: string;
+        overlayClassName?: string | undefined;
+        overlayStyle?: React.CSSProperties | undefined;
+        paperClassName?: string | undefined;
         paperProps?: any;
-        repositionOnUpdate?: boolean;
-        style?: React.CSSProperties;
-        title?: React.ReactNode;
-        titleClassName?: string;
-        titleStyle?: React.CSSProperties;
+        repositionOnUpdate?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
+        title?: React.ReactNode | undefined;
+        titleClassName?: string | undefined;
+        titleStyle?: React.CSSProperties | undefined;
     }
     export class Dialog extends React.Component<DialogProps> {
     }
 
     export interface DividerProps {
-        className?: string;
-        inset?: boolean;
-        style?: React.CSSProperties;
+        className?: string | undefined;
+        inset?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
     }
     export class Divider extends React.Component<DividerProps> {
     }
 
     export interface DrawerProps {
-        className?: string;
-        containerClassName?: string;
-        containerStyle?: React.CSSProperties;
-        disableSwipeToOpen?: boolean;
-        docked?: boolean;
+        className?: string | undefined;
+        containerClassName?: string | undefined;
+        containerStyle?: React.CSSProperties | undefined;
+        disableSwipeToOpen?: boolean | undefined;
+        docked?: boolean | undefined;
         onRequestChange?(opening: boolean, reason: string): void;
-        open?: boolean;
-        openSecondary?: boolean;
-        overlayClassName?: string;
-        overlayStyle?: React.CSSProperties;
-        style?: React.CSSProperties;
-        swipeAreaWidth?: number;
-        width?: number | string;
-        zDepth?: number;
+        open?: boolean | undefined;
+        openSecondary?: boolean | undefined;
+        overlayClassName?: string | undefined;
+        overlayStyle?: React.CSSProperties | undefined;
+        style?: React.CSSProperties | undefined;
+        swipeAreaWidth?: number | undefined;
+        width?: number | string | undefined;
+        zDepth?: number | undefined;
     }
     export class Drawer extends React.Component<DrawerProps> {
     }
 
     namespace GridList {
         export interface GridListProps {
-            cellHeight?: number|'auto';
-            cols?: number;
-            padding?: number;
-            style?: React.CSSProperties;
+            cellHeight?: number|'auto' | undefined;
+            cols?: number | undefined;
+            padding?: number | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class GridList extends React.Component<GridListProps> {
         }
 
         export interface GridTileProps {
-            actionIcon?: React.ReactElement;
-            actionPosition?: "left" | "right";
-            cols?: number;
-            containerElement?: string | React.ReactElement | React.ComponentClass<any>;
-            rows?: number;
-            style?: React.CSSProperties;
-            subtitle?: React.ReactNode;
-            subtitleStyle?: React.CSSProperties;
-            title?: React.ReactNode;
-            titleBackground?: string;
-            titlePosition?: "top" | "bottom";
-            titleStyle?: React.CSSProperties;
-            onClick?: React.MouseEventHandler<{}>;
+            actionIcon?: React.ReactElement | undefined;
+            actionPosition?: "left" | "right" | undefined;
+            cols?: number | undefined;
+            containerElement?: string | React.ReactElement | React.ComponentClass<any> | undefined;
+            rows?: number | undefined;
+            style?: React.CSSProperties | undefined;
+            subtitle?: React.ReactNode | undefined;
+            subtitleStyle?: React.CSSProperties | undefined;
+            title?: React.ReactNode | undefined;
+            titleBackground?: string | undefined;
+            titlePosition?: "top" | "bottom" | undefined;
+            titleStyle?: React.CSSProperties | undefined;
+            onClick?: React.MouseEventHandler<{}> | undefined;
         }
         export class GridTile extends React.Component<GridTileProps> {
         }
@@ -1124,23 +1124,23 @@ declare namespace __MaterialUI {
 
     export interface FontIconProps extends React.HTMLAttributes<{}>, React.Props<FontIcon> {
         // <span/> is the element that get the 'other' properties
-        color?: string;
-        hoverColor?: string;
-        onMouseEnter?: React.MouseEventHandler<{}>;
-        onMouseLeave?: React.MouseEventHandler<{}>;
-        style?: React.CSSProperties;
+        color?: string | undefined;
+        hoverColor?: string | undefined;
+        onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+        onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+        style?: React.CSSProperties | undefined;
     }
     export class FontIcon extends React.Component<FontIconProps> {
     }
 
     export interface SvgIconProps extends React.SVGAttributes<{}>, React.Props<SvgIcon> {
         // <svg/> is the element that get the 'other' properties
-        color?: string;
-        hoverColor?: string;
-        onMouseEnter?: React.MouseEventHandler<{}>;
-        onMouseLeave?: React.MouseEventHandler<{}>;
-        style?: React.CSSProperties;
-        viewBox?: string;
+        color?: string | undefined;
+        hoverColor?: string | undefined;
+        onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+        onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+        style?: React.CSSProperties | undefined;
+        viewBox?: string | undefined;
     }
     export class SvgIcon extends React.Component<SvgIconProps> {
     }
@@ -1151,35 +1151,35 @@ declare namespace __MaterialUI {
 
         export interface ListItemProps extends EnhancedButtonProps {
             // <EnhancedButton/> is the element that get the 'other' properties
-            autoGenerateNestedIndicator?: boolean;
-            disableKeyboardFocus?: boolean;
-            disabled?: boolean;
-            hoverColor?: string;
-            initiallyOpen?: boolean;
-            innerDivStyle?: React.CSSProperties;
-            insetChildren?: boolean;
-            leftAvatar?: React.ReactElement;
-            leftCheckbox?: React.ReactElement;
-            leftIcon?: React.ReactElement;
-            nestedItems?: Array<React.ReactElement<ListItemProps>>;
-            nestedLevel?: number;
-            nestedListStyle?: React.CSSProperties;
+            autoGenerateNestedIndicator?: boolean | undefined;
+            disableKeyboardFocus?: boolean | undefined;
+            disabled?: boolean | undefined;
+            hoverColor?: string | undefined;
+            initiallyOpen?: boolean | undefined;
+            innerDivStyle?: React.CSSProperties | undefined;
+            insetChildren?: boolean | undefined;
+            leftAvatar?: React.ReactElement | undefined;
+            leftCheckbox?: React.ReactElement | undefined;
+            leftIcon?: React.ReactElement | undefined;
+            nestedItems?: Array<React.ReactElement<ListItemProps>> | undefined;
+            nestedLevel?: number | undefined;
+            nestedListStyle?: React.CSSProperties | undefined;
             onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
-            onMouseEnter?: React.MouseEventHandler<{}>;
-            onMouseLeave?: React.MouseEventHandler<{}>;
+            onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+            onMouseLeave?: React.MouseEventHandler<{}> | undefined;
             onNestedListToggle?(item: ListItem): void;
-            onTouchStart?: React.TouchEventHandler<{}>;
-            onClick?: React.MouseEventHandler<{}>;
-            open?: boolean;
-            primaryText?: React.ReactNode;
-            primaryTogglesNestedList?: boolean;
-            rightAvatar?: React.ReactElement;
-            rightIcon?: React.ReactElement;
-            rightIconButton?: React.ReactElement;
-            rightToggle?: React.ReactElement;
-            secondaryText?: React.ReactNode;
-            secondaryTextLines?: number; // 1 or 2
-            style?: React.CSSProperties;
+            onTouchStart?: React.TouchEventHandler<{}> | undefined;
+            onClick?: React.MouseEventHandler<{}> | undefined;
+            open?: boolean | undefined;
+            primaryText?: React.ReactNode | undefined;
+            primaryTogglesNestedList?: boolean | undefined;
+            rightAvatar?: React.ReactElement | undefined;
+            rightIcon?: React.ReactElement | undefined;
+            rightIconButton?: React.ReactElement | undefined;
+            rightToggle?: React.ReactElement | undefined;
+            secondaryText?: React.ReactNode | undefined;
+            secondaryTextLines?: number | undefined; // 1 or 2
+            style?: React.CSSProperties | undefined;
             value?: any;
         }
         export class ListItem extends React.Component<ListItemProps> {
@@ -1187,7 +1187,7 @@ declare namespace __MaterialUI {
 
         export interface SelectableProps {
             onChange?(e: React.SyntheticEvent<{}>, value: any): void;
-            selectedItemStyle?: React.CSSProperties;
+            selectedItemStyle?: React.CSSProperties | undefined;
             value?: any;
         }
 
@@ -1198,108 +1198,108 @@ declare namespace __MaterialUI {
     namespace Menus {
         export interface MenuProps {
             // <List/> is the element that get the 'other' properties
-            autoWidth?: boolean;
-            desktop?: boolean;
-            disableAutoFocus?: boolean;
-            initiallyKeyboardFocused?: boolean;
-            listStyle?: React.CSSProperties;
-            maxHeight?: number;
-            multiple?: boolean;
+            autoWidth?: boolean | undefined;
+            desktop?: boolean | undefined;
+            disableAutoFocus?: boolean | undefined;
+            initiallyKeyboardFocused?: boolean | undefined;
+            listStyle?: React.CSSProperties | undefined;
+            maxHeight?: number | undefined;
+            multiple?: boolean | undefined;
             onChange?(e: React.SyntheticEvent<{}>, itemValue: any | any[]): void;
-            onEscKeyDown?: React.KeyboardEventHandler<{}>;
+            onEscKeyDown?: React.KeyboardEventHandler<{}> | undefined;
             onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
-            onKeyDown?: React.KeyboardEventHandler<{}>;
-            selectedMenuItemStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
-            value?: any | any[];
-            valueLink?: ReactLink<any | any[]>;
-            width?: string | number;
+            onKeyDown?: React.KeyboardEventHandler<{}> | undefined;
+            selectedMenuItemStyle?: React.CSSProperties | undefined;
+            style?: React.CSSProperties | undefined;
+            value?: any | any[] | undefined;
+            valueLink?: ReactLink<any | any[]> | undefined;
+            width?: string | number | undefined;
         }
         export class Menu extends React.Component<MenuProps> {
         }
 
         export interface MenuItemProps extends List.ListItemProps {
             // <ListItem/> is the element that get the 'other' properties
-            animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
-            checked?: boolean;
-            desktop?: boolean;
-            disabled?: boolean;
-            focusState?: string; // 'none', 'focused', or 'keyboard-focused'
-            innerDivStyle?: React.CSSProperties;
-            insetChildren?: boolean;
-            label?: string | React.ReactNode;
-            leftIcon?: React.ReactElement;
-            menuItems?: React.ReactNode;
-            onClick?: React.MouseEventHandler<{}>;
-            primaryText?: React.ReactNode;
-            rightIcon?: React.ReactElement;
-            secondaryText?: React.ReactNode;
-            style?: React.CSSProperties;
-            containerElement?: React.ReactNode | string;
+            animation?: React.ComponentClass<Popover.PopoverAnimationProps> | undefined;
+            checked?: boolean | undefined;
+            desktop?: boolean | undefined;
+            disabled?: boolean | undefined;
+            focusState?: string | undefined; // 'none', 'focused', or 'keyboard-focused'
+            innerDivStyle?: React.CSSProperties | undefined;
+            insetChildren?: boolean | undefined;
+            label?: string | React.ReactNode | undefined;
+            leftIcon?: React.ReactElement | undefined;
+            menuItems?: React.ReactNode | undefined;
+            onClick?: React.MouseEventHandler<{}> | undefined;
+            primaryText?: React.ReactNode | undefined;
+            rightIcon?: React.ReactElement | undefined;
+            secondaryText?: React.ReactNode | undefined;
+            style?: React.CSSProperties | undefined;
+            containerElement?: React.ReactNode | string | undefined;
         }
         export class MenuItem extends React.Component<MenuItemProps> {
         }
 
         export interface IconMenuProps {
             // <Menu/> is the element that get the 'other' properties
-            anchorOrigin?: propTypes.origin;
-            animated?: boolean;
-            animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
-            className?: string;
-            clickCloseDelay?: number;
+            anchorOrigin?: propTypes.origin | undefined;
+            animated?: boolean | undefined;
+            animation?: React.ComponentClass<Popover.PopoverAnimationProps> | undefined;
+            className?: string | undefined;
+            clickCloseDelay?: number | undefined;
             iconButtonElement: React.ReactElement<IconButton>;
-            iconStyle?: React.CSSProperties;
-            menuStyle?: React.CSSProperties;
+            iconStyle?: React.CSSProperties | undefined;
+            menuStyle?: React.CSSProperties | undefined;
             onClick?(e: React.SyntheticEvent<{}>): void;
             onItemClick?(e: React.SyntheticEvent<{}>, item: MenuItem): void;
             onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
-            onMouseDown?: React.MouseEventHandler<{}>;
-            onMouseEnter?: React.MouseEventHandler<{}>;
-            onMouseLeave?: React.MouseEventHandler<{}>;
-            onMouseUp?: React.MouseEventHandler<{}>;
+            onMouseDown?: React.MouseEventHandler<{}> | undefined;
+            onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+            onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+            onMouseUp?: React.MouseEventHandler<{}> | undefined;
             onRequestChange?(opening: boolean, reason: string): void;
-            open?: boolean;
-            targetOrigin?: propTypes.origin;
-            useLayerForClickAway?: boolean;
+            open?: boolean | undefined;
+            targetOrigin?: propTypes.origin | undefined;
+            useLayerForClickAway?: boolean | undefined;
 
             // Other properties from <Menu/>
-            autoWidth?: boolean;
-            desktop?: boolean;
-            disableAutoFocus?: boolean;
-            initiallyKeyboardFocused?: boolean;
-            listStyle?: React.CSSProperties;
-            maxHeight?: number;
-            multiple?: boolean;
+            autoWidth?: boolean | undefined;
+            desktop?: boolean | undefined;
+            disableAutoFocus?: boolean | undefined;
+            initiallyKeyboardFocused?: boolean | undefined;
+            listStyle?: React.CSSProperties | undefined;
+            maxHeight?: number | undefined;
+            multiple?: boolean | undefined;
             onChange?(e: React.SyntheticEvent<{}>, itemValue: any | any[]): void;
-            style?: React.CSSProperties;
-            value?: any | any[];
+            style?: React.CSSProperties | undefined;
+            value?: any | any[] | undefined;
         }
         export class IconMenu extends React.Component<IconMenuProps> {
         }
 
         export interface DropDownMenuProps {
             // <div/> is the element that gets the 'other' properties
-            anchorOrigin?: propTypes.origin;
-            animated?: boolean;
-            animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
-            className?: string;
-            disabled?: boolean;
-            iconButton?: React.ReactNode;
-            iconStyle?: React.CSSProperties;
-            labelStyle?: React.CSSProperties;
-            listStyle?: React.CSSProperties;
-            maxHeight?: number;
-            menuItemStyle?: React.CSSProperties;
-            menuStyle?: React.CSSProperties;
-            multiple?: boolean;
+            anchorOrigin?: propTypes.origin | undefined;
+            animated?: boolean | undefined;
+            animation?: React.ComponentClass<Popover.PopoverAnimationProps> | undefined;
+            className?: string | undefined;
+            disabled?: boolean | undefined;
+            iconButton?: React.ReactNode | undefined;
+            iconStyle?: React.CSSProperties | undefined;
+            labelStyle?: React.CSSProperties | undefined;
+            listStyle?: React.CSSProperties | undefined;
+            maxHeight?: number | undefined;
+            menuItemStyle?: React.CSSProperties | undefined;
+            menuStyle?: React.CSSProperties | undefined;
+            multiple?: boolean | undefined;
             onChange?(e: React.SyntheticEvent<{}>, index: number, menuItemValue: any): void;
             onClose?(e: React.SyntheticEvent<{}>): void;
-            openImmediately?: boolean;
-            selectedMenuItemStyle?: React.CSSProperties;
+            openImmediately?: boolean | undefined;
+            selectedMenuItemStyle?: React.CSSProperties | undefined;
             selectionRenderer?(value: any, menuItem: any): void;
-            style?: React.CSSProperties;
-            targetOrigin?: propTypes.origin;
-            underlineStyle?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
+            targetOrigin?: propTypes.origin | undefined;
+            underlineStyle?: React.CSSProperties | undefined;
             value?: any;
         }
         export class DropDownMenu extends React.Component<DropDownMenuProps> {
@@ -1307,22 +1307,22 @@ declare namespace __MaterialUI {
     }
 
     export interface OverlayProps extends React.Props<Overlay> {
-        autoLockScrolling?: boolean;
-        show?: boolean;
-        transitionEnabled?: boolean;
-        onClick?: React.MouseEventHandler<{}>;
+        autoLockScrolling?: boolean | undefined;
+        show?: boolean | undefined;
+        transitionEnabled?: boolean | undefined;
+        onClick?: React.MouseEventHandler<{}> | undefined;
     }
     export class Overlay extends React.Component<OverlayProps> {
     }
 
     export interface PaperProps extends React.HTMLAttributes<{}>, React.Props<Paper> {
-        circle?: boolean;
-        rounded?: boolean;
-        style?: React.CSSProperties;
-        transitionEnabled?: boolean;
-        zDepth?: number;
-        width?: number | string;
-        height?: number | string;
+        circle?: boolean | undefined;
+        rounded?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
+        transitionEnabled?: boolean | undefined;
+        zDepth?: number | undefined;
+        width?: number | string | undefined;
+        height?: number | string | undefined;
     }
     export class Paper extends React.Component<PaperProps> {
     }
@@ -1330,77 +1330,77 @@ declare namespace __MaterialUI {
     namespace Popover {
         export interface PopoverAnimationProps {
             open: boolean;
-            style?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
         }
 
         export interface PopoverProps {
-            anchorEl?: React.ReactInstance;
-            anchorOrigin?: propTypes.origin;
-            animated?: boolean;
-            animation?: React.ComponentClass<PopoverAnimationProps>;
-            autoCloseWhenOffScreen?: boolean;
-            canAutoPosition?: boolean;
-            className?: string;
+            anchorEl?: React.ReactInstance | undefined;
+            anchorOrigin?: propTypes.origin | undefined;
+            animated?: boolean | undefined;
+            animation?: React.ComponentClass<PopoverAnimationProps> | undefined;
+            autoCloseWhenOffScreen?: boolean | undefined;
+            canAutoPosition?: boolean | undefined;
+            className?: string | undefined;
             onRequestClose?(reason: string): void;
-            open?: boolean;
-            style?: React.CSSProperties;
-            targetOrigin?: propTypes.origin;
-            useLayerForClickAway?: boolean;
-            zDepth?: number;
+            open?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
+            targetOrigin?: propTypes.origin | undefined;
+            useLayerForClickAway?: boolean | undefined;
+            zDepth?: number | undefined;
         }
         export class Popover extends React.Component<PopoverProps> {
         }
 
         export interface PopoverAnimationVerticalProps extends PopoverAnimationProps {
-            className?: string;
-            targetOrigin?: propTypes.origin;
-            zDepth?: number;
+            className?: string | undefined;
+            targetOrigin?: propTypes.origin | undefined;
+            zDepth?: number | undefined;
         }
         export class PopoverAnimationVertical extends React.Component<PopoverAnimationVerticalProps> {
         }
 
         export interface PopoverAnimationDefaultProps extends PopoverAnimationProps {
-            className?: string;
-            targetOrigin?: propTypes.origin;
-            zDepth?: number;
+            className?: string | undefined;
+            targetOrigin?: propTypes.origin | undefined;
+            zDepth?: number | undefined;
         }
         export class PopoverAnimationDefault extends React.Component<PopoverAnimationDefaultProps> {
         }
     }
 
     export interface CircularProgressProps {
-        color?: string;
-        innerStyle?: React.CSSProperties;
-        max?: number;
-        min?: number;
-        mode?: "determinate" | "indeterminate";
-        size?: number;
-        style?: React.CSSProperties;
-        thickness?: number;
-        value?: number;
+        color?: string | undefined;
+        innerStyle?: React.CSSProperties | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        mode?: "determinate" | "indeterminate" | undefined;
+        size?: number | undefined;
+        style?: React.CSSProperties | undefined;
+        thickness?: number | undefined;
+        value?: number | undefined;
     }
     export class CircularProgress extends React.Component<CircularProgressProps> {
     }
 
     export interface LinearProgressProps {
-        color?: string;
-        max?: number;
-        min?: number;
-        mode?: "determinate" | "indeterminate";
-        style?: React.CSSProperties;
-        value?: number;
+        color?: string | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        mode?: "determinate" | "indeterminate" | undefined;
+        style?: React.CSSProperties | undefined;
+        value?: number | undefined;
     }
     export class LinearProgress extends React.Component<LinearProgressProps> {
     }
 
     export interface RefreshIndicatorProps {
-        color?: string;
+        color?: string | undefined;
         left: number;
-        loadingColor?: string;
-        percentage?: number;
-        size?: number;
-        status?: "ready" | "loading" | "hide";
-        style?: React.CSSProperties;
+        loadingColor?: string | undefined;
+        percentage?: number | undefined;
+        size?: number | undefined;
+        status?: "ready" | "loading" | "hide" | undefined;
+        style?: React.CSSProperties | undefined;
         top: number;
     }
     export class RefreshIndicator extends React.Component<RefreshIndicatorProps> {
@@ -1408,65 +1408,65 @@ declare namespace __MaterialUI {
 
     export interface SelectFieldProps {
         // <DropDownMenu/> is the element that get the 'other' properties
-        autoWidth?: boolean;
-        disabled?: boolean;
-        dropDownMenuProps?: Menus.DropDownMenuProps;
-        errorStyle?: React.CSSProperties;
-        errorText?: React.ReactNode;
-        floatingLabelFixed?: boolean;
-        floatingLabelStyle?: React.CSSProperties;
-        floatingLabelText?: React.ReactNode;
-        fullWidth?: boolean;
-        hintStyle?: React.CSSProperties;
-        hintText?: React.ReactNode;
-        iconStyle?: React.CSSProperties;
-        id?: string;
-        name?: string;
-        labelStyle?: React.CSSProperties;
-        multiple?: boolean;
-        onBlur?: React.FocusEventHandler<{}>;
+        autoWidth?: boolean | undefined;
+        disabled?: boolean | undefined;
+        dropDownMenuProps?: Menus.DropDownMenuProps | undefined;
+        errorStyle?: React.CSSProperties | undefined;
+        errorText?: React.ReactNode | undefined;
+        floatingLabelFixed?: boolean | undefined;
+        floatingLabelStyle?: React.CSSProperties | undefined;
+        floatingLabelText?: React.ReactNode | undefined;
+        fullWidth?: boolean | undefined;
+        hintStyle?: React.CSSProperties | undefined;
+        hintText?: React.ReactNode | undefined;
+        iconStyle?: React.CSSProperties | undefined;
+        id?: string | undefined;
+        name?: string | undefined;
+        labelStyle?: React.CSSProperties | undefined;
+        multiple?: boolean | undefined;
+        onBlur?: React.FocusEventHandler<{}> | undefined;
         onChange?(e: React.SyntheticEvent<{}>, index: number, menuItemValue: any): void;
-        onFocus?: React.FocusEventHandler<{}>;
-        selectFieldRoot?: React.CSSProperties;
+        onFocus?: React.FocusEventHandler<{}> | undefined;
+        selectFieldRoot?: React.CSSProperties | undefined;
         selectionRenderer?(value: any): React.ReactNode;
-        style?: React.CSSProperties;
-        underlineDisabledStyle?: React.CSSProperties;
-        underlineFocusStyle?: React.CSSProperties;
-        underlineStyle?: React.CSSProperties;
+        style?: React.CSSProperties | undefined;
+        underlineDisabledStyle?: React.CSSProperties | undefined;
+        underlineFocusStyle?: React.CSSProperties | undefined;
+        underlineStyle?: React.CSSProperties | undefined;
         value?: any;
 
         // useful attributes passed to <DropDownMenu/>
-        className?: string;
-        maxHeight?: number;
+        className?: string | undefined;
+        maxHeight?: number | undefined;
         menuStyle?: any;
-        listStyle?: React.CSSProperties;
-        menuItemStyle?: React.CSSProperties;
-        selectedMenuItemStyle?: React.CSSProperties;
-        openImmediately?: boolean;
+        listStyle?: React.CSSProperties | undefined;
+        menuItemStyle?: React.CSSProperties | undefined;
+        selectedMenuItemStyle?: React.CSSProperties | undefined;
+        openImmediately?: boolean | undefined;
     }
     export class SelectField extends React.Component<SelectFieldProps> {
     }
 
     export interface SliderProps {
-        axis?: 'x' | 'x-reverse' | 'y' | 'y-reverse';
-        defaultValue?: number;
-        description?: string;
-        disableFocusRipple?: boolean;
-        disabled?: boolean;
-        error?: string;
-        max?: number;
-        min?: number;
-        name?: string;
-        onBlur?: React.FocusEventHandler<{}>;
+        axis?: 'x' | 'x-reverse' | 'y' | 'y-reverse' | undefined;
+        defaultValue?: number | undefined;
+        description?: string | undefined;
+        disableFocusRipple?: boolean | undefined;
+        disabled?: boolean | undefined;
+        error?: string | undefined;
+        max?: number | undefined;
+        min?: number | undefined;
+        name?: string | undefined;
+        onBlur?: React.FocusEventHandler<{}> | undefined;
         onChange?(e: React.MouseEvent<{}>, value: number): void;
-        onDragStart?: React.MouseEventHandler<{}>;
-        onDragStop?: React.MouseEventHandler<{}>;
-        onFocus?: React.FocusEventHandler<{}>;
-        required?: boolean;
-        sliderStyle?: React.CSSProperties;
-        step?: number;
-        style?: React.CSSProperties;
-        value?: number;
+        onDragStart?: React.MouseEventHandler<{}> | undefined;
+        onDragStop?: React.MouseEventHandler<{}> | undefined;
+        onFocus?: React.FocusEventHandler<{}> | undefined;
+        required?: boolean | undefined;
+        sliderStyle?: React.CSSProperties | undefined;
+        step?: number | undefined;
+        style?: React.CSSProperties | undefined;
+        value?: number | undefined;
     }
     export class Slider extends React.Component<SliderProps> {
     }
@@ -1474,41 +1474,41 @@ declare namespace __MaterialUI {
     namespace Switches {
         // what's not commonly overridden by Checkbox, RadioButton, or Toggle
         export interface CommonEnhancedSwitchProps<T> extends React.InputHTMLAttributes<{}>, React.Props<T> {
-            label?: React.ReactNode;
+            label?: React.ReactNode | undefined;
         }
 
         export interface EnhancedSwitchProps extends CommonEnhancedSwitchProps<EnhancedSwitch> {
             // <input/> is element that get the 'other' properties
-            className?: string;
-            defaultSwitched?: boolean;
-            disableFocusRipple?: boolean;
-            disableTouchRipple?: boolean;
-            disabled?: boolean;
-            iconStyle?: React.CSSProperties;
-            id?: string;
+            className?: string | undefined;
+            defaultSwitched?: boolean | undefined;
+            disableFocusRipple?: boolean | undefined;
+            disableTouchRipple?: boolean | undefined;
+            disabled?: boolean | undefined;
+            iconStyle?: React.CSSProperties | undefined;
+            id?: string | undefined;
             inputStyle: React.CSSProperties;
             inputType: string;
-            labelPosition?: string; // oneOf(['left', 'right'])
-            labelStyle?: React.CSSProperties;
-            name?: string;
-            onBlur?: React.FocusEventHandler<{}>;
-            onFocus?: React.FocusEventHandler<{}>;
-            onMouseDown?: React.MouseEventHandler<{}>;
-            onMouseLeave?: React.MouseEventHandler<{}>;
-            onMouseUp?: React.MouseEventHandler<{}>;
+            labelPosition?: string | undefined; // oneOf(['left', 'right'])
+            labelStyle?: React.CSSProperties | undefined;
+            name?: string | undefined;
+            onBlur?: React.FocusEventHandler<{}> | undefined;
+            onFocus?: React.FocusEventHandler<{}> | undefined;
+            onMouseDown?: React.MouseEventHandler<{}> | undefined;
+            onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+            onMouseUp?: React.MouseEventHandler<{}> | undefined;
             onParentShouldUpdate(isInputChecked: boolean): void;
             onSwitch?(e: React.MouseEvent<{}>, isInputChecked: boolean): void;
-            onTouchEnd?: React.TouchEventHandler<{}>;
-            onTouchStart?: React.TouchEventHandler<{}>;
-            required?: boolean;
-            rippleColor?: string;
-            rippleStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
+            onTouchEnd?: React.TouchEventHandler<{}> | undefined;
+            onTouchStart?: React.TouchEventHandler<{}> | undefined;
+            required?: boolean | undefined;
+            rippleColor?: string | undefined;
+            rippleStyle?: React.CSSProperties | undefined;
+            style?: React.CSSProperties | undefined;
             switchElement: React.ReactElement;
             switched: boolean;
-            thumbStyle?: React.CSSProperties;
-            trackStyle?: React.CSSProperties;
-            value?: string;
+            thumbStyle?: React.CSSProperties | undefined;
+            trackStyle?: React.CSSProperties | undefined;
+            value?: string | undefined;
         }
         export class EnhancedSwitch extends React.Component<EnhancedSwitchProps> {
             getValue(): string;
@@ -1519,18 +1519,18 @@ declare namespace __MaterialUI {
 
         export interface CheckboxProps extends CommonEnhancedSwitchProps<Checkbox> {
             // <EnhancedSwitch/> is element that get the 'other' properties
-            checked?: boolean;
-            checkedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
-            defaultChecked?: boolean;
-            disabled?: boolean;
-            iconStyle?: React.CSSProperties;
-            labelPosition?: "left" | "right";
-            labelStyle?: React.CSSProperties;
+            checked?: boolean | undefined;
+            checkedIcon?: React.ReactElement<{ style?: React.CSSProperties | undefined }> | undefined; // Normally an SvgIcon
+            defaultChecked?: boolean | undefined;
+            disabled?: boolean | undefined;
+            iconStyle?: React.CSSProperties | undefined;
+            labelPosition?: "left" | "right" | undefined;
+            labelStyle?: React.CSSProperties | undefined;
             onCheck?(event: React.MouseEvent<{}>, checked: boolean): void;
-            style?: React.CSSProperties;
-            uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
-            valueLink?: ReactLink<boolean>;
-            inputStyle?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
+            uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties | undefined }> | undefined; // Normally an SvgIcon
+            valueLink?: ReactLink<boolean> | undefined;
+            inputStyle?: React.CSSProperties | undefined;
         }
         export class Checkbox extends React.Component<CheckboxProps> {
             /** @deprecated Use checked property instead */
@@ -1542,14 +1542,14 @@ declare namespace __MaterialUI {
 
         export interface RadioButtonProps extends CommonEnhancedSwitchProps<RadioButton> {
             // <EnhancedSwitch/> is element that get the 'other' properties
-            checkedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
-            disabled?: boolean;
-            iconStyle?: React.CSSProperties;
-            inputStyle?: React.CSSProperties;
-            labelStyle?: React.CSSProperties;
+            checkedIcon?: React.ReactElement<{ style?: React.CSSProperties | undefined }> | undefined; // Normally an SvgIcon
+            disabled?: boolean | undefined;
+            iconStyle?: React.CSSProperties | undefined;
+            inputStyle?: React.CSSProperties | undefined;
+            labelStyle?: React.CSSProperties | undefined;
             onCheck?(e: React.FormEvent<{}>, selected: string): void;
-            style?: React.CSSProperties;
-            uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
+            style?: React.CSSProperties | undefined;
+            uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties | undefined }> | undefined; // Normally an SvgIcon
             value?: any;
         }
         export class RadioButton extends React.Component<RadioButtonProps> {
@@ -1559,12 +1559,12 @@ declare namespace __MaterialUI {
         }
 
         export interface RadioButtonGroupProps {
-            className?: string;
+            className?: string | undefined;
             defaultSelected?: any;
-            labelPosition?: "left" | "right";
+            labelPosition?: "left" | "right" | undefined;
             name: string;
             onChange?(e: React.FormEvent<{}>, selected: string): void;
-            style?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
             valueSelected?: any;
         }
         export class RadioButtonGroup extends React.Component<RadioButtonGroupProps> {
@@ -1577,23 +1577,23 @@ declare namespace __MaterialUI {
 
         export interface ToggleProps extends CommonEnhancedSwitchProps<Toggle> {
             // <EnhancedSwitch/> is element that get the 'other' properties
-            defaultToggled?: boolean;
-            disabled?: boolean;
-            elementStyle?: React.CSSProperties;
-            iconStyle?: React.CSSProperties;
-            inputStyle?: React.CSSProperties;
-            label?: React.ReactNode;
-            labelPosition?: "left" | "right";
-            labelStyle?: React.CSSProperties;
+            defaultToggled?: boolean | undefined;
+            disabled?: boolean | undefined;
+            elementStyle?: React.CSSProperties | undefined;
+            iconStyle?: React.CSSProperties | undefined;
+            inputStyle?: React.CSSProperties | undefined;
+            label?: React.ReactNode | undefined;
+            labelPosition?: "left" | "right" | undefined;
+            labelStyle?: React.CSSProperties | undefined;
             onToggle?(e: React.MouseEvent<{}>, isInputChecked: boolean): void;
-            rippleStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
-            thumbStyle?: React.CSSProperties;
-            thumbSwitchedStyle?: React.CSSProperties;
-            trackSwitchedStyle?: React.CSSProperties;
-            toggled?: boolean;
-            trackStyle?: React.CSSProperties;
-            valueLink?: ReactLink<boolean>;
+            rippleStyle?: React.CSSProperties | undefined;
+            style?: React.CSSProperties | undefined;
+            thumbStyle?: React.CSSProperties | undefined;
+            thumbSwitchedStyle?: React.CSSProperties | undefined;
+            trackSwitchedStyle?: React.CSSProperties | undefined;
+            toggled?: boolean | undefined;
+            trackStyle?: React.CSSProperties | undefined;
+            valueLink?: ReactLink<boolean> | undefined;
         }
         export class Toggle extends React.Component<ToggleProps> {
             isToggled(): boolean;
@@ -1603,69 +1603,69 @@ declare namespace __MaterialUI {
     }
 
     export interface SnackbarProps {
-        action?: React.ReactNode;
-        autoHideDuration?: number;
-        bodyStyle?: React.CSSProperties;
-        className?: string;
-        contentStyle?: React.CSSProperties;
+        action?: React.ReactNode | undefined;
+        autoHideDuration?: number | undefined;
+        bodyStyle?: React.CSSProperties | undefined;
+        className?: string | undefined;
+        contentStyle?: React.CSSProperties | undefined;
         message: React.ReactNode;
-        onActionClick?: React.MouseEventHandler<{}>;
+        onActionClick?: React.MouseEventHandler<{}> | undefined;
         onRequestClose?(reason: string): void;
         open: boolean;
-        style?: React.CSSProperties;
+        style?: React.CSSProperties | undefined;
     }
     export class Snackbar extends React.Component<SnackbarProps> {
     }
 
     namespace Stepper {
         export interface StepProps {
-            active?: boolean;
-            completed?: boolean;
-            disabled?: boolean;
-            style?: React.CSSProperties;
+            active?: boolean | undefined;
+            completed?: boolean | undefined;
+            disabled?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class Step extends React.Component<StepProps> {
         }
 
         export interface StepButtonProps extends SharedEnhancedButtonProps<StepButton> {
-            active?: boolean;
-            completed?: boolean;
-            disabled?: boolean;
-            icon?: React.ReactNode | string | number;
-            onMouseEnter?: React.MouseEventHandler<{}>;
-            onMouseLeave?: React.MouseEventHandler<{}>;
-            onTouchStart?: React.TouchEventHandler<{}>;
-            style?: React.CSSProperties;
+            active?: boolean | undefined;
+            completed?: boolean | undefined;
+            disabled?: boolean | undefined;
+            icon?: React.ReactNode | string | number | undefined;
+            onMouseEnter?: React.MouseEventHandler<{}> | undefined;
+            onMouseLeave?: React.MouseEventHandler<{}> | undefined;
+            onTouchStart?: React.TouchEventHandler<{}> | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class StepButton extends React.Component<StepButtonProps> {
         }
 
         export interface StepContentProps {
-            active?: boolean;
-            last?: boolean;
-            style?: React.CSSProperties;
+            active?: boolean | undefined;
+            last?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class StepContent extends React.Component<StepContentProps> {
         }
 
         export interface StepLabelProps {
-            active?: boolean;
-            completed?: boolean;
-            disabled?: boolean;
-            icon?: React.ReactNode | string | number;
-            iconContainerStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
+            active?: boolean | undefined;
+            completed?: boolean | undefined;
+            disabled?: boolean | undefined;
+            icon?: React.ReactNode | string | number | undefined;
+            iconContainerStyle?: React.CSSProperties | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class StepLabel extends React.Component<StepLabelProps> {
         }
 
         export interface SnackbarProps extends React.Props<Snackbar> {
-            action?: string;
-            autoHideDuration?: number;
-            bodyStyle?: React.CSSProperties;
-            className?: string;
+            action?: string | undefined;
+            autoHideDuration?: number | undefined;
+            bodyStyle?: React.CSSProperties | undefined;
+            className?: string | undefined;
             message: string | JSX.Element;
-            onActionClick?: React.MouseEventHandler<{}>;
+            onActionClick?: React.MouseEventHandler<{}> | undefined;
             /** @deprecated Use the open property to control the component instead */
             onDismiss?(): void; // DEPRECATED
             onRequestClose(reason: string): void;
@@ -1673,56 +1673,56 @@ declare namespace __MaterialUI {
             onShow?(): void; // DEPRECATED
             open: boolean;
             /** @deprecated Use the open property to control the component instead */
-            openOnMount?: boolean; // DEPRECATED
+            openOnMount?: boolean | undefined; // DEPRECATED
         }
 
         export interface StepperProps {
-            activeStep?: number;
-            linear?: boolean;
-            orientation?: "horizontal" | "vertical";
-            style?: React.CSSProperties;
+            activeStep?: number | undefined;
+            linear?: boolean | undefined;
+            orientation?: "horizontal" | "vertical" | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class Stepper extends React.Component<StepperProps> {
         }
     }
 
     export interface SubheaderProps {
-        inset?: boolean;
-        style?: React.CSSProperties;
+        inset?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
     }
     export class Subheader extends React.Component<SubheaderProps> {
     }
 
     namespace Table {
         export interface TableProps {
-            allRowsSelected?: boolean;
-            bodyStyle?: React.CSSProperties;
-            className?: string;
-            fixedFooter?: boolean;
-            fixedHeader?: boolean;
-            footerStyle?: React.CSSProperties;
-            headerStyle?: React.CSSProperties;
-            height?: string;
-            multiSelectable?: boolean;
+            allRowsSelected?: boolean | undefined;
+            bodyStyle?: React.CSSProperties | undefined;
+            className?: string | undefined;
+            fixedFooter?: boolean | undefined;
+            fixedHeader?: boolean | undefined;
+            footerStyle?: React.CSSProperties | undefined;
+            headerStyle?: React.CSSProperties | undefined;
+            height?: string | undefined;
+            multiSelectable?: boolean | undefined;
             onCellClick?(row: number, column: number): void;
             onCellHover?(row: number, column: number): void;
             onCellHoverExit?(row: number, column: number): void;
             onRowHover?(row: number): void;
             onRowHoverExit?(row: number): void;
             onRowSelection?(selectedRows: number[] | 'all'): void;
-            selectable?: boolean;
-            style?: React.CSSProperties;
-            wrapperStyle?: React.CSSProperties;
+            selectable?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
+            wrapperStyle?: React.CSSProperties | undefined;
         }
         export class Table extends React.Component<TableProps> {
         }
 
         export interface TableRowProps {
             // <tr/> is element that get the 'other' properties
-            className?: string;
-            displayBorder?: boolean;
-            hoverable?: boolean;
-            hovered?: boolean;
+            className?: string | undefined;
+            displayBorder?: boolean | undefined;
+            hoverable?: boolean | undefined;
+            hovered?: boolean | undefined;
             /** @deprecated Instead, use event handler on Table */
             onCellClick?(e: React.MouseEvent<{}>, row: number, column: number): void;
             /** @deprecated Instead, use event handler on Table */
@@ -1735,75 +1735,75 @@ declare namespace __MaterialUI {
             onRowHover?(e: React.MouseEvent<{}>, row: number): void;
             /** @deprecated Instead, use event handler on Table */
             onRowHoverExit?(e: React.MouseEvent<{}>, row: number): void;
-            rowNumber?: number;
-            selectable?: boolean;
-            selected?: boolean;
-            striped?: boolean;
-            style?: React.CSSProperties;
+            rowNumber?: number | undefined;
+            selectable?: boolean | undefined;
+            selected?: boolean | undefined;
+            striped?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class TableRow extends React.Component<TableRowProps> {
         }
 
         export interface TableRowColumnProps {
             // <td/> is element that get the 'other' properties
-            className?: string;
-            columnNumber?: number;
-            hoverable?: boolean;
-            key?: string;
+            className?: string | undefined;
+            columnNumber?: number | undefined;
+            hoverable?: boolean | undefined;
+            key?: string | undefined;
             /** @deprecated Instead, use event handler on Table */
             onClick?(e: React.MouseEvent<{}>, column: number): void;
             /** @deprecated Instead, use event handler on Table */
             onHover?(e: React.MouseEvent<{}>, column: number): void;
             /** @deprecated Instead, use event handler on Table */
             onHoverExit?(e: React.MouseEvent<{}>, column: number): void;
-            style?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
 
             // useful attributes passed to <td/>
-            colSpan?: number;
-            rowSpan?: number;
+            colSpan?: number | undefined;
+            rowSpan?: number | undefined;
         }
         export class TableRowColumn extends React.Component<TableRowColumnProps> {
         }
 
         export interface TableHeaderProps {
-            adjustForCheckbox?: boolean;
-            className?: string;
-            displaySelectAll?: boolean;
-            enableSelectAll?: boolean;
+            adjustForCheckbox?: boolean | undefined;
+            className?: string | undefined;
+            displaySelectAll?: boolean | undefined;
+            enableSelectAll?: boolean | undefined;
             /** @deprecated Instead, use event handler on Table */
             onSelectAll?(checked: boolean): void;
             /** @deprecated Instead, use event handler on Table */
-            selectAllSelected?: boolean;
-            style?: React.CSSProperties;
+            selectAllSelected?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class TableHeader extends React.Component<TableHeaderProps> {
         }
 
         export interface TableHeaderColumnProps {
             // <th/> is element that get the 'other' properties
-            className?: string;
-            columnNumber?: number;
-            key?: string;
+            className?: string | undefined;
+            columnNumber?: number | undefined;
+            key?: string | undefined;
             onClick?(e: React.MouseEvent<{}>, column: number): void;
-            style?: React.CSSProperties;
-            tooltip?: string;
-            tooltipStyle?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
+            tooltip?: string | undefined;
+            tooltipStyle?: React.CSSProperties | undefined;
 
             // useful attributes passed to <th/>
-            colSpan?: number;
-            rowSpan?: number;
+            colSpan?: number | undefined;
+            rowSpan?: number | undefined;
         }
         export class TableHeaderColumn extends React.Component<TableHeaderColumnProps> {
         }
 
         export interface TableBodyProps {
             /** @deprecated Instead, use property on Table */
-            allRowsSelected?: boolean;
-            className?: string;
-            deselectOnClickaway?: boolean;
-            displayRowCheckbox?: boolean;
+            allRowsSelected?: boolean | undefined;
+            className?: string | undefined;
+            deselectOnClickaway?: boolean | undefined;
+            displayRowCheckbox?: boolean | undefined;
             /** @deprecated Instead, use property on Table */
-            multiSelectable?: boolean;
+            multiSelectable?: boolean | undefined;
             /** @deprecated Instead, use event handler on Table */
             onCellClick?(row: number, column: number): void;
             /** @deprecated Instead, use event handler on Table */
@@ -1816,21 +1816,21 @@ declare namespace __MaterialUI {
             onRowHoverExit?(row: number): void;
             /** @deprecated Instead, use event handler on Table */
             onRowSelection?(selectedRows: number[] | string): void;
-            preScanRows?: boolean;
+            preScanRows?: boolean | undefined;
             /** @deprecated Instead, use property on Table */
-            selectable?: boolean;
-            showRowHover?: boolean;
-            stripedRows?: boolean;
-            style?: React.CSSProperties;
+            selectable?: boolean | undefined;
+            showRowHover?: boolean | undefined;
+            stripedRows?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class TableBody extends React.Component<TableBodyProps> {
         }
 
         export interface TableFooterProps {
             // <tfoot/> is element that get the 'other' properties
-            adjustForCheckbox?: boolean;
-            className?: string;
-            style?: React.CSSProperties;
+            adjustForCheckbox?: boolean | undefined;
+            className?: string | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class TableFooter extends React.Component<TableFooterProps> {
         }
@@ -1838,79 +1838,79 @@ declare namespace __MaterialUI {
 
     namespace Tabs {
         export interface TabsProps {
-            className?: string;
-            contentContainerClassName?: string;
-            contentContainerStyle?: React.CSSProperties;
-            initialSelectedIndex?: number;
-            inkBarStyle?: React.CSSProperties;
+            className?: string | undefined;
+            contentContainerClassName?: string | undefined;
+            contentContainerStyle?: React.CSSProperties | undefined;
+            initialSelectedIndex?: number | undefined;
+            inkBarStyle?: React.CSSProperties | undefined;
             onChange?(value: any, e: React.FormEvent<{}>, tab: Tab): void;
-            style?: React.CSSProperties;
-            tabItemContainerStyle?: React.CSSProperties;
-            tabTemplate?: React.ComponentClass<any>;
-            tabTemplateStyle?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
+            tabItemContainerStyle?: React.CSSProperties | undefined;
+            tabTemplate?: React.ComponentClass<any> | undefined;
+            tabTemplateStyle?: React.CSSProperties | undefined;
             value?: any;
         }
         export class Tabs extends React.Component<TabsProps> {
         }
 
         export interface TabProps extends SharedEnhancedButtonProps<Tab> {
-            buttonStyle?: React.CSSProperties;
-            className?: string;
-            icon?: React.ReactNode;
-            label?: React.ReactNode;
+            buttonStyle?: React.CSSProperties | undefined;
+            className?: string | undefined;
+            icon?: React.ReactNode | undefined;
+            label?: React.ReactNode | undefined;
             onActive?(tab: Tab): void;
-            style?: React.CSSProperties;
+            style?: React.CSSProperties | undefined;
             value?: any;
-            disabled?: boolean;
+            disabled?: boolean | undefined;
         }
         export class Tab extends React.Component<TabProps> {
         }
     }
 
     export interface TextFieldProps {
-        className?: string;
-        defaultValue?: string | number;
-        disabled?: boolean;
-        errorStyle?: React.CSSProperties;
-        errorText?: React.ReactNode;
-        floatingLabelFixed?: boolean;
-        floatingLabelFocusStyle?: React.CSSProperties;
-        floatingLabelShrinkStyle?: React.CSSProperties;
-        floatingLabelStyle?: React.CSSProperties;
-        floatingLabelText?: React.ReactNode;
-        fullWidth?: boolean;
-        hintStyle?: React.CSSProperties;
-        hintText?: React.ReactNode;
-        id?: string;
-        inputStyle?: React.CSSProperties;
-        multiLine?: boolean;
-        name?: string;
-        onBlur?: React.FocusEventHandler<{}>;
+        className?: string | undefined;
+        defaultValue?: string | number | undefined;
+        disabled?: boolean | undefined;
+        errorStyle?: React.CSSProperties | undefined;
+        errorText?: React.ReactNode | undefined;
+        floatingLabelFixed?: boolean | undefined;
+        floatingLabelFocusStyle?: React.CSSProperties | undefined;
+        floatingLabelShrinkStyle?: React.CSSProperties | undefined;
+        floatingLabelStyle?: React.CSSProperties | undefined;
+        floatingLabelText?: React.ReactNode | undefined;
+        fullWidth?: boolean | undefined;
+        hintStyle?: React.CSSProperties | undefined;
+        hintText?: React.ReactNode | undefined;
+        id?: string | undefined;
+        inputStyle?: React.CSSProperties | undefined;
+        multiLine?: boolean | undefined;
+        name?: string | undefined;
+        onBlur?: React.FocusEventHandler<{}> | undefined;
         onChange?(e: React.FormEvent<{}>, newValue: string): void;
-        onFocus?: React.FocusEventHandler<{}>;
-        onKeyDown?: React.KeyboardEventHandler<{}>;
-        onKeyUp?: React.KeyboardEventHandler<{}>;
-        onKeyPress?: React.KeyboardEventHandler<{}>;
-        required?: boolean;
-        rows?: number;
-        rowsMax?: number;
-        style?: React.CSSProperties;
-        textareaStyle?: React.CSSProperties;
-        type?: string;
-        underlineDisabledStyle?: React.CSSProperties;
-        underlineFocusStyle?: React.CSSProperties;
-        underlineShow?: boolean;
-        underlineStyle?: React.CSSProperties;
-        value?: string | number;
-        autoFocus?: boolean;
-        min?: number;
-        max?: number;
-        maxlength?: string;
-        minlength?: string;
-        step?: number;
-        autoComplete?: string;
-        placeholder?: string;
-        title?: string;
+        onFocus?: React.FocusEventHandler<{}> | undefined;
+        onKeyDown?: React.KeyboardEventHandler<{}> | undefined;
+        onKeyUp?: React.KeyboardEventHandler<{}> | undefined;
+        onKeyPress?: React.KeyboardEventHandler<{}> | undefined;
+        required?: boolean | undefined;
+        rows?: number | undefined;
+        rowsMax?: number | undefined;
+        style?: React.CSSProperties | undefined;
+        textareaStyle?: React.CSSProperties | undefined;
+        type?: string | undefined;
+        underlineDisabledStyle?: React.CSSProperties | undefined;
+        underlineFocusStyle?: React.CSSProperties | undefined;
+        underlineShow?: boolean | undefined;
+        underlineStyle?: React.CSSProperties | undefined;
+        value?: string | number | undefined;
+        autoFocus?: boolean | undefined;
+        min?: number | undefined;
+        max?: number | undefined;
+        maxlength?: string | undefined;
+        minlength?: string | undefined;
+        step?: number | undefined;
+        autoComplete?: string | undefined;
+        placeholder?: string | undefined;
+        title?: string | undefined;
     }
     export class TextField extends React.Component<TextFieldProps> {
         blur(): void;
@@ -1926,51 +1926,51 @@ declare namespace __MaterialUI {
 
     export interface TimePickerProps {
         // <TextField/> is element that get the 'other' properties
-        autoOk?: boolean;
-        cancelLabel?: React.ReactNode;
-        defaultTime?: Date;
-        dialogBodyStyle?: React.CSSProperties;
-        dialogStyle?: React.CSSProperties;
-        disabled?: boolean;
-        format?: "ampm" | "24hr";
-        minutesStep?: number;
-        okLabel?: React.ReactNode;
+        autoOk?: boolean | undefined;
+        cancelLabel?: React.ReactNode | undefined;
+        defaultTime?: Date | undefined;
+        dialogBodyStyle?: React.CSSProperties | undefined;
+        dialogStyle?: React.CSSProperties | undefined;
+        disabled?: boolean | undefined;
+        format?: "ampm" | "24hr" | undefined;
+        minutesStep?: number | undefined;
+        okLabel?: React.ReactNode | undefined;
         onChange?(e: any, time: Date): void;
         onDismiss?(): void;
-        onFocus?: React.FocusEventHandler<{}>;
+        onFocus?: React.FocusEventHandler<{}> | undefined;
         onShow?(): void;
-        onClick?: React.MouseEventHandler<{}>;
-        pedantic?: boolean;
-        style?: React.CSSProperties;
-        textFieldStyle?: React.CSSProperties;
-        value?: Date;
+        onClick?: React.MouseEventHandler<{}> | undefined;
+        pedantic?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
+        textFieldStyle?: React.CSSProperties | undefined;
+        value?: Date | undefined;
 
         // From <TextField />
-        className?: string;
-        defaultValue?: string | number;
-        errorStyle?: React.CSSProperties;
-        errorText?: React.ReactNode;
-        floatingLabelFixed?: boolean;
-        floatingLabelFocusStyle?: React.CSSProperties;
-        floatingLabelStyle?: React.CSSProperties;
-        floatingLabelText?: React.ReactNode;
-        fullWidth?: boolean;
-        hintStyle?: React.CSSProperties;
-        hintText?: React.ReactNode;
-        id?: string;
-        inputStyle?: React.CSSProperties;
-        multiLine?: boolean;
-        name?: string;
-        onBlur?: React.FocusEventHandler<{}>;
-        onKeyDown?: React.KeyboardEventHandler<{}>;
-        rows?: number;
-        rowsMax?: number;
-        textareaStyle?: React.CSSProperties;
-        type?: string;
-        underlineDisabledStyle?: React.CSSProperties;
-        underlineFocusStyle?: React.CSSProperties;
-        underlineShow?: boolean;
-        underlineStyle?: React.CSSProperties;
+        className?: string | undefined;
+        defaultValue?: string | number | undefined;
+        errorStyle?: React.CSSProperties | undefined;
+        errorText?: React.ReactNode | undefined;
+        floatingLabelFixed?: boolean | undefined;
+        floatingLabelFocusStyle?: React.CSSProperties | undefined;
+        floatingLabelStyle?: React.CSSProperties | undefined;
+        floatingLabelText?: React.ReactNode | undefined;
+        fullWidth?: boolean | undefined;
+        hintStyle?: React.CSSProperties | undefined;
+        hintText?: React.ReactNode | undefined;
+        id?: string | undefined;
+        inputStyle?: React.CSSProperties | undefined;
+        multiLine?: boolean | undefined;
+        name?: string | undefined;
+        onBlur?: React.FocusEventHandler<{}> | undefined;
+        onKeyDown?: React.KeyboardEventHandler<{}> | undefined;
+        rows?: number | undefined;
+        rowsMax?: number | undefined;
+        textareaStyle?: React.CSSProperties | undefined;
+        type?: string | undefined;
+        underlineDisabledStyle?: React.CSSProperties | undefined;
+        underlineFocusStyle?: React.CSSProperties | undefined;
+        underlineShow?: boolean | undefined;
+        underlineStyle?: React.CSSProperties | undefined;
     }
     export class TimePicker extends React.Component<TimePickerProps> {
         focus(): void;
@@ -1980,34 +1980,34 @@ declare namespace __MaterialUI {
 
     export namespace Toolbar {
         export interface ToolbarProps {
-            className?: string;
-            noGutter?: boolean;
-            style?: React.CSSProperties;
+            className?: string | undefined;
+            noGutter?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class Toolbar extends React.Component<ToolbarProps> {
         }
 
         export interface ToolbarGroupProps {
-            className?: string;
-            firstChild?: boolean;
-            float?: "left" | "right";
-            lastChild?: boolean;
-            style?: React.CSSProperties;
+            className?: string | undefined;
+            firstChild?: boolean | undefined;
+            float?: "left" | "right" | undefined;
+            lastChild?: boolean | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class ToolbarGroup extends React.Component<ToolbarGroupProps> {
         }
 
         export interface ToolbarSeparatorProps {
-            className?: string;
-            style?: React.CSSProperties;
+            className?: string | undefined;
+            style?: React.CSSProperties | undefined;
         }
         export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps> {
         }
 
         export interface ToolbarTitleProps extends React.HTMLAttributes<{}>, React.Props<ToolbarTitle> {
-            className?: string;
-            style?: React.CSSProperties;
-            text?: string;
+            className?: string | undefined;
+            style?: React.CSSProperties | undefined;
+            text?: string | undefined;
         }
         export class ToolbarTitle extends React.Component<ToolbarTitleProps> {
         }
@@ -7631,9 +7631,9 @@ declare module 'material-ui/utils/withWidth' {
     export const LARGE: number;
 
     interface Options {
-        largeWidth?: number;
-        mediumWidth?: number;
-        resizeInterval?: number;
+        largeWidth?: number | undefined;
+        mediumWidth?: number | undefined;
+        resizeInterval?: number | undefined;
     }
     export default function withWidth<C extends Function>(options?: Options): (component: C) => C;
 }
@@ -8911,29 +8911,29 @@ declare module 'material-ui/internal/AutoLockScrolling' {
 }
 declare module 'material-ui/internal/BeforeAfterWrapper' {
     export interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
-        afterElementType?: string;
-        afterStyle?: React.CSSProperties;
-        beforeElementType?: string;
-        beforeStyle?: React.CSSProperties;
-        elementType?: string;
-        style?: React.CSSProperties;
+        afterElementType?: string | undefined;
+        afterStyle?: React.CSSProperties | undefined;
+        beforeElementType?: string | undefined;
+        beforeStyle?: React.CSSProperties | undefined;
+        elementType?: string | undefined;
+        style?: React.CSSProperties | undefined;
     }
     class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> { }
     export default BeforeAfterWrapper;
 }
 declare module 'material-ui/internal/CircleRipple' {
     export interface CircleRippleProps extends React.Props<CircleRipple> {
-        aborted?: boolean;
-        color?: string;
-        opacity?: number;
-        style?: React.CSSProperties;
+        aborted?: boolean | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        style?: React.CSSProperties | undefined;
     }
     class CircleRipple extends React.Component<CircleRippleProps> { }
     export default CircleRipple;
 }
 declare module 'material-ui/internal/ClearFix' {
     export interface ClearFixProps extends React.Props<ClearFix> {
-        style?: React.CSSProperties;
+        style?: React.CSSProperties | undefined;
     }
     class ClearFix extends React.Component<ClearFixProps> { }
     export default ClearFix;
@@ -8959,118 +8959,118 @@ declare module 'material-ui/internal/EnhancedSwitch' {
 }
 declare module 'material-ui/internal/ExpandTransition' {
     export interface ExpandTransitionProps extends React.Props<ExpandTransition> {
-        enterDelay?: number;
-        loading?: boolean;
-        open?: boolean;
-        style?: React.CSSProperties;
-        transitionDelay?: number;
-        transitionDuration?: number;
+        enterDelay?: number | undefined;
+        loading?: boolean | undefined;
+        open?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
+        transitionDelay?: number | undefined;
+        transitionDuration?: number | undefined;
     }
     class ExpandTransition extends React.Component<ExpandTransitionProps> { }
     export default ExpandTransition;
 }
 declare module 'material-ui/internal/ExpandTransitionChild' {
     export interface ExpandTransitionChildProps extends React.Props<ExpandTransitionChild> {
-        enterDelay?: number;
-        style?: React.CSSProperties;
-        transitionDelay?: number;
-        transitionDuration?: number;
+        enterDelay?: number | undefined;
+        style?: React.CSSProperties | undefined;
+        transitionDelay?: number | undefined;
+        transitionDuration?: number | undefined;
     }
     class ExpandTransitionChild extends React.Component<ExpandTransitionChildProps> { }
     export default ExpandTransitionChild;
 }
 declare module 'material-ui/internal/FocusRipple' {
     export interface FocusRippleProps extends React.Props<FocusRipple> {
-        color?: string;
-        innerStyle?: React.CSSProperties;
-        opacity?: number;
-        show?: boolean;
-        style?: React.CSSProperties;
+        color?: string | undefined;
+        innerStyle?: React.CSSProperties | undefined;
+        opacity?: number | undefined;
+        show?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
     }
     class FocusRipple extends React.Component<FocusRippleProps> { }
     export default FocusRipple;
 }
 declare module 'material-ui/internal/Overlay' {
     export interface OverlayProps extends React.Props<Overlay> {
-        autoLockScrolling?: boolean;
+        autoLockScrolling?: boolean | undefined;
         show: boolean;
-        style?: React.CSSProperties;
-        transitionEnabled?: boolean;
-        onClick?: React.MouseEventHandler<{}>;
+        style?: React.CSSProperties | undefined;
+        transitionEnabled?: boolean | undefined;
+        onClick?: React.MouseEventHandler<{}> | undefined;
     }
     class Overlay extends React.Component<OverlayProps> { }
     export default Overlay;
 }
 declare module 'material-ui/internal/RenderToLayer' {
     export interface RenderToLayerProps extends React.Props<RenderToLayer> {
-        componentClickAway?: Function;
+        componentClickAway?: Function | undefined;
         open: boolean;
         render: Function;
-        useLayerForClickAway?: boolean;
+        useLayerForClickAway?: boolean | undefined;
     }
     class RenderToLayer extends React.Component<RenderToLayerProps> { }
     export default RenderToLayer;
 }
 declare module 'material-ui/internal/ScaleIn' {
     export interface ScaleInProps extends React.Props<ScaleIn> {
-        childStyle?: React.CSSProperties;
-        enterDelay?: number;
-        maxScale?: number;
-        minScale?: number;
+        childStyle?: React.CSSProperties | undefined;
+        enterDelay?: number | undefined;
+        maxScale?: number | undefined;
+        minScale?: number | undefined;
     }
     class ScaleIn extends React.Component<ScaleInProps> { }
     export default ScaleIn;
 }
 declare module 'material-ui/internal/ScaleInChild' {
     export interface ScaleInChildProps extends React.Props<ScaleInChild> {
-        enterDelay?: number;
-        maxScale?: number;
-        minScale?: number;
-        style?: React.CSSProperties;
+        enterDelay?: number | undefined;
+        maxScale?: number | undefined;
+        minScale?: number | undefined;
+        style?: React.CSSProperties | undefined;
     }
     class ScaleInChild extends React.Component<ScaleInChildProps> { }
     export default ScaleInChild;
 }
 declare module 'material-ui/internal/SlideIn' {
     export interface SlideInProps extends React.Props<SlideIn> {
-        childStyle?: React.CSSProperties;
-        direction?: __MaterialUI.propTypes.direction;
-        enterDelay?: number;
-        style?: React.CSSProperties;
+        childStyle?: React.CSSProperties | undefined;
+        direction?: __MaterialUI.propTypes.direction | undefined;
+        enterDelay?: number | undefined;
+        style?: React.CSSProperties | undefined;
     }
     class SlideIn extends React.Component<SlideInProps> { }
     export default SlideIn;
 }
 declare module 'material-ui/internal/SlideInChild' {
     export interface SlideInChildProps extends React.Props<SlideInChild> {
-        direction?: string;
-        enterDelay?: number;
+        direction?: string | undefined;
+        enterDelay?: number | undefined;
         getLeaveDirection: Function;
-        style?: React.CSSProperties;
+        style?: React.CSSProperties | undefined;
     }
     class SlideInChild extends React.Component<SlideInChildProps> { }
     export default SlideInChild;
 }
 declare module 'material-ui/internal/Tooltip' {
     export interface TooltipProps extends React.Props<Tooltip> {
-        className?: string;
-        horizontalPosition?: __MaterialUI.propTypes.tooltipHorizontal;
+        className?: string | undefined;
+        horizontalPosition?: __MaterialUI.propTypes.tooltipHorizontal | undefined;
         label: any;
-        show?: boolean;
-        style?: React.CSSProperties;
-        touch?: boolean;
-        verticalPosition?: __MaterialUI.propTypes.vertical;
+        show?: boolean | undefined;
+        style?: React.CSSProperties | undefined;
+        touch?: boolean | undefined;
+        verticalPosition?: __MaterialUI.propTypes.vertical | undefined;
     }
     class Tooltip extends React.Component<TooltipProps> { }
     export default Tooltip;
 }
 declare module 'material-ui/internal/TouchRipple' {
     export interface TouchRippleProps extends React.Props<TouchRipple> {
-        abortOnScroll?: boolean;
-        centerRipple?: boolean;
-        color?: string;
-        opacity?: number;
-        style?: React.CSSProperties;
+        abortOnScroll?: boolean | undefined;
+        centerRipple?: boolean | undefined;
+        color?: string | undefined;
+        opacity?: number | undefined;
+        style?: React.CSSProperties | undefined;
     }
     class TouchRipple extends React.Component<TouchRippleProps> { }
     export default TouchRipple;

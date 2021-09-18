@@ -9,34 +9,34 @@ import * as React from 'react';
 import { StyleProp, TextStyle, ViewProps, ViewStyle, Constructor, NativeMethodsMixin } from 'react-native';
 
 export interface PositionStyle {
-    top?: number;
-    left?: number;
-    right?: number;
-    width?: number;
-    height?: number;
+    top?: number | undefined;
+    left?: number | undefined;
+    right?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
 }
 
 export interface ModalDropdownProps<T = any> extends ViewProps {
-    disabled?: boolean;
-    defaultIndex?: number;
-    defaultValue?: string;
-    options?: T[];
-    animated?: boolean;
-    scrollEnabled?: boolean;
-    showsVerticalScrollIndicator?: boolean;
-    textStyle?: StyleProp<TextStyle>;
-    dropdownStyle?: StyleProp<ViewStyle>;
-    dropdownTextStyle?: StyleProp<TextStyle>;
-    dropdownTextHighlightStyle?: StyleProp<TextStyle>;
-    adjustFrame?: (positionStyle: PositionStyle) => PositionStyle;
-    renderRow?: (option: T, index: string, isSelected: boolean) => React.ReactNode;
-    renderSeparator?: (sectionID: string, index: string, adjacentRowHighlighted: boolean) => React.ReactNode;
-    renderButtonText?: (text: string) => string;
-    onDropdownWillShow?: () => void | boolean;
-    onDropdownWillHide?: () => void | boolean;
-    onSelect?: (index: string, option: T) => void | boolean;
-    accessible?: boolean;
-    keyboardShouldPersistTaps?: 'always' | 'never' | 'handled';
+    disabled?: boolean | undefined;
+    defaultIndex?: number | undefined;
+    defaultValue?: string | undefined;
+    options?: T[] | undefined;
+    animated?: boolean | undefined;
+    scrollEnabled?: boolean | undefined;
+    showsVerticalScrollIndicator?: boolean | undefined;
+    textStyle?: StyleProp<TextStyle> | undefined;
+    dropdownStyle?: StyleProp<ViewStyle> | undefined;
+    dropdownTextStyle?: StyleProp<TextStyle> | undefined;
+    dropdownTextHighlightStyle?: StyleProp<TextStyle> | undefined;
+    adjustFrame?: ((positionStyle: PositionStyle) => PositionStyle) | undefined;
+    renderRow?: ((option: T, index: string, isSelected: boolean) => React.ReactNode) | undefined;
+    renderSeparator?: ((sectionID: string, index: string, adjacentRowHighlighted: boolean) => React.ReactNode) | undefined;
+    renderButtonText?: ((text: string) => string) | undefined;
+    onDropdownWillShow?: (() => void | boolean) | undefined;
+    onDropdownWillHide?: (() => void | boolean) | undefined;
+    onSelect?: ((index: string, option: T) => void | boolean) | undefined;
+    accessible?: boolean | undefined;
+    keyboardShouldPersistTaps?: 'always' | 'never' | 'handled' | undefined;
 }
 
 export default class ModalDropdown<T = any> extends React.Component<ModalDropdownProps<T>> {

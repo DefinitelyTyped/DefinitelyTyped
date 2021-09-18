@@ -5,10 +5,9 @@ import {
   ReadStream,
   WriteStream
 } from "pg-large-object";
-import { Buffer } from "buffer";
 import pg = require("pg");
 
-const buffer = new Buffer("");
+const buffer = Buffer.from("");
 const bufferSize = 16384;
 const length = 16384;
 const oid = 1;

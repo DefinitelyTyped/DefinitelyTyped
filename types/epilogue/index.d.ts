@@ -123,8 +123,8 @@ export interface ResourceSortOption {
 export interface InitializeOptions {
     app: Express;
     sequelize: Sequelize;
-    base?: string;
-    updateMethod?: string;
+    base?: string | undefined;
+    updateMethod?: string | undefined;
 }
 
 export interface BaseContollerOptions {
@@ -183,16 +183,16 @@ export class ListController extends BaseController {
 export interface ResourceOptions {
     model: any;
     endpoints: string[];
-    actions?: string[];
-    include?: Array<{ model: any } | string>;
-    pagination?: boolean;
-    search?: ResourceSearchOption;
-    sort?: ResourceSortOption;
-    reloadInstances?: boolean;
-    associations?: AssociationOptions;
-    excludeAttributes?: string[];
-    readOnlyAttributes?: string[];
-    updateMethod?: string;
+    actions?: string[] | undefined;
+    include?: Array<{ model: any } | string> | undefined;
+    pagination?: boolean | undefined;
+    search?: ResourceSearchOption | undefined;
+    sort?: ResourceSortOption | undefined;
+    reloadInstances?: boolean | undefined;
+    associations?: AssociationOptions | undefined;
+    excludeAttributes?: string[] | undefined;
+    readOnlyAttributes?: string[] | undefined;
+    updateMethod?: string | undefined;
 }
 
 export function initialize(options?: InitializeOptions): void;

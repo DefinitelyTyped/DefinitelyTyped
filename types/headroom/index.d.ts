@@ -6,42 +6,42 @@
 
 interface HeadroomOptions {
     /** vertical offset in px before element is first unpinned */
-    offset?: { up?: number; down?: number } | number;
+    offset?: { up?: number | undefined; down?: number | undefined } | number | undefined;
     /** scroll tolerance in px before state changes or you can specify tolerance individually for up/down scroll */
-    tolerance?: { up?: number; down?: number } | number;
+    tolerance?: { up?: number | undefined; down?: number | undefined } | number | undefined;
     /** css classes to apply multiple classes are also supported with a space-separated list */
     classes?: {
         /** when element is initialised */
-        initial?: string;
+        initial?: string | undefined;
         /** when scrolling up */
-        pinned?: string;
+        pinned?: string | undefined;
         /** when scrolling down */
-        unpinned?: string;
+        unpinned?: string | undefined;
         /** when above offset */
-        top?: string;
+        top?: string | undefined;
         /** when below offset */
-        notTop?: string;
+        notTop?: string | undefined;
         /** when at bottom of scoll area */
-        bottom?: string;
+        bottom?: string | undefined;
         /** when not at bottom of scroll area */
-        notBottom?: string;
+        notBottom?: string | undefined;
         /** when frozen method has been called */
-        frozen?: string;
-    };
+        frozen?: string | undefined;
+    } | undefined;
     /** element to listen to scroll events on, defaults to `window` */
-    scroller?: HTMLElement;
+    scroller?: HTMLElement | undefined;
     /** callback when pinned, `this` is headroom object */
-    onPin?: () => void;
+    onPin?: (() => void) | undefined;
     /** callback when unpinned, `this` is headroom object */
-    onUnpin?: () => void;
+    onUnpin?: (() => void) | undefined;
     /** callback when above offset, `this` is headroom object */
-    onTop?: () => void;
+    onTop?: (() => void) | undefined;
     /** callback when below offset, `this` is headroom object */
-    onNotTop?: () => void;
+    onNotTop?: (() => void) | undefined;
     /** callback when at bottom of page, `this` is headroom object */
-    onBottom?: () => void;
+    onBottom?: (() => void) | undefined;
     /** callback when moving away from bottom of page, `this` is headroom object */
-    onNotBottom?: () => void;
+    onNotBottom?: (() => void) | undefined;
 }
 
 declare class Headroom {

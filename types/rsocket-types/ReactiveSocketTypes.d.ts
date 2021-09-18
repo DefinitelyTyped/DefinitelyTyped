@@ -140,8 +140,8 @@ export type Encodable = string | Buffer | Uint8Array;
  * A single unit of data exchanged between the peers of a `ReactiveSocket`.
  */
 export interface Payload<D, M> {
-  data?: D;
-  metadata?: M;
+  data?: D | undefined;
+  metadata?: M | undefined;
 }
 
 export type Frame =
@@ -161,15 +161,15 @@ export type Frame =
   UnsupportedFrame;
 
 export interface FrameWithData {
-  data?: Encodable;
-  metadata?: Encodable;
+  data?: Encodable | undefined;
+  metadata?: Encodable | undefined;
 }
 
 export interface CancelFrame {
     type: 0x09;
     flags: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface ErrorFrame {
@@ -178,16 +178,16 @@ export interface ErrorFrame {
     code: number;
     message: string;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface KeepAliveFrame {
     type: 0x03;
     flags: number;
-    data?: Encodable;
+    data?: Encodable | undefined;
     lastReceivedPosition: number;
     streamId: 0;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface LeaseFrame {
@@ -195,37 +195,37 @@ export interface LeaseFrame {
     flags: number;
     ttl: number;
     requestCount: number;
-    metadata?: Encodable;
+    metadata?: Encodable | undefined;
     streamId: 0;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface PayloadFrame {
     type: 0x0a;
     flags: number;
-    data?: Encodable;
-    metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface RequestChannelFrame {
     type: 0x07;
-    data?: Encodable;
-    metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
     flags: number;
     requestN: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface RequestFnfFrame {
     type: 0x05;
-    data?: Encodable;
-    metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
     flags: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface RequestNFrame {
@@ -233,16 +233,16 @@ export interface RequestNFrame {
     flags: number;
     requestN: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 // prettier-ignore
 export interface RequestResponseFrame {
     type: 0x04;
-    data?: Encodable;
-    metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
     flags: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface RequestStreamFrame {
@@ -252,7 +252,7 @@ export interface RequestStreamFrame {
     flags: number;
     requestN: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface ResumeFrame {
@@ -264,7 +264,7 @@ export interface ResumeFrame {
     resumeToken: Encodable;
     serverPosition: number;
     streamId: 0;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface ResumeOkFrame {
@@ -272,28 +272,28 @@ export interface ResumeOkFrame {
     clientPosition: number;
     flags: number;
     streamId: 0;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface SetupFrame {
     type: 0x01;
-    data?: Encodable;
+    data?: Encodable | undefined;
     dataMimeType: string;
     flags: number;
     keepAlive: number;
     lifetime: number;
-    metadata?: Encodable;
+    metadata?: Encodable | undefined;
     metadataMimeType: string;
-    resumeToken?: Encodable;
+    resumeToken?: Encodable | undefined;
     streamId: 0;
     majorVersion: number;
     minorVersion: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface UnsupportedFrame {
     type: 0x3f | 0x0c | 0x00;
     streamId: 0;
     flags: number;
-    length?: number;
+    length?: number | undefined;
 }

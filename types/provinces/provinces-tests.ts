@@ -7,10 +7,12 @@ provinces.forEach((province: Province) => {
     let short: string;
     let alt: string[];
     let region: string;
+    let english: string;
 
     name = province.name;
     country = province.country;
     short = province.short ? province.short : '';
     alt = province.alt ? province.alt : [];
     region = province.region ? province.region : '';
+    english = province.english ? province.english : '';
 });

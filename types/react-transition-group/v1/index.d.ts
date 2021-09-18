@@ -7,7 +7,7 @@
 import { HTMLAttributes, ReactElement, ReactType } from "react";
 
 export interface HTMLTransitionGroupProps<T> extends HTMLAttributes<T> {
-    component?: ReactType;
+    component?: ReactType | undefined;
     childFactory?(child: ReactElement): ReactElement;
 }
 

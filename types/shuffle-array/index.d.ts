@@ -9,16 +9,16 @@
  * rng - Specifies a custom random number generator.
  */
 interface ShuffleOptions {
-    copy?: boolean;
-    rng?: () => number;
+    copy?: boolean | undefined;
+    rng?: (() => number) | undefined;
 }
 /**
  * picks - Specifies how many random elements you want to pick. By default it picks 1.
  * rng - Specifies a custom random number generator.
  */
 interface PickOptions {
-    picks?: number;
-    rng?: () => number;
+    picks?: number | undefined;
+    rng?: (() => number) | undefined;
 }
 interface ShuffleArray {
     /**

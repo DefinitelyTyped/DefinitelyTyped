@@ -43,7 +43,7 @@ export class OrbitControls {
     autoRotateSpeed: number;
 
     enableKeys: boolean;
-    keys: { LEFT: number; UP: number; RIGHT: number; BOTTOM: number };
+    keys: { LEFT: string; UP: string; RIGHT: string; BOTTOM: string };
     mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
     touches: { ONE: TOUCH; TWO: TOUCH };
 
@@ -60,6 +60,8 @@ export class OrbitControls {
     getPolarAngle(): number;
 
     getAzimuthalAngle(): number;
+
+    getDistance(): number;
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: any) => void): void;

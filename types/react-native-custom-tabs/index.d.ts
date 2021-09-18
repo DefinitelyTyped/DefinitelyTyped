@@ -11,11 +11,11 @@ export interface Animations {
 }
 
 export interface CustomTabsOptions {
-  toolbarColor?: string;
-  enableUrlBarHiding?: boolean;
-  showPageTitle?: boolean;
-  enableDefaultShare?: boolean;
-  animations?: Animations;
+  toolbarColor?: string | undefined;
+  enableUrlBarHiding?: boolean | undefined;
+  showPageTitle?: boolean | undefined;
+  enableDefaultShare?: boolean | undefined;
+  animations?: Animations | undefined;
   headers?: any;
 }
 

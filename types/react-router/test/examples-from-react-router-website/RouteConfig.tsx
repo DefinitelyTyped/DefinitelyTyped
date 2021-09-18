@@ -42,7 +42,7 @@ const Cart = () => <h3>Cart</h3>;
 // then our route config
 interface MyRouteProps extends RouteProps {
   component: React.SFC<PropsWithRoutes>;
-  routes?: MyRouteProps[];
+  routes?: MyRouteProps[] | undefined;
 }
 const routes: MyRouteProps[] = [
   { path: '/sandwiches',

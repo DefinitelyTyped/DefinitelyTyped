@@ -42,7 +42,7 @@ interface QueryRawResult {
 }
 
 interface QueryRawColumn {
-    name?: string;
+    name?: string | undefined;
 }
 
 interface ErrorCallback {

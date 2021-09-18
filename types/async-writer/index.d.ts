@@ -32,9 +32,9 @@ declare namespace async_writer {
     }
 
     interface BeginAsyncOptions {
-        last?: boolean;
-        timeout?: number;
-        name?: string;
+        last?: boolean | undefined;
+        timeout?: number | undefined;
+        name?: string | undefined;
     }
 
     class AsyncWriter {
@@ -66,8 +66,8 @@ declare namespace async_writer {
     }
 
     interface AsyncWriterOptions {
-        global?: { [s: string]: any };
-        buffer?: boolean;
+        global?: { [s: string]: any } | undefined;
+        buffer?: boolean | undefined;
     }
 
     function create(writer?: any, options?: AsyncWriterOptions): AsyncWriter;

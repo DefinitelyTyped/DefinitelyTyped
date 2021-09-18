@@ -12,47 +12,51 @@ import {
     StencilFunc,
     StencilOp,
 } from '../constants';
+import { ColorRepresentation } from '../utils';
+import { Color } from '../math/Color';
+import { Texture } from '../textures/Texture';
 
 export interface MaterialParameters {
-    alphaTest?: number;
-    blendDst?: BlendingDstFactor;
-    blendDstAlpha?: number;
-    blendEquation?: BlendingEquation;
-    blendEquationAlpha?: number;
-    blending?: Blending;
-    blendSrc?: BlendingSrcFactor | BlendingDstFactor;
-    blendSrcAlpha?: number;
-    clipIntersection?: boolean;
-    clippingPlanes?: Plane[];
-    clipShadows?: boolean;
-    colorWrite?: boolean;
+    alphaTest?: number | undefined;
+    alphaToCoverage?: boolean | undefined;
+    blendDst?: BlendingDstFactor | undefined;
+    blendDstAlpha?: number | undefined;
+    blendEquation?: BlendingEquation | undefined;
+    blendEquationAlpha?: number | undefined;
+    blending?: Blending | undefined;
+    blendSrc?: BlendingSrcFactor | BlendingDstFactor | undefined;
+    blendSrcAlpha?: number | undefined;
+    clipIntersection?: boolean | undefined;
+    clippingPlanes?: Plane[] | undefined;
+    clipShadows?: boolean | undefined;
+    colorWrite?: boolean | undefined;
     defines?: any;
-    depthFunc?: DepthModes;
-    depthTest?: boolean;
-    depthWrite?: boolean;
-    fog?: boolean;
-    name?: string;
-    opacity?: number;
-    polygonOffset?: boolean;
-    polygonOffsetFactor?: number;
-    polygonOffsetUnits?: number;
-    precision?: 'highp' | 'mediump' | 'lowp' | null;
-    premultipliedAlpha?: boolean;
-    dithering?: boolean;
-    side?: Side;
-    shadowSide?: Side;
-    toneMapped?: boolean;
-    transparent?: boolean;
-    vertexColors?: boolean;
-    visible?: boolean;
-    stencilWrite?: boolean;
-    stencilFunc?: StencilFunc;
-    stencilRef?: number;
-    stencilWriteMask?: number;
-    stencilFuncMask?: number;
-    stencilFail?: StencilOp;
-    stencilZFail?: StencilOp;
-    stencilZPass?: StencilOp;
+    depthFunc?: DepthModes | undefined;
+    depthTest?: boolean | undefined;
+    depthWrite?: boolean | undefined;
+    fog?: boolean | undefined;
+    name?: string | undefined;
+    opacity?: number | undefined;
+    polygonOffset?: boolean | undefined;
+    polygonOffsetFactor?: number | undefined;
+    polygonOffsetUnits?: number | undefined;
+    precision?: 'highp' | 'mediump' | 'lowp' | null | undefined;
+    premultipliedAlpha?: boolean | undefined;
+    dithering?: boolean | undefined;
+    side?: Side | undefined;
+    shadowSide?: Side | undefined;
+    toneMapped?: boolean | undefined;
+    transparent?: boolean | undefined;
+    vertexColors?: boolean | undefined;
+    visible?: boolean | undefined;
+    stencilWrite?: boolean | undefined;
+    stencilFunc?: StencilFunc | undefined;
+    stencilRef?: number | undefined;
+    stencilWriteMask?: number | undefined;
+    stencilFuncMask?: number | undefined;
+    stencilFail?: StencilOp | undefined;
+    stencilZFail?: StencilOp | undefined;
+    stencilZPass?: StencilOp | undefined;
     userData?: any;
 }
 
@@ -67,6 +71,12 @@ export class Material extends EventDispatcher {
      * @default 0
      */
     alphaTest: number;
+
+    /**
+     * Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.
+     * @default false
+     */
+    alphaToCoverage: boolean;
 
     /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
@@ -354,7 +364,7 @@ export class Material extends EventDispatcher {
     /**
      * Return a new material with the same parameters as this material.
      */
-    clone(): Material;
+    clone(): this;
 
     /**
      * Copy the parameters from the passed material into this material.

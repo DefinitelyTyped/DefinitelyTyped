@@ -93,10 +93,14 @@ declare class sharedb extends EventEmitter {
     on(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
     on(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     on(event: 'error', callback: (err: Error) => void): this;
+    on(event: 'send', callback: (agent: Agent, response: ShareDB.ServerResponseSuccess | ShareDB.ServerResponseError) => void): this;
 
     addListener(event: 'timing', callback: (type: string, time: number, request: any) => void): this;
     addListener(event: 'submitRequestEnd', callback: (error: Error, request: SubmitRequest) => void): this;
     addListener(event: 'error', callback: (err: Error) => void): this;
+
+    getOps(agent: Agent, index: string, id: string, from: number, to: number, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
+    getOpsBulk(agent: Agent, index: string, id: string, fromMap: Record<string, number>, toMap: Record<string, number>, options: GetOpsOptions, callback: (error: Error, ops: any[]) => any): void;
 
     static types: ShareDB.Types;
     static logger: ShareDB.Logger;
@@ -129,8 +133,8 @@ declare namespace sharedb {
         close(callback?: BasicCallback): void;
     }
 
-    type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields | undefined, options: any, callback: DBQueryCallback) => void;
-    type DBQueryCallback = (err: Error | null, snapshots: ShareDB.Snapshot[], extra?: any) => void;
+    type DBQueryMethod = (collection: string, query: any, fields: ProjectionFields, options: any, callback: DBQueryCallback) => void;
+    type DBQueryCallback = (err: Error | null, snapshots: Snapshot[], extra?: any) => void;
 
     abstract class PubSub {
         private static shallowCopy(obj: any): any;
@@ -158,7 +162,7 @@ declare namespace sharedb {
     abstract class MilestoneDB {
         close(callback?: BasicCallback): void;
         getMilestoneSnapshot(collection: string, id: string, version: number, callback?: BasicCallback): void;
-        saveMilestoneSnapshot(collection: string, snapshot: ShareDB.Snapshot, callback?: BasicCallback): void;
+        saveMilestoneSnapshot(collection: string, snapshot: Snapshot, callback?: BasicCallback): void;
         getMilestoneSnapshotAtOrBeforeTime(collection: string, id: string, timestamp: number, callback?: BasicCallback): void;
         getMilestoneSnapshotAtOrAfterTime(collection: string, id: string, timestamp: number, callback?: BasicCallback): void;
     }
@@ -174,6 +178,7 @@ declare namespace sharedb {
         createSubscribeQuery(collectionName: string, query: string, options: {results?: ShareDB.Query[]}, callback: (err: Error, results: any) => any): ShareDB.Query;
     }
     type Doc = ShareDB.Doc;
+    type Snapshot = ShareDB.Snapshot;
     type Query = ShareDB.Query;
     type Error = ShareDB.Error;
     type Op = ShareDB.Op;
@@ -237,7 +242,7 @@ declare namespace sharedb {
         interface DocContext extends BaseContext {
             collection: string;
             id: string;
-            snapshot: ShareDB.Snapshot;
+            snapshot: Snapshot;
         }
 
         interface OpContext extends BaseContext {
@@ -249,8 +254,8 @@ declare namespace sharedb {
         interface QueryContext extends BaseContext {
             index: string;
             collection: string;
-            projection: Projection | undefined;
-            fields: ProjectionFields | undefined;
+            projection: Projection;
+            fields: ProjectionFields;
             channel: string;
             query: any;
             options?: {[key: string]: any};
@@ -260,7 +265,7 @@ declare namespace sharedb {
 
         interface ReadSnapshotsContext extends BaseContext {
             collection: string;
-            snapshots: ShareDB.Snapshot[];
+            snapshots: Snapshot[];
             snapshotType: SnapshotType;
         }
 
@@ -291,7 +296,7 @@ interface ProjectionFields {
 
 interface SubmitRequest {
     index: string;
-    projection: Projection | undefined;
+    projection: Projection;
     collection: string;
     id: string;
     op: sharedb.CreateOp | sharedb.DeleteOp | sharedb.EditOp;
@@ -306,9 +311,15 @@ interface SubmitRequest {
     maxRetries: number | null;
     retries: number;
 
-    snapshot: ShareDB.Snapshot | null;
+    snapshot: sharedb.Snapshot | null;
     ops: any[];
     channels: string[] | null;
+}
+
+interface GetOpsOptions {
+    opsOptions?: {
+        metadata?: boolean;
+    };
 }
 
 type BasicCallback = (err?: Error) => void;

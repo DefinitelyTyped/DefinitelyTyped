@@ -1,7 +1,7 @@
 import { Transform, Options, Parser } from './core';
 
 export interface TestOptions {
-  parser?: Parser | string;
+  parser?: Parser | string | undefined;
 }
 
 export function defineTest(
@@ -19,3 +19,14 @@ export function defineInlineTest(
   expectedOutputSource: string,
   testName?: string
 ): () => any;
+
+export function runInlineTest(
+  module: Transform,
+  options: Options,
+  input: {
+    path?: string,
+    source: string,
+  },
+  expectedOutput: string,
+  testOptions?: TestOptions
+): string;

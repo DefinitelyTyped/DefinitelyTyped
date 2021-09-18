@@ -1,78 +1,213 @@
-import * as fs from 'fs';
-import gotResume = require('got-resume');
-import * as zlib from 'zlib';
+import gotResume = require("got-resume");
+import * as zlib from "zlib";
 
-/* Default `stream` function tests. */
+// test type exports
+type TransferOptionsWithUrl = gotResume.TransferOptionsWithUrl;
+type TransferOptions = gotResume.TransferOptions;
+type WithUrl = gotResume.WithUrl;
+type TimeoutSpec = gotResume.TimeoutSpec;
+type ToFileOptionsWithUrl = gotResume.ToFileOptionsWithUrl;
+type ToFileOptions = gotResume.ToFileOptions;
+type TransferStream = gotResume.TransferStream;
+type Progress = gotResume.Progress;
+type Err = gotResume.Error;
+type OptionsError = gotResume.OptionsError;
+type TransferError = gotResume.TransferError;
+type CancelError = gotResume.CancelError;
+type PreError = gotResume.PreError;
+type Transfer = gotResume.Transfer;
 
-const emptyTransferOptions: gotResume.TransferOptions = {};
-const transferOptions: gotResume.TransferOptions = {
-    attempts: 0,
-    attemptsTotal: 0,
-    backoff(attempt, transfer) {
-        return attempt + transfer.attempt;
+// Default `stream` function tests.
+
+gotResume({ url: "http://test.com" }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", attempts: 0 }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", attemptsTotal: 0 }); // $ExpectType TransferStream
+// $ExpectType TransferStream
+gotResume({
+    url: "http://test.com",
+    backoff: (attempt, transfer) => {
+        attempt; // $ExpectType number
+        transfer; // $ExpectType Transfer
+        return 1;
     },
-    got: { method: 'POST' },
-    length: 10,
-    log: console.log,
-    needLength: true,
-    offset: 5,
+});
+gotResume({ url: "http://test.com", got: { method: "POST" } }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", length: 10 }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", offset: 5 }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", needLength: true }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: 1000 }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: null }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: { lookup: 100 } }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: { connect: 100 } }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: { socket: 100 } }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: { response: 100 } }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: { send: 100 } }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: { request: 100 } }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", timeout: { idle: 100 } }); // $ExpectType TransferStream
+// $ExpectType TransferStream
+gotResume({
+    url: "http://test.com",
     pre(transfer) {
-        transfer.gotOptions.headers!['user-agent'] = 'Stealth 2.0';
+        transfer.gotOptions.headers!["user-agent"] = "Stealth 2.0";
         return Promise.resolve();
     },
-    transform: zlib.createGzip(),
-};
+});
+gotResume({ url: "http://test.com", transform: zlib.createGzip() }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", log: console.log }); // $ExpectType TransferStream
+gotResume({ url: "http://test.com", got: { baseUrl: "foo" } }); // $ExpectType TransferStream
+gotResume({}); // $ExpectError
 
-gotResume('http://google.com/')
-    .on('end', () => console.log('Finished!'))
-    .on('error', err => console.log('Failed!', err))
-    .pipe(fs.createWriteStream('foo.html'));
+gotResume("http://test.com"); // $ExpectType TransferStream
+gotResume("http://test.com", { attempts: 0 }); // $ExpectType TransferStream
+gotResume("http://test.com", { attemptsTotal: 0 }); // $ExpectType TransferStream
+// $ExpectType TransferStream
+gotResume("http://test.com", {
+    backoff: (attempt, transfer) => {
+        attempt; // $ExpectType number
+        transfer; // $ExpectType Transfer
+        return 1;
+    },
+});
+gotResume("http://test.com", { got: { method: "POST" } }); // $ExpectType TransferStream
+gotResume("http://test.com", { length: 10 }); // $ExpectType TransferStream
+gotResume("http://test.com", { offset: 5 }); // $ExpectType TransferStream
+gotResume("http://test.com", { needLength: true }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: 1000 }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: null }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: { lookup: 100 } }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: { connect: 100 } }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: { socket: 100 } }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: { response: 100 } }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: { send: 100 } }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: { request: 100 } }); // $ExpectType TransferStream
+gotResume("http://test.com", { timeout: { idle: 100 } }); // $ExpectType TransferStream
+// $ExpectType TransferStream
+gotResume("http://test.com", {
+    pre(transfer) {
+        transfer.gotOptions.headers!["user-agent"] = "Stealth 2.0";
+        return Promise.resolve();
+    },
+});
+gotResume("http://test.com", { transform: zlib.createGzip() }); // $ExpectType TransferStream
+gotResume("http://test.com", { log: console.log }); // $ExpectType TransferStream
+gotResume("http://test.com", { got: { baseUrl: "foo" } }); // $ExpectType TransferStream
+gotResume("http://test.com", {}); // $ExpectType TransferStream
+// $ExpectError
+gotResume("http://test.com", { url: "foo" });
 
-const stream2 = gotResume({ url: 'http://google.com/' });
-const stream3 = gotResume('http://google.com/', transferOptions);
-
-/* `toFile` tests. */
-
-const toFileOptions: gotResume.ToFileOptions = {
-    ...transferOptions,
+gotResume.toFile("foo", { url: "http://test.com" }); // $ExpectType Promise<void>
+// $ExpectType Promise<void>
+gotResume.toFile("foo", {
+    url: "http://test.com",
     onProgress(progress) {
-        console.log(progress.total);
+        progress; // $ExpectType Progress
     },
+});
+// $ExpectType Promise<void>
+gotResume.toFile("foo", {
+    url: "http://test.com",
     onResponse(response) {
-        console.log(response);
+        response; // $ExpectType IncomingMessage
     },
-    Promise,
-};
+});
+gotResume.toFile("foo", { url: "http://test.com", Promise }); // $ExpectType Promise<void>
+gotResume.toFile("foo", { url: "http://test.com", length: 10 }); // $ExpectType Promise<void>
+gotResume.toFile("foo", {}); // $ExpectError
 
-gotResume
-    .toFile('google.html', 'http://google.com/')
-    .then(() => console.log('Finished!'))
-    .catch(err => console.log('Failed!'));
+// toFile() tests
 
-const promise1 = gotResume.toFile('google.html');
-const promise2 = gotResume.toFile('google.html', 'http://google.com/');
-const promise3 = gotResume.toFile('google.html', toFileOptions);
-const promise4 = gotResume.toFile('google.html', transferOptions);
-const promise5 = gotResume.toFile('google.html', 'http://google.com/', toFileOptions);
+gotResume.toFile("foo", "http://test.com"); // $ExpectType Promise<void>
+// $ExpectType Promise<void>
+gotResume.toFile("foo", "http://test.com", {
+    onProgress(progress) {
+        progress; // $ExpectType Progress
+    },
+});
+// $ExpectType Promise<void>
+gotResume.toFile("foo", "http://test.com", {
+    onResponse(response) {
+        response; // $ExpectType IncomingMessage
+    },
+});
+gotResume.toFile("foo", "http://test.com", { Promise }); // $ExpectType Promise<void>
+gotResume.toFile("foo", "http://test.com", { length: 10 }); // $ExpectType Promise<void>
+gotResume.toFile("foo", "http://test.com", {}); // $ExpectType Promise<void>
+// $ExpectError
+gotResume.toFile("foo", "http://test.com", { url: "foo" });
 
-/* `Transfer` tests. */
+gotResume.toFile("foo", "http://test.com").cancel();
 
-const transfer = new gotResume.Transfer(transferOptions);
-transfer.cancel();
-transfer.failed(Error('test'), true);
-transfer.fatal();
-transfer.get();
-transfer.start();
+// TransferStream tests
 
-/* Error tests. */
+const stream = gotResume({ url: "http://test.com" });
 
-const error1 = new gotResume.Error();
-const error2 = new gotResume.Error('test');
-const cancelError1 = new gotResume.CancelError();
-const cancelError2 = new gotResume.CancelError('test');
-const optionsError1 = new gotResume.OptionsError();
-const optionsError2 = new gotResume.OptionsError('test');
-const preError1 = new gotResume.PreError();
-const preError2 = new gotResume.PreError('test');
-const transferError1 = new gotResume.TransferError();
-const transferError2 = new gotResume.TransferError('test');
+stream.cancel(); // $ExpectType void
+stream.transfer; // $ExpectType Transfer
+
+stream.addListener("error", error => {
+    // Fails in TS3.5, assignment can be replaced with commented out version as soon as TS3.5 goes out of test range
+    // error; // $ExpectType Error | TransferError | CancelError
+    const e: Error | TransferError | CancelError = error;
+});
+stream.addListener("end", () => {});
+stream.addListener("progress", progress => {
+    progress; // $ExpectType Progress
+});
+stream.addListener("response", response => {
+    response; // $ExpectType IncomingMessage
+});
+stream.addListener("readable", () => {});
+
+// Transfer tests
+
+const transfer = new gotResume.Transfer({});
+
+transfer.options; // $ExpectType ToFileOptions & Partial<WithUrl>
+transfer.url; // $ExpectType string | undefined
+transfer.length; // $ExpectType number | undefined
+transfer.log; // $ExpectType (...args: unknown[]) => void
+transfer.gotOptions; // $ExpectType GotOptions<string | null>
+transfer.idleTimeout; // $ExpectType number | undefined
+
+transfer.attempt; // $ExpectType number
+transfer.attemptTotal; // $ExpectTypenumber
+transfer.position; // $ExpectType number | undefined
+transfer.total; // $ExpectType number | undefined
+transfer.cancelled; // $ExpectType boolean
+transfer.requestEventFired; // $ExpectType boolean
+transfer.req; // $ExpectType ClientRequest | undefined
+transfer.res; // $ExpectType IncomingMessage | undefined
+transfer.err; // $ExpectType Error | undefined
+transfer.lastMod; // $ExpectType string | undefined
+transfer.etag; // $ExpectType string | undefined
+transfer.prePromise; // $ExpectType Promise<void> | undefined
+transfer.waitTimer; // $ExpectType number | undefined
+transfer.stream; // $ExpectType TransferStream
+
+transfer.start(); // $ExpectType void
+transfer.get(); // $ExpectType void
+transfer.failed(Error("test"), true); // $ExpectType void
+transfer.fatal(); // $ExpectType void
+transfer.cancel(); // $ExpectType void
+
+// Error tests
+
+new gotResume.Error();
+const error = new gotResume.Error("test");
+error.name; // $ExpectType "GotResumeError"
+
+new gotResume.OptionsError();
+const optionsError = new gotResume.OptionsError("test");
+optionsError.name; // $ExpectType "GotResumeOptionsError"
+
+new gotResume.TransferError();
+const transferError = new gotResume.TransferError("test");
+transferError.name; // $ExpectType "GotResumeTransferError"
+
+new gotResume.CancelError();
+const cancelError = new gotResume.CancelError("test");
+cancelError.name; // $ExpectType "GotResumeCancelError"
+
+new gotResume.PreError();
+const preError = new gotResume.PreError("test");
+preError.name; // $ExpectType "GotResumePreError"

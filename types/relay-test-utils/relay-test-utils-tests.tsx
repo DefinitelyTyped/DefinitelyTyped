@@ -8,6 +8,8 @@ environment.mock.resolveMostRecentOperation(operation => {
     MockPayloadGenerator.generate(operation);
 });
 
+environment.mock.queuePendingOperation(graphql``, {foo: 'bar'});
+
 function Test() {
     return <div />;
 }

@@ -1,10 +1,4 @@
 /** @deprecated since v6.3.0 - use constants property exposed by the relevant module instead. */
-declare module 'node:constants' {
-    import exp = require('constants');
-    export = exp;
-}
-
-/** @deprecated since v6.3.0 - use constants property exposed by the relevant module instead. */
 declare module 'constants' {
     import { constants as osConstants, SignalConstants } from 'node:os';
     import { constants as cryptoConstants } from 'node:crypto';
@@ -16,4 +10,9 @@ declare module 'constants' {
         typeof cryptoConstants &
         typeof fsConstants;
     export = exp;
+}
+
+declare module 'node:constants' {
+    import constants = require('constants');
+    export = constants;
 }

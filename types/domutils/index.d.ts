@@ -81,7 +81,7 @@ export function getName(elem: DomElement): string;
  * @argument dom An array of DomElement that should be stringified
  * @argument [opts] Optional options object
  */
-export function getOuterHTML(dom: DomElement[], opts?: { decodeEntities?: boolean, xmlMode?: boolean}): string;
+export function getOuterHTML(dom: DomElement[], opts?: { decodeEntities?: boolean | undefined, xmlMode?: boolean | undefined}): string;
 export function getParent(elem: DomElement): DomElement;
 export function getSiblings(elem: DomElement): DomElement[];
 export function getText(elem: DomElement): string;

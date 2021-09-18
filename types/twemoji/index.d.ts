@@ -2,6 +2,7 @@
 // Project: https://github.com/twitter/twemoji
 // Definitions by: Markus Tacker <https://github.com/coderbyheart>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 David Wheatley <https://github.com/davwheat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -225,4 +226,4 @@ export interface ParseObject {
  * });
  *  // I <img class="emoji" draggable="false" alt="❤️" src="/assets/72x72/2764.png"/> emoji!
  */
-export function parse(what: string | HTMLElement, how?: Partial<ParseObject> | ParseCallback): string;
+export function parse<T extends string | HTMLElement>(what: T, how?: Partial<ParseObject> | ParseCallback): T;

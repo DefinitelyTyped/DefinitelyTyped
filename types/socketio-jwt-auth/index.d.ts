@@ -19,8 +19,8 @@ export function authenticate(options: authOptions, verify: verifyFunc): (socket:
  */
 export interface authOptions {
     secret: string;
-    algorithm?: string;
-    succeedWithoutToken?: boolean;
+    algorithm?: string | undefined;
+    succeedWithoutToken?: boolean | undefined;
 }
 
 /**

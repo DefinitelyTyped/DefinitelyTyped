@@ -7,12 +7,21 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
+    interface GPXMarkerOptions {
+        startIconUrl?: string;
+        endIconUrl?: string;
+        shadowUrl?: string | undefined;
+        wptIconUrls?: {
+            [key: string]: string;
+        };
+    }
+
     interface GPXOptions {
-        async?: boolean;
-        max_point_interval?: number;
-        marker_options?: MarkerOptions;
-        polyline_options?: PolylineOptions;
-        gpx_options?: { parseElements: ['track', 'route', 'waypoint'] };
+        async?: boolean | undefined;
+        max_point_interval?: number | undefined;
+        marker_options?: GPXMarkerOptions | undefined;
+        polyline_options?: PolylineOptions | undefined;
+        gpx_options?: { parseElements: ['track', 'route', 'waypoint'] } | undefined;
     }
 
     class GPX extends FeatureGroup {

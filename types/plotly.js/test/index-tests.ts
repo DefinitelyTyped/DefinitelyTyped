@@ -285,6 +285,30 @@ const graphDiv = '#test';
     Plotly.newPlot('myDiv', data, layout, config);
 })();
 (() => {
+    // should create a polar scatterplot with a rotation and direction
+    const r: number[] = [10, 20, 30, 50, 10, 10, 0, 30];
+    const theta: number[] = [90, 80, 180, 299, 64, 71, 277, 340];
+
+    const data: Array<Partial<Plotly.PlotData>> = [
+        {
+            r,
+            theta,
+            type: 'scatterpolar',
+            name: 'group A',
+        }
+    ];
+    const layout: Partial<Plotly.PolarLayout> = {
+        angularaxis: {
+            rotation: 90,
+            direction: 'clockwise'
+        },
+        radialaxis: {
+            range: [0, 100]
+        },
+    };
+    Plotly.newPlot('myDiv', data, layout);
+})();
+(() => {
     // should create a boxplot with boxmode 'group'
     const y: number[] = [];
     const x: string[] = [];

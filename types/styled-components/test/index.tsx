@@ -59,7 +59,7 @@ interface MyTheme {
 
 interface ButtonProps {
     name: string;
-    primary?: boolean;
+    primary?: boolean | undefined;
     theme: MyTheme;
 }
 
@@ -587,10 +587,10 @@ const AnchorContainer = () => (
 
 const WithComponentRandomHeading = WithComponentH1.withComponent(Random);
 
-const WithComponentCompA: React.SFC<{ a: number; className?: string }> = ({ className }) => (
+const WithComponentCompA: React.SFC<{ a: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
-const WithComponentCompB: React.SFC<{ b: number; className?: string }> = ({ className }) => (
+const WithComponentCompB: React.SFC<{ b: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
 const WithComponentStyledA = styled(WithComponentCompA)`
@@ -627,6 +627,9 @@ const asTest = (
     <>
         <WithComponentH1 as="h2" />
         <WithComponentH1 as={WithComponentH2} />
+        <WithComponentH1 as="a" href="" />
+        <WithComponentH1 as="div" href="" /> { // $ExpectError
+        }
     </>
 );
 
@@ -636,15 +639,20 @@ const forwardedAsTest = (
     <>
         <ForwardedAsComponent forwardedAs="h2" />
         <ForwardedAsComponent forwardedAs={WithComponentH2} />
+        <ForwardedAsComponent forwardedAs="a" href="" />
+        <ForwardedAsComponent forwardedAs="div" href="" /> { // $ExpectError
+        }
     </>
 );
 
 interface ExternalAsComponentProps {
-    as?: string | React.ComponentType<any>;
+    as?: string | React.ComponentType<any> | undefined;
     type: 'primitive' | 'complex';
 }
 const ExternalAsComponent: React.FC<ExternalAsComponentProps> = () => null;
 const WrappedExternalAsComponent = styled(ExternalAsComponent)``;
+const testRequiredProp = <WrappedExternalAsComponent />; // $ExpectError
+const testRequiredPropWhenForwardedAs = <WrappedExternalAsComponent forwardedAs="h2" />; // $ExpectError
 const ForwardedAsWithWrappedExternalTest = (
     <>
         <WrappedExternalAsComponent forwardedAs="h2" type="primitive" />
@@ -658,9 +666,25 @@ const ForwardedAsWithNestedAsExternalTest = (
     </>
 );
 
+interface OtherExternalComponentProps {
+    requiredProp: 'test';
+}
+
+const OtherExternalComponent: React.FC<OtherExternalComponentProps> = () => null;
+const HasAttributesOfAsOrForwardedAsComponent = (
+    <>
+        <WrappedExternalAsComponent as="a" type="primitive" href="/" />
+        <WrappedExternalAsComponent forwardedAs="a" type="complex" href="/" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} requiredProp="test" />
+        <WrappedExternalAsComponent as={OtherExternalComponent} type="primitive" requiredProp="test" /> { // $ExpectError
+        }
+        <WrappedExternalAsComponent forwardedAs={OtherExternalComponent} type="complex" requiredProp="test" />
+    </>
+);
+
 interface TestContainerProps {
     size: 'big' | 'small';
-    test?: boolean;
+    test?: boolean | undefined;
 }
 const TestContainer = ({ size, test }: TestContainerProps) => {
     return null;
@@ -680,6 +704,39 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 }
 
 const containerTest = <StyledTestContainer as={Test2Container} type="foo" />;
+const containerTestFailed = <StyledTestContainer as={Test2Container} type="foo" size="big" />; // $ExpectError
+const containerTestTwo = <StyledTestContainer forwardedAs={Test2Container} type="foo" size="big" />;
+
+interface GenericComponentProps<T> {
+    someProp: T;
+}
+const GenericComponent = <T, >(props: GenericComponentProps<T>): React.ReactElement<GenericComponentProps<T>> | null => null;
+const StyledGenericComponent = styled(GenericComponent)``;
+const TestStyledGenericComponent = (
+    <>
+        <StyledGenericComponent /> { // $ExpectError
+        }
+        <StyledGenericComponent someProp="someString" />
+        <StyledGenericComponent someProp={42} />
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp="someString" />
+        <StyledGenericComponent<React.FC<GenericComponentProps<string>>> someProp={42} /> { // $ExpectError
+        }
+        <StyledGenericComponent as="h1" />
+        <StyledGenericComponent as="h1" someProp="someString" /> { // $ExpectError
+        }
+
+        <WithComponentH1 as={GenericComponent} /> { // $ExpectError
+        }
+        <WithComponentH1 as={GenericComponent} someProp="someString" />
+        <WithComponentH1 as={GenericComponent} someProp={42} />
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} /> { // $ExpectError
+        }
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp="someString" />
+        <WithComponentH1<React.FC<GenericComponentProps<number>>> as={GenericComponent} someProp={42} />
+        <WithComponentH1<React.FC<GenericComponentProps<string>>> as={GenericComponent} someProp={42} /> { // $ExpectError
+        }
+    </>
+);
 
 // 4.0 refs
 
@@ -1071,7 +1128,7 @@ function validateDefaultProps() {
 }
 
 interface WrapperProps {
-    className?: string;
+    className?: string | undefined;
 }
 export class WrapperClass extends React.Component<WrapperProps> {
     render() {
@@ -1108,10 +1165,10 @@ function staticPropertyPassthrough() {
         a: number;
     }
     interface BProps {
-        b?: string;
+        b?: string | undefined;
     }
     interface BState {
-        b?: string;
+        b?: string | undefined;
     }
     class A extends React.Component<AProps> {}
     class B extends React.Component {

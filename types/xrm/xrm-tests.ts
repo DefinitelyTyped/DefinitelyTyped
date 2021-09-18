@@ -1,7 +1,7 @@
 /// Demonstrate usage in the browser's window object
 
 window.Xrm.Utility.alertDialog("message", () => { });
-parent.Xrm.Page.context.getOrgLcid();
+parent && parent.Xrm.Page && parent.Xrm.Page.context && parent.Xrm.Page.context.getOrgLcid();
 
 /// Demonstrate clientglobalcontext.d.ts
 
@@ -52,8 +52,14 @@ lookupAttribute.addPreSearch(() => { alert("A search was performed."); });
 const lookupValues = lookupAttribute.getAttribute().getValue();
 
 if (lookupValues !== null)
-    if (!lookupValues[0].id || !lookupValues[0].entityType)
+    if (lookupValues[0].id || lookupValues[0].entityType)
         throw new Error("Invalid value in Lookup control.");
+
+lookupAttribute.getAttribute().setValue(null);
+lookupAttribute.getAttribute().setValue([{
+    entityType: "contact",
+    id: "b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
+}]);
 
 /// Demonstrate v7.0 BPF API
 
@@ -329,3 +335,12 @@ const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
     // setVisible
     gridControl.setVisible(!visibility);
 };
+
+async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEntity: Xrm.EntityReference) {
+    if (commandProperties.SourceControlId === "AddExistingRecordFromSubGridAssociated") {
+        await Promise.resolve(Xrm.Navigation.openAlertDialog({
+            title: `${commandProperties.CommandValueId}`,
+            text: `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
+        }));
+    }
+}

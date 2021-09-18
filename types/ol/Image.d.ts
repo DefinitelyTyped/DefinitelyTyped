@@ -7,7 +7,9 @@ import ImageState from './ImageState';
  * {string} for the src as arguments. It is supposed to make it so the
  * underlying image {@link module:ol/Image~Image#getImage} is assigned the
  * content specified by the src. If not specified, the default is
- * Providing a custom imageLoadFunction can be useful to load images with
+ * <code>function(image, src) {
+ *   image.getImage().src = src;
+ * }</code>Providing a custom imageLoadFunction can be useful to load images with
  * post requests or - in general - through XHR requests, where the src of the
  * image element would be set to a data URI when the content is loaded.
  */

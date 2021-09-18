@@ -117,6 +117,23 @@ historyEntries.then((entries: Git.Revwalk.HistoryEntry[]) => {
     }
 });
 
+revwalk.commitWalk(100).then(commits => {
+    if (commits.length > 0) {
+        const commit = commits[0];
+        commit; // $ExpectType Commit
+    }
+});
+
+revwalk.fastWalk(100).then(oids => {
+    if (oids.length > 0) {
+        const oid = oids[0];
+        oid; // $ExpectType Oid
+
+        const sha = oid.tostrS();
+        sha;  // $ExpectType string
+    }
+});
+
 Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then((remote) => {
     remote.connect(Git.Enums.DIRECTION.FETCH, {});
     remote.defaultBranch(); // $ExpectType Promise<string>

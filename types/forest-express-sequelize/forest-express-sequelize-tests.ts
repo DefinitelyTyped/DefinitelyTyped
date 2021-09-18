@@ -6,9 +6,26 @@ import {
     RecordGetter, RecordRemover, RecordsCounter, RecordSerializer,
     RecordsGetter, RecordsRemover, RecordUpdater, StatSerialized, StatSerializer,
     SmartActionOptions, SmartFieldOptions, SmartSegmentOptions,
-    collection, CollectionOptions
+    collection, CollectionOptions, LianaOptions, init,
 } from 'forest-express-sequelize';
 import * as express from 'express';
+import { Sequelize } from 'sequelize';
+
+const lianaOptions: LianaOptions = {
+    objectMapping: Sequelize,
+    envSecret: 'aSecretKey',
+    authSecret: 'aSecretKey',
+    connections: {
+        'main-connection': new Sequelize('uri'),
+    },
+    includedModels: ['aModel'],
+    excludedModels: ['aModel'],
+    configDir: 'aDirectory',
+};
+
+init(lianaOptions).then((expressApplication: express.Application) => {
+    const expressApp: express.Application = expressApplication;
+});
 
 const MY_PUBLIC_ROUTES = PUBLIC_ROUTES;
 
@@ -61,7 +78,7 @@ const recordsRemover = new RecordsRemover(model);
 recordsRemover.remove(['1234', '5678']);
 
 const recordSerializer = new RecordSerializer(model);
-recordSerializer.serialize([{}, {}]);
+recordSerializer.serialize([{}, {}]).then((statSerialized: StatSerialized) => { });
 
 let requestHandler: express.RequestHandler;
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('users');

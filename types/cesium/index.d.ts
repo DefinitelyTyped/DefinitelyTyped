@@ -57,14 +57,14 @@ declare namespace Cesium {
         appendQueryParameters(params: any): void;
         clone(param: Resource): Resource;
         delete(options?: {
-            responseType?: string;
+            responseType?: string | undefined;
             headers?: any;
-            overrideMimeType?: string;
+            overrideMimeType?: string | undefined;
         }): Promise<any> | undefined;
         fetch(options?: {
-            responseType?: string;
+            responseType?: string | undefined;
             headers?: any;
-            overrideMimeType?: string;
+            overrideMimeType?: string | undefined;
         }): Promise<any> | undefined;
         fetchArrayBuffer(): Promise<any> | undefined;
         fetchBlob(): Promise<any> | undefined;
@@ -75,43 +75,43 @@ declare namespace Cesium {
         fetchXMLS(): Promise<any> | undefined;
         getUrlComponent(query?: boolean, proxy?: boolean): string;
         getDerivedResource(option?: {
-            url?: string;
+            url?: string | undefined;
             queryParameters?: any;
             templateValues?: any;
             headers?: any;
-            proxy?: DefaultProxy;
+            proxy?: DefaultProxy | undefined;
             retryCallback?: any;
-            retryAttempts?: number;
-            request?: Request;
-            preserveQueryParameters?: boolean;
+            retryAttempts?: number | undefined;
+            request?: Request | undefined;
+            preserveQueryParameters?: boolean | undefined;
         }): Resource;
         head(options?: {
-            responseType?: string;
+            responseType?: string | undefined;
             headers?: any;
-            overrideMimeType?: string;
+            overrideMimeType?: string | undefined;
         }): Promise<any> | undefined;
         options(options?: {
-            responseType?: string;
+            responseType?: string | undefined;
             headers?: any;
-            overrideMimeType?: string;
+            overrideMimeType?: string | undefined;
         }): Promise<any> | undefined;
         patch(data: any, options?: {
-                responseType?: string;
-                headers?: any;
-                overrideMimeType?: string;
-            }
+            responseType?: string | undefined;
+            headers?: any;
+            overrideMimeType?: string | undefined;
+        }
         ): Promise<any> | undefined;
         post(data: any, options?: {
-                responseType?: string;
-                headers?: any;
-                overrideMimeType?: string;
-            }
+            responseType?: string | undefined;
+            headers?: any;
+            overrideMimeType?: string | undefined;
+        }
         ): Promise<any> | undefined;
         put(data: any,
             options?: {
-                responseType?: string;
+                responseType?: string | undefined;
                 headers?: any;
-                overrideMimeType?: string;
+                overrideMimeType?: string | undefined;
             }
         ): Promise<any> | undefined;
         setQueryParameters(params: any, useAsDefault?: boolean): void;
@@ -134,7 +134,14 @@ declare namespace Cesium {
     }
 
     class ArcGisImageServerTerrainProvider extends TerrainProvider {
-        constructor(options: { url: string; token?: string; proxy?: any; tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid; credit?: Credit | string });
+        constructor(options: {
+            url: string;
+            token?: string | undefined;
+            proxy?: any;
+            tilingScheme?: TilingScheme | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            credit?: Credit | string | undefined
+        });
     }
 
     class AssociativeArray {
@@ -237,7 +244,7 @@ declare namespace Cesium {
     }
 
     class BoxGeometry extends Packable {
-        constructor(options: { minimumCorner: Cartesian3; maximumCorner: Cartesian3; vertexFormat?: VertexFormat });
+        constructor(options: { minimumCorner: Cartesian3; maximumCorner: Cartesian3; vertexFormat?: VertexFormat | undefined });
         static fromDimensions(): void;
         static unpack(array: number[], startingIndex?: number, result?: BoxGeometry): BoxGeometry;
         static createGeometry(boxGeometry: BoxGeometry): Geometry;
@@ -416,7 +423,7 @@ declare namespace Cesium {
         points: Cartesian3[];
         firstTangent: Cartesian3;
         lastTangent: Cartesian3;
-        constructor(options: { times: number[]; points: Cartesian3[]; firstTangent?: Cartesian3; lastTangent?: Cartesian3 });
+        constructor(options: { times: number[]; points: Cartesian3[]; firstTangent?: Cartesian3 | undefined; lastTangent?: Cartesian3 | undefined });
         findTimeInterval(time: number): number;
         evaluate(time: number, result?: Cartesian3): Cartesian3;
     }
@@ -424,7 +431,14 @@ declare namespace Cesium {
     class CesiumTerrainProvider extends TerrainProvider {
         requestVertexNormals: boolean;
         requestWaterMask: boolean;
-        constructor(options: { url: string; proxy?: Proxy; requestVertexNormals?: boolean; requestWaterMask?: boolean; ellipsoid?: Ellipsoid; credit?: Credit | string });
+        constructor(options: {
+            url: string;
+            proxy?: Proxy | undefined;
+            requestVertexNormals?: boolean | undefined;
+            requestWaterMask?: boolean | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            credit?: Credit | string | undefined
+        });
     }
 
     /**
@@ -466,34 +480,42 @@ declare namespace Cesium {
          * A boolean Property specifying the visibility of the tilese
          * @default true
          */
-        show?: boolean | Property;
+        show?: boolean | Property | undefined;
         /**
          * A string or Resource Property specifying the URI of the tileset.
          */
-        uri?: string | Property;
+        uri?: string | Property | undefined;
         /**
          * A number or Property specifying the maximum screen space error used to drive level of detail refinement.
          */
-        maximumScreenSpaceError?: number | Property;
+        maximumScreenSpaceError?: number | Property | undefined;
     }
 
     class CircleGeometry extends Packable {
         constructor(options: {
             center: Cartesian3;
             radius: number;
-            ellipsoid?: Ellipsoid;
-            height?: number;
-            granularity?: number;
-            vertexFormat?: VertexFormat;
-            extrudedHeight?: number;
-            stRotation?: number
+            ellipsoid?: Ellipsoid | undefined;
+            height?: number | undefined;
+            granularity?: number | undefined;
+            vertexFormat?: VertexFormat | undefined;
+            extrudedHeight?: number | undefined;
+            stRotation?: number | undefined
         });
         static unpack(array: number[], startingIndex?: number, result?: CircleGeometry): number[];
         static createGeometry(circleGeometry: CircleGeometry): Geometry;
     }
 
     class CircleOutlineGeometry extends Packable {
-        constructor(options: { center: Cartesian3; radius: number; ellipsoid?: Ellipsoid; height?: number; granularity?: number; extrudedHeight?: number; numberOfVerticalLines?: number });
+        constructor(options: {
+            center: Cartesian3;
+            radius: number;
+            ellipsoid?: Ellipsoid | undefined;
+            height?: number | undefined;
+            granularity?: number | undefined;
+            extrudedHeight?: number | undefined;
+            numberOfVerticalLines?: number | undefined
+        });
         static unpack(array: number[], startingIndex?: number, result?: CircleOutlineGeometry): number[];
         static createGeometry(circleGeometry: CircleOutlineGeometry): Geometry;
     }
@@ -509,15 +531,15 @@ declare namespace Cesium {
         shouldAnimate: boolean;
         onTick: Event<[Clock]>;
         constructor(options: {
-            startTime?: JulianDate;
-            stopTime?: JulianDate;
-            currentTime?: JulianDate;
-            multiplier?: number;
-            clockStep?: ClockStep;
-            clockRange?: ClockRange;
-            canAnimate?: boolean;
+            startTime?: JulianDate | undefined;
+            stopTime?: JulianDate | undefined;
+            currentTime?: JulianDate | undefined;
+            multiplier?: number | undefined;
+            clockStep?: ClockStep | undefined;
+            clockRange?: ClockRange | undefined;
+            canAnimate?: boolean | undefined;
             shouldAnimate?:
-            boolean
+            boolean | undefined
         });
         tick(): JulianDate;
     }
@@ -687,19 +709,19 @@ declare namespace Cesium {
         static fromCssColorString(color: string): Color;
         static fromHsl(hue?: number, saturation?: number, lightness?: number, alpha?: number): Color;
         static fromRandom(options?: {
-                red?: number;
-                minimumRed?: number;
-                maximumRed?: number;
-                green?: number;
-                minimumGreen?: number;
-                maximumGreen?: number;
-                blue?: number;
-                minimumBlue?: number;
-                maximumBlue?: number;
-                alpha?: number;
-                minimumAlpha?: number;
-                maximumAlpha?: number
-            }, result?: Color): Color;
+            red?: number | undefined;
+            minimumRed?: number | undefined;
+            maximumRed?: number | undefined;
+            green?: number | undefined;
+            minimumGreen?: number | undefined;
+            maximumGreen?: number | undefined;
+            blue?: number | undefined;
+            minimumBlue?: number | undefined;
+            maximumBlue?: number | undefined;
+            alpha?: number | undefined;
+            minimumAlpha?: number | undefined;
+            maximumAlpha?: number | undefined
+        }, result?: Color): Color;
         static fromRgba(rgba: number): Color;
         /**
          * Computes the linear interpolation or extrapolation at t between the provided colors.
@@ -738,12 +760,12 @@ declare namespace Cesium {
         constructor(options: {
             positions: Cartesian3[];
             width: number;
-            ellipsoid?: Ellipsoid;
-            granularity?: number;
-            height?: number;
-            extrudedHeight?: number;
-            vertexFormat?: VertexFormat;
-            cornerType?: CornerType
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            height?: number | undefined;
+            extrudedHeight?: number | undefined;
+            vertexFormat?: VertexFormat | undefined;
+            cornerType?: CornerType | undefined
         });
         static unpack(array: number[], startingIndex?: number, result?: CorridorGeometry): CorridorGeometry;
         static createGeometry(corridorGeometry: CorridorGeometry): Geometry;
@@ -753,11 +775,11 @@ declare namespace Cesium {
         constructor(options: {
             positions: Cartesian3[];
             width: number;
-            ellipsoid?: Ellipsoid;
-            granularity?: number;
-            height?: number;
-            extrudedHeight?: number;
-            cornerType?: CornerType
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            height?: number | undefined;
+            extrudedHeight?: number | undefined;
+            cornerType?: CornerType | undefined
         });
         static unpack(array: number[], startingIndex?: number, result?: CorridorOutlineGeometry): CorridorOutlineGeometry;
         static createGeometry(corridorOutlineGeometry: CorridorOutlineGeometry): Geometry;
@@ -778,13 +800,13 @@ declare namespace Cesium {
     }
 
     class CylinderGeometry extends Packable {
-        constructor(options: { length: number; topRadius: number; bottomRadius: number; slices?: number; vertexFormat?: VertexFormat });
+        constructor(options: { length: number; topRadius: number; bottomRadius: number; slices?: number | undefined; vertexFormat?: VertexFormat | undefined });
         static unpack(array: number[], startingIndex?: number, result?: CylinderGeometry): CylinderGeometry;
         static createGeometry(cylinderGeometry: CylinderGeometry): Geometry;
     }
 
     class CylinderOutlineGeometry extends Packable {
-        constructor(options: { length: number; topRadius: number; bottomRadius: number; slices?: number; numberOfVerticalLines?: number });
+        constructor(options: { length: number; topRadius: number; bottomRadius: number; slices?: number | undefined; numberOfVerticalLines?: number | undefined });
         static unpack(array: number[], startingIndex?: number, result?: CylinderOutlineGeometry): CylinderOutlineGeometry;
         static createGeometry(cylinderGeometry: CylinderOutlineGeometry): Geometry;
     }
@@ -806,13 +828,13 @@ declare namespace Cesium {
             center: Cartesian3;
             semiMajorAxis: number;
             semiMinorAxis: number;
-            ellipsoid?: Ellipsoid;
-            height?: number;
-            extrudedHeight?: number;
-            rotation?: number;
-            stRotation?: number;
-            granularity?: number;
-            vertexFormat?: VertexFormat
+            ellipsoid?: Ellipsoid | undefined;
+            height?: number | undefined;
+            extrudedHeight?: number | undefined;
+            rotation?: number | undefined;
+            stRotation?: number | undefined;
+            granularity?: number | undefined;
+            vertexFormat?: VertexFormat | undefined
         });
         static unpack(array: number[], startingIndex?: number, result?: EllipseGeometry): EllipseGeometry;
         static createGeometry(ellipseGeometry: EllipseGeometry): Geometry;
@@ -823,12 +845,12 @@ declare namespace Cesium {
             center: Cartesian3;
             semiMajorAxis: number;
             semiMinorAxis: number;
-            ellipsoid?: Ellipsoid;
-            height?: number;
-            extrudedHeight?: number;
-            rotation?: number;
-            granularity?: number;
-            numberOfVerticalLines?: number
+            ellipsoid?: Ellipsoid | undefined;
+            height?: number | undefined;
+            extrudedHeight?: number | undefined;
+            rotation?: number | undefined;
+            granularity?: number | undefined;
+            numberOfVerticalLines?: number | undefined
         });
         static unpack(array: number[], startingIndex?: number, result?: EllipseOutlineGeometry): EllipseOutlineGeometry;
         static createGeometry(ellipseGeometry: EllipseOutlineGeometry): Geometry;
@@ -879,15 +901,15 @@ declare namespace Cesium {
 
     class EllipsoidGeometry extends Packable {
         constructor(options?: {
-            radii?: Cartesian3;
-            innerRadii?: Cartesian3;
-            minimumClock?: number;
-            maximumClock?: number;
-            minimumCone?: number;
-            maximumCone?: number;
-            stackPartitions?: number;
-            slicePartitions?: number;
-            vertexFormat?: VertexFormat;
+            radii?: Cartesian3 | undefined;
+            innerRadii?: Cartesian3 | undefined;
+            minimumClock?: number | undefined;
+            maximumClock?: number | undefined;
+            minimumCone?: number | undefined;
+            maximumCone?: number | undefined;
+            stackPartitions?: number | undefined;
+            slicePartitions?: number | undefined;
+            vertexFormat?: VertexFormat | undefined;
         });
         static unpack(array: number[], startingIndex?: number, result?: EllipsoidGeometry): EllipsoidGeometry;
         static createGeometry(ellipsoidGeometry: EllipsoidGeometry): Geometry;
@@ -895,15 +917,15 @@ declare namespace Cesium {
 
     class EllipsoidOutlineGeometry extends Packable {
         constructor(options?: {
-            radii?: Cartesian3;
-            innerRadii?: Cartesian3;
-            minimumClock?: number;
-            maximumClock?: number;
-            minimumCone?: number;
-            maximumCone?: number;
-            stackPartitions?: number;
-            slicePartitions?: number;
-            subdivisions?: number;
+            radii?: Cartesian3 | undefined;
+            innerRadii?: Cartesian3 | undefined;
+            minimumClock?: number | undefined;
+            maximumClock?: number | undefined;
+            minimumCone?: number | undefined;
+            maximumCone?: number | undefined;
+            stackPartitions?: number | undefined;
+            slicePartitions?: number | undefined;
+            subdivisions?: number | undefined;
         });
         static unpack(array: number[], startingIndex?: number, result?: EllipsoidOutlineGeometry): EllipsoidOutlineGeometry;
         static createGeometry(ellipsoidGeometry: EllipsoidOutlineGeometry): Geometry;
@@ -920,7 +942,7 @@ declare namespace Cesium {
     }
 
     class EllipsoidTerrainProvider extends TerrainProvider {
-        constructor(options?: { tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid });
+        constructor(options?: { tilingScheme?: TilingScheme | undefined; ellipsoid?: Ellipsoid | undefined });
     }
 
     class Event<T extends any[] = any[]> {
@@ -954,7 +976,7 @@ declare namespace Cesium {
         ellipsoid: Ellipsoid;
         rectangle: Rectangle;
         projection: MapProjection;
-        constructor(options?: { ellipsoid?: Ellipsoid; rectangle?: Rectangle; numberOfLevelZeroTilesX?: number; numberOfLevelZeroTilesY?: number });
+        constructor(options?: { ellipsoid?: Ellipsoid | undefined; rectangle?: Rectangle | undefined; numberOfLevelZeroTilesX?: number | undefined; numberOfLevelZeroTilesY?: number | undefined });
         getNumberOfXTilesAtLevel(level: number): number;
         getNumberOfYTilesAtLevel(level: number): number;
         rectangleToNativeRectangle(rectangle: Rectangle, result?: Rectangle): Rectangle;
@@ -968,7 +990,12 @@ declare namespace Cesium {
         indices: any[];
         primitiveType: PrimitiveType;
         boundingSphere: BoundingSphere;
-        constructor(options: { attributes: GeometryAttributes; primitiveType?: PrimitiveType; indices?: Uint16Array | Uint32Array; boundingSphere?: BoundingSphere });
+        constructor(options: {
+            attributes: GeometryAttributes;
+            primitiveType?: PrimitiveType | undefined;
+            indices?: Uint16Array | Uint32Array | undefined;
+            boundingSphere?: BoundingSphere | undefined
+        });
         static computeNumberOfVertices(geometry: Cartesian3): number;
     }
 
@@ -977,7 +1004,7 @@ declare namespace Cesium {
         componentsPerAttribute: number;
         normalize: boolean;
         values: any[];
-        constructor(options?: { componentDatatype?: ComponentDatatype; componentsPerAttribute?: number; normalize?: boolean; values?: number[] });
+        constructor(options?: { componentDatatype?: ComponentDatatype | undefined; componentsPerAttribute?: number | undefined; normalize?: boolean | undefined; values?: number[] | undefined });
     }
 
     class GeometryAttributes {
@@ -994,7 +1021,7 @@ declare namespace Cesium {
         modelMatrix: Matrix4;
         id: any;
         attributes: any;
-        constructor(options: { geometry: Geometry | PolygonGeometry; modelMatrix?: Matrix4; id?: any; attributes?: any });
+        constructor(options: { geometry: Geometry | PolygonGeometry; modelMatrix?: Matrix4 | undefined; id?: any; attributes?: any });
     }
 
     class GeometryInstanceAttribute {
@@ -1002,7 +1029,7 @@ declare namespace Cesium {
         componentsPerAttribute: number;
         normalize: boolean;
         value: number[];
-        constructor(options: { componentDatatype?: ComponentDatatype; componentsPerAttribute?: number; normalize?: boolean; value?: number[] });
+        constructor(options: { componentDatatype?: ComponentDatatype | undefined; componentsPerAttribute?: number | undefined; normalize?: boolean | undefined; value?: number[] | undefined });
     }
 
     class GregorianDate {
@@ -1038,15 +1065,15 @@ declare namespace Cesium {
             buffer: Int8Array | Uint8Array | Int16Array | Uint16Array | Float32Array | Float64Array;
             width: number;
             height: number;
-            childTileMask?: number;
+            childTileMask?: number | undefined;
             structure?: any;
-            structureheightScale?: number;
-            structureheightOffset?: number;
-            structureelementsPerHeight?: number;
-            structurestride?: number;
-            structureelementMultiplier?: number;
-            structureisBigEndian?: boolean;
-            createdByUpsampling?: boolean
+            structureheightScale?: number | undefined;
+            structureheightOffset?: number | undefined;
+            structureelementsPerHeight?: number | undefined;
+            structurestride?: number | undefined;
+            structureelementMultiplier?: number | undefined;
+            structureisBigEndian?: boolean | undefined;
+            createdByUpsampling?: boolean | undefined
         });
         createMesh(tilingScheme: TilingScheme, x: number, y: number, level: number): Promise<TerrainMesh>;
         interpolateHeight(rectangle: Rectangle, longitude: number, latitude: number): number;
@@ -1069,7 +1096,7 @@ declare namespace Cesium {
     }
 
     class IonImageryProvider extends ImageryProvider {
-      constructor(options: {assetId: number, accessToken?: string, server?: string})
+        constructor(options: { assetId: number, accessToken?: string | undefined, server?: string | undefined })
     }
 
     class Interval {
@@ -1248,39 +1275,39 @@ declare namespace Cesium {
          * The ellipsoid.
          * If not specified, the WGS84 ellipsoid is used
          */
-        ellipsoid?: Ellipsoid;
+        ellipsoid?: Ellipsoid | undefined;
         /**
          * The minimum level-of-detail supported by the imagery provider.
          * Take care when specifying this that the number of tiles at the minimum level is small, such as four or less.
          * A larger number is likely to result in rendering problems
          * @default 0
          */
-        minimumLevel?: number;
+        minimumLevel?: number | undefined;
         /**
          * The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit
          * @default undefined
          */
-        maximumLevel?: number;
+        maximumLevel?: number | undefined;
         /**
          * The rectangle, in radians, covered by the image
          * @defualt Rectangle.MAX_VALUE
          */
-        rectangle?: Rectangle;
+        rectangle?: Rectangle | undefined;
         /**
          * A credit for the data source, which is displayed on the canvas
          */
-        credit?: Credit | string;
+        credit?: Credit | string | undefined;
     }
     interface MapboxImageryProviderOptions extends MapboxProviderCommonOptions {
         /**
          * The public access token for the imagery
          */
-        accessToken?: string;
+        accessToken?: string | undefined;
         /**
          * The format of the image request
          * @default 'png'
          */
-        format?: string;
+        format?: string | undefined;
         /**
          * The Mapbox Map ID
          */
@@ -1289,7 +1316,7 @@ declare namespace Cesium {
          * The Mapbox server url
          * @default 'https://api.mapbox.com/v4/'
          */
-        url?: string;
+        url?: string | undefined;
     }
 
     interface MapboxStyleImageryProviderOptions extends MapboxProviderCommonOptions {
@@ -1297,12 +1324,12 @@ declare namespace Cesium {
          * The Mapbox server url
          * @default 'https://api.mapbox.com/styles/v1/'
          */
-        url?: Resource | string;
+        url?: Resource | string | undefined;
         /**
          * The username of the map account.
          * @default 'mapbox'
          */
-        username?: string;
+        username?: string | undefined;
         /**
          * The Mapbox Style ID.
          */
@@ -1310,16 +1337,16 @@ declare namespace Cesium {
         /**
          * The public access token for the imagery.
          */
-        accessToken?: string;
+        accessToken?: string | undefined;
         /**
          * The size of the image tiles
          * @default 512
          */
-        tilesize?: number;
+        tilesize?: number | undefined;
         /**
          * Determines if tiles are rendered at a @2x scale factor
          */
-        scaleFactor?: boolean;
+        scaleFactor?: boolean | undefined;
     }
 
     class MapProjection {
@@ -1380,7 +1407,7 @@ declare namespace Cesium {
         static COLUMN2ROW1: number;
         static COLUMN2ROW2: number;
         constructor(column0Row0?: number, column1Row0?: number, column2Row0?: number, column0Row1?: number, column1Row1?: number,
-                    column2Row1?: number, column0Row2?: number, column1Row2?: number, column2Row2?: number);
+            column2Row1?: number, column0Row2?: number, column1Row2?: number, column2Row2?: number);
         clone(result?: Matrix3): Matrix3;
         equals(right?: Matrix3): boolean;
         equalsEpsilon(right: Matrix3, epsilon: number): boolean;
@@ -1442,9 +1469,9 @@ declare namespace Cesium {
         static COLUMN3ROW2: number;
         static COLUMN3ROW3: number;
         constructor(column0Row0?: number, column1Row0?: number, column2Row0?: number, column3Row0?: number, column0Row1?: number,
-                    column1Row1?: number, column2Row1?: number, column3Row1?: number, column0Row2?: number, column1Row2?: number,
-                    column2Row2?: number, column3Row2?: number, column0Row3?: number, column1Row3?: number, column2Row3?: number,
-                    column3Row3?: number);
+            column1Row1?: number, column2Row1?: number, column3Row1?: number, column0Row2?: number, column1Row2?: number,
+            column2Row2?: number, column3Row2?: number, column0Row3?: number, column1Row3?: number, column2Row3?: number,
+            column3Row3?: number);
         clone(result?: Matrix4): Matrix4;
         equals(right?: Matrix4): boolean;
         equalsEpsilon(right: Matrix4, epsilon: number): boolean;
@@ -1556,25 +1583,25 @@ declare namespace Cesium {
     class PolygonGeometry extends Packable {
         constructor(options: {
             polygonHierarchy: PolygonHierarchy;
-            height?: number;
-            extrudedHeight?: number;
-            vertexFormat?: VertexFormat;
-            stRotation?: number;
-            ellipsoid?: Ellipsoid;
-            granularity?: number;
-            perPositionHeight?: boolean
+            height?: number | undefined;
+            extrudedHeight?: number | undefined;
+            vertexFormat?: VertexFormat | undefined;
+            stRotation?: number | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            perPositionHeight?: boolean | undefined
         });
         static fromPositions(options?: {
             positions: Cartesian3[];
-            height?: number;
-            extrudedHeight?: number;
-            vertexFormat?: VertexFormat;
-            stRotation?: number;
-            ellipsoid?: Ellipsoid;
-            granularity?: number;
-            perPositionHeight?: boolean;
-            closeTop?: boolean;
-            closeBottom?: boolean;
+            height?: number | undefined;
+            extrudedHeight?: number | undefined;
+            vertexFormat?: VertexFormat | undefined;
+            stRotation?: number | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            perPositionHeight?: boolean | undefined;
+            closeTop?: boolean | undefined;
+            closeBottom?: boolean | undefined;
         }): PolygonGeometry;
         static unpack(array: number[], startingIndex?: number, result?: PolygonGeometry): PolygonGeometry;
         static createGeometry(polygonGeometry: PolygonGeometry): Geometry;
@@ -1589,21 +1616,21 @@ declare namespace Cesium {
     class PolygonOutlineGeometry extends Packable {
         constructor(options: {
             polygonHierarchy: any;
-            height?: number;
-            extrudedHeight?: number;
-            vertexFormat?: VertexFormat;
-            ellipsoid?: Ellipsoid;
-            granularity?: number;
-            perPositionHeight?: boolean
+            height?: number | undefined;
+            extrudedHeight?: number | undefined;
+            vertexFormat?: VertexFormat | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            perPositionHeight?: boolean | undefined
         });
         static unpack(array: number[], startingIndex?: number, result?: PolygonOutlineGeometry): PolygonOutlineGeometry;
         static fromPositions(options?: {
             positions: Cartesian3[];
-            height?: number;
-            extrudedHeight?: number;
-            ellipsoid?: Ellipsoid;
-            granularity?: number;
-            perPositionHeight?: boolean;
+            height?: number | undefined;
+            extrudedHeight?: number | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            perPositionHeight?: boolean | undefined;
         }): PolygonOutlineGeometry;
         static createGeometry(polygonGeometry: PolygonOutlineGeometry): Geometry;
     }
@@ -1611,13 +1638,13 @@ declare namespace Cesium {
     class PolylineGeometry extends Packable {
         constructor(options: {
             positions: Cartesian3[];
-            width?: number;
-            colors?: Color[];
-            colorsPerVertex?: boolean;
-            vertexFormat?: VertexFormat;
-            granularity?: number;
-            ellipsoid?: Ellipsoid;
-            arcType?: ArcType;
+            width?: number | undefined;
+            colors?: Color[] | undefined;
+            colorsPerVertex?: boolean | undefined;
+            vertexFormat?: VertexFormat | undefined;
+            granularity?: number | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            arcType?: ArcType | undefined;
         });
         static unpack(array: number[], startingIndex?: number, result?: PolylineGeometry): PolylineGeometry;
         static createGeometry(polylineGeometry: PolylineGeometry): Geometry;
@@ -1630,22 +1657,29 @@ declare namespace Cesium {
         width: number;
         constructor(options: {
             positions: Cartesian3[];
-            width?: number;
-            granularity?: number;
-            arcType?: ArcType;
-            loop?: boolean;
+            width?: number | undefined;
+            granularity?: number | undefined;
+            arcType?: ArcType | undefined;
+            loop?: boolean | undefined;
         });
         static unpack(array: number[], startingIndex?: number, result?: GroundPolylineGeometry): GroundPolylineGeometry;
     }
 
     class PolylineVolumeGeometry extends Packable {
-        constructor(options: { polylinePositions: Cartesian3[]; shapePositions: Cartesian2[]; ellipsoid?: Ellipsoid; granularity?: number; vertexFormat?: VertexFormat; cornerType?: CornerType });
+        constructor(options: {
+            polylinePositions: Cartesian3[];
+            shapePositions: Cartesian2[];
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            vertexFormat?: VertexFormat | undefined;
+            cornerType?: CornerType | undefined
+        });
         static unpack(array: number[], startingIndex?: number, result?: PolylineVolumeGeometry): PolylineVolumeGeometry;
         static createGeometry(polylineVolumeGeometry: PolylineVolumeGeometry): Geometry;
     }
 
     class PolylineVolumeOutlineGeometry extends Packable {
-        constructor(options: { polylinePositions: Cartesian3[]; shapePositions: number; ellipsoid?: Ellipsoid; granularity?: number; cornerType?: CornerType });
+        constructor(options: { polylinePositions: Cartesian3[]; shapePositions: number; ellipsoid?: Ellipsoid | undefined; granularity?: number | undefined; cornerType?: CornerType | undefined });
         static unpack(array: number[], startingIndex?: number, result?: PolylineVolumeOutlineGeometry): PolylineVolumeOutlineGeometry;
         static createGeometry(polylineVolumeOutlineGeometry: PolylineVolumeOutlineGeometry): Geometry;
     }
@@ -1667,10 +1701,10 @@ declare namespace Cesium {
             southSkirtHeight: number;
             eastSkirtHeight: number;
             northSkirtHeight: number;
-            childTileMask?: number;
-            createdByUpsampling?: boolean;
-            encodedNormals?: Uint8Array;
-            waterMask?: Uint8Array
+            childTileMask?: number | undefined;
+            createdByUpsampling?: boolean | undefined;
+            encodedNormals?: Uint8Array | undefined;
+            waterMask?: Uint8Array | undefined
         });
         createMesh(tilingScheme: TilingScheme, x: number, y: number, level: number): Promise<TerrainMesh>;
         upsample(tilingScheme: TilingScheme, thisX: number, thisY: number, thisLevel: number, descendantX: number, descendantY: number, descendantLevel: number): Promise<QuantizedMeshTerrainData>;
@@ -1730,7 +1764,7 @@ declare namespace Cesium {
         times: number[];
         points: Quaternion[];
         innerQuadrangles: Quaternion[];
-        constructor(options: { times: number[]; points: Quaternion[]; firstInnerQuadrangle?: Quaternion; lastInnerQuadrangle?: Quaternion });
+        constructor(options: { times: number[]; points: Quaternion[]; firstInnerQuadrangle?: Quaternion | undefined; lastInnerQuadrangle?: Quaternion | undefined });
         findTimeInterval(time: number): number;
         evaluate(time: number, result?: Quaternion): Quaternion;
     }
@@ -1790,13 +1824,13 @@ declare namespace Cesium {
     class RectangleGeometry extends Packable {
         constructor(options: {
             rectangle: Rectangle;
-            vertexFormat?: VertexFormat;
-            ellipsoid?: Ellipsoid;
-            granularity?: number;
-            height?: number;
-            rotation?: number;
-            stRotation?: number;
-            extrudedHeight?: number
+            vertexFormat?: VertexFormat | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            height?: number | undefined;
+            rotation?: number | undefined;
+            stRotation?: number | undefined;
+            extrudedHeight?: number | undefined
         });
         static pack(value: BoundingSphere, array: number[], startingIndex?: number): number[];
         static unpack(array: number[], startingIndex?: number, result?: RectangleGeometry): RectangleGeometry;
@@ -1806,11 +1840,11 @@ declare namespace Cesium {
     class RectangleOutlineGeometry extends Packable {
         constructor(options: {
             rectangle: Rectangle;
-            ellipsoid?: Ellipsoid;
-            granularity?: number;
-            height?: number;
-            rotation?: number;
-            extrudedHeight?: number
+            ellipsoid?: Ellipsoid | undefined;
+            granularity?: number | undefined;
+            height?: number | undefined;
+            rotation?: number | undefined;
+            extrudedHeight?: number | undefined
         });
         static pack(value: BoundingSphere, array: number[], startingIndex?: number): number[];
         static unpack(array: number[], startingIndex?: number, result?: RectangleGeometry): RectangleOutlineGeometry;
@@ -1846,7 +1880,7 @@ declare namespace Cesium {
         [ScreenSpaceEventType.MOUSE_MOVE]: { startPosition: Cartesian2, endPosition: Cartesian2 };
         [ScreenSpaceEventType.WHEEL]: number;
         [ScreenSpaceEventType.PINCH_START]: { position1: Cartesian2, position2: Cartesian2 };
-        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }};
+        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 } };
     }
 
     class ScreenSpaceEventHandler {
@@ -1870,19 +1904,26 @@ declare namespace Cesium {
     }
 
     class SimplePolylineGeometry extends Packable {
-        constructor(options: { positions: Cartesian3[]; colors?: Color[]; colorsPerVertex?: boolean; followSurface?: boolean; granularity?: number; ellipsoid?: Ellipsoid });
+        constructor(options: {
+            positions: Cartesian3[];
+            colors?: Color[] | undefined;
+            colorsPerVertex?: boolean | undefined;
+            followSurface?: boolean | undefined;
+            granularity?: number | undefined;
+            ellipsoid?: Ellipsoid | undefined
+        });
         static unpack(array: number[], startingIndex?: number, result?: SimplePolylineGeometry): SimplePolylineGeometry;
         static createGeometry(simplePolylineGeometry: SimplePolylineGeometry): Geometry;
     }
 
     class SphereGeometry extends Packable {
-        constructor(options?: { radius?: number; stackPartitions?: number; slicePartitions?: number; vertexFormat?: VertexFormat });
+        constructor(options?: { radius?: number | undefined; stackPartitions?: number | undefined; slicePartitions?: number | undefined; vertexFormat?: VertexFormat | undefined });
         static unpack(array: number[], startingIndex?: number, result?: SphereGeometry): SphereGeometry;
         static createGeometry(sphereGeometry: SphereGeometry): Geometry;
     }
 
     class SphereOutlineGeometry extends Packable {
-        constructor(options?: { radius?: number; stackPartitions?: number; slicePartitions?: number; subdivisions?: number });
+        constructor(options?: { radius?: number | undefined; stackPartitions?: number | undefined; slicePartitions?: number | undefined; subdivisions?: number | undefined });
         static unpack(array: number[], startingIndex?: number, result?: SphereOutlineGeometry): SphereOutlineGeometry;
         static createGeometry(sphereGeometry: SphereOutlineGeometry): Geometry;
     }
@@ -1936,7 +1977,7 @@ declare namespace Cesium {
         boundingSphere3D: BoundingSphere;
         occludeePointInScaledSpace: Cartesian3;
         constructor(center: Cartesian3, vertices: Float32Array, indices: Uint16Array | Uint32Array, minimumHeight: number,
-                    maximumHeight: number, boundingSphere3D: BoundingSphere, occludeePointInScaledSpace: Cartesian3, vertexStride?: number);
+            maximumHeight: number, boundingSphere3D: BoundingSphere, occludeePointInScaledSpace: Cartesian3, vertexStride?: number);
     }
 
     abstract class TerrainProvider {
@@ -1976,8 +2017,8 @@ declare namespace Cesium {
         error: Error;
         constructor(provider: ImageryProvider | TerrainProvider, message: string, x?: number, y?: number, level?: number, timesRetried?: number, error?: Error);
         static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event<[TileProviderError]>,
-                            message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
-                            errorDetails?: Error): TileProviderError;
+            message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
+            errorDetails?: Error): TileProviderError;
         static handleSuccess(previousError: TileProviderError): void;
     }
 
@@ -2005,12 +2046,12 @@ declare namespace Cesium {
         isStopIncluded: boolean;
         isEmpty: boolean;
         static EMPTY: TimeInterval;
-        constructor(options?: { start?: JulianDate; stop?: JulianDate; isStartIncluded?: boolean; isStopIncluded?: boolean; data?: any });
+        constructor(options?: { start?: JulianDate | undefined; stop?: JulianDate | undefined; isStartIncluded?: boolean | undefined; isStopIncluded?: boolean | undefined; data?: any });
         clone(result?: TimeInterval): TimeInterval;
         equals(right?: TimeInterval, dataComparer?: TimeInterval.DataComparer): boolean;
         equalsEpsilon(right: TimeInterval, epsilon: number, dataComparer?: TimeInterval.DataComparer): boolean;
         toString(): string;
-        static fromIso8601(options: { iso8601: string; isStartIncluded?: boolean; isStopIncluded?: boolean; data?: any }, result?: TimeInterval): TimeInterval;
+        static fromIso8601(options: { iso8601: string; isStartIncluded?: boolean | undefined; isStopIncluded?: boolean | undefined; data?: any }, result?: TimeInterval): TimeInterval;
         static toIso8601(timeInterval: TimeInterval, precision?: number): string;
         static clone(timeInterval?: TimeInterval, result?: TimeInterval): TimeInterval;
         static equals(left?: TimeInterval, right?: TimeInterval, dataComparer?: TimeInterval.DataComparer): boolean;
@@ -2040,7 +2081,7 @@ declare namespace Cesium {
         findDataForIntervalContainingDate(date: JulianDate): any;
         contains(julianDate: JulianDate): boolean;
         indexOf(date: JulianDate): number;
-        findInterval(options?: { start?: JulianDate; stop?: JulianDate; isStartIncluded?: boolean; isStopIncluded?: boolean }): TimeInterval;
+        findInterval(options?: { start?: JulianDate | undefined; stop?: JulianDate | undefined; isStartIncluded?: boolean | undefined; isStopIncluded?: boolean | undefined }): TimeInterval;
         addInterval(interval: TimeInterval, dataComparer?: TimeInterval.DataComparer): void;
         removeInterval(interval: TimeInterval): void;
         intersect(other: TimeIntervalCollection, dataComparer?: TimeInterval.DataComparer, mergeCallback?: TimeInterval.MergeCallback): TimeIntervalCollection;
@@ -2054,7 +2095,7 @@ declare namespace Cesium {
     }
 
     class VRTheWorldTerrainProvider extends TerrainProvider {
-        constructor(options: { url: string; proxy?: any; ellipsoid?: Ellipsoid; credit?: Credit | string });
+        constructor(options: { url: string; proxy?: any; ellipsoid?: Ellipsoid | undefined; credit?: Credit | string | undefined });
     }
 
     class VertexFormat extends Packable {
@@ -2077,14 +2118,27 @@ declare namespace Cesium {
     }
 
     class WallGeometry extends Packable {
-        constructor(options: { positions: Cartesian3[]; granularity?: number; maximumHeights?: number[]; minimumHeights?: number[]; ellipsoid?: Ellipsoid; vertexFormat?: VertexFormat });
+        constructor(options: {
+            positions: Cartesian3[];
+            granularity?: number | undefined;
+            maximumHeights?: number[] | undefined;
+            minimumHeights?: number[] | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            vertexFormat?: VertexFormat | undefined
+        });
         static unpack(array: number[], startingIndex?: number, result?: WallGeometry): WallGeometry;
         static fromConstantHeights(positions: Cartesian3[], maximumHeight?: number, minimumHeight?: number, ellipsoid?: Ellipsoid): WallGeometry;
         static createGeometry(wallGeometry: WallGeometry): Geometry;
     }
 
     class WallOutlineGeometry extends Packable {
-        constructor(options: { positions: Cartesian3[]; granularity?: number; maximumHeights?: number[]; minimumHeights?: number[]; ellipsoid?: Ellipsoid });
+        constructor(options: {
+            positions: Cartesian3[];
+            granularity?: number | undefined;
+            maximumHeights?: number[] | undefined;
+            minimumHeights?: number[] | undefined;
+            ellipsoid?: Ellipsoid | undefined
+        });
         static unpack(array: number[], startingIndex?: number, result?: WallOutlineGeometry): WallOutlineGeometry;
         static fromConstantHeights(positions: Cartesian3[], maximumHeight?: number, minimumHeight?: number, ellipsoid?: Ellipsoid): WallOutlineGeometry;
         static createGeometry(wallGeometry: WallOutlineGeometry): Geometry;
@@ -2104,11 +2158,12 @@ declare namespace Cesium {
         ellipsoid: Ellipsoid;
         rectangle: Rectangle;
         projection: MapProjection;
-        constructor(options?: { ellipsoid?: Ellipsoid;
-            numberOfLevelZeroTilesX?: number;
-            numberOfLevelZeroTilesY?: number;
-            rectangleSouthwestInMeters?: Cartesian2;
-            rectangleNortheastInMeters?: Cartesian2
+        constructor(options?: {
+            ellipsoid?: Ellipsoid | undefined;
+            numberOfLevelZeroTilesX?: number | undefined;
+            numberOfLevelZeroTilesY?: number | undefined;
+            rectangleSouthwestInMeters?: Cartesian2 | undefined;
+            rectangleNortheastInMeters?: Cartesian2 | undefined
         });
         getNumberOfXTilesAtLevel(level: number): number;
         getNumberOfYTilesAtLevel(level: number): number;
@@ -2119,43 +2174,44 @@ declare namespace Cesium {
     }
 
     class BillboardGraphics {
-        definitionChanged?: Event;
-        image?: Property;
-        imageSubRegion?: Property;
-        scale?: Property;
-        rotation?: Property;
-        alignedAxis?: Property;
-        horizontalOrigin?: Property;
-        verticalOrigin?: Property;
-        color?: Property;
-        eyeOffset?: Property;
-        pixelOffset?: Property;
-        show?: Property;
-        width?: Property;
-        height?: Property;
-        scaleByDistance?: Property;
-        translucencyByDistance?: Property;
-        disableDepthTestDistance?: Property;
-        pixelOffsetScaleByDistance?: Property;
-        heightReference?: Property;
-        constructor(options?: { image?: Property;
-            show?: Property;
-            scale?: Property;
-            horizontalOrigin?: Property;
-            verticalOrigin?: Property;
-            eyeOffset?: Property;
-            pixelOffset?: Property;
-            rotation?: Property;
-            alignedAxis?: Property;
-            width?: Property;
-            height?: Property;
-            color?: Property;
-            scaleByDistance?: Property;
-            translucencyByDistance?: Property;
-            pixelOffsetScaleByDistance?: Property;
-            disableDepthTestDistance?: Property | number;
-            imageSubRegion?: Property;
-            heightReference?: Property;
+        definitionChanged?: Event | undefined;
+        image?: Property | undefined;
+        imageSubRegion?: Property | undefined;
+        scale?: Property | undefined;
+        rotation?: Property | undefined;
+        alignedAxis?: Property | undefined;
+        horizontalOrigin?: Property | undefined;
+        verticalOrigin?: Property | undefined;
+        color?: Property | undefined;
+        eyeOffset?: Property | undefined;
+        pixelOffset?: Property | undefined;
+        show?: Property | undefined;
+        width?: Property | undefined;
+        height?: Property | undefined;
+        scaleByDistance?: Property | undefined;
+        translucencyByDistance?: Property | undefined;
+        disableDepthTestDistance?: Property | undefined;
+        pixelOffsetScaleByDistance?: Property | undefined;
+        heightReference?: Property | undefined;
+        constructor(options?: {
+            image?: Property | undefined;
+            show?: Property | undefined;
+            scale?: Property | undefined;
+            horizontalOrigin?: Property | undefined;
+            verticalOrigin?: Property | undefined;
+            eyeOffset?: Property | undefined;
+            pixelOffset?: Property | undefined;
+            rotation?: Property | undefined;
+            alignedAxis?: Property | undefined;
+            width?: Property | undefined;
+            height?: Property | undefined;
+            color?: Property | undefined;
+            scaleByDistance?: Property | undefined;
+            translucencyByDistance?: Property | undefined;
+            pixelOffsetScaleByDistance?: Property | undefined;
+            disableDepthTestDistance?: Property | number | undefined;
+            imageSubRegion?: Property | undefined;
+            heightReference?: Property | undefined;
         });
         clone(result?: BillboardGraphics): BillboardGraphics;
         merge(source: BillboardGraphics): BillboardGraphics;
@@ -2179,13 +2235,13 @@ declare namespace Cesium {
         outlineColor: Property;
         outlineWidth: Property;
         constructor(options?: {
-            dimensions?: Property;
-            show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property
+            dimensions?: Property | undefined;
+            show?: Property | undefined;
+            fill?: Property | undefined;
+            material?: MaterialProperty | undefined;
+            outline?: Property | undefined;
+            outlineColor?: Property | undefined;
+            outlineWidth?: Property | undefined
         });
         clone(result?: BoxGraphics): BoxGraphics;
         merge(source: BoxGraphics): BoxGraphics;
@@ -2204,7 +2260,7 @@ declare namespace Cesium {
         evenColor: Color;
         oddColor: Color;
         repeat: Property;
-        constructor(options?: { evenColor?: Color; oddColor?: Color; repeat?: Property });
+        constructor(options?: { evenColor?: Color | undefined; oddColor?: Color | undefined; repeat?: Property | undefined });
     }
 
     class ColorMaterialProperty extends MaterialProperty {
@@ -2288,18 +2344,18 @@ declare namespace Cesium {
         outlineWidth: Property;
         cornerType: Property;
         constructor(options?: {
-            positions?: Property;
-            width?: Property;
-            cornerType?: Property;
-            height?: Property;
-            extrudedHeight?: Property;
-            show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
-            granularity?: Property
+            positions?: Property | undefined;
+            width?: Property | undefined;
+            cornerType?: Property | undefined;
+            height?: Property | undefined;
+            extrudedHeight?: Property | undefined;
+            show?: Property | undefined;
+            fill?: Property | undefined;
+            material?: MaterialProperty | undefined;
+            outline?: Property | undefined;
+            outlineColor?: Property | undefined;
+            outlineWidth?: Property | undefined;
+            granularity?: Property | undefined
         });
         clone(result?: CorridorGraphics): CorridorGraphics;
         merge(source: CorridorGraphics): CorridorGraphics;
@@ -2326,17 +2382,18 @@ declare namespace Cesium {
         outline: Property;
         outlineColor: Property;
         outlineWidth: Property;
-        constructor(options?: { length?: Property;
-            topRadius?: Property;
-            bottomRadius?: Property;
-            show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
-            numberOfVerticalLines?: Property;
-            slices?: Property
+        constructor(options?: {
+            length?: Property | undefined;
+            topRadius?: Property | undefined;
+            bottomRadius?: Property | undefined;
+            show?: Property | undefined;
+            fill?: Property | undefined;
+            material?: MaterialProperty | undefined;
+            outline?: Property | undefined;
+            outlineColor?: Property | undefined;
+            outlineWidth?: Property | undefined;
+            numberOfVerticalLines?: Property | undefined;
+            slices?: Property | undefined
         });
         clone(result?: CylinderGraphics): CylinderGraphics;
         merge(source: CylinderGraphics): CylinderGraphics;
@@ -2344,13 +2401,13 @@ declare namespace Cesium {
 
     class CzmlDataSource extends DataSource {
         static updaters: any[];
-        static load(czml: Resource | string | object, options?: { sourceUri?: string }): Promise<CzmlDataSource>;
+        static load(czml: Resource | string | object, options?: { sourceUri?: string | undefined }): Promise<CzmlDataSource>;
         static processMaterialPacketData(object: object, propertyName: string, packetData: object, interval: TimeInterval, sourceUri: string, entityCollection: EntityCollection): void;
         static processPacketData(type: () => any, object: object, propertyName: string, packetData: object, interval: TimeInterval, sourceUri: string, entityCollection: EntityCollection): void;
         static processPositionPacketData(object: object, propertyName: string, packetData: object, interval: TimeInterval, sourceUri: string, entityCollection: EntityCollection): void;
         constructor(name?: string);
-        load(czml: Resource | string | object, options?: { sourceUri?: string }): Promise<CzmlDataSource>;
-        process(czml: Resource | string | object, options?: { sourceUri?: string }): Promise<CzmlDataSource>;
+        load(czml: Resource | string | object, options?: { sourceUri?: string | undefined }): Promise<CzmlDataSource>;
+        process(czml: Resource | string | object, options?: { sourceUri?: string | undefined }): Promise<CzmlDataSource>;
     }
 
     abstract class DataSource {
@@ -2402,7 +2459,7 @@ declare namespace Cesium {
         dataSources: DataSourceCollection;
         defaultDataSource: CustomDataSource;
         static defaultVisualizersCallback: DataSourceDisplay.VisualizersCallback;
-        constructor(options: { scene: Scene; dataSourceCollection: DataSourceCollection; visualizersCallback?: DataSourceDisplay.VisualizersCallback });
+        constructor(options: { scene: Scene; dataSourceCollection: DataSourceCollection; visualizersCallback?: DataSourceDisplay.VisualizersCallback | undefined });
         isDestroyed(): boolean;
         destroy(): void;
         update(time: JulianDate): boolean;
@@ -2440,20 +2497,20 @@ declare namespace Cesium {
         outlineWidth: number;
         numberOfVerticalLines: Property;
         constructor(options?: {
-            semiMajorAxis?: Property | number;
-            semiMinorAxis?: Property | number;
-            height?: Property;
-            extrudedHeight?: Property;
-            show?: Property;
-            fill?: boolean;
-            material?: MaterialProperty | Color
-            outline?: boolean;
-            outlineColor?: Color;
-            outlineWidth?: number;
-            numberOfVerticalLines?: Property;
-            rotation?: Property;
-            stRotation?: Property;
-            granularity?: Property
+            semiMajorAxis?: Property | number | undefined;
+            semiMinorAxis?: Property | number | undefined;
+            height?: Property | undefined;
+            extrudedHeight?: Property | undefined;
+            show?: Property | undefined;
+            fill?: boolean | undefined;
+            material?: MaterialProperty | Color | undefined
+            outline?: boolean | undefined;
+            outlineColor?: Color | undefined;
+            outlineWidth?: number | undefined;
+            numberOfVerticalLines?: Property | undefined;
+            rotation?: Property | undefined;
+            stRotation?: Property | undefined;
+            granularity?: Property | undefined
         });
         clone(result?: EllipseGraphics): EllipseGraphics;
         merge(source: EllipseGraphics): EllipseGraphics;
@@ -2478,16 +2535,16 @@ declare namespace Cesium {
         slicePartitions: Property;
         subdivisions: Property;
         constructor(options?: {
-            radii?: Property;
-            show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
-            subdivisions?: Property;
-            stackPartitions?: Property;
-            slicePartitions?: Property
+            radii?: Property | undefined;
+            show?: Property | undefined;
+            fill?: Property | undefined;
+            material?: MaterialProperty | undefined;
+            outline?: Property | undefined;
+            outlineColor?: Property | undefined;
+            outlineWidth?: Property | undefined;
+            subdivisions?: Property | undefined;
+            stackPartitions?: Property | undefined;
+            slicePartitions?: Property | undefined
         });
         clone(result?: EllipsoidGraphics): EllipsoidGraphics;
         merge(source: EllipsoidGraphics): EllipsoidGraphics;
@@ -2526,33 +2583,33 @@ declare namespace Cesium {
         viewFrom: Property;
         wall: WallGraphics;
         constructor(options?: {
-          id?: string;
-          name?: string;
-          availability?: TimeIntervalCollection;
-          show?: boolean;
-          description?: Property;
-          position?: CallbackProperty | PositionProperty;
-          orientation?: Property | Quaternion;
-          viewFrom?: Property;
-          parent?: Entity;
-          billboard?: BillboardGraphics;
-          box?: BoxGraphics;
-          corridor?: CorridorGraphics;
-          cylinder?: CylinderGraphics;
-          ellipse?: EllipseGraphics;
-          ellipsoid?: EllipsoidGraphics;
-          label?: LabelGraphics;
-          model?: ModelGraphics;
-          path?: PathGraphics;
-          plane?: any;
-          point?: PointGraphics;
-          polygon?: PolygonGraphics;
-          polyline?: PolylineGraphics;
-          polylineVolume?: PolylineVolumeGraphics;
-          properties?: PropertyBag;
-          rectangle?: RectangleGraphics;
-          tileset?: Cesium3DTilesetGraphics;
-          wall?: WallGraphics
+            id?: string | undefined;
+            name?: string | undefined;
+            availability?: TimeIntervalCollection | undefined;
+            show?: boolean | undefined;
+            description?: Property | undefined;
+            position?: CallbackProperty | PositionProperty | undefined;
+            orientation?: Property | Quaternion | undefined;
+            viewFrom?: Property | undefined;
+            parent?: Entity | undefined;
+            billboard?: BillboardGraphics | undefined;
+            box?: BoxGraphics | undefined;
+            corridor?: CorridorGraphics | undefined;
+            cylinder?: CylinderGraphics | undefined;
+            ellipse?: EllipseGraphics | undefined;
+            ellipsoid?: EllipsoidGraphics | undefined;
+            label?: LabelGraphics | undefined;
+            model?: ModelGraphics | undefined;
+            path?: PathGraphics | undefined;
+            plane?: any;
+            point?: PointGraphics | undefined;
+            polygon?: PolygonGraphics | undefined;
+            polyline?: PolylineGraphics | undefined;
+            polylineVolume?: PolylineVolumeGraphics | undefined;
+            properties?: PropertyBag | undefined;
+            rectangle?: RectangleGraphics | undefined;
+            tileset?: Cesium3DTilesetGraphics | undefined;
+            wall?: WallGraphics | undefined
         });
         addProperty(propertyName: string): void;
         computeModelMatrix(time: JulianDate, result?: Matrix4): Matrix4;
@@ -2562,16 +2619,23 @@ declare namespace Cesium {
     }
 
     class EntityCluster {
-      clusterBillboards: boolean;
-      clusterEvent: Event;
-      clusterLabels: boolean;
-      clusterPoints: boolean;
-      enabled: boolean;
-      minimumClusterSize: number;
-      pixelRange: number;
-      constructor(options?: { enabled?: boolean; pixelRange?: number; minimumClusterSize?: number; clusterBillboards?: boolean; clusterLabels?: boolean; clusterPoints?: boolean });
-      destroy(): void;
-      // newClusterCallback(clusteredEntities, cluster)
+        clusterBillboards: boolean;
+        clusterEvent: Event;
+        clusterLabels: boolean;
+        clusterPoints: boolean;
+        enabled: boolean;
+        minimumClusterSize: number;
+        pixelRange: number;
+        constructor(options?: {
+            enabled?: boolean | undefined;
+            pixelRange?: number | undefined;
+            minimumClusterSize?: number | undefined;
+            clusterBillboards?: boolean | undefined;
+            clusterLabels?: boolean | undefined;
+            clusterPoints?: boolean | undefined
+        });
+        destroy(): void;
+        // newClusterCallback(clusteredEntities, cluster)
     }
 
     class EntityCollection {
@@ -2616,52 +2680,52 @@ declare namespace Cesium {
         static stroke: Color;
         static strokeWidth: number;
         static load(data: Resource | string | object, options?: {
-            sourceUri?: string;
-            markerSize?: number;
-            markerSymbol?: string;
-            markerColor?: Color;
-            stroke?: Color;
-            strokeWidth?: number;
-            fill?: Color;
-            clampToGround?: boolean
+            sourceUri?: string | undefined;
+            markerSize?: number | undefined;
+            markerSymbol?: string | undefined;
+            markerColor?: Color | undefined;
+            stroke?: Color | undefined;
+            strokeWidth?: number | undefined;
+            fill?: Color | undefined;
+            clampToGround?: boolean | undefined
         }): Promise<GeoJsonDataSource>;
         constructor(name?: string);
         load(data: Resource | string | object, options?: {
-            sourceUri?: string;
-            markerSize?: number;
-            markerSymbol?: string;
-            markerColor?: Color;
-            stroke?: Color;
-            strokeWidth?: number;
-            fill?: Color;
-            clampToGround?: boolean
+            sourceUri?: string | undefined;
+            markerSize?: number | undefined;
+            markerSymbol?: string | undefined;
+            markerColor?: Color | undefined;
+            stroke?: Color | undefined;
+            strokeWidth?: number | undefined;
+            fill?: Color | undefined;
+            clampToGround?: boolean | undefined
         }): Promise<GeoJsonDataSource>;
     }
 
     class GeometryUpdater {
-      readonly classificationTypeProperty: Property;
-      readonly readonlydistanceDisplayConditionProperty: Property;
-      readonly entity: Entity;
-      readonly fillEnabled: boolean;
-      readonly fillMaterialProperty: MaterialProperty;
-      readonly geometryChanged: boolean;
-      readonly hasConstantFill: boolean;
-      readonly hasConstantOutline: boolean;
-      readonly id: string;
-      readonly isClosed: boolean;
-      readonly isDynamic: boolean;
-      readonly outlineColorProperty: Property;
-      readonly outlineEnabled: boolean;
-      readonly outlineWidth: number;
-      readonly shadowsProperty: Property;
-      constructor(options: { entity: Entity; scene: Scene; geometryOptions: any; geometryPropertyName: string; observedPropertyNames: string[] });
-      createDynamicUpdater(primitives: PrimitiveCollection, groundPrimitives: PrimitiveCollection): DynamicGeometryUpdater;
-      destroy(): void;
-      isDestroyed(): boolean;
-      isFilled(time: JulianDate): boolean;
-      isOutlineVisible(time: JulianDate): boolean;
-      createFillGeometryInstance(time: JulianDate): GeometryInstance;
-      createOutlineGeometryInstance(time: JulianDate): GeometryInstance;
+        readonly classificationTypeProperty: Property;
+        readonly readonlydistanceDisplayConditionProperty: Property;
+        readonly entity: Entity;
+        readonly fillEnabled: boolean;
+        readonly fillMaterialProperty: MaterialProperty;
+        readonly geometryChanged: boolean;
+        readonly hasConstantFill: boolean;
+        readonly hasConstantOutline: boolean;
+        readonly id: string;
+        readonly isClosed: boolean;
+        readonly isDynamic: boolean;
+        readonly outlineColorProperty: Property;
+        readonly outlineEnabled: boolean;
+        readonly outlineWidth: number;
+        readonly shadowsProperty: Property;
+        constructor(options: { entity: Entity; scene: Scene; geometryOptions: any; geometryPropertyName: string; observedPropertyNames: string[] });
+        createDynamicUpdater(primitives: PrimitiveCollection, groundPrimitives: PrimitiveCollection): DynamicGeometryUpdater;
+        destroy(): void;
+        isDestroyed(): boolean;
+        isFilled(time: JulianDate): boolean;
+        isOutlineVisible(time: JulianDate): boolean;
+        createFillGeometryInstance(time: JulianDate): GeometryInstance;
+        createOutlineGeometryInstance(time: JulianDate): GeometryInstance;
     }
 
     class GeometryVisualizer extends Visualizer {
@@ -2674,22 +2738,28 @@ declare namespace Cesium {
         lineCount: Property;
         lineThickness: Property;
         lineOffset: Property;
-        constructor(options?: { color?: Property; cellAlpha?: Property; lineCount?: Property; lineThickness?: Property; lineOffset?: Property });
+        constructor(options?: {
+            color?: Property | undefined;
+            cellAlpha?: Property | undefined;
+            lineCount?: Property | undefined;
+            lineThickness?: Property | undefined;
+            lineOffset?: Property | undefined
+        });
     }
 
     class ImageMaterialProperty extends MaterialProperty {
         image: Property;
         repeat: Property;
-        constructor(options?: { image?: Property; repeat?: Property, color?: Property, transparent?: Property });
+        constructor(options?: { image?: Property | undefined; repeat?: Property | undefined, color?: Property | undefined, transparent?: Property | undefined });
     }
 
     class KmlDataSource extends DataSource {
         refreshEvent: Event;
         unsupportedNodeEvent: Event;
-        constructor(options?: {camera?: Camera, canvas?: HTMLCanvasElement; ellipsoid?: Ellipsoid});
+        constructor(options?: { camera?: Camera | undefined, canvas?: HTMLCanvasElement | undefined; ellipsoid?: Ellipsoid | undefined });
         static load(data: Resource | string | Document | Blob,
-            options?: { camera: Camera, canvas: HTMLCanvasElement; sourceUri?: string, clampToGround?: boolean; ellipsoid?: Ellipsoid }): Promise<KmlDataSource>;
-        load(data: Resource | string | Document | Blob, options?: { sourceUri?: string, clampToGround?: boolean, ellipsoid?: Ellipsoid }): Promise<KmlDataSource>;
+            options?: { camera: Camera, canvas: HTMLCanvasElement; sourceUri?: string | undefined, clampToGround?: boolean | undefined; ellipsoid?: Ellipsoid | undefined }): Promise<KmlDataSource>;
+        load(data: Resource | string | Document | Blob, options?: { sourceUri?: string | undefined, clampToGround?: boolean | undefined, ellipsoid?: Ellipsoid | undefined }): Promise<KmlDataSource>;
     }
 
     class KmlFeatureData {
@@ -2715,33 +2785,33 @@ declare namespace Cesium {
         pixelOffset: Property;
         backgroundColor: Property;
         scale: Property;
-        showBackground?: Property;
+        showBackground?: Property | undefined;
         show: Property;
         translucencyByDistance: Property;
         pixelOffsetScaleByDistance: Property;
-        distanceDisplayCondition?: Property;
+        distanceDisplayCondition?: Property | undefined;
         constructor(options?: {
-            text?: Property | string;
-            font?: string;
-            style?: LabelStyle | Property;
-            fillColor?: Color;
-            outlineColor?: Color;
-            outlineWidth?: number;
-            show?: Property;
-            scale?: Property;
-            showBackground?: Property;
-            backgroundColor?: Property;
-            backgroundPadding?: Property;
-            horizontalOrigin?: Property;
-            verticalOrigin?: VerticalOrigin | Property;
-            eyeOffset?: Property;
-            pixelOffset?: Cartesian2 | Property;
-            translucencyByDistance?: Property;
-            pixelOffsetScaleByDistance?: Property;
-            heightReference?: Property;
-            scaleByDistance?: Property;
-            distanceDisplayCondition?: DistanceDisplayCondition | Property;
-            disableDepthTestDistance?: Property | number;
+            text?: Property | string | undefined;
+            font?: string | undefined;
+            style?: LabelStyle | Property | undefined;
+            fillColor?: Color | undefined;
+            outlineColor?: Color | undefined;
+            outlineWidth?: number | undefined;
+            show?: Property | undefined;
+            scale?: Property | undefined;
+            showBackground?: Property | undefined;
+            backgroundColor?: Property | undefined;
+            backgroundPadding?: Property | undefined;
+            horizontalOrigin?: Property | undefined;
+            verticalOrigin?: VerticalOrigin | Property | undefined;
+            eyeOffset?: Property | undefined;
+            pixelOffset?: Cartesian2 | Property | undefined;
+            translucencyByDistance?: Property | undefined;
+            pixelOffsetScaleByDistance?: Property | undefined;
+            heightReference?: Property | undefined;
+            scaleByDistance?: Property | undefined;
+            distanceDisplayCondition?: DistanceDisplayCondition | Property | undefined;
+            disableDepthTestDistance?: Property | number | undefined;
         });
         clone(result?: LabelGraphics): LabelGraphics;
         merge(source: LabelGraphics): LabelGraphics;
@@ -2779,27 +2849,27 @@ declare namespace Cesium {
         silhouetteSize: Property | number;
         uri: Property | string;
         constructor(options?: {
-          show?: Property | boolean;
-          uri?: Property | string;
-          scale?: Property | number;
-          minimumPixelSize?: Property | number;
-          maximumScale?: Property | number;
-          incrementallyLoadTextures?: Property | boolean;
-          runAnimations?: Property | boolean;
-          clampAnimations?: Property | boolean;
-          shadows?: Property | ShadowMode;
-          heightReference?: Property | HeightReference;
-          silhouetteColor?: Property | Color;
-          silhouetteSize?: Property | number;
-          color?: Property | Color;
-          colorBlendMode?: Property | ColorBlendMode;
-          colorBlendAmount?: Property | number;
-          imageBasedLightingFactor?: Property | Cartesian2;
-          lightColor?: Property | Cartesian3;
-          distanceDisplayCondition?: Property | DistanceDisplayCondition;
-          nodeTransformations?: PropertyBag;
-          articulations?: PropertyBag;
-          clippingPlanes?: Property | ClippingPlaneCollection;
+            show?: Property | boolean | undefined;
+            uri?: Property | string | undefined;
+            scale?: Property | number | undefined;
+            minimumPixelSize?: Property | number | undefined;
+            maximumScale?: Property | number | undefined;
+            incrementallyLoadTextures?: Property | boolean | undefined;
+            runAnimations?: Property | boolean | undefined;
+            clampAnimations?: Property | boolean | undefined;
+            shadows?: Property | ShadowMode | undefined;
+            heightReference?: Property | HeightReference | undefined;
+            silhouetteColor?: Property | Color | undefined;
+            silhouetteSize?: Property | number | undefined;
+            color?: Property | Color | undefined;
+            colorBlendMode?: Property | ColorBlendMode | undefined;
+            colorBlendAmount?: Property | number | undefined;
+            imageBasedLightingFactor?: Property | Cartesian2 | undefined;
+            lightColor?: Property | Cartesian3 | undefined;
+            distanceDisplayCondition?: Property | DistanceDisplayCondition | undefined;
+            nodeTransformations?: PropertyBag | undefined;
+            articulations?: PropertyBag | undefined;
+            clippingPlanes?: Property | ClippingPlaneCollection | undefined;
         });
         clone(result?: ModelGraphics): ModelGraphics;
         merge(source: ModelGraphics): ModelGraphics;
@@ -2819,13 +2889,13 @@ declare namespace Cesium {
         show: Property | boolean;
         width: Property | number;
         constructor(options?: {
-          leadTime?: Property | number;
-          trailTime?: Property | number;
-          show?: Property | boolean;
-          width?: Property | number;
-          material?: MaterialProperty;
-          resolution?: Property | number;
-          distanceDisplayCondition?: Property;
+            leadTime?: Property | number | undefined;
+            trailTime?: Property | number | undefined;
+            show?: Property | boolean | undefined;
+            width?: Property | number | undefined;
+            material?: MaterialProperty | undefined;
+            resolution?: Property | number | undefined;
+            distanceDisplayCondition?: Property | undefined;
         });
         clone(result?: PathGraphics): PathGraphics;
         merge(source: PathGraphics): PathGraphics;
@@ -2848,16 +2918,16 @@ declare namespace Cesium {
         show: Property;
         translucencyByDistance: Property;
         constructor(options?: {
-          color?: Color;
-          pixelSize?: number;
-          outlineColor?: Color;
-          outlineWidth?: number;
-          show?: boolean;
-          scaleByDistance?: Property;
-          translucencyByDistance?: Property;
-          heightReference?: HeightReference;
-          distanceDisplayCondition?: Property;
-          disableDepthTestDistance?: Property
+            color?: Color | undefined;
+            pixelSize?: number | undefined;
+            outlineColor?: Color | undefined;
+            outlineWidth?: number | undefined;
+            show?: boolean | undefined;
+            scaleByDistance?: Property | undefined;
+            translucencyByDistance?: Property | undefined;
+            heightReference?: HeightReference | undefined;
+            distanceDisplayCondition?: Property | undefined;
+            disableDepthTestDistance?: Property | undefined
         });
         clone(result?: PointGraphics): PointGraphics;
         merge(source: PointGraphics): PointGraphics;
@@ -2895,27 +2965,27 @@ declare namespace Cesium {
         shadows: Property;
         zIndex: ConstantProperty;
         constructor(options?: {
-            hierarchy?: Property | Cartesian3[] | PolygonHierarchy;
-            height?: Property | number;
-            heightReference?: Property;
-            extrudedHeight?: Property;
-            extrudedHeightReference?: Property;
-            show?: Property | boolean;
-            fill?: Property | boolean;
-            material?: MaterialProperty | Color;
-            outline?: Property | boolean;
-            outlineColor?: Property | Color;
-            outlineWidth?: Property | number;
-            stRotation?: Property;
-            granularity?: Property;
-            perPositionHeight?: Property;
-            closeTop?: boolean;
-            closeBottom?: boolean;
-            arcType?: Property | ArcType;
-            shadows?: Property | ShadowMode;
-            distanceDisplayCondition?: Property;
-            classificationType?: Property | ClassificationType;
-            zIndex?: ConstantProperty | number;
+            hierarchy?: Property | Cartesian3[] | PolygonHierarchy | undefined;
+            height?: Property | number | undefined;
+            heightReference?: Property | undefined;
+            extrudedHeight?: Property | undefined;
+            extrudedHeightReference?: Property | undefined;
+            show?: Property | boolean | undefined;
+            fill?: Property | boolean | undefined;
+            material?: MaterialProperty | Color | undefined;
+            outline?: Property | boolean | undefined;
+            outlineColor?: Property | Color | undefined;
+            outlineWidth?: Property | number | undefined;
+            stRotation?: Property | undefined;
+            granularity?: Property | undefined;
+            perPositionHeight?: Property | undefined;
+            closeTop?: boolean | undefined;
+            closeBottom?: boolean | undefined;
+            arcType?: Property | ArcType | undefined;
+            shadows?: Property | ShadowMode | undefined;
+            distanceDisplayCondition?: Property | undefined;
+            classificationType?: Property | ClassificationType | undefined;
+            zIndex?: ConstantProperty | number | undefined;
         });
         clone(result?: PolygonGraphics): PolygonGraphics;
         merge(source: PolygonGraphics): PolygonGraphics;
@@ -2928,7 +2998,7 @@ declare namespace Cesium {
     class PolylineGlowMaterialProperty extends MaterialProperty {
         color: Color;
         glowPower: Property;
-        constructor(options?: { color?: Property; glowPower?: Property });
+        constructor(options?: { color?: Property | undefined; glowPower?: Property | undefined });
     }
 
     class PolylineDashMaterialProperty extends MaterialProperty {
@@ -2936,7 +3006,7 @@ declare namespace Cesium {
         gapColor: Color;
         dashLength: Property;
         dashPattern: Property;
-        constructor(options?: {color?: Color; gapColor?: Color; dashLength?: Property; dashPattern?: Property});
+        constructor(options?: { color?: Color | undefined; gapColor?: Color | undefined; dashLength?: Property | undefined; dashPattern?: Property | undefined });
     }
 
     class PolylineGeometryUpdater extends GeometryUpdater {
@@ -2961,18 +3031,18 @@ declare namespace Cesium {
         width: Property | number;
         zIndex: ConstantProperty;
         constructor(options?: {
-            positions?: Property | Cartesian3[];
-            clampToGround?: Property | boolean;
-            width?: Property | number;
-            show?: Property | boolean;
-            material?: MaterialProperty | Color;
-            granularity?: Property;
-            arcType?: Property | ArcType;
-            depthFailMaterial?: MaterialProperty;
-            shadows?: Property | ShadowMode;
-            distanceDisplayCondition?: Property;
-            classificationType?: Property | ClassificationType;
-            zIndex?: Property | number;
+            positions?: Property | Cartesian3[] | undefined;
+            clampToGround?: Property | boolean | undefined;
+            width?: Property | number | undefined;
+            show?: Property | boolean | undefined;
+            material?: MaterialProperty | Color | undefined;
+            granularity?: Property | undefined;
+            arcType?: Property | ArcType | undefined;
+            depthFailMaterial?: MaterialProperty | undefined;
+            shadows?: Property | ShadowMode | undefined;
+            distanceDisplayCondition?: Property | undefined;
+            classificationType?: Property | ClassificationType | undefined;
+            zIndex?: Property | number | undefined;
         });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
@@ -2982,7 +3052,7 @@ declare namespace Cesium {
         color: Color;
         outlineColor: Color;
         outlineWidth: Property;
-        constructor(options?: { color?: Property; outlineColor?: Property; outlineWidth?: Property });
+        constructor(options?: { color?: Property | undefined; outlineColor?: Property | undefined; outlineWidth?: Property | undefined });
     }
 
     class PolylineVolumeGeometryUpdater extends GeometryUpdater {
@@ -3002,16 +3072,16 @@ declare namespace Cesium {
         outlineWidth: Property;
         cornerType: Property;
         constructor(options?: {
-            positions?: Property;
-            shape?: Property;
-            cornerType?: Property;
-            show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
-            granularity?: Property
+            positions?: Property | undefined;
+            shape?: Property | undefined;
+            cornerType?: Property | undefined;
+            show?: Property | undefined;
+            fill?: Property | undefined;
+            material?: MaterialProperty | undefined;
+            outline?: Property | undefined;
+            outlineColor?: Property | undefined;
+            outlineWidth?: Property | undefined;
+            granularity?: Property | undefined
         });
         clone(result?: PolylineVolumeGraphics): PolylineVolumeGraphics;
         merge(source: PolylineVolumeGraphics): PolylineVolumeGraphics;
@@ -3062,20 +3132,20 @@ declare namespace Cesium {
         closeTop: Property;
         closeBottom: Property;
         constructor(options?: {
-            coordinates?: Property;
-            height?: Property;
-            extrudedHeight?: Property;
-            closeTop?: Property;
-            closeBottom?: Property;
-            show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
-            rotation?: Property;
-            stRotation?: Property;
-            granularity?: Property
+            coordinates?: Property | undefined;
+            height?: Property | undefined;
+            extrudedHeight?: Property | undefined;
+            closeTop?: Property | undefined;
+            closeBottom?: Property | undefined;
+            show?: Property | undefined;
+            fill?: Property | undefined;
+            material?: MaterialProperty | undefined;
+            outline?: Property | undefined;
+            outlineColor?: Property | undefined;
+            outlineWidth?: Property | undefined;
+            rotation?: Property | undefined;
+            stRotation?: Property | undefined;
+            granularity?: Property | undefined
         });
         clone(result?: RectangleGraphics): RectangleGraphics;
         merge(source: RectangleGraphics): RectangleGraphics;
@@ -3111,7 +3181,7 @@ declare namespace Cesium {
         backwardExtrapolationType: ExtrapolationType;
         backwardExtrapolationDuration: number;
         constructor(type: number | Packable, derivativeTypes?: Packable[]);
-        setInterpolationOptions(options?: { interpolationAlgorithm?: InterpolationAlgorithm; interpolationDegree?: number }): void;
+        setInterpolationOptions(options?: { interpolationAlgorithm?: InterpolationAlgorithm | undefined; interpolationDegree?: number | undefined }): void;
         addSample(time: JulianDate, value: Packable, derivatives?: Packable[]): void;
         addSamples(times: JulianDate[], values: Packable[], derivativeValues?: any[][]): void;
         addSamplesPackedArray(packedSamples: number[], epoch?: JulianDate): void;
@@ -3123,7 +3193,7 @@ declare namespace Cesium {
         oddColor: Color;
         offset: Property;
         repeat: number;
-        constructor(options?: { evenColor?: Property; oddColor?: Property; repeat?: Property; offset?: Property; orientation?: Property });
+        constructor(options?: { evenColor?: Property | undefined; oddColor?: Property | undefined; repeat?: Property | undefined; offset?: Property | undefined; orientation?: Property | undefined });
     }
 
     class TimeIntervalCollectionPositionProperty extends PositionProperty {
@@ -3165,16 +3235,16 @@ declare namespace Cesium {
         outlineColor: Property;
         outlineWidth: Property;
         constructor(options?: {
-            positions?: Property;
-            maximumHeights?: Property;
-            minimumHeights?: Property;
-            show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
-            granularity?: Property
+            positions?: Property | undefined;
+            maximumHeights?: Property | undefined;
+            minimumHeights?: Property | undefined;
+            show?: Property | undefined;
+            fill?: Property | undefined;
+            material?: MaterialProperty | undefined;
+            outline?: Property | undefined;
+            outlineColor?: Property | undefined;
+            outlineWidth?: Property | undefined;
+            granularity?: Property | undefined
         });
         clone(result?: WallGraphics): WallGraphics;
         merge(source: WallGraphics): WallGraphics;
@@ -3187,7 +3257,14 @@ declare namespace Cesium {
         readonly renderState: any;
         translucent: boolean;
         readonly vertexShaderSource: string;
-        constructor(options?: { translucent?: boolean; closed?: boolean; material?: Material; vertexShaderSource?: string; fragmentShaderSource?: string; renderState?: RenderState });
+        constructor(options?: {
+            translucent?: boolean | undefined;
+            closed?: boolean | undefined;
+            material?: Material | undefined;
+            vertexShaderSource?: string | undefined;
+            fragmentShaderSource?: string | undefined;
+            renderState?: RenderState | undefined
+        });
         getFragmentShaderSource(): string;
         isTranslucent(): boolean;
         getRenderState(): any;
@@ -3198,16 +3275,16 @@ declare namespace Cesium {
         usingPrecachedTiles: boolean;
         constructor(options: {
             url: string;
-            tileDiscardPolicy?: TileDiscardPolicy;
-            proxy?: Proxy;
-            usePreCachedTilesIfAvailable?: boolean;
-            enablePickFeatures?: boolean;
-            rectangle?: Rectangle;
-            tilingScheme?: TilingScheme;
-            ellipsoid?: Ellipsoid;
-            tileWidth?: number;
-            tileHeight?: number;
-            maximumLevel?: number
+            tileDiscardPolicy?: TileDiscardPolicy | undefined;
+            proxy?: Proxy | undefined;
+            usePreCachedTilesIfAvailable?: boolean | undefined;
+            enablePickFeatures?: boolean | undefined;
+            rectangle?: Rectangle | undefined;
+            tilingScheme?: TilingScheme | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            tileWidth?: number | undefined;
+            tileHeight?: number | undefined;
+            maximumLevel?: number | undefined
         }, layers?: string);
     }
 
@@ -3257,27 +3334,27 @@ declare namespace Cesium {
     }
 
     interface BillboardOptions {
-        alignedAxis?: Cartesian3;
-        color?: Color;
-        distanceDisplayCondition?: DistanceDisplayCondition;
-        eyeOffset?: Cartesian3;
-        height?: number;
-        heightReference?: HeightReference;
-        horizontalOrigin?: HorizontalOrigin;
+        alignedAxis?: Cartesian3 | undefined;
+        color?: Color | undefined;
+        distanceDisplayCondition?: DistanceDisplayCondition | undefined;
+        eyeOffset?: Cartesian3 | undefined;
+        height?: number | undefined;
+        heightReference?: HeightReference | undefined;
+        horizontalOrigin?: HorizontalOrigin | undefined;
         id?: any;
-        image?: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback;
-        imageSubRegion?: BoundingRectangle;
-        pixelOffset?: Cartesian2;
-        pixelOffsetScaleByDistance?: NearFarScalar;
-        position?: Cartesian3;
-        rotation?: number;
-        scale?: number;
-        scaleByDistance?: NearFarScalar;
-        show?: boolean;
-        sizeInMeters?: boolean;
-        translucencyByDistance?: NearFarScalar;
-        verticalOrigin?: VerticalOrigin;
-        width?: number;
+        image?: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback | undefined;
+        imageSubRegion?: BoundingRectangle | undefined;
+        pixelOffset?: Cartesian2 | undefined;
+        pixelOffsetScaleByDistance?: NearFarScalar | undefined;
+        position?: Cartesian3 | undefined;
+        rotation?: number | undefined;
+        scale?: number | undefined;
+        scaleByDistance?: NearFarScalar | undefined;
+        show?: boolean | undefined;
+        sizeInMeters?: boolean | undefined;
+        translucencyByDistance?: NearFarScalar | undefined;
+        verticalOrigin?: VerticalOrigin | undefined;
+        width?: number | undefined;
     }
 
     class BillboardCollection {
@@ -3286,10 +3363,10 @@ declare namespace Cesium {
         length: number;
         modelMatrix: Matrix4;
         constructor(options?: {
-            modelMatrix?: Matrix4;
+            modelMatrix?: Matrix4 | undefined;
             debugShowBoundingVolume?:
-            boolean; scene?: Scene;
-            blendOption?: BlendOption
+            boolean | undefined; scene?: Scene | undefined;
+            blendOption?: BlendOption | undefined
         });
         add(billboard?: BillboardOptions): Billboard;
         contains(billboard?: Billboard): boolean;
@@ -3306,9 +3383,18 @@ declare namespace Cesium {
         readonly key: string;
         readonly mapStyle: BingMapsStyle;
         readonly culture: string;
-        constructor(options: { url: string; key?: string; tileProtocol?: string; mapStyle?: string; culture?: string; ellipsoid?: Ellipsoid; tileDiscardPolicy?: TileDiscardPolicy; proxy?: Proxy });
+        constructor(options: {
+            url: string;
+            key?: string | undefined;
+            tileProtocol?: string | undefined;
+            mapStyle?: string | undefined;
+            culture?: string | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            tileDiscardPolicy?: TileDiscardPolicy | undefined;
+            proxy?: Proxy | undefined
+        });
         static tileXYToQuadKey(x: number, y: number, level: number): string;
-        static quadKeyToTileXY(quadkey: string): {x: number, y: number, level: number};
+        static quadKeyToTileXY(quadkey: string): { x: number, y: number, level: number };
     }
 
     // tslint:disable-next-line no-unnecessary-class
@@ -3392,29 +3478,29 @@ declare namespace Cesium {
         flyHome(duration: number): void;
         flyTo(options: {
             destination: Cartesian3 | Rectangle;
-            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
-            duration?: number;
-            complete?: Camera.FlightCompleteCallback;
-            cancel?: Camera.FlightCancelledCallback;
-            endTransform?: Matrix4;
-            maximumHeight?: number;
-            pitchAdjustHeight?: number;
-            flyOverLongitude?: number;
-            flyOverLongitudeWeight?: number;
-            easingFunction?: EasingFunction,
-            convert?: boolean,
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number } | undefined;
+            duration?: number | undefined;
+            complete?: Camera.FlightCompleteCallback | undefined;
+            cancel?: Camera.FlightCancelledCallback | undefined;
+            endTransform?: Matrix4 | undefined;
+            maximumHeight?: number | undefined;
+            pitchAdjustHeight?: number | undefined;
+            flyOverLongitude?: number | undefined;
+            flyOverLongitudeWeight?: number | undefined;
+            easingFunction?: EasingFunction | undefined,
+            convert?: boolean | undefined,
         }): void;
         flyToBoundingSphere(boundingSphere: BoundingSphere, options?: {
-            duration?: number;
-            offset?: HeadingPitchRange;
-            complete?: Camera.FlightCompleteCallback;
-            cancel?: Camera.FlightCancelledCallback;
-            endTransform?: Matrix4;
-            maximumHeight?: number;
-            pitchAdjustHeight?: number;
-            flyOverLongitude?: number;
-            flyOverLongitudeWeight?: number;
-            easingFunction?: EasingFunction
+            duration?: number | undefined;
+            offset?: HeadingPitchRange | undefined;
+            complete?: Camera.FlightCompleteCallback | undefined;
+            cancel?: Camera.FlightCancelledCallback | undefined;
+            endTransform?: Matrix4 | undefined;
+            maximumHeight?: number | undefined;
+            pitchAdjustHeight?: number | undefined;
+            flyOverLongitude?: number | undefined;
+            flyOverLongitudeWeight?: number | undefined;
+            easingFunction?: EasingFunction | undefined
         }): void;
         getMagnitude(): number;
         getPickRay(windowPosition: Cartesian2, result?: Ray): Ray;
@@ -3441,10 +3527,10 @@ declare namespace Cesium {
         rotateRight(angle?: number): void;
         rotateUp(angle?: number): void;
         setView(options: {
-            destination?: Cartesian3 | Rectangle;
-            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
-            endTransform?: Matrix4,
-            convert?: boolean,
+            destination?: Cartesian3 | Rectangle | undefined;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number } | undefined;
+            endTransform?: Matrix4 | undefined,
+            convert?: boolean | undefined,
         }): void;
         switchToOrthographicFrustum(): void;
         switchToPerspectiveFrustum(): void;
@@ -3502,7 +3588,13 @@ declare namespace Cesium {
     class DebugAppearance extends Appearance {
         readonly attributeName: string;
         readonly glslDatatype: string;
-        constructor(options: { attributeName: string; glslDatatype?: string; vertexShaderSource?: string; fragmentShaderSource?: string; renderState?: RenderState });
+        constructor(options: {
+            attributeName: string;
+            glslDatatype?: string | undefined;
+            vertexShaderSource?: string | undefined;
+            fragmentShaderSource?: string | undefined;
+            renderState?: RenderState | undefined
+        });
     }
 
     class DebugModelMatrixPrimitive {
@@ -3511,13 +3603,13 @@ declare namespace Cesium {
         show: boolean;
         modelMatrix: Matrix4;
         id: any;
-        constructor(options?: { length?: number; width?: number; modelMatrix?: Matrix4; show?: boolean; id?: any });
+        constructor(options?: { length?: number | undefined; width?: number | undefined; modelMatrix?: Matrix4 | undefined; show?: boolean | undefined; id?: any });
         isDestroyed(): boolean;
         destroy(): void;
     }
 
     class DiscardMissingTileImagePolicy {
-        constructor(options: { missingImageUrl: Resource | string; pixelsToCheck: Cartesian2[]; disableCheckIfAllPixelsAreTransparent?: boolean });
+        constructor(options: { missingImageUrl: Resource | string; pixelsToCheck: Cartesian2[]; disableCheckIfAllPixelsAreTransparent?: boolean | undefined });
         isReady(): boolean;
         shouldDiscardImage(image: HTMLImageElement): boolean;
     }
@@ -3530,7 +3622,15 @@ declare namespace Cesium {
         material: Material;
         id: any;
         debugShowBoundingVolume: boolean;
-        constructor(options?: { center?: Cartesian3; radii?: Cartesian3; modelMatrix?: Matrix4; show?: boolean; material?: Material; id?: any; debugShowBoundingVolume?: boolean });
+        constructor(options?: {
+            center?: Cartesian3 | undefined;
+            radii?: Cartesian3 | undefined;
+            modelMatrix?: Matrix4 | undefined;
+            show?: boolean | undefined;
+            material?: Material | undefined;
+            id?: any;
+            debugShowBoundingVolume?: boolean | undefined
+        });
         update(): void;
         isDestroyed(): boolean;
         destroy(): void;
@@ -3543,14 +3643,14 @@ declare namespace Cesium {
         readonly aboveGround: boolean;
         static VERTEX_FORMAT: VertexFormat;
         constructor(options?: {
-            flat?: boolean;
-            faceForward?: boolean;
-            translucent?: boolean;
-            aboveGround?: boolean;
-            material?: Material;
-            vertexShaderSource?: string;
-            fragmentShaderSource?: string;
-            renderState?: RenderState
+            flat?: boolean | undefined;
+            faceForward?: boolean | undefined;
+            translucent?: boolean | undefined;
+            aboveGround?: boolean | undefined;
+            material?: Material | undefined;
+            vertexShaderSource?: string | undefined;
+            fragmentShaderSource?: string | undefined;
+            renderState?: RenderState | undefined
         });
     }
 
@@ -3567,11 +3667,11 @@ declare namespace Cesium {
         static defaultSettings: any;
         constructor(options?: {
             scene: Scene;
-            samplingWindow?: number;
-            quietPeriod?: number;
-            warmupPeriod?: number;
-            minimumFrameRateDuringWarmup?: number;
-            minimumFrameRateAfterWarmup?: number
+            samplingWindow?: number | undefined;
+            quietPeriod?: number | undefined;
+            warmupPeriod?: number | undefined;
+            minimumFrameRateDuringWarmup?: number | undefined;
+            minimumFrameRateAfterWarmup?: number | undefined
         });
         pause(): void;
         unpause(): void;
@@ -3639,7 +3739,7 @@ declare namespace Cesium {
         terrainPresent: boolean;
         readonly url: string;
         constructor(resourceOrUrl: Resource | string);
-        static quadKeyToTileXY(quadkey: string): {x: number, y: number, level: number};
+        static quadKeyToTileXY(quadkey: string): { x: number, y: number, level: number };
         static tileXYToQuadKey(x: number, y: number, level: number): string;
     }
 
@@ -3648,9 +3748,9 @@ declare namespace Cesium {
         constructor(options: {
             url: Resource | string;
             metadata: GoogleEarthEnterpriseMetadata;
-            ellipsoid?: Ellipsoid;
-            tileDiscardPolicy?: TileDiscardPolicy;
-            credit?: Credit | string;
+            ellipsoid?: Ellipsoid | undefined;
+            tileDiscardPolicy?: TileDiscardPolicy | undefined;
+            credit?: Credit | string | undefined;
         });
     }
 
@@ -3664,10 +3764,10 @@ declare namespace Cesium {
         constructor(options: {
             url: Resource | string;
             channel: number;
-            path?: string;
-            maximumLevel?: number;
-            tileDiscardPolicy?: TileDiscardPolicy;
-            ellipsoid?: Ellipsoid;
+            path?: string | undefined;
+            maximumLevel?: number | undefined;
+            tileDiscardPolicy?: TileDiscardPolicy | undefined;
+            ellipsoid?: Ellipsoid | undefined;
         });
     }
 
@@ -3676,9 +3776,9 @@ declare namespace Cesium {
             buffer: ArrayBuffer;
             negativeAltitudeExponentBias: number;
             negativeElevationThreshold: number;
-            childTileMask?: number;
-            createdByUpsampling?: boolean;
-            credits?: Credit[];
+            childTileMask?: number | undefined;
+            createdByUpsampling?: boolean | undefined;
+            credits?: Credit[] | undefined;
         });
     }
 
@@ -3695,8 +3795,8 @@ declare namespace Cesium {
         constructor(options: {
             url: Resource | string;
             metadata: GoogleEarthEnterpriseMetadata;
-            ellipsoid?: Ellipsoid;
-            credit?: Credit | string;
+            ellipsoid?: Ellipsoid | undefined;
+            credit?: Credit | string | undefined;
         })
         static getEstimatedLevelZeroGeometricErrorForAHeightmap(ellipsoid: Ellipsoid, tileImageWidth: number, numberOfTilesAtLevelZero: number): number;
         static getRegularGridIndices(width: number, height: number): Uint16Array;
@@ -3707,15 +3807,15 @@ declare namespace Cesium {
 
     class GridImageryProvider extends ImageryProvider {
         constructor(options?: {
-            tilingScheme?: TilingScheme;
-            ellipsoid?: Ellipsoid;
-            cells?: number;
-            color?: Color;
-            glowColor?: Color;
-            glowWidth?: number;
-            tileWidth?: number;
-            tileHeight?: number;
-            canvasSize?: number
+            tilingScheme?: TilingScheme | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            cells?: number | undefined;
+            color?: Color | undefined;
+            glowColor?: Color | undefined;
+            glowWidth?: number | undefined;
+            tileWidth?: number | undefined;
+            tileHeight?: number | undefined;
+            canvasSize?: number | undefined
         }, backgroundColor?: Color);
     }
 
@@ -3747,12 +3847,12 @@ declare namespace Cesium {
         readonly length: number;
 
         constructor(options?: {
-            planes?: ClippingPlane[];
-            enabled?: boolean;
-            modelMatrix?: Matrix4;
-            unionClippingRegions?: boolean;
-            edgeColor?: Color;
-            edgeWidth?: number;
+            planes?: ClippingPlane[] | undefined;
+            enabled?: boolean | undefined;
+            modelMatrix?: Matrix4 | undefined;
+            unionClippingRegions?: boolean | undefined;
+            edgeColor?: Color | undefined;
+            edgeWidth?: number | undefined;
         })
 
         add(plane: ClippingPlane): void;
@@ -3788,15 +3888,15 @@ declare namespace Cesium {
         normalShading: boolean;
 
         constructor(option?: {
-            attenuation?: boolean;
-            geometricErrorScale?: number;
-            maximumAttenuation?: number;
-            baseResolution?: number;
-            eyeDomeLighting?: boolean;
-            eyeDomeLightingStrength?: number;
-            eyeDomeLightingRadius?: number;
-            backFaceCulling?: boolean;
-            normalShading?: boolean;
+            attenuation?: boolean | undefined;
+            geometricErrorScale?: number | undefined;
+            maximumAttenuation?: number | undefined;
+            baseResolution?: number | undefined;
+            eyeDomeLighting?: boolean | undefined;
+            eyeDomeLightingStrength?: number | undefined;
+            eyeDomeLightingRadius?: number | undefined;
+            backFaceCulling?: boolean | undefined;
+            normalShading?: boolean | undefined;
         })
 
         static isSupported(scene: Scene): boolean;
@@ -3903,59 +4003,59 @@ declare namespace Cesium {
 
         constructor(Cesium3DTilesetItem: {
             url: Resource | string | Promise<Resource> | Promise<string>;
-            show?: boolean;
-            modelMatrix?: Matrix4;
-            shadows?: ShadowMode;
-            maximumScreenSpaceError?: number;
-            maximumNumberOfLoadedTiles?: number;
-            maximumMemoryUsage?: number;
-            cullWithChildrenBounds?: boolean;
-            cullRequestsWhileMoving?: boolean;
-            cullRequestsWhileMovingMultiplier?: number;
-            preloadWhenHidden?: boolean;
-            preloadFlightDestinations?: boolean;
-            preferLeaves?: boolean;
-            dynamicScreenSpaceError?: boolean;
-            dynamicScreenSpaceErrorDensity?: number;
-            dynamicScreenSpaceErrorFactor?: number;
-            dynamicScreenSpaceErrorHeightFalloff?: number;
-            progressiveResolutionHeightFraction?: number;
-            foveatedScreenSpaceError?: boolean;
-            foveatedConeSize?: number;
-            foveatedMinimumScreenSpaceErrorRelaxation?: number;
-            foveatedInterpolationCallback?: Cesium3DTileset;
-            foveatedTimeDelay?: number;
+            show?: boolean | undefined;
+            modelMatrix?: Matrix4 | undefined;
+            shadows?: ShadowMode | undefined;
+            maximumScreenSpaceError?: number | undefined;
+            maximumNumberOfLoadedTiles?: number | undefined;
+            maximumMemoryUsage?: number | undefined;
+            cullWithChildrenBounds?: boolean | undefined;
+            cullRequestsWhileMoving?: boolean | undefined;
+            cullRequestsWhileMovingMultiplier?: number | undefined;
+            preloadWhenHidden?: boolean | undefined;
+            preloadFlightDestinations?: boolean | undefined;
+            preferLeaves?: boolean | undefined;
+            dynamicScreenSpaceError?: boolean | undefined;
+            dynamicScreenSpaceErrorDensity?: number | undefined;
+            dynamicScreenSpaceErrorFactor?: number | undefined;
+            dynamicScreenSpaceErrorHeightFalloff?: number | undefined;
+            progressiveResolutionHeightFraction?: number | undefined;
+            foveatedScreenSpaceError?: boolean | undefined;
+            foveatedConeSize?: number | undefined;
+            foveatedMinimumScreenSpaceErrorRelaxation?: number | undefined;
+            foveatedInterpolationCallback?: Cesium3DTileset | undefined;
+            foveatedTimeDelay?: number | undefined;
             /**
              * Optimization option.
              * Determines if level of detail skipping should be applied during the traversal.
              * @default false
              */
-            skipLevelOfDetail?: boolean;
-            baseScreenSpaceError?: number;
-            skipScreenSpaceErrorFactor?: number;
-            skipLevels?: number;
-            immediatelyLoadDesiredLevelOfDetail?: boolean;
-            loadSiblings?: boolean;
-            clippingPlane?: ClippingPlaneCollection;
-            classificationType?: ClassificationType;
-            ellipsoid?: Ellipsoid;
+            skipLevelOfDetail?: boolean | undefined;
+            baseScreenSpaceError?: number | undefined;
+            skipScreenSpaceErrorFactor?: number | undefined;
+            skipLevels?: number | undefined;
+            immediatelyLoadDesiredLevelOfDetail?: boolean | undefined;
+            loadSiblings?: boolean | undefined;
+            clippingPlane?: ClippingPlaneCollection | undefined;
+            classificationType?: ClassificationType | undefined;
+            ellipsoid?: Ellipsoid | undefined;
             pointCloudShading?: any;
-            imageBasedLightingFactor?: Cartesian2;
-            lightColor?: Cartesian3;
-            luminanceAtZenith?: number;
-            sphericalHarmonicCoefficients?: Cartesian3[];
-            specularEnvironmentMaps?: string;
-            debugHeatmapTilePropertyName?: string;
-            debugFreezeFrame?: boolean;
-            debugColorizeTiles?: boolean;
-            debugWireframe?: boolean;
-            debugShowBoundingVolume?: boolean;
-            debugShowContentBoundingVolume?: boolean;
-            debugShowViewerRequestVolume?: boolean;
-            debugShowGeometricError?: boolean;
-            debugShowRenderingStatistics?: boolean;
-            debugShowMemoryUsage?: boolean;
-            debugShowUrl?: boolean;
+            imageBasedLightingFactor?: Cartesian2 | undefined;
+            lightColor?: Cartesian3 | undefined;
+            luminanceAtZenith?: number | undefined;
+            sphericalHarmonicCoefficients?: Cartesian3[] | undefined;
+            specularEnvironmentMaps?: string | undefined;
+            debugHeatmapTilePropertyName?: string | undefined;
+            debugFreezeFrame?: boolean | undefined;
+            debugColorizeTiles?: boolean | undefined;
+            debugWireframe?: boolean | undefined;
+            debugShowBoundingVolume?: boolean | undefined;
+            debugShowContentBoundingVolume?: boolean | undefined;
+            debugShowViewerRequestVolume?: boolean | undefined;
+            debugShowGeometricError?: boolean | undefined;
+            debugShowRenderingStatistics?: boolean | undefined;
+            debugShowMemoryUsage?: boolean | undefined;
+            debugShowUrl?: boolean | undefined;
         })
 
         static loadJson(tilesetUrl: Resource | string): Promise<any>;
@@ -3983,17 +4083,17 @@ declare namespace Cesium {
         static DEFAULT_SATURATION: number;
         static DEFAULT_GAMMA: number;
         constructor(imageryProvider: ImageryProvider, options?: {
-            rectangle?: Rectangle;
-            alpha?: number | ImageryLayer.ValueFunc;
-            brightness?: number | ImageryLayer.ValueFunc;
-            contrast?: number | ImageryLayer.ValueFunc;
-            hue?: number | ImageryLayer.ValueFunc;
-            saturation?: number | ImageryLayer.ValueFunc;
-            gamma?: number | ImageryLayer.ValueFunc;
-            show?: boolean;
-            maximumAnisotropy?: number;
-            minimumTerrainLevel?: number;
-            maximumTerrainLevel?: number
+            rectangle?: Rectangle | undefined;
+            alpha?: number | ImageryLayer.ValueFunc | undefined;
+            brightness?: number | ImageryLayer.ValueFunc | undefined;
+            contrast?: number | ImageryLayer.ValueFunc | undefined;
+            hue?: number | ImageryLayer.ValueFunc | undefined;
+            saturation?: number | ImageryLayer.ValueFunc | undefined;
+            gamma?: number | ImageryLayer.ValueFunc | undefined;
+            show?: boolean | undefined;
+            maximumAnisotropy?: number | undefined;
+            minimumTerrainLevel?: number | undefined;
+            maximumTerrainLevel?: number | undefined
         });
         isBaseLayer(): boolean;
         isDestroyed(): boolean;
@@ -4094,26 +4194,26 @@ declare namespace Cesium {
     }
 
     interface LabelOptions {
-        show?: boolean;
-        position?: Cartesian3;
-        text?: string;
-        font?: string;
-        fillColor?: Color;
-        outlineColor?: Color;
-        outlineWidth?: number;
-        showBackground?: boolean;
-        backgroundColor?: Color;
-        backgroundPadding?: Cartesian2;
-        style?: LabelStyle;
-        pixelOffset?: Cartesian2;
-        eyeOffset?: Cartesian3;
-        horizontalOrigin?: HorizontalOrigin;
-        verticalOrigin?: VerticalOrigin;
-        scale?: number;
-        translucencyByDistance?: NearFarScalar;
-        pixelOffsetScaleByDistance?: NearFarScalar;
-        heightReference?: HeightReference;
-        distanceDisplayCondition?: DistanceDisplayCondition;
+        show?: boolean | undefined;
+        position?: Cartesian3 | undefined;
+        text?: string | undefined;
+        font?: string | undefined;
+        fillColor?: Color | undefined;
+        outlineColor?: Color | undefined;
+        outlineWidth?: number | undefined;
+        showBackground?: boolean | undefined;
+        backgroundColor?: Color | undefined;
+        backgroundPadding?: Cartesian2 | undefined;
+        style?: LabelStyle | undefined;
+        pixelOffset?: Cartesian2 | undefined;
+        eyeOffset?: Cartesian3 | undefined;
+        horizontalOrigin?: HorizontalOrigin | undefined;
+        verticalOrigin?: VerticalOrigin | undefined;
+        scale?: number | undefined;
+        translucencyByDistance?: NearFarScalar | undefined;
+        pixelOffsetScaleByDistance?: NearFarScalar | undefined;
+        heightReference?: HeightReference | undefined;
+        distanceDisplayCondition?: DistanceDisplayCondition | undefined;
     }
 
     class LabelCollection {
@@ -4122,10 +4222,10 @@ declare namespace Cesium {
         debugShowBoundingVolume: boolean;
         length: number;
         constructor(options?: {
-            modelMatrix?: Matrix4;
-            debugShowBoundingVolume?: boolean,
-            scene?: Scene,
-            blendOption?: BlendOption,
+            modelMatrix?: Matrix4 | undefined;
+            debugShowBoundingVolume?: boolean | undefined,
+            scene?: Scene | undefined,
+            blendOption?: BlendOption | undefined,
         });
         add(options?: LabelOptions): Label;
         remove(label: Label): boolean;
@@ -4163,11 +4263,11 @@ declare namespace Cesium {
         static PolylineGlowType: string;
         static PolylineOutlineType: string;
         constructor(options?: {
-            strict?: boolean;
-            translucent?: boolean | ((material: Material) => boolean);
+            strict?: boolean | undefined;
+            translucent?: boolean | ((material: Material) => boolean) | undefined;
             fabric: any;
-            minificationFilter?: TextureMinificationFilter;
-            magnificationFilter?: TextureMagnificationFilter;
+            minificationFilter?: TextureMinificationFilter | undefined;
+            magnificationFilter?: TextureMagnificationFilter | undefined;
         });
         isTranslucent(): boolean;
         isDestroyed(): boolean;
@@ -4181,15 +4281,15 @@ declare namespace Cesium {
         readonly flat: boolean;
         readonly faceForward: boolean;
         constructor(options?: {
-            flat?: boolean;
-            faceForward?: boolean;
-            translucent?: boolean;
-            closed?: boolean;
-            materialSupport?: MaterialAppearance.MaterialSupport;
-            material?: Material;
-            vertexShaderSource?: string;
-            fragmentShaderSource?: string;
-            renderState?: RenderState
+            flat?: boolean | undefined;
+            faceForward?: boolean | undefined;
+            translucent?: boolean | undefined;
+            closed?: boolean | undefined;
+            materialSupport?: MaterialAppearance.MaterialSupport | undefined;
+            material?: Material | undefined;
+            vertexShaderSource?: string | undefined;
+            fragmentShaderSource?: string | undefined;
+            renderState?: RenderState | undefined
         });
     }
 
@@ -4238,64 +4338,64 @@ declare namespace Cesium {
         sphericalHarmonicCoefficients: Cartesian3[];
         constructor(options?: {
             gltf?: any;
-            basePath?: string;
-            show?: boolean;
-            modelMatrix?: Matrix4;
-            scale?: number;
-            minimumPixelSize?: number;
-            maximumScale?: number;
+            basePath?: string | undefined;
+            show?: boolean | undefined;
+            modelMatrix?: Matrix4 | undefined;
+            scale?: number | undefined;
+            minimumPixelSize?: number | undefined;
+            maximumScale?: number | undefined;
             id?: any;
-            allowPicking?: boolean;
-            incrementallyLoadTextures?: boolean;
-            asynchronous?: boolean;
-            clampAnimations?: boolean;
-            shadows?: ShadowMode;
-            debugShowBoundingVolume?: boolean;
-            debugWireframe?: boolean;
-            heightReference?: HeightReference;
-            scene?: Scene;
-            distanceDisplayCondition?: DistanceDisplayCondition;
-            color?: Color;
-            colorBlendMode?: Property;
-            colorBlendAmount?: number;
-            silhouetteColor?: Color;
-            silhouetteSize?: number;
-            clippingPlanes?: ClippingPlaneCollection;
-            dequantizeInShader?: boolean;
-            imageBasedLightingFactor?: Cartesian2;
-            lightColor?: Cartesian3;
-            luminanceAtZenith?: number;
-            sphericalHarmonicCoefficients?: Cartesian3[];
-            specularEnvironmentMaps?: string;
-            credit?: Credit | string;
+            allowPicking?: boolean | undefined;
+            incrementallyLoadTextures?: boolean | undefined;
+            asynchronous?: boolean | undefined;
+            clampAnimations?: boolean | undefined;
+            shadows?: ShadowMode | undefined;
+            debugShowBoundingVolume?: boolean | undefined;
+            debugWireframe?: boolean | undefined;
+            heightReference?: HeightReference | undefined;
+            scene?: Scene | undefined;
+            distanceDisplayCondition?: DistanceDisplayCondition | undefined;
+            color?: Color | undefined;
+            colorBlendMode?: Property | undefined;
+            colorBlendAmount?: number | undefined;
+            silhouetteColor?: Color | undefined;
+            silhouetteSize?: number | undefined;
+            clippingPlanes?: ClippingPlaneCollection | undefined;
+            dequantizeInShader?: boolean | undefined;
+            imageBasedLightingFactor?: Cartesian2 | undefined;
+            lightColor?: Cartesian3 | undefined;
+            luminanceAtZenith?: number | undefined;
+            sphericalHarmonicCoefficients?: Cartesian3[] | undefined;
+            specularEnvironmentMaps?: string | undefined;
+            credit?: Credit | string | undefined;
         });
         static fromGltf(options: {
-            url: string;
-            basePath?: string;
-            show?: boolean;
-            modelMatrix?: Matrix4;
-            scale?: number;
-            minimumPixelSize?: number;
-            maximumScale?: number;
+            url: Resource | string;
+            basePath?: Resource | string | undefined;
+            show?: boolean | undefined;
+            modelMatrix?: Matrix4 | undefined;
+            scale?: number | undefined;
+            minimumPixelSize?: number | undefined;
+            maximumScale?: number | undefined;
             id?: any;
-            allowPicking?: boolean;
-            incrementallyLoadTextures?: boolean;
-            asynchronous?: boolean;
-            clampAnimations?: boolean;
-            shadows?: ShadowMode;
-            debugShowBoundingVolume?: boolean;
-            debugWireframe?: boolean;
-            heightReference?: HeightReference;
-            scene?: Scene;
-            distanceDisplayCondition?: DistanceDisplayCondition;
-            color?: Color;
-            colorBlendMode?: ColorBlendMode;
-            colorBlendAmount?: number;
-            silhouetteColor?: Color;
-            silhouetteSize?: number;
-            clippingPlanes?: ClippingPlaneCollection;
-            dequantizeInShader?: boolean;
-            credit?: Credit;
+            allowPicking?: boolean | undefined;
+            incrementallyLoadTextures?: boolean | undefined;
+            asynchronous?: boolean | undefined;
+            clampAnimations?: boolean | undefined;
+            shadows?: ShadowMode | undefined;
+            debugShowBoundingVolume?: boolean | undefined;
+            debugWireframe?: boolean | undefined;
+            heightReference?: HeightReference | undefined;
+            scene?: Scene | undefined;
+            distanceDisplayCondition?: DistanceDisplayCondition | undefined;
+            color?: Color | undefined;
+            colorBlendMode?: ColorBlendMode | undefined;
+            colorBlendAmount?: number | undefined;
+            silhouetteColor?: Color | undefined;
+            silhouetteSize?: number | undefined;
+            clippingPlanes?: ClippingPlaneCollection | undefined;
+            dequantizeInShader?: boolean | undefined;
+            credit?: Credit | undefined;
         }): Model;
         static siluhouetteSupported(scene: Scene): boolean;
         applyArticulations(): void;
@@ -4328,22 +4428,22 @@ declare namespace Cesium {
         length: number;
         add(options: {
             name: string;
-            startTime?: JulianDate;
-            delay?: number;
-            stopTime?: JulianDate;
-            removeOnStop?: boolean;
-            speedup?: number;
-            reverse?: boolean;
-            loop?: ModelAnimationLoop
+            startTime?: JulianDate | undefined;
+            delay?: number | undefined;
+            stopTime?: JulianDate | undefined;
+            removeOnStop?: boolean | undefined;
+            speedup?: number | undefined;
+            reverse?: boolean | undefined;
+            loop?: ModelAnimationLoop | undefined
         }): ModelAnimation;
         addAll(options?: {
-            startTime?: JulianDate;
-            delay?: number;
-            stopTime?: JulianDate;
-            removeOnStop?: boolean;
-            speedup?: number;
-            reverse?: boolean;
-            loop?: ModelAnimationLoop
+            startTime?: JulianDate | undefined;
+            delay?: number | undefined;
+            stopTime?: JulianDate | undefined;
+            removeOnStop?: boolean | undefined;
+            speedup?: number | undefined;
+            reverse?: boolean | undefined;
+            loop?: ModelAnimationLoop | undefined
         }): ModelAnimation[];
         remove(animation: ModelAnimation): boolean;
         removeAll(): void;
@@ -4376,7 +4476,7 @@ declare namespace Cesium {
         textureUrl: string;
         onlySunLighting: boolean;
         ellipsoid: Ellipsoid;
-        constructor(options?: { show?: boolean; textureUrl?: string; ellipsoid?: Ellipsoid; onlySunLighting?: boolean });
+        constructor(options?: { show?: boolean | undefined; textureUrl?: string | undefined; ellipsoid?: Ellipsoid | undefined; onlySunLighting?: boolean | undefined });
         isDestroyed(): boolean;
         destroy(): void;
     }
@@ -4392,13 +4492,14 @@ declare namespace Cesium {
         readonly faceForward: boolean;
         static VERTEX_FORMAT: VertexFormat;
         static FLAT_VERTEX_FORMAT: VertexFormat;
-        constructor(options?: { flat?: boolean;
-            faceForward?: boolean;
-            translucent?: boolean;
-            closed?: boolean;
-            vertexShaderSource?: string;
-            fragmentShaderSource?: string;
-            renderState?: RenderState
+        constructor(options?: {
+            flat?: boolean | undefined;
+            faceForward?: boolean | undefined;
+            translucent?: boolean | undefined;
+            closed?: boolean | undefined;
+            vertexShaderSource?: string | undefined;
+            fragmentShaderSource?: string | undefined;
+            renderState?: RenderState | undefined
         });
     }
 
@@ -4414,7 +4515,7 @@ declare namespace Cesium {
         aspectRatio: number;
         width: number;
         static packedLength: number;
-        constructor(options?: {width: number; aspectRatio: number; near: number; far: number});
+        constructor(options?: { width: number; aspectRatio: number; near: number; far: number });
         pack(value: OrthographicFrustum, array: number[], startingIndex: number): number[];
         unpack(array: number[], startingIndex: number, result: OrthographicFrustum): OrthographicFrustum;
         clone(result?: OrthographicFrustum): OrthographicFrustum;
@@ -4429,7 +4530,7 @@ declare namespace Cesium {
         readonly infiniteProjectionMatrix: Matrix4;
         readonly fovy: number;
         static packedLength: number;
-        constructor(options?: {fov: number; aspectRatio: number; near?: number; far?: number; xOffset?: number; yOffset?: number});
+        constructor(options?: { fov: number; aspectRatio: number; near?: number | undefined; far?: number | undefined; xOffset?: number | undefined; yOffset?: number | undefined });
         pack(value: PerspectiveFrustum, array: number[], startingIndex: number): number[];
         unpack(array: number[], startingIndex: number, result: PerspectiveFrustum): PerspectiveFrustum;
         clone(result?: PerspectiveFrustum): PerspectiveFrustum;
@@ -4442,7 +4543,7 @@ declare namespace Cesium {
         top: number;
         bottom: number;
         readonly infiniteProjectionMatrix: Matrix4;
-        constructor(options?: {left: number; right: number; top: number; bottom: number; near: number; far: number});
+        constructor(options?: { left: number; right: number; top: number; bottom: number; near: number; far: number });
         clone(result?: PerspectiveOffCenterFrustum): PerspectiveOffCenterFrustum;
         equals(other?: PerspectiveOffCenterFrustum): boolean;
     }
@@ -4468,7 +4569,7 @@ declare namespace Cesium {
         debugShowBoundingVolume: boolean;
         length: number;
         modelMatrix: Matrix4;
-        constructor(options?: { modelMatrix?: Matrix4; debugShowBoundingVolume?: boolean, blendOption?: BlendOption });
+        constructor(options?: { modelMatrix?: Matrix4 | undefined; debugShowBoundingVolume?: boolean | undefined, blendOption?: BlendOption | undefined });
         add(pointPrimitive?: any): PointPrimitive;
         contains(pointPrimitive?: PointPrimitive): boolean;
         destroy(): void;
@@ -4485,14 +4586,14 @@ declare namespace Cesium {
         width: number;
         loop: boolean;
         id: any;
-        constructor(options?: { show?: boolean; width?: number; loop?: boolean; material?: Material; positions?: Cartesian3[]; id?: any });
+        constructor(options?: { show?: boolean | undefined; width?: number | undefined; loop?: boolean | undefined; material?: Material | undefined; positions?: Cartesian3[] | undefined; id?: any });
     }
 
     class PolylineCollection {
         modelMatrix: Matrix4;
         debugShowBoundingVolume: boolean;
         length: number;
-        constructor(options?: { modelMatrix?: Matrix4; debugShowBoundingVolume?: boolean });
+        constructor(options?: { modelMatrix?: Matrix4 | undefined; debugShowBoundingVolume?: boolean | undefined });
         add(polyline?: any): Polyline;
         remove(polyline: Polyline): boolean;
         removeAll(): void;
@@ -4505,13 +4606,19 @@ declare namespace Cesium {
     class PolylineColorAppearance extends Appearance {
         readonly vertexFormat: VertexFormat;
         static VERTEX_FORMAT: VertexFormat;
-        constructor(options?: { translucent?: boolean; vertexShaderSource?: string; fragmentShaderSource?: string; renderState?: RenderState });
+        constructor(options?: { translucent?: boolean | undefined; vertexShaderSource?: string | undefined; fragmentShaderSource?: string | undefined; renderState?: RenderState | undefined });
     }
 
     class PolylineMaterialAppearance extends Appearance {
         readonly vertexFormat: VertexFormat;
         static VERTEX_FORMAT: VertexFormat;
-        constructor(options?: { translucent?: boolean; material?: Material; vertexShaderSource?: string; fragmentShaderSource?: string; renderState?: RenderState });
+        constructor(options?: {
+            translucent?: boolean | undefined;
+            material?: Material | undefined;
+            vertexShaderSource?: string | undefined;
+            fragmentShaderSource?: string | undefined;
+            renderState?: RenderState | undefined
+        });
     }
 
     class PostProcessStage {
@@ -4528,13 +4635,13 @@ declare namespace Cesium {
         readonly uniforms: any;
         constructor(options?: {
             fragmentShader: string;
-            uniforms?: object;
-            textureScale?: number;
-            forcePowerOfTwo?: boolean;
-            pixelFormat?: PixelFormat;
-            clearColor?: Color;
-            scissorRectangle?: BoundingRectangle;
-            name?: string;
+            uniforms?: object | undefined;
+            textureScale?: number | undefined;
+            forcePowerOfTwo?: boolean | undefined;
+            pixelFormat?: PixelFormat | undefined;
+            clearColor?: Color | undefined;
+            scissorRectangle?: BoundingRectangle | undefined;
+            name?: string | undefined;
         });
         destroy(): void;
         isDestroyed(): boolean;
@@ -4571,19 +4678,19 @@ declare namespace Cesium {
         show: boolean;
         readonly vertexCacheOptimize: boolean;
         constructor(options?: {
-            geometryInstances?: GeometryInstance[] | GeometryInstance;
-            appearance?: Appearance;
-            show?: boolean;
-            modelMatrix?: Matrix4;
-            vertexCacheOptimize?: boolean;
-            interleave?: boolean;
-            compressVertices?: boolean;
-            releaseGeometryInstances?: boolean;
-            allowPicking?: boolean;
-            cull?: boolean;
-            asynchronous?: boolean;
-            debugShowBoundingVolume?: boolean;
-            shadows?: ShadowMode
+            geometryInstances?: GeometryInstance[] | GeometryInstance | undefined;
+            appearance?: Appearance | undefined;
+            show?: boolean | undefined;
+            modelMatrix?: Matrix4 | undefined;
+            vertexCacheOptimize?: boolean | undefined;
+            interleave?: boolean | undefined;
+            compressVertices?: boolean | undefined;
+            releaseGeometryInstances?: boolean | undefined;
+            allowPicking?: boolean | undefined;
+            cull?: boolean | undefined;
+            asynchronous?: boolean | undefined;
+            debugShowBoundingVolume?: boolean | undefined;
+            shadows?: ShadowMode | undefined
         });
         destroy(): void;
         getGeometryInstanceAttributes(id: any): any;
@@ -4595,7 +4702,7 @@ declare namespace Cesium {
         show: boolean;
         destroyPrimitives: boolean;
         readonly length: number;
-        constructor(options?: { show?: boolean; destroyPrimitives?: boolean });
+        constructor(options?: { show?: boolean | undefined; destroyPrimitives?: boolean | undefined });
         add(primitive: any, index?: number): any;
         remove(primitive?: any): boolean;
         removeAll(): void;
@@ -4622,17 +4729,17 @@ declare namespace Cesium {
         asynchronous: boolean;
         debugShowBoundingVolume: boolean;
         constructor(options?: {
-            ellipsoid?: Ellipsoid;
-            rectangle?: Rectangle;
-            granularity?: number;
-            height?: number;
-            rotation?: number;
-            textureRotationAngle?: number;
-            show?: boolean;
-            material?: Material;
+            ellipsoid?: Ellipsoid | undefined;
+            rectangle?: Rectangle | undefined;
+            granularity?: number | undefined;
+            height?: number | undefined;
+            rotation?: number | undefined;
+            textureRotationAngle?: number | undefined;
+            show?: boolean | undefined;
+            material?: Material | undefined;
             id?: any;
-            asynchronous?: boolean;
-            debugShowBoundingVolume?: boolean
+            asynchronous?: boolean | undefined;
+            debugShowBoundingVolume?: boolean | undefined
         });
         update(): void;
         isDestroyed(): boolean;
@@ -4648,15 +4755,15 @@ declare namespace Cesium {
         direction: Cartesian3;
         constructor(option: {
             direction: Cartesian3;
-            color?: Color;
-            intensity?: number;
+            color?: Color | undefined;
+            intensity?: number | undefined;
         })
     }
 
     class SunLight extends Light {
         constructor(option?: {
-            color?: Color;
-            intensity?: number;
+            color?: Color | undefined;
+            intensity?: number | undefined;
         })
     }
 
@@ -4699,7 +4806,7 @@ declare namespace Cesium {
         maximumRenderTimeChange: number;
         minimumDisableDepthTestDistance: number;
         mode: SceneMode;
-        moon?: Moon;
+        moon?: Moon | undefined;
         morphComplete: Event;
         morphStart: Event;
         morphTime: number;
@@ -4720,9 +4827,9 @@ declare namespace Cesium {
         readonly scene3DOnly: boolean;
         readonly screenSpaceCameraController: ScreenSpaceCameraController;
         shadowMap: ShadowMap;
-        skyAtmosphere?: SkyAtmosphere;
-        skyBox?: SkyBox;
-        sun?: Sun;
+        skyAtmosphere?: SkyAtmosphere | undefined;
+        skyBox?: SkyBox | undefined;
+        sun?: Sun | undefined;
         sunBloom: boolean;
         terrainExaggeration: number;
         terrainProvider: TerrainProvider;
@@ -4732,16 +4839,16 @@ declare namespace Cesium {
         constructor(options?: {
             canvas: HTMLCanvasElement;
             contextOptions?: any;
-            creditContainer?: Element;
-            creditViewport?: Element;
-            mapProjection?: MapProjection;
-            orderIndependentTranslucency?: boolean;
-            scene3DOnly?: boolean;
-            terrainExaggeration?: number;
-            shadows?: boolean;
-            mapMode2D?: MapMode2D;
-            requestRenderMode?: boolean;
-            maximumRenderTimeChange?: number
+            creditContainer?: Element | undefined;
+            creditViewport?: Element | undefined;
+            mapProjection?: MapProjection | undefined;
+            orderIndependentTranslucency?: boolean | undefined;
+            scene3DOnly?: boolean | undefined;
+            terrainExaggeration?: number | undefined;
+            shadows?: boolean | undefined;
+            mapMode2D?: MapMode2D | undefined;
+            requestRenderMode?: boolean | undefined;
+            maximumRenderTimeChange?: number | undefined
         });
         cartesianToCanvasCoordinates(position: Cartesian3, result?: Cartesian2): Cartesian2;
         clampToHeight(cartesian: Cartesian3, objectsToExclude?: any[], width?: number, result?: Cartesian3): Cartesian3;
@@ -4791,7 +4898,7 @@ declare namespace Cesium {
 
     class SingleTileImageryProvider extends ImageryProvider {
         url: string;
-        constructor(options: { url: string; rectangle?: Rectangle; credit?: Credit | string; ellipsoid?: Ellipsoid; proxy?: any });
+        constructor(options: { url: string; rectangle?: Rectangle | undefined; credit?: Credit | string | undefined; ellipsoid?: Ellipsoid | undefined; proxy?: any });
     }
 
     class SkyAtmosphere {
@@ -4808,7 +4915,7 @@ declare namespace Cesium {
     class SkyBox {
         sources: any;
         show: boolean;
-        constructor(options: { sources?: any; show?: boolean });
+        constructor(options: { sources?: any; show?: boolean | undefined });
         update(): void;
         isDestroyed(): boolean;
         destroy(): void;
@@ -4829,7 +4936,13 @@ declare namespace Cesium {
     }
 
     class TileCoordinatesImageryProvider extends ImageryProvider {
-        constructor(options?: { tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid; color?: Color; tileWidth?: number; tileHeight?: number });
+        constructor(options?: {
+            tilingScheme?: TilingScheme | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            color?: Color | undefined;
+            tileWidth?: number | undefined;
+            tileHeight?: number | undefined
+        });
     }
 
     class TileDiscardPolicy {
@@ -4840,17 +4953,17 @@ declare namespace Cesium {
     class TileMapServiceImageryProvider extends ImageryProvider {
         url: string;
         constructor(options?: {
-            url?: string;
-            fileExtension?: string;
+            url?: string | undefined;
+            fileExtension?: string | undefined;
             proxy?: any;
-            credit?: Credit | string;
-            minimumLevel?: number;
-            maximumLevel?: number;
-            rectangle?: Rectangle;
-            tilingScheme?: TilingScheme;
-            ellipsoid?: Ellipsoid;
-            tileWidth?: number;
-            tileHeight?: number
+            credit?: Credit | string | undefined;
+            minimumLevel?: number | undefined;
+            maximumLevel?: number | undefined;
+            rectangle?: Rectangle | undefined;
+            tilingScheme?: TilingScheme | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            tileWidth?: number | undefined;
+            tileHeight?: number | undefined
         });
     }
 
@@ -4866,26 +4979,26 @@ declare namespace Cesium {
 
     class WebMapServiceImageryProvider extends ImageryProvider {
         readonly url: string;
-        static DefaultParameters: {service: string, version: string, request: string, styles: string, format: string};
-        static GetFeatureInfoDefaultParameters: {service: string, version: string, request: string};
+        static DefaultParameters: { service: string, version: string, request: string, styles: string, format: string };
+        static GetFeatureInfoDefaultParameters: { service: string, version: string, request: string };
         constructor(options: {
             url: string;
             layers: string;
             parameters?: any;
             getFeatureInfoParameters?: any;
-            enablePickFeatures?: boolean;
-            getFeatureInfoFormats?: GetFeatureInfoFormat[];
-            rectangle?: Rectangle;
-            tilingScheme?: TilingScheme;
-            ellipsoid?: Ellipsoid;
-            tileWidth?: number;
-            tileHeight?: number;
-            minimumLevel?: number;
-            maximumLevel?: number;
-            crs?: string;
-            srs?: string;
-            credit?: Credit | string;
-            subdomains?: string | string[]
+            enablePickFeatures?: boolean | undefined;
+            getFeatureInfoFormats?: GetFeatureInfoFormat[] | undefined;
+            rectangle?: Rectangle | undefined;
+            tilingScheme?: TilingScheme | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            tileWidth?: number | undefined;
+            tileHeight?: number | undefined;
+            minimumLevel?: number | undefined;
+            maximumLevel?: number | undefined;
+            crs?: string | undefined;
+            srs?: string | undefined;
+            credit?: Credit | string | undefined;
+            subdomains?: string | string[] | undefined
         });
     }
 
@@ -4897,23 +5010,23 @@ declare namespace Cesium {
         readonly url: string;
         constructor(options: {
             url: string;
-            format?: string;
+            format?: string | undefined;
             layer: string;
             style: string;
             tileMatrixSetID: string;
-            tileMatrixLabels?: any[];
-            clock?: Clock;
-            times?: TimeIntervalCollection;
+            tileMatrixLabels?: any[] | undefined;
+            clock?: Clock | undefined;
+            times?: TimeIntervalCollection | undefined;
             dimensions?: any;
-            tileWidth?: number;
-            tileHeight?: number;
-            tilingScheme?: TilingScheme;
-            rectangle?: Rectangle;
-            minimumLevel?: number;
-            maximumLevel?: number;
-            ellipsoid?: Ellipsoid;
-            credit?: Credit | string;
-            subdomains?: string | string[]
+            tileWidth?: number | undefined;
+            tileHeight?: number | undefined;
+            tilingScheme?: TilingScheme | undefined;
+            rectangle?: Rectangle | undefined;
+            minimumLevel?: number | undefined;
+            maximumLevel?: number | undefined;
+            ellipsoid?: Ellipsoid | undefined;
+            credit?: Credit | string | undefined;
+            subdomains?: string | string[] | undefined
         });
     }
 
@@ -4961,10 +5074,10 @@ declare namespace Cesium {
         viewModel: BaseLayerPickerViewModel;
         constructor(container: Element, options: {
             globe: Globe;
-            imageryProviderViewModels?: ProviderViewModel[];
-            selectedImageryProviderViewModel?: ProviderViewModel;
-            terrainProviderViewModels?: ProviderViewModel[];
-            selectedTerrainProviderViewModel?: ProviderViewModel
+            imageryProviderViewModels?: ProviderViewModel[] | undefined;
+            selectedImageryProviderViewModel?: ProviderViewModel | undefined;
+            terrainProviderViewModels?: ProviderViewModel[] | undefined;
+            selectedTerrainProviderViewModel?: ProviderViewModel | undefined
         });
         isDestroyed(): boolean;
         destroy(): void;
@@ -4982,10 +5095,10 @@ declare namespace Cesium {
         globe: Globe;
         constructor(options: {
             globe: Globe;
-            imageryProviderViewModels?: ProviderViewModel[];
-            selectedImageryProviderViewModel?: ProviderViewModel;
-            terrainProviderViewModels?: ProviderViewModel[];
-            selectedTerrainProviderViewModel?: ProviderViewModel
+            imageryProviderViewModels?: ProviderViewModel[] | undefined;
+            selectedImageryProviderViewModel?: ProviderViewModel | undefined;
+            terrainProviderViewModels?: ProviderViewModel[] | undefined;
+            selectedTerrainProviderViewModel?: ProviderViewModel | undefined
         });
     }
 
@@ -4998,7 +5111,7 @@ declare namespace Cesium {
             name: string;
             tooltip: string;
             iconUrl: string;
-            category?: string;
+            category?: string | undefined;
             creationFunction: ProviderViewModel.CreationFunction | Command;
         });
     }
@@ -5086,28 +5199,28 @@ declare namespace Cesium {
         useDefaultRenderLoop: boolean;
         resolutionScale: number;
         constructor(container: Element | string, options?: {
-            clock?: Clock;
-            imageryProvider?: ImageryProvider | false;
-            terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox | false;
-            skyAtmosphere?: SkyAtmosphere | false;
-            sceneMode?: SceneMode;
-            scene3DOnly?: boolean;
-            orderIndependentTranslucency?: boolean;
-            mapProjection?: MapProjection;
-            globe?: Globe | false;
-            useDefaultRenderLoop?: boolean;
-            targetFrameRate?: number;
-            showRenderLoopErrors?: boolean;
+            clock?: Clock | undefined;
+            imageryProvider?: ImageryProvider | false | undefined;
+            terrainProvider?: TerrainProvider | undefined;
+            skyBox?: SkyBox | false | undefined;
+            skyAtmosphere?: SkyAtmosphere | false | undefined;
+            sceneMode?: SceneMode | undefined;
+            scene3DOnly?: boolean | undefined;
+            orderIndependentTranslucency?: boolean | undefined;
+            mapProjection?: MapProjection | undefined;
+            globe?: Globe | false | undefined;
+            useDefaultRenderLoop?: boolean | undefined;
+            targetFrameRate?: number | undefined;
+            showRenderLoopErrors?: boolean | undefined;
             contextOptions?: any;
-            creditContainer?: Element | string;
-            creditViewport?: Element | string;
-            terrainExaggeration?: number;
-            shadows?: boolean;
-            terrainShadows?: ShadowMode;
-            mapMode2D?: MapMode2D;
-            requestRenderMode?: boolean;
-            maximumRenderTimeChange?: number
+            creditContainer?: Element | string | undefined;
+            creditViewport?: Element | string | undefined;
+            terrainExaggeration?: number | undefined;
+            shadows?: boolean | undefined;
+            terrainShadows?: ShadowMode | undefined;
+            mapMode2D?: MapMode2D | undefined;
+            requestRenderMode?: boolean | undefined;
+            maximumRenderTimeChange?: number | undefined
         });
         showErrorPanel(title: string, message: string, error?: string): void;
         isDestroyed(): boolean;
@@ -5161,7 +5274,7 @@ declare namespace Cesium {
     class Geocoder {
         container: Element;
         viewModel: GeocoderViewModel;
-        constructor(options: { container: Element | string; scene: Scene; url?: string; key?: string; flightDuration?: number });
+        constructor(options: { container: Element | string; scene: Scene; url?: string | undefined; key?: string | undefined; flightDuration?: number | undefined });
         isDestroyed(): boolean;
         destroy(): void;
     }
@@ -5175,7 +5288,7 @@ declare namespace Cesium {
         complete: Event;
         scene: Scene;
         search: Command;
-        constructor(options: { scene: Scene; url?: string; key?: string; flightDuration?: number });
+        constructor(options: { scene: Scene; url?: string | undefined; key?: string | undefined; flightDuration?: number | undefined });
     }
 
     class HomeButton {
@@ -5238,7 +5351,7 @@ declare namespace Cesium {
     class NavigationHelpButton {
         container: Element;
         viewModel: NavigationHelpButtonViewModel;
-        constructor(options: { container: Element | string; instructionsInitiallyVisible?: boolean });
+        constructor(options: { container: Element | string; instructionsInitiallyVisible?: boolean | undefined });
         isDestroyed(): boolean;
         destroy(): void;
     }
@@ -5254,7 +5367,7 @@ declare namespace Cesium {
     class PerformanceWatchdog {
         container: Element;
         viewModel: PerformanceWatchdogViewModel;
-        constructor(options?: { container: Element | string; scene: Scene; lowFrameRateMessage?: string });
+        constructor(options?: { container: Element | string; scene: Scene; lowFrameRateMessage?: string | undefined });
         isDestroyed(): boolean;
         destroy(): void;
     }
@@ -5265,7 +5378,7 @@ declare namespace Cesium {
         showingLowFrameRateMessage: boolean;
         scene: Scene;
         dismissMessage: Command;
-        constructor(options?: { scene: Scene; lowFrameRateMessage?: string });
+        constructor(options?: { scene: Scene; lowFrameRateMessage?: string | undefined });
     }
 
     class ProjectionPicker {
@@ -5357,7 +5470,7 @@ declare namespace Cesium {
         toggled: boolean;
         tooltip: string;
         command: Command;
-        constructor(command: Command, options?: { toggled?: boolean; tooltip?: string });
+        constructor(command: Command, options?: { toggled?: boolean | undefined; tooltip?: string | undefined });
     }
 
     class Viewer {
@@ -5401,49 +5514,49 @@ declare namespace Cesium {
         readonly vrButton: VRButton;
         shadows: boolean;
         constructor(container: Element | string, options?: {
-            animation?: boolean;
-            baseLayerPicker?: boolean;
-            fullscreenButton?: boolean;
-            vrButton?: boolean;
-            geocoder?: boolean;
-            homeButton?: boolean;
-            infoBox?: boolean;
-            sceneModePicker?: boolean;
-            selectionIndicator?: boolean;
-            timeline?: boolean;
-            navigationHelpButton?: boolean;
-            navigationInstructionsInitiallyVisible?: boolean;
-            scene3DOnly?: boolean;
-            shouldAnimate?: boolean;
-            clockViewModel?: ClockViewModel;
-            selectedImageryProviderViewModel?: ProviderViewModel;
-            imageryProviderViewModels?: ProviderViewModel[];
-            selectedTerrainProviderViewModel?: ProviderViewModel;
-            terrainProviderViewModels?: ProviderViewModel[];
-            imageryProvider?: ImageryProvider | false;
-            terrainProvider?: TerrainProvider;
-            skyBox?: SkyBox | false;
-            skyAtmosphere?: SkyAtmosphere | false;
-            fullscreenElement?: Element | string;
-            useDefaultRenderLoop?: boolean;
-            targetFrameRate?: number;
-            showRenderLoopErrors?: boolean;
-            automaticallyTrackDataSourceClocks?: boolean;
+            animation?: boolean | undefined;
+            baseLayerPicker?: boolean | undefined;
+            fullscreenButton?: boolean | undefined;
+            vrButton?: boolean | undefined;
+            geocoder?: boolean | undefined;
+            homeButton?: boolean | undefined;
+            infoBox?: boolean | undefined;
+            sceneModePicker?: boolean | undefined;
+            selectionIndicator?: boolean | undefined;
+            timeline?: boolean | undefined;
+            navigationHelpButton?: boolean | undefined;
+            navigationInstructionsInitiallyVisible?: boolean | undefined;
+            scene3DOnly?: boolean | undefined;
+            shouldAnimate?: boolean | undefined;
+            clockViewModel?: ClockViewModel | undefined;
+            selectedImageryProviderViewModel?: ProviderViewModel | undefined;
+            imageryProviderViewModels?: ProviderViewModel[] | undefined;
+            selectedTerrainProviderViewModel?: ProviderViewModel | undefined;
+            terrainProviderViewModels?: ProviderViewModel[] | undefined;
+            imageryProvider?: ImageryProvider | false | undefined;
+            terrainProvider?: TerrainProvider | undefined;
+            skyBox?: SkyBox | false | undefined;
+            skyAtmosphere?: SkyAtmosphere | false | undefined;
+            fullscreenElement?: Element | string | undefined;
+            useDefaultRenderLoop?: boolean | undefined;
+            targetFrameRate?: number | undefined;
+            showRenderLoopErrors?: boolean | undefined;
+            automaticallyTrackDataSourceClocks?: boolean | undefined;
             contextOptions?: any;
-            sceneMode?: SceneMode;
-            mapProjection?: MapProjection;
-            globe?: Globe | false;
-            orderIndependentTranslucency?: boolean;
-            creditContainer?: Element | string;
-            creditViewport?: Element | string;
-            dataSources?: DataSourceCollection;
-            terrainExaggeration?: number;
-            shadows?: boolean;
-            terrainShadows?: ShadowMode;
-            mapMode2D?: MapMode2D;
-            projectionPicker?: boolean;
-            requestRenderMode?: boolean;
-            maximumRenderTimeChange?: number
+            sceneMode?: SceneMode | undefined;
+            mapProjection?: MapProjection | undefined;
+            globe?: Globe | false | undefined;
+            orderIndependentTranslucency?: boolean | undefined;
+            creditContainer?: Element | string | undefined;
+            creditViewport?: Element | string | undefined;
+            dataSources?: DataSourceCollection | undefined;
+            terrainExaggeration?: number | undefined;
+            shadows?: boolean | undefined;
+            terrainShadows?: ShadowMode | undefined;
+            mapMode2D?: MapMode2D | undefined;
+            projectionPicker?: boolean | undefined;
+            requestRenderMode?: boolean | undefined;
+            maximumRenderTimeChange?: number | undefined
         });
         extend(mixin: Viewer.ViewerMixin, options: any): void;
         resize(): void;
@@ -5453,7 +5566,7 @@ declare namespace Cesium {
         destroy(): void;
         zoomTo(target: Entity | Entity[] | EntityCollection | DataSource | Promise<Entity | Entity[] | EntityCollection | DataSource>, offset?: HeadingPitchRange): Promise<boolean>;
         flyTo(target: Entity | Entity[] | EntityCollection | DataSource | Promise<Entity | Entity[] | EntityCollection | DataSource>,
-                options?: { duration?: number; maximumHeight?: number; offset?: HeadingPitchRange }): Promise<boolean>;
+            options?: { duration?: number | undefined; maximumHeight?: number | undefined; offset?: HeadingPitchRange | undefined }): Promise<boolean>;
     }
 
     namespace Viewer {
@@ -5489,7 +5602,7 @@ declare namespace Cesium {
 
     function isLeapYear(year: number): boolean;
 
-    function jsonp(url: string, options?: { parameters?: any; callbackParameterName?: string; proxy?: any }): Promise<any>;
+    function jsonp(url: string, options?: { parameters?: any; callbackParameterName?: string | undefined; proxy?: any }): Promise<any>;
 
     function loadArrayBuffer(url: string | Promise<string>, headers?: any): Promise<ArrayBuffer>;
 
@@ -5503,7 +5616,14 @@ declare namespace Cesium {
 
     function loadText(url: string | Promise<string>, headers?: any): Promise<string>;
 
-    function loadWithXhr(options: { url: string | Promise<string>; responseType?: string; method?: string; data?: string; headers?: any; overrideMimeType?: string }): Promise<any>;
+    function loadWithXhr(options: {
+        url: string | Promise<string>;
+        responseType?: string | undefined;
+        method?: string | undefined;
+        data?: string | undefined;
+        headers?: any;
+        overrideMimeType?: string | undefined
+    }): Promise<any>;
 
     function loadXML(url: string | Promise<string>, headers?: any): Promise<XMLDocument>;
 
@@ -5537,11 +5657,17 @@ declare namespace Cesium {
         type RequestFunction = (url: string) => Promise<any>;
     }
 
-    function createTangentSpaceDebugPrimitive(options: { geometry: Geometry; length?: number; modelMatrix?: Matrix4 }): Primitive;
+    function createTangentSpaceDebugPrimitive(options: { geometry: Geometry; length?: number | undefined; modelMatrix?: Matrix4 | undefined }): Primitive;
 
     function viewerCesiumInspectorMixin(viewer: Viewer): undefined;
 
-    function viewerDragDropMixin(viewer: Viewer, options?: { dropTarget?: Element | string; clearOnDrop?: boolean; flyToOnDrop?: boolean; clampToGround?: boolean; proxy?: DefaultProxy }): undefined;
+    function viewerDragDropMixin(viewer: Viewer, options?: {
+        dropTarget?: Element | string | undefined;
+        clearOnDrop?: boolean | undefined;
+        flyToOnDrop?: boolean | undefined;
+        clampToGround?: boolean | undefined;
+        proxy?: DefaultProxy | undefined
+    }): undefined;
 
     function viewerPerformanceWatchdogMixin(viewer: Viewer): undefined;
 
@@ -5655,17 +5781,17 @@ declare namespace Cesium {
             height: number;
             skirtHeight: number;
             nativeRectangle: Rectangle;
-            rectangle?: Rectangle;
-            isGeographic?: boolean;
-            relativetoCenter?: Cartesian3;
-            ellipsoid?: Ellipsoid;
+            rectangle?: Rectangle | undefined;
+            isGeographic?: boolean | undefined;
+            relativetoCenter?: Cartesian3 | undefined;
+            ellipsoid?: Ellipsoid | undefined;
             structure?: any;
-            structureheightScale?: number;
-            structureheightOffset?: number;
-            structureelementsPerHeight?: number;
-            structurestride?: number;
-            structureelementMultiplier?: number;
-            structureisBigEndian?: boolean
+            structureheightScale?: number | undefined;
+            structureheightOffset?: number | undefined;
+            structureelementsPerHeight?: number | undefined;
+            structurestride?: number | undefined;
+            structureelementMultiplier?: number | undefined;
+            structureisBigEndian?: boolean | undefined
         }): undefined;
     }
 
@@ -5735,9 +5861,9 @@ declare namespace Cesium {
         ALT,
     }
 
-    class LagrangePolynomialApproximation extends InterpolationAlgorithm {}
+    class LagrangePolynomialApproximation extends InterpolationAlgorithm { }
 
-    class LinearApproximation extends InterpolationAlgorithm {}
+    class LinearApproximation extends InterpolationAlgorithm { }
 
     enum MapMode2D {
         INFINITE_SCROLL,
@@ -5893,16 +6019,16 @@ declare namespace Cesium {
         softShadows: boolean;
         constructor(obtions: {
             lightCamera: Camera;
-            enabled?: boolean;
-            isPointLight?: boolean;
-            pointLightRadius?: number;
-            cascadesEnabled?: boolean;
-            numberOfCascades?: number;
-            maximumDistance?: number;
-            size?: number;
-            softShadows?: boolean;
-            darkness?: number;
-            normalOffset?: boolean
+            enabled?: boolean | undefined;
+            isPointLight?: boolean | undefined;
+            pointLightRadius?: number | undefined;
+            cascadesEnabled?: boolean | undefined;
+            numberOfCascades?: number | undefined;
+            maximumDistance?: number | undefined;
+            size?: number | undefined;
+            softShadows?: boolean | undefined;
+            darkness?: number | undefined;
+            normalOffset?: boolean | undefined
         });
     }
 
@@ -5925,7 +6051,7 @@ declare namespace Cesium {
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function headingPitchRollToFixedFrame(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: Matrix4): Matrix4;
         function headingPitchRollQuaternion(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame,
-                                            result?: Quaternion): Quaternion;
+            result?: Quaternion): Quaternion;
         function computeTemeToPseudoFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function preloadIcrfFixed(timeInterval: TimeInterval): Promise<void>;
         function computeIcrfToFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
@@ -5958,13 +6084,13 @@ declare namespace Cesium {
         AERIAL = "Aerial",
         AERIAL_WITH_LABELS = "AerialWithLabels",
         AERIAL_WITH_LABELS_ON_DEMAND = "AerialWithLabelsOnDemand",
-        ROAD= "Road",
-        ROAD_ON_DEMAND= "RoadOnDemand",
-        CANVAS_DARK= "CanvasDark",
-        CANVAS_LIGHT= "CanvasLight",
-        CANVAS_GRAY= "CanvasGray",
-        ORDNANCE_SURVEY= "OrdnanceSurvey",
-        COLLINS_BART= "CollinsBart",
+        ROAD = "Road",
+        ROAD_ON_DEMAND = "RoadOnDemand",
+        CANVAS_DARK = "CanvasDark",
+        CANVAS_LIGHT = "CanvasLight",
+        CANVAS_GRAY = "CanvasGray",
+        ORDNANCE_SURVEY = "OrdnanceSurvey",
+        COLLINS_BART = "CollinsBart",
     }
 
     enum BlendEquation {
@@ -6132,33 +6258,33 @@ declare namespace Cesium {
     }
 
     function createWorldTerrain(options?: {
-        requestVertexNormals?: boolean,
-        requestWaterMask?: boolean
+        requestVertexNormals?: boolean | undefined,
+        requestWaterMask?: boolean | undefined
     }): CesiumTerrainProvider;
 
     class OpenStreetMapImageryProvider extends ImageryProvider {
         constructor(options?: {
-            url?: string,
-            fileExtension?: string,
+            url?: string | undefined,
+            fileExtension?: string | undefined,
             proxy?: any,
-            rectangle?: Rectangle,
-            minimumLevel?: number,
-            maximumLevel?: number,
-            credit?: Credit | string,
-            ellipsoid?: Ellipsoid,
+            rectangle?: Rectangle | undefined,
+            minimumLevel?: number | undefined,
+            maximumLevel?: number | undefined,
+            credit?: Credit | string | undefined,
+            ellipsoid?: Ellipsoid | undefined,
         });
     }
 
     class TileMapResourceImageryProvider extends ImageryProvider {
         constructor(options?: {
-            url?: string,
-            fileExtension?: string,
+            url?: string | undefined,
+            fileExtension?: string | undefined,
             proxy?: any,
-            rectangle?: Rectangle,
-            minimumLevel?: number,
-            maximumLevel?: number,
-            credit?: Credit | string,
-            ellipsoid?: Ellipsoid,
+            rectangle?: Rectangle | undefined,
+            minimumLevel?: number | undefined,
+            maximumLevel?: number | undefined,
+            credit?: Credit | string | undefined,
+            ellipsoid?: Ellipsoid | undefined,
         });
     }
 
@@ -6173,96 +6299,156 @@ declare namespace Cesium {
 
         constructor(options: {
             url: string,
-            pickFeaturesUrl?: string,
-            urlSchemeZeroPadding?: {},
-            subdomains?: string | string[]
-            proxy?: {},
-            credit?: Credit | string,
-            minimumLevel?: number,
-            maximumLevel?: number,
-            rectangle?: Rectangle,
-            tilingScheme?: TilingScheme,
-            ellipsoid?: Ellipsoid,
-            tileWidth?: number,
-            tileHeight?: number,
-            hasAlphaChannel?: boolean,
-            getFeatureInfoFormats?: GetFeatureInfoFormat[],
-            enablePickFeatures?: boolean
+            pickFeaturesUrl?: string | undefined,
+            urlSchemeZeroPadding?: {} | undefined,
+            subdomains?: string | string[] | undefined
+            proxy?: {} | undefined,
+            credit?: Credit | string | undefined,
+            minimumLevel?: number | undefined,
+            maximumLevel?: number | undefined,
+            rectangle?: Rectangle | undefined,
+            tilingScheme?: TilingScheme | undefined,
+            ellipsoid?: Ellipsoid | undefined,
+            tileWidth?: number | undefined,
+            tileHeight?: number | undefined,
+            hasAlphaChannel?: boolean | undefined,
+            getFeatureInfoFormats?: GetFeatureInfoFormat[] | undefined,
+            enablePickFeatures?: boolean | undefined
         });
         reinitialize(options: Promise<object> | object): void;
     }
 
     class Resource {
-      static DEFAULT: Resource;
-      static readonly isBlobSupported: boolean;
-      readonly extension: string;
-      hasHeaders: boolean;
-      headers: any;
-      isBlobUri: boolean;
-      isCrossOriginUrl: boolean;
-      isDataUri: boolean;
-      proxy: DefaultProxy;
-      readonly queryParameters: any;
-      request: Request;
-      retryAttempts: number;
-      retryCallback: () => void;
-      readonly templateValues: any;
-      url: string;
-      static delete(options?: { url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; responseType?: string; overrideMimeType?: string }): Promise<any> | undefined;
-      static fetch(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; responseType?: string; overrideMimeType?: string }): Promise<any> | undefined;
-      static fetchArrayBuffer(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request }): Promise<ArrayBuffer> | undefined;
-      static fetchBlob(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request }): Promise<Blob> | undefined;
-      static fetchImage(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; preferBlob?: boolean }): Promise<any> | undefined;
-      static fetchJson(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request }): Promise<any> | undefined;
-      static fetchJsonp(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; callbackParameterName?: string }): Promise<any> | undefined;
-      static fetchText(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request }): Promise<string> | undefined;
-      static fetchXml(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request }): Promise<XMLDocument> | undefined;
-      static head(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; responseType?: string; overrideMimeType?: string }): Promise<any> | undefined;
-      static options(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; responseType?: string; overrideMimeType?: string }): Promise<any> | undefined;
-      static patch(options?: { url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; responseType?: string; overrideMimeType?: string }): Promise<any> | undefined;
-      static post(options?: { url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; responseType?: string; overrideMimeType?: string }): Promise<any> | undefined;
-      static put(options?: { url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request; responseType?: string; overrideMimeType?: string }): Promise<any> | undefined;
-      constructor(options?: { url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                    retryAttempts?: number; request?: Request });
-      addQueryParameters(params: any, useAsDefault: boolean): void;
-      addTemplateValues(template: any, useAsDefault: boolean): void;
-      appendForwardSlash(): void;
-      appendQueryParameters(params: any): void;
-      clone(result: Resource): Resource;
-      delete(options?: { responseType?: string; headers?: any; overrideMimeType?: string }): Promise<any> | undefined;
-      fetch(options?: { responseType?: string; headers?: any; overrideMimeType?: string }): Promise<any> | undefined;
-      fetchArrayBuffer(): Promise<ArrayBuffer> | undefined;
-      fetchBlob(): Promise<Blob> | undefined;
-      fetchImage(preferBlob: boolean): Promise<any> | undefined;
-      fetchJson(): Promise<any> | undefined;
-      fetchJsonp(callbackParameterName: string): Promise<any> | undefined;
-      fetchText(): Promise<string> | undefined;
-      fetchXml(): Promise<XMLDocument> | undefined;
-      getBaseUri(includeQuery: boolean): string;
-      getDerivedResource(options: {url?: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy; retryCallback?: Resource.RetryCallback;
-                            retryAttempts?: number; request?: Request; preserveQueryParameters?: boolean}): Resource;
-      getUrlComponent(query: boolean, proxy: boolean): string;
-      head(options?: {responseType?: string; headers?: any; overrideMimeType?: string}): Promise<any> | undefined;
-      options(options?: { responseType?: string; headers?: any; overrideMimeType?: string }): Promise<any> | undefined;
-      patch(data: any, options?: { responseType?: string; headers?: any; overrideMimeType?: string }): Promise<any> | undefined;
-      post(data: any, options?: { data?: any; responseType?: string; headers?: any; overrideMimeType?: string }): Promise<any> | undefined;
-      put(data: any, options?: { responseType?: string; headers?: any; overrideMimeType?: string }): Promise<any> | undefined;
-      setQueryParameters(params: any, useAsDefault: boolean): void;
-      setTemplateValues(template: any, useAsDefault: boolean): void;
+        static DEFAULT: Resource;
+        static readonly isBlobSupported: boolean;
+        readonly extension: string;
+        hasHeaders: boolean;
+        headers: any;
+        isBlobUri: boolean;
+        isCrossOriginUrl: boolean;
+        isDataUri: boolean;
+        proxy: DefaultProxy;
+        readonly queryParameters: any;
+        request: Request;
+        retryAttempts: number;
+        retryCallback: () => void;
+        readonly templateValues: any;
+        url: string;
+        static delete(options?: {
+            url: string;
+            data?: any;
+            queryParameters?: any;
+            templateValues?: any;
+            headers?: any;
+            proxy?: DefaultProxy | undefined;
+            retryCallback?: Resource.RetryCallback | undefined;
+
+            retryAttempts?: number | undefined;
+            request?: Request | undefined;
+            responseType?: string | undefined;
+            overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+
+        static fetch(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        static fetchArrayBuffer(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<ArrayBuffer> | undefined;
+        static fetchBlob(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<Blob> | undefined;
+        static fetchImage(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; preferBlob?: boolean | undefined
+        }): Promise<any> | undefined;
+        static fetchJson(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<any> | undefined;
+        static fetchJsonp(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; callbackParameterName?: string | undefined
+        }): Promise<any> | undefined;
+        static fetchText(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<string> | undefined;
+        static fetchXml(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        }): Promise<XMLDocument> | undefined;
+        static head(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        static options(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        static patch(options?: {
+            url: string;
+            data?: any;
+            queryParameters?: any;
+            templateValues?: any;
+            headers?: any;
+            proxy?: DefaultProxy | undefined;
+            retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined;
+            request?: Request | undefined;
+            responseType?: string | undefined;
+            overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+
+        static post(options?: {
+            url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        static put(options?: {
+            url: string; data?: any; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined; responseType?: string | undefined; overrideMimeType?: string | undefined
+        }): Promise<any> | undefined;
+        constructor(options?: {
+            url: string; queryParameters?: any; templateValues?: any; headers?: any; proxy?: DefaultProxy | undefined; retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined; request?: Request | undefined
+        });
+        addQueryParameters(params: any, useAsDefault: boolean): void;
+        addTemplateValues(template: any, useAsDefault: boolean): void;
+        appendForwardSlash(): void;
+        appendQueryParameters(params: any): void;
+        clone(result: Resource): Resource;
+        delete(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        fetch(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        fetchArrayBuffer(): Promise<ArrayBuffer> | undefined;
+        fetchBlob(): Promise<Blob> | undefined;
+        fetchImage(preferBlob: boolean): Promise<any> | undefined;
+        fetchJson(): Promise<any> | undefined;
+        fetchJsonp(callbackParameterName: string): Promise<any> | undefined;
+        fetchText(): Promise<string> | undefined;
+        fetchXml(): Promise<XMLDocument> | undefined;
+        getBaseUri(includeQuery: boolean): string;
+        getDerivedResource(options: {
+            url?: string | undefined;
+            queryParameters?: any;
+            templateValues?: any;
+            headers?: any;
+            proxy?: DefaultProxy | undefined;
+            retryCallback?: Resource.RetryCallback | undefined;
+            retryAttempts?: number | undefined;
+            request?: Request | undefined;
+            preserveQueryParameters?: boolean | undefined
+        }): Resource;
+        getUrlComponent(query: boolean, proxy: boolean): string;
+        head(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        options(options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        patch(data: any, options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        post(data: any, options?: { data?: any; responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        put(data: any, options?: { responseType?: string | undefined; headers?: any; overrideMimeType?: string | undefined }): Promise<any> | undefined;
+        setQueryParameters(params: any, useAsDefault: boolean): void;
+        setTemplateValues(template: any, useAsDefault: boolean): void;
     }
 
     namespace Resource {
@@ -6301,18 +6487,18 @@ declare namespace Cesium {
         static supportsMaterials(scene: Scene): boolean;
 
         constructor(options: {
-            geometryInstances?: GeometryInstance[] | GeometryInstance,
-            appearance?: Appearance,
-            show?: boolean,
-            vertexCacheOptimize?: boolean,
-            interleave?: boolean,
-            compressVertices?: boolean,
-            releaseGeometryInstances?: boolean,
-            allowPicking?: boolean,
-            asynchronous?: boolean,
-            debugShowBoundingVolume?: boolean,
-            debugShowShadowVolume?: boolean,
-            classificationType?: ClassificationType
+            geometryInstances?: GeometryInstance[] | GeometryInstance | undefined,
+            appearance?: Appearance | undefined,
+            show?: boolean | undefined,
+            vertexCacheOptimize?: boolean | undefined,
+            interleave?: boolean | undefined,
+            compressVertices?: boolean | undefined,
+            releaseGeometryInstances?: boolean | undefined,
+            allowPicking?: boolean | undefined,
+            asynchronous?: boolean | undefined,
+            debugShowBoundingVolume?: boolean | undefined,
+            debugShowShadowVolume?: boolean | undefined,
+            classificationType?: ClassificationType | undefined
         });
 
         destroy(): void;
@@ -6340,16 +6526,16 @@ declare namespace Cesium {
         static isSupported(scene: Scene): boolean;
 
         constructor(options: {
-            geometryInstances?: GeometryInstance[] | GeometryInstance,
-            appearance?: Appearance,
-            show?: boolean,
-            interleave?: boolean,
-            releaseGeometryInstances?: boolean,
-            allowPicking?: boolean,
-            asynchronous?: boolean,
-            debugShowBoundingVolume?: boolean,
-            debugShowShadowVolume?: boolean,
-            classificationType?: ClassificationType
+            geometryInstances?: GeometryInstance[] | GeometryInstance | undefined,
+            appearance?: Appearance | undefined,
+            show?: boolean | undefined,
+            interleave?: boolean | undefined,
+            releaseGeometryInstances?: boolean | undefined,
+            allowPicking?: boolean | undefined,
+            asynchronous?: boolean | undefined,
+            debugShowBoundingVolume?: boolean | undefined,
+            debugShowShadowVolume?: boolean | undefined,
+            classificationType?: ClassificationType | undefined
         });
 
         destroy(): void;
@@ -6365,7 +6551,7 @@ declare namespace Cesium {
     }
 
     namespace buildModuleUrl {
-      function setBaseUrl(value: string): undefined;
+        function setBaseUrl(value: string): undefined;
     }
 
     enum WebGLConstants {
@@ -6426,7 +6612,7 @@ declare namespace Cesium {
         SCISSOR_TEST,
         POLYGON_OFFSET_FILL,
         SAMPLE_ALPHA_TO_COVERAGE,
-        SAMPLE_COVERAGE ,
+        SAMPLE_COVERAGE,
         NO_ERROR,
         INVALID_ENUM,
         INVALID_VALUE,
@@ -6483,7 +6669,7 @@ declare namespace Cesium {
         COMPRESSED_TEXTURE_FORMATS,
         DONT_CARE,
         FASTEST,
-        NICEST ,
+        NICEST,
         GENERATE_MIPMAP_HINT,
         BYTE,
         UNSIGNED_BYTE,
@@ -6541,7 +6727,7 @@ declare namespace Cesium {
         LINEAR,
         NEAREST_MIPMAP_NEAREST,
         LINEAR_MIPMAP_NEAREST,
-        NEAREST_MIPMAP_LINEAR ,
+        NEAREST_MIPMAP_LINEAR,
         LINEAR_MIPMAP_LINEAR,
         TEXTURE_MAG_FILTER,
         TEXTURE_MIN_FILTER,
@@ -6552,7 +6738,7 @@ declare namespace Cesium {
         TEXTURE_CUBE_MAP,
         TEXTURE_BINDING_CUBE_MAP,
         TEXTURE_CUBE_MAP_POSITIVE_X,
-        TEXTURE_CUBE_MAP_NEGATIVE_X ,
+        TEXTURE_CUBE_MAP_NEGATIVE_X,
         TEXTURE_CUBE_MAP_POSITIVE_Y,
         TEXTURE_CUBE_MAP_NEGATIVE_Y,
         TEXTURE_CUBE_MAP_POSITIVE_Z,

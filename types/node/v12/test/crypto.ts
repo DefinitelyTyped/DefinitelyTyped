@@ -1,6 +1,6 @@
-import * as crypto from 'node:crypto';
-import assert = require('node:assert');
-import { promisify } from 'node:util';
+import * as crypto from 'crypto';
+import assert = require('assert');
+import { promisify } from 'util';
 
 {
     // crypto_hash_string_test

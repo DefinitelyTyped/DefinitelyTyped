@@ -12,7 +12,7 @@ type RouteModel = object | string | number;
  * The `Ember.Route` class is used to define individual routes. Refer to
  * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
  */
-export default class Route<Model = any> extends EmberObject.extend(ActionHandler, Evented) {
+export default class Route<Model = unknown> extends EmberObject.extend(ActionHandler, Evented) {
     // methods
     /**
      * This hook is called after this route's model has resolved.
@@ -60,7 +60,7 @@ export default class Route<Model = any> extends EmberObject.extend(ActionHandler
     /**
      * Disconnects a view that has been rendered into an outlet.
      */
-    disconnectOutlet(options: string | { outlet?: string; parentView?: string }): void;
+    disconnectOutlet(options: string | { outlet?: string | undefined; parentView?: string | undefined }): void;
 
     /**
      * A hook you can implement to convert the URL into the model for

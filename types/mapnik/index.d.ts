@@ -14,29 +14,29 @@ export class VectorTile {
     constructor(z: number, x: number, y: number);
     addData(
         buffer: Buffer,
-        options?: { validate?: boolean; upgrade?: boolean },
+        options?: { validate?: boolean | undefined; upgrade?: boolean | undefined },
         callback?: (err?: Error) => void
     ): void;
-    addDataSync(buffer: Buffer, options?: { validate?: boolean; upgrade?: boolean }): void;
+    addDataSync(buffer: Buffer, options?: { validate?: boolean | undefined; upgrade?: boolean | undefined }): void;
     addGeoJSON(
         geojson: string,
         name: string,
         options?: {
-            area_threshold?: number;
-            simplify_distance?: number;
-            strictly_simple?: boolean;
-            multi_polygon_union?: boolean;
-            fill_type?: number;
-            process_all_rings?: boolean;
+            area_threshold?: number | undefined;
+            simplify_distance?: number | undefined;
+            strictly_simple?: boolean | undefined;
+            multi_polygon_union?: boolean | undefined;
+            fill_type?: number | undefined;
+            process_all_rings?: boolean | undefined;
         }
     ): void;
-    addImage(image: Image, name: string, options?: { image_scaling?: string; image_format?: string }): void;
+    addImage(image: Image, name: string, options?: { image_scaling?: string | undefined; image_format?: string | undefined }): void;
     addImageBuffer(buffer: Buffer, name: string, callback?: (err?: Error) => void): void;
     addImageBufferSync(buffer: Buffer, name: string): void;
     addImageSync(
         image: Image,
         name: string,
-        options?: { image_scaling?: string; image_format?: 'webp' | 'jpeg' | 'png' | 'tiff' }
+        options?: { image_scaling?: string | undefined; image_format?: 'webp' | 'jpeg' | 'png' | 'tiff' | undefined }
     ): void;
     bufferedExtent(): [number, number, number, number];
     clear(callback?: (err?: Error) => void): void;
@@ -44,42 +44,42 @@ export class VectorTile {
     composite(
         vectorTiles: VectorTile[],
         options?: {
-            scale_factor?: number;
-            offset_x?: number;
-            offset_y?: number;
-            area_threshold?: number;
-            strictly_simple?: boolean;
-            multi_polygon_union?: boolean;
-            fill_type?: number;
-            scale_denominator?: number;
-            reencode?: boolean;
-            max_extent?: [number, number, number, number];
-            simplify_distance?: number;
-            process_all_rings?: boolean;
-            image_format?: 'webp' | 'jpeg' | 'png' | 'tiff';
-            scaling_method?: string;
-            threading_mode?: string;
-            callback?: (err: Error) => void;
+            scale_factor?: number | undefined;
+            offset_x?: number | undefined;
+            offset_y?: number | undefined;
+            area_threshold?: number | undefined;
+            strictly_simple?: boolean | undefined;
+            multi_polygon_union?: boolean | undefined;
+            fill_type?: number | undefined;
+            scale_denominator?: number | undefined;
+            reencode?: boolean | undefined;
+            max_extent?: [number, number, number, number] | undefined;
+            simplify_distance?: number | undefined;
+            process_all_rings?: boolean | undefined;
+            image_format?: 'webp' | 'jpeg' | 'png' | 'tiff' | undefined;
+            scaling_method?: string | undefined;
+            threading_mode?: string | undefined;
+            callback?: ((err: Error) => void) | undefined;
         }
     ): void;
     compositeSync(
         vectorTiles: VectorTile[],
         options?: {
-            scale_factor?: number;
-            offset_x?: number;
-            offset_y?: number;
-            area_threshold?: number;
-            strictly_simple?: boolean;
-            multi_polygon_union?: boolean;
-            fill_type?: number;
-            scale_denominator?: number;
-            reencode?: boolean;
-            max_extent?: [number, number, number, number];
-            simplify_distance?: number;
-            process_all_rings?: boolean;
-            image_format?: 'webp' | 'jpeg' | 'png' | 'tiff';
-            scaling_method?: string;
-            threading_mode?: string;
+            scale_factor?: number | undefined;
+            offset_x?: number | undefined;
+            offset_y?: number | undefined;
+            area_threshold?: number | undefined;
+            strictly_simple?: boolean | undefined;
+            multi_polygon_union?: boolean | undefined;
+            fill_type?: number | undefined;
+            scale_denominator?: number | undefined;
+            reencode?: boolean | undefined;
+            max_extent?: [number, number, number, number] | undefined;
+            simplify_distance?: number | undefined;
+            process_all_rings?: boolean | undefined;
+            image_format?: 'webp' | 'jpeg' | 'png' | 'tiff' | undefined;
+            scaling_method?: string | undefined;
+            threading_mode?: string | undefined;
         }
     ): void;
     empty(): boolean;
@@ -87,16 +87,16 @@ export class VectorTile {
     extent(): [number, number, number, number];
     getData(
         options?: {
-            compression?: number;
-            level?: number;
-            strategy?: 'FILTERED' | 'HUFFMAN_ONLY' | 'RLE' | 'FIXED' | 'DEFAULT';
+            compression?: number | undefined;
+            level?: number | undefined;
+            strategy?: 'FILTERED' | 'HUFFMAN_ONLY' | 'RLE' | 'FIXED' | 'DEFAULT' | undefined;
         },
         callback?: () => void
     ): void;
     getDataSync(options?: {
-        compression?: number;
-        level?: number;
-        strategy?: 'FILTERED' | 'HUFFMAN_ONLY' | 'RLE' | 'FIXED' | 'DEFAULT';
+        compression?: number | undefined;
+        level?: number | undefined;
+        strategy?: 'FILTERED' | 'HUFFMAN_ONLY' | 'RLE' | 'FIXED' | 'DEFAULT' | undefined;
     }): void;
     info(buffer: Buffer): void;
     layer(layer_name: string): VectorTile;
@@ -106,7 +106,7 @@ export class VectorTile {
     query(
         longitude: number,
         latitude: number,
-        options?: { tolerance?: number; layer?: string },
+        options?: { tolerance?: number | undefined; layer?: string | undefined },
         callback?: (err: Error, features: Feature[]) => void
     ): void;
 }

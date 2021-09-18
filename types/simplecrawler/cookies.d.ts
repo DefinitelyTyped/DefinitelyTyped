@@ -6,9 +6,9 @@ export class Cookie {
   name: string;
   value: string;
   expires: string | number;
-  path?: string;
-  domain?: string;
-  httponly?: boolean;
+  path?: string | undefined;
+  domain?: string | undefined;
+  httponly?: boolean | undefined;
 
   constructor(
     name: string,

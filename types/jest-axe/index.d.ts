@@ -10,7 +10,7 @@
 import { AxeResults, Result, RunOptions, Spec } from 'axe-core';
 
 export interface JestAxeConfigureOptions extends RunOptions {
-    globalOptions?: Spec;
+    globalOptions?: Spec | undefined;
 }
 
 /**

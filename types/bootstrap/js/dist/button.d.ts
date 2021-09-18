@@ -1,4 +1,4 @@
-import BaseComponent from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Button extends BaseComponent {
     /**
@@ -6,14 +6,9 @@ declare class Button extends BaseComponent {
      */
     toggle(): void;
 
-    /**
-     * Destroys an element's button.
-     */
-    dispose(): void;
-
+    static getInstance: GetInstanceFactory<Button>;
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Button>;
     static jQueryInterface: Button.jQueryInterface;
-
-    // static NAME: 'button';
 }
 
 declare namespace Button {

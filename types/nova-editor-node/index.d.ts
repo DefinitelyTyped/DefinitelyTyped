@@ -107,6 +107,7 @@ interface CommandsRegistry {
     register(name: string, callable: (...params: any[]) => void): Disposable;
     register<T>(name: string, callable: (this: T, ...params: any[]) => void, thisValue: T): Disposable;
     invoke(name: string, ...arguments: Transferrable[]): Promise<unknown>;
+    invoke(name: string, textEditor: TextEditor, ...arguments: Transferrable[]): Promise<unknown>;
 }
 
 /// https://docs.nova.app/api-reference/completion-context/
@@ -883,7 +884,7 @@ interface TextEditorEdit {
 
 interface TreeDataProvider<E> {
     getChildren(element: E | null): E[] | Promise<E[]>;
-    getParent?(element: E): E;
+    getParent?(element: E): E | null;
     getTreeItem(element: E): TreeItem;
 }
 
@@ -928,6 +929,17 @@ declare class TreeView<E> extends Disposable {
 
 /// https://docs.nova.app/api-reference/workspace/
 
+// The line is optional, unless a column is specified
+declare type FileLocation =
+    | {
+          line?: number;
+          column?: never;
+      }
+    | {
+          line: number;
+          column?: number;
+      };
+
 interface Workspace {
     readonly path: string | null;
     readonly config: Configuration;
@@ -941,7 +953,13 @@ interface Workspace {
     contains(path: string): boolean;
     relativizePath(path: string): string;
     openConfig(identifier?: string): void;
-    openFile(uri: string): Promise<TextEditor | null>;
+    openFile(uri: string, options?: FileLocation): Promise<TextEditor | null>;
+    openNewTextDocument(
+        options?: {
+            content?: string;
+            syntax?: string;
+        } & FileLocation,
+    ): Promise<TextEditor | null>;
     showInformativeMessage(message: string): void;
     showWarningMessage(message: string): void;
     showErrorMessage(message: string): void;
@@ -963,7 +981,7 @@ interface Workspace {
     ): void;
     showInputPalette(
         message: string,
-        options?: { placeholder?: string },
+        options?: { placeholder?: string; value?: string },
         callback?: (value: string | null) => void,
     ): void;
     showChoicePalette(

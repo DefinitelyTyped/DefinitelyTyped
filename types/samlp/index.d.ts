@@ -27,43 +27,43 @@ declare module "samlp" {
         issuer: string;
         cert: string | Buffer;
         key: string | Buffer;
-        audience?: string;
-        recipient?: string;
-        destination?: string;
-        RelayState?: string;
-        digestAlgorithm?: DigestAlgorithmType;
-        signatureAlgorithm?: SignatureAlgorithmType;
-        signResponse?: boolean;
-        encryptionCert?: string | Buffer;
-        encryptionPublicKey?: string | Buffer;
-        encryptionAlgorithm?: string;
-        keyEncryptionAlgorighm?: string;
-        lifetimeInSeconds?: number;
-        authnContextClassRef?: string;
-        inResponseTo?: string;
-        profileMapper?: ProfileMapperConstructor;
-        getUserFromRequest?: (req: express.Request) => any;
+        audience?: string | undefined;
+        recipient?: string | undefined;
+        destination?: string | undefined;
+        RelayState?: string | undefined;
+        digestAlgorithm?: DigestAlgorithmType | undefined;
+        signatureAlgorithm?: SignatureAlgorithmType | undefined;
+        signResponse?: boolean | undefined;
+        encryptionCert?: string | Buffer | undefined;
+        encryptionPublicKey?: string | Buffer | undefined;
+        encryptionAlgorithm?: string | undefined;
+        keyEncryptionAlgorighm?: string | undefined;
+        lifetimeInSeconds?: number | undefined;
+        authnContextClassRef?: string | undefined;
+        inResponseTo?: string | undefined;
+        profileMapper?: ProfileMapperConstructor | undefined;
+        getUserFromRequest?: ((req: express.Request) => any) | undefined;
         getPostURL: (audience: string, authnRequestDom: any, req: express.Request, callback: (err: any, url: string) => void) => void;
     }
 
     export interface IdPMetadataOptions {
         issuer: string;
         cert: string | Buffer;
-        profileMapper?: ProfileMapperConstructor;
-        redirectEndpointPath?: string;
-        postEndpointPath?: string;
+        profileMapper?: ProfileMapperConstructor | undefined;
+        redirectEndpointPath?: string | undefined;
+        postEndpointPath?: string | undefined;
         logoutEndpointPaths?: {
-            redirect?: string;
-            post?: string;
-        };
+            redirect?: string | undefined;
+            post?: string | undefined;
+        } | undefined;
     }
 
     export interface SamlRequest {
-        id?: string;
-        issuer?: string;
-        assertionConsumerServiceURL?: string;
-        destination?: string;
-        forceAuthn?: string;
+        id?: string | undefined;
+        issuer?: string | undefined;
+        assertionConsumerServiceURL?: string | undefined;
+        destination?: string | undefined;
+        forceAuthn?: string | undefined;
     }
 
 

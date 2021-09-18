@@ -87,6 +87,7 @@ import {
     StyleSheet,
     Switch,
     SwitchIOS,
+    SwitchChangeEvent,
     Systrace,
     TabBarIOS,
     Text,
@@ -516,6 +517,36 @@ appState = 'inactive';
 appState = 'unknown';
 appState = 'extension';
 
+const AppStateExample = () => {
+    const appState = React.useRef(AppState.currentState);
+    const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
+
+    React.useEffect(() => {
+      const subscription = AppState.addEventListener("change", nextAppState => {
+        if (
+          appState.current.match(/inactive|background/) &&
+          nextAppState === "active"
+        ) {
+          console.log("App has come to the foreground!");
+        }
+
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        console.log("AppState", appState.current);
+      });
+
+      return () => {
+        subscription.remove();
+      };
+    }, []);
+
+    return (
+      <View style={styles.container}>
+        <Text>Current state is: {appStateVisible}</Text>
+      </View>
+    );
+  };
+
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
     render() {
@@ -573,9 +604,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
-                ListFooterComponentStyle={{ padding: 8 }}
+                ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 ListHeaderComponent={null}
-                ListHeaderComponentStyle={{ padding: 8 }}
+                ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
                 CellRendererComponent={this._cellRenderer}
                 fadingEdgeLength={200}
             />
@@ -918,6 +949,8 @@ deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
 const androidEventEmitter = new NativeEventEmitter();
 const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
 const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
+androidEventEmitter.listenerCount('event'); // $ExpectType number
+sub2.remove();
 androidEventEmitter.removeAllListeners('event');
 androidEventEmitter.removeSubscription(sub1);
 
@@ -927,10 +960,12 @@ const nativeModule: NativeModule = {
     removeListeners(count: number) {},
 };
 const iosEventEmitter = new NativeEventEmitter(nativeModule);
-const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
-const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
-androidEventEmitter.removeAllListeners('event');
-androidEventEmitter.removeSubscription(sub3);
+const sub3 = iosEventEmitter.addListener('event', (event: object) => event);
+const sub4 = iosEventEmitter.addListener('event', (event: object) => event, {});
+iosEventEmitter.listenerCount('event');
+sub4.remove();
+iosEventEmitter.removeAllListeners('event');
+iosEventEmitter.removeSubscription(sub3);
 
 class CustomEventEmitter extends NativeEventEmitter {}
 
@@ -1192,10 +1227,6 @@ class AccessibilityTest extends React.Component {
     }
 }
 
-const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
-    console.log(isEnabled);
-});
-
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
 );
@@ -1303,8 +1334,27 @@ class BridgedComponentTest extends React.Component {
 }
 
 const SwitchColorTest = () => <Switch trackColor={{ true: 'pink', false: 'red' }} />;
+const SwitchColorOptionalTrueTest = () => <Switch trackColor={{ false: 'red' }} />;
+const SwitchColorOptionalFalseTest = () => <Switch trackColor={{ true: 'pink' }} />;
+const SwitchColorNullTest = () => <Switch trackColor={{ true: 'pink', false: null }} />;
 
 const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
+
+const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
+const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
+const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
+const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
+  const e: SwitchChangeEvent = event;
+  return new Promise(() => e.value);
+}} />;
+
+const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
+const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
+const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
+const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
+  const v: boolean = value;
+  return new Promise(() => v)
+}} />;
 
 const NativeIDTest = () => (
     <ScrollView nativeID={'nativeID'}>
@@ -1374,26 +1424,36 @@ const PermissionsAndroidTest = () => {
         }
     });
 
-    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(
-        results => {
-            switch (results['android.permission.CAMERA']) {
-                case 'granted':
-                    break;
-                case 'denied':
-                    break;
-                case 'never_ask_again':
-                    break;
-            }
-            switch (results['android.permission.ACCESS_FINE_LOCATION']) {
-                case 'granted':
-                    break;
-                case 'denied':
-                    break;
-                case 'never_ask_again':
-                    break;
-            }
-        },
-    );
+    PermissionsAndroid.requestMultiple([
+        'android.permission.CAMERA',
+        'android.permission.ACCESS_FINE_LOCATION',
+        'android.permission.ACCESS_BACKGROUND_LOCATION',
+    ]).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_BACKGROUND_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    });
 };
 
 // Platform
@@ -1512,6 +1572,34 @@ StyleSheet.create({
         tintColor: PlatformColor('test'),
     },
 });
+
+function someColorString(): ColorValue {
+    return '#000000';
+}
+
+function somePlatformColor(): ColorValue {
+    return PlatformColor('test');
+}
+
+const colors = {
+    color: someColorString(),
+    backgroundColor: somePlatformColor(),
+};
+
+StyleSheet.create({
+    labelCell: {
+        color: colors.color,
+        backgroundColor: colors.backgroundColor,
+    },
+});
+
+const OpaqueTest3 = () => (
+    <View
+        style={{
+            backgroundColor: colors.backgroundColor,
+        }}
+    />
+);
 
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
@@ -1721,10 +1809,8 @@ const I18nManagerTest = () => {
 };
 
 // LayoutAnimations
-LayoutAnimation.configureNext(LayoutAnimation.create(
-    123,
-    LayoutAnimation.Types.easeIn,
-    LayoutAnimation.Properties.opacity,
-));
+LayoutAnimation.configureNext(
+    LayoutAnimation.create(123, LayoutAnimation.Types.easeIn, LayoutAnimation.Properties.opacity),
+);
 
 LayoutAnimation.configureNext(LayoutAnimation.create(123, 'easeIn', 'opacity'));

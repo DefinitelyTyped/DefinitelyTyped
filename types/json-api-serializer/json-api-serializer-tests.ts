@@ -41,7 +41,10 @@ const data = [
   }
 ];
 
-const Serializer = new JSONAPISerializer();
+const Serializer = new JSONAPISerializer({
+  convertCase: "kebab-case",
+  unconvertCase: "camelCase"
+});
 
 // Register 'article' type
 Serializer.register("article", {
@@ -143,6 +146,16 @@ const jsonDocument = {
           type: 'comment',
           id: '2'
         }]
+      },
+      photos: {
+        meta: {
+          counts: 10
+        }
+      },
+      tags: {
+        links: {
+          related: "/articles/1/tags"
+        }
       }
     }
   }

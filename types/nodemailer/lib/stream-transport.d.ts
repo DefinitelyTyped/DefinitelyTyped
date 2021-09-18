@@ -17,9 +17,9 @@ declare namespace StreamTransport {
     interface Options extends MailOptions, TransportOptions {
         streamTransport: true;
         /** if true, then returns the message as a Buffer object instead of a stream */
-        buffer?: boolean;
+        buffer?: boolean | undefined;
         /** either ‘windows’ or ‘unix’ (default). Forces all newlines in the output to either use Windows syntax <CR><LF> or Unix syntax <LF> */
-        newline?: string;
+        newline?: string | undefined;
     }
 
     interface SentMessageInfo {
@@ -29,14 +29,18 @@ declare namespace StreamTransport {
         messageId: string;
         /** either stream (default) of buffer depending on the options */
         message: Buffer | Readable;
+        accepted: Array<string | Mail.Address>;
+        rejected: Array<string | Mail.Address>;
+        pending: Array<string | Mail.Address>;
+        response: string;
     }
 }
 
-declare class StreamTransport implements Transport {
+declare class StreamTransport implements Transport<StreamTransport.SentMessageInfo> {
     options: StreamTransport.Options;
 
     logger: shared.Logger;
-    mailer: Mail;
+    mailer: Mail<StreamTransport.SentMessageInfo>;
 
     name: string;
     version: string;
@@ -46,7 +50,7 @@ declare class StreamTransport implements Transport {
     constructor(options: StreamTransport.Options);
 
     /** Compiles a mailcomposer message and forwards it to handler that sends it */
-    send(mail: MailMessage, callback: (err: Error | null, info: StreamTransport.SentMessageInfo) => void): void;
+    send(mail: MailMessage<StreamTransport.SentMessageInfo>, callback: (err: Error | null, info: StreamTransport.SentMessageInfo) => void): void;
 }
 
 export = StreamTransport;

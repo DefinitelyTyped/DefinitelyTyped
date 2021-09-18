@@ -32,10 +32,10 @@ declare namespace seedrandom {
   }
 
   interface seedRandomOptions {
-    entropy?: boolean;
-    'global'?: boolean;
-    state?: boolean | State;
-    pass?: seedrandomCallback;
+    entropy?: boolean | undefined;
+    'global'?: boolean | undefined;
+    state?: boolean | State | undefined;
+    pass?: seedrandomCallback | undefined;
   }
 }
 

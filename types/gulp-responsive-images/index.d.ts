@@ -21,20 +21,20 @@ declare namespace GulpResponsiveImage {
         | RenameOptions;
 
     interface Settings {
-        crop?: boolean;
-        format?: string;
-        gravity?: gm.GravityDirection;
-        overwrite?: boolean;
-        quality?: number;
-        rename?: Rename;
-        percentage?: number;
-        sharpen?: boolean;
-        upscale?: boolean;
-        filter?: gm.FilterType;
-        height?: number;
-        width?: number;
-        samplingFactor?: SamplingFactor;
-        suffix?: string;
+        crop?: boolean | undefined;
+        format?: string | undefined;
+        gravity?: gm.GravityDirection | undefined;
+        overwrite?: boolean | undefined;
+        quality?: number | undefined;
+        rename?: Rename | undefined;
+        percentage?: number | undefined;
+        sharpen?: boolean | undefined;
+        upscale?: boolean | undefined;
+        filter?: gm.FilterType | undefined;
+        height?: number | undefined;
+        width?: number | undefined;
+        samplingFactor?: SamplingFactor | undefined;
+        suffix?: string | undefined;
     }
 
     interface Matchers {

@@ -1,5 +1,4 @@
 import { IncomingMessage } from 'http';
-import { SCExchange } from 'sc-broker-cluster';
 import { SignOptions } from 'jsonwebtoken';
 import { SocketProtocolIgnoreStatuses, SocketProtocolErrorStatuses } from 'sc-errors';
 import WebSocket = require('ws');
