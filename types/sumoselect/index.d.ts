@@ -1,4 +1,4 @@
-// Type definitions for sumoselect 3.0
+// Type definitions for sumoselect 3.3
 // Project: https://github.com/HemantNegi/jquery.sumoselect#readme
 // Definitions by: nagamejun <https://github.com/nagamejun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
