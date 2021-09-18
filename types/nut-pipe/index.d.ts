@@ -3,39 +3,40 @@
 // Definitions by: kenan hancer <https://github.com/kenanhancer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2, Context } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Context, Callback } from "aws-lambda";
 
-export type AsyncBasicHandler<TContext = any, TResult = any> = (context: TContext) => Promise<TResult>;
+export type AsyncBasicHandler<TEvent = any, TResult = any> = (event: TEvent) => Promise<TResult | Error>;
 
-export type AsyncLambdaHandler<TEvent = APIGatewayProxyEventV2, TContext = Context, TResult = APIGatewayProxyStructuredResultV2> =
-    (event: TEvent, context: Context | TContext) => Promise<APIGatewayProxyStructuredResultV2 | TResult>;
-
-export type AsyncBasicMiddleware<T extends AsyncBasicHandler = AsyncBasicHandler> =
-    T extends AsyncBasicHandler<infer TContext, infer TResult> ?
-    (context: TContext, next: AsyncBasicHandler<TContext, TResult>) => Promise<TResult> :
+export type AsyncBasicMiddleware<TEvent = any, T extends AsyncBasicHandler = AsyncBasicHandler<TEvent>> =
+    T extends AsyncBasicHandler<TEvent, infer TResult> ?
+    (event: TEvent, next: T) => Promise<TResult> :
     never;
 
-export type AsyncLambdaMiddleware<T extends AsyncLambdaHandler = AsyncLambdaHandler> =
-    T extends AsyncLambdaHandler<infer TEvent, infer TContext, infer TResult> ?
-    (event: TEvent, context: TContext, next: AsyncLambdaHandler<TEvent, TContext, TResult>) => Promise<TResult> :
+export type AsyncBasicMiddlewareWithServices<TEvent = any, TServices = Record<string, any>, T extends AsyncBasicHandler = AsyncBasicHandler<TEvent>> =
+    T extends AsyncBasicHandler<TEvent, infer TResult> ?
+    (event: TEvent, services: TServices, next: T) => Promise<TResult | Error> :
     never;
 
-export type AsyncBasicMiddlewareWithServices<T extends AsyncBasicHandler = AsyncBasicHandler> =
-    T extends AsyncBasicHandler<infer TContext, infer TResult> ?
-    (context: TContext, services: any, next: AsyncBasicHandler<TContext, TResult>) => Promise<TResult> :
+export type AsyncLambdaHandler<TEvent = APIGatewayProxyEventV2, TContext = Context, TResult = APIGatewayProxyResultV2> =
+    (event: TEvent, context: TContext, callback?: Callback<TResult>) => Promise<TResult | Error>;
+
+export type AsyncLambdaMiddleware<TEvent = APIGatewayProxyEventV2, T = AsyncLambdaHandler<TEvent>> =
+    T extends AsyncLambdaHandler<TEvent, infer TContext, infer TResult> ?
+    (event: TEvent, context: TContext, callback: Callback<TResult>, next: T) => void | Promise<TResult | Error> :
     never;
 
-export type AsyncLambdaMiddlewareWithServices<T extends AsyncLambdaHandler = AsyncLambdaHandler> =
-    T extends AsyncLambdaHandler<infer TEvent, infer TContext, infer TResult> ?
-    (event: TEvent, context: TContext, services: any, next: AsyncLambdaHandler<TEvent, TContext, TResult>) => Promise<TResult> :
+export type AsyncLambdaMiddlewareWithServices<TEvent = APIGatewayProxyEventV2, TServices = Record<string, any>, T = AsyncLambdaHandler<TEvent>> =
+    T extends AsyncLambdaHandler<TEvent, infer TContext, infer TResult> ?
+    (event: TEvent, context: TContext, callback: Callback<TResult>, services: TServices, next: T) => void | Promise<TResult | Error> :
     never;
 
 export type AsyncHandler = AsyncBasicHandler & AsyncLambdaHandler;
 
-export type AsyncMiddleware =
-    AsyncBasicMiddleware<AsyncHandler> |
-    AsyncBasicMiddlewareWithServices<AsyncHandler> |
-    AsyncLambdaMiddleware<AsyncHandler> |
-    AsyncLambdaMiddlewareWithServices<AsyncHandler>;
+export type AsyncMiddleware<T = never> =
+    AsyncBasicMiddleware |
+    AsyncBasicMiddlewareWithServices |
+    AsyncLambdaMiddleware |
+    AsyncLambdaMiddlewareWithServices |
+    T;
 
-export function buildPipeline(functions: AsyncMiddleware[], services?: Record<string, any>, index?: number): AsyncHandler;
+export function buildPipeline(functions: Array<AsyncMiddleware<any>>, services?: Record<string, any>, index?: number): AsyncHandler;
