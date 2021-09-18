@@ -108,6 +108,7 @@ interface Methods {
     add(value: string, text?: string, index?: number): HTMLSelectElement;
     remove(index: number): void;
     removeAll(): void;
+    find(value: string): number;
     selectItem(indexOrValue: number | string): void;
     unSelectItem(indexOrValue: number | string): void;
     disableItem(index: number): void;
