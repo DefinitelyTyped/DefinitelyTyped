@@ -5,6 +5,8 @@
 //                 Kirill Ivanov <https://github.com/koorya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 export type PossibleValue = string | number | boolean;
 
 export type RenderType = string;
