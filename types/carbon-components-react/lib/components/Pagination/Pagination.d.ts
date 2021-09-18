@@ -26,6 +26,7 @@ export interface PaginationProps extends Omit<ReactDivAttr, ExcludedAttributes> 
     pageSizes: readonly number[] | readonly PaginationPageSize[],
     pageText?(page: number): string,
     pagesUnknown?: boolean | undefined,
+    size?: "sm" | "md" | "lg" | undefined;
     totalItems?: number | undefined,
 }
 

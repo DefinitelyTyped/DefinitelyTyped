@@ -5,6 +5,7 @@ import {
     ReactAttr,
     ReactButtonAttr, ForwardRefReturn, VerticalDirection
 } from "../../../typings/shared";
+import { MenuProps } from "../Menu/Menu";
 
 // NOTE: The index does not export * on this file because some non-default exports are not exported via the top-level index.
 //       You'll need to export types manually in this directory's index file.
@@ -31,7 +32,7 @@ export interface OverflowMenuProps extends Omit<ReactButtonAttr, ExcludedAttribu
     open?: boolean | undefined,
     renderIcon?: any,
     selectorPrimaryFocus?: string | undefined,
-    size?: "sm" | "md" | "lg" | "xl" | undefined,
+    size?: MenuProps["size"],
 }
 
 declare class OverflowMenuComponent extends React.Component<OverflowMenuProps> { }
