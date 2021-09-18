@@ -92,6 +92,10 @@ type Option = Partial<{
      * @default true
      */
     showTitle: boolean;
+    /**
+     * @default null
+     */
+    max: number | null;
 }>;
 
 interface Methods {

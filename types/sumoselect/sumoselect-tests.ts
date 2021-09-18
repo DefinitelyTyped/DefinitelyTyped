@@ -24,6 +24,7 @@ $('.SlectBox').SumoSelect({
     locale: ['OK', 'Cancel', 'Select All'],
     up: false,
     showTitle: true,
+    max: null,
 });
 
 // events
