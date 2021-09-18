@@ -46,7 +46,7 @@ export type AnimationTypes =
     | "rollIn"
     | "bounce"
     | "flash";
-    
+
 export interface ModalProps {
     closemodal: () => any;
     visible: boolean;

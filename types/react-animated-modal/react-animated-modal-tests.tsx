@@ -2,7 +2,7 @@ import * as React from "react";
 import Modal from "react-animated-modal";
 
 export default class ReactAnimatedModalTests extends React.Component {
-    state = { showModal: false }
+    state = { showModal: false };
 
     render() {
         return (
@@ -13,6 +13,6 @@ export default class ReactAnimatedModalTests extends React.Component {
             >
                 Modal Content...
             </Modal>
-        )
+        );
     }
 }
