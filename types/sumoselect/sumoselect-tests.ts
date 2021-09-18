@@ -25,6 +25,7 @@ $('.SlectBox').SumoSelect({
     up: false,
     showTitle: true,
     max: null,
+    renderLi: (li, originalOption) => li,
 });
 
 // events

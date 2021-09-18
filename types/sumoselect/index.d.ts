@@ -96,6 +96,10 @@ type Option = Partial<{
      * @default null
      */
     max: number | null;
+    /**
+     * @default (li: JQuery, originalOption: JQuery) => JQuery
+     */
+    renderLi(li: JQuery, originalOption: JQuery): JQuery;
 }>;
 
 interface Methods {
