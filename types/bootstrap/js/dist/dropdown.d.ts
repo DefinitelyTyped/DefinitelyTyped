@@ -148,7 +148,7 @@ declare namespace Dropdown {
          *
          * @default true
          */
-        autoClose: boolean | string;
+        autoClose: boolean | 'inside' | 'outside';
     }
 
     type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => void;
