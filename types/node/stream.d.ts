@@ -14,7 +14,7 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
@@ -60,6 +60,7 @@ declare module 'stream' {
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
+             * @experimental
              */
             readonly readableAborted: boolean;
             /**
@@ -71,6 +72,7 @@ declare module 'stream' {
             /**
              * Returns whether `'data'` has been emitted.
              * @since v16.7.0
+             * @experimental
              */
             readonly readableDidRead: boolean;
             /**
@@ -805,6 +807,15 @@ declare module 'stream' {
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
+            /**
+             * If `false` then the stream will automatically end the writable side when the
+             * readable side ends. Set initially by the `allowHalfOpen` constructor option,
+             * which defaults to `false`.
+             *
+             * This can be changed manually to change the half-open behavior of an existing`Duplex` stream instance, but must be changed before the `'end'` event is
+             * emitted.
+             * @since v0.9.4
+             */
             allowHalfOpen: boolean;
             constructor(opts?: DuplexOptions);
             /**
