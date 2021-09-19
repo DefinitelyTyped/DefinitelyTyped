@@ -1,7 +1,7 @@
 import MaskedInput, { conformToMask } from "react-text-mask";
 import * as React from 'react';
 
-const mask = ["(", /\d/, /\d/, ")"]
+const mask = ["(", /\d/, /\d/, ")"];
 
 // $ExpectType ConformToMaskResult
 conformToMask("123", mask, {
