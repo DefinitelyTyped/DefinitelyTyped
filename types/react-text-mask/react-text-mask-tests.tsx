@@ -13,10 +13,10 @@ conformToMask("123", mask, {
     placeholderChar: "#"
 });
 
-// playground: https://codesandbox.io/s/nifty-wiles-6uwlb?file=/src/App.tsx
+// Playground: https://codesandbox.io/s/nifty-wiles-6uwlb?file=/src/App.tsx
 function Test() {
     return (
-        <div className="App">
+        <div>
             {/* throwing error after typing */}
             {/* @ts-expect-error */}
             <MaskedInput />
@@ -25,19 +25,34 @@ function Test() {
             <MaskedInput mask={true} />
             {/* works fine */}
             <MaskedInput mask={false} />
-
             <MaskedInput
-                mask={mask}
-                render={(setRef, props) => {
-                    return <input {...props} ref={(ref) => ref && setRef(ref)}/>
+                mask={(value) => {
+                    if (value.length) {
+                        return mask.slice(-1);
+                    }
+                    return mask;
                 }}
             />
             <MaskedInput
+                showMask
                 mask={mask}
-                pipe={(conformedValue) => {
-                   return conformedValue
+                guide={false}
+                keepCharPositions={false}
+                value=""
+                placeholderChar="#"
+                render={(setRef, props) => {
+                    return <input {...props} ref={(ref) => ref && setRef(ref)} />;
                 }}
-           />
+            />
+            <MaskedInput
+                mask={false}
+                pipe={(conformedValue => {
+                    if (conformedValue.includes("1")) {
+                        return false;
+                    }
+                    return conformedValue;
+                })}
+            />
             <MaskedInput
                 mask={mask}
                 value="2"
@@ -45,11 +60,11 @@ function Test() {
                     const newChar = {
                         index: 2,
                         value: "9",
-                    }
-                    const nextConformedValue = conformedValue.split("")
-                    nextConformedValue.splice(newChar.index, 1, newChar.value)
+                    };
+                    const nextConformedValue = conformedValue.split("");
+                    nextConformedValue.splice(newChar.index, 1, newChar.value);
 
-                    return {value: nextConformedValue.join(""), indexesOfPipedChars: [newChar.index]}
+                    return { value: nextConformedValue.join(""), indexesOfPipedChars: [newChar.index] };
                 }}
             />
         </div>
