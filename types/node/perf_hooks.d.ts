@@ -84,7 +84,7 @@ declare module 'perf_hooks' {
          * Additional detail specific to the `entryType`.
          * @since v16.0.0
          */
-        readonly details?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
+        readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
