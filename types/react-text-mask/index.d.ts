@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
 
-import * as React from "react";
+import * as React from 'react';
 
 export type Mask = Array<string | RegExp> | false;
 
@@ -23,8 +23,7 @@ export interface PipeConfig {
 
 export type ConformToMaskConfig = Partial<Omit<PipeConfig, 'rawValue'>>;
 
-export interface MaskedInputProps
-    extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     mask: Mask | ((value: string) => Mask);
 
     guide?: boolean;
@@ -35,16 +34,19 @@ export interface MaskedInputProps
 
     pipe?: (
         conformedValue: string,
-        config: PipeConfig
+        config: PipeConfig,
     ) => false | string | { value: string; indexesOfPipedChars: number[] };
 
     showMask?: boolean;
 
-    render?: ((ref: (inputElement: HTMLElement) => void, props: {
-        onChange: (event: React.ChangeEvent<HTMLElement>) => void,
-        onBlur: (event: React.FocusEvent<HTMLElement>) => void,
-        defaultValue: string | undefined,
-    }) => React.ReactNode);
+    render?: (
+        ref: (inputElement: HTMLElement) => void,
+        props: {
+            onChange: (event: React.ChangeEvent<HTMLElement>) => void;
+            onBlur: (event: React.FocusEvent<HTMLElement>) => void;
+            defaultValue: string | undefined;
+        },
+    ) => React.ReactNode;
 }
 
 export interface ConformToMaskResult {
@@ -54,11 +56,8 @@ export interface ConformToMaskResult {
     };
 }
 
-export default class MaskedInput extends React.Component<
-    MaskedInputProps,
-    any
-> {
-  inputElement: HTMLElement;
+export default class MaskedInput extends React.Component<MaskedInputProps, any> {
+    inputElement: HTMLElement;
 }
 
 export function conformToMask(
