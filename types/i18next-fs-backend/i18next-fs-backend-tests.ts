@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import Backend, { i18nextFsBackend } from 'i18next-fs-backend';
 
-//#region Plain options
+// #region Plain options
 
 const plainOptions: { backend: i18nextFsBackend.i18nextFsBackendOptions } = {
     backend: {
@@ -16,8 +16,8 @@ const plainOptions: { backend: i18nextFsBackend.i18nextFsBackendOptions } = {
 i18next.use(Backend).init(plainOptions);
 i18next.use(Backend).init({ backend: plainOptions.backend });
 
-//#endregion
-//#region Custom loadPath resolver
+// #endregion
+// #region Custom loadPath resolver
 
 const loadPathOptions: { backend: i18nextFsBackend.i18nextFsBackendOptions } = {
     backend: {
@@ -32,8 +32,8 @@ const loadPathOptions: { backend: i18nextFsBackend.i18nextFsBackendOptions } = {
 i18next.use(Backend).init(loadPathOptions);
 i18next.use(Backend).init({ backend: loadPathOptions.backend });
 
-//#endregion
-//#region Custom parse & stringify
+// #endregion
+// #region Custom parse & stringify
 
 const parseStringifyOptions: { backend: i18nextFsBackend.i18nextFsBackendOptions } = {
     backend: {
@@ -48,4 +48,4 @@ const parseStringifyOptions: { backend: i18nextFsBackend.i18nextFsBackendOptions
 i18next.use(Backend).init(parseStringifyOptions);
 i18next.use(Backend).init({ backend: parseStringifyOptions.backend });
 
-//#endregion
+// #endregion
