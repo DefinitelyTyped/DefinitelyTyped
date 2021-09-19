@@ -323,7 +323,7 @@ declare module 'dns/promises' {
      * The `dnsPromises.setServers()` method must not be called while a DNS query is in
      * progress.
      *
-     * This method works much like[resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
+     * This method works much like [resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
      * That is, if attempting to resolve with the first server provided results in a`NOTFOUND` error, the `resolve()` method will _not_ attempt to resolve with
      * subsequent servers provided. Fallback DNS servers will only be used if the
      * earlier ones time out or result in some other error.
