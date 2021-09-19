@@ -1,3 +1,3 @@
-import { rgba } from "@carbon/colors";
+import { rgba } from '@carbon/colors';
 
-rgba("TOTORO", 0.4); // $ExpectType string
+rgba('TOTORO', 0.4); // $ExpectType string
