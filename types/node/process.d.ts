@@ -1067,7 +1067,7 @@ declare module 'process' {
                  * ```
                  *
                  * The value `'android'` may also be returned if the Node.js is built on the
-                 * Android operating system. However, Android support in Node.js[is experimental](https://github.com/nodejs/node/blob/HEAD/BUILDING.md#androidandroid-based-devices-eg-firefox-os).
+                 * Android operating system. However, Android support in Node.js [is experimental](https://github.com/nodejs/node/blob/HEAD/BUILDING.md#androidandroid-based-devices-eg-firefox-os).
                  * @since v0.1.16
                  */
                 readonly platform: Platform;
