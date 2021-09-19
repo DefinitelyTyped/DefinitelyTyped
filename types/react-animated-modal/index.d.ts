@@ -50,7 +50,8 @@ export type AnimationTypes =
 export interface ModalProps {
     closemodal: () => void;
     visible: boolean;
-    type: AnimationTypes;
+    /** @default 'flipInX' */
+    type?: AnimationTypes | undefined;
 }
 
 export const Modal: React.FunctionComponent<ModalProps>;
