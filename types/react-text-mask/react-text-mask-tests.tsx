@@ -1,11 +1,20 @@
 import MaskedInput, { conformToMask } from "react-text-mask";
 import * as React from 'react';
 
-// $ExpectType conformToMaskResult
-conformToMask("123", ["(", /\d/, /\d/, ")"]);
+const mask = ["(", /\d/, /\d/, ")"]
 
-// playground: https://codesandbox.io/s/falling-sun-xdthu?file=/src/App.js:67-353
-const Test: React.FC = () => {
+// $ExpectType ConformToMaskResult
+conformToMask("123", mask, {
+    currentCaretPosition: 0,
+    placeholder: "",
+    previousConformedValue: "",
+    guide: false,
+    keepCharPositions: false,
+    placeholderChar: "#"
+});
+
+// playground: https://codesandbox.io/s/nifty-wiles-6uwlb?file=/src/App.tsx
+function Test() {
     return (
         <div className="App">
             {/* throwing error after typing */}
@@ -16,6 +25,33 @@ const Test: React.FC = () => {
             <MaskedInput mask={true} />
             {/* works fine */}
             <MaskedInput mask={false} />
+
+            <MaskedInput
+                mask={mask}
+                render={(setRef, props) => {
+                    return <input {...props} ref={(ref) => ref && setRef(ref)}/>
+                }}
+            />
+            <MaskedInput
+                mask={mask}
+                pipe={(conformedValue) => {
+                   return conformedValue
+                }}
+           />
+            <MaskedInput
+                mask={mask}
+                value="2"
+                pipe={(conformedValue) => {
+                    const newChar = {
+                        index: 2,
+                        value: "9",
+                    }
+                    const nextConformedValue = conformedValue.split("")
+                    nextConformedValue.splice(newChar.index, 1, newChar.value)
+
+                    return {value: nextConformedValue.join(""), indexesOfPipedChars: [newChar.index]}
+                }}
+            />
         </div>
     );
-};
+}
