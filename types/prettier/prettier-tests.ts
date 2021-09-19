@@ -226,7 +226,7 @@ const plugin: prettier.Plugin<PluginAST> = {
             since: '1.0.0',
             type: 'path',
             category: 'Test',
-        }
+        },
     },
 };
 
