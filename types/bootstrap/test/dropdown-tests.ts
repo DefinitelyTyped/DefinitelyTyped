@@ -52,7 +52,7 @@ element.addEventListener(Dropdown.Events.hidden, event => {
 $('.alert').dropdown();
 
 $('.alert').dropdown({ flip: true }); // $ExpectError
-$('.alert').dropdown({ offset: [0, 2] }); // $ExpectType void
+$('.alert').dropdown({ offset: [0, 2], autoClose: true }); // $ExpectType void
 
 $('.alert').dropdown('show'); // $ExpectType void
 $('.alert').dropdown('hide'); // $ExpectType void

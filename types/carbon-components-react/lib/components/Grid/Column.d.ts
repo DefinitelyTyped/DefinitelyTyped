@@ -1,5 +1,11 @@
 import * as React from "react";
-import { ReactAttr, ReactDivAttr, JSXIntrinsicElementProps, FCReturn } from "../../../typings/shared";
+import {
+    ReactAttr,
+    ReactDivAttr,
+    JSXIntrinsicElementProps,
+    FCReturn,
+    ReactComponentConstructor
+} from "../../../typings/shared";
 
 export interface ColumnSpanDetailed {
     offset?: number | undefined;
@@ -34,8 +40,8 @@ export type ColumnIntrinsicProps<K extends keyof JSX.IntrinsicElements> = Column
     };
 
 export type ColumnCustomComponentProps<
-    C extends React.JSXElementConstructor<any>
-> = C extends React.JSXElementConstructor<infer P>
+    C extends ReactComponentConstructor<never>
+> = C extends ReactComponentConstructor<infer P>
     ? ColumnBaseProps &
           SafeProps<P> & {
               as: C;
@@ -44,6 +50,6 @@ export type ColumnCustomComponentProps<
 
 declare function Column(props: ColumnDefaultProps): FCReturn;
 declare function Column<T extends keyof JSX.IntrinsicElements>(props: ColumnIntrinsicProps<T>): FCReturn;
-declare function Column<T extends React.JSXElementConstructor<any>>(props: ColumnCustomComponentProps<T>): FCReturn;
+declare function Column<T extends ReactComponentConstructor<never>>(props: ColumnCustomComponentProps<T>): FCReturn;
 
 export default Column;

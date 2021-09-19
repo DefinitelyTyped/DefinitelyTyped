@@ -22,7 +22,7 @@
  *
  * In most cases, there should be little to no reason for an application to
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/tty.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tty.js)
  */
 declare module 'tty' {
     import * as net from 'node:net';

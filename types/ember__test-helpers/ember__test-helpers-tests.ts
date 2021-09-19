@@ -63,6 +63,9 @@ test('DOM interactions', async () => {
     await select(messageElement, 'content');
     await scrollTo(messageElement, 0, 0);
 
+    await triggerEvent(document, 'custom-event');
+    await triggerKeyEvent(document, 'keydown', 'Enter', { ctrlKey: true });
+
     const allMessages = findAll('.message');
     for (const element of allMessages) {
         await click(element);

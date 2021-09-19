@@ -2,7 +2,7 @@ import * as React from "react";
 
 export interface TableExpandHeaderProps extends React.ThHTMLAttributes<HTMLTableHeaderCellElement> {
     ariaLabel?: string | undefined,
-    enableExpando?: boolean | undefined,
+    enableExpand?: boolean | undefined,
     expandIconDescription?: string | undefined,
     isExpanded?: boolean | undefined,
     onExpand?(event: React.MouseEvent<HTMLButtonElement>): void;

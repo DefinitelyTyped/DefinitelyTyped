@@ -504,7 +504,7 @@ export class NodeProcessingContext {
             )
             .replaceAll('/**', '')
             .replaceAll('*/', '')
-            .replaceAll(/`&lt;(.*?)&gt;`/g, '`$1`');
+            .replaceAll(/&lt;(.*?)&gt;/g, '$1');
             const newNode = removeCommentsRecursive(node, transformationContext, typeChecker);
             addSyntheticLeadingComment(newNode, SyntaxKind.MultiLineCommentTrivia, jsdoc, true);
         } else {
