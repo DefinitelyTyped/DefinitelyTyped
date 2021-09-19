@@ -48,7 +48,7 @@ export type AnimationTypes =
     | "flash";
 
 export interface ModalProps {
-    closemodal: () => any;
+    closemodal: () => void;
     visible: boolean;
     type: AnimationTypes;
 }
