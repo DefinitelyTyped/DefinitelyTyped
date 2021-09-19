@@ -1,4 +1,4 @@
-// Type definitions for React Router 5.1
+// Type definitions for react-router-dom 5.3
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
