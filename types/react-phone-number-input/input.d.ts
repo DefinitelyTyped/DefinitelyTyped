@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>, 'onChange'> {
+export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     /**
      * If country is specified then the phone number can only be input in "national"
      * (not "international") format, and will be parsed as a phone number belonging
