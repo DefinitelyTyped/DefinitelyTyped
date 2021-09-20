@@ -3,12 +3,13 @@ import { useSyncExternalStoreExtra } from 'use-sync-external-store/extra';
 
 interface Store<State> {
     getState(): State;
+    getServerState(): State;
     subscribe(onStoreChange: () => void): () => void;
 }
 
 declare const numberStore: Store<number>;
 function useVersion(): number {
-    return useSyncExternalStore(numberStore.subscribe, numberStore.getState);
+    return useSyncExternalStore(numberStore.subscribe, numberStore.getState, numberStore.getServerState);
 }
 
 function useStoreWrong() {
@@ -37,15 +38,21 @@ function useUsers(): string[] {
 function useReduxSelector<Selection>(
     selector: (state: { version: { major: number; minor: number }; users: string[] }) => Selection,
 ): Selection {
-    return useSyncExternalStoreExtra(objectStore.subscribe, objectStore.getState, selector);
+    return useSyncExternalStoreExtra(objectStore.subscribe, objectStore.getState, objectStore.getServerState, selector);
 }
 function useReduxUsers(): string[] {
-    return useSyncExternalStoreExtra(objectStore.subscribe, objectStore.getState, state => state.users);
+    return useSyncExternalStoreExtra(
+        objectStore.subscribe,
+        objectStore.getState,
+        objectStore.getServerState,
+        state => state.users,
+    );
 }
 function useReduxVersion(): { major: number; minor: number } {
     useSyncExternalStoreExtra(
         objectStore.subscribe,
         objectStore.getState,
+        objectStore.getServerState,
         state => state.version,
         // `patch` does not exist on type `{ major: number, minor: number }`
         // $ExpectError
@@ -54,6 +61,7 @@ function useReduxVersion(): { major: number; minor: number } {
     return useSyncExternalStoreExtra(
         objectStore.subscribe,
         objectStore.getState,
+        objectStore.getServerState,
         state => state.version,
         (a, b) => a.minor === b.minor && a.major === b.major,
     );

@@ -6,6 +6,7 @@ const { unstable_useSyncExternalStore: useSyncExternalStore } = React;
 // keep in sync with `use-sync-external-store-tests.ts`
 interface Store<State> {
     getState(): State;
+    getServerState(): State;
     subscribe(onStoreChange: () => void): () => void;
 }
 
@@ -34,5 +35,9 @@ function useStoreWrong() {
 
 declare const objectStore: Store<{ version: { major: number; minor: number }; users: string[] }>;
 function useUsers(): string[] {
-    return useSyncExternalStore(objectStore.subscribe, () => objectStore.getState().users);
+    return useSyncExternalStore(
+        objectStore.subscribe,
+        () => objectStore.getState().users,
+        () => objectStore.getServerState().users,
+    );
 }
