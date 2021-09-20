@@ -35,7 +35,7 @@ interface IBANStatic {
      * @param iban The iban to validate.
      * @returns True if valid, false otherwise.
      */
-    isValid(iban: string): boolean;
+    isValid(iban: any): boolean;
 
     /**
      * @summary Check of the passed BBAN is valid.
@@ -43,7 +43,7 @@ interface IBANStatic {
      * @param bban The BBAN to validate.
      * @returns True if valid, false otherwise.
      */
-    isValidBBAN(countryCode: string, bban: string): boolean;
+    isValidBBAN(countryCode: any, bban: any): boolean;
 
     /**
      * @summary Returns the IBAN in a print format.
@@ -74,7 +74,7 @@ declare namespace IBAN {
         /** an example valid IBAN */
         readonly example: string;
         /** Check if the passed iban is valid according to this specification. */
-        isValid(iban: string): boolean;
+        isValid(iban: any): boolean;
         /**
          * Convert the passed IBAN to a country-specific BBAN.
          */
@@ -90,7 +90,7 @@ declare namespace IBAN {
          * This function only checks the format of the BBAN (length and matching the letetr/number specs) but does not
          * verify the check digit.
          */
-        isValidBBAN(bban: string): boolean;
+        isValidBBAN(bban: any): boolean;
     }
 }
 
