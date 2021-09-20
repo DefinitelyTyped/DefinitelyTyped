@@ -1956,19 +1956,19 @@ declare module 'fs' {
      * @param [flags='r'] See `support of file system `flags``.
      * @param [mode=0o666]
      */
-    export function open(path: PathLike, flags: OpenMode, mode: Mode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    export function open(path: PathLike, flags: OpenMode | undefined | null, mode: Mode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     /**
      * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function open(path: PathLike, flags: OpenMode, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    export function open(path: PathLike, flags: OpenMode | undefined | null, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     export namespace open {
         /**
          * Asynchronous open(2) - open and possibly create a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
          */
-        function __promisify__(path: PathLike, flags: OpenMode, mode?: Mode | null): Promise<number>;
+        function __promisify__(path: PathLike, flags?: OpenMode, mode?: Mode | null): Promise<number>;
     }
     /**
      * Returns an integer representing the file descriptor.
@@ -1979,7 +1979,7 @@ declare module 'fs' {
      * @param [flags='r']
      * @param [mode=0o666]
      */
-    export function openSync(path: PathLike, flags: OpenMode, mode?: Mode | null): number;
+    export function openSync(path: PathLike, flags?: OpenMode, mode?: Mode | null): number;
     /**
      * Change the file system timestamps of the object referenced by `path`.
      *
