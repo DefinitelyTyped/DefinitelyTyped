@@ -520,6 +520,7 @@ appState = 'extension';
 const AppStateExample = () => {
     const appState = React.useRef(AppState.currentState);
     const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
+    const appStateIsAvailable = AppState.isAvailable;
 
     React.useEffect(() => {
       const subscription = AppState.addEventListener("change", nextAppState => {
@@ -543,6 +544,7 @@ const AppStateExample = () => {
     return (
       <View style={styles.container}>
         <Text>Current state is: {appStateVisible}</Text>
+        <Text>Available: {appStateIsAvailable}</Text>
       </View>
     );
   };

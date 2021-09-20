@@ -323,6 +323,7 @@ bool = range.isEqual(range);
 let treeWalker: TreeWalker = range.getWalker();
 treeWalker = range.getWalker({ singleCharacters: true });
 const result3 = range.getItems({ startPosition: position }).next();
+range.getItems();
 if (!result3.done) {
     const item: Item = result3.value;
     bool = range.containsItem(item);
@@ -355,11 +356,14 @@ livePosition = LivePosition.fromPosition(position);
 position = livePosition.toPosition();
 
 model = new Model();
-model.change(writer => {
-    const myWriter: Writer = writer;
+model.change((writer: Writer) => {
+    console.log(writer);
 });
-model.enqueueChange("transparent", writer => {
-    const myWriter: Writer = writer;
+model.enqueueChange("transparent", (writer: Writer) => {
+    console.log(writer);
+});
+model.enqueueChange((writer: Writer) => {
+    console.log(writer);
 });
 model.insertContent(new DocumentFragment());
 model.insertContent(new Writer().createText(""));

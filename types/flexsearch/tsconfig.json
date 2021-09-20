@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "postcss-custom-properties-tests.ts"
+        "test/flexsearch-tests.ts",
+        "test/data.ts"
     ]
 }

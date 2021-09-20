@@ -7,6 +7,7 @@ declare class AutofillStore {
     isModified(): boolean;
     setAsModified(): void;
     private formatFilePath_;
+    private newProfileDataSet_;
     load(): DataSet;
     save(): void;
     findEntry(entry: AutofillRecordKey): AutofillRecord;

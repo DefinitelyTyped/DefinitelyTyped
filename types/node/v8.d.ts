@@ -1,10 +1,10 @@
 /**
- * The `v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/)built into the Node.js binary. It can be accessed using:
+ * The `v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/) built into the Node.js binary. It can be accessed using:
  *
  * ```js
  * const v8 = require('v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/v8.js)
  */
 declare module 'v8' {
     import { Readable } from 'node:stream';

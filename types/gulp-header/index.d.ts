@@ -5,6 +5,6 @@
 // TypeScript Version: 2.2
 /// <reference types="node"/>
 
-declare function header(text: string, data?: object): NodeJS.ReadWriteStream;
+declare function header(text?: string, data?: object): NodeJS.ReadWriteStream;
 
 export = header;

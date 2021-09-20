@@ -134,6 +134,8 @@ redis.zadd('myset', 'NX', 'CH', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 1, 'member', cb);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member', cb);
+redis.zscore('myset', 'member').then(console.log);
+redis.zscore('myset', 'member', cb);
 redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
@@ -369,6 +371,7 @@ new Redis({
         servername: 'tlsservername',
     },
     enableAutoPipelining: true,
+    disconnectTimeout: 1000
 });
 // Test commandTimeout
 new Redis({

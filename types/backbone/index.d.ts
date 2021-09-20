@@ -212,7 +212,7 @@ declare namespace Backbone {
      * E - Extensions to the model constructor options. You can accept additional constructor options
      * by listing them in the E parameter.
      */
-    class Model<T extends ObjectHash = any, S = ModelSetOptions, E = {}> extends ModelBase implements Events {
+    class Model<T extends ObjectHash = any, S = ModelSetOptions, E = any> extends ModelBase implements Events {
         /**
          * Do not use, prefer TypeScript's extend functionality.
          */

@@ -3,9 +3,7 @@
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
 //                        Oleg Varaksin <https://github.com/ova2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
-/// <reference types="webgl2" />
+// TypeScript Version: 4.3
 
 // https://html.spec.whatwg.org/multipage/canvas.html#dom-canvas-transfercontroltooffscreen
 interface HTMLCanvasElement {

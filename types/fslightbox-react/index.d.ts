@@ -43,6 +43,7 @@ export interface FsLightboxProps {
 
     // preferences
     loadOnlyCurrentSource?: boolean | undefined;
+    showThumbsOnMount?: boolean | undefined;
     slideDistance?: number | undefined;
     openOnMount?: boolean | undefined;
 }

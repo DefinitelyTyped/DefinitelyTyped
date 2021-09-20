@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/events.js)
  */
 declare module 'events' {
     interface EventEmitterOptions {
@@ -78,7 +78,7 @@ declare module 'events' {
          * The `Promise` will resolve with an array of all the arguments emitted to the
          * given event.
          *
-         * This method is intentionally generic and works with the web platform[EventTarget](https://dom.spec.whatwg.org/#interface-eventtarget) interface, which has no special`'error'` event
+         * This method is intentionally generic and works with the web platform [EventTarget](https://dom.spec.whatwg.org/#interface-eventtarget) interface, which has no special`'error'` event
          * semantics and does not listen to the `'error'` event.
          *
          * ```js

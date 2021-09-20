@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Pendo.io Agent 2.16
+// Type definitions for non-npm package Pendo.io Agent 2.17
 // Project: https://www.pendo.io/
 // Definitions by: Aaron Beall <https://github.com/aaronbeall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ declare namespace pendo {
     }
 
     interface Metadata {
-        [key: string]: string | number | boolean;
+        [key: string]: string | number | boolean | string[];
     }
 
     type IdentityMetadata = { id?: string | undefined; } & Metadata;

@@ -1,19 +1,18 @@
 import * as React from "react";
-import { FCReturn } from "../../../typings/shared";
+import { FCReturn, ForwardRefProps, ReactLIAttr } from "../../../typings/shared";
 
-export interface HeaderMenuProps<RP = {}> {
-    "aria-label"?: string | undefined,
-    "aria-labelledby"?: string | undefined,
-    children?: React.ReactNode | undefined,
-    className?: string | undefined,
+interface HeaderMenuProps<RP = {}> extends ReactLIAttr {
     menuLinkName: string,
-    ref?(element: HTMLElement): void;
+    focusRef?(element: HTMLElement): void;
     renderMenuContent?: React.ComponentType<RP> | undefined,
-    tabIndex?: number | undefined,
 }
 
 declare class HeaderMenu extends React.Component<HeaderMenuProps> { }
 
-declare function HeaderMenuForwardRef<RP = {}>(props: HeaderMenuProps<RP>): FCReturn;
+export interface HeaderMenuForwardRefProps<RP = {}> extends Omit<HeaderMenuProps<RP>, "focusRef" | "ref"> {
+    ref?: HeaderMenuProps<RP>["focusRef"] | undefined;
+}
+
+declare function HeaderMenuForwardRef<RP = {}>(props: HeaderMenuForwardRefProps<RP>): FCReturn;
 
 export default HeaderMenuForwardRef;

@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -1045,8 +1045,8 @@ declare module 'fs' {
      */
     export const lstatSync: StatSyncFn;
     /**
-     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX[`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. No arguments other than a
-     * possible
+     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. No arguments other than
+     * a possible
      * exception are given to the completion callback.
      * @since v0.1.31
      */
@@ -1060,7 +1060,7 @@ declare module 'fs' {
         function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
     /**
-     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX[`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. Returns `undefined`.
+     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. Returns `undefined`.
      * @since v0.1.31
      */
     export function linkSync(existingPath: PathLike, newPath: PathLike): void;
@@ -1949,7 +1949,7 @@ declare module 'fs' {
      *
      * Some characters (`< > : " / \ | ? *`) are reserved under Windows as documented
      * by [Naming Files, Paths, and Namespaces](https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file). Under NTFS, if the filename contains
-     * a colon, Node.js will open a file system stream, as described by[this MSDN page](https://docs.microsoft.com/en-us/windows/desktop/FileIO/using-streams).
+     * a colon, Node.js will open a file system stream, as described by [this MSDN page](https://docs.microsoft.com/en-us/windows/desktop/FileIO/using-streams).
      *
      * Functions based on `fs.open()` exhibit this behavior as well:`fs.writeFile()`, `fs.readFile()`, etc.
      * @since v0.0.2
@@ -2510,6 +2510,8 @@ declare module 'fs' {
      *
      * The `encoding` option is ignored if `data` is a buffer.
      *
+     * The `mode` option only affects the newly created file. See {@link open} for more details.
+     *
      * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
      *
      * ```js
@@ -2590,6 +2592,8 @@ declare module 'fs' {
      *
      * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
      *
+     * The `mode` option only affects the newly created file. See {@link open} for more details.
+     *
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link writeFile}.
      * @since v0.1.29
@@ -2599,6 +2603,8 @@ declare module 'fs' {
     /**
      * Asynchronously append data to a file, creating the file if it does not yet
      * exist. `data` can be a string or a `Buffer`.
+     *
+     * The `mode` option only affects the newly created file. See {@link open} for more details.
      *
      * ```js
      * import { appendFile } from 'fs';
@@ -2673,6 +2679,8 @@ declare module 'fs' {
     /**
      * Synchronously append data to a file, creating the file if it does not yet
      * exist. `data` can be a string or a `Buffer`.
+     *
+     * The `mode` option only affects the newly created file. See {@link open} for more details.
      *
      * ```js
      * import { appendFileSync } from 'fs';
@@ -3433,7 +3441,7 @@ declare module 'fs' {
     export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
     /**
      * Forces all currently queued I/O operations associated with the file to the
-     * operating system's synchronized I/O completion state. Refer to the POSIX[`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. No arguments other
+     * operating system's synchronized I/O completion state. Refer to the POSIX [`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. No arguments other
      * than a possible
      * exception are given to the completion callback.
      * @since v0.1.96
@@ -3448,7 +3456,7 @@ declare module 'fs' {
     }
     /**
      * Forces all currently queued I/O operations associated with the file to the
-     * operating system's synchronized I/O completion state. Refer to the POSIX[`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. Returns `undefined`.
+     * operating system's synchronized I/O completion state. Refer to the POSIX [`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. Returns `undefined`.
      * @since v0.1.96
      */
     export function fdatasyncSync(fd: number): void;
