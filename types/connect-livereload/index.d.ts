@@ -29,6 +29,7 @@ declare namespace livereload {
         hostname?: string | undefined;
         port?: number | undefined;
         src?: string | undefined;
+        plugins?: string[] | undefined;
     }
 }
 
