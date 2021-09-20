@@ -374,7 +374,7 @@ async function testPromisify() {
 }
 
 async () => {
-    const handle: FileHandle = await openAsync('test', 'r');
+    const handle: FileHandle = await openAsync('test');
     const writeStream = fs.createWriteStream('./index.d.ts', {
         fd: handle,
     });
