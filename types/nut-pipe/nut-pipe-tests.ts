@@ -399,6 +399,36 @@ const AwsAsyncLambdaMiddlewareWithServicesTest_v2 = async () => {
     assert(response === expectedResponse);
 };
 
+const AwsAsyncLambdaMiddlewareWithServicesTest_v3 = async () => {
+    const middleware1: AsyncLambdaMiddlewareWithServices = async (event, context, callback, services, next) => {
+        await next(event, context);
+    };
+
+    const middleware2: AsyncLambdaMiddlewareWithServices = async (event, context, callback, services, next) => {
+        await next(event, context);
+    };
+
+    const middleware3: AsyncLambdaMiddlewareWithServices = async (event, context, callback, services, next) => {
+        await next(event, context);
+    };
+
+    const lambdaFunction: AsyncLambdaMiddlewareWithServices<Person, Service> = async (event, context, callback, services) => {
+        return services.greetingService.sayHello(event.firstName, event.lastName);
+    };
+
+    const lambdaFunc: AsyncHandler = buildPipeline([middleware1, middleware2, middleware3, lambdaFunction], services);
+
+    const person: Person = { firstName: 'kenan', lastName: 'hancer' };
+
+    const event: APIGatewayProxyEventV2 = createAPIGatewayProxyEventV2(person);
+
+    const response = await lambdaFunc(event, createContext());
+
+    const expectedResponse = `Hello ${person.firstName} ${person.lastName}`;
+
+    assert(response === expectedResponse);
+};
+
 const AwsNonAsyncLambdaMiddlewareTest = async () => {
     const middleware1: AsyncLambdaMiddleware = (event, context, callback, next) => {
         next(event, context, callback);
@@ -463,5 +493,7 @@ AwsAsyncLambdaMiddlewareTest_v2();
 AwsAsyncLambdaMiddlewareWithServicesTest_v1();
 
 AwsAsyncLambdaMiddlewareWithServicesTest_v2();
+
+AwsAsyncLambdaMiddlewareWithServicesTest_v3();
 
 AwsNonAsyncLambdaMiddlewareTest();
