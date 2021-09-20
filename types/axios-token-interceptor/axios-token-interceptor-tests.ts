@@ -1,6 +1,6 @@
 import tokenProvider = require('axios-token-interceptor');
 
-const getToken = async (): Promise<object> => ({
+const getToken = async (): Promise<{ access_token: string; expires_in: number }> => ({
     access_token: 'token1',
     expires_in: 50,
 });
