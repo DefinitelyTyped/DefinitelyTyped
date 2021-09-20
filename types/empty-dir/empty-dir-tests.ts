@@ -8,6 +8,9 @@ emptyDir('./', (err, isEmpty) => {
 });
 
 // $ExpectType boolean
+emptyDir.sync(["./test", "./array"]);
+
+// $ExpectType boolean
 emptyDir.sync('./test/empty');
 
 function filter(filepath: string) {
