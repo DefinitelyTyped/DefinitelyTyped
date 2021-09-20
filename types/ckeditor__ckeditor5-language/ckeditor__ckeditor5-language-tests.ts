@@ -39,3 +39,6 @@ editor.plugins.get('TextPartLanguageEditing');
 
 // $ExpectType TextPartLanguageUI
 editor.plugins.get('TextPartLanguageUI');
+
+// $ExpectType TextPartLanguageCommand | undefined
+editor.commands.get('TextPartLanguageCommand');

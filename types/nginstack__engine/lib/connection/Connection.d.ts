@@ -56,7 +56,10 @@ declare class Connection {
     ): DataSet;
     createKey(keysQuantity?: number, getHighKeys?: number): number;
     getKeyOfClass(className: string): number;
-    applyUpdates(ArrayOfDataSets: DataSet | DataSet[], insertIntoLogTable: boolean | null): number;
+    applyUpdates(
+        ArrayOfDataSets: DataSet | DataSet[],
+        insertIntoLogTable: boolean | null
+    ): number;
     get(className: string, codeOrKey: string, fieldName: string): any;
     getDatabaseNames(): string;
     refreshLocalCache(waitDataRefreshing?: boolean): void;
@@ -81,7 +84,11 @@ declare class Connection {
     ): DataSet;
     classHierarchicalProperty(classNameOrKey: number | string, propertyName: string): any;
     getChangeableLicenses(userKey: number): number[];
-    setChangeableLicenses(userKey: number, licenseKeys: number[], passwords: string[]): void;
+    setChangeableLicenses(
+        userKey: number,
+        licenseKeys: number[],
+        passwords: string[]
+    ): void;
     getIssuableLicenses(userKey: number): number[];
     setIssuableLicenses(userKey: number, licenseKeys: any[], passwords: any[]): void;
     getLicenseFromNegativeRecord(key: number): number;

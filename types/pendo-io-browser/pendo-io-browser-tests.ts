@@ -13,7 +13,8 @@ pendo.initialize({
     },
     account: {
         id: "PUT_ACCOUNT_ID_HERE",
-        name: "CorpSchmorp"
+        name: "CorpSchmorp",
+        tags: ["t-1", "t-2"]
     }
 });
 
@@ -93,4 +94,4 @@ pendo.onGuideDismissed();
 
 pendo.feedback.loginAndRedirect();
 const a = document.createElement("a");
-pendo.feedback.loginAndRedirect({anchor: a});
+pendo.feedback.loginAndRedirect({ anchor: a });

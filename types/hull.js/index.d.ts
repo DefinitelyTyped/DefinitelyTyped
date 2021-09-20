@@ -10,10 +10,6 @@
  * @param concavity
  * @param format Points format
  */
-declare function hull(
-    pointSet: number[][] | object[],
-    concavity?: number,
-    format?: string[]
-): number[];
+declare function hull(pointSet: number[][] | object[], concavity?: number, format?: string[]): number[][] | object[];
 
 export = hull;

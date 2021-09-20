@@ -14,7 +14,7 @@ const test1 = async () => {
         return next(context);
     };
 
-    const basicMiddleware4: AsyncBasicMiddleware = async (context) => {
+    const basicMiddleware4: AsyncBasicMiddleware = async (context: any) => {
         return `Hello ${context.firstName} ${context.lastName}`;
     };
 
@@ -22,7 +22,7 @@ const test1 = async () => {
 
     const person = { firstName: "kenan", lastName: "hancer" };
 
-    const response: any = await pipelineInvoker(person);
+    const response: string = await pipelineInvoker(person);
 };
 
 const test2 = async () => {
@@ -54,7 +54,7 @@ const test2 = async () => {
 
     const person = { firstName: "kenan", lastName: "hancer" };
 
-    const response = pipelineInvoker(person);
+    const response: string = await pipelineInvoker(person);
 };
 
 const createAPIGatewayProxyEventV2 = (body = ''): APIGatewayProxyEventV2 => ({
@@ -106,25 +106,25 @@ const test3 = async () => {
         lastName: string;
     }
 
-    const middleware1: AsyncLambdaMiddleware = async (event: APIGatewayProxyEventV2, context: Context, next: AsyncLambdaHandler) => {
-        const result: APIGatewayProxyStructuredResultV2 = await next(event, context);
+    const middleware1: AsyncLambdaMiddleware = async (event, context, next) => {
+        const result = await next(event, context);
 
         return result;
     };
 
-    const middleware2: AsyncLambdaMiddleware = async (event: APIGatewayProxyEventV2, context: Context, next: AsyncLambdaHandler) => {
-        const result: APIGatewayProxyStructuredResultV2 = await next(event, context);
+    const middleware2: AsyncLambdaMiddleware = async (event, context, next) => {
+        const result = await next(event, context);
 
         return result;
     };
 
-    const middleware3: AsyncLambdaMiddleware = async (event: APIGatewayProxyEventV2, context: Context, next: AsyncLambdaHandler) => {
-        const result: APIGatewayProxyStructuredResultV2 = await next(event, context);
+    const middleware3: AsyncLambdaMiddleware = async (event, context, next) => {
+        const result = await next(event, context);
 
         return result;
     };
 
-    const middleware4: AsyncLambdaMiddleware = async (event: APIGatewayProxyEventV2, context: Context, next: AsyncLambdaHandler) => {
+    const middleware4: AsyncLambdaMiddleware = async (event, context, next) => {
         const result: APIGatewayProxyStructuredResultV2 = { statusCode: 200, body: event.body };
 
         return result;
@@ -138,7 +138,7 @@ const test3 = async () => {
 
     const event: APIGatewayProxyEventV2 = createAPIGatewayProxyEventV2(body);
 
-    const response: APIGatewayProxyStructuredResultV2 = await lambdaFunc(event, createContext());
+    const response = await lambdaFunc(event, createContext());
 };
 
 test1();

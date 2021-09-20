@@ -13,5 +13,8 @@ gulp.task('webdriver_standalone', protractor.webdriver_standalone);
 
 gulp.task('webdriver-update', protractor.webdriver_update);
 
+gulp.task('webdriver-update-specific', protractor.webdriver_update_specific);
+
+console.log(protractor.getProtractorCli());
 
 console.log(protractor.getProtractorDir());

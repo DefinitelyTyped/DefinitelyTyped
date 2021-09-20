@@ -2329,7 +2329,7 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
     showIcon?: boolean | undefined;
 }
 export const GlobalToast: {
-    show: (option: Omit<GlobalToastProps, 'show' | 'onFinish'>) => void;
+    show: (option: Omit<GlobalToastProps, 'show'>) => void;
     hide: () => void;
 };
 
@@ -3343,7 +3343,7 @@ export interface NotificationProps extends TouchableOpacityProps {
     backIconCenter?: boolean | undefined;
 }
 // tslint:disable-next-line no-unnecessary-class
-export class Notification {
+export class Notification extends React.Component<NotificationProps> {
     static show: (option: NotificationProps) => void;
     static hide: () => void;
 }
@@ -9233,6 +9233,28 @@ export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
      * @defaultValue undefined
      */
     symbol?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 上午字段
+     * @defaultValue 'AM'
+     */
+    /**
+     * @language en-US
+     * @description AM Text
+     * @defaultValue 'AM'
+     */
+    amText?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 下午字段
+     * @defaultValue 'PM'
+     */
+    /**
+     * @language en-US
+     * @description PM 字段
+     * @defaultValue 'PM'
+     */
+    pmText?: string | undefined;
 }
 export class TimerPicker extends React.Component<TimerPickerProps> {}
 
@@ -11355,7 +11377,7 @@ export let TYSdk: {
         removeListener: (eventType: string, cb: AnyFunction) => void;
         removeAllListeners: (eventType?: string) => void;
     };
-    Navigator: object | NavigationContainerRef;
+    Navigator: DeprecatedNavigator | NavigationContainerRef;
     /**
      * @param a api name
      * @param postData api params

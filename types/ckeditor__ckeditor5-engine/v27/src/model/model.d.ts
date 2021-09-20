@@ -49,6 +49,7 @@ export default class Model implements Emitter, Observable {
         },
     ): void;
     destroy(): void;
+    enqueueChange(callback: (writer: Writer) => void): void;
     enqueueChange(batchOrType: Batch | "transparent" | "default", callback: (writer: Writer) => void): void;
     getSelectedContent(selection: Selection | DocumentSelection): DocumentFragment;
     hasContent(

@@ -36,15 +36,21 @@ import { Range } from '@ckeditor/ckeditor5-engine';
  *    } );
  */
 export default class MentionCommand extends Command {
-  refresh(): void;
+    refresh(): void;
 
-  /**
-   * Executes the command.
-   */
-  execute(options?: {
-    mention: string | { id: string; text: string };
-    marker: string;
-    text?: string;
-    range?: Range;
-  }): void;
+    /**
+     * Executes the command.
+     */
+    execute(options?: {
+        mention: string | { id: string; text: string };
+        marker: string;
+        text?: string;
+        range?: Range;
+    }): void;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        MentionCommand: MentionCommand;
+    }
 }

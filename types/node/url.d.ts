@@ -5,7 +5,7 @@
  * ```js
  * import url from 'url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/url.js)
  */
 declare module 'url' {
     import { Blob } from 'node:buffer';
@@ -684,7 +684,7 @@ declare module 'url' {
      * @since v7.5.0, v6.13.0
      */
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | NodeJS.Dict<string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
         /**
          * Append a new name-value pair to the query string.
          */
@@ -697,7 +697,7 @@ declare module 'url' {
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
          * Each item of the iterator is a JavaScript `Array`. The first item of the `Array`is the `name`, the second item of the `Array` is the `value`.
          *
-         * Alias for {@link earchParams[@@iterator]}.
+         * Alias for `urlSearchParams[@@iterator]()`.
          */
         entries(): IterableIterator<[string, string]>;
         /**

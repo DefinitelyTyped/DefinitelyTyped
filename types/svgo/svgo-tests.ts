@@ -1,8 +1,10 @@
 import { extendDefaultPlugins, loadConfig, optimize, OptimizedSvg, OptimizeOptions, Plugin } from 'svgo';
 
 // Various optimize options
+const rawInput = Buffer.from('test');
 let optimized: OptimizedSvg;
 optimized = optimize('');
+optimized = optimize(rawInput);
 optimized = optimize('', {});
 optimized = optimize('', { plugins: [] });
 optimized = optimize('', { datauri: 'base64' });
@@ -199,7 +201,8 @@ optimized = optimize('', {
         { name: 'moveGroupAttrsToElems' },
         { name: 'prefixIds', params: { delim: '__', prefixIds: true, prefixClassNames: true } },
         { name: 'removeAttributesBySelector' },
-        { name: 'removeAttrs', params: { elemSeparator: ':', preserveCurrentColor: false, attrs: [] } },
+        { name: 'removeAttrs', params: { elemSeparator: ':', preserveCurrentColor: false, attrs: 'fill' } },
+        { name: 'removeAttrs', params: { elemSeparator: ':', preserveCurrentColor: false, attrs: ['fill', 'stroke'] } },
         { name: 'removeComments' },
         { name: 'removeDesc', params: { removeAny: true } },
         { name: 'removeDimensions' },
@@ -458,3 +461,12 @@ optimize('', { plugins: extendDefaultPlugins(plugins) });
 loadConfig('foo.js');
 // $ExpectType Promise<OptimizeOptions>
 loadConfig('foo.js', '/home/user');
+
+(async () => {
+    const config = await loadConfig();
+    if (!config) {
+        config; // $ExpectType null
+        return;
+    }
+    config; // $ExpectType OptimizeOptions
+})();

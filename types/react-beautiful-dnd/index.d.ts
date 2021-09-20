@@ -577,7 +577,7 @@ export interface DroppableProvidedProps {
 }
 
 export interface DroppableProvided {
-    innerRef(element: HTMLElement | null): any;
+    innerRef: (element: HTMLElement | null) => any;
     placeholder?: React.ReactElement<HTMLElement> | null | undefined;
     droppableProps: DroppableProvidedProps;
 }
@@ -657,7 +657,7 @@ export interface DraggableProvidedDragHandleProps {
 
 export interface DraggableProvided {
     // will be removed after move to react 16
-    innerRef(element?: HTMLElement | null): any;
+    innerRef: (element?: HTMLElement | null) => any;
     draggableProps: DraggableProvidedDraggableProps;
     dragHandleProps?: DraggableProvidedDragHandleProps | undefined;
 }
