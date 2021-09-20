@@ -5,11 +5,8 @@ const getToken = async (): Promise<{ access_token: string; expires_in: number }>
     expires_in: 50,
 });
 
-tokenProvider({
-    headerFormatter: (token: { access_token: string; expires_in: number }) => `Bearer ${token.access_token}`,
-    getToken: tokenProvider.tokenCache(getToken, {
-        getMaxAge: (token: { access_token: string; expires_in: number }) => token.expires_in,
-    }),
+tokenProvider.tokenCache(getToken, {
+    getMaxAge: token => token.expires_in,
 });
 
 tokenProvider(); // $ExpectError
