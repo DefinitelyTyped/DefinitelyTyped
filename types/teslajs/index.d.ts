@@ -1,4 +1,4 @@
-// Type definitions for teslajs 4.7
+// Type definitions for teslajs 4.9
 // Project: https://github.com/mseminatore/TeslaJS#readme
 // Definitions by: Felipe Castillo <https://github.com/fcastilloec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,12 @@ export interface Vehicle {
     id: string;
     vehicleID: number;
     [key: string]: string | number | boolean | null;
+}
+export interface Credentials {
+    username: string;
+    password: string;
+    mfaPassCode: string;
+    mfaDeviceName?: string | undefined;
 }
 export interface TokenResponse {
     response: object;
@@ -58,8 +64,8 @@ export function vinDecode(vehicle: Vehicle): object;
 export function getPaintColor(vehicle: Vehicle): string;
 export function getVin(vehicle: Vehicle): string;
 export function getShortVin(vehicle: Vehicle): string;
-export function login(username: string, password: string, callback: nodeBack): void;
-export function loginAsync(username: string, password: string): Promise<TokenResponse>;
+export function login(credentials: Credentials, callback: nodeBack): void;
+export function loginAsync(credentials: Credentials): Promise<TokenResponse>;
 export function refreshToken(refresh_token: string, callback: nodeBack): void;
 export function refreshTokenAsync(refresh_token: string): Promise<TokenResponse>;
 export function logout(authToken: string, callback: nodeBack): void;
