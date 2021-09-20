@@ -482,8 +482,8 @@ declare module 'child_process' {
         encoding?: 'buffer' | null | undefined;
     }
     function execSync(command: string): Buffer;
-    function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;
-    function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
+    function execSync(command: string, options: ExecSyncOptionsWithStringEncoding): string;
+    function execSync(command: string, options: ExecSyncOptionsWithBufferEncoding): Buffer;
     function execSync(command: string, options?: ExecSyncOptions): string | Buffer;
 
     interface ExecFileSyncOptions extends CommonOptions {
@@ -501,10 +501,11 @@ declare module 'child_process' {
         encoding: BufferEncoding; // specify `null`.
     }
     function execFileSync(command: string): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(command: string, options: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(command: string, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     function execFileSync(command: string, options?: ExecFileSyncOptions): string | Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(command: string, args: ReadonlyArray<string>): Buffer;
+    function execFileSync(command: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(command: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): string | Buffer;
 }
