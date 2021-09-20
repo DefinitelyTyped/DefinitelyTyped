@@ -15,5 +15,5 @@ parsedAddress.fullAddress;
 parsedAddress.zip;
 parsedAddress.city;
 
+// $ExpectType string
 let parsedFullName = human.getFullestName("John & Peggy Sue");
-parsedFullName.fullName;

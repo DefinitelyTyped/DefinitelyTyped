@@ -27,7 +27,7 @@ declare namespace humanparser {
 
     interface HumanparserStatic {
         parseName (name: string): NameOutput;
-        getFullestName (name: string): FullerNameOutput;
+        getFullestName (name: string): string;
         parseAddress (address: string): AddressOutput;
     }
 
