@@ -11,7 +11,7 @@ export interface Vehicle {
 export interface Credentials {
     username: string;
     password: string;
-    mfaPassCode: string;
+    mfaPassCode?: string | undefined;
     mfaDeviceName?: string | undefined;
 }
 export interface TokenResponse {
