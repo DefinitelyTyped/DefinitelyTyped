@@ -729,10 +729,10 @@ declare namespace kendo.data {
     }
 
     class OrgChartModel extends Model {
-        static idField: string | undefined;
-        static nameField: string | undefined;
-        static titleField: string | undefined;
-        static avatarField: string | undefined;
+        static idField: string;
+        static nameField: string;
+        static titleField: string;
+        static avatarField: string;
         static fields: DataSourceSchemaModelFields;
 
         id: any;
