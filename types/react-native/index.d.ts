@@ -41,6 +41,7 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
+//                 Brett Lindsay <https://github.com/bdlindsay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -7406,12 +7407,20 @@ export type AppStateStatus = 'active' | 'background' | 'inactive' | 'unknown' | 
 
 export interface AppStateStatic {
     currentState: AppStateStatus;
+    isAvailable: boolean;
 
     /**
      * Add a handler to AppState changes by listening to the change event
      * type and providing the handler
      */
-    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): EmitterSubscription;
+    addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): NativeEventSubscription;
+
+    /**
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove a handler by passing the change event type and the handler
+     */
+    removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
 }
 
 /**
