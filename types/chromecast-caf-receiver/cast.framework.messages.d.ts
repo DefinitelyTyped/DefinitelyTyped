@@ -2460,8 +2460,6 @@ export class Break {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.ContentRating
  */
 export class ContentRating {
-    constructor();
-
     /**
      * Content Rating icon. If provided, it will be displayed along with "Playing Next" preview.
      */
