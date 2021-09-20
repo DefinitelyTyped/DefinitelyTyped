@@ -146,6 +146,18 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    let count = 32;
+    forge.random.getBytes(count, (err, bytes) => {
+        if (err) {
+            throw err;
+        }
+        if (bytes.length !== count) {
+            throw new Error('invalid length');
+        }
+    });
+}
+
+{
     cert.publicKey = keypair.publicKey;
     cert.serialNumber = new Date().getTime() + '';
     cert.validity.notBefore = new Date();
