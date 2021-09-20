@@ -2560,8 +2560,6 @@ export class AudiobookContainerMetadata {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.TracksInfo
  */
 export class TracksInfo {
-    constructor();
-
     /**
      * The track Ids that should be active.
      */
