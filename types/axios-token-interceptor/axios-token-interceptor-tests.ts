@@ -1,5 +1,17 @@
 import tokenProvider = require('axios-token-interceptor');
 
+const getToken = async (): Promise<object> => ({
+    access_token: 'token1',
+    expires_in: 50,
+});
+
+tokenProvider({
+    headerFormatter: (token: { access_token: string; expires_in: number }) => `Bearer ${token.access_token}`,
+    getToken: tokenProvider.tokenCache(getToken, {
+        getMaxAge: (token: { access_token: string; expires_in: number }) => token.expires_in,
+    }),
+});
+
 tokenProvider(); // $ExpectError
 
 const validOptions1 = {

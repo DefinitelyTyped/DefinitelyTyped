@@ -17,13 +17,13 @@ declare namespace AxiosTokenProvider {
         token?: string | undefined;
         getToken?: (() => string | Promise<string>) | undefined;
         header?: string | undefined;
-        headerFormatter?: ((token: string) => string) | undefined;
+        headerFormatter?: ((token: any) => string) | undefined;
     }
 
     type TokenProvider = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
 
     interface TokenCacheOptions {
-        getMaxAge?: (() => number) | undefined;
+        getMaxAge?: (() => number) | ((el: any) => number) | undefined;
         maxAge?: number | undefined;
     }
 
