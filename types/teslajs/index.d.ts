@@ -181,4 +181,8 @@ export function calendarAsync(options: optionsType, entry: any): Promise<Result>
 export function makeCalendarEntry(eventName: string, location: string, startTime: number, endTime: number, accountName: string, phoneName: string): object;
 export function homelink(options: optionsType, lat: number, long: number, token: string, callback: nodeBack): void;
 export function homelinkAsync(options: optionsType, lat: number, long: number, token: string): Promise<Result>;
+export function products(options: optionsType, callback: nodeBack): void;
+export function productsAsync(options: optionsType): Promise<object[]>;
+export function solarStatus(options: optionsType, callback: nodeBack): void;
+export function solarStatusAsync(options: optionsType): Promise<object>;
 export function startStreaming(options: any, callback: nodeBack, onDataCb: nodeBack): any;
