@@ -2618,7 +2618,7 @@ declare namespace kendo.ui {
         preventDefault: Function;
         isDefaultPrevented(): boolean;
     }
-    
+
     class Captcha extends kendo.ui.Widget {
 
         static fn: Captcha;
@@ -7418,7 +7418,7 @@ declare namespace kendo.ui {
 
     interface NumericTextBoxSpinEvent extends NumericTextBoxEvent {
     }
-   
+
     class OrgChart extends kendo.ui.Widget {
 
         static fn: OrgChart;
@@ -8185,7 +8185,7 @@ declare namespace kendo.ui {
     interface PivotGridPdfExportEvent extends PivotGridEvent {
         promise?: JQueryPromise<any> | undefined;
     }
-    
+
     class Popover extends kendo.ui.Widget {
 
         static fn: Popover;
@@ -24652,7 +24652,7 @@ interface JQuery {
     kendoAutoComplete(): JQuery;
     kendoAutoComplete(options: kendo.ui.AutoCompleteOptions): JQuery;
     data(key: "kendoAutoComplete"): kendo.ui.AutoComplete;
-    
+
     kendoBadge(): JQuery;
     kendoBadge(options: kendo.ui.BadgeOptions): JQuery;
     data(key: "kendoBadge"): kendo.ui.Badge;
@@ -24936,7 +24936,7 @@ interface JQuery {
     kendoNumericTextBox(): JQuery;
     kendoNumericTextBox(options: kendo.ui.NumericTextBoxOptions): JQuery;
     data(key: "kendoNumericTextBox"): kendo.ui.NumericTextBox;
-   
+
     kendoOrgChart(): JQuery;
     kendoOrgChart(options: kendo.ui.OrgChartOptions): JQuery;
     data(key: "kendoOrgChart"): kendo.ui.OrgChart;
@@ -24964,7 +24964,7 @@ interface JQuery {
     kendoPopover(): JQuery;
     kendoPopover(options: kendo.ui.PopoverOptions): JQuery;
     data(key: "kendoPopover"): kendo.ui.Popover;
-    
+
     kendoPopup(): JQuery;
     kendoPopup(options: kendo.ui.PopupOptions): JQuery;
     data(key: "kendoPopup"): kendo.ui.Popup;
