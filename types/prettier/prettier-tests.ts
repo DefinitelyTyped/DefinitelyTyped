@@ -231,3 +231,5 @@ const plugin: prettier.Plugin<PluginAST> = {
 };
 
 prettier.format('a line!', { parser: 'lines', plugins: [plugin] });
+
+prettier.format('another', { bracketSameLine: true });
