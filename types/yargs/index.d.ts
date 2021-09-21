@@ -149,7 +149,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             description: string,
             builder?: BuilderCallback<T, U>,
-            handler?: (args: Arguments<U>) => void,
+            handler?: (args: Arguments<U>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<U>;
@@ -157,7 +157,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             description: string,
             builder?: O,
-            handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<T>;
@@ -166,7 +166,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             showInHelp: false,
             builder?: BuilderCallback<T, U>,
-            handler?: (args: Arguments<U>) => void,
+            handler?: (args: Arguments<U>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<T>;
@@ -174,7 +174,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             showInHelp: false,
             builder?: O,
-            handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
         command<U>(module: CommandModule<T, U>): Argv<U>;
@@ -460,8 +460,11 @@ declare namespace yargs {
          * @param [context]  Provides a useful mechanism for passing state information to commands
          */
         parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] }
-            | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        parse(
+            arg: string | ReadonlyArray<string>,
+            context?: object,
+            parseCallback?: ParseCallback<T>,
+        ): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
         parseSync(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
         parseSync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
         parseAsync(): Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
@@ -615,10 +618,20 @@ declare namespace yargs {
          * and allows you to provide configuration for the positional arguments accepted by your program:
          */
         usage(message: string): Argv<T>;
-        usage<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
-        usage<U>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
-        usage<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
-        usage<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
+        usage<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void | Promise<void>): Argv<T>;
+        usage<U>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void | Promise<void>): Argv<T>;
+        usage<O extends { [key: string]: Options }>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            builder?: O,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
+        ): Argv<T>;
+        usage<O extends { [key: string]: Options }>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: boolean,
+            builder?: O,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
+        ): Argv<T>;
 
         /**
          * Add an option (e.g. `--version`) that displays the version number (given by the version parameter) and exits the process.
@@ -739,7 +752,7 @@ declare namespace yargs {
         skipValidation?: boolean | undefined;
         /** boolean, interpret option as a string, see `string()` */
         string?: boolean | undefined;
-        type?: "array" | "count" | PositionalOptionsType | undefined;
+        type?: 'array' | 'count' | PositionalOptionsType | undefined;
     }
 
     interface PositionalOptions {
@@ -785,6 +798,7 @@ declare namespace yargs {
     /** Gives number[] if T is an array type, otherwise number. Preserves | undefined. */
     type ToNumber<T> = (Exclude<T, undefined> extends any[] ? number[] : number) | Extract<T, undefined>;
 
+    // prettier-ignore
     type InferredOptionType<O extends Options | PositionalOptions> =
         O extends (
             | { required: string | true }
@@ -795,6 +809,7 @@ declare namespace yargs {
         Exclude<InferredOptionTypeInner<O>, undefined> :
         InferredOptionTypeInner<O>;
 
+    // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =
         O extends { default: any, coerce: (arg: any) => infer T } ? T :
         O extends { default: infer D } ? D :
@@ -802,6 +817,7 @@ declare namespace yargs {
         O extends { count: true } ? number :
         RequiredOptionType<O> | undefined;
 
+    // prettier-ignore
     type RequiredOptionType<O extends Options | PositionalOptions> =
         O extends { type: "array", string: true } ? string[] :
         O extends { type: "array", number: true } ? number[] :
@@ -841,14 +857,14 @@ declare namespace yargs {
         handler: (args: Arguments<U>) => void;
     }
 
-    type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T>|Promise<Arguments<T>>, output: string) => void;
+    type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T> | Promise<Arguments<T>>, output: string) => void;
     type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>) | ((args: Argv<T>) => PromiseLike<Argv<U>>);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void;
     type Choices = ReadonlyArray<string | number | true | undefined>;
-    type PositionalOptionsType = "boolean" | "number" | "string";
+    type PositionalOptionsType = 'boolean' | 'number' | 'string';
 }
 
 declare var yargs: yargs.Argv;
