@@ -1,4 +1,4 @@
-import { SeparatorOptions } from "../..";
+import { SeparatorOptions } from '../..';
 
 /**
  * Represents a choice-item separator.
@@ -7,7 +7,7 @@ declare class Separator implements SeparatorOptions {
     /**
      * @inheritdoc
      */
-    readonly type: "separator";
+    readonly type: 'separator';
 
     /**
      * @inheritdoc

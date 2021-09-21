@@ -1,7 +1,7 @@
-import inquirer = require("../..");
-import Prompt = require("./base");
-import Paginator = require("../utils/paginator");
-import { Interface as ReadlineInterface } from "readline";
+import inquirer = require('../..');
+import Prompt = require('./base');
+import Paginator = require('../utils/paginator');
+import { Interface as ReadlineInterface } from 'readline';
 
 /**
  * The question for the `RawListPrompt<T>`.
@@ -89,7 +89,7 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
      * @param type
      * A value indicating whether the up or the down-arrow is being pressed.
      */
-    protected onArrowKey(type: "up" | "down"): void;
+    protected onArrowKey(type: 'up' | 'down'): void;
 
     /**
      * Handles the `success`-event of the prompt.

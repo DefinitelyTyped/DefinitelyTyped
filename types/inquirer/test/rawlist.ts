@@ -1,4 +1,4 @@
-import inquirer = require("inquirer");
+import inquirer = require('inquirer');
 
 /**
  * Raw List prompt example
@@ -14,8 +14,8 @@ inquirer
                 'Make a reservation',
                 new inquirer.Separator(),
                 'Ask opening hours',
-                'Talk to the receptionist'
-            ]
+                'Talk to the receptionist',
+            ],
         },
         {
             type: 'rawlist',
@@ -24,8 +24,8 @@ inquirer
             choices: ['Jumbo', 'Large', 'Standard', 'Medium', 'Small', 'Micro'],
             filter(val) {
                 return val.toLowerCase();
-            }
-        }
+            },
+        },
     ])
     .then(answers => {
         console.log(JSON.stringify(answers, null, '  '));
