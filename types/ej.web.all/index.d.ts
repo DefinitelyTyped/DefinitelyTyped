@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 19.2.0.44
+*  version : 19.2.0.55
 *  Copyright Syncfusion Inc. 2001 - 2021. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
