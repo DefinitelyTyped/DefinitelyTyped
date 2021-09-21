@@ -1,7 +1,6 @@
 // Type definitions for js_beautify 1.13
 // Project: https://github.com/beautify-web/js-beautify/
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
-//                 Hans Windhoff <https://github.com/hansrwindhoff>
+// Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
 //                 Gavin Rehkemper <https://github.com/gavinr/>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
