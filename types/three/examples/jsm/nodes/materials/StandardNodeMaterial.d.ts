@@ -21,5 +21,5 @@ export class StandardNodeMaterial extends NodeMaterial {
     environment: Node;
     mask: Node;
     position: Node;
-    sheen: Node;
+    sheenTint: Node;
 }

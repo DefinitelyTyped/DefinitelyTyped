@@ -26,6 +26,11 @@ export class LightShadow {
     radius: number;
 
     /**
+     * @default 8
+     */
+    blurSamples: number;
+
+    /**
      * @default new THREE.Vector2( 512, 512 )
      */
     mapSize: Vector2;
