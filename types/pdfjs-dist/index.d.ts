@@ -477,6 +477,7 @@ interface TextContentItem {
     height: number;
     dir: string; // Left-to-right (ltr), etc
     fontName: string; // A lookup into the styles map of the owning TextContent
+    hasEOL: boolean; //
 }
 
 interface TextContent {
