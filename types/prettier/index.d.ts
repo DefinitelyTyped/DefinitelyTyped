@@ -1,4 +1,4 @@
-// Type definitions for prettier 2.3
+// Type definitions for prettier 2.4
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
@@ -8,6 +8,7 @@
 //                 Kevin Deisz <https://github.com/kddeisz>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 JounQin <https://github.com/JounQin>
+//                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -98,7 +99,14 @@ export interface RequiredOptions extends doc.printer.Options {
      */
     bracketSpacing: boolean;
     /**
+     * Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being
+     * alone on the next line (does not apply to self closing elements).
+     * @default false
+     */
+    bracketSameLine: boolean;
+    /**
      * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+     * @deprecated Deprecated in v2.4.0, use `bracketSameLine` instead.
      * @default false
      */
     jsxBracketSameLine: boolean;
