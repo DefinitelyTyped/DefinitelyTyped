@@ -20,5 +20,5 @@ export class RelayOperationTracker {
     ): {
         promise: Promise<void>;
         pendingOperations: ReadonlyArray<RequestDescriptor>;
-    };
+    } | null;
 }
