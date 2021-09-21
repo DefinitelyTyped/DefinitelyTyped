@@ -14,11 +14,11 @@
 
 /// <reference types="node" />
 
-import * as fs from "fs";
+import * as fs from 'fs';
 import Stats = fs.Stats;
 import PathLike = fs.PathLike;
 
-export * from "fs";
+export * from 'fs';
 
 export function copy(src: string, dest: string, options?: CopyOptions): Promise<void>;
 export function copy(src: string, dest: string, callback: (err: Error) => void): void;
@@ -54,43 +54,80 @@ export function mkdirp(dir: string, callback: (err: Error) => void): void;
 export function mkdirsSync(dir: string): void;
 export function mkdirpSync(dir: string): void;
 
-export function outputFile(file: string, data: any, options?: WriteFileOptions | string): Promise<void>;
+export function outputFile(
+    file: string,
+    data: any,
+    options?: WriteFileOptions | BufferEncoding | string,
+): Promise<void>;
 export function outputFile(file: string, data: any, callback: (err: Error) => void): void;
-export function outputFile(file: string, data: any, options: WriteFileOptions | string, callback: (err: Error) => void): void;
-export function outputFileSync(file: string, data: any, options?: WriteFileOptions | string): void;
+export function outputFile(
+    file: string,
+    data: any,
+    options: WriteFileOptions | string,
+    callback: (err: Error) => void,
+): void;
+export function outputFileSync(file: string, data: any, options?: WriteFileOptions | BufferEncoding | string): void;
 
-export function readJson(file: string, options?: ReadOptions): Promise<any>;
+export function readJson(file: string, options?: ReadOptions | BufferEncoding | string): Promise<any>;
 export function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export function readJson(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
-export function readJSON(file: string, options?: ReadOptions): Promise<any>;
+export function readJson(
+    file: string,
+    options: ReadOptions | BufferEncoding | string,
+    callback: (err: Error, jsonObject: any) => void,
+): void;
+export function readJSON(file: string, options?: ReadOptions | BufferEncoding | string): Promise<any>;
 export function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export function readJSON(file: string, options: ReadOptions, callback: (err: Error, jsonObject: any) => void): void;
+export function readJSON(
+    file: string,
+    options: ReadOptions | BufferEncoding | string,
+    callback: (err: Error, jsonObject: any) => void,
+): void;
 
-export function readJsonSync(file: string, options?: ReadOptions): any;
-export function readJSONSync(file: string, options?: ReadOptions): any;
+export function readJsonSync(file: string, options?: ReadOptions | BufferEncoding | string): any;
+export function readJSONSync(file: string, options?: ReadOptions | BufferEncoding | string): any;
 
 export function remove(dir: string, callback: (err: Error) => void): void;
 export function remove(dir: string, callback?: (err: Error) => void): Promise<void>;
 export function removeSync(dir: string): void;
 
-export function outputJSON(file: string, data: any, options?: WriteOptions): Promise<void>;
-export function outputJSON(file: string, data: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function outputJSON(file: string, data: any, options?: WriteOptions | BufferEncoding | string): Promise<void>;
+export function outputJSON(
+    file: string,
+    data: any,
+    options: WriteOptions | BufferEncoding | string,
+    callback: (err: Error) => void,
+): void;
 export function outputJSON(file: string, data: any, callback: (err: Error) => void): void;
-export function outputJson(file: string, data: any, options?: WriteOptions): Promise<void>;
-export function outputJson(file: string, data: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function outputJson(file: string, data: any, options?: WriteOptions | BufferEncoding | string): Promise<void>;
+export function outputJson(
+    file: string,
+    data: any,
+    options: WriteOptions | BufferEncoding | string,
+    callback: (err: Error) => void,
+): void;
 export function outputJson(file: string, data: any, callback: (err: Error) => void): void;
-export function outputJsonSync(file: string, data: any, options?: WriteOptions): void;
-export function outputJSONSync(file: string, data: any, options?: WriteOptions): void;
+export function outputJsonSync(file: string, data: any, options?: WriteOptions | BufferEncoding | string): void;
+export function outputJSONSync(file: string, data: any, options?: WriteOptions | BufferEncoding | string): void;
 
-export function writeJSON(file: string, object: any, options?: WriteOptions): Promise<void>;
+export function writeJSON(file: string, object: any, options?: WriteOptions | BufferEncoding | string): Promise<void>;
 export function writeJSON(file: string, object: any, callback: (err: Error) => void): void;
-export function writeJSON(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
-export function writeJson(file: string, object: any, options?: WriteOptions): Promise<void>;
+export function writeJSON(
+    file: string,
+    object: any,
+    options: WriteOptions | BufferEncoding | string,
+    callback: (err: Error) => void,
+): void;
+export function writeJson(file: string, object: any, options?: WriteOptions | BufferEncoding | string): Promise<void>;
 export function writeJson(file: string, object: any, callback: (err: Error) => void): void;
-export function writeJson(file: string, object: any, options: WriteOptions, callback: (err: Error) => void): void;
+export function writeJson(
+    file: string,
+    object: any,
+    options: WriteOptions | BufferEncoding | string,
+    callback: (err: Error) => void,
+): void;
 
-export function writeJsonSync(file: string, object: any, options?: WriteOptions): void;
-export function writeJSONSync(file: string, object: any, options?: WriteOptions): void;
+export function writeJsonSync(file: string, object: any, options?: WriteOptions | BufferEncoding | string): void;
+export function writeJSONSync(file: string, object: any, options?: WriteOptions | BufferEncoding | string): void;
 
 export function ensureFile(path: string): Promise<void>;
 export function ensureFile(path: string, callback: (err: Error) => void): void;
@@ -127,10 +164,29 @@ export function access(path: PathLike, callback: (err: NodeJS.ErrnoException) =>
 export function access(path: PathLike, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
 export function access(path: PathLike, mode?: number): Promise<void>;
 
-export function appendFile(file: PathLike | number, data: any, options: { encoding?: string | undefined; mode?: number | string | undefined; flag?: string | undefined; },
-    callback: (err: NodeJS.ErrnoException) => void): void;
+export function appendFile(
+    file: PathLike | number,
+    data: any,
+    options: {
+        encoding?: BufferEncoding | string | undefined;
+        mode?: number | string | undefined;
+        flag?: string | undefined;
+    },
+    callback: (err: NodeJS.ErrnoException) => void,
+): void;
 export function appendFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function appendFile(file: PathLike | number, data: any, options?: { encoding?: string | undefined; mode?: number | string | undefined; flag?: string | undefined; }): Promise<void>;
+export function appendFile(
+    file: PathLike | number,
+    data: any,
+    options?:
+        | {
+              encoding?: BufferEncoding | string | undefined;
+              mode?: number | string | undefined;
+              flag?: string | undefined;
+          }
+        | BufferEncoding
+        | string,
+): Promise<void>;
 
 export function chmod(path: PathLike, mode: Mode, callback: (err: NodeJS.ErrnoException) => void): void;
 export function chmod(path: PathLike, mode: Mode): Promise<void>;
@@ -185,12 +241,25 @@ export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => 
  *
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
-export function mkdir(path: PathLike, options: Mode | fs.MakeDirectoryOptions | null, callback: (err: NodeJS.ErrnoException) => void): void;
+export function mkdir(
+    path: PathLike,
+    options: Mode | fs.MakeDirectoryOptions | null,
+    callback: (err: NodeJS.ErrnoException) => void,
+): void;
 export function mkdir(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): Promise<void>;
 export function mkdirSync(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): void;
 
-export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
-export function open(path: PathLike, flags: string | number, mode: Mode, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+export function open(
+    path: PathLike,
+    flags: string | number,
+    callback: (err: NodeJS.ErrnoException, fd: number) => void,
+): void;
+export function open(
+    path: PathLike,
+    flags: string | number,
+    mode: Mode,
+    callback: (err: NodeJS.ErrnoException, fd: number) => void,
+): void;
 export function open(path: PathLike, flags: string | number, mode?: Mode | null): Promise<number>;
 
 export function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: fs.Dir) => void): void;
@@ -201,41 +270,85 @@ export function opendir(
 ): void;
 export function opendir(path: string, options?: fs.OpenDirOptions): Promise<fs.Dir>;
 
-export function read<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null,
-    callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
-export function read<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+export function read<TBuffer extends ArrayBufferView>(
+    fd: number,
+    buffer: TBuffer,
+    offset: number,
+    length: number,
+    position: number | null,
+    callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void,
+): void;
+export function read<TBuffer extends ArrayBufferView>(
+    fd: number,
+    buffer: TBuffer,
+    offset: number,
+    length: number,
+    position: number | null,
+): Promise<{ bytesRead: number; buffer: TBuffer }>;
 
 export function readFile(file: PathLike | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-export function readFile(file: PathLike | number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
 export function readFile(
     file: PathLike | number,
-    options: { flag?: string | undefined; } | { encoding: string; flag?: string | undefined; },
-    callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+    encoding: BufferEncoding | string,
+    callback: (err: NodeJS.ErrnoException, data: string) => void,
 ): void;
-export function readFile(file: PathLike | number, options: { flag?: string | undefined; } | { encoding: string; flag?: string | undefined; }): Promise<string>;
+export function readFile(
+    file: PathLike | number,
+    options: { flag?: string | undefined } | { encoding: BufferEncoding | string; flag?: string | undefined },
+    callback: (err: NodeJS.ErrnoException, data: Buffer) => void,
+): void;
+export function readFile(
+    file: PathLike | number,
+    options: { flag?: string | undefined } | { encoding: BufferEncoding | string; flag?: string | undefined },
+): Promise<string>;
 // tslint:disable-next-line:unified-signatures
-export function readFile(file: PathLike | number, encoding: string): Promise<string>;
+export function readFile(file: PathLike | number, encoding: BufferEncoding | string): Promise<string>;
 export function readFile(file: PathLike | number): Promise<Buffer>;
 
 export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false | undefined } | BufferEncoding | null): Promise<string[]>;
-export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer"; withFileTypes?: false | undefined }): Promise<Buffer[]>;
-export function readdir(path: PathLike, options?: { encoding?: string | null | undefined; withFileTypes?: false | undefined }): Promise<string[] | Buffer[]>;
-export function readdir(path: PathLike, options: { encoding?: string | null | undefined; withFileTypes: true }): Promise<fs.Dirent[]>;
+export function readdir(
+    path: PathLike,
+    options: 'buffer' | { encoding: 'buffer'; withFileTypes?: false | undefined },
+): Promise<Buffer[]>;
+export function readdir(
+    path: PathLike,
+    options?:
+        | { encoding: BufferEncoding | string | null; withFileTypes?: false | undefined }
+        | BufferEncoding
+        | string
+        | null,
+): Promise<string[]>;
+export function readdir(
+    path: PathLike,
+    options?: { encoding?: BufferEncoding | string | null | undefined; withFileTypes?: false | undefined },
+): Promise<string[] | Buffer[]>;
+export function readdir(
+    path: PathLike,
+    options: { encoding?: BufferEncoding | string | null | undefined; withFileTypes: true },
+): Promise<fs.Dirent[]>;
 
 export function readlink(path: PathLike, callback: (err: NodeJS.ErrnoException, linkString: string) => any): void;
 export function readlink(path: PathLike): Promise<string>;
 
 export function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-export function realpath(path: PathLike, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
+export function realpath(
+    path: PathLike,
+    cache: { [path: string]: string },
+    callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any,
+): void;
 export function realpath(path: PathLike, cache?: { [path: string]: string }): Promise<string>;
 
 /* tslint:disable:unified-signatures */
 export namespace realpath {
     const native: {
-        (path: PathLike, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null): Promise<string>;
-        (path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
-        (path: PathLike, options: { encoding: BufferEncoding | null } | string | undefined | null): Promise<string | Buffer>;
+        (path: PathLike, options: { encoding: 'buffer' } | 'buffer'): Promise<Buffer>;
+        (
+            path: PathLike,
+            options: { encoding: BufferEncoding | string | null } | BufferEncoding | string | undefined | null,
+        ): Promise<string>;
+        (path: PathLike, options: { encoding: BufferEncoding | string | null } | string | undefined | null): Promise<
+            string | Buffer
+        >;
         (path: PathLike): Promise<string>;
     } & typeof fs.realpath.native;
 }
@@ -250,7 +363,15 @@ export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
  *
  * Only available in node >= v14.14.0
  */
-export function rm(path: PathLike, options?: { force?: boolean | undefined, maxRetries?: number | undefined, recursive?: boolean | undefined, retryDelay?: number | undefined }): Promise<void>;
+export function rm(
+    path: PathLike,
+    options?: {
+        force?: boolean | undefined;
+        maxRetries?: number | undefined;
+        recursive?: boolean | undefined;
+        retryDelay?: number | undefined;
+    },
+): Promise<void>;
 
 /**
  * Asynchronous rmdir - removes the directory specified in {path}
@@ -263,7 +384,12 @@ export function rmdir(path: PathLike, options?: fs.RmDirOptions): Promise<void>;
 export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
 export function stat(path: PathLike): Promise<Stats>;
 
-export function symlink(target: PathLike, path: PathLike, type: SymlinkType | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+export function symlink(
+    target: PathLike,
+    path: PathLike,
+    type: SymlinkType | undefined,
+    callback: (err: NodeJS.ErrnoException) => void,
+): void;
 export function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function symlink(target: PathLike, path: PathLike, type?: SymlinkType): Promise<void>;
 
@@ -279,31 +405,87 @@ export function truncate(path: PathLike, len?: number): Promise<void>;
 export function unlink(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 export function unlink(path: PathLike): Promise<void>;
 
-export function utimes(path: PathLike, atime: number, mtime: number, callback: (err: NodeJS.ErrnoException) => void): void;
+export function utimes(
+    path: PathLike,
+    atime: number,
+    mtime: number,
+    callback: (err: NodeJS.ErrnoException) => void,
+): void;
 export function utimes(path: PathLike, atime: Date, mtime: Date, callback: (err: NodeJS.ErrnoException) => void): void;
 export function utimes(path: PathLike, atime: number, mtime: number): Promise<void>;
 export function utimes(path: PathLike, atime: Date, mtime: Date): Promise<void>;
 
 export function write<TBuffer extends ArrayBufferView>(
-    fd: number, buffer: TBuffer, offset: number, length: number, position: number | null,
-    callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void
+    fd: number,
+    buffer: TBuffer,
+    offset: number,
+    length: number,
+    position: number | null,
+    callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void,
 ): void;
 export function write<TBuffer extends ArrayBufferView>(
-    fd: number, buffer: TBuffer, offset: number, length: number,
-    callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void
+    fd: number,
+    buffer: TBuffer,
+    offset: number,
+    length: number,
+    callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void,
 ): void;
-export function write(fd: number, data: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-export function write(fd: number, data: any, offset: number, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-export function write(fd: number, data: any, offset: number, encoding: string, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-export function write<TBuffer extends ArrayBufferView>(fd: number, buffer: TBuffer, offset?: number, length?: number, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
-export function write(fd: number, data: any, offset?: number, encoding?: string): Promise<{ bytesWritten: number, buffer: string }>;
+export function write(
+    fd: number,
+    data: any,
+    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void,
+): void;
+export function write(
+    fd: number,
+    data: any,
+    offset: number,
+    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void,
+): void;
+export function write(
+    fd: number,
+    data: any,
+    offset: number,
+    encoding: BufferEncoding | string,
+    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void,
+): void;
+export function write<TBuffer extends ArrayBufferView>(
+    fd: number,
+    buffer: TBuffer,
+    offset?: number,
+    length?: number,
+    position?: number | null,
+): Promise<{ bytesWritten: number; buffer: TBuffer }>;
+export function write(
+    fd: number,
+    data: any,
+    offset?: number,
+    encoding?: BufferEncoding | string,
+): Promise<{ bytesWritten: number; buffer: string }>;
 
 export function writeFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function writeFile(file: PathLike | number, data: any, options?: WriteFileOptions | string): Promise<void>;
-export function writeFile(file: PathLike | number, data: any, options: WriteFileOptions | string, callback: (err: NodeJS.ErrnoException) => void): void;
+export function writeFile(
+    file: PathLike | number,
+    data: any,
+    options?: WriteFileOptions | BufferEncoding | string,
+): Promise<void>;
+export function writeFile(
+    file: PathLike | number,
+    data: any,
+    options: WriteFileOptions | BufferEncoding | string,
+    callback: (err: NodeJS.ErrnoException) => void,
+): void;
 
-export function writev(fd: number, buffers: NodeJS.ArrayBufferView[], position: number, cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void): void;
-export function writev(fd: number, buffers: NodeJS.ArrayBufferView[], cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void): void;
+export function writev(
+    fd: number,
+    buffers: NodeJS.ArrayBufferView[],
+    position: number,
+    cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
+): void;
+export function writev(
+    fd: number,
+    buffers: NodeJS.ArrayBufferView[],
+    cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
+): void;
 export function writev(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WritevResult>;
 
 /**
@@ -326,7 +508,7 @@ export interface PathEntryStream {
 export type CopyFilterSync = (src: string, dest: string) => boolean;
 export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
-export type SymlinkType = "dir" | "file" | "junction";
+export type SymlinkType = 'dir' | 'file' | 'junction';
 
 export type Mode = string | number;
 
@@ -358,12 +540,12 @@ export interface ReadOptions {
     throws?: boolean | undefined;
     fs?: object | undefined;
     reviver?: any;
-    encoding?: string | undefined;
+    encoding?: BufferEncoding | string | undefined;
     flag?: string | undefined;
 }
 
 export interface WriteFileOptions {
-    encoding?: string | null | undefined;
+    encoding?: BufferEncoding | string | null | undefined;
     flag?: string | undefined;
     mode?: number | undefined;
 }
