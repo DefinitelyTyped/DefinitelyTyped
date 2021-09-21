@@ -1,7 +1,7 @@
-import inquirer = require("../..");
-import Prompt = require("./base");
-import { Interface as ReadLineInterface } from "readline";
-import Paginator = require("../utils/paginator");
+import inquirer = require('../..');
+import Prompt = require('./base');
+import { Interface as ReadLineInterface } from 'readline';
+import Paginator = require('../utils/paginator');
 
 /**
  * The question-options for the `ChoicePrompt<T>`.
