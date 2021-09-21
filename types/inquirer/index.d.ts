@@ -571,17 +571,29 @@ declare namespace inquirer {
     }
 
     /**
-     * Provides options for a question for the `ListPrompt`.
+     * Represents a list-based question that can loop.
      *
      * @template T
      * The type of the answers.
+     *
+     * @template TChoiceMap
+     * The valid choices for the question.
      */
-    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
+    interface LoopableListQuestionOptionsBase<T, TChoiceMap> extends ListQuestionOptionsBase<T, TChoiceMap> {
         /**
          * A value indicating whether choices in a list should be looped.
          */
         loop?: boolean | undefined;
     }
+
+    /**
+     * Provides options for a question for the `ListPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ListQuestionOptions<T extends Answers = Answers>
+        extends LoopableListQuestionOptionsBase<T, ListChoiceMap<T>> {}
 
     /**
      * Provides options for a question for the `ListPrompt`.
@@ -644,7 +656,8 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    interface CheckboxQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, CheckboxChoiceMap<T>> { }
+    interface CheckboxQuestionOptions<T extends Answers = Answers>
+        extends LoopableListQuestionOptionsBase<T, CheckboxChoiceMap<T>> {}
 
     /**
      * Provides options for a question for the `CheckboxPrompt`.

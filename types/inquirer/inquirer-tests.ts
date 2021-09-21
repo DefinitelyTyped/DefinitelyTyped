@@ -2,6 +2,9 @@ import { Separator } from "inquirer";
 import inquirer = require("inquirer");
 import InputPrompt = require("inquirer/lib/prompts/input");
 import { fetchAsyncQuestionProperty } from "inquirer/lib/utils/utils";
+import incrementListIndex = require("inquirer/lib/utils/incrementListIndex");
+import Choices = require("inquirer/lib/objects/choices");
+
 {
     new inquirer.Separator("");
     const promptModule = inquirer.createPromptModule();
@@ -31,8 +34,20 @@ import { fetchAsyncQuestionProperty } from "inquirer/lib/utils/utils";
         type: "list"
     };
 
+    const rawListQuestion: inquirer.RawListQuestion = {
+        type: 'rawlist',
+    };
+
+    const expandQuestion: inquirer.ExpandQuestion = {
+        type: 'expand',
+    };
+
     // $ExpectError
-    checkBoxQuestion.loop;
+    expandQuestion.loop;
+    // $ExpectType boolean
+    rawListQuestion.loop!;
+    // $ExpectType boolean
+    checkBoxQuestion.loop!;
     // $ExpectType boolean
     listQuestion.loop!;
 }
@@ -112,3 +127,20 @@ fetchAsyncQuestionProperty(
         (source) => {
             return source;
         });
+
+{
+    const options = {
+        name: "foo",
+        loop: true,
+        choices: new Choices([{ name: "foo" }], {}),
+    };
+
+    // $ExpectType number
+    incrementListIndex(0, "up", options);
+    // $ExpectError
+    incrementListIndex("notANumber", "up", options);
+    // $ExpectError
+    incrementListIndex(0, "left", options);
+    // $ExpectError
+    incrementListIndex(0, "up", {});
+}
