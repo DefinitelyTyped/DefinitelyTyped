@@ -904,42 +904,42 @@ declare module 'fs' {
         ): Promise<BigIntStats>;
         function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
-    export interface StatSyncFn<TDescriptor = PathLike> extends Function {
-        (path: TDescriptor, options?: undefined): Stats;
+    export interface StatSyncFn extends Function {
+        (path: PathLike, options?: undefined): Stats;
         (
-            path: TDescriptor,
-            options?: StatOptions & {
+            path: PathLike,
+            options?: StatSyncOptions & {
                 bigint?: false | undefined;
                 throwIfNoEntry: false;
             }
         ): Stats | undefined;
         (
-            path: TDescriptor,
-            options: StatOptions & {
+            path: PathLike,
+            options: StatSyncOptions & {
                 bigint: true;
                 throwIfNoEntry: false;
             }
         ): BigIntStats | undefined;
         (
-            path: TDescriptor,
-            options?: StatOptions & {
+            path: PathLike,
+            options?: StatSyncOptions & {
                 bigint?: false | undefined;
             }
         ): Stats;
         (
-            path: TDescriptor,
-            options: StatOptions & {
+            path: PathLike,
+            options: StatSyncOptions & {
                 bigint: true;
             }
         ): BigIntStats;
         (
-            path: TDescriptor,
-            options: StatOptions & {
+            path: PathLike,
+            options: StatSyncOptions & {
                 bigint: boolean;
                 throwIfNoEntry?: false | undefined;
             }
         ): Stats | BigIntStats;
-        (path: TDescriptor, options?: StatOptions): Stats | BigIntStats | undefined;
+        (path: PathLike, options?: StatSyncOptions): Stats | BigIntStats | undefined;
     }
     /**
      * Synchronous stat(2) - Get file status.
@@ -993,7 +993,20 @@ declare module 'fs' {
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    export const fstatSync: StatSyncFn<number>;
+    export function fstatSync(
+        fd: number,
+        options?: StatOptions & {
+            bigint?: false | undefined;
+        }
+    ): Stats;
+    export function fstatSync(
+        fd: number,
+        options: StatOptions & {
+            bigint: true;
+        }
+    ): BigIntStats;
+    export function fstatSync(fd: number, options?: StatOptions): Stats | BigIntStats;
+
     /**
      * Retrieves the `fs.Stats` for the symbolic link referred to by the path.
      * The callback gets two arguments `(err, stats)` where `stats` is a `fs.Stats` object. `lstat()` is identical to `stat()`, except that if `path` is a symbolic
@@ -3662,6 +3675,8 @@ declare module 'fs' {
     }
     export interface StatOptions {
         bigint?: boolean | undefined;
+    }
+    export interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
     export interface CopyOptions {
