@@ -7,6 +7,7 @@ import BootstrapTable, {
     ColumnDescription,
     RowSelectionType,
     ROW_SELECT_SINGLE,
+    ROW_SELECT_MULTIPLE,
     ExpandRowProps,
     ColumnSortValue,
     ColumnSortCaret,
@@ -276,6 +277,25 @@ render(
         columns={productColumns}
         selectRow={{
             mode: ROW_SELECT_SINGLE,
+        }}
+    />,
+    document.getElementById('app'),
+);
+
+/**
+ * Basic table with custom checkbox in row selection column
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        columns={productColumns}
+        selectRow={{
+            mode: ROW_SELECT_MULTIPLE,
+            selectionRenderer({ rowKey, checked, disabled }) {
+                return <input key={rowKey} type="checkbox" checked={checked}  disabled={disabled} />;
+            }
         }}
     />,
     document.getElementById('app'),
