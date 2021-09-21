@@ -488,6 +488,7 @@ export namespace Tickets {
         status?: Status | null | undefined;
         recipient?: string | null | undefined;
         requester_id?: ZendeskID | undefined;
+        requester?: Requests.RequesterAnonymous | undefined;
         submitter_id?: ZendeskID | null | undefined;
         assignee_id?: ZendeskID | null | undefined;
         organization_id?: number | null | undefined;
