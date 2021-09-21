@@ -17,17 +17,17 @@ export type AsyncBasicMiddlewareWithServices<TEvent = any, TServices = Record<st
     (event: TEvent, services: TServices, next: T) => Promise<TResult | Error> :
     never;
 
-export type AsyncLambdaHandler<TEvent = APIGatewayProxyEventV2, TContext = Context, TResult = APIGatewayProxyResultV2> =
-    (event: TEvent, context: TContext, callback?: Callback<TResult>) => Promise<TResult | Error | unknown>;
+export type AsyncLambdaHandler<TEvent = APIGatewayProxyEventV2, TResult = APIGatewayProxyResultV2> =
+    (event: TEvent, context: Context, callback?: Callback<TResult>) => Promise<TResult | Error | unknown>;
 
 export type AsyncLambdaMiddleware<TEvent = APIGatewayProxyEventV2, T = AsyncLambdaHandler<TEvent>> =
-    T extends AsyncLambdaHandler<TEvent, infer TContext, infer TResult> ?
-    (event: TEvent, context: TContext, callback: Callback<TResult>, next: T) => void | Promise<TResult | Error | unknown> :
+    T extends AsyncLambdaHandler<TEvent, infer TResult> ?
+    (event: TEvent, context: Context, callback: Callback<TResult>, next: T) => void | Promise<TResult | Error | unknown> :
     never;
 
 export type AsyncLambdaMiddlewareWithServices<TEvent = APIGatewayProxyEventV2, TServices = Record<string, any>, T = AsyncLambdaHandler<TEvent>> =
-    T extends AsyncLambdaHandler<TEvent, infer TContext, infer TResult> ?
-    (event: TEvent, context: TContext, callback: Callback<TResult>, services: TServices, next: T) => void | Promise<TResult | Error | unknown> :
+    T extends AsyncLambdaHandler<TEvent, infer TResult> ?
+    (event: TEvent, context: Context, callback: Callback<TResult>, services: TServices, next: T) => void | Promise<TResult | Error | unknown> :
     never;
 
 export type AsyncHandler = AsyncBasicHandler & AsyncLambdaHandler;
