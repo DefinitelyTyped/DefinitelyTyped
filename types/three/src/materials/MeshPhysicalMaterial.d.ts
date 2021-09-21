@@ -14,7 +14,7 @@ export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialPara
     reflectivity?: number | undefined;
     ior?: number | undefined;
 
-    sheen?: Color | undefined;
+    sheenTint?: Color | undefined;
 
     transmission?: number | undefined;
     transmissionMap?: Texture | null | undefined;
@@ -83,7 +83,7 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     /**
      * @default null
      */
-    sheen: Color | null;
+    sheenTint: Color | null;
 
     /**
      * @default 0
