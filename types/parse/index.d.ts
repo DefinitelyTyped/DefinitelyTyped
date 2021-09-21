@@ -1350,12 +1350,12 @@ declare global {
             }
 
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
-                context: object;
+                context: Record<string, unknown>;
             }
             interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
-                context: object;
+                context: Record<string, unknown>;
             }
 
             interface FileTriggerRequest extends TriggerRequest<File> {
