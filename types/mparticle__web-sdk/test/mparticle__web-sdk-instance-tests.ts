@@ -455,7 +455,6 @@ instance.eCommerce.logPromotion(
     [promotion1, promotion2],
 );
 
-
 instance.eCommerce.logPromotion(
     instance.PromotionType.PromotionView,
     promotion1,

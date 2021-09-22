@@ -1,4 +1,4 @@
-// Type definitions for mParticle/web-sdk SDK 2.14.1
+// Type definitions for mParticle/web-sdk SDK 2.14
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
