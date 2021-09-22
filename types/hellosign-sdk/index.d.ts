@@ -437,7 +437,7 @@ declare namespace HelloSign {
                 file_url: string;
                 expires_at: Date;
                 data_uri: string;
-            }>
+            }>;
     }
 
     interface UnclaimedDraft {
