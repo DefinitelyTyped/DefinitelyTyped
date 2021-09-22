@@ -1574,7 +1574,8 @@ declare namespace asana {
                 modified_at: string;
                 completed_at: string | null;
                 completed: boolean;
-                due_on: string;
+                due_on: string | null;
+                start_on: string | null;
                 due_at: string;
                 assignee_status: string;
                 assignee: Assignee | null;
