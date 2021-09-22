@@ -33,7 +33,7 @@ declare namespace WebTorrent {
     }
 
     interface TorrentOptions {
-        announce?: any[] | undefined;
+        announce?: string[] | undefined;
         getAnnounceOpts?(): void;
         urlList?: string[] | undefined;
         maxWebConns?: number | undefined;
