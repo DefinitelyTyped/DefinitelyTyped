@@ -44,6 +44,8 @@ const testCases = [
     <input accept="video/*" capture />,
     <input accept="audio/*" capture />,
 
+    // switch to `BigInt(17)` once we've upgraded to es2020 and TypeScript >= 3.8 minimum
+    <div key={17 as unknown as bigint} />,
     <div role="dialog" />,
     <div role="none presentation" />,
     <svg role="treeitem" />,
