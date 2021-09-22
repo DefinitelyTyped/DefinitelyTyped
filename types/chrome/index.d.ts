@@ -6456,6 +6456,8 @@ declare namespace chrome.runtime {
     /** The ID of the extension/app. */
     export var id: string;
 
+    export type OsEnum = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
+
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
         message?: string | undefined;
@@ -6534,7 +6536,7 @@ declare namespace chrome.runtime {
          * The operating system chrome is running on.
          * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
          */
-        os: string;
+        os: OsEnum;
         /**
          * The machine's processor architecture.
          * One of: "arm", "x86-32", or "x86-64"
