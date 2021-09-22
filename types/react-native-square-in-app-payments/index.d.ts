@@ -350,13 +350,14 @@ export namespace SQIPCardEntry {
     function setIOSCardEntryTheme(themeConfiguration: ThemeIOS): Promise<void>;
 }
 
-/* Reopresents the Apply Payment types */
-export enum ApplePayPaymentType {
-    /** A summary item representing an estimated or unknown cost. */
-    PaymentTypePending = 1,
-    /** A summary item representing the known, final cost. */
-    PaymentTypeFinal = 2,
-}
+/** Apple Pay */
+
+/**
+ * Represents the Apply Payment types
+ * 1 - represents a summary item with an estimated or unknown cost.
+ * 2 - represents a summary item with the known, final cost.
+ */
+export type ApplePayPaymentType = 1 | 2;
 
 /** Represents the Apple Pay configuration. */
 export interface ApplePayConfig {
@@ -445,22 +446,22 @@ export namespace SQIPApplePay {
     function completeApplePayAuthorization(isSuccess: boolean, errorMessage?: string): Promise<void>;
 }
 
-// types
-export enum GooglePayPriceStatus {
-    /** used for a capability check */
-    TotalPriceStatusNotCurrentlyKnown = 1,
-    /** Total price may adjust based on the details of the response, such as sales tax collected based on a billing address. */
-    TotalPriceStatusEstimated = 2,
-    /** Total price will not change from the amount presented to the user. */
-    TotalPriceStatusFinal = 3,
-}
+/** Google Pay */
 
-export enum GooglePayEnvironment {
-    /** Environment to be used when an app is granted access to the Google Pay production environment. */
-    EnvironmentProduction = 1,
-    /** Environment to be used for development and testing an application before approval for production. */
-    EnvironmentTest = 3,
-}
+/**
+ * Represents the Google Pay price status
+ * 1 - Used for a capability check
+ * 2 - Total price may adjust based on the details of the response, such as sales tax collected based on a billing address.
+ * 3 - Total price will not change from the amount presented to the user.
+ */
+export type GooglePayPriceStatus = 1 | 2 | 3;
+
+/**
+ * Represents The Google Pay environments
+ * 1 - Environment to be used when an app is granted access to the Google Pay production environment.
+ * 2 - Environment to be used for development and testing an application before approval for production.
+ */
+export type GooglePayEnvironment = 1 | 2;
 
 /** Represents the Google Pay configuration. */
 export interface GooglePayConfig {
@@ -471,8 +472,6 @@ export interface GooglePayConfig {
     /** The status of the total price used */
     priceStatus: GooglePayPriceStatus;
 }
-
-// Callbacks
 
 /**
  * Callback invoked with cardDetails with Google Pay are available.
