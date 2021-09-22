@@ -4,6 +4,7 @@
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
 //                 Gabriel Juchault <https://github.com/gjuchault>
 //                 Adam Crowder <https://github.com/cheeseandcereal>
+//                 ChampionBuffalo1 <https://github.com/ChampionBuffalo1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -34,10 +35,16 @@ declare namespace WebTorrent {
     interface TorrentOptions {
         announce?: any[] | undefined;
         getAnnounceOpts?(): void;
+        urlList?: string[] | undefined;
         maxWebConns?: number | undefined;
         path?: string | undefined;
         store?(chunkLength: number, storeOpts: { length: number, files: File[], torrent: Torrent, }): any;
         private?: boolean | undefined;
+        destroyStoreOnDestroy?: boolean | undefined;
+        storeCacheSlots?: number | undefined;
+        skipVerify?: boolean | undefined;
+        preloadedStore?(): void;
+        strategy?: string | undefined;
     }
 
     interface TorrentDestroyOptions {
