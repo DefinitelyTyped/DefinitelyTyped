@@ -433,7 +433,7 @@ declare namespace HelloSign {
         removeUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
         createEmbeddedDraft(options: Template): Promise<TemplateResponse>;
         delete(templateId: string): Promise<any>;
-        files(templateId: string, options?: TemplateFilesOptions): 
+        files(templateId: string, options?: TemplateFilesOptions):
             Promise<{ file_url: string, expires_at: Date }> & ServerResponse
             | Promise<{ data_uri: Base64 }> & ServerResponse
             | Promise<ServerResponse>;
