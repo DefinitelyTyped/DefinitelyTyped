@@ -3,9 +3,10 @@
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export const Popoto = {
+interface Popoto {
     //
 }
+
+declare const popoto: Popoto;
+
+export = popoto;
