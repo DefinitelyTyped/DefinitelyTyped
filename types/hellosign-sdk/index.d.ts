@@ -5,7 +5,7 @@
 // TypeScript Version: 3.8
 
 /// <reference types="node" />
-import { IncomingMessage } from 'http';
+import { IncomingMessage, ServerResponse } from 'http';
 
 declare class HelloSign {
     constructor(options: HelloSign.HelloSignOptions);
@@ -420,6 +420,12 @@ declare namespace HelloSign {
     interface TemplateResponse {
         template: Template;
     }
+    interface TemplateFilesOptions {
+        file_type?: 'pdf' | 'zip';
+        get_url?: boolean;
+        get_data_uri?: boolean;
+    }
+    type Base64 = string;
     interface TemplateModule {
         list(): Promise<{ templates: Template[] }>;
         get(templateId: string): Promise<TemplateResponse>;
@@ -427,6 +433,10 @@ declare namespace HelloSign {
         removeUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
         createEmbeddedDraft(options: Template): Promise<TemplateResponse>;
         delete(templateId: string): Promise<any>;
+        files(templateId: string, options?: TemplateFilesOptions): 
+            Promise<{ file_url: string, expires_at: Date }> & ServerResponse
+            | Promise<{ data_uri: Base64 }> & ServerResponse
+            | Promise<ServerResponse>;
     }
 
     interface UnclaimedDraft {
