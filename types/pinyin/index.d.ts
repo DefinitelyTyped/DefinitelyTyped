@@ -1,4 +1,4 @@
-// Type definitions for pinyin 2.8
+// Type definitions for pinyin 2.10
 // Project: https://github.com/hotoo/pinyin
 // Definitions by: AnJun Wang <https://github.com/wanganjun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -75,5 +75,10 @@ declare namespace pinyin {
          * 启用多音字模式时，返回多音字的所有拼音列表。
          */
         heteronym?: boolean | undefined;
+
+        /**
+         * 按词组分组拼音
+         */
+        group?: boolean | undefined;
     }
 }
