@@ -53,12 +53,10 @@ export interface BlockStyle {
  * @see Block.example
  * @see {@link https://github.com/DefinitelyTyped/DefinitelyTyped/pull/55245#discussion_r692208988}
  */
-type BlockExampleInnerBlock = ReadonlyArray<
-    Partial<Block> &
-        Pick<Block, 'name' | 'attributes'> & {
-            innerBlocks?: BlockExampleInnerBlock;
-        }
->;
+type BlockExampleInnerBlock = Partial<Block> &
+    Pick<Block, 'name' | 'attributes'> & {
+        innerBlocks?: ReadonlyArray<BlockExampleInnerBlock>;
+    };
 
 export interface Block<T extends Record<string, any> = {}> {
     /**
@@ -109,11 +107,7 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#example}
      */
-    readonly example?: {
-        readonly attributes: Readonly<T>;
-        readonly innerBlocks?: BlockExampleInnerBlock;
-        readonly viewportWidth?: number;
-    };
+    readonly example?: Readonly<Partial<Block> & { innerBlocks: ReadonlyArray<BlockExampleInnerBlock> }>;
     /**
      * Icon for the block.
      */
