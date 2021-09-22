@@ -114,8 +114,8 @@ declare module 'fs/promises' {
          * number of bytes read is zero.
          * @since v10.0.0
          * @param buffer A buffer that will be filled with the file data read.
-         * @param [offset=0] The location in the buffer at which to start filling.
-         * @param [length=buffer.byteLength] The number of bytes to read.
+         * @param offset The location in the buffer at which to start filling.
+         * @param length The number of bytes to read.
          * @param position The location where to begin reading data from the file. If `null`, data will be read from the current file position, and the position will be updated. If `position` is an
          * integer, the current file position will remain unchanged.
          * @return Fulfills upon success with an object with two properties:
