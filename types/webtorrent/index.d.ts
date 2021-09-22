@@ -4,7 +4,6 @@
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
 //                 Gabriel Juchault <https://github.com/gjuchault>
 //                 Adam Crowder <https://github.com/cheeseandcereal>
-//                 ChampionBuffalo1 <https://github.com/ChampionBuffalo1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
