@@ -523,7 +523,7 @@ wx.onWindowResize(res => {
 let getUpda = wx.getUpdateManager();
 console.assert(getUpda != null);
 // worker
-let createWor = wx.createWorker();
+let createWor = wx.createWorker('js/test.js');
 console.assert(createWor != null);
 // 音频
 let creatInn = wx.createInnerAudioContext();

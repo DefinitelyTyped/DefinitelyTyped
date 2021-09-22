@@ -35,6 +35,11 @@ export class WebGLRenderList {
      */
     transparent: RenderItem[];
 
+    /**
+     * @default []
+     */
+    transmissive: RenderItem[];
+
     init(): void;
     push(
         object: Object3D,
@@ -60,5 +65,5 @@ export class WebGLRenderLists {
     constructor(properties: WebGLProperties);
 
     dispose(): void;
-    get(scene: Scene, camera: Camera): WebGLRenderList;
+    get(scene: Scene, renderCallDepth: number): WebGLRenderList;
 }

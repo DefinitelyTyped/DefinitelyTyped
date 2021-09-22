@@ -13,6 +13,9 @@ const test1 = (
         placeholder="Place holder"
         international={true}
         country={'US'}
+        onBlur={(ev: React.FocusEvent<HTMLInputElement>) => {
+            console.log(ev.currentTarget.value);
+        }}
     />
 );
 

@@ -1,4 +1,4 @@
-// Type definitions for React Router 5.1
+// Type definitions for react-router-dom 5.3
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Philip Jackson <https://github.com/p-jackson>
@@ -71,13 +71,18 @@ export interface Link<S = H.LocationState>
         React.PropsWithoutRef<LinkProps<S>> & React.RefAttributes<HTMLAnchorElement>
     > {}
 
-export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
+export interface NavLinkProps<S = H.LocationState> extends Omit<LinkProps<S>, "className" | "style"> {
     activeClassName?: string | undefined;
     activeStyle?: React.CSSProperties | undefined;
     exact?: boolean | undefined;
     strict?: boolean | undefined;
     isActive?<Params extends { [K in keyof Params]?: string }>(match: match<Params> | null, location: H.Location<S>): boolean;
     location?: H.Location<S> | undefined;
+    className?: string | ((isActive: boolean) => string) | undefined;
+    style?:
+        | React.CSSProperties
+        | ((isActive: boolean) => React.CSSProperties)
+        | undefined;
 }
 export function NavLink<S = H.LocationState>(
     // TODO: Define this as ...params: Parameters<NavLink<S>> when only TypeScript >= 3.1 support is needed.

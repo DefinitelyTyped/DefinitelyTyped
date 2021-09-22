@@ -1,4 +1,4 @@
-import inquirer = require("inquirer");
+import inquirer = require('inquirer');
 
 /**
  * List prompt example
@@ -16,10 +16,10 @@ inquirer
                 'Ask for opening hours',
                 {
                     name: 'Contact support',
-                    disabled: 'Unavailable at this time'
+                    disabled: 'Unavailable at this time',
                 },
-                'Talk to the receptionist'
-            ]
+                'Talk to the receptionist',
+            ],
         },
         {
             type: 'list',
@@ -28,8 +28,8 @@ inquirer
             choices: ['Jumbo', 'Large', 'Standard', 'Medium', 'Small', 'Micro'],
             filter(val) {
                 return val.toLowerCase();
-            }
-        }
+            },
+        },
     ])
     .then(answers => {
         console.log(JSON.stringify(answers, null, '  '));

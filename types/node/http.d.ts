@@ -37,7 +37,7 @@
  *   'Host', 'mysite.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';

@@ -315,7 +315,7 @@ function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, id: IdType<T>,
 fuzzyTextFilterFn.autoRemove = (val: any) => !val;
 
 interface Table<T extends object> {
-    columns: Array<Column<T>>;
+    columns: ReadonlyArray<Column<T>>;
     data: T[];
     updateMyData?: any;
     skipPageReset?: boolean | undefined;
@@ -597,7 +597,7 @@ const Component = (props: {}) => {
         { firstName: 'surprise', lastName: 'zinc', age: 23, visits: 7, progress: 48, status: 'single' },
         { firstName: 'riddle', lastName: 'information', age: 2, visits: 63, progress: 3, status: 'complicated' },
     ];
-    const columns: Array<Column<Data>> = [
+    const columns: ReadonlyArray<Column<Data>> = [
         {
             id: 'selection',
             // The header can use the table's getToggleAllRowsSelectedProps method
@@ -692,7 +692,7 @@ const Component = (props: {}) => {
     ];
 
     // mostly the same as above but minus the grouping
-    const columns2: Array<Column<Data>> = [
+    const columns2: ReadonlyArray<Column<Data>> = [
         {
             Header: 'First Name',
             accessor: 'firstName',

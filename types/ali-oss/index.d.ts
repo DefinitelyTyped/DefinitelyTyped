@@ -106,6 +106,8 @@ declare namespace OSS {
 
     type HTTPMethods = 'GET' | 'POST' | 'DELETE' | 'PUT';
 
+    type RedundancyType = 'LRS' | 'ZRS';
+
     interface RequestOptions {
         // the operation timeout
         timeout?: number | undefined;
@@ -248,6 +250,8 @@ declare namespace OSS {
     }
 
     interface PutBucketOptions {
+        acl: ACLType;
+        dataRedundancyType: RedundancyType;
         timeout: number;
         storageClass: StorageType;
     }

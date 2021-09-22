@@ -6186,6 +6186,8 @@ fp.now(); // $ExpectType number
     _.concat(1, 2); // $ExpectType number[]
     _.concat(1, [1]); // $ExpectType number[]
     _.concat(1, [1], numberROA); // $ExpectType number[]
+    _.concat(...[1, 2]); // $ExpectType number[]
+    _.concat(...[[1], [2]]); // $ExpectType number[]
 
     _(1).concat(2); // $ExpectType Collection<number>
     _(1).concat([1]); // $ExpectType Collection<number>

@@ -340,8 +340,9 @@ export function cargoQueue<T, E = Error>(
     concurrency?: number,
     payload?: number,
 ): QueueObject<T>;
-export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, concurrency?: number, callback?: AsyncResultCallback<R, E>): void;
-export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, callback?: AsyncResultCallback<R, E>): void;
+export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, concurrency?: number): Promise<R>;
+export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, concurrency: number, callback: AsyncResultCallback<R, E>): void;
+export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, callback: AsyncResultCallback<R, E>): void;
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 
 export interface RetryOptions<E> {

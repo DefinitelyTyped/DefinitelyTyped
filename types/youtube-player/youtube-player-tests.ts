@@ -9,6 +9,7 @@ const player: YouTubePlayer = youTubePlayerFactory(
         width: 640,
         height: 300,
         videoId: 'aaaaaaaaaa',
+        host: 'https://github.com',
         playerVars: {
             autoplay: 1,
             cc_lang_pref: 'en_US',

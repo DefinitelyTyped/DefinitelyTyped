@@ -9,6 +9,7 @@ export interface Options {
     width?: number | string | undefined;
     height?: number | string | undefined;
     videoId?: string | undefined;
+    host?: string | undefined;
     playerVars?: {
         autoplay?: 0 | 1 | undefined,
         cc_lang_pref?: string | undefined,

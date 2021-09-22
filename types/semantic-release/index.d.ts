@@ -401,6 +401,11 @@ declare namespace SemanticRelease {
         env: {
             [key: string]: string;
         };
+
+        /**
+         * Commits to analyze.
+         */
+        commits?: Commit[];
     }
 
     interface Commit {

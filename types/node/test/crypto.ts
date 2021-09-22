@@ -1268,3 +1268,8 @@ import { promisify } from 'node:util';
     crypto.createPublicKey({ key: jwk, format: 'jwk' });
     crypto.createPrivateKey({ key: jwk, format: 'jwk' });
 }
+
+{
+    // tslint:disable-next-line no-object-literal-type-assertion (webcrypto.CryptoKey is a placeholder)
+    crypto.KeyObject.from({} as crypto.webcrypto.CryptoKey); // $ExpectType KeyObject
+}

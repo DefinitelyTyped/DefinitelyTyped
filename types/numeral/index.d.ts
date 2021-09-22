@@ -24,6 +24,17 @@ declare namespace numeral {
      * Object with all loaded locales
      */
     const locales: NumeralJSLocales;
+
+    /**
+     * Object with all loaded formats
+     */
+    const formats: NumeralJSFormats;
+
+    /**
+     * Object with utility functions
+     */
+    const _: NumeralJSUtils;
+
     /**
      * This function sets the current locale.  If no arguments are passed in,
      * it will simply return the current global locale key.
@@ -57,8 +68,8 @@ declare namespace numeral {
     function register(
         what: RegisterType,
         key: string,
-        value: NumeralJSLocale | NumeralJsFormat,
-    ): NumeralJSLocale | NumeralJsFormat;
+        value: NumeralJSLocale | NumeralJSFormat,
+    ): NumeralJSLocale | NumeralJSFormat;
 
     function validate(value: any, culture: any): boolean;
 
@@ -113,13 +124,22 @@ declare namespace numeral {
     type RoundingFunction = (value: number) => number;
 
     // http://numeraljs.com/#custom-formats
-    interface NumeralJsFormat {
+    interface NumeralJSFormat {
         regexps: {
             format: RegExp;
             unformat: RegExp;
         };
         format: (value: any, format: string, roundingFunction: RoundingFunction) => string;
         unformat: (value: string) => number;
+    }
+
+    interface NumeralJSFormats {
+        [id: string]: NumeralJSFormat;
+    }
+
+    interface NumeralJSUtils {
+        numberToFormat: (value: number, format: string, roundingFunction?: RoundingFunction) => string;
+        stringToNumber: (string: string) => number;
     }
 
     type RegisterType = 'format' | 'locale';

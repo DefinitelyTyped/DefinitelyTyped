@@ -413,6 +413,7 @@ export interface SelectRowProps<T> {
         disabled: boolean;
         mode: string;
         rowIndex: number;
+        rowKey: string;
     }) => JSX.Element) | undefined;
     selectionHeaderRenderer?: ((options: { mode: string; checked: boolean; indeterminate: boolean }) => JSX.Element) | undefined;
     headerColumnStyle?: ((status: TableCheckboxStatus) => CSSProperties | undefined) | CSSProperties | undefined;

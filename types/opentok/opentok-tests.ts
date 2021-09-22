@@ -21,17 +21,26 @@ const tokenOptions: OpenTok.TokenOptions = {
 
 const token = client.generateToken('SESSION_ID', tokenOptions);
 
-client.dial('SESSION_ID', token, 'SIP_URI', {
-  from: 'Anna',
-  secure: true,
-  auth: {
-    username: 'anna',
-    password: 'password123',
+client.dial(
+  'SESSION_ID',
+  token,
+  'SIP_URI',
+  {
+    from: 'Anna',
+    secure: true,
+    auth: {
+      username: 'anna',
+      password: 'password123'
+    },
+    headers: {
+      'x-auth': 'foo,bar'
+    }
   },
-  headers: {
-    'x-auth': 'foo,bar',
-  },
-});
+  (err: Error | null, sipInterconnect: OpenTok.SipInterconnect) => {
+    if (err) return console.log(err);
+    console.log(sipInterconnect.id);
+  }
+);
 
 const archiveOptions: OpenTok.ArchiveOptions = {
   name: 'name',
@@ -98,6 +107,11 @@ client.listArchives(listArchivesOptions, (err: Error, archives: OpenTok.Archive[
   for (var i = 0; i < archives.length; i++) {
     console.log(archives[i].id);
   }
+});
+
+client.playDTMF('SESSION_ID', 'CONNECTION_ID', '0', (err: Error) => {
+  if (err) return console.log(err);
+  console.log('success');
 });
 
 const broadcastOptions: OpenTok.BroadcastOptions = {

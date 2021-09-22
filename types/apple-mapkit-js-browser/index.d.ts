@@ -1608,7 +1608,7 @@ declare namespace mapkit {
         /**
          * The gradient to apply along the line.
          */
-        lineGradient: LineGradient;
+        lineGradient?: LineGradient | undefined;
     }
 
     /**
@@ -1886,7 +1886,7 @@ declare namespace mapkit {
         /**
          * A string that constrains search results to within the provided countries.
          */
-        limitToCountries?: boolean | undefined;
+        limitToCountries?: string | undefined;
         /**
          * A Boolean value that indicates whether the search results should include points of interest.
          */

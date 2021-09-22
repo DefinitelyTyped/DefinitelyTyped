@@ -29,3 +29,9 @@ const options: hash.Options = {
 
 // $ExpectType string
 hashed = hash(obj, options);
+
+// $ExpectType Buffer
+const bufferHashed = hash(obj, {
+    ...options,
+    encoding: 'buffer',
+});
