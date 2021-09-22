@@ -447,6 +447,12 @@ mParticle.eCommerce.logPromotion(
     mParticle.PromotionType.PromotionClick,
     promotion1,
 );
+
+mParticle.eCommerce.logPromotion(
+    mParticle.PromotionType.PromotionClick,
+    [promotion1, promotion2],
+);
+
 mParticle.eCommerce.logPromotion(
     mParticle.PromotionType.PromotionView,
     promotion1,
