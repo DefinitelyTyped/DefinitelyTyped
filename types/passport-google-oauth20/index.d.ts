@@ -46,6 +46,7 @@ export interface Profile extends passport.Profile {
         email: string;
         email_verified: boolean;
         locale: string;
+        hd?: string;
     };
 }
 
