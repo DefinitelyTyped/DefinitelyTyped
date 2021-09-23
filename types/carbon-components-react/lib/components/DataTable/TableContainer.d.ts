@@ -4,6 +4,7 @@ import { ReactDivAttr } from "../../../typings/shared";
 export interface TableContainerProps extends Omit<ReactDivAttr, "title"> {
     description?: React.ReactNode | undefined,
     stickyHeader?: boolean | undefined,
+    useStaticWidth?: boolean | undefined,
     title?: React.ReactNode | undefined,
 }
 
