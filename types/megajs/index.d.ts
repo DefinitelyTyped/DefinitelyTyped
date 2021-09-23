@@ -96,10 +96,8 @@ export class Storage extends EventEmitter {
     login(cb: any): Readable;
     getAccountInfo(cb: any): AccountInfo;
     toJSON(): JSON;
-    on(event: 'add', listener: (file: MutableFile) => void): this;
-    on(event: 'move', listener: (file: MutableFile, olddir: MutableFile) => void): this;
-    on(event: 'delete', listener: (file: MutableFile) => void): this;
-    on(event: 'update', listener: (file: MutableFile) => void): this;
+    on(event: 'add' | 'delete' | 'update', listener: (file: MutableFile) => void): this;
+    on(event: 'move', listener: (file: MutableFile, oldDir: MutableFile) => void): this;
 }
 
 export class MutableFile extends File {
@@ -117,8 +115,7 @@ export class MutableFile extends File {
     setLabel(label: string, cb: (err: Error | undefined) => void): Readable;
     setFavorite(isFavorite: boolean, cb: (err: Error | undefined) => void): Readable;
     on(event: 'move', listener: (olddir: MutableFile) => void): this;
-    on(event: 'delete', listener: () => void): this;
-    on(event: 'update', listener: () => void): this;
+    on(event: 'delete' | 'update', listener: () => void): this;
 }
 
 export default function mega(options: StorageOptions, cb?: any): Storage;
