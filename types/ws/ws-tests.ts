@@ -20,6 +20,14 @@ import * as url from "url";
 }
 
 {
+    const ws: WebSocket.WebSocket = new WebSocket.WebSocket("ws://www.host.com/path");
+}
+
+{
+    const wss: WebSocket.WebSocketServer = new WebSocket.WebSocketServer({ port: 8081 });
+}
+
+{
     const wss = new WebSocket.Server({ port: 8081 });
     wss.on("connection", (ws, req) => {
         ws.on("message", message => console.log("received: %s", message));
