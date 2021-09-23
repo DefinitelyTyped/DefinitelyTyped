@@ -33,6 +33,7 @@ export * from "./lib/components/Dropdown";
 export * from "./lib/components/ErrorBoundary";
 export * from "./lib/components/ExpandableSearch";
 export * from "./lib/components/FileUploader";
+export * from "./lib/components/FilterableMultiSelect";
 export * from "./lib/components/FluidForm/FluidForm"; // context is not exported from index
 export * from "./lib/components/Form";
 export * from "./lib/components/FormGroup";
@@ -163,6 +164,7 @@ export {
     FileUploaderDropContainer,
     FileUploaderItem,
 } from "./lib/components/FileUploader";
+export { default as FilterableMultiSelect } from "./lib/components/FilterableMultiSelect";
 export { default as FluidForm } from "./lib/components/FluidForm";
 export { default as Form } from "./lib/components/Form";
 export { default as FormGroup } from "./lib/components/FormGroup";
