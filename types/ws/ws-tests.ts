@@ -21,11 +21,11 @@ import * as wslib from "ws";
 }
 
 {
-    const ws: wslib.WebSocket = new WebSocket.WebSocket("ws://www.host.com/path");
+    const ws: wslib.WebSocket = new wslib.WebSocket("ws://www.host.com/path");
 }
 
 {
-    const wss: wslib.WebSocketServer = new WebSocket.WebSocketServer({ port: 8081 });
+    const wss: wslib.WebSocketServer = new wslib.WebSocketServer({ port: 8081 });
 }
 
 {
