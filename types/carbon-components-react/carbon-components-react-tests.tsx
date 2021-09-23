@@ -956,6 +956,8 @@ interface MultiSelectObjType1 {
     someBoolProp?: boolean | undefined
 }
 
+const MultiSelectItemComp: React.FC<MultiSelectObjType1> = () => <div/>;
+
 const multiSelectObjs = (
     <MultiSelect<MultiSelectObjType1>
         id="disks"
@@ -963,8 +965,21 @@ const multiSelectObjs = (
             { id: 1, name: "one" },
             { id: 2, name: "two", someBoolProp: true }
         ]}
-        itemToString={(item) => item && item.name || ""}
+        itemToString={(item) => item.name || ""}
+        itemToElement={MultiSelectItemComp}
         onChange={({ selectedItems }) => {}}
+    />
+);
+
+const multiSelectObjsBadCustomComp = (
+    <MultiSelect<MultiSelectObjType1>
+        id="disks"
+        items={[
+            { id: 1, name: 'one' },
+            { id: 2, name: 'two', someBoolProp: true },
+        ]}
+        // $ExpectError
+        itemToElement={TestComp2}
     />
 );
 

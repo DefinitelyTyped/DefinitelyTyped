@@ -26,7 +26,7 @@ export interface DropdownProps<ItemType = string> extends
     hideLabel?: boolean | undefined;
     helperText?: React.ReactNode | undefined,
     items: readonly ItemType[],
-    itemToElement?: ItemType extends object ? React.ComponentType<ItemType> : never | undefined,
+    itemToElement?: ItemType extends object ? React.JSXElementConstructor<ItemType> : never | undefined,
     itemToString?(item: ItemType): string
     label: NonNullable<React.ReactNode>,
     light?: boolean | undefined,
