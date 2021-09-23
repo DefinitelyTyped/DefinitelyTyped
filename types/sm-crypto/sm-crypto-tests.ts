@@ -47,7 +47,6 @@ const sigValueHex5 = sm2.doSignature(message, privateKey, {
 });
 const verifyResult5 = sm2.doVerifySignature(message, sigValueHex5, publicKey, {
     hash: true,
-    publicKey,
 });
 
 // obtain a elliptic curve point
