@@ -26,18 +26,27 @@ export namespace sm2 {
     function generateKeyPairHex(a?: number, b?: number, c?: JSBN.RandomGenerator): KeyPairHex;
     function doEncrypt(msg: string, publicKey: string, cipherMode?: CipherMode): string;
     function doDecrypt(encryptData: string, privateKey: string, cipherMode?: CipherMode): string;
-    function doSignature(msg: string, privateKey: string, options?: {
-        pointPool?: KeyPairPoint[]
-        der?: boolean
-        hash?: boolean
-        publicKey?: string
-        userId?: string
-    }): string;
-    function doVerifySignature(msg: string, signHex: string, publicKey: string, options?: {
-        der?: boolean
-        hash?: boolean
-        userId?: string
-    }): boolean;
+    function doSignature(
+        msg: string,
+        privateKey: string,
+        options?: {
+            pointPool?: KeyPairPoint[];
+            der?: boolean;
+            hash?: boolean;
+            publicKey?: string;
+            userId?: string;
+        },
+    ): string;
+    function doVerifySignature(
+        msg: string,
+        signHex: string,
+        publicKey: string,
+        options?: {
+            der?: boolean;
+            hash?: boolean;
+            userId?: string;
+        },
+    ): boolean;
     function getPoint(): KeyPairPoint;
     function verifyPublicKey(publicKey: string): boolean;
 }
@@ -45,11 +54,15 @@ export namespace sm2 {
 export function sm3(input: string): string;
 
 export namespace sm4 {
-    function encrypt(inArray: number[], key: number[], options?: {
-        padding?: string
-        mode?: string
-        iv?: string | number[]
-        output?: string
-    }): number[];
+    function encrypt(
+        inArray: number[],
+        key: number[],
+        options?: {
+            padding?: string;
+            mode?: string;
+            iv?: string | number[];
+            output?: string;
+        },
+    ): number[];
     function decrypt(inArray: number[], key: number[]): number[];
 }
