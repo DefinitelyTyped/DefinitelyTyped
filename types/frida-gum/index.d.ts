@@ -202,7 +202,7 @@ declare namespace Script {
      * This is reference-counted, so there must be one matching `unpin()`
      * happening at a later point.
      *
-     * Typically used in the callback of `WeakRef.bind()` when you need to
+     * Typically used in the callback of `Script.bindWeak()` when you need to
      * schedule cleanup on another thread.
      */
     function pin(): void;
@@ -229,10 +229,10 @@ declare namespace Script {
     function bindWeak(target: any, callback: WeakRefCallback): WeakRefId;
 
     /**
-     * Stops monitoring the value passed to `WeakRef.bind()` and calls the
+     * Stops monitoring the value passed to `Script.bindWeak()` and calls the
      * callback immediately.
      *
-     * @param id ID returned by a previous call to `WeakRef.bind()`.
+     * @param id ID returned by a previous call to `Script.bindWeak()`.
      */
     function unbindWeak(id: WeakRefId): void;
 
