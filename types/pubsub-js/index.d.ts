@@ -35,13 +35,13 @@ declare namespace PubSubJS {
         getSubscriptions(token: Token): Message[];
     }
 
-    interface Publish<T, M> {
+    interface Publish<T, M = Message> {
         publish(message: M, data?: T): boolean;
 
         publishSync(message: M, data?: T): boolean;
     }
 
-    interface Subscribe<T, M> {
+    interface Subscribe<T, M = Message> {
         subscribe(message: M, func: SubscriptionListener<T>): Token;
 
         subscribeOnce(message: M, func: SubscriptionListener<T>): Base<T, M>;
