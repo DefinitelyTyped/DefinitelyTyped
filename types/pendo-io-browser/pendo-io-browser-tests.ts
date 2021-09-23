@@ -18,6 +18,23 @@ pendo.initialize({
     }
 });
 
+pendo.initialize({
+    visitor: {
+        id: "PUT_VISITOR_ID_HERE",
+        name: "Neo",
+        email: "neo@thematrix.io",
+        role: "godlike"
+    },
+    account: {
+        id: "PUT_ACCOUNT_ID_HERE",
+        name: "CorpSchmorp"
+    },
+    parentAccount: {
+        id: 'PUT_PARENT_ACCOUNT_ID_HERE',
+        name: "CorpSchmorp"
+    }
+});
+
 pendo.identify(
     "PUT_VISITOR_ID_HERE",
     "PUT_ACCOUNT_ID_HERE"
