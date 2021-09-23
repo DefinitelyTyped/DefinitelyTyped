@@ -42,6 +42,7 @@ import {
     FileUploaderItem,
     MultiSelect,
     Tabs,
+    Search,
     SideNav,
     SideNavItem,
     SideNavItems,
@@ -1147,5 +1148,15 @@ const dataTableSkeletonBasic = (
         <LayoutDirection as={TestComp2} somethingElse={5}>
             Content
         </LayoutDirection>
+    );
+}
+
+//
+// Search
+//
+{
+    const searchT1 = (
+        // $ExpectError
+        <Search renderIcon={TestComp2} />
     );
 }
