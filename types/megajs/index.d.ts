@@ -115,7 +115,7 @@ export class MutableFile extends File {
     rename(newFileName: string, cb: (err: Error | undefined) => void): Readable;
     setLabel(label: string, cb: (err: Error | undefined) => void): Readable;
     setFavorite(isFavorite: boolean, cb: (err: Error | undefined) => void): Readable;
-    on(event: 'move', listener: (olddir: MutableFile) => void): this;
+    on(event: 'move', listener: (oldDir: MutableFile) => void): this;
     on(event: 'delete' | 'update', listener: () => void): this;
 }
 
