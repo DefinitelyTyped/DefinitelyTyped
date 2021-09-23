@@ -6534,7 +6534,6 @@ declare namespace chrome.runtime {
     export interface PlatformInfo {
         /**
          * The operating system chrome is running on.
-         * One of: "mac", "win", "android", "cros", "linux", or "openbsd"
          */
         os: OsEnum;
         /**
