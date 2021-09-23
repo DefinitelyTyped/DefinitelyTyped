@@ -14,7 +14,7 @@ export interface AccordionItemProps extends Omit<ReactLIAttr, "title"> {
     iconDescription?: string | undefined;
     onHeadingClick?(data: HeadingClickData): void,
     open?: boolean | undefined,
-    renderExpand?: React.ReactNode | undefined,
+    renderExpando?: React.ReactNode | undefined,
     /** The accordion title. */
     title?: React.ReactNode | undefined;
 }
