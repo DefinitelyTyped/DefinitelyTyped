@@ -21,7 +21,7 @@ declare namespace PubSubJS {
 
     type Message = string | Symbol;
 
-    type SubscriptionListener<T> = (message: Message, data?: T) => void;
+    type SubscriptionListener<T> = (message: string, data?: T) => void;
 
     interface CountSubscriptions {
         countSubscriptions(token: Token): number;
@@ -35,13 +35,13 @@ declare namespace PubSubJS {
         getSubscriptions(token: Token): Message[];
     }
 
-    interface Publish<T, M = Message> {
+    interface Publish<T, M> {
         publish(message: M, data?: T): boolean;
 
         publishSync(message: M, data?: T): boolean;
     }
 
-    interface Subscribe<T, M = Message> {
+    interface Subscribe<T, M> {
         subscribe(message: M, func: SubscriptionListener<T>): Token;
 
         subscribeOnce(message: M, func: SubscriptionListener<T>): Base<T, M>;

@@ -92,6 +92,12 @@ function ClearAllSubscriptions() {
     PubSub.clearAllSubscriptions();
 }
 
+function testStringMessage() {
+    PubSub.subscribe('car', (msg: string, data: any) => {
+        console.log('top level: ', msg, data);
+    });
+}
+
 function test_generics_1() {
     const login = Symbol('LOGIN');
 
