@@ -124,7 +124,7 @@ export function registerBlockStyle(blockName: string, styleVariation: BlockStyle
  */
 export function registerBlockType<TAttributes extends Record<string, any> = {}>(
     metadata: BlockConfiguration<TAttributes>,
-    settings?: BlockConfiguration<TAttributes>,
+    settings?: Partial<BlockConfiguration<TAttributes>>,
 ): Block<TAttributes> | undefined;
 export function registerBlockType<TAttributes extends Record<string, any> = {}>(
     name: string,
