@@ -96,8 +96,9 @@ export class Storage extends EventEmitter {
     login(cb: any): Readable;
     getAccountInfo(cb: any): AccountInfo;
     toJSON(): JSON;
-    on(event: 'add' | 'delete' | 'update', listener: (file: MutableFile) => void): this;
+    on(event: 'ready', listener: (storage: Storage) => void): this;
     on(event: 'move', listener: (file: MutableFile, oldDir: MutableFile) => void): this;
+    on(event: 'add' | 'delete' | 'update', listener: (file: MutableFile) => void): this;
 }
 
 export class MutableFile extends File {
