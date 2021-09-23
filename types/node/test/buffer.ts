@@ -8,6 +8,7 @@ import {
     kMaxLength,
     kStringMaxLength,
     Blob,
+    resolveObjectURL,
 } from 'node:buffer';
 import { Readable, Writable } from 'node:stream';
 
@@ -392,3 +393,7 @@ buff.writeDoubleLE(123.123);
 buff.writeDoubleLE(123.123, 0);
 buff.writeDoubleBE(123.123);
 buff.writeDoubleBE(123.123, 0);
+
+{
+    resolveObjectURL(URL.createObjectURL(new Blob(['']))); // $ExpectType Blob | undefined
+}

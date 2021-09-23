@@ -10,3 +10,9 @@ export default class CloudServicesCore extends ContextPlugin {
     ): Token;
     createUploadGateway(token: Token, apiAddress: string): UploadGateway;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        CloudServicesCore: CloudServicesCore;
+    }
+}

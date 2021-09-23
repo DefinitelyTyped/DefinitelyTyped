@@ -170,8 +170,8 @@ interface IDataURLOptions {
     withoutShadow?: boolean | undefined;
 }
 
-interface IEvent {
-    e: Event;
+interface IEvent<E extends Event = Event> {
+    e: E;
     target?: Object | undefined;
     subTargets?: Object[] | undefined;
     button?: number | undefined;
@@ -326,6 +326,20 @@ interface IObservable<T> {
      * @param eventName Event name (eg. 'after:render')
      * @param handler Function that receives a notification when an event of the specified type occurs
      */
+    on(
+        eventName:
+            | 'mouse:up'
+            | 'mouse:down'
+            | 'mouse:move'
+            | 'mouse:up:before'
+            | 'mouse:down:before'
+            | 'mouse:move:before'
+            | 'mouse:dblclick'
+            | 'mouse:over'
+            | 'mouse:out',
+        handler: (e: IEvent<MouseEvent>) => void,
+    ): T;
+    on(eventName: 'mouse:wheel', handler: (e: IEvent<WheelEvent>) => void): T;
     on(eventName: string, handler: (e: IEvent) => void): T;
 
     /**

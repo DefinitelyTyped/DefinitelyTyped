@@ -13,3 +13,9 @@ export default class TableSelection extends Plugin {
     getFocusCell(): Element;
     getAnchorCell(): Element;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TableSelection: TableSelection;
+    }
+}

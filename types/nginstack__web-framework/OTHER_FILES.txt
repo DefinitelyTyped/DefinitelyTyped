@@ -3,9 +3,12 @@ keys/Pages.d.ts
 lib/anchor/ParamsFactory.d.ts
 lib/autofill/AutofillStore.d.ts
 lib/button/normalizeButtonName.d.ts
+lib/classdef/constants.d.ts
 lib/component/ComponentFactoryResolver.d.ts
 lib/connection/newConnection.d.ts
 lib/connection/tryNewConnection.d.ts
+lib/dsv/columnIsDerived.d.ts
+lib/dsv/constants.d.ts
 lib/engine/getAddressesAndPorts.d.ts
 lib/file-loader/DownloadFile.d.ts
 lib/grid/AggregateBar.d.ts
@@ -35,10 +38,12 @@ lib/process/FileInfo.d.ts
 lib/process/getCurrentProcess.d.ts
 lib/process/Interaction.d.ts
 lib/process/LayoutManager.d.ts
+lib/process/ProcessHelpFormatter.d.ts
 lib/process/runActivity.d.ts
 lib/process/validateSession.d.ts
 lib/security/UserAuthenticator.d.ts
 lib/simple-layout/convertUnit.d.ts
+lib/simple-layout/extractCssClassNames.d.ts
 lib/simple-layout/getSimpleLayoutCss.d.ts
 lib/simple-layout/SimpleLayoutBuffer.d.ts
 lib/url/formatAssetUrl.d.ts

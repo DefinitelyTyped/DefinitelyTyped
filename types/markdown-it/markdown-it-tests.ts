@@ -18,10 +18,11 @@ import LinkifyIt = require('linkify-it');
     // test constuctor usage
     let md: MarkdownIt;
     const options: MarkdownIt.Options = {};
+    options.quotes; // $ExpectType string | string[] | undefined
     const presets: MarkdownIt.PresetName[] = ['commonmark', 'zero', 'default'];
 
     md = MarkdownIt();
-    md = new MarkdownIt();
+    md = new MarkdownIt({});
     md = MarkdownIt(options);
     md = new MarkdownIt(options);
 

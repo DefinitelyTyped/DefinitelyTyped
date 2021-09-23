@@ -1,8 +1,9 @@
 // Type definitions for @ckeditor/ckeditor5-image 29.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/image.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
+//                 Ben Demboski <https://github.com/bendemboski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 
 export { default as AutoImage } from './src/autoimage';
 export { default as Image } from './src/image';

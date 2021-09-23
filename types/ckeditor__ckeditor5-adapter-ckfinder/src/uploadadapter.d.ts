@@ -35,7 +35,7 @@ export class UploadAdapter implements IUploadAdapter {
      * Locale translation method.
      */
     readonly t: Locale['t'];
-    protected xhr: XMLHttpRequest;
+    protected xhr?: XMLHttpRequest;
     /**
      * Creates a new adapter instance.
      */
@@ -66,4 +66,10 @@ export class UploadAdapter implements IUploadAdapter {
      * Prepares the data and sends the request.
      */
     private _sendRequest(file: File): void;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        CKFinderUploadAdapter: CKFinderUploadAdapter;
+    }
 }

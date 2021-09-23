@@ -19,3 +19,9 @@ export interface HeadingOption {
     title: string;
     view?: ElementDefinition | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Heading: Heading;
+    }
+}

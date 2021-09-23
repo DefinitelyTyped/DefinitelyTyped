@@ -10,3 +10,12 @@ RemoveFormat.requires.forEach(Plugin => new Plugin(editor).init());
 
 new RemoveFormatCommand(editor).refresh();
 new RemoveFormatCommand(editor).execute();
+
+// $ExpectType RemoveFormat
+editor.plugins.get('RemoveFormat');
+
+// $ExpectType RemoveFormatEditing
+editor.plugins.get('RemoveFormatEditing');
+
+// $ExpectType RemoveFormatUI
+editor.plugins.get('RemoveFormatUI');

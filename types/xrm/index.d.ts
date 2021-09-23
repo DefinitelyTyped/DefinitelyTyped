@@ -201,6 +201,12 @@ declare namespace Xrm {
          * Indicates whether the Skype protocol is used for the current organization.
          */
         useSkypeProtocol: boolean;
+
+        /**
+         * Returns the region of the current organization.
+         * @see {@link https://docs.microsoft.com/en-us/power-platform/admin/geo-to-geo-migrations External Link: Geo to geo migrations}
+         */
+        organizationGeo: string;
     }
 
     /**
@@ -2433,6 +2439,14 @@ declare namespace Xrm {
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
             setValue(value: T | null): void;
+
+            /**
+            * Sets a value for a column to determine whether it is valid or invalid with a message
+            * @param isValid Specify false to set the column value to invalid and true to set the value to valid.
+            * @param message The message to display.
+            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setisvalid External Link: setIsValid (Client API reference)}
+            */
+            setIsValid(isValid: boolean, message?: string): void;
         }
 
         /**
@@ -2470,6 +2484,13 @@ declare namespace Xrm {
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Controls.NumberControl>;
+
+            /**
+            * Sets the number of digits allowed to the right of the decimal point.
+            * @param precision Number of digits allowed to the right of the decimal point.
+            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setPrecision External Link: setPrecision (Client API reference)}
+            */
+             setPrecision(precision: number): void;
         }
 
         /**
@@ -3614,6 +3635,13 @@ declare namespace Xrm {
              * Navigates the user to this form.
              */
             navigate(): void;
+
+            /**
+             * Sets a value that indicates whether the form is visible.
+             * @param isVisible Specify true to show the form; false to hide the form.
+             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui-formselector/setvisible External Link: setVisible (Client API reference)}
+             */
+            setVisible(isVisible: boolean): void;
         }
 
         /**

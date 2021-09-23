@@ -10,6 +10,8 @@ import { FileLoader } from "@ckeditor/ckeditor5-upload/src/filerepository";
 
 class MyEditor extends Editor {}
 
+const editor = new MyEditor();
+
 const config: SimpleUploadConfig = {
     uploadUrl: "",
     withCredentials: true,
@@ -43,3 +45,12 @@ base64UploadAdapter.init();
 
 const simpleUploadAdapter = new SimpleUploadAdapter(new MyEditor());
 simpleUploadAdapter.init();
+
+// $ExpectType Base64UploadAdapter
+editor.plugins.get('Base64UploadAdapter');
+
+// $ExpectType FileRepository
+editor.plugins.get('FileRepository');
+
+// $ExpectType SimpleUploadAdapter
+editor.plugins.get('SimpleUploadAdapter');

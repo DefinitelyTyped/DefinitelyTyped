@@ -10,3 +10,9 @@ export default class AlignmentUI extends Plugin {
     static readonly pluginName: "AlignmentUI";
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        AlignmentUI: AlignmentUI;
+    }
+}

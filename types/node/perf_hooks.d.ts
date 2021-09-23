@@ -26,7 +26,7 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/perf_hooks.js)
  */
 declare module 'perf_hooks' {
     import { AsyncResource } from 'node:async_hooks';
@@ -375,7 +375,7 @@ declare module 'perf_hooks' {
          */
         disconnect(): void;
         /**
-         * Subscribes the `<PerformanceObserver>` instance to notifications of new `<PerformanceEntry>` instances identified either by `options.entryTypes`or `options.type`:
+         * Subscribes the `PerformanceObserver` instance to notifications of new `PerformanceEntry` instances identified either by `options.entryTypes`or `options.type`:
          *
          * ```js
          * const {
@@ -545,7 +545,7 @@ declare module 'perf_hooks' {
         figures?: number | undefined;
     }
     /**
-     * Returns a `<RecordableHistogram>`.
+     * Returns a `RecordableHistogram`.
      * @since v15.9.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;

@@ -117,3 +117,151 @@ new ImageUploadCommand(editor);
 const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
 ImageUploadUtils.isLocalImage(emptyElement);
 ImageUploadUtils.fetchLocalImage(emptyElement);
+
+//
+// ImageConfig
+//
+new MyEditor({
+    image: {
+        insert: {
+            integrations: [
+                'insertImageViaUrl',
+                'openCKFinder',
+                'pluginXButton'
+            ]
+        },
+        resizeOptions: [
+            {
+                name: 'resizeImage:25',
+                value: '25',
+                icon: 'small',
+                label: 'Small'
+            }
+        ],
+        resizeUnit: '%',
+        styles: [
+            {
+                name: 'fullSize',
+                icon: '<svg></svg>',
+                title: 'Full size image',
+                className: 'image-full-size',
+            }
+        ],
+        toolbar: [
+            'imageStyle:inline', 'imageStyle:wrapText', 'imageStyle:breakText', '|',
+            'toggleImageCaption', 'imageTextAlternative'
+        ],
+        upload: {
+            types: [ 'png', 'jpeg' ]
+        }
+    }
+});
+
+// Everything is optional
+new MyEditor({
+    image: {}
+});
+
+// resizeOptions require only name and value
+new MyEditor({
+    image: {
+        resizeOptions: [
+            {
+                name: 'resizeImage:25',
+                value: '25',
+            }
+        ],
+    },
+});
+
+// styles options require only name
+new MyEditor({
+    image: {
+        styles: [
+            {
+                name: 'fullSize',
+            }
+        ],
+    },
+});
+
+// styles supports strings and objects
+new MyEditor({
+    image: {
+        styles: [
+            {
+                name: 'fullSize',
+                icon: '<svg></svg>',
+                title: 'Full size image',
+                className: 'image-full-size',
+            },
+            '50%'
+        ],
+    },
+});
+
+// $ExpectType AutoImage
+editor.plugins.get('AutoImage');
+
+// $ExpectType Image
+editor.plugins.get('Image');
+
+// $ExpectType ImageCaption
+editor.plugins.get('ImageCaption');
+
+// $ExpectType ImageCaptionEditing
+editor.plugins.get('ImageCaptionEditing');
+
+// $ExpectType ImageEditing
+editor.plugins.get('ImageEditing');
+
+// $ExpectType ImageInsert
+editor.plugins.get('ImageInsert');
+
+// $ExpectType ImageInsertUI
+editor.plugins.get('ImageInsertUI');
+
+// $ExpectType ImageResize
+editor.plugins.get('ImageResize');
+
+// $ExpectType ImageResizeButtons
+editor.plugins.get('ImageResizeButtons');
+
+// $ExpectType ImageResizeEditing
+editor.plugins.get('ImageResizeEditing');
+
+// $ExpectType ImageResizeHandles
+editor.plugins.get('ImageResizeHandles');
+
+// $ExpectType ImageStyle
+editor.plugins.get('ImageStyle');
+
+// $ExpectType ImageStyleEditing
+editor.plugins.get('ImageStyleEditing');
+
+// $ExpectType ImageStyleUI
+editor.plugins.get('ImageStyleUI');
+
+// $ExpectType ImageTextAlternative
+editor.plugins.get('ImageTextAlternative');
+
+// $ExpectType ImageTextAlternativeEditing
+editor.plugins.get('ImageTextAlternativeEditing');
+
+// $ExpectType ImageTextAlternativeUI
+editor.plugins.get('ImageTextAlternativeUI');
+
+// $ExpectType ImageToolbar
+editor.plugins.get('ImageToolbar');
+
+// $ExpectType ImageUpload
+editor.plugins.get('ImageUpload');
+
+// $ExpectType ImageUploadEditing
+editor.plugins.get('ImageUploadEditing');
+
+// $ExpectType ImageUploadProgress
+editor.plugins.get('ImageUploadProgress');
+
+// $ExpectType ImageUploadUI
+editor.plugins.get('ImageUploadUI');

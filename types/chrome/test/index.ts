@@ -852,11 +852,19 @@ async function testManagementForPromise() {
 
 // https://developer.chrome.com/docs/extensions/reference/scripting
 async function testScriptingForPromise() {
-    await chrome.scripting.executeScript({target: {tabId: 0}});
-    await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: []})
-    await chrome.scripting.executeScript({target: {tabId: 0}, func: (name: string) => {}, args: []})
-    await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: {}}) // $ExpectError
-    await chrome.scripting.insertCSS({target: {tabId: 0}});
+    await chrome.scripting.executeScript({ target: { tabId: 0 } }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ''] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [''] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (name: string) => {}, args: [] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: {} }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] });
+
+    await chrome.scripting.insertCSS({ target: { tabId: 0 } });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_cpu

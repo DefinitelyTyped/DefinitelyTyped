@@ -42,7 +42,7 @@
  * ```
  *
  * See the `Implementation considerations section` for more information.
- * @see [source](https://github.com/nodejs/node/blob/v16.6.0/lib/dns.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/dns.js)
  */
 declare module 'dns' {
     import * as dnsPromises from 'node:dns/promises';
@@ -553,6 +553,10 @@ declare module 'dns' {
     export const CANCELLED: string;
     export interface ResolverOptions {
         timeout?: number | undefined;
+        /**
+         * @default 4
+         */
+        tries?: number;
     }
     /**
      * An independent resolver for DNS requests.

@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.8
+// Type definitions for Jasmine 3.9
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -236,7 +236,7 @@ declare namespace jasmine {
     /**
      * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
      */
-    interface EnvConfiguration {
+    interface Configuration {
         /**
          * Whether to randomize spec execution order
          * @since 3.3.0
@@ -249,13 +249,20 @@ declare namespace jasmine {
          * @since 3.3.0
          * @default null
          */
-        seed?: number | string | undefined;
+        seed?: number | string | null | undefined;
         /**
          * Whether to stop execution of the suite after the first spec failure
          * @since 3.3.0
          * @default false
+         * @deprecated Use the `stopOnSpecFailure` config property instead.
          */
         failFast?: boolean | undefined;
+        /**
+         * Whether to stop execution of the suite after the first spec failure
+         * @since 3.9.0
+         * @default false
+         */
+        stopOnSpecFailure?: boolean | undefined;
         /**
          * Whether to fail the spec if it ran no expectations. By default
          * a spec that ran no expectations is reported as passed. Setting this
@@ -268,14 +275,21 @@ declare namespace jasmine {
          * Whether to cause specs to only have one expectation failure.
          * @since 3.3.0
          * @default false
+         * @deprecated Use the `stopSpecOnExpectationFailure` config property instead.
          */
         oneFailurePerSpec?: boolean | undefined;
         /**
+         * Whether to cause specs to only have one expectation failure.
+         * @since 3.3.0
+         * @default false
+         */
+        stopSpecOnExpectationFailure?: boolean | undefined;
+        /**
          * Function to use to filter specs
          * @since 3.3.0
-         * @default true
+         * @default A function that always returns true.
          */
-        specFilter?: Function | undefined;
+        specFilter?: SpecFilter | undefined;
         /**
          * Whether or not reporters should hide disabled specs from their output.
          * Currently only supported by Jasmine's HTMLReporter
@@ -290,8 +304,11 @@ declare namespace jasmine {
          * @since 3.5.0
          * @default undefined
          */
-        Promise?: Function | undefined;
+        Promise?: typeof Promise | undefined;
     }
+
+    /** @deprecated Please use `Configuration` instead of `EnvConfiguration`. */
+    type EnvConfiguration = Configuration;
 
     function clock(): Clock;
     function DiffBuilder(): DiffBuilder;
@@ -485,9 +502,11 @@ declare namespace jasmine {
         addReporter(reporter: CustomReporter): void;
         allowRespy(allow: boolean): void;
         clearReporters(): void;
-        configuration(): EnvConfiguration;
-        configure(configuration: EnvConfiguration): void;
-        execute(runnablesToRun?: Suite[], onComplete?: Func): void;
+        configuration(): Configuration;
+        configure(configuration: Configuration): void;
+        execute(runnablesToRun: Suite[] | null | undefined, onComplete: Func): void;
+        /** @async */
+        execute(runnablesToRun?: Suite[]): PromiseLike<void>;
         /**
          * @deprecated Use hideDisabled option in {@link jasmine.Env.configure} instead.
          */
@@ -1017,14 +1036,23 @@ declare namespace jasmine {
         jasmineDone?(runDetails: JasmineDoneInfo, done?: () => void): void | Promise<void>;
     }
 
+    interface SpecFilter {
+        /**
+         * A function that takes a spec and returns true if it should be executed or false if it should be skipped.
+         * @param spec The spec that the filter is being applied to
+         */
+        (spec: Spec): boolean;
+    }
+
+    /** @deprecated Please use `SpecFilter` instead of `SpecFunction`. */
     type SpecFunction = (spec?: Spec) => void;
 
     interface Spec {
         new (attrs: any): any;
 
-        id: number;
+        readonly id: number;
         env: Env;
-        description: string;
+        readonly description: string;
         getFullName(): string;
     }
 

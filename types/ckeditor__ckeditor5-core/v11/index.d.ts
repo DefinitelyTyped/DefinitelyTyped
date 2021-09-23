@@ -2,7 +2,7 @@
 // Project: https://github.com/ckeditor/ckeditor5-core, https://ckeditor.com/ckeditor-5
 // Definitions by: denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 
 import { Conversion, DataController, EditingController, Model } from "@ckeditor/ckeditor5-engine";
 import { KeyEventData } from "@ckeditor/ckeditor5-engine/src/view/observer/keyobserver";

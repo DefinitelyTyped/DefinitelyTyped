@@ -31,7 +31,7 @@ export default class DocumentSelection implements Emitter {
     containsEntireContent(element?: Element): boolean;
     destroy(): void;
     getAttribute(key: string): string | number | boolean | undefined;
-    getAttributeKeys(): IterableIterator<string>;
+    getAttributeKeys(): string[];
     getAttributes(): IterableIterator<[string, string | number | boolean]>;
     getFirstPosition(): Position | null;
     getFirstRange(): Range | null;
@@ -52,8 +52,10 @@ export default class DocumentSelection implements Emitter {
     is(type: "documentSelection" | "model:documentSelection"): this is DocumentSelection;
     is(type: "node" | "model:node"): this is Node | Element | Text | RootElement;
     is(type: "$text" | "model:$text" | "text" | "model:text"): this is Text;
-    is(type: "element" | "model:element", name?: string): this is Element | RootElement;
-    is(type: "rootElement" | "model:rootElement", name?: string): this is RootElement;
+    is(type: "element" | "model:element"): this is Element | RootElement;
+    is(type: "rootElement" | "model:rootElement"): this is RootElement;
+    is<K extends string>(type: "element" | "model:element", name: K): this is (Element | RootElement) & { name: K };
+    is<K extends string>(type: "rootElement" | "model:rootElement", name: K): this is RootElement & { name: K };
     is(type: string, name?: string): boolean;
     observeMarkers(prefixOrName: string): void;
     refresh(): void;

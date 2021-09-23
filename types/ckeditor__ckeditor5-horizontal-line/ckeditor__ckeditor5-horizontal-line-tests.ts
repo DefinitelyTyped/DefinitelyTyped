@@ -13,3 +13,12 @@ new HorizontalLineEditing(editor);
 
 new HorizontalLineCommand(editor).execute();
 new HorizontalLineCommand(editor).refresh();
+
+// $ExpectType HorizontalLine
+editor.plugins.get('HorizontalLine');
+
+// $ExpectType HorizontalLineEditing
+editor.plugins.get('HorizontalLineEditing');
+
+// $ExpectType HorizontalLineUI
+editor.plugins.get('HorizontalLineUI');
