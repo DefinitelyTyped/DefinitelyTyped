@@ -165,6 +165,14 @@ export interface HeaderProps {
     localizer: DateLocalizer;
 }
 
+export interface DateHeaderProps {
+    date: Date;
+    drilldownView: string;
+    isOffRange: boolean;
+    label: string;
+    onDrillDown: () => void;
+}
+
 export interface ResourceHeaderProps {
     label: React.ReactNode;
     index: number;
@@ -199,8 +207,8 @@ export interface Components<TEvent extends object = Event, TResource extends obj
       event?: React.ComponentType<EventProps<TEvent>> | undefined;
     } | undefined;
     month?: {
-        header?: React.ComponentType | undefined;
-        dateHeader?: React.ComponentType | undefined;
+        header?: React.ComponentType<HeaderProps> | undefined;
+        dateHeader?: React.ComponentType<DateHeaderProps> | undefined;
         event?: React.ComponentType<EventProps<TEvent>> | undefined;
     } | undefined;
     /**
@@ -224,6 +232,12 @@ export interface ToolbarProps<TEvent extends object = Event, TResource extends o
 export interface EventProps<TEvent extends object = Event> {
     event: TEvent;
     title: string;
+    continuesPrior: boolean;
+    continuesAfter: boolean;
+    isAllDay: boolean;
+    localizer: DateLocalizer;
+    slotStart: Date;
+    slotEnd: Date;
 }
 
 export interface EventWrapperProps<TEvent extends object = Event> {
@@ -295,6 +309,7 @@ export class DateLocalizer {
     constructor(spec: DateLocalizerSpec);
 
     format(value: FormatInput, format: string, culture: Culture): string;
+    messages: Messages;
 }
 
 export interface CalendarProps<TEvent extends object = Event, TResource extends object = object>
