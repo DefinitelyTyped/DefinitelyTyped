@@ -109,3 +109,13 @@ function test_generics_2() {
 
     login.publish('login', 123);
 }
+
+function test_generics_3() {
+    const login = Symbol('LOGIN');
+
+    const pubsub: PubSubJS.Base<number, symbol> = PubSub;
+
+    pubsub.subscribe(login, (msg, data) => {});
+
+    pubsub.publish(login, 123);
+}
