@@ -2,6 +2,7 @@ import WebSocket = require("ws");
 import * as http from "http";
 import * as https from "https";
 import * as url from "url";
+import * as wslib from "ws";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
@@ -20,11 +21,11 @@ import * as url from "url";
 }
 
 {
-    const ws: WebSocket.WebSocket = new WebSocket.WebSocket("ws://www.host.com/path");
+    const ws: wslib.WebSocket = new WebSocket.WebSocket("ws://www.host.com/path");
 }
 
 {
-    const wss: WebSocket.WebSocketServer = new WebSocket.WebSocketServer({ port: 8081 });
+    const wss: wslib.WebSocketServer = new WebSocket.WebSocketServer({ port: 8081 });
 }
 
 {
