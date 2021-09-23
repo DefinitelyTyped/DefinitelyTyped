@@ -535,15 +535,15 @@ function testSpy() {
     spy.threw();
     spy.threw("foo");
     spy.threw(new Error("foo"));
-    spy.callArg(1);
-    spy.callArgOn(1, instance);
-    spy.callArgOn(1, instance, "a", 2);
-    spy.callArgWith(1, "a", 2);
-    spy.callArgOnWith(1, instance, "a", 2);
-    spy.yield("a", 2);
-    spy.yieldOn(instance, "a", 2);
-    spy.yieldTo("prop", "a", 2);
-    spy.yieldToOn("prop", instance, "a", 2);
+    spy.callArg(1); // $ExpectType unknown[]
+    spy.callArgOn(1, instance); // $ExpectType unknown[]
+    spy.callArgOn(1, instance, "a", 2); // $ExpectType unknown[]
+    spy.callArgWith(1, "a", 2); // $ExpectType unknown[]
+    spy.callArgOnWith(1, instance, "a", 2); // $ExpectType unknown[]
+    spy.yield("a", 2); // $ExpectType unknown[]
+    spy.yieldOn(instance, "a", 2); // $ExpectType unknown[]
+    spy.yieldTo("prop", "a", 2); // $ExpectType unknown[]
+    spy.yieldToOn("prop", instance, "a", 2); // $ExpectType unknown[]
 
     let call = spy.firstCall;
     call = spy.secondCall;
