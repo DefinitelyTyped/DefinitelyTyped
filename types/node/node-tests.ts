@@ -1,16 +1,55 @@
-import * as fs from "fs";
-import * as url from "url";
-import * as util from "util";
-import * as http from "http";
-import * as https from "https";
-import * as console2 from "console";
-import * as timers from "timers";
-import * as dns from "dns";
-import * as inspector from "inspector";
-import * as trace_events from "trace_events";
+import './test/assert';
+import './test/async_hooks';
+import './test/buffer';
+import './test/child_process';
+import './test/cluster';
+import './test/console';
+import './test/constants';
+import './test/crypto';
+import './test/dgram';
+import './test/diagnostics_channel';
+import './test/dns';
+import './test/events';
+import './test/fs';
+import './test/globals';
+import './test/http';
+import './test/http2';
+import './test/https';
+import './test/inspector';
+import './test/module';
+import './test/net';
+import './test/os';
+import './test/path';
+import './test/perf_hooks';
+import './test/process';
+import './test/querystring';
+import './test/readline';
+import './test/repl';
+import './test/stream';
+import './test/string_decoder';
+import './test/timers_promises';
+import './test/timers';
+import './test/tls';
+import './test/trace_events';
+import './test/tty';
+import './test/url';
+import './test/util_types';
+import './test/util';
+import './test/v8';
+import './test/vm';
+import './test/wasi';
+import './test/worker_threads';
+import './test/zlib';
+
+import * as url from 'node:url';
+import * as http from 'node:http';
+import * as https from 'node:https';
+import * as net from 'node:net';
+import * as inspector from 'node:inspector';
+import * as trace_events from 'node:trace_events';
 
 //////////////////////////////////////////////////////
-/// Https tests : http://nodejs.org/api/https.html ///
+/// Https tests : https://nodejs.org/api/https.html ///
 //////////////////////////////////////////////////////
 
 {
@@ -24,6 +63,9 @@ import * as trace_events from "trace_events";
     });
 
     agent = https.globalAgent;
+
+    let sockets: NodeJS.ReadOnlyDict<net.Socket[]> = agent.sockets;
+    sockets = agent.freeSockets;
 
     https.request({
         agent: false
@@ -93,63 +135,6 @@ import * as trace_events from "trace_events";
     }
 }
 
-/////////////////////////////////////////////////////
-/// Timers tests : https://nodejs.org/api/timers.html
-/////////////////////////////////////////////////////
-
-{
-    {
-        const immediate = timers
-            .setImmediate(() => {
-                console.log('immediate');
-            })
-            .unref()
-            .ref();
-        const b: boolean = immediate.hasRef();
-        timers.clearImmediate(immediate);
-    }
-    {
-        const timeout = timers
-            .setInterval(() => {
-                console.log('interval');
-            }, 20)
-            .unref()
-            .ref()
-            .refresh();
-        const b: boolean = timeout.hasRef();
-        timers.clearInterval(timeout);
-    }
-    {
-        const timeout = timers
-            .setTimeout(() => {
-                console.log('timeout');
-            }, 20)
-            .unref()
-            .ref()
-            .refresh();
-        const b: boolean = timeout.hasRef();
-        timers.clearTimeout(timeout);
-    }
-    async function testPromisify(doSomething: {
-        (foo: any, onSuccessCallback: (result: string) => void, onErrorCallback: (reason: any) => void): void;
-        [util.promisify.custom](foo: any): Promise<string>;
-    }) {
-        const setTimeout = util.promisify(timers.setTimeout);
-        let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
-        let s: string = await setTimeout(100, "");
-
-        const setImmediate = util.promisify(timers.setImmediate);
-        v = await setImmediate(); // tslint:disable-line no-void-expression
-        s = await setImmediate("");
-
-        // $ExpectType (foo: any) => Promise<string>
-        const doSomethingPromise = util.promisify(doSomething);
-
-        // $ExpectType string
-        s = await doSomethingPromise('foo');
-    }
-}
-
 /////////////////////////////////////////////////////////
 /// Errors Tests : https://nodejs.org/api/errors.html ///
 /////////////////////////////////////////////////////////
@@ -168,7 +153,7 @@ import * as trace_events from "trace_events";
     }
     {
         const frame: NodeJS.CallSite = null!;
-        const frameThis: any = frame.getThis();
+        const frameThis: unknown = frame.getThis();
         const typeName: string | null  = frame.getTypeName();
         const func: Function | undefined  = frame.getFunction();
         const funcName: string | null = frame.getFunctionName();
@@ -181,203 +166,6 @@ import * as trace_events from "trace_events";
         const isEval: boolean = frame.isEval();
         const isNative: boolean = frame.isNative();
         const isConstr: boolean = frame.isConstructor();
-    }
-}
-
-///////////////////////////////////////////////////////////
-/// Console Tests : https://nodejs.org/api/console.html ///
-///////////////////////////////////////////////////////////
-
-{
-    {
-        let _c: Console = console;
-        _c = console2;
-    }
-    {
-        const writeStream = fs.createWriteStream('./index.d.ts');
-        let consoleInstance: Console = new console.Console(writeStream);
-
-        consoleInstance = new console.Console(writeStream, writeStream);
-        consoleInstance = new console.Console(writeStream, writeStream, true);
-        consoleInstance = new console.Console({
-            stdout: writeStream,
-            stderr: writeStream,
-            colorMode: 'auto',
-            ignoreErrors: true
-        });
-        consoleInstance = new console.Console({
-            stdout: writeStream,
-            colorMode: false
-        });
-        consoleInstance = new console.Console({
-            stdout: writeStream
-        });
-    }
-    {
-        console.assert('value');
-        console.assert('value', 'message');
-        console.assert('value', 'message', 'foo', 'bar');
-        console.clear();
-        console.count();
-        console.count('label');
-        console.countReset();
-        console.countReset('label');
-        console.debug();
-        console.debug('message');
-        console.debug('message', 'foo', 'bar');
-        console.dir('obj');
-        console.dir('obj', { depth: 1 });
-        console.error();
-        console.error('message');
-        console.error('message', 'foo', 'bar');
-        console.group();
-        console.group('label');
-        console.group('label1', 'label2');
-        console.groupCollapsed();
-        console.groupEnd();
-        console.info();
-        console.info('message');
-        console.info('message', 'foo', 'bar');
-        console.log();
-        console.log('message');
-        console.log('message', 'foo', 'bar');
-        console.table({ foo: 'bar' });
-        console.table([{ foo: 'bar' }]);
-        console.table([{ foo: 'bar' }], ['foo']);
-        console.time();
-        console.time('label');
-        console.timeEnd();
-        console.timeEnd('label');
-        console.timeLog();
-        console.timeLog('label');
-        console.timeLog('label', 'foo', 'bar');
-        console.trace();
-        console.trace('message');
-        console.trace('message', 'foo', 'bar');
-        console.warn();
-        console.warn('message');
-        console.warn('message', 'foo', 'bar');
-
-        // --- Inspector mode only ---
-        console.profile();
-        console.profile('label');
-        console.profileEnd();
-        console.profileEnd('label');
-        console.timeStamp();
-        console.timeStamp('label');
-    }
-}
-
-///////////////////////////////////////////////////
-/// DNS Tests : https://nodejs.org/api/dns.html ///
-///////////////////////////////////////////////////
-
-{
-    dns.lookup("nodejs.org", (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: string = address;
-        const _family: number = family;
-    });
-    dns.lookup("nodejs.org", 4, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: string = address;
-        const _family: number = family;
-    });
-    dns.lookup("nodejs.org", 6, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: string = address;
-        const _family: number = family;
-    });
-    dns.lookup("nodejs.org", {}, (err, address, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: string = address;
-        const _family: number = family;
-    });
-    dns.lookup(
-        "nodejs.org",
-        {
-            family: 4,
-            hints: dns.ADDRCONFIG | dns.V4MAPPED,
-            all: false
-        },
-        (err, address, family) => {
-            const _err: NodeJS.ErrnoException | null = err;
-            const _address: string = address;
-            const _family: number = family;
-        }
-    );
-    dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: dns.LookupAddress[] = addresses;
-    });
-    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _address: dns.LookupAddress[] = addresses;
-    });
-
-    function trueOrFalse(): boolean {
-        return Math.random() > 0.5 ? true : false;
-    }
-    dns.lookup("nodejs.org", { all: trueOrFalse() }, (err, addresses, family) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _addresses: string | dns.LookupAddress[] = addresses;
-        const _family: number | undefined = family;
-    });
-
-    dns.lookupService("127.0.0.1", 0, (err, hostname, service) => {
-        const _err: NodeJS.ErrnoException | null = err;
-        const _hostname: string = hostname;
-        const _service: string = service;
-    });
-
-    dns.resolve("nodejs.org", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve("nodejs.org", "A", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve("nodejs.org", "AAAA", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve("nodejs.org", "ANY", (err, addresses) => {
-        const _addresses: dns.AnyRecord[] = addresses;
-    });
-    dns.resolve("nodejs.org", "MX", (err, addresses) => {
-        const _addresses: dns.MxRecord[] = addresses;
-    });
-
-    dns.resolve4("nodejs.org", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve4("nodejs.org", { ttl: true }, (err, addresses) => {
-        const _addresses: dns.RecordWithTtl[] = addresses;
-    });
-    {
-        const ttl = false;
-        dns.resolve4("nodejs.org", { ttl }, (err, addresses) => {
-            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
-        });
-    }
-
-    dns.resolve6("nodejs.org", (err, addresses) => {
-        const _addresses: string[] = addresses;
-    });
-    dns.resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
-        const _addresses: dns.RecordWithTtl[] = addresses;
-    });
-    {
-        const ttl = false;
-        dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
-            const _addresses: string[] | dns.RecordWithTtl[] = addresses;
-        });
-    }
-    {
-        const resolver = new dns.Resolver();
-        resolver.setServers(["4.4.4.4"]);
-        resolver.resolve("nodejs.org", (err, addresses) => {
-            const _addresses: string[] = addresses;
-        });
-        resolver.cancel();
     }
 }
 
@@ -430,10 +218,6 @@ import * as trace_events from "trace_events";
             const pauseReason: string = message.params.reason;
         });
         session.on('Debugger.resumed', () => {});
-        // Node Inspector events
-        session.on('NodeTracing.dataCollected', (message: inspector.InspectorNotification<inspector.NodeTracing.DataCollectedEventDataType>) => {
-          const value: Array<{}> = message.params.value;
-        });
     }
 }
 
@@ -458,4 +242,6 @@ import * as trace_events from "trace_events";
     const s = 'foo';
     const s1: string = s.trimLeft();
     const s2: string = s.trimRight();
+    const s3: string = s.trimStart();
+    const s4: string = s.trimEnd();
 }

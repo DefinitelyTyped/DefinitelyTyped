@@ -55,8 +55,12 @@ const feedItem: Podcast.Item = {
     itunesEpisodeType: 'bonus',
 };
 
+// Test with duration formatted as string
+const feedItem2: Podcast.Item = { ...feedItem, itunesDuration: '01:30:58' };
+
 const feed1 = new Podcast(feedOptions);
 feed1.addItem(feedItem);
+feed1.addItem(feedItem2);
 const feed1Xml = feed1.buildXml();
 
 const feed2 = new Podcast(feedOptions, [feedItem]);

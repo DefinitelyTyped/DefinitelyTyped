@@ -1,4 +1,4 @@
-import newrelic = require("new-relic-browser");
+import newrelic = require('new-relic-browser');
 
 // The following tests are largely taken straight from the examples at https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
 
@@ -34,9 +34,12 @@ try {
     newrelic.noticeError(err);
 }
 newrelic.noticeError(new Error('bar'));
+newrelic.noticeError('bar');
+newrelic.noticeError('bar', { foo: 'bar', baz: 1});
 
 // setCustomAttribute()
 newrelic.setCustomAttribute('nodeId', '123');
+newrelic.setCustomAttribute('nodeId', 123);
 
 // setErrorHandler()
 newrelic.setErrorHandler((err) => {
@@ -52,8 +55,14 @@ newrelic.setPageViewName('/login', 'https://www.myapp.com');
 
 // setCurrentRouteName()
 newrelic.setCurrentRouteName('/users/:id');
+newrelic.setCurrentRouteName(null);
 
 // --- NewRelic.BrowserInteraction methods -----------------------------------
+
+// actionText()
+newrelic
+    .interaction()
+    .actionText('Create Subscription');
 
 // createTracer()
 newrelic

@@ -6,14 +6,14 @@ export interface SchemaInterface {
 
 export interface SingleFieldInterface {
     type: string;
-    encoding?: string;
-    bitWidth?: number;
-    optional?: boolean;
-    repeated?: boolean;
+    encoding?: string | undefined;
+    bitWidth?: number | undefined;
+    optional?: boolean | undefined;
+    repeated?: boolean | undefined;
 }
 
 export interface NestedFieldsInterface {
-    optional?: boolean;
-    repeated?: boolean;
+    optional?: boolean | undefined;
+    repeated?: boolean | undefined;
     fields: SchemaInterface;
 }

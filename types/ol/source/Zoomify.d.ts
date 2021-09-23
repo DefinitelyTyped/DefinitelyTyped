@@ -13,19 +13,20 @@ import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 
 export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
-    projection?: ProjectionLike;
-    tilePixelRatio?: number;
-    reprojectionErrorThreshold?: number;
-    url?: string;
-    tierSizeCalculation?: string;
-    size?: Size;
-    extent?: Extent;
-    transition?: number;
-    tileSize?: number;
-    zDirection?: number;
+    attributions?: AttributionLike | undefined;
+    cacheSize?: number | undefined;
+    crossOrigin?: null | string | undefined;
+    imageSmoothing?: boolean | undefined;
+    projection?: ProjectionLike | undefined;
+    tilePixelRatio?: number | undefined;
+    reprojectionErrorThreshold?: number | undefined;
+    url: string;
+    tierSizeCalculation?: string | undefined;
+    size: Size;
+    extent?: Extent | undefined;
+    transition?: number | undefined;
+    tileSize?: number | undefined;
+    zDirection?: number | undefined;
 }
 export class CustomTile extends ImageTile {
     constructor(
@@ -37,12 +38,16 @@ export class CustomTile extends ImageTile {
         tileLoadFunction: LoadFunction,
         opt_options?: Options_1,
     );
+    /**
+     * Get the image element for this tile.
+     */
+    getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
 }
 export default class Zoomify extends TileImage {
-    constructor(opt_options?: Options);
-    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
-    un(type: string | string[], listener: (p0: any) => void): void;
+    constructor(opt_options: Options);
+    on(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => any): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => any): void;
     on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
     un(type: 'change', listener: (evt: BaseEvent) => void): void;

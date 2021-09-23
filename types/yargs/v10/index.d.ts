@@ -3,7 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -152,8 +151,9 @@ declare namespace yargs {
         options(key: string, options: Options): Argv;
         options(options: { [key: string]: Options }): Argv;
 
-        parse(): Arguments;
-        parse(arg: string | string[], context?: object, parseCallback?: ParseCallback): Arguments;
+        parse(arg?: string | ReadonlyArray<string>): Arguments;
+        parse(arg: string | ReadonlyArray<string>, parseCallback: ParseCallback): Arguments;
+        parse(arg: string | ReadonlyArray<string>, context: object, parseCallback?: ParseCallback): Arguments;
 
         pkgConf(key: string | string[], cwd?: string): Argv;
 
@@ -239,69 +239,69 @@ declare namespace yargs {
     }
 
     interface RequireDirectoryOptions {
-        recurse?: boolean;
-        extensions?: string[];
-        visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
-        include?: RegExp | ((pathToFile: string) => boolean);
-        exclude?: RegExp | ((pathToFile: string) => boolean);
+        recurse?: boolean | undefined;
+        extensions?: string[] | undefined;
+        visit?: ((commandObject: any, pathToFile?: string, filename?: string) => any) | undefined;
+        include?: RegExp | ((pathToFile: string) => boolean) | undefined;
+        exclude?: RegExp | ((pathToFile: string) => boolean) | undefined;
     }
 
     interface Options {
-        alias?: string | string[];
-        array?: boolean;
-        boolean?: boolean;
-        choices?: Choices;
-        coerce?: (arg: any) => any;
-        config?: boolean;
-        configParser?: (configPath: string) => object;
-        conflicts?: string | string[] | { [key: string]: string | string[] };
-        count?: boolean;
+        alias?: string | string[] | undefined;
+        array?: boolean | undefined;
+        boolean?: boolean | undefined;
+        choices?: Choices | undefined;
+        coerce?: ((arg: any) => any) | undefined;
+        config?: boolean | undefined;
+        configParser?: ((configPath: string) => object) | undefined;
+        conflicts?: string | string[] | { [key: string]: string | string[] } | undefined;
+        count?: boolean | undefined;
         default?: any;
-        defaultDescription?: string;
+        defaultDescription?: string | undefined;
         /**
          *  @deprecated since version 6.6.0
          *  Use 'demandOption' instead
          */
-        demand?: boolean | string;
-        demandOption?: boolean | string;
-        desc?: string;
-        describe?: string;
-        description?: string;
-        global?: boolean;
-        group?: string;
-        hidden?: boolean;
-        implies?: string | string[] | { [key: string]: string | string[] };
-        nargs?: number;
-        normalize?: boolean;
-        number?: boolean;
-        require?: boolean | string;
-        required?: boolean | string;
-        requiresArg?: boolean | string;
-        skipValidation?: boolean;
-        string?: boolean;
-        type?: "array" | "count" | PositionalOptionsType;
+        demand?: boolean | string | undefined;
+        demandOption?: boolean | string | undefined;
+        desc?: string | undefined;
+        describe?: string | undefined;
+        description?: string | undefined;
+        global?: boolean | undefined;
+        group?: string | undefined;
+        hidden?: boolean | undefined;
+        implies?: string | string[] | { [key: string]: string | string[] } | undefined;
+        nargs?: number | undefined;
+        normalize?: boolean | undefined;
+        number?: boolean | undefined;
+        require?: boolean | string | undefined;
+        required?: boolean | string | undefined;
+        requiresArg?: boolean | string | undefined;
+        skipValidation?: boolean | undefined;
+        string?: boolean | undefined;
+        type?: "array" | "count" | PositionalOptionsType | undefined;
     }
 
     interface PositionalOptions {
-        alias?: string | string[];
-        array?: boolean;
-        choices?: Choices;
-        coerce?: (arg: any) => any;
-        conflicts?: string | string[] | { [key: string]: string | string[] };
+        alias?: string | string[] | undefined;
+        array?: boolean | undefined;
+        choices?: Choices | undefined;
+        coerce?: ((arg: any) => any) | undefined;
+        conflicts?: string | string[] | { [key: string]: string | string[] } | undefined;
         default?: any;
-        desc?: string;
-        describe?: string;
-        description?: string;
-        implies?: string | string[] | { [key: string]: string | string[] };
-        normalize?: boolean;
-        type?: PositionalOptionsType;
+        desc?: string | undefined;
+        describe?: string | undefined;
+        description?: string | undefined;
+        implies?: string | string[] | { [key: string]: string | string[] } | undefined;
+        normalize?: boolean | undefined;
+        type?: PositionalOptionsType | undefined;
     }
 
     interface CommandModule {
-        aliases?: string[] | string;
-        builder?: CommandBuilder;
-        command?: string[] | string;
-        describe?: string | false;
+        aliases?: string[] | string | undefined;
+        builder?: CommandBuilder | undefined;
+        command?: string[] | string | undefined;
+        describe?: string | false | undefined;
         handler: (args: any) => void;
     }
 

@@ -1,3 +1,7 @@
+import * as Prism from 'prismjs';
+import * as components from 'prismjs/components';
+import loadLanguages = require('prismjs/components/');
+
 const element = document.createElement("code");
 const container = document.querySelector("div");
 const callback = (element: Element) => console.log(element);
@@ -9,7 +13,7 @@ Prism.highlightAll(true, callback);
 Prism.highlightAll(true);
 Prism.highlightAll();
 if (container) {
-	Prism.highlightAllUnder(container);
+    Prism.highlightAllUnder(container);
 }
 Prism.highlightAllUnder(document);
 
@@ -45,12 +49,12 @@ Prism.hooks.add("before-highlightall", hookCallback);
 Prism.hooks.add("future-hook", hookCallback);
 
 Prism.hooks.add("before-highlightall", env => {
-	env.selector.trim();
+    env.selector.trim();
 });
 
 Prism.hooks.add("complete", env => {
-	env.code.trim();
-	env.highlightedCode.trim();
+    env.code.trim();
+    env.highlightedCode.trim();
 });
 
 const language = "js";
@@ -59,17 +63,39 @@ Prism.util.type(language);
 
 const tokens = Prism.tokenize("var n = 1;", Prism.languages[language]);
 (function visit(token: Prism.TokenStream): Prism.TokenStream {
-	if (typeof token === "string") {
-		return token;
-	} else if (Array.isArray(token)) {
-		return token.map(visit) as Prism.TokenStream;
-	} else {
-		token.alias += "visited";
-		return token;
-	}
+    if (typeof token === "string") {
+        return token;
+    } else if (Array.isArray(token)) {
+        return token.map(visit) as Prism.TokenStream;
+    } else {
+        token.alias += "visited";
+        return token;
+    }
 })(tokens);
 
 // $ExpectError
 if (Prism.util.type(language) === "Null") {
-	// `language` is a non-null string constant
+    // `language` is a non-null string constant
 }
+
+Prism.languages.insertBefore('javascript', 'function-variable', {
+    'method-variable': {
+        pattern: RegExp('(\\.\\s*)'),
+        lookbehind: true,
+        alias: ['function-variable', 'method', 'function', 'property-access']
+    }
+});
+
+// $ExpectType Record<string, any>
+components.core;
+// $ExpectType Record<string, any>
+components.languages;
+// $ExpectType Record<string, any>
+components.plugins;
+// $ExpectType Record<string, any>
+components.themes;
+
+loadLanguages();
+loadLanguages('typescript');
+loadLanguages(['javascript', 'typescript']);
+loadLanguages.silent = true;

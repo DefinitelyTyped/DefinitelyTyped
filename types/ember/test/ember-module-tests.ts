@@ -40,7 +40,7 @@ Ember.debug('some info for developers');
 // deprecate
 Ember.deprecate("you shouldn't use this anymore", 3 === 3, {
     id: 'no-longer-allowed',
-    until: '99.0.0'
+    until: '99.0.0',
 });
 // get
 Ember.get({ z: 23 }, 'z'); // $ExpectType number
@@ -87,13 +87,13 @@ const o2 = Ember.Object.extend({
     name: 'foo',
     age: 3,
     nameWatcher: Ember.observer('name', () => {}),
-    nameWatcher2: Ember.observer('name', 'fullName', () => {})
+    nameWatcher2: Ember.observer('name', 'fullName', () => {}),
 });
 // on
 const o3 = Ember.Object.extend({
     name: 'foo',
     nameWatcher: Ember.on('init', () => {}),
-    nameWatcher2: Ember.on('destroy', () => {})
+    nameWatcher2: Ember.on('destroy', () => {}),
 });
 // removeListener
 Ember.addListener(o2, 'create', () => {});
@@ -130,6 +130,7 @@ Ember.VERSION; // $ExpectType string
 
 Ember.onerror = (err: Error) => console.error(err);
 Ember.onerror = (num: number, err: Error) => console.error(err); // $ExpectError
+Ember.onerror = undefined;
 
 // Classes
 // TODO ContainerProxyMixin
@@ -167,7 +168,7 @@ const cp: Ember.ComputedProperty<string, string> = Ember.computed('foo', {
     },
     set(_key: string, newVal: string): string {
         return '';
-    }
+    },
 });
 // Ember.ContainerDebugAdapter
 const cda = new Ember.ContainerDebugAdapter(); // $ExpectType ContainerDebugAdapter
@@ -196,7 +197,7 @@ new Ember.Error('Halp!');
 const oe1 = Ember.Object.extend(Ember.Evented).create();
 oe1.trigger('foo');
 oe1.on('bar', () => {});
-oe1.on('bar', { foo() {}}, () => {});
+oe1.on('bar', { foo() {} }, () => {});
 // Ember.HashLocation
 const hl = new Ember.HashLocation(); // $ExpectType HashLocation
 // Ember.Helper
@@ -204,7 +205,7 @@ const h1 = Ember.Helper.extend({
     compute() {
         this.recompute();
         return '';
-    }
+    },
 });
 // Ember.HistoryLocation
 const hil = new Ember.HistoryLocation(); // $ExpectType HistoryLocation
@@ -214,22 +215,17 @@ Ember.LinkComponent.create(); // $ExpectType LinkComponent
 Ember.Object.extend(Ember.Mixin.create({ foo: 'bar' }), {
     baz() {
         this.foo; // $ExpectType string
-    }
+    },
 });
 // Ember.MutableArray
-const ma1: Ember.MutableArray<string> = [
-    'money',
-    'in',
-    'the',
-    'bananna',
-    'stand'
-];
+const ma1: Ember.MutableArray<string> = ['money', 'in', 'the', 'bananna', 'stand'];
 ma1.addObject('!'); // $ExpectType string
 ma1.filterBy(''); // $ExpectType NativeArray<string>
+ma1.firstObject; // $ExpectType string | undefined
+ma1.lastObject; // $ExpectType string | undefined
 // Ember.MutableEnumerable
-// tslint:disable-next-line:prefer-const
-let me1: Ember.MutableEnumerable<[string]> = null as any;
-me1.compact(); // $ExpectType NativeArray<[string]>
+const me1: Ember.MutableEnumerable<string | null | undefined> = ['foo', undefined, null];
+me1.compact(); // $ExpectType NativeArray<string>
 // Ember.Namespace
 const myNs = Ember.Namespace.extend({});
 // Ember.NativeArray
@@ -237,7 +233,7 @@ const na: Ember.NativeArray<number> = Ember.A([2, 3, 4]);
 na; // $ExpectType NativeArray<number>
 na.clear(); // $ExpectType NativeArray<number>
 // Ember.NoneLocation
-new Ember.NoneLocation();  // $ExpectType NoneLocation
+new Ember.NoneLocation(); // $ExpectType NoneLocation
 // Ember.Object
 new Ember.Object();
 // Ember.ObjectProxy
@@ -249,7 +245,7 @@ Ember.Object.extend(Ember.PromiseProxyMixin, {
     foo() {
         this.reason; // $ExpectType any
         this.isPending; // $ExpectType boolean
-    }
+    },
 });
 // Ember.Route
 new Ember.Route();
@@ -287,14 +283,14 @@ Ember.Test.checkWaiters(); // $ExpectType boolean
  * stay gone
  */
 
- Ember.bind; // $ExpectError
- Ember.deprecate('foo', 'bar'); // $ExpectError
- Ember.K; // $ExpectError
- Ember.Binding; // $ExpectError
- Ember.Transition; // $ExpectError
- Ember.create; // $ExpectError
- Ember.reset; // $ExpectError
- Ember.unsubscribe; // $ExpectError
- Ember.subscribe; // $ExpectError
- Ember.instrument; // $ExpectError
- Ember.Instrumentation; // $ExpectError
+Ember.bind; // $ExpectError
+Ember.deprecate('foo', 'bar'); // $ExpectError
+Ember.K; // $ExpectError
+Ember.Binding; // $ExpectError
+Ember.Transition; // $ExpectError
+Ember.create; // $ExpectError
+Ember.reset; // $ExpectError
+Ember.unsubscribe; // $ExpectError
+Ember.subscribe; // $ExpectError
+Ember.instrument; // $ExpectError
+Ember.Instrumentation; // $ExpectError

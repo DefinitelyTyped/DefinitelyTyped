@@ -1,4 +1,4 @@
-import inquirer = require("inquirer");
+import inquirer = require('inquirer');
 
 /**
  * Password prompt example
@@ -17,14 +17,14 @@ inquirer
             type: 'password',
             message: 'Enter a password',
             name: 'password1',
-            validate: requireLetterAndNumber
+            validate: requireLetterAndNumber,
         },
         {
             type: 'password',
             message: 'Enter a masked password',
             name: 'password2',
             mask: '*',
-            validate: requireLetterAndNumber
-        }
+            validate: requireLetterAndNumber,
+        },
     ])
     .then(answers => console.log(JSON.stringify(answers, null, '  ')));

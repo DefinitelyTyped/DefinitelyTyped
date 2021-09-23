@@ -1,9 +1,9 @@
 export class DescribeOptions {
-    version?: number;
-    maxCandidatesTags?: number;
-    describeStrategy?: number;
-    pattern?: string;
-    onlyFollowFirstParent?: number;
-    showCommitOidAsFallback?: number;
+    version?: number | undefined;
+    maxCandidatesTags?: number | undefined;
+    describeStrategy?: number | undefined;
+    pattern?: string | undefined;
+    onlyFollowFirstParent?: number | undefined;
+    showCommitOidAsFallback?: number | undefined;
     [key: string]: any;
 }

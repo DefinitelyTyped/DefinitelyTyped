@@ -1,30 +1,42 @@
 import * as React from "react";
-import { Direction, EmbeddedIconProps, MenuOffsetData, ReactAttr, ReactDivAttr, RenderIconProps } from "../../../typings/shared";
+import {
+    Direction,
+    MenuOffsetData,
+    ReactAttr,
+    ReactButtonAttr, ForwardRefReturn, VerticalDirection
+} from "../../../typings/shared";
+import { MenuProps } from "../Menu/Menu";
 
-type ExcludedAttributes = "aria-expanded" | "aria-haspopup" | "aria-label" | "onBlur" | "onClick" | "onKeyDown" | "onKeyPress" | "role";
-interface InheritedProps extends
-    Omit<ReactDivAttr, ExcludedAttributes>,
-    EmbeddedIconProps,
-    RenderIconProps
-{
-    ariaLabel?: React.AriaAttributes["aria-label"],
-    onClick?(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void,
-}
+// NOTE: The index does not export * on this file because some non-default exports are not exported via the top-level index.
+//       You'll need to export types manually in this directory's index file.
 
-export type MenuOffsetValue = MenuOffsetData | ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | undefined));
+type GetMenuOffsetFn = ((menuBody: HTMLElement, direction: Direction, trigger?: HTMLElement, flip?: boolean) => (MenuOffsetData | undefined));
+export declare const getMenuOffset: GetMenuOffsetFn;
 
-export interface OverflowMenuProps extends InheritedProps {
-    direction?: Extract<Direction, "bottom" | "top">,
-    iconClass?: ReactAttr["className"]
-    flipped?: boolean,
-    menuOffset?: MenuOffsetValue,
-    menuOffsetFlip?: MenuOffsetValue,
-    menuOptionsClass?: ReactAttr["className"],
+export type MenuOffsetValue = MenuOffsetData | GetMenuOffsetFn;
+
+type ExcludedAttributes = "aria-expanded" | "aria-haspopup" | "aria-label" | "onClick" | "onKeyDown" | "type";
+export interface OverflowMenuProps extends Omit<ReactButtonAttr, ExcludedAttributes> {
+    ariaLabel?: string | undefined,
+    direction?: VerticalDirection | undefined,
+    iconClass?: ReactAttr["className"] | undefined,
+    iconDescription?: string | undefined,
+    flipped?: boolean | undefined,
+    light?: boolean | undefined,
+    menuOffset?: MenuOffsetValue | undefined,
+    menuOffsetFlip?: MenuOffsetValue | undefined,
+    menuOptionsClass?: ReactAttr["className"] | undefined,
+    onClick?(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>): void,
     onClose?(): void,
     onOpen?(): void,
-    open?: boolean,
+    open?: boolean | undefined,
+    renderIcon?: any,
+    selectorPrimaryFocus?: string | undefined,
+    size?: MenuProps["size"],
 }
 
-declare const OverflowMenu: React.RefForwardingComponent<HTMLDivElement, OverflowMenuProps>;
+declare class OverflowMenuComponent extends React.Component<OverflowMenuProps> { }
+export { OverflowMenuComponent as OverflowMenu };
 
+declare const OverflowMenu: ForwardRefReturn<HTMLButtonElement, OverflowMenuProps>;
 export default OverflowMenu;

@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
+//                 Alexander Kuzmenko <https://github.com/eightalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -1317,6 +1318,10 @@ declare namespace GoogleAppsScript {
      *     }
      */
     enum ProtectionType { RANGE, SHEET }
+
+    type FontLine = "none" | "underline" | "line-through";
+    type FontStyle = "normal" | "italic";
+    type FontWeight = "normal" | "bold";
     /**
      * Access and modify spreadsheet ranges. A range can be a single cell in a sheet or a group of
      * adjacent cells in a sheet.
@@ -1340,7 +1345,7 @@ declare namespace GoogleAppsScript {
       canEdit(): boolean;
       check(): Range;
       clear(): Range;
-      clear(options: { commentsOnly?: boolean; contentsOnly?: boolean; formatOnly?: boolean; validationsOnly?: boolean; skipFilteredRows?: boolean }): Range;
+      clear(options: { commentsOnly?: boolean | undefined; contentsOnly?: boolean | undefined; formatOnly?: boolean | undefined; validationsOnly?: boolean | undefined; skipFilteredRows?: boolean | undefined }): Range;
       clearContent(): Range;
       clearDataValidations(): Range;
       clearFormat(): Range;
@@ -1350,7 +1355,7 @@ declare namespace GoogleAppsScript {
       copyFormatToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyTo(destination: Range): void;
       copyTo(destination: Range, copyPasteType: CopyPasteType, transposed: boolean): void;
-      copyTo(destination: Range, options: { formatOnly?: boolean; contentsOnly?: boolean }): void;
+      copyTo(destination: Range, options: { formatOnly?: boolean | undefined; contentsOnly?: boolean | undefined }): void;
       copyValuesToRange(gridId: Integer, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
@@ -1381,14 +1386,14 @@ declare namespace GoogleAppsScript {
       getFontColors(): string[][];
       getFontFamilies(): string[][];
       getFontFamily(): string;
-      getFontLine(): string;
-      getFontLines(): string[][];
+      getFontLine(): FontLine;
+      getFontLines(): FontLine[][];
       getFontSize(): Integer;
       getFontSizes(): Integer[][];
-      getFontStyle(): string;
-      getFontStyles(): string[][];
-      getFontWeight(): string;
-      getFontWeights(): string[][];
+      getFontStyle(): FontStyle;
+      getFontStyles(): FontStyle[][];
+      getFontWeight(): FontWeight;
+      getFontWeights(): FontWeight[][];
       getFormula(): string;
       getFormulaR1C1(): string | null;
       getFormulas(): string[][];
@@ -1461,20 +1466,20 @@ declare namespace GoogleAppsScript {
       setFontColors(colors: any[][]): Range;
       setFontFamilies(fontFamilies: (string | null)[][]): Range;
       setFontFamily(fontFamily: string | null): Range;
-      setFontLine(fontLine: "underline" | "line-through" | "none" | null): Range;
-      setFontLines(fontLines: ("underline" | "line-through" | "none" | null)[][]): Range;
+      setFontLine(fontLine: FontLine | null): Range;
+      setFontLines(fontLines: (FontLine | null)[][]): Range;
       setFontSize(size: Integer): Range;
       setFontSizes(sizes: Integer[][]): Range;
-      setFontStyle(fontStyle: "italic" | "normal" | null): Range;
-      setFontStyles(fontStyles: ("italic" | "normal" | null)[][]): Range;
-      setFontWeight(fontWeight: "bold" | "normal" | null): Range;
-      setFontWeights(fontWeights: ("bold" | "normal" | null)[][]): Range;
+      setFontStyle(fontStyle: FontStyle | null): Range;
+      setFontStyles(fontStyles: (FontStyle | null)[][]): Range;
+      setFontWeight(fontWeight: FontWeight | null): Range;
+      setFontWeights(fontWeights: (FontWeight | null)[][]): Range;
       setFormula(formula: string): Range;
       setFormulaR1C1(formula: string): Range;
       setFormulas(formulas: string[][]): Range;
       setFormulasR1C1(formulas: string[][]): Range;
-      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): Range;
-      setHorizontalAlignments(alignments: ("left" | "center" | "normal" | null)[][]): Range;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): Range;
+      setHorizontalAlignments(alignments: ("left" | "center" | "normal" | "right" | null)[][]): Range;
       setNote(note: string | null): Range;
       setNotes(notes: (string | null)[][]): Range;
       setNumberFormat(numberFormat: string): Range;
@@ -1516,7 +1521,7 @@ declare namespace GoogleAppsScript {
       breakApart(): RangeList;
       check(): RangeList;
       clear(): RangeList;
-      clear(options: { commentsOnly?: boolean; contentsOnly?: boolean; formatOnly?: boolean; validationsOnly?: boolean; skipFilteredRows?: boolean }): RangeList;
+      clear(options: { commentsOnly?: boolean | undefined; contentsOnly?: boolean | undefined; formatOnly?: boolean | undefined; validationsOnly?: boolean | undefined; skipFilteredRows?: boolean | undefined }): RangeList;
       clearContent(): RangeList;
       clearDataValidations(): RangeList;
       clearFormat(): RangeList;
@@ -1532,13 +1537,13 @@ declare namespace GoogleAppsScript {
       setBorder(top: boolean | null, left: boolean | null, bottom: boolean | null, right: boolean | null, vertical: boolean | null, horizontal: boolean | null, color: string | null, style: BorderStyle | null): RangeList;
       setFontColor(color: string | null): RangeList;
       setFontFamily(fontFamily: string | null): RangeList;
-      setFontLine(fontLine: "underline" | "line-through" | "none" | null): RangeList;
+      setFontLine(fontLine: FontLine | null): RangeList;
       setFontSize(size: Integer): RangeList;
-      setFontStyle(fontStyle: "italic" | "normal" | null): RangeList;
-      setFontWeight(fontWeight: "bold" | "normal" | null): RangeList;
+      setFontStyle(fontStyle: FontStyle | null): RangeList;
+      setFontWeight(fontWeight: FontWeight | null): RangeList;
       setFormula(formula: string): RangeList;
       setFormulaR1C1(formula: string): RangeList;
-      setHorizontalAlignment(alignment: "left" | "center" | "normal" | null): RangeList;
+      setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): RangeList;
       setNote(note: string | null): RangeList;
       setNumberFormat(numberFormat: string): RangeList;
       setShowHyperlink(showHyperlink: boolean): RangeList;
@@ -1572,6 +1577,8 @@ declare namespace GoogleAppsScript {
     interface RichTextValue {
       copy(): RichTextValueBuilder;
       getEndIndex(): Integer;
+      getLinkUrl(): string | null;
+      getLinkUrl(startOffset: Integer, endOffset: Integer): string | null;
       getRuns(): RichTextValue[];
       getStartIndex(): Integer;
       getText(): string;
@@ -1583,6 +1590,8 @@ declare namespace GoogleAppsScript {
      */
     interface RichTextValueBuilder {
       build(): RichTextValue;
+      setLinkUrl(startOffset: Integer, endOffset: Integer, linkUrl: string | null): RichTextValueBuilder;
+      setLinkUrl(linkUrl: string | null): RichTextValueBuilder;
       setText(text: string): RichTextValueBuilder;
       setTextStyle(startOffset: Integer, endOffset: Integer, textStyle: TextStyle | null): RichTextValueBuilder;
       setTextStyle(textStyle: TextStyle | null): RichTextValueBuilder;
@@ -1631,7 +1640,7 @@ declare namespace GoogleAppsScript {
       autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
       autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
       clear(): Sheet;
-      clear(options: { formatOnly?: boolean; contentsOnly?: boolean }): Sheet;
+      clear(options: { formatOnly?: boolean | undefined; contentsOnly?: boolean | undefined }): Sheet;
       clearConditionalFormatRules(): void;
       clearContents(): Sheet;
       clearFormats(): Sheet;
@@ -1879,12 +1888,12 @@ declare namespace GoogleAppsScript {
       insertRowsBefore(beforePosition: Integer, howMany: Integer): Sheet;
       insertSheet(): Sheet;
       insertSheet(sheetIndex: Integer): Sheet;
-      insertSheet(sheetIndex: Integer, options: { template?: Sheet }): Sheet;
-      insertSheet(options: { template?: Sheet }): Sheet;
+      insertSheet(sheetIndex: Integer, options: { template?: Sheet | undefined }): Sheet;
+      insertSheet(options: { template?: Sheet | undefined }): Sheet;
       insertSheet(sheetName: string): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
-      insertSheet(sheetName: string, sheetIndex: Integer, options: { template?: Sheet }): Sheet;
-      insertSheet(sheetName: string, options: { template?: Sheet }): Sheet;
+      insertSheet(sheetName: string, sheetIndex: Integer, options: { template?: Sheet | undefined }): Sheet;
+      insertSheet(sheetName: string, options: { template?: Sheet | undefined }): Sheet;
       insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
       isColumnHiddenByUser(columnPosition: Integer): boolean;
       isIterativeCalculationEnabled(): boolean;

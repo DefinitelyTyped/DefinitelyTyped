@@ -4,7 +4,7 @@ const dialog = muibox.useDialog();
 
 dialog.alert("Hello world").then(() => "bye");
 dialog
-    .alert({ message: "Hello world", ok: "Close", title: "Salutation" })
+    .alert({ message: "Hello world", ok: { text: "Close" }, title: "Salutation" })
     .then(() => "bye");
 
 dialog
@@ -16,8 +16,8 @@ dialog
     .confirm({
         message: "Are you sure?",
         title: "Confirmation",
-        ok: "Sure",
-        cancel: "No"
+        ok: { text: "Sure" },
+        cancel: { text: "No" }
     })
     .then(() => "do it")
     .catch(() => "don't do it");
@@ -31,8 +31,9 @@ dialog
     .prompt({
         message: "What is your name?",
         title: "Salutation",
-        ok: "Proceed",
-        cancel: "Quit",
+        placeholder: "Name",
+        ok: { text: "Proceed" },
+        cancel: { text: "Quit" },
         defaultValue: "Joe",
         required: true
     })

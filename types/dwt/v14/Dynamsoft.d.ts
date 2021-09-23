@@ -1,6 +1,5 @@
 // tslint:disable:jsdoc-format
 // tslint:disable:max-line-length
-// tslint:disable:no-irregular-whitespace
 
 /*!
 * Product: Dynamsoft Web Twain
@@ -11,7 +10,7 @@
 */
 
 interface DynamsoftStatic<TElement extends Node = HTMLElement> {
-	Lib: DynamsoftLib;
+    Lib: DynamsoftLib;
     WebTwainEnv: dwtEnv;
 }
 
@@ -50,7 +49,7 @@ interface dwtEnv {
     JSVersion: string;
     PluginVersion: string;
     ServerVersionInfo: string;
-	
+    
     RemoveAllAuthorizations(): void;
     ShowDialog(_dialogWidth: number, _dialogHeight: number, _strDialogMessageWithHtmlFormat: string, _bChangeImage: boolean, bHideCloseButton: boolean): void;
     CloseDialog(): void;
@@ -3790,5 +3789,5 @@ interface WebTwain {
 
     ...other internal ones
     */
-	Addon: DynamsoftWebTwainAddon;
+    Addon: DynamsoftWebTwainAddon;
 }

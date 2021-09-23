@@ -1,4 +1,4 @@
-import { InputStream, CommonTokenStream, Lexer, Parser, ParserRuleContext } from 'antlr4';
+import { Interval, InputStream, CommonTokenStream, Lexer, Parser, ParserRuleContext } from 'antlr4';
 import { TerminalNode } from 'antlr4/tree/Tree';
 
 export declare class CLexer extends Lexer {
@@ -2156,3 +2156,20 @@ const parser = new CParser(tokenStream);
 // execute the parse, and generate the parse tree
 const tree = parser.compilationUnit();
 console.log(tree);
+
+// fix Token.d.ts:
+function getOriginalText(ctx: ParserRuleContext): string {
+    const a: number = ctx.start.start;
+    const b: number = ctx.stop.stop;
+    // WRONG: const wrong = ctx.start.getInputStream().getText(new Interval(a, b));
+    const text = ctx.start.getInputStream().getText(a, b);
+    return text;
+}
+
+// fix InputStream.d.ts
+function LA(code: string, offset: number): number {
+    return new InputStream(code).LA(offset);
+}
+function LT(code: string, offset: number): number {
+    return new InputStream(code).LT(offset);
+}

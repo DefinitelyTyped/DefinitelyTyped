@@ -1,29 +1,33 @@
-/*
- * WebSocket client.
- * https://docs.k6.io/docs/k6-websocket-api
- */
-
-// === Main ===
-// ------------
-
 /**
  * Open WebSocket connection.
- * https://docs.k6.io/docs/connect-url-params-func
+ * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
  * @param url - Request URL.
  * @param callback - Logic to execute with socket.
  * @returns HTTP response to connection request.
- * @public
+ * @example
+ * let res = ws.connect(url, function(socket) {
+ *   socket.on('open', function() {
+ *     console.log('WebSocket connection established!');
+ *     socket.close();
+ *   });
+ * });
  */
 export function connect(url: string, callback: Executor): Response;
 
 /**
  * Open WebSocket connection.
- * https://docs.k6.io/docs/connect-url-params-func
+ * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
  * @param url - Request URL.
  * @param params - Request parameters.
  * @param callback - Logic to execute with socket.
  * @returns HTTP response to connection request.
- * @public
+ * @example
+ * let res = ws.connect(url, { param1: true }, function(socket) {
+ *   socket.on('open', function() {
+ *     console.log('WebSocket connection established!');
+ *     socket.close();
+ *   });
+ * });
  */
 export function connect(url: string, params: Params | null, callback: Executor): Response;
 
@@ -32,19 +36,17 @@ export function connect(url: string, params: Params | null, callback: Executor):
 
 /**
  * Request parameters.
- * @public
  */
 export interface Params {
     /** Request headers. */
-    headers?: { [name: string]: string };
+    headers?: { [name: string]: string } | undefined;
 
     /** Response time metric tags. */
-    tags?: { [name: string]: string };
+    tags?: { [name: string]: string } | undefined;
 }
 
 /**
  * Socket executor.
- * @public
  */
 export interface Executor {
     /** @param socket - The opened socket. */
@@ -56,7 +58,6 @@ export interface Executor {
 
 /**
  * HTTP response to connection request.
- * @public
  */
 export interface Response {
     /** Fetched URL. May differ from request URL due to redirects. */
@@ -80,67 +81,105 @@ export interface Response {
 
 /**
  * Created socket.
- * https://docs.k6.io/docs/socket
- * @public
+ * https://k6.io/docs/javascript-api/k6-ws/socket/
  */
 export abstract class Socket {
     protected __brand: never;
 
     /**
      * Close connection.
-     * https://docs.k6.io/docs/socketclose
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-close/
      * @param code - WebSocket status code.
+     * @example
+     * socket.close();
      */
     close(code?: number): void;
 
     /**
      * Listen to event.
-     * https://docs.k6.io/docs/socketon
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-on-event-callback/
      * @param event - Event type.
      * @param handler - Event handler.
+     * @example
+     * socket.on('message', function(message) {
+     *   console.log(`Received message: ${message}`);
+     * });
+     * socket.on('close', function() {
+     *   console.log('disconnected');
+     * });
      */
     on<ET extends EventType>(event: ET, handler: EventHandler<ET>): void;
 
     /**
      * Send ping.
-     * https://docs.k6.io/docs/socketping
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-ping/
+     * @example
+     * socket.ping();
      */
     ping(): void;
 
     /**
      * Send data.
-     * https://docs.k6.io/docs/socketsend
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-send-data/
      * @param data - Data to send.
+     * @example
+     * socket.send(JSON.stringify({ data: 'hola' }));
      */
     send(data: string): void;
 
     /**
+     * Send data.
+     * @param data - Data to send.
+     * @example
+     * const binFile = open('./file.pdf', 'b');
+     * export default function () {
+     *   ws.connect('http://wshost/', function(socket) {
+     *     socket.on('open', function() {
+     *       socket.sendBinary(binFile);
+     *     });
+     *     socket.on('binaryMessage', function(msg) {
+     *       // msg is an ArrayBuffer, so we can wrap it in a typed array directly.
+     *       new Uint8Array(msg);
+     *     });
+     *   });
+     * }
+     */
+    sendBinary(data: ArrayBuffer): void;
+
+    /**
      * Call a function repeatedly, while the WebSocket connection is open.
-     * https://docs.k6.io/docs/socketsetinterval
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-setinterval-callback-interval/
      * @param handler - The function to call every `interval` milliseconds.
      * @param interval - Milliseconds between two calls to `callback`.
+     * @example
+     * socket.setInterval(function timeout() {
+     *  socket.ping();
+     *  console.log('Pinging every 1sec (setInterval test)');
+     * }, 1000);
      */
     setInterval(handler: TimerHandler, interval: number): void;
 
     /**
      * Call a function at a later time,
      * if the WebSocket connection is still open then.
-     * https://docs.k6.io/docs/socketsettimeout
+     * https://k6.io/docs/javascript-api/k6-ws/socket/socket-settimeout-callback-delay/
      * @param handler - The function to call when `delay` has expired.
      * @param delay - Delay in milliseconds.
+     * @example
+     * socket.setTimeout(function timeout() {
+     *  console.log('Call after 1second');
+     * }, 1000);
      */
     setTimeout(handler: TimerHandler, delay: number): void;
 }
 
 /**
  * Event type.
- * @public
  */
-export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
+export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong' | 'binaryMessage';
 
 /**
  * Timer handler.
- * @public
  */
 export interface TimerHandler {
     (): void;
@@ -151,7 +190,6 @@ export interface TimerHandler {
 
 /**
  * Event handler. Signature varies with event type.
- * @public
  */
 export type EventHandler<ET extends EventType> = ET extends 'close'
     ? CloseEventHandler
@@ -159,6 +197,8 @@ export type EventHandler<ET extends EventType> = ET extends 'close'
     ? ErrorEventHandler
     : ET extends 'message'
     ? MessageEventHandler
+    : ET extends 'binaryMessage'
+    ? BinaryMessageEventHandler
     : ET extends 'open'
     ? OpenEventHandler
     : ET extends 'ping'
@@ -169,7 +209,6 @@ export type EventHandler<ET extends EventType> = ET extends 'close'
 
 /**
  * Close event handler.
- * @public
  */
 export interface CloseEventHandler {
     /** @param code - WebSocket status code. */
@@ -178,7 +217,6 @@ export interface CloseEventHandler {
 
 /**
  * Error event handler.
- * @public
  */
 export interface ErrorEventHandler {
     /** @param error - Error object. */
@@ -187,7 +225,6 @@ export interface ErrorEventHandler {
 
 /**
  * Message event handler.
- * @public
  */
 export interface MessageEventHandler {
     /** @param message - Message. */
@@ -195,8 +232,15 @@ export interface MessageEventHandler {
 }
 
 /**
+ * BinaryMessage event handler.
+ */
+ export interface BinaryMessageEventHandler {
+    /** @param message - Message. */
+    (message: ArrayBuffer): void;
+}
+
+/**
  * Open event handler.
- * @public
  */
 export interface OpenEventHandler {
     (): void;
@@ -204,7 +248,6 @@ export interface OpenEventHandler {
 
 /**
  * Ping event handler.
- * @public
  */
 export interface PingEventHandler {
     (): void;
@@ -212,7 +255,6 @@ export interface PingEventHandler {
 
 /**
  * Pong event handler.
- * @public
  */
 export interface PongEventHandler {
     (): void;
@@ -223,7 +265,6 @@ export interface PongEventHandler {
 
 /**
  * Error.
- * @public
  */
 export abstract class WebSocketError {
     protected __brand: never;
@@ -231,3 +272,44 @@ export abstract class WebSocketError {
     /** Error message. */
     error(): string;
 }
+
+/**
+ * This module provides a WebSocket client implementing the WebSocket protocol.
+ * https://k6.io/docs/javascript-api/k6-ws/
+ */
+declare namespace ws {
+    /**
+     * Open WebSocket connection.
+     * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
+     * @param url - Request URL.
+     * @param callback - Logic to execute with socket.
+     * @returns HTTP response to connection request.
+     * @example
+     * let res = ws.connect(url, function(socket) {
+     *   socket.on('open', function() {
+     *     console.log('WebSocket connection established!');
+     *     socket.close();
+     *   });
+     * });
+     */
+    function connect(url: string, callback: Executor): Response;
+
+    /**
+     * Open WebSocket connection.
+     * https://k6.io/docs/javascript-api/k6-ws/connect-url-params-callback/
+     * @param url - Request URL.
+     * @param params - Request parameters.
+     * @param callback - Logic to execute with socket.
+     * @returns HTTP response to connection request.
+     * @example
+     * let res = ws.connect(url, { param1: true } , function(socket) {
+     *   socket.on('open', function() {
+     *     console.log('WebSocket connection established!');
+     *     socket.close();
+     *   });
+     * });
+     */
+    function connect(url: string, params: Params | null, callback: Executor): Response;
+}
+
+export default ws;

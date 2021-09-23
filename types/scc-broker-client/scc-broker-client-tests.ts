@@ -1,9 +1,9 @@
 import { attach } from 'scc-broker-client';
-import SCBroker = require('sc-broker/scbroker');
+import AGSimpleBroker = require('ag-simple-broker');
 
-const scBroker = new SCBroker();
+const agBroker = new AGSimpleBroker();
 
-const clusterBrokerClient = attach(scBroker, {
+const clusterBrokerClient = attach(agBroker, {
     stateServerHost: 'localhost',
     stateServerPort: 8000,
     mappingEngine: 'simple',

@@ -3,6 +3,13 @@ import MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let configuration: webpack.Configuration;
 
+const loaderOptions: MiniCssExtractPlugin.LoaderOptions = {
+    publicPath: '/',
+    esModule: true,
+    emit: false,
+    layer: 'layer',
+};
+
 configuration = {
     // The standard entry point and output config
     entry: {
@@ -25,9 +32,7 @@ configuration = {
                 test: /\.css$/,
                 use: {
                     loader: MiniCssExtractPlugin.loader,
-                    options: {
-                        publicPath: '/',
-                    },
+                    options: loaderOptions,
                 },
             },
             // Optionally extract less files
@@ -49,15 +54,25 @@ configuration = {
 
 configuration = {
     // ...
-    plugins: [new MiniCssExtractPlugin()],
+    plugins: [new MiniCssExtractPlugin(), new MiniCssExtractPlugin({})],
 };
 
 configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
+            filename: ({ chunk }) => (chunk?.name ? `${chunk.name.replace('/js/', '/css/')}.css` : 'unknown'),
             chunkFilename: 'style.css',
+        }),
+    ],
+};
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+            chunkFilename: ({ chunk }) => (chunk?.name ? `${chunk.name.replace('/js/', '/css/')}.css` : 'unknown'),
         }),
     ],
 };
@@ -77,16 +92,44 @@ configuration = {
     // ...
     plugins: [
         new MiniCssExtractPlugin({
-            esModule: true,
+            filename: configuration.output!.filename,
         }),
     ],
 };
 
 configuration = {
-    // ...
+    // `linkType`
     plugins: [
         new MiniCssExtractPlugin({
-            moduleFilename: ({ name }) => `${name.replace('/js/', '/css/')}.css`,
+            linkType: 'text/css',
+        }),
+        new MiniCssExtractPlugin({
+            linkType: false,
         }),
     ],
 };
+
+configuration = {
+    // `experimentalUseImportModule`
+    plugins: [
+        new MiniCssExtractPlugin({
+            experimentalUseImportModule: true,
+        }),
+        new MiniCssExtractPlugin({
+            experimentalUseImportModule: false,
+        }),
+    ],
+};
+
+{
+    // runtime
+    new MiniCssExtractPlugin({});
+    new MiniCssExtractPlugin({
+        runtime: false,
+    });
+    new MiniCssExtractPlugin({
+        runtime: true,
+    });
+}
+
+new MiniCssExtractPlugin().apply(new webpack.Compiler('context'));

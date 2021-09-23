@@ -15,12 +15,18 @@ import {
 } from 'stylelint';
 
 const options: Partial<LinterOptions> = {
+    allowEmptyInput: true,
     code: "div { color: red }",
     files: ["**/**.scss"],
     formatter: "json",
+    globbyOptions: {
+        cwd: "./"
+    },
     cache: true,
     cacheLocation: "./stylelint.cache.json",
     ignoreDisables: true,
+    reportDescriptionlessDisables: true,
+    reportInvalidScopeDisables: true,
     reportNeedlessDisables: true,
     ignorePath: 'foo',
     syntax: "scss"

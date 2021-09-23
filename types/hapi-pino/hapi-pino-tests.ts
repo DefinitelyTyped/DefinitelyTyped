@@ -11,6 +11,7 @@ function example1() {
         .register({
             plugin: HapiPino,
             options: {
+                timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`,
                 logPayload: false,
                 logRouteTags: false,
                 stream: process.stdout,
@@ -37,7 +38,7 @@ function example1() {
             },
         })
         .then(() => {
-            server.logger().debug('using logger object directly');
+            server.logger.debug('using logger object directly');
 
             server.route({
                 method: 'GET',

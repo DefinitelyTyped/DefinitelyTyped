@@ -1,3 +1,4 @@
-import Abs = require('abs');
+import abs = require("abs");
 
-const x: string = Abs('/foo');
+abs("/foo"); // $ExpectType string
+abs(); // $ExpectType string

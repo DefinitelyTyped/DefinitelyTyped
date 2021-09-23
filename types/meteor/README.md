@@ -5,18 +5,15 @@
 These are the definitions for version 1.4 of Meteor.  These definitions were generated from the same [Meteor data.js file](https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs](http://docs.meteor.com/).  The code that generates these definitions can be found [here](https://github.com/meteor-typescript/meteor-typescript-libs/).
 
 
-## Upcoming Meteor `typescript` package
+## Meteor `typescript` package
 
-There is currently an effort supported by the Meteor Development Group to create a TypeScript build compiler package, and an early version of the package can be tested using [`barbatus:typescript`](https://atmospherejs.com/barbatus/typescript).
+Meteor currently offers an official [typescript package](https://atmospherejs.com/meteor/typescript).
 
-From within any Meteor application that is version 1.2.1 or later, install this package in the standard manner:
+From within any Meteor application that is version 1.8.2 or later, install this package in the standard manner:
 
-    $ meteor add barbatus:typescript
+    $ meteor add typescript
 
-This package will eventually incorporated as a Meteor core package (e.g. like the `coffeescript` package).  It appears that the eventual recommended practice for adding definitions using that package will be to add them using the [`typings`](https://github.com/typings/typings) tool.
-
-You can follow discussion about this effort [here](https://github.com/Urigo/angular2-meteor/issues/102#issuecomment-200915763).
-
+There's also a [community package](https://github.com/Meteor-Community-Packages/meteor-typescript/) that's a continuation of `barbatus:typescript`.
 
 
 ##  TypeScript/Meteor coding style

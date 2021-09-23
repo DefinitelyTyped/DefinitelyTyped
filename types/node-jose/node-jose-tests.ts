@@ -1,4 +1,5 @@
 import * as jose from 'node-jose';
+import * as crypto from "crypto";
 
 const keystore = jose.JWK.createKeyStore();
 const output = keystore.toJSON();
@@ -38,6 +39,8 @@ everything = keystore.all({ alg: 'RSA-OAEP' });
 
 // filter by 'kid' + 'kty' + 'alg'
 everything = keystore.all({ kid: 'kid', kty: 'RSA', alg: 'RSA-OAEP' });
+
+keystore.all().forEach(rawKey => rawKey.kid);
 
 keystore.add('input').then(result => {});
 
@@ -151,6 +154,13 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
             // {result} is a JSON Object -- JWE using the JSON General Serialization
         });
 
+    jose.JWE.createEncrypt({ format: 'general' }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // {result} is a JSON Object -- JWE using the JSON General Serialization
+        });
+
     jose.JWE.createEncrypt({ format: 'compact' }, key)
         .update('input')
         .final()
@@ -165,7 +175,14 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
             // {result} is a JSON Object -- JWE using the JSON Flattened Serialization
         });
 
-    jose.JWE.createEncrypt({ zip: true }, key)
+    jose.JWE.createEncrypt({ zip: false }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // ....
+        });
+
+    jose.JWE.createEncrypt({ zip: 'DEF' }, key)
         .update('input')
         .final()
         .then(result => {
@@ -173,6 +190,34 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
         });
 
     jose.JWE.createEncrypt({ fields: { cty: 'jwk+json' } }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // ....
+        });
+
+    jose.JWE.createEncrypt({ contentAlg: 'A128CBC-HS256' }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // ....
+        });
+
+    jose.JWE.createEncrypt({ protect: '*' }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // ....
+        });
+
+    jose.JWE.createEncrypt({ iv: Buffer.alloc(96 / 8).toString('base64') }, key)
+        .update('input')
+        .final()
+        .then(result => {
+            // ....
+        });
+
+    jose.JWE.createEncrypt({iv: crypto.randomBytes(96 / 8) }, key)
         .update('input')
         .final()
         .then(result => {

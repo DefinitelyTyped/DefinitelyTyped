@@ -1,6 +1,5 @@
 import scBroker = require('sc-broker');
 import SCBroker = require('sc-broker/scbroker');
-import * as scClusterBrokerClient from 'scc-broker-client';
 
 // From the README
 
@@ -108,24 +107,4 @@ class MyBroker extends SCBroker {
     }
 }
 
-// From the socketcluster sample
-class Broker extends SCBroker {
-    run() {
-        console.log('   >> Broker PID:', process.pid);
-
-        if (this.options.clusterStateServerHost) {
-            scClusterBrokerClient.attach(this, {
-                stateServerHost: this.options.clusterStateServerHost,
-                stateServerPort: this.options.clusterStateServerPort,
-                mappingEngine: this.options.clusterMappingEngine,
-                clientPoolSize: this.options.clusterClientPoolSize,
-                authKey: this.options.clusterAuthKey,
-                stateServerConnectTimeout: this.options.clusterStateServerConnectTimeout,
-                stateServerAckTimeout: this.options.clusterStateServerAckTimeout,
-                stateServerReconnectRandomness: this.options.clusterStateServerReconnectRandomness,
-            });
-        }
-    }
-}
-
-new Broker();
+new MyBroker();

@@ -1,9 +1,9 @@
-import { ComponentType, ReactNode } from '@wordpress/element';
+import { ComponentType, ReactNode } from 'react';
 
 declare namespace MediaUploadCheck {
     interface Props {
         children: ReactNode;
-        fallback?: ReactNode;
+        fallback?: ReactNode | undefined;
     }
 }
 declare const MediaUploadCheck: ComponentType<MediaUploadCheck.Props>;

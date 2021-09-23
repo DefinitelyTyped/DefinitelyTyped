@@ -1,4 +1,4 @@
-import css, { Theme } from '@styled-system/css';
+import css, { CssFunctionReturnType, Theme } from '@styled-system/css';
 
 const theme = {
     colors: {
@@ -17,7 +17,7 @@ const theme = {
     },
     zIndicies: {
         base: 100,
-    }
+    },
 };
 
 export const themeWithVariants: Theme = {
@@ -249,3 +249,21 @@ css({
 
 // ignores null
 css(null);
+
+css({
+    label: 'foo',
+    button: {
+        label: 'bar',
+        color: 'blue',
+    },
+    '> *': {
+        label: 'baz',
+    },
+});
+
+// handles vendor-prefixed css properties
+css({
+    WebkitTouchCallout: 'none'
+});
+
+const result: CssFunctionReturnType = css({});

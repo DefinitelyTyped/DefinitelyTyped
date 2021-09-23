@@ -1,65 +1,68 @@
-declare module "http" {
-    import * as events from "events";
-    import * as stream from "stream";
-    import { URL } from "url";
-    import { Socket, Server as NetServer } from "net";
+declare module 'http' {
+    import * as stream from 'stream';
+    import { URL } from 'url';
+    import { Socket, Server as NetServer } from 'net';
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
-        'accept'?: string;
-        'accept-language'?: string;
-        'accept-patch'?: string;
-        'accept-ranges'?: string;
-        'access-control-allow-credentials'?: string;
-        'access-control-allow-headers'?: string;
-        'access-control-allow-methods'?: string;
-        'access-control-allow-origin'?: string;
-        'access-control-expose-headers'?: string;
-        'access-control-max-age'?: string;
-        'age'?: string;
-        'allow'?: string;
-        'alt-svc'?: string;
-        'authorization'?: string;
-        'cache-control'?: string;
-        'connection'?: string;
-        'content-disposition'?: string;
-        'content-encoding'?: string;
-        'content-language'?: string;
-        'content-length'?: string;
-        'content-location'?: string;
-        'content-range'?: string;
-        'content-type'?: string;
-        'cookie'?: string;
-        'date'?: string;
-        'expect'?: string;
-        'expires'?: string;
-        'forwarded'?: string;
-        'from'?: string;
-        'host'?: string;
-        'if-match'?: string;
-        'if-modified-since'?: string;
-        'if-none-match'?: string;
-        'if-unmodified-since'?: string;
-        'last-modified'?: string;
-        'location'?: string;
-        'pragma'?: string;
-        'proxy-authenticate'?: string;
-        'proxy-authorization'?: string;
-        'public-key-pins'?: string;
-        'range'?: string;
-        'referer'?: string;
-        'retry-after'?: string;
-        'set-cookie'?: string[];
-        'strict-transport-security'?: string;
-        'tk'?: string;
-        'trailer'?: string;
-        'transfer-encoding'?: string;
-        'upgrade'?: string;
-        'user-agent'?: string;
-        'vary'?: string;
-        'via'?: string;
-        'warning'?: string;
-        'www-authenticate'?: string;
+        'accept'?: string | undefined;
+        'accept-language'?: string | undefined;
+        'accept-patch'?: string | undefined;
+        'accept-ranges'?: string | undefined;
+        'access-control-allow-credentials'?: string | undefined;
+        'access-control-allow-headers'?: string | undefined;
+        'access-control-allow-methods'?: string | undefined;
+        'access-control-allow-origin'?: string | undefined;
+        'access-control-expose-headers'?: string | undefined;
+        'access-control-max-age'?: string | undefined;
+        'access-control-request-headers'?: string | undefined;
+        'access-control-request-method'?: string | undefined;
+        'age'?: string | undefined;
+        'allow'?: string | undefined;
+        'alt-svc'?: string | undefined;
+        'authorization'?: string | undefined;
+        'cache-control'?: string | undefined;
+        'connection'?: string | undefined;
+        'content-disposition'?: string | undefined;
+        'content-encoding'?: string | undefined;
+        'content-language'?: string | undefined;
+        'content-length'?: string | undefined;
+        'content-location'?: string | undefined;
+        'content-range'?: string | undefined;
+        'content-type'?: string | undefined;
+        'cookie'?: string | undefined;
+        'date'?: string | undefined;
+        'etag'?: string | undefined;
+        'expect'?: string | undefined;
+        'expires'?: string | undefined;
+        'forwarded'?: string | undefined;
+        'from'?: string | undefined;
+        'host'?: string | undefined;
+        'if-match'?: string | undefined;
+        'if-modified-since'?: string | undefined;
+        'if-none-match'?: string | undefined;
+        'if-unmodified-since'?: string | undefined;
+        'last-modified'?: string | undefined;
+        'location'?: string | undefined;
+        'origin'?: string | undefined;
+        'pragma'?: string | undefined;
+        'proxy-authenticate'?: string | undefined;
+        'proxy-authorization'?: string | undefined;
+        'public-key-pins'?: string | undefined;
+        'range'?: string | undefined;
+        'referer'?: string | undefined;
+        'retry-after'?: string | undefined;
+        'set-cookie'?: string[] | undefined;
+        'strict-transport-security'?: string | undefined;
+        'tk'?: string | undefined;
+        'trailer'?: string | undefined;
+        'transfer-encoding'?: string | undefined;
+        'upgrade'?: string | undefined;
+        'user-agent'?: string | undefined;
+        'vary'?: string | undefined;
+        'via'?: string | undefined;
+        'warning'?: string | undefined;
+        'www-authenticate'?: string | undefined;
         [header: string]: string | string[] | undefined;
     }
 
@@ -69,29 +72,29 @@ declare module "http" {
     }
 
     interface ClientRequestArgs {
-        protocol?: string | null;
-        host?: string | null;
-        hostname?: string | null;
-        family?: number;
-        port?: number | string | null;
-        defaultPort?: number | string;
-        localAddress?: string;
-        socketPath?: string;
-        method?: string;
-        path?: string | null;
-        headers?: OutgoingHttpHeaders;
-        auth?: string | null;
-        agent?: Agent | boolean;
-        _defaultAgent?: Agent;
-        timeout?: number;
-        setHost?: boolean;
+        protocol?: string | null | undefined;
+        host?: string | null | undefined;
+        hostname?: string | null | undefined;
+        family?: number | undefined;
+        port?: number | string | null | undefined;
+        defaultPort?: number | string | undefined;
+        localAddress?: string | undefined;
+        socketPath?: string | undefined;
+        method?: string | undefined;
+        path?: string | null | undefined;
+        headers?: OutgoingHttpHeaders | undefined;
+        auth?: string | null | undefined;
+        agent?: Agent | boolean | undefined;
+        _defaultAgent?: Agent | undefined;
+        timeout?: number | undefined;
+        setHost?: boolean | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
-        createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket;
+        createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
     }
 
     interface ServerOptions {
-        IncomingMessage?: typeof IncomingMessage;
-        ServerResponse?: typeof ServerResponse;
+        IncomingMessage?: typeof IncomingMessage | undefined;
+        ServerResponse?: typeof ServerResponse | undefined;
     }
 
     type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
@@ -116,6 +119,72 @@ declare module "http" {
          */
         headersTimeout: number;
         keepAliveTimeout: number;
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: 'close', listener: () => void): this;
+        addListener(event: 'connection', listener: (socket: Socket) => void): this;
+        addListener(event: 'error', listener: (err: Error) => void): this;
+        addListener(event: 'listening', listener: () => void): this;
+        addListener(event: 'checkContinue', listener: RequestListener): this;
+        addListener(event: 'checkExpectation', listener: RequestListener): this;
+        addListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        addListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        addListener(event: 'request', listener: RequestListener): this;
+        addListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: 'close'): boolean;
+        emit(event: 'connection', socket: Socket): boolean;
+        emit(event: 'error', err: Error): boolean;
+        emit(event: 'listening'): boolean;
+        emit(event: 'checkContinue', req: IncomingMessage, res: ServerResponse): boolean;
+        emit(event: 'checkExpectation', req: IncomingMessage, res: ServerResponse): boolean;
+        emit(event: 'clientError', err: Error, socket: stream.Duplex): boolean;
+        emit(event: 'connect', req: IncomingMessage, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: 'request', req: IncomingMessage, res: ServerResponse): boolean;
+        emit(event: 'upgrade', req: IncomingMessage, socket: stream.Duplex, head: Buffer): boolean;
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: 'close', listener: () => void): this;
+        on(event: 'connection', listener: (socket: Socket) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'listening', listener: () => void): this;
+        on(event: 'checkContinue', listener: RequestListener): this;
+        on(event: 'checkExpectation', listener: RequestListener): this;
+        on(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        on(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'request', listener: RequestListener): this;
+        on(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: 'close', listener: () => void): this;
+        once(event: 'connection', listener: (socket: Socket) => void): this;
+        once(event: 'error', listener: (err: Error) => void): this;
+        once(event: 'listening', listener: () => void): this;
+        once(event: 'checkContinue', listener: RequestListener): this;
+        once(event: 'checkExpectation', listener: RequestListener): this;
+        once(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        once(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        once(event: 'request', listener: RequestListener): this;
+        once(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: 'close', listener: () => void): this;
+        prependListener(event: 'connection', listener: (socket: Socket) => void): this;
+        prependListener(event: 'error', listener: (err: Error) => void): this;
+        prependListener(event: 'listening', listener: () => void): this;
+        prependListener(event: 'checkContinue', listener: RequestListener): this;
+        prependListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        prependListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(event: 'request', listener: RequestListener): this;
+        prependListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: 'close', listener: () => void): this;
+        prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
+        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+        prependOnceListener(event: 'listening', listener: () => void): this;
+        prependOnceListener(event: 'checkContinue', listener: RequestListener): this;
+        prependOnceListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependOnceListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        prependOnceListener(event: 'connect', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(event: 'request', listener: RequestListener): this;
+        prependOnceListener(event: 'upgrade', listener: (req: IncomingMessage, socket: stream.Duplex, head: Buffer) => void): this;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
@@ -132,13 +201,13 @@ declare module "http" {
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | string[]): void;
+        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -155,7 +224,7 @@ declare module "http" {
         // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
         // no args in writeContinue callback
         writeContinue(callback?: () => void): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
         writeProcessing(): void;
     }
@@ -170,14 +239,17 @@ declare module "http" {
         rawHeaders: string[];
     }
 
-    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    // https://github.com/nodejs/node/blob/v12.20.0/lib/_http_client.js#L85
     class ClientRequest extends OutgoingMessage {
         connection: Socket;
         socket: Socket;
-        aborted: number;
+        aborted: boolean;
+        host: string;
+        protocol: string;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
+        method: string;
         readonly path: string;
         abort(): void;
         onSocket(socket: Socket): void;
@@ -269,6 +341,7 @@ declare module "http" {
     class IncomingMessage extends stream.Readable {
         constructor(socket: Socket);
 
+        aborted: boolean;
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
@@ -282,19 +355,19 @@ declare module "http" {
         /**
          * Only valid for request obtained from http.Server.
          */
-        method?: string;
+        method?: string | undefined;
         /**
          * Only valid for request obtained from http.Server.
          */
-        url?: string;
+        url?: string | undefined;
         /**
          * Only valid for response obtained from http.ClientRequest.
          */
-        statusCode?: number;
+        statusCode?: number | undefined;
         /**
          * Only valid for response obtained from http.ClientRequest.
          */
-        statusMessage?: string;
+        statusMessage?: string | undefined;
         socket: Socket;
         destroy(error?: Error): void;
     }
@@ -303,29 +376,38 @@ declare module "http" {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */
-        keepAlive?: boolean;
+        keepAlive?: boolean | undefined;
         /**
          * When using HTTP KeepAlive, how often to send TCP KeepAlive packets over sockets being kept alive. Default = 1000.
          * Only relevant if keepAlive is set to true.
          */
-        keepAliveMsecs?: number;
+        keepAliveMsecs?: number | undefined;
         /**
          * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
          */
-        maxSockets?: number;
+        maxSockets?: number | undefined;
+        /**
+         * Maximum number of sockets allowed for all hosts in total. Each request will use a new socket until the maximum is reached. Default: Infinity.
+         */
+        maxTotalSockets?: number | undefined;
         /**
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
-        maxFreeSockets?: number;
+        maxFreeSockets?: number | undefined;
         /**
          * Socket timeout in milliseconds. This will set the timeout after the socket is connected.
          */
-        timeout?: number;
+        timeout?: number | undefined;
+        /**
+         * Scheduling strategy to apply when picking the next free socket to use. Default: 'fifo'.
+         */
+        scheduling?: 'fifo' | 'lifo' | undefined;
     }
 
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
+        maxTotalSockets: number;
         readonly sockets: {
             readonly [key: string]: Socket[];
         };

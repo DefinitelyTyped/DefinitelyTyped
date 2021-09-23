@@ -12,6 +12,10 @@ proxy("www.google.com", {
 });
 
 proxy("www.google.com", {
+    proxyReqPathResolver: async req => req.url
+});
+
+proxy("www.google.com", {
     limit: "10mb"
 });
 
@@ -54,7 +58,7 @@ proxy("www.google.com", {
 proxy("www.google.com", {
     userResHeaderDecorator(headers, userReq, userRes, proxyReq, proxyRes) {
         console.log(userReq.url, userRes.statusCode);
-        console.log(proxyReq.url, proxyRes.statusCode);
+        console.log(proxyReq.host, proxyRes.statusCode);
         if (headers["content-type"] === "image/png") {
             headers["x-custom-header"] = "additional-info";
         }
@@ -102,6 +106,13 @@ proxy("www.google.com", {
         return req.method === "GET";
     }
 });
+proxy("www.google.com", {
+    filter: (req, res) => {
+        return new Promise(resolve => {
+            resolve(req.method === 'GET');
+        });
+    }
+});
 
 proxy("www.google.com", {
     memoizeHost: true
@@ -140,5 +151,17 @@ proxy("www.google.com", {
         return new Promise((resolve, reject) => {
             resolve(bodyContent);
         });
+    },
+});
+
+proxy("www.google.com", {
+    userResDecorator(proxyRes, proxyResData, userReq, userRes) {
+        const contentType = proxyRes.headers["content-type"];
+        if (contentType !== "text/html") {
+            return proxyResData;
+        }
+        // apply some transformation to proxyResData's HTML if you need
+        const modifiedHTML = proxyResData;
+        return modifiedHTML;
     },
 });

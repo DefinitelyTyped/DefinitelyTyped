@@ -1,11 +1,11 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 declare namespace PostVisibilityCheck {
     interface RenderProps {
         canEdit: boolean;
     }
     interface Props {
-        children?: never;
+        children?: never | undefined;
         render(props: RenderProps): JSX.Element;
     }
 }

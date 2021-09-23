@@ -9,7 +9,7 @@
 /// <reference types="node" />
 
 // Import from dependencies
-import { Stream } from 'stream';
+import { Readable as ReadableStream } from 'stream';
 import { EventEmitter } from 'events';
 import { AgentOptions } from 'https';
 
@@ -22,12 +22,13 @@ export interface ClientOptions {
     endPoint: string;
     accessKey: string;
     secretKey: string;
-    useSSL?: boolean;
-    port?: number;
-    region?: Region;
+    useSSL?: boolean | undefined;
+    port?: number | undefined;
+    region?: Region | undefined;
     transport?: any;
-    sessionToken?: string;
-    partSize?: number;
+    sessionToken?: string | undefined;
+    partSize?: number | undefined;
+    pathStyle?: boolean | undefined;
 }
 
 export interface BucketItemFromList {
@@ -48,6 +49,10 @@ export interface BucketItem {
     lastModified: Date;
 }
 
+export interface BucketItemWithMetadata extends BucketItem {
+    metadata: ItemBucketMetadata;
+}
+
 export interface BucketItemStat {
     size: number;
     etag: string;
@@ -61,10 +66,11 @@ export interface IncompleteUploadedBucketItem {
     size: number;
 }
 
-export interface BucketStream<T> extends Stream {
+export interface BucketStream<T> extends ReadableStream {
     on(event: 'data', listener: (item: T) => void): this;
-    on(event: 'error', listener: (error: Error) => void): this;
-    on(event: 'end', listener: () => void): this;
+    on(event: 'end' | 'pause' | 'readable' | 'resume' | 'close', listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
 export interface PostPolicyResult {
@@ -76,6 +82,11 @@ export interface PostPolicyResult {
 
 export interface ItemBucketMetadata {
     [key: string]: any;
+}
+
+export interface UploadedObjectInfo {
+    etag: string;
+    versionId: string | null;
 }
 
 // No need to export this. But without it - linter error.
@@ -110,24 +121,24 @@ export class Client {
     listIncompleteUploads(bucketName: string, prefix?: string, recursive?: boolean): BucketStream<IncompleteUploadedBucketItem>;
 
     // Object operations
-    getObject(bucketName: string, objectName: string, callback: ResultCallback<Stream>): void;
-    getObject(bucketName: string, objectName: string): Promise<Stream>;
+    getObject(bucketName: string, objectName: string, callback: ResultCallback<ReadableStream>): void;
+    getObject(bucketName: string, objectName: string): Promise<ReadableStream>;
 
-    getPartialObject(bucketName: string, objectName: string, offset: number, callback: ResultCallback<Stream>): void;
-    getPartialObject(bucketName: string, objectName: string, offset: number, length: number, callback: ResultCallback<Stream>): void;
-    getPartialObject(bucketName: string, objectName: string, offset: number, length?: number): Promise<Stream>;
+    getPartialObject(bucketName: string, objectName: string, offset: number, callback: ResultCallback<ReadableStream>): void;
+    getPartialObject(bucketName: string, objectName: string, offset: number, length: number, callback: ResultCallback<ReadableStream>): void;
+    getPartialObject(bucketName: string, objectName: string, offset: number, length?: number): Promise<ReadableStream>;
 
     fGetObject(bucketName: string, objectName: string, filePath: string, callback: NoResultCallback): void;
     fGetObject(bucketName: string, objectName: string, filePath: string): Promise<void>;
 
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
-    putObject(bucketName: string, objectName: string, stream: Stream|Buffer|string, metaData?: ItemBucketMetadata): Promise<string>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
 
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<string>;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<UploadedObjectInfo>;
 
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions, callback: ResultCallback<BucketItemCopy>): void;
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions): Promise<BucketItemCopy>;
@@ -185,7 +196,12 @@ export class Client {
 
     // Other
     newPostPolicy(): PostPolicy;
-    setRequestOptions(otpions: AgentOptions): void;
+    setRequestOptions(options: AgentOptions): void;
+
+    // Minio extensions that aren't necessary present for Amazon S3 compatible storage servers
+    extensions: {
+        listObjectsV2WithMetadata(bucketName: string, prefix?: string, recursive?: boolean, startAfter?: string): BucketStream<BucketItemWithMetadata>;
+    };
 }
 
 export namespace Policy {

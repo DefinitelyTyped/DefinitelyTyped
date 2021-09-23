@@ -1,4 +1,4 @@
-import loadImage, { MetaData } from 'blueimp-load-image';
+import loadImage = require('blueimp-load-image');
 
 // Test image taken from package tests: https://github.com/blueimp/JavaScript-Load-Image/blob/master/test/test.js
 
@@ -22,11 +22,28 @@ const b64DataJPEG =
   '2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A/v4ooooA/9k=';
 const imageUrlJPEG = 'data:image/jpeg;base64,' + b64DataJPEG;
 
-loadImage(imageUrlJPEG, (image: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData): void => {
+// Callback style
+loadImage(imageUrlJPEG, (image: Event | HTMLCanvasElement | HTMLImageElement, data?: loadImage.MetaData): void => {
   const canvas = image as HTMLCanvasElement;
   console.log(data);
   canvas.toBlob((blob: Blob | null): void => {
     const url = canvas.toDataURL("image/png");
     console.log(url);
   });
-}, {canvas: true, orientation: true, maxWidth: 100, maxHeight: 100, crop: true});
+}, { canvas: true, orientation: true, maxWidth: 100, maxHeight: 100, crop: true });
+
+// Promise style
+loadImage(imageUrlJPEG, { canvas: true, orientation: true, maxWidth: 100, maxHeight: 100, crop: true }).then((data) => {
+  const canvas = (<any> data.image) as HTMLCanvasElement;
+  console.log(data);
+  canvas.toBlob((blob: Blob | null): void => {
+    const url = canvas.toDataURL("image/png");
+    console.log(url);
+  });
+});
+
+// Parse metadata
+loadImage.parseMetaData(imageUrlJPEG, (metadata) => {
+  console.log(metadata.exif && metadata.exif.get('Orientation'));
+  console.log(metadata.exif && metadata.exif[0x0112]);
+});

@@ -17,5 +17,8 @@ import SwaggerUI from 'swagger-ui-react';
             },
         },
     ]}
+    supportedSubmitMethods={[]}
+    deepLinking
+    showMutatedRequest={false}
   />
 </div>;

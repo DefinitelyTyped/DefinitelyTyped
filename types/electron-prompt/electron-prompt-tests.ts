@@ -7,6 +7,7 @@ prompt({
     },
     label: 'URL:',
     title: 'Prompt example',
+    type: 'input',
     value: 'http://example.org',
 }).then(r => {
     r; // $ExpectType string | null

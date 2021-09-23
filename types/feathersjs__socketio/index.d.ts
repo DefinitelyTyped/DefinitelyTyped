@@ -2,7 +2,7 @@
 // Project: https://feathersjs.com
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 //                 Desmond Koh <https://github.com/deskoh>
-// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types="feathersjs__socket-commons"/>

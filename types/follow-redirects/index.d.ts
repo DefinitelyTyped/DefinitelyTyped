@@ -1,8 +1,9 @@
-// Type definitions for follow-redirects 1.8
+// Type definitions for follow-redirects 1.13
 // Project: https://github.com/follow-redirects/follow-redirects
-// Definitions by: Emily Klassen <https://github.com/forivall>, Claas Ahlrichs <https://github.com/claasahl>
+// Definitions by: Emily Klassen <https://github.com/forivall>
+//                 Claas Ahlrichs <https://github.com/claasahl>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -22,9 +23,9 @@ export interface WrappableRequest {
     setTimeout?(...args: any[]): any;
 }
 export interface WrappableResponse {
-    statusCode?: number;
+    statusCode?: number | undefined;
     headers: {
-        location?: string
+        location?: string | undefined
     };
     destroy(): any;
 }
@@ -81,15 +82,15 @@ export interface RedirectScheme<Options, Request extends WrappableRequest, Respo
 
 export type Override<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
 export interface FollowOptions<Options> {
-    followRedirects?: boolean;
-    maxRedirects?: number;
-    maxBodyLength?: number;
-    beforeRedirect?: (options: Options & FollowOptions<Options>) => void;
+    followRedirects?: boolean | undefined;
+    maxRedirects?: number | undefined;
+    maxBodyLength?: number | undefined;
+    beforeRedirect?: ((options: Options & FollowOptions<Options>, responseDetails: ResponseDetails) => void) | undefined;
     agents?: {
-        http?: coreHttp.Agent;
-        https?: coreHttps.Agent;
-    };
-    trackRedirects?: boolean;
+        http?: coreHttp.Agent | undefined;
+        https?: coreHttps.Agent | undefined;
+    } | undefined;
+    trackRedirects?: boolean | undefined;
 }
 
 export interface FollowResponse {
@@ -101,6 +102,10 @@ export interface Redirect {
     url: string;
     headers: coreHttp.IncomingHttpHeaders;
     statusCode: number;
+}
+
+export interface  ResponseDetails {
+    headers: coreHttp.IncomingHttpHeaders;
 }
 
 export const http: Override<typeof coreHttp, RedirectScheme<

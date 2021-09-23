@@ -1,24 +1,23 @@
-/// <reference types="node" />
-
 import ssri = require("ssri");
+import fs = require("fs");
 import { createReadStream } from "fs";
 
 const integrityString =
-	"sha512-9KhgCRIx/AmzC8xqYJTZRrnO8OW2Pxyl2DIMZSBOr0oDvtEFyht3xpp71j/r/pAe1DM+JI/A+line3jUBgzQ7A==?foo";
+    "sha512-9KhgCRIx/AmzC8xqYJTZRrnO8OW2Pxyl2DIMZSBOr0oDvtEFyht3xpp71j/r/pAe1DM+JI/A+line3jUBgzQ7A==?foo";
 const hash = { algorithm: "sha512", digest: "c0ffee", options: [] };
 
 const integrity = {
-	sha1: [{ algorithm: "sha1", digest: "deadbeef", options: [] }],
-	sha512: [
-		{ algorithm: "sha512", digest: "c0ffee", options: [] },
-		{ algorithm: "sha512", digest: "bad1dea", options: ["foo"] },
-	],
+    sha1: [{ algorithm: "sha1", digest: "deadbeef", options: [] }],
+    sha512: [
+        { algorithm: "sha512", digest: "c0ffee", options: [] },
+        { algorithm: "sha512", digest: "bad1dea", options: ["foo"] },
+    ],
 };
 const single: boolean | undefined = (() => {
-	const i = Math.random();
-	if (i < 0.5) return undefined;
-	if (i < 0.75) return false;
-	return true;
+    const i = Math.random();
+    if (i < 0.5) return undefined;
+    if (i < 0.75) return false;
+    return true;
 })();
 
 // $ExpectType IntegrityMap
@@ -68,8 +67,8 @@ new ssri.Integrity().match(hash);
 new ssri.Integrity().match(integrity);
 // $ExpectType false | Hash
 new ssri.Integrity().match(integrityString, {
-	strict: true,
-	pickAlgorithm: (a, b) => a,
+    strict: true,
+    pickAlgorithm: (a, b) => a,
 });
 
 // $ExpectType string
@@ -84,17 +83,17 @@ new ssri.Integrity().hexDigest();
 ssri.fromHex("75e69d6de79f", "sha1");
 // $ExpectType Hash
 ssri.fromHex("75e69d6de79f", "sha1", {
-	single: true,
-	strict: false,
-	options: ["sriOpt"],
+    single: true,
+    strict: false,
+    options: ["sriOpt"],
 });
 // $ExpectType IntegrityMap
 ssri.fromHex("75e69d6de79f", "sha1", { strict: false, options: ["sriOpt"] });
 // $ExpectType IntegrityMap | Hash
 ssri.fromHex("75e69d6de79f", "sha1", {
-	single,
-	strict: false,
-	options: ["sriOpt"],
+    single,
+    strict: false,
+    options: ["sriOpt"],
 });
 
 // $ExpectType IntegrityMap
@@ -103,36 +102,36 @@ ssri.fromData("foobarbaz");
 ssri.fromData(Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]));
 // $ExpectType IntegrityMap
 ssri.fromData("foobarbaz", {
-	algorithms: ["sha256", "sha384", "sha512"],
-	strict: true,
-	options: ["sriOpt"],
+    algorithms: ["sha256", "sha384", "sha512"],
+    strict: true,
+    options: ["sriOpt"],
 });
 
 // $ExpectType Promise<IntegrityMap>
 ssri.fromStream(createReadStream("index.js"));
 // $ExpectType PromiseLike<IntegrityMap>
 ssri.fromStream(createReadStream("index.js"), {
-	algorithms: ["sha1", "sha512"],
-	strict: true,
-	options: ["sriOpt"],
-	Promise,
+    algorithms: ["sha1", "sha512"],
+    strict: true,
+    options: ["sriOpt"],
+    Promise,
 });
 
 // $ExpectType Hash
 ssri.create();
 // $ExpectType Hash
 ssri.create({
-	algorithms: ["sha1", "sha512"],
-	strict: true,
-	options: ["sriOpt"],
+    algorithms: ["sha1", "sha512"],
+    strict: true,
+    options: ["sriOpt"],
 });
 
 // $ExpectType false | Hash
 ssri.checkData("data", integrityString);
 // $ExpectType false | Hash
 ssri.checkData(
-	Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]),
-	integrityString,
+    Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]),
+    integrityString,
 );
 // $ExpectType false | Hash
 ssri.checkData("data", hash);
@@ -140,10 +139,10 @@ ssri.checkData("data", hash);
 ssri.checkData("data", integrity);
 // $ExpectType false | Hash
 ssri.checkData("data", integrityString, {
-	strict: true,
-	pickAlgorithm: (a, b) => a,
-	error: true,
-	size: 1,
+    strict: true,
+    pickAlgorithm: (a, b) => a,
+    error: true,
+    size: 1,
 });
 
 // $ExpectType Promise<Hash>
@@ -154,29 +153,37 @@ ssri.checkStream(createReadStream("index.js"), hash);
 ssri.checkStream(createReadStream("index.js"), integrity);
 // $ExpectType Promise<Hash>
 ssri.checkStream(createReadStream("index.js"), integrityString, {
-	strict: true,
-	options: ["sriOpt"],
-	pickAlgorithm: (a, b) => a,
-	size: 1,
+    strict: true,
+    options: ["sriOpt"],
+    pickAlgorithm: (a, b) => a,
+    size: 1,
 });
 // $ExpectType PromiseLike<Hash>
 ssri.checkStream(createReadStream("index.js"), integrityString, {
-	strict: true,
-	options: ["sriOpt"],
-	pickAlgorithm: (a, b) => a,
-	size: 1,
-	Promise,
+    strict: true,
+    options: ["sriOpt"],
+    pickAlgorithm: (a, b) => a,
+    size: 1,
+    Promise,
 });
 
 // $ExpectType Transform
 ssri.integrityStream();
 // $ExpectType Transform
 ssri.integrityStream({
-	single: true,
-	strict: true,
-	options: ["sriOpt"],
-	pickAlgorithm: (a, b) => a,
-	size: 1,
-	integrity,
-	algorithms: ["sha1", "sha256"],
+    single: true,
+    strict: true,
+    options: ["sriOpt"],
+    pickAlgorithm: (a, b) => a,
+    size: 1,
+    integrity,
+    algorithms: ["sha1", "sha256"],
 });
+
+// ssri.merge
+const data = fs.readFileSync('data.txt');
+const expectedIntegrity = ssri.parse(fs.readFileSync('integrity.txt', 'utf8'));
+const updatedIntegrity = ssri.fromData(data, { algorithms: ['sha512'] });
+expectedIntegrity.merge(updatedIntegrity); // $ExpectType void
+expectedIntegrity.merge(updatedIntegrity, {}); // $ExpectType void
+expectedIntegrity.merge(updatedIntegrity, { strict: true }); // $ExpectType void

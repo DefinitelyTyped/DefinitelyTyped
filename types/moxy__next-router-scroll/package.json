@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "scroll-behavior": "^0.11.0"
+    }
+}

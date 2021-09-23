@@ -3,12 +3,12 @@
 // Definitions by: Wang KaiLing <https://github.com/wkl007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class Lyric {
+declare class Lyric {
     constructor(lrc: string, handler: (params: { lineNum: number; txt: string }) => void);
 
     lrc: string;
     tags: { album: string; artist: string; by: string; offset: string; title: string };
-    lines: string[];
+    lines: Array<{ time: number; txt: string }>;
     handler: (params: { lineNum: number; txt: string }) => void;
     state: number;
     curLine: number;
@@ -21,3 +21,5 @@ export default class Lyric {
 
     seek(offset: number): void;
 }
+
+export = Lyric;

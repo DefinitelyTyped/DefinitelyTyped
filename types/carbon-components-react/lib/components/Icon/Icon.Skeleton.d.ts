@@ -1,11 +1,7 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    style?: ReactAttr["style"],
-}
-
-export interface IconSkeletonProps extends InheritedProps { }
+export interface IconSkeletonProps extends ReactDivAttr { }
 
 declare const IconSkeleton: React.FC<IconSkeletonProps>;
 

@@ -185,7 +185,9 @@ const footerCallbackFunc: DataTables.FunctionFooterCallback = (tfoot, data, star
 const formatNumberFunc: DataTables.FunctionFormatNumber = (toForm) => { };
 const headerCallbackFunc: DataTables.FunctionHeaderCallback = (thead, data, start, end, display) => { };
 const infoCallbackFunc: DataTables.FunctionInfoCallback = (settings, start, end, total, pre) => { };
-const initCallbackFunc: DataTables.FunctionInitComplete = (settings, json) => { };
+const initCallbackFunc: DataTables.FunctionInitComplete = (settings, json) => {
+    const api = new $.fn.dataTable.Api(settings);
+};
 const preDrawFunc: DataTables.FunctionPreDrawCallback = (settings) => { };
 const rowCallbackFunc: DataTables.FunctionRowCallback = (row, data, index) => { };
 const stateLoadCallbackFunc: DataTables.FunctionStateLoadCallback = (settings) => { };

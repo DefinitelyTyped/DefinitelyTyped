@@ -3,7 +3,6 @@
 // Definitions by: Alec Zopf <https://github.com/zopf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
-/// <reference types="node"/>
 export = format;
 
 declare function format(fmt: string, ...args: any[]): string;
@@ -11,9 +10,9 @@ declare function format(fmt: string, ...args: any[]): string;
 declare namespace format {
     function config(config?: {
         pattern: {
-            ident?: string,
-            literal?: string,
-            string?: string
+            ident?: string | undefined,
+            literal?: string | undefined,
+            string?: string | undefined
         }
     }): void;
     function ident(val: string | number | boolean | any[] | Date): string;

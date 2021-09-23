@@ -38,13 +38,13 @@ declare module "bull" {
 
             /**
              * Removes a Job from the queue from all the lists where it may be included.
-             * @returns {Promise} A promise that resolves when the job is removed.
+             * @returns A promise that resolves when the job is removed.
              */
             remove(): Promise<void>;
 
             /**
              * Rerun a Job that has failed.
-             * @returns {Promise} A promise that resolves when the job is scheduled for retry.
+             * @returns A promise that resolves when the job is scheduled for retry.
              */
             retry(): Promise<void>;
 
@@ -92,28 +92,28 @@ declare module "bull" {
              * An amount of miliseconds to wait until this job can be processed.
              * Note that for accurate delays, both server and clients should have their clocks synchronized
              */
-            delay?: number;
+            delay?: number | undefined;
 
             /**
              * A number of attempts to retry if the job fails [optional]
              */
-            attempts?: number;
+            attempts?: number | undefined;
 
             /**
              * Backoff setting for automatic retries if the job fails
              */
-            backoff?: number | Backoff
+            backoff?: number | Backoff | undefined
 
             /**
              * A boolean which, if true, adds the job to the right
              * of the queue instead of the left (default false)
              */
-            lifo?: boolean;
+            lifo?: boolean | undefined;
 
             /**
              *  The number of milliseconds after which the job should be fail with a timeout error
              */
-            timeout?: number;
+            timeout?: number | undefined;
         }
 
         export interface Queue {
@@ -326,7 +326,7 @@ declare module "bull/lib/priority-queue" {
             /**
              * "low", "normal", "medium", "high", "critical"
              */
-            priority?: string;
+            priority?: string | undefined;
         }
 
 

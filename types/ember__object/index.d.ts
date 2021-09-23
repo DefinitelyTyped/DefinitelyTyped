@@ -1,8 +1,11 @@
-// Type definitions for non-npm package @ember/object 3.1
-// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fobject
+// Type definitions for non-npm package @ember/object 3.12
+// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fobject
 // Definitions by: Mike North <https://github.com/mike-north>
+//                 Chris Krycho <https://github.com/chriskrycho>
+//                 Dan Freeman <https://github.com/dfreeman>
+//                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import CoreObject from "@ember/object/core";
 import Observable from "@ember/object/observable";
@@ -23,48 +26,48 @@ import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
  */
 export default class EmberObject extends CoreObject.extend(Observable) {}
 declare function computed(...deps: string[]): MethodDecorator;
-declare function computed<T>(
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+declare function computed<Get, Set = Get>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
     k4: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
     k4: string,
     k5: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
+declare function computed<Get, Set = Get>(
     k1: string,
     k2: string,
     k3: string,
     k4: string,
     k5: string,
     k6: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
+    cb: ComputedPropertyCallback<Get, Set>
+): ComputedProperty<Get, Set>;
 declare function computed(
     k1: string,
     k2: string,

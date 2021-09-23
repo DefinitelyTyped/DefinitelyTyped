@@ -42,15 +42,13 @@ interface Parse {
     expandKeys(config: Config): Config;
 }
 
-// no-empty-interface is disabled for a better debugging experience. Empty interfaces are used to alias a type alias.
-// tslint:disable-next-line no-empty-interface
 interface Options extends Pick<_Options, keyof _Options> { }
 
 interface _Options {
     cwd: string;
     path: string;
-    include?: boolean;
-    expandKeys?: boolean;
+    include?: boolean | undefined;
+    expandKeys?: boolean | undefined;
 }
 
 type ParseCallback = ((err: Error | null, config: Config) => void);

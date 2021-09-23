@@ -57,10 +57,6 @@ declare namespace jasmine {
 
   function addMatchers(matchers: AsyncCustomMatcherFactories): void;
 
-  interface Env {
-    addMatchers(matchers: AsyncCustomMatcherFactories): void;
-  }
-
   interface Spec {
     addMatchers(matchers: AsyncCustomMatcherFactories): void;
   }
@@ -80,6 +76,6 @@ declare namespace jasmine {
 
   interface AsyncCustomMatcherResult {
     pass: boolean | Promise<boolean>;
-    message?: string;
+    message?: string | undefined;
   }
 }

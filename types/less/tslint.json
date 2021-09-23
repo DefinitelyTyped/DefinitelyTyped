@@ -1,18 +1,14 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "callable-types": false,
-        "eofline": false,
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
-        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "prefer-method-signature": false,
         "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false

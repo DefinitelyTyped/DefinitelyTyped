@@ -1,4 +1,4 @@
-import { ComponentType } from '@wordpress/element';
+import { ComponentType } from 'react';
 
 // prettier-ignore
 declare function withSafeTimeout<T extends ComponentType<any>>(component: T):

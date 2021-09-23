@@ -12,6 +12,9 @@
         "paths": {
             "yargs": [
                 "yargs/v13"
+            ],
+            "yargs/*": [
+                "yargs/v13/*"
             ]
         },
         "typeRoots": [

@@ -1,5 +1,5 @@
 import { OnfleetDestination, CreateDestinationProps } from './Destinations';
-import { OnfleetMetadata } from '../metadata';
+import { OnfleetMetadata, MatchMetadata } from '../metadata';
 import { OnfleetRecipient, CreateRecipientProps } from './Recipients';
 
 declare class Task {
@@ -11,6 +11,7 @@ declare class Task {
   forceComplete(id: string): Promise<void>;
   get(queryOrId: string, queryKey?: Task.TaskQueryKey): Promise<Task.OnfleetTask>;
   get(queryParams?: Task.TaskQueryParam): Promise<Task.OnfleetTask[]>;
+  matchMetadata: MatchMetadata<Task.OnfleetTask['metadata']>;
   update(id: string, task: Partial<Task.CreateTaskProps>): Promise<Task.UpdateTaskResult>;
 }
 
@@ -30,10 +31,7 @@ declare namespace Task {
       lastLocation: any[];
       unavailableAttachments: any[];
     };
-    container: {
-      organization: string;
-      type: string;
-    };
+    container: TaskContainer;
     creator: string;
     dependencies: string[];
     destination: OnfleetDestination;
@@ -66,51 +64,81 @@ declare namespace Task {
     trackingURL: string;
     trackingViewed: boolean;
     worker: string | null;
+    barcodes?: {
+      /** The requested barcodes */
+      required: Barcode[];
+      /** Once a task is completed for which barcodes have been captured, the capture details can be found here */
+      captured: CapturedBarcode[];
+    } | undefined;
   }
 
   interface CreateTaskProps {
     destination: string | CreateDestinationProps;
     recipients: string[] | CreateRecipientProps[];
-    autoAssign?: TaskAutoAssign;
-    capacity?: number;
-    completeAfter?: number;
-    completeBefore?: number;
-    dependencies?: string[];
-    executor?: string;
-    metadata?: OnfleetMetadata[];
-    merchant?: string;
-    notes?: string;
-    pickupTask?: boolean;
-    quantity?: number;
-    recipientName?: string;
-    recipientNotes?: string;
-    recipientSkipSMSNotifications?: boolean;
-    requirements?: TaskCompletionRequirements;
+    autoAssign?: TaskAutoAssign | undefined;
+    capacity?: number | undefined;
+    container?: TaskContainer | undefined;
+    completeAfter?: number | undefined;
+    completeBefore?: number | undefined;
+    dependencies?: string[] | undefined;
+    executor?: string | undefined;
+    metadata?: OnfleetMetadata[] | undefined;
+    merchant?: string | undefined;
+    notes?: string | undefined;
+    pickupTask?: boolean | undefined;
+    quantity?: number | undefined;
+    recipientName?: string | undefined;
+    recipientNotes?: string | undefined;
+    recipientSkipSMSNotifications?: boolean | undefined;
+    requirements?: TaskCompletionRequirements | undefined;
+    barcodes?: Barcode[] | undefined;
   }
   interface TaskAutoAssign {
     mode: string;
-    considerDependencies?: boolean;
-    excludeWorkerIds?: string[];
-    maxAssignedTaskCount?: number;
-    team?: string;
+    considerDependencies?: boolean | undefined;
+    excludeWorkerIds?: string[] | undefined;
+    maxAssignedTaskCount?: number | undefined;
+    team?: string | undefined;
+  }
+
+  interface Barcode {
+    /** Whether the worker must capture this data prior to task completion, defaults to false */
+    blockCompletion?: boolean | undefined;
+    /** Base64 representation of the data encoded within the barcode to be captured, max length of 500 characters */
+    data?: string | undefined;
+  }
+
+  interface CapturedBarcode {
+    /** The ID of the captured barcode */
+    id: string;
+    /** The symbology that was captured */
+    symbology: string;
+    /** The base64 string of the data contained in the captured barcode */
+    data: Barcode['data'];
+    /** The [ lon, lat ] coordinates where the barcode capture took place */
+    location: [number, number];
+    /** The time at which the barcode capture happened */
+    time: number;
+    /** Whether the barcode was captured as a result of a barcode request */
+    wasRequested: boolean;
   }
 
   interface TaskCompletionRequirements {
-    minimumAge?: number;
-    notes?: boolean;
-    photo?: boolean;
-    signature?: boolean;
+    minimumAge?: number | undefined;
+    notes?: boolean | undefined;
+    photo?: boolean | undefined;
+    signature?: boolean | undefined;
   }
 
   interface TaskQueryParam {
     from: number;
-    completeAfterAfter?: number;
-    completeBeforeBefore?: number;
-    dependencies?: string;
-    lastId?: string;
-    state?: number;
-    to?: number;
-    worker?: string;
+    completeAfterAfter?: number | undefined;
+    completeBeforeBefore?: number | undefined;
+    dependencies?: string | undefined;
+    lastId?: string | undefined;
+    state?: number | undefined;
+    to?: number | undefined;
+    worker?: string | undefined;
   }
 
   interface CloneTaskOptions {
@@ -118,15 +146,15 @@ declare namespace Task {
     includeDependencies: boolean;
     includeMetadata: boolean;
     overrides?: {
-      completeAfter?: number;
-      completeBefore?: number;
-      destination?: string | CreateDestinationProps;
-      metadata?: OnfleetMetadata[];
-      notes?: string;
-      pickupTask?: boolean;
-      recipients?: OnfleetRecipient | OnfleetRecipient[];
-      serviceTime?: number;
-    };
+      completeAfter?: number | undefined;
+      completeBefore?: number | undefined;
+      destination?: string | CreateDestinationProps | undefined;
+      metadata?: OnfleetMetadata[] | undefined;
+      notes?: string | undefined;
+      pickupTask?: boolean | undefined;
+      recipients?: OnfleetRecipient | OnfleetRecipient[] | undefined;
+      serviceTime?: number | undefined;
+    } | undefined;
   }
 
   interface UpdateTaskResult extends OnfleetTask {
@@ -135,6 +163,23 @@ declare namespace Task {
     eta: number;
     trackingViewed: boolean;
   }
+
+  interface WorkerTaskContainer {
+    type: 'WORKER';
+    worker: string;
+  }
+
+  interface OrganizationTaskContainer {
+    type: 'ORGANIZATION';
+    organization: string;
+  }
+
+  interface TeamTaskContainer {
+    type: 'TEAM';
+    team: string;
+  }
+
+  type TaskContainer = WorkerTaskContainer | OrganizationTaskContainer | TeamTaskContainer;
 }
 
 export = Task;

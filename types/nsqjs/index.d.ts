@@ -1,4 +1,4 @@
-// Type definitions for nsqjs 0.9
+// Type definitions for nsqjs 0.12
 // Project: https://github.com/dudleycarr/nsqjs
 // Definitions by: Robert Kania <https://github.com/cezaryrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,24 +15,24 @@ export class Message extends events.EventEmitter {
     static TOUCH: number;
 
     readonly id: string;
-    body: any;
+    body: Buffer;
     hasResponded: boolean;
+    attempts: number;
     timestamp: number;
 
-    constructor(id: string, timestamp: number, attempts: number, body: any,
-                requeueDelay: number, msgTimeout: number, maxMsgTimeout: number);
+    constructor(rawMessage: Buffer, requeueDelay: number, msgTimeout: number, maxMsgTimeout: number);
 
     json(): any;
 
-    timeUntilTimeout(hard?: boolean): number;
+    timeUntilTimeout(hard?: boolean): number | null;
 
-    finish(): any;
+    finish(): void;
 
-    requeue(delay?: number, backoff?: boolean): any;
+    requeue(delay?: number, backoff?: boolean): void;
 
-    touch(): any;
+    touch(): void;
 
-    respond(responseType: number, wireData: Buffer): any;
+    respond(responseType: number, wireData: Buffer): void;
 
     on(event: "backoff", listener: () => void): this;
     on(event: "respond", listener: (responseType: number, wireData: Buffer) => void): this;
@@ -48,11 +48,13 @@ export class Writer extends events.EventEmitter {
 
     constructor(nsqdHost: string, nsqdPort: number, options?: ConnectionConfigOptions);
 
-    connect(): any;
+    connect(): void;
 
-    publish(topic: string, msgs: any, listener?: (err: Error) => void): any;
+    publish(topic: string, msgs: string|Buffer|object|string[]|Buffer[]|object[], callback?: (err?: Error) => void): void;
 
-    close(): any;
+    deferPublish(topic: string, msgs: string|Buffer|object|string[]|Buffer[]|object[], timeMs: number, callback?: (err?: Error) => void): void;
+
+    close(): void;
 
     on(event: "ready" | "closed", listener: () => void): this;
     on(event: "error", listener: (err: Error) => void): this;
@@ -61,56 +63,61 @@ export class Writer extends events.EventEmitter {
 export class Reader extends events.EventEmitter {
     static ERROR: string;
     static MESSAGE: string;
+    static READY: string;
+    static NOT_READY: string;
     static DISCARD: string;
     static NSQD_CONNECTED: string;
     static NSQD_CLOSED: string;
 
-    constructor(topic: string, channel: any, options?: ReaderConnectionConfigOptions);
+    constructor(topic: string, channel: string, options?: ReaderConnectionConfigOptions);
 
-    connect(): any;
+    connect(): void;
 
-    close(): any;
+    close(): void;
 
-    pause(): any;
+    pause(): void;
 
-    unpause(): any;
+    unpause(): void;
 
     isPaused(): boolean;
 
-    queryLookupd(): any;
+    queryLookupd(): void;
 
-    connectToNSQD(host: string, port: number): any;
+    connectToNSQD(host: string, port: number): void;
 
-    handleMessage(message: any): any;
+    handleMessage(message: Message): void;
 
+    on(event: "ready" | "not_ready", listener: () => void): this;
     on(event: "nsqd_connected" | "nsqd_closed", listener: (host: string, port: number) => void): this;
     on(event: "message" | "discard", listener: (message: Message) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
 }
 
 export interface ConnectionConfigOptions {
-    authSecret?: string;
-    clientId?: string;
-    deflate?: boolean;
-    deflateLevel?: number;
-    heartbeatInterval?: number;
-    maxInFlight?: number;
-    messageTimeout?: number;
-    outputBufferSize?: number;
-    outputBufferTimeout?: number;
-    requeueDelay?: number;
-    sampleRate?: number;
-    snappy?: boolean;
-    tls?: boolean;
-    tlsVerification?: boolean;
+    authSecret?: string | undefined;
+    clientId?: string | undefined;
+    deflate?: boolean | undefined;
+    deflateLevel?: number | undefined;
+    heartbeatInterval?: number | undefined;
+    maxInFlight?: number | undefined;
+    messageTimeout?: number | undefined;
+    outputBufferSize?: number | undefined;
+    outputBufferTimeout?: number | undefined;
+    requeueDelay?: number | undefined;
+    sampleRate?: number | undefined;
+    snappy?: boolean | undefined;
+    tls?: boolean | undefined;
+    tlsVerification?: boolean | undefined;
+    idleTimeout?: number | undefined;
 }
 
 export interface ReaderConnectionConfigOptions extends ConnectionConfigOptions {
-    lookupdHTTPAddresses?: string | string[];
-    lookupdPollInterval?: number;
-    lookupdPollJitter?: number;
-    name?: string;
-    nsqdTCPAddresses?: string | string[];
-    maxAttempts?: number;
-    maxBackoffDuration?: number;
+    lookupdHTTPAddresses?: string | string[] | undefined;
+    lookupdPollInterval?: number | undefined;
+    lookupdPollJitter?: number | undefined;
+    lowRdyTimeout?: number | undefined;
+    name?: string | undefined;
+    nsqdTCPAddresses?: string | string[] | undefined;
+    maxAttempts?: number | undefined;
+    maxBackoffDuration?: number | undefined;
 }

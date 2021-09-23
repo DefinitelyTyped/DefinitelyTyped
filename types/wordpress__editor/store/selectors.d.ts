@@ -1,7 +1,6 @@
-import { Schema } from '@wordpress/api-fetch';
 import { EditorSettings } from '@wordpress/block-editor';
 import { BlockInstance } from '@wordpress/blocks';
-import { Autosave } from '@wordpress/core-data';
+import { Autosave, Schema } from '@wordpress/core-data';
 
 export {
     canInsertBlockType,
@@ -88,7 +87,7 @@ export function getActivePostLock(): string | undefined;
  * be autosaved, or has been saved or published since the last autosave).
  *
  * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )`
- * 			   selector from the '@wordpress/core-data' package.
+ *                selector from the '@wordpress/core-data' package.
  */
 export function getAutosave(): Autosave | {};
 
@@ -97,8 +96,8 @@ export function getAutosave(): Autosave | {};
  * there is no autosave for the post.
  *
  * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector
- * 			   from the '@wordpress/core-data' package and access properties on the returned
- * 			   autosave object using getPostRawValue.
+ *                from the '@wordpress/core-data' package and access properties on the returned
+ *                autosave object using getPostRawValue.
  *
  * @param attributeName - Autosave attribute name.
  */
@@ -200,7 +199,7 @@ export function getPermalink(): string | null;
  * @returns An object containing the prefix, postName, and suffix for the permalink, or `null` if
  * the post is not viewable.
  */
-export function getPermalinkParts(): { postName: string; prefix: string; suffix?: string } | null;
+export function getPermalinkParts(): { postName: string; prefix: string; suffix?: string | undefined } | null;
 
 /**
  * Returns any post values which have been changed in the editor but not yet been saved.

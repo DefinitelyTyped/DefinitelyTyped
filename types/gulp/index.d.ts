@@ -21,6 +21,8 @@ declare namespace GulpClient {
      */
     type TaskCallback = TaskFunction;
 
+    type TaskFunctionCallback = Undertaker.TaskCallback;
+
     interface Gulp extends Undertaker {
         /**
          * Emits files matching provided glob or array of globs. Returns a stream of Vinyl files that can be piped to plugins.
@@ -58,12 +60,12 @@ declare namespace GulpClient {
          * Useful for waiting on many changes before doing the work on changed files, e.g. find-and-replace on many files.
          * @default 200
          */
-        delay?: number;
+        delay?: number | undefined;
         /**
          * Whether or not a file change should queue the fn execution if the fn is already running. Useful for a long running fn.
          * @default true
          */
-        queue?: boolean;
+        queue?: boolean | undefined;
     }
 
     interface WatchMethod {

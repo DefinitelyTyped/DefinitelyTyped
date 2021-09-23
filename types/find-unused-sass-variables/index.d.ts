@@ -1,6 +1,6 @@
-// Type definitions for find-unused-sass-variables 1.0
+// Type definitions for find-unused-sass-variables 2.0
 // Project: https://github.com/XhmikosR/find-unused-sass-variables#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -10,7 +10,7 @@ export function find(dir: string, options?: Options): Results;
 
 export interface Options {
     /** Array of strings of the variables to ignore, e.g. `['$my-var', '$my-second-var']` */
-    ignore?: string[];
+    ignore?: string[] | undefined;
 }
 
 export interface Results {

@@ -26,7 +26,14 @@ import {
   ConnectorSearchResults,
   BasicDoc,
   AllSearchResults,
+  connectStats,
+    StatsProvided,
+    connectHitInsights,
+    InsightsClient,
+    ConnectHitInsightsProvided,
 } from 'react-instantsearch-core';
+
+import { Hits } from 'react-instantsearch-dom';
 
 () => {
   <Index indexName={'test'} indexId="id">
@@ -48,6 +55,7 @@ import {
       return {
         query,
         page,
+        refine: (value: string) => this.refine(value),
       };
     },
 
@@ -301,6 +309,18 @@ import {
 };
 
 () => {
+    const MyClearRefinements = ({ refine, items }: CurrentRefinementsProvided) => (
+      <button onClick={() => refine(items)}>
+        clear all
+      </button>
+    );
+
+    const ConnectedClearRefinements = connectCurrentRefinements(MyClearRefinements);
+
+    <ConnectedClearRefinements clearsQuery={true} transformItems={item => item} />;
+};
+
+() => {
   function renderRefinement(label: string, value: Refinement['value'], refine: CurrentRefinementsProvided['refine']) {
     return (
       <button className="badge badge-secondary" onClick={() => refine(value)}>
@@ -423,16 +443,16 @@ import {
 () => {
   type Props = SearchBoxProvided &
     TranslatableProvided & {
-      className?: string;
-      showLoadingIndicator?: boolean;
+      className?: string | undefined;
+      showLoadingIndicator?: boolean | undefined;
 
-      submit?: JSX.Element;
-      reset?: JSX.Element;
-      loadingIndicator?: JSX.Element;
+      submit?: JSX.Element | undefined;
+      reset?: JSX.Element | undefined;
+      loadingIndicator?: JSX.Element | undefined;
 
-      onSubmit?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onReset?: (event: React.SyntheticEvent<HTMLFormElement>) => any;
-      onChange?: (event: React.SyntheticEvent<HTMLInputElement>) => any;
+      onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
+      onChange?: ((event: React.SyntheticEvent<HTMLInputElement>) => any) | undefined;
     };
   interface State {
     query: string | null;
@@ -613,4 +633,32 @@ import {
   });
 
   const asConnectStateResults: typeof connectStateResults = csr;
+};
+
+() => {
+  const TotalHits = ({ nbHits }: StatsProvided) => {
+      return <span>Your search returned {nbHits} results.</span>;
+  };
+
+  const ConnectedTotalHits = connectStats(TotalHits);
+
+  <ConnectedTotalHits />;
+};
+
+() => {
+    const HitComponent = ({ hit, insights }: ConnectHitInsightsProvided) => (
+        <button
+            onClick={() => {
+                insights('clickedObjectIDsAfterSearch', { eventName: 'hit clicked' });
+            }}
+        >
+            <article>
+                <h1>{hit.name}</h1>
+            </article>
+        </button>
+    );
+
+    const HitWithInsights = connectHitInsights(() => {})(HitComponent);
+
+    <Hits hitComponent={HitWithInsights} />;
 };

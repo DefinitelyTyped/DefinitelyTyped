@@ -2,12 +2,10 @@ import { withComponent, props, define, PropOptions, WithComponent } from 'skatej
 
 export const Component = withComponent();
 
-// tslint:disable-next-line interface-over-type-literal
 export type Props = {
   myArray: string[];
   myBoolean: boolean;
 };
-// tslint:disable-next-line interface-over-type-literal
 export type State = Props;
 
 export class MyComponent extends Component<Props, State> {

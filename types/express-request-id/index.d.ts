@@ -8,10 +8,14 @@ import { RequestHandler } from 'express-serve-static-core';
 
 declare namespace expressRequestId {
     interface Options {
-        uuidVersion?: string;
-        setHeader?: boolean;
-        headerName?: string;
-        attributeName?: string;
+        uuidVersion?: string | undefined;
+        setHeader?: boolean | undefined;
+        headerName?: string | undefined;
+        attributeName?: string | undefined;
+        msecs?: Date;
+        nsecs?: number;
+        clockseq?: number;
+        node?: number[];
     }
 }
 

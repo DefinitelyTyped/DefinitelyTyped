@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-		"index.d.ts",
-		"bloom-filter-tests.ts"
-	]
+        "index.d.ts",
+        "bloom-filter-tests.ts"
+    ]
 }

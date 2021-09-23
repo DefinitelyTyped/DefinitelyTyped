@@ -1,19 +1,17 @@
 import * as React from "react";
-import { ShapeOf } from "../../../typings/shared";
 
-interface InheritedProps extends React.TableHTMLAttributes<HTMLTableElement> { }
-
-export interface HeaderType {
-    key?: string;
-    header?: React.ReactNode;
+export interface DataTableSkeletonHeader {
+    header?: string | undefined;
 }
 
-export interface DataTableSkeletonProps extends InheritedProps {
-    compact?: boolean;
-    columnCount?: number;
-    headers?: ReadonlyArray<string> | ReadonlyArray<ShapeOf<HeaderType>>;
-    rowCount?: number;
-    zebra?: boolean;
+export interface DataTableSkeletonProps extends React.TableHTMLAttributes<HTMLTableElement> {
+    compact?: boolean | undefined;
+    columnCount?: number | undefined;
+    headers?: readonly DataTableSkeletonHeader[] | undefined;
+    rowCount?: number | undefined;
+    showHeader?: boolean | undefined;
+    showToolbar?: boolean | undefined;
+    zebra?: boolean | undefined;
 }
 
 declare const DataTableSkeleton: React.FC<DataTableSkeletonProps>;

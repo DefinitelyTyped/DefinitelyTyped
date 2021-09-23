@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "react": ["react/v16"],
+            "react-dom": ["react-dom/v16"],
+            "react-is": ["react-is/v16"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true,
+        "jsx": "preserve"
+    },
+    "files": [
+        "index.d.ts",
+        "react-is-tests.tsx"
+    ]
+}

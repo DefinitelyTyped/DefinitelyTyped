@@ -8,7 +8,7 @@ export = GeoPoint;
 declare class GeoPoint {
     constructor(lat: number, lon: number, inRadians?: boolean);
 
-    boundingCoordinates(distance: number, radius: number, inKilometers?: boolean): [GeoPoint, GeoPoint];
+    boundingCoordinates(distance: number, radius?: number, inKilometers?: boolean): [GeoPoint, GeoPoint];
 
     distanceTo(point: GeoPoint, inKilometers?: boolean): number;
 

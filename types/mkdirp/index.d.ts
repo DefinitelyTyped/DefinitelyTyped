@@ -44,13 +44,13 @@ declare namespace mkdirp {
     }
 
     interface Options {
-        mode?: Mode;
-        fs?: FsImplementation;
+        mode?: Mode | undefined;
+        fs?: FsImplementation | undefined;
     }
 
     interface OptionsSync {
-        mode?: Mode;
-        fs?: FsImplementationSync;
+        mode?: Mode | undefined;
+        fs?: FsImplementationSync | undefined;
     }
 
     /**
@@ -65,7 +65,7 @@ declare namespace mkdirp {
      * or providing an fs option that only overrides one of these.
      * @returns Returns the first directory that had to be created, or undefined if everything already exists.
      */
-    function sync(dir: string, opts?: Mode | Options): string|undefined;
+    function sync(dir: string, opts?: Mode | OptionsSync): string|undefined;
 
     /**
      * Use the manual implementation (not the native one). This is the default
@@ -79,7 +79,7 @@ declare namespace mkdirp {
      * when the native implementation is not available or the stat/mkdir
      * implementation is overridden.
      */
-    function manualSync(dir: string, opts?: Mode | Options): string|undefined;
+    function manualSync(dir: string, opts?: Mode | OptionsSync): string|undefined;
 
     /**
      * Use the native implementation (not the manual one). This is the default
@@ -93,6 +93,6 @@ declare namespace mkdirp {
      * when the native implementation is available and stat/mkdir are not
      * overridden.
      */
-    function nativeSync(dir: string, opts?: Mode | Options): string|undefined;
+    function nativeSync(dir: string, opts?: Mode | OptionsSync): string|undefined;
 }
 export = mkdirp;

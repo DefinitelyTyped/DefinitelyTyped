@@ -8,6 +8,7 @@ primus.on('connection', function connection(spark) {
     spark.on('data', function received(data) {
         spark.write(data);
     });
+    console.log('current connections: ', primus.connected);
 });
 
 const Socket = Primus.createSocket();

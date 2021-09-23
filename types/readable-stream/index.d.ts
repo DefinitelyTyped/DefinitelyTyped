@@ -1,24 +1,104 @@
 // Type definitions for readable-stream 2.3
 // Project: https://github.com/nodejs/readable-stream
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
+//                   markdreyer <https://github.com/markdreyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
 
-import * as events from "events";
-import * as stream from "stream";
 import * as SafeBuffer from "safe-buffer";
-import { StringDecoder } from "string_decoder";
 
-declare class _Readable extends stream.Readable {
+declare class StringDecoder {
+    constructor(encoding?: BufferEncoding | string);
+    write(buffer: Buffer): string;
+    end(buffer?: Buffer): string;
+}
+
+declare class _Readable {
+    readable: boolean;
+    readonly readableFlowing: boolean | null;
+    readonly readableHighWaterMark: number;
+    readonly readableLength: number;
+    _read(size: number): void;
+    read(size?: number): any;
+    setEncoding(encoding: string): this;
+    pause(): this;
+    resume(): this;
+    isPaused(): boolean;
+    unpipe(destination?: _Readable.Writable): this;
+    unshift(chunk: any): void;
+    wrap(oldStream: _Readable.Readable): this;
+    push(chunk: any, encoding?: string): boolean;
+    _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+    destroy(error?: Error): void;
+
+    /**
+     * Event emitter
+     * The defined events on documents including:
+     * 1. close
+     * 2. data
+     * 3. end
+     * 4. readable
+     * 5. error
+     */
+    addListener(event: "close", listener: () => void): this;
+    addListener(event: "data", listener: (chunk: any) => void): this;
+    addListener(event: "end", listener: () => void): this;
+    addListener(event: "readable", listener: () => void): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
+    addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+    emit(event: "close"): boolean;
+    emit(event: "data", chunk: any): boolean;
+    emit(event: "end"): boolean;
+    emit(event: "readable"): boolean;
+    emit(event: "error", err: Error): boolean;
+    emit(event: string | symbol, ...args: any[]): boolean;
+
+    on(event: "close", listener: () => void): this;
+    on(event: "data", listener: (chunk: any) => void): this;
+    on(event: "end", listener: () => void): this;
+    on(event: "readable", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+    once(event: "close", listener: () => void): this;
+    once(event: "data", listener: (chunk: any) => void): this;
+    once(event: "end", listener: () => void): this;
+    once(event: "readable", listener: () => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
+    once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+    prependListener(event: "close", listener: () => void): this;
+    prependListener(event: "data", listener: (chunk: any) => void): this;
+    prependListener(event: "end", listener: () => void): this;
+    prependListener(event: "readable", listener: () => void): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
+    prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+    prependOnceListener(event: "close", listener: () => void): this;
+    prependOnceListener(event: "data", listener: (chunk: any) => void): this;
+    prependOnceListener(event: "end", listener: () => void): this;
+    prependOnceListener(event: "readable", listener: () => void): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
+    prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+    removeListener(event: "close", listener: () => void): this;
+    removeListener(event: "data", listener: (chunk: any) => void): this;
+    removeListener(event: "end", listener: () => void): this;
+    removeListener(event: "readable", listener: () => void): this;
+    removeListener(event: "error", listener: (err: Error) => void): this;
+    removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+    [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+
     // static ReadableState: _Readable.ReadableState;
     _readableState: _Readable.ReadableState;
     destroyed: boolean;
 
     constructor(options?: _Readable.ReadableOptions);
 
-    destroy(err?: Error, callback?: (error: Error | null) => void): this;
     _undestroy(): void;
 }
 
@@ -50,17 +130,17 @@ declare namespace _Readable {
 
     // ==== _stream_duplex ====
     type DuplexOptions = ReadableOptions & WritableOptions & {
-        allowHalfOpen?: boolean;
-        readable?: boolean;
-        writable?: boolean;
+        allowHalfOpen?: boolean | undefined;
+        readable?: boolean | undefined;
+        writable?: boolean | undefined;
         read?(this: Duplex, size: number): void;
-        write?(this: Duplex, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+        write?(this: Duplex, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+        writev?(this: Duplex, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
         final?(this: Duplex, callback: (error?: Error | null) => void): void;
         destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
     };
 
-    class Duplex extends Writable implements /*extends*/_Readable, stream.Duplex {
+    class Duplex extends Writable implements /*extends*/_Readable, Duplex {
         /**
          * This is a dummy function required to retain type compatibility to node.
          * @deprecated DO NOT USE
@@ -70,24 +150,28 @@ declare namespace _Readable {
         destroyed: boolean;
         // Readable
         readable: boolean;
+        readonly readableEncoding: BufferEncoding | null;
+        readonly readableEnded: boolean;
+        readonly readableFlowing: boolean | null;
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         readonly readableObjectMode: boolean;
+        readonly writableObjectMode: boolean;
         _readableState: ReadableState;
 
         _read(size?: number): void;
         read(size?: number): any;
-        setEncoding(enc: string): this;
+        setEncoding(enc: BufferEncoding): this;
         resume(): this;
         pause(): this;
         isPaused(): boolean;
-        unpipe(dest?: NodeJS.WritableStream): this;
+        unpipe(dest?: Writable): this;
         unshift(chunk: any): boolean;
-        wrap(oldStream: NodeJS.ReadableStream): this;
-        push(chunk: any, encoding?: string): boolean;
+        wrap(oldStream: Readable): this;
+        push(chunk: any, encoding?: BufferEncoding): boolean;
         _destroy(err: Error | null, callback: (error: Error | null) => void): void;
         destroy(err?: Error, callback?: (error: Error | null) => void): this;
-        pipe<S extends NodeJS.WritableStream>(dest: S, pipeOpts?: { end?: boolean }): S;
+        pipe<S extends Writable>(dest: S, pipeOpts?: { end?: boolean | undefined }): S;
         addListener(ev: string | symbol, fn: (...args: any[]) => void): this;
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 
@@ -99,20 +183,20 @@ declare namespace _Readable {
     }
 
     // ==== _stream_passthrough ====
-    class PassThrough extends Transform implements stream.PassThrough {
+    class PassThrough extends Transform {
         constructor(options?: TransformOptions);
 
-        _transform<T>(chunk: T, encoding: string | null | undefined, callback: (error: any, data: T) => void): void;
+        _transform<T>(chunk: T, encoding: BufferEncoding | string | null | undefined, callback: (error?: Error, data?: T) => void): void;
     }
 
     // ==== _stream_readable ====
     interface ReadableStateOptions {
-        defaultEncoding?: string;
-        encoding?: string;
-        highWaterMark?: number;
-        objectMode?: boolean;
-        readableObjectMode?: boolean;
-        readableHighWaterMark?: number;
+        defaultEncoding?: BufferEncoding | undefined;
+        encoding?: BufferEncoding | undefined;
+        highWaterMark?: number | undefined;
+        objectMode?: boolean | undefined;
+        readableObjectMode?: boolean | undefined;
+        readableHighWaterMark?: number | undefined;
     }
 
     interface ReadableState {
@@ -120,7 +204,7 @@ declare namespace _Readable {
         highWaterMark: number;
         buffer: BufferList<any>;
         length: number;
-        pipes: any; // NodeJS.WritableStream | any[]; // TODO
+        pipes: any;
         pipesCount: number;
         flowing: any;
         ended: boolean;
@@ -133,10 +217,10 @@ declare namespace _Readable {
         resumeScheduled: boolean;
         destroyed: boolean;
         awaitDrain: number;
-        defaultEncoding: string;
+        defaultEncoding: BufferEncoding;
         readingMore: boolean;
         decoder: StringDecoder | null;
-        encoding: string | null;
+        encoding: BufferEncoding | null;
 
         // new (options: ReadableStateOptions, stream: _Readable): ReadableState;
     }
@@ -153,27 +237,27 @@ declare namespace _Readable {
     // ==== _stream_transform ====
     type TransformOptions = DuplexOptions & {
         read?(this: Transform, size: number): void;
-        write?(this: Transform, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Transform, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+        write?(this: Transform, chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
+        writev?(this: Transform, chunks: Array<{ chunk: any, encoding: BufferEncoding }>, callback: (error?: Error | null) => void): void;
         final?(this: Transform, callback: (error?: Error | null) => void): void;
         destroy?(this: Transform, error: Error | null, callback: (error: Error | null) => void): void;
-        transform?(this: Transform, chunk: any, encoding: string, callback: (error?: Error, data?: any) => void): void;
+        transform?(this: Transform, chunk: any, encoding: BufferEncoding, callback: (error?: Error, data?: any) => void): void;
         flush?(this: Transform, callback: (er: any, data: any) => void): void;
     };
 
-    class Transform extends Duplex implements stream.Transform {
+    class Transform extends Duplex {
         _transformState: {
             afterTransform: (this: Transform, er: any, data: any) => void | boolean;
             needTransform: boolean;
             transforming: boolean;
             writecb: ((err: any) => any) | null;
             writechunk: any; // TODO
-            writeencoding: string | null;
+            writeencoding: BufferEncoding | null;
         };
 
         constructor(options?: TransformOptions);
 
-        _transform(chunk: any, encoding: string, callback: (error?: Error, data?: any) => void): void;
+        _transform(chunk: any, encoding: BufferEncoding, callback: (error?: Error, data?: any) => void): void;
         _flush(callback: (error?: Error, data?: any) => void): void;
     }
 
@@ -186,19 +270,19 @@ declare namespace _Readable {
 
     interface BufferRequest {
         chunk: any; // TODO
-        encoding: string;
+        encoding: BufferEncoding;
         isBuf: boolean;
         callback: (error?: Error | null) => void;
         next: BufferRequest | null;
     }
 
     interface WritableStateOptions {
-        decodeStrings?: boolean;
-        defaultEncoding?: string;
-        highWaterMark?: number;
-        objectMode?: boolean;
-        writableObjectMode?: boolean;
-        writableHighWaterMark?: number;
+        decodeStrings?: boolean | undefined;
+        defaultEncoding?: BufferEncoding | undefined;
+        highWaterMark?: number | undefined;
+        objectMode?: boolean | undefined;
+        writableObjectMode?: boolean | undefined;
+        writableHighWaterMark?: number | undefined;
     }
 
     interface WritableState {
@@ -212,7 +296,7 @@ declare namespace _Readable {
         finished: boolean;
         destroyed: boolean;
         decodeStrings: boolean;
-        defaultEncoding: string;
+        defaultEncoding: BufferEncoding;
         length: number;
         writing: boolean;
         corked: number;
@@ -235,37 +319,109 @@ declare namespace _Readable {
     }
 
     type WritableOptions = WritableStateOptions & {
-        write?(this: Writable, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
-        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: string }>, callback: (error?: Error | null) => void): void;
+        write?(this: Writable, chunk: any, encoding: BufferEncoding | string, callback: (error?: Error | null) => void): void;
+        writev?(this: Writable, chunk: ArrayLike<{ chunk: any; encoding: BufferEncoding | string }>, callback: (error?: Error | null) => void): void;
         destroy?(this: Writable, error: Error | null, callback: (error: Error | null) => void): void;
         final?(this: Writable, callback: (error?: Error | null) => void): void;
     };
 
-    class Writable extends stream.Writable {
+    class Writable extends Stream {
+        writable: boolean;
+        readonly writableHighWaterMark: number;
+        readonly writableLength: number;
+        constructor(opts?: WritableOptions);
+        _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+        _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
+        _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+        _final(callback: (error?: Error | null) => void): void;
+        write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
+        write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
+        setDefaultEncoding(encoding: string): this;
+        end(cb?: () => void): void;
+        end(chunk: any, cb?: () => void): void;
+        end(chunk: any, encoding?: string, cb?: () => void): void;
+        cork(): void;
+        uncork(): void;
+        destroy(error?: Error): void;
+
+        /**
+         * Event emitter
+         * The defined events on documents including:
+         * 1. close
+         * 2. drain
+         * 3. error
+         * 4. finish
+         * 5. pipe
+         * 6. unpipe
+         */
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "finish", listener: () => void): this;
+        addListener(event: "pipe", listener: (src: Readable) => void): this;
+        addListener(event: "unpipe", listener: (src: Readable) => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        emit(event: "close"): boolean;
+        emit(event: "drain"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "finish"): boolean;
+        emit(event: "pipe", src: Readable): boolean;
+        emit(event: "unpipe", src: Readable): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+
+        on(event: "close", listener: () => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "finish", listener: () => void): this;
+        on(event: "pipe", listener: (src: Readable) => void): this;
+        on(event: "unpipe", listener: (src: Readable) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once(event: "close", listener: () => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "finish", listener: () => void): this;
+        once(event: "pipe", listener: (src: Readable) => void): this;
+        once(event: "unpipe", listener: (src: Readable) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "finish", listener: () => void): this;
+        prependListener(event: "pipe", listener: (src: Readable) => void): this;
+        prependListener(event: "unpipe", listener: (src: Readable) => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "finish", listener: () => void): this;
+        prependOnceListener(event: "pipe", listener: (src: Readable) => void): this;
+        prependOnceListener(event: "unpipe", listener: (src: Readable) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        removeListener(event: "close", listener: () => void): this;
+        removeListener(event: "drain", listener: () => void): this;
+        removeListener(event: "error", listener: (err: Error) => void): this;
+        removeListener(event: "finish", listener: () => void): this;
+        removeListener(event: "pipe", listener: (src: Readable) => void): this;
+        removeListener(event: "unpipe", listener: (src: Readable) => void): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
         // static WritableState: WritableState;
         // private static realHasInstance: (obj: any) => boolean;
         destroyed: boolean;
         _writableState: WritableState;
 
-        constructor(options?: WritableOptions);
-
-        destroy(error?: Error, callback?: (error?: Error | null) => void): this;
         _undestroy(): void;
     }
 
     class Stream extends _Readable {
         constructor(options?: ReadableOptions);
+        pipe<T extends Writable>(destination: T, options?: { end?: boolean | undefined; }): T;
     }
-
-    // if (process.env.READABLE_STREAM === 'disable' && Stream)
-    let NodeBaseExport: stream.Readable & {
-        Readable: stream.Readable;
-        Writable: stream.Writable;
-        Duplex: stream.Duplex;
-        Transform: stream.Transform;
-        PassThrough: stream.PassThrough;
-        Stream: stream;
-    };
 }
 
 export = _Readable;

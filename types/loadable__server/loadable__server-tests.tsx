@@ -6,13 +6,13 @@ new ChunkExtractor({ stats: {} });
 new ChunkExtractor({ statsFile: './path/to/stats' });
 
 const {
-	collectChunks,
-	getLinkElements,
-	getLinkTags,
-	getScriptElements,
-	getScriptTags,
-	getStyleElements,
-	getStyleTags,
+    collectChunks,
+    getLinkElements,
+    getLinkTags,
+    getScriptElements,
+    getScriptTags,
+    getStyleElements,
+    getStyleTags,
     requireEntrypoint,
     getInlineStyleTags,
     getInlineStyleElements,

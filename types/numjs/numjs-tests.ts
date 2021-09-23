@@ -1,4 +1,4 @@
-import * as nj from 'numjs';
+import nj = require("numjs");
 
 const a = nj.abs(2);
 
@@ -22,3 +22,5 @@ const b = nj.array([2, 3, 4]);
 const c = nj.uint8([1, 2, 3]);
 
 const d = nj.array<number[]>([[2], [3, 4]]);
+
+nj.mod(nj.arange(7), false); // $ExpectType NdArray<number>[]

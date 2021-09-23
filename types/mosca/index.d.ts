@@ -8,22 +8,22 @@
 // TODO add detailed definition.
 // http://www.mosca.io/docs/lib/server.js.html#Server currently has no more description about this.
 export interface ServerOptions {
-    port?: number;
-    host?: string;
+    port?: number | undefined;
+    host?: string | undefined;
     backend?: any;
     ascoltatore?: any;
-    maxInflightMessages?: number;
+    maxInflightMessages?: number | undefined;
     logger?: any;
     persistence?: any;
     secure?: {
         port: number;
         keyPath: string;
         certPath: string;
-    };
-    allowNonSecure?: boolean;
+    } | undefined;
+    allowNonSecure?: boolean | undefined;
     http?: {
         port: number;
-    };
+    } | undefined;
     bundle?: any;
     static?: any;
     stats?: any;
@@ -42,6 +42,7 @@ export class Server {
     on(when: 'clientConnected' | 'clientDisconnecting' | 'clientDisconnected', callback: (client: Client) => void): void;
     on(when: 'subscribed' | 'unsubscribed', callback: (topic: string, client: Client) => void): void;
     on(when: 'published', callback: (packet: Packet, client: Client) => void): void;
+    on(when: 'ready', callback: () => void): void;
     once(when: string, callback: () => void): void;
     toString(): string;
     subscribe(topic: string, callback: () => void, done: () => void): void;

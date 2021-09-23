@@ -5,7 +5,8 @@ import {
     CartesianGrid, Line, LineChart, PieChart, Pie,
     Sector, XAxis, YAxis, Tooltip, ReferenceLine,
     ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized
+    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized,
+    RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Sankey, Layer
 } from 'recharts';
 
 interface ComponentState {
@@ -50,6 +51,29 @@ class Component extends React.Component<{}, ComponentState> {
             { name: 'Group C', value: 300 },
             { name: 'Group D', value: 200 }
         ];
+
+        const data3 = {
+            nodes: [
+              { name: "Accept" },
+              { name: "Reject" },
+              { name: "Hold" },
+              { name: "Unaffected" },
+              { name: "Accept" },
+              { name: "Reject" },
+              { name: "Hold" },
+              { name: "Unaffected" },
+            ],
+            links: [
+              { source: 0, target: 4, value: 1 },
+              { source: 0, target: 5, value: 1 },
+              { source: 0, target: 6, value: 1 },
+              { source: 1, target: 4, value: 1 },
+              { source: 1, target: 5, value: 4 },
+              { source: 2, target: 6, value: 1 },
+              { source: 3, target: 5, value: 10 },
+              { source: 3, target: 7, value: 10 },
+            ],
+          };
 
         const renderActiveShape = (props: any) => {
             const RADIAN = Math.PI / 180;
@@ -108,6 +132,9 @@ class Component extends React.Component<{}, ComponentState> {
                         <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line id="custom-id" type="monotone" dataKey="pv" stroke="#82ca9d" />
+                        <Line id="custom-id2" type="monotone" dataKey="pv" stroke="#82ca9d" dot={false} />
+                        <Line id="custom-id3" type="monotone" dataKey="pv" stroke="#82ca9d" dot={({ payload }) => <span>{payload.x}</span>} />
+                        <Line id="custom-id3" type="monotone" dataKey="pv" stroke="#82ca9d" dot={{ stroke: 'red', strokeWidth: 2 }} />
                         <Tooltip />
                         <Brush dataKey="name" />
                         <Brush dataKey="name" gap={3} />
@@ -138,6 +165,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Brush dataKey="name" />
                         <ReferenceLine />
                         <ReferenceArea
+                            label="Reference Area"
                             stroke="red"
                             fill="red"
                             y2={1}
@@ -150,7 +178,7 @@ class Component extends React.Component<{}, ComponentState> {
                 <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name" label={{ value: "X axis - name" }} />
-                        <YAxis label={{ value: "Y axis" }} />
+                        <YAxis label={{ value: "Y axis" }} allowDuplicatedCategory={false} />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
@@ -230,13 +258,27 @@ class Component extends React.Component<{}, ComponentState> {
                             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
                             </linearGradient>
                         </defs>
-                        <XAxis dataKey="name" />
-                        <YAxis />
+                        <XAxis dataKey="name" padding={{left: 20}} />
+                        <YAxis padding={{top: 10}} />
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
                         <Area id="custom-id" type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
                         <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
                     </AreaChart>
+                </ResponsiveContainer>
+                <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="subject" allowDuplicatedCategory={false} />
+                    <PolarRadiusAxis allowDuplicatedCategory={true} />
+                    <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                </RadarChart>
+                <ResponsiveContainer height={250}>
+                    <Sankey width={960} height={500} data={data3} iterations={32} nodeWidth={10} nodePadding={60}>
+                        <Tooltip></Tooltip>
+                    </Sankey>
+                </ResponsiveContainer>
+                <ResponsiveContainer height={250}>
+                    <Layer className="original-classname" key="custom-key"></Layer>
                 </ResponsiveContainer>
             </div>
         );

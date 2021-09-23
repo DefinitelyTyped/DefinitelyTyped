@@ -1,6 +1,6 @@
 import { Cookies, SetCookie } from 'cookies';
 
-function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
+function onClientRequest(request: EW.IngressClientRequest) {
     // Verify parse constructor
     const c = new Cookies(request.getHeader('cookies') || undefined);
 
@@ -31,7 +31,7 @@ function onClientRequest(request: EW.MutableRequest & EW.HasRespondWith) {
     c.delete('name');
 }
 
-function onClientRequest2(request: EW.MutableRequest & EW.HasRespondWith) {
+function onClientRequest2(request: EW.IngressClientRequest) {
     // The values passed to SetCookie can be ignored - they're just to verify the compiler.
     const c = new SetCookie({
         name: "n",

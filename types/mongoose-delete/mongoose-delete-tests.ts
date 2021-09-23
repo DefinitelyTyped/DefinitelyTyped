@@ -29,6 +29,9 @@ PetSchema.plugin(mongoose_delete, {
   overrideMethods: 'all',
   deletedByType: String,
 });
+PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: ['deleted'] });
+PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
+PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' }); // $ExpectError
 
 const idUser = mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
 
@@ -78,3 +81,24 @@ Pet.restore({ age: 10 }, (err, result) => {});
 // Restore multiple object, promise
 Pet.restore().exec((err, result) => {});
 Pet.restore({ age: 10 }).exec((err, result) => {});
+
+// $ExpectType boolean | undefined
+type deletedType = PetDocument["deleted"];
+
+// Additional Methods for overrides
+Pet.countDeleted({ age: 10 });
+Pet.countWithDeleted({ age: 10 });
+Pet.countDocumentsDeleted({ age: 10 });
+Pet.countDocumentsWithDeleted({ age: 10 });
+Pet.findDeleted({ age: 10 });
+Pet.findWithDeleted({ age: 10 });
+Pet.findOneDeleted({ age: 10 });
+Pet.findOneWithDeleted({ age: 10 });
+Pet.findOneAndUpdateDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.findOneAndUpdateWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateManyDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateManyWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.aggregateDeleted([{ $match: { age: 10 } }]);
+Pet.aggregateWithDeleted([{ $match: { age: 10 } }]);

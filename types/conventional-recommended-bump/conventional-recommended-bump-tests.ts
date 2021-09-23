@@ -27,7 +27,7 @@ namespace Module.Callback {
         recommendation;
         recommendation.level; // $ExpectType number | undefined
         recommendation.reason; // $ExpectType string | undefined
-        recommendation.releaseType; // $ExpectType "major" | "minor" | "patch" | undefined
+        recommendation.releaseType; // $ExpectType "major" | "minor" | "patch" | undefined || ReleaseType | undefined
     };
 }
 
@@ -36,12 +36,13 @@ namespace Module.Options {
 
     // $ExpectType Options
     options;
-    // tslint:disable-next-line max-line-length
     options.ignoreReverted; // $ExpectType boolean | undefined
     options.lernaPackage; // $ExpectType string | undefined
     options.preset; // $ExpectType string | undefined
     options.tagPrefix; // $ExpectType string | undefined
     options.whatBump; // $ExpectType WhatBump | undefined
+    options.skipUnstable; // $ExpectType boolean | undefined
+    options.path; // $ExpectType string | undefined
 }
 
 namespace Module.Options.WhatBump {

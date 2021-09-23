@@ -1,10 +1,12 @@
-// Type definitions for Google Apps Script 2020-01-02
+// Type definitions for Google Apps Script 2021-01-24
 // Project: https://developers.google.com/apps-script/
 // Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
 //                 motemen <https://github.com/motemen/>
+//                 Safal Pillai <https://github.com/malienist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.conference-data.d.ts" />
 /// <reference path="google-apps-script.gmail.d.ts" />
 
 declare namespace GoogleAppsScript {
@@ -149,6 +151,10 @@ declare namespace GoogleAppsScript {
       setText(text: string): CardAction;
     }
     /**
+     * An enum that defines the display style of card.
+     */
+     enum DisplayStyle { PEEK, REPLACE }
+    /**
      * A builder for Card objects.
      */
     interface CardBuilder {
@@ -157,6 +163,9 @@ declare namespace GoogleAppsScript {
       build(): Card;
       setHeader(cardHeader: CardHeader): CardBuilder;
       setName(name: string): CardBuilder;
+      setFixedFooter(fixedFooter: FixedFooter): CardBuilder;
+      setDisplayStyle(displayStyle: DisplayStyle):	CardBuilder;
+      setPeekCardHeader(peekCardHeader: CardHeader): CardBuilder;
     }
     /**
      * The header of a Card.
@@ -246,6 +255,7 @@ declare namespace GoogleAppsScript {
       OnClose: typeof OnClose;
       OpenAs: typeof OpenAs;
       SelectionInputType: typeof SelectionInputType;
+      SwitchControlType: typeof SwitchControlType;
       TextButtonStyle: typeof TextButtonStyle;
       UpdateDraftBodyType: typeof UpdateDraftBodyType;
       newAction(): Action;
@@ -253,11 +263,17 @@ declare namespace GoogleAppsScript {
       newAuthorizationAction(): AuthorizationAction;
       newAuthorizationException(): AuthorizationException;
       newButtonSet(): ButtonSet;
+      newCalendarEventActionResponseBuilder(): CalendarEventActionResponseBuilder;
       newCardAction(): CardAction;
       newCardBuilder(): CardBuilder;
       newCardHeader(): CardHeader;
       newCardSection(): CardSection;
       newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
+      newDatePicker(): DatePicker;
+      newDateTimePicker(): DateTimePicker;
+      newDecoratedText(): DecoratedText;
+      newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
+      newFixedFooter(): FixedFooter;
       newImage(): Image;
       newImageButton(): ImageButton;
       newKeyValue(): KeyValue;
@@ -273,7 +289,11 @@ declare namespace GoogleAppsScript {
       newTextParagraph(): TextParagraph;
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
+      newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
       newUpdateDraftBodyAction(): UpdateDraftBodyAction;
+      newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
+      newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
+      newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
     }
     /**
      * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -538,6 +558,7 @@ declare namespace GoogleAppsScript {
      *         .setSwitch(CardService.newSwitch()
      *             .setFieldName("form_input_switch_key")
      *             .setValue("form_input_switch_value")
+     *             .setControlType(CardService.SwitchControlType.SWITCH)
      *             .setOnChangeAction(CardService.newAction()
      *                 .setFunctionName("handleSwitchChange")));
      */
@@ -546,7 +567,12 @@ declare namespace GoogleAppsScript {
       setOnChangeAction(action: Action): Switch;
       setSelected(selected: boolean): Switch;
       setValue(value: string): Switch;
+      setControlType(type: SwitchControlType): Switch;
     }
+    /**
+     * Type of switch.
+     */
+    enum SwitchControlType { SWITCH, CHECK_BOX }
     /**
      * A TextButton with a text label. You can set the background color and disable the button when
      * needed.
@@ -677,7 +703,11 @@ declare namespace GoogleAppsScript {
      */
     interface UpdateDraftActionResponseBuilder {
       build(): UpdateDraftActionResponse;
+      setUpdateDraftBccRecipientsAction(updateDraftBccRecipientsAction: UpdateDraftBccRecipientsAction): UpdateDraftActionResponseBuilder;
       setUpdateDraftBodyAction(updateDraftBodyAction: UpdateDraftBodyAction): UpdateDraftActionResponseBuilder;
+      setUpdateDraftCcRecipientsAction(updateDraftCcRecipientsAction: UpdateDraftCcRecipientsAction):	UpdateDraftActionResponseBuilder;
+      setUpdateDraftSubjectAction(updateDraftSubjectAction: UpdateDraftSubjectAction):	UpdateDraftActionResponseBuilder;
+      setUpdateDraftToRecipientsAction(updateDraftToRecipientsAction: UpdateDraftToRecipientsAction): UpdateDraftActionResponseBuilder;
     }
     /**
      * Represents an action that updates the email draft body.
@@ -686,6 +716,119 @@ declare namespace GoogleAppsScript {
       addUpdateContent(content: string, contentType: ContentType): UpdateDraftBodyAction;
       setUpdateType(updateType: UpdateDraftBodyType): UpdateDraftBodyAction;
     }
+
+    /**
+     * Sets an action that updates the email Bcc recipients of a draft.
+     */
+    interface UpdateDraftBccRecipientsAction {
+      addUpdateBccRecipients(bccRecipientEmails: string[]): UpdateDraftBccRecipientsAction;
+    }
+
+    /**
+     * Sets an action that updates the Cc recipients of a draft.
+     */
+    interface UpdateDraftCcRecipientsAction {
+      addUpdateCcRecipients(ccRecipientEmails: string[]): UpdateDraftCcRecipientsAction;
+    }
+
+    /**
+     * Updates the subject line of an email draft.
+     */
+    interface UpdateDraftSubjectAction {
+      addUpdateSubject(subject: string): UpdateDraftSubjectAction;
+    }
+
+    /**
+     * Updates the To recipients of an email draft.
+     */
+    interface UpdateDraftToRecipientsAction {
+      addUpdateToRecipients(toRecipientEmails: string[]): UpdateDraftToRecipientsAction;
+    }
+    /**
+     * The fixed footer shown at the bottom of an add-on Card.
+     */
+    interface FixedFooter {
+      setPrimaryButton(button: TextButton): FixedFooter;
+      setSecondaryButton(button: TextButton): FixedFooter;
+    }
+
+    /**
+     * Represents a response that makes changes to the calendar event that the user is currently editing in reaction to an action taken in the UI, such as a button click.
+     */
+    interface CalendarEventActionResponse {
+      printJson(): string;
+    }
+
+    /**
+     * A builder for CalendarEventActionResponse objects.
+     */
+    interface CalendarEventActionResponseBuilder {
+      addAttendees(emails: string[]): CalendarEventActionResponseBuilder;
+      build(): CalendarEventActionResponse;
+      setConferenceData(conferenceData: Conference_Data.ConferenceData): CalendarEventActionResponseBuilder;
+    }
+
+    /**
+     * An input field that allows inputing a date.
+     */
+    interface DatePicker {
+      setFieldName(fieldName: string): DatePicker;
+      setOnChangeAction(action: Action): DatePicker;
+      setTitle(title: string): DatePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: number): DatePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: string): DatePicker;
+    }
+
+    /**
+     * An input field that allows inputing a date.
+     */
+    interface DateTimePicker {
+      setFieldName(fieldName: string): DateTimePicker;
+      setOnChangeAction(action: Action): DateTimePicker;
+      setTimeZoneOffsetInMins(timeZoneOffsetMins: Integer): DateTimePicker;
+      setTitle(title: string): DateTimePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: number): DateTimePicker;
+      setValueInMsSinceEpoch(valueMsEpoch: string): DateTimePicker;
+    }
+
+    /**
+     * A widget that displays text with optional decorations. Possible keys include an icon, a label
+     * above and a label below. Setting the text content and one of the keys is required using setText(text)
+     * and one of setIcon(icon), setIconUrl(url), setTopLabel(text), or setBottomLabel(text).
+     * This class is intended to replace KeyValue.
+     */
+    interface DecoratedText {
+      setAuthorizationAction(action: AuthorizationAction): DecoratedText;
+      setBottomLabel(text: string): DecoratedText;
+      setButton(button: Button): DecoratedText;
+      setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
+      setIcon(icon: Icon): DecoratedText;
+      setIconAltText(altText: string): DecoratedText;
+      setIconUrl(url: string): DecoratedText;
+      setOnClickAction(action: Action): DecoratedText;
+      setOnClickOpenLinkAction(action: Action): DecoratedText;
+      setOpenLink(openLink: OpenLink): DecoratedText;
+      setSwitchControl(switchToSet: Switch): DecoratedText;
+      setText(text: string): DecoratedText;
+      setTopLabel(text: string): DecoratedText;
+      setWrapText(wrapText: boolean): DecoratedText;
+    }
+
+    /**
+     * A builder for DriveItemsSelectedActionResponse objects.
+     */
+    interface DriveItemsSelectedActionResponseBuilder {
+      build(): DriveItemsSelectedActionResponse;
+      requestFileScope(itemId: string): DriveItemsSelectedActionResponseBuilder;
+    }
+
+    /**
+     * Represents a response that makes changes to Drive while Drive items are selected and in reaction to an action taken in the UI, such as a button click.
+     */
+    interface DriveItemsSelectedActionResponse {
+      printJson(): string;
+    }
+
     /**
      * An enum value that specifies the type of an UpdateDraftBodyAction.
      */

@@ -2,46 +2,42 @@
 
 import React = require('react');
 
-function useExperimentalHooks() {
-    const [toggle, setToggle] = React.useState(false);
+const { unstable_useSyncExternalStore: useSyncExternalStore } = React;
+// keep in sync with `use-sync-external-store-tests.ts`
+interface Store<State> {
+    getState(): State;
+    getServerState(): State;
+    subscribe(onStoreChange: () => void): () => void;
+}
 
-    const [startTransition, done] = React.useTransition({ busyMinDurationMs: 100, busyDelayMs: 200, timeoutMs: 300 });
-    // $ExpectType boolean
-    done;
+declare const numberStore: Store<number>;
+function useVersion(): number {
+    return useSyncExternalStore(numberStore.subscribe, numberStore.getState);
+}
 
-    // $ExpectType boolean
-    const deferredToggle = React.useDeferredValue(toggle, { timeoutMs: 500 });
-
-    const [func] = React.useState(() => () => 0);
-
-    // $ExpectType () => number
-    func;
-    // $ExpectType () => number
-    const deferredFunc = React.useDeferredValue(func);
-
-    class Constructor {}
-    // $ExpectType typeof Constructor
-    const deferredConstructor = React.useDeferredValue(Constructor);
-
-    // $ExpectType () => string
-    const deferredConstructible = React.useDeferredValue(Constructible);
-
-    return () => {
-        startTransition(() => {
-            setToggle(toggle => !toggle);
-        });
-
-        // The function must be synchronous, even if it can start an asynchronous update
-        // it's no different from an useEffect callback in this respect
+function useStoreWrong() {
+    useSyncExternalStore(
+        // no unsubscribe returned
         // $ExpectError
-        startTransition(async () => {});
+        () => {
+            return null;
+        },
+        () => 1,
+    );
 
-        // Unlike Effect callbacks, though, there is no possible destructor to return
-        // $ExpectError
-        startTransition(() => () => {});
-    };
+    // `string` is not assignable to `number`
+    // $ExpectError
+    const version: number = useSyncExternalStore(
+        () => () => {},
+        () => '1',
+    );
+}
 
-    function Constructible() {
-        return '';
-    }
+declare const objectStore: Store<{ version: { major: number; minor: number }; users: string[] }>;
+function useUsers(): string[] {
+    return useSyncExternalStore(
+        objectStore.subscribe,
+        () => objectStore.getState().users,
+        () => objectStore.getServerState().users,
+    );
 }

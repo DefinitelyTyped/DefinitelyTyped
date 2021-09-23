@@ -2,17 +2,12 @@ import * as React from "react";
 import { ReactButtonAttr } from "../../../typings/shared";
 
 export interface FeedbackProps {
-    feedback?: string,
-    feedbackTimeout?: number,
+    feedback?: string | undefined,
+    feedbackTimeout?: number | undefined,
 }
 
-interface InheritedProps extends
-    Omit<ReactButtonAttr, "type">,
-    FeedbackProps
-{ }
+export interface CopyProps extends Omit<ReactButtonAttr, "aria-live">, FeedbackProps { }
 
-export interface CopyProps extends InheritedProps { }
-
-declare class Copy extends React.Component<CopyProps> { }
+declare const Copy: React.FC<CopyProps>;
 
 export default Copy;

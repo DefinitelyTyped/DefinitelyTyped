@@ -1,82 +1,174 @@
 // Type definitions for json-pointer 1.0
-// Project: https://www.npmjs.org/package/json-pointer
+// Project: https://github.com/manuelstofer/json-pointer
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.0
 
+export = JsonPointer;
 
-declare function JSON_Pointer(object: Object): JSON_Pointer.JSON_PointerWrap;
+declare const JsonPointer: JsonPointer.Wrapper & JsonPointer.Api;
 
-declare namespace JSON_Pointer {
-    /**
-     *  Wrap an object with accessors
-     */
-    /**
-     *  Looks up a JSON pointer in an object.
-     */
-    function get(object: Object, pointer: string): any;
-    /**
-     *  Set a value for a JSON pointer on object.
-     */
-    function set(object: Object, pointer: string, value: any): void;
-    /**
-     *  Removes an attribute of object referenced by pointer
-     */
-    function remove(object: Object, pointer: string): void;
-    /**
-     *  Creates a dictionary object (pointer -> value).
-     */
-    function dict(object: Object): Object;
-    /**
-     *  Just like: each(pointer.dict(obj), iterator);
-     */
-    function walk(object: Object, iterator: (value: any, key: string) => void): void;
-    /**
-     *  Tests if an object has a value for a JSON pointer.
-     */
-    function has(object: Object, pointer: string): boolean;
-    /**
-     *  Escapes a reference token.
-     */
-    function escape(str: string): string;
-    /**
-     *  Unescape a reference token.
-     */
-    function unescape(str: string): string;
-    /**
-     *  Converts a JSON pointer into an array of reference tokens.
-     */
-    function parse(str: string): string[];
-    /**
-     *  Builds a json pointer from an array of reference tokens.
-     */
-    function compile(str: string[]): string;
+declare namespace JsonPointer {
+    type JsonObject = Record<string | number, any> | any[];
 
-    interface JSON_PointerWrap {
+    interface Wrapper {
         /**
-         *  Looks up a JSON pointer in an object.
+         * Convenience wrapper around the api.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * const object = {
+         *     example: 'hello'
+         * };
+         *
+         * pointer(object);                      // bind object
+         * pointer(object, '/example');          // get
+         * pointer(object, '/example', 'world'); // set
+         *
+         * // The wrapper supports chainable object oriented style.
+         * const obj = { anything: 'bla' };
+         * const objPointer = pointer(obj);
+         * objPointer.set('/example', 'bla').dict();
          */
-        get(pointer: string): any;
-        /**
-         *  Set a value for a JSON pointer on object.
-         */
-        set(pointer: string, value: any): void;
-        /**
-         *  Removes an attribute of object referenced by pointer
-         */
-        remove(pointer: string): void;
-        /**
-         *  Creates a dictionary object (pointer -> value).
-         */
-        dict(): Object;
-        /**
-         *  Just like: each(pointer.dict(obj), iterator);
-         */
-        walk(iterator: (value: any, key: string) => void): void;
-        /**
-         *  Tests if an object has a value for a JSON pointer.
-         */
-        has(pointer: string): boolean;
+        (object: JsonObject): BoundWrapper & BoundApi;
+        (...args: Parameters<Api["get"]>): ReturnType<Api["get"]>;
+        (...args: Parameters<Api["set"]>): ReturnType<Api["set"]>;
     }
+
+    interface BoundWrapper {
+        (pointer: string | string[]): any;
+        (pointer: string | string[], value: any): BoundApi;
+    }
+
+    interface Api {
+        /**
+         * Looks up a JSON pointer in an object.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * const obj = {
+         *     example: {
+         *         bla: 'hello'
+         *     }
+         * };
+         * pointer.get(obj, '/example/bla');
+         * // -> 'hello'
+         */
+        get(object: JsonObject, pointer: string | string[]): any;
+
+        /**
+         * Sets a new value on object at the location described by pointer.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * const obj = {};
+         * pointer.set(obj, '/example/bla', 'hello');
+         * // obj -> { example: { bla: 'hello' } }
+         */
+        set(object: JsonObject, pointer: string | string[], value: any): Api;
+
+        /**
+         * Removes an attribute of object referenced by pointer.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * const obj = {
+         *     example: 'hello'
+         * };
+         * pointer.remove(obj, '/example');
+         * // obj -> {}
+         */
+        remove(object: JsonObject, pointer: string | string[]): void;
+
+        /**
+         * Creates a dictionary object (pointer -> value).
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * const obj = {
+         *     hello: { bla: 'example' }
+         * };
+         * pointer.dict(obj);
+         * // -> { '/hello/bla': 'example' }
+         */
+        dict(object: JsonObject, descend?: (value: any) => boolean): Record<string, any>;
+
+        /**
+         * Iterates over an object. Just like: `each(pointer.dict(obj), iterator);`.
+         */
+        walk(object: JsonObject, iterator: (value: any, ref: string) => void, descend?: (value: any) => boolean): void;
+
+        /**
+         * Tests if an object has a value for a JSON pointer.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * const obj = {
+         *     bla: 'hello'
+         * };
+         *
+         * pointer.has(obj, '/bla');          // -> true
+         * pointer.has(obj, '/non/existing'); // -> false
+         */
+        has(object: any, pointer: string | string[]): boolean;
+
+        /**
+         * Escapes a reference token.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * pointer.escape('hello~bla'); // -> 'hello~0bla'
+         * pointer.escape('hello/bla'); // -> 'hello~1bla'
+         */
+        escape(pointer: string): string;
+
+        /**
+         * Unescape a reference token.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * pointer.unescape('hello~0bla'); // -> 'hello~bla'
+         * pointer.unescape('hello~1bla'); // -> 'hello/bla'
+         */
+        unescape(pointer: string): string;
+
+        /**
+         * Converts a JSON pointer into an array of reference tokens.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * pointer.parse('/hello/bla'); // -> ['hello', 'bla']
+         */
+        parse(pointer: string): string[];
+
+        /**
+         * Builds a JSON pointer from an array of reference tokens.
+         *
+         * @example
+         * import pointer = require('json-pointer');
+         *
+         * pointer.compile(['hello', 'bla']); // -> '/hello/bla'
+         */
+        compile(tokens: string[]): string;
+    }
+
+    type BoundApi = {
+        [key in "get" | "remove" | "dict" | "walk" | "has"]: (
+            ...params: DropFirst<Parameters<Api[key]>>
+        ) => ReturnType<Api[key]>;
+    } & {
+        set: (...params: DropFirst<Parameters<Api["set"]>>) => BoundApi;
+    };
 }
 
-export = JSON_Pointer;
+type DropFirst<T extends unknown[]> = T extends [any, ...infer U] ? U : never;

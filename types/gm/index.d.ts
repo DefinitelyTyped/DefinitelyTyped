@@ -15,9 +15,9 @@ declare function m(width: number, height: number, color?: string): m.State;
 
 declare namespace m {
     interface ClassOptions {
-        appPath?: string;
-        imageMagick?: boolean;
-        nativeAutoOrient?: boolean;
+        appPath?: string | undefined;
+        imageMagick?: boolean | undefined;
+        nativeAutoOrient?: boolean | undefined;
     }
 
     interface ChannelInfo<T> {
@@ -27,10 +27,10 @@ declare namespace m {
     }
 
     interface CompareOptions {
-        file?: string;
-        highlightColor?: string;
-        highlightStyle?: HighlightStyle;
-        tolerance?: number;
+        file?: string | undefined;
+        highlightColor?: string | undefined;
+        highlightStyle?: HighlightStyle | undefined;
+        tolerance?: number | undefined;
     }
 
     interface ColorStatistics {
@@ -46,7 +46,7 @@ declare namespace m {
     }
 
     interface GetterOptions {
-       bufferStream?: boolean;
+       bufferStream?: boolean | undefined;
     }
 
     interface ImageInfo {
@@ -67,24 +67,24 @@ declare namespace m {
         Geometry: string;
         Interlace: string;
         Iterations: string;
-        'JPEG-Quality'?: string;
-        'JPEG-Colorspace'?: string;
-        'JPEG-Colorspace-Name'?: string;
-        'JPEG-Sampling-factors'?: string;
+        'JPEG-Quality'?: string | undefined;
+        'JPEG-Colorspace'?: string | undefined;
+        'JPEG-Colorspace-Name'?: string | undefined;
+        'JPEG-Sampling-factors'?: string | undefined;
         'Matte Color': string;
         Orientation: string;
         'Page geometry': string;
         path: string;
 
-        'Profile-color'?: string;
+        'Profile-color'?: string | undefined;
         'Profile-iptc'?: {
             [key: string]: string;
-        };
+        } | undefined;
         'Profile-EXIF'?: {
             [key: string]: string;
-        };
-        'Profile-XMP'?: string;
-        Resolution?: string;
+        } | undefined;
+        'Profile-XMP'?: string | undefined;
+        Resolution?: string | undefined;
         size: Dimensions;
         Signature: string;
         Software: string;
@@ -121,6 +121,7 @@ declare namespace m {
         colorspace(space: ColorSpace | string): State;
         command(customCommand: string): State;
         compose(operator: ComposeOperator | string): State;
+        composite(changeImagePath: string, maskImagePath?: string): State;
         compress(type: CompressionType | string): State;
         contrast(multiplier: number): State;
         convolve(kernel: string): State;
@@ -233,6 +234,8 @@ declare namespace m {
         scale(width: number, height: number): State;
         screen(): State;
         segment(clustherThreshold: number, smoothingThreshold: number): State;
+        /** change the specified frame. */
+        selectFrame(frame: number): State;
         sepia(): State;
         set(attribute: string, value: string): State;
         setFormat(format: string): State;

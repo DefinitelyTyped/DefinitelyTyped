@@ -22,5 +22,9 @@ class MyInvalid extends InvalidError {
     }
 }
 
+const invalid = new MyInvalid();
+
+const isInvalid = invalid instanceof AdapterError; // $ExpectType<boolean>
+
 errorsHashToArray({}); // $ExpectType<any[]>
 errorsArrayToHash([]); // $ExpectType<{}>

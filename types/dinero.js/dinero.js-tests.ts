@@ -87,9 +87,18 @@ string = dinero.toFormat('0,0 dollar', 'HALF_EVEN');
 number = dinero.toUnit();
 number = dinero.toRoundedUnit(1);
 number = dinero.toRoundedUnit(1, 'HALF_EVEN');
+number = dinero.toRoundedUnit(1, 'DOWN');
 dineroObject = dinero.toObject();
-dineroObject = dinero.toJson();
+dineroObject = dinero.toJSON();
 dineroArr = Dinero.normalizePrecision([
     Dinero({amount: 100, precision: 2}),
     Dinero({amount: 1000, precision: 3}),
+]);
+dinero = Dinero.minimum([
+    Dinero({amount: 100}),
+    Dinero({amount: 1000}),
+]);
+dinero = Dinero.maximum([
+    Dinero({amount: 100}),
+    Dinero({amount: 1000}),
 ]);

@@ -10,9 +10,9 @@ var a = {
 };
  
 var b = {
-    speed: 4,			// unchanged 
-    power: 22,			// changed 
-    weight: 10,			// added 
+    speed: 4,            // unchanged 
+    power: 22,            // changed 
+    weight: 10,            // added 
 };
  
 var d: any = diff(a, b);

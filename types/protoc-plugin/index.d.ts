@@ -18,10 +18,10 @@ type SimplePluginCallback = (filesToGenerate: ReadonlyArray<FileDescriptorProto.
 
 declare function simplePlugin(cb: SimplePluginCallback): Promise<void>;
 declare namespace simplePlugin {
-	function CodeGeneratorRequest(stdin?: stream.Readable): Promise<pb_CodeGeneratorRequest>;
-	function CodeGeneratorResponse(stdout?: stream.Writable): (files: OutputFiles) => void;
-	function CodeGeneratorResponseError(stdout?: stream.Writable): (err: Error) => void;
-	function findCommentByPath(path: number[], locationList: Location.AsObject[]): string;
+    function CodeGeneratorRequest(stdin?: stream.Readable): Promise<pb_CodeGeneratorRequest>;
+    function CodeGeneratorResponse(stdout?: stream.Writable): (files: OutputFiles) => void;
+    function CodeGeneratorResponseError(stdout?: stream.Writable): (err: Error) => void;
+    function findCommentByPath(path: number[], locationList: Location.AsObject[]): string;
 }
 
 export = simplePlugin;

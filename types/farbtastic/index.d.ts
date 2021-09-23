@@ -12,9 +12,9 @@ declare namespace JQueryFarbtastic {
     type Callback = CallbackFunction | Placeholder;
 
     interface Options {
-        callback?: Callback;
-        width?: number;
-        wheelWidth?: number;
+        callback?: Callback | undefined;
+        width?: number | undefined;
+        wheelWidth?: number | undefined;
     }
 
     interface Farbtastic {

@@ -49,7 +49,7 @@ declare namespace NodeIPC {
          * @param host is the host on which the TCP or TLS socket resides.
          * This will default to ipc.config.networkHost if not specified
          * @param port the port on which the TCP or TLS socket resides
-         * @param callback 	this is the function to execute when the socket has been created
+         * @param callback     this is the function to execute when the socket has been created
          */
         connectToNet(id: string, host?: string, port?: number, callback?: () => void): void;
         /**
@@ -61,7 +61,7 @@ declare namespace NodeIPC {
          * They have a few additional requirements, and things to know about and so have their own doc.
          * @param id is the string id of the socket being connected to. For TCP & TLS sockets,
          * this id is added to the ipc.of object when the socket is created with a reference to the socket
-         * @param callback 	this is the function to execute when the socket has been created
+         * @param callback     this is the function to execute when the socket has been created
          */
         connectToNet(id: string, callback?: () => void): void;
         /**
@@ -75,7 +75,7 @@ declare namespace NodeIPC {
          * For TCP & TLS sockets, this id is added to the ipc.of object when the socket is created with a reference to the socket
          * @param host is the host on which the TCP or TLS socket resides. This will default to ipc.config.networkHost if not specified
          * @param port the port on which the TCP or TLS socket resides
-         * @param callback 	this is the function to execute when the socket has been created
+         * @param callback     this is the function to execute when the socket has been created
          */
         connectToNet(id: string, hostOrPort: number | string, callback?: () => void): void;
         /**
@@ -196,10 +196,11 @@ declare namespace NodeIPC {
         emit(event: string, value: any): Client;
         emit(socket: Socket | SocketConfig, event: string, value?: any): Server;
         emit(socketConfig: Socket | SocketConfig, value?: any): Server;
+        broadcast(event: string, value?: any): Client;
     }
     interface SocketConfig {
-        address?: string;
-        port?: number;
+        address?: string | undefined;
+        port?: number | undefined;
     }
     interface Config {
         /**
@@ -311,28 +312,28 @@ declare namespace NodeIPC {
             /**
              * Default: false
              */
-            localAddress?: boolean;
+            localAddress?: boolean | undefined;
             /**
              * Default: false
              */
-            localPort?: boolean;
+            localPort?: boolean | undefined;
             /**
              * Default: false
              */
-            family?: boolean;
+            family?: boolean | undefined;
             /**
              * Default: false
              */
-            hints?: boolean;
+            hints?: boolean | undefined;
             /**
              * Default: false
              */
-            lookup?: boolean;
+            lookup?: boolean | undefined;
         };
         tls: {
-            rejectUnauthorized?: boolean;
-            public?: string;
-            private?: string;
+            rejectUnauthorized?: boolean | undefined;
+            public?: string | undefined;
+            private?: string | undefined;
         };
     }
 }

@@ -1,19 +1,17 @@
-// Type definitions for asn1js
+// Type definitions for asn1js 2.0
 // Project: https://github.com/PeculiarVentures/ASN1.js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-import { getParametersValue, padNumber, isEqualBuffer, bufferToHexCodes, checkBufferParams, utilToBase, utilFromBase, utilEncodeTC, utilDecodeTC, utilConcatBuf, nearestPowerOf2 } from "pvutils";
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Asn1js;
 
 declare namespace Asn1js {
 
     interface LocalBaseBlockParams {
-        blockLength?: number;
-        error?: string;
-        warnings?: string[];
-        valueBeforeDecode?: ArrayBuffer;
+        blockLength?: number | undefined;
+        error?: string | undefined;
+        warnings?: string[] | undefined;
+        valueBeforeDecode?: ArrayBuffer | undefined;
     }
 
     interface JsonLocalBaseBlock {
@@ -51,8 +49,8 @@ declare namespace Asn1js {
     }
 
     interface LocalHexBlockParams extends LocalBaseBlockParams {
-        isHexOnly?: boolean;
-        valueHex?: ArrayBuffer;
+        isHexOnly?: boolean | undefined;
+        valueHex?: ArrayBuffer | undefined;
     }
 
     interface ILocalHexBlock {
@@ -81,7 +79,7 @@ declare namespace Asn1js {
         /**
          * Convertion for the block to JSON object
          * @returns {*}
-	     */
+         */
         toJSON(): any;
     }
 
@@ -121,16 +119,16 @@ declare namespace Asn1js {
         /**
          * Convertion for the block to JSON object
          * @returns {*}
-	     */
+         */
         toJSON(): any;
     }
 
     interface LocalIdentificationBlockParams {
         idBlock?: LocalHexBlockParams & {
-            isConstructed?: boolean;
-            tagClass?: number;
-            tagNumber?: number;
-        };
+            isConstructed?: boolean | undefined;
+            tagClass?: number | undefined;
+            tagNumber?: number | undefined;
+        } | undefined;
     }
 
     class LocalIdentificationBlock extends LocalBaseBlock implements ILocalHexBlock {
@@ -149,10 +147,10 @@ declare namespace Asn1js {
 
     interface LocalLengthBlockParams {
         lenBlock?: {
-            isIndefiniteForm?: boolean;
-            longFormUsed?: boolean;
+            isIndefiniteForm?: boolean | undefined;
+            longFormUsed?: boolean | undefined;
             length: number;
-        }
+        } | undefined
     }
 
     class LocalLengthBlock extends LocalBaseBlock {
@@ -170,9 +168,9 @@ declare namespace Asn1js {
     }
 
     interface BaseBlockParams extends LocalBaseBlockParams {
-        name?: string;
-        optional?: boolean;
-        primitiveSchema?: Object;
+        name?: string | undefined;
+        optional?: boolean | undefined;
+        primitiveSchema?: Object | undefined;
     }
 
     class BaseBlock<T extends LocalValueBlock> extends LocalBaseBlock {
@@ -185,8 +183,8 @@ declare namespace Asn1js {
     }
 
     interface LocalPrimitiveValueBlockParams extends LocalBaseBlockParams {
-        valueHex?: ArrayBuffer;
-        isHexOnly?: boolean;
+        valueHex?: ArrayBuffer | undefined;
+        isHexOnly?: boolean | undefined;
     }
     class LocalPrimitiveValueBlock extends LocalValueBlock {
         valueHex: ArrayBuffer;
@@ -199,8 +197,8 @@ declare namespace Asn1js {
     }
 
     interface LocalConstructedValueBlockParams extends LocalBaseBlockParams {
-        value?: LocalValueBlock;
-        isIndefiniteForm?: boolean;
+        value?: LocalValueBlock | undefined;
+        isIndefiniteForm?: boolean | undefined;
     }
 
     class LocalConstructedValueBlock extends LocalValueBlock {
@@ -223,9 +221,9 @@ declare namespace Asn1js {
     export class EndOfContent extends BaseBlock<LocalEndOfContentValueBlock> { }
 
     interface LocalBooleanValueBlockParams extends LocalBaseBlockParams {
-        value?: boolean;
-        isHexOnly?: boolean;
-        valueHex?: ArrayBuffer;
+        value?: boolean | undefined;
+        isHexOnly?: boolean | undefined;
+        valueHex?: ArrayBuffer | undefined;
     }
     class LocalBooleanValueBlock extends LocalValueBlock {
         value: boolean;
@@ -242,7 +240,7 @@ declare namespace Asn1js {
     class Null extends BaseBlock<LocalValueBlock> { }
 
     interface LocalOctetStringValueBlockParams extends LocalConstructedValueBlockParams, LocalHexBlockParams {
-        isConstructed?: boolean;
+        isConstructed?: boolean | undefined;
     }
 
     class LocalOctetStringValueBlock extends LocalConstructedValueBlock implements ILocalHexBlock {
@@ -267,9 +265,9 @@ declare namespace Asn1js {
     }
 
     interface LocalBitStringValueBlockParams extends LocalConstructedValueBlockParams, LocalHexBlockParams {
-        unusedBits?: number;
-        isConstructed?: boolean;
-        blockLength?: number;
+        unusedBits?: number | undefined;
+        isConstructed?: boolean | undefined;
+        blockLength?: number | undefined;
     }
 
     class LocalBitStringValueBlock extends LocalConstructedValueBlock implements LocalHexBlock {
@@ -320,7 +318,7 @@ declare namespace Asn1js {
     }
 
     interface IntegerParams {
-        value?: number;
+        value?: number | undefined;
     }
     export class Integer extends BaseBlock<LocalIntegerValueBlock> {
         constructor(params?: IntegerParams)
@@ -349,8 +347,8 @@ declare namespace Asn1js {
     class Enumerated extends Integer { }
 
     interface LocalSidValueBlockParams extends LocalBaseBlockParams, LocalHexBlockParams {
-        valueDec?: number;
-        isFirstSid?: boolean;
+        valueDec?: number | undefined;
+        isFirstSid?: boolean | undefined;
     }
 
     class LocalSidValueBlock extends LocalBaseBlock implements LocalHexBlock {
@@ -365,7 +363,7 @@ declare namespace Asn1js {
     }
 
     interface LocalObjectIdentifierValueBlockParams extends LocalBaseBlockParams {
-        value?: string;
+        value?: string | undefined;
     }
 
     class LocalObjectIdentifierValueBlock extends LocalValueBlock {
@@ -405,7 +403,7 @@ declare namespace Asn1js {
     }
 
     interface Utf8StringParams {
-        value?: string;
+        value?: string | undefined;
     }
 
     class Utf8String extends BaseBlock<LocalUtf8StringValueBlock> {
@@ -443,7 +441,7 @@ declare namespace Asn1js {
     }
 
     interface BmpStringParams {
-        value?: string;
+        value?: string | undefined;
     }
 
     export class BmpString extends BaseBlock<LocalBmpStringValueBlock> {
@@ -481,7 +479,7 @@ declare namespace Asn1js {
     }
 
     interface UniversalStringParams {
-        value?: string;
+        value?: string | undefined;
     }
 
     export class UniversalString extends BaseBlock<LocalUniversalStringValueBlock> {
@@ -518,7 +516,7 @@ declare namespace Asn1js {
     }
 
     interface LocalSimpleStringBlockParams {
-        value?: string;
+        value?: string | undefined;
     }
     export class LocalSimpleStringBlock extends BaseBlock<LocalSimpleLocalSimpleStringValueBlock> {
         constructor(params?: LocalSimpleStringBlockParams);
@@ -551,8 +549,8 @@ declare namespace Asn1js {
     export class CharacterString extends LocalSimpleStringBlock { }
 
     interface UTCTimeParams extends LocalSimpleLocalSimpleStringValueBlockParams {
-        value?: string;
-        valueDate?: Date;
+        value?: string | undefined;
+        valueDate?: Date | undefined;
     }
 
     export class UTCTime extends VisibleString {
@@ -600,8 +598,8 @@ declare namespace Asn1js {
     class TIME extends Utf8String { }
 
     interface ChoiceParams {
-        value?: LocalValueBlock[];
-        optional?: boolean;
+        value?: LocalValueBlock[] | undefined;
+        optional?: boolean | undefined;
     }
 
     class Choice {
@@ -611,8 +609,8 @@ declare namespace Asn1js {
     }
 
     interface AnyParams {
-        name?: string;
-        optional?: boolean;
+        name?: string | undefined;
+        optional?: boolean | undefined;
     }
     class Any {
         name: string;
@@ -621,10 +619,10 @@ declare namespace Asn1js {
     }
 
     interface RepeatedParams {
-        name?: string;
-        optional?: boolean;
-        value?: Any;
-        local?: boolean;
+        name?: string | undefined;
+        optional?: boolean | undefined;
+        value?: Any | undefined;
+        local?: boolean | undefined;
     }
     class Repeated {
         name: string;
@@ -634,7 +632,7 @@ declare namespace Asn1js {
         constructor(params?: RepeatedParams);
     }
     interface RawDataParams {
-        data?: ArrayBuffer;
+        data?: ArrayBuffer | undefined;
     }
     class RawData {
         data: ArrayBuffer;
