@@ -7,10 +7,10 @@ mega({ email: 'test@test.net', password: '1234' });
 import { Storage } from 'megajs';
 
 const storage = new Storage({ email: 'test@test.net', password: '1234' });
+const folder = storage.root.children[0];
 
-storage.root.upload({
-    name: 'hello-world.txt',
-});
+folder.upload('myfile.txt', 'Hello world!', (error, uploadedFile) => {});
+
 storage
     .on('add', file => {
         // File was added
