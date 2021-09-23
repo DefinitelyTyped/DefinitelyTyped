@@ -12,8 +12,14 @@ export declare class Tile extends React.Component<TileProps> { }
 
 // ClickableTile
 
-export interface ClickableTileProps extends Omit<LinkProps, "onClick" | "onKeyDown"> {
+export interface ClickableTileProps extends LinkProps {
+    /**
+     * @deprecated
+     */
     handleClick?: ReactAnchorAttr["onClick"] | undefined,
+    /**
+     * @deprecated
+     */
     handleKeyDown?: ReactAnchorAttr["onKeyDown"] | undefined,
     light?: boolean | undefined,
 }
@@ -48,6 +54,9 @@ export declare const SelectableTile: React.FC<SelectableTileProps>;
 
 export interface ExpandableTileProps extends ReactButtonAttr {
     expanded?: boolean | undefined,
+    /**
+     * @deprecated
+     */
     handleClick?(e: React.MouseEvent<HTMLButtonElement>): void,
     light?: boolean | undefined,
     onBeforeClick?(e: React.MouseEvent<HTMLButtonElement>): void,
