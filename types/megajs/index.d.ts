@@ -74,7 +74,7 @@ export class File extends EventEmitter {
     nodeId: string;
     downloadId: string;
     directory: boolean;
-    children: ReadonlyArray<File>;
+    children: ReadonlyArray<MutableFile>;
     loadAttributes(cb?: any): Readable;
     download(options?: DownloadOptions, cb?: any): Readable;
 }
