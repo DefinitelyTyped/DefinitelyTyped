@@ -165,6 +165,14 @@ export interface HeaderProps {
     localizer: DateLocalizer;
 }
 
+export interface DateHeaderProps {
+    date: Date;
+    drilldownView: string;
+    isOffRange: boolean;
+    label: string;
+    onDrillDown: () => void;
+}
+
 export interface ResourceHeaderProps {
     label: React.ReactNode;
     index: number;
@@ -199,8 +207,8 @@ export interface Components<TEvent extends object = Event, TResource extends obj
       event?: React.ComponentType<EventProps<TEvent>> | undefined;
     } | undefined;
     month?: {
-        header?: React.ComponentType | undefined;
-        dateHeader?: React.ComponentType | undefined;
+        header?: React.ComponentType<HeaderProps> | undefined;
+        dateHeader?: React.ComponentType<DateHeaderProps> | undefined;
         event?: React.ComponentType<EventProps<TEvent>> | undefined;
     } | undefined;
     /**
