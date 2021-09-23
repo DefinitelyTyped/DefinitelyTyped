@@ -1,4 +1,4 @@
-// Type definitions for sm-crypto 0.3.5
+// Type definitions for sm-crypto 0.3
 // Project: https://github.com/JuneAndGreen/sm-crypto#readme
 // Definitions by: Thermod <https://github.com/Moonisky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
