@@ -7,25 +7,16 @@ mega({ email: 'test@test.net', password: '1234' });
 import { Storage } from 'megajs';
 
 const storage = new Storage({ email: 'test@test.net', password: '1234' });
-// $ExpectType MutableFile
-const folder = storage.root.children[0] // the first file in the root of the storage
 
-folder.upload('myfile.txt', 'Hello world!', (error, uploadedFile) => {});
-
+storage.root.upload({
+    name: 'hello-world.txt',
+});
 storage
     .on('add', file => {
-        // File Added
+        // File was added
         console.log(file.name);
     })
-    .on('move', (file, olddir) => {
-        // File moved to a different directory
-        console.log(file.children, olddir.children);
-    })
-    .on('delete', file => {
-        // File Deleted
-        console.log(file.name);
-    })
-    .on('update', file => {
-        // File updated
+    .on('move', (file, oldDir) => {
+        // File was moved
         console.log(file.name);
     });
