@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Plugin, Module, compilation } from 'webpack';
+import { Compiler, Plugin, Module, compilation } from 'webpack';
 
 export = CircularDependencyPlugin;
 
@@ -13,6 +13,8 @@ export = CircularDependencyPlugin;
  */
 declare class CircularDependencyPlugin extends Plugin {
   constructor(options?: CircularDependencyPlugin.Options);
+
+  apply(compiler: Compiler): void;
   // Not exposing `isCyclic` because it isn't meant to be public, I believe
 }
 
