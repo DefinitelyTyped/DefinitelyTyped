@@ -19,7 +19,7 @@ declare namespace PubSubJS {
 
     type Token = string;
 
-    type Message = string | Symbol;
+    type Message = string | symbol;
 
     type SubscriptionListener<T> = (message: string, data?: T) => void;
 
