@@ -304,7 +304,7 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
     );
 }
 
-function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, id: IdType<T>, filterValue: FilterValue) {
+function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, ids: Array<IdType<T>>, filterValue: FilterValue) {
     // return matchSorter(rows, filterValue, {
     //     keys: [(row: Row<any>) => row.values[id]],
     // });
@@ -329,9 +329,9 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             fuzzyText: fuzzyTextFilterFn,
             // Or, override the default text filter to use
             // "startWith"
-            text: (rows: Array<Row<Data>>, id: IdType<Data>, filterValue: FilterValue) => {
+            text: (rows: Array<Row<Data>>, ids: Array<IdType<Data>>, filterValue: FilterValue) => {
                 return rows.filter(row => {
-                    const rowValue = row.values[id];
+                    const rowValue = row.values[ids[0]];
                     return rowValue !== undefined
                         ? String(rowValue).toLowerCase().startsWith(String(filterValue).toLowerCase())
                         : true;
