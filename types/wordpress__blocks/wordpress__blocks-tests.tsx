@@ -369,6 +369,126 @@ blocks.registerBlockType<{ foo: string }>('my/foo', {
     category: 'common',
 });
 
+// Register with block.json metadata and no client-side settings.
+// https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/
+blocks.registerBlockType({
+    apiVersion: 2,
+    name: 'my-plugin/notice',
+    title: 'Notice',
+    category: 'text',
+    parent: ['core/group'],
+    icon: 'star-half',
+    description: 'Shows warning, error or success notices…',
+    keywords: ['alert', 'message'],
+    version: '1.0.3',
+    textdomain: 'my-plugin',
+    attributes: {
+        message: {
+            type: 'string',
+            source: 'html',
+            selector: '.message',
+        },
+    },
+    providesContext: {
+        'my-plugin/message': 'message',
+    },
+    usesContext: ['groupId'],
+    supports: {
+        align: true,
+    },
+    styles: [
+        { name: 'default', label: 'Default', isDefault: true },
+        { name: 'other', label: 'Other' },
+    ],
+    example: {
+        attributes: {
+            message: 'This is a notice!',
+        },
+        innerBlocks: [
+            {
+                name: 'core/paragraph',
+                attributes: {
+                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                },
+                innerBlocks: [
+                    {
+                        name: 'core/paragraph',
+                        attributes: {
+                            content:
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                        },
+                    },
+                ],
+            },
+        ],
+    },
+    editorScript: 'file:./build/index.js',
+    script: 'file:./build/script.js',
+    editorStyle: 'file:./build/index.css',
+    style: 'file:./build/style.css',
+});
+
+// Register with block.json metadata and additional client-side settings.
+blocks.registerBlockType(
+    {
+        apiVersion: 2,
+        name: 'my-plugin/notice',
+        title: 'Notice',
+        category: 'text',
+        parent: ['core/group'],
+        icon: 'star-half',
+        description: 'Shows warning, error or success notices…',
+        keywords: ['alert', 'message'],
+        version: '1.0.3',
+        textdomain: 'my-plugin',
+        attributes: {
+            message: {
+                type: 'string',
+                source: 'html',
+                selector: '.message',
+            },
+        },
+        providesContext: {
+            'my-plugin/message': 'message',
+        },
+        usesContext: ['groupId'],
+        supports: {
+            align: true,
+        },
+        styles: [
+            { name: 'default', label: 'Default', isDefault: true },
+            { name: 'other', label: 'Other' },
+        ],
+        example: {
+            attributes: {
+                message: 'This is a notice!',
+            },
+            innerBlocks: [
+                {
+                    name: 'core/paragraph',
+                    attributes: {
+                        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                    },
+                    innerBlocks: [
+                        {
+                            name: 'core/paragraph',
+                            attributes: {
+                                content:
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et eros eu felis.',
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+        editorScript: 'file:./build/index.js',
+        script: 'file:./build/script.js',
+        editorStyle: 'file:./build/index.css',
+        style: 'file:./build/style.css',
+    },
+    { edit: () => null, save: () => null }
+);
+
 // $ExpectType void
 blocks.setDefaultBlockName('my/foo');
 

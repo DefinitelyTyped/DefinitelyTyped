@@ -1355,6 +1355,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | DateTimeDifferenceParams
         | TickCrossParams
         | TrafficParams
+        | ProgressBarParams
         | StarRatingParams
         | RowSelectionParams
         | JSONRecord

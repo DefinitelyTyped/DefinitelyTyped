@@ -1940,7 +1940,9 @@ declare namespace videojs {
     };
 
     interface ComponentOptions {
-        children?: Child[] | undefined;
+        children?: undefined | Child[];
+        createEl?: boolean;
+        el?: HTMLElement;
     }
 
     namespace Component {
