@@ -1,1 +1,3 @@
-export { Grid24 as default } from "../../";
+import { Grid24 } from "../../";
+
+export = Grid24;

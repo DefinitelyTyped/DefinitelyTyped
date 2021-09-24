@@ -1,1 +1,3 @@
-export { Tree20 as default } from "../../";
+import { Tree20 } from "../../";
+
+export = Tree20;

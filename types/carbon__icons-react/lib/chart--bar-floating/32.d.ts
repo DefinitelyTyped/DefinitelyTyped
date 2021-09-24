@@ -1,1 +1,3 @@
-export { ChartBarFloating32 as default } from "../../";
+import { ChartBarFloating32 } from "../../";
+
+export = ChartBarFloating32;

@@ -1,1 +1,3 @@
-export { FolderOff16 as default } from "../../";
+import { FolderOff16 } from "../../";
+
+export = FolderOff16;

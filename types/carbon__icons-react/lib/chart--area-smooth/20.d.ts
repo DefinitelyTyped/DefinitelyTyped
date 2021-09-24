@@ -1,1 +1,3 @@
-export { ChartAreaSmooth20 as default } from "../../";
+import { ChartAreaSmooth20 } from "../../";
+
+export = ChartAreaSmooth20;

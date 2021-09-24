@@ -7,8 +7,8 @@ const testOptions = {
     blacklist: [],
 };
 
-detect(testText);
-detect(testText, testOptions);
+detect(testText); // $ExpectType string
+detect(testText, testOptions); // $ExpectType string
 
-detect.all(testText);
-detect.all(testText, testOptions)[0];
+detect.all(testText); // $ExpectType [string, number][]
+detect.all(testText, testOptions)[0]; // $ExpectType [string, number]

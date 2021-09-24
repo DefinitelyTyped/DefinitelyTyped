@@ -1,1 +1,3 @@
-export { Tree32 as default } from "../../";
+import { Tree32 } from "../../";
+
+export = Tree32;

@@ -1,1 +1,3 @@
-export { NavaidSeaplane32 as default } from "../../";
+import { NavaidSeaplane32 } from "../../";
+
+export = NavaidSeaplane32;

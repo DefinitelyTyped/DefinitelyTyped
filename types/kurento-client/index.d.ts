@@ -3,7 +3,7 @@
 // Definitions by: James Hill <https://github.com/jhukdev>
 //                Michel Albers <https://github.com/michelalbers>
 //                Joe Flateau <https://github.com/joeflateau>
-//                Yuichiro Tsuchiya <https://github.com/tuttieee>
+//                Yuichiro Tsuchiya <https://github.com/whitphx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -19,9 +19,9 @@ declare namespace kurento {
     }
 
     interface ElementConnectionData {
-        source: WebRtcEndpoint;
-        sink: WebRtcEndpoint;
-        type: any;
+        source: MediaElement;
+        sink: MediaElement;
+        type: MediaType;
         sourceDescription: string;
         sinkDescription: string;
     }
@@ -60,37 +60,53 @@ declare namespace kurento {
 
     type Callback<T> = (error: Error, result: T) => void;
 
+    // Ref: https://github.com/Kurento/kurento-client-elements-js/blob/master/lib/complexTypes/MediaProfileSpecType.js
+    type MediaProfileSpecType =
+        | 'WEBM'
+        | 'MKV'
+        | 'MP4'
+        | 'WEBM_VIDEO_ONLY'
+        | 'WEBM_AUDIO_ONLY'
+        | 'MKV_VIDEO_ONLY'
+        | 'MKV_AUDIO_ONLY'
+        | 'MP4_VIDEO_ONLY'
+        | 'MP4_AUDIO_ONLY'
+        | 'JPEG_VIDEO_ONLY'
+        | 'KURENTO_SPLIT_RECORDER';
+
     interface RecorderEndpointOptions {
         uri: string;
-        stopOnEndOfStream?: boolean;
+        mediaProfile?: MediaProfileSpecType | undefined;
+        stopOnEndOfStream?: boolean | undefined;
     }
 
     interface Options {
-        failAfter?: number;
-        enableTransactions?: boolean;
-        useImplicitTransactions?: boolean;
-        strict?: boolean;
-        request_timeout?: number;
-        response_timeout?: number;
-        duplicates_timeout?: number;
-        access_token?: string;
+        failAfter?: number | undefined;
+        enableTransactions?: boolean | undefined;
+        useImplicitTransactions?: boolean | undefined;
+        strict?: boolean | undefined;
+        request_timeout?: number | undefined;
+        response_timeout?: number | undefined;
+        duplicates_timeout?: number | undefined;
+        access_token?: string | undefined;
         socket?: any;
     }
 
     interface ClientInstance {
         create(type: 'MediaPipeline'): Promise<MediaPipeline>;
-        create(type: 'WebRtcEndpoint', options?: { useDataChannels?: boolean }): Promise<WebRtcEndpoint>;
+        create(type: 'WebRtcEndpoint', options?: { useDataChannels?: boolean | undefined }): Promise<WebRtcEndpoint>;
         create(type: 'RecorderEndpoint', options: RecorderEndpointOptions): Promise<RecorderEndpoint>;
         create(
             type: 'PlayerEndpoint',
             options?: {
-                networkCache?: number;
+                networkCache?: number | undefined;
                 uri: string;
-                useEncodedMedia?: boolean;
+                useEncodedMedia?: boolean | undefined;
             },
         ): Promise<PlayerEndpoint>;
         create(type: string, options?: Record<string, unknown>): Promise<MediaElement>;
-        getMediaobjectById(objectId: string): Promise<MediaPipeline | WebRtcEndpoint | RecorderEndpoint>;
+        // tslint:disable-next-line
+        getMediaobjectById<T extends MediaObject = MediaObject>(objectId: string): Promise<T>;
         getServerManager: (callback?: Callback<ServerManager>) => Promise<ServerManager>;
         close(): void;
     }
@@ -133,19 +149,65 @@ declare namespace kurento {
     }
 
     interface MediaElement extends MediaObject {
-        connect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
-        disconnect: (sink: MediaElement, callback?: Callback<void>) => Promise<void>;
-        getSinkConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
-        getSourceConnections: (callback?: Callback<ElementConnectionData[]>) => Promise<ElementConnectionData[]>;
+        connect(sink: MediaElement, callback?: Callback<void>): Promise<void>;
+        connect(sink: MediaElement, mediaType: MediaType, callback?: Callback<void>): Promise<void>;
+        connect(
+            sink: MediaElement,
+            mediaType: MediaType,
+            sourceMediaDescription: string,
+            callback?: Callback<void>,
+        ): Promise<void>;
+        connect(
+            sink: MediaElement,
+            mediaType: MediaType,
+            sourceMediaDescription: string,
+            sinkMediaDescriptionopt: string,
+            callback?: Callback<void>,
+        ): Promise<void>;
+        disconnect(sink: MediaElement, callback?: Callback<void>): Promise<void>;
+        disconnect(sink: MediaElement, mediaType: MediaType, callback?: Callback<void>): Promise<void>;
+        disconnect(
+            sink: MediaElement,
+            mediaType: MediaType,
+            sourceMediaDescription: string,
+            callback?: Callback<void>,
+        ): Promise<void>;
+        disconnect(
+            sink: MediaElement,
+            mediaType: MediaType,
+            sourceMediaDescription: string,
+            sinkMediaDescriptionopt: string,
+            callback?: Callback<void>,
+        ): Promise<void>;
+        getSinkConnections(callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSinkConnections(
+            mediaType: MediaType,
+            callback?: Callback<ElementConnectionData[]>,
+        ): Promise<ElementConnectionData[]>;
+        getSinkConnections(
+            mediaType: MediaType,
+            description: string,
+            callback?: Callback<ElementConnectionData[]>,
+        ): Promise<ElementConnectionData[]>;
+        getSourceConnections(callback?: Callback<ElementConnectionData[]>): Promise<ElementConnectionData[]>;
+        getSourceConnections(
+            mediaType: MediaType,
+            callback?: Callback<ElementConnectionData[]>,
+        ): Promise<ElementConnectionData[]>;
+        getSourceConnections(
+            mediaType: MediaType,
+            description: string,
+            callback?: Callback<ElementConnectionData[]>,
+        ): Promise<ElementConnectionData[]>;
 
         isMediaFlowingIn(
             mediaType: MediaType,
-            sinkMediaDescriptionopt?: string,
+            sinkMediaDescription?: string,
             callbackopt?: Callback<boolean>,
         ): Promise<boolean>;
         isMediaFlowingOut(
             mediaType: MediaType,
-            sinkMediaDescriptionopt?: string,
+            sinkMediaDescription?: string,
             callbackopt?: Callback<boolean>,
         ): Promise<boolean>;
 
@@ -363,9 +425,9 @@ declare namespace kurento {
 
     interface PlayerEndpoint extends UriEndpoint {
         mediaPipeline: MediaPipeline;
-        networkCache?: number;
+        networkCache?: number | undefined;
         uri: string;
-        useEncodedMedia?: boolean;
+        useEncodedMedia?: boolean | undefined;
 
         play(callback?: (error: Error) => void): Promise<void>;
 
@@ -664,7 +726,7 @@ declare namespace kurento {
     type ConnectionState = 'DISCONNECTED' | 'CONNECTED';
     type MediaState = 'DISCONNECTED' | 'CONNECTED';
     type UriEndpointState = 'STOP' | 'START' | 'PAUSE';
-    type MediaType = 'AUDIO' | ' DATA' | 'VIDEO';
+    type MediaType = 'AUDIO' | 'DATA' | 'VIDEO';
     type MediaFlowState = 'FLOWING' | 'NOT_FLOWING';
     type MediaTranscodingState = 'TRANSCODING' | 'NOT_TRANSCODING';
 

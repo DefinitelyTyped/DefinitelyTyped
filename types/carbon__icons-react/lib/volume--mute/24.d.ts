@@ -1,1 +1,3 @@
-export { VolumeMute24 as default } from "../../";
+import { VolumeMute24 } from "../../";
+
+export = VolumeMute24;

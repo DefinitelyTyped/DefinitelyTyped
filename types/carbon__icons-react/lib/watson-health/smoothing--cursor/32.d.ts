@@ -1,1 +1,3 @@
-export { WatsonHealthSmoothingCursor32 as default } from "../../../";
+import { WatsonHealthSmoothingCursor32 } from "../../../";
+
+export = WatsonHealthSmoothingCursor32;

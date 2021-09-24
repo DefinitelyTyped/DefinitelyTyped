@@ -1,1 +1,3 @@
-export { AppConnectivity16 as default } from "../../";
+import { AppConnectivity16 } from "../../";
+
+export = AppConnectivity16;

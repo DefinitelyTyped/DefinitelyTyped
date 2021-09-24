@@ -105,7 +105,7 @@ namespace HttpAndRegularPromiseTests {
         theAnswer: number;
         letters: string[];
         snack: string;
-        nothing?: string;
+        nothing?: string | undefined;
     }
 
     function someController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
@@ -273,12 +273,8 @@ $httpProvider.xsrfTrustedOrigins = ['https://example.com'];
 
 let $sceDelegateProvider: ng.ISCEDelegateProvider;
 let urlList: any[];
-urlList = $sceDelegateProvider.resourceUrlBlacklist();
-$sceDelegateProvider.resourceUrlBlacklist(['https://example.com']);
 urlList = $sceDelegateProvider.bannedResourceUrlList();
 $sceDelegateProvider.bannedResourceUrlList(['https://example.com']);
-urlList = $sceDelegateProvider.resourceUrlWhitelist();
-$sceDelegateProvider.resourceUrlWhitelist(['https://example.com']);
 urlList = $sceDelegateProvider.trustedResourceUrlList();
 $sceDelegateProvider.trustedResourceUrlList(['https://example.com']);
 
@@ -1249,9 +1245,9 @@ const componentModule = angular.module('componentExample', [])
     });
 
 interface ICopyExampleUser {
-    name?: string;
-    email?: string;
-    gender?: string;
+    name?: string | undefined;
+    email?: string | undefined;
+    gender?: string | undefined;
 }
 
 interface ICopyExampleScope {

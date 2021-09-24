@@ -1,1 +1,3 @@
-export { ModelBuilderReference20 as default } from "../../";
+import { ModelBuilderReference20 } from "../../";
+
+export = ModelBuilderReference20;

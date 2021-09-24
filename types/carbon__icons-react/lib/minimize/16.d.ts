@@ -1,1 +1,3 @@
-export { Minimize16 as default } from "../../";
+import { Minimize16 } from "../../";
+
+export = Minimize16;

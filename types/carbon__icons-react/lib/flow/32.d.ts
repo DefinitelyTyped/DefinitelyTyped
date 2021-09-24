@@ -1,1 +1,3 @@
-export { Flow32 as default } from "../../";
+import { Flow32 } from "../../";
+
+export = Flow32;

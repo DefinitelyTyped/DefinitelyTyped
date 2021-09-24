@@ -15,10 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
     },
     "files": [
         "index.d.ts",
-        "is-hotkey-tests.ts"
+        "test/is-hotkey-tests.ts",
+        "test/is-hotkey-react-tests.tsx"
     ]
 }

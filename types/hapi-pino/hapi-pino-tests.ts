@@ -11,6 +11,7 @@ function example1() {
         .register({
             plugin: HapiPino,
             options: {
+                timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`,
                 logPayload: false,
                 logRouteTags: false,
                 stream: process.stdout,

@@ -10,6 +10,7 @@ import {
     LexGenericAttachment,
     LexHandler,
     LexResult,
+    LexSlotDetail
 } from "aws-lambda";
 
 // TODO: Update test to read all event properties, and write all result
@@ -120,3 +121,29 @@ lexDialogActionElicitSlot.type === 'ElicitSlot';
 strOrNull = lexDialogActionElicitSlot.slots['example'];
 str = lexDialogActionElicitSlot.slotToElicit;
 str = lexDialogActionElicitSlot.intentName;
+
+declare let lexSlotDetail: LexSlotDetail;
+lexSlotDetail = {
+    resolutions: [{ value: 'value1' }],
+    originalValue: 'originalValue',
+};
+
+lexSlotDetail.resolutions[0];
+lexSlotDetail.resolutions[1];
+lexSlotDetail.resolutions[2];
+lexSlotDetail.resolutions[3];
+lexSlotDetail.resolutions[4];
+lexSlotDetail.resolutions[5]; // $ExpectError
+
+lexSlotDetail = {
+    // $ExpectError
+    resolutions: [
+        { value: 'value0' },
+        { value: 'value1' },
+        { value: 'value2' },
+        { value: 'value3' },
+        { value: 'value4' },
+        { value: 'value5' },
+    ],
+    originalValue: 'originalValue',
+};

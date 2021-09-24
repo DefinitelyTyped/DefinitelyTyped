@@ -1,1 +1,3 @@
-export { TwoPersonLift32 as default } from "../../";
+import { TwoPersonLift32 } from "../../";
+
+export = TwoPersonLift32;

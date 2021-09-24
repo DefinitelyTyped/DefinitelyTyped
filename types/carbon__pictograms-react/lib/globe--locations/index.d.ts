@@ -1,1 +1,3 @@
-export { GlobeLocations as default } from "../../";
+import { GlobeLocations } from "../../";
+
+export = GlobeLocations;

@@ -1,1 +1,3 @@
-export { Gamification20 as default } from "../../";
+import { Gamification20 } from "../../";
+
+export = Gamification20;

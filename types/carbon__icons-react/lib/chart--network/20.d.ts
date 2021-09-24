@@ -1,1 +1,3 @@
-export { ChartNetwork20 as default } from "../../";
+import { ChartNetwork20 } from "../../";
+
+export = ChartNetwork20;

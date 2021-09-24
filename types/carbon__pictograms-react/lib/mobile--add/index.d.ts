@@ -1,1 +1,3 @@
-export { MobileAdd as default } from "../../";
+import { MobileAdd } from "../../";
+
+export = MobileAdd;

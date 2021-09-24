@@ -36,7 +36,7 @@ interface ImportMetaHot {
 }
 
 interface ImportMeta {
-    readonly url: string;
+    url: string;
     // TypeScript Bug: https://github.com/microsoft/TypeScript/issues/41468
     // When TS bug is fixed and ecosystem has upgraded, then it will be safe
     // to change `hot` to the more correct "possibly undefined" (hot?: ...).
@@ -46,6 +46,6 @@ interface ImportMeta {
         readonly SNOWPACK_PUBLIC_API_URL: string;
         readonly MODE: string;
         readonly NODE_ENV: string;
-        readonly SSR?: boolean;
+        readonly SSR?: boolean | undefined;
     };
 }

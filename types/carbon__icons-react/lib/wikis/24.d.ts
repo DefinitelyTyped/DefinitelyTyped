@@ -1,1 +1,3 @@
-export { Wikis24 as default } from "../../";
+import { Wikis24 } from "../../";
+
+export = Wikis24;

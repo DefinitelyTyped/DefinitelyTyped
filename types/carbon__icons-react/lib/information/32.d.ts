@@ -1,1 +1,3 @@
-export { Information32 as default } from "../../";
+import { Information32 } from "../../";
+
+export = Information32;

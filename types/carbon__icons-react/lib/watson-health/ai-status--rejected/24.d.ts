@@ -1,1 +1,3 @@
-export { WatsonHealthAiStatusRejected24 as default } from "../../../";
+import { WatsonHealthAiStatusRejected24 } from "../../../";
+
+export = WatsonHealthAiStatusRejected24;

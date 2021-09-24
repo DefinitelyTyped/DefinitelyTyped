@@ -1,1 +1,3 @@
-export { Maximize32 as default } from "../../";
+import { Maximize32 } from "../../";
+
+export = Maximize32;

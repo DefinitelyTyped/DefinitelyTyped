@@ -1,1 +1,3 @@
-export { WarningAltInvertedFilled20 as default } from "../../";
+import { WarningAltInvertedFilled20 } from "../../";
+
+export = WarningAltInvertedFilled20;

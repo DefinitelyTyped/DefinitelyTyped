@@ -1,1 +1,3 @@
-export { ChartTreemap20 as default } from "../../";
+import { ChartTreemap20 } from "../../";
+
+export = ChartTreemap20;

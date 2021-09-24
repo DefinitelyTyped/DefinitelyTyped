@@ -11,7 +11,7 @@ declare function pump(streams: pump.Stream[], callback?: pump.Callback): pump.St
 declare function pump(...streams: Array<pump.Stream | pump.Callback>): pump.Stream;
 
 declare namespace pump {
-    type Callback = (err: Error) => any;
+    type Callback = (err?: Error) => any;
     type Stream = NodeJS.ReadableStream | NodeJS.WritableStream;
 }
 

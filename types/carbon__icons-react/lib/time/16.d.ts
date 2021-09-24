@@ -1,1 +1,3 @@
-export { Time16 as default } from "../../";
+import { Time16 } from "../../";
+
+export = Time16;

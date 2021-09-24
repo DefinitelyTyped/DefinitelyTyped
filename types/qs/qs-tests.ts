@@ -334,12 +334,18 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 
 () => {
     assert.equal(qs.stringify({ a: { b: { c: 'd', e: 'f' } } }, { allowDots: true }), 'a.b.c=d&a.b.e=f');
+};
+
+() => {
+    assert.deepEqual(qs.parse({ 'array[0][name]': 'John', 'array[0][surname]': 'Smith' }), {
+        array: [{ name: 'John', surname: 'Smith' }],
+    });
 }
 
-declare const myQuery: { a: string; b?: string }
+declare const myQuery: { a: string; b?: string | undefined }
 const myQueryCopy: qs.ParsedQs = myQuery;
 
 interface MyQuery extends qs.ParsedQs {
     a: string;
-    b?: string;
+    b?: string | undefined;
 }

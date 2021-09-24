@@ -9,29 +9,29 @@ export interface BasicLabel {
 }
 
 export interface LabelInfo extends BasicLabel {
-    aliases?: string[];
-    description?: string;
+    aliases?: string[] | undefined;
+    description?: string | undefined;
 }
 
 export interface OptionsBase {
-    allowAddedLabels?: boolean;
-    dryRun?: boolean;
+    allowAddedLabels?: boolean | undefined;
+    dryRun?: boolean | undefined;
     format?: {
-        diff?: (str: string) => string
-        success?: (str: string) => string
-        warning?: (str: string) => string
-    };
+        diff?: ((str: string) => string) | undefined
+        success?: ((str: string) => string) | undefined
+        warning?: ((str: string) => string) | undefined
+    } | undefined;
     labels: LabelInfo[];
     log?: {
-        info?: (str: string) => void
-        warn?: (str: string) => void
-    };
+        info?: ((str: string) => void) | undefined
+        warn?: ((str: string) => void) | undefined
+    } | undefined;
 }
 
 export interface Options extends OptionsBase {
     accessToken: string;
     repo: string;
-    endpoint?: string;
+    endpoint?: string | undefined;
 }
 
 export interface DefaultOptions extends Required<OptionsBase> {
@@ -43,8 +43,8 @@ export interface DefaultOptions extends Required<OptionsBase> {
 export interface LabelDiff {
     name: string;
     type: string;
-    actual?: BasicLabel;
-    expected?: BasicLabel;
+    actual?: BasicLabel | undefined;
+    expected?: BasicLabel | undefined;
 }
 
 export const defaults: DefaultOptions;

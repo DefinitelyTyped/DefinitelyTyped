@@ -1,1 +1,3 @@
-export { AccumulationRain24 as default } from "../../";
+import { AccumulationRain24 } from "../../";
+
+export = AccumulationRain24;

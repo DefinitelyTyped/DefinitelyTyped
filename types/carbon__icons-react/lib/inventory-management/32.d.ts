@@ -1,1 +1,3 @@
-export { InventoryManagement32 as default } from "../../";
+import { InventoryManagement32 } from "../../";
+
+export = InventoryManagement32;

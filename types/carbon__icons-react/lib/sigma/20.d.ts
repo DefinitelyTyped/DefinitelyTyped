@@ -1,1 +1,3 @@
-export { Sigma20 as default } from "../../";
+import { Sigma20 } from "../../";
+
+export = Sigma20;

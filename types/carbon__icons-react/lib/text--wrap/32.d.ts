@@ -1,1 +1,3 @@
-export { TextWrap32 as default } from "../../";
+import { TextWrap32 } from "../../";
+
+export = TextWrap32;

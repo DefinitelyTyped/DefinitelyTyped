@@ -1,1 +1,3 @@
-export { SkipBackOutlineFilled32 as default } from "../../";
+import { SkipBackOutlineFilled32 } from "../../";
+
+export = SkipBackOutlineFilled32;

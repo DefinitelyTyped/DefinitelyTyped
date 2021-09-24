@@ -1,1 +1,3 @@
-export { TabletLandscape24 as default } from "../../";
+import { TabletLandscape24 } from "../../";
+
+export = TabletLandscape24;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 import { Component, ReactNode } from "react";
 
 export default ReactGoogleMapsLoader;
@@ -18,7 +18,7 @@ declare namespace ReactGoogleMapsLoader {
 
     interface Params {
         key: string;
-        libraries?: string;
+        libraries?: string | undefined;
     }
 
     interface Props {

@@ -11,7 +11,7 @@ import {
 import { LinkProps } from "./Link";
 
 export interface SideNavLinkPropsBase extends RenderIconProps, RequiresChildrenProps<string>, SideNavSharedProps, SideNavSizingProps {
-    className?: string,
+    className?: string | undefined,
 }
 
 export type SideNavLinkProps<E extends object = ReactAnchorAttr> = LinkProps<E> & SideNavLinkPropsBase;

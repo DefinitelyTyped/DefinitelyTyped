@@ -1,1 +1,3 @@
-export { Cad32 as default } from "../../";
+import { Cad32 } from "../../";
+
+export = Cad32;

@@ -1,1 +1,3 @@
-export { InProgress32 as default } from "../../";
+import { InProgress32 } from "../../";
+
+export = InProgress32;

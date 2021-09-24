@@ -1,1 +1,3 @@
-export { SkipForwardSolidFilled32 as default } from "../../";
+import { SkipForwardSolidFilled32 } from "../../";
+
+export = SkipForwardSolidFilled32;

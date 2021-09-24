@@ -1,1 +1,3 @@
-export { LetterCc32 as default } from "../../";
+import { LetterCc32 } from "../../";
+
+export = LetterCc32;

@@ -1,8 +1,7 @@
-// Type definitions for siren-parser 8.2
+// Type definitions for siren-parser 8.4
 // Project: https://github.com/Brightspace/node-siren-parser
 // Definitions by: Dillon Redding <https://github.com/dillonredding>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
 
 import { Link } from './Link';
 import { Action } from './Action';
@@ -10,16 +9,16 @@ import { Action } from './Action';
 export default function(entity: string | object): Entity;
 
 export interface Entity {
-    class?: string[];
-    properties?: object;
-    entities?: Entity[];
-    links?: Link[];
-    actions?: Action[];
-    title?: string;
+    class?: string[] | undefined;
+    properties?: object | undefined;
+    entities?: Entity[] | undefined;
+    links?: Link[] | undefined;
+    actions?: Action[] | undefined;
+    title?: string | undefined;
     // embedded link properties
-    rel?: string[];
-    href?: string;
-    type?: string;
+    rel?: string[] | undefined;
+    href?: string | undefined;
+    type?: string | undefined;
 
     hasAction(actionName: string | RegExp): boolean;
     hasActionByName(actionName: string | RegExp): boolean;

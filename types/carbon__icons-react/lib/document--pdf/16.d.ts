@@ -1,1 +1,3 @@
-export { DocumentPdf16 as default } from "../../";
+import { DocumentPdf16 } from "../../";
+
+export = DocumentPdf16;

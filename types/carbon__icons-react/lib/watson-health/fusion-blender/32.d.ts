@@ -1,1 +1,3 @@
-export { WatsonHealthFusionBlender32 as default } from "../../../";
+import { WatsonHealthFusionBlender32 } from "../../../";
+
+export = WatsonHealthFusionBlender32;

@@ -1,1 +1,3 @@
-export { Growth as default } from "../../";
+import { Growth } from "../../";
+
+export = Growth;

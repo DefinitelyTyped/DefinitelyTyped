@@ -1,1 +1,3 @@
-export { MarineWarning32 as default } from "../../";
+import { MarineWarning32 } from "../../";
+
+export = MarineWarning32;

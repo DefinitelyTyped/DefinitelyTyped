@@ -1,1 +1,3 @@
-export { LetterMm32 as default } from "../../";
+import { LetterMm32 } from "../../";
+
+export = LetterMm32;

@@ -1,1 +1,3 @@
-export { Ruler24 as default } from "../../";
+import { Ruler24 } from "../../";
+
+export = Ruler24;

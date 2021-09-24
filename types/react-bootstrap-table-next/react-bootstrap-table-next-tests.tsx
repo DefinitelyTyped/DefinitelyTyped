@@ -7,7 +7,9 @@ import BootstrapTable, {
     ColumnDescription,
     RowSelectionType,
     ROW_SELECT_SINGLE,
+    ROW_SELECT_MULTIPLE,
     ExpandRowProps,
+    ColumnSortValue,
     ColumnSortCaret,
     HeaderSortingClasses,
 } from 'react-bootstrap-table-next';
@@ -15,21 +17,30 @@ import BootstrapTable, {
 interface Product {
     id: number;
     name: string;
-    price?: number;
-    quality?: number;
-    inStockStatus?: number;
-    sales?: number;
+    price?: number | undefined;
+    quality?: number | undefined;
+    inStockStatus?: number | undefined;
+    sales?: number | undefined;
+    category?: ProductCategory | undefined;
 }
+
+enum ProductCategory {
+    'Category 1',
+    'Category 2',
+}
+
 const products: Product[] = [
     {
         id: 1,
         name: 'Item name 1',
         price: 100,
+        category: 0,
     },
     {
         id: 2,
         name: 'Item name 2',
         price: 100,
+        category: 1,
     },
 ];
 
@@ -50,6 +61,8 @@ const priceFormatter: ColumnFormatter<Product, { indexSquare: number }> = (cell,
         </span>
     );
 };
+
+const sortValue: ColumnSortValue<Product> = (cell, row) => ProductCategory[cell];
 
 const SortCaret: ColumnSortCaret = (order, column) => {
     switch (order) {
@@ -84,6 +97,51 @@ const productColumns: Array<ColumnDescription<Product>> = [
         formatter: priceFormatter,
         text: 'Product Price',
         headerFormatter: priceHeaderFormatter,
+        validator: (newValue: number, row, column, done) => {
+            setTimeout(() => {
+                if (isNaN(newValue)) {
+                    return done({
+                        valid: false,
+                        message: 'Price should be numeric'
+                    });
+                }
+                if (newValue < 2000) {
+                    return done({
+                        valid: false,
+                        message: 'Price should bigger than 2000'
+                    });
+                }
+                return done();
+            }, 2000);
+            return {
+                async: true
+            };
+        }
+    },
+    {
+        dataField: 'price2',
+        text: 'Product Price 2',
+        validator: (newValue, row, column) => {
+            if (isNaN(newValue)) {
+                return {
+                    valid: false,
+                    message: 'Price should be numeric'
+                };
+            }
+            if (newValue < 2000) {
+                return {
+                    valid: false,
+                    message: 'Price should bigger than 2000'
+                };
+            }
+            return true;
+        }
+    },
+    {
+        dataField: 'category',
+        sort: true,
+        sortValue,
+        text: 'Product category',
     },
     /**
      * test optional dataField for dummyFields
@@ -219,6 +277,25 @@ render(
         columns={productColumns}
         selectRow={{
             mode: ROW_SELECT_SINGLE,
+        }}
+    />,
+    document.getElementById('app'),
+);
+
+/**
+ * Basic table with custom checkbox in row selection column
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        keyField="id"
+        columns={productColumns}
+        selectRow={{
+            mode: ROW_SELECT_MULTIPLE,
+            selectionRenderer({ rowKey, checked, disabled }) {
+                return <input key={rowKey} type="checkbox" checked={checked}  disabled={disabled} />;
+            }
         }}
     />,
     document.getElementById('app'),

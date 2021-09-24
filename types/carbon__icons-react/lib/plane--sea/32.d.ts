@@ -1,1 +1,3 @@
-export { PlaneSea32 as default } from "../../";
+import { PlaneSea32 } from "../../";
+
+export = PlaneSea32;

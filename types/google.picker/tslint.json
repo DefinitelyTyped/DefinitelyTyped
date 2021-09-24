@@ -1,17 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "dt-header": false,
         "max-line-length": false,
-        "no-consecutive-blank-lines": false,
-        "no-var-keyword": false,
-        "npm-naming": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false,
-        "triple-equals": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "strict-export-declare-modifiers": false
     }
 }

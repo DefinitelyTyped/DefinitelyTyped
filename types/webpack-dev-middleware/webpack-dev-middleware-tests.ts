@@ -3,65 +3,101 @@ import webpack = require('webpack');
 import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
+const multiCompiler = webpack([{}]);
 const compilerWithPublicPath = webpack({
     output: {
-        publicPath: '/assets/'
-    }
+        publicPath: '/assets/',
+    },
 });
 
+// options
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(multiCompiler);
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compilerWithPublicPath, {});
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
-    logLevel: 'silent',
-    logTime: true,
-    lazy: true,
-    methods: ['GET', 'POST'],
     mimeTypes: {
-        typeMap: { 'text/html': ['phtml'] },
-        force: true,
+        myhtml: 'text/html',
     },
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: true,
-    },
-    publicPath: '/assets/',
-    index: 'index.html',
+    writeToDisk: false,
+    methods: ['GET', 'POST'],
     headers: {
         'X-Custom-Header': 'yes',
     },
-    stats: {
-        colors: true,
-    },
-    reporter: null,
+    publicPath: '/assets/',
     serverSideRender: false,
-    writeToDisk: false,
+    stats: 'errors-only',
+    outputFileSystem: compiler.outputFileSystem,
+    index: 'index.html',
 });
 
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    writeToDisk: () => false,
+    stats: true,
+});
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    stats: {
+        all: true,
+    },
+});
+
+// $ExpectType string | undefined
+webpackDevMiddlewareInstance.getFilenameFromUrl('/');
+
+// return value
 const app = express();
 app.use([webpackDevMiddlewareInstance]);
 
-webpackDevMiddlewareInstance.close(() => {
-    console.log('closed');
-});
-
-webpackDevMiddlewareInstance.invalidate(stats => {
-    if (stats) {
-        console.log(stats.toJson());
-    }
-});
-
+webpackDevMiddlewareInstance.waitUntilValid();
 webpackDevMiddlewareInstance.waitUntilValid(stats => {
     if (stats) {
         console.log('Package is in a valid state:' + stats.toJson());
     }
 });
 
-const fs = webpackDevMiddlewareInstance.fileSystem;
-fs.mkdirpSync('foo');
+webpackDevMiddlewareInstance.invalidate();
+webpackDevMiddlewareInstance.invalidate(stats => {
+    if (stats) {
+        console.log(stats.toJson());
+    }
+});
 
-let filename = webpackDevMiddlewareInstance.getFilenameFromUrl('url');
-if (filename !== false) {
-    filename = filename.substr(0);
+webpackDevMiddlewareInstance.close();
+webpackDevMiddlewareInstance.close(() => {
+    console.log('closed');
+});
+
+// $ExpectType boolean
+webpackDevMiddlewareInstance.context.state;
+
+// $ExpectType OutputFileSystem
+webpackDevMiddlewareInstance.context.outputFileSystem;
+
+function foo(_: webpack.Stats) {}
+if (webpackDevMiddlewareInstance.context.stats) {
+    foo(webpackDevMiddlewareInstance.context.stats);
 }
+
+webpackDevMiddleware(compilerWithPublicPath, webpackDevMiddlewareInstance.context.options);
+
+webpackDevMiddleware(webpackDevMiddlewareInstance.context.compiler, {});
+
+function bar(_: webpack.Watching) {}
+if (webpackDevMiddlewareInstance.context.watching) {
+    bar(webpackDevMiddlewareInstance.context.watching);
+}
+
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    headers: () => {
+        return { 'X-nonsense-1': 'yes', 'X-nonsense-2': 'no' };
+    },
+});
+webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+    headers: (req, res) => {
+        res.setHeader('X-nonsense-1', 'yes');
+        res.setHeader('X-nonsense-2', 'no');
+    },
+});

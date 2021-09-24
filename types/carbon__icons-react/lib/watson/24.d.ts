@@ -1,1 +1,3 @@
-export { Watson24 as default } from "../../";
+import { Watson24 } from "../../";
+
+export = Watson24;

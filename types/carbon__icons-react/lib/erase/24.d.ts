@@ -1,1 +1,3 @@
-export { Erase24 as default } from "../../";
+import { Erase24 } from "../../";
+
+export = Erase24;

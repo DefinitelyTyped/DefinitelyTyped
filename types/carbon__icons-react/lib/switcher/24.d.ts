@@ -1,1 +1,3 @@
-export { Switcher24 as default } from "../../";
+import { Switcher24 } from "../../";
+
+export = Switcher24;

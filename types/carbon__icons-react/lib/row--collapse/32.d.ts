@@ -1,1 +1,3 @@
-export { RowCollapse32 as default } from "../../";
+import { RowCollapse32 } from "../../";
+
+export = RowCollapse32;

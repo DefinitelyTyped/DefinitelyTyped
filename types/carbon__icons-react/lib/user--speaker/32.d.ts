@@ -1,1 +1,3 @@
-export { UserSpeaker32 as default } from "../../";
+import { UserSpeaker32 } from "../../";
+
+export = UserSpeaker32;

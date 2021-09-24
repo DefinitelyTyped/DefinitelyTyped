@@ -1,1 +1,3 @@
-export { NightClear as default } from "../../";
+import { NightClear } from "../../";
+
+export = NightClear;

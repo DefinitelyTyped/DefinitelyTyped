@@ -1,1 +1,3 @@
-export { AppConnectivity24 as default } from "../../";
+import { AppConnectivity24 } from "../../";
+
+export = AppConnectivity24;

@@ -1,1 +1,3 @@
-export { MonitoredItemOnConveyor as default } from "../../";
+import { MonitoredItemOnConveyor } from "../../";
+
+export = MonitoredItemOnConveyor;

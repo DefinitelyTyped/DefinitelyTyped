@@ -1,1 +1,3 @@
-export { Transgender32 as default } from "../../";
+import { Transgender32 } from "../../";
+
+export = Transgender32;

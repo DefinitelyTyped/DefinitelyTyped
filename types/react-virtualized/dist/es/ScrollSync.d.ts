@@ -53,3 +53,5 @@ export class ScrollSync extends PureComponent<ScrollSyncProps, ScrollSyncState> 
         children: Validator<(props: ScrollSyncChildProps) => React.ReactNode>;
     };
 }
+
+export default ScrollSync;

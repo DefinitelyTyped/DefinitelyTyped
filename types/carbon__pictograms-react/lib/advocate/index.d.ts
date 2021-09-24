@@ -1,1 +1,3 @@
-export { Advocate as default } from "../../";
+import { Advocate } from "../../";
+
+export = Advocate;

@@ -1,1 +1,3 @@
-export { Umbrella20 as default } from "../../";
+import { Umbrella20 } from "../../";
+
+export = Umbrella20;

@@ -6,21 +6,21 @@
 import { ExtensionDefinition } from 'jsreport-core';
 
 declare module 'jsreport-core' {
-    interface Options {
-        reports?: JsReportReports.ReportsOptions;
+    interface RequestOptions {
+        reports?: JsReportReports.ReportsOptions | undefined;
     }
 }
 
 declare namespace JsReportReports {
     interface Configuration {
-        cleanInterval?: string;
-        cleanTreshold?: string;
+        cleanInterval?: string | undefined;
+        cleanTreshold?: string | undefined;
     }
 
     interface ReportsOptions {
-        save?: boolean;
-        async?: boolean;
-        public?: boolean;
+        save?: boolean | undefined;
+        async?: boolean | undefined;
+        public?: boolean | undefined;
     }
 }
 

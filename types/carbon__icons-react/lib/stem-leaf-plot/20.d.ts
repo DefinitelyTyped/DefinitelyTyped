@@ -1,1 +1,3 @@
-export { StemLeafPlot20 as default } from "../../";
+import { StemLeafPlot20 } from "../../";
+
+export = StemLeafPlot20;

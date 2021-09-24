@@ -1,1 +1,3 @@
-export { CheckmarkFilledError32 as default } from "../../";
+import { CheckmarkFilledError32 } from "../../";
+
+export = CheckmarkFilledError32;

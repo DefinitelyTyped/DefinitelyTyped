@@ -1,1 +1,3 @@
-export { Upgrade24 as default } from "../../";
+import { Upgrade24 } from "../../";
+
+export = Upgrade24;

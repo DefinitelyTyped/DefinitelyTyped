@@ -1,1 +1,3 @@
-export { SendAltFilled24 as default } from "../../";
+import { SendAltFilled24 } from "../../";
+
+export = SendAltFilled24;

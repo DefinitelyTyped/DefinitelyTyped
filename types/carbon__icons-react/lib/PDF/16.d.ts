@@ -1,1 +1,3 @@
-export { Pdf16 as default } from "../../";
+import { Pdf16 } from "../../";
+
+export = Pdf16;

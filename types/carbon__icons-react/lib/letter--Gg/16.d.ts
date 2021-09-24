@@ -1,1 +1,3 @@
-export { LetterGg16 as default } from "../../";
+import { LetterGg16 } from "../../";
+
+export = LetterGg16;

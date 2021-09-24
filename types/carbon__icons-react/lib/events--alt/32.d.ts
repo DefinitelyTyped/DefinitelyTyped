@@ -1,1 +1,3 @@
-export { EventsAlt32 as default } from "../../";
+import { EventsAlt32 } from "../../";
+
+export = EventsAlt32;

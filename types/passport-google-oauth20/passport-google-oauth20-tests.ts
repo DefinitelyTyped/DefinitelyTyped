@@ -34,14 +34,9 @@ passport.use(
         {
             callbackURL,
             clientID,
-            clientSecret
+            clientSecret,
         },
-        (
-            accessToken: string,
-            refreshToken: string,
-            profile: google.Profile,
-            done: (error: any, user?: any) => void
-        ) => {
+        (_accessToken, _refreshToken, profile, done) => {
             User.findOrCreate(profile.id, profile.provider, (err, user) => {
                 if (err) {
                     done(err);
@@ -49,8 +44,28 @@ passport.use(
                 }
                 done(null, user);
             });
-        }
-    )
+        },
+    ),
+);
+
+passport.use(
+    new google.Strategy(
+        {
+            callbackURL,
+            clientID,
+            clientSecret,
+            passReqToCallback: true,
+        },
+        (_request, _accessToken, _refreshToken, profile, done) => {
+            User.findOrCreate(profile.id, profile.provider, (err, user) => {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                done(null, user);
+            });
+        },
+    ),
 );
 
 passport.use(
@@ -65,33 +80,7 @@ passport.use(
             request: express.Request,
             accessToken: string,
             refreshToken: string,
-            profile: google.Profile,
-            done: (error: any, user?: any) => void
-        ) => {
-            User.findOrCreate(profile.id, profile.provider, (err, user) => {
-                if (err) {
-                    done(err);
-                    return;
-                }
-                done(null, user);
-            });
-        }
-    )
-);
-
-passport.use(
-    new google.Strategy(
-        {
-            callbackURL,
-            clientID,
-            clientSecret,
-            passReqToCallback: true
-        },
-        (
-            request: express.Request,
-            accessToken: string,
-            refreshToken: string,
-            params: any,
+            params: google.GoogleCallbackParameters,
             profile: google.Profile,
             done: (error: any, user?: any) => void
         ) => {
@@ -116,7 +105,7 @@ passport.use(
         (
             accessToken: string,
             refreshToken: string,
-            params: any,
+            params: google.GoogleCallbackParameters,
             profile: google.Profile,
             done: (error: any, user?: any) => void
         ) => {

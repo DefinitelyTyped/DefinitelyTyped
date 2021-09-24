@@ -1,1 +1,3 @@
-export { WarningSquare16 as default } from "../../";
+import { WarningSquare16 } from "../../";
+
+export = WarningSquare16;

@@ -1,7 +1,20 @@
+interface OverflowMenuOptions {
+    selectorInit: string;
+    selectorOptionMenu: string;
+    selectorTrigger: string;
+    selectorContent: string;
+    selectorItem: string;
+    classShown: string;
+    classMenuShown: string;
+    classMenuFlip: string;
+    objMenuOffset: typeof getMenuOffset;
+    objMenuOffsetFlip: typeof getMenuOffset;
+}
+
 export function getMenuOffset(
-    menuBody: any,
-    direction: any,
-    trigger: any,
+    menuBody: Element,
+    direction: string,
+    trigger: Element,
 ):
     | {
           left: number;
@@ -10,42 +23,13 @@ export function getMenuOffset(
     | undefined;
 declare const OverflowMenu_base: any;
 declare class OverflowMenu extends OverflowMenu_base {
-    constructor(element: any, options: any);
-    changeState(state: any, detail: any, callback: any): void;
-    _handleDocumentClick(event: any): void;
-    getCurrentNavigation: () => any;
-    navigate: (direction: any) => void;
-    _handleKeyPress(event: any): void;
+    constructor(element: HTMLElement, options?: Partial<OverflowMenuOptions>);
+    changeState(state: string, detail: object, callback: () => void): void;
+    _handleDocumentClick(event: MouseEvent): void;
+    getCurrentNavigation: () => null | Element;
+    navigate: (direction: number) => void;
+    _handleKeyPress(event: KeyboardEvent): void;
     static components: WeakMap<object, any>;
-    static get options(): {
-        selectorInit: string;
-        selectorOptionMenu: string;
-        selectorTrigger: string;
-        selectorContent: string;
-        selectorItem: string;
-        classShown: string;
-        classMenuShown: string;
-        classMenuFlip: string;
-        objMenuOffset: (
-            menuBody: any,
-            direction: any,
-            trigger: any,
-        ) =>
-            | {
-                  left: number;
-                  top: number;
-              }
-            | undefined;
-        objMenuOffsetFlip: (
-            menuBody: any,
-            direction: any,
-            trigger: any,
-        ) =>
-            | {
-                  left: number;
-                  top: number;
-              }
-            | undefined;
-    };
+    static get options(): OverflowMenuOptions;
 }
 export default OverflowMenu;

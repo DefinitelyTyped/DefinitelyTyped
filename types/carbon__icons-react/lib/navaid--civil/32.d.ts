@@ -1,1 +1,3 @@
-export { NavaidCivil32 as default } from "../../";
+import { NavaidCivil32 } from "../../";
+
+export = NavaidCivil32;

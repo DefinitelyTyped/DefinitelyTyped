@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "eris": "^0.15.1"
+  }
+}

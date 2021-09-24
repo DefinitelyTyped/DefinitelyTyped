@@ -1,5 +1,7 @@
 import * as L from 'leaflet';
 
+const version = L.version;
+
 const latLngLiteral: L.LatLngLiteral = { lat: 12, lng: 13 };
 const latLngTuple: L.LatLngTuple = [12, 13];
 
@@ -45,7 +47,10 @@ let distance: number;
 distance = point.distanceTo(point);
 distance = point.distanceTo(pointTuple);
 
-const transformation = new L.Transformation(1, 2, 3, 4);
+let transformation: L.Transformation;
+transformation = new L.Transformation(1, 2, 3, 4);
+transformation = L.transformation(1, 2, 3, 4);
+transformation = L.transformation([1, 2, 3, 4]);
 point = transformation.transform(point);
 point = transformation.transform(point, 2);
 point = transformation.untransform(point);
@@ -59,10 +64,18 @@ bounds = L.bounds(pointTuple, pointTuple);
 bounds = L.bounds([point, point]);
 bounds = L.bounds(boundsLiteral);
 
+bounds = new L.Bounds();
 bounds = new L.Bounds(point, point);
 bounds = new L.Bounds(pointTuple, pointTuple);
 bounds = new L.Bounds([point, point]);
 bounds = new L.Bounds(boundsLiteral);
+
+const topLeft = bounds.getTopLeft();
+const topRight = bounds.getTopRight();
+const bottomLeft = bounds.getBottomLeft();
+const bottomRight = bounds.getBottomRight();
+
+bounds.isValid();
 
 let points: L.Point[];
 points = L.LineUtil.simplify([point, point], 1);
@@ -73,6 +86,8 @@ point = L.LineUtil.closestPointOnSegment(point, point, point);
 
 points = L.PolyUtil.clipPolygon(points, bounds);
 points = L.PolyUtil.clipPolygon(points, bounds, true);
+
+L.LineUtil.clipSegment(point, point, bounds);
 
 let mapOptions: L.MapOptions = {};
 
@@ -233,6 +248,10 @@ zoom = map.getBoundsZoom(latLngBounds, true);
 zoom = map.getBoundsZoom(latLngBoundsLiteral);
 zoom = map.getBoundsZoom(latLngBoundsLiteral, true);
 zoom = map.getBoundsZoom(latLngBoundsLiteral, true, point);
+zoom = map.getZoomScale(10);
+zoom = map.getZoomScale(10, 7);
+zoom = map.getScaleZoom(10);
+zoom = map.getScaleZoom(10, 7);
 
 let mapLatLngBounds: L.LatLngBounds;
 mapLatLngBounds = map.getBounds();
@@ -240,6 +259,10 @@ mapLatLngBounds = map.getBounds();
 let mapPoint: L.Point;
 mapPoint = map.getSize();
 mapPoint = map.getPixelOrigin();
+mapPoint = map.project(coordinates);
+mapPoint = map.project(coordinates, 10);
+coordinates = map.unproject(mapPoint);
+coordinates = map.unproject(mapPoint, 10);
 
 let mapPixelBounds: L.Bounds;
 mapPixelBounds = map.getPixelBounds();
@@ -347,7 +370,8 @@ videoOverlayOptions = {
     interactive: true,
     opacity: 100,
     autoplay: true,
-    loop: false
+    loop: false,
+    muted: true
 };
 
 const videoOverlayBounds = latLngBounds;
@@ -431,6 +455,7 @@ map = map
     .openTooltip(htmlElement, latLngTuple, tooltipOptions)
     .closeTooltip()
     .closeTooltip(L.tooltip())
+    .setView(latLng)
     .setView(latLng, 12)
     .setView(latLng, 12, zoomPanOptions)
     .setView(latLngLiteral, 12)
@@ -512,7 +537,12 @@ let nestedTwoCoords = [[12, 13], [13, 14], [14, 15]];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
-const geojson = new L.GeoJSON();
+const geojsonOptions: L.GeoJSONOptions = { interactive: true, bubblingMouseEvents: false, markersInheritOptions: true };
+const geojson = new L.GeoJSON(null, geojsonOptions);
+
+geojson.toGeoJSON();
+geojson.toGeoJSON(15);
+
 const style: L.PathOptions = {
     className: "string",
 };
@@ -710,6 +740,16 @@ L.Util.requestAnimFrame(() => {}, {}, true);
 L.Util.cancelAnimFrame(1);
 L.Util.emptyImageUrl;
 
+const extendedRoot0: typeof obj1 = L.extend(obj1);
+const extendedRoot1: typeof obj1 & typeof obj2 = L.extend(obj1, obj2);
+const extendedRoot2: typeof obj1 & typeof obj2 & typeof obj3 = L.extend(obj1, obj2, obj3);
+const extendedRoot3: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 = L.extend(obj1, obj2, obj3, obj4);
+const extendedRoot4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.extend(obj1, obj2, obj3, obj4, obj5);
+
+L.bind(fnWithArguments, {}, {} as L.DoneCallback, {} as HTMLElement);
+L.stamp({});
+L.setOptions({}, {});
+
 interface MyProperties {
     testProperty: string;
 }
@@ -739,7 +779,7 @@ lg = new L.LayerGroup([new L.Layer(), new L.Layer()], {
 // adapted from GridLayer documentation
 const CanvasLayer = L.GridLayer.extend({
     createTile(coords: L.Coords, done: L.DoneCallback) {
-        const tile = (L.DomUtil.create('canvas', 'leaflet-tile') as HTMLCanvasElement);
+        const tile = L.DomUtil.create('canvas', 'leaflet-tile');
         const size = this.getTileSize();
         tile.width = size.x;
         tile.height = size.y;
@@ -750,7 +790,7 @@ const CanvasLayer = L.GridLayer.extend({
 // adapted from GridLayer documentation
 const AsyncCanvasLayer = L.GridLayer.extend({
     createTile(coords: L.Coords, done: L.DoneCallback) {
-        const tile = (L.DomUtil.create('canvas', 'leaflet-tile') as HTMLCanvasElement);
+        const tile = L.DomUtil.create('canvas', 'leaflet-tile');
         const size = this.getTileSize();
         tile.width = size.x;
         tile.height = size.y;
@@ -763,6 +803,7 @@ export class ExtendedTileLayer extends L.TileLayer {
     createTile(coords: L.Coords, done: L.DoneCallback) {
         const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
         newCoords.z = coords.z;
+        this._wrapCoords(coords);
         return super.createTile(newCoords, done);
     }
 

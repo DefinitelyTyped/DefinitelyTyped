@@ -1,1 +1,3 @@
-export { HailMixed as default } from "../../";
+import { HailMixed } from "../../";
+
+export = HailMixed;

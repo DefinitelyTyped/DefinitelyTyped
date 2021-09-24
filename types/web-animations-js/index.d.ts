@@ -20,8 +20,8 @@ interface AnimationPlaybackEvent {
 }
 
 interface AnimationPlaybackEventInit extends EventInit {
-    currentTime?: number | null;
-    timelineTime?: number | null;
+    currentTime?: number | null | undefined;
+    timelineTime?: number | null | undefined;
 }
 
 declare var AnimationPlaybackEvent: {
@@ -30,10 +30,10 @@ declare var AnimationPlaybackEvent: {
 };
 
 interface AnimationKeyFrame {
-    easing?: string | string[];
-    offset?: number | Array<number | null> | null;
-    opacity?: number | number[];
-    transform?: string |  string[];
+    easing?: string | string[] | undefined;
+    offset?: number | Array<number | null> | null | undefined;
+    opacity?: number | number[] | undefined;
+    transform?: string |  string[] | undefined;
     // [key: string]: string | number | [string | number, string | number] | undefined; (duplicate string indexer in TypeScript 2.7+)
 }
 
@@ -43,15 +43,15 @@ interface AnimationTimeline {
     play(effect: KeyframeEffect): Animation;
 }
 interface AnimationEffectTiming {
-    delay?: number;
-    direction?: AnimationEffectTimingPlaybackDirection;
-    duration?: number;
-    easing?: string;
-    endDelay?: number;
-    fill?: AnimationEffectTimingFillMode;
-    iterationStart?: number;
-    iterations?: number;
-    playbackRate?: number;
+    delay?: number | undefined;
+    direction?: AnimationEffectTimingPlaybackDirection | undefined;
+    duration?: number | undefined;
+    easing?: string | undefined;
+    endDelay?: number | undefined;
+    fill?: AnimationEffectTimingFillMode | undefined;
+    iterationStart?: number | undefined;
+    iterations?: number | undefined;
+    playbackRate?: number | undefined;
 }
 
 interface AnimationEffectReadOnly {

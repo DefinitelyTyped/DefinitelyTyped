@@ -1,1 +1,3 @@
-export { LetterJj32 as default } from "../../";
+import { LetterJj32 } from "../../";
+
+export = LetterJj32;

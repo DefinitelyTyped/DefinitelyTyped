@@ -1,16 +1,16 @@
 declare module Email {
     function send(options: {
-        from?: string;
-        to?: string | string[];
-        cc?: string | string[];
-        bcc?: string | string[];
-        replyTo?: string | string[];
-        subject?: string;
-        text?: string;
-        html?: string;
-        headers?: Object;
-        attachments?: Object[];
-        mailComposer?: MailComposer;
+        from?: string | undefined;
+        to?: string | string[] | undefined;
+        cc?: string | string[] | undefined;
+        bcc?: string | string[] | undefined;
+        replyTo?: string | string[] | undefined;
+        subject?: string | undefined;
+        text?: string | undefined;
+        html?: string | undefined;
+        headers?: Object | undefined;
+        attachments?: Object[] | undefined;
+        mailComposer?: MailComposer | undefined;
     }): void;
 }
 

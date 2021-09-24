@@ -1,1 +1,3 @@
-export { CloudBuilderProfessionalServices as default } from "../../";
+import { CloudBuilderProfessionalServices } from "../../";
+
+export = CloudBuilderProfessionalServices;

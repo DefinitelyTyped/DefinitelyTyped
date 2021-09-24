@@ -16,6 +16,9 @@ Honeybadger.setContext({
     user_id: 123,
 });
 
+const existingContext = Honeybadger.context;
+const userId = existingContext.user_id;
+
 Honeybadger.resetContext();
 
 Honeybadger.resetContext({

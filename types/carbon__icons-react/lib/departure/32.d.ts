@@ -1,1 +1,3 @@
-export { Departure32 as default } from "../../";
+import { Departure32 } from "../../";
+
+export = Departure32;

@@ -1,1 +1,3 @@
-export { PanelExpansion20 as default } from "../../";
+import { PanelExpansion20 } from "../../";
+
+export = PanelExpansion20;

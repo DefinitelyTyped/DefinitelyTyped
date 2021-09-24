@@ -23,7 +23,7 @@ declare namespace LinkedStateMixin {
 
 declare module 'react' {
     interface HTMLAttributes<T> {
-        checkedLink?: LinkedStateMixin.ReactLink<boolean>;
-        valueLink?: LinkedStateMixin.ReactLink<boolean | string | number>;
+        checkedLink?: LinkedStateMixin.ReactLink<boolean> | undefined;
+        valueLink?: LinkedStateMixin.ReactLink<boolean | string | number> | undefined;
     }
 }

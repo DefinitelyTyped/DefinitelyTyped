@@ -88,8 +88,8 @@ export type Format = 'gif' | 'mp4' | 'webm' | 'apng';
 
 // TS-3.4 compatible Omit<>:
 export type ConfigSchema<TValue> = Pick<JSONSchema7, Exclude<keyof JSONSchema7, 'required' | 'default'>> & {
-    required?: boolean;
-    default?: TValue;
+    required?: boolean | undefined;
+    default?: TValue | undefined;
 };
 
 export interface KapShareService<T = unknown> {

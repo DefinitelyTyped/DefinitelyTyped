@@ -1,1 +1,3 @@
-export { Deploy20 as default } from "../../";
+import { Deploy20 } from "../../";
+
+export = Deploy20;

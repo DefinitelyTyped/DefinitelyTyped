@@ -1,1 +1,3 @@
-export { HtmlReference32 as default } from "../../";
+import { HtmlReference32 } from "../../";
+
+export = HtmlReference32;

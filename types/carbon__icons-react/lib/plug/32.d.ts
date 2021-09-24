@@ -1,1 +1,3 @@
-export { Plug32 as default } from "../../";
+import { Plug32 } from "../../";
+
+export = Plug32;

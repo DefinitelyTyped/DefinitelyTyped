@@ -1,1 +1,3 @@
-export { Csv24 as default } from "../../";
+import { Csv24 } from "../../";
+
+export = Csv24;

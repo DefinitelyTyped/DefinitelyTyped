@@ -1,1 +1,3 @@
-export { FolderShared32 as default } from "../../";
+import { FolderShared32 } from "../../";
+
+export = FolderShared32;

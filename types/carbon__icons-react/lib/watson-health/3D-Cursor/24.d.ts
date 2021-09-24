@@ -1,1 +1,3 @@
-export { WatsonHealth3DCursor24 as default } from "../../../";
+import { WatsonHealth3DCursor24 } from "../../../";
+
+export = WatsonHealth3DCursor24;

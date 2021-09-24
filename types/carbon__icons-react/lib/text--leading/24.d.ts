@@ -1,1 +1,3 @@
-export { TextLeading24 as default } from "../../";
+import { TextLeading24 } from "../../";
+
+export = TextLeading24;

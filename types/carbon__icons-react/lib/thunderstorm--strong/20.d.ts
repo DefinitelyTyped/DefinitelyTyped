@@ -1,1 +1,3 @@
-export { ThunderstormStrong20 as default } from "../../";
+import { ThunderstormStrong20 } from "../../";
+
+export = ThunderstormStrong20;

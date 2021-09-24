@@ -1,1 +1,3 @@
-export { Voicemail24 as default } from "../../";
+import { Voicemail24 } from "../../";
+
+export = Voicemail24;

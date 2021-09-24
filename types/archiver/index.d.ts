@@ -1,6 +1,6 @@
-// Type definitions for archiver 3.1
+// Type definitions for archiver 5.1
 // Project: https://github.com/archiverjs/node-archiver
-// Definitions by:  Esri <https://github.com/archiverjs/node-archiver>
+// Definitions by:  Esri
 //                  Dolan Miu <https://github.com/dolanmiu>
 //                  Crevil <https://github.com/crevil>
 //                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -15,36 +15,43 @@ type Partial<T> = {
     [P in keyof T]?: T[P];
 };
 
+// tslint:disable-next-line:ban-types support for ConstructorFn function and classes
+type ConstructorFn<T> = Function | (new (...params: any[]) => T);
+
 declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
 
 declare namespace archiver {
     type Format = 'zip' | 'tar';
 
     function create(format: string, options?: ArchiverOptions): Archiver;
+
+    /** Check if the format is already registered. */
+    function isRegisteredFormat(format: string): boolean;
+
     function registerFormat(format: string, module: Function): void;
 
     interface EntryData {
         /** Sets the entry name including internal path */
         name: string;
         /** Sets the entry date */
-        date?: Date | string;
+        date?: Date | string | undefined;
         /** Sets the entry permissions */
-        mode?: number;
+        mode?: number | undefined;
         /**
          * Sets a path prefix for the entry name.
          * Useful when working with methods like `directory` or `glob`
          */
-        prefix?: string;
+        prefix?: string | undefined;
         /**
          * Sets the fs stat data for this entry allowing
          * for reduction of fs stat calls when stat data is already known
          */
-        stats?: fs.Stats;
+        stats?: fs.Stats | undefined;
     }
 
     interface ZipEntryData extends EntryData {
         /** Sets the compression method to STORE */
-        store?: boolean;
+        store?: boolean | undefined;
     }
 
     type TarEntryData = EntryData;
@@ -87,7 +94,7 @@ declare namespace archiver {
         pointer(): number;
         use(plugin: Function): this;
 
-        symlink(filepath: string, target: string): this;
+        symlink(filepath: string, target: string, mode?: number): this;
 
         on(event: 'error' | 'warning', listener: (error: ArchiverError) => void): this;
         on(event: 'data', listener: (data: Buffer) => void): this;
@@ -101,30 +108,31 @@ declare namespace archiver {
     type ArchiverOptions = CoreOptions & TransformOptions & ZipOptions & TarOptions;
 
     interface CoreOptions {
-        statConcurrency?: number;
+        statConcurrency?: number | undefined;
     }
 
     interface TransformOptions {
-        allowHalfOpen?: boolean;
-        readableObjectMode?: boolean;
-        writeableObjectMode?: boolean;
-        decodeStrings?: boolean;
-        encoding?: string;
-        highWaterMark?: number;
-        objectmode?: boolean;
+        allowHalfOpen?: boolean | undefined;
+        readableObjectMode?: boolean | undefined;
+        writeableObjectMode?: boolean | undefined;
+        decodeStrings?: boolean | undefined;
+        encoding?: string | undefined;
+        highWaterMark?: number | undefined;
+        objectmode?: boolean | undefined;
     }
 
     interface ZipOptions {
-        comment?: string;
-        forceLocalTime?: boolean;
-        forceZip64?: boolean;
-        store?: boolean;
-        zlib?: ZlibOptions;
+        comment?: string | undefined;
+        forceLocalTime?: boolean | undefined;
+        forceZip64?: boolean | undefined;
+        namePrependSlash?: boolean | undefined;
+        store?: boolean | undefined;
+        zlib?: ZlibOptions | undefined;
     }
 
     interface TarOptions {
-        gzip?: boolean;
-        gzipOptions?: ZlibOptions;
+        gzip?: boolean | undefined;
+        gzipOptions?: ZlibOptions | undefined;
     }
 }
 

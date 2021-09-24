@@ -1,1 +1,3 @@
-export { Van16 as default } from "../../";
+import { Van16 } from "../../";
+
+export = Van16;

@@ -1,1 +1,3 @@
-export { CodeReference32 as default } from "../../";
+import { CodeReference32 } from "../../";
+
+export = CodeReference32;

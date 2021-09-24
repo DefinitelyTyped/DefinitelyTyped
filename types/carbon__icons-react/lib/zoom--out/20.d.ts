@@ -1,1 +1,3 @@
-export { ZoomOut20 as default } from "../../";
+import { ZoomOut20 } from "../../";
+
+export = ZoomOut20;

@@ -1,1 +1,3 @@
-export { CarFront24 as default } from "../../";
+import { CarFront24 } from "../../";
+
+export = CarFront24;

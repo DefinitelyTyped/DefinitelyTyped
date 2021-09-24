@@ -1,1 +1,3 @@
-export { Model24 as default } from "../../";
+import { Model24 } from "../../";
+
+export = Model24;

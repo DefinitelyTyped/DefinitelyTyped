@@ -69,6 +69,9 @@ client.connect().then(() => {
         }
         if (badges) {
             const { admin, turbo, subscriber, bits, broadcaster, global_mod, moderator, premium, staff, vip, partner, founder } = badges;
+            badges['bits-leader'];
+            const test = 'hello';
+            badges[test];
         }
         userstate["display-name"];
         userstate["emotes-raw"];

@@ -1,3 +1,6 @@
 {
-    "private": true
+    "private": true,
+    "dependencies": {
+        "date-fns": "^2.16.1"
+    }
 }

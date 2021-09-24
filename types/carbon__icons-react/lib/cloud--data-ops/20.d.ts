@@ -1,1 +1,3 @@
-export { CloudDataOps20 as default } from "../../";
+import { CloudDataOps20 } from "../../";
+
+export = CloudDataOps20;

@@ -1,1 +1,3 @@
-export { FreeTrial as default } from "../../";
+import { FreeTrial } from "../../";
+
+export = FreeTrial;

@@ -1,1 +1,3 @@
-export { WatsonMachineLearning24 as default } from "../../";
+import { WatsonMachineLearning24 } from "../../";
+
+export = WatsonMachineLearning24;

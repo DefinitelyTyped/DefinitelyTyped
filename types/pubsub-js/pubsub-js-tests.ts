@@ -1,7 +1,7 @@
 /// Tests are taken from the PubSubJs Basic Examples https://github.com/mroderick/PubSubJS
 function test_Subscribe() {
     // create a function to receive messages
-    var mySubscriber = (msg: string, data: any) => {
+    var mySubscriber = (msg: PubSubJS.Message, data: any) => {
         console.log(msg, data);
     };
 
@@ -22,7 +22,7 @@ function test_Subscribe() {
 
 function test_unsubscribe_by_token() {
     // create a function to receive messages
-    var mySubscriber = (msg: string, data: any) => {
+    var mySubscriber = (msg: PubSubJS.Message, data: any) => {
         console.log(msg, data);
     };
 
@@ -37,7 +37,7 @@ function test_unsubscribe_by_token() {
 
 function test_unsubcribe_by_function() {
     // create a function to receive the message
-    var mySubscriber = (msg: string, data: any) => {
+    var mySubscriber = (msg: PubSubJS.Message, data: any) => {
         console.log(msg, data);
     };
 
@@ -52,7 +52,7 @@ function test_unsubcribe_by_function() {
 
 function test_Hierarchical_addressing() {
     // create a subscriber to receive all messages from a hierarchy of topics
-    var myToplevelSubscriber = (msg: string, data: any) => {
+    var myToplevelSubscriber = (msg: PubSubJS.Message, data: any) => {
         console.log('top level: ', msg, data);
     };
 
@@ -60,7 +60,7 @@ function test_Hierarchical_addressing() {
     PubSub.subscribe('car', myToplevelSubscriber);
 
     // create a subscriber to receive only leaf message from hierarchy op topics
-    var mySpecificSubscriber = (msg: string, data: any) => {
+    var mySpecificSubscriber = (msg: PubSubJS.Message, data: any) => {
         console.log('specific: ', msg, data);
     };
 
@@ -80,7 +80,7 @@ function test_Hierarchical_addressing() {
 
 function ClearAllSubscriptions() {
     // create a function to receive messages
-    var mySubscriber = (msg: string, data: any) => {
+    var mySubscriber = (msg: PubSubJS.Message, data: any) => {
         console.log(msg, data);
     };
 
@@ -90,4 +90,38 @@ function ClearAllSubscriptions() {
 
     // unsubscribe from all subscrpitions
     PubSub.clearAllSubscriptions();
+}
+
+function testStringMessage() {
+    PubSub.subscribe('car', (msg: string, data: any) => {
+        console.log('top level: ', msg, data);
+    });
+}
+
+function test_generics_1() {
+    const login = Symbol('LOGIN');
+
+    const pubsub: PubSubJS.Base<number> = PubSub;
+
+    pubsub.subscribe(login, (msg, data) => {});
+
+    pubsub.publish(login, 123);
+}
+
+function test_generics_2() {
+    const login: PubSubJS.Base<number, 'login'> = PubSub;
+
+    login.subscribe('login', (msg, data) => {});
+
+    login.publish('login', 123);
+}
+
+function test_generics_3() {
+    const login = Symbol('LOGIN');
+
+    const pubsub: PubSubJS.Base<number, symbol> = PubSub;
+
+    pubsub.subscribe(login, (msg, data) => {});
+
+    pubsub.publish(login, 123);
 }

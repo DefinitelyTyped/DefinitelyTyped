@@ -1,1 +1,3 @@
-export { Reply20 as default } from "../../";
+import { Reply20 } from "../../";
+
+export = Reply20;

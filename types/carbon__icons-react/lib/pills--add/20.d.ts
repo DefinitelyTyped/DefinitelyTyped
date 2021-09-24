@@ -1,1 +1,3 @@
-export { PillsAdd20 as default } from "../../";
+import { PillsAdd20 } from "../../";
+
+export = PillsAdd20;

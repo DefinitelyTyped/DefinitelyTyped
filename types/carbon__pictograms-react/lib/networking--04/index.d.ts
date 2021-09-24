@@ -1,1 +1,3 @@
-export { Networking_04 as default } from "../../";
+import { Networking_04 } from "../../";
+
+export = Networking_04;

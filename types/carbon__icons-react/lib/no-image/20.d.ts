@@ -1,1 +1,3 @@
-export { NoImage20 as default } from "../../";
+import { NoImage20 } from "../../";
+
+export = NoImage20;

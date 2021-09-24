@@ -1,1 +1,3 @@
-export { OperationsField24 as default } from "../../";
+import { OperationsField24 } from "../../";
+
+export = OperationsField24;

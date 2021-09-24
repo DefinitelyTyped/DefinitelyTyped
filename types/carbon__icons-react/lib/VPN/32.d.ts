@@ -1,1 +1,3 @@
-export { Vpn32 as default } from "../../";
+import { Vpn32 } from "../../";
+
+export = Vpn32;

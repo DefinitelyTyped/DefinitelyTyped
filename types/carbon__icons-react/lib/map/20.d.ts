@@ -1,1 +1,3 @@
-export { Map20 as default } from "../../";
+import { Map20 } from "../../";
+
+export = Map20;

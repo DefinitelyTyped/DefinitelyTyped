@@ -4,6 +4,7 @@ import {
     Cell,
     CellProps,
     Column,
+    DefaultSortTypes,
     FilterProps,
     FilterValue,
     HeaderGroup,
@@ -136,7 +137,7 @@ interface Data {
     visits: number;
     progress: number;
     status: string;
-    subRows?: Data[];
+    subRows?: Data[] | undefined;
 }
 
 // Create an editable cell renderer
@@ -172,8 +173,10 @@ const EditableCell = ({
 };
 
 // Define a default UI for filtering
-function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter } }: FilterProps<Data>) {
+function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter, parent } }: FilterProps<Data>) {
     const count = preFilteredRows.length;
+
+    const foo = parent;  // $ExpectType ColumnInstance<Data> | undefined
 
     return (
         <input
@@ -312,10 +315,10 @@ function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, id: IdType<T>,
 fuzzyTextFilterFn.autoRemove = (val: any) => !val;
 
 interface Table<T extends object> {
-    columns: Array<Column<T>>;
+    columns: ReadonlyArray<Column<T>>;
     data: T[];
     updateMyData?: any;
-    skipPageReset?: boolean;
+    skipPageReset?: boolean | undefined;
 }
 
 // Be sure to pass our updateMyData and the skipPageReset option
@@ -384,6 +387,9 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             // We also need to pass this so the page doesn't change
             // when we edit the data, undefined means using the default
             autoResetPage: !skipPageReset,
+            // Do not reset hidden columns when columns change. Allows
+            // for creating columns during render.
+            autoResetHiddenColumns: false,
         },
         useGroupBy,
         useFilters,
@@ -591,7 +597,7 @@ const Component = (props: {}) => {
         { firstName: 'surprise', lastName: 'zinc', age: 23, visits: 7, progress: 48, status: 'single' },
         { firstName: 'riddle', lastName: 'information', age: 2, visits: 63, progress: 3, status: 'complicated' },
     ];
-    const columns: Array<Column<Data>> = [
+    const columns: ReadonlyArray<Column<Data>> = [
         {
             id: 'selection',
             // The header can use the table's getToggleAllRowsSelectedProps method
@@ -686,7 +692,7 @@ const Component = (props: {}) => {
     ];
 
     // mostly the same as above but minus the grouping
-    const columns2: Array<Column<Data>> = [
+    const columns2: ReadonlyArray<Column<Data>> = [
         {
             Header: 'First Name',
             accessor: 'firstName',
@@ -817,3 +823,11 @@ const Component = (props: {}) => {
 };
 
 ReactDOM.render(<Component />, document.getElementById('root'));
+
+declare function checkDefaultSortType(sortType: DefaultSortTypes): void;
+
+checkDefaultSortType('alphanumeric');
+checkDefaultSortType('datetime');
+checkDefaultSortType('basic');
+checkDefaultSortType('string');
+checkDefaultSortType('number');

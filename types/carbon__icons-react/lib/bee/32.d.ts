@@ -1,1 +1,3 @@
-export { Bee32 as default } from "../../";
+import { Bee32 } from "../../";
+
+export = Bee32;

@@ -19,6 +19,19 @@
     },
     "files": [
         "index.d.ts",
+        "test/alert-tests.ts",
+        "test/button-tests.ts",
+        "test/carousel-tests.ts",
+        "test/collapse-tests.ts",
+        "test/dropdown-tests.ts",
+        "test/global-script.ts",
+        "test/modal-tests.ts",
+        "test/offcanvas-tests.ts",
+        "test/popover-tests.ts",
+        "test/scrollspy-tests.ts",
+        "test/tab-tests.ts",
+        "test/toast-tests.ts",
+        "test/tooltip-tests.ts",
         "bootstrap-tests.ts"
     ]
 }

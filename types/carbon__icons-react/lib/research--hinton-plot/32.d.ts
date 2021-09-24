@@ -1,1 +1,3 @@
-export { ResearchHintonPlot32 as default } from "../../";
+import { ResearchHintonPlot32 } from "../../";
+
+export = ResearchHintonPlot32;

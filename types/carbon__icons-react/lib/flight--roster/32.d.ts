@@ -1,1 +1,3 @@
-export { FlightRoster32 as default } from "../../";
+import { FlightRoster32 } from "../../";
+
+export = FlightRoster32;

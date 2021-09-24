@@ -1,1 +1,3 @@
-export { ShareKnowledge20 as default } from "../../";
+import { ShareKnowledge20 } from "../../";
+
+export = ShareKnowledge20;

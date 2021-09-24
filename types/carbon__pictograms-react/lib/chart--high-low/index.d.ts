@@ -1,1 +1,3 @@
-export { ChartHighLow as default } from "../../";
+import { ChartHighLow } from "../../";
+
+export = ChartHighLow;

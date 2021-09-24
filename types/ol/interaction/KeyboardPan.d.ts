@@ -6,9 +6,9 @@ import { ObjectEvent } from '../Object';
 import Interaction from './Interaction';
 
 export interface Options {
-    condition?: Condition;
-    duration?: number;
-    pixelDelta?: number;
+    condition?: Condition | undefined;
+    duration?: number | undefined;
+    pixelDelta?: number | undefined;
 }
 export default class KeyboardPan extends Interaction {
     constructor(opt_options?: Options);

@@ -1,1 +1,3 @@
-export { DataVis_232 as default } from "../../";
+import { DataVis_232 } from "../../";
+
+export = DataVis_232;

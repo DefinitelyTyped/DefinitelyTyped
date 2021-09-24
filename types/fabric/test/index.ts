@@ -10,6 +10,7 @@ function sample1() {
   });
   canvas.on('object:modified', (e: fabric.IEvent) => {
     e.target.opacity = 1;
+    const obj = e.target.getCoords();
   });
 
   for (let i = 0; i < 15; i++) {
@@ -107,22 +108,21 @@ function sample3() {
   const canvas = new fabric.Canvas('c', { backgroundImage: '../lib/bg.png' });
   const f = fabric.Image.filters;
 
-  canvas.on({
-    'object:selected': () => {
-      fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = false; });
+  canvas.on('object:selected', () => {
+    fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = false; });
 
-      const filters = ['grayscale', 'invert', 'remove-white', 'sepia', 'sepia2', 'brightness',
-        'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen'];
+    const filters = ['grayscale', 'invert', 'remove-white', 'sepia', 'sepia2', 'brightness',
+      'noise', 'gradient-transparency', 'pixelate', 'blur', 'sharpen'];
 
-      for (let i = 0; i < filters.length; i++) {
-        const checkBox = <HTMLInputElement> $(filters[i]);
-        const image = <fabric.Image> canvas.getActiveObject();
-        checkBox.checked = !!image.filters[i];
-      }
-    },
-    'selection:cleared': () => {
-      fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = true; });
+    for (let i = 0; i < filters.length; i++) {
+      const checkBox = <HTMLInputElement> $(filters[i]);
+      const image = <fabric.Image> canvas.getActiveObject();
+      checkBox.checked = !!image.filters[i];
     }
+  });
+
+  canvas.on('selection:cleared', () => {
+    fabric.util.toArray(document.getElementsByTagName('input')).forEach(el => { el.disabled = true; });
   });
 
   const image = fabric.Image.fromURL('../assets/printio.png', (img: fabric.Image) => {
@@ -255,18 +255,17 @@ function sample4() {
     leftControl.value = rect.left.toString();
     topControl.value = rect.top.toString();
   }
-  canvas.on({
-    'object:moving': updateControls,
-    'object:scaling': updateControls,
-    'object:resizing': updateControls
-  });
+
+  canvas.on('object:moving', updateControls);
+  canvas.on('object:scaling', updateControls);
+  canvas.on('object:resizing', updateControls);
 }
 
 interface CircleWithLineInfos extends fabric.Circle {
-    line1?: fabric.Line;
-    line2?: fabric.Line;
-    line3?: fabric.Line;
-    line4?: fabric.Line;
+  line1?: fabric.Line | undefined;
+  line2?: fabric.Line | undefined;
+  line3?: fabric.Line | undefined;
+  line4?: fabric.Line | undefined;
 }
 
 function sample5() {
@@ -308,14 +307,14 @@ function sample5() {
   canvas.add(line, line2, line3, line4, line5, line6);
 
   canvas.add(
-    makeCircle(line.x1, line.y1, null, line),
-    makeCircle(line.x2, line.y2, line, line2, line5, line6),
-    makeCircle(line2.x2, line2.y2, line2, line3, line4),
-    makeCircle(line3.x2, line3.y2, line3),
-    makeCircle(line4.x2, line4.y2, line4),
-    makeCircle(line5.x2, line5.y2, line5),
-    makeCircle(line6.x2, line6.y2, line6)
-    );
+      makeCircle(line.x1, line.y1, null, line),
+      makeCircle(line.x2, line.y2, line, line2, line5, line6),
+      makeCircle(line2.x2, line2.y2, line2, line3, line4),
+      makeCircle(line3.x2, line3.y2, line3),
+      makeCircle(line4.x2, line4.y2, line4),
+      makeCircle(line5.x2, line5.y2, line5),
+      makeCircle(line6.x2, line6.y2, line6)
+  );
 
   canvas.on('object:moving', e => {
     const p = <CircleWithLineInfos> e.target;
@@ -341,6 +340,7 @@ function sample6() {
 
     canvas.on('mouse:move', options => {
       const p = canvas.getPointer(options.e);
+      const mouseX = options.e.clientX;
 
       canvas.forEachObject(obj => {
         const distX = Math.abs(p.x - obj.left);
@@ -349,13 +349,17 @@ function sample6() {
         obj.set('opacity', (1 / (dist / 20)));
       });
     });
+
+    canvas.on('mouse:wheel', (options) => {
+        const deltaY = options.e.deltaY;
+    });
   }, null, {
-      crossOrigin:'anonymous'
+    crossOrigin:'anonymous'
   });
 }
 
 interface ImageWithInfo extends fabric.Image {
-    movingLeft: boolean;
+  movingLeft: boolean;
 }
 
 function sample7() {
@@ -400,10 +404,10 @@ function sample8() {
 
   function getRandomColor() {
     return (
-      pad(getRandomInt(0, 255).toString(16), 2) +
-      pad(getRandomInt(0, 255).toString(16), 2) +
-      pad(getRandomInt(0, 255).toString(16), 2)
-      );
+        pad(getRandomInt(0, 255).toString(16), 2) +
+        pad(getRandomInt(0, 255).toString(16), 2) +
+        pad(getRandomInt(0, 255).toString(16), 2)
+    );
   }
 
   function getRandomNum(min: number, max: number): number {
@@ -637,8 +641,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockMovementX = !activeObject.lockMovementX;
       lockHorizontallyEl.innerHTML = activeObject.lockMovementX
-        ? 'Unlock horizontal movement'
-        : 'Lock horizontal movement';
+          ? 'Unlock horizontal movement'
+          : 'Lock horizontal movement';
     }
   };
 
@@ -648,8 +652,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockMovementY = !activeObject.lockMovementY;
       lockVerticallyEl.innerHTML = activeObject.lockMovementY
-        ? 'Unlock vertical movement'
-        : 'Lock vertical movement';
+          ? 'Unlock vertical movement'
+          : 'Lock vertical movement';
     }
   };
 
@@ -659,8 +663,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockScalingX = !activeObject.lockScalingX;
       lockScalingXEl.innerHTML = activeObject.lockScalingX
-        ? 'Unlock horizontal scaling'
-        : 'Lock horizontal scaling';
+          ? 'Unlock horizontal scaling'
+          : 'Lock horizontal scaling';
     }
   };
 
@@ -670,8 +674,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockScalingY = !activeObject.lockScalingY;
       lockScalingYEl.innerHTML = activeObject.lockScalingY
-        ? 'Unlock vertical scaling'
-        : 'Lock vertical scaling';
+          ? 'Unlock vertical scaling'
+          : 'Lock vertical scaling';
     }
   };
 
@@ -681,8 +685,8 @@ function sample8() {
     if (activeObject) {
       activeObject.lockRotation = !activeObject.lockRotation;
       lockRotationEl.innerHTML = activeObject.lockRotation
-        ? 'Unlock rotation'
-        : 'Lock rotation';
+          ? 'Unlock rotation'
+          : 'Lock rotation';
     }
   };
 
@@ -801,26 +805,6 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
   setTimeout(() => {
     canvas.calcOffset();
   }, 100);
-
-  if (document.location.search.indexOf('guidelines') > -1) {
-    // initCenteringGuidelines(canvas);
-    // initAligningGuidelines(canvas);
-  }
-
-  gradientifyBtn.onclick = () => {
-    const obj = canvas.getActiveObject();
-    if (obj) {
-      obj.setGradient("fill", {
-        y2: (getRandomInt(0, 1) ? 0 : obj.height),
-        x2: (getRandomInt(0, 1) ? 0 : obj.width),
-        colorStops: {
-          0: '#' + getRandomColor(),
-          1: '#' + getRandomColor()
-        }
-      });
-      canvas.renderAll();
-    }
-  };
 
   const textEl = <HTMLInputElement> document.getElementById('text');
   if (textEl) {
@@ -1042,9 +1026,9 @@ function sample10() {
 }
 
 function sample11() {
-   const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
-   const webglFilterBackend = new fabric.WebglFilterBackend();
-   fabric.filterBackend = new fabric.Canvas2dFilterBackend();
+  const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
+  const webglFilterBackend = new fabric.WebglFilterBackend();
+  fabric.filterBackend = new fabric.Canvas2dFilterBackend();
 }
 
 function sample12() {
@@ -1052,9 +1036,25 @@ function sample12() {
   const position = fabric.util.getScrollLeftTop(canvas.getElement());
   const x = position.left;
   const y = position.top;
+  canvas.absolutePan({ x, y });
+  canvas.absolutePan(new fabric.Point(x, y));
 }
 
 function sample13() {
   const rectangle = new fabric.Rect({top: 0, left: 0, width: 10, height: 10});
   const rectangleAsHtmlCanvas: HTMLCanvasElement = rectangle.toCanvasElement();
+}
+
+function sample14() {
+  fabric.Object.prototype.controls.testControl = new fabric.Control({
+    mouseUpHandler(eventData: MouseEvent, transformData: fabric.Transform, x: number, y: number): boolean {
+      return false;
+    }
+  });
+}
+
+function sample15() {
+  const canvas = new fabric.Canvas('c');
+  const textRTL = new fabric.Text('שלום עולם', { left: 100, top: 100, direction: 'rtl', originX: 'right', textAlign: 'right' });
+  canvas.add(textRTL);
 }

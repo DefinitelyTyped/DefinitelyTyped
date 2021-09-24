@@ -1,1 +1,3 @@
-export { CertificateCheck20 as default } from "../../";
+import { CertificateCheck20 } from "../../";
+
+export = CertificateCheck20;

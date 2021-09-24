@@ -2,6 +2,7 @@
 
 import hljs = require("highlight.js");
 import { Remarkable } from "remarkable";
+import { linkify } from "remarkable/linkify";
 
 /**
  * Examples from README.
@@ -10,6 +11,12 @@ export class RemarkableTest {
     usage() {
         const md = new Remarkable();
         md.render("# Remarkable rulezz!");
+    }
+
+    presets() {
+        new Remarkable("commonmark");
+        new Remarkable("default");
+        new Remarkable("full");
     }
 
     defineOptionsInContructor() {
@@ -52,6 +59,15 @@ export class RemarkableTest {
             linkify: true,
             typographer: true,
         });
+
+        md.render("# Remarkable rulezz!");
+    }
+
+    useLinkifyPlugin() {
+        const md = new Remarkable("full", {
+            html: true,
+            typographer: true,
+        }).use(linkify);
 
         md.render("# Remarkable rulezz!");
     }

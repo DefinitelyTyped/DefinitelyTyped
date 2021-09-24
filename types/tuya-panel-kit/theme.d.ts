@@ -4,21 +4,141 @@ export interface StopsProps {
     stopOpacity: string;
 }
 export interface LinearGradientBackground {
-    x1?: string;
-    x2?: string;
-    y1?: string;
-    y2?: string;
-    stops?: Record<string, string>;
+    /**
+     * @language zh-CN
+     * @description 起始点的x轴坐标
+     * @defaultValue '0%'
+     */
+    /**
+     * @language en-US
+     * @description The x-axis coordinate of the starting point
+     * @defaultValue '0%'
+     */
+    x1?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 终点的x轴坐标
+     * @defaultValue '0%'
+     */
+    /**
+     * @language en-US
+     * @description The x-axis coordinate of the ending point
+     * @defaultValue '0%'
+     */
+    x2?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 起始点的y轴坐标
+     * @defaultValue '0%'
+     */
+    /**
+     * @language en-US
+     * @description The y-axis coordinate of the starting point
+     * @defaultValue '0%'
+     */
+    y1?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 终点的y轴坐标
+     * @defaultValue '100%'
+     */
+    /**
+     * @language en-US
+     * @description The y-axis coordinate of the ending point
+     * @defaultValue '0%'
+     */
+    y2?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 渐变梯度停点
+     * @defaultValue { '0%': 'rgb(255, 255, 255)', '100%': 'rgb(0, 0, 0)' }
+     */
+    /**
+     * @language en-US
+     * @description The stop point of gradient
+     * @defaultValue { '0%': 'rgb(255, 255, 255)', '100%': 'rgb(0, 0, 0)' }
+     */
+    stops?: Record<string, string> | undefined;
 }
 
 export interface RadialGradientBackground {
-    cx?: string;
-    cy?: string;
-    fx?: string;
-    fy?: string;
-    rx?: string;
-    ry?: string;
-    stops?: StopsProps[];
+    /**
+     * @language zh-CN
+     * @description 最外侧圆的x轴坐标点
+     * @defaultValue '50%'
+     */
+    /**
+     * @language en-US
+     * @description The x-axis coordinate point of the outermost circle
+     * @defaultValue '50%'
+     */
+    cx?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 最外侧圆的y轴坐标点
+     * @defaultValue '50%'
+     */
+    /**
+     * @language en-US
+     * @description The y-axis coordinate point of the outermost circle
+     * @defaultValue '50%'
+     */
+    cy?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 最内侧圆的x轴坐标点(渐变中心点)
+     * @defaultValue '50%'
+     */
+    /**
+     * @language en-US
+     * @description The x-axis coordinate point of the innermost circle (gradient center point)
+     * @defaultValue '50%'
+     */
+    fx?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 最内侧圆的y轴坐标点(渐变中心点)
+     * @defaultValue '50%'
+     */
+    /**
+     * @language en-US
+     * @description The y-axis coordinate point of the innermost circle (gradient center point)
+     * @defaultValue '50%'
+     */
+    fy?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 最内侧圆水平方向的半径(渐变长度)
+     * @defaultValue '50%'
+     */
+    /**
+     * @language en-US
+     * @description The horizontal radius of the innermost circle (gradient length)
+     * @defaultValue '50%'
+     */
+    rx?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 最内侧圆垂直方向的半径(渐变高度)
+     * @defaultValue '50%'
+     */
+    /**
+     * @language en-US
+     * @description The vertical radius of the innermost circle (gradient height)
+     * @defaultValue '50%'
+     */
+    ry?: string | undefined;
+    /**
+     * @language zh-CN
+     * @description 渐变梯度停点
+     * @defaultValue [{ offset: '0%', stopColor: '#ff0', stopOpacity: '1' }, { offset: '100%', stopColor: '#00f', stopOpacity: '1' }]
+     */
+    /**
+     * @language en-US
+     * @description The stop point of gradient
+     * @defaultValue [{ offset: '0%', stopColor: '#ff0', stopOpacity: '1' }, { offset: '100%', stopColor: '#00f', stopOpacity: '1' }]
+     */
+    stops?: StopsProps[] | undefined;
 }
 
 // Button

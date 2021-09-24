@@ -1,1 +1,3 @@
-export { IncompleteCancel32 as default } from "../../";
+import { IncompleteCancel32 } from "../../";
+
+export = IncompleteCancel32;

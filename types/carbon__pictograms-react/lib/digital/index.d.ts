@@ -1,1 +1,3 @@
-export { Digital as default } from "../../";
+import { Digital } from "../../";
+
+export = Digital;

@@ -1,1 +1,3 @@
-export { ChartStepper24 as default } from "../../";
+import { ChartStepper24 } from "../../";
+
+export = ChartStepper24;

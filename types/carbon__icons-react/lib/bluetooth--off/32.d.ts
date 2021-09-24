@@ -1,1 +1,3 @@
-export { BluetoothOff32 as default } from "../../";
+import { BluetoothOff32 } from "../../";
+
+export = BluetoothOff32;

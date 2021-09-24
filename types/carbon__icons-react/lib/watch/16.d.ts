@@ -1,1 +1,3 @@
-export { Watch16 as default } from "../../";
+import { Watch16 } from "../../";
+
+export = Watch16;

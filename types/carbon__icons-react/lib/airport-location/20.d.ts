@@ -1,1 +1,3 @@
-export { AirportLocation20 as default } from "../../";
+import { AirportLocation20 } from "../../";
+
+export = AirportLocation20;

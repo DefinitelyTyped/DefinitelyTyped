@@ -3,7 +3,10 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { RedisClient } from 'redis';
+
+interface RedisClient {
+    multi(operations: any[][]): { exec(cb: (err: any, res: any) => unknown): void };
+}
 
 declare class Limiter {
     constructor(opts: Limiter.LimiterOption);
@@ -35,13 +38,13 @@ declare namespace Limiter {
          * Max requests within duration
          * @default 2500
          */
-        max?: number;
+        max?: number | undefined;
 
         /**
          * Duration of limit in milliseconds
          * @default 3600000
          */
-        duration?: number;
+        duration?: number | undefined;
     }
 
     /**

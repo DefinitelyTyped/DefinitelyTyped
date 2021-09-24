@@ -1,1 +1,3 @@
-export { Cell as default } from "../../";
+import { Cell } from "../../";
+
+export = Cell;

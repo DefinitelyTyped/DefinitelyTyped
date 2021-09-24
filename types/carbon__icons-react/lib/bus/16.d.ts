@@ -1,1 +1,3 @@
-export { Bus16 as default } from "../../";
+import { Bus16 } from "../../";
+
+export = Bus16;

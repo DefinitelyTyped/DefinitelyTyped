@@ -1,1 +1,3 @@
-export { TextLineSpacing16 as default } from "../../";
+import { TextLineSpacing16 } from "../../";
+
+export = TextLineSpacing16;

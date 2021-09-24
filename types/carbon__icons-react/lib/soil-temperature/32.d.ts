@@ -1,1 +1,3 @@
-export { SoilTemperature32 as default } from "../../";
+import { SoilTemperature32 } from "../../";
+
+export = SoilTemperature32;

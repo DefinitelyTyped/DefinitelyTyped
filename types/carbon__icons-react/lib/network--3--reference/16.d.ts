@@ -1,1 +1,3 @@
-export { Network_3Reference16 as default } from "../../";
+import { Network_3Reference16 } from "../../";
+
+export = Network_3Reference16;

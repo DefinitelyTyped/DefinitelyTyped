@@ -181,31 +181,31 @@ declare namespace JQueryWindow {
         /**
         the direction of minimized window dock at. the available values are [left, right, top, bottom]
         **/
-        dock?: string;
+        dock?: string | undefined;
         /**
         the area which the windows will dock at
         **/
-        dockArea?: JQuery|HTMLElement;
+        dockArea?: JQuery|HTMLElement | undefined;
         /**
         the speed of animations: maximize, minimize, restore, shift, in milliseconds
         **/
-        animationSpeed?: number;
+        animationSpeed?: number | undefined;
         /**
         the narrow dimension of minimized window
         **/
-        minWinNarrow?: number;
+        minWinNarrow?: number | undefined;
         /**
         the long dimension of minimized window
         **/
-        minWinLong?: number;
+        minWinLong?: number | undefined;
         /**
         to handle browser scrollbar when window status changed(maximize, minimize, cascade)
         **/
-        handleScrollbar?: boolean;
+        handleScrollbar?: boolean | undefined;
         /**
         to decide show log in firebug, IE8, chrome console
         **/
-        showLog?: boolean;
+        showLog?: boolean | undefined;
     }
 
     // Instance options
@@ -213,7 +213,7 @@ declare namespace JQueryWindow {
         /**
         an icon image url string. if this attribute is given, it will force to replace the original favicon of remote page on window. or you can set it as null to hide icon.
         **/
-        icon?: string;
+        icon?: string | undefined;
         /**
         the title text of window
         **/
@@ -221,203 +221,203 @@ declare namespace JQueryWindow {
         /**
         the target url of iframe ready to load.
         **/
-        url?: string;
+        url?: string | undefined;
         /**
         this attribute only works when url is null. when passing a jquery object or a element, it will clone the original one to append.
         **/
-        content?: string|JQuery|HTMLElement;
+        content?: string|JQuery|HTMLElement | undefined;
         /**
         same as content attribute, but it's put on footer panel.
         **/
-        footerContent?: string|JQuery|HTMLElement;
+        footerContent?: string|JQuery|HTMLElement | undefined;
         /**
         container extra class
         **/
-        containerClass?: string;
+        containerClass?: string | undefined;
         /**
         header extra class
         **/
-        headerClass?: string;
+        headerClass?: string | undefined;
         /**
         frame extra class
         **/
-        frameClass?: string;
+        frameClass?: string | undefined;
         /**
         footer extra class
         **/
-        footerClass?: string;
+        footerClass?: string | undefined;
         /**
         selected header extra class
         **/
-        selectedHeaderClass?: string;
+        selectedHeaderClass?: string | undefined;
         /**
         the x-axis value on screen(or caller element), if -1 means put on screen(or caller element) center
         **/
-        x?: number;
+        x?: number | undefined;
         /**
         the y-axis value on screen(or caller element), if -1 means put on screen(or caller element) center
         **/
-        y?: number;
+        y?: number | undefined;
         /**
         the css z-index value
         **/
-        z?: number;
+        z?: number | undefined;
         /**
         window width
         **/
-        width?: number;
+        width?: number | undefined;
         /**
         window height
         **/
-        height?: number;
+        height?: number | undefined;
         /**
         the minimum width, if -1 means no checking
         **/
-        minWidth?: number;
+        minWidth?: number | undefined;
         /**
         the minimum height, if -1 means no checking
         **/
-        minHeight?: number;
+        minHeight?: number | undefined;
         /**
         the maximum width, if -1 means no checking
         **/
-        maxWidth?: number;
+        maxWidth?: number | undefined;
         /**
         the maximum height, if -1 means no checking
         **/
-        maxHeight?: number;
+        maxHeight?: number | undefined;
         /**
         to control show modal on background
         **/
-        showModal?: boolean;
+        showModal?: boolean | undefined;
         /**
         the opacity of modal dialog
         **/
-        modalOpacity?: number;
+        modalOpacity?: number | undefined;
         /**
         to control show footer panel
         **/
-        showFooter?: boolean;
+        showFooter?: boolean | undefined;
         /**
         to control display window as round corner
         **/
-        showRoundCorner?: boolean;
+        showRoundCorner?: boolean | undefined;
         /**
         to control window closable
         **/
-        closable?: boolean;
+        closable?: boolean | undefined;
         /**
         to control window minimizable
         **/
-        minimizable?: boolean;
+        minimizable?: boolean | undefined;
         /**
         to control window maximizable
         **/
-        maximizable?: boolean;
+        maximizable?: boolean | undefined;
         /**
         to control window with remote url could be bookmarked
         **/
-        bookmarkable?: boolean;
+        bookmarkable?: boolean | undefined;
         /**
         to control window draggable
         **/
-        draggable?: boolean;
+        draggable?: boolean | undefined;
         /**
         to control window resizable
         **/
-        resizable?: boolean;
+        resizable?: boolean | undefined;
         /**
         to show scroll bar or not
         **/
-        scrollable?: boolean;
+        scrollable?: boolean | undefined;
         /**
         to check window dialog overflow html body or caller element
         **/
-        checkBoundary?: boolean;
+        checkBoundary?: boolean | undefined;
         /**
          to limit window only can be dragged within browser window. this attribute only works when checkBoundary is true and caller is null.
         **/
-        withinBrowserWindow?: boolean;
+        withinBrowserWindow?: boolean | undefined;
         /**
         to describe the customized button display and callback function
         **/
-        custBtns?: Array<JQueryWindow.Button>;
+        custBtns?: Array<JQueryWindow.Button> | undefined;
         /**
         a callback function while container is added into body
         **/
-        onOpen?: (wnd: JQueryWindow.Window) => void;
+        onOpen?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while whole window display routine is finished
         **/
-        onShow?: (wnd: JQueryWindow.Window) => void;
+        onShow?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while user click close button
         **/
-        onClose?: (wnd: JQueryWindow.Window) => void;
+        onClose?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while user select the window
         **/
-        onSelect?: (wnd: JQueryWindow.Window) => void;
+        onSelect?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while window unselected
         **/
-        onUnselect?: (wnd: JQueryWindow.Window) => void;
+        onUnselect?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while window is going to drag
         **/
-        onDrag?: (wnd: JQueryWindow.Window) => void;
+        onDrag?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function after window dragged
         **/
-        afterDrag?: (wnd: JQueryWindow.Window) => void;
+        afterDrag?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while window is going to resize
         **/
-        onResize?: (wnd: JQueryWindow.Window) => void;
+        onResize?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function after window resized
         **/
-        afterResize?: (wnd: JQueryWindow.Window) => void;
+        afterResize?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while window is going to minimize
         **/
-        onMinimize?: (wnd: JQueryWindow.Window) => void;
+        onMinimize?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function after window minimized
         **/
-        afterMinimize?: (wnd: JQueryWindow.Window) => void;
+        afterMinimize?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while window is going to maximize
         **/
-        onMaximize?: (wnd: JQueryWindow.Window) => void;
+        onMaximize?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function after window maximized
         **/
-        afterMaximize?: (wnd: JQueryWindow.Window) => void;
+        afterMaximize?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while window is going to cascade
         **/
-        onCascade?: (wnd: JQueryWindow.Window) => void;
+        onCascade?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function after window cascaded
         **/
-        afterCascade?: (wnd: JQueryWindow.Window) => void;
+        afterCascade?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while iframe ready to connect remoting url. this attribute only works while url attribute is given
         **/
-        onIframeStart?: (wnd: JQueryWindow.Window) => void;
+        onIframeStart?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         a callback function while iframe load finished. this attribute only works while url attribute is given
         **/
-        onIframeEnd?: (wnd: JQueryWindow.Window) => void;
+        onIframeEnd?: ((wnd: JQueryWindow.Window) => void) | undefined;
         /**
         if null means no check, or pass a string to show warning message while iframe is going to redirect current top page
         **/
-        iframeRedirectCheckMsg?: string;
+        iframeRedirectCheckMsg?: string | undefined;
         /**
         random the new created window position, it only works when options x,y value both are -1
         **/
-        createRandomOffset?: { x: number; y: number };
+        createRandomOffset?: { x: number; y: number } | undefined;
     }
 
     // Button definition
@@ -429,15 +429,15 @@ declare namespace JQueryWindow {
         /**
 
         **/
-        title?: string;
+        title?: string | undefined;
         /**
 
         **/
-        clazz?: string;
+        clazz?: string | undefined;
         /**
 
         **/
-        style?: string;
+        style?: string | undefined;
         /**
 
         **/

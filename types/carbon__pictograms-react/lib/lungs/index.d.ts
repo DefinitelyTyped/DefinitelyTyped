@@ -1,1 +1,3 @@
-export { Lungs as default } from "../../";
+import { Lungs } from "../../";
+
+export = Lungs;

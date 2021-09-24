@@ -1,1 +1,3 @@
-export { ParentChild20 as default } from "../../";
+import { ParentChild20 } from "../../";
+
+export = ParentChild20;

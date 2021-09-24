@@ -1,1 +1,3 @@
-export { Percentage32 as default } from "../../";
+import { Percentage32 } from "../../";
+
+export = Percentage32;

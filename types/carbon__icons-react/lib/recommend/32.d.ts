@@ -1,1 +1,3 @@
-export { Recommend32 as default } from "../../";
+import { Recommend32 } from "../../";
+
+export = Recommend32;

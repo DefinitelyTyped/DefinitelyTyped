@@ -1,1 +1,3 @@
-export { LocationHeart32 as default } from "../../";
+import { LocationHeart32 } from "../../";
+
+export = LocationHeart32;

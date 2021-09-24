@@ -1,1 +1,3 @@
-export { Snow20 as default } from "../../";
+import { Snow20 } from "../../";
+
+export = Snow20;

@@ -1,1 +1,3 @@
-export { AsleepFilled32 as default } from "../../";
+import { AsleepFilled32 } from "../../";
+
+export = AsleepFilled32;

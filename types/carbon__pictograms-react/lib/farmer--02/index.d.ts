@@ -1,1 +1,3 @@
-export { Farmer_02 as default } from "../../";
+import { Farmer_02 } from "../../";
+
+export = Farmer_02;

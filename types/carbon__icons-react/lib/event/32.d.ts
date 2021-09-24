@@ -1,1 +1,3 @@
-export { Event32 as default } from "../../";
+import { Event32 } from "../../";
+
+export = Event32;

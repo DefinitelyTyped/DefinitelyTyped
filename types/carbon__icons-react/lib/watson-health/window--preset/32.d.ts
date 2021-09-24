@@ -1,1 +1,3 @@
-export { WatsonHealthWindowPreset32 as default } from "../../../";
+import { WatsonHealthWindowPreset32 } from "../../../";
+
+export = WatsonHealthWindowPreset32;

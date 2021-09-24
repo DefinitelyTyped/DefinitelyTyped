@@ -2,7 +2,7 @@
 // Project: https://github.com/webpack-contrib/sass-loader
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 3.7
 
 import { LoaderOptions } from "./interfaces";
 

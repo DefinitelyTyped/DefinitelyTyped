@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+      "@maxim_mazurok/gapi.client.chromepolicy": "latest"
+  }
+}

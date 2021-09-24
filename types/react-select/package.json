@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@emotion/serialize": "^1.0.0"
+    }
+}

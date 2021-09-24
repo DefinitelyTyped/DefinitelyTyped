@@ -1,1 +1,3 @@
-export { PersonFavorite24 as default } from "../../";
+import { PersonFavorite24 } from "../../";
+
+export = PersonFavorite24;

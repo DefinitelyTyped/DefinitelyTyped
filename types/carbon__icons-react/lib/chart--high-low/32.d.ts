@@ -1,1 +1,3 @@
-export { ChartHighLow32 as default } from "../../";
+import { ChartHighLow32 } from "../../";
+
+export = ChartHighLow32;

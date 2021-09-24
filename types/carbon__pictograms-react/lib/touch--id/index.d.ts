@@ -1,1 +1,3 @@
-export { TouchId as default } from "../../";
+import { TouchId } from "../../";
+
+export = TouchId;

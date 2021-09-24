@@ -1,1 +1,3 @@
-export { SignalStrength16 as default } from "../../";
+import { SignalStrength16 } from "../../";
+
+export = SignalStrength16;

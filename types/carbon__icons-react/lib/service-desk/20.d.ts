@@ -1,1 +1,3 @@
-export { ServiceDesk20 as default } from "../../";
+import { ServiceDesk20 } from "../../";
+
+export = ServiceDesk20;

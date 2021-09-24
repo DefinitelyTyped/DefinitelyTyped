@@ -3,25 +3,27 @@
 // Definitions by: pokutuna <https://github.com/pokutuna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export let black: string;
-export let red: string;
-export let green: string;
-export let yellow: string;
-export let blue: string;
-export let magenta: string;
-export let cyan: string;
-export let lightgray: string;
-declare let _default: string; // default is a reserved word
+export as namespace asciichart;
+
+export const black: string;
+export const red: string;
+export const green: string;
+export const yellow: string;
+export const blue: string;
+export const magenta: string;
+export const cyan: string;
+export const lightgray: string;
+declare const _default: string; // default is a reserved word
 export { _default as default };
-export let darkgray: string;
-export let lightred: string;
-export let lightgreen: string;
-export let lightyellow: string;
-export let lightblue: string;
-export let lightmagenta: string;
-export let lightcyan: string;
-export let white: string;
-export let reset: string;
+export const darkgray: string;
+export const lightred: string;
+export const lightgreen: string;
+export const lightyellow: string;
+export const lightblue: string;
+export const lightmagenta: string;
+export const lightcyan: string;
+export const white: string;
+export const reset: string;
 
 /**
  * Color is a control sequence for coloring.
@@ -32,14 +34,14 @@ export type Color = string | undefined;
 export function colored(char: string, color: Color): string;
 
 export interface PlotConfig {
-    offset?: number;
-    padding?: string;
-    height?: number;
-    colors?: Color[];
-    min?: number;
-    max?: number;
-    symbols?: [string, string, string, string, string, string, string, string, string, string];
-    format?: (x: number, i: number) => string;
+    offset?: number | undefined;
+    padding?: string | undefined;
+    height?: number | undefined;
+    colors?: Color[] | undefined;
+    min?: number | undefined;
+    max?: number | undefined;
+    symbols?: [string, string, string, string, string, string, string, string, string, string] | undefined;
+    format?: ((x: number, i: number) => string) | undefined;
 }
 
-export function plot(series: ReadonlyArray<number>, cfg?: PlotConfig): string;
+export function plot(series: ReadonlyArray<number | number[]>, cfg?: PlotConfig): string;

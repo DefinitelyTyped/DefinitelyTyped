@@ -1,1 +1,3 @@
-export { StopOutline20 as default } from "../../";
+import { StopOutline20 } from "../../";
+
+export = StopOutline20;

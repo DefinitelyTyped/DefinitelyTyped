@@ -1,4 +1,4 @@
-// Type definitions for non-npm package wegame 2.7
+// Type definitions for non-npm package wegame 2.8
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -608,6 +608,11 @@ declare class WxWorker {
      * @param callback.res.message 接收主线程/Worker 线程向当前线程发送的消息
      */
     onMessage(callback: (res: { message: any }) => void): void;
+
+    /**
+     * 监听 worker线程被系统回收事件（当iOS系统资源紧张时，worker线程存在被系统回收的可能，开发者可监听此事件并重新创建一个worker）。仅限在主线程 worker 对象上调用。
+     */
+    onProcessKilled(callback: () => void): void;
 }
 
 /**
@@ -762,7 +767,7 @@ declare class RecorderManager {
         /**
          * 录音的时长，单位 ms，最大值 600000（10 分钟），默认值60000（1 分钟）
          */
-        duration?: number,
+        duration?: number | undefined,
         /**
          * 采样率
          */
@@ -786,7 +791,7 @@ declare class RecorderManager {
         /**
          * 指定录音的音频源，可通过 wx.getAvailableAudioSources() 获取当前可用的音频源，默认值auto
          */
-        audioSource?: wx.types.AudioSourceType
+        audioSource?: wx.types.AudioSourceType | undefined
     }): void;
     /**
      * 暂停录音
@@ -876,7 +881,7 @@ declare class Video {
     /**
      * 视频是否为直播，默认值0
      */
-    live?: number;
+    live?: number | undefined;
     /**
      * 视频的缩放模式
      * fill - 填充，视频拉伸填满整个容器，不保证保持原有长宽比例
@@ -1139,60 +1144,85 @@ declare class Camera {
     destroy(): void;
 }
 
-/**
- * banner 广告组件。banner 广告组件是一个原生组件，层级比上屏 Canvas 高，会覆盖在上屏 Canvas 上。banner 广告组件默认是隐藏的，需要调用 BannerAd.show() 将其显示。banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的尺寸将通过 BannerAd.onResize() 事件中提供。
- */
-declare class BannerAd {
+declare class AdObject {
     /**
      * 广告单元 id
      */
     adUnitId: string;
     /**
-     * banner 广告组件的样式。style 上的属性的值仅为开发者设置的值，banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的真实尺寸需要通过 BannerAd.onResize() 事件获得。
-     */
-    style: wx.types.AdStyle;
-
-    /**
-     * 显示 banner 广告。
+     * 显示广告。
      */
     show(): Promise<void>;
     /**
-     * 隐藏 banner 广告
-     */
-    hide(): void;
-    /**
-     * 销毁 banner 广告
+     * 销毁广告
      */
     destroy(): void;
     /**
-     * 监听 banner 广告缩放
-     */
-    onResize(callback: (res: { width: number, height: number }) => void): void;
-    /**
-     * 取消监听隐藏 banner 广告缩放
-     */
-    offResize(callback: (res: { width: number, height: number }) => void): void;
-    /**
-     * 监听banner 广告加载事件
+     * 监听广告加载事件
      */
     onLoad(callback: () => void): void;
     /**
-     * 取消监听banner 广告加载事件
+     * 取消监听广告加载事件
      */
     offLoad(callback: () => void): void;
     /**
-     * 监听banner 广告错误事件
+     * 监听广告错误事件
      */
     onError(callback: (res: { errMsg: string }) => void): void;
     /**
-     * 取消监听banner 广告错误事件
+     * 取消监听广告错误事件
      */
     offError(callback: (res: { errMsg: string }) => void): void;
 }
 
-declare class InterstitialAd extends BannerAd {
+declare class ResizableAdObject extends AdObject {
     /**
-     * 加载视频广告
+     * 隐藏广告
+     */
+    hide(): void;
+    /**
+     * 监听广告缩放
+     */
+    onResize(callback: (res: { width: number, height: number }) => void): void;
+    /**
+     * 取消监听广告缩放事件
+     */
+    offResize(callback: (res: { width: number, height: number }) => void): void;
+}
+
+/**
+ * banner 广告组件。banner 广告组件是一个原生组件，层级比普通组件高。banner 广告组件默认是隐藏的，需要调用 BannerAd.show() 将其显示。banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的尺寸将通过 BannerAd.onResize() 事件中提供。
+ */
+declare class BannerAd extends ResizableAdObject {
+    /**
+     * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
+     */
+    adIntervals?: number | undefined;
+    /**
+     * banner 广告组件的样式。style 上的属性的值仅为开发者设置的值，banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的真实尺寸需要通过 BannerAd.onResize() 事件获得。
+     */
+    style: wx.types.AdStyle & {
+        /**
+         * banner 广告组件经过缩放后真实的宽度
+         */
+        realWidth: number;
+        /**
+         * banner 广告组件经过缩放后真实的高度
+         */
+        realHeight: number;
+    };
+}
+
+/**
+ * 激励视频广告组件。激励视频广告组件是一个原生组件，层级比普通组件高。激励视频广告是一个单例（小游戏端是全局单例，小程序端是页面内单例，在小程序端的单例对象不允许跨页面使用），默认是隐藏的，需要调用 RewardedVideoAd.show() 将其显示。
+ */
+declare class RewardedVideoAd extends AdObject {
+    /**
+     * 是否启用多例模式，默认为false
+     */
+    multiton: boolean;
+    /**
+     * 加载广告
      */
     load(): Promise<void>;
     /**
@@ -1205,7 +1235,87 @@ declare class InterstitialAd extends BannerAd {
     offClose(callback: (res: { isEnded: boolean }) => void): void;
 }
 
-declare class RewardedVideoAd extends InterstitialAd {
+/**
+ * 插屏广告组件。插屏广告组件是一个原生组件，层级比普通组件高。插屏广告组件每次创建都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用），默认是隐藏的，需要调用 InterstitialAd.show() 将其显示。
+ */
+declare class InterstitialAd extends AdObject {
+    /**
+     * 加载广告
+     */
+    load(): Promise<void>;
+    /**
+     * 监听用户点击 关闭广告 按钮的事件
+     */
+    onClose(callback: (res: { isEnded: boolean }) => void): void;
+    /**
+     * 监听用户点击 关闭广告 按钮的事件
+     */
+    offClose(callback: (res: { isEnded: boolean }) => void): void;
+}
+
+/**
+ * grid(格子) 广告组件。grid(格子) 广告组件是一个原生组件，层级比普通组件高。grid(格子) 广告组件默认是隐藏的，需要调用 GridAd.show() 将其显示。grid(格子) 广告会根据开发者设置的宽度进行等比缩放，缩放后的尺寸将通过 GridAd.onResize() 事件中提供。
+ */
+declare class GridAd extends ResizableAdObject {
+    /**
+     * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
+     */
+    adIntervals?: number | undefined;
+    /**
+     * grid(格子) 广告广告组件的主题，提供 white black 两种主题选择。
+     */
+    adTheme: string;
+    /**
+     * grid(格子) 广告组件的格子个数，可设置爱5，8两种格子个数样式，默认值为5
+     */
+    gridCount: number;
+    /**
+     * grid(格子) 广告广告组件的样式。style 上的属性的值仅为开发者设置的grid(格子) 广告) 广告会根据开发者设置的宽度进行等比缩放，缩放后的真实尺寸需要通过 GridAd.onResize() 事件获得。
+     */
+    style: wx.types.AdStyle & {
+        /**
+         * grid(格子) 广告组件经过缩放后真实的宽度
+         */
+        realWidth: number;
+        /**
+         * grid(格子) 广告组件经过缩放后真实的高度
+         */
+        realHeight: number;
+    };
+}
+
+/**
+ * 原生模板广告组件。原生模板广告组件是一个原生组件，层级比普通组件高。原生模板广告组件默认是隐藏的，需要调用 CustomAd.show() 将其显示。如果宽度可配置，原生模板广告会根据开发者设置的宽度进行等比缩放。
+ */
+declare class CustomAd extends AdObject {
+    /**
+     * 原生模板广告组件的样式
+     */
+    style: wx.types.CustomAdStyle;
+    /**
+     * 查询原生模板广告展示状态。
+     */
+    isShow(): boolean;
+    /**
+     * 隐藏原生模板广告。（某些模板广告无法隐藏）
+     */
+    hide(): void;
+    /**
+     * 监听原生模板广告隐藏事件, 某些模板如矩阵格子模板用户点击关闭时也会触发该事件。
+     */
+    onHide(callback: () => void): void;
+    /**
+     * 取消监听原生模板广告隐藏事件
+     */
+    offHide(callback: () => void): void;
+    /**
+     * 监听用户点击 关闭广告 按钮的事件
+     */
+    onClose(callback: (res: { isEnded: boolean }) => void): void;
+    /**
+     * 监听用户点击 关闭广告 按钮的事件
+     */
+    offClose(callback: (res: { isEnded: boolean }) => void): void;
 }
 
 // --定时器
@@ -1221,156 +1331,156 @@ declare function requestAnimationFrame(callback: () => void): number;
 declare namespace wx {
     namespace types {
         interface Callbacks {
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface CallbacksWithType<T> {
-            success?: (res: T) => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: ((res: T) => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface CallbacksWithType2<T, F> {
-            success?: (res: T) => void;
-            fail?: (res: F) => void;
-            complete?: () => void;
+            success?: ((res: T) => void) | undefined;
+            fail?: ((res: F) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface RenderingContextConfig {
             /**
              * 表示是否抗锯齿
              */
-            antialias?: boolean;
+            antialias?: boolean | undefined;
             /**
              * 表示是否绘图完成后是否保留绘图缓冲区
              */
-            preserveDrawingBuffer?: boolean;
+            preserveDrawingBuffer?: boolean | undefined;
             /**
              * 抗锯齿样本数。最小值为 2，最大不超过系统限制数量，仅 iOS 支持
              */
-            antialiasSamples?: number;
+            antialiasSamples?: number | undefined;
         }
 
         interface ToTempFileSyncParams {
             /**
              * 截取 canvas 的左上角横坐标
              */
-            x?: number;
+            x?: number | undefined;
             /**
              * 截取 canvas 的左上角纵坐标
              */
-            y?: number;
+            y?: number | undefined;
             /**
              * 截取 canvas 的宽度
              */
-            width?: number;
+            width?: number | undefined;
             /**
              * 截取 canvas 的高度
              */
-            height?: number;
+            height?: number | undefined;
             /**
              * 目标文件的宽度，会将截取的部分拉伸或压缩至该数值
              */
-            destWidth?: number;
+            destWidth?: number | undefined;
             /**
              * 目标文件的高度，会将截取的部分拉伸或压缩至该数值
              */
-            destHeight?: number;
+            destHeight?: number | undefined;
             /**
              * 目标文件的类型
              */
-            fileType?: "jpg" | "png";
+            fileType?: "jpg" | "png" | undefined;
             /**
              * jpg图片的质量，仅当 fileType 为 jpg 时有效。取值范围为 0.0（最低）- 1.0（最高），不含 0。不在范围内时当作 1.0
              */
-            quality?: number;
+            quality?: number | undefined;
         }
 
         interface ToTempFileParams extends ToTempFileSyncParams {
-            success?: (res: { tempFilePath: string }) => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: ((res: { tempFilePath: string }) => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface RenameParams {
             oldPath: string;
             newPath: string;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface RmdirParams {
             dirPath: string;
-            recursive?: boolean;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            recursive?: boolean | undefined;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface ReaddirParams {
             dirPath: string;
-            success?: (res: { files: ReadonlyArray<string> }) => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: ((res: { files: ReadonlyArray<string> }) => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface MkdirParams {
             dirPath: string;
-            recursive?: boolean;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            recursive?: boolean | undefined;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         type FileContentEncoding = "ascii" | "base64" | "binary" | "hex" | "ucs2" | "ucs-2" | "utf16le" | "utf-16le" | "utf-8" | "utf8" | "latin1";
 
         interface ReadfileParams {
             filePath: string;
-            encoding?: FileContentEncoding;
-            success?: (res: { data: string | ArrayBuffer }) => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            encoding?: FileContentEncoding | undefined;
+            success?: ((res: { data: string | ArrayBuffer }) => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface StatParams {
             path: string;
-            success?: (res: { stat: Stats }) => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: ((res: { stat: Stats }) => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface WritefileParams {
             filePath: string;
             data: string | ArrayBuffer;
-            encoding?: FileContentEncoding;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            encoding?: FileContentEncoding | undefined;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface UnlinkParams {
             filePath: string;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface UnzipParams {
             zipFilePath: string;
             targetPath: string;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface AccessfileParams {
             path: string;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface SavedfileList {
@@ -1384,51 +1494,51 @@ declare namespace wx {
         interface CopyfileParams {
             srcPath: string;
             destPath: string;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface FileinfoParams {
             filePath: string;
-            success?: (res: { size: number, digest: string }) => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: ((res: { size: number, digest: string }) => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface RemovefileParams {
             filePath: string;
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface SavefileParams {
             tempFilePath: string;
-            filePath?: string;
-            success?: (res: { savedFilePath: string }) => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            filePath?: string | undefined;
+            success?: ((res: { savedFilePath: string }) => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface AppendfileParams {
             filePath: string;
             data: string | ArrayBuffer;
-            encoding?: FileContentEncoding;
-            success?: () => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            encoding?: FileContentEncoding | undefined;
+            success?: (() => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface LineHeightParams {
-            fontStyle?: "normal" | "italic";
-            fontWeight?: "normal" | "bold";
-            fontSize?: number;
+            fontStyle?: "normal" | "italic" | undefined;
+            fontWeight?: "normal" | "bold" | undefined;
+            fontSize?: number | undefined;
             fontFamily: string;
             text: string;
-            success?: (res: { lineHeight: number }) => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: ((res: { lineHeight: number }) => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface Image {
@@ -1661,23 +1771,23 @@ declare namespace wx {
         }
 
         interface SetClipboardDataParams {
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
             data: string;
         }
 
         interface SetKeepScreenOnParams {
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
             keepScreenOn: boolean;
         }
 
         interface SetScreenBrightnessParams {
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
             /**
              * 屏幕亮度值，范围 0 ~ 1，0 最暗，1 最亮
              */
@@ -1689,18 +1799,18 @@ declare namespace wx {
             /**
              * 在指定filePath之后success回调中将不会有res.tempFilePath路径值，下载的文件会直接写入filePath指定的路径（有写入权限的情况下，根目录请使用wx.env.USER_DATA_PATH，路径文件夹必须存在，否则写入失败）
              */
-            filePath?: string;
+            filePath?: string | undefined;
             /**
-             *     HTTP 请求的 Header，Header 中不能设置 Referer
+             * HTTP 请求的 Header，Header 中不能设置 Referer
              */
-            header?: { [key: string]: string };
+            header?: { [key: string]: string } | undefined;
             /**
              * res.tempFilePath 临时文件路径。如果没传入 filePath 指定文件存储路径，则下载后的文件会存储到一个临时文件
              * res.statusCode 开发者服务器返回的 HTTP 状态码
              */
-            success?: (res: { tempFilePath?: string, statusCode: number }) => void;
-            fail?: (res: { errMsg: string }) => void;
-            complete?: () => void;
+            success?: ((res: { tempFilePath?: string | undefined, statusCode: number }) => void) | undefined;
+            fail?: ((res: { errMsg: string }) => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         type NetworkType = "wifi" | "2g" | "3g" | "4g" | "unknown" | "none";
@@ -1715,57 +1825,57 @@ declare namespace wx {
             /**
              * 请求的参数
              */
-            data?: string | { [key: string]: any };
+            data?: string | { [key: string]: any } | undefined;
             /**
              * 设置请求的 header，header 中不能设置 Referer
              */
-            header?: { [name: string]: string };
+            header?: { [name: string]: string } | undefined;
             /**
              * HTTP 请求方法
              */
-            method?: RequestMethod;
+            method?: RequestMethod | undefined;
             /**
              * 返回的数据格式
              */
-            dataType?: "json" | "arraybuffer";
+            dataType?: "json" | "arraybuffer" | undefined;
             /**
              * res.data usually can be string or ArrayBuffer
              */
-            success?: (res: { data: any, statusCode: number, header?: { [key: string]: string } }) => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: ((res: { data: any, statusCode: number, header?: { [key: string]: string } | undefined }) => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface SocketSendParams {
             data: string | ArrayBuffer;
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
         interface SocketConnectParams {
             url: string;
-            protocols?: string[];
-            header?: { [key: string]: string };
-            method?: RequestMethod;
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            protocols?: string[] | undefined;
+            header?: { [key: string]: string } | undefined;
+            method?: RequestMethod | undefined;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
         interface SocketCloseParams {
             /**
              * 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。如果这个参数没有被指定，默认的取值是1000 （表示正常连接关闭）
              */
-            code?: number;
+            code?: number | undefined;
             /**
              * 一个可读的字符串，表示连接被关闭的原因。这个字符串必须是不长于123字节的UTF-8 文本（不是字符）
              */
-            reason?: string;
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            reason?: string | undefined;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
-        type SocketOpenCallback = (res: { header?: { [key: string]: string } }) => void;
+        type SocketOpenCallback = (res: { header?: { [key: string]: string } | undefined }) => void;
         type SocketMessageCallback = (res: { data: string | ArrayBuffer }) => void;
         type SocketErrorCallback = (res: { errMsg: string }) => void;
 
@@ -1785,11 +1895,11 @@ declare namespace wx {
             /**
              * 发送数据的偏移量，仅当 message 为 ArrayBuffer 类型时有效，默认值0
              */
-            offset?: number;
+            offset?: number | undefined;
             /**
              * 发送数据的长度，仅当 message 为 ArrayBuffer 类型时有效，默认值message.byteLength
              */
-            length?: number;
+            length?: number | undefined;
         }
         interface UDPMessage {
             /**
@@ -1826,12 +1936,12 @@ declare namespace wx {
             /**
              * 是否带上登录态信息。当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。
              */
-            withCredentials?: boolean;
+            withCredentials?: boolean | undefined;
             /**
              * 显示用户信息的语言
              */
-            lang?: "en" | "zh_CN" | "zh_TW";
-            success?: (res: {
+            lang?: "en" | "zh_CN" | "zh_TW" | undefined;
+            success?: ((res: {
                 /**
                  * 用户信息对象，不包含 openid 等敏感信息
                  */
@@ -1853,9 +1963,9 @@ declare namespace wx {
                  */
                 iv: string,
                 errMsg: string
-            }) => void;
-            fail?: () => void;
-            complete?: () => void;
+            }) => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         /**
@@ -1865,14 +1975,14 @@ declare namespace wx {
             /**
              * 要获取信息的用户的 openId 数组，如果要获取当前用户信息，则将数组中的一个元素设为 'selfOpenId'
              */
-            openIdList?: string[];
+            openIdList?: string[] | undefined;
             /**
              * 显示用户信息的语言
              */
-            lang?: "en" | "zh_CN" | "zh_TW";
-            success?: (res: { data: ReadonlyArray<UserInfo> }) => void;
-            fail?: () => void;
-            complete?: () => void;
+            lang?: "en" | "zh_CN" | "zh_TW" | undefined;
+            success?: ((res: { data: ReadonlyArray<UserInfo> }) => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface UserInfo {
@@ -1890,23 +2000,23 @@ declare namespace wx {
 
         type ButtonType = "text" | "image";
         interface ButtonStyle {
-            left?: number;
-            top?: number;
-            width?: number;
-            height?: number;
+            left?: number | undefined;
+            top?: number | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
             /**
              * 格式#ff0000
              */
-            backgroundColor?: string;
+            backgroundColor?: string | undefined;
             /**
              * 格式#ff0000
              */
-            borderColor?: string;
-            borderWidth?: number;
-            borderRadius?: number;
-            textAlign?: "left" | "center" | "right";
-            fontSize?: number;
-            lineHeight?: number;
+            borderColor?: string | undefined;
+            borderWidth?: number | undefined;
+            borderRadius?: number | undefined;
+            textAlign?: "left" | "center" | "right" | undefined;
+            fontSize?: number | undefined;
+            lineHeight?: number | undefined;
         }
 
         type GameClubButtonIcon = "green" | "white" | "dark" | "light";
@@ -1916,55 +2026,55 @@ declare namespace wx {
             /**
              * 用户信息，对应接口 wx.getUserInfo
              */
-            "scope.userInfo"?: boolean;
+            "scope.userInfo"?: boolean | undefined;
             /**
              * 地理位置，对应接口 wx.getLocation wx.chooseLocation
              */
-            "scope.userLocation"?: boolean;
+            "scope.userLocation"?: boolean | undefined;
             /**
              * 通讯地址，对应接口 wx.chooseAddress
              */
-            "scope.address"?: boolean;
+            "scope.address"?: boolean | undefined;
             /**
              * 发票抬头，对应接口 wx.chooseInvoiceTitle
              */
-            "scope.invoiceTitle"?: boolean;
+            "scope.invoiceTitle"?: boolean | undefined;
             /**
              * 微信运动步数，对应接口 wx.getWeRunData
              */
-            "scope.werun"?: boolean;
+            "scope.werun"?: boolean | undefined;
             /**
              * 录音功能，对应接口 wx.startRecord
              */
-            "scope.record"?: boolean;
+            "scope.record"?: boolean | undefined;
             /**
              * 保存到相册 wx.saveImageToPhotosAlbum, wx.saveVideoToPhotosAlbum
              */
-            "scope.writePhotosAlbum"?: boolean;
+            "scope.writePhotosAlbum"?: boolean | undefined;
             /**
              * 摄像头 wx.camera
              */
-            "scope.camera"?: boolean;
+            "scope.camera"?: boolean | undefined;
         }
 
         interface SetStorageParams {
             key: string;
             data: any;
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
         interface RemoveStorageParams {
             key: string;
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
         interface GetStorageParams {
             key: string;
-            success?: (res: { data: any }) => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: ((res: { data: any }) => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         interface StorageInfo {
@@ -1986,22 +2096,22 @@ declare namespace wx {
             /**
              * 转发标题，不传则默认使用当前小游戏的昵称。
              */
-            title?: string;
+            title?: string | undefined;
             /**
              * 转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。显示图片长宽比是 5:4
              */
-            imageUrl?: string;
+            imageUrl?: string | undefined;
             /**
              * 查询字符串，必须是 key1=val1&key2=val2 的格式。从这条转发消息进入后，可通过 wx.getLaunchOptionsSync() 或 wx.onShow 获取启动参数中的 query。
              */
-            query?: string;
+            query?: string | undefined;
         }
 
         interface AccelerometerParams {
             interval: "game" | "ui" | "normal";
-            success?: () => void;
-            fail?: () => void;
-            complete?: () => void;
+            success?: (() => void) | undefined;
+            fail?: (() => void) | undefined;
+            complete?: (() => void) | undefined;
         }
 
         type AudioSourceType = "auto" | "buildInMic" | "headsetMic" | "mic" | "camcorder";
@@ -2012,25 +2122,103 @@ declare namespace wx {
              */
             left: number;
             /**
-             * banner 广告组件的左上角纵坐标
+             * 广告组件的左上角纵坐标
              */
             top: number;
             /**
-             * banner 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
+             * 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。
              */
             width: number;
             /**
-             * banner 广告组件的高度
+             * 广告组件的高度
              */
             height: number;
+        }
+
+        interface CustomAdStyle {
             /**
-             * banner 广告组件经过缩放后真实的宽度
+             * 原生模板广告组件的左上角横坐标
              */
-            realWidth: number;
+            left: number;
             /**
-             * banner 广告组件经过缩放后真实的高度
+             * 原生模板广告组件的左上角纵坐标
              */
-            realHeight: number;
+            top: number;
+            /**
+             * (只对小程序适用) 原生模板广告组件是否固定屏幕位置（不跟随屏幕滚动）
+             */
+            fixed?: boolean | undefined;
+        }
+
+        interface BannerAdParams {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+            /**
+             * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 Banner 广告不会自动刷新）
+             */
+            adIntervals?: number | undefined;
+            /**
+             * banner 广告组件的样式
+             */
+            style: AdStyle;
+        }
+
+        interface VideoAdParams {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+            /**
+             * 是否启用多例模式，默认为false
+             */
+            multiton?: boolean | undefined;
+        }
+
+        interface InterstitialAdParam {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+        }
+
+        interface GridAdParam {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+            /**
+             * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 grid(格子) 广告不会自动刷新）
+             */
+            adIntervals?: number | undefined;
+            /**
+             * grid(格子) 广告组件的样式
+             */
+            style: AdStyle;
+            /**
+             * grid(格子) 广告广告组件的主题，提供 white black 两种主题选择。
+             */
+            adTheme: 'white' | 'black';
+            /**
+             * grid(格子) 广告组件的格子个数，可设置为5，8两种格子个数样式，默认值为5
+             */
+            gridCount?: 5 | 8 | undefined;
+        }
+
+        interface CustomAdParam {
+            /**
+             * 广告单元 id
+             */
+            adUnitId: string;
+            /**
+             * 广告自动刷新的间隔时间，单位为秒，参数值必须大于等于30（该参数不传入时 grid(格子) 广告不会自动刷新）
+             */
+            adIntervals?: number | undefined;
+            /**
+             * 原生模板广告组件的样式
+             */
+            style: CustomAdStyle;
         }
     }
 
@@ -2439,12 +2627,12 @@ declare namespace wx {
         /**
          * wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
          */
-        type?: "wgs84" | "gcj02",
+        type?: "wgs84" | "gcj02" | undefined,
         /**
-         * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度    >= 1.6.0
+         * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度 >= 1.6.0
          */
-        altitude?: boolean,
-        success?: (res: {
+        altitude?: boolean | undefined,
+        success?: ((res: {
             /**
              * 纬度，范围为 -90~90，负数表示南纬
              */
@@ -2473,9 +2661,9 @@ declare namespace wx {
              * 水平精度，单位 m
              */
             horizontalAccuracy: number
-        }) => void,
-        fail?: () => void,
-        complete?: () => void
+        }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --网络
@@ -2540,14 +2728,14 @@ declare namespace wx {
         /**
          * HTTP 请求 Header，Header 中不能设置 Referer
          */
-        header?: { [key: string]: string },
+        header?: { [key: string]: string } | undefined,
         /**
          * HTTP 请求中其他额外的 form data
          */
-        formData?: { [key: string]: any },
-        success?: (res: { data: string, statusCode: number }) => void,
-        fail?: () => void,
-        complete?: () => void
+        formData?: { [key: string]: any } | undefined,
+        success?: ((res: { data: string, statusCode: number }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): UploadTask;
 
     // --开放数据
@@ -2559,9 +2747,9 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { data: ReadonlyArray<UserGameData> }) => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: ((res: { data: ReadonlyArray<UserGameData> }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 获取当前用户托管数据当中对应 key 的数据。该接口只可在开放数据域下使用
@@ -2571,9 +2759,9 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { KVDataList: ReadonlyArray<KVData> }) => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: ((res: { KVDataList: ReadonlyArray<KVData> }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     /**
@@ -2594,9 +2782,9 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { data: ReadonlyArray<UserGameData> }) => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: ((res: { data: ReadonlyArray<UserGameData> }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 删除用户托管数据当中对应 key 的数据。
@@ -2606,9 +2794,9 @@ declare namespace wx {
          * 要删除掉 key 列表
          */
         keyList: string[],
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 对用户托管数据进行写数据操作，允许同时写多组 KV 数据。
@@ -2622,9 +2810,9 @@ declare namespace wx {
          * 要修改的 KV 数据列表
          */
         KVDataList: ReadonlyArray<KVData>,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 监听成功修改好友的互动型托管数据事件，该接口在游戏主域使用
@@ -2683,26 +2871,26 @@ declare namespace wx {
         /**
          * 目标好友的 openId
          */
-        toUser?: string
+        toUser?: string | undefined
         /**
          * 分享标题，如果设置了这个值，则在交互成功后自动询问用户是否分享给好友（需要配置模板规则）
          */
-        title?: string
+        title?: string | undefined
         /**
          * 分享图片地址，详见 wx.shareMessageToFriend 同名参数（需要配置模板规则）
          */
-        imageUrl?: string,
+        imageUrl?: string | undefined,
         /**
          * 分享图片 ID，详见 wx.shareMessageToFriend 同名参数（需要配置模板规则）
          */
-        imageUrlId?: string,
+        imageUrlId?: string | undefined,
         /**
          * 是否静默修改（不弹框），静默修改需要用户通过快捷分享消息卡片进入才有效，代表分享反馈操作，无需填写 toUser，直接修改分享者与被分享者交互数据
          * 默认值false
          */
-        quiet?: boolean,
-        success?: () => void;
-        fail?: (res: {
+        quiet?: boolean | undefined,
+        success?: (() => void) | undefined;
+        fail?: ((res: {
             /**
              * 错误信息
              */
@@ -2717,8 +2905,8 @@ declare namespace wx {
              *     -17011    JSServer 校验写操作失败
              */
             errCode: number
-        }) => void;
-        complete?: () => void;
+        }) => void) | undefined;
+        complete?: (() => void) | undefined;
     }): void;
     /**
      * 获取当前用户互动型托管数据对应 key 的数据
@@ -2795,14 +2983,14 @@ declare namespace wx {
          * 今天已经玩游戏的时间，单位：秒
          */
         todayPlayedTime: number,
-        success?: (res: {
+        success?: ((res: {
             /**
              * 是否建议用户休息
              */
             result: boolean
-        }) => void,
-        fail?: () => void,
-        complete?: () => void
+        }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --小程序跳转
@@ -2820,18 +3008,18 @@ declare namespace wx {
          * 和 Page.onLoad 的回调函数或小游戏的 wx.onShow 回调函数、wx.getLaunchOptionsSync 中可以获取到 query 数据。
          * 对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
          */
-        path?: string,
+        path?: string | undefined,
         /**
          * 需要传递给目标小程序的数据，目标小程序可在 App.onLaunch，App.onShow 中获取到这份数据。如果跳转的是小游戏，可以在 wx.onShow、wx.getLaunchOptionsSync 中可以获取到这份数据数据。
          */
-        extraData?: unknown,
+        extraData?: unknown | undefined,
         /**
          * 要打开的小程序版本。仅在当前小程序为开发版或体验版时此参数有效。如果当前小程序是正式版，则打开的小程序必定是正式版。默认值release
          * develop    开发版
-         * trial    体验版
+         * trial      体验版
          * release    正式版
          */
-        envVersion?: "develop" | "trial" | "release"
+        envVersion?: "develop" | "trial" | "release" | undefined
     } & types.Callbacks): void;
 
     // --用户信息
@@ -2843,20 +3031,20 @@ declare namespace wx {
         /**
          * 按钮上的文本，仅当 type 为 text 时有效
          */
-        text?: string,
+        text?: string | undefined,
         /**
          * 按钮的背景图片，仅当 type 为 image 时有效
          */
-        image?: string,
+        image?: string | undefined,
         /**
          * 按钮的样式
          */
-        style?: types.ButtonStyle,
+        style?: types.ButtonStyle | undefined,
         /**
          * 是否带上登录态信息。当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。
          */
-        withCredentials?: boolean,
-        lang?: "en" | "zh_CN" | "zh_TW"
+        withCredentials?: boolean | undefined,
+        lang?: "en" | "zh_CN" | "zh_TW" | undefined
     }): UserInfoButton;
 
     // --设置
@@ -2871,15 +3059,15 @@ declare namespace wx {
         /**
          * 按钮上的文本，仅当 type 为 text 时有效
          */
-        text?: string,
+        text?: string | undefined,
         /**
          * 按钮的背景图片，仅当 type 为 image 时有效
          */
-        image?: string,
+        image?: string | undefined,
         /**
          * 按钮的样式
          */
-        style?: types.ButtonStyle
+        style?: types.ButtonStyle | undefined
     }): OpenSettingButton;
     /**
      * 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。
@@ -2975,9 +3163,9 @@ declare namespace wx {
          * 需要获取权限的 scope
          */
         scope: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --游戏圈
@@ -2986,13 +3174,13 @@ declare namespace wx {
      */
     function createGameClubButton(param: {
         type: types.ButtonType,
-        text?: string,
-        image?: string,
-        style?: types.ButtonStyle,
+        text?: string | undefined,
+        image?: string | undefined,
+        style?: types.ButtonStyle | undefined,
         /**
          * 游戏圈按钮的图标，仅当 object.type 参数为 image 时有效
          */
-        icon?: types.GameClubButtonIcon
+        icon?: types.GameClubButtonIcon | undefined
     }): GameClubButton;
 
     // --意见反馈
@@ -3001,9 +3189,9 @@ declare namespace wx {
      */
     function createFeedbackButton(param: {
         type: types.ButtonType,
-        text?: string,
-        image?: string,
-        style?: types.ButtonStyle
+        text?: string | undefined,
+        image?: string | undefined,
+        style?: types.ButtonStyle | undefined
     }): FeedbackButton;
 
     // --客服消息
@@ -3014,26 +3202,26 @@ declare namespace wx {
         /**
          * 会话来源
          */
-        sessionFrom?: string,
+        sessionFrom?: string | undefined,
         /**
          * 是否显示会话内消息卡片，设置此参数为 true，用户进入客服会话之后会收到一个消息卡片，通过以下三个参数设置卡片的内容
          */
-        showMessageCard?: boolean,
+        showMessageCard?: boolean | undefined,
         /**
          * 会话内消息卡片标题
          */
-        sendMessageTitle?: string,
+        sendMessageTitle?: string | undefined,
         /**
          * 会话内消息卡片路径
          */
-        sendMessagePath?: string,
+        sendMessagePath?: string | undefined,
         /**
          * 会话内消息卡片图片路径
          */
-        sendMessageImg?: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        sendMessageImg?: string | undefined,
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --开放数据域
@@ -3052,7 +3240,7 @@ declare namespace wx {
      */
     function getShareInfo(param: {
         shareTicket: string,
-        success?: (res: {
+        success?: ((res: {
             /**
              * 错误信息
              */
@@ -3065,9 +3253,9 @@ declare namespace wx {
              * 加密算法的初始向量
              */
             iv: string
-        }) => void,
-        fail?: () => void,
-        complete?: () => void
+        }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 隐藏转发按钮
@@ -3089,9 +3277,9 @@ declare namespace wx {
          * 是否使用带 shareTicket 的转发
          */
         withShareTicket: boolean,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 主动拉起转发，进入选择通讯录界面。
@@ -3121,16 +3309,16 @@ declare namespace wx {
         /**
          * 转发标题，不传则默认使用当前小游戏的昵称。
          */
-        title?: string,
+        title?: string | undefined,
         /**
          * 转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。显示图片长宽比是 5:4
          */
-        imageUrl?: string
+        imageUrl?: string | undefined
         /**
          * 审核通过的图片 ID，详见 使用审核通过的转发图片（https://developers.weixin.qq.com/minigame/dev/guide/open-ability/sh
          * are/share.html#%E4%BD%BF%E7%94%A8%E5%AE%A1%E6%A0%B8%E9%80%9A%E8%BF%87%E7%9A%84%E8%BD%AC%E5%8F%91%E5%9B%BE%E7%89%87）
          */
-        imageUrlId?: string
+        imageUrlId?: string | undefined
     }): void;
     /**
      * 更新转发属性
@@ -3140,9 +3328,9 @@ declare namespace wx {
          * 是否使用带 shareTicket 的转发详情
          */
         withShareTicket: boolean,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --性能
@@ -3171,9 +3359,9 @@ declare namespace wx {
     // --调试
     function setEnableDebug(p: {
         enableDebug: boolean,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     /**
@@ -3185,7 +3373,7 @@ declare namespace wx {
          * 取值为0或1，取值为0时会把 App、Page 的生命周期函数和 wx 命名空间下的函数调用写入日志，取值为1则不会。
          * 默认值是 0
          */
-        level?: 0 | 1
+        level?: 0 | 1 | undefined
     }): LogManager;
 
     // --数据上报
@@ -3282,9 +3470,9 @@ declare namespace wx {
          * 分包的名字，可以填 name 或者 root
          */
         name: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): LoadSubpackageTask;
 
     // --菜单
@@ -3322,9 +3510,9 @@ declare namespace wx {
          * 样式风格
          */
         style: "light" | "dark",
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --交互
@@ -3335,22 +3523,22 @@ declare namespace wx {
         /**
          * 提示的内容
          */
-        title?: string,
+        title?: string | undefined,
         /**
          * 图标
          */
-        icon?: "success" | "loading",
+        icon?: "success" | "loading" | undefined,
         /**
          * 自定义图标的本地路径，image 的优先级高于 icon
          */
-        image?: string,
+        image?: string | undefined,
         /**
          * 提示的延迟时间
          */
-        duration?: number,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        duration?: number | undefined,
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 隐藏消息提示框
@@ -3363,34 +3551,34 @@ declare namespace wx {
         /**
          * 提示的标题
          */
-        title?: string,
+        title?: string | undefined,
         /**
          * 提示的内容
          */
-        content?: string,
+        content?: string | undefined,
         /**
          * 是否显示取消按钮，默认true
          */
-        showCancel?: boolean,
+        showCancel?: boolean | undefined,
         /**
          * 取消按钮的文字，最多 4 个字符串
          */
-        cancelText?: string,
+        cancelText?: string | undefined,
         /**
          * 取消按钮的文字颜色，必须是 16 进制格式的颜色字符串，默认值#000000
          */
-        cancelColor?: string,
+        cancelColor?: string | undefined,
         /**
          * 确认按钮的文字，最多 4 个字符串
          */
-        confirmText?: string,
+        confirmText?: string | undefined,
         /**
          * 确认按钮的文字颜色，必须是 16 进制格式的颜色字符串，默认值#3cc51f
          */
-        confirmColor?: string,
-        success?: (res: { confirm?: boolean, cancel?: boolean }) => void,
-        fail?: () => void,
-        complete?: () => void
+        confirmColor?: string | undefined,
+        success?: ((res: { confirm?: boolean | undefined, cancel?: boolean | undefined }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 显示 loading 提示框, 需主动调用 wx.hideLoading 才能关闭提示框
@@ -3399,14 +3587,14 @@ declare namespace wx {
         /**
          * 提示的内容
          */
-        title?: string,
+        title?: string | undefined,
         /**
          * 是否显示透明蒙层
          */
-        mask?: boolean,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        mask?: boolean | undefined,
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 隐藏 loading 提示框
@@ -3423,10 +3611,10 @@ declare namespace wx {
         /**
          * 按钮的文字颜色，默认值#000000
          */
-        itemColor?: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        itemColor?: string | undefined,
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --键盘
@@ -3469,19 +3657,19 @@ declare namespace wx {
         /**
          * 键盘中文本的最大长度
          */
-        maxLength?: number,
+        maxLength?: number | undefined,
         /**
          * 是否为多行输入
          */
-        multiple?: boolean,
+        multiple?: boolean | undefined,
         /**
          * 当点击完成时键盘是否收起
          */
-        confirmHold?: boolean,
+        confirmHold?: boolean | undefined,
         /**
          * 键盘右下角 confirm 按钮的类型，只影响按钮的文本内容
          */
-        confirmType?: "done" | "next" | "search" | "go" | "send"
+        confirmType?: "done" | "next" | "search" | "go" | "send" | undefined
     }): void;
     /**
      * 更新键盘，只有当键盘处于拉起状态时才会产生效果
@@ -3491,9 +3679,9 @@ declare namespace wx {
          * 键盘输入框的当前值
          */
         value: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --状态栏
@@ -3502,9 +3690,9 @@ declare namespace wx {
      */
     function setStatusBarStyle(param: {
         style: "white" | "black",
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --窗口
@@ -3524,7 +3712,14 @@ declare namespace wx {
     /**
      * 创建一个 Worker 线程，目前限制最多只能创建一个 Worker，创建下一个 Worker 前请调用 Worker.terminate
      */
-    function createWorker(): WxWorker;
+    function createWorker(scriptPath: string, options?: {
+        /**
+         * 是否使用实验worker。在iOS下，实验worker的JS运行效率比非实验worker提升近十倍，如需在worker内进行重度计算的建议开启
+         * 此选项。同时，实验worker存在极小概率会在系统资源紧张时被系统回收，因此建议配合 worker.onProcessKilled 事件使用，
+         * 在worker被回收后可重新创建一个。
+         */
+        useExperimentalWorker?: boolean | undefined
+    }): WxWorker;
 
     // --音频
     /**
@@ -3558,9 +3753,9 @@ declare namespace wx {
          * 选择图片的来源
          */
         sourceType: ['album'] | ['camera'] | ['album', 'camera'],
-        success?: (res: { tempFilePaths: ReadonlyArray<string>, tempFiles: ReadonlyArray<ImageFile> }) => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: ((res: { tempFilePaths: ReadonlyArray<string>, tempFiles: ReadonlyArray<ImageFile> }) => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 预览图片，调用之后会在新打开的页面中全屏预览传入的图片，预览的过程中用户可以进行保存图片、发送给朋友等操作
@@ -3573,10 +3768,10 @@ declare namespace wx {
         /**
          * 当前显示图片的链接，默认为urls的第一张
          */
-        current?: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        current?: string | undefined,
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
     /**
      * 保存图片到系统相册。需要用户授权 scope.writePhotosAlbum
@@ -3586,9 +3781,9 @@ declare namespace wx {
          * 图片文件路径，可以是临时文件路径也可以是永久文件路径，不支持网络图片路径
          */
         filePath: string,
-        success?: () => void,
-        fail?: () => void,
-        complete?: () => void
+        success?: (() => void) | undefined,
+        fail?: (() => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 
     // --视频
@@ -3596,19 +3791,19 @@ declare namespace wx {
         /**
          * 视频的左上角横坐标
          */
-        x?: number,
+        x?: number | undefined,
         /**
          * 视频的左上角纵坐标
          */
-        y?: number,
+        y?: number | undefined,
         /**
          * 视频的宽度，默认值300
          */
-        width?: number,
+        width?: number | undefined,
         /**
          * 默认值150
          */
-        height?: number,
+        height?: number | undefined,
         /**
          * 视频的资源地址
          */
@@ -3616,42 +3811,42 @@ declare namespace wx {
         /**
          * 视频的封面
          */
-        poster?: string,
+        poster?: string | undefined,
         /**
          * 视频的初始播放位置，单位为 s 秒，默认值0
          */
-        initialTime?: number,
+        initialTime?: number | undefined,
         /**
          * 视频的播放速率，有效值有 0.5、0.8、1.0、1.25、1.5默认值1.0
          */
-        playbackRate?: number,
+        playbackRate?: number | undefined,
         /**
          * 视频是否为直播，默认值0
          */
-        live?: number,
+        live?: number | undefined,
         /**
          * 视频的缩放模式
          * fill - 填充，视频拉伸填满整个容器，不保证保持原有长宽比例
          * contain - 包含，保持原有长宽比例。保证视频尺寸一定可以在容器里面放得下。因此，可能会有部分空白
          * cover - 覆盖，保持原有长宽比例。保证视频尺寸一定大于容器尺寸，宽度和高度至少有一个和容器一致。因此，视频有部分会看不见
          */
-        objectFit?: "contain" | "cover" | "fill",
+        objectFit?: "contain" | "cover" | "fill" | undefined,
         /**
          * 视频是否显示控件，默认true
          */
-        controls?: boolean,
+        controls?: boolean | undefined,
         /**
          * 视频是否自动播放，默认false
          */
-        autoplay?: boolean,
+        autoplay?: boolean | undefined,
         /**
          * 视频是否是否循环播放，默认值false
          */
-        loop?: boolean,
+        loop?: boolean | undefined,
         /**
          * 视频是否禁音播放，默认值false
          */
-        muted?: boolean
+        muted?: boolean | undefined
     }): Video;
 
     // --相机
@@ -3663,31 +3858,31 @@ declare namespace wx {
         /**
          * 相机的左上角横坐标，默认值0
          */
-        x?: number;
+        x?: number | undefined;
         /**
          * 相机的左上角纵坐标，默认值0
          */
-        y?: number;
+        y?: number | undefined;
         /**
          * 相机的宽度，默认值300
          */
-        width?: number;
+        width?: number | undefined;
         /**
          * 相机的高度，默认值150
          */
-        height?: number;
+        height?: number | undefined;
         /**
          * 摄像头朝向，值为 front, back，默认值back
          */
-        devicePosition?: "front" | "back";
+        devicePosition?: "front" | "back" | undefined;
         /**
          * 闪光灯，值为 auto, on, off，默认值auto
          */
-        flash?: "auto" | "on" | "off";
+        flash?: "auto" | "on" | "off" | undefined;
         /**
          * 帧数据图像尺寸，值为 small, medium, large，默认值small
          */
-        size?: "small" | "medium" | "large";
+        size?: "small" | "medium" | "large" | undefined;
     }): Camera;
 
     // -- VoIP
@@ -3703,11 +3898,11 @@ declare namespace wx {
             /**
              * 是否静音麦克风，默认值false
              */
-            muteMicrophone?: boolean,
+            muteMicrophone?: boolean | undefined,
             /**
              * 是否静音耳机，默认值false
              */
-            muteEarphone?: boolean
+            muteEarphone?: boolean | undefined
         }
     }): void;
     /**
@@ -3821,12 +4016,12 @@ declare namespace wx {
             /**
              * 是否静音麦克风，默认值false
              */
-            muteMicrophone?: boolean,
+            muteMicrophone?: boolean | undefined,
             /**
              * 是否静音耳机，默认值false
              */
-            muteEarphone?: boolean
-        }
+            muteEarphone?: boolean | undefined
+        } | undefined
     }): void;
     /**
      * 退出（销毁）实时语音通话
@@ -3835,36 +4030,28 @@ declare namespace wx {
 
     // --广告
     /**
-     * 创建 banner 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。同时，开发者工具上暂不支持调试该 API，请直接在真机上进行调试。
+     * 创建 banner 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。每次调用该方法创建 banner 广告都会返回一个全新的实例。
+     * 基础库 2.0.4 开始支持，低版本需做兼容处理。
      */
-    function createBannerAd(param: {
-        /**
-         * 广告单元 id
-         */
-        adUnitId: string,
-        /**
-         * banner 广告组件的样式
-         */
-        style: types.AdStyle
-    }): BannerAd;
+    function createBannerAd(param: types.BannerAdParams): BannerAd;
     /**
-     * 创建激励视频广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。同时，开发者工具上暂不支持调试该 API，请直接在真机上进行调试。
+     * 创建激励视频广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号后再使用该 API（小游戏端要求 >= 2.0.4， 小程序端要求 >= 2.6.0）。调用该方法创建的激励视频广告是一个单例（小游戏端是全局单例，小程序端是页面内单例，在小程序端的单例对象不允许跨页面使用）。
+     * 基础库 2.0.4 开始支持，低版本需做兼容处理。
      */
-    function createRewardedVideoAd(param: {
-        /**
-         * 广告单元 id
-         */
-        adUnitId: string
-    }): RewardedVideoAd;
+    function createRewardedVideoAd(param: types.VideoAdParams): RewardedVideoAd;
     /**
-     * 创建插屏广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号后再使用该 API。每次调用该方法创建插屏广告都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用）。
+     * 插屏广告组件。插屏广告组件是一个原生组件，层级比普通组件高。插屏广告组件每次创建都会返回一个全新的实例（小程序端的插屏广告实例不允许跨页面使用），默认是隐藏的，需要调用 InterstitialAd.show() 将其显示。
      */
-    function createInterstitialAd(param: {
-        /**
-         * 广告单元 id
-         */
-        adUnitId: string
-    }): InterstitialAd;
+    function createInterstitialAd(param: types.InterstitialAdParam): InterstitialAd;
+    /**
+     * 创建 grid(格子) 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.9.2 后再使用该 API。每次调用该方法创建 grid(格子) 广告都会返回一个全新的实例。
+     * 基础库 2.9.2 开始支持，低版本需做兼容处理
+     */
+    function createGridAd(param: types.GridAdParam): GridAd;
+    /**
+     * 创建原生模板广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.11.1 后再使用该 API。每次调用该方法创建原生模板广告都会返回一个全新的实例。
+     */
+    function createCustomAd(param: types.CustomAdParam): CustomAd;
 
     // --虚拟支付
     /**
@@ -3881,7 +4068,7 @@ declare namespace wx {
          *   0 - 米大师正式环境
          *   1 - 米大师沙箱环境
          */
-        env?: 0 | 1,
+        env?: 0 | 1 | undefined,
         /**
          * 在米大师侧申请的应用 id
          */
@@ -3893,7 +4080,7 @@ declare namespace wx {
         /**
          * 申请接入时的平台，platform 与应用id有关。
          */
-        platform?: "android",
+        platform?: "android" | undefined,
         /**
          * 购买数量。mode=game 时必填。购买数量。详见 buyQuantity 限制说明。
          * mode为game（购买游戏币）时，buyQuantity不可任意填写。需满足 buyQuantity * 游戏币单价 = 限定的价格等级。如：游戏币单价为 0.1 元，一次购买最少数量是 10。
@@ -3926,33 +4113,33 @@ declare namespace wx {
          *       328
          *       648
          */
-        buyQuantity?: number,
+        buyQuantity?: number | undefined,
         /**
          * 分区 ID
          */
-        zoneId?: string,
-        success?: () => void,
+        zoneId?: string | undefined,
+        success?: (() => void) | undefined,
         /**
          * @param res.errCode 有如下值：
-         *      -1    系统失败
-         *      -2    支付取消
-         *      -15001    虚拟支付接口错误码，缺少参数
-         *      -15002    虚拟支付接口错误码，参数不合法
-         *      -15003    虚拟支付接口错误码，订单重复
-         *      -15004    虚拟支付接口错误码，后台错误
-         *      -15006    虚拟支付接口错误码，appId 权限被封禁
-         *      -15006    虚拟支付接口错误码，货币类型不支持
-         *      -15007    虚拟支付接口错误码，订单已支付
-         *       1    虚拟支付接口错误码，用户取消支付
-         *       2    虚拟支付接口错误码，客户端错误, 判断到小程序在用户处于支付中时,又发起了一笔支付请求
-         *       3    虚拟支付接口错误码，Android 独有错误：用户使用 Google Play 支付，而手机未安装 Google Play
-         *       4    虚拟支付接口错误码，用户操作系统支付状态异常
-         *       5    虚拟支付接口错误码，操作系统错误
-         *       6    虚拟支付接口错误码，其他错误
-         *       1000    参数错误
-         *       1003    米大师 Portal 错误
+         *      -1      系统失败
+         *      -2      支付取消
+         *      -15001  虚拟支付接口错误码，缺少参数
+         *      -15002  虚拟支付接口错误码，参数不合法
+         *      -15003  虚拟支付接口错误码，订单重复
+         *      -15004  虚拟支付接口错误码，后台错误
+         *      -15006  虚拟支付接口错误码，appId 权限被封禁
+         *      -15006  虚拟支付接口错误码，货币类型不支持
+         *      -15007  虚拟支付接口错误码，订单已支付
+         *       1      虚拟支付接口错误码，用户取消支付
+         *       2      虚拟支付接口错误码，客户端错误, 判断到小程序在用户处于支付中时,又发起了一笔支付请求
+         *       3      虚拟支付接口错误码，Android 独有错误：用户使用 Google Play 支付，而手机未安装 Google Play
+         *       4      虚拟支付接口错误码，用户操作系统支付状态异常
+         *       5      虚拟支付接口错误码，操作系统错误
+         *       6      虚拟支付接口错误码，其他错误
+         *       1000   参数错误
+         *       1003   米大师 Portal 错误
          */
-        fail?: (res: { errMsg: string, errCode: number }) => void,
-        complete?: () => void
+        fail?: ((res: { errMsg: string, errCode: number }) => void) | undefined,
+        complete?: (() => void) | undefined
     }): void;
 }

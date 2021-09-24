@@ -1,1 +1,3 @@
-export { Satellite16 as default } from "../../";
+import { Satellite16 } from "../../";
+
+export = Satellite16;

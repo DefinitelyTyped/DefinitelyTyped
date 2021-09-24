@@ -1,1 +1,3 @@
-export { Power as default } from "../../";
+import { Power } from "../../";
+
+export = Power;

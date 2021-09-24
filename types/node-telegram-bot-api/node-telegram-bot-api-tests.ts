@@ -12,6 +12,8 @@ MyTelegramBot.getMe();
 MyTelegramBot.getMe().then((value: TelegramBot.User) => {
     const username = value.username;
 });
+MyTelegramBot.logOut();
+MyTelegramBot.close();
 MyTelegramBot.setWebHook('http://typescriptlang.org', {max_connections: 100});
 MyTelegramBot.deleteWebHook();
 MyTelegramBot.getWebHookInfo();
@@ -28,6 +30,7 @@ const res: TelegramBot.InlineQueryResultArticle = {
 };
 MyTelegramBot.answerInlineQuery('queryId', [res, res, res], { is_personal: true });
 MyTelegramBot.forwardMessage(1234, 5678, 'memberID', { disable_notification: true });
+MyTelegramBot.copyMessage(1234, 5678, "msgId", { disable_notification: true, allow_sending_without_reply: false });
 MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo' });
 MyTelegramBot.sendPhoto(1234, 'photo/path', { caption: 'Foo', parse_mode: 'HTML' });
 MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo' });
@@ -54,10 +57,20 @@ MyTelegramBot.setChatTitle(1234, 'Chat Title');
 MyTelegramBot.setChatDescription(1234, 'Chat Description');
 MyTelegramBot.pinChatMessage(1234, 'Pinned Message');
 MyTelegramBot.unpinChatMessage(1234);
+MyTelegramBot.unpinAllChatMessages(1234);
 MyTelegramBot.answerCallbackQuery('432832');
 MyTelegramBot.answerCallbackQuery({ callback_query_id: '432832' });
 MyTelegramBot.editMessageText('test-text', { disable_web_page_preview: true });
 MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245 });
+MyTelegramBot.editMessageMedia({
+    media: 'photo/path',
+    type: 'photo',
+    caption: 'this is a test',
+    parse_mode: 'HTML'
+}, {
+    chat_id: 1234,
+    message_id: 9187231
+});
 MyTelegramBot.editMessageReplyMarkup({ inline_keyboard: [[{
     text: 'Foo'
 }]] }, { message_id: 1244 });
@@ -73,8 +86,10 @@ MyTelegramBot.getFileStream('My/File/ID');
 MyTelegramBot.downloadFile('My/File/ID', 'mydownloaddir/');
 MyTelegramBot.onText(/regex/, (msg, match) => { });
 MyTelegramBot.removeTextListener(/regex/);
+MyTelegramBot.clearTextListeners();
 MyTelegramBot.onReplyToMessage(1234, 'mymessageID', (msg) => { });
 MyTelegramBot.removeReplyListener(5466);
+MyTelegramBot.clearReplyListeners();
 MyTelegramBot.getChat(1234);
 MyTelegramBot.getChatAdministrators(1234);
 MyTelegramBot.getChatMembersCount(1234);

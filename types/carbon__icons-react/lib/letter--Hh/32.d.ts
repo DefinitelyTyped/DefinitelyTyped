@@ -1,1 +1,3 @@
-export { LetterHh32 as default } from "../../";
+import { LetterHh32 } from "../../";
+
+export = LetterHh32;

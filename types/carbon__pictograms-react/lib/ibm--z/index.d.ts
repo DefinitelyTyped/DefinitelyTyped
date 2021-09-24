@@ -1,1 +1,3 @@
-export { IbmZ as default } from "../../";
+import { IbmZ } from "../../";
+
+export = IbmZ;

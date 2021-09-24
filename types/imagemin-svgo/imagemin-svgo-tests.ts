@@ -12,6 +12,7 @@ imagemin(['*.svg'], {
                     removeViewBox: false,
                 },
             ],
+            multipass: false,
         }),
     ],
 });

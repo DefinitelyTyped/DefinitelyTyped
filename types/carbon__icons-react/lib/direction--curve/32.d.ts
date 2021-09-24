@@ -1,1 +1,3 @@
-export { DirectionCurve32 as default } from "../../";
+import { DirectionCurve32 } from "../../";
+
+export = DirectionCurve32;

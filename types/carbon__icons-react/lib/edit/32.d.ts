@@ -1,1 +1,3 @@
-export { Edit32 as default } from "../../";
+import { Edit32 } from "../../";
+
+export = Edit32;

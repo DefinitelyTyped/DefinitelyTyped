@@ -1,1 +1,3 @@
-export { Flag20 as default } from "../../";
+import { Flag20 } from "../../";
+
+export = Flag20;

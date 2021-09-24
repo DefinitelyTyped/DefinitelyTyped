@@ -1,1 +1,3 @@
-export { LogoLinkedin32 as default } from "../../";
+import { LogoLinkedin32 } from "../../";
+
+export = LogoLinkedin32;

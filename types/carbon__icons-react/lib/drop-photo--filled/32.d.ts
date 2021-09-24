@@ -1,1 +1,3 @@
-export { DropPhotoFilled32 as default } from "../../";
+import { DropPhotoFilled32 } from "../../";
+
+export = DropPhotoFilled32;

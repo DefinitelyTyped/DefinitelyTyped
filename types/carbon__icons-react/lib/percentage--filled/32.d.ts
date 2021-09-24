@@ -1,1 +1,3 @@
-export { PercentageFilled32 as default } from "../../";
+import { PercentageFilled32 } from "../../";
+
+export = PercentageFilled32;

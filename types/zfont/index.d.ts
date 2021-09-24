@@ -63,26 +63,26 @@ declare module 'zdog' {
          * @default ''
          * @see {@link Text#value}
          */
-        readonly value?: T;
+        readonly value?: T | undefined;
 
         /**
          * Measured in pixels.
          * @default 64
          * @see {@link Text#fontSize}
          */
-        readonly fontSize?: number;
+        readonly fontSize?: number | undefined;
 
         /**
          * @default 'left'
          * @see {@link Text#textAlign}
          */
-        readonly textAlign?: TextAlign;
+        readonly textAlign?: TextAlign | undefined;
 
         /**
          * @default 'bottom'
          * @see {@link Text#textBaseline}
          */
-        readonly textBaseline?: TextBaseline;
+        readonly textBaseline?: TextBaseline | undefined;
     }
 
     /**
@@ -120,44 +120,44 @@ declare module 'zdog' {
          * @default ''
          * @see {@link TextGroup#value}
          */
-        readonly value?: T;
+        readonly value?: T | undefined;
 
         /**
          * Measured in pixels.
          * @default 64
          * @see {@link TextGroup#fontSize}
          */
-        readonly fontSize?: number;
+        readonly fontSize?: number | undefined;
 
         /**
          * @default 'left'
          * @see {@link TextGroup#textAlign}
          */
-        readonly textAlign?: TextAlign;
+        readonly textAlign?: TextAlign | undefined;
 
         /**
          * @default 'bottom'
          * @see {@link TextGroup#textBaseline}
          */
-        readonly textBaseline?: TextBaseline;
+        readonly textBaseline?: TextBaseline | undefined;
 
         /**
          * @default '#333'
          * @see {@link TextGroup#color}
          */
-        readonly color?: string;
+        readonly color?: string | undefined;
 
         /**
          * @default false
          * @see {@link TextGroup#fill}
          */
-        readonly fill?: boolean;
+        readonly fill?: boolean | undefined;
 
         /**
          * @default 1
          * @see {@link TextGroup#stroke}
          */
-        readonly stroke?: number | false;
+        readonly stroke?: number | false | undefined;
     }
 
     /**

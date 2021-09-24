@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Pendo.io Agent 2.16
+// Type definitions for non-npm package Pendo.io Agent 2.17
 // Project: https://www.pendo.io/
 // Definitions by: Aaron Beall <https://github.com/aaronbeall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,30 +7,31 @@
 declare namespace pendo {
     interface Identity {
         /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
-        visitor?: IdentityMetadata;
-        account?: IdentityMetadata;
+        visitor?: IdentityMetadata | undefined;
+        account?: IdentityMetadata | undefined;
+        parentAccount?: IdentityMetadata | undefined;
     }
 
     interface Metadata {
-        [key: string]: string | number | boolean;
+        [key: string]: string | number | boolean | string[];
     }
 
-    type IdentityMetadata = { id?: string; } & Metadata;
+    type IdentityMetadata = { id?: string | undefined; } & Metadata;
 
     interface InitOptions extends Identity {
-        apiKey?: string;
-        excludeAllText?: boolean;
-        excludeTitle?: boolean;
-        disablePersistence?: boolean;
+        apiKey?: string | undefined;
+        excludeAllText?: boolean | undefined;
+        excludeTitle?: boolean | undefined;
+        disablePersistence?: boolean | undefined;
         guides?: {
-            delay?: boolean;
-            disable?: boolean;
-            timeout?: number;
+            delay?: boolean | undefined;
+            disable?: boolean | undefined;
+            timeout?: number | undefined;
             tooltip?: {
-                arrowSize?: number;
-            }
-        };
-        events?: EventCallbacks;
+                arrowSize?: number | undefined;
+            } | undefined
+        } | undefined;
+        events?: EventCallbacks | undefined;
     }
 
     interface EventCallbacks {
@@ -83,9 +84,19 @@ declare namespace pendo {
         onGuideDismissed(step?: GuideStep): void;
         onGuideDismissed(until: { until: "reload" }): void;
 
+        // feedback
+        feedback: Feedback;
+
         // Other
         validateInstall(): void;
         dom(input: any): HTMLElement; // TODO
+    }
+
+    interface FeedbackOptions {
+        anchor: HTMLElement;
+    }
+    interface Feedback {
+        loginAndRedirect(options?: FeedbackOptions): void;
     }
 
     interface Debugging {
@@ -142,12 +153,12 @@ declare namespace pendo {
         type: string;
         elementPathRule: string;
         contentType: string;
-        contentUrl?: string;
-        contentUrlCss?: string;
-        contentUrlJs?: string;
+        contentUrl?: string | undefined;
+        contentUrlCss?: string | undefined;
+        contentUrlJs?: string | undefined;
         rank: number;
         advanceMethod: "button" | "programatic" /* sic */ | "element";
-        thumbnailUrls?: string;
+        thumbnailUrls?: string | undefined;
         attributes: {
             height: number;
             width: number;

@@ -1,1 +1,3 @@
-export { SettingsAdjust24 as default } from "../../";
+import { SettingsAdjust24 } from "../../";
+
+export = SettingsAdjust24;

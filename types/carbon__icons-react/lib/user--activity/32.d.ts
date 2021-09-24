@@ -1,1 +1,3 @@
-export { UserActivity32 as default } from "../../";
+import { UserActivity32 } from "../../";
+
+export = UserActivity32;

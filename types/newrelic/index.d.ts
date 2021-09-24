@@ -1,4 +1,4 @@
-// Type definitions for newrelic 6.13
+// Type definitions for newrelic 7.0
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
@@ -81,15 +81,21 @@ export function addCustomAttribute(key: string, value: string | number | boolean
 export function addCustomAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
- * Tell the tracer whether to ignore the current transaction.
+ * Add a custom attribute to the the currently executing span.
  *
- * The most common use for this will be to mark a transaction as ignored (maybe it's handling
- * a websocket polling channel, or maybe it's an external call you don't care
- * is slow), but it's also useful when you want a transaction that would
- * otherwise be ignored due to URL or transaction name normalization rules
- * to *not* be ignored.
+ * Some attributes are reserved (see CUSTOM_BLACKLIST in the docs for the current, very short list), and
+ * as with most API methods, this must be called in the context of an active segment/span.
+ *
+ * Most recently set value wins.
  */
-export function setIgnoreTransaction(ignored: boolean): void;
+ export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
+
+ /**
+  * Adds all custom attributes in an object to the the currently executing span.
+  *
+  * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
+  */
+ export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
  * Send errors to New Relic that you've already handled yourself.
@@ -167,7 +173,6 @@ export function getBrowserTimingHeader(): string;
  * The segment is ended when either the handler finishes executing, or callback is fired, if it is provided.
  * If a promise is returned from the handler, the segment's ending will be tied to that promise resolving or rejecting.
  */
-export function startSegment<T extends PromiseLike<any>>(name: string, record: boolean, handler: T): T;
 export function startSegment<T, C extends (...args: any[]) => any>(
     name: string,
     record: boolean,
@@ -339,7 +344,7 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean; timeout?: number; waitForIdle?: boolean },
+    options?: { collectPendingData?: boolean | undefined; timeout?: number | undefined; waitForIdle?: boolean | undefined },
     cb?: (error?: Error) => void,
 ): void;
 
@@ -365,7 +370,7 @@ export function getTraceMetadata(): TraceMetadata;
 export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T): T;
 
 export interface Instrument {
-    (opts: { moduleName: string; onRequire: () => void; onError?: (err: Error) => void }): void;
+    (opts: { moduleName: string; onRequire: () => void; onError?: ((err: Error) => void) | undefined }): void;
     (moduleName: string, onRequire: () => void, onError?: (err: Error) => void): void;
 }
 
@@ -421,18 +426,6 @@ export interface TransactionHandle {
     acceptDistributedTraceHeaders(transportType: string, headers: DistributedTraceHeaders): void;
 
     /**
-     * Creates a distributed trace payload.
-     * @deprecated - use insertDistributedTraceHeaders instead
-     */
-    createDistributedTracePayload(): DistributedTracePayload;
-
-    /**
-     * Parses incoming distributed trace header payload.
-     * @deprecated - use acceptDistributedTraceHeaders instead
-     */
-    acceptDistributedTracePayload(payload: DistributedTracePayload): void;
-
-    /**
      * Return whether this Transaction is being sampled
      */
     isSampled(): boolean;
@@ -442,12 +435,12 @@ export interface LinkingMetadata {
     /**
      * The current trace ID
      */
-    'trace.id'?: string;
+    'trace.id'?: string | undefined;
 
     /**
      * The current span ID
      */
-    'span.id'?: string;
+    'span.id'?: string | undefined;
 
     /**
      * The application name specified in the connect request as
@@ -464,7 +457,7 @@ export interface LinkingMetadata {
     /**
      * The entity ID returned in the connect reply as entity_guid
      */
-    'entity.guid'?: string;
+    'entity.guid'?: string | undefined;
 
     /**
      * The hostname as specified in the connect request as
@@ -478,10 +471,10 @@ export interface TraceMetadata {
     /**
      * The current trace ID
      */
-    traceId?: string;
+    traceId?: string | undefined;
 
     /**
      * The current span ID
      */
-    spanId?: string;
+    spanId?: string | undefined;
 }

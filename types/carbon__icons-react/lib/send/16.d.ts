@@ -1,1 +1,3 @@
-export { Send16 as default } from "../../";
+import { Send16 } from "../../";
+
+export = Send16;

@@ -1,1 +1,3 @@
-export { Code20 as default } from "../../";
+import { Code20 } from "../../";
+
+export = Code20;

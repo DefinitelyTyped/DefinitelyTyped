@@ -1,1 +1,3 @@
-export { Area16 as default } from "../../";
+import { Area16 } from "../../";
+
+export = Area16;

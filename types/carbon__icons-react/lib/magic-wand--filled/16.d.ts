@@ -1,1 +1,3 @@
-export { MagicWandFilled16 as default } from "../../";
+import { MagicWandFilled16 } from "../../";
+
+export = MagicWandFilled16;

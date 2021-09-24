@@ -5,6 +5,7 @@ function test_chroma() {
     chroma('hotpink');
     chroma('#ff3399');
     chroma('F39');
+    chroma(chroma('#ff3399'));
     chroma.hex("#fff");
     chroma.valid(0);
     chroma.valid('');

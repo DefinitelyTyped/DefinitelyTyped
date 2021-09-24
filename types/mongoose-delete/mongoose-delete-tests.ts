@@ -84,3 +84,21 @@ Pet.restore({ age: 10 }).exec((err, result) => {});
 
 // $ExpectType boolean | undefined
 type deletedType = PetDocument["deleted"];
+
+// Additional Methods for overrides
+Pet.countDeleted({ age: 10 });
+Pet.countWithDeleted({ age: 10 });
+Pet.countDocumentsDeleted({ age: 10 });
+Pet.countDocumentsWithDeleted({ age: 10 });
+Pet.findDeleted({ age: 10 });
+Pet.findWithDeleted({ age: 10 });
+Pet.findOneDeleted({ age: 10 });
+Pet.findOneWithDeleted({ age: 10 });
+Pet.findOneAndUpdateDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.findOneAndUpdateWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateManyDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateManyWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.aggregateDeleted([{ $match: { age: 10 } }]);
+Pet.aggregateWithDeleted([{ $match: { age: 10 } }]);

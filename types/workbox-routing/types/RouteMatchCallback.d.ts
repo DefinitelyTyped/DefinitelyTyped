@@ -2,6 +2,6 @@ export type RouteMatchCallback<R = any> = (options: RouteMatchCallbackOptions) =
 
 export interface RouteMatchCallbackOptions {
     url: URL;
-    event?: ExtendableEvent;
-    request?: Request;
+    event?: ExtendableEvent | undefined;
+    request?: Request | undefined;
 }

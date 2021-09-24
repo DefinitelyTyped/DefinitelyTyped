@@ -1,1 +1,3 @@
-export { DotMark20 as default } from "../../";
+import { DotMark20 } from "../../";
+
+export = DotMark20;

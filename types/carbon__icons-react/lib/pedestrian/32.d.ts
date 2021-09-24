@@ -1,1 +1,3 @@
-export { Pedestrian32 as default } from "../../";
+import { Pedestrian32 } from "../../";
+
+export = Pedestrian32;

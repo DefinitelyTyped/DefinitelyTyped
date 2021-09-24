@@ -172,6 +172,19 @@ class MyMap extends React.Component<{}, State> {
                 >
                     Jump to Null Point
                 </button>
+                <button
+                    onClick={() => {
+                        this.setState(prevState => ({
+                            viewport: {
+                                ...prevState.viewport,
+                                width: '100vw',
+                                height: '100vh',
+                            },
+                        }));
+                    }}
+                >
+                    Make map width and height of viewport
+                </button>
             </div>
         );
     }

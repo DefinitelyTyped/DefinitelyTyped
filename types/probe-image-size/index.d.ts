@@ -1,4 +1,4 @@
-// Type definitions for probe-image-size 5.0
+// Type definitions for probe-image-size 7.0
 // Project: https://github.com/nodeca/probe-image-size#readme
 // Definitions by: Jinesh Shah <https://github.com/jineshshah36>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -23,16 +23,25 @@ declare namespace probe {
         wUnits: string;
         hUnits: string;
         url: string;
+        orientation?: Orientation | undefined;
+        variants?: Variant[] | undefined;
+    }
+
+    type Orientation = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+    interface Variant {
+        width: number;
+        height: number;
     }
 
     interface ProbeOptions {
-        retries?: number;
-        timeout?: number;
+        retries?: number | undefined;
+        timeout?: number | undefined;
     }
 
     interface ProbeError extends Error {
-        code?: 'ECONTENT';
-        status?: number;
+        code?: "ECONTENT" | undefined;
+        status?: number | undefined;
     }
 
     type ProbeCallback = (err: ProbeError | null, result: ProbeResult) => void;

@@ -1,23 +1,22 @@
-// Type definitions for Bezier.js
+// Type definitions for Bezier.js 4.1
 // Project: https://github.com/Pomax/bezierjs
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 //                 Simon <https://github.com/Epskampie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare namespace BezierJs {
+declare module 'bezier-js' {
     interface Point {
         x: number;
         y: number;
-        z?: number;
+        z?: number | undefined;
     }
     interface Projection extends Point {
-        t?: number;
-        d?: number;
+        t?: number | undefined;
+        d?: number | undefined;
     }
     interface Inflection {
         x: number[];
         y: number[];
-        z?: number[];
+        z?: number[] | undefined;
         values: number[];
     }
     interface Offset extends Point {
@@ -30,19 +29,19 @@ declare namespace BezierJs {
     }
     interface Split extends Pair {
         span: Point[];
-        _t1?: number;
-        _t2?: number;
+        _t1?: number | undefined;
+        _t2?: number | undefined;
     }
     interface MinMax {
         min: number;
-        mid?: number;
+        mid?: number | undefined;
         max: number;
-        size?: number;
+        size?: number | undefined;
     }
     interface BBox {
         x: MinMax;
         y: MinMax;
-        z?: MinMax;
+        z?: MinMax | undefined;
     }
     interface Line {
         p1: Point;
@@ -52,7 +51,7 @@ declare namespace BezierJs {
         e: number;
         r: number;
         s: number;
-        interval: { start: number; end: number; };
+        interval: { start: number; end: number };
     }
     interface Shape {
         startcap: BezierCap;
@@ -99,8 +98,8 @@ declare namespace BezierJs {
         static getABC(n: number, S: Point, B: Point, E: Point, t: number): ABC;
         static quadraticFromPoints(p1: Point, p2: Point, p3: Point, t?: number): Bezier;
         static cubicFromPoints(S: Point, B: Point, E: Point, t?: number, d1?: number): Bezier;
-        static getUtils(): typeof utils;
-        getUtils(): typeof utils;
+        static getUtils(): utils;
+        getUtils(): utils;
         valueOf(): string;
         toString(): string;
         toSVG(): string;
@@ -145,45 +144,49 @@ declare namespace BezierJs {
     class BezierCap extends Bezier {
         virtual: boolean;
     }
-}
 
-declare namespace BezierJs.utils {
-    var Tvalues: number[];
-    var Cvalues: number[];
-    function arcfn(t: number, derivativeFn: Function): number;
-    function between(v: number, m: number, M: number): boolean;
-    function approximately(a: number, b: number, precision?: number): boolean;
-    function length(derivativeFn: Function): number;
-    function map(v: number, ds: number, de: number, ts: number, te: number): number;
-    function lerp(r: number, v1: Point, v2: Point): Point;
-    function pointToString(p: Point): string;
-    function pointsToString(points: Point[]): string;
-    function copy(obj: Object): any;
-    function angle(o: Point, v1: Point, v2: Point): number;
-    function round(v: number, d: number): number;
-    function dist(p1: Point, p2: Point): number;
-    function closest(LUT: Point[], point: Point): Closest;
-    function abcratio(t: number, n: number): number;
-    function projectionratio(t: number, n: number): number;
-    function lli8(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number): Point;
-    function lli4(p1: Point, p2: Point, p3: Point, p4: Point): Point;
-    function lli(v1: Offset, v2: Offset): Point;
-    function makeline(p1: Point, p2: Point): Bezier;
-    function findbbox(sections: Bezier[]): BBox;
-    function shapeintersections(s1: Shape, bbox1: BBox, s2: Shape, bbox2: BBox, curveIntersectionThreshold?: number): string[][] | number[][];
-    function makeshape(forward: Bezier, back: Bezier, curveIntersectionThreshold?: number): Shape;
-    function getminmax(curve: Bezier, d: string, list: number[]): MinMax;
-    function align(points: Point[], line: Line): Point[];
-    function roots(points: Point[], line: Line): number[];
-    function droots(p: number[]): number[];
-    function inflections(points: Point[]): number[];
-    function bboxoverlap(b1: BBox, b2: BBox): boolean;
-    function expandbox(bbox: BBox, _bbox: BBox): void;
-    function pairiteration(c1: Bezier, c2: Bezier, curveIntersectionThreshold?: number): string[];
-    function getccenter(p1: Point, p2: Point, p3: Point): Arc;
-}
+    interface utils {
+        Tvalues: number[];
+        Cvalues: number[];
+        arcfn(t: number, derivativeFn: Function): number;
+        between(v: number, m: number, M: number): boolean;
+        approximately(a: number, b: number, precision?: number): boolean;
+        length(derivativeFn: Function): number;
+        map(v: number, ds: number, de: number, ts: number, te: number): number;
+        lerp(r: number, v1: Point, v2: Point): Point;
+        pointToString(p: Point): string;
+        pointsToString(points: Point[]): string;
+        copy(obj: Object): any;
+        angle(o: Point, v1: Point, v2: Point): number;
+        round(v: number, d: number): number;
+        dist(p1: Point, p2: Point): number;
+        closest(LUT: Point[], point: Point): Closest;
+        abcratio(t: number, n: number): number;
+        projectionratio(t: number, n: number): number;
+        lli8(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number): Point;
+        lli4(p1: Point, p2: Point, p3: Point, p4: Point): Point;
+        lli(v1: Offset, v2: Offset): Point;
+        makeline(p1: Point, p2: Point): Bezier;
+        findbbox(sections: Bezier[]): BBox;
+        shapeintersections(
+            s1: Shape,
+            bbox1: BBox,
+            s2: Shape,
+            bbox2: BBox,
+            curveIntersectionThreshold?: number,
+        ): string[][] | number[][];
+        makeshape(forward: Bezier, back: Bezier, curveIntersectionThreshold?: number): Shape;
+        getminmax(curve: Bezier, d: string, list: number[]): MinMax;
+        align(points: Point[], line: Line): Point[];
+        roots(points: Point[], line: Line): number[];
+        droots(p: number[]): number[];
+        inflections(points: Point[]): number[];
+        bboxoverlap(b1: BBox, b2: BBox): boolean;
+        expandbox(bbox: BBox, _bbox: BBox): void;
+        pairiteration(c1: Bezier, c2: Bezier, curveIntersectionThreshold?: number): string[];
+        getccenter(p1: Point, p2: Point, p3: Point): Arc;
+    }
 
-declare namespace BezierJs {
     /**
      * Poly Bezier
      * @param {[type]} curves [description]
@@ -201,8 +204,4 @@ declare namespace BezierJs {
         bbox(): BBox;
         offset(d: number): PolyBezier;
     }
-}
-
-declare module "bezier-js" {
-  export = BezierJs.Bezier;
 }

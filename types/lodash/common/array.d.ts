@@ -53,8 +53,7 @@ declare module "../index" {
          * and/or values.
          *
          * @category Array
-         * @param array The array to concatenate.
-         * @param [values] The values to concatenate.
+         * @param [values] The array values to concatenate.
          * @returns Returns the new concatenated array.
          * @example
          *
@@ -67,7 +66,7 @@ declare module "../index" {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
+         concat<T>(...values: Array<Many<T>>): T[];
     }
     interface Primitive<T> {
         /**
@@ -1427,7 +1426,7 @@ declare module "../index" {
          * @example
          *
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
-         * // => [1.1, 2.2]
+         * // => [1.1, 2.3]
          */
         sortedUniqBy<T>(array: List<T> | null | undefined, iteratee: ValueIteratee<T>): T[];
     }

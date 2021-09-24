@@ -6,16 +6,16 @@
 export as namespace stylis;
 
 export interface Element {
-    parent?: Element;
-    children?: Element[] | string;
+    parent?: Element | undefined;
+    children?: Element[] | string | undefined;
     root: Element;
     type: string;
     props: string[] | string;
     value: string;
     length: number;
     return: string;
-    line?: number;
-    column?: number;
+    line?: number | undefined;
+    column?: number | undefined;
 }
 
 export type ArrayMapCallback = (value: string, index: number, array: string[]) => string;

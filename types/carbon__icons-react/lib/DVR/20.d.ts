@@ -1,1 +1,3 @@
-export { Dvr20 as default } from "../../";
+import { Dvr20 } from "../../";
+
+export = Dvr20;

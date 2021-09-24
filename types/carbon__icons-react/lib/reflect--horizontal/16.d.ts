@@ -1,1 +1,3 @@
-export { ReflectHorizontal16 as default } from "../../";
+import { ReflectHorizontal16 } from "../../";
+
+export = ReflectHorizontal16;

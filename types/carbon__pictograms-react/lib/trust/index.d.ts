@@ -1,1 +1,3 @@
-export { Trust as default } from "../../";
+import { Trust } from "../../";
+
+export = Trust;

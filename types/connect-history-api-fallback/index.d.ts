@@ -16,22 +16,22 @@ declare function historyApiFallback(options?: historyApiFallback.Options): core.
 
 declare namespace historyApiFallback {
     interface Options {
-        disableDotRule?: true;
-        htmlAcceptHeaders?: string[];
-        index?: string;
-        logger?: typeof console.log;
-        rewrites?: Rewrite[];
-        verbose?: boolean;
+        readonly disableDotRule?: true | undefined;
+        readonly htmlAcceptHeaders?: ReadonlyArray<string> | undefined;
+        readonly index?: string | undefined;
+        readonly logger?: typeof console.log | undefined;
+        readonly rewrites?: ReadonlyArray<Rewrite> | undefined;
+        readonly verbose?: boolean | undefined;
     }
 
     interface Context {
-        match: RegExpMatchArray;
-        parsedUrl: Url;
+        readonly match: RegExpMatchArray;
+        readonly parsedUrl: Url;
     }
     type RewriteTo = (context: Context) => string;
 
     interface Rewrite {
-        from: RegExp;
-        to: string | RegExp | RewriteTo;
+        readonly from: RegExp;
+        readonly to: string | RegExp | RewriteTo;
     }
 }

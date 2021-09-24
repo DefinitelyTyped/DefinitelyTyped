@@ -1,28 +1,6 @@
 // Type definitions for Recharts 1.8
 // Project: http://recharts.org/, https://github.com/recharts/recharts
-// Definitions by: Raphael Mueller <https://github.com/rapmue>
-//                 Roy Xue <https://github.com/royxue>
-//                 Zheyang Song <https://github.com/ZheyangSong>
-//                 Rich Baird <https://github.com/richbai90>
-//                 Dan Torberg <https://github.com/caspeco-dan>
-//                 Peter Keuter <https://github.com/pkeuter>
-//                 Jamie Saunders <https://github.com/jrsaunde>
-//                 Harry Cruse <https://github.com/crusectrl>
-//                 Andrew Palugniok <https://github.com/apalugniok>
-//                 Robert Stigsson <https://github.com/RobertStigsson>
-//                 Kosaku Kurino <https://github.com/kousaku-maron>
-//                 Leon Ng <https://github.com/iflp>
-//                 Dave Vedder <https://github.com/veddermatic>
-//                 Konstantin Azizov <https://github.com/g07cha>
-//                 Gonzalo Nicolas D'Elia <https://github.com/gndelia>
-//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
-//                 Eliot Ball <https://github.com/eliotball>
-//                 Ville Kentta <https://github.com/vkentta>
-//                 Fabien Caylus <https://github.com/fcaylus>
-//                 Samuel Weckstrom <https://github.com/samuelweckstrom>
-//                 George Cheng <https://github.com/Gerhut>
-//                 Haldun Anil <https://github.com/haldunanil>
-//                 Tobias Knapp <https://github.com/t-knapp>
+// Definitions by: Dmitriy Serdtsev <https://github.com/in19farkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -66,7 +44,7 @@ export type PickedCSSStyleDeclarationKeys =
     'colorInterpolationFilters' | 'cursor' | 'direction' | 'display' | 'dominantBaseline' |
     'fill' | 'fillRule' | 'filter' | 'floodColor' |
     'floodOpacity' | 'font' | 'fontFamily' | 'fontStretch' | 'fontStyle' | 'fontVariant' |
-    'glyphOrientationVertical' | 'letterSpacing' | 'lightingColor' |
+    'letterSpacing' | 'lightingColor' |
     'markerEnd' | 'markerMid' | 'markerStart' | 'mask' | 'overflow' | 'pointerEvents' |
     'stopColor' | 'strokeDasharray' | 'strokeLinecap' | 'strokeLinejoin' | 'textAnchor' |
     'textDecoration' | 'unicodeBidi' | 'visibility' | 'writingMode' | 'transform';
@@ -416,9 +394,19 @@ export interface LegendPayload {
     id: any;
     type: LegendType;
     color?: string;
+    payload?: {
+        strokeDasharray: string;
+    };
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
+
+export interface LayerProps {
+    className?: string;
+    children?: React.ReactNode[] | React.ReactNode;
+}
+
+export class Layer extends React.Component<LayerProps> { }
 
 export interface LegendProps {
     content?: React.ReactElement | ContentRenderer<LegendProps>;
@@ -788,6 +776,34 @@ export interface ResponsiveContainerProps {
 
 export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, ContainerSize> { }
 
+export interface SankeyProps extends EventAttributes, Partial<PresentationAttributes> {
+    data: { nodes: any[], links: Array<{ target: number, source: number, value: number }> };
+    nameKey?: string | number | RechartsFunction;
+    dataKey?: DataKey;
+    width?: number;
+    height?: number;
+    nodePadding?: number;
+    nodeWidth?: number;
+    linkCurvature?: number;
+    iterations?: number;
+    node?: object | ContentRenderer<any> | React.ReactElement;
+    link?: object | ContentRenderer<any> | React.ReactElement;
+    style?: object;
+    className?: string;
+    children?: React.ReactNode[] | React.ReactNode;
+    margin?: Partial<Margin>;
+}
+
+export interface SankeyState {
+    activeElement?: any;
+    activeElementType?: any;
+    isTooltipActive?: boolean;
+    nodes?: any;
+    links?: any;
+}
+
+export class Sankey extends React.Component<SankeyProps, SankeyState> { }
+
 export interface ScatterPoint {
     cx?: number;
     cy?: number;
@@ -1001,7 +1017,7 @@ export interface XAxisProps extends EventAttributes {
     tickCount?: number;
     // The formatter function of tick
     tickFormatter?: TickFormatterFunction;
-    padding?: XPadding;
+    padding?: Partial<XPadding>;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
     tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
@@ -1061,7 +1077,7 @@ export interface YAxisProps extends EventAttributes {
     // The orientation of axis
     orientation?: 'left' | 'right';
     type?: 'number' | 'category';
-    padding?: YPadding;
+    padding?: Partial<YPadding>;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
     tick?: boolean | ContentRenderer<any> | object | React.ReactElement;

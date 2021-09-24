@@ -1,17 +1,27 @@
 import * as React from "react";
 import {
-    defaultRanges,
+    Range,
     DateRange,
-    DateRangePicker,
-    OnChangeProps
-} from "react-date-range";
+    DateRangePicker, OnDateRangeChangeProps,
+    RangeWithKey,
+} from 'react-date-range';
+
+const range: RangeWithKey = {
+    startDate: new Date('2020-11-01'),
+    endDate: new Date('2020-11-30'),
+    key: 'selection'
+};
 
 class ReactDatePicker extends React.Component<any, any> {
     constructor(props: {}) {
         super(props);
     }
 
-    handleChange(range: OnChangeProps) {
+    handleInit(range: Range) {
+        console.log(range);
+    }
+
+    handleChange(range: OnDateRangeChangeProps) {
         console.log(range);
     }
 
@@ -20,8 +30,8 @@ class ReactDatePicker extends React.Component<any, any> {
             <div>
                 <DateRange
                     linkedCalendars={true}
-                    ranges={defaultRanges}
-                    onInit={this.handleChange}
+                    ranges={[range]}
+                    onInit={this.handleInit}
                     onChange={this.handleChange}
                     theme={{
                         Calendar: { width: 200 },
@@ -36,12 +46,22 @@ class ReactDatePicker extends React.Component<any, any> {
     }
 }
 
+const customizedKeyRange: Range = {
+    startDate: new Date('2020-11-01'),
+    endDate: new Date('2020-11-30'),
+    key: 'customizedKey'
+};
+
 class ReactDateRangePicker extends React.Component<any, any> {
     constructor(props: {}) {
         super(props);
     }
 
-    handleChange(range: OnChangeProps) {
+    handleInit(range: Range) {
+        console.log(range);
+    }
+
+    handleChange(range: OnDateRangeChangeProps) {
         console.log(range);
     }
 
@@ -50,9 +70,9 @@ class ReactDateRangePicker extends React.Component<any, any> {
             <div>
                 <DateRangePicker
                     linkedCalendars={true}
-                    ranges={defaultRanges}
+                    ranges={[customizedKeyRange]}
                     scroll={{enabled: true}}
-                    onInit={this.handleChange}
+                    onInit={this.handleInit}
                     onChange={this.handleChange}
                     showSelectionPreview={true}
                     editableDateInputs={true}

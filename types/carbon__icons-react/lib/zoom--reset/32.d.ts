@@ -1,1 +1,3 @@
-export { ZoomReset32 as default } from "../../";
+import { ZoomReset32 } from "../../";
+
+export = ZoomReset32;

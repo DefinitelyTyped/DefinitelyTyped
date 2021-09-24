@@ -1,1 +1,3 @@
-export { Minimize32 as default } from "../../";
+import { Minimize32 } from "../../";
+
+export = Minimize32;

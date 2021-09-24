@@ -1,1 +1,3 @@
-export { DocumentSecurity as default } from "../../";
+import { DocumentSecurity } from "../../";
+
+export = DocumentSecurity;

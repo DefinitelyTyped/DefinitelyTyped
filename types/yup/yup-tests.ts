@@ -136,8 +136,12 @@ mixed.isType('hello');
 mixed.strict(true);
 mixed.strip(true);
 mixed.withMutation(schema => {});
-mixed.default({ number: 5 });
-mixed.default(() => ({ number: 5 }));
+mixed.default({ number: 5 }); // $ExpectType MixedSchema<{} | null, object>
+mixed.default(() => ({ number: 5 })); // $ExpectType MixedSchema<{} | null, object>
+mixed.default(null); // $ExpectType MixedSchema<{} | null, object>
+mixed.default(undefined); // $ExpectType MixedSchema<{} | null | undefined, object>
+// $ExpectError
+mixed.defined().default(undefined);
 mixed.default();
 mixed.nullable(true);
 mixed.nullable();
@@ -182,7 +186,7 @@ mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
 mixed.test(
     'is-jimmy',
     ({ path, value }) => `${path} has an error, it is ${value}`,
-    value => value === 'jimmy',
+    (value, context) => value === 'jimmy' || context.originalValue === 'jimmy',
 );
 mixed.test({
     name: 'lessThan5',
@@ -224,6 +228,8 @@ const testContext = function(this: TestContext) {
     this.parent;
     // $ExpectType Schema<any, object>
     this.schema;
+    // $ExpectType any
+    this.originalValue;
     // $ExpectType (value: any) => any
     this.resolve;
     // $ExpectType ValidationError
@@ -368,6 +374,12 @@ function strSchemaTests(strSchema: yup.StringSchema) {
     strSchema.uppercase('upper');
     strSchema.uppercase(() => 'upper');
     strSchema.defined();
+    strSchema.default('hello'); // $ExpectType StringSchema<string, object>
+    strSchema.default(() => 'hello'); // $ExpectType StringSchema<string, object>
+    strSchema.default(undefined); // $ExpectType StringSchema<string | undefined, object>
+    // $ExpectError
+    strSchema.defined().default(undefined);
+    strSchema.default();
 }
 
 const strSchema = yup.string(); // $ExpectType StringSchema<string | undefined, object>
@@ -419,6 +431,12 @@ numSchema.oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined,
 numSchema.equals([1, 2] as const); // $ExpectType NumberSchema<1 | 2 | undefined, object>
 numSchema.required().oneOf([1, 2] as const); // $ExpectType NumberSchema<1 | 2, object>
 numSchema.defined();
+numSchema.default(5); // $ExpectType NumberSchema<number, object>
+numSchema.default(() => 5); // $ExpectType NumberSchema<number, object>
+numSchema.default(undefined); // $ExpectType NumberSchema<number | undefined, object>
+numSchema.default();
+// $ExpectError
+numSchema.defined().default(undefined);
 
 // Boolean Schema
 const boolSchema = yup.boolean(); // $ExpectType BooleanSchema<boolean | undefined, object>
@@ -428,6 +446,20 @@ boolSchema.oneOf([true] as const); // $ExpectType BooleanSchema<true | undefined
 boolSchema.equals([true] as const); // $ExpectType BooleanSchema<true | undefined, object>
 boolSchema.required().oneOf([true] as const); // $ExpectType BooleanSchema<true, object>
 boolSchema.defined();
+boolSchema.default(false); // $ExpectType BooleanSchema<boolean, object>
+boolSchema.default(() => false); // $ExpectType BooleanSchema<boolean, object>
+boolSchema.default(undefined); // $ExpectType BooleanSchema<boolean | undefined, object>
+boolSchema.default(() => undefined); // $ExpectType BooleanSchema<boolean | undefined, object>
+boolSchema.nullable().default(null); // $ExpectType BooleanSchema<boolean | null, object>
+// $ExpectError
+boolSchema.default(5);
+// $ExpectError
+boolSchema.default(() => 5);
+// $ExpectError
+boolSchema.default(null).nullable();
+// $ExpectError
+boolSchema.defined().default(undefined);
+boolSchema.default();
 
 // Date Schema
 const dateSchema = yup.date(); // $ExpectType DateSchema<Date | undefined, object>
@@ -447,6 +479,16 @@ dateSchema.max('2017-11-12', () => 'message');
 dateSchema.oneOf([new Date()] as const); // $ExpectType DateSchema<Date | undefined, object>
 dateSchema.equals([new Date()] as const); // $ExpectType DateSchema<Date | undefined, object>
 dateSchema.required().oneOf([new Date()] as const); // $ExpectType DateSchema<Date, object>
+dateSchema.default(new Date()); // $ExpectType DateSchema<Date, object>
+dateSchema.default(() => new Date()); // $ExpectType DateSchema<Date, object>
+dateSchema.default(undefined); // $ExpectType DateSchema<Date | undefined, object>
+// $ExpectError
+dateSchema.default('2017-11-12');
+// $ExpectError
+dateSchema.default(() => '2017-11-12');
+// $ExpectError
+dateSchema.defined().default(undefined);
+dateSchema.default();
 
 // Array Schema
 const arrSchema = yup.array().of(yup.number().defined().min(2));
@@ -528,6 +570,14 @@ interface LiteralExampleObject {
 }
 objSchema.oneOf([{name: "John Doe", age: 35, email: "john@example.com", website: "example.com"}] as LiteralExampleObject[]); // $ExpectType ObjectSchema<LiteralExampleObject, object>
 objSchema.defined();
+
+const validObject = { name: 'Abraham Lincoln', age: 24, email: 'abe@logcabin.com', website: 'http://honestabe.com' };
+objSchema.default(validObject);
+objSchema.default(() => validObject);
+objSchema.default(undefined);
+// $ExpectError
+objSchema.defined().default(undefined);
+objSchema.default();
 
 const description: SchemaDescription = {
     type: 'type',
@@ -627,6 +677,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         oneOf: '${path} must be one of the following values: ${values}',
         notOneOf: '${path} must not be one of the following values: ${values}',
         notType: '${path} is not the correct type',
+        defined: '${path} is not defined',
     },
     string: {
         length: '${path} must be exactly ${length} characters',
@@ -645,6 +696,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         max: '${path} must be less than or equal to ${max}',
         lessThan: '${path} must be less than ${less}',
         moreThan: '${path} must be greater than ${more}',
+        notEqual: '${path} must be not equal to ${notEqual}',
         positive: '${path} must be a positive number',
         negative: '${path} must be a negative number',
         integer: '${path} must be an integer',
@@ -657,7 +709,7 @@ const exhaustiveLocalObjectconst: LocaleObject = {
         // NOOP
     },
     object: {
-        noUnknown: '${path} field cannot have keys not specified in the object shape',
+        noUnknown: '${path} field has unspecified keys: ${unknown}',
     },
     array: {
         min: '${path} field must have at least ${min} items',
@@ -1055,7 +1107,7 @@ const arrayOfOptionalExample: yup.InferType<typeof arrayOfOptional> = [{}];
 // augment locale
 declare module './index' {
     interface StringLocale {
-        chineseMobilePhoneNumber?: TestOptionsMessage;
+        chineseMobilePhoneNumber?: TestOptionsMessage | undefined;
     }
 
     interface StringSchema<T extends string | null | undefined = string | undefined, C = object> extends Schema<T, C> {

@@ -7,6 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+declare function fbAsyncInit(): void;
+
 import fb = facebook;
 declare var FB: fb.FacebookStatic;
 declare namespace facebook {
@@ -29,6 +31,52 @@ declare namespace facebook {
         ? () => void
         : (response: StatusResponse) => void;
 
+    type UserField =
+        | 'id'
+        | 'about'
+        | 'age_range'
+        | 'birthday'
+        | 'education'
+        | 'email'
+        | 'favorite_athletes'
+        | 'favorite_teams'
+        | 'first_name'
+        | 'gender'
+        | 'hometown'
+        | 'inspirational_people'
+        | 'install_type'
+        | 'is_guest_user'
+        | 'languages'
+        | 'last_name'
+        | 'link'
+        | 'location'
+        | 'meeting_for'
+        | 'middle_name'
+        | 'name'
+        | 'name_format'
+        | 'payment_pricepoints'
+        | 'name_political'
+        | 'profile_pic'
+        | 'quotes'
+        | 'relationship_status'
+        | 'religion'
+        | 'shared_login_upgrade_required_by'
+        | 'short_name'
+        | 'significant_other'
+        | 'sports'
+        | 'supports_donate_button_in_live_video'
+        | 'token_for_business'
+        | 'video_upload_limits'
+        | 'website';
+
+    type AgeRange = { min: 13; max: 17 } | { min: 18; max: 20 } | { min: 21; max: undefined };
+    type EducationExperience = any;
+    type Experience = any;
+    type Page = any;
+    type PaymentPricepoints = any;
+    type User = any;
+    type VideoUploadLimits = any;
+
     interface FacebookStaticEvent {
         subscribe<TEvent extends FacebookEventType>(
             event: TEvent,
@@ -49,6 +97,50 @@ declare namespace facebook {
             path: string,
             params: TParams,
             callback: (response: TResponse) => void
+        ): void;
+        api<TParam extends UserField>(
+            path: '/me',
+            params: { fields: TParam[] },
+            callback: (response: {
+                id: number;
+                about?: TParam extends 'about' ? string : never | undefined | undefined;
+                age_range?: TParam extends 'age_range' ? AgeRange : never | undefined | undefined;
+                birthday?: TParam extends 'birthday' ? string : never | undefined | undefined;
+                education?: TParam extends 'education' ? EducationExperience[] : never | undefined | undefined;
+                email?: TParam extends 'email' ? string : never | undefined | undefined;
+                favorite_athletes?: TParam extends 'favorite_athletes' ? Experience[] : never | undefined | undefined;
+                favorite_teams?: TParam extends 'favorite_teams' ? Experience[] : never | undefined | undefined;
+                first_name?: TParam extends 'first_name' ? string : never | undefined | undefined;
+                gender?: TParam extends 'gender' ? string : never | undefined | undefined;
+                hometown?: TParam extends 'hometown' ? Page : never | undefined | undefined;
+                inspirational_people?: TParam extends 'inspirational_people' ? Experience[] : never | undefined | undefined;
+                install_type?: TParam extends 'install_type' ? any : never | undefined | undefined;
+                is_guest_user?: TParam extends 'is_guest_user' ? boolean : never | undefined | undefined;
+                languages?: TParam extends 'languages' ? Experience[] : never | undefined | undefined;
+                last_name?: TParam extends 'last_name' ? string : never | undefined | undefined;
+                link?: TParam extends 'link' ? string : never | undefined | undefined;
+                location?: TParam extends 'location' ? Page : never | undefined | undefined;
+                meeting_for?: TParam extends 'meeting_for' ? string[] : never | undefined | undefined;
+                middle_name?: TParam extends 'middle_name' ? string : never | undefined | undefined;
+                name?: TParam extends 'name' ? string : never | undefined | undefined;
+                name_format?: TParam extends 'name_format' ? string : never | undefined | undefined;
+                payment_pricepoints?: TParam extends 'payment_pricepoints' ? PaymentPricepoints : never | undefined | undefined;
+                name_political?: TParam extends 'political' ? string : never | undefined | undefined;
+                profile_pic?: TParam extends 'profile_pic' ? string : never | undefined | undefined;
+                quotes?: TParam extends 'quotes' ? string : never | undefined | undefined;
+                relationship_status?: TParam extends 'relationship_status' ? string : never | undefined | undefined;
+                religion?: TParam extends 'religion' ? string : never | undefined | undefined;
+                shared_login_upgrade_required_by?: TParam extends 'shared_login_upgrade_required_by' ? any : never | undefined | undefined;
+                short_name?: TParam extends 'short_name' ? any : never | undefined | undefined;
+                significant_other?: TParam extends 'significant_other' ? User : never | undefined | undefined;
+                sports?: TParam extends 'sports' ? Experience[] : never | undefined | undefined;
+                supports_donate_button_in_live_video?: TParam extends 'supports_donate_button_in_live_video'
+                    ? boolean
+                    : never | undefined | undefined;
+                token_for_business?: TParam extends 'token_for_business' ? VideoUploadLimits : never | undefined | undefined;
+                video_upload_limits?: TParam extends 'video_upload_limits' ? string : never | undefined | undefined;
+                website?: TParam extends 'website' ? string : never | undefined | undefined;
+            }) => void,
         ): void;
         api<TParams extends object, TResponse>(
             path: string,
@@ -229,22 +321,22 @@ declare namespace facebook {
     }
 
     interface InitParams {
-        appId?: string;
+        appId?: string | undefined;
         version: string;
-        cookie?: boolean;
-        status?: boolean;
-        xfbml?: boolean;
-        frictionlessRequests?: boolean;
-        hideFlashCallback?: boolean;
-        autoLogAppEvents?: boolean;
+        cookie?: boolean | undefined;
+        status?: boolean | undefined;
+        xfbml?: boolean | undefined;
+        frictionlessRequests?: boolean | undefined;
+        hideFlashCallback?: boolean | undefined;
+        autoLogAppEvents?: boolean | undefined;
     }
 
     interface LoginOptions {
-        auth_type?: 'reauthenticate' | 'reauthorize' | 'rerequest';
-        scope?: string;
-        return_scopes?: boolean;
-        enable_profile_selector?: boolean;
-        profile_selector_ids?: string;
+        auth_type?: 'reauthenticate' | 'reauthorize' | 'rerequest' | undefined;
+        scope?: string | undefined;
+        return_scopes?: boolean | undefined;
+        enable_profile_selector?: boolean | undefined;
+        profile_selector_ids?: string | undefined;
     }
 
     ////////////////////////
@@ -254,17 +346,17 @@ declare namespace facebook {
     ////////////////////////
 
     interface DialogParams {
-        app_id?: string;
-        redirect_uri?: string;
-        display?: 'page' | 'iframe' | 'async' | 'popup';
+        app_id?: string | undefined;
+        redirect_uri?: string | undefined;
+        display?: 'page' | 'iframe' | 'async' | 'popup' | undefined;
     }
 
     interface ShareDialogParams extends DialogParams {
         method: 'share';
         href: string;
-        hashtag?: string;
-        quote?: string;
-        mobile_iframe?: boolean;
+        hashtag?: string | undefined;
+        quote?: string | undefined;
+        mobile_iframe?: boolean | undefined;
     }
 
     interface ShareOpenGraphDialogParams extends DialogParams {
@@ -272,9 +364,9 @@ declare namespace facebook {
         action_type: string;
         action_properties: { [property: string]: any };
         href: string;
-        hashtag?: string;
-        quote?: string;
-        mobile_iframe?: false;
+        hashtag?: string | undefined;
+        quote?: string | undefined;
+        mobile_iframe?: false | undefined;
     }
 
     interface AddPageTabDialogParams extends DialogParams {
@@ -285,23 +377,23 @@ declare namespace facebook {
     interface GameRequestDialogParams extends DialogParams {
         method: 'apprequests';
         message: string;
-        action_type?: 'send' | 'askfor' | 'turn';
-        data?: string;
-        exclude_ids?: string[];
+        action_type?: 'send' | 'askfor' | 'turn' | undefined;
+        data?: string | undefined;
+        exclude_ids?: string[] | undefined;
         filters?:
             | 'app_users'
             | 'app_non_users'
-            | Array<{ name: string; user_ids: string[] }>;
-        max_recipients?: number;
-        object_id?: string;
-        suggestions?: string[];
-        title?: string;
-        to?: string | number;
+            | Array<{ name: string; user_ids: string[] }> | undefined;
+        max_recipients?: number | undefined;
+        object_id?: string | undefined;
+        suggestions?: string[] | undefined;
+        title?: string | undefined;
+        to?: string | number | undefined;
     }
 
     interface SendDialogParams extends DialogParams {
         method: 'send';
-        to?: string;
+        to?: string | undefined;
         link: string;
     }
 
@@ -309,27 +401,27 @@ declare namespace facebook {
         method: 'pay';
         action: 'purchaseitem';
         product: string;
-        quantity?: number;
-        quantity_min?: number;
-        quantity_max?: number;
-        pricepoint_id?: string;
-        request_id?: string;
-        test_currency?: string;
+        quantity?: number | undefined;
+        quantity_min?: number | undefined;
+        quantity_max?: number | undefined;
+        pricepoint_id?: string | undefined;
+        request_id?: string | undefined;
+        test_currency?: string | undefined;
     }
 
     interface PaymentsLiteDialogParams extends DialogParams {
         method: 'pay';
         action: 'purchaseiap';
         product_id: string;
-        developer_payload?: string;
-        quantity?: number;
+        developer_payload?: string | undefined;
+        quantity?: number | undefined;
     }
 
     interface LiveDialogParams extends DialogParams {
         method: 'live_broadcast';
         display: 'popup' | 'iframe';
         phase: 'create' | 'publish';
-        broadcast_data?: LiveDialogResponse;
+        broadcast_data?: LiveDialogResponse | undefined;
     }
 
     interface CreateOfferDialogParams extends DialogParams {
@@ -358,7 +450,7 @@ declare namespace facebook {
         method: 'canvas_editor';
         business_id: string;
         page_id: string;
-        canvas_id?: string;
+        canvas_id?: string | undefined;
     }
 
     interface InstantExperiencesPreviewDialogParams extends DialogParams {
@@ -372,8 +464,8 @@ declare namespace facebook {
         account_id: string;
         canvas_id?: undefined;
         template_id: string;
-        product_catalog_id?: string;
-        product_set_id?: string;
+        product_catalog_id?: string | undefined;
+        product_set_id?: string | undefined;
     }
 
     ////////////////////////
@@ -386,8 +478,8 @@ declare namespace facebook {
         expiresIn: number;
         signedRequest: string;
         userID: string;
-        grantedScopes?: string;
-        reauthorize_required_in?: number;
+        grantedScopes?: string | undefined;
+        reauthorize_required_in?: number | undefined;
     }
 
     interface StatusResponse {
@@ -396,8 +488,8 @@ declare namespace facebook {
     }
 
     interface DialogResponse {
-        error_code?: number;
-        error_message?: string;
+        error_code?: number | undefined;
+        error_message?: string | undefined;
     }
 
     interface ShareDialogResponse extends DialogResponse {
@@ -418,14 +510,14 @@ declare namespace facebook {
         amount: string;
         currency: string;
         quantity: string;
-        request_id?: string;
+        request_id?: string | undefined;
         status: 'completed' | 'initiated';
         signed_request: string;
     }
 
     interface PaymentsLiteDialogResponse extends DialogResponse {
         app_id: number;
-        developer_payload?: string;
+        developer_payload?: string | undefined;
         payment_id: number;
         product_id: string;
         purchase_time: number;

@@ -1,1 +1,3 @@
-export { Link32 as default } from "../../";
+import { Link32 } from "../../";
+
+export = Link32;

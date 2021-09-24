@@ -1,1 +1,3 @@
-export { CopyFile16 as default } from "../../";
+import { CopyFile16 } from "../../";
+
+export = CopyFile16;

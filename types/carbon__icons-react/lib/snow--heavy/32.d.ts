@@ -1,1 +1,3 @@
-export { SnowHeavy32 as default } from "../../";
+import { SnowHeavy32 } from "../../";
+
+export = SnowHeavy32;

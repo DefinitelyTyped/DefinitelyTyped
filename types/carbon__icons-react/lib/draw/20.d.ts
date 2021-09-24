@@ -1,1 +1,3 @@
-export { Draw20 as default } from "../../";
+import { Draw20 } from "../../";
+
+export = Draw20;

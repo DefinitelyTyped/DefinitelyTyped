@@ -1,1 +1,3 @@
-export { ExpandCategories32 as default } from "../../";
+import { ExpandCategories32 } from "../../";
+
+export = ExpandCategories32;

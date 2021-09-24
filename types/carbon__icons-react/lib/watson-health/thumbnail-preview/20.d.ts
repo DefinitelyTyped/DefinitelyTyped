@@ -1,1 +1,3 @@
-export { WatsonHealthThumbnailPreview20 as default } from "../../../";
+import { WatsonHealthThumbnailPreview20 } from "../../../";
+
+export = WatsonHealthThumbnailPreview20;

@@ -1,1 +1,3 @@
-export { InProgressError20 as default } from "../../";
+import { InProgressError20 } from "../../";
+
+export = InProgressError20;

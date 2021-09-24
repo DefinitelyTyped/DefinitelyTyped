@@ -1,1 +1,3 @@
-export { ChargingStation20 as default } from "../../";
+import { ChargingStation20 } from "../../";
+
+export = ChargingStation20;

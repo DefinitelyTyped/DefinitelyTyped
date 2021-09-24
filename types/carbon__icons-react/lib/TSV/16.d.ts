@@ -1,1 +1,3 @@
-export { Tsv16 as default } from "../../";
+import { Tsv16 } from "../../";
+
+export = Tsv16;

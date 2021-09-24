@@ -1,1 +1,3 @@
-export { Unknown24 as default } from "../../";
+import { Unknown24 } from "../../";
+
+export = Unknown24;

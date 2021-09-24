@@ -1,1 +1,3 @@
-export { MobileAudio24 as default } from "../../";
+import { MobileAudio24 } from "../../";
+
+export = MobileAudio24;

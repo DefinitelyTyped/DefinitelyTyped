@@ -1,1 +1,3 @@
-export { Raw24 as default } from "../../";
+import { Raw24 } from "../../";
+
+export = Raw24;

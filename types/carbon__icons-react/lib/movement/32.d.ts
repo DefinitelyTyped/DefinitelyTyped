@@ -1,1 +1,3 @@
-export { Movement32 as default } from "../../";
+import { Movement32 } from "../../";
+
+export = Movement32;

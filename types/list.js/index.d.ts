@@ -1,4 +1,4 @@
-// Type definitions for list.js 1.5
+// Type definitions for list.js 2.3
 // Project: http://listjs.com
 // Definitions by: Jeffrey Meng <https://github.com/jeffreymeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -44,31 +44,38 @@ declare namespace List {
     }
 
     interface ListOptions {
-        valueNames?: string[];
-        item?: string;
-        listClass?: string;
-        searchClass?: string;
-        sortClass?: string;
-        indexAsync?: boolean;
-        page?: number;
-        i?: number;
-        pagination?: boolean;
-        fuzzySearch?: FuzzySearchOptions;
+        valueNames?: Array<string|{data: string[]}|{name: string, attr: string}> | undefined;
+        item?: string | undefined;
+        listClass?: string | undefined;
+        searchClass?: string | undefined;
+        sortClass?: string | undefined;
+        indexAsync?: boolean | undefined;
+        page?: number | undefined;
+        i?: number | undefined;
+        pagination?: {
+            paginationClass?: string | undefined,
+            innerWindow?: number | undefined,
+            outerWindow?: number | undefined,
+            left?: number | undefined,
+            right?: number | undefined
+            item?: string | undefined,
+        } | undefined;
+        fuzzySearch?: FuzzySearchOptions | undefined;
     }
 
     interface FuzzySearchOptions {
-        searchClass?: string;
-        location?: number;
-        distance?: number;
-        threshold?: number;
-        multiSearch?: boolean;
+        searchClass?: string | undefined;
+        location?: number | undefined;
+        distance?: number | undefined;
+        threshold?: number | undefined;
+        multiSearch?: boolean | undefined;
     }
 
     interface SortOptions {
-        order?: string;
-        alphabet?: string;
-        insensitive?: boolean;
-        sortFunction?: (a: object, b: object) => number | undefined;
+        order?: string | undefined;
+        alphabet?: string | undefined;
+        insensitive?: boolean | undefined;
+        sortFunction?: ((a: object, b: object) => number | undefined) | undefined;
     }
 
     type Event =

@@ -1,1 +1,3 @@
-export { SkipForwardOutlineSolid32 as default } from "../../";
+import { SkipForwardOutlineSolid32 } from "../../";
+
+export = SkipForwardOutlineSolid32;

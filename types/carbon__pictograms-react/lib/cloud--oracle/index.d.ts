@@ -1,1 +1,3 @@
-export { CloudOracle as default } from "../../";
+import { CloudOracle } from "../../";
+
+export = CloudOracle;

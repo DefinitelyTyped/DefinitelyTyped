@@ -1,1 +1,3 @@
-export { ChartColumnTarget32 as default } from "../../";
+import { ChartColumnTarget32 } from "../../";
+
+export = ChartColumnTarget32;

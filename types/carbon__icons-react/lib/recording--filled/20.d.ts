@@ -1,1 +1,3 @@
-export { RecordingFilled20 as default } from "../../";
+import { RecordingFilled20 } from "../../";
+
+export = RecordingFilled20;

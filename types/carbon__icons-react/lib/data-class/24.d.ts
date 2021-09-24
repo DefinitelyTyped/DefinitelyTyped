@@ -1,1 +1,3 @@
-export { DataClass24 as default } from "../../";
+import { DataClass24 } from "../../";
+
+export = DataClass24;

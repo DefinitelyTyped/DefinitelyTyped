@@ -1,1 +1,3 @@
-export { Classification24 as default } from "../../";
+import { Classification24 } from "../../";
+
+export = Classification24;

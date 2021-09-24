@@ -1,1 +1,3 @@
-export { ResetAlt24 as default } from "../../";
+import { ResetAlt24 } from "../../";
+
+export = ResetAlt24;

@@ -10,11 +10,15 @@ export interface SESMailHeader {
 
 export interface SESMailCommonHeaders {
     returnPath: string;
-    from: string[];
+    from?: string[] | undefined;
     date: string;
-    to: string[];
+    to?: string[] | undefined;
+    cc?: string[] | undefined;
+    bcc?: string[] | undefined;
+    sender?: string[] | undefined;
+    replyTo?: string[] | undefined;
     messageId: string;
-    subject: string;
+    subject?: string | undefined;
 }
 
 export interface SESMail {
@@ -28,13 +32,46 @@ export interface SESMail {
 }
 
 export interface SESReceiptStatus {
-    status: string;
+    status: 'PASS' | 'FAIL' | 'GRAY' | 'PROCESSING_FAILED' | 'DISABLED';
 }
 
-export interface SESReceiptAction {
-    type: string;
+export interface SESReceiptS3Action {
+    type: 'S3';
+    topicArn?: string | undefined;
+    bucketName: string;
+    objectKey: string;
+}
+
+export interface SESReceiptSnsAction {
+    type: 'SNS';
+    topicArn: string;
+}
+
+export interface SESReceiptBounceAction {
+    type: 'Bounce';
+    topicArn?: string | undefined;
+    smtpReplyCode: string;
+    statusCode: string;
+    message: string;
+    sender: string;
+}
+
+export interface SESReceiptLambdaAction {
+    type: 'Lambda';
+    topicArn?: string | undefined;
     functionArn: string;
     invocationType: string;
+}
+
+export interface SESReceiptStopAction {
+    type: 'Stop';
+    topicArn?: string | undefined;
+}
+
+export interface SESReceiptWorkMailAction {
+    type: 'WorkMail';
+    topicArn?: string | undefined;
+    organizationArn: string;
 }
 
 export interface SESReceipt {
@@ -46,7 +83,8 @@ export interface SESReceipt {
     spfVerdict: SESReceiptStatus;
     dkimVerdict: SESReceiptStatus;
     dmarcVerdict: SESReceiptStatus;
-    action: SESReceiptAction;
+    dmarcPolicy?: 'none' | 'quarantine' | 'reject' | undefined;
+    action: SESReceiptS3Action | SESReceiptSnsAction | SESReceiptBounceAction | SESReceiptLambdaAction | SESReceiptStopAction | SESReceiptWorkMailAction;
 }
 
 export interface SESMessage {

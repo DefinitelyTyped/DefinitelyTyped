@@ -1,1 +1,3 @@
-export { Reminder32 as default } from "../../";
+import { Reminder32 } from "../../";
+
+export = Reminder32;

@@ -1,1 +1,3 @@
-export { Crossroads32 as default } from "../../";
+import { Crossroads32 } from "../../";
+
+export = Crossroads32;

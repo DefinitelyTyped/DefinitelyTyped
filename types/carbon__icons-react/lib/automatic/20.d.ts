@@ -1,1 +1,3 @@
-export { Automatic20 as default } from "../../";
+import { Automatic20 } from "../../";
+
+export = Automatic20;

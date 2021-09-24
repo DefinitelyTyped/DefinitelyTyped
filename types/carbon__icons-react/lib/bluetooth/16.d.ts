@@ -1,1 +1,3 @@
-export { Bluetooth16 as default } from "../../";
+import { Bluetooth16 } from "../../";
+
+export = Bluetooth16;

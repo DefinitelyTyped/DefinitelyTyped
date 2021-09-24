@@ -1,1 +1,3 @@
-export { LogoKeybase32 as default } from "../../";
+import { LogoKeybase32 } from "../../";
+
+export = LogoKeybase32;

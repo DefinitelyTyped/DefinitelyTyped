@@ -1,5 +1,4 @@
 import * as gulp from 'gulp';
-import * as undertaker from 'undertaker';
 import * as registry from 'undertaker-registry';
 
 const minify: () => any = () => { };
@@ -49,6 +48,12 @@ const someNextTask = () => {
 };
 
 gulp.task(someTask);
+
+const someTaskWithCb = (cb: gulp.TaskFunctionCallback) => {
+    cb();
+};
+
+gulp.task(someTaskWithCb);
 
 const foo: gulp.TaskFunction = () => { };
 foo.displayName === 'foo'; // true
