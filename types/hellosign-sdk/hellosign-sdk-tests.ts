@@ -58,10 +58,9 @@ const signatureRequestDownloadable = async (data: EventResponse) => {
 
     const { ...metadata } = data.signature_request.metadata;
 
-    const fileStream = await hsClient.signatureRequest.download(
-        data.signature_request.signature_request_id,
-        { file_type: 'pdf' },
-    );
+    const fileStream = await hsClient.signatureRequest.download(data.signature_request.signature_request_id, {
+        file_type: 'pdf',
+    });
     const file = fs.createWriteStream('TEST');
     fileStream.pipe(file);
 
@@ -231,7 +230,7 @@ export const sendSigningRequestWithTemplates = async (pdfFilePath: string) => {
                 role: 'Signer',
             },
         ],
-        template_id: "test template id",
+        template_id: 'test template id',
         metadata,
     });
     const signatures = data.signature_request.signatures;
