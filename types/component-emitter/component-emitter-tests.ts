@@ -41,6 +41,23 @@ emitter.off()
 emitter.off('some-recurring-event')
 emitter.off('some-recurring-event', handleSomeRecurringEvent)
 
+
+
+emitter.removeAllListeners('some-recurring-event')
+emitter.removeAllListeners()
+
+emitter.removeEventListener('some-recurring-event', handleSomeRecurringEvent)
+emitter.removeEventListener('some-recurring-event')
+emitter.removeEventListener()
+
+
+emitter.removeListener('some-recurring-event', handleSomeRecurringEvent)
+emitter.removeListener('some-recurring-event')
+emitter.removeListener()
+
+
+
+
 var event_data = {some: 'data'}
 emitter.emit('some-recurring-event')
 emitter.emit('some-recurring-event', event_data)
