@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import Carousel, {
     Dots,
     slidesToShowPlugin,
@@ -10,7 +10,7 @@ import Carousel, {
     slidesToScrollPlugin,
     arrowsPlugin,
     fastSwipePlugin,
-} from "@brainhubeu/react-carousel";
+} from '@brainhubeu/react-carousel';
 
 interface MyCarouselProps {
     value: number;
@@ -24,41 +24,38 @@ interface MyCarouselState {
 class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
     state = {
         value: 0,
-        slides: [
-            <img key={1} alt="img-2"/>,
-            <img key={2} alt="img-2"/>,
-            <img key={3} alt="img-3"/>,
-        ],
+        slides: [<img key={1} alt="img-2" />, <img key={2} alt="img-2" />, <img key={3} alt="img-3" />],
     };
 
     handleChange = (value: number) => {
-        this.setState({value});
+        this.setState({ value });
     }
 
     render() {
-        const {value, slides} = this.state;
+        const { value, slides } = this.state;
 
         return (
             <>
                 <Carousel
-                    plugins={['infinite',
+                    plugins={[
+                        'infinite',
                         {
                             resolve: slidesToShowPlugin,
                             options: {
                                 numberOfSlides: 3,
-                            }
+                            },
                         },
                         {
                             resolve: slidesToScrollPlugin,
                             options: {
                                 numberOfSlides: 3,
-                            }
+                            },
                         },
                         {
                             resolve: infinitePlugin,
                             options: {
                                 numberOfInfiniteClones: 1,
-                            }
+                            },
                         },
                         {
                             resolve: clickToChangePlugin,
@@ -67,8 +64,8 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                             resolve: autoplayPlugin,
                             options: {
                                 interval: 2000,
-                                direction: 'left'
-                            }
+                                direction: 'left',
+                            },
                         },
                         {
                             resolve: rtlPlugin,
@@ -84,11 +81,11 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                                 arrowRight: <button>{'>>'}</button>,
                                 arrowRightDisabled: <button>{'>'}</button>,
                                 addArrowClickHandler: true,
-                            }
+                            },
                         },
                         {
                             resolve: fastSwipePlugin,
-                        }
+                        },
                     ]}
                     animationSpeed={2000}
                     draggable
@@ -97,10 +94,29 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                     offset={50}
                     slides={slides}
                     value={value}
+                    breakpoints={{
+                        900: {
+                            animationSpeed: 2000,
+                            draggable: true,
+                            itemWidth: 100,
+                            onChange: this.handleChange,
+                            offset: 50,
+                            slides,
+                            value,
+                            plugins: [
+                                {
+                                    resolve: slidesToShowPlugin,
+                                    options: {
+                                        numberOfSlides: 2,
+                                    },
+                                },
+                            ],
+                        },
+                    }}
                 >
-                    <img alt="image-1"/>
-                    <img alt="image-2"/>
-                    <img alt="image-3"/>
+                    <img alt="image-1" />
+                    <img alt="image-2" />
+                    <img alt="image-3" />
                 </Carousel>
                 <Dots
                     number={slides.length}
