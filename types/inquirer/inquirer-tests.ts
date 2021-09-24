@@ -160,3 +160,15 @@ fetchAsyncQuestionProperty(
     // $ExpectError
     new Paginator(screen, { someUnsupportedOptions: 'foobar' });
 }
+
+{
+    const rl = createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    const screen = new ScreenManager(rl);
+
+    const paginator = new Paginator(screen);
+    paginator.paginate('test', 0);
+    paginator.paginate('test', 0, 0);
+}

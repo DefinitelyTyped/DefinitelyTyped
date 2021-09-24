@@ -43,10 +43,13 @@ declare class Paginator {
      * @param selectedIndex
      * The number of the selected line.
      *
+     * @param pageSize
+     * The number of lines to display at a time.
+     *
      * @returns
      * The paginated content.
      */
-    paginate(content: string, selectedIndex: number): string;
+    paginate(content: string, selectedIndex: number, pageSize?: number): string;
 }
 
 export = Paginator;
