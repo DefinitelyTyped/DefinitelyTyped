@@ -251,8 +251,7 @@ declare namespace HelloSign {
                 get_url?: boolean,
                 get_data_uri?: boolean,
             },
-            callback: (err: Error, response: IncomingMessage) => void,
-        ): void;
+        ): Promise<IncomingMessage>;
         cancel(requestId: string): Promise<any>;
         removeAccess(requestId: string): Promise<any>;
         createEmbedded(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
