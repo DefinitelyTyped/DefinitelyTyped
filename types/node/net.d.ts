@@ -255,12 +255,12 @@ declare module 'net' {
          * connects on `'192.168.1.1'`, the value of `socket.localAddress` would be`'192.168.1.1'`.
          * @since v0.9.6
          */
-        readonly localAddress: string;
+        readonly localAddress?: string;
         /**
          * The numeric representation of the local port. For example, `80` or `21`.
          * @since v0.9.6
          */
-        readonly localPort: number;
+        readonly localPort?: number;
         /**
          * The string representation of the remote IP address. For example,`'74.125.127.100'` or `'2001:4860:a005::68'`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
