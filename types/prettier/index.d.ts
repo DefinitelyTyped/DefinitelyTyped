@@ -153,9 +153,13 @@ export interface RequiredOptions extends doc.printer.Options {
      */
     arrowParens: 'avoid' | 'always';
     /**
-     * The plugin API is in a beta state.
+     * Provide ability to support new languages to prettier.
      */
     plugins: Array<string | Plugin>;
+    /**
+     * Specify plugin directory paths to search for plugins if not installed in the same `node_modules` where prettier is located.
+     */
+    pluginSearchDirs: string[];
     /**
      * How to handle whitespaces in HTML.
      * @default 'css'
