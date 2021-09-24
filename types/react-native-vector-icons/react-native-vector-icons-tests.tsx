@@ -125,7 +125,7 @@ class OpaqueColorTest extends React.Component {
   }
 
   render() {
-    const opaqueColor = PlatformColor(Platform.OS == "ios" ? "systemBlue" : "?android:attr/colorBackground");
+    const opaqueColor = PlatformColor(Platform.OS === "ios" ? "systemBlue" : "?android:attr/colorBackground");
 
     return (
       <View>
