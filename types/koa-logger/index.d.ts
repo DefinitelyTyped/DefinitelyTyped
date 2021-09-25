@@ -7,7 +7,10 @@
 
 import { Middleware } from 'koa';
 
-type Transporter = (str: string, args: Array<string | number>) => void;
+type Transporter = (
+    str: string,
+    args: [string, string, string, number | undefined, string | undefined, string | undefined],
+) => void;
 
 interface TransporterOpts {
     transporter: Transporter;
