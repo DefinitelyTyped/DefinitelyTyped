@@ -1,5 +1,5 @@
 // Type definitions for appdynamics 21.8
-// Project: https://github.com/npm/npm
+// Project: https://www.appdynamics.com/supported-technologies/nodejs
 // Definitions by: Justin Vos <https://github.com/justinvos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
