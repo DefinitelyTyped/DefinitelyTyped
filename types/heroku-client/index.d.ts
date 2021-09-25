@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
-import Request, { RequestOptions } from './request';
+import Request = require('./request');
+import type { RequestOptions } from './options';
 
-export type HerokuClientOptions = RequestOptions;
+type HerokuClientOptions = RequestOptions;
 
 declare class Heroku {
     options: HerokuClientOptions;
@@ -26,4 +27,4 @@ declare class Heroku {
     delete(path: string, options?: HerokuClientOptions): ReturnType<Request['request']>;
 }
 
-export default Heroku;
+export = Heroku;

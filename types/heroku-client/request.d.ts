@@ -1,38 +1,8 @@
 /// <reference types="node" />
 
 import type { Agent, ClientRequest, ServerResponse } from 'http';
+import type { RequestOptions } from './options';
 import type { RequestURL } from './url';
-
-interface RequestCache {
-    get(key: string, cb: (err: any, value: any) => void): void;
-    set(key: string, value: any): void;
-}
-
-interface RequestLogger {
-    log(msg: any): void;
-}
-
-export interface RequestOptions extends Partial<RequestURL> {
-    body?: any;
-    cache?: {
-        store: RequestCache;
-        encryptor: object;
-    };
-    debug?: boolean;
-    debugHeaders?: string;
-    headers?: Record<string, string>;
-    json?: boolean;
-    logger?: RequestLogger;
-    method?: 'GET' | 'POST' | 'PATCH' | 'DELETE';
-    middleware?: (res: ServerResponse, cbk: () => void) => void;
-    parseJSON?: boolean;
-    partial?: boolean;
-    path?: string;
-    rejectUnauthorized?: boolean;
-    timeout?: number;
-    token?: string;
-    userAgent?: string;
-}
 
 interface Request extends Omit<RequestOptions, keyof RequestURL>, RequestURL {}
 declare class Request {
@@ -120,4 +90,4 @@ declare class Request {
     updateAggregate(aggregate: Array<string | object | (string | object)>): void;
 }
 
-export default Request;
+export = Request;
