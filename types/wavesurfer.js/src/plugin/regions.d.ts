@@ -62,8 +62,8 @@ export class Region extends Observer {
     getWidth(): number;
     onDrag(delta: number): void;
     onResize(delta: number, direction: "start" | "end"): void;
-    play(start: number): void;
-    playLoop(start: number): void;
+    play(start?: number): void;
+    playLoop(start?: number): void;
     remove(): void;
     render(): void;
     setLoop(loop: boolean): void;
