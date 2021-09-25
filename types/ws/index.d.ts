@@ -171,7 +171,8 @@ declare class WebSocket extends EventEmitter {
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
-declare class WebSocketAlias extends WebSocket {}
+declare const WebSocketAlias: typeof WebSocket;
+type WebSocketAlias = WebSocket;
 
 declare namespace WebSocket {
     /**
@@ -346,8 +347,10 @@ declare namespace WebSocket {
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    class WebSocketServer extends Server {}
-    class WebSocket extends WebSocketAlias {}
+    export const WebSocketServer: typeof Server;
+    export type WebSocketServer = Server;
+    export const WebSocket: typeof WebSocketAlias;
+    export type WebSocket = WebSocketAlias;
 
     // WebSocket stream
     function createWebSocketStream(websocket: WebSocket, options?: DuplexOptions): Duplex;
