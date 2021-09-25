@@ -1469,7 +1469,7 @@ declare module 'fs' {
      * Asynchronously creates a directory.
      *
      * The callback is given a possible exception and, if `recursive` is `true`, the
-     * first directory path created, `(err, [path])`.`path` can still be `undefined` when `recursive` is `true`, if no directory was
+     * first directory path created, `(err[, path])`.`path` can still be `undefined` when `recursive` is `true`, if no directory was
      * created.
      *
      * The optional `options` argument can be an integer specifying `mode` (permission
@@ -2215,9 +2215,9 @@ declare module 'fs' {
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a promise for an `Object` with `bytesRead` and `buffer` properties.
      * @since v0.0.2
-     * @param [buffer=Buffer.alloc(16384)] The buffer that the data will be written to.
-     * @param [offset=0] The position in `buffer` to write the data to.
-     * @param [length=buffer.byteLength] The number of bytes to read.
+     * @param buffer The buffer that the data will be written to.
+     * @param offset The position in `buffer` to write the data to.
+     * @param length The number of bytes to read.
      * @param position Specifies where to begin reading from in the file. If `position` is `null` or `-1 `, data will be read from the current file position, and the file position will be updated. If
      * `position` is an integer, the file position will be unchanged.
      */
@@ -3383,7 +3383,8 @@ declare module 'fs' {
      * destroyed, like most `Readable` streams.  Set the `emitClose` option to`false` to change this behavior.
      *
      * By providing the `fs` option, it is possible to override the corresponding `fs`implementations for `open`, `read`, and `close`. When providing the `fs` option,
-     * overrides for `open`, `read`, and `close` are required.
+     * an override for `read` is required. If no `fd` is provided, an override for`open` is also required. If `autoClose` is `true`, an override for `close` is
+     * also required.
      *
      * ```js
      * import { createReadStream } from 'fs';
@@ -3441,7 +3442,8 @@ declare module 'fs' {
      *
      * By providing the `fs` option it is possible to override the corresponding `fs`implementations for `open`, `write`, `writev` and `close`. Overriding `write()`without `writev()` can reduce
      * performance as some optimizations (`_writev()`)
-     * will be disabled. When providing the `fs` option,  overrides for `open`,`close`, and at least one of `write` and `writev` are required.
+     * will be disabled. When providing the `fs` option, overrides for at least one of`write` and `writev` are required. If no `fd` option is supplied, an override
+     * for `open` is also required. If `autoClose` is `true`, an override for `close`is also required.
      *
      * Like `fs.ReadStream`, if `fd` is specified, `fs.WriteStream` will ignore the`path` argument and will use the specified file descriptor. This means that no`'open'` event will be
      * emitted. `fd` should be blocking; non-blocking `fd`s
