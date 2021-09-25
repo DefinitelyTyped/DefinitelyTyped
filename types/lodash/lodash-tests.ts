@@ -23,6 +23,7 @@ const dictionaryIterator = (value: AbcObject, key: string, collection: _.Diction
 const numericDictionaryIterator = (value: AbcObject, key: string, collection: _.NumericDictionary<AbcObject>) => true;
 const valueIterator = (value: AbcObject) => true;
 const stringIterator = (value: string) => "";
+const nullableString: string | null = anything;
 
 // Wrapped array shortcut methods
 _([1, 2, 3, 4]).pop(); // $ExpectType number | undefined
@@ -2543,6 +2544,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.chain(dictionary).groupBy(valueIterator); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy(""); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(nullableString).groupBy(); // $ExpectType ObjectChain<Dictionary<string[]>>
 
     fp.groupBy(valueIterator, list); // $ExpectType Dictionary<AbcObject[]>
     fp.groupBy(valueIterator)(list); // $ExpectType Dictionary<AbcObject[]>
