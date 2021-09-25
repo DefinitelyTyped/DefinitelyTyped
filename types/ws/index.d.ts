@@ -347,10 +347,10 @@ declare namespace WebSocket {
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
-    export const WebSocketServer: typeof Server;
-    export type WebSocketServer = Server;
-    export const WebSocket: typeof WebSocketAlias;
-    export type WebSocket = WebSocketAlias;
+    const WebSocketServer: typeof Server;
+    type WebSocketServer = Server;
+    const WebSocket: typeof WebSocketAlias;
+    type WebSocket = WebSocketAlias;
 
     // WebSocket stream
     function createWebSocketStream(websocket: WebSocket, options?: DuplexOptions): Duplex;
