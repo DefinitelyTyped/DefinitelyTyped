@@ -226,8 +226,20 @@ const plugin: prettier.Plugin<PluginAST> = {
             since: '1.0.0',
             type: 'path',
             category: 'Test',
-        }
+        },
     },
 };
 
 prettier.format('a line!', { parser: 'lines', plugins: [plugin] });
+
+prettier.format('pluginSearchDir is empty', {
+    pluginSearchDirs: [],
+});
+
+prettier.format('pluginSearchDir is not empty', {
+    pluginSearchDirs: ['/a', '/b'],
+});
+
+prettier.format('pluginSearchDir is not empty and mixed with weird stuff', {
+    pluginSearchDirs: ['c', 'd', ''],
+});
