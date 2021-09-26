@@ -9,16 +9,16 @@
 export = emptyDir;
 
 declare function emptyDir(
-    dir: string | string[],
+    dir: string | readonly string[],
     cb: (err: NodeJS.ErrnoException, isEmpty: boolean) => void
 ): void;
 declare function emptyDir(
-    dir: string | string[],
+    dir: string | readonly string[],
     filter: (path: string) => boolean,
     cb: (err: NodeJS.ErrnoException, isEmpty: boolean) => void
 ): void;
 declare function emptyDir(
-    dir: string | string[],
+    dir: string | readonly string[],
     filter?: (path: string) => boolean
 ): Promise<boolean>;
 
