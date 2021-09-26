@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import JQuery = require('jquery');
+/// <reference types="jquery" />
 
 declare namespace nProgress {
     interface NProgressOptions {
@@ -40,7 +40,7 @@ declare namespace nProgress {
         remove(): void;
         isRendered(): boolean;
         getPositioningCSS(): 'translate3d' | 'translate' | 'margin';
-        promise: JQuery.Deferred<any>;
+        promise: JQueryDeferred<any>;
     }
 }
 
