@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import JQuery = require('jquery');
+/// <reference types="JQuery" />
 
 declare namespace nProgress {
     interface NProgressOptions {
