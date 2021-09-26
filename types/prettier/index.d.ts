@@ -214,11 +214,11 @@ export interface Printer<T = any> {
     print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc): Doc;
     embed?:
         | ((
-              path: AstPath<T>,
-              print: (path: AstPath<T>) => Doc,
-              textToDoc: (text: string, options: Options) => Doc,
-              options: ParserOptions<T>,
-          ) => Doc | null)
+            path: AstPath<T>,
+            print: (path: AstPath<T>) => Doc,
+            textToDoc: (text: string, options: Options) => Doc,
+            options: ParserOptions<T>,
+        ) => Doc | null)
         | undefined;
     insertPragma?: ((text: string) => string) | undefined;
     /**
@@ -233,34 +233,34 @@ export interface Printer<T = any> {
     printComment?: ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc) | undefined;
     handleComments?:
         | {
-              ownLine?:
-                  | ((
+            ownLine?:
+                | ((
                         commentNode: any,
                         text: string,
                         options: ParserOptions<T>,
                         ast: T,
                         isLastComment: boolean,
                     ) => boolean)
-                  | undefined;
-              endOfLine?:
-                  | ((
+                | undefined;
+            endOfLine?:
+                | ((
                         commentNode: any,
                         text: string,
                         options: ParserOptions<T>,
                         ast: T,
                         isLastComment: boolean,
                     ) => boolean)
-                  | undefined;
-              remaining?:
-                  | ((
+                | undefined;
+            remaining?:
+                | ((
                         commentNode: any,
                         text: string,
                         options: ParserOptions<T>,
                         ast: T,
                         isLastComment: boolean,
                     ) => boolean)
-                  | undefined;
-          }
+                | undefined;
+        }
         | undefined;
 }
 
