@@ -1,12 +1,29 @@
-// Type definitions for jquery-mousewheel v3.1.13
+// Type definitions for jquery-mousewheel v3.1.10
 // Project: https://github.com/jquery/jquery-mousewheel
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.4
 
 /// <reference types="jquery"/>
 
-import 'jquery';
+export type JQueryMousewheelEventHook<
+    O = JQueryMousewheel.JQueryMousewheelEventObject,
+    D = JQueryMousewheel.JQueryMousewheelEventData
+> = (
+    & { version: string; }
+    & { setup: (Extract<JQuery.SpecialEventHook<O, D>, { setup: any; }>)["setup"] }
+    & { teardown: (Extract<JQuery.SpecialEventHook<O, D>, { teardown: any; }>)["teardown"] }
+    & { getLineHeight(elem: JQuery.htmlString): number | never; }
+    & { getPageHeight(elem: JQuery.htmlString): number | never; }
+    & {
+        settings: {
+            adjustOldDeltas: boolean;
+            normalizeOffset: boolean;
+        };
+    }
+);
+
+export type JQueryMousewheelEventHandler = (eventObject: JQueryMousewheel.JQueryMousewheelEventObject, ...args: any[]) => any;
 
 declare global {
     namespace JQueryMousewheel {
@@ -24,30 +41,6 @@ declare global {
             'mousewheel-page-height': number;
         }
     }
-}
-
-type SpecialEventHook = JQuery.SpecialEventHook<
-    JQueryMousewheel.JQueryMousewheelEventObject,
-    JQueryMousewheel.JQueryMousewheelEventData
->;
-
-export type JQueryMousewheelEventHook = (
-    & { version: string; }
-    & { setup: (Extract<SpecialEventHook, { setup: any; }>)["setup"] }
-    & { teardown: (Extract<SpecialEventHook, { teardown: any; }>)["teardown"] }
-    & { getLineHeight(elem: JQuery.htmlString): number | never; }
-    & { getPageHeight(elem: JQuery.htmlString): number | never; }
-    & {
-        settings: {
-            adjustOldDeltas: boolean;
-            normalizeOffset: boolean;
-        };
-    }
-);
-
-export type JQueryMousewheelEventHandler = (eventObject: JQueryMousewheel.JQueryMousewheelEventObject, ...args: any[]) => any;
-
-declare global {
     namespace JQuery {
         interface SpecialEventHooks {
             mousewheel: JQueryMousewheelEventHook;
