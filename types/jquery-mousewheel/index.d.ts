@@ -41,7 +41,7 @@ type JQueryMousewheelEventHook = (
     }
 );
 
-declare global{
+declare global {
     namespace JQuery {
         interface SpecialEventHooks {
             mousewheel: JQueryMousewheelEventHook;
