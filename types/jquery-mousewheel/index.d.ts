@@ -6,6 +6,8 @@
 
 /// <reference types="jquery"/>
 
+import 'jquery';
+
 declare namespace JQueryMousewheel {
     interface JQueryMousewheelEventObject extends JQueryEventObject {
         deltaX: number;
@@ -13,6 +15,37 @@ declare namespace JQueryMousewheel {
         deltaFactor: number;
         deltaMode: number;
         absDelta: number;
+        offsetX: number;
+        offsetY: number;
+    }
+}
+
+interface JQueryMousewheelEventData {
+    'mousewheel-line-height': number;
+    'mousewheel-page-height': number;
+}
+
+type SpecialEventHook = JQuery.SpecialEventHook<JQueryMousewheel.JQueryMousewheelEventObject, JQueryMousewheelEventData>;
+
+type JQueryMousewheelEventHook = (
+    & { version: string; }
+    & { setup: (Extract<SpecialEventHook, { setup: any; }>)["setup"] }
+    & { teardown: (Extract<SpecialEventHook, { teardown: any; }>)["teardown"] }
+    & { getLineHeight(elem: JQuery.htmlString): number | never; }
+    & { getPageHeight(elem: JQuery.htmlString): number | never; }
+    & {
+        settings: {
+            adjustOldDeltas: boolean;
+            normalizeOffset: boolean;
+        };
+    }
+);
+
+declare global{
+    namespace JQuery {
+        interface SpecialEventHooks {
+            mousewheel: JQueryMousewheelEventHook;
+        }
     }
 }
 
