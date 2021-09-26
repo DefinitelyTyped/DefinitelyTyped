@@ -16,3 +16,5 @@ fined({ path: '.' }, opts);
 fined({ path: '~', extensions: { rc: 'some-special-rc-loader' } }, opts);
 fined({ path: '~' }, {});
 fined({ path: '~' }, { extensions: '.ext' });
+fined({ path: '~' }, { extensions: { toString: () => 'hello' } });
+fined({ path: '~' }, { extensions: [{ toString: () => 'hello' }] });
