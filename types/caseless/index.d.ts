@@ -22,6 +22,7 @@ declare namespace caseless {
         get(name: KeyType): ValueType | undefined;
         swap(name: KeyType): void;
         del(name: KeyType): boolean;
+        dict: Record<KeyType, ValueType>;
     }
 
     interface Httpified {

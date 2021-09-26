@@ -18,6 +18,7 @@ c2.set('foo', 'bar'); // $ExpectType string | false
 c2.set('foo', 'bar', false); // $ExpectType string | false
 c2.set('foo', new Date()); // $ExpectType string | false
 c2.set(10, 'bar'); // $ExpectError
+c2.dict; // $ExpectType Record<string, any>
 
 c2.get('foo'); // $ExpectType any
 c2.get(10); // $ExpectError
