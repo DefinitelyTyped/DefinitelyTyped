@@ -16,7 +16,7 @@ declare global {
 }
 
 import * as _events from 'events';
-import * as File from 'vinyl';
+import File = require('vinyl');
 import globStream = require('glob-stream');
 
 export interface SrcOptions extends globStream.Options {
