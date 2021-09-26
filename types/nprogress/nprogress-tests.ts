@@ -14,7 +14,9 @@ NProgress.trickle();
 console.log(NProgress.isStarted());
 NProgress.done(true);
 
-NProgress.configure({ minimum: 0.1 });
+const x = NProgress.configure({ minimum: 0.1 });
+x.promise.state();
+
 NProgress.configure({
     template: '<div></div>',
     easing: 'ease',
