@@ -269,8 +269,8 @@ export interface CursorOptions extends Options {
      * Specify where the cursor is.
      */
     cursorOffset: number;
-    rangeStart?: never | undefined;
-    rangeEnd?: never | undefined;
+    rangeStart?: never;
+    rangeEnd?: never;
 }
 
 export interface CursorResult {
