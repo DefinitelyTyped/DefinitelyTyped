@@ -1,3 +1,6 @@
+interface WindowPostMessageOptions {}
+interface PostMessageOptions extends WindowPostMessageOptions {}
+
 declare function createWorker(
     canvas: HTMLCanvasElement,
     workerUrl: string,
