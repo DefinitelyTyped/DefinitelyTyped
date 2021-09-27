@@ -14,11 +14,11 @@ const lineHeight = $.event.special.mousewheel.getLineHeight($('#my_elem'));
 // $ExpectType number
 const pageHeight = $.event.special.mousewheel.getPageHeight($('#my_elem'));
 
-// $ExpectType boolean
+// $ExpectType true
 const adjustOldDeltas = $.event.special.mousewheel.settings.adjustOldDeltas;
 
 // $ExpectType boolean
-$.event.special.mousewheel.settings.normalizeOffset = true;
+$.event.special.mousewheel.settings.normalizeOffset = !$.event.special.mousewheel.settings.normalizeOffset;
 
 // $ExpectError
 $.event.special.mousewheel.settings.normalizeOffset = "true";
