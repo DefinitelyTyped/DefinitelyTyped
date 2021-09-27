@@ -12,7 +12,7 @@ declare class DBTrackerPool {
         database?: any;
         trackerProperties?: any;
     });
-    database_: any;
+    private database_;
     id: number;
     private generateTrackers_;
     private getAvailableTrackers_;

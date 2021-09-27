@@ -15,6 +15,21 @@ const testChartTitlePadding = (options: echarts.EChartTitleOption) => {
     options.padding = [5, 10, 15, 20];
 };
 
+const testAxisLabelColor = (options: echarts.EChartOption.XAxis) => {
+    options.axisLabel = {
+        color: 'red',
+    };
+    options.axisLabel = {
+        color: (val: string) => {
+        if (val === '300') {
+            return 'red';
+        } else {
+            return 'blue';
+        }
+        },
+    };
+};
+
 // id, type, and name are defined for every series type
 const map = option.series!.map(s => [s.id, s.name, s.type]);
 

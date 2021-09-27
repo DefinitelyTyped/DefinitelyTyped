@@ -437,7 +437,7 @@ declare module 'child_process' {
     }
     interface SpawnSyncReturns<T> {
         pid: number;
-        output: string[];
+        output: Array<T | null>;
         stdout: T;
         stderr: T;
         status: number | null;
@@ -445,12 +445,13 @@ declare module 'child_process' {
         error?: Error | undefined;
     }
     function spawnSync(command: string): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, options: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    function spawnSync(command: string, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<string | Buffer>;
+    function spawnSync(command: string, args: ReadonlyArray<string>): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<string | Buffer>;
 
     interface ExecSyncOptions extends CommonOptions {
         input?: string | Uint8Array | undefined;
@@ -467,9 +468,9 @@ declare module 'child_process' {
         encoding: string; // specify `null`.
     }
     function execSync(command: string): Buffer;
-    function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;
-    function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
-    function execSync(command: string, options?: ExecSyncOptions): Buffer;
+    function execSync(command: string, options: ExecSyncOptionsWithStringEncoding): string;
+    function execSync(command: string, options: ExecSyncOptionsWithBufferEncoding): Buffer;
+    function execSync(command: string, options?: ExecSyncOptions): string | Buffer;
 
     interface ExecFileSyncOptions extends CommonOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
@@ -486,10 +487,11 @@ declare module 'child_process' {
         encoding: string; // specify `null`.
     }
     function execFileSync(command: string): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
+    function execFileSync(command: string, options: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(command: string, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(command: string, options?: ExecFileSyncOptions): string | Buffer;
+    function execFileSync(command: string, args: ReadonlyArray<string>): Buffer;
+    function execFileSync(command: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(command: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): string | Buffer;
 }

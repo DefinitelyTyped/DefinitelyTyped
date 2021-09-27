@@ -33,7 +33,7 @@ app.use<{ a: boolean }>(async (ctx, next) => {
     await next();
 });
 
-app.use((ctx, next) => {
+app.use((ctx: Koa.Context, next) => {
     const start: any = new Date();
     return next().then(() => {
         const end: any = new Date();
@@ -49,7 +49,7 @@ app.use(ctx => {
     ctx.body = 'Hello World';
     ctx.body = ctx.URL.toString();
     ctx.set({
-        link: ["<http://example.com>", "<http://example.org>"]
+        link: ['<http://example.com>', '<http://example.org>'],
     });
     ctx.attachment();
     ctx.attachment('path/to/tobi.png');

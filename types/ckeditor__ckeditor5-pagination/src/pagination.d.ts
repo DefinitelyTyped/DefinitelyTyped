@@ -19,3 +19,9 @@ export interface PaginationMarginsConfig {
     right: string;
     top: string;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Pagination: Pagination;
+    }
+}

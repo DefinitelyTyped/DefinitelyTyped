@@ -1,4 +1,4 @@
-// Type definitions for opentok v2.10.0
+// Type definitions for opentok v2.12.1
 // Project: https://github.com/opentok/opentok-node
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
@@ -186,7 +186,8 @@ declare module 'opentok' {
       token: OpenTok.Token,
       sipUri: string,
       options: OpenTok.DialOptions,
-    ): OpenTok.SipInterconnect;
+      callback: (error: Error | null, sipInterconnect: OpenTok.SipInterconnect) => void,
+    ): void;
     public forceDisconnect(sessionId: string, connectionId: string, callback: (error: Error | null) => void): void;
     public generateToken(sessionId: string, options?: OpenTok.TokenOptions): OpenTok.Token;
     public getArchive(archiveId: string, callback: (error: Error | null, archive?: OpenTok.Archive) => void): void;
@@ -208,6 +209,12 @@ declare module 'opentok' {
       callback: (error: Error | null, broadcasts?: OpenTok.Broadcast[]) => void,
     ): void;
     public listStreams(sessionId: string, callback: (error: Error | null, streams?: OpenTok.Stream[]) => void): void;
+    public playDTMF(
+      sessionId: string,
+      connectionId: string,
+      digits: string,
+      callback: (error: Error | null) => void,
+    ): void;
     public setArchiveLayout(
       archiveId: string,
       type: OpenTok.BroadcastLayoutType | 'custom',

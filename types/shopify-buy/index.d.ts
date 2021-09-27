@@ -115,7 +115,7 @@ declare namespace ShopifyBuy {
          * as their  community guidelines
          */
         query: string;
-        sortBy: string;
+        sortKey: string;
         after?: string | undefined;
         before?: string | undefined;
         first?: number | undefined;

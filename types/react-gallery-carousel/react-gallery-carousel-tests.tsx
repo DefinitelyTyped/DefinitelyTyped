@@ -88,3 +88,4 @@ const carouselRef = React.useRef<Carousel.CarouselRef<HTMLDivElement>>(null);
 
 carouselRef.current?.play();
 carouselRef.current?.minimize();
+carouselRef.current?.goToIndex(2);

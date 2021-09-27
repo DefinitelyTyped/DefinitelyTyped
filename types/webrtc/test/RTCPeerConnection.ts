@@ -48,7 +48,7 @@ pc.createOffer({iceRestart: true})
 // Event handlers
 pc.onnegotiationneeded = ev => console.log(ev.type);
 pc.onicecandidate = ev => console.log(ev.candidate);
-pc.onicecandidateerror = ev => console.log(ev.errorText);
+pc.onicecandidateerror = ev => console.log(ev.type);
 pc.onsignalingstatechange = ev => console.log(ev.type);
 pc.oniceconnectionstatechange = ev => console.log(ev.type);
 pc.onicegatheringstatechange = ev => console.log(ev.type);

@@ -419,14 +419,14 @@ declare namespace Bull {
     /**
      * A boolean which, if true, removes the job when it successfully completes.
      * When a number, it specifies the amount of jobs to keep.
-     * Default behavior is to keep the job in the failed set.
+     * Default behavior is to keep the job in the completed set.
      */
     removeOnComplete?: boolean | number | undefined;
 
     /**
      * A boolean which, if true, removes the job when it fails after all attempts.
      * When a number, it specifies the amount of jobs to keep.
-     * Default behavior is to keep the job in the completed set.
+     * Default behavior is to keep the job in the failed set.
      */
     removeOnFail?: boolean | number | undefined;
 

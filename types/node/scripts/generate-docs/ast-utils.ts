@@ -2,6 +2,7 @@ import {
     TypeChecker, isModuleBlock, isSourceFile, NamedDeclaration,
     isStringLiteral, isIdentifier, SyntaxKind, Node, setTextRange, TransformationContext, visitEachChild, visitNode, PropertyName, getLineAndCharacterOfPosition, ModuleDeclaration, isModuleDeclaration, NodeFlags,
 } from "typescript";
+import { join } from 'path';
 
 export function getNodeName(node: Node): string {
     if (isSourceFile(node)) {
@@ -73,16 +74,18 @@ export function getPropertyName(node: PropertyName): string | undefined {
     return undefined;
 }
 
+const rootFolder = join(__dirname, '../../');
+
 export function nodeWarning(node: Node, text: string): void {
     const file = node.getSourceFile();
     const { line, character } = getLineAndCharacterOfPosition(file, node.getStart(file, false));
-    console.warn(`WARN[${file.fileName}:${line + 1}:${character + 1}] ${text} "${getNodeName(node)}"`);
+    console.warn(`WARN[${file.fileName.replace(rootFolder, '')}:${line + 1}:${character + 1}] ${text} "${getNodeName(node)}"`);
 }
 
 export function nodeInfo(node: Node, text: string): void {
     const file = node.getSourceFile();
     const { line, character } = getLineAndCharacterOfPosition(file, node.getStart(file, false));
-    console.log(`INFO[${file.fileName}:${line + 1}:${character + 1}] ${text} "${getNodeName(node)}"`);
+    console.log(`INFO[${file.fileName.replace(rootFolder, '')}:${line + 1}:${character + 1}] ${text} "${getNodeName(node)}"`);
 }
 
 export function isNamedModuleDeclaration(node: Node): node is ModuleDeclaration {

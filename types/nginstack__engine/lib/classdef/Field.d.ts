@@ -79,6 +79,7 @@ declare class Field {
     max: number | Date;
     min: number | Date;
     autoTrim: boolean;
+    autoSanitize: boolean;
     defaultValue: any;
     permissionFilterFieldName: string;
     userCanChangeNegativeKey: boolean;
@@ -103,7 +104,7 @@ declare class Field {
     protected registerEvents_(): void;
     protected changeFieldType_(type: string, fieldName: string): void;
     private type_;
-    clone(NewClass: (...arg0: any[]) => void): Field;
+    clone(NewClass: (...args: any[]) => void): Field;
     assignObjectsTo(field: any): void;
     assign(field: Field): void;
     assignTo(field: Field): void;
@@ -159,10 +160,8 @@ declare class Field {
     isTime(): boolean;
 }
 declare namespace Field {
-    export { ruleFieldAccentRx_, Event, AdapterDescriptor };
+    export { Event, AdapterDescriptor };
 }
 type AdapterDescriptor = import('../event/AdapterDescriptor');
 import FieldGroup = require('./FieldGroup.js');
 type Event = import('../event/Event');
-declare var ruleFieldAccentRx_: Regex;
-import Regex = require('../regexp/Regex.js');

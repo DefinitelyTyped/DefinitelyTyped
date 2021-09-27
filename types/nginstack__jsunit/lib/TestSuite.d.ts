@@ -4,29 +4,25 @@ declare class TestSuite {
     constructor(fileId: number | string, opt_sourceEncoding?: string);
     key: number | null;
     version: number | null;
-    type_: string | number | boolean | Date;
+    private type_;
     filePath: string;
     name: string;
-    fileId_: string | number;
-    sourceEncoding_: string;
+    private fileId_;
+    private sourceEncoding_;
     getFileId(): string | number;
     getSourceEncoding(): string;
-    _testsByName: {};
-    _tests: any[];
+    private _testsByName;
+    private _tests;
     type: number;
     getId(): string;
     private getUfsTestType_;
-    displayStringForValue_(aVar: any): string;
-    fail_(failureMessage: any): never;
-    argumentsIncludeComments_(expectedNumberOfNonCommentArgs: any, args: any): boolean;
-    commentArg_(expectedNumberOfNonCommentArgs: any, args: any): any;
-    nonCommentArg_(
-        desiredNonCommentArgIndex: any,
-        expectedNumberOfNonCommentArgs: any,
-        args: any
-    ): any;
-    validateArguments_(expectedNumberOfNonCommentArgs: any, args: any): void;
-    assert_(comment: any, booleanValue: any, failureMessage: any): void;
+    private displayStringForValue_;
+    private fail_;
+    private argumentsIncludeComments_;
+    private commentArg_;
+    private nonCommentArg_;
+    private validateArguments_;
+    private assert_;
     declareTestMethods(): void;
     deleteTestMethods(): void;
     isTestCase(methodName: any): boolean;

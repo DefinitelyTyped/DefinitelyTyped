@@ -554,7 +554,7 @@ type UserFeed_user = {
 // Modern Mutations
 // ~~~~~~~~~~~~~~~~~~~~~
 export const mutation = graphql`
-    mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+    mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) @raw_response_type {
         markReadNotification(data: $input) {
             notification {
                 seenState
@@ -566,6 +566,7 @@ export const mutation = graphql`
 export const optimisticResponse = {
     markReadNotification: {
         notification: {
+            id: '1',
             seenState: 'SEEN' as 'SEEN',
         },
     },
@@ -616,9 +617,18 @@ function markNotificationAsRead(source: string, storyID: string) {
             };
         };
     };
+    type MyMutationRawResponse = {
+        readonly markReadNotification: {
+            readonly notification: {
+                readonly id: string;
+                readonly seenState: 'SEEN' | 'UNSEEN';
+            };
+        };
+    };
     type MyMutation = {
         readonly variables: MyMutationVariables;
         readonly response: MyMutationResponse;
+        readonly rawResponse: MyMutationRawResponse;
     };
 
     commitMutation<MyMutation>(modernEnvironment, {

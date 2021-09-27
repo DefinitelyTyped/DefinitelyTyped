@@ -1,7 +1,7 @@
 export = UserAuthenticator;
 declare function UserAuthenticator(): void;
 declare class UserAuthenticator {
-    _messages: {};
+    private _messages;
     userPolicyKey: number;
     defaultPasswordRule: any;
     private _isKeyOfGroupOrUser;

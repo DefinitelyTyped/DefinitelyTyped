@@ -12,3 +12,9 @@ export interface TypingConfig {
     transformations: TextTransformationConfig;
     undoStep: number;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Typing: Typing;
+    }
+}

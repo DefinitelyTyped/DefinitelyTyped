@@ -17,3 +17,9 @@ export default class ReplaceCommand extends Command {
      */
     execute(replacementText: string, result: { marker: Marker }): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        ReplaceCommand: ReplaceCommand;
+    }
+}

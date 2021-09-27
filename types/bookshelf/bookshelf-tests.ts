@@ -285,7 +285,7 @@ class Customer extends bookshelf.Model<Customer> {
     get tableName() { return 'customers'; }
 }
 Customer.collection().fetch().then(collection => {
-    // ...
+    return collection.models;
 });
 
 /* Model.count(), see http://bookshelfjs.org/#Model-static-count */

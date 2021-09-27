@@ -22,6 +22,7 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string> extend
     direction?: VerticalDirection | undefined,
     disabled?: ListBoxProps["disabled"] | undefined,
     downshiftProps?: any, // TODO
+    helperText?: React.ReactNode | undefined,
     id: string,
     initialSelectedItems?: readonly T[] | undefined,
     items: readonly T[],

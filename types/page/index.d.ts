@@ -180,6 +180,16 @@ declare namespace PageJS {
          * This is the click handler used by page to handle routing when a user clicks an anchor like `<a href="/user/profile">`
          */
         clickHandler(e: MouseEvent): void;
+
+        /**
+         * Length of the history stack
+         */
+        len: number;
+
+        /**
+         * Current path
+         */
+        current: string;
     }
 
     interface Route {
@@ -305,8 +315,18 @@ declare namespace PageJS {
     }
 }
 
-declare module "page" {
+declare module 'page' {
     const page: PageJS.Static;
+
+    type Callback = PageJS.Callback;
+    type Context = PageJS.Context;
+    type Options = PageJS.Options;
+    type Route = PageJS.Route;
+    type RouteOptions = PageJS.RouteOptions;
+    type Static = PageJS.Static;
+
+    export { Callback, Context, Options, Route, RouteOptions, Static };
+
     export default page;
 }
 

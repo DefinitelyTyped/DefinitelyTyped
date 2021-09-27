@@ -1783,7 +1783,7 @@ createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
     map.addImage('foo', fooImageBitmap);
 });
 
-// $ExpectType Map
+// $ExpectType void
 map.loadImage('foo', (error, result) => {});
 
 // KeyboardHandler

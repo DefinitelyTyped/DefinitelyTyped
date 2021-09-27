@@ -99,6 +99,7 @@ export interface CheckGiftcardResponse {
 export class Checkout {
     constructor(commerce: Commerce);
 
+    /** @deprecated */
     protect(token: string): Promise<any>;
     generateToken(identifier: string, data: object): Promise<CheckoutToken>;
     generateTokenFrom(type: IdentifierType, identifier: string): Promise<CheckoutToken>;

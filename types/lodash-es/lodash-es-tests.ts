@@ -554,6 +554,7 @@ import {
   takeRight as takeRight1,
   takeRightWhile as takeRightWhile1,
   takeWhile as takeWhile1,
+  tap as tap1,
   template as template1,
   templateSettings as templateSettings1,
   throttle as throttle1,

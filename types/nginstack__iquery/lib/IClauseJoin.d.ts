@@ -7,11 +7,11 @@ declare function IClauseJoin(
 ): void;
 declare class IClauseJoin {
     constructor(iQuery: any, iQueryJoin: any, type: string, isRightTableAsSubquery: any);
-    _iQuery: any;
-    _iQueryJoin: any;
-    _type: string;
-    _clausesOn: any[];
-    rightTableAsSubQuery_: RightTableAsSubQueryConfig;
+    private _iQuery;
+    private _iQueryJoin;
+    private _type;
+    private _clausesOn;
+    private rightTableAsSubQuery_;
     isRightTableAsSubquery: boolean;
     iQuery: any;
     iQueryJoin: any;

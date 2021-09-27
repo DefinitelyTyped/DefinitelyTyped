@@ -29,7 +29,13 @@ declare module 'fs/promises' {
         OpenMode,
         Mode,
         WatchOptions,
+        WatchEventType,
+        CopyOptions,
     } from 'node:fs';
+    interface FileChangeInfo<T extends string | Buffer> {
+        eventType: WatchEventType;
+        filename: T;
+    }
     interface FlagAndOpenMode {
         mode?: Mode | undefined;
         flag?: OpenMode | undefined;
@@ -86,7 +92,7 @@ declare module 'fs/promises' {
         chmod(mode: Mode): Promise<void>;
         /**
          * Forces all currently queued I/O operations associated with the file to the
-         * operating system's synchronized I/O completion state. Refer to the POSIX[`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details.
+         * operating system's synchronized I/O completion state. Refer to the POSIX [`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details.
          *
          * Unlike `filehandle.sync` this method does not flush modified metadata.
          * @since v10.0.0
@@ -108,8 +114,8 @@ declare module 'fs/promises' {
          * number of bytes read is zero.
          * @since v10.0.0
          * @param buffer A buffer that will be filled with the file data read.
-         * @param [offset=0] The location in the buffer at which to start filling.
-         * @param [length=buffer.byteLength] The number of bytes to read.
+         * @param offset The location in the buffer at which to start filling.
+         * @param length The number of bytes to read.
          * @param position The location where to begin reading data from the file. If `null`, data will be read from the current file position, and the position will be updated. If `position` is an
          * integer, the current file position will remain unchanged.
          * @return Fulfills upon success with an object with two properties:
@@ -121,7 +127,7 @@ declare module 'fs/promises' {
          *
          * If `options` is a string, then it specifies the `encoding`.
          *
-         * The `<FileHandle>` has to support reading.
+         * The `FileHandle` has to support reading.
          *
          * If one or more `filehandle.read()` calls are made on a file handle and then a`filehandle.readFile()` call is made, the data will be read from the current
          * position till the end of the file. It doesn't always read from the beginning
@@ -209,17 +215,20 @@ declare module 'fs/promises' {
          */
         truncate(len?: number): Promise<void>;
         /**
-         * Change the file system timestamps of the object referenced by the `<FileHandle>` then resolves the promise with no arguments upon success.
+         * Change the file system timestamps of the object referenced by the `FileHandle` then resolves the promise with no arguments upon success.
          * @since v10.0.0
          */
         utimes(atime: string | number | Date, mtime: string | number | Date): Promise<void>;
         /**
-         * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, or an object with an own `toString` function
+         * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
+         * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface) or
+         * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object, or an
+         * object with an own `toString` function
          * property. The promise is resolved with no arguments upon success.
          *
          * If `options` is a string, then it specifies the `encoding`.
          *
-         * The `<FileHandle>` has to support writing.
+         * The `FileHandle` has to support writing.
          *
          * It is unsafe to use `filehandle.writeFile()` multiple times on the same file
          * without waiting for the promise to be resolved (or rejected).
@@ -232,6 +241,8 @@ declare module 'fs/promises' {
         writeFile(data: string | Uint8Array, options?: (ObjectEncodingOptions & FlagAndOpenMode & Abortable) | BufferEncoding | null): Promise<void>;
         /**
          * Write `buffer` to the file.
+         *
+         * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
          *
          * The promise is resolved with an object containing two properties:
          *
@@ -266,7 +277,7 @@ declare module 'fs/promises' {
             buffer: string;
         }>;
         /**
-         * Write an array of [&lt;ArrayBufferView&gt;](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView)s to the file.
+         * Write an array of [ArrayBufferView](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView) s to the file.
          *
          * The promise is resolved with an object containing a two properties:
          *
@@ -282,7 +293,7 @@ declare module 'fs/promises' {
          */
         writev(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
         /**
-         * Read from a file and write to an array of [&lt;ArrayBufferView&gt;](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView)s
+         * Read from a file and write to an array of [ArrayBufferView](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView) s
          * @since v13.13.0, v12.17.0
          * @param position The offset from the beginning of the file where the data should be read from. If `position` is not a `number`, the data will be read from the current position.
          * @return Fulfills upon success an object containing two properties:
@@ -316,7 +327,7 @@ declare module 'fs/promises' {
      *
      * If the accessibility check is successful, the promise is resolved with no
      * value. If any of the accessibility checks fail, the promise is rejected
-     * with an [&lt;Error&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object. The following example checks if the file`/etc/passwd` can be read and
+     * with an [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object. The following example checks if the file`/etc/passwd` can be read and
      * written by the current process.
      *
      * ```js
@@ -377,13 +388,13 @@ declare module 'fs/promises' {
      */
     function copyFile(src: PathLike, dest: PathLike, mode?: number): Promise<void>;
     /**
-     * Opens a `<FileHandle>`.
+     * Opens a `FileHandle`.
      *
      * Refer to the POSIX [`open(2)`](http://man7.org/linux/man-pages/man2/open.2.html) documentation for more detail.
      *
      * Some characters (`< > : " / \ | ? *`) are reserved under Windows as documented
      * by [Naming Files, Paths, and Namespaces](https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file). Under NTFS, if the filename contains
-     * a colon, Node.js will open a file system stream, as described by[this MSDN page](https://docs.microsoft.com/en-us/windows/desktop/FileIO/using-streams).
+     * a colon, Node.js will open a file system stream, as described by [this MSDN page](https://docs.microsoft.com/en-us/windows/desktop/FileIO/using-streams).
      * @since v10.0.0
      * @param [flags='r'] See `support of file system `flags``.
      * @param [mode=0o666] Sets the file mode (permission and sticky bits) if the file is created.
@@ -464,9 +475,9 @@ declare module 'fs/promises' {
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
      * the filenames. If the `encoding` is set to `'buffer'`, the filenames returned
-     * will be passed as `<Buffer>` objects.
+     * will be passed as `Buffer` objects.
      *
-     * If `options.withFileTypes` is set to `true`, the resolved array will contain `<fs.Dirent>` objects.
+     * If `options.withFileTypes` is set to `true`, the resolved array will contain `fs.Dirent` objects.
      *
      * ```js
      * import { readdir } from 'fs/promises';
@@ -531,13 +542,13 @@ declare module 'fs/promises' {
         }
     ): Promise<Dirent[]>;
     /**
-     * Reads the contents of the symbolic link referred to by `path`. See the POSIX[`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
+     * Reads the contents of the symbolic link referred to by `path`. See the POSIX [`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
      * resolved with the`linkString` upon success.
      *
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
      * the link path returned. If the `encoding` is set to `'buffer'`, the link path
-     * returned will be passed as a `<Buffer>` object.
+     * returned will be passed as a `Buffer` object.
      * @since v10.0.0
      * @return Fulfills with the `linkString` upon success.
      */
@@ -603,7 +614,7 @@ declare module 'fs/promises' {
     ): Promise<BigIntStats>;
     function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
     /**
-     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX[`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail.
+     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail.
      * @since v10.0.0
      * @return Fulfills with `undefined` upon success.
      */
@@ -611,7 +622,7 @@ declare module 'fs/promises' {
     /**
      * If `path` refers to a symbolic link, then the link is removed without affecting
      * the file or directory to which that link refers. If the `path` refers to a file
-     * path that is not a symbolic link, the file is deleted. See the POSIX [`unlink(2)`](http://man7.org/linux/man-pages/man2/unlink.2.html)documentation for more detail.
+     * path that is not a symbolic link, the file is deleted. See the POSIX [`unlink(2)`](http://man7.org/linux/man-pages/man2/unlink.2.html) documentation for more detail.
      * @since v10.0.0
      * @return Fulfills with `undefined` upon success.
      */
@@ -670,7 +681,7 @@ declare module 'fs/promises' {
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
      * the path. If the `encoding` is set to `'buffer'`, the path returned will be
-     * passed as a `<Buffer>` object.
+     * passed as a `Buffer` object.
      *
      * On Linux, when Node.js is linked against musl libc, the procfs file system must
      * be mounted on `/proc` in order for this function to work. Glibc does not have
@@ -732,14 +743,15 @@ declare module 'fs/promises' {
      */
     function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
     /**
-     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a `<Buffer>`, or an object with an own `toString` function
-     * property.
+     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a `Buffer`, or, an object with an own (not inherited)`toString` function property.
      *
      * The `encoding` option is ignored if `data` is a buffer.
      *
      * If `options` is a string, then it specifies the encoding.
      *
-     * Any specified `<FileHandle>` has to support writing.
+     * The `mode` option only affects the newly created file. See `fs.open()` for more details.
+     *
+     * Any specified `FileHandle` has to support writing.
      *
      * It is unsafe to use `fsPromises.writeFile()` multiple times on the same file
      * without waiting for the promise to be settled.
@@ -748,12 +760,13 @@ declare module 'fs/promises' {
      * method that performs multiple `write` calls internally to write the buffer
      * passed to it. For performance sensitive code consider using `fs.createWriteStream()`.
      *
-     * It is possible to use an `<AbortSignal>` to cancel an `fsPromises.writeFile()`.
+     * It is possible to use an `AbortSignal` to cancel an `fsPromises.writeFile()`.
      * Cancelation is "best effort", and some amount of data is likely still
      * to be written.
      *
      * ```js
      * import { writeFile } from 'fs/promises';
+     * import { Buffer } from 'buffer';
      *
      * try {
      *   const controller = new AbortController();
@@ -790,11 +803,13 @@ declare module 'fs/promises' {
     ): Promise<void>;
     /**
      * Asynchronously append data to a file, creating the file if it does not yet
-     * exist. `data` can be a string or a `<Buffer>`.
+     * exist. `data` can be a string or a `Buffer`.
      *
      * If `options` is a string, then it specifies the `encoding`.
      *
-     * The `path` may be specified as a `<FileHandle>` that has been opened
+     * The `mode` option only affects the newly created file. See `fs.open()` for more details.
+     *
+     * The `path` may be specified as a `FileHandle` that has been opened
      * for appending (using `fsPromises.open()`).
      * @since v10.0.0
      * @param path filename or {FileHandle}
@@ -805,7 +820,7 @@ declare module 'fs/promises' {
      * Asynchronously reads the entire contents of a file.
      *
      * If no encoding is specified (using `options.encoding`), the data is returned
-     * as a `<Buffer>` object. Otherwise, the data will be a string.
+     * as a `Buffer` object. Otherwise, the data will be a string.
      *
      * If `options` is a string, then it specifies the encoding.
      *
@@ -814,7 +829,7 @@ declare module 'fs/promises' {
      * with an error. On FreeBSD, a representation of the directory's contents will be
      * returned.
      *
-     * It is possible to abort an ongoing `readFile` using an `<AbortSignal>`. If a
+     * It is possible to abort an ongoing `readFile` using an `AbortSignal`. If a
      * request is aborted the promise returned is rejected with an `AbortError`:
      *
      * ```js
@@ -838,7 +853,7 @@ declare module 'fs/promises' {
      * Aborting an ongoing request does not abort individual operating
      * system requests but rather the internal buffering `fs.readFile` performs.
      *
-     * Any specified `<FileHandle>` has to support reading.
+     * Any specified `FileHandle` has to support reading.
      * @since v10.0.0
      * @param path filename or `FileHandle`
      * @return Fulfills with the contents of the file.
@@ -886,9 +901,9 @@ declare module 'fs/promises' {
             | null
     ): Promise<string | Buffer>;
     /**
-     * Asynchronously open a directory for iterative scanning. See the POSIX[`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for more detail.
+     * Asynchronously open a directory for iterative scanning. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for more detail.
      *
-     * Creates an `<fs.Dir>`, which contains all further functions for reading from
+     * Creates an `fs.Dir`, which contains all further functions for reading from
      * and cleaning up the directory.
      *
      * The `encoding` option sets the encoding for the `path` while opening the
@@ -908,7 +923,7 @@ declare module 'fs/promises' {
      * }
      * ```
      *
-     * When using the async iterator, the `<fs.Dir>` object will be automatically
+     * When using the async iterator, the `fs.Dir` object will be automatically
      * closed after the iterator exits.
      * @since v12.12.0
      * @return Fulfills with an {fs.Dir}.
@@ -951,7 +966,7 @@ declare module 'fs/promises' {
                   encoding: 'buffer';
               })
             | 'buffer'
-    ): AsyncIterable<Buffer>;
+    ): AsyncIterable<FileChangeInfo<Buffer>>;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
@@ -960,7 +975,7 @@ declare module 'fs/promises' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options?: WatchOptions | BufferEncoding): AsyncIterable<string>;
+    function watch(filename: PathLike, options?: WatchOptions | BufferEncoding): AsyncIterable<FileChangeInfo<string>>;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
@@ -969,7 +984,20 @@ declare module 'fs/promises' {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<string> | AsyncIterable<Buffer>;
+    function watch(filename: PathLike, options: WatchOptions | string): AsyncIterable<FileChangeInfo<string>> | AsyncIterable<FileChangeInfo<Buffer>>;
+    /**
+     * Asynchronously copies the entire directory structure from `src` to `dest`,
+     * including subdirectories and files.
+     *
+     * When copying a directory to another directory, globs are not supported and
+     * behavior is similar to `cp dir1/ dir2/`.
+     * @since v16.7.0
+     * @experimental
+     * @param src source path to copy.
+     * @param dest destination path to copy to.
+     * @return Fulfills with `undefined` upon success.
+     */
+    function cp(source: string, destination: string, opts?: CopyOptions): Promise<void>;
 }
 declare module 'node:fs/promises' {
     export * from 'fs/promises';

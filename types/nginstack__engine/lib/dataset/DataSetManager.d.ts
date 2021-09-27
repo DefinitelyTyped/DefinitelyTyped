@@ -1,7 +1,7 @@
 export = DataSetManager;
 declare function DataSetManager(): void;
 declare class DataSetManager {
-    _dataSets: {};
+    private _dataSets;
     addDataSetQuery(dataSetName: string, query: string, union?: boolean): void;
     addDataSet(dataSetName: string, dataSet: DataSet): void;
     setDataSetQuery(dataSetName: string, query: string, keepDataSet: any, union: any): void;

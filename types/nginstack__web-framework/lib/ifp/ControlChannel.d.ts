@@ -3,10 +3,10 @@ declare function ControlChannel(sid: string): void;
 declare class ControlChannel {
     constructor(sid: string);
     sid: string;
-    _bus: ControlChannelBus;
-    _cid: string;
+    private _bus;
+    private _cid;
     touch(): void;
-    _throwError(msg: any): never;
+    private _throwError;
     getSyncStatus(): number;
     setSyncStatus(syncStatus: number, message?: string): void;
     setDataChannelSequence(seq: number): void;
@@ -43,7 +43,5 @@ declare namespace ControlChannel {
             ticket?: string;
         }
     ): string;
-    const instance_: ControlChannel;
     function getInstance(): ControlChannel;
 }
-import ControlChannelBus = require('./ControlChannelBus.js');

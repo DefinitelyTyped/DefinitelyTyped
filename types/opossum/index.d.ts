@@ -1,4 +1,4 @@
-// Type definitions for opossum 4.1
+// Type definitions for opossum 6.2
 // Project: https://github.com/nodeshift/opossum, https://nodeshift.dev/opossum
 // Definitions by: Quinn Langille <https://github.com/quinnlangille>
 //                 Willy Zhang <https://github.com/merufm>
@@ -116,9 +116,10 @@ declare namespace CircuitBreaker {
     interface Options {
         /**
          * The time in milliseconds that action should be allowed to execute before timing out.
+         * Timeout can be disabled by setting this to `false`.
          * @default 10000 (10 seconds)
          */
-        timeout?: number | undefined;
+        timeout?: number | false | undefined;
 
         /**
          * The number of times the circuit can fail before opening.

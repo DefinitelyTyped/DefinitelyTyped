@@ -84,6 +84,11 @@ export interface ItemBucketMetadata {
     [key: string]: any;
 }
 
+export interface UploadedObjectInfo {
+    etag: string;
+    versionId: string | null;
+}
+
 // No need to export this. But without it - linter error.
 export class TargetConfig {
     setId(id: any): void;
@@ -126,14 +131,14 @@ export class Client {
     fGetObject(bucketName: string, objectName: string, filePath: string, callback: NoResultCallback): void;
     fGetObject(bucketName: string, objectName: string, filePath: string): Promise<void>;
 
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<string>;
-    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, metaData?: ItemBucketMetadata): Promise<string>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size: number, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, size?: number, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
+    putObject(bucketName: string, objectName: string, stream: ReadableStream|Buffer|string, metaData?: ItemBucketMetadata): Promise<UploadedObjectInfo>;
 
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<string>): void;
-    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<string>;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata, callback: ResultCallback<UploadedObjectInfo>): void;
+    fPutObject(bucketName: string, objectName: string, filePath: string, metaData: ItemBucketMetadata): Promise<UploadedObjectInfo>;
 
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions, callback: ResultCallback<BucketItemCopy>): void;
     copyObject(bucketName: string, objectName: string, sourceObject: string, conditions: CopyConditions): Promise<BucketItemCopy>;

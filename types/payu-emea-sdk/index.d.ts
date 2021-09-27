@@ -100,7 +100,7 @@ declare namespace payu {
         | 'error.network';
 
     interface SecureFormErrorMessage {
-        type: 'validate' | 'technical';
+        type: 'validation' | 'technical';
         code: SecureFormErrorCode;
         message: string;
         parameters?: {

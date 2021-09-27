@@ -24,3 +24,9 @@ export default class FindCommand extends Command {
         ) => (query: { text: string }) => Array<{ label: [string]; start: number; end: number }>;
     };
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        FindCommand: FindCommand;
+    }
+}

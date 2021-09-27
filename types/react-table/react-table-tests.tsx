@@ -304,7 +304,7 @@ function NumberRangeColumnFilter({ column: { filterValue = [], preFilteredRows, 
     );
 }
 
-function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, id: IdType<T>, filterValue: FilterValue) {
+function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, ids: Array<IdType<T>>, filterValue: FilterValue) {
     // return matchSorter(rows, filterValue, {
     //     keys: [(row: Row<any>) => row.values[id]],
     // });
@@ -315,7 +315,7 @@ function fuzzyTextFilterFn<T extends object>(rows: Array<Row<T>>, id: IdType<T>,
 fuzzyTextFilterFn.autoRemove = (val: any) => !val;
 
 interface Table<T extends object> {
-    columns: Array<Column<T>>;
+    columns: ReadonlyArray<Column<T>>;
     data: T[];
     updateMyData?: any;
     skipPageReset?: boolean | undefined;
@@ -329,9 +329,9 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
             fuzzyText: fuzzyTextFilterFn,
             // Or, override the default text filter to use
             // "startWith"
-            text: (rows: Array<Row<Data>>, id: IdType<Data>, filterValue: FilterValue) => {
+            text: (rows: Array<Row<Data>>, ids: Array<IdType<Data>>, filterValue: FilterValue) => {
                 return rows.filter(row => {
-                    const rowValue = row.values[id];
+                    const rowValue = row.values[ids[0]];
                     return rowValue !== undefined
                         ? String(rowValue).toLowerCase().startsWith(String(filterValue).toLowerCase())
                         : true;
@@ -597,7 +597,7 @@ const Component = (props: {}) => {
         { firstName: 'surprise', lastName: 'zinc', age: 23, visits: 7, progress: 48, status: 'single' },
         { firstName: 'riddle', lastName: 'information', age: 2, visits: 63, progress: 3, status: 'complicated' },
     ];
-    const columns: Array<Column<Data>> = [
+    const columns: ReadonlyArray<Column<Data>> = [
         {
             id: 'selection',
             // The header can use the table's getToggleAllRowsSelectedProps method
@@ -692,7 +692,7 @@ const Component = (props: {}) => {
     ];
 
     // mostly the same as above but minus the grouping
-    const columns2: Array<Column<Data>> = [
+    const columns2: ReadonlyArray<Column<Data>> = [
         {
             Header: 'First Name',
             accessor: 'firstName',

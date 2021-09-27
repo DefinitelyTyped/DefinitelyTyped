@@ -1784,7 +1784,15 @@ declare namespace google.payments.api {
          *
          * @default browser or operating system language
          */
-        buttonLocale?: string | undefined;
+        buttonLocale?: string;
+
+        /**
+         * List of allowed payment methods.
+         *
+         * This is an optional field for filtering card info for dynamic
+         * buttons. No filtering will happen if this field is not set.
+         */
+        allowedPaymentMethods?: IsReadyToPayPaymentMethodSpecification[];
     }
 
     /**

@@ -1,18 +1,10 @@
-// Type definitions for @ckeditor/ckeditor5-clipboard 27.1
+// Type definitions for @ckeditor/ckeditor5-clipboard 29.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/clipboard.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-import Clipboard from './src/clipboard';
-import ClipboardPipeline from './src/clipboardpipeline';
-import DragDrop from './src/dragdrop';
-import PastePlainText from './src/pasteplaintext';
+// Minimum TypeScript Version: 4.3
 
-declare const _default: {
-    Clipboard: typeof Clipboard;
-    ClipboardPipeline: typeof ClipboardPipeline;
-    DragDrop: typeof DragDrop;
-    PastePlainText: typeof PastePlainText;
-};
-
-export default _default;
+export { default as Clipboard } from './src/clipboard';
+export { default as ClipboardPipeline } from './src/clipboardpipeline';
+export { default as DragDrop } from './src/dragdrop';
+export { default as PastePlainText } from './src/pasteplaintext';

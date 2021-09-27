@@ -12,8 +12,5 @@ declare class Audio {
     write(): void;
     play(): void;
     private _formatAudioVariable;
-    _createId(): string;
-}
-declare namespace Audio {
-    const _lastId: number;
+    private _createId;
 }

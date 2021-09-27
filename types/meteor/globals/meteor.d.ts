@@ -455,5 +455,6 @@ declare module Meteor {
     /** True if running in development environment. */
     var isDevelopment: boolean;
     var isTest: boolean;
+    var isAppTest: boolean;
     /** Global props **/
 }

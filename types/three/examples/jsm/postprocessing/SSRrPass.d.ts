@@ -36,7 +36,6 @@ export interface SSRrPassParams {
     height?: number | undefined;
     selects: Mesh[] | null;
     encoding: TextureEncoding;
-    morphTargets?: boolean | undefined;
 }
 
 export class SSRrPass extends Pass {

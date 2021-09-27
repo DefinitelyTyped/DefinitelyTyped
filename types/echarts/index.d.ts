@@ -896,7 +896,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#textStyle
          */
-        textStyle?: EChartOption.BaseTextStyle | undefined;
+        textStyle?: (EChartOption.BaseTextStyle & EChartOption.BaseTextStyleWithRich) | undefined;
 
         /**
          * Whether to enable animation.
@@ -1582,7 +1582,8 @@ declare namespace echarts {
                 /**
                  * @todo describe
                  */
-                interface Label extends TextStyleWithRich {
+                interface Label extends Omit<TextStyleWithRich,'color'> {
+                    color?: string | ((val:string) => EChartOption.Color) | undefined;
                     show?: boolean | undefined;
                     interval?: number | Function | undefined;
                     inside?: boolean | undefined;

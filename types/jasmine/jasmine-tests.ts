@@ -12,6 +12,15 @@ import JasmineClass from "jasmine";
 
     jasmineClass.env.configure({
         random: true,
+        Promise,
+        failSpecWithNoExpectations: true,
+        hideDisabled: true,
+        seed: "4321",
+        specFilter: spec => spec.name.startsWith("it"),
+        stopOnSpecFailure: true,
+        stopSpecOnExpectationFailure: true,
+        failFast: true,
+        oneFailurePerSpec: true,
     });
 
     jasmineClass.loadConfig({
@@ -1280,6 +1289,9 @@ describe("custom asymmetry", () => {
             const secondValue = actual.split(",")[1];
             return matchersUtil.equals(secondValue, "bar");
         },
+        jasmineToString(pp) {
+            return 'an asymmetric tester for ' + pp('bar');
+        }
     };
 
     it("dives in deep", () => {

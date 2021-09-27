@@ -2,7 +2,7 @@ export = Route;
 declare function Route(opt_routeSet: any): void;
 declare class Route {
     constructor(opt_routeSet: any);
-    routeSet_: any;
+    private routeSet_;
     private propertiesToAssign_;
     private matcher_;
     private pathParameters_;
@@ -22,11 +22,6 @@ declare namespace Route {
         method: string;
         parameters: any[];
         openParameters: any;
-    };
-    function parseScope_(scope: string | string[]): {
-        scopes: string[];
-        requiredScopes: string[];
-        forbiddenScopes: string[];
     };
     function testScope(scope: string | string[], requiredScope: string | string[]): boolean;
 }

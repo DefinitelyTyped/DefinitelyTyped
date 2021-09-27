@@ -424,7 +424,7 @@ declare class JiraApi {
      * List all Viewable Projects
      * [Jira Doc](http://docs.atlassian.com/jira/REST/latest/#id289193)
      */
-    listProjects(): Promise<JiraApi.JsonResponse>;
+    listProjects(): Promise<JiraApi.JsonResponse[]>;
 
     /**
      * Add a comment to an issue

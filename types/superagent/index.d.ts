@@ -114,7 +114,7 @@ declare namespace request {
         header: any;
         headers: any;
         info: boolean;
-        links: object;
+        links: Record<string, string>;
         noContent: boolean;
         notAcceptable: boolean;
         notFound: boolean;

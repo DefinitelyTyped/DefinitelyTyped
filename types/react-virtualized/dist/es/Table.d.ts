@@ -425,6 +425,8 @@ export class Table extends PureComponent<TableProps> {
 
     forceUpdateGrid(): void;
 
+    getScrollbarWidth(): number;
+
     /** See Grid#getOffsetForCell */
     getOffsetForRow(params: { alignment?: Alignment | undefined; index?: number | undefined }): number;
 

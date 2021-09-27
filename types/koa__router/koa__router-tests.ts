@@ -4,8 +4,8 @@ import compose = require("koa-compose");
 import etag = require("koa-etag");
 import Router = require("@koa/router");
 
-interface MyState {foo: string; }
-interface MyContext {bar: string; }
+interface MyState { foo: string; }
+interface MyContext { bar: string; }
 
 const app = new Koa<{}, {}>();
 
@@ -54,11 +54,11 @@ router.get('user', '/users/:id', (ctx) => {
 
 const match = router.match('/users/:id', 'GET');
 
-const mw: Router.Middleware = (ctx: Koa.ParameterizedContext<any, Router.RouterParamContext>, next: () => Promise<any>) => {
+const mw: Router.Middleware = (ctx: Koa.ParameterizedContext<any, Router.RouterParamContext>, next: Koa.Next) => {
   ctx.body = "Ok";
 };
 
-const mw2: Router.Middleware = (ctx: Router.RouterContext, next: () => Promise<any>) => {
+const mw2: Router.Middleware = (ctx: Router.RouterContext, next: Koa.Next) => {
   ctx.body = "Ok";
 };
 
@@ -187,13 +187,13 @@ router4.post('/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHan
 router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
 
-const router5 = new Router();
+const router5 = new Router<any, {}>();
 router5.register('/foo', ['GET'], middleware1, {
     name: 'foo',
 });
 router5.register('/bar', ['GET', 'DELETE'], [middleware1, middleware2]);
 
-const router6 = new Router<{}>();
+const router6 = new Router<{}, {}>();
 router6.post<MyState, MyContext>('/foo', async (ctx) => {
     ctx.state.foo = 'bar';
     ctx.bar = 'foo';

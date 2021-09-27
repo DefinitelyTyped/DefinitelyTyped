@@ -19,7 +19,6 @@ export default class Element extends Node {
     getChildStartOffset(node: Node): number;
     getChildren(): IterableIterator<Element | Text>;
     getNodeByPath(relativePath: number[]): Element | Text;
-    is(type: string, name?: string): boolean;
     offsetToIndex(offset: number): number;
     toJSON(): ReturnType<Node["toJSON"]> & {
         name: string;

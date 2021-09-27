@@ -1,5 +1,9 @@
 import ffbinaries = require("ffbinaries");
 
+ffbinaries.detectPlatform();
+ffbinaries.detectPlatform({ type: 'darwin', arch: 'x64' });
+ffbinaries.detectPlatform({ type: 'will return null', arch: 'x64' });
+
 ffbinaries.downloadBinaries(
     ["ffmpeg", "ffprobe", "ffplay", "ffserver"],
     {

@@ -4,3 +4,9 @@ export default class ItalicUI extends Plugin {
     static readonly pluginName: "ItalicUI";
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ItalicUI: ItalicUI;
+    }
+}

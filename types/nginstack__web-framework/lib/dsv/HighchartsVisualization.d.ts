@@ -3,12 +3,12 @@ declare function HighchartsVisualization(definition: any): void;
 declare class HighchartsVisualization {
     constructor(definition: any);
     onGetOptions: Event;
-    canExport_: boolean;
+    private canExport_;
     setCanExport(): never;
     private chart_;
     render(outputObj: any): void;
     queryData(filterValues: Record<string, any>): void;
-    ds_: any;
+    private ds_;
 }
 declare namespace HighchartsVisualization {
     export { Event };

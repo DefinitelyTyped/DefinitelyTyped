@@ -1,42 +1,14 @@
 import { Editor } from "@ckeditor/ckeditor5-core";
-import { ExportWord } from "@ckeditor/ckeditor5-export-word";
-import { ExportWordConfig } from "@ckeditor/ckeditor5-export-word/src/exportword";
+import { EasyImage, CloudServicesUploadAdapter } from '@ckeditor/ckeditor5-easy-image';
 
 class MyEditor extends Editor {}
+const editor = new MyEditor();
 
-const bool: boolean = ExportWord.isContextPlugin;
-const plugin = new ExportWord(new MyEditor());
-const promise = plugin.destroy?.();
-if (promise != null) {
-    promise.then(() => {});
-}
+new CloudServicesUploadAdapter(editor).init();
+new EasyImage(editor).init();
 
-let config: ExportWordConfig = {};
-config = {
-    converterOptions: {},
-};
-config = {
-    converterOptions: {
-        margin_top: 0,
-        margin_bottom: "15cm",
-        margin_right: "1cm",
-        margin_left: 0,
-        format: "A6",
-        auto_pagination: bool,
-    },
-};
-config = {
-    converterUrl: "",
-    fileName: "",
-    stylesheets: [""],
-    tokenUrl: false,
-};
+// $ExpectType CloudServicesUploadAdapter
+editor.plugins.get('CloudServicesUploadAdapter');
 
-config = {
-    tokenUrl() {
-        return Promise.resolve("");
-    },
-};
-config = {
-    tokenUrl: "",
-};
+// $ExpectType EasyImage
+editor.plugins.get('EasyImage');

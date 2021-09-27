@@ -130,7 +130,7 @@ declare namespace elasticlunr {
 
         eventEmitter: EventEmitter;
 
-        index: { [K in keyof T]?: InvertedIndexNode };
+        index: { [K in keyof T]?: InvertedIndex };
 
         pipeline: Pipeline;
 

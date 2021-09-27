@@ -64,7 +64,13 @@ let bool = true;
 
 let view = new View();
 view.isRendered === bool;
-const template: Template = view.template;
+let template: Template;
+if (typeof view.template !== 'boolean') {
+    template = view.template;
+}
+template = view.template as Template;
+
+let htmlelement = template.render() as HTMLElement;
 
 let locale: Locale = new Locale();
 view = new View(locale);
@@ -108,7 +114,7 @@ view.extendTemplate({
 view.render();
 view.destroy();
 
-let htmlelement: HTMLElement = view.element!;
+htmlelement = view.element!;
 view.element === null;
 
 /**
@@ -180,7 +186,6 @@ new Template({
         'c@span': [templateBind.to('c'), templateBind.to(() => {})],
     },
 });
-htmlelement = template.render() as HTMLElement;
 
 /**
  * Model
@@ -331,7 +336,10 @@ viewCollection = boxedEditor.main;
 /**
  * EditableUIView
  */
-new InlineEditableUIView(locale, view);
+// $ExpectType boolean
+new InlineEditableUIView(locale, view)._hasExternalElement;
+// $ExpectError
+new InlineEditableUIView(locale, view)._hasExternalElement = true;
 
 /**
  * FormHeaderView
@@ -503,3 +511,15 @@ new ListSeparatorView().element!.tagName.startsWith('foo');
  */
 new ToolbarLineBreakView().render();
 new ToolbarLineBreakView().element!.tagName.startsWith('foo');
+
+// $ExpectType BalloonToolbar
+editor.plugins.get('BalloonToolbar');
+
+// $ExpectType BlockToolbar
+editor.plugins.get('BlockToolbar');
+
+// $ExpectType ContextualBalloon
+editor.plugins.get('ContextualBalloon');
+
+// $ExpectType Notification
+editor.plugins.get('Notification');

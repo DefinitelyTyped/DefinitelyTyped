@@ -29,7 +29,13 @@ interface QueryParamConfig {
  */
 export interface ControllerMixin extends ActionHandler {
     replaceRoute(name: string, ...args: any[]): void;
+    /**
+     * @deprecated use transitionTo method of RouterService
+     */
     transitionToRoute(name: string, ...args: any[]): void;
+    /**
+     * @deprecated use transitionTo method of RouterService
+     */
     transitionToRoute(...args: any[]): void;
     model: any;
     queryParams: Array<string | Record<string, QueryParamConfig | string | undefined>>;

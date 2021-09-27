@@ -19,10 +19,10 @@ export default class Frecency<T = any> {
     });
     save: (arg: { searchQuery: T; selectedId: string }) => void;
     sort:
-        | ((arg: { searchQuery: T; searchResults: T[] }) => T[])
+        | ((arg: { searchQuery: T; results: T[] }) => T[])
         | ((arg: {
               searchQuery: T;
-              searchResults: T[];
+              results: T[];
               keepScores?: boolean | undefined;
           }) => Array<T & { _frecencyScore?: number | undefined }>);
 }

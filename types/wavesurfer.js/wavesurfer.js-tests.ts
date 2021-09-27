@@ -16,6 +16,7 @@ import { PluginDefinition, PluginParams } from "wavesurfer.js/types/plugin";
 // - create an instance
 const wavesurfer = WaveSurfer.create({
     container: "#waveform",
+    ignoreSilenceMode: true, // 5.2
     progressColor: "purple",
     vertical: false,
     waveColor: "violet",

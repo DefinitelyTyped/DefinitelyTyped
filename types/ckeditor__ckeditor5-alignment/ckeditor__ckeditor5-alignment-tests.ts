@@ -1,12 +1,11 @@
-import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment";
+import { Alignment, AlignmentEditing, AlignmentUI } from "@ckeditor/ckeditor5-alignment";
 import AlignmentCommand from "@ckeditor/ckeditor5-alignment/src/alignmentcommand";
 import * as utils from "@ckeditor/ckeditor5-alignment/src/utils";
 import { Editor } from "@ckeditor/ckeditor5-core";
 import { Locale } from "@ckeditor/ckeditor5-utils";
 
 class MyEditor extends Editor {}
-
-let bool = true;
+const editor = new MyEditor();
 
 new Alignment(new MyEditor());
 Alignment.requires.map(Plugin => {
@@ -16,12 +15,14 @@ Alignment.requires.map(Plugin => {
 });
 Alignment.requires.length === 2;
 
-bool = utils.isDefault("left", new Locale());
-bool = utils.isSupported("left");
+// $ExpectType boolean
+utils.isDefault("left", new Locale());
+// $ExpectType boolean
+utils.isSupported("left");
 utils.supportedOptions.length === 4;
 const normalizedOptions = utils.normalizeAlignmentOptions(["foo"]);
 if (typeof normalizedOptions !== "string") {
-    const str: string = normalizedOptions[0].name;
+    normalizedOptions[0].name.startsWith("");
 }
 
 // $ExpectError
@@ -32,3 +33,15 @@ const command = new AlignmentCommand(new MyEditor());
 // $ExpectError
 command.execute("foo");
 command.execute();
+
+// $ExpectType Alignment
+editor.plugins.get('Alignment');
+
+// $ExpectType AlignmentEditing
+editor.plugins.get('AlignmentEditing');
+
+// $ExpectType AlignmentUI
+editor.plugins.get('AlignmentUI');
+
+// $ExpectType AlignmentCommand | undefined
+editor.commands.get('AlignmentCommand');

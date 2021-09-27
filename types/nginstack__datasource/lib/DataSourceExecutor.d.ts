@@ -1,7 +1,7 @@
 export = DataSourceExecutor;
 declare function DataSourceExecutor(): void;
 declare class DataSourceExecutor {
-    dataSources_: any[];
+    private dataSources_;
     private addDataSource;
     execute(): void;
     getDataSet(index: number): any;

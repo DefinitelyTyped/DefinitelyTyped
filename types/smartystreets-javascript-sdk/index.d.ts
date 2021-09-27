@@ -280,8 +280,8 @@ export namespace usStreet {
         lastLine: string;
         /** 12-digit POSTNET™ barcode; consists of 5-digit ZIP Code, 4-digit add-on code, 2-digit delivery point, and 1-digit check digit. */
         deliveryPointBarcode: string;
-        /** @see Componenet */
-        components: Componenet;
+        /** @see Component */
+        components: Component;
         /** @see Metadata */
         metadata: Metadata;
         /** @see Analysis */
@@ -545,11 +545,11 @@ export namespace usStreet {
         zipType: string;
     }
     /**
-     * Componenet
+     * Component
      *
      * https://smartystreets.com/docs/cloud/us-street-api#components
      */
-    interface Componenet {
+    interface Component {
         /** The USPS-preferred city name for this particular address, or an acceptable alternate if provided by the user */
         cityName: string;
         /** The default city name for this 5-digit ZIP Code */

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { InternationalProps, ReactInputAttr, VerticalDirection, FCReturn } from "../../../typings/shared";
+import { InternationalProps, ReactInputAttr, VerticalDirection, FCReturn, ForwardRefProps } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";
@@ -36,6 +36,6 @@ export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<I
     warnText?: React.ReactNode | undefined;
 }
 
-declare function ComboBox<T = string>(props: ComboBoxProps<T>): FCReturn;
+declare function ComboBox<T = string>(props: ForwardRefProps<HTMLInputElement, ComboBoxProps<T>>): FCReturn;
 
 export default ComboBox;

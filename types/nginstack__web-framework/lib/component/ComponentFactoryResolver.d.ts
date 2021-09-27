@@ -1,7 +1,7 @@
 export = ComponentFactoryResolver;
 declare function ComponentFactoryResolver(): void;
 declare class ComponentFactoryResolver {
-    factories_: any;
+    private factories_;
     resolve(componentName: string): any;
     registerFactory(componentName: string, factory: any): void;
 }
