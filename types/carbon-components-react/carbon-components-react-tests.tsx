@@ -61,6 +61,7 @@ import {
     unstable_Heading as UnstableHeading,
     unstable_Section as UnstableSection,
 } from "carbon-components-react";
+import { Dialog } from "carbon-components-react/lib/components/Dialog";
 import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
@@ -1158,5 +1159,31 @@ const dataTableSkeletonBasic = (
     const searchT1 = (
         // $ExpectError
         <Search renderIcon={TestComp2} />
+    );
+}
+
+//
+// Dialog
+//
+{
+    const dialogDefaultT1 = <Dialog aria-labelledby="test">children</Dialog>;
+
+    const dialogIntrinsicT1 = (
+        <Dialog as="fieldset" aria-labelledby="test" data-testid="test" disabled form="form" onDismiss={() => {}}>
+            children
+        </Dialog>
+    );
+
+    const dialogCustomCompT1 = (
+        <Dialog as={TestComp2} aria-labelledby="test" onDismiss={() => {}} someProp={5} data-testid="test">
+            Test
+        </Dialog>
+    );
+
+    const dialogCustomCompT2 = (
+        // $ExpectError
+        <Dialog as={TestComp2} aria-labelledby="test" onDismiss={() => {}} someProp={5} unknownProp="a" data-testid="test">
+            Test
+        </Dialog>
     );
 }
