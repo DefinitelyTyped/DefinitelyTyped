@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.4
 
-import 'jquery';
+/// <reference types="jquery" />
 
 declare global {
     namespace JQueryMousewheel {
