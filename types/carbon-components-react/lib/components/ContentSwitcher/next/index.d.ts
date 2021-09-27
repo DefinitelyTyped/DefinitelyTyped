@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ReactButtonAttr, ReactDivAttr, ForwardRefReturn } from "../../../../typings/shared";
-import { ContentSwitcherOnChangeData } from "../ContentSwitcher";
 
 export interface ContentSwitcherNextProps {
     children?: React.ReactNode | undefined;
