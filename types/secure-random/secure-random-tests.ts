@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as secureRandom from 'secure-random';
 
 const byteCount = 10;
