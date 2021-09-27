@@ -163,7 +163,7 @@ declare namespace Primus {
         backoff: boolean;
         scheduled: number;
     }
-    interface SocketOptions extends PrimusOptions {
+    interface SocketOptions {
         // https://github.com/unshiftio/recovery
         reconnect?: {
             max?: number | undefined;
@@ -180,6 +180,11 @@ declare namespace Primus {
         network?: boolean | undefined;
         transport?: object | undefined;
         queueSize?: number | undefined;
+ 
+        // Special options from PrimusOptions that are required as per: https://www.npmjs.com/package/primus#connecting-from-the-server
+        parser?: string | Parser | undefined;
+        transformer?: 'websockets' | 'engine.io' | 'browserchannel' | 'sockjs' | 'faye' | 'uws' | undefined;
+        plugin?: string | object | undefined;
     }
     class Socket extends Stream {
         constructor(options?: SocketOptions);
