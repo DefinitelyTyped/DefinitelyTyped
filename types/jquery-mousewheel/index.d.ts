@@ -2,7 +2,7 @@
 // Project: https://github.com/jquery/jquery-mousewheel
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="jquery" />
 
