@@ -232,6 +232,7 @@ export const sendSigningRequestWithTemplates = async (pdfFilePath: string) => {
         ],
         template_id: 'test template id',
         metadata,
+        signing_redirect_url: 'http://localhost',
     });
     const signatures = data.signature_request.signatures;
     const signature = signatures.find((sig: any) => sig.status_code === 'awaiting_signature')!;

@@ -241,6 +241,7 @@ declare namespace HelloSign {
                       | 'YYYY - MM - DD';
               }
             | undefined;
+        signing_redirect_url?: string | undefined;
     }
     interface SignatureRequestResponse {
         signature_request: SignatureRequest;
