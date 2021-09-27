@@ -1157,8 +1157,12 @@ const dataTableSkeletonBasic = (
 //
 {
     const searchT1 = (
+        <Search labelText="Search..." renderIcon={<svg></svg>} />
+    );
+
+    const searchT2 = (
         // $ExpectError
-        <Search renderIcon={TestComp2} />
+        <Search labelText="Search..." renderIcon={TestComp2} />
     );
 }
 
