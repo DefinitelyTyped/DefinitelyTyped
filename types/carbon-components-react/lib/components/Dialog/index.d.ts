@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { ForwardRefProps, FCReturn, ReactComponentConstructor } from '../../../typings/shared';
 import { FocusScopeDefaultProps, FocusScopeIntrinsicProps, FocusScopeCustomComponentProps } from '../FocusScope';
 
