@@ -124,7 +124,7 @@ interface PrimusOptions {
 }
 
 declare namespace Primus {
-    function createSocket(options?: PrimusOptions): typeof Socket;
+    function createSocket(options?: SocketOptions): typeof Socket;
 
     function createServer(options?: PrimusOptions): Primus;
     function createServer(fn: (spark: Spark) => void, options?: PrimusOptions): Primus;
@@ -163,7 +163,7 @@ declare namespace Primus {
         backoff: boolean;
         scheduled: number;
     }
-    interface SocketOptions {
+    interface SocketOptions extends PrimusOptions {
         // https://github.com/unshiftio/recovery
         reconnect?: {
             max?: number | undefined;
