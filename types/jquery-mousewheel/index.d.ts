@@ -15,8 +15,8 @@ declare global {
             & { version: string; }
             & { setup: (Extract<JQuery.SpecialEventHook<O, D>, { setup: any; }>)['setup'] }
             & { teardown: (Extract<JQuery.SpecialEventHook<O, D>, { teardown: any; }>)['teardown'] }
-            & { getLineHeight(elem: JQuery.htmlString): number | never; }
-            & { getPageHeight(elem: JQuery.htmlString): number | never; }
+            & { getLineHeight(elem: Parameters<JQuery["appendTo"]>[0]): number | never; }
+            & { getPageHeight(elem: Parameters<JQuery["appendTo"]>[0]): number | never; }
             & {
                 settings: {
                     adjustOldDeltas: boolean;
