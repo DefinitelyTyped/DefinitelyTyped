@@ -14,7 +14,7 @@ const lineHeight = $.event.special.mousewheel.getLineHeight($('#my_elem'));
 // $ExpectType number
 const pageHeight = $.event.special.mousewheel.getPageHeight($('#my_elem'));
 
-// $ExpectType true
+// $ExpectType boolean
 const adjustOldDeltas = $.event.special.mousewheel.settings.adjustOldDeltas;
 
 // $ExpectType boolean
