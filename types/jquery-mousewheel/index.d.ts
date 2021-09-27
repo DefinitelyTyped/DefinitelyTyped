@@ -4,29 +4,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.4
 
-/// <reference types="jquery"/>
-
-export type JQueryMousewheelEventHook<
-    O = JQueryMousewheel.JQueryMousewheelEventObject,
-    D = JQueryMousewheel.JQueryMousewheelEventData
-> = (
-    & { version: string; }
-    & { setup: (Extract<JQuery.SpecialEventHook<O, D>, { setup: any; }>)["setup"] }
-    & { teardown: (Extract<JQuery.SpecialEventHook<O, D>, { teardown: any; }>)["teardown"] }
-    & { getLineHeight(elem: JQuery.htmlString): number | never; }
-    & { getPageHeight(elem: JQuery.htmlString): number | never; }
-    & {
-        settings: {
-            adjustOldDeltas: boolean;
-            normalizeOffset: boolean;
-        };
-    }
-);
-
-export type JQueryMousewheelEventHandler = (eventObject: JQueryMousewheel.JQueryMousewheelEventObject, ...args: any[]) => any;
+import 'jquery';
 
 declare global {
     namespace JQueryMousewheel {
+        type JQueryMousewheelEventHook<
+            O = JQueryMousewheelEventObject,
+            D = JQueryMousewheelEventData
+        > = (
+            & { version: string; }
+            & { setup: (Extract<JQuery.SpecialEventHook<O, D>, { setup: any; }>)['setup'] }
+            & { teardown: (Extract<JQuery.SpecialEventHook<O, D>, { teardown: any; }>)['teardown'] }
+            & { getLineHeight(elem: JQuery.htmlString): number | never; }
+            & { getPageHeight(elem: JQuery.htmlString): number | never; }
+            & {
+                settings: {
+                    adjustOldDeltas: boolean;
+                    normalizeOffset: boolean;
+                };
+            }
+        );
+        type JQueryMousewheelEventHandler = (eventObject: JQueryMousewheelEventObject, ...args: any[]) => any;
         interface JQueryMousewheelEventObject extends JQueryEventObject {
             deltaX: number;
             deltaY: number;
@@ -43,12 +41,14 @@ declare global {
     }
     namespace JQuery {
         interface SpecialEventHooks {
-            mousewheel: JQueryMousewheelEventHook;
+            mousewheel: JQueryMousewheel.JQueryMousewheelEventHook;
         }
     }
     interface JQuery {
-        on(event: 'mousewheel', handler: JQueryMousewheelEventHandler): JQuery;
-        mousewheel(handler: JQueryMousewheelEventHandler): JQuery
+        on(event: 'mousewheel', handler: JQueryMousewheel.JQueryMousewheelEventHandler): JQuery;
+        mousewheel(handler: JQueryMousewheel.JQueryMousewheelEventHandler): JQuery
         unmousewheel(): JQuery;
     }
 }
+
+export = undefined;
