@@ -5,3 +5,4 @@ lib/components/Notification/a11yIconWarningSolid.d.ts
 lib/components/ListBox/next/index.d.ts
 lib/components/ListBox/next/ListBoxSelection.d.ts
 lib/components/ListBox/next/ListBoxTrigger.d.ts
+lib/components/Portal/index.d.ts
