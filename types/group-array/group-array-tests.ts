@@ -10,3 +10,4 @@ const input = [
 ];
 
 groupArray(input, 'tag'); // $ExpectType object
+groupArray(input, ['tag']); // $ExpectType object

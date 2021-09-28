@@ -1277,6 +1277,21 @@ function Argv$commandsWithAsynchronousBuilders() {
     const arg2: string = argv2.arg;
 }
 
+const wait = (n: number) => new Promise(resolve => setTimeout(resolve, n));
+async function Argv$commandWithAsynchronousHandler() {
+    await yargs
+        .command(
+            'command <arg>',
+            'some command',
+            yargs => yargs,
+            async args => {
+                await wait(0);
+                console.log('one');
+            },
+        )
+        .parseAsync();
+}
+
 function makeSingleton() {
     yargsSingleton(process.argv.slice(2));
 }

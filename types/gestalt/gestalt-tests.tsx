@@ -17,7 +17,7 @@ import {
     ComboBox,
     CompositeZIndex,
     Container,
-    DataPoint,
+    Datapoint,
     Divider,
     Dropdown,
     Fieldset,
@@ -401,4 +401,4 @@ const CheckUseReducedMotion = () => {
 new FixedZIndex(1);
 new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)])]);
 
-<DataPoint title="Test Value" value="100" trend={{ accesibilityLabel: "Trending up", value: 50 }} trendSentiment="good" />;
+<Datapoint title="Test Value" value="100" trend={{ accesibilityLabel: "Trending up", value: 50 }} trendSentiment="good" />;

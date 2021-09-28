@@ -1,4 +1,4 @@
-// Type definitions for prettier 2.3
+// Type definitions for prettier 2.4
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
@@ -98,8 +98,15 @@ export interface RequiredOptions extends doc.printer.Options {
      */
     bracketSpacing: boolean;
     /**
+     * Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being
+     * alone on the next line (does not apply to self closing elements).
+     * @default false
+     */
+    bracketSameLine: boolean;
+    /**
      * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
      * @default false
+     * @deprecated use bracketSameLine instead
      */
     jsxBracketSameLine: boolean;
     /**
@@ -146,9 +153,13 @@ export interface RequiredOptions extends doc.printer.Options {
      */
     arrowParens: 'avoid' | 'always';
     /**
-     * The plugin API is in a beta state.
+     * Provide ability to support new languages to prettier.
      */
     plugins: Array<string | Plugin>;
+    /**
+     * Specify plugin directory paths to search for plugins if not installed in the same `node_modules` where prettier is located.
+     */
+    pluginSearchDirs: string[];
     /**
      * How to handle whitespaces in HTML.
      * @default 'css'
@@ -201,12 +212,14 @@ export interface Parser<T = any> {
 
 export interface Printer<T = any> {
     print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc): Doc;
-    embed?: ((
-        path: AstPath<T>,
-        print: (path: AstPath<T>) => Doc,
-        textToDoc: (text: string, options: Options) => Doc,
-        options: ParserOptions<T>,
-    ) => Doc | null) | undefined;
+    embed?:
+        | ((
+              path: AstPath<T>,
+              print: (path: AstPath<T>) => Doc,
+              textToDoc: (text: string, options: Options) => Doc,
+              options: ParserOptions<T>,
+          ) => Doc | null)
+        | undefined;
     insertPragma?: ((text: string) => string) | undefined;
     /**
      * @returns `null` if you want to remove this node
@@ -218,29 +231,37 @@ export interface Printer<T = any> {
     canAttachComment?: ((node: T) => boolean) | undefined;
     willPrintOwnComments?: ((path: AstPath<T>) => boolean) | undefined;
     printComment?: ((commentPath: AstPath<T>, options: ParserOptions<T>) => Doc) | undefined;
-    handleComments?: {
-        ownLine?: ((
-            commentNode: any,
-            text: string,
-            options: ParserOptions<T>,
-            ast: T,
-            isLastComment: boolean,
-        ) => boolean) | undefined;
-        endOfLine?: ((
-            commentNode: any,
-            text: string,
-            options: ParserOptions<T>,
-            ast: T,
-            isLastComment: boolean,
-        ) => boolean) | undefined;
-        remaining?: ((
-            commentNode: any,
-            text: string,
-            options: ParserOptions<T>,
-            ast: T,
-            isLastComment: boolean,
-        ) => boolean) | undefined;
-    } | undefined;
+    handleComments?:
+        | {
+              ownLine?:
+                  | ((
+                        commentNode: any,
+                        text: string,
+                        options: ParserOptions<T>,
+                        ast: T,
+                        isLastComment: boolean,
+                    ) => boolean)
+                  | undefined;
+              endOfLine?:
+                  | ((
+                        commentNode: any,
+                        text: string,
+                        options: ParserOptions<T>,
+                        ast: T,
+                        isLastComment: boolean,
+                    ) => boolean)
+                  | undefined;
+              remaining?:
+                  | ((
+                        commentNode: any,
+                        text: string,
+                        options: ParserOptions<T>,
+                        ast: T,
+                        isLastComment: boolean,
+                    ) => boolean)
+                  | undefined;
+          }
+        | undefined;
 }
 
 export interface CursorOptions extends Options {
@@ -248,8 +269,8 @@ export interface CursorOptions extends Options {
      * Specify where the cursor is.
      */
     cursorOffset: number;
-    rangeStart?: never | undefined;
-    rangeEnd?: never | undefined;
+    rangeStart?: never;
+    rangeEnd?: never;
 }
 
 export interface CursorResult {

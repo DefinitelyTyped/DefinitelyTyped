@@ -32,7 +32,7 @@ declare namespace naver.maps {
   type strokeStyleType = 'solid' | 'shortdash' | 'shortdot' | 'shortdashdot' | 'shortdashdotdot' | 'dot' | 'dash' |
     'longdash' | 'dashdot' | 'longdashdot' | 'longdashdotdot';
   type strokeLineCapType = 'butt' | 'round' | 'square';
-  type strokeLineJoinType = 'miter' | 'round ' | 'bevel';
+  type strokeLineJoinType = 'miter' | 'round' | 'bevel';
 
   /**
    * Interfaces

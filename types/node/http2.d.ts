@@ -6,7 +6,7 @@
  * const http2 = require('http2');
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http2.js)
  */
 declare module 'http2' {
     import EventEmitter = require('node:events');
@@ -2014,7 +2014,7 @@ declare module 'http2' {
     /**
      * Returns a `net.Server` instance that creates and manages `Http2Session`instances.
      *
-     * Since there are no browsers known that support[unencrypted HTTP/2](https://http2.github.io/faq/#does-http2-require-encryption), the use of {@link createSecureServer} is necessary when
+     * Since there are no browsers known that support [unencrypted HTTP/2](https://http2.github.io/faq/#does-http2-require-encryption), the use of {@link createSecureServer} is necessary when
      * communicating
      * with browser clients.
      *

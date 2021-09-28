@@ -1899,7 +1899,7 @@ declare namespace React {
         autoComplete?: string | undefined;
         autoFocus?: boolean | undefined;
         autoPlay?: boolean | undefined;
-        capture?: boolean | string | undefined;
+        capture?: boolean | 'user' | 'environment' | undefined;
         cellPadding?: number | string | undefined;
         cellSpacing?: number | string | undefined;
         charSet?: string | undefined;
@@ -2196,7 +2196,7 @@ declare namespace React {
         alt?: string | undefined;
         autoComplete?: string | undefined;
         autoFocus?: boolean | undefined;
-        capture?: boolean | string | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | 'user' | 'environment' | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         crossOrigin?: string | undefined;
         disabled?: boolean | undefined;

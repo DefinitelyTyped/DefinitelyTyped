@@ -838,8 +838,8 @@ interface Events {
     group: [sid: SteamID, group: Record<string, any>];
     groupEvent: [sid: SteamID, headline: string, date: Date, gid: number | string, gameID: number]; // not sure
     groupAnnouncement: [sid: SteamID, headline: string, gid: number | string]; // not sure
-    friendRelationShip: [sid: SteamID, relationship: SteamUser.EFriendRelationship];
-    groupRelationShip: [sid: SteamID, relationship: SteamUser.EClanRelationship];
+    friendRelationship: [sid: SteamID, relationship: SteamUser.EFriendRelationship];
+    groupRelationship: [sid: SteamID, relationship: SteamUser.EClanRelationship];
     friendsList: [];
     friendPersonasLoad: [];
     groupList: [];
@@ -1083,6 +1083,7 @@ interface LogOnDetailsAnon {
     machineName?: string;
     clientOS?: SteamUser.EOSType;
     dontRememberMachine?: boolean;
+    autoRelogin?: boolean;
 }
 
 interface LogOnDetailsNamePass {
@@ -1095,6 +1096,7 @@ interface LogOnDetailsNamePass {
     machineName?: string;
     clientOS?: SteamUser.EOSType;
     dontRememberMachine?: boolean;
+    autoRelogin?: boolean;
 }
 interface LogOnDetailsNameKey {
     accountName: string;
@@ -1103,12 +1105,14 @@ interface LogOnDetailsNameKey {
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
+    autoRelogin?: boolean;
 }
 
 interface LogOnDetailsNameToken {
     accountName: string;
     webLogonToken: string;
     steamID: SteamID | string;
+    autoRelogin?: boolean;
 }
 
 interface SteamGuardDetails {

@@ -4,7 +4,7 @@
  *
  * The `Buffer` class is a subclass of JavaScript's [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) class and
  * extends it with methods that cover additional use cases. Node.js APIs accept
- * plain [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array)s wherever `Buffer`s are supported as well.
+ * plain [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) s wherever `Buffer`s are supported as well.
  *
  * While the `Buffer` class is available within the global scope, it is still
  * recommended to explicitly reference it via an import or require statement.
@@ -41,7 +41,7 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/buffer.js)
  */
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
@@ -137,7 +137,7 @@ declare module 'buffer' {
          */
         constructor(sources: Array<BinaryLike | Blob>, options?: BlobOptions);
         /**
-         * Returns a promise that fulfills with an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
+         * Returns a promise that fulfills with an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
          * the `Blob` data.
          * @since v15.7.0
          */

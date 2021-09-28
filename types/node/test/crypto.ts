@@ -1273,3 +1273,7 @@ import { promisify } from 'node:util';
     // tslint:disable-next-line no-object-literal-type-assertion (webcrypto.CryptoKey is a placeholder)
     crypto.KeyObject.from({} as crypto.webcrypto.CryptoKey); // $ExpectType KeyObject
 }
+
+{
+    crypto.generateKeySync('aes', { length: 128 }); // $ExpectType KeyObject
+}

@@ -516,7 +516,6 @@ async function testStat(
 
     fs.statSync(path, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
     fs.lstatSync(path, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
-    fs.fstatSync(fd, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
 
     fs.statSync(path, {}); // $ExpectType Stats
     fs.lstatSync(path, {}); // $ExpectType Stats
@@ -532,15 +531,14 @@ async function testStat(
 
     fs.statSync(path, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
     fs.lstatSync(path, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
-    fs.fstatSync(fd, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
 
     fs.statSync(path, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
     fs.lstatSync(path, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
-    fs.fstatSync(fd, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
+    fs.fstatSync(fd, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats
 
     fs.statSync(path, opts); // $ExpectType Stats | BigIntStats | undefined
     fs.lstatSync(path, opts); // $ExpectType Stats | BigIntStats | undefined
-    fs.fstatSync(fd, opts); // $ExpectType Stats | BigIntStats | undefined
+    fs.fstatSync(fd, opts); // $ExpectType Stats | BigIntStats
 
     // Promisify mode
     util.promisify(fs.stat)(path); // $ExpectType Promise<Stats>

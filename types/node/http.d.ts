@@ -37,7 +37,7 @@
  *   'Host', 'mysite.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http.js)
  */
 declare module 'http' {
     import * as stream from 'node:stream';
@@ -183,6 +183,18 @@ declare module 'http' {
          * @since v0.7.0
          */
         maxHeadersCount: number | null;
+        /**
+         * The maximum number of requests socket can handle
+         * before closing keep alive connection.
+         *
+         * A value of `null` will disable the limit.
+         *
+         * When limit is reach it will set `Connection` header value to `closed`,
+         * but will not actually close the connection, subsequent requests sent
+         * after the limit is reached will get `503 Service Unavailable` as a response.
+         * @since v16.10.0
+         */
+        maxRequestsPerSocket: number | null;
         /**
          * The number of milliseconds of inactivity before a socket is presumed
          * to have timed out.
@@ -341,11 +353,9 @@ declare module 'http' {
         readonly socket: Socket | null;
         constructor();
         /**
-         * occurs, Same as binding to the `timeout` event.
-         *
          * Once a socket is associated with the message and is connected,`socket.setTimeout()` will be called with `msecs` as the first parameter.
          * @since v0.9.12
-         * @param callback Optional function to be called when a timeout
+         * @param callback Optional function to be called when a timeout occurs. Same as binding to the `timeout` event.
          */
         setTimeout(msecs: number, callback?: () => void): this;
         /**

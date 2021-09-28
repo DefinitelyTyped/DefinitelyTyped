@@ -9,6 +9,7 @@ isValid = pwdStrength('P@55w0Rd', {
   minPasswordLength: 10,
   maxConsecutiveRepeatingChars: 3,
   minSpecialChars: 3,
+  minNumberChars: 5,
   lang: {
     weak: 'Poor',
     average: 'Medium',

@@ -6,6 +6,7 @@ const view = new EditorView({} as any, {} as any);
 
 const menuBarPlugin = menu.menuBar({ content: [], floating: false });
 const menuElement = new menu.MenuItem({ run: (_state, _dispatch, _view) => {} });
-const { dom, update } = menu.renderGrouped(view, [menuElement]);
+const content: ReadonlyArray<ReadonlyArray<menu.MenuItem>> = [[menuElement]];
+const { dom, update } = menu.renderGrouped(view, content);
 dom.children;
 update(view.state);
