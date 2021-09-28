@@ -432,6 +432,7 @@ declare namespace HelloSign {
     interface TemplateResponse {
         template: Template;
     }
+    type FilesOptions = { file_type: 'pdf', get_url?: boolean, get_data_uri?: boolean } | { file_type: 'zip' };
     interface TemplateModule {
         list(): Promise<{ templates: Template[] }>;
         get(templateId: string): Promise<TemplateResponse>;
@@ -439,6 +440,16 @@ declare namespace HelloSign {
         removeUser(templateId: string, user: AccountIdOrEmailRequestOptions): Promise<TemplateResponse>;
         createEmbeddedDraft(options: Template): Promise<TemplateResponse>;
         delete(templateId: string): Promise<any>;
+        files: <Options extends FilesOptions | undefined>(
+            templateId: string,
+            options?: Options,
+          ) => Promise<
+            Options extends { file_type: 'pdf', get_url: true }
+              ? { file_url: string; expires_at: Date }
+              : Options extends { file_type: 'pdf', get_data_uri: true }
+              ? { data_uri: string; expires_at: Date }
+              : Buffer
+          >;
     }
 
     interface UnclaimedDraft {
