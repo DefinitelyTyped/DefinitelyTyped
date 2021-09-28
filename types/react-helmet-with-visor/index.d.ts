@@ -70,7 +70,7 @@ export interface HelmetData {
 
 export interface HelmetDatum {
     toString(): string;
-    toComponent(): React.ReactElement<any>;
+    toComponent(): React.ReactElement;
 }
 
 export interface HelmetHTMLBodyDatum {
