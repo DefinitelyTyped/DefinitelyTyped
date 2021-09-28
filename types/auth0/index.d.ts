@@ -906,11 +906,6 @@ export interface ExportUsersOptions {
     fields?: ExportUserField[] | undefined;
 }
 
-export interface UserIdParams {
-    user_id: string;
-    client_id?: string | undefined;
-}
-
 export interface ExportUserField {
     name: string;
     export_as?: string | undefined;
@@ -919,6 +914,8 @@ export interface ExportUserField {
 export interface PasswordChangeTicketParams {
     result_url?: string | undefined;
     user_id?: string | undefined;
+    client_id?: string | undefined;
+    organization_id?: string | undefined;
     new_password?: string | undefined;
     connection_id?: string | undefined;
     email?: string | undefined;
@@ -932,8 +929,16 @@ export interface PasswordChangeTicketResponse {
 }
 
 export interface EmailVerificationTicketOptions {
+    result_url?: string | undefined;
     user_id: string;
-    result_url: string;
+    client_id?: string | undefined;
+    organization_id?: string | undefined;
+    identity?: {
+        user_id: string;
+        provider: string;
+    } | undefined;
+    ttl_sec?: number | undefined;
+    includeEmailInRedirect?: boolean | undefined;
 }
 
 export interface BaseClientOptions {
@@ -1073,6 +1078,11 @@ export interface PagingOptions {
     page?: number | undefined;
 }
 
+export interface CheckpointPagingOptions {
+    take?: number | undefined;
+    from?: string | undefined;
+}
+
 export class AuthenticationClient {
     // Members
     database?: DatabaseAuthenticator | undefined;
@@ -1127,7 +1137,206 @@ export class AuthenticationClient {
     ): void;
 }
 
+export interface Organization {
+    id: string;
+    name: string;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any | undefined;
+}
+
+export interface CreateOrganization {
+    name: string;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any | undefined;
+}
+
+export interface UpdateOrganization {
+    name?: string | undefined;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any | undefined;
+}
+
+export interface OrganizationConnection {
+    connection_id: string;
+    assign_membership_on_login: boolean;
+    connection: {
+        name: string;
+        strategy: string;
+    };
+}
+
+export interface AddEnabledConnection {
+    connection_id: string;
+    assign_membership_on_login?: boolean | undefined;
+}
+
+export interface UpdateEnabledConnection {
+    assign_membership_on_login: boolean;
+}
+
+export interface AddMembers {
+    members: string[];
+}
+
+export interface RemoveMembers {
+    members: string[];
+}
+
+export interface OrganizationMember {
+    user_id?: string | undefined;
+    picture?: string | undefined;
+    name?: string | undefined;
+    email?: string | undefined;
+}
+
+export interface OrganizationInvitation {
+    id: string;
+    organization_id: string;
+    inviter: {
+        name: string;
+    };
+    invitee: {
+        email: string;
+    };
+    invitation_url: string;
+    created_at: string;
+    expires_at: string;
+    connection_id?: string | undefined;
+    client_id: string;
+    app_metadata?: any | undefined;
+    user_metadata?: any | undefined;
+    ticket_id: string;
+    roles?: string[] | undefined;
+}
+
+export interface CreateInvitation {
+    inviter: {
+        name: string;
+    };
+    invitee: {
+        email: string;
+    };
+    connection_id?: string | undefined;
+    client_id: string;
+    app_metadata?: any | undefined;
+    user_metadata?: any | undefined;
+    ttl_sec?: number | undefined;
+    send_invitation_email?: boolean | undefined;
+    roles?: string[] | undefined;
+}
+
+export interface AddMemberRoles {
+    roles: string[];
+}
+
+export interface RemoveMemberRoles {
+    roles: string[];
+}
+
+export interface VerifyEmail {
+    user_id: string;
+    organization_id?: string | undefined;
+    client_id?: string | undefined;
+    identity?: {
+        user_id: string;
+        provider: string;
+    } | undefined;
+}
+
+export class OrganizationsManager {
+    create(data: CreateOrganization): Promise<Organization>;
+    create(data: CreateOrganization, cb: (err: Error, organization: Organization) => void): void;
+
+    getAll(): Promise<Organization[]>;
+    getAll(cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: PagingOptions): Promise<Organization[]>;
+    getAll(params: PagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: CheckpointPagingOptions): Promise<Organization[]>;
+    getAll(params: CheckpointPagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
+
+    getByID(params: ObjectWithId): Promise<Organization>;
+    getByID(params: ObjectWithId, cb: (err: Error, organization: Organization) => void): void;
+
+    getByName(params: { name: string }): Promise<Organization>;
+    getByName(params: { name: string }, cb: (err: Error, organization: Organization) => void): void;
+
+    update(params: ObjectWithId, data: UpdateOrganization): Promise<Organization>;
+    update(params: ObjectWithId, data: UpdateOrganization, cb: (err: Error, organization: Organization) => void): void;
+
+    delete(params: ObjectWithId): Promise<void>;
+    delete(params: ObjectWithId, cb: (err: Error) => void): void;
+
+    getEnabledConnections(params: ObjectWithId & PagingOptions): Promise<OrganizationConnection[]>;
+    getEnabledConnections(params: ObjectWithId & PagingOptions, cb: (err: Error, connections: OrganizationConnection[]) => void): void;
+
+    getEnabledConnection(params: ObjectWithId & { connection_id: string }): Promise<OrganizationConnection>;
+    getEnabledConnection(params: ObjectWithId & { connection_id: string }, cb: (err: Error, connection: OrganizationConnection) => void): void;
+
+    addEnabledConnection(params: ObjectWithId, data: AddEnabledConnection): Promise<OrganizationConnection>;
+    addEnabledConnection(params: ObjectWithId, data: AddEnabledConnection, cb: (err: Error, connection: OrganizationConnection) => void): void;
+
+    removeEnabledConnection(params: ObjectWithId & { connection_id: string }): Promise<void>;
+    removeEnabledConnection(params: ObjectWithId & { connection_id: string }, cb: (err: Error) => void): void;
+
+    updateEnabledConnection(params: ObjectWithId & { connection_id: string }, data: UpdateEnabledConnection): Promise<OrganizationConnection>;
+    updateEnabledConnection(params: ObjectWithId & { connection_id: string }, data: UpdateEnabledConnection, cb: (err: Error, connection: OrganizationConnection) => void): void;
+
+    getMembers(params: ObjectWithId & PagingOptions): Promise<OrganizationMember[]>;
+    getMembers(params: ObjectWithId & PagingOptions, cb: (err: Error, members: OrganizationMember[]) => void): void;
+    getMembers(params: ObjectWithId & CheckpointPagingOptions): Promise<OrganizationMember[]>;
+    getMembers(params: ObjectWithId & CheckpointPagingOptions, cb: (err: Error, members: OrganizationMember[]) => void): void;
+
+    addMembers(params: ObjectWithId, data: AddMembers): Promise<void>;
+    addMembers(params: ObjectWithId, data: AddMembers, cb: (err: Error) => void): void;
+
+    removeMembers(params: ObjectWithId, data: RemoveMembers): Promise<void>;
+    removeMembers(params: ObjectWithId, data: RemoveMembers, cb: (err: Error) => void): void;
+
+    getInvitations(params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string }): Promise<OrganizationInvitation[]>;
+    getInvitations(params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string }, cb: (err: Error, invitations: OrganizationInvitation[]) => void): void;
+
+    getInvitation(params: ObjectWithId & { invitation_id: string; fields?: string; include_fields?: boolean }): Promise<OrganizationInvitation>;
+    getInvitation(params: ObjectWithId & { invitation_id: string; fields?: string; include_fields?: boolean }, cb: (err: Error, invitation: OrganizationInvitation) => void): void;
+
+    createInvitation(params: ObjectWithId, data: CreateInvitation): Promise<OrganizationInvitation>;
+    createInvitation(params: ObjectWithId, data: CreateInvitation, cb: (err: Error, invitation: OrganizationInvitation) => void): void;
+
+    deleteInvitation(params: ObjectWithId & { invitation_id: string }): Promise<void>;
+    deleteInvitation(params: ObjectWithId & { invitation_id: string }, cb: (err: Error) => void): void;
+
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string }): Promise<Role[]>;
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string }, cb: (err: Error, roles: Role[]) => void): void;
+
+    addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddMemberRoles): Promise<void>;
+    addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddMemberRoles, cb: (err: Error) => void): void;
+
+    removeMemberRoles(params: ObjectWithId & { user_id: string }, data: RemoveMemberRoles): Promise<void>;
+    removeMemberRoles(params: ObjectWithId & { user_id: string }, data: RemoveMemberRoles, cb: (err: Error) => void): void;
+}
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
+    organizations: OrganizationsManager;
+
     constructor(options: ManagementClientOptions);
 
     getClientInfo(): ClientInfo;
@@ -1410,8 +1619,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
     exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
 
-    sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
-    sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
+    sendEmailVerification(data: VerifyEmail): Promise<VerificationEmailJob>;
+    sendEmailVerification(data: VerifyEmail, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
     // Tickets
     createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
