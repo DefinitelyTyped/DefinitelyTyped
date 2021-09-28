@@ -1,49 +1,49 @@
 import mongoose = require('mongoose');
-import mongoose_delete = require('mongoose-delete');
+import MongooseDelete = require('mongoose-delete');
 
-interface PetDocument extends mongoose_delete.SoftDeleteDocument {
+interface PetDocument extends MongooseDelete.SoftDeleteDocument {
   name: string;
 }
 const PetSchema = new mongoose.Schema<PetDocument>({
   name: String,
 });
 // Override all methods
-PetSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
+PetSchema.plugin(MongooseDelete, { overrideMethods: 'all' });
 // or
-PetSchema.plugin(mongoose_delete, { overrideMethods: true });
+PetSchema.plugin(MongooseDelete, { overrideMethods: true });
 
 // Overide only specific methods
-PetSchema.plugin(mongoose_delete, {
+PetSchema.plugin(MongooseDelete, {
   overrideMethods: ['count', 'find', 'findOne', 'findOneAndUpdate', 'update'],
 });
 // or
-PetSchema.plugin(mongoose_delete, {
+PetSchema.plugin(MongooseDelete, {
   overrideMethods: ['count', 'countDocuments', 'find'],
 });
 // or (unrecognized method names will be ignored)
-PetSchema.plugin(mongoose_delete, { overrideMethods: ['count', 'find', 'errorXyz'] }); // $ExpectError
+PetSchema.plugin(MongooseDelete, { overrideMethods: ['count', 'find', 'errorXyz'] });
 
-PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedAt: true });
-PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true });
-PetSchema.plugin(mongoose_delete, {
+PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedAt: true });
+PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true });
+PetSchema.plugin(MongooseDelete, {
   overrideMethods: 'all',
   deletedByType: String,
 });
-PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: ['deleted'] });
-PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
-PetSchema.plugin(mongoose_delete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' }); // $ExpectError
+PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: ['deleted'] });
+PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
+PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' });
 
-const idUser = mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
+const idUser = new mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
 
 const Pet = mongoose.model<
   PetDocument,
-  mongoose_delete.SoftDeleteModel<PetDocument>
+  MongooseDelete.SoftDeleteModel<PetDocument>
 >('Pet', PetSchema);
 
 const Pet2 = mongoose.model(
   'Pet',
   PetSchema,
-) as mongoose_delete.SoftDeleteModel<PetDocument>;
+) as MongooseDelete.SoftDeleteModel<PetDocument>;
 
 const fluffy = new Pet({ name: 'Fluffy' });
 

@@ -1167,6 +1167,26 @@ declare module 'crypto' {
         },
         callback: (err: Error | null, key: KeyObject) => void
     ): void;
+    /**
+     * Synchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
+     *
+     * ```js
+     * const {
+     *   generateKeySync
+     * } = await import('crypto');
+     *
+     * const key = generateKeySync('hmac', 64);
+     * console.log(key.export().toString('hex'));  // e89..........41e
+     * ```
+     * @since v15.0.0
+     * @param type The intended use of the generated secret key. Currently accepted values are `'hmac'` and `'aes'`.
+     */
+    function generateKeySync(
+        type: 'hmac' | 'aes',
+        options: {
+            length: number;
+        }
+    ): KeyObject;
     interface JsonWebKeyInput {
         key: JsonWebKey;
         format: 'jwk';
@@ -2259,7 +2279,7 @@ declare module 'crypto' {
     interface X448KeyPairKeyObjectOptions {}
     interface ECKeyPairKeyObjectOptions {
         /**
-         * Name of the curve to use.
+         * Name of the curve to use
          */
         namedCurve: string;
     }
@@ -2269,6 +2289,7 @@ declare module 'crypto' {
          */
         modulusLength: number;
         /**
+         * Public exponent
          * @default 0x10001
          */
         publicExponent?: number | undefined;
@@ -2279,9 +2300,22 @@ declare module 'crypto' {
          */
         modulusLength: number;
         /**
+         * Public exponent
          * @default 0x10001
          */
         publicExponent?: number | undefined;
+        /**
+         * Name of the message digest
+         */
+        hashAlgorithm?: string;
+        /**
+         * Name of the message digest used by MGF1
+         */
+        mgf1HashAlgorithm?: string;
+        /**
+         * Minimal salt length in bytes
+         */
+        saltLength?: string;
     }
     interface DSAKeyPairKeyObjectOptions {
         /**
@@ -2299,6 +2333,7 @@ declare module 'crypto' {
          */
         modulusLength: number;
         /**
+         * Public exponent
          * @default 0x10001
          */
         publicExponent?: number | undefined;
@@ -2316,9 +2351,22 @@ declare module 'crypto' {
          */
         modulusLength: number;
         /**
+         * Public exponent
          * @default 0x10001
          */
         publicExponent?: number | undefined;
+        /**
+         * Name of the message digest
+         */
+        hashAlgorithm?: string;
+        /**
+         * Name of the message digest used by MGF1
+         */
+        mgf1HashAlgorithm?: string;
+        /**
+         * Minimal salt length in bytes
+         */
+        saltLength?: string;
         publicKeyEncoding: {
             type: 'spki';
             format: PubF;

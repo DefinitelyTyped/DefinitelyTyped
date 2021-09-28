@@ -13,7 +13,7 @@ const envHandlebarsCallback: EnvHandlebarsCallback = error => {
 envhandlebars();
 
 envhandlebars({
-    arrayEnabled: true,
+    arraysEnabled: true,
     arrayVarPrefix: true,
     env: process.env,
     exit: process.exit,

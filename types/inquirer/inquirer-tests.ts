@@ -1,9 +1,12 @@
+import { createInterface } from 'readline';
 import { Separator } from 'inquirer';
 import inquirer = require('inquirer');
 import InputPrompt = require('inquirer/lib/prompts/input');
 import { fetchAsyncQuestionProperty } from 'inquirer/lib/utils/utils';
 import incrementListIndex = require('inquirer/lib/utils/incrementListIndex');
 import Choices = require('inquirer/lib/objects/choices');
+import Paginator = require('inquirer/lib/utils/paginator');
+import ScreenManager = require('inquirer/lib/utils/screen-manager');
 
 {
     new inquirer.Separator('');
@@ -143,4 +146,29 @@ fetchAsyncQuestionProperty(
     incrementListIndex(0, 'left', options);
     // $ExpectError
     incrementListIndex(0, 'up', {});
+}
+
+{
+    const rl = createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    const screen = new ScreenManager(rl);
+
+    new Paginator(screen);
+    new Paginator(screen, { isInfinite: true });
+    // $ExpectError
+    new Paginator(screen, { someUnsupportedOptions: 'foobar' });
+}
+
+{
+    const rl = createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    const screen = new ScreenManager(rl);
+
+    const paginator = new Paginator(screen);
+    paginator.paginate('test', 0);
+    paginator.paginate('test', 0, 0);
 }
