@@ -31,7 +31,8 @@ interface ServiceConfigOptions {
      * (i.e. `process.exit(1)`).
      */
     abortOnError?: boolean;
-    /** The initial number of seconds to wait before attempting a restart
+    /**
+     * The initial number of seconds to wait before attempting a restart
      * (after the script stops).
      */
     wait?: number;
@@ -79,8 +80,10 @@ declare class Service extends EventEmitter {
     script: string;
     /** The name of the service. */
     name: string;
-    /** The initial number of seconds to wait before attempting a restart
-     * (after the script stops). */
+    /**
+     * The initial number of seconds to wait before attempting a restart
+     * (after the script stops).
+     */
     wait: number;
     /**
      * Setting this to `true` will force the process to exit if it encounters
@@ -90,12 +93,7 @@ declare class Service extends EventEmitter {
      * (i.e. `process.exit(1)`).
      */
     abortOnError: boolean;
-    on(event: 'install', listener: () => void): this;
-    on(event: 'alreadyinstalled', listener: () => void): this;
-    on(event: 'invalidinstallation', listener: () => void): this;
-    on(event: 'uninstall', listener: () => void): this;
-    on(event: 'start', listener: () => void): this;
-    on(event: 'stop', listener: () => void): this;
+    on(event: 'install' | 'alreadyinstalled' | 'invalidinstallation' | 'uninstall' | 'start' | 'stop', listener: () => void): this;
     on(event: 'error', listener: (err: any) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
