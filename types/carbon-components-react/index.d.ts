@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.42
+// Type definitions for carbon-components-react 7.44
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -33,6 +33,7 @@ export * from "./lib/components/Dropdown";
 export * from "./lib/components/ErrorBoundary";
 export * from "./lib/components/ExpandableSearch";
 export * from "./lib/components/FileUploader";
+export * from "./lib/components/FilterableMultiSelect";
 export * from "./lib/components/FluidForm/FluidForm"; // context is not exported from index
 export * from "./lib/components/Form";
 export * from "./lib/components/FormGroup";
@@ -163,6 +164,7 @@ export {
     FileUploaderDropContainer,
     FileUploaderItem,
 } from "./lib/components/FileUploader";
+export { default as FilterableMultiSelect } from "./lib/components/FilterableMultiSelect";
 export { default as FluidForm } from "./lib/components/FluidForm";
 export { default as Form } from "./lib/components/Form";
 export { default as FormGroup } from "./lib/components/FormGroup";

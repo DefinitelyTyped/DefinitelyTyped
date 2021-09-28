@@ -6,7 +6,6 @@ import MenuRadioGroup from "./MenuRadioGroup";
 import MenuSelectableItem from "./MenuSelectableItem";
 
 export interface MenuProps {
-    autoclose?: boolean | undefined;
     children?: React.ReactNode | undefined;
     id?: string | undefined;
     level?: number | undefined;
