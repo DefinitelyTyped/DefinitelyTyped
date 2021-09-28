@@ -10,9 +10,11 @@ emptyDir('./', (err, isEmpty) => {
 // $ExpectType boolean
 emptyDir.sync(["./test", "./array"]);
 
-emptyDir(['x'], (err: Error, isEmpty: boolean) => {
-  if (err) return err;
-  return isEmpty;
+emptyDir(['x'], (err, isEmpty) => {
+    // $ExpectType ErrnoException
+    err;
+    // $ExpectType boolean
+    isEmpty;
 });
 
 // $ExpectType boolean
