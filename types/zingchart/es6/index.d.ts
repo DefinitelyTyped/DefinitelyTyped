@@ -12376,8 +12376,8 @@ declare namespace zingchart {
         'border-width'?: any;
         borderWidth?: any;
         /**
-          * Sets the style of the cursor when hovering over a node. "hand" | "normal"
-          */
+         * Sets the style of the cursor when hovering over a node. "hand" | "normal"
+         */
         cursor?: string;
         /**
          * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
@@ -18499,7 +18499,8 @@ declare namespace zingchart {
     tooltipText?: string;
     /**
      * Sets the type of the object/shape.
-     * Accepted Values: ['arc', 'arrow', 'circle', 'cross', 'diamond', 'ellipse','gear3', 'gear4', 'gear5', 'gear6', 'gear7', 'gear8', 'gear9', 'hamburger', 'line', 'parallelogram', 'pie','plus', 'poly', 'rect', 'rpoly3', 'rpoly4', 'rpoly5', 'rpoly6', 'rpoly7', 'rpoly8', 'rpoly9', 'square', 'star3', 'star4', 'star5', 'star6', 'star7', 'star8', 'star9', 'trapezoid', 'triangle']
+     * Accepted Values: ['arc', 'arrow', 'circle', 'cross', 'diamond', 'ellipse','gear3', 'gear4', 'gear5', 'gear6', 'gear7', 'gear8', 'gear9', 'hamburger', 'line', 'parallelogram', 'pie','plus',
+     * 'poly', 'rect', 'rpoly3', 'rpoly4', 'rpoly5', 'rpoly6', 'rpoly7', 'rpoly8', 'rpoly9', 'square', 'star3', 'star4', 'star5', 'star6', 'star7', 'star8', 'star9', 'trapezoid', 'triangle']
      * Default Value: 'poly'
      */
     type?: string;
