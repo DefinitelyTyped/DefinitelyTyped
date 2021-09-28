@@ -32,7 +32,8 @@ interface ServiceConfigOptions {
      */
     abortOnError?: boolean;
     /** The initial number of seconds to wait before attempting a restart
-     * (after the script stops). */
+     * (after the script stops).
+     */
     wait?: number;
     /**
      * A number between 0-1 representing the percentage growth rate for the `wait` interval.
