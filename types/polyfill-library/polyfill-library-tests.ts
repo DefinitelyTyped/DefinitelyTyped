@@ -41,3 +41,11 @@ polyfillLibrary.getPolyfillString({
         es6: { flags: ['gated'] },
     },
 });
+
+// $ExpectType Promise<string | Readable>
+polyfillLibrary.getPolyfillString({
+    features: {
+        default: { flags: new Set<polyfillLibrary.Flag>(['gated']) },
+    },
+    uaString: 'chrome/30',
+});
