@@ -98,7 +98,7 @@ declare class Service extends EventEmitter {
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
-export = Service
+export = Service;
 
 interface EnvironmentVariables {
     name: string;
