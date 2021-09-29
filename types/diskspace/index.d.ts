@@ -7,9 +7,9 @@
  * @param err RU: Ошибка при выполнении  EN: Runtime error
  * @param result RU: Результат проверки дискового пространства   EN: The result of the diskspace check
  */
-type Callback = (err: Error | null, result: Result) => void;
+export type Callback = (err: Error | null, result: Result) => void;
 
-interface Result {
+export interface Result {
     /**
      * RU: Это то, сколько диск имеет полностью.
      *
@@ -55,19 +55,19 @@ interface Result {
 }
 
 /**
-* RU:
-*
-* В Windows вы меняете `C` на букву диска, которую вы хотите проверить. В Linux вы используете путь монтирования, например `/`
-*
-* Примечание: Это не удастся на жестких дисках размером более 9 петабайт.
-*
-* EN:
-*
-*  On Windows you change `C` to the drive letter you want to check. On Linux you use the mount path eg `/`
-*
-* Notes: This will fail on hard drives bigger than 9 petabytes.
-* @param drive RU: Наименование диска  EN: Name disk
-* @param callback RU: Callback-функция EN: Callback-function
-*/
+ * RU:
+ *
+ * В Windows вы меняете `C` на букву диска, которую вы хотите проверить. В Linux вы используете путь монтирования, например `/`
+ *
+ * Примечание: Это не удастся на жестких дисках размером более 9 петабайт.
+ *
+ * EN:
+ *
+ *  On Windows you change `C` to the drive letter you want to check. On Linux you use the mount path eg `/`
+ *
+ * Notes: This will fail on hard drives bigger than 9 petabytes.
+ * @param drive RU: Наименование диска  EN: Name disk
+ * @param callback RU: Callback-функция EN: Callback-function
+ */
 // tslint:disable-next-line:no-unnecessary-generics
 export function check<T extends "C" | "/">(drive: T, callback: Callback): void;
