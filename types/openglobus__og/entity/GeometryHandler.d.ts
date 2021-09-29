@@ -1,0 +1,76 @@
+export class GeometryHandler {
+    static set _staticCounter(arg: any);
+    static get _staticCounter(): any;
+    static appendLineData(pathArr: any, isClosed: any, color: any, pickingColor: any, thickness: any, strokeColor: any, strokeSize: any, outVerticesHigh: any, outVerticesLow: any, outOrders: any, outIndexes: any, outColors: any, outPickingColors: any, outThickness: any, outStrokeColors: any, outStrokes: any, outVerticesHigh2: any, outVerticesLow2: any): void;
+    constructor(layer: any);
+    __staticId: number;
+    _layer: any;
+    _handler: any;
+    _geometries: any[];
+    _updatedGeometryArr: any[];
+    _updatedGeometry: {};
+    _removeGeometryExtentArr: any[];
+    _removeGeometryExtents: {};
+    _polyVerticesHighMerc: any[];
+    _polyVerticesLowMerc: any[];
+    _polyColors: any[];
+    _polyPickingColors: any[];
+    _polyIndexes: any[];
+    _lineVerticesHighMerc: any[];
+    _lineVerticesLowMerc: any[];
+    _lineOrders: any[];
+    _lineIndexes: any[];
+    _lineColors: any[];
+    _linePickingColors: any[];
+    _lineThickness: any[];
+    _lineStrokes: any[];
+    _lineStrokeColors: any[];
+    _polyVerticesHighBufferMerc: any;
+    _polyVerticesLowBufferMerc: any;
+    _polyColorsBuffer: any;
+    _polyPickingColorsBuffer: any;
+    _polyIndexesBuffer: any;
+    _lineVerticesHighBufferMerc: any;
+    _lineVerticesLowBufferMerc: any;
+    _lineColorsBuffer: any;
+    _linePickingColorsBuffer: any;
+    _lineThicknessBuffer: any;
+    _lineStrokesBuffer: any;
+    _lineStrokeColorsBuffer: any;
+    _lineOrdersBuffer: any;
+    _lineIndexesBuffer: any;
+    _buffersUpdateCallbacks: (() => void)[];
+    _changedBuffers: any[];
+    assignHandler(handler: any): void;
+    /**
+     * @public
+     * @param {og.Geometry} geometry - Geometry object.
+     */
+    public add(geometry: any): void;
+    remove(geometry: any): void;
+    _refreshRecursevely(geometry: any, treeNode: any): void;
+    _refreshRecursevelyExt(extent: any, treeNode: any): void;
+    _refreshPlanetNode(treeNode: any): void;
+    _updatePlanet(): void;
+    refresh(): void;
+    update(): void;
+    setGeometryVisibility(geometry: any): void;
+    setPolyColorArr(geometry: any, color: any): void;
+    setLineStrokeColorArr(geometry: any, color: any): void;
+    setLineColorArr(geometry: any, color: any): void;
+    setLineStrokeArr(geometry: any, width: any): void;
+    setLineThicknessArr(geometry: any, width: any): void;
+    bringToFront(geometry: any): void;
+    createPolyVerticesBuffer(): void;
+    createPolyIndexesBuffer(): void;
+    createPolyColorsBuffer(): void;
+    createPolyPickingColorsBuffer(): void;
+    createLineVerticesBuffer(): void;
+    createLineIndexesBuffer(): void;
+    createLineOrdersBuffer(): void;
+    createLineColorsBuffer(): void;
+    createLinePickingColorsBuffer(): void;
+    createLineThicknessBuffer(): void;
+    createLineStrokesBuffer(): void;
+    createLineStrokeColorsBuffer(): void;
+}

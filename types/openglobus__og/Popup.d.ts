@@ -1,0 +1,37 @@
+export class Popup {
+    static set _staticCounter(arg: any);
+    static get _staticCounter(): any;
+    constructor(options: any);
+    _id: number;
+    events: Events;
+    _template: string;
+    el: ChildNode;
+    _title: any;
+    _content: any;
+    _contentEl: any;
+    _titleEl: any;
+    _planet: any;
+    _offset: any;
+    _lonLat: any;
+    _cartPos: Vec3;
+    _visibility: any;
+    _renderTemplate(): ChildNode;
+    _updatePosition(): void;
+    setScreen(p: any): void;
+    get clientWidth(): any;
+    get clientHeight(): any;
+    setOffset(x?: number, y?: number): Popup;
+    render(params: any): Popup;
+    setVisibility(visibility: any): Popup;
+    getContainer(): any;
+    getToolbarContainer(): any;
+    show(): Popup;
+    hide(): Popup;
+    setCartesian3v(cart: any, height?: number): Popup;
+    setTitle(html: any): Popup;
+    setLonLat(lonLat: any): Popup;
+    setContent(content: any): Popup;
+    clear(): void;
+}
+import { Events } from "./Events.js";
+import { Vec3 } from "./math/Vec3.js";
