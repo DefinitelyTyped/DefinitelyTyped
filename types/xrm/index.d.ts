@@ -2579,7 +2579,7 @@ declare namespace Xrm {
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-        interface OptionSetAttribute extends EnumAttribute<number> {
+        interface OptionSetAttribute<T extends number = number> extends EnumAttribute<T> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
