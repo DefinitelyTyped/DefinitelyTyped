@@ -299,6 +299,8 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
+// @ts-expect-error
+new Queue('profile', {redis: 'url'});
 
 // Use low-level API
 const multi = myQueue.multi();
