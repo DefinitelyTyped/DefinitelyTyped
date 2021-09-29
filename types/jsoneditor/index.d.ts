@@ -485,8 +485,8 @@ export interface JSONEditorOptions {
      */
     queryDescription?: string | undefined;
     /**
-    * If false, nodes can be dragged from any parent node to any other parent node. If true, nodes can only be dragged inside the same parent node, which effectively only allows reordering of nodes.
-    * By default, limitDragging is true when no JSON schema is defined, and false otherwise.
+     * If false, nodes can be dragged from any parent node to any other parent node. If true, nodes can only be dragged inside the same parent node, which effectively only allows reordering of nodes.
+     * By default, limitDragging is true when no JSON schema is defined, and false otherwise.
      */
     limitDragging?: boolean;
 }
