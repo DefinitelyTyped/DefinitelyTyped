@@ -13,9 +13,9 @@ maybeString;
 
 assert.notStrictEqual(2, "2", "uses === comparator");
 
-assert.deepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
+assert.deepStrictEqual([{a: 1}], [{a: 1}], "uses === comparator");
 
-assert.notDeepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
+assert.notDeepStrictEqual([{a: 1}], [{a: 1}], "uses === comparator");
 
 assert.throws(() => {
     throw new Error("a hammer at your face");

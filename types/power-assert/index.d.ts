@@ -23,12 +23,14 @@ declare namespace assert {
         generatedMessage: boolean;
 
         constructor(options?: {
+            // tslint:disable-next-line:no-redundant-undefined
             message?: string | undefined;
             actual?: unknown;
             expected?: unknown;
+            // tslint:disable-next-line:no-redundant-undefined
             operator?: string | undefined;
-            // tslint:disable-next-line:ban-types
-            stackStartFunction?: Function | undefined
+            // tslint:disable-next-line:no-redundant-undefined
+            stackStartFunction?: () => void | undefined
         });
     }
 
@@ -44,22 +46,20 @@ declare namespace assert {
     function notDeepStrictEqual(actual: unknown, expected: unknown, message?: string): void;
     const throws: {
         (block: () => unknown, message?: string): void;
-        (block: () => unknown, error: (new () => object), message?: string): void;
-        (block: () => unknown, error: RegExp, message?: string): void;
-        (block: () => unknown, error: (err: unknown) => boolean, message?: string): void;
+        (block: () => unknown, error: (new () => object) | RegExp | ((err: unknown) => boolean), message?: string): void;
     };
     const doesNotThrow: {
         (block: () => unknown, message?: string): void;
-        (block: () => unknown, error: (new () => object), message?: string): void;
-        (block: () => unknown, error: RegExp, message?: string): void;
-        (block: () => unknown, error: (err: any) => boolean, message?: string): void;
+        (block: () => unknown, error: (new () => object) | RegExp | ((err: any) => boolean), message?: string): void;
     };
     function ifError(value: unknown): asserts value is null | undefined;
 
     const strict: typeof assert;
 
     interface Options {
+        // tslint:disable-next-line:no-redundant-undefined
         assertion?: empower.Options | undefined;
+        // tslint:disable-next-line:no-redundant-undefined
         output?: powerAssertFormatter.Options | undefined;
     }
 
