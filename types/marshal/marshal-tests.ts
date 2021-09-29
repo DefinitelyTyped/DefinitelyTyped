@@ -1,4 +1,4 @@
-import Marshal from 'marshal';
+import Marshal = require('marshal');
 
 const marshall = new Marshal(''); // $ExpectType Marshal
 marshall.load(''); // $ExpectType Marshal

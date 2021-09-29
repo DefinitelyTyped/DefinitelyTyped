@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export default class Marshal {
+declare class Marshal {
     parsed?: unknown;
 
     constructor(buffer: string, encoding?: BufferEncoding);
@@ -15,3 +15,5 @@ export default class Marshal {
     toString(encoding?: BufferEncoding): string;
     toJSON(): unknown;
 }
+
+export = Marshal;
