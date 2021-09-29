@@ -1,3 +1,6 @@
+// Make sure .md files can be imported as well.
+import './md';
+
 import MyMDXComponent from './MyComponent.mdx';
 import MyMDComponent from './MyComponent.md';
 
@@ -5,7 +8,10 @@ interface TestElementType {
     foo: 'bar';
 }
 
-// A JSX test implementation
+// A JSX implementation stub
+declare function jsx(): TestElementType;
+
+// A JSX test implementation type
 declare global {
     namespace JSX {
         type Element = TestElementType;

@@ -4,7 +4,8 @@
         "lib": [
             "es6"
         ],
-        "jsx": "react-jsx",
+        "jsx": "react",
+        "jsxFactory": "jsx",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -19,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "md.d.ts",
         "mdx-tests.tsx"
     ]
 }
