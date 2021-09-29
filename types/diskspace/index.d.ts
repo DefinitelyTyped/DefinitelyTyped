@@ -51,7 +51,7 @@ interface Result {
      * * NOTREADY - The drive isn't ready, the space values will be 0
      * * STDERR - some error, the output of it was logged to the console.
      */
-        status: "NOTFOUND" | "READY" | "NOTREADY" | "STDERR";
+    status: "NOTFOUND" | "READY" | "NOTREADY" | "STDERR";
 }
 
 namespace diskspace {
