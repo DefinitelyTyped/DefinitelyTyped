@@ -53,7 +53,8 @@ declare namespace Bull {
 
   interface QueueOptions {
     /**
-     * Options passed directly to the `ioredis` constructor
+     * Options passed into the `ioredis` constructor's `options` parameter.
+     * `connectionName` is overwritten with `Queue.clientName()`. other properties are copied
      */
     redis?: Redis.RedisOptions | undefined;
 
