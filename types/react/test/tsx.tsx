@@ -413,14 +413,14 @@ type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
 // $ExpectType false
 type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
 
-const HasClassName: React.ReactType<{ className?: string | undefined }> = 'a';
-const HasFoo: React.ReactType<{ foo: boolean }> = 'a'; // $ExpectError
-const HasFoo2: React.ReactType<{ foo: boolean }> = (props: { foo: boolean }) => null;
-const HasFoo3: React.ReactType<{ foo: boolean }> = (props: { foo: string }) => null; // $ExpectError
-const HasHref: React.ReactType<{ href?: string | undefined }> = 'a';
-const HasHref2: React.ReactType<{ href?: string | undefined }> = 'div'; // $ExpectError
+const HasClassName: React.ElementType<{ className?: string | undefined }> = 'a';
+const HasFoo: React.ElementType<{ foo: boolean }> = 'a'; // $ExpectError
+const HasFoo2: React.ElementType<{ foo: boolean }> = (props: { foo: boolean }) => null;
+const HasFoo3: React.ElementType<{ foo: boolean }> = (props: { foo: string }) => null; // $ExpectError
+const HasHref: React.ElementType<{ href?: string | undefined }> = 'a';
+const HasHref2: React.ElementType<{ href?: string | undefined }> = 'div'; // $ExpectError
 
-const CustomElement: React.ReactType = 'my-undeclared-element'; // $ExpectError
+const CustomElement: React.ElementType = 'my-undeclared-element'; // $ExpectError
 
 // custom elements now need to be declared as intrinsic elements
 declare global {
@@ -431,7 +431,7 @@ declare global {
     }
 }
 
-const CustomElement2: React.ReactType = 'my-declared-element';
+const CustomElement2: React.ElementType = 'my-declared-element';
 
 interface TestPropTypesProps {
     foo: string;
