@@ -54,24 +54,23 @@ interface Result {
         status: "NOTFOUND" | "READY" | "NOTREADY" | "STDERR";
 }
 
-    namespace diskspace {
-        /**
-         * RU:
-         *
-         * В Windows вы меняете `C` на букву диска, которую вы хотите проверить. В Linux вы используете путь монтирования, например `/`
-         *
-         * Примечание: Это не удастся на жестких дисках размером более 9 петабайт.
-         *
-         * EN:
-         *
-         *  On Windows you change `C` to the drive letter you want to check. On Linux you use the mount path eg `/`
-         *
-         * Notes: This will fail on hard drives bigger than 9 petabytes.
-         * @param drive RU: Наименование диска  EN: Name disk
-         * @param callback RU: Callback-функция EN: Callback-function
-         */
-        export function check<T extends "C" | "/">(drive: T, callback: Callback): void;
-    }
-
-    export = diskspace;
+namespace diskspace {
+    /**
+     * RU:
+     *
+     * В Windows вы меняете `C` на букву диска, которую вы хотите проверить. В Linux вы используете путь монтирования, например `/`
+     *
+     * Примечание: Это не удастся на жестких дисках размером более 9 петабайт.
+     *
+     * EN:
+     *
+     *  On Windows you change `C` to the drive letter you want to check. On Linux you use the mount path eg `/`
+     *
+     * Notes: This will fail on hard drives bigger than 9 petabytes.
+     * @param drive RU: Наименование диска  EN: Name disk
+     * @param callback RU: Callback-функция EN: Callback-function
+     */
+    function check<T extends "C" | "/">(drive: T, callback: Callback): void;
 }
+
+export = diskspace;
