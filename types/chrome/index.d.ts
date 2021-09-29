@@ -8416,6 +8416,8 @@ declare namespace chrome.tabs {
          * @since Chrome 88
          */
         groupId: number;
+        
+        muted: boolean;
     }
 
     /**
