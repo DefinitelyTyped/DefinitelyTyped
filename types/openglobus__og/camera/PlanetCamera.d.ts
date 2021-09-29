@@ -139,8 +139,9 @@ export class PlanetCamera {
      * @param {Number} [ampl] - Altitude amplitude factor.
      * @param {cameraCallback} [completeCallback] - Callback that calls after flying when flying is finished.
      * @param {cameraCallback} [startCallback] - Callback that calls befor the flying begins.
+     * @param [frameCallback]
      */
-    public flyExtent(extent: any, height: any, up?: any, ampl?: number, completeCallback?: any, startCallback?: any, frameCallback: any): void;
+    public flyExtent(extent: any, height: any, up?: any, ampl?: number, completeCallback?: any, startCallback?: any, frameCallback?: any): void;
     viewDistance(cartesian: any, distance?: number): void;
     flyDistance(cartesian: any, distance: number, ampl: number, completeCallback: any, startCallback: any, frameCallback: any): void;
     /**
@@ -152,8 +153,9 @@ export class PlanetCamera {
      * @param {Number} [ampl=1.0] - Altitude amplitude factor.
      * @param {cameraCallback} [completeCallback] - Callback that calls after flying when flying is finished.
      * @param {cameraCallback} [startCallback] - Callback that calls befor the flying begins.
+     * @param [frameCallback]
      */
-    public flyCartesian(cartesian: any, look?: any, up?: any, ampl?: number, completeCallback?: any, startCallback?: any, frameCallback: any): void;
+    public flyCartesian(cartesian: any, look?: any, up?: any, ampl?: number, completeCallback?: any, startCallback?: any, frameCallback?: any): void;
     _frameCallback: any;
     /**
      * Flies to the geo coordiantes.

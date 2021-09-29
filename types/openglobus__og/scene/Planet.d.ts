@@ -533,13 +533,15 @@ export class Planet {
     public flyExtent(extent: any, height?: number, up?: any, ampl?: number, completeCallback?: any, startCallback?: any): void;
     /**
      * Fly camera to the new point.
-     * @public
      * @param {og.Vec3} cartesian - Fly coordiantes.
      * @param {og.Vec3} [look] - Camera "look at" point.
      * @param {og.Vec3} [up] - Camera UP vector on the end of a flying.
      * @param {Number} [ampl] - Altitude amplitude factor.
+     * @param [completeCallback]
+     * @param [startCallback]
+     * @param [frameCallback]
      */
-    public flyCartesian(cartesian: any, look?: any, up?: any, ampl?: number, completeCallback: any, startCallback: any, frameCallback: any): void;
+    flyCartesian(cartesian: any, look?: any, up?: any, ampl?: number, completeCallback?: any, startCallback?: any, frameCallback?: any): void;
     /**
      * Fly camera to the new geographical position.
      * @public
