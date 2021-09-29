@@ -1,8 +1,7 @@
-// Type definitions for diskspace
+// Type definitions for diskspace 2.0
 // Project: https://github.com/keverw/diskspace.js
 // Definitions by: Vladislav <https://github.com/swedesjs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.31
 
 declare module "diskspace" {
     /**
