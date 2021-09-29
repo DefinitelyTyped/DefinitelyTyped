@@ -153,6 +153,11 @@ model.change(writer => {
 
 model.document.createRoot();
 model.schema.register("paragraph", { inheritAllFrom: "$block" });
+model.schema.addAttributeCheck(context => {
+    if (context.endsWith("paragraph")) {
+        return true;
+    }
+});
 
 const view: View = new View(new StylesProcessor());
 view.change(writer => {
