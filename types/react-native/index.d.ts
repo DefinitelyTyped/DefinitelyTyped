@@ -6911,6 +6911,15 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * touches to occur while scrolling. The default value is false.
      */
     disableScrollViewPanResponder?: boolean | undefined;
+
+    /**
+     * A React Component that will be used to render sticky headers, should be used together with
+     * stickyHeaderIndices. You may need to set this component if your sticky header uses custom
+     * transforms, for example, when you want your list to have an animated and hidable header.
+     * If component have not been provided, the default ScrollViewStickyHeader component will be used.
+     */
+    StickyHeaderComponent?: React.ComponentType<any> | undefined;
+
 }
 
 declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
