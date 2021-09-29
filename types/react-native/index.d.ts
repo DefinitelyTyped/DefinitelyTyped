@@ -6919,7 +6919,6 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * If component have not been provided, the default ScrollViewStickyHeader component will be used.
      */
     StickyHeaderComponent?: React.ComponentType<any> | undefined;
-
 }
 
 declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
