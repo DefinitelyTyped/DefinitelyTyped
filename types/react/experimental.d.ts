@@ -52,7 +52,6 @@ declare module '.' {
         getServerSnapshot?: () => Snapshot,
     ): Snapshot;
 
-
     /**
      * @param effect Imperative function that can return a cleanup function
      * @param deps If present, effect will only activate if the values in the list change.
