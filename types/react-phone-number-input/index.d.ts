@@ -116,7 +116,7 @@ export interface CountrySelectComponentProps {
     labels?: { [key: string]: string } | undefined;
 }
 
-export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<string>, 'onChange'> {
+export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     // Required props
     onChange: (value: string) => void;
     /**

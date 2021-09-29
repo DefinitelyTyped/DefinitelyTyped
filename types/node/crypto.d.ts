@@ -13,7 +13,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/crypto.js)
  */
 declare module 'crypto' {
     import * as stream from 'node:stream';
@@ -250,7 +250,7 @@ declare module 'crypto' {
      */
     function createHmac(algorithm: string, key: BinaryLike | KeyObject, options?: stream.TransformOptions): Hmac;
     // https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings
-    type BinaryToTextEncoding = 'base64' | 'hex';
+    type BinaryToTextEncoding = 'base64' | 'base64url' | 'hex';
     type CharacterEncoding = 'utf8' | 'utf-8' | 'utf16le' | 'latin1';
     type LegacyCharacterEncoding = 'ascii' | 'binary' | 'ucs2' | 'ucs-2';
     type Encoding = BinaryToTextEncoding | CharacterEncoding | LegacyCharacterEncoding;
@@ -548,6 +548,22 @@ declare module 'crypto' {
     class KeyObject {
         private constructor();
         /**
+         * Example: Converting a `CryptoKey` instance to a `KeyObject`:
+         *
+         * ```js
+         * const { webcrypto, KeyObject } = await import('crypto');
+         * const { subtle } = webcrypto;
+         *
+         * const key = await subtle.generateKey({
+         *   name: 'HMAC',
+         *   hash: 'SHA-256',
+         *   length: 256
+         * }, true, ['sign', 'verify']);
+         *
+         * const keyObject = KeyObject.from(key);
+         * console.log(keyObject.symmetricKeySize);
+         * // Prints: 32 (symmetric key size in bytes)
+         * ```
          * @since v15.0.0
          */
         static from(key: webcrypto.CryptoKey): KeyObject;
@@ -660,7 +676,7 @@ declare module 'crypto' {
      * non-cryptographically secure hash algorithm allow passwords to be tested very
      * rapidly.
      *
-     * In line with OpenSSL's recommendation to use a more modern algorithm instead of[`EVP_BytesToKey`](https://www.openssl.org/docs/man1.1.0/crypto/EVP_BytesToKey.html) it is recommended that
+     * In line with OpenSSL's recommendation to use a more modern algorithm instead of [`EVP_BytesToKey`](https://www.openssl.org/docs/man1.1.0/crypto/EVP_BytesToKey.html) it is recommended that
      * developers derive a key and IV on
      * their own using {@link scrypt} and to use {@link createCipheriv} to create the `Cipher` object. Users should not use ciphers with counter mode
      * (e.g. CTR, GCM, or CCM) in `crypto.createCipher()`. A warning is emitted when
@@ -688,7 +704,7 @@ declare module 'crypto' {
      * recent OpenSSL releases, `openssl list -cipher-algorithms`(`openssl list-cipher-algorithms` for older versions of OpenSSL) will
      * display the available cipher algorithms.
      *
-     * The `key` is the raw key used by the `algorithm` and `iv` is an[initialization vector](https://en.wikipedia.org/wiki/Initialization_vector). Both arguments must be `'utf8'` encoded
+     * The `key` is the raw key used by the `algorithm` and `iv` is an [initialization vector](https://en.wikipedia.org/wiki/Initialization_vector). Both arguments must be `'utf8'` encoded
      * strings,`Buffers`, `TypedArray`, or `DataView`s. The `key` may optionally be
      * a `KeyObject` of type `secret`. If the cipher does not need
      * an initialization vector, `iv` may be `null`.
@@ -905,7 +921,7 @@ declare module 'crypto' {
      * non-cryptographically secure hash algorithm allow passwords to be tested very
      * rapidly.
      *
-     * In line with OpenSSL's recommendation to use a more modern algorithm instead of[`EVP_BytesToKey`](https://www.openssl.org/docs/man1.1.0/crypto/EVP_BytesToKey.html) it is recommended that
+     * In line with OpenSSL's recommendation to use a more modern algorithm instead of [`EVP_BytesToKey`](https://www.openssl.org/docs/man1.1.0/crypto/EVP_BytesToKey.html) it is recommended that
      * developers derive a key and IV on
      * their own using {@link scrypt} and to use {@link createDecipheriv} to create the `Decipher` object.
      * @since v0.1.94
@@ -929,7 +945,7 @@ declare module 'crypto' {
      * recent OpenSSL releases, `openssl list -cipher-algorithms`(`openssl list-cipher-algorithms` for older versions of OpenSSL) will
      * display the available cipher algorithms.
      *
-     * The `key` is the raw key used by the `algorithm` and `iv` is an[initialization vector](https://en.wikipedia.org/wiki/Initialization_vector). Both arguments must be `'utf8'` encoded
+     * The `key` is the raw key used by the `algorithm` and `iv` is an [initialization vector](https://en.wikipedia.org/wiki/Initialization_vector). Both arguments must be `'utf8'` encoded
      * strings,`Buffers`, `TypedArray`, or `DataView`s. The `key` may optionally be
      * a `KeyObject` of type `secret`. If the cipher does not need
      * an initialization vector, `iv` may be `null`.
@@ -1151,6 +1167,26 @@ declare module 'crypto' {
         },
         callback: (err: Error | null, key: KeyObject) => void
     ): void;
+    /**
+     * Synchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
+     *
+     * ```js
+     * const {
+     *   generateKeySync
+     * } = await import('crypto');
+     *
+     * const key = generateKeySync('hmac', 64);
+     * console.log(key.export().toString('hex'));  // e89..........41e
+     * ```
+     * @since v15.0.0
+     * @param type The intended use of the generated secret key. Currently accepted values are `'hmac'` and `'aes'`.
+     */
+    function generateKeySync(
+        type: 'hmac' | 'aes',
+        options: {
+            length: number;
+        }
+    ): KeyObject;
     interface JsonWebKeyInput {
         key: JsonWebKey;
         format: 'jwk';
@@ -1524,7 +1560,7 @@ declare module 'crypto' {
     }
     /**
      * Creates a predefined `DiffieHellmanGroup` key exchange object. The
-     * supported groups are: `'modp1'`, `'modp2'`, `'modp5'` (defined in[RFC 2412](https://www.rfc-editor.org/rfc/rfc2412.txt), but see `Caveats`) and `'modp14'`, `'modp15'`,`'modp16'`, `'modp17'`,
+     * supported groups are: `'modp1'`, `'modp2'`, `'modp5'` (defined in [RFC 2412](https://www.rfc-editor.org/rfc/rfc2412.txt), but see `Caveats`) and `'modp14'`, `'modp15'`,`'modp16'`, `'modp17'`,
      * `'modp18'` (defined in [RFC 3526](https://www.rfc-editor.org/rfc/rfc3526.txt)). The
      * returned object mimics the interface of objects created by {@link createDiffieHellman}, but will not allow changing
      * the keys (with `diffieHellman.setPublicKey()`, for example). The
@@ -2124,7 +2160,7 @@ declare module 'crypto' {
             key: BinaryLike,
             curve: string,
             inputEncoding?: BinaryToTextEncoding,
-            outputEncoding?: 'latin1' | 'hex' | 'base64',
+            outputEncoding?: 'latin1' | 'hex' | 'base64' | 'base64url',
             format?: 'uncompressed' | 'compressed' | 'hybrid'
         ): Buffer | string;
         /**
@@ -2209,7 +2245,7 @@ declare module 'crypto' {
      * This function is based on a constant-time algorithm.
      * Returns true if `a` is equal to `b`, without leaking timing information that
      * would allow an attacker to guess one of the values. This is suitable for
-     * comparing HMAC digests or secret values like authentication cookies or[capability urls](https://www.w3.org/TR/capability-urls/).
+     * comparing HMAC digests or secret values like authentication cookies or [capability urls](https://www.w3.org/TR/capability-urls/).
      *
      * `a` and `b` must both be `Buffer`s, `TypedArray`s, or `DataView`s, and they
      * must have the same byte length.
@@ -2243,7 +2279,7 @@ declare module 'crypto' {
     interface X448KeyPairKeyObjectOptions {}
     interface ECKeyPairKeyObjectOptions {
         /**
-         * Name of the curve to use.
+         * Name of the curve to use
          */
         namedCurve: string;
     }
@@ -2253,6 +2289,7 @@ declare module 'crypto' {
          */
         modulusLength: number;
         /**
+         * Public exponent
          * @default 0x10001
          */
         publicExponent?: number | undefined;
@@ -2263,9 +2300,22 @@ declare module 'crypto' {
          */
         modulusLength: number;
         /**
+         * Public exponent
          * @default 0x10001
          */
         publicExponent?: number | undefined;
+        /**
+         * Name of the message digest
+         */
+        hashAlgorithm?: string;
+        /**
+         * Name of the message digest used by MGF1
+         */
+        mgf1HashAlgorithm?: string;
+        /**
+         * Minimal salt length in bytes
+         */
+        saltLength?: string;
     }
     interface DSAKeyPairKeyObjectOptions {
         /**
@@ -2283,6 +2333,7 @@ declare module 'crypto' {
          */
         modulusLength: number;
         /**
+         * Public exponent
          * @default 0x10001
          */
         publicExponent?: number | undefined;
@@ -2300,9 +2351,22 @@ declare module 'crypto' {
          */
         modulusLength: number;
         /**
+         * Public exponent
          * @default 0x10001
          */
         publicExponent?: number | undefined;
+        /**
+         * Name of the message digest
+         */
+        hashAlgorithm?: string;
+        /**
+         * Name of the message digest used by MGF1
+         */
+        mgf1HashAlgorithm?: string;
+        /**
+         * Minimal salt length in bytes
+         */
+        saltLength?: string;
         publicKeyEncoding: {
             type: 'spki';
             format: PubF;
@@ -2382,8 +2446,8 @@ declare module 'crypto' {
         privateKey: T2;
     }
     /**
-     * Generates a new asymmetric key pair of the given `type`. RSA, DSA, EC, Ed25519,
-     * Ed448, X25519, X448, and DH are currently supported.
+     * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
+     * Ed25519, Ed448, X25519, X448, and DH are currently supported.
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
@@ -2463,8 +2527,8 @@ declare module 'crypto' {
     function generateKeyPairSync(type: 'x448', options: X448KeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
     function generateKeyPairSync(type: 'x448', options?: X448KeyPairKeyObjectOptions): KeyPairKeyObjectResult;
     /**
-     * Generates a new asymmetric key pair of the given `type`. RSA, DSA, EC, Ed25519,
-     * Ed448, X25519, X448, and DH are currently supported.
+     * Generates a new asymmetric key pair of the given `type`. RSA, RSA-PSS, DSA, EC,
+     * Ed25519, Ed448, X25519, X448, and DH are currently supported.
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
@@ -2499,7 +2563,7 @@ declare module 'crypto' {
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a `Promise` for an `Object` with `publicKey` and `privateKey` properties.
      * @since v10.12.0
-     * @param type Must be `'rsa'`, `'dsa'`, `'ec'`, `'ed25519'`, `'ed448'`, `'x25519'`, `'x448'`, or `'dh'`.
+     * @param type Must be `'rsa'`, `'rsa-pss'`, `'dsa'`, `'ec'`, `'ed25519'`, `'ed448'`, `'x25519'`, `'x448'`, or `'dh'`.
      */
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
     function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
@@ -2880,7 +2944,7 @@ declare module 'crypto' {
      *
      * The supplied `callback` function is called with two arguments: `err` and`derivedKey`. If an errors occurs while deriving the key, `err` will be set;
      * otherwise `err` will be `null`. The successfully generated `derivedKey` will
-     * be passed to the callback as an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer). An error will be thrown if any
+     * be passed to the callback as an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer). An error will be thrown if any
      * of the input arguments specify invalid values or types.
      *
      * ```js
@@ -2907,7 +2971,7 @@ declare module 'crypto' {
      * Provides a synchronous HKDF key derivation function as defined in RFC 5869\. The
      * given `ikm`, `salt` and `info` are used with the `digest` to derive a key of`keylen` bytes.
      *
-     * The successfully generated `derivedKey` will be returned as an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
+     * The successfully generated `derivedKey` will be returned as an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer).
      *
      * An error will be thrown if any of the input arguments specify invalid values or
      * types, or if the derived key cannot be generated.
@@ -3169,8 +3233,8 @@ declare module 'crypto' {
      * if given as an `ArrayBuffer`, `SharedArrayBuffer`, `TypedArray`, `Buffer`, or`DataView`.
      *
      * By default, the prime is encoded as a big-endian sequence of octets
-     * in an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer). If the `bigint` option is `true`, then a
-     * [&lt;bigint&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)is provided.
+     * in an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer). If the `bigint` option is `true`, then a
+     * [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) is provided.
      * @since v15.8.0
      * @param size The size (in bits) of the prime to generate.
      */
@@ -3200,8 +3264,8 @@ declare module 'crypto' {
      * if given as an `ArrayBuffer`, `SharedArrayBuffer`, `TypedArray`, `Buffer`, or`DataView`.
      *
      * By default, the prime is encoded as a big-endian sequence of octets
-     * in an [&lt;ArrayBuffer&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer). If the `bigint` option is `true`, then a
-     * [&lt;bigint&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)is provided.
+     * in an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer). If the `bigint` option is `true`, then a
+     * [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) is provided.
      * @since v15.8.0
      * @param size The size (in bits) of the prime to generate.
      */

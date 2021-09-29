@@ -1,4 +1,4 @@
-// Type definitions for react-map-gl 5.2
+// Type definitions for react-map-gl 6.1
 // Project: https://github.com/visgl/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
@@ -8,6 +8,7 @@
 //                 William Chiu <https://github.com/chiuhow>
 //                 David Baumgold <https://github.com/singingwolfboy>
 //                 Ilja Reznik <https://github.com/ireznik>
+//                 Arthur Cheung <https://github.com/arthur-cheung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -128,8 +129,8 @@ export interface MapControllerOptions {
 }
 
 export interface ViewportProps {
-    width: number;
-    height: number;
+    width: number | string;
+    height: number | string;
     latitude: number;
     longitude: number;
     zoom: number;

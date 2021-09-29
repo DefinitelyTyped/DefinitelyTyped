@@ -474,7 +474,7 @@ export interface UseFiltersColumnProps<D extends object> {
 export type FilterProps<D extends object> = HeaderProps<D>;
 export type FilterValue = any;
 export type Filters<D extends object> = Array<{ id: IdType<D>; value: FilterValue }>;
-export type FilterTypes<D extends object> = Record<string, FilterValue>;
+export type FilterTypes<D extends object> = Record<string, FilterType<D>>;
 
 export type DefaultFilterTypes =
     | 'text'

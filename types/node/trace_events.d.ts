@@ -56,7 +56,7 @@
  * ```
  *
  * Running Node.js with tracing enabled will produce log files that can be opened
- * in the [`chrome://tracing`](https://www.chromium.org/developers/how-tos/trace-event-profiling-tool)tab of Chrome.
+ * in the [`chrome://tracing`](https://www.chromium.org/developers/how-tos/trace-event-profiling-tool) tab of Chrome.
  *
  * The logging file is by default called `node_trace.${rotation}.log`, where`${rotation}` is an incrementing log-rotation id. The filepath pattern can
  * be specified with `--trace-event-file-pattern` that accepts a template
@@ -73,7 +73,7 @@
  *
  * The features from this module are not available in `Worker` threads.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/trace_events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/trace_events.js)
  */
 declare module 'trace_events' {
     /**

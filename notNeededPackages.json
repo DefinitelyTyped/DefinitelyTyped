@@ -3478,6 +3478,14 @@
             "libraryName": "positive-zero",
             "asOfVersion": "3.0.0"
         },
+        "postcss-custom-properties": {
+            "libraryName": "postcss-custom-properties",
+            "asOfVersion": "12.0.0"
+        },
+        "postcss-focus-within": {
+            "libraryName": "postcss-focus-within",
+            "asOfVersion": "5.0.1"
+        },
         "postcss-load-config": {
             "libraryName": "postcss-load-config",
             "asOfVersion": "3.0.1"

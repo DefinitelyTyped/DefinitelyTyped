@@ -14,7 +14,7 @@
  *
  * The `stream` module is useful for creating new types of stream instances. It is
  * usually not necessary to use the `stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/stream.js)
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
@@ -60,6 +60,7 @@ declare module 'stream' {
             /**
              * Returns whether the stream was destroyed or errored before emitting `'end'`.
              * @since v16.8.0
+             * @experimental
              */
             readonly readableAborted: boolean;
             /**
@@ -71,6 +72,7 @@ declare module 'stream' {
             /**
              * Returns whether `'data'` has been emitted.
              * @since v16.7.0
+             * @experimental
              */
             readonly readableDidRead: boolean;
             /**
@@ -805,6 +807,15 @@ declare module 'stream' {
             readonly writableLength: number;
             readonly writableObjectMode: boolean;
             readonly writableCorked: number;
+            /**
+             * If `false` then the stream will automatically end the writable side when the
+             * readable side ends. Set initially by the `allowHalfOpen` constructor option,
+             * which defaults to `false`.
+             *
+             * This can be changed manually to change the half-open behavior of an existing`Duplex` stream instance, but must be changed before the `'end'` event is
+             * emitted.
+             * @since v0.9.4
+             */
             allowHalfOpen: boolean;
             constructor(opts?: DuplexOptions);
             /**
@@ -1072,16 +1083,14 @@ declare module 'stream' {
          *
          * async function run() {
          *   const ac = new AbortController();
-         *   const options = {
-         *     signal: ac.signal,
-         *   };
+         *   const signal = ac.signal;
          *
          *   setTimeout(() => ac.abort(), 1);
          *   await pipeline(
          *     fs.createReadStream('archive.tar'),
          *     zlib.createGzip(),
          *     fs.createWriteStream('archive.tar.gz'),
-         *     options,
+         *     { signal },
          *   );
          * }
          *
@@ -1097,11 +1106,33 @@ declare module 'stream' {
          * async function run() {
          *   await pipeline(
          *     fs.createReadStream('lowercase.txt'),
-         *     async function* (source) {
+         *     async function* (source, signal) {
          *       source.setEncoding('utf8');  // Work with strings rather than `Buffer`s.
          *       for await (const chunk of source) {
-         *         yield chunk.toUpperCase();
+         *         yield await processChunk(chunk, { signal });
          *       }
+         *     },
+         *     fs.createWriteStream('uppercase.txt')
+         *   );
+         *   console.log('Pipeline succeeded.');
+         * }
+         *
+         * run().catch(console.error);
+         * ```
+         *
+         * Remember to handle the `signal` argument passed into the async generator.
+         * Especially in the case where the async generator is the source for the
+         * pipeline (i.e. first argument) or the pipeline will never complete.
+         *
+         * ```js
+         * const { pipeline } = require('stream/promises');
+         * const fs = require('fs');
+         *
+         * async function run() {
+         *   await pipeline(
+         *     async function * (signal) {
+         *       await someLongRunningfn({ signal });
+         *       yield 'asd';
          *     },
          *     fs.createWriteStream('uppercase.txt')
          *   );

@@ -1,4 +1,4 @@
-// Type definitions for svg-spritemap-webpack-plugin 4.2
+// Type definitions for svg-spritemap-webpack-plugin 4.3
 // Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,7 @@
 /// <reference types="node" />
 
 import { Compiler, WebpackPluginInstance } from 'webpack';
+import { IOptions as GlobOptions } from 'glob';
 
 declare namespace SVGSpritemapPlugin {
     /**
@@ -16,7 +17,7 @@ declare namespace SVGSpritemapPlugin {
         /**
          * The input object contains the configuration for the input of the plugin.
          */
-        input?: Input | undefined;
+        input?: InputOptions | undefined;
         /**
          * The output object contains the configuration for the main output (SVG) of the plugin.
          */
@@ -117,11 +118,11 @@ declare namespace SVGSpritemapPlugin {
             | undefined;
     }
 
-    interface Input {
+    interface InputOptions {
         /**
          * Options object to pass to [`glob`](http://npmjs.com/package/glob) to find the sprites.
          */
-        options?: object | undefined;
+        options?: GlobOptions | undefined;
         /**
          * Allow the usage of the same input SVG multiple times.
          * This option work well together with the `sprite.idify` option to set a different name in the output file.

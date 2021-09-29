@@ -5,7 +5,7 @@
  * ```js
  * import url from 'url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/url.js)
  */
 declare module 'url' {
     import { Blob } from 'node:buffer';

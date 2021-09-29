@@ -653,6 +653,12 @@ declare namespace Xrm {
              * All remaining "on save" handlers will continue execution.
              */
             preventDefault(): void;
+
+            /**
+             * Cancels the save operation if the event handler has a script error,
+             * returns a rejected promise for an async event handler or the operation times out.
+             */
+            preventDefaultOnError(): void;
         }
 
         /**
@@ -2573,7 +2579,7 @@ declare namespace Xrm {
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-        interface OptionSetAttribute extends EnumAttribute<number> {
+        interface OptionSetAttribute<T extends number = number> extends EnumAttribute<T> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.

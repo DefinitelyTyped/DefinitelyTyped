@@ -14,6 +14,9 @@ export interface CheckboxProps extends Omit<ReactInputAttr, ExcludedAttributes> 
     indeterminate?: boolean | undefined,
     labelText: NonNullable<React.ReactNode>,
     onChange?: CheckboxOnChangeDataVariant | CheckboxOnChangeDefaultVariant | undefined;
+    /**
+     * @deprecated
+     */
     wrapperClassName?: string | undefined,
 }
 

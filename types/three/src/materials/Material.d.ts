@@ -11,6 +11,7 @@ import {
     Side,
     StencilFunc,
     StencilOp,
+    PixelFormat,
 } from '../constants';
 import { ColorRepresentation } from '../utils';
 import { Color } from '../math/Color';
@@ -49,6 +50,7 @@ export interface MaterialParameters {
     transparent?: boolean | undefined;
     vertexColors?: boolean | undefined;
     visible?: boolean | undefined;
+    format?: PixelFormat | undefined;
     stencilWrite?: boolean | undefined;
     stencilFunc?: StencilFunc | undefined;
     stencilRef?: number | undefined;
@@ -178,6 +180,12 @@ export class Material extends EventDispatcher {
      * @default fog
      */
     fog: boolean;
+
+    /**
+     * When this property is set to THREE.RGBFormat, the material is considered to be opaque and alpha values are ignored.
+     * @default THREE.RGBAFormat
+     */
+    format: PixelFormat;
 
     /**
      * Unique number of this material instance.

@@ -26,6 +26,9 @@ const test1 = (
         international={true}
         country={'US'}
         countrySelectProps={{ tabIndex: '-1' }}
+        onBlur={(ev: React.FocusEvent<HTMLInputElement>) => {
+            console.log(ev.currentTarget.value);
+        }}
     >
         <div>panel 1</div>
         <div>panel 2</div>
