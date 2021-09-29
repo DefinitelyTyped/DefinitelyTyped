@@ -11,7 +11,7 @@ declare namespace svgInline {
         svg: string;
         className?: string | undefined;
         classSuffix?: string | undefined;
-        component?: React.ReactNode | undefined;
+        component?: React.ElementType | undefined;
         fill?: string | undefined;
         cleanup?: boolean | Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup"> | undefined;
         cleanupExceptions?: Array<"title" | "desc" | "comment" | "defs" | "width" | "height" | "fill" | "sketchMSShapeGroup" | "sketchMSPage" | "sketchMSLayerGroup"> | undefined;
