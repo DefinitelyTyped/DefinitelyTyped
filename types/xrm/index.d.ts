@@ -653,6 +653,12 @@ declare namespace Xrm {
              * All remaining "on save" handlers will continue execution.
              */
             preventDefault(): void;
+
+            /**
+             * Cancels the save operation if the event handler has a script error,
+             * returns a rejected promise for an async event handler or the operation times out.
+             */
+            preventDefaultOnError(): void;
         }
 
         /**
@@ -3712,10 +3718,10 @@ declare namespace Xrm {
          */
         addOnPostSave(handler: Events.ContextSensitiveHandler): void;
 
-        /**
-        * Adds a handler to be called when the record is saved.
-        * @param handler The handler.
-        */
+         /**
+         * Adds a handler to be called when the record is saved.
+         * @param handler The handler.
+         */
         addOnSave(handler: Events.ContextSensitiveHandler): void;
 
         /**
@@ -5184,7 +5190,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/createrecord External Link: createRecord (Client API reference)}
          */
-        createRecord(entityLogicalName: string, record: Entity): Async.PromiseLike<EntityReference>;
+        createRecord(entityLogicalName: string, record: any): Async.PromiseLike<CreateResponse>;
 
         /**
          * Deletes an entity record.
@@ -5193,7 +5199,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/deleterecord External Link: deleteRecord (Client API reference)}
          */
-        deleteRecord(entityLogicalName: string, id: string): Async.PromiseLike<EntityReference>;
+        deleteRecord(entityLogicalName: string, id: string): Async.PromiseLike<string>;
 
         /**
          * Retrieves an entity record.
@@ -5214,7 +5220,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
-        retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<Entity>;
+        retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<any>;
 
         /**
          * Retrieves a collection of entity records.
@@ -5242,27 +5248,15 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
-        updateRecord(entityLogicalName: string, id: string, data: Entity): Async.PromiseLike<EntityReference>;
+        updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<any>;
     }
 
     /**
-     * An object that encapsulates an Entity Reference as a plain object suitable for storing in the state tree
+     * Interface for the WebAPI CreateRecord request response
      */
-     interface EntityReference {
-        /**
-         * The record id. Read-only.
-         */
-        id: { guid: string; };
-
-        /**
-         * The entity logical name. Read-only.
-         */
-        etn?: string;
-
-        /**
-         * The name of the entity reference. Read-only.
-         */
-        name: string;
+    interface CreateResponse {
+        entityType: string;
+        id: string;
     }
 
     /**
@@ -5274,20 +5268,13 @@ declare namespace Xrm {
     }
 
     /**
-    * Interface that describes an entity sent or received from the SDK through the Web API.
-    */
-    interface Entity {
-        [key: string]: any;
-    }
-
-    /**
      * Interface for the WebAPI RetrieveMultiple request response
      */
     interface RetrieveMultipleResult {
         /**
          * An array of JSON objects, where each object represents the retrieved entity record containing attributes and their values as key: value pairs. The Id of the entity record is retrieved by default.
          */
-        entities: Entity[];
+        entities: any[];
         /**
          * If the number of records being retrieved is more than the value specified in the maxPageSize parameter, this attribute returns the URL to return next set of records.
          */

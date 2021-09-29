@@ -403,14 +403,16 @@ export interface RequestAccountIds {
 export interface RequestAccountIdsData {
     accountIds: string[];
 }
-export interface ResponseBankingAccountBalanceList {
-    data: ResponseBankingAccountBalanceListData;
+export interface ResponseBankingAccountsBalanceList {
+    data: {balances: BankingBalance[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
 
-export interface ResponseBankingAccountBalanceListData {
-    balances?: BankingBalance[] | null;
+export interface ResponseBankingAccountsBalanceById {
+    data: BankingBalance;
+    links: LinksPaginated;
+    meta?: MetaPaginated;
 }
 
 export interface ResponseBankingAccountById {
@@ -419,85 +421,60 @@ export interface ResponseBankingAccountById {
     meta?: any;
 }
 export interface ResponseBankingAccountList {
-    data: ResponseBankingAccountListData;
+    data: {accounts: BankingAccount[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface ResponseBankingAccountListData {
-    accounts?: BankingAccount[] | null;
-}
+
 export interface ResponseBankingDirectDebitAuthorisationList {
-    data: ResponseBankingDirectDebitAuthorisationListData;
+    data: {directDebitAuthorisations: BankingDirectDebit[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface ResponseBankingDirectDebitAuthorisationListData {
-    directDebitAuthorisations?: BankingDirectDebit[] | null;
-}
-export interface ReponseBankingPayeeById {
+
+export interface ResponseBankingPayeeById {
     data: BankingPayeeDetail;
     links: Links;
     meta?: any;
 }
-export interface ReponseBankingPayeeList {
-    data: RespPayeeList;
-    links: LinksPaginated;
-    meta: MetaPaginated;
-}
-export interface RespPayeeList {
-    payees?: BankingPayee[] | null;
-}
+
 export interface ResponseBankingProductById {
     data: BankingProductV3;
     links: Links;
     meta?: any;
 }
-export interface BankingProductList {
-    data: RespProdList;
+export interface ResponseBankingProductList {
+    data: {products: BankingProductV3[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface RespProdList {
-    products?: BankingProductV3[];
-}
+
 export interface ResponseBankingScheduledPaymentsList {
-    data: RespPaymentList;
+    data: {scheduledPayments: BankingScheduledPayment[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface RespPaymentList {
-    scheduledPayments?: BankingScheduledPayment[] | null;
-}
+
 export interface ResponseBankingTransactionById {
     data: BankingTransactionDetail;
     links: Links;
     meta?: any;
 }
-export interface BankingTransactionList {
-    data: RespTransList;
+export interface ResponseBankingTransactionList {
+    data: {transactions: BankingTransaction[]};
     links: LinksPaginated;
     meta: MetaPaginated;
-}
-export interface RespTransList {
-    transactions?: BankingTransactionDetail[] | null;
 }
 
 export interface RequestAccountIds {
-    data: RequestAccountIdsData;
+    data: {accountIds: string[]};
     meta?: any;
 }
 
-export interface RequestAccountIdsData {
-    accountIds: string[];
-}
-export interface ResponseBankingAccountBalanceList {
-    data: ResponseBankingAccountBalanceListData;
+export interface ResponseBankingAccountsBalanceList {
+    data: {balances: BankingBalance[]};
     links: LinksPaginated;
     meta: MetaPaginated;
-}
-
-export interface ResponseBankingAccountBalanceListData {
-    balances?: BankingBalance[] | null;
 }
 
 export interface ResponseBankingAccountById {
@@ -505,69 +482,36 @@ export interface ResponseBankingAccountById {
     links: Links;
     meta?: any;
 }
+
 export interface ResponseBankingAccountList {
-    data: ResponseBankingAccountListData;
+    data: {accounts: BankingAccount[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface ResponseBankingAccountListData {
-    accounts?: BankingAccount[] | null;
-}
+
 export interface ResponseBankingDirectDebitAuthorisationList {
-    data: ResponseBankingDirectDebitAuthorisationListData;
+    data: {directDebitAuthorisations: BankingDirectDebit[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface ResponseBankingDirectDebitAuthorisationListData {
-    directDebitAuthorisations?: BankingDirectDebit[] | null;
-}
-export interface ReponseBankingPayeeById {
+
+export interface ResponseBankingPayeeById {
     data: BankingPayeeDetail;
     links: Links;
     meta?: any;
 }
-export interface ReponseBankingPayeeList {
-    data: RespPayeeList;
+export interface ResponseBankingPayeeList {
+    data: {payees: BankingPayee[]};
     links: LinksPaginated;
     meta: MetaPaginated;
 }
-export interface RespPayeeList {
-    payees?: BankingPayee[] | null;
-}
+
 export interface ResponseBankingProductById {
     data: BankingProductV3;
     links: Links;
     meta?: any;
 }
-export interface BankingProductList {
-    data: RespProdList;
-    links: LinksPaginated;
-    meta: MetaPaginated;
-}
-export interface RespProdList {
-    products?: BankingProductV3[];
-}
-export interface ResponseBankingScheduledPaymentsList {
-    data: RespPaymentList;
-    links: LinksPaginated;
-    meta: MetaPaginated;
-}
-export interface RespPaymentList {
-    scheduledPayments?: BankingScheduledPayment[] | null;
-}
-export interface ResponseBankingTransactionById {
-    data: BankingTransactionDetail;
-    links: Links;
-    meta?: any;
-}
-export interface BankingTransactionList {
-    data: RespTransList;
-    links: LinksPaginated;
-    meta: MetaPaginated;
-}
-export interface RespTransList {
-    transactions?: BankingTransactionDetail[] | null;
-}
+
 export interface MetaError {
     urn?: string;
 }

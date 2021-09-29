@@ -28,6 +28,10 @@ declare global {
          * optional region of a country (for example: "Wales")
          */
         region?: string | undefined;
+        /**
+         * optional English name of a country (for example: "Beijing")
+         */
+        english?: string | undefined;
     }
 }
 

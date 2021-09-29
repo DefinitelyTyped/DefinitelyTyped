@@ -1289,6 +1289,9 @@ describe("custom asymmetry", () => {
             const secondValue = actual.split(",")[1];
             return matchersUtil.equals(secondValue, "bar");
         },
+        jasmineToString(pp) {
+            return 'an asymmetric tester for ' + pp('bar');
+        }
     };
 
     it("dives in deep", () => {

@@ -5,11 +5,13 @@
 
 export = abbrev;
 
-declare function abbrev(words: string[]): { [abbreviation: string]: string };
-declare function abbrev(...words: string[]): { [abbreviation: string]: string };
+declare function abbrev(words: ReadonlyArray<abbrev.Abbreviable>): { [abbreviation: string]: string };
+declare function abbrev(...words: ReadonlyArray<abbrev.Abbreviable>): { [abbreviation: string]: string };
 
 declare namespace abbrev {
     function monkeyPatch(): void;
+
+    type Abbreviable = string | { toString(): string };
 }
 
 declare global {

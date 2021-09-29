@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.94.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -780,11 +780,11 @@ declare module "sap/ui/unified/Calendar" {
       }
     ): boolean;
     /**
-     * Sets the focused date of the calendar.
+     * Displays and sets the focused date of the calendar.
      */
     focusDate(
       /**
-       * JavaScript date object for focused date.
+       * A JavaScript date object for focused date
        */
       oDate: Object
     ): this;
@@ -1639,17 +1639,6 @@ declare module "sap/ui/unified/calendar/DatesRow" {
        * New value for property `days`
        */
       iDays?: int
-    ): this;
-    /**
-     * Setter for property `firstDayOfWeek`.
-     *
-     * Property `firstDayOfWeek` is not supported in `sap.ui.unified.calendar.DatesRow` control.
-     */
-    setFirstDayOfWeek(
-      /**
-       * The first day of the week
-       */
-      iFirstDayOfWeek: int
     ): this;
     /**
      * @SINCE 1.34.0

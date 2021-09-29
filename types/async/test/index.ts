@@ -293,8 +293,17 @@ cargo.push({ name: 'foo' }, (err: Error) => { console.log('finished processing f
 cargo.push({ name: 'bar' }, (err: Error) => { console.log('finished processing bar'); });
 cargo.push({ name: 'baz' }, (err: Error) => { console.log('finished processing baz'); });
 
+interface A {
+    get_data: any;
+    make_folder: any;
+    write_file: any;
+    email_link: any;
+}
+
 const filename = '';
-async.auto({
+
+// $ExpectType void
+async.auto<A>({
     get_data: (callback: AsyncResultCallback<any>) => { },
     make_folder: (callback: AsyncResultCallback<any>) => { },
 
@@ -305,9 +314,24 @@ async.auto({
 
     // arrays with different types are not accepted by TypeScript.
     email_link: ['write_file', ((callback: AsyncResultCallback<any>, results: any) => { }) as any]
+}, (err, results) => { console.log('finished auto'); });
+
+// $ExpectType Promise<A>
+async.auto<A>({
+    get_data: async () => { },
+    make_folder: async () => { },
+
+    // arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', (async () => {
+        return filename;
+    }) as any],
+
+    // arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', (async (results: any) => { }) as any]
 });
 
-async.auto({
+// $ExpectType void
+async.auto<A>({
         get_data: (callback: AsyncResultCallback<any>) => { },
         make_folder: (callback: AsyncResultCallback<any>) => { },
 
@@ -320,13 +344,23 @@ async.auto({
     (err, results) => { console.log('finished auto'); }
 );
 
-interface A {
-    get_data: any;
-    make_folder: any;
-    write_file: any;
-    email_link: any;
-}
+// $ExpectType Promise<A>
+async.auto<A>({
+        get_data: async () => { },
+        make_folder: async () => { },
 
+        // arrays with different types are not accepted by TypeScript.
+        write_file: ['get_data', 'make_folder', (async () => {
+            return filename;
+        }) as any],
+
+        // arrays with different types are not accepted by TypeScript.
+        email_link: ['write_file', (async (results: any) => { }) as any]
+    },
+    1
+);
+
+// $ExpectType void
 async.auto<A>({
         get_data: (callback: AsyncResultCallback<any>) => { },
         make_folder: (callback: AsyncResultCallback<any>) => { },

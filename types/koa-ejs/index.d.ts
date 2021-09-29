@@ -1,4 +1,4 @@
-// Type definitions for koa-ejs 4.2
+// Type definitions for koa-ejs 4.3
 // Project: https://github.com/koajs/ejs
 // Definitions by: Matt B <https://github.com/mattb-prg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,17 +24,19 @@ declare namespace koaEjs {
         /** View root directory */
         root: string;
         /** Global layout file, default is layout, set false to disable layout. */
-        layout?: string | false | undefined;
+        layout?: string | false;
         /** Filename extension for the views. Defaults to html. */
-        viewExt?: string | undefined;
+        viewExt?: string;
         /** Cache compiled templates */
-        cache?: boolean | undefined;
+        cache?: boolean;
         /** Log debug messages. */
-        debug?: boolean | undefined;
+        debug?: boolean;
         /** Character to use with angle brackets for open / close (default %). */
-        delimiter?: string | undefined;
+        delimiter?: string;
         /** When true, EJS will use an async function for rendering. Depends on async/await support in the JS runtime */
-        async?: boolean | undefined;
+        async?: boolean;
+        /** When false, EJS  will only return the HTML, not write to the resposne. Defaults to true */
+        writeResp?: boolean;
     }
 
     /**

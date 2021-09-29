@@ -805,11 +805,10 @@ declare namespace React {
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
-        // Just Pick would be sufficient for this, but I'm trying to avoid unnecessary mapping over union types
+        // Pick would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
+        // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        'ref' extends keyof P
-            ? Pick<P, Exclude<keyof P, 'ref'>>
-            : P;
+        P extends any ? ('ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>> : P) : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
@@ -1900,7 +1899,7 @@ declare namespace React {
         autoComplete?: string | undefined;
         autoFocus?: boolean | undefined;
         autoPlay?: boolean | undefined;
-        capture?: boolean | string | undefined;
+        capture?: boolean | 'user' | 'environment' | undefined;
         cellPadding?: number | string | undefined;
         cellSpacing?: number | string | undefined;
         charSet?: string | undefined;
@@ -2197,7 +2196,7 @@ declare namespace React {
         alt?: string | undefined;
         autoComplete?: string | undefined;
         autoFocus?: boolean | undefined;
-        capture?: boolean | string | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
+        capture?: boolean | 'user' | 'environment' | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         crossOrigin?: string | undefined;
         disabled?: boolean | undefined;

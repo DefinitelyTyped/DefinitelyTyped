@@ -220,8 +220,6 @@ export interface State<OptionType extends OptionTypeBase> {
     selectValue: OptionsType<OptionType>;
 }
 
-export type ElRef = React.Ref<any>;
-
 export default class Select<
     OptionType extends OptionTypeBase,
     IsMulti extends boolean = false,
@@ -248,14 +246,14 @@ export default class Select<
     // Refs
     // ------------------------------
 
-    controlRef: ElRef;
-    getControlRef: (ref: HTMLElement) => void;
-    focusedOptionRef: ElRef;
-    getFocusedOptionRef: (ref: HTMLElement) => void;
-    menuListRef: ElRef;
-    getMenuListRef: (ref: HTMLElement) => void;
-    inputRef: ElRef;
-    getInputRef: (ref: HTMLElement) => void;
+    controlRef: HTMLDivElement | null;
+    getControlRef: React.RefCallback<HTMLDivElement>;
+    focusedOptionRef: HTMLDivElement | null;
+    getFocusedOptionRef: React.RefCallback<HTMLDivElement>;
+    menuListRef: HTMLDivElement | null;
+    getMenuListRef: React.RefCallback<HTMLDivElement>;
+    inputRef: HTMLInputElement | null;
+    getInputRef: React.RefCallback<HTMLInputElement>;
 
     // Lifecycle
     // ------------------------------

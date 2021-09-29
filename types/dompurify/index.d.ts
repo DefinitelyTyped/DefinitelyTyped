@@ -1,4 +1,4 @@
-// Type definitions for DOM Purify 2.2
+// Type definitions for DOM Purify 2.3
 // Project: https://github.com/cure53/DOMPurify
 // Definitions by: Dave Taylor https://github.com/davetayls
 //                 Samira Bazuzi <https://github.com/bazuzi>
@@ -52,6 +52,7 @@ declare namespace DOMPurify {
         ALLOWED_ATTR?: string[] | undefined;
         ALLOWED_TAGS?: string[] | undefined;
         FORBID_ATTR?: string[] | undefined;
+        FORBID_CONTENTS?: string[] | undefined;
         FORBID_TAGS?: string[] | undefined;
         FORCE_BODY?: boolean | undefined;
         KEEP_CONTENT?: boolean | undefined;
@@ -59,6 +60,7 @@ declare namespace DOMPurify {
          * change the default namespace from HTML to something different
          */
         NAMESPACE?: string | undefined;
+        PARSER_MEDIA_TYPE?: string | undefined;
         RETURN_DOM?: boolean | undefined;
         RETURN_DOM_FRAGMENT?: boolean | undefined;
         /**

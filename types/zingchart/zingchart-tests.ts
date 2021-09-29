@@ -18,7 +18,12 @@ zingchart.render({
             label: {
               text: 'Days'
             },
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            lineColor: 'red',
+        },
+        scaleY: {
+            autoFit: true,
+            zooming: true,
         },
         plot: {
             animation: {

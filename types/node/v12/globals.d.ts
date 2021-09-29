@@ -629,7 +629,6 @@ declare namespace NodeJS {
         code?: string | undefined;
         path?: string | undefined;
         syscall?: string | undefined;
-        stack?: string | undefined;
     }
 
     class EventEmitter {

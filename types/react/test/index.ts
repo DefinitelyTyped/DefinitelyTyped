@@ -880,3 +880,13 @@ const propsWithChildren: React.PropsWithChildren<Props> = {
     foo: 42,
     children: functionComponent,
 };
+
+type UnionProps =
+    | ({ type: 'single'; value?: number } & React.RefAttributes<HTMLDivElement>)
+    | ({ type: 'multiple'; value?: number[] } & React.RefAttributes<HTMLDivElement>);
+
+// $ExpectError
+const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
+    type: 'single',
+    value: [2],
+};

@@ -205,3 +205,45 @@ const tokenizerAndRendererExtension = {
 marked.use({
     extensions: [tokenizerExtension, rendererExtension, tokenizerAndRendererExtension],
 });
+
+// Tests for List and ListItem
+// Dumped from markdown list parsed data
+
+const listAndListItemText: marked.Tokens.List = {
+    type: 'list',
+    raw: '1. Text ...',
+    ordered: true,
+    start: 1,
+    loose: false,
+    items: [
+        {
+            type: 'list_item',
+            raw: '1. Text ...',
+            task: false,
+            loose: false,
+            text: 'Text',
+            tokens: [
+                {
+                    type: 'text',
+                    raw: 'Point one',
+                    text: 'Point one',
+                    tokens: [
+                        {
+                            type: 'text',
+                            raw: 'Point one',
+                            text: 'Point one',
+                        },
+                    ],
+                },
+                {
+                    type: 'list',
+                    raw: '',
+                    ordered: false,
+                    start: '',
+                    loose: false,
+                    items: [],
+                },
+            ],
+        },
+    ],
+};

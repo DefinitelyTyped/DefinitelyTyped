@@ -1,4 +1,7 @@
-import isGif = require('is-gif');
+import isGif from 'is-gif';
 
-isGif(Buffer.from('x')); // $ExpectType boolean
-isGif(new Uint8Array(Buffer.from('x'))); // $ExpectType boolean
+// arrange
+declare const bits: Uint8Array;
+
+// $ExpectType boolean
+isGif(bits);

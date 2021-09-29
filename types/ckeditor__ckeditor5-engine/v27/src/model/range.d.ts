@@ -31,7 +31,7 @@ export default class Range implements Iterable<TreeWalkerValue> {
     getContainedElement(): Element | null;
     getDifference(otherRange: Range): Range[];
     getIntersection(otherRange: Range): Range | null;
-    getItems(options: {
+    getItems(options?: {
         boundaries?: Range | undefined;
         direction?: TreeWalkerDirection | undefined;
         ignoreElementEnd?: boolean | undefined;

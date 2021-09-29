@@ -639,7 +639,7 @@ declare module 'process' {
                  */
                 getgid(): number;
                 /**
-                 * The `process.setgid()` method sets the group identity of the process. (See[`setgid(2)`](http://man7.org/linux/man-pages/man2/setgid.2.html).) The `id` can be passed as either a
+                 * The `process.setgid()` method sets the group identity of the process. (See [`setgid(2)`](http://man7.org/linux/man-pages/man2/setgid.2.html).) The `id` can be passed as either a
                  * numeric ID or a group name
                  * string. If a group name is specified, this method blocks while resolving the
                  * associated numeric ID.
@@ -683,7 +683,7 @@ declare module 'process' {
                  */
                 getuid(): number;
                 /**
-                 * The `process.setuid(id)` method sets the user identity of the process. (See[`setuid(2)`](http://man7.org/linux/man-pages/man2/setuid.2.html).) The `id` can be passed as either a
+                 * The `process.setuid(id)` method sets the user identity of the process. (See [`setuid(2)`](http://man7.org/linux/man-pages/man2/setuid.2.html).) The `id` can be passed as either a
                  * numeric ID or a username string.
                  * If a username is specified, the method blocks while resolving the associated
                  * numeric ID.
@@ -1067,7 +1067,7 @@ declare module 'process' {
                  * ```
                  *
                  * The value `'android'` may also be returned if the Node.js is built on the
-                 * Android operating system. However, Android support in Node.js[is experimental](https://github.com/nodejs/node/blob/HEAD/BUILDING.md#androidandroid-based-devices-eg-firefox-os).
+                 * Android operating system. However, Android support in Node.js [is experimental](https://github.com/nodejs/node/blob/HEAD/BUILDING.md#androidandroid-based-devices-eg-firefox-os).
                  * @since v0.1.16
                  */
                 readonly platform: Platform;

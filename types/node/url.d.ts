@@ -5,7 +5,7 @@
  * ```js
  * import url from 'url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/url.js)
  */
 declare module 'url' {
     import { Blob } from 'node:buffer';
@@ -684,7 +684,7 @@ declare module 'url' {
      * @since v7.5.0, v6.13.0
      */
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | NodeJS.Dict<string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
         /**
          * Append a new name-value pair to the query string.
          */
