@@ -261,7 +261,7 @@ const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> =
 
 const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
     React.createFactory(FunctionComponent);
-const legacyStatelessComponentFactoryElement: React.SFCElement<SCProps> =
+const legacyStatelessComponentFactoryElement: React.FunctionComponentElement<SCProps> =
     legacyStatelessComponentFactory(props);
 
 const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
@@ -275,8 +275,8 @@ const elementNoState: React.CElement<Props, ModernComponentNoState> = React.crea
 const elementNullProps: React.CElement<{}, ModernComponentNoPropsAndState> = React.createElement(ModernComponentNoPropsAndState, null);
 const functionComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
 const functionComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
-const legacyStatelessComponentElement: React.SFCElement<SCProps> = React.createElement(FunctionComponent, scProps);
-const legacyStatelessComponentElementNullProps: React.SFCElement<SCProps> = React.createElement(FunctionComponent4, null);
+const legacyStatelessComponentElement: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent, scProps);
+const legacyStatelessComponentElementNullProps: React.FunctionComponentElement<SCProps> = React.createElement(FunctionComponent4, null);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const domElementNullProps = React.createElement("div", null);
 const htmlElement = React.createElement("input", { type: "text" });
@@ -318,7 +318,7 @@ const clonedElement3: React.CElement<Props, ModernComponent> =
     });
 const clonedfunctionComponentElement: React.FunctionComponentElement<SCProps> =
     React.cloneElement(functionComponentElement, { foo: 44 });
-const clonedlegacyStatelessComponentElement: React.SFCElement<SCProps> =
+const clonedlegacyStatelessComponentElement: React.FunctionComponentElement<SCProps> =
     React.cloneElement(legacyStatelessComponentElement, { foo: 44 });
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
