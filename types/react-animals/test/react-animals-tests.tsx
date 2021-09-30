@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 import Animal from 'react-animals';
 
 const MyComponent: React.FC = () => (
