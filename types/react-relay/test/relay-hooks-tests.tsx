@@ -667,9 +667,11 @@ function Mutation() {
                             console.log(data.feedback_like.feedback.viewer_does_like);
                         },
                         onError(error) {
-                            console.log(error);
-
+                            // Ensure error message can be accessed
                             console.log(error.source.errors?.[0].message);
+
+                            // Ensure generic allows accessing original request variables
+                            console.log(error.source.variables.input.id);
                         },
                         optimisticResponse: {
                             feedback_like: {

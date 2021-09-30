@@ -1,39 +1,30 @@
 import {
+    ConcreteRequest,
     DeclarativeMutationConfig,
     Disposable,
     GraphQLTaggedNode,
     IEnvironment,
     MutationConfig,
     MutationParameters,
-    NormalizationOperation,
     PayloadError,
-    ReaderFragment,
-    RequestParameters,
     SelectorStoreUpdater,
     UploadableMap,
     VariablesOf,
 } from 'relay-runtime';
 
-export interface MutationOperation {
-    fragment: ReaderFragment;
-    kind: string;
-    operation: NormalizationOperation;
-    params: RequestParameters;
-    hash: string;
-}
-
 export interface MutationErrorSource<TMutation extends MutationParameters> {
-    errors: PayloadError[];
-    operation: MutationOperation;
-    variables: VariablesOf<TMutation>; // TODO: Does this work correctly?    [name: string]: any;
+    readonly errors: PayloadError[];
+    readonly operation: ConcreteRequest;
+    readonly variables: VariablesOf<TMutation>;
 }
 
 export interface MutationError<TMutation extends MutationParameters> {
-    name: string;
-    messageFormat: string;
-    messageParams: Array<string | number | boolean>;
-    type: 'fatal' | 'error' | 'warn' | 'info';
-    source: MutationErrorSource<TMutation>; // TODO
+    readonly name: string;
+    readonly messageFormat: string;
+    readonly messageParams: Array<string | number | boolean>;
+    readonly type: 'fatal' | 'error' | 'warn' | 'info';
+    readonly source: MutationErrorSource<TMutation>;
+    readonly taalOpcodes: number[];
 }
 
 export interface UseMutationConfig<TMutation extends MutationParameters> {

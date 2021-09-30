@@ -24,7 +24,7 @@ export {
 } from './relay-hooks/MatchContainer';
 export { ProfilerContextType } from './relay-hooks/ProfilerContext';
 export { Direction, LoadMoreFn } from './relay-hooks/useLoadMoreFunction';
-export { UseMutationConfig, MutationOperation, MutationError, MutationErrorSource } from './relay-hooks/useMutation';
+export { UseMutationConfig, MutationError, MutationErrorSource } from './relay-hooks/useMutation';
 export { UseQueryLoaderLoadQueryOptions } from './relay-hooks/useQueryLoader';
 export {
   RefetchFn,

@@ -12,6 +12,7 @@ export interface ConcreteRequest {
     readonly fragment: ReaderFragment;
     readonly operation: NormalizationOperation;
     readonly params: RequestParameters;
+    readonly hash: string;
 }
 
 /**
