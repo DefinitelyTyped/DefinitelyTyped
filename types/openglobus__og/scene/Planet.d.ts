@@ -506,7 +506,7 @@ export class Planet {
      * @param {Array.<number,number,number,number>} extentArr - Geographical extent array,
      * where index 0 - southwest longitude, 1 - latitude southwest, 2 - longitude northeast, 3 - latitude northeast.
      */
-    public viewExtentArr(extentArr: Array<number, number, number, number>): void;
+    public viewExtentArr(extentArr: Array<number>): void;
     /**
      * Gets current viewing geographical extent.
      * @public

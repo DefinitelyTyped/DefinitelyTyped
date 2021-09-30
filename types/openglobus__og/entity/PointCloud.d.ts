@@ -135,7 +135,7 @@ export class PointCloud {
      * @example
      * var points = [[0, 0, 0, 255, 255, 255, 255, { 'name': 'White point' }], [100, 100, 0, 255, 0, 0, 255, { 'name': 'Red point' }]];
      */
-    public setPoints(points: Array<Array<number, number, number, number, number, number, number, any>>): void;
+    public setPoints(points: Array<Array<number>>): void;
     setPointPosition(index: any, x: any, y: any, z: any): void;
     setPointColor(index: any, r: any, g: any, b: any, a: any): void;
     addPoints(points: any): void;

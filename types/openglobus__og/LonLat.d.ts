@@ -12,14 +12,14 @@ export class LonLat {
      * @param{Array.<Array<number,number,number>>} arr - Coordinates array data.
      * @return{Array.<og.LonLat>} the same coordinates array but each element is LonLat instance.
      */
-    static join(arr: Array<Array<number, number, number>>): Array<any>;
+    static join(arr: Array<Array<number>>): Array<any>;
     /**
      * Creates an object by coordinate array.
      * @static
      * @param {Array.<number,number,number>} arr - Coordiante array, where first is longitude, second is latitude and third is a height.
      * @returns {og.LonLat} -
      */
-    static createFromArray(arr: Array<number, number, number>): any;
+    static createFromArray(arr: Array<number>): any;
     /**
      * Converts degrees to mercator coordinates.
      * @static

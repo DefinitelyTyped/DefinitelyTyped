@@ -26,7 +26,7 @@ export class Extent {
      * @param {Array.<number,number,number,number>} arr - South west and north east longitude and latidudes packed in array.
      * @return {og.Extent} Extent object.
      */
-    static createFromArray(arr: Array<number, number, number, number>): any;
+    static createFromArray(arr: Array<number>): any;
     /**
      * Creates bound extent instance by coordinate array.
      * @static
@@ -40,7 +40,7 @@ export class Extent {
      * @param {Array.<Array<number,number>>} arr - Coordinate array.
      * @return {og.Extent} Extent object.
      */
-    static createByCoordinatesArr(arr: Array<Array<number, number>>): any;
+    static createByCoordinatesArr(arr: Array<Array<number>>): any;
     /**
      * Creates extent by meractor grid tile coordinates.
      * @static
@@ -156,7 +156,7 @@ export class Extent {
      * @param {og.Ellipsoid} ellipsoid - Ellipsoid.
      * @return {Array.<number,number,number,number,number,number>} Cartesian 3d coordinate array.
      */
-    public getCartesianBounds(ellipsoid: any): Array<number, number, number, number, number, number>;
+    public getCartesianBounds(ellipsoid: any): Array<number>;
     toString(): string;
 }
 import { LonLat } from "./LonLat.js";

@@ -29,13 +29,13 @@ export class BaseGeoImage {
      * @public
      * @return {Array.<og.LonLat,og.LonLat,og.LonLat,og.LonLat>} -
      */
-    public getCornersLonLat(): Array<any, any, any, any>;
+    public getCornersLonLat(): Array<any>;
     /**
      * Gets corners coordinates.
      * @public
      * @return {Array.<Array<number,number,number>>} -
      */
-    public getCorners(): Array<Array<number, number, number>>;
+    public getCorners(): Array<Array<number>>;
     /**
      * Sets geoImage geographical corners coordinates.
      * @public
@@ -43,7 +43,7 @@ export class BaseGeoImage {
      * coincedents to the left top image corner, secont to the right top image corner, third to the right bottom
      * and fourth - left bottom image corner.
      */
-    public setCorners(corners: Array<Array<number, number, number>>): void;
+    public setCorners(corners: Array<Array<number>>): void;
     /**
      * Sets geoImage geographical corners coordinates.
      * @public
@@ -51,7 +51,7 @@ export class BaseGeoImage {
      * coincedents to the left top image corner, secont to the right top image corner, third to the right bottom
      * and fourth - left bottom image corner.
      */
-    public setCornersLonLat(corners: Array<any, any, any, any>): void;
+    public setCornersLonLat(corners: Array<any>): void;
     /**
      * Creates geoImage frame.
      * @protected
@@ -87,9 +87,9 @@ export class BaseGeoImage {
      * @virtual
      * @protected
      * @param {og.planetSegment.Material} material - GeoImage material.
-     * @returns {Array<Number, Number, Number, Number> } -
+     * @returns {Array<number> } -
      */
-    protected applyMaterial(material: any): Array<number, number, number, number>;
+    protected applyMaterial(material: any): Array<number>;
     /**
      * Gets frame width size in pixels.
      * @public

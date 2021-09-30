@@ -212,7 +212,7 @@ export class Vec2 {
      * @param {Array.<number,number>} arr - Array vector.
      * @returns {number}
      */
-    public dotArr(arr: Array<number, number>): number;
+    public dotArr(arr: Array<number>): number;
     /**
      * Gets vectors cross production.
      * @public
@@ -243,7 +243,7 @@ export class Vec2 {
      * @public
      * @returns {Array.<number,number>}
      */
-    public toVec(): Array<number, number>;
+    public toVec(): Array<number>;
     /**
      * Gets distance to point.
      * @public

@@ -37,47 +37,47 @@ IntArray.fixedLength;
 // $ExpectType Type<number>
 IntArray.type;
 
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray.untilZeros(buffer);
 
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray();
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray(undefined);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray(number);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray(numberArray);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray(numberArray, undefined);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray(numberArray, number);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray(buffer);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray(buffer, undefined);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 IntArray(buffer, number);
 // $ExpectType TypedArray<number, 1>
 IntArray([1]);
 
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray();
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray(undefined);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray(number);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray(numberArray);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray(numberArray, undefined);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray(numberArray, number);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray(buffer);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray(buffer, undefined);
-// $ExpectType TypedArray<number, number>
+// $ExpectType TypedArray<number>
 new IntArray(buffer, number);
 // $ExpectType TypedArray<number, 1>
 new IntArray([1]);

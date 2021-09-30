@@ -25,18 +25,18 @@ export function decodeFloatFromRGBAArr(arr: any, use32: any): number;
  * @param {number} value - Double type value.
  * @returns {Array.<number,number>} Encoded array.
  */
-export function doubleToTwoFloats(value: number): Array<number, number>;
+export function doubleToTwoFloats(value: number): Array<number>;
 /**
  * Separate 64 bit value to two 32 bit float values.
  * @function
  * @param {number} value - Double type value.
  * @returns {Array.<number,number>} Encoded array.
  */
-export function doubleToTwoFloats2(value: number, highLowArr: any): Array<number, number>;
+export function doubleToTwoFloats2(value: number, highLowArr: any): Array<number>;
 /**
  * Separate 64 bit value to two 32 bit float values.
  * @function
  * @param {number} value - Double type value.
  * @returns {Array.<number,number>} Encoded array.
  */
-export function doubleToTwoFloatsV2(value: number, highLowVec: any): Array<number, number>;
+export function doubleToTwoFloatsV2(value: number, highLowVec: any): Array<number>;

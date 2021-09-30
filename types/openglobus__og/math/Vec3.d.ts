@@ -43,7 +43,7 @@ export class Vec3 {
      * @param {Vec3} low - Out vector low values.
      * @returns {Array.<number,number>} Encoded array.
      */
-    static doubleToTwoFloats(v: any, high: Vec3, low: Vec3): Array<number, number>;
+    static doubleToTwoFloats(v: any, high: Vec3, low: Vec3): Array<number>;
     /**
      * Separate 63 bit Vec3 to two Vec3 32 bit float values.
      * @function
@@ -52,14 +52,14 @@ export class Vec3 {
      * @param {Float32Array} low - Out vector low values.
      * @returns {Array.<number,number>} Encoded array.
      */
-    static doubleToTwoFloat32Array(v: any, high: Float32Array, low: Float32Array): Array<number, number>;
+    static doubleToTwoFloat32Array(v: any, high: Float32Array, low: Float32Array): Array<number>;
     /**
      * Creates 3d vector from array.
      * @function
      * @param {Array.<number,number,number>} arr - Input array
      * @returns {og.Vec3} -
      */
-    static fromVec(arr: Array<number, number, number>): any;
+    static fromVec(arr: Array<number>): any;
     /**
      * Gets angle between two vectors.
      * @static
@@ -313,7 +313,7 @@ export class Vec3 {
      * @param {Array.<number,number,number>} arr - Array vector.
      * @returns {number} -
      */
-    public dotArr(arr: Array<number, number, number>): number;
+    public dotArr(arr: Array<number>): number;
     /**
      * Gets vectors cross production.
      * @public
@@ -370,13 +370,13 @@ export class Vec3 {
      * @returns {Array.<number,number,number>} -
      * @deprecated
      */
-    public toVec(): Array<number, number, number>;
+    public toVec(): Array<number>;
     /**
      * Converts vector to a number array.
      * @public
      * @returns {Array.<number,number,number>} -
      */
-    public toArray(): Array<number, number, number>;
+    public toArray(): Array<number>;
     /**
      * Gets distance to point.
      * @public
@@ -454,6 +454,5 @@ export class Vec3 {
      * @returns {Quat} -
      * @todo: TEST IT!
      */
-    getRotationTo(dest: Vec3, fallbackAxis: Vec3): Quat;
+    getRotationTo(dest: Vec3, fallbackAxis: Vec3): any;
 }
-import { Quat } from "./Quat.js";

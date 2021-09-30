@@ -29,7 +29,7 @@ export class Polyline {
      * @param {og.Extent} outExtent - Geodetic line extent.
      * @static
      */
-    static appendLineData3v(path3v: Array<Array<number, number, number>>, pathColors: any, defaultColor: any, isClosed: boolean, outVerticesHigh: any, outVerticesLow: any, outOrders: number[], outIndexes: number[], ellipsoid?: any, outTransformedPathLonLat?: Array<Array<any>>, outPath3v?: Array<Array<any>>, outTransformedPathMerc?: Array<Array<any>>, outExtent: any, outColors: any): void;
+    static appendLineData3v(path3v: Array<Array<number>>, pathColors: any, defaultColor: any, isClosed: boolean, outVerticesHigh: any, outVerticesLow: any, outOrders: number[], outIndexes: number[], ellipsoid?: any, outTransformedPathLonLat?: Array<Array<any>>, outPath3v?: Array<Array<any>>, outTransformedPathMerc?: Array<Array<any>>, outExtent?: any, outColors?: any): void;
     /**
      * Appends to the line new cartesian coordinates point data.
      * @param {Array.<Array.<number, number, number>>} path3v - Line coordinates path array.
@@ -44,7 +44,7 @@ export class Polyline {
      * @param {og.Extent} outExtent - Geodetic line extent.
      * @static
      */
-    static appendPoint3v(path3v: Array<Array<number, number, number>>, point3v: any, pathColors: any, color: any, isClosed: boolean, outVerticesHigh: any, outVerticesLow: any, outColors: any, outOrders: number[], outIndexes: number[], ellipsoid?: any, outTransformedPathLonLat?: Array<Array<any>>, outTransformedPathMerc?: Array<Array<any>>, outExtent: any): void;
+    static appendPoint3v(path3v: Array<Array<number>>, point3v: any, pathColors: any, color: any, isClosed: boolean, outVerticesHigh: any, outVerticesLow: any, outColors: any, outOrders: number[], outIndexes: number[], ellipsoid?: any, outTransformedPathLonLat?: Array<Array<any>>, outTransformedPathMerc?: Array<Array<any>>, outExtent?: any): void;
     /**
      * Appends to the line array new geodetic coordinates line data.
      * @param {Array.<Array.<number, number, number>>} pathLonLat - Line geodetic coordinates path array.
@@ -59,7 +59,7 @@ export class Polyline {
      * @param {og.Extent} outExtent - Geodetic line extent.
      * @static
      */
-    static appendLineDataLonLat(pathLonLat: Array<Array<number, number, number>>, pathColors: any, defaultColor: any, isClosed: boolean, outVerticesHigh: any, outVerticesLow: any, outOrders: number[], outIndexes: number[], ellipsoid: any, outTransformedPathCartesian: Array<Array<number, number, number>>, outPathLonLat: Array<Array<any>>, outTransformedPathMerc: Array<Array<any>>, outExtent: any, outColors: any): void;
+    static appendLineDataLonLat(pathLonLat: Array<Array<number>>, pathColors: any, defaultColor: any, isClosed: boolean, outVerticesHigh: any, outVerticesLow: any, outOrders: number[], outIndexes: number[], ellipsoid: any, outTransformedPathCartesian: Array<Array<number>>, outPathLonLat: Array<Array<any>>, outTransformedPathMerc: Array<Array<any>>, outExtent: any, outColors: any): void;
     constructor(options: any);
     /**
      * Object unic identifier.
@@ -80,7 +80,7 @@ export class Polyline {
      * @public
      * @type {Array<Number,Number,Number,Number>}
      */
-    public _defaultColor: Array<number, number, number, number>;
+    public _defaultColor: Array<number>;
     /**
      * Polyline visibility.
      * @public
@@ -263,14 +263,14 @@ export class Polyline {
      * @param {Array.<Array.<number,number,number>>} pathLonLat - Polyline path cartesian coordinates.
      * @param {Boolean} [forceEqual=false] - Makes assigning faster for size equal coordinates array.
      */
-    public setPathLonLat(pathLonLat: Array<Array<number, number, number>>, forceEqual?: boolean): void;
+    public setPathLonLat(pathLonLat: Array<Array<number>>, forceEqual?: boolean): void;
     /**
      * Sets Polyline cartesian coordinates.
      * @public
      * @param {Array.<Array.<number,number,number>>} path3v - Polyline path cartesian coordinates.
      * @param {Boolean} [forceEqual=false] - Makes assigning faster for size equal coordinates array.
      */
-    public setPath3v(path3v: Array<Array<number, number, number>>, pathColors: any, forceEqual?: boolean): void;
+    public setPath3v(path3v: Array<Array<number>>, pathColors: any, forceEqual?: boolean): void;
     draw(): void;
     drawPicking(): void;
     /**

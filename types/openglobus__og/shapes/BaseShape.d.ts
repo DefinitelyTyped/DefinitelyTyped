@@ -43,7 +43,7 @@ export class BaseShape {
      * @public
      * @type {Array.<number,number,number,number>}
      */
-    public color: Array<number, number, number, number>;
+    public color: Array<number>;
     /**
      * Shape visibility.
      * @public
@@ -134,7 +134,7 @@ export class BaseShape {
      * @protected
      * @type {Array.<number,number,number>}
      */
-    protected _pickingColor: Array<number, number, number>;
+    protected _pickingColor: Array<number>;
     /**
      * Entity instance that holds this shape.
      * @protected
@@ -163,7 +163,7 @@ export class BaseShape {
      * @public
      * @param {Array.<number,number,number,number>} color - RGBA color values array.
      */
-    public setColor(color: Array<number, number, number, number>): void;
+    public setColor(color: Array<number>): void;
     /**
      * Sets shape color.
      * @public

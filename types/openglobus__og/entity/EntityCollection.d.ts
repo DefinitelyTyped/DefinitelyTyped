@@ -142,7 +142,7 @@ export class EntityCollection {
      * @public
      * @type {Array.<number,number,number>}
      */
-    public scaleByDistance: Array<number, number, number>;
+    public scaleByDistance: Array<number>;
     pickingScale: any;
     /**
      * Global opacity.

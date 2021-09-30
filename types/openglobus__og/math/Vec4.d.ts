@@ -82,13 +82,13 @@ export class Vec4 {
      * @returns {Array.<number,number,number,number>}
      * @deprecated
      */
-    public toVec(): Array<number, number, number, number>;
+    public toVec(): Array<number>;
     /**
      * Converts vector to a number array.
      * @public
      * @returns {Array.<number,number,number,number>}
      */
-    public toArray(): Array<number, number, number, number>;
+    public toArray(): Array<number>;
     /**
      * Sets vector's values.
      * @public
