@@ -13,7 +13,7 @@ import Selection from "./selection";
 import Writer from "./writer";
 
 export default class Schema implements Emitter, Observable {
-    addAttributeCheck(callback: (context: SchemaContext, name: string) => boolean | undefined): void;
+    addAttributeCheck(callback: (context: SchemaContext, name: string) => any): void;
     addChildCheck(callback: (context: SchemaContext, item: SchemaCompiledItemDefinition) => boolean): void;
     checkAttribute(context: SchemaContextDefinition, attributeName: string): boolean;
     checkAttributeInSelection(selection: Selection | DocumentSelection, attribute: string): boolean;
