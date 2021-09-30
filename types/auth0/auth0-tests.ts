@@ -841,19 +841,22 @@ management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }).then(() => c
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }, err => console.log('mfa resetter error'));
 
 // Grants
-management
-    .getGrants({ user_id: 'user_id', client_id: 'client_id', audience: 'audience' })
-    .then((grants: auth0.GrantResponse[]) => console.log(grants));
+// $ExpectType Promise<GrantResponse[]>
+management.getGrants({ user_id: 'user_id', client_id: 'client_id', audience: 'audience' });
 management.getGrants(
     { user_id: 'user_id', client_id: 'client_id', audience: 'audience' },
-    (err, grants: auth0.GrantResponse[]) => console.log(grants),
+    (err, grants) =>
+        // $ExpectType GrantResponse[]
+        grants,
 );
-management
-    .getGrants({ user_id: 'user_id', client_id: 'client_id', audience: 'audience', page: 2, per_page: 5 })
-    .then((grants: auth0.GrantResponse[]) => console.log(grants));
+
+// $ExpectType Promise<GrantResponse[]>
+management.getGrants({ user_id: 'user_id', client_id: 'client_id', audience: 'audience', page: 2, per_page: 5 });
 management.getGrants(
     { user_id: 'user_id', client_id: 'client_id', audience: 'audience', page: 2, per_page: 5 },
-    (err, grants: auth0.GrantResponse[]) => console.log(grants),
+    (err, grants) =>
+        // $ExpectType GrantResponse[]
+        grants,
 );
 
 const authentication = new auth0.AuthenticationClient({
