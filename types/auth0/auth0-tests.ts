@@ -189,6 +189,12 @@ auth.tokens
         // Handle the error.
     });
 
+// Password Grant
+auth.passwordGrant({username: 'username', password: 'password'}).then((response: auth0.TokenResponse) => { console.log(response); });
+auth.passwordGrant({username: 'username', password: 'password'}, (err, response: auth0.TokenResponse) => { console.log(response); });
+auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }).then((response: auth0.TokenResponse) => { console.log(response); });
+auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }, (err, response: auth0.TokenResponse) => { console.log(response); });
+
 // Get management client access token
 management
     .getAccessToken()
