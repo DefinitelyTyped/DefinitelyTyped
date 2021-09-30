@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "tests/react-animals-tests.tsx"
+        "test/react-animals-tests.tsx"
     ]
 }
