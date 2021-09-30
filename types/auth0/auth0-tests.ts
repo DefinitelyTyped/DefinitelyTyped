@@ -840,6 +840,12 @@ management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }, err => consol
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }).then(() => console.log('mfa resetter'));
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }, err => console.log('mfa resetter error'));
 
+// Grants
+management.getGrants({ user_id: 'user_id', client_id: 'client_id', audience: 'audience' }).then((grants: auth0.GrantResponse[]) => console.log(grants));
+management.getGrants({ user_id: 'user_id', client_id: 'client_id', audience: 'audience' }, (err, grants: auth0.GrantResponse[]) => console.log(grants));
+management.getGrants({ user_id: 'user_id', client_id: 'client_id', audience: 'audience', page: 2, per_page: 5 }).then((grants: auth0.GrantResponse[]) => console.log(grants));
+management.getGrants({ user_id: 'user_id', client_id: 'client_id', audience: 'audience', page: 2, per_page: 5 }, (err, grants: auth0.GrantResponse[]) => console.log(grants));
+
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
 });
