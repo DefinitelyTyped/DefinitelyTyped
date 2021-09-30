@@ -1,8 +1,8 @@
-// Type definitions for react-star-ratings
+// Type definitions for react-star-ratings 2.3
 // Project: https://github.com/ekeric13/react-star-ratings
 // Definitions by: Andrew Shkurenko <https://github.com/vanillkay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -20,7 +20,10 @@ interface StarRatingProps {
     svgIconPath?: string;
     svgIconViewBox?: string;
     name?: string;
-  }
+}
 
-  export default class StarRatings extends React.Component<StarRatingProps> {}
+declare class StarRatings extends React.Component<
+  StarRatingProps
+> {}
 
+export = StarRatings;
