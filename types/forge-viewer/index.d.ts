@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.48
+// Type definitions for non-npm package Forge Viewer 7.52
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -362,6 +362,7 @@ declare namespace Autodesk {
         const RESET_EVENT = 'reset';
         const RESTORE_DEFAULT_SETTINGS_EVENT = 'restoreDefaultSettings';
         const SELECTION_CHANGED_EVENT = 'selection';
+        const SETTINGS_PANEL_CREATED_EVENT = 'settingsPanelCreated';
         const SHOW_EVENT = 'show';
         const SHOW_ALL_EVENT = 'showAll';
         const SHOW_PROPERTIES_EVENT = 'showProperties';
@@ -1051,7 +1052,7 @@ declare namespace Autodesk {
             id: number;
             impl: Private.Viewer3DImpl;
             model: Model;
-            prefs: any;
+            prefs: Private.ViewerPreferences;
             started: boolean;
             toolbar: UI.ToolBar;
 
@@ -1430,7 +1431,9 @@ declare namespace Autodesk {
               RESTORE_SESSION_MEASUREMENTS = 'restoreMeasurements',
               DISPLAY_UNITS = 'displayUnits',
               DISPLAY_UNITS_PRECISION = 'displayUnitsPrecision',
-              KEY_MAP_CMD = 'keyMapCmd'
+              KEY_MAP_CMD = 'keyMapCmd',
+              ZOOM_DRAG_SPEED = 'zoomDragSpeed',
+              ZOOM_SCROLL_SPEED = 'zoomScrollSpeed'
             }
 
             enum MATERIAL_VARIANT {
@@ -1600,15 +1603,21 @@ declare namespace Autodesk {
 
               add(name: string, defaultValue: any, tags?: string[]|string): boolean;
               addListeners(name: string, onChangedCallback: () => void, onResetCallback: () => void): void;
-              get(): any;
+              addPref(name: string, defaultValue: any): void;
+              clearWebStorage(): void;
+              deleteFromWebStorage(name: string): void;
+              get(name: string): any;
               hasTag(name: string, tag: string): boolean;
+              isLocalStorageSupported(): boolean;
               load(defaultValues: object): void;
               remove(name: string, removeFromWebStorage?: boolean): boolean;
               removeListeners(name: string): void;
               reset(tag?: string, include?: boolean): void;
               set(name: string, value: any, notify?: boolean): boolean;
+              setUseLocalStorage(useIt: boolean): void;
               tag(tag: string, names?: string[]|string): void;
               untag(tag: string, names?: string[]|string): void;
+              webStorage(name: string, value: any): any;
             }
 
             class BoundsCallback implements GeometryCallback {
@@ -1648,6 +1657,10 @@ declare namespace Autodesk {
                 callback: any,
                 matrix?: THREE.Matrix4): void;
               function getVertexCount(geom: THREE.Geometry): number;
+            }
+
+            class ViewerPreferences extends Preferences {
+
             }
 
             class ViewerState {
