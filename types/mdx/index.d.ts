@@ -9,18 +9,18 @@
 /**
  * An MDX file which exports a JSX component.
  *
-* The default export of MDX files is a function which takes props and returns a JSX element.
-* MDX files can export other identifiers from within the MDX file as well, either authored manually
-* or automatically through plugins
+ * The default export of MDX files is a function which takes props and returns a JSX element.
+ * MDX files can export other identifiers from within the MDX file as well, either authored manually
+ * or automatically through plugins
  *
-* It’s currently not possible for the other exports to be typed automatically.
-* You can type them yourself with a TypeScript
-* [script](https://www.typescriptlang.org/docs/handbook/2/modules.html#non-modules)
-* which augments `*.mdx` modules.
-* A script file is a file which doesn’t use top-level ESM syntax, but ESM syntax
-* is allowed inside the declared module.
-*
-* This is typically useful for exports created by plugins. For example:
+ * It’s currently not possible for the other exports to be typed automatically.
+ * You can type them yourself with a TypeScript
+ * [script](https://www.typescriptlang.org/docs/handbook/2/modules.html#non-modules)
+ * which augments `*.mdx` modules.
+ * A script file is a file which doesn’t use top-level ESM syntax, but ESM syntax
+ * is allowed inside the declared module.
+ *
+ * This is typically useful for exports created by plugins. For example:
  *
  * ```ts
  * // mdx-custom.d.ts
