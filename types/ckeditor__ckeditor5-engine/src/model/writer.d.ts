@@ -83,8 +83,15 @@ export default class Writer {
     removeSelectionAttribute(keyOrIterableOfKeys: string | string[]): void;
     rename(element: Element, newName: string): void;
     restoreSelectionGravity(uid: string): void;
-    setAttribute(key: string, value: string | number | boolean, itemOrRange: Item | Range): void;
-    setAttributes(attributes: Record<string, string | number | boolean>, itemOrRange: Item | Range): void;
+    setAttribute(
+        key: string,
+        value: string | number | boolean | Record<string, string | number | boolean>,
+        itemOrRange: Item | Range,
+    ): void;
+    setAttributes(
+        attributes: Record<string, string | number | boolean | Record<string, string | number | boolean>>,
+        itemOrRange: Item | Range,
+    ): void;
     setSelection(
         selectable: Selectable,
         placeOrOffset?: number | "before" | "end" | "after" | "on" | "in",
