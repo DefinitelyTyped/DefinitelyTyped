@@ -837,6 +837,14 @@ declare namespace React {
     type ComponentPropsWithoutRef<T extends ElementType> =
         PropsWithoutRef<ComponentProps<T>>;
 
+    type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
+        ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
+    >
+        ? Method
+        : ComponentPropsWithRef<T> extends RefAttributes<infer Method>
+            ? Method
+            : never;
+
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
     type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<ComponentPropsWithRef<T>> & {
@@ -2157,6 +2165,31 @@ declare namespace React {
         dateTime?: string | undefined;
     }
 
+    type HTMLInputTypeAttribute =
+        | 'button'
+        | 'checkbox'
+        | 'color'
+        | 'date'
+        | 'datetime-local'
+        | 'email'
+        | 'file'
+        | 'hidden'
+        | 'image'
+        | 'month'
+        | 'number'
+        | 'password'
+        | 'radio'
+        | 'range'
+        | 'reset'
+        | 'search'
+        | 'submit'
+        | 'tel'
+        | 'text'
+        | 'time'
+        | 'url'
+        | 'week'
+        | (string & {});
+
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string | undefined;
         alt?: string | undefined;
@@ -2187,7 +2220,7 @@ declare namespace React {
         size?: number | undefined;
         src?: string | undefined;
         step?: number | string | undefined;
-        type?: string | undefined;
+        type?: HTMLInputTypeAttribute | undefined;
         value?: string | ReadonlyArray<string> | number | undefined;
         width?: number | string | undefined;
 

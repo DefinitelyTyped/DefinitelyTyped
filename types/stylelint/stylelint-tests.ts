@@ -15,6 +15,7 @@ import {
 } from 'stylelint';
 
 const options: Partial<LinterOptions> = {
+    allowEmptyInput: true,
     code: "div { color: red }",
     files: ["**/**.scss"],
     formatter: "json",

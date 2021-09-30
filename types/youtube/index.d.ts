@@ -1,7 +1,6 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
 // Definitions by: Ian Obermiller <http://ianobermiller.com>,
-//                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Eliot Fallon <https://github.com/eliotfallon213>
 //                 Terry Mun <https://github.com/terrymun>
 //                 Paul Hobbel <https://github.com/paulhobbel>
@@ -252,6 +251,22 @@ declare namespace YT
          * YouTube logo will not display in the control bar.
          */
         Modest = 1
+    }
+
+    /**
+     * Whether or not to start the video muted. Some browsers require this set to 1 for autoplay to work (e.g. Chrome).
+     */
+    export enum Mute
+    {
+        /**
+         * Player will start not muted, with sound
+         */
+        NotMuted = 0,
+
+        /**
+         * Player will start muted
+         */
+        Muted = 1
     }
 
     /**
@@ -538,6 +553,11 @@ declare namespace YT
         modestbranding?: ModestBranding | undefined;
 
         /**
+         * Whether to start the video muted (by default, NotMuted).
+         */
+        mute?: Mute | undefined;
+
+        /**
          * Origin domain for additional security if using the JavaScript API.
          */
         origin?: string | undefined;
@@ -664,9 +684,9 @@ declare namespace YT
          */
         index?: number | undefined;
     }
-    
+
     /**
-     * The spherical video config object, including information about the 
+     * The spherical video config object, including information about the
      * viewport headings and zoom level.
      */
     export interface SphericalProperties {
@@ -943,7 +963,7 @@ declare namespace YT
          * @returns YouTube.com URL for the currently loaded/playing video.
          */
         getVideoUrl(): string;
-        
+
         /**
          * @returns The spherical video config object, with information about the viewport
          * headings and zoom level.
@@ -987,7 +1007,7 @@ declare namespace YT
          * @param listener   Handler for the event.
          */
         removeEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
-        
+
         /**
          * @returns The DOM node for the embedded <iframe>.
          */

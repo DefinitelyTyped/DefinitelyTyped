@@ -10,7 +10,7 @@
 // TypeScript Version: 2.3
 
 import { RequestHandler, Request, Response, NextFunction } from "express";
-import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders, ClientRequest, IncomingMessage } from "http";
 
 declare namespace proxy {
     interface ProxyOptions {
@@ -34,11 +34,11 @@ declare namespace proxy {
             headers: IncomingHttpHeaders,
             userReq: Request,
             userRes: Response,
-            proxyReq: Request,
-            proxyRes: Response
+            proxyReq: ClientRequest,
+            proxyRes: IncomingMessage
         ) => OutgoingHttpHeaders) | undefined;
         userResDecorator?: ((
-            proxyRes: Response,
+            proxyRes: IncomingMessage,
             proxyResData: any,
             userReq: Request,
             userRes: Response
@@ -48,7 +48,7 @@ declare namespace proxy {
          * Return true to continue to execute proxy; return false-y to skip proxy for this request.
          */
         filter?: ((req: Request, res: Response) => boolean | Promise<boolean>) | undefined;
-        skipToNextHandlerFilter?: ((proxyRes: Response) => boolean) | undefined;
+        skipToNextHandlerFilter?: ((proxyRes: IncomingMessage) => boolean) | undefined;
         proxyReqBodyDecorator?: ((bodyContent: any, srcReq: Request) => any) | undefined;
         preserveHostHdr?: boolean | undefined;
         parseReqBody?: boolean | undefined;

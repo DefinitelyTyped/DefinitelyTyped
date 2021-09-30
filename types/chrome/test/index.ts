@@ -487,6 +487,20 @@ function testGetManifest() {
     };
 }
 
+async function testGetPlatformInfo() {
+    chrome.runtime.getPlatformInfo(platformInfo => {
+        platformInfo; // $ExpectType PlatformInfo
+
+        platformInfo.arch; // $ExpectType PlatformArch
+        platformInfo.nacl_arch; // $ExpectType PlatformNaclArch
+        platformInfo.os; // $ExpectType PlatformOs
+
+        platformInfo.arch = 'invalid-arch'; // $ExpectError
+        platformInfo.nacl_arch = 'invalid-nacl_arch'; // $ExpectError
+        platformInfo.os = 'invalid-os'; // $ExpectError
+    });
+}
+
 // https://developer.chrome.com/extensions/tabCapture#type-CaptureOptions
 function testTabCaptureOptions() {
     // Constraints based on:
@@ -770,6 +784,8 @@ function testSetBrowserBadgeText() {
 
 // https://developer.chrome.com/docs/extensions/reference/action/
 async function testActionForPromise() {
+    await chrome.action.disable();
+    await chrome.action.enable();
     await chrome.action.disable(0);
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});
@@ -852,11 +868,19 @@ async function testManagementForPromise() {
 
 // https://developer.chrome.com/docs/extensions/reference/scripting
 async function testScriptingForPromise() {
-    await chrome.scripting.executeScript({target: {tabId: 0}});
-    await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: []})
-    await chrome.scripting.executeScript({target: {tabId: 0}, func: (name: string) => {}, args: []})
-    await chrome.scripting.executeScript({target: {tabId: 0}, func: () => {}, args: {}}) // $ExpectError
-    await chrome.scripting.insertCSS({target: {tabId: 0}});
+    await chrome.scripting.executeScript({ target: { tabId: 0 } }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: [0, ''] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [0] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: [''] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (name: string) => {}, args: [] }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: {} }); // $ExpectError
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] });
+
+    await chrome.scripting.insertCSS({ target: { tabId: 0 } });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_cpu

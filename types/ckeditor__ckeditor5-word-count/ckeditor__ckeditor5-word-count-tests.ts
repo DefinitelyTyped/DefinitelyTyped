@@ -27,3 +27,6 @@ const config: WordCountConfig = {
 };
 
 const foo: string = utils.modelElementToPlainText(Element.fromJSON({ name: 'foo' }));
+
+// $ExpectType WordCount
+myEditor.plugins.get('WordCount');

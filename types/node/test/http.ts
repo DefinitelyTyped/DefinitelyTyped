@@ -31,6 +31,7 @@ import * as net from 'node:net';
 
     // test public props
     const maxHeadersCount: number | null = server.maxHeadersCount;
+    const maxRequestsPerSocket: number | null = server.maxRequestsPerSocket;
     const headersTimeout: number = server.headersTimeout;
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;

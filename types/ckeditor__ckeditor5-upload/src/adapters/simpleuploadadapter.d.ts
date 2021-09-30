@@ -12,3 +12,9 @@ export interface SimpleUploadConfig {
     uploadUrl?: string | undefined;
     withCredentials?: boolean | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        SimpleUploadAdapter: SimpleUploadAdapter;
+    }
+}

@@ -1,11 +1,11 @@
 export = Controller;
 declare function Controller(): void;
 declare class Controller {
-    outgoingMessages_: MessageBuffer;
-    pubsub_: any;
+    private outgoingMessages_;
+    private pubsub_;
     private lastUniqueId_;
     createUniqueId(location: Location): string;
-    locationFromId_(id: string): Location;
+    private locationFromId_;
     sendMessage(targetId: string, message: any): void;
     initSlaveComponent(
         ownerId: string | null,
@@ -28,8 +28,6 @@ declare class Controller {
     ): void;
 }
 declare namespace Controller {
-    const instance_: Controller;
     function getInstance(): Controller;
 }
-import MessageBuffer = require('./MessageBuffer.js');
 import Location = require('./Location.js');

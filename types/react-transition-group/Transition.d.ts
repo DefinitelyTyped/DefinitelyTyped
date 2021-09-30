@@ -137,7 +137,7 @@ interface BaseTransitionProps<RefElement extends undefined | HTMLElement> {
 export type TransitionStatus = typeof ENTERING | typeof ENTERED | typeof EXITING | typeof EXITED | typeof UNMOUNTED;
 export type TransitionChildren = ReactNode | ((status: TransitionStatus) => ReactNode);
 
-interface TimeoutProps<RefElement extends undefined | HTMLElement> extends BaseTransitionProps<RefElement> {
+export interface TimeoutProps<RefElement extends undefined | HTMLElement> extends BaseTransitionProps<RefElement> {
     /**
      * The duration of the transition, in milliseconds. Required unless addEndListener is provided.
      *
@@ -167,7 +167,7 @@ interface TimeoutProps<RefElement extends undefined | HTMLElement> extends BaseT
     addEndListener?: EndHandler<RefElement> | undefined;
 }
 
-interface EndListenerProps<Ref extends undefined | HTMLElement> extends BaseTransitionProps<Ref> {
+export interface EndListenerProps<Ref extends undefined | HTMLElement> extends BaseTransitionProps<Ref> {
     /**
      * The duration of the transition, in milliseconds. Required unless addEndListener is provided.
      *

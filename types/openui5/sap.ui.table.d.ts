@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.94.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -250,6 +250,10 @@ declare module "sap/ui/table/AnalyticalColumn" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.AnalyticalColumn.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Gets current value of property {@link #getGroupHeaderFormatter groupHeaderFormatter}.
      *
      * If the column is grouped, this formatter is used to format the value in the group header
@@ -271,10 +275,6 @@ declare module "sap/ui/table/AnalyticalColumn" {
      * this means the property which is grouped by for dimensions or the property which is summed for measures.
      */
     getLeadingProperty(): string;
-    /**
-     * Returns a metadata object for class sap.ui.table.AnalyticalColumn.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getShowIfGrouped showIfGrouped}.
      *
@@ -549,6 +549,31 @@ declare module "sap/ui/table/AnalyticalTable" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.table.AnalyticalTable with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, AnalyticalTable>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.AnalyticalTable.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Marks a range of tree nodes as selected, starting with iFromIndex going to iToIndex. The nodes are referenced
      * via their absolute row index. Please be aware that the absolute row index only applies to the tree which
      * is visualized by the `AnalyticalTable` control. Invisible nodes (collapsed child nodes) will not be taken
@@ -597,27 +622,6 @@ declare module "sap/ui/table/AnalyticalTable" {
      * groups are loaded, which increases the scroll range, and the scroll thumb moves up.
      */
     expandAll(): this;
-    /**
-     * Creates a new subclass of class sap.ui.table.AnalyticalTable with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, AnalyticalTable>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @deprecated (since 1.44) - replaced by the `autoExpandMode` binding parameter
      *
@@ -707,10 +711,6 @@ declare module "sap/ui/table/AnalyticalTable" {
      * The `groupBy` association is not supported by the `AnalyticalTable` control.
      */
     getGroupBy(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.table.AnalyticalTable.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.44) - replaced by the `numberOfExpandedLevels` binding parameter
      *
@@ -1211,6 +1211,31 @@ declare module "sap/ui/table/Column" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.table.Column with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Column>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.Column.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.13.1
      *
      * Adds some multiLabel to the aggregation {@link #getMultiLabels multiLabels}.
@@ -1304,27 +1329,6 @@ declare module "sap/ui/table/Column" {
        */
       oListener?: object
     ): this;
-    /**
-     * Creates a new subclass of class sap.ui.table.Column with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Column>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
     /**
      * @SINCE 1.33.0
      *
@@ -1490,10 +1494,6 @@ declare module "sap/ui/table/Column" {
      * `menu` with a new instance of `sap.ui.unified.Menu`.
      */
     getMenu(): Menu;
-    /**
-     * Returns a metadata object for class sap.ui.table.Column.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.44.1
      *
@@ -2313,7 +2313,7 @@ declare module "sap/ui/table/Column" {
      *
      * Fires before the column menu is opened.
      */
-    columnMenuOpen?: Function;
+    columnMenuOpen?: (oEvent: Event) => void;
   }
 }
 
@@ -2443,6 +2443,31 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     constructor();
 
     /**
+     * Creates a new subclass of class sap.ui.table.plugins.MultiSelectionPlugin with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MultiSelectionPlugin>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.MultiSelectionPlugin.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds the given selection interval to the selection and requests the corresponding binding contexts. In
      * single-selection mode it requests the context and sets the selected index to `iIndexTo`.
      *
@@ -2536,27 +2561,6 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.table.plugins.MultiSelectionPlugin with name `sClassName` and
-     * enriches it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.plugins.SelectionPlugin.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, MultiSelectionPlugin>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      */
     fireSelectionChange(
@@ -2604,10 +2608,6 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
      * Default value is `200`.
      */
     getLimit(): int;
-    /**
-     * Returns a metadata object for class sap.ui.table.plugins.MultiSelectionPlugin.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Zero-based indices of selected indices, wrapped in an array. An empty array means nothing has been selected.
      */
@@ -2818,7 +2818,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     /**
      * This event is fired when the selection is changed.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -2848,6 +2848,31 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
      */
     constructor();
 
+    /**
+     * Creates a new subclass of class sap.ui.table.plugins.SelectionPlugin with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SelectionPlugin>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.plugins.SelectionPlugin.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:selectionChange selectionChange} event of this
      * `sap.ui.table.plugins.SelectionPlugin`.
@@ -2910,27 +2935,6 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.table.plugins.SelectionPlugin with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, SelectionPlugin>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
      */
     fireSelectionChange(
@@ -2939,17 +2943,13 @@ declare module "sap/ui/table/plugins/SelectionPlugin" {
        */
       mParameters?: object
     ): this;
-    /**
-     * Returns a metadata object for class sap.ui.table.plugins.SelectionPlugin.
-     */
-    static getMetadata(): ElementMetadata;
   }
 
   export interface $SelectionPluginSettings extends $ElementSettings {
     /**
      * This event is fired when the selection is changed.
      */
-    selectionChange?: Function;
+    selectionChange?: (oEvent: Event) => void;
   }
 }
 
@@ -3000,19 +3000,6 @@ declare module "sap/ui/table/Row" {
     );
 
     /**
-     * Adds some cell to the aggregation {@link #getCells cells}.
-     */
-    addCell(
-      /**
-       * The cell to add; if empty, nothing is inserted
-       */
-      oCell: Control
-    ): this;
-    /**
-     * Destroys all the cells in the aggregation {@link #getCells cells}.
-     */
-    destroyCells(): this;
-    /**
      * Creates a new subclass of class sap.ui.table.Row with name `sClassName` and enriches it with the information
      * contained in `oClassInfo`.
      *
@@ -3034,6 +3021,23 @@ declare module "sap/ui/table/Row" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.Row.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some cell to the aggregation {@link #getCells cells}.
+     */
+    addCell(
+      /**
+       * The cell to add; if empty, nothing is inserted
+       */
+      oCell: Control
+    ): this;
+    /**
+     * Destroys all the cells in the aggregation {@link #getCells cells}.
+     */
+    destroyCells(): this;
+    /**
      * Gets content of aggregation {@link #getCells cells}.
      *
      * The actual cells are a table-internal construct. The controls in this aggregation are the content of
@@ -3046,10 +3050,6 @@ declare module "sap/ui/table/Row" {
      * scroll position of the table and also takes fixed rows and fixed bottom rows into account.
      */
     getIndex(): int;
-    /**
-     * Returns a metadata object for class sap.ui.table.Row.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Returns the related `RowAction` of the row.
      *
@@ -3161,19 +3161,6 @@ declare module "sap/ui/table/RowAction" {
     );
 
     /**
-     * Adds some item to the aggregation {@link #getItems items}.
-     */
-    addItem(
-      /**
-       * The item to add; if empty, nothing is inserted
-       */
-      oItem: RowActionItem
-    ): this;
-    /**
-     * Destroys all the items in the aggregation {@link #getItems items}.
-     */
-    destroyItems(): this;
-    /**
      * Creates a new subclass of class sap.ui.table.RowAction with name `sClassName` and enriches it with the
      * information contained in `oClassInfo`.
      *
@@ -3195,15 +3182,28 @@ declare module "sap/ui/table/RowAction" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.RowAction.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: RowActionItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     */
+    destroyItems(): this;
+    /**
      * Gets content of aggregation {@link #getItems items}.
      *
      * The action items which should be displayed.
      */
     getItems(): RowActionItem[];
-    /**
-     * Returns a metadata object for class sap.ui.table.RowAction.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getVisible visible}.
      *
@@ -3334,6 +3334,31 @@ declare module "sap/ui/table/RowActionItem" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.table.RowActionItem with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RowActionItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.RowActionItem.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.table.RowActionItem`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -3390,27 +3415,6 @@ declare module "sap/ui/table/RowActionItem" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.table.RowActionItem with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, RowActionItem>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:press press} to attached listeners.
      */
     firePress(
@@ -3425,10 +3429,6 @@ declare module "sap/ui/table/RowActionItem" {
      * The icon of the item.
      */
     getIcon(): URI;
-    /**
-     * Returns a metadata object for class sap.ui.table.RowActionItem.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
@@ -3540,7 +3540,7 @@ declare module "sap/ui/table/RowActionItem" {
     /**
      * The `press` is fired when the user triggers the corresponding action.
      */
-    press?: Function;
+    press?: (oEvent: Event) => void;
   }
 }
 
@@ -3611,6 +3611,10 @@ declare module "sap/ui/table/RowSettings" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.RowSettings.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * @SINCE 1.48.0
      *
      * Gets current value of property {@link #getHighlight highlight}.
@@ -3641,10 +3645,6 @@ declare module "sap/ui/table/RowSettings" {
      * Default value is `empty string`.
      */
     getHighlightText(): string;
-    /**
-     * Returns a metadata object for class sap.ui.table.RowSettings.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.72
      *
@@ -3795,6 +3795,8 @@ declare module "sap/ui/table/Table" {
 
   import Binding from "sap/ui/model/Binding";
 
+  import DragDropBase from "sap/ui/core/dnd/DragDropBase";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import RowAction from "sap/ui/table/RowAction";
@@ -3855,6 +3857,31 @@ declare module "sap/ui/table/Table" {
       mSettings?: $TableSettings
     );
 
+    /**
+     * Creates a new subclass of class sap.ui.table.Table with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, Table>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.Table.
+     */
+    static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -5069,27 +5096,6 @@ declare module "sap/ui/table/Table" {
       mSettings?: object
     ): Export;
     /**
-     * Creates a new subclass of class sap.ui.table.Table with name `sClassName` and enriches it with the information
-     * contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, Table>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Filters a column by a value. If no filter value is passed, the filter value equals an empty string, and
      * the filter for this column is removed.
      */
@@ -5575,7 +5581,7 @@ declare module "sap/ui/table/Table" {
      * 	 - Group header rows
      * 	 - Sum rows
      */
-    getDragDropConfig(): undefined;
+    getDragDropConfig(): DragDropBase[];
     /**
      * Gets current value of property {@link #getEditable editable}.
      *
@@ -5740,10 +5746,6 @@ declare module "sap/ui/table/Table" {
      * ID of the element which is the current target of the association {@link #getGroupBy groupBy}, or `null`.
      */
     getGroupBy(): ID;
-    /**
-     * Returns a metadata object for class sap.ui.table.Table.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getMinAutoRowCount minAutoRowCount}.
      *
@@ -6844,7 +6846,7 @@ declare module "sap/ui/table/Table" {
       /**
        * Set to true to add the new sort criterion to the existing sort criteria
        */
-      bAdd: Boolean
+      bAdd: boolean
     ): void;
     /**
      * Unbinds aggregation {@link #getColumns columns} from model data.
@@ -7244,49 +7246,49 @@ declare module "sap/ui/table/Table" {
      *
      * **Note:** If a selection plugin is applied to the table, this event won't be fired.
      */
-    rowSelectionChange?: Function;
+    rowSelectionChange?: (oEvent: Event) => void;
 
     /**
      * fired when a column of the table has been selected
      */
-    columnSelect?: Function;
+    columnSelect?: (oEvent: Event) => void;
 
     /**
      * fired when a table column is resized.
      */
-    columnResize?: Function;
+    columnResize?: (oEvent: Event) => void;
 
     /**
      * fired when a table column is moved.
      */
-    columnMove?: Function;
+    columnMove?: (oEvent: Event) => void;
 
     /**
      * fired when the table is sorted.
      */
-    sort?: Function;
+    sort?: (oEvent: Event) => void;
 
     /**
      * fired when the table is filtered.
      */
-    filter?: Function;
+    filter?: (oEvent: Event) => void;
 
     /**
      * fired when the table is grouped (experimental!).
      */
-    group?: Function;
+    group?: (oEvent: Event) => void;
 
     /**
      * fired when the visibility of a table column is changed.
      */
-    columnVisibility?: Function;
+    columnVisibility?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.21.0
      *
      * fired when the user clicks a cell of the table (experimental!).
      */
-    cellClick?: Function;
+    cellClick?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.21.0
@@ -7294,21 +7296,21 @@ declare module "sap/ui/table/Table" {
      *
      * fired when the user clicks a cell of the table.
      */
-    cellContextmenu?: Function;
+    cellContextmenu?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.54
      *
      * Fired when the user requests the context menu for a table cell.
      */
-    beforeOpenContextMenu?: Function;
+    beforeOpenContextMenu?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.21.0
      *
      * fired when a column of the table should be freezed
      */
-    columnFreeze?: Function;
+    columnFreeze?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.23.0
@@ -7316,7 +7318,7 @@ declare module "sap/ui/table/Table" {
      * This event is triggered when the custom filter item of the column menu is pressed. The column on which
      * the event was triggered is passed as parameter.
      */
-    customFilter?: Function;
+    customFilter?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.37.0
@@ -7324,14 +7326,14 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the first visible row is changed. It should only be used by composite controls.
      * The event even is fired when setFirstVisibleRow is called programmatically.
      */
-    firstVisibleRowChanged?: Function;
+    firstVisibleRowChanged?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.37.0
      *
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      */
-    busyStateChanged?: Function;
+    busyStateChanged?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.60
@@ -7339,7 +7341,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the user pastes content from the clipboard to the table. Pasting can be done
      * with the standard keyboard shortcut, if the focus is inside the table.
      */
-    paste?: Function;
+    paste?: (oEvent: Event) => void;
 
     /**
      * @SINCE 1.86
@@ -7349,7 +7351,7 @@ declare module "sap/ui/table/Table" {
      *
      * **Note**: This event is fired often and must not be used for performance-critical tasks.
      */
-    rowsUpdated?: Function;
+    rowsUpdated?: (oEvent: Event) => void;
   }
 }
 
@@ -7427,6 +7429,10 @@ declare module "sap/ui/table/TablePersoController" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * Returns a metadata object for class sap.ui.table.TablePersoController.
+     */
+    static getMetadata(): ManagedObjectMetadata;
+    /**
      * Gets current value of property {@link #getAutoSave autoSave}.
      *
      * Auto save state
@@ -7444,10 +7450,6 @@ declare module "sap/ui/table/TablePersoController" {
      * Default value is `"persoKey"`.
      */
     getCustomDataKey(): string;
-    /**
-     * Returns a metadata object for class sap.ui.table.TablePersoController.
-     */
-    static getMetadata(): ManagedObjectMetadata;
     /**
      * Gets current value of property {@link #getPersoService persoService}.
      *
@@ -7704,6 +7706,31 @@ declare module "sap/ui/table/TreeTable" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.table.TreeTable with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TreeTable>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.table.TreeTable.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds the given selection interval to the selection. In case of single selection, only `iIndexTo` is added
      * to the selection. Invisible nodes (collapsed child nodes) will not be regarded.
      *
@@ -7816,27 +7843,6 @@ declare module "sap/ui/table/TreeTable" {
       iLevel: int
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.table.TreeTable with name `sClassName` and enriches it with the
-     * information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.table.Table.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TreeTable>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
      */
     fireToggleOpenState(
@@ -7928,10 +7934,6 @@ declare module "sap/ui/table/TreeTable" {
      * The property name of the rows data which will be displayed as a group header if the group mode is enabled
      */
     getGroupHeaderProperty(): string;
-    /**
-     * Returns a metadata object for class sap.ui.table.TreeTable.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * @deprecated (since 1.76) - replaced by the `rootLevel` binding parameter
      *
@@ -8285,7 +8287,7 @@ declare module "sap/ui/table/TreeTable" {
     /**
      * Fired when a row has been expanded or collapsed by user interaction. Only available in hierarchical mode.
      */
-    toggleOpenState?: Function;
+    toggleOpenState?: (oEvent: Event) => void;
   }
 }
 

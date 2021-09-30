@@ -1,7 +1,8 @@
-import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync  } from 'node:fs/promises';
+import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync, cp as cpAsync } from 'node:fs/promises';
 import * as fs from 'node:fs';
 import * as util from 'node:util';
 import assert = require('node:assert');
+import { CopyOptions, cpSync, cp } from 'fs';
 
 {
     fs.writeFile("thebible.txt",
@@ -515,7 +516,6 @@ async function testStat(
 
     fs.statSync(path, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
     fs.lstatSync(path, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
-    fs.fstatSync(fd, { throwIfNoEntry: false }); // $ExpectType Stats | undefined
 
     fs.statSync(path, {}); // $ExpectType Stats
     fs.lstatSync(path, {}); // $ExpectType Stats
@@ -531,15 +531,14 @@ async function testStat(
 
     fs.statSync(path, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
     fs.lstatSync(path, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
-    fs.fstatSync(fd, { bigint: true, throwIfNoEntry: false }); // $ExpectType BigIntStats | undefined
 
     fs.statSync(path, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
     fs.lstatSync(path, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
-    fs.fstatSync(fd, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats | undefined
+    fs.fstatSync(fd, bigIntMaybeTrue); // $ExpectType Stats | BigIntStats
 
     fs.statSync(path, opts); // $ExpectType Stats | BigIntStats | undefined
     fs.lstatSync(path, opts); // $ExpectType Stats | BigIntStats | undefined
-    fs.fstatSync(fd, opts); // $ExpectType Stats | BigIntStats | undefined
+    fs.fstatSync(fd, opts); // $ExpectType Stats | BigIntStats
 
     // Promisify mode
     util.promisify(fs.stat)(path); // $ExpectType Promise<Stats>
@@ -606,9 +605,28 @@ const bigIntStat: bigint = bigStats.atimeNs;
 const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.random() > 0.5 });
 
 {
-    watchAsync('y33t'); // $ExpectType AsyncIterable<string>
-    watchAsync('y33t', 'buffer'); // $ExpectType AsyncIterable<Buffer>
-    watchAsync('y33t', { encoding: 'buffer', signal: new AbortSignal() }); // $ExpectType AsyncIterable<Buffer>
+    watchAsync('y33t'); // $ExpectType AsyncIterable<FileChangeInfo<string>>
+    watchAsync('y33t', 'buffer'); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
+    watchAsync('y33t', { encoding: 'buffer', signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
 
-    watchAsync('test', { persistent: true, recursive: true, encoding: 'utf-8' }); // $ExpectType AsyncIterable<string>
+    watchAsync('test', { persistent: true, recursive: true, encoding: 'utf-8' }); // $ExpectType AsyncIterable<FileChangeInfo<string>>
+}
+
+{
+    const opts: CopyOptions = {
+        dereference: false,
+        errorOnExist: true,
+        filter(src, dst) {
+            return src !== 'node_modules' && dst !== 'something';
+        },
+        force: true,
+        preserveTimestamps: true,
+        recursive: false,
+    };
+    cp('src', 'dest', (err: Error | null) => {});
+    cp('src', 'dest', opts, (err: Error | null) => {});
+    cpSync('src', 'dest');
+    cpSync('src', 'dest', opts);
+    cpAsync('src', 'dest'); // $ExpectType Promise<void>
+    cpAsync('src', 'dest', opts); // $ExpectType Promise<void>
 }

@@ -5,30 +5,18 @@
  * To use the promise-based APIs:
  *
  * ```js
- * // Using ESM Module syntax:
  * import * as fs from 'fs/promises';
- * ```
- *
- * ```js
- * // Using CommonJS syntax:
- * const fs = require('fs/promises');
  * ```
  *
  * To use the callback and sync APIs:
  *
  * ```js
- * // Using ESM Module syntax:
  * import * as fs from 'fs';
- * ```
- *
- * ```js
- * // Using CommonJS syntax:
- * const fs = require('fs');
  * ```
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/fs.js)
  */
 declare module 'fs' {
     import * as stream from 'node:stream';
@@ -83,7 +71,7 @@ declare module 'fs' {
     }
     export interface Stats extends StatsBase<number> {}
     /**
-     * A `<fs.Stats>` object provides information about a file.
+     * A `fs.Stats` object provides information about a file.
      *
      * Objects returned from {@link stat}, {@link lstat} and {@link fstat} and
      * their synchronous counterparts are of this type.
@@ -145,53 +133,53 @@ declare module 'fs' {
     export class Stats {}
     /**
      * A representation of a directory entry, which can be a file or a subdirectory
-     * within the directory, as returned by reading from an `<fs.Dir>`. The
+     * within the directory, as returned by reading from an `fs.Dir`. The
      * directory entry is a combination of the file name and file type pairs.
      *
      * Additionally, when {@link readdir} or {@link readdirSync} is called with
-     * the `withFileTypes` option set to `true`, the resulting array is filled with `<fs.Dirent>` objects, rather than strings or `<Buffer>` s.
+     * the `withFileTypes` option set to `true`, the resulting array is filled with `fs.Dirent` objects, rather than strings or `Buffer` s.
      * @since v10.10.0
      */
     export class Dirent {
         /**
-         * Returns `true` if the `<fs.Dirent>` object describes a regular file.
+         * Returns `true` if the `fs.Dirent` object describes a regular file.
          * @since v10.10.0
          */
         isFile(): boolean;
         /**
-         * Returns `true` if the `<fs.Dirent>` object describes a file system
+         * Returns `true` if the `fs.Dirent` object describes a file system
          * directory.
          * @since v10.10.0
          */
         isDirectory(): boolean;
         /**
-         * Returns `true` if the `<fs.Dirent>` object describes a block device.
+         * Returns `true` if the `fs.Dirent` object describes a block device.
          * @since v10.10.0
          */
         isBlockDevice(): boolean;
         /**
-         * Returns `true` if the `<fs.Dirent>` object describes a character device.
+         * Returns `true` if the `fs.Dirent` object describes a character device.
          * @since v10.10.0
          */
         isCharacterDevice(): boolean;
         /**
-         * Returns `true` if the `<fs.Dirent>` object describes a symbolic link.
+         * Returns `true` if the `fs.Dirent` object describes a symbolic link.
          * @since v10.10.0
          */
         isSymbolicLink(): boolean;
         /**
-         * Returns `true` if the `<fs.Dirent>` object describes a first-in-first-out
+         * Returns `true` if the `fs.Dirent` object describes a first-in-first-out
          * (FIFO) pipe.
          * @since v10.10.0
          */
         isFIFO(): boolean;
         /**
-         * Returns `true` if the `<fs.Dirent>` object describes a socket.
+         * Returns `true` if the `fs.Dirent` object describes a socket.
          * @since v10.10.0
          */
         isSocket(): boolean;
         /**
-         * The file name that this `<fs.Dirent>` object refers to. The type of this
+         * The file name that this `fs.Dirent` object refers to. The type of this
          * value is determined by the `options.encoding` passed to {@link readdir} or {@link readdirSync}.
          * @since v10.10.0
          */
@@ -200,7 +188,7 @@ declare module 'fs' {
     /**
      * A class representing a directory stream.
      *
-     * Created by {@link opendir}, {@link opendirSync}, or {@link romises.opendir}.
+     * Created by {@link opendir}, {@link opendirSync}, or `fsPromises.opendir()`.
      *
      * ```js
      * import { opendir } from 'fs/promises';
@@ -214,13 +202,13 @@ declare module 'fs' {
      * }
      * ```
      *
-     * When using the async iterator, the `<fs.Dir>` object will be automatically
+     * When using the async iterator, the `fs.Dir` object will be automatically
      * closed after the iterator exits.
      * @since v12.12.0
      */
     export class Dir implements AsyncIterable<Dirent> {
         /**
-         * The read-only path of this directory as was provided to {@link opendir},{@link opendirSync}, or {@link romises.opendir}.
+         * The read-only path of this directory as was provided to {@link opendir},{@link opendirSync}, or `fsPromises.opendir()`.
          * @since v12.12.0
          */
         readonly path: string;
@@ -245,9 +233,9 @@ declare module 'fs' {
          */
         closeSync(): void;
         /**
-         * Asynchronously read the next directory entry via [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) as an `<fs.Dirent>`.
+         * Asynchronously read the next directory entry via [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) as an `fs.Dirent`.
          *
-         * A promise is returned that will be resolved with an `<fs.Dirent>`, or `null`if there are no more directory entries to read.
+         * A promise is returned that will be resolved with an `fs.Dirent`, or `null`if there are no more directory entries to read.
          *
          * Directory entries returned by this function are in no particular order as
          * provided by the operating system's underlying directory mechanisms.
@@ -259,7 +247,7 @@ declare module 'fs' {
         read(): Promise<Dirent | null>;
         read(cb: (err: NodeJS.ErrnoException | null, dirEnt: Dirent | null) => void): void;
         /**
-         * Synchronously read the next directory entry as an `<fs.Dirent>`. See the
+         * Synchronously read the next directory entry as an `fs.Dirent`. See the
          * POSIX [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) documentation for more detail.
          *
          * If there are no more directory entries to read, `null` will be returned.
@@ -274,7 +262,7 @@ declare module 'fs' {
     }
     export interface FSWatcher extends EventEmitter {
         /**
-         * Stop watching for changes on the given `<fs.FSWatcher>`. Once stopped, the `<fs.FSWatcher>` object is no longer usable.
+         * Stop watching for changes on the given `fs.FSWatcher`. Once stopped, the `fs.FSWatcher` object is no longer usable.
          * @since v0.5.8
          */
         close(): void;
@@ -305,7 +293,7 @@ declare module 'fs' {
         prependOnceListener(event: 'close', listener: () => void): this;
     }
     /**
-     * Instances of `<fs.ReadStream>` are created and returned using the {@link createReadStream} function.
+     * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
      * @since v0.1.93
      */
     export class ReadStream extends stream.Readable {
@@ -317,8 +305,8 @@ declare module 'fs' {
         bytesRead: number;
         /**
          * The path to the file the stream is reading from as specified in the first
-         * argument to `fs.createReadStream()`. If `path` is passed as a string, then`readStream.path` will be a string. If `path` is passed as a `<Buffer>`, then`readStream.path` will be a
-         * `<Buffer>`.
+         * argument to `fs.createReadStream()`. If `path` is passed as a string, then`readStream.path` will be a string. If `path` is passed as a `Buffer`, then`readStream.path` will be a
+         * `Buffer`.
          * @since v0.1.93
          */
         path: string | Buffer;
@@ -386,9 +374,9 @@ declare module 'fs' {
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
     /**
-     * * Extends `<stream.Writable>`
+     * * Extends `stream.Writable`
      *
-     * Instances of `<fs.WriteStream>` are created and returned using the {@link createWriteStream} function.
+     * Instances of `fs.WriteStream` are created and returned using the {@link createWriteStream} function.
      * @since v0.1.93
      */
     export class WriteStream extends stream.Writable {
@@ -406,8 +394,8 @@ declare module 'fs' {
         bytesWritten: number;
         /**
          * The path to the file the stream is writing to as specified in the first
-         * argument to {@link createWriteStream}. If `path` is passed as a string, then`writeStream.path` will be a string. If `path` is passed as a `<Buffer>`, then`writeStream.path` will be a
-         * `<Buffer>`.
+         * argument to {@link createWriteStream}. If `path` is passed as a string, then`writeStream.path` will be a string. If `path` is passed as a `Buffer`, then`writeStream.path` will be a
+         * `Buffer`.
          * @since v0.1.93
          */
         path: string | Buffer;
@@ -510,6 +498,15 @@ declare module 'fs' {
      * Truncates the file. No arguments other than a possible exception are
      * given to the completion callback. A file descriptor can also be passed as the
      * first argument. In this case, `fs.ftruncate()` is called.
+     *
+     * ```js
+     * import { truncate } from 'fs';
+     * // Assuming that 'path/file.txt' is a regular file.
+     * truncate('path/file.txt', (err) => {
+     *   if (err) throw err;
+     *   console.log('path/file.txt was truncated');
+     * });
+     * ```
      *
      * Passing a file descriptor is deprecated and may result in an error being thrown
      * in the future.
@@ -789,7 +786,7 @@ declare module 'fs' {
      */
     export function lchmodSync(path: PathLike, mode: Mode): void;
     /**
-     * Asynchronous [`stat(2)`](http://man7.org/linux/man-pages/man2/stat.2.html). The callback gets two arguments `(err, stats)` where`stats` is an `<fs.Stats>` object.
+     * Asynchronous [`stat(2)`](http://man7.org/linux/man-pages/man2/stat.2.html). The callback gets two arguments `(err, stats)` where`stats` is an `fs.Stats` object.
      *
      * In case of an error, the `err.code` will be one of `Common System Errors`.
      *
@@ -907,42 +904,42 @@ declare module 'fs' {
         ): Promise<BigIntStats>;
         function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
-    export interface StatSyncFn<TDescriptor = PathLike> extends Function {
-        (path: TDescriptor, options?: undefined): Stats;
+    export interface StatSyncFn extends Function {
+        (path: PathLike, options?: undefined): Stats;
         (
-            path: TDescriptor,
-            options?: StatOptions & {
+            path: PathLike,
+            options?: StatSyncOptions & {
                 bigint?: false | undefined;
                 throwIfNoEntry: false;
             }
         ): Stats | undefined;
         (
-            path: TDescriptor,
-            options: StatOptions & {
+            path: PathLike,
+            options: StatSyncOptions & {
                 bigint: true;
                 throwIfNoEntry: false;
             }
         ): BigIntStats | undefined;
         (
-            path: TDescriptor,
-            options?: StatOptions & {
+            path: PathLike,
+            options?: StatSyncOptions & {
                 bigint?: false | undefined;
             }
         ): Stats;
         (
-            path: TDescriptor,
-            options: StatOptions & {
+            path: PathLike,
+            options: StatSyncOptions & {
                 bigint: true;
             }
         ): BigIntStats;
         (
-            path: TDescriptor,
-            options: StatOptions & {
+            path: PathLike,
+            options: StatSyncOptions & {
                 bigint: boolean;
                 throwIfNoEntry?: false | undefined;
             }
         ): Stats | BigIntStats;
-        (path: TDescriptor, options?: StatOptions): Stats | BigIntStats | undefined;
+        (path: PathLike, options?: StatSyncOptions): Stats | BigIntStats | undefined;
     }
     /**
      * Synchronous stat(2) - Get file status.
@@ -950,7 +947,7 @@ declare module 'fs' {
      */
     export const statSync: StatSyncFn;
     /**
-     * Invokes the callback with the `<fs.Stats>` for the file descriptor.
+     * Invokes the callback with the `fs.Stats` for the file descriptor.
      *
      * See the POSIX [`fstat(2)`](http://man7.org/linux/man-pages/man2/fstat.2.html) documentation for more detail.
      * @since v0.1.95
@@ -996,10 +993,23 @@ declare module 'fs' {
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    export const fstatSync: StatSyncFn<number>;
+    export function fstatSync(
+        fd: number,
+        options?: StatOptions & {
+            bigint?: false | undefined;
+        }
+    ): Stats;
+    export function fstatSync(
+        fd: number,
+        options: StatOptions & {
+            bigint: true;
+        }
+    ): BigIntStats;
+    export function fstatSync(fd: number, options?: StatOptions): Stats | BigIntStats;
+
     /**
-     * Retrieves the `<fs.Stats>` for the symbolic link referred to by the path.
-     * The callback gets two arguments `(err, stats)` where `stats` is a `<fs.Stats>` object. `lstat()` is identical to `stat()`, except that if `path` is a symbolic
+     * Retrieves the `fs.Stats` for the symbolic link referred to by the path.
+     * The callback gets two arguments `(err, stats)` where `stats` is a `fs.Stats` object. `lstat()` is identical to `stat()`, except that if `path` is a symbolic
      * link, then the link itself is stat-ed, not the file that it refers to.
      *
      * See the POSIX [`lstat(2)`](http://man7.org/linux/man-pages/man2/lstat.2.html) documentation for more details.
@@ -1048,8 +1058,8 @@ declare module 'fs' {
      */
     export const lstatSync: StatSyncFn;
     /**
-     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX[`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. No arguments other than a
-     * possible
+     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. No arguments other than
+     * a possible
      * exception are given to the completion callback.
      * @since v0.1.31
      */
@@ -1063,7 +1073,7 @@ declare module 'fs' {
         function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
     /**
-     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX[`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. Returns `undefined`.
+     * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. Returns `undefined`.
      * @since v0.1.31
      */
     export function linkSync(existingPath: PathLike, newPath: PathLike): void;
@@ -1133,7 +1143,7 @@ declare module 'fs' {
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
      * the link path passed to the callback. If the `encoding` is set to `'buffer'`,
-     * the link path returned will be passed as a `<Buffer>` object.
+     * the link path returned will be passed as a `Buffer` object.
      * @since v0.1.31
      */
     export function readlink(path: PathLike, options: EncodingOption, callback: (err: NodeJS.ErrnoException | null, linkString: string) => void): void;
@@ -1182,7 +1192,7 @@ declare module 'fs' {
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
      * the link path returned. If the `encoding` is set to `'buffer'`,
-     * the link path returned will be passed as a `<Buffer>` object.
+     * the link path returned will be passed as a `Buffer` object.
      * @since v0.1.31
      */
     export function readlinkSync(path: PathLike, options?: EncodingOption): string;
@@ -1218,7 +1228,7 @@ declare module 'fs' {
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
      * the path passed to the callback. If the `encoding` is set to `'buffer'`,
-     * the path returned will be passed as a `<Buffer>` object.
+     * the path returned will be passed as a `Buffer` object.
      *
      * If `path` resolves to a socket or a pipe, the function will return a system
      * dependent name for that object.
@@ -1271,7 +1281,7 @@ declare module 'fs' {
          * The optional `options` argument can be a string specifying an encoding, or an
          * object with an `encoding` property specifying the character encoding to use for
          * the path passed to the callback. If the `encoding` is set to `'buffer'`,
-         * the path returned will be passed as a `<Buffer>` object.
+         * the path returned will be passed as a `Buffer` object.
          *
          * On Linux, when Node.js is linked against musl libc, the procfs file system must
          * be mounted on `/proc` in order for this function to work. Glibc does not have
@@ -1459,7 +1469,7 @@ declare module 'fs' {
      * Asynchronously creates a directory.
      *
      * The callback is given a possible exception and, if `recursive` is `true`, the
-     * first directory path created, `(err, [path])`.`path` can still be `undefined` when `recursive` is `true`, if no directory was
+     * first directory path created, `(err[, path])`.`path` can still be `undefined` when `recursive` is `true`, if no directory was
      * created.
      *
      * The optional `options` argument can be an integer specifying `mode` (permission
@@ -1731,9 +1741,9 @@ declare module 'fs' {
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
      * the filenames passed to the callback. If the `encoding` is set to `'buffer'`,
-     * the filenames returned will be passed as `<Buffer>` objects.
+     * the filenames returned will be passed as `Buffer` objects.
      *
-     * If `options.withFileTypes` is set to `true`, the `files` array will contain `<fs.Dirent>` objects.
+     * If `options.withFileTypes` is set to `true`, the `files` array will contain `fs.Dirent` objects.
      * @since v0.1.8
      */
     export function readdir(
@@ -1860,9 +1870,9 @@ declare module 'fs' {
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
      * the filenames returned. If the `encoding` is set to `'buffer'`,
-     * the filenames returned will be passed as `<Buffer>` objects.
+     * the filenames returned will be passed as `Buffer` objects.
      *
-     * If `options.withFileTypes` is set to `true`, the result will contain `<fs.Dirent>` objects.
+     * If `options.withFileTypes` is set to `true`, the result will contain `fs.Dirent` objects.
      * @since v0.1.21
      */
     export function readdirSync(
@@ -1952,7 +1962,7 @@ declare module 'fs' {
      *
      * Some characters (`< > : " / \ | ? *`) are reserved under Windows as documented
      * by [Naming Files, Paths, and Namespaces](https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file). Under NTFS, if the filename contains
-     * a colon, Node.js will open a file system stream, as described by[this MSDN page](https://docs.microsoft.com/en-us/windows/desktop/FileIO/using-streams).
+     * a colon, Node.js will open a file system stream, as described by [this MSDN page](https://docs.microsoft.com/en-us/windows/desktop/FileIO/using-streams).
      *
      * Functions based on `fs.open()` exhibit this behavior as well:`fs.writeFile()`, `fs.readFile()`, etc.
      * @since v0.0.2
@@ -2177,6 +2187,8 @@ declare module 'fs' {
         }>;
     }
     /**
+     * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
+     *
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link write}.
      * @since v0.1.21
@@ -2203,9 +2215,9 @@ declare module 'fs' {
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a promise for an `Object` with `bytesRead` and `buffer` properties.
      * @since v0.0.2
-     * @param [buffer=Buffer.alloc(16384)] The buffer that the data will be written to.
-     * @param [offset=0] The position in `buffer` to write the data to.
-     * @param [length=buffer.byteLength] The number of bytes to read.
+     * @param buffer The buffer that the data will be written to.
+     * @param offset The position in `buffer` to write the data to.
+     * @param length The number of bytes to read.
      * @param position Specifies where to begin reading from in the file. If `position` is `null` or `-1 `, data will be read from the current file position, and the file position will be updated. If
      * `position` is an integer, the file position will be unchanged.
      */
@@ -2510,10 +2522,14 @@ declare module 'fs' {
      * a file descriptor.
      *
      * The `encoding` option is ignored if `data` is a buffer.
-     * If `data` is a normal object, it must have an own `toString` function property.
+     *
+     * The `mode` option only affects the newly created file. See {@link open} for more details.
+     *
+     * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
      *
      * ```js
      * import { writeFile } from 'fs';
+     * import { Buffer } from 'buffer';
      *
      * const data = new Uint8Array(Buffer.from('Hello Node.js'));
      * writeFile('message.txt', data, (err) => {
@@ -2538,12 +2554,13 @@ declare module 'fs' {
      * performs multiple `write` calls internally to write the buffer passed to it.
      * For performance sensitive code consider using {@link createWriteStream}.
      *
-     * It is possible to use an `<AbortSignal>` to cancel an `fs.writeFile()`.
+     * It is possible to use an `AbortSignal` to cancel an `fs.writeFile()`.
      * Cancelation is "best effort", and some amount of data is likely still
      * to be written.
      *
      * ```js
      * import { writeFile } from 'fs';
+     * import { Buffer } from 'buffer';
      *
      * const controller = new AbortController();
      * const { signal } = controller;
@@ -2586,6 +2603,10 @@ declare module 'fs' {
     /**
      * Returns `undefined`.
      *
+     * If `data` is a plain object, it must have an own (not inherited) `toString`function property.
+     *
+     * The `mode` option only affects the newly created file. See {@link open} for more details.
+     *
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link writeFile}.
      * @since v0.1.29
@@ -2594,7 +2615,9 @@ declare module 'fs' {
     export function writeFileSync(file: PathOrFileDescriptor, data: string | NodeJS.ArrayBufferView, options?: WriteFileOptions): void;
     /**
      * Asynchronously append data to a file, creating the file if it does not yet
-     * exist. `data` can be a string or a `<Buffer>`.
+     * exist. `data` can be a string or a `Buffer`.
+     *
+     * The `mode` option only affects the newly created file. See {@link open} for more details.
      *
      * ```js
      * import { appendFile } from 'fs';
@@ -2668,7 +2691,9 @@ declare module 'fs' {
     }
     /**
      * Synchronously append data to a file, creating the file if it does not yet
-     * exist. `data` can be a string or a `<Buffer>`.
+     * exist. `data` can be a string or a `Buffer`.
+     *
+     * The `mode` option only affects the newly created file. See {@link open} for more details.
      *
      * ```js
      * import { appendFileSync } from 'fs';
@@ -2791,7 +2816,8 @@ declare module 'fs' {
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
     }
-    export type WatchListener<T> = (event: 'rename' | 'change', filename: T) => void;
+    export type WatchEventType = 'rename' | 'change';
+    export type WatchListener<T> = (event: WatchEventType, filename: T) => void;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a
      * directory.
@@ -2805,10 +2831,10 @@ declare module 'fs' {
      * On most platforms, `'rename'` is emitted whenever a filename appears or
      * disappears in the directory.
      *
-     * The listener callback is attached to the `'change'` event fired by `<fs.FSWatcher>`, but it is not the same thing as the `'change'` value of`eventType`.
+     * The listener callback is attached to the `'change'` event fired by `fs.FSWatcher`, but it is not the same thing as the `'change'` value of`eventType`.
      *
      * If a `signal` is passed, aborting the corresponding AbortController will close
-     * the returned `<fs.FSWatcher>`.
+     * the returned `fs.FSWatcher`.
      * @since v0.5.10
      * @param listener
      */
@@ -3145,7 +3171,7 @@ declare module 'fs' {
      * });
      *
      * // Check if the file exists in the current directory, and if it is writable.
-     * access(file, constants.F_OK | fs.constants.W_OK, (err) => {
+     * access(file, constants.F_OK | constants.W_OK, (err) => {
      *   if (err) {
      *     console.error(
      *       `${file} ${err.code === 'ENOENT' ? 'does not exist' : 'is read-only'}`);
@@ -3342,11 +3368,11 @@ declare module 'fs' {
      * start counting at 0, allowed values are in the
      * \[0, [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)\] range. If `fd` is specified and `start` is
      * omitted or `undefined`, `fs.createReadStream()` reads sequentially from the
-     * current file position. The `encoding` can be any one of those accepted by `<Buffer>`.
+     * current file position. The `encoding` can be any one of those accepted by `Buffer`.
      *
      * If `fd` is specified, `ReadStream` will ignore the `path` argument and will use
      * the specified file descriptor. This means that no `'open'` event will be
-     * emitted. `fd` should be blocking; non-blocking `fd`s should be passed to `<net.Socket>`.
+     * emitted. `fd` should be blocking; non-blocking `fd`s should be passed to `net.Socket`.
      *
      * If `fd` points to a character device that only supports blocking reads
      * (such as keyboard or sound card), read operations do not finish until data is
@@ -3357,7 +3383,8 @@ declare module 'fs' {
      * destroyed, like most `Readable` streams.  Set the `emitClose` option to`false` to change this behavior.
      *
      * By providing the `fs` option, it is possible to override the corresponding `fs`implementations for `open`, `read`, and `close`. When providing the `fs` option,
-     * overrides for `open`, `read`, and `close` are required.
+     * an override for `read` is required. If no `fd` is provided, an override for`open` is also required. If `autoClose` is `true`, an override for `close` is
+     * also required.
      *
      * ```js
      * import { createReadStream } from 'fs';
@@ -3403,7 +3430,7 @@ declare module 'fs' {
      * position past the beginning of the file, allowed values are in the
      * \[0, [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)\] range. Modifying a file rather than replacing
      * it may require the `flags` option to be set to `r+` rather than the default `w`.
-     * The `encoding` can be any one of those accepted by `<Buffer>`.
+     * The `encoding` can be any one of those accepted by `Buffer`.
      *
      * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
      * then the file descriptor won't be closed, even if there's an error.
@@ -3415,11 +3442,12 @@ declare module 'fs' {
      *
      * By providing the `fs` option it is possible to override the corresponding `fs`implementations for `open`, `write`, `writev` and `close`. Overriding `write()`without `writev()` can reduce
      * performance as some optimizations (`_writev()`)
-     * will be disabled. When providing the `fs` option,  overrides for `open`,`close`, and at least one of `write` and `writev` are required.
+     * will be disabled. When providing the `fs` option, overrides for at least one of`write` and `writev` are required. If no `fd` option is supplied, an override
+     * for `open` is also required. If `autoClose` is `true`, an override for `close`is also required.
      *
-     * Like `<fs.ReadStream>`, if `fd` is specified, `<fs.WriteStream>` will ignore the`path` argument and will use the specified file descriptor. This means that no`'open'` event will be
+     * Like `fs.ReadStream`, if `fd` is specified, `fs.WriteStream` will ignore the`path` argument and will use the specified file descriptor. This means that no`'open'` event will be
      * emitted. `fd` should be blocking; non-blocking `fd`s
-     * should be passed to `<net.Socket>`.
+     * should be passed to `net.Socket`.
      *
      * If `options` is a string, then it specifies the encoding.
      * @since v0.1.31
@@ -3428,7 +3456,7 @@ declare module 'fs' {
     export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
     /**
      * Forces all currently queued I/O operations associated with the file to the
-     * operating system's synchronized I/O completion state. Refer to the POSIX[`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. No arguments other
+     * operating system's synchronized I/O completion state. Refer to the POSIX [`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. No arguments other
      * than a possible
      * exception are given to the completion callback.
      * @since v0.1.96
@@ -3443,7 +3471,7 @@ declare module 'fs' {
     }
     /**
      * Forces all currently queued I/O operations associated with the file to the
-     * operating system's synchronized I/O completion state. Refer to the POSIX[`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. Returns `undefined`.
+     * operating system's synchronized I/O completion state. Refer to the POSIX [`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details. Returns `undefined`.
      * @since v0.1.96
      */
     export function fdatasyncSync(fd: number): void;
@@ -3614,7 +3642,7 @@ declare module 'fs' {
     /**
      * Synchronously open a directory. See [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html).
      *
-     * Creates an `<fs.Dir>`, which contains all further functions for reading from
+     * Creates an `fs.Dir`, which contains all further functions for reading from
      * and cleaning up the directory.
      *
      * The `encoding` option sets the encoding for the `path` while opening the
@@ -3626,7 +3654,7 @@ declare module 'fs' {
      * Asynchronously open a directory. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for
      * more details.
      *
-     * Creates an `<fs.Dir>`, which contains all further functions for reading from
+     * Creates an `fs.Dir`, which contains all further functions for reading from
      * and cleaning up the directory.
      *
      * The `encoding` option sets the encoding for the `path` while opening the
@@ -3649,8 +3677,71 @@ declare module 'fs' {
     }
     export interface StatOptions {
         bigint?: boolean | undefined;
+    }
+    export interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
+    export interface CopyOptions {
+        /**
+         * Dereference symlinks
+         * @default false
+         */
+        dereference?: boolean;
+        /**
+         * When `force` is `false`, and the destination
+         * exists, throw an error.
+         * @default false
+         */
+        errorOnExist?: boolean;
+        /**
+         * Function to filter copied files/directories. Return
+         * `true` to copy the item, `false` to ignore it.
+         */
+        filter?(source: string, destination: string): boolean;
+        /**
+         * Overwrite existing file or directory. _The copy
+         * operation will ignore errors if you set this to false and the destination
+         * exists. Use the `errorOnExist` option to change this behavior.
+         * @default true
+         */
+        force?: boolean;
+        /**
+         * When `true` timestamps from `src` will
+         * be preserved.
+         * @default false
+         */
+        preserveTimestamps?: boolean;
+        /**
+         * Copy directories recursively.
+         * @default false
+         */
+        recursive?: boolean;
+    }
+    /**
+     * Asynchronously copies the entire directory structure from `src` to `dest`,
+     * including subdirectories and files.
+     *
+     * When copying a directory to another directory, globs are not supported and
+     * behavior is similar to `cp dir1/ dir2/`.
+     * @since v16.7.0
+     * @experimental
+     * @param src source path to copy.
+     * @param dest destination path to copy to.
+     */
+    export function cp(source: string, destination: string, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    export function cp(source: string, destination: string, opts: CopyOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    /**
+     * Synchronously copies the entire directory structure from `src` to `dest`,
+     * including subdirectories and files.
+     *
+     * When copying a directory to another directory, globs are not supported and
+     * behavior is similar to `cp dir1/ dir2/`.
+     * @since v16.7.0
+     * @experimental
+     * @param src source path to copy.
+     * @param dest destination path to copy to.
+     */
+    export function cpSync(source: string, destination: string, opts?: CopyOptions): void;
 }
 declare module 'node:fs' {
     export * from 'fs';

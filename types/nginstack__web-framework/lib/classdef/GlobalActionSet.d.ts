@@ -1,7 +1,7 @@
 export = GlobalActionSet;
 declare function GlobalActionSet(): void;
 declare class GlobalActionSet {
-    items_: any;
+    private items_;
     onShow: LegacyEvent;
     add(action: any): void;
     get(name: string): GlobalAction;

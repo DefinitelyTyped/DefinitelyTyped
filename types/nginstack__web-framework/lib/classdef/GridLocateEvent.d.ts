@@ -2,7 +2,7 @@ export = GridLocateEvent;
 declare function GridLocateEvent(...args: any[]): void;
 declare class GridLocateEvent {
     constructor(...args: any[]);
-    foundWasInformed_: boolean;
+    private foundWasInformed_;
     value: string;
     options: number[];
     found: boolean;

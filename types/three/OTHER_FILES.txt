@@ -182,7 +182,6 @@ examples/jsm/objects/Lensflare.d.ts
 examples/jsm/objects/LightningStorm.d.ts
 examples/jsm/objects/LightningStorm.d.ts
 examples/jsm/objects/MarchingCubes.d.ts
-examples/jsm/objects/Reflector.d.ts
 examples/jsm/objects/ReflectorRTT.d.ts
 examples/jsm/objects/Refractor.d.ts
 examples/jsm/objects/ShadowMesh.d.ts
@@ -245,7 +244,6 @@ examples/jsm/shaders/LuminosityHighPassShader.d.ts
 examples/jsm/shaders/LuminosityShader.d.ts
 examples/jsm/shaders/MirrorShader.d.ts
 examples/jsm/shaders/NormalMapShader.d.ts
-examples/jsm/shaders/ParallaxShader.d.ts
 examples/jsm/shaders/PixelShader.d.ts
 examples/jsm/shaders/RGBShiftShader.d.ts
 examples/jsm/shaders/SAOShader.d.ts

@@ -119,7 +119,7 @@ declare namespace Faker {
             currencyName(): string;
             currencySymbol(): string;
             bitcoinAddress(): string;
-            iban(formatted?: boolean): string;
+            iban(formatted?: boolean, countryCode?: string): string;
             bic(): string;
             litecoinAddress(): string;
             creditCardNumber(provider?: string): string;

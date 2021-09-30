@@ -68,6 +68,7 @@ declare namespace Spotify {
         duration: number;
         paused: boolean;
         position: number;
+        loading: boolean;
         /**
          * 0: NO_REPEAT
          * 1: ONCE_REPEAT

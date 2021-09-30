@@ -1,18 +1,22 @@
-import { Config, Context, GlobalConfig, Options, Result } from 'semantic-release';
+import * as lib from 'semantic-release';
 import semanticRelease = require('semantic-release');
 
-function verify(pluginConfig: any, context: Context) {
+function analyzeCommits(pluginConfig: any, context: lib.Context) {
+    const commits = context.commits;
+}
+
+function verify(pluginConfig: any, context: lib.Context) {
     if (!("AWS_ACCESS_KEY_ID" in context.env)) {
         throw new Error("AWS_ACCESS_KEY_ID not set");
     }
 }
 
-function publish(pluginConfig: any, context: Context) {
+function publish(pluginConfig: any, context: lib.Context) {
     const version = context.nextRelease && context.nextRelease.version;
     context.logger.log(`New version ${version}`);
 }
 
-const options: GlobalConfig = {
+const options: lib.GlobalConfig = {
     branches: "master",
     repositoryUrl: "https://github.com/semantic-release/semantic-release.git",
     // Lint check disabled for the following line because this is the actual
@@ -36,7 +40,7 @@ const options: GlobalConfig = {
     ]
 };
 
-const options2: Options = {
+const options2: lib.Options = {
     branches: [
         "master",
         {
@@ -55,7 +59,7 @@ const options2: Options = {
     ]
 };
 
-const context: Context = {
+const context: lib.Context = {
     nextRelease: {
         type: "major",
         version: '1.0.0',
@@ -68,12 +72,39 @@ const context: Context = {
         AWS_ACCESS_KEY_ID: "12345",
         SHELL: "/bin/bash",
         PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-    }
+    },
+    commits: [{
+        commit: {
+            long: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
+            short: "a018aff"
+        },
+        tree: {
+            long: "c8d47c8f9026337f780299eddcd6bbf69aec5db6",
+            short: "c8d47c8"
+        },
+        author: {
+            name: "Lillian Devold",
+            email: "lillian.devold@example.org",
+            short: "2019-10-22"
+        },
+        committer: {
+            name: "Lillian Devold",
+            email: "lillian.devold@example.org",
+            short: "2019-10-22"
+        },
+        subject: "fix: encode text to HTML",
+        body: "This closes a potential script injection vector.",
+        message: "fix: encode text to HTML\n\nThis closes a potential script injection vector.",
+        hash: "a018aff59995a17c0564fa3fd0cb96223f4d4096",
+        committerDate: "2019-10-22"
+    }]
 };
+
+analyzeCommits({}, context);
 verify({}, context);
 publish({}, context);
 
-const config: Config = {
+const config: lib.Config = {
     cwd: "/home/example/code/semantic-release",
     env: {
         AWS_ACCESS_KEY_ID: "12345",
@@ -84,11 +115,11 @@ const config: Config = {
     stderr: process.stderr
 };
 
-const result: Promise<Result> = semanticRelease(options, config);
+const result: Promise<lib.Result> = semanticRelease(options, config);
 
-const result2: Promise<Result> = semanticRelease(options2);
+const result2: Promise<lib.Result> = semanticRelease(options2);
 
-const result3: Result = {
+const result3: lib.Result = {
     lastRelease: {
         version: "1.1.0",
         gitTag: "v1.1.0",

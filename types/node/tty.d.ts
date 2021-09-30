@@ -22,7 +22,7 @@
  *
  * In most cases, there should be little to no reason for an application to
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/tty.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tty.js)
  */
 declare module 'tty' {
     import * as net from 'node:net';
@@ -129,9 +129,7 @@ declare module 'tty' {
          * * `1` for 2,
          * * `4` for 16,
          * * `8` for 256,
-         * * `24` for 16,777,216
-         *
-         * colors supported.
+         * * `24` for 16,777,216 colors supported.
          *
          * Use this to determine what colors the terminal supports. Due to the nature of
          * colors in terminals it is possible to either have false positives or false
@@ -176,9 +174,9 @@ declare module 'tty' {
         hasColors(env?: object): boolean;
         hasColors(count: number, env?: object): boolean;
         /**
-         * `writeStream.getWindowSize()` returns the size of the `TTY` corresponding to this `WriteStream`. The array is of the type`[numColumns, numRows]` where `numColumns` and `numRows` represent
-         * the number
-         * of columns and rows in the corresponding `TTY`.
+         * `writeStream.getWindowSize()` returns the size of the TTY
+         * corresponding to this `WriteStream`. The array is of the type`[numColumns, numRows]` where `numColumns` and `numRows` represent the number
+         * of columns and rows in the corresponding TTY.
          * @since v0.7.7
          */
         getWindowSize(): [number, number];

@@ -168,11 +168,6 @@ declare namespace Frida {
      * the hosting process.
      */
     const heapSize: number;
-
-    /**
-     * Source map for the GumJS runtime.
-     */
-    const sourceMap: SourceMap;
 }
 
 declare namespace Script {
@@ -180,16 +175,6 @@ declare namespace Script {
      * Runtime being used.
      */
     const runtime: ScriptRuntime;
-
-    /**
-     * File name of the current script.
-     */
-    const fileName: string;
-
-    /**
-     * Source map of the current script.
-     */
-    const sourceMap: SourceMap;
 
     /**
      * Runs `func` on the next tick, i.e. when the current native thread exits
@@ -202,7 +187,7 @@ declare namespace Script {
      * This is reference-counted, so there must be one matching `unpin()`
      * happening at a later point.
      *
-     * Typically used in the callback of `WeakRef.bind()` when you need to
+     * Typically used in the callback of `Script.bindWeak()` when you need to
      * schedule cleanup on another thread.
      */
     function pin(): void;
@@ -229,10 +214,10 @@ declare namespace Script {
     function bindWeak(target: any, callback: WeakRefCallback): WeakRefId;
 
     /**
-     * Stops monitoring the value passed to `WeakRef.bind()` and calls the
+     * Stops monitoring the value passed to `Script.bindWeak()` and calls the
      * callback immediately.
      *
-     * @param id ID returned by a previous call to `WeakRef.bind()`.
+     * @param id ID returned by a previous call to `Script.bindWeak()`.
      */
     function unbindWeak(id: WeakRefId): void;
 
@@ -1975,60 +1960,6 @@ interface MipsCpuContext extends PortableCpuContext {
 
     k0: NativePointer;
     k1: NativePointer;
-}
-
-/**
- * Helper used internally for source map parsing in order to provide helpful
- * JavaScript stack-traces.
- */
-declare class SourceMap {
-    /**
-     * Constructs a source map from JSON.
-     *
-     * @param json String containing the source map encoded as JSON.
-     */
-    constructor(json: string);
-
-    /**
-     * Attempts to map a generated source position back to the original.
-     *
-     * @param generatedPosition Position in generated code.
-     */
-    resolve(generatedPosition: GeneratedSourcePosition): OriginalSourcePosition | null;
-}
-
-interface GeneratedSourcePosition {
-    /**
-     * Line number.
-     */
-    line: number;
-
-    /**
-     * Column number, if available.
-     */
-    column?: number | undefined;
-}
-
-interface OriginalSourcePosition {
-    /**
-     * Source file name.
-     */
-    source: string;
-
-    /**
-     * Line number.
-     */
-    line: number;
-
-    /**
-     * Column number.
-     */
-    column: number;
-
-    /**
-     * Identifier, if available.
-     */
-    name: string | null;
 }
 
 /**

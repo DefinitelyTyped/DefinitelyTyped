@@ -13,6 +13,7 @@ import connect = require('connect');
 import Stream = require('stream');
 import util = require('hexo-util');
 import fs = require('fs');
+import Bluebird = require('bluebird');
 
 declare global {
     const hexo: Hexo;
@@ -667,7 +668,12 @@ declare namespace Hexo {
         }
 
         interface Generator {
-            register(name: string, fn: (locals: Site) => Generator.Return | Generator.Return[]): void;
+            register(
+                name: string,
+                fn: (
+                    locals: Site,
+                ) => Generator.Return | Generator.Return[] | Bluebird<Generator.Return> | Bluebird<Generator.Return[]>,
+            ): void;
         }
         namespace Generator {
             interface Return {
@@ -679,7 +685,7 @@ declare namespace Hexo {
                 /**
                  * Layout. Specify the layouts for rendering. The value can be a string or an array. If it’s ignored then the route will return data directly.
                  */
-                layout: string | string[];
+                layout?: string | string[];
 
                 data: any;
             }
@@ -687,7 +693,7 @@ declare namespace Hexo {
 
         interface Helper {
             register(name: string, fn: (...args: any[]) => any): void;
-            list(): {[name: string]: (...args: any[]) => any};
+            list(): { [name: string]: (...args: any[]) => any };
             get(name: string): ((...args: any[]) => any) | undefined;
         }
 
@@ -704,16 +710,20 @@ declare namespace Hexo {
             register(
                 srcExt: string,
                 outExt: string,
-                fn: (data: RendererData, options: any) => string,
+                fn: (this: Hexo, data: RendererData, options: any) => string,
                 sync: true,
             ): void;
             register(
                 srcExt: string,
                 outExt: string,
-                fn: (data: RendererData, options: any) => Promise<string>,
-                sync: false,
+                fn: (this: Hexo, data: RendererData, options: any) => Promise<string>,
+                sync?: false,
             ): void;
-            register(srcExt: string, outExt: string, fn: (data: RendererData, options: any) => Promise<string>): void;
+            register(
+                srcExt: string,
+                outExt: string,
+                fn: (this: Hexo, data: RendererData, options: any) => Promise<string>,
+            ): void;
         }
 
         interface RendererData {

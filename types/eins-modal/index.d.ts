@@ -148,11 +148,21 @@ interface EinsModal {
     addModalFunction(modalElementOrId: string|HTMLElement|JQuery): void;
 }
 
+interface ModalFunction {
+    (action: 'show'|'hide'|'toggle', options?: EinsModalOptions): void;
+}
+
 declare const einsModal: EinsModal;
 
 declare global {
     interface Window {
         einsModal: EinsModal;
+    }
+    interface HTMLElement {
+        modal?: ModalFunction;
+    }
+    interface JQuery {
+        modal?: ModalFunction;
     }
 }
 

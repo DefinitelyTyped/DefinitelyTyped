@@ -22,6 +22,5 @@ declare namespace LegacyEvent {
     const inheritedEventsMethodsStack: any[];
     function executeEventMethod(methodIndex: any, params: any): any;
     function inherited(...args: any[]): any;
-    const global_: any;
 }
 import Method = require('./LegacyMethod.js');

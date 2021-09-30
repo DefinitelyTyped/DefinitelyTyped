@@ -7,3 +7,9 @@ export default class FindAndReplace extends Plugin {
     static readonly pluginName: 'FindAndReplace';
     init(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        FindAndReplace: FindAndReplace;
+    }
+}

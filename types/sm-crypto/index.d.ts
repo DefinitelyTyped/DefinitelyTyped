@@ -1,4 +1,4 @@
-// Type definitions for sm-crypto 0.1
+// Type definitions for sm-crypto 0.3
 // Project: https://github.com/JuneAndGreen/sm-crypto#readme
 // Definitions by: Thermod <https://github.com/Moonisky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -42,7 +42,28 @@ export namespace sm2 {
 
 export function sm3(str: string): string;
 
+// SM4.encrypt() expects UTF8 strings (such as "hello"), while SM4.decrypt() expects hex strings (such as "8d0a1f").
+export type HexString = string;
+export type UTF8String = string;
+
+export interface SM4ModeBase {
+    padding?: 'none' | 'pkcs#5';
+    mode?: 'cbc';
+    iv?: number[] | HexString;
+}
+
+export interface SM4Mode_StringOutput extends SM4ModeBase {
+    output: 'string';
+}
+
+export interface SM4Mode_ArrayOutput extends SM4ModeBase {
+    output: 'array';
+}
+
 export namespace sm4 {
-    function encrypt(inArray: number[], key: number[]): number[];
-    function decrypt(inArray: number[], key: number[]): number[];
+    function encrypt(inArray: number[] | UTF8String, key: number[] | HexString, mode?: SM4ModeBase | SM4Mode_StringOutput): string;
+    function encrypt(inArray: number[] | UTF8String, key: number[] | HexString, mode: SM4Mode_ArrayOutput): number[];
+
+    function decrypt(inArray: number[] | HexString, key: number[] | HexString, mode?: SM4ModeBase | SM4Mode_StringOutput): string;
+    function decrypt(inArray: number[] | HexString, key: number[] | HexString, mode: SM4Mode_ArrayOutput): number[];
 }

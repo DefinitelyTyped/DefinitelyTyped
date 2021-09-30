@@ -1,6 +1,27 @@
-import BaseComponent, { GetInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
 
 declare class Modal extends BaseComponent {
+    /**
+     * Static method which allows you to get the modal instance associated with
+     * a DOM element
+     */
+    static getInstance: GetInstanceFactory<Modal>;
+
+    /**
+     * Static method which allows you to get the modal instance associated with
+     * a DOM element, or create a new one in case it wasn’t initialised
+     */
+    static getOrCreateInstance: GetOrCreateInstanceFactory<Modal, Partial<Modal.Options>>;
+
+    static jQueryInterface: Modal.jQueryInterface;
+
+    /**
+     * Default settings of this plugin
+     *
+     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
+     */
+    static Default: Modal.Options;
+
     constructor(element: string | Element, options?: Partial<Modal.Options>);
 
     /**
@@ -8,13 +29,13 @@ declare class Modal extends BaseComponent {
      * actually been shown or hidden (i.e. before the shown.bs.modal or
      * hidden.bs.modal event occurs).
      */
-    toggle(): void;
+    toggle(relatedTarget?: HTMLElement): void;
 
     /**
      * Manually opens a modal. Returns to the caller before the modal has
      * actually been shown (i.e. before the shown.bs.modal event occurs).
      */
-    show(): void;
+    show(relatedTarget?: HTMLElement): void;
 
     /**
      * Manually hides a modal. Returns to the caller before the modal has
@@ -27,17 +48,6 @@ declare class Modal extends BaseComponent {
      * changes while it is open (i.e. in case a scrollbar appears).
      */
     handleUpdate(): void;
-
-    static getInstance: GetInstanceFactory<Modal>;
-
-    static jQueryInterface: Modal.jQueryInterface;
-
-    /**
-     * Default settings of this plugin
-     *
-     * @link https://getbootstrap.com/docs/5.0/getting-started/javascript/#default-settings
-     */
-    static Default: Modal.Options;
 }
 
 declare namespace Modal {

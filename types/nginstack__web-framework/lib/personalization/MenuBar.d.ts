@@ -5,7 +5,7 @@ declare class MenuBar {
     iTheme: any;
     items: any[];
     sortItems(): void;
-    _loadFromDataset(): void;
+    private _loadFromDataset;
     toHtml(): string;
 }
 declare namespace MenuBar {

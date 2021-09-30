@@ -199,6 +199,7 @@ generator.option('opt4', {
   type: Number,
   default: 3.2,
 });
+generator.option('opt5');
 
 const optionValue1 = generator.options.opt1;
 
@@ -220,7 +221,7 @@ generator.registerPriorities(
   ]);
 
 generator.registerConfigPrompts([{ storage: generator.config, exportOption: true, type: "input" }]);
-generator.registerTransformStream([]);
+generator.queueTransformStream([]);
 
 const rootGeneratorName: string = generator.rootGeneratorName();
 const rootGeneratorVersion: string = generator.rootGeneratorVersion();
@@ -263,3 +264,6 @@ generator.renderTemplates(
 generator.addDependencies("yeoman-generator@^5.0.0");
 generator.addDevDependencies("yo@^4.0.0");
 generator.packageJson.merge({ scripts: { test: "mocha" } });
+
+// $ExpectType string | undefined
+generator.options.resolved;

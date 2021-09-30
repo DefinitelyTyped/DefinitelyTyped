@@ -1,4 +1,3 @@
-import Element from "../element";
 import View from "../view";
 
 export default class DomEventData {

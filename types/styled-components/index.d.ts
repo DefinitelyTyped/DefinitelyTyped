@@ -139,6 +139,8 @@ type ForwardRefExoticBase<P> = Pick<React.ForwardRefExoticComponent<P>, keyof Re
 // Config to be used with withConfig
 export interface StyledConfig<O extends object = {}> {
     // TODO: Add all types from the original StyledComponentWrapperProperties
+    componentId?: string;
+    displayName?: string;
     shouldForwardProp?: ((prop: keyof O, defaultValidatorFn: (prop: keyof O) => boolean) => boolean) | undefined;
 }
 

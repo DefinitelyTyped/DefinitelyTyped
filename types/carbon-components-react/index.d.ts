@@ -1,4 +1,4 @@
-// Type definitions for carbon-components-react 7.36
+// Type definitions for carbon-components-react 7.44
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
 // Definitions by: Kyle Albert <https://github.com/kalbert312>
 //                 Sebastien Gregoire <https://github.com/sgregoire>
@@ -33,6 +33,7 @@ export * from "./lib/components/Dropdown";
 export * from "./lib/components/ErrorBoundary";
 export * from "./lib/components/ExpandableSearch";
 export * from "./lib/components/FileUploader";
+export * from "./lib/components/FilterableMultiSelect";
 export * from "./lib/components/FluidForm/FluidForm"; // context is not exported from index
 export * from "./lib/components/Form";
 export * from "./lib/components/FormGroup";
@@ -64,7 +65,9 @@ export * from "./lib/components/Pagination";
 export * from "./lib/components/PaginationNav";
 export * from "./lib/components/Pagination/experimental/Pagination";
 export * from "./lib/components/Pagination/experimental/PageSelector";
+export * from "./lib/components/PasswordInput";
 export * from "./lib/components/PrimaryButton";
+export * from "./lib/components/ProgressBar";
 export * from "./lib/components/ProgressIndicator";
 export * from "./lib/components/RadioButton";
 export * from "./lib/components/RadioButtonGroup";
@@ -161,6 +164,7 @@ export {
     FileUploaderDropContainer,
     FileUploaderItem,
 } from "./lib/components/FileUploader";
+export { default as FilterableMultiSelect } from "./lib/components/FilterableMultiSelect";
 export { default as FluidForm } from "./lib/components/FluidForm";
 export { default as Form } from "./lib/components/Form";
 export { default as FormGroup } from "./lib/components/FormGroup";
@@ -208,6 +212,7 @@ export { default as PaginationNav } from "./lib/components/PaginationNav";
 export { PageSelector as unstable_PageSelector } from "./lib/components/Pagination/experimental";
 export { Pagination as unstable_Pagination } from "./lib/components/Pagination/experimental";
 export { default as PrimaryButton } from "./lib/components/PrimaryButton";
+export { default as unstable_ProgressBar } from "./lib/components/ProgressBar";
 export { ProgressIndicator, ProgressStep } from "./lib/components/ProgressIndicator";
 export { default as RadioButton } from "./lib/components/RadioButton";
 export { default as RadioButtonGroup } from "./lib/components/RadioButtonGroup";

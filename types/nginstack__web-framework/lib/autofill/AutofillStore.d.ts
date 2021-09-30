@@ -7,16 +7,17 @@ declare class AutofillStore {
     isModified(): boolean;
     setAsModified(): void;
     private formatFilePath_;
+    private newProfileDataSet_;
     load(): DataSet;
     save(): void;
     findEntry(entry: AutofillRecordKey): AutofillRecord;
     newEntry(entry: AutofillRecord): void;
     updateEntry(entry: AutofillRecord): void;
     deleteEntry(entry: AutofillRecordKey): void;
-    findEntry_(entry: AutofillRecordKey): boolean;
+    private findEntry_;
 }
 declare namespace AutofillStore {
-    export { instance_, getInstance, AutofillRecordKey, AutofillRecord };
+    export { getInstance, AutofillRecordKey, AutofillRecord };
 }
 import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
 interface AutofillRecordKey {
@@ -37,5 +38,4 @@ interface AutofillRecord {
     numFieldContent: number;
     dateFieldContent: Date;
 }
-declare var instance_: AutofillStore;
 declare function getInstance(): AutofillStore;

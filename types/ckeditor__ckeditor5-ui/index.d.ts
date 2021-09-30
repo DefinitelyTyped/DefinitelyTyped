@@ -2,7 +2,7 @@
 // Project: https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-ui
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 
 export { default as clickOutsideHandler } from "./src/bindings/clickoutsidehandler";
 export { default as injectCssTransitionDisabler } from "./src/bindings/injectcsstransitiondisabler";

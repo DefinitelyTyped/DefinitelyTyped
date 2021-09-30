@@ -16,7 +16,9 @@ const cbNumber = (err: Error | null, result: any) => {
 
 redis.set('foo', 'bar');
 redis.get('foo', cb);
+redis.getdel('foo', cb);
 
+redis.set('foo', 'bar');
 redis.getrangeBuffer("foo", 0, 1, cb);
 redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
 
@@ -132,6 +134,8 @@ redis.zadd('myset', 'NX', 'CH', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 1, 'member', cb);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member', cb);
+redis.zscore('myset', 'member').then(console.log);
+redis.zscore('myset', 'member', cb);
 redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
@@ -166,6 +170,8 @@ redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100).then(console.log);
 redis.zscan('key', 0, 'MATCH', '*foo*', 'COUNT', 100, cb);
 redis.pfadd('key', 'a', 'b', 'c').then(console.log);
 redis.pfadd('key', 'a', 'b', 'c', cbNumber);
+redis.bitfield('key', ['INCRBY', 'i5', '100', '1', 'GET', 'u4', '0'], cb);
+redis.bitfield('key', ['INCRBY', 'i5', '100', '1', 'GET', 'u4', '0']).then(console.log);
 
 // Test OverloadedKeyedHashCommand for hset
 redis.hset('foo', '1', '2', '3', 4, '5', new Buffer([])).then(console.log);
@@ -223,13 +229,19 @@ redis.msetnx(new Map<string, number>(), cbNumber);
 
 // Test for GEO commands
 redis.geoadd('Sicily', 13.361389, 38.115556, 'Palermo', cbNumber);
-redis.geoadd('Sicily', 15.087269 , 37.502669, 'Catania').then(console.log);
+redis.geoadd('Sicily', 15.087269, 37.502669, 'Catania').then(console.log);
 redis.geodist('Sicily', 'Palermo', 'Catania', 'km', cb);
 redis.geodist('Sicily', 'Palermo', 'Catania', 'km').then(console.log);
 redis.geohash('Sicily', 'Palermo', 'Catania').then(console.log);
 redis.geopos('Sicily', 'Palermo', 'Catania').then(console.log);
 redis.georadius('Sicily', 15, 37, 200, 'km').then(console.log);
 redis.georadiusbymember('Sicily', 'Palermo', 200, 'km').then(console.log);
+redis
+    .geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'ASC', 'WITHCOORD', 'WITHDIST')
+    .then(console.log);
+redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYBOX', 200, 300, 'km', 'COUNT', 1, 'ASC').then(console.log);
+redis.geosearch('Sicily', 'FROMLONLAT', 15, 37, 'BYRADIUS', 200, 'km', 'ASC').then(console.log);
+redis.geosearch('Sicily', 'FROMMEMBER', 'Catania', 'BYBOX', 200, 300, 'km', 'ASC').then(console.log);
 
 // Test for memory usage
 redis.memory('USAGE', 'foo').then(console.log);
@@ -358,7 +370,8 @@ new Redis({
     tls: {
         servername: 'tlsservername',
     },
-    enableAutoPipelining: true
+    enableAutoPipelining: true,
+    disconnectTimeout: 1000
 });
 // Test commandTimeout
 new Redis({
@@ -431,6 +444,14 @@ Redis.Command.setArgumentTransformer('set', args => {
 
 Redis.Command.setReplyTransformer('get', (result: any) => {
     return result;
+});
+
+redis.scan(0).then(([nextCursor, keys]) => {
+    // nextCursor is always a string
+    if (nextCursor === '0') {
+        // keys is always an array of strings and it might be empty
+        return keys.map(key => key.trim());
+    }
 });
 
 redis.scan(0, 'match', '*foo*', 'count', 20).then(([nextCursor, keys]) => {
@@ -765,7 +786,8 @@ new Command('mget', ['key1', 'key2']);
 new Command('get', ['key2'], { replyEncoding: 'utf8' });
 
 // Test all z*bylex commands in a single pipeline
-redis.pipeline()
+redis
+    .pipeline()
     .zrangebylex('foo', '-', '+', (err: Error | null, res: string[]) => {
         // do something with res or err
     })

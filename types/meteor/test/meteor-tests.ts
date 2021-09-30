@@ -803,6 +803,12 @@ namespace MeteorTests {
     // Outside an object
     check(undefined, Match.Optional('test')); // OK
 
+    var buffer: unknown;
+
+    check(buffer, Match.Where(EJSON.isBinary));
+    // $ExpectType Uint8Array
+    buffer;
+
     /**
      * From Deps, Tracker.autorun section
      */
@@ -1069,6 +1075,10 @@ namespace MeteorTests {
 
     // Covers https://github.com/meteor-typings/meteor/issues/21
     if (Meteor.isTest) {
+        // do something
+    }
+
+    if (Meteor.isAppTest) {
         // do something
     }
 

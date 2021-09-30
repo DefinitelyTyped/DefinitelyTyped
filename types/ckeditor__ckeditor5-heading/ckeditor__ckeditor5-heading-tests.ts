@@ -38,3 +38,21 @@ utils.getLocalizedOptions(myEditor).forEach(value => {
     value.model === "";
     value.class === "";
 });
+
+// $ExpectType Heading
+myEditor.plugins.get('Heading');
+
+// $ExpectType HeadingButtonsUI
+myEditor.plugins.get('HeadingButtonsUI');
+
+// $ExpectType HeadingEditing
+myEditor.plugins.get('HeadingEditing');
+
+// $ExpectType HeadingUI
+myEditor.plugins.get('HeadingUI');
+
+// $ExpectType Title
+myEditor.plugins.get('Title');
+
+// $ExpectType HeadingCommand | undefined
+myEditor.commands.get('HeadingCommand');

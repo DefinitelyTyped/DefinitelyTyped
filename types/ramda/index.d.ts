@@ -290,8 +290,8 @@ export function complement<As extends any[]>(pred: (...args: As) => boolean): (.
  * functions must be unary.
  */
 // generic rest parameters in TS 3.0 allows writing a single variant for any number of Vx
-// compose<V extends any[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
-// compose<V extends any[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
+// compose<V extends unknown[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
+// compose<V extends unknown[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
 // but requiring TS>=3.0 sounds like a breaking change, so just leaving a comment for the future
 // tslint:disable:max-line-length
 export function compose<T1>(fn0: () => T1): () => T1;

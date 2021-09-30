@@ -4,20 +4,20 @@ import jsdom = require("jsdom");
 jsdom.defaultDocumentFeatures.FetchExternalResources = ["img"];
 
 jsdom.env(
-    "http://nodejs.org/dist/",
+    "https://nodejs.org/dist/",
     ["http://code.jquery.com/jquery.js"],
     function (errors: Error[], window: Window) {
     }
 );
 
 jsdom.env(
-    "http://nodejs.org/dist/",
+    "https://nodejs.org/dist/",
     function (errors: Error[], window: Window) {
     }
 );
 
 jsdom.env(
-    "http://nodejs.org/dist/",
+    "https://nodejs.org/dist/",
     {
         scripts: ["http://code.jquery.com/jquery.js"],
     },

@@ -12,10 +12,10 @@ declare class Anchor {
         nextProcessKey: any,
         createNewTab: any
     );
-    _changedProperties: {};
+    private _changedProperties;
     name: string;
     onClick: LegacyEvent;
-    parameters_: any[];
+    private parameters_;
     params: {};
     private logger_;
     private collection;

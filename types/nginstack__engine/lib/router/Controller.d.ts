@@ -13,7 +13,12 @@ declare class Controller {
     notModified(): RouteResult;
     temporaryRedirect(url: string): RouteResult;
     permanentRedirect(url: string): RouteResult;
-    runAction(action: string, parameters: any[], request: Request, response: Response): RouteResult;
+    runAction(
+        action: string,
+        parameters: any[],
+        request: Request,
+        response: Response
+    ): RouteResult;
     hasAction(name: string): boolean;
 }
 declare namespace Controller {

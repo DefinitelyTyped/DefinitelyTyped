@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 5.3
+// Type definitions for ssh2-sftp-client 7.0
 // Project: https://github.com/theophilusx/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 //                 Ascari Andrea <https://github.com/ascariandrea>
@@ -10,6 +10,7 @@
 //                 Sam Galizia <https://github.com/sgalizia>
 //                 Tom Xu <https://github.com/hengkx>
 //                 Joseph Burger <https://github.com/candyapplecorn>
+//                 Emma Milner <https://github.com/tsop14>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ssh2 from 'ssh2';
@@ -19,6 +20,7 @@ export = sftp;
 type FileInfoType = 'd' | '-' | 'l';
 
 declare class sftp {
+    constructor(name?: string);
     connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;
@@ -32,7 +34,7 @@ declare class sftp {
     get(
         path: string,
         dst?: string | NodeJS.WritableStream,
-        options?: sftp.GetTransferOptions,
+        options?: sftp.TransferOptions,
     ): Promise<string | NodeJS.WritableStream | Buffer>;
 
     fastGet(remoteFilePath: string, localPath: string, options?: sftp.FastGetTransferOptions): Promise<string>;
@@ -51,17 +53,21 @@ declare class sftp {
 
     rmdir(remoteFilePath: string, recursive?: boolean): Promise<string>;
 
-    delete(remoteFilePath: string): Promise<string>;
+    delete(remoteFilePath: string, noErrorOK?: boolean): Promise<string>;
 
     rename(remoteSourcePath: string, remoteDestPath: string): Promise<string>;
 
     chmod(remotePath: string, mode: number | string): Promise<string>;
 
-    append(input: Buffer | NodeJS.ReadableStream, remotePath: string, options?: sftp.TransferOptions): Promise<string>;
+    append(
+        input: Buffer | NodeJS.ReadableStream,
+        remotePath: string,
+        options?: sftp.WriteStreamOptions,
+    ): Promise<string>;
 
-    uploadDir(srcDir: string, destDir: string): Promise<string>;
+    uploadDir(srcDir: string, destDir: string, filter?: string | RegExp): Promise<string>;
 
-    downloadDir(srcDir: string, destDir: string): Promise<string>;
+    downloadDir(srcDir: string, destDir: string, filter?: string | RegExp): Promise<string>;
 
     end(): Promise<void>;
 
@@ -74,29 +80,42 @@ declare class sftp {
 
 declare namespace sftp {
     interface ConnectOptions extends ssh2.ConnectConfig {
-        retries?: number | undefined;
-        retry_factor?: number | undefined;
-        retry_minTimeout?: number | undefined;
+        retries?: number;
+        retry_factor?: number;
+        retry_minTimeout?: number;
     }
 
     interface ModeOption {
-        mode?: number | undefined;
+        mode?: number | string;
     }
 
-    interface TransferOptions extends ModeOption {
-        flags?: 'w' | 'a' | undefined;
-        encoding?: null | string | undefined;
-        autoClose?: true | boolean | undefined;
+    interface PipeOptions {
+        end?: boolean;
     }
 
-    interface GetTransferOptions extends TransferOptions {
-        handle?: null | string | undefined;
+    interface ReadStreamOptions extends ModeOption {
+        flags?: 'r';
+        encoding?: null | string;
+        handle?: null | string;
+        autoClose?: boolean;
+    }
+
+    interface WriteStreamOptions extends ModeOption {
+        flags?: 'w' | 'a';
+        encoding?: null | string;
+        autoClose?: boolean;
+    }
+
+    interface TransferOptions {
+        pipeOptions?: PipeOptions;
+        writeStreamOptions?: WriteStreamOptions;
+        readStreamOptions?: ReadStreamOptions;
     }
 
     interface FastGetTransferOptions {
-        concurrency?: number | undefined;
-        chunkSize?: number | undefined;
-        step?: ((totalTransferred: number, chunk: number, total: number) => void) | undefined;
+        concurrency?: number;
+        chunkSize?: number;
+        step?: (totalTransferred: number, chunk: number, total: number) => void;
     }
 
     interface FastPutTransferOptions extends FastGetTransferOptions, ModeOption {}

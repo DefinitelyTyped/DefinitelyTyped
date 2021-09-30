@@ -13,3 +13,9 @@ export interface ImageResizeOption {
     icon?: 'small' | 'medium' | 'large' | 'original';
     value: string | null;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageResizeButtons: ImageResizeButtons;
+    }
+}

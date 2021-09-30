@@ -1,8 +1,8 @@
 export = VisualizationFilters;
 declare function VisualizationFilters(): void;
 declare class VisualizationFilters {
-    items_: Record<string, VisualizationFilter>;
-    orderedNames_: string[];
+    private items_;
+    private orderedNames_;
     addFilter(filter: VisualizationFilter): void;
     forEach(f: (arg0: VisualizationFilter) => void, opt_obj?: any): void;
     orderedForEach(f: (arg0: VisualizationFilter) => void, opt_obj?: any): void;
@@ -18,7 +18,6 @@ declare class VisualizationFilters {
 declare namespace VisualizationFilters {
     export {
         DATE_EXPRESSION_PREFIX,
-        FILTER_FIELD_PREFIX_,
         createFilterFields,
         getFilterValuesFromGrid,
         updateFilterFields,
@@ -28,7 +27,6 @@ declare namespace VisualizationFilters {
 }
 type VisualizationFilter = import('./VisualizationFilter');
 declare var DATE_EXPRESSION_PREFIX: string;
-declare var FILTER_FIELD_PREFIX_: string;
 declare function createFilterFields(
     filtersGrid: any,
     dsv: any,

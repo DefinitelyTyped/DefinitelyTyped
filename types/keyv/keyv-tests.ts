@@ -15,8 +15,24 @@ new Keyv({ adapter: 'postgres' });
 new Keyv({ adapter: 'postgresql' });
 new Keyv({ adapter: 'mysql' });
 new Keyv({ adapter: 'foo' }); // $ExpectError
-new Keyv<boolean>({ serialize: JSON.stringify });
+new Keyv<boolean>({
+  serialize: (d) => {
+    d.value; // $ExpectType boolean
+    d.expires; // $ExpectType number | null
+    return JSON.stringify(d);
+  }
+});
 new Keyv<boolean>({ deserialize: JSON.parse });
+new Keyv<boolean>({ deserialize: (d: string) => d }); // $ExpectError
+new Keyv<boolean>({
+  deserialize: (d) => {
+    d; // $ExpectType string
+    return {
+      value: true,
+      expires: new Date().getTime()
+    };
+  }
+});
 
 new Keyv<boolean>({ store: new Map() });
 
@@ -35,6 +51,8 @@ new Keyv();
     await keyv.set('foo', 'expires in 1 second', 1000); // $ExpectType true
     await keyv.set('foo', 'never expires'); // $ExpectType true
     await keyv.get('foo'); // $ExpectType string | undefined
+    await keyv.get('foo', { raw: false }); // $ExpectType string | undefined
+    await keyv.get('foo', { raw: true }); // $ExpectType DeserializedData<string> | undefined
     await keyv.delete('foo'); // $ExpectType boolean
     await keyv.clear(); // $ExpectType void
 })();

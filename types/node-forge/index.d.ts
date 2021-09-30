@@ -6,7 +6,6 @@
 //                 Rafal2228           <https://github.com/rafal2228>
 //                 Beeno Tung          <https://github.com/beenotung>
 //                 Joe Flateau         <https://github.com/joeflateau>
-//                 Nikita Koryabkin    <https://github.com/Apologiz>
 //                 timhwang21          <https://github.com/timhwang21>
 //                 supaiku0            <https://github.com/supaiku0>
 //                 Anders Kaseorg      <https://github.com/andersk>
@@ -502,7 +501,7 @@ declare module "node-forge" {
     }
 
     namespace random {
-        function getBytes(count: number, callback?: (bytes: Bytes) => any): Bytes;
+        function getBytes(count: number, callback?: (err: Error | null, bytes: Bytes) => any): void;
         function getBytesSync(count: number): Bytes;
         type CB = (_: any, seed: string) => void;
         interface Random {

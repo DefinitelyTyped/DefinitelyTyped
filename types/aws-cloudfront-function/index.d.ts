@@ -2,58 +2,59 @@
 // Project: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html
 // Definitions by: Jakub Zelenka <https://github.com/bukka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
-export interface CloudFrontFunctionEvent {
-    version: "1.0";
-    context: CloudFrontFunctionContext;
-    viewer: CloudFrontFunctionViewer;
-    request: CloudFrontFunctionRequest;
-    response: CloudFrontFunctionResponse;
-}
+declare namespace AWSCloudFrontFunction {
+    interface Event {
+        version: "1.0";
+        context: Context;
+        viewer: Viewer;
+        request: Request;
+        response: Response;
+    }
 
-export interface CloudFrontFunctionContext {
-    distributionDomainName: string;
-    distributionID: string;
-    eventType: "viewer-request" | "viewer-response";
-    requestId: string;
-}
+    interface Context {
+        distributionDomainName: string;
+        distributionID: string;
+        eventType: "viewer-request" | "viewer-response";
+        requestId: string;
+    }
 
-export interface CloudFrontFunctionViewer {
-    ip: string;
-}
+    interface Viewer {
+        ip: string;
+    }
 
-export interface CloudFrontFunctionRequest {
-    method: string;
-    uri: string;
-    querystring: CloudFrontFunctionValueObject;
-    headers: CloudFrontFunctionValueObject;
-    cookies: CloudFrontFunctionValueObject;
-}
+    interface Request {
+        method: string;
+        uri: string;
+        querystring: ValueObject;
+        headers: ValueObject;
+        cookies: ValueObject;
+    }
 
-export interface CloudFrontFunctionResponse {
-    statusCode: number;
-    statusDescription?: string;
-    headers: CloudFrontFunctionValueObject;
-    cookies: CloudFrontFunctionResponseCookie;
-}
+    interface Response {
+        statusCode: number;
+        statusDescription?: string;
+        headers?: ValueObject;
+        cookies?: ResponseCookie;
+    }
 
-export interface CloudFrontFunctionValueObject {
-    [name: string]: {
-        value: string;
-        multiValue?: Array<{
+    interface ValueObject {
+        [name: string]: {
             value: string;
-        }>;
-    };
-}
+            multiValue?: Array<{
+                value: string;
+            }>;
+        };
+    }
 
-export interface CloudFrontFunctionResponseCookie {
-    [name: string]: {
-        value: string;
-        attributes: string;
-        multiValue?: Array<{
+    interface ResponseCookie {
+        [name: string]: {
             value: string;
             attributes: string;
-        }>;
-    };
+            multiValue?: Array<{
+                value: string;
+                attributes: string;
+            }>;
+        };
+    }
 }

@@ -2,6 +2,7 @@
     "private": true,
     "dependencies": {
         "@popperjs/core": "^2.9.2",
-        "date-fns": "^2.0.1"
+        "date-fns": "^2.0.1",
+        "react-popper": "^2.2.5"
     }
 }

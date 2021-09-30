@@ -13,7 +13,7 @@
 declare module '@ember/test-helpers' {
     // DOM Interaction Helpers
 
-    export type Target = string | Element;
+    export type Target = string | Element | Document;
 
     export { default as click } from '@ember/test-helpers/dom/click';
     export { default as doubleClick } from '@ember/test-helpers/dom/double-click';

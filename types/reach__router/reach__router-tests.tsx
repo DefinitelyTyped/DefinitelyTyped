@@ -37,7 +37,7 @@ const UseLocationCheck = (props: RouteComponentProps) => {
         <div>
             Pathname: {pathname}
             Search: {search}
-            State: {state}
+            State: {JSON.stringify(state)}
             Hash: {hash}
             key: {key}
         </div>

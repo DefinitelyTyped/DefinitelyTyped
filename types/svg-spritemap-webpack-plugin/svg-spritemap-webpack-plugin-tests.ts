@@ -1,3 +1,4 @@
+import path = require('path');
 import SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 import { Configuration } from 'webpack';
 
@@ -11,6 +12,14 @@ import { Configuration } from 'webpack';
             styles: 'src/scss/_sprites.scss',
         }),
         new SVGSpritemapPlugin('src/**/*.svg', {
+            input: {
+                options: {
+                    cwd: process.cwd(),
+                    root: path.resolve(process.cwd(), "/"),
+                    absolute: true,
+                },
+                allowDuplicates: true,
+            },
             output: {
                 svg: {
                     sizes: false,
@@ -33,7 +42,7 @@ import { Configuration } from 'webpack';
                     sprites: 'sprites',
                     sizes: 'sizes',
                     variables: 'variables',
-                    mixin: 'sprite'
+                    mixin: 'sprite',
                 },
                 callback: content => `[class*="sprite-"] { background-size: cover; } ${content}`,
             },

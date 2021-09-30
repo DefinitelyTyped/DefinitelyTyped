@@ -1,4 +1,4 @@
-// Type definitions for justified-layout 4.0
+// Type definitions for justified-layout 4.1
 // Project: https://github.com/flickr/justified-layout
 // Definitions by: Alex Walter <https://github.com/ArgonAlex/>
 //                 Liau Jian Jie <https://github.com/liaujianjie/>
@@ -101,6 +101,10 @@ interface LayoutBox {
      * Distance between the left side of the box and the left boundary of the justified layout.
      */
     left: number;
+    /**
+     * Whether or not the aspect ratio was forced.
+     */
+    forcedAspectRatio?: boolean;
 }
 
 /**

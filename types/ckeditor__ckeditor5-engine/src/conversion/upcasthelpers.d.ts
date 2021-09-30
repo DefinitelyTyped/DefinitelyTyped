@@ -17,23 +17,23 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
 
         model: string | { key: string; value: string | ((el: Element, api: UpcastConversionApi) => string) };
 
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): UpcastHelpers;
     dataToMarker(config?: {
         view: string;
         model?: ((name: string, api: UpcastConversionApi) => string) | undefined;
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): UpcastHelpers;
     elementToAttribute(config?: {
         view: MatcherPattern;
         model:
             | string
             | { key: string; value: string | ((viewElement: Element, api: UpcastConversionApi) => string | null) };
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): UpcastHelpers;
     elementToElement(config?: {
         view?: MatcherPattern | undefined;
         model: string | ModelElement | ((el: Element, api: UpcastConversionApi) => ModelElement);
-        converterPriority?: PriorityString | undefined;
+        converterPriority?: PriorityString | number | undefined;
     }): UpcastHelpers;
 }

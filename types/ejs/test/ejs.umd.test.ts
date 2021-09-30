@@ -24,7 +24,10 @@ ejs.delimiter;
 expectType<{
     (template: string, opts: ejs.Options & { async: true; client?: false | undefined }): ejs.AsyncTemplateFunction;
     (template: string, opts: ejs.Options & { async: true; client: true }): ejs.AsyncClientFunction;
-    (template: string, opts?: ejs.Options & { async?: false | undefined; client?: false | undefined }): ejs.TemplateFunction;
+    (
+        template: string,
+        opts?: ejs.Options & { async?: false | undefined; client?: false | undefined },
+    ): ejs.TemplateFunction;
     (template: string, opts?: ejs.Options & { async?: false | undefined; client: true }): ejs.ClientFunction;
     (template: string, opts?: ejs.Options): ejs.AsyncTemplateFunction | ejs.TemplateFunction;
 }>(ejs.compile);
@@ -48,4 +51,26 @@ const renderOptions: ejs.Options = {
     beautify: true,
     filename: './index.ejs',
     views: ['dir1', 'dir2'],
+};
+
+const fileNameIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
+    expectType<string>(originalPath);
+    expectType<string>(parsedPath);
+
+    return { filename: '/some/path/to/file' };
+};
+
+const templateIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
+    expectType<string>(originalPath);
+    expectType<string>(parsedPath);
+
+    return { template: 'template data' };
+};
+
+// $ExpectError
+const brokenIncluder: ejs.IncluderCallback = (originalPath, parsedPath) => {
+    expectType<string>(originalPath);
+    expectType<string>(parsedPath);
+
+    return { filename: originalPath, template: originalPath };
 };

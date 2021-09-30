@@ -9,3 +9,9 @@ export default class Essentials extends Plugin {
     static requires: [typeof Clipboard, typeof Enter, typeof SelectAll, typeof ShiftEnter, typeof Typing, typeof Undo];
     static pluginName: 'Essentials';
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Essentials: Essentials;
+    }
+}

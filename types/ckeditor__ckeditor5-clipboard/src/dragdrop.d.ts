@@ -8,3 +8,9 @@ export default class DragDrop extends Plugin {
     init(): void;
     destroy(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        DragDrop: DragDrop;
+    }
+}

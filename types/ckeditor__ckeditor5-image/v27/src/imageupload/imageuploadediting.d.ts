@@ -11,3 +11,9 @@ export default class ImageUploadEditing extends Plugin {
 }
 
 export function isHtmlIncluded(dataTransfer: DataTransfer): boolean;
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageUploadEditing: ImageUploadEditing;
+    }
+}

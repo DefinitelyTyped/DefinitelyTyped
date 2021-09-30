@@ -1,4 +1,4 @@
-// Type definitions for mini-css-extract-plugin 2.2
+// Type definitions for mini-css-extract-plugin 2.3
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
@@ -76,6 +76,13 @@ declare namespace MiniCssExtractPlugin {
          * @default 'text/css'
          */
         linkType?: string | false | 'text/css' | undefined;
+        /**
+         * Allows to enable/disable the runtime generation.
+         * CSS will be still extracted and can be used for a custom loading methods.
+         * For example, you can use [assets-webpack-plugin](https://github.com/ztoben/assets-webpack-plugin) to retreive them then use your own runtime code to download assets when needed.
+         * @default true
+         */
+        runtime?: boolean | undefined;
     }
     interface LoaderOptions {
         /**

@@ -28,7 +28,7 @@ export default class ImageUtils extends Plugin {
      * Handles inserting single file. This method unifies image insertion using {@link module:widget/utils~findOptimalInsertionRange}
      * method.
      *
-     *    const imageUtils = editor.plugins.get( 'ImageUtils' );
+     *    editor.plugins.get( 'ImageUtils' );
      *
      *    imageUtils.insertImage( { src: 'path/to/image.jpg' } );
      */
@@ -59,4 +59,10 @@ export default class ImageUtils extends Plugin {
      * The `<img>` can be located deep in other elements, so this helper performs a deep tree search.
      */
     findViewImgElement(figureView: ViewElement): ViewElement;
+}
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageUtils: ImageUtils;
+    }
 }

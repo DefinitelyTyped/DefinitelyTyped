@@ -140,3 +140,22 @@ ymaps.panorama.Base.createPanorama({
     tilesLevels: [],
     tileSize: [0, 0]
 });
+
+ymaps.modules.define('test.module', (provide) => {
+    provide(function(this: any, value: any) {
+        this.value = value;
+    });
+});
+
+ymaps.modules.define('test.module1', [
+    'test.module',
+    'templateLayoutFactory'
+], (provide, testModule, templateLayoutFactory: typeof ymaps.templateLayoutFactory) => {
+    const layoutClass = templateLayoutFactory.createClass('<div>{{ properties.header }}</div>', {
+        testMethod() {
+            return testModule;
+        }
+    });
+
+    provide(layoutClass);
+});

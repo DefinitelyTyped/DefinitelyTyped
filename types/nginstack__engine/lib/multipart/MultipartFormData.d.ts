@@ -5,12 +5,12 @@ declare function MultipartFormData(
 ): void;
 declare class MultipartFormData {
     constructor(reader: any, options?: MultipartFormDataOptions | Record<any, any>);
-    reader_: any;
-    options_: MultipartFormDataOptions;
+    private reader_;
+    private options_;
     values: any;
     files: any;
-    filesDirName_: string;
-    totalSize_: number;
+    private filesDirName_;
+    private totalSize_;
     private logger_;
     private populateForm_;
     private addFile_;

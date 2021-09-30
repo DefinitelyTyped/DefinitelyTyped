@@ -7,7 +7,11 @@ const UserSerializer = new Serializer("users", {
     id: "id",
     attributes: ["firstName", "lastName"],
     keyForAttribute: "camelCase",
-    pluralizeType: false
+    pluralizeType: false,
+    job: {
+        ref: 'id',
+        included: false
+    }
 });
 
 const users = UserSerializer.serialize({ firstName, lastName });

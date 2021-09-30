@@ -6,7 +6,7 @@
  * The timer functions within Node.js implement a similar API as the timers API
  * provided by Web Browsers but use a different internal implementation that is
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/timers.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/timers.js)
  */
 declare module 'timers' {
     import { Abortable } from 'node:events';

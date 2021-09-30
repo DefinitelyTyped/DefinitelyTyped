@@ -43,6 +43,5 @@ export default abstract class Element extends Node {
     hasAttribute(key: string): boolean;
     hasClass(className: string): boolean;
     hasStyle(property: string): boolean;
-    is(type: string, name?: string): boolean;
     isSimilar(otherElement: Element): boolean;
 }

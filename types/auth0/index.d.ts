@@ -12,6 +12,7 @@
 //                 Raimondo Butera <https://github.com/rbutera>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Dan Ursin <https://github.com/danursin>
+//                 Nathan Hardy <https://github.com/nhardy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
@@ -961,8 +962,18 @@ export interface CustomDomainsManagerOptions extends BaseClientOptions {
     retry?: RetryOptions | undefined;
 }
 
-export interface SignInOptions extends VerifyOptions {
-    connection?: string | undefined;
+export interface SignInOptions {
+    username: string;
+    otp: string;
+    realm?: 'email' | 'sms';
+    /**
+     * @deprecated
+     */
+    password?: string;
+    /**
+     * @deprecated
+     */
+    connection?: 'email' | 'sms';
 }
 
 export interface SocialSignInOptions {
@@ -985,6 +996,10 @@ export type SendType = 'link' | 'code';
 export interface RequestEmailCodeOrLinkOptions {
     email: string;
     send: SendType;
+}
+
+export interface PasswordlessOptions {
+    forwardedFor?: string;
 }
 
 export interface ImpersonateSettingOptions {
@@ -1502,14 +1517,17 @@ export class OAuthAuthenticator {
 export class PasswordlessAuthenticator {
     constructor(options: PasswordLessClientOptions, oauth: OAuthAuthenticator);
 
-    signIn(data: SignInOptions): Promise<SignInToken>;
-    signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+    signIn(userData: SignInOptions, options?: PasswordlessOptions): Promise<SignInToken>;
+    signIn(userData: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+    signIn(userData: SignInOptions, options: PasswordlessOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-    sendEmail(data: RequestEmailCodeOrLinkOptions): Promise<any>;
-    sendEmail(data: RequestEmailCodeOrLinkOptions, cb: (err: Error, message: string) => void): void;
+    sendEmail(userData: RequestEmailCodeOrLinkOptions, options?: PasswordlessOptions): Promise<any>;
+    sendEmail(userData: RequestEmailCodeOrLinkOptions, cb: (err: Error, message: string) => void): void;
+    sendEmail(userData: RequestEmailCodeOrLinkOptions, options: PasswordlessOptions, cb: (err: Error, message: string) => void): void;
 
-    sendSMS(data: RequestSMSCodeOptions): Promise<any>;
-    sendSMS(data: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
+    sendSMS(userData: RequestSMSCodeOptions, options?: PasswordlessOptions): Promise<any>;
+    sendSMS(userData: RequestSMSCodeOptions, cb: (err: Error, message: string) => void): void;
+    sendSMS(userData: RequestSMSCodeOptions, options: PasswordlessOptions, cb: (err: Error, message: string) => void): void;
 }
 
 export interface RevokeRefreshTokenOptions {

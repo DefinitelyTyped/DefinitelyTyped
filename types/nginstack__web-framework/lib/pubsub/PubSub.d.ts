@@ -1,8 +1,8 @@
 export = PubSub;
 declare function PubSub(): void;
 declare class PubSub {
-    subscriptions_: any[];
-    topics_: Record<string, number[]>;
+    private subscriptions_;
+    private topics_;
     private key_;
     private pendingKeys_;
     private publishDepth_;

@@ -9,7 +9,7 @@ import { EditorWithUI } from "./editor/editorwithui";
 
 export default abstract class Plugin implements Emitter, Observable {
     static readonly pluginName?: string | undefined;
-    static readonly isContextPlugin: boolean;
+    static readonly isContextPlugin: false;
     static readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string> | undefined;
 
     readonly editor: Editor & EditorWithUI;
@@ -21,7 +21,7 @@ export default abstract class Plugin implements Emitter, Observable {
     clearForceDisabled(id: string): void;
     decorate(methodName: string): void;
     delegate(...events: string[]): EmitterMixinDelegateChain;
-    destroy?(): void | Promise<any>;
+    destroy(): void | Promise<any>;
     fire<T>(eventOrInfo: string | EventInfo, ...args: T[]): T;
     forceDisabled(id: string): void;
     init?(): Promise<void> | void;
@@ -54,16 +54,8 @@ export default abstract class Plugin implements Emitter, Observable {
 }
 
 // Beware that this defines a class constructor, not the class instance.
-// These readonly properties are static properties.
-export interface PluginInterface {
-    new (editor: Editor): {
-        init?(): Promise<void> | void;
-        afterInit?(): Promise<void> | void;
-        destroy?(): Promise<void> | void;
-    };
-    readonly pluginName?: string | undefined;
-    readonly isContextPlugin: boolean;
-    readonly requires?: Array<typeof Plugin | typeof ContextPlugin | string> | undefined;
+export interface PluginInterface<T = Plugin> {
+    new (editor: Editor): T;
 }
 
 export type LoadedPlugins = Array<typeof Plugin|typeof ContextPlugin>;

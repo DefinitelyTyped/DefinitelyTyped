@@ -1,4 +1,4 @@
-// For Library Version: 1.92.0
+// For Library Version: 1.93.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -661,6 +661,31 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     );
 
     /**
+     * Creates a new subclass of class sap.ui.fl.variants.VariantManagement with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, VariantManagement>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.fl.variants.VariantManagement.
+     */
+    static getMetadata(): ElementMetadata;
+    /**
      * Adds some for into the association {@link #getFor for}.
      */
     addFor(
@@ -962,27 +987,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       oListener?: object
     ): this;
     /**
-     * Creates a new subclass of class sap.ui.fl.variants.VariantManagement with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, VariantManagement>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Fires event {@link #event:cancel cancel} to attached listeners.
      */
     fireCancel(
@@ -1113,10 +1117,6 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * Default value is `false`.
      */
     getManualVariantKey(): boolean;
-    /**
-     * Returns a metadata object for class sap.ui.fl.variants.VariantManagement.
-     */
-    static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getModelName modelName}.
      *
@@ -1431,27 +1431,27 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * This event is fired when the Save View dialog or the Save As dialog is closed with the
      * save button.
      */
-    save?: Function;
+    save?: (oEvent: Event) => void;
 
     /**
      * This event is fired when users presses the cancel button inside Save As dialog.
      */
-    cancel?: Function;
+    cancel?: (oEvent: Event) => void;
 
     /**
      * This event is fired when users apply changes to variants in the Manage Views dialog.
      */
-    manage?: Function;
+    manage?: (oEvent: Event) => void;
 
     /**
      * This event is fired when the model and context are set.
      */
-    initialized?: Function;
+    initialized?: (oEvent: Event) => void;
 
     /**
      * This event is fired when a new variant is selected.
      */
-    select?: Function;
+    select?: (oEvent: Event) => void;
   }
 }
 

@@ -7,7 +7,7 @@ declare function FieldPermissionValidator(
 ): void;
 declare class FieldPermissionValidator {
     constructor(manager: any, permField: string, classKey: number, userKey: number);
-    handlerFunc_: any;
+    private handlerFunc_;
     private makeDeprecatedHandler_;
     hasPermission(fieldName: string): boolean;
 }

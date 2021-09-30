@@ -23,6 +23,10 @@ function dbSelectByLastName(val: string, stat: string): Promise<any> {
     return new Promise(((resolve, reject) => resolve(184)));
 }
 
+function calculateAge(age1: number, age2: number): Promise<any> {
+    return new Promise(((resolve, reject) => resolve(age1 + age2)));
+}
+
 /* Type testing */
 
 // $ExpectType Promise<any>
@@ -110,6 +114,20 @@ jexl.eval('"Guest" _= "gUeSt"');
     jexl.addBinaryOp('_=', 20, (left, right) => left.toLowerCase() === right.toLowerCase());
     const binaryOp = await jexl.eval('"Guest" _= "gUeSt"');
     console.log('10. Binary Op', binaryOp); // true
+
+// Function
+    jexl.addFunction('getAge', () => 0);
+    const func = await jexl.eval('age > getAge()', context);
+    console.log('11. Function', func); // true
+
+// Function asynchronously, with arguments
+    jexl.addFunction('calculateAge', async (age1, age2) => calculateAge(age1, age2));
+    try {
+        const asyncFunc = await jexl.eval('age > calculateAge(20, 21)');
+        console.log('12. Async Function', asyncFunc); // false
+    } catch (e) {
+        console.log('Calculation Error', e.stack);
+    }
 })().then(() => console.log('Testing done'));
 
 // Compile expressions

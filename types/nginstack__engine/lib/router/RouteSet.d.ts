@@ -2,7 +2,7 @@ export = RouteSet;
 declare function RouteSet(opt_base: RouteSet | null): void;
 declare class RouteSet {
     constructor(opt_base: RouteSet | null);
-    base_: any;
+    private base_;
     private propertiesToAssign_;
     getAllRoutes(): Route[];
     assign(def: RouteSetDef): void;

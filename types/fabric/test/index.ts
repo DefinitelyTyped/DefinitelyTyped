@@ -340,6 +340,7 @@ function sample6() {
 
     canvas.on('mouse:move', options => {
       const p = canvas.getPointer(options.e);
+      const mouseX = options.e.clientX;
 
       canvas.forEachObject(obj => {
         const distX = Math.abs(p.x - obj.left);
@@ -347,6 +348,10 @@ function sample6() {
         const dist = Math.round(Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2)));
         obj.set('opacity', (1 / (dist / 20)));
       });
+    });
+
+    canvas.on('mouse:wheel', (options) => {
+        const deltaY = options.e.deltaY;
     });
   }, null, {
     crossOrigin:'anonymous'
@@ -1031,6 +1036,8 @@ function sample12() {
   const position = fabric.util.getScrollLeftTop(canvas.getElement());
   const x = position.left;
   const y = position.top;
+  canvas.absolutePan({ x, y });
+  canvas.absolutePan(new fabric.Point(x, y));
 }
 
 function sample13() {
