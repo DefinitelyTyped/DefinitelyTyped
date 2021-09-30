@@ -32,7 +32,8 @@
  * }
  * ```
  *
- * To define additional types for specific MDX files, create a file named the same, but postfixed
+ * The previous example added types to *all* `.mdx` files.
+ * To define additional types for a specific MDX file, create a file with the same name but postfixed
  * with `.d.ts` next to the MDX file.
  *
  * For example, given the following MDX file `my-component.mdx`:
