@@ -1148,7 +1148,7 @@ export interface Organization {
             page_background: string;
         };
     } | undefined;
-    metadata?: any | undefined;
+    metadata?: any;
 }
 
 export interface CreateOrganization {
@@ -1161,7 +1161,7 @@ export interface CreateOrganization {
             page_background: string;
         };
     } | undefined;
-    metadata?: any | undefined;
+    metadata?: any;
 }
 
 export interface UpdateOrganization {
@@ -1174,7 +1174,7 @@ export interface UpdateOrganization {
             page_background: string;
         };
     } | undefined;
-    metadata?: any | undefined;
+    metadata?: any;
 }
 
 export interface OrganizationConnection {
@@ -1224,8 +1224,8 @@ export interface OrganizationInvitation {
     expires_at: string;
     connection_id?: string | undefined;
     client_id: string;
-    app_metadata?: any | undefined;
-    user_metadata?: any | undefined;
+    app_metadata?: any;
+    user_metadata?: any;
     ticket_id: string;
     roles?: string[] | undefined;
 }
@@ -1239,8 +1239,8 @@ export interface CreateInvitation {
     };
     connection_id?: string | undefined;
     client_id: string;
-    app_metadata?: any | undefined;
-    user_metadata?: any | undefined;
+    app_metadata?: any;
+    user_metadata?: any;
     ttl_sec?: number | undefined;
     send_invitation_email?: boolean | undefined;
     roles?: string[] | undefined;
