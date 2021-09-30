@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-star-ratings-tests.tsx",
+        "react-star-ratings-tests.tsx"
     ]
 }
