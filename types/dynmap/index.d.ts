@@ -1,4 +1,4 @@
-// Type definitions for Dynmap 3.1
+// Type definitions for non-npm package dynmap 3.1
 // Project: https://github.com/webbukkit/dynmap
 // Definitions by: Munin M. <https://github.com/SNDST00M>
 //                 Mike Primm <https://github.com/mikeprimm>
