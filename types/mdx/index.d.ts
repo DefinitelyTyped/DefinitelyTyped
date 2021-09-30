@@ -13,11 +13,14 @@
 * MDX files can export other identifiers from within the MDX file as well, either authored manually
 * or automatically through plugins
  *
- * To define exports for every MDX file in a project, create a TypeScript
- * [script](https://www.typescriptlang.org/docs/handbook/2/modules.html#non-modules) file which
- * augments `*.mdx`. A script file is a file which doesn’t use top-level ESM syntax, but ESM syntax
- * us allowed inside the declared module. This is typically useful for exports created by plugins.
- * For example:
+* It’s currently not possible for the other exports to be typed automatically.
+* You can type them yourself with a TypeScript
+* [script](https://www.typescriptlang.org/docs/handbook/2/modules.html#non-modules)
+* which augments `*.mdx` modules.
+* A script file is a file which doesn’t use top-level ESM syntax, but ESM syntax
+* is allowed inside the declared module.
+*
+* This is typically useful for exports created by plugins. For example:
  *
  * ```ts
  * // mdx-custom.d.ts
