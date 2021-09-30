@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "@types/jquery": "3.5.1",
+    "@types/jquery-mousewheel": "3.1.13",
+    "@types/leaflet": "1.7.1"
+  }
+}
