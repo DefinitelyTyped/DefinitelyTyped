@@ -1083,6 +1083,19 @@ export interface CheckpointPagingOptions {
     from?: string | undefined;
 }
 
+export interface GetGrantsParams extends PagingOptions {
+    user_id: string;
+    client_id: string;
+    audience: string;
+}
+
+export interface GrantResponse {
+    id: string;
+    clientID: string;
+    user_id: string;
+    scope: string[];
+}
+
 export class AuthenticationClient {
     // Members
     database?: DatabaseAuthenticator | undefined;
@@ -1731,6 +1744,13 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     // MFA invalidate remember browser
     invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
     invalidateRememberBrowser(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+    // Grants
+    getGrants(params: GetGrantsParams): Promise<GrantResponse[]>;
+    getGrants(params: GetGrantsParams, cb?: (err: Error, grants: GrantResponse[]) => void): void;
+
+    deleteGrant(params: ObjectWithId & {user_id: string}): Promise<void>;
+    deleteGrant(params: ObjectWithId & {user_id: string}, cb?: (err: Error) => void): void;
 }
 
 export class DatabaseAuthenticator<A = AppMetadata, U = UserMetadata> {
