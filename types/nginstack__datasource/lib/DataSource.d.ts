@@ -8,7 +8,7 @@ declare class DataSource {
         definition: DataSourceDef | Record<any, any> | number,
         opt_options?: Record<any, any>
     );
-    iKey_: number | Record<any, any>;
+    private iKey_;
     private iUrl_;
     definition: any;
     public: boolean;

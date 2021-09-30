@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.4
+// Type definitions for oidc-provider 7.6
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -503,6 +503,7 @@ declare class ClientCredentials extends BaseToken {
     readonly tokenType: string;
     'x5t#S256'?: string | undefined;
     jkt?: string | undefined;
+    resourceServer?: ResourceServer | undefined;
 
     isSenderConstrained(): boolean;
 }
@@ -538,6 +539,7 @@ declare class AccessToken extends BaseToken {
     });
     readonly kind: 'AccessToken';
     accountId: string;
+    resourceServer?: ResourceServer | undefined;
     aud: string | string[];
     claims?: ClaimsParameter | undefined;
     extra?: UnknownObject | undefined;
@@ -676,7 +678,7 @@ export interface ResourceServer {
         } | undefined;
     } | undefined;
     paseto?: {
-        version: 1 | 2;
+        version: 1 | 2 | 3 | 4;
         purpose: 'local' | 'public';
         key?: crypto.KeyObject | Buffer | undefined;
         kid?: string | undefined;
@@ -876,8 +878,9 @@ declare class JWTStructured {
 }
 
 declare class PASETOStructured {
-    footer?: UnknownObject;
+    footer?: UnknownObject | undefined;
     payload: UnknownObject;
+    assertion?: string | Buffer | undefined;
 }
 
 export interface Configuration {
@@ -1272,10 +1275,12 @@ export interface InteractionResults {
         ts?: number | undefined;
         amr?: string[] | undefined;
         acr?: string | undefined;
+        [key: string]: unknown;
     } | undefined;
 
     consent?: {
         grantId?: string | undefined;
+        [key: string]: unknown;
     } | undefined;
 
     [key: string]: unknown;

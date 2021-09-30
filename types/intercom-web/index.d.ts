@@ -36,9 +36,11 @@ declare namespace Intercom_ {
     utm_source?: string | undefined;
     utm_term?: string | undefined;
     company?: {
-      id: string | number;
       name: string;
+      id?: string | number | undefined;
+      company_id?: string | number | undefined;
       created_at?: number | undefined;
+      remote_created_at?: number | undefined;
       plan?: string | undefined;
       monthly_spend?: number | undefined;
       user_count?: number | undefined;

@@ -3,7 +3,7 @@ declare function RecordBuffer(): void;
 declare class RecordBuffer {
     fieldsValues: any[];
     newFieldsValues: any[];
-    fieldBuffers_: FieldBuffer[];
+    private fieldBuffers_;
     selected: boolean;
     disabled: boolean;
     bookmark: any;

@@ -878,5 +878,15 @@ const sfc: React.SFC<any> = Memoized2;
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",
     foo: 42,
-    children: functionComponent,
+    children: React.createElement(functionComponent),
+};
+
+type UnionProps =
+    | ({ type: 'single'; value?: number } & React.RefAttributes<HTMLDivElement>)
+    | ({ type: 'multiple'; value?: number[] } & React.RefAttributes<HTMLDivElement>);
+
+// $ExpectError
+const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
+    type: 'single',
+    value: [2],
 };

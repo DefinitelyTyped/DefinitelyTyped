@@ -1249,3 +1249,14 @@ const config2: webpack.MultiConfigurationFactory = (env) => {
     env; // $ExpectType string | Record<string, string | number | boolean> | undefined
     return [];
 };
+
+configuration = {
+    infrastructureLogging: {
+        level: 'info',
+        debug: [
+            'MyPlugin',
+            /MyPlugin/,
+            (name) => name.includes('MyPlugin'),
+        ],
+    }
+};

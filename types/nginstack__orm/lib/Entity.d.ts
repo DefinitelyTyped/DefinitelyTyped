@@ -6,12 +6,12 @@ declare function Entity(
 ): void;
 declare class Entity {
     constructor(classKey: number, dataSet: DataSet, opt_options?: EntityOptions | Record<any, any>);
-    userKey_: number;
-    fieldsFilter_: null | string[] | ((arg0: Field) => boolean);
-    dataSet_: DataSet;
-    autoPersist_: boolean;
-    customModelDef_: ModelDef;
-    originalBookmark_: string | null;
+    private userKey_;
+    private fieldsFilter_;
+    private dataSet_;
+    private autoPersist_;
+    private customModelDef_;
+    private originalBookmark_;
     protected CloneClass_(): void;
     private cloneableProperties_;
     private fieldPermissions_;
@@ -35,7 +35,7 @@ declare class Entity {
     postPending: boolean;
     state: EntityState;
     protected updateClass_(classKey: number): void;
-    classKey_: number;
+    private classKey_;
     private fieldTypeIsSupported_;
     private normalizeFieldValue_;
     private emitEvent_;
@@ -74,8 +74,6 @@ declare class Entity {
 }
 declare namespace Entity {
     export {
-        ALWAYS_VISIBLE_FIELDS_,
-        ALWAYS_INVISIBLE_FIELDS_,
         fromKey,
         fromDataSet,
         requiresStrictMode,
@@ -92,11 +90,7 @@ declare namespace Entity {
 }
 type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
 type EntityOptions = import('./EntityOptions');
-type Field = import('@nginstack/engine/lib/classdef/Field');
-type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
 import EntityState = require('./EntityState.js');
-declare var ALWAYS_VISIBLE_FIELDS_: Record<string, boolean>;
-declare var ALWAYS_INVISIBLE_FIELDS_: Record<string, boolean>;
 declare function fromKey(
     key: number,
     opt_options?:
@@ -117,7 +111,9 @@ declare function fromDataSet(
         | Record<any, any>
 ): Entity;
 declare var requiresStrictMode: boolean;
+type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
 type ConfigDef = import('@nginstack/engine/lib/classdef/ConfigDef');
+type Field = import('@nginstack/engine/lib/classdef/Field');
 type Event = import('@nginstack/engine/lib/event/Event');
 type Emitter = import('@nginstack/engine/lib/event/Emitter');
 type FieldPermissions = import('@nginstack/engine/lib/security/FieldPermissions');

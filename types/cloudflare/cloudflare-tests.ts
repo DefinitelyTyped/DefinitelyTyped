@@ -48,3 +48,7 @@ cf.dnsRecords.add("123", {
         target: "irrelevant"
     }
 });
+
+cf.enterpriseZoneWorkersKV.add('account_id', 'namespace_id', 'key_name', 'value');
+// $ExpectError
+cf.enterpriseZoneWorkersKV.add('account_id', 'namespace_id', 'value');

@@ -1,4 +1,4 @@
-// Type definitions for command-line-args 5.0
+// Type definitions for command-line-args 5.2
 // Project: https://github.com/75lb/command-line-args
 // Definitions by: Lloyd Brookes <https://github.com/75lb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,6 +40,12 @@ declare namespace commandLineArgs {
          * If `true`, options with hypenated names (e.g. `move-to`) will be returned in camel-case (e.g. `moveTo`).
          */
         camelCase?: boolean | undefined;
+
+        /**
+         * If `true`, the case of each option name or alias parsed is insignificant. For example, `--Verbose` and
+         * `--verbose` would be parsed identically, as would the aliases `-V` and `-v`. Defaults to false.
+         */
+        caseInsensitive?: boolean | undefined;
     }
 
     interface OptionDefinition {

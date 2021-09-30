@@ -102,6 +102,7 @@ declare namespace Aws {
         maxPreviousDeploymentArtifacts?: number | string | undefined;
         blockPublicAccess?: boolean | undefined;
         serverSideEncryption?: string | undefined;
+        skipPolicySetup?: boolean | undefined;
         sseKMSKeyId?: string | undefined;
         sseCustomerAlgorithim?: string | undefined;
         sseCustomerKey?: string | undefined;
@@ -126,6 +127,9 @@ declare namespace Aws {
         binaryMediaTypes?: string[] | undefined;
         metrics?: boolean | undefined;
         shouldStartNameWithService?: boolean | undefined;
+        apiKeys?: string[] | undefined;
+        resourcePolicy?: ResourcePolicy[] | undefined;
+        usagePlan?: UsagePlan | undefined;
     }
 
     interface CognitoAuthorizer {
@@ -177,11 +181,20 @@ declare namespace Aws {
         authorizers?: Authorizers | undefined;
     }
 
+    interface HttpApiCors {
+        allowedOrigins: string[];
+        allowedHeaders?: string[] | undefined;
+        allowedMethods?: string[] | undefined;
+        allowCredentials?: boolean | undefined;
+        exposedResponseHeaders?: string[] | undefined;
+        maxAge?: number | undefined;
+    }
+
     interface HttpApi {
         id?: string | undefined;
         name?: string | undefined;
         payload?: string | undefined;
-        cors?: boolean | undefined;
+        cors?: boolean | HttpApiCors | undefined;
         authorizers?: Authorizers | undefined;
     }
 

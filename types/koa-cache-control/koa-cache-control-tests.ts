@@ -17,3 +17,6 @@ app.use(cacheControl({
     maxAge: 0,
     sMaxAge: 0,
 }));
+app.use(cacheControl({
+    proxyRevalidate: true
+}));

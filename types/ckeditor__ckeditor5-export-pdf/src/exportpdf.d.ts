@@ -25,3 +25,9 @@ export interface ExportPdfConfig {
     stylesheets?: string[] | undefined;
     tokenUrl?: boolean | string | (() => Promise<string>) | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ExportPdf: ExportPdf;
+    }
+}

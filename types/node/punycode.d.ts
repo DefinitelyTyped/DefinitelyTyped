@@ -1,6 +1,5 @@
 /**
- * **The version of the punycode module bundled in Node.js is being deprecated**.
- * In a future major version of Node.js this module will be removed. Users
+ * **The version of the punycode module bundled in Node.js is being deprecated.**In a future major version of Node.js this module will be removed. Users
  * currently depending on the `punycode` module should switch to using the
  * userland-provided [Punycode.js](https://github.com/bestiejs/punycode.js) module instead. For punycode-based URL
  * encoding, see `url.domainToASCII` or, more generally, the `WHATWG URL API`.
@@ -25,7 +24,7 @@
  * made available to developers as a convenience. Fixes or other modifications to
  * the module must be directed to the [Punycode.js](https://github.com/bestiejs/punycode.js) project.
  * @deprecated Since v7.0.0 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/punycode.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/punycode.js)
  */
 declare module 'punycode' {
     /**
@@ -40,7 +39,7 @@ declare module 'punycode' {
      */
     function decode(string: string): string;
     /**
-     * The `punycode.encode()` method converts a string of Unicode codepoints to a[Punycode](https://tools.ietf.org/html/rfc3492) string of ASCII-only characters.
+     * The `punycode.encode()` method converts a string of Unicode codepoints to a [Punycode](https://tools.ietf.org/html/rfc3492) string of ASCII-only characters.
      *
      * ```js
      * punycode.encode('mañana'); // 'maana-pta'
@@ -51,7 +50,7 @@ declare module 'punycode' {
     function encode(string: string): string;
     /**
      * The `punycode.toUnicode()` method converts a string representing a domain name
-     * containing [Punycode](https://tools.ietf.org/html/rfc3492) encoded characters into Unicode. Only the [Punycode](https://tools.ietf.org/html/rfc3492)encoded parts of the domain name are be
+     * containing [Punycode](https://tools.ietf.org/html/rfc3492) encoded characters into Unicode. Only the [Punycode](https://tools.ietf.org/html/rfc3492) encoded parts of the domain name are be
      * converted.
      *
      * ```js

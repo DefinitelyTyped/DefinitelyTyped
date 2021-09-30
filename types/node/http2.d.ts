@@ -6,7 +6,7 @@
  * const http2 = require('http2');
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/http2.js)
  */
 declare module 'http2' {
     import EventEmitter = require('node:events');
@@ -140,7 +140,7 @@ declare module 'http2' {
          * Closes the `Http2Stream` instance by sending an `RST_STREAM` frame to the
          * connected HTTP/2 peer.
          * @since v8.4.0
-         * @param code Unsigned 32-bit integer identifying the error code.
+         * @param [code=http2.constants.NGHTTP2_NO_ERROR] Unsigned 32-bit integer identifying the error code.
          * @param callback An optional function registered to listen for the `'close'` event.
          */
         close(code?: number, callback?: () => void): void;
@@ -1714,7 +1714,7 @@ declare module 'http2' {
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
         writeHead(statusCode: number, statusMessage: string, headers?: OutgoingHttpHeaders): this;
         /**
-         * Call {@link tream.pushStream} with the given headers, and wrap the
+         * Call `http2stream.pushStream()` with the given headers, and wrap the
          * given `Http2Stream` on a newly created `Http2ServerResponse` as the callback
          * parameter if successful. When `Http2ServerRequest` is closed, the callback is
          * called with an error `ERR_HTTP2_INVALID_STREAM`.
@@ -2014,7 +2014,7 @@ declare module 'http2' {
     /**
      * Returns a `net.Server` instance that creates and manages `Http2Session`instances.
      *
-     * Since there are no browsers known that support[unencrypted HTTP/2](https://http2.github.io/faq/#does-http2-require-encryption), the use of {@link createSecureServer} is necessary when
+     * Since there are no browsers known that support [unencrypted HTTP/2](https://http2.github.io/faq/#does-http2-require-encryption), the use of {@link createSecureServer} is necessary when
      * communicating
      * with browser clients.
      *

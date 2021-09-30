@@ -20,7 +20,7 @@ declare class IClauseWhere {
     private formatValue;
     private _getSqlFieldName;
     private _likeToSql;
-    _existsOrNotExistsToSql(): string;
+    private _existsOrNotExistsToSql;
     private _defaultOperatorToSql;
     private canSplit_;
     private splitValueList_;

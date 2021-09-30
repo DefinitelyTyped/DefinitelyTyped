@@ -101,6 +101,22 @@ jsonQuery('people[*:recentlyUpdated]', {
     }
 });
 
+jsonQuery('people[*:recentlyUpdated]', {
+    data,
+    filters: {
+        uppercase: (item: any) => {
+		if (item.toUpperCase) {
+			return item.toUpperCase();
+		}
+        }
+    },
+    locals: {
+        recentlyUpdated: (item: {updatedAt: number}) => {
+            return item.updatedAt < Date.now() - (30 * 24 * 60 * 60 * 1000);
+        }
+    }
+});
+
 // Context
 data = {
     styles: {

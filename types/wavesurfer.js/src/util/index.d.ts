@@ -4,6 +4,7 @@ import clamp from "./clamp";
 import fetchFile from "./fetch";
 import frame from "./frame";
 import getId from "./get-id";
+import ignoreSilenceMode from "./silence-mode";
 import max from "./max";
 import min from "./min";
 import Observer from "./observer";
@@ -19,6 +20,7 @@ export {
     fetchFile,
     frame,
     getId,
+    ignoreSilenceMode,
     max,
     min,
     Observer,

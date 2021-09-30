@@ -143,9 +143,9 @@ export interface DocEventMap<T> {
     'no write pending': () => void;
     'nothing pending': () => void;
     'create': (source: any) => void;
-    'op': (ops: [any], source: any) => void;
+    'op': (ops: [any], source: any, clientId: string) => void;
     'op batch': (ops: any[], source: any) => void;
-    'before op': (ops: [any], source: any) => void;
+    'before op': (ops: [any], source: any, clientId: string) => void;
     'before op batch': (ops: any[], source: any) => void;
     'del': (data: T, source: any) => void;
     'error': (error: Error) => void;

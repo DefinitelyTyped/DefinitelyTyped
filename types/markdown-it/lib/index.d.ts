@@ -76,7 +76,7 @@ declare namespace MarkdownIt {
          * `['«\xA0', '\xA0»', '‹\xA0', '\xA0›']` for French (including nbsp).
          * @default '“”‘’'
          */
-        quotes?: string | string[] | undefined;
+        quotes?: string | string[];
 
         /**
          * Highlighter function for fenced code blocks.

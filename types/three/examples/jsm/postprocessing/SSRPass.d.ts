@@ -25,7 +25,6 @@ export interface SSRPassParams {
     encoding: TextureEncoding;
     isPerspectiveCamera?: boolean | undefined;
     isBouncing?: boolean | undefined;
-    morphTargets?: boolean | undefined;
     groundReflector: Reflector | null;
 }
 

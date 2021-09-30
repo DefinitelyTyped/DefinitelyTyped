@@ -127,3 +127,8 @@ const theStats: CircuitBreaker.Stats = breaker.status.stats;
 // get the array of 10, 1 second time slices for the last second
 const window: CircuitBreaker.Window = breaker.status.window;
 window[0].fires; // $ExpectType number
+
+// you can deactivate timeout
+const noTimeoutOptions: CircuitBreaker.Options = {
+    timeout: false, // false value deactivate timeout
+};

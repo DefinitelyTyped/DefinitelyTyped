@@ -11,3 +11,9 @@ export default class ImageUpload extends Plugin {
 export interface ImageUploadConfig {
     types: string[];
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        ImageUpload: ImageUpload;
+    }
+}

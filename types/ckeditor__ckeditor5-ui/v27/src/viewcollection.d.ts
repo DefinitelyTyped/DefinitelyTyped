@@ -3,8 +3,8 @@ import { Emitter } from "@ckeditor/ckeditor5-utils/src/emittermixin";
 import { BindChain, Observable } from "@ckeditor/ckeditor5-utils/src/observablemixin";
 import View from "./view";
 
-export default class ViewCollection extends Collection<View> implements Emitter, Observable {
-    constructor(initialItems?: Iterable<View>);
+export default class ViewCollection<T extends View = View> extends Collection<T> implements Emitter, Observable {
+    constructor(initialItems?: Iterable<T>);
     destroy(): void;
     setParent(element: HTMLElement): void;
 

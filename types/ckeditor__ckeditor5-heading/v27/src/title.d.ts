@@ -12,3 +12,9 @@ export default class Title extends Plugin {
 export interface TitleConfig {
     placeholder?: string | undefined;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        Title: Title;
+    }
+}

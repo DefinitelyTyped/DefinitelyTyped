@@ -2,8 +2,8 @@ export = DataExporter;
 declare function DataExporter(): void;
 declare class DataExporter {
     fields: any[];
-    fieldIndexesByName_: any;
-    private _logger;
+    private fieldIndexesByName_;
+    private logger_;
     title: string;
     dataSet: any;
     addField(field: any): void;

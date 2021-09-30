@@ -11,7 +11,7 @@ export interface ScrollRotateProps {
   throttle?: number | undefined;
   from?: number | undefined;
   to?: number | undefined;
-  method?: 'px' | 'prec' | undefined;
+  method?: 'px' | 'perc' | undefined;
   loops?: number | undefined;
   animationDuration?: number | undefined;
   children: React.ReactNode;

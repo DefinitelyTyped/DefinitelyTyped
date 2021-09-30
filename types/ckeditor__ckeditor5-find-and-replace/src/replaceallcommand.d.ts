@@ -26,3 +26,9 @@ export default class ReplaceAllCommand extends Command {
      */
     execute(newText: string, textToReplace: string | FindAndReplaceState['results']): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        ReplaceAllCommand: ReplaceAllCommand;
+    }
+}

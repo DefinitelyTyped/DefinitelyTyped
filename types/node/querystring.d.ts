@@ -7,9 +7,9 @@
  * ```
  *
  * The `querystring` API is considered Legacy. While it is still maintained,
- * new code should use the `<URLSearchParams>` API instead.
+ * new code should use the `URLSearchParams` API instead.
  * @deprecated Legacy
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/querystring.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/querystring.js)
  */
 declare module 'querystring' {
     interface StringifyOptions {
@@ -25,14 +25,14 @@ declare module 'querystring' {
      * The `querystring.stringify()` method produces a URL query string from a
      * given `obj` by iterating through the object's "own properties".
      *
-     * It serializes the following types of values passed in `obj`:[&lt;string&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
-     * [&lt;number&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
-     * [&lt;bigint&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
-     * [&lt;boolean&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type) |
-     * [&lt;string\[\]&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
-     * [&lt;number\[\]&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
-     * [&lt;bigint\[\]&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
-     * [&lt;boolean\[\]&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type)The numeric values must be finite. Any other input values will be coerced to
+     * It serializes the following types of values passed in `obj`:[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
+     * [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
+     * [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
+     * [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type) |
+     * [string\[\]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
+     * [number\[\]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
+     * [bigint\[\]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
+     * [boolean\[\]](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type) The numeric values must be finite. Any other input values will be coerced to
      * empty strings.
      *
      * ```js
@@ -54,8 +54,8 @@ declare module 'querystring' {
      * ```
      * @since v0.1.25
      * @param obj The object to serialize into a URL query string
-     * @param sep The substring used to delimit key and value pairs in the query string.
-     * @param eq . The substring used to delimit keys and values in the query string.
+     * @param [sep='&'] The substring used to delimit key and value pairs in the query string.
+     * @param [eq='='] . The substring used to delimit keys and values in the query string.
      */
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
     /**
@@ -87,8 +87,8 @@ declare module 'querystring' {
      * ```
      * @since v0.1.25
      * @param str The URL query string to parse
-     * @param sep The substring used to delimit key and value pairs in the query string.
-     * @param eq . The substring used to delimit keys and values in the query string.
+     * @param [sep='&'] The substring used to delimit key and value pairs in the query string.
+     * @param [eq='='] . The substring used to delimit keys and values in the query string.
      */
     function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     /**

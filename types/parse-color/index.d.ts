@@ -9,7 +9,7 @@ declare namespace parseColor {
         hsl: [number, number, number];
         hsv: [number, number, number];
         cmyk: [number, number, number, number];
-        keyword: string;
+        keyword: string | undefined;
         hex: string;
         rgba: [number, number, number, number];
         hsla: [number, number, number, number];

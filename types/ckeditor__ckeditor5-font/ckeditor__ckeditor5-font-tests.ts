@@ -66,3 +66,42 @@ new ColorTableView(new Locale(), {
 });
 
 new ColorUI(editor, { commandName: '', icon: '', componentName: '', dropdownLabel: '' }).init();
+
+// $ExpectType Font
+editor.plugins.get('Font');
+
+// $ExpectType FontBackgroundColor
+editor.plugins.get('FontBackgroundColor');
+
+// $ExpectType FontBackgroundColorEditing
+editor.plugins.get('FontBackgroundColorEditing');
+
+// $ExpectType FontBackgroundColorUI
+editor.plugins.get('FontBackgroundColorUI');
+
+// $ExpectType FontColor
+editor.plugins.get('FontColor');
+
+// $ExpectType FontColorEditing
+editor.plugins.get('FontColorEditing');
+
+// $ExpectType FontColorUI
+editor.plugins.get('FontColorUI');
+
+// $ExpectType FontFamily
+editor.plugins.get('FontFamily');
+
+// $ExpectType FontFamilyEditing
+editor.plugins.get('FontFamilyEditing');
+
+// $ExpectType FontFamilyUI
+editor.plugins.get('FontFamilyUI');
+
+// $ExpectType FontSize
+editor.plugins.get('FontSize');
+
+// $ExpectType FontSizeEditing
+editor.plugins.get('FontSizeEditing');
+
+// $ExpectType FontSizeUI
+editor.plugins.get('FontSizeUI');

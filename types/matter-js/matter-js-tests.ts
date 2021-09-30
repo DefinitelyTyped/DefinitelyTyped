@@ -10,6 +10,7 @@ var Engine = Matter.Engine,
     Query = Matter.Query,
     Plugin = Matter.Plugin,
     Render = Matter.Render,
+    SAT = Matter.SAT,
     Mouse = Matter.Mouse,
     MouseConstraint = Matter.MouseConstraint;
 
@@ -135,3 +136,9 @@ Composite.add(composite1, constraint1);
 Composite.add(composite1, mouseConstraint);
 // $ExpectType Composite
 Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
+
+// SAT
+// $ExpectType ICollision
+var collision = SAT.collides(box1, box2);
+// $ExpectType ICollision
+SAT.collides(box3, box4, collision);

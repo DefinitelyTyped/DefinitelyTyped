@@ -18,6 +18,7 @@ class Test extends React.Component {
                         'https://www.youtube.com/watch?v=xshEZzpS4CQ',
                         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
                     ]}
+                    showThumbsOnMount={false}
                     videosPosters={[null, null, 'https://i.imgur.com/fsyrScY.jpg']}
                     openOnMount={false}
                     disableLocalStorage={true}

@@ -1,4 +1,4 @@
-// Type definitions for edit-json-file 1.4
+// Type definitions for edit-json-file 1.6
 // Project: https://github.com/IonicaBizau/edit-json-file#readme
 // Definitions by: Twixes <https://github.com/Twixes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,6 +22,10 @@ declare namespace editJsonFile {
         get(path?: string): any;
         /** Set value at path. */
         set(path: string, value: any): JsonEditor;
+        /** Appends a value/object to a specific path. */
+        append(path: string, value: any): JsonEditor;
+        /** Pop an array from a specific path. */
+        pop(path: string): JsonEditor;
         /** Unset value at path. */
         unset(path: string): JsonEditor;
         /** Read the JSON file. */

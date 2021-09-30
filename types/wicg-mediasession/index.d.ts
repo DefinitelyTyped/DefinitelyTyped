@@ -24,11 +24,22 @@ interface MediaSession {
     metadata: MediaMetadata | null;
 
     // Set/Unset actions handlers.
-    setActionHandler(action: "seekto", listener: ((details: Required<Pick<MediaSessionActionDetails, "seekTime">> & MediaSessionActionDetails) => void) | null): void;
+    setActionHandler(
+        action: 'seekto',
+        listener:
+            | ((details: Required<Pick<MediaSessionActionDetails, 'seekTime'>> & MediaSessionActionDetails) => void)
+            | null,
+    ): void;
     setActionHandler(action: MediaSessionAction, listener: ((details: MediaSessionActionDetails) => void) | null): void;
 
     // Set/unset position state
     setPositionState: SetPositionState;
+
+    // Set/unset active camera
+    setCameraActive(active: boolean): void;
+
+    // Set/unset active microphone
+    setMicrophoneActive(active: boolean): void;
 }
 
 interface MediaImage {
@@ -64,7 +75,7 @@ interface MediaMetadata {
 
 declare var MediaMetadata: {
     prototype: MediaMetadata;
-    new(init?: MediaMetadataInit): MediaMetadata;
+    new (init?: MediaMetadataInit): MediaMetadata;
 };
 
 interface MediaPositionState {

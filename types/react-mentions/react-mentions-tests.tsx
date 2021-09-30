@@ -84,6 +84,27 @@ export const TestMultipleTrigger: React.SFC<TestProps> = props => {
     );
 };
 
+export const TestAsyncDataFunc: React.FunctionComponent<TestProps> = props => {
+    return (
+        <MentionsInput value={props.value} onChange={props.onChange} placeholder={"Mention people using '@'"}>
+            {/* Using async function syntax: */}
+            <Mention
+                trigger={props.regex}
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
+                data={async search => [{ id: search, display: search }]}
+                onAdd={props.onAdd}
+            />
+            {/* Using explicit Promise syntax: */}
+            <Mention
+                trigger={props.regex}
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
+                data={search => Promise.resolve([{ id: search, display: search }])}
+                onAdd={props.onAdd}
+            />
+        </MentionsInput>
+    );
+};
+
 /**
  * Utils
  */

@@ -22,7 +22,7 @@
  *
  * In most cases, there should be little to no reason for an application to
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
- * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/tty.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tty.js)
  */
 declare module 'tty' {
     import * as net from 'node:net';
@@ -129,9 +129,7 @@ declare module 'tty' {
          * * `1` for 2,
          * * `4` for 16,
          * * `8` for 256,
-         * * `24` for 16,777,216
-         *
-         * colors supported.
+         * * `24` for 16,777,216 colors supported.
          *
          * Use this to determine what colors the terminal supports. Due to the nature of
          * colors in terminals it is possible to either have false positives or false
@@ -149,7 +147,7 @@ declare module 'tty' {
          *
          * Disabling color support is also possible by using the `NO_COLOR` and`NODE_DISABLE_COLORS` environment variables.
          * @since v9.9.0
-         * @param env An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
+         * @param [env=process.env] An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */
         getColorDepth(env?: object): number;
         /**
@@ -169,16 +167,16 @@ declare module 'tty' {
          * // Returns false (the environment setting pretends to support 2 ** 8 colors).
          * ```
          * @since v11.13.0, v10.16.0
-         * @param count The number of colors that are requested (minimum 2).
-         * @param env An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
+         * @param [count=16] The number of colors that are requested (minimum 2).
+         * @param [env=process.env] An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */
         hasColors(count?: number): boolean;
         hasColors(env?: object): boolean;
         hasColors(count: number, env?: object): boolean;
         /**
-         * `writeStream.getWindowSize()` returns the size of the `TTY` corresponding to this `WriteStream`. The array is of the type`[numColumns, numRows]` where `numColumns` and `numRows` represent
-         * the number
-         * of columns and rows in the corresponding `TTY`.
+         * `writeStream.getWindowSize()` returns the size of the TTY
+         * corresponding to this `WriteStream`. The array is of the type`[numColumns, numRows]` where `numColumns` and `numRows` represent the number
+         * of columns and rows in the corresponding TTY.
          * @since v0.7.7
          */
         getWindowSize(): [number, number];

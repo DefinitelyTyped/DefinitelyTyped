@@ -20,15 +20,9 @@ declare class ECharts {
         },
         ...args: any[]
     );
-    theme_: string;
-    initOptions_: {
-        theme?: string;
-        devicePixelRatio?: number;
-        renderer?: string;
-        width?: number | string;
-        height?: number | string;
-    };
+    private theme_;
+    private initOptions_;
     setOption(options: any): void;
-    options_: any;
+    private options_;
     html(): string;
 }

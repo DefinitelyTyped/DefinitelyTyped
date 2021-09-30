@@ -170,7 +170,7 @@ export interface GetMessageFields extends CommonMessageFields {
 }
 
 export interface ConsumeMessageFields extends CommonMessageFields {
-    deliveryTag: number;
+    consumerTag: string;
 }
 
 export interface MessageProperties {

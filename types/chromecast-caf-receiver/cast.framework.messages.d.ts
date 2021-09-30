@@ -1,4 +1,4 @@
-import { DetailedErrorCode, Event, EventType } from './cast.framework.events';
+import { DetailedErrorCode, Event } from './cast.framework.events';
 
 export as namespace messages;
 
@@ -239,8 +239,8 @@ export enum MetadataType {
 }
 
 /**
- * Represents the player state.
- * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.PlayerState}
+ * String IDs used by {@link framework.PlayerManager#playString}
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages#.PlayStringId
  */
 export enum PlayStringId {
     FREE_TRIAL_ABOUT_TO_EXPIRE = 'FREE_TRIAL_ABOUT_TO_EXPIRE',
@@ -432,13 +432,14 @@ export enum UserActionContext {
 
 /**
  * RefreshCredentials request data.
+ * Note as of July 2021: Docs don't mention this extending RequestData.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.LoadByEntityRequestData
  */
-export class RefreshCredentialsRequestData {
-    [key: string]: any;
-}
+export class RefreshCredentialsRequestData extends RequestData {}
 
 /**
  * Media event SET_VOLUME request data.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.VolumeRequestData
  */
 export class VolumeRequestData extends RequestData {
     constructor();
@@ -446,11 +447,12 @@ export class VolumeRequestData extends RequestData {
     /**
      * The media stream volume
      */
-    volume?: Volume | undefined;
+    volume: Volume;
 }
 
 /**
  * Represents the volume of a media session stream.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.Volume
  */
 export class Volume {
     /**
@@ -466,6 +468,7 @@ export class Volume {
 
 /**
  * Video information such as video resolution and High Dynamic Range (HDR).
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.VideoInformation
  */
 export class VideoInformation {
     constructor(width: number, height: number, hdrType: HdrType);
@@ -479,6 +482,7 @@ export class VideoInformation {
 
 /**
  * VAST ad request configuration.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.VastAdsRequest
  */
 export class VastAdsRequest {
     /**
@@ -497,6 +501,7 @@ export class VastAdsRequest {
 
 /**
  * UserAction request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.UserActionRequestData
  */
 export class UserActionRequestData extends RequestData {
     constructor();
@@ -515,7 +520,7 @@ export class UserActionRequestData extends RequestData {
     /**
      * User action to be handled by the application.
      */
-    userAction?: UserAction | undefined;
+    userAction: UserAction;
 
     /**
      * Optional context information for the user action.
@@ -525,8 +530,14 @@ export class UserActionRequestData extends RequestData {
 
 /**
  * A TV episode media description.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.TvShowMediaMetadata
  */
 export class TvShowMediaMetadata {
+    /**
+     * Content rating.
+     */
+    contentRating?: any;
+
     /**
      * TV episode number. A positive integer.
      */
@@ -538,7 +549,7 @@ export class TvShowMediaMetadata {
     episodeNumber?: number | undefined;
 
     /**
-     * @deprecated use episode instead
+     * @deprecated use title instead
      */
     episodeTitle?: string | undefined;
 
@@ -580,6 +591,7 @@ export class TvShowMediaMetadata {
 }
 /**
  * Describes track metadata information.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.Track
  */
 export class Track {
     constructor(trackId: number, trackType: TrackType);
@@ -587,7 +599,12 @@ export class Track {
     /**
      * Custom data set by the receiver application.
      */
-    customData?: string | undefined;
+    customData?: any;
+
+    /**
+     * Indicate track is in-band and not side-loaded track. Relevant only for text tracks.
+     */
+    isInband?: boolean | undefined;
 
     /**
      * Language tag as per RFC 5646 (If subtype is “SUBTITLES” it is mandatory).
@@ -613,26 +630,36 @@ export class Track {
 
     /**
      * It represents the MIME type of the track content. For example if the track
-     * is a vtt file it will be ‘text/vtt’. This field is needed for out of band tracks;
+     * is a vtt file it will be ‘text/vtt’. This field is needed for out of band tracks,
      *  so it is usually provided if a trackContentId has also been provided.
      * It is not mandatory if the receiver has a way to identify the content from
-     * the trackContentId; but recommended.
-     * The track content type; if provided; must be consistent with the track type.
+     * the trackContentId, but recommended.
+     * The track content type, if provided, must be consistent with the track type.
      */
-    trackContentType?: string | undefined;
+    trackContentType?: string | CaptionMimeType | undefined;
 
     /**
      * Unique identifier of the track within the context of a MediaInformation object.
      */
-    trackId?: number | undefined;
+    trackId: number;
 
     /**
      * The type of track.
      */
     type: TrackType;
+
+    /**
+     * For role(s) of the track; The following values for each media type are recognized, with value explanations described in ISO/IEC 23009-1, labeled "DASH role scheme":
+     * VIDEO: caption, subtitle, main, alternate, supplementary, sign, emergency
+     * AUDIO: main, alternate, supplementary, commentary, dub, emergency
+     * TEXT: main, alternate, subtitle, supplementary, commentary, dub, description, forced_subtitle
+     */
+    roles?: string[] | undefined;
 }
+
 /**
  * Describes style information for a text track.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.TextTrackStyle
  */
 export class TextTrackStyle {
     /**
@@ -696,6 +723,7 @@ export class TextTrackStyle {
 
 /**
  * Response data for SESSION_STATE command.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.StoreSessionResponseData
  */
 export class StoreSessionResponseData extends RequestData {
     /**
@@ -711,6 +739,7 @@ export class StoreSessionResponseData extends RequestData {
 
 /**
  * STORE_SESSION request data
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.StoreSessionRequestData
  */
 export class StoreSessionRequestData extends RequestData {
     constructor();
@@ -718,6 +747,7 @@ export class StoreSessionRequestData extends RequestData {
 
 /**
  * Media event playback rate request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.SetPlaybackRateRequestData
  */
 export class SetPlaybackRateRequestData extends RequestData {
     constructor();
@@ -738,6 +768,8 @@ export class SetPlaybackRateRequestData extends RequestData {
 
 /**
  * SetCredentials request data.
+ * Note as of July 2021: Docs don't mention this extending RequestData.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.SetCredentialsRequestData}
  */
 export class SetCredentialsRequestData extends RequestData {
     constructor();
@@ -745,7 +777,7 @@ export class SetCredentialsRequestData extends RequestData {
     /**
      * Credentials to use by receiver.
      */
-    credentials?: string | undefined;
+    credentials: string;
 
     /**
      * If it is a response for refresh credentials, it will indicate the request
@@ -763,7 +795,7 @@ export class SetCredentialsRequestData extends RequestData {
 /**
  * A state object containing all data to be stored in StoreSession and to be
  * recovered in ResumeSession.
- * [Description]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.SessionState.html}
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.SessionState
  */
 export class SessionState {
     constructor();
@@ -771,13 +803,14 @@ export class SessionState {
     /**
      * Customizable object for storing the state.
      */
-    customData?: object | undefined;
+    customData?: any;
 
     loadRequestData?: LoadRequestData | undefined;
 }
 
 /**
  * Media event SEEK request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.SeekRequestData
  */
 export class SeekRequestData extends RequestData {
     constructor();
@@ -801,6 +834,7 @@ export class SeekRequestData extends RequestData {
 
 /**
  * Provides seekable range in seconds.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.SeekableRange
  */
 export class SeekableRange {
     constructor(start?: number, end?: number);
@@ -818,6 +852,8 @@ export class SeekableRange {
 
 /**
  * RESUME_SESSION request data
+ * Note as of July 2021: Docs don't mention this extending RequestData.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.ResumeSessionRequestData
  */
 export class ResumeSessionRequestData extends RequestData {
     constructor();
@@ -825,11 +861,12 @@ export class ResumeSessionRequestData extends RequestData {
     /**
      * The SessionState object returned by StoreSession command.
      */
-    sessionState?: SessionState | undefined;
+    sessionState: SessionState;
 }
 
 /**
  * Media event request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.RequestData
  */
 export class RequestData {
     constructor(type: MessageType);
@@ -859,6 +896,7 @@ export class RequestData {
 
 /**
  * Media event UPDATE queue request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueUpdateRequestData
  */
 export class QueueUpdateRequestData extends RequestData {
     constructor();
@@ -910,6 +948,7 @@ export class QueueUpdateRequestData extends RequestData {
 
 /**
  * Media event queue REORDER request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueReorderRequestData
  */
 export class QueueReorderRequestData extends RequestData {
     constructor(itemIds: number[]);
@@ -957,6 +996,7 @@ export class QueueReorderRequestData extends RequestData {
 
 /**
  * Media event queue REMOVE request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueRemoveRequestData
  */
 export class QueueRemoveRequestData extends RequestData {
     /**
@@ -991,6 +1031,7 @@ export class QueueRemoveRequestData extends RequestData {
 }
 /**
  * Media event queue LOAD request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueLoadRequestData
  */
 export class QueueLoadRequestData extends RequestData {
     /**
@@ -1041,6 +1082,7 @@ export class QueueLoadRequestData extends RequestData {
  * insert a queue element using InsertQueueItems. In this case they should not
  * provide an itemId (as the actual itemId will be assigned when the item is inserted
  * in the queue). This prevents ID collisions with items added from a sender app.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueItem
  */
 export class QueueItem {
     constructor(opt_itemId?: number);
@@ -1087,6 +1129,11 @@ export class QueueItem {
     playbackDuration?: number | undefined;
 
     /**
+     * Used to track original order of an item in the queue to undo shuffle.
+     */
+    orderId?: number | undefined;
+
+    /**
      * This parameter is a hint for the receiver to preload this media
      * item before it is played. It allows for a smooth transition between items
      * played from the queue. The time is expressed in seconds; relative to
@@ -1111,6 +1158,7 @@ export class QueueItem {
 
 /**
  * Media event queue INSERT request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueInsertRequestData
  */
 export class QueueInsertRequestData extends RequestData {
     /**
@@ -1165,6 +1213,7 @@ export class QueueInsertRequestData extends RequestData {
 
 /**
  * Represents a data message containing the full list of queue ids.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueIds
  */
 export class QueueIds {
     constructor();
@@ -1185,6 +1234,11 @@ export class QueueIds {
     type: MessageType;
 }
 
+/**
+ * Common container metadata used as part of QueueData.
+ *
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.ContainerMetadata
+ */
 export class ContainerMetadata {
     constructor(type?: ContainerType);
 
@@ -1208,7 +1262,16 @@ export class ContainerMetadata {
      * Array of media metadata objects to describe the media content sections.
      * Used to delineate live TV streams into programs and audiobooks into chapters.
      */
-    sections?: MediaMetadata[] | undefined;
+    sections?:
+        | MediaMetadata[]
+        | GenericMediaMetadata[]
+        | MovieMediaMetadata[]
+        | MusicTrackMediaMetadata[]
+        | PhotoMediaMetadata[]
+        | TvShowMediaMetadata[]
+        | AudiobookChapterMediaMetadata[]
+        | object[]
+        | undefined;
 
     /**
      * The title of the container, for example an audiobook title, a TV channel name, etc.
@@ -1218,6 +1281,7 @@ export class ContainerMetadata {
 
 /**
  * Queue data as part of the LOAD request.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueData
  */
 export class QueueData {
     constructor(
@@ -1288,6 +1352,7 @@ export class QueueData {
 
 /**
  * Represents a queue change message, such as insert, remove, and update.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.QueueChange
  */
 export class QueueChange {
     constructor();
@@ -1326,6 +1391,7 @@ export class QueueChange {
 
 /**
  * Media event PRELOAD request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.PreloadRequestData
  */
 export class PreloadRequestData extends LoadRequestData {
     /**
@@ -1342,6 +1408,7 @@ export class PreloadRequestData extends LoadRequestData {
 /**
  * Media event PRECACHE request data. (Some fields of the load request, like
  * autoplay and queueData, are ignored).
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.PrecacheRequestData
  */
 export class PrecacheRequestData extends LoadRequestData {
     /**
@@ -1357,8 +1424,10 @@ export class PrecacheRequestData extends LoadRequestData {
 
 /**
  * PlayString request data.
+ * Note as of July 2021: Docs don't mention this extending RequestData.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.PlayStringRequestData
  */
-export class PlayStringRequestData {
+export class PlayStringRequestData extends RequestData {
     constructor(stringId: PlayStringId, opt_arguments?: string[]);
 
     /**
@@ -1374,12 +1443,18 @@ export class PlayStringRequestData {
 
 /**
  * A photo media description.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.PhotoMediaMetadata
  */
 export class PhotoMediaMetadata {
     /**
      * Name of the photographer.
      */
     artist?: string | undefined;
+
+    /**
+     * Content rating.
+     */
+    contentRating?: any;
 
     /**
      * ISO 8601 date and time the photo was taken; e.g. 2014-02-10T15:47:00Z.
@@ -1394,7 +1469,7 @@ export class PhotoMediaMetadata {
     /**
      * Images associated with the content. Examples would include a photo thumbnail.
      */
-    images: Image[];
+    images?: Image[] | undefined;
 
     /**
      * Latitude.
@@ -1424,6 +1499,7 @@ export class PhotoMediaMetadata {
 
 /**
  * A music track media description.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.MusicTrackMediaMetadata
  */
 export class MusicTrackMediaMetadata {
     /**
@@ -1442,14 +1518,19 @@ export class MusicTrackMediaMetadata {
     artist?: string | undefined;
 
     /**
-     * @deprecated: use @see{@link artist} instead
+     * @deprecated use artist instead
      */
-    artistName: string;
+    artistName?: string | undefined;
 
     /**
      * Track composer name.
      */
     composer?: string | undefined;
+
+    /**
+     * Content rating.
+     */
+    contentRating?: any;
 
     /**
      * Disc number. A positive integer.
@@ -1460,7 +1541,7 @@ export class MusicTrackMediaMetadata {
      * Content images. Examples would include cover art or a thumbnail of the
      * currently playing media.
      */
-    images: Image[];
+    images?: Image[] | undefined;
 
     /**
      * ISO 8601 date when the track was released; e.g. 2014-02-10.
@@ -1468,7 +1549,7 @@ export class MusicTrackMediaMetadata {
     releaseDate?: string | undefined;
 
     /**
-     * @deprecated: Use @see{@link releaseDate} instead
+     * @deprecated use releaseDate instead
      */
     releaseYear?: string | undefined;
 
@@ -1490,13 +1571,19 @@ export class MusicTrackMediaMetadata {
 
 /**
  * A movie media description.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.MovieMediaMetadata
  */
 export class MovieMediaMetadata {
+    /**
+     * Content rating.
+     */
+    contentRating?: any;
+
     /**
      * Content images. Examples would include cover art or a thumbnail of the
      * currently playing media.
      */
-    images: Image[];
+    images?: Image[] | undefined;
 
     /**
      * ISO 8601 date when the movie was released; e.g. 2014-02-10.
@@ -1504,7 +1591,7 @@ export class MovieMediaMetadata {
     releaseDate?: string | undefined;
 
     /**
-     * @deprecated: use @see{@link releaseDate} instead
+     * @deprecated use releaseDate instead
      */
     releaseYear?: number | undefined;
 
@@ -1645,6 +1732,7 @@ export class MediaStatus {
 
 /**
  * Common media metadata used as part of MediaInformation
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.MediaMetadata
  */
 export class MediaMetadata {
     constructor(type: MetadataType);
@@ -1653,10 +1741,46 @@ export class MediaMetadata {
      * The type of metadata
      */
     metadataType: MetadataType;
+
+    /**
+     * Optional image url to be shown when video is loading.
+     */
+    posterUrl?: string | undefined;
+
+    /**
+     * The queue item that include this media section. Only relevant if used in
+     * container sections, and there are multiple media items for the container.
+     */
+    queueItemId?: number | undefined;
+
+    /**
+     * The media section duration in seconds. Only needed if the metadata describes
+     * a section of the media file that has a different duration value.
+     */
+    sectionDuration?: number | undefined;
+
+    /**
+     * Alternative way to provide section start time for live media. Provides start
+     * time in Epoch time in seconds.
+     */
+    sectionStartAbsoluteTime?: number | undefined;
+
+    /**
+     * The media section start time offset within the container in seconds. If
+     * not provided it assumes it's the same as the offset witnin media.
+     */
+    sectionStartTimeInContainer?: number | undefined;
+
+    /**
+     * The media section start time within media file in seconds. This can be
+     * negative if a section started in previous file.
+     */
+    sectionStartTimeInMedia?: number | undefined;
 }
 
 /**
  * Represents the media information.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.MediaInformation
  */
 export class MediaInformation {
     /**
@@ -1709,6 +1833,16 @@ export class MediaInformation {
     hlsSegmentFormat?: HlsSegmentFormat | undefined;
 
     /**
+     * The format of the HLS video segment.
+     */
+    hlsVideoSegmentFormat?: HlsVideoSegmentFormat | undefined;
+
+    /**
+     * The media cateory (audio, video, picture).
+     */
+    mediaCategory?: MediaCategory | undefined;
+
+    /**
      * The media metadata.
      */
     metadata?:
@@ -1717,7 +1851,12 @@ export class MediaInformation {
         | MovieMediaMetadata
         | MusicTrackMediaMetadata
         | PhotoMediaMetadata
-        | TvShowMediaMetadata | undefined;
+        | TvShowMediaMetadata
+        | AudiobookChapterMediaMetadata
+        | object
+        | undefined;
+
+    startAbsoluteTime?: number | undefined;
 
     /**
      * The stream type.
@@ -1735,6 +1874,12 @@ export class MediaInformation {
     tracks?: Track[] | undefined;
 
     /**
+     * Indicates the user action state for media. Indicate user like, dislike,
+     * or follow actions for the media.
+     */
+    userActionStates?: UserActionState[] | undefined;
+
+    /**
      * VMAP ad request configuration. Used if breaks and breakClips are not
      * provided.
      */
@@ -1743,6 +1888,7 @@ export class MediaInformation {
 
 /**
  * Media event LOAD request data.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.LoadRequestData
  */
 export class LoadRequestData extends RequestData {
     constructor();
@@ -1751,7 +1897,7 @@ export class LoadRequestData extends RequestData {
      * Array of trackIds that are active. If the array is not provided, the
      * default tracks will be active.
      */
-    activeTrackIds: number[];
+    activeTrackIds?: number[] | undefined;
 
     /**
      * If the autoplay parameter is specified, the media player will begin
@@ -1797,11 +1943,12 @@ export class LoadRequestData extends RequestData {
     /**
      * Queue data.
      */
-    queueData: QueueData;
+    queueData?: QueueData | undefined;
 }
 
 /**
  * Provides additional options for load requests.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.LoadOptions
  */
 export class LoadOptions {
     constructor();
@@ -1814,27 +1961,30 @@ export class LoadOptions {
 
 /**
  * LoadByEntity request data.
+ * Note as of July 2021: Docs don't mention this extending RequestData.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.LoadByEntityRequestData
  */
-export class LoadByEntityRequestData {
+export class LoadByEntityRequestData extends RequestData {
     /**
-     * Content entity information; typically represented by a stringified JSON object
+     * Content entity information, typically represented by a stringified JSON object
      */
     entity: string;
+
+    /**
+     * Added load options.
+     */
+    loadOptions: LoadOptions | undefined;
 
     /**
      *  Shuffle the items to play.
      */
     shuffle?: boolean | undefined;
-
-    /**
-     * Optional request source. It contain the assistent query that initiate the request.
-     */
-    source?: string | undefined;
 }
 
 /**
  * Provides live seekable range with start and end time in seconds and two more
  * attributes.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.LiveSeekableRange
  */
 export class LiveSeekableRange {
     constructor(start?: number, end?: number, isMovingWindow?: boolean, isLiveDone?: boolean);
@@ -1855,6 +2005,7 @@ export class LiveSeekableRange {
 
 /**
  * Represents a data message containing item information for each requested ids.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.ItemsInfo
  */
 export class ItemsInfo {
     constructor();
@@ -1878,6 +2029,7 @@ export class ItemsInfo {
 /**
  * An image that describes a receiver application or media item.
  * This could be an application icon; cover art; or a thumbnail.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.Image
  */
 export class Image {
     constructor(url: string);
@@ -1897,7 +2049,10 @@ export class Image {
      */
     width?: number | undefined;
 }
-/** Media event GET_STATUS request data. */
+/**
+ * Media event GET_STATUS request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.GetStatusRequestData
+ */
 export class GetStatusRequestData extends RequestData {
     constructor();
 
@@ -1909,6 +2064,7 @@ export class GetStatusRequestData extends RequestData {
 
 /**
  * Get items info request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.GetItemsInfoRequestData
  */
 export class GetItemsInfoRequestData extends RequestData {
     constructor(itemIds: number[]);
@@ -1920,9 +2076,15 @@ export class GetItemsInfoRequestData extends RequestData {
 }
 /**
  * A generic media description.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.GenericMediaMetadata
  */
 export class GenericMediaMetadata extends MediaMetadata {
     constructor();
+
+    /**
+     * Content rating.
+     */
+    contentRating?: any;
 
     /**
      * Content images. Examples would include cover art or a thumbnail of the
@@ -1936,7 +2098,7 @@ export class GenericMediaMetadata extends MediaMetadata {
     releaseDate?: string | undefined;
 
     /**
-     * @deprecated - use @see{@link releaseDate} instead
+     * @deprecated use releaseDate instead
      */
     releaseYear?: number | undefined;
 
@@ -1953,6 +2115,7 @@ export class GenericMediaMetadata extends MediaMetadata {
 
 /**
  * Focus state change message.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.FocusStateRequestData
  */
 export class FocusStateRequestData extends RequestData {
     constructor();
@@ -1963,7 +2126,10 @@ export class FocusStateRequestData extends RequestData {
     state?: FocusState | undefined;
 }
 
-/** Fetch items request data. */
+/**
+ * Fetch items request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.FetchItemsRequestData
+ */
 export class FetchItemsRequestData extends RequestData {
     constructor(itemId: number, nextCount: number, prevCount: number);
 
@@ -1985,16 +2151,22 @@ export class FetchItemsRequestData extends RequestData {
 
 /**
  * Extended media status information
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.ExtendedMediaStatus
  */
 export class ExtendedMediaStatus {
-    constructor(playerState: MediaInformation, opt_media?: MediaInformation);
+    constructor(playerState: MediaInformation, opt_media?: MediaInformation, opt_mediaSessionId?: number);
 
-    media: MediaInformation;
+    media?: MediaInformation | undefined;
+
+    mediaSessionId?: number | undefined;
 
     playerState: ExtendedPlayerState;
 }
 
-/** Event data for @see{@link EventType.ERROR} event. */
+/**
+ * Event data for {@link events.EventType.ERROR} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.ErrorEvent
+ */
 export class ErrorEvent extends Event {
     constructor(detailedErrorCode?: DetailedErrorCode, error?: any);
 
@@ -2012,6 +2184,10 @@ export class ErrorEvent extends Event {
     error?: any;
 }
 
+/**
+ * Represents error information
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.ErrorData
+ */
 export class ErrorData {
     constructor(type: ErrorType);
 
@@ -2042,6 +2218,7 @@ export class ErrorData {
 
 /**
  * Media event EDIT_TRACKS_INFO request data.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.EditTracksInfoRequestData
  */
 export class EditTracksInfoRequestData extends RequestData {
     constructor();
@@ -2085,6 +2262,7 @@ export class EditTracksInfoRequestData extends RequestData {
 /**
  * Media event EDIT_AUDIO_TRACKS request data. If language is not provided the
  * default audio track for the media will be enabled.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.EditAudioTracksRequestData
  */
 export class EditAudioTracksRequestData extends RequestData {
     constructor();
@@ -2107,6 +2285,7 @@ export class EditAudioTracksRequestData extends RequestData {
 /**
  * DisplayStatus request data.
  * Note as of November 2019: Docs don't mention this extending RequestData.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.DisplayStatusRequestData
  */
 export class DisplayStatusRequestData extends RequestData {
     /**
@@ -2119,6 +2298,7 @@ export class DisplayStatusRequestData extends RequestData {
 /**
  * CustomCommand request data.
  * Note as of November 2019: Docs don't mention this extending RequestData.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.CustomCommandRequestData
  */
 export class CustomCommandRequestData extends RequestData {
     /**
@@ -2137,42 +2317,49 @@ export class CustomCommandRequestData extends RequestData {
  * Cloud media status. Media status that is only sent to the cloud sender.
  * Note as of November 2019: This message's `type` parameter shows as
  * `MEDIA_STATUS`, not `CLOUD_STATUS`.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.CloudMediaStatus
  */
 export class CloudMediaStatus extends MediaStatus {}
 
+/**
+ * Represents current status of break.
+ *
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.BreakStatus
+ */
 export class BreakStatus {
-    constructor(currentBreakTime: number, currentBreakClipTime: number);
+    constructor(currentBreakTime?: number, currentBreakClipTime?: number);
 
     /**
      * Id of current break clip.
      */
-    breakClipId: string;
+    breakClipId?: string | undefined;
 
     /**
      * Id of current break.
      */
-    breakId: string;
+    breakId?: string | undefined;
 
     /**
      * Time in sec elapsed after current break clip starts.
      */
-    currentBreakClipTime: number;
+    currentBreakClipTime?: number | undefined;
 
     /**
      * Time in sec elapsed after current break starts.
      */
-    currentBreakTime: number;
+    currentBreakTime?: number | undefined;
 
     /**
      * The time in sec when this break clip becomes skippable.
      * 5 means that end user can skip this break clip after 5 seconds.
      * If this field is not defined; it means that current break clip is not skippable.
      */
-    whenSkippable: number;
+    whenSkippable?: number | undefined;
 }
 
 /**
  * Represents break clip (e.g. a clip of ad during ad break)
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.BreakClip
  */
 export class BreakClip {
     constructor(id: string);
@@ -2231,7 +2418,10 @@ export class BreakClip {
     whenSkippable?: number | undefined;
 }
 
-/** Represents break (e.g. ad break) included in main video. */
+/**
+ * Represents break (e.g. ad break) included in main video.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.Break
+ */
 export class Break {
     constructor(id: string, breakClipIds: string[], position: number);
     /**
@@ -2263,4 +2453,129 @@ export class Break {
      * Where the break is located inside main video. -1 represents the end of main video.
      */
     position: number;
+}
+
+/**
+ * Content rating (parental rating, maturity rating).
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.ContentRating
+ */
+export class ContentRating {
+    /**
+     * Content Rating icon. If provided, it will be displayed along with "Playing Next" preview.
+     */
+    ratingIcon?: any;
+}
+
+/**
+ * Represent User Action state for media.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.UserActionState
+ */
+export class UserActionState {
+    constructor(userAction: UserAction);
+
+    /**
+     * Optional app specific data.
+     */
+    customData?: any;
+
+    /**
+     * The user action.
+     */
+    userAction: UserAction;
+}
+
+/**
+ * An audiobook chapter description.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.AudiobookChapterMediaMetadata
+ */
+export class AudiobookChapterMediaMetadata {
+    constructor();
+    /**
+     * Audiobook title.
+     */
+    bookTitle?: string | undefined;
+
+    /**
+     * Chapter number, used for display purposes.
+     */
+    chapterNumber?: number | undefined;
+
+    /**
+     * Chapter title.
+     */
+    chapterTitle?: string | undefined;
+
+    /**
+     * Content rating.
+     */
+    contentRating?: any;
+
+    /**
+     * Chapter or book cover art.
+     */
+    images?: Image[] | undefined;
+
+    /**
+     * Audiobook title, for backward compatibility.
+     */
+    subtitle?: string | undefined;
+
+    /**
+     * Chapter title, for backward compatibility.
+     */
+    title?: string | undefined;
+}
+
+/**
+ * An audiobook container description.
+ * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.AudiobookContainerMetadata
+ */
+export class AudiobookContainerMetadata {
+    constructor();
+    /**
+     * Book authors.
+     */
+    authors?: string[] | undefined;
+
+    /**
+     * Book narrators.
+     */
+    narrators?: string[] | undefined;
+
+    /**
+     * Book publisher.
+     */
+    publisher?: string | undefined;
+
+    /**
+     * ISO 8601 date when the book was released; e.g. 2014-02-10.
+     */
+    releaseDate?: string | undefined;
+}
+
+/**
+ * Tracks information.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.TracksInfo
+ */
+export class TracksInfo {
+    /**
+     * The track Ids that should be active.
+     */
+    activeTrackIds?: number[] | undefined;
+
+    /**
+     * Language for the tracks that should be active. The language field will
+     * take precedence over activeTrackIds if both are specified.
+     */
+    language?: string | undefined;
+
+    /**
+     * The text track style.
+     */
+    textTrackStyle?: TextTrackStyle | undefined;
+
+    /**
+     * The tracks information.
+     */
+    tracks?: Track[] | undefined;
 }

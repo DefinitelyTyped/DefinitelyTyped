@@ -45,7 +45,7 @@ declare const InnerBlocks: {
      * display a `+` (plus) icon button that, when clicked, displays the block picker menu. No
      * default Block is inserted.
      */
-    ButtonBlockerAppender: ComponentType<{ children?: never | undefined }>;
+    ButtonBlockAppender: ComponentType<{ children?: never | undefined }>;
     /**
      * display the default block appender as set by `wp.blocks.setDefaultBlockName`. Typically this
      * is the `paragraph` block.

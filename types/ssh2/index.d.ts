@@ -28,7 +28,8 @@ import {
     WriteFileOptions,
     ReadStreamOptions,
     WriteStreamOptions,
-    FileEntry
+    FileEntry,
+    ParsedKey,
 } from "ssh2-streams";
 
 export import SFTP_STATUS_CODE = SFTPStream.STATUS_CODE;
@@ -425,13 +426,13 @@ export interface ConnectConfig {
     /** The host's key is hashed using this method and passed to `hostVerifier`. */
     hostHash?: "md5" | "sha1" | undefined;
     /** Verifies a hexadecimal hash of the host's key. */
-    hostVerifier?: ((keyHash: string) => boolean) | undefined;
+    hostVerifier?: ((keyHash: string, callback: (verified: boolean) => void) => boolean | void) | undefined;
     /** Username for authentication. */
     username?: string | undefined;
     /** Password for password-based user authentication. */
     password?: string | undefined;
     /** Path to ssh-agent's UNIX socket for ssh-agent-based user authentication (or 'pageant' when using Pagent on Windows). */
-    agent?: string | undefined;
+    agent?: BaseAgent | string | undefined;
     /** Buffer or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format). */
     privateKey?: Buffer | string | undefined;
     /** For an encrypted private key, this is the passphrase used to decrypt it. */
@@ -461,8 +462,95 @@ export interface ConnectConfig {
     /** A function that receives a single string argument to get detailed (local) debug information. */
     debug?: ((information: string) => any) | undefined;
     /** Function with parameters (methodsLeft, partialSuccess, callback) where methodsLeft and partialSuccess are null on the first authentication attempt, otherwise are an array and boolean respectively. Return or call callback() with the name of the authentication method to try next (pass false to signal no more methods to try). Valid method names are: 'none', 'password', 'publickey', 'agent', 'keyboard-interactive', 'hostbased'. Default: function that follows a set method order: None -> Password -> Private Key -> Agent (-> keyboard-interactive if tryKeyboard is true) -> Hostbased. */
-    authHandler?: ((methodsLeft: Array<string> | null, partialSuccess: boolean | null, callback: Function) => any) | undefined;
+    // dtslint incorrectly thinks that void is not part of the return type on the next line
+    // tslint:disable-next-line:void-return
+    authHandler?: (methodsLeft: Array<string> | null, partialSuccess: boolean | null, callback: (nextAuth: AuthHandlerResult) => void) => (AuthHandlerResult | void);
 }
+
+/**
+ * Return value or callback value from the {@link ConnectConfig.authHandler}.
+ * Should be the next authentication method to try (either by name or complete
+ * options) or false if there are no more methods to try.
+ */
+export type AuthHandlerResult = AnyAuthMethod | AnyAuthMethod['type'] | false;
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect without authentication.
+ */
+export interface NoAuthMethod {
+    type: 'none';
+    username: string;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with a password.
+ */
+export interface PasswordAuthMethod {
+    type: 'password';
+    username: string;
+    password: string;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with a public key.
+ */
+export interface PublicKeyAuthMethod {
+    type: 'publickey';
+    username: string;
+    /**
+     * Can be a string, Buffer, or parsed key containing a private key
+     */
+    key: string | Buffer | ParsedKey;
+    /**
+     * `passphrase` only required for encrypted keys
+     */
+    passphrase?: string;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with host-based authentication.
+ */
+export interface HostBasedAuthMethod {
+    type: 'hostbased';
+    username: string;
+    localUsername: string;
+    localPassword: string;
+    /**
+     * Can be a string, Buffer, or parsed key containing a private key
+     */
+    key: string | Buffer | ParsedKey;
+    /**
+     * `passphrase` only required for encrypted keys
+     */
+    passphrase?: string;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with an agent.
+ */
+export interface AgentAuthMethod {
+    type: 'agent';
+    username: string;
+    /**
+     * Can be a string that is interpreted exactly like the `agent` connection config
+     * option or can be a custom agent object/instance that extends and implements `BaseAgent`
+     */
+    agent: string | BaseAgent;
+}
+
+/**
+ * Strategy returned from the {@link ConnectConfig.authHandler} to connect with an agent.
+ */
+export interface KeyboardInteractiveAuthMethod {
+    type: 'keyboard-interactive';
+    username: string;
+    /**
+     * This works exactly the same way as a 'keyboard-interactive' client event handler
+    */
+    prompt(name: string, instructions: string, lang: string, prompts: Prompt[], finish: (responses: string[]) => void): void;
+}
+
+export type AnyAuthMethod = NoAuthMethod | PasswordAuthMethod | HostBasedAuthMethod | PublicKeyAuthMethod | AgentAuthMethod | KeyboardInteractiveAuthMethod;
 
 export interface TcpConnectionDetails {
     /** The originating IP of the connection. */
@@ -1616,4 +1704,144 @@ export interface SFTPWrapper extends events.EventEmitter {
     on(event: "continue", listener: () => void): this;
 
     on(event: string | symbol, listener: Function): this;
+}
+
+/**
+ * Interface representing an inbound agent request. This is defined as an
+ * "opaque type" in the ssh2 documentation, and should only be used
+ * for correlation, not introspected.
+ */
+export interface AgentInboundRequest {
+    __opaque_type: never
+}
+
+/**
+ * Options passed to {@link BaseAgent.sign} and AgentProtocol methods.
+ */
+export interface SigningRequestOptions {
+    hash?: 'sha256' | 'sha512';
+}
+
+export class AgentProtocol extends stream.Duplex {
+    /**
+     * Creates and returns a new AgentProtocol instance. `isClient` determines
+     * whether the instance operates in client or server mode.
+     */
+    constructor(isClient: boolean);
+
+    /**
+     * (Server mode only)
+     * Replies to the given `request` with a failure response.
+     */
+    failureReply(request: AgentInboundRequest): void;
+
+    /**
+     * (Client mode only)
+     * Requests a list of public keys from the agent. `callback` is passed
+     * `(err, keys)` where `keys` is a possible array of public keys for
+     * authentication.
+     */
+     getIdentities(callback: (err: Error | undefined, publicKeys?: ParsedKey[]) => void): void;
+
+     /**
+      * (Server mode only)
+      * Responds to a identities list `request` with the given array of keys in `keys`.
+      */
+     getIdentitiesReply(request: AgentInboundRequest, keys: ParsedKey[]): void;
+
+    /**
+     * (Client mode only)
+     * Signs the datawith the given public key, and calls back with its signature.
+     * Note that, in the current implementation, "options" is always an empty object.
+     */
+     sign(publicKey: ParsedKey, data: Buffer, options: SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void;
+
+     /**
+      * (Server mode only)
+      * Responds to a sign `request` with the given signature in `signature`.
+      */
+     signReply(request: AgentInboundRequest, signature: Buffer): void;
+
+    /**
+     * (Server mode only)
+     * The client has requested a list of public keys stored in the agent.
+     * Use `failureReply()` or `getIdentitiesReply()` to reply appropriately.
+     */
+    on(event: "identities", listener: (request: AgentInboundRequest) => void): this;
+
+    /**
+     * (Server mode only)
+     * The client has requested `data` to be signed using the key identified
+     * by `pubKey`. Use `failureReply()` or `signReply()` to reply appropriately.
+     */
+    on(event: "sign", listener: (publicKey: ParsedKey, data: Buffer, options: SigningRequestOptions) => void): this;
+
+    on(event: string | symbol, listener: Function): this;
+}
+
+/**
+ * Creates and returns a new agent instance using the same logic as the
+ * `Client`'s `agent` configuration option: if the platform is Windows and
+ * it's the value "pageant", it creates a `PageantAgent`, otherwise if it's not
+ * a path to a Windows pipe it creates a `CygwinAgent`. In all other cases,
+ * it creates an `OpenSSHAgent`.
+ */
+export function createAgent(agentValue: string): BaseAgent;
+
+/**
+ * Base agent that you can use to create a custom SSH agent. `TKey` is the
+ * parsed or parsable public key your class retrieves, and is invoked with.
+ * If a string or a buffer, you can pass it to `utils.parseKey()`
+ */
+export abstract class BaseAgent<TPublicKey extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> {
+    /**
+     * Retrieves user identities, where `keys` is a possible array of public
+     * keys for authentication.
+     */
+     abstract getIdentities(callback: (err: Error | undefined, publicKeys?: TPublicKey[]) => void): void;
+
+    /**
+     * Signs the datawith the given public key, and calls back with its signature.
+     * Note that, in the current implementation, "options" is always an empty object.
+     */
+    abstract sign(publicKey: TPublicKey, data: Buffer, options: SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void;
+
+    /**
+     * Optional method that may be implemented to support agent forwarding. Callback
+     * should be invoked with a Duplex stream to be used to communicate with your agent/
+     * You will probably want to utilize `AgentProtocol` as agent forwarding is an
+     * OpenSSH feature, so the `stream` needs to be able to
+     * transmit/receive OpenSSH agent protocol packets.
+     */
+    getStream?(callback: (err: Error | undefined, stream: stream.Duplex) => void): void;
+}
+
+/**
+ * Communicates with an OpenSSH agent listening on the UNIX socket at `socketPath`.
+ */
+export class OpenSSHAgent extends BaseAgent<ParsedKey> {
+    constructor(socketPath: string);
+
+    /** @inheritdoc */
+    getIdentities(callback: (err: Error | undefined, publicKeys?: ParsedKey[]) => void): void;
+
+    /** @inheritdoc */
+    sign(publicKey: ParsedKey, data: Buffer, options: SigningRequestOptions, callback: (err: Error | undefined, signature?: Buffer) => void): void;
+
+    /** @inheritdoc */
+    getStream(callback: (err: Error | undefined, stream: stream.Duplex) => void): void;
+}
+
+/**
+ * Communicates with an agent listening at `socketPath` in a Cygwin environment.
+ */
+export class CygwinAgent extends OpenSSHAgent {
+    constructor(socketPath: string)
+}
+
+/**
+ * Creates a new agent instance for communicating with a running Pageant agent process.
+ */
+export class PageantAgent extends OpenSSHAgent {
+    constructor(socketPath: string)
 }

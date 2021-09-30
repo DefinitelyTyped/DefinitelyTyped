@@ -32,6 +32,10 @@ export interface Renderer {
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
 
+/** This is only available in worker JS contexts, not the DOM. */
+// tslint:disable-next-line:no-empty-interface
+export interface OffscreenCanvas extends EventTarget {}
+
 export interface WebGLRendererParameters {
     /**
      * A Canvas where the renderer draws its output.

@@ -126,7 +126,7 @@ export class Dropdown<S extends Schema = any> {
      * **`css`**`: string`
      * : When given, adds an extra set of CSS styles to the menu control.
      */
-    constructor(content: Array<MenuElement<S>>, options?: { [key: string]: any });
+    constructor(content: ReadonlyArray<MenuElement<S>>, options?: { [key: string]: any });
     /**
      * Render the dropdown menu and sub-items.
      */
@@ -144,7 +144,7 @@ export class DropdownSubmenu<S extends Schema = any> {
      * **`label`**`: string`
      * : The label to show on the submenu.
      */
-    constructor(content: Array<MenuElement<S>>, options?: { [key: string]: any });
+    constructor(content: ReadonlyArray<MenuElement<S>>, options?: { [key: string]: any });
     /**
      * Renders the submenu.
      */
@@ -158,8 +158,8 @@ export class DropdownSubmenu<S extends Schema = any> {
  */
 export function renderGrouped<S extends Schema = any>(
     view: EditorView<S>,
-    content: Array<MenuElement<S> | Array<MenuElement<S>>>,
-): { dom?: DocumentFragment | null | undefined; update(p: EditorState<S>): boolean };
+    content: ReadonlyArray<ReadonlyArray<MenuElement<S>>>,
+): { dom: DocumentFragment; update(p: EditorState<S>): boolean };
 /**
  * A set of basic editor-related icons. Contains the properties
  * `join`, `lift`, `selectParentNode`, `undo`, `redo`, `strong`, `em`,
@@ -210,6 +210,6 @@ export function blockTypeItem<S extends Schema = any>(
  * this involves wrapping the editor in an additional `<div>`.
  */
 export function menuBar<S extends Schema = any>(options: {
-    content: Array<Array<MenuElement<S>>>;
+    content: ReadonlyArray<ReadonlyArray<MenuElement<S>>>;
     floating?: boolean | null | undefined;
 }): Plugin<S>;

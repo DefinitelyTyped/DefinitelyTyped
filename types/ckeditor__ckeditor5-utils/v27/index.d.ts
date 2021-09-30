@@ -3,7 +3,7 @@
 // Definitions by: Federico Panico <https://github.com/fedemp>
 //                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.3
 
 export { default as env } from "./src/env";
 export { default as diff } from "./src/diff";

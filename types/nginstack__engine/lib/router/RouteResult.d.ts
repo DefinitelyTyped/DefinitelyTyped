@@ -2,7 +2,7 @@ export = RouteResult;
 declare function RouteResult(opt_base: RouteResult): import('./RouteResult.js');
 declare class RouteResult {
     constructor(opt_base: RouteResult);
-    base_: any;
+    private base_;
     private logger_;
     private status_;
     private content_;
@@ -10,7 +10,7 @@ declare class RouteResult {
     private charset_;
     private headers_;
     private allHeaders_;
-    getInheritedProperty_(name: string): any;
+    private getInheritedProperty_;
     withStatus(status: Status | number): RouteResult;
     status: Status | number;
     withContent(content: any): RouteResult;
@@ -34,7 +34,6 @@ declare namespace RouteResult {
     export {
         transform,
         MAX_BASE_CHAIN,
-        transformers_,
         addTransformer,
         addTransformer as addTransform,
         removeAllTransformers,
@@ -48,7 +47,6 @@ import MediaType = require('../http/MediaType.js');
 type Response = import('../http/Response');
 declare function transform(result: RouteResult, request: Request): RouteResult;
 declare var MAX_BASE_CHAIN: number;
-declare var transformers_: Array<(arg0: RouteResult) => RouteResult>;
 declare function addTransformer(
     transformer: (arg0: RouteResult, arg1: any) => RouteResult | any[]
 ): void;

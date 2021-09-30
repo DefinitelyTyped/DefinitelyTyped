@@ -6,3 +6,9 @@ import FindNextCommand from './findnextcommand';
 export default class FindPreviousCommand extends FindNextCommand {
     execute(): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        FindPreviousCommand: FindPreviousCommand;
+    }
+}

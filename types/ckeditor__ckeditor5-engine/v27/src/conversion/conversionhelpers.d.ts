@@ -3,7 +3,7 @@ import DowncastHelpers from "./downcasthelpers";
 import UpcastDispatcher from "./upcastdispatcher";
 import UpcastHelpers from "./upcasthelpers";
 
-export default abstract class ConversionHelpers {
-    constructor(dispatchers: Array<DowncastDispatcher | UpcastDispatcher>);
-    add(conversionHelper: (...args: any[]) => any): DowncastHelpers | UpcastHelpers;
+export default abstract class ConversionHelpers<T extends DowncastHelpers | UpcastHelpers> {
+    constructor(dispatchers: T extends DowncastHelpers ? DowncastDispatcher[] : UpcastDispatcher[]);
+    add(conversionHelper: (...args: any[]) => any): T;
 }

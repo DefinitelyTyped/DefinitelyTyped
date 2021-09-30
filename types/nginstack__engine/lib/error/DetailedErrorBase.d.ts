@@ -8,12 +8,12 @@ declare function DetailedErrorBase(
 ): void;
 declare class DetailedErrorBase {
     constructor(name: any, error: any, solution: any, details: any, errorCode: any);
-    _name: any;
-    _error: any;
-    _solution: any;
-    _details: any;
-    _sourceLocation: string;
-    _errorCode: any;
+    private _name;
+    private _error;
+    private _solution;
+    private _details;
+    private _sourceLocation;
+    private _errorCode;
     toString(): any;
     toHtmlString(): any;
     toSqlString(): any;

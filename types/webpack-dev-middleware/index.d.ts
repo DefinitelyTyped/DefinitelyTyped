@@ -8,9 +8,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import * as webpack from "webpack";
-import { IncomingMessage, NextHandleFunction } from "connect";
-import { ServerResponse } from "http";
+import * as webpack from 'webpack';
+import { IncomingMessage, NextHandleFunction } from 'connect';
+import { ServerResponse } from 'http';
 
 export = WebpackDevMiddleware;
 
@@ -64,6 +64,7 @@ declare namespace WebpackDevMiddleware {
         state: boolean;
         stats: webpack.Stats | null;
         callbacks: Callback[];
+        outputFileSystem: webpack.Compiler['outputFileSystem'];
         options: Options;
         compiler: webpack.Compiler;
         watching: webpack.Watching | null;

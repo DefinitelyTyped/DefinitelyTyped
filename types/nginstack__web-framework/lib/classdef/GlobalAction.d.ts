@@ -2,7 +2,7 @@ export = GlobalAction;
 declare function GlobalAction(name: string): void;
 declare class GlobalAction {
     constructor(name: string);
-    name_: string;
+    private name_;
     onShow: LegacyEvent;
     params: any;
     activity: string | null;

@@ -30,9 +30,9 @@ let Account = dynamo.define('Account', {
 const AccountTyped = dynamo.define<{
     email: string;
     name: string;
-    age?: number | undefined;
-    roles?: string[] | undefined;
-    settings?: { nickname: string; acceptedTerms: boolean } | undefined;
+    age?: number;
+    roles?: string[];
+    settings?: { nickname: string; acceptedTerms: boolean };
 }>('Account', {
     hashKey: 'email',
 
@@ -523,6 +523,10 @@ BlogPost.query('werner@example.com')
     .expressionAttributeNames({ '#title': 'title' })
     .projectionExpression('#title, tag')
     .exec(callback);
+
+BlogPost.query('werner@example.com')
+    .filter('title')
+    .exists(true);
 
 let GameScore = dynamo.define('GameScore', {
     hashKey: 'userId',

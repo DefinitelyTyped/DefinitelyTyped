@@ -11,3 +11,9 @@ export interface RestrictedEditingModeConfig {
     allowedAttributes: string[];
     allowedCommands: string[];
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        RestrictedEditingMode: RestrictedEditingMode;
+    }
+}

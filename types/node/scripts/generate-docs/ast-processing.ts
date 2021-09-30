@@ -67,6 +67,8 @@ type JSDocResult = GoodProcessResult | BadProcessResult;
 
 const ignoreFunctions = new Set(['pseudoRandomBytes', '___promisify__']);
 
+const allowedDefaultValueWords = new Set(['true', 'false']);
+
 class TagHelper {
     constructor(private readonly docContext: DocAugmentationContext) {
     }
@@ -94,9 +96,20 @@ class TagHelper {
 
     private createParamTag(name: string, description: string, defaultValue?: string): JSDocParameterTag {
         const { factory } = this.docContext.transformationContext;
-        if (defaultValue && defaultValue.length < 15) {
-            defaultValue = defaultValue.replaceAll('`', '');
-            name = `[${name}=${defaultValue}]`;
+        if (defaultValue) {
+            const firstIndex = defaultValue.indexOf('`');
+            const secondIdx = firstIndex > -1 ? defaultValue.indexOf('`', firstIndex + 1) : -1;
+            if (secondIdx > 0) {
+                defaultValue = defaultValue.slice(0, secondIdx + 1);
+            }
+            defaultValue = defaultValue.replaceAll(/[`\[\]]/g, '');
+            if (defaultValue.length <= 32 && defaultValue !== 'undefined') {
+                // sometimes strings are not wrapped correctly.
+                if (!defaultValue.includes('.') && !/^[0-9']/.test(defaultValue) && !allowedDefaultValueWords.has(defaultValue)) {
+                    defaultValue = `'${defaultValue}'`;
+                }
+                name = `[${name}=${defaultValue}]`;
+            }
         }
         return factory.createJSDocParameterTag(undefined,
             factory.createIdentifier(name),
@@ -175,10 +188,9 @@ class TagHelper {
     extractParamTags(sigDoc: SignatureDocNode, moduleName: string): JSDocTag[] {
         const tags: JSDocTag[] = [];
         for (const param of sigDoc.params) {
-            if (!param.desc) {
-                continue;
+            if (param.desc || param.default) {
+                tags.push(this.createParamTag(param.name.replaceAll('.', ''), param.desc ?? '', param.default));
             }
-            tags.push(this.createParamTag(param.name.replaceAll('.', ''), param.desc, param.default));
         }
         if (sigDoc.return?.desc) {
             tags.push(this.createReturnTag(fixupLocalLinks(sigDoc.return.desc, moduleName)));
@@ -492,8 +504,7 @@ export class NodeProcessingContext {
             )
             .replaceAll('/**', '')
             .replaceAll('*/', '')
-            .replace(/`&lt;/g, '`<')
-            .replace(/&gt;`/g, '>`');
+            .replaceAll(/&lt;(.*?)&gt;/g, '$1');
             const newNode = removeCommentsRecursive(node, transformationContext, typeChecker);
             addSyntheticLeadingComment(newNode, SyntaxKind.MultiLineCommentTrivia, jsdoc, true);
         } else {

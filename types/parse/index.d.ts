@@ -119,6 +119,10 @@ declare global {
             error?: Function | undefined;
         }
 
+        interface ContextOption {
+            context?: {[key: string]: any};
+        }
+
         interface FullOptions {
             success?: Function | undefined;
             error?: Function | undefined;
@@ -528,6 +532,7 @@ declare global {
                     SuccessFailureOptions,
                     SilentOption,
                     ScopeOptions,
+                    ContextOption,
                     WaitOption {}
 
             interface SaveAllOptions extends BatchSizeOption, ScopeOptions {}
@@ -1310,6 +1315,7 @@ declare global {
                 default?: any;
                 options?: any[] | Function | undefined;
                 error?: String | undefined;
+                required?: boolean;
             }
             interface ValidatorFields {
                 [field: string]: ValidatorField;
@@ -1344,12 +1350,12 @@ declare global {
             }
 
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
-                context: object;
+                context: Record<string, unknown>;
             }
             interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
-                context: object;
+                context: Record<string, unknown>;
             }
 
             interface FileTriggerRequest extends TriggerRequest<File> {

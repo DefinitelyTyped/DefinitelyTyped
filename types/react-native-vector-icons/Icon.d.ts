@@ -6,7 +6,8 @@ import {
   TouchableHighlightProps,
   TouchableNativeFeedbackProps,
   TabBarIOSItemProps,
-  ToolbarAndroidProps as ReactNativeToolbarAndroidProps
+  ToolbarAndroidProps as ReactNativeToolbarAndroidProps,
+  ColorValue
 } from 'react-native';
 
 export interface IconProps extends TextProps {
@@ -29,7 +30,7 @@ export interface IconProps extends TextProps {
    * Color of the icon
    *
    */
-  color?: string | undefined;
+  color?: ColorValue | number | undefined;
 }
 
 export interface IconButtonProps extends IconProps, TouchableHighlightProps, TouchableNativeFeedbackProps {
@@ -39,7 +40,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProps, Tou
    *
    * @default 'white'
    */
-  color?: string | undefined;
+  color?: ColorValue | number | undefined;
 
   /**
    * Border radius of the button
@@ -69,7 +70,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProps, Tou
    *
    * @default '#007AFF'
    */
-  backgroundColor?: string | undefined;
+  backgroundColor?: ColorValue | number | undefined;
 }
 
 export type ImageSource = any;
@@ -108,7 +109,7 @@ export interface ToolbarAndroidProps extends ReactNativeToolbarAndroidProps {
    *
    * @default 'black'
    */
-  iconColor: string;
+  iconColor: ColorValue | number;
 }
 
 export interface TabBarItemIOSProps extends TabBarIOSItemProps {
@@ -137,7 +138,7 @@ export interface TabBarItemIOSProps extends TabBarIOSItemProps {
    * Color of the icon
    *
    */
-  iconColor?: string | undefined;
+  iconColor?: ColorValue | number | undefined;
 
   /**
    * Color of the selected icon.
@@ -152,12 +153,12 @@ export class Icon extends React.Component<IconProps, any> {
   static getImageSource(
     name: string,
     size?: number,
-    color?: string,
+    color?: ColorValue | number,
   ): Promise<ImageSource>;
   static getImageSourceSync(
     name: string,
     size?: number,
-    color?: string,
+    color?: ColorValue | number,
   ): ImageSource;
   static getRawGlyphMap(): { [name: string]: number };
   static loadFont(

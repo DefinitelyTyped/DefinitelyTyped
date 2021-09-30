@@ -462,7 +462,7 @@ export interface PluginPass {
     key: string;
     opts: PluginOptions;
     cwd: string;
-    filename: string;
+    filename: string | undefined;
     [key: string]: unknown;
 }
 

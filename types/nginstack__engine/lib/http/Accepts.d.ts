@@ -2,7 +2,7 @@ export = Accepts;
 declare function Accepts(request: Request): void;
 declare class Accepts {
     constructor(request: Request);
-    acceptHeader_: string;
+    private acceptHeader_;
     private mediaTypeMap_;
     private extToMime_;
     private removeSuffix_;

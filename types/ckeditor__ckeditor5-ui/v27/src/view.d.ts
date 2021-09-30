@@ -10,11 +10,11 @@ import ViewCollection from "./viewcollection";
 
 export default class View implements DomEmitter, Observable {
     constructor(locale?: Locale);
-    element: HTMLElement | null;
+    element?: HTMLElement | null;
     readonly isRendered: boolean;
     readonly locale?: Locale;
-    template: Template;
-    t: Locale["t"] | undefined;
+    template: Template | boolean;
+    t: Locale['t'] | undefined;
     readonly bindTemplate: TemplateBindChain;
     createCollection(views?: Iterable<View>): ViewCollection;
     registerChild(children: View | Iterable<View>): void;

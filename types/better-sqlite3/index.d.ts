@@ -1,4 +1,4 @@
-// Type definitions for better-sqlite3 5.4
+// Type definitions for better-sqlite3 7.4
 // Project: http://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
@@ -7,14 +7,10 @@
 //                 Andrew Kaiser <https://github.com/andykais>
 //                 Mark Stewart <https://github.com/mrkstwrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import Integer = require("integer");
+// TypeScript Version: 3.8
 
 type VariableArgFunction = (...params: any[]) => any;
-type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any
-  ? A
-  : never;
+type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
 
 declare namespace BetterSqlite3 {
     interface Statement<BindParameters extends any[]> {
@@ -65,13 +61,12 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        prepare<BindParameters extends any[] | {} = any[]>(source: string): BindParameters extends any[]
-          ? Statement<BindParameters>
-          : Statement<[BindParameters]>;
+        prepare<BindParameters extends any[] | {} = any[]>(
+            source: string,
+        ): BindParameters extends any[] ? Statement<BindParameters> : Statement<[BindParameters]>;
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): any;
-        checkpoint(databaseName?: string): this;
         function(name: string, cb: (...params: any[]) => any): this;
         function(name: string, options: Database.RegistrationOptions, cb: (...params: any[]) => any): this;
         aggregate(name: string, options: Database.AggregateOptions): this;
@@ -80,14 +75,14 @@ declare namespace BetterSqlite3 {
         defaultSafeIntegers(toggleState?: boolean): this;
         backup(destinationFile: string, options?: Database.BackupOptions): Promise<Database.BackupMetadata>;
         table(name: string, options: VirtualTableOptions): this;
+        unsafeMode(unsafe?: boolean): this;
     }
 
     interface DatabaseConstructor {
-        new(filename: string, options?: Database.Options): Database;
+        new (filename: string, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 
-        Integer: typeof Integer;
         SqliteError: typeof SqliteError;
     }
 }
@@ -102,11 +97,10 @@ declare class SqliteError implements Error {
 declare namespace Database {
     interface RunResult {
         changes: number;
-        lastInsertRowid: Integer.IntLike;
+        lastInsertRowid: number | bigint;
     }
 
     interface Options {
-        memory?: boolean | undefined;
         readonly?: boolean | undefined;
         fileMustExist?: boolean | undefined;
         timeout?: number | undefined;
@@ -138,11 +132,10 @@ declare namespace Database {
         progress: (info: BackupMetadata) => number;
     }
 
-    type Integer = typeof Integer;
     type SqliteError = typeof SqliteError;
     type Statement<BindParameters extends any[] | {} = any[]> = BindParameters extends any[]
-      ? BetterSqlite3.Statement<BindParameters>
-      : BetterSqlite3.Statement<[BindParameters]>;
+        ? BetterSqlite3.Statement<BindParameters>
+        : BetterSqlite3.Statement<[BindParameters]>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
     type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
     type Database = BetterSqlite3.Database;

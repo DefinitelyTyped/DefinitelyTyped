@@ -60,13 +60,14 @@ declare module 'process' {
                 "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
                 "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ" | "SIGBREAK" | "SIGLOST" | "SIGINFO";
 
+            type UncaughtExceptionOrigin = 'uncaughtException' | 'unhandledRejection';
             type MultipleResolveType = 'resolve' | 'reject';
 
             type BeforeExitListener = (code: number) => void;
             type DisconnectListener = () => void;
             type ExitListener = (code: number) => void;
             type RejectionHandledListener = (promise: Promise<any>) => void;
-            type UncaughtExceptionListener = (error: Error) => void;
+            type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
             type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: any, sendHandle: any) => void;

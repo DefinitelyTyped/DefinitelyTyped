@@ -154,6 +154,11 @@ export class Texture extends EventDispatcher {
     encoding: TextureEncoding;
 
     /**
+     * @default false
+     */
+    isRenderTargetTexture: boolean;
+
+    /**
      * @default 0
      */
     version: number;

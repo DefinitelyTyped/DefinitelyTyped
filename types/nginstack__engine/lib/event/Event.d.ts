@@ -12,9 +12,9 @@ declare class Event {
             cancelable: boolean;
         }
     );
-    type_: string;
-    timeStamp_: number;
-    cancelable_: boolean;
+    private type_;
+    private timeStamp_;
+    private cancelable_;
     listenerIndex: number;
     target: any;
     currentTarget: any;
@@ -24,7 +24,7 @@ declare class Event {
     immediateStopped: boolean;
     defaultPrevented: boolean;
     stopImmediatePropagation(): void;
-    immediateStopped_: boolean;
+    private immediateStopped_;
     preventDefault(): void;
-    defaultPrevented_: boolean;
+    private defaultPrevented_;
 }

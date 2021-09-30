@@ -210,6 +210,8 @@ declare namespace RecordRTC {
         /** used by MultiStreamRecorder - to access HTMLCanvasElement */
         elementClass?: string | undefined;
     }
+
+    type DiskStorageType = 'audioBlob' | 'videoBlob' | 'gifBlob';
 }
 
 declare class RecordRTC {
@@ -266,8 +268,6 @@ declare class RecordRTC {
 
     getTracks: (stream: MediaStream, kind: RecordRTC.MediaStreamKind) => MediaStreamTrack[];
 
-    getSeekableBlob: (inputBlob: Blob, cb: (outputBlob: Blob) => void) => void;
-
     /** @deprecated */
     setAdvertisementArray(webPImages: Array<{ image: string }>): void;
 
@@ -309,7 +309,21 @@ declare class RecordRTC {
     static bytesToSize(size: number): string;
 
     /** invokes the browser's Save-As dialog */
-    static invokeSaveAsDialog(file: Blob | File, fileName: string): void;
+    static invokeSaveAsDialog(file: Blob | File, fileName?: string): void;
+
+    static getSeekableBlob(inputBlob: Blob, cb: (outputBlob: Blob) => void): void;
+
+    /** returns true if running in an Electron environment */
+    static isElectron(): boolean;
+
+    /** DiskStorage is a standalone object used by RecordRTC to store recorded blobs in IndexedDB storage. */
+    static DiskStorage: {
+        init(): void;
+        Fetch(cb: (dataURL: string, type: RecordRTC.DiskStorageType) => void): void;
+        Store(data: { [K in RecordRTC.DiskStorageType]?: Blob; }): void;
+        onError(error: Error): void;
+        dataStoreName: string;
+    };
 }
 
 export = RecordRTC;

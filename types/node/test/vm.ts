@@ -87,7 +87,9 @@ import { inspect } from 'node:util';
 
 {
     const script = new Script('foo()', { cachedData: Buffer.from([]) });
+    console.log(script.cachedDataProduced);
     console.log(script.cachedDataRejected);
+    console.log(script.cachedData);
 }
 
 {

@@ -72,7 +72,11 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentType<any>;
+    type ElementType<P = any> = string | ComponentType<P>;
+    /**
+     * @deprecated Please use `ElementType`
+     */
+    type ReactType<P = any> = ElementType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
@@ -2975,6 +2979,7 @@ declare namespace React {
         content?: string | undefined;
         httpEquiv?: string | undefined;
         name?: string | undefined;
+        media?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {

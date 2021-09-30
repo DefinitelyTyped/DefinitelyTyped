@@ -9,3 +9,9 @@ export default class ImageStyleCommand extends Command {
     refresh(): void;
     execute(options: { value: ImageConfig['styles'] }): void;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
+    interface Commands {
+        ImageStyleCommand: ImageStyleCommand;
+    }
+}

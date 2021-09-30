@@ -34,6 +34,7 @@ gDagre.predecessors('d');
 gDagre.successors('b');
 
 gDagre = gDagre.removeNode('a');
+gDagre = gDagre.filterNodes((nodeId) => nodeId !== 'a');
 gDagre = gDagre.removeEdge('c', 'd').removeNode('d');
 
 dagre.graphlib.json.read(dagre.graphlib.json.write(gDagre));

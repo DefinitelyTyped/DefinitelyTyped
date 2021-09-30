@@ -2,7 +2,7 @@
 
 ## Instructions
 
-Run `VERSION=<NODE_VERSION> npm run generate-docs --prefix scripts/generate-docs` where as `NODE_VERSION` MUST be a version listed on [https://nodejs.org/dist/](here) without any prefix eg. `v`.
+Run `VERSION=<NODE_VERSION> npm run generate-docs --prefix scripts/generate-docs` where as `NODE_VERSION` MUST be a version listed on [here](https://nodejs.org/dist/) without any prefix eg. `v`.
 
 The script will download the specified docs and will update docs and *replace any manually created ones* unless the EXPLICITLY contain the `@keepdoc` comment tag.
 

@@ -19,23 +19,23 @@ const messageObject = JSON.parse(message);
 // Test with a string
 new SNSValidator().validate(message, (err, message) => {
     const e = err; // $ExpectType Error | null
-    const m = message; // $ExpectType object | undefined
+    const m = message; // $ExpectType Record<string, unknown> | undefined
 });
 
 // Test with a JSON
 new SNSValidator().validate(messageObject, (err, message) => {
     const e = err; // $ExpectType Error | null
-    const m = message; // $ExpectType object | undefined
+    const m = message; // $ExpectType Record<string, unknown> | undefined
 });
 
 // Test with an invalid string
 new SNSValidator().validate('invalid_message', (err, message) => {
     const e = err; // $ExpectType Error | null
-    const m = message; // $ExpectType object | undefined
+    const m = message; // $ExpectType Record<string, unknown> | undefined
 });
 
 // Test with an invalid JSON
-new SNSValidator().validate({...messageObject, Signature: "invalid_signature"}, (err, message) => {
+new SNSValidator().validate({ ...messageObject, Signature: 'invalid_signature' }, (err, message) => {
     const e = err; // $ExpectType Error | null
-    const m = message; // $ExpectType object | undefined
+    const m = message; // $ExpectType Record<string, unknown> | undefined
 });

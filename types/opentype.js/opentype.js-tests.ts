@@ -55,6 +55,8 @@ const nameGlyph: opentype.Glyph = font.nameToGlyph('a');
 const indexName: string = font.glyphIndexToName(1);
 const kerning: number = font.getKerningValue(notdefGlyph, aGlyph);
 font.defaultRenderOptions.kerning = false;
+font.defaultRenderOptions.letterSpacing = 0;
+font.defaultRenderOptions.tracking = 0;
 const forEachWidth: number = font.forEachGlyph(
     'text',
     x,

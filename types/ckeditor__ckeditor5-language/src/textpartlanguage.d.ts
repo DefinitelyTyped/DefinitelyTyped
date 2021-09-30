@@ -12,3 +12,9 @@ export interface TextPartLanguageOption {
     textDirection?: 'ltr' | 'rtl' | undefined;
     title: string;
 }
+
+declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
+    interface Plugins {
+        TextPartLanguage: TextPartLanguage;
+    }
+}

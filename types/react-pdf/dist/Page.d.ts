@@ -30,6 +30,7 @@ export interface TextItem {
     width: number;
     height: number;
     fontName: string;
+    hasEOL: boolean;
 }
 
 export interface PDFPageProxy extends _PDFPageProxy {
