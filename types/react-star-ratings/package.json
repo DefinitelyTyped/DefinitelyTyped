@@ -9,7 +9,7 @@
   "keywords": [],
   "scope": "@types",
   "author": "Andrew Shkurenko",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "react-star-ratings": "^2.3.0",
     "@types/react": "*",
