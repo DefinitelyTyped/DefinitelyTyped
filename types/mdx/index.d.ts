@@ -47,7 +47,7 @@
  * Create the following file named `my-component.mdx.d.ts` in the same directory:
  *
  * ```ts
- * export const hello: string;
+ * export const message: string;
  * ```
  *
  * It should now be possible to import both the MDX component and the exported constant `hello`.
