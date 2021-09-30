@@ -1186,20 +1186,20 @@ export interface OrganizationConnection {
     };
 }
 
-export interface AddEnabledConnection {
+export interface AddOrganizationEnabledConnection {
     connection_id: string;
     assign_membership_on_login?: boolean | undefined;
 }
 
-export interface UpdateEnabledConnection {
+export interface UpdateOrganizationEnabledConnection {
     assign_membership_on_login: boolean;
 }
 
-export interface AddMembers {
+export interface AddOrganizationMembers {
     members: string[];
 }
 
-export interface RemoveMembers {
+export interface RemoveOrganizationMembers {
     members: string[];
 }
 
@@ -1230,7 +1230,7 @@ export interface OrganizationInvitation {
     roles?: string[] | undefined;
 }
 
-export interface CreateInvitation {
+export interface CreateOrganizationInvitation {
     inviter: {
         name: string;
     };
@@ -1246,11 +1246,11 @@ export interface CreateInvitation {
     roles?: string[] | undefined;
 }
 
-export interface AddMemberRoles {
+export interface AddOrganizationMemberRoles {
     roles: string[];
 }
 
-export interface RemoveMemberRoles {
+export interface RemoveOrganizationMemberRoles {
     roles: string[];
 }
 
@@ -1293,25 +1293,25 @@ export class OrganizationsManager {
     getEnabledConnection(params: ObjectWithId & { connection_id: string }): Promise<OrganizationConnection>;
     getEnabledConnection(params: ObjectWithId & { connection_id: string }, cb: (err: Error, connection: OrganizationConnection) => void): void;
 
-    addEnabledConnection(params: ObjectWithId, data: AddEnabledConnection): Promise<OrganizationConnection>;
-    addEnabledConnection(params: ObjectWithId, data: AddEnabledConnection, cb: (err: Error, connection: OrganizationConnection) => void): void;
+    addEnabledConnection(params: ObjectWithId, data: AddOrganizationEnabledConnection): Promise<OrganizationConnection>;
+    addEnabledConnection(params: ObjectWithId, data: AddOrganizationEnabledConnection, cb: (err: Error, connection: OrganizationConnection) => void): void;
 
     removeEnabledConnection(params: ObjectWithId & { connection_id: string }): Promise<void>;
     removeEnabledConnection(params: ObjectWithId & { connection_id: string }, cb: (err: Error) => void): void;
 
-    updateEnabledConnection(params: ObjectWithId & { connection_id: string }, data: UpdateEnabledConnection): Promise<OrganizationConnection>;
-    updateEnabledConnection(params: ObjectWithId & { connection_id: string }, data: UpdateEnabledConnection, cb: (err: Error, connection: OrganizationConnection) => void): void;
+    updateEnabledConnection(params: ObjectWithId & { connection_id: string }, data: UpdateOrganizationEnabledConnection): Promise<OrganizationConnection>;
+    updateEnabledConnection(params: ObjectWithId & { connection_id: string }, data: UpdateOrganizationEnabledConnection, cb: (err: Error, connection: OrganizationConnection) => void): void;
 
     getMembers(params: ObjectWithId & PagingOptions): Promise<OrganizationMember[]>;
     getMembers(params: ObjectWithId & PagingOptions, cb: (err: Error, members: OrganizationMember[]) => void): void;
     getMembers(params: ObjectWithId & CheckpointPagingOptions): Promise<OrganizationMember[]>;
     getMembers(params: ObjectWithId & CheckpointPagingOptions, cb: (err: Error, members: OrganizationMember[]) => void): void;
 
-    addMembers(params: ObjectWithId, data: AddMembers): Promise<void>;
-    addMembers(params: ObjectWithId, data: AddMembers, cb: (err: Error) => void): void;
+    addMembers(params: ObjectWithId, data: AddOrganizationMembers): Promise<void>;
+    addMembers(params: ObjectWithId, data: AddOrganizationMembers, cb: (err: Error) => void): void;
 
-    removeMembers(params: ObjectWithId, data: RemoveMembers): Promise<void>;
-    removeMembers(params: ObjectWithId, data: RemoveMembers, cb: (err: Error) => void): void;
+    removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers): Promise<void>;
+    removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers, cb: (err: Error) => void): void;
 
     getInvitations(params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string }): Promise<OrganizationInvitation[]>;
     getInvitations(params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string }, cb: (err: Error, invitations: OrganizationInvitation[]) => void): void;
@@ -1319,8 +1319,8 @@ export class OrganizationsManager {
     getInvitation(params: ObjectWithId & { invitation_id: string; fields?: string; include_fields?: boolean }): Promise<OrganizationInvitation>;
     getInvitation(params: ObjectWithId & { invitation_id: string; fields?: string; include_fields?: boolean }, cb: (err: Error, invitation: OrganizationInvitation) => void): void;
 
-    createInvitation(params: ObjectWithId, data: CreateInvitation): Promise<OrganizationInvitation>;
-    createInvitation(params: ObjectWithId, data: CreateInvitation, cb: (err: Error, invitation: OrganizationInvitation) => void): void;
+    createInvitation(params: ObjectWithId, data: CreateOrganizationInvitation): Promise<OrganizationInvitation>;
+    createInvitation(params: ObjectWithId, data: CreateOrganizationInvitation, cb: (err: Error, invitation: OrganizationInvitation) => void): void;
 
     deleteInvitation(params: ObjectWithId & { invitation_id: string }): Promise<void>;
     deleteInvitation(params: ObjectWithId & { invitation_id: string }, cb: (err: Error) => void): void;
@@ -1328,11 +1328,11 @@ export class OrganizationsManager {
     getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string }): Promise<Role[]>;
     getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string }, cb: (err: Error, roles: Role[]) => void): void;
 
-    addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddMemberRoles): Promise<void>;
-    addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddMemberRoles, cb: (err: Error) => void): void;
+    addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddOrganizationMemberRoles): Promise<void>;
+    addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddOrganizationMemberRoles, cb: (err: Error) => void): void;
 
-    removeMemberRoles(params: ObjectWithId & { user_id: string }, data: RemoveMemberRoles): Promise<void>;
-    removeMemberRoles(params: ObjectWithId & { user_id: string }, data: RemoveMemberRoles, cb: (err: Error) => void): void;
+    removeMemberRoles(params: ObjectWithId & { user_id: string }, data: RemoveOrganizationMemberRoles): Promise<void>;
+    removeMemberRoles(params: ObjectWithId & { user_id: string }, data: RemoveOrganizationMemberRoles, cb: (err: Error) => void): void;
 }
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     organizations: OrganizationsManager;
