@@ -670,6 +670,10 @@ export interface PasswordGrantOptions {
     audience?: string | undefined;
 }
 
+export interface PasswordGrantAdditionalOptions {
+    forwardedFor?: string;
+}
+
 export interface AuthorizationCodeGrantOptions {
     code: string;
     redirect_uri: string;
@@ -1141,7 +1145,9 @@ export class AuthenticationClient {
     ): void;
 
     passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions): Promise<TokenResponse>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
     refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<TokenResponse>;
     refreshToken(
@@ -1773,7 +1779,9 @@ export class OAuthAuthenticator {
     constructor(options: OAuthClientOptions);
 
     passwordGrant(options: PasswordGrantOptions): Promise<SignInToken>;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions): Promise<SignInToken>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: SignInToken) => void): void;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions, cb: (err: Error, response: SignInToken) => void): void;
 
     signIn(data: SignInOptions): Promise<SignInToken>;
     signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
