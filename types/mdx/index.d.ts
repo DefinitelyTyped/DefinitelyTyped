@@ -39,9 +39,9 @@
  * For example, given the following MDX file `my-component.mdx`:
  *
  * ```mdx
- * export const hello = 'mdx';
+ * export const message = 'world';
  *
- * # Hello MDX
+ * # Hello {message}
  * ```
  *
  * Create the following file named `my-component.mdx.d.ts` in the same directory:
