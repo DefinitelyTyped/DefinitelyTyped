@@ -48,7 +48,7 @@ export interface Options {
      * Which features should be returned if the user-agent does not support them natively.
      * @default {}
      */
-    features?: { [featureName: string]: { flags: Flag[] | Flag[] } };
+    features?: { [featureName: string]: { flags: Flag[] | Set<Flag> } };
     /**
      * Which features should be excluded from the returned object.
      * @default []

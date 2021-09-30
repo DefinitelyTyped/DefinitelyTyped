@@ -50,9 +50,9 @@ ReactIs.isValidElementType(MemoComponent);
 const ThemeContext = React.createContext('blue');
 
 ReactIs.isContextConsumer(<ThemeContext.Consumer children={StatelessComponent} />); // true
-ReactIs.isContextProvider(<ThemeContext.Provider children={StatelessComponent} value='black' />); // true
+ReactIs.isContextProvider(<ThemeContext.Provider children={<StatelessComponent />} value='black' />); // true
 ReactIs.typeOf(<ThemeContext.Consumer children={StatelessComponent} />) === ReactIs.ContextConsumer; // true
-ReactIs.typeOf(<ThemeContext.Provider children={StatelessComponent} value='black' />) === ReactIs.ContextProvider; // true
+ReactIs.typeOf(<ThemeContext.Provider children={<StatelessComponent />} value='black' />) === ReactIs.ContextProvider; // true
 
 // Element
 ReactIs.isElement(<div />); // true
@@ -94,5 +94,5 @@ ReactIs.isMemo(MemoComponent); // true
 ReactIs.typeOf(MemoComponent) === ReactIs.Memo; // true
 
 // Suspense
-ReactIs.isForwardRef(<React.Suspense fallback={StatelessComponent} />); // true
-ReactIs.typeOf(<React.Suspense fallback={StatelessComponent} />) === ReactIs.Suspense; // true
+ReactIs.isForwardRef(<React.Suspense fallback={<StatelessComponent />} />); // true
+ReactIs.typeOf(<React.Suspense fallback={<StatelessComponent />} />) === ReactIs.Suspense; // true
