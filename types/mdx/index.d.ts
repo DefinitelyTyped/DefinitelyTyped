@@ -50,7 +50,7 @@
  * export const message: string;
  * ```
  *
- * It should now be possible to import both the MDX component and the exported constant `hello`.
+ * It should now be possible to import both the MDX component and the exported constant `message`.
  */
 declare module '*.mdx' {
     /**
