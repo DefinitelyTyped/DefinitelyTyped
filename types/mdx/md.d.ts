@@ -4,6 +4,6 @@
  * An markdown file which exports a JSX component.
  */
 declare module '*.md' {
-    import mdx = require('*.mdx');
-    export = mdx;
+    export { default } from '*.mdx';
+    export * from '*.mdx';
 }
