@@ -446,6 +446,14 @@ Redis.Command.setReplyTransformer('get', (result: any) => {
     return result;
 });
 
+redis.scan(0).then(([nextCursor, keys]) => {
+    // nextCursor is always a string
+    if (nextCursor === '0') {
+        // keys is always an array of strings and it might be empty
+        return keys.map(key => key.trim());
+    }
+});
+
 redis.scan(0, 'match', '*foo*', 'count', 20).then(([nextCursor, keys]) => {
     // nextCursor is always a string
     if (nextCursor === '0') {
