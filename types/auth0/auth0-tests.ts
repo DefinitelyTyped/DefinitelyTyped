@@ -1002,3 +1002,484 @@ tokenManager
     .catch(err => {
         // Handle the error.
     });
+
+/**
+ * Organizations
+ *
+ * Get All Organizations using a callback
+ */
+management.organizations.getAll((err, organizations: auth0.Organization[]) => {
+    console.log({ organizations });
+});
+
+/**
+ * Get All Organizations returning a Promise
+ */
+management.organizations.getAll().then((organizations: auth0.Organization[]) => {
+    console.log({ organizations });
+});
+
+/**
+ * Get All Organizations with pagination using a callback
+ */
+management.organizations.getAll({ page: 0, per_page: 5 }, (err, organizations: auth0.Organization[]) => {
+    console.log({ organizations });
+});
+
+/**
+ * Get All Organizations with pagination returning a Promise
+ */
+management.organizations.getAll({ page: 0, per_page: 5 }).then((organizations: auth0.Organization[]) => {
+    console.log({ organizations });
+});
+
+/**
+ * Get All Organizations with checkpoint pagination using a callback
+ */
+management.organizations.getAll({ take: 5, from: '' }, (err, organizations: auth0.Organization[]) => {
+    console.log({ organizations });
+});
+
+/**
+ * Get All Organizations with checkpoint pagination returning a Promise
+ */
+management.organizations.getAll({ take: 5, from: '' }).then((organizations: auth0.Organization[]) => {
+    console.log({ organizations });
+});
+
+/**
+ * Get an Organization by ID using a callback
+ */
+management.organizations.getByID({ id: '' }, (err, organization: auth0.Organization) => {
+    console.log({ organization });
+});
+
+/**
+ * Get an Organization by ID returning a Promise
+ */
+management.organizations.getByID({ id: '' }).then((organization: auth0.Organization) => {
+    console.log({ organization });
+});
+
+/**
+ * Get an Organization by name using a callback
+ */
+management.organizations.getByName({ name: '' }, (err, organization: auth0.Organization) => {
+    console.log({ organization });
+});
+
+/**
+ * Get an Organization by name returning a Promise
+ */
+management.organizations.getByName({ name: '' }).then((organization: auth0.Organization) => {
+    console.log({ organization });
+});
+
+/**
+ * Create an Organization using a callback
+ */
+management.organizations.create({ name: 'test_organization' }, (err, organization: auth0.Organization) => {
+    console.log({ organization });
+});
+
+/**
+ * Create an Organization returning a Promise
+ */
+management.organizations.create({ name: 'test_organization' }).then((organization: auth0.Organization) => {
+    console.log({ organization });
+});
+
+/**
+ * Update an Organization using a callback
+ */
+management.organizations.update(
+    { id: 'organization_id' },
+    { name: 'test_organization' },
+    (err, organization: auth0.Organization) => {
+        console.log({ organization });
+    },
+);
+
+/**
+ * Update an Organization returning a Promise
+ */
+management.organizations
+    .update({ id: 'organization_id' }, { name: 'test_organization' })
+    .then((organization: auth0.Organization) => {
+        console.log({ organization });
+    });
+
+/**
+ * Delete an Organization using a callback
+ */
+management.organizations.delete({ id: 'organization_id' }, err => {});
+
+/**
+ * Delete an Organization returning a Promise
+ */
+management.organizations.delete({ id: 'organization_id' }).then(() => {});
+
+/**
+ * Get an Organization's Enabled Connections using a callback
+ */
+management.organizations.getEnabledConnections(
+    { id: 'organization_id' },
+    (err, connections: auth0.OrganizationConnection[]) => {
+        console.log({ connections });
+    },
+);
+
+/**
+ * Get an Organization's Enabled Connections returning a Promise
+ */
+management.organizations
+    .getEnabledConnections({ id: 'organization_id' })
+    .then((connections: auth0.OrganizationConnection[]) => {
+        console.log({ connections });
+    });
+/**
+ * Get an Organization's Enabled Connections with paging using a callback
+ */
+management.organizations.getEnabledConnections(
+    { id: 'organization_id', page: 0, per_page: 5 },
+    (err, connections: auth0.OrganizationConnection[]) => {
+        console.log({ connections });
+    },
+);
+
+/**
+ * Get an Organization's Enabled Connections with paging returning a Promise
+ */
+management.organizations
+    .getEnabledConnections({ id: 'organization_id', page: 0, per_page: 5 })
+    .then((connections: auth0.OrganizationConnection[]) => {
+        console.log({ connections });
+    });
+
+/**
+ * Get an Organization's Enabled Connection using a callback
+ */
+management.organizations.getEnabledConnection(
+    { id: 'organization_id', connection_id: 'connection_id' },
+    (err, connection: auth0.OrganizationConnection) => {
+        console.log({ connection });
+    },
+);
+
+/**
+ * Get an Organization's Enabled Connection returning a Promise
+ */
+management.organizations
+    .getEnabledConnection({ id: 'organization_id', connection_id: 'connection_id' })
+    .then((connection: auth0.OrganizationConnection) => {
+        console.log({ connection });
+    });
+
+/**
+ * Add an Organization's Enabled Connection using a callback
+ */
+management.organizations.addEnabledConnection(
+    { id: 'organization_id' },
+    { connection_id: 'connection_id', assign_membership_on_login: true },
+    (err, connection: auth0.OrganizationConnection) => {
+        console.log({ connection });
+    },
+);
+
+/**
+ * Add an Organization's Enabled Connection returning a Promise
+ */
+management.organizations
+    .addEnabledConnection(
+        { id: 'organization_id' },
+        { connection_id: 'connection_id', assign_membership_on_login: true },
+    )
+    .then((connection: auth0.OrganizationConnection) => {
+        console.log({ connection });
+    });
+
+/**
+ * Remove an Organization's Enabled Connection using a callback
+ */
+management.organizations.removeEnabledConnection({ id: 'organization_id', connection_id: 'connection_id' }, err => {});
+
+/**
+ * Remove an Organization's Enabled Connection returning a Promise
+ */
+management.organizations
+    .removeEnabledConnection({ id: 'organization_id', connection_id: 'connection_id' })
+    .then(() => {});
+
+/**
+ * Update an Organization's Enabled Connection using a callback
+ */
+management.organizations.updateEnabledConnection(
+    { id: 'organization_id', connection_id: 'connection_id' },
+    { assign_membership_on_login: true },
+    (err, connection: auth0.OrganizationConnection) => {
+        console.log({ connection });
+    },
+);
+
+/**
+ * Update an Organization's Enabled Connection returning a Promise
+ */
+management.organizations
+    .updateEnabledConnection(
+        { id: 'organization_id', connection_id: 'connection_id' },
+        { assign_membership_on_login: true },
+    )
+    .then((connection: auth0.OrganizationConnection) => {
+        console.log({ connection });
+    });
+
+/**
+ * Get an Organization's Members using a callback
+ */
+management.organizations.getMembers({ id: 'organization_id' }, (err, members: auth0.OrganizationMember[]) => {
+    console.log({ members });
+});
+
+/**
+ * Get an Organization's Members returning a Promise
+ */
+management.organizations.getMembers({ id: 'organization_id' }).then((members: auth0.OrganizationMember[]) => {
+    console.log({ members });
+});
+
+/**
+ * Get an Organization's Members with pagination using a callback
+ */
+management.organizations.getMembers(
+    { id: 'organization_id', page: 1, per_page: 2 },
+    (err, members: auth0.OrganizationMember[]) => {
+        console.log({ members });
+    },
+);
+
+/**
+ * Get an Organization's Members with pagination returning a Promise
+ */
+management.organizations
+    .getMembers({ id: 'organization_id', page: 1, per_page: 2 })
+    .then((members: auth0.OrganizationMember[]) => {
+        console.log({ members });
+    });
+
+/**
+ * Get an Organization's Members with checkpoint pagination using a callback
+ */
+management.organizations.getMembers(
+    { id: 'organization_id', take: 2, from: '' },
+    (err, members: auth0.OrganizationMember[]) => {
+        console.log({ members });
+    },
+);
+
+/**
+ * Get an Organization's Members with checkpoint pagination returning a Promise
+ */
+management.organizations
+    .getMembers({ id: 'organization_id', take: 2, from: '' })
+    .then((members: auth0.OrganizationMember[]) => {
+        console.log({ members });
+    });
+
+/**
+ * Add Organization's Members using a callback
+ */
+management.organizations.addMembers({ id: 'organization_id' }, { members: ['user_id'] }, err => {});
+
+/**
+ * Add Organization's Members returning a Promise
+ */
+management.organizations.addMembers({ id: 'organization_id' }, { members: ['user_id'] }).then(() => {});
+
+/**
+ * Remove Organization's Members using a callback
+ */
+management.organizations.removeMembers({ id: 'organization_id' }, { members: ['user_id'] }, err => {});
+
+/**
+ * Remove Organization's Members returning a Promise
+ */
+management.organizations.removeMembers({ id: 'organization_id' }, { members: ['user_id'] }).then(() => {});
+
+/**
+ * Get Organization Invitations using a callback
+ */
+management.organizations.getInvitations(
+    { id: 'organization_id' },
+    (err, invitations: auth0.OrganizationInvitation[]) => {
+        console.log(invitations);
+    },
+);
+
+/**
+ * Get Organization Invitations returning a Promise
+ */
+management.organizations
+    .getInvitations({ id: 'organization_id' })
+    .then((invitations: auth0.OrganizationInvitation[]) => {
+        console.log(invitations);
+    });
+
+/**
+ * Get Organization Invitations with pagination using a callback
+ */
+management.organizations.getInvitations(
+    { id: 'organization_id', per_page: 2, page: 1 },
+    (err, invitations: auth0.OrganizationInvitation[]) => {
+        console.log(invitations);
+    },
+);
+
+/**
+ * Get Organization Invitations with pagination returning a Promise
+ */
+management.organizations
+    .getInvitations({ id: 'organization_id', per_page: 2, page: 1 })
+    .then((invitations: auth0.OrganizationInvitation[]) => {
+        console.log(invitations);
+    });
+
+/**
+ * Get Organization Invitations with properties using a callback
+ */
+management.organizations.getInvitations(
+    { id: 'organization_id', fields: 'client_id', include_fields: false, sort: '' },
+    (err, invitations: auth0.OrganizationInvitation[]) => {
+        console.log(invitations);
+    },
+);
+
+/**
+ * Get Organization Invitations with properties returning a Promise
+ */
+management.organizations
+    .getInvitations({ id: 'organization_id', fields: 'client_id', include_fields: false, sort: '' })
+    .then((invitations: auth0.OrganizationInvitation[]) => {
+        console.log(invitations);
+    });
+
+/**
+ * Get Organization Invitation using a callback
+ */
+management.organizations.getInvitation(
+    { id: 'organization_id', invitation_id: 'invitation_id', fields: 'client_id', include_fields: false },
+    (err, invitation: auth0.OrganizationInvitation) => {
+        console.log(invitation);
+    },
+);
+
+/**
+ * Get Organization Invitation returning a Promise
+ */
+management.organizations
+    .getInvitation({
+        id: 'organization_id',
+        invitation_id: 'invitation_id',
+        fields: 'client_id',
+        include_fields: false,
+    })
+    .then((invitation: auth0.OrganizationInvitation) => {
+        console.log(invitation);
+    });
+
+/**
+ * Create an Organization Invitation using a callback
+ */
+management.organizations.createInvitation(
+    { id: 'organization_id' },
+    { client_id: 'client_id', invitee: { email: 'invitee_email' }, inviter: { name: 'inviter_name' } },
+    (err, invitation: auth0.OrganizationInvitation) => {
+        console.log(invitation);
+    },
+);
+
+/**
+ * Create an Organization Invitation returning a Promise
+ */
+management.organizations
+    .createInvitation(
+        { id: 'organization_id' },
+        { client_id: 'client_id', invitee: { email: 'invitee_email' }, inviter: { name: 'inviter_name' } },
+    )
+    .then((invitation: auth0.OrganizationInvitation) => {
+        console.log(invitation);
+    });
+
+/**
+ * Delete an Organization Invitation using a callback
+ */
+management.organizations.deleteInvitation({ id: 'organization_id', invitation_id: 'invitation_id' }, err => {});
+
+/**
+ * Delete an Organization Invitation returning a Promise
+ */
+management.organizations.deleteInvitation({ id: 'organization_id', invitation_id: 'invitation_id' }).then(() => {});
+
+/**
+ * Get Organization Member Roles using a callback
+ */
+management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id' }, (err, roles: auth0.Role[]) => {
+    console.log(roles);
+});
+
+/**
+ * Get Organization Member Roles returning a Promise
+ */
+management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id' }).then((roles: auth0.Role[]) => {
+    console.log(roles);
+});
+
+/**
+ * Get Organization Member Roles with pagination using a callback
+ */
+management.organizations.getMemberRoles(
+    { id: 'organization_id', user_id: 'user_id', page: 0, per_page: 2 },
+    (err, roles: auth0.Role[]) => {
+        console.log(roles);
+    },
+);
+
+/**
+ * Organization Member Roles with pagination returning a Promise
+ */
+management.organizations
+    .getMemberRoles({ id: 'organization_id', user_id: 'user_id', page: 0, per_page: 2 })
+    .then((roles: auth0.Role[]) => {
+        console.log(roles);
+    });
+
+/**
+ * Add an Organization Member Role using a callback
+ */
+management.organizations.addMemberRoles(
+    { id: 'organization_id', user_id: 'user_id' },
+    { roles: ['role_id'] },
+    err => {},
+);
+
+/**
+ * Add an Organization Member Role returning a Promise
+ */
+management.organizations
+    .addMemberRoles({ id: 'organization_id', user_id: 'user_id' }, { roles: ['role_id'] })
+    .then(() => {});
+
+/**
+ * Remove an Organization Member Role using a callback
+ */
+management.organizations.removeMemberRoles(
+    { id: 'organization_id', user_id: 'user_id' },
+    { roles: ['role_id'] },
+    err => {},
+);
+
+/**
+ * Remove an Organization Member Role returning a Promise
+ */
+management.organizations
+    .removeMemberRoles({ id: 'organization_id', user_id: 'user_id' }, { roles: ['role_id'] })
+    .then(() => {});
