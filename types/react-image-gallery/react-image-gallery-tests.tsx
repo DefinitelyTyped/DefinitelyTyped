@@ -23,6 +23,10 @@ class ImageGallery extends React.Component {
         );
     }
 
+    handleImageLoad(event: React.SyntheticEvent<HTMLImageElement>) {
+        const message = `Image loaded successfully. Image: ${(event.target as HTMLImageElement).src}`;
+    }
+
     render() {
         const galleryItem: ReactImageGalleryItem = {
             original: 'http://localhost/logo.jpg',
@@ -36,6 +40,7 @@ class ImageGallery extends React.Component {
             showFullscreenButton: false,
             renderThumbInner: this.renderThumbInner,
             disableKeyDown: false,
+            onImageLoad: this.handleImageLoad,
         };
 
         return <ReactImageGallery ref={r => (this.gallery = r)} {...props} />;

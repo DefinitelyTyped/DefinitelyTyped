@@ -767,6 +767,10 @@ LogBox.install();
 LogBox.uninstall();
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+    _stickyHeaderComponent = ({ children }: any) => {
+        return <View>{children}</View>;
+    };
+
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
@@ -820,6 +824,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             onScrollToTop={() => {}}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
+                            StickyHeaderComponent={this._stickyHeaderComponent}
                         />
                     );
                 }}

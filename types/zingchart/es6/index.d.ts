@@ -958,8 +958,8 @@ declare namespace zingchart {
     /**
      * Sets the font size of the object. 4 | "6px" | ...
      */
-    'font-size'?: string;
-    fontSize?: string;
+    'font-size'?: any;
+    fontSize?: any;
     /**
      * Sets the font style of the object. "none" | "italic"
      */
@@ -3956,8 +3956,8 @@ declare namespace zingchart {
       /**
        * Sets the font size of the object text. 12 | "20px" | ...
        */
-      'font-size'?: string;
-      fontSize?: string;
+      'font-size'?: any;
+      fontSize?: any;
       /**
        * Sets the font style of the object text. "normal" | "italic"
        */
@@ -5013,8 +5013,8 @@ declare namespace zingchart {
       /**
        * Sets the font size of the object text. 12 | "20px" | ...
        */
-      'font-size'?: string;
-      fontSize?: string;
+      'font-size'?: any;
+      fontSize?: any;
       /**
        * Sets the font style of the object text. "normal" | "italic"
        */
@@ -5133,6 +5133,11 @@ declare namespace zingchart {
      */
     'margin-top'?: any;
     marginTop?: any;
+    /**
+     * Sets the max number of values displaying along the bottom horizontal line. 5 | 10 | ...
+     */
+    'max-items'?: number;
+    maxItems?: number;
     /**
      * Sets the maximum number of labels that will display along the axis. 5 | 10 | ...
      */
@@ -6419,8 +6424,8 @@ declare namespace zingchart {
       /**
        * Sets the font size of the object text. 12 | "20px" | ...
        */
-      'font-size'?: string;
-      fontSize?: string;
+      'font-size'?: any;
+      fontSize?: any;
       /**
        * Sets the font style of the object text. "normal" | "italic"
        */
@@ -7163,6 +7168,10 @@ declare namespace zingchart {
      * s, etc separately, true | false | 1 | 0
      */
     visible?: boolean;
+    /**
+     * To turn on chart zooming on scale. Default is false.
+     */
+    zooming?: boolean;
     /**
      * When zooming is enabled, setting zoom-snap to true snaps the zoom area to the nearest data node as a zoom area is selected. By def
      * ault, zoom-snap is set to false. true | false | 1 | 0
@@ -8348,8 +8357,8 @@ declare namespace zingchart {
       /**
        * Sets the font size of the object text. 12 | "20px" | ...
        */
-      'font-size'?: string;
-      fontSize?: string;
+      'font-size'?: any;
+      fontSize?: any;
       /**
        * Sets the font style of the object text. "normal" | "italic"
        */
@@ -8756,6 +8765,11 @@ declare namespace zingchart {
      */
      'line-color'?: string;
      lineColor?: string;
+     /**
+      * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
+      */
+     'line-width'?: string;
+     lineWidth?: string;
     /**
      * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
      */
@@ -9008,8 +9022,8 @@ declare namespace zingchart {
     /**
      * Sets the font size of the value box text. 4 | "6px" | ...
      */
-    'font-size'?: string;
-    fontSize?: string;
+    'font-size'?: any;
+    fontSize?: any;
     /**
      * Sets the font style of the value box text. Similar to the "italic" attribute. "none" | "italic"
      */
@@ -9147,8 +9161,8 @@ declare namespace zingchart {
       /**
        * Sets the font size of the object. 10 | 12 | '20px' | ...
        */
-      'font-size'?: number;
-      fontSize?: number;
+      'font-size'?: any;
+      fontSize?: any;
       /**
        * Sets the padding of the object. 3 | '5px' | '10px' | ...
        */
@@ -9194,8 +9208,8 @@ declare namespace zingchart {
       /**
        * Sets the font size of the object. 10 | 12 | '20px' | ...
        */
-      'font-size'?: number;
-      fontSize?: number;
+      'font-size'?: any;
+      fontSize?: any;
       /**
        * Sets the padding of the object. 3 | '5px' | '10px' | ...
        */
@@ -9241,8 +9255,8 @@ declare namespace zingchart {
     /**
      * Sets the font size of the object. 12 | "20px" | ...
      */
-    'font-size'?: number;
-    fontSize?: number;
+    'font-size'?: any;
+    fontSize?: any;
     /**
      * Sets the font weight of the object. "normal" | "bold"
      */
@@ -12352,14 +12366,19 @@ declare namespace zingchart {
         'border-color'?: string;
         borderColor?: string;
         /**
+         * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
+         */
+        'border-radius'?: number;
+        borderRadius?: number;
+        /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
         'border-width'?: any;
         borderWidth?: any;
-         /**
-          * Sets the style of the cursor when hovering over a node. "hand" | "normal"
-          */
-         cursor?: string;
+        /**
+         * Sets the style of the cursor when hovering over a node. "hand" | "normal"
+         */
+        cursor?: string;
         /**
          * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
          */
@@ -12613,8 +12632,8 @@ declare namespace zingchart {
         /**
          * Sets the font size of the object text. 12 | "20px" | ...
          */
-        'font-size'?: string;
-        fontSize?: string;
+        'font-size'?: any;
+        fontSize?: any;
         /**
          * Sets the font style of the object text. "normal" | "italic"
          */
@@ -12664,6 +12683,12 @@ declare namespace zingchart {
         wrapText?: boolean;
       };
     };
+    /**
+     * Sets the maximum numbers of nodes for which a tracking area will be created. This is best used to optimize charts with large sets
+     * of data. 5 | 10 | ...
+     */
+    'max-trackers'?: number;
+    maxTrackers?: number;
     'media-rules'?: [
       {
         /**
@@ -14321,6 +14346,11 @@ declare namespace zingchart {
          * Sets the text content of the object. "Some Text" | ...
          */
         text?: string;
+        /**
+         * Sets the text's horizontal alignment relative to the object's box. "left" | "center" | "right"
+         */
+        'text-align'?: string;
+        textAlign?: string;
         /**
          * Sets the transparency of the text. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comple
          * tely opaque. Please note that values also require the leading 0 before the decimal. 0.3 | 0.9 | ...
@@ -17072,6 +17102,10 @@ declare namespace zingchart {
       'z-index'?: number;
       zIndex?: number;
     };
+    /**
+     * Time-Series Charts only: To set the chart to UTC time. Use with the 'timezone' attribute and 'transform' object in the applicable scale object.
+     */
+    utc?: boolean;
     widget?: {
       /**
        * Type of the widget. The zingchart.widgets.myWidget object must exist and define a "parse" method returning an object with "graphs"
@@ -17143,8 +17177,8 @@ declare namespace zingchart {
         /**
          * Sets the font size of the object text. 12 | "20px" | ...
          */
-        'font-size'?: string;
-        fontSize?: string;
+        'font-size'?: any;
+        fontSize?: any;
         /**
          * Sets the font style of the object text. "normal" | "italic"
          */
@@ -18213,6 +18247,10 @@ declare namespace zingchart {
     'group-selections'?: boolean;
     groupSelections?: boolean;
     /**
+     * Sets the ID of the object. "myid" | "f1" | ...
+     */
+    id?: string;
+    /**
      * Venn Diagrams Only: This attribute allow you to set the values for the area to be shared between each node. [30]
      */
     join?: any;
@@ -18459,6 +18497,13 @@ declare namespace zingchart {
      */
     'tooltip-text'?: string;
     tooltipText?: string;
+    /**
+     * Sets the type of the object/shape.
+     * Accepted Values: ['arc', 'arrow', 'circle', 'cross', 'diamond', 'ellipse','gear3', 'gear4', 'gear5', 'gear6', 'gear7', 'gear8', 'gear9', 'hamburger', 'line', 'parallelogram', 'pie','plus',
+     * 'poly', 'rect', 'rpoly3', 'rpoly4', 'rpoly5', 'rpoly6', 'rpoly7', 'rpoly8', 'rpoly9', 'square', 'star3', 'star4', 'star5', 'star6', 'star7', 'star8', 'star9', 'trapezoid', 'triangle']
+     * Default Value: 'poly'
+     */
+    type?: string;
     /**
      * Sets the URL for the link associated with the object. "http://www.domain.com/link.php" | "link.asp" | ...
      */

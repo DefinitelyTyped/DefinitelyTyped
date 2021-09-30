@@ -152,6 +152,35 @@ export class BeforePistonActivateEventSignal {
  */
 export class Block {
     /**
+     * Returns the dimension that the block is within.
+     */
+    readonly "dimension": Dimension;
+    /**
+     * Identifier of the type of block for this block.
+     */
+    readonly "id": string;
+    /**
+     * Whether this particular block is empty (air).
+     */
+    readonly "isEmpty": boolean;
+    /**
+     * Returns or sets whether this block has a liquid on it.
+     */
+    "isWaterlogged": boolean;
+    /**
+     * Coordinates of the specified block.
+     */
+    readonly "location": BlockLocation;
+    /**
+     * Additional block configuration data that describes the
+     * block.
+     */
+    readonly "permutation": BlockPermutation;
+    /**
+     * Gets the type of block.
+     */
+    readonly "type": BlockType;
+    /**
      * X coordinate of the block.
      */
     readonly "x": number;
@@ -165,48 +194,32 @@ export class Block {
     readonly "z": number;
     /**
      * @remarks
-     * Whether this block can potentially be waterlogged. For
-     * example, a block of Andesite cannot be waterlogged (as it is
-     * a completely solid block), but a door component can be.
-     * @returns Whether this particular block, based on its block type, can be waterlogged.
-     */
-    canBeWaterlogged(): boolean;
-    /**
-     * @returns Additional block configuration data that describes the,block.
-     * @throws This function can throw errors.
-     */
-    getBlockData(): BlockPermutation;
-    /**
-     * @remarks
      * Gets additional configuration properties (a component) for
      * specific capabilities of particular blocks - for example, an
      * inventory component of a chest block.
      * @param componentName
      * Identifier of the component. If a namespace is not
      * specified, minecraft: is assumed.
-     * @returns Returns the component object if it is present on the particular block.
+     * @returns
+     * Returns the component object if it is present on the
+     * particular block.
      * @throws This function can throw errors.
      */
     getComponent(componentName: string): any;
     /**
-     * @returns Returns the dimension that the block is within.
+     * @returns
+     * The list of tags that the block has.
      */
-    getDimension(): Dimension;
-    /**
-     * @returns Coordinates of the specified block.
-     */
-    getLocation(): BlockLocation;
-    /**
-     * @returns The list of tags that the block has.
-     */
-    getTags(): any[];
+    getTags(): string[];
     /**
      * @remarks
      * Checks to see if the permutation of this block has a
      * specific tag.
      * @param tag
      * Tag to check for.
-     * @returns Returns `true` if the permutation of this block has the tag, else `false`.
+     * @returns
+     * Returns `true` if the permutation of this block has the tag,
+     * else `false`.
      * @example check_block_tags.js
      * ```typescript
      *        import { World, BlockLocation } from "mojang-minecraft";
@@ -221,16 +234,6 @@ export class Block {
      * ```
      */
     hasTag(tag: string): boolean;
-    /**
-     * @returns Whether this particular block is empty (air).
-     */
-    isEmpty(): boolean;
-    /**
-     * @remarks
-     * Returns whether this block has a liquid on it.
-     * @returns Whether this particular block is in a waterlogged state.
-     */
-    isWaterlogged(): boolean;
     /**
      * @remarks
      * Sets the block in the dimension to the state of the
@@ -264,15 +267,6 @@ export class Block {
      * minecraft:powered_repeater.
      */
     setType(blockType: BlockType): void;
-    /**
-     * @remarks
-     * Sets the waterlogged state of the block.
-     * @param setWaterlogged
-     * If set to true, and if the block can be waterlogged, then
-     * the block becomes waterlogged.
-     * @throws This function can throw errors.
-     */
-    setWaterlogged(setWaterlogged: boolean): void;
 }
 /**
  * Base type for components associated with blocks.
@@ -340,6 +334,11 @@ export class BlockInventoryComponentContainer {
      * @throws This property can throw when used.
      */
     readonly "emptySlotsCount": number;
+    /**
+     * Returns the size capacity of the inventory container on this
+     * block.
+     * @throws This property can throw when used.
+     */
     readonly "size": number;
     /**
      * @remarks
@@ -390,7 +389,7 @@ export class BlockInventoryComponentContainer {
      * @throws This function can throw errors.
      * @example swapItems.js
      * ```typescript
-     *        rightChestContainer.swapItems(1, 0, leftChestContainer); // swap the cake and emerald
+     *        rightChestContainer.swapItems(1, 0, leftChestContainer); // swap item in slot 1 of rightChestContainer with item in slot 0 of leftChestContainer
      *
      * ```
      */
@@ -413,6 +412,22 @@ export class BlockInventoryComponentContainer {
      * ```
      */
     transferItem(fromSlot: number, toSlot: number, toContainer: Container): boolean;
+}
+/**
+ * Represents a fluid container block that currently contains
+ * lava.
+ */
+export class BlockLavaContainerComponent {
+    /**
+     * Relative level of lava within this block. Valid values are
+     * between FluidContainer.minFillLevel (0) and
+     * FluidContainer.maxFillLevel (6).
+     */
+    "fillLevel": number;
+    /**
+     * Source location of the block.
+     */
+    readonly "location": BlockLocation;
 }
 /**
  * Contains the integer X, Y, Z coordinates for a block. For
@@ -446,7 +461,10 @@ export class BlockLocation {
      * @param other
      * Additional BlockLocation used to determine the set of
      * locations in between this location and another point.
-     * @returns Array of block locations representing the volume between this location and another, inclusive of the start and end points.
+     * @returns
+     * Array of block locations representing the volume between
+     * this location and another, inclusive of the start and end
+     * points.
      */
     blocksBetween(other: BlockLocation): BlockLocation[];
     /**
@@ -469,7 +487,8 @@ export class BlockLocation {
      * another.
      * @param other
      * Other block location to compare this BlockLocation to.
-     * @returns True if the two block locations are equal.
+     * @returns
+     * True if the two block locations are equal.
      */
     equals(other: BlockLocation): boolean;
     /**
@@ -482,7 +501,9 @@ export class BlockLocation {
      * Y offset relative to this BlockLocation.
      * @param z
      * Z offset relative to this BlockLocation.
-     * @returns BlockLocation that is positioned relative to this BlockLocation.
+     * @returns
+     * BlockLocation that is positioned relative to this
+     * BlockLocation.
      */
     offset(x: number, y: number, z: number): BlockLocation;
 }
@@ -495,20 +516,28 @@ export class BlockLocation {
  */
 export class BlockPermutation {
     /**
+     * The {@link mojang-minecraft.BlockType} that the permutation has.
+     */
+    readonly "type": BlockType;
+    /**
      * @remarks
      * Creates a copy of this permutation.
-     * @returns A copy of the permutation.
+     * @returns
+     * A copy of the permutation.
      */
     clone(): BlockPermutation;
     /**
-     * @returns Returns the list of all of the properties that the permutation has.
+     * @returns
+     * Returns the list of all of the properties that the
+     * permutation has.
      */
     getAllProperties(): any[];
     /**
      * @remarks
      * Gets a property for the permutation.
      * @param propertyName
-     * @returns Returns the property if the permutation has it, else `null`.
+     * @returns
+     * Returns the property if the permutation has it, else `null`.
      * @throws This function can throw errors.
      * @example place_bottom_stone_slab.js
      * ```typescript
@@ -532,17 +561,13 @@ export class BlockPermutation {
      * @remarks
      * Creates a copy of the permutation.
      */
-    getTags(): any[];
-    /**
-     * @returns The {@link mojang-minecraft.BlockType} that the permutation has.
-     * @throws This function can throw errors.
-     */
-    getType(): BlockType;
+    getTags(): string[];
     /**
      * @remarks
      * Checks to see if the permutation has a specific tag.
      * @param tag
-     * @returns Returns `true` if the permutation has the tag, else `false`.
+     * @returns
+     * Returns `true` if the permutation has the tag, else `false`.
      * @example check_block_tags.js
      * ```typescript
      *        import { World, BlockLocation } from "mojang-minecraft";
@@ -596,10 +621,39 @@ export class BlockPistonComponent {
      * @throws This property can throw when used.
      */
     readonly "isRetracting": boolean;
+    /**
+     * Source location of the block.
+     */
     readonly "location": BlockLocation;
+}
+/**
+ * Represents a fluid container block that currently contains a
+ * potion.
+ */
+export class BlockPotionContainerComponent {
+    /**
+     * Relative level of potion liquid within this block. Valid
+     * values are between FluidContainer.minFillLevel (0) and
+     * FluidContainer.maxFillLevel (6).
+     */
+    "fillLevel": number;
+    /**
+     * Source location of the block.
+     */
+    readonly "location": BlockLocation;
+    /**
+     * @remarks
+     * Sets the potion type based on an item stack.
+     * @param item
+     * Potion to use as the type of potion for this potion
+     * container.
+     * @throws This function can throw errors.
+     */
+    setPotionType(item: ItemStack): void;
 }
 // tslint:disable-next-line:no-unnecessary-class
 export class BlockProperties {
+    static readonly "active" = "active";
     /**
      * Integer property that represents the age of the block. Valid
      * values are between 0 and 15 inclusive.
@@ -610,7 +664,7 @@ export class BlockProperties {
      */
     static readonly "ageBit" = "age_bit";
     /**
-     * Boolean property that determines if a TNT block works
+     * Boolean property that determines if an explosion propagates
      * underwater.
      */
     static readonly "allowUnderwaterBit" = "allow_underwater_bit";
@@ -649,19 +703,20 @@ export class BlockProperties {
      */
     static readonly "biteCounter" = "bite_counter";
     static readonly "blockLightLevel" = "block_light_level";
+    static readonly "bloom" = "bloom";
     /**
-     * Boolean property that determines if a bottle is shown in
-     * slot A of the brewing stand.
+     * Boolean property that determines if a bottle is shown in the
+     * first slot of the brewing stand.
      */
     static readonly "brewingStandSlotABit" = "brewing_stand_slot_a_bit";
     /**
-     * Boolean property that determines if a bottle is shown in
-     * slot B of the brewing stand.
+     * Boolean property that determines if a bottle is shown in the
+     * second slot of the brewing stand.
      */
     static readonly "brewingStandSlotBBit" = "brewing_stand_slot_b_bit";
     /**
-     * Boolean property that determines if a bottle is shown in
-     * slot C of the brewing stand.
+     * Boolean property that determines if a bottle is shown in the
+     * third slot of the brewing stand.
      */
     static readonly "brewingStandSlotCBit" = "brewing_stand_slot_c_bit";
     /**
@@ -677,7 +732,8 @@ export class BlockProperties {
     static readonly "candles" = "candles";
     /**
      * String property that represents the type of liquid in a
-     * cauldron. Valid values are 'water' and 'lava'.
+     * cauldron. Valid values are 'water', 'powder_snow', and
+     * 'lava'.
      */
     static readonly "cauldronLiquid" = "cauldron_liquid";
     /**
@@ -797,7 +853,7 @@ export class BlockProperties {
     static readonly "dripstoneThickness" = "dripstone_thickness";
     /**
      * Boolean property that determines if an end portal block has
-     * an Eye in it.
+     * an Eye of Ender in it.
      */
     static readonly "endPortalEyeBit" = "end_portal_eye_bit";
     /**
@@ -873,6 +929,7 @@ export class BlockProperties {
      * map in it.
      */
     static readonly "itemFrameMapBit" = "item_frame_map_bit";
+    static readonly "itemFramePhotoBit" = "item_frame_photo_bit";
     static readonly "kelpAge" = "kelp_age";
     static readonly "leverDirection" = "lever_direction";
     /**
@@ -890,10 +947,10 @@ export class BlockProperties {
      */
     static readonly "moisturizedAmount" = "moisturized_amount";
     /**
-     * String property that represents the stone type of a monster
-     * egg block. Valid values are 'stone', 'cobblestone',
-     * 'stone_brick', 'mossy_stone_brick', 'cracked_stone_brick'
-     * and 'chiseled_stone_brick'.
+     * String property that represents the stone type of an
+     * Infested Stone block. Valid values are 'stone',
+     * 'cobblestone', 'stone_brick', 'mossy_stone_brick',
+     * 'cracked_stone_brick' and 'chiseled_stone_brick'.
      */
     static readonly "monsterEggStoneType" = "monster_egg_stone_type";
     static readonly "multiFaceDirectionBits" = "multi_face_direction_bits";
@@ -985,8 +1042,8 @@ export class BlockProperties {
     static readonly "rotation" = "rotation";
     /**
      * String property that represents the pattern of a sandstone
-     * block. Valid values are 'default', 'heiroglyphs',
-     * 'cut', and 'smooth'.
+     * block. Valid values are 'default', 'heiroglyphs', 'cut', and
+     * 'smooth'.
      */
     static readonly "sandStoneType" = "sand_stone_type";
     /**
@@ -1089,7 +1146,7 @@ export class BlockProperties {
     /**
      * String property that represents the type of a tall grass
      * block. Valid values are 'default', 'tall', 'fern', and
-     * 'snow'.'.
+     * 'snow'.
      */
     static readonly "tallGrassType" = "tall_grass_type";
     /**
@@ -1192,18 +1249,42 @@ export class BlockProperties {
     static readonly "woodType" = "wood_type";
 }
 /**
+ * Represents a fluid container block that currently contains
+ * snow.
+ */
+export class BlockSnowContainerComponent {
+    /**
+     * Relative level of snow within this block. Valid values are
+     * between FluidContainer.minFillLevel (0) and
+     * FluidContainer.maxFillLevel (6).
+     */
+    "fillLevel": number;
+    /**
+     * Source location of the block.
+     */
+    readonly "location": BlockLocation;
+}
+/**
  * The type (or template) of a block. Does not contain
  * permutation data (state) other than the type of block it
  * represents. This type was introduced as of version
  * 1.17.10.21.
  */
 export class BlockType {
-    canBeWaterlogged(): boolean;
+    /**
+     * Represents whether this type of block can be waterlogged.
+     */
+    readonly "canBeWaterlogged": boolean;
+    /**
+     * Block type name - for example, `minecraft:acacia_stairs`.
+     */
+    readonly "id": string;
     /**
      * @remarks
      * Creates the default {@link mojang-minecraft.BlockPermutation} for
      * this type which uses the default values for all properties.
-     * @returns Returns created permutation.
+     * @returns
+     * Returns created permutation.
      * @throws This function can throw errors.
      * @example place_bottom_stone_slab.js
      * ```typescript
@@ -1223,12 +1304,33 @@ export class BlockType {
      * ```
      */
     createDefaultBlockPermutation(): BlockPermutation;
+}
+/**
+ * Represents a fluid container block that currently contains
+ * water.
+ */
+export class BlockWaterContainerComponent {
+    /**
+     * Represents a color facet of the water.
+     */
+    "customColor": Color;
+    /**
+     * Relative level of water within this block. Valid values are
+     * between FluidContainer.minFillLevel (0) and
+     * FluidContainer.maxFillLevel (6).
+     */
+    "fillLevel": number;
+    /**
+     * Source location of the block.
+     */
+    readonly "location": BlockLocation;
     /**
      * @remarks
-     * Name of the block type.
-     * @returns Block type name - for example, `minecraft:acacia_stairs`.
+     * Adds an item and colors the water based on a dye item type.
+     * @param itemType
+     * @throws This function can throw errors.
      */
-    getName(): string;
+    addDye(itemType: ItemType): void;
 }
 /**
  * Contains the state of a boolean-based property for a
@@ -1245,7 +1347,11 @@ export class BoolBlockProperty {
     readonly "validValues": boolean[];
     /**
      * The current value of this property.
-     * @throws Setting this property can throw if the value passed is not valid for the property. Use {@link mojang-minecraft.BoolBlockProperty.validValues} to check allowed values.
+     * @throws
+     * Setting this property can throw if the value passed is not
+     * valid for the property. Use
+     * {@link mojang-minecraft.BoolBlockProperty.validValues} to check
+     * allowed values.
      */
     "value": boolean;
 }
@@ -1308,6 +1414,40 @@ export class ChatEventSignal {
     unsubscribe(callback: (arg: ChatEvent) => void): void;
 }
 /**
+ * Represents a fully customizable color within Minecraft.
+ */
+export class Color {
+    /**
+     * Determines a color's alpha (opacity) component. Valid values
+     * are between 0 (transparent) and 1.0 (opaque).
+     */
+    "alpha": number;
+    /**
+     * Determines a color's blue component. Valid values are
+     * between 0 and 1.0.
+     */
+    "blue": number;
+    /**
+     * Determines a color's green component. Valid values are
+     * between 0 and 1.0.
+     */
+    "green": number;
+    /**
+     * Determines a color's red component. Valid values are between
+     * 0 and 1.0.
+     */
+    "red": number;
+    /**
+     * @remarks
+     * Creates a new color using the specified color values.
+     * @param red
+     * @param green
+     * @param blue
+     * @param alpha
+     */
+    constructor(red: number, green: number, blue: number, alpha: number);
+}
+/**
  * Contains a method that lets you run console commands within
  * Minecraft.
  */
@@ -1322,7 +1462,9 @@ export class Commands {
      * @param dimension
      * Dimension to be used as context for the command to run
      * within.
-     * @returns For commands that return data, returns a JSON structure with command response values.
+     * @returns
+     * For commands that return data, returns a JSON structure with
+     * command response values.
      * @throws This function can throw errors.
      * @example commands.js
      * ```typescript
@@ -1371,7 +1513,11 @@ export class Container {
      * @throws This function can throw errors.
      * @example getItem.js
      * ```typescript
+     *        const rightInventoryComp = rightChestCart.getComponent("inventory");
+     *        const rightChestContainer = rightInventoryComp.container;
+     *
      *        const itemStack = rightChestContainer.getItem(0);
+     *
      *        test.assert(itemStack.id === "apple", "Expected apple");
      *        test.assert(itemStack.amount === 10, "Expected 10 apples");
      * ```
@@ -1447,7 +1593,8 @@ export class Dimension {
      * was introduced as of version 1.17.10.21.
      * @param location
      * The location at which to return a block.
-     * @returns Block at the specified location.
+     * @returns
+     * Block at the specified location.
      */
     getBlock(location: BlockLocation): Block;
     /**
@@ -1455,7 +1602,8 @@ export class Dimension {
      * Returns a set of entities at a particular location.
      * @param location
      * The location at which to return entities.
-     * @returns Zero or more entities at the specified location.
+     * @returns
+     * Zero or more entities at the specified location.
      */
     getEntitiesAtBlockLocation(location: BlockLocation): Entity[];
     /**
@@ -1464,7 +1612,8 @@ export class Dimension {
      * block.
      * @param location
      * The location at which to check for emptiness
-     * @returns True if the block at the location is air (empty)
+     * @returns
+     * True if the block at the location is air (empty)
      */
     isEmpty(location: BlockLocation): boolean;
     /**
@@ -1477,7 +1626,8 @@ export class Dimension {
      * is specified, 'minecraft:' is assumed.
      * @param location
      * The location at which to create the entity.
-     * @returns Newly created entity at the specified location.
+     * @returns
+     * Newly created entity at the specified location.
      * @throws This function can throw errors.
      */
     spawnEntity(identifier: string, location: BlockLocation): Entity;
@@ -1587,7 +1737,8 @@ export class EffectType {
     /**
      * @remarks
      * Identifier name of this effect type.
-     * @returns Identifier of the effect type.
+     * @returns
+     * Identifier of the effect type.
      */
     getName(): string;
 }
@@ -1637,7 +1788,7 @@ export class Entity {
      *        const villager = test.spawn(villagerId, villagerLoc);
      *        const duration = 20;
      *
-     *        villager.addEffect(Effects.poison, duration, 1);
+     *        villager.addEffect(MinecraftEffectTypes.poison, duration, 1);
      *
      * ```
      */
@@ -1664,7 +1815,9 @@ export class Entity {
      * Returns the effect for the specified EffectType on the
      * entity, or undefined if the effect is not present.
      * @param effectType
-     * @returns Effect object for the specified effect, or undefined if the effect is not present.
+     * @returns
+     * Effect object for the specified effect, or undefined if the
+     * effect is not present.
      * @throws This function can throw errors.
      */
     getEffect(effectType: EffectType): Effect;
@@ -1701,7 +1854,7 @@ export class Entity {
  * When added, this component makes the entity spawn with a
  * rider of the specified entityType.
  */
-export class EntityAddRiderComponent {
+export class EntityAddPassengerComponent {
     /**
      * The type of entity that is added as a rider for this entity
      * when spawned under certain conditions.
@@ -1730,7 +1883,7 @@ export class EntityAgeableComponent {
      * List of items that the entity drops when it grows up.
      * @throws This property can throw when used.
      */
-    readonly "dropItems": any[];
+    readonly "dropItems": string[];
     /**
      * Amount of time before the entity grows up, -1 for always a
      * baby.
@@ -3088,7 +3241,7 @@ export class EntityRideableComponent {
      * as riders.
      * @throws This property can throw when used.
      */
-    readonly "familyTypes": any[];
+    readonly "familyTypes": string[];
     /**
      * Identifier of this component. Should always be
      * minecraft:rideable.
@@ -3129,7 +3282,8 @@ export class EntityRideableComponent {
      * Adds an entity to this entity as a rider.
      * @param rider
      * Entity that will become the rider of this entity.
-     * @returns True if the rider entity was successfully added.
+     * @returns
+     * True if the rider entity was successfully added.
      * @throws This function can throw errors.
      */
     addRider(rider: Entity): boolean;
@@ -3194,11 +3348,12 @@ export class EntityTameableComponent {
      * The list of items that can be used to tame this entity.
      * @throws This property can throw when used.
      */
-    readonly "tameItems": any[];
+    readonly "tameItems": string[];
     /**
      * @remarks
      * Tames this entity.
-     * @returns Returns true if the entity was tamed.
+     * @returns
+     * Returns true if the entity was tamed.
      * @throws This function can throw errors.
      */
     tame(): boolean;
@@ -3439,6 +3594,22 @@ export class FeedItemEffect {
 export class FilterGroup {
 }
 /**
+ * Represents constants related to fluid containers.
+ */
+// tslint:disable-next-line:no-unnecessary-class
+export class FluidContainer {
+    /**
+     * Constant that represents the maximum fill level of a fluid
+     * container.
+     */
+    static readonly "maxFillLevel" = 6;
+    /**
+     * Constant that represents the minimum fill level of a fluid
+     * container.
+     */
+    static readonly "minFillLevel" = 0;
+}
+/**
  * Contains the state of an integer-based property for a
  * {@link mojang-minecraft.BlockPermutation}.
  */
@@ -3453,7 +3624,11 @@ export class IntBlockProperty {
     readonly "validValues": number[];
     /**
      * The current value of this property.
-     * @throws Setting this property can throw if the value passed is not valid for the property. Use {@link mojang-minecraft.IntBlockProperty.validValues} to check allowed values.
+     * @throws
+     * Setting this property can throw if the value passed is not
+     * valid for the property. Use
+     * {@link mojang-minecraft.IntBlockProperty.validValues} to check
+     * allowed values.
      */
     "value": number;
 }
@@ -3593,7 +3768,8 @@ export class ItemType {
      * @remarks
      * Returns the identifier of the item type - for example,
      * 'apple'.
-     * @returns Identifier of the item type.
+     * @returns
+     * Identifier of the item type.
      */
     getName(): string;
 }
@@ -3632,7 +3808,8 @@ export class Location {
      * Compares this Location and another Location to one another.
      * @param other
      * Other location to compare this Location to.
-     * @returns True if the two locations are equal.
+     * @returns
+     * True if the two locations are equal.
      */
     equals(other: Location): boolean;
     /**
@@ -3644,7 +3821,9 @@ export class Location {
      * @param epsilon
      * Maximum distance that the Locations can be from each other
      * to be considered nearby.
-     * @returns True if the two Locations are within epsilon distance of,each other.
+     * @returns
+     * True if the two Locations are within epsilon distance of
+     * each other.
      */
     isNear(other: Location, epsilon: number): boolean;
 }
@@ -6028,10 +6207,14 @@ export class MinecraftBlockTypes {
      * Represents a set of scaffolding within Minecraft.
      */
     static readonly "scaffolding": BlockType;
+    static readonly "sculk": BlockType;
+    static readonly "sculkCatalyst": BlockType;
     /**
      * Represents a sculk sensor within Minecraft.
      */
     static readonly "sculkSensor": BlockType;
+    static readonly "sculkShrieker": BlockType;
+    static readonly "sculkVein": BlockType;
     /**
      * Represents seagrass within Minecraft.
      */
@@ -9714,11 +9897,15 @@ export class MinecraftItemTypes {
      * within Minecraft.
      */
     static readonly "scaffolding": ItemType;
+    static readonly "sculk": ItemType;
+    static readonly "sculkCatalyst": ItemType;
     /**
      * Represents an item that can place a sculk sensor within
      * Minecraft.
      */
     static readonly "sculkSensor": ItemType;
+    static readonly "sculkShrieker": ItemType;
+    static readonly "sculkVein": ItemType;
     static readonly "scute": ItemType;
     /**
      * Represents seagrass within Minecraft.
@@ -10599,7 +10786,9 @@ export class Player {
      * Returns the effect for the specified EffectType on the
      * entity, or undefined if the effect is not present.
      * @param effectType
-     * @returns Effect object for the specified effect, or undefined if the effect is not present.
+     * @returns
+     * Effect object for the specified effect, or undefined if the
+     * effect is not present.
      * @throws This function can throw errors.
      */
     getEffect(effectType: EffectType): Effect;
@@ -10631,6 +10820,140 @@ export class Player {
      * @throws This function can throw errors.
      */
     triggerEvent(eventName: string): void;
+}
+/**
+ * Represents the inventory of a {@link mojang-minecraft.Player} in
+ * the world.
+ */
+export class PlayerInventoryComponentContainer {
+    /**
+     * Contains a count of the slots in the container that are
+     * empty.
+     * @throws This property can throw when used.
+     */
+    readonly "emptySlotsCount": number;
+    /**
+     * Returns the size capacity of the inventory container on this
+     * block.
+     * @throws This property can throw when used.
+     */
+    readonly "size": number;
+    /**
+     * @remarks
+     * Adds an item to the specified container. Item will be placed
+     * in the first available empty slot. (use .setItem if you wish
+     * to set items in a particular slot.)
+     * @param itemStack
+     * The stack of items to add.
+     * @throws This function can throw errors.
+     */
+    addItem(itemStack: ItemStack): void;
+    /**
+     * @remarks
+     * Gets the item stack for the set of items at the specified
+     * slot. If the slot is empty, returns undefined. This method
+     * does not change or clear the contents of the specified slot.
+     * @param slot
+     * Zero-based index of the slot to retrieve items from.
+     * @throws This function can throw errors.
+     */
+    getItem(slot: number): ItemStack;
+    /**
+     * @remarks
+     * Sets an item stack within a particular slot.
+     * @param slot
+     * Zero-based index of the slot to set an item at.
+     * @param itemStack
+     * Stack of items to place within the specified slot.
+     * @throws This function can throw errors.
+     */
+    setItem(slot: number, itemStack: ItemStack): void;
+    /**
+     * @remarks
+     * Swaps items between two different slots within containers.
+     * @param slot
+     * Zero-based index of the slot to swap from this container.
+     * @param otherSlot
+     * Zero-based index of the slot to swap with.
+     * @param otherContainer
+     * Target container to swap with. Note this can be the same
+     * container as this source.
+     * @throws This function can throw errors.
+     */
+    swapItems(slot: number, otherSlot: number, otherContainer: Container): boolean;
+    /**
+     * @remarks
+     * Moves an item from one slot to another, potentially across
+     * containers.
+     * @param fromSlot
+     * @param toSlot
+     * Zero-based index of the slot to move to.
+     * @param toContainer
+     * Target container to transfer to. Note this can be the same
+     * container as the source.
+     * @throws This function can throw errors.
+     */
+    transferItem(fromSlot: number, toSlot: number, toContainer: Container): boolean;
+}
+/**
+ * Represents a block that can play a record.
+ */
+export class RecordPlayer {
+    /**
+     * @remarks
+     * Clears the currently playing record of this record-playing
+     * block.
+     * @throws This function can throw errors.
+     */
+    clearRecord(): void;
+    /**
+     * @remarks
+     * Returns true if the record-playing block is currently
+     * playing a record.
+     * @throws This function can throw errors.
+     */
+    isPlaying(): boolean;
+    /**
+     * @remarks
+     * Sets and plays a record based on an item type.
+     * @param recordItemType
+     * @throws This function can throw errors.
+     */
+    setRecord(recordItemType: ItemType): void;
+}
+/**
+ * Contains data resulting from a navigation operation,
+ * including whether the navigation is possible and the path of
+ * navigation.
+ */
+export class ScriptNavigationResult {
+    /**
+     * Whether the navigation result contains a full path,
+     * including to the requested destination.
+     */
+    readonly "isFullPath": boolean;
+    /**
+     * A set of block locations that comprise the navigation route.
+     */
+    readonly "path": BlockLocation[];
+}
+/**
+ * Contains orientation information for items that can change
+ * on pitch and yaw angles.
+ */
+export class ScriptPlayerHeadRotation {
+    /**
+     * Pitch value of this orientation. For example, for a head,
+     * whether the head is looking up or down. The pitch of a head
+     * facing straight up is -90.
+     */
+    "pitch": number;
+    /**
+     * Yaw value of this orientation. For example, for a head,
+     * whether the head is looking left or right. The yaw of a head
+     * facing west is 90.
+     */
+    "yaw": number;
 }
 /**
  * Describes a particular seating position on this rideable
@@ -10669,16 +10992,20 @@ export class StringBlockProperty {
     /**
      * A list of allowed values for this string property.
      */
-    readonly "validValues": any[];
+    readonly "validValues": string[];
     /**
      * The current value of this property.
-     * @throws Setting this property can throw if the value passed is not valid for the property. Use {@link mojang-minecraft.StringBlockProperty.validValues} to check allowed values.
+     * @throws
+     * Setting this property can throw if the value passed is not
+     * valid for the property. Use
+     * {@link mojang-minecraft.StringBlockProperty.validValues} to check
+     * allowed values.
      */
     "value": string;
 }
 /**
- * An event for handling updates, that fires 20 times
- * every second.
+ * An event for handling updates, that fires 20 times every
+ * second.
  */
 export class TickEvent {
     /**
@@ -10746,7 +11073,8 @@ export class WeatherChangeEventSignal {
     unsubscribe(callback: (arg: WeatherChangeEvent) => void): void;
 }
 /**
- * A class that wraps the state of a world - a set of dimensions and the environment of Minecraft.
+ * A class that wraps the state of a world - a set of
+ * dimensions and the environment of Minecraft.
  */
 // tslint:disable-next-line:no-unnecessary-class
 export class World {
@@ -10758,14 +11086,17 @@ export class World {
     /**
      * @param dimensionName
      * The name of the Dimension
-     * @returns The requested dimension
-     * @throws Throws if the given dimension name is invalid
+     * @returns
+     * The requested dimension
+     * @throws
+     * Throws if the given dimension name is invalid
      */
     static getDimension(dimensionName: ('overworld'|'nether'|'the end')): Dimension;
     /**
      * @remarks
      * Returns all players currently in the world.
-     * @returns All players currently in the world.
+     * @returns
+     * All players currently in the world.
      */
     static getPlayers(): Player[];
 }

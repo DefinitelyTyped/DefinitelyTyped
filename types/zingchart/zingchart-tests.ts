@@ -23,6 +23,7 @@ zingchart.render({
         },
         scaleY: {
             autoFit: true,
+            zooming: true,
         },
         plot: {
             animation: {

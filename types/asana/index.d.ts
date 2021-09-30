@@ -2820,6 +2820,8 @@ declare namespace asana {
             id: number;
             name: string;
             gid: string;
+            resource_type: string;
+            resource_subtype?: string;
         }
 
         interface PaginationParams extends Params {

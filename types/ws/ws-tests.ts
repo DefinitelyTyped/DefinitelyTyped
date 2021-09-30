@@ -2,6 +2,7 @@ import WebSocket = require("ws");
 import * as http from "http";
 import * as https from "https";
 import * as url from "url";
+import * as wslib from "ws";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
@@ -17,6 +18,14 @@ import * as url from "url";
         for (let i = 0; i < array.length; ++i) array[i] = i / 2;
         ws.send(array, { binary: true, mask: true });
     });
+}
+
+{
+    const ws: wslib.WebSocket = new wslib.WebSocket("ws://www.host.com/path");
+}
+
+{
+    const wss: wslib.WebSocketServer = new wslib.WebSocketServer({ port: 8081 });
 }
 
 {
@@ -52,8 +61,8 @@ import * as url from "url";
         console.log(`unexpected response: ${error}`);
     });
 
-    wsc.on("message", (data: string) => {
-        console.log(`Roundtrip time: ${Date.now() - parseInt(data, 10)} ms`);
+    wsc.on("message", (data) => {
+        console.log(`Roundtrip time: ${Date.now() - parseInt(data.toString(), 10)} ms`);
         setTimeout(() => {
             wsc.send(Date.now().toString(), { mask: true });
         }, 500);
@@ -141,7 +150,7 @@ import * as url from "url";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
-    ws.onopen = (event: WebSocket.OpenEvent) => {
+    ws.onopen = (event: WebSocket.Event) => {
         console.log(event.target, event.type);
     };
     ws.onerror = (event: WebSocket.ErrorEvent) => {
@@ -177,9 +186,8 @@ import * as url from "url";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
+    // $ExpectError
     ws.addEventListener("other", () => {});
-    ws.addEventListener("other", () => {}, { once: true });
-    ws.addEventListener("other", () => {}, { once: true });
 }
 
 {
