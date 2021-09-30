@@ -11,13 +11,15 @@ import {
     ExoticComponent
 } from 'react';
 
-export type StateHook<S> = () => [S, Dispatch<SetStateAction<S>>];
+type StateHook<S> = () => [S, Dispatch<SetStateAction<S>>];
 
-export type StoreUtils<Store extends { [K: string]: any }> = Omit<{
+type StoreUtils<Store extends { [K: string]: any }> = Omit<{
     [K in keyof Store as `use${Capitalize<string & K>}`]: StateHook<Store[K]>
 }, 'useStore'> & {
     Provider: ExoticComponent<{ children: ReactNode }>,
     useStore: StateHook<Store>
 };
 
-export default function createStore<Store extends { [K: string]: any }>(store: Store): StoreUtils<Store>;
+declare function createStore<Store extends { [K: string]: any }>(store: Store): StoreUtils<Store>;
+
+export = createStore;
