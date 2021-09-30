@@ -1660,7 +1660,64 @@ declare namespace Autodesk {
             }
 
             class ViewerPreferences extends Preferences {
+              constructor(viewer: Viewer3D, options: PreferencesOptions);
 
+              alwaysUsePivot: boolean;
+              ambientShadows: boolean;
+              antialiasing: boolean;
+              backgroundColorPreset: any;
+              bimWalkGravity: boolean;
+              bimWalkNavigatorType: string;
+              bimWalkToolPopup: boolean;
+              clickToSetCOI: boolean;
+              defaultNavigationTool3D: string;
+              defaults: any;
+              disablePdfHighlight: boolean;
+              displaySectionHatches: boolean;
+              displayUnits: any;
+              displayUnitsPrecision: any;
+              edgeRendering: boolean;
+              enableCustomOrbitToolCursor: boolean;
+              envMapBackground: boolean;
+              explodeStrategy: string;
+              firstPersonToolPopup: boolean;
+              forceDoubleSided: boolean;
+              forceLeafletCalibration: boolean;
+              forcePDFCalibration: boolean;
+              fusionOrbit: boolean;
+              fusionOrbitConstrained: boolean;
+              ghosting: boolean;
+              grayscale: boolean;
+              groundReflection: boolean;
+              groundShadow: boolean;
+              keyMapCmd: boolean;
+              leftHandedMouseSetup: boolean;
+              lightPreset: string;
+              lineRendering: boolean;
+              loadingAnimation: boolean;
+              openPropertiesOnSelect: boolean;
+              optimizeNavigation: boolean;
+              options: any;
+              orbitPastWorldPoles: boolean;
+              pointRendering: boolean;
+              progressiveRendering: boolean;
+              restoreMeasurements: boolean;
+              reverseHorizontalLookDirection: boolean;
+              reverseMouseZoomDir: boolean;
+              reverseVerticalLookDirection: boolean;
+              selectionMode: number;
+              selectionSetsPivot: boolean;
+              swapBlackAndWhite: boolean;
+              tags: any;
+              useLocalStorage: boolean;
+              viewCube: boolean;
+              viewCubeCompass: boolean;
+              viewType: number;
+              viewer: Viewer3D | GuiViewer3D;
+              wheelSetsPivot: boolean;
+              zoomDragSpeed: number;
+              zoomScrollSpeed: number;
+              zoomTowardsPivot: boolean;
             }
 
             class ViewerState {
