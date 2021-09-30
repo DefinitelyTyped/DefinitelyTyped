@@ -86,5 +86,5 @@ interface AnimalProps {
     dance: boolean;
 }
 
-declare const Animal: React.ComponentType<Partial<AnimalProps>>;
+declare const Animal: React.VFC<Partial<AnimalProps>>;
 export default Animal;
