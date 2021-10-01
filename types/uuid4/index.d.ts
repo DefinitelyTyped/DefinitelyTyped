@@ -1,8 +1,12 @@
-// Type definitions for uuid4 2.0.2
+// Type definitions for uuid4 2.0
 // Project: https://github.com/tracker1/uuid4
 // Definitions by: Brenek Harrison <https://github.com/BrenekH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function uuid4(): string;
+declare function uuid4(): string;
 
-export function valid(uuid: string): boolean;
+declare namespace uuid4 {
+	function valid(uuid: string): boolean;
+}
+
+export = uuid4;
