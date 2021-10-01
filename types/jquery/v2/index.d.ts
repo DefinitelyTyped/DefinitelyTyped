@@ -21,6 +21,7 @@
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
@@ -3356,7 +3357,7 @@ interface JQuery {
      * @param index A zero-based integer indicating which element to retrieve.
      * @see {@link https://api.jquery.com/get/#get-index}
      */
-    get(index: number): Element;
+    get(index: number): Element | undefined;
     /**
      * Retrieve the elements matched by the jQuery object.
      * @alias toArray
