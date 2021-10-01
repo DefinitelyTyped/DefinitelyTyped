@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.6
+// Type definitions for non-npm package microsoft-graph 2.7
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -336,6 +336,7 @@ export type ConditionalAccessGrantControl =
     | "unknownFutureValue";
 export type ConditionalAccessPolicyState = "enabled" | "disabled" | "enabledForReportingButNotEnforced";
 export type CountryLookupMethodType = "clientIpAddress" | "authenticatorAppGps" | "unknownFutureValue";
+export type FilterMode = "include" | "exclude";
 export type PersistentBrowserSessionMode = "always" | "never";
 export type SigninFrequencyType = "days" | "hours";
 export type ComplianceStatus =
@@ -4290,9 +4291,9 @@ export interface ExtensionProperty extends DirectoryObject {
     targetObjects?: string[];
 }
 export interface PolicyBase extends DirectoryObject {
-    // Description for this policy.
+    // Description for this policy. Required.
     description?: NullableOption<string>;
-    // Display name for this policy.
+    // Display name for this policy. Required.
     displayName?: NullableOption<string>;
 }
 export interface StsPolicy extends PolicyBase {
@@ -6324,7 +6325,12 @@ export interface EducationSchool extends EducationOrganization {
     users?: NullableOption<EducationUser[]>;
 }
 export interface EducationOutcome extends Entity {
+    // The individual who updated the resource.
     lastModifiedBy?: NullableOption<IdentitySet>;
+    /**
+     * Moment in time when the resource was last modified. The Timestamp type represents date and time information using ISO
+     * 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2021 is 2021-01-01T00:00:00Z.
+     */
     lastModifiedDateTime?: NullableOption<string>;
 }
 export interface EducationFeedbackOutcome extends EducationOutcome {
@@ -6384,6 +6390,7 @@ export interface DriveItem extends BaseItem {
     image?: NullableOption<Image>;
     // Location metadata, if the item has location data. Read-only.
     location?: NullableOption<GeoCoordinates>;
+    // Malware metadata, if the item was detected to contain malware. Read-only.
     malware?: NullableOption<Malware>;
     /**
      * If present, indicates that this item is a package instead of a folder or file. Packages are treated like files in some
@@ -7621,7 +7628,8 @@ export interface AccessReviewScheduleDefinition extends Entity {
     descriptionForAdmins?: NullableOption<string>;
     /**
      * Description provided by review creators to provide more context of the review to reviewers. Reviewers will see this
-     * description in the email sent to them requesting their review. Supports $select.
+     * description in the email sent to them requesting their review. Email notifications support up to 256 characters.
+     * Supports $select.
      */
     descriptionForReviewers?: NullableOption<string>;
     // Name of the access review series. Supports $select and $orderBy. Required on create.
@@ -13471,8 +13479,11 @@ export interface ObjectIdentity {
      */
     issuerAssignedId?: NullableOption<string>;
     /**
-     * Specifies the user sign-in types in your directory, such as emailAddress, userName or federated. Here, federated
-     * represents a unique identifier for a user from an issuer, that can be in any format chosen by the issuer. Additional
+     * Specifies the user sign-in types in your directory, such as emailAddress, userName, federated, or userPrincipalName.
+     * federated represents a unique identifier for a user from an issuer, that can be in any format chosen by the issuer.
+     * Setting or updating a userPrincipalName identity will update the value of the userPrincipalName property on the user
+     * object. The validations performed on the userPrincipalName property on the user object, for example, verified domains
+     * and acceptable characters, will be performed when setting or updating a userPrincipalName identity. Additional
      * validation is enforced on issuerAssignedId when the sign-in type is set to emailAddress or userName. This property can
      * also be set to any custom string.
      */
@@ -14570,6 +14581,7 @@ export interface Image {
     width?: NullableOption<number>;
 }
 export interface Malware {
+    // Contains the virus details for the malware facet.
     description?: NullableOption<string>;
 }
 export interface Package {
@@ -15862,6 +15874,8 @@ export interface ConditionalAccessConditionSet {
      * exchangeActiveSync, easSupported, other. Required.
      */
     clientAppTypes?: ConditionalAccessClientApp[];
+    // Devices in the policy.
+    devices?: NullableOption<ConditionalAccessDevices>;
     // Locations included in and excluded from the policy.
     locations?: NullableOption<ConditionalAccessLocations>;
     // Platforms included in and excluded from the policy.
@@ -15878,6 +15892,13 @@ export interface ConditionalAccessConditionSet {
     userRiskLevels?: RiskLevel[];
     // Users, groups, and roles included in and excluded from the policy. Required.
     users?: ConditionalAccessUsers;
+}
+export interface ConditionalAccessDevices {
+    /**
+     * Filter defining the dynamic-device-syntax rule to include/exclude devices. A filter can use device properties (such as
+     * extension attributes) to include/exclude them. Cannot be set if includeDevices or excludeDevices is set.
+     */
+    deviceFilter?: NullableOption<ConditionalAccessFilter>;
 }
 export interface ConditionalAccessLocations {
     // Location IDs excluded from scope of policy.
@@ -15904,6 +15925,15 @@ export interface ConditionalAccessUsers {
     includeRoles?: string[];
     // User IDs in scope of policy unless explicitly excluded, or None or All or GuestsOrExternalUsers.
     includeUsers?: string[];
+}
+export interface ConditionalAccessFilter {
+    // Mode to use for the filter. Possible values are include or exclude.
+    mode?: FilterMode;
+    /**
+     * Rule syntax is similar to that used for membership rules for groups in Azure AD. For details, see rules with multiple
+     * expressions
+     */
+    rule?: string;
 }
 export interface ConditionalAccessGrantControls {
     /**
@@ -17074,7 +17104,7 @@ export interface ServiceUpdateMessageViewpoint {
 export interface AggregationOption {
     // Specifies the criteria to compute an aggregation. Optional.
     bucketDefinition?: BucketAggregationDefinition;
-    // Specifies the field in the schema of the specified entity type that aggregation should be computed on. Required.
+    // Computes aggregation on the field while the field exists in current entity type. Required.
     field?: string;
     /**
      * The number of searchBucket resources to be returned. This is not required when the range is provided manually in the
