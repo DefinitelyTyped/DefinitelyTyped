@@ -99,30 +99,30 @@ export interface ConnectionOptions {
      * For more information on authentication, see {@link https://docs.snowflake.com/en/user-guide/admin-security-fed-auth-use.html Managing/Using Federated Authentication}
      *  and {@link https://docs.snowflake.com/en/user-guide/admin-security-fed-auth-use.html OAuth with Clients, Drivers, and Connectors}.
      */
-     authenticator?: string;
+    authenticator?: string;
 
-     /**
-      * Specifies the OAuth token to use for authentication. Set this option if you set the authenticator option to OAUTH.
-      */
-     token?: string;
+    /**
+     * Specifies the OAuth token to use for authentication. Set this option if you set the authenticator option to OAUTH.
+     */
+    token?: string;
 
-     /**
-      * Specifies the private key (in PEM format) for key pair authentication.
-      * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
-      */
-     privateKey?: string | Buffer;
+    /**
+     * Specifies the private key (in PEM format) for key pair authentication.
+     * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
+     */
+    privateKey?: string | Buffer;
 
-     /**
-      * Specifies the local path to the private key file (e.g. rsa_key.p8).
-      * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
-      */
-      privateKeyPath?: string;
+    /**
+     * Specifies the local path to the private key file (e.g. rsa_key.p8).
+     * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
+     */
+    privateKeyPath?: string;
 
-     /**
-      * Specifies the passcode to decrypt the private key file, if the file is encrypted.
-      * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
-      */
-      privateKeyPass?: string;
+    /**
+     * Specifies the passcode to decrypt the private key file, if the file is encrypted.
+     * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
+     */
+    privateKeyPass?: string;
 }
 
 export interface Column {
@@ -159,7 +159,7 @@ export interface Column {
 
 export enum StatementStatus {
     Fetching = 'fetching',
-    Complete = 'complete'
+    Complete = 'complete',
 }
 
 export interface Statement {
