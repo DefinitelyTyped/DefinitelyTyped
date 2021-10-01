@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.0.4
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -1001,21 +1001,21 @@ export function sort<T>(iterable: Iterable<T>, ...accessors: Array<(a: T) => unk
 // --------------------------------------------------------------------------------------
 
 /**
- * Returns a new Set containing every value in iterable that is not in any of the others iterables.
+ * Returns a new InternSet containing every value in iterable that is not in any of the others iterables.
  */
-export function difference<T>(iterable: Iterable<T>, ...others: Array<Iterable<T>>): Set<T>;
+export function difference<T>(iterable: Iterable<T>, ...others: Array<Iterable<T>>): InternSet<T>;
 
 /**
- * Returns a new Set containing every (distinct) value that appears in any of the given iterables.
- * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ * Returns a new InternSet containing every (distinct) value that appears in any of the given iterables.
+ * The order of values in the returned set is based on their first occurrence in the given iterables.
  */
-export function union<T>(...iterables: Array<Iterable<T>>): Set<T>;
+export function union<T>(...iterables: Array<Iterable<T>>): InternSet<T>;
 
 /**
- * Returns a new Set containing every (distinct) value that appears in all of the given iterables.
- * The order of values in the returned Set is based on their first occurrence in the given iterables.
+ * Returns a new InternSet containing every (distinct) value that appears in all of the given iterables.
+ * The order of values in the returned set is based on their first occurrence in the given iterables.
  */
-export function intersection<T>(...iterables: Array<Iterable<T>>): Set<T>;
+export function intersection<T>(...iterables: Array<Iterable<T>>): InternSet<T>;
 
 /**
  * Returns true if a is a superset of b: if every value in the given iterable b is also in the given iterable a.
