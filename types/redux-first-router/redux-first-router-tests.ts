@@ -127,6 +127,12 @@ const action: ReduxFirstRouterAction = {
 };
 redirect(action); // $ExpectType Action
 
+const secondAction: ReduxFirstRouterAction = {
+    type: 'PAGE',
+    query: { foo: 'bar' }
+};
+redirect(action); // $ExpectType Action
+
 // $ExpectType Store<CombinedState<State>, AnyAction> || Store<EmptyObject & State, AnyAction>
 store;
 

@@ -303,7 +303,7 @@ export interface Options<TKeys = {}, TState = any> {
 }
 
 export interface Query {
-    [key: string]: string | undefined;
+    [key: string]: string | any;
 }
 
 export interface Params {
