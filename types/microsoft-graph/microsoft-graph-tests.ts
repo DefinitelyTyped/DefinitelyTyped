@@ -183,3 +183,5 @@ const win32LobAppDeliveryOptimizationPriority: MicrosoftGraph.Win32LobAppDeliver
 const compliance: MicrosoftGraph.Compliance = {};
 
 const columnTypes: MicrosoftGraph.ColumnTypes = "approvalStatus";
+
+const broadcastMeetingAudience: MicrosoftGraph.BroadcastMeetingAudience = "unknownFutureValue";
