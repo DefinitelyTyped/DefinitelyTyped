@@ -8,7 +8,7 @@ function printUrl(u: UrlAssembler) {
 
 function checkQSConfig(u: UrlAssembler) {
     u.qsConfig({
-        delimiter: "#",
+        delimiter: '#',
         strictNullHandling: true,
         skipNulls: true,
         encode: true,
@@ -27,34 +27,34 @@ function checkQSConfig(u: UrlAssembler) {
 
     u.qsConfig({
         // $ExpectError
-        delimiter: true
+        delimiter: true,
         // $ExpectError
-        strictNullHandling: "boop",
+        strictNullHandling: 'boop',
         // $ExpectError
-        skipNulls: "boop",
+        skipNulls: 'boop',
         // $ExpectError
-        encode: "encode",
+        encode: 'encode',
         // $ExpectError
         filter: true,
         // $ExpectError
         arrayFormat: 'uncool',
         // $ExpectError
-        indices: "true",
+        indices: 'true',
         // $ExpectError
-        sort: false
+        sort: false,
         // $ExpectError
         serializeDate: (d: Date) => d.toString(),
         // $ExpectError
         format: 'RFC1111',
         // $ExpectError
-        encodeValuesOnly: "values",
+        encodeValuesOnly: 'values',
         // $ExpectError
-        addQueryPrefix: "yes please",
+        addQueryPrefix: 'yes please',
         // $ExpectError
-        allowDots: "no dots",
+        allowDots: 'no dots',
         // $ExpectError
         charset: 'UtF-eight',
         // $ExpectError
-        charsetSentinel: "sentinel?",
+        charsetSentinel: 'sentinel?',
     });
 }
