@@ -7296,14 +7296,16 @@ export interface AccessibilityInfoStatic {
      *            The boolean is true when the related event's feature is enabled and false otherwise.
      *
      */
-    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
+    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): EmitterSubscription;
     addEventListener(
         eventName: AccessibilityAnnouncementEventName,
         handler: AccessibilityAnnouncementFinishedEventHandler,
-    ): void;
+    ): EmitterSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove an event handler
      */
     removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
     removeEventListener(
