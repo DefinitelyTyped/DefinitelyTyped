@@ -96,8 +96,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -251,8 +251,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -338,8 +338,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -348,8 +348,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Sets the size of the object. 4 | "6px" | ...
      */
@@ -424,8 +424,8 @@ declare namespace zingchart {
       /**
        * Sets the width of the object's border. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the object's font color. Similar to color. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)"
        * | ...
@@ -616,8 +616,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
        */
@@ -693,8 +693,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the font color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
        */
@@ -743,8 +743,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 4 | "6px" | ...
      */
-    'line-width'?: any;
-    lineWidth?: any;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Reverses the order of items in plotLabel. Generally used with positive stacked charts.
      */
@@ -793,8 +793,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the size of the object/shape. 4 | "6px" | ...
        */
@@ -850,8 +850,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 4 | "6px" | ...
      */
-    'line-width'?: any;
-    lineWidth?: any;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Reverses the order of items in plotLabel. Generally used with positive stacked charts.
      */
@@ -900,8 +900,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the size of the object/shape. 4 | "6px" | ...
        */
@@ -943,8 +943,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 4 | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the font color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
      */
@@ -1010,8 +1010,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -1025,8 +1025,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * The type of the marker object to render. square | circle | diamond | triangle | star5 | star6 | star7 | star8 | rpoly5 | gear5 | g
      * ear6 | gear7 | gear8
@@ -1054,8 +1054,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -1069,8 +1069,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * The type of the marker object to render. square | circle | diamond | triangle | star5 | star6 | star7 | star8 | rpoly5 | gear5 | g
      * ear6 | gear7 | gear8
@@ -1136,8 +1136,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -1196,8 +1196,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
      */
-    'line-width'?: any;
-    lineWidth?: any;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
      */
@@ -1320,8 +1320,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | '6px' | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -1384,8 +1384,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Sets the padding of the object. 3 | '5px' | '10px' | ...
      */
@@ -1544,8 +1544,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -1836,8 +1836,8 @@ declare namespace zingchart {
      * Sets the border width of the object. Requires Legend. Used only inside individual series rather than Plot. See red text in upper r
      * ight box. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets whether an object will have a callout arrow or not. Requires Legend. Used only inside individual series rather than Plot. See
      *  red text in upper right box. Works with output canvas and svg. true | false | 1 | 0
@@ -2234,8 +2234,8 @@ declare namespace zingchart {
      * losed shapes. Requires Legend. Used only inside individual series rather than Plot. See the shape to the left of the text in the u
      * pper right box. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the style of the cursor when hovering over a node. "hand" | "normal"
      */
@@ -2349,8 +2349,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | '6px' | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
      */
@@ -2389,8 +2389,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | '6px' | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Sets the placement of the object. 'outer' | 'inner' | 'cross'
      */
@@ -2527,8 +2527,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the object's font color. Similar to font-color. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15,
      * 15)" | ...
@@ -2788,8 +2788,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -2927,8 +2927,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -3123,8 +3123,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -3454,8 +3454,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -3719,8 +3719,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | '6px' | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Sets the visibility of the object. true | false
      */
@@ -3774,8 +3774,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number;
-      lineWidth?: number;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the visibility of the object. true | false
        */
@@ -3800,8 +3800,8 @@ declare namespace zingchart {
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
-          'border-width'?: number;
-          borderWidth?: number;
+          'border-width'?: number | string;
+          borderWidth?: number | string;
         }
       ];
     };
@@ -3837,8 +3837,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -3894,8 +3894,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 4 | '6px' | ...
        */
-      'line-width'?: number;
-      lineWidth?: number;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the placement of the object. 'outer' | 'inner' | 'cross'
        */
@@ -3941,8 +3941,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | | "6px" | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the font color of the object text. "none" | "transparent" | "purple" | "#33ccff" | ...
        */
@@ -4130,8 +4130,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -4386,8 +4386,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the size of the pivot point. 4 | "6px" | ...
        */
@@ -4437,8 +4437,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number;
-      lineWidth?: number;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the visibility of the object. true | false
        */
@@ -4476,8 +4476,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -4552,8 +4552,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number;
-        borderWidth?: number;
+        'border-width'?: number | string;
+        borderWidth?: number | string;
         /**
          * Sets the line color of the object. Colors can be entered by name (e.g., 'purple', 'blue'), hexadecimal notation (e.g., '#666699',
          * '#33ccff'), or RGB notation (e.g., 'rgb(255,0,0)', 'rgb(0,0,255)'). 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15,
@@ -4569,8 +4569,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object. 1 | 3 | '6px' | ...
          */
-        'line-width'?: number;
-        lineWidth?: number;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * Sets an ending offset for the scale marker. 0.1 | ...
          */
@@ -4622,8 +4622,8 @@ declare namespace zingchart {
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
-          'border-width'?: number;
-          borderWidth?: number;
+          'border-width'?: number | string;
+          borderWidth?: number | string;
           /**
            * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
            */
@@ -4708,8 +4708,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string;
+      borderWidth?: number | string;
       /**
        * Sets the line style of the object. 'solid' | 'dotted' | 'dashed' | 'dashdot'
        */
@@ -4743,8 +4743,8 @@ declare namespace zingchart {
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
-          'border-width'?: number;
-          borderWidth?: number;
+          'border-width'?: number | string
+          borderWidth?: number | string
           /**
            * Sets the line style of the object. 'solid' | 'dotted' | 'dashed' | 'dashdot'
            */
@@ -4778,8 +4778,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number;
-      lineWidth?: number;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the placement of the object. 'outer' | 'inner' | 'cross'
        */
@@ -4840,8 +4840,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number;
-      lineWidth?: number;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the visibility of the object. true | false
        */
@@ -4892,8 +4892,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -4951,8 +4951,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 4 | '6px' | ...
        */
-      'line-width'?: number;
-      lineWidth?: number;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the placement of the object. 'outer' | 'inner' | 'cross'
        */
@@ -4998,8 +4998,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | | "6px" | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the font color of the object text. "none" | "transparent" | "purple" | "#33ccff" | ...
        */
@@ -5224,6 +5224,13 @@ declare namespace zingchart {
     'show-labels'?: any;
     showLabels?: any;
     /**
+     * When you set the 'thousands-separator': attribute, the punctuation which is used will be placed to separate digits which go into 1,000s, 10,000s, etc. When placed in the 'plot': { } object,
+     * this will only effect values which are pulled directly from the series data. Objects such as 'scale-y': { }, 'scale-x': { }, etc..., will need to be set separately.
+     * Default Value: null
+     */
+    'thousands-separator'?: string;
+    thousandsSeparator?: string;
+    /**
      * Sets the size of the object/shape. 4 | '6px' | ...
      */
     size?: any;
@@ -5239,6 +5246,10 @@ declare namespace zingchart {
      * s, etc separately, true | false | 1 | 0
      */
     visible?: boolean;
+    /**
+     * To turn on chart zooming on scale. Default is false.
+     */
+    zooming?: boolean;
     /**
      * When zooming is enabled, setting zoom-snap to true snaps the zoom area to the nearest data node as a zoom area is selected. By def
      * ault, zoom-snap is set to false. true | false | 1 | 0
@@ -5296,8 +5307,8 @@ declare namespace zingchart {
        * Sets the line width of the object, applicable on non-closed shapes. For the scale-x / scale-y guide. See the red lines. 4 | "6px"
        * | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
        */
@@ -5322,7 +5333,7 @@ declare namespace zingchart {
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
-          'border-width'?: number;
+          'border-width'?: number | string
         }
       ];
     };
@@ -5442,8 +5453,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -5777,8 +5788,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -6057,8 +6068,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
          */
@@ -6127,8 +6138,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
          */
-        'line-width'?: any;
-        lineWidth?: any;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
          */
@@ -6231,8 +6242,8 @@ declare namespace zingchart {
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
-          'border-width'?: number;
-          borderWidth?: number;
+          'border-width'?: number | string
+          borderWidth?: number | string
           /**
            * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
            */
@@ -6330,8 +6341,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Determines the placement of tick marks along an axis line. inner | cross | outer
        */
@@ -6409,8 +6420,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | | "6px" | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the font color of the object text. "none" | "transparent" | "purple" | "#33ccff" | ...
        */
@@ -6530,8 +6541,8 @@ declare namespace zingchart {
          * Sets the line width of the object, applicable on non-closed shapes. For the scale-x / scale-y guide. See the red lines. 4 | "6px"
          * | ...
          */
-        'line-width'?: any;
-        lineWidth?: any;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
          */
@@ -6653,8 +6664,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -6999,8 +7010,8 @@ declare namespace zingchart {
     /**
      * Sets the width of the axis line. 4 | '6px' | ...
      */
-    'line-width'?: any;
-    lineWidth?: any;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Logarithmic Scales only: To set the base value, which defaults to Math.E (Euler's number, the base of natural logarithms). Math.E
      * | 10 | 2 | ...
@@ -7229,8 +7240,8 @@ declare namespace zingchart {
        * Sets the line width of the object, applicable on non-closed shapes. For the scale-x / scale-y guide. See the red lines. 4 | "6px"
        * | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
        */
@@ -7255,7 +7266,7 @@ declare namespace zingchart {
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
-          'border-width'?: number;
+          'border-width'?: number | string
         }
       ];
     };
@@ -7375,8 +7386,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -7710,8 +7721,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -7989,8 +8000,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
          */
@@ -8059,8 +8070,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
          */
-        'line-width'?: any;
-        lineWidth?: any;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
          */
@@ -8163,8 +8174,8 @@ declare namespace zingchart {
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
-          'border-width'?: number;
-          borderWidth?: number;
+          'border-width'?: number | string
+          borderWidth?: number | string
           /**
            * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
            */
@@ -8263,8 +8274,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Determines the placement of tick marks along an axis line. inner | cross | outer
        */
@@ -8342,8 +8353,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | | "6px" | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the font color of the object text. "none" | "transparent" | "purple" | "#33ccff" | ...
        */
@@ -8575,8 +8586,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -8726,8 +8737,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -8763,13 +8774,13 @@ declare namespace zingchart {
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
-     'line-color'?: string;
-     lineColor?: string;
-     /**
-      * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
-      */
-     'line-width'?: string;
-     lineWidth?: string;
+    'line-color'?: string;
+    lineColor?: string;
+    /**
+     * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
+     */
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
      */
@@ -8823,8 +8834,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -8833,8 +8844,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
   }
   interface trendEqual {
     /**
@@ -8857,8 +8868,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -8867,8 +8878,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
   }
   interface trendUp {
     /**
@@ -8891,8 +8902,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -8901,8 +8912,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number;
-    lineWidth?: number;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
   }
   interface valueBox {
     /**
@@ -8973,8 +8984,8 @@ declare namespace zingchart {
      * Sets the border width of the object, applicable on closed shapes. See the "line-width" attribute for closed shapes. 4 | "6px" | ..
      * .
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets whether or not the object will have a callout arrow. true | false | 1 | 0
      */
@@ -9122,8 +9133,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 4 | "6px" | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
     };
     joined?: {
       /**
@@ -9151,8 +9162,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -9198,8 +9209,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -9240,8 +9251,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable to closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the font color of the object. "none" | "transparent" | "#1A237E" | "purple" | ...
      */
@@ -9303,8 +9314,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number;
-    borderWidth?: number;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets the height of the object. 10 | "20px" | 0.3 | "30%" | ...
      */
@@ -9481,8 +9492,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the direction of the arrow "top" | "bottom" | "left" | "right"
          */
@@ -9677,8 +9688,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 4 | "6px" | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Reverses the order of items in plotLabel. Generally used with positive stacked charts.
        */
@@ -9727,8 +9738,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
          */
-        'border-width'?: number;
-        borderWidth?: number;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the size of the object/shape. 4 | "6px" | ...
          */
@@ -9974,8 +9985,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. For graph plot tooltip. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. For graph plot tooltip. true | false | 1 | 0
          */
@@ -10368,8 +10379,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -10648,8 +10659,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -11057,8 +11068,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -11392,8 +11403,8 @@ declare namespace zingchart {
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. Defaults to dark gray if
          * border-color is not set. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -11750,8 +11761,8 @@ declare namespace zingchart {
         /**
          * Requires border-color. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -12009,8 +12020,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object, applicable on non-closed shapes. See also border-widthfor closed shapes. 4 | "6px" | ...
          */
-        'line-width'?: any;
-        lineWidth?: any;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
          */
@@ -12136,8 +12147,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -12373,8 +12384,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the style of the cursor when hovering over a node. "hand" | "normal"
          */
@@ -12437,8 +12448,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object, applicable on non-closed shapes. See also border-widthfor closed shapes. 4 | "6px" | ...
          */
-        'line-width'?: any;
-        lineWidth?: any;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
          */
@@ -12617,8 +12628,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | | "6px" | ...
          */
-        'border-width'?: number;
-        borderWidth?: number;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the font color of the object text. "none" | "transparent" | "purple" | "#33ccff" | ...
          */
@@ -12933,8 +12944,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number;
-        borderWidth?: number;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the font family of the object. 'Arial' | 'Tahoma,Verdana' | ...
          */
@@ -12991,8 +13002,8 @@ declare namespace zingchart {
           /**
            * Sets the border width of the object. 1 | 3 | '6px' | ...
            */
-          'border-width'?: number;
-          borderWidth?: number;
+          'border-width'?: number | string
+          borderWidth?: number | string
           /**
            * Sets the font angle of the object. -45 | 115 | ...
            */
@@ -13211,8 +13222,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also "line-width" for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -13266,6 +13277,16 @@ declare namespace zingchart {
        * anywhere in a chart. "Some Text" | ...
        */
       'data-...'?: string;
+      /**
+       * Certain plot to add in selection tool.
+       */
+      'data-append-selection'?: boolean;
+      dataAppendSelection?: boolean;
+      /**
+       * Certain plot to ignore in selection tool.
+       */
+      'data-ignore-selection'?: boolean;
+      dataIgnoreSelection?: boolean;
       /**
        * Using the decimals attribute will allow you to set the number of decimal places associated to each value. 5 | 10 | ...
        */
@@ -13343,6 +13364,12 @@ declare namespace zingchart {
       'group-selections'?: boolean;
       groupSelections?: boolean;
       /**
+       * When set to true, it highlights the corresponding series when the user hovers over it in the legend. Note: This attribute may be used in conjunction with the "highlight-state" and/or
+       * "highlight-marker" object(s), which allow for custom styling.
+       * Default Value: false
+       */
+      hightlight?: boolean;
+      /**
        * Venn Diagrams Only: This attribute allow you to set the values for the area to be shared between each node. [30]
        */
       join?: any;
@@ -13378,8 +13405,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also "border-width" for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Applies to charts such as line and area which have markers. When there are too many markers for the chart ZingChart does not displ
        * ay all markers. Example 1000 nodes on a 300px wide chart. Setting max-nodes will override the default setting and force nodes to b
@@ -13492,6 +13519,14 @@ declare namespace zingchart {
        */
       'segment-trackers'?: boolean;
       segmentTrackers?: boolean;
+      /**
+       * To set how data points are selected on a chart. 'none' (default) prevents any selection. 'plot' allows you to select one node (or data point) per series (or dataset). 'graph' allows
+       * you to select one node per chart. 'multiple' allows you to select as many nodes as you want. Note: Use this attribute with the selected-state and/or selected-marker object(s), which
+       * allow you specify the styling attributes you want applied.
+       * Accepted Values: ['none', 'plot', 'graph', 'multiple']
+       */
+      'selection-mode'?: string;
+      selectionMode?: string;
       /**
        * A boolean to smart sample and render data at a sampled size. Used in conjuction with exact:false true | false
        */
@@ -13685,8 +13720,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
          */
-        'line-width'?: any;
-        lineWidth?: any;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * Sets the size of the object/shape. 4 | "6px" | ...
          */
@@ -13717,8 +13752,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 4 | "6px" | ...
          */
-        'border-width'?: number;
-        borderWidth?: number;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the height of the object. 10 | "20px"
          */
@@ -13812,8 +13847,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the angle of the axis along which the linear gradient is drawn. See the square points between the lines. -45 | 115 | ...
          */
@@ -13950,8 +13985,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object. 2 | 4 | "6px" | ...
          */
-        'line-width'?: any;
-        lineWidth?: any;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * To set the stock preview chart type: area chart or line chart. "area" (default) | "line"
          */
@@ -14092,8 +14127,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. For graph plot tooltip. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. For graph plot tooltip. true | false | 1 | 0
          */
@@ -14402,8 +14437,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | | "6px" | ...
          */
-        'border-width'?: number;
-        borderWidth?: number;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
          */
@@ -14412,8 +14447,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object. 1 | 3 | | "6px" | ...
          */
-        'line-width'?: number;
-        lineWidth?: number;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
       };
       'value-box'?: valueBox;
       valueBox?: valueBox;
@@ -14532,8 +14567,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -14771,8 +14806,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the object's height. 10 | "20px" | 0.3 | "30%" | ...
        */
@@ -14877,8 +14912,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | | "6px" | ...
          */
-        'border-width'?: number;
-        borderWidth?: number;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the object's height. 10 | "20px" | 0.3 | "30%" | ...
          */
@@ -15006,8 +15041,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -15347,8 +15382,8 @@ declare namespace zingchart {
          * Sets the border width of the object, applicable on closed shapes. Defaults to black when border-color is not defined. See also lin
          * e-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: any;
-        borderWidth?: any;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the angle of the axis along which the linear fill is drawn. -45 | 115 | ...
          */
@@ -15412,8 +15447,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
          */
-        'line-width'?: any;
-        lineWidth?: any;
+        'line-width'?: number | string;
+        lineWidth?: number | string;
         /**
          * Sets the map id of the map on which the object/shape is being added. "mapid" | ...
          */
@@ -15606,8 +15641,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Requires border-width. true | false | 1 | 0
        */
@@ -16007,8 +16042,8 @@ declare namespace zingchart {
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. If no border-color is set
        * , will display in black. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether or not the object will have a callout arrow. true | false | 1 | 0
        */
@@ -16298,6 +16333,12 @@ declare namespace zingchart {
       'z-index'?: number;
       zIndex?: number;
     };
+    /**
+     * Time-Series Charts only: To set the UTC timezone. Use with the 'utc' attribute and 'transform' object in the applicable scale object.
+     * Default Value: 0
+     */
+    'time-zone'?: number;
+    timeZone?: number;
     title?: {
       /**
        * Forces the plotarea to consider the title positioning and prevent overlapping with it. true | false | 1 | 0
@@ -16406,8 +16447,8 @@ declare namespace zingchart {
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. If no border-color is set
        * , will display in black.. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets if the object will have a callout arrow. true | false | 1 | 0
        */
@@ -16816,8 +16857,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. For graph plot tooltip. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. For graph plot tooltip. true | false | 1 | 0
        */
@@ -17134,8 +17175,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * API charts only: Sets whether the zoom level is preserved on chart data alteration or reloads. true | false | 1 | 0
        */
@@ -17162,8 +17203,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | | "6px" | ...
          */
-        'border-width'?: number;
-        borderWidth?: number;
+        'border-width'?: number | string
+        borderWidth?: number | string
         /**
          * Sets the font color of the object text. "none" | "transparent" | "purple" | "#33ccff" | ...
          */
@@ -17331,8 +17372,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -17537,8 +17578,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
        */
@@ -17753,8 +17794,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -18113,8 +18154,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also "line-width" for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: any;
-    borderWidth?: any;
+    'border-width'?: number | string;
+    borderWidth?: number | string;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -18286,8 +18327,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object, applicable on non-closed shapes. See also "border-width" for closed shapes. 4 | "6px" | ...
      */
-    'line-width'?: any;
-    lineWidth?: any;
+    'line-width'?: number | string;
+    lineWidth?: number | string;
     /**
      * Applies to charts such as line and area which have markers. When there are too many markers for the chart ZingChart does not displ
      * ay all markers. Example 1000 nodes on a 300px wide chart. Setting max-nodes will override the default setting and force nodes to b
@@ -18591,8 +18632,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * Sets the size of the object/shape. 4 | "6px" | ...
        */
@@ -18623,8 +18664,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 4 | "6px" | ...
        */
-      'border-width'?: number;
-      borderWidth?: number;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the height of the object. 10 | "20px"
        */
@@ -18722,8 +18763,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. See the square points between the lines. -45 | 115 | ...
        */
@@ -18870,8 +18911,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 2 | 4 | "6px" | ...
        */
-      'line-width'?: any;
-      lineWidth?: any;
+      'line-width'?: number | string;
+      lineWidth?: number | string;
       /**
        * To set the stock preview chart type: area chart or line chart. "area" (default) | "line"
        */
@@ -19013,8 +19054,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. For graph plot tooltip. 4 | "6px" | ...
        */
-      'border-width'?: any;
-      borderWidth?: any;
+      'border-width'?: number | string
+      borderWidth?: number | string;
       /**
        * Sets whether an object will have a callout arrow or not. For graph plot tooltip. true | false | 1 | 0
        */
