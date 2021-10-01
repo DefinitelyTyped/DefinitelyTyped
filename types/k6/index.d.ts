@@ -34,6 +34,7 @@ import './global'; // Type global environment
 import './crypto';
 import './data';
 import './encoding';
+import './execution';
 import './html';
 import './http';
 import './metrics';
