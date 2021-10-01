@@ -249,7 +249,7 @@ export interface Options<TKeys = {}, TState = any> {
      *  or if you manually call dispatch(redirect({ type: NOT_FOUND })), where NOT_FOUND is an export from this package.
      *  The type in actions and state will be NOT_FOUND, which you can use to show a 404 page.
      */
-    notFoundPath?: string | undefined;
+    notFoundPath?: string | undefined | null;
     /**
      * Whether or not window.scrollTo(0, 0) should be run on route changes so the user starts each page at the top.
      */
