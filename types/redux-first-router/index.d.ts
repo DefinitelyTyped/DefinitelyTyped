@@ -33,6 +33,7 @@ export type ConfirmLeave = (state: object, action: object) => Nullable<string>;
 export type RouteThunk<TState = any> = (
     dispatch: Dispatch<any>,
     getState: StateGetter<TState>,
+    bag: Bag,
 ) => any | Promise<any>;
 
 export type RouteObject<TKeys = {}, TState = any> = TKeys & {
@@ -207,7 +208,7 @@ export interface NavigatorsConfig<TKeys = {}, TState = any> {
 
 export interface Bag {
     action: ReceivedAction | Action;
-    extra: any;
+    extra?: any | undefined;
 }
 
 export interface Options<TKeys = {}, TState = any> {
