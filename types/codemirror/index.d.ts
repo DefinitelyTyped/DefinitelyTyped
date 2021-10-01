@@ -1655,7 +1655,7 @@ declare namespace CodeMirror {
          * Returns the content of the line n lines ahead in the stream without
          * advancing it. Will return undefined if not found.
          */
-        lookAhead(n: number): string;
+        lookAhead(n: number): string | undefined;
     }
 
     /**
