@@ -43,7 +43,7 @@ function checkQSConfig(u: UrlAssembler) {
         // $ExpectError
         sort: false,
         // $ExpectError
-        serializeDate: (d: Date) => d.toString(),
+        serializeDate: (s: string) => s,
         // $ExpectError
         format: 'RFC1111',
         // $ExpectError
