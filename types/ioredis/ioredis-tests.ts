@@ -134,6 +134,8 @@ redis.zadd('myset', 'NX', 'CH', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 1, 'member', cb);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member', cb);
+redis.zscore('myset', 'member').then(console.log);
+redis.zscore('myset', 'member', cb);
 redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
@@ -369,6 +371,7 @@ new Redis({
         servername: 'tlsservername',
     },
     enableAutoPipelining: true,
+    disconnectTimeout: 1000
 });
 // Test commandTimeout
 new Redis({
@@ -441,6 +444,14 @@ Redis.Command.setArgumentTransformer('set', args => {
 
 Redis.Command.setReplyTransformer('get', (result: any) => {
     return result;
+});
+
+redis.scan(0).then(([nextCursor, keys]) => {
+    // nextCursor is always a string
+    if (nextCursor === '0') {
+        // keys is always an array of strings and it might be empty
+        return keys.map(key => key.trim());
+    }
 });
 
 redis.scan(0, 'match', '*foo*', 'count', 20).then(([nextCursor, keys]) => {

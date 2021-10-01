@@ -8,6 +8,7 @@ export class StandardNode extends Node {
     roughness: Node;
     metalness: Node;
     nodeType: string;
+    sheenTint: Node;
 
     build(builder: NodeBuilder): string;
     copy(source: StandardNode): this;

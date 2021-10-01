@@ -778,3 +778,4 @@ export function optimize(svgString: string | Buffer, options?: OptimizeOptions):
  * You can also specify relative or absolute path and customize current working directory.
  */
 export function loadConfig(configFile: string, cwd?: string): Promise<OptimizeOptions>;
+export function loadConfig(): Promise<OptimizeOptions | null>;

@@ -42,7 +42,6 @@ interface OpenFilePickerOptions extends FilePickerOptions {
     multiple?: boolean | undefined;
 }
 
-// tslint:disable-next-line:no-empty-interface
 interface SaveFilePickerOptions extends FilePickerOptions {
     suggestedName?: string;
 }

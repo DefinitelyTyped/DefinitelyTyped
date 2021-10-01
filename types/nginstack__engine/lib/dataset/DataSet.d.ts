@@ -178,7 +178,11 @@ declare namespace DataSet {
 declare function DataSetFieldDefs(): void;
 declare class DataSetFieldDefs {
     size: number;
-    add(defOrName: DataSetFieldDef | DataSetFieldDef[] | string, type?: any, size?: number): void;
+    add(
+        defOrName: DataSetFieldDef | DataSetFieldDef[] | string,
+        type?: any,
+        size?: number
+    ): void;
     get(id: string | number): DataSetFieldDef;
     set(id: string | number, def: DataSetFieldDef): void;
     delete(id: string | number): boolean;

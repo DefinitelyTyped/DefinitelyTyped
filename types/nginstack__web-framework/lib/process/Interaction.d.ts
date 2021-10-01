@@ -11,7 +11,6 @@ declare class Interaction {
     functions: LegacyEvent;
     name: string;
     onExit: LegacyEvent;
-    private memoryProfiler_;
     private lastExecuteOk;
     private isInteractive;
     private withUserInteraction;

@@ -15,7 +15,7 @@
  * ```js
  * const inspector = require('inspector');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
@@ -1797,7 +1797,7 @@ declare module 'inspector' {
          * // Output: { type: 'number', value: 4, description: '4' }
          * ```
          *
-         * The latest version of the V8 inspector protocol is published on the[Chrome DevTools Protocol Viewer](https://chromedevtools.github.io/devtools-protocol/v8/).
+         * The latest version of the V8 inspector protocol is published on the [Chrome DevTools Protocol Viewer](https://chromedevtools.github.io/devtools-protocol/v8/).
          *
          * Node.js inspector supports all the Chrome DevTools Protocol domains declared
          * by V8\. Chrome DevTools Protocol domain provides an interface for interacting

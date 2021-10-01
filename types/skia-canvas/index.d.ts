@@ -31,7 +31,7 @@ export class CanvasRenderingContext2D extends globalThis.CanvasRenderingContext2
     fontVariant: string;
     textTracking: number;
     textWrap: boolean;
-    measureText(text: string): TextMetrics;
+    measureText(text: string, maxWidth?: number): TextMetrics;
 }
 
 export interface TextMetrics extends globalThis.TextMetrics {

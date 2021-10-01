@@ -3478,6 +3478,14 @@
             "libraryName": "positive-zero",
             "asOfVersion": "3.0.0"
         },
+        "postcss-custom-properties": {
+            "libraryName": "postcss-custom-properties",
+            "asOfVersion": "12.0.0"
+        },
+        "postcss-focus-within": {
+            "libraryName": "postcss-focus-within",
+            "asOfVersion": "5.0.1"
+        },
         "postcss-load-config": {
             "libraryName": "postcss-load-config",
             "asOfVersion": "3.0.1"
@@ -4098,6 +4106,10 @@
             "libraryName": "react-scrollbar-size",
             "asOfVersion": "3.0.0"
         },
+        "react-select": {
+            "libraryName": "react-select",
+            "asOfVersion": "5.0.0"
+        },
         "react-share": {
             "libraryName": "react-share",
             "asOfVersion": "4.0.0"
@@ -4189,10 +4201,6 @@
         "reapop": {
             "libraryName": "reapop",
             "asOfVersion": "3.0.0"
-        },
-        "recharts": {
-            "libraryName": "recharts",
-            "asOfVersion": "2.0.0"
         },
         "recoil": {
             "libraryName": "recoil",

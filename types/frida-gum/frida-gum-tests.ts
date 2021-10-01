@@ -1,5 +1,8 @@
 Frida.version; // $ExpectType string
 
+// $ExpectError
+SourceMap;
+
 // $ExpectType (target: any, callback: WeakRefCallback) => number
 Script.bindWeak;
 

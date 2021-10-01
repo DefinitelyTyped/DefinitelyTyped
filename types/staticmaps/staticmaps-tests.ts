@@ -87,6 +87,8 @@ map.addText({
     fill: '#000000',
     color: '#ffffff',
     font: 'Calibri',
+    offsetX: 50,
+    offsetY: 100
 });
 
 // render

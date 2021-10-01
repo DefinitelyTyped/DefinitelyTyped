@@ -5,7 +5,7 @@ import stream = require('stream');
 
 const obj = { any: true };
 
-// $ExpectType string | Buffer
+// $ExpectType string
 let hashed = hash(obj);
 
 hashed = hash.sha1(obj); // $ExpectType string
@@ -14,7 +14,7 @@ hashed = hash.MD5(obj); // $ExpectType string
 hashed = hash.keysMD5(obj); // $ExpectType string
 
 hash(undefined); // $ExpectError
-hash(''); // $ExpectType string | Buffer
+hash(''); // $ExpectType string
 
 const passThroughStream = new stream.PassThrough();
 hash.writeToStream(obj, passThroughStream);
@@ -27,5 +27,11 @@ const options: hash.Options = {
     unorderedArrays: true,
 };
 
-// $ExpectType string | Buffer
+// $ExpectType string
 hashed = hash(obj, options);
+
+// $ExpectType Buffer
+const bufferHashed = hash(obj, {
+    ...options,
+    encoding: 'buffer',
+});

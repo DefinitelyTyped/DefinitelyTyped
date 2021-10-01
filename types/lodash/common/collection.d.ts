@@ -946,53 +946,53 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the composed aggregate object.
          */
-        groupBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<T[]>;
+        groupBy<T>(collection: List<T> | null | undefined, iteratee?: ValueIteratee<T>): Dictionary<[T, ...T[]]>;
         /**
          * @see _.groupBy
          */
-        groupBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<Array<T[keyof T]>>;
+        groupBy<T extends object>(collection: T | null | undefined, iteratee?: ValueIteratee<T[keyof T]>): Dictionary<[T[keyof T], ...Array<T[keyof T]>]>;
     }
     interface String {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<string>): Object<Dictionary<string[]>>;
+        groupBy(iteratee?: ValueIteratee<string>): Object<Dictionary<[string, ...string[]]>>;
     }
     interface Collection<T> {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<T>): Object<Dictionary<T[]>>;
+        groupBy(iteratee?: ValueIteratee<T>): Object<Dictionary<[T, ...T[]]>>;
     }
     interface Object<T> {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<T[keyof T]>): Object<Dictionary<Array<T[keyof T]>>>;
+        groupBy(iteratee?: ValueIteratee<T[keyof T]>): Object<Dictionary<[T[keyof T], ...Array<T[keyof T]>]>>;
     }
     interface StringChain {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string[]>>;
+        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<[string, ...string[]]>>;
     }
     interface StringNullableChain {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<string>>;
+        groupBy(iteratee?: ValueIteratee<string>): ObjectChain<Dictionary<[string, ...string[]]>>;
     }
     interface CollectionChain<T> {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<T[]>>;
+        groupBy(iteratee?: ValueIteratee<T>): ObjectChain<Dictionary<[T, ...T[]]>>;
     }
     interface ObjectChain<T> {
         /**
          * @see _.groupBy
          */
-        groupBy(iteratee?: ValueIteratee<T[keyof T]>): ObjectChain<Dictionary<Array<T[keyof T]>>>;
+        groupBy(iteratee?: ValueIteratee<T[keyof T]>): ObjectChain<Dictionary<[T[keyof T], ...Array<T[keyof T]>]>>;
     }
     interface LoDashStatic {
         /**

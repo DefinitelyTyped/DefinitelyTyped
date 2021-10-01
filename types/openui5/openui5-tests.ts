@@ -16,6 +16,7 @@ import MessageBox from "sap/m/MessageBox";
 import FileUploader from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
 import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
+import Target from "sap/ui/core/routing/Target";
 
 Core.attachInit(() => {
     new Text({
@@ -71,6 +72,11 @@ export class BaseController extends Controller {
     }
     getModel(name: string) {
         return this.getView().getModel(name);
+    }
+    suspendDefaultTarget() {
+        const router = (<UIComponent> this.getOwnerComponent()).getRouter();
+        const target = router.getTarget("default") as Target;
+        target.suspend();
     }
 }
 

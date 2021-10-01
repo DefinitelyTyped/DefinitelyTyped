@@ -1,6 +1,6 @@
-import InputPrompt = require("./input");
-import { Answers, NumberQuestionOptions } from "../..";
-import { Interface as ReadlineInterface } from "readline";
+import InputPrompt = require('./input');
+import { Answers, NumberQuestionOptions } from '../..';
+import { Interface as ReadlineInterface } from 'readline';
 
 /**
  * The question for the `NumberPrompt<T>`.
