@@ -495,7 +495,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Whether a press gesture can be interrupted by a parent gesture such as a
      * scroll event. Defaults to true.
      */
-    cancelable?: null | boolean | undefined,
+    cancelable?: null | boolean | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -596,7 +596,7 @@ export namespace AppRegistry {
 
     function runApplication(appKey: string, appParameters: any): void;
 
-    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void
+    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void;
 
     function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 
@@ -613,7 +613,7 @@ export type LayoutAnimationType =
 
 export type LayoutAnimationTypes = {
     [type in LayoutAnimationType]: type;
-}
+};
 
 export type LayoutAnimationProperty =
     | 'opacity'
@@ -623,7 +623,7 @@ export type LayoutAnimationProperty =
 
 export type LayoutAnimationProperties = {
     [prop in LayoutAnimationProperty]: prop;
-}
+};
 
 export interface LayoutAnimationAnim {
     duration?: number | undefined;
@@ -1276,7 +1276,8 @@ export interface TextInputIOSProps {
         | 'username'
         | 'password'
         | 'newPassword'
-        | 'oneTimeCode' | undefined;
+        | 'oneTimeCode'
+        | undefined;
 
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
@@ -1324,7 +1325,8 @@ export interface TextInputAndroidProps {
         | 'street-address'
         | 'tel'
         | 'username'
-        | 'off' | undefined;
+        | 'off'
+        | undefined;
 
     /**
      * Determines whether the individual fields in your app should be included in a
@@ -3034,7 +3036,7 @@ export interface DatePickerIOSProps extends ViewProps {
      * This is only available on devices with iOS 14.0 and later.
      * 'spinner' is the default style if this prop isn't set.
      */
-    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined,
+    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined;
 }
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
@@ -5872,7 +5874,8 @@ export interface TabBarIOSItemProps extends ViewProps {
         | 'most-viewed'
         | 'recents'
         | 'search'
-        | 'top-rated' | undefined;
+        | 'top-rated'
+        | undefined;
 
     /**
      * Text that appears under the icon. It is ignored when a system icon is defined.
@@ -6042,7 +6045,7 @@ interface PlatformMacOSStatic extends PlatformStatic {
     Version: string;
     constants: PlatformConstants & {
         osVersion: string;
-    }
+    };
 }
 
 interface PlatformWindowsOSStatic extends PlatformStatic {
@@ -6050,7 +6053,7 @@ interface PlatformWindowsOSStatic extends PlatformStatic {
     Version: number;
     constants: PlatformConstants & {
         osVersion: number;
-    }
+    };
 }
 
 interface PlatformWebStatic extends PlatformStatic {
@@ -8612,7 +8615,7 @@ export interface SwitchPropsIOS extends ViewProps {
 }
 
 export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean
+    value: boolean;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
@@ -9182,7 +9185,7 @@ export namespace Animated {
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
     export type AnimatedComponentOptions = {
-        collapsable?: boolean
+        collapsable?: boolean;
     };
 
     /**
