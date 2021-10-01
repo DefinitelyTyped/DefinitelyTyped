@@ -5,7 +5,7 @@ import { Transition, CSSTransition, TransitionGroup, SwitchTransition, Transitio
 
 interface ContainerProps {
     theme: string;
-    children?: Element[] | undefined;
+    children?: React.ReactElement[] | undefined;
 }
 
 const Container: React.StatelessComponent<ContainerProps> = (props: ContainerProps) => {

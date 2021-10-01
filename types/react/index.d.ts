@@ -348,7 +348,7 @@ declare namespace React {
     // However, we have no way of telling the JSX parser that it's a JSX element type or its props other than
     // by pretending to be a normal component.
     //
-    // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
+    // We don't just use ComponentType or FunctionComponent types because you are not supposed to attach statics to this
     // object, but rather to the original function.
     interface ExoticComponent<P = {}> {
         /**
@@ -854,7 +854,7 @@ declare namespace React {
     };
 
     function memo<P extends object>(
-        Component: SFC<P>,
+        Component: FunctionComponent<P>,
         propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(

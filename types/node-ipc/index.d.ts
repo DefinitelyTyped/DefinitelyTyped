@@ -143,10 +143,10 @@ declare namespace NodeIPC {
          */
         serveNet(host: string, port: number, callback?: () => void): void;
         /**
-         * This is where socket connection refrences will be stored when connecting to them as a client via the ipc.connectTo
+         * This is where socket connection references will be stored when connecting to them as a client via the ipc.connectTo
          * or iupc.connectToNet. They will be stored based on the ID used to create them, eg : ipc.of.mySocket
          */
-        of: any;
+        of: Record<string, Client>;
         /**
          * This is a refrence to the server created by ipc.serve or ipc.serveNet
          */
