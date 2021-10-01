@@ -41,6 +41,7 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
+//                 Pedro Hernández <https://github.com/phvillegas>
 //                 Brett Lindsay <https://github.com/bdlindsay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -8730,10 +8731,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): void;
+    export function addChangeListener(listener: AppearanceListener): NativeEventSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove a handler by passing the change event type and the handler.
      */
     export function removeChangeListener(listener: AppearanceListener): void;
 }
