@@ -27,7 +27,6 @@
     "files": [
         "index.d.ts",
         "test/multiavatar__multiavatar-tests-esm.ts",
-        "test/multiavatar__multiavatar-tests-node.ts",
         "test/multiavatar__multiavatar-tests-umd.ts"
     ]
 }
