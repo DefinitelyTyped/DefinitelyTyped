@@ -2,6 +2,7 @@
 // Project: https://github.com/Floby/node-url-assembler
 // Definitions by: Wolfgang Faust <https://github.com/wolfgang42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as qs from 'qs';
 
 interface UrlAssembler {
     template(template: string): UrlAssembler;
@@ -14,6 +15,7 @@ interface UrlAssembler {
     toString(): string;
     valueOf(): string;
     toJSON(): string;
+    qsConfig(config: qs.IStringifyOptions): UrlAssembler;
 }
 
 interface UrlAssemblerConstructor {

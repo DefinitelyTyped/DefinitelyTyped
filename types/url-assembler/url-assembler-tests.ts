@@ -5,3 +5,9 @@ const f = new UrlAssembler('https://foo/bar/');
 function printUrl(u: UrlAssembler) {
     return u.toJSON();
 }
+
+function checkQSConfig(u: UrlAssembler) {
+    return u.qsConfig({
+        sort: (a: string, b: string) => a.localeCompare(b),
+    });
+}
