@@ -29,6 +29,7 @@ export interface VerticalTimelineElementProps {
     textClassName?: string | undefined;
     contentStyle?: React.CSSProperties | undefined;
     contentArrowStyle?: React.CSSProperties | undefined;
+    visible?: boolean | undefined;
 }
 
 export class VerticalTimeline extends React.Component<VerticalTimelineProps> { }
