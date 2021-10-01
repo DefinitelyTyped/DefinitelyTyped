@@ -1,4 +1,4 @@
-// Type definitions for k6 0.32
+// Type definitions for k6 0.34
 // Project: https://k6.io/docs/
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
