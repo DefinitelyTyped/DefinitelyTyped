@@ -90,6 +90,8 @@ export interface Location {
     search?: string | undefined;
 }
 
+export type LocationKind = 'load' | 'back' | 'next' | 'pop' | 'stealth' | 'push' | 'replace' | 'redirect';
+
 export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
     type: string;
@@ -97,7 +99,7 @@ export interface LocationState<TKeys = {}, TState = any> {
     query?: Query | undefined;
     search?: string | undefined;
     prev: Location;
-    kind: Nullable<string>;
+    kind: Nullable<LocationKind>;
     history: Nullable<HistoryData>;
     routesMap: RoutesMap<TKeys, TState>;
     hasSSR?: boolean | undefined;
@@ -106,7 +108,7 @@ export interface LocationState<TKeys = {}, TState = any> {
 export interface ActionMetaLocation {
     current: Location;
     prev: Location;
-    kind: Nullable<string>;
+    kind: Nullable<LocationKind>;
     history: Nullable<HistoryData>;
 }
 
