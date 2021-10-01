@@ -1,4 +1,4 @@
-import StarRatings from 'react-star-ratings';
+import StarRatings = require('react-star-ratings');
 import * as React from 'react';
 
 // $ExpectError

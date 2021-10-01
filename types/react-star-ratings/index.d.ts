@@ -2,7 +2,7 @@
 // Project: https://github.com/ekeric13/react-star-ratings
 // Definitions by: Andrew Shkurenko <https://github.com/vanillkay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.7
 
 import * as React from "react";
 
