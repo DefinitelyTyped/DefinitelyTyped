@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "is-boolean-object.ts"
+        "is-boolean-object-tests.ts"
     ]
 }
