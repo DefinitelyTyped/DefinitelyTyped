@@ -364,6 +364,9 @@ export interface Options {
         joinInterval?: number | undefined;
         globalDefaultChannel?: string | undefined;
         messagesLogLevel?: string | undefined;
+        skipMembership?: boolean | undefined;
+        skipUpdatingEmotesets?: boolean | undefined;
+        updateEmotesetsTimer?: number | undefined;
     } | undefined;
     connection?: {
         server?: string | undefined;
