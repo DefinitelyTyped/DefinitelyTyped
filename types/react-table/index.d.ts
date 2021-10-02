@@ -502,6 +502,14 @@ export namespace useFlexLayout {
 }
 //#endregion
 
+//#region useGridLayout
+export function useGridLayout<D extends object = {}>(hooks: Hooks<D>): void;
+
+export namespace useGridLayout {
+    const pluginName = 'useGridLayout';
+}
+//#endregion
+
 //#region useGlobalFilter
 export function useGlobalFilter<D extends object = {}>(hooks: Hooks<D>): void;
 
