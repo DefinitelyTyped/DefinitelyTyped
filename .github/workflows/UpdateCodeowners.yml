@@ -2,13 +2,12 @@ name: Update CODEOWNERs
 
 # For testing
 # on: push
-
 # For production
 on:
   schedule:
     # https://crontab.guru/#5_8_*_*_1
     - cron: "5 8 * * 1"
-  workflow_dispatch:
+  workflow_dispatch: null
 
 jobs:
   update:
@@ -16,8 +15,8 @@ jobs:
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # pin@v2
+      - uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e # pin@v1
 
       - run: git config --global user.email "bot@typescriptlang.org"
       - run: git config --global user.name "TS Bot"
@@ -25,5 +24,4 @@ jobs:
       - run: npm install
       - run: npm run update-codeowners
         env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
