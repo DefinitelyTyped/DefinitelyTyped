@@ -2582,6 +2582,8 @@ declare namespace d3 {
             tickFormat(): (t: any , index : number) => string;
             tickFormat(format: (t: any , index : number) => string): Axis;
             tickFormat(format: string): Axis;
+
+            tickSubdivide(...args: any[]): Axis;
         }
 
         export function brush(): Brush<any, number, number>;
