@@ -1,16 +1,16 @@
 import isString = require('is-string');
 
-isString(''); // $Expects true
-isString(Object('foo')); // $Expects true
+isString(''); // $ExpectType boolean
+isString(Object('foo')); // $ExpectType boolean
 
-isString(undefined); // $Expects false
-isString(null); // $Expects false
-isString(false); // $Expects false
-isString(true); // $Expects false
-isString([]); // $Expects false
-isString({}); // $Expects false
-isString(/a/g); // $Expects false
-isString(new Date()); // $Expects false
-isString(42); // $Expects false
-isString(NaN); // $Expects false
-isString(Infinity); // $Expects false
+isString(undefined); // $ExpectType boolean
+isString(null); // $ExpectType boolean
+isString(false); // $ExpectType boolean
+isString(true); // $ExpectType boolean
+isString([]); // $ExpectType boolean
+isString({}); // $ExpectType boolean
+isString(/a/g); // $ExpectType boolean
+isString(new Date()); // $ExpectType boolean
+isString(42); // $ExpectType boolean
+isString(NaN); // $ExpectType boolean
+isString(Infinity); // $ExpectType boolean
