@@ -1,11 +1,9 @@
-import { BaseEvalError, BaseEvalErrorConstructor } from './base/EvalError';
+import BaseEvalError from './base/EvalError';
 
-interface EvalError extends BaseEvalError {
+declare class EvalError extends BaseEvalError {
+    constructor(reason?: string, options?: { cause?: unknown });
+
     cause: unknown;
 }
 
-interface EvalErrorConstructor extends BaseEvalErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): EvalError;
-}
-
-export default EvalErrorConstructor;
+export default EvalError;

@@ -1,4 +1,3 @@
-type BaseURIError = URIError;
-type BaseURIErrorConstructor = URIErrorConstructor;
+declare const BaseURIError: URIErrorConstructor;
 
-export { BaseURIError, BaseURIErrorConstructor };
+export default BaseURIError;
