@@ -1,16 +1,14 @@
 import EvalError from 'error-cause/EvalError';
 
-declare const Ø: any;
-
 // $ExpectType EvalError
-new (Ø as EvalError)();
+new EvalError();
 // $ExpectType EvalError
-new (Ø as EvalError)('reason');
+new EvalError('reason');
 // $ExpectType EvalError
-new (Ø as EvalError)('reason', {});
+new EvalError('reason', {});
 // $ExpectType EvalError
-new (Ø as EvalError)('reason', { cause: null });
+new EvalError('reason', { cause: null });
 // $ExpectType EvalError
-new (Ø as EvalError)('reason', { cause: 'stupidity' });
+new EvalError('reason', { cause: 'stupidity' });
 // $ExpectType EvalError
-new (Ø as EvalError)('reason', { cause: Ø as Error });
+new EvalError('reason', { cause: new EvalError() });

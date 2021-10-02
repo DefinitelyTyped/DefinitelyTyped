@@ -1,11 +1,9 @@
-import { BaseRangeError, BaseRangeErrorConstructor } from './base/RangeError';
+import BaseRangeError from './base/RangeError';
 
-interface RangeError extends BaseRangeError {
+declare class RangeError extends BaseRangeError {
+    constructor(reason?: string, options?: { cause?: unknown });
+
     cause: unknown;
 }
 
-interface RangeErrorConstructor extends BaseRangeErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): RangeError;
-}
-
-export default RangeErrorConstructor;
+export default RangeError;
