@@ -31,7 +31,7 @@ bl.append(bl);
 bl.append(bls);
 
 bls = new BufferListStream();
-bls = new BufferListStream((err, data) => "Hey there!");
+bls = new BufferListStream((err, data) => {});
 bls = new BufferListStream(bls);
 bls = new BufferListStream([bls]);
 bls = new BufferListStream(Buffer.from("asdf"));
