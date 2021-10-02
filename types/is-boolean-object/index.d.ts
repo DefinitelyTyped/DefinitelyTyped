@@ -3,6 +3,6 @@
 // Definitions by: aaronleopold <https://github.com/aaronleopold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function isBoolean(value: any): boolean;
+declare function isBoolean(value: any): value is boolean;
 
 export = isBoolean;
