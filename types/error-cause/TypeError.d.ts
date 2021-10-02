@@ -1,11 +1,9 @@
-import { BaseTypeError, BaseTypeErrorConstructor } from './base/TypeError';
+import BaseTypeError from './base/TypeError';
 
-interface TypeError extends BaseTypeError {
+declare class TypeError extends BaseTypeError {
+    constructor(reason?: string, options?: { cause?: unknown });
+
     cause: unknown;
 }
 
-interface TypeErrorConstructor extends BaseTypeErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): TypeError;
-}
-
-export default TypeErrorConstructor;
+export default TypeError;

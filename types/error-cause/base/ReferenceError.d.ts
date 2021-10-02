@@ -1,4 +1,3 @@
-type BaseReferenceError = ReferenceError;
-type BaseReferenceErrorConstructor = ReferenceErrorConstructor;
+declare const BaseReferenceError: ReferenceErrorConstructor;
 
-export { BaseReferenceError, BaseReferenceErrorConstructor };
+export default BaseReferenceError;
