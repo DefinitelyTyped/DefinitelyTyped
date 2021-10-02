@@ -1,4 +1,4 @@
-// Type definitions for tmi.js 1.8.5
+// Type definitions for tmi.js 1.8
 // Project: https://github.com/tmijs/tmi.js
 // Definitions by: William Papsco <https://github.com/wpapsco>
 //                 Corbin Crutchley <https://github.com/crutchcorn>
