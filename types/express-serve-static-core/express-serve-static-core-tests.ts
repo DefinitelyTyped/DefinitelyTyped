@@ -212,3 +212,13 @@ app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
     res.locals.bar; // $ExpectError
     res.send({ foo: 'ok' }); // $ExpectType Response<any, { foo: boolean; }, number>
 });
+
+// Request handlers can be an array
+app.get("/", [
+    (req, res) => {
+        res.send("hello world");
+    },
+    (req, res) => {
+        res.send("hello world again");
+    },
+]);

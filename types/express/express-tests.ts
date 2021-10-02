@@ -37,9 +37,20 @@ namespace express_tests {
         next(err);
     });
 
+    // handler can be a single RequestHandler:
     app.get('/', (req, res) => {
         res.send('hello world');
     });
+
+    // ...or an array of RequestHandler
+    app.get("/", [
+        (req, res) => {
+            res.send("hello world");
+        },
+        (req, res) => {
+            res.send("hello world again");
+        },
+    ]);
 
     // Accept json app-wide or on one endpoint.
     app.use(express.json({ limit: '200kb' }));
