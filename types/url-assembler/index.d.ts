@@ -1,6 +1,7 @@
 // Type definitions for url-assembler 2.1.0
 // Project: https://github.com/Floby/node-url-assembler
 // Definitions by: Wolfgang Faust <https://github.com/wolfgang42>
+//                 Alice Pote <https://github.com/alicewriteswrongs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as qs from 'qs';
 
