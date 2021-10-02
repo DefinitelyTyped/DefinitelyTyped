@@ -1107,6 +1107,43 @@ declare namespace TelegramBot {
     interface MessageId {
         message_id: number;
     }
+
+    interface BotCommandScopeDefault {
+        type: 'default';
+    }
+
+    interface BotCommandScopeAllPrivateChats {
+        type: 'all_private_chat';
+    }
+    interface BotCommandScopeAllGroupChats {
+        type: 'all_group_chats';
+    }
+    interface BotCommandScopeAllChatAdministrators {
+        type: 'all_chat_administrator';
+    }
+    interface BotCommandScopeChat {
+        type: 'chat';
+    }
+    interface BotCommandScopeChatAdministrators {
+        type: 'chat_administrator';
+    }
+    interface BotCommandScopeChatMember {
+        type: 'chat_member';
+    }
+
+    type BotCommandScope =
+        BotCommandScopeDefault |
+        BotCommandScopeAllPrivateChats |
+        BotCommandScopeAllGroupChats |
+        BotCommandScopeAllChatAdministrators |
+        BotCommandScopeChat |
+        BotCommandScopeChatAdministrators |
+        BotCommandScopeChatMember;
+
+    interface MyCommandsOptions {
+        scope?: BotCommandScope;
+        language_code?: string;
+    }
 }
 
 declare class TelegramBot extends EventEmitter {
@@ -1574,9 +1611,11 @@ declare class TelegramBot extends EventEmitter {
         customTitle: string
     ): Promise<boolean>;
 
-    getMyCommands(): Promise<TelegramBot.BotCommand[]>;
+    getMyCommands(options?: TelegramBot.MyCommandsOptions): Promise<TelegramBot.BotCommand[]>;
 
-    setMyCommands(commands: TelegramBot.BotCommand[]): Promise<boolean>;
+    setMyCommands(commands: TelegramBot.BotCommand[], options?: TelegramBot.MyCommandsOptions): Promise<boolean>;
+
+    deleteMyCommands(options?: TelegramBot.MyCommandsOptions): Promise<boolean>;
 }
 
 export = TelegramBot;
