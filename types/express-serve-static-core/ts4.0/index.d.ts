@@ -82,6 +82,19 @@ export interface IRouterMatcher<
     T,
     Method extends 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' = any
     > {
+    // Array of RequestHandler
+    <
+        P = ParamsDictionary,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+        >(
+        path: PathParams,
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
+    // Comma separated list of RequestHandlers
     <
         P = ParamsDictionary,
         ResBody = any,
@@ -93,6 +106,19 @@ export interface IRouterMatcher<
         // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
+    // Array of RequestHandler
+    <
+        P = ParamsDictionary,
+        ResBody = any,
+        ReqBody = any,
+        ReqQuery = ParsedQs,
+        Locals extends Record<string, any> = Record<string, any>
+        >(
+        path: PathParams,
+        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
+    ): T;
+    // Comma separated list of RequestHandlers
     <
         P = ParamsDictionary,
         ResBody = any,
