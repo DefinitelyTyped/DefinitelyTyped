@@ -193,6 +193,11 @@ declare namespace cytoscape {
          */
         layout?: LayoutOptions | undefined;
 
+        /**
+         * A plain object that contains graph-level data (i.e. data that does not belong to any particular node or edge).
+         */
+        data?: Record<string, any> | undefined;
+
         ///////////////////////////////////////
         // initial viewport state:
         /**
@@ -385,7 +390,7 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#core
      */
     interface Core extends
-        CoreGraphManipulation, CoreGraphManipulationExt,
+        CoreGraphManipulation, CoreData, CoreGraphManipulationExt,
         CoreEvents, CoreViewportManipulation, CoreAnimation,
         CoreLayout, CoreStyle, CoreExport { }
 
@@ -507,6 +512,73 @@ declare namespace cytoscape {
          * https://js.cytoscape.org/#cy.destroyed
          */
         destroyed(): boolean;
+    }
+
+    /**
+     * https://js.cytoscape.org/#core/data
+     */
+     interface CoreData {
+        /**
+         * Read and write developer-defined data associated with the graph.
+         * http://js.cytoscape.org/#cy.data
+         */
+        /**
+         * Get the entire data object or a particular data field.
+         * @alias attr
+         *
+         * @param name The name of the field to get.
+         */
+        data(name?: string): any;
+        /**
+         * Set a particular data field.
+         * @alias attr
+         *
+         * @param name The name of the field to set.
+         * @param value The value to set for the field.
+         */
+        data(name: string, value: any): this;
+        /**
+         * Update multiple data fields at once via an object.
+         * @alias attr
+         *
+         * @param obj The object containing name-value pairs to update data fields.
+         */
+        data(obj: Record<string, any>): this;
+        /**
+         * Get the entire data object or a particular data field.
+         *
+         * @param name The name of the field to get. Get the entire data object
+         */
+        attr(name?: string): any;
+        /**
+         * Set a particular data field.
+         *
+         * @param name The name of the field to set.
+         * @param value The value to set for the field.
+         */
+        attr(name: string, value: any): this;
+        /**
+         * Update multiple data fields at once via an object.
+         *
+         * @param obj The object containing name-value pairs to update data fields.
+         */
+        attr(obj: Record<string, any>): this;
+
+        /**
+         * Remove developer-defined data associated with the elements.
+         * https://js.cytoscape.org/#cy.removeData
+         * @alias removeAttr
+         *
+         * @param names A space-separated list of fields to delete.
+         */
+        removeData(names?: string): this;
+        /**
+         * Remove developer-defined data associated with the elements.
+         * https://js.cytoscape.org/#cy.removeData
+         *
+         * @param names A space-separated list of fields to delete.
+         */
+        removeAttr(names?: string): this;
     }
 
     /**

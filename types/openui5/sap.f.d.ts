@@ -1,4 +1,4 @@
-// For Library Version: 1.93.0
+// For Library Version: 1.94.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -10328,8 +10328,10 @@ declare module "sap/f/routing/Router" {
    * The difference to the `{@link sap.ui.core.routing.Router}` are the `viewLevel`, `transition`, and `transitionParameters`
    * properties that you can specify in every Route or Target created by this router.
    *
-   * Additionally, the `layout` property can be specified in every Route, in which case it is applied to the
-   * root control.
+   * The difference to the `{@link sap.m.routing.Router}` is the additional `layout` property that can be
+   * specified in every Route, in which case it is applied to the root control. Also, the `sap.f.routing.Router`
+   * supports navigations that involve both change of `{@link sap.f.LayoutType}` and change of the current
+   * page within a single column of the `sap.f.FlexibleColumnLayout`.
    *
    * See `{@link sap.ui.core.routing.Router}` for the constructor arguments.
    */

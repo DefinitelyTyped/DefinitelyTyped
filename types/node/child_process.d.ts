@@ -60,7 +60,7 @@
  * For certain use cases, such as automating shell scripts, the `synchronous counterparts` may be more convenient. In many cases, however,
  * the synchronous methods can have significant impact on performance due to
  * stalling the event loop while spawned processes complete.
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/child_process.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/child_process.js)
  */
 declare module 'child_process' {
     import { ObjectEncodingOptions } from 'node:fs';
@@ -70,6 +70,14 @@ declare module 'child_process' {
     import { URL } from 'node:url';
     type Serializable = string | object | number | boolean | bigint;
     type SendHandle = net.Socket | net.Server;
+    /**
+     * Instances of the `ChildProcess` represent spawned child processes.
+     *
+     * Instances of `ChildProcess` are not intended to be created directly. Rather,
+     * use the {@link spawn}, {@link exec},{@link execFile}, or {@link fork} methods to create
+     * instances of `ChildProcess`.
+     * @since v2.2.0
+     */
     class ChildProcess extends EventEmitter {
         /**
          * A `Writable Stream` that represents the child process's `stdin`.
@@ -236,8 +244,8 @@ declare module 'child_process' {
         readonly spawnfile: string;
         /**
          * The `subprocess.kill()` method sends a signal to the child process. If no
-         * argument is given, the process will be sent the `'SIGTERM'` signal. See[`signal(7)`](http://man7.org/linux/man-pages/man7/signal.7.html) for a list of available signals. This function
-         * returns `true` if[`kill(2)`](http://man7.org/linux/man-pages/man2/kill.2.html) succeeds, and `false` otherwise.
+         * argument is given, the process will be sent the `'SIGTERM'` signal. See [`signal(7)`](http://man7.org/linux/man-pages/man7/signal.7.html) for a list of available signals. This function
+         * returns `true` if [`kill(2)`](http://man7.org/linux/man-pages/man2/kill.2.html) succeeds, and `false` otherwise.
          *
          * ```js
          * const { spawn } = require('child_process');
@@ -799,7 +807,7 @@ declare module 'child_process' {
     /**
      * Spawns a shell then executes the `command` within that shell, buffering any
      * generated output. The `command` string passed to the exec function is processed
-     * directly by the shell and special characters (vary based on[shell](https://en.wikipedia.org/wiki/List_of_command-line_interpreters))
+     * directly by the shell and special characters (vary based on [shell](https://en.wikipedia.org/wiki/List_of_command-line_interpreters))
      * need to be dealt with accordingly:
      *
      * ```js
@@ -1271,12 +1279,13 @@ declare module 'child_process' {
      * @param args List of string arguments.
      */
     function spawnSync(command: string): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, options: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    function spawnSync(command: string, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<string | Buffer>;
+    function spawnSync(command: string, args: ReadonlyArray<string>): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    function spawnSync(command: string, args: ReadonlyArray<string>, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<string | Buffer>;
     interface CommonExecOptions extends CommonOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
         stdio?: StdioOptions | undefined;
@@ -1310,9 +1319,9 @@ declare module 'child_process' {
      * @return The stdout from the command.
      */
     function execSync(command: string): Buffer;
-    function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;
-    function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
-    function execSync(command: string, options?: ExecSyncOptions): Buffer;
+    function execSync(command: string, options: ExecSyncOptionsWithStringEncoding): string;
+    function execSync(command: string, options: ExecSyncOptionsWithBufferEncoding): Buffer;
+    function execSync(command: string, options?: ExecSyncOptions): string | Buffer;
     interface ExecFileSyncOptions extends CommonExecOptions {
         shell?: boolean | string | undefined;
     }
@@ -1320,7 +1329,7 @@ declare module 'child_process' {
         encoding: BufferEncoding;
     }
     interface ExecFileSyncOptionsWithBufferEncoding extends ExecFileSyncOptions {
-        encoding: BufferEncoding; // specify `null`.
+        encoding?: 'buffer' | null; // specify `null`.
     }
     /**
      * The `child_process.execFileSync()` method is generally identical to {@link execFile} with the exception that the method will not
@@ -1343,12 +1352,13 @@ declare module 'child_process' {
      * @return The stdout from the command.
      */
     function execFileSync(file: string): Buffer;
-    function execFileSync(file: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(file: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(file: string, options?: ExecFileSyncOptions): Buffer;
-    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
+    function execFileSync(file: string, options: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(file: string, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(file: string, options?: ExecFileSyncOptions): string | Buffer;
+    function execFileSync(file: string, args: ReadonlyArray<string>): Buffer;
+    function execFileSync(file: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithStringEncoding): string;
+    function execFileSync(file: string, args: ReadonlyArray<string>, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): string | Buffer;
 }
 declare module 'node:child_process' {
     export * from 'child_process';

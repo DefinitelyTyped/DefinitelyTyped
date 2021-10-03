@@ -1,5 +1,5 @@
 import * as React from "react";
-import { InternationalProps, ReactInputAttr, VerticalDirection, FCReturn } from "../../../typings/shared";
+import { InternationalProps, ReactInputAttr, VerticalDirection, FCReturn, ForwardRefProps } from "../../../typings/shared";
 import { ListBoxProps } from "../ListBox";
 import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";
@@ -20,7 +20,7 @@ export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<I
     invalid?: boolean | undefined;
     invalidText?: React.ReactNode | undefined;
     items: readonly ItemType[],
-    itemToElement?: CustomElementProps extends object ? React.ComponentType<CustomElementProps> : never | undefined,
+    itemToElement?: CustomElementProps extends object ? React.JSXElementConstructor<CustomElementProps> : never | undefined,
     itemToString?(item: ItemType | null | undefined): string;
     light?: boolean | undefined;
     onChange?(data: { selectedItem: ItemType | null | undefined }): void,
@@ -36,6 +36,6 @@ export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<I
     warnText?: React.ReactNode | undefined;
 }
 
-declare function ComboBox<T = string>(props: ComboBoxProps<T>): FCReturn;
+declare function ComboBox<T = string>(props: ForwardRefProps<HTMLInputElement, ComboBoxProps<T>>): FCReturn;
 
 export default ComboBox;

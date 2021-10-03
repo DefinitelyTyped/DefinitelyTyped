@@ -73,6 +73,12 @@ import { promisify } from 'util';
 }
 
 {
+    // update Hmac with base64url encoded string
+    const message = Buffer.from('message').toString('base64url');
+    crypto.createHmac('sha256', 'key').update(message, 'base64url').digest();
+}
+
+{
     // crypto_cipher_decipher_string_test
     const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
     const clearText = 'This is the clear text.';

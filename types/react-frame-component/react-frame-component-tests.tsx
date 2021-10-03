@@ -1,5 +1,10 @@
 import * as React from 'react';
-import Frame, { FrameContextConsumer } from 'react-frame-component';
+import Frame, { FrameContextConsumer, useFrame } from 'react-frame-component';
+
+function UseFrameHook() {
+  const { document, window } = useFrame();
+  return <span>{window?.location?.toString()}{document?.documentURI}</span>;
+}
 
 <div>
   <Frame>
@@ -18,5 +23,6 @@ import Frame, { FrameContextConsumer } from 'react-frame-component';
     <FrameContextConsumer>
       {({ document, window }) => <span>content</span>}
     </FrameContextConsumer>
+    <UseFrameHook />
   </Frame>
 </div>;

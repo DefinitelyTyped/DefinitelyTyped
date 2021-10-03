@@ -51,7 +51,7 @@ interface CMRequestInit {
     window?: any;
 }
 
-/* ***************** CREDENTIAL MANAGEMENT API DEFINITONS ******************* */
+/* ***************** CREDENTIAL MANAGEMENT API DEFINITIONS ******************* */
 
 /**
  * Declaration merge for 'navigator' which adds the credential management

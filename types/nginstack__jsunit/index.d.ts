@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/jsunit 51.0
+// Type definitions for @nginstack/jsunit 52.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>

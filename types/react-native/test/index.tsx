@@ -520,6 +520,7 @@ appState = 'extension';
 const AppStateExample = () => {
     const appState = React.useRef(AppState.currentState);
     const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
+    const appStateIsAvailable = AppState.isAvailable;
 
     React.useEffect(() => {
       const subscription = AppState.addEventListener("change", nextAppState => {
@@ -543,6 +544,7 @@ const AppStateExample = () => {
     return (
       <View style={styles.container}>
         <Text>Current state is: {appStateVisible}</Text>
+        <Text>Available: {appStateIsAvailable}</Text>
       </View>
     );
   };
@@ -765,6 +767,10 @@ LogBox.install();
 LogBox.uninstall();
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+    _stickyHeaderComponent = ({ children }: any) => {
+        return <View>{children}</View>;
+    };
+
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
@@ -818,6 +824,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             onScrollToTop={() => {}}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
+                            StickyHeaderComponent={this._stickyHeaderComponent}
                         />
                     );
                 }}
@@ -1638,7 +1645,7 @@ const DarkMode = () => {
     const color = useColorScheme();
     const isDarkMode = Appearance.getColorScheme() === 'dark';
 
-    Appearance.addChangeListener(({ colorScheme }) => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
     });
 
@@ -1648,6 +1655,10 @@ const DarkMode = () => {
 
     React.useEffect(() => {
         console.log('-color', color);
+
+        return () => {
+            subscription.remove();
+        };
     }, [color]);
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;

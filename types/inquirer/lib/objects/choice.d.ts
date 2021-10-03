@@ -1,4 +1,4 @@
-import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions } from "../..";
+import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions } from '../..';
 
 /**
  * Represents a choice for several question-types.
@@ -6,14 +6,12 @@ import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions 
  * @template T
  * The type of the answers.
  */
-declare class Choice<T extends Answers = Answers> implements
-    ListChoiceOptions<T>,
-    CheckboxChoiceOptions<T>,
-    ExpandChoiceOptions {
+declare class Choice<T extends Answers = Answers>
+    implements ListChoiceOptions<T>, CheckboxChoiceOptions<T>, ExpandChoiceOptions {
     /**
      * @inheritdoc
      */
-    type?: "choice" | undefined;
+    type?: 'choice' | undefined;
 
     /**
      * @inheritdoc

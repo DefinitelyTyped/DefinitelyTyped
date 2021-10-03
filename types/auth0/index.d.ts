@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.33
+// Type definitions for auth0 2.34
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
@@ -670,6 +670,10 @@ export interface PasswordGrantOptions {
     audience?: string | undefined;
 }
 
+export interface PasswordGrantAdditionalOptions {
+    forwardedFor?: string;
+}
+
 export interface AuthorizationCodeGrantOptions {
     code: string;
     redirect_uri: string;
@@ -906,11 +910,6 @@ export interface ExportUsersOptions {
     fields?: ExportUserField[] | undefined;
 }
 
-export interface UserIdParams {
-    user_id: string;
-    client_id?: string | undefined;
-}
-
 export interface ExportUserField {
     name: string;
     export_as?: string | undefined;
@@ -919,6 +918,8 @@ export interface ExportUserField {
 export interface PasswordChangeTicketParams {
     result_url?: string | undefined;
     user_id?: string | undefined;
+    client_id?: string | undefined;
+    organization_id?: string | undefined;
     new_password?: string | undefined;
     connection_id?: string | undefined;
     email?: string | undefined;
@@ -932,8 +933,16 @@ export interface PasswordChangeTicketResponse {
 }
 
 export interface EmailVerificationTicketOptions {
+    result_url?: string | undefined;
     user_id: string;
-    result_url: string;
+    client_id?: string | undefined;
+    organization_id?: string | undefined;
+    identity?: {
+        user_id: string;
+        provider: string;
+    } | undefined;
+    ttl_sec?: number | undefined;
+    includeEmailInRedirect?: boolean | undefined;
 }
 
 export interface BaseClientOptions {
@@ -1073,6 +1082,24 @@ export interface PagingOptions {
     page?: number | undefined;
 }
 
+export interface CheckpointPagingOptions {
+    take?: number | undefined;
+    from?: string | undefined;
+}
+
+export interface GetGrantsParams extends PagingOptions {
+    user_id: string;
+    client_id: string;
+    audience: string;
+}
+
+export interface GrantResponse {
+    id: string;
+    clientID: string;
+    user_id: string;
+    scope: string[];
+}
+
 export class AuthenticationClient {
     // Members
     database?: DatabaseAuthenticator | undefined;
@@ -1118,7 +1145,9 @@ export class AuthenticationClient {
     ): void;
 
     passwordGrant(options: PasswordGrantOptions): Promise<TokenResponse>;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions): Promise<TokenResponse>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: TokenResponse) => void): void;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions, cb: (err: Error, response: TokenResponse) => void): void;
 
     refreshToken(options: AuthenticationClientRefreshTokenOptions): Promise<TokenResponse>;
     refreshToken(
@@ -1127,7 +1156,251 @@ export class AuthenticationClient {
     ): void;
 }
 
+export interface Organization {
+    id: string;
+    name: string;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any;
+}
+
+export interface CreateOrganization {
+    name: string;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any;
+}
+
+export interface UpdateOrganization {
+    name?: string | undefined;
+    display_name?: string | undefined;
+    branding?: {
+        logo_url?: string | undefined;
+        colors: {
+            primary: string;
+            page_background: string;
+        };
+    } | undefined;
+    metadata?: any;
+}
+
+export interface OrganizationConnection {
+    connection_id: string;
+    assign_membership_on_login: boolean;
+    connection: {
+        name: string;
+        strategy: string;
+    };
+}
+
+export interface AddOrganizationEnabledConnection {
+    connection_id: string;
+    assign_membership_on_login?: boolean | undefined;
+}
+
+export interface UpdateOrganizationEnabledConnection {
+    assign_membership_on_login: boolean;
+}
+
+export interface AddOrganizationMembers {
+    members: string[];
+}
+
+export interface RemoveOrganizationMembers {
+    members: string[];
+}
+
+export interface OrganizationMember {
+    user_id?: string | undefined;
+    picture?: string | undefined;
+    name?: string | undefined;
+    email?: string | undefined;
+}
+
+export interface OrganizationInvitation {
+    id: string;
+    organization_id: string;
+    inviter: {
+        name: string;
+    };
+    invitee: {
+        email: string;
+    };
+    invitation_url: string;
+    created_at: string;
+    expires_at: string;
+    connection_id?: string | undefined;
+    client_id: string;
+    app_metadata?: any;
+    user_metadata?: any;
+    ticket_id: string;
+    roles?: string[] | undefined;
+}
+
+export interface CreateOrganizationInvitation {
+    inviter: {
+        name: string;
+    };
+    invitee: {
+        email: string;
+    };
+    connection_id?: string | undefined;
+    client_id: string;
+    app_metadata?: any;
+    user_metadata?: any;
+    ttl_sec?: number | undefined;
+    send_invitation_email?: boolean | undefined;
+    roles?: string[] | undefined;
+}
+
+export interface AddOrganizationMemberRoles {
+    roles: string[];
+}
+
+export interface RemoveOrganizationMemberRoles {
+    roles: string[];
+}
+
+export interface VerifyEmail {
+    user_id: string;
+    organization_id?: string | undefined;
+    client_id?: string | undefined;
+    identity?: {
+        user_id: string;
+        provider: string;
+    } | undefined;
+}
+
+export class OrganizationsManager {
+    create(data: CreateOrganization): Promise<Organization>;
+    create(data: CreateOrganization, cb: (err: Error, organization: Organization) => void): void;
+
+    getAll(): Promise<Organization[]>;
+    getAll(cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: PagingOptions): Promise<Organization[]>;
+    getAll(params: PagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
+    getAll(params: CheckpointPagingOptions): Promise<Organization[]>;
+    getAll(params: CheckpointPagingOptions, cb: (err: Error, organizations: Organization[]) => void): void;
+
+    getByID(params: ObjectWithId): Promise<Organization>;
+    getByID(params: ObjectWithId, cb: (err: Error, organization: Organization) => void): void;
+
+    getByName(params: { name: string }): Promise<Organization>;
+    getByName(params: { name: string }, cb: (err: Error, organization: Organization) => void): void;
+
+    update(params: ObjectWithId, data: UpdateOrganization): Promise<Organization>;
+    update(params: ObjectWithId, data: UpdateOrganization, cb: (err: Error, organization: Organization) => void): void;
+
+    delete(params: ObjectWithId): Promise<void>;
+    delete(params: ObjectWithId, cb: (err: Error) => void): void;
+
+    getEnabledConnections(params: ObjectWithId & PagingOptions): Promise<OrganizationConnection[]>;
+    getEnabledConnections(
+        params: ObjectWithId & PagingOptions,
+        cb: (err: Error, connections: OrganizationConnection[]) => void,
+    ): void;
+
+    getEnabledConnection(params: ObjectWithId & { connection_id: string }): Promise<OrganizationConnection>;
+    getEnabledConnection(
+        params: ObjectWithId & { connection_id: string },
+        cb: (err: Error, connection: OrganizationConnection) => void,
+    ): void;
+
+    addEnabledConnection(params: ObjectWithId, data: AddOrganizationEnabledConnection): Promise<OrganizationConnection>;
+    addEnabledConnection(
+        params: ObjectWithId,
+        data: AddOrganizationEnabledConnection,
+        cb: (err: Error, connection: OrganizationConnection) => void,
+    ): void;
+
+    removeEnabledConnection(params: ObjectWithId & { connection_id: string }): Promise<void>;
+    removeEnabledConnection(params: ObjectWithId & { connection_id: string }, cb: (err: Error) => void): void;
+
+    updateEnabledConnection(
+        params: ObjectWithId & { connection_id: string },
+        data: UpdateOrganizationEnabledConnection,
+    ): Promise<OrganizationConnection>;
+    updateEnabledConnection(
+        params: ObjectWithId & { connection_id: string },
+        data: UpdateOrganizationEnabledConnection,
+        cb: (err: Error, connection: OrganizationConnection) => void,
+    ): void;
+
+    getMembers(params: ObjectWithId & PagingOptions): Promise<OrganizationMember[]>;
+    getMembers(params: ObjectWithId & PagingOptions, cb: (err: Error, members: OrganizationMember[]) => void): void;
+    getMembers(params: ObjectWithId & CheckpointPagingOptions): Promise<OrganizationMember[]>;
+    getMembers(
+        params: ObjectWithId & CheckpointPagingOptions,
+        cb: (err: Error, members: OrganizationMember[]) => void,
+    ): void;
+
+    addMembers(params: ObjectWithId, data: AddOrganizationMembers): Promise<void>;
+    addMembers(params: ObjectWithId, data: AddOrganizationMembers, cb: (err: Error) => void): void;
+
+    removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers): Promise<void>;
+    removeMembers(params: ObjectWithId, data: RemoveOrganizationMembers, cb: (err: Error) => void): void;
+
+    getInvitations(
+        params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string },
+    ): Promise<OrganizationInvitation[]>;
+    getInvitations(
+        params: ObjectWithId & PagingOptions & { fields?: string; include_fields?: boolean; sort?: string },
+        cb: (err: Error, invitations: OrganizationInvitation[]) => void,
+    ): void;
+
+    getInvitation(
+        params: ObjectWithId & { invitation_id: string; fields?: string; include_fields?: boolean },
+    ): Promise<OrganizationInvitation>;
+    getInvitation(
+        params: ObjectWithId & { invitation_id: string; fields?: string; include_fields?: boolean },
+        cb: (err: Error, invitation: OrganizationInvitation) => void,
+    ): void;
+
+    createInvitation(params: ObjectWithId, data: CreateOrganizationInvitation): Promise<OrganizationInvitation>;
+    createInvitation(
+        params: ObjectWithId,
+        data: CreateOrganizationInvitation,
+        cb: (err: Error, invitation: OrganizationInvitation) => void,
+    ): void;
+
+    deleteInvitation(params: ObjectWithId & { invitation_id: string }): Promise<void>;
+    deleteInvitation(params: ObjectWithId & { invitation_id: string }, cb: (err: Error) => void): void;
+
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string }): Promise<Role[]>;
+    getMemberRoles(
+        params: ObjectWithId & PagingOptions & { user_id: string },
+        cb: (err: Error, roles: Role[]) => void,
+    ): void;
+
+    addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddOrganizationMemberRoles): Promise<void>;
+    addMemberRoles(
+        params: ObjectWithId & { user_id: string },
+        data: AddOrganizationMemberRoles,
+        cb: (err: Error) => void,
+    ): void;
+
+    removeMemberRoles(params: ObjectWithId & { user_id: string }, data: RemoveOrganizationMemberRoles): Promise<void>;
+    removeMemberRoles(
+        params: ObjectWithId & { user_id: string },
+        data: RemoveOrganizationMemberRoles,
+        cb: (err: Error) => void,
+    ): void;
+}
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
+    organizations: OrganizationsManager;
+
     constructor(options: ManagementClientOptions);
 
     getClientInfo(): ClientInfo;
@@ -1410,8 +1683,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     exportUsers(data: ExportUsersOptions): Promise<ExportUsersJob>;
     exportUsers(data: ExportUsersOptions, cb?: (err: Error, data: ExportUsersJob) => void): void;
 
-    sendEmailVerification(data: UserIdParams): Promise<VerificationEmailJob>;
-    sendEmailVerification(data: UserIdParams, cb?: (err: Error, data: VerificationEmailJob) => void): void;
+    sendEmailVerification(data: VerifyEmail): Promise<VerificationEmailJob>;
+    sendEmailVerification(data: VerifyEmail, cb?: (err: Error, data: VerificationEmailJob) => void): void;
 
     // Tickets
     createPasswordChangeTicket(params: PasswordChangeTicketParams): Promise<PasswordChangeTicketResponse>;
@@ -1477,6 +1750,13 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     // MFA invalidate remember browser
     invalidateRememberBrowser(params: ObjectWithId): Promise<void>;
     invalidateRememberBrowser(params: ObjectWithId, cb?: (err: Error) => void): void;
+
+    // Grants
+    getGrants(params: GetGrantsParams): Promise<GrantResponse[]>;
+    getGrants(params: GetGrantsParams, cb?: (err: Error, grants: GrantResponse[]) => void): void;
+
+    deleteGrant(params: ObjectWithId & {user_id: string}): Promise<void>;
+    deleteGrant(params: ObjectWithId & {user_id: string}, cb?: (err: Error) => void): void;
 }
 
 export class DatabaseAuthenticator<A = AppMetadata, U = UserMetadata> {
@@ -1499,7 +1779,9 @@ export class OAuthAuthenticator {
     constructor(options: OAuthClientOptions);
 
     passwordGrant(options: PasswordGrantOptions): Promise<SignInToken>;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions): Promise<SignInToken>;
     passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: SignInToken) => void): void;
+    passwordGrant(options: PasswordGrantOptions, additionalOptions: PasswordGrantAdditionalOptions, cb: (err: Error, response: SignInToken) => void): void;
 
     signIn(data: SignInOptions): Promise<SignInToken>;
     signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;

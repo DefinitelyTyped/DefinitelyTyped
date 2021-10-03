@@ -96,7 +96,11 @@ declare namespace JsReport {
     }
 
     interface DocumentStore {
+        init(): Promise<any>;
         collection(name: string): Collection;
+        registerEntityType(name: string, options: { [key: string]: any }): void;
+        registerEntitySet(name: string, options: { [key: string]: any }): void;
+        internalCollection(name: string): any;
     }
 
     type Extension = (reporter: Reporter, definition: object) => void;

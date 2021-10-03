@@ -1,61 +1,67 @@
-// Type definitions for power-assert 1.5.3
+// Type definitions for power-assert 1.5
 // Project: https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.7
 
 // copy from assert external module in node.d.ts
 
-/// <reference types="empower" />
-/// <reference types="power-assert-formatter" />
-
 import * as empower from "empower";
+import * as powerAssertFormatter from "power-assert-formatter";
 
 export = assert;
 export as namespace assert;
 
-declare function assert(value: any, message?: string): void;
+declare function assert(value: unknown, message?: string): asserts value;
 declare namespace assert {
-    export class AssertionError implements Error {
+    class AssertionError implements Error {
         name: string;
         message: string;
-        actual: any;
-        expected: any;
+        actual: unknown;
+        expected: unknown;
         operator: string;
         generatedMessage: boolean;
 
-        constructor(options?: { message?: string | undefined; actual?: any; expected?: any; operator?: string | undefined; stackStartFunction?: Function | undefined });
+        constructor(options?: {
+            // tslint:disable-next-line:no-redundant-undefined
+            message?: string | undefined;
+            actual?: unknown;
+            expected?: unknown;
+            // tslint:disable-next-line:no-redundant-undefined
+            operator?: string | undefined;
+            // tslint:disable-next-line:no-redundant-undefined
+            stackStartFunction?: () => void | undefined
+        });
     }
 
-    export function fail(actual?: any, expected?: any, message?: string, operator?: string): never;
-    export function ok(value: any, message?: string): void;
-    export function equal(actual: any, expected: any, message?: string): void;
-    export function notEqual(actual: any, expected: any, message?: string): void;
-    export function deepEqual(actual: any, expected: any, message?: string): void;
-    export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-    export function strictEqual(actual: any, expected: any, message?: string): void;
-    export function notStrictEqual(actual: any, expected: any, message?: string): void;
-    export function deepStrictEqual(actual: any, expected: any, message?: string): void;
-    export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
-    export var throws: {
-        (block: Function, message?: string): void;
-        (block: Function, error: Function, message?: string): void;
-        (block: Function, error: RegExp, message?: string): void;
-        (block: Function, error: (err: any) => boolean, message?: string): void;
+    function fail(actual?: unknown, expected?: unknown, message?: string, operator?: string): never;
+    function ok(value: unknown, message?: string): asserts value;
+    function equal(actual: unknown, expected: unknown, message?: string): void;
+    function notEqual(actual: unknown, expected: unknown, message?: string): void;
+    function deepEqual(actual: unknown, expected: unknown, message?: string): void;
+    function notDeepEqual(actual: unknown, expected: unknown, message?: string): void;
+    function strictEqual<T>(actual: unknown, expected: T, message?: string): asserts actual is T;
+    function notStrictEqual(actual: unknown, expected: unknown, message?: string): void;
+    function deepStrictEqual(actual: unknown, expected: unknown, message?: string): void;
+    function notDeepStrictEqual(actual: unknown, expected: unknown, message?: string): void;
+    const throws: {
+        (block: () => unknown, message?: string): void;
+        (block: () => unknown, error: (new () => object) | RegExp | ((err: unknown) => boolean), message?: string): void;
     };
-    export var doesNotThrow: {
-        (block: Function, message?: string): void;
-        (block: Function, error: Function, message?: string): void;
-        (block: Function, error: RegExp, message?: string): void;
-        (block: Function, error: (err: any) => boolean, message?: string): void;
+    const doesNotThrow: {
+        (block: () => unknown, message?: string): void;
+        (block: () => unknown, error: (new () => object) | RegExp | ((err: any) => boolean), message?: string): void;
     };
-    export function ifError(value: any): void;
+    function ifError(value: unknown): asserts value is null | undefined;
 
-    export const strict: typeof assert;
+    const strict: typeof assert;
 
-    export interface Options {
+    interface Options {
+        // tslint:disable-next-line:no-redundant-undefined
         assertion?: empower.Options | undefined;
+        // tslint:disable-next-line:no-redundant-undefined
         output?: powerAssertFormatter.Options | undefined;
     }
 
-    export function customize(options: Options): typeof assert;
+    function customize(options: Options): typeof assert;
 }

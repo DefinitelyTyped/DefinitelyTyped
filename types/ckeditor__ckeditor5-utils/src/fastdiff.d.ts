@@ -1,14 +1,4 @@
-export interface DeleteChange {
-    index: number;
-    type: "delete";
-    howMany: number;
-}
-
-export interface InsertChange {
-    index: number;
-    type: "insert";
-    values: string[];
-}
+import { Change } from './diff';
 
 /**
  * Finds positions of the first and last change in the given string/array and generates a set of changes:
@@ -32,7 +22,7 @@ export interface InsertChange {
  * should be passed as a third parameter:
  *
  *    fastDiff( [ { value: 1 }, { value: 2 } ], [ { value: 1 }, { value: 3 } ], ( a, b ) => {
- *        return a.value === b.value;
+ *      return a.value === b.value;
  *    } );
  *    // [ { index: 1, type: 'insert', values: [ { value: 3 } ] }, { index: 2, type: 'delete', howMany: 1 } ]
  *
@@ -43,11 +33,11 @@ export interface InsertChange {
  *    const changes = fastDiff( input, output );
  *
  *    changes.forEach( change => {
- *        if ( change.type == 'insert' ) {
- *            input = input.substring( 0, change.index ) + change.values.join( '' ) + input.substring( change.index );
- *        } else if ( change.type == 'delete' ) {
- *            input = input.substring( 0, change.index ) + input.substring( change.index + change.howMany );
- *        }
+ *      if ( change.type == 'insert' ) {
+ *        input = input.substring( 0, change.index ) + change.values.join( '' ) + input.substring( change.index );
+ *      } else if ( change.type == 'delete' ) {
+ *        input = input.substring( 0, change.index ) + input.substring( change.index + change.howMany );
+ *      }
  *    } );
  *
  *    // input equals output now
@@ -59,11 +49,11 @@ export interface InsertChange {
  *    const changes = fastDiff( input, output );
  *
  *    changes.forEach( change => {
- *        if ( change.type == 'insert' ) {
- *            input = input.slice( 0, change.index ).concat( change.values, input.slice( change.index ) );
- *        } else if ( change.type == 'delete' ) {
- *            input = input.slice( 0, change.index ).concat( input.slice( change.index + change.howMany ) );
- *        }
+ *      if ( change.type == 'insert' ) {
+ *        input = input.slice( 0, change.index ).concat( change.values, input.slice( change.index ) );
+ *      } else if ( change.type == 'delete' ) {
+ *        input = input.slice( 0, change.index ).concat( input.slice( change.index + change.howMany ) );
+ *      }
  *    } );
  *
  *    // input equals output now
@@ -85,36 +75,33 @@ export interface InsertChange {
  *    fastDiff( a, b );
  *    diffToChanges( diff( a, b ) );
  *
- *
- *    // Both calls will return the same results (grouped changes format).
- *    fastDiff( a, b );
- *    diffToChanges( diff( a, b ) );
- *
  *    // Again, both calls will return the same results (atomic changes format).
  *    fastDiff( a, b, null, true );
  *    diff( a, b );
+ *
  */
 export default function fastDiff(
-    oldText: string | string[],
-    newText: string | string[],
-    /**
-     * Optional function used to compare array values, by default === (strict equal operator) is used.
-     */
-    cmp?: (a: string, b: string) => boolean,
-    /**
-     * Whether an array of inset|delete|equal operations should be returned instead of changes set. This makes this function compatible with diff()
-     */
-    atomicChanges?: boolean,
-): Array<DeleteChange | InsertChange>;
-export default function fastDiff<T = unknown>(
-    oldText: T[],
-    newText: T[],
-    /**
-     * Optional function used to compare array values, by default === (strict equal operator) is used.
-     */
-    cmp: (a: T, b: T) => boolean,
-    /**
-     * Whether an array of inset|delete|equal operations should be returned instead of changes set. This makes this function compatible with diff()
-     */
-    atomicChanges?: boolean,
-): Array<DeleteChange | InsertChange>;
+    a: string | string[],
+    b: string | string[],
+    cmp: null | ((a: string, b: string) => boolean),
+    atomicChanges: true,
+): Change[];
+
+export default function fastDiff(
+    a: string | string[],
+    b: string | string[],
+    cmp?: null | ((a: string, b: string) => boolean),
+    atomicChanges?: false,
+): Array<InsertChange | DeleteChange>;
+
+export interface DeleteChange {
+    index: number;
+    type: 'delete';
+    howMany: number;
+}
+
+export interface InsertChange {
+    index: number;
+    type: 'insert';
+    values: string[];
+}

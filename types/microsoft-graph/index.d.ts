@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 2.4
+// Type definitions for non-npm package microsoft-graph 2.5
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Michael Mainer <https://github.com/MIchaelMainer>
@@ -272,6 +272,26 @@ export type Sensitivity = "normal" | "personal" | "private" | "confidential";
 export type TimeZoneStandard = "windows" | "iana";
 export type WebsiteType = "other" | "home" | "work" | "blog" | "profile";
 export type WeekIndex = "first" | "second" | "third" | "fourth" | "last";
+export type ColumnTypes =
+    | "note"
+    | "text"
+    | "choice"
+    | "multichoice"
+    | "number"
+    | "currency"
+    | "dateTime"
+    | "lookup"
+    | "boolean"
+    | "user"
+    | "url"
+    | "calculated"
+    | "location"
+    | "geolocation"
+    | "term"
+    | "multiterm"
+    | "thumbnail"
+    | "approvalStatus"
+    | "unknownFutureValue";
 export type StagedFeatureName =
     | "passthroughAuthentication"
     | "seamlessSso"
@@ -909,6 +929,7 @@ export type ServiceHealthStatus =
     | "unknownFutureValue";
 export type ServiceUpdateCategory = "preventOrFixIssue" | "planForChange" | "stayInformed" | "unknownFutureValue";
 export type ServiceUpdateSeverity = "normal" | "high" | "critical" | "unknownFutureValue";
+export type BucketAggregationSortProperty = "count" | "keyAsString" | "keyAsNumber" | "unknownFutureValue";
 export type EntityType =
     | "event"
     | "message"
@@ -918,7 +939,7 @@ export type EntityType =
     | "list"
     | "listItem"
     | "drive"
-    | "unknownfuturevalue";
+    | "unknownFutureValue";
 export type PlannerPreviewType = "automatic" | "noPreview" | "checklist" | "description" | "reference";
 export type OnenotePatchActionType = "Replace" | "Append" | "Delete" | "Insert" | "Prepend";
 export type OnenotePatchInsertPosition = "After" | "Before";
@@ -2370,9 +2391,11 @@ export interface User extends DirectoryObject {
      */
     createdDateTime?: NullableOption<string>;
     /**
-     * Indicates whether the user account was created as a regular school or work account (null), an external account
-     * (Invitation), a local account for an Azure Active Directory B2C tenant (LocalAccount) or self-service sign-up using
-     * email verification (EmailVerified). Read-only. Supports $filter (eq, ne, NOT, and in).
+     * Indicates whether the user account was created through one of the following methods: As a regular school or work
+     * account (null). As an external account (Invitation). As a local account for an Azure Active Directory B2C tenant
+     * (LocalAccount). Through self-service sign-up by an internal user using email verification (EmailVerified). Through
+     * self-service sign-up by an external user signing up through a link that is part of a user flow (SelfServiceSignUp).
+     * Read-only.Supports $filter (eq, ne, NOT, and in).
      */
     creationType?: NullableOption<string>;
     /**
@@ -3401,6 +3424,8 @@ export interface Drive extends BaseItem {
     sharePointIds?: NullableOption<SharepointIds>;
     // If present, indicates that this is a system-managed drive. Read-only.
     system?: NullableOption<SystemFacet>;
+    // Collection of [bundles][bundle] (albums and multi-select-shared sets of items). Only in personal OneDrive.
+    bundles?: NullableOption<DriveItem[]>;
     // The list of items the user is following. Only in OneDrive for Business.
     following?: NullableOption<DriveItem[]>;
     // All items contained in the drive. Read-only. Nullable.
@@ -3432,6 +3457,11 @@ export interface Site extends BaseItem {
     drive?: NullableOption<Drive>;
     // The collection of drives (document libraries) under this site.
     drives?: NullableOption<Drive[]>;
+    /**
+     * The collection of column definitions available in the site that are referenced from the sites in the parent hierarchy
+     * of the current site.
+     */
+    externalColumns?: NullableOption<ColumnDefinition[]>;
     // Used to address any item contained in this site. This collection cannot be enumerated.
     items?: NullableOption<BaseItem[]>;
     // The collection of lists under this site.
@@ -3442,6 +3472,7 @@ export interface Site extends BaseItem {
     sites?: NullableOption<Site[]>;
     // The termStore under this site.
     termStore?: NullableOption<TermStore.Store>;
+    // The collection of termStores under this site.
     termStores?: NullableOption<TermStore.Store[]>;
     // Calls the OneNote service for notebook related operations.
     onenote?: NullableOption<Onenote>;
@@ -3993,9 +4024,9 @@ export interface Application extends DirectoryObject {
      */
     requiredResourceAccess?: RequiredResourceAccess[];
     /**
-     * Specifies the Microsoft accounts that are supported for the current application. Supported values are: AzureADMyOrg,
-     * AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount, PersonalMicrosoftAccount. See more in the table below.
-     * Supports $filter (eq, ne, NOT).
+     * Specifies the Microsoft accounts that are supported for the current application. The possible values are: AzureADMyOrg,
+     * AzureADMultipleOrgs, AzureADandPersonalMicrosoftAccount (default), and PersonalMicrosoftAccount. See more in the table
+     * below. Supports $filter (eq, ne, NOT).
      */
     signInAudience?: NullableOption<string>;
     /**
@@ -4157,7 +4188,7 @@ export interface ServicePrincipal extends DirectoryObject {
     /**
      * Identifies if the service principal represents an application or a managed identity. This is set by Azure AD
      * internally. For a service principal that represents an application this is set as Application. For a service principal
-     * that represent a managed identity this is set as ManagedIdentity.
+     * that represent a managed identity this is set as ManagedIdentity. The SocialIdp type is for internal use.
      */
     servicePrincipalType?: NullableOption<string>;
     /**
@@ -4859,14 +4890,17 @@ export interface GroupSetting extends Entity {
     values?: SettingValue[];
 }
 export interface Conversation extends Entity {
-    // Indicates whether any of the posts within this Conversation has at least one attachment.
+    /**
+     * Indicates whether any of the posts within this Conversation has at least one attachment. Supports $filter (eq, ne) and
+     * $search.
+     */
     hasAttachments?: boolean;
     /**
      * The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example,
-     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
+     * midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Supports $filter (eq, ne, le, ge).
      */
     lastDeliveredDateTime?: string;
-    // A short summary from the body of the latest post in this converstaion.
+    // A short summary from the body of the latest post in this conversation.
     preview?: string;
     // The topic of the conversation. This property can be set when the conversation is created, but it cannot be updated.
     topic?: string;
@@ -4934,6 +4968,8 @@ export interface ColumnDefinition extends Entity {
     choice?: NullableOption<ChoiceColumn>;
     // For site columns, the name of the group this column belongs to. Helps organize related columns.
     columnGroup?: NullableOption<string>;
+    // This column stores content approval status.
+    contentApprovalStatus?: NullableOption<ContentApprovalStatusColumn>;
     // This column stores currency values.
     currency?: NullableOption<CurrencyColumn>;
     // This column stores DateTime values.
@@ -4950,8 +4986,16 @@ export interface ColumnDefinition extends Entity {
     geolocation?: NullableOption<GeolocationColumn>;
     // Specifies whether the column is displayed in the user interface.
     hidden?: NullableOption<boolean>;
+    // This column stores hyperlink or picture values.
+    hyperlinkOrPicture?: NullableOption<HyperlinkOrPictureColumn>;
     // Specifies whether the column values can used for sorting and searching.
     indexed?: NullableOption<boolean>;
+    // Indicates whether this column can be deleted.
+    isDeletable?: NullableOption<boolean>;
+    // Indicates whether values in the column can be reordered. Read-only.
+    isReorderable?: NullableOption<boolean>;
+    // Specifies whether the column can be changed.
+    isSealed?: NullableOption<boolean>;
     // This column's data is looked up from another source in the site.
     lookup?: NullableOption<LookupColumn>;
     /**
@@ -4963,16 +5007,41 @@ export interface ColumnDefinition extends Entity {
     number?: NullableOption<NumberColumn>;
     // This column stores Person or Group values.
     personOrGroup?: NullableOption<PersonOrGroupColumn>;
+    // If true, changes to this column will be propagated to lists that implement the column.
+    propagateChanges?: NullableOption<boolean>;
     // Specifies whether the column values can be modified.
     readOnly?: NullableOption<boolean>;
     // Specifies whether the column value isn't optional.
     required?: NullableOption<boolean>;
+    // This column stores taxonomy terms.
+    term?: NullableOption<TermColumn>;
     // This column stores text values.
     text?: NullableOption<TextColumn>;
+    // This column stores thumbnail values.
+    thumbnail?: NullableOption<ThumbnailColumn>;
+    // For site columns, the type of column. Read-only.
+    type?: NullableOption<ColumnTypes>;
+    // This column stores validation formula and message for the column.
+    validation?: NullableOption<ColumnValidation>;
+    // The source column for content type column.
+    sourceColumn?: NullableOption<ColumnDefinition>;
 }
 export interface ContentType extends Entity {
+    /**
+     * List of canonical URLs for hub sites with which this content type is associated to. This will contain all hubsites
+     * where this content type is queued to be enforced or is already enforced. Enforcing a content type means that the
+     * content type will be applied to the lists in the enforced sites.
+     */
+    associatedHubsUrls?: NullableOption<string[]>;
     // The descriptive text for the item.
     description?: NullableOption<string>;
+    // Document Set metadata.
+    documentSet?: NullableOption<DocumentSet>;
+    /**
+     * Document template metadata. To make sure that documents have consistent content across a site and its subsites, you can
+     * associate a Word, Excel, or PowerPoint template with a site content type.
+     */
+    documentTemplate?: NullableOption<DocumentSetContent>;
     // The name of the group this content type belongs to. Helps organize related content types.
     group?: NullableOption<string>;
     // Indicates whether the content type is hidden in the list's 'New' menu.
@@ -4982,12 +5051,19 @@ export interface ContentType extends Entity {
      * type is defined.
      */
     inheritedFrom?: NullableOption<ItemReference>;
+    // Specifies if a content type is a built-in content type.
+    isBuiltIn?: NullableOption<boolean>;
     // The name of the content type.
     name?: NullableOption<string>;
     // Specifies the order in which the content type appears in the selection UI.
     order?: NullableOption<ContentTypeOrder>;
     // The unique identifier of the content type.
     parentId?: NullableOption<string>;
+    /**
+     * If true, any changes made to the content type will be pushed to inherited content types and lists that implement the
+     * content type.
+     */
+    propagateChanges?: NullableOption<boolean>;
     // If true, the content type cannot be modified unless this value is first set to false.
     readOnly?: NullableOption<boolean>;
     /**
@@ -4995,8 +5071,16 @@ export interface ContentType extends Entity {
      * administrators can seal or unseal content types.
      */
     sealed?: NullableOption<boolean>;
+    // Parent contentType from which this content type is derived.
+    base?: NullableOption<ContentType>;
+    // The collection of content types that are ancestors of this content type.
+    baseTypes?: NullableOption<ContentType[]>;
     // The collection of columns that are required by this content type
     columnLinks?: NullableOption<ColumnLink[]>;
+    // Column order information in a content type.
+    columnPositions?: NullableOption<ColumnDefinition[]>;
+    // The collection of column definitions for this contentType.
+    columns?: NullableOption<ColumnDefinition[]>;
 }
 export interface List extends BaseItem {
     // The displayable title of the list.
@@ -5055,6 +5139,21 @@ export interface IdentityApiConnector extends Entity {
     displayName?: NullableOption<string>;
     // The URL of the API endpoint to call.
     targetUrl?: NullableOption<string>;
+}
+// tslint:disable-next-line: interface-name
+export interface IdentityProviderBase extends Entity {
+    // The display name of the identity provider.
+    displayName?: NullableOption<string>;
+}
+export interface AppleManagedIdentityProvider extends IdentityProviderBase {
+    // The certificate data which is a long string of text from the certificate, can be null.
+    certificateData?: NullableOption<string>;
+    // The Apple developer identifier. Required.
+    developerId?: NullableOption<string>;
+    // The Apple key identifier. Required.
+    keyId?: NullableOption<string>;
+    // The Apple service identifier. Required.
+    serviceId?: NullableOption<string>;
 }
 // tslint:disable-next-line: interface-name
 export interface IdentityUserFlow extends Entity {
@@ -5141,11 +5240,6 @@ export interface IdentityUserFlowAttributeAssignment extends Entity {
     // The user attribute that you want to add to your user flow.
     userAttribute?: NullableOption<IdentityUserFlowAttribute>;
 }
-// tslint:disable-next-line: interface-name
-export interface IdentityProviderBase extends Entity {
-    // The display name of the identity provider.
-    displayName?: NullableOption<string>;
-}
 export interface BuiltInIdentityProvider extends IdentityProviderBase {
     // The identity provider type. For a B2B scenario, possible values: AADSignup, MicrosoftAccount, EmailOTP. Required.
     identityProviderType?: NullableOption<string>;
@@ -5172,9 +5266,13 @@ export interface IdentityBuiltInUserFlowAttribute extends IdentityUserFlowAttrib
 // tslint:disable-next-line: interface-name
 export interface IdentityContainer extends Entity {
     conditionalAccess?: NullableOption<ConditionalAccessRoot>;
+    // Represents entry point for API connectors.
     apiConnectors?: NullableOption<IdentityApiConnector[]>;
+    // Represents entry point for B2X and self-service sign-up identity userflows.
     b2xUserFlows?: NullableOption<B2xIdentityUserFlow[]>;
+    // Represents entry point for identity provider base.
     identityProviders?: NullableOption<IdentityProviderBase[]>;
+    // Represents entry point for identity userflow attributes.
     userFlowAttributes?: NullableOption<IdentityUserFlowAttribute[]>;
 }
 export interface ConditionalAccessRoot extends Entity {
@@ -5355,6 +5453,7 @@ export interface Device extends DirectoryObject {
     extensions?: NullableOption<Extension[]>;
 }
 export interface Directory extends Entity {
+    // Conceptual container for user and group directory objects.
     administrativeUnits?: NullableOption<AdministrativeUnit[]>;
     // Recently deleted items. Read-only. Nullable.
     deletedItems?: NullableOption<DirectoryObject[]>;
@@ -6239,6 +6338,7 @@ export interface EducationSubmissionResource extends Entity {
 export interface DriveItem extends BaseItem {
     // Audio metadata, if the item is an audio file. Read-only.
     audio?: NullableOption<Audio>;
+    bundle?: NullableOption<Bundle>;
     // The content stream, if the item represents a file.
     content?: NullableOption<any>;
     /**
@@ -7123,12 +7223,12 @@ export interface Post extends OutlookItem {
     sender?: NullableOption<Recipient>;
     /**
      * The collection of fileAttachment, itemAttachment, and referenceAttachment attachments for the post. Read-only.
-     * Nullable.
+     * Nullable. Supports $expand.
      */
     attachments?: NullableOption<Attachment[]>;
-    // The collection of open extensions defined for the post. Read-only. Nullable.
+    // The collection of open extensions defined for the post. Read-only. Nullable. Supports $expand.
     extensions?: NullableOption<Extension[]>;
-    // The earlier post that this post is replying to in the conversationThread. Read-only.
+    // The earlier post that this post is replying to in the conversationThread. Read-only. Supports $expand.
     inReplyTo?: NullableOption<Post>;
     // The collection of multi-value extended properties defined for the post. Read-only. Nullable.
     multiValueExtendedProperties?: NullableOption<MultiValueLegacyExtendedProperty[]>;
@@ -7557,11 +7657,21 @@ export interface AppConsentRequest extends Entity {
     userConsentRequests?: NullableOption<UserConsentRequest[]>;
 }
 export interface Request extends Entity {
+    // The identifier of the approval of the request.
     approvalId?: NullableOption<string>;
+    // The request completion date time.
     completedDateTime?: NullableOption<string>;
+    // The user who created this request.
     createdBy?: NullableOption<IdentitySet>;
+    // The request creation date time.
     createdDateTime?: NullableOption<string>;
+    // Free text field to define any custom data for the request. Not used.
     customData?: NullableOption<string>;
+    /**
+     * The status of the request. Not nullable. The possible values are: Canceled, Denied, Failed, Granted,
+     * PendingAdminDecision, PendingApproval, PendingProvisioning, PendingScheduleCreation, Provisioned, Revoked, and
+     * ScheduleCreated. Not nullable.
+     */
     status?: string;
 }
 export interface UserConsentRequest extends Request {
@@ -7676,7 +7786,7 @@ export interface CountryNamedLocation extends NamedLocation {
     countriesAndRegions?: string[];
     /**
      * Determines what method is used to decide which country the user is located in. Possible values are clientIpAddress and
-     * authenticatorAppGps.
+     * authenticatorAppGps. Note: authenticatorAppGps is not yet supported in the Microsoft Cloud for US Government.
      */
     countryLookupMethod?: NullableOption<CountryLookupMethodType>;
     // True if IP addresses that don't map to a country or region should be included in the named location.
@@ -9625,9 +9735,15 @@ export interface SettingStateDeviceSummary extends Entity {
     unknownDeviceCount?: number;
 }
 export interface DeviceComplianceScheduledActionForRule extends Entity {
-    // Name of the rule which this scheduled action applies to.
+    /**
+     * Name of the rule which this scheduled action applies to. Currently scheduled actions are created per policy instead of
+     * per rule, thus RuleName is always set to default value PasswordRequired.
+     */
     ruleName?: NullableOption<string>;
-    // The list of scheduled action configurations for this compliance policy.
+    /**
+     * The list of scheduled action configurations for this compliance policy. Compliance policy must have one and only one
+     * block scheduled action.
+     */
     scheduledActionConfigurations?: NullableOption<DeviceComplianceActionItem[]>;
 }
 export interface DeviceComplianceUserStatus extends Entity {
@@ -12512,6 +12628,8 @@ export interface Participant extends Entity {
     isMuted?: boolean;
     // The list of media streams.
     mediaStreams?: NullableOption<MediaStream[]>;
+    // A blob of data provided by the participant in the roster.
+    metadata?: NullableOption<string>;
     // Information on whether the participant has recording capability.
     recordingInfo?: NullableOption<RecordingInfo>;
 }
@@ -12659,7 +12777,7 @@ export interface Channel extends Entity {
     tabs?: NullableOption<TeamsTab[]>;
 }
 export interface ChatMessage extends Entity {
-    // Attached files. Attachments are currently read-only – sending attachments is not supported.
+    // References to attached objects like files, tabs, meetings etc.
     attachments?: NullableOption<ChatMessageAttachment[]>;
     /**
      * Plaintext/HTML representation of the content of the chat message. Representation is specified by the contentType inside
@@ -12676,7 +12794,7 @@ export interface ChatMessage extends Entity {
     deletedDateTime?: NullableOption<string>;
     // Read-only. Version number of the chat message.
     etag?: NullableOption<string>;
-    // Read only. Details of the sender of the chat message.
+    // Details of the sender of the chat message. Can only be set during migration.
     from?: NullableOption<ChatMessageFromIdentitySet>;
     // The importance of the chat message. The possible values are: normal, high, urgent.
     importance?: ChatMessageImportance;
@@ -12692,7 +12810,7 @@ export interface ChatMessage extends Entity {
     lastModifiedDateTime?: NullableOption<string>;
     // Locale of the chat message set by the client. Always set to en-us.
     locale?: string;
-    // List of entities mentioned in the chat message. Currently supports user, bot, team, channel.
+    // List of entities mentioned in the chat message. Supported entities are: user, bot, team, channel, and tag.
     mentions?: NullableOption<ChatMessageMention[]>;
     /**
      * The type of chat message. The possible values are: message, chatEvent, typing, unknownFutureValue, systemEventMessage.
@@ -14389,6 +14507,12 @@ export interface Audio {
     // The year the audio file was recorded.
     year?: NullableOption<number>;
 }
+export interface Bundle {
+    // If the bundle is an [album][], then the album property is included
+    album?: NullableOption<Album>;
+    // Number of children contained immediately within this container.
+    childCount?: NullableOption<number>;
+}
 export interface Deleted {
     // Represents the state of the deleted item.
     state?: NullableOption<string>;
@@ -14710,7 +14834,13 @@ export interface Attendee extends AttendeeBase {
     status?: NullableOption<ResponseStatus>;
 }
 export interface ResponseStatus {
-    // The response type. Possible values are: None, Organizer, TentativelyAccepted, Accepted, Declined, NotResponded.
+    /**
+     * The response type. Possible values are: none, organizer, tentativelyAccepted, accepted, declined, notResponded.To
+     * differentiate between none and notResponded: as an example, if attendee Alex hasn't responded to a meeting request,
+     * getting Alex' response status for that event in Alex' calendar returns notResponded. Getting Alex' response from the
+     * calendar of any other attendee or the organizer's returns none. Getting the organizer's response for the event in
+     * anybody's calendar also returns none.
+     */
     response?: NullableOption<ResponseType>;
     /**
      * The date and time that the response was returned. It uses ISO 8601 format and is always in UTC time. For example,
@@ -15235,6 +15365,10 @@ export interface Website {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface AccessAction {}
+export interface Album {
+    // Unique identifier of the [driveItem][] that is the cover of the album.
+    coverImageItemId?: NullableOption<string>;
+}
 // tslint:disable-next-line: no-empty-interface
 export interface BooleanColumn {}
 export interface CalculatedColumn {
@@ -15253,6 +15387,28 @@ export interface ChoiceColumn {
     // How the choices are to be presented in the UX. Must be one of checkBoxes, dropDownMenu, or radioButtons
     displayAs?: NullableOption<string>;
 }
+export interface ColumnValidation {
+    // Default BCP 47 language tag for the description.
+    defaultLanguage?: NullableOption<string>;
+    /**
+     * Localized messages that explain what is needed for this column's value to be considered valid. User will be prompted
+     * with this message if validation fails.
+     */
+    descriptions?: NullableOption<DisplayNameLocalization[]>;
+    // The formula to validate column value. For examples, see Examples of common formulas in lists
+    formula?: NullableOption<string>;
+}
+export interface DisplayNameLocalization {
+    /**
+     * If present, the value of this field contains the displayName string that has been set for the language present in the
+     * languageTag field.
+     */
+    displayName?: NullableOption<string>;
+    // Provides the language culture-code and friendly name of the language that the displayName field has been provided in.
+    languageTag?: NullableOption<string>;
+}
+// tslint:disable-next-line: no-empty-interface
+export interface ContentApprovalStatusColumn {}
 export interface ContentTypeInfo {
     // The id of the content type.
     id?: NullableOption<string>;
@@ -15283,6 +15439,28 @@ export interface DefaultColumnValue {
     formula?: NullableOption<string>;
     // The direct value to use as the default value for this column.
     value?: NullableOption<string>;
+}
+export interface DocumentSet {
+    // Content types allowed in document set.
+    allowedContentTypes?: NullableOption<ContentTypeInfo[]>;
+    // Default contents of document set.
+    defaultContents?: NullableOption<DocumentSetContent[]>;
+    // Specifies whether to push welcome page changes to inherited content types.
+    propagateWelcomePageChanges?: NullableOption<boolean>;
+    // Add the name of the Document Set to each file name.
+    shouldPrefixNameToFile?: NullableOption<boolean>;
+    // Welcome page absolute URL.
+    welcomePageUrl?: NullableOption<string>;
+    sharedColumns?: NullableOption<ColumnDefinition[]>;
+    welcomePageColumns?: NullableOption<ColumnDefinition[]>;
+}
+export interface DocumentSetContent {
+    // Content type information of the file.
+    contentType?: NullableOption<ContentTypeInfo>;
+    // Name of the file in resource folder that should be added as a default content or a template in the document set
+    fileName?: NullableOption<string>;
+    // Folder name in which the file will be placed when a new document set is created in the library.
+    folderName?: NullableOption<string>;
 }
 export interface DriveItemUploadableProperties {
     // Provides a user-visible description of the item. Read-write. Only on OneDrive Personal.
@@ -15325,6 +15503,10 @@ export interface FolderView {
 }
 // tslint:disable-next-line: no-empty-interface
 export interface GeolocationColumn {}
+export interface HyperlinkOrPictureColumn {
+    // Specifies whether the display format used for URL columns is an image or a hyperlink.
+    isPicture?: NullableOption<boolean>;
+}
 // tslint:disable-next-line: interface-name
 export interface IncompleteData {
     // The service does not have source data before the specified time.
@@ -15462,6 +15644,14 @@ export interface SharingLink {
     // A URL that opens the item in the browser on the OneDrive website.
     webUrl?: NullableOption<string>;
 }
+export interface TermColumn {
+    // Specifies whether the column will allow more than one value
+    allowMultipleValues?: NullableOption<boolean>;
+    // Specifies whether to display the entire term path or only the term label.
+    showFullyQualifiedName?: NullableOption<boolean>;
+    parentTerm?: NullableOption<TermStore.Term>;
+    termSet?: NullableOption<TermStore.Set>;
+}
 export interface TextColumn {
     // Whether to allow multiple lines of text.
     allowMultipleLines?: NullableOption<boolean>;
@@ -15489,6 +15679,8 @@ export interface Thumbnail {
     // The width of the thumbnail, in pixels.
     width?: NullableOption<number>;
 }
+// tslint:disable-next-line: no-empty-interface
+export interface ThumbnailColumn {}
 export interface ExtensionSchemaProperty {
     // The name of the strongly typed property defined as part of a schema extension.
     name?: NullableOption<string>;
@@ -16852,6 +17044,71 @@ export interface ServiceUpdateMessageViewpoint {
     // Indicates whether the user read the message.
     isRead?: NullableOption<boolean>;
 }
+export interface AggregationOption {
+    // Specifies the criteria to compute an aggregation. Optional.
+    bucketDefinition?: BucketAggregationDefinition;
+    // Specifies the field in the schema of the specified entity type that aggregation should be computed on. Required.
+    field?: string;
+    /**
+     * The number of searchBucket resources to be returned. This is not required when the range is provided manually in the
+     * search request. Optional.
+     */
+    size?: NullableOption<number>;
+}
+export interface BucketAggregationDefinition {
+    // True to specify the sort order as descending. The default is false, with the sort order as ascending. Optional.
+    isDescending?: NullableOption<boolean>;
+    // The minimum number of items that should be present in the aggregation to be returned in a bucket. Optional.
+    minimumCount?: NullableOption<number>;
+    /**
+     * A filter to define a matching criteria. The key should start with the specified prefix to be returned in the response.
+     * Optional.
+     */
+    prefixFilter?: NullableOption<string>;
+    /**
+     * Specifies the manual ranges to compute the aggregations. This is only valid for non-string refiners of date or numeric
+     * type. Optional.
+     */
+    ranges?: NullableOption<BucketAggregationRange[]>;
+    /**
+     * The possible values are count to sort by the number of matches in the aggregation, keyAsStringto sort alphabeticaly
+     * based on the key in the aggregation, keyAsNumber for numerical sorting based on the key in the aggregation. Required.
+     */
+    sortBy?: BucketAggregationSortProperty;
+}
+export interface BucketAggregationRange {
+    /**
+     * Defines the lower bound from which to compute the aggregation. This can be a numeric value or a string representation
+     * of a date using the YYYY-MM-DDTHH:mm:ss.sssZ format. Required.
+     */
+    from?: string;
+    /**
+     * Defines the upper bound up to which to compute the aggregation. This can be a numeric value or a string representation
+     * of a date using the YYYY-MM-DDTHH:mm:ss.sssZ format. Required.
+     */
+    to?: string;
+}
+export interface SearchAggregation {
+    // Defines the actual buckets of the computed aggregation.
+    buckets?: NullableOption<SearchBucket[]>;
+    // Defines on which field the aggregation was computed on.
+    field?: NullableOption<string>;
+}
+export interface SearchBucket {
+    /**
+     * A token containing the encoded filter to aggregate search matches by the specific key value. To use the filter, pass
+     * the token as part of the aggregationFilter property in a searchRequest object, in the format
+     * '{field}:/'{aggregationFilterToken}/''. See an example.
+     */
+    aggregationFilterToken?: NullableOption<string>;
+    /**
+     * The approximate number of search matches that share the same value specified in the key property. Note that this number
+     * is not the exact number of matches.
+     */
+    count?: NullableOption<number>;
+    // The discrete value of the field that an aggregation was computed on.
+    key?: NullableOption<string>;
+}
 export interface SearchHit {
     // The name of the content source which the externalItem is part of .
     contentSource?: NullableOption<string>;
@@ -16864,6 +17121,8 @@ export interface SearchHit {
     resource?: NullableOption<Entity>;
 }
 export interface SearchHitsContainer {
+    // Contains the collection of aggregations computed based on the provided aggregationOption specified in the request.
+    aggregations?: NullableOption<SearchAggregation[]>;
     // A collection of the search results.
     hits?: NullableOption<SearchHit[]>;
     /**
@@ -16882,6 +17141,21 @@ export interface SearchQuery {
     queryString?: string;
 }
 export interface SearchRequest {
+    /**
+     * Contains one or more filters to obtain search results aggregated and filtered to a specific value of a field.
+     * Optional.Build this filter based on a prior search that aggregates by the same field. From the response of the prior
+     * search, identify the searchBucket that filters results to the specific value of the field, use the string in its
+     * aggregationFilterToken property, and build an aggregation filter string in the format
+     * '{field}:/'{aggregationFilterToken}/''. If multiple values for the same field need to be provided, use the strings in
+     * its aggregationFilterToken property and build an aggregation filter string in the format
+     * '{field}:or(/'{aggregationFilterToken1}/',/'{aggregationFilterToken2}/')'. For example, searching and aggregating drive
+     * items by file type returns a searchBucket for the file type docx in the response. You can conveniently use the
+     * aggregationFilterToken returned for this searchBucket in a subsequent search query and filter matches down to drive
+     * items of the docx file type. Example 1 and example 2 show the actual requests and responses.
+     */
+    aggregationFilters?: NullableOption<string[]>;
+    // Specifies aggregations (also known as refiners) to be returned alongside search results. Optional.
+    aggregations?: NullableOption<AggregationOption[]>;
     /**
      * Contains the connection to be targeted. Respects the following format : /external/connections/connectionid where
      * connectionid is the ConnectionId defined in the Connectors Administration. Note: contentSource is only applicable when
@@ -16913,6 +17187,17 @@ export interface SearchRequest {
     query?: SearchQuery;
     // The size of the page to be retrieved. Optional.
     size?: number;
+    /**
+     * Contains the ordered collection of fields and direction to sort results. There can be at most 5 sort properties in the
+     * collection. Optional.
+     */
+    sortProperties?: NullableOption<SortProperty[]>;
+}
+export interface SortProperty {
+    // True if the sort order is descending. Default is false, with the sort order as ascending. Optional.
+    isDescending?: NullableOption<boolean>;
+    // The name of the property to sort on. Required.
+    name?: string;
 }
 export interface SearchResponse {
     // A collection of search results.
@@ -18535,21 +18820,21 @@ export namespace TermStore {
         toTerm?: NullableOption<Term>;
     }
     interface Term extends microsoftgraph.Entity {
-        // Date and time of term creation. Read-only
+        // Date and time of term creation. Read-only.
         createdDateTime?: NullableOption<string>;
-        // Description about term that is dependent on the languageTag
+        // Description about term that is dependent on the languageTag.
         descriptions?: NullableOption<LocalizedDescription[]>;
-        // Label metadata for a term
+        // Label metadata for a term.
         labels?: NullableOption<LocalizedLabel[]>;
-        // Last date and time of term modification. Read-only
+        // Last date and time of term modification. Read-only.
         lastModifiedDateTime?: NullableOption<string>;
-        // Collection of properties on the term
+        // Collection of properties on the term.
         properties?: NullableOption<microsoftgraph.KeyValue[]>;
-        // Children of current term
+        // Children of current term.
         children?: NullableOption<Term[]>;
-        // To indicate which terms are related to the current term as either pinned or reused
+        // To indicate which terms are related to the current term as either pinned or reused.
         relations?: NullableOption<Relation[]>;
-        // The [set] in which the term is created
+        // The [set] in which the term is created.
         set?: NullableOption<Set>;
     }
     interface LocalizedDescription {
@@ -18802,26 +19087,50 @@ export namespace CallRecords {
         speakerGlitchRate?: NullableOption<number>;
     }
     interface DirectRoutingLogRow {
+        // Number of the user or bot who received the call. E.164 format, but may include additional data.
         calleeNumber?: NullableOption<string>;
+        // In addition to the SIP codes, Microsoft has own subcodes that indicate the specific issue.
         callEndSubReason?: NullableOption<number>;
+        // Number of the user or bot who made the call. E.164 format, but may include additional data.
         callerNumber?: NullableOption<string>;
+        // Call type and direction.
         callType?: NullableOption<string>;
+        // Identifier for the call that you can use when calling Microsoft Support. GUID.
         correlationId?: NullableOption<string>;
+        // Duration of the call in seconds.
         duration?: NullableOption<number>;
+        // Only exists for successful (fully established) calls. Time when call ended.
         endDateTime?: NullableOption<string>;
+        // Only exists for failed (not fully established) calls.
         failureDateTime?: NullableOption<string>;
+        // The code with which the call ended, RFC 3261.
         finalSipCode?: NullableOption<number>;
+        // Description of the SIP code and Microsoft subcode.
         finalSipCodePhrase?: NullableOption<string>;
+        // Unique call identifier. GUID.
         id?: NullableOption<string>;
+        // When the initial invite was sent.
         inviteDateTime?: NullableOption<string>;
+        // Indicates if the trunk was enabled for media bypass or not.
         mediaBypassEnabled?: NullableOption<boolean>;
+        // The datacenter used for media path in non-bypass call.
         mediaPathLocation?: NullableOption<string>;
+        // The datacenter used for signaling for both bypass and non-bypass calls.
         signalingLocation?: NullableOption<string>;
+        // Call start time.For failed and unanswered calls, this can be equal to invite or failure time.
         startDateTime?: NullableOption<string>;
+        // Success or attempt.
         successfulCall?: NullableOption<boolean>;
+        // Fully qualified domain name of the session border controller.
         trunkFullyQualifiedDomainName?: NullableOption<string>;
+        // Display name of the user.
         userDisplayName?: NullableOption<string>;
+        // Calling user's ID in Graph. This and other user info will be null/empty for bot call types. GUID.
         userId?: NullableOption<string>;
+        /**
+         * UserPrincipalName (sign-in name) in Azure Active Directory. This is usually the same as user's SIP Address, and can be
+         * same as user's e-mail address.
+         */
         userPrincipalName?: NullableOption<string>;
     }
     interface Endpoint {
@@ -19033,28 +19342,67 @@ export namespace CallRecords {
         tokens?: NullableOption<FeedbackTokenSet>;
     }
     interface PstnCallLogRow {
+        /**
+         * The source of the call duration data. If the call uses a third-party telecommunications operator via the Operator
+         * Connect Program, the operator may provide their own call duration data. In this case, the property value is operator.
+         * Otherwise, the value is microsoft.
+         */
         callDurationSource?: NullableOption<PstnCallDurationSource>;
+        // Number dialed in E.164 format.
         calleeNumber?: NullableOption<string>;
+        // Number that received the call for inbound calls or the number dialed for outbound calls. E.164 format.
         callerNumber?: NullableOption<string>;
+        // Call identifier. Not guaranteed to be unique.
         callId?: NullableOption<string>;
+        /**
+         * Whether the call was a PSTN outbound or inbound call and the type of call such as a call placed by a user or an audio
+         * conference.
+         */
         callType?: NullableOption<string>;
+        // Amount of money or cost of the call that is charged to your account.
         charge?: NullableOption<number>;
+        // ID of the audio conference.
         conferenceId?: NullableOption<string>;
+        // Connection fee price.
         connectionCharge?: NullableOption<number>;
+        // Type of currency used to calculate the cost of the call (ISO 4217).
         currency?: NullableOption<string>;
+        /**
+         * Whether the call was domestic (within a country or region) or international (outside a country or region) based on the
+         * user's location.
+         */
         destinationContext?: NullableOption<string>;
+        // Country or region dialed.
         destinationName?: NullableOption<string>;
+        // How long the call was connected, in seconds.
         duration?: NullableOption<number>;
+        // Call end time.
         endDateTime?: NullableOption<string>;
+        // Unique call identifier. GUID.
         id?: NullableOption<string>;
+        // User's phone number type, such as a service of toll-free number.
         inventoryType?: NullableOption<string>;
+        // The license used for the call.
         licenseCapability?: NullableOption<string>;
+        /**
+         * The telecommunications operator which provided PSTN services for this call. This may be Microsoft, or it may be a
+         * third-party operator via the Operator Connect Program.
+         */
         operator?: NullableOption<string>;
+        // Call start time.
         startDateTime?: NullableOption<string>;
+        // Country code of the tenant, ISO 3166-1 alpha-2.
         tenantCountryCode?: NullableOption<string>;
+        // Country code of the user, ISO 3166-1 alpha-2.
         usageCountryCode?: NullableOption<string>;
+        // Display name of the user.
         userDisplayName?: NullableOption<string>;
+        // Calling user's ID in Graph. GUID. This and other user info will be null/empty for bot call types (ucap_in, ucap_out).
         userId?: NullableOption<string>;
+        /**
+         * UserPrincipalName (sign-in name) in Azure Active Directory. This is usually the same as user's SIP Address, and can be
+         * same as user's e-mail address.
+         */
         userPrincipalName?: NullableOption<string>;
     }
 // tslint:disable-next-line: no-empty-interface
@@ -19163,6 +19511,10 @@ export namespace ExternalConnectors {
     }
 // tslint:disable-next-line: interface-name
     interface Identity extends microsoftgraph.Entity {
+        /**
+         * The type of identity. Possible values are: user or group for Azure AD identities and externalgroup for groups in an
+         * external system.
+         */
         type?: NullableOption<IdentityType>;
     }
     interface Acl {
@@ -19197,9 +19549,9 @@ export namespace ExternalConnectors {
     interface Properties {}
     interface Property {
         /**
-         * A set of aliases or a friendly names for the property. Maximum 32 characters. Each string must not contain control
-         * characters, whitespace, or any of the following: :, ;, ,, (, ), [, ], {, }, %, $, +, !, *, =, &amp;, ?, @, #, /, ~, ',
-         * ', &amp;lt;, &amp;gt;, `
+         * A set of aliases or a friendly names for the property. Maximum 32 characters. Only alphanumeric characters allowed. For
+         * example, each string may not contain control characters, whitespace, or any of the following: :, ;, ,, (, ), [, ], {,
+         * }, %, $, +, !, *, =, &amp;, ?, @, #, /, ~, ', ', &amp;lt;, &amp;gt;, `, ^. Optional.
          */
         aliases?: NullableOption<string[]>;
         /**
@@ -19233,8 +19585,9 @@ export namespace ExternalConnectors {
          */
         labels?: NullableOption<Label[]>;
         /**
-         * The name of the property. Maximum 32 characters. Must not contain control characters, whitespace, or any of the
-         * following: :, ;, ,, (, ), [, ], {, }, %, $, +, !, *, =, &amp;, ?, @, #, /, ~, ', ', &amp;lt;, &amp;gt;, `
+         * The name of the property. Maximum 32 characters. Only alphanumeric characters allowed. For example, each string may not
+         * contain control characters, whitespace, or any of the following: :, ;, ,, (, ), [, ], {, }, %, $, +, !, *, =, &amp;, ?,
+         * @, #, /, ~, ', ', &amp;lt;, &amp;gt;, `, ^. Required.
          */
         name?: string;
         /**

@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.93.0
+// For Library Version: 1.94.0
 
 declare module "sap/base/assert" {
   /**
@@ -6057,7 +6057,7 @@ declare module "sap/ui/base/ManagedObject" {
        * the name of the model or `undefined`
        */
       sModelName?: string
-    ): Context;
+    ): Context | null | undefined;
     /**
      * Returns the binding info for the given property or aggregation.
      *
@@ -11070,7 +11070,7 @@ declare module "sap/ui/core/ComponentContainer" {
          */
         placeholder: /* was: sap.ui.core.Placeholder */ any;
       }
-    ): void;
+    ): Promise<any>;
   }
 
   export interface $ComponentContainerSettings extends $ControlSettings {
@@ -11269,7 +11269,7 @@ declare module "sap/ui/core/ComponentMetadata" {
      */
     getDependencies(): Object;
     /**
-     * @deprecated (since 1.27.1) - Please use {@link sap.ui.core.Component#getManifestEntry}("/sap.ui5/resources")
+     * @deprecated (since 1.27.1) - For CSS, please use {@link sap.ui.core.Component#getManifestEntry}("/sap.ui5/resources/css").
      *
      * Returns the array of the included files that the Component requires such as CSS and JavaScript. If not
      * specified or the array is empty, the return value is null.  **Important:**
@@ -17388,23 +17388,28 @@ declare module "sap/ui/core/ElementMetadata" {
 }
 
 declare module "sap/ui/core/EnabledPropagator" {
-  /**
-   * Helper Class for enhancement of a Control with propagation of enabled property.
-   */
   export default class EnabledPropagator {
     /**
-     * **This constructor should be applied to the prototype of a control.**
+     * Mixin for enhancement of a control prototype with propagation of the `enabled` property.
      *
-     * Example: ` sap.ui.core.EnabledPropagator.call(Some-Control.prototype, Default-value, ...);
-     * ` e.g. ` sap.ui.core.EnabledPropagator.call(sap.ui.commons.Button.prototype); `
+     * Controls that apply this mixin calculate their effective `enabled` state on read access as the logical
+     * OR of their own `enabled` property and the `enabled` state of the nearest ancestor control which has
+     * either an `enabled` property or a `getEnabled` method.
+     *
+     * Applying this mixin adds the `enabled` property, if it not already exists, to the control metadata.
+     *
+     * Also adds the `useEnabledPropagator(boolean)` helper method to the prototype of the given control. `myControlInstance.useEnabledPropagator(false)`
+     * can be used to prevent a single instance from using `EnabledPropagator`. In this case, the effective
+     * `enabled` state does not take any ancestors `enabled` state into account, only the control's own `enabled`
+     * property.
      */
     constructor(
       /**
-       * the value that should be used as default value for the enhancement of the control.
+       * Value that should be used as default value for the enhancement of the control.
        */
       bDefault?: boolean,
       /**
-       * whether the introduced property should use the old name 'Enabled'
+       * Whether the introduced property should use the old name `Enabled`.
        */
       bLegacy?: boolean
     );
@@ -23999,27 +24004,28 @@ declare module "sap/ui/core/mvc/Controller" {
     /**
      * @SINCE 1.93
      *
-     * Loads a Fragment by {@link sap.ui.core.Fragment.load}. If the controller will be destroyed before the
-     * fragment content creation is done, the controller takes care of an asynchronous destroy of the fragment
-     * content. Otherwise the content must be destroyed by the caller as usual. If the controller has an owner
-     * component, it is passed to the fragment content. The fragment content will be prefixed with the view
-     * ID to avoid duplicate ID issues. The prefixing is enabled by default and can be switched off by the `autoPrefixId`
-     * option.
-     *
-     * When `autoPrefixId` is enabled, the fragment content can be accessed by calling {@link sap.ui.core.mvc.Controller.byId}.
-     *
-     * Example (no mOptions.id given): var myCOntrol = this.byId("myControl");
-     *
-     * Example (mOptions.id given): var myCOntrol = this.byId("prefix--myControl");
+     * Loads a Fragment by {@link sap.ui.core.Fragment.load}.
      *
      * The fragment content will be added to the `dependents` aggregation of the view by default. This behavior
      * can be suppressed by setting `mOptions.addToDependents` to false.
      *
-     * Note: If the fragment content is not aggregated within a control, it must be destroyed manually in the
-     * exit hook of the controller.
-     *
-     * The controller is passed to the Fragment by default so the (event handler) methods referenced in the
+     * The controller is passed to the Fragment by default, so the (event handler) methods referenced in the
      * Fragment will be called on this Controller.
+     *
+     * If the controller has an owner component, it is passed to the fragment content. By default the fragment
+     * content will be prefixed with the view ID to avoid duplicate ID issues. The prefixing can be switched
+     * off with the `autoPrefixId` option.
+     *
+     * When `autoPrefixId` is enabled, the fragment content can be accessed by calling {@link sap.ui.core.mvc.Controller.byId}.
+     *
+     * **Destroy behavior**: Different scenarios concerning the destruction of the fragment's content exist,
+     * of which some must be addressed by the caller, while others are handled automatically.
+     * 	 - The controller instance is destroyed before the fragment content creation has finished: In this case,
+     * 			the controller instance takes care of asynchronously destroying the fragment content
+     * 	 - The fragment content is aggregated within a control (e.g. `dependents` aggregation by default): In
+     * 			this case, the content will be destroyed during the regular destroy lifecycle.
+     * 	 - The fragment content is not aggregated within a control: In this case, ***it must be destroyed manually***
+     * 			in the exit hook of the controller.
      */
     loadFragment(
       /**
@@ -29677,6 +29683,14 @@ declare module "sap/ui/core/routing/Target" {
        */
       oParameters?: object
     ): this;
+    /**
+     * Suspends the object which is loaded by the target.
+     *
+     * Currently this function stops the router of the component when the object which is loaded by this target
+     * is an instance of UIComponent. This is done only when the target is already loaded. When the target is
+     * not loaded yet or still being loaded, the router of the component isn't stopped.
+     */
+    suspend(): Target;
   }
 }
 
@@ -31179,16 +31193,20 @@ declare module "sap/ui/core/theming/Parameters" {
    */
   interface Parameters {
     /**
-     * Returns the current value for one or more theming parameters, depending on the given arguments.
+     * Returns the current value for one or more theming parameters, depending on the given arguments. The synchronous
+     * usage of this API has been deprecated and only the asynchronous usage should still be used (see the 4th
+     * bullet point and the code examples below).
      *
-     * 	 -  **(deprecated since 1.92) If no parameter is given a key-value map containing all parameters
-     * 			is returned
-     * 	 - If a `string` is given as first parameter the value is returned as a `string`
-     * 	 - If an `array` is given as first parameter a key-value map containing all parameters from the `array`
-     * 			is returned
+     *
+     * 	 -  **(deprecated since 1.92)** If no parameter is given a key-value map containing all parameters is
+     * 			returned
+     * 	 -  **(deprecated since 1.94)** If a `string` is given as first parameter the value is returned as a
+     * 			`string`
+     * 	 -  **(deprecated since 1.94)** If an `array` is given as first parameter a key-value map containing
+     * 			all parameters from the `array` is returned
      * 	 - If an `object` is given as first parameter the result is returned immediately in case all parameters
      * 			are loaded and available or within the callback in case not all CSS files are already loaded. This is
-     * 			the only asynchronous** API variant. This variant is the preferred way to retrieve theming parameters.
+     * 			the **only asynchronous** API variant. This variant is the preferred way to retrieve theming parameters.
      * 			The structure of the return value is the same as listed above depending on the type of the name property
      * 			within the `object`.  The returned key-value maps are a copy so changing values in the map does
      * 			not have any effect
@@ -31986,6 +32004,10 @@ declare module "sap/ui/core/tmpl/Template" {
        */
       mSettings?: $TemplateSettings
     );
+    /**
+     * parses the given path and extracts the model and path
+     */
+    static parsePath: undefined;
 
     /**
      * Returns the registered template for the given ID, if any.
@@ -32016,15 +32038,6 @@ declare module "sap/ui/core/tmpl/Template" {
      * Returns a metadata object for class sap.ui.core.tmpl.Template.
      */
     static getMetadata(): ManagedObjectMetadata;
-    /**
-     * parses the given path and extracts the model and path
-     */
-    static parsePath(
-      /**
-       * the path
-       */
-      sPath: string
-    ): object;
     /**
      * Creates an anonymous TemplateControl for the Template.
      */
@@ -36854,9 +36867,7 @@ declare module "sap/ui/Device" {
      *
      * Furthermore, a CSS class `sap-combi` is added to the document root element.
      *
-     * **Note:** This property is mainly for Microsoft Windows 8 (and following) devices where the mouse and
-     * touch event may be supported natively by the browser being used. This property is set to `true` only
-     * when both mouse and touch event are natively supported.
+     * **Note:** This property is set to `true` only when both a desktop and a mobile device is detected.
      */
     export const combi: boolean;
 
@@ -36864,6 +36875,10 @@ declare module "sap/ui/Device" {
      * If this flag is set to `true`, the device is recognized as a desktop system.
      *
      * Furthermore, a CSS class `sap-desktop` is added to the document root element.
+     *
+     * **Note:** This flag is by default also true for Safari on iPads running on iOS 13 or higher. The end
+     * user can change this behavior by disabling "Request Desktop Website -> All websites" within the iOS settings.
+     * See also the documentation for {@link sap.ui.Device.system.combi} devices.
      */
     export const desktop: boolean;
 
@@ -36871,6 +36886,10 @@ declare module "sap/ui/Device" {
      * If this flag is set to `true`, the device is recognized as a phone.
      *
      * Furthermore, a CSS class `sap-phone` is added to the document root element.
+     *
+     * **Note:** In case a phone requests a web page as a "Desktop Page", it is possible that all properties
+     * except `Device.system.phone` are set to `true`. In this case it is not possible to differentiate between
+     * tablet and phone relying on the user agent.
      */
     export const phone: boolean;
 
@@ -36879,9 +36898,9 @@ declare module "sap/ui/Device" {
      *
      * Furthermore, a CSS class `sap-tablet` is added to the document root element.
      *
-     * **Note:** This flag is also true for some browsers on desktop devices running on Windows 8 or higher.
-     * Also see the documentation for {@link sap.ui.Device.system.combi} devices. You can use the following
-     * logic to ensure that the current device is a tablet device:
+     * **Note:** This flag is also `true` for some browsers running on desktop devices. See the documentation
+     * for {@link sap.ui.Device.system.combi} devices. You can use the following logic to ensure that the current
+     * device is a tablet device:
      *
      *
      * ```javascript
@@ -38106,15 +38125,18 @@ declare module "sap/ui/model/analytics/odata4analytics" {
      */
     constructor(
       /**
-       * An instance of ReferenceByURI, ReferenceByModel or ReferenceWithWorkaround for locating the OData service.
+       * An instance of {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByModel} or {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceWithWorkaround}
+       * for locating the OData service. {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByURI} is
+       * deprecated.
        */
       oModelReference: object,
       /**
        * Additional parameters for controlling the model construction. Currently supported are:
        * 	 -  sAnnotationJSONDoc - A JSON document providing extra annotations to the elements of the structure
        * 			of the given service
-       * 	 -  modelVersion - Parameter to define which ODataModel version should be used, in you use 'odata4analytics.Model.ReferenceByURI':
-       * 			1 (default), 2 see also: AnalyticalVersionInfo constants
+       * 	 -  modelVersion (deprecated) - Parameter to define which ODataModel version should be used if you use
+       * 			{@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByURI}; supported values are: 1 (default),
+       * 			2
        */
       mParameter?: object
     );
@@ -38967,6 +38989,9 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       );
     }
     /**
+     * @deprecated (since 1.94) - use {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByModel}
+     * instead
+     *
      * Handle to an OData model by the URI pointing to it.
      */
     class ReferenceByURI {
@@ -39001,11 +39026,12 @@ declare module "sap/ui/model/analytics/odata4analytics" {
        */
       constructor(
         /**
-         * holding a reference to the OData model, obtained by odata4analytics.Model.ReferenceByModel or by sap.odata4analytics.Model.ReferenceByURI.
+         * Holds a reference to the OData model, obtained by {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByModel},
+         * or by {@link sap.ui.model.analytics.odata4analytics.Model.ReferenceByURI} which is deprecated.
          */
         oModel: object,
         /**
-         * listing all workarounds to be applied.
+         * All workarounds to be applied.
          */
         aWorkaroundID: string[]
       );
@@ -48550,6 +48576,14 @@ declare module "sap/ui/model/odata/v2/Context" {
      * Returns a metadata object for class sap.ui.model.odata.v2.Context.
      */
     static getMetadata(): Metadata;
+    /**
+     * @SINCE 1.94.0
+     *
+     * For a context created using {@link sap.ui.model.odata.v2.ODataModel#createEntry}, the method returns
+     * `true` if the context is transient or `false` if the context is not transient. A transient context represents
+     * an entity created on the client which has not been persisted in the back end.
+     */
+    isTransient(): boolean;
   }
 }
 
@@ -51939,8 +51973,8 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
       oContext: Context
     ): boolean;
     /**
-     * Initialize binding. Fires a change if data is already available ($expand) or a refresh. If metadata is
-     * not yet available, do nothing, method will be called again when metadata is loaded.
+     * Initializes the binding. Fires a refresh event once initialization is completed in case the binding is
+     * resolved, or immediately in case it is unresolved.
      */
     initialize(): ODataTreeBinding;
     /**
@@ -58855,11 +58889,26 @@ declare module "sap/ui/test/actions/Drag" {
    * sap.ui.test.actions.Drop} action.
    *
    * The `Drag` action targets the DOM focus reference of the control.
-   *
-   * The `Drag` action is not supported in IE11!
    */
   export default class Drag extends Action {
-    constructor();
+    constructor(
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $DragSettings
+    );
+
+    constructor(
+      /**
+       * Optional ID for the new instance; generated automatically if no non-empty ID is given. Note: this can
+       * be omitted, no matter whether `mSettings` are given or not!
+       */
+      sId?: string,
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $DragSettings
+    );
 
     /**
      * Creates a new subclass of class sap.ui.test.actions.Drag with name `sClassName` and enriches it with
@@ -58914,8 +58963,6 @@ declare module "sap/ui/test/actions/Drop" {
    * by specifying its ID suffix. You can do this by directly passing the ID suffix to the Drop constructor,
    * or by defining a control adapter function. You can also set the traget to be the root DOM element of
    * a given aggregation, by specifying the aggregation name in the Drop constructor.
-   *
-   * * The `Drop` action is not supported in IE11!
    */
   export default class Drop extends Action {
     /**
@@ -58923,7 +58970,28 @@ declare module "sap/ui/test/actions/Drop" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      */
-    constructor();
+    constructor(
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $DropSettings
+    );
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Optional ID for the new instance; generated automatically if no non-empty ID is given. Note: this can
+       * be omitted, no matter whether `mSettings` are given or not!
+       */
+      sId?: string,
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $DropSettings
+    );
 
     /**
      * Creates a new subclass of class sap.ui.test.actions.Drop with name `sClassName` and enriches it with
@@ -59070,7 +59138,28 @@ declare module "sap/ui/test/actions/EnterText" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      */
-    constructor();
+    constructor(
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $EnterTextSettings
+    );
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Optional ID for the new instance; generated automatically if no non-empty ID is given. Note: this can
+       * be omitted, no matter whether `mSettings` are given or not!
+       */
+      sId?: string,
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $EnterTextSettings
+    );
 
     /**
      * Creates a new subclass of class sap.ui.test.actions.EnterText with name `sClassName` and enriches it
@@ -59250,7 +59339,24 @@ declare module "sap/ui/test/actions/Press" {
    * see {@link sap.ui.test.actions.Press.controlAdapters}.
    */
   export default class Press extends Action {
-    constructor();
+    constructor(
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $PressSettings
+    );
+
+    constructor(
+      /**
+       * Optional ID for the new instance; generated automatically if no non-empty ID is given. Note: this can
+       * be omitted, no matter whether `mSettings` are given or not!
+       */
+      sId?: string,
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $PressSettings
+    );
 
     /**
      * Creates a new subclass of class sap.ui.test.actions.Press with name `sClassName` and enriches it with
@@ -59315,7 +59421,28 @@ declare module "sap/ui/test/actions/Scroll" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      */
-    constructor();
+    constructor(
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $ScrollSettings
+    );
+    /**
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Optional ID for the new instance; generated automatically if no non-empty ID is given. Note: this can
+       * be omitted, no matter whether `mSettings` are given or not!
+       */
+      sId?: string,
+      /**
+       * Optional object with initial settings for the new instance
+       */
+      mSettings?: $ScrollSettings
+    );
 
     /**
      * Creates a new subclass of class sap.ui.test.actions.Scroll with name `sClassName` and enriches it with
@@ -67104,11 +67231,13 @@ declare namespace sap {
       /**
        * Provides a basic categorization of the used device based on various indicators.
        *
-       * These indicators are for example the support of touch events, the screen size, the used operation system
-       * or the user agent of the browser.
+       * These indicators are, for example, the support of touch events, the used operating system, and the user
+       * agent of the browser.
        *
-       * **Note:** Depending on the capabilities of the device it is also possible that multiple flags are set
-       * to `true`.
+       * **Note:** There is no easy way to precisely determine the used device from the information provided by
+       * the browser. We therefore rely especially on the user agent. In combination with given device capabilities,
+       * it is therefore possible that multiple flags are set to `true`. This is mostly the case for desktop devices
+       * with touch capability, and for mobile devices requesting web pages as desktop pages.
        */
       namespace system {
         /**
@@ -67116,9 +67245,7 @@ declare namespace sap {
          *
          * Furthermore, a CSS class `sap-combi` is added to the document root element.
          *
-         * **Note:** This property is mainly for Microsoft Windows 8 (and following) devices where the mouse and
-         * touch event may be supported natively by the browser being used. This property is set to `true` only
-         * when both mouse and touch event are natively supported.
+         * **Note:** This property is set to `true` only when both a desktop and a mobile device is detected.
          */
         export const combi: boolean;
 
@@ -67126,6 +67253,10 @@ declare namespace sap {
          * If this flag is set to `true`, the device is recognized as a desktop system.
          *
          * Furthermore, a CSS class `sap-desktop` is added to the document root element.
+         *
+         * **Note:** This flag is by default also true for Safari on iPads running on iOS 13 or higher. The end
+         * user can change this behavior by disabling "Request Desktop Website -> All websites" within the iOS settings.
+         * See also the documentation for {@link sap.ui.Device.system.combi} devices.
          */
         export const desktop: boolean;
 
@@ -67133,6 +67264,10 @@ declare namespace sap {
          * If this flag is set to `true`, the device is recognized as a phone.
          *
          * Furthermore, a CSS class `sap-phone` is added to the document root element.
+         *
+         * **Note:** In case a phone requests a web page as a "Desktop Page", it is possible that all properties
+         * except `Device.system.phone` are set to `true`. In this case it is not possible to differentiate between
+         * tablet and phone relying on the user agent.
          */
         export const phone: boolean;
 
@@ -67141,9 +67276,9 @@ declare namespace sap {
          *
          * Furthermore, a CSS class `sap-tablet` is added to the document root element.
          *
-         * **Note:** This flag is also true for some browsers on desktop devices running on Windows 8 or higher.
-         * Also see the documentation for {@link sap.ui.Device.system.combi} devices. You can use the following
-         * logic to ensure that the current device is a tablet device:
+         * **Note:** This flag is also `true` for some browsers running on desktop devices. See the documentation
+         * for {@link sap.ui.Device.system.combi} devices. You can use the following logic to ensure that the current
+         * device is a tablet device:
          *
          *
          * ```javascript
@@ -67210,6 +67345,8 @@ declare namespace sap {
     "sap/base/strings/formatMessage": undefined;
 
     "sap/base/strings/hyphenate": undefined;
+
+    "sap/base/strings/whitespaceReplacer": undefined;
 
     "sap/base/util/array/diff": undefined;
 

@@ -12,6 +12,8 @@ import Tab from 'bootstrap/js/dist/tab';
 import Toast from 'bootstrap/js/dist/toast';
 import Tooltip from 'bootstrap/js/dist/tooltip';
 
+declare const relatedTarget: HTMLElement;
+
 // $ExpectType typeof Alert
 Alert;
 Alert.getInstance('#alert'); // $ExpectType Alert | null
@@ -34,9 +36,19 @@ Dropdown.getInstance('#dropdown'); // $ExpectType Dropdown | null
 // $ExpectType typeof Modal
 Modal;
 Modal.getInstance('#modal'); // $ExpectType Modal | null
+Modal.getInstance('#modal')!.toggle(); // $ExpectType void
+Modal.getInstance('#modal')!.toggle(relatedTarget); // $ExpectType void
+Modal.getInstance('#modal')!.show(); // $ExpectType void
+Modal.getInstance('#modal')!.show(relatedTarget); // $ExpectType void
+
 // $ExpectType typeof Offcanvas
 Offcanvas;
 Offcanvas.getInstance('#offcanvas'); // $ExpectType Offcanvas | null
+Offcanvas.getInstance('#offcanvas')?.toggle();
+Offcanvas.getInstance('#offcanvas')?.toggle(relatedTarget);
+Offcanvas.getInstance('#offcanvas')?.show();
+Offcanvas.getInstance('#offcanvas')?.show(relatedTarget);
+
 // $ExpectType typeof Popover
 Popover;
 Popover.getInstance('#popover'); // $ExpectType Popover | null

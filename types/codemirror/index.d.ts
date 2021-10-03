@@ -1650,6 +1650,12 @@ declare namespace CodeMirror {
          * Get the string between the start of the current token and the current stream position.
          */
         current(): string;
+
+        /**
+         * Returns the content of the line n lines ahead in the stream without
+         * advancing it. Will return undefined if not found.
+         */
+        lookAhead(n: number): string | undefined;
     }
 
     /**

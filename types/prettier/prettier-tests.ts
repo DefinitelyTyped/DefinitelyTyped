@@ -75,6 +75,10 @@ prettier.clearConfigCache();
 const currentSupportInfo = prettier.getSupportInfo();
 
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
+// $ExpectError
+prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeStart: 2 });
+// $ExpectError
+prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeEnd: 2 });
 
 prettierStandalone.format(' 1', { parser: 'babel' });
 prettierStandalone.check(' console.log(b)');
@@ -226,8 +230,20 @@ const plugin: prettier.Plugin<PluginAST> = {
             since: '1.0.0',
             type: 'path',
             category: 'Test',
-        }
+        },
     },
 };
 
 prettier.format('a line!', { parser: 'lines', plugins: [plugin] });
+
+prettier.format('pluginSearchDir is empty', {
+    pluginSearchDirs: [],
+});
+
+prettier.format('pluginSearchDir is not empty', {
+    pluginSearchDirs: ['/a', '/b'],
+});
+
+prettier.format('pluginSearchDir is not empty and mixed with weird stuff', {
+    pluginSearchDirs: ['c', 'd', ''],
+});
