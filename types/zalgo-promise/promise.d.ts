@@ -33,9 +33,9 @@ export class ZalgoPromise<R> {
     static resolve<X>(value: ZalgoPromise<X>): ZalgoPromise<X>;
     static resolve<Y>(value: Y): ZalgoPromise<Y>;
 
-    static reject<R>(error: any): ZalgoPromise<R>;
+    static reject(error: any): ZalgoPromise<any>;
 
-    static asyncReject<R>(error: any): ZalgoPromise<R>;
+    static asyncReject(error: any): ZalgoPromise<any>;
 
     static all<X extends readonly any[]>(promises: X): ZalgoPromise<FlattenPromises<X>>;
 
@@ -45,8 +45,8 @@ export class ZalgoPromise<R> {
 
     static onPossiblyUnhandledException(handler: (err: any) => void): {cancel: () => void};
 
-    static try<X, C, A extends readonly any[]>(method: (...args: A) => ZalgoPromise<X>, context?: C, args?: Partial<A>): ZalgoPromise<X>;
-    static try<Y, C, A extends readonly any[]>(method: (...args: A) => Y, context?: C, args?: Partial<A>): ZalgoPromise<Y>;
+    static try<X, A extends readonly any[]>(method: (...args: A) => ZalgoPromise<X>, context?: any, args?: Partial<A>): ZalgoPromise<X>;
+    static try<Y, A extends readonly any[]>(method: (...args: A) => Y, context?: any, args?: Partial<A>): ZalgoPromise<Y>;
 
     static delay(delay: number): ZalgoPromise<void>;
 
