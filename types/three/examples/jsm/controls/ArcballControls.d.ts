@@ -100,7 +100,7 @@ export class ArcballControls extends Object3D {
      */
     maxZoom: number;
 
-    constructor(camera: Camera, domElement: HTMLElement, scene?: Scene | null | undefined);
+    constructor(camera: Camera, domElement: HTMLElement, scene?: Scene | null);
 
     dispose(): void;
 }
