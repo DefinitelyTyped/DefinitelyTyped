@@ -496,12 +496,7 @@ declare namespace React {
         forceUpdate(callback?: () => void): void;
         render(): ReactNode;
 
-        // React.Props<T> is now deprecated, which means that the `children`
-        // property is not available on `P` by default, even though you can
-        // always pass children as variadic arguments to `createElement`.
-        // In the future, if we can define its call signature conditionally
-        // on the existence of `children` in `P`, then we should remove this.
-        readonly props: Readonly<P> & Readonly<{ children?: ReactNode | undefined }>;
+        readonly props: Readonly<P>;
         state: Readonly<S>;
         /**
          * @deprecated
@@ -547,7 +542,7 @@ declare namespace React {
     type FC<P = {}> = FunctionComponent<P>;
 
     interface FunctionComponent<P = {}> {
-        (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+        (props: P, context?: any): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
         defaultProps?: Partial<P> | undefined;
@@ -567,7 +562,7 @@ declare namespace React {
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
+        (props: P, ref: ForwardedRef<T>): ReactElement | null;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -861,7 +856,7 @@ declare namespace React {
 
     function memo<P extends object>(
         Component: FunctionComponent<P>,
-        propsAreEqual?: (prevProps: Readonly<PropsWithChildren<P>>, nextProps: Readonly<PropsWithChildren<P>>) => boolean
+        propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean
     ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,

@@ -13,15 +13,9 @@ FunctionComponent.defaultProps = {
 };
 <FunctionComponent />;
 <slot name="slot1"></slot>;
-
-const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
-    return <div>{foo}{children}</div>;
-};
-FunctionComponent2.displayName = "FunctionComponent4";
-FunctionComponent2.defaultProps = {
-    foo: 42
-};
-<FunctionComponent2>24</FunctionComponent2>;
+// `FunctionComponent` has no `children`
+// $ExpectError
+<FunctionComponent>24</FunctionComponent>;
 
 const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
@@ -256,8 +250,8 @@ const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDiv
 <Memoized4 ref={memoized4Ref}/>;
 
 const Memoized5 = React.memo<{ test: boolean }>(
-    prop => <>{prop.test && prop.children}</>,
-    (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test
+    prop => <>{prop.test}</>,
+    (prevProps, nextProps) => nextProps.test === prevProps.test
 );
 
 <Memoized5 test/>;

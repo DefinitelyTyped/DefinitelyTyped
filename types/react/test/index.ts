@@ -227,16 +227,6 @@ LegacyStatelessComponent2.defaultProps = {
     foo: 42
 };
 
-const FunctionComponent3: React.FunctionComponent<SCProps> =
-    // allows usage of props.children
-    // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
-
-const LegacyStatelessComponent3: React.SFC<SCProps> =
-    // allows usage of props.children
-    // allows null return
-    props => props.foo ? DOM.div(null, props.foo, props.children) : null;
-
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 
@@ -768,7 +758,7 @@ declare var x: React.DOMElement<{
 }, Element>;
 
 // React 16 should be able to render its children directly
-class RenderChildren extends React.Component {
+class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     render() {
         const { children } = this.props;
         return children !== undefined ? children : null;
