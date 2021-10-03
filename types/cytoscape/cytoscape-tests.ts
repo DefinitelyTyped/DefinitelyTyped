@@ -131,6 +131,15 @@ const cy = cytoscape({
   layout: {
     name: 'preset',
     padding: 5
+  },
+
+  // additional custom graph data:
+  data: {
+    foo: "bar",
+    meta: {
+      description: "desc",
+      title: "title"
+    }
   }
 });
 
@@ -456,6 +465,23 @@ eles.restore();
 ]).forEach((elemType) => {
   aliases(elemType.data, elemType.attr);
 });
+
+// #core/data
+aliases(cy.removeData, cy.removeAttr);
+aliases(cy.data, cy.attr);
+
+cy.data();
+// $ExpectType Core
+cy.data("title", "test");
+// $ExpectType Core
+cy.data({cytoscape: "graph", core: "data"});
+cy.data("title");
+cy.data("data");
+// $ExpectType Core
+cy.removeData("cytoscape core");
+// $ExpectType Core
+cy.removeData();
+
 // TODO: tests for data flow
 
 const loops = oneOf(true, false);
