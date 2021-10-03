@@ -3,8 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "dom",
-            "esnext.bigint"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

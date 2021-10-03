@@ -5,6 +5,7 @@
 //                 Axel Bocciarelli <https://github.com/axelboc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+/// <reference lib="esnext.bigint" />
 
 declare function ndarray<D extends ndarray.Data = ndarray.Data<number>>(
     data: D,
