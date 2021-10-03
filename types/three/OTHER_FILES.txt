@@ -222,6 +222,7 @@ examples/jsm/shaders/BrightnessContrastShader.d.ts
 examples/jsm/shaders/ColorCorrectionShader.d.ts
 examples/jsm/shaders/ColorifyShader.d.ts
 examples/jsm/shaders/ConvolutionShader.d.ts
+examples/jsm/shaders/CopyShader.d.ts
 examples/jsm/shaders/DepthLimitedBlurShader.d.ts
 examples/jsm/shaders/DigitalGlitch.d.ts
 examples/jsm/shaders/DOFMipMapShader.d.ts
