@@ -276,7 +276,8 @@ describe('promise method cases', () => {
     });
 
     it('should work with a conditional promise returning method passed to promise.try', () => {
-        const value: string = 'foobar';
+        let value: string;
+        value = 'foobar';
 
         return ZalgoPromise.try(() => {
             if (value === 'foobar') {
@@ -290,7 +291,8 @@ describe('promise method cases', () => {
     });
 
     it('should work with a conditional promise returning method passed to promise.try, with an inner promise.try', () => {
-        const value: string = 'foobar';
+        let value: string;
+        value = 'foobar';
 
         return ZalgoPromise.try(() => {
             if (value === 'foobar') {
@@ -306,7 +308,8 @@ describe('promise method cases', () => {
     });
 
     it('should work with a conditional promise returning method passed to promise.try, calling an external function', () => {
-        const value: string = 'foobar';
+        let value: string;
+        value = 'foobar';
 
         function getValue(): ZalgoPromise<string> {
             return ZalgoPromise.try(() => {
