@@ -730,9 +730,9 @@ describe('reject cases', () => {
         const listener = ZalgoPromise.onPossiblyUnhandledException(err => {
             listener.cancel();
             if (!(err instanceof Error)) {
-                return done(new Error(`Expected error to be thrown`));
+                done(new Error(`Expected error to be thrown`));
             }
-            return done();
+            done();
         });
 
         ZalgoPromise.reject(new Error('foobar'));
@@ -755,9 +755,9 @@ describe('reject cases', () => {
         setTimeout(() => {
             listener.cancel();
             if (onPossiblyUnhandledExceptionCalled) {
-                return done(new Error(`Expected onPossiblyUnhandledException handler to not be called`));
+                done(new Error(`Expected onPossiblyUnhandledException handler to not be called`));
             }
-            return done();
+            done();
         }, 100);
     });
 
@@ -808,9 +808,9 @@ describe('reject cases', () => {
         setTimeout(() => {
             listener.cancel();
             if (handlerCalled !== 1) {
-                return done(new Error(`Expected handler to be called 1 time, got ${ handlerCalled }`));
+                done(new Error(`Expected handler to be called 1 time, got ${ handlerCalled }`));
             }
-            return done();
+            done();
         }, 50);
     });
 
@@ -838,9 +838,9 @@ describe('reject cases', () => {
             setTimeout(() => {
                 listener.cancel();
                 if (onPossiblyUnhandledExceptionCalled) {
-                    return done(new Error(`Expected onPossiblyUnhandledException handler to not be called`));
+                    done(new Error(`Expected onPossiblyUnhandledException handler to not be called`));
                 }
-                return done();
+                done();
             }, 100);
         }, 100);
     });
