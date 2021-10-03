@@ -13,7 +13,7 @@ export class ZalgoPromise<R> {
 
     asyncReject(error: any): this;
 
-    dispatch();
+    dispatch(): void;
 
     then<X>(onSuccess?: (result: R) => ZalgoPromise<X>, onError?: (error: any) => ZalgoPromise<X>): ZalgoPromise<X>;
     then<Y>(onSuccess?: (result: R) => Y, onError?: (error: any) => Y): ZalgoPromise<Y>;
