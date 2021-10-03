@@ -30,6 +30,7 @@ export class ZalgoPromise<R> {
 
     lazy(): this;
 
+    static resolve(): ZalgoPromise<void>;
     static resolve<X>(value: ZalgoPromise<X>): ZalgoPromise<X>;
     static resolve<Y>(value: Y): ZalgoPromise<Y>;
 
