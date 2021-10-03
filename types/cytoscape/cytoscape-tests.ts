@@ -2,7 +2,7 @@
 
 // TODO: document all aliases as aliases, not as duplicates!
 
-import { EdgeSingular, NodeSingular } from "cytoscape";
+import { EdgeSingular, NodeSingular } from 'cytoscape';
 
 const assert = (tag: boolean) => {};
 const aliases = (...obj: Array<{}>) => {};
@@ -13,150 +13,145 @@ function oneOf<A, B, C, D>(a: A, b: B, c: C, d: D): A | B | C | D;
 function oneOf<A, B, C>(a: A, b: B, c: C): A | B | C;
 function oneOf<A, B>(a: A, b: B): A | B;
 function oneOf<T>(...array: T[]): T {
-  return array[0];
+    return array[0];
 }
 
 import cytoscape = require('cytoscape');
 const parentCSS = {
-  'padding-top': '10px',
-  'padding-left': '10px',
-  'padding-bottom': '10px',
-  'padding-right': '10px',
-  'text-valign': 'top' as 'top',
-  'text-halign': 'center' as 'center',
-  'background-color': '#CCC',
-  'font-size': 40,
-  'min-zoomed-font-size': 15
+    'padding-top': '10px',
+    'padding-left': '10px',
+    'padding-bottom': '10px',
+    'padding-right': '10px',
+    'text-valign': 'top' as 'top',
+    'text-halign': 'center' as 'center',
+    'background-color': '#CCC',
+    'font-size': 40,
+    'min-zoomed-font-size': 15,
 };
 
 const showAllStyle: cytoscape.Stylesheet[] = [
-  {
-    selector: 'node',
-    css: {
-      display: 'element',
-      content: 'data(id)',
-      'text-valign': 'center',
-      'text-halign': 'center',
-      shape: 'rectangle',
-      'min-zoomed-font-size': 20,
-      opacity: 1,
-      width: 'mapData(weight, 40, 80, 20, 60)',
-      'transition-property': "opacity",
-      'transition-duration': 500,
-      'transition-delay': 500
-    }
-  },
-  {
-    selector: '$node > node',
-    css: parentCSS
-  },
-  {
-    selector: 'edge',
-    css: {
-      'text-rotation': 'autorotate',
-      'target-arrow-shape': 'triangle',
-      'curve-style': 'taxi',
-      'source-endpoint': 'outside-to-node',
-      'target-endpoint': 'outside-to-node'
-    }
-  },
-  {
-    selector: ':selected',
-    css: {
-      'background-color': 'black',
-      'line-color': 'black',
-      'target-arrow-color': 'black',
-      'source-arrow-color': 'black'
-    }
-  },
-  {
-    selector: 'node.lesstext',
-    style: {
-      label: 'data(name)',
-      'text-wrap': 'ellipsis',
-      'text-max-width': '200',
-    }
-  }
+    {
+        selector: 'node',
+        css: {
+            display: 'element',
+            content: 'data(id)',
+            'text-valign': 'center',
+            'text-halign': 'center',
+            shape: 'rectangle',
+            'min-zoomed-font-size': 20,
+            opacity: 1,
+            width: 'mapData(weight, 40, 80, 20, 60)',
+            'transition-property': 'opacity',
+            'transition-duration': 500,
+            'transition-delay': 500,
+        },
+    },
+    {
+        selector: '$node > node',
+        css: parentCSS,
+    },
+    {
+        selector: 'edge',
+        css: {
+            'text-rotation': 'autorotate',
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'taxi',
+            'source-endpoint': 'outside-to-node',
+            'target-endpoint': 'outside-to-node',
+        },
+    },
+    {
+        selector: ':selected',
+        css: {
+            'background-color': 'black',
+            'line-color': 'black',
+            'target-arrow-color': 'black',
+            'source-arrow-color': 'black',
+        },
+    },
+    {
+        selector: 'node.lesstext',
+        style: {
+            label: 'data(name)',
+            'text-wrap': 'ellipsis',
+            'text-max-width': '200',
+        },
+    },
 ];
 
 const cy = cytoscape({
-  container: document.getElementById('cy'),
+    container: document.getElementById('cy'),
 
-  boxSelectionEnabled: false,
-  autounselectify: true,
+    boxSelectionEnabled: false,
+    autounselectify: true,
 
-  style: showAllStyle,
+    style: showAllStyle,
 
-  elements: {
-    nodes: [
-      { data: { id: 'a', parent: 'b' }, position: { x: 215, y: 85 } },
-      { data: { id: 'b' } },
-      { data: { id: 'c', parent: 'b' }, position: { x: 300, y: 85 } },
-      { data: { id: 'd' }, position: { x: 215, y: 175 } },
-      { data: { id: 'e' } },
-      { data: { id: 'f', parent: 'e' }, position: { x: 300, y: 175 } }
-    ],
-    edges: [
-      { data: { id: 'ad', source: 'a', target: 'd' } },
-      { data: { id: 'eb', source: 'e', target: 'b' } }
-    ]
-  },
+    elements: {
+        nodes: [
+            { data: { id: 'a', parent: 'b' }, position: { x: 215, y: 85 } },
+            { data: { id: 'b' } },
+            { data: { id: 'c', parent: 'b' }, position: { x: 300, y: 85 } },
+            { data: { id: 'd' }, position: { x: 215, y: 175 } },
+            { data: { id: 'e' } },
+            { data: { id: 'f', parent: 'e' }, position: { x: 300, y: 175 } },
+        ],
+        edges: [{ data: { id: 'ad', source: 'a', target: 'd' } }, { data: { id: 'eb', source: 'e', target: 'b' } }],
+    },
 
-  // initial viewport state:
-  zoom: 1,
-  pan: { x: 0, y: 0 },
+    // initial viewport state:
+    zoom: 1,
+    pan: { x: 0, y: 0 },
 
-  // interaction options:
-  minZoom: 1e-50,
-  maxZoom: 1e50,
-  zoomingEnabled: true,
-  userZoomingEnabled: true,
-  panningEnabled: true,
-  userPanningEnabled: true,
-  selectionType: 'single',
-  touchTapThreshold: 8,
-  desktopTapThreshold: 4,
-  autolock: false,
-  autoungrabify: false,
+    // interaction options:
+    minZoom: 1e-50,
+    maxZoom: 1e50,
+    zoomingEnabled: true,
+    userZoomingEnabled: true,
+    panningEnabled: true,
+    userPanningEnabled: true,
+    selectionType: 'single',
+    touchTapThreshold: 8,
+    desktopTapThreshold: 4,
+    autolock: false,
+    autoungrabify: false,
 
-  // rendering options:
-  headless: false,
-  styleEnabled: true,
-  hideEdgesOnViewport: false,
-  hideLabelsOnViewport: false,
-  textureOnViewport: false,
-  motionBlur: false,
-  motionBlurOpacity: 0.2,
-  wheelSensitivity: 1,
-  pixelRatio: 'auto',
+    // rendering options:
+    headless: false,
+    styleEnabled: true,
+    hideEdgesOnViewport: false,
+    hideLabelsOnViewport: false,
+    textureOnViewport: false,
+    motionBlur: false,
+    motionBlurOpacity: 0.2,
+    wheelSensitivity: 1,
+    pixelRatio: 'auto',
 
-  layout: {
-    name: 'preset',
-    padding: 5
-  },
+    layout: {
+        name: 'preset',
+        padding: 5,
+    },
 
-  // additional custom graph data:
-  data: {
-    foo: "bar",
-    meta: {
-      description: "desc",
-      title: "title"
-    }
-  }
+    // additional custom graph data:
+    data: {
+        foo: 'bar',
+        meta: {
+            description: 'desc',
+            title: 'title',
+        },
+    },
 });
 
-cy.on('zoom', (event) => {
-  if (cy.zoom() <= 1) {
-    cy.nodes('$node > node').style('opacity', 0);
-  }
+cy.on('zoom', event => {
+    if (cy.zoom() <= 1) {
+        cy.nodes('$node > node').style('opacity', 0);
+    }
 });
 cy.off('zoom');
 // events(cy); - TODO
 
-cy.add({ data: { id: 'g', someOtherKey: 'value' }, position: {x: 200, y: 150} });
-cy.add([
-  { data: { id: 'h' }, position: {x: 250, y: 100} }
-]);
+cy.add({ data: { id: 'g', someOtherKey: 'value' }, position: { x: 200, y: 150 } });
+cy.add([{ data: { id: 'h' }, position: { x: 250, y: 100 } }]);
 const nodesBeforeDelete = cy.nodes();
 const edgesBeforeDelete = cy.edges();
 
@@ -183,31 +178,31 @@ aliases(cy.center, cy.centre);
 
 cy.fit(cy.$('#a #b #h'));
 
-const {x1, y1, x2, y2, w, h} = cy.extent();
+const { x1, y1, x2, y2, w, h } = cy.extent();
 
 aliases(cy.resize, cy.invalidateDimensions);
 
 cy.animate({
-  fit: {
-    padding: 10,
-    eles: cy.nodes()
-  },
-  duration: 500
+    fit: {
+        padding: 10,
+        eles: cy.nodes(),
+    },
+    duration: 500,
 });
 
 cy.animate({
-  center: {eles: cy.nodes()[0]},
-  duration: 500
+    center: { eles: cy.nodes()[0] },
+    duration: 500,
 });
 
 const anim = cy.animation({
-  zoom: {
-    level: 1,
-    position: {x: 0, y: 0}
-  },
-  pan: {x: 100, y: 100},
-  duration: 100,
-  easing: 'ease'
+    zoom: {
+        level: 1,
+        position: { x: 0, y: 0 },
+    },
+    pan: { x: 100, y: 100 },
+    duration: 100,
+    easing: 'ease',
 });
 cy.stop(true, true);
 anim.play();
@@ -219,8 +214,11 @@ anim.stop();
 aliases(cy.layout, cy.createLayout, cy.makeLayout);
 
 // Preconfigured data for layouts (as it could be passed)
-const boundingBox = oneOf({x1: 0, x2: 100, y1: 0, y2: 100}, {x1: 0, w: 100, y1: 0, h: 100});
-const positions = oneOf({a: {x: 100, y: 100}}, (node: cytoscape.NodeCollection): cytoscape.Position => ({x: 100, y: 100}));
+const boundingBox = oneOf({ x1: 0, x2: 100, y1: 0, y2: 100 }, { x1: 0, w: 100, y1: 0, h: 100 });
+const positions = oneOf(
+    { a: { x: 100, y: 100 } },
+    (node: cytoscape.NodeCollection): cytoscape.Position => ({ x: 100, y: 100 }),
+);
 
 // TODO: uncomment after we have the way to add layout options properties from extensions
 // const layouts = [
@@ -374,62 +372,62 @@ cy.style([cy.style()]);
 
 // $ExpectType string
 cy.png({
-  output: oneOf('base64uri', 'base64', undefined),
-  bg: oneOf('#ffffff', undefined),
-  full: true,
-  scale: 2,
-  maxWidth: 100,
-  maxHeight: 100
+    output: oneOf('base64uri', 'base64', undefined),
+    bg: oneOf('#ffffff', undefined),
+    full: true,
+    scale: 2,
+    maxWidth: 100,
+    maxHeight: 100,
 });
 // $ExpectType Blob
 cy.png({
-  output: 'blob',
-  bg: oneOf('#ffffff', undefined),
-  full: true,
-  scale: 2,
-  maxWidth: 100,
-  maxHeight: 100
+    output: 'blob',
+    bg: oneOf('#ffffff', undefined),
+    full: true,
+    scale: 2,
+    maxWidth: 100,
+    maxHeight: 100,
 });
 // $ExpectType Promise<Blob>
 cy.png({
-  output: 'blob-promise',
-  bg: oneOf('#ffffff', undefined),
-  full: true,
-  scale: 2,
-  maxWidth: 100,
-  maxHeight: 100
+    output: 'blob-promise',
+    bg: oneOf('#ffffff', undefined),
+    full: true,
+    scale: 2,
+    maxWidth: 100,
+    maxHeight: 100,
 });
 
 aliases(cy.jpg, cy.jpeg);
 // $ExpectType string
 cy.jpg({
-  output: oneOf('base64uri', 'base64', undefined),
-  bg: oneOf('#ffffff', undefined),
-  full: true,
-  scale: 2,
-  maxWidth: 100,
-  maxHeight: 100,
-  quality: 0.5
+    output: oneOf('base64uri', 'base64', undefined),
+    bg: oneOf('#ffffff', undefined),
+    full: true,
+    scale: 2,
+    maxWidth: 100,
+    maxHeight: 100,
+    quality: 0.5,
 });
 // $ExpectType Blob
 cy.jpg({
-  output: 'blob',
-  bg: oneOf('#ffffff', undefined),
-  full: true,
-  scale: 2,
-  maxWidth: 100,
-  maxHeight: 100,
-  quality: 0.5
+    output: 'blob',
+    bg: oneOf('#ffffff', undefined),
+    full: true,
+    scale: 2,
+    maxWidth: 100,
+    maxHeight: 100,
+    quality: 0.5,
 });
 // $ExpectType Promise<Blob>
 cy.jpg({
-  output: 'blob-promise',
-  bg: oneOf('#ffffff', undefined),
-  full: true,
-  scale: 2,
-  maxWidth: 100,
-  maxHeight: 100,
-  quality: 0.5
+    output: 'blob-promise',
+    bg: oneOf('#ffffff', undefined),
+    full: true,
+    scale: 2,
+    maxWidth: 100,
+    maxHeight: 100,
+    quality: 0.5,
 });
 
 cy.json(cy.json());
@@ -448,25 +446,25 @@ assert(eles.removed());
 assert(!eles.inside());
 eles.restore();
 
-([ele, eles, node, nodes, edge, edges] as [
-  cytoscape.SingularElementReturnValue,
-  cytoscape.CollectionReturnValue,
-  cytoscape.NodeSingular,
-  cytoscape.NodeCollection,
-  cytoscape.EdgeSingular,
-  cytoscape.EdgeCollection
-]).forEach((elemType) => {
-  aliases(elemType.clone, elemType.copy);
-  // events(elemType); - TODO
-  aliases(elemType.removeData, elemType.removeAttr);
+(
+    [ele, eles, node, nodes, edge, edges] as [
+        cytoscape.SingularElementReturnValue,
+        cytoscape.CollectionReturnValue,
+        cytoscape.NodeSingular,
+        cytoscape.NodeCollection,
+        cytoscape.EdgeSingular,
+        cytoscape.EdgeCollection,
+    ]
+).forEach(elemType => {
+    aliases(elemType.clone, elemType.copy);
+    // events(elemType); - TODO
+    aliases(elemType.removeData, elemType.removeAttr);
 });
-([ele, node, edge] as [
-  cytoscape.SingularElementReturnValue,
-  cytoscape.NodeSingular,
-  cytoscape.EdgeSingular
-]).forEach((elemType) => {
-  aliases(elemType.data, elemType.attr);
-});
+([ele, node, edge] as [cytoscape.SingularElementReturnValue, cytoscape.NodeSingular, cytoscape.EdgeSingular]).forEach(
+    elemType => {
+        aliases(elemType.data, elemType.attr);
+    },
+);
 
 // #core/data
 aliases(cy.removeData, cy.removeAttr);
@@ -474,39 +472,46 @@ aliases(cy.data, cy.attr);
 
 cy.data();
 // $ExpectType Core
-cy.data("title", "test");
+cy.data('title', 'test');
 // $ExpectType Core
-cy.data({cytoscape: "graph", core: "data"});
-cy.data("title");
-cy.data("data");
+cy.data({ cytoscape: 'graph', core: 'data' });
+cy.data('title');
+cy.data('data');
 // $ExpectType Core
-cy.removeData("cytoscape core");
+cy.removeData('cytoscape core');
 // $ExpectType Core
 cy.removeData();
 
 // TODO: tests for data flow
 
 const loops = oneOf(true, false);
-node.degree(loops); node.indegree(loops); node.outdegree(loops);
-nodes.totalDegree(loops); nodes.minDegree(loops); nodes.maxDegree(loops);
-nodes.minIndegree(loops); nodes.maxIndegree(loops); nodes.minOutdegree(loops); nodes.maxOutdegree(loops);
+node.degree(loops);
+node.indegree(loops);
+node.outdegree(loops);
+nodes.totalDegree(loops);
+nodes.minDegree(loops);
+nodes.maxDegree(loops);
+nodes.minIndegree(loops);
+nodes.maxIndegree(loops);
+nodes.minOutdegree(loops);
+nodes.maxOutdegree(loops);
 
 // tslint:disable-next-line:ban-types
 const getsetPos = <T extends Function>(func: T): T => {
-  func('x', func('x'));
-  func(func());
-  func({x: 100, y: 100});
-  return func;
+    func('x', func('x'));
+    func(func());
+    func({ x: 100, y: 100 });
+    return func;
 };
 
 aliases(node.modelPosition, node.point, node.position);
 getsetPos(node.position);
 
 nodes.shift('x', 100);
-nodes.shift({x: -100, y: 0});
+nodes.shift({ x: -100, y: 0 });
 
 aliases(nodes.modelPositions, nodes.positions, nodes.points);
-nodes.positions((node, i) => Object.assign(node.position(), {x: node.position('x') + i}));
+nodes.positions((node, i) => Object.assign(node.position(), { x: node.position('x') + i }));
 
 aliases(node.renderedPosition, node.renderedPoint);
 getsetPos(node.renderedPoint);
@@ -514,31 +519,41 @@ getsetPos(node.renderedPoint);
 // TODO: tests for compound nodes (relativePosition, in particular)
 
 const sizes: number[] = [
-  ele.width(), ele.outerWidth(), ele.renderedWidth(), ele.renderedOuterWidth(),
-  ele.height(), ele.outerHeight(), ele.renderedHeight(), ele.renderedOuterHeight()
+    ele.width(),
+    ele.outerWidth(),
+    ele.renderedWidth(),
+    ele.renderedOuterWidth(),
+    ele.height(),
+    ele.outerHeight(),
+    ele.renderedHeight(),
+    ele.renderedOuterHeight(),
 ];
 
 aliases(eles.boundingBox, eles.boundingbox);
 aliases(eles.renderedBoundingBox, eles.renderedBoundingbox);
 
-const flags: boolean[] = [
-  node.grabbed(), node.grabbable(), node.locked(), ele.active(),
-];
-nodes.lock(); node.lock();
-nodes.unlock(); node.unlock();
+const flags: boolean[] = [node.grabbed(), node.grabbable(), node.locked(), ele.active()];
+nodes.lock();
+node.lock();
+nodes.unlock();
+node.unlock();
 
 const edgePoints: cytoscape.Position[] = [
-  ...edge.controlPoints(), ...edge.segmentPoints(), edge.sourceEndpoint(), edge.targetEndpoint(), edge.midpoint()
+    ...edge.controlPoints(),
+    ...edge.segmentPoints(),
+    edge.sourceEndpoint(),
+    edge.targetEndpoint(),
+    edge.midpoint(),
 ];
 
 aliases(eles.layout, eles.createLayout, eles.makeLayout);
-const layout = eles.layout({name: 'random'}).run();
+const layout = eles.layout({ name: 'random' }).run();
 
 layout.on('layoutstop', () => {
-  cy.fit();
+    cy.fit();
 });
-layout.on('layoutstop', {}, (obj) => {
-  console.log(obj);
+layout.on('layoutstop', {}, obj => {
+    console.log(obj);
 });
 
 eles.select();
@@ -562,38 +577,41 @@ eles.style(eles.style());
 aliases(eles.style, eles.css);
 aliases(ele.renderedCss, ele.renderedStyle);
 
-nodes.forEach((child) => {
-  child.animate({
-    position: node.position(),
-    duration: 300,
-    complete: () => {
-      console.log(child.id());
-    }
-  });
+nodes.forEach(child => {
+    child.animate({
+        position: node.position(),
+        duration: 300,
+        complete: () => {
+            console.log(child.id());
+        },
+    });
 });
 
 // position is not required for an animation
-nodes.forEach((child) => {
-  child.animate({
-    style: {
-      backgroundColor: '#f185dc',
-      width: '30px',
-      height: '30px'
-    },
-    duration: 300
-  });
+nodes.forEach(child => {
+    child.animate({
+        style: {
+            backgroundColor: '#f185dc',
+            width: '30px',
+            height: '30px',
+        },
+        duration: 300,
+    });
 });
 
-nodes.animate({
-  renderedPosition: node.position()
-}, {
-  style: { backgroundColor: 'red' },
-  duration: 1000,
-  queue: true,
-  complete: () => console.log('end'),
-  step: () => console.log('step'),
-  easing: 'ease-in-out-quint'
-});
+nodes.animate(
+    {
+        renderedPosition: node.position(),
+    },
+    {
+        style: { backgroundColor: 'red' },
+        duration: 1000,
+        queue: true,
+        complete: () => console.log('end'),
+        step: () => console.log('step'),
+        easing: 'ease-in-out-quint',
+    },
+);
 
 eles.anySame(nodes);
 aliases(eles.contains, eles.has);
@@ -621,20 +639,25 @@ aliases(eles.symmetricDifference, eles.symdiff, eles.xor, eles['^'], eles['(+)']
 cy.collection([nodes[0]]).union(nodes[1]).union(eles.$id('g'));
 eles.difference(collNodes).abscomp().intersection(collSel).symdiff(collNodes);
 const diff = collSel.diff(collNodes);
-cy.collection().merge(diff.left).merge(diff.right).merge(diff.both).unmerge(collSel).filter((ele, i, eles) => true);
+cy.collection()
+    .merge(diff.left)
+    .merge(diff.right)
+    .merge(diff.both)
+    .unmerge(collSel)
+    .filter((ele, i, eles) => true);
 
 nodes.map(n => n.degree(false));
 edges.map(e => e.source());
 eles.map(e => e.id());
-eles.map(e => e.isNode() ? e.degree(false) : e.source());
-eles.map(e => e.isEdge() ? e.source() : e.degree(false));
+eles.map(e => (e.isNode() ? e.degree(false) : e.source()));
+eles.map(e => (e.isEdge() ? e.source() : e.degree(false)));
 
 eles.sort((a, b) => a.id.length - b.id.length).map((ele, i, eles) => [i, ele]);
 eles.reduce<any[]>((prev, ele, i, eles) => [...prev, [ele, i]], []).concat(['finish']);
 
-const min = eles.min((ele, i, eles) => ele.isNode() ? ele.degree(false) : ele.source().degree(false));
+const min = eles.min((ele, i, eles) => (ele.isNode() ? ele.degree(false) : ele.source().degree(false)));
 min.ele.scratch('min', min.value).scratch('min').value;
-const max = eles.max((ele, i, eles) => ele.isEdge() ? ele.source().degree(false) : ele.degree(false));
+const max = eles.max((ele, i, eles) => (ele.isEdge() ? ele.source().degree(false) : ele.degree(false)));
 max.ele.scratch('max', max.value);
 
 nodes.min(n => n.degree(false));
@@ -643,37 +666,42 @@ edges.max(n => n.source().id().length);
 edges.max(n => n.source().id().length);
 
 // directly from the doc: http://js.cytoscape.org/#eles.stop
-cy.nodes().animate({
-  style: { 'background-color': 'cyan' }
-}, {
-  duration: 5000,
-  complete: () => {
-    console.log('Animation complete');
-  }
-}).delay(100);
+cy.nodes()
+    .animate(
+        {
+            style: { 'background-color': 'cyan' },
+        },
+        {
+            duration: 5000,
+            complete: () => {
+                console.log('Animation complete');
+            },
+        },
+    )
+    .delay(100);
 
 setTimeout(() => {
-  console.log('Stopping nodes animation');
-  cy.nodes().stop();
+    console.log('Stopping nodes animation');
+    cy.nodes().stop();
 }, 2500);
 
 // directly from the doc: http://js.cytoscape.org/#eles.breadthFirstSearch
 const bfs = cy.elements().bfs({
-  roots: '#e',
-  visit: (v, e, u, i, depth) => {
-    console.log('visit ' + v.id());
+    roots: '#e',
+    visit: (v, e, u, i, depth) => {
+        console.log('visit ' + v.id());
 
-    // example of finding desired node
-    if (v.data('weight') > 70) {
-      return true;
-    }
+        // example of finding desired node
+        if (v.data('weight') > 70) {
+            return true;
+        }
 
-    // example of exiting search early
-    if (v.data('weight') < 0) {
-      return false;
-    }
-  },
-  directed: false
+        // example of exiting search early
+        if (v.data('weight') < 0) {
+            return false;
+        }
+    },
+    directed: false,
 });
 
 const path = bfs.path; // path to found node
@@ -718,18 +746,18 @@ box2.w;
 box2.h;
 
 cy.elements().bfs({
-  root: '#a',
-  visit: (v, e, u) => {
-    if (typeof e === 'undefined') {
-      const test: undefined = e;
-    } else {
-      const test: EdgeSingular = e;
-    }
+    root: '#a',
+    visit: (v, e, u) => {
+        if (typeof e === 'undefined') {
+            const test: undefined = e;
+        } else {
+            const test: EdgeSingular = e;
+        }
 
-    if (typeof u === 'undefined') {
-      const test: undefined = u;
-    } else {
-      const test: NodeSingular = u;
-    }
-  }
+        if (typeof u === 'undefined') {
+            const test: undefined = u;
+        } else {
+            const test: NodeSingular = u;
+        }
+    },
 });
