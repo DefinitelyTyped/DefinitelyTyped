@@ -780,7 +780,6 @@ describe('reject cases', () => {
         const promise = new ZalgoPromise();
 
         setTimeout(() => {
-
             promise.catch(() => {
                 // pass
             });
@@ -836,7 +835,6 @@ describe('resolve cases', () => {
         return ZalgoPromise.resolve(value1).then(result1 => {
             return [ result1, value2 ];
         }).then(([ result1, result2 ]) => {
-
             if (result1 !== value1) {
                 throw new Error(`Expected ${ result1 } to be ${ value1 }`);
             }
@@ -1013,7 +1011,6 @@ describe('resolve cases', () => {
                 }
             })
         ]).then(() => {
-
             if (thenCount !== 2) {
                 throw new Error(`Expected then to have been called 2 times, got ${ thenCount } calls`);
             }
@@ -1042,7 +1039,6 @@ describe('resolve cases', () => {
                 }
             })
         ]).then(() => {
-
             if (thenCount !== 2) {
                 throw new Error(`Expected then to have been called 2 times, got ${ thenCount } calls`);
             }
@@ -1074,7 +1070,6 @@ describe('resolve cases', () => {
                 }
             })
         ]).catch(() => {
-
             errorHandlerCalled = true;
 
             if (thenCount !== 3) {
@@ -1082,11 +1077,9 @@ describe('resolve cases', () => {
             }
 
         }).then(() => {
-
             if (!errorHandlerCalled) {
                 throw new Error(`Expected error handler to be called`);
             }
-
         }).toPromise();
     });
 
@@ -1117,19 +1110,15 @@ describe('resolve cases', () => {
                 }
             })
         ]).catch(() => {
-
             errorHandlerCalled = true;
 
             if (thenCount !== 2) {
                 throw new Error(`Expected then to have been called 2 times, got ${ thenCount } calls`);
             }
-
         }).then(() => {
-
             if (!errorHandlerCalled) {
                 throw new Error(`Expected error handler to be called`);
             }
-
         }).toPromise();
     });
 
@@ -1138,11 +1127,9 @@ describe('resolve cases', () => {
         const promise = ZalgoPromise.resolve(value);
 
         return promise.then(() => promise).then(result => {
-
             if (result !== value) {
                 throw new Error(`Expected ${ result } to be ${ value }`);
             }
-
         }).toPromise();
     });
 });
