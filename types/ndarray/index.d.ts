@@ -15,7 +15,7 @@ declare function ndarray<D extends ndarray.Data = ndarray.Data<number>>(
 ): ndarray.NdArray<D>;
 
 declare namespace ndarray {
-    interface NdArray<D extends Data = Data<number, TypedArray>> {
+    interface NdArray<D extends Data = Data<number>> {
         data: D;
         shape: number[];
         stride: number[];
@@ -34,9 +34,7 @@ declare namespace ndarray {
         pick(...args: Array<number | null>): NdArray<D>;
         T: NdArray<D>;
     }
-    type Data<Scalar = any, T extends { [x: number]: unknown } = TypedArray | BigUint64Array | BigInt64Array> =
-        | Scalar[]
-        | T;
+    type Data<T = any> = T extends bigint ? T[] | TypedArray | BigInt64Array | BigUint64Array : T[] | TypedArray;
     type TypedArray =
         | Int8Array
         | Int16Array

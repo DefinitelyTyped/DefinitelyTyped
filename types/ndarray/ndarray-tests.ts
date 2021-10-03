@@ -57,7 +57,7 @@ function getFirstValue(arr: ndarray.NdArray): number {
     return arr.get(0);
 }
 
-function getFirstValueMaybeBigInt(arr: ndarray.NdArray<ndarray.Data<number, BigInt64Array>>): bigint | number {
+function getFirstValueMaybeBigInt(arr: ndarray.NdArray<ndarray.Data<bigint>>): bigint | number {
     return arr.get(0);
 }
 
