@@ -2,6 +2,8 @@
 
 // TODO: document all aliases as aliases, not as duplicates!
 
+import {EdgeSingular, NodeSingular} from "./index";
+
 const assert = (tag: boolean) => {};
 const aliases = (...obj: Array<{}>) => {};
 
@@ -714,3 +716,20 @@ box2.y1;
 box2.y2;
 box2.w;
 box2.h;
+
+cy.elements().bfs({
+  root: '#a',
+  visit: (v, e, u) => {
+    if (typeof e === 'undefined') {
+      const test: undefined = e;
+    } else {
+      const test: EdgeSingular = e;
+    }
+
+    if (typeof u === 'undefined') {
+      const test: undefined = u;
+    } else {
+      const test: NodeSingular = u;
+    }
+  }
+});

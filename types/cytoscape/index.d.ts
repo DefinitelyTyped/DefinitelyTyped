@@ -2982,7 +2982,7 @@ declare namespace cytoscape {
      * i - The index indicating this node is the ith visited node.
      * depth - How many edge hops away this node is from the root nodes.
      */
-    type SearchVisitFunction = (v: NodeSingular,  e: EdgeSingular, u: NodeSingular, i: number, depth: number) => boolean | void;
+    type SearchVisitFunction = (v: NodeSingular,  e: EdgeSingular | undefined, u: NodeSingular | undefined, i: number, depth: number) => boolean | void;
     interface SearchFirstOptionsBase {
         /**
          * A handler function that is called when a node is visited in the search.
