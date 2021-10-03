@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 4.1
+// Type definitions for webpack-dev-server 4.3
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
@@ -173,7 +173,7 @@ declare namespace WebpackDevServer {
         compress?: boolean | undefined;
         devMiddleware?: webpackDevMiddleware.Options;
         /** Adds headers to all responses. */
-        headers?: (() => void) | Record<string, string> | undefined;
+        headers?: Array<{ key: string; value: string }> | (() => void) | Record<string, string> | undefined;
         /**
          * When using the HTML5 History API, the index.html page will likely
          * have to be served in place of any 404 responses.
@@ -201,7 +201,9 @@ declare namespace WebpackDevServer {
         /* The Unix socket to listen to (instead of a host). */
         ipc?: boolean | string | undefined;
         /**
-         * Enables/Disables magic HTML routes (enabled by default).
+         * Tells dev-server whether to enable magic HTML routes (routes
+         * corresponding to your webpack output, for example '/main' for
+         * 'main.js').
          * @default true
          */
         magicHtml?: boolean | undefined;

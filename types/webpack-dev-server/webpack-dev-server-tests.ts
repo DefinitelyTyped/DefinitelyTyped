@@ -162,6 +162,17 @@ const c2: WebpackDevServer.Configuration = {
         },
     },
     webSocketServer: 'ws',
+
+    headers: [
+        {
+            key: 'X-Foo',
+            value: 'value1',
+        },
+        {
+            key: 'X-Bar',
+            value: 'value2',
+        },
+    ],
 };
 const c3: WebpackDevServer.Configuration = {
     // Host and port are required options to correct work.
