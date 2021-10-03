@@ -76,7 +76,14 @@ const promisesObject = {
     string: '',
 };
 // $ExpectType ZalgoPromise<{ booleanPromise: boolean, boolean: boolean, numberPromise: number, number: number, stringPromise: string, string: string }>
-ZalgoPromise.hash(promisesObject);
+const hash: ZalgoPromise<{
+    booleanPromise: boolean,
+    boolean: boolean,
+    numberPromise: number,
+    number: number,
+    stringPromise: string,
+    string: string
+}> = ZalgoPromise.hash(promisesObject);
 
 // $ExpectType ZalgoPromise<readonly string[]>
 ZalgoPromise.map([0, 1], item => ZalgoPromise.resolve(item.toString()));
