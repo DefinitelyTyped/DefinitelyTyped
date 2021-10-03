@@ -328,7 +328,7 @@ describe('promise method cases', () => {
 
         const value: string = 'foobar';
 
-        function getValue() : ZalgoPromise<string> {
+        function getValue(): ZalgoPromise<string> {
             return ZalgoPromise.try(() => {
                 return value;
             });
