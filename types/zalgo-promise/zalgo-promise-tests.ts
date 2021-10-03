@@ -851,7 +851,7 @@ describe('reject cases', () => {
             // pass
         });
 
-        let error;
+        let error: any;
 
         const listener = ZalgoPromise.onPossiblyUnhandledException(err => {
             error = err;
