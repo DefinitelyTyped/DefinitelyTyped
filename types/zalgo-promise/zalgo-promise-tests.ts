@@ -1,7 +1,7 @@
 import { ZalgoPromise } from 'zalgo-promise';
 
 // $ExpectType ZalgoPromise<void>
-new ZalgoPromise<void>(function (resolve) {
+new ZalgoPromise<void>(resolve => {
     resolve();
 });
 
