@@ -7,7 +7,6 @@ declare function describe(description: string, specDefinitions: () => void): voi
 declare function it(title: string, fn?: Func): void;
 
 describe('flush cases', () => {
-
     it('should call flush after every other synchronous task completed', () => {
         return ZalgoPromise.try(() => {
             let count = 0;
@@ -37,9 +36,7 @@ describe('flush cases', () => {
 });
 
 describe('promise method cases', () => {
-
     it('should work with a set of resolved promises in promise.all', () => {
-
         return ZalgoPromise.all([
             ZalgoPromise.resolve(1),
             ZalgoPromise.resolve(2),
@@ -58,7 +55,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a set of resolved values or promises in promise.all', () => {
-
         return ZalgoPromise.all([
             1,
             ZalgoPromise.resolve(2),
@@ -77,7 +73,6 @@ describe('promise method cases', () => {
     });
 
     it('should reject with any rejected promise from promise.all', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return ZalgoPromise.all([
@@ -97,7 +92,6 @@ describe('promise method cases', () => {
     });
 
     it('should reject with the first rejected promise from promise.all', () => {
-
         const error = 'SERIOUS_ERROR';
         const error2 = 'SERIOUS_ERROR2';
 
@@ -118,7 +112,6 @@ describe('promise method cases', () => {
     });
 
     it('should call promise.delay and wait some time', () => {
-
         let timeoutCalled = false;
 
         const timeout = setTimeout(() => {
@@ -134,7 +127,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a set of resolved promises in promise.hash', () => {
-
         return ZalgoPromise.hash({
             one:   ZalgoPromise.resolve(1),
             two:   ZalgoPromise.resolve(2),
@@ -153,7 +145,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a set of resolved values or promises in promise.hash', () => {
-
         return ZalgoPromise.hash({
             one:   1,
             two:   ZalgoPromise.resolve(2),
@@ -172,7 +163,6 @@ describe('promise method cases', () => {
     });
 
     it('should reject with any rejected promise from promise.hash', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return ZalgoPromise.hash({
@@ -192,7 +182,6 @@ describe('promise method cases', () => {
     });
 
     it('should reject with the first rejected promise from promise.hash', () => {
-
         const error = 'SERIOUS_ERROR';
         const error2 = 'SERIOUS_ERROR2';
 
@@ -212,9 +201,7 @@ describe('promise method cases', () => {
         }).toPromise();
     });
 
-
     it('should work with a set of values in promise.map', () => {
-
         return ZalgoPromise.map([
             1,
             2,
@@ -233,7 +220,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a set of values and a promise returning function in promise.map', () => {
-
         return ZalgoPromise.map([
             1,
             2,
@@ -252,7 +238,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a simple method passed to promise.try', () => {
-
         const value = 'foobar';
 
         return ZalgoPromise.try(() => {
@@ -265,7 +250,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a conditional method passed to promise.try', () => {
-
         const value = 'foobar';
 
         return ZalgoPromise.try(() => {
@@ -280,7 +264,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a promise returning method passed to promise.try', () => {
-
         const value = 'foobar';
 
         return ZalgoPromise.try(() => {
@@ -293,7 +276,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a conditional promise returning method passed to promise.try', () => {
-
         const value: string = 'foobar';
 
         return ZalgoPromise.try(() => {
@@ -308,7 +290,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a conditional promise returning method passed to promise.try, with an inner promise.try', () => {
-
         const value: string = 'foobar';
 
         return ZalgoPromise.try(() => {
@@ -325,7 +306,6 @@ describe('promise method cases', () => {
     });
 
     it('should work with a conditional promise returning method passed to promise.try, calling an external function', () => {
-
         const value: string = 'foobar';
 
         function getValue(): ZalgoPromise<string> {
@@ -346,9 +326,7 @@ describe('promise method cases', () => {
 });
 
 describe('reject cases', () => {
-
     it('should create a rejected promise and catch the error', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return ZalgoPromise.reject(new Error(error)).then(() => {
@@ -364,7 +342,6 @@ describe('reject cases', () => {
     });
 
     it('should create a rejected promise and catch the error in then', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return ZalgoPromise.reject(new Error(error)).then(() => {
@@ -380,7 +357,6 @@ describe('reject cases', () => {
     });
 
     it('should create a rejected existing promise and catch the error', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return (new ZalgoPromise()).reject(new Error(error)).then(() => {
@@ -393,7 +369,6 @@ describe('reject cases', () => {
     });
 
     it('should create a rejected promise with the constructor and catch the error', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return new ZalgoPromise((resolve, reject) => reject(new Error(error))).then(() => {
@@ -406,7 +381,6 @@ describe('reject cases', () => {
     });
 
     it('should create a rejected promise asynchronously with the constructor and catch the error', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return new ZalgoPromise((resolve, reject) => {
@@ -421,7 +395,6 @@ describe('reject cases', () => {
     });
 
     it('should create a rejected promise by throwing in the constructor and catch the error', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return new ZalgoPromise(() => {
@@ -436,7 +409,6 @@ describe('reject cases', () => {
     });
 
     it('should create a rejected promise and not call any subsequent thens', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return ZalgoPromise.reject(new Error(error)).then(() => {
@@ -454,7 +426,6 @@ describe('reject cases', () => {
     });
 
     it('should create a rejected promise and handle the error then call then', () => {
-
         const value = 'foobar';
         const error = 'SERIOUS_ERROR';
 
@@ -476,7 +447,6 @@ describe('reject cases', () => {
     });
 
     it('should reject synchronously', () => {
-
         let hasRejected = false;
 
         ZalgoPromise.reject(new Error('Some error')).then(() => {
@@ -491,7 +461,6 @@ describe('reject cases', () => {
     });
 
     it('should only be able to reject a promise once', () => {
-
         const error = 'SERIOUS_ERROR';
         const promise = ZalgoPromise.reject(new Error(error));
         promise.reject(new Error('fizzbuzz'));
@@ -510,7 +479,6 @@ describe('reject cases', () => {
     });
 
     it('should fail when trying to create a rejected promise with an existing promise', () => {
-
         const error = 'SERIOUS_ERROR';
         let caughtErr;
 
@@ -531,7 +499,6 @@ describe('reject cases', () => {
     });
 
     it('should allow rejecting the promise by returning a rejected promise in then', () => {
-
         const value = 'foobar';
         const error = 'SERIOUS_ERROR';
 
@@ -550,7 +517,6 @@ describe('reject cases', () => {
     });
 
     it('should allow rejecting the promise by returning an async rejected promise in then', () => {
-
         const value = 'foobar';
         const error = 'SERIOUS_ERROR';
 
@@ -571,7 +537,6 @@ describe('reject cases', () => {
     });
 
     it('should reject when an error is thrown in a then', () => {
-
         const value = 'foobar';
         const error = 'SERIOUS_ERROR';
 
@@ -590,7 +555,6 @@ describe('reject cases', () => {
     });
 
     it('should reject with the latest error when an error is thrown in a then', () => {
-
         const value = 'foobar';
         const error = 'SERIOUS_ERROR';
         const error2 = 'TERRIBLE_ERROR';
@@ -614,7 +578,6 @@ describe('reject cases', () => {
     });
 
     it('should turn an undefined rejection into an actual error', () => {
-
         return ZalgoPromise.reject(undefined).then(() => {
             throw new Error(`Success handler should not be called`);
         }).catch(err => {
@@ -625,7 +588,6 @@ describe('reject cases', () => {
     });
 
     it('should turn a null rejection into an actual error', () => {
-
         return ZalgoPromise.reject(null).then(() => {
             throw new Error(`Success handler should not be called`);
         }).catch(err => {
@@ -636,7 +598,6 @@ describe('reject cases', () => {
     });
 
     it('should turn a null string rejection into an actual error', () => {
-
         return ZalgoPromise.reject('').then(() => {
             throw new Error(`Success handler should not be called`);
         }).catch(err => {
@@ -647,7 +608,6 @@ describe('reject cases', () => {
     });
 
     it('should turn an false rejection into an actual error', () => {
-
         return ZalgoPromise.reject(false).then(() => {
             throw new Error(`Success handler should not be called`);
         }).catch(err => {
@@ -658,7 +618,6 @@ describe('reject cases', () => {
     });
 
     it('should keep a string rejection as a string', () => {
-
         const error = 'SERIOUS_ERROR';
 
         return ZalgoPromise.reject(error).then(() => {
@@ -671,7 +630,6 @@ describe('reject cases', () => {
     });
 
     it('should fail when trying to pass a non-function into then as a success handler', () => {
-
         const promise = ZalgoPromise.resolve('foobar');
         let caughtErr;
 
@@ -688,7 +646,6 @@ describe('reject cases', () => {
     });
 
     it('should fail when trying to pass a non-function into then as an error handler', () => {
-
         const promise = ZalgoPromise.resolve('foobar');
         let caughtErr;
 
@@ -705,7 +662,6 @@ describe('reject cases', () => {
     });
 
     it('should fail when trying to pass a non-function into catch as an error handler', () => {
-
         const promise = ZalgoPromise.resolve('foobar');
         let caughtErr;
 
@@ -722,7 +678,6 @@ describe('reject cases', () => {
     });
 
     it('should call unhandled promise method when promise is rejected without having a handler', (done) => {
-
         window.addEventListener('error', () => {
             // pass
         });
@@ -739,7 +694,6 @@ describe('reject cases', () => {
     });
 
     it('should not call unhandled promise method when promise is async-rejected without having a handler', (done) => {
-
         window.addEventListener('error', () => {
             // pass
         });
@@ -762,7 +716,6 @@ describe('reject cases', () => {
     });
 
     it('should create a rejected promise and call finally even if the error is not caught', () => {
-
         window.addEventListener('error', () => {
             // pass
         });
@@ -785,7 +738,6 @@ describe('reject cases', () => {
     });
 
     it('should call unhandled promise method only once for a given error', (done) => {
-
         window.addEventListener('error', () => {
             // pass
         });
@@ -815,7 +767,6 @@ describe('reject cases', () => {
     });
 
     it('should not call unhandled promise method when promise is rejected after a handler is subsequently added', (done) => {
-
         window.addEventListener('error', () => {
             // pass
         });
@@ -846,7 +797,6 @@ describe('reject cases', () => {
     });
 
     it('should not call unhandled promise method when lazy promise is rejected without having a handler', () => {
-
         window.addEventListener('error', () => {
             // pass
         });
@@ -869,9 +819,7 @@ describe('reject cases', () => {
 });
 
 describe('resolve cases', () => {
-
     it('should create a resolved promise and get the value', () => {
-
         const value = 'foobar';
 
         return ZalgoPromise.resolve(value).then(result => {
@@ -882,7 +830,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise with a compound value and get the value', () => {
-
         const value1 = 'foobar';
         const value2 = 'fizzbuzz';
 
@@ -901,7 +848,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved existing promise and get the value', () => {
-
         const value = 'foobar';
 
         return (new ZalgoPromise()).resolve(value).then(result => {
@@ -912,7 +858,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise with the constructor and get the value', () => {
-
         const value = 'foobar';
 
         return new ZalgoPromise(resolve => resolve(value)).then(result => {
@@ -923,7 +868,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise asynchronously with the constructor and get the value', () => {
-
         const value = 'foobar';
 
         return new ZalgoPromise(resolve => {
@@ -936,7 +880,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise and get the value', () => {
-
         const value = 'foobar';
 
         return ZalgoPromise.resolve(value).then(result => {
@@ -947,7 +890,6 @@ describe('resolve cases', () => {
     });
 
     it('should resolve synchronously', () => {
-
         let hasResolved = false;
 
         ZalgoPromise.resolve().then(() => {
@@ -960,7 +902,6 @@ describe('resolve cases', () => {
     });
 
     it('should only be able to resolve a promise once', () => {
-
         const value = 'foobar';
         const promise = ZalgoPromise.resolve(value);
         promise.resolve('fizzbuzz');
@@ -974,7 +915,6 @@ describe('resolve cases', () => {
     });
 
     it('should resolve with an existing promise', () => {
-
         const value = 'foobar';
 
         return ZalgoPromise.resolve(ZalgoPromise.resolve(value)).then(result => {
@@ -985,7 +925,6 @@ describe('resolve cases', () => {
     });
 
     it('should allow returning a promise in then', () => {
-
         const value = 'foobar';
         const value2 = 'fizzbuzz';
 
@@ -999,7 +938,6 @@ describe('resolve cases', () => {
     });
 
     it('should allow returning an asynchronous promise in then', () => {
-
         const value = 'foobar';
         const value2 = 'fizzbuzz';
 
@@ -1015,7 +953,6 @@ describe('resolve cases', () => {
     });
 
     it('should fail when trying to resolve an existing promise with a promise', () => {
-
         const value = 'foobar';
         let caughtErr;
 
@@ -1031,7 +968,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise and call finally', () => {
-
         const value = 'foobar';
         let finallyCalled = false;
 
@@ -1048,7 +984,6 @@ describe('resolve cases', () => {
     });
 
     it('should be able to attach a then handler in the then handler for a promise', () => {
-
         const promise = ZalgoPromise.resolve();
 
         return promise.then(() => {
@@ -1059,7 +994,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise and register multiple then handlers', () => {
-
         const value = 'foobar';
         const promise = ZalgoPromise.resolve(value);
 
@@ -1087,7 +1021,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise and register multiple then handlers, resolved asynchronously', () => {
-
         const value = 'foobar';
         const promise = new ZalgoPromise(resolve => {
             setTimeout(() => resolve(value), 1);
@@ -1117,7 +1050,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise and register multiple then handlers with one failure', () => {
-
         const value = 'foobar';
         const promise = ZalgoPromise.resolve(value);
 
@@ -1159,7 +1091,6 @@ describe('resolve cases', () => {
     });
 
     it('should create a resolved promise and register multiple then handlers with one failure, resolved asynchronously', () => {
-
         const value = 'foobar';
         const promise = new ZalgoPromise(resolve => {
             setTimeout(() => resolve(value), 1);
@@ -1203,7 +1134,6 @@ describe('resolve cases', () => {
     });
 
     it('should work when trying to return a promise in its own then method', () => {
-
         const value = 'foobar';
         const promise = ZalgoPromise.resolve(value);
 
