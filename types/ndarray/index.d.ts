@@ -49,7 +49,7 @@ declare namespace ndarray {
         | Float64Array;
     type Value<D extends Data> = D[number];
 
-    type DataType<D extends Data> = D extends Int8Array
+    type DataType<D extends Data = Data> = D extends Int8Array
         ? 'int8'
         : D extends Int16Array
         ? 'int16'
