@@ -62,6 +62,8 @@ declare namespace WebpackDevServer {
         webSocketURL?: string | WebSocketURL | undefined;
     }
 
+    type Header = Array<{ key: string; value: string }> | Record<string, string | string[]>;
+
     interface Open {
         /**
          * Open specified browser.
@@ -173,7 +175,7 @@ declare namespace WebpackDevServer {
         compress?: boolean | undefined;
         devMiddleware?: webpackDevMiddleware.Options;
         /** Adds headers to all responses. */
-        headers?: Array<{ key: string; value: string }> | (() => void) | Record<string, string> | undefined;
+        headers?: Header | (() => Header) | undefined;
         /**
          * When using the HTML5 History API, the index.html page will likely
          * have to be served in place of any 404 responses.

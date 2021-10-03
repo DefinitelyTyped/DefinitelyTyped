@@ -184,6 +184,10 @@ const c3: WebpackDevServer.Configuration = {
     devMiddleware: {
         stats: 'verbose',
     },
+
+    headers: () => {
+        return { 'X-Bar': ['key1=value1', 'key2=value2'] };
+    },
 };
 const c4: WebpackDevServer.Configuration = {
     // Host and port are required options to correct work.
@@ -204,6 +208,17 @@ const c5: WebpackDevServer.Configuration = {
     proxy: [
         {
             context: (pathname: string) => true,
+        },
+    ],
+
+    headers: () => [
+        {
+            key: 'X-Foo',
+            value: 'value1',
+        },
+        {
+            key: 'X-Bar',
+            value: 'value2',
         },
     ],
 };
