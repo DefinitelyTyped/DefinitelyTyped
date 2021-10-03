@@ -1,8 +1,8 @@
-import * as octicons from '@primer/octicons';
+import octicons = require('@primer/octicons');
 import { IconName } from '@primer/octicons';
 
 // $ExpectType string
-octicons.alert.toSVG()
+octicons.alert.toSVG();
 
 // $ExpectError
-const name: IconName = 'foo'
+const name: IconName = 'foo';

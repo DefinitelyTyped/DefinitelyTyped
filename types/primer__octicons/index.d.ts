@@ -1,4 +1,4 @@
-// Type definitions for @primer/octicons 16.0.0
+// Type definitions for @primer/octicons 16.0
 // Project: https://github.com/primer/octicons
 // Definitions by: Bread <https://github.com/vBread>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -331,4 +331,3 @@ declare namespace octicons {
 declare const octicons: Record<octicons.IconName, octicons.Icon>;
 
 export = octicons;
-
