@@ -1,6 +1,6 @@
-type ResultType<P extends ZalgoPromise<any>> = P extends ZalgoPromise<infer R> ? R : never;
+export type ResultType<P extends ZalgoPromise<any>> = P extends ZalgoPromise<infer R> ? R : never;
 
-type FlattenPromises<T extends {}> = {
+export type FlattenPromises<T extends {}> = {
     [K in keyof T]: T[K] extends ZalgoPromise<any> ? ResultType<T[K]> : T[K];
 };
 
