@@ -1,0 +1,56 @@
+type ResultType<P extends ZalgoPromise<any>> = P extends ZalgoPromise<infer R> ? R : never;
+
+type FlattenPromises<T extends {}> = {
+    [K in keyof T]: T[K] extends ZalgoPromise<any> ? ResultType<T[K]> : T[K];
+};
+
+export class ZalgoPromise<R> {
+    constructor(handler?: (resolve: (result: R) => void, reject: (error: any) => void) => void);
+
+    resolve(result: R): this;
+
+    reject(error: any): this;
+
+    asyncReject(error: any): this;
+
+    dispatch();
+
+    then<X>(onSuccess?: (result: R) => ZalgoPromise<X>, onError?: (error: any) => ZalgoPromise<X>): ZalgoPromise<X>;
+    then<Y>(onSuccess?: (result: R) => Y, onError?: (error: any) => Y): ZalgoPromise<Y>;
+    then<X, Y>(onSuccess: (result: R) => ZalgoPromise<X> | Y, onError: (error: any) => ZalgoPromise<X> | Y): ZalgoPromise<X | Y>;
+
+    catch<X>(onError: (error: any) => ZalgoPromise<X>): ZalgoPromise<X>;
+    catch<Y>(onError: (error: any) => Y): ZalgoPromise<Y>;
+
+    finally(onFinally: () => any): this;
+
+    timeout(time: number, err?: Error): this;
+
+    toPromise(): Promise<R>;
+
+    lazy(): this;
+
+    static resolve<X>(value: ZalgoPromise<X>): ZalgoPromise<X>;
+    static resolve<Y>(value: Y): ZalgoPromise<Y>;
+
+    static reject<R>(error: any): ZalgoPromise<R>;
+
+    static asyncReject<R>(error: any): ZalgoPromise<R>;
+
+    static all<X extends readonly any[]>(promises: X): ZalgoPromise<FlattenPromises<X>>;
+
+    static hash<O extends {}>(promises: O): ZalgoPromise<FlattenPromises<O>>;
+
+    static map<T, X>(items: readonly T[], method: (item: T) => (ZalgoPromise<X> | X)): ZalgoPromise<readonly X[]>;
+
+    static onPossiblyUnhandledException(handler: (err: any) => void): {cancel: () => void};
+
+    static try<X, C, A extends readonly any[]>(method: (...args: A) => ZalgoPromise<X>, context?: C, args?: Partial<A>): ZalgoPromise<X>;
+    static try<Y, C, A extends readonly any[]>(method: (...args: A) => Y, context?: C, args?: Partial<A>): ZalgoPromise<Y>;
+
+    static delay(delay: number): ZalgoPromise<void>;
+
+    static isPromise(value: any): boolean;
+
+    static flush(): ZalgoPromise<void>;
+}
