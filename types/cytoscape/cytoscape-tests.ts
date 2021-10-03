@@ -2,7 +2,7 @@
 
 // TODO: document all aliases as aliases, not as duplicates!
 
-import {EdgeSingular, NodeSingular} from "./index";
+import { EdgeSingular, NodeSingular } from "cytoscape";
 
 const assert = (tag: boolean) => {};
 const aliases = (...obj: Array<{}>) => {};
