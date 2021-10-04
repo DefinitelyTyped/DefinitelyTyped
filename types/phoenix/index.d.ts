@@ -39,7 +39,7 @@ export type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
 export interface SocketConnectOption {
   binaryType: BinaryType;
   params: object | (() => object);
-  transport: object;
+  transport: Function;
   timeout: number;
   heartbeatIntervalMs: number;
   longpollerTimeout: number;
