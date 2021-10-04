@@ -19,3 +19,38 @@ KafkaAvro.init({
             },
         });
 });
+
+KafkaAvro.init({
+    kafka: {
+        kafkaHost: 'kafka:9092',
+    },
+    schema: {
+        registry: 'http://schema-registry:8081',
+    },
+}).then((client: KafkaAvro.Kafka) => {
+    var producer = client.addProducer();
+    
+    producer.send({
+            topic: 'kafka-topic',
+            key: 'message-key',
+            messages: {
+                name: 'John',
+                lastName: 'Doe',
+                age: 53,
+            },
+        });
+});
+
+KafkaAvro.init({
+    kafka: {
+        kafkaHost: 'kafka:9092',
+    },
+    schema: {
+        registry: 'http://schema-registry:8081',
+    },
+}).then((client: KafkaAvro.Kafka) => {
+    var consumer = client.addConsumer('kafka-topic');
+    
+    consumer.on("message", console.log);
+});
+
