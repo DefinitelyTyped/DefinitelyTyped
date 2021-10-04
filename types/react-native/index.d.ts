@@ -6848,6 +6848,11 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     showsVerticalScrollIndicator?: boolean | undefined;
 
     /**
+     * When true, Sticky header is hidden when scrolling down, and dock at the top when scrolling up.
+    */
+    stickyHeaderHiddenOnScroll?: boolean;
+
+    /**
      * Style
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -7318,6 +7323,14 @@ export interface AccessibilityInfoStatic {
      * Post a string to be announced by the screen reader.
      */
     announceForAccessibility: (announcement: string) => void;
+
+    /**
+     * Gets the timeout in millisecond that the user needs.
+     * This value is set in "Time to take action (Accessibility timeout)" of "Accessibility" settings.
+     *
+     * @platform android
+     */
+    getRecommendedTimeoutMillis: (originalTimeout: number) => Promise<number>;
 }
 
 /**
