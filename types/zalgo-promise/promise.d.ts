@@ -46,6 +46,7 @@ export class ZalgoPromise<R> {
 
     static onPossiblyUnhandledException(handler: (err: any) => void): {cancel: () => void};
 
+    static try<X, A extends readonly any[]>(method: (...args: A) => ZalgoPromise<X> | undefined, context?: any, args?: Partial<A>): ZalgoPromise<X | undefined>;
     static try<X, A extends readonly any[]>(method: (...args: A) => ZalgoPromise<X>, context?: any, args?: Partial<A>): ZalgoPromise<X>;
     static try<Y, A extends readonly any[]>(method: (...args: A) => Y, context?: any, args?: Partial<A>): ZalgoPromise<Y>;
 
