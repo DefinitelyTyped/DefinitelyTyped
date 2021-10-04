@@ -43,7 +43,7 @@ export interface HostedFieldFieldOptions {
     expirationDate?: HostedFieldsField | undefined;
     expirationMonth?: HostedFieldsField | undefined;
     expirationYear?: HostedFieldsField | undefined;
-    number?: HostedFieldsField;
+    number?: HostedFieldsField | undefined;
     postalCode?: HostedFieldsField | undefined;
 }
 
