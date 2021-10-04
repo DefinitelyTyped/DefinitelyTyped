@@ -31,6 +31,7 @@ export interface SwaggerUIProps {
     supportedSubmitMethods?: string[] | undefined;
     deepLinking?: boolean | undefined;
     showMutatedRequest?: boolean | undefined;
+    displayOperationId?: boolean | undefined;
 }
 
 declare class SwaggerUI extends React.PureComponent<SwaggerUIProps> {}
