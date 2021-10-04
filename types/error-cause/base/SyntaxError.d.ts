@@ -1,4 +1,3 @@
-type BaseSyntaxError = SyntaxError;
-type BaseSyntaxErrorConstructor = SyntaxErrorConstructor;
+declare const BaseSyntaxError: SyntaxErrorConstructor;
 
-export { BaseSyntaxError, BaseSyntaxErrorConstructor };
+export default BaseSyntaxError;

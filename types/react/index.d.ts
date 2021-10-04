@@ -1193,9 +1193,9 @@ declare namespace React {
         isPrimary: boolean;
     }
 
-    interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-        relatedTarget: EventTarget | null;
-        target: EventTarget & T;
+    interface FocusEvent<Target = Element, RelatedTarget = Element> extends SyntheticEvent<Target, NativeFocusEvent> {
+        relatedTarget: (EventTarget & RelatedTarget) | null;
+        target: EventTarget & Target;
     }
 
     interface FormEvent<T = Element> extends SyntheticEvent<T> {

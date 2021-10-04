@@ -1,4 +1,3 @@
-type BaseRangeError = RangeError;
-type BaseRangeErrorConstructor = RangeErrorConstructor;
+declare const BaseRangeError: RangeErrorConstructor;
 
-export { BaseRangeError, BaseRangeErrorConstructor };
+export default BaseRangeError;

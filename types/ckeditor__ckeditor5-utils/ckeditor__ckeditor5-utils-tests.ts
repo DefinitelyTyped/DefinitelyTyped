@@ -53,6 +53,7 @@ import {
     isInsideSurrogatePair,
     isLowSurrogateHalf,
 } from '@ckeditor/ckeditor5-utils/src/unicode';
+import version from '@ckeditor/ckeditor5-utils/src/version';
 
 declare const document: Document;
 declare let emitter: Emitter;
@@ -343,8 +344,12 @@ source4.add({ hidden: false });
 
 // utils/comparearrays ========================================================
 
+// $ExpectType number | ArrayRelation
 compareArrays([0, 2], [0, 2, 1]);
+// $ExpectType number | ArrayRelation
 compareArrays(['abc', 0], ['abc', 0, 3]);
+// $ExpectType number | ArrayRelation
+compareArrays(['abc', 0] as const, ['abc', 0, 3] as const);
 
 // utils/config ===============================================================
 
@@ -483,12 +488,27 @@ fastDiff(str, '2ab').forEach(change => {
     }
 });
 
+// $ExpectType (InsertChange | DeleteChange)[]
+fastDiff([''], [''], () => true);
+// $ExpectType (InsertChange | DeleteChange)[]
+fastDiff([''], [''], null);
+// $ExpectType Change[]
+fastDiff([''], [''], () => true, true);
+// $ExpectType (InsertChange | DeleteChange)[]
+fastDiff([''], [''], null, false);
+
 // utils/first ================================================================
 
-const collection = [11, 22];
-const iterator = collection[Symbol.iterator]();
-
-first(iterator);
+// $ExpectType number | null
+first([11, 12]);
+// $ExpectType string | number | null
+first(['f', 12]);
+// $ExpectType null
+first([]);
+// $ExpectType number | null
+first(new Set([4]));
+// $ExpectType [string, number] | null
+first(new Map([['foo', 4]]));
 
 // utils/focustracker =========================================================
 
@@ -539,25 +559,25 @@ keystrokes.destroy();
 // utils/locale ===============================================================
 
 new Locale();
-new Locale({ uiLanguage: "en" });
-new Locale({ contentLanguage: "en" });
-new Locale({ uiLanguage: "en", contentLanguage: "en" });
+new Locale({ uiLanguage: 'en' });
+new Locale({ contentLanguage: 'en' });
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' });
 // $ExpectType string
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).contentLanguage;
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).contentLanguage;
 // $ExpectType string
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).uiLanguage;
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).uiLanguage;
 // $ExpectType string
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).uiLanguageDirection;
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).uiLanguageDirection;
 // $ExpectType string
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).contentLanguageDirection;
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Label");
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Created file '%0' in %1ms.", ["fileName", "100"]);
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("Created file in %1ms.", 5);
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", "");
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", [5]);
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", [5, ""]);
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).contentLanguageDirection;
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('Label');
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t("Created file '%0' in %1ms.", ['fileName', '100']);
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('Created file in %1ms.', 5);
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', '');
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', [5]);
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', [5, '']);
 // $ExpectError
-new Locale({ uiLanguage: "en", contentLanguage: "en" }).t("", false);
+new Locale({ uiLanguage: 'en', contentLanguage: 'en' }).t('', false);
 
 // utils/mapsequal ============================================================
 
@@ -602,8 +622,14 @@ function* getGenerator() {
     yield 22;
     yield 33;
 }
-
+// $ExpectType 11 | 22 | 33 | null
 nth(2, getGenerator());
+// $ExpectType null
+nth(2, []);
+// $ExpectType number | null
+nth(2, [5]);
+// $ExpectType 5 | null
+nth(2, [5] as const);
 
 // utils/objecttomap ==========================================================
 
@@ -673,7 +699,8 @@ num = priorities.get('normal');
 
 const fn1 = spy();
 fn1();
-bool = fn1.called;
+// $ExpectType true | undefined
+fn1.called;
 
 // utils/tomap
 
@@ -690,6 +717,27 @@ add('pl', {
     OK: 'OK',
     'Cancel [context: reject]': 'Anuluj',
 });
+add(
+    'pl',
+    {
+        OK: 'OK',
+        'Cancel [context: reject]': 'Anuluj',
+    },
+    n => n - 1,
+);
+add(
+    'pl',
+    {
+        OK: 'OK',
+        'Cancel [context: reject]': 'Anuluj',
+    },
+    n => !!n,
+);
+
+// $ExpectType number | boolean
+window.CKEDITOR_TRANSLATIONS.en.getPluralForm(4);
+// $ExpectType Record<string, string>
+window.CKEDITOR_TRANSLATIONS.en.dictionary;
 
 // utils/uid ==================================================================
 
@@ -744,6 +792,18 @@ options = {
 };
 
 // utils/toArray ==============================================================
-let myArrayOfOneNumber: [number] = toArray(5);
-myArrayOfOneNumber = toArray([5]);
-const myArrayOfThreeNumbers: number[] = toArray([1, 2, 3]);
+// $ExpectType number[]
+toArray(5);
+// $ExpectType number[]
+toArray([1, 2, 3]);
+// $ExpectType readonly [0]
+toArray([0] as const);
+// $ExpectType 5[]
+toArray(5 as const);
+
+// utils/version
+
+// $ExpectType "28.0.0"
+window.CKEDITOR_VERSION;
+// $ExpectType "28.0.0"
+version;

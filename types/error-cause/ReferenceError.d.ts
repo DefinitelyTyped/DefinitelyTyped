@@ -1,11 +1,9 @@
-import { BaseReferenceError, BaseReferenceErrorConstructor } from './base/ReferenceError';
+import BaseReferenceError from './base/ReferenceError';
 
-interface ReferenceError extends BaseReferenceError {
+declare class ReferenceError extends BaseReferenceError {
+    constructor(reason?: string, options?: { cause?: unknown });
+
     cause: unknown;
 }
 
-interface ReferenceErrorConstructor extends BaseReferenceErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): ReferenceError;
-}
-
-export default ReferenceErrorConstructor;
+export default ReferenceError;
