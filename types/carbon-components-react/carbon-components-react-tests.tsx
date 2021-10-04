@@ -42,6 +42,7 @@ import {
     FileUploaderItem,
     MultiSelect,
     Tabs,
+    Search,
     SideNav,
     SideNavItem,
     SideNavItems,
@@ -60,6 +61,7 @@ import {
     unstable_Heading as UnstableHeading,
     unstable_Section as UnstableSection,
 } from "carbon-components-react";
+import { Dialog } from "carbon-components-react/lib/components/Dialog";
 import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
 import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
 import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
@@ -956,6 +958,8 @@ interface MultiSelectObjType1 {
     someBoolProp?: boolean | undefined
 }
 
+const MultiSelectItemComp: React.FC<MultiSelectObjType1> = () => <div/>;
+
 const multiSelectObjs = (
     <MultiSelect<MultiSelectObjType1>
         id="disks"
@@ -963,8 +967,21 @@ const multiSelectObjs = (
             { id: 1, name: "one" },
             { id: 2, name: "two", someBoolProp: true }
         ]}
-        itemToString={(item) => item && item.name || ""}
+        itemToString={(item) => item.name || ""}
+        itemToElement={MultiSelectItemComp}
         onChange={({ selectedItems }) => {}}
+    />
+);
+
+const multiSelectObjsBadCustomComp = (
+    <MultiSelect<MultiSelectObjType1>
+        id="disks"
+        items={[
+            { id: 1, name: 'one' },
+            { id: 2, name: 'two', someBoolProp: true },
+        ]}
+        // $ExpectError
+        itemToElement={TestComp2}
     />
 );
 
@@ -1132,5 +1149,45 @@ const dataTableSkeletonBasic = (
         <LayoutDirection as={TestComp2} somethingElse={5}>
             Content
         </LayoutDirection>
+    );
+}
+
+//
+// Search
+//
+{
+    const searchT1 = (
+        <Search labelText="Search..." renderIcon={<svg></svg>} />
+    );
+
+    const searchT2 = (
+        // $ExpectError
+        <Search labelText="Search..." renderIcon={TestComp2} />
+    );
+}
+
+//
+// Dialog
+//
+{
+    const dialogDefaultT1 = <Dialog aria-labelledby="test">children</Dialog>;
+
+    const dialogIntrinsicT1 = (
+        <Dialog as="fieldset" aria-labelledby="test" data-testid="test" disabled form="form" onDismiss={() => {}}>
+            children
+        </Dialog>
+    );
+
+    const dialogCustomCompT1 = (
+        <Dialog as={TestComp2} aria-labelledby="test" onDismiss={() => {}} someProp={5} data-testid="test">
+            Test
+        </Dialog>
+    );
+
+    const dialogCustomCompT2 = (
+        // $ExpectError
+        <Dialog as={TestComp2} aria-labelledby="test" onDismiss={() => {}} someProp={5} unknownProp="a" data-testid="test">
+            Test
+        </Dialog>
     );
 }

@@ -7,4 +7,4 @@
  * guide to learn differences between these interfaces.
  *
  */
-export default function nth<T>(index: number, iterable: Iterable<T>): T;
+export default function nth<T>(index: number, iterable: Iterable<T>): T | null;

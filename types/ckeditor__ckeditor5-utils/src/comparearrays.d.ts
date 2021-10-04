@@ -4,12 +4,13 @@
  * a flag specifying the relation is returned. Flags are negative numbers, so whenever a number >= 0 is returned
  * it means that arrays differ.
  *
- *  compareArrays( [ 0, 2 ], [ 0, 2 ] );		// 'same'
- *  compareArrays( [ 0, 2 ], [ 0, 2, 1 ] );		// 'prefix'
- *  compareArrays( [ 0, 2 ], [ 0 ] );			// 'extension'
- *  compareArrays( [ 0, 2 ], [ 1, 2 ] );		// 0
- *  compareArrays( [ 0, 2 ], [ 0, 1 ] );		// 1
- *
+ *  compareArrays( [ 0, 2 ], [ 0, 2 ] );  // 'same'
+ *  compareArrays( [ 0, 2 ], [ 0, 2, 1 ] );  // 'prefix'
+ *  compareArrays( [ 0, 2 ], [ 0 ] );   // 'extension'
+ *  compareArrays( [ 0, 2 ], [ 1, 2 ] );  // 0
+ *  compareArrays( [ 0, 2 ], [ 0, 1 ] );  // 1
  */
-export default function compareArrays<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): number | ArrayRelation;
-export type ArrayRelation = "extension" | "same" | "prefix";
+export default function compareArrays<T>(a: T[], b: T[]): ArrayRelation | number;
+export default function compareArrays<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): ArrayRelation | number;
+
+export type ArrayRelation = 'extension' | 'same' | 'prefix';

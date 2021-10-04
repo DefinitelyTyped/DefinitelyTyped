@@ -1196,6 +1196,8 @@ declare namespace IORedis {
         quit(callback: Callback<Ok>): void;
         quit(): Promise<Ok>;
 
+        scan(cursor: number | string): Promise<[string, string[]]>;
+
         scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
         scan(
             cursor: number | string,

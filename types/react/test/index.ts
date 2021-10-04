@@ -499,6 +499,22 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     onAnimationStart: event => {
         const currentTarget: EventTarget & HTMLElement = event.currentTarget;
     },
+    onBlur: (event: React.FocusEvent) => {
+        const {
+            // $ExpectType (EventTarget & Element) | null
+            relatedTarget,
+            // $ExpectType EventTarget & Element
+            target
+        } = event;
+    },
+    onFocus: (event: React.FocusEvent) => {
+        const {
+            // $ExpectType (EventTarget & Element) | null
+            relatedTarget,
+            // $ExpectType EventTarget & Element
+            target
+        } = event;
+    },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
     },
@@ -878,7 +894,7 @@ const sfc: React.SFC<any> = Memoized2;
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",
     foo: 42,
-    children: functionComponent,
+    children: React.createElement(functionComponent),
 };
 
 type UnionProps =

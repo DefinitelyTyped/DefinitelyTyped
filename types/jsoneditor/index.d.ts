@@ -484,6 +484,11 @@ export interface JSONEditorOptions {
      * The text can contain HTML code like a link to a web page.
      */
     queryDescription?: string | undefined;
+    /**
+     * If false, nodes can be dragged from any parent node to any other parent node. If true, nodes can only be dragged inside the same parent node, which effectively only allows reordering of nodes.
+     * By default, limitDragging is true when no JSON schema is defined, and false otherwise.
+     */
+    limitDragging?: boolean;
 }
 
 export default class JSONEditor {
