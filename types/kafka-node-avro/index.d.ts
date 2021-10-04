@@ -1,4 +1,4 @@
-// Type definitions for kafka-node-avro 4.3.0
+// Type definitions for kafka-node-avro 4.1
 // Project: https://github.com/narcisoguillen/kafka-node-avro#readme
 // Definitions by: Gediminas Katilevicius <https://github.com/alfamegaxq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
