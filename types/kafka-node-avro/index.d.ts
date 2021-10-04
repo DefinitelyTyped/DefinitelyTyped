@@ -2,7 +2,6 @@
 // Project: https://github.com/narcisoguillen/kafka-node-avro#readme
 // Definitions by: Gediminas Katilevicius <https://github.com/alfamegaxq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4.3
 
 import { Consumer, HighLevelProducer } from "kafka-node";
 
