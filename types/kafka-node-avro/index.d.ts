@@ -1,8 +1,10 @@
-// Type definitions for kafka-node-avro 4.0
+// Type definitions for kafka-node-avro 4.3.0
 // Project: https://github.com/narcisoguillen/kafka-node-avro#readme
 // Definitions by: Gediminas Katilevicius <https://github.com/alfamegaxq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+import { Consumer, HighLevelProducer } from "kafka-node";
 
 export interface SchemaSettings {
     /** Kafka schema registry url */
@@ -36,6 +38,10 @@ export interface SendOptions {
 export interface Kafka {
     /** Publishes message to Kafka */
     send: (options: SendOptions) => Promise<{}>;
+    /** Creates a HighLevelProducer on demand */
+    addProducer: (options?, customPartitioner?) => Producer;
+    /** Creates a Consumer on demand */
+    addConsumer: (topics, options?) => Consumer;
 }
 
 /**
