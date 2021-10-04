@@ -1075,7 +1075,6 @@ describe('resolve cases', () => {
             if (thenCount !== 3) {
                 throw new Error(`Expected then to have been called 3 times, got ${ thenCount } calls`);
             }
-
         }).then(() => {
             if (!errorHandlerCalled) {
                 throw new Error(`Expected error handler to be called`);
