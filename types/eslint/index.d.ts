@@ -597,7 +597,7 @@ export namespace Rule {
         report(descriptor: ReportDescriptor): void;
     }
 
-    type ReportFixer = ((fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[]);
+    type ReportFixer = (fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[];
 
     interface ReportDescriptorOptionsBase {
         data?: { [key: string]: string };
