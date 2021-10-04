@@ -1,11 +1,12 @@
 // Type definitions for k6 0.34
 // Project: https://k6.io/docs/
-// Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
-//                 Book Moons <https://github.com/bookmoons>
-//                 na-- <https://github.com/na-->
-//                 Pepe Cano <https://github.com/ppcano>
-//                 Simon Aronsson <https://github.com/simskij>
+// Definitions by: na-- <https://github.com/na-->
 //                 Ivan Mirić <https://github.com/imiric>
+//                 Mihail Stoykov <https://github.com/MStoykov>
+//                 Ivan <https://github.com/codebien>
+//                 Inanc Gumus <https://github.com/inancgumus>
+//                 yorugac <https://github.com/yorugac>
+//                 Pepe Cano <https://github.com/ppcano>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
