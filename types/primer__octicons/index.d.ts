@@ -57,8 +57,8 @@ declare namespace octicons {
 
     interface IconAttributes {
         version: string;
-        width: string;
-        height: string;
+        width: number;
+        height: number;
         viewBox: string;
         class: string;
         'aria-hidden': string;
