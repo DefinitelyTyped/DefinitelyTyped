@@ -825,6 +825,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
                             StickyHeaderComponent={this._stickyHeaderComponent}
+                            stickyHeaderHiddenOnScroll={true}
                         />
                     );
                 }}
@@ -1251,6 +1252,9 @@ AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled =>
 );
 AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+);
+AccessibilityInfo.getRecommendedTimeoutMillis(5000).then(timeoutMiles =>
+    console.log(`AccessibilityInfo.getRecommendedTimeoutMillis => ${timeoutMiles}`)
 );
 
 AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
