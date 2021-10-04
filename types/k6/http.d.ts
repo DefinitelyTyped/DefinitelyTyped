@@ -231,34 +231,34 @@ export const OCSP_REASON_UNSPECIFIED = 'unspecified';
  */
 export interface Params {
     /** Authentication method. */
-    auth?: AuthMethod | undefined;
+    auth?: AuthMethod;
 
     /** Request body compression. */
-    compression?: string | undefined;
+    compression?: string;
 
     /** Request scoped cookies. */
-    cookies?: { [name: string]: ParamsCookieValue } | undefined;
+    cookies?: { [name: string]: ParamsCookieValue };
 
     /** Request headers. */
-    headers?: { [name: string]: string } | undefined;
+    headers?: { [name: string]: string };
 
     /** Cookie jar to override default VU cookie jar with. */
-    jar?: CookieJar | undefined;
+    jar?: CookieJar;
 
     /** Maximum redirects to follow. */
-    redirects?: number | undefined;
+    redirects?: number;
 
     /** Response type. */
-    responseType?: ResponseType | undefined;
+    responseType?: ResponseType;
 
     /** Response time metric tags. */
-    tags?: { [name: string]: string } | undefined;
+    tags?: { [name: string]: string };
 
     /** Request timeout. */
-    timeout?: string | number | undefined;
+    timeout?: string | number;
 
     /** Sets a ResponseCallback only for this request. */
-    responseCallback?: ExpectedStatusesCallback | undefined;
+    responseCallback?: ExpectedStatusesCallback;
 }
 
 /**
@@ -266,7 +266,7 @@ export interface Params {
  * Used to infer response body type.
  */
 export interface RefinedParams<RT extends ResponseType | undefined> extends Params {
-    responseType?: RT | undefined;
+    responseType?: RT;
 }
 
 /**
@@ -283,7 +283,7 @@ export type ResponseType = 'binary' | 'none' | 'text';
  * Cookie value in request parameters.
  * https://k6.io/docs/javascript-api/k6-http/params-k6-http
  */
-export type ParamsCookieValue = string | { value?: string | undefined; replace?: boolean | undefined };
+export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 
 // === Request body ===
 // --------------------
@@ -325,10 +325,10 @@ export interface ObjectBatchRequest {
     url: string;
 
     /** Request body. */
-    body?: RequestBody | null | undefined;
+    body?: RequestBody | null;
 
     /** Requset parameters. */
-    params?: Params | null | undefined;
+    params?: Params | null;
 }
 
 /**
@@ -364,8 +364,8 @@ export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
 export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> {
     method: string;
     url: string;
-    body?: RequestBody | null | undefined;
-    params?: RefinedParams<RT> | null | undefined;
+    body?: RequestBody | null;
+    params?: RefinedParams<RT> | null;
 }
 
 // === Batch responses ===
@@ -496,8 +496,8 @@ export interface Response {
      * @returns Link click response.
      */
     clickLink<RT extends ResponseType | undefined>(args?: {
-        selector?: string | undefined;
-        params?: RefinedParams<RT> | null | undefined;
+        selector?: string;
+        params?: RefinedParams<RT> | null;
     }): RefinedResponse<RT>;
 
     /**
@@ -520,7 +520,7 @@ export interface Response {
      * let res = http.get(url);
      * res.json();
      */
-    json(selector?: string): JSONValue | undefined;
+    json(selector?: string): JSONValue;
 
     /**
      * Submit form on page.
@@ -532,10 +532,10 @@ export interface Response {
      * @returns Form submission response.
      */
     submitForm<RT extends ResponseType | undefined>(args?: {
-        formSelector?: string | undefined;
-        fields?: { [name: string]: string } | undefined;
-        submitSelector?: string | undefined;
-        params?: RefinedParams<RT> | null | undefined;
+        formSelector?: string;
+        fields?: { [name: string]: string };
+        submitSelector?: string;
+        params?: RefinedParams<RT> | null;
     }): RefinedResponse<RT>;
 }
 
@@ -660,10 +660,10 @@ export abstract class FileData {
     data: string | bytes | ArrayBuffer;
 
     /** Filename to include in MIME message. */
-    filename?: string | undefined;
+    filename?: string;
 
     /** Content type to include in MIME message. */
-    content_type?: string | undefined;
+    content_type?: string;
 }
 
 // === Cookie jar ===
@@ -707,22 +707,22 @@ export interface CookieJarCookies {
  */
 export interface CookieOptions {
     /** Domain allowed to receive. */
-    domain?: string | undefined;
+    domain?: string;
 
     /** Scope path. */
-    path?: string | undefined;
+    path?: string;
 
     /** Expiry time in RFC1123 format. */
-    expires?: string | undefined;
+    expires?: string;
 
     /** Seconds until expiration. */
-    max_age?: number | undefined;
+    max_age?: number;
 
     /** Secure. */
-    secure?: boolean | undefined;
+    secure?: boolean;
 
     /** HTTP only. */
-    http_only?: boolean | undefined;
+    http_only?: boolean;
 }
 
 interface ExpectedStatusesCallback {
