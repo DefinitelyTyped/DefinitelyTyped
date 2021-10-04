@@ -5125,7 +5125,7 @@ declare namespace cytoscape {
          * All nodes animated by default on animate enabled.
          * Non-animated nodes are positioned immediately when the layout starts
          */
-        animateFilter(node: NodeSingular, index: number): boolean;
+        animateFilter?(node: NodeSingular, index: number): boolean;
     }
     /**
      * http://js.cytoscape.org/#layouts/random
