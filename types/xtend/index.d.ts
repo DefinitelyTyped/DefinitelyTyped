@@ -1,6 +1,6 @@
-// Type definitions for xtend 4.0.1
+// Type definitions for xtend 4.0
 // Project: https://github.com/Raynos/xtend
-// Definitions by: rhysd <https://rhysd.github.io>
+// Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Xtend {
