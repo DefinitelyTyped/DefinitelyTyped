@@ -700,7 +700,8 @@ function panAndZoom() {
         .scale(y)
         .orient("left")
         .ticks(5)
-        .tickSize(-width);
+        .tickSize(-width)
+        .tickSubdivide(true);
 
     var zoom = d3.behavior.zoom()
         .x(x)
