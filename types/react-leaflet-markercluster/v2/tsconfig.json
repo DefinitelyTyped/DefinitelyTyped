@@ -10,6 +10,11 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../../",
+        "paths": {
+            "react-leaflet-markercluster": [
+                "react-leaflet-markercluster/v2"
+            ]
+        },
         "jsx": "react",
         "typeRoots": [
             "../../"
