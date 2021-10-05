@@ -23,6 +23,6 @@
   },
   "files": [
     "index.d.ts",
-    "webide-common-tizentv-tests.ts"
+    "tizentv__webide-common-tizentv-tests.ts"
   ]
 }
