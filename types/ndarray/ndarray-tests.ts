@@ -65,8 +65,15 @@ function getTypedArrayOrNumberArray(arr: ndarray.NdArray<ndarray.Data<number>>):
 }
 
 function getBigIntTypedArrayOrBigIntArray(arr: ndarray.NdArray<ndarray.Data<bigint>>): {
-    data: BigUint64Array | BigInt64Array | bigint[];
+    data: BigUint64Array | BigInt64Array | Array<bigint>;
     scalar: bigint;
+} {
+    return { data: arr.data, scalar: arr.get(0) };
+}
+
+function getBigIntOrNumeric(arr: ndarray.NdArray<ndarray.Data<number | bigint>>): {
+    data: number[] | ndarray.TypedArray | BigUint64Array | BigInt64Array | Array<bigint>;
+    scalar: number | bigint;
 } {
     return { data: arr.data, scalar: arr.get(0) };
 }

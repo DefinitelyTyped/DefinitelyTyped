@@ -39,8 +39,6 @@ declare namespace ndarray {
         ? T[] | TypedArray
         : T extends bigint
         ? T[] | BigInt64Array | BigUint64Array
-        : T extends bigint | number
-        ? T[] | TypedArray | BigInt64Array | BigUint64Array
         : T[];
 
     type TypedArray =
