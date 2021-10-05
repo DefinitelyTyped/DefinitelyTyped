@@ -10,7 +10,7 @@ import { Selection } from './html';
  * @returns Resulting response.
  */
 export function del<RT extends ResponseType | undefined>(
-    url: string,
+    url: string | HttpURL,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
@@ -25,7 +25,7 @@ export function del<RT extends ResponseType | undefined>(
  * http.get('https://k6.io')
  */
 export function get<RT extends ResponseType | undefined>(
-    url: string,
+    url: string | HttpURL,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
@@ -38,7 +38,7 @@ export function get<RT extends ResponseType | undefined>(
  * @returns Resulting response.
  */
 export function options<RT extends ResponseType | undefined>(
-    url: string,
+    url: string | HttpURL,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
@@ -52,7 +52,7 @@ export function options<RT extends ResponseType | undefined>(
  * @returns Resulting response.
  */
 export function patch<RT extends ResponseType | undefined>(
-    url: string,
+    url: string | HttpURL,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
@@ -70,7 +70,7 @@ export function patch<RT extends ResponseType | undefined>(
  * http.post(url, formData, { headers: headers });
  */
 export function post<RT extends ResponseType | undefined>(
-    url: string,
+    url: string | HttpURL,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
@@ -84,7 +84,7 @@ export function post<RT extends ResponseType | undefined>(
  * @returns Resulting response.
  */
 export function put<RT extends ResponseType | undefined>(
-    url: string,
+    url: string | HttpURL,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
@@ -104,7 +104,7 @@ export function put<RT extends ResponseType | undefined>(
  */
 export function request<RT extends ResponseType | undefined>(
     method: string,
-    url: string,
+    url: string | HttpURL,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
@@ -307,12 +307,12 @@ export interface StructuredRequestBody {
  * Batch request specification.
  * https://k6.io/docs/javascript-api/k6-http/batch-requests
  */
-export type BatchRequest = string | ArrayBatchRequest | ObjectBatchRequest;
+export type BatchRequest = string | HttpURL | ArrayBatchRequest | ObjectBatchRequest;
 
 /**
  * Array form batch request specification.
  */
-export type ArrayBatchRequest = [ string, string, (RequestBody | null)?, (Params | null)? ];
+export type ArrayBatchRequest = [ string, string | HttpURL, (RequestBody | null)?, (Params | null)? ];
 
 /**
  * Object form batch request specification.
@@ -322,7 +322,7 @@ export interface ObjectBatchRequest {
     method: string;
 
     /** Request URL. */
-    url: string;
+    url: string | HttpURL;
 
     /** Request body. */
     body?: RequestBody | null;
@@ -345,6 +345,7 @@ export type BatchRequests = BatchRequest[] | { [name: string]: BatchRequest };
  */
 export type RefinedBatchRequest<RT extends ResponseType | undefined> =
     | string
+    | HttpURL
     | ArrayRefinedBatchRequest<RT>
     | ObjectRefinedBatchRequest<RT>;
 
@@ -353,7 +354,7 @@ export type RefinedBatchRequest<RT extends ResponseType | undefined> =
  */
 export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
     string,
-    string,
+    string | HttpURL ,
     (RequestBody | null)?,
     (RefinedParams<RT> | null)?
 ];
@@ -363,7 +364,7 @@ export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
  */
 export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> {
     method: string;
-    url: string;
+    url: string | HttpURL;
     body?: RequestBody | null;
     params?: RefinedParams<RT> | null;
 }
@@ -734,6 +735,16 @@ export interface ExpectedStatusesObject {
     max: number;
 }
 
+// === HTTP URL ===
+// -----------------------
+
+/**
+ * Returned value from http.url method.
+ */
+ interface HttpURL {
+  __brand: "http-url";
+}
+
 /**
  * The http module contains functionality for performing HTTP transactions.
  * https://k6.io/docs/javascript-api/k6-http/
@@ -748,7 +759,7 @@ declare namespace http {
      * @returns Resulting response.
      */
     function del<RT extends ResponseType | undefined>(
-        url: string,
+        url: string | HttpURL,
         body?: RequestBody | null,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
@@ -763,7 +774,7 @@ declare namespace http {
      * http.get('https://k6.io')
      */
     function get<RT extends ResponseType | undefined>(
-        url: string,
+        url: string | HttpURL,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
 
@@ -776,7 +787,7 @@ declare namespace http {
      * @returns Resulting response.
      */
     function options<RT extends ResponseType | undefined>(
-        url: string,
+        url: string | HttpURL,
         body?: RequestBody | null,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
@@ -790,7 +801,7 @@ declare namespace http {
      * @returns Resulting response.
      */
     function patch<RT extends ResponseType | undefined>(
-        url: string,
+        url: string | HttpURL,
         body?: RequestBody | null,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
@@ -808,7 +819,7 @@ declare namespace http {
      * http.post(url, formData, { headers: headers });
      */
     function post<RT extends ResponseType | undefined>(
-        url: string,
+        url: string | HttpURL,
         body?: RequestBody | null,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
@@ -822,7 +833,7 @@ declare namespace http {
      * @returns Resulting response.
      */
     function put<RT extends ResponseType | undefined>(
-        url: string,
+        url: string | HttpURL,
         body?: RequestBody | null,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
@@ -842,10 +853,21 @@ declare namespace http {
      */
     function request<RT extends ResponseType | undefined>(
         method: string,
-        url: string,
+        url: string | HttpURL,
         body?: RequestBody | null,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
+
+    /**
+     * Creates a URL with set name tag.
+     * https://k6.io/docs/using-k6/http-requests/#url-grouping
+     * @param strings - Passed string values.
+     * @param args - Tagged template expressions.
+     * @returns HTTP URL object.
+     * @example
+     * http.get(http.url`http://example.com/posts/${id}`) // tags.name="http://example.com/posts/${}",
+     */
+     function url(strings: TemplateStringsArray, ...args: Array<string | number | boolean>): HttpURL;
 
     /**
      * Batch multiple HTTP requests together,
