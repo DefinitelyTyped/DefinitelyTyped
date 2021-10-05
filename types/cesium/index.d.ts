@@ -3857,11 +3857,12 @@ declare namespace Cesium {
 
         add(plane: ClippingPlane): void;
         remove(plane: ClippingPlane): boolean;
+        removeAll(): void;
         update(): void;
         isDestroyed(): boolean;
         contains(plane: ClippingPlane): boolean;
         destroy(): void;
-        getIndex(index: number): ClippingPlane;
+        get(index: number): ClippingPlane;
     }
 
     enum Cesium3DTileColorBlendMode {
