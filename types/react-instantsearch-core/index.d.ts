@@ -32,6 +32,7 @@ export interface InstantSearchProps {
 export class InstantSearch extends React.Component<InstantSearchProps> {}
 
 export interface IndexProps {
+  children?: React.ReactNode;
   indexName: string;
   indexId?: string | undefined;
 }
