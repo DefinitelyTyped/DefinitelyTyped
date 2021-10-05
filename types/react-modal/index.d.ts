@@ -52,6 +52,8 @@ declare namespace ReactModal {
     }
 
     interface Props {
+        children?: React.ReactNode;
+
         /* Boolean describing if the modal should be shown or not. Defaults to false. */
         isOpen: boolean;
 
