@@ -34,7 +34,15 @@ declare namespace ndarray {
         pick(...args: Array<number | null>): NdArray<D>;
         T: NdArray<D>;
     }
-    type Data<T = any> = T extends bigint ? T[] | TypedArray | BigInt64Array | BigUint64Array : T[] | TypedArray;
+
+    type Data<T = any> = T extends number
+        ? T[] | TypedArray
+        : T extends bigint
+        ? T[] | BigInt64Array | BigUint64Array
+        : T extends bigint | number
+        ? T[] | TypedArray | BigInt64Array | BigUint64Array
+        : T[];
+
     type TypedArray =
         | Int8Array
         | Int16Array
@@ -45,6 +53,7 @@ declare namespace ndarray {
         | Uint32Array
         | Float32Array
         | Float64Array;
+
     type Value<D extends Data> = D[number];
 
     type DataType<D extends Data = Data> = D extends Int8Array

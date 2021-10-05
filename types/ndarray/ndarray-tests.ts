@@ -57,10 +57,20 @@ function getFirstValue(arr: ndarray.NdArray): number {
     return arr.get(0);
 }
 
-function getFirstValueMaybeBigInt(arr: ndarray.NdArray<ndarray.Data<bigint>>): bigint | number {
-    return arr.get(0);
+function getTypedArrayOrNumberArray(arr: ndarray.NdArray<ndarray.Data<number>>): {
+    data: ndarray.TypedArray | number[];
+    scalar: number;
+} {
+    return { data: arr.data, scalar: arr.get(0) };
 }
 
-function getFirstValueBigInt(arr: ndarray.NdArray<BigInt64Array>): bigint {
-    return arr.get(0);
+function getBigIntTypedArrayOrBigIntArray(arr: ndarray.NdArray<ndarray.Data<bigint>>): {
+    data: BigUint64Array | BigInt64Array | bigint[];
+    scalar: bigint;
+} {
+    return { data: arr.data, scalar: arr.get(0) };
+}
+
+function infersStringOnly(arr: ndarray.NdArray<ndarray.Data<string>>): { data: string[]; scalar: string } {
+    return { data: arr.data, scalar: arr.get(0) };
 }
