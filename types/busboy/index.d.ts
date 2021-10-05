@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+import {Readable, Writable} from 'stream';
+
 declare namespace busboy {
     interface Options {
         headers: any;
@@ -26,7 +28,7 @@ declare namespace busboy {
         } | undefined;
     }
 
-    interface Busboy extends NodeJS.WritableStream {
+    interface Busboy extends Writable {
         on(event: 'field',
            listener: (
                fieldname: string,
@@ -38,7 +40,7 @@ declare namespace busboy {
         on(event: 'file',
            listener: (
                fieldname: string,
-               file: NodeJS.ReadableStream,
+               file: Readable,
                filename: string,
                encoding: string,
                mimetype: string) => void): this;
