@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
-        "zalgo-promise-tests.ts"
+        "test/zalgo-promise.cjs.test.ts",
+        "test/zalgo-promise.esm.test.ts",
+        "test/zalgo-promise.umd.test.ts"
     ]
 }

@@ -4,3 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { ZalgoPromise } from './promise';
+
+// UMD
+export as namespace ZalgoPromise;
