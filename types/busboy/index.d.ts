@@ -56,7 +56,5 @@ declare namespace busboy {
     }
 }
 
-declare module 'busboy' {
-    const temp: busboy.BusboyConstructor;
-    export = temp;
-}
+declare const temp: busboy.BusboyConstructor;
+export = temp;
