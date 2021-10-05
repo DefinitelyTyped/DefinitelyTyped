@@ -6,7 +6,7 @@
 export as namespace Granim;
 
 declare class Granim {
-    constructor(options: Options);
+    constructor(options: Granim.Options);
     play(): void;
     pause(): void;
     clear(): void;
@@ -16,14 +16,14 @@ declare class Granim {
     destroy(): void;
 }
 declare namespace Granim {
-    export interface OnGradientChangeObject {
+    interface OnGradientChangeObject {
         activeState: string;
         colorsFrom: [string, string];
         colorsTo: [string, string];
         isLooping: boolean;
     }
 
-    export interface Options {
+    interface Options {
         element: string | HTMLCanvasElement;
         name?: string;
         elToSetClassOn?: string;
@@ -40,20 +40,20 @@ declare namespace Granim {
         onEnd?: () => void;
     }
 
-    export interface Gradient {
+    interface Gradient {
         color: string;
         pos: number;
     }
 
-    export interface State {
+    interface State {
         gradients: string[][] | Gradient[][];
         transitionSpeed?: number;
         loop?: boolean;
     }
 
-    export type stretchMode = 'none' | 'stretch' | 'stretch-if-smaller' | 'stretch-if-bigger';
+    type stretchMode = 'none' | 'stretch' | 'stretch-if-smaller' | 'stretch-if-bigger';
 
-    export interface Image {
+    interface Image {
         source: string;
         position?: ['left' | 'center' | 'right', 'top' | 'center' | 'bottom'];
         stretchMode?: [stretchMode, stretchMode];

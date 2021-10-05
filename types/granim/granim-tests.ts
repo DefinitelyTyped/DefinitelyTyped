@@ -1,4 +1,4 @@
-import { Granim } from 'granim';
+import Granim = require('granim');
 
 // Tests from https://sarcadass.github.io/granim.js/api-v2.0.0.html
 
