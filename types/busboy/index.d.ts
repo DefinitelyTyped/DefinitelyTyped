@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import {Readable, Writable} from 'stream';
+import { Readable, Writable } from 'stream';
 
 declare namespace busboy {
     interface Options {
