@@ -12,6 +12,7 @@ import { SearchParameters } from 'algoliasearch-helper';
 
 // Core
 export interface InstantSearchProps {
+  children?: React.ReactNode;
   searchClient: any;
   indexName: string;
   createURL?: ((...args: any[]) => any) | undefined;
