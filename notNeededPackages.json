@@ -5226,6 +5226,10 @@
             "libraryName": "vfile-message",
             "asOfVersion": "2.0.0"
         },
+        "victory": {
+            "libraryName": "victory",
+            "asOfVersion": "35.0.0"
+        },
         "viewerjs": {
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
