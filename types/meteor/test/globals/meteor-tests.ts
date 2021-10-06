@@ -388,6 +388,12 @@ namespace MeteorTests {
     });
 
     /**
+        * From Collections, createIndex section
+    */
+
+    Posts.createIndex({ title: 1 });
+
+    /**
      * From Collections, cursor.forEach section
      */
     var topPosts = Posts.find({}, { sort: { score: -1 }, limit: 5 }) as Mongo.Cursor<PostDAO | iPost>;
