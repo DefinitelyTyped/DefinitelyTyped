@@ -1,4 +1,4 @@
-import { Field, TextField, Model } from 'fireo';
+import { Field, TextField, Model, IDField } from 'fireo';
 
 const textField: TextField = Field.Text();
 textField.setValue('test-string');
