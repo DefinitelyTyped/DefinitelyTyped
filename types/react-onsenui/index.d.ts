@@ -479,6 +479,7 @@ export class ListHeader extends Component<{
 }, any> {}
 
 export class ListItem extends Component<{
+    children?: React.ReactNode;
     modifier?: string | undefined,
     tappable?: boolean | undefined,
     tapBackgroundColor?: string | undefined,
