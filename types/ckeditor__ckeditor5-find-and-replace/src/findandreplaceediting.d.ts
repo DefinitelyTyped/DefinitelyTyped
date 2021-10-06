@@ -1,6 +1,5 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 import FindAndReplaceState from './findandreplacestate';
-
 /**
  * Implements the editing part for find and replace plugin. For example conversion, commands etc.
  */

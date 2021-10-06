@@ -529,9 +529,12 @@ modelPosition = model.createPositionAfter(model.document.getRoot()!.getChild(0))
 modelPosition = model.createPositionBefore(model.document.getRoot()!.getChild(0));
 range = model.createRangeIn(model.document.getRoot()!.getChild(0) as Element);
 range = model.createRangeOn(model.document.getRoot()!.getChild(0));
-const selection: Selection = model.createSelection();
-let batch: Batch = model.createBatch();
-batch = model.createBatch("transparent");
+// $ExpectType Selection
+model.createSelection();
+// $ExpectType Batch
+model.createBatch();
+// $ExpectType Batch
+model.createBatch("transparent");
 operation = model.createOperationFromJSON({
     __className: "NoOperation",
     baseVersion: 0,
