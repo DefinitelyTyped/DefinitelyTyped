@@ -43,6 +43,7 @@ export {
 
 export interface BrowserRouterProps {
     basename?: string | undefined;
+    children?: React.ReactNode;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
     forceRefresh?: boolean | undefined;
     keyLength?: number | undefined;
@@ -51,6 +52,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
 export interface HashRouterProps {
     basename?: string | undefined;
+    children?: React.ReactNode;
     getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
     hashType?: 'slash' | 'noslash' | 'hashbang' | undefined;
 }

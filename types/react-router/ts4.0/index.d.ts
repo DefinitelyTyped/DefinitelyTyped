@@ -13,6 +13,7 @@ export interface RouterChildContext<Params extends { [K in keyof Params]?: strin
     };
 }
 export interface MemoryRouterProps {
+    children?: React.ReactNode;
     initialEntries?: H.LocationDescriptor[];
     initialIndex?: number;
     getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
@@ -71,6 +72,7 @@ export interface RouteProps {
 export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> {}
 
 export interface RouterProps {
+    children?: React.ReactNode;
     history: H.History;
 }
 export class Router extends React.Component<RouterProps, any> {}
@@ -82,6 +84,7 @@ export interface StaticRouterContext extends StaticContext {
 }
 export interface StaticRouterProps {
     basename?: string;
+    children?: React.ReactNode;
     location?: string | object;
     context?: StaticRouterContext;
 }
