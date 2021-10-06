@@ -406,7 +406,7 @@ namespace MeteorTests {
      * From Collections, createIndex section
      */
 
-    Posts.createIndex('title');
+    Posts.createIndex({ title: 1 });
 
     /**
      * From Collections, cursor.forEach section
