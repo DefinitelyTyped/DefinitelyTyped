@@ -1,14 +1,14 @@
-import { Field, TextField, Model, IDField } from 'fireo';
+import { Field, TextField, Model } from 'fireo';
 
 const textField: TextField = Field.Text();
 textField.setValue('test-string');
 
-// $ExpectType string
+// $ExpectType any
 textField.getValue();
 
 class User extends Model {
     name: TextField = Field.Text();
 }
 
-// $ExpectType User
+// $ExpectType any
 const user: User = User.init();

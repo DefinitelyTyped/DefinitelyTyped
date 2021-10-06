@@ -1,39 +1,39 @@
 // Type definitions for fireo 1.0
 // Project: https://github.com/octabytes/fireo-nodejs
-// Definitions by: Azeem Haider https://github.com/AxeemHaider,
+// Definitions by: Azeem Haider <https://github.com/AxeemHaider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class Fireo {
-    static runTransaction(callback: () => any): Promise<any>;
+export namespace Fireo {
+    function runTransaction(callback: () => any): Promise<any>;
 
-    static batch(): any;
+    function batch(): any;
 
-    static GeoPoint(latitude: number, longitude: number): any;
+    function GeoPoint(latitude: number, longitude: number): any;
 
-    static listUnion(element: any[]): any;
+    function listUnion(element: any[]): any;
 
-    static listRemove(element: any[]): any;
+    function listRemove(element: any[]): any;
 
-    static increment(number: number): any;
+    function increment(number: number): any;
 
-    static get connection(): any;
+    let connection: any;
 }
 
-interface GetCollectionOptions {
+export interface GetCollectionOptions {
     id?: string;
     key?: string;
     transaction?: any;
 }
 
-interface DeleteCollectionOptions {
+export interface DeleteCollectionOptions {
     id?: string;
     key?: string;
     child?: boolean;
 }
 
-declare class BaseManager {}
+export class BaseManager {}
 
-declare class Collection extends BaseManager {
+export class Collection extends BaseManager {
     get(by: GetCollectionOptions): Promise<any>;
 
     delete(by: DeleteCollectionOptions): Promise<void>;
@@ -60,45 +60,45 @@ declare class Collection extends BaseManager {
     transaction(t: any): any;
 }
 
-interface ModelOptions {
+export interface ModelOptions {
     parent?: string;
 }
 
-interface SaveModelOptions {
+export interface SaveModelOptions {
     merge?: boolean;
     transaction?: any;
     batch?: any;
 }
 
-interface UpsertModelOptions {
+export interface UpsertModelOptions {
     transaction?: any;
     batch?: any;
 }
 
-interface UpdateModelOptions {
+export interface UpdateModelOptions {
     id?: string;
     key?: string;
     transaction?: any;
     batch?: any;
 }
 
-interface DeleteModelOptions {
+export interface DeleteModelOptions {
     transaction?: any;
     batch?: any;
 }
 
-declare class MetaModel {}
+export class MetaModel {}
 
 export class Model extends MetaModel {
     static parent(key?: string): Model;
 
-    static init<Entity extends Model>(options?: ModelOptions): Entity;
+    static init(options?: ModelOptions): any;
 
-    static fromObject(map: Object): Model;
+    static fromObject(map: object): Model;
 
-    fromObject(map: Object): Model;
+    fromObject(map: object): Model;
 
-    toObject(): Object;
+    toObject(): object;
 
     save(options?: SaveModelOptions): Promise<void>;
 
@@ -111,25 +111,25 @@ export class Model extends MetaModel {
     static get collection(): Collection;
 }
 
-interface BaseFieldOptions {
+export interface BaseFieldOptions {
     required?: boolean;
     default?: any;
     name?: string;
 }
 
-interface TextFieldOptions extends BaseFieldOptions {
+export interface TextFieldOptions extends BaseFieldOptions {
     toLowercase?: boolean;
 }
 
-interface DateTimeFieldOptions extends BaseFieldOptions {
+export interface DateTimeFieldOptions extends BaseFieldOptions {
     auto?: boolean;
 }
 
-interface ReferenceFieldOptions extends BaseFieldOptions {
+export interface ReferenceFieldOptions extends BaseFieldOptions {
     autoLoad?: boolean;
 }
 
-interface BaseFieldConfig {
+export interface BaseFieldConfig {
     modelName?: string;
     originalName?: string;
     toLowercase?: boolean;
@@ -151,32 +151,32 @@ export class BaseField {
     getDBValue(): Promise<any>;
 }
 
-declare class IDField extends BaseField {}
-declare class TextField extends BaseField {}
-declare class NumberField extends BaseField {}
-declare class BooleanField extends BaseField {}
-declare class ListField extends BaseField {}
-declare class MapField extends BaseField {}
-declare class DateTimeField extends BaseField {}
-declare class GeoPointField extends BaseField {}
-declare class ReferenceField extends BaseField {}
+export class IDField extends BaseField {}
+export class TextField extends BaseField {}
+export class NumberField extends BaseField {}
+export class BooleanField extends BaseField {}
+export class ListField extends BaseField {}
+export class MapField extends BaseField {}
+export class DateTimeField extends BaseField {}
+export class GeoPointField extends BaseField {}
+export class ReferenceField extends BaseField {}
 
-export class Field {
-    static ID(): IDField;
+export namespace Field {
+    function ID(): IDField;
 
-    static Text(options?: TextFieldOptions): TextField;
+    function Text(options?: TextFieldOptions): TextField;
 
-    static Number(options?: BaseFieldOptions): NumberField;
+    function Number(options?: BaseFieldOptions): NumberField;
 
-    static Boolean(options?: BaseFieldOptions): BooleanField;
+    function Boolean(options?: BaseFieldOptions): BooleanField;
 
-    static List(options?: BaseFieldOptions): ListField;
+    function List(options?: BaseFieldOptions): ListField;
 
-    static Map(options?: BaseFieldOptions): MapField;
+    function Map(options?: BaseFieldOptions): MapField;
 
-    static DateTime(options?: DateTimeFieldOptions): DateTimeField;
+    function DateTime(options?: DateTimeFieldOptions): DateTimeField;
 
-    static GeoPoint(options?: BaseFieldOptions): GeoPointField;
+    function GeoPoint(options?: BaseFieldOptions): GeoPointField;
 
-    static Reference(options?: ReferenceFieldOptions): ReferenceField;
+    function Reference(options?: ReferenceFieldOptions): ReferenceField;
 }
