@@ -22,6 +22,7 @@
 //                  Kent Robin Haugen <https://github.com/kentrh>
 //                  Asen Lekov <https://github.com/L3K0V>
 //                  Switt Kongdachalert <https://github.com/swittk>
+//                  Dan Syrstad <https://github.com/dsyrstad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -1035,6 +1036,28 @@ declare global {
         const User: UserConstructor;
 
         /**
+         * The raw schema response returned from the `GET /parse/schemas` endpoint.
+         * This is defined here: https://docs.parseplatform.org/js/guide/#schema.
+         * Unfortunately, `Schema.all()` and `Schema.prototype.get()` return this rather
+         * than a `Schema`. It is also the only object which provides introspection on
+         * the schema - such as `className` and `fields`.
+         */
+        interface RestSchema {
+            readonly className: string;
+            readonly fields: {
+                [key: string]: {
+                    type: string;
+                }
+            };
+            readonly classLevelPermissions: Schema.CLP;
+            readonly indexes: {
+                [key: string]: {
+                    [key: string]: number;
+                }
+            };
+        }
+
+        /**
          * A Parse.Schema object is for handling schema data from Parse.
          * All the schemas methods require MasterKey.
          *
@@ -1058,7 +1081,7 @@ declare global {
              * @return A promise that is resolved with the result when
              * the query completes.
              */
-            static all(): Promise<Schema[]>;
+            static all(): Promise<RestSchema[]>;
 
             addArray(key: Schema.AttrType<T, any[]>, options?: Schema.FieldOptions<any[]>): this;
             addBoolean(key: Schema.AttrType<T, boolean>, options?: Schema.FieldOptions<boolean>): this;
@@ -1135,7 +1158,7 @@ declare global {
             /**
              * Get the Schema from Parse
              */
-            get(): Promise<Schema>;
+            get(): Promise<RestSchema>;
 
             /**
              * Removes all objects from a Schema (class) in  EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
