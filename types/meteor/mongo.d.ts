@@ -1,4 +1,4 @@
-import { Collection as MongoCollection, Db as MongoDb, MongoClient } from 'mongodb';
+import { Collection as MongoCollection, Db as MongoDb, IndexOptions, MongoClient } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 
 declare module 'meteor/mongo' {
@@ -212,11 +212,7 @@ declare module 'meteor/mongo' {
                 fetch?: string[] | undefined;
                 transform?: Fn | undefined;
             }): boolean;
-            createIndex(index: { [key: string]: number | string } | string, options?: {
-                name?: String | undefined;
-                sparse?: Boolean | undefined;
-                unique?: Boolean | undefined;
-            }): void;
+            createIndex(index: { [key: string]: number | string } | string, options?: IndexOptions): void;
             deny<Fn extends Transform<T> = undefined>(options: {
                 insert?: ((userId: string, doc: DispatchTransform<Fn, T, U>) => boolean) | undefined;
                 update?:
