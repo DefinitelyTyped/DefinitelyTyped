@@ -18,6 +18,7 @@ const missingRequired = <KeyHandler />;
 // $ExpectError
 const invalidExample = <KeyHandler onKeyHandle={true} />;
 
+// $ExpectType Element
 const validExample = <KeyHandler onKeyHandle={onKeyHandleCallback} />;
 
 // $ExpectType (props: ReactKeyHandlerProps) => (Component: Element) => (...args: any[]) => Element
