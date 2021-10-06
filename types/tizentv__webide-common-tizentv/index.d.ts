@@ -2,7 +2,6 @@
 // Project: https://github.com/Samsung/webIDE-common-tizentv
 // Definitions by: Bart van den Ende <https://github.com/bartvandenende-wm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
 
 export interface AuthorInfo {
   keyFileName: string;
