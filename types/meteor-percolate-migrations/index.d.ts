@@ -25,7 +25,7 @@ declare module 'meteor/percolate:migrations' {
     logIfLatest?: boolean;
   }
 
-  interface MigrationsT {
+  interface MigrationsPublicApi {
     add(spec: MigrationSpec): void;
     config(c: Config): void;
     getVersion(): number;
@@ -34,5 +34,5 @@ declare module 'meteor/percolate:migrations' {
     unlock(): void;
   }
 
-  const Migrations: MigrationsT;
+  const Migrations: MigrationsPublicApi;
 }
