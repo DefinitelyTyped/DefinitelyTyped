@@ -9,11 +9,13 @@ import * as React from "react";
 
 export interface VerticalTimelineProps {
     animate?: boolean | undefined;
+    children?: React.ReactNode;
     className?: string | undefined;
     layout?: '1-column' | '2-columns' | undefined;
 }
 
 export interface VerticalTimelineElementProps {
+    children?: React.ReactNode;
     id?: string | undefined;
     className?: string | undefined;
     date?: string | undefined;
