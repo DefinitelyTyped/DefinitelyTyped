@@ -9,6 +9,8 @@ import * as ReactInstance from 'react';
 import * as ReactDOMInstance from 'react-dom';
 import * as _ from 'lodash';
 
+export {};
+
 declare global {
     const BdApi: typeof BdApiModule;
     const _: typeof _;
@@ -181,7 +183,7 @@ export interface ConfirmationModalOptions {
 /**
  * The following functions are available as a part of each `AddonAPI` object from `BdApi`.
  */
-export class AddonAPI {
+declare class AddonAPI {
     /**
      * String representing the resolved location of the user's addon folder.
      */
@@ -226,7 +228,7 @@ export class AddonAPI {
     getAll(): void;
 }
 
-export namespace BdApiModule {
+declare namespace BdApiModule {
     /**
      * The React module being used inside Discord.
      */
