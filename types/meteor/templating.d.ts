@@ -30,8 +30,7 @@ declare module 'meteor/templating' {
         D extends Record<string, any>,
         N extends string,
         T extends Record<string, unknown>,
-    > = TemplateStatic<D, T & Blaze.TemplateInstance<D>> &
-        {
-            [key in N]: Blaze.Template<D, T & Blaze.TemplateInstance<D>>;
-        };
+    > = TemplateStatic<D, T & Blaze.TemplateInstance<D>> & {
+        [key in N]: Blaze.Template<D, T & Blaze.TemplateInstance<D>>;
+    };
 }
