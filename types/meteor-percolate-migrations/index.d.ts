@@ -2,7 +2,6 @@
 // Project: https://github.com/percolatestudio/meteor-migrations/
 // Definitions by: Stepan Yurtsiv <https://github.com/yurtsiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
 
 // tslint:disable-next-line no-single-declare-module
 declare module 'meteor/percolate:migrations' {
