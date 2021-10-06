@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "comment-format": false,
-        "no-duplicate-variable": false,
         "object-literal-shorthand": false,
         "prefer-const": false,
         "prefer-template": false,

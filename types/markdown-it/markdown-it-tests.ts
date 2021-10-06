@@ -1,9 +1,8 @@
-import MarkdownIt = require('markdown-it');
-import MarkdownIt1 = require('markdown-it/index');
-import MarkdownIt2 = require('markdown-it/lib');
-import MarkdownIt3 = require('markdown-it/lib/index');
-
 import LinkifyIt = require('linkify-it');
+import MarkdownIt = require('markdown-it');
+import MarkdownIt1 = require('markdown-it');
+import MarkdownIt2 = require('markdown-it/lib');
+import MarkdownIt3 = require('markdown-it/lib');
 
 // sstub highlight-js interaction
 declare const hljs: {
@@ -85,6 +84,7 @@ declare const plugin1: any;
 declare const plugin2: any;
 declare const plugin3: any;
 declare const opts: any;
+
 let md: MarkdownIt;
 {
     md = MarkdownIt().use(plugin1).use(plugin2, opts).use(plugin3);
