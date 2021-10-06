@@ -1,13 +1,10 @@
 import uuidToHex = require('uuid-to-hex');
-import uuid = require('uuid');
-
-const uuidToBeParsed = uuid.v4();
 
 // $ExpectType string
-uuidToHex(uuidToBeParsed);
+uuidToHex('d3fd3540-6718-4687-956b-c8618a26e335');
 
 // $ExpectType string
-uuidToHex(uuidToBeParsed, true);
+uuidToHex('d3fd3540-6718-4687-956b-c8618a26e335', true);
 
 // $ExpectError
 uuidToHex();
