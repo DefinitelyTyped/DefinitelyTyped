@@ -1,6 +1,4 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
-import { Font } from './../extras/core/Font';
+import { Shape, Loader, LoadingManager } from '../../../src/Three';
 
 export class FontLoader extends Loader {
     constructor(manager?: LoadingManager);
@@ -13,4 +11,17 @@ export class FontLoader extends Loader {
     ): void;
     loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Font>;
     parse(json: any): Font;
+}
+
+export class Font {
+    constructor(jsondata: any);
+
+    /**
+     * @default 'Font'
+     */
+    type: string;
+
+    data: string;
+
+    generateShapes(text: string, size: number): Shape[];
 }

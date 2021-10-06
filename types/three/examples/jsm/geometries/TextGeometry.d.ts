@@ -1,5 +1,6 @@
-import { Font } from './../extras/core/Font';
-import { ExtrudeGeometry } from './ExtrudeGeometry';
+import { ExtrudeGeometry } from '../../../src/Three';
+
+import { Font } from '../loaders/FontLoader';
 
 export interface TextGeometryParameters {
     font: Font;
