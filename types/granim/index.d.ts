@@ -51,12 +51,12 @@ declare namespace Granim {
         loop?: boolean;
     }
 
-    type stretchMode = 'none' | 'stretch' | 'stretch-if-smaller' | 'stretch-if-bigger';
+    type StretchMode = 'none' | 'stretch' | 'stretch-if-smaller' | 'stretch-if-bigger';
 
     interface Image {
         source: string;
         position?: ['left' | 'center' | 'right', 'top' | 'center' | 'bottom'];
-        stretchMode?: [stretchMode, stretchMode];
+        stretchMode?: [StretchMode, StretchMode];
         blendingMode?: string;
     }
 }
