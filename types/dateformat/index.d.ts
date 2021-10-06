@@ -26,6 +26,8 @@ declare function dateFormat(
 ): string;
 declare function dateFormat(mask?: string, utc?: boolean, gmt?: boolean): string;
 
+declare function formatTimezone (date: string | Date): string
+
 declare namespace dateFormat {
     const masks: DateFormatMasks;
     let i18n: DateFormatI18n;
@@ -40,6 +42,7 @@ declare namespace dateFormat {
     interface DateFormatMasks {
         default: string;
         shortDate: string;
+        paddedShortDate: string;
         mediumDate: string;
         longDate: string;
         fullDate: string;
