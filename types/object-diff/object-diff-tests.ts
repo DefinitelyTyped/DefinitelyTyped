@@ -39,3 +39,7 @@ var g = {
 };
 
 diff(e, f, g);
+
+var h = { ...g };
+
+diff(e, f, g, h);
