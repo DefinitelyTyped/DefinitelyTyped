@@ -92,7 +92,7 @@ declare class MetaModel {}
 export class Model extends MetaModel {
     static parent(key?: string): Model;
 
-    static init(options?: ModelOptions): Model;
+    static init<Entity extends Model>(options?: ModelOptions): Entity;
 
     static fromObject(map: Object): Model;
 
