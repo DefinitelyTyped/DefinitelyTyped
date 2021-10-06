@@ -58,26 +58,38 @@ function getFirstValue(arr: ndarray.NdArray): number {
 }
 
 function getTypedArrayOrNumberArray(arr: ndarray.NdArray<ndarray.Data<number>>): {
-    data: ndarray.TypedArray | number[];
+    data: ndarray.GenericArray<number> | ndarray.TypedArray | number[];
     scalar: number;
 } {
     return { data: arr.data, scalar: arr.get(0) };
 }
 
 function getBigIntTypedArrayOrBigIntArray(arr: ndarray.NdArray<ndarray.Data<bigint>>): {
-    data: BigUint64Array | BigInt64Array | Array<bigint>;
+    data: ndarray.GenericArray<bigint> | BigUint64Array | BigInt64Array | Array<bigint>;
     scalar: bigint;
 } {
     return { data: arr.data, scalar: arr.get(0) };
 }
 
 function getBigIntOrNumeric(arr: ndarray.NdArray<ndarray.Data<number | bigint>>): {
-    data: number[] | ndarray.TypedArray | BigUint64Array | BigInt64Array | Array<bigint>;
+    data: ndarray.GenericArray<number> | ndarray.GenericArray<bigint> | number[] | ndarray.TypedArray | BigUint64Array | BigInt64Array | Array<bigint>;
     scalar: number | bigint;
 } {
     return { data: arr.data, scalar: arr.get(0) };
 }
 
-function infersStringOnly(arr: ndarray.NdArray<ndarray.Data<string>>): { data: string[]; scalar: string } {
+function infersStringOnly(arr: ndarray.NdArray<ndarray.Data<string>>): { data: ndarray.GenericArray<string> | string[]; scalar: string } {
     return { data: arr.data, scalar: arr.get(0) };
+}
+
+function genericDtype(arr: ndarray.NdArray<ndarray.GenericArray<any>>): 'generic' {
+    return arr.dtype;
+}
+
+function bigintDtype(arr: ndarray.NdArray<ndarray.Data<bigint>>): 'generic' | 'array' | 'bigint64' | 'biguint64' {
+    return arr.dtype;
+}
+
+function stringDtype(arr: ndarray.NdArray<ndarray.Data<string>>): 'generic' | 'array' {
+    return arr.dtype;
 }

@@ -35,11 +35,22 @@ declare namespace ndarray {
         T: NdArray<D>;
     }
 
+    interface GenericArray<T> {
+        get(idx: number): T;
+        set(idx: number, value: T): void;
+        length: number;
+    }
+
+    interface Indexible<T> {
+        [x: number]: T;
+        length: number;
+    }
+
     type Data<T = any> = T extends number
-        ? T[] | TypedArray
+        ? GenericArray<T> | T[] | TypedArray
         : T extends bigint
-        ? T[] | BigInt64Array | BigUint64Array
-        : T[];
+        ? GenericArray<T> | T[] | BigInt64Array | BigUint64Array
+        : GenericArray<T> | T[];
 
     type TypedArray =
         | Int8Array
@@ -52,7 +63,7 @@ declare namespace ndarray {
         | Float32Array
         | Float64Array;
 
-    type Value<D extends Data> = D[number];
+    type Value<D extends Data> = D extends GenericArray<infer T> | Indexible<infer T> ? T : never;
 
     type DataType<D extends Data = Data> = D extends Int8Array
         ? 'int8'
@@ -76,6 +87,8 @@ declare namespace ndarray {
         ? 'bigint64'
         : D extends BigUint64Array
         ? 'biguint64'
+        : D extends GenericArray<unknown>
+        ? 'generic'
         : 'array';
 }
 
