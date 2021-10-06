@@ -1,0 +1,12 @@
+// Type definitions for hex-to-uuid 1.1
+// Project: https://github.com/DeRain/uuid-to-hex
+// Definitions by: Pedro Queiroz <https://github.com/pmqueiroz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/**
+ * Convert UUID string to hex string.
+ * @param uuidString The input uuid.
+ * @param addLeadingZero Identifies if you want the leading zero on return.
+ */
+declare function hexToUuid(uuidString: string, addLeadingZero?: boolean): string;
+export = hexToUuid;
