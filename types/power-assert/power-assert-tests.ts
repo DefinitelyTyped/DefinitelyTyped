@@ -6,28 +6,24 @@ assert.deepEqual({x: {y: 3}}, {x: {y: 3}}, "DEEP WENT DERP");
 
 assert.equal(3, "3", "uses == comparator");
 
-const maybeString: string | null = null;
-assert.ok(maybeString);
-// $ExpectType string
-maybeString;
-
 assert.notStrictEqual(2, "2", "uses === comparator");
 
-assert.deepStrictEqual([{a: 1}], [{a: 1}], "uses === comparator");
+assert.deepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
 
-assert.notDeepStrictEqual([{a: 1}], [{a: 1}], "uses === comparator");
+assert.notDeepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
 
 assert.throws(() => {
-    throw new Error("a hammer at your face");
+    throw "a hammer at your face";
 }, "DODGED IT");
 
 assert.doesNotThrow(() => {
     if (!!false) {
-        throw new Error("a hammer at your face");
+        throw "a hammer at your face";
     }
 }, "What the...*crunch*");
 
-const customizedAssert1: typeof assert = assert.customize({
+
+var customizedAssert1 = assert.customize({
     output: {
         maxDepth: 2
     }
@@ -42,16 +38,17 @@ customizedAssert1.equal(3, "3", "uses == comparator");
 customizedAssert1.notStrictEqual(2, "2", "uses === comparator");
 
 customizedAssert1.throws(() => {
-    throw new Error("a hammer at your face");
+    throw "a hammer at your face";
 }, "DODGED IT");
 
 customizedAssert1.doesNotThrow(() => {
     if (!!false) {
-        throw new Error("a hammer at your face");
+        throw "a hammer at your face";
     }
 }, "What the...*crunch*");
 
-const customizedAssert2 = assert.customize({
+
+var customizedAssert2 = assert.customize({
     assertion: {
         destructive: false,
         modifyMessageOnRethrow: true,
@@ -89,12 +86,7 @@ const customizedAssert2 = assert.customize({
 
 (): typeof assert => assert.strict;
 
-declare const set: Set<number>;
+declare const set: Set<0>;
 assert(set.size === 0);
 set.add(0);
-// size has been asserted to be 0
-assert(set.size === 1); // $ExpectError
-
-declare const set2: Set<0>;
-set2.add(0);
-assert(set2.size === 1);
+assert(set.size === 1);
