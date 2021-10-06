@@ -8,5 +8,5 @@
  * @param uuidString The input uuid.
  * @param addLeadingZero Identifies if you want the leading zero on return.
  */
-declare function hexToUuid(uuidString: string, addLeadingZero?: boolean): string;
-export = hexToUuid;
+declare function uuidToHex(uuidString: string, addLeadingZero?: boolean): string;
+export = uuidToHex;
