@@ -1,4 +1,4 @@
-// Type definitions for koa-static-server 1.5.2
+// Type definitions for koa-static-server 1.5
 // Project: https://github.com/pkoretic/koa-static-server
 // Definitions by: wulunyi <https://github.com/wulunyi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
