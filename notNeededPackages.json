@@ -4562,6 +4562,10 @@
             "libraryName": "skin-tone",
             "asOfVersion": "2.0.0"
         },
+        "skyway": {
+            "libraryName": "skyway-js",
+            "asOfVersion": "2.0.0"
+        },
         "slash": {
             "libraryName": "slash",
             "asOfVersion": "3.0.0"
