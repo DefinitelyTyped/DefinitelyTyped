@@ -989,6 +989,10 @@
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
         },
+        "easy-table": {
+            "libraryName": "easy-table",
+            "asOfVersion": "1.2.0"
+        },
         "easy-x-headers": {
             "libraryName": "easy-x-headers",
             "asOfVersion": "1.0.0"
