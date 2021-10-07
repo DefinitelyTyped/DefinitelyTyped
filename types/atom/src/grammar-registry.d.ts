@@ -1,11 +1,11 @@
 import { Disposable, Grammar, GrammarToken, TextBuffer } from '../index';
 
 type SyntaxNode = any;
-type InjectionPoint = {
+interface InjectionPoint = {
     type: string;
     language: (node: SyntaxNode) => string;
     content: (node: SyntaxNode) => SyntaxNode | SyntaxNode[];
-}
+};
 
 /** Registry containing one or more grammars. */
 export interface GrammarRegistry {
