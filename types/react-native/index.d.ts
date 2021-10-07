@@ -5391,10 +5391,47 @@ interface ThemeAttributeBackgroundPropType extends BaseBackgroundPropType {
 
 type BackgroundPropType = RippleBackgroundPropType | ThemeAttributeBackgroundPropType;
 
+interface TVProps {
+    /**
+     * Designates the next view to receive focus when the user navigates down. See the Android documentation.
+     * 
+     * @platform android
+     */
+    nextFocusDown?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates forward. See the Android documentation.
+     * 
+     * @platform android
+     */
+    nextFocusForward?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates left. See the Android documentation.
+     * 
+     * @platform android
+     */
+    nextFocusLeft?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates right. See the Android documentation.
+     * 
+     * @platform android
+     */
+    nextFocusRight?: number | undefined;
+
+    /**
+     * Designates the next view to receive focus when the user navigates up. See the Android documentation.
+     * 
+     * @platform android
+     */
+    nextFocusUp?: number | undefined;
+}
+
 /**
  * @see https://reactnative.dev/docs/touchableopacity#props
  */
-export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackProps {
+export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackProps, TVProps {
     /**
      * Determines the type of background drawable that's going to be used to display feedback.
      * It takes an object with type property and extra data depending on the type.
@@ -7542,19 +7579,35 @@ export interface BackHandlerStatic {
     addEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): NativeEventSubscription;
     removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
-
-export interface ButtonProps {
+export interface ButtonProps 
+    extends Omit<AccessibilityProps, 'accessibilityRole' | 'accessibilityValue'>, 
+        Pick<TouchableWithoutFeedbackPropsIOS, "hasTVPreferredFocus">, 
+        TouchableWithoutFeedbackPropsAndroid,
+        TVProps {
+    /**
+     * Text to display inside the button. On Android the given title will be converted to the uppercased form.
+     */
     title: string;
+
+    /**
+     * Handler to be called when the user taps the button.
+     */
     onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
+
+    /**
+     * Color of the text (iOS), or background color of the button (Android).
+     */
     color?: ColorValue | undefined;
-    accessibilityLabel?: string | undefined;
+
+    /**
+     * If true, disable all interactions for this component.
+     */
     disabled?: boolean | undefined;
 
     /**
      * Used to locate this button in end-to-end tests.
      */
     testID?: string | undefined;
-    accessibilityState?: AccessibilityState | undefined;
 }
 
 export class Button extends React.Component<ButtonProps> {}
