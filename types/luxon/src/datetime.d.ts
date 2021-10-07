@@ -154,17 +154,7 @@ export type DateTimeFormatPresetValue = 'numeric' | 'short' | 'long';
 /**
  * @deprecated Use Intl.DateTimeFormatOptions instead.
  */
-export interface DateTimeFormatPreset {
-    year?: DateTimeFormatPresetValue;
-    month?: DateTimeFormatPresetValue;
-    day?: DateTimeFormatPresetValue;
-    weekday?: DateTimeFormatPresetValue;
-    hour?: DateTimeFormatPresetValue;
-    minute?: DateTimeFormatPresetValue;
-    second?: DateTimeFormatPresetValue;
-    timeZoneName?: DateTimeFormatPresetValue;
-    hourCycle?: 'h23';
-}
+export type DateTimeFormatPreset = Intl.DateTimeFormatOptions;
 
 export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
