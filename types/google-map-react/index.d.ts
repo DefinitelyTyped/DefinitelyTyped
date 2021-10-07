@@ -99,16 +99,16 @@ declare namespace googleMapReact {
         x: number;
         y: number;
     }
-    interface NeSwDiagonal {
+    interface NESWBounds {
         ne: Coords;
         sw: Coords;
     }
 
-    interface NwSeDiagonal {
+    interface NWSEBounds {
         nw: Coords;
         se: Coords;
     }
-    type FitBoundCoords = NeSwDiagonal | NwSeDiagonal;
+    type FitBoundCoords = NESWBounds | NWSEBounds;
 
     interface Coords {
         lat: number;
