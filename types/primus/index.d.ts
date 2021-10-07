@@ -181,9 +181,9 @@ declare namespace Primus {
         transport?: object | undefined;
         queueSize?: number | undefined;
         // https://www.npmjs.com/package/primus#connecting-from-the-server
-        transformer: PrimusOptions["transformer"] | undefined;
-        parser: PrimusOptions["parser"] | undefined;
-        plugin: PrimusOptions["plugin"] | undefined;
+        transformer?: PrimusOptions["transformer"] | undefined;
+        parser?: PrimusOptions["parser"] | undefined;
+        plugin?: PrimusOptions["plugin"] | undefined;
     }
     class Socket extends Stream {
         constructor(options?: SocketOptions);
