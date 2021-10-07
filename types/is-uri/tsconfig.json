@@ -1,27 +1,23 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
+        "module": "commonjs",
         "lib": [
-            "dom",
             "es6"
         ],
-        "module": "commonjs",
-        "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "types": []
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "test/index.tsx",
-        "test/macro.tsx",
-        "test/reexport.tsx"
+        "is-uri-tests.ts"
     ]
 }
