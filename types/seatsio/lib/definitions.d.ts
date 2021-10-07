@@ -38,6 +38,7 @@ declare namespace Seatsio {
     }
 
     interface Seat extends BaseObject {
+        objectType: 'Seat';
         parent: { type: 'row' | 'table' };
         viewFromSeatUrl?: string | undefined;
         companionSeat: boolean;
@@ -46,6 +47,7 @@ declare namespace Seatsio {
     }
 
     interface GeneralAdmissionArea extends BaseObject {
+        objectType: 'GeneralAdmissionArea';
         capacity: number;
         numBooked: number;
         numFree: number;
@@ -55,6 +57,7 @@ declare namespace Seatsio {
     }
 
     interface Section extends BaseObject {
+        objectType: 'section';
         sectionCategory: Category;
         numberOfSelectableObjects: number;
         numberOfSelectedObjects: number;
