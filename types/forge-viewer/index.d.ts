@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.52
+// Type definitions for non-npm package Forge Viewer 7.53
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -1302,6 +1302,56 @@ declare namespace Autodesk {
         }
 
         namespace Extensions {
+          function generateDefaultViewerHandlerOptions(viewer: GuiViewer3D): any;
+
+          class ViewerModelStructurePanel extends UI.ModelStructurePanel {
+            constructor(options: {
+              defaultTile?: string;
+              excludeRoot?: boolean;
+              startCollapsed?: boolean;
+              scrollEaseCurve?: number[];
+              scrollEaseSpeed?: number;
+              addFooter?: boolean;
+              docStructureConfig?: any;
+              hideSearch?: boolean;
+              heightAdjustment?: number;
+              maxHeight?: string;
+              onSearchSelected?: (event: any) => void;
+              onUnInitialize?: () => void;
+              onVisibilityIconClick?: (dbId: number, model: Model) => void;
+              onIsolate?: (dbId: number, model: Model) => void;
+              onToggleMultipleOverlayedSelection?: (selection: any) => void;
+              onToggleOverlayedSelection?: (dbId: number, model: Model, isSelected: boolean) => void;
+              onSelectOnly?: (dbId: number, model: Model) => void;
+              onDeselectAll?: () => void;
+              onSelectToggle?: (dbId: number, model: Model) => void;
+              onShowAll?: () => void;
+              onFocus?: () => void;
+              onHide?: (dbId: number, model: Model) => void;
+              onShow?: (dbId: number, model: Model) => void;
+              onToggleVisibility?: (dbId: number, model: Model) => void;
+              getAggregateIsolation?: () => any[];
+              getAggregateHiddenNodes?: () => any[];
+              getAggregateSelection?: (callback: any) => any[];
+              container?: HTMLElement;
+              addEventListener?: (type: string, callback: (event: any) => void, options?: any) => any;
+              removeEventListener?: (type: string, callback: (event: any) => void) => any;
+            });
+
+            createUI(): void;
+            onViewerHide(event: any): void;
+            onViewerIsolate(event: any): void;
+            onViewerSelect(event: any): void;
+            onViewerShow(event: any): void;
+            removeTreeUI(model: Model): void;
+            scrollToSelection(aggregatedSelection: any[]): void;
+            setHidden(nodes: any[], model: Model, hidden: boolean): void;
+            setIsolation(isolation: any[]): void;
+            setSelection(aggregatedSelection: any[]): void;
+            setVisible(show: boolean): void;
+            sync(): void;
+          }
+
           class ViewerPropertyPanel extends UI.PropertyPanel {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
