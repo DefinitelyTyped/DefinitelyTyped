@@ -391,7 +391,7 @@ declare module "../index" {
          * was never invoked.
          */
         flush(): ReturnType<T> | undefined;
-    }
+    };
     interface LoDashStatic {
         /**
          * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
