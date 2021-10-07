@@ -4,12 +4,12 @@ declare namespace Seatsio {
     interface BaseObject {
         accessible: boolean;
         category?: Category | undefined;
-        center?: { x: number, y: number } | undefined;
+        center?: { x: number; y: number } | undefined;
         label: string;
         labels: {
-            own: string
-            parent?: string | undefined
-            section?: string | undefined
+            own: string;
+            parent?: string | undefined;
+            section?: string | undefined;
         };
         pricing?: Pricing[] | Pricing | undefined;
         status: string;
@@ -80,9 +80,9 @@ declare namespace Seatsio {
         numBooked: 5;
         holds: {
             [tokenHash: string]: {
-                NO_TICKET_TYPE: number
-                [ticketType: string]: number
-            }
+                NO_TICKET_TYPE: number;
+                [ticketType: string]: number;
+            };
         };
     }
 

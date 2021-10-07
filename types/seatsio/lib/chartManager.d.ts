@@ -3,7 +3,7 @@
 declare namespace Seatsio {
     interface ChartManager {
         // tslint:disable-next-line:no-misused-new
-        new(config: ChartManagerConfig): ChartManager;
+        new (config: ChartManagerConfig): ChartManager;
 
         render(): ChartManager;
         destroy(): void;
@@ -25,8 +25,18 @@ declare namespace Seatsio {
 
         onChartRendered?: ((chart: ChartManager) => void) | undefined;
         onChartRenderingFailed?: ((chart: ChartManager) => void) | undefined;
-        onObjectSelected?: ((object: BookableObject, selectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
-        onObjectDeselected?: ((object: BookableObject, deselectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
+        onObjectSelected?:
+            | ((
+                  object: BookableObject,
+                  selectedTicketType?: { price: number; ticketType?: string | undefined },
+              ) => void)
+            | undefined;
+        onObjectDeselected?:
+            | ((
+                  object: BookableObject,
+                  deselectedTicketType?: { price: number; ticketType?: string | undefined },
+              ) => void)
+            | undefined;
         onObjectClicked?: ((object: BookableObject) => void) | undefined;
         onFullScreenOpened?: (() => void) | undefined;
         onFullScreenClosed?: (() => void) | undefined;

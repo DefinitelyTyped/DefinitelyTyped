@@ -3,7 +3,7 @@
 declare namespace Seatsio {
     interface EventManager {
         // tslint:disable-next-line:no-misused-new
-        new(config: EventManagerConfig): EventManager;
+        new (config: EventManagerConfig): EventManager;
 
         render(): EventManager;
 
@@ -26,8 +26,18 @@ declare namespace Seatsio {
 
         onChartRendered?: ((chart: EventManager) => void) | undefined;
         onChartRenderingFailed?: ((chart: EventManager) => void) | undefined;
-        onObjectSelected?: ((object: BookableObject, selectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
-        onObjectDeselected?: ((object: BookableObject, deselectedTicketType?: { price: number; ticketType?: string | undefined }) => void) | undefined;
+        onObjectSelected?:
+            | ((
+                  object: BookableObject,
+                  selectedTicketType?: { price: number; ticketType?: string | undefined },
+              ) => void)
+            | undefined;
+        onObjectDeselected?:
+            | ((
+                  object: BookableObject,
+                  deselectedTicketType?: { price: number; ticketType?: string | undefined },
+              ) => void)
+            | undefined;
         onObjectClicked?: ((object: BookableObject) => void) | undefined;
         onFullScreenOpened?: (() => void) | undefined;
         onFullScreenClosed?: (() => void) | undefined;

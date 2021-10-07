@@ -3,7 +3,7 @@
 declare namespace Seatsio {
     interface SeatingChartDesigner {
         // tslint:disable-next-line:no-misused-new
-        new(config: SeatingChartDesignerConfig): SeatingChartDesigner;
+        new (config: SeatingChartDesignerConfig): SeatingChartDesigner;
 
         render(): SeatingChartDesigner;
         destroy(): void;
@@ -14,11 +14,13 @@ declare namespace Seatsio {
         secretKey: string;
         chartKey: string;
         language?: string | undefined;
-        features?: {
-            enabled: string[],
-            disabled: string[],
-            readOnly: string[]
-        } | undefined;
+        features?:
+            | {
+                  enabled: string[];
+                  disabled: string[];
+                  readOnly: string[];
+              }
+            | undefined;
         openDraftDrawing?: boolean | undefined;
         openLatestDrawing?: boolean | undefined;
 
