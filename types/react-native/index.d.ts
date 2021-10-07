@@ -7577,7 +7577,7 @@ export interface BackHandlerStatic {
     removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
 export interface ButtonProps
-    extends Omit<AccessibilityProps, 'accessibilityRole' | 'accessibilityValue'>,
+    extends Pick<AccessibilityProps, 'accessibilityState' | 'accessibilityLabel'>,
         TouchableWithoutFeedbackPropsAndroid,
         TVProps {
     /**
