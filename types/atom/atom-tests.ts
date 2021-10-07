@@ -1255,10 +1255,10 @@ function testGrammarRegistry() {
     // Event Subscription
     subscription = registry.onDidAddGrammar(grammar => grammar.name);
     subscription = registry.onDidUpdateGrammar(grammar => grammar.name);
-    subscription = registry.onDidRemoveGrammar(grammar => grammar.name);
 
     // Managing Grammars
     grammars = registry.getGrammars();
+    grammars = registry.getGrammars({ includeTreeSitter: true });
 
     let potentialGrammar = registry.grammarForScopeName('scope.test');
     if (potentialGrammar) grammar = potentialGrammar;
@@ -1286,6 +1286,9 @@ function testGrammarRegistry() {
             if (error) error.name;
         }
     });
+
+    bool = registry.assignGrammar(buffer, grammar);
+    str = registry.getAssignedLanguageId(buffer);
 }
 
 // Gutter =====================================================================
