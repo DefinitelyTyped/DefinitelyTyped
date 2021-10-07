@@ -108,7 +108,6 @@ declare namespace googleMapReact {
         nw: Coords;
         se: Coords;
     }
-    type FitBoundCoords = NESWBounds | NWSEBounds;
 
     interface Coords {
         lat: number;
@@ -196,7 +195,7 @@ declare namespace googleMapReact {
     function convertNwSeToNeSw(boundCorder: { nw: Coords; se: Coords }): { ne: Coords; sw: Coords };
 
     function fitBounds(
-        bounds: FitBoundCoords,
+        bounds: NESWBounds | NWSEBounds,
         size: Size,
     ): {
         center: { lat: number; lng: number };
