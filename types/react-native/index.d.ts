@@ -5394,35 +5394,35 @@ type BackgroundPropType = RippleBackgroundPropType | ThemeAttributeBackgroundPro
 interface TVProps {
     /**
      * Designates the next view to receive focus when the user navigates down. See the Android documentation.
-     * 
+     *
      * @platform android
      */
     nextFocusDown?: number | undefined;
 
     /**
      * Designates the next view to receive focus when the user navigates forward. See the Android documentation.
-     * 
+     *
      * @platform android
      */
     nextFocusForward?: number | undefined;
 
     /**
      * Designates the next view to receive focus when the user navigates left. See the Android documentation.
-     * 
+     *
      * @platform android
      */
     nextFocusLeft?: number | undefined;
 
     /**
      * Designates the next view to receive focus when the user navigates right. See the Android documentation.
-     * 
+     *
      * @platform android
      */
     nextFocusRight?: number | undefined;
 
     /**
      * Designates the next view to receive focus when the user navigates up. See the Android documentation.
-     * 
+     *
      * @platform android
      */
     nextFocusUp?: number | undefined;
@@ -7579,9 +7579,9 @@ export interface BackHandlerStatic {
     addEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): NativeEventSubscription;
     removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
-export interface ButtonProps 
-    extends Omit<AccessibilityProps, 'accessibilityRole' | 'accessibilityValue'>, 
-        Pick<TouchableWithoutFeedbackPropsIOS, "hasTVPreferredFocus">, 
+export interface ButtonProps
+    extends Omit<AccessibilityProps, 'accessibilityRole' | 'accessibilityValue'>,
+        Pick<TouchableWithoutFeedbackPropsIOS, 'hasTVPreferredFocus'>,
         TouchableWithoutFeedbackPropsAndroid,
         TVProps {
     /**
