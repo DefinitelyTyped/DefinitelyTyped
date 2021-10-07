@@ -1,11 +1,7 @@
 // Type definitions for react-date-range-won 1.5
-// Project: https://github.com/Adphorus/react-date-range/
-// Definitions by: Junbong Lee <https://github.com/Junbong>
-//                 John Demetriou <https://github.com/DevsAnon>
-//                 Minseok Choi <https://github.com/Curzy>
-//                 Guillermo Pages <https://gihub.com/gbili>
+// Project: https://github.com/gbili/react-date-range-won (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Definitions by: Guillermo Pages <https://github.com/gbili>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { Locale } from 'date-fns';
