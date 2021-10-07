@@ -41,11 +41,6 @@ declare namespace ndarray {
         length: number;
     }
 
-    interface Indexible<T> {
-        [x: number]: T;
-        length: number;
-    }
-
     type Data<T = any> = T extends number
         ? GenericArray<T> | T[] | TypedArray
         : T extends bigint
@@ -63,7 +58,7 @@ declare namespace ndarray {
         | Float32Array
         | Float64Array;
 
-    type Value<D extends Data> = D extends GenericArray<infer T> | Indexible<infer T> ? T : never;
+    type Value<D extends Data> = D extends GenericArray<infer T> | Record<number, infer T> ? T : never;
 
     type DataType<D extends Data = Data> = D extends Int8Array
         ? 'int8'
