@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/react": "*",
         "date-fns": "^2.16.1"
     }
 }
