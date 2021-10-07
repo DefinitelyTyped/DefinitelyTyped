@@ -34,6 +34,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     fragListTests(model);
     instanceTreeTests(model);
     modelTests(model);
+    modelStructurePanelTests(viewer);
     preferencesTests(viewer);
     showHideTests(viewer);
     await bulkPropertiesTests(model);
@@ -232,6 +233,13 @@ function modelTests(model: Autodesk.Viewing.Model): void {
     model.isPdf();
     model.isSceneBuilder();
     model.isSVF2();
+}
+
+function modelStructurePanelTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const options = Autodesk.Viewing.Extensions.generateDefaultViewerHandlerOptions(viewer);
+    const panel = new Autodesk.Viewing.Extensions.ViewerModelStructurePanel(options);
+
+    viewer.setModelStructurePanel(panel);
 }
 
 async function pixelCompareTests(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
