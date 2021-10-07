@@ -17,10 +17,10 @@ import {
 VERSION; // $ExpectType string
 
 /* DateTime */
-DateTime.DATETIME_MED; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; hour: "numeric"; minute: "numeric"; }
-DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; weekday: "short"; hour: "numeric"; minute: "numeric"; }
-DateTime.DATE_MED; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; }
-DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType { year: "numeric"; month: "short"; day: "numeric"; weekday: "short"; }
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
 DateTime.local({ zone: 'Atlantic/Azores' }); // $ExpectType DateTime
 DateTime.local(2021, 8, 28, { zone: 'Atlantic/Azores' }); // $ExpectType DateTime
