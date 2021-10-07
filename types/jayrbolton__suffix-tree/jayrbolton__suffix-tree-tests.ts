@@ -3,7 +3,6 @@ import { add, addSingle, allSuffixes, create, findSuffix, format, getStringByInd
 create(); // $ExpectType STree
 const tree = create("abcd"); // $ExpectType STree
 
-tree._tag; // $ExpectType "STree"
 tree.activeNode; // $ExpectType SNode
 
 add("abc", tree); // $ExpectType STree

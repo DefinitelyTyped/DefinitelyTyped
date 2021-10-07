@@ -13,7 +13,6 @@ export interface STree {
     strings: { [id: number]: string };
     skip: number;
     text: string[];
-    _tag: "STree";
 }
 export interface SNode {
     start: number;
