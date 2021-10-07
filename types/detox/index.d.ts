@@ -925,7 +925,7 @@ declare global {
             /**
              * length: The length of the text element (character count). (Android Only)
              */
-            length: number
+            length: number;
         }
 
         type DataNetwork = 'wifi' | '3g' | '4g' | 'lte' | 'lte-a' | 'lte+';
