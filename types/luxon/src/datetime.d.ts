@@ -147,6 +147,25 @@ export interface DateObjectUnits {
 
 export type ConversionAccuracy = 'casual' | 'longterm';
 
+/**
+ * @deprecated You should use Intl.DateTimeFormatOptions' fields and values instead.
+ */
+export type DateTimeFormatPresetValue = 'numeric' | 'short' | 'long';
+/**
+ * @deprecated Use Intl.DateTimeFormatOptions instead.
+ */
+export interface DateTimeFormatPreset {
+    year?: DateTimeFormatPresetValue;
+    month?: DateTimeFormatPresetValue;
+    day?: DateTimeFormatPresetValue;
+    weekday?: DateTimeFormatPresetValue;
+    hour?: DateTimeFormatPresetValue;
+    minute?: DateTimeFormatPresetValue;
+    second?: DateTimeFormatPresetValue;
+    timeZoneName?: DateTimeFormatPresetValue;
+    hourCycle?: 'h23';
+}
+
 export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
 }
