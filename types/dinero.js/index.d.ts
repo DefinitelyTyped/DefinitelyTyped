@@ -1,4 +1,4 @@
-// Type definitions for dinero.js 1.8
+// Type definitions for dinero.js 1.9
 // Project: https://sarahdayan.github.io/dinero.js
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 David Acosta <https://github.com/juandaco>
