@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "1line-aa-tests.ts"
+        "html-tag-tests.ts"
     ]
 }
