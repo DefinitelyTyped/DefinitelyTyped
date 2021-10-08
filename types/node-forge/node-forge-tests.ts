@@ -66,6 +66,35 @@ forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr)
     }
 }
 
+// From https://github.com/digitalbazaar/forge#rc2
+{
+    // generate a random key and IV
+    var key_rc2 = forge.random.getBytesSync(16);
+    var iv_rc2 = forge.random.getBytesSync(8);
+
+    // encrypt some bytes
+    var someBytes_rc2 = 'hello world!';
+    var cipher_rc2 = forge.rc2.createEncryptionCipher(key_rc2);
+    cipher_rc2.start(iv_rc2);
+    cipher_rc2.update(forge.util.createBuffer(someBytes_rc2));
+    cipher_rc2.finish();
+    var encrypted_rc2 = cipher_rc2.output;
+    // outputs encrypted hex
+    console.log(encrypted_rc2.toHex());
+
+    // decrypt some bytes
+    var cipher_rc2_2 = forge.rc2.createDecryptionCipher(key_rc2);
+    cipher_rc2_2.start(iv_rc2);
+    cipher_rc2_2.update(encrypted_rc2);
+    cipher_rc2_2.finish();
+    // outputs decrypted hex
+    console.log(cipher_rc2_2.output.toHex());
+
+    if (cipher_rc2_2.output.toString() !== someBytes_rc2) {
+        throw Error('forge.util.binary.raw.encode / decode fail');
+    }
+}
+
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
         forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
