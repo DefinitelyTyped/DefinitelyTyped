@@ -1,4 +1,4 @@
-// Type definitions for html-tag 2.0.0
+// Type definitions for html-tag 2.0
 // Project: https://www.npmjs.com/package/html-tag
 // Definitions by: arnu515 <https://github.com/arnu515>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
