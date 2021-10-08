@@ -23,25 +23,25 @@ universalify.fromPromise(p3)(1, 2, 3, (err, data) => {
     data; // $ExpectType string
 });
 
-declare const cb4: (p1: number, p2: number, p3: number, p4: number, cb: (err: Error, data: string) => void) => void;
-universalify.fromCallback(cb4)(1, 2, 3, 4); // $ExpectType Promise<string>
+declare const cb4: (p1: number, p2: boolean, p3: number, p4: number, cb: (err: Error, data: string) => void) => void;
+universalify.fromCallback(cb4)(1, true, 3, 4); // $ExpectType Promise<string>
 
-declare const p4: (p1: number, p2: number, p3: number, p4: number) => Promise<string>;
-universalify.fromPromise(p4)(1, 2, 3, 4, (err, data) => {
+declare const p4: (p1: number, p2: boolean, p3: number, p4: number) => Promise<string>;
+universalify.fromPromise(p4)(1, false, 3, 4, (err, data) => {
     data; // $ExpectType string
 });
 
 declare const cb5: (
     p1: number,
     p2: number,
-    p3: number,
-    p4: number,
+    p3: boolean,
+    p4: string[],
     p5: number,
     cb: (err: Error, data: string) => void,
 ) => void;
-universalify.fromCallback(cb5)(1, 2, 3, 4, 5); // $ExpectType Promise<string>
+universalify.fromCallback(cb5)(1, 2, true, ['hi'], 5); // $ExpectType Promise<string>
 
-declare const p5: (p1: number, p2: number, p3: number, p4: number, p5: number) => Promise<string>;
-universalify.fromPromise(p5)(1, 2, 3, 4, 5, (err, data) => {
+declare const p5: (p1: number, p2: number, p3: boolean, p4: string[], p5: number) => Promise<string>;
+universalify.fromPromise(p5)(1, 2, false, [], 5, (err, data) => {
     data; // $ExpectType string
 });
