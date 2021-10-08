@@ -2948,6 +2948,7 @@ declare namespace React {
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
+        imageSrcset?: string | undefined;
         media?: string | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;
