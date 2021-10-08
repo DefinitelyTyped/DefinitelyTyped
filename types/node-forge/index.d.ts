@@ -92,6 +92,42 @@ declare module "node-forge" {
         }
     }
 
+    namespace kem {
+        namespace rsa {
+            interface kem {
+                encrypt(publicKey: pki.rsa.PublicKey, keyLength: number): EncryptResult;
+                decrypt(privateKey: pki.rsa.PrivateKey, encapsulation: string, keyLength: number): string;
+            }
+            interface random {
+                getBytesSync(count: number): Bytes;
+            }
+            interface Options {
+                prng?: random | undefined;
+            }
+
+            function create(kdf: md.MessageDigest, options?: Options): kem;
+        }
+
+        interface EncryptResult {
+            encapsulation: string;
+            key: string;
+        }
+
+        function encrypt(publicKey: pki.rsa.PublicKey, keyLength: number): EncryptResult;
+        function decrypt(privateKey: pki.rsa.PrivateKey, encapsulation: string, keyLength: number): string;
+
+        class kdf1 implements md.MessageDigest {
+            constructor(md: md.MessageDigest, digestLength?: number);
+            update(msg: string, encoding?: Encoding): md.MessageDigest;
+            digest(): util.ByteStringBuffer;
+        }
+        class kdf2 implements md.MessageDigest {
+            constructor(md: md.MessageDigest, digestLength?: number);
+            update(msg: string, encoding?: Encoding): md.MessageDigest;
+            digest(): util.ByteStringBuffer;
+        }
+    }
+
     namespace pem {
 
         interface EncodeOptions {
