@@ -62,3 +62,55 @@ declare module '*.mdx' {
      */
     export default function MDXContent(props: Record<string, unknown>): JSX.Element;
 }
+
+// Support markdown extensions from
+// https://github.com/sindresorhus/markdown-extensions/blob/v1.1.1/markdown-extensions.json
+
+/**
+ * A markdown file which exports a JSX component.
+ */
+declare module '*.md' {
+    export { default } from '*.mdx';
+}
+
+/**
+ * A markdown file which exports a JSX component.
+ */
+declare module '*.markdown' {
+    export { default } from '*.mdx';
+}
+
+/**
+ * A markdown file which exports a JSX component.
+ */
+declare module '*.mdown' {
+    export { default } from '*.mdx';
+}
+
+/**
+ * A markdown file which exports a JSX component.
+ */
+declare module '*.mkdn' {
+    export { default } from '*.mdx';
+}
+
+/**
+ * A markdown file which exports a JSX component.
+ */
+declare module '*.mkd' {
+    export { default } from '*.mdx';
+}
+
+/**
+ * A markdown file which exports a JSX component.
+ */
+declare module '*.mkdown' {
+    export { default } from '*.mdx';
+}
+
+/**
+ * A markdown file which exports a JSX component.
+ */
+declare module '*.ron' {
+    export { default } from '*.mdx';
+}
