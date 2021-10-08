@@ -11,9 +11,9 @@ export function fromCallback<Arguments extends readonly unknown[], ErrorValue, R
     (...arguments_: [...Arguments, (error: ErrorValue, value: ReturnValue) => void]): void;
 };
 
-export function fromPromise<Arguments extends readonly unknown[], Value>(
-    fn: (...arguments_: [...Arguments]) => Promise<Value>,
+export function fromPromise<Arguments extends readonly unknown[], ReturnValue>(
+    fn: (...arguments_: [...Arguments]) => Promise<ReturnValue>,
 ): {
-    (...arguments_: Arguments): Promise<Value>;
-    (...arguments_: [...Arguments, (error: unknown, value: Value) => void]): void;
+    (...arguments_: Arguments): Promise<ReturnValue>;
+    (...arguments_: [...Arguments, (error: unknown, value: ReturnValue) => void]): void;
 };
