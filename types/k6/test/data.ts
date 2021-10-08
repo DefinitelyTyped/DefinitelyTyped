@@ -1,3 +1,9 @@
 import { SharedArray } from 'k6/data';
 
-new SharedArray('hola', () => []); // $ExpectType []
+interface Foo {
+  bar: string
+}
+
+const foos: Foo[] = [{bar: "a"}, {bar: "a"}]
+
+new SharedArray('hola', () => foos); // $ExpectType Foo[]
