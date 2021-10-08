@@ -10919,11 +10919,11 @@ declare namespace chrome.declarativeNetRequest {
         IMAGE = "image",
         FONT = "font",
         OBJECT = "object",
-        XML_HTTP_REQUEST = "xmlhttprequest",
+        XMLHTTPREQUEST = "xmlhttprequest",
         PING = "ping",
         CSP_REPORT = "csp_report",
         MEDIA = "media",
-        WEB_SOCKET = "websocket",
+        WEBSOCKET = "websocket",
         OTHER = "other"
     }
 
