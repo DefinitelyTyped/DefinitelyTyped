@@ -1286,7 +1286,7 @@ declare namespace IORedis {
 
         xread: OverloadedListCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
-        xreadgroup: OverloadedListCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
+        xreadgroup: OverloadedKeyCommand<ValueType, Array<[string, Array<[string, string[]]>]>>;
 
         xrevrange: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
 
