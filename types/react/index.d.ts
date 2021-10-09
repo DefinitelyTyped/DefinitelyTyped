@@ -75,10 +75,6 @@ declare namespace React {
             [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
         }[keyof JSX.IntrinsicElements] |
         ComponentType<P>;
-    /**
-     * @deprecated Please use `ElementType`
-     */
-    type ReactType<P = any> = ElementType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
