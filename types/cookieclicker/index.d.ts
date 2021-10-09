@@ -945,7 +945,7 @@ declare namespace Game {
     export function sayTime(time: number, detail: -1 | 1 | 2 | 3 | 4): string;
 
     /** Steam-only */
-    export let scale: number;
+    export let scale: number | undefined;
 
     export function tinyCookie(): string;
 
@@ -953,9 +953,9 @@ declare namespace Game {
 
     export function setVolume(what: number): void;
     /** Steam-only */
-    export function setVolumeMusic(what: number): void;
+    export let setVolumeMusic: ((what: number) => void) | undefined;
     /** Steam-only */
-    export function setWubMusic(what: number): void;
+    export let setWubMusic: ((what: number) => void) | undefined;
 
     export function UpdateMenu(): void;
     export let ascendMeter: HTMLDivElement;
