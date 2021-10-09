@@ -102,6 +102,13 @@ Game.WriteSave();
 
 Game.LoadSave();
 
+Game.LoadMod('https://example.com/mod.js');
+Game.LoadMod(
+    'https://example.com/mod.js',
+    () => console.log('callback'),
+    () => console.log('error'),
+);
+
 // A live example of ascension modes, commented out it the code
 Game.ascensionModes[2] = {
     name: 'Trigger finger',
@@ -181,3 +188,13 @@ if (gainedBuff.time === gainedBuff.maxTime && gainedBuff.arg1) console.log(gaine
 gainedBuff.type === buffType;
 
 console.log(SimpleBeautify(1e6));
+
+// $ExpectError
+Game.ToggleFullscreen();
+
+// $ExpectError
+Game.setVolumeMusic(50);
+if (Game.setVolumeMusic) Game.setVolumeMusic(50);
+
+// $ExpectError
+Game.AllMilks[0];
