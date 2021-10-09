@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "date-fns": "^2.16.1",
-        "react": "^17.0.2"
+        "date-fns": "^2.16.1"
     }
 }
