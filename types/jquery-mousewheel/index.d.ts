@@ -56,7 +56,7 @@ declare global {
  * Modifies `$` to include the `jquery-mousewheel` library.
  * Designed for use with export-related JS features.
  *
- * @param {JQueryStatic} $ JQuery static library object.
+ * @param $ JQuery static library object.
  */
 declare function factory($: JQueryStatic): void;
 export = factory;
