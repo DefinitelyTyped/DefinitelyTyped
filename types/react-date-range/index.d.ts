@@ -30,7 +30,9 @@ export interface Range {
     showDateDisplay?: boolean | undefined;
 }
 
-export type RangeKeyDict = { [key: string]: Range };
+export interface RangeKeyDict {
+    [key: string]: Range;
+}
 
 export type Preview = Pick<Range, 'startDate' | 'endDate' | 'color'>;
 
@@ -201,7 +203,7 @@ export interface CalendarProps {
               currFocusedDate: Date,
               changeShownDate: (
                   value: Date | number | string,
-                  mode?: 'set' | 'setYear' | 'setMonth' | 'monthOffset' | undefined,
+                  mode?: 'set' | 'setYear' | 'setMonth' | 'monthOffset',
               ) => void,
               props: CalendarProps,
           ) => JSX.Element)
@@ -209,7 +211,7 @@ export interface CalendarProps {
     /** default: none */
     onChange?: ((date: Date) => void) | undefined;
     /** default: none */
-    onPreviewChange?: ((previewDate?: Date | undefined) => void) | undefined;
+    onPreviewChange?: ((previewDate?: Date) => void) | undefined;
     /** default: none */
     onRangeFocusChange?: ((newFocusedRange: RangeFocus) => void) | undefined;
     /** default: none */
@@ -270,14 +272,14 @@ export class DateRange extends React.Component<DateRangeProps> {}
 // =============================================================================
 
 export interface StaticRange {
-    range: (props?: DefinedRangeProps | undefined) => Preview;
+    range: (props?: DefinedRangeProps) => Preview;
     isSelected: (range: Range) => boolean;
     label?: string | undefined;
     hasCustomRendering?: boolean | undefined;
 }
 
 export interface InputRange {
-    range: (value: number, props?: DefinedRangeProps | undefined) => Range;
+    range: (value: number, props?: DefinedRangeProps) => Range;
     getCurrentValue: (range: Range) => string | number;
     label?: string | undefined;
 }
@@ -301,7 +303,7 @@ export interface DefinedRangeProps {
     /** default: none */
     onChange?: ((rangesByKey: RangeKeyDict) => void) | undefined;
     /** default: none */
-    onPreviewChange?: ((preview?: Preview | undefined) => void) | undefined;
+    onPreviewChange?: ((preview?: Preview) => void) | undefined;
     /** default: `['#3d91ff', '#3ecf8e', '#fed14c']` */
     rangeColors?: string[] | undefined;
     /** default: [] */
@@ -335,7 +337,7 @@ export interface DateRangePickerProps extends DateRangeProps, DefinedRangeProps 
      * types so it will work for either component.
      */
     /** default: none */
-    onPreviewChange?: ((preview?: Date | Preview | undefined) => void) | undefined;
+    onPreviewChange?: ((preview?: Date | Preview) => void) | undefined;
 }
 
 export class DateRangePicker extends React.Component<DateRangePickerProps> {}

@@ -1,44 +1,38 @@
-import * as React from "react";
+import * as React from 'react';
 import {
     Range,
+    RangeKeyDict,
+    Calendar,
     DateRange,
-    DateRangePicker, OnDateRangeChangeProps,
-    RangeWithKey,
+    StaticRange,
+    InputRange,
+    DefinedRange,
+    DateRangePicker,
+    defaultInputRanges,
+    defaultStaticRanges,
 } from 'react-date-range';
 
-const range: RangeWithKey = {
-    startDate: new Date('2020-11-01'),
-    endDate: new Date('2020-11-30'),
-    key: 'selection'
-};
+// =============================================================================
+// Calendar Component
+// =============================================================================
 
-class ReactDatePicker extends React.Component<any, any> {
+class ReactCalendar extends React.Component<any, any> {
     constructor(props: {}) {
         super(props);
     }
 
-    handleInit(range: Range) {
-        console.log(range);
-    }
-
-    handleChange(range: OnDateRangeChangeProps) {
-        console.log(range);
+    handleChange(date: Date) {
+        console.log(date);
     }
 
     render() {
         return (
             <div>
-                <DateRange
-                    linkedCalendars={true}
-                    ranges={[range]}
-                    onInit={this.handleInit}
+                <Calendar
+                    date={new Date()}
                     onChange={this.handleChange}
-                    theme={{
-                        Calendar: { width: 200 },
-                        PredefinedRanges: { marginLeft: 10, marginTop: 10 }
-                    }}
                     classNames={{
-                        dateDisplay: 'dateDisplayCustom'
+                        dateDisplay: 'dateDisplayCustom',
                     }}
                 />
             </div>
@@ -46,10 +40,95 @@ class ReactDatePicker extends React.Component<any, any> {
     }
 }
 
+// =============================================================================
+// DateRange Component
+// =============================================================================
+
+const range: Range = {
+    startDate: new Date('2020-11-01'),
+    endDate: new Date('2020-11-30'),
+    key: 'selection',
+};
+
+class ReactDatePicker extends React.Component<any, any> {
+    constructor(props: {}) {
+        super(props);
+    }
+
+    handleChange(rangesByKey: RangeKeyDict) {
+        console.log(rangesByKey);
+    }
+
+    render() {
+        return (
+            <div>
+                <DateRange
+                    ranges={[range]}
+                    onChange={this.handleChange}
+                    classNames={{
+                        dateDisplay: 'dateDisplayCustom',
+                    }}
+                />
+            </div>
+        );
+    }
+}
+
+// =============================================================================
+// DefinedRange Component
+// =============================================================================
+
+const staticRange: StaticRange = {
+    range: () => ({ startDate: new Date('2021-10-01'), endDate: new Date('2021-10-31') }),
+    isSelected: range => range?.key === 'selected',
+    label: 'Example static range',
+    hasCustomRendering: true,
+};
+
+const inputRange: InputRange = {
+    range: () => ({ startDate: new Date('2021-10-01'), endDate: new Date('2021-10-31') }),
+    getCurrentValue: range => range?.startDate?.getTime() || '',
+    label: 'Example static range',
+};
+
+class ReactDefinedDateRange extends React.Component<any, any> {
+    constructor(props: {}) {
+        super(props);
+    }
+
+    handleChange(rangesByKey: RangeKeyDict) {
+        console.log(rangesByKey);
+    }
+
+    render() {
+        return (
+            <div>
+                <DefinedRange
+                    className="customClassName"
+                    focusedRange={[0, 1]}
+                    footerContent={<footer>Footer</footer>}
+                    headerContent={<header>Header</header>}
+                    inputRanges={[inputRange, defaultInputRanges[0]]}
+                    onChange={this.handleChange}
+                    onPreviewChange={preview => console.log(preview)}
+                    rangeColors={['red', 'blue', 'yellow']}
+                    ranges={[range]}
+                    renderStaticRangeLabel={staticRange => <span>{staticRange?.label}</span>}
+                    staticRanges={[staticRange, defaultStaticRanges[0]]}
+                />
+            </div>
+        );
+    }
+}
+
+// =============================================================================
+// DateRangePicker Component
+// =============================================================================
+
 const customizedKeyRange: Range = {
     startDate: new Date('2020-11-01'),
     endDate: new Date('2020-11-30'),
-    key: 'customizedKey'
+    key: 'customizedKey',
 };
 
 class ReactDateRangePicker extends React.Component<any, any> {
@@ -57,36 +136,25 @@ class ReactDateRangePicker extends React.Component<any, any> {
         super(props);
     }
 
-    handleInit(range: Range) {
-        console.log(range);
-    }
-
-    handleChange(range: OnDateRangeChangeProps) {
-        console.log(range);
+    handleChange(rangesByKey: RangeKeyDict) {
+        console.log(rangesByKey);
     }
 
     render() {
         return (
             <div>
                 <DateRangePicker
-                    linkedCalendars={true}
                     ranges={[customizedKeyRange]}
-                    scroll={{enabled: true}}
-                    onInit={this.handleInit}
+                    scroll={{ enabled: true }}
                     onChange={this.handleChange}
-                    showSelectionPreview={true}
                     editableDateInputs={true}
                     showMonthArrow={true}
                     months={1}
                     moveRangeOnFirstSelection={false}
                     direction="horizontal"
                     weekStartsOn={1}
-                    theme={{
-                        Calendar: { width: 200 },
-                        PredefinedRanges: { marginLeft: 10, marginTop: 10 }
-                    }}
                     classNames={{
-                        dateDisplay: 'dateDisplayCustom'
+                        dateDisplay: 'dateDisplayCustom',
                     }}
                 />
             </div>

@@ -9,9 +9,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
         "types": [],
+        "paths": {
+            "react-date-range": ["react-date-range/v1.1"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
