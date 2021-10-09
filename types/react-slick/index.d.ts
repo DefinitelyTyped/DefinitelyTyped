@@ -11,7 +11,7 @@ import * as React from "react";
 
 type ComponentConstructor<TProps> =
     | React.ComponentClass<TProps>
-    | React.StatelessComponent<TProps>;
+    | React.FunctionComponent<TProps>;
 
 export interface CustomArrowProps {
     className?: string | undefined;

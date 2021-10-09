@@ -11,7 +11,7 @@ class SomeComponent extends React.Component<PropTypes> {
     }
 }
 
-const StatelessComponent: React.StatelessComponent<PropTypes> = () => React.createElement('div');
+const FunctionComponent: React.FunctionComponent<PropTypes> = () => React.createElement('div');
 
 class MainComponent extends React.Component {
     render() {
@@ -24,7 +24,7 @@ class MainComponent extends React.Component {
                 ]),
                 h('li', 'Another list item')
             ]),
-            h(StatelessComponent, {foo: 'bar'}, [
+            h(FunctionComponent, {foo: 'bar'}, [
                 h('li', [
                     h('a', {href: 'http://whatever.com'}, 'One list item')
                 ]),
