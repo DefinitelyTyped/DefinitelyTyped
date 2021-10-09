@@ -219,14 +219,6 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 
-const LegacyStatelessComponent2: React.SFC<SCProps> =
-    // props is contextually typed
-    props => DOM.div(null, props.foo);
-LegacyStatelessComponent2.displayName = "LegacyStatelessComponent2";
-LegacyStatelessComponent2.defaultProps = {
-    foo: 42
-};
-
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 
@@ -276,10 +268,6 @@ const customDomElementNullProps = React.createElement(customDomElement, null);
 // https://github.com/Microsoft/TypeScript/issues/15019
 
 function foo3(child: React.ComponentClass<{ name: string }> | React.FunctionComponent<{ name: string }> | string) {
-    React.createElement(child, { name: "bar" });
-}
-
-function foo4(child: React.ComponentClass<{ name: string }> | React.SFC<{ name: string }> | string) {
     React.createElement(child, { name: "bar" });
 }
 
@@ -770,10 +758,6 @@ React.createElement(Memoized2, { bar: 'string' });
 
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
-const sfc: React.SFC<any> = Memoized2;
-// this $ExpectError is failing on TypeScript@next
-// // $ExpectError Property '$$typeof' is missing in type
-// const specialSfc2: React.SpecialSFC = props => null;
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",

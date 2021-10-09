@@ -2,7 +2,7 @@ import {
     AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
     DOMElement, FunctionComponentElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC
+    ReactHTMLElement, DOMAttributes, FC
 } from 'react';
 
 import * as ReactTestUtils from ".";
@@ -194,7 +194,7 @@ export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
 export function isElementOfType<P>(
-    element: ReactElement, type: SFC<P>): element is FunctionComponentElement<P>;
+    element: ReactElement, type: FC<P>): element is FunctionComponentElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
  */
