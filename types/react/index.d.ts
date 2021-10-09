@@ -151,11 +151,6 @@ declare namespace React {
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
     > extends ReactElement<P, Exclude<T, number>> { }
 
-    /**
-     * @deprecated Please use `FunctionComponentElement`
-     */
-    type SFCElement<P> = FunctionComponentElement<P>;
-
     interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
         ref?: ('ref' extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never) | undefined;
     }
