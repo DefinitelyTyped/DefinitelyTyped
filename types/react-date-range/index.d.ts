@@ -37,11 +37,11 @@ export interface RangeKeyDict {
 export type Preview = Pick<Range, 'startDate' | 'endDate' | 'color'>;
 
 export interface AriaLabelsShape {
-    dateInput: RangeKeyDict;
-    monthPicker: string;
-    yearPicker: string;
-    prevButton: string;
-    nextButton: string;
+    dateInput?: RangeKeyDict | undefined;
+    monthPicker?: string | undefined;
+    yearPicker?: string | undefined;
+    prevButton?: string | undefined;
+    nextButton?: string | undefined;
 }
 
 export interface ScrollOptions {
