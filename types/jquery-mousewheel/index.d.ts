@@ -51,4 +51,5 @@ declare global {
     }
 }
 
-export = undefined;
+declare function factory($: JQueryStatic): void;
+export = factory;
