@@ -43,7 +43,7 @@ export interface BaseProps<T = DateRangePicker> extends React.Props<T> {
     onHighlightDate?(date: Date): void;
     onHighlightRange?(date: Date): void;
     onSelectStart?(value: momentRange.MomentRange & typeof moment): void;
-    paginationArrowComponent?: React.ComponentClass<PaginationArrowProps> | React.SFC<PaginationArrowProps> | undefined;
+    paginationArrowComponent?: React.ComponentClass<PaginationArrowProps> | React.FC<PaginationArrowProps> | undefined;
     selectedLabel?: string | undefined;
     singleDateRange?: boolean | undefined;
     showLegend?: boolean | undefined;

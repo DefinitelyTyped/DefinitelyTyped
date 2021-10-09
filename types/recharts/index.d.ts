@@ -220,7 +220,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     data?: ReadonlyArray<BarData>;
     background?: boolean | React.ReactElement | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
-    label?: boolean | Label | LabelProps | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
+    label?: boolean | Label | LabelProps | React.FC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
     id?: string;
 }
 

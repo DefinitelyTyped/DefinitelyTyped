@@ -421,8 +421,8 @@ function testSetStatic() {
         foo: string;
     }
 
-    let SfcResult: React.SFC<Props>;
-    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+    let SfcResult: React.FC<Props>;
+    const SfcComp: React.FC<Props> = (props) => (<div>{props.foo}</div>);
 
     let ClassResult: React.ComponentClass<Props, {}>;
     class ClassComp extends React.Component<Props> {
@@ -454,8 +454,8 @@ function testSetPropTypes() {
         foo: PropTypes.string.isRequired
     }
 
-    let SfcResult: React.SFC<Props>;
-    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+    let SfcResult: React.FC<Props>;
+    const SfcComp: React.FC<Props> = (props) => (<div>{props.foo}</div>);
 
     let ClassResult: React.ComponentClass<Props, {}>;
     class ClassComp extends React.Component<Props> {
@@ -480,8 +480,8 @@ function testSetDisplayName() {
         foo: string;
     }
 
-    let SfcResult: React.SFC<Props>;
-    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+    let SfcResult: React.FC<Props>;
+    const SfcComp: React.FC<Props> = (props) => (<div>{props.foo}</div>);
 
     let ClassResult: React.ComponentClass<Props, {}>;
     class ClassComp extends React.Component<Props> {
