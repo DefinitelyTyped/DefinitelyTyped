@@ -234,7 +234,6 @@ declare namespace ReactGridLayout {
          * can be dropped on the grid. It triggers "onDrop" callback
          * with position and event object as parameters.
          * It can be useful for dropping an element in a specific position
-         * 
          * NOTE: In case of using Firefox you should add
          * `onDragStart={e => e.dataTransfer.setData('text/plain', '')}` attribute
          * along with `draggable={true}` otherwise this feature will work incorrect.
@@ -296,7 +295,7 @@ declare namespace ReactGridLayout {
          * Calls when some element has been dropped
          */
         onDrop?(layout: Layout[], item: Layout, e: Event): void;
-        
+
         /**
          * Calls when an element is being dragged over the grid from outside as above.
          * This callback should return an object to dynamically change the droppingItem size
@@ -308,7 +307,7 @@ declare namespace ReactGridLayout {
          * Ref for getting a reference for the grid's wrapping div.
          * You can use this instead of a regular ref and the deprecated `ReactDOM.findDOMNode()`` function.
          */
-        innerRef?: React.Ref<"div">
+        innerRef?: React.Ref<"div">;
     }
 
     interface ReactGridLayoutProps extends CoreProps {
@@ -354,7 +353,7 @@ declare namespace ReactGridLayout {
          * Optional, but if you are managing width yourself you may want to set the breakpoint
          * yourself as well.
          */
-        breakpoint?: string | undefined
+        breakpoint?: string | undefined;
         /**
          * `{name: pxVal}, e.g. {lg: 1200, md: 996, sm: 768, xs: 480}`
          * Breakpoint names are arbitrary but must match in the cols and layouts objects.
