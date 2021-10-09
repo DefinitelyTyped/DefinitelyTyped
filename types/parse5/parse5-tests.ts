@@ -1,4 +1,4 @@
-import * as parse5 from "parse5";
+import parse5 = require("parse5");
 import defaultAdapter = require("parse5/lib/tree-adapters/default");
 
 // Shorthands
@@ -67,8 +67,10 @@ const html = parse5.serialize(element);
 
 html; // $ExpectType string
 
+const readonlyAdapter: defaultAdapter.Readonly = defaultAdapter;
+
 parse5.serialize(element, { treeAdapter: defaultAdapter });
-parse5.serialize(element, { treeAdapter: defaultAdapter });
+parse5.serialize(element, { treeAdapter: readonlyAdapter });
 
 // Location info
 const loc = element.sourceCodeLocation!;
@@ -102,6 +104,8 @@ loc.endTag.startOffset; // $ExpectType number
 loc.endTag.endOffset; // $ExpectType number
 
 // Default AST
+declare const defaultNode: parse5.Node;
+
 declare const defaultDocument: parse5.Document;
 
 defaultDocument.childNodes; // $ExpectType ChildNode[]
@@ -165,11 +169,13 @@ adapter.insertBefore(document, element, element);
 adapter.setTemplateContent(element, fragment);
 
 adapter.getTemplateContent(element); // $ExpectType DocumentFragment
+readonlyAdapter.getTemplateContent(element); // $ExpectType DocumentFragment
 
 adapter.setDocumentType(document, "name", "publicId", "systemId");
 adapter.setDocumentMode(document, "quirks");
 
 adapter.getDocumentMode(document); // $ExpectType DocumentMode
+readonlyAdapter.getDocumentMode(document); // $ExpectType DocumentMode
 
 adapter.detachNode(element);
 adapter.insertText(element, "text");
@@ -187,12 +193,63 @@ adapter.getCommentNodeContent(defaultCommentNode); // $ExpectType string
 adapter.getDocumentTypeNodeName(defaultDoctype); // $ExpectType string
 adapter.getDocumentTypeNodePublicId(defaultDoctype); // $ExpectType string
 adapter.getDocumentTypeNodeSystemId(defaultDoctype); // $ExpectType string
+
+readonlyAdapter.getFirstChild(element); // $ExpectType Element | CommentNode | TextNode | undefined || ChildNode | undefined
+readonlyAdapter.getChildNodes(element)[0]; // $ExpectType ChildNode
+readonlyAdapter.getParentNode(element); // $ExpectType ParentNode
+readonlyAdapter.getAttrList(element)[0]; // $ExpectType Attribute
+readonlyAdapter.getTagName(element); // $ExpectType string
+readonlyAdapter.getNamespaceURI(element); // $ExpectType string
+readonlyAdapter.getTextNodeContent(defaultTextNode); // $ExpectType string
+readonlyAdapter.getCommentNodeContent(defaultCommentNode); // $ExpectType string
+readonlyAdapter.getDocumentTypeNodeName(defaultDoctype); // $ExpectType string
+readonlyAdapter.getDocumentTypeNodePublicId(defaultDoctype); // $ExpectType string
+readonlyAdapter.getDocumentTypeNodeSystemId(defaultDoctype); // $ExpectType string
+
 adapter.isTextNode(element); // $ExpectType boolean
 adapter.isCommentNode(element); // $ExpectType boolean
 adapter.isDocumentTypeNode(element); // $ExpectType boolean
 adapter.isElementNode(element); // $ExpectType boolean
+if (adapter.isTextNode(defaultNode)) {
+    defaultNode; // $ExpectType TextNode
+}
+if (adapter.isCommentNode(defaultNode)) {
+    defaultNode; // $ExpectType CommentNode
+}
+if (adapter.isDocumentTypeNode(defaultNode)) {
+    defaultNode; // $ExpectType DocumentType
+}
+if (adapter.isElementNode(defaultNode)) {
+    defaultNode; // $ExpectType Element
+}
+
+readonlyAdapter.isTextNode(element); // $ExpectType boolean
+readonlyAdapter.isCommentNode(element); // $ExpectType boolean
+readonlyAdapter.isDocumentTypeNode(element); // $ExpectType boolean
+readonlyAdapter.isElementNode(element); // $ExpectType boolean
+if (readonlyAdapter.isTextNode(defaultNode)) {
+    defaultNode; // $ExpectType TextNode
+}
+if (readonlyAdapter.isCommentNode(defaultNode)) {
+    defaultNode; // $ExpectType CommentNode
+}
+if (readonlyAdapter.isDocumentTypeNode(defaultNode)) {
+    defaultNode; // $ExpectType DocumentType
+}
+if (readonlyAdapter.isElementNode(defaultNode)) {
+    defaultNode; // $ExpectType Element
+}
 
 declare const location: parse5.ElementLocation | parse5.StartTagLocation | parse5.Location;
+declare const nullableLocation: typeof location | null;
+declare const partialLocation: Partial<typeof location>;
 
 adapter.setNodeSourceCodeLocation(defaultTextNode, location); // $ExpectType void
-adapter.getNodeSourceCodeLocation(defaultTextNode); // $ExpectType Location | StartTagLocation | ElementLocation
+adapter.setNodeSourceCodeLocation(defaultTextNode, nullableLocation); // $ExpectType void
+adapter.updateNodeSourceCodeLocation(defaultTextNode, partialLocation); // $ExpectType void
+
+// $ExpectType Location | StartTagLocation | ElementLocation | null || ElementLocation | StartTagLocation | Location | null
+adapter.getNodeSourceCodeLocation(defaultTextNode);
+
+// $ExpectType Location | StartTagLocation | ElementLocation | null || ElementLocation | StartTagLocation | Location | null
+readonlyAdapter.getNodeSourceCodeLocation(defaultTextNode);

@@ -13,6 +13,10 @@ interface TreeAdapterTypeMap extends parse5.TreeAdapterTypeMap {
     textNode: parse5.TextNode;
 }
 
+declare namespace treeAdapter {
+    type Readonly = parse5.ReadonlyTypedTreeAdapter<TreeAdapterTypeMap>;
+}
+
 declare const treeAdapter: parse5.TypedTreeAdapter<TreeAdapterTypeMap>;
 
 export = treeAdapter;
