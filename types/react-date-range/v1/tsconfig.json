@@ -10,10 +10,14 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../../",
-        "typeRoots": ["../../"],
+        "typeRoots": [
+            "../../"
+        ],
         "types": [],
         "paths": {
-            "react-date-range": ["react-date-range/v1.1"]
+            "react-date-range": [
+                "react-date-range/v1"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
