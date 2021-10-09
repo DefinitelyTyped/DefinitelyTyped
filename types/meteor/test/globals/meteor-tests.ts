@@ -388,8 +388,8 @@ namespace MeteorTests {
     });
 
     /**
-        * From Collections, createIndex section
-    */
+     * From Collections, createIndex section
+     */
 
     Posts.createIndex({ title: 1 });
 
@@ -578,20 +578,6 @@ namespace MeteorTests {
     Accounts.user({ fields: { profile: 0 } });
 
     /**
-     * From Accounts, Accounts.ui.config section
-     */
-    Accounts.ui.config({
-        requestPermissions: {
-            facebook: ['user_likes'],
-            github: ['user', 'repo'],
-        },
-        requestOfflineToken: {
-            google: true,
-        },
-        passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL',
-    });
-
-    /**
      * Fixes this discussion https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/55173
      */
     Accounts.sendEnrollmentEmail(); // $ExpectError
@@ -626,6 +612,22 @@ namespace MeteorTests {
     Accounts.findUserByUsername('email', {}); // $ExpectType User | null | undefined
     Accounts.findUserByUsername('email', { fields: undefined }); // $ExpectType User | null | undefined
     Accounts.findUserByUsername('email', { fields: {} }); // $ExpectType User | null | undefined
+
+
+
+    /**
+     * From Accounts, Accounts.ui.config section
+     */
+     Accounts.ui.config({
+        requestPermissions: {
+            facebook: ['user_likes'],
+            github: ['user', 'repo'],
+        },
+        requestOfflineToken: {
+            google: true,
+        },
+        passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL',
+    });
 
     /**
      * From Accounts, Accounts.validateNewUser section
@@ -700,8 +702,8 @@ namespace MeteorTests {
     var body = Template.body;
 
     const Template2 = Template as TemplateStaticTyped<
-        { foo: string },
         'newTemplate2',
+        { foo: string },
         {
             state: ReactiveDict<{ bar: number }>;
             getFooBar(): string;
@@ -755,6 +757,10 @@ namespace MeteorTests {
             template.getFooBar();
         },
     });
+
+    const Template3 = Template as TemplateStaticTyped<'newTemplate3', string>;
+
+    const Template4 = Template as TemplateStaticTyped<'newTemplate4'>;
 
     /**
      * From Match section
