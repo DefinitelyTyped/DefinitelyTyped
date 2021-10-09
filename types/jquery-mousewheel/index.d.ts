@@ -51,5 +51,12 @@ declare global {
     }
 }
 
+/**
+ * Factory function for Browserify in Node.js/CommonJS environments.
+ * Modifies `$` to include the `jquery-mousewheel` library.
+ * Designed for use with export-related JS features.
+ *
+ * @param {JQueryStatic} $ JQuery static library object.
+ */
 declare function factory($: JQueryStatic): void;
 export = factory;
