@@ -1,4 +1,4 @@
-// Type definitions for non-npm package cookieclicker 2.031
+// Type definitions for non-npm package cookieclicker 2.042
 // Project: https://orteil.dashnet.org/cookieclicker/
 // Definitions by: Lubomir <https://github.com/TheGLander>
 //                 Bob <https://github.com/MasterOfBob777>
