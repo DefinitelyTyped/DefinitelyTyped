@@ -16,6 +16,7 @@ let cert = forge.pki.createCertificate();
 cert.publicKey = keypair.publicKey;
 cert.sign(keypair.privateKey);
 forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
+let certPem = forge.pki.certificateToPem(cert);
 let csr = forge.pki.createCertificationRequest();
 csr.publicKey = keypair.publicKey;
 csr.sign(keypair.privateKey);
@@ -281,7 +282,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         }
     ]);
 
-    const attr: forge.pki.Attribute | undefined = cert.getAttribute({ name: "challengePassword" });
+    const attr: forge.pki.Attribute | undefined = csr.getAttribute({ name: "challengePassword" });
 
 
     // self-sign certificate
@@ -510,7 +511,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
 {
     let p7 = forge.pkcs7.createEnvelopedData();
-    let cert = forge.pki.certificateFromPem('PEM');
+    let cert = forge.pki.certificateFromPem(certPem);
     p7.addRecipient(cert);
     p7.content = forge.util.createBuffer('content');
     p7.encrypt();
@@ -518,11 +519,15 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-  publicKeyRsa.encrypt('content');
-  privateKeyRsa.decrypt('content');
+    let plainText = 'content'
+    let cipher = publicKeyRsa.encrypt(plainText);
+    let result = privateKeyRsa.decrypt(cipher);
+    if (result !== plainText) {
+        throw new Error('decrypt result not match')
+    }
 }
 {
-    let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey('testpem');
+    let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 }
 
 {
@@ -606,7 +611,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     isBigInteger = bn.add(bn);
     isBigInteger = bn.subtract(bn);
     isBigInteger = bn.multiply(bn);
-    isBigInteger = bn.square();
+    isBigInteger = bn.squareTo(bn);
     isBigInteger = bn.divide(bn);
     isBigInteger = bn.remainder(bn);
     isDivmod = bn.divideAndRemainder(bn);

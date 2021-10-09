@@ -81,7 +81,7 @@ declare module "node-forge" {
             add(a: BigInteger): BigInteger;
             subtract(a: BigInteger): BigInteger;
             multiply(a: BigInteger): BigInteger;
-            square(): BigInteger;
+            squareTo(a: BigInteger): BigInteger;
             divide(a: BigInteger): BigInteger;
             remainder(a: BigInteger): BigInteger;
             divideAndRemainder(a: BigInteger): BigInteger[]; // Array of 2 items
@@ -388,18 +388,6 @@ declare module "node-forge" {
             verify(child: Certificate): boolean;
 
             /**
-             * Gets an issuer or subject attribute from its name, type, or short name.
-             *
-             * @param options a short name string or an object with:
-             *          shortName the short name for the attribute.
-             *          name the name for the attribute.
-             *          type the type for the attribute.
-             *
-             * @return the attribute.
-             */
-            getAttribute(opts: string | GetAttributeOpts): Attribute | null;
-
-            /**
              * Returns true if this certificate's issuer matches the passed
              * certificate's subject. Note that no signature check is performed.
              *
@@ -420,6 +408,20 @@ declare module "node-forge" {
              *         certificate's issuer.
              */
             issued(child: Certificate): boolean;
+        }
+
+        interface CertificateRequest extends Certificate {
+            /**
+             * Gets an issuer or subject attribute from its name, type, or short name.
+             *
+             * @param options a short name string or an object with:
+             *          shortName the short name for the attribute.
+             *          name the name for the attribute.
+             *          type the type for the attribute.
+             *
+             * @return the attribute.
+             */
+            getAttribute(opts: string | GetAttributeOpts): Attribute | null;
         }
 
         /**
@@ -492,7 +494,7 @@ declare module "node-forge" {
 
         function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
 
-        function createCertificationRequest(): Certificate;
+        function createCertificationRequest(): CertificateRequest;
 
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
 
