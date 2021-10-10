@@ -414,7 +414,7 @@ declare module 'dgram' {
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.3.8
          */
-        setMulticastLoopback(flag: boolean): void;
+        setMulticastLoopback(flag: boolean): boolean;
         /**
          * Sets the `IP_MULTICAST_TTL` socket option. While TTL generally stands for
          * "Time to Live", in this context it specifies the number of IP hops that a

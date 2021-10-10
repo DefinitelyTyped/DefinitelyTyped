@@ -58,7 +58,7 @@ declare module 'dgram' {
         send(msg: string | Uint8Array, offset: number, length: number, callback?: (error: Error | null, bytes: number) => void): void;
         setBroadcast(flag: boolean): void;
         setMulticastInterface(multicastInterface: string): void;
-        setMulticastLoopback(flag: boolean): void;
+        setMulticastLoopback(flag: boolean): boolean;
         setMulticastTTL(ttl: number): void;
         setRecvBufferSize(size: number): void;
         setSendBufferSize(size: number): void;
