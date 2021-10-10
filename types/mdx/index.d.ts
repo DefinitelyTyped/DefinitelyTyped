@@ -6,6 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
+type Component<Props> = ((props: Props) => JSX.Element) | (new (props: Props) => JSX.ElementClass);
+
 /**
  * An MDX file which exports a JSX component.
  *
@@ -54,13 +56,37 @@
  */
 declare module '*.mdx' {
     /**
+     * MDX components may be passed as the `components`.
+     *
+     * The key is the name of the element to override. The value is the component to render instead.
+     */
+    type MDXComponents = {
+        [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]>;
+    } & {
+        /**
+         * If a wrapper component is defined, the MDX content will be wrapped inside of it.
+         */
+        wrapper?: Component<MDXProps>;
+    };
+
+    /**
+     * The props that may be passed to an MDX component.
+     */
+    type MDXProps = Record<string, unknown> & {
+        /**
+         * This prop may be used to customize how certain components are rendered.
+         */
+        components?: MDXComponents;
+    };
+
+    /**
      * An function component which renders the MDX content using JSX.
      *
      * @param props This value is be available as the named variable `props` inside the MDX component.
      * @returns A JSX element. The meaning of this may depend on the project configuration. I.e. it
      * could be a React, Preact, or Vuex element.
      */
-    export default function MDXContent(props: Record<string, unknown>): JSX.Element;
+    export default function MDXContent(props: MDXProps): JSX.Element;
 }
 
 // Support markdown extensions from
