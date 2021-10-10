@@ -176,7 +176,7 @@ declare module 'dgram' {
          * @since v0.1.99
          * @param callback Called when the socket has been closed.
          */
-        close(callback?: () => void): void;
+        close(callback?: () => void): this;
         /**
          * Associates the `dgram.Socket` to a remote address and port. Every
          * message sent by this handle is automatically sent to that destination. Also,
