@@ -929,7 +929,6 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     Wrapper = (props: NarrowerProps) => null;
     Wrapper = class Exact extends React.Component<ExactProps> {};
     Wrapper = (props: ExactProps) => null;
-    // $ExpectError
     Wrapper = class Wider extends React.Component<WiderProps> {};
     Wrapper = (props: WiderProps) => null;
 
