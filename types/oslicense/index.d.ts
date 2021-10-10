@@ -1,0 +1,41 @@
+// Type definitions for oslicense 1.2
+// Project: https://github.com/credwards27/oslicense#readme
+// Definitions by: Florian Imdahl <https://github.com/ffflorian>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export interface License {
+    id: string;
+    identifiers: Identifier[];
+    keywords: string[];
+    links: Link[];
+    name: string;
+    other_names: OtherName[];
+    superseded_by: null | string;
+    text: Text[];
+}
+
+export interface Identifier {
+    identifier: string;
+    scheme: string;
+}
+
+export interface Link {
+    note: string;
+    url: string;
+}
+
+export interface OtherName {
+    name: string;
+    note: string;
+}
+
+export interface Text {
+    media_type: string;
+    title: string;
+    url: string;
+}
+
+export function getLicenses(): Promise<Record<string, string>>;
+export function getLicenseData(id: string): Promise<License>;
+export function getLicenseText(id: string): Promise<string>;
+export function getNearestLicense(): string;
