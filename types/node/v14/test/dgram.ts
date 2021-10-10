@@ -5,7 +5,7 @@ import * as dns from 'dns';
 {
     let ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
     });
-    ds.bind();
+    ds = ds.bind();
     ds.bind(41234);
     ds.bind(4123, 'localhost');
     ds.bind(4123, 'localhost', () => { });

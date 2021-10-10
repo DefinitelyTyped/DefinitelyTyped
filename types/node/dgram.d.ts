@@ -166,10 +166,10 @@ declare module 'dgram' {
          * @since v0.1.99
          * @param callback with no parameters. Called when binding is complete.
          */
-        bind(port?: number, address?: string, callback?: () => void): void;
-        bind(port?: number, callback?: () => void): void;
-        bind(callback?: () => void): void;
-        bind(options: BindOptions, callback?: () => void): void;
+        bind(port?: number, address?: string, callback?: () => void): this;
+        bind(port?: number, callback?: () => void): this;
+        bind(callback?: () => void): this;
+        bind(options: BindOptions, callback?: () => void): this;
         /**
          * Close the underlying socket and stop listening for data on it. If a callback is
          * provided, it is added as a listener for the `'close'` event.
