@@ -182,6 +182,10 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     onPreviewChange?: ((preview: Preview) => void) | undefined;
     /** default: none */
     onChange?: ((range: OnDateRangeChangeProps) => void) | undefined;
+    /** default: forwards */
+    calendarFocus?: 'forwards' | 'backwards'
+    /** default: false */
+    preventSnapRefocus?: boolean
 }
 
 export interface DateRangePickerProps extends DateRangeProps {
