@@ -287,10 +287,10 @@ export interface PageTiming {
     _startRender?: number | null | undefined;
 }
 /**
- *
  * _non-standard_
  *
- * Data for Chunk as provided by e.g. WebPageTest */
+ * Data for Chunk as provided by e.g. WebPageTest
+ */
 export interface Chunk {
     bytes: number;
     ts: number;
