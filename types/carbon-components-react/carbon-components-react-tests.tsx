@@ -1201,7 +1201,6 @@ const dataTableSkeletonBasic = (
     <Checkbox
         id=""
         labelText=""
-        // $ExpectError
         ref={inputRef}
     />;
 }
