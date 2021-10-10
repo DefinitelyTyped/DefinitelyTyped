@@ -427,7 +427,7 @@ declare module 'dgram' {
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.3.8
          */
-        setMulticastTTL(ttl: number): void;
+        setMulticastTTL(ttl: number): number;
         /**
          * Sets the `SO_RCVBUF` socket option. Sets the maximum socket receive buffer
          * in bytes.

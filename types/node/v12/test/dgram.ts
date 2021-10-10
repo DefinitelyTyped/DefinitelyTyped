@@ -19,6 +19,7 @@ import * as dns from 'dns';
     ds.setMulticastLoopback(false); // $ExpectType boolean
     ds = dgram.createSocket({ type: "udp4", reuseAddr: true, recvBufferSize: 1000, sendBufferSize: 1000, lookup: dns.lookup });
     ds.setTTL(128); // $ExpectType number
+    ds.setMulticastTTL(128); // $ExpectType number
 }
 
 {

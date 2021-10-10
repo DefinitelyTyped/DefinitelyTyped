@@ -173,7 +173,7 @@ sock.send("datagram", 128, 64, 8000, "192.0.2.1", (err) => undefined);
 sock.setBroadcast(true);
 sock.setMulticastInterface("192.0.2.1");
 sock.setMulticastLoopback(false); // $ExpectType boolean
-sock.setMulticastTTL(128);
+sock.setMulticastTTL(128); // $ExpectType number
 sock.setRecvBufferSize(4096);
 sock.setSendBufferSize(4096);
 sock.setTTL(128); // $ExpectType number

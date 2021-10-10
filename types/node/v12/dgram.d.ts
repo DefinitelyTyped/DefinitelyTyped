@@ -59,7 +59,7 @@ declare module 'dgram' {
         setBroadcast(flag: boolean): void;
         setMulticastInterface(multicastInterface: string): void;
         setMulticastLoopback(flag: boolean): boolean;
-        setMulticastTTL(ttl: number): void;
+        setMulticastTTL(ttl: number): number;
         setRecvBufferSize(size: number): void;
         setSendBufferSize(size: number): void;
         setTTL(ttl: number): number;
