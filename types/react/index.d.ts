@@ -551,12 +551,6 @@ declare namespace React {
         propTypes?: never | undefined;
     }
 
-    /**
-     * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
-     *             "real" component.
-     */
-    interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
-
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
         propTypes?: WeakValidationMap<P> | undefined;
