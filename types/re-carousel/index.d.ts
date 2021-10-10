@@ -22,7 +22,7 @@ interface CarouselProps {
     loop?: boolean;
     interval?: number;
     duration?: number;
-    widgets?: Array<ComponentType<WidgetProps>>;
+    widgets?: ReadonlyArray<ComponentType<WidgetProps>>;
     frames?: JSX.Element[];
     style?: CSSProperties;
     minMove?: number;
