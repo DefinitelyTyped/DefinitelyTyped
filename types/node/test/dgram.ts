@@ -176,7 +176,7 @@ sock.setMulticastLoopback(false);
 sock.setMulticastTTL(128);
 sock.setRecvBufferSize(4096);
 sock.setSendBufferSize(4096);
-sock.setTTL(128);
+sock.setTTL(128); // $ExpectType number
 sock = sock.unref();
 
 sock.on("close", () => undefined);
