@@ -3,6 +3,7 @@ import {
     AccordionItem,
     AspectRatio,
     Button,
+    Checkbox,
     CodeSnippet,
     CodeSnippetType,
     Column,
@@ -1190,4 +1191,17 @@ const dataTableSkeletonBasic = (
             Test
         </Dialog>
     );
+}
+
+//
+// Checkbox
+//
+{
+    const inputRef = React.createRef<HTMLInputElement>();
+    <Checkbox
+        id=""
+        labelText=""
+        // $ExpectError
+        ref={inputRef}
+    />;
 }
