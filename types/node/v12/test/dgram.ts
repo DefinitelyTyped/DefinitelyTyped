@@ -15,6 +15,7 @@ import * as dns from 'dns';
     ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error | null, bytes: number): void => {
     });
     ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    ds = ds.close();
     ds.setMulticastInterface("127.0.0.1");
     ds = dgram.createSocket({ type: "udp4", reuseAddr: true, recvBufferSize: 1000, sendBufferSize: 1000, lookup: dns.lookup });
 }

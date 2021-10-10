@@ -41,7 +41,7 @@ declare module 'dgram' {
         bind(port?: number, callback?: () => void): void;
         bind(callback?: () => void): void;
         bind(options: BindOptions, callback?: () => void): void;
-        close(callback?: () => void): void;
+        close(callback?: () => void): this;
         connect(port: number, address?: string, callback?: () => void): void;
         connect(port: number, callback: () => void): void;
         disconnect(): void;
