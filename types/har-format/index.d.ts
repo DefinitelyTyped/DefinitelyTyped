@@ -287,6 +287,15 @@ export interface PageTiming {
     _startRender?: number | null | undefined;
 }
 /**
+ *
+ * _non-standard_
+ *
+ * Data for Chunk as provided by e.g. WebPageTest */
+export interface Chunk {
+    bytes: number;
+    ts: number;
+}
+/**
  * This object represents an array with all exported HTTP requests. Sorting
  * entries by `startedDateTime` (starting from the oldest) is preferred way how
  * to export data since it can make importing faster.
@@ -359,6 +368,8 @@ export interface Entry {
     _cdn_provider?: string | null | undefined;
     /** _non-standard_  */
     _certificate_bytes?: number | string | null | undefined;
+    /** _non-standard_  */
+    _chunks?: Chunk[] | null | undefined;
     /** _non-standard_  */
     _client_port?: number | string | null | undefined;
     /** _non-standard_  */
