@@ -76,7 +76,7 @@ class CustomImageComponent {
         // $ExpectError
         video: CustomImageComponent,
         wrapper(props) {
-            // $ExpectType MDXProps
+            // $ExpectType any
             props;
             return <div />;
         },
@@ -102,7 +102,7 @@ class CustomImageComponent {
         // $ExpectError
         video: CustomImageComponent,
         wrapper(props) {
-            // $ExpectType MDXProps
+            // $ExpectType any
             props;
             return <div />;
         },
@@ -128,7 +128,7 @@ class CustomImageComponent {
         // $ExpectError
         video: CustomImageComponent,
         wrapper(props) {
-            // $ExpectType MDXProps
+            // $ExpectType any
             props;
             return <div />;
         },
@@ -154,7 +154,7 @@ class CustomImageComponent {
         // $ExpectError
         video: CustomImageComponent,
         wrapper(props) {
-            // $ExpectType MDXProps
+            // $ExpectType any
             props;
             return <div />;
         },
@@ -180,7 +180,7 @@ class CustomImageComponent {
         // $ExpectError
         video: CustomImageComponent,
         wrapper(props) {
-            // $ExpectType MDXProps
+            // $ExpectType any
             props;
             return <div />;
         },
@@ -206,7 +206,7 @@ class CustomImageComponent {
         // $ExpectError
         video: CustomImageComponent,
         wrapper(props) {
-            // $ExpectType MDXProps
+            // $ExpectType any
             props;
             return <div />;
         },
@@ -232,7 +232,7 @@ class CustomImageComponent {
         // $ExpectError
         video: CustomImageComponent,
         wrapper(props) {
-            // $ExpectType MDXProps
+            // $ExpectType any
             props;
             return <div />;
         },
@@ -258,7 +258,7 @@ class CustomImageComponent {
         // $ExpectError
         video: CustomImageComponent,
         wrapper(props) {
-            // $ExpectType MDXProps
+            // $ExpectType any
             props;
             return <div />;
         },

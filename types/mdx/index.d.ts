@@ -66,7 +66,7 @@ declare module '*.mdx' {
         /**
          * If a wrapper component is defined, the MDX content will be wrapped inside of it.
          */
-        wrapper?: Component<MDXProps>;
+        wrapper?: Component<any>;
     };
 
     /**
