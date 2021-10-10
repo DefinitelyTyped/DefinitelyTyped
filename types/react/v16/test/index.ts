@@ -891,3 +891,35 @@ const propsWithChildren: React.PropsWithChildren<Props> = {
     foo: 42,
     children: functionComponent,
 };
+
+// JSXElemenConstructor vs Component assignability
+{
+    interface ExactProps {
+        value: 'A' | 'B';
+    }
+    interface NarrowerProps {
+        value: 'A';
+    }
+    interface WiderProps {
+        value: 'A' | 'B' | 'C';
+    }
+
+    // We don't actually care about the concrete type of `Wrapper` i.e.
+    // we don't care about the value created by `new Wrapper()`.
+    // We only care about the props we can pass to the component.
+    let Wrapper: React.JSXElementConstructor<ExactProps>;
+    // $ExpectError
+    Wrapper = class Narrower extends React.Component<NarrowerProps> {};
+    // $ExpectError
+    Wrapper = (props: NarrowerProps) => null;
+    Wrapper = class Exact extends React.Component<ExactProps> {};
+    Wrapper = (props: ExactProps) => null;
+    // $ExpectError
+    Wrapper = class Wider extends React.Component<WiderProps> {};
+    Wrapper = (props: WiderProps) => null;
+
+    React.createElement(Wrapper, { value: 'A' });
+    React.createElement(Wrapper, { value: 'B' });
+    // $ExpectError
+    React.createElement(Wrapper, { value: 'C' });
+}
