@@ -329,7 +329,8 @@ export interface RecordProxy<T = {}> {
     // If a parent type is provided, provide the child type
     getLinkedRecord<K extends keyof T>(name: K, args?: Variables | null): RecordProxy<NonNullable<T[K]>>;
     // If a __typename is provided, pick that union member
-    getLinkedRecord<H extends string, K extends keyof T = keyof T>(name: K, args?: Variables | null): RecordProxy<Extract<NonNullable<T[K]>, {__typename: H}>>
+    // tslint:disable-next-line:no-unnecessary-generics
+    getLinkedRecord<H extends string, K extends keyof T = keyof T>(name: K, args?: Variables | null): RecordProxy<Extract<NonNullable<T[K]>, {__typename: H}>>;
     // If a hint is provided, the return value is guaranteed to be the hint type
     getLinkedRecord<H = never>(
         name: string,
