@@ -472,6 +472,10 @@
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
         },
+        "cesium": {
+            "libraryName": "cesium",
+            "asOfVersion": "1.70.0"
+        },
         "chai-http": {
             "libraryName": "chai-http",
             "asOfVersion": "4.2.0"
@@ -988,6 +992,10 @@
         "dva": {
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
+        },
+        "easy-table": {
+            "libraryName": "easy-table",
+            "asOfVersion": "1.2.0"
         },
         "easy-x-headers": {
             "libraryName": "easy-x-headers",
@@ -3694,6 +3702,10 @@
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
         },
+        "rc-tree": {
+            "libraryName": "rc-tree",
+            "asOfVersion": "3.0.0"
+        },
         "rdf-js": {
             "libraryName": "rdf-js",
             "asOfVersion": "4.0.2"
@@ -4562,6 +4574,10 @@
             "libraryName": "skin-tone",
             "asOfVersion": "2.0.0"
         },
+        "skyway": {
+            "libraryName": "skyway-js",
+            "asOfVersion": "2.0.0"
+        },
         "slash": {
             "libraryName": "slash",
             "asOfVersion": "3.0.0"
@@ -5225,6 +5241,10 @@
         "vfile-message": {
             "libraryName": "vfile-message",
             "asOfVersion": "2.0.0"
+        },
+        "victory": {
+            "libraryName": "victory",
+            "asOfVersion": "35.0.0"
         },
         "viewerjs": {
             "libraryName": "viewerjs",

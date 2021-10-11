@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.48
+// Type definitions for non-npm package Forge Viewer 7.53
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -362,6 +362,7 @@ declare namespace Autodesk {
         const RESET_EVENT = 'reset';
         const RESTORE_DEFAULT_SETTINGS_EVENT = 'restoreDefaultSettings';
         const SELECTION_CHANGED_EVENT = 'selection';
+        const SETTINGS_PANEL_CREATED_EVENT = 'settingsPanelCreated';
         const SHOW_EVENT = 'show';
         const SHOW_ALL_EVENT = 'showAll';
         const SHOW_PROPERTIES_EVENT = 'showProperties';
@@ -1051,7 +1052,7 @@ declare namespace Autodesk {
             id: number;
             impl: Private.Viewer3DImpl;
             model: Model;
-            prefs: any;
+            prefs: Private.ViewerPreferences;
             started: boolean;
             toolbar: UI.ToolBar;
 
@@ -1301,6 +1302,56 @@ declare namespace Autodesk {
         }
 
         namespace Extensions {
+          function generateDefaultViewerHandlerOptions(viewer: GuiViewer3D): any;
+
+          class ViewerModelStructurePanel extends UI.ModelStructurePanel {
+            constructor(options: {
+              defaultTile?: string;
+              excludeRoot?: boolean;
+              startCollapsed?: boolean;
+              scrollEaseCurve?: number[];
+              scrollEaseSpeed?: number;
+              addFooter?: boolean;
+              docStructureConfig?: any;
+              hideSearch?: boolean;
+              heightAdjustment?: number;
+              maxHeight?: string;
+              onSearchSelected?: (event: any) => void;
+              onUnInitialize?: () => void;
+              onVisibilityIconClick?: (dbId: number, model: Model) => void;
+              onIsolate?: (dbId: number, model: Model) => void;
+              onToggleMultipleOverlayedSelection?: (selection: any) => void;
+              onToggleOverlayedSelection?: (dbId: number, model: Model, isSelected: boolean) => void;
+              onSelectOnly?: (dbId: number, model: Model) => void;
+              onDeselectAll?: () => void;
+              onSelectToggle?: (dbId: number, model: Model) => void;
+              onShowAll?: () => void;
+              onFocus?: () => void;
+              onHide?: (dbId: number, model: Model) => void;
+              onShow?: (dbId: number, model: Model) => void;
+              onToggleVisibility?: (dbId: number, model: Model) => void;
+              getAggregateIsolation?: () => any[];
+              getAggregateHiddenNodes?: () => any[];
+              getAggregateSelection?: (callback: any) => any[];
+              container?: HTMLElement;
+              addEventListener?: (type: string, callback: (event: any) => void, options?: any) => any;
+              removeEventListener?: (type: string, callback: (event: any) => void) => any;
+            });
+
+            createUI(): void;
+            onViewerHide(event: any): void;
+            onViewerIsolate(event: any): void;
+            onViewerSelect(event: any): void;
+            onViewerShow(event: any): void;
+            removeTreeUI(model: Model): void;
+            scrollToSelection(aggregatedSelection: any[]): void;
+            setHidden(nodes: any[], model: Model, hidden: boolean): void;
+            setIsolation(isolation: any[]): void;
+            setSelection(aggregatedSelection: any[]): void;
+            setVisible(show: boolean): void;
+            sync(): void;
+          }
+
           class ViewerPropertyPanel extends UI.PropertyPanel {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
@@ -1430,7 +1481,9 @@ declare namespace Autodesk {
               RESTORE_SESSION_MEASUREMENTS = 'restoreMeasurements',
               DISPLAY_UNITS = 'displayUnits',
               DISPLAY_UNITS_PRECISION = 'displayUnitsPrecision',
-              KEY_MAP_CMD = 'keyMapCmd'
+              KEY_MAP_CMD = 'keyMapCmd',
+              ZOOM_DRAG_SPEED = 'zoomDragSpeed',
+              ZOOM_SCROLL_SPEED = 'zoomScrollSpeed'
             }
 
             enum MATERIAL_VARIANT {
@@ -1600,15 +1653,21 @@ declare namespace Autodesk {
 
               add(name: string, defaultValue: any, tags?: string[]|string): boolean;
               addListeners(name: string, onChangedCallback: () => void, onResetCallback: () => void): void;
-              get(): any;
+              addPref(name: string, defaultValue: any): void;
+              clearWebStorage(): void;
+              deleteFromWebStorage(name: string): void;
+              get(name: string): any;
               hasTag(name: string, tag: string): boolean;
+              isLocalStorageSupported(): boolean;
               load(defaultValues: object): void;
               remove(name: string, removeFromWebStorage?: boolean): boolean;
               removeListeners(name: string): void;
               reset(tag?: string, include?: boolean): void;
               set(name: string, value: any, notify?: boolean): boolean;
+              setUseLocalStorage(useIt: boolean): void;
               tag(tag: string, names?: string[]|string): void;
               untag(tag: string, names?: string[]|string): void;
+              webStorage(name: string, value: any): any;
             }
 
             class BoundsCallback implements GeometryCallback {
@@ -1648,6 +1707,67 @@ declare namespace Autodesk {
                 callback: any,
                 matrix?: THREE.Matrix4): void;
               function getVertexCount(geom: THREE.Geometry): number;
+            }
+
+            class ViewerPreferences extends Preferences {
+              constructor(viewer: Viewer3D, options: PreferencesOptions);
+
+              alwaysUsePivot: boolean;
+              ambientShadows: boolean;
+              antialiasing: boolean;
+              backgroundColorPreset: any;
+              bimWalkGravity: boolean;
+              bimWalkNavigatorType: string;
+              bimWalkToolPopup: boolean;
+              clickToSetCOI: boolean;
+              defaultNavigationTool3D: string;
+              defaults: any;
+              disablePdfHighlight: boolean;
+              displaySectionHatches: boolean;
+              displayUnits: any;
+              displayUnitsPrecision: any;
+              edgeRendering: boolean;
+              enableCustomOrbitToolCursor: boolean;
+              envMapBackground: boolean;
+              explodeStrategy: string;
+              firstPersonToolPopup: boolean;
+              forceDoubleSided: boolean;
+              forceLeafletCalibration: boolean;
+              forcePDFCalibration: boolean;
+              fusionOrbit: boolean;
+              fusionOrbitConstrained: boolean;
+              ghosting: boolean;
+              grayscale: boolean;
+              groundReflection: boolean;
+              groundShadow: boolean;
+              keyMapCmd: boolean;
+              leftHandedMouseSetup: boolean;
+              lightPreset: string;
+              lineRendering: boolean;
+              loadingAnimation: boolean;
+              openPropertiesOnSelect: boolean;
+              optimizeNavigation: boolean;
+              options: any;
+              orbitPastWorldPoles: boolean;
+              pointRendering: boolean;
+              progressiveRendering: boolean;
+              restoreMeasurements: boolean;
+              reverseHorizontalLookDirection: boolean;
+              reverseMouseZoomDir: boolean;
+              reverseVerticalLookDirection: boolean;
+              selectionMode: number;
+              selectionSetsPivot: boolean;
+              swapBlackAndWhite: boolean;
+              tags: any;
+              useLocalStorage: boolean;
+              viewCube: boolean;
+              viewCubeCompass: boolean;
+              viewType: number;
+              viewer: Viewer3D | GuiViewer3D;
+              wheelSetsPivot: boolean;
+              zoomDragSpeed: number;
+              zoomScrollSpeed: number;
+              zoomTowardsPivot: boolean;
             }
 
             class ViewerState {

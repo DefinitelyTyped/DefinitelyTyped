@@ -47,6 +47,21 @@ const showAllStyle: cytoscape.Stylesheet[] = [
         },
     },
     {
+        selector: 'node',
+        style: {
+            'background-image-crossorigin': 'anonymous',
+            'background-image-opacity': 0.5,
+            'background-image-smoothing': 'yes',
+            'background-image-containment': 'inside',
+            'background-offset-x': 'yes',
+            'background-offset-y': 'yes',
+            'background-clip': 'none',
+            'background-width-relative-to': 'inner',
+            'background-height-relative-to': 'inner',
+            'bounds-expansion': [1, '5em']
+        },
+    },
+    {
         selector: '$node > node',
         css: parentCSS,
     },
@@ -58,6 +73,9 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             'curve-style': 'taxi',
             'source-endpoint': 'outside-to-node',
             'target-endpoint': 'outside-to-node',
+            'line-opacity': 0.5,
+            'taxi-turn': '20deg',
+            'taxi-turn-min-distance': '7px'
         },
     },
     {
@@ -75,6 +93,21 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             label: 'data(name)',
             'text-wrap': 'ellipsis',
             'text-max-width': '200',
+        },
+    },
+    {
+        selector: 'node.text',
+        style: {
+            label: 'data(name)',
+            'text-wrap': 'ellipsis',
+            'text-max-width': '200',
+            'text-overflow-wrap': 'anywhere',
+            'text-justification': 'center',
+            'line-height': 1.2,
+            'text-rotation': 'autorotate',
+            'source-text-rotation': 'autorotate',
+            'target-text-rotation': 'autorotate',
+            'text-events': 'yes',
         },
     },
 ];
@@ -128,8 +161,15 @@ const cy = cytoscape({
     pixelRatio: 'auto',
 
     layout: {
-        name: 'preset',
+        name: 'grid',
         padding: 5,
+        animate: true,
+        animateFilter: (node, i) => {
+            return true;
+        },
+        transform: (node, position) => {
+            return position;
+        }
     },
 
     // additional custom graph data:
@@ -219,6 +259,9 @@ const positions = oneOf(
     { a: { x: 100, y: 100 } },
     (node: cytoscape.NodeCollection): cytoscape.Position => ({ x: 100, y: 100 }),
 );
+
+// #core/viewport
+cy.viewport({ zoom: 1.2, pan: { x: 0, y: 1}});
 
 // TODO: uncomment after we have the way to add layout options properties from extensions
 // const layouts = [

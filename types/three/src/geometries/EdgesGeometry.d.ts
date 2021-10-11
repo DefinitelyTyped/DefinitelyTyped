@@ -1,11 +1,11 @@
 import { BufferGeometry } from '../core/BufferGeometry';
 
-export class EdgesGeometry extends BufferGeometry {
+export class EdgesGeometry<TBufferGeometry extends BufferGeometry = BufferGeometry> extends BufferGeometry {
     /**
      * @param geometry
      * @param [thresholdAngle=1]
      */
-    constructor(geometry: BufferGeometry, thresholdAngle?: number);
+    constructor(geometry?: TBufferGeometry, thresholdAngle?: number);
 
     /**
      * @default 'EdgesGeometry'
@@ -13,6 +13,7 @@ export class EdgesGeometry extends BufferGeometry {
     type: string;
 
     parameters: {
+        geometry: TBufferGeometry;
         thresholdAngle: number;
     };
 }

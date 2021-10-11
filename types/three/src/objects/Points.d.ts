@@ -32,6 +32,6 @@ export class Points<
      */
     material: TMaterial;
 
-    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+    raycast(raycaster: Raycaster, intersects: Array<Intersection<Object3D>>): void;
     updateMorphTargets(): void;
 }

@@ -287,4 +287,6 @@ export class Vector3 implements Vector {
      * Sets this vector's x, y and z from Math.random
      */
     random(): this;
+
+    randomDirection(): this;
 }

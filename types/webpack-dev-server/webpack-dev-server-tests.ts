@@ -1,7 +1,7 @@
 import webpack = require('webpack');
 import WebpackDevServer = require('webpack-dev-server');
-import { Application } from 'express';
 import { AddressInfo } from 'net';
+
 const compiler = webpack({});
 const multipleCompiler = webpack([]);
 

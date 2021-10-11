@@ -825,6 +825,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
                             StickyHeaderComponent={this._stickyHeaderComponent}
+                            stickyHeaderHiddenOnScroll={true}
                         />
                     );
                 }}
@@ -1252,6 +1253,9 @@ AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled =>
 AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
 );
+AccessibilityInfo.getRecommendedTimeoutMillis(5000).then(timeoutMiles =>
+    console.log(`AccessibilityInfo.getRecommendedTimeoutMillis => ${timeoutMiles}`)
+);
 
 AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
     console.log(`A11y Event: announcementFinished: ${announcement}, ${success}`),
@@ -1271,9 +1275,10 @@ AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled =>
 AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
     console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
-);
+const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
+AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
+).remove();
+AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
