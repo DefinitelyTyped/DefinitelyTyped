@@ -424,7 +424,7 @@ type Node = {
      * @param label to retrieve the corresponding label provider.
      * @returns {object} corresponding label provider.
      */
-    getProvider: (label: any) => Node;
+    getProvider: (label: string) => Node;
 
     /**
      * Get the property or function defined in node label provider.
@@ -436,13 +436,13 @@ type Node = {
      * @param name name of the property to retrieve.
      * @returns {*} node property defined in its label provider.
      */
-    getProperty: (label: any, name: string) => any;
+    getProperty: (label: string, name: string) => any;
 
     /**
      *
      * @param label
      */
-    getIsAutoLoadValue: (label: any) => boolean;
+    getIsAutoLoadValue: (label: string) => boolean;
 
     /**
      * Return the "isSearchable" property for the node label provider.
@@ -452,7 +452,7 @@ type Node = {
      * @param label
      * @returns boolean
      */
-    getIsSearchable: (label: any) => boolean;
+    getIsSearchable: (label: string) => boolean;
 
     /**
      * Return the "autoExpandRelations" property for the node label provider.
@@ -461,9 +461,9 @@ type Node = {
      * @param label
      * @returns boolean
      */
-    getIsAutoExpandRelations: (label: any) => boolean;
+    getIsAutoExpandRelations: (label: string) => boolean;
 
-    getSchema: (label: any) => any;
+    getSchema: (label: string) => any;
 
     /**
      * Return the list of attributes defined in node label provider.
@@ -472,7 +472,7 @@ type Node = {
      * @param label used to retrieve parent attributes.
      * @returns {Array} list of return attributes for a node.
      */
-    getReturnAttributes: (label: any) => any[];
+    getReturnAttributes: (label: string) => any[];
 
     /**
      * Return the attribute to use as constraint attribute for a node defined in its label provider.
@@ -480,14 +480,14 @@ type Node = {
      * @param label
      * @returns {*}
      */
-    getConstraintAttribute: (label: any) => any;
+    getConstraintAttribute: (label: string) => any;
 
-    getDisplayAttribute: (label: any) => any;
+    getDisplayAttribute: (label: string) => any;
 
 
-    getValueOrderByAttribute: (label: any) => any;
+    getValueOrderByAttribute: (label: string) => any;
 
-    getResultOrderByAttribute: (label: any) => any;
+    getResultOrderByAttribute: (label: string) => any;
 
     /**
      * Check in label provider if text must be displayed with images nodes.
@@ -557,6 +557,6 @@ export interface Provider {
          */
         DEFAULT_PROVIDER: Node;
 
-        Provider: Node;
+        Provider: { [key: string]: Partial<Node> };
     }
 }
