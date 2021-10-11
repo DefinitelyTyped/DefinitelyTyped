@@ -1466,14 +1466,21 @@ management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_
 });
 
 /**
- * Get Organization Member Roles returning a Promise
+ * Get a paged result of an Organization Member Roles using a callback
  */
-management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id' }).then((roles: auth0.Role[]) => {
-    console.log(roles);
+management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true }, (err, pagedRoles: Omit<auth0.RolePage, 'length'>) => {
+    console.log(pagedRoles);
 });
 
 /**
- * Get Organization Member Roles with pagination using a callback
+ * Get a paged result of an Organization Member Roles returning a Promise
+ */
+management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true }).then((pagedRoles: Omit<auth0.RolePage, 'length'>) => {
+    console.log(pagedRoles);
+});
+
+/**
+ * Get a paged result of an Organization Member Roles with pagination using a callback
  */
 management.organizations.getMemberRoles(
     { id: 'organization_id', user_id: 'user_id', page: 0, per_page: 2 },

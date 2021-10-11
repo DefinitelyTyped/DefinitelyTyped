@@ -1384,10 +1384,15 @@ export class OrganizationsManager {
     deleteInvitation(params: ObjectWithId & { invitation_id: string }): Promise<void>;
     deleteInvitation(params: ObjectWithId & { invitation_id: string }, cb: (err: Error) => void): void;
 
-    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string }): Promise<Role[]>;
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false }): Promise<Role[]>;
+    getMemberRoles(params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true }): Promise<Omit<RolePage, 'length'>>;
     getMemberRoles(
-        params: ObjectWithId & PagingOptions & { user_id: string },
+        params: ObjectWithId & PagingOptions & { user_id: string; include_totals?: false },
         cb: (err: Error, roles: Role[]) => void,
+    ): void;
+    getMemberRoles(
+        params: ObjectWithId & PagingOptions & { user_id: string; include_totals: true },
+        cb: (err: Error, roles: Omit<RolePage, 'length'>) => void,
     ): void;
 
     addMemberRoles(params: ObjectWithId & { user_id: string }, data: AddOrganizationMemberRoles): Promise<void>;
