@@ -39,11 +39,13 @@ declare namespace Dockerode {
         top(callback: Callback<any>): void;
         top(options?: {}): Promise<any>;
 
+        changes(options: {}, callback: Callback<any>): void;
         changes(callback: Callback<any>): void;
-        changes(): Promise<any>;
+        changes(options?: {}): Promise<any>;
 
+        export(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
         export(callback: Callback<NodeJS.ReadableStream>): void;
-        export(): Promise<NodeJS.ReadableStream>;
+        export(options?: {}): Promise<NodeJS.ReadableStream>;
 
         start(options: {}, callback: Callback<any>): void;
         start(callback: Callback<any>): void;
@@ -155,8 +157,9 @@ declare namespace Dockerode {
         modem: any;
         name: string;
 
+        inspect(options: {}, callback: Callback<VolumeInspectInfo>): void;
         inspect(callback: Callback<VolumeInspectInfo>): void;
-        inspect(): Promise<VolumeInspectInfo>;
+        inspect(options?: {}): Promise<VolumeInspectInfo>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
@@ -169,8 +172,9 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
+        inspect(options: {}, callback: Callback<any>): void;
         inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(options?: {}): Promise<any>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
@@ -190,8 +194,9 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
+        inspect(options: {}, callback: Callback<any>): void;
         inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(options?: {}): Promise<any>;
     }
 
     class Node {
@@ -200,8 +205,9 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
+        inspect(options: {}, callback: Callback<any>): void;
         inspect(callback: Callback<any>): void;
-        inspect(): Promise<any>;
+        inspect(options?: {}): Promise<any>;
 
         update(options: {}, callback: Callback<any>): void;
         update(callback: Callback<any>): void;
@@ -219,15 +225,17 @@ declare namespace Dockerode {
         name: string;
         remote: any;
 
+        inspect(options: {}, callback: Callback<PluginInspectInfo>): void;
         inspect(callback: Callback<PluginInspectInfo>): void;
-        inspect(): Promise<PluginInspectInfo>;
+        inspect(options?: {}): Promise<PluginInspectInfo>;
 
         remove(options: {}, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
         remove(options?: {}): Promise<any>;
 
+        privileges(options: {}, callback: Callback<any>): void;
         privileges(callback: Callback<any>): void;
-        privileges(): Promise<any>;
+        privileges(options?: {}): Promise<any>;
 
         pull(options: {}, callback: Callback<any>): void;
         pull(options: {}): Promise<any>;
@@ -259,8 +267,9 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
+        inspect(options: {}, callback: Callback<Secret>): void;
         inspect(callback: Callback<Secret>): void;
-        inspect(): Promise<Secret>;
+        inspect(options?: {}): Promise<Secret>;
 
         update(options: {}, callback: Callback<any>): void;
         update(callback: Callback<any>): void;
@@ -315,8 +324,9 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
+        inspect(options: {}, callback: Callback<ConfigInfo>): void;
         inspect(callback: Callback<ConfigInfo>): void;
-        inspect(): Promise<ConfigInfo>;
+        inspect(options?: {}): Promise<ConfigInfo>;
 
         update(options: {}, callback: Callback<any>): void;
         update(callback: Callback<any>): void;
@@ -421,6 +431,8 @@ declare namespace Dockerode {
         EnableIPv6?: boolean | undefined;
         Options?: { [option: string]: string } | undefined;
         Labels?: { [label: string]: string } | undefined;
+
+        abortSignal?: AbortSignal;
     }
 
     interface NetworkContainer {
@@ -805,6 +817,8 @@ declare namespace Dockerode {
     interface ImageBuildOptions {
         authconfig?: AuthConfig | undefined;
         registryconfig?: RegistryConfig | undefined;
+        abortSignal?: AbortSignal;
+
         dockerfile?: string | undefined;
         t?: string | undefined;
         extrahosts?: string | undefined;
@@ -832,7 +846,9 @@ declare namespace Dockerode {
 
     interface ImagePushOptions {
         tag?: string | undefined;
+
         authconfig?: AuthConfig | undefined;
+        abortSignal?: AbortSignal;
     }
 
     interface AuthConfig {
@@ -932,6 +948,8 @@ declare namespace Dockerode {
         Privileged?: boolean | undefined;
         User?: string | undefined;
         WorkingDir?: string | undefined;
+
+        abortSignal?: AbortSignal;
     }
 
     interface ExecInspectInfo {
@@ -961,6 +979,8 @@ declare namespace Dockerode {
         // Detach and Tty are used by Docker's API
         Detach?: boolean | undefined;
         Tty?: boolean | undefined;
+
+        abortSignal?: AbortSignal;
     }
 
     type MountType = 'bind' | 'volume' | 'tmpfs';
@@ -1021,6 +1041,8 @@ declare namespace Dockerode {
         NetworkingConfig?: {
             EndpointsConfig?: EndpointsConfig | undefined;
         } | undefined;
+
+        abortSignal?: AbortSignal;
     }
 
     interface KeyObject {
@@ -1075,6 +1097,8 @@ declare namespace Dockerode {
             > | undefined;
             volume?: string[] | undefined;
         } | undefined;
+
+        abortSignal?: AbortSignal;
     }
 
     interface SecretVersion {
@@ -1310,6 +1334,7 @@ declare namespace Dockerode {
 
     interface CreateServiceOptions extends ServiceSpec {
         authconfig?: AuthConfig | undefined;
+        abortSignal?: AbortSignal;
     }
 
     interface ServiceCreateResponse {
@@ -1324,6 +1349,8 @@ declare namespace Dockerode {
             mode?: Array<'replicated' | 'global'> | undefined;
             name?: string[] | undefined;
         };
+
+        abortSignal?: AbortSignal;
     }
 
     interface Version {
@@ -1593,6 +1620,7 @@ declare namespace Dockerode {
     interface ContainerWaitOptions {
         /** Since v1.30 */
         condition?: 'not-running' | 'next-exit' | 'removed' | undefined;
+        abortSignal?: AbortSignal;
     }
 
     interface ContainerLogsOptions {
@@ -1603,6 +1631,7 @@ declare namespace Dockerode {
         details?: boolean | undefined;
         tail?: number | undefined;
         timestamps?: boolean | undefined;
+        abortSignal?: AbortSignal;
     }
 
     interface ImageBuildContext {
