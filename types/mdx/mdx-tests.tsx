@@ -1,3 +1,4 @@
+import { MDXContent, MDXModule } from 'mdx';
 import MyMDXComponent from './MyComponent.mdx';
 import MyMDComponent from './MyComponent.md';
 import MyMarkdownComponent from './MyComponent.markdown';
@@ -7,8 +8,12 @@ import MyMKDComponent from './MyComponent.mkd';
 import MyMKDownComponent from './MyComponent.mkdown';
 import MyRonComponent from './MyComponent.ron';
 
+// Test setup — A minimal JSX framework.
+
 interface TestElementType {
-    foo: 'bar';
+    type: string;
+    props: unknown;
+    children: TestElementType[];
 }
 
 interface DivProps {
@@ -18,6 +23,10 @@ interface DivProps {
 interface ImgProps {
     className?: string;
     src?: string;
+}
+
+interface H1Props {
+    className?: string;
 }
 
 interface SpanProps {
@@ -39,6 +48,7 @@ declare global {
         interface IntrinsicElements {
             div: DivProps;
             img: ImgProps;
+            h1: H1Props;
             span: SpanProps;
             video: VideoProps;
         }
@@ -49,6 +59,8 @@ declare global {
     }
 }
 
+// Test setup — User code
+
 class CustomImageComponent {
     constructor(props: ImgProps) {}
 
@@ -56,6 +68,28 @@ class CustomImageComponent {
         return <div />;
     }
 }
+
+// Tests — The `mdx` imports.
+
+function MyMDXPage(props: MDXModule) {
+    // dts type validation is inconsistent here.
+    const Content: MDXContent = props.default;
+
+    // $ExpectType unknown
+    props.title;
+
+    return (
+        <div>
+            <h1>{props.title as string}</h1>
+            <Content />
+        </div>
+    );
+}
+
+const MyComponentAlias: MDXContent = MyMDXComponent;
+const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
+
+// Tests — All mdx file exports.
 
 // $ExpectType TestElementType
 <MyMDXComponent />;
