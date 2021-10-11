@@ -15,7 +15,6 @@ const testPage: harFormat.Page = {
     id: "page_1",
     title: "https://github.com/",
     pageTimings: testPageTiming,
-    _iAmSomeCustomField: "some value",
 };
 
 const testHeader: harFormat.Header = {
@@ -119,7 +118,6 @@ const testEntry: harFormat.Entry = {
     _gzip_total: null,
     _server_rtt: null,
     _chunks: [{ ts: 1, bytes: 4 }],
-    _iAmSomeCustomField: "some value",
 };
 
 // Examples from http://www.softwareishard.com/blog/har-12-spec/#cache
