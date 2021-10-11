@@ -45,7 +45,7 @@ declare namespace processFiles {
 declare function processFiles(
     config: processFiles.Config,
     logMap: processFiles.LogMap[],
-    dest?: string,
+    dest: string,
     cb?: processFiles.CallbackFn,
 ): void;
 
