@@ -1266,10 +1266,24 @@ management.organizations.getMembers({ id: 'organization_id' }, (err, members: au
 });
 
 /**
+ * Get a paged result of an Organization's Members using a callback
+ */
+management.organizations.getMembers({ id: 'organization_id', include_totals: true }, (err, pagedMembers: auth0.OrganizationMembersPaged) => {
+    console.log(pagedMembers);
+});
+
+/**
  * Get an Organization's Members returning a Promise
  */
 management.organizations.getMembers({ id: 'organization_id' }).then((members: auth0.OrganizationMember[]) => {
     console.log({ members });
+});
+
+/**
+ * Get a paged result of an Organization's members returning a promise.
+ */
+management.organizations.getMembers({id: 'organization_id', include_totals: true }).then((pagedMembers: auth0.OrganizationMembersPaged) => {
+    console.log(pagedMembers);
 });
 
 /**

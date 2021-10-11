@@ -1229,6 +1229,10 @@ export interface OrganizationMember {
     email?: string | undefined;
 }
 
+export interface OrganizationMembersPaged extends Omit<Page, 'length'> {
+    members: OrganizationMember[];
+}
+
 export interface OrganizationInvitation {
     id: string;
     organization_id: string;
@@ -1338,8 +1342,10 @@ export class OrganizationsManager {
         cb: (err: Error, connection: OrganizationConnection) => void,
     ): void;
 
-    getMembers(params: ObjectWithId & PagingOptions): Promise<OrganizationMember[]>;
-    getMembers(params: ObjectWithId & PagingOptions, cb: (err: Error, members: OrganizationMember[]) => void): void;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false; }): Promise<OrganizationMember[]>;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true; }): Promise<OrganizationMembersPaged>;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals?: false; }, cb: (err: Error, members: OrganizationMember[]) => void): void;
+    getMembers(params: ObjectWithId & PagingOptions & { include_totals: true; }, cb: (err: Error, pagedMembers: OrganizationMembersPaged) => void): void;
     getMembers(params: ObjectWithId & CheckpointPagingOptions): Promise<OrganizationMember[]>;
     getMembers(
         params: ObjectWithId & CheckpointPagingOptions,
