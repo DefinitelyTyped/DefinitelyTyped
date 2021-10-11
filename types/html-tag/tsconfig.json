@@ -2,24 +2,22 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "victory-tests.tsx"
+        "html-tag-tests.ts"
     ]
 }
