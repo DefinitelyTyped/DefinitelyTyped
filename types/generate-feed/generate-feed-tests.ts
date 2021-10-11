@@ -25,4 +25,4 @@ const logMap2: generateFeed.LogMap = {
     link: 'https://example.com/some-external-link',
 };
 
-generateFeed(config, [logMap1, logMap2]);
+generateFeed(config, [logMap1, logMap2], './feed');
