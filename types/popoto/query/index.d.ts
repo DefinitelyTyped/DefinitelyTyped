@@ -1,4 +1,4 @@
-import { Node } from '../provider';
+import { Node } from '../graph/node';
 import { Link } from '../graph/link';
 
 export interface QueryStructure {
