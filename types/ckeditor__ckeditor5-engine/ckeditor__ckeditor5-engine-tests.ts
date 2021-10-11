@@ -26,10 +26,22 @@ import {
     ViewDocument,
 } from "@ckeditor/ckeditor5-engine";
 import DowncastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher";
-import DowncastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
+import DowncastHelpers, {
+    clearAttributes,
+    convertCollapsedSelection,
+    convertRangeSelection,
+    insertText,
+    remove,
+    wrap,
+    insertElement,
+    insertUIElement,
+} from "@ckeditor/ckeditor5-engine/src/conversion/downcasthelpers";
 import Mapper from "@ckeditor/ckeditor5-engine/src/conversion/mapper";
 import UpcastDispatcher from "@ckeditor/ckeditor5-engine/src/conversion/upcastdispatcher";
-import UpcastHelpers from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
+import UpcastHelpers, {
+    convertToModelFragment,
+    convertText,
+} from "@ckeditor/ckeditor5-engine/src/conversion/upcasthelpers";
 import Batch from "@ckeditor/ckeditor5-engine/src/model/batch";
 import DocumentFragment from "@ckeditor/ckeditor5-engine/src/model/documentfragment";
 import { Item } from "@ckeditor/ckeditor5-engine/src/model/item";
@@ -153,6 +165,11 @@ model.change(writer => {
 
 model.document.createRoot();
 model.schema.register("paragraph", { inheritAllFrom: "$block" });
+model.schema.addAttributeCheck(context => {
+    if (context.endsWith("paragraph")) {
+        return true;
+    }
+});
 
 const view: View = new View(new StylesProcessor());
 view.change(writer => {
@@ -216,7 +233,39 @@ let upcastHelper: UpcastHelpers = conversion.for("upcast");
 upcastHelper = new UpcastHelpers([new UpcastDispatcher()]).add(() => {});
 // $ExpectError
 upcastHelper = new UpcastHelpers([new DowncastDispatcher()]);
-upcastHelper = upcastHelper.add(() => {});
+upcastHelper = upcastHelper.add((dispatcher) => {
+    dispatcher.on("element:p", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "element:p"
+        data; // $ExpectType UpcastConversionData<Element & { name: "p"; }>
+        conversionApi; // $ExpectType UpcastConversionApi
+        const { modelCursor, modelRange, viewItem } = data;
+        modelCursor; // $ExpectType Position
+        modelRange; // $ExpectType Range
+        viewItem; // $ExpectType Element & { name: "p"; }
+    });
+    dispatcher.on("element", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "element"
+        data; // $ExpectType UpcastConversionData<Element>
+        conversionApi; // $ExpectType UpcastConversionApi
+    });
+    dispatcher.on("text", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "text"
+        data; // $ExpectType UpcastConversionData<Text>
+        conversionApi; // $ExpectType UpcastConversionApi
+    });
+    dispatcher.on("documentFragment", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "documentFragment"
+        data; // $ExpectType UpcastConversionData<DocumentFragment>
+        conversionApi; // $ExpectType UpcastConversionApi
+    });
+    dispatcher.on("element", convertToModelFragment());
+    dispatcher.on("element:p", convertToModelFragment());
+    dispatcher.on("documentFragment", convertToModelFragment());
+    dispatcher.on("text", convertText());
+    dispatcher.on("viewCleanup", (evt, data) => {
+        data; // $ExpectType Element | DocumentFragment
+    });
+});
 upcastHelper.attributeToAttribute({
     view: "foo",
     model: "bar",
@@ -230,7 +279,108 @@ upcastHelper.attributeToAttribute({
 let downcastHelper: DowncastHelpers = conversion.for("downcast");
 downcastHelper = conversion.for("dataDowncast");
 downcastHelper = conversion.for("editingDowncast");
-downcastHelper = downcastHelper.add(() => {});
+downcastHelper = downcastHelper.add((dispatcher) => {
+    dispatcher.on("insert:paragraph", (evt, data, { consumable, mapper, writer, dispatcher, schema }) => {
+        evt.name; // $ExpectType "insert:paragraph"
+        data; // $ExpectType { item: Element & { name: "paragraph"; }; range: Range; }
+        schema; // $ExpectType Schema
+        writer; // $ExpectType DowncastWriter
+        dispatcher; // $ExpectType DowncastDispatcher<{}>
+        mapper; // $ExpectType Mapper
+        consumable; // ExpectType ModelConsumable
+
+        const viewElement = mapper.toViewElement(data.item);
+        if (viewElement) {
+            writer.addClass("img-class", viewElement);
+        }
+    });
+    dispatcher.on(
+        "insert:myElem",
+        insertElement((modelItem, { writer }) => {
+            modelItem; // $ExpectType Element
+            const text = writer.createText("myText");
+            return writer.createAttributeElement("myElem", { myAttr: "my-" + modelItem.getAttribute("myAttr") });
+        }),
+    );
+    dispatcher.on("insert:$text", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "insert:$text"
+        data; // $ExpectType { item: TextProxy; range: Range; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("insert:$text", insertText());
+    dispatcher.on("insert", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "insert"
+        data; // $ExpectType { item: TextProxy | Element; range: Range; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("attribute:bold", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "attribute:bold"
+        // $ExpectType { item: Element; range: Range; attributeKey: "bold"; attributeOldValue: any; attributeNewValue: any; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("attribute:bold", wrap((modelAttributeValue, conversionApi) => {
+        modelAttributeValue; // $ExpectType any
+        conversionApi; // $ExpectType DowncastConversionApi<any>
+        const { writer } = conversionApi;
+        return writer.createAttributeElement("strong");
+    }));
+    dispatcher.on("attribute:bold:$text", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "attribute:bold:$text"
+        // $ExpectType { item: DocumentSelection | TextProxy; range: Range; attributeKey: "bold"; attributeOldValue: any; attributeNewValue: any; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("attribute", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "attribute"
+        // $ExpectType { item: Element; range: Range; attributeKey: string; attributeOldValue: any; attributeNewValue: any; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("selection", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "selection"
+        data; // $ExpectType { selection: Selection; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("selection", clearAttributes());
+    dispatcher.on("selection", convertRangeSelection());
+    dispatcher.on("selection", convertCollapsedSelection());
+    dispatcher.on("remove", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "remove"
+        data; // $ExpectType { position: Position; length: number; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("remove", remove());
+    dispatcher.on("removeMarker:mention", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "removeMarker:mention"
+        data; // $ExpectType { markerName: "mention"; markerRange: Range; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("removeMarker", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "removeMarker"
+        data; // $ExpectType { markerName: string; markerRange: Range; }
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on("addMarker:mention", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "addMarker:mention"
+        // $ExpectType { item?: Selection | undefined; range?: Range | undefined; markerName: "mention"; markerRange: Range; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+    dispatcher.on(
+        "addMarker:mention",
+        insertUIElement((data, { writer }) => {
+            const name = `${data.markerName}:${data.isOpening ? "start" : "end"}`;
+            return writer.createUIElement(name);
+        }),
+    );
+    dispatcher.on("addMarker", (evt, data, conversionApi) => {
+        evt.name; // $ExpectType "addMarker"
+        // $ExpectType { item?: Selection | undefined; range?: Range | undefined; markerName: string; markerRange: Range; }
+        data;
+        conversionApi; // $ExpectType DowncastConversionApi<{}>
+    });
+});
 downcastHelper.attributeToAttribute({
     model: "foo",
     view: "bar",

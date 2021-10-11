@@ -41,6 +41,7 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
+//                 Pedro Hernández <https://github.com/phvillegas>
 //                 Brett Lindsay <https://github.com/bdlindsay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -6911,6 +6912,14 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * touches to occur while scrolling. The default value is false.
      */
     disableScrollViewPanResponder?: boolean | undefined;
+
+    /**
+     * A React Component that will be used to render sticky headers, should be used together with
+     * stickyHeaderIndices. You may need to set this component if your sticky header uses custom
+     * transforms, for example, when you want your list to have an animated and hidable header.
+     * If component have not been provided, the default ScrollViewStickyHeader component will be used.
+     */
+    StickyHeaderComponent?: React.ComponentType<any> | undefined;
 }
 
 declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
@@ -8722,10 +8731,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): void;
+    export function addChangeListener(listener: AppearanceListener): NativeEventSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove a handler by passing the change event type and the handler.
      */
     export function removeChangeListener(listener: AppearanceListener): void;
 }

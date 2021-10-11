@@ -250,7 +250,7 @@ declare module 'crypto' {
      */
     function createHmac(algorithm: string, key: BinaryLike | KeyObject, options?: stream.TransformOptions): Hmac;
     // https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings
-    type BinaryToTextEncoding = 'base64' | 'hex';
+    type BinaryToTextEncoding = 'base64' | 'base64url' | 'hex';
     type CharacterEncoding = 'utf8' | 'utf-8' | 'utf16le' | 'latin1';
     type LegacyCharacterEncoding = 'ascii' | 'binary' | 'ucs2' | 'ucs-2';
     type Encoding = BinaryToTextEncoding | CharacterEncoding | LegacyCharacterEncoding;
@@ -2160,7 +2160,7 @@ declare module 'crypto' {
             key: BinaryLike,
             curve: string,
             inputEncoding?: BinaryToTextEncoding,
-            outputEncoding?: 'latin1' | 'hex' | 'base64',
+            outputEncoding?: 'latin1' | 'hex' | 'base64' | 'base64url',
             format?: 'uncompressed' | 'compressed' | 'hybrid'
         ): Buffer | string;
         /**

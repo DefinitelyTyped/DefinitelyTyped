@@ -1,4 +1,4 @@
-import imagemin = require('imagemin');
+import imagemin from 'imagemin';
 import imageminGifsicle = require('imagemin-gifsicle');
 
 imagemin(['*.gif'], {

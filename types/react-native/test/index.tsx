@@ -767,6 +767,10 @@ LogBox.install();
 LogBox.uninstall();
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+    _stickyHeaderComponent = ({ children }: any) => {
+        return <View>{children}</View>;
+    };
+
     eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log(event);
     };
@@ -820,6 +824,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             onScrollToTop={() => {}}
                             scrollToOverflowEnabled={true}
                             fadingEdgeLength={200}
+                            StickyHeaderComponent={this._stickyHeaderComponent}
                         />
                     );
                 }}
@@ -1640,7 +1645,7 @@ const DarkMode = () => {
     const color = useColorScheme();
     const isDarkMode = Appearance.getColorScheme() === 'dark';
 
-    Appearance.addChangeListener(({ colorScheme }) => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
     });
 
@@ -1650,6 +1655,10 @@ const DarkMode = () => {
 
     React.useEffect(() => {
         console.log('-color', color);
+
+        return () => {
+            subscription.remove();
+        };
     }, [color]);
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;
