@@ -114,6 +114,20 @@ declare module 'util' {
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
     /**
+     * Returns the string name for a numeric error code that comes from a Node.js API.
+     * The mapping between error codes and error names is platform-dependent.
+     * See `Common System Errors` for the names of common errors.
+     *
+     * ```js
+     * fs.access('file/that/does/not/exist', (err) => {
+     *   const name = util.getSystemErrorName(err.errno);
+     *   console.error(name);  // ENOENT
+     * });
+     * ```
+     * @since v9.7.0
+     */
+    export function getSystemErrorName(err: number): string;
+    /**
      * Returns a Map of all system error codes available from the Node.js API.
      * The mapping between error codes and error names is platform-dependent.
      * See `Common System Errors` for the names of common errors.
@@ -314,6 +328,9 @@ declare module 'util' {
          * Allows changing inspect settings from the repl.
          */
         let replDefaults: InspectOptions;
+        /**
+         * That can be used to declare custom inspect functions.
+         */
         const custom: unique symbol;
     }
     /**
@@ -520,6 +537,7 @@ declare module 'util' {
      * @return The logging function
      */
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
+    export const debug: typeof debuglog;
     /**
      * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
      *
@@ -971,6 +989,9 @@ declare module 'util' {
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
+        /**
+         * That can be used to declare custom promisified variants of functions.
+         */
         const custom: unique symbol;
     }
     /**
