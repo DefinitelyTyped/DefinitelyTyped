@@ -1,4 +1,5 @@
-import { Link, Node } from "../provider";
+import { Node } from '../provider';
+import { Link } from '../graph/link';
 
 export interface QueryStructure {
     statement: string;
@@ -36,7 +37,7 @@ export namespace Query {
      * @param d relation returned object
      * @returns boolean
      */
-    function filterRelation(d: any): boolean;
+    function filterRelation(d: Link): boolean;
 
     /**
      * Generate the query to count nodes of a label.
