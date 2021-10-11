@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export type Node = {
+export interface Node {
     id: string;
     parent: Node;
     parentRel: any[];
@@ -8,7 +8,7 @@ export type Node = {
     label: string;
     fixed: boolean;
     internalLabel: string;
-    relationships: any[]
+    relationships: any[];
     x: number;
     y: number;
     tx: number;
@@ -18,7 +18,7 @@ export type Node = {
     isAutoLoadValue: boolean;
 }
 
-export type Link = {
+export interface Link {
     id: string;
     source: Node;
     target: Node;
@@ -26,20 +26,20 @@ export type Link = {
     label: string;
 }
 
-export type GraphSchema = {
+export interface GraphSchema {
     label: string;
     value: any[];
     rel: any[];
 }
 
-export type GraphSchemaRelation = {
+export interface GraphSchemaRelation {
     target: any;
     isReverse: boolean;
     label: string;
     rel: any[];
 }
 
-export type NodeSchema = {
+export interface NodeSchema {
     isNegative: boolean;
     label: string;
     value: any[];
@@ -53,7 +53,6 @@ export interface Graph {
 
     /**
      * ID of the HTML component where the graph query builder elements will be generated in.
-     * @type {string}
      */
     containerId: string;
 
@@ -80,7 +79,7 @@ export interface Graph {
         GRAPH_NODE_VALUE_COLLAPSE: "graph.node.value_collapse",
         GRAPH_NODE_ADD_VALUE: "graph.node.add_value",
         GRAPH_NODE_DATA_LOADED: "graph.node.data_loaded"
-    }
+    };
 
     listerners: { [event: string]: Array<() => void>};
 
@@ -134,13 +133,13 @@ export interface Graph {
 
     /**
      * Get the actual width of the SVG element containing the graph query builder.
-     * @returns {number}
+     * @returns svg width
      */
     getSVGWidth: () => number;
 
     /**
      * Get the actual height of the SVG element containing the graph query builder.
-     * @returns {number}
+     * @returns svg height
      */
     getSVGHeight: () => number;
 
@@ -182,11 +181,11 @@ export interface Graph {
 
     addSchemaRelation: (relationSchema: GraphSchemaRelation, parentNode: Node, linkIndex: number, parentLinkTotalCount: number) => void;
 
-    addSchemaNode:  (nodeSchema: NodeSchema, parentNode: Node, index: number, parentLinkTotalCount: number, parentRel: any[]) => void;
+    addSchemaNode: (nodeSchema: NodeSchema, parentNode: Node, index: number, parentLinkTotalCount: number, parentRel: any[]) => void;
 
     /**
      * Get the current schema of the graph.
-     * @returns {GraphSchema}
+     * @returns graph schema
      */
     getSchema: () => GraphSchema;
 
@@ -200,7 +199,7 @@ export interface Graph {
      * Compute the angle in radian between the node and its parent.
      *
      * @param n node to compute angle.
-     * @returns {number} angle in radian.
+     * @returns angle in radian.
      */
     computeParentAngle: (n: Node) => number;
 
@@ -216,5 +215,5 @@ export interface Graph {
 
     voronoi: d3.Voronoi<any>;
 
-    recenterVoronoi: (nodes: Node[]) => [number, number][];
+    recenterVoronoi: (nodes: Node[]) => Array<[number, number]>;
 }

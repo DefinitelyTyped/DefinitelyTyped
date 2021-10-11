@@ -4,9 +4,9 @@ export type LogLevels = Readonly<{
     WARN: 2
     ERROR: 3
     NONE: 4
-}>
+}>;
 
-export type Logger = {
+export interface Logger {
     LogLevels: LogLevels;
     LEVEL: LogLevels;
     TRACE: boolean;

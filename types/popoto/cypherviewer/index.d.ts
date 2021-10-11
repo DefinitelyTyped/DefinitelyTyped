@@ -3,7 +3,7 @@ export interface CypherViewer {
     MATCH: string;
     RETURN: string;
     WHERE: string;
-    QueryElementTypes: ReadOnly<{
+    QueryElementTypes: Readonly<{
         KEYWORD: 0
         NODE: 1
         SEPERATOR: 2
@@ -12,12 +12,12 @@ export interface CypherViewer {
         TARGET: 5
         RETURN: 6
         WHERE: 7
-    }>
+    }>;
 
     /**
-    * Create the Cypher viewer area.
-    *
-    */
+     * Create the Cypher viewer area.
+     *
+     */
     createQueryArea: () => void;
 
     /**
@@ -37,9 +37,9 @@ export interface CypherViewer {
      * RETURN person
      *
      * @param links
-     * @returns {Array}
+     * @returns an array of generated data
      */
-    generateData: (links: {}[]) => { id: number, type: number, node: any }[];
+    generateData: (links: any[]) => Array<{ id: number, type: number, node: any }>;
 
     mouseOverSpan: () => void;
     mouseOutSpan: () => void;

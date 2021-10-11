@@ -1,12 +1,12 @@
 import * as d3 from 'd3';
-import { Query } from '../query'
+import { Query } from '../query';
 
-type Link = {
+export interface Link {
     /**
      *  Get the text representation of a link.
      *
      * @param link the link to get the text representation.
-     * @returns {string} the text representation of the link.
+     * @returns the text representation of the link.
      */
     getTextValue: (link: any) => string;
 
@@ -18,7 +18,7 @@ type Link = {
      * @param link
      * @param element
      * @param attribute
-     * @return {*}
+     * @return color
      */
     getColor: (link: any, element: SVGGElement, attribute: string) => string;
 
@@ -26,7 +26,7 @@ type Link = {
      *
      * @param link
      * @param element
-     * @return {string}
+     * @return css class
      */
     getCSSClass: (link: any, element: SVGGElement) => string;
 
@@ -40,17 +40,17 @@ type Link = {
      *  Get the semantic text representation of a link.
      *
      * @param link the link to get the semantic text representation.
-     * @returns {string} the semantic text representation of the link.
+     * @returns the semantic text representation of the link.
      */
     getSemanticValue: (link: any) => string;
 }
 
-type Taxonomy = {
+export interface Taxonomy {
     /**
      *  Get the text representation of a taxonomy.
      *
      * @param label the label used for the taxonomy.
-     * @returns {string} the text representation of the taxonomy.
+     * @returns the text representation of the taxonomy.
      */
     getTextValue: (label: string)  => string;
 
@@ -58,13 +58,12 @@ type Taxonomy = {
      *
      * @param label
      * @param element
-     * @return {*}
+     * @return css class
      */
     getCSSClass: (label: string, element: SVGGElement) => string;
 }
 
-
-type Node = {
+export interface Node {
     /**
      * Defines whether this label can be used as root element of the graph
      * query builder.
@@ -174,7 +173,7 @@ type Node = {
      * for "Person" nodes everywhere in popoto.js the generated Cypher
      * query will add the constraint "WHERE person.born > 1976"
      *
-     * @returns {Array}
+     * @returns
      */
     getPredefinedConstraints: any[];
 
@@ -182,7 +181,7 @@ type Node = {
      * Filters the query generated to retrieve the queries.
      *
      * @param initialQuery contains the query as an object structure.
-     * @returns {*}
+     * @returns filtered result query
      */
     filterResultQuery: (initialQuery: any) => typeof initialQuery;
 
@@ -217,7 +216,7 @@ type Node = {
      * Default value is TEXT.
      *
      * @param node the node to extract its type.
-     * @returns {number} one value from provider.node.DisplayTypes
+     * @returns one value from provider.node.DisplayTypes
      */
     getDisplayType: (node: Node) => number;
 
@@ -237,7 +236,7 @@ type Node = {
      * Return a color for the node.
      *
      * @param node
-     * @returns {*}
+     * @returns node's color
      */
     getColor: (node: Node) => string;
 
@@ -246,7 +245,7 @@ type Node = {
      *
      * @param node
      * @param element
-     * @return {string}
+     * @return string
      */
     getCSSClass: (node: Node, element: SVGGElement) => string;
 
@@ -272,7 +271,7 @@ type Node = {
      * Default value is true
      *
      * @param node the node to display on graph.
-     * @returns {boolean} true if text must be displayed on graph for the
+     * @returns true if text must be displayed on graph for the
      * node.
      */
     getIsTextDisplayed: (node: Node) => boolean;
@@ -289,7 +288,7 @@ type Node = {
      *
      * @param node the node to represent as text.
      * @param maxLength used to truncate the text.
-     * @returns {string} the text representation of the node.
+     * @returns the text representation of the node.
      */
     getTextValue: (node: Node, maxLength: number) => string;
 
@@ -303,7 +302,7 @@ type Node = {
      * The default behavior is to return the getTextValue not truncated.
      *
      * @param node the node to represent as text.
-     * @returns {string} the text semantic representation of the node.
+     * @returns the text semantic representation of the node.
      */
     getSemanticValue: (node: Node) => string;
 
@@ -313,7 +312,7 @@ type Node = {
      * type nodes.
      *
      * @param node
-     * @returns {string}
+     * @returns image paths
      */
     getImagePath: (node: Node) => string;
 
@@ -321,7 +320,7 @@ type Node = {
      * Function returning a array of path objects to display in the node.
      *
      * @param node
-     * @returns {*[]}
+     * @returns svg paths
      */
     getSVGPaths: (node: Node) => any[];
 
@@ -331,7 +330,7 @@ type Node = {
      * type nodes.
      *
      * @param node
-     * @returns {number}
+     * @returns image width
      */
     getImageWidth: (node: Node) => number;
 
@@ -341,7 +340,7 @@ type Node = {
      * type nodes.
      *
      * @param node
-     * @returns {number}
+     * @returns image height
      */
     getImageHeight: (node: Node) => number;
 
@@ -350,7 +349,7 @@ type Node = {
      *
      * @param node
      * @param initialQuery contains the query as an object structure.
-     * @returns {*}
+     * @returns filtered node value query
      */
     filterNodeValueQuery: (node: Node, initialQuery: any) => typeof initialQuery;
     /**
@@ -358,7 +357,7 @@ type Node = {
      *
      * @param node
      * @param initialQuery contains the query as an object structure.
-     * @returns {*}
+     * @returns filtered node count query
      */
     filterNodeCountQuery: (node: Node, initialQuery: any) => typeof initialQuery;
     /**
@@ -366,7 +365,7 @@ type Node = {
      *
      * @param node
      * @param initialQuery contains the query as an object structure.
-     * @returns {*}
+     * @returns filtered node relation  query
      */
     filterNodeRelationQuery: (node: Node, initialQuery: any) => typeof initialQuery;
 
@@ -422,7 +421,7 @@ type Node = {
      * Then if not found will create one from default provider.
      *
      * @param label to retrieve the corresponding label provider.
-     * @returns {object} corresponding label provider.
+     * @returns corresponding label provider.
      */
     getProvider: (label: string) => Node;
 
@@ -434,7 +433,7 @@ type Node = {
      *
      * @param label node label to get the property in its provider.
      * @param name name of the property to retrieve.
-     * @returns {*} node property defined in its label provider.
+     * @returns node property defined in its label provider.
      */
     getProperty: (label: string, name: string) => any;
 
@@ -470,7 +469,7 @@ type Node = {
      * Parents return attributes are also returned.
      *
      * @param label used to retrieve parent attributes.
-     * @returns {Array} list of return attributes for a node.
+     * @returns list of return attributes for a node.
      */
     getReturnAttributes: (label: string) => any[];
 
@@ -478,12 +477,11 @@ type Node = {
      * Return the attribute to use as constraint attribute for a node defined in its label provider.
      *
      * @param label
-     * @returns {*}
+     * @returns constraint attributes
      */
     getConstraintAttribute: (label: string) => any;
 
     getDisplayAttribute: (label: string) => any;
-
 
     getValueOrderByAttribute: (label: string) => any;
 
@@ -492,7 +490,7 @@ type Node = {
     /**
      * Check in label provider if text must be displayed with images nodes.
      * @param node
-     * @returns {boolean}
+     * @returns wether or not text is displayed
      */
     isTextDisplayed: (node: Node) => boolean;
     /**
@@ -500,7 +498,7 @@ type Node = {
      * can be TEXT, IMAGE, SVG or GROUP.
      *
      * @param node
-     * @returns {*}
+     * @returns node display type
      */
     getNodeDisplayType: (node: Node) => any;
 
@@ -512,7 +510,7 @@ type Node = {
      * Return the displayResults function defined in label parameter's provider.
      *
      * @param label
-     * @returns {*}
+     * @returns display results
      */
     getDisplayResults: (label: string) => any;
 }
@@ -535,7 +533,7 @@ export interface Provider {
         DEFAULT_PROVIDER: Link;
 
         Provider: Link;
-    }
+    };
 
     taxonomy: Taxonomy & {
         /**
@@ -546,7 +544,7 @@ export interface Provider {
         DEFAULT_PROVIDER: Taxonomy;
 
         Provider: Taxonomy;
-    }
+    };
 
     node: Node & {
         /**
@@ -558,5 +556,5 @@ export interface Provider {
         DEFAULT_PROVIDER: Node;
 
         Provider: { [key: string]: Partial<Node> };
-    }
+    };
 }

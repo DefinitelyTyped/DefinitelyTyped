@@ -1,36 +1,36 @@
 export namespace Tools {
-    export const CENTER_GRAPH: boolean;
-    export const RESET_GRAPH: boolean;
-    export const SAVE_GRAPH: boolean;
-    export const TOGGLE_TAXONOMY: boolean;
-    export const TOGGLE_FULL_SCREEN: boolean;
-    export const TOGGLE_VIEW_RELATION: boolean;
-    export const TOGGLE_FIT_TEXT: boolean;
+    const CENTER_GRAPH: boolean;
+    const RESET_GRAPH: boolean;
+    const SAVE_GRAPH: boolean;
+    const TOGGLE_TAXONOMY: boolean;
+    const TOGGLE_FULL_SCREEN: boolean;
+    const TOGGLE_VIEW_RELATION: boolean;
+    const TOGGLE_FIT_TEXT: boolean;
 
     /**
      * Reset the graph to display the root node only.
      */
-    export const reset: () => void;
+    function reset(): void;
 
     /**
      * Reset zoom and center the view on svg center.
      */
-    export const center: () => void;
+    function center(): void;
 
     /**
      * Show, hide taxonomy panel.
      */
-    export const toggleTaxonomy: () => void;
+    function toggleTaxonomy(): void;
 
     /**
      * Enable, disable text fitting on nodes.
      */
-    export const toggleFitText: () => void;
+    function toggleFitText(): void;
 
     /**
      * Show, hide relation donuts.
      */
-    export const toggleViewRelation: () => void;
+    function toggleViewRelation(): void;
 
-    export const toggleFullScreen: () => void;
+    function toggleFullScreen(): void;
 }

@@ -1,11 +1,11 @@
 import { Driver, Session, Result } from 'neo4j-driver-lite';
 
 export namespace Runner {
-    export let DRIVER: Driver;
+    let DRIVER: Driver;
 
-    export let createSession: () => Session;
+    function createSession(): Session;
 
-    export const run: (statements: { statement: string, parameters: any[] }[]) => void;
+    function run(statements: Array<{ statement: string, parameters: any[] }>): void;
 
-    export const toObject: (results: Result[]) => any[][];
+    function toObject(results: Result[]): any[][];
 }

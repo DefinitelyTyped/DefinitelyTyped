@@ -1,44 +1,44 @@
 import { Node } from '../graph';
 
 export namespace Taxonomy {
-    export const containerId: string;
+    const containerId: string;
 
     /**
      * Create the taxonomy panel HTML elements.
      */
-    export const createTaxonomyPanel: () => void;
+    function createTaxonomyPanel(): void;
 
     /**
      * Recursive function to flatten data content.
      */
-    export const flattenChildren: (d: SVGGElement, vals: any[]) => void;
+    function flattenChildren(d: SVGGElement, vals: any[]): void;
 
     /**
      * Updates the count number on a taxonomy.
      *
      * @param taxonomyData
      */
-    export const updateCount: (taxonomyData: any[]) => void;
+    function updateCount(taxonomyData: any[]): void;
 
     /**
      * Recursively generate the taxonomy children elements.
      *
      * @param selection
      */
-    export const addTaxonomyChildren: (selection: Element[]) => void;
+    function addTaxonomyChildren(selection: Element[]): void;
 
-    export let onClick: () => void;
+    function onClick(): void;
 
     /**
      * Parse the list of label providers and return a list of data object containing only searchable labels.
-     * @returns {Array}
+     * @returns Array
      */
-    export const generateTaxonomiesData: () => any[];
+    function generateTaxonomiesData(): any[];
 
     /**
      * Add children providers data.
      * @param parentData
      * @param id
      */
-    export const addChildrenData: (parentData: Node, id: number) => number;
+    function addChildrenData(parentData: Node, id: number): number;
 }
