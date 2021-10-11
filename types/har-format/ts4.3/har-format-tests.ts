@@ -15,7 +15,6 @@ const testPage: harFormat.Page = {
     id: "page_1",
     title: "https://github.com/",
     pageTimings: testPageTiming,
-    // TS >= v4.4 only
     _iAmSomeCustomField: "some value",
 };
 
@@ -108,7 +107,7 @@ const testTimings: harFormat.Timings = {
 };
 
 const testEntry: harFormat.Entry = {
-    startedDateTime: "2017-02-11T09:36:22.868Z",
+    startedDateTime: '2017-02-11T09:36:22.868Z',
     time: 816.8100000002596,
     request: testRequest,
     response: testResponse,
@@ -120,7 +119,6 @@ const testEntry: harFormat.Entry = {
     _gzip_total: null,
     _server_rtt: null,
     _chunks: [{ ts: 1, bytes: 4 }],
-    // TS >= v4.4 only
     _iAmSomeCustomField: "some value",
 };
 

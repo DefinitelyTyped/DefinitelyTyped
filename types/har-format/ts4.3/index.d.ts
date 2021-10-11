@@ -1,3 +1,9 @@
+// Type definitions for non-npm package HAR 1.2
+// Project: https://w3c.github.io/web-performance/specs/HAR/Overview.html
+// Definitions by: Michael Mrowetz <https://github.com/micmro>
+//                 Marcell Toth <https://github.com/marcelltoth>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /**
  * HTTP Archive 1.2
  *
@@ -250,12 +256,6 @@ export interface Page {
     _URL?: string | null | undefined;
     /** _non-standard_  */
     _visualComplete?: number | null | undefined;
-    /**
-     * _non-standard_
-     *
-     * See "Custom Fields" under http://www.softwareishard.com/blog/har-12-spec
-     */
-    [customField: `_${string}`]: unknown | null | undefined;
 }
 /**
  * This object describes timings for various events (states) fired during the
@@ -512,12 +512,6 @@ export interface Entry {
     _renderBlocking?: string | null | undefined;
     /** _non-standard_  */
     _isLCP?: boolean | null | undefined;
-    /**
-     * _non-standard_
-     *
-     * See "Custom Fields" under http://www.softwareishard.com/blog/har-12-spec
-     */
-    [customField: `_${string}`]: unknown | null | undefined;
 }
 /**
  * This object contains detailed info about performed request.
