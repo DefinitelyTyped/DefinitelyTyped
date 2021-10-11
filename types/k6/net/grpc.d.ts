@@ -17,17 +17,17 @@ export interface Response {
 }
 
 export interface ConnectParams {
-    plaintext?: boolean | undefined;
+    plaintext?: boolean;
 
-    timeout?: number | undefined;
+    timeout?: number;
 }
 
 export interface Params {
-    headers?: object | undefined;
+    headers?: object;
 
-    tags?: object | undefined;
+    tags?: object;
 
-    timeout?: string | undefined;
+    timeout?: string;
 }
 
 /**

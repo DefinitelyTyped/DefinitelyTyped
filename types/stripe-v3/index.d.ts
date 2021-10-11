@@ -113,6 +113,10 @@ declare namespace stripe {
             clientSecret: string,
             options?: ConfirmPaymentIntentWithoutElementsOptions,
         ): Promise<PaymentIntentResponse>;
+        confirmSofortPayment(
+            clientSecret: string,
+            options?: ConfirmSofortPaymentOptions
+        ): Promise<PaymentIntentResponse>;
     }
 
     type StripeRedirectResponse = never | {
@@ -759,6 +763,20 @@ declare namespace stripe {
                 token: string;
             } | undefined
         } | undefined;
+    }
+
+    interface ConfirmSofortPaymentOptions extends ConfirmPaymentIntentOptions {
+        /**
+         * Either the id of an existing PaymentMethod, or an object containing
+         * data to create a PaymentMethod with.
+         */
+        payment_method?:
+            string |
+            {
+                sofort?: {
+                    country?: string
+                }
+            };
     }
 
     interface ConfirmCardSetupData {

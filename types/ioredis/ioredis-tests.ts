@@ -446,6 +446,14 @@ Redis.Command.setReplyTransformer('get', (result: any) => {
     return result;
 });
 
+redis.scan(0).then(([nextCursor, keys]) => {
+    // nextCursor is always a string
+    if (nextCursor === '0') {
+        // keys is always an array of strings and it might be empty
+        return keys.map(key => key.trim());
+    }
+});
+
 redis.scan(0, 'match', '*foo*', 'count', 20).then(([nextCursor, keys]) => {
     // nextCursor is always a string
     if (nextCursor === '0') {
@@ -543,6 +551,8 @@ redis.xadd('streamName', 'MAXLEN', 100, '*', 'field', 'name');
 redis.xadd('streamName', 'MAXLEN', '~', 100, '*', 'field', 'name');
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id').then(console.log);
 redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id', cb);
+redis.xautoclaim('streamName', 'groupName', 'consumerName', 3600000, 'id').then(console.log);
+redis.xautoclaim('streamName', 'groupName', 'consumerName', 3600000, 'id', cb);
 redis.xdel('streamName', 'id').then(console.log);
 redis.xdel('streamName', 'id', cbNumber);
 redis.xgroup('CREATE', 'streamName', 'groupName', '$').then(console.log);

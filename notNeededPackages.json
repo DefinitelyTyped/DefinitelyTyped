@@ -989,6 +989,10 @@
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
         },
+        "easy-table": {
+            "libraryName": "easy-table",
+            "asOfVersion": "1.2.0"
+        },
         "easy-x-headers": {
             "libraryName": "easy-x-headers",
             "asOfVersion": "1.0.0"
@@ -3482,6 +3486,10 @@
             "libraryName": "postcss-custom-properties",
             "asOfVersion": "12.0.0"
         },
+        "postcss-focus-within": {
+            "libraryName": "postcss-focus-within",
+            "asOfVersion": "5.0.1"
+        },
         "postcss-load-config": {
             "libraryName": "postcss-load-config",
             "asOfVersion": "3.0.1"
@@ -3689,6 +3697,10 @@
         "rc-time-picker": {
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
+        },
+        "rc-tree": {
+            "libraryName": "rc-tree",
+            "asOfVersion": "3.0.0"
         },
         "rdf-js": {
             "libraryName": "rdf-js",
@@ -4101,6 +4113,10 @@
         "react-scrollbar-size": {
             "libraryName": "react-scrollbar-size",
             "asOfVersion": "3.0.0"
+        },
+        "react-select": {
+            "libraryName": "react-select",
+            "asOfVersion": "5.0.0"
         },
         "react-share": {
             "libraryName": "react-share",
@@ -4552,6 +4568,10 @@
         },
         "skin-tone": {
             "libraryName": "skin-tone",
+            "asOfVersion": "2.0.0"
+        },
+        "skyway": {
+            "libraryName": "skyway-js",
             "asOfVersion": "2.0.0"
         },
         "slash": {
@@ -5217,6 +5237,10 @@
         "vfile-message": {
             "libraryName": "vfile-message",
             "asOfVersion": "2.0.0"
+        },
+        "victory": {
+            "libraryName": "victory",
+            "asOfVersion": "35.0.0"
         },
         "viewerjs": {
             "libraryName": "viewerjs",

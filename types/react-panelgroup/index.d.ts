@@ -17,6 +17,7 @@ export interface PanelWidth {
 }
 
 export interface PropTypes {
+    children?: React.ReactNode;
     spacing?: number | undefined;
     borderColor?: string | undefined;
     panelColor?: string | undefined;

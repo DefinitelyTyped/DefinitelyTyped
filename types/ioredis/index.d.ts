@@ -1196,6 +1196,8 @@ declare namespace IORedis {
         quit(callback: Callback<Ok>): void;
         quit(): Promise<Ok>;
 
+        scan(cursor: number | string): Promise<[string, string[]]>;
+
         scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
         scan(
             cursor: number | string,
@@ -1266,6 +1268,8 @@ declare namespace IORedis {
         xadd: OverloadedKeyCommand<ValueType, string>;
 
         xclaim: OverloadedKeyCommand<ValueType, Array<[string, string[]]>>;
+
+        xautoclaim: OverloadedSubCommand<ValueType,  Array<[string, string[]]>>;
 
         xdel: OverloadedKeyCommand<string, number>;
 

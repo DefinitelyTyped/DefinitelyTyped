@@ -237,7 +237,6 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
 
 export interface UseTableColumnOptions<D extends object> {
     id?: IdType<D> | undefined;
-    originalId?: IdType<D> | undefined;
     Header?: Renderer<HeaderProps<D>> | undefined;
     Footer?: Renderer<FooterProps<D>> | undefined;
     width?: number | string | undefined;
@@ -474,7 +473,7 @@ export interface UseFiltersColumnProps<D extends object> {
 export type FilterProps<D extends object> = HeaderProps<D>;
 export type FilterValue = any;
 export type Filters<D extends object> = Array<{ id: IdType<D>; value: FilterValue }>;
-export type FilterTypes<D extends object> = Record<string, FilterValue>;
+export type FilterTypes<D extends object> = Record<string, FilterType<D>>;
 
 export type DefaultFilterTypes =
     | 'text'

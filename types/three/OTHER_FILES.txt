@@ -8,7 +8,6 @@ examples/jsm/csm/CSM.d.ts
 examples/jsm/csm/CSMHelper.d.ts
 examples/jsm/csm/Frustum.d.ts
 examples/jsm/csm/Shader.d.ts
-examples/jsm/curves/CurveExtras.d.ts
 examples/jsm/curves/NURBSCurve.d.ts
 examples/jsm/curves/NURBSSurface.d.ts
 examples/jsm/curves/NURBSUtils.d.ts
@@ -31,7 +30,6 @@ examples/jsm/geometries/BoxLineGeometry.d.ts
 examples/jsm/geometries/ConvexGeometry.d.ts
 examples/jsm/geometries/DecalGeometry.d.ts
 examples/jsm/geometries/LightningStrike.d.ts
-examples/jsm/geometries/ParametricGeometries.d.ts
 examples/jsm/geometries/RoundedBoxGeometry.d.ts
 examples/jsm/geometries/TeapotGeometry.d.ts
 examples/jsm/helpers/LightProbeHelper.d.ts
@@ -100,7 +98,6 @@ examples/jsm/misc/VolumeSlice.d.ts
 examples/jsm/modifiers/CurveModifier.d.ts
 examples/jsm/modifiers/EdgeSplitModifier.d.ts
 examples/jsm/modifiers/SimplifyModifier.d.ts
-examples/jsm/modifiers/TessellateModifier.d.ts
 examples/jsm/nodes/accessors/CameraNode.d.ts
 examples/jsm/nodes/accessors/ColorsNode.d.ts
 examples/jsm/nodes/accessors/LightNode.d.ts
@@ -225,6 +222,7 @@ examples/jsm/shaders/BrightnessContrastShader.d.ts
 examples/jsm/shaders/ColorCorrectionShader.d.ts
 examples/jsm/shaders/ColorifyShader.d.ts
 examples/jsm/shaders/ConvolutionShader.d.ts
+examples/jsm/shaders/CopyShader.d.ts
 examples/jsm/shaders/DepthLimitedBlurShader.d.ts
 examples/jsm/shaders/DigitalGlitch.d.ts
 examples/jsm/shaders/DOFMipMapShader.d.ts
@@ -244,7 +242,6 @@ examples/jsm/shaders/LuminosityHighPassShader.d.ts
 examples/jsm/shaders/LuminosityShader.d.ts
 examples/jsm/shaders/MirrorShader.d.ts
 examples/jsm/shaders/NormalMapShader.d.ts
-examples/jsm/shaders/ParallaxShader.d.ts
 examples/jsm/shaders/PixelShader.d.ts
 examples/jsm/shaders/RGBShiftShader.d.ts
 examples/jsm/shaders/SAOShader.d.ts
@@ -253,6 +250,7 @@ examples/jsm/shaders/SMAAShader.d.ts
 examples/jsm/shaders/SobelOperatorShader.d.ts
 examples/jsm/shaders/SSAOShader.d.ts
 examples/jsm/shaders/SSRShader.d.ts
+examples/jsm/shaders/SSRrShader.d.ts
 examples/jsm/shaders/SubsurfaceScatteringShader.d.ts
 examples/jsm/shaders/TechnicolorShader.d.ts
 examples/jsm/shaders/ToneMapShader.d.ts

@@ -53,9 +53,9 @@ export class OculusHandPointerModel extends Object3D {
 
     public isAttached(): boolean;
 
-    public intersectObject(object: Object3D): Intersection[] | void;
+    public intersectObject(object: Object3D): Array<Intersection<Object3D>> | void;
 
-    public intersectObjects(objects: Object3D[]): Intersection[] | void;
+    public intersectObjects(objects: Object3D[]): Array<Intersection<Object3D>> | void;
 
     public checkIntersections(objects: Object3D[]): void;
 

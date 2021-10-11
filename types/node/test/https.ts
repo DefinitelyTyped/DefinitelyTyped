@@ -84,6 +84,7 @@ import * as url from 'node:url';
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
         const maxHeadersCount: number | null = server.maxHeadersCount;
+        const maxRequestsPerSocket: number | null = server.maxRequestsPerSocket;
         const headersTimeout: number = server.headersTimeout;
         server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
     }

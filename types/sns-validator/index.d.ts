@@ -17,6 +17,9 @@ declare class MessageValidator {
      * @param hash Can be the raw or parsed message.
      * @param cb The callback which is called with the message when it is valid or with an Error when it isn't.
      */
-    validate(hash: string | object, cb: (err: Error | null, message?: object) => void): void;
+    validate(
+        hash: string | Record<string, unknown>,
+        cb: (err: Error | null, message?: Record<string, unknown>) => void,
+    ): void;
 }
 export = MessageValidator;

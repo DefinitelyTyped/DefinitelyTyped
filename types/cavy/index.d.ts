@@ -10,9 +10,7 @@ import * as React from 'react';
 // Turn off automatic exporting by exporting {}.
 export {};
 
-type RefCallback = (element: React.ReactNode | null) => void;
-
-type TestHookGeneratorWithRefCallback = (label: string, ref?: RefCallback) => RefCallback;
+type TestHookGeneratorWithRefCallback = (label: string, ref?: React.RefCallback<any>) => React.RefCallback<any>;
 
 type TestHookGeneratorWithRefObject = (label: string, ref?: React.RefObject<any>) => React.RefObject<any>;
 

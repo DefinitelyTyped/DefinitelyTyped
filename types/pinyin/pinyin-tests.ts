@@ -2,6 +2,9 @@ import pinyin = require("pinyin");
 
 pinyin("中心");
 pinyin("中心", {
+    group: true
+});
+pinyin("中心", {
     heteronym: true
 });
 pinyin("中心", {
