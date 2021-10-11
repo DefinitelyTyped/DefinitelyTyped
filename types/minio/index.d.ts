@@ -33,7 +33,15 @@ export type NotificationEvent = 's3:ObjectCreated:*' |
     's3:ObjectRemoved:*' |
     's3:ObjectRemoved:Delete' |
     's3:ObjectRemoved:DeleteMarkerCreated' |
-    's3:ReducedRedundancyLostObject';
+    's3:ReducedRedundancyLostObject' |
+    's3:TestEvent' |
+    's3:ObjectRestore:Post' |
+    's3:ObjectRestore:Completed' |
+    's3:Replication:OperationFailedReplication' |
+    's3:Replication:OperationMissedThreshold' |
+    's3:Replication:OperationReplicatedAfterThreshold' |
+    's3:Replication:OperationNotTracked' |
+    string;
 export type Mode = 'COMPLIANCE' | 'GOVERNANCE';
 export type LockUnit = 'Days' | 'Years';
 export type LegalHoldStatus = 'ON' | 'OFF';
@@ -285,7 +293,6 @@ export class Client {
 
     putObjectRetention(bucketName: string, objectName: string, callback: NoResultCallback): void;
     putObjectRetention(bucketName: string, objectName: string, retentionOptions: Retention, callback: NoResultCallback): void;
-    // putObjectRetention(bucketName: string, objectName: string): Promise<void>;
     putObjectRetention(bucketName: string, objectName: string, retentionOptions?: Retention): Promise<void>;
 
     getObjectRetention(bucketName: string, objectName: string, options: VersionIdentificator, callback: ResultCallback<Retention>): void;
@@ -303,35 +310,26 @@ export class Client {
     /**
      * @deprecated Use setObjectTagging instead.
      */
-    // putObjectTagging(bucketName: string, objectName: string, tags: TagList): Promise<void>;
-    /**
-     * @deprecated Use setObjectTagging instead.
-     */
     putObjectTagging(bucketName: string, objectName: string, tags: TagList, putOptions?: VersionIdentificator): Promise<void>;
 
     setObjectTagging(bucketName: string, objectName: string, tags: TagList, callback: NoResultCallback): void;
     setObjectTagging(bucketName: string, objectName: string, tags: TagList, putOptions: VersionIdentificator, callback: NoResultCallback): void;
-    // setObjectTagging(bucketName: string, objectName: string, tags: TagList): Promise<void>;
     setObjectTagging(bucketName: string, objectName: string, tags: TagList, putOptions?: VersionIdentificator): Promise<void>;
 
     removeObjectTagging(bucketName: string, objectName: string, callback: NoResultCallback): void;
     removeObjectTagging(bucketName: string, objectName: string, removeOptions: VersionIdentificator, callback: NoResultCallback): void;
-    // removeObjectTagging(bucketName: string, objectName: string): Promise<void>;
     removeObjectTagging(bucketName: string, objectName: string, removeOptions?: VersionIdentificator): Promise<void>;
 
     getObjectTagging(bucketName: string, objectName: string, callback: ResultCallback<Tag[]>): void;
     getObjectTagging(bucketName: string, objectName: string, getOptions: VersionIdentificator, callback: ResultCallback<Tag[]>): void;
-    // getObjectTagging(bucketName: string, objectName: string): Promise<Tag[]>;
     getObjectTagging(bucketName: string, objectName: string, getOptions?: VersionIdentificator): Promise<Tag[]>;
 
     getObjectLegalHold(bucketName: string, objectName: string, callback: ResultCallback<LegalHoldOptions>): void;
     getObjectLegalHold(bucketName: string, objectName: string, getOptions: VersionIdentificator, callback: ResultCallback<LegalHoldOptions>): void;
-    // getObjectLegalHold(bucketName: string, objectName: string): Promise<LegalHoldOptions>;
     getObjectLegalHold(bucketName: string, objectName: string, getOptions?: VersionIdentificator): Promise<LegalHoldOptions>;
 
     setObjectLegalHold(bucketName: string, objectName: string, callback: NoResultCallback): void;
     setObjectLegalHold(bucketName: string, objectName: string, setOptions: LegalHoldOptions, callback: NoResultCallback): void;
-    // setObjectLegalHold(bucketName: string, objectName: string): Promise<void>;
     setObjectLegalHold(bucketName: string, objectName: string, setOptions?: LegalHoldOptions): Promise<void>;
 
     // Presigned operations
@@ -415,7 +413,6 @@ export class NotificationPoller extends EventEmitter {
     checkForChanges(): void;
 }
 
-// static?
 export class NotificationConfig {
     add(target: TopicConfig|QueueConfig|CloudFunctionConfig): void;
 }
@@ -424,7 +421,6 @@ export class TopicConfig extends TargetConfig {
     constructor(arn: string);
 }
 
-//  new Minio.QueueConfig(arn)
 export class QueueConfig extends TargetConfig {
     constructor(arn: string);
 }
@@ -433,8 +429,6 @@ export class CloudFunctionConfig extends TargetConfig {
     constructor(arn: string);
 }
 
-// var arn = Minio.buildARN('aws', 'sqs', 'us-west-2', '1', 'webhook')
-// static?
 export function buildARN(partition: string, service: string, region: string, accountId: string, resource: string): string;
 
 export const ObjectCreatedAll: NotificationEvent; // s3:ObjectCreated:*'
