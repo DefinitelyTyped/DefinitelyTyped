@@ -472,6 +472,10 @@
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
         },
+        "cesium": {
+            "libraryName": "cesium",
+            "asOfVersion": "1.70.0"
+        },
         "chai-http": {
             "libraryName": "chai-http",
             "asOfVersion": "4.2.0"
