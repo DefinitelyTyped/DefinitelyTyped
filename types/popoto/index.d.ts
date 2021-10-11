@@ -1,6 +1,6 @@
 // Type definitions for popoto 3.0
 // Project: https://popotojs.com/
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Omar Almalol <https://github.com/alma3lol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { CypherViewer } from './cypherviewer';
