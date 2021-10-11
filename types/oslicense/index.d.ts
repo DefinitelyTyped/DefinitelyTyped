@@ -37,6 +37,7 @@ export interface Text {
 
 /** @async */
 export function getLicenses(): Promise<Record<string, string>>;
+/** @async */
 export function getLicenseData(id: string): Promise<License>;
 /** @async */
 export function getLicenseText(id: string): Promise<string>;
