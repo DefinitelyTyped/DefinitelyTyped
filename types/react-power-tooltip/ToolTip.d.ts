@@ -14,6 +14,7 @@ export type ArrowAlignType = "start" | "center" | "end";
 export type AnimationType = "fade" | "bounce";
 
 export interface TooltipProps {
+    children?: React.ReactNode;
     lineSeparated?: boolean | string | undefined;
     position?: PositionType | undefined;
     hoverBackground?: string | undefined;

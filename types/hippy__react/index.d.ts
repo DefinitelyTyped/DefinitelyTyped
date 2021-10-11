@@ -1092,6 +1092,8 @@ interface ViewProps extends LayoutableProps, ClickableProps, TouchableProps {
      */
     accessible?: boolean;
 
+    children?: React.ReactNode;
+
     /**
      * Views that are only used to layout their children or otherwise don't draw anything may be
      * automatically removed from the native hierarchy as an optimization.

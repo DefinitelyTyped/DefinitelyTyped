@@ -1,4 +1,6 @@
-import * as Gettext from 'gettext.js';
+import Gettext = require('gettext.js');
+
+const instance = Gettext();
 
 const json: Gettext.JsonData = {
   "": {
@@ -11,8 +13,6 @@ const json: Gettext.JsonData = {
     "Il y a %1 pommes"
   ]
 };
-
-const instance: Gettext.Gettext = Gettext.i18n();
 
 instance.loadJSON(json, 'messages');
 instance.setLocale('fr');
