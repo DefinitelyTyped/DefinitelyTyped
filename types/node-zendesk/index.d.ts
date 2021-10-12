@@ -1088,3 +1088,38 @@ export interface AuditableModel extends TemporalModel {
 }
 
 export type ZendeskID = number;
+
+export interface ZendeskTriggerCondition {
+    field: string;
+    operator?: string;
+    value?: string;
+}
+
+export interface ZendeskTriggerActions {
+    field: string;
+    value: string;
+}
+
+export interface ZendeskTriggerConditions {
+    all: ZendeskTriggerCondition[];
+    any: ZendeskTriggerCondition[];
+}
+
+export interface ZendeskTrigger {
+    actions: ZendeskTriggerActions[];
+    active?: boolean | undefined;
+    category_id?: string | undefined;
+    conditions: ZendeskTriggerConditions;
+    readonly created_at?: string;
+    description?: string | undefined;
+    readonly id?: number | undefined;
+    position?: number | undefined;
+    raw_title?: string | undefined;
+    title: string;
+    readonly updated_at?: string | undefined;
+    readonly url?: string | undefined;
+}
+
+export interface ZendeskTriggerPayload {
+    trigger: ZendeskTrigger;
+}
