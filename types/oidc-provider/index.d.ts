@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.6
+// Type definitions for oidc-provider 7.8
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1035,7 +1035,6 @@ export interface Configuration {
 
         ciba?: {
             enabled?: boolean | undefined;
-            ack?: string | undefined;
             deliveryModes: CIBADeliveryMode[];
             triggerAuthenticationDevice?: ((ctx: KoaContextWithOIDC, request: BackchannelAuthenticationRequest, account: Account, client: Client) => CanBePromise<void>) | undefined;
             validateBindingMessage?: ((ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>) | undefined;
@@ -1068,7 +1067,6 @@ export interface Configuration {
         pushedAuthorizationRequests?: {
             requirePushedAuthorizationRequests?: boolean | undefined;
             enabled?: boolean | undefined;
-            ack?: string | undefined;
         } | undefined;
 
         rpInitiatedLogout?: {
@@ -2076,6 +2074,9 @@ export namespace errors {
         constructor(description?: string, detail?: string);
     }
     class InvalidScope extends OIDCProviderError {
+        constructor(description: string, scope: string);
+    }
+    class InsufficientScope extends OIDCProviderError {
         constructor(description: string, scope: string);
     }
     class InvalidSoftwareStatement extends OIDCProviderError {
