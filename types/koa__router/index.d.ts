@@ -83,7 +83,7 @@
     }
 
     interface LayerOptions {
-        name: string;
+        name?: string;
         sensitive?: boolean | undefined;
         strict?: boolean | undefined;
         end?: boolean | undefined;
