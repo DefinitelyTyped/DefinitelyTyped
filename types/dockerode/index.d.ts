@@ -1,4 +1,4 @@
-// Type definitions for dockerode 3.2
+// Type definitions for dockerode 3.3
 // Project: https://github.com/apocas/dockerode
 // Definitions by: Carl Winkler <https://github.com/seikho>
 //                 Nicolas Laplante <https://github.com/nlaplante>
@@ -846,7 +846,6 @@ declare namespace Dockerode {
 
     interface ImagePushOptions {
         tag?: string | undefined;
-
         authconfig?: AuthConfig | undefined;
         abortSignal?: AbortSignal;
     }
@@ -948,7 +947,6 @@ declare namespace Dockerode {
         Privileged?: boolean | undefined;
         User?: string | undefined;
         WorkingDir?: string | undefined;
-
         abortSignal?: AbortSignal;
     }
 
@@ -979,7 +977,6 @@ declare namespace Dockerode {
         // Detach and Tty are used by Docker's API
         Detach?: boolean | undefined;
         Tty?: boolean | undefined;
-
         abortSignal?: AbortSignal;
     }
 
@@ -1041,7 +1038,6 @@ declare namespace Dockerode {
         NetworkingConfig?: {
             EndpointsConfig?: EndpointsConfig | undefined;
         } | undefined;
-
         abortSignal?: AbortSignal;
     }
 
@@ -1097,7 +1093,6 @@ declare namespace Dockerode {
             > | undefined;
             volume?: string[] | undefined;
         } | undefined;
-
         abortSignal?: AbortSignal;
     }
 
