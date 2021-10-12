@@ -103,6 +103,22 @@ export interface DumpOptions {
     replacer?: ((key: string, value: any) => any) | undefined;
 }
 
+export declare const types: {
+    binary: Type;
+    float: Type;
+    map: Type;
+    null: Type;
+    pairs: Type;
+    set: Type;
+    timestamp: Type;
+    bool: Type;
+    int: Type;
+    merge: Type;
+    omap: Type;
+    seq: Type;
+    str: Type;
+};
+
 export interface TypeConstructorOptions {
     kind?: 'sequence' | 'scalar' | 'mapping' | undefined;
     resolve?: ((data: any) => boolean) | undefined;
