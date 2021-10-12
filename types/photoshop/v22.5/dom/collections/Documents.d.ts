@@ -1,4 +1,4 @@
-import { Document } from "../Document";
+import Document from "../Document";
 import { Photoshop } from "../Photoshop";
 import { DocumentCreateOptions } from "../objects/CreateOptions";
 /**
@@ -9,9 +9,10 @@ import { DocumentCreateOptions } from "../objects/CreateOptions";
  * ```javascript
  * // Iterate through all the documents
  * app.documents.forEach(h => console.log(h.title));
+ *
  * ```
  */
-export declare class Documents extends Array<Document> {
+export default class Documents extends Array<Document> {
     /** @ignore */
     private proxy;
     /** @ignore */

@@ -1,9 +1,52 @@
 import * as Constants from "../Constants";
 import { SolidColor } from "./SolidColor";
 /**
+ * Options for converting an image to bitmap mode, using [[Document.changeMode]] with `ChangeMode.BITMAP`.
+ *
+ * @targetfolder objects/conversionoptions
+ * @optionobject
+ */
+export declare class BitmapConversionOptions {
+    /**
+     * The angle (in degrees) at which to orient individual dots. See [[shape]]
+     *
+     * Valid only when [[method]] is `BitmapConversionType.HALFTONESCREEN`.
+     *
+     * @range -180...180
+     **/
+    angle: number;
+    frequency: number;
+    method: Constants.BitmapConversionType;
+    patternName: string;
+    resolution: number;
+    shape: Constants.BitmapHalfToneType;
+    readonly typename: string;
+    /** @ignore */
+    constructor();
+}
+/**
+ * Options for converting an RGB image to an indexed color model using [[Document.changeMode]]
+ *
+ * @targetfolder objects/conversionoptions
+ * @optionobject
+ */
+export declare class IndexedConversionOptions {
+    colors: number;
+    dither: Constants.Dither;
+    ditherAmount: number;
+    forced: Constants.ForcedColors;
+    matte: Constants.MatteColor;
+    palette: Constants.Palette;
+    preserveExactColors: boolean;
+    transparency: boolean;
+    readonly typename: string;
+    /** @ignore */
+    constructor();
+}
+/**
  * Options for saving a document in BMP format using the [[Document.saveAs]] method
  *
- * @targetfolder objects/saveoptions
+ * @targetfolder objects/conversionoptions
  * @optionobject
  */
 export declare class BMPSaveOptions {
@@ -31,7 +74,7 @@ export declare class BMPSaveOptions {
     constructor();
 }
 /**
- * @targetfolder objects/saveoptions
+ * @targetfolder objects/conversionoptions
  * @optionobject
  */
 export declare class JPEGSaveOptions {
@@ -81,7 +124,7 @@ export declare class JPEGSaveOptions {
     constructor();
 }
 /**
- * @targetfolder objects/saveoptions
+ * @targetfolder objects/conversionoptions
  * @optionobject
  */
 export declare class GIFSaveOptions {
@@ -132,7 +175,7 @@ export declare class GIFSaveOptions {
     constructor();
 }
 /**
- * @targetfolder objects/saveoptions
+ * @targetfolder objects/conversionoptions
  * @optionobject
  */
 export declare class PNGSaveOptions {
@@ -162,7 +205,7 @@ export declare class PNGSaveOptions {
     readonly typename: string;
 }
 /**
- * @targetfolder objects/saveoptions
+ * @targetfolder objects/conversionoptions
  * @optionobject
  */
 export declare class PhotoshopSaveOptions {

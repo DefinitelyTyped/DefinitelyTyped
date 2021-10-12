@@ -1,22 +1,23 @@
-import { Document } from "./Document";
+import Document from "./Document";
 /**
  * @ignore
  */
 export declare function PSHistoryState(id: number, docId: number): HistoryState;
-/** @ignore */
-export declare function validateHistoryState(h: HistoryState): void;
+/**
+ * @ignore
+ */
 /**
  * Represents a single history state in the History panel
  */
-export declare class HistoryState {
+export default class HistoryState {
     /**
      * @ignore
      */
     constructor(id: number, docId: number);
     /**
-     * The class name of the referenced HistoryState object
+     * @ignore
      */
-    get typename(): string;
+    validate(): void;
     /**
      * For use with batchPlay operations. This history ID, along with its document ID
      * can be used to represent this history state for the lifetime of this document.

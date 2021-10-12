@@ -1,9 +1,9 @@
 import * as Constants from "../Constants";
-import { SolidColor } from "./SolidColor";
+import { ColorDescType as Color, RGBColorDesc } from "../../util/colorTypes";
 /**
  * Options for saving a document in BMP format using the [[Document.saveAs]] method
  *
- * @targetfolder objects/saveoptions
+ * @targetfolder objects
  * @optionobject
  */
 export declare class BMPSaveOptions {
@@ -31,7 +31,7 @@ export declare class BMPSaveOptions {
     constructor();
 }
 /**
- * @targetfolder objects/saveoptions
+ * @targetfolder objects
  * @optionobject
  */
 export declare class JPEGSaveOptions {
@@ -58,7 +58,7 @@ export declare class JPEGSaveOptions {
      * A custom color to use to fill anti-aliased edges adjacent to transparent areas of the image.
      * Mutually exclusive with 'matteColor'.
      */
-    color: SolidColor;
+    color: Color;
     /**
      * The color to use to fill anti-aliased edges adjacent to transparent areas of the image.
      * Mutually exclusive with 'color'.
@@ -67,7 +67,7 @@ export declare class JPEGSaveOptions {
     /**
      * Custom matting color; overrides matteColor
      */
-    customMatte: SolidColor;
+    customMatte: RGBColorDesc;
     /**
      * False to skip embedding the color profile in the document
      */
@@ -81,7 +81,7 @@ export declare class JPEGSaveOptions {
     constructor();
 }
 /**
- * @targetfolder objects/saveoptions
+ * @targetfolder objects
  * @optionobject
  */
 export declare class GIFSaveOptions {
@@ -112,7 +112,7 @@ export declare class GIFSaveOptions {
     /**
      * The type of palette to use.
      */
-    palette: Constants.Palette;
+    palette: Constants.PaletteType;
     /**
      * True to protect colors in the image that contain entries in the color table from being dithered.
      *
@@ -132,7 +132,7 @@ export declare class GIFSaveOptions {
     constructor();
 }
 /**
- * @targetfolder objects/saveoptions
+ * @targetfolder objects
  * @optionobject
  */
 export declare class PNGSaveOptions {
@@ -162,7 +162,7 @@ export declare class PNGSaveOptions {
     readonly typename: string;
 }
 /**
- * @targetfolder objects/saveoptions
+ * @targetfolder objects
  * @optionobject
  */
 export declare class PhotoshopSaveOptions {

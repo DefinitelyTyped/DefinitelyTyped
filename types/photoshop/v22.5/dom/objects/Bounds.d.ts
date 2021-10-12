@@ -1,8 +1,10 @@
 /**
- * Defines a rectangle. This is a WIP
  *
  * @targetfolder objects
  * @optionobject
+ */
+/**
+ * Defines a rectangle. This is a WIP
  */
 export declare class Bounds {
     /**

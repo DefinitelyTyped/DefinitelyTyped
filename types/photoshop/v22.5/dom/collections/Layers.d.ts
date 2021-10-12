@@ -1,4 +1,4 @@
-import { Layer } from "../Layer";
+import Layer from "../Layer";
 /**
  * A collections class allowing for array access into the applications
  * list of layers on a document,
@@ -7,9 +7,10 @@ import { Layer } from "../Layer";
  * ```javascript
  * // Iterate through all the top layers of frontmost document
  * app.activeDocument.layers.forEach(h => console.log(h.name));
+ *
  * ```
  */
-export declare class Layers extends Array<Layer> {
+export default class Layers extends Array<Layer> {
     /** @ignore */
     private proxy;
     /** @ignore */
