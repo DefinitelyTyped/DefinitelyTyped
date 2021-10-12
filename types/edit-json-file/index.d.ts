@@ -14,6 +14,7 @@ declare namespace editJsonFile {
         stringify_fn?: ((data: object) => string) | undefined;
         stringify_eol?: boolean | undefined;
         autosave?: boolean | undefined;
+        ignore_dots?: boolean | undefined;
     }
 
     /** JSON file editor. */
