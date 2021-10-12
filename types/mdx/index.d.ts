@@ -4,7 +4,7 @@
 //                 Remco Haszing <https://github.com/remcohaszing>
 //                 Titus Wormer <https://github.com/wooorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// TypeScript Version: 3.9
 
 /**
  * An MDX file which exports a JSX component.
