@@ -10,6 +10,9 @@ type FunctionComponent<Props> = (props: Props) => JSX.Element;
 type ClassComponent<Props> = new (props: Props) => JSX.ElementClass;
 type Component<Props> = FunctionComponent<Props> | ClassComponent<Props>;
 
+/**
+ * This module exports some utility types for working with MDX.
+ */
 // tslint:disable-next-line: no-declare-current-package
 declare module 'mdx' {
     /**
