@@ -10,6 +10,10 @@ type FunctionComponent<Props> = (props: Props) => JSX.Element;
 type ClassComponent<Props> = new (props: Props) => JSX.ElementClass;
 type Component<Props> = FunctionComponent<Props> | ClassComponent<Props>;
 
+interface NestedMDXComponents {
+    [key: string]: NestedMDXComponents | Component<any>;
+}
+
 /**
  * This module exports some utility types for working with MDX.
  */
@@ -20,14 +24,15 @@ declare module 'mdx' {
      *
      * The key is the name of the element to override. The value is the component to render instead.
      */
-    type MDXComponents = {
-        [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]>;
-    } & {
-        /**
-         * If a wrapper component is defined, the MDX content will be wrapped inside of it.
-         */
-        wrapper?: Component<any>;
-    };
+    type MDXComponents = NestedMDXComponents &
+        {
+            [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]>;
+        } & {
+            /**
+             * If a wrapper component is defined, the MDX content will be wrapped inside of it.
+             */
+            wrapper?: Component<any>;
+        };
 
     /**
      * The props that may be passed to an MDX component.
