@@ -1,4 +1,4 @@
-import { MDXContent, MDXModule } from 'mdx';
+import { MDXContent, MDXModule } from 'mdx/types';
 import MyMDXComponent from './MyComponent.mdx';
 import MyMDComponent from './MyComponent.md';
 import MyMarkdownComponent from './MyComponent.markdown';

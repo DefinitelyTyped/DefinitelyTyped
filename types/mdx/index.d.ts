@@ -6,71 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
-type FunctionComponent<Props> = (props: Props) => JSX.Element;
-type ClassComponent<Props> = new (props: Props) => JSX.ElementClass;
-type Component<Props> = FunctionComponent<Props> | ClassComponent<Props>;
-
-interface NestedMDXComponents {
-    [key: string]: NestedMDXComponents | Component<any>;
-}
-
-/**
- * This module exports some utility types for working with MDX.
- */
-// tslint:disable-next-line: no-declare-current-package
-declare module 'mdx' {
-    /**
-     * MDX components may be passed as the `components`.
-     *
-     * The key is the name of the element to override. The value is the component to render instead.
-     */
-    type MDXComponents = NestedMDXComponents &
-        {
-            [Key in keyof JSX.IntrinsicElements]?: Component<JSX.IntrinsicElements[Key]>;
-        } & {
-            /**
-             * If a wrapper component is defined, the MDX content will be wrapped inside of it.
-             */
-            wrapper?: Component<any>;
-        };
-
-    /**
-     * The props that may be passed to an MDX component.
-     */
-    interface MDXProps {
-        /**
-         * Which props exactly may be passed into the component depends on the contents of the MDX
-         * file.
-         */
-        [key: string]: unknown;
-
-        /**
-         * This prop may be used to customize how certain components are rendered.
-         */
-        components?: MDXComponents;
-    }
-
-    /**
-     * The type of the default export of an MDX module.
-     */
-    type MDXContent = FunctionComponent<MDXProps>;
-
-    /**
-     * A generic MDX module type.
-     */
-    interface MDXModule {
-        /**
-         * This could be any value that is exported from the MDX file.
-         */
-        [key: string]: unknown;
-
-        /**
-         * A functional JSX component which renders the content of the MDX file.
-         */
-        default: MDXContent;
-    }
-}
-
 /**
  * An MDX file which exports a JSX component.
  *
@@ -119,7 +54,7 @@ declare module 'mdx' {
  */
 declare module '*.mdx' {
     // tslint:disable-next-line: no-self-import
-    import { MDXProps } from 'mdx';
+    import { MDXProps } from 'mdx/types';
 
     /**
      * An function component which renders the MDX content using JSX.
