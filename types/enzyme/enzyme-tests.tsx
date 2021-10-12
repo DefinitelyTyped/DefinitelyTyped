@@ -229,6 +229,10 @@ function ShallowWrapperTest() {
         boolVal = shallowWrapper.contains(<div className="foo bar" />);
     }
 
+    function test_containsArray() {
+        boolVal = shallowWrapper.contains([<div className="foo bar" />, <div className="baz" />]);
+    }
+
     function test_containsMatchingElement() {
         boolVal = shallowWrapper.contains(<div className="foo bar" />);
     }
@@ -686,6 +690,10 @@ function ReactWrapperTest() {
 
     function test_contains() {
         boolVal = reactWrapper.contains(<div className="foo bar" />);
+    }
+
+    function test_containsArray() {
+        boolVal = reactWrapper.contains([<div className="foo bar" />, <div className="baz" />]);
     }
 
     function test_containsMatchingElement() {
