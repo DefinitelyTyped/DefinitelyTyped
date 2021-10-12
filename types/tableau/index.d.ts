@@ -5,7 +5,6 @@
 // TypeScript Version: 2.4
 
 declare namespace tableau {
-    
     enum DashboardObjectType {
         BLANK = 'blank',
         WORKSHEET = 'worksheet',
