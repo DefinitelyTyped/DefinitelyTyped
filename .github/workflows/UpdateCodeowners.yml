@@ -8,8 +8,7 @@ on:
   schedule:
     # https://crontab.guru/#5_8_*_*_1
     - cron: "5 8 * * 1"
-  workflow_dispatch:
-
+  workflow_dispatch: null
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -17,7 +16,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
+        with:
+          cache: npm
 
       - run: git config --global user.email "bot@typescriptlang.org"
       - run: git config --global user.name "TS Bot"
@@ -25,5 +26,4 @@ jobs:
       - run: npm install
       - run: npm run update-codeowners
         env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
