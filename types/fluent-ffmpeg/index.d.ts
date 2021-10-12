@@ -39,7 +39,7 @@ declare namespace Ffmpeg {
         options?: any | string | any[] | undefined;
     }
 
-    type GetPreset = (command: FfmpegCommand) => string;
+    type PresetFunction = (command: FfmpegCommand) => void;
 
     interface Filter {
         description: string;
@@ -359,8 +359,8 @@ declare namespace Ffmpeg {
         complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
 
         // options/misc
-        usingPreset(proset: string | GetPreset): FfmpegCommand;
-        pnreset(proset: string | GetPreset): FfmpegCommand;
+        usingPreset(preset: string | PresetFunction): FfmpegCommand;
+        preset(preset: string | PresetFunction): FfmpegCommand;
 
         // processor
         renice(niceness: number): FfmpegCommand;
