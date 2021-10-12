@@ -790,6 +790,16 @@ declare module 'util' {
      */
     export function isDeepStrictEqual(val1: unknown, val2: unknown): boolean;
     /**
+     * Returns `str` with any ANSI escape codes removed.
+     *
+     * ```js
+     * console.log(util.stripVTControlCharacters('\u001B[4mvalue\u001B[0m'));
+     * // Prints "value"
+     * ```
+     * @since v16.11.0
+     */
+    export function stripVTControlCharacters(str: string): string;
+    /**
      * Takes an `async` function (or a function that returns a `Promise`) and returns a
      * function following the error-first callback style, i.e. taking
      * an `(err, value) => ...` callback as the last argument. In the callback, the

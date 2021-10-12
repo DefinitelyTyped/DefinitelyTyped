@@ -187,3 +187,7 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
 {
     const foo: string = util.toUSVString('foo');
 }
+
+{
+    util.stripVTControlCharacters('\u001B[4mvalue\u001B[0m'); // $ExpectType string
+}
