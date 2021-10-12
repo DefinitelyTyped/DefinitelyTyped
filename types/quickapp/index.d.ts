@@ -58,6 +58,7 @@
 /// <reference path="system/zip.d.ts" />
 /// <reference path="system/configuration.d.ts" />
 /// <reference path="system/telecom.d.ts" />
+/// <reference path="system/keyguard.d.ts" />
 
 // hap 接口
 /// <reference path="hap/video.d.ts" />
