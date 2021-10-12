@@ -1047,6 +1047,9 @@ declare global {
             readonly fields: {
                 [key: string]: {
                     type: string;
+                    targetClass?: string;
+                    required?: boolean;
+                    defaultValue?: string;
                 }
             };
             readonly classLevelPermissions: Schema.CLP;
