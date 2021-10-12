@@ -178,7 +178,7 @@ declare namespace Ffmpeg {
         size?: number | undefined;
         bit_rate?: number | undefined;
         probe_score?: number | undefined;
-        tags?: any[] | undefined;
+        tags?: any[] | undefined | Record<string, string>;
     }
 
     interface ScreenshotsConfig {
