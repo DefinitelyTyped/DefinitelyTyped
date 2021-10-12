@@ -928,7 +928,7 @@ declare module 'fs/promises' {
      * @since v12.12.0
      * @return Fulfills with an {fs.Dir}.
      */
-    function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
+    function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     /**
      * Returns an async iterator that watches for changes on `filename`, where `filename`is either a file or a directory.
      *
