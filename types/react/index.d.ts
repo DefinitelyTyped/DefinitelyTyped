@@ -2255,6 +2255,7 @@ declare namespace React {
         hrefLang?: string | undefined;
         integrity?: string | undefined;
         media?: string | undefined;
+        imageSrcSet?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;
