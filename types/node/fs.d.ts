@@ -3000,6 +3000,7 @@ declare module 'fs' {
      * @deprecated Since v1.0.0 - Use {@link stat} or {@link access} instead.
      */
     export function exists(path: PathLike, callback: (exists: boolean) => void): void;
+    /** @deprecated */
     export namespace exists {
         /**
          * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
