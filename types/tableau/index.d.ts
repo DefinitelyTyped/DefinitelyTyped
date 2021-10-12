@@ -5,6 +5,7 @@
 // TypeScript Version: 2.4
 
 declare namespace tableau {
+    
     enum DashboardObjectType {
         BLANK = 'blank',
         WORKSHEET = 'worksheet',
@@ -502,9 +503,9 @@ declare namespace tableau {
         /** Contains an enumeration value of one of the following: AUTOMATIC, EXACTLY, RANGE, ATLEAST, and ATMOST. */
         behavior: SheetSizeBehaviour;
         /** This is only defined when behavior is EXACTLY, RANGE or ATMOST. */
-        maxSize: number;
+        maxSize: Size;
         /** This is only defined when behavior is EXACTLY, RANGE, or ATLEAST. */
-        minSize: number;
+        minSize: Size;
     }
 
     class DataTable {
