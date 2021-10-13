@@ -62,7 +62,7 @@ declare module 'dgram' {
         setMulticastTTL(ttl: number): void;
         setRecvBufferSize(size: number): void;
         setSendBufferSize(size: number): void;
-        setTTL(ttl: number): void;
+        setTTL(ttl: number): number;
         unref(): this;
 
         /**

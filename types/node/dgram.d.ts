@@ -457,7 +457,7 @@ declare module 'dgram' {
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.1.101
          */
-        setTTL(ttl: number): void;
+        setTTL(ttl: number): number;
         /**
          * By default, binding a socket will cause it to block the Node.js process from
          * exiting as long as the socket is open. The `socket.unref()` method can be used
