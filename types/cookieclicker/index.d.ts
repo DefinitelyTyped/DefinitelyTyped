@@ -82,8 +82,6 @@ declare function romanize(num: number): number | string;
 
 declare let showAds: boolean;
 
-declare let styleMedia: { type: string };
-
 declare let suffixes: string[];
 
 declare function Beautify(val: number, floats?: number): string;
