@@ -837,3 +837,11 @@ export class ExtendedTileLayer extends L.TileLayer {
         }
     }
 }
+
+// Built-in extends function with polymorphic types
+const SubIconClass = L.Icon.extend({ extra: true });
+const subIcon: { extra: boolean } & L.Icon<L.BaseIconOptions> = new SubIconClass({});
+
+// Confirm that static methods are passed through
+const SubSubIconClass = SubIconClass.extend({ second: true });
+const subSubIcon: { extra: boolean, second: boolean } & L.Icon<L.BaseIconOptions> = new SubSubIconClass({});

@@ -105,7 +105,7 @@ class Subclass4 extends L.MarkerCluster {
 
 const s1 = new Subclass1(); // any
 const s2 = new Subclass2();
-const s3 = new Subclass3(); // any
+const s3 = new Subclass3([0, 0]); // any
 const s4 = new Subclass4([1, 2]);
 
 // call subclass function

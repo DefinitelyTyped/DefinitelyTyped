@@ -18,8 +18,13 @@ import * as geojson from 'geojson';
 /** A constant that represents the Leaflet version in use. */
 export const version: string;
 
+/** Type for extensions of class instance type C - all functions have this bound   */
+export interface ClassExtensions<C> {
+    [prop: string]: ((this: C, ...args: any[]) => any) | boolean | number | string  | null | undefined | Record<string | number | symbol, unknown> | any[];
+}
+
 export class Class {
-    static extend(props: any): {new(...args: any[]): any} & typeof Class;
+    static extend<P extends { new (...args: any[]): InstanceType<P> }, T extends ClassExtensions<InstanceType<P>>>(this: P, props: T): { new (...args: any[]): T & InstanceType<P> } & P;
     static include(props: any): any & typeof Class;
     static mergeOptions(props: any): any & typeof Class;
 
@@ -1425,7 +1430,6 @@ export interface ControlOptions {
 }
 
 export class Control extends Class {
-    static extend<T extends object>(props: T): {new(...args: any[]): T} & typeof Control;
     constructor(options?: ControlOptions);
     getPosition(): ControlPosition;
     setPosition(position: ControlPosition): this;

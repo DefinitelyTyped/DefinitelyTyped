@@ -112,7 +112,7 @@ function testExampleControlOptions() {
                 }
             },
             marker: {
-                icon: new MyCustomMarker()
+                icon: new MyCustomMarker({})
             }
         },
         edit: {
