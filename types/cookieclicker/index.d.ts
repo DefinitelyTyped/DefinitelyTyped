@@ -2,6 +2,7 @@
 // Project: https://orteil.dashnet.org/cookieclicker/
 // Definitions by: Lubomir <https://github.com/TheGLander>
 //                 Bob <https://github.com/MasterOfBob777>
+//                 Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
@@ -291,8 +292,7 @@ declare namespace Game {
      */
     export function Launch(): void;
     export let version: number;
-    /** Steam-only */
-    export let loadedFromVersion: number | undefined;
+    export let loadedFromVersion: number;
     export let beta: PseudoBoolean;
     export let https: boolean;
     /** @deprecated */
@@ -347,8 +347,7 @@ declare namespace Game {
      */
     export let bounds: DOMRect;
     export let clickStr: string;
-    /** Steam-only */
-    export let clicksThisSession: number | undefined;
+    export let clicksThisSession: number;
     export let SaveTo: string;
     export let lastActivity: number;
     export let time: number;
@@ -386,8 +385,7 @@ declare namespace Game {
     export let permanentUpgrades: number[];
     export let ascensionMode: number;
     export let resets: number;
-    /** Steam-only */
-    export let resize: (() => void) | undefined;
+    export function resize(): void;
     export let lumps: number;
     export let lumpsTotal: number;
     export let lumpT: number;
@@ -398,8 +396,7 @@ declare namespace Game {
     export function makeSeed(): string;
     export let seed: string;
     export let volume: number;
-    /** Steam-only */
-    export let volumeMusic: number | undefined;
+    export let volumeMusic: number;
     export let elderWrath: number;
     export let elderWrathOld: number;
     export let elderWrathD: number;
@@ -444,8 +441,7 @@ declare namespace Game {
     export let startDate: number;
     export let fullDate: number;
     export let lastDate: number;
-    /** Steam-only */
-    export let lastSaveData: string | undefined;
+    export let lastSaveData: string;
     export interface Prefs {
         particles: PseudoBoolean;
         numbers: PseudoBoolean;
@@ -480,12 +476,11 @@ declare namespace Game {
      */
     export function Mobile(): void;
     export function showBackupWarning(): void;
-    /** Steam-only */
-    export let showLangSelection: (() => void) | undefined;
+    export function showLangSelection(): void;
     /**
      * Loads and runs a JS file by a URL, requires the correct header
-     * @param callback Steam-only. Called when the mod is loaded
-     * @param error Steam-only. Called if there is an error in the mod
+     * @param callback Called when the mod is loaded
+     * @param error Called if there is an error in the mod
      */
     export function LoadMod(url: string, callback?: () => any, error?: () => any): void;
     /**
@@ -621,19 +616,14 @@ declare namespace Game {
 
     export function ExportSave(): void;
 
-    /**
-     * @param def Steam-only
-     */
     export function ImportSave(def?: string): void;
 
     export function ImportSaveCode(save: string): void;
 
     export function FileSave(): void;
     export function FileLoad(e: InputEvent): void;
-    /** Steam-only */
-    export let toQuit: boolean | undefined;
-    /** Steam-only */
-    export let toReload: boolean | undefined;
+    export let toQuit: boolean;
+    export let toReload: boolean;
     export let toSave: boolean;
     /**
      * @param type none is default, 1=return string only, 2=return uncompressed string, 3=return uncompressed, commented string
@@ -762,9 +752,6 @@ declare namespace Game {
 
     export function refillLump(n: number, func: () => void): void;
 
-    /**
-     * @param free Steam-only
-     */
     export function spendLump(n: number, str: string, func: () => void, free?: boolean): () => boolean | void;
 
     export function doLumps(): void;
@@ -1044,8 +1031,7 @@ declare namespace Game {
 
     export function ToggleFilters(): void;
 
-    /** Steam-only */
-    export let ToggleFullscreen: (() => void) | undefined;
+    export function ToggleFullscreen(): void;
 
     export function ToggleExtraButtons(): void;
 
@@ -1065,18 +1051,15 @@ declare namespace Game {
 
     export function sayTime(time: number, detail: -1 | 1 | 2 | 3 | 4): string;
 
-    /** Steam-only */
-    export let scale: number | undefined;
+    export let scale: number;
 
     export function tinyCookie(): string;
 
     export function ClickTinyCookie(): void;
 
     export function setVolume(what: number): void;
-    /** Steam-only */
-    export let setVolumeMusic: ((what: number) => void) | undefined;
-    /** Steam-only */
-    export let setWubMusic: ((what: number) => void) | undefined;
+    export function setVolumeMusic(what: number): void;
+    export function setWubMusic(what: number): void;
 
     export function UpdateMenu(): void;
     export let ascendMeter: HTMLDivElement;
@@ -2351,8 +2334,7 @@ declare namespace Game {
     export function isMinigameReady(me: GameObject): void;
     export let scriptBindings: undefined[] & Record<string, GameObject>;
 
-    /** Steam-only */
-    export let isSaving: boolean | undefined;
+    export let isSaving: boolean;
 
     export function LoadMinigames(): void;
 
@@ -3221,8 +3203,7 @@ declare namespace Game {
         pic: string;
         icon: [number, number];
     }
-    /** Steam-only */
-    export let AllMilks: Milk[] | undefined;
+    export let AllMilks: Milk[];
     /**
      * Achievement based milks, `pic` is used if milk selector is automatic
      */
