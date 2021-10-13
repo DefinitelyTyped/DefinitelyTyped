@@ -17,7 +17,7 @@ declare function PlaySound(url: string, volume?: number, pitch?: number): void;
 declare function randomFloor(x: number): number;
 declare function shuffle<T>(array: T[]): T[];
 
-// Localization
+/* Localization */
 
 declare function AddLanguage(id: string, name: string, json: object, mod: boolean): boolean;
 /**
@@ -40,6 +40,20 @@ declare let locBlink: boolean;
 declare let localizationNotFound: string[];
 declare function loc(id: string, params?: string | string[], baseline?: string): string;
 declare function parseLoc(str: string, params?: string | string[]): string;
+declare function LoadLang(url: string, callback?: () => any, error?: () => any): void;
+declare function LocalizeUpgradesAndAchievs(): boolean | void;
+declare function ModLanguage(id: string, json: object): void;
+
+declare let api: {
+    send(): void;
+    receive(): void;
+};
+
+declare function b64_to_utf8(str: string): string;
+declare function utf8_to_b64(str: string): string;
+
+/** @returns Original string with the first letter capitalized */
+declare function cap(str: string): string;
 
 /**
  * Returns a random member of an array, has a very slight chance to return `undefined` (When the seeded Math.random() is 1)
@@ -55,7 +69,38 @@ declare function toFixed(x: number): string;
  * @param val The number to beautify
  * @param floats The amount of decimals to show
  */
+
+declare function formatBytes(a: number, b?: number, k?: number): number;
+
+/** A list of the words for long numbers (' thousand`, ' million', ' billion', etc.) */
+declare let formatLong: string[];
+/** A list of the short form of long numbers ('k', 'M', 'B', etc.) */
+declare let formatShort: string[];
+
+/** @returns NaN if `num` was NaN, otherwise roman numeral version of num */
+declare function romanize(num: number): number | string;
+
+declare let showAds: boolean;
+
+declare let styleMedia: { type: string };
+
+declare let suffixes: string[];
+
 declare function Beautify(val: number, floats?: number): string;
+
+/**
+ * @param val The number to beautify
+ * @param floats The amount of decimals to show
+ */
+declare function LBeautify(
+    val: number,
+    floats?: number,
+): {
+    /** Original value floored */
+    n: number;
+    /** Beautified value as string */
+    b: string;
+};
 
 declare function SimpleBeautify(val: number): string;
 
@@ -70,10 +115,26 @@ declare function BeautifyInText(str: string): string;
  */
 declare function BeautifyAll(): void;
 
+declare function LoadScript(url: string, callback?: () => any, error?: () => any): void;
+
+declare let M: number;
+
+/** @default " OFF" */
+declare let OFF: string;
+/** @default " ON" */
+declare let ON: string;
+
+/** Sets up the Music namespace */
+declare function PRELOAD(callback: (track: string) => any): () => void;
+
 /**
  * This is the global Audio class, `Audio` is a slightly modified version which disables soundjay links.
  */
-declare var realAudio: typeof Audio;
+declare let realAudio: typeof Audio;
+
+declare let VERSION: number;
+
+declare let WindowFocus: boolean;
 
 interface Math {
     /**
@@ -183,6 +244,9 @@ declare class Loader {
     getProgress: () => number;
 }
 
+/** Steam === App */
+import Steam = App;
+
 declare namespace App {
     let allowSteamAchievs: boolean;
     let cloud: boolean;
@@ -238,6 +302,10 @@ declare namespace App {
         path: string;
     }
 }
+
+/** Passes args to `Music.cue` if it exists */
+declare function PlayCue(cue: string, arg?: any): void;
+declare function PlayMusicSound(url: string, vol?: number, pitchVar?: number): void;
 
 declare namespace Music {
     let context: AudioContext;
