@@ -188,3 +188,9 @@ if (gainedBuff.time === gainedBuff.maxTime && gainedBuff.arg1) console.log(gaine
 gainedBuff.type === buffType;
 
 console.log(SimpleBeautify(1e6));
+
+App.allowSteamAchievs = true;
+for (const mod in App.mods) console.log(App.mods[mod].info.Name);
+App.quit();
+
+console.log(Music.playing.name);

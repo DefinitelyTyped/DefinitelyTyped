@@ -317,7 +317,7 @@ declare namespace Music {
     function addTrack(name: string, url: string): void;
     function cue(cue: string, arg?: any): void;
     function loopTrack(name: string): void;
-    function playTrack(name: string, callback: (track: string) => any): void;
+    function playTrack(name: string, callback?: (track: string) => any): void;
     function setFilter(val: number, secs: number): void;
     function setVolume(val: number, secs: number): void;
 
