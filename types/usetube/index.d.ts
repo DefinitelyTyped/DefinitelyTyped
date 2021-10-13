@@ -1,5 +1,5 @@
 // Type definitions for usetube 2.1
-// Project: https://github.com/valerebron/usetube (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/valerebron/usetube
 // Definitions by: Ezell Frazier <https://github.com/lynellf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
