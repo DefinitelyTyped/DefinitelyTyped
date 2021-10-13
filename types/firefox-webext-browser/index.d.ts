@@ -4129,9 +4129,9 @@ declare namespace browser.storage {
     /* storage types */
     interface StorageChange {
         /** The old value of the item, if there was an old value. */
-        oldValue?: any | undefined;
+        oldValue?: any;
         /** The new value of the item, if there is a new value. */
-        newValue?: any | undefined;
+        newValue?: any;
     }
 
     interface StorageArea {
@@ -5152,7 +5152,7 @@ declare namespace browser.webRequest {
     /** Contains data uploaded in a URL request. */
     interface UploadData {
         /** An ArrayBuffer with a copy of the data. */
-        bytes?: any | undefined;
+        bytes?: any;
         /** A string with the file's path and name. */
         file?: string | undefined;
     }
