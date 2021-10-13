@@ -42,8 +42,11 @@ zingchart.render({
                 text: 'Hello World',
             },
         },
+        timeZone: 1,
         zoom: {
             shared: true,
         }
     }],
+    zoom: {},
+    zoomSnap: true,
 });

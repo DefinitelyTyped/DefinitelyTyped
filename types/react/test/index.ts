@@ -499,6 +499,22 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     onAnimationStart: event => {
         const currentTarget: EventTarget & HTMLElement = event.currentTarget;
     },
+    onBlur: (event: React.FocusEvent) => {
+        const {
+            // $ExpectType (EventTarget & Element) | null
+            relatedTarget,
+            // $ExpectType EventTarget & Element
+            target
+        } = event;
+    },
+    onFocus: (event: React.FocusEvent) => {
+        const {
+            // $ExpectType (EventTarget & Element) | null
+            relatedTarget,
+            // $ExpectType EventTarget & Element
+            target
+        } = event;
+    },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
     },

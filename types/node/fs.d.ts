@@ -768,6 +768,7 @@ declare module 'fs' {
      * @deprecated Since v0.4.7
      */
     export function lchmod(path: PathLike, mode: Mode, callback: NoParamCallback): void;
+    /** @deprecated */
     export namespace lchmod {
         /**
          * Asynchronous lchmod(2) - Change permissions of a file. Does not dereference symbolic links.
@@ -3000,6 +3001,7 @@ declare module 'fs' {
      * @deprecated Since v1.0.0 - Use {@link stat} or {@link access} instead.
      */
     export function exists(path: PathLike, callback: (exists: boolean) => void): void;
+    /** @deprecated */
     export namespace exists {
         /**
          * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
@@ -3649,7 +3651,7 @@ declare module 'fs' {
      * directory and subsequent read operations.
      * @since v12.12.0
      */
-    export function opendirSync(path: string, options?: OpenDirOptions): Dir;
+    export function opendirSync(path: PathLike, options?: OpenDirOptions): Dir;
     /**
      * Asynchronously open a directory. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for
      * more details.
@@ -3661,10 +3663,10 @@ declare module 'fs' {
      * directory and subsequent read operations.
      * @since v12.12.0
      */
-    export function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
-    export function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
     export namespace opendir {
-        function __promisify__(path: string, options?: OpenDirOptions): Promise<Dir>;
+        function __promisify__(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     }
     export interface BigIntStats extends StatsBase<bigint> {
         atimeNs: bigint;

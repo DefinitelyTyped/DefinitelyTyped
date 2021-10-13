@@ -41,6 +41,7 @@
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
+//                 Pedro Hernández <https://github.com/phvillegas>
 //                 Brett Lindsay <https://github.com/bdlindsay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -495,7 +496,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'sty
      * Whether a press gesture can be interrupted by a parent gesture such as a
      * scroll event. Defaults to true.
      */
-    cancelable?: null | boolean | undefined,
+    cancelable?: null | boolean | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -596,7 +597,7 @@ export namespace AppRegistry {
 
     function runApplication(appKey: string, appParameters: any): void;
 
-    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void
+    function setSurfaceProps(appKey: string, appParameters: any, displayMode?: number): void;
 
     function registerHeadlessTask(appKey: string, task: TaskProvider): void;
 
@@ -613,7 +614,7 @@ export type LayoutAnimationType =
 
 export type LayoutAnimationTypes = {
     [type in LayoutAnimationType]: type;
-}
+};
 
 export type LayoutAnimationProperty =
     | 'opacity'
@@ -623,7 +624,7 @@ export type LayoutAnimationProperty =
 
 export type LayoutAnimationProperties = {
     [prop in LayoutAnimationProperty]: prop;
-}
+};
 
 export interface LayoutAnimationAnim {
     duration?: number | undefined;
@@ -1276,7 +1277,8 @@ export interface TextInputIOSProps {
         | 'username'
         | 'password'
         | 'newPassword'
-        | 'oneTimeCode' | undefined;
+        | 'oneTimeCode'
+        | undefined;
 
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
@@ -1324,7 +1326,8 @@ export interface TextInputAndroidProps {
         | 'street-address'
         | 'tel'
         | 'username'
-        | 'off' | undefined;
+        | 'off'
+        | undefined;
 
     /**
      * Determines whether the individual fields in your app should be included in a
@@ -3034,7 +3037,7 @@ export interface DatePickerIOSProps extends ViewProps {
      * This is only available on devices with iOS 14.0 and later.
      * 'spinner' is the default style if this prop isn't set.
      */
-    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined,
+    pickerStyle?: 'compact' | 'spinner' | 'inline' | undefined;
 }
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
@@ -5872,7 +5875,8 @@ export interface TabBarIOSItemProps extends ViewProps {
         | 'most-viewed'
         | 'recents'
         | 'search'
-        | 'top-rated' | undefined;
+        | 'top-rated'
+        | undefined;
 
     /**
      * Text that appears under the icon. It is ignored when a system icon is defined.
@@ -6042,7 +6046,7 @@ interface PlatformMacOSStatic extends PlatformStatic {
     Version: string;
     constants: PlatformConstants & {
         osVersion: string;
-    }
+    };
 }
 
 interface PlatformWindowsOSStatic extends PlatformStatic {
@@ -6050,7 +6054,7 @@ interface PlatformWindowsOSStatic extends PlatformStatic {
     Version: number;
     constants: PlatformConstants & {
         osVersion: number;
-    }
+    };
 }
 
 interface PlatformWebStatic extends PlatformStatic {
@@ -6847,6 +6851,11 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     showsVerticalScrollIndicator?: boolean | undefined;
 
     /**
+     * When true, Sticky header is hidden when scrolling down, and dock at the top when scrolling up.
+    */
+    stickyHeaderHiddenOnScroll?: boolean;
+
+    /**
      * Style
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -7293,14 +7302,16 @@ export interface AccessibilityInfoStatic {
      *            The boolean is true when the related event's feature is enabled and false otherwise.
      *
      */
-    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
+    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): EmitterSubscription;
     addEventListener(
         eventName: AccessibilityAnnouncementEventName,
         handler: AccessibilityAnnouncementFinishedEventHandler,
-    ): void;
+    ): EmitterSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove an event handler
      */
     removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
     removeEventListener(
@@ -7317,6 +7328,14 @@ export interface AccessibilityInfoStatic {
      * Post a string to be announced by the screen reader.
      */
     announceForAccessibility: (announcement: string) => void;
+
+    /**
+     * Gets the timeout in millisecond that the user needs.
+     * This value is set in "Time to take action (Accessibility timeout)" of "Accessibility" settings.
+     *
+     * @platform android
+     */
+    getRecommendedTimeoutMillis: (originalTimeout: number) => Promise<number>;
 }
 
 /**
@@ -8612,7 +8631,7 @@ export interface SwitchPropsIOS extends ViewProps {
 }
 
 export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean
+    value: boolean;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
@@ -8730,10 +8749,12 @@ export namespace Appearance {
     /**
      * Add an event handler that is fired when appearance preferences change.
      */
-    export function addChangeListener(listener: AppearanceListener): void;
+    export function addChangeListener(listener: AppearanceListener): NativeEventSubscription;
 
     /**
-     * Remove an event handler.
+     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
+     *
+     * Remove a handler by passing the change event type and the handler.
      */
     export function removeChangeListener(listener: AppearanceListener): void;
 }
@@ -9182,7 +9203,7 @@ export namespace Animated {
         extends React.FC<AnimatedProps<React.ComponentPropsWithRef<T>>> {}
 
     export type AnimatedComponentOptions = {
-        collapsable?: boolean
+        collapsable?: boolean;
     };
 
     /**

@@ -446,6 +446,8 @@ const options: OptimizeOptions = {
     js2svg: {
         indent: 2,
         pretty: true,
+        eol: 'crlf',
+        finalNewline: true,
     },
     svg2js: {
         trim: true,

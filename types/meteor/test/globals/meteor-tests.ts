@@ -388,6 +388,12 @@ namespace MeteorTests {
     });
 
     /**
+        * From Collections, createIndex section
+    */
+
+    Posts.createIndex({ title: 1 });
+
+    /**
      * From Collections, cursor.forEach section
      */
     var topPosts = Posts.find({}, { sort: { score: -1 }, limit: 5 }) as Mongo.Cursor<PostDAO | iPost>;
@@ -584,6 +590,42 @@ namespace MeteorTests {
         },
         passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL',
     });
+
+    /**
+     * Fixes this discussion https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/55173
+     */
+    Accounts.sendEnrollmentEmail(); // $ExpectError
+    Accounts.sendEnrollmentEmail('userId');
+    Accounts.sendEnrollmentEmail('userId', 'email');
+    Accounts.sendEnrollmentEmail('userId', undefined, {});
+    Accounts.sendEnrollmentEmail('userId', undefined, undefined, {});
+    Accounts.sendEnrollmentEmail('userId', 'email', {}, {});
+
+    Accounts.sendResetPasswordEmail(); // $ExpectError
+    Accounts.sendResetPasswordEmail('userId');
+    Accounts.sendResetPasswordEmail('userId', 'email');
+    Accounts.sendResetPasswordEmail('userId', undefined, {});
+    Accounts.sendResetPasswordEmail('userId', undefined, undefined, {});
+    Accounts.sendResetPasswordEmail('userId', 'email', {}, {});
+
+    Accounts.sendVerificationEmail(); // $ExpectError
+    Accounts.sendVerificationEmail('userId');
+    Accounts.sendVerificationEmail('userId', 'email');
+    Accounts.sendVerificationEmail('userId', undefined, {});
+    Accounts.sendVerificationEmail('userId', undefined, undefined, {});
+    Accounts.sendVerificationEmail('userId', 'email', {}, {});
+
+    Accounts.findUserByEmail(); // $ExpectError
+    Accounts.findUserByEmail('email'); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', {}); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', { fields: undefined }); // $ExpectType User | null | undefined
+    Accounts.findUserByEmail('email', { fields: {} }); // $ExpectType User | null | undefined
+
+    Accounts.findUserByUsername(); // $ExpectError
+    Accounts.findUserByUsername('email'); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', {}); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', { fields: undefined }); // $ExpectType User | null | undefined
+    Accounts.findUserByUsername('email', { fields: {} }); // $ExpectType User | null | undefined
 
     /**
      * From Accounts, Accounts.validateNewUser section
@@ -1062,7 +1104,7 @@ namespace MeteorTests {
     if (Meteor.isAppTest) {
         // do something
     }
-  
+
     DDPRateLimiter.addRule({ userId: 'foo' }, 5, 1000);
 
     DDPRateLimiter.addRule({ userId: userId => userId == 'foo' }, 5, 1000);
@@ -1076,7 +1118,6 @@ namespace MeteorTests {
         connection: null,
     });
 } // End of namespace
-
 
 // absoluteUrl
 Meteor.absoluteUrl('/sub', { rootUrl: 'http://wonderful.com' });

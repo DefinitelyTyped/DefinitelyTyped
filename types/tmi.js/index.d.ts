@@ -1,4 +1,4 @@
-// Type definitions for tmi.js 1.7
+// Type definitions for tmi.js 1.8
 // Project: https://github.com/tmijs/tmi.js
 // Definitions by: William Papsco <https://github.com/wpapsco>
 //                 Corbin Crutchley <https://github.com/crutchcorn>
@@ -51,6 +51,8 @@ export interface Actions {
 export interface Events {
     action(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
     anongiftpaidupgrade(channel: string, username: string, userstate: AnonSubGiftUpgradeUserstate): void;
+    anonsubmysterygift(channel: string, numbOfSubs: number, methods: SubMethods, userstate: AnonSubMysteryGiftUserstate): void;
+    anonsubgift(channel: string, streakMonths: number, recipient: string, methods: SubMethods, userstate: AnonSubGiftUserstate): void;
     automod(channel: string, msgID: 'msg_rejected' | 'msg_rejected_mandatory', message: string): void;
     ban(channel: string, username: string, reason: string): void;
     chat(channel: string, userstate: ChatUserstate, message: string, self: boolean): void;
@@ -215,6 +217,10 @@ export interface AnonSubGiftUserstate extends CommonGiftSubUserstate {
     "message-type"?: "anonsubgift" | undefined;
 }
 
+export interface AnonSubMysteryGiftUserstate extends CommonSubUserstate {
+    'message-type'?: "anonsubmysterygift" | undefined;
+}
+
 export interface SubGiftUpgradeUserstate extends CommonSubUserstate {
     "message-type"?: "giftpaidupgrade" | undefined;
     "msg-param-sender-name"?: string | undefined;
@@ -264,8 +270,10 @@ export type MsgID = "already_banned" |
     "already_subs_on" |
     "already_subs_off" |
     "bad_ban_admin" |
+    "bad_ban_anon" |
     "bad_ban_broadcaster" |
     "bad_ban_global_mod" |
+    "bad_ban_mod" |
     "bad_ban_self" |
     "bad_ban_staff" |
     "bad_commercial_error" |
@@ -274,7 +282,9 @@ export type MsgID = "already_banned" |
     "bad_mod_mod" |
     "bad_mod_banned" |
     "bad_timeout_admin" |
+    "bad_timeout_anon" |
     "bad_timeout_global_mod" |
+    "bad_timeout_mod" |
     "bad_timeout_self" |
     "bad_timeout_staff" |
     "bad_unban_no_ban" |
@@ -354,6 +364,9 @@ export interface Options {
         joinInterval?: number | undefined;
         globalDefaultChannel?: string | undefined;
         messagesLogLevel?: string | undefined;
+        skipMembership?: boolean | undefined;
+        skipUpdatingEmotesets?: boolean | undefined;
+        updateEmotesetsTimer?: number | undefined;
     } | undefined;
     connection?: {
         server?: string | undefined;

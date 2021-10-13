@@ -30,7 +30,8 @@ import {
     ComponentType,
     StatelessComponent,
     Context,
-    NamedExoticComponent
+    NamedExoticComponent,
+    ReactNode
 } from 'react';
 
 import {
@@ -483,6 +484,7 @@ export interface ProviderProps<A extends Action = AnyAction> {
      * Provider. Initial value doesn't matter, as it is overwritten with the internal state of Provider.
      */
     context?: Context<ReactReduxContextValue> | undefined;
+    children?: ReactNode;
 }
 
 /**
