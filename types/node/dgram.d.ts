@@ -166,17 +166,17 @@ declare module 'dgram' {
          * @since v0.1.99
          * @param callback with no parameters. Called when binding is complete.
          */
-        bind(port?: number, address?: string, callback?: () => void): void;
-        bind(port?: number, callback?: () => void): void;
-        bind(callback?: () => void): void;
-        bind(options: BindOptions, callback?: () => void): void;
+        bind(port?: number, address?: string, callback?: () => void): this;
+        bind(port?: number, callback?: () => void): this;
+        bind(callback?: () => void): this;
+        bind(options: BindOptions, callback?: () => void): this;
         /**
          * Close the underlying socket and stop listening for data on it. If a callback is
          * provided, it is added as a listener for the `'close'` event.
          * @since v0.1.99
          * @param callback Called when the socket has been closed.
          */
-        close(callback?: () => void): void;
+        close(callback?: () => void): this;
         /**
          * Associates the `dgram.Socket` to a remote address and port. Every
          * message sent by this handle is automatically sent to that destination. Also,
@@ -427,7 +427,7 @@ declare module 'dgram' {
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.3.8
          */
-        setMulticastTTL(ttl: number): void;
+        setMulticastTTL(ttl: number): number;
         /**
          * Sets the `SO_RCVBUF` socket option. Sets the maximum socket receive buffer
          * in bytes.
