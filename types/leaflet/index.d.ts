@@ -1353,11 +1353,13 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
 /**
  * Creates a GeoJSON layer.
  *
+ * Supports either a single object or an array of them
+ *
  * Optionally accepts an object in GeoJSON format to display on the
  * map (you can alternatively add it later with addData method) and
  * an options object.
  */
-export function geoJSON<P = any>(geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions<P>): GeoJSON<P>;
+export function geoJSON<P = any>(geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[], options?: GeoJSONOptions<P>): GeoJSON<P>;
 
 export type Zoom = boolean | 'center';
 
