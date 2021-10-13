@@ -42,7 +42,7 @@ function LastPageLink(props: PaginationComponentProps) {
   return <button onClick={props.onClick} disabled={props.isDisabled}>Last</button>;
 }
 
-function Wrapper(props: { children: React.ReactChildren }) {
+function Wrapper(props: { children: React.ReactNode }) {
   return <div>{props.children}</div>;
 }
 
