@@ -238,6 +238,32 @@ declare namespace App {
     }
 }
 
+declare namespace Music {
+    export let context: AudioContext;
+    export let cues: Record<string, (arg?: any) => any>;
+    export let filter: BiquadFilterNode;
+    export let gain: GainNode;
+    export let out: BiquadFilterNode;
+    export let playing: Track;
+    export let tracks: Record<string, Track>;
+
+    export function addTrack(name: string, url: string): void;
+    export function cue(cue: string, arg?: any): void;
+    export function loopTrack(name: string): void;
+    export function playTrack(name: string, callback: (track: string) => any): void;
+    export function setFilter(val: number, secs: number): void;
+    export function setVolume(val: number, secs: number): void;
+
+    export interface Track {
+        audio: HTMLAudioElement;
+        name: string;
+        canPlay: boolean;
+        out: MediaElementAudioSourceNode;
+        play(): void;
+        stop(): void;
+    }
+}
+
 declare namespace Game {
     /**
      * The icon type used in Cookie Clicker
