@@ -18,7 +18,7 @@ declare function shuffle<T>(array: T[]): T[];
 
 // Localization
 
-declare function AddLanguage(id: string, name: string, json: Object, mod: boolean): boolean;
+declare function AddLanguage(id: string, name: string, json: object, mod: boolean): boolean;
 /**
  * @param match Used to index locStringsByPart
  */
@@ -180,6 +180,62 @@ declare class Loader {
      * Returns the progress of loading all assets
      */
     getProgress: () => number;
+}
+
+declare namespace App {
+    export let allowSteamAchievs: boolean;
+    export let cloud: boolean;
+    export let cloudQuota: string;
+    export let mods: Record<string, Mod>;
+    export let modList: string[];
+
+    export function getMostRecentSave(callback: (data: string) => any): void;
+    export function gotAchiev(id: string): boolean | void;
+    export function grabData(callback: (data: string) => any): void;
+    export function hardReset(): void;
+    export function justLoadedSave(): boolean | void;
+    export function load(callback: () => any): void; // TODO: Make sure that callback type is correct
+    export function loadMods(callback: () => any): void;
+    export function modsPopup(): void;
+    export function onImportSave(out: any, save: string): boolean | void;
+    export function onResize(): void;
+    export function openLink(url: string): void;
+    export function ping(mes: string): void;
+    export function purgeCloud(): void;
+    export function quit(): void;
+    export function registerMod(mod: string): void;
+    export function reload(): void;
+    export function resetAchievs(): void;
+    export function restoreBackup(): void;
+    export function save(save: string): void;
+    export function hardSave(save: string): void;
+    export function saveMods(): string;
+    export function setFullscreen(val: boolean): void;
+    export function workshopPopup(): void;
+    export function writeCloudUI(): string;
+    export function writeModUI(): string;
+
+    export interface Mod {
+        dependencies: string[];
+        dir: string;
+        disabled: boolean;
+        id: string;
+        info: {
+            Name: string;
+            Author: string;
+            Date: string;
+            Dependencies: string;
+            Description: string;
+            Disabled: Game.PseudoBoolean;
+            GameVersion: number;
+            ID: string;
+            ModVersion: number;
+        };
+        infoFile: string;
+        jsFile: string;
+        local: boolean;
+        path: string;
+    }
 }
 
 declare namespace Game {
