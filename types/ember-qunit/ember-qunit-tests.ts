@@ -14,6 +14,7 @@ import {
     setupRenderingTest,
     setupTest,
 } from 'ember-qunit';
+import { TestContext } from 'ember-test-helpers';
 
 moduleForComponent('x-foo', {
     integration: true,
@@ -226,6 +227,39 @@ module.only('exclusive module with hooks', function (hooks) {
 
     hooks.beforeEach(function () {
         this.owner.lookup('service:store');
+    });
+});
+
+module('extending TestContext works', function(hooks) {
+    interface Context extends TestContext {
+        someProp: string;
+        anotherProp: boolean;
+    }
+
+    hooks.before(async function (this: Context) {
+        this.someProp = 'hello';
+        await Promise.resolve(this.someProp);
+    });
+
+    hooks.beforeEach(async function (this: Context) {
+        this.anotherProp = true;
+        await Promise.resolve(this.anotherProp);
+    });
+
+    hooks.after(async function (this: Context) {
+        this.someProp = 'goodbye';
+        await Promise.resolve(this.someProp);
+    });
+
+    hooks.afterEach(async function (this: Context) {
+        this.anotherProp = false;
+        await Promise.resolve(this.anotherProp);
+    });
+
+    test('it works with tests', async function (this: Context, assert) {
+        this.someProp = this.someProp + ' cool person';
+        assert.true(this.anotherProp);
+        await Promise.resolve('cool');
     });
 });
 

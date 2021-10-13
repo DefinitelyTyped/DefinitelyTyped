@@ -11,8 +11,8 @@
 
 /// <reference types="qunit" />
 
-import Ember from 'ember';
-import { ModuleCallbacks, TestContext } from 'ember-test-helpers';
+import Ember from "ember";
+import { ModuleCallbacks, TestContext } from "ember-test-helpers";
 
 interface QUnitModuleCallbacks extends ModuleCallbacks, Hooks {
     beforeSetup?(assert: Assert): void;
@@ -107,7 +107,7 @@ export function setupTest(hooks: NestedHooks, options?: SetupTestOptions): void;
 
 export class QUnitAdapter extends Ember.Test.Adapter {}
 
-export { module, test, skip, only, todo } from 'qunit';
+export { module, test, skip, only, todo } from "qunit";
 
 interface QUnitStartOptions {
     /**
@@ -157,22 +157,22 @@ declare global {
          * Runs after the last test. If additional tests are defined after the
          * module's queue has emptied, it will not run this hook again.
          */
-        after(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        after<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs after each test.
          */
-        afterEach(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        afterEach<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before the first test.
          */
-        before(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        before<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Runs before each test.
          */
-        beforeEach(fn: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        beforeEach<TC extends TestContext>(fn: (this: TC, assert: Assert) => void | Promise<void>): void;
     }
 
     interface QUnit {
@@ -192,6 +192,7 @@ declare global {
          * @param callback Function to close over assertions
          */
         test(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        // test<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Adds a test to exclusively run, preventing all other tests from running.
@@ -209,7 +210,7 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        only(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        only<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Use this method to test a unit of code which is still under development (in a “todo” state).
@@ -221,7 +222,7 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        todo(name: string, callback: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        todo<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
 
         /**
          * Adds a test like object to be skipped.
@@ -236,6 +237,6 @@ declare global {
          * @param name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        skip(name: string, callback?: (this: TestContext, assert: Assert) => void | Promise<void>): void;
+        skip<TC extends TestContext>(name: string, callback?: (this: TC, assert: Assert) => void | Promise<void>): void;
     }
 }
