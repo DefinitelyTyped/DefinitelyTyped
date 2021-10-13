@@ -1,4 +1,4 @@
-// Type definitions for react-date-range 1.1
+// Type definitions for react-date-range 1.4
 // Project: https://github.com/Adphorus/react-date-range/
 // Definitions by: Junbong Lee <https://github.com/Junbong>
 //                 John Demetriou <https://github.com/DevsAnon>
@@ -182,6 +182,10 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     onPreviewChange?: ((preview: Preview) => void) | undefined;
     /** default: none */
     onChange?: ((range: OnDateRangeChangeProps) => void) | undefined;
+    /** default: forwards */
+    calendarFocus?: 'forwards' | 'backwards';
+    /** default: false */
+    preventSnapRefocus?: boolean;
 }
 
 export interface DateRangePickerProps extends DateRangeProps {
