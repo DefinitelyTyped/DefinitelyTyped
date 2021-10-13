@@ -2567,6 +2567,7 @@ declare namespace React {
         fontVariant?: number | string | undefined;
         fontWeight?: number | string | undefined;
         format?: number | string | undefined;
+        fr?: number | string | undefined;
         from?: number | string | undefined;
         fx?: number | string | undefined;
         fy?: number | string | undefined;

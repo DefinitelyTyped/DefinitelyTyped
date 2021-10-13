@@ -18,5 +18,5 @@ export class Mesh<
     type: string;
 
     updateMorphTargets(): void;
-    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
+    raycast(raycaster: Raycaster, intersects: Array<Intersection<Object3D>>): void;
 }

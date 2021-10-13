@@ -11,6 +11,7 @@ interface CallBackProps extends React.Props<any> {
 }
 
 interface ReactPortalProps {
+    children: React.ReactElement;
     isOpened?: boolean | undefined;
     openByClickOn?: React.ReactElement<CallBackProps> | undefined;
     closeOnEsc?: boolean | undefined;

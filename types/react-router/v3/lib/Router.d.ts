@@ -13,6 +13,7 @@ import {
     Search
 } from "history";
 import { PlainRoute } from "react-router";
+import React = require("react");
 
 export interface Params {
     [key: string]: string;
@@ -76,6 +77,7 @@ export interface RouteComponentProps<P, R, ComponentProps = any, Q = any> {
 }
 
 export interface RouterProps extends ClassAttributes<any> {
+    children?: React.ReactNode;
     routes?: RouteConfig | undefined;
     history?: History | undefined;
     createElement?(component: RouteComponent, props: any): any;

@@ -11,19 +11,19 @@ import { CipherSuite } from './http';
  */
 export interface Options {
     /** Maximum parallel `http.batch()` connections per VU. */
-    batch?: number | undefined;
+    batch?: number;
 
     /** Maximum parallel `http.batch()` host connections per VU. */
-    batchPerHost?: number | undefined;
+    batchPerHost?: number;
 
     /** Blacklist IP ranges from being called. */
-    blacklistIPs?: string[] | undefined;
+    blacklistIPs?: string[];
 
     /** Blacklist hostnames from being called. Wildcards are supported. */
-    blockHostnames?: string[] | undefined;
+    blockHostnames?: string[];
 
     /** Discard response bodies. */
-    discardResponseBodies?: boolean | undefined;
+    discardResponseBodies?: boolean;
 
     /** DNS resolution behavior. https://k6.io/docs/using-k6/options#dns */
     dns?: {
@@ -33,103 +33,103 @@ export interface Options {
         select: 'first' | 'random' |  'roundRobin';
 
         policy: 'preferIPv4' | 'preferIPv6' | 'onlyIPv4' | 'onlyIPv6' | 'any';
-    } | undefined;
+    };
 
     /** Test duration. */
-    duration?: string | undefined;
+    duration?: string;
 
     /** Partition the test run in different segments. https://k6.io/docs/using-k6/options#execution-segment */
-    executionSegment?: string | undefined;
+    executionSegment?: string;
 
     /** Define the sequence segment to run. https://k6.io/docs/using-k6/options#execution-segment */
-    executionSegmentSequence?: string | undefined;
+    executionSegmentSequence?: string;
 
     /** Third party collector configuration. */
-    ext?: { [name: string]: CollectorOptions } | undefined;
+    ext?: { [name: string]: CollectorOptions };
 
     /** Static hostname mapping. */
-    hosts?: { [name: string]: string } | undefined;
+    hosts?: { [name: string]: string };
 
     /** Log all HTTP requests and responses. */
-    httpDebug?: string | undefined;
+    httpDebug?: string;
 
     /** Disable TLS verification. Insecure. */
-    insecureSkipTLSVerify?: boolean | undefined;
+    insecureSkipTLSVerify?: boolean;
 
     /** Iterations to execute. */
-    iterations?: number | undefined;
+    iterations?: number;
 
     /** Persist the k6 process after test completion. */
-    linger?: boolean | undefined;
+    linger?: boolean;
 
     /** Maximum HTTP redirects to follow. */
-    maxRedirects?: number | undefined;
+    maxRedirects?: number;
 
     /** Minimum test iteration duration. */
-    minIterationDuration?: string | undefined;
+    minIterationDuration?: string;
 
     /** Disable keepalive connections. */
-    noConnectionReuse?: boolean | undefined;
+    noConnectionReuse?: boolean;
 
     /** This disables the default behavior of resetting the cookie jar after each VU iteration. If it's enabled, saved cookies will be persisted across VU iterations.. */
-    noCookiesReset?: boolean | undefined;
+    noCookiesReset?: boolean;
 
     /** Disable usage reports. */
-    noUsageReport?: boolean | undefined;
+    noUsageReport?: boolean;
 
     /** Disable cross-VU TCP connection reuse. */
-    noVUConnectionReuse?: boolean | undefined;
+    noVUConnectionReuse?: boolean;
 
     /** Start test in paused state. */
-    paused?: boolean | undefined;
+    paused?: boolean;
 
     /** Maximum requests per second across all VUs. */
-    rps?: number | undefined;
+    rps?: number;
 
     /** Scenario specifications. */
-    scenarios?: { [name: string]: Scenario} | undefined;
+    scenarios?: { [name: string]: Scenario};
 
     /** Setup function timeout. */
-    setupTimeout?: string | undefined;
+    setupTimeout?: string;
 
     /** Test stage specifications. Program of target VU stages. */
-    stages?: Stage[] | undefined;
+    stages?: Stage[];
 
     /** Define stats for trend metrics. */
-    summaryTrendStats?: string[] | undefined;
+    summaryTrendStats?: string[];
 
     /** Which system tags to include in collected metrics. */
-    systemTags?: string[] | undefined;
+    systemTags?: string[];
 
     /** Tags to set test wide across all metrics. */
-    tags?: { [name: string]: string } | undefined;
+    tags?: { [name: string]: string };
 
     /** Teardown function timeout. */
-    teardownTimeout?: string | undefined;
+    teardownTimeout?: string;
 
     /** Threshold specifications. Defines pass and fail conditions. */
-    thresholds?: { [name: string]: Threshold[] } | undefined;
+    thresholds?: { [name: string]: Threshold[] };
 
     /** Throw error on failed HTTP request. */
-    throw?: boolean | undefined;
+    throw?: boolean;
 
     /** TLS client certificates. */
-    tlsAuth?: Certificate[] | undefined;
+    tlsAuth?: Certificate[];
 
     /** Allowed TLS cipher suites. */
-    tlsCipherSuites?: CipherSuite[] | undefined;
+    tlsCipherSuites?: CipherSuite[];
 
     /** Allowed TLS version. Use `http.SSL_*` `http.TLS_*` constants. */
-    tlsVersion?: string | { min: string; max: string } | undefined;
+    tlsVersion?: string | { min: string; max: string };
 
     /** User agent string to include in HTTP requests. */
-    userAgent?: string | undefined;
+    userAgent?: string;
 
     /** Number of VUs to run concurrently. */
-    vus?: number | undefined;
+    vus?: number;
 
     /** Maximum VUs. Preallocates VUs to enable faster scaling. */
-    vusMax?: number | undefined;
+    vusMax?: number;
 }
 
 /**
@@ -162,10 +162,10 @@ export type Threshold = string | ObjectThreshold;
  */
 export interface ObjectThreshold {
     /** Abort test if threshold violated. */
-    abortOnFail?: boolean | undefined;
+    abortOnFail?: boolean;
 
     /** Duration to delay evaluation. Enables collecting additional metrics. */
-    delayAbortEval?: string | undefined;
+    delayAbortEval?: string;
 
     /** Threshold expression. */
     threshold: string;
@@ -210,7 +210,7 @@ export abstract class BaseScenario {
      *
      * Default value is 0s.
      */
-    startTime?: string | undefined;
+    startTime?: string;
 
     /**
      * Time to wait for iterations to finish executing before stopping them forcefully.
@@ -218,20 +218,20 @@ export abstract class BaseScenario {
      *
      * Default value is 30s
      */
-    gracefulStop?: string | undefined;
+    gracefulStop?: string;
 
     /**
      * Name of exported JS function to execute.
      *
      * The default value is "default".
      */
-    exec?: string | undefined;
+    exec?: string;
 
     /** Environment variables specific to this scenario.  */
-    env?: { [name: string]: string } | undefined;
+    env?: { [name: string]: string };
 
     /** Tags specific to this scenario. */
-    tags?: { [name: string]: string } | undefined;
+    tags?: { [name: string]: string };
 }
 
 /**
@@ -246,21 +246,21 @@ export interface SharedIterationsScenario extends BaseScenario {
      *
      * The default value is 1.
      */
-    vus?: number | undefined;
+    vus?: number;
 
     /**
      * Number of iterations to execute across all VUs.
      *
      * The default value is 1.
      */
-    iterations?: number | undefined;
+    iterations?: number;
 
     /**
      * Maximum scenario duration before it's forcibly stopped (excluding gracefulStop).
      *
      * The default value is 10m.
      */
-    maxDuration?: string | undefined;
+    maxDuration?: string;
 }
 
 /**
@@ -275,21 +275,21 @@ export interface PerVUIterationsScenario extends BaseScenario {
      *
      * The default value is 1.
      */
-    vus?: number | undefined;
+    vus?: number;
 
     /**
      * Number of iterations to execute across per VU.
      *
      * The default value is 1.
      */
-    iterations?: number | undefined;
+    iterations?: number;
 
     /**
      * Maximum scenario duration before it's forcibly stopped (excluding gracefulStop).
      *
      * The default value is 10m.
      */
-    maxDuration?: string | undefined;
+    maxDuration?: string;
 }
 
 /**
@@ -305,7 +305,7 @@ export interface ConstantVUsScenario extends BaseScenario {
      *
      * The default value is 1.
      */
-    vus?: number | undefined;
+    vus?: number;
 
     /**
      * Total scenario duration (excluding `gracefulStop`)
@@ -329,14 +329,14 @@ export interface RampingVUsScenario extends BaseScenario {
      *
      * The default value is 1.
      */
-    startVUs?: number | undefined;
+    startVUs?: number;
 
     /**
      * Time to wait for an already started iteration to finish before stopping it during a ramp down.
      *
      * The default value is 30s.
      */
-    gracefulRampDown?: string | undefined;
+    gracefulRampDown?: string;
 }
 
 /**
@@ -358,7 +358,7 @@ export interface ConstantArrivalRateScenario extends BaseScenario {
      *
      * The default value is 1s.
      */
-    timeUnit?: string | undefined;
+    timeUnit?: string;
 
     /** Number of VUs to pre-allocate before test start in order to preserve runtime resources. */
     preAllocatedVUs: number;
@@ -368,7 +368,7 @@ export interface ConstantArrivalRateScenario extends BaseScenario {
      *
      * The default value is the value of the `preAllocatedVUs` option.
      */
-    maxVUs?: number | undefined;
+    maxVUs?: number;
 }
 
 /**
@@ -380,20 +380,20 @@ export interface RampingArrivalRateScenario extends BaseScenario {
     executor: "ramping-arrival-rate";
 
     /** Maximum number of VUs to allow during the test run. */
-    maxVUs?: number | undefined;
+    maxVUs?: number;
 
     /** Array of objects that specify the number of iterations to ramp up or down to. */
     stages: Stage[];
 
     /** Number of iterations to execute each `timeUnit` period at test start. */
-    startRate?: number | undefined;
+    startRate?: number;
 
     /**
      * Period of time to apply the `startRate` the `stages` target value..
      *
      * The default value is 1s.
      */
-    timeUnit?: string | undefined;
+    timeUnit?: string;
 
     /** Number of VUs to pre-allocate before test start in order to preserve runtime resources. */
     preAllocatedVUs: number;
@@ -412,13 +412,13 @@ export interface ExternallyControlledScenario extends BaseScenario {
      *
      * The default value is 1.
      */
-    vus?: number | undefined;
+    vus?: number;
 
     /** Total scenario duration (excluding `gracefulStop`) */
     duration: string;
 
     /** Maximum number of VUs to allow during the test run. */
-    maxVUs?: number | undefined;
+    maxVUs?: number;
 }
 
 export type Scenario = SharedIterationsScenario |

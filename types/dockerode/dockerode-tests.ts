@@ -111,6 +111,12 @@ container.remove((err, data) => {
     // NOOP
 });
 
+const abortController = new AbortController();
+container.wait({
+    condition: 'next-exit',
+    abortSignal: abortController.signal
+});
+
 docker.listContainers((err, containers) => {
     containers.forEach(container => {
         docker.getContainer(container.Id).stop((err, data) => {

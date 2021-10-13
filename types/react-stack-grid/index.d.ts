@@ -13,6 +13,7 @@ export interface Grid {
     updateLayout: () => void;
 }
 export interface StackGridProps {
+    children?: React.ReactNode;
     columnWidth: number | string;
     className?: string | undefined;
     style?: React.CSSProperties | undefined;

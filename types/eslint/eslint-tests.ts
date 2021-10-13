@@ -443,6 +443,10 @@ rule = {
                         return [ruleFixer.insertTextAfter(AST, "foo"), ruleFixer.insertTextAfter(TOKEN, "foo")];
                     },
                 },
+                {
+                    desc: "foo",
+                    fix: ruleFixer => null
+                }
             ],
         });
 
