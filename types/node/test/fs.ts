@@ -630,3 +630,36 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
     cpAsync('src', 'dest'); // $ExpectType Promise<void>
     cpAsync('src', 'dest', opts); // $ExpectType Promise<void>
 }
+
+async () => {
+    const handle: FileHandle = await openAsync('test', 'r');
+    const writeStream = new fs.WriteStream('./index.d.ts', {
+        fd: handle,
+    });
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = new fs.ReadStream('./index.d.ts', {
+        fd: handle,
+    });
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
+
+    (await handle.read()).buffer; // $ExpectType Buffer
+    (await handle.read({
+        buffer: new Uint32Array(),
+        offset: 1,
+        position: 2,
+        length: 3,
+    })).buffer; // $ExpectType Uint32Array
+
+    await handle.write('hurr', 0, 'utf-8');
+    await handle.write(Buffer.from('hurr'), 0, 42, 10);
+};
+
+{
+    new fs.WriteStream('./index.d.ts'); // $ExpectType WriteStream
+    new fs.WriteStream('./index.d.ts', 'utf8'); // $ExpectType WriteStream
+    new fs.WriteStream('./index.d.ts', { encoding: 'utf8' }); // $ExpectType WriteStream
+    new fs.ReadStream('./index.d.ts'); // $ExpectType ReadStream
+    new fs.ReadStream('./index.d.ts', 'utf8'); // $ExpectType ReadStream
+    new fs.ReadStream('./index.d.ts', { encoding: 'utf8' }); // $ExpectType ReadStream
+}

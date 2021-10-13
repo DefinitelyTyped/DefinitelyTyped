@@ -297,6 +297,7 @@ declare module 'fs' {
      * @since v0.1.93
      */
     export class ReadStream extends stream.Readable {
+        constructor(path: PathLike, options?: BufferEncoding | ReadStreamOptions);
         close(): void;
         /**
          * The number of bytes that have been read so far.
@@ -380,6 +381,7 @@ declare module 'fs' {
      * @since v0.1.93
      */
     export class WriteStream extends stream.Writable {
+        constructor(path: PathLike, options?: BufferEncoding | StreamOptions);
         /**
          * Closes `writeStream`. Optionally accepts a
          * callback that will be executed once the `writeStream`is closed.
