@@ -16,6 +16,30 @@ declare function PlaySound(url: string, volume?: number, pitch?: number): void;
 declare function randomFloor(x: number): number;
 declare function shuffle<T>(array: T[]): T[];
 
+// Localization
+
+declare function AddLanguage(id: string, name: string, json: Object, mod: boolean): boolean;
+/**
+ * @param match Used to index locStringsByPart
+ */
+declare function FindLocStringByPart(match: string): string | undefined;
+/** Whether English is the currently active language */
+declare let EN: boolean;
+/** The identifier for the localization files to use (eg. EN for English) */
+declare let locStrings: Record<string, string>;
+declare let locStringsFallback: Record<string, string>;
+declare let locId: string;
+declare let locName: string;
+declare let locPlur: string;
+declare let locPlurFallback: string;
+declare let locStringsByPart: Record<string, string>;
+declare let Langs: Language[];
+declare let locBlink: boolean;
+/** Presumably an array of localization ID's whose files were not found */
+declare let localizationNotFound: string[];
+declare function loc(id: string, params?: string | string[], baseline?: string): string;
+declare function parseLoc(str: string, params?: string | string[]): string;
+
 /**
  * Returns a random member of an array, has a very slight chance to return `undefined` (When the seeded Math.random() is 1)
  * @param array The array to pick a member of
@@ -81,6 +105,21 @@ interface CanvasRenderingContext2D {
         offX?: number,
         offY?: number,
     ): void;
+}
+
+/** Configuration for a language used for localization */
+interface Language {
+    /** An identifier for the lanaguge (eg. EN for English) */
+    file: string;
+    /** The name of the language */
+    name: string;
+    /** The name of the language in English */
+    nameEN: string;
+    changeLanguage: string;
+    icon: number;
+    w: number;
+    /** Only defined for the English language */
+    isEN?: boolean;
 }
 
 declare class Loader {
