@@ -184,39 +184,39 @@ declare class Loader {
 }
 
 declare namespace App {
-    export let allowSteamAchievs: boolean;
-    export let cloud: boolean;
-    export let cloudQuota: string;
-    export let mods: Record<string, Mod>;
-    export let modList: string[];
+    let allowSteamAchievs: boolean;
+    let cloud: boolean;
+    let cloudQuota: string;
+    let mods: Record<string, Mod>;
+    let modList: string[];
 
-    export function getMostRecentSave(callback: (data: string) => any): void;
-    export function gotAchiev(id: string): boolean | void;
-    export function grabData(callback: (data: string) => any): void;
-    export function hardReset(): void;
-    export function justLoadedSave(): boolean | void;
-    export function load(callback: () => any): void; // TODO: Make sure that callback type is correct
-    export function loadMods(callback: () => any): void;
-    export function modsPopup(): void;
-    export function onImportSave(out: any, save: string): boolean | void;
-    export function onResize(): void;
-    export function openLink(url: string): void;
-    export function ping(mes: string): void;
-    export function purgeCloud(): void;
-    export function quit(): void;
-    export function registerMod(mod: string): void;
-    export function reload(): void;
-    export function resetAchievs(): void;
-    export function restoreBackup(): void;
-    export function save(save: string): void;
-    export function hardSave(save: string): void;
-    export function saveMods(): string;
-    export function setFullscreen(val: boolean): void;
-    export function workshopPopup(): void;
-    export function writeCloudUI(): string;
-    export function writeModUI(): string;
+    function getMostRecentSave(callback: (data: string) => any): void;
+    function gotAchiev(id: string): boolean | void;
+    function grabData(callback: (data: string) => any): void;
+    function hardReset(): void;
+    function justLoadedSave(): boolean | void;
+    function load(callback: () => any): void; // TODO: Make sure that callback type is correct
+    function loadMods(callback: () => any): void;
+    function modsPopup(): void;
+    function onImportSave(out: any, save: string): boolean | void;
+    function onResize(): void;
+    function openLink(url: string): void;
+    function ping(mes: string): void;
+    function purgeCloud(): void;
+    function quit(): void;
+    function registerMod(mod: string): void;
+    function reload(): void;
+    function resetAchievs(): void;
+    function restoreBackup(): void;
+    function save(save: string): void;
+    function hardSave(save: string): void;
+    function saveMods(): string;
+    function setFullscreen(val: boolean): void;
+    function workshopPopup(): void;
+    function writeCloudUI(): string;
+    function writeModUI(): string;
 
-    export interface Mod {
+    interface Mod {
         dependencies: string[];
         dir: string;
         disabled: boolean;
@@ -240,22 +240,22 @@ declare namespace App {
 }
 
 declare namespace Music {
-    export let context: AudioContext;
-    export let cues: Record<string, (arg?: any) => any>;
-    export let filter: BiquadFilterNode;
-    export let gain: GainNode;
-    export let out: BiquadFilterNode;
-    export let playing: Track;
-    export let tracks: Record<string, Track>;
+    let context: AudioContext;
+    let cues: Record<string, (arg?: any) => any>;
+    let filter: BiquadFilterNode;
+    let gain: GainNode;
+    let out: BiquadFilterNode;
+    let playing: Track;
+    let tracks: Record<string, Track>;
 
-    export function addTrack(name: string, url: string): void;
-    export function cue(cue: string, arg?: any): void;
-    export function loopTrack(name: string): void;
-    export function playTrack(name: string, callback: (track: string) => any): void;
-    export function setFilter(val: number, secs: number): void;
-    export function setVolume(val: number, secs: number): void;
+    function addTrack(name: string, url: string): void;
+    function cue(cue: string, arg?: any): void;
+    function loopTrack(name: string): void;
+    function playTrack(name: string, callback: (track: string) => any): void;
+    function setFilter(val: number, secs: number): void;
+    function setVolume(val: number, secs: number): void;
 
-    export interface Track {
+    interface Track {
         audio: HTMLAudioElement;
         name: string;
         canPlay: boolean;

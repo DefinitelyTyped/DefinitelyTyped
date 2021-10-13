@@ -188,13 +188,3 @@ if (gainedBuff.time === gainedBuff.maxTime && gainedBuff.arg1) console.log(gaine
 gainedBuff.type === buffType;
 
 console.log(SimpleBeautify(1e6));
-
-// $ExpectError
-Game.ToggleFullscreen();
-
-// $ExpectError
-Game.setVolumeMusic(50);
-if (Game.setVolumeMusic) Game.setVolumeMusic(50);
-
-// $ExpectError
-Game.AllMilks[0];
