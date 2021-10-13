@@ -1,5 +1,11 @@
 import { encode, decode, encodingLength, streamEncode, streamDecode, Packet, Answer, Question, RECURSION_DESIRED } from "dns-packet";
 
+declare module "dns-packet" {
+    interface PacketOpt {
+        extendedProp?: string;
+    }
+}
+
 const answer: Answer = {
     type: "A",
     name: "localhost",
@@ -147,6 +153,10 @@ const records: Answer[] = [
 			{
                 code: 14,
 				tags: [256],
+            },
+            {
+                code: 14,
+				extendedProp: "extended-prop-test"
             }
         ]
     }

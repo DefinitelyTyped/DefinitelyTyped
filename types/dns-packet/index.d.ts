@@ -159,6 +159,19 @@ export type CaaAnswer = BaseAnswer<"CAA", CaaData>;
 export type MxAnswer = BaseAnswer<"MX", MxData>;
 export type BufferAnswer = BaseAnswer<OtherRecordType, Buffer>;
 
+export interface PacketOpt {
+    code: number;
+    type?: string | undefined;
+    data?: Buffer | undefined;
+    family?: number | undefined;
+    sourcePrefixLength?: number | undefined;
+    scopePrefixLength?: number | undefined;
+    ip?: string | undefined;
+    timeout?: number | undefined;
+    tags?: number[] | undefined;
+    length?: number | undefined;
+}
+
 export interface OptAnswer extends GenericAnswer<"OPT"> {
     udpPayloadSize: number;
     extendedRcode: number;
@@ -170,18 +183,7 @@ export interface OptAnswer extends GenericAnswer<"OPT"> {
      */
     flag_do: boolean;
 
-    options: Array<{
-        code: number;
-        type?: string | undefined;
-        data?: Buffer | undefined;
-        family?: number | undefined;
-        sourcePrefixLength?: number | undefined;
-        scopePrefixLength?: number | undefined;
-        ip?: string | undefined;
-        timeout?: number | undefined;
-        tags?: number[] | undefined;
-        length?: number | undefined;
-    }>;
+    options: PacketOpt[];
 }
 
 export type Answer =
