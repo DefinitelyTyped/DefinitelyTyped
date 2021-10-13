@@ -533,7 +533,7 @@ declare namespace PDFKit {
     /** PDFStructureElement */
     class PDFStructureElement {
         constructor(type: string, options: {});
-        add(el: PDFStructureContent | PDFStructureElement): PDFStructureElement;
+        add(el: PDFStructureContent | PDFStructureElement | (() => any)): PDFStructureElement;
         setParent(parentRef: PDFKitReference): void;
         setAttached(): void;
         end(): void;
