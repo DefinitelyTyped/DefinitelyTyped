@@ -43,10 +43,10 @@ My Document:
 
 */
 
-console.log("My document: \n" + new xmldoc.XmlDocument(xml).childNamed("author").name);
+console.log("My document: \n" + new xmldoc.XmlDocument(xml).childNamed("author").children[0].name);
 /* Prints:
 
 My Document:
-author
+name
 
 */
