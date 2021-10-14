@@ -46,7 +46,7 @@ export class XmlTextNode {
     type: 'text';
     text: string;
     name: string;
-    val: any;
+    val: string;
     attr: XmlAttributes;
     children: XmlNode[];
 
@@ -60,7 +60,7 @@ export class XmlCDataNode {
     type: 'cdata';
     cdata: string;
     name: string;
-    val: any;
+    val: string;
     attr: XmlAttributes;
     children: XmlNode[];
 
@@ -74,7 +74,7 @@ export class XmlCommentNode {
     type: 'comment';
     comment: string;
     name: string;
-    val: any;
+    val: string;
     attr: XmlAttributes;
     children: XmlNode[];
 
