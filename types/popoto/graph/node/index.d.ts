@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export type Node = {
+export interface Node {
     // ID of the g element in SVG graph containing all the link elements.
     gID: string;
 
@@ -36,7 +36,7 @@ export type Node = {
         CHOOSE: 0
         VALUE: 0
         GROUP: 0
-    }>
+    }>;
 
     // Used to generate unique internal labels used for example as identifier in Cypher query.
     internalLabels: { [label: string]: number };
@@ -46,14 +46,14 @@ export type Node = {
      * Multiple calls with the same node label will generate different unique identifier.
      *
      * @param nodeLabel
-     * @returns {string}
+     * @returns normalized identifier from a node label
      */
     generateInternalLabel: (nodeLabel: string) => string;
 
     /**
      * Update Nodes SVG elements using D3.js update mechanisms.
      */
-    updateNodes: () => void
+    updateNodes: () => void;
 
     /**
      * Update node data with changes done in dataModel.nodes model.
@@ -120,7 +120,7 @@ export type Node = {
      */
     updateMiddlegroundElements: () => void;
 
-    updateMiddlegroundElementsTooltip:  (middleG: SVGGElement) => void;
+    updateMiddlegroundElementsTooltip: (middleG: SVGGElement) => void;
 
     updateMiddlegroundElementsText: (gMiddlegroundTextNodes: SVGGElement) => void;
 
@@ -196,10 +196,9 @@ export type Node = {
      * Get all nodes that contains a value.
      *
      * @param label If set return only node of this label.
-     * @return {Array} Array of nodes containing at least one value.
+     * @return Array of nodes containing at least one value.
      */
     getContainingValue: (label: string) => Node[];
-
 
     /**
      * Add value in all CHOOSE nodes with specified label.
@@ -243,7 +242,7 @@ export type Node = {
      * @param attribute
      * @param value
      */
-    removeExpandedValue:  (attribute: string, value: any) => void;
+    removeExpandedValue: (attribute: string, value: any) => void;
 
     /**
      * Return all nodes with isAutoLoadValue property set to true.
@@ -339,7 +338,7 @@ export type Node = {
      * Get in the parent nodes the closest one to the root.
      *
      * @param n the node to start from.
-     * @return {*} the trunk node or the node in parameters if not found.
+     * @return the trunk node or the node in parameters if not found.
      */
     getTrunkNode: (n: Node) => typeof n;
 

@@ -1,4 +1,4 @@
-export type Link = {
+export interface Link {
     /**
      * Defines the different type of link.
      * RELATION is a relation link between two nodes.
@@ -8,11 +8,10 @@ export type Link = {
         RELATION: 0
         VALUE: 1
         SEGMENT: 2
-    }>
+    }>;
 
     /**
      * Offset added to text displayed on links.
-     * @type {number}
      */
     TEXT_DY: number;
 

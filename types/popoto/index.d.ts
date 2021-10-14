@@ -30,6 +30,18 @@ interface Popoto {
      */
     update: () => void;
 
+    version: number;
+
+    /**
+     * Create the text representation of a node by slicing the text into lines to fit the node.
+     *
+     * @param selection
+     * @param textParam
+     * @param radiusParam
+     * @param classParam
+     */
+    appendFittedText: (selection: any, textParam: string, radiusParam: number, classParam?: any) => void;
+
     /**
      * Function to call to update the graph only.
      */
