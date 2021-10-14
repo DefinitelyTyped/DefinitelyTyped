@@ -42,11 +42,3 @@ My Document:
 </hello>
 
 */
-
-console.log("My document: \n" + new xmldoc.XmlDocument(xml).childNamed("author").children[0].name);
-/* Prints:
-
-My Document:
-name
-
-*/
