@@ -41,3 +41,13 @@ function useUsers(): string[] {
         () => objectStore.getServerState().users,
     );
 }
+
+function useExperimentalHooks() {
+    const [toggle, setToggle] = React.useState(false);
+
+    React.unstable_useInsertionEffect(() => {});
+    React.unstable_useInsertionEffect(() => {}, []);
+    React.unstable_useInsertionEffect(() => {
+        return () => {};
+    }, [toggle]);
+}

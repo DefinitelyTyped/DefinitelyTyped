@@ -23,6 +23,7 @@ zingchart.render({
         },
         scaleY: {
             autoFit: true,
+            zooming: true,
         },
         plot: {
             animation: {
@@ -41,8 +42,11 @@ zingchart.render({
                 text: 'Hello World',
             },
         },
+        timeZone: 1,
         zoom: {
             shared: true,
         }
     }],
+    zoom: {},
+    zoomSnap: true,
 });

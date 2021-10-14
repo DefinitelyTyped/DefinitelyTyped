@@ -1,4 +1,4 @@
-// Type definitions for logrotate-stream 0.2.5
+// Type definitions for logrotate-stream 0.2.8
 // Project: https://github.com/dstokes/logrotate-stream
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,7 @@ declare namespace logrotateStream {
         /**
          * The max file size of a log before rotation occurs. Supports 1024, 1k, 1m, 1g
          */
-        size: string;
+        size: string | number;
         /**
          * The number of rotated log files to keep (including the primary log file). Additional logs are deleted no rotation.
          */

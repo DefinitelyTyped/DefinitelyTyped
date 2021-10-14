@@ -11,6 +11,7 @@ import {
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');
+const base64UrlBuffer = new Buffer('', 'base64url');
 const octets: Uint8Array = new Uint8Array(123);
 const octetBuffer = new Buffer(octets);
 const sharedBuffer = new Buffer(octets.buffer);
@@ -103,6 +104,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf1: Buffer = Buffer.alloc(5);
     const buf2: Buffer = Buffer.alloc(5, 'a');
     const buf3: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
+    const buf4: Buffer = Buffer.alloc(11, 'aGVsbG8gd29ybGQ', 'base64url');
 }
 // Class Method: Buffer.allocUnsafe(size)
 {

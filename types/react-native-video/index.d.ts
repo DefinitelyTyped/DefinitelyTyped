@@ -179,6 +179,7 @@ export interface VideoProperties extends ViewProps {
     audioOnly?: boolean | undefined;
     preventsDisplaySleepDuringVideoPlayback?: boolean | undefined;
     drm?: DRMSettings | undefined;
+    preferredForwardBufferDuration?: number | undefined;
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;

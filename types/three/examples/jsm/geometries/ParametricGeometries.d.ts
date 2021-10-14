@@ -1,8 +1,10 @@
-import { Curve, ParametricGeometry, Vector3 } from '../../../src/Three';
+import { Curve, Vector3 } from '../../../src/Three';
+
+import { ParametricGeometry } from './ParametricGeometry';
 
 export namespace ParametricGeometries {
     function klein(v: number, u: number, target: Vector3): Vector3;
-    function plane(width: number, height: number, target: Vector3): Vector3;
+    function plane(width: number, height: number): (u: number, v: number, target: Vector3) => Vector3;
     function mobius(u: number, t: number, target: Vector3): Vector3;
     function mobius3d(u: number, t: number, target: Vector3): Vector3;
 

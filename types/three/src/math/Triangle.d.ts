@@ -3,6 +3,9 @@ import { Vector3 } from './Vector3';
 import { Plane } from './Plane';
 import { Box3 } from './Box3';
 
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute';
+import { BufferAttribute } from '../core/BufferAttribute';
+
 export class Triangle {
     constructor(a?: Vector3, b?: Vector3, c?: Vector3);
 
@@ -22,7 +25,13 @@ export class Triangle {
     c: Vector3;
 
     set(a: Vector3, b: Vector3, c: Vector3): Triangle;
-    setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle;
+    setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): this;
+    setFromAttributeAndIndices(
+        attribute: BufferAttribute | InterleavedBufferAttribute,
+        i0: number,
+        i1: number,
+        i2: number,
+    ): this;
     clone(): this;
     copy(triangle: Triangle): this;
     getArea(): number;

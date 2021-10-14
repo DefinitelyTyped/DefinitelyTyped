@@ -1,4 +1,4 @@
-// Type definitions for node-telegram-bot-api 0.51
+// Type definitions for node-telegram-bot-api 0.53
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
@@ -35,7 +35,7 @@ declare namespace TelegramBot {
 
     type ChatType = 'private' | 'group' | 'supergroup' | 'channel';
 
-    type ChatAction = 'typing' | 'upload_photo' | 'record_video' | 'upload_video' | 'record_audio' | 'upload_audio' | 'upload_document' | 'find_location' | 'record_video_note' | 'upload_video_note';
+    type ChatAction = 'typing' | 'upload_photo' | 'record_video' | 'upload_video' | 'record_voice' | 'upload_voice' | 'upload_document' | 'find_location' | 'record_video_note' | 'upload_video_note';
 
     type ChatMemberStatus = 'creator' | 'administrator' | 'member' | 'restricted' | 'left' | 'kicked';
 
@@ -67,7 +67,14 @@ declare namespace TelegramBot {
         'supergroup_chat_created' |
         'video' |
         'video_note' |
-        'voice';
+        'voice' |
+        'voice_chat_started' |
+        'voice_chat_ended' |
+        'voice_chat_participants_invited' |
+        'voice_chat_scheduled' |
+        'message_auto_delete_timer_changed' |
+        'chat_invite_link' |
+        'chat_member_updated';
 
     type MessageEntityType = 'mention' | 'hashtag' | 'bot_command' | 'url' | 'email' | 'bold' | 'italic' | 'code' | 'pre' | 'text_link' | 'text_mention';
 
@@ -656,6 +663,15 @@ declare namespace TelegramBot {
         big_file_id: string;
     }
 
+    interface ChatInviteLink {
+        invite_link: string;
+        creator: User;
+        is_primary: boolean;
+        is_revoked: boolean;
+        expire_date?: number;
+        member_limit?: number;
+    }
+
     interface ChatMember {
         user: User;
         status: ChatMemberStatus;
@@ -675,6 +691,15 @@ declare namespace TelegramBot {
         can_send_polls: boolean;
         can_send_other_messages?: boolean | undefined;
         can_add_web_page_previews?: boolean | undefined;
+    }
+
+    interface ChatMemberUpdated {
+        chat: Chat;
+        from: User;
+        date: number;
+        old_chat_member: ChatMember;
+        new_chat_member: ChatMember;
+        invite_link?: ChatInviteLink;
     }
 
     interface ChatPermissions {
@@ -1162,6 +1187,12 @@ declare class TelegramBot extends EventEmitter {
 
     exportChatInviteLink(chatId: number | string): Promise<string>;
 
+    createChatInviteLink(chatId: number | string): Promise<TelegramBot.ChatInviteLink>;
+
+    editChatInviteLink(chatId: number | string, inviteLink: string): Promise<TelegramBot.ChatInviteLink>;
+
+    revokeChatInviteLink(chatId: number | string, inviteLink: string): Promise<TelegramBot.ChatInviteLink>;
+
     setChatPhoto(chatId: number | string, photo: string | Stream | Buffer): Promise<boolean>;
 
     deleteChatPhoto(chatId: number | string): Promise<boolean>;
@@ -1260,6 +1291,8 @@ declare class TelegramBot extends EventEmitter {
 
     addListener(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
 
+    addListener(event: 'chat_member' | 'my_chat_member', listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
+
     addListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
     addListener(
@@ -1280,6 +1313,8 @@ declare class TelegramBot extends EventEmitter {
     on(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
 
     on(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
+
+    on(event: 'chat_member' | 'my_chat_member', listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
 
     on(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
@@ -1302,6 +1337,8 @@ declare class TelegramBot extends EventEmitter {
 
     once(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
 
+    once(event: 'chat_member' | 'my_chat_member', listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
+
     once(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
     once(
@@ -1322,6 +1359,8 @@ declare class TelegramBot extends EventEmitter {
     prependListener(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
 
     prependListener(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
+
+    prependListener(event: 'chat_member' | 'my_chat_member', listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
 
     prependListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
@@ -1344,6 +1383,8 @@ declare class TelegramBot extends EventEmitter {
 
     prependOnceListener(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
 
+    prependOnceListener(event: 'chat_member' | 'my_chat_member', listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
+
     prependOnceListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
     prependOnceListener(
@@ -1364,6 +1405,8 @@ declare class TelegramBot extends EventEmitter {
     removeListener(event: 'inline_query', listener: (query: TelegramBot.InlineQuery) => void): this;
 
     removeListener(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
+
+    removeListener(event: 'chat_member' | 'my_chat_member', listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
 
     removeListener(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
@@ -1386,6 +1429,8 @@ declare class TelegramBot extends EventEmitter {
 
     off(event: 'poll_answer', listener: (answer: TelegramBot.PollAnswer) => void): this;
 
+    off(event: 'chat_member' | 'my_chat_member', listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
+
     off(event: 'chosen_inline_result', listener: (result: TelegramBot.ChosenInlineResult) => void): this;
 
     off(
@@ -1406,6 +1451,8 @@ declare class TelegramBot extends EventEmitter {
             'callback_query' |
             'inline_query' |
             'poll_answer' |
+            'chat_member' |
+            'my_chat_member' |
             'chosen_inline_result' |
             'channel_post' |
             'edited_message' |
@@ -1428,6 +1475,8 @@ declare class TelegramBot extends EventEmitter {
             'callback_query' |
             'inline_query' |
             'poll_answer' |
+            'chat_member' |
+            'my_chat_member' |
             'chosen_inline_result' |
             'channel_post' |
             'edited_message' |
@@ -1450,6 +1499,8 @@ declare class TelegramBot extends EventEmitter {
             'callback_query' |
             'inline_query' |
             'poll_answer' |
+            'chat_member' |
+            'my_chat_member' |
             'chosen_inline_result' |
             'channel_post' |
             'edited_message' |
@@ -1471,6 +1522,8 @@ declare class TelegramBot extends EventEmitter {
         'callback_query' |
         'inline_query' |
         'poll_answer' |
+        'chat_member' |
+        'my_chat_member' |
         'chosen_inline_result' |
         'channel_post' |
         'edited_message' |
@@ -1493,6 +1546,8 @@ declare class TelegramBot extends EventEmitter {
             'callback_query' |
             'inline_query' |
             'poll_answer' |
+            'chat_member' |
+            'my_chat_member' |
             'chosen_inline_result' |
             'channel_post' |
             'edited_message' |

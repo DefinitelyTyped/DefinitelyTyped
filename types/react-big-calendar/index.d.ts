@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.33
+// Type definitions for react-big-calendar 0.36
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -405,6 +405,8 @@ export interface components {
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
 export function dateFnsLocalizer(config: object): DateLocalizer;
+export function luxonLocalizer(config: object): DateLocalizer;
+
 export const Navigate: {
     PREVIOUS: 'PREV';
     NEXT: 'NEXT';

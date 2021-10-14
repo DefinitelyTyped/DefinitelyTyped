@@ -241,6 +241,7 @@ declare namespace HelloSign {
                       | 'YYYY - MM - DD';
               }
             | undefined;
+        signing_redirect_url?: string | undefined;
     }
     interface SignatureRequestResponse {
         signature_request: SignatureRequest;
@@ -265,8 +266,12 @@ declare namespace HelloSign {
         ): Promise<IncomingMessage>;
         cancel(requestId: string): Promise<any>;
         removeAccess(requestId: string): Promise<any>;
-        createEmbedded(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
-        createEmbeddedWithTemplate(options: SignatureRequestRequestOptions): Promise<SignatureRequestResponse>;
+        createEmbedded(
+            options: Omit<SignatureRequestRequestOptions, 'signing_redirect_url'>,
+        ): Promise<SignatureRequestResponse>;
+        createEmbeddedWithTemplate(
+            options: Omit<SignatureRequestRequestOptions, 'signing_redirect_url'>,
+        ): Promise<SignatureRequestResponse>;
         releaseHold(requestId: string): Promise<any>;
     }
 

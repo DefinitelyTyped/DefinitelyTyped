@@ -317,7 +317,7 @@ export class Material extends EventDispatcher {
      * If *null*, the value is opposite that of side, above.
      * @default null
      */
-    shadowSide: Side;
+    shadowSide: Side | null;
 
     /**
      * Defines whether this material is tone mapped according to the renderer's toneMapping setting.

@@ -1,7 +1,7 @@
 /**
  * Transforms any value to an array. If the provided value is already an array, it is returned unchanged.
- *
  */
-type Return<T> = T extends any[] ? T : [T];
-export default function toArray<T>(arg: T): Return<T>;
-export {};
+declare function toArray<T extends readonly any[]>(data: T): T;
+declare function toArray<T extends any[]>(data: T): T;
+declare function toArray<T extends any>(data: T): T[];
+export default toArray;

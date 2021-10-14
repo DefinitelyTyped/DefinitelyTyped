@@ -3,6 +3,7 @@ import * as http from 'http';
 import * as WebSocket from 'ws';
 import { Duplex } from 'stream';
 import * as ShareDBClient from 'sharedb/lib/client';
+import Agent = require('sharedb/lib/agent');
 
 // Adapted from https://github.com/avital/websocket-json-stream
 class WebSocketJSONStream extends Duplex {
@@ -63,8 +64,14 @@ type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
 const submitRelatedActions: SubmitRelatedActions[] = ['afterWrite', 'apply', 'commit', 'submit'];
 for (const action of submitRelatedActions) {
     backend.use(action, (request, callback) => {
-        if (request.agent.custom.user) {
-            console.log(request.agent.custom.user.id);
+        const agent = request.agent as Agent<{
+            user: {
+                id: string
+            }
+        }>;
+
+        if (agent.custom.user) {
+            console.log(agent.custom.user.id);
         }
         console.log(
             request.action,

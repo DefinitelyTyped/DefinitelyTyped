@@ -4,7 +4,7 @@ const { status, puzzle } = solve('input.json');
 
 puzzle; // $ExpectType Puzzle
 puzzle.columnHints; // $ExpectType number[][]
-puzzle.isFinished; // $expectType boolean
-puzzle.svg; // $expectType string
+puzzle.isFinished; // $ExpectType boolean
+puzzle.svg; // $ExpectType string
 
 status; // $ExpectType State

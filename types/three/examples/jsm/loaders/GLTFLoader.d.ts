@@ -63,13 +63,13 @@ export class GLTFLoader extends Loader {
     ): void;
 }
 
-export type GLTFReferenceType = 'materials'|'nodes'|'textures'|'meshes';
+export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';
 
 export interface GLTFReference {
-  materials?: number;
-  nodes?: number;
-  textures?: number;
-  meshes?: number;
+    materials?: number;
+    nodes?: number;
+    textures?: number;
+    meshes?: number;
 }
 
 export class GLTFParser {
