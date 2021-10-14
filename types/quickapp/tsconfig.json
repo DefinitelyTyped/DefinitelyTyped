@@ -15,10 +15,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "quickapp-tests.ts"
     ]
 }

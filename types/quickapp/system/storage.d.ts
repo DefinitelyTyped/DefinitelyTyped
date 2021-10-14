@@ -93,7 +93,7 @@ declare module '@system.storage' {
         /**
          * 成功回调
          */
-        success?: () => void;
+        success?: (data: any) => void;
         /**
          * 失败回调
          */

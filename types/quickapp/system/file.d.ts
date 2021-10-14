@@ -156,7 +156,7 @@ declare module '@system.file' {
         /**
          * 成功回调
          */
-        success?: () => void;
+        success?: (data: any) => void;
         /**
          * 失败回调
          * 202: 参数错误
@@ -415,13 +415,13 @@ interface File {
     /**
      * 文件的 uri，该 uri 可以被其他组件或 Feature 访问
      */
-     uri: string;
-     /**
-      * 文件大小，单位 B
-      */
-     length: number;
-     /**
-      * 文件的保存是的时间戳，从 1970/01/01 00:00:00 GMT 到当前时间的毫秒数
-      */
-     lastModifiedTime: number;
+    uri: string;
+    /**
+     * 文件大小，单位 B
+     */
+    length: number;
+    /**
+     * 文件的保存是的时间戳，从 1970/01/01 00:00:00 GMT 到当前时间的毫秒数
+     */
+    lastModifiedTime: number;
 }

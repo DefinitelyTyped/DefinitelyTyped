@@ -445,68 +445,68 @@ interface Device {
     /**
      * 蓝牙设备名称，某些设备可能没有
      */
-     name: string;
-     /**
-      * 用于区分设备的 id
-      */
-     deviceId: string;
-     /**
-      * 当前蓝牙设备的信号强度
-      */
-     RSSI: number;
-     /**
-      * 当前蓝牙设备的广播数据段中的 ManufacturerData 数据段
-      */
-     advertisData: ArrayBuffer;
-     /**
-      * 当前蓝牙设备的广播数据段中的 ServiceUUIDs 数据段
-      */
-     advertisServiceUUIDs: string[];
-     /**
-      * 当前蓝牙设备的广播数据段中的 LocalName 数据段
-      */
-     localName: string;
-     /**
-      * 当前蓝牙设备的广播数据段中的 ServiceData 数据段，key 为 uuid 的 String 值，value 为对应的 ServiceData 的 ArrayBuffer
-      */
-     serviceData: object;
+    name: string;
+    /**
+     * 用于区分设备的 id
+     */
+    deviceId: string;
+    /**
+     * 当前蓝牙设备的信号强度
+     */
+    RSSI: number;
+    /**
+     * 当前蓝牙设备的广播数据段中的 ManufacturerData 数据段
+     */
+    advertisData: ArrayBuffer;
+    /**
+     * 当前蓝牙设备的广播数据段中的 ServiceUUIDs 数据段
+     */
+    advertisServiceUUIDs: string[];
+    /**
+     * 当前蓝牙设备的广播数据段中的 LocalName 数据段
+     */
+    localName: string;
+    /**
+     * 当前蓝牙设备的广播数据段中的 ServiceData 数据段，key 为 uuid 的 String 值，value 为对应的 ServiceData 的 ArrayBuffer
+     */
+    serviceData: object;
 }
 
 interface Device2 {
     /**
      * 蓝牙设备名称，某些设备可能没有
      */
-     name: string;
-     /**
-      * 用于区分设备的 id
-      */
-     deviceId: string;
+    name: string;
+    /**
+     * 用于区分设备的 id
+     */
+    deviceId: string;
 }
 
 interface Characteristy {
     /**
      * 蓝牙设备服务的 uuid
      */
-     uuid: string;
-     /**
-      * 该特征值支持的操作类型
-      */
-     properties: {
-         /**
-          * 该特征值是否支持 read 操作
-          */
-         read: boolean;
-         /**
-          * 该特征值是否支持 write 操作
-          */
-         write: boolean;
-         /**
-          * 该特征值是否支持 notify 操作
-          */
-         notify: boolean;
-         /**
-          * 该特征值是否支持 indicate 操作
-          */
-         indicate: boolean;
-     };
+    uuid: string;
+    /**
+     * 该特征值支持的操作类型
+     */
+    properties: {
+        /**
+         * 该特征值是否支持 read 操作
+         */
+        read: boolean;
+        /**
+         * 该特征值是否支持 write 操作
+         */
+        write: boolean;
+        /**
+         * 该特征值是否支持 notify 操作
+         */
+        notify: boolean;
+        /**
+         * 该特征值是否支持 indicate 操作
+         */
+        indicate: boolean;
+    };
 }

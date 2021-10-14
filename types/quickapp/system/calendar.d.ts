@@ -13,10 +13,6 @@ declare module '@system.calendar' {
          */
         title: string;
         /**
-         * 事件的描述
-         */
-        description?: string;
-        /**
          * 事件开始时间，以从公元纪年开始计算的协调世界时毫秒数表示
          */
         startDate: number;
@@ -24,6 +20,10 @@ declare module '@system.calendar' {
          * 事件结束时间，以从公元纪年开始计算的协调世界时毫秒数表示
          */
         endDate: number;
+        /**
+         * 事件的描述
+         */
+        description?: string;
         /**
          * 事件的时区
          */
@@ -35,7 +35,7 @@ declare module '@system.calendar' {
         /**
          * 事件的重复发生规则格式。例如，"FREQ=WEEKLY;COUNT=10;WKST=SU"。 您可以在此处找到更多示例
          */
-        rule?: string;
+        rrule?: string;
         /**
          * 在事件开始前几分钟进行提醒。例如：[5,15,30]
          */

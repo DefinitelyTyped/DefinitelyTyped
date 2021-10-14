@@ -4,6 +4,8 @@
 //                 chenjiangfeng <https://github.com/Jerome77777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
+
+/// <reference types="node" />
 /// <reference path="service/account.d.ts" />
 /// <reference path="service/alipay.d.ts" />
 /// <reference path="service/exchange.d.ts" />

@@ -91,8 +91,8 @@ declare module '@system.prompt' {
          */
         cancel?: () => void;
         /**
-         * 执行结束后的回调
+         * 失败回调
          */
-        complete?: () => void;
+        fail?: (data: any, code: number) => void;
     }): void;
 }

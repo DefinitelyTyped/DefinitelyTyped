@@ -401,13 +401,13 @@ interface MediaFile {
     /**
      * 选取的文件路径
      */
-     uri: string;
-     /**
-      * 选取的文件名称
-      */
-     name: string;
-     /**
-      * 选取的文件大小，单位B
-      */
-     size: number;
+    uri: string;
+    /**
+     * 选取的文件名称
+     */
+    name: string;
+    /**
+     * 选取的文件大小，单位B
+     */
+    size: number;
 }

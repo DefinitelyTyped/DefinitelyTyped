@@ -61,6 +61,6 @@ declare module '@service.wxaccount' {
         /**
          * 取消回调
          */
-        complete?: () => void;
+        cancel?: () => void;
     }): void;
 }

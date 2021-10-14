@@ -69,6 +69,10 @@ declare module '@hap.io.Video' {
 
     function getVideoInfo(obj: {
         /**
+         * 视频文件地址
+         */
+        uri: string;
+        /**
          * 成功回调
          */
         success?: (obj: {

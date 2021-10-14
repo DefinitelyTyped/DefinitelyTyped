@@ -14,6 +14,10 @@ declare module '@service.exchange' {
      */
     function get(obj: {
         /**
+         * 数据的 key
+         */
+        key: string;
+        /**
          * 数据发布方的包名，scope 为 application 时必须提供，为 global 时必须为空
          */
         package?: string;
@@ -25,10 +29,6 @@ declare module '@service.exchange' {
          * 数据发布的空间类型，支持 application 和 global，默认为 application
          */
         scope?: string;
-        /**
-         * 数据的 key
-         */
-        key: string;
         /**
          * 成功回调
          */
