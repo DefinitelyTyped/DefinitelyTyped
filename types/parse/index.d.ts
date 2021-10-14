@@ -1052,7 +1052,11 @@ declare global {
                     defaultValue?: string;
                 }
             };
-            readonly classLevelPermissions: Schema.CLP;
+            readonly classLevelPermissions: Schema.CLP | {
+                protectedFields: {
+                    [fieldName: string]: string[],
+                },
+            };
             readonly indexes: {
                 [key: string]: {
                     [key: string]: number;
