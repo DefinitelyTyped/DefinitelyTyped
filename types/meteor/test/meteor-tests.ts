@@ -777,7 +777,15 @@ namespace MeteorTests {
 
     const Template3 = Template as TemplateStaticTyped<'newTemplate3', string>;
 
-    const Template4 = Template as TemplateStaticTyped<'newTemplate4'>;
+    const Template4 = Template as TemplateStaticTyped<'newTemplate4', () => number>;
+
+    Template4.newTemplate4.events({
+        test: (_event, instance) => {
+            instance.data(); // $ExpectType number
+        },
+    });
+
+    const Template5 = Template as TemplateStaticTyped<'newTemplate5'>;
 
     /**
      * From Match section
