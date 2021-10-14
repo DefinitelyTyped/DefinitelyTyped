@@ -663,3 +663,21 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
     cpAsync('src', 'dest'); // $ExpectType Promise<void>
     cpAsync('src', 'dest', opts); // $ExpectType Promise<void>
 }
+
+{
+    fs.promises.open('/dev/input/event0', 'r').then((fd) => {
+        // Create a stream from some character device.
+        const stream = fd.createReadStream(); // $ExpectType ReadStream
+        stream.close();
+        stream.push(null);
+        stream.read(0);
+    });
+}
+
+{
+    fs.promises.open('/tmp/tmp.txt', 'w').then((fd) => {
+        // Create a stream from some character device.
+        const stream = fd.createWriteStream(); // $ExpectType WriteStream
+        stream.close();
+    });
+}

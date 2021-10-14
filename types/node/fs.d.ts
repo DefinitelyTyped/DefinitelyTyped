@@ -306,7 +306,7 @@ declare module 'fs' {
         /**
          * The path to the file the stream is reading from as specified in the first
          * argument to `fs.createReadStream()`. If `path` is passed as a string, then`readStream.path` will be a string. If `path` is passed as a `Buffer`, then`readStream.path` will be a
-         * `Buffer`.
+         * `Buffer`. If `fd` is specified, then`readStream.path` will be `undefined`.
          * @since v0.1.93
          */
         path: string | Buffer;
@@ -2763,7 +2763,7 @@ declare module 'fs' {
      * the numeric values in these objects are specified as `BigInt`s.
      *
      * To be notified when the file was modified, not just accessed, it is necessary
-     * to compare `curr.mtime` and `prev.mtime`.
+     * to compare `curr.mtimeMs` and `prev.mtimeMs`.
      *
      * When an `fs.watchFile` operation results in an `ENOENT` error, it
      * will invoke the listener once, with all the fields zeroed (or, for dates, the
@@ -3362,7 +3362,7 @@ declare module 'fs' {
         end?: number | undefined;
     }
     /**
-     * Unlike the 16 kb default `highWaterMark` for a readable stream, the stream
+     * Unlike the 16 kb default `highWaterMark` for a `stream.Readable`, the stream
      * returned by this method has a default `highWaterMark` of 64 kb.
      *
      * `options` can include `start` and `end` values to read a range of bytes from
@@ -3382,7 +3382,7 @@ declare module 'fs' {
      * closing naturally.
      *
      * By default, the stream will emit a `'close'` event after it has been
-     * destroyed, like most `Readable` streams.  Set the `emitClose` option to`false` to change this behavior.
+     * destroyed.  Set the `emitClose` option to `false` to change this behavior.
      *
      * By providing the `fs` option, it is possible to override the corresponding `fs`implementations for `open`, `read`, and `close`. When providing the `fs` option,
      * an override for `read` is required. If no `fd` is provided, an override for`open` is also required. If `autoClose` is `true`, an override for `close` is
@@ -3424,7 +3424,6 @@ declare module 'fs' {
      *
      * If `options` is a string, then it specifies the encoding.
      * @since v0.1.31
-     * @return See `Readable Stream`.
      */
     export function createReadStream(path: PathLike, options?: BufferEncoding | ReadStreamOptions): ReadStream;
     /**
@@ -3440,7 +3439,7 @@ declare module 'fs' {
      * file descriptor leak.
      *
      * By default, the stream will emit a `'close'` event after it has been
-     * destroyed, like most `Writable` streams.  Set the `emitClose` option to`false` to change this behavior.
+     * destroyed.  Set the `emitClose` option to `false` to change this behavior.
      *
      * By providing the `fs` option it is possible to override the corresponding `fs`implementations for `open`, `write`, `writev` and `close`. Overriding `write()`without `writev()` can reduce
      * performance as some optimizations (`_writev()`)
@@ -3453,7 +3452,6 @@ declare module 'fs' {
      *
      * If `options` is a string, then it specifies the encoding.
      * @since v0.1.31
-     * @return See `Writable Stream`.
      */
     export function createWriteStream(path: PathLike, options?: BufferEncoding | StreamOptions): WriteStream;
     /**
