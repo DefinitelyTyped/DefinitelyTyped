@@ -7,7 +7,7 @@
 // TypeScript Version: 2.1
 
 export class XmlDocument extends XmlElement {
-    constructor(xml: string);
+    constructor(xml: string | Buffer);
 
     doctype: string;
 }
@@ -45,6 +45,10 @@ export class XmlTextNode {
 
     type: 'text';
     text: string;
+    name: string;
+    val: any;
+    attr: XmlAttributes;
+    children: XmlNode[];
 
     toString(opts?: XmlOptions): string;
     toStringWithIndent(indent: string, opts?: XmlOptions): string;
@@ -55,6 +59,10 @@ export class XmlCDataNode {
 
     type: 'cdata';
     cdata: string;
+    name: string;
+    val: any;
+    attr: XmlAttributes;
+    children: XmlNode[];
 
     toString(opts?: XmlOptions): string;
     toStringWithIndent(indent: string, opts?: XmlOptions): string;
@@ -65,6 +73,10 @@ export class XmlCommentNode {
 
     type: 'comment';
     comment: string;
+    name: string;
+    val: any;
+    attr: XmlAttributes;
+    children: XmlNode[];
 
     toString(opts?: XmlOptions): string;
     toStringWithIndent(indent: string, opts?: XmlOptions): string;
