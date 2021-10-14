@@ -8,7 +8,7 @@ import { StyleProp, TextStyle, TextProps, ViewStyle } from 'react-native';
 
 export interface MenuProps {
     button?: ReactElement | undefined;
-    children?: React.ReactNode;
+    children?: ReactNode;
     testID?: string | undefined;
     style?: StyleProp<ViewStyle> | undefined;
     onHidden?: (() => void) | undefined;
