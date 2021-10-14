@@ -43,7 +43,6 @@ My Document:
 
 */
 
-const xml = "<author><name>looooooong value</name></author>";
 console.log("My document: \n" + new xmldoc.XmlDocument(xml).childNamed("name").name);
 /* Prints:
 
