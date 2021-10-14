@@ -87,7 +87,7 @@ export type ValidateOptionsAssertion =
     | {
           actual: any;
           possible?: any;
-          optional?: false | undefined;
+          optional?: false;
       }
     | {
           actual?: any;
@@ -103,9 +103,9 @@ export namespace utils {
         result: postcss.Result;
         message: string;
         node: postcss.Node;
-        index?: number | undefined;
-        word?: string | undefined;
-        line?: number | undefined;
+        index?: number;
+        word?: string;
+        line?: number;
     }): void;
 
     function ruleMessages<T extends { [key: string]: RuleMessageValue }>(ruleName: string, messages: T): T;
