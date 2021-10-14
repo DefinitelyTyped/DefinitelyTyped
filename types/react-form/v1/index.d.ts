@@ -238,6 +238,7 @@ export interface TextProps extends InputAttrs {
 export const Text: React.SFC<TextProps>;
 
 export interface RadioGroupProps {
+    children?: React.ReactNode;
     field?: FormInputProps['field'] | undefined;
     showErrors?: FormInputProps['showErrors'] | undefined;
     errorBefore?: FormInputProps['errorBefore'] | undefined;
