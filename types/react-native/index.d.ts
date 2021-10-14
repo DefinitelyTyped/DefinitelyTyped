@@ -5155,6 +5155,8 @@ interface TouchableMixin {
     touchableGetHitSlop(): Insets;
 }
 
+export interface TouchableWithoutFeedbackPropsIOS {}
+
 export interface TouchableWithoutFeedbackPropsAndroid {
     /**
      * If true, doesn't play a system sound on touch.
@@ -5168,7 +5170,8 @@ export interface TouchableWithoutFeedbackPropsAndroid {
  * @see https://reactnative.dev/docs/touchablewithoutfeedback#props
  */
 export interface TouchableWithoutFeedbackProps
-    extends TouchableWithoutFeedbackPropsAndroid,
+    extends TouchableWithoutFeedbackPropsIOS,
+        TouchableWithoutFeedbackPropsAndroid,
         AccessibilityProps {
     /**
      * Delay in ms, from onPressIn, before onLongPress is called.
@@ -5338,7 +5341,7 @@ export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps, TV
      * pressDuration: Defaults to 0.3.
      * pressDelay: Defaults to 0.0.
      *
-     * @platform ios
+     * @platform android
      */
     tvParallaxProperties?: TVParallaxProperties | undefined;
 }
@@ -7576,34 +7579,32 @@ export interface BackHandlerStatic {
     addEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): NativeEventSubscription;
     removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
+
 export interface ButtonProps
-    extends Pick<AccessibilityProps, 'accessibilityState' | 'accessibilityLabel'>,
-        TouchableWithoutFeedbackPropsAndroid,
-        TVProps {
+    extends Pick<
+        TouchableNativeFeedbackProps & TouchableOpacityProps,
+        | "accessibilityLabel"
+        | "accessibilityState"
+        | "hasTVPreferredFocus"
+        | "nextFocusDown"
+        | "nextFocusForward"
+        | "nextFocusLeft"
+        | "nextFocusRight"
+        | "nextFocusUp"
+        | "testID"
+        | "disabled"
+        | "onPress"
+        | "touchSoundDisabled"
+    > {
     /**
      * Text to display inside the button. On Android the given title will be converted to the uppercased form.
      */
     title: string;
 
     /**
-     * Handler to be called when the user taps the button.
-     */
-    onPress: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void;
-
-    /**
      * Color of the text (iOS), or background color of the button (Android).
      */
     color?: ColorValue | undefined;
-
-    /**
-     * If true, disable all interactions for this component.
-     */
-    disabled?: boolean | undefined;
-
-    /**
-     * Used to locate this button in end-to-end tests.
-     */
-    testID?: string | undefined;
 }
 
 export class Button extends React.Component<ButtonProps> {}
