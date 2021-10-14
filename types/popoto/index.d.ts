@@ -16,7 +16,6 @@ import { Taxonomy } from './taxonomy';
 import { Toolbar } from './toolbar';
 import { Tools } from './tools';
 
-// This is an extra line to force tests re-run
 interface Popoto {
     /**
      * Main function to call to use Popoto.js.
