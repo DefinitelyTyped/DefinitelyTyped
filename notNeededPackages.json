@@ -5338,6 +5338,10 @@
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
         },
+        "webpack-notifier": {
+            "libraryName": "webpack-notifier",
+            "asOfVersion": "1.14.0"
+        },
         "webpack-subresource-integrity": {
             "libraryName": "webpack-subresource-integrity",
             "asOfVersion": "5.0.0"
