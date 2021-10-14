@@ -6,6 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.4
 
+/// <reference types="node" />
+
 export class XmlDocument extends XmlElement {
     constructor(xml: string | Buffer);
 
