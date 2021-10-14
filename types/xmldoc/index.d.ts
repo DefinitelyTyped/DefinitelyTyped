@@ -1,11 +1,11 @@
-// Type definitions for xmldoc 1.1.2
+// Type definitions for xmldoc 1.1
 // Project: https://github.com/nfarina/xmldoc
 // Definitions by:  Xavier Stouder <https://github.com/Xstoudi>
 //                  Andrew Sheehan <https://github.com/ajsheehan>
 //                  Jordi Bunster <https://github.com/notlaforge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.4
 
-/// <reference types="node" />
 export class XmlDocument extends XmlElement {
     constructor(xml: string | Buffer);
 
