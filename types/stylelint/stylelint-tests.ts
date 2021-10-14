@@ -1,16 +1,13 @@
 import {
-    LinterOptions,
-    FormatterType,
-    SyntaxType,
-    lint,
-    LintResult,
-    LinterResult,
     createPlugin,
-    utils,
-    createRuleTester,
-    RuleTesterContext,
-    RuleTesterResult,
+    FormatterType,
+    lint,
+    LinterOptions,
+    LinterResult,
+    LintResult,
     Plugin,
+    SyntaxType,
+    utils,
     Warning,
 } from 'stylelint';
 
@@ -80,17 +77,3 @@ const testPlugin: Plugin = options => {
 };
 
 createPlugin(ruleName, testPlugin);
-
-const tester = createRuleTester((result: Promise<RuleTesterResult[]>, context: RuleTesterContext) => {
-    return;
-});
-
-tester(testPlugin, {
-    ruleName: 'foo',
-    config: [true, 1],
-    accept: [{ code: 'test' }, { code: 'test2', description: 'testing' }],
-    reject: [
-        { code: 'testreject', line: 1, column: 1 },
-        { code: 'test2reject', message: 'x', line: 1, column: 1 },
-    ],
-});
