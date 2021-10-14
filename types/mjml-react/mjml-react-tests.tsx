@@ -171,7 +171,7 @@ function renderOutTestEmail() {
 // TestMjmlDividerTag
 {
     const minProps: React.ReactNode = <MjmlDivider />;
-    const maxProps: React.ReactNode = <MjmlDivider>child</MjmlDivider>; // $ExpectError
+    const maxProps: React.ReactNode = <MjmlDivider>child</MjmlDivider>;
 }
 // TestMjmlGroupTag
 {
@@ -186,7 +186,7 @@ function renderOutTestEmail() {
 // TestMjmlImageTag
 {
     const minProps: React.ReactNode = <MjmlImage />;
-    const maxProps: React.ReactNode = <MjmlImage>child</MjmlImage>; // $ExpectError
+    const maxProps: React.ReactNode = <MjmlImage>child</MjmlImage>;
 }
 // TestMjmlNavbarTag
 {
@@ -211,7 +211,7 @@ function renderOutTestEmail() {
 // TestMjmlSpacerTag
 {
     const minProps: React.ReactNode = <MjmlSpacer />;
-    const maxProps: React.ReactNode = <MjmlSpacer>child</MjmlSpacer>; // $ExpectError
+    const maxProps: React.ReactNode = <MjmlSpacer>child</MjmlSpacer>;
 }
 // TestMjmlTableTag
 {
@@ -258,7 +258,7 @@ function renderOutTestEmail() {
     // MjmlCarouselImage
     {
         const minProps: React.ReactNode = <MjmlCarouselImage />;
-        const maxProps: React.ReactNode = <MjmlCarouselImage>child</MjmlCarouselImage>; // $ExpectError
+        const maxProps: React.ReactNode = <MjmlCarouselImage>child</MjmlCarouselImage>;
     }
 }
 // TestMjmlSocialElementTag
