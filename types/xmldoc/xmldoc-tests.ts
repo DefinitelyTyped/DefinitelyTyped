@@ -42,3 +42,12 @@ My Document:
 </hello>
 
 */
+
+const xml = "<author><name>looooooong value</name></author>";
+console.log("My document: \n" + new xmldoc.XmlDocument(xml).childNamed("hello").name);
+/* Prints:
+
+My Document:
+hello
+
+*/
