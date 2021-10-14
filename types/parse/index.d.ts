@@ -1043,8 +1043,8 @@ declare global {
          * the schema - such as `className` and `fields`.
          */
         interface RestSchema {
-            readonly className: string;
-            readonly fields: {
+            className: string;
+            fields: {
                 [key: string]: {
                     type: string;
                     targetClass?: string;
@@ -1052,12 +1052,12 @@ declare global {
                     defaultValue?: string;
                 }
             };
-            readonly classLevelPermissions: Schema.CLP & {
+            classLevelPermissions: Schema.CLP & {
                 protectedFields?: {
                     [fieldName: string]: string[],
                 },
             };
-            readonly indexes?: {
+            indexes?: {
                 [key: string]: {
                     [key: string]: number;
                 }
