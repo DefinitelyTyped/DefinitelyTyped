@@ -9,6 +9,7 @@ declare function throng(workers: throng.WorkerCount, start: throng.ProcessCallba
 declare namespace throng {
     type WorkerCount = number | string;
     type ProcessCallback = (id: number) => any;
+    type WorkerCallback = (id: number, disconnect: () => void) => void;
 
     type Options = {
         signals?: string[] | undefined;
@@ -17,7 +18,7 @@ declare namespace throng {
         master?: ProcessCallback | undefined;
         count?: number | undefined;
         workers?: WorkerCount | undefined;
-    } & ({start: ProcessCallback} | {worker: ProcessCallback});
+    } & ({start: WorkerCallback} | {worker: WorkerCallback});
 }
 
 export = throng;
