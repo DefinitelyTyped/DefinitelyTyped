@@ -59,6 +59,11 @@ const websocketfactory = require('@system.websocketfactory');
 const webview = require('@system.webview');
 const wifi = require('@system.wifi');
 const zip = require('@system.zip');
+const downloadtask = require('@system.downloadtask');
+const uploadtask = require('@system.uploadtask');
+const requesttask = require('@system.requesttask');
+const nfc = require('@system.nfc');
+const screenshot = require('@system.screenshot');
 
 video.getVideoInfo({ uri: 'internal://temp/xxx.mp4' });
 
@@ -71,12 +76,12 @@ alipay.pay({ orderInfo: 'test' });
 exchange.get({ key: 'test111' });
 
 health.getLastWeekSteps({
-    success: function (data) {
+    success: function (data: { stepsList: { [x: string]: { steps: any; date: any } } }) {
         for (const i in data.stepsList) {
             console.log(`handling success date: ${data.stepsList[i].date} steps: ${data.stepsList[i].steps}`);
         }
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}, errorMsg=${data}`);
     },
 });
@@ -89,10 +94,10 @@ qqaccount.authorize({
     state: 'random2234',
     scope: 'all',
     redirectUri: 'https://your.redirect.url/path',
-    success: function (data) {
+    success: function (data: any) {
         console.log('qqaccount authorize success, data:' + JSON.stringify(data));
     },
-    fail: function (data, code) {
+    fail: function (data: string, code: number) {
         console.log('qqaccount authorize fail, data:' + data + ', code:' + code);
     },
     cancel: function () {
@@ -101,12 +106,12 @@ qqaccount.authorize({
 });
 
 share.getAvailablePlatforms({
-    success: function (data) {
+    success: function (data: { platforms: { [x: string]: string } }) {
         for (const i in data.platforms) {
             console.log('platforms: ' + data.platforms[i]);
         }
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log('handling fail, code=' + code);
     },
 });
@@ -122,7 +127,7 @@ stats.recordCalculateEvent({
 
 texttoaudio.isLanguageAvailable({
     lang: 'zh_CN',
-    success: function (data) {
+    success: function (data: { isAvailable: any }) {
         console.log(`isAvailable: ${data.isAvailable}`);
     },
 });
@@ -130,10 +135,10 @@ texttoaudio.isLanguageAvailable({
 wxaccount.authorize({
     scope: 'snsapi_userinfo',
     state: 'randomString',
-    success: function (data) {
+    success: function (data: any) {
         console.log('wxaccount authorize success:' + JSON.stringify(data));
     },
-    fail: function (data, code) {
+    fail: function (data: string, code: number) {
         console.log('wxaccount authorize fail:' + data + ', code:' + code);
     },
     cancel: function () {
@@ -144,10 +149,10 @@ wxaccount.authorize({
 wbaccount.authorize({
     redirectUri: 'https://api.weibo.com/oauth2/default.html',
     scope: 'follow_app_official_microblog',
-    success: function (data) {
+    success: function (data: { accessToken: string }) {
         console.log('handling success. accessToken=' + data.accessToken);
     },
-    fail: function (data, code) {
+    fail: function (data: string, code: number) {
         console.log('handling fail, result data=' + data + ', code=' + code);
     },
     cancel: function () {
@@ -161,47 +166,56 @@ alarm.getProvider();
 
 app.createQuickAppQRCode({
     path: '/component/basic/image?key1=value1&key2=value2',
-    success: function (data) {
+    success: function (data: { uri: any }) {
         console.log(`handling success: ${data.uri}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
 
 audio.getPlayState({
-    success: function (data) {
+    success: function (data: {
+        state: any;
+        src: any;
+        currentTime: any;
+        autoplay: any;
+        loop: any;
+        volume: any;
+        muted: any;
+        notificationVisible: any;
+    }) {
         console.log(`handling success: state: ${data.state},src:${data.src},currentTime:${data.currentTime},autoplay:${data.autoplay},loop:${data.loop},
               volume: ${data.volume},muted:${data.muted},notificationVisible:${data.notificationVisible}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log('handling fail, code=' + code);
     },
 });
 
 barcode.scan({
-    success: function (data) {
+    success: function (data: { result: any }) {
         console.log(`handling success: ${data.result}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}, errorMsg=${data}`);
     },
 });
 
 battery.getStatus({
-    success: function (data) {
+    success: function (data: { level: any }) {
         console.log(`handling success: ${data.level}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
 
 bluetooth.getAdapterState({
-    success: function (data) {
+    success: function (data: { available: any; discovering: any }) {
         console.log(`handling adapter state, available = ${data.available}, discovering = ${data.discovering}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
     complete: function () {
@@ -214,7 +228,7 @@ brightness.setKeepScreenOn({
     success: function () {
         console.log('handling success');
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -225,10 +239,10 @@ calendar.insert({
     endDate: 1490880543000,
     remindMinutes: [5, 15, 30],
     rrule: 'FREQ=WEEKLY;COUNT=２',
-    success: function (data) {
+    success: function (data: any) {
         console.log('handling success');
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}, errorMsg=${data}`);
     },
 });
@@ -242,19 +256,19 @@ cipher.aes({
     transformation: 'AES/CBC/PKCS5Padding',
     ivOffset: 0,
     ivLen: 16,
-    success: data => {
+    success: (data: { text: any }) => {
         console.log(`handling success: ${data.text}`);
     },
-    fail: (data, code) => {
+    fail: (data: any, code: number) => {
         console.log(`### cipher.aes fail ### ${code}: ${data}`);
     },
 });
 
 clipboard.get({
-    success: function (data) {
+    success: function (data: { text: any }) {
         console.log(`handling success: ${data.text}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -262,21 +276,21 @@ clipboard.get({
 configuration.getLocale();
 
 contact.list({
-    success: function (data) {
+    success: function (data: { contactList: { [x: string]: { number: any; displayName: string } } }) {
         for (const i in data.contactList) {
             console.log(`name: ${data.contactList[i].displayName},number:${data.contactList[i].number}`);
         }
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log('handling fail, code=' + code);
     },
 });
 
 device.getAdvertisingId({
-    success: function (data) {
+    success: function (data: { advertisingId: any }) {
         console.log(`handling success: ${data.advertisingId}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -284,12 +298,12 @@ device.getAdvertisingId({
 systemFetch.fetch({
     url: 'http://www.example.com',
     responseType: 'text',
-    success: function (response) {
+    success: function (response: { code: any; data: any; headers: any }) {
         console.log(`the status code of the response: ${response.code}`);
         console.log(`the data of the response: ${response.data}`);
         console.log(`the headers of the response: ${JSON.stringify(response.headers)}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, errMsg = ${data}`);
         console.log(`handling fail, errCode = ${code}`);
     },
@@ -297,21 +311,21 @@ systemFetch.fetch({
 
 file.delete({
     uri: 'internal://files/path/to/file',
-    success: function (data) {
+    success: function (data: any) {
         console.log('handling success');
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
 
 geolocation.chooseLocation({
-    success: function (data) {
+    success: function (data: { name: any; address: any; coordType: any; latitude: any; longitude: any }) {
         console.log(
             `choose location success: name = ${data.name}, address = ${data.address}, coordType = ${data.coordType}, latitude = ${data.latitude}, longitude = ${data.longitude}`,
         );
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}, errorMsg=${data}`);
     },
     complete: function () {
@@ -339,19 +353,19 @@ image.applyOperations({
     ],
     quality: 90,
     format: 'webp',
-    success: function (data) {
+    success: function (data: { uri: any }) {
         console.log(`handling success: ${data.uri}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
 
 keyguard.getKeyguardLockedStatus({
-    success: result => {
+    success: (result: { isKeyguardLocked: any }) => {
         console.log('当前应用是否为锁屏状态：', result.isKeyguardLocked);
     },
-    fail: (data, code) => {
+    fail: (data: any, code: number) => {
         console.log(`get isKeyguardLocked fail, errMsg = ${data}`);
         console.log(`get isKeyguardLocked fail, errCode = ${code}`);
     },
@@ -359,19 +373,19 @@ keyguard.getKeyguardLockedStatus({
 
 media.getRingtone({
     type: 'ringtone',
-    success: function (data) {
+    success: function (data: { title: any }) {
         console.log(`get ringtone success title: ${data.title}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
 
 network.getSimOperators({
-    success: function (data) {
+    success: function (data: { size: any }) {
         console.log(`size: ${data.size}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}, errorMsg=${data}`);
     },
 });
@@ -385,12 +399,12 @@ notification.show({
 
 hapPackage.getSignatureDigests({
     package: 'com.hap.app',
-    success: function (data) {
-        data.signatureDigests.map(function (item) {
+    success: function (data: { signatureDigests: any[] }) {
+        data.signatureDigests.map(function (item: any) {
             console.log(`handling success: signature = ${item}`);
         });
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -398,13 +412,13 @@ hapPackage.getSignatureDigests({
 systemPrompt.showContextMenu({
     itemList: ['item1', 'item2'],
     itemColor: '#ff33ff',
-    success: function (data) {
+    success: function (data: any) {
         console.log('handling success');
     },
     cancel: function () {
         console.log('handling cancel');
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -415,20 +429,20 @@ record.start({
     numberOfChannels: 1,
     encodeBitRate: 16000,
     format: 'aac',
-    success: function (data) {
+    success: function (data: { uri: any }) {
         console.log(`handling success: ${data.uri}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}, errorMsg=${data}`);
     },
 });
 
 request.download({
     url: 'http://www.example.com',
-    success: function (data) {
+    success: function (data: { token: any }) {
         console.log(`handling success${data.token}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -442,7 +456,7 @@ router.push({
 });
 
 sensor.subscribeAccelerometer({
-    callback: function (ret) {
+    callback: function (ret: { x: any; y: any; z: any }) {
         console.log(`handling callback, x = ${ret.x}, y = ${ret.y}, z = ${ret.z}`);
     },
 });
@@ -450,10 +464,10 @@ sensor.subscribeAccelerometer({
 systemShare.share({
     type: 'text/html',
     data: '<b>bold</b>',
-    success: function (data) {
+    success: function (data: any) {
         console.log('handling success');
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -465,26 +479,26 @@ shortcut.hasInstalled({
 });
 
 sms.readSafely({
-    success: function (data) {
+    success: function (data: { message: string }) {
         console.log('handling success. message=' + data.message);
     },
-    fail: function (data, code) {
+    fail: function (data: string, code: number) {
         console.log('handling fail, result data=' + data + ', code=' + code);
     },
 });
 
 storage.delete({
     key: 'A1',
-    success: function (data) {
+    success: function (data: any) {
         console.log('handling success');
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
 
 telecom.getTelecomInfo({
-    success: function (ret) {
+    success: function (ret: { is5GDevice: any }) {
         console.log(`handling success, is5GDevice = ${ret.is5GDevice}`);
     },
 });
@@ -494,10 +508,10 @@ vibrator.vibrate({
 });
 
 volume.getMediaValue({
-    success: function (data) {
+    success: function (data: { value: any }) {
         console.log(`handling success: ${data.value}`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -521,7 +535,7 @@ wifi.connect({
     success: function () {
         console.log('connect wifi success');
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
     },
 });
@@ -532,7 +546,53 @@ zip.decompress({
     success: function () {
         console.log(`handling success`);
     },
-    fail: function (data, code) {
+    fail: function (data: any, code: number) {
         console.log(`handling fail, code = ${code}`);
+    },
+});
+
+downloadtask.downloadFile({
+    url: 'https://www.test.mp3',
+    success(res: any) {
+        console.log('Download success. resp = ' + JSON.stringify(res));
+    },
+    fail(res: any) {
+        console.log('Download fail. resp = ' + JSON.stringify(res));
+    },
+});
+
+uploadtask.uploadFile({
+    url: 'http://www.example.com',
+    filePath: 'internal://mass/download/test.png',
+    name: 'testImg',
+    success: function (res: any) {
+        console.log('Upload success.resp = ' + JSON.stringify(res));
+    },
+    fail: function (data: any, code: number) {
+        console.log(`handling fail, errMsg = ${data}`);
+        console.log(`handling fail, errCode = ${code}`);
+    },
+});
+
+requesttask.request({
+    url: 'http://www.example.com',
+    responseType: 'text',
+    method: 'GET',
+    success: function (res: any) {
+        console.log(`the status code of the response: ${res.statusCode}`);
+        console.log(`the data of the response: ${res.data}`);
+        console.log(`the headers of the response: ${JSON.stringify(res.headers)}`);
+    },
+    fail: function (data: any, code: number) {
+        console.log(`handling fail, errMsg = ${data}`);
+        console.log(`handling fail, errCode = ${code}`);
+    },
+});
+
+nfc.getNFCAdapter();
+
+screenshot.onUserCaptureScreen({
+    callback: function (data: any) {
+        console.log(`用户截屏了`);
     },
 });

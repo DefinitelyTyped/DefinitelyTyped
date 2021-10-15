@@ -147,6 +147,12 @@ declare module '@system.device' {
              * 当前快应用引擎的设备类型，手机版为'phone'
              */
             deviceType: string;
+
+            /**
+             * 1100+
+             * 获取屏幕显示刷新率(获取帧率可能不为60, 90, 144等标准帧率)
+             */
+            screenRefreshRate: number;
         }) => void;
         /**
          * 失败回调

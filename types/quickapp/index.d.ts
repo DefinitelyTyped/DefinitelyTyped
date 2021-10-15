@@ -61,6 +61,11 @@
 /// <reference path="system/configuration.d.ts" />
 /// <reference path="system/telecom.d.ts" />
 /// <reference path="system/keyguard.d.ts" />
+/// <reference path="system/downloadtask.d.ts" />
+/// <reference path="system/uploadtask.d.ts" />
+/// <reference path="system/requesttask.d.ts" />
+/// <reference path="system/nfc.d.ts" />
+/// <reference path="system/screenshot.d.ts" />
 
 // hap 接口
 /// <reference path="hap/video.d.ts" />

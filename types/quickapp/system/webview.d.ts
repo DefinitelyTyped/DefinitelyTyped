@@ -22,5 +22,57 @@ declare module '@system.webview' {
          * [1070+]
          */
         showloadingdialog?: boolean;
+
+        /**
+         * 1091+
+         * 设置web组件的userAgent，默认使用快应用的UA。
+         * - 设置为system，表示使用系统默认UA。
+         * - 设置其他字符串属于自定义UA。
+         * - 不设置此字段或者传入空值，使用默认快应用UA。
+         */
+        useragent?: string;
+    }): void;
+
+    /**
+     * [1100+]
+     * 设置WebView的Cookie信息。
+     */
+    function setCookie(obj: {
+        /**
+         * cookie设置的域名
+         */
+        domain: string;
+        /**
+         * cookie的名称
+         */
+        name: string;
+        /**
+         * cookie的值
+         */
+        value?: string;
+        /**
+         * cookie的路径，默认为/
+         */
+        path?: string;
+        /**
+         * cookie的过期时间，时间格式必须是GMT时间格式
+         */
+        expires?: string;
+        /**
+         * cookie的过期时间，单位为：秒。maxAge优先级高于expires
+         */
+        maxAge?: string;
+        /**
+         * cookie其它额外信息
+         */
+        extra?: string;
+        /**
+         * 调用成功的回调函数
+         */
+        success?: () => void;
+        /**
+         * 调用失败的回调函数
+         */
+        fail?: () => void;
     }): void;
 }
