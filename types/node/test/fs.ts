@@ -664,7 +664,6 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
     cpAsync('src', 'dest', opts); // $ExpectType Promise<void>
 }
 
-
 async () => {
     const handle: FileHandle = await openAsync('test', 'r');
     const writeStream = new fs.WriteStream('./index.d.ts', {

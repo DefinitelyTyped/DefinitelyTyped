@@ -354,7 +354,6 @@ async function testPromisify() {
     });
 }
 
-
 {
     const writeStream = new fs.WriteStream('./index.d.ts');
     const _wom = writeStream.writableObjectMode; // $ExpectType boolean
