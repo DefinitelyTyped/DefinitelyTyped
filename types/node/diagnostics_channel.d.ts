@@ -37,6 +37,7 @@ declare module 'diagnostics_channel' {
      *   // There are subscribers, prepare and publish message
      * }
      * ```
+     * @since v15.1.0, v14.17.0
      * @param name The channel name
      * @return If there are active subscribers
      */
@@ -51,6 +52,7 @@ declare module 'diagnostics_channel' {
      *
      * const channel = diagnostics_channel.channel('my-channel');
      * ```
+     * @since v15.1.0, v14.17.0
      * @param name The channel name
      * @return The named channel object
      */
@@ -63,6 +65,7 @@ declare module 'diagnostics_channel' {
      * lookups at publish time, enabling very fast publish speeds and allowing
      * for heavy use while incurring very minimal cost. Channels are created with {@link channel}, constructing a channel directly
      * with `new Channel(name)` is not supported.
+     * @since v15.1.0, v14.17.0
      */
     class Channel {
         readonly name: string;
@@ -82,6 +85,7 @@ declare module 'diagnostics_channel' {
          *   // There are subscribers, prepare and publish message
          * }
          * ```
+         * @since v15.1.0, v14.17.0
          */
         readonly hasSubscribers: boolean;
         private constructor(name: string);
@@ -99,6 +103,7 @@ declare module 'diagnostics_channel' {
          *   // Received data
          * });
          * ```
+         * @since v15.1.0, v14.17.0
          * @param onMessage The handler to receive channel messages
          */
         subscribe(onMessage: ChannelListener): void;
@@ -118,6 +123,7 @@ declare module 'diagnostics_channel' {
          *
          * channel.unsubscribe(onMessage);
          * ```
+         * @since v15.1.0, v14.17.0
          * @param onMessage The previous subscribed handler to remove
          */
         unsubscribe(onMessage: ChannelListener): void;

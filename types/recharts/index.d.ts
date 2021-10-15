@@ -199,6 +199,7 @@ export interface BarData {
 }
 
 export interface BarProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
+    children?: React.ReactNode;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     className?: string;
     fill?: string;
@@ -465,6 +466,7 @@ export type LineChartProps = CategoricalChartWrapper & EventAttributes;
 export class LineChart extends React.Component<LineChartProps> { }
 
 export interface PieProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
+    children?: React.ReactNode;
     className?: string;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     cx?: number | string;
@@ -856,6 +858,7 @@ export interface SectorProps extends EventAttributes, Partial<PresentationAttrib
 export class Sector extends React.Component<SectorProps> { }
 
 export interface TextProps extends Partial<PresentationAttributes> {
+    children?: React.ReactNode;
     className?: string;
     scaleToFit?: boolean;
     angle?: number;
@@ -986,6 +989,7 @@ export interface XPadding {
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface XAxisProps extends EventAttributes {
     allowDecimals?: boolean;
+    children?: React.ReactNode;
     hide?: boolean;
     // The name of data displayed in the axis
     name?: string | number;
@@ -1046,6 +1050,7 @@ export interface YPadding {
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface YAxisProps extends EventAttributes {
     allowDecimals?: boolean;
+    children?: React.ReactNode;
     hide?: boolean;
     // The name of data displayed in the axis
     name?: string | number;

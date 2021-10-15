@@ -520,6 +520,8 @@ export interface DropdownProps {
 }
 
 export interface DropdownItemProps {
+    children?: React.ReactNode;
+
     onSelect: AbstractEventHandler<
         React.FocusEvent<HTMLInputElement>,
         {
@@ -1635,6 +1637,7 @@ export interface TypeaheadProps {
  * https://gestalt.netlify.app/Upsell
  */
 export interface UpsellProps {
+    children?: React.ReactElement;
     message: string;
     dismissButton?:
         | {

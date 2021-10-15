@@ -16,6 +16,8 @@ export interface AriaModalProps {
      */
     alert?: boolean | undefined;
 
+    children?: React.ReactNode;
+
     /**
      * By default, the modal is active when mounted, deactivated when unmounted.
      * However, you can also control its active/inactive state by changing
