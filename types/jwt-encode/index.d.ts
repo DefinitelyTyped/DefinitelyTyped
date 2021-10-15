@@ -3,13 +3,15 @@
 // Definitions by: Shakirov Kirill <https://github.com/turisap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface BaseOptions {
+interface BaseOptions {
     alg: 'HS256';
     typ: 'JWT';
 }
 
-export type Options = Partial<BaseOptions> & {
+type Options = Partial<BaseOptions> & {
     [key: string]: string;
 };
 
-export default function sign(data: unknown, secret: string, options?: Options): string;
+declare function sign(data: unknown, secret: string, options?: Options): string;
+
+export = sign;

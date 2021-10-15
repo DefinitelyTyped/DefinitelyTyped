@@ -1,4 +1,4 @@
-import sign from 'jwt-encode';
+import sign = require('jwt-encode');
 
 const data = {
     payload: { user_id: 14 },
