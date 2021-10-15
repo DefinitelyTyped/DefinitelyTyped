@@ -131,6 +131,20 @@ declare module 'fs' {
     }
 
     class ReadStream extends stream.Readable {
+        constructor(path: PathLike, options?: string | {
+            flags?: string | undefined;
+            encoding?: string | undefined;
+            fd?: number | undefined;
+            mode?: number | undefined;
+            autoClose?: boolean | undefined;
+            /**
+             * @default false
+             */
+            emitClose?: boolean | undefined;
+            start?: number | undefined;
+            end?: number | undefined;
+            highWaterMark?: number | undefined;
+        });
         close(): void;
         bytesRead: number;
         path: string | Buffer;
@@ -162,6 +176,16 @@ declare module 'fs' {
     }
 
     class WriteStream extends stream.Writable {
+        constructor(path: PathLike, options?: string | {
+            flags?: string | undefined;
+            encoding?: string | undefined;
+            fd?: number | undefined;
+            mode?: number | undefined;
+            autoClose?: boolean | undefined;
+            emitClose?: boolean | undefined;
+            start?: number | undefined;
+            highWaterMark?: number | undefined;
+        });
         close(): void;
         bytesWritten: number;
         path: string | Buffer;

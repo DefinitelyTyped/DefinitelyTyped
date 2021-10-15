@@ -328,3 +328,21 @@ async function testPromisify() {
         encoding: 'utf8',
     });
 }
+
+
+{
+    const writeStream = new fs.WriteStream('./index.d.ts');
+    const _wom = writeStream.writableObjectMode; // $ExpectType boolean
+
+    const readStream = new fs.ReadStream('./index.d.ts');
+    const _rom = readStream.readableObjectMode; // $ExpectType boolean
+}
+
+{
+    new fs.WriteStream('./index.d.ts'); // $ExpectType WriteStream
+    new fs.WriteStream('./index.d.ts', 'utf8'); // $ExpectType WriteStream
+    new fs.WriteStream('./index.d.ts', { encoding: 'utf8' }); // $ExpectType WriteStream
+    new fs.ReadStream('./index.d.ts'); // $ExpectType ReadStream
+    new fs.ReadStream('./index.d.ts', 'utf8'); // $ExpectType ReadStream
+    new fs.ReadStream('./index.d.ts', { encoding: 'utf8' }); // $ExpectType ReadStream
+}
