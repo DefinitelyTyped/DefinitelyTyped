@@ -8288,11 +8288,6 @@ export class StatusBar extends React.Component<StatusBarProps> {
     static replaceStackEntry: (entry: StatusBarProps, props: StatusBarProps) => StatusBarProps;
 }
 
-/**
- * @deprecated Use StatusBar instead
- */
-export interface StatusBarIOSStatic extends NativeEventEmitter {}
-
 export interface TimePickerAndroidOpenOptions {
     hour?: number | undefined;
     minute?: number | undefined;
@@ -9575,12 +9570,6 @@ export type Settings = SettingsStatic;
 
 export const Share: ShareStatic;
 export type Share = ShareStatic;
-
-/**
- * @deprecated Use StatusBar instead
- */
-export const StatusBarIOS: StatusBarIOSStatic;
-export type StatusBarIOS = StatusBarIOSStatic;
 
 export const Systrace: SystraceStatic;
 export type Systrace = SystraceStatic;
