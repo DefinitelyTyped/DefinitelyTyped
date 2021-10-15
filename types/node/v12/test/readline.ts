@@ -6,7 +6,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
 {
     const options: readline.ReadLineOptions = {
-        input: new fs.ReadStream()
+        input: new fs.ReadStream('index.d.ts')
     };
     const input: NodeJS.ReadableStream = new stream.Readable();
     const output: NodeJS.WritableStream = new stream.Writable();
