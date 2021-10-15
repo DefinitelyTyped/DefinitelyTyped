@@ -108,7 +108,7 @@ export class Form
     render(): RenderReturn;
 }
 
-export const NestedForm: React.StatelessComponent<FieldProps>;
+export const NestedForm: React.FunctionComponent<FieldProps>;
 
 export function FormField(component: React.ComponentType<any>): React.ComponentClass<any>;
 
@@ -129,6 +129,7 @@ export interface FieldApi {
 }
 
 export interface FieldProps {
+    children?: React.ReactNode;
     field?: string | string[] | React.ReactText[] | Array<(string | React.ReactText[])> | undefined;
     showErrors?: boolean | undefined;
     errorBefore?: boolean | undefined;

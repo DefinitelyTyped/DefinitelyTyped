@@ -12,6 +12,7 @@ export interface PollingConfig {
     timeout: number;
 }
 export interface BaseProps {
+    children?: React.ReactNode;
     onChange?: (online: boolean) => void | undefined;
     wrapperType?: string;
     polling?: boolean | PollingConfig;

@@ -10,30 +10,18 @@
 import { GlobbyOptions } from 'globby';
 import * as postcss from 'postcss';
 
-export type FormatterType =
-    | "json"
-    | "string"
-    | "verbose"
-    | "compact"
-    | "unix"
-    | ((results: LintResult[]) => string);
+export type FormatterType = 'json' | 'string' | 'verbose' | 'compact' | 'unix' | ((results: LintResult[]) => string);
 
-export type SyntaxType = "css-in-js"
-    | "html"
-    | "less"
-    | "markdown"
-    | "sass"
-    | "scss"
-    | "sugarss";
+export type SyntaxType = 'css-in-js' | 'html' | 'less' | 'markdown' | 'sass' | 'scss' | 'sugarss';
 
-export type Severity = "warning" | "error";
+export type Severity = 'warning' | 'error';
 
 export interface Configuration {
     rules: Record<string, any>;
     extends: string | string[];
     plugins: string[];
     processors: string[];
-    ignoreFiles: string|string[];
+    ignoreFiles: string | string[];
     defaultSeverity: Severity;
 }
 
@@ -95,15 +83,17 @@ export namespace formatters {
 
 export function lint(options?: Partial<LinterOptions>): Promise<LinterResult>;
 
-export type ValidateOptionsAssertion = {
-    actual: any;
-    possible?: any;
-    optional?: false | undefined;
-} | {
-    actual?: any;
-    possible: any;
-    optional: true;
-};
+export type ValidateOptionsAssertion =
+    | {
+          actual: any;
+          possible?: any;
+          optional?: false;
+      }
+    | {
+          actual?: any;
+          possible: any;
+          optional: true;
+      };
 
 export type RuleMessageValue = string | ((...args: any[]) => string);
 
@@ -113,66 +103,28 @@ export namespace utils {
         result: postcss.Result;
         message: string;
         node: postcss.Node;
-        index?: number | undefined;
-        word?: string | undefined;
-        line?: number | undefined;
+        index?: number;
+        word?: string;
+        line?: number;
     }): void;
 
-    function ruleMessages<T extends {[key: string]: RuleMessageValue}>(
-        ruleName: string,
-        messages: T): T;
+    function ruleMessages<T extends { [key: string]: RuleMessageValue }>(ruleName: string, messages: T): T;
 
-    function validateOptions(result: postcss.Result, ruleName: string,
-        ...options: ValidateOptionsAssertion[]): boolean;
+    function validateOptions(result: postcss.Result, ruleName: string, ...options: ValidateOptionsAssertion[]): boolean;
 
-    function checkAgainstRule(options: {
-        ruleName: string;
-        ruleSettings: any;
-        root: any;
-    }, callback: (warning: string) => void): void;
+    function checkAgainstRule(
+        options: {
+            ruleName: string;
+            ruleSettings: any;
+            root: any;
+        },
+        callback: (warning: string) => void,
+    ): void;
 }
 
-export type Plugin = (primaryOption: any, secondaryOptions?: object) =>
-    (root: postcss.Root, result: postcss.Result) => void|PromiseLike<void>;
+export type Plugin = (
+    primaryOption: any,
+    secondaryOptions?: object,
+) => (root: postcss.Root, result: postcss.Result) => void | PromiseLike<void>;
 
-export function createPlugin(
-    ruleName: string,
-    plugin: Plugin
-): any;
-
-export interface RuleTesterResult {
-    expected: number;
-    actual: number;
-    description: string;
-}
-
-export interface RuleTesterTest {
-    code: string;
-    description?: string | undefined;
-}
-
-export interface RuleTesterTestRejected extends RuleTesterTest {
-    line?: number | undefined;
-    column?: number | undefined;
-    only?: boolean | undefined;
-    message?: string | undefined;
-}
-
-export interface RuleTesterSchema {
-    ruleName: string;
-    syntax?: SyntaxType | undefined;
-    config?: any;
-    accept?: RuleTesterTest[] | undefined;
-    reject?: RuleTesterTestRejected[] | undefined;
-}
-
-export interface RuleTesterContext {
-    comparisonCount: number;
-    completeAssertionDescription: string;
-    caseDescription: string;
-    only?: boolean | undefined;
-}
-
-export function createRuleTester(
-    fn: (result: Promise<RuleTesterResult[]>, context: RuleTesterContext) => void
-): (rule: Plugin, schema: RuleTesterSchema) => void;
+export function createPlugin(ruleName: string, plugin: Plugin): any;

@@ -35,6 +35,7 @@ export type OrderFunction = (series: Series<any, any>) => number[];
 
 export interface ChartProps<T> {
     data: T[];
+    children?: React.ReactNode;
     style?: StyleProp<ViewStyle> | undefined;
     animate?: boolean | undefined;
     animationDuration?: number | undefined;

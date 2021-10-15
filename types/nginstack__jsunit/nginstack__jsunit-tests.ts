@@ -52,4 +52,4 @@ suite.assertNotNan(arrAny); // $ExpectType void
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(51, 52); // $ExpectType boolean
+testMajorVersions(52, 53); // $ExpectType boolean
