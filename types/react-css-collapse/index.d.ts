@@ -6,6 +6,7 @@
 
 declare module 'react-css-collapse' {
   interface Props {
+    children?: React.ReactNode;
     isOpen: boolean;
     className?: string | null | undefined;
     onRest?: (() => void) | undefined;

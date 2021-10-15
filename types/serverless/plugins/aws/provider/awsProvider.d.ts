@@ -11,6 +11,7 @@ declare namespace Aws {
         enableLocalInstallationFallback?: boolean | undefined;
         variablesResolutionMode?: '20210219' | '20210326' | undefined;
         unresolvedVariablesNotificationMode?: 'warn' | 'error' | undefined;
+        deprecationNotificationMode?: 'warn' | 'warn:summary' | 'error' | undefined;
         disabledDeprecations?: string[] | undefined;
         configValidationMode?: 'warn' | 'error' | 'off' | undefined;
         provider: Provider;

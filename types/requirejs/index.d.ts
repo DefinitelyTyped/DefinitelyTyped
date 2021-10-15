@@ -189,10 +189,7 @@ interface RequireConfig {
     * uses to fetch resources.  Most useful to cache bust when
     * the browser or server is not configured correctly.
     *
-    * @example
-    * urlArgs: "bust= + (new Date()).getTime()
-    *
-     * As of RequireJS 2.2.0, urlArgs can be a function. If a
+    * As of RequireJS 2.2.0, urlArgs can be a function. If a
     * function, it will receive the module ID and the URL as
     * parameters, and it should return a string that will be added
     * to the end of the URL. Return an empty string if no args.
@@ -200,7 +197,11 @@ interface RequireConfig {
     * the existing state of the URL.
     *
     * @example
-
+    *
+    * urlArgs: "bust=" + (new Date()).getTime()
+    *
+    * @example
+    *
     * requirejs.config({
     *     urlArgs: function(id, url) {
     *         var args = 'v=1';

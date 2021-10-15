@@ -3,12 +3,10 @@ import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import * as PropTypes from "prop-types";
 import createFragment = require("react-addons-create-fragment");
-import CSSTransitionGroup = require("react-addons-css-transition-group");
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
 import * as Perf from "react-addons-perf";
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
-import * as TestUtils from "react-addons-test-utils";
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
@@ -639,33 +637,6 @@ createFragment({
 });
 
 //
-// CSSTransitionGroup addon
-// --------------------------------------------------------------------------
-React.createFactory(CSSTransitionGroup)({
-    component: createReactClass({
-        render: (): null => null
-    }),
-    childFactory: (c) => c,
-    transitionName: "transition",
-    transitionAppear: false,
-    transitionEnter: true,
-    transitionLeave: true,
-    id: "some-id",
-    className: "some-class"
-});
-
-React.createFactory(CSSTransitionGroup)({
-    transitionName: {
-        enter: "enter",
-        enterActive: "enterActive",
-        leave: "leave",
-        leaveActive: "leaveActive",
-        appear: "appear",
-        appearActive: "appearActive"
-    }
-});
-
-//
 // LinkedStateMixin addon
 // --------------------------------------------------------------------------
 createReactClass({
@@ -725,44 +696,6 @@ createReactClass({
     mixins: [PureRenderMixin],
     render() { return DOM.div(null); }
 });
-
-//
-// TestUtils addon
-// --------------------------------------------------------------------------
-
-const inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
-const node: Element = TestUtils.renderIntoDocument(DOM.div());
-
-TestUtils.Simulate.click(node);
-TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
-
-const renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
-renderer.render(React.createElement(Timer));
-const output: React.ReactElement<React.Props<Timer>> =
-    renderer.getRenderOutput();
-
-const foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
-    inst, ModernComponent);
-const foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
-    inst, ModernComponent);
-
-// ReactTestUtils custom type guards
-
-const emptyElement1: React.ReactElement<Props> = React.createElement(ModernComponent);
-if (TestUtils.isElementOfType(emptyElement1, FunctionComponent)) {
-    emptyElement1.props.foo;
-}
-const emptyElement2: React.ReactElement<SCProps> = React.createElement(FunctionComponent);
-if (TestUtils.isElementOfType(emptyElement2, FunctionComponent)) {
-    emptyElement2.props.foo;
-}
-
-if (TestUtils.isDOMComponent(container)) {
-    const reassignedContainer: Element = container;
-} else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
-    new ModernComponent({ hello: 'hi', foo: 3 }).props;
-}
 
 //
 // TransitionGroup addon

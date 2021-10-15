@@ -1,6 +1,7 @@
 import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync, cp as cpAsync } from 'node:fs/promises';
 import * as fs from 'node:fs';
 import * as util from 'node:util';
+import { URL } from 'node:url';
 import assert = require('node:assert');
 import { CopyOptions, cpSync, cp } from 'fs';
 
@@ -357,7 +358,23 @@ async function testPromisify() {
         const dirEnt: fs.Dirent | null = await dir.read();
     });
 
+    fs.opendir(Buffer.from('test'), async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
+    fs.opendir(new URL(`file://${__dirname}`), async (err, dir) => {
+        const dirEnt: fs.Dirent | null = await dir.read();
+    });
+
     const dir: fs.Dir = fs.opendirSync('test', {
+        encoding: 'utf8',
+    });
+
+    const dirBuffer: fs.Dir = fs.opendirSync(Buffer.from('test'), {
+        encoding: 'utf8',
+    });
+
+    const dirUrl: fs.Dir = fs.opendirSync(new URL(`file://${__dirname}`), {
         encoding: 'utf8',
     });
 
@@ -365,9 +382,25 @@ async function testPromisify() {
         // tslint:disable-next-line: await-promise
         for await (const thing of dir) {
         }
+        // tslint:disable-next-line: await-promise
+        for await (const thing of dirBuffer) {
+        }
+        // tslint:disable-next-line: await-promise
+        for await (const thing of dirUrl) {
+        }
     });
 
     const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
+        encoding: 'utf8',
+        bufferSize: 42,
+    });
+
+    const dirEntBufferProm: Promise<fs.Dir> = fs.promises.opendir(Buffer.from('test'), {
+        encoding: 'utf8',
+        bufferSize: 42,
+    });
+
+    const dirEntUrlProm: Promise<fs.Dir> = fs.promises.opendir(new URL(`file://${__dirname}`), {
         encoding: 'utf8',
         bufferSize: 42,
     });
@@ -629,4 +662,22 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
     cpSync('src', 'dest', opts);
     cpAsync('src', 'dest'); // $ExpectType Promise<void>
     cpAsync('src', 'dest', opts); // $ExpectType Promise<void>
+}
+
+{
+    fs.promises.open('/dev/input/event0', 'r').then((fd) => {
+        // Create a stream from some character device.
+        const stream = fd.createReadStream(); // $ExpectType ReadStream
+        stream.close();
+        stream.push(null);
+        stream.read(0);
+    });
+}
+
+{
+    fs.promises.open('/tmp/tmp.txt', 'w').then((fd) => {
+        // Create a stream from some character device.
+        const stream = fd.createWriteStream(); // $ExpectType WriteStream
+        stream.close();
+    });
 }
