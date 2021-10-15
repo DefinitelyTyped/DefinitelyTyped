@@ -1,6 +1,6 @@
 /// <reference path="js-yaml.d.ts" />
 
-import yaml = require('js-yaml');
+import yaml = require("js-yaml");
 import LoadOptions = yaml.LoadOptions;
 import DumpOptions = yaml.DumpOptions;
 import TypeConstructorOptions = yaml.TypeConstructorOptions;
@@ -14,19 +14,28 @@ var value: any;
 var array: any[];
 var fn: Function;
 var schemaDefinition: SchemaDefinition = {
-	implicit: array,
-	explicit: array,
-	include: array
+  implicit: array,
+  explicit: array,
+  include: array,
 };
 var typeConstructorOptions: TypeConstructorOptions = {
-	kind: str,
-	resolve: fn,
-	construct: fn,
-	instanceOf: obj,
-	predicate: str,
-	represent: fn,
-	defaultStyle: str,
-	styleAliases: obj
+  kind: str,
+  resolve: fn,
+  construct: fn,
+  instanceOf: obj,
+  predicate: str,
+  represent: fn,
+  defaultStyle: str,
+  styleAliases: obj,
+};
+
+var yamlExceptionMark: yaml.YAMLExceptionMark = {
+  buffer: str,
+  column: num,
+  line: num,
+  name: str || null,
+  position: num,
+  snippet: str,
 };
 
 var loadOpts: LoadOptions;
@@ -45,31 +54,31 @@ yaml.SAFE_SCHEMA;
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 loadOpts = {
-	filename: str
+  filename: str,
 };
 loadOpts = {
-	strict: bool
+  strict: bool,
 };
 loadOpts = {
-	schema: bool
+  schema: bool,
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 dumpOpts = {
-	indent: num
+  indent: num,
 };
 dumpOpts = {
-	skipInvalid: bool
+  skipInvalid: bool,
 };
 dumpOpts = {
-	flowLevel: num
+  flowLevel: num,
 };
 dumpOpts = {
-	styles: obj
+  styles: obj,
 };
 dumpOpts = {
-	schema: value
+  schema: value,
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -83,18 +92,26 @@ value = yaml.load(str, loadOpts);
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 value = yaml.safeLoadAll(str, (doc) => {
-	value = doc;
+  value = doc;
 });
-value = yaml.safeLoadAll(str, (doc) => {
-	value = doc;
-}, loadOpts);
+value = yaml.safeLoadAll(
+  str,
+  (doc) => {
+    value = doc;
+  },
+  loadOpts
+);
 
 value = yaml.loadAll(str, (doc) => {
-	value = doc;
+  value = doc;
 });
-value = yaml.loadAll(str, (doc) => {
-	value = doc;
-}, loadOpts);
+value = yaml.loadAll(
+  str,
+  (doc) => {
+    value = doc;
+  },
+  loadOpts
+);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -105,5 +122,6 @@ value = yaml.dump(str);
 value = yaml.dump(str, dumpOpts);
 
 value = new yaml.YAMLException();
+value = new yaml.YAMLException("error", yamlExceptionMark);
 value = new yaml.Type(str, typeConstructorOptions);
 value = yaml.Schema.create([schemaDefinition]);
