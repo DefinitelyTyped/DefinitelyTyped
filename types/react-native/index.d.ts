@@ -1316,7 +1316,7 @@ export interface TextInputAndroidProps {
      * - `cc-exp-year`
      * - `off`
      */
-    autoCompleteType?:
+    autoComplete?:
         | 'cc-csc'
         | 'cc-exp'
         | 'cc-exp-month'

@@ -1044,7 +1044,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput
                     ref={input => (this.username = input)}
                     textContentType="username"
-                    autoCompleteType="username"
+                    autoComplete="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
