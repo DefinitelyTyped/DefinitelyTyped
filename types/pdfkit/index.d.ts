@@ -532,7 +532,16 @@ declare module 'pdfkit/js/structure_content' {
 declare namespace PDFKit {
     /** PDFStructureElement */
     class PDFStructureElement {
-        constructor(type: string, options: {});
+        constructor(
+            document: PDFDocument,
+            type: string,
+            options?: { title: string; lang: string; alt: string; expanded: string; actual: string },
+            children?:
+                | (() => any)
+                | PDFStructureElement
+                | PDFStructureContent
+                | ((() => any) | PDFStructureContent | PDFStructureElement)[],
+        );
         add(el: PDFStructureContent | PDFStructureElement | (() => any)): PDFStructureElement;
         setParent(parentRef: PDFKitReference): void;
         setAttached(): void;
