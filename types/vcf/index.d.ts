@@ -113,14 +113,14 @@ declare namespace vCard {
     }
 }
 
-type CardVersion =
+export type CardVersion =
     "2.1" | "3.0" | "4.0";
 
-type jCardProperty = [
+export type jCardProperty = [
     string,
     { [key: string]: string | string[] },
     string, string | string[]
 ];
 
 /** jCard standard format */
-type jCard = [ 'vcard', jCardProperty[] ];
+export type jCard = [ 'vcard', jCardProperty[] ];
