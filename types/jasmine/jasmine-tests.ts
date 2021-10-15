@@ -7,8 +7,13 @@ import JasmineClass from "jasmine";
         projectBaseDir: "/",
     });
 
-    jasmineClass.addSpecFiles(["file"]);
     jasmineClass.addSpecFile("file");
+    jasmineClass.addSpecFiles(["dir/**/*.js"]);
+    jasmineClass.addMatchingSpecFiles(["dir/**/*.js"]);
+
+    jasmineClass.addHelperFile("file");
+    jasmineClass.addHelperFiles(["dir/**/*.js"]);
+    jasmineClass.addMatchingHelperFiles(["dir/**/*.js"]);
 
     jasmineClass.env.configure({
         random: true,
@@ -56,6 +61,7 @@ import JasmineClass from "jasmine";
         showColors: true,
     });
 
+    jasmineClass.exitOnCompletion = false;
     await jasmineClass.execute();
 })();
 
