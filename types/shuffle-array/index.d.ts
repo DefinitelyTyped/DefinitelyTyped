@@ -1,7 +1,6 @@
 // Type definitions for shuffle-array 1.0
 // Project: https://github.com/pazguille/shuffle-array
 // Definitions by: rhysd <https://github.com/rhysd>
-//                 jwulf0 <https://github.com/jwulf0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace shuffleArray {
