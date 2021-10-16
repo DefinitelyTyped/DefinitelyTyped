@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 import { GeoPath, GeoProjection } from 'd3-geo';
+import { D3ZoomEvent } from 'd3-zoom';
 import { Feature } from 'geojson';
 import * as React from 'react';
 
@@ -77,12 +78,10 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
      * @default false
      */
     disableZooming?: boolean | undefined;
-    onMoveStart?: ((position: { coordinates: [number, number], zoom: number }, event: any) => void) | undefined;
-    onMove?: ((position: {x: number, y: number, k: number, dragging: WheelEvent }, event: any) => void) | undefined;
-    onMoveEnd?: ((position: { coordinates: [number, number], zoom: number }, event: any) => void) | undefined;
-    onZoomStart?: ((event: any, position: Position) => void) | undefined;
-    onZoomEnd?: ((event: any, position: Position) => void) | undefined;
-    filterZoomEvent?: ((event: any) => boolean) | undefined;
+    onMoveStart?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    onMove?: ((position: {x: number, y: number, k: number, dragging: WheelEvent }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    onMoveEnd?: ((position: { coordinates: [number, number], zoom: number }, event: D3ZoomEvent<SVGElement, any>) => void) | undefined;
+    filterZoomEvent?: ((element: SVGElement) => boolean) | undefined;
     translateExtent?: [[number, number], [number, number]] | undefined;
 }
 
