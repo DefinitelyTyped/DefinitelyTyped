@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "dateformat": [ "dateformat/v1", "dateformat/v3"]
+        }
     },
     "files": [
         "index.d.ts",
