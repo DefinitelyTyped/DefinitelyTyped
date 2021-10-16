@@ -2835,6 +2835,15 @@ declare namespace Matter {
         * @type {}
         */
         textures: any;
+
+        /**
+         * The mouse to render if render.options.showMousePosition is enabled.
+         *
+        * @property textures
+        * @type Mouse
+        * @default null
+        */
+        mouse: Mouse;
     }
 
 

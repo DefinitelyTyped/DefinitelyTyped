@@ -123,6 +123,8 @@ const runner3 = Matter.Runner.create();
 const mouse = Mouse.create(render.canvas);
 const mouseConstraint = MouseConstraint.create(engine, { mouse });
 
+render.mouse = mouse;
+
 Events.on(mouseConstraint, 'mousemove', (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {});
 
 // Composite
