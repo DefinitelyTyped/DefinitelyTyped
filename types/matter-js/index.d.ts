@@ -2614,15 +2614,12 @@ declare namespace Matter {
         /**
          * A flag to enable or disable performance charts.
          * From left to right, the values shown are:
-         * 
          * - average render frequency (e.g. 60 fps)
          * - exact engine delta time used for last update (e.g. 16.66ms)
          * - average engine execution duration (e.g. 5.00ms)
          * - average render execution duration (e.g. 0.40ms)
          * - average effective play speed (e.g. '1.00x' is 'real-time')
-         * 
          * Each value is recorded over a fixed sample of past frames (60 frames).
-         * 
          * A chart shown below each value indicates the variance from the average over the sample. The more stable or fixed the value is the flatter the chart will appear.
          * @type boolean
          * @default false
@@ -2653,7 +2650,6 @@ declare namespace Matter {
         /**
          * A flag to enable or disable the debug information overlay.
          * This includes and has priority over the values of:
-         * 
          * - render.options.showStats
          * - render.options.showPerformance
          * @type boolean
