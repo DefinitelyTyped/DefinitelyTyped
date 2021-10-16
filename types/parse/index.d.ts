@@ -1052,14 +1052,10 @@ declare global {
                     defaultValue?: string;
                 }
             };
-            classLevelPermissions: Schema.CLP & {
-                protectedFields?: {
-                    [fieldName: string]: string[],
-                },
-            };
+            classLevelPermissions: Schema.CLP;
             indexes?: {
                 [key: string]: {
-                    [key: string]: number;
+                    [key: string]: any;
                 }
             };
         }
@@ -1269,6 +1265,10 @@ declare global {
                 readUserFields?: string[] | undefined;
                 /** Array of fields that point to a `_User` object's ID or a `Role` object's name */
                 writeUserFields?: string[] | undefined;
+                protectedFields?: {
+                    /** '*', user id, or role: followed by a list of fields. */
+                    [userIdOrRoleName: string]: string[];
+                };
             }
         }
 
