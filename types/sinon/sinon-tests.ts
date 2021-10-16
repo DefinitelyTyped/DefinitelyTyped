@@ -716,7 +716,7 @@ async function testPromises() {
     promise.status; // $ExpectType "pending" | "resolved" | "rejected"
 
     const typedPromise = sinon.promise<number>();
-    await typedPromise.resolve(111);
+    await typedPromise.resolve(111); // $ExpectType number
     typedPromise.resolvedValue; // $ExpectType number | undefined
     typedPromise.rejectedValue; // $ExpectType unknown
 

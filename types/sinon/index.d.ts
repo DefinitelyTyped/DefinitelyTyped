@@ -1654,7 +1654,7 @@ declare namespace Sinon {
 
     type SinonPromise<T> = Promise<T> & {
         status: 'pending'|'resolved'|'rejected';
-        resolve(val: unknown): Promise<void>;
+        resolve(val: unknown): Promise<T>;
         reject(reason: unknown): Promise<void>;
         resolvedValue?: T;
         rejectedValue?: unknown;
