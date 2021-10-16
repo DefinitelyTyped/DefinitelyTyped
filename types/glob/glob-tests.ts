@@ -1,5 +1,5 @@
 import glob = require("glob");
-import memfs = require("memfs");
+import fs = require("fs");
 
 const Glob = glob.Glob;
 // ExpectType glob
@@ -36,7 +36,15 @@ const globAlias = glob.glob;
 declare const ignore: ReadonlyArray<string>;
 glob.sync('/foo/*', {realpath: true, realpathCache: {'/foo/bar': '/bar'}, ignore: '/foo/baz'});
 glob.sync('/*', {ignore, nodir: true, cache: {'/': ['bar', 'baz']}, statCache: {'/foo/bar': false, '/foo/baz': {isDirectory() { return true; }}}});
-glob.sync('/*', {fs: memfs.Volume.fromJSON({'foo.txt': 'abc'}) as any});
+glob.sync('/*', {
+    fs: {
+        ...fs,
+        existsSync: filepath => {
+            console.log('existsSync called with ' + filepath);
+            return fs.existsSync(filepath);
+        },
+    },
+});
 
 // $ExpectType IGlob
 const globInstance = glob('**/*.js', { mark: true }, (er, matches) => {
