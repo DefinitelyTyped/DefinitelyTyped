@@ -1,4 +1,4 @@
-// Type definitions for Glob 7.1
+// Type definitions for Glob 7.2
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
