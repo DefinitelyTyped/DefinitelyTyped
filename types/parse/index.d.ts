@@ -1723,6 +1723,11 @@ declare global {
          * Flag that indicates whether Encrypted User is enabled.
          */
         function isEncryptedUserEnabled(): boolean;
+
+        /**
+         * Returns the current installation Id.
+         */
+        function _getInstallationId(): string;
     }
 }
 
