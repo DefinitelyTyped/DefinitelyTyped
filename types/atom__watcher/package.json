@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "event-kit": "^2.4.1"
+    "@types/event-kit": "^2.4.1"
   }
 }
