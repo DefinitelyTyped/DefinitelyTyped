@@ -1,12 +1,12 @@
 // Type definitions for steam-user 4.19
 // Project: https://github.com/DoctorMcKay/node-steam-user
-// Definitions by: vanitasboi <https://github.com/vanitasboi>
+// Definitions by: joshuajeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
-// Enums generated from JS by: https://github.com/vanitasboi/JStoTSenum
+// Enums generated from JS by: https://github.com/joshuajeschek/JStoTSenum
 
 // check out PR#54998 for the possibility of a rewrite (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54998)
-// as well as this branch: https://github.com/vanitasboi/DefinitelyTyped/tree/steam-user-rewrite
+// as well as this branch: https://github.com/joshuajeschek/DefinitelyTyped/tree/steam-user-rewrite
 
 /// <reference types="node" />
 
