@@ -535,7 +535,16 @@ declare namespace PDFKit {
         constructor(
             document: PDFDocument,
             type: string,
-            options?: { title: string; lang: string; alt: string; expanded: string; actual: string },
+            options?: { title?: string; lang?: string; alt?: string; expanded?: string; actual?: string },
+            children?:
+                | (() => any)
+                | PDFStructureElement
+                | PDFStructureContent
+                | ((() => any) | PDFStructureContent | PDFStructureElement)[],
+        );
+        constructor(
+            document: PDFDocument,
+            type: string,
             children?:
                 | (() => any)
                 | PDFStructureElement
