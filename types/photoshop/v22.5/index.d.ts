@@ -1,8 +1,6 @@
 // Type definitions for Photoshop JavaScript API 22.5
 // Project: https://adobe.io/photoshop/uxp
 // Definitions by:  Adobe Photoshop <https://github.com/adobe-photoshop>
-//                  Barkin Aygun <https://github.com/baaygun>
-//                  Heewoo Ahn <https://github.com/heewooa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { photoshopAction, photoshopCore } from "./dom/CoreModules";
