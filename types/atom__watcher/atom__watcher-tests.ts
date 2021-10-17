@@ -1,7 +1,8 @@
-import watcher, { PathWatcher, WatcherOptions } from '@atom/watcher';
+import { watchPath, PathWatcher, WatcherOptions } from '@atom/watcher';
+import watcher = require('@atom/watcher');
 
 // Empty options
-watcher.watchPath('/var/log', {}, () => {});
+watchPath('/var/log', {}, () => {});
 
 const options: WatcherOptions = {
     recursive: true,
