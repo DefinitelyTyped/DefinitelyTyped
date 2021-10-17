@@ -75,3 +75,5 @@ interface Popoto {
 declare const popoto: Popoto;
 
 export = popoto;
+
+export as namespace popoto;
