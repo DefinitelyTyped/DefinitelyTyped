@@ -1,4 +1,4 @@
-// Type definitions for mini-css-extract-plugin 2.3
+// Type definitions for mini-css-extract-plugin 2.4
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
 //                 Katsuya Hino <https://github.com/dobogo>
@@ -6,9 +6,9 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 James Garbutt <https://github.com/43081j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 /// <reference types="node" />
+
 import { Configuration, Compiler } from 'webpack';
 
 /**
@@ -49,7 +49,7 @@ declare namespace MiniCssExtractPlugin {
         /**
          * Enable the experimental importModule approach instead of using child compilers. This uses less memory and is faster.
          * @link https://github.com/webpack-contrib/mini-css-extract-plugin#experimentaluseimportmodule
-         * @default false
+         * @default undefined
          */
         experimentalUseImportModule?: boolean | undefined;
         /**
