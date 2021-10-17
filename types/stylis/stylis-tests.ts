@@ -1,4 +1,4 @@
-import { compile, serialize, stringify, middleware, DECLARATION } from "stylis";
+import { compile, serialize, stringify, middleware, DECLARATION } from 'stylis';
 
 const styles = `
   .class {
@@ -8,6 +8,16 @@ const styles = `
 
 // $ExpectType Element[]
 const AST = compile(styles);
+// $ExpectType Element | null
+AST[0].parent;
+// $ExpectType string | Element[]
+AST[0].children;
+// $ExpectType Element | null
+AST[0].root;
+// $ExpectType number
+AST[0].line;
+// $ExpectType number
+AST[0].column;
 
 // $ExpectType string
 const A = serialize(compile(styles), stringify);
@@ -16,13 +26,14 @@ const assert = (bool: boolean): void => { if (bool) return; throw new Error(); }
 
 // Traversal example
 const B = serialize(
-  compile('h1{all:unset}'),
-  middleware([
-    (element, index, children) => {
-      assert(children === element.root.children && children[index] === element.children);
-    },
-    stringify
-  ])
+    compile('h1{all:unset}'),
+    middleware([
+        (element, index, children) => {
+            if (element.root === null) return;
+            assert(children === element.root.children && children[index] === element);
+        },
+        stringify,
+    ]),
 );
 assert(B === 'h1{all:unset;}');
 
