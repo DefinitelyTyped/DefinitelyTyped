@@ -137,13 +137,16 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
                             // $ExpectType any
                             props;
                             return <div />;
-                        }
+                        },
+                        span: 'div',
                     }
                 }
             },
         },
         // $ExpectError
         invalid: 'Not just any type is allowed though',
+        // Aliasing is valid though
+        span: 'div',
     }}
 />;
 
@@ -193,13 +196,16 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
                             // $ExpectType any
                             props;
                             return <div />;
-                        }
+                        },
+                        span: 'div',
                     }
                 }
             },
         },
         // $ExpectError
         invalid: 'Not just any type is allowed though',
+        // Aliasing is valid though
+        span: 'div',
     }}
 />;
 
@@ -249,13 +255,16 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
                             // $ExpectType any
                             props;
                             return <div />;
-                        }
+                        },
+                        span: 'div',
                     }
                 }
             },
         },
         // $ExpectError
         invalid: 'Not just any type is allowed though',
+        // Aliasing is valid though
+        span: 'div',
     }}
 />;
 
@@ -305,13 +314,16 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
                             // $ExpectType any
                             props;
                             return <div />;
-                        }
+                        },
+                        span: 'div',
                     }
                 }
             },
         },
         // $ExpectError
         invalid: 'Not just any type is allowed though',
+        // Aliasing is valid though
+        span: 'div',
     }}
 />;
 
@@ -361,13 +373,16 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
                             // $ExpectType any
                             props;
                             return <div />;
-                        }
+                        },
+                        span: 'div',
                     }
                 }
             },
         },
         // $ExpectError
         invalid: 'Not just any type is allowed though',
+        // Aliasing is valid though
+        span: 'div',
     }}
 />;
 
@@ -417,13 +432,16 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
                             // $ExpectType any
                             props;
                             return <div />;
-                        }
+                        },
+                        span: 'div',
                     }
                 }
             },
         },
         // $ExpectError
         invalid: 'Not just any type is allowed though',
+        // Aliasing is valid though
+        span: 'div',
     }}
 />;
 
@@ -473,13 +491,16 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
                             // $ExpectType any
                             props;
                             return <div />;
-                        }
+                        },
+                        span: 'div',
                     }
                 }
             },
         },
         // $ExpectError
         invalid: 'Not just any type is allowed though',
+        // Aliasing is valid though
+        span: 'div',
     }}
 />;
 
@@ -529,12 +550,15 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
                             // $ExpectType any
                             props;
                             return <div />;
-                        }
+                        },
+                        span: 'div',
                     }
                 }
             },
         },
         // $ExpectError
         invalid: 'Not just any type is allowed though',
+        // Aliasing is valid though
+        span: 'div',
     }}
 />;
