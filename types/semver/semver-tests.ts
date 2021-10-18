@@ -97,6 +97,7 @@ const op: semver.Operator = '';
 // declare const arr: any[];
 // declare const exp: RegExp;
 let strArr: ReadonlyArray<string> | null;
+let strArrArr: string[][];
 let prereleaseIdAttr: ReadonlyArray<string | number> | null;
 let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
@@ -158,6 +159,8 @@ strn = semver.validRange(str, loose);
 bool = semver.satisfies(version, str, loose);
 strn = semver.maxSatisfying(versions, str, loose);
 strn = semver.minSatisfying(versions, str, loose);
+strArrArr = semver.toComparators('1.x'); // $ExpectType string[][]
+strArrArr = semver.toComparators(new Range('1.2.3')); // $ExpectType string[][]
 bool = semver.gtr(version, str, loose);
 bool = semver.ltr(version, str, loose);
 bool = semver.outside(version, str, '<', loose);
