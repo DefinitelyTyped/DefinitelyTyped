@@ -133,136 +133,136 @@ declare class telebot {
     answerList(id: string, opt?: any): telebot.AnswerList;
 
     // Telegram API
-    getMe(): any;
+    getMe(): Promise<any>;
 
-    answerQuery(...param: any[]): boolean;
+    answerQuery(...param: any[]): Promise<boolean>;
 
     sendMessage(
         chat_id: number | string,
         text: string,
         opt?: {
-            parseMode?: string | undefined;
-            replyToMessage?: number | undefined;
+            parseMode?: string;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
-            webPreview?: boolean | undefined;
+            notification?: boolean;
+            webPreview?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     forwardMessage(
         chat_id: number | string,
         from_chat_id: number | string,
         message_id: number,
-        opt?: { notification?: boolean | undefined }
-    ): any;
+        opt?: { notification?: boolean }
+    ): Promise<any>;
 
     deleteMessage(
         chat_id: number | string,
         from_message_id: number
-    ): boolean;
+    ): Promise<boolean>;
 
     sendPhoto(
         chat_id: number | string,
         file: string | Buffer | NodeJS.ReadableStream | any,
         opt?: {
-            caption?: string | undefined;
-            fileName?: string | undefined;
-            serverDownload?: boolean | undefined;
-            replyToMessage?: number | undefined;
+            caption?: string;
+            fileName?: string;
+            serverDownload?: boolean;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
+            notification?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     sendAudio(
         chat_id: number | string,
         file: string | Buffer | NodeJS.ReadableStream | any,
         opt?: {
-            title?: string | undefined;
-            performer?: string | undefined;
-            duration?: number | undefined;
-            caption?: string | undefined;
-            fileName?: string | undefined;
-            serverDownload?: boolean | undefined;
-            replyToMessage?: number | undefined;
+            title?: string;
+            performer?: string;
+            duration?: number;
+            caption?: string;
+            fileName?: string;
+            serverDownload?: boolean;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
+            notification?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     sendDocument(
         chat_id: number | string,
         file: string | Buffer | NodeJS.ReadableStream | any,
         opt?: {
-            caption?: string | undefined;
-            fileName?: string | undefined;
-            serverDownload?: boolean | undefined;
-            replyToMessage?: number | undefined;
+            caption?: string;
+            fileName?: string;
+            serverDownload?: boolean;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
+            notification?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     sendSticker(
         chat_id: number | string,
         file: string | Buffer | NodeJS.ReadableStream | any,
         opt?: {
-            fileName?: string | undefined;
-            serverDownload?: boolean | undefined;
-            replyToMessage?: number | undefined;
+            fileName?: string;
+            serverDownload?: boolean;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
+            notification?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     sendVideo(
         chat_id: number | string,
         file: string | Buffer | NodeJS.ReadableStream | any,
         opt?: {
-            duration?: number | undefined;
-            width?: number | undefined;
-            height?: number | undefined;
-            caption?: string | undefined;
-            fileName?: string | undefined;
-            serverDownload?: boolean | undefined;
-            replyToMessage?: number | undefined;
+            duration?: number;
+            width?: number;
+            height?: number;
+            caption?: string;
+            fileName?: string;
+            serverDownload?: boolean;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
+            notification?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     sendVideoNote(
         chat_id: number | string,
         file: string | Buffer | NodeJS.ReadableStream | any,
         opt?: {
-            duration?: number | undefined;
-            fileName?: string | undefined;
-            serverDownload?: boolean | undefined;
-            replyToMessage?: number | undefined;
+            duration?: number;
+            fileName?: string;
+            serverDownload?: boolean;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
+            notification?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     sendVoice(
         chat_id: number | string,
         file: string | Buffer | NodeJS.ReadableStream | any,
         opt?: {
-            duration?: number | undefined;
-            caption?: string | undefined;
-            fileName?: string | undefined;
-            serverDownload?: boolean | undefined;
-            replyToMessage?: number | undefined;
+            duration?: number;
+            caption?: string;
+            fileName?: string;
+            serverDownload?: boolean;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
+            notification?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     sendLocation(
         chat_id: number | string,
         coords: [number, number],
-        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined }
-    ): any;
+        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean }
+    ): Promise<any>;
 
     sendVenue(
         chat_id: number | string,
@@ -270,52 +270,52 @@ declare class telebot {
         title: string,
         address: string,
         opt?: {
-            foursquareId?: string | undefined;
-            replyToMessage?: number | undefined;
+            foursquareId?: string;
+            replyToMessage?: number;
             replyMarkup?: any;
-            notification?: boolean | undefined;
+            notification?: boolean;
         }
-    ): any;
+    ): Promise<any>;
 
     sendContact(
         chat_id: number | string,
         number: string,
         firstName: string,
         lastName?: string,
-        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined }
-    ): any;
+        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean }
+    ): Promise<any>;
 
-    sendAction(chat_id: number | string, action: string): boolean;
+    sendAction(chat_id: number | string, action: string): Promise<boolean>;
 
     sendGame(
         chat_id: number | string,
         game_short_name: string,
-        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined }
-    ): any;
+        opt?: { replyToMessage?: number; replyMarkup?: any; notification?: boolean }
+    ): Promise<any>;
 
     setGameScore(
         user_id: number,
         score: number,
         opt?: {
-            force?: boolean | undefined;
-            disableEditMessage?: boolean | undefined;
-            chatId?: number | undefined;
-            messageId?: number | undefined;
-            inlineMessageId?: string | undefined;
+            force?: boolean;
+            disableEditMessage?: boolean;
+            chatId?: number;
+            messageId?: number;
+            inlineMessageId?: string;
         }
-    ): boolean | Error | any;
+    ): Promise<boolean | Error | any>;
 
     getGameHighScores(
         user_id: number,
-        opt?: { chatId?: number | undefined; messageId?: number | undefined; inlineMessageId?: string | undefined }
-    ): any[];
+        opt?: { chatId?: number; messageId?: number; inlineMessageId?: string }
+    ): Promise<any[]>;
 
     getUserProfilePhotos(
         user_id: number,
-        opt?: { offset?: number | undefined; limit?: number | undefined }
-    ): any;
+        opt?: { offset?: number; limit?: number }
+    ): Promise<any>;
 
-    getFile(file_id: string): any;
+    getFile(file_id: string): Promise<any>;
 
     sendInvoice(
         chat_id: number | string,
@@ -327,106 +327,104 @@ declare class telebot {
             startParameter: string;
             currency: string;
             prices: any[];
-            photo?: { url?: string | undefined; width?: number | undefined; height?: number | undefined } | undefined;
+            photo?: { url?: string; width?: number; height?: number };
             need?: {
-                name?: boolean | undefined;
-                phoneNumber?: boolean | undefined;
-                email?: boolean | undefined;
-                shippingAddress?: boolean | undefined;
-            } | undefined;
-            isFlexible?: boolean | undefined;
-            notification?: boolean | undefined;
-            replyToMessage?: number | undefined;
+                name?: boolean;
+                phoneNumber?: boolean;
+                email?: boolean;
+                shippingAddress?: boolean;
+            };
+            isFlexible?: boolean;
+            notification?: boolean;
+            replyToMessage?: number;
             replyMarkup?: any;
         }
-    ): any;
+    ): Promise<any>;
 
-    getChat(chat_id: number | string): any;
+    getChat(chat_id: number | string): Promise<any>;
 
-    leaveChat(chat_id: number | string): boolean;
+    leaveChat(chat_id: number | string): Promise<boolean>;
 
-    getChatAdministrators(chat_id: number | string): any[] | any;
+    getChatAdministrators(chat_id: number | string): Promise<any[] | any>;
 
-    getChatMembersCount(chat_id: number | string): number;
+    getChatMembersCount(chat_id: number | string): Promise<number>;
 
-    getChatMember(chat_id: number | string, user_id: number): any;
+    getChatMember(chat_id: number | string, user_id: number): Promise<any>;
 
-    kickChatMember(chat_id: number | string, user_id: number): boolean;
+    kickChatMember(chat_id: number | string, user_id: number): Promise<boolean>;
 
-    unbanChatMember(chat_id: number | string, user_id: number): boolean;
+    unbanChatMember(chat_id: number | string, user_id: number): Promise<boolean>;
 
     editMessageText(
         config: {
             chatId: number | string;
             messageId: number;
-            inlineMsgId?: number | undefined;
+            inlineMsgId?: number;
         }|{
-            chatId?: number | string | undefined;
-            messageId?: number | undefined;
+            chatId?: number | string;
+            messageId?: number;
             inlineMsgId: number;
         },
         text: string,
-        opt?: {
-            parseMode?: string | undefined;
-        }
-    ): any | boolean;
+        options: object,
+    ): Promise<any | boolean>;
 
     editMessageCaption(
         config: {
             chatId: number | string;
             messageId: number;
-            inlineMsgId?: number | undefined;
+            inlineMsgId?: number;
         }|{
-            chatId?: number | string | undefined;
-            messageId?: number | undefined;
+            chatId?: number | string;
+            messageId?: number;
             inlineMsgId: number;
         },
         caption: string
-    ): any | boolean;
+    ): Promise<any | boolean>;
 
     editMessageReplyMarkup(
         config: {
             chatId: number | string;
             messageId: number;
-            inlineMsgId?: number | undefined;
+            inlineMsgId?: number;
         }|{
-            chatId?: number | string | undefined;
-            messageId?: number | undefined;
+            chatId?: number | string;
+            messageId?: number;
             inlineMsgId: number;
         },
         replyMarkup: any
-    ): any | boolean;
+    ): Promise<any | boolean>;
 
     answerCallbackQuery(
         callback_query_id: string,
         opt?: {
-            text?: string | undefined;
-            url?: string | undefined;
-            showAlert?: boolean | undefined;
-            cacheTime?: number | undefined;
+            text?: string;
+            url?: string;
+            showAlert?: boolean;
+            cacheTime?: number;
         }
-    ): boolean;
+    ): Promise<boolean>;
 
     answerShippingQuery(
         shipping_query_id: string,
         ok: boolean,
-        opt?: { shippingOptions?: any[] | undefined; errorMessage?: string | undefined }
-    ): boolean;
+        opt?: { shippingOptions?: any[]; errorMessage?: string }
+    ): Promise<boolean>;
 
     answerPreCheckoutQuery(
         pre_checkout_query_id: string,
         ok: boolean,
-        opt?: { errorMessage?: string | undefined }
-    ): boolean;
+        opt?: { errorMessage?: string }
+    ): Promise<boolean>;
 
     setWebhook(
         url: string,
         certificate?: any,
         allowed_updates?: string[],
         max_connections?: number
-    ): boolean;
+    ): Promise<boolean>;
 
-    getWebhookInfo(): any;
+    getWebhookInfo(): Promise<any>;
 
-    deleteWebhook(): boolean;
+    deleteWebhook(): Promise<boolean>;
 }
