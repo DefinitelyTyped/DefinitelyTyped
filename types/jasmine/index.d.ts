@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.9
+// Type definitions for Jasmine 3.10
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -305,6 +305,13 @@ declare namespace jasmine {
          * @default undefined
          */
         Promise?: typeof Promise | undefined;
+        /**
+         * Clean closures when a suite is done running (done by clearing the stored function reference).
+         * This prevents memory leaks, but you won't be able to run jasmine multiple times.
+         * @since 3.10.0
+         * @default true
+         */
+        autoCleanClosures?: boolean | undefined;
     }
 
     /** @deprecated Please use `Configuration` instead of `EnvConfiguration`. */
@@ -386,6 +393,7 @@ declare namespace jasmine {
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
+    function stringContaining(str: string | RegExp): AsymmetricMatcher<string>;
     /**
      * @deprecated Private method that may be changed or removed in the future
      */

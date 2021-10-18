@@ -484,6 +484,7 @@ export class PressableTest extends React.Component<{}> {
                         borderless: true,
                         color: 'green',
                         radius: 20,
+                        foreground: true,
                     }}
                     onPress={this.onPressButton}
                     style={{ backgroundColor: 'blue' }}

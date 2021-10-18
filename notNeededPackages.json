@@ -2037,6 +2037,10 @@
             "libraryName": "is-png",
             "asOfVersion": "2.0.0"
         },
+        "is-progressive": {
+            "libraryName": "is-progressive",
+            "asOfVersion": "4.0.0"
+        },
         "is-promise": {
             "libraryName": "is-promise",
             "asOfVersion": "2.2.0"
