@@ -224,7 +224,6 @@ export type ARIAProperty =
     | 'aria-colspan'
     | 'aria-controls'
     | 'aria-current'
-    | 'aria-describedat'
     | 'aria-describedby'
     | 'aria-details'
     | 'aria-dropeffect'
