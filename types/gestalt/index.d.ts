@@ -1588,8 +1588,6 @@ export interface ToastProps {
     thumbnail?: React.ReactNode | undefined;
     thumbnailShape?: 'circle' | 'rectangle' | 'square' | undefined;
     variant?: 'default' | 'error' | undefined;
-
-    _dangerouslyUseDarkGray?: boolean;
 }
 
 /**
