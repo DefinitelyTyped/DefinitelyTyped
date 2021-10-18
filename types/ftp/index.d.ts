@@ -118,10 +118,10 @@ declare namespace Client {
 declare interface Client {
   on(event: 'error', listener: (error: Error) => void): this;
   on(event: 'greeting', listener: (msg: string) => void): this;
-  on(event: 'ready', listener: Function): this;
-  on(event: 'end', listener: Function): this;
+  on(event: 'ready', listener: () => void): this;
+  on(event: 'end', listener: () => void): this;
   on(event: 'close', listener: (hadErr: boolean) => void): this;
-  on(event: string, listener: Function): this;
+  on(event: string, listener: () => void): this;
 }
 
 /**
