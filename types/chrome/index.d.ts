@@ -6195,7 +6195,7 @@ declare namespace chrome.serial {
         /** Flag indicating whether the connection is blocked from firing onReceive events. */
         paused: boolean;
         /** See ConnectionOptions.persistent */
-        peristent: boolean;
+        persistent: boolean;
         /** See ConnectionOptions.name */
         name: string;
         /** See ConnectionOptions.bufferSize */
@@ -6220,7 +6220,7 @@ declare namespace chrome.serial {
     export interface ConnectionOptions {
         /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
          *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-        peristent?: boolean | undefined;
+        persistent?: boolean | undefined;
         /** Optional. An application-defined string to associate with the connection. */
         name?: string | undefined;
         /** Optional. The size of the buffer used to receive data. The default value is 4096. */
