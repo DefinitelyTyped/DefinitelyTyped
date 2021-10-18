@@ -87,12 +87,14 @@ loc.startTag.endCol; // $ExpectType number
 loc.startTag.startOffset; // $ExpectType number
 loc.startTag.endOffset; // $ExpectType number
 
-loc.startTag.attrs["someAttr"].startLine; // $ExpectType number
-loc.startTag.attrs["someAttr"].startCol; // $ExpectType number
-loc.startTag.attrs["someAttr"].endLine; // $ExpectType number
-loc.startTag.attrs["someAttr"].endCol; // $ExpectType number
-loc.startTag.attrs["someAttr"].startOffset; // $ExpectType number
-loc.startTag.attrs["someAttr"].endOffset; // $ExpectType number
+const attrs = loc.startTag.attrs!;
+
+attrs["someAttr"].startLine; // $ExpectType number
+attrs["someAttr"].startCol; // $ExpectType number
+attrs["someAttr"].endLine; // $ExpectType number
+attrs["someAttr"].endCol; // $ExpectType number
+attrs["someAttr"].startOffset; // $ExpectType number
+attrs["someAttr"].endOffset; // $ExpectType number
 
 loc.endTag.startLine; // $ExpectType number
 loc.endTag.startCol; // $ExpectType number
