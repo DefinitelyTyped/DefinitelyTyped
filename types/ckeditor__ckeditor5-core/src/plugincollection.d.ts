@@ -1,23 +1,25 @@
-import { DomEventData } from "@ckeditor/ckeditor5-engine";
-import { Emitter, EmitterMixinDelegateChain } from "@ckeditor/ckeditor5-utils/src/emittermixin";
-import EventInfo from "@ckeditor/ckeditor5-utils/src/eventinfo";
-import { PriorityString } from "@ckeditor/ckeditor5-utils/src/priorities";
-import Context from "./context";
-import ContextPlugin from "./contextplugin";
-import Editor from "./editor/editor";
-import Plugin, { PluginInterface, LoadedPlugins } from "./plugin";
+import { DomEventData } from '@ckeditor/ckeditor5-engine';
+import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import Context from './context';
+import ContextPlugin, { ContextPluginInterface } from './contextplugin';
+import Editor from './editor/editor';
+import Plugin, { PluginInterface, LoadedPlugins } from './plugin';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Plugins {}
 
-export default class PluginCollection implements Emitter, Iterable<[typeof Plugin, Plugin]> {
+export default class PluginCollection
+    implements Emitter, Iterable<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]>
+{
     constructor(
         context: Editor | Context,
-        availablePlugins?: Array<typeof Plugin>,
-        contextPlugins?: Iterable<[typeof Plugin, Plugin]>,
+        availablePlugins?: Array<typeof Plugin | typeof ContextPlugin>,
+        contextPlugins?: Array<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]>,
     );
 
-    [Symbol.iterator](): Iterator<[typeof Plugin, Plugin]>;
+    [Symbol.iterator](): Iterator<[typeof Plugin, Plugin] | [typeof ContextPlugin, ContextPlugin]>;
     destroy(): Promise<void>;
 
     get<T extends Plugin>(key: PluginInterface<T>): T;
@@ -25,7 +27,7 @@ export default class PluginCollection implements Emitter, Iterable<[typeof Plugi
     get<T extends keyof Plugins>(key: T): Plugins[T];
     get(key: string): Plugin | ContextPlugin;
 
-    has(key: PluginInterface | string): boolean;
+    has(key: PluginInterface | ContextPluginInterface | string): boolean;
 
     init(
         plugins: Array<(() => Plugin) | string>,
