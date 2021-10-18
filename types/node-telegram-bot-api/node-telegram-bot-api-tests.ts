@@ -204,3 +204,6 @@ MyTelegramBot.sendDice(1234, { disable_notification: true });
 MyTelegramBot.setChatAdministratorCustomTitle(1234, 'user_id', 'some_custom_title');
 MyTelegramBot.getMyCommands();
 MyTelegramBot.setMyCommands([{ command: 'command', description: 'description' }]);
+MyTelegramBot.setMyCommands([{ command: 'command', description: 'description' }], {language_code: 'ru'});
+MyTelegramBot.setMyCommands([{ command: 'command', description: 'description' }], {language_code: 'ru', scope: {type:'default'}});
+MyTelegramBot.setMyCommands([{ command: 'command', description: 'description' }], {language_code: 'ru', scope: {type:'default', chat_id: 1234}}); // $ExpectError
