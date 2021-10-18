@@ -1,4 +1,4 @@
-// Type definitions for gestalt 34.3
+// Type definitions for gestalt 38.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -65,7 +65,7 @@ export interface ActivationCardProps {
                         | React.MouseEvent<HTMLAnchorElement>
                         | React.KeyboardEvent<HTMLAnchorElement>
                         | React.KeyboardEvent<HTMLButtonElement>,
-                        { disableOnNavigation?: (() => void) | undefined }
+                        { dangerouslyDisableOnNavigation?: (() => void) | undefined }
                     >
                   | undefined;
               rel?: 'none' | 'nofollow' | undefined;
@@ -100,15 +100,7 @@ export interface AvatarGroupProps {
     accessibilityHaspopup?: boolean | undefined;
     addCollaborators?: boolean | undefined;
     href?: string | undefined;
-    onClick?:
-        | AbstractEventHandler<
-              | React.MouseEvent<HTMLButtonElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLButtonElement>,
-              { disableOnNavigation?: (() => void) | undefined }
-          >
-        | undefined;
+    onClick?: OnTapType | undefined;
     role?: 'button' | 'link' | undefined;
     size?: 'xs' | 'sm' | 'md' | 'fit' | undefined;
 }
@@ -293,7 +285,7 @@ export interface ButtonProps {
               | React.MouseEvent<HTMLAnchorElement>
               | React.KeyboardEvent<HTMLAnchorElement>
               | React.KeyboardEvent<HTMLButtonElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
     rel?: 'none' | 'nofollow' | undefined;
@@ -324,7 +316,7 @@ export interface ActionData {
               | React.KeyboardEvent<HTMLAnchorElement>
               | React.MouseEvent<HTMLButtonElement>
               | React.KeyboardEvent<HTMLButtonElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
     rel?: 'none' | 'nofollow' | undefined;
@@ -474,7 +466,7 @@ export interface DatapointProps {
     value: string;
     size?: 'md' | 'lg' | undefined;
     tooltipText?: string | undefined;
-    trend?: { accesibilityLabel: string, value: number } | undefined;
+    trend?: { accesibilityLabel: string; value: number } | undefined;
     trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
 }
 
@@ -509,6 +501,13 @@ export interface DropdownProps {
      * Ref for the element that the Dropdown will attach to, will most likely be a Button
      */
     anchor?: HTMLElement | undefined;
+
+    /**
+     * Removes the Layer component around Popover.
+     * Should only be used in cases where Layer breaks the Dropdown positionings such as
+     * when the anchor element is within a sticky component.
+     */
+    dangerouslyRemoveLayer?: boolean;
     headerContent?: React.ReactNode | undefined;
     /**
      * Preferred direction for the Dropdown to open
@@ -564,7 +563,7 @@ export interface DropdownLinkProps {
               | React.MouseEvent<HTMLAnchorElement>
               | React.KeyboardEvent<HTMLButtonElement>
               | React.KeyboardEvent<HTMLAnchorElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
 }
@@ -879,7 +878,7 @@ export interface IconButtonProps {
               | React.KeyboardEvent<HTMLAnchorElement>
               | React.MouseEvent<HTMLButtonElement>
               | React.KeyboardEvent<HTMLButtonElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
     padding?: 1 | 2 | 3 | 4 | 5 | undefined;
@@ -959,7 +958,7 @@ export interface LinkProps {
     onClick?:
         | AbstractEventHandler<
               React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-              { disableOnNavigation?: (() => void) | undefined }
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
           >
         | undefined;
     onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>> | undefined;
@@ -1009,8 +1008,8 @@ export interface MasonryProps<T = any> {
  */
 export interface ModalProps {
     /*
-    * Temporary undocumented prop to disable ScrollBoundaryContainer.
-    */
+     * Temporary undocumented prop to disable ScrollBoundaryContainer.
+     */
     _dangerouslyDisableScrollBoundaryContainer?: boolean;
     accessibilityModalLabel: string;
     onDismiss: () => void;
@@ -1043,8 +1042,10 @@ export interface ModalProps {
  */
 export interface ModuleProps {
     id: string;
+    badgeText?: string | undefined;
     icon?: Icons | undefined;
     iconAccessibilityLabel?: string | undefined;
+    iconButton?: React.ReactElement<typeof IconButton> | undefined;
     title?: string | undefined;
     type?: 'error' | 'info' | undefined;
 }
@@ -1275,6 +1276,17 @@ export interface StackProps {
 }
 
 /**
+ * Status Props Interface
+ * https://gestalt.netlify.app/status
+ */
+ export interface StatusProps {
+    type: "unstarted" | "inProgress" | "halted" | "ok" | "problem" | "canceled" | "warning";
+    accessibilityLabel?: string | undefined;
+    subtext?: string | undefined;
+    title?: string | undefined;
+}
+
+/**
  * Sticky Props Interface
  * https://gestalt.netlify.app/Sticky
  */
@@ -1305,6 +1317,7 @@ export interface SwitchProps {
  * https://gestalt.netlify.app/Table
  */
 export interface TableProps {
+    accessibilityLabel: string;
     borderStyle?: 'sm' | 'none' | undefined;
     children?: React.ReactNode | undefined;
     maxHeight?: number | string | undefined;
@@ -1373,7 +1386,7 @@ export interface TabsProps {
     onChange: (args: {
         event: React.SyntheticEvent<React.MouseEvent>;
         activeTabIndex: number;
-        disableOnNavigation: () => void;
+        dangerouslyDisableOnNavigation: () => void;
     }) => void;
     tabs: ReadonlyArray<{
         href: string;
@@ -1419,6 +1432,14 @@ export interface TagProps {
     removeIconAccessibilityLabel?: string | undefined;
 }
 
+export type OnTapType = AbstractEventHandler<
+    | React.MouseEvent<HTMLDivElement>
+    | React.KeyboardEvent<HTMLDivElement>
+    | React.MouseEvent<HTMLAnchorElement>
+    | React.KeyboardEvent<HTMLAnchorElement>,
+    { dangerouslydangerouslyDisableOnNavigation?: (() => void) | undefined }
+>;
+
 /**
  * TabArea Props Interface
  * https://gestalt.netlify.app/TapArea
@@ -1439,15 +1460,7 @@ export interface TapAreaProps {
     onMouseDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
-    onTap?:
-        | AbstractEventHandler<
-              | React.MouseEvent<HTMLDivElement>
-              | React.KeyboardEvent<HTMLDivElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>,
-              { disableOnNavigation?: (() => void) | undefined }
-          >
-        | undefined;
+    onTap?: OnTapType | undefined;
     rel?: 'none' | 'nofollow' | undefined;
     role?: 'button' | 'link' | undefined;
     rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
@@ -1575,6 +1588,8 @@ export interface ToastProps {
     thumbnail?: React.ReactNode | undefined;
     thumbnailShape?: 'circle' | 'rectangle' | 'square' | undefined;
     variant?: 'default' | 'error' | undefined;
+
+    _dangerouslyUseDarkGray?: boolean;
 }
 
 /**
@@ -1805,6 +1820,7 @@ export class SelectList extends React.Component<SelectListProps, any> {}
 export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
 export class Spinner extends React.Component<SpinnerProps, any> {}
 export class Stack extends React.Component<StackProps, any> {}
+export class Status extends React.Component<StatusProps, any> {}
 export class Sticky extends React.Component<StickyProps, any> {}
 export class Switch extends React.Component<SwitchProps, any> {}
 export class Table extends React.Component<TableProps, any> {
