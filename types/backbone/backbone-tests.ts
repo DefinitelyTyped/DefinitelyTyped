@@ -578,6 +578,15 @@ class SVGView extends Backbone.View<Backbone.Model, SVGGraphicsElement> {
     }
 }
 
+function testViewWithoutModel() {
+    const view = new Backbone.View<undefined>();
+    view.model.id; // $ExpectError
+    const view2 = new Backbone.View<Backbone.Model>({
+        model: new Backbone.Model()
+    });
+    view2.model.id; // $ExpectType string | number
+}
+
 interface TypedModelAttributes {
     stringAttr: string;
     numberAttr: number;
