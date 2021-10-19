@@ -24,3 +24,16 @@ server2.addUser('test2', 'abc');
 server2.removeUser('test1');
 server2.removeUser('test2');
 server2.stop();
+
+class MyTurn extends Turn {
+    constructor() {
+        super();
+
+        void this.software;
+    }
+}
+
+const server3 = new MyTurn();
+
+void server3.listeningPort;
+void server3.staticCredentials;
