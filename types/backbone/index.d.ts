@@ -569,6 +569,7 @@ declare namespace Backbone {
          */
         events(): EventsHash;
 
+        // A conditional type used here to prevent `TS2532: Object is possibly 'undefined'`
         model: TModel extends Model ? TModel : undefined;
         collection: Collection<any>;
         setElement(element: TElement | JQuery): this;
