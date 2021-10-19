@@ -49,6 +49,4 @@ export class GPUComputationRenderer {
     createTexture(): DataTexture;
     renderTexture(input: Texture, output: Texture): void;
     doRenderTarget(material: Material, output: RenderTarget): void;
-    getPassThroughVertexShader(): string;
-    getPassThroughFragmentShader(): string;
 }
