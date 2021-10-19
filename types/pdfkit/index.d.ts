@@ -5,7 +5,7 @@
 //                 Jeroen Vervaeke <https://github.com/jeroenvervaeke/>
 //                 Thales Agapito <https://github.com/thalesagapito/>
 //                 Evgeny Baram <https://github.com/r4tz52/>
-//                 BamButz <https://github.com/BamButz/>
+//                 Benjamin Just <https://github.com/BamButz/>
 //                 Joanna Gabis <https://github.com/jg-mms/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -530,27 +530,23 @@ declare module 'pdfkit/js/structure_content' {
 }
 
 declare namespace PDFKit {
+    type PDFStructureElementChildren =
+        (() => any)
+        | PDFStructureElement
+        | PDFStructureContent
+        | ((() => any) | PDFStructureContent | PDFStructureElement)[];
+
     /** PDFStructureElement */
     class PDFStructureElement {
         constructor(
             document: PDFDocument,
             type: string,
             options?: { title?: string; lang?: string; alt?: string; expanded?: string; actual?: string },
-            children?:
-                | (() => any)
-                | PDFStructureElement
-                | PDFStructureContent
-                | ((() => any) | PDFStructureContent | PDFStructureElement)[],
-        );
+            children?: PDFStructureElementChildren);
         constructor(
             document: PDFDocument,
             type: string,
-            children?:
-                | (() => any)
-                | PDFStructureElement
-                | PDFStructureContent
-                | ((() => any) | PDFStructureContent | PDFStructureElement)[],
-        );
+            children?: PDFStructureElementChildren);
         add(el: PDFStructureContent | PDFStructureElement | (() => any)): PDFStructureElement;
         setParent(parentRef: PDFKitReference): void;
         setAttached(): void;
