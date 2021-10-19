@@ -532,7 +532,7 @@ declare namespace Backbone {
     }
 
     interface ViewOptions<TModel extends (Model | undefined) = Model, TElement extends Element = HTMLElement> {
-        model?: TModel extends Model ? TModel : undefined;
+        model?: TModel | undefined;
         // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
         collection?: Collection<any> | undefined; // was: Collection<TModel>;
         el?: TElement | JQuery | string | undefined;
