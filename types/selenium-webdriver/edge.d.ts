@@ -121,13 +121,14 @@ export class Options extends webdriver.Capabilities {
   setChromeBinaryPath(path: string): Options;
 
   /**
-   * Instruct the EdgeDriver to use Edge Chromium if true.
-   * Otherwise, use Edge Legacy (EdgeHTML). Defaults to using Edge Legacy.
+   * Sets the path to the edge binary to use
    *
-   * @param {boolean} useEdgeChromium
+   * The binary path be absolute or relative to the msedgedriver server
+   * executable, but it must exist on the machine that will launch edge chromium.
+   * @param {string} path The path to the edgedriver binary to use.
    * @return {!Options} A self reference.
    */
-  setEdgeChromium(useEdgeChromium: boolean): Options;
+  setEdgeChromiumBinaryPath(path: string): Options;
 
   /**
    * Sets whether to leave the started Edge browser running if the controlling
