@@ -232,7 +232,7 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement | ReactText;
 
-    interface ReactNodeArray extends Array<ReactNode> {}
+    interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
@@ -2256,6 +2256,7 @@ declare namespace React {
         integrity?: string | undefined;
         imageSrcset?: string | undefined;
         media?: string | undefined;
+        imageSrcSet?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         rel?: string | undefined;
         sizes?: string | undefined;
@@ -2571,6 +2572,7 @@ declare namespace React {
         fontVariant?: number | string | undefined;
         fontWeight?: number | string | undefined;
         format?: number | string | undefined;
+        fr?: number | string | undefined;
         from?: number | string | undefined;
         fx?: number | string | undefined;
         fy?: number | string | undefined;

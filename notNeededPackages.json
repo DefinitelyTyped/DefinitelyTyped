@@ -472,6 +472,10 @@
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
         },
+        "cesium": {
+            "libraryName": "cesium",
+            "asOfVersion": "1.70.0"
+        },
         "chai-http": {
             "libraryName": "chai-http",
             "asOfVersion": "4.2.0"
@@ -2032,6 +2036,10 @@
         "is-png": {
             "libraryName": "is-png",
             "asOfVersion": "2.0.0"
+        },
+        "is-progressive": {
+            "libraryName": "is-progressive",
+            "asOfVersion": "4.0.0"
         },
         "is-promise": {
             "libraryName": "is-promise",
@@ -5333,6 +5341,10 @@
         "webpack-merge": {
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
+        },
+        "webpack-notifier": {
+            "libraryName": "webpack-notifier",
+            "asOfVersion": "1.14.0"
         },
         "webpack-subresource-integrity": {
             "libraryName": "webpack-subresource-integrity",

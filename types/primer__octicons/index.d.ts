@@ -1,6 +1,6 @@
 // Type definitions for @primer/octicons 16.0
 // Project: https://github.com/primer/octicons
-// Definitions by: Bread <https://github.com/vBread>
+// Definitions by: Oscar Lee-Vermeren <https://github.com/xiBread>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace octicons {

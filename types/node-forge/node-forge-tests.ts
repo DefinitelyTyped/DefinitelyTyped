@@ -16,6 +16,7 @@ let cert = forge.pki.createCertificate();
 cert.publicKey = keypair.publicKey;
 cert.sign(keypair.privateKey);
 forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
+let certPem = forge.pki.certificateToPem(cert);
 let csr = forge.pki.createCertificationRequest();
 csr.publicKey = keypair.publicKey;
 csr.sign(keypair.privateKey);
@@ -62,6 +63,35 @@ forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr)
     if(pass) {
         if (decipher.output.getBytes() !== someBytes) throw Error('forge.util.binary.raw.encode / decode fail');
     } else {
+        throw Error('forge.util.binary.raw.encode / decode fail');
+    }
+}
+
+// From https://github.com/digitalbazaar/forge#rc2
+{
+    // generate a random key and IV
+    var key_rc2 = forge.random.getBytesSync(16);
+    var iv_rc2 = forge.random.getBytesSync(8);
+
+    // encrypt some bytes
+    var someBytes_rc2 = 'hello world!';
+    var cipher_rc2 = forge.rc2.createEncryptionCipher(key_rc2);
+    cipher_rc2.start(iv_rc2);
+    cipher_rc2.update(forge.util.createBuffer(someBytes_rc2));
+    cipher_rc2.finish();
+    var encrypted_rc2 = cipher_rc2.output;
+    // outputs encrypted hex
+    console.log(encrypted_rc2.toHex());
+
+    // decrypt some bytes
+    var cipher_rc2_2 = forge.rc2.createDecryptionCipher(key_rc2);
+    cipher_rc2_2.start(iv_rc2);
+    cipher_rc2_2.update(encrypted_rc2);
+    cipher_rc2_2.finish();
+    // outputs decrypted hex
+    console.log(cipher_rc2_2.output.toHex());
+
+    if (cipher_rc2_2.output.toString() !== someBytes_rc2) {
         throw Error('forge.util.binary.raw.encode / decode fail');
     }
 }
@@ -252,7 +282,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         }
     ]);
 
-    const attr: forge.pki.Attribute | undefined = cert.getAttribute({ name: "challengePassword" });
+    const attr: forge.pki.Attribute | undefined = csr.getAttribute({ name: "challengePassword" });
 
 
     // self-sign certificate
@@ -481,7 +511,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
 {
     let p7 = forge.pkcs7.createEnvelopedData();
-    let cert = forge.pki.certificateFromPem('PEM');
+    let cert = forge.pki.certificateFromPem(certPem);
     p7.addRecipient(cert);
     p7.content = forge.util.createBuffer('content');
     p7.encrypt();
@@ -489,11 +519,15 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
-  publicKeyRsa.encrypt('content');
-  privateKeyRsa.decrypt('content');
+    let plainText = 'content'
+    let cipher = publicKeyRsa.encrypt(plainText);
+    let result = privateKeyRsa.decrypt(cipher);
+    if (result !== plainText) {
+        throw new Error('decrypt result not match')
+    }
 }
 {
-    let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey('testpem');
+    let decrypedRsa: forge.pki.rsa.PrivateKey = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 }
 
 {
@@ -577,7 +611,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     isBigInteger = bn.add(bn);
     isBigInteger = bn.subtract(bn);
     isBigInteger = bn.multiply(bn);
-    isBigInteger = bn.square();
+    isBigInteger = bn.squareTo(bn);
     isBigInteger = bn.divide(bn);
     isBigInteger = bn.remainder(bn);
     isDivmod = bn.divideAndRemainder(bn);

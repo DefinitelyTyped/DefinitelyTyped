@@ -730,6 +730,7 @@ const bunchOfConfigs: Aws.Serverless[] = [
         service: 'users',
         configValidationMode: 'off',
         unresolvedVariablesNotificationMode: 'error',
+        deprecationNotificationMode: 'error',
         provider: { name: 'aws' },
         functions: {}
     },
