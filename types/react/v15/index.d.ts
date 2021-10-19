@@ -183,7 +183,7 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement | ReactText;
 
-    interface ReactNodeArray extends Array<ReactNode> {}
+    interface ReactNodeArray extends Iterable<ReactNode> {}
     type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
 

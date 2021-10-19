@@ -232,7 +232,7 @@ declare namespace React {
     type ReactText = string | number;
     type ReactChild = ReactElement | ReactText;
 
-    interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
+    interface ReactNodeArray extends Iterable<ReactNode> {}
     type ReactFragment = {} | ReactNodeArray;
     type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
