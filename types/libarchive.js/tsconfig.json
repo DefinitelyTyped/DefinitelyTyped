@@ -18,8 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "main.d.ts",
-        "compressed-file.d.ts",
+        "index.d.ts",
         "libarchive.js-tests.ts"
     ]
 }
