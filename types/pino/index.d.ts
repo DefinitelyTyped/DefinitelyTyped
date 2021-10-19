@@ -17,12 +17,12 @@
 
 /// <reference types="node"/>
 
-import stream = require("stream");
-import http = require("http");
-import { EventEmitter } from "events";
-import SonicBoom from "sonic-boom";
-import * as pinoStdSerializers from "pino-std-serializers";
-import * as PinoPretty from "pino-pretty";
+import stream = require('stream');
+import http = require('http');
+import { EventEmitter } from 'events';
+import SonicBoom from 'sonic-boom';
+import * as pinoStdSerializers from 'pino-std-serializers';
+import * as PinoPretty from 'pino-pretty';
 
 export = P;
 
@@ -325,6 +325,8 @@ declare namespace P {
          */
         nestedKey?: string | undefined;
         /**
+         * @deprecated use pino.transport(). See https://getpino.io/#/docs/api?id=pino-transport.
+         *
          * Enables pino.pretty. This is intended for non-production configurations. This may be set to a configuration
          * object as outlined in http://getpino.io/#/docs/API?id=pretty. Default: `false`.
          */
@@ -348,151 +350,156 @@ declare namespace P {
         /**
          * Browser only, see http://getpino.io/#/docs/browser.
          */
-        browser?: {
-            /**
-             * The `asObject` option will create a pino-like log object instead of passing all arguments to a console
-             * method. When `write` is set, `asObject` will always be true.
-             *
-             * @example
-             * pino.info('hi') // creates and logs {msg: 'hi', level: 30, time: <ts>}
-             */
-            asObject?: boolean | undefined;
-            /**
-             * Instead of passing log messages to `console.log` they can be passed to a supplied function. If `write` is
-             * set to a single function, all logging objects are passed to this function. If `write` is an object, it
-             * can have methods that correspond to the levels. When a message is logged at a given level, the
-             * corresponding method is called. If a method isn't present, the logging falls back to using the `console`.
-             *
-             * @example
-             * const pino = require('pino')({
-             *   browser: {
-             *     write: (o) => {
-             *       // do something with o
-             *     }
-             *   }
-             * })
-             *
-             * @example
-             * const pino = require('pino')({
-             *   browser: {
-             *     write: {
-             *       info: function (o) {
-             *         //process info log object
-             *       },
-             *       error: function (o) {
-             *         //process error log object
-             *       }
-             *     }
-             *   }
-             * })
-             */
-            write?:
-                | WriteFn
-                | ({
-                      fatal?: WriteFn | undefined;
-                      error?: WriteFn | undefined;
-                      warn?: WriteFn | undefined;
-                      info?: WriteFn | undefined;
-                      debug?: WriteFn | undefined;
-                      trace?: WriteFn | undefined;
-                  } & { [logLevel: string]: WriteFn }) | undefined;
+        browser?:
+            | {
+                  /**
+                   * The `asObject` option will create a pino-like log object instead of passing all arguments to a console
+                   * method. When `write` is set, `asObject` will always be true.
+                   *
+                   * @example
+                   * pino.info('hi') // creates and logs {msg: 'hi', level: 30, time: <ts>}
+                   */
+                  asObject?: boolean | undefined;
+                  /**
+                   * Instead of passing log messages to `console.log` they can be passed to a supplied function. If `write` is
+                   * set to a single function, all logging objects are passed to this function. If `write` is an object, it
+                   * can have methods that correspond to the levels. When a message is logged at a given level, the
+                   * corresponding method is called. If a method isn't present, the logging falls back to using the `console`.
+                   *
+                   * @example
+                   * const pino = require('pino')({
+                   *   browser: {
+                   *     write: (o) => {
+                   *       // do something with o
+                   *     }
+                   *   }
+                   * })
+                   *
+                   * @example
+                   * const pino = require('pino')({
+                   *   browser: {
+                   *     write: {
+                   *       info: function (o) {
+                   *         //process info log object
+                   *       },
+                   *       error: function (o) {
+                   *         //process error log object
+                   *       }
+                   *     }
+                   *   }
+                   * })
+                   */
+                  write?:
+                      | WriteFn
+                      | ({
+                            fatal?: WriteFn | undefined;
+                            error?: WriteFn | undefined;
+                            warn?: WriteFn | undefined;
+                            info?: WriteFn | undefined;
+                            debug?: WriteFn | undefined;
+                            trace?: WriteFn | undefined;
+                        } & { [logLevel: string]: WriteFn })
+                      | undefined;
 
-            /**
-             * The serializers provided to `pino` are ignored by default in the browser, including the standard
-             * serializers provided with Pino. Since the default destination for log messages is the console, values
-             * such as `Error` objects are enhanced for inspection, which they otherwise wouldn't be if the Error
-             * serializer was enabled. We can turn all serializers on or we can selectively enable them via an array.
-             *
-             * When `serialize` is `true` the standard error serializer is also enabled (see
-             * {@link https://github.com/pinojs/pino/blob/master/docs/api.md#pino-stdserializers}). This is a global
-             * serializer which will apply to any `Error` objects passed to the logger methods.
-             *
-             * If `serialize` is an array the standard error serializer is also automatically enabled, it can be
-             * explicitly disabled by including a string in the serialize array: `!stdSerializers.err` (see example).
-             *
-             * The `serialize` array also applies to any child logger serializers (see
-             * {@link https://github.com/pinojs/pino/blob/master/docs/api.md#bindingsserializers-object} for how to
-             * set child-bound serializers).
-             *
-             * Unlike server pino the serializers apply to every object passed to the logger method, if the `asObject`
-             * option is `true`, this results in the serializers applying to the first object (as in server pino).
-             *
-             * For more info on serializers see
-             * {@link https://github.com/pinojs/pino/blob/master/docs/api.md#serializers-object}.
-             *
-             * @example
-             * const pino = require('pino')({
-             *   browser: {
-             *     serialize: true
-             *   }
-             * })
-             *
-             * @example
-             * const pino = require('pino')({
-             *   serializers: {
-             *     custom: myCustomSerializer,
-             *     another: anotherSerializer
-             *   },
-             *   browser: {
-             *     serialize: ['custom']
-             *   }
-             * })
-             * // following will apply myCustomSerializer to the custom property,
-             * // but will not apply anotherSerializer to another key
-             * pino.info({custom: 'a', another: 'b'})
-             *
-             * @example
-             * const pino = require('pino')({
-             *   serializers: {
-             *     custom: myCustomSerializer,
-             *     another: anotherSerializer
-             *   },
-             *   browser: {
-             *     serialize: ['!stdSerializers.err', 'custom'] //will not serialize Errors, will serialize `custom` keys
-             *   }
-             * })
-             */
-            serialize?: boolean | string[] | undefined;
+                  /**
+                   * The serializers provided to `pino` are ignored by default in the browser, including the standard
+                   * serializers provided with Pino. Since the default destination for log messages is the console, values
+                   * such as `Error` objects are enhanced for inspection, which they otherwise wouldn't be if the Error
+                   * serializer was enabled. We can turn all serializers on or we can selectively enable them via an array.
+                   *
+                   * When `serialize` is `true` the standard error serializer is also enabled (see
+                   * {@link https://github.com/pinojs/pino/blob/master/docs/api.md#pino-stdserializers}). This is a global
+                   * serializer which will apply to any `Error` objects passed to the logger methods.
+                   *
+                   * If `serialize` is an array the standard error serializer is also automatically enabled, it can be
+                   * explicitly disabled by including a string in the serialize array: `!stdSerializers.err` (see example).
+                   *
+                   * The `serialize` array also applies to any child logger serializers (see
+                   * {@link https://github.com/pinojs/pino/blob/master/docs/api.md#bindingsserializers-object} for how to
+                   * set child-bound serializers).
+                   *
+                   * Unlike server pino the serializers apply to every object passed to the logger method, if the `asObject`
+                   * option is `true`, this results in the serializers applying to the first object (as in server pino).
+                   *
+                   * For more info on serializers see
+                   * {@link https://github.com/pinojs/pino/blob/master/docs/api.md#serializers-object}.
+                   *
+                   * @example
+                   * const pino = require('pino')({
+                   *   browser: {
+                   *     serialize: true
+                   *   }
+                   * })
+                   *
+                   * @example
+                   * const pino = require('pino')({
+                   *   serializers: {
+                   *     custom: myCustomSerializer,
+                   *     another: anotherSerializer
+                   *   },
+                   *   browser: {
+                   *     serialize: ['custom']
+                   *   }
+                   * })
+                   * // following will apply myCustomSerializer to the custom property,
+                   * // but will not apply anotherSerializer to another key
+                   * pino.info({custom: 'a', another: 'b'})
+                   *
+                   * @example
+                   * const pino = require('pino')({
+                   *   serializers: {
+                   *     custom: myCustomSerializer,
+                   *     another: anotherSerializer
+                   *   },
+                   *   browser: {
+                   *     serialize: ['!stdSerializers.err', 'custom'] //will not serialize Errors, will serialize `custom` keys
+                   *   }
+                   * })
+                   */
+                  serialize?: boolean | string[] | undefined;
 
-            /**
-             * Options for transmission of logs.
-             *
-             * @example
-             * const pino = require('pino')({
-             *   browser: {
-             *     transmit: {
-             *       level: 'warn',
-             *       send: function (level, logEvent) {
-             *         if (level === 'warn') {
-             *           // maybe send the logEvent to a separate endpoint
-             *           // or maybe analyse the messages further before sending
-             *         }
-             *         // we could also use the `logEvent.level.value` property to determine
-             *         // numerical value
-             *         if (logEvent.level.value >= 50) { // covers error and fatal
-             *
-             *           // send the logEvent somewhere
-             *         }
-             *       }
-             *     }
-             *   }
-             * })
-             */
-            transmit?: {
-                /**
-                 * Specifies the minimum level (inclusive) of when the `send` function should be called, if not supplied
-                 * the `send` function will be called based on the main logging `level` (set via `options.level`,
-                 * defaulting to `info`).
-                 */
-                level?: Level | string | undefined;
-                /**
-                 * Remotely record log messages.
-                 *
-                 * @description Called after writing the log message.
-                 */
-                send: (level: Level, logEvent: LogEvent) => void;
-            } | undefined;
-        } | undefined;
+                  /**
+                   * Options for transmission of logs.
+                   *
+                   * @example
+                   * const pino = require('pino')({
+                   *   browser: {
+                   *     transmit: {
+                   *       level: 'warn',
+                   *       send: function (level, logEvent) {
+                   *         if (level === 'warn') {
+                   *           // maybe send the logEvent to a separate endpoint
+                   *           // or maybe analyse the messages further before sending
+                   *         }
+                   *         // we could also use the `logEvent.level.value` property to determine
+                   *         // numerical value
+                   *         if (logEvent.level.value >= 50) { // covers error and fatal
+                   *
+                   *           // send the logEvent somewhere
+                   *         }
+                   *       }
+                   *     }
+                   *   }
+                   * })
+                   */
+                  transmit?:
+                      | {
+                            /**
+                             * Specifies the minimum level (inclusive) of when the `send` function should be called, if not supplied
+                             * the `send` function will be called based on the main logging `level` (set via `options.level`,
+                             * defaulting to `info`).
+                             */
+                            level?: Level | string | undefined;
+                            /**
+                             * Remotely record log messages.
+                             *
+                             * @description Called after writing the log message.
+                             */
+                            send: (level: Level, logEvent: LogEvent) => void;
+                        }
+                      | undefined;
+              }
+            | undefined;
         /**
          * key-value object added as child logger to each log line. If set to null the base child logger is not added
          */
@@ -504,42 +511,68 @@ declare namespace P {
          * These functions allow for full customization of the resulting log lines.
          * For example, they can be used to change the level key name or to enrich the default metadata.
          */
-        formatters?: {
-            /**
-             * Changes the shape of the log level.
-             * The default shape is { level: number }.
-             * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
-             */
-            level?: ((label: string, number: number) => object) | undefined;
-            /**
-             * Changes the shape of the bindings.
-             * The default shape is { pid, hostname }.
-             * The function takes a single argument, the bindings object.
-             * It will be called every time a child logger is created.
-             */
-            bindings?: ((bindings: Bindings) => object) | undefined;
-            /**
-             * Changes the shape of the log object.
-             * This function will be called every time one of the log methods (such as .info) is called.
-             * All arguments passed to the log method, except the message, will be pass to this function.
-             * By default it does not change the shape of the log object.
-             */
-            log?: ((object: Record<string, unknown>) => object) | undefined;
-        } | undefined;
+        formatters?:
+            | {
+                  /**
+                   * Changes the shape of the log level.
+                   * The default shape is { level: number }.
+                   * The function takes two arguments, the label of the level (e.g. 'info') and the numeric value (e.g. 30).
+                   */
+                  level?: ((label: string, number: number) => object) | undefined;
+                  /**
+                   * Changes the shape of the bindings.
+                   * The default shape is { pid, hostname }.
+                   * The function takes a single argument, the bindings object.
+                   * It will be called every time a child logger is created.
+                   */
+                  bindings?: ((bindings: Bindings) => object) | undefined;
+                  /**
+                   * Changes the shape of the log object.
+                   * This function will be called every time one of the log methods (such as .info) is called.
+                   * All arguments passed to the log method, except the message, will be pass to this function.
+                   * By default it does not change the shape of the log object.
+                   */
+                  log?: ((object: Record<string, unknown>) => object) | undefined;
+              }
+            | undefined;
 
         /**
          * An object mapping to hook functions. Hook functions allow for customizing internal logger operations.
          * Hook functions must be synchronous functions.
          */
-        hooks?: {
-            /**
-             * Allows for manipulating the parameters passed to logger methods. The signature for this hook is
-             * logMethod (args, method, level) {}, where args is an array of the arguments that were passed to the
-             * log method and method is the log method itself, and level is the log level. This hook must invoke the method function by
-             * using apply, like so: method.apply(this, newArgumentsArray).
-             */
-            logMethod?: ((args: any[], method: LogFn, level: number) => void) | undefined;
-        } | undefined;
+        hooks?:
+            | {
+                  /**
+                   * Allows for manipulating the parameters passed to logger methods. The signature for this hook is
+                   * logMethod (args, method, level) {}, where args is an array of the arguments that were passed to the
+                   * log method and method is the log method itself, and level is the log level. This hook must invoke the method function by
+                   * using apply, like so: method.apply(this, newArgumentsArray).
+                   */
+                  logMethod?: ((args: any[], method: LogFn, level: number) => void) | undefined;
+              }
+            | undefined;
+    }
+
+    interface ChildLoggerOptions {
+        /**
+         * The level property overrides the log level of the child logger.
+         * By default the parent log level is inherited.
+         * After the creation of the child logger, it is also accessible using the logger.level key.
+         * @see {@link LoggerOptions.level} for more information.
+         */
+        level?: LevelWithSilent | string | undefined;
+        /**
+         * Setting options.redact to an array or object will override the parent redact options.
+         * To remove redact options inherited from the parent logger set this value as an empty array ([]).
+         * @see {@link LoggerOptions.redact} for more information.
+         */
+        redact?: string[] | redactOptions | undefined;
+        /**
+         * Child loggers inherit the serializers from the parent logger.
+         * Setting the serializers key of the options object will override any configured parent serializers.
+         * @see {@link LoggerOptions.serializers} for more information.
+         */
+        serializers?: { [key: string]: SerializerFn } | undefined;
     }
 
     // Re-export for backward compatibility
@@ -550,8 +583,8 @@ declare namespace P {
         suppressFlushSyncWarning?: boolean | undefined;
     };
 
-    type Level = "fatal" | "error" | "warn" | "info" | "debug" | "trace";
-    type LevelWithSilent = Level | "silent";
+    type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
+    type LevelWithSilent = Level | 'silent';
 
     type SerializerFn = (value: any) => any;
     type WriteFn = (o: object) => void;
@@ -562,7 +595,13 @@ declare namespace P {
     type LogDescriptor = Record<string, any>; // TODO replace `any` with `unknown` when TypeScript version >= 3.0
 
     interface Bindings {
+        /**
+         * @deprecated use {@link ChildLoggerOptions.level options.level}
+         */
         level?: Level | string | undefined;
+        /**
+         * @deprecated use {@link ChildLoggerOptions.serializers options.serializers}
+         */
         serializers?: { [key: string]: SerializerFn } | undefined;
         [key: string]: any;
     }
@@ -662,12 +701,12 @@ declare namespace P {
          * @param event: only ever fires the `'level-change'` event
          * @param listener: The listener is passed four arguments: `levelLabel`, `levelValue`, `previousLevelLabel`, `previousLevelValue`.
          */
-        on(event: "level-change", listener: LevelChangeEventListener): this;
-        addListener(event: "level-change", listener: LevelChangeEventListener): this;
-        once(event: "level-change", listener: LevelChangeEventListener): this;
-        prependListener(event: "level-change", listener: LevelChangeEventListener): this;
-        prependOnceListener(event: "level-change", listener: LevelChangeEventListener): this;
-        removeListener(event: "level-change", listener: LevelChangeEventListener): this;
+        on(event: 'level-change', listener: LevelChangeEventListener): this;
+        addListener(event: 'level-change', listener: LevelChangeEventListener): this;
+        once(event: 'level-change', listener: LevelChangeEventListener): this;
+        prependListener(event: 'level-change', listener: LevelChangeEventListener): this;
+        prependOnceListener(event: 'level-change', listener: LevelChangeEventListener): this;
+        removeListener(event: 'level-change', listener: LevelChangeEventListener): this;
 
         /**
          * Creates a child logger, setting all key-value pairs in `bindings` as properties in the log lines. All serializers will be applied to the given pair.
@@ -676,9 +715,10 @@ declare namespace P {
          * If a `level` property is present in the object passed to `child` it will override the child logger level.
          *
          * @param bindings: an object of key-value pairs to include in log lines as properties.
+         * @param options: An optional options object for child logger. These options will override the parent logger options.
          * @returns a child logger instance.
          */
-        child(bindings: Bindings): Logger;
+        child(bindings: Bindings, options?: ChildLoggerOptions): Logger;
 
         /**
          * Log at `'fatal'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
