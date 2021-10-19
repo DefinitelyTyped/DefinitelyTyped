@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
-type AnyFunction<T = unknown> = (...args: any[]) => T;
 
 /**
  * Any valid JSON primitive value.
@@ -33,6 +32,9 @@ interface JsonMap extends Record<string, AnyJson> {
 interface JsonArray extends Array<AnyJson> {
 }
 
+type Message = JsonMap;
+type Callback<T = unknown> = (...args: any[]) => T;
+
 /**
  * Types for defining extensions.
  */
@@ -43,14 +45,14 @@ interface StreamingExtension {
    * @param message The message.
    * @param callback The callback to invoke after the message is processed.
    */
-  outgoing?: (message: JsonMap, callback: AnyFunction) => void;
+  outgoing?: (message: Message, callback: Callback) => void;
   /**
    * Extension for the incoming message.
    *
    * @param message The message.
    * @param callback The callback to invoke after the message is processed.
    */
-  incoming?: (message: JsonMap, callback: AnyFunction) => void;
+  incoming?: (message: Message, callback: Callback) => void;
 }
 
 /**
@@ -79,7 +81,7 @@ interface StatusResult {
 /**
  * Function type for processing messages
  */
-type StreamProcessor = (message: JsonMap) => StatusResult;
+type StreamProcessor = (message: Message) => StatusResult;
 
 declare class Subscription extends Promise<void> {
   cancel(): void;
@@ -138,9 +140,12 @@ declare class Client extends EventEmitter {
 export let logger: any;
 
 export {
-  StreamingExtension,
+  Callback,
+  Client,
   CometSubscription,
+  Message,
   StatusResult,
+  StreamingExtension,
+  StreamProcessor,
   Subscription,
-  Client
 };
