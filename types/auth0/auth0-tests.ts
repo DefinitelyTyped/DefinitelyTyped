@@ -1268,8 +1268,9 @@ management.organizations.getMembers({ id: 'organization_id' }, (err, members: au
 /**
  * Get a paged result of an Organization's Members using a callback
  */
-management.organizations.getMembers({ id: 'organization_id', include_totals: true }, (err, pagedMembers: auth0.OrganizationMembersPaged) => {
-    console.log(pagedMembers);
+management.organizations.getMembers({ id: 'organization_id', include_totals: true }, (err, pagedMembers) => {
+    // $ExpectType OrganizationMembersPaged
+    pagedMembers;
 });
 
 /**
@@ -1282,8 +1283,9 @@ management.organizations.getMembers({ id: 'organization_id' }).then((members: au
 /**
  * Get a paged result of an Organization's members returning a promise.
  */
-management.organizations.getMembers({id: 'organization_id', include_totals: true }).then((pagedMembers: auth0.OrganizationMembersPaged) => {
-    console.log(pagedMembers);
+management.organizations.getMembers({id: 'organization_id', include_totals: true }).then((pagedMembers) => {
+    // $ExpectType OrganizationMembersPaged
+    pagedMembers;
 });
 
 /**
