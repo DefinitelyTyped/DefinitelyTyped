@@ -23,7 +23,7 @@ export interface ReceivedNotification {
     badge: number;
     alert: object;
     sound: string;
-    id: number;
+    id: string;
     action?: string | undefined;
     finish: (fetchResult: string) => void;
 }
@@ -80,7 +80,7 @@ export class PushNotificationObject {
     category?: any;
 
     /* iOS and Android properties */
-    id?: number | undefined;
+    id?: string | number | undefined;
     title?: string | undefined;
     message: string;
     userInfo?: any;
@@ -107,7 +107,7 @@ export class PushNotificationDeliveredObject {
 }
 
 export class PushNotificationScheduledLocalObject {
-    id: number;
+    id: string;
     date: Date;
     title: string;
     body: string;
