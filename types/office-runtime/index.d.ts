@@ -170,7 +170,9 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      *
-     * **Note**: The methods in this interface are equivalent to those in the `Office.AuthOptions` interface. If new authentication types are added in the future, they will only be added to the `Office.AuthOptions` interface. For simplicity, the code examples throughout the documentation use `Office.AuthOptions`.
+     * **Note**: The methods in this interface are equivalent to those in the `Office.AuthOptions` interface.
+     * If new authentication types are added in the future, they will only be added to the `Office.AuthOptions` interface.
+     * For simplicity, the code examples throughout the documentation use `Office.AuthOptions`.
      */
     interface AuthOptions {
       /**
@@ -223,7 +225,9 @@ declare namespace OfficeRuntime {
    *
    * @remarks
    *
-   * **Note**: The methods in this interface are equivalent to those in the `Office.auth` interface. If new authentication types are added in the future, they will only be added to the `Office.auth` interface. For simplicity, the code examples throughout the documentation use `Office.auth`.
+   * **Note**: The methods in this interface are equivalent to those in the `Office.auth` interface.
+   * If new authentication types are added in the future, they will only be added to the `Office.auth` interface.
+   * For simplicity, the code examples throughout the documentation use `Office.auth`.
    */
   interface Auth {
     /**
