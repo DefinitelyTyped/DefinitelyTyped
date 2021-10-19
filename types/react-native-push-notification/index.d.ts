@@ -4,6 +4,7 @@
 //                 Tom Sawkins <https://github.com/tomSawkins>
 //                 Andrew Li <https://github.com/Li357>
 //                 Clément Rucheton <https://github.com/rucheton>
+//                 alternacrow <https://github.com/alternacrow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
