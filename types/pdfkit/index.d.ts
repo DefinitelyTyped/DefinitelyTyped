@@ -278,7 +278,7 @@ declare namespace PDFKit.Mixins {
     interface PDFMarking {
         markContent(tag: string, options?: MarkingOptions): this;
         endMarkedContent(): this;
-        struct(tag: string, options?: MarkingOptions, children?: (() => any) | (PDFStructureElement | PDFStructureContent)[]): PDFStructureElement;
+        struct(tag: string, options?: MarkingOptions, children?: PDFStructureElementChild | PDFStructureElementChild[]): PDFStructureElement;
         addStructure(structElem: PDFStructureElement): this;
         initMarkings(options?: { tagged?: boolean }): void;
         initPageMarkings(pageMarkings: PageMarking[]): void;
@@ -530,11 +530,10 @@ declare module 'pdfkit/js/structure_content' {
 }
 
 declare namespace PDFKit {
-    type PDFStructureElementChildren =
+    type PDFStructureElementChild =
         (() => any)
         | PDFStructureElement
-        | PDFStructureContent
-        | ((() => any) | PDFStructureContent | PDFStructureElement)[];
+        | PDFStructureContent;
 
     /** PDFStructureElement */
     class PDFStructureElement {
@@ -542,12 +541,12 @@ declare namespace PDFKit {
             document: PDFDocument,
             type: string,
             options?: { title?: string; lang?: string; alt?: string; expanded?: string; actual?: string },
-            children?: PDFStructureElementChildren);
+            children?: PDFStructureElementChild | PDFStructureElementChild[]);
         constructor(
             document: PDFDocument,
             type: string,
-            children?: PDFStructureElementChildren);
-        add(el: PDFStructureContent | PDFStructureElement | (() => any)): PDFStructureElement;
+            children?: PDFStructureElementChild | PDFStructureElementChild[]);
+        add(el: PDFStructureElementChild): PDFStructureElement;
         setParent(parentRef: PDFKitReference): void;
         setAttached(): void;
         end(): void;
