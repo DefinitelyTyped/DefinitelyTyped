@@ -2,7 +2,6 @@
 // Project: https://github.com/MICommunity/ComplexViewer
 // Definitions by: EliotRagueneau <https://github.com/EliotRagueneau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="d3-scale"/>
 
 import { ScaleOrdinal } from 'd3-scale';
 
