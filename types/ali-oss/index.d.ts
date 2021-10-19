@@ -287,8 +287,9 @@ declare namespace OSS {
         delimiter?: string | number;
         /** max objects, default is 100, limit to 1000  */
         'max-keys'?: string;
-        /** The name of the object from which the list operation begins. 
-         * If this parameter is specified, objects whose names are alphabetically greater than the start-after parameter value are returned. 
+        /**
+         * The name of the object from which the list operation begins.
+         * If this parameter is specified, objects whose names are alphabetically greater than the start-after parameter value are returned.
          */
         'start-after'?: string;
         /** Specifies whether to include the information about object owners in the response. */
