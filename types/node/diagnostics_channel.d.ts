@@ -57,7 +57,7 @@ declare module 'diagnostics_channel' {
      * @return The named channel object
      */
     function channel(name: string): Channel;
-    type ChannelListener = (name: string, message: unknown) => void;
+    type ChannelListener = (message: unknown, name: string) => void;
     /**
      * The class `Channel` represents an individual named channel within the data
      * pipeline. It is use to track subscribers and to publish messages when there
