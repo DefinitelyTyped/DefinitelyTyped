@@ -570,7 +570,7 @@ declare namespace Backbone {
         events(): EventsHash;
 
         model: TModel extends Model ? TModel : undefined;
-        collection?: Collection<any>;
+        collection: Collection<any>;
         setElement(element: TElement | JQuery): this;
         id?: string | undefined;
         cid: string;
