@@ -77,8 +77,6 @@ const products: Products.ProductCollection = {
                 has_digital_delivery: false,
                 has_physical_delivery: true,
                 has_images: true,
-                has_video: false,
-                has_rich_embed: false,
                 collects_fullname: false,
                 collects_shipping_address: true,
                 collects_billing_address: false,
