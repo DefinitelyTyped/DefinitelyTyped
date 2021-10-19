@@ -18,7 +18,6 @@
   },
   "files": [
       "index.d.ts",
-      "test/jaro-winkler-tests.cjs.ts",
-      "test/jaro-winkler-tests.esm.ts"
+      "test/jaro-winkler-tests.cjs.ts"
   ]
 }
