@@ -598,7 +598,7 @@ export default class JSONEditor {
      * Validate the JSON document against the configured JSON schema or custom validator. See also the `onValidationError` callback.
      * Returns a promise which resolves with the current validation errors, or an empty list when there are no errors.
      */
-    validate(): Promise<ValidationError[]>;
+    validate(): Promise<ReadonlyArray<SchemaValidationError | ParseError>>;
 
     /**
      * An array with the names of all known options.
