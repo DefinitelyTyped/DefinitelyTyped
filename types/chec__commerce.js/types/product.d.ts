@@ -73,5 +73,6 @@ export interface Product {
         name: string;
     }>;
     assets: Asset[];
+    image: Asset;
     related_products: any[];
 }
