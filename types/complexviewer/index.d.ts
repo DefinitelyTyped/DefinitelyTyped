@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="d3-scale"/>
 
-import { ScaleOrdinal } from '../d3-scale';
+import { ScaleOrdinal } from 'd3-scale';
 
 export const App: AppConstructor;
 
