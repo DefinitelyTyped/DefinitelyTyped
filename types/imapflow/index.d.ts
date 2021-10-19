@@ -137,7 +137,7 @@ export interface ImapFlowOptions {
     clientInfo?: IdInfoObject;
     disableAutoIdle?: boolean;
     tls?: object;
-    logger?: object;
+    logger?: Logger | false;
     emitLogs?: boolean;
     verifyOnly?: boolean;
 }
@@ -346,4 +346,11 @@ export interface MessageStructureObject {
     disposition: string;
     dispositionParameters: string;
     childNodes: MessageStructureObject[];
+}
+
+export interface Logger {
+    debug: (obj: object) => void;
+    info: (obj: object) => void;
+    warn: (obj: object) => void;
+    error: (obj: object) => void;
 }
