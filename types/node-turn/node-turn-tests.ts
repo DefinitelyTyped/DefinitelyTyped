@@ -1,6 +1,6 @@
 import Turn = require('node-turn');
 
-const server1 = new Turn({});
+const server1 = new Turn();
 
 server1.start();
 server1.stop();

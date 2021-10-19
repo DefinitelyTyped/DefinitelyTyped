@@ -24,7 +24,7 @@ interface TurnOptions {
 }
 
 declare class Turn {
-    constructor(options: TurnOptions);
+    constructor(options?: TurnOptions);
 
     start(): void;
     stop(): void;
