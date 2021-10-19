@@ -44,16 +44,16 @@ declare global {
         readonly loaded: Promise<FontFace>;
     }
 
-    export interface FontFaceSet extends Set<FontFace>, EventTarget {
+    interface FontFaceSet extends Set<FontFace>, EventTarget {
         // events for when loading state changes
         onloading: ((this: FontFaceSet, event: Event) => any) | null;
         onloadingdone: ((this: FontFaceSet, event: Event) => any) | null;
         onloadingerror: ((this: FontFaceSet, event: Event) => any) | null;
 
         // EventTarget
-        addEventListener<K extends keyof FontFaceSetEventMap>(type: K, listener: FontFaceSetCallbackMap[K], options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof FontFaceSetCallbackMap>(type: K, listener: FontFaceSetCallbackMap[K], options?: boolean | AddEventListenerOptions): void;
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof FontFaceSetEventMap>(type: K, listener: FontFaceSetCallbackMap[K], options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof FontFaceSetCallbackMap>(type: K, listener: FontFaceSetCallbackMap[K], options?: boolean | EventListenerOptions): void;
         removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 
         // check and start loads if appropriate
