@@ -12,9 +12,9 @@ export interface FontFaceSetLoadEventInit extends EventInit {
 }
 
 export interface FontFaceSetCallbackMap {
-    "loading": (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
-    "loadingdone": (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
-    "loadingerror": (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
+    loading: (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
+    loadingdone: (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
+    loadingerror: (this: FontFaceSet, event: FontFaceSetLoadEvent) => any;
 }
 
 declare global {
@@ -51,10 +51,26 @@ declare global {
         onloadingerror: ((this: FontFaceSet, event: Event) => any) | null;
 
         // EventTarget
-        addEventListener<K extends keyof FontFaceSetCallbackMap>(type: K, listener: FontFaceSetCallbackMap[K], options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof FontFaceSetCallbackMap>(type: K, listener: FontFaceSetCallbackMap[K], options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+        addEventListener<K extends keyof FontFaceSetCallbackMap>(
+            type: K,
+            listener: FontFaceSetCallbackMap[K],
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+        addEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+        removeEventListener<K extends keyof FontFaceSetCallbackMap>(
+            type: K,
+            listener: FontFaceSetCallbackMap[K],
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | EventListenerOptions,
+        ): void;
 
         // check and start loads if appropriate
         // and fulfill promise when all loads complete
@@ -74,7 +90,7 @@ declare global {
 
     var FontFace: {
         prototype: FontFace;
-        new(family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
+        new (family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
     };
 
     interface FontFaceSetLoadEvent extends Event {
@@ -83,7 +99,7 @@ declare global {
 
     var FontFaceSetLoadEvent: {
         prototype: FontFaceSetLoadEvent;
-        new(type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
+        new (type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
     };
 
     interface Document {
