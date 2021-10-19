@@ -3,6 +3,10 @@
 // Definitions by: Johannes Garz <https://github.com/garzj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+import { EventEmitter } from 'events';
+
 type TurnDebugLevel = 'OFF' | 'FATAL' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | 'ALL';
 
 type TurnAuthMech = 'none' | 'short-term' | 'long-term';
@@ -34,7 +38,7 @@ interface TurnOptions extends Partial<TurnProps> {
 
 interface Turn extends Readonly<TurnProps> {}
 
-declare class Turn {
+declare class Turn extends EventEmitter {
     constructor(options?: TurnOptions);
 
     start(): void;
