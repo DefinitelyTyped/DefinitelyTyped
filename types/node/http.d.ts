@@ -42,7 +42,7 @@
 declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
-    import { Socket, Server as NetServer } from 'node:net';
+    import { Socket, Server as NetServer, LookupFunction } from 'node:net';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -136,6 +136,7 @@ declare module 'http' {
         setHost?: boolean | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
+        lookup?: LookupFunction | undefined;
     }
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage | undefined;
