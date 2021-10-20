@@ -15,7 +15,7 @@ export interface AddUpdateResponse {
     quantity: number;
     line_total: Price;
     cart: CartType;
-    image: Asset;
+    image: Asset | null;
 }
 
 export interface RemoveResponse {

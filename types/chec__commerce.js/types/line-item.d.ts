@@ -17,5 +17,5 @@ export interface LineItem {
     variant?: Variant;
     price: Price;
     line_total: Price;
-    image: Asset;
+    image: Asset | null;
 }
