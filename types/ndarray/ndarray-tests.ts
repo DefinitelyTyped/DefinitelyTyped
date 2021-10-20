@@ -1,3 +1,4 @@
+/// <reference lib="esnext.bigint" />
 import ndarray = require('ndarray');
 
 const data1 = new Int32Array(2 * 2 * 2 + 10);

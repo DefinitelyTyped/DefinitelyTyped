@@ -5,7 +5,6 @@
 //                 Axel Bocciarelli <https://github.com/axelboc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-/// <reference lib="esnext.bigint" />
 
 declare function ndarray<D extends ndarray.Data = ndarray.Data<number>>(
     data: D,
@@ -41,10 +40,13 @@ declare namespace ndarray {
         length: number;
     }
 
+    type MaybeBigInt64Array = InstanceType<typeof globalThis extends { BigInt64Array: infer T } ? T : never>;
+    type MaybeBigUint64Array = InstanceType<typeof globalThis extends { BigUint64Array: infer T } ? T : never>;
+
     type Data<T = any> = T extends number
         ? GenericArray<T> | T[] | TypedArray
         : T extends bigint
-        ? GenericArray<T> | T[] | BigInt64Array | BigUint64Array
+        ? GenericArray<T> | T[] | MaybeBigInt64Array | MaybeBigUint64Array
         : GenericArray<T> | T[];
 
     type TypedArray =
@@ -78,9 +80,9 @@ declare namespace ndarray {
         ? 'float32'
         : D extends Float64Array
         ? 'float64'
-        : D extends BigInt64Array
+        : D extends MaybeBigInt64Array
         ? 'bigint64'
-        : D extends BigUint64Array
+        : D extends MaybeBigUint64Array
         ? 'biguint64'
         : D extends GenericArray<unknown>
         ? 'generic'
