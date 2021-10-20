@@ -51,10 +51,14 @@ declare var Blob: {
     new (blobParts?: Array<Blob | string>, options?: BlobOptions): Blob;
 };
 
-interface FormDataPart {
+type FormDataPart = {
     string: string;
     headers: { [name: string]: string };
-    fieldName: string;
+} | {
+    uri: string
+    headers: { [name: string]: string }
+    name?: string
+    type?: string
 }
 
 declare class FormData {
@@ -352,9 +356,9 @@ type WebsocketOpenEventListener = (event: 'open', handler: () => void) => void;
 type WebsocketCloseEventListener = (event: 'close', handler: (e: WebSocketCloseEvent) => void) => void;
 
 type WebsocketEventListener = WebsocketMessageEventListener &
-  WebsocketErrorEventListener &
-  WebsocketOpenEventListener &
-  WebsocketCloseEventListener;
+    WebsocketErrorEventListener &
+    WebsocketOpenEventListener &
+    WebsocketCloseEventListener;
 
 interface WebSocket extends EventTarget {
     readonly readyState: number;
@@ -404,15 +408,27 @@ declare class AbortSignal implements EventTarget {
 
     onabort: (event: AbortEvent) => void;
 
-    addEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
-        capture?: boolean,
-        once?: boolean,
-        passive?: boolean
-    }) => void;
+    addEventListener: (
+        type: 'abort',
+        listener: (this: AbortSignal, event: any) => any,
+        options?:
+            | boolean
+            | {
+                  capture?: boolean;
+                  once?: boolean;
+                  passive?: boolean;
+              },
+    ) => void;
 
-    removeEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
-        capture?: boolean
-    }) => void;
+    removeEventListener: (
+        type: 'abort',
+        listener: (this: AbortSignal, event: any) => any,
+        options?:
+            | boolean
+            | {
+                  capture?: boolean;
+              },
+    ) => void;
 }
 
 declare class AbortController {
