@@ -18,3 +18,16 @@ toRegex('foo', {
     cache: true,
     safe: true,
 });
+
+// $ExpectType RegExp
+toRegex.makeRe('foo');
+
+// $ExpectType RegExp
+toRegex.makeRe('foo|bar', {
+    contains: true,
+    negate: false,
+    nocase: true,
+    flags: 'g',
+    cache: true,
+    safe: true,
+});

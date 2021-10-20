@@ -46,10 +46,15 @@ declare namespace toRegex {
          */
         safe?: boolean;
     }
+
+    /**
+     * Create a regular expression from the given `pattern` string.
+     */
+    function makeRe(pattern: string | RegExp, options?: Options): RegExp;
 }
 
 /**
- * Create a regular expression from the given `pattern` string.
+ * Create a regular expression from the given `patterns` string.
  */
 declare function toRegex(patterns: string | ReadonlyArray<string> | RegExp, options?: toRegex.Options): RegExp;
 
