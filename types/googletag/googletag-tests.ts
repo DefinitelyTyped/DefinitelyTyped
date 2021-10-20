@@ -3,6 +3,7 @@
 // Load the GPT library by adding the following to the <head> of the HTML document.
 // <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
 // <script>window.googletag = window.googletag || {cmd: []};</script>
+window.googletag = window.googletag || { cmd: [] };
 
 // DEMO 1
 // <script>

@@ -2,34 +2,9 @@
 
 > La repo per le definizioni di tipi Typescript di *alta qualità*.
 
-*Puoi leggere questo README anche in [Spagnolo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coreano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Cinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md), [Portoghese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) e [Giapponese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*Puoi leggere questo README anche in [Spagnolo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coreano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Cinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Portoghese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) e [Giapponese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link per il [manuale dell'amministratore](./docs/admin.md)*
-
-## Contenuti
-
-* [Stato attuale](#stato-attuale)
-* [Cosa cono i file di dichiarazione e come li ottengo?](#cosa-sono-i-file-di-dichiarazione-e-come-li-ottengo)
-* [Come posso contribuire?](#come-posso-contribuire)
-  - [Test](#Test)
-    - [Fare una pull request](#fai-una-pull-request)<details><summary></summary>
-      - [Clonare parzialmente](#clone-parziale)
-        - [Editare un package che già esite](#modificare-un-package-preesistente)
-        - [Creare un nuovo package](#creare-un-nuovo-package)
-        - [Rimuovere un package](#rimuovere-un-package)
-        - [Eseguire test](#eseguire-test)
-        - [Nomenclatura](#nomenclatura)
-        - [`<mio-package>-test.ts`](#mio-package-teststs)
-        - [Linter: `tslint.json`](#linter-tslintjson)
-        - [`tsconfig.json`](#tsconfigjson)
-        - [`package.json`](#packagejson)
-        - [`OTHER_FILES.txt`](#other_filestxt)
-        - [Errori comuni](#errori-comuni)
-        </details>
-      - [Definizione dei proprietari](#proprietari-delle-definizioni)
-  * [Domande frequenti](#domande-frequenti)
-* [Licenza](#licenza)
-
 
 ## Stato attuale
 
@@ -477,7 +452,7 @@ Ecco qui un breve esempio per iniziare:
 4. Nel root del package, aggiungi le funzionalità di Typescript 3.7 che vuoi usare.
    Quando il package viene installato, Typescript 3.6 o inferiore partirà da `ts3.6/index.d.ts`, mentre Typescript 3.7 o superiore partirà da `index.d.ts`.
 
-   Dai un'occhiata a [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) per averne un esempio.
+   Dai un'occhiata a [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) per averne un esempio.
    
 #### Voglio aggiungere una API DOM che non è presente di default su Typescript.
 

@@ -1,4 +1,4 @@
-// Type definitions for apicache 1.2
+// Type definitions for apicache 1.6
 // Project: https://github.com/kwhitley/apicache
 // Definitions by: Daniel Sogl <https://github.com/danielsogl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,7 +53,7 @@ export function newInstance(config: Options): any;
  * getter/setter for global options. If used as a setter, this function is
  * chainable, allowing you to do things such as... say... return the middleware.
  */
-export function options(options: Options): any;
+export function options(options?: Options): any;
 
 export function resetIndex(): void;
 

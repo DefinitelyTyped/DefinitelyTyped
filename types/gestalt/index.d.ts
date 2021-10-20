@@ -1,4 +1,4 @@
-// Type definitions for gestalt 29.6
+// Type definitions for gestalt 34.3
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -9,6 +9,7 @@
 //                 Charlie Gu <https://github.com/czgu>
 //                 Jay Kim <https://github.com/keyworks>
 //                 Vaibhav Sharma <https://github.com/v4iv>
+//                 Juan Alvarez <https://github.com/juanjalvarez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -465,6 +466,19 @@ export interface ContainerProps {
 }
 
 /**
+ * Datapoint Props Interface
+ * https://gestalt.netlify.app/datapoint
+ */
+export interface DatapointProps {
+    title: string;
+    value: string;
+    size?: 'md' | 'lg' | undefined;
+    tooltipText?: string | undefined;
+    trend?: { accesibilityLabel: string, value: number } | undefined;
+    trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
+}
+
+/**
  * ScrollBoundaryContainer Props Interface
  * https://gestalt.netlify.app/ScrollBoundaryContainer
  */
@@ -506,6 +520,8 @@ export interface DropdownProps {
 }
 
 export interface DropdownItemProps {
+    children?: React.ReactNode;
+
     onSelect: AbstractEventHandler<
         React.FocusEvent<HTMLInputElement>,
         {
@@ -564,8 +580,10 @@ export interface DropdownSectionProps {
  */
 export interface FieldsetProps {
     children: React.ReactNode;
+    id?: string;
     legend: string;
     legendDisplay?: 'visible' | 'hidden' | undefined;
+    errorMessage?: string;
 }
 
 /**
@@ -595,6 +613,7 @@ export interface FlexItemProps {
     children?: React.ReactNode | undefined;
     flex?: 'grow' | 'shrink' | 'none' | undefined;
     minWidth?: number | string | undefined;
+    flexBasis?: string | number | undefined;
 }
 
 /**
@@ -879,6 +898,7 @@ export interface IconButtonProps {
 export interface ImageProps {
     alt: string;
     color: string;
+    crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
     elementTiming?: string | undefined;
     naturalHeight: number;
     naturalWidth: number;
@@ -988,6 +1008,10 @@ export interface MasonryProps<T = any> {
  * https://gestalt.netlify.app/Modal
  */
 export interface ModalProps {
+    /*
+    * Temporary undocumented prop to disable ScrollBoundaryContainer.
+    */
+    _dangerouslyDisableScrollBoundaryContainer?: boolean;
     accessibilityModalLabel: string;
     onDismiss: () => void;
     /**
@@ -1203,6 +1227,7 @@ export interface SelectListProps {
  * https://gestalt.netlify.app/Sheet
  */
 export type SheetNodeOrRenderProp = ((prop: { onDismissStart: () => void }) => React.ReactNode) | React.ReactNode;
+export type OnAnimationEndStateType = 'in' | 'out';
 export interface SheetProps {
     accessibilityDismissButtonLabel: string;
     accessibilitySheetLabel: string;
@@ -1213,6 +1238,7 @@ export interface SheetProps {
     heading?: string | undefined;
     size?: 'sm' | 'md' | 'lg' | undefined;
     subHeading?: SheetNodeOrRenderProp | undefined;
+    onAnimationEnd?: (args: { animationState: OnAnimationEndStateType }) => void;
 }
 
 /**
@@ -1460,7 +1486,7 @@ export interface TextProps {
     italic?: boolean | undefined;
     overflow?: 'normal' | 'breakWord' | 'noWrap' | undefined;
     size?: 'sm' | 'md' | 'lg' | undefined;
-    truncate?: boolean | undefined;
+    lineClamp?: number;
     underline?: boolean | undefined;
     weight?: 'bold' | 'normal' | undefined;
 }
@@ -1545,10 +1571,10 @@ export interface TextFieldProps {
  */
 export interface ToastProps {
     button?: React.ReactNode | undefined;
-    color?: 'white' | 'red' | undefined;
     text?: string | React.ReactNode | undefined;
     thumbnail?: React.ReactNode | undefined;
     thumbnailShape?: 'circle' | 'rectangle' | 'square' | undefined;
+    variant?: 'default' | 'error' | undefined;
 }
 
 /**
@@ -1611,6 +1637,7 @@ export interface TypeaheadProps {
  * https://gestalt.netlify.app/Upsell
  */
 export interface UpsellProps {
+    children?: React.ReactElement;
     message: string;
     dismissButton?:
         | {
@@ -1659,6 +1686,7 @@ export interface VideoProps {
     accessibilityPlayLabel?: string | undefined;
     accessibilityUnmuteLabel?: string | undefined;
     aspectRatio: number;
+    backgroundColor?: 'black' | 'transparent' | undefined;
     captions: string;
     playbackRate?: number | undefined;
     playing?: boolean | undefined;
@@ -1667,6 +1695,7 @@ export interface VideoProps {
     volume?: number | undefined;
     children?: Node | undefined;
     controls?: boolean | undefined;
+    disableRemotePlayback?: boolean | undefined;
     crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
     loop?: boolean | undefined;
     objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down' | undefined;
@@ -1737,6 +1766,7 @@ export class Collage extends React.Component<CollageProps, any> {}
 export class ColorSchemeProvider extends React.Component<ColorSchemeProviderProps, any> {}
 export class Column extends React.Component<ColumnProps, any> {}
 export class Container extends React.Component<ContainerProps, any> {}
+export class Datapoint extends React.Component<DatapointProps, any> {}
 export class ScrollBoundaryContainer extends React.Component<ScrollBoundaryContainerProps, any> {}
 export class Divider extends React.Component<{}, any> {}
 export class Dropdown extends React.Component<DropdownProps, any> {

@@ -124,4 +124,4 @@ export type OnChangeHandlerFunc = (event: { target: { value: string } }, newValu
 /**
  * The function to implement asynchronous loading of suggestions in @see MentionProps.data .
  */
-export type DataFunc = (query: string, callback: (data: SuggestionDataItem[]) => void) => void | SuggestionDataItem[];
+export type DataFunc = (query: string, callback: (data: SuggestionDataItem[]) => void) => Promise<void> | void | Promise<SuggestionDataItem[]> | SuggestionDataItem[];

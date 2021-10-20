@@ -10,6 +10,7 @@ import { RouteProps, RouteComponentProps, match as MatchObject } from "react-rou
 
 export interface ScrollIntoViewProps {
     alignToTop?: boolean | undefined;
+    children?: React.ReactNode;
     id: string;
 }
 

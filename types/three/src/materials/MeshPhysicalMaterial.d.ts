@@ -14,7 +14,9 @@ export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialPara
     reflectivity?: number | undefined;
     ior?: number | undefined;
 
-    sheen?: Color | undefined;
+    sheen?: number | undefined;
+    sheenTint?: Color | undefined;
+    sheenRoughness?: number | undefined;
 
     transmission?: number | undefined;
     transmissionMap?: Texture | null | undefined;
@@ -81,9 +83,19 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     ior: number;
 
     /**
-     * @default null
+     * @default 0.0
      */
-    sheen: Color | null;
+    sheen: number;
+
+    /**
+     * @default Color( 0x000000 )
+     */
+    sheenTint: Color;
+
+    /**
+     * @default 1.0
+     */
+    sheenRoughness: number;
 
     /**
      * @default 0
@@ -113,7 +125,7 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     /**
      * @default Color( 1, 1, 1 )
      */
-    attenuationColor: Color;
+    attenuationTint: Color;
 
     /**
      * @default 1.0

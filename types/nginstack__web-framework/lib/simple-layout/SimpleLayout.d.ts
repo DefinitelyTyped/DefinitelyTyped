@@ -105,6 +105,8 @@ declare class SimpleLayout {
     width: string;
     private availableWidth;
     enterpriseName: any;
+    autoSanitize: boolean;
+    private autoSanitize_;
     private cssContentForMail_;
     private isTreeLayout;
     writingMail: boolean;

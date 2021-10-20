@@ -21,6 +21,7 @@ import JasmineClass from "jasmine";
         stopSpecOnExpectationFailure: true,
         failFast: true,
         oneFailurePerSpec: true,
+        autoCleanClosures: false,
     });
 
     jasmineClass.loadConfig({
@@ -1289,6 +1290,9 @@ describe("custom asymmetry", () => {
             const secondValue = actual.split(",")[1];
             return matchersUtil.equals(secondValue, "bar");
         },
+        jasmineToString(pp) {
+            return 'an asymmetric tester for ' + pp('bar');
+        }
     };
 
     it("dives in deep", () => {
@@ -1384,6 +1388,13 @@ describe("jasmine.objectContaining", () => {
                 }),
             }),
         );
+    });
+
+    describe('stringContaining', () => {
+        it('passes', () => {
+            expect('foot').toEqual(jasmine.stringContaining('foo'));
+            expect('foot').toEqual(jasmine.stringContaining(/foo/));
+        });
     });
 
     it("can be used in a nested object", () => {

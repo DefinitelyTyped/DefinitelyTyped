@@ -21,7 +21,7 @@ import scanImport = require('./scan');
  * @return Returns a matcher function.
  * @api public
  */
-declare function picomatch<T extends true | false>(
+declare function picomatch<T extends true | false = false>(
     glob: picomatch.Glob,
     options?: picomatch.PicomatchOptions,
     returnState?: T,
@@ -96,7 +96,7 @@ declare namespace picomatch {
         /**
          * Regex flags to use in the generated regex. If defined, the `nocase` option will be overridden.
          */
-        flags?: boolean | undefined;
+        flags?: string | undefined;
         /**
          * Custom function for formatting the returned string. This is useful for removing leading slashes, converting Windows paths to Posix paths, etc.
          */
@@ -243,7 +243,9 @@ declare namespace picomatch {
         returnState?: boolean,
     ): ReturnType<typeof compileRe>;
 
-    function toRegex(source: string | RegExp, options?: { flags?: string | undefined; nocase?: boolean | undefined; debug?: boolean | undefined }): RegExp;
+    type ToRegexOptions = Pick<PicomatchOptions, 'flags' | 'nocase' | 'debug'>;
+
+    function toRegex(source: string | RegExp, options?: ToRegexOptions): RegExp;
 
     const constants: typeof constantsImport;
 }

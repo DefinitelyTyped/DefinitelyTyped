@@ -2,7 +2,7 @@
 // Project: https://developers.google.com/publisher-tag
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
+// TypeScript Version: 3.0
 
 /**
  * This is the global namespace that the Google Publisher Tag uses for its API.
@@ -591,6 +591,7 @@ declare namespace googletag {
          * Only applies to async mode.
          * Note: this has no effect on GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
          * which automatically reflects the ads actually on the page and has no expiration time.
+         * @deprecated See the Google Ad Manager help page on "Creative selection for multiple ad slots" for more information: https://support.google.com/admanager/answer/183281.
          * @returns The service object on which the function was called.
          */
         updateCorrelator(): PubAdsService;

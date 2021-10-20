@@ -142,6 +142,11 @@ import * as url from 'url';
 }
 
 {
+    // $ExpectError
+    new url.URLSearchParams({ foobar: undefined });
+}
+
+{
     let path: string = url.fileURLToPath('file://test');
     path = url.fileURLToPath(new url.URL('file://test'));
 }

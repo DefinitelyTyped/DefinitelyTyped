@@ -4,33 +4,9 @@
 
 Также посетите веб-сайт [definitelytyped.org](https://definitelytyped.org), хотя информация в этом README более свежая.
 
-_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)._
+_Вы также можете прочитать этот README на [английском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [испанском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [корейском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md) и [китайском](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md)._
 
 <!-- For translators: add link to README.ja.md above! -->
-
-## Содержание
-
-* [Текущее состояние](#текущее-состояние)
-* [Что такое файлы декларации (файлы описания/объявления типов)?](#что-такое-файлы-декларации-файлы-описанияобъявления-типов)
-* [Как их получить?](#как-их-получить)
-* [Как я могу внести свой вклад?](#как-я-могу-внести-свой-вклад)
-  - [Тестирование](#тестирование)
-  - [Запрос на принятие изменений (PR)](#запрос-на-принятие-изменений-pr)<details><summary></summary>
-    - [Изменение существующего пакета](#изменение-существующего-пакета)
-    - [Создание нового пакета](#создание-нового-пакета)
-    - [Удаление пакета](#удаление-пакета)
-    - [Проверка](#проверка)
-    - [Naming](#naming)
-    - [`<my-package>-tests.ts`](#my-package-teststs)
-    - [Linter: `tslint.json`](#linter-tslintjson)
-    - [`tsconfig.json`](#tsconfigjson)
-    - [`package.json`](#packagejson)
-    - [`OTHER_FILES.txt`](#other_filestxt)
-    - [Распространенные ошибки](#распространенные-ошибки)
-    </details>
-  - [Definition owners](#definition-owners)
-* [Часто задаваемые вопросы](#часто-задаваемые-вопросы)
-* [Лицензия](#лицензия)
 
 ## Текущее состояние
 

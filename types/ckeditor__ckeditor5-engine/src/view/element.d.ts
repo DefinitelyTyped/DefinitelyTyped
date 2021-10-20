@@ -1,6 +1,7 @@
 import Document from "./document";
 import Node from "./node";
 import StylesMap from "./stylesmap";
+import { Item } from "./item";
 
 export default abstract class Element extends Node {
     readonly childCount: number;
@@ -17,13 +18,16 @@ export default abstract class Element extends Node {
 
     findAncestor(
         patterns:
+            | ((
+                  element: Element,
+              ) => boolean)
             | string
             | RegExp
             | {
                   attributes?: Record<string, string | RegExp | boolean> | undefined;
                   classes?: string | RegExp | Array<string | RegExp> | undefined;
                   name?: string | RegExp | undefined;
-                  styles: Record<string, string>;
+                  styles?: Record<string, string>;
               },
     ): Element | null;
     getAttribute(key: string): string | undefined;

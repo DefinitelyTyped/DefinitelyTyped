@@ -1,32 +1,18 @@
 import {
-    AddEquation,
     Color,
-    NormalBlending,
-    DepthTexture,
-    SrcAlphaFactor,
-    OneMinusSrcAlphaFactor,
     MeshNormalMaterial,
     MeshBasicMaterial,
-    NearestFilter,
-    NoBlending,
-    RGBAFormat,
     ShaderMaterial,
-    UniformsUtils,
-    UnsignedShortType,
     WebGLRenderTarget,
-    HalfFloatType,
     MeshStandardMaterial,
     WebGLRenderer,
     Scene,
     Camera,
     Mesh,
-    TextureEncoding,
     Material,
     ColorRepresentation,
 } from '../../../src/Three';
 import { Pass, FullScreenQuad } from './Pass';
-import { SSRrShader, SSRrDepthShader } from '../shaders/SSRrShader';
-import { CopyShader } from '../shaders/CopyShader';
 
 export interface SSRrPassParams {
     renderer: WebGLRenderer;
@@ -35,7 +21,6 @@ export interface SSRrPassParams {
     width?: number | undefined;
     height?: number | undefined;
     selects: Mesh[] | null;
-    encoding: TextureEncoding;
 }
 
 export class SSRrPass extends Pass {
@@ -52,8 +37,6 @@ export class SSRrPass extends Pass {
     ior: number;
     maxDistance: number;
     surfDist: number;
-
-    encoding: TextureEncoding;
 
     color: Color;
 

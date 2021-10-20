@@ -21,6 +21,7 @@ options = {
     onEditable(node: EditableNode | {}) {
         return true;
     },
+    limitDragging: true,
     onError(error: Error) {},
     onModeChange(newMode: JSONEditorMode, oldMode: JSONEditorMode) {},
     onValidate: json => [],
@@ -69,3 +70,4 @@ jsonEditor.getTextSelection();
 jsonEditor.refresh();
 jsonEditor.update(null);
 jsonEditor.updateText('');
+jsonEditor.validate();

@@ -1,6 +1,6 @@
 import * as util from 'node:util';
 import assert = require('node:assert');
-import { readFile } from 'node:fs';
+import { access, readFile } from 'node:fs';
 
 // Old and new util.inspect APIs
 util.inspect(["This is nice"], false, 5);
@@ -182,4 +182,18 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
     const logger: util.DebugLogger = util.debuglog('section');
     logger.enabled; // $ExpectType boolean
     util.debuglog('section', (fn: util.DebugLoggerFunction) => { });
+    util.debug('section', (fn: util.DebugLoggerFunction) => { });
+}
+
+{
+    const foo: string = util.toUSVString('foo');
+}
+
+access('file/that/does/not/exist', (err) => {
+    const name = util.getSystemErrorName(err!.errno!);
+    console.error(name);
+});
+
+{
+    util.stripVTControlCharacters('\u001B[4mvalue\u001B[0m'); // $ExpectType string
 }

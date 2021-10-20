@@ -72,3 +72,7 @@ socket.addEventListener('message', e => console.log(e.data));
 socket.onmessage = e => console.log(e.data);
 socket.addEventListener('error', e => console.log(e.message));
 socket.onerror = e => console.log(e.message);
+
+const formData = new FormData();
+formData.append('file', { fileName: 'example' });
+console.log(formData.getParts());

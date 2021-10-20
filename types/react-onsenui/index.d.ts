@@ -3,7 +3,6 @@
 // Definitions by: Ozytis <https://ozytis.fr>,
 //                 Salim <https://github.com/salim7>,
 //                 Jemmyw <https://github.com/jemmyw>
-//                 Mikael Lirbank <https://github.com/lirbank>
 //                 Yuji Tabata <https://github.com/uztbt>
 //                 LBLZR_ <https://github.com/LaBlazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -479,6 +478,7 @@ export class ListHeader extends Component<{
 }, any> {}
 
 export class ListItem extends Component<{
+    children?: React.ReactNode;
     modifier?: string | undefined,
     tappable?: boolean | undefined,
     tapBackgroundColor?: string | undefined,

@@ -1,12 +1,13 @@
-// Type definitions for html-minifier-terser 5.1
+// Type definitions for html-minifier-terser 6.0
 // Project: https://github.com/terser/html-minifier-terser#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * HTMLMinifier is a highly configurable, well-tested, JavaScript-based HTML minifier.
+ * @async
  */
-export function minify(value: string, options?: Options): string;
+export function minify(value: string, options?: Options): Promise<string>;
 
 /**
  * Most of the options are disabled by default

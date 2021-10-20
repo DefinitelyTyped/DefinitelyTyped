@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactInputAttr } from "../../../typings/shared";
+import { ForwardRefReturn, ReactInputAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "id" | "onChange" | "type";
 
@@ -14,9 +14,12 @@ export interface CheckboxProps extends Omit<ReactInputAttr, ExcludedAttributes> 
     indeterminate?: boolean | undefined,
     labelText: NonNullable<React.ReactNode>,
     onChange?: CheckboxOnChangeDataVariant | CheckboxOnChangeDefaultVariant | undefined;
+    /**
+     * @deprecated
+     */
     wrapperClassName?: string | undefined,
 }
 
-declare const Checkbox: React.RefForwardingComponent<HTMLInputElement, CheckboxProps>;
+declare const Checkbox: ForwardRefReturn<HTMLInputElement, CheckboxProps>;
 
 export default Checkbox;

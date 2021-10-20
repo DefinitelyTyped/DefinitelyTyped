@@ -28,3 +28,7 @@ new CircularDependencyPlugin({
 });
 
 webpack({ plugins: [new CircularDependencyPlugin()] });
+
+const compiler: webpack.Compiler = new webpack.Compiler();
+const plugin: webpack.Plugin = new CircularDependencyPlugin();
+plugin.apply(compiler);
