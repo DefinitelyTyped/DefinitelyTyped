@@ -308,7 +308,7 @@ const AttrsInput = styled.input.attrs({
  */
 
 declare const A: React.ComponentClass;
-declare const B: React.StatelessComponent;
+declare const B: React.FunctionComponent;
 declare const C: React.ComponentType;
 
 styled(A); // succeeds
@@ -416,7 +416,7 @@ const ComponentWithTheme = withTheme(Component);
 
 const StyledComponent = styled.h1``;
 
-const StatelessComponent = () => <div />;
+const FunctionComponent = () => <div />;
 
 class ClassComponent extends React.Component {
     render() {
@@ -425,7 +425,7 @@ class ClassComponent extends React.Component {
 }
 
 isStyledComponent(StyledComponent);
-isStyledComponent(StatelessComponent);
+isStyledComponent(FunctionComponent);
 isStyledComponent(ClassComponent);
 isStyledComponent('div');
 

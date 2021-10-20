@@ -125,7 +125,7 @@ const ConnectedDecoratedInitializeFromStateFormFunction = connect(
     }),
 )(DecoratedInitializeFromStateFormFunction);
 
-// React ComponentClass instead of StatelessComponent
+// React ComponentClass instead of FunctionComponent
 
 class InitializeFromStateFormClass extends React.Component<Props> {
     render() {

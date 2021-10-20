@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { ComponentClass, StatelessComponent, ComponentType, ReactType } from "react";
+import { ComponentClass, FunctionComponent, ComponentType, ReactType } from "react";
 
 export type StateSelector<State, OwnProps, R> = (state: State, props: OwnProps) => R;
 

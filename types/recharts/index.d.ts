@@ -906,7 +906,7 @@ export interface TooltipPayload {
 }
 
 export interface TooltipProps extends Animatable {
-    content?: React.ReactElement | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
+    content?: React.ReactElement | React.FunctionComponent<any> | ContentRenderer<TooltipProps>;
     viewBox?: ViewBox;
     allowEscapeViewBox?: AllowEscapeViewBox;
     active?: boolean;
@@ -917,7 +917,7 @@ export interface TooltipProps extends Animatable {
     labelStyle?: object;
     contentStyle?: object;
     wrapperStyle?: object;
-    cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
+    cursor?: boolean | object | React.ReactElement | React.FunctionComponent<any>;
     coordinate?: Coordinate;
     position?: Coordinate;
     label?: string | number;

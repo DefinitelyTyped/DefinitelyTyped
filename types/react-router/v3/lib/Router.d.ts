@@ -1,4 +1,4 @@
-import { Component, ComponentClass, ClassAttributes, ReactNode, StatelessComponent } from "react";
+import { Component, ComponentClass, ClassAttributes, ReactNode, FunctionComponent } from "react";
 import {
     Action,
     History,
@@ -20,7 +20,7 @@ export interface Params {
 }
 
 export type RoutePattern = string;
-export type RouteComponent = ComponentClass<any> | StatelessComponent<any>;
+export type RouteComponent = ComponentClass<any> | FunctionComponent<any>;
 export interface RouteComponents {
     [name: string]: RouteComponent;
 }

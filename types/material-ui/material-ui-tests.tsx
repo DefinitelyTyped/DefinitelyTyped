@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   Component, ComponentClass, CSSProperties,
-  StatelessComponent, ReactElement, ReactInstance, ValidationMap
+  FunctionComponent, ReactElement, ReactInstance, ValidationMap
 } from 'react';
 import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
@@ -2288,7 +2288,7 @@ interface Props {
   label: string;
   muiTheme?: MuiTheme | undefined;
 }
-const MuiThemeableFunction = muiThemeable()<StatelessComponent<Props>, Props>(props => {
+const MuiThemeableFunction = muiThemeable()<FunctionComponent<Props>, Props>(props => {
   return (
       <span style={{color: props.muiTheme.palette.textColor}}>
         Applied the Theme to functional component: {props.label}.
