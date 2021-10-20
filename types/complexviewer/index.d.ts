@@ -5,7 +5,6 @@
 
 import { ScaleOrdinal } from 'd3-scale';
 
-
 export as namespace complexviewer;
 
 export const App: AppConstructor;
