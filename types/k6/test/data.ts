@@ -7,3 +7,4 @@ interface Foo {
 const foos: Foo[] = [{bar: "a"}, {bar: "a"}];
 
 new SharedArray('hola', () => foos); // $ExpectType Foo[]
+new SharedArray('adios', () => []); // $ExpectType []
