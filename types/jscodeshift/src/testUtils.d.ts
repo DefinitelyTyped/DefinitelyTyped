@@ -1,7 +1,7 @@
 import { Transform, Options, Parser } from './core';
 
 export interface TestOptions {
-    parser?: Parser | string | undefined;
+    parser?: Parser | 'babylon' | 'flow' | 'ts' | 'tsx' | 'babel' | undefined;
 }
 
 export function applyTransform(

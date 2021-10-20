@@ -145,7 +145,7 @@ function getFileDefaultImport(file: FileInfo, j: JSCodeshift): Collection<Import
 testUtils.applyTransform({ default: transformImportSpecifier, parser: 'ts' }, null, { source: "import test from 'test';"});
 
 // Can apply a transform passed as function
-testUtils.applyTransform(transformImportSpecifier, {}, { source: "import test from 'test';", path: '/file/path' }, { parser: 'esprima' });
+testUtils.applyTransform(transformImportSpecifier, {}, { source: "import test from 'test';", path: '/file/path' }, { parser: 'babylon' });
 
 // Can define a test
 testUtils.defineTest('directory', 'transformName', { opt: true }, undefined, { parser: 'tsx' });
