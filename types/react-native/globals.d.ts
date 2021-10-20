@@ -51,8 +51,15 @@ declare var Blob: {
     new (blobParts?: Array<Blob | string>, options?: BlobOptions): Blob;
 };
 
+interface FormDataPart {
+    string: string;
+    headers: { [name: string]: string };
+    fieldName: string;
+}
+
 declare class FormData {
     append(name: string, value: any): void;
+    getParts(): Array<FormDataPart>;
 }
 
 declare interface Body {
