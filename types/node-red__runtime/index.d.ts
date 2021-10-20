@@ -800,6 +800,8 @@ declare namespace runtime {
         remove(hookName: string): void;
     }
 
+    //#region Hook Event Objects
+
     interface SendEvent {
         msg: registry.NodeMessage;
         source: {
@@ -858,6 +860,8 @@ declare namespace runtime {
         /** Array of args that will be passed to npm */
         args: string[];
     }
+
+    //#endregion
 
     interface LibraryModule {
         /**
