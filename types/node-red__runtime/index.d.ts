@@ -1,4 +1,4 @@
-// Type definitions for @node-red/runtime 1.1
+// Type definitions for @node-red/runtime 1.2
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/runtime, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,7 @@ import { Strategy } from 'passport';
 
 import { EditorAPIModule } from '@node-red/editor-api';
 import { Util, Log, I18n } from '@node-red/util';
+import * as registry from '@node-red/registry';
 
 declare const runtime: runtime.RuntimeModule;
 
@@ -189,9 +190,11 @@ declare namespace runtime {
                       password: string;
                       permissions: Permission | Permission[];
                   }>;
-                  default?: {
-                      permissions: Permission | Permission[];
-                  } | undefined;
+                  default?:
+                      | {
+                            permissions: Permission | Permission[];
+                        }
+                      | undefined;
               }
             | {
                   type: 'credentials';
@@ -209,7 +212,8 @@ declare namespace runtime {
                       options: object;
                   };
                   users: UsernamePermissions[];
-              } | undefined;
+              }
+            | undefined;
 
         /**
          * For password protected node-defined HTTP endpoints (httpNodeRoot),
@@ -271,7 +275,8 @@ declare namespace runtime {
                       secure: boolean;
                   },
                   callback: (result: boolean, code?: string, reason?: string) => void,
-              ) => void) | undefined;
+              ) => void)
+            | undefined;
 
         /**
          * The following property can be used to seed Global Context with predefined
@@ -301,13 +306,15 @@ declare namespace runtime {
          * provided here will enable file-based context that flushes to disk every 30 seconds.
          * Refer to the documentation for further options: https://nodered.org/docs/api/context/
          */
-        contextStorage?: {
-            [key: string]:
-                | string
-                | {
-                      module: string;
-                  };
-        } | undefined;
+        contextStorage?:
+            | {
+                  [key: string]:
+                      | string
+                      | {
+                            module: string;
+                        };
+              }
+            | undefined;
 
         /**
          * The following property can be used to order the categories in the editor
@@ -321,128 +328,152 @@ declare namespace runtime {
         /**
          * Configure the logging output
          */
-        logging?: {
-            /**
-             * Only console logging is currently supported
-             */
-            console?: {
-                /**
-                 * Level of logging to be recorded. Options are:
-                 * fatal - only those errors which make the application unusable should be recorded
-                 * error - record errors which are deemed fatal for a particular request + fatal errors
-                 * warn - record problems which are non fatal + errors + fatal errors
-                 * info - record information about the general running of the application + warn + error + fatal errors
-                 * debug - record information which is more verbose than info + info + warn + error + fatal errors
-                 * trace - record very detailed logging + debug + info + warn + error + fatal errors
-                 * off - turn off all logging (doesn't affect metrics or audit)
-                 */
-                level: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'off';
+        logging?:
+            | {
+                  /**
+                   * Only console logging is currently supported
+                   */
+                  console?:
+                      | {
+                            /**
+                             * Level of logging to be recorded. Options are:
+                             * fatal - only those errors which make the application unusable should be recorded
+                             * error - record errors which are deemed fatal for a particular request + fatal errors
+                             * warn - record problems which are non fatal + errors + fatal errors
+                             * info - record information about the general running of the application + warn + error + fatal errors
+                             * debug - record information which is more verbose than info + info + warn + error + fatal errors
+                             * trace - record very detailed logging + debug + info + warn + error + fatal errors
+                             * off - turn off all logging (doesn't affect metrics or audit)
+                             */
+                            level: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'off';
 
-                /**
-                 * Whether or not to include metric events in the log output
-                 */
-                metrics: boolean;
+                            /**
+                             * Whether or not to include metric events in the log output
+                             */
+                            metrics: boolean;
 
-                /**
-                 * Whether or not to include audit events in the log output
-                 */
-                audit: boolean;
-            } | undefined;
-        } | undefined;
+                            /**
+                             * Whether or not to include audit events in the log output
+                             */
+                            audit: boolean;
+                        }
+                      | undefined;
+              }
+            | undefined;
 
         /**
          * Customising the editor
          */
-        editorTheme?: {
-            page?: {
-                /**
-                 * Page title
-                 */
-                title?: string | undefined;
-                /**
-                 * Absolute path to theme icon
-                 */
-                favicon?: string | undefined;
-                /**
-                 * Absolute path to custom css file
-                 */
-                css?: string | undefined;
-                /**
-                 * Absolute paths to custom script files
-                 */
-                scripts?: string[] | undefined;
-            } | undefined;
-            header?: {
-                /**
-                 * Header title
-                 */
-                title?: string | undefined;
-                /**
-                 * Absolute path to header image, or `null` to remove image
-                 */
-                image?: string | null | undefined;
-                /**
-                 * Url to make the header text/image a link to this url
-                 */
-                url?: string | undefined;
-            } | undefined;
-            deployButton?: {
-                type: 'simple';
-                /**
-                 * Deploy button label
-                 */
-                label: string;
-                /**
-                 * Absolute path to deploy button image or `null` to remove image
-                 */
-                icon: string;
-            } | undefined;
-            /**
-             * Hide unwanted menu items by id
-             */
-            menu?: {
-                'menu-item-import-library'?: boolean | undefined;
-                'menu-item-export-library'?: boolean | undefined;
-                'menu-item-keyboard-shortcuts'?: boolean | undefined;
-                'menu-item-help'?: {
-                    /** Help Link Text */
-                    label: string;
-                    /** Help Link URL */
-                    url: string;
-                } | undefined;
-            } | undefined;
-            /**
-             * Hide the user-menu even if adminAuth is enabled
-             */
-            userMenu?: boolean | undefined;
-            login?: {
-                image?: string | undefined;
-            } | undefined;
-            palette?: {
-                /**
-                 * Enable/disable the Palette Manager
-                 */
-                editable?: boolean | undefined;
-                /**
-                 * Alternative palette manager catalogues
-                 */
-                catalogues?: string[] | undefined;
-                /**
-                 * Override node colours - rules test against category/type by RegExp.
-                 */
-                theme?: Array<{
-                    category: string;
-                    type: string;
-                    color: string;
-                }> | undefined;
-            } | undefined;
-            projects?: {
-                /**
-                 * To enable the Projects feature, set this value to true
-                 */
-                enabled: boolean;
-            } | undefined;
-        } | undefined;
+        editorTheme?:
+            | {
+                  page?:
+                      | {
+                            /**
+                             * Page title
+                             */
+                            title?: string | undefined;
+                            /**
+                             * Absolute path to theme icon
+                             */
+                            favicon?: string | undefined;
+                            /**
+                             * Absolute path to custom css file
+                             */
+                            css?: string | undefined;
+                            /**
+                             * Absolute paths to custom script files
+                             */
+                            scripts?: string[] | undefined;
+                        }
+                      | undefined;
+                  header?:
+                      | {
+                            /**
+                             * Header title
+                             */
+                            title?: string | undefined;
+                            /**
+                             * Absolute path to header image, or `null` to remove image
+                             */
+                            image?: string | null | undefined;
+                            /**
+                             * Url to make the header text/image a link to this url
+                             */
+                            url?: string | undefined;
+                        }
+                      | undefined;
+                  deployButton?:
+                      | {
+                            type: 'simple';
+                            /**
+                             * Deploy button label
+                             */
+                            label: string;
+                            /**
+                             * Absolute path to deploy button image or `null` to remove image
+                             */
+                            icon: string;
+                        }
+                      | undefined;
+                  /**
+                   * Hide unwanted menu items by id
+                   */
+                  menu?:
+                      | {
+                            'menu-item-import-library'?: boolean | undefined;
+                            'menu-item-export-library'?: boolean | undefined;
+                            'menu-item-keyboard-shortcuts'?: boolean | undefined;
+                            'menu-item-help'?:
+                                | {
+                                      /** Help Link Text */
+                                      label: string;
+                                      /** Help Link URL */
+                                      url: string;
+                                  }
+                                | undefined;
+                        }
+                      | undefined;
+                  /**
+                   * Hide the user-menu even if adminAuth is enabled
+                   */
+                  userMenu?: boolean | undefined;
+                  login?:
+                      | {
+                            image?: string | undefined;
+                        }
+                      | undefined;
+                  palette?:
+                      | {
+                            /**
+                             * Enable/disable the Palette Manager
+                             */
+                            editable?: boolean | undefined;
+                            /**
+                             * Alternative palette manager catalogues
+                             */
+                            catalogues?: string[] | undefined;
+                            /**
+                             * Override node colours - rules test against category/type by RegExp.
+                             */
+                            theme?:
+                                | Array<{
+                                      category: string;
+                                      type: string;
+                                      color: string;
+                                  }>
+                                | undefined;
+                        }
+                      | undefined;
+                  projects?:
+                      | {
+                            /**
+                             * To enable the Projects feature, set this value to true
+                             */
+                            enabled: boolean;
+                        }
+                      | undefined;
+              }
+            | undefined;
 
         verbose?: boolean | undefined;
         safeMode?: boolean | undefined;
@@ -514,7 +545,13 @@ declare namespace runtime {
          * @param opts.key - the context key
          * @param opts.req - the request to log (optional)
          */
-        getValue: (opts: { scope: string; id: string; store: string; key: string; req?: object | undefined }) => Promise<object>;
+        getValue: (opts: {
+            scope: string;
+            id: string;
+            store: string;
+            key: string;
+            req?: object | undefined;
+        }) => Promise<object>;
 
         /**
          * Gets the info of an individual node set
@@ -525,7 +562,13 @@ declare namespace runtime {
          * @param opts.key - the context key
          * @param opts.req - the request to log (optional)
          */
-        delete: (opts: { scope: string; id: string; store: string; key: string; req?: object | undefined }) => Promise<void>;
+        delete: (opts: {
+            scope: string;
+            id: string;
+            store: string;
+            key: string;
+            req?: object | undefined;
+        }) => Promise<void>;
     }
 
     interface Flows {
@@ -559,7 +602,9 @@ declare namespace runtime {
          * @param opts.deploymentType - the type of deployment - "full", "nodes", "flows", "reload"
          * @param opts.req - the request to log (optional)
          */
-        setFlows: (opts: { flows: { flows: object[]; credentials: object; req?: object | undefined } }) => Promise<{ rev: string }>;
+        setFlows: (opts: {
+            flows: { flows: object[]; credentials: object; req?: object | undefined };
+        }) => Promise<{ rev: string }>;
 
         /**
          * Adds a flow configuration
@@ -606,6 +651,214 @@ declare namespace runtime {
          */
         getNodeCredentials: (opts: { type: string; id: string; req?: object | undefined }) => Promise<object>;
     }
+
+    // Used `boolean` in PromiseLike instead of `false` because it caused problems with `async` functions
+    type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // tslint:disable-line:void-return
+
+    interface HooksModule {
+        /**
+         * A node has called `node.send()` with one or more messages.
+         *
+         * The hook is passed an array of `SendEvent` objects.
+         * The messages inside these objects are exactly what the node has passed to `node.send`
+         * - meaning there could be duplicate references to the same message object.
+         *
+         * This hook should complete synchronously in order to avoid unexpected behaviour.
+         *
+         * If it needs to do asynchronously work, it must clone and replace the message object in the event it receives.
+         * It must also set the `cloneMessage` property to `false` to ensure no subsequent cloning happens on the message.
+         *
+         * If the hook returns `false`, the messages will not proceed any further.
+         */
+        add(hookName: 'onSend', hookHandler: HandlerFunction<SendEvent[]>): void;
+
+        /**
+         * A message is about to be routed to its destination.
+         *
+         * The hook is passed a single `SendEvent`.
+         *
+         * This hook should complete synchronously in order to avoid unexpected behaviour.
+         *
+         * If it needs to do asynchronously work, it must clone and replace
+         * the message object in the event it receives.
+         * It must also set the `cloneMessage` property to `false` to ensure no subsequent cloning happens on the message.
+         *
+         * If the hook returns `false`, the message will not proceed any further.
+         */
+        add(hookName: 'preRoute', handlerFunction: HandlerFunction<SendEvent>): void;
+
+        /**
+         * A message is about to be delivered
+         *
+         * The hook is passed a single `SendEvent`.
+         * At this point, the local router has identified the node it is going to send to and set the `destination.node` property of the `SendEvent`.
+         *
+         * The message will have been cloned if needed.
+         *
+         * If the hook returns `false`, the messages will not proceed any further.
+         */
+        add(hookName: 'preDeliver', handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * A message has been dispatched to its destination.
+         *
+         * The hook is passed a single `SendEvent`. The message is delivered asynchronously to the hooks execution.
+         */
+        add(hookName: 'postDeliver', handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * A message is about to be received by a node.
+         *
+         * The hook is passed a `ReceiveEvent`.
+         *
+         * If the hook returns `false`, the messages will not proceed any further.
+         */
+        add(hookName: 'onReceive', handlerFunction: HandlerFunction<ReceiveEvent>): void;
+
+        /**
+         * A message has been received by a node.
+         *
+         * The hook is passed `ReceiveEvent` when the message has been given to the node’s `input` handler.
+         */
+        add(hookName: 'postReceive', handlerFunction: HandlerFunction<ReceiveEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * A node has completed with a message or logged an error for it.
+         *
+         * The hook is passed a `CompleteEvent`.
+         */
+        add(hookName: 'onComplete', handlerFunction: HandlerFunction<CompleteEvent>): void;
+
+        /**
+         * Called before running `npm install` to install an npm module.
+         *
+         * The hook is passed an `InstallEvent` object that contains information about the module to be installed.
+         *
+         * The hook can modify the InstallEvent to change how npm is run.
+         * For example, the `args` array can be modified to change what arguments are passed to `npm`.
+         *
+         * If the hook returns `false`, the `npm install` will be skipped and the processing continue as if it had been run.
+         * This would allow some alternative mechanism to be used - as long as it results in the module being installed under the expected `node_modules` directory.
+         *
+         * If the hook throws an error, the install will be cleanly failed.
+         */
+        add(hookName: 'preInstall', handlerFunction: HandlerFunction<InstallEvent>): void;
+
+        /**
+         * Called after `npm install` finishes installing an npm module.
+         *
+         * Note if a `preInstall` hook returned `false`, `npm install` will not have been run, but this hook will still get invoked.
+         *
+         * This hook can be used to run any post-install activity needed.
+         *
+         * If the hook throws an error, the install will be cleanly failed.
+         *
+         * If the preceding `npm install` returned an error, this hook will not be invoked.
+         */
+        add(hookName: 'postInstall', handlerFunction: HandlerFunction<InstallEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * Called before running `npm remove` to uninstall an npm module.
+         *
+         * The hook is passed an `UninstallEvent` object that contains information about the module to be removed.
+         *
+         * The hook can modify the UninstallEvent to change how npm is run.
+         * For example, the args array can be modified to change what arguments are passed to npm.
+         *
+         * If the hook returns false, the npm remove will be skipped and the processing continue as if it had been run.
+         * This would allow some alternative mechanism to be used.
+         *
+         * If the hook throws an error, the uninstall will be cleanly failed.
+         */
+        add(hookName: 'preUninstall', handlerFunction: HandlerFunction<UninstallEvent>): void;
+
+        /**
+         * Called after `npm remove` finishes removing an npm module.
+         *
+         * Note if a `preUninstall` hook returned `false`, `npm remove` will not have been run, but this hook will still get invoked.
+         *
+         * This hook can be used to run any post-uninstall activity needed.
+         *
+         * If the hook throws an error, it will be logged, but the uninstall will complete cleanly as we cannot rollback an `npm remove` after it has completed.
+         */
+        add(hookName: 'postUninstall', handlerFunction: HandlerFunction<UninstallEvent>): void; // tslint:disable-line:unified-signatures
+
+        /**
+         * Register a new hook handler.
+         *
+         * @see https://nodered.org/docs/api/hooks/#methods-add
+         */
+        add(hookName: string, handlerFunction: HandlerFunction<any>): void;
+
+        /**
+         * Remove a hook handler.
+         *
+         * Only handlers that were registered with a labelled name (for example `onSend.my-hooks`) can be removed.
+         *
+         * To remove all hooks with a given label, `*.my-hooks` can be used.
+         */
+        remove(hookName: string): void;
+    }
+
+    interface SendEvent {
+        msg: registry.NodeMessage;
+        source: {
+            /** node id */
+            id: string;
+            node: registry.Node;
+            /** index of port being sent on */
+            port: number;
+        };
+        destination: {
+            /** node id */
+            id: string;
+            node: undefined;
+        };
+        cloneMessage: boolean;
+    }
+
+    interface ReceiveEvent {
+        msg: registry.NodeMessage;
+        destination: {
+            /** node id */
+            id: string;
+            node: registry.Node;
+        };
+    }
+
+    interface CompleteEvent {
+        msg: registry.NodeMessage;
+        node: {
+            id: string;
+            node: registry.Node;
+        };
+        error?: Error;
+    }
+
+    interface InstallEvent {
+        /** npm module name */
+        module: string;
+        /** Version of the module that is being installed */
+        version: string;
+        /** Optional url to install from */
+        url?: string;
+        /** Directory to run the install in */
+        dir: string;
+        isExisting?: boolean;
+        isUpgrade?: boolean;
+        /** Array of args that will be passed to npm */
+        args: string[];
+    }
+
+    interface UninstallEvent {
+        /** npm module name */
+        module: string;
+        /** Directory to run the remove in */
+        dir: string;
+        /** Array of args that will be passed to npm */
+        args: string[];
+    }
+
     interface LibraryModule {
         /**
          * Gets an entry from the library.
@@ -615,7 +868,12 @@ declare namespace runtime {
          * @param opts.path - the path of the entry
          * @param opts.req - the request to log (optional)
          */
-        getEntry: (opts: { library: string; type: string; path: string; req?: object | undefined }) => Promise<string | object>;
+        getEntry: (opts: {
+            library: string;
+            type: string;
+            path: string;
+            req?: object | undefined;
+        }) => Promise<string | object>;
 
         /**
          * Saves an entry to the library
@@ -636,6 +894,7 @@ declare namespace runtime {
             req?: object | undefined;
         }) => Promise<void>;
     }
+
     interface NodesModule {
         /**
          * Gets the info of an individual node set
@@ -691,7 +950,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the node module info
          */
-        addModule: (opts: { module: string; version?: string | undefined; url?: string | undefined; req?: object | undefined }) => Promise<object>;
+        addModule: (opts: {
+            module: string;
+            version?: string | undefined;
+            url?: string | undefined;
+            req?: object | undefined;
+        }) => Promise<object>;
 
         /**
          * Removes a module from the runtime
@@ -784,7 +1048,11 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        createProject: (opts: { user?: ProjectUser | undefined; project: object; req?: object | undefined }) => Promise<object>;
+        createProject: (opts: {
+            user?: ProjectUser | undefined;
+            project: object;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Initialises an empty project
          * @param opts
@@ -794,7 +1062,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        initialiseProject: (opts: { user?: ProjectUser | undefined; id: string; project: object; req?: object | undefined }) => Promise<object>;
+        initialiseProject: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            project: object;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Gets the active project
          * @param opts
@@ -811,7 +1084,11 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        setActiveProject: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
+        setActiveProject: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Gets a projects metadata
          * @param opts
@@ -830,7 +1107,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        updateProject: (opts: { user?: ProjectUser | undefined; id: string; project: object; req?: object | undefined }) => Promise<object>;
+        updateProject: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            project: object;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Deletes a project
          * @param opts
@@ -839,7 +1121,11 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        deleteProject: (opts: { user?: ProjectUser | undefined; id: string; req?: object | undefined }) => Promise<object>;
+        deleteProject: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Gets current git status of a project
          * @param opts
@@ -849,7 +1135,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the project status
          */
-        getStatus: (opts: { user?: ProjectUser | undefined; id: string; remote: boolean; req?: object | undefined }) => Promise<object>;
+        getStatus: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            remote: boolean;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Get a list of local branches
          * @param opts
@@ -859,7 +1150,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns a list of the local branches
          */
-        getBranches: (opts: { user?: ProjectUser | undefined; id: string; remote: boolean; req?: object | undefined }) => Promise<object>;
+        getBranches: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            remote: boolean;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Gets the status of a branch
          * @param opts
@@ -869,7 +1165,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the status of the branch
          */
-        getBranchStatus: (opts: { user?: ProjectUser | undefined; id: string; branch: string; req?: object | undefined }) => Promise<object>;
+        getBranchStatus: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            branch: string;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Sets the current local branch
          * @param opts
@@ -913,7 +1214,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        commit: (opts: { user?: ProjectUser | undefined; id: string; message: string; req?: object | undefined }) => Promise<object>;
+        commit: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            message: string;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Gets the details of a single commit
          * @param opts
@@ -923,7 +1229,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the commit details
          */
-        getCommit: (opts: { user?: ProjectUser | undefined; id: string; sha: string; req?: object | undefined }) => Promise<object>;
+        getCommit: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            sha: string;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Gets the commit history of the project
          * @param opts
@@ -1002,7 +1313,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        stageFile: (opts: { user?: ProjectUser | undefined; id: string; path: string | string[]; req?: object | undefined }) => Promise<object>;
+        stageFile: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            path: string | string[];
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          *
          * @param opts
@@ -1012,7 +1328,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        unstageFile: (opts: { user?: ProjectUser | undefined; id: string; path: string; req?: object | undefined }) => Promise<object>;
+        unstageFile: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            path: string;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Reverts changes to a file back to its commited version
          * @param opts
@@ -1022,7 +1343,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        revertFile: (opts: { user?: ProjectUser | undefined; id: string; path: string; req?: object | undefined }) => Promise<object>;
+        revertFile: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            path: string;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Get the diff of a file
          * @param opts
@@ -1075,7 +1401,12 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        removeRemote: (opts: { user?: ProjectUser | undefined; id: string; remote: string; req?: object | undefined }) => Promise<object>;
+        removeRemote: (opts: {
+            user?: ProjectUser | undefined;
+            id: string;
+            remote: string;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          *
          * @param opts
@@ -1153,7 +1484,11 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the user settings
          */
-        updateUserSettings: (opts: { user?: User | undefined; settings: object; req?: object | undefined }) => Promise<object>;
+        updateUserSettings: (opts: {
+            user?: User | undefined;
+            settings: object;
+            req?: object | undefined;
+        }) => Promise<object>;
         /**
          * Gets a list of a user's ssh keys
          * @param opts
@@ -1208,7 +1543,11 @@ declare namespace runtime {
             credentials: object;
             rev: string;
         }>;
-        saveFlows(config: { flows: object[]; credentials: object; credentialsDirty?: boolean | undefined }): Promise<void>;
+        saveFlows(config: {
+            flows: object[];
+            credentials: object;
+            credentialsDirty?: boolean | undefined;
+        }): Promise<void>;
         saveCredentials(credentials: object): Promise<void>;
         getSettings(): Promise<object | null>;
         saveSettings(settings: object): Promise<void>;
@@ -1267,6 +1606,7 @@ declare namespace runtime {
         settings: SettingsModule;
         projects: ProjectsModule;
         context: ContextModule;
+        hooks: HooksModule;
 
         /**
          * Returns whether the runtime is started
