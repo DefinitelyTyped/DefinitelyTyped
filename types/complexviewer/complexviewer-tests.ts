@@ -1,4 +1,4 @@
-import * as ComplexViewer from 'complexviewer';
+import * as complexviewerfrom 'complexviewer';
 
-new ComplexViewer.App(document.createElement('div'), 3);
-new ComplexViewer.App(document.createElement('div'));
+new complexviewer.App(document.createElement('div'), 3);
+new complexviewer.App(document.createElement('div'));
