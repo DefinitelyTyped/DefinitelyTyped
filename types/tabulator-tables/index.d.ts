@@ -7,6 +7,7 @@
 // tslint:disable:max-line-length
 // tslint:disable:jsdoc-format
 // tslint:disable:no-trailing-whitespace
+// tslint:disable:no-unnecessary-class
 
 export namespace Tabulator {
     interface Options
@@ -2387,7 +2388,7 @@ export class Tabulator {
 
 export class Renderer {}
 export class Module {
+    static moduleName: string;
+
     constructor(table: Tabulator);
 }
-
-export {};

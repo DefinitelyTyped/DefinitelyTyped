@@ -1021,7 +1021,6 @@ Tabulator.bindModules([Renderer]);
 cell.navigateDown();
 
 class CustomModule extends Module {
-    static moduleName: string;
     constructor(table: Tabulator) {
         super(table);
     }
