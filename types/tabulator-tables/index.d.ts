@@ -9,7 +9,7 @@
 // tslint:disable:no-trailing-whitespace
 // tslint:disable:no-unnecessary-class
 
-export namespace Tabulator {
+declare namespace Tabulator {
     interface Options
         extends OptionsGeneral,
             OptionsMenu,
@@ -1940,7 +1940,7 @@ type EventCallBackMethods =
     | 'dataProcessed';
 
 // Tabulator.prototype.(?!registerModule|helpers|_)\w+
-export class Tabulator {
+declare class Tabulator {
     static defaultOptions: Tabulator.Options;
 
     /** A lot of the modules come with a range of default settings to make setting up your table easier, for example the sorters, formatters and editors that ship with Tabulator as standard.
@@ -2386,9 +2386,11 @@ export class Tabulator {
     off: (event: EventCallBackMethods, callback?: () => any) => void;
 }
 
-export class Renderer {}
-export class Module {
+declare class Renderer {}
+declare class Module {
     static moduleName: string;
 
     constructor(table: Tabulator);
 }
+
+export { Tabulator, Renderer, Module };
