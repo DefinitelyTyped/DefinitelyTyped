@@ -85,6 +85,37 @@ Papa.parse(file, {
 });
 
 // $ExpectType void
+Papa.parse<[string], File>(file, {
+    transform(value, field) {},
+    transformHeader(header, index) {
+        return header;
+    },
+    complete(a, b) {
+        // $ExpectType ParseResult<[string]>
+        a;
+        // $ExpectType string[] | undefined
+        a.meta.fields;
+        // $ExpectType File
+        b;
+    },
+});
+// $ExpectType void
+Papa.parse<[string]>(file, {
+    transform(value, field) {},
+    transformHeader(header, index) {
+        return header;
+    },
+    complete(a, b) {
+        // $ExpectType ParseResult<[string]>
+        a;
+        // $ExpectType string[] | undefined
+        a.meta.fields;
+        // $ExpectType LocalFile
+        b;
+    },
+});
+
+// $ExpectType void
 Papa.parse('/resources/files/normal.csv', {
     download: true,
 
@@ -154,6 +185,25 @@ Papa.parse<[string, string]>('/resources/files/normal.csv', {
         r;
         // $ExpectType string
         file;
+    },
+});
+
+declare const dataOrFile: string | File;
+// $ExpectType void
+Papa.parse<string[]>(dataOrFile, {
+    complete(r: Papa.ParseResult<string[]>) {
+        // $ExpectType ParseResult<string[]>
+        r;
+    },
+});
+
+declare const urlOrFile: string | File;
+// $ExpectType void
+Papa.parse<string[]>(urlOrFile, {
+    download: true,
+    complete(r: Papa.ParseResult<string[]>) {
+        // $ExpectType ParseResult<string[]>
+        r;
     },
 });
 

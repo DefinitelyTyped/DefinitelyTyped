@@ -22,11 +22,8 @@ export as namespace Papa;
  * @param config a config object which contains a callback.
  * @returns Doesn't return anything. Results are provided asynchronously to a callback function.
  */
-export function parse<T, TFile extends Blob | NodeJS.ReadableStream>(
-    file: TFile,
-    // tslint:disable-next-line: no-unnecessary-generics
-    config: ParseLocalConfig<T, TFile>,
-): void;
+// tslint:disable-next-line: no-unnecessary-generics
+export function parse<T, TFile extends LocalFile = LocalFile>(file: TFile, config: ParseLocalConfig<T, TFile>): void;
 /**
  * Parse remote files
  * @param url the path or URL to the file to download.
@@ -54,6 +51,21 @@ export function parse<T>(
     config?: ParseConfig<T> & { download?: false | undefined; worker?: false | undefined },
 ): ParseResult<T>;
 /**
+ * Parse string, remote files or  local files
+ * @param source data to be parsed.
+ * @param config a config object.
+ * @returns Doesn't return anything. Results are provided asynchronously to a callback function.
+ */
+export function parse<T>(
+    source: LocalFile | string,
+    config: ParseLocalConfig<T, LocalFile> &
+        (
+            | (ParseConfig<T> & { download?: false | undefined; worker?: false | undefined })
+            | (ParseWorkerConfig<T> & { download?: false | undefined })
+            | ParseRemoteConfig<T>
+        ),
+): void;
+/**
  * Parse in a node streaming style
  * @param stream `NODE_STREAM_INPUT`
  * @param config a config object.
@@ -78,10 +90,10 @@ export function unparse<T>(data: T[] | UnparseObject<T>, config?: UnparseConfig)
 export const BAD_DELIMITERS: ReadonlyArray<string>;
 
 /** The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for. */
-export const RECORD_SEP = '\x1E';
+export const RECORD_SEP: '\x1E';
 
 /** Also sometimes used as a delimiting character. ASCII code 31. */
-export const UNIT_SEP = '\x1F';
+export const UNIT_SEP: '\x1F';
 /**
  * Whether or not the browser supports HTML5 Web Workers.
  * If false, `worker: true` will have no effect.
@@ -114,6 +126,9 @@ export let RemoteChunkSize: number;
  * @default ','
  */
 export let DefaultDelimiter: string;
+
+/** File object */
+export type LocalFile = Blob | NodeJS.ReadableStream;
 
 /**
  * On Papa there are actually more classes exposed
