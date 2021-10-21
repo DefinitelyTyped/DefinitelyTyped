@@ -719,8 +719,8 @@ namespace MeteorTests {
     var body = Template.body;
 
     const Template2 = Template as TemplateStaticTyped<
-        { foo: string },
         'newTemplate2',
+        { foo: string },
         {
             state: ReactiveDict<{ bar: number }>;
             getFooBar(): string;
@@ -774,6 +774,18 @@ namespace MeteorTests {
             template.getFooBar();
         },
     });
+
+    const Template3 = Template as TemplateStaticTyped<'newTemplate3', string>;
+
+    const Template4 = Template as TemplateStaticTyped<'newTemplate4', () => number>;
+
+    Template4.newTemplate4.events({
+        test: (_event, instance) => {
+            instance.data(); // $ExpectType number
+        },
+    });
+
+    const Template5 = Template as TemplateStaticTyped<'newTemplate5'>;
 
     /**
      * From Match section

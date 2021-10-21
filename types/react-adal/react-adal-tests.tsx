@@ -34,11 +34,11 @@ runWithAdal(authContext, () => {
 
 const withAdalLoginApi = withAdalLogin(authContext, resourceUrl);
 
-const Loading: React.SFC = (props) => {
+const Loading: React.FC = (props) => {
     return null;
 };
 
-const ErrorPage: React.SFC = (props) => {
+const ErrorPage: React.FC = (props) => {
     return null;
 };
 
@@ -54,7 +54,7 @@ class ProtectedPage1 extends React.Component {
     }
 }
 
-const ProtectedPage2: React.SFC = (props) => {
+const ProtectedPage2: React.FC = (props) => {
     return null;
 };
 

@@ -221,7 +221,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     data?: ReadonlyArray<BarData>;
     background?: boolean | React.ReactElement | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
-    label?: boolean | Label | LabelProps | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
+    label?: boolean | Label | LabelProps | React.FC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
     id?: string;
 }
 
@@ -906,7 +906,7 @@ export interface TooltipPayload {
 }
 
 export interface TooltipProps extends Animatable {
-    content?: React.ReactElement | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
+    content?: React.ReactElement | React.FunctionComponent<any> | ContentRenderer<TooltipProps>;
     viewBox?: ViewBox;
     allowEscapeViewBox?: AllowEscapeViewBox;
     active?: boolean;
@@ -917,7 +917,7 @@ export interface TooltipProps extends Animatable {
     labelStyle?: object;
     contentStyle?: object;
     wrapperStyle?: object;
-    cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
+    cursor?: boolean | object | React.ReactElement | React.FunctionComponent<any>;
     coordinate?: Coordinate;
     position?: Coordinate;
     label?: string | number;

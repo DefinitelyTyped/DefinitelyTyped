@@ -6327,11 +6327,14 @@ function JQuery() {
         }
 
         function get() {
-            // $ExpectType HTMLElement
+            // $ExpectType HTMLElement | undefined
             $('p').get(0);
 
             // $ExpectType HTMLElement[]
             $('p').get();
+
+            // $ExpectType HTMLElement | undefined
+            $('nonExistentElement').get(0);
         }
 
         function index() {

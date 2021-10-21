@@ -3,7 +3,7 @@ import MailchimpSubscribe, {
   NameFormFields
 } from "react-mailchimp-subscribe";
 
-const Example: React.StatelessComponent = () => (
+const Example: React.FunctionComponent = () => (
   <>
     <MailchimpSubscribe
       render={(hooks) => (<>

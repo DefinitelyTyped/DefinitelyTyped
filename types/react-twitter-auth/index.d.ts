@@ -23,6 +23,6 @@ interface TwitterLoginProps {
     forceLogin?: boolean | undefined;
 }
 
-declare var TwitterLogin: React.StatelessComponent<TwitterLoginProps>;
+declare var TwitterLogin: React.FunctionComponent<TwitterLoginProps>;
 
 export default TwitterLogin;

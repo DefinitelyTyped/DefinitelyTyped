@@ -452,6 +452,7 @@ export interface PressableAndroidRippleConfig {
     color?: null | ColorValue | undefined;
     borderless?: null | boolean | undefined;
     radius?: null | number | undefined;
+    foreground?: null | boolean | undefined;
 }
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {

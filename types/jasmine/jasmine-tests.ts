@@ -21,6 +21,7 @@ import JasmineClass from "jasmine";
         stopSpecOnExpectationFailure: true,
         failFast: true,
         oneFailurePerSpec: true,
+        autoCleanClosures: false,
     });
 
     jasmineClass.loadConfig({
@@ -1387,6 +1388,13 @@ describe("jasmine.objectContaining", () => {
                 }),
             }),
         );
+    });
+
+    describe('stringContaining', () => {
+        it('passes', () => {
+            expect('foot').toEqual(jasmine.stringContaining('foo'));
+            expect('foot').toEqual(jasmine.stringContaining(/foo/));
+        });
     });
 
     it("can be used in a nested object", () => {

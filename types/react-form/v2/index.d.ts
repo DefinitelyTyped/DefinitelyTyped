@@ -146,10 +146,10 @@ export interface SelectProps extends FieldProps, React.SelectHTMLAttributes<HTML
     placeholder?: string | undefined;
 }
 
-export const Select: React.StatelessComponent<SelectProps>;
+export const Select: React.FunctionComponent<SelectProps>;
 
-export const Text: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
-export const TextArea: React.StatelessComponent<FieldProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
+export const Text: React.FunctionComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
+export const TextArea: React.FunctionComponent<FieldProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
 
 export interface RadioGroupContext {
     group: FieldApi;
@@ -165,8 +165,8 @@ export class RadioGroup
     };
 }
 
-export const Radio: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi}>;
-export const Checkbox: React.StatelessComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
+export const Radio: React.FunctionComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi}>;
+export const Checkbox: React.FunctionComponent<FieldProps & React.InputHTMLAttributes<HTMLInputElement>>;
 
 // Styled Fields
 
@@ -176,11 +176,11 @@ export interface StyledProps extends FieldProps {
     touchValidation?: boolean | undefined;
 }
 
-export const StyledCheckbox: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {label: string}>;
-export const StyledTextArea: React.StatelessComponent<StyledProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
-export const StyledSelect: React.StatelessComponent<StyledProps & SelectProps & React.InputHTMLAttributes<HTMLSelectElement>>;
-export const StyledText: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement>>;
-export const StyledRadio: React.StatelessComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi, label: string}>;
+export const StyledCheckbox: React.FunctionComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {label: string}>;
+export const StyledTextArea: React.FunctionComponent<StyledProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>>;
+export const StyledSelect: React.FunctionComponent<StyledProps & SelectProps & React.InputHTMLAttributes<HTMLSelectElement>>;
+export const StyledText: React.FunctionComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement>>;
+export const StyledRadio: React.FunctionComponent<StyledProps & React.InputHTMLAttributes<HTMLInputElement> & {group: FieldApi, label: string}>;
 
 export class StyledRadioGroup
     extends React.Component<

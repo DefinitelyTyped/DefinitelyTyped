@@ -261,7 +261,7 @@ export interface GridProps<T> {
     y?: ((t: T) => number) | undefined;
 }
 
-// Export as Component despite it's SFC.
+// Export as Component despite it's FC.
 export class Grid<T> extends React.Component<GridProps<T>> {
     static Direction: {
         VERTICAL: 'VERTICAL',

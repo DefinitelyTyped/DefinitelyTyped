@@ -21,7 +21,7 @@ const WrongSampleNotification = () => {
     });
 };
 
-const ComponentTest: React.SFC = () => {
+const ComponentTest: React.FC = () => {
     return (
         <div>
             <ReactNotification />
@@ -29,7 +29,7 @@ const ComponentTest: React.SFC = () => {
     );
 };
 
-const WrongPropTest: React.SFC = () => {
+const WrongPropTest: React.FC = () => {
     // $ExpectError
     return <ReactNotification randomProp={false} />;
 };

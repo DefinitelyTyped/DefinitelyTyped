@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.94.0
+// For Library Version: 1.95.0
 
 declare module "sap/base/assert" {
   /**
@@ -11495,7 +11495,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getAppCacheBusterMode(): string;
     /**
-     * @deprecated (since 1.15.1) - Please use the rootComponent configuration option {@link sap.ui.core.Configuration#getRootComponent}.
+     * @deprecated (since 1.15.1) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also
+     * {@link topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
      *
      * The name of the application to start or empty.
      */
@@ -11609,7 +11610,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getOriginInfo(): boolean;
     /**
-     * @EXPERIMENTAL (since 1.15.1)
+     * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link
+     * topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
      *
      * The name of the root component to start or empty.
      */
@@ -11627,6 +11629,14 @@ declare module "sap/ui/core/Configuration" {
      * It will be returned in uppercase. e.g. "EN", "DE"
      */
     getSAPLogonLanguage(): string;
+    /**
+     * @SINCE 1.95.0
+     *
+     * Returns the security token handlers of an OData V4 model.
+     * See:
+     * 	#setSecurityTokenHandlers
+     */
+    getSecurityTokenHandlers(): Function[];
     /**
      * Returns the theme name
      */
@@ -11777,6 +11787,20 @@ declare module "sap/ui/core/Configuration" {
        */
       bRTL: boolean | null
     ): this;
+    /**
+     * @SINCE 1.95.0
+     *
+     * Sets the security token handlers for an OData V4 model. See chapter "Security Token Handling" in {@link
+     * topic:9613f1f2d88747cab21896f7216afdac Model Instantiation and Data Access}.
+     * See:
+     * 	#getSecurityTokenHandlers
+     */
+    setSecurityTokenHandlers(
+      /**
+       * The security token handlers
+       */
+      aSecurityTokenHandlers: Function[]
+    ): void;
   }
   /**
    * @SINCE 1.50.0
@@ -12924,6 +12948,8 @@ declare module "sap/ui/core/Core" {
 
   import UI5Element from "sap/ui/core/Element";
 
+  import Component from "sap/ui/core/Component";
+
   import RenderManager from "sap/ui/core/RenderManager";
 
   import UIArea from "sap/ui/core/UIArea";
@@ -12931,8 +12957,6 @@ declare module "sap/ui/core/Core" {
   import Type from "sap/ui/model/Type";
 
   import Application from "sap/ui/app/Application";
-
-  import Component from "sap/ui/core/Component";
 
   import Configuration from "sap/ui/core/Configuration";
 
@@ -13314,6 +13338,8 @@ declare module "sap/ui/core/Core" {
       sId: ID | null | undefined
     ): UI5Element | undefined;
     /**
+     * @deprecated (since 1.95) - Please use {@link sap.ui.core.Component.create Component.create} instead.
+     *
      * Creates a component with the provided id and settings.
      *
      * When the optional parameter `sUrl` is given, then all request for resources of the library will be redirected
@@ -13367,7 +13393,7 @@ declare module "sap/ui/core/Core" {
        * the settings object for the component
        */
       mSettings?: object
-    ): void;
+    ): Component;
     /**
      * Returns a new instance of the RenderManager for exclusive use by the caller.
      *
@@ -13639,6 +13665,8 @@ declare module "sap/ui/core/Core" {
      */
     getApplication(): Application;
     /**
+     * @deprecated (since 1.95) - Please use {@link sap.ui.core.Component.get Component.get} instead.
+     *
      * Returns the registered component for the given id, if any.
      */
     getComponent(sId: string): Component;
@@ -13759,6 +13787,9 @@ declare module "sap/ui/core/Core" {
      */
     getRenderManager(): void;
     /**
+     * @deprecated (since 1.95) - Please use {@link module:sap/ui/core/ComponentSupport} instead. See also {@link
+     * topic:82a0fcecc3cb427c91469bc537ebdddf Declarative API for Initial Components}.
+     *
      * Returns the instance of the root component (if exists).
      */
     getRootComponent(): Component;
@@ -14008,7 +14039,7 @@ declare module "sap/ui/core/Core" {
      */
     loadLibrary(
       /**
-       * name of the library to load
+       * Name of the library to load
        */
       sLibrary: string,
       /**
@@ -14019,15 +14050,15 @@ declare module "sap/ui/core/Core" {
         | boolean
         | {
             /**
-             * URL to load the library from
-             */
-            url?: string;
-            /**
              * Whether to load the library asynchronously
              */
             async?: boolean;
+            /**
+             * URL to load the library from
+             */
+            url?: string;
           }
-    ): Object | Promise<any>;
+    ): object | Promise<object>;
     /**
      * Locks the Core. No browser events are dispatched to the controls.
      *
@@ -20543,217 +20574,6 @@ declare module "sap/ui/core/Icon" {
   }
 }
 
-declare module "sap/ui/core/IconPool" {
-  import ResourceBundle from "sap/base/i18n/ResourceBundle";
-
-  import Control from "sap/ui/core/Control";
-
-  import { URI } from "sap/ui/core/library";
-
-  /**
-   * The IconPool is a static class for retrieving or registering icons. It also provides helping methods
-   * for easier consumption of icons. There are already icons registered in IconPool, please use the Demo
-   * App named "Icon Explorer" to find the name of the icon.
-   *
-   * In order to use the icon inside an existing control, please call {@link sap.ui.core.IconPool.getIconURI}
-   * and assign the URI to the control's property which supports icons. If you want to support both, icons
-   * and standard images in your own control, please use the static method {@link sap.ui.core.IconPool.createControlByURI}
-   * to either create an Icon in case the first argument is an icon-URL or another control which you define
-   * by providing it as the second argument.
-   */
-  interface IconPool {
-    /**
-     * Register an additional icon to the sap.ui.core.IconPool.
-     */
-    addIcon(
-      /**
-       * the name of the icon.
-       */
-      iconName: string,
-      /**
-       * the name of icon collection. The built in icons are with empty collectionName, so if additional icons
-       * need to be registered in IconPool, the collectionName can't be empty.
-       */
-      collectionName: string,
-      /**
-       * the icon info which contains the following properties:
-       */
-      iconInfo: {
-        /**
-         * is the name of the font when importing the font using @font-face in CSS
-         */
-        fontFamily: string;
-        /**
-         * is the special hexadecimal code without the prefix, for example "e000" or several of them
-         */
-        content: string | string[];
-        /**
-         * indicates if already registered icons should be overwritten when the same name and collection are given.
-         * The built in icons can never be overwritten.
-         */
-        overWrite?: boolean;
-        /**
-         * indicates whether this icon should NOT be mirrored in RTL (right to left) mode.
-         */
-        suppressMirroring?: boolean;
-        /**
-         * ResourceBundle to be used for translation. Key format: "Icon.".
-         */
-        resourceBundle?: ResourceBundle;
-      }
-    ): object;
-    /**
-     * Creates an instance of {@link sap.ui.core.Icon} if the given URI is an icon URI, otherwise the given
-     * constructor is called. The given URI is set to the src property of the control.
-     */
-    createControlByURI(
-      /**
-       * Contains the properties which will be used to instantiate the returned control. All properties of the
-       * associated constructor can be used. Unknown properties are ignored. It should contain at least a property
-       * named src. If it's given with a string type, it will be taken as the value of src property.
-       */
-      setting: string | object,
-      /**
-       * The constructor function which is called when the given URI isn't an icon URI
-       */
-      constructor: Function
-    ): Control;
-    /**
-     * @SINCE 1.56.0
-     *
-     * Checks if the icon font is loaded
-     */
-    fontLoaded(
-      /**
-       * icon collection name
-       */
-      sCollectionName: string
-    ): Promise<any> | undefined;
-    /**
-     * Returns all names of registered collections in IconPool
-     */
-    getIconCollectionNames(): any[];
-    /**
-     * @SINCE 1.25.0
-     *
-     * Returns the icon url based on the given mime type
-     */
-    getIconForMimeType(
-      /**
-       * the mime type of a file (e.g. "application/zip")
-       */
-      sMimeType: string
-    ): string;
-    /**
-     * Returns an info object for the icon with the given `iconName` and `collectionName`.
-     *
-     * Instead of giving name and collection, a complete icon-URI can be provided as `iconName`. The method
-     * will determine name and collection from the URI, see {@link #.isIconURI IconPool.isIconURI} for details.
-     *
-     * The returned info object has the following properties:
-     * 	 - `string: name` Name of the icon
-     * 	 - `string: collection` Name of the collection that contains the icon or `undefined` in case of the
-     * 			default collection
-     * 	 - `string: uri` Icon URI that identifies the icon
-     * 	 - `string: fontFamily` CSS font family to use for this icon
-     * 	 - `string: content` Character sequence that represents the icon in the icon font
-     * 	 - `string: text` Alternative text describing the icon (optional, might be empty)
-     * 	 - `boolean: suppressMirroring` Whether the icon needs no mirroring in right-to-left mode
-     */
-    getIconInfo(
-      /**
-       * Name of the icon, or a complete icon-URI with icon collection and icon name; must not be empty
-       */
-      iconName: string,
-      /**
-       * Name of the icon collection; to access built-in icons, omit the collection name
-       */
-      collectionName?: string,
-      /**
-       * The approach for loading the icon info, if it is not already available: sync - font metadata is loaded
-       * synchronously and the icon info is returned immediately async - a promise is returned that returns the
-       * icon info when the font metadata is loaded mixed - until the font metadata is loaded a promise is returned,
-       * afterwards the icon info
-       */
-      loadingMode?: string
-    ): object | Promise<any> | undefined;
-    /**
-     * Returns all name of icons that are registered under the given collection.
-     */
-    getIconNames(
-      /**
-       * the name of collection where icon names are retrieved.
-       */
-      collectionName: string
-    ): any[];
-    /**
-     * Returns the URI of the icon in the pool which has the given `iconName` and `collectionName`.
-     */
-    getIconURI(
-      /**
-       * Name of the icon, must not be empty
-       */
-      iconName: string,
-      /**
-       * Name of the icon collection; to access built-in icons, omit the collection name
-       */
-      collectionName?: string
-    ): string;
-    /**
-     * Returns whether the given `uri` is an icon URI.
-     *
-     * A string is an icon URI when it can be parsed as a URI and when it has one of the two forms
-     * 	 - sap-icon://collectionName/iconName
-     * 	 - sap-icon://iconName  where collectionName and iconName must be non-empty.
-     */
-    isIconURI(
-      /**
-       * The URI to check
-       */
-      uri: string
-    ): boolean;
-    /**
-     * @SINCE 1.56.0
-     *
-     * Registers an additional icon font to the icon pool
-     */
-    registerFont(
-      /**
-       * configuration object for registering the font
-       */
-      oConfig: {
-        /**
-         * the file name of the font face
-         */
-        fontFamily: string;
-        /**
-         * a collection name for the font, if not specified the font face will be used
-         */
-        collectionName?: string;
-        /**
-         * the location where the font files are physically located
-         */
-        fontURI: URI;
-        /**
-         * a configuration object mapping the icon name to the hexadecimal icon address in the font
-         */
-        metadata?: object;
-        /**
-         * an URI to a file containing the configuration object specified with oConfig.metadata
-         */
-        metadataURI?: object;
-        /**
-         * load the icon font metadata only when an icon is requested with {@link #.getIconInfo} if not specified
-         * a JSON file with the name oConfig.fontFamily will be loaded from the location specified in oConfig.fontURI
-         */
-        lazy?: boolean;
-      }
-    ): void;
-  }
-  const IconPool: IconPool;
-  export default IconPool;
-}
-
 declare module "sap/ui/core/IndicationColorSupport" {
   import UI5Element from "sap/ui/core/Element";
 
@@ -24708,6 +24528,11 @@ declare module "sap/ui/core/mvc/View" {
    * #byId}, elements or controls can be found with their view-local ID. Also see {@link topic:91f28be26f4d1014b6dd926db0e91070
    * "Support for Unique IDs"} in the documentation.
    *
+   * **Note: For Views defined using XML markup** On root level, you can only define content for the default
+   * aggregation, e.g. without adding the `<content>` tag. If you want to specify content for another
+   * aggregation of a view like `dependents`, place it in a child control's dependents aggregation or add
+   * it by using {@link sap.ui.core.mvc.XMLView.addDependent}.
+   *
    * View Definition: A view can be defined by {@link sap.ui.core.mvc.View.extend extending} this class and
    * implementing the {@link #createContent} method. The method must return one or many root controls that
    * will be rendered as content of the view.
@@ -27327,6 +27152,9 @@ declare module "sap/ui/core/RenderManager" {
      * When an <img> tag is rendered, the following two attributes are added by default and can be overwritten
      * with corresponding values in the `mAttributes` parameter:
      * 	 - `role: "presentation"` `alt: ""`
+     *
+     * **Note:** This function requires the {@link sap.ui.core.IconPool} module. Ensure that the module is loaded
+     * before this function is called to avoid syncXHRs.
      */
     icon(
       /**
@@ -31193,11 +31021,22 @@ declare module "sap/ui/core/theming/Parameters" {
    */
   interface Parameters {
     /**
-     * Returns the current value for one or more theming parameters, depending on the given arguments. The synchronous
-     * usage of this API has been deprecated and only the asynchronous usage should still be used (see the 4th
-     * bullet point and the code examples below).
+     *  Returns the current value for one or more theming parameters, depending on the given arguments. The
+     * synchronous usage of this API has been deprecated and only the asynchronous usage should still be used
+     * (see the 4th bullet point and the code examples below).
+     *
+     *  The theming parameters are immutable and cannot be changed at runtime. Multiple `Parameters.get()`
+     * API calls for the same parameter name will always result in the same parameter value.
+     *
+     *  **Important, since 1.93:** When using the `Parameters.get()` API to retrieve theming parameters defined
+     * as CSS variables, please be aware that the API can also unknowingly retrieve arbitrary CSS variables
+     * defined in the DOM. All CSS variables defined via the `:root` pseudo-class can be retrieved this way.
+     * Please make sure to only access theming parameters defined in a UI5 theme/library.
      *
      *
+     *
+     *
+     *  The following API variants are available (see also the below examples):
      * 	 -  **(deprecated since 1.92)** If no parameter is given a key-value map containing all parameters is
      * 			returned
      * 	 -  **(deprecated since 1.94)** If a `string` is given as first parameter the value is returned as a
@@ -31208,8 +31047,9 @@ declare module "sap/ui/core/theming/Parameters" {
      * 			are loaded and available or within the callback in case not all CSS files are already loaded. This is
      * 			the **only asynchronous** API variant. This variant is the preferred way to retrieve theming parameters.
      * 			The structure of the return value is the same as listed above depending on the type of the name property
-     * 			within the `object`.  The returned key-value maps are a copy so changing values in the map does
-     * 			not have any effect
+     * 			within the `object`.
+     *
+     * The returned key-value maps are a copy so changing values in the map does not have any effect
      *
      *  Please see the examples below for a detailed guide on how to use the **asynchronous variant** of
      * the API.
@@ -40066,9 +39906,9 @@ declare module "sap/ui/model/ClientTreeBinding" {
      */
     sort(
       /**
-       * array of Sorter instances which will be applied
+       * An array of Sorter instances which will be applied
        */
-      an: Sorter[]
+      aSorters: Sorter[]
     ): this;
   }
 }
@@ -41351,7 +41191,9 @@ declare module "sap/ui/model/json/JSONModel" {
   import Context from "sap/ui/model/Context";
 
   /**
-   * Model implementation for JSON format
+   * Model implementation for the JSON format.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class JSONModel extends ClientModel {
     /**
@@ -41974,7 +41816,9 @@ declare module "sap/ui/model/message/MessageModel" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Model implementation for Messages
+   * Model implementation for Messages.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class MessageModel extends ClientModel {
     /**
@@ -44133,6 +43977,8 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
    * V4 annotations from the existing {@link sap.ui.model.odata.ODataAnnotations} directly into the corresponding
    * model element.
    *
+   * This model is not prepared to be inherited from.
+   *
    * Also, annotations from the "http://www.sap.com/Protocols/SAPData" namespace are lifted up from the `extensions`
    * array and transformed from objects into simple properties with an "sap:" prefix for their name. Note
    * that this happens in addition, thus the following example shows both representations. This way, such
@@ -45775,15 +45621,15 @@ declare module "sap/ui/model/odata/ODataUtils" {
      */
     formatValue(
       /**
-       * the value to format
+       * The value to format
        */
       vValue: any,
       /**
-       * the EDM type (e.g. Edm.Decimal)
+       * The EDM type (e.g. Edm.Decimal)
        */
       sType: string,
       /**
-       * Wether strings gets compared case sensitive or not
+       * Whether strings gets compared case sensitive or not
        */
       bCaseSensitive: boolean
     ): string;
@@ -49525,6 +49371,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
    * Model implementation based on the OData protocol.
    *
    * See chapter {@link topic:6c47b2b39db9404582994070ec3d57a2 OData V2 Model} for a general introduction.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class ODataModel extends Model {
     /**
@@ -50489,7 +50337,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * Name. A context object is returned which can be used to bind against the newly created object.
      *
      * For each created entry a request is created and stored in a request queue. The request queue can be submitted
-     * by calling {@link #submitChanges}. To delete a created entry from the request queue call {@link #deleteCreatedEntry}.
+     * by calling {@link #submitChanges}. To delete a created entry from the request queue call {@link #resetChanges}
+     * with the context path and the `bDeleteCreatedEntities` parameter set to `true`.
      *
      * The optional parameter `mParameters.properties` can be used as follows:
      * 	 - `properties` could be an array containing the property names which should be included in the new
@@ -50604,7 +50453,12 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       oKeyProperties: object
     ): string;
     /**
+     * @deprecated - since 1.95.0; use {@link #resetChanges} instead
+     *
      * Deletes a created entry from the request queue and from the model.
+     *
+     * **Note:** Controls are not updated. Use {@link #resetChanges} instead to update also the controls, for
+     * example: `oModel.resetChanges([oContext.getPath()], undefined, true);`
      */
     deleteCreatedEntry(
       /**
@@ -51051,8 +50905,10 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * To get a copy of the entity without internal attributes, use `{select: "*"}` instead.
      *
      * **Note:** If `mParameters.select` is given and not all selected properties are available, this method
-     * returns `undefined` instead of incomplete data. If `mParameters.select` is not given, all properties
-     * available on the client are returned.
+     * returns `undefined` instead of incomplete data.
+     *
+     * **Note:** If `mParameters.select` is not given, all properties and navigation properties available on
+     * the client are returned.
      *
      * Example:
      *  With `mParameters` given as `{select: "Products/ProductName, Products", expand:"Products"}` no properties
@@ -51443,23 +51299,30 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       }
     ): object;
     /**
-     * Resets changes that have been collected.
+     * Resets pending changes and aborts corresponding requests.
      *
-     * By default, only client data changes triggered through: {@link #createEntry} {@link #setProperty} are
-     * taken into account.
+     * By default, only changes triggered through {@link #createEntry} or {@link #setProperty} are taken into
+     * account. If `bAll` is set, also deferred requests triggered through {@link #create}, {@link #update}
+     * or {@link #remove} are taken into account.
      *
-     * If `bAll` is set to `true`, also deferred requests triggered through: {@link #create} {@link #update}
-     * {@link #remove} are taken into account.
+     * If `bDeleteCreatedEntities` is set, the entity is completely removed, provided it has been created
+     *
+     * 	 - via {@link #createEntry} and it is not yet persisted in the back end, or
+     * 	 - via {@link #callFunction}.
      */
     resetChanges(
       /**
-       * Array of paths that should be reset. If no array is passed, all changes will be reset.
+       * Paths to be be reset; if no array is passed, all changes are reset
        */
       aPath?: any[],
       /**
-       * If set to true, also deferred requests are taken into account.
+       * Whether also deferred requests are taken into account
        */
-      bAll?: boolean
+      bAll?: boolean,
+      /**
+       * Whether to delete the entities created via {@link #createEntry} or {@link #callFunction}; since 1.95.0
+       */
+      bDeleteCreatedEntities?: boolean
     ): Promise<any>;
     /**
      * Returns a promise, which will resolve with the security token as soon as it is available.
@@ -51865,17 +51728,17 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
      * Applies the given filters to the ODataTreeBinding.
      *
      * Please note that filters of type `FilterType.Control` are not supported for `OperationMode.Server`, here
-     * only filters of type `FilterType.Application` are allowed. Filters given via the constructor are always
-     * of type `Application` and will be sent with every backend request. See the constructor documentation
-     * for more information.
+     * only filters of type `FilterType.Application` are allowed. Filters given via {@link sap.ui.model.odata.v2.ODataModel#bindTree}
+     * are always of type `Application` and will be sent with every back-end request. For more information,
+     * see {@link sap.ui.model.odata.v2.ODataModel#bindTree}.
      *
      * Since 1.34.0, complete client-side filtering is supported for `OperationMode.Client` and also in `OperationMode.Auto`
-     * if the backend count is lower than the threshold. In this case, all types of filters will be applied
-     * on the client. See also: {@link sap.ui.model.odata.OperationMode.Auto}, {@link sap.ui.model.FilterType}.
+     * if the back-end count is lower than the threshold. In this case, all types of filters will be applied
+     * on the client. See also: {@link sap.ui.model.odata.OperationMode.Auto} and {@link sap.ui.model.FilterType}.
      *
-     * For the `OperationMode.Client` and `OperationMode.Auto`, you may also specify the binding parameter `useServersideApplicationFilters`
-     * in the constructor. If it is set, the filters of type `Application` will always be applied on the backend
-     * and trigger an OData request. See the constructor documentation for more information.
+     * For the `OperationMode.Client` and `OperationMode.Auto`, you may also specify the `useServersideApplicationFilters`
+     * binding parameter when creating an instance. If it is set, the filters of type `Application` will always
+     * be applied on the back end and trigger an OData request. For more information, see {@link sap.ui.model.odata.v2.ODataModel#bindTree}.
      * See:
      * 	sap.ui.model.TreeBinding.prototype.filter
      */
@@ -51993,10 +51856,10 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
       sGroupId?: string
     ): void;
     /**
-     * Sets the rootLevel The root level is the level of the topmost tree nodes, which will be used as an entry
+     * Sets the `rootLevel`. The root level is the level of the topmost tree nodes that will be used as an entry
      * point for OData services. This is only possible (and necessary) for OData services implementing the hierarchy
      * annotation specification, or when providing the annotation information locally as a binding parameter.
-     * See the constructor for API documentation on this.
+     * For more information, see {@link sap.ui.model.odata.v2.ODataModel#bindTree}.
      */
     setRootLevel(iRootLevel: int): void;
     /**
@@ -53021,8 +52884,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
    * @SINCE 1.37.0
    *
    * Context binding for an OData V4 model. An event handler can only be attached to this binding for the
-   * following events: 'AggregatedDataStateChange', 'change', 'dataReceived', 'dataRequested', and 'DataStateChange'.
-   * For other events, an error is thrown.
+   * following events: 'AggregatedDataStateChange', 'change', 'dataReceived', 'dataRequested', 'DataStateChange',
+   * 'patchCompleted', and 'patchSent'. For other events, an error is thrown.
    *
    * A context binding can also be used as an operation binding to support bound actions, action imports,
    * bound functions and function imports. If you want to control the execution time of an operation, for
@@ -53287,6 +53150,20 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      */
     isInitial(): boolean;
     /**
+     * @SINCE 1.95.0
+     * @EXPERIMENTAL
+     *
+     * Moves the bound entity into the given list binding. This binding loses its data. The method may only
+     * be called when this binding has finished loading. You can verify this by calling `oBinding.getBoundContext().requestObject()`.
+     * If that promise resolves, the binding has finished loading.
+     */
+    moveEntityTo(
+      /**
+       * The list binding to take the entity
+       */
+      oListBinding: ODataListBinding
+    ): void;
+    /**
      * @SINCE 1.37.0
      *
      * Refreshes the binding. Prompts the model to retrieve data from the server using the given group ID and
@@ -53341,6 +53218,18 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
       sPath?: string
     ): Promise<any>;
     /**
+     * @SINCE 1.87.0
+     *
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
+     * #refresh} if you do not need the promise.
+     */
+    requestRefresh(
+      /**
+       * The group ID to be used
+       */
+      sGroupId?: string
+    ): Promise<any>;
+    /**
      * @SINCE 1.40.1
      *
      * Resets all pending changes of this binding, see {@link #hasPendingChanges}. Resets also invalid user
@@ -53387,6 +53276,13 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * 	#resume
      */
     suspend(): void;
+    /**
+     * @SINCE 1.37.0
+     *
+     * Returns a string representation of this object including the binding path. If the binding is relative,
+     * the parent path is also given, separated by a '|'.
+     */
+    toString(): string;
   }
 }
 
@@ -53413,8 +53309,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
    * @SINCE 1.37.0
    *
    * List binding for an OData V4 model. An event handler can only be attached to this binding for the following
-   * events: 'AggregatedDataStateChange', 'change', 'dataReceived', 'dataRequested', 'DataStateChange' and
-   * 'refresh'. For other events, an error is thrown.
+   * events: 'AggregatedDataStateChange', 'change', 'createCompleted', 'createSent', 'dataReceived', 'dataRequested',
+   * 'DataStateChange', 'patchCompleted', 'patchSent', and 'refresh'. For other events, an error is thrown.
    */
   export default class ODataListBinding extends ListBinding {
     constructor();
@@ -53981,6 +53877,18 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       fnFilter?: (p1: Message) => boolean
     ): Promise<Filter>;
     /**
+     * @SINCE 1.87.0
+     *
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
+     * #refresh} if you do not need the promise.
+     */
+    requestRefresh(
+      /**
+       * The group ID to be used
+       */
+      sGroupId?: string
+    ): Promise<any>;
+    /**
      * @SINCE 1.40.1
      *
      * Resets all pending changes of this binding, see {@link #hasPendingChanges}. Resets also invalid user
@@ -54101,6 +54009,13 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     suspend(): void;
     /**
+     * @SINCE 1.37.0
+     *
+     * Returns a string representation of this object including the binding path. If the binding is relative,
+     * the parent path is also given, separated by a '|'.
+     */
+    toString(): string;
+    /**
      * @SINCE 1.53.0
      *
      * Updates the binding's system query option `$apply` based on the given data aggregation information. Its
@@ -54198,6 +54113,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
    * not support any public events; attaching an event handler leads to an error.
    *
    * This model is read-only.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class ODataMetaModel extends MetaModel {
     constructor();
@@ -54844,6 +54761,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    *
    * Model implementation for OData V4.
    *
+   * This model is not prepared to be inherited from.
+   *
    * Every resource path (relative to the service root URL, no query options) according to "4 Resource Path"
    * in specification "OData Version 4.0 Part 2: URL Conventions" is a valid data binding path within this
    * model if a leading slash is added; for example "/" + "SalesOrderList('A%2FB%26C')" to access an entity
@@ -55100,7 +55019,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     bindList(
       /**
-       * The binding path in the model; must not be empty or end with a slash
+       * The binding path in the model; must not end with a slash
        */
       sPath: string,
       /**
@@ -55201,8 +55120,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * as a separator and splits it into two parts. The part before the separator is resolved with the binding's
      * context and the result is transformed into a metadata context (see {@link sap.ui.model.odata.v4.ODataMetaModel#getMetaContext}).
      * The part following the separator is then interpreted relative to this metadata context, even if it starts
-     * with a '/'; a trailing '/' is allowed here, see {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject}
-     * for the effect it has.
+     * with a '/'; see {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject} for more details.
      *
      * If the target type specified in the corresponding control property's binding info is "any" and the binding
      * is relative or points to metadata, the binding may have an object value; in this case and unless the
@@ -55214,8 +55132,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     bindProperty(
       /**
-       * The binding path in the model; must not be empty. Must not end with a '/' unless the binding points to
-       * metadata.
+       * The binding path in the model; must not end with a slash
        */
       sPath: string,
       /**
@@ -55224,12 +55141,14 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       oContext?: Context1,
       /**
        * Map of binding parameters which can be OData query options as specified in "OData Version 4.0 Part 2:
-       * URL Conventions" or the binding-specific parameter "$$groupId". All "5.2 Custom Query Options" are allowed
-       * except for those with a name starting with "sap-" (unless starting with "sap-valid-"). All other query
-       * options lead to an error. Query options specified for the binding overwrite model query options. Note:
-       * The binding only creates its own data service request if it is absolute or if it is relative to a context
-       * created via {@link #createBindingContext}. The binding parameters are ignored in case the binding creates
-       * no own data service request or in case the binding points to metadata.
+       * URL Conventions" or the binding-specific parameters as specified below. The following OData query options
+       * are allowed:
+       * 	 All "5.2 Custom Query Options" except for those with a name starting with "sap-" (unless starting with
+       * "sap-valid-")  The $apply, $filter, and $search "5.1 System Query Options" if the path ends with
+       * a "$count" segment.  All other query options lead to an error. Query options specified for the binding
+       * overwrite model query options. Note: The binding only creates its own data service request if it is absolute
+       * or if it is relative to a context created via {@link #createBindingContext}. The binding parameters are
+       * ignored in case the binding creates no own data service request or in case the binding points to metadata.
        */
       mParameters?: {
         /**
@@ -55731,6 +55650,18 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
       sGroupId?: string | boolean
     ): void;
     /**
+     * @SINCE 1.87.0
+     *
+     * Refreshes the binding and returns a promise to wait for it. See {@link #refresh} for details. Use {@link
+     * #refresh} if you do not need the promise.
+     */
+    requestRefresh(
+      /**
+       * The group ID to be used
+       */
+      sGroupId?: string
+    ): Promise<any>;
+    /**
      * @SINCE 1.69
      *
      * Requests the value of the property binding.
@@ -55825,6 +55756,13 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * 	sap.ui.model.Binding#suspend
      */
     suspend(): void;
+    /**
+     * @SINCE 1.37.0
+     *
+     * Returns a string representation of this object including the binding path. If the binding is relative,
+     * the parent path is also given, separated by a '|'.
+     */
+    toString(): string;
   }
 }
 
@@ -56181,6 +56119,8 @@ declare module "sap/ui/model/resource/ResourceModel" {
 
   /**
    * Model implementation for resource bundles.
+   *
+   * This model is not prepared to be inherited from.
    *
    * This model allows to bind control properties against translatable texts. Its data is taken from a {@link
    * module:sap/base/i18n/ResourceBundle} and it only supports property bindings.
@@ -58539,7 +58479,9 @@ declare module "sap/ui/model/xml/XMLModel" {
   import Metadata from "sap/ui/base/Metadata";
 
   /**
-   * Model implementation for XML format
+   * Model implementation for the XML format.
+   *
+   * This model is not prepared to be inherited from.
    */
   export default class XMLModel extends ClientModel {
     /**
@@ -60600,7 +60542,8 @@ declare module "sap/ui/test/matchers/I18NText" {
    * The I18NText matcher checks if a control property has the same value as a text from an I18N file.
    *
    * The matcher automatically:
-   * 	 -  retrieves the text from the assigned 'i18n' model (name can be changed)
+   * 	 -  retrieves the text from the assigned 'i18n' model (name can be changed) or library resource bundle
+   *
    * 	 -  checks that the I18N key does actually exist in the file
    * 	 -  checks if asynchronously loaded I18N have actually been loaded
    *
@@ -60615,6 +60558,10 @@ declare module "sap/ui/test/matchers/I18NText" {
    *     }
    * }
    * ```
+   *
+   *
+   * As of version 1.96 if the flag useLibraryBundle is true the library resource bundle of the control is
+   * used to resolve the i18n key
    */
   export default class I18NText extends Matcher {
     /**
@@ -60681,6 +60628,12 @@ declare module "sap/ui/test/matchers/I18NText" {
      */
     getPropertyName(): string;
     /**
+     * Gets current value of property {@link #getUseLibraryBundle useLibraryBundle}.
+     *
+     * The boolean flag to indicate whether to utiliize the library bundle of the control
+     */
+    getUseLibraryBundle(): boolean;
+    /**
      * Checks if the control has a property that matches the I18N text
      */
     isMatching(
@@ -60743,6 +60696,19 @@ declare module "sap/ui/test/matchers/I18NText" {
        */
       sPropertyName: string
     ): this;
+    /**
+     * Sets a new value for property {@link #getUseLibraryBundle useLibraryBundle}.
+     *
+     * The boolean flag to indicate whether to utiliize the library bundle of the control
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     */
+    setUseLibraryBundle(
+      /**
+       * New value for property `useLibraryBundle`
+       */
+      bUseLibraryBundle: boolean
+    ): this;
   }
 
   export interface $I18NTextSettings extends $MatcherSettings {
@@ -60765,6 +60731,11 @@ declare module "sap/ui/test/matchers/I18NText" {
      * The name of the {@link sap.ui.model.resource.ResourceModel} assigned to the control.
      */
     modelName?: string | PropertyBindingInfo;
+
+    /**
+     * The boolean flag to indicate whether to utiliize the library bundle of the control
+     */
+    useLibraryBundle?: boolean | PropertyBindingInfo;
   }
 }
 
@@ -66210,6 +66181,206 @@ declare namespace sap {
        * style class support on existing elements by calling this function.
        */
       function CustomStyleClassSupport(): void;
+      /**
+       * The IconPool is a static class for retrieving or registering icons. It also provides helping methods
+       * for easier consumption of icons. There are already icons registered in IconPool, please use the Demo
+       * App named "Icon Explorer" to find the name of the icon.
+       *
+       * In order to use the icon inside an existing control, please call {@link sap.ui.core.IconPool.getIconURI}
+       * and assign the URI to the control's property which supports icons. If you want to support both, icons
+       * and standard images in your own control, please use the static method {@link sap.ui.core.IconPool.createControlByURI}
+       * to either create an Icon in case the first argument is an icon-URL or another control which you define
+       * by providing it as the second argument.
+       */
+      namespace IconPool {
+        /**
+         * Register an additional icon to the sap.ui.core.IconPool.
+         */
+        function addIcon(
+          /**
+           * the name of the icon.
+           */
+          iconName: string,
+          /**
+           * the name of icon collection. The built in icons are with empty collectionName, so if additional icons
+           * need to be registered in IconPool, the collectionName can't be empty.
+           */
+          collectionName: string,
+          /**
+           * the icon info which contains the following properties:
+           */
+          iconInfo: {
+            /**
+             * is the name of the font when importing the font using @font-face in CSS
+             */
+            fontFamily: string;
+            /**
+             * is the special hexadecimal code without the prefix, for example "e000" or several of them
+             */
+            content: string | string[];
+            /**
+             * indicates if already registered icons should be overwritten when the same name and collection are given.
+             * The built in icons can never be overwritten.
+             */
+            overWrite?: boolean;
+            /**
+             * indicates whether this icon should NOT be mirrored in RTL (right to left) mode.
+             */
+            suppressMirroring?: boolean;
+            /**
+             * ResourceBundle to be used for translation. Key format: "Icon.".
+             */
+            resourceBundle?: import("sap/base/i18n/ResourceBundle").default;
+          }
+        ): object;
+        /**
+         * Creates an instance of {@link sap.ui.core.Icon} if the given URI is an icon URI, otherwise the given
+         * constructor is called. The given URI is set to the src property of the control.
+         */
+        function createControlByURI(
+          /**
+           * Contains the properties which will be used to instantiate the returned control. All properties of the
+           * associated constructor can be used. Unknown properties are ignored. It should contain at least a property
+           * named src. If it's given with a string type, it will be taken as the value of src property.
+           */
+          setting: string | object,
+          /**
+           * The constructor function which is called when the given URI isn't an icon URI
+           */
+          constructor: Function
+        ): import("sap/ui/core/Control").default;
+        /**
+         * @SINCE 1.56.0
+         *
+         * Checks if the icon font is loaded
+         */
+        function fontLoaded(
+          /**
+           * icon collection name
+           */
+          sCollectionName: string
+        ): Promise<any> | undefined;
+        /**
+         * Returns all names of registered collections in IconPool
+         */
+        function getIconCollectionNames(): any[];
+        /**
+         * @SINCE 1.25.0
+         *
+         * Returns the icon url based on the given mime type
+         */
+        function getIconForMimeType(
+          /**
+           * the mime type of a file (e.g. "application/zip")
+           */
+          sMimeType: string
+        ): string;
+        /**
+         * Returns an info object for the icon with the given `iconName` and `collectionName`.
+         *
+         * Instead of giving name and collection, a complete icon-URI can be provided as `iconName`. The method
+         * will determine name and collection from the URI, see {@link #.isIconURI IconPool.isIconURI} for details.
+         *
+         * The returned info object has the following properties:
+         * 	 - `string: name` Name of the icon
+         * 	 - `string: collection` Name of the collection that contains the icon or `undefined` in case of the
+         * 			default collection
+         * 	 - `string: uri` Icon URI that identifies the icon
+         * 	 - `string: fontFamily` CSS font family to use for this icon
+         * 	 - `string: content` Character sequence that represents the icon in the icon font
+         * 	 - `string: text` Alternative text describing the icon (optional, might be empty)
+         * 	 - `boolean: suppressMirroring` Whether the icon needs no mirroring in right-to-left mode
+         */
+        function getIconInfo(
+          /**
+           * Name of the icon, or a complete icon-URI with icon collection and icon name; must not be empty
+           */
+          iconName: string,
+          /**
+           * Name of the icon collection; to access built-in icons, omit the collection name
+           */
+          collectionName?: string,
+          /**
+           * The approach for loading the icon info, if it is not already available: sync - font metadata is loaded
+           * synchronously and the icon info is returned immediately async - a promise is returned that returns the
+           * icon info when the font metadata is loaded mixed - until the font metadata is loaded a promise is returned,
+           * afterwards the icon info
+           */
+          loadingMode?: string
+        ): object | Promise<any> | undefined;
+        /**
+         * Returns all name of icons that are registered under the given collection.
+         */
+        function getIconNames(
+          /**
+           * the name of collection where icon names are retrieved.
+           */
+          collectionName: string
+        ): any[];
+        /**
+         * Returns the URI of the icon in the pool which has the given `iconName` and `collectionName`.
+         */
+        function getIconURI(
+          /**
+           * Name of the icon, must not be empty
+           */
+          iconName: string,
+          /**
+           * Name of the icon collection; to access built-in icons, omit the collection name
+           */
+          collectionName?: string
+        ): string;
+        /**
+         * Returns whether the given `uri` is an icon URI.
+         *
+         * A string is an icon URI when it can be parsed as a URI and when it has one of the two forms
+         * 	 - sap-icon://collectionName/iconName
+         * 	 - sap-icon://iconName  where collectionName and iconName must be non-empty.
+         */
+        function isIconURI(
+          /**
+           * The URI to check
+           */
+          uri: string
+        ): boolean;
+        /**
+         * @SINCE 1.56.0
+         *
+         * Registers an additional icon font to the icon pool
+         */
+        function registerFont(
+          /**
+           * configuration object for registering the font
+           */
+          oConfig: {
+            /**
+             * the file name of the font face
+             */
+            fontFamily: string;
+            /**
+             * a collection name for the font, if not specified the font face will be used
+             */
+            collectionName?: string;
+            /**
+             * the location where the font files are physically located
+             */
+            fontURI: import("sap/ui/core/library").URI;
+            /**
+             * a configuration object mapping the icon name to the hexadecimal icon address in the font
+             */
+            metadata?: object;
+            /**
+             * an URI to a file containing the configuration object specified with oConfig.metadata
+             */
+            metadataURI?: object;
+            /**
+             * load the icon font metadata only when an icon is requested with {@link #.getIconInfo} if not specified
+             * a JSON file with the name oConfig.fontFamily will be loaded from the location specified in oConfig.fontURI
+             */
+            lazy?: boolean;
+          }
+        ): void;
+      }
     }
     /**
      * Provides access to UI5 loader configuration.
@@ -67420,6 +67591,8 @@ declare namespace sap {
 
     "sap/ui/base/ObjectPool": undefined;
 
+    "sap/ui/core/_IconRegistry": undefined;
+
     "sap/ui/core/AppCacheBuster": undefined;
 
     "sap/ui/core/BusyIndicator": undefined;
@@ -67493,8 +67666,6 @@ declare namespace sap {
     "sap/ui/core/hyphenation/Hyphenation": undefined;
 
     "sap/ui/core/Icon": undefined;
-
-    "sap/ui/core/IconPool": undefined;
 
     "sap/ui/core/IndicationColorSupport": undefined;
 
