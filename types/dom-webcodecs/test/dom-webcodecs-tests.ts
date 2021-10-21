@@ -5,14 +5,13 @@
 //////////////////////////////////////////////////
 // utils.js
 
-const audioBuffer = new AudioBuffer({
-    length: 1,
-    sampleRate: 44100,
-});
-
-const audioFrame = new AudioFrame({
+const audioFrame = new AudioData({
     timestamp: 100,
-    buffer: audioBuffer,
+    data: new ArrayBuffer(1024),
+    format: "s32-planar",
+    numberOfChannels: 2,
+    numberOfFrames: 1,
+    sampleRate: 44100,
 });
 
 declare const imageBitmap: ImageBitmap;
@@ -27,7 +26,7 @@ function genericCodec(codec: AudioDecoder | AudioEncoder | VideoDecoder | VideoE
     codec.close();
 }
 
-function errorCallback(error: DOMException): void {}
+function errorCallback(error: DOMException): void { }
 
 //////////////////////////////////////////////////
 // audio-decoder.any.js
@@ -80,9 +79,9 @@ AudioDecoder.isConfigSupported(audioDecoderConfig).then((result: AudioDecoderSup
     result.config;
 });
 
-function audioOutput(output: AudioFrame): void {
-    // $ExpectType AudioBuffer
-    output.buffer;
+function audioOutput(output: AudioData): void {
+    // $ExpectType void
+    output.copyTo(new ArrayBuffer(1024), { planeIndex: 0 });
 }
 
 // $ExpectError
@@ -190,8 +189,8 @@ AudioEncoder.isConfigSupported(futureAudioEncoderConfig);
 //////////////////////////////////////////////////
 // audio-encoder.any.js
 
-function encodedAudioOutput(output: EncodedAudioChunk, metadata: EncodedAudioChunkMetadata): void {
-    if (metadata.decoderConfig !== undefined) {
+function encodedAudioOutput(output: EncodedAudioChunk, metadata?: EncodedAudioChunkMetadata): void {
+    if (metadata?.decoderConfig !== undefined) {
         audioDecoder.configure(metadata.decoderConfig);
     }
     audioDecoder.decode(output);
@@ -241,16 +240,25 @@ genericCodec(audioEncoder);
 // $ExpectType number
 audioFrame.timestamp;
 
-// $ExpectError
-new AudioFrame({buffer: audioBuffer});
+const audioBuffer = new ArrayBuffer(1024);
 
 // $ExpectError
-new AudioFrame({timestamp: 100});
+new AudioData({ data: audioBuffer });
 
-// $ExpectType AudioFrame
-new AudioFrame({buffer: audioBuffer, timestamp: 100});
+// $ExpectError
+new AudioData({ timestamp: 100 });
 
-// $ExpectType AudioFrame
+// $ExpectType AudioData
+new AudioData({
+    data: audioBuffer,
+    timestamp: 100,
+    format: "f32",
+    numberOfChannels: 2,
+    numberOfFrames: 1,
+    sampleRate: 48000,
+});
+
+// $ExpectType AudioData
 audioFrame.clone();
 
 //////////////////////////////////////////////////
@@ -276,8 +284,6 @@ imageDecoder.decode().then((result: ImageDecodeResult) => {
     imageDecodeImage.displayWidth;
     // $ExpectType number
     imageDecodeImage.displayHeight;
-    // $ExpectType string | null
-    imageDecodeImage.format;
 
     context2d.drawImage(imageDecodeImage, 0, 0);
 });
@@ -342,10 +348,7 @@ const fullVideoDecoderConfig: VideoDecoderConfig = {
     description: new Uint8Array(0),
     codedWidth: 1920,
     codedHeight: 1088,
-    visibleRegion: { left: 0, top: 0, width: 1920, height: 1080 },
-    displayWidth: 1920,
-    displayHeight: 1080,
-    hardwareAcceleration: "require",
+    hardwareAcceleration: "prefer-hardware",
 };
 
 const videoDecoderConfig: VideoDecoderConfig = {
@@ -366,10 +369,14 @@ VideoDecoder.isConfigSupported(videoDecoderConfig).then((result: VideoDecoderSup
 });
 
 function videoOutput(output: VideoFrame): void {
+    // $ExpectType number | undefined
+    output.visibleRect?.width;
+    // $ExpectType number | undefined
+    output.visibleRect?.height;
     // $ExpectType number
-    output.visibleRegion.width;
+    output.displayWidth;
     // $ExpectType number
-    output.visibleRegion.height;
+    output.displayHeight;
     // $ExpectType number | null
     output.timestamp;
     // $ExpectType void
@@ -431,7 +438,7 @@ videoDecoder.decodeQueueSize;
 
 const fullVideoEncoderConfig: VideoEncoderConfig = {
     codec: "avc1.42001E",
-    hardwareAcceleration: "deny",
+    hardwareAcceleration: "prefer-software",
     alpha: "keep",
     width: 640,
     height: 480,
@@ -560,80 +567,56 @@ videoFrame.close();
 videoFrame.timestamp;
 // $ExpectType number | null
 videoFrame.duration;
-// $ExpectType number
-videoFrame.visibleRegion.left;
-// $ExpectType number
-videoFrame.visibleRegion.top;
-// $ExpectType number
-videoFrame.visibleRegion.width;
-// $ExpectType number
-videoFrame.visibleRegion.height;
+// $ExpectType number | undefined
+videoFrame.visibleRect?.left;
+// $ExpectType number | undefined
+videoFrame.visibleRect?.top;
+// $ExpectType number | undefined
+videoFrame.visibleRect?.width;
+// $ExpectType number | undefined
+videoFrame.visibleRect?.height;
 // $ExpectType number
 videoFrame.displayWidth;
 // $ExpectType number
 videoFrame.displayHeight;
-// $ExpectType string | null
-videoFrame.format;
-
-if (videoFrame.planes !== null) {
-    // $ExpectType number
-    videoFrame.planes.length;
-    // $ExpectType number
-    videoFrame.planes[0].stride;
-    // $ExpectType number
-    videoFrame.planes[0].rows;
-    // $ExpectType number
-    videoFrame.planes[0].length;
-
-    // $ExpectType void
-    videoFrame.planes[0].readInto(new Uint8Array(0));
-}
 
 // $ExpectError
-new VideoFrame("ABCD", [], {
+new VideoFrame(new ArrayBuffer(1024), {
     codedWidth: 4,
     codedHeight: 2,
 });
 
 // $ExpectError
-new VideoFrame("ABCD", [], {
+new VideoFrame(new ArrayBuffer(1024), {
     timestamp: 1234,
     codedHeight: 2,
 });
 
 // $ExpectError
-new VideoFrame("ABCD", [], {
+new VideoFrame(new ArrayBuffer(1024), {
     timestamp: 1234,
     codedWidth: 4,
 });
 
-const videoFramePlaneInit: VideoFramePlaneInit = {
+const videoFramePlaneInit: VideoFrameBufferInit = {
+    format: 'BGRA',
     timestamp: 1234,
     codedWidth: 4,
     codedHeight: 2,
 };
 
-new VideoFrame("ABCD", [], videoFramePlaneInit);
+new VideoFrame(new ArrayBuffer(1024), videoFramePlaneInit);
 
-new VideoFrame("ABCD", [{ src: new Uint8Array(0), stride: 4 }], videoFramePlaneInit);
-
-new VideoFrame("ABCD", [], {
+new VideoFrame(new ArrayBuffer(1024), {
+    format: 'BGRA',
     timestamp: 1234,
     duration: 4321,
     codedWidth: 4,
     codedHeight: 2,
-    visibleRegion: { left: 0, top: 0, width: 4, height: 2 },
+    visibleRect: { x: 0, y: 0, width: 4, height: 2 },
     displayWidth: 4,
     displayHeight: 2,
 });
-
-new VideoFrame(videoFrame);
-
-new VideoFrame(videoFrame, { duration: 1234 });
-
-new VideoFrame(videoFrame, { timestamp: 1234, duration: 1234 });
-
-new VideoFrame(videoFrame, { alpha: "keep" });
 
 //////////////////////////////////////////////////
 // videoFrame-canvasImageSource.html
