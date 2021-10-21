@@ -5,7 +5,7 @@
 
 import * as React from 'react';
 
-export interface LatexProps {
+interface LatexProps {
     children?: string;
     displayMode?: boolean;
     leqno?: boolean;
@@ -21,4 +21,6 @@ export interface LatexProps {
     trust?: boolean | ((...args: any[]) => any);
 }
 
-export default class Latex extends React.Component<LatexProps> {}
+declare class Latex extends React.Component<LatexProps> {}
+
+export = Latex;

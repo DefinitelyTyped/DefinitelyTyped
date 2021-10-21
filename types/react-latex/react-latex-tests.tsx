@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Latex from 'react-latex';
+import Latex = require('react-latex');
 
 export default (
     <div>
