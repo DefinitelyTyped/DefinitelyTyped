@@ -1,4 +1,4 @@
-import { Tabulator, Renderer } from 'tabulator-tables';
+import { Tabulator, Renderer, Module } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -1019,3 +1019,14 @@ table = Tabulator.findTable('#example-table')[0];
 
 Tabulator.bindModules([Renderer]);
 cell.navigateDown();
+
+class CustomModule extends Module {
+    constructor(table: Tabulator) {
+        super(table);
+    }
+
+    initialize() {}
+}
+
+CustomModule.moduleName = 'custom';
+Tabulator.registerModule(CustomModule);
