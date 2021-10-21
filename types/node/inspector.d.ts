@@ -1779,6 +1779,13 @@ declare module 'inspector' {
          */
         connect(): void;
         /**
+         * Connects a session to the main thread inspector back-end.
+         * An exception will be thrown if this API was not called on a Worker
+         * thread.
+         * @since 12.11.0
+         */
+        connectToMainThread(): void;
+        /**
          * Immediately close the session. All pending message callbacks will be called
          * with an error. `session.connect()` will need to be called to be able to send
          * messages again. Reconnected session will lose all inspector state, such as

@@ -70,3 +70,4 @@ jsonEditor.getTextSelection();
 jsonEditor.refresh();
 jsonEditor.update(null);
 jsonEditor.updateText('');
+jsonEditor.validate();

@@ -277,6 +277,8 @@ declare namespace ReactGridLayout {
     }
 
     interface ReactGridLayoutProps extends CoreProps {
+        children?: React.ReactNode;
+
         /**
          * Number of columns in this layout.
          */
@@ -321,6 +323,8 @@ declare namespace ReactGridLayout {
          * Breakpoint names are arbitrary but must match in the cols and layouts objects.
          */
         breakpoints?: { [P: string]: number } | undefined;
+
+        children?: React.ReactNode;
 
         /**
          * Number of cols. This is a breakpoint -> cols map, e.g. `{lg: 12, md: 10, ...}`.

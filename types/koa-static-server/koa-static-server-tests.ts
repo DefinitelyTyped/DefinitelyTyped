@@ -3,6 +3,6 @@ import serve = require("koa-static-server");
 
 const app = new Koa();
 
-app.use(serve({rootDir: 'web'}));
+app.use(serve({rootDir: 'web', brotli: true}));
 
 app.listen(80);

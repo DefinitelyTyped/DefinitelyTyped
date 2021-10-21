@@ -854,7 +854,7 @@ declare namespace yargs {
         /** string used as the description for the command in help text, use `false` for a hidden command */
         describe?: string | false | undefined;
         /** a function which will be passed the parsed argv. */
-        handler: (args: Arguments<U>) => void;
+        handler: (args: Arguments<U>) => void | Promise<void>;
     }
 
     type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T> | Promise<Arguments<T>>, output: string) => void;

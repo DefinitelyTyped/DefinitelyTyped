@@ -47,4 +47,6 @@ zingchart.render({
             shared: true,
         }
     }],
+    zoom: {},
+    zoomSnap: true,
 });

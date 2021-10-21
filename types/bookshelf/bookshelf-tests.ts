@@ -560,6 +560,9 @@ new Posts().fetch().then(collection => {
         .then(model => {
             JSON.stringify(model);
         });
+    // withRelated is not a valid option in model.load()
+    // $ExpectError
+    collection.at(1).load(['author', 'content'], { withRelated: ['comments.tags'] })
 });
 /*
 {

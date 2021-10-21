@@ -1,4 +1,4 @@
-// For Library Version: 1.94.0
+// For Library Version: 1.95.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -13875,6 +13875,19 @@ declare module "sap/m/DatePicker" {
      */
     getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
+     * @SINCE 1.95
+     *
+     * Gets current value of property {@link #getShowCurrentDateButton showCurrentDateButton}.
+     *
+     * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
+     * view, the calendar navigates to Day picker view.
+     *
+     * Note: The Current date button appears if the `displayFormat` property allows entering day.
+     *
+     * Default value is `false`.
+     */
+    getShowCurrentDateButton(): boolean;
+    /**
      * @SINCE 1.70
      *
      * Gets current value of property {@link #getShowFooter showFooter}.
@@ -14074,6 +14087,26 @@ declare module "sap/m/DatePicker" {
       sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
+     * @SINCE 1.95
+     *
+     * Sets a new value for property {@link #getShowCurrentDateButton showCurrentDateButton}.
+     *
+     * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
+     * view, the calendar navigates to Day picker view.
+     *
+     * Note: The Current date button appears if the `displayFormat` property allows entering day.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     */
+    setShowCurrentDateButton(
+      /**
+       * New value for property `showCurrentDateButton`
+       */
+      bShowCurrentDateButton?: boolean
+    ): this;
+    /**
      * @SINCE 1.70
      *
      * Sets `showFooter` property to the given boolean value
@@ -14161,6 +14194,16 @@ declare module "sap/m/DatePicker" {
      * Hides or shows the popover's footer.
      */
     showFooter?: boolean | PropertyBindingInfo;
+
+    /**
+     * @SINCE 1.95
+     *
+     * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
+     * view, the calendar navigates to Day picker view.
+     *
+     * Note: The Current date button appears if the `displayFormat` property allows entering day.
+     */
+    showCurrentDateButton?: boolean | PropertyBindingInfo;
 
     /**
      * @SINCE 1.38.5
@@ -45251,6 +45294,8 @@ declare module "sap/m/MultiComboBox" {
 declare module "sap/m/MultiInput" {
   import { default as Input, $InputSettings } from "sap/m/Input";
 
+  import { ISemanticFormContent } from "sap/ui/core/library";
+
   import Token from "sap/m/Token";
 
   import Event from "sap/ui/base/Event";
@@ -45303,7 +45348,10 @@ declare module "sap/m/MultiInput" {
    * 	 -  You can review the tokens by pressing the right or left arrows on the keyboard.
    * 	 -  You can select single tokens or a range of tokens and you can copy/cut/delete them.
    */
-  export default class MultiInput extends Input {
+  export default class MultiInput
+    extends Input
+    implements ISemanticFormContent {
+    __implements__sap_ui_core_ISemanticFormContent: boolean;
     /**
      * Constructor for a new MultiInput.
      *
@@ -62920,7 +62968,12 @@ declare module "sap/m/PDFViewer" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
+      mParameters?: {
+        /**
+         * The iframe element.
+         */
+        target?: any;
+      }
     ): this;
     /**
      * Fires event {@link #event:loaded loaded} to attached listeners.
@@ -78913,6 +78966,10 @@ declare module "sap/m/Select" {
          * The selected item.
          */
         selectedItem?: Item;
+        /**
+         * The previous selected item.
+         */
+        previousSelectedItem?: Item;
       }
     ): this;
     /**
@@ -95561,7 +95618,9 @@ declare module "sap/m/StandardListItem" {
     /**
      * Gets current value of property {@link #getInfo info}.
      *
-     * Defines an additional information text.
+     * Defines an additional information text. **Note:** A wrapping of the information text is also supported
+     * as of version 1.95, if `wrapping=true`. Although long strings are supported for the information text,
+     * it is recommended to use short strings. For more details, see {@link #getWrapping wrapping}.
      */
     getInfo(): string;
     /**
@@ -95640,6 +95699,9 @@ declare module "sap/m/StandardListItem" {
      *
      * In the desktop mode, initial rendering of the control contains 300 characters along with a button to
      * expand and collapse the text whereas in the phone mode, the character limit is set to 100 characters.
+     *  A wrapping of the information text is supported as of 1.95. But expanding and collapsing the information
+     * text is not possible. A wrapping of the information text is disabled if `infoStateInverted` is set to
+     * `true`.
      *
      * Default value is `false`.
      */
@@ -95739,7 +95801,9 @@ declare module "sap/m/StandardListItem" {
     /**
      * Sets a new value for property {@link #getInfo info}.
      *
-     * Defines an additional information text.
+     * Defines an additional information text. **Note:** A wrapping of the information text is also supported
+     * as of version 1.95, if `wrapping=true`. Although long strings are supported for the information text,
+     * it is recommended to use short strings. For more details, see {@link #getWrapping wrapping}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      */
@@ -95867,6 +95931,9 @@ declare module "sap/m/StandardListItem" {
      *
      * In the desktop mode, initial rendering of the control contains 300 characters along with a button to
      * expand and collapse the text whereas in the phone mode, the character limit is set to 100 characters.
+     *  A wrapping of the information text is supported as of 1.95. But expanding and collapsing the information
+     * text is not possible. A wrapping of the information text is disabled if `infoStateInverted` is set to
+     * `true`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -95916,7 +95983,9 @@ declare module "sap/m/StandardListItem" {
     activeIcon?: URI | PropertyBindingInfo;
 
     /**
-     * Defines an additional information text.
+     * Defines an additional information text. **Note:** A wrapping of the information text is also supported
+     * as of version 1.95, if `wrapping=true`. Although long strings are supported for the information text,
+     * it is recommended to use short strings. For more details, see {@link #getWrapping wrapping}.
      */
     info?: string | PropertyBindingInfo;
 
@@ -95963,6 +96032,9 @@ declare module "sap/m/StandardListItem" {
      *
      * In the desktop mode, initial rendering of the control contains 300 characters along with a button to
      * expand and collapse the text whereas in the phone mode, the character limit is set to 100 characters.
+     *  A wrapping of the information text is supported as of 1.95. But expanding and collapsing the information
+     * text is not possible. A wrapping of the information text is disabled if `infoStateInverted` is set to
+     * `true`.
      */
     wrapping?: boolean | PropertyBindingInfo;
 
@@ -102665,7 +102737,7 @@ declare module "sap/m/TextArea" {
      * Gets current value of property {@link #getGrowing growing}.
      *
      * Indicates the ability of the control to automatically grow and shrink dynamically with its content. **Note:**
-     * The `height` property is ignored, if this property set to `true`.
+     * This property should not be used when the `height` property is set.
      *
      * Default value is `false`.
      */
@@ -102759,7 +102831,7 @@ declare module "sap/m/TextArea" {
      * Sets a new value for property {@link #getGrowing growing}.
      *
      * Indicates the ability of the control to automatically grow and shrink dynamically with its content. **Note:**
-     * The `height` property is ignored, if this property set to `true`.
+     * This property should not be used when the `height` property is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -102941,7 +103013,7 @@ declare module "sap/m/TextArea" {
      * @SINCE 1.38.0
      *
      * Indicates the ability of the control to automatically grow and shrink dynamically with its content. **Note:**
-     * The `height` property is ignored, if this property set to `true`.
+     * This property should not be used when the `height` property is set.
      */
     growing?: boolean | PropertyBindingInfo;
 

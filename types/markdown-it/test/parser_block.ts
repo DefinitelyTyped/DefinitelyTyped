@@ -1,7 +1,7 @@
 import MarkdownIt = require('markdown-it/lib');
-import Token = require('markdown-it/lib/token');
-import StateBlock = require('markdown-it/lib/rules_block/state_block');
 import ParserBlock = require('markdown-it/lib/parser_block');
+import StateBlock = require('markdown-it/lib/rules_block/state_block');
+import Token = require('markdown-it/lib/token');
 
 const md = new MarkdownIt();
 const tokens: Token[] = [];

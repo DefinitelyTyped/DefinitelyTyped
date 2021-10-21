@@ -516,11 +516,12 @@ declare namespace __MaterialUI {
         let darkBaseTheme: RawTheme;
 
         export function muiThemeable(): <
-            TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
+            TComponent extends React.ComponentClass<P> | React.FunctionComponent<P>,
             P extends {muiTheme?: MuiTheme | undefined}
         >(component: TComponent) => TComponent;
 
         export interface MuiThemeProviderProps {
+            children?: React.ReactElement;
             muiTheme?: MuiTheme | undefined;
         }
         export class MuiThemeProvider extends React.Component<MuiThemeProviderProps> {
@@ -652,6 +653,7 @@ declare namespace __MaterialUI {
 
     export interface AvatarProps {
         backgroundColor?: string | undefined;
+        children?: React.ReactNode;
         className?: string | undefined;
         color?: string | undefined;
         icon?: React.ReactElement | undefined;
@@ -666,6 +668,7 @@ declare namespace __MaterialUI {
     export interface BadgeProps {
         badgeContent: React.ReactNode;
         badgeStyle?: React.CSSProperties | undefined;
+        children?: React.ReactNode;
         className?: string | undefined;
         primary?: boolean | undefined;
         secondary?: boolean | undefined;
@@ -746,6 +749,7 @@ declare namespace __MaterialUI {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string | undefined;
         buttonStyle?: React.CSSProperties | undefined;
+        children?: React.ReactNode;
         className?: string | undefined;
         disabled?: boolean | undefined;
         disabledBackgroundColor?: string | undefined;
@@ -819,6 +823,7 @@ declare namespace __MaterialUI {
 
     namespace BottomNavigation {
         export interface BottomNavigationProps {
+            children?: React.ReactNode;
             className?: string | undefined;
             selectedIndex?: number | undefined;
             style?: React.CSSProperties | undefined;
@@ -837,6 +842,7 @@ declare namespace __MaterialUI {
 
     namespace Card {
         export interface CardProps {
+            children?: React.ReactNode;
             className?: string | undefined;
             actAsExpander?: boolean | undefined;
             containerStyle?: React.CSSProperties | undefined;
@@ -852,6 +858,7 @@ declare namespace __MaterialUI {
 
         export interface CardActionsProps {
             actAsExpander?: boolean | undefined;
+            children?: React.ReactNode;
             expandable?: boolean | undefined;
             showExpandableButton?: boolean | undefined;
             style?: React.CSSProperties | undefined;
@@ -892,6 +899,7 @@ declare namespace __MaterialUI {
         export interface CardMediaProps {
             actAsExpander?: boolean | undefined;
             expandable?: boolean | undefined;
+            children?: React.ReactNode;
             mediaStyle?: React.CSSProperties | undefined;
             overlay?: React.ReactNode | undefined;
             overlayContainerStyle?: React.CSSProperties | undefined;
@@ -904,6 +912,7 @@ declare namespace __MaterialUI {
 
         export interface CardTextProps {
             actAsExpander?: boolean | undefined;
+            children?: React.ReactNode;
             color?: string | undefined;
             expandable?: boolean | undefined;
             style?: React.CSSProperties | undefined;
@@ -930,6 +939,7 @@ declare namespace __MaterialUI {
 
     export interface ChipProps {
         backgroundColor?: string | undefined;
+        children?: React.ReactNode;
         className?: string | undefined;
         containerElement?: React.ReactNode | string | undefined;
         labelColor?: string | undefined;
@@ -1075,6 +1085,7 @@ declare namespace __MaterialUI {
     }
 
     export interface DrawerProps {
+        children?: React.ReactNode;
         className?: string | undefined;
         containerClassName?: string | undefined;
         containerStyle?: React.CSSProperties | undefined;
@@ -1096,6 +1107,7 @@ declare namespace __MaterialUI {
     namespace GridList {
         export interface GridListProps {
             cellHeight?: number|'auto' | undefined;
+            children?: React.ReactNode;
             cols?: number | undefined;
             padding?: number | undefined;
             style?: React.CSSProperties | undefined;
@@ -1106,6 +1118,7 @@ declare namespace __MaterialUI {
         export interface GridTileProps {
             actionIcon?: React.ReactElement | undefined;
             actionPosition?: "left" | "right" | undefined;
+            children?: React.ReactNode;
             cols?: number | undefined;
             containerElement?: string | React.ReactElement | React.ComponentClass<any> | undefined;
             rows?: number | undefined;
@@ -1199,6 +1212,7 @@ declare namespace __MaterialUI {
         export interface MenuProps {
             // <List/> is the element that get the 'other' properties
             autoWidth?: boolean | undefined;
+            children?: React.ReactNode;
             desktop?: boolean | undefined;
             disableAutoFocus?: boolean | undefined;
             initiallyKeyboardFocused?: boolean | undefined;
@@ -1245,6 +1259,7 @@ declare namespace __MaterialUI {
             anchorOrigin?: propTypes.origin | undefined;
             animated?: boolean | undefined;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps> | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             clickCloseDelay?: number | undefined;
             iconButtonElement: React.ReactElement<IconButton>;
@@ -1282,6 +1297,7 @@ declare namespace __MaterialUI {
             anchorOrigin?: propTypes.origin | undefined;
             animated?: boolean | undefined;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps> | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             disabled?: boolean | undefined;
             iconButton?: React.ReactNode | undefined;
@@ -1340,6 +1356,7 @@ declare namespace __MaterialUI {
             animation?: React.ComponentClass<PopoverAnimationProps> | undefined;
             autoCloseWhenOffScreen?: boolean | undefined;
             canAutoPosition?: boolean | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             onRequestClose?(reason: string): void;
             open?: boolean | undefined;
@@ -1409,6 +1426,7 @@ declare namespace __MaterialUI {
     export interface SelectFieldProps {
         // <DropDownMenu/> is the element that get the 'other' properties
         autoWidth?: boolean | undefined;
+        children?: React.ReactNode;
         disabled?: boolean | undefined;
         dropDownMenuProps?: Menus.DropDownMenuProps | undefined;
         errorStyle?: React.CSSProperties | undefined;
@@ -1559,6 +1577,7 @@ declare namespace __MaterialUI {
         }
 
         export interface RadioButtonGroupProps {
+            children?: React.ReactNode;
             className?: string | undefined;
             defaultSelected?: any;
             labelPosition?: "left" | "right" | undefined;
@@ -1620,6 +1639,7 @@ declare namespace __MaterialUI {
     namespace Stepper {
         export interface StepProps {
             active?: boolean | undefined;
+            children?: React.ReactNode;
             completed?: boolean | undefined;
             disabled?: boolean | undefined;
             style?: React.CSSProperties | undefined;
@@ -1629,6 +1649,7 @@ declare namespace __MaterialUI {
 
         export interface StepButtonProps extends SharedEnhancedButtonProps<StepButton> {
             active?: boolean | undefined;
+            children?: React.ReactNode;
             completed?: boolean | undefined;
             disabled?: boolean | undefined;
             icon?: React.ReactNode | string | number | undefined;
@@ -1642,6 +1663,7 @@ declare namespace __MaterialUI {
 
         export interface StepContentProps {
             active?: boolean | undefined;
+            children?: React.ReactNode;
             last?: boolean | undefined;
             style?: React.CSSProperties | undefined;
         }
@@ -1650,6 +1672,7 @@ declare namespace __MaterialUI {
 
         export interface StepLabelProps {
             active?: boolean | undefined;
+            children?: React.ReactNode;
             completed?: boolean | undefined;
             disabled?: boolean | undefined;
             icon?: React.ReactNode | string | number | undefined;
@@ -1659,10 +1682,11 @@ declare namespace __MaterialUI {
         export class StepLabel extends React.Component<StepLabelProps> {
         }
 
-        export interface SnackbarProps extends React.Props<Snackbar> {
+        export interface SnackbarProps {
             action?: string | undefined;
             autoHideDuration?: number | undefined;
             bodyStyle?: React.CSSProperties | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             message: string | JSX.Element;
             onActionClick?: React.MouseEventHandler<{}> | undefined;
@@ -1678,6 +1702,7 @@ declare namespace __MaterialUI {
 
         export interface StepperProps {
             activeStep?: number | undefined;
+            children?: React.ReactNode;
             linear?: boolean | undefined;
             orientation?: "horizontal" | "vertical" | undefined;
             style?: React.CSSProperties | undefined;
@@ -1687,6 +1712,7 @@ declare namespace __MaterialUI {
     }
 
     export interface SubheaderProps {
+        children?: React.ReactNode;
         inset?: boolean | undefined;
         style?: React.CSSProperties | undefined;
     }
@@ -1697,6 +1723,7 @@ declare namespace __MaterialUI {
         export interface TableProps {
             allRowsSelected?: boolean | undefined;
             bodyStyle?: React.CSSProperties | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             fixedFooter?: boolean | undefined;
             fixedHeader?: boolean | undefined;
@@ -1718,6 +1745,7 @@ declare namespace __MaterialUI {
         }
 
         export interface TableRowProps {
+            children?: React.ReactNode;
             // <tr/> is element that get the 'other' properties
             className?: string | undefined;
             displayBorder?: boolean | undefined;
@@ -1745,6 +1773,7 @@ declare namespace __MaterialUI {
         }
 
         export interface TableRowColumnProps {
+            children?: React.ReactNode;
             // <td/> is element that get the 'other' properties
             className?: string | undefined;
             columnNumber?: number | undefined;
@@ -1767,6 +1796,7 @@ declare namespace __MaterialUI {
 
         export interface TableHeaderProps {
             adjustForCheckbox?: boolean | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             displaySelectAll?: boolean | undefined;
             enableSelectAll?: boolean | undefined;
@@ -1780,6 +1810,7 @@ declare namespace __MaterialUI {
         }
 
         export interface TableHeaderColumnProps {
+            children?: React.ReactNode;
             // <th/> is element that get the 'other' properties
             className?: string | undefined;
             columnNumber?: number | undefined;
@@ -1799,6 +1830,7 @@ declare namespace __MaterialUI {
         export interface TableBodyProps {
             /** @deprecated Instead, use property on Table */
             allRowsSelected?: boolean | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             deselectOnClickaway?: boolean | undefined;
             displayRowCheckbox?: boolean | undefined;
@@ -1829,6 +1861,7 @@ declare namespace __MaterialUI {
         export interface TableFooterProps {
             // <tfoot/> is element that get the 'other' properties
             adjustForCheckbox?: boolean | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             style?: React.CSSProperties | undefined;
         }
@@ -1838,6 +1871,7 @@ declare namespace __MaterialUI {
 
     namespace Tabs {
         export interface TabsProps {
+            children?: React.ReactNode;
             className?: string | undefined;
             contentContainerClassName?: string | undefined;
             contentContainerStyle?: React.CSSProperties | undefined;
@@ -1855,6 +1889,7 @@ declare namespace __MaterialUI {
 
         export interface TabProps extends SharedEnhancedButtonProps<Tab> {
             buttonStyle?: React.CSSProperties | undefined;
+            children?: React.ReactNode;
             className?: string | undefined;
             icon?: React.ReactNode | undefined;
             label?: React.ReactNode | undefined;
@@ -1980,6 +2015,7 @@ declare namespace __MaterialUI {
 
     export namespace Toolbar {
         export interface ToolbarProps {
+            children?: React.ReactNode;
             className?: string | undefined;
             noGutter?: boolean | undefined;
             style?: React.CSSProperties | undefined;
@@ -1988,6 +2024,7 @@ declare namespace __MaterialUI {
         }
 
         export interface ToolbarGroupProps {
+            children?: React.ReactNode;
             className?: string | undefined;
             firstChild?: boolean | undefined;
             float?: "left" | "right" | undefined;

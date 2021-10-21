@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentClass, StatelessComponent, ReactType } from "react";
+import { ComponentClass, FunctionComponent, ReactType } from "react";
 import { Action } from "redux";
 import { Location } from "history";
 
-export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+export type ComponentConstructor<P> = ComponentClass<P> | FunctionComponent<P>;
 
 export interface InjectedProps<AuthData> {
     authData?: AuthData | undefined;

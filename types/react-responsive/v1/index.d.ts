@@ -55,6 +55,7 @@ declare namespace MediaQuery {
         tty?: boolean | undefined;
         tv?: boolean | undefined;
         embossed?: boolean | undefined;
+        children?: React.ReactNode;
     }
 }
 

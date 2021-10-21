@@ -148,6 +148,7 @@ export type CustomValidatorFunction<T extends object> = (
 ) => (value: T[keyof T]) => string | null;
 
 export interface ValidatorsProviderProps<T extends object> {
+    children?: React.ReactNode;
     validators: Record<string, CustomValidatorFunction<T>>;
 }
 

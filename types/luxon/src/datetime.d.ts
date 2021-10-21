@@ -10,7 +10,6 @@ import {
 import { Zone } from './zone';
 import { Duration, DurationLike, DurationUnits } from './duration';
 import { Interval } from './interval';
-import * as Formats from './impl/formats';
 
 export type DateTimeUnit = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
 export type ToRelativeUnit = 'years' | 'quarters' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds';
@@ -147,6 +146,15 @@ export interface DateObjectUnits {
 }
 
 export type ConversionAccuracy = 'casual' | 'longterm';
+
+/**
+ * @deprecated You should use Intl.DateTimeFormatOptions' fields and values instead.
+ */
+export type DateTimeFormatPresetValue = 'numeric' | 'short' | 'long';
+/**
+ * @deprecated Use Intl.DateTimeFormatOptions instead.
+ */
+export type DateTimeFormatPreset = Intl.DateTimeFormatOptions;
 
 export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
@@ -1333,110 +1341,110 @@ export class DateTime {
     /**
      * {@link DateTime.toLocaleString} format like 10/14/1983
      */
-    static get DATE_SHORT(): typeof Formats.DATE_SHORT;
+    static get DATE_SHORT(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983'
      */
-    static get DATE_MED(): typeof Formats.DATE_MED;
+    static get DATE_MED(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Fri, Oct 14, 1983'
      */
-    static get DATE_MED_WITH_WEEKDAY(): typeof Formats.DATE_MED_WITH_WEEKDAY;
+    static get DATE_MED_WITH_WEEKDAY(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983'
      */
-    static get DATE_FULL(): typeof Formats.DATE_FULL;
+    static get DATE_FULL(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Tuesday, October 14, 1983'
      */
-    static get DATE_HUGE(): typeof Formats.DATE_HUGE;
+    static get DATE_HUGE(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30 AM'. Only 12-hour if the locale is.
      */
-    static get TIME_SIMPLE(): typeof Formats.TIME_SIMPLE;
+    static get TIME_SIMPLE(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_SECONDS(): typeof Formats.TIME_WITH_SECONDS;
+    static get TIME_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM EDT'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_SHORT_OFFSET(): typeof Formats.TIME_WITH_SHORT_OFFSET;
+    static get TIME_WITH_SHORT_OFFSET(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get TIME_WITH_LONG_OFFSET(): typeof Formats.TIME_WITH_LONG_OFFSET;
+    static get TIME_WITH_LONG_OFFSET(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30', always 24-hour.
      */
-    static get TIME_24_SIMPLE(): typeof Formats.TIME_24_SIMPLE;
+    static get TIME_24_SIMPLE(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23', always 24-hour.
      */
-    static get TIME_24_WITH_SECONDS(): typeof Formats.TIME_24_WITH_SECONDS;
+    static get TIME_24_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 EDT', always 24-hour.
      */
-    static get TIME_24_WITH_SHORT_OFFSET(): typeof Formats.TIME_24_WITH_SHORT_OFFSET;
+    static get TIME_24_WITH_SHORT_OFFSET(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '09:30:23 Eastern Daylight Time', always 24-hour.
      */
-    static get TIME_24_WITH_LONG_OFFSET(): typeof Formats.TIME_24_WITH_LONG_OFFSET;
+    static get TIME_24_WITH_LONG_OFFSET(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '10/14/1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_SHORT(): typeof Formats.DATETIME_SHORT;
+    static get DATETIME_SHORT(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like '10/14/1983, 9:30:33 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_SHORT_WITH_SECONDS(): typeof Formats.DATETIME_SHORT_WITH_SECONDS;
+    static get DATETIME_SHORT_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED(): typeof Formats.DATETIME_MED;
+    static get DATETIME_MED(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Oct 14, 1983, 9:30:33 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED_WITH_SECONDS(): typeof Formats.DATETIME_MED_WITH_SECONDS;
+    static get DATETIME_MED_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Fri, 14 Oct 1983, 9:30 AM'. Only 12-hour if the locale is.
      */
-    static get DATETIME_MED_WITH_WEEKDAY(): typeof Formats.DATETIME_MED_WITH_WEEKDAY;
+    static get DATETIME_MED_WITH_WEEKDAY(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983, 9:30 AM EDT'. Only 12-hour if the locale is.
      */
-    static get DATETIME_FULL(): typeof Formats.DATETIME_FULL;
+    static get DATETIME_FULL(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'October 14, 1983, 9:30:33 AM EDT'. Only 12-hour if the locale is.
      */
-    static get DATETIME_FULL_WITH_SECONDS(): typeof Formats.DATETIME_FULL_WITH_SECONDS;
+    static get DATETIME_FULL_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Friday, October 14, 1983, 9:30 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get DATETIME_HUGE(): typeof Formats.DATETIME_HUGE;
+    static get DATETIME_HUGE(): Intl.DateTimeFormatOptions;
 
     /**
      * {@link DateTime.toLocaleString} format like 'Friday, October 14, 1983, 9:30:33 AM Eastern Daylight Time'. Only 12-hour if the locale is.
      */
-    static get DATETIME_HUGE_WITH_SECONDS(): typeof Formats.DATETIME_HUGE_WITH_SECONDS;
+    static get DATETIME_HUGE_WITH_SECONDS(): Intl.DateTimeFormatOptions;
 }
