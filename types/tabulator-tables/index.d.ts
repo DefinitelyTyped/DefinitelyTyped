@@ -8,7 +8,7 @@
 // tslint:disable:jsdoc-format
 // tslint:disable:no-trailing-whitespace
 
-declare namespace Tabulator {
+export namespace Tabulator {
     interface Options
         extends OptionsGeneral,
             OptionsMenu,
@@ -2387,6 +2387,7 @@ export class Tabulator {
 
 export class Renderer {}
 export class Module {
-    static moduleName?: string;
     constructor(table: Tabulator);
 }
+
+export {};
