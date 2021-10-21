@@ -3,11 +3,6 @@
 // Definitions by: Denis Malykh <https://github.com/finesunes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Archive, FilesObject } from './main';
-import { CompressedFile } from './compressed-file';
+/// <reference path="./main.d.ts" />
 
-export {
-    Archive,
-    FilesObject,
-    CompressedFile,
-};
+export { Archive } from './src/libarchive';

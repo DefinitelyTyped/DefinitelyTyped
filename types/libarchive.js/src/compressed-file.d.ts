@@ -1,4 +1,4 @@
-import { Archive } from './main';
+import { Archive } from './libarchive';
 
 export class CompressedFile {
     _name: string;
