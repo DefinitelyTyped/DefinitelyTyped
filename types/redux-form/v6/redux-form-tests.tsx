@@ -59,7 +59,7 @@ class MyForm extends React.Component {
     }
 }
 
-const MyStatelessFunctionalComponent: React.SFC<any> = () => <div/>;
+const MyStatelessFunctionalComponent: React.FC<any> = () => <div/>;
 
 reduxForm({
     form: 'mySFCForm'

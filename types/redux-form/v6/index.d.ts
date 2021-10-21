@@ -43,7 +43,7 @@ export type FormMeta<FormData extends DataShape> = {
 
 /**
  * A component class or stateless function component.
- * Workaround for: ComponentClass<P> | SFC<P> which does
+ * Workaround for: ComponentClass<P> | FC<P> which does
  * not resolve due to a bug in TypeScript.
  * https://github.com/Microsoft/TypeScript/pull/8674
  */

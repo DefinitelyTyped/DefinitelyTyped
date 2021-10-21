@@ -6,17 +6,17 @@ const defaultProps: ReactGooglePlacesSuggest.Props = {
     autocompletionRequest: { input: "" }
 };
 
-const ReactGooglePlacesSuggestWithChildrenTest: React.SFC = () => (
+const ReactGooglePlacesSuggestWithChildrenTest: React.FC = () => (
     <ReactGooglePlacesSuggest {...defaultProps}>
         <div />
     </ReactGooglePlacesSuggest>
 );
 
-const ReactGooglePlacesSuggestWithTextNoResultsPropTest: React.SFC = () => (
+const ReactGooglePlacesSuggestWithTextNoResultsPropTest: React.FC = () => (
     <ReactGooglePlacesSuggest {...defaultProps} textNoResults="No results..." />
 );
 
-const ReactGooglePlacesSuggestWithCustomRenderPropTest: React.SFC = () => (
+const ReactGooglePlacesSuggestWithCustomRenderPropTest: React.FC = () => (
     <ReactGooglePlacesSuggest
         {...defaultProps}
         customRender={(prediction?: ReactGooglePlacesSuggest.Prediction) => {
@@ -25,7 +25,7 @@ const ReactGooglePlacesSuggestWithCustomRenderPropTest: React.SFC = () => (
     />
 );
 
-const ReactGooglePlacesSuggestWithOnSelectSuggestPropTest: React.SFC = () => (
+const ReactGooglePlacesSuggestWithOnSelectSuggestPropTest: React.FC = () => (
     <ReactGooglePlacesSuggest
         {...defaultProps}
         onSelectSuggest={(geocodedPrediction, originalPrediction) => {
@@ -34,7 +34,7 @@ const ReactGooglePlacesSuggestWithOnSelectSuggestPropTest: React.SFC = () => (
     />
 );
 
-const ReactGooglePlacesSuggestWithCustomContainerRenderPropTest: React.SFC = () => (
+const ReactGooglePlacesSuggestWithCustomContainerRenderPropTest: React.FC = () => (
     <ReactGooglePlacesSuggest
         {...defaultProps}
         customContainerRender={(

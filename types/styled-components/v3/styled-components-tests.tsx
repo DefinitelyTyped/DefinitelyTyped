@@ -507,10 +507,10 @@ const AnchorContainer = () => (
 
 const WithComponentRandomHeading = WithComponentH1.withComponent(Random);
 
-const WithComponentCompA: React.SFC<{ a: number; className?: string | undefined }> = ({ className }) => (
+const WithComponentCompA: React.FC<{ a: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
-const WithComponentCompB: React.SFC<{ b: number; className?: string | undefined }> = ({ className }) => (
+const WithComponentCompB: React.FC<{ b: number; className?: string | undefined }> = ({ className }) => (
     <div className={className} />
 );
 const WithComponentStyledA = styled(WithComponentCompA)`
