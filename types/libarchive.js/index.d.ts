@@ -3,6 +3,4 @@
 // Definitions by: Denis Malykh <https://github.com/finesunes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./main.d.ts" />
-
-export { Archive } from './src/libarchive';
+export * from './main';
