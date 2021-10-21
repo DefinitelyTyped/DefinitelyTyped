@@ -6,7 +6,7 @@
 // TypeScript Version: 2.8
 
 interface TwitterLoginProps {
-    tag?: React.ReactType | undefined;
+    tag?: React.ElementType | undefined;
     text?: string | undefined;
     loginUrl: string;
     requestTokenUrl: string;
