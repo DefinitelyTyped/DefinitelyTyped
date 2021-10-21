@@ -157,7 +157,7 @@ export interface AriaModalProps {
      * You can use it to do whatever diverse and sundry things you feel like
      * doing after the modal activates.
      */
-    onEnter?(): any;
+    onEnter?(): void;
 
     /**
      * This function needs to handles the state change of exiting (or deactivating) the modal.
@@ -167,7 +167,7 @@ export interface AriaModalProps {
      * That also makes it easier to create your own "close modal" buttons; because you
      * have the function that closes the modal right there, written by you, at your disposal.
      */
-    onExit?(): any;
+    onExit?(event: React.MouseEvent | React.KeyboardEvent): void;
 
     /**
      * If true, the modal dialog's focus trap will be paused.
