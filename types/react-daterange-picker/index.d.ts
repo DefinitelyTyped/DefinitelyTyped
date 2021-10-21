@@ -18,7 +18,9 @@ export as namespace ReactDateRangePicker;
 /**
  * see {@link https://github.com/onefinestay/react-daterange-picker#available-props}
  */
-export interface BaseProps<T = DateRangePicker> extends React.Props<T> {
+export interface BaseProps<T = DateRangePicker> {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<T> | undefined;
     bemBlock?: string | undefined;
     bemNamespace?: string | undefined;
     className?: string | undefined;
@@ -78,7 +80,9 @@ export interface StateDefinition {
     selectable?: boolean | undefined;
 }
 
-export interface PaginationArrowProps<T = {}> extends React.Props<T> {
+export interface PaginationArrowProps<T = {}> {
+    children?: React.ReactNode;
+    ref: React.LegacyRef<T>;
     disabled?: boolean | undefined;
     onTrigger?(): void;
     direction?: 'next' | 'previous' | undefined;
