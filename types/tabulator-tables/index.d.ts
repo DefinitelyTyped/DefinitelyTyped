@@ -1846,7 +1846,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
 }
 
 // Tabulator.prototype.(?!registerModule|helpers|_)\w+
-declare class Tabulator {
+export declare class Tabulator {
     static defaultOptions: Tabulator.Options;
 
     /** A lot of the modules come with a range of default settings to make setting up your table easier, for example the sorters, formatters and editors that ship with Tabulator as standard.
@@ -2383,6 +2383,4 @@ type EventCallBackMethods =
     | 'dataProcessing'
     | 'dataProcessed';
 
-declare class Renderer {}
-
-export { Tabulator, Renderer };
+export declare class Renderer {}
