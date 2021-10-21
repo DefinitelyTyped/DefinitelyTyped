@@ -84,7 +84,7 @@ declare class NodeRSA {
     decryptPublic<T extends object>(data: Buffer | string, encoding: 'json'): T;
 
     sign(data: NodeRSA.Data, encoding?: 'buffer'): Buffer;
-    sign(data: NodeRSA.Data, encoding: NodeRSA.Encoding, source_encoding: NodeRSA.Encoding): string;
+    sign(data: NodeRSA.Data, encoding: NodeRSA.Encoding, source_encoding?: NodeRSA.Encoding): string;
     sign(data: Buffer, encoding: 'buffer', sourceEncoding?: NodeRSA.Encoding): Buffer;
     sign(data: Buffer, encoding: NodeRSA.Encoding, sourceEncoding?: NodeRSA.Encoding): string;
 
