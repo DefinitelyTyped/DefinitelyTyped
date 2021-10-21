@@ -427,6 +427,22 @@ declare namespace Aws {
         enabled?: boolean | undefined;
     }
 
+    interface ActiveMq {
+        arn: string;
+        basicAuthArn: string;
+        queue: string;
+        batchSize?: number;
+        enabled?: boolean | undefined;
+    }
+
+    interface RabbitMq {
+        arn: string;
+        basicAuthArn: string;
+        queue: string;
+        batchSize?: number;
+        enabled?: boolean | undefined;
+    }
+
     interface Stream {
         arn: string | { [key: string]: any };
         batchSize?: number | string | undefined;
@@ -554,6 +570,8 @@ declare namespace Aws {
         alb?: AlbEvent | undefined;
         eventBridge?: EventBridge | undefined;
         cloudFront?: CloudFront | undefined;
+        activemq?: ActiveMq | undefined;
+        rabbitmq?: RabbitMq | undefined;
     }
 
     interface FileSystemConfig {
