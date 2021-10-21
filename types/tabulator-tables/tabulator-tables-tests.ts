@@ -2,6 +2,7 @@ import { Tabulator, Renderer } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
+// tslint:disable:prefer-const
 
 // constructor
 let table = new Tabulator('#test');

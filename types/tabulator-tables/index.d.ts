@@ -2286,8 +2286,8 @@ declare class Tabulator {
     /**The clearHistory function can be used to clear out the current table interaction history. */
     clearHistory: () => void;
 
-    on: (event: EventCallBackMethods, callback?: Function) => void;
-    off: (event: EventCallBackMethods, callback?: Function) => void;
+    on: (event: EventCallBackMethods, callback?: () => any) => void;
+    off: (event: EventCallBackMethods, callback?: () => any) => void;
 }
 
 type EventCallBackMethods =
