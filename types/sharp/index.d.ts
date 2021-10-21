@@ -1160,7 +1160,7 @@ declare namespace sharp {
         size: number;
         width: number;
         height: number;
-        channels: number;
+        channels: 1 | 2 | 3 | 4;
         /** indicating if premultiplication was used */
         premultiplied: boolean;
         /** Only defined when using a crop strategy */

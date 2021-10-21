@@ -1,4 +1,4 @@
-// Type definitions for jexl 2.2
+// Type definitions for jexl 2.3
 // Project: https://github.com/TomFrost/Jexl
 // Definitions by: Marcin Tomczyk <https://github.com/m-tomczyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,8 @@ type TransformFunction = (value: any, ...args: any[]) => any;
 type BinaryOpFunction = (left: any, right: any) => any;
 
 type UnaryOpFunction = (right: any) => any;
+
+type FunctionFunction = (value: any, ...args: any[]) => any;
 
 /**
  * Jexl is the Javascript Expression Language, capable of parsing and
@@ -71,6 +73,31 @@ declare class Jexl {
      * @returns The transform function
      */
     getTransform(name: string): TransformFunction;
+
+    /**
+     * Adds or replaces an expression function in this Jexl instance.
+     * @param name The name of the expression function, as it will be
+     *      used within Jexl expressions.
+     * @param fn The javascript function to be executed when this
+     *      expression function is invoked. It will be provided with each argument
+     *      supplied in the expression, in the same order.
+     */
+    addFunction(name: string, fn: FunctionFunction): void;
+
+    /**
+     * Syntatic sugar for calling {@link #addFunction} repeatedly. This function
+     * accepts a map of one or more expression function names to their javascript
+     * function counterpart.
+     * @param map A map of expression function names to javascript functions.
+     */
+    addFunctions(map: { [key: string]: FunctionFunction }): void;
+
+    /**
+     * Retrieves a previously set expression function.
+     * @param name The name of the expression function
+     * @returns The expression function
+     */
+    getFunction(name: string): FunctionFunction;
 
     /**
      * Asynchronously evaluates a Jexl string within an optional context.

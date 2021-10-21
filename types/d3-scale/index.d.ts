@@ -8,7 +8,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 4.0.0
+// Last module patch version validated against: 4.0.2
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
 
@@ -2269,8 +2269,8 @@ export interface ScaleOrdinal<Domain extends { toString(): string }, Range, Unkn
      * The first element in domain will be mapped to the first element in the range,
      * the second domain value to the second range value, and so on.
      *
-     * Domain values are stored internally in a map from stringified value to index; the resulting index is then used to retrieve a value from the range.
-     * Thus, an ordinal scale’s values must be coercible to a string, and the stringified version of the domain value uniquely identifies the corresponding range value.
+     * Domain values are stored internally in an InternMap from primitive value to index; the resulting index is then used to retrieve a value from the range.
+     * Thus, an ordinal scale’s values must be coercible to a primitive value, and the primitive domain value uniquely identifies the corresponding range value.
      *
      * Setting the domain on an ordinal scale is optional if the unknown value is implicit (the default).
      * In this case, the domain will be inferred implicitly from usage by assigning each unique value passed to the scale a new value from the range.
@@ -2390,8 +2390,8 @@ export interface ScaleBand<Domain extends { toString(): string }> {
     domain(): Domain[];
     /**
      * Sets the domain to the specified array of values. The first element in domain will be mapped to the first band, the second domain value to the second band, and so on.
-     * Domain values are stored internally in a map from stringified value to index; the resulting index is then used to determine the band.
-     * Thus, a band scale’s values must be coercible to a string, and the stringified version of the domain value uniquely identifies the corresponding band.
+     * Domain values are stored internally in an InternMap from primitive value to index; the resulting index is then used to determine the band.
+     * Thus, a band scale’s values must be coercible to a primitive value, and the primitive domain value uniquely identifies the corresponding band.
      *
      * @param domain Array of domain values.
      */
@@ -2557,8 +2557,8 @@ export interface ScalePoint<Domain extends { toString(): string }> {
     domain(): Domain[];
     /**
      * Sets the domain to the specified array of values. The first element in domain will be mapped to the first point, the second domain value to the second point, and so on.
-     * Domain values are stored internally in a map from stringified value to index; the resulting index is then used to determine the point.
-     * Thus, a point scale’s values must be coercible to a string, and the stringified version of the domain value uniquely identifies the corresponding point.
+     * Domain values are stored internally in an InternMap from primitive value to index; the resulting index is then used to determine the point.
+     * Thus, a point scale’s values must be coercible to a primitive value, and the primitive domain value uniquely identifies the corresponding point.
      *
      * @param domain Array of domain values.
      */

@@ -472,6 +472,10 @@
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
         },
+        "cesium": {
+            "libraryName": "cesium",
+            "asOfVersion": "1.70.0"
+        },
         "chai-http": {
             "libraryName": "chai-http",
             "asOfVersion": "4.2.0"
@@ -988,6 +992,10 @@
         "dva": {
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
+        },
+        "easy-table": {
+            "libraryName": "easy-table",
+            "asOfVersion": "1.2.0"
         },
         "easy-x-headers": {
             "libraryName": "easy-x-headers",
@@ -2028,6 +2036,10 @@
         "is-png": {
             "libraryName": "is-png",
             "asOfVersion": "2.0.0"
+        },
+        "is-progressive": {
+            "libraryName": "is-progressive",
+            "asOfVersion": "4.0.0"
         },
         "is-promise": {
             "libraryName": "is-promise",
@@ -3478,6 +3490,14 @@
             "libraryName": "positive-zero",
             "asOfVersion": "3.0.0"
         },
+        "postcss-custom-properties": {
+            "libraryName": "postcss-custom-properties",
+            "asOfVersion": "12.0.0"
+        },
+        "postcss-focus-within": {
+            "libraryName": "postcss-focus-within",
+            "asOfVersion": "5.0.1"
+        },
         "postcss-load-config": {
             "libraryName": "postcss-load-config",
             "asOfVersion": "3.0.1"
@@ -3685,6 +3705,10 @@
         "rc-time-picker": {
             "libraryName": "rc-time-picker",
             "asOfVersion": "3.5.0"
+        },
+        "rc-tree": {
+            "libraryName": "rc-tree",
+            "asOfVersion": "3.0.0"
         },
         "rdf-js": {
             "libraryName": "rdf-js",
@@ -4098,6 +4122,10 @@
             "libraryName": "react-scrollbar-size",
             "asOfVersion": "3.0.0"
         },
+        "react-select": {
+            "libraryName": "react-select",
+            "asOfVersion": "5.0.0"
+        },
         "react-share": {
             "libraryName": "react-share",
             "asOfVersion": "4.0.0"
@@ -4189,10 +4217,6 @@
         "reapop": {
             "libraryName": "reapop",
             "asOfVersion": "3.0.0"
-        },
-        "recharts": {
-            "libraryName": "recharts",
-            "asOfVersion": "2.0.0"
         },
         "recoil": {
             "libraryName": "recoil",
@@ -4552,6 +4576,10 @@
         },
         "skin-tone": {
             "libraryName": "skin-tone",
+            "asOfVersion": "2.0.0"
+        },
+        "skyway": {
+            "libraryName": "skyway-js",
             "asOfVersion": "2.0.0"
         },
         "slash": {
@@ -5218,6 +5246,10 @@
             "libraryName": "vfile-message",
             "asOfVersion": "2.0.0"
         },
+        "victory": {
+            "libraryName": "victory",
+            "asOfVersion": "35.0.0"
+        },
         "viewerjs": {
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
@@ -5309,6 +5341,10 @@
         "webpack-merge": {
             "libraryName": "webpack-merge",
             "asOfVersion": "5.0.0"
+        },
+        "webpack-notifier": {
+            "libraryName": "webpack-notifier",
+            "asOfVersion": "1.14.0"
         },
         "webpack-subresource-integrity": {
             "libraryName": "webpack-subresource-integrity",

@@ -17,11 +17,11 @@
 //                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
-//                  Linus Unnebäck <https://github.com/LinusU>
 //                  Jerome De Leon <https://github.com/JeromeDeLeon>
 //                  Kent Robin Haugen <https://github.com/kentrh>
 //                  Asen Lekov <https://github.com/L3K0V>
 //                  Switt Kongdachalert <https://github.com/swittk>
+//                  Dan Syrstad <https://github.com/dsyrstad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -1035,6 +1035,31 @@ declare global {
         const User: UserConstructor;
 
         /**
+         * The raw schema response returned from the `GET /parse/schemas` endpoint.
+         * This is defined here: https://docs.parseplatform.org/js/guide/#schema.
+         * Unfortunately, `Schema.all()` and `Schema.prototype.get()` return this rather
+         * than a `Schema`. It is also the only object which provides introspection on
+         * the schema - such as `className` and `fields`.
+         */
+        interface RestSchema {
+            className: string;
+            fields: {
+                [key: string]: {
+                    type: string;
+                    targetClass?: string;
+                    required?: boolean;
+                    defaultValue?: string;
+                }
+            };
+            classLevelPermissions: Schema.CLP;
+            indexes?: {
+                [key: string]: {
+                    [key: string]: any;
+                }
+            };
+        }
+
+        /**
          * A Parse.Schema object is for handling schema data from Parse.
          * All the schemas methods require MasterKey.
          *
@@ -1058,7 +1083,7 @@ declare global {
              * @return A promise that is resolved with the result when
              * the query completes.
              */
-            static all(): Promise<Schema[]>;
+            static all(): Promise<RestSchema[]>;
 
             addArray(key: Schema.AttrType<T, any[]>, options?: Schema.FieldOptions<any[]>): this;
             addBoolean(key: Schema.AttrType<T, boolean>, options?: Schema.FieldOptions<boolean>): this;
@@ -1135,7 +1160,7 @@ declare global {
             /**
              * Get the Schema from Parse
              */
-            get(): Promise<Schema>;
+            get(): Promise<RestSchema>;
 
             /**
              * Removes all objects from a Schema (class) in  EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
@@ -1239,6 +1264,10 @@ declare global {
                 readUserFields?: string[] | undefined;
                 /** Array of fields that point to a `_User` object's ID or a `Role` object's name */
                 writeUserFields?: string[] | undefined;
+                protectedFields?: {
+                    /** '*', user id, or role: followed by a list of fields. */
+                    [userIdOrRoleName: string]: string[];
+                };
             }
         }
 
@@ -1350,12 +1379,12 @@ declare global {
             }
 
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
-                context: object;
+                context: Record<string, unknown>;
             }
             interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
-                context: object;
+                context: Record<string, unknown>;
             }
 
             interface FileTriggerRequest extends TriggerRequest<File> {

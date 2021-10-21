@@ -150,6 +150,8 @@ declare namespace webpack {
         parallelism?: number | undefined;
         /** Optimization options */
         optimization?: Options.Optimization | undefined;
+        /** Options for infrastructure level logging */
+        infrastructureLogging?: Options.InfrastructureLogging | undefined;
     }
 
     interface CliConfigOptions {
@@ -752,6 +754,12 @@ declare namespace webpack {
             minimizer?: Array<Plugin | Tapable.Plugin> | undefined;
             /** Generate records with relative paths to be able to move the context folder". */
             portableRecords?: boolean | undefined;
+        }
+        interface InfrastructureLogging {
+            /** Log level */
+            level?: "none" | "error" | "warn" | "info" | "log" | "verbose" | undefined;
+            /** Enable debug logging for specific loggers */
+            debug?: string | RegExp | ((name: string) => boolean) | Array<string | RegExp | ((name: string) => boolean)> | undefined;
         }
     }
 

@@ -1,6 +1,6 @@
-import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from "../..";
-import Choice = require("./choice");
-import Separator = require("./separator");
+import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from '../..';
+import Choice = require('./choice');
+import Separator = require('./separator');
 
 /**
  * Represents a valid choice for the `Choices` class.
@@ -16,7 +16,7 @@ type DistinctChoice<T> = AllChoiceMap<T>[keyof AllChoiceMap<T>];
  * @template T
  * The type of the answers.
  */
-type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
+type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator['type'] }>;
 
 /**
  * Represents a property-name of any choice-type.
@@ -109,7 +109,9 @@ declare class Choices<T extends Answers = Answers> {
      * @returns
      * The value of the property of each choice.
      */
-    pluck<TProperty extends ChoiceProperty<T>>(property: TProperty | ChoiceProperty<T>): Array<(RealChoice<T> & { [key: string]: undefined })[TProperty]>;
+    pluck<TProperty extends ChoiceProperty<T>>(
+        property: TProperty | ChoiceProperty<T>,
+    ): Array<(RealChoice<T> & { [key: string]: undefined })[TProperty]>;
 
     /**
      * Returns the index of the first occurrence of a value in an array.
@@ -140,7 +142,10 @@ declare class Choices<T extends Answers = Answers> {
      *
      * If `thisArg` is omitted, undefined is used as the this value.
      */
-    forEach(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => void, thisArg?: any): void;
+    forEach(
+        callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => void,
+        thisArg?: any,
+    ): void;
 
     /**
      * Returns the elements of an array that meet the condition specified in a callback function.
@@ -158,7 +163,14 @@ declare class Choices<T extends Answers = Answers> {
      * @returns
      * The elements in the collection which meet the conditions.
      */
-    filter<TElement extends Choice<T> | Separator>(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => value is TElement, thisArg?: any): TElement[];
+    filter<TElement extends Choice<T> | Separator>(
+        callbackfn: (
+            value: Choice<T> | Separator,
+            index: number,
+            array: Array<Choice<T> | Separator>,
+        ) => value is TElement,
+        thisArg?: any,
+    ): TElement[];
 
     /**
      * Returns the value of the first element in the array where predicate is true, and `undefined` otherwise.
@@ -174,7 +186,10 @@ declare class Choices<T extends Answers = Answers> {
      *
      * If it is not provided, undefined is used instead.
      */
-    find(predicate: (value: Choice<T> | Separator, index: number, obj: Array<Choice<T> | Separator>) => boolean, thisArg?: any): Choice<T> | Separator;
+    find(
+        predicate: (value: Choice<T> | Separator, index: number, obj: Array<Choice<T> | Separator>) => boolean,
+        thisArg?: any,
+    ): Choice<T> | Separator;
 
     /**
      * Appends new elements to an array, and returns the new length of the array.

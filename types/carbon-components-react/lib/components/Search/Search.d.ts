@@ -11,7 +11,7 @@ export interface SearchProps extends Omit<ReactInputAttr, ExcludedAttributes> {
      * @deprecated
      */
     placeHolderText?: string | undefined,
-    renderIcon?: React.ReactNode | undefined;
+    renderIcon?: React.ReactElement | undefined; // code calls React.cloneElement so it can only be an element.
     size?: "sm" | "md" | "lg" | "xl" | undefined,
     /**
      * @deprecated

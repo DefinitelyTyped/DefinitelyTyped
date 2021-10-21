@@ -221,7 +221,7 @@ generator.registerPriorities(
   ]);
 
 generator.registerConfigPrompts([{ storage: generator.config, exportOption: true, type: "input" }]);
-generator.registerTransformStream([]);
+generator.queueTransformStream([]);
 
 const rootGeneratorName: string = generator.rootGeneratorName();
 const rootGeneratorVersion: string = generator.rootGeneratorVersion();

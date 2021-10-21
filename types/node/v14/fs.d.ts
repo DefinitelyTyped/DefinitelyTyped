@@ -2241,13 +2241,13 @@ declare module 'fs' {
         bufferSize?: number | undefined;
     }
 
-    export function opendirSync(path: string, options?: OpenDirOptions): Dir;
+    export function opendirSync(path: PathLike, options?: OpenDirOptions): Dir;
 
-    export function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
-    export function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
 
     export namespace opendir {
-        function __promisify__(path: string, options?: OpenDirOptions): Promise<Dir>;
+        function __promisify__(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     }
 
     export interface BigIntStats extends StatsBase<bigint> {

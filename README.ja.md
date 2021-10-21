@@ -2,7 +2,7 @@
 
 > 高品質な TypeScript の型定義用レポジトリ
 
-*この README は[英語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)・[スペイン語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)・[韓国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)・[ロシア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)・[中国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.cn.md)・[ポルトガル語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)でも閲覧できます！*
+*この README は[英語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md)・[スペイン語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md)・[韓国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md)・[ロシア語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md)・[中国語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md)・[ポルトガル語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md)でも閲覧できます！*
 
 *[管理者用マニュアル](./docs/admin.md) はこちら*
 
@@ -433,7 +433,7 @@ npm パッケージでは、モジュールを `node -p 'require("foo")'` でイ
 4. パッケージのルートに戻り、使用したい TypeScript 3.7 の機能を追加する。
    これで、パッケージが使用されるときは、 TypeScript 3.6 以下の場合は `ts3.6/index.d.ts` を、 TypeScript 3.7 以上の場合は `index.d.ts` をそれぞれ読みにいくようになります。
 
-   [styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-components) モジュールを参考にしてください。
+   [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) モジュールを参考にしてください。
 
 #### デフォルトでは TypeScript に存在しない DOM API を追加したいです。
 

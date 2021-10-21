@@ -17,10 +17,10 @@ import {
 VERSION; // $ExpectType string
 
 /* DateTime */
-DateTime.DATETIME_MED; // $ExpectType DateTimeFormatPreset
-DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatPreset
-DateTime.DATE_MED; // $ExpectType DateTimeFormatPreset
-DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatPreset
+DateTime.DATETIME_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATETIME_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
+DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
 DateTime.local({ zone: 'Atlantic/Azores' }); // $ExpectType DateTime
 DateTime.local(2021, 8, 28, { zone: 'Atlantic/Azores' }); // $ExpectType DateTime
@@ -416,3 +416,15 @@ class SampleZone extends Zone {
         return 0;
     }
 }
+
+DateTime.fromISO('2021-09-13T07:52:27.697Z').toLocaleString({
+    ...DateTime.DATETIME_FULL_WITH_SECONDS,
+    hour: '2-digit',
+    second: '2-digit',
+});
+
+DateTime.fromISO('2021-09-13T07:52:27.697Z').toLocaleString({
+    ...DateTime.DATETIME_MED,
+    hour: '2-digit',
+    day: '2-digit',
+});

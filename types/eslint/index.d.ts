@@ -597,14 +597,22 @@ export namespace Rule {
         report(descriptor: ReportDescriptor): void;
     }
 
-    interface ReportDescriptorOptionsBase {
-        data?: { [key: string]: string } | undefined;
+    type ReportFixer = (fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[];
 
-        fix?: null | ((fixer: RuleFixer) => null | Fix | IterableIterator<Fix> | Fix[]) | undefined;
+    interface ReportDescriptorOptionsBase {
+        data?: { [key: string]: string };
+
+        fix?: null | ReportFixer;
+    }
+
+    interface SuggestionReportOptions {
+        data?: { [key: string]: string };
+
+        fix: ReportFixer;
     }
 
     type SuggestionDescriptorMessage = { desc: string } | { messageId: string };
-    type SuggestionReportDescriptor = SuggestionDescriptorMessage & ReportDescriptorOptionsBase;
+    type SuggestionReportDescriptor = SuggestionDescriptorMessage & SuggestionReportOptions;
 
     interface ReportDescriptorOptions extends ReportDescriptorOptionsBase {
         suggest?: SuggestionReportDescriptor[] | null | undefined;

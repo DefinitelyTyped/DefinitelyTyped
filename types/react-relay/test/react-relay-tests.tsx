@@ -707,7 +707,7 @@ requestSubscription(
 ReactRelayContext.Consumer.prototype;
 ReactRelayContext.Provider.prototype;
 
-const MyRelayContextProvider: React.FunctionComponent = children => {
+const MyRelayContextProvider: React.FunctionComponent = ({children}) => {
     return (
         <ReactRelayContext.Provider
             value={{

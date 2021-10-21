@@ -39,7 +39,7 @@ declare namespace ReactHelmet {
 
     interface HelmetDatum {
         toString(): string;
-        toComponent(): React.Component<any>;
+        toComponent(): React.ReactElement;
     }
 }
 

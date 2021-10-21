@@ -21,7 +21,7 @@ import * as Popper from '@popperjs/core';
 import { Locale } from 'date-fns';
 import { Modifier, StrictModifierNames } from 'react-popper';
 
-export function registerLocale(localeName: string, localeData: {}): void;
+export function registerLocale(localeName: string, localeData: Locale): void;
 export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
 export function CalendarContainer(props: {

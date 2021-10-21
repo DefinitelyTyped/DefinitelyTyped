@@ -9,6 +9,7 @@ const StickyAllOptions: JSX.Element = (
         innerZ={1000}
         enableTransforms={true}
         activeClass="active"
+        innerActiveClass="innerActive"
         className="className"
         releasedClass="released"
         innerClass="innerClass"

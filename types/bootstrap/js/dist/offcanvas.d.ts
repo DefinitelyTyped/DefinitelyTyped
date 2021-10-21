@@ -11,9 +11,9 @@ declare class Offcanvas extends BaseComponent {
 
     static jQueryInterface: Offcanvas.jQueryInterface;
 
-    toggle(relatedTarget: HTMLElement): void;
+    toggle(relatedTarget?: HTMLElement): void;
 
-    show(relatedTarget: HTMLElement): void;
+    show(relatedTarget?: HTMLElement): void;
 
     hide(): void;
 }

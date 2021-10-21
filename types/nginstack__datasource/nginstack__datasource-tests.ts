@@ -24,3 +24,8 @@ datasource.getDataSet(filters, columns); // $ExpectType DataSet
 datasource.getKey(); // $ExpectType number
 datasource.getUrl(); // $ExpectType string
 datasource.getResult(filterDefs, columnDefs); // $ExpectType DataSourceResult
+
+function testMajorVersions(prior: number, current: number): boolean {
+    return current > prior;
+}
+testMajorVersions(52, 53); // $ExpectType boolean

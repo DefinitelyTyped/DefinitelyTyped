@@ -542,6 +542,11 @@ declare namespace NodeJS {
         ignoreErrors?: boolean | undefined;
         colorMode?: boolean | 'auto' | undefined;
         inspectOptions?: InspectOptions | undefined;
+        /**
+         * Set group indentation
+         * @default 2
+         */
+        groupIndentation?: number | undefined;
     }
 
     interface ConsoleConstructor {
@@ -629,7 +634,6 @@ declare namespace NodeJS {
         code?: string | undefined;
         path?: string | undefined;
         syscall?: string | undefined;
-        stack?: string | undefined;
     }
 
     class EventEmitter {

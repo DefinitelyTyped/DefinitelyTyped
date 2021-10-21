@@ -6,7 +6,7 @@
  * ```js
  * const tls = require('tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.7.0/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tls.js)
  */
 declare module 'tls' {
     import { X509Certificate } from 'node:crypto';
@@ -189,7 +189,7 @@ declare module 'tls' {
          * }
          * ```
          *
-         * See[SSL\_CIPHER\_get\_name](https://www.openssl.org/docs/man1.1.1/man3/SSL_CIPHER_get_name.html)for more information.
+         * See [SSL\_CIPHER\_get\_name](https://www.openssl.org/docs/man1.1.1/man3/SSL_CIPHER_get_name.html) for more information.
          * @since v0.11.4
          */
         getCipher(): CipherNameAndProtocol;
@@ -274,7 +274,7 @@ declare module 'tls' {
          */
         getSession(): Buffer | undefined;
         /**
-         * See[SSL\_get\_shared\_sigalgs](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_shared_sigalgs.html)for more information.
+         * See [SSL\_get\_shared\_sigalgs](https://www.openssl.org/docs/man1.1.1/man3/SSL_get_shared_sigalgs.html) for more information.
          * @since v12.11.0
          * @return List of signature algorithms shared between the server and the client in the order of decreasing preference.
          */
@@ -810,8 +810,8 @@ declare module 'tls' {
     /**
      * Verifies the certificate `cert` is issued to `hostname`.
      *
-     * Returns [&lt;Error&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object, populating it with `reason`, `host`, and `cert` on
-     * failure. On success, returns [&lt;undefined&gt;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Undefined_type).
+     * Returns [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object, populating it with `reason`, `host`, and `cert` on
+     * failure. On success, returns [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Undefined_type).
      *
      * This function can be overwritten by providing alternative function as part of
      * the `options.checkServerIdentity` option passed to `tls.connect()`. The
@@ -962,7 +962,7 @@ declare module 'tls' {
      *
      * A key is _required_ for ciphers that use certificates. Either `key` or`pfx` can be used to provide it.
      *
-     * If the `ca` option is not given, then Node.js will default to using[Mozilla's publicly trusted list of
+     * If the `ca` option is not given, then Node.js will default to using [Mozilla's publicly trusted list of
      * CAs](https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt).
      * @since v0.11.13
      */

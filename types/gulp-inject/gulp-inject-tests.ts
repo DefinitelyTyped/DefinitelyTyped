@@ -37,6 +37,19 @@ gulp.task("inject:transform", () => {
         .pipe(gulp.dest("build"));
 });
 
+gulp.task("inject:transform", () => {
+    gulp.src(["files.json"])
+        .pipe(inject(gulp.src(["src/**/*.js", "src/**/*.css", "src/**/*.html"], { read: false }), {
+            starttag: "\"{{ext}}\": [",
+            endtag: "]",
+	    quiet: true,
+            transform: (filepath, file, i, length) => {
+                return "  \"" + filepath + "\"" + (i + 1 < length ? "," : "");
+            }
+        }))
+        .pipe(gulp.dest("build"));
+});
+
 function createOptions(starttag: inject.ITagFunction): inject.IOptions {
     return {
         starttag: starttag

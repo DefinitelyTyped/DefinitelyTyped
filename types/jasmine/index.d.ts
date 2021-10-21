@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.9
+// Type definitions for Jasmine 3.10
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -305,6 +305,13 @@ declare namespace jasmine {
          * @default undefined
          */
         Promise?: typeof Promise | undefined;
+        /**
+         * Clean closures when a suite is done running (done by clearing the stored function reference).
+         * This prevents memory leaks, but you won't be able to run jasmine multiple times.
+         * @since 3.10.0
+         * @default true
+         */
+        autoCleanClosures?: boolean | undefined;
     }
 
     /** @deprecated Please use `Configuration` instead of `EnvConfiguration`. */
@@ -386,6 +393,7 @@ declare namespace jasmine {
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
+    function stringContaining(str: string | RegExp): AsymmetricMatcher<string>;
     /**
      * @deprecated Private method that may be changed or removed in the future
      */
@@ -393,7 +401,7 @@ declare namespace jasmine {
 
     interface Any extends AsymmetricMatcher<any> {
         new (expectedClass: any): any;
-        jasmineToString(): string;
+        jasmineToString(prettyPrint: typeof pp): string;
     }
 
     interface AsymmetricMatcher<TValue> {
@@ -401,7 +409,7 @@ declare namespace jasmine {
          * customTesters are deprecated and will be replaced with matcherUtils in the future.
          */
         asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | ReadonlyArray<CustomEqualityTester>): boolean;
-        jasmineToString?(): string;
+        jasmineToString?(prettyPrint: typeof pp): string;
     }
 
     // taken from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
@@ -412,13 +420,13 @@ declare namespace jasmine {
 
     interface ArrayContaining<T> extends AsymmetricMatcher<any> {
         new?(sample: ArrayLike<T>): ArrayLike<T>;
-        jasmineToString(): string;
+        jasmineToString(prettyPrint: typeof pp): string;
     }
 
     interface ObjectContaining<T> extends AsymmetricMatcher<T> {
         new?(sample: { [K in keyof T]?: any }): { [K in keyof T]?: any };
 
-        jasmineToString?(): string;
+        jasmineToString?(prettyPrint: typeof pp): string;
     }
 
     interface Clock {
