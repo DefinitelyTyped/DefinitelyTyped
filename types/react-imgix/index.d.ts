@@ -1,4 +1,4 @@
-// Type definitions for react-imgix 9.0
+// Type definitions for react-imgix 9.2.0
 // Project: https://github.com/imgix/react-imgix
 // Definitions by: Sherwin Heydarbeygi <https://github.com/sherwinski>
 //                 Luis Ball <https://github.com/luqven>
