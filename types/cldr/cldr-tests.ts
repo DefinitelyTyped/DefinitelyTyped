@@ -61,7 +61,7 @@ Cldr.localesByParentLocale;
 Cldr.windowsZonesByMapZone;
 
 // $ExpectType void
-Cldr.getDocument('filename', (document) => {});
+Cldr.getDocument('filename', (error: Error | null, document: Document) => {});
 
 // $ExpectType Document
 Cldr.getDocument('filename');
@@ -82,10 +82,10 @@ Cldr.expandLocaleIdToPrioritizedList('localeid');
 Cldr.getPrioritizedDocumentsForLocale('localeid', 'type');
 
 // $ExpectType void
-Cldr.preload((err) => {});
+Cldr.preload((error: Error | undefined) => {});
 
 // $ExpectType void
-Cldr.preload(['localeid'], (err) => {});
+Cldr.preload(['localeid'], (error: Error | undefined) => {});
 
 // $ExpectType Finder
 Cldr.createFinder(Cldr.getPrioritizedDocumentsForLocale('localeid', 'type'));

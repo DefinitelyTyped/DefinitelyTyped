@@ -31,7 +31,7 @@ export interface CurrencyInfo {
 
 export interface KeyType {
     displayName: string;
-    types: Partial<Record<string, string>>;
+    types: PartialStringRecord;
 }
 
 type CardinalOrOrdinal = 'cardinal' | 'ordinal';
