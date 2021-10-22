@@ -373,10 +373,6 @@ export class Document<T, Store extends StoreOption = false> {
    ): Promise<this>;
    searchAsync<Enrich extends boolean = false>(
       query: string,
-      options: Partial<DocumentSearchOptions<Enrich>>
-   ): Promise<DocumentSearchResult<T, Store, Enrich>>;
-   searchAsync<Enrich extends boolean = false>(
-      query: string,
       options: Partial<DocumentSearchOptions<Enrich>>,
       callback: AsyncCallback<DocumentSearchResult<T, Store, Enrich>>
    ): Promise<this>;
