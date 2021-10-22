@@ -1,6 +1,7 @@
 // Type definitions for react-imgix 9.0
 // Project: https://github.com/imgix/react-imgix
-// Definitions by: Michael Haglund <https://github.com/hagmic>
+// Definitions by: Sherwin Heydarbeygi <https://github.com/sherwinski>
+//                 Luis Ball <https://github.com/luqven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
