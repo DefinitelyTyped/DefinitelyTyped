@@ -36,7 +36,7 @@ const BackgroundTest = () => (
     </Background>
 );
 
-const ProviderTest = () => {
+const ProviderTest = () => (
     <ImgixProvider domain="sdk-test.imgix.net">
         <Imgix
             src="https://.../image.png"
@@ -57,7 +57,7 @@ const ProviderTest = () => {
             }}
         />
     </ImgixProvider>
-};
+);
 
 buildURL('http://yourdomain.imgix.net/image.png', { w: 450, h: 100 });
 
