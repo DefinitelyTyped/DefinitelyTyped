@@ -549,6 +549,22 @@ const awsServerless: Aws.Serverless = {
                         enabled: true
                     }
                 }, {
+                    activemq: {
+                        arn: 'testarn',
+                        basicAuthArn: 'testBasicAuthArn',
+                        queue: 'testQueue',
+                        batchSize: 1,
+                        enabled: true
+                    }
+                }, {
+                    rabbitmq: {
+                        arn: 'testarn',
+                        basicAuthArn: 'testBasicAuthArn',
+                        queue: 'testQueue',
+                        batchSize: 1,
+                        enabled: true
+                    }
+                }, {
                     stream: {
                         arn: 'testarn',
                         batchSize: 1,
